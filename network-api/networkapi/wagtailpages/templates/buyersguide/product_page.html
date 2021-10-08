@@ -133,6 +133,9 @@
                 data-product-label="2"
                 class="{{tab_class}}"
               >
+                {% if product.ai_is_untrustworthy_ding %}
+                  <img class="tw-h-6 tw-w-6 tw-ml-3" src="{% static "_images/buyers-guide/warning-ding.svg" %}" alt="warning">
+                {% endif %}
                 {% trans "A.I." %}
               </span>
             </div>
@@ -259,6 +262,18 @@
                       {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai info="/privacynotincluded/about/methodology"   %}
 
                       {% if uses_ai != "No" %}
+                        {% trans "Is this AI untrustworthy?" as ai_is_untrustworthy_label %}
+                        {% include "fragments/product_criterion.html"  with  label=ai_is_untrustworthy_label  value=product.ai_is_untrustworthy|extended_yes_no ding=product.ai_is_untrustworthy_ding  %}
+
+                        <section class="criterion">
+                          <div class="primary-info">
+                            <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What kind of decisions does the AI make about you or for you?" %}</h3>
+                            <p class="rating pni-product-smaller-body mb-0">
+                              {{product.ai_what_can_it_do|richtext}}
+                            </p>
+                          </div>
+                        </section>
+
                         {% trans "Does the AI use your personal data to make decisions about you?" as ai_uses_personal_data %}
                         {% include "fragments/product_criterion.html"  with  label=ai_uses_personal_data  value=product.ai_uses_personal_data|extended_yes_no   %}
 
