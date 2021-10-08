@@ -6,11 +6,10 @@
     `[data-profile-type-filters] button`
   );
   const profileContainer = document.querySelector(`.profiles .row`);
-  const { programYear, programType } = document.querySelector(
-    `.profiles`
-  ).dataset;
-  const API_ENDPOINT = document.querySelector(`[data-api-endpoint]`).dataset
-    .apiEndpoint;
+  const { programYear, programType } =
+    document.querySelector(`.profiles`).dataset;
+  const API_ENDPOINT =
+    document.querySelector(`[data-api-endpoint]`).dataset.apiEndpoint;
 
   /**
    * We're reasonably sure that profiles are sane already, but
@@ -98,63 +97,72 @@
     }
     let cards = profiles.map((profile) => {
       return `
-      <div class="col-lg-6 col-12 mb-5">
-        <div class="person-card">
-          <div class="thumbnail-wrapper">
-            <a href="https://www.mozillapulse.org/profile/${
-              profile.profile_id
-            }" class="d-block headshot-container">
-              <img
-                src="${
-                  profile.thumbnail
-                    ? profile.thumbnail
-                    : `/_images/fellowships/headshot/placeholder.jpg`
-                }"
-                class="headshot"
-                alt="Headshot">
-            </a>
-          </div>
+        <div class="tw-grid tw-grid-cols-4 tw-grid-rows-3 large:tw-grid-cols-5 tw-gap-x-3 tw-gap-y-2 tw-border-t tw-border-black">
 
-          <div class="short-meta-wrapper">
-            <a class="h5-heading meta-block-name tw-mb-1 tw-block tw-font-sans tw-font-normal"
-                href="https://www.mozillapulse.org/profile/${
-                  profile.profile_id
-                }">
-                  ${profile.name}
-            </a>
-            ${
-              profile.location &&
-              `<p class="d-flex align-items-center meta-block-location body-small my-2">${profile.location}</p>`
-            }
-            <div class="social-icons">
-              ${
-                profile.twitter
-                  ? `<a href="${profile.twitter}" class="twitter twitter-glyph small"></a>`
-                  : ``
-              }
-              ${
-                profile.linkedin
-                  ? `<a href="${profile.linkedin}" class="linkedIn linkedIn-glyph small"></a>`
-                  : ``
-              }
+        <!-- Image -->
+        <a href="https://www.mozillapulse.org/profile/${profile.profile_id}"
+           class="tw-block tw-row-span-1 large:tw-row-span-4 tw-col-span-1 tw-relative tw-min-h-[160px] tw-h-[100%] tw-w-full tw-overflow-hidden">
+          <img src="${
+            profile.thumbnail
+              ? profile.thumbnail
+              : `/_images/fellowships/headshot/placeholder.jpg`
+          }"
+               class="tw-w-auto tw-h-full tw-absolute tw-left-50 tw-top-50 tw-min-w-full tw-object-cover"
+               alt="Headshot">
+        </a>
+
+        <!-- Right card -->
+        <div class="tw-row-span-1 large:tw-row-span-1 tw-col-span-3 large:tw-col-span-4">
+
+          <!--Card top -->
+          <div class="tw-flex tw-flex-row tw-justify-between tw-items-center tw-mt-2">
+            <a class="h5-heading tw-mb-1 tw-font-sans tw-font-normal" href="https://www.mozillapulse.org/profile/${
+              profile.profile_id
+            }">${profile.name}</a>
+
+            <!-- Social Icons -->
+            <div class="tw-flex tw-flex-row tw-space-x-2">
+           ${
+             profile.twitter
+               ? `<a href="${profile.twitter}" class="twitter twitter-glyph small"></a>`
+               : ``
+           }
+          ${
+            profile.linkedin
+              ? `<a href="${profile.linkedin}" class="linkedIn linkedIn-glyph small"></a>`
+              : ``
+          }
             </div>
           </div>
 
-          <div class="bio-wrapper">
-            <p class="m-0 tw-text-gray-60">${profile.user_bio}</p>
-          </div>
+        <!-- Profile Location -->
           ${
-            profile.issues &&
-            `<div class="issues-list tw-flex tw-flex-wrap tw-space-x-2 tw-mt-auto">
-              ${profile.issues.map(
-                (issue) =>
-                  `<span class="tw-text-blue tw-text-sm tw-font-bold">${issue}</span>`
-              )}
-          </div>`
+            profile.location &&
+            `<p class="tw-flex-row tw-flex tw-items-center tw-justify-start">
+              <img class="tw-w-[12px] tw-h-[12px] tw-block tw-mr-1" src="{% static '_images/glyphs/map-marker-icon.svg' %}" alt="">
+              ${profile.location}
+            </p>`
           }
+         </div>
+
+        <!-- Short bio block -->
+        <div class="large:tw-row-span-2 tw-col-span-4 large:tw-col-start-2 large:tw-col-span-4">
+          <p class="tw-text-gray-60">${profile.user_bio}</p>
+
+          <!-- Issues -->
+            ${
+              profile.issues &&
+              `<div class="issues-list tw-flex tw-flex-wrap tw-mt-auto">
+                     ${profile.issues
+                       .map(
+                         (issue) =>
+                           `<span class="tw-text-blue tw-text-sm tw-font-bold first:tw-ml-0 tw-ml-2">${issue}</span>`
+                       )
+                       .join("")}
+              </div>`
+            }
         </div>
-      </div>
-      `;
+      </div>`;
     });
 
     // And then we update the content that the user sees:
@@ -185,7 +193,7 @@
       getData(type)
         .then((data) => {
           // catch that data, and then load the results.
-          console.log(data)
+          console.log(data);
           profileCache[type] = preprocessProfiles(data);
           loadResults(type, bypassState);
         })
