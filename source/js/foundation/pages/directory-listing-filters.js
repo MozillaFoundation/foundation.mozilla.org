@@ -5,7 +5,7 @@
   const labels = document.querySelectorAll(
     `[data-profile-type-filters] button`
   );
-  const profileContainer = document.querySelector(`.profiles .row`);
+  const profileContainer = document.querySelector(`.profiles .profiles-grid`);
   const { programYear, programType } =
     document.querySelector(`.profiles`).dataset;
   const API_ENDPOINT =
@@ -138,10 +138,10 @@
         <!-- Profile Location -->
           ${
             profile.location &&
-            `<p class="tw-flex-row tw-flex tw-items-center tw-justify-start">
-              <img class="tw-w-[12px] tw-h-[12px] tw-block tw-mr-1" src="{% static '_images/glyphs/map-marker-icon.svg' %}" alt="">
+            `<span class="tw-flex-row tw-flex tw-items-center tw-justify-start body-small tw-block">
+              <img class="tw-w-[12px] tw-h-[12px] tw-block tw-mr-1" src="static/_images/glyphs/map-marker-icon.svg"" alt="">
               ${profile.location}
-            </p>`
+            </span>`
           }
          </div>
 
