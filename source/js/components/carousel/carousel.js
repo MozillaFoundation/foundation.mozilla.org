@@ -38,9 +38,12 @@ class Carousel {
   }
 }
 
-export const initCarousel = () => {
-  const carousels = [...document.querySelectorAll("[data-carousel]")];
-  carousels.map((carousel) => new Carousel(carousel));
+const MozfestCarousels = {
+  init: function () {
+    for (const carousel of document.querySelectorAll(Carousel.selector())) {
+      new Carousel(carousel);
+    }
+  },
 };
 
-export default Carousel;
+export default MozfestCarousels;
