@@ -639,8 +639,8 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Has privacy policy": self.privacy_policy,
             "Privacy policy help text": self.privacy_policy_helptext,
             "Mozilla Says": self.mozilla_says,
-            "Time Researched ": "time_researched",
-
+            "Time Researched": self.time_researched,
+            "Tips to protect yourself": self.tips_to_protect_yourself
         }
 
     def get_status_for_airtable(self):
@@ -820,6 +820,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('privacy_policy_helptext'),
         SynchronizedField('mozilla_says'),
         SynchronizedField('time_researched'),
+        TranslatableField('tips_to_protect_yourself')
     ]
 
     @property
