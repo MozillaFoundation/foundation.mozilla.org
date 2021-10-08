@@ -53,6 +53,9 @@ class MozfestHomepageFactory(MozfestPrimaryPageFactory):
     banner_video_url = Faker('url')
     banner_heading_text = Faker('sentence', nb_words=6, variable_nb_words=True)
 
+    banner_carousel = Faker('streamfield', fields=['banner_carousel'])
+    banner_video = Faker('streamfield', fields=['banner_video'])
+
     signup = SubFactory(SignupFactory)
 
 

@@ -1,10 +1,36 @@
-{% load i18n %}
+{% load i18n wagtailimages_tags %}
 
 <div class="homepage-banner-content container">
   <div class="row">
     <div class="col-10 col-lg-8 dark-theme">
       <h1 class="h1-heading">{{ page.banner_heading }}</h1>
-      {% if banner_video_type != "hardcoded" %}
+      {% if banner_video_type == "featured" %}
+        {% if page.banner_video %}
+        {# TODO Scroll to banner_video #}
+        <button class="btn btn-primary" id="mozfest-home-watch-video-button">{% trans "Watch last year’s recap video" %}</button>
+        {% endif %}
+        {% if page.banner_carousel %}
+        <ul>
+        {% for slide_block in page.specific.banner_carousel %}
+          {% with slide=slide_block.value %}
+          <li>
+            {% comment %}
+            {# Prints an image as <img src={url} width={original_width} height={original_height}> alt={alt_text} #}
+            {% image slide.image original %}
+            {% endcomment %}
+
+            {# Gets info for an image resized to 200 x 100 #}
+            {% image slide.image fill-200x100 as img %}
+            <img src={{ img.url }} width={{ img.width }} height={{ img.height }} alt={{ img.alt }}>
+
+            <h2>Heading: {{ slide.heading }}</h2>
+            <p>Description: {{ slide.description }}</p>
+          </li>
+          {% endwith %}
+        {% endfor %}
+        </ul>
+        {% endif %}
+      {% elif banner_video_type != "hardcoded" %}
         <p class="body-large">{{ page.banner_guide_text }}</p>
         {% if page.banner_video_url %}
         <a class="btn btn-primary" href="{{ page.banner_video_url }}" target="_blank" id="mozfest-home-watch-video-button">{% trans "Watch Video" %}</a>
