@@ -34,7 +34,6 @@
 {% block content %}
   {% block secondary_nav %}{% endblock %}
 
-  {#      {% include './event_carousel.html' %}#}
   {% if page.signup != None %}
 
     {# Use a two-column layout #}
@@ -46,10 +45,6 @@
         {% block cta %}{% include "partials/signup.html" %}{% endblock %}
       </div>
     </div>
-    <div class="tw-mb-7">
-      {% include './session_carousel.html' %}
-    </div>
-
   {% else %}
 
     {# Single column layout #}

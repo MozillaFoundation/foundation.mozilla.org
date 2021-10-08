@@ -1,57 +1,69 @@
-{% load i18n %}
+{% load i18n wagtailimages_tags %}
 <div data-mozfest-hero-carousel>
-    <div class="tw-relative tw-pt-[120px] tw-flex tw-flex-col tw-justify-end{% if not page.banner_video_url %} tw-pb-6 medium:tw-pb-[120px]{% endif %}">
+  <div class="tw-relative tw-pt-[120px] tw-flex tw-flex-col tw-justify-end{% if not page.banner_video_url %} tw-pb-6 medium:tw-pb-[120px]{% endif %}">
 
-      {# Background images slider #}
-      <div class="tw-absolute tw-inset-0">
-        <div class="tw-absolute tw-inset-0 tw-bg-black tw-z-20 tw-opacity-40"></div>
-        <div class="tw-bg-gradient-to-t tw-from-festival-blue-100 tw-via-festival-blue-100 tw-to-festival-purple-100 tw-w-full tw-h-full tw-absolute tw-inset-0 tw-z-10 tw-opacity-75"></div>
-      </div>
+    {# Background images slider #}
+    <div class="tw-absolute tw-inset-0">
+      <div class="tw-absolute tw-inset-0 tw-bg-black tw-z-20 tw-opacity-40"></div>
+      <div class="tw-bg-gradient-to-t tw-from-festival-blue-100 tw-via-festival-blue-100 tw-to-festival-purple-100 tw-w-full tw-h-full tw-absolute tw-inset-0 tw-z-10 tw-opacity-75"></div>
+    </div>
 
-      {# Background Images slider #}
+    {# Background Images slider #}
+    {% if page.banner_carousel %}
       <div class="tw-absolute tw-w-full tw-h-full tw-top-0 tw-left-0">
         <div class="swiper-hero-carousel tw-h-full tw-overflow-hidden">
           <div class="swiper-wrapper">
-            <div class="swiper-slide tw-bg-cover tw-bg-center tw-bg-no-repeat tw-filter tw-grayscale" style="background-image: url('https://source.unsplash.com/random/1600x900/?nature,water');"></div>
-            <div class="swiper-slide tw-bg-cover tw-bg-center tw-bg-no-repeat tw-filter tw-grayscale" style="background-image: url('https://source.unsplash.com/random/1600x900/?fun,people');"></div>
-            <div class="swiper-slide tw-bg-cover tw-bg-center tw-bg-no-repeat tw-filter tw-grayscale" style="background-image: url('https://source.unsplash.com/random/1600x900/?event,speaking');"></div>
-          </div>
-        </div>
-      </div>
-
-      {# Text slider #}
-      <div class="tw-container tw-relative tw-z-20 tw-text-white">
-        <div>
-          <h1 class="tw-text-white tw-font-bold tw-mb-5">{{ page.banner_heading }}</h1>
-          {# TODO: Add BE varaiables for this button #}
-          <a href="#" target="_blank" rel="noopener" class="btn btn-primary tw-bg-white tw-text-black hover:tw-bg-gray-05">Watch last years recap video</a>
-        </div>
-
-        <div class="tw-relative tw-pt-[60px] medium:tw-pt-[100px]  tw-hidden medium:tw-block">
-
-          {# pagination progress bars on desktop #}
-          <div class="swiper-hero-pagination tw-bottom-3 tw-relative tw-z-40 tw-grid tw-grid-cols-3 tw-gap-3 medium:tw-gap-4"></div>
-
-          {# Text #}
-          <div class="tw-grid tw-grid-cols-3 tw-gap-3 medium:tw-gap-4">
-            {% for i in "123"|make_list %}
-            <div>
-              <span class="tw-font-zilla tw-font-bold tw-inline-block h4-heading tw-text-white">Immersive sessions</span>
-              <p class="tw-text-white">We’ve gathered some of the best speakers in the business to share their experiences.</p>
-            </div>
+            {% for slide_block in page.specific.banner_carousel %}
+              {% with slide=slide_block.value %}
+                {% image slide.image fill-1600x900 as img %}
+                <div class="swiper-slide tw-bg-cover tw-bg-center tw-bg-no-repeat tw-filter tw-grayscale" style="background-image: url({{ img.url }});"></div>
+              {% endwith %}
             {% endfor %}
           </div>
         </div>
+      </div>
+    {% endif %}
 
-        {# mobile slider #}
-        {% include 'fragments/hero/hero_mobile_slider.html' with items=page.hero_slides %}
+    {# Text slider #}
+    <div class="tw-container tw-relative tw-z-20 tw-text-white">
+      <div>
+        <h1 class="tw-text-white tw-font-bold tw-mb-5">{{ page.banner_heading }}</h1>
+        {% if page.banner_video %}
+          <a href="#mozfest-hero-video" class="btn btn-primary tw-bg-white tw-text-black hover:tw-bg-gray-05">{% trans "Watch last year’s recap video" %}</a>
+        {% endif %}
       </div>
 
-      {# Video block #}
-      {% if page.banner_video_url %}
-        {% include 'fragments/hero/hero_video.html' with video=page.banner_video_url video_thumbnail=page.video_thumbnail %}
-      {% endif %}
+      <div class="tw-relative tw-pt-[60px] medium:tw-pt-[100px]  tw-hidden medium:tw-block">
 
+        {# pagination progress bars on desktop #}
+        <div class="swiper-hero-pagination tw-bottom-3 tw-relative tw-z-40 tw-grid tw-grid-cols-3 tw-gap-3 medium:tw-gap-4"></div>
+
+        {# Text #}
+        {% if page.banner_carousel %}
+          <div class="tw-grid tw-grid-cols-3 tw-gap-3 medium:tw-gap-4">
+            {% for slide_block in page.specific.banner_carousel %}
+              {% with slide=slide_block.value %}
+                <div>
+                  <span class="tw-font-zilla tw-font-bold tw-inline-block h4-heading tw-text-white">{{ slide.heading }}</span>
+                  <p class="tw-text-white">{{ slide.description }}</p>
+                </div>
+              {% endwith %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      {# mobile slider #}
+      {% if page.banner_carousel %}
+        {% include 'fragments/hero/hero_mobile_slider.html' with items=page.hero_slides %}
+      {% endif %}
     </div>
 
+    {# Video block #}
+    {% if page.banner_video_url %}
+      {% include 'fragments/hero/hero_video.html' with video=page.banner_video_url video_thumbnail=page.video_thumbnail %}
+    {% endif %}
+
   </div>
+
+</div>

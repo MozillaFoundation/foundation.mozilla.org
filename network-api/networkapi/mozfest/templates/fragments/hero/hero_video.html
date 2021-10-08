@@ -1,39 +1,40 @@
-{% load i18n static %}
-<div class="tw-relative tw-z-20 medium:tw-pb-[60px] tw-mt-[60px]">
+{% load i18n static wagtailcore_tags %}
+<div id="mozfest-hero-video" class="tw-relative tw-z-20 medium:tw-pb-[60px] tw-mt-7 medium:tw-mt-[60px]">
 
   {# Overlay spacer #}
   <div class="tw-bg-white tw-absolute tw-w-full tw-h-[80%] medium:tw-h-[90%] tw-bottom-0"></div>
 
   {# Video Container #}
   <div class="container">
-    <div style="padding-bottom: 56.25%;" class="embed-responsive tw-bg-black">
+    {% for block in page.banner_video %}
+      {% if block.block_type == 'video_url' %}
+        <div style="padding-bottom: 56.25%;" class="embed-responsive tw-bg-black tw-text-black">
 
-      {# Thumbnail #}
-      <button
-              id="mozfest-home-watch-video-button"
-              {# TODO: Use video url from backend #}
-              data-video-url="https://www.youtube.com/embed/MAtaT8BZEAo?showinfo=1&controls=1&autohide=1&modestbranding=1&showsearch=0&autoplay=1"
-              aria-label="{% trans "Watch Video" %}"
-              class="tw-w-full tw-h-full tw-absolute tw-inset-0 tw-group  tw-z-10 tw-bg-cover tw-bg-center tw-transition tw-duration-500"
-              {# TODO: Use background image from video_thumbnail in backend #}
-              style="background-image: url('https://source.unsplash.com/random/1600x900/?nature,water');">
-
+          {# Thumbnail - page.banner_video_thumbnail #}
+          <button
+                  id="mozfest-home-watch-video-button"
+                  {# TODO: Use video url from backend #}
+                  data-video-url="{{ block.value }}"
+                  aria-label="{% trans "Watch Video" %}"
+                  class="tw-bg-black tw-w-full tw-h-full tw-absolute tw-inset-0 tw-group  tw-z-10 tw-bg-cover tw-bg-center tw-transition tw-duration-500"
+                  {% if page.banner_video_thumbnail %}style="background-image: url({{ page.banner_video_thumbnail }});"{% endif %}
+          >
         <span class="tw-relative tw-w-full tw-h-full tw-flex tw-justify-center tw-items-center">
-          <div class="tw-absolute tw-bg-black tw-opacity-25 tw-inset-0 tw-w-full tw-h-full"></div>
-          <img src="{% static "_images/mozfest/play-circle-grey.svg" %}" class="group-hover:tw--translate-y-1 tw-relative tw-z-10 tw-transition tw-w-[75px] tw-h-[75px] medium:tw-w-[108px] medium:tw-h-[108px]" alt=""/>
-        </span>
-      </button>
+            <div class="tw-absolute tw-bg-black tw-opacity-25 tw-inset-0 tw-w-full tw-h-full"></div>
+            <img src="{% static "_images/mozfest/play-circle-grey.svg" %}"
+                 class="group-hover:tw--translate-y-1 tw-relative tw-z-10 tw-transition tw-w-[75px] tw-h-[75px] medium:tw-w-[108px] medium:tw-h-[108px]" alt=""/>
+          </span>
+          </button>
 
-      {# Video Iframe #}
-      {# src is populated from button when clicked see home-banner.js for more info #}
-      <iframe
-              id="mozfest-hero-video-iframe"
-              src=""
-              frameborder="0"
-              class="embed-responsive-item"
-              allow="autoplay; encrypted-media"
-              allowfullscreen>
-      </iframe>
-    </div>
+          {# Video Iframe #}
+          {# src is populated from button when clicked see home-banner.js for more info #}
+          {{ block }}
+        </div>
+        {% elif block.block_type == 'CMS_video' %}
+        <div style="padding-bottom: 56.25%;" class="embed-responsive tw-bg-black tw-text-black">
+          {{ block }}
+        </div>
+      {% endif %}
+    {% endfor %}
   </div>
 </div>

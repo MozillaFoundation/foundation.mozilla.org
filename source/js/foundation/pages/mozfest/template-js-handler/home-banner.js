@@ -4,7 +4,7 @@ const watchYoutubeVideoHandler = () => {
   const watchVideoButton = document.querySelector(
       `#mozfest-home-watch-video-button`
   );
-  const video = document.querySelector('#mozfest-hero-video-iframe');
+  const video = document.querySelector("#mozfest-hero-video iframe");
 
   if (watchVideoButton) {
     watchVideoButton.addEventListener(`click`, () => {
