@@ -96,6 +96,8 @@ from .pagemodels.products import (
     SoftwareProductPage,
 )
 
+from .pagemodels.pulse import PulseFilter
+
 
 __all__ = [
     ArticlePage,
@@ -135,6 +137,7 @@ __all__ = [
     ProductPageCategory,
     ProductPagePrivacyPolicyLink,
     PublicationPage,
+    PulseFilter,
     RedirectingPage,
     Signup,
     SoftwareProductPage,
