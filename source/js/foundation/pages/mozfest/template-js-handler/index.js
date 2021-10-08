@@ -1,4 +1,4 @@
-import watchYoutubeVideoHandler from "./home-banner.js";
+import watchVideoHandler from "./home-banner.js";
 import primaryButtonHandler from "./primary-button.js";
 import footerSocialButtonHandler from "./footer-social-button.js";
 
@@ -7,6 +7,6 @@ import footerSocialButtonHandler from "./footer-social-button.js";
  */
 export const bindEventHandlers = () => {
   footerSocialButtonHandler();
-  watchYoutubeVideoHandler();
+  watchVideoHandler();
   primaryButtonHandler();
 };

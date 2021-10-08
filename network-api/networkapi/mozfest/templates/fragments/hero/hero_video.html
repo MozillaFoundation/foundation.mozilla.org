@@ -1,4 +1,4 @@
-{% load i18n static wagtailcore_tags %}
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
 <div id="mozfest-hero-video" class="tw-relative tw-z-20 medium:tw-pb-[60px] tw-mt-7 medium:tw-mt-[60px]">
 
   {# Overlay spacer #}
@@ -7,34 +7,33 @@
   {# Video Container #}
   <div class="container">
     {% for block in page.banner_video %}
-      {% if block.block_type == 'video_url' %}
-        <div style="padding-bottom: 56.25%;" class="embed-responsive tw-bg-black tw-text-black">
+      <div style="padding-bottom: 56.25%;" class="embed-responsive tw-bg-black tw-text-black">
 
-          {# Thumbnail - page.banner_video_thumbnail #}
-          <button
-                  id="mozfest-home-watch-video-button"
-                  {# TODO: Use video url from backend #}
-                  data-video-url="{{ block.value }}"
-                  aria-label="{% trans "Watch Video" %}"
-                  class="tw-bg-black tw-w-full tw-h-full tw-absolute tw-inset-0 tw-group  tw-z-10 tw-bg-cover tw-bg-center tw-transition tw-duration-500"
-                  {% if page.banner_video_thumbnail %}style="background-image: url({{ page.banner_video_thumbnail }});"{% endif %}
-          >
-        <span class="tw-relative tw-w-full tw-h-full tw-flex tw-justify-center tw-items-center">
-            <div class="tw-absolute tw-bg-black tw-opacity-25 tw-inset-0 tw-w-full tw-h-full"></div>
-            <img src="{% static "_images/mozfest/play-circle-grey.svg" %}"
-                 class="group-hover:tw--translate-y-1 tw-relative tw-z-10 tw-transition tw-w-[75px] tw-h-[75px] medium:tw-w-[108px] medium:tw-h-[108px]" alt=""/>
-          </span>
-          </button>
+        {# Thumbnail and overlay #}
+        <button
+                id="mozfest-home-watch-video-button"
+                aria-label="{% trans "Watch Video" %}"
+                class="tw-bg-black tw-w-full tw-h-full tw-absolute tw-inset-0 tw-group tw-z-10 tw-bg-cover tw-bg-center tw-transition tw-duration-500"
+                {% if block.block_type == 'video_url' %}
+                data-video-url="{{ block.value }}"
+                style="background-image: url({{ page.banner_video_thumbnail }});"
+                {% endif %}
+                {% if block.block_type == 'CMS_video' %}
+                style="background-image: url({{ block.value.thumbnail.url }});"
+                {% endif %}
+        >
+            <span class="tw-relative tw-w-full tw-h-full tw-flex tw-justify-center tw-items-center">
+              {# Opacity layer #}
+              <div class="tw-absolute tw-bg-black tw-opacity-25 tw-inset-0 tw-w-full tw-h-full"></div>
+              {# Play Icon #}
+              <img src="{% static "_images/mozfest/play-circle-grey.svg" %}"
+                   class="group-hover:tw--translate-y-1 tw-relative tw-z-10 tw-transition tw-w-[75px] tw-h-[75px] medium:tw-w-[108px] medium:tw-h-[108px]" alt=""/>
+            </span>
+        </button>
 
-          {# Video Iframe #}
-          {# src is populated from button when clicked see home-banner.js for more info #}
-          {{ block }}
-        </div>
-        {% elif block.block_type == 'CMS_video' %}
-        <div style="padding-bottom: 56.25%;" class="embed-responsive tw-bg-black tw-text-black">
-          {{ block }}
-        </div>
-      {% endif %}
+        {# Video #}
+        {{ block }}
+      </div>
     {% endfor %}
   </div>
 </div>
