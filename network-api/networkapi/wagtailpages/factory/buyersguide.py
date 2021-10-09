@@ -79,7 +79,7 @@ class ProductPageVotesFactory(DjangoModelFactory):
     class Meta:
         model = ProductPageVotes
 
-    vote_bins = LazyFunction(lambda: ','.join([str(randint(1, 50)) for x in range(0, 3)]))
+    vote_bins = LazyFunction(lambda: ','.join([str(randint(1, 50)) for x in range(0, 5)]))
 
 
 class ProductPageFactory(PageFactory):
