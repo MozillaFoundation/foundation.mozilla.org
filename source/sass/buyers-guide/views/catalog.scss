@@ -13,8 +13,7 @@ body.catalog {
 
   --search-icon-size-desktop: 24px;
   --search-icon-size-mobile: 22px;
-  --search-box-height-desktop: 62px;
-  --search-box-height-mobile: 50px;
+  --search-box-height: 50px;
   --clear-icon-size: 14px;
 
   --search-element-buffer: 10%;
@@ -29,15 +28,10 @@ body.catalog {
 
     .intro-text {
       padding-top: 12px;
-      padding-bottom: var(--search-box-height-mobile);
+      padding-bottom: 50px;
 
-      @media (min-width: $breakpoint) {
-        padding-top: 12px;
-        padding-bottom: calc(var(--search-box-height-desktop) + 90px);
-      }
       @media (min-width: $hero-breakpoint) {
         padding-top: 90px;
-        padding-bottom: calc(var(--search-box-height-desktop) + 90px);
       }
     }
 
@@ -62,35 +56,27 @@ body.catalog {
   #product-filter-search {
     background-color: $white;
     cursor: pointer;
-    position: relative;
     display: flex;
     align-items: center;
     padding: 1em;
     width: 100%;
-    height: var(--search-box-height-mobile);
+    height: var(--search-box-height);
     box-sizing: border-box;
     text-align: left;
     border: 1px solid $black;
+    border-radius: 2em;
     transition: border-color 0.2s, width 0.2s;
+    margin: auto;
 
     @media (min-width: $bp-md) {
       --container-padding: 0.5em;
-
-      position: absolute;
-      left: 0;
-      border: 1px solid transparent;
       padding: var(--container-padding);
       padding-right: 1em;
-      height: var(--search-box-height-desktop);
       overflow: hidden;
 
       &::placeholder {
         color: transparent;
       }
-    }
-
-    @media (min-width: $bp-xl) {
-      margin-left: 0;
     }
 
     &:focus-within,
