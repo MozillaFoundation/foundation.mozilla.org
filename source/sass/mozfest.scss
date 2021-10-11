@@ -222,6 +222,16 @@ body.mozfest {
   @apply tw-bg-festival-blue-100;
 }
 
+@keyframes slide-progress-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
 #view-mozfest-home {
   .swiper-hero-pagination {
     .swiper-pagination-bullet {
