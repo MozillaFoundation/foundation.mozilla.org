@@ -1,48 +1,23 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <div id="hero">
-  <div class="banner">
-    {% if homepage %}
-      {% include "../fragments/hero/large.html" with page=page banner_video_type=banner_video_type %}
-      {% include "./homepage_banner.html" with page=page banner_video_type=banner_video_type %}
-    {% else %}
-      {% include "../fragments/hero/normal.html" with page=page %}
-    {% endif %}
-  </div>
-
   {% if homepage %}
-  <div class="container">
-    <div class="row cutout-wrapper-row">
-      <div class="cutout col-12 pt-4">
-        {% if banner_video_type == "featured" %}
-          {% if page.banner_video %}
-          {# See embedded_video_block.html and wagtail_video_block.html #}
-          {% include_block page.banner_video %}
-          {% endif %}
-          <h1 class="h2-heading mb-0">{% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
-        {% elif banner_video_type != "hardcoded" %}
-          <h1 class="h2-heading mb-0">{% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
-          {% if page.intro %}
-          <div class="body-large mt-3 mb-0">{{ page.intro | richtext }}</div>
-          {% endif %}
-        {% endif %}
-      </div>
-    </div>
-  </div>
+    {% if banner_video_type == "hardcoded" %}
+      {# Hero with hardcoded video as background #}
+      {% include "fragments/hero/hardcoded_video_hero.html" with page=page banner_video_type=banner_video_type %}
+    {% elif banner_video_type == "featured" %}
+      {# Hero with carousel and featured video below #}
+      {% include "fragments/hero/carousel_hero.html" with page=page banner_video_type=banner_video_type %}
+    {% endif %}
   {% else %}
-  <div class="container">
-    <div class="row cutout-wrapper-row">
-      <div class="cutout pt-4 col-12 col-lg-8">
-        <h1 class="h1-heading mb-0">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
-        {% if page.intro %}
-        <div class="intro body-large mt-3">{{ page.intro | richtext }}</div>
-        {% endif %}
-      </div>
+    <div class="banner">
+      {% include "fragments/hero/normal.html" with page=page %}
     </div>
-  </div>
+    {% include "partials/intro_section.html" %}
   {% endif %}
 
   {% if singleton_page == True %}
     {% include "partials/intro_and_content_divider.html" with wrapper_class="d-md-none" %}
   {% endif %}
 </div>
+

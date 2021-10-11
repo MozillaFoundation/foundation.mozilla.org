@@ -1,0 +1,39 @@
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
+<div id="mozfest-hero-video" class="tw-relative tw-z-20 tw-pb-5 medium:tw-pb-[60px] tw-mt-7 medium:tw-mt-[60px]">
+
+  {# Overlay spacer #}
+  <div class="tw-bg-white tw-absolute tw-w-full tw-h-[80%] medium:tw-h-[90%] tw-bottom-0"></div>
+
+  {# Video Container #}
+  <div class="container">
+    {% for block in page.banner_video %}
+      <div style="padding-bottom: 56.25%;" class="embed-responsive tw-bg-black tw-text-black">
+
+        {# Thumbnail and overlay #}
+        <button
+                id="mozfest-home-watch-featured-video-button"
+                aria-label="{% trans "Watch Video" %}"
+                class="tw-bg-black tw-w-full tw-h-full tw-absolute tw-inset-0 tw-group tw-z-10 tw-bg-cover tw-bg-center tw-transition tw-duration-500"
+                {% if block.block_type == 'video_url' %}
+                data-video-url="{{ block.value }}"
+                style="background-image: url({{ page.banner_video_thumbnail }});"
+                {% endif %}
+                {% if block.block_type == 'CMS_video' %}
+                style="background-image: url({{ block.value.thumbnail.url }});"
+                {% endif %}
+        >
+            <span class="tw-relative tw-w-full tw-h-full tw-flex tw-justify-center tw-items-center">
+              {# Opacity layer #}
+              <div class="tw-absolute tw-bg-black tw-opacity-25 tw-inset-0 tw-w-full tw-h-full"></div>
+              {# Play Icon #}
+              <img src="{% static "_images/mozfest/play-circle-grey.svg" %}"
+                   class="group-hover:tw--translate-y-1 tw-relative tw-z-10 tw-transition tw-w-[75px] tw-h-[75px] medium:tw-w-[108px] medium:tw-h-[108px]" alt=""/>
+            </span>
+        </button>
+
+        {# Video #}
+        {{ block }}
+      </div>
+    {% endfor %}
+  </div>
+</div>

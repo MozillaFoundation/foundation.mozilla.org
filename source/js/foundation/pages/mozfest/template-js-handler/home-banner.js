@@ -1,22 +1,54 @@
-import { ReactGA } from "../../../../common";
+import {ReactGA} from "../../../../common";
 
-const watchVideoButtonHandler = () => {
-  let homeWatchVideoButton = document.querySelector(
-    `#mozfest-home-watch-video-button`
+// For the featured banner type on mozefest homepage
+const watchFeaturedVideoHandler = () => {
+  const watchVideoButton = document.querySelector(
+      `#mozfest-home-watch-featured-video-button`
   );
+  const externalVideo = document.querySelector("#mozfest-hero-video iframe");
+  const internalVideo = document.querySelector("#mozfest-hero-video video");
 
-  if (homeWatchVideoButton) {
-    homeWatchVideoButton.addEventListener(`click`, () => {
-      ReactGA.event({
-        category: `CTA`,
-        action: `watch video tap`,
-        label: `watch video button tap`,
-      });
+  // If no video exists then do nothing
+  if (!externalVideo && !internalVideo) {
+    return;
+  }
+
+  if (watchVideoButton) {
+    watchVideoButton.addEventListener(`click`, () => {
+      trackWatchVideoClicks();
+
+      if (externalVideo) {
+        // Get video url from button
+        const videoUrl = watchVideoButton.dataset.videoUrl;
+
+        if (videoUrl) {
+          // Add Src to video to play it
+          externalVideo.setAttribute("src", videoUrl);
+          fadeOutOverlay(watchVideoButton);
+        }
+      }
+
+      if (internalVideo) {
+        fadeOutOverlay(watchVideoButton);
+        internalVideo.play();
+      }
+
     });
   }
 };
 
-const backgroundVideoHandler = () => {
+const fadeOutOverlay = (overlay) => {
+  // Fade out overlay
+  overlay.classList.add("tw-opacity-0");
+
+  // After fading out remove from DOM Flow
+  setTimeout(() => {
+    overlay.classList.add("tw-hidden");
+  }, 500);
+};
+
+
+const backgroundHardcodedVideoHandler = () => {
   let homepageBanner = document.querySelector(
     "#view-mozfest-home #hero .banner"
   );
@@ -49,6 +81,7 @@ const backgroundVideoHandler = () => {
     });
 
     playButton.addEventListener(`click`, () => {
+      trackWatchVideoClicks();
       video.play();
     });
 
@@ -64,10 +97,21 @@ const backgroundVideoHandler = () => {
   }
 };
 
+
+// Track video watches in google analytics
+const trackWatchVideoClicks = () => {
+  ReactGA.event({
+    category: `CTA`,
+    action: `watch video tap`,
+    label: `watch video button tap`,
+  });
+}
+
+
 /**
  * Bind handlers to MozFest homepage banner
  */
 export default () => {
-  watchVideoButtonHandler();
-  backgroundVideoHandler();
+  watchFeaturedVideoHandler();
+  backgroundHardcodedVideoHandler();
 };
