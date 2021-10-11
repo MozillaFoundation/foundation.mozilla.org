@@ -12,7 +12,7 @@ class Carousel {
     this.swiper = new Swiper(this.node, {
       spaceBetween: 20,
       watchOverflow: true,
-      centeredSlides: false,
+      centeredSlides: true,
       simulateTouch: true,
       slidesPerView: 1,
       keyboard: {
