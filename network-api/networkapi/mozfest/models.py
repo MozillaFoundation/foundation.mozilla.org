@@ -6,19 +6,16 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-
 from networkapi.wagtailpages.utils import (
     set_main_site_nav_information,
     get_page_tree_information
 )
-
 from networkapi.wagtailpages.models import (
     base_fields,
     FoundationMetadataPageMixin,
     FoundationBannerInheritanceMixin,
     Signup
 )
-
 from networkapi.wagtailpages.pagemodels import customblocks
 
 
@@ -54,6 +51,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
 
     body = StreamField(
         base_fields + [
+            ('tabbed_profile_directory', customblocks.TabbedProfileDirectory()),
             ('space_card_list', customblocks.SpaceCardListBlock()),
         ]
     )
