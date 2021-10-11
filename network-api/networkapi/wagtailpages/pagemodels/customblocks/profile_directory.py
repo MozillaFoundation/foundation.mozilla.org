@@ -79,10 +79,9 @@ class TabbedProfileDirectory(blocks.StructBlock):
     )
 
     advanced_filter_header = blocks.StaticBlock(
-        label=' ',
+        label='-------- ADVANCED FILTERS: OPTIONS TO DISPLAY FEWER, MORE TARGETED RESULTS. --------',
         admin_text=(
-            '-------- ADVANCED FILTERS: OPTIONS TO DISPLAY FEWER, MORE TARGETED RESULTS. --------'
-            '\nNote that the filter not be used if selected as the tabs filter or as one of the subfilters.'
+            'Note that the filter not be used if selected as the tabs filter or as one of the subfilters.'
             ' For example, if the tabs filter profile types, the profile type field below will be ignored.'
         ),
     )
