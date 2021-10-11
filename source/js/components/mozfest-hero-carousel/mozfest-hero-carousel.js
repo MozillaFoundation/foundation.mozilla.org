@@ -32,7 +32,7 @@ class MozfestHeroCarousel {
       },
       pagination: {
         el: ".swiper-hero-pagination",
-        clickable: false,
+        clickable: true,
       },
       effect: "fade",
       fadeEffect: {
