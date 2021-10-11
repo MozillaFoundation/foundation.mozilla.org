@@ -2,10 +2,16 @@
 
 <div id="hero">
   {% if homepage %}
-    {% include "./homepage_banner.html" with page=page banner_video_type=banner_video_type %}
+    {% if banner_video_type == "hardcoded" %}
+      {# Hero with hardcoded video as background #}
+      {% include 'fragments/hero/hardcoded_video_hero.html' %}
+    {% elif banner_video_type == "featured" %}
+      {# Hero with carousel and featured video below #}
+      {% include "fragments/hero/carousel_hero.html" with page=page banner_video_type=banner_video_type %}
+    {% endif %}
   {% else %}
     <div class="banner">
-      {% include "../fragments/hero/normal.html" with page=page %}
+      {% include "fragments/hero/normal.html" with page=page %}
     </div>
   {% endif %}
 
@@ -26,3 +32,4 @@
     {% include "partials/intro_and_content_divider.html" with wrapper_class="d-md-none" %}
   {% endif %}
 </div>
+

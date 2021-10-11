@@ -53,7 +53,6 @@ let main = {
     GoogleAnalytics.init();
     EmbedTypeform.init();
     Dropdowns.init();
-    initCarousel();
 
     this.fetchEnv((envData) => {
       env = envData;
