@@ -47,22 +47,6 @@ const fadeOutOverlay = (overlay) => {
   }, 500);
 };
 
-//
-// const watchHardcodedVideoButtonHandler = () => {
-//   let homeWatchVideoButton = document.querySelector(
-//     `#mozfest-home-watch-hardcoded-video-button`
-//   );
-//
-//   if (homeWatchVideoButton) {
-//     homeWatchVideoButton.addEventListener(`click`, () => {
-//       ReactGA.event({
-//         category: `CTA`,
-//         action: `watch video tap`,
-//         label: `watch video button tap`,
-//       });
-//     });
-//   }
-// };
 
 const backgroundHardcodedVideoHandler = () => {
   let homepageBanner = document.querySelector(
@@ -129,4 +113,5 @@ const trackWatchVideoClicks = () => {
  */
 export default () => {
   watchFeaturedVideoHandler();
+  backgroundHardcodedVideoHandler();
 };

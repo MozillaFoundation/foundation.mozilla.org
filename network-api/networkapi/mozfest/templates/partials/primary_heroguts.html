@@ -4,7 +4,7 @@
   {% if homepage %}
     {% if banner_video_type == "hardcoded" %}
       {# Hero with hardcoded video as background #}
-      {% include 'fragments/hero/hardcoded_video_hero.html' %}
+      {% include "fragments/hero/hardcoded_video_hero.html" with page=page banner_video_type=banner_video_type %}
     {% elif banner_video_type == "featured" %}
       {# Hero with carousel and featured video below #}
       {% include "fragments/hero/carousel_hero.html" with page=page banner_video_type=banner_video_type %}
@@ -13,19 +13,7 @@
     <div class="banner">
       {% include "fragments/hero/normal.html" with page=page %}
     </div>
-  {% endif %}
-
-  {% if not homepage %}
-    <div class="container">
-      <div class="row cutout-wrapper-row">
-        <div class="cutout pt-4 col-12 col-lg-8">
-          <h1 class="h1-heading mb-0">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
-          {% if page.intro %}
-            <div class="intro body-large mt-3">{{ page.intro | richtext }}</div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
+    {% include "partials/intro_section.html" %}
   {% endif %}
 
   {% if singleton_page == True %}
