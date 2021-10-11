@@ -55,6 +55,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
     body = StreamField(
         base_fields + [
             ('current_events_slider_list_block', customblocks.CurrentEventsSliderListBlock()),
+            ('space_card_list', customblocks.SpaceCardListBlock()),
         ]
     )
 
