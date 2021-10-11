@@ -14,6 +14,7 @@ class CurrentEventBlock(blocks.StructBlock):
         ],
         help_text='The link that appears below the card heading.',
         max_num=1,
+        required=False,
     )
 
     image = ImageChooserBlock(help_text='The image associated with this event.')
