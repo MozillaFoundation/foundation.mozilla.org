@@ -108,7 +108,7 @@ class MozfestHomepage(MozfestPrimaryPage):
     """
 
     #  this tells the templates to load a hardcoded, pre-defined video in the banner background
-    banner_video_type = "hardcoded"
+    banner_video_type = "featured"
 
     cta_button_label = models.CharField(
         max_length=250,
