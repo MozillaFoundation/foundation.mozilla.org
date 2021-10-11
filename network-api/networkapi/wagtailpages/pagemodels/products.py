@@ -444,6 +444,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         help_text="What's the worst thing that could happen by using this product?",
         blank=True,
     )
+    tips_to_protect_yourself = RichTextField(
+        features=['bold', 'italic', 'link'],
+        blank=True
+    )
     mozilla_says = models.BooleanField(
         null=True,
         blank=True,
@@ -635,8 +639,8 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Has privacy policy": self.privacy_policy,
             "Privacy policy help text": self.privacy_policy_helptext,
             "Mozilla Says": self.mozilla_says,
-            "Time Researched ": "time_researched",
-
+            "Time Researched": self.time_researched,
+            "Tips to protect yourself": self.tips_to_protect_yourself
         }
 
     def get_status_for_airtable(self):
@@ -687,9 +691,9 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 FieldPanel('blurb'),
                 ImageChooserPanel('image'),
                 FieldPanel('worst_case'),
+                FieldPanel('tips_to_protect_yourself'),
                 FieldPanel('mozilla_says'),
                 FieldPanel('time_researched')
-
             ],
             heading='General Product Details',
             classname='collapsible'
@@ -816,6 +820,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('privacy_policy_helptext'),
         SynchronizedField('mozilla_says'),
         SynchronizedField('time_researched'),
+        TranslatableField('tips_to_protect_yourself')
     ]
 
     @property
