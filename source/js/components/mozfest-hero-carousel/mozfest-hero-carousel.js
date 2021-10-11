@@ -12,11 +12,11 @@ class MozfestHeroCarousel {
     this.delay = 10000;
 
     // Initialize Carousels
-    this.initBackgroundImageCarousel()
-    this.initMobileTexCarousel()
+    this.initBackgroundImageCarousel();
+    this.initMobileTexCarousel();
 
     // Link transitions
-    this.linkSlideChanges()
+    this.linkSlideChanges();
   }
 
   initBackgroundImageCarousel() {
@@ -34,9 +34,9 @@ class MozfestHeroCarousel {
         el: ".swiper-hero-pagination",
         clickable: false,
       },
-      effect: 'fade',
+      effect: "fade",
       fadeEffect: {
-        crossFade: false
+        crossFade: false,
       },
     });
   }
@@ -59,22 +59,25 @@ class MozfestHeroCarousel {
 
   // Ensure that the background image slider stays in sync with the mobile one
   linkSlideChanges() {
-    this.heroTextMobile.on('slideChange', (event) => {
+    this.heroTextMobile.on("slideChange", (event) => {
       if (event.swipeDirection === "next") {
-        this.backGroundImagesSwiper.slideNext()
+        this.backGroundImagesSwiper.slideNext();
       }
       if (event.swipeDirection === "prev") {
-        this.backGroundImagesSwiper.slidePrev()
+        this.backGroundImagesSwiper.slidePrev();
       }
     })
   }
 }
 
-export const initMozfestHeroCarousel = () => {
-  const carousels = [
-    ...document.querySelectorAll("[data-mozfest-hero-carousel]"),
-  ];
-  carousels.map((carousel) => new MozfestHeroCarousel(carousel));
+const MozfestHeroCarousels = {
+  init: function () {
+    for (const carousel of document.querySelectorAll(
+      MozfestHeroCarousel.selector()
+    )) {
+      new MozfestHeroCarousel(carousel);
+    }
+  },
 };
 
-export default MozfestHeroCarousel;
+export default MozfestHeroCarousels;

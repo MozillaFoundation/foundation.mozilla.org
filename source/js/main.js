@@ -16,8 +16,7 @@ import {
 import primaryNav from "./primary-nav.js";
 import EmbedTypeform from "./embed-typeform.js";
 import Dropdowns from "./dropdowns.js";
-import { initCarousel } from "./components/carousel/carousel.js";
-import { initMozfestHeroCarousel } from "./components/mozfest-hero-carousel/mozfest-hero-carousel";
+import MozfestHeroCarousels from "./components/mozfest-hero-carousel/mozfest-hero-carousel";
 import initializeSentry from "./common/sentry-config.js";
 import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/intro-tunnel";
 import RegretsReporterTimeline from "./foundation/pages/youtube-regrets/regrets-reporter/timeline";
@@ -142,9 +141,9 @@ let main = {
       bindDearInternetEventHandlers();
     }
 
-    // Mozfest page
-    if (document.querySelector("#view-mozfest-home")) {
-      initMozfestHeroCarousel();
+    // Mozfest pages
+    if (document.querySelector(".mozfest")) {
+      MozfestHeroCarousels.init();
     }
   },
 };
