@@ -18,8 +18,6 @@ from networkapi.wagtailpages.models import (
 )
 from networkapi.wagtailpages.pagemodels import customblocks
 
-from networkapi.wagtailpages.pagemodels import customblocks
-
 
 class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):
     header = models.CharField(
