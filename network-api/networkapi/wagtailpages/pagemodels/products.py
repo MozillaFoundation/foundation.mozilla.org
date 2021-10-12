@@ -141,17 +141,20 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
         help_text='Sort ordering number. Same-numbered items sort alphabetically'
     )
 
-    og_image = models.FileField(
-        max_length=2048,
-        help_text='Image to use as OG image',
-        upload_to=get_category_og_image_upload_path,
+    share_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
         blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name='Share Image',
+        help_text='Optional image that will apear when category page is shared.',
     )
 
     translatable_fields = [
         TranslatableField('name'),
         TranslatableField('description'),
         SynchronizedField('slug'),
+        ImageChooserPanel('share_image'),
     ]
 
     @property
@@ -1601,6 +1604,12 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['pageTitle'] = f'{category.localized.name} | {gettext("Privacy & security guide")}'\
                                f' | Mozilla Foundation'
         context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'
+
+        if category.share_image:
+            setattr(self, 'search_image_id', category.share_image_id)
+        if category.description:
+            setattr(self, 'search_description', category.description)
+        
 
         return render(request, "buyersguide/category_page.html", context)
 
