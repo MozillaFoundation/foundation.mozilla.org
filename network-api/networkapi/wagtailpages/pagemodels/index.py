@@ -10,7 +10,7 @@ from django.template import loader
 from taggit.models import Tag
 
 from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.core.models import Page, Locale
+from wagtail.core.models import Page
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -21,6 +21,7 @@ from networkapi.wagtailpages.utils import (
     set_main_site_nav_information,
     get_page_tree_information,
     get_locale_from_request,
+    get_default_locale,
 )
 
 
@@ -115,8 +116,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         Get all child entries, filtered down if required based on
         the `self.filtered` field being set or not.
         """
-        DEFAULT_LANGUAGE_CODE = settings.LANGUAGE_CODE
-        DEFAULT_LOCALE = Locale.objects.get(language_code=DEFAULT_LANGUAGE_CODE)
+        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
 
         if 'request' in context:
             locale = get_locale_from_request(context['request'])

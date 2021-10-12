@@ -32,7 +32,12 @@ from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
-from networkapi.wagtailpages.utils import insert_panels_after, get_locale_from_request
+from networkapi.wagtailpages.utils import (
+    insert_panels_after,
+    get_default_locale,
+    get_locale_from_request,
+    get_original_by_slug
+)
 
 # TODO: Move this util function
 from networkapi.buyersguide.utils import get_category_og_image_upload_path
@@ -54,7 +59,7 @@ def get_categories_for_locale(language_code):
     end up with an incomplete category list due to missing locale records.
     """
     DEFAULT_LANGUAGE_CODE = settings.LANGUAGE_CODE
-    DEFAULT_LOCALE = Locale.objects.get(language_code=DEFAULT_LANGUAGE_CODE)
+    (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
 
     default_locale_list = BuyersGuideProductCategory.objects.filter(
         hidden=False,
@@ -67,7 +72,7 @@ def get_categories_for_locale(language_code):
     try:
         actual_locale = Locale.objects.get(language_code=language_code)
     except Locale.DoesNotExist:
-        actual_locale = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
+        actual_locale = Locale.objects.get(language_code=DEFAULT_LANGUAGE_CODE)
 
     return [
         BuyersGuideProductCategory.objects.filter(
@@ -637,13 +642,33 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         return "Draft"
 
     @property
+    def original_product(self):
+        return get_original_by_slug(ProductPage, self.slug)
+
+    def get_or_create_votes(self):
+        """
+        If a page doesn't have a ProductPageVotes objects, create it.
+        Regardless of whether or not its created, return the parsed votes.
+        """
+        if not self.votes:
+            votes = ProductPageVotes()
+            votes.save()
+            self.votes = votes
+            self.save()
+        return self.votes.get_votes()
+
+    @property
     def total_vote_count(self):
-        return sum(self.get_or_create_votes())
+        # Voting only happens on the original product, not "self"
+        product = self.original_product
+        return sum(product.get_or_create_votes())
 
     @property
     def creepiness(self):
+        # Creepiness is tied to the votes on the original product, not "self"
+        product = self.original_product
         try:
-            average = self.creepiness_value / self.total_vote_count
+            average = product.creepiness_value / product.total_vote_count
         except ZeroDivisionError:
             average = 50
         return average
@@ -653,13 +678,14 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         """
         Return a dictionary as a string with the relevant data needed for the frontend:
         """
-        votes = self.votes.get_votes()
+        product = self.original_product
+        votes = product.votes.get_votes()
         data = {
             'creepiness': {
                 'vote_breakdown':  {k: v for (k, v) in enumerate(votes)},
-                'average': self.creepiness
+                'average': product.creepiness
             },
-            'total': self.total_vote_count
+            'total': product.total_vote_count
         }
         return json.dumps(data)
 
@@ -778,7 +804,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('search_image'),
         # Content tab fields
         TranslatableField('title'),
-        TranslatableField('search_description'),
         SynchronizedField('privacy_ding'),
         SynchronizedField('adult_content'),
         SynchronizedField('uses_wifi'),
@@ -790,6 +815,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('price'),
         SynchronizedField('image'),
         TranslatableField('worst_case'),
+        SynchronizedField('product_categories'),
         SynchronizedField('signup_requires_email'),
         SynchronizedField('signup_requires_phone'),
         SynchronizedField('signup_requires_third_party_account'),
@@ -799,6 +825,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('data_collection_policy_is_bad'),
         SynchronizedField('user_friendly_privacy_policy'),
         TranslatableField('user_friendly_privacy_policy_helptext'),
+        SynchronizedField('privacy_policy_links'),
         SynchronizedField('show_ding_for_minimum_security_standards'),
         SynchronizedField('meets_minimum_security_standards'),
         SynchronizedField('uses_encryption'),
@@ -815,23 +842,13 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('live_chat'),
         SynchronizedField('email'),
         SynchronizedField('twitter'),
+        SynchronizedField('updates'),
+        SynchronizedField('related_product_pages'),
     ]
 
     @property
     def product_type(self):
         return "unknown"
-
-    def get_or_create_votes(self):
-        """
-        If a page doesn't have a ProductPageVotes objects, create it.
-        Regardless of whether or not its created, return the parsed votes.
-        """
-        if not self.votes:
-            votes = ProductPageVotes()
-            votes.save()
-            self.votes = votes
-            self.save()
-        return self.votes.get_votes()
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
@@ -858,7 +875,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             if data.get("value"):
                 # Product ID and Value can both be zero. It's impossible to get a Page with ID of zero.
                 try:
-                    value = int(data["value"])  # ie. 0 to 100
+                    value = int(data["value"])
                 except ValueError:
                     return HttpResponseNotAllowed('Product ID or value is invalid')
 
@@ -866,8 +883,11 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                     return HttpResponseNotAllowed('Cannot save vote')
 
                 try:
-                    product = ProductPage.objects.get(pk=self.id)
-                    # If the product exists but isn't live and the user isn't logged in..
+                    # Get the english version of this product, as votes should only be recorded
+                    # for the "authoritative" product instance, not specific locale versions.
+                    product = self.original_product
+
+                    # 404 if the product exists but isn't live and the user isn't logged in.
                     if (not product.live and not request.user.is_authenticated) or not product:
                         return HttpResponseNotFound("Product does not exist")
 
@@ -1408,6 +1428,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('header'),
         TranslatableField('intro_text'),
         SynchronizedField('dark_theme'),
+        SynchronizedField('excluded_categories'),
         # Promote tab fields
         TranslatableField('seo_title'),
         TranslatableField('search_description'),
@@ -1493,8 +1514,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         locale_id = Locale.objects.get(language_code=language_code).id
         slug = slugify(slug)
 
-        DEFAULT_LOCALE = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
-        DEFAULT_LOCALE_ID = DEFAULT_LOCALE.id
+        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
 
         # because we may be working with localized content, and the slug
         # will always be our english slug, we need to find the english

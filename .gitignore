@@ -129,3 +129,6 @@ translations_github_commit_*
 
 # Localization testing SSH keys
 wagtail-localize-key*
+
+# Database copies
+*.db.archive
