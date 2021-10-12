@@ -28,5 +28,5 @@
     {% endif %}
     {% if blog.first_published_at %} {% blocktrans with date=blog.first_published_at|date:"DATE_FORMAT" %}on {{date}}{% endblocktrans %}{% else %}not published yet{% endif %}
   </p>
-  <p>{{blog.search_description}}</p>
+  <p>{{blog.localized.search_description}}</p>
 </div>
