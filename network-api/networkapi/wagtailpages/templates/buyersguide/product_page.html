@@ -1,6 +1,6 @@
 {% extends "buyersguide/bg_base.html" %}
 
-{% load bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
+{% load bg_selector_tags env l10n i18n localization static wagtailimages_tags wagtailcore_tags %}
 
 {% block head_extra %}
   <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
@@ -74,15 +74,25 @@
           {% endif %}
         </div>
         {% include "fragments/research_details.html" with review_date=product.review_date time_researched=product.time_researched mozilla_says=product.mozilla_says %}
-        <div class="col-12"><p class="body mb-0">{{product.blurb}}</p></div>
+        <div class="col-12 body">{{product.blurb | richtext}}</div>
       </div>
 
       <div class="row mb-4">
         <div class="col-12 worst-case">
           <h2 class="h3-heading">{% trans "What could happen if something goes wrong?" %}</h2>
-          <p class="mb-0">{{product.worst_case}}</p>
+          <div class="body">{{product.worst_case | richtext}}</div>
         </div>
       </div>
+
+      {% if product.tips_to_protect_yourself %}
+      <div class="row tw-my-5 tips-to-protect-yourself">
+        <div class="col-12 tw-py-5 tips">
+          <h2 class="h3-heading">{% trans "Tips to protect yourself" %}</h2>
+          {{ product.tips_to_protect_yourself | richtext }}
+        </div>
+      </div>
+      {% endif %}
+
 
       <div id="product-research" data-is-wagtail-page="true">
       <div id="creepiness-vote">
