@@ -134,7 +134,7 @@
                 class="{{tab_class}}"
               >
                 {% if product.ai_is_untrustworthy_ding %}
-                  <img class="tw-h-6 tw-w-6 tw-ml-3" src="{% static "_images/buyers-guide/warning-ding.svg" %}" alt="warning">
+                  <img class="tw-h-6 tw-w-6 tw-ml-3" src="{% static "_images/buyers-guide/warning-ding.svg" %}" alt="{% trans "warning" context "icon description for screen readers" %}">
                 {% endif %}
                 {% trans "A.I." %}
               </span>
