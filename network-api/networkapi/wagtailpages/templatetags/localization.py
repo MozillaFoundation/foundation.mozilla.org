@@ -23,7 +23,7 @@ mappings = {
 }
 
 DEFAULT_LOCALE_CODE = settings.LANGUAGE_CODE
-DEFAULT_LOCALE = mappings.get(DEFAULT_LOCALE_CODE)
+DEFAULT_LOCALE_STRING = mappings.get(DEFAULT_LOCALE_CODE)
 
 
 # This filter turns Wagtail language codes into OpenGraph locale strings
@@ -32,7 +32,7 @@ def to_opengraph_locale(value):
     try:
         return mappings[value]
     except AttributeError:
-        return DEFAULT_LOCALE
+        return DEFAULT_LOCALE_STRING
 
 
 # Generates a sorted list of currently supported locales. For each locale, the list
