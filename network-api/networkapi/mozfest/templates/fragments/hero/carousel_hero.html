@@ -9,20 +9,18 @@
     </div>
 
     {# Background Images slider #}
-    {% if page.banner_carousel %}
-      <div class="tw-absolute tw-w-full tw-h-full tw-top-0 tw-left-0">
-        <div class="swiper-hero-carousel tw-h-full tw-overflow-hidden">
-          <div class="swiper-wrapper">
-            {% for slide_block in page.specific.banner_carousel %}
-              {% with slide=slide_block.value %}
-                {% image slide.image fill-1600x900 as img %}
-                <div class="swiper-slide tw-bg-cover tw-bg-center tw-bg-no-repeat tw-filter tw-grayscale" style="background-image: url({{ img.url }});"></div>
-              {% endwith %}
-            {% endfor %}
-          </div>
+    <div class="tw-absolute tw-w-full tw-h-full tw-top-0 tw-left-0">
+      <div class="swiper-hero-carousel tw-h-full tw-overflow-hidden">
+        <div class="swiper-wrapper">
+          {% for slide_block in page.specific.banner_carousel %}
+            {% with slide=slide_block.value %}
+              {% image slide.image fill-1600x900 as img %}
+              <div class="swiper-slide tw-bg-cover tw-bg-center tw-bg-no-repeat tw-filter tw-grayscale" style="background-image: url({{ img.url }});"></div>
+            {% endwith %}
+          {% endfor %}
         </div>
       </div>
-    {% endif %}
+    </div>
 
     {# Text slider #}
     <div class="tw-container tw-relative tw-z-20 tw-text-white">
