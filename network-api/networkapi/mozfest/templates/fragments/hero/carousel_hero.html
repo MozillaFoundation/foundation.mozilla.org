@@ -39,24 +39,20 @@
         <div class="swiper-hero-pagination tw-bottom-3 tw-relative tw-z-40 tw-grid tw-grid-cols-3 tw-gap-3 medium:tw-gap-4"></div>
 
         {# Text #}
-        {% if page.banner_carousel %}
-          <div class="tw-grid tw-grid-cols-3 tw-gap-3 medium:tw-gap-4">
-            {% for slide_block in page.specific.banner_carousel %}
-              {% with slide=slide_block.value %}
-                <div>
-                  <span class="tw-font-zilla tw-font-bold tw-inline-block h4-heading tw-text-white">{{ slide.heading }}</span>
-                  <p class="tw-text-white">{{ slide.description }}</p>
-                </div>
-              {% endwith %}
-            {% endfor %}
-          </div>
-        {% endif %}
+        <div class="tw-grid tw-grid-cols-3 tw-gap-3 medium:tw-gap-4">
+          {% for slide_block in page.specific.banner_carousel %}
+            {% with slide=slide_block.value %}
+              <div>
+                <span class="tw-font-zilla tw-font-bold tw-inline-block h4-heading tw-text-white">{{ slide.heading }}</span>
+                <p class="tw-text-white">{{ slide.description }}</p>
+              </div>
+            {% endwith %}
+          {% endfor %}
+        </div>
       </div>
 
       {# mobile slider #}
-      {% if page.banner_carousel %}
-        {% include 'fragments/hero/hero_mobile_slider.html' with items=page.hero_slides %}
-      {% endif %}
+      {% include 'fragments/hero/hero_mobile_slider.html' with items=page.hero_slides %}
     </div>
 
     {# Video block #}
