@@ -2,6 +2,8 @@ from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
+from wagtail.core.blocks import StructBlock
+from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -162,12 +164,20 @@ class MozfestHomepage(MozfestPrimaryPage):
     banner_video = StreamField(
         [
             ('CMS_video', customblocks.WagtailVideoChooserBlock()),
-            ('video_url', customblocks.EmbeddedVideoBlock(
-                help_text='For YouTube: go to your YouTube video and click “Share,” '
-                          'then “Embed,” and then copy and paste the provided URL only. '
-                          'For example: https://www.youtube.com/embed/3FIVXBawyQw<br/>'
-                          'For Vimeo: follow similar steps to grab the embed URL. '
-                          'For example: https://player.vimeo.com/video/9004979'
+            ('external_video', StructBlock(
+                [
+                    ('video_url', customblocks.EmbeddedVideoBlock(
+                        help_text='For YouTube: go to your YouTube video and click “Share,” '
+                                  'then “Embed,” and then copy and paste the provided URL only. '
+                                  'For example: https://www.youtube.com/embed/3FIVXBawyQw<br/>'
+                                  'For Vimeo: follow similar steps to grab the embed URL. '
+                                  'For example: https://player.vimeo.com/video/9004979'
+                    )),
+                    ('thumbnail', ImageChooserBlock(
+                        help_text='The image to show before the video is played'
+                    )),
+                ],
+                icon='media',
             )),
         ],
         blank=True,
