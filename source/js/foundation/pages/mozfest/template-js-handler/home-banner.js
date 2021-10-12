@@ -21,18 +21,15 @@ const watchFeaturedVideoHandler = () => {
         // Get video url from button
         const videoUrl = watchVideoButton.dataset.videoUrl;
 
-        if (videoUrl) {
-          // Add Src to video to play it
-          externalVideo.setAttribute("src", videoUrl);
-          fadeOutOverlay(watchVideoButton);
-        }
+        // Add Src to video to play it
+        externalVideo.setAttribute("src", videoUrl);
+        fadeOutOverlay(watchVideoButton);
       }
 
       if (internalVideo) {
         fadeOutOverlay(watchVideoButton);
         internalVideo.play();
       }
-
     });
   }
 };
@@ -46,7 +43,6 @@ const fadeOutOverlay = (overlay) => {
     overlay.classList.add("tw-hidden");
   }, 500);
 };
-
 
 const backgroundHardcodedVideoHandler = () => {
   let homepageBanner = document.querySelector(
@@ -96,7 +92,6 @@ const backgroundHardcodedVideoHandler = () => {
     video.play();
   }
 };
-
 
 // Track video watches in google analytics
 const trackWatchVideoClicks = () => {
