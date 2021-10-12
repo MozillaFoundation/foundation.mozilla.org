@@ -12,7 +12,7 @@ class Carousel {
     this.swiper = new Swiper(this.node, {
       spaceBetween: 20,
       watchOverflow: true,
-      centeredSlides: true,
+      centeredSlides: false,
       simulateTouch: true,
       slidesPerView: 1,
       keyboard: {
@@ -29,7 +29,7 @@ class Carousel {
       // Responsive breakpoints
       breakpoints: {
         768: {
-          slidesPerView: 1.75,
+          slidesPerView: 1.2,
           spaceBetween: 30,
         },
       },

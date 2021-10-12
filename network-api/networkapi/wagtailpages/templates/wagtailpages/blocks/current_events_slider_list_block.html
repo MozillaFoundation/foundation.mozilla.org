@@ -1,16 +1,11 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags static %}
 
-
-{% load static %}
-<div class="tw-mb-6 last:tw-mt-6 tw-relative {% if page.signup != None %}tw-px-4 medium:tw-pl-0 medium:tw-ml-[calc(90%-50vw)] medium:tw-mr-[calc(50%-50vw-33.3%)]{% else %} tw-container {% endif %}">
+{# navigation buttons #}
+{% include 'fragments/carousel/carousel_navigation.html' with title=value.title %}
+<div class="tw-mb-7 tw-mt-5 first:tw-mt-0 tw-relative tw-overflow-hidden {% if page.signup != None %} medium:tw-mx-[calc(50%-50vw)] medium:tw-px-[calc(50vw-570px)]{% else %} tw-container {% endif %}">
 
   {# Slider main container #}
-  <div class="swiper tw-overflow-hidden" data-carousel>
-
-    {# navigation buttons #}
-  <div class="container">
-    {% include 'fragments/carousel/carousel_navigation.html' with title=value.title %}
-  </div>
+  <div class="swiper" data-carousel>
 
     {# Additional required wrapper #}
     <div class="swiper-wrapper">
