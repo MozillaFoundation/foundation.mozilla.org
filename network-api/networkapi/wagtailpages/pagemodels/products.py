@@ -1605,6 +1605,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                                f' | Mozilla Foundation'
         context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'
 
+        # Checking if category has custom metadata, if so, update the share image and description.
         if category.share_image:
             setattr(self, 'search_image_id', category.share_image_id)
         if category.description:
