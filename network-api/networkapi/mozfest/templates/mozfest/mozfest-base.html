@@ -38,20 +38,31 @@
     {# Use a two-column layout #}
     <div class="container">
       <div class="row">
+
+
         {% for block in page.body %}
           {% if not block.block_type == 'current_events_slider_list_block' %}
             <div class="cms mozfest-content two-col mb-5">
               {% include_block block with parent_page=page %}
             </div>
-            {% if forloop.first %}
-              {% block cta %}{% include "partials/signup.html" %}{% endblock %}
-            {% endif %}
           {% else %}
             {% include_block block with parent_page=page %}
-             {% if forloop.counter == 3 %}
-                {% include "partials/signup.html" %}
-             {% endif %}
           {% endif %}
+
+          {# If first block is event slider #}
+          {% block cta %}
+            {% if page.body.0.block_type == 'current_events_slider_list_block' %}
+              {% if forloop.counter == 2 %}
+                {% include "partials/signup.html" %}
+              {% endif %}
+            {% else %}
+              {% if forloop.first %}
+                {% include "partials/signup.html" %}
+              {% endif %}
+            {% endif %}
+          {% endblock %}
+
+
         {% endfor %}
       </div>
     </div>
