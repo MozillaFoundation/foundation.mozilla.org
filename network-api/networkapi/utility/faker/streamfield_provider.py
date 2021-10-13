@@ -335,7 +335,10 @@ def generate_banner_carousel_field():
 
 
 def generate_banner_video_field():
-    return generate_field('video_url', 'https://www.youtube.com/embed/3FIVXBawyQw')
+    return generate_field('external_video', {
+        'video_url': 'https://www.youtube.com/embed/3FIVXBawyQw',
+        'thumbnail': choice(Image.objects.all()).id,
+    })
 
 
 class StreamfieldProvider(BaseProvider):
