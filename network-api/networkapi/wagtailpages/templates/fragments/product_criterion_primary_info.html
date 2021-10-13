@@ -5,7 +5,7 @@
     {{ label }}
     {% if info != None and info != "" %}
       <a href="{{info}}">
-        <img src="{% static "_images/buyers-guide/icon-info-circle.svg" %}" alt="information" class="tw-h-4 tw-w-4 tw-ml-2 tw-mb-1">
+        <img src="{% static "_images/buyers-guide/icon-info-circle.svg" %}" alt="{% trans "information" context "icon description for screen readers" %}" class="tw-h-4 tw-w-4 tw-ml-2 tw-mb-1">
       </a>
     {% endif %}
   </h3>
