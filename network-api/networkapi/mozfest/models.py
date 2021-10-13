@@ -2,13 +2,10 @@ from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
-from wagtail.core.blocks import StructBlock
-from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.utils import (
     set_main_site_nav_information,
     get_page_tree_information
