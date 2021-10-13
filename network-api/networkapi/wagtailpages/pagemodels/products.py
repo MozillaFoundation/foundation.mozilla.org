@@ -149,12 +149,22 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
         verbose_name='Share Image',
         help_text='Optional image that will apear when category page is shared.',
     )
+    
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('description'),
+        FieldPanel('featured'),
+        FieldPanel('hidden'),
+        FieldPanel('slug'),
+        FieldPanel('sort_order'),
+        ImageChooserPanel('share_image'),
+    ]
 
     translatable_fields = [
         TranslatableField('name'),
         TranslatableField('description'),
         SynchronizedField('slug'),
-        ImageChooserPanel('share_image'),
+        SynchronizedField('share_image'),
     ]
 
     @property
@@ -1606,9 +1616,9 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'
 
         # Checking if category has custom metadata, if so, update the share image and description.
-        if category.share_image:
+        if category.localized.share_image:
             setattr(self, 'search_image_id', category.share_image_id)
-        if category.description:
+        if category.localized.description:
             setattr(self, 'search_description', category.description)
         
 
