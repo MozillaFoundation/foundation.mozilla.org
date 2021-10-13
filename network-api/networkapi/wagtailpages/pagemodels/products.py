@@ -37,7 +37,6 @@ from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import insert_panels_after, get_locale_from_request
 
 # TODO: Move this util function
-from networkapi.buyersguide.utils import get_category_og_image_upload_path
 from .mixin.snippets import LocalizedSnippet
 from networkapi.wagtailpages.utils import get_language_from_request
 
@@ -149,7 +148,7 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
         verbose_name='Share Image',
         help_text='Optional image that will apear when category page is shared.',
     )
-    
+
     panels = [
         FieldPanel('name'),
         FieldPanel('description'),
@@ -1620,7 +1619,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             setattr(self, 'search_image_id', category.share_image_id)
         if category.localized.description:
             setattr(self, 'search_description', category.description)
-        
 
         return render(request, "buyersguide/category_page.html", context)
 
