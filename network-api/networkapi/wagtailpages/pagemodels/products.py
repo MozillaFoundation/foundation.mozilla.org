@@ -416,8 +416,9 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         help_text='Name of Company',
         blank=True,
     )
-    blurb = models.TextField(
+    blurb = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
         help_text='Description of the product',
         blank=True
     )
@@ -439,10 +440,15 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         related_name='+',
         help_text='Image representing this product',
     )
-    worst_case = models.TextField(
+    worst_case = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
         help_text="What's the worst thing that could happen by using this product?",
         blank=True,
+    )
+    tips_to_protect_yourself = RichTextField(
+        features=['bold', 'italic', 'link'],
+        blank=True
     )
     mozilla_says = models.BooleanField(
         null=True,
@@ -635,8 +641,8 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Has privacy policy": self.privacy_policy,
             "Privacy policy help text": self.privacy_policy_helptext,
             "Mozilla Says": self.mozilla_says,
-            "Time Researched ": "time_researched",
-
+            "Time Researched": self.time_researched,
+            "Tips to protect yourself": self.tips_to_protect_yourself
         }
 
     def get_status_for_airtable(self):
@@ -687,9 +693,9 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 FieldPanel('blurb'),
                 ImageChooserPanel('image'),
                 FieldPanel('worst_case'),
+                FieldPanel('tips_to_protect_yourself'),
                 FieldPanel('mozilla_says'),
                 FieldPanel('time_researched')
-
             ],
             heading='General Product Details',
             classname='collapsible'
@@ -816,6 +822,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('privacy_policy_helptext'),
         SynchronizedField('mozilla_says'),
         SynchronizedField('time_researched'),
+        TranslatableField('tips_to_protect_yourself')
     ]
 
     @property

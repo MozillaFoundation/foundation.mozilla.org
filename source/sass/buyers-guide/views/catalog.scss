@@ -29,11 +29,15 @@ body.catalog {
 
     .intro-text {
       padding-top: 12px;
-      padding-bottom: 28px;
+      padding-bottom: var(--search-box-height-mobile);
 
+      @media (min-width: $breakpoint) {
+        padding-top: 12px;
+        padding-bottom: calc(var(--search-box-height-desktop) + 90px);
+      }
       @media (min-width: $hero-breakpoint) {
         padding-top: 90px;
-        padding-bottom: 90px;
+        padding-bottom: calc(var(--search-box-height-desktop) + 90px);
       }
     }
 
@@ -56,11 +60,7 @@ body.catalog {
   }
 
   #product-filter-search {
-    --initial-width: calc(
-      100% - calc(var(--clear-icon-size) + var(--search-icon-size-desktop))
-    );
-    --expanded-width: var(--initial-width);
-
+    background-color: $white;
     cursor: pointer;
     position: relative;
     display: flex;
@@ -75,17 +75,12 @@ body.catalog {
 
     @media (min-width: $bp-md) {
       --container-padding: 0.5em;
-      --initial-width: calc(
-        3 * var(--container-padding) + var(--search-icon-size-desktop)
-      );
-      --expanded-width: calc(100% - var(--pni-checkbox-container-width) - 2em);
 
       position: absolute;
       left: 0;
       border: 1px solid transparent;
       padding: var(--container-padding);
       padding-right: 1em;
-      width: var(--initial-width);
       height: var(--search-box-height-desktop);
       overflow: hidden;
 
@@ -102,10 +97,6 @@ body.catalog {
     &.has-content {
       border-color: $black;
       cursor: default;
-
-      @media (min-width: $bp-md) {
-        width: var(--expanded-width);
-      }
 
       .search-icon {
         cursor: default;
@@ -172,7 +163,7 @@ body.catalog {
     user-select: none;
     position: absolute;
     left: 0;
-    padding-top: 0.5em;
+    top: calc(var(--sticky-height) + var(--mobile-creep-offset));
 
     @media (min-width: $bp-md) {
       left: unset;
@@ -180,6 +171,7 @@ body.catalog {
       margin-left: 0.5em;
       width: var(--pni-checkbox-container-width);
       font-size: 100%;
+      top: unset;
     }
 
     input[type="checkbox"] {
@@ -356,7 +348,13 @@ body.catalog {
     );
 
     &.creep-o-meter-moved {
-      height: var(--small-sticky-height);
+      height: 80px;
+
+      @media (max-width: $bp-md) {
+        #product-filter-pni {
+          top: calc(var(--mobile-creep-offset));
+        }
+      }
     }
 
     @media (min-width: $breakpoint) {
@@ -373,20 +371,19 @@ body.catalog {
     .creep-o-meter-information {
       position: absolute;
       white-space: nowrap;
-      top: calc(var(--sticky-height) + var(--mobile-creep-offset));
       right: 0;
-      left: 0;
       opacity: 1;
       transition: opacity 0.2s ease;
+      top: unset;
+      right: calc(50% - 36px);
+      left: unset;
 
       &.fade-out {
         opacity: 0;
       }
 
-      @media (min-width: $bp-md) {
-        top: unset;
-        right: calc(50% - 36px);
-        left: unset;
+      @media (max-width: $bp-sm) {
+        right: calc(50% - 144px);
       }
     }
 
@@ -484,6 +481,7 @@ body.catalog {
   .oh-no-face {
     width: 50px;
     height: 50px;
+    margin: auto;
   }
   @media (min-width: $breakpoint) {
     .oh-no-face {
