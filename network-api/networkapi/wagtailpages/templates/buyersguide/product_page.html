@@ -1,6 +1,6 @@
 {% extends "buyersguide/bg_base.html" %}
 
-{% load bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
+{% load bg_selector_tags env l10n i18n localization static wagtailimages_tags wagtailcore_tags %}
 
 {% block head_extra %}
   <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
@@ -23,9 +23,9 @@
 
 {% block guts %}
 <div class="text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-lg-10 offset-lg-1 product-header-content {% if product.privacy_ding %}show-privacy-ding{% endif %}">
+  <div class="container medium:tw-grid tw-grid-cols-12 tw-gap-x-6">
+    <div class="tw-col-start-3 tw-col-end-11 tw--mx-6">
+      <div class="tw-w-full  product-header-content {% if product.privacy_ding %}show-privacy-ding{% endif %}">
         <img
           class="thumb-border tw-mx-auto"
           width="250"
@@ -37,17 +37,17 @@
     </div>
   </div>
 </div>
-{% with section_class="col-12 col-lg-10 offset-lg-1" %}
-<div class="container product-detail">
-  <div class="row">
+{% with section_class="tw-col-start-3 tw-col-end-11 tw--mx-6" %}
+<div class="container product-detail medium:tw-grid tw-grid-cols-12 tw-gap-x-6">
+  <div class="{{section_class}} tw-relative">
 
     {% if product.privacy_ding %}
-    <div class="privacy-ding-band px-md-5 {{section_class}}">
+    <div class="privacy-ding-band tw-px-6 ">
       <p class="pni-product-smaller-body mb-0 py-2">{% blocktrans %}<strong>Warning</strong>: *privacy not included with this product{% endblocktrans %}</p>
     </div>
     {% endif %}
 
-    <div class="bg-white py-3 py-md-4 px-md-5 {{section_class}}">
+    <div class="bg-white py-3 tw-px-6">
       <div class="row intro mb-4">
         <div class="tw-flex tw-space-x-2 tw-flex-wrap tw-px-4 tw-mb-4">
           {% for cat in product.product_categories.all %}
@@ -74,15 +74,25 @@
           {% endif %}
         </div>
         {% include "fragments/research_details.html" with review_date=product.review_date time_researched=product.time_researched mozilla_says=product.mozilla_says %}
-        <div class="col-12"><p class="body mb-0">{{product.blurb}}</p></div>
+        <div class="col-12 body">{{product.blurb | richtext}}</div>
       </div>
 
       <div class="row mb-4">
         <div class="col-12 worst-case">
           <h2 class="h3-heading">{% trans "What could happen if something goes wrong?" %}</h2>
-          <p class="mb-0">{{product.worst_case}}</p>
+          <div class="body">{{product.worst_case | richtext}}</div>
         </div>
       </div>
+
+      {% if product.tips_to_protect_yourself %}
+      <div class="row tw-my-5 tips-to-protect-yourself">
+        <div class="col-12 tw-py-5 tips">
+          <h2 class="h3-heading">{% trans "Tips to protect yourself" %}</h2>
+          {{ product.tips_to_protect_yourself | richtext }}
+        </div>
+      </div>
+      {% endif %}
+
 
       <div id="product-research" data-is-wagtail-page="true">
       <div id="creepiness-vote">
@@ -97,8 +107,8 @@
       </div>
         {% with tab_class="tw-bg-white tw-text-black tw-font-zilla tw-capitalize tw-text-3xl tw-py-2 tw-px-5 tw-flex tw-justify-center tw-items-center medium:tw-flex-1 tw-flex-shrink-0 tw-text-center tw-relative tw-cursor-pointer tw-ease-in tw-transform tw-duration-150 medium:tw-w-auto" %}
           <!-- Should probably be refactored into a wagtail template afterwards -->
-          <div id="product-tab" class="tw-w-full tw-mx-4 tw-mb-4">
-            <div id="product-tab-group" class="tw-bg-white tw-px-6 tw-flex tw-border-b-4 tw-justify-center tw-mb-7 tw-no-scrollbar tw-overflow-auto tw-sticky medium:tw-static tw-top-[52px] tw-z-[1000]">
+          <div id="product-tab" class="tw-w-full tw-mb-4">
+            <div id="product-tab-group" class="tw-bg-white tw-px-6 tw-flex tw-border-b-4 tw-justify-center tw-mb-7 tw-no-scrollbar tw-overflow-auto tw-sticky medium:tw-static tw-top-[52px] tw-z-[1000] medium:tw--mx-6">
               <!-- Need this span for x-scrolling on smaller devices so the first tab doesn't get cut off -->
               <span class="tw-py-2 tw-px-7 medium:tw-flex-1 tw-flex-shrink-0 tw-relative medium:tw-w-auto  tw-w-[100px] tw-opacity-0 small:tw-hidden">mobile</span>
               <span
@@ -286,7 +296,7 @@
 
         <hr class="pni-section-divider"/>
 
-        <div class="col-12">
+        <div class="tw-w-full">
           <h3 class="h2-heading mb-4">{% trans "Related products" %}</h3>
           <div class="row">
             {% for related_product_page in product.related_product_pages.all %}
@@ -325,10 +335,10 @@
 {% if use_commento %}
 
 <div class="container-fluid position-relative comment-section">
-  <div class="row dotted-section d-block d-sm-flex mx-0">
-    <div class="container">
-      <div class="row">
-        <div class="{{section_class}} mt-5 pt-3 bg-white comment-section-padding-x">
+  <div class="row dotted-section d-block d-sm-flex mx-0 mt-5">
+    <div class="container medium:tw-grid tw-grid-cols-12 tw-gap-x-6 tw-z-10 position-relative">
+      <div class="{{section_class}}">
+        <div class="mt-3 pt-3 bg-white tw-px-6">
 
         <h3 class="h2-heading">{% trans "Comments" %}</h3>
         <p class="mb-4">{% trans "Got a comment? Let us hear it." %}</p>

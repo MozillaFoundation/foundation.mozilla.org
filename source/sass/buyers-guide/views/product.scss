@@ -201,6 +201,45 @@
       }
     }
   }
+  .tips-to-protect-yourself {
+    border: 1px solid $gray-20;
+    .tips {
+      h2 {
+        display: inline-block;
+        &:before {
+          content: "";
+          display: inline-block;
+          width: 29px;
+          height: 27px;
+          background: url(../_images/buyers-guide/protect-tip-icon.svg) center /
+            contain no-repeat;
+          position: relative;
+          top: 4px;
+          margin-right: 0.5rem;
+
+          @media (min-width: $pni-product-breakpoint-larger) {
+            margin-right: 1rem;
+          }
+        }
+      }
+
+      .rich-text {
+        p {
+          display: list-item;
+          list-style-type: disc;
+          list-style-position: inside;
+          padding-left: 0.5em;
+          margin-bottom: 0em;
+        }
+      }
+    }
+    // Removing padding from container so div can sit slightly outwards from rest of content.
+    @media (min-width: $pni-product-breakpoint-larger) {
+      margin-right: -2em;
+      margin-left: -2em;
+      padding-left: 1em;
+    }
+  }
 
   .subheading-divider {
     padding: 0em 0.5em 0em 0.5em;
@@ -499,9 +538,10 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 228px;
+    height: 120px;
     background-image: url(../_images/buyers-guide/dot-pattern.svg);
     background-size: 9px 9px;
+    margin-top: -1rem;
   }
 }
 
