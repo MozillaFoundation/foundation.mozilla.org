@@ -240,13 +240,13 @@ body.mozfest {
 
       &::before {
         @apply tw-block tw-inset-0 tw-absolute;
-        background: rgba(255, 255, 255, 1);
+        background: rgba($white, 1);
         content: "";
       }
     }
 
     .swiper-pagination-bullet-active {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba($white, 0.2);
 
       &::before {
         animation: slide-progress-bar 10s ease-in-out forwards;
@@ -257,11 +257,11 @@ body.mozfest {
   .swiper-mobile-progress-bar {
     @apply tw-rounded-full tw-relative tw-overflow-hidden tw-w-full;
     height: 4px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba($white, 0.5);
 
     &::before {
       @apply tw-block tw-inset-0 tw-absolute;
-      background: rgba(255, 255, 255, 1);
+      background: rgba($white, 1);
       content: "";
     }
   }
