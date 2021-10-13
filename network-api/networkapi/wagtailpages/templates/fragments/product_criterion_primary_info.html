@@ -1,7 +1,14 @@
 {% load i18n static %}
 
 <div class="primary-info">
-  <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{{ label }}</h3>
+  <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center">
+    {{ label }}
+    {% if info != None and info != "" %}
+      <a href="{{info}}">
+        <img src="{% static "_images/buyers-guide/icon-info-circle.svg" %}" alt="{% trans "information" context "icon description for screen readers" %}" class="tw-h-4 tw-w-4 tw-ml-2 tw-mb-1">
+      </a>
+    {% endif %}
+  </h3>
 
   <p class="rating pni-product-smaller-body mb-0">
     {% if value == "CD" %}
