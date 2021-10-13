@@ -38,6 +38,11 @@ class CurrentEventBlock(blocks.StructBlock):
         label = 'Current Event Item'
 
 
+class BlockSizeProperty(blocks.StructValue):
+    def block_size(self):
+        return 'wide'
+
+
 class CurrentEventsSliderListBlock(blocks.StructBlock):
     title = blocks.CharBlock(help_text='Heading for the slider.')
 
@@ -47,3 +52,4 @@ class CurrentEventsSliderListBlock(blocks.StructBlock):
         icon = 'list-ul'
         help_text = 'Recommendation: No more than 5 items should be in this slider.'
         template = 'wagtailpages/blocks/current_events_slider_list_block.html'
+        value_class = BlockSizeProperty

@@ -39,9 +39,9 @@
     <div class="container">
       <div class="row">
 
-
         {% for block in page.body %}
-          {% if not block.block_type == 'current_events_slider_list_block' %}
+
+          {% if not block.value.block_size == 'wide' %}
             <div class="cms mozfest-content two-col mb-5">
               {% include_block block with parent_page=page %}
             </div>
@@ -49,9 +49,9 @@
             {% include_block block with parent_page=page %}
           {% endif %}
 
-          {# If first block is event slider #}
           {% block cta %}
-            {% if page.body.0.block_type == 'current_events_slider_list_block' %}
+            {# If first streamfield block is wide slider component then put signup fields after #}
+            {% if page.body.0.value.block_size == 'wide' %}
               {% if forloop.counter == 2 %}
                 {% include "partials/signup.html" %}
               {% endif %}
@@ -61,7 +61,6 @@
               {% endif %}
             {% endif %}
           {% endblock %}
-
 
         {% endfor %}
       </div>
