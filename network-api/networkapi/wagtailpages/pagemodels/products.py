@@ -1617,10 +1617,10 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'
 
         # Checking if category has custom metadata, if so, update the share image and description.
-        if category.localized.share_image:
-            setattr(self, 'search_image_id', category.share_image_id)
-        if category.localized.description:
-            setattr(self, 'search_description', category.description)
+        if category.share_image:
+            setattr(self, 'search_image_id', category.localized.share_image_id)
+        if category.description:
+            setattr(self, 'search_description', category.localized.description)
 
         return render(request, "buyersguide/category_page.html", context)
 
