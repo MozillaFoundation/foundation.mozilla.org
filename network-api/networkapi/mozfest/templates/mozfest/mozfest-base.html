@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags custom_image_tags i18n static %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags custom_image_tags i18n static mozfest_tags %}
 
 
 {% block ga_identifier %}
@@ -42,25 +42,20 @@
         {% for block in page.body %}
 
           {% if not block.value.block_size == 'wide' %}
+
             <div class="cms mozfest-content two-col mb-5">
               {% include_block block with parent_page=page %}
             </div>
+
+            {# This is used to ensure signup is only shown once before or after a wide component #}
+            {% if not signup_shown %}
+              {% shown_signup_block True %}
+              {% include "partials/signup.html" %}
+            {% endif %}
+
           {% else %}
             {% include_block block with parent_page=page %}
           {% endif %}
-
-          {% block cta %}
-            {# If first streamfield block is wide slider component then put signup fields after #}
-            {% if page.body.0.value.block_size == 'wide' %}
-              {% if forloop.counter == 2 %}
-                {% include "partials/signup.html" %}
-              {% endif %}
-            {% else %}
-              {% if forloop.first %}
-                {% include "partials/signup.html" %}
-              {% endif %}
-            {% endif %}
-          {% endblock %}
 
         {% endfor %}
       </div>

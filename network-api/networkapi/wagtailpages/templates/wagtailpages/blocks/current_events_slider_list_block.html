@@ -2,10 +2,10 @@
 
 {# navigation buttons #}
 {% include 'fragments/carousel/carousel_navigation.html' with title=value.title %}
-<div class="tw-mb-7 tw-mt-5 first:tw-mt-0 tw-relative tw-overflow-hidden {% if page.signup != None %} medium:tw-mx-[calc(50%-50vw)] medium:tw-px-[calc(50vw-570px)]{% else %} tw-container {% endif %}">
+<div class="tw-mb-7 tw-mt-5 first:tw-mt-0 tw-relative tw-overflow-hidden medium:tw-px-[calc(50vw-480px)] large:tw-mx-[calc(50%-50vw)] large:tw-px-[calc(50vw-570px)]">
 
   {# Slider main container #}
-  <div class="swiper" data-carousel>
+  <div class="swiper tw-px-3" data-carousel>
 
     {# Additional required wrapper #}
     <div class="swiper-wrapper">
