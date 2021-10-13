@@ -153,7 +153,7 @@
                       <div class="row">
                         {% trans "Camera"          as camera %}
                         {% trans "Microphone"      as microphone %}
-                        {% trans "Tracks Location" as tracks_location %}
+                        {% trans "Tracks location" as tracks_location %}
 
                         <div class="col-12 col-md-4">
                           {% include "fragments/it_uses.html" with title=camera          device=product.camera_device     app=product.camera_app      %}
@@ -174,7 +174,7 @@
                     <div class="row">
                       {% trans "Email"               as email %}
                       {% trans "Phone"               as phone %}
-                      {% trans "Third party account" as third_party_account %}
+                      {% trans "Third-party account" as third_party_account %}
 
                       <div class="col-12 col-md-4">
                         {% include "fragments/signup_requirement.html" with title=email                 value=product.signup_requires_email          %}
@@ -197,7 +197,7 @@
 
                     <div class="row">
                       {% trans "Personal"      as personal_data_collected %}
-                      {% trans "Biometric"     as biometric_data_collected %}
+                      {% trans "Body related"     as biometric_data_collected %}
                       {% trans "Social"        as social_data_collected %}
 
                       <div class="col-12 col-md-4">
@@ -229,7 +229,7 @@
                   {% endif %}
 
                   {% if product.product_type == 'general' %}
-                    {% trans "User friendly privacy information?" as user_friendly_privacy_policy %}
+                    {% trans "User-friendly privacy information?" as user_friendly_privacy_policy %}
                     {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy|extended_yes_no   help=product.user_friendly_privacy_policy_helptext  %}
                   {% endif %}
                 </div>
@@ -274,10 +274,10 @@
                           </div>
                         </section>
 
-                        {% trans "Does the AI use your personal data to make decisions about you?" as ai_uses_personal_data %}
+                        {% trans "Is the company transparent about how the AI works?" as ai_uses_personal_data %}
                         {% include "fragments/product_criterion.html"  with  label=ai_uses_personal_data  value=product.ai_uses_personal_data|extended_yes_no   %}
 
-                        {% trans "Does the company allow users to see how the AI works?" as ai_is_transparent %}
+                        {% trans "Does the user have control over the AI features?" as ai_is_transparent %}
                         {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no           %}
 
                         <p class="pni-product-smaller-body mb-0">{{product.ai_helptext}}</p>
