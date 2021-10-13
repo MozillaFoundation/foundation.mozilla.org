@@ -164,21 +164,7 @@ class MozfestHomepage(MozfestPrimaryPage):
     banner_video = StreamField(
         [
             ('CMS_video', customblocks.WagtailVideoChooserBlock()),
-            ('external_video', StructBlock(
-                [
-                    ('video_url', customblocks.EmbeddedVideoBlock(
-                        help_text='For YouTube: go to your YouTube video and click “Share,” '
-                                  'then “Embed,” and then copy and paste the provided URL only. '
-                                  'For example: https://www.youtube.com/embed/3FIVXBawyQw<br/>'
-                                  'For Vimeo: follow similar steps to grab the embed URL. '
-                                  'For example: https://player.vimeo.com/video/9004979'
-                    )),
-                    ('thumbnail', ImageChooserBlock(
-                        help_text='The image to show before the video is played'
-                    )),
-                ],
-                icon='media',
-            )),
+            ('external_video', customblocks.ExternalVideoBlock()),
         ],
         blank=True,
         help_text='The video to play when users click "watch video"',

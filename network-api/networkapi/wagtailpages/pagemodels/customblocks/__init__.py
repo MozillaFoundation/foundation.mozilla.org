@@ -22,7 +22,7 @@ from .typeform_block import TypeformBlock
 from .quote_block import QuoteBlock
 from .single_quote_block import SingleQuoteBlock
 from .space_card_list_block import SpaceCardListBlock
-from .video_block import EmbeddedVideoBlock, VideoBlock, WagtailVideoChooserBlock
+from .video_block import ExternalVideoBlock, VideoBlock, WagtailVideoChooserBlock
 from .youtube_regret_block import YoutubeRegretBlock
 from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidthImageBlock, ArticleImageBlock
 from .dear_internet_letter_block import DearInternetLetterBlock
@@ -43,7 +43,7 @@ __all__ = [
     CardGrid,
     CardGridBlock,
     DearInternetLetterBlock,
-    EmbeddedVideoBlock,
+    ExternalVideoBlock,
     iFrameBlock,
     ImageBlock,
     ImageGrid,
