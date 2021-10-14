@@ -153,8 +153,8 @@ class MozfestHomepage(MozfestPrimaryPage):
             ('slide', customblocks.BannerCarouselSlideBlock()),
         ],
         max_num=3,
-        min_num=3,
         null=True,
+        blank=True,
     )
 
     # For banner_video_type == 'featured'

@@ -1,6 +1,6 @@
 {% load i18n wagtailimages_tags %}
 <div data-mozfest-hero-carousel>
-  <div class="tw-relative tw-pt-[120px] tw-flex tw-flex-col tw-justify-end{% if not page.banner_video_url %} tw-pb-6 medium:tw-pb-[120px]{% endif %}">
+  <div class="tw-relative tw-pt-[120px] tw-flex tw-flex-col tw-justify-end{% if not page.banner_video %} tw-pb-6 medium:tw-pb-[120px]{% endif %}">
 
     {# Background images slider #}
     <div class="tw-absolute tw-inset-0">
@@ -54,10 +54,16 @@
     </div>
 
     {# Video block #}
-    {% if page.banner_video_url %}
-      {% include 'fragments/hero/featured_video.html'  %}
+    {% if page.banner_video %}
+      {% include 'fragments/hero/featured_video.html' %}
     {% endif %}
 
   </div>
-
 </div>
+
+{# Spacing for top of content section when there is no video #}
+{% if not page.banner_video %}
+    <div class="tw-w-full tw-bg-white tw-h-7"></div>
+{% endif %}
+
+
