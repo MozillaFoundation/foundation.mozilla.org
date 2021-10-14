@@ -20,7 +20,9 @@
                 style="background-image: url({{ img.url }});"
                 {% endif %}
                 {% if block.block_type == 'CMS_video' %}
-                style="background-image: url({{ block.value.thumbnail.url }});"
+                  {% if block.value.thumbnail %}
+                  style="background-image: url({{ block.value.thumbnail.url }});"
+                  {% endif %}
                 {% endif %}
         >
             <span class="tw-relative tw-w-full tw-h-full tw-flex tw-justify-center tw-items-center">
