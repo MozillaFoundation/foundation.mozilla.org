@@ -378,6 +378,16 @@
           }
         }
       }
+
+      /* Make the "gap" between the drawer content and the "Close" button smaller on mobile and tablets */
+      @media (max-width: $bp-md) {
+        &.is-open {
+          .h2-heading {
+            max-height: 0;
+            overflow: hidden;
+          }
+        }
+      }
     }
 
     &__mask {
