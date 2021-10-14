@@ -3,20 +3,19 @@
 from django.db import migrations, models
 import django.db.models.deletion
 
-def copy_peition_cta_to_cta(apps, schema_editor):
+def copy_petition_cta_to_cta(apps, schema_editor):
+    CTA = apps.get_model("wagtailpages", "CTA")
+
     models = [
         apps.get_model("wagtailpages", "CampaignPage"),
         apps.get_model("wagtailpages", "BanneredCampaignPage"),
     ]
 
-    CTA = apps.get_model("wagtailpages", "CTA"),
-
     for Model in models:
         for page in Model.objects.all():
             if page.petition_cta:
                 page.cta = CTA.objects.get(
-                    title=page.petition_cta.title,
-                    header=page.petition_cta.header,
+                    pk=page.petition_cta.pk,
                 )
                 page.save()
 
@@ -37,4 +36,7 @@ class Migration(migrations.Migration):
             name='cta',
             field=models.ForeignKey(blank=True, help_text='Choose existing or create new sign-up form', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='campaign_page_for_cta', to='wagtailpages.cta'),
         ),
+        migrations.RunPython(
+            code=copy_petition_cta_to_cta
+        )
     ]
