@@ -38,6 +38,7 @@ class CurrentEventBlock(blocks.StructBlock):
         label = 'Current Event Item'
 
 
+# Used for wide carousel streamfields that break outside of the 2 column template
 class BlockSizeProperty(blocks.StructValue):
     def block_size(self):
         return 'wide'

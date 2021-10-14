@@ -3,9 +3,7 @@ import Swiper, {A11y, Autoplay, Pagination, Navigation, Keyboard} from 'swiper';
 Swiper.use([A11y, Autoplay, Pagination, Navigation, Keyboard]);
 
 class Carousel {
-  static selector() {
-    return "[data-carousel]";
-  }
+  static selector = "[data-carousel]";
 
   constructor(node) {
     this.node = node;
@@ -28,8 +26,8 @@ class Carousel {
       },
       // Responsive breakpoints
       breakpoints: {
-        992: {
-          slidesPerView: 1.2,
+        768: {
+          slidesPerView: 1,
           spaceBetween: 30,
         },
       },
@@ -40,7 +38,7 @@ class Carousel {
 
 const MozfestCarousels = {
   init: function () {
-    for (const carousel of document.querySelectorAll(Carousel.selector())) {
+    for (const carousel of document.querySelectorAll(Carousel.selector)) {
       new Carousel(carousel);
     }
   },
