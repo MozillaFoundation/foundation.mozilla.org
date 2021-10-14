@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from wagtail.core.models import Site
 
+
 class Command(BaseCommand):
     help = 'Ensure site bindings are for localhost (e.g. for after a db copy)'
 
