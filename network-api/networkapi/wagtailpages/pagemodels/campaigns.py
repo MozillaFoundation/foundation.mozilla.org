@@ -71,7 +71,7 @@ class Callpower(TranslatableMixin, CTA):
     success_heading = models.CharField(
         max_length=50,
         default='Thank you for calling',
-        help_text='The heading users will see after clicking the call button(defaults to "Thank you for calling")',
+        help_text='The heading users will see after clicking the call button (defaults to "Thank you for calling")',
     )
 
     success_text = RichTextField(
