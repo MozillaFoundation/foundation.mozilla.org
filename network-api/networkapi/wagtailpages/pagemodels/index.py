@@ -20,6 +20,8 @@ from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from networkapi.wagtailpages.utils import (
     set_main_site_nav_information,
     get_page_tree_information,
+    get_locale_from_request,
+    get_default_locale,
 )
 
 
@@ -89,23 +91,23 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         context['entries'] = entries[0:self.page_size]
         return context
 
-    @property
-    def cache_key(self):
-        return f'index_items_{self.slug}'
+    def get_cache_key(self, locale):
+        return f'index_items_{self.slug}_{locale}'
 
-    def clear_index_page_cache(self):
-        cache.delete(self.cache_key)
+    def clear_index_page_cache(self, locale):
+        cache.delete(self.get_cache_key(locale))
 
-    def get_all_entries(self):
+    def get_all_entries(self, locale):
         """
         Get all (live) child entries, ordered "newest first",
         ideally from cache, or "anew" if the cache expired.
         """
-        child_set = cache.get(self.cache_key)
+        cache_key = self.get_cache_key(locale)
+        child_set = cache.get(cache_key)
 
         if child_set is None:
             child_set = self.get_children().live().public().order_by('-first_published_at', 'title')
-            cache.set(self.cache_key, child_set, settings.INDEX_PAGE_CACHE_TIMEOUT)
+            cache.set(cache_key, child_set, settings.INDEX_PAGE_CACHE_TIMEOUT)
 
         return child_set
 
@@ -114,9 +116,18 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         Get all child entries, filtered down if required based on
         the `self.filtered` field being set or not.
         """
-        entries = self.get_all_entries()
+        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+
+        if 'request' in context:
+            locale = get_locale_from_request(context['request'])
+        else:
+            locale = DEFAULT_LOCALE
+
+        entries = self.get_all_entries(locale)
+
         if hasattr(self, 'filtered'):
             entries = self.filter_entries(entries, context)
+
         return entries
 
     def filter_entries(self, entries, context):

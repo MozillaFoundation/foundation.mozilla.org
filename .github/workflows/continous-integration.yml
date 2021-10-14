@@ -2,11 +2,11 @@ name: Continuous Integration
 
 on:
   push:
-    branches: [ 'master' ]
+    branches: [ 'main', 'pni-q3-2020' ]
     paths-ignore:
       - maintenance/**/*.*
   pull_request:
-    branches: [ 'master' ]
+    branches: [ 'main', 'pni-q3-2020' ]
     paths-ignore:
       - maintenance/**/*.*
 
@@ -91,7 +91,9 @@ jobs:
       run: |
         flake8 tasks.py network-api/
         coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
-        coveralls
+    - name: Coveralls
+      run: coveralls
+      continue-on-error: true
 
   test_cypress:
     name: Cypress/Percy CI

@@ -32,10 +32,13 @@ locale_abstraction_instructions_js = " ".join(
     [
         "makemessages",
         "-d djangojs",
+        "--all",
         "--keep-pot",
         "--no-wrap",
         "--ignore=node_modules",
         "--ignore=dockerpythonvenv/*",
+        "--ignore=network-api",
+        "--ignore=cypress",
     ]
 )
 
@@ -89,9 +92,9 @@ def new_db(ctx):
     print("* Starting the postgres service")
     ctx.run("docker-compose up -d postgres")
     print("* Delete the database")
-    ctx.run("docker-compose run --rm postgres dropdb --if-exists wagtail -h postgres -U foundation")
+    ctx.run("docker-compose run --rm postgres dropdb --if-exists wagtail -hpostgres -Ufoundation")
     print("* Create the database")
-    ctx.run("docker-compose run --rm postgres createdb wagtail -h postgres -U foundation")
+    ctx.run("docker-compose run --rm postgres createdb wagtail -hpostgres -Ufoundation")
     print("* Applying database migrations.")
     migrate(ctx)
     print("* Creating fake data")
@@ -181,6 +184,18 @@ def npm_install(ctx):
     """Install Node dependencies"""
     with ctx.cd(ROOT):
         ctx.run("docker-compose run --rm watch-static-files npm install")
+
+
+@task(aliases=["copy-stage-db"])
+def copy_staging_database(ctx):
+    with ctx.cd(ROOT):
+        ctx.run("node copy-db.js")
+
+
+@task(aliases=["copy-prod-db"])
+def copy_production_database(ctx):
+    with ctx.cd(ROOT):
+        ctx.run("node copy-db.js --prod")
 
 
 # Django shorthands

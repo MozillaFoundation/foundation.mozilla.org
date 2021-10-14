@@ -1,7 +1,5 @@
 from random import choice
 
-from factory import Faker
-
 from wagtail.images.models import Image
 
 from networkapi.wagtailpages.models import (
@@ -12,6 +10,9 @@ from networkapi.utility.faker.helpers import (
     reseed,
     get_homepage
 )
+
+from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
+faker = Faker()
 
 
 def generate(seed):
@@ -27,8 +28,8 @@ def generate(seed):
         partner_logo_orderable = PartnerLogos.objects.create(
             page=home_page,
             logo=choice(all_images),
-            link=Faker('url'),
-            name=Faker('text', max_nb_chars=30),
+            link=faker.url(),
+            name=faker.text(max_nb_chars=30),
         )
         home_page.partner_logos.add(partner_logo_orderable)
 

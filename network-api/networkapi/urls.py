@@ -34,7 +34,7 @@ admin.autodiscover()
 urlpatterns = list(filter(None, [
     # Add robots.txt to exclude the thimble artifact page
     path('robots.txt', lambda x: HttpResponse(
-        'User-Agent: *\nDisallow: /*artifacts/thimble',
+        'User-Agent: *\nDisallow: /*/artifacts/thimble\nDisallow: /artifacts/thimble',
         content_type='text/plain; charset=utf-8'),
         name='robots_file'
         ),
@@ -75,7 +75,7 @@ urlpatterns = list(filter(None, [
 
     # set up set language redirect view
     path('i18n/setlang/', csrf_exempt(set_language), name='set_language'),
-    path('jsi18n/', cache_page(3600)(JavaScriptCatalog.as_view()), name='javascript-catalog'),
+    path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
 
     # Wagtail Footnotes package
     path("footnotes/", include(footnotes_urls)),

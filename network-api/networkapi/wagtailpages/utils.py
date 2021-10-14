@@ -264,16 +264,16 @@ def language_code_to_iso_3166(language):
     return language
 
 
-def get_locale_from_request(request, check_path=False):
+def get_locale_from_request(request, check_path=True):
     language_code = get_language_from_request(request, check_path)
 
     try:
         return Locale.objects.get(language_code=language_code)
     except Locale.DoesNotExist:
-        return Locale.objects.get(language_code=settings.language_code)
+        return Locale.objects.get(language_code=settings.LANGUAGE_CODE)
 
 
-def get_language_from_request(request, check_path=False):
+def get_language_from_request(request, check_path=True):
     """
     Replacement for django.utils.translation.get_language_from_request.
     The portion of code that is modified is identified below with a comment.
@@ -422,3 +422,21 @@ class TitleWidget(forms.TextInput):
             "<h3 class='max-length-countdown'></h3>"
         )
         return html + inline_code
+
+
+def get_default_locale():
+    """
+    We defer this logic to a function so that we can call it on demand without
+    running into "the db is not ready for queries yet" problems.
+    """
+    DEFAULT_LOCALE = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
+    DEFAULT_LOCALE_ID = DEFAULT_LOCALE.id
+    return (
+        DEFAULT_LOCALE,
+        DEFAULT_LOCALE_ID,
+    )
+
+
+def get_original_by_slug(Model, slug):
+    (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+    return Model.objects.get(slug=slug, locale=DEFAULT_LOCALE_ID)

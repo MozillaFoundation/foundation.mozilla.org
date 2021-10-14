@@ -298,53 +298,73 @@ class TestProductPage(BuyersGuideTestMixin):
             self.product_page.save()
 
     def test_get_votes(self):
+        product_page = self.product_page
+
         # Votes should be empty at this point.
-        votes = self.product_page.votes.get_votes()
+        votes = product_page.votes.get_votes()
         self.assertEqual(votes, [0, 0, 0, 0, 0])
         self.assertEqual(len(votes), 5)
 
     def test_set_votes(self):
+        product_page = self.product_page
+
         # Make sure votes are set and saved.
-        self.product_page.votes.set_votes([1, 2, 3, 4, 5])
-        votes = self.product_page.votes.get_votes()
+        product_page.votes.set_votes([1, 2, 3, 4, 5])
+        votes = product_page.votes.get_votes()
         self.assertEqual(votes, [1, 2, 3, 4, 5])
 
         # Ensure there's always 5 value set.
-        self.product_page.votes.set_votes([1, 2, 3, 4, 5, 6, 7])
+        product_page.votes.set_votes([1, 2, 3, 4, 5, 6, 7])
         self.assertEqual(votes, [1, 2, 3, 4, 5])
         self.assertEqual(len(votes), 5)
 
     def test_total_vote_count(self):
-        self.product_page.votes.set_votes([5, 4, 3, 2, 1])
-        total_vote_count = self.product_page.total_vote_count
+        product_page = self.product_page
+
+        product_page.votes.set_votes([5, 4, 3, 2, 1])
+        total_vote_count = product_page.total_vote_count
         self.assertEqual(total_vote_count, 15)
 
-        self.product_page.votes.set_votes([5, 5, 5, 5, 5])
-        total_vote_count = self.product_page.total_vote_count
+        product_page.votes.set_votes([5, 5, 5, 5, 5])
+        total_vote_count = product_page.total_vote_count
         self.assertEqual(total_vote_count, 25)
 
     def test_creepiness(self):
-        self.product_page.creepiness_value = 100
-        self.product_page.votes.set_votes([5, 5, 5, 5, 5])
-        creepiness = self.product_page.creepiness
+        product_page = self.product_page
+
+        product_page.creepiness_value = 100
+        product_page.save()
+        self.assertEqual(product_page.creepiness_value, 100)
+
+        product_page.votes.set_votes([5, 5, 5, 5, 5])
+        self.assertEqual(product_page.total_vote_count, 25)
+
+        creepiness = product_page.creepiness
         self.assertEqual(creepiness, 4)
 
-        self.product_page.creepiness_value = 0
-        self.product_page.votes.set_votes([0, 0, 0, 0, 0])
-        creepiness = self.product_page.creepiness
+        product_page.creepiness_value = 0
+        product_page.votes.set_votes([0, 0, 0, 0, 0])
+        creepiness = product_page.creepiness
         self.assertEqual(creepiness, 50)
 
     def test_get_voting_json(self):
-        self.product_page.creepiness_value = 60
-        self.product_page.votes.set_votes([1, 2, 3, 4, 5])
-        creepiness = self.product_page.creepiness
+        product_page = self.product_page
+
+        product_page.creepiness_value = 60
+        product_page.save()
+        self.assertEqual(product_page.creepiness_value, 60)
+
+        product_page.votes.set_votes([1, 2, 3, 4, 5])
+        self.assertEqual(product_page.total_vote_count, 15)
+
+        creepiness = product_page.creepiness
         self.assertEqual(creepiness, 4)
 
-        total_vote_count = self.product_page.total_vote_count
+        total_vote_count = product_page.total_vote_count
         self.assertEqual(total_vote_count, 15)
 
-        # votes = self.product_page.votes.get_votes()
-        data = json.loads(self.product_page.get_voting_json)
+        # votes = product_page.votes.get_votes()
+        data = json.loads(product_page.get_voting_json)
         comparable_data = {
             'creepiness': {
                 'vote_breakdown':  {
@@ -361,47 +381,53 @@ class TestProductPage(BuyersGuideTestMixin):
         self.assertDictEqual(data, comparable_data)
 
     def test_get_or_create_votes(self):
-        # Delete potential votes
-        self.product_page.votes.delete()
-        self.product_page.votes = None
-        self.assertEqual(self.product_page.votes, None)
+        product_page = self.product_page
 
-        votes = self.product_page.get_or_create_votes()
+        # Delete potential votes
+        product_page.votes.delete()
+        product_page.votes = None
+        self.assertEqual(product_page.votes, None)
+
+        product_page.save()
+        votes = product_page.get_or_create_votes()
         self.assertEqual(votes, [0, 0, 0, 0, 0])
-        self.assertTrue(hasattr(self.product_page.votes, 'set_votes'))
+
+        self.assertTrue(hasattr(product_page.votes, 'set_votes'))
 
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
 
     def test_successful_vote(self):
-        # Reset votes
-        votes = self.product_page.get_or_create_votes()
-        self.product_page.votes.set_votes([0, 0, 0, 0, 0])
+        product_page = self.product_page
 
-        response = self.client.post(self.product_page.url, {
+        # Reset votes
+        product_page.get_or_create_votes()
+        product_page.votes.set_votes([0, 0, 0, 0, 0])
+
+        response = self.client.post(product_page.url, {
             'value': 25,
         }, format='json')
         self.assertEqual(response.status_code, 200)
 
-        self.product_page.refresh_from_db()
+        product_page.refresh_from_db()
 
-        votes = self.product_page.votes.get_votes()
+        votes = product_page.votes.get_votes()
         self.assertListEqual(votes, [0, 1, 0, 0, 0])
-        self.assertEqual(self.product_page.total_vote_count, 1)
-        self.assertEqual(self.product_page.creepiness_value, 25)
+        self.assertEqual(product_page.total_vote_count, 1)
+        self.assertEqual(product_page.creepiness_value, 25)
 
-        response = self.client.post(self.product_page.url, {
+        response = self.client.post(product_page.url, {
             'value': 100,
         }, format='json')
         self.assertEqual(response.status_code, 200)
 
-        self.product_page.refresh_from_db()
+        product_page.refresh_from_db()
 
-        votes = self.product_page.votes.get_votes()
+        votes = product_page.votes.get_votes()
         self.assertListEqual(votes, [0, 1, 0, 0, 1])
-        self.assertEqual(self.product_page.total_vote_count, 2)
-        self.assertEqual(self.product_page.creepiness_value, 125)
+        self.assertEqual(product_page.total_vote_count, 2)
+        self.assertEqual(product_page.creepiness_value, 125)
 
     def test_bad_vote_value(self):
         # vote = 500

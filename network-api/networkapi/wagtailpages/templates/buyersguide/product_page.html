@@ -2,8 +2,6 @@
 
 {% load bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
 
-{% get_current_language as lang_code %}
-
 {% block head_extra %}
   <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
   <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
@@ -29,7 +27,7 @@
     <div class="row">
       <div class="col-12 col-lg-10 offset-lg-1 product-header-content {% if product.privacy_ding %}show-privacy-ding{% endif %}">
         <img
-          class="thumb-border"
+          class="thumb-border tw-mx-auto"
           width="250"
           {% image product.image width-250 as img %}
           src="{{ img.url }}"
@@ -84,6 +82,7 @@
             <div class="creep-vote-target mb-5 mt-3 mt-md-4 p-5" data-product-name="{{product.title}}" data-product-type="{{product.product_type}}">
               <input type="hidden" name="productID" value="{{ product.id }}">
               <input type="hidden" name="votes" value='{{ product.get_voting_json | safe }}'>
+              {% csrf_token %}
             </div>
           </div>
         </div>
@@ -209,7 +208,7 @@
 
         <section class="minimum-security criterion-group">
           <h2 class="h3-heading">{% trans "Security" %}</h2>
-          {% url 'min-security-view' as min_sec_url %}
+          {% localizedroutablepageurl home_page 'min-security-view' as min_sec_url %}
           {% blocktrans with url=min_sec_url asvar minimum_security_standards trimmed %}
             Does this product meet our <a id="mss-link" href="{{ url }}">Minimum Security Standards</a>?
           {% endblocktrans %}
@@ -299,7 +298,7 @@
             {% for related_product_page in product.related_product_pages.all %}
             {% with related_product=related_product_page.related_product.localized %}
             <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
-              <a class="d-block{% if related_product.adult_content %} adult-content{% endif %}" href="{% relocalized_url related_product.url lang_code %}">
+              <a class="d-block{% if related_product.adult_content %} adult-content{% endif %}" href="{% relocalized_url related_product.url %}">
                 <div class="img-container">
                   {% image related_product.image width-600 as img %}
                   <img

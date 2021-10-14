@@ -6,7 +6,7 @@ from django.views import View
 
 class EnvVariablesView(View):
     """
-    A view that permits a GET to expose whitelisted environment
+    A view that permits a GET to expose allowlisted environment
     variables in JSON.
     """
 

@@ -27,7 +27,8 @@ from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
 from ...utils import (
     set_main_site_nav_information,
-    get_content_related_by_tag
+    get_content_related_by_tag,
+    TitleWidget
 )
 
 from .blog_category import BlogPageCategory
@@ -41,7 +42,8 @@ base_fields = [
             'h2', 'h3', 'h4', 'h5',
             'ol', 'ul',
             'link', 'hr',
-        ]
+        ],
+        template='wagtailpages/blocks/rich_text_block.html',
     )),
     ('card_grid', customblocks.CardGridBlock()),
     ('iframe', customblocks.iFrameBlock()),
@@ -141,7 +143,12 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     related_post_count = 3
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        FieldPanel(
+            'title',
+            classname='full title',
+            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60})
+        ),
         MultiFieldPanel(
             [
                 InlinePanel('authors', label='Author', min_num=1)
@@ -189,6 +196,11 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         # Content tab fields
         TranslatableField('body'),
         TranslatableField('title'),
+        SynchronizedField('authors'),
+        SynchronizedField('hero_video'),
+        SynchronizedField('hero_image'),
+        SynchronizedField('related_posts'),
+        SynchronizedField('first_published_at'),
     ]
 
     subpage_types = [

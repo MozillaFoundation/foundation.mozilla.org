@@ -24,7 +24,7 @@ def generate(seed):
     # part of the wagtailpages migrations:
     HomepageFocusAreas.objects.create(
         page=home_page,
-        area=FocusArea.objects.get(name='Empower Action')
+        area=FocusArea.objects.get(name='Rally Citizens')
     )
 
     HomepageFocusAreas.objects.create(
@@ -34,7 +34,7 @@ def generate(seed):
 
     HomepageFocusAreas.objects.create(
         page=home_page,
-        area=FocusArea.objects.get(name='Investigate & Research')
+        area=FocusArea.objects.get(name='Shape the Agenda')
     )
 
     NUM_SPOTLIGHT_POSTS = 3

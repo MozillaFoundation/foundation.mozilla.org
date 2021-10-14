@@ -75,25 +75,24 @@ def generate(seed):
 
     reseed(seed)
 
-    if not is_review_app:
-        print('Creating MozFest Site record in Wagtail')
-        tds = settings.TARGET_DOMAINS
-        if tds and len(tds) > 1:
-            # Assume that tds[0] is the main mofo domain, and tds[1] is the Mozfest domain
-            hostname = tds[1]
-            port = 80
-        else:
-            # use a localhost domain (must be set in /etc/hosts)
-            hostname = 'mozfest.localhost'
-            port = 8000
+    print('Creating MozFest Site record in Wagtail')
+    tds = settings.TARGET_DOMAINS
+    if tds and len(tds) > 1:
+        # Assume that tds[0] is the main mofo domain, and tds[1] is the Mozfest domain
+        hostname = tds[1]
+        port = 80
+    else:
+        # use a localhost domain (must be set in /etc/hosts)
+        hostname = 'mozfest.localhost'
+        port = 8000
 
-        WagtailSite.objects.create(
-            hostname=hostname,
-            port=port,
-            root_page=home_page,
-            site_name='Mozilla Festival',
-            is_default_site=False
-        )
+    WagtailSite.objects.create(
+        hostname=hostname,
+        port=port,
+        root_page=home_page,
+        site_name='Mozilla Festival',
+        is_default_site=False
+    )
 
     print('Generating Mozfest sub-pages')
     [MozfestPrimaryPageFactory.create(

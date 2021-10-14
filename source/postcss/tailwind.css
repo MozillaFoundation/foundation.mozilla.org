@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  ol {
+    @apply tw-m-[revert] tw-list-decimal tw-p-[revert];
+  }
+
+  ul {
+    @apply tw-m-[revert] tw-list-disc tw-p-[revert];
+  }
+}

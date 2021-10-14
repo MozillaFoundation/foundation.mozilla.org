@@ -8,8 +8,11 @@ from wagtail.core.models import (
     Site as WagtailSite,
     Page as WagtailPage
 )
+
+from wagtail.images.models import Image
+
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
-from networkapi.wagtailpages.models import Homepage
+from networkapi.wagtailpages.models import Homepage, FocusArea
 from networkapi.utility.faker.helpers import (
     reseed,
     get_homepage
@@ -72,6 +75,7 @@ def generate(seed):
             port = 8000
         default_site.hostname = hostname
         default_site.port = port
+        default_site.site_name = "Foundation Home Page"
         default_site.save()
         print('Updated the default Site')
     except WagtailSite.DoesNotExist:
@@ -89,6 +93,13 @@ def generate(seed):
             site_name='Foundation Home Page',
             is_default_site=True
         )
+
+    reseed(seed)
+
+    print('Assigning images to areas of focus')
+    for area in FocusArea.objects.all():
+        area.interest_icon = Image.objects.first()
+        area.save()
 
     reseed(seed)
 

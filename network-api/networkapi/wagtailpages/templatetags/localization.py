@@ -3,8 +3,10 @@ import unicodedata
 
 from django import template
 from django.conf import settings
+from django.db.models.base import ObjectDoesNotExist
 from django.utils.translation import get_language_info
 from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import routablepageurl
+from networkapi.wagtailpages.utils import get_language_from_request, get_locale_from_request
 
 register = template.Library()
 
@@ -17,10 +19,11 @@ mappings = {
     'nl': 'nl_NL',
     'pl': 'pl_PL',
     'pt-BR': 'pt_BR',
+    'sw': 'sw_KE',
 }
 
 DEFAULT_LOCALE_CODE = settings.LANGUAGE_CODE
-DEFAULT_LOCALE = mappings.get(DEFAULT_LOCALE_CODE)
+DEFAULT_LOCALE_STRING = mappings.get(DEFAULT_LOCALE_CODE)
 
 
 # This filter turns Wagtail language codes into OpenGraph locale strings
@@ -29,7 +32,7 @@ def to_opengraph_locale(value):
     try:
         return mappings[value]
     except AttributeError:
-        return DEFAULT_LOCALE
+        return DEFAULT_LOCALE_STRING
 
 
 # Generates a sorted list of currently supported locales. For each locale, the list
@@ -53,19 +56,42 @@ def get_unlocalized_url(page, locale):
     return page.get_url().replace(f'/{locale}/', '/', 1)
 
 
-# Force-relocalize a URL
-@register.simple_tag()
-def relocalized_url(url, locale_code):
+def relocalize_url(url, locale_code):
     if locale_code == DEFAULT_LOCALE_CODE:
         return url
     return url.replace(f'/{DEFAULT_LOCALE_CODE}/', f'/{locale_code}/')
 
 
+# Force-relocalize a URL
+@register.simple_tag(takes_context=True)
+def relocalized_url(context, url):
+    request = context['request']
+    locale_code = get_language_from_request(request)
+    return relocalize_url(url, locale_code)
+
+
 # Overcome a limitation of the routablepageurl tag
 @register.simple_tag(takes_context=True)
-def localizedroutablepageurl(context, page, url_name, locale_code, *args, **kwargs):
+def localizedroutablepageurl(context, page, url_name, *args, **kwargs):
     url = relocalized_url(
-        routablepageurl(context, page, url_name, *args, **kwargs),
-        locale_code,
+        context,
+        routablepageurl(context, page, url_name, *args, **kwargs)
     )
     return url
+
+
+# Get the "current locale" version of some content object from Wagtail
+@register.simple_tag(takes_context=True)
+def localized_version(context, thing):
+    if not hasattr(thing, 'get_translation'):
+        return thing
+
+    if 'request' not in context:
+        return thing
+
+    locale = get_locale_from_request(context['request'])
+
+    try:
+        return thing.get_translation(locale)
+    except ObjectDoesNotExist:
+        return thing
