@@ -1,31 +1,32 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 
+{# Slider component - Using calc function to stretch the component outside the bounds of the containers and make it full width #}
+<div class="tw-relative tw-mb-5 tw-mt-5 first:tw-mt-0 tw-relative tw-overflow-hidden tw-px-0 large:tw-mr-[calc(50%-50vw)]">
   {# navigation buttons #}
   {% if self.current_events|length > 2 %}
     {% include 'fragments/carousel/carousel_navigation.html' with title=value.title %}
   {% endif %}
 
-  {# Slider component - Using calc function to stretch the component outside the bounds of the containers and make it full width #}
-  <div class="tw-relative tw-mb-7 tw-mt-5 first:tw-mt-0 tw-relative tw-overflow-hidden medium:tw-px-[calc(50vw-480px)] large:tw-mx-[calc(50%-50vw)] large:tw-px-[calc(50vw-570px)]">
+  {# Slider main container #}
+  <div class="swiper tw-px-3 tw-pb-7 tw-mx-0 tw-overflow-hidden tw-container" data-carousel>
 
-    {# Slider main container #}
-    <div class="swiper tw-px-3 tw-pb-7" data-carousel>
+    {#  <div class="tw-h-full tw-w-[50px] tw-z-10 tw-bg-gradient-to-l tw-from-white tw-via-white tw-to-transparent tw-absolute tw-top-0 tw-right-0"></div>#}
 
-      {# Additional required wrapper #}
-      <div class="swiper-wrapper">
+    {# Additional required wrapper #}
+    <div class="swiper-wrapper">
 
-        {# Slides #}
-        {% for current_event in self.current_events %}
-          {% image current_event.image fill-600x250 as img %}
-          <div class="swiper-slide tw-h-auto tw-w-full ">
-            {% include 'fragments/event_card.html' with title=current_event.title category_url=current_event.subheading_link.0.value.link_url category_title=current_event.subheading_link.0.value.label buttons=current_event.buttons image=img.url text=current_event.body %}
-          </div>
-        {% endfor %}
-      </div>
-
-      {# Pagination #}
-      <div class="swiper-pagination tw--bottom-[5px] large:tw-hidden"></div>
-
+      {# Slides #}
+      {% for current_event in self.current_events %}
+        {% image current_event.image fill-445x185 as img %}
+        <div class="swiper-slide">
+          {% include 'fragments/event_card.html' with title=current_event.title category_url=current_event.subheading_link.0.value.link_url category_title=current_event.subheading_link.0.value.label buttons=current_event.buttons image=img.url text=current_event.body %}
+        </div>
+      {% endfor %}
     </div>
+
+    {# Pagination #}
+    <div class="swiper-pagination tw--bottom-[5px] large:tw-hidden"></div>
+
   </div>
+</div>

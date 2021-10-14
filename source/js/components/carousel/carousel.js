@@ -26,8 +26,8 @@ class Carousel {
       },
       // Responsive breakpoints
       breakpoints: {
-        768: {
-          slidesPerView: 1,
+        992: {
+          slidesPerView: 2,
           spaceBetween: 30,
         },
       },

@@ -38,12 +38,6 @@ class CurrentEventBlock(blocks.StructBlock):
         label = 'Current Event Item'
 
 
-# Used for wide carousel streamfields that break outside of the 2 column template
-class BlockSizeProperty(blocks.StructValue):
-    def block_size(self):
-        return 'wide'
-
-
 class CurrentEventsSliderListBlock(blocks.StructBlock):
     title = blocks.CharBlock(help_text='Heading for the slider.')
 
@@ -51,6 +45,5 @@ class CurrentEventsSliderListBlock(blocks.StructBlock):
 
     class Meta:
         icon = 'list-ul'
-        help_text = 'Recommendation: No more than 5 items should be in this slider.'
+        help_text = 'Recommendation: No more than 5 items should be in this slider. This slider cannot be placed at the top of the page when a signup form is present as they will overlap.'
         template = 'wagtailpages/blocks/current_events_slider_list_block.html'
-        value_class = BlockSizeProperty
