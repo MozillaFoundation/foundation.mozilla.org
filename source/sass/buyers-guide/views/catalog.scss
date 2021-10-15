@@ -106,12 +106,12 @@ body.catalog {
       cursor: pointer;
       height: var(--search-icon-size-mobile);
       width: var(--search-icon-size-mobile);
-      margin: 0 0.5em;
+      margin: 0 8px 0 4px;
 
       @media (min-width: $bp-sm) {
         height: var(--search-icon-size-desktop);
         width: var(--search-icon-size-desktop);
-        margin-right: 1em;
+        margin: 0 16px 0 8px;
       }
     }
 
@@ -132,7 +132,7 @@ body.catalog {
         outline: 0;
         padding: 0;
         margin: 0;
-        margin-right: 10px;
+        margin-right: 4px;
         height: var(--clear-icon-size);
         width: var(--clear-icon-size);
         background: url(../_images/buyers-guide/filter/clear-icon-black.svg);
