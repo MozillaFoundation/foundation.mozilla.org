@@ -51,6 +51,7 @@ class MozfestHeroCarousel {
       },
       autoplay: {
         delay: this.delay,
+        disableOnInteraction: false,
       },
       slidesPerView: 1,
       centeredSlides: true,
