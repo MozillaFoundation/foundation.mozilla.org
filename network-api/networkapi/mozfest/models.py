@@ -153,8 +153,11 @@ class MozfestHomepage(MozfestPrimaryPage):
             ('slide', customblocks.BannerCarouselSlideBlock()),
         ],
         max_num=3,
-        null=True,
+        help_text='The slides shown on the new Hero. Please ensure that there '
+                  'are exactly 3 slides. The old Hero will be shown if there '
+                  'are no slides present.',
         blank=True,
+        null=True,
     )
 
     # For banner_video_type == 'featured'
@@ -163,9 +166,10 @@ class MozfestHomepage(MozfestPrimaryPage):
             ('CMS_video', customblocks.WagtailVideoChooserBlock()),
             ('external_video', customblocks.ExternalVideoBlock()),
         ],
-        blank=True,
-        help_text='The video to play when users click "watch video"',
         max_num=1,
+        help_text='The video to play when users click "Watch Video". This is '
+                  'only shown on the new Hero.',
+        blank=True,
         null=True,
     )
 
