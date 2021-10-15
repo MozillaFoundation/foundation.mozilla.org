@@ -416,8 +416,9 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         help_text='Name of Company',
         blank=True,
     )
-    blurb = models.TextField(
+    blurb = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
         help_text='Description of the product',
         blank=True
     )
@@ -439,8 +440,9 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         related_name='+',
         help_text='Image representing this product',
     )
-    worst_case = models.TextField(
+    worst_case = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
         help_text="What's the worst thing that could happen by using this product?",
         blank=True,
     )
