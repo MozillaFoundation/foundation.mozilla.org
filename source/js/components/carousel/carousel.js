@@ -13,6 +13,7 @@ class Carousel {
       centeredSlides: false,
       simulateTouch: true,
       slidesPerView: 1,
+      autoHeight: true,
       keyboard: {
         enabled: true,
       },
