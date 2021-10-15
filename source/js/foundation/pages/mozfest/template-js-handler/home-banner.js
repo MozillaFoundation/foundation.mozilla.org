@@ -102,6 +102,21 @@ const trackWatchVideoClicks = () => {
   });
 }
 
+const scrollToVideoHandler = () => {
+  let element = document.getElementById('mozfest-hero-video');
+  let button = document.getElementById('mozfest-hero-video-cta');
+  let headerOffset = 90;
+  let elementPosition = element.getBoundingClientRect().top;
+  let offsetPosition = elementPosition - headerOffset;
+
+  button.addEventListener('click', () => {
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth"
+    });
+  })
+}
+
 
 /**
  * Bind handlers to MozFest homepage banner
@@ -109,4 +124,5 @@ const trackWatchVideoClicks = () => {
 export default () => {
   watchFeaturedVideoHandler();
   backgroundHardcodedVideoHandler();
+  scrollToVideoHandler();
 };

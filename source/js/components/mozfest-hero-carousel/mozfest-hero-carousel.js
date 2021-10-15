@@ -25,6 +25,7 @@ class MozfestHeroCarousel {
       watchSlidesProgress: true,
       autoplay: {
         delay: this.delay,
+        disableOnInteraction: false,
       },
       paginationClickable: false,
       keyboard: {
