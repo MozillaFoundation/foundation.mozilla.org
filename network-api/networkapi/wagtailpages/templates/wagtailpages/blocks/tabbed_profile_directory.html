@@ -3,45 +3,62 @@
 
 {% block block_content %}
   {# Tabs #}
-  <div class="fellowships-directory-filter px-2 mb-5">
-    Filter tabs on {{ value.tabs.filter_key }}
-    {% for option in value.tabs.options.all %}
-    <div class="filter-option">
-      {% comment %}
-        {% if option.enable_subfiltering %}
-          Allow subfilters
-        {% else %}
-          Do not allow subfilters
-        {% endif %}
-      {% endcomment %}
-      <button {% if forloop.first %}class="active"{% endif %}>{{ option.filter_label }}</button>
+  <div data-tabbed-profile-filters-block
+
+  >
+    {# Profile Directory Here #}
+    <div data-tabbed-profile-filters-content
+         data-api-endpoint="{{ api_endpoint }}"
+         data-filter-key="{{ value.tabs.filter_key }}">
     </div>
-    {% endfor %}
+    <div data-pulse-profile-filter-options>
+      {{ tab_options|json_script:"pulse-profile-filter-options" }}
+    </div>
+    {#    {{ value.subfilters|json_script:"pulse-profile-subfilters" }}#}
   </div>
 
+  {#    <div class="fellowships-directory-filter px-2 mb-5">#}
+  {#      Filter tabs on {{ value.tabs.filter_key }}#}
+  {#      {% for option in value.tabs.options.all %}#}
+  {#        <div class="filter-option">#}
+  {#          {% comment %}#}
+  {#            {% if option.enable_subfiltering %}#}
+  {#              Allow subfilters#}
+  {#            {% else %}#}
+  {#              Do not allow subfilters#}
+  {#            {% endif %}#}
+  {#          {% endcomment %}#}
+  {#          <button {% if forloop.first %}class="active"{% endif %}>{{ option.filter_label }}</button>#}
+  {#        </div>#}
+  {#      {% endfor %}#}
+  {#    </div>#}
+
   {# Subfilter/s #}
-  <div>
-    {% for subfilter_block in value.subfilters %}
-    {% with subfilter=subfilter_block.value %}
-    <div>
-      <select name="{{ subfilter.filter_key }}">
-        <option>Filter on {{ subfilter.filter_key_label }}</option>
-        {% for option in subfilter.options.all %}
-        <option value="{{ option.filter_value }}">{{ option.filter_label }}</option>
-        {% endfor %}
-      </select>
-    </div>
-    {% endwith %}
-    {% endfor %}
-  </div>
+  {#    <div>#}
+  {#      {% for subfilter_block in value.subfilters %}#}
+  {#        {% with subfilter=subfilter_block.value %}#}
+  {#          <div>#}
+  {#            <select name="{{ subfilter.filter_key }}">#}
+  {#              <option>Filter on {{ subfilter.filter_key_label }}</option>#}
+  {#              {% for option in subfilter.options.all %}#}
+  {#                <option value="{{ option.filter_value }}">{{ option.filter_label }}</option>#}
+  {#              {% endfor %}#}
+  {#            </select>#}
+  {#          </div>#}
+  {#        {% endwith %}#}
+  {#      {% endfor %}#}
+  {#    </div>#}
 
   {# Profiles #}
   <div class="profile-directory">
+    {# Initial Profile Blocks Rendered by django #}
+    {% include "./profile_blocks.html" %}
+  </div>
+  </div>
 
-  {% include "./profile_blocks.html" %}
 
   {% if filters|length > 0 %}
-  <input type="hidden" data-api-endpoint="{{ api_endpoint }}">
-  <script src="{% static '_js/directory-listing-filters.compiled.js' %}" async defer></script>
+    <input type="hidden" data-api-endpoint="{{ api_endpoint }}">
+    <script src="{% static '_js/directory-listing-filters.compiled.js' %}" async defer></script>
   {% endif %}
 {% endblock %}
