@@ -88,6 +88,7 @@ class Creepometer extends Component {
   }
 
   slideFromClick(e) {
+    this.props.toggleMoved();
     let x = e.clientX;
 
     if (e.touches) {
