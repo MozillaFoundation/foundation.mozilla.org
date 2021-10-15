@@ -18,6 +18,11 @@
       <div class="col-12 col-lg-8 offset-lg-2 intro-text order-2 order-lg-1{% if page.dark_theme %} dark-theme{% endif %}">
         <h1 class="h1-heading text-center mt-0">{{ page.header }}</h1>
         <p class="body-large mb-0">{{ page.intro_text }}</p>
+          <div id="product-filter-search" class='tw-col-8 tw-my-5' tabindex="0">
+            <span class="search-icon">&nbsp;</span>
+            <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search all products" %}" class="body-large" value="">
+            <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
+          </div>
       </div>
       <div class="col-12 col-lg-2 badge-container text-right order-1 order-lg-2">
         <img class="webby-award-badge" src="{% static '_images/buyers-guide/webby-award-badge.svg' %}" alt="{% trans "2020 Webby Award Winner Badge" %}">
@@ -35,11 +40,6 @@
         <div id="sticky-bar" class="creepiness-slider bg-white text-center">
 
           <!-- temporary location for dev work -->
-          <span id="product-filter-search" tabindex="0">
-            <span class="search-icon">&nbsp;</span>
-            <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search all products" %}" class="body-large" value="">
-            <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
-          </span>
 
           <span class="creep-o-meter-information">
             <p class="speech-bubble-container">
