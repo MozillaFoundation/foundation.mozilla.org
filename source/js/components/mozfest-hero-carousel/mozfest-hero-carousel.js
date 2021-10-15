@@ -3,9 +3,7 @@ import Swiper, {A11y, Autoplay, Pagination, Navigation, Keyboard, EffectFade} fr
 Swiper.use([A11y, Autoplay, Pagination, Navigation, Keyboard, EffectFade]);
 
 class MozfestHeroCarousel {
-  static selector() {
-    return "[data-mozfest-hero-carousel]";
-  }
+  static selector = "[data-mozfest-hero-carousel]";
 
   constructor(node) {
     this.node = node;
@@ -75,7 +73,7 @@ class MozfestHeroCarousel {
 const MozfestHeroCarousels = {
   init: function () {
     for (const carousel of document.querySelectorAll(
-      MozfestHeroCarousel.selector()
+      MozfestHeroCarousel.selector
     )) {
       new MozfestHeroCarousel(carousel);
     }
