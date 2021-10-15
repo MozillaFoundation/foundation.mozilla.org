@@ -9,6 +9,10 @@
       }
     }
   }
+  &:disabled {
+    box-shadow: none !important;
+    transition: all 0.08s ease;
+  }
 }
 
 .creep-vote {
