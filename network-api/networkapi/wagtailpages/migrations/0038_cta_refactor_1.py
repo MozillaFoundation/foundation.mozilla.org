@@ -20,7 +20,7 @@ def copy_cta_to_petition_cta(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0036_blogpagecategory_title'),
+        ('wagtailpages', '0037_auto_20211013_1538'),
     ]
 
     operations = [

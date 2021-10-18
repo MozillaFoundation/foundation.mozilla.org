@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailcore', '0062_comment_models_and_pagesubscription'),
-        ('wagtailpages', '0040_cta_refactor_4'),
+        ('wagtailpages', '0041_cta_refactor_4'),
     ]
 
     operations = [
