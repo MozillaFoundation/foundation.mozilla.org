@@ -83,7 +83,7 @@ django-modelcluster==5.1
     # via wagtail
 django-redis==5.0.0
     # via -r requirements.in
-django-storages==1.11.1
+django-storages==1.12.2
     # via -r requirements.in
 django-taggit==1.5.1
     # via wagtail
@@ -246,7 +246,7 @@ wagtail-airtable==0.2.1
     # via -r requirements.in
 wagtail-factories==2.0.1
     # via -r requirements.in
-git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
+wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
     # via -r requirements.in
 wagtail-inventory==1.3
     # via -r requirements.in
