@@ -1,8 +1,8 @@
-{% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags static %}
 
-{% block block_content %}
-  {# Tabs #}
+{# Tabs #}
+<div class="tw-container">
+
   <div data-tabbed-profile-filters-block
 
   >
@@ -50,15 +50,13 @@
   {#    </div>#}
 
   {# Profiles #}
-  <div class="profile-directory">
     {# Initial Profile Blocks Rendered by django #}
     {% include "./profile_blocks.html" %}
-  </div>
-  </div>
 
 
   {% if filters|length > 0 %}
     <input type="hidden" data-api-endpoint="{{ api_endpoint }}">
     <script src="{% static '_js/directory-listing-filters.compiled.js' %}" async defer></script>
   {% endif %}
-{% endblock %}
+
+</div>
