@@ -185,5 +185,6 @@ class TabbedProfileDirectory(blocks.StructBlock):
         context['program_year'] = value['year']
         context['api_endpoint'] = f"{pulse_api}/api/pulse/v2/profiles/?ordering=custom_name&is_active=true&format=json"
         context['tab_options'] = serializers.serialize('json', value['tabs'].options.all())
+        context['subfilters'] = serializers.serialize('json', value['subfilters'])
 
         return context

@@ -14,8 +14,8 @@
     <div data-pulse-profile-filter-options>
       {{ tab_options|json_script:"pulse-profile-filter-options" }}
     </div>
-    {#    {{ value.subfilters|json_script:"pulse-profile-subfilters" }}#}
   </div>
+  {{ subfilters|json_script:"pulse-profile-subfilters" }}
 
   {#    <div class="fellowships-directory-filter px-2 mb-5">#}
   {#      Filter tabs on {{ value.tabs.filter_key }}#}
