@@ -115,10 +115,20 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
     when necessary.
     """
     name = models.CharField(max_length=100)
+
     description = models.TextField(
         max_length=300,
         help_text='Description of the product category. Max. 300 characters.',
         blank=True
+    )
+
+    parent = models.ForeignKey(
+        'wagtailpages.BuyersGuideProductCategory',
+        related_name='+',
+        blank=False,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='Leave this blank for a top-level category, or pick another category to nest this under'
     )
 
     featured = models.BooleanField(
@@ -154,12 +164,30 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
         SynchronizedField('slug'),
     ]
 
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('description'),
+        SnippetChooserPanel('parent'),
+        FieldPanel('featured'),
+        FieldPanel('hidden'),
+        FieldPanel('sort_order'),
+        FieldPanel('og_image'),  # We really want to migrate this to a normal wagtail image!
+    ]
+
     @property
     def published_product_page_count(self):
         return ProductPage.objects.filter(product_categories__category=self).live().count()
 
+    def get_parent(self):
+        return self.parent
+
+    def get_children(self):
+        return BuyersGuideProductCategory.objects.filter(parent=self)
+
     def __str__(self):
-        return self.name
+        if self.parent is None:
+            return self.name
+        return f'{self.parent.name}: {self.name}'
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -168,7 +196,7 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
     class Meta(TranslatableMixin.Meta):
         verbose_name = "Buyers Guide Product Category"
         verbose_name_plural = "Buyers Guide Product Categories"
-        ordering = ['sort_order', 'name', ]
+        ordering = ['sort_order', '-parent__name', 'name', ]
 
 
 class ProductPageVotes(models.Model):
