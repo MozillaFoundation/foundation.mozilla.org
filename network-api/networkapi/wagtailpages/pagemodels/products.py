@@ -171,7 +171,7 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
         FieldPanel('featured'),
         FieldPanel('hidden'),
         FieldPanel('sort_order'),
-        FieldPanel('og_image'),  # We really want to migrate this to a normal wagtail image!
+        FieldPanel('og_image'),  # FIXME: we really need to migrate this to a normal wagtail image.
     ]
 
     @property
