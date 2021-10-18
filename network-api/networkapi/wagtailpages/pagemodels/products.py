@@ -125,7 +125,7 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
     parent = models.ForeignKey(
         'wagtailpages.BuyersGuideProductCategory',
         related_name='+',
-        blank=False,
+        blank=True,
         null=True,
         on_delete=models.SET_NULL,
         help_text='Leave this blank for a top-level category, or pick another category to nest this under'
