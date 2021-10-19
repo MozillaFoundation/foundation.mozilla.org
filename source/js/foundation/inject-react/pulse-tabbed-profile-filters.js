@@ -17,12 +17,23 @@ export default (apps) => {
     const contentArea = target.querySelector(
       "[data-tabbed-profile-filters-content]"
     );
-    const filterOptions = JSON.parse(
-      target.querySelector(
-        "[data-pulse-profile-filter-options] #pulse-profile-filter-options"
-      ).textContent
-    );
-    // const subFilters = JSON.parse(document.getElementById('pulse-profile-subfilters').textContent)
+
+    let profiles;
+    let filterOptions;
+    let subFilters;
+    try {
+      profiles = JSON.parse(
+        target.querySelector("#pulse-profiles").textContent
+      );
+      filterOptions = JSON.parse(
+        target.querySelector("#pulse-profile-filter-options").textContent
+      );
+      subFilters = JSON.parse(
+        target.getElementById("pulse-profile-subfilters").textContent
+      );
+    } catch (err) {
+      console.error(err);
+    }
 
     apps.push(
       new Promise((resolve) => {
@@ -31,7 +42,9 @@ export default (apps) => {
             apiEndPoint={contentArea.dataset.apiEndpoint}
             filterKey={contentArea.dataset.filterKey}
             filterOptions={filterOptions}
+            subFilters={subFilters}
             whenLoaded={() => resolve}
+            profiles={profiles}
             // subFilters={subFilters}
           />,
           target
