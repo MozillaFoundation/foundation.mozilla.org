@@ -347,7 +347,7 @@ class BanneredCampaignPage(PrimaryPage):
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
-        return get_page_tree_information(self, context)
+        return context
 
     class Meta:
         verbose_name = "Banner Page"
