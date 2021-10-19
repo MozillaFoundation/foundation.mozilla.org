@@ -10,7 +10,7 @@ module.exports = {
   important: true,
   corePlugins: {
     // overriding TW default container
-    container: false
+    container: false,
   },
   plugins: [
     plugin(function ({ addUtilities }) {
@@ -27,7 +27,14 @@ module.exports = {
         },
         ".hash": {
           content: "\"#\"",
-        }
+        },
+        ".no-scrollbar::-webkit-scrollbar": {
+          display: "none",
+        },
+        ".no-scrollbar": {
+          "-ms-overflow-style": "none" /* IE and Edge */,
+          "scrollbar-width": "none" /* Firefox */,
+        },
       };
       addUtilities(newUtilities);
     }),
