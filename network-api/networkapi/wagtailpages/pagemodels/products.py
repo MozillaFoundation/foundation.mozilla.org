@@ -37,7 +37,6 @@ from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import insert_panels_after, get_locale_from_request
 
 # TODO: Move this util function
-from networkapi.buyersguide.utils import get_category_og_image_upload_path
 from .mixin.snippets import LocalizedSnippet
 from networkapi.wagtailpages.utils import get_language_from_request
 
@@ -141,17 +140,29 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
         help_text='Sort ordering number. Same-numbered items sort alphabetically'
     )
 
-    og_image = models.FileField(
-        max_length=2048,
-        help_text='Image to use as OG image',
-        upload_to=get_category_og_image_upload_path,
+    share_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
         blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name='Share Image',
+        help_text='Optional image that will apear when category page is shared.',
     )
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('description'),
+        FieldPanel('featured'),
+        FieldPanel('hidden'),
+        FieldPanel('sort_order'),
+        ImageChooserPanel('share_image'),
+    ]
 
     translatable_fields = [
         TranslatableField('name'),
         TranslatableField('description'),
         SynchronizedField('slug'),
+        SynchronizedField('share_image'),
     ]
 
     @property
@@ -1603,6 +1614,12 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['pageTitle'] = f'{category.localized.name} | {gettext("Privacy & security guide")}'\
                                f' | Mozilla Foundation'
         context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'
+
+        # Checking if category has custom metadata, if so, update the share image and description.
+        if category.share_image:
+            setattr(self, 'search_image_id', category.localized.share_image_id)
+        if category.description:
+            setattr(self, 'search_description', category.localized.description)
 
         return render(request, "buyersguide/category_page.html", context)
 
