@@ -3,8 +3,6 @@ import Swiper, {A11y, Autoplay, Pagination, Navigation, Keyboard} from 'swiper';
 Swiper.use([A11y, Autoplay, Pagination, Navigation, Keyboard]);
 
 class Carousel {
-  static selector = "[data-carousel]";
-
   constructor(node) {
     this.node = node;
     this.swiper = new Swiper(this.node, {
@@ -39,7 +37,7 @@ class Carousel {
 
 const MozfestCarousels = {
   init: function () {
-    for (const carousel of document.querySelectorAll(Carousel.selector)) {
+    for (const carousel of document.querySelectorAll("[data-carousel]")) {
       new Carousel(carousel);
     }
   },
