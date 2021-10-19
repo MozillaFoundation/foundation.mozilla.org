@@ -84,7 +84,8 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
 
     structured_data = models.TextField(
         max_length=1000,
-        help_text='Structured data JSON for Google search results. Do not include the <script> tag, see https://schema.org/ for properties and https://validator.schema.org/ to test validity',
+        help_text='Structured data JSON for Google search results. Do not include the <script> tag. '
+                  'See https://schema.org/ for properties and https://validator.schema.org/ to test validity.',
         blank=True,
         null=True,
     )
