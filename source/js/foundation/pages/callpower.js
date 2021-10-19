@@ -111,7 +111,7 @@
    */
   function processError(_err, status = 500) {
     try {
-      // is this is our error, packed as JSON string?
+      // is this our error, packed as JSON string?
       const data = JSON.parse(error);
       status = parseInt(data.status);
     } catch (e) {
@@ -169,20 +169,6 @@
       });
 
       callButton.removeAttribute(`disabled`);
-
-      // DEBUG BUTTONS - REMOVE BEFORE MERGE:
-      document
-        .querySelector(`button.test-toggle-ty`)
-        .addEventListener(`click`, () => showSuccess());
-      document
-        .querySelector(`button.test-toggle-bad`)
-        .addEventListener(`click`, () => showError(400));
-      document
-        .querySelector(`button.test-toggle-limit`)
-        .addEventListener(`click`, () => showError(429));
-      document
-        .querySelector(`button.test-toggle-err`)
-        .addEventListener(`click`, () => showError(500));
     },
   };
 })().init();
