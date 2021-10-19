@@ -154,7 +154,6 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
         FieldPanel('description'),
         FieldPanel('featured'),
         FieldPanel('hidden'),
-        FieldPanel('slug'),
         FieldPanel('sort_order'),
         ImageChooserPanel('share_image'),
     ]
