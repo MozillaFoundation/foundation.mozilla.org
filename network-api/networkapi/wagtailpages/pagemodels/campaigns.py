@@ -17,10 +17,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from .modular import MiniSiteNameSpace
 from .primary import PrimaryPage
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
-from ..utils import (
-    get_page_tree_information,
-    get_content_related_by_tag
-)
+from ..utils import get_content_related_by_tag
 
 
 class CTA(models.Model):
