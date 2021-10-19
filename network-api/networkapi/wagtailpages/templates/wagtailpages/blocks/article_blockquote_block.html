@@ -3,6 +3,6 @@
 
 {% block block_content %}
   <div class="article-blockquote-block mx-auto my-4 {% if self|length > 230 %}article-blockquote-block--small{% endif %}">
-    {{ self }}
+    {{ self | richtext }}
   </div>
 {% endblock %}

@@ -7,7 +7,7 @@
     {% comment %} Next task for this component is to handle multiple quotes. For now, let's use just the first {% endcomment %}
     {% if forloop.counter is 1 %}
     <div class="feature-quote">
-      <h3>{{quote.quote}}</h3>
+      {{ quote.quote|richtext }}
       <p class="h6-heading">{{quote.attribution}}</p>
     </div>
     {% endif %}
