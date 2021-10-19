@@ -12,10 +12,10 @@
       {# Tabbed Profile Directory React Component #}
       <div data-tabbed-profile-filters-content
            data-api-endpoint="{{ api_endpoint }}"
-           data-filter-key="{{ value.tabs.filter_key }}">
+           data-filter-key="{{ value.tabs.filter_key }}"
+           data-subfilters-label="{{ subfilters_label }}">
       </div>
     </div>
-
     {#    <div class="fellowships-directory-filter px-2 mb-5">#}
     {#      Filter tabs on {{ value.tabs.filter_key }}#}
     {#      {% for option in value.tabs.options.all %}#}

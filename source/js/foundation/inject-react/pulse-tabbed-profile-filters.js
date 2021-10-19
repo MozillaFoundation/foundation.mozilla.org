@@ -17,7 +17,6 @@ export default (apps) => {
     const contentArea = target.querySelector(
       "[data-tabbed-profile-filters-content]"
     );
-
     let profiles;
     let filterOptions;
     let subFilters;
@@ -29,7 +28,7 @@ export default (apps) => {
         target.querySelector("#pulse-profile-filter-options").textContent
       );
       subFilters = JSON.parse(
-        target.getElementById("pulse-profile-subfilters").textContent
+        target.querySelector("#pulse-profile-subfilters").textContent
       );
     } catch (err) {
       console.error(err);
@@ -43,6 +42,7 @@ export default (apps) => {
             filterKey={contentArea.dataset.filterKey}
             filterOptions={filterOptions}
             subFilters={subFilters}
+            subfiltersLabel={contentArea.dataset.subfiltersLabel}
             whenLoaded={() => resolve}
             profiles={profiles}
             // subFilters={subFilters}

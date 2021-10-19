@@ -1,22 +1,31 @@
 import React, {useEffect, useState, useRef} from "react";
 import PulseProfile from "../pulse-profile/pulse-profile";
 import LoadingSpinner from "./loading-spinner";
-import { getText } from "./locales";
+import {getText} from "./locales";
 
 const TabbedProfileFilters = ({
                                 apiEndPoint,
                                 filterKey,
                                 filterOptions,
                                 subFilters,
+                                subfiltersLabel,
                                 whenLoaded,
                                 profiles,
                               }) => {
+
   const filterOptionsList = JSON.parse(filterOptions).map(
     (filterOption) => filterOption.fields
+  );
+  const subfilterOptionsList = JSON.parse(subFilters).map(
+    (option) => option.fields
   );
   const [filteredProfiles, setFilteredProfiles] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentFilterValue, setCurrentFilterValue] = useState(null);
+  const [showSubfilters, setShowSubfilters] = useState(false);
+  const [subFiltersExpanded, setSubFiltersExpanded] = useState(false);
+  const subFiltersDropdown = useRef();
+
 
   // Component is loaded
   useEffect(() => {
@@ -39,10 +48,7 @@ const TabbedProfileFilters = ({
 
   }, []);
 
-  /**
-   * After initial page load, the filter buttons are responsible for
-   * fetching results "per filter entry".
-   */
+  // Fetch data based on filter value
   const getData = (filterValue) => {
     if (!filterKey || !filterValue) {
       return;
@@ -102,8 +108,30 @@ const TabbedProfileFilters = ({
     return false;
   }
 
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!subFiltersDropdown.current.contains(event.target)) {
+        setSubFiltersExpanded(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+  }, [subFiltersDropdown]);
+
+  // Close subFilters with escape
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === 'Escape') {
+        setSubFiltersExpanded(false);
+      }
+    })
+  }, [])
+
+
   return (
     <div>
+
       <div className="my-2">
         <nav
           aria-label="Profile Filters"
@@ -115,7 +143,10 @@ const TabbedProfileFilters = ({
                 className={`multipage-link ${
                   isActiveButton(filter, index) ? "active" : ""
                 }`}
-                onClick={(e) => filterProfiles(filter.filter_value, e.target)}
+                onClick={() => {
+                  filterProfiles(filter.filter_value);
+                  setShowSubfilters(filter.enable_subfiltering);
+                }}
                 key={filter.filter_value}
               >
                 {filter.filter_label}
@@ -124,6 +155,41 @@ const TabbedProfileFilters = ({
           </div>
         </nav>
       </div>
+
+      {!loading && filteredProfiles.length > 0 && subfilterOptionsList &&
+      (<div className="tw-w-max tw-mb-6 tw-relative" ref={subFiltersDropdown}>
+          {subfiltersLabel &&
+          <button
+            id="subfilters-dropdown"
+            onClick={() => setSubFiltersExpanded(!subFiltersExpanded)}
+            className="tw-font-normal tw-text-[15px] tw-p-3 tw-flex tw-flex-row tw-justify-between tw-items-center tw-border tw-border-gray-20"
+            aria-expanded={subFiltersExpanded}
+            aria-haspopup="listbox">
+            <span>Filter By {subfiltersLabel}</span>
+            <img className={`tw-w-4 tw-h-4 tw-ml-2 ${subFiltersExpanded ? 'tw-rotate-180' : ''}`} src="/static/_images/glyphs/down-chevron.svg" alt=""/>
+          </button>}
+          {subFiltersExpanded &&
+          <div role="listbox"
+               tabindex="-1"
+               className="tw-p-3 tw-pt-0 tw-absolute tw-top-[40px] tw-bg-white tw-w-full tw-z-10 tw-border-r tw-border-b tw-border-l tw-border-gray-20 tw-border-t-0"
+               aria-labelledby="subfilters-dropdown">
+            {subfilterOptionsList.map((option) => (
+              <div className="tw-pl-5" key={`${option.filter_value}-checkbox`}>
+                <label className="form-check-label">
+                  <input
+                    className="form-check-input tw-mt-1"
+                    type="checkbox"
+                    checked={option.isChecked}
+                    value={option.filter_value}
+                  />
+                  <div>{option.filter_label}</div>
+                </label>
+              </div>
+            ))}
+          </div>
+          }
+        </div>
+      )}
 
       <div>
         {/* Loading */}

@@ -2,7 +2,7 @@ import React from "react";
 
 const PulseProfile = ({ profile }) => {
   return (
-    <div className="tw-grid tw-grid-cols-4 large:tw-grid-cols-5 tw-gap-x-3 tw-gap-y-2 tw-border-t tw-border-black">
+    <div className="tw-grid tw-grid-cols-4  tw-gap-x-3 tw-gap-y-2 tw-border-t tw-border-black">
       {/* Image */}
       <a
         href={`https://www.mozillapulse.org/profile/${profile.profile_id}`}
@@ -20,7 +20,7 @@ const PulseProfile = ({ profile }) => {
       </a>
 
       {/* Right card  */}
-      <div className="tw-col-start-2 tw-col-span-3 large:tw-col-span-4 tw-flex tw-flex-col">
+      <div className="tw-col-start-2 tw-col-span-3 tw-flex tw-flex-col">
 
         {/* Card top */}
         <div className="tw-flex tw-flex-row tw-justify-between tw-items-center tw-mt-2">
