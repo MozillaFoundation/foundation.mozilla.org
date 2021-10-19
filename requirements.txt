@@ -258,7 +258,7 @@ wagtail-localize-git==0.10.0
     # via -r requirements.in
 wagtail-metadata==3.4.0
     # via -r requirements.in
-wagtailmedia==0.7.1
+wagtailmedia==0.8.0
     # via -r requirements.in
 webencodings==0.5.1
     # via html5lib
