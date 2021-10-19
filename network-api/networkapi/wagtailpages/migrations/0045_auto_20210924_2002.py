@@ -8,7 +8,7 @@ import networkapi.wagtailpages.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0037_productpage_mozilla_says'),
+        ('wagtailpages', '0044_productpage_mozilla_says'),
     ]
 
     operations = [

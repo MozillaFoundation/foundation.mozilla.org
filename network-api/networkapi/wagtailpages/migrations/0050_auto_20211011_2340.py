@@ -7,7 +7,7 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0042_productpage_tips_to_protect_yourself'),
+        ('wagtailpages', '0049_productpage_tips_to_protect_yourself'),
     ]
 
     operations = [
