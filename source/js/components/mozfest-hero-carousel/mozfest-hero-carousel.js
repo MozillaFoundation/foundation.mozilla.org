@@ -1,10 +1,15 @@
-import Swiper, {A11y, Autoplay, Pagination, Navigation, Keyboard, EffectFade} from 'swiper';
+import Swiper, {
+  A11y,
+  Autoplay,
+  Pagination,
+  Navigation,
+  Keyboard,
+  EffectFade,
+} from "swiper";
 
 Swiper.use([A11y, Autoplay, Pagination, Navigation, Keyboard, EffectFade]);
 
 class MozfestHeroCarousel {
-  static selector = "[data-mozfest-hero-carousel]";
-
   constructor(node) {
     this.node = node;
     this.delay = 10000;
@@ -66,14 +71,14 @@ class MozfestHeroCarousel {
       if (event.swipeDirection === "prev") {
         this.backGroundImagesSwiper.slidePrev();
       }
-    })
+    });
   }
 }
 
 const MozfestHeroCarousels = {
   init: function () {
     for (const carousel of document.querySelectorAll(
-      MozfestHeroCarousel.selector
+      "[data-mozfest-hero-carousel]"
     )) {
       new MozfestHeroCarousel(carousel);
     }
