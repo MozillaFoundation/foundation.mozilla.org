@@ -111,7 +111,7 @@
    */
   function processError(_err, status = 500) {
     try {
-      // is this is our error, packed as JSON string?
+      // is this our error, packed as JSON string?
       const data = JSON.parse(error);
       status = parseInt(data.status);
     } catch (e) {
