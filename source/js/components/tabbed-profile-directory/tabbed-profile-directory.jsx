@@ -26,7 +26,7 @@ const TabbedProfileFilters = ({
 
   const [selectedSubfilters, setSelectedSubfilters] = useState({});
   const [showAllSubFilteredItems, setShowAllSubFilteredItems] = useState(null);
-  const [showSubfilters, setShowSubfilters] = useState(false);
+  const [enableSubfiltering, setEnableSubFiltering] = useState(false);
   const [subFiltersExpanded, setSubFiltersExpanded] = useState(false);
   const subFiltersDropdown = useRef();
 
@@ -36,8 +36,16 @@ const TabbedProfileFilters = ({
     whenLoaded();
     setLoading(false);
 
+    // Set initial filtered profiles from django
     if (profiles) {
       setFilteredProfiles(profiles);
+    }
+
+    // Initial profiles are the first tab so grab the subfiltering option for the first tab
+    if (filterOptionsList) {
+      if (filterOptionsList[0].enable_subfiltering === true) {
+        setEnableSubFiltering(true);
+      }
     }
   }, []);
 
@@ -141,14 +149,14 @@ const TabbedProfileFilters = ({
   };
 
   useEffect(() => {
-    // Get true subfilters
-    let subFilters = Object.keys(selectedSubfilters).filter(
+    // Get array of subfilters
+    let subfilters = Object.keys(selectedSubfilters).filter(
       (key) => selectedSubfilters[key]
     );
     // filter profiles based on subfilter key
     if (filteredProfiles) {
       let subfiltered = filteredProfiles.filter((profile) => {
-        if (subFilters.includes(profile[subfiltersKey])) {
+        if (subfilters.includes(profile[subfiltersKey])) {
           return profile;
         }
       });
@@ -179,7 +187,7 @@ const TabbedProfileFilters = ({
                 }`}
                 onClick={() => {
                   filterProfiles(filter.filter_value);
-                  setShowSubfilters(filter.enable_subfiltering);
+                  setEnableSubFiltering(filter.enable_subfiltering);
                 }}
                 key={filter.filter_value}
               >
@@ -190,75 +198,83 @@ const TabbedProfileFilters = ({
         </nav>
       </div>
 
-      {!loading && filteredProfiles.length > 0 && subfilterOptionsList && (
-        <div className="tw-w-max tw-mb-6 tw-relative" ref={subFiltersDropdown}>
-          {subfiltersLabel && (
-            <button
-              id="subfilters-dropdown"
-              onClick={() => setSubFiltersExpanded(!subFiltersExpanded)}
-              className="tw-font-normal tw-text-[15px] tw-p-3 tw-flex tw-flex-row tw-justify-between tw-items-center tw-border tw-border-gray-20"
-              aria-expanded={subFiltersExpanded}
-              aria-haspopup="listbox"
-            >
-              <span>Filter By {subfiltersLabel}</span>
-              <img
-                className={`tw-w-4 tw-h-4 tw-ml-2 ${
-                  subFiltersExpanded ? "tw-rotate-180" : ""
-                }`}
-                src="/static/_images/glyphs/down-chevron.svg"
-                alt=""
-              />
-            </button>
-          )}
-          {subFiltersExpanded && (
-            <div
-              role="listbox"
-              tabIndex="-1"
-              className="tw-p-3 tw-pt-0 tw-absolute tw-top-[40px] tw-bg-white tw-w-full tw-z-10 tw-border-r tw-border-b tw-border-l tw-border-gray-20 tw-border-t-0"
-              aria-labelledby="subfilters-dropdown"
-            >
-              {/*Show all*/}
-              <div className="tw-pl-5" key={`show-all-subfilters-checkbox`}>
-                <label className="form-check-label">
-                  <input
-                    className="form-check-input tw-mt-1"
-                    type="checkbox"
-                    checked={showAllSubFilteredItems}
-                    value={getText("Show All")}
-                    onChange={handleSelectAllSubfilter}
-                  />
-                  <div>{getText("Show All")}</div>
-                </label>
-              </div>
-              {subfilterOptionsList.map((option) => (
-                <div
-                  className="tw-pl-5"
-                  key={`${option.filter_value}-checkbox`}
-                >
+      {enableSubfiltering &&
+        !loading &&
+        filteredProfiles.length > 0 &&
+        subfilterOptionsList && (
+          <div
+            className="tw-w-max tw-mb-6 tw-relative"
+            ref={subFiltersDropdown}
+          >
+            {subfiltersLabel && (
+              <button
+                id="subfilters-dropdown"
+                onClick={() => setSubFiltersExpanded(!subFiltersExpanded)}
+                className="tw-font-normal tw-text-[15px] tw-p-3 tw-flex tw-flex-row tw-justify-between tw-items-center tw-border tw-border-gray-20"
+                aria-expanded={subFiltersExpanded}
+                aria-haspopup="listbox"
+              >
+                <span>Filter By {subfiltersLabel}</span>
+                <img
+                  className={`tw-w-4 tw-h-4 tw-ml-2 ${
+                    subFiltersExpanded ? "tw-rotate-180" : ""
+                  }`}
+                  src="/static/_images/glyphs/down-chevron.svg"
+                  alt=""
+                />
+              </button>
+            )}
+            {subFiltersExpanded && (
+              <div
+                role="listbox"
+                tabIndex="-1"
+                className="tw-p-3 tw-pt-0 tw-absolute tw-top-[40px] tw-bg-white tw-w-full tw-z-10 tw-border-r tw-border-b tw-border-l tw-border-gray-20 tw-border-t-0"
+                aria-labelledby="subfilters-dropdown"
+              >
+                {/*Show all*/}
+                <div className="tw-pl-5" key={`show-all-subfilters-checkbox`}>
                   <label className="form-check-label">
                     <input
                       className="form-check-input tw-mt-1"
                       type="checkbox"
-                      name={option.filter_value}
-                      checked={selectedSubfilters[option.filter_value]}
-                      value={option.filter_value}
-                      onChange={(e) => {
-                        handleSelectSubfilter(e);
-                      }}
+                      name="show-all"
+                      checked={showAllSubFilteredItems}
+                      value={getText("Show All")}
+                      onChange={handleSelectAllSubfilter}
                     />
-                    <div>{option.filter_label}</div>
+                    <div>{getText("Show All")}</div>
                   </label>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+                {subfilterOptionsList.map((option) => (
+                  <div
+                    className="tw-pl-5"
+                    key={`${option.filter_value}-checkbox`}
+                  >
+                    <label className="form-check-label">
+                      <input
+                        className="form-check-input tw-mt-1"
+                        type="checkbox"
+                        name={option.filter_value}
+                        checked={
+                          selectedSubfilters[option.filter_value] || false
+                        }
+                        value={option.filter_value}
+                        onChange={(e) => {
+                          handleSelectSubfilter(e);
+                        }}
+                      />
+                      <div>{option.filter_label}</div>
+                    </label>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
       <div>
         {/* Loading */}
         {loading && <LoadingSpinner />}
-
         {/*If profiles are filtered with the subfilter show them instead*/}
         {subFilteredProfiles.length > 0 && (
           <div className="tw-grid large:tw-grid-cols-2 tw-mb-5 w-full tw-gap-6">
@@ -267,7 +283,6 @@ const TabbedProfileFilters = ({
             ))}
           </div>
         )}
-
         {/* Done loading and profiles exist */}
         {!loading &&
           filteredProfiles.length > 1 &&
@@ -278,7 +293,6 @@ const TabbedProfileFilters = ({
               ))}
             </div>
           )}
-
         {/* No Profiles from fetch */}
         {filteredProfiles && filteredProfiles.length < 1 && !loading && (
           <div>
