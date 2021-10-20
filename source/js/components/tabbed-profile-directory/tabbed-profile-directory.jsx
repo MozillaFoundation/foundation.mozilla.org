@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import PulseProfile from "../pulse-profile/pulse-profile";
 import LoadingSpinner from "./loading-spinner";
 import { getText } from "./locales";
+import SubfilterDropdown from "./subfilter-dropdown";
+import FiltersNav from "./filters-nav";
 
 const TabbedProfileFilters = ({
   apiEndPoint,
@@ -19,16 +21,13 @@ const TabbedProfileFilters = ({
   const subfilterOptionsList = JSON.parse(subFilters).map((option) => ({
     ...option.fields,
   }));
-  const [filteredProfiles, setFilteredProfiles] = useState(null);
-  const [subFilteredProfiles, setSubFilteredProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filteredProfiles, setFilteredProfiles] = useState([]);
   const [currentFilterValue, setCurrentFilterValue] = useState(null);
-
+  const [subFilteredProfiles, setSubFilteredProfiles] = useState([]);
   const [selectedSubfilters, setSelectedSubfilters] = useState({});
   const [showAllSubFilteredItems, setShowAllSubFilteredItems] = useState(null);
   const [enableSubfiltering, setEnableSubFiltering] = useState(false);
-  const [subFiltersExpanded, setSubFiltersExpanded] = useState(false);
-  const subFiltersDropdown = useRef();
 
   // Component is loaded
   useEffect(() => {
@@ -85,6 +84,11 @@ const TabbedProfileFilters = ({
     // Hold current filter value
     setCurrentFilterValue(filterValue);
 
+    // Empty Filtered and Subfiltered items
+    setFilteredProfiles([]);
+    setSubFilteredProfiles([]);
+    setSelectedSubfilters({});
+
     // Retrieve api data
     const data = await getData(filterValue);
 
@@ -95,37 +99,6 @@ const TabbedProfileFilters = ({
 
     document.dispatchEvent(new CustomEvent("profiles:list-updated"));
   };
-
-  const isActiveButton = (filter, buttonIndex) => {
-    // If current filter value is selected
-    if (currentFilterValue === filter.filter_value) {
-      return true;
-    }
-    // Select first button when there is no filter value.
-    if (!currentFilterValue && buttonIndex === 0) {
-      return true;
-    }
-    return false;
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!subFiltersDropdown.current.contains(event.target)) {
-        setSubFiltersExpanded(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-  }, [subFiltersDropdown]);
-
-  // Close subFilters with escape
-  useEffect(() => {
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        setSubFiltersExpanded(false);
-      }
-    });
-  }, []);
 
   const handleSelectSubfilter = (event) => {
     setSelectedSubfilters({
@@ -174,107 +147,34 @@ const TabbedProfileFilters = ({
 
   return (
     <div>
-      <div className="my-2">
-        <nav
-          aria-label="Profile Filters"
-          className="tw-flex-row tw-mb-6 tw-w-full tw-flex"
-        >
-          <div className="tw-w-full" id="multipage-nav">
-            {filterOptionsList.map((filter, index) => (
-              <button
-                className={`multipage-link ${
-                  isActiveButton(filter, index) ? "active" : ""
-                }`}
-                onClick={() => {
-                  filterProfiles(filter.filter_value);
-                  setEnableSubFiltering(filter.enable_subfiltering);
-                }}
-                key={filter.filter_value}
-              >
-                {filter.filter_label}
-              </button>
-            ))}
-          </div>
-        </nav>
-      </div>
+      <FiltersNav
+        filters={filterOptionsList}
+        currentFilterValue={currentFilterValue}
+        onFilterClick={(filter) => {
+          filterProfiles(filter.filter_value);
+          setEnableSubFiltering(filter.enable_subfiltering);
+        }}
+      />
 
       {enableSubfiltering &&
         !loading &&
         filteredProfiles.length > 0 &&
         subfilterOptionsList && (
-          <div
-            className="tw-w-max tw-mb-6 tw-relative"
-            ref={subFiltersDropdown}
-          >
-            {subfiltersLabel && (
-              <button
-                id="subfilters-dropdown"
-                onClick={() => setSubFiltersExpanded(!subFiltersExpanded)}
-                className="tw-font-normal tw-text-[15px] tw-p-3 tw-flex tw-flex-row tw-justify-between tw-items-center tw-border tw-border-gray-20"
-                aria-expanded={subFiltersExpanded}
-                aria-haspopup="listbox"
-              >
-                <span>Filter By {subfiltersLabel}</span>
-                <img
-                  className={`tw-w-4 tw-h-4 tw-ml-2 ${
-                    subFiltersExpanded ? "tw-rotate-180" : ""
-                  }`}
-                  src="/static/_images/glyphs/down-chevron.svg"
-                  alt=""
-                />
-              </button>
-            )}
-            {subFiltersExpanded && (
-              <div
-                role="listbox"
-                tabIndex="-1"
-                className="tw-p-3 tw-pt-0 tw-absolute tw-top-[40px] tw-bg-white tw-w-full tw-z-10 tw-border-r tw-border-b tw-border-l tw-border-gray-20 tw-border-t-0"
-                aria-labelledby="subfilters-dropdown"
-              >
-                {/*Show all*/}
-                <div className="tw-pl-5" key={`show-all-subfilters-checkbox`}>
-                  <label className="form-check-label">
-                    <input
-                      className="form-check-input tw-mt-1"
-                      type="checkbox"
-                      name="show-all"
-                      checked={showAllSubFilteredItems}
-                      value={getText("Show All")}
-                      onChange={handleSelectAllSubfilter}
-                    />
-                    <div>{getText("Show All")}</div>
-                  </label>
-                </div>
-                {subfilterOptionsList.map((option) => (
-                  <div
-                    className="tw-pl-5"
-                    key={`${option.filter_value}-checkbox`}
-                  >
-                    <label className="form-check-label">
-                      <input
-                        className="form-check-input tw-mt-1"
-                        type="checkbox"
-                        name={option.filter_value}
-                        checked={
-                          selectedSubfilters[option.filter_value] || false
-                        }
-                        value={option.filter_value}
-                        onChange={(e) => {
-                          handleSelectSubfilter(e);
-                        }}
-                      />
-                      <div>{option.filter_label}</div>
-                    </label>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          <SubfilterDropdown
+            label={subfiltersLabel}
+            showAll={showAllSubFilteredItems}
+            onChangeShowAll={(e) => handleSelectAllSubfilter(e)}
+            onChangeSubfilter={(e) => handleSelectSubfilter(e)}
+            subfilters={subfilterOptionsList}
+            selectedFilters={selectedSubfilters}
+          />
         )}
 
+      {/* Cards Block */}
       <div>
         {/* Loading */}
         {loading && <LoadingSpinner />}
+
         {/*If profiles are filtered with the subfilter show them instead*/}
         {subFilteredProfiles.length > 0 && (
           <div className="tw-grid large:tw-grid-cols-2 tw-mb-5 w-full tw-gap-6">
@@ -283,6 +183,7 @@ const TabbedProfileFilters = ({
             ))}
           </div>
         )}
+
         {/* Done loading and profiles exist */}
         {!loading &&
           filteredProfiles.length > 1 &&
@@ -293,6 +194,7 @@ const TabbedProfileFilters = ({
               ))}
             </div>
           )}
+
         {/* No Profiles from fetch */}
         {filteredProfiles && filteredProfiles.length < 1 && !loading && (
           <div>
