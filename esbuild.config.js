@@ -22,6 +22,7 @@ const outDir = `./network-api/networkapi/frontend/_js/`;
 const sources = {
   main: `main.js`,
   mozfest: `foundation/pages/mozfest/index.js`,
+  "callpower": `foundation/pages/callpower.js`,
   "directory-listing-filters": `foundation/pages/directory-listing-filters.js`,
   "bg-main": `buyers-guide/bg-main.js`,
   polyfills: `polyfills.js`,

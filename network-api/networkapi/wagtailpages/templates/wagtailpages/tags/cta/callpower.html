@@ -1,0 +1,46 @@
+{% load i18n static %}
+
+<div class="callpower-cta">
+  <form class="cta-form">
+    <h5 class="h5-heading">{{ cta.header }}</h5>
+    <p>{{ cta.description | safe }}</p>
+    <div>
+      <input type="hidden" name="campaignId" value="{{ cta.campaign_id }}">
+      {% with inputclass="tw-w-full tw-transition-colors tw-px-3 tw-py-4 tw-my-1 tw-text-xl tw-text-black tw-font-sans tw-border tw-border-solid tw-border-gray-20 focus:tw-border-[#80bdff] tw-outline-none" %}
+
+      <input type="text" name="userPhone" placeholder="{% trans "Your phone number" %}" class="{{ inputclass }}"
+        data-pattern="^\d{10}$" aria-label="{% trans "Please enter a ten digit US phone number" %}">
+      <p class="body-small tw-text-red-dark tw-hidden">{% trans "Please enter a ten digit US phone number" %}</p>
+
+      <input type="text" name="userZipCode" placeholder="{% trans "Your zipcode" %}" class="{{ inputclass }}"
+      data-pattern="^\d{5}$" aria-label="{% trans "Please enter a five digit US zip code" %}">
+      <p class="body-small tw-text-red-dark tw-hidden">{% trans "Please enter a five digit US zip code" %}</p>
+
+      {% endwith %}
+    </div>
+    <p class="tw-text-red-dark error-400 tw-hidden tw-mt-5">
+      {% trans "We’re sorry, we can’t call that number. Please check that it is the right number, or try a different one." %}
+    </p>
+    <button class="make-the-call btn btn-primary tw-w-full tw-mt-5" disabled>{{ cta.call_button_label }}</button>
+  </form>
+
+  <div class="callpower-cta success tw-hidden">
+    <h5>{{ cta.success_heading }}</h5>
+    <p>{{ cta.success_text | safe }}</p>
+    <div class="share-button-group-wrapper d-print-none" data-layout="stacked"
+      data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}"
+      data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+  </div>
+
+  <div class="callpower-cta unknown error-section tw-hidden">
+    <h5>{% trans "Something went wrong…" %}</h5>
+    <p>{% trans "We’re sorry, we seem to be having some trouble. Please try again later." %}</p>
+  </div>
+
+  <div class="callpower-cta limit error-section tw-hidden">
+    <h5>{% trans "Thank you for all your calls!" %}</h5>
+    <p>{% trans "Unfortunately, it looks like you’ve reached the hourly limit. Please try again in an hour." %}</p>
+  </div>
+</div>
+
+<script src='{% static "_js/callpower.compiled.js" %}'' async defer></script>
