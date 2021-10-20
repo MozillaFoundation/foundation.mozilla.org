@@ -1,9 +1,9 @@
 .cms {
   .person-card {
     $breakpoint: $bp-md;
-    $headshot-width: 70px;
+    $headshot-width: 92px;
     $headshot-height: 92px;
-    $headshot-width-larger: 100px;
+    $headshot-width-larger: 160px;
     $headshot-height-larger: 160px;
     $gutter: 14px;
     $card-padding-top: 10px;
@@ -57,8 +57,7 @@
       }
     }
 
-    .bio-wrapper,
-    .issues-list {
+    .bio-wrapper {
       clear: both;
 
       @media screen and (min-width: $breakpoint) {

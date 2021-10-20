@@ -6,11 +6,10 @@
         data-program-type="{{ value.program_type }}"
         data-program-year="{{ value.program_year }}"
         data-profile-type="{{ value.profile_type }}">
-<div class="profiles-grid tw-grid large:tw-grid-cols-2 tw-mb-5 w-full tw-gap-6">
+  <div class="row">
     {% for profile in profiles %}
     {% include "./profile_block.html" with profile=profile %}
     {% endfor %}
   </div>
 </div>
 {% endblock %}
-

@@ -2,51 +2,27 @@
 
 {# NOTE: any changes to this file will also require updating directory-listing-filters.js in source/js/foundation/pages #}
 
-<div class="tw-grid tw-grid-cols-4 tw-grid-rows-3 large:tw-grid-cols-5 tw-gap-x-3 tw-gap-y-2 tw-border-t tw-border-black">
-  {# Image #}
-  <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}"
-     class="tw-block tw-row-span-1 large:tw-row-span-4 tw-col-span-1 tw-relative tw-min-h-[160px] tw-h-[100%] tw-w-full tw-overflow-hidden">
-    <img src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}{% static "_images/fellowships/headshot/placeholder.jpg" %}{% endif %}"
-         class="tw-w-auto tw-h-full tw-absolute tw-left-50 tw-top-50 tw-min-w-full tw-object-cover"
-         alt="Headshot">
-  </a>
-
-  {# Right card #}
-  <div class="tw-row-span-1 large:tw-row-span-1 tw-col-span-3 large:tw-col-span-4">
-
-    {# Card top #}
-    <div class="tw-flex tw-flex-row tw-justify-between tw-items-center tw-mt-2">
-      <a class="h5-heading tw-mb-1 tw-font-sans tw-font-normal" href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">{{ profile.name }}</a>
-
-      {# Social Icons  #}
-      <div class="tw-flex tw-flex-row tw-space-x-2">
+<div class="col-lg-6 col-12 mb-5">
+  <div class="person-card">
+    <div class="thumbnail-wrapper">
+      <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}" class="d-block headshot-container">
+        <img
+          src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}{% static "_images/fellowships/headshot/placeholder.jpg" %}{% endif %}"
+          class="headshot"
+          alt="Headshot">
+      </a>
+    </div>
+    <div class="short-meta-wrapper">
+      <a class="h5-heading meta-block-name mb-0 d-block" href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">{{ profile.name }}
+      </a>
+      {% if profile.location %}<p class="d-flex align-items-center meta-block-location body-small my-2">{{ profile.location }}</p>{% endif %}
+      <div class="social-icons">
         {% if profile.twitter %}<a href="{{ profile.twitter }}" class="twitter twitter-glyph small"></a>{% endif %}
         {% if profile.linkedin %}<a href="{{ profile.linkedin }}" class="linkedIn linkedIn-glyph small"></a>{% endif %}
       </div>
     </div>
-
-    {# Profile Location #}
-    {% if profile.location %}
-      <p class="tw-flex-row tw-flex tw-items-center tw-justify-start">
-        <img class="tw-w-[12px] tw-h-[12px] tw-block tw-mr-1 body-small" src="{% static '_images/glyphs/map-marker-icon.svg' %}" alt="">
-        {{ profile.location }}
-      </p>
-    {% endif %}
-  </div>
-
-  {# Short bio block  #}
-  <div class="large:tw-row-span-2 tw-col-span-4 large:tw-col-start-2 large:tw-col-span-4">
-    <p class="tw-text-gray-60">{{ profile.user_bio }}</p>
-
-    {# Issues #}
-{#    {% if profile.issues %}#}
-{#      <div class="tw-flex tw-flex-wrap tw-mt-auto">#}
-{#        {% for issue in profile.issues %}#}
-{#          <span class="tw-text-blue tw-text-sm tw-font-bold first:tw-ml-0 tw-ml-2">{{ issue }}</span>#}
-{#        {% endfor %}#}
-{#      </div>#}
-{#    {% endif %}#}
+    <div class="bio-wrapper">
+      <p class="m-0">{{ profile.user_bio }}</p>
+    </div>
   </div>
 </div>
-
-

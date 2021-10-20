@@ -3,10 +3,10 @@
 
   const profileCache = {};
   const labels = document.querySelectorAll(
-    `[data-profile-type-filters] button`
+    `.fellowships-directory-filter .filter-option button`
   );
-  const profileContainer = document.querySelector(`.profiles .profiles-grid`);
-  const { programYear, programType } =
+  const profileContainer = document.querySelector(`.profiles .row`);
+  const { profileType, programType } =
     document.querySelector(`.profiles`).dataset;
   const API_ENDPOINT =
     document.querySelector(`[data-api-endpoint]`).dataset.apiEndpoint;
@@ -56,7 +56,7 @@
    * After initial page load, the filter buttons are responsible for
    * fetching results "per filter entry".
    */
-  function getData(profileType) {
+  function getData(programYear) {
     // set up a url for performing an API call:
     let url = API_ENDPOINT;
 
@@ -89,80 +89,63 @@
    * into templated HTML. using the same HTML as we have in
    * templates/wagtailepages/blocks/profile_block.html
    */
-  function loadResults(type, bypassState) {
-    const profiles = profileCache[type];
+  function loadResults(year, bypassState) {
+    const profiles = profileCache[year];
 
     if (!bypassState) {
-      history.pushState({ type: type }, document.title);
+      history.pushState({ year: year }, document.title);
     }
+
     let cards = profiles.map((profile) => {
       return `
-        <div class="tw-grid tw-grid-cols-4 tw-grid-rows-3 large:tw-grid-cols-5 tw-gap-x-3 tw-gap-y-2 tw-border-t tw-border-black">
-
-        <!-- Image -->
-        <a href="https://www.mozillapulse.org/profile/${profile.profile_id}"
-           class="tw-block tw-row-span-1 large:tw-row-span-4 tw-col-span-1 tw-relative tw-min-h-[160px] tw-h-[100%] tw-w-full tw-overflow-hidden">
-          <img src="${
-            profile.thumbnail
-              ? profile.thumbnail
-              : `/_images/fellowships/headshot/placeholder.jpg`
-          }"
-               class="tw-w-auto tw-h-full tw-absolute tw-left-50 tw-top-50 tw-min-w-full tw-object-cover"
-               alt="Headshot">
-        </a>
-
-        <!-- Right card -->
-        <div class="tw-row-span-1 large:tw-row-span-1 tw-col-span-3 large:tw-col-span-4">
-
-          <!--Card top -->
-          <div class="tw-flex tw-flex-row tw-justify-between tw-items-center tw-mt-2">
-            <a class="h5-heading tw-mb-1 tw-font-sans tw-font-normal" href="https://www.mozillapulse.org/profile/${
+      <div class="col-lg-6 col-12 mb-5">
+        <div class="person-card">
+          <div class="thumbnail-wrapper">
+            <a href="https://www.mozillapulse.org/profile/${
               profile.profile_id
-            }">${profile.name}</a>
+            }" class="d-block headshot-container">
+              <img
+                src="${
+                  profile.thumbnail
+                    ? profile.thumbnail
+                    : `/_images/fellowships/headshot/placeholder.jpg`
+                }"
+                class="headshot"
+                alt="Headshot">
+            </a>
+          </div>
 
-            <!-- Social Icons -->
-            <div class="tw-flex tw-flex-row tw-space-x-2">
-           ${
-             profile.twitter
-               ? `<a href="${profile.twitter}" class="twitter twitter-glyph small"></a>`
-               : ``
-           }
-          ${
-            profile.linkedin
-              ? `<a href="${profile.linkedin}" class="linkedIn linkedIn-glyph small"></a>`
-              : ``
-          }
+          <div class="short-meta-wrapper">
+            <a class="h5-heading meta-block-name mb-0 d-block"
+                href="https://www.mozillapulse.org/profile/${
+                  profile.profile_id
+                }">
+                  ${profile.name}
+            </a>
+            ${
+              profile.location &&
+              `<p class="d-flex align-items-center meta-block-location body-small my-2">${profile.location}</p>`
+            }
+            <div class="social-icons">
+              ${
+                profile.twitter
+                  ? `<a href="${profile.twitter}" class="twitter twitter-glyph small"></a>`
+                  : ``
+              }
+              ${
+                profile.linkedin
+                  ? `<a href="${profile.linkedin}" class="linkedIn linkedIn-glyph small"></a>`
+                  : ``
+              }
             </div>
           </div>
 
-        <!-- Profile Location -->
-          ${
-            profile.location &&
-            `<span class="tw-flex-row tw-flex tw-items-center tw-justify-start body-small tw-block">
-              <img class="tw-w-[12px] tw-h-[12px] tw-block tw-mr-1" src="static/_images/glyphs/map-marker-icon.svg"" alt="">
-              ${profile.location}
-            </span>`
-          }
-         </div>
-
-        <!-- Short bio block -->
-        <div class="large:tw-row-span-2 tw-col-span-4 large:tw-col-start-2 large:tw-col-span-4">
-          <p class="tw-text-gray-60">${profile.user_bio}</p>
-
-          <!-- Issues -->
-            ${
-              profile.issues &&
-              `<div class="issues-list tw-flex tw-flex-wrap tw-mt-auto">
-                     ${profile.issues
-                       .map(
-                         (issue) =>
-                           `<span class="tw-text-blue tw-text-sm tw-font-bold first:tw-ml-0 tw-ml-2">${issue}</span>`
-                       )
-                       .join("")}
-              </div>`
-            }
+          <div class="bio-wrapper">
+            <p class="m-0">${profile.user_bio}</p>
+          </div>
         </div>
-      </div>`;
+      </div>
+      `;
     });
 
     // And then we update the content that the user sees:
@@ -184,18 +167,17 @@
     `;
   }
 
-  function loadForType(type, bypassState) {
+  function loadForYear(year, bypassState) {
     // if we have a cache, use it, but if we don't:
-    if (!profileCache[type]) {
+    if (!profileCache[year]) {
       // initiate an API call to fetch all data
       // associated with a particular year:
       showLoadSpinner();
-      getData(type)
+      getData(year)
         .then((data) => {
           // catch that data, and then load the results.
-          console.log(data);
-          profileCache[type] = preprocessProfiles(data);
-          loadResults(type, bypassState);
+          profileCache[year] = preprocessProfiles(data);
+          loadResults(year, bypassState);
         })
         .catch((error) => {
           // TODO: what do we want to do in this case?
@@ -203,7 +185,7 @@
         });
     } else {
       // if we already had the data cached, load immediately:
-      loadResults(type, bypassState);
+      loadResults(year, bypassState);
     }
   }
 
@@ -224,20 +206,20 @@
   function bindEventsToLabels() {
     labels.forEach((label) => {
       label.addEventListener("click", (evt) => {
-        let type = label.textContent;
+        let year = label.textContent;
         selectLabel(label);
-        loadForType(type);
+        loadForYear(year);
       });
     });
   }
 
   // make sure that "back" does the right thing.
   window.addEventListener("popstate", (evt) => {
-    const state = evt.state || { type: labels[0].textContent };
-    const type = state.type;
-    const label = Array.from(labels).find((l) => l.textContent == type);
+    const state = evt.state || { year: labels[0].textContent };
+    const year = state.year;
+    const label = Array.from(labels).find((l) => l.textContent == year);
     selectLabel(label);
-    loadForType(type, true);
+    loadForYear(year, true);
   });
 
   // and finally, kick everything off by
