@@ -124,7 +124,7 @@ class BlogIndexPage(IndexPage):
             context['index_title'] = localized_category.title
 
         # update seo fields
-        self.set_seo_fields_from_category(self, localized_category)
+        self.set_seo_fields_from_category(localized_category)
 
         # This code is not efficient, but its purpose is to get us logs
         # that we can use to figure out what's going wrong more than
