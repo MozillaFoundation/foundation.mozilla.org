@@ -162,10 +162,6 @@ class GeneralProductPageFactory(ProductPageFactory):
     ai_uses_personal_data = LazyFunction(get_extended_yes_no_value)
     ai_is_transparent = LazyFunction(get_extended_yes_no_value)
     ai_helptext = Faker('sentence')
-    email = Faker('email')
-    live_chat = Faker('url')
-    phone_number = Faker('phone_number')
-    twitter = '@TwitterHandle'
 
 
 class SoftwareProductPageFactory(ProductPageFactory):
@@ -234,10 +230,6 @@ def create_general_product_visual_regression_product(seed, pni_homepage):
         ai_uses_personal_data='Yes',
         ai_is_transparent='No',
         ai_helptext='The AI is a black box and no one knows how it works',
-        email='test@example.org',
-        live_chat='http://example.org/chat',
-        phone_number='1-555-555-5555',
-        twitter='@TwitterHandle',
     )
 
 
