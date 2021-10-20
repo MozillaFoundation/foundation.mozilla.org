@@ -36,32 +36,6 @@ const FiltersNav = ({ filters, onFilterClick, currentFilterValue }) => {
               {filter.filter_label}
             </button>
           ))}
-          {filters.map((filter, index) => (
-            <button
-              className={`multipage-link ${
-                isActiveButton(filter, index) ? "active" : ""
-              }`}
-              onClick={(e) => {
-                onFilterClick(filter);
-              }}
-              key={filter.filter_value}
-            >
-              {filter.filter_label}
-            </button>
-          ))}
-          {filters.map((filter, index) => (
-            <button
-              className={`multipage-link ${
-                isActiveButton(filter, index) ? "active" : ""
-              }`}
-              onClick={(e) => {
-                onFilterClick(filter);
-              }}
-              key={filter.filter_value}
-            >
-              {filter.filter_label}
-            </button>
-          ))}
         </div>
       </nav>
     </div>
