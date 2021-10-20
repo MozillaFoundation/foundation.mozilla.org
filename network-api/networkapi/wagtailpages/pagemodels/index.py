@@ -177,23 +177,6 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
 
         return entries
 
-    def set_meta_fields_from_category(self, category):
-        if category.title:
-            setattr(self, 'seo_title', category.title)
-        elif category.name:
-            setattr(self, 'seo_title', category.name)
-
-        # If description not set, default to category's "intro" text.
-        # If "intro" is not set, use the foundation's default meta description.
-        if category.share_description:
-            setattr(self, 'search_description', category.share_description)
-        elif category.intro:
-            setattr(self, 'search_description', category.intro)
-
-        # If the category has a search image set, update page metadata.
-        if category.share_image:
-            setattr(self, 'search_image_id', category.share_image_id)
-
     """
     Sub routes
     """
