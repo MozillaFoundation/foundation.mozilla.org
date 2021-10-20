@@ -1,9 +1,15 @@
-{% load wagtailcore_tags mini_site_tags %}
+{{ cta.type }}
 
-{% if cta_type == 'Petition' %}
+{% if cta_type == 'petition' %}
 	{% include './cta/petition.html' %}
 {% endif %}
 
-{% if cta_type == 'Signup' %}
+
+{% if cta_type == 'signup' %}
 	{% include './cta/signup.html' %}
+{% endif %}
+
+
+{% if cta_type == 'callpower' %}
+	{% include './cta/callpower.html' %}
 {% endif %}
