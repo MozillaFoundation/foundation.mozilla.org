@@ -1,6 +1,9 @@
 export default {
   // English
-  en: { "No Profiles": `No profiles found. Please try again.` },
+  en: {
+    "No Profiles": `No profiles found. Please try again.`,
+    "Show All": `All`,
+  },
   // German
   de: {},
   // Spanish

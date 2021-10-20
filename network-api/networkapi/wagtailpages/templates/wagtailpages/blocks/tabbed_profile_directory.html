@@ -2,50 +2,18 @@
 
 {# Tabs #}
 <div class="tw-container">
+  <div data-tabbed-profile-filters-block>
+    {# JSON Data from backend #}
+    {{ profiles|json_script:"pulse-profiles" }}
+    {{ tab_options|json_script:"pulse-profile-filter-options" }}
+    {{ subfilters|json_script:"pulse-profile-subfilters" }}
 
-    <div data-tabbed-profile-filters-block>
-        {# JSON Data from backend #}
-      {{ profiles|json_script:"pulse-profiles" }}
-      {{ tab_options|json_script:"pulse-profile-filter-options" }}
-          {{ subfilters|json_script:"pulse-profile-subfilters" }}
-
-      {# Tabbed Profile Directory React Component #}
-      <div data-tabbed-profile-filters-content
-           data-api-endpoint="{{ api_endpoint }}"
-           data-filter-key="{{ value.tabs.filter_key }}"
-           data-subfilters-label="{{ subfilters_label }}">
-      </div>
+    {# Tabbed Profile Directory React Component #}
+    <div data-tabbed-profile-filters-content
+         data-api-endpoint="{{ api_endpoint }}"
+         data-filter-key="{{ value.tabs.filter_key }}"
+         data-subfilters-label="{{ subfilters_label }}"
+         data-subfilters-key="{{ subfilters_key }}">
     </div>
-    {#    <div class="fellowships-directory-filter px-2 mb-5">#}
-    {#      Filter tabs on {{ value.tabs.filter_key }}#}
-    {#      {% for option in value.tabs.options.all %}#}
-    {#        <div class="filter-option">#}
-    {#          {% comment %}#}
-    {#            {% if option.enable_subfiltering %}#}
-    {#              Allow subfilters#}
-    {#            {% else %}#}
-    {#              Do not allow subfilters#}
-    {#            {% endif %}#}
-    {#          {% endcomment %}#}
-    {#          <button {% if forloop.first %}class="active"{% endif %}>{{ option.filter_label }}</button>#}
-    {#        </div>#}
-    {#      {% endfor %}#}
-    {#    </div>#}
-
-    {# Subfilter/s #}
-    {#    <div>#}
-    {#      {% for subfilter_block in value.subfilters %}#}
-    {#        {% with subfilter=subfilter_block.value %}#}
-    {#          <div>#}
-    {#            <select name="{{ subfilter.filter_key }}">#}
-    {#              <option>Filter on {{ subfilter.filter_key_label }}</option>#}
-    {#              {% for option in subfilter.options.all %}#}
-    {#                <option value="{{ option.filter_value }}">{{ option.filter_label }}</option>#}
-    {#              {% endfor %}#}
-    {#            </select>#}
-    {#          </div>#}
-    {#        {% endwith %}#}
-    {#      {% endfor %}#}
-    {#    </div>#}
-
+  </div>
 </div>

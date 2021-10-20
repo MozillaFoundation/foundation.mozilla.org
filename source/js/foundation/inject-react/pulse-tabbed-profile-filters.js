@@ -43,9 +43,9 @@ export default (apps) => {
             filterOptions={filterOptions}
             subFilters={subFilters}
             subfiltersLabel={contentArea.dataset.subfiltersLabel}
+            subfiltersKey={contentArea.dataset.subfiltersKey}
             whenLoaded={() => resolve}
             profiles={profiles}
-            // subFilters={subFilters}
           />,
           target
         );
