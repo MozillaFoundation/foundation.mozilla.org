@@ -5,13 +5,28 @@ export default {
     "Show All": `All`,
   },
   // German
-  de: {},
+  de: {
+    "No Profiles": `Keine Profile gefunden. Bitte versuche es erneut.`,
+    "Show All": `Alle`,
+  },
   // Spanish
-  es: {},
+  es: {
+    "No Profiles": `No se encontraron perfiles. Inténtalo de nuevo.`,
+    "Show All": `Todos`,
+  },
   // French
-  fr: {},
+  fr: {
+    "No Profiles": `Aucun profil trouvé. Veuillez réessayer.`,
+    "Show All": `Tout`,
+  },
   // Polish
-  pl: {},
+  pl: {
+    "No Profiles": `Nie znaleziono profili. Proszę spróbuj ponownie.`,
+    "Show All": `Wszystko`,
+  },
   // Portuguese
-  "pt-BR": {},
+  "pt-BR": {
+    "No Profiles": `Nenhum perfil encontrado. Por favor, tente novamente.`,
+    "Show All": `Tudo`,
+  },
 };

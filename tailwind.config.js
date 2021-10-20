@@ -27,7 +27,14 @@ module.exports = {
         },
         ".hash": {
           content: "\"#\"",
-        }
+        },
+        ".no-scrollbar": {
+          "-ms-overflow-style": "none",  /* IE and Edge */
+          scrollbarWidth: "none"  /* Firefox */
+        },
+        ".no-scrollbar::-webkit-scrollbar": {
+          display: "none" /* Chrome */
+        },
       };
       addUtilities(newUtilities);
     }),

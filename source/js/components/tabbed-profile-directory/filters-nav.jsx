@@ -19,7 +19,36 @@ const FiltersNav = ({ filters, onFilterClick, currentFilterValue }) => {
         aria-label="Profile Filters"
         className="tw-flex-row tw-mb-6 tw-w-full tw-flex"
       >
-        <div className="tw-w-full" id="multipage-nav">
+        <div
+          className="tw-w-full tw-flex-nowrap tw-overflow-scroll tw-no-scrollbar"
+          id="multipage-nav"
+        >
+          {filters.map((filter, index) => (
+            <button
+              className={`multipage-link ${
+                isActiveButton(filter, index) ? "active" : ""
+              }`}
+              onClick={(e) => {
+                onFilterClick(filter);
+              }}
+              key={filter.filter_value}
+            >
+              {filter.filter_label}
+            </button>
+          ))}
+          {filters.map((filter, index) => (
+            <button
+              className={`multipage-link ${
+                isActiveButton(filter, index) ? "active" : ""
+              }`}
+              onClick={(e) => {
+                onFilterClick(filter);
+              }}
+              key={filter.filter_value}
+            >
+              {filter.filter_label}
+            </button>
+          ))}
           {filters.map((filter, index) => (
             <button
               className={`multipage-link ${
