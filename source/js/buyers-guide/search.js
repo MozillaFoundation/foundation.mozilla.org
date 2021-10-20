@@ -28,6 +28,12 @@ const SearchFilter = {
       }
     });
 
+    const categoryTitle = document.querySelector(`.category-title`);
+
+    if (categoryTitle.value.trim()) {
+      SearchFilter.filterCategory(categoryTitle.value.trim());
+    }
+
     const clear = searchBar.querySelector(`.clear-icon`);
     if (!clear) {
       return console.warn(
@@ -47,6 +53,45 @@ const SearchFilter = {
       evt.preventDefault();
       clearText();
     });
+
+    const navLinks = document.querySelectorAll(`#multipage-nav a`);
+
+    for (const nav of navLinks) {
+      nav.addEventListener("click", (evt) => {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        document
+          .querySelector(`#multipage-nav a.active`)
+          .classList.remove(`active`);
+
+        evt.target.classList.add(`active`);
+
+        if (evt.target.dataset.name) {
+          SearchFilter.filterCategory(evt.target.dataset.name);
+        }
+      });
+    }
+
+    document
+      .querySelector(`.go-back-to-all-link`)
+      .addEventListener("click", (evt) => {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        SearchFilter.filterCategory("None");
+      });
+  },
+
+  clearCategories: () => {
+    SearchFilter.filterCategory("None");
+
+    document
+      .querySelector(`#multipage-nav a.active`)
+      .classList.remove(`active`);
+    document
+      .querySelector(`#multipage-nav a[data-name="None"]`)
+      .classList.add(`active`);
   },
 
   moveCreepyFace: () => {
@@ -63,8 +108,32 @@ const SearchFilter = {
   },
 
   filter: (text) => {
+    // remove category filters
+    SearchFilter.clearCategories();
+    document
+      .querySelector(`#multipage-nav a.active`)
+      .classList.remove(`active`);
+    document
+      .querySelector(`#multipage-nav a[data-name="None"]`)
+      .classList.add(`active`);
+
     ALL_PRODUCTS.forEach((product) => {
       if (SearchFilter.test(product, text)) {
+        product.classList.remove(`d-none`);
+        product.classList.add(`d-flex`);
+      } else {
+        product.classList.add(`d-none`);
+        product.classList.remove(`d-flex`);
+      }
+    });
+
+    SearchFilter.moveCreepyFace();
+    SearchFilter.checkForEmptyNotice();
+  },
+
+  filterCategory: (category) => {
+    ALL_PRODUCTS.forEach((product) => {
+      if (SearchFilter.testCateories(product, category)) {
         product.classList.remove(`d-none`);
         product.classList.add(`d-flex`);
       } else {
@@ -109,6 +178,18 @@ const SearchFilter = {
     }
 
     return false;
+  },
+
+  testCateories: (product, category) => {
+    if (category === "None") {
+      return true;
+    }
+
+    const productCategories = Array.from(
+      product.querySelectorAll(".product-categories")
+    );
+
+    return productCategories.map((c) => c.value.trim()).includes(category);
   },
 };
 

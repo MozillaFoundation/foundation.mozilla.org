@@ -7,6 +7,7 @@
 {% block main_content_class %}{% endblock %}
 
 {% block hero %}
+<input type="hidden" class="category-title" value="{{original_category}}">
 <header
   class="container-fluid text-center page-header bg-gray"
   {% if page.get_banner != None %}style="background-image: url({% image page.get_banner max-1920x1280 as img %}{{ img.url }})"{% endif %}

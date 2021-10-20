@@ -39,5 +39,10 @@
     </a>
     <input type="hidden" class="product-blurb" value="{{ product.blurb }}">
     <input type="hidden" class="product-worst-case" value="{{ product.worst_case }}">
+    {% for cat in product.product_categories.all %}
+      {% with category=cat.category %}
+        <input type="hidden" class="product-categories" value="{{category.localized.name}}">
+      {% endwith %}
+    {% endfor %}
   </figcaption>
 </figure>
