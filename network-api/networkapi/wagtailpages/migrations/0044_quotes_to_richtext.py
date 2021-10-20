@@ -8,7 +8,7 @@ from networkapi.wagtailpages.pagemodels.primary import PrimaryPage
 from networkapi.mozfest.models import MozfestPrimaryPage
 
 
-def update_annotated_image_blocks(qs):
+def update_quotes_to_richtext(qs):
     # Loop through all pages
     for page in qs:
 
@@ -48,7 +48,7 @@ def update_annotated_image_blocks(qs):
                 if page.live:
                     revision.publish()
 
-def update_quotes_to_richtext(apps, schema_editor):
+def loop_through_pages_with_quotes(apps, schema_editor):
     # Grabbing all pages that use either callout quotes, block quotes, or single quotes.
     pages_with_image_blocks = [
         BlogPage.objects.all(),
@@ -59,9 +59,9 @@ def update_quotes_to_richtext(apps, schema_editor):
     ]
 
     for page_qs in pages_with_image_blocks:
-        print(page_qs)
+
         if page_qs.count() != 0:
-            update_annotated_image_blocks(page_qs)
+            update_quotes_to_richtext(page_qs)
 
 
 class Migration(migrations.Migration):
@@ -72,6 +72,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(
-            code=update_quotes_to_richtext
+            code=loop_through_pages_with_quotes
         ),
     ]
