@@ -110,9 +110,14 @@ class MozfestHomepage(MozfestPrimaryPage):
     MozFest Homepage
 
     'banner_video_type' determines what version of banner design the page should load
-    """
 
-    #  this tells the templates to load a hardcoded, pre-defined video in the banner background
+    If the value of `banner_video_type` is `hardcoded`, it displays a hardcoded,
+    predefined video in the banner background.
+
+    If the value of `banner_video_type` is `featured`, it displays a carousel of
+    cards with their associated headings and body content (`banner_carousel`),
+    and an embedded user-defined video (`banner_video`).
+    """
     banner_video_type = "featured"
 
     cta_button_label = models.CharField(
