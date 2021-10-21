@@ -54,6 +54,7 @@ body.mozfest {
           height: $icon-size;
           background: center left/$icon-size $icon-size no-repeat transparent;
           padding-left: calc(#{$icon-size} + 0.5rem);
+          text-transform: uppercase;
           // due to a Safari bug, we have to remove transition for these buttons
           // so background SVGs don't get resized on hover
           transition: none;
