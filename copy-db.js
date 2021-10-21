@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { execSync } = require(`child_process`);
 
-const keepDatabase = process.argv.includes(`--keep`);
+const deleteDatabase = process.argv.includes(`--delete`);
 const silent = { stdio: [`ignore`, `ignore`, `ignore`] };
 const PROD_APP = `foundation-mozilla-org`;
 const STAGE_APP = `foundation-mofostaging-net`;
@@ -105,21 +105,19 @@ console.log(`Importing snapshot...`);
 run(`docker cp ${DUMP_FILE} ${IMAGE_NAMES.POSTGRES}:/`);
 postgres(`pg_restore ${DB_FLAGS} -dwagtail ${DUMP_FILE}`);
 
+console.log(`Migrating database...`);
+run(`docker exec ${IMAGE_NAMES.BACKEND} ./dockerpythonvenv/bin/python network-api/manage.py migrate`);
+
+console.log(`Updating site bindings...`);
+run(`inv manage fix_local_site_bindings`, true, silent);
+
 console.log(`Creating admin:admin superuser account...`);
-run(
-  [
-    `docker exec ${IMAGE_NAMES.BACKEND}`,
-    `./dockerpythonvenv/bin/python network-api/manage.py shell -c`,
-    `"from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')"`,
-  ].join(` `),
-  true,
-  silent
-);
+run(`inv createsuperuser`, true, silent);
 
 console.log(`Stopping docker images...`);
 run(`docker-compose down`, true, silent);
 
-if (!keepDatabase) {
+if (deleteDatabase) {
   console.log(`Running cleanup`);
   fs.unlinkSync(DUMP_FILE);
 }
