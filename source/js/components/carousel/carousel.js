@@ -37,9 +37,9 @@ class Carousel {
 
 const MozfestCarousels = {
   init: function () {
-    for (const carousel of document.querySelectorAll("[data-carousel]")) {
-      new Carousel(carousel);
-    }
+    document
+      .querySelectorAll(`[data-carousel]`)
+      .forEach((e) => new Carousel(e));
   },
 };
 
