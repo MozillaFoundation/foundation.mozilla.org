@@ -171,7 +171,7 @@ class BlogIndexPage(IndexPage):
 
         return entries
 
-    def set_seo_fields_from_category(self, category: BlogPageCategory) -> None:
+    def set_seo_fields_from_category(self, category):
         if category.title:
             setattr(self, 'seo_title', category.title)
         elif category.name:
