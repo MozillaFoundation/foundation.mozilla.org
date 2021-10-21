@@ -81,6 +81,21 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
        FieldPanel('use_wide_template')
     ]
 
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('header'),
+        SynchronizedField('banner'),
+        TranslatableField('intro'),
+        TranslatableField('signup'),
+        TranslatableField('body'),
+    ]
+
     def get_template(self, request):
         if self.use_wide_template:
             return 'mozfest/mozfest_primary_page_wide.html'
