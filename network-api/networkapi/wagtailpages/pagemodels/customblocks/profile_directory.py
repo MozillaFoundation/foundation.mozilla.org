@@ -1,4 +1,5 @@
 import json
+from django.core import serializers
 from urllib import request, parse
 
 from django.conf import settings
@@ -183,5 +184,8 @@ class TabbedProfileDirectory(blocks.StructBlock):
         context['program_type'] = value['program_type']
         context['program_year'] = value['year']
         context['api_endpoint'] = f"{pulse_api}/api/pulse/v2/profiles/?ordering=custom_name&is_active=true&format=json"
-
+        context['tab_options'] = serializers.serialize('json', value['tabs'].options.all())
+        context['subfilters_label'] = value['subfilters'][0].value.filter_key_label
+        context['subfilters_key'] = value['subfilters'][0].value.filter_key
+        context['subfilters'] = serializers.serialize('json', value['subfilters'][0].value.options.all())
         return context
