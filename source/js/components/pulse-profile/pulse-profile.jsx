@@ -1,8 +1,9 @@
 import React from "react";
 
 const PulseProfile = ({ profile }) => {
+  const profileUrl = "https://www.mozillapulse.org/profile/";
   return (
-    <div className="tw-grid tw-grid-cols-4  tw-gap-x-3 tw-gap-y-2 tw-border-t tw-border-black">
+    <div className="tw-grid tw-grid-cols-4 tw-gap-x-3 tw-gap-y-2 tw-border-t tw-border-black">
       {/* Image */}
       <a
         href={`https://www.mozillapulse.org/profile/${profile.profile_id}`}
@@ -21,12 +22,11 @@ const PulseProfile = ({ profile }) => {
 
       {/* Right card  */}
       <div className="tw-col-start-2 tw-col-span-3 tw-flex tw-flex-col">
-
         {/* Card top */}
         <div className="tw-flex tw-flex-row tw-justify-between tw-items-center tw-mt-2">
           <a
             className="tw-text-lg tw-mb-1 tw-font-sans tw-font-normal tw-text-black"
-            href={`https://www.mozillapulse.org/profile/${profile.profile_id}`}
+            href={`${profileUrl}${profile.profile_id}`}
           >
             {profile.name}
           </a>
@@ -61,9 +61,11 @@ const PulseProfile = ({ profile }) => {
         )}
 
         {/* Short bio block */}
-        {profile.user_bio &&
-          <p className="tw-text-gray-60 tw-text-sm medium:tw-text-[15px] my-2">{profile.user_bio}</p>
-        }
+        {profile.user_bio && (
+          <p className="tw-text-gray-60 tw-text-sm medium:tw-text-[15px] my-2">
+            {profile.user_bio}
+          </p>
+        )}
 
         {profile.program_type && (
           <div className="tw-flex tw-flex-wrap tw-mt-auto">

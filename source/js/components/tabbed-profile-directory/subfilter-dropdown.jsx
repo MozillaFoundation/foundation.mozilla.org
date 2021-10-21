@@ -43,7 +43,10 @@ const SubfilterDropdown = ({
           aria-expanded={dropdownExpanded}
           aria-haspopup="listbox"
         >
-          <span>Filter By {label}</span>
+          <span>
+            {getText("Filter by ")}
+            {label}
+          </span>
           <img
             className={`tw-w-4 tw-h-4 tw-ml-2 ${
               dropdownExpanded ? "tw-rotate-180" : ""
