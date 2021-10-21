@@ -7,5 +7,5 @@ register = template.Library()
 # streamfield is used on a 2 column template
 @register.simple_tag(takes_context=True)
 def shown_signup_block(context, boolean):
-    context["signup_shown"] = boolean
+    context['signup_shown'] = boolean
     return ''
