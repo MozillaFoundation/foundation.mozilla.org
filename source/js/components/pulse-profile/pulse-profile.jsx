@@ -1,4 +1,5 @@
 import React from "react";
+import { getText } from "../petition/locales";
 
 const PulseProfile = ({ profile }) => {
   const profileUrl = "https://www.mozillapulse.org/profile/";
@@ -33,17 +34,18 @@ const PulseProfile = ({ profile }) => {
 
           {/* Social Icons */}
           <div className="tw-flex tw-flex-row tw-space-x-2">
-            {profile.twitter && (
-              <a
-                href={profile.twitter}
-                className="twitter twitter-glyph small"
-              />
-            )}
             {profile.linkedin && (
               <a
                 href={profile.linkedin}
                 className="linkedIn linkedIn-glyph small"
-              />
+              >
+                <span className="tw-sr-only">LinkedIn</span>
+              </a>
+            )}
+            {profile.twitter && (
+              <a href={profile.twitter} className="twitter twitter-glyph small">
+                <span className="tw-sr-only">Twitter</span>
+              </a>
             )}
           </div>
         </div>
