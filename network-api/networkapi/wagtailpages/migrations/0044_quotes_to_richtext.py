@@ -15,15 +15,16 @@ def update_quotes_to_richtext(qs):
         if hasattr(page, 'alias_of') and page.alias_of != None:
             # This is a page alias, rather than a real page
             continue
+
         # If this page doesn't have a Quote that needs update, don't save it.
         # This will speed up how fast this task can run
         needs_saving = False
+
         # Only loop through streamfield data if there's a `body` field on the page
         if page.body:
             # Checking if page.body has raw_data, and looping through it.
             if hasattr(page.body, 'raw_data'):
                 for block in page.body.raw_data:
-
                     # If the block type is an qupte,
                     # If the block is a blockquote list, loop through them and update them.
                     # However, since we instructed users to only use one quote, there should not be
@@ -59,7 +60,6 @@ def loop_through_pages_with_quotes(apps, schema_editor):
     ]
 
     for page_qs in pages_with_image_blocks:
-
         if page_qs.count() != 0:
             update_quotes_to_richtext(page_qs)
 
