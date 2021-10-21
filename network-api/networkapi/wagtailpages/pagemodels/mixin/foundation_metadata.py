@@ -58,7 +58,7 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
 
         # If not, walk up our ancestor chain and use the first social
         # share image for an ancestor that explicitly has one set.
-        parent = self.get_parent()
+        parent = self.get_parent().specific
         while parent:
             if hasattr(parent, 'search_image') and parent.search_image:
                 return parent.search_image
