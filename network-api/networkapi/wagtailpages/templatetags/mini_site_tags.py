@@ -24,17 +24,18 @@ def mini_site_horizontal_nav(context, page):
 def cta(context, page):
     cta = {
         'page': page,
-        'cta': page.cta,
+        'cta': None,
         'cta_type': None
     }
 
-    for (Subclass, subclass_name) in [(sub, sub.__name__.lower(),) for sub in CTA.__subclasses__()]:
-        try:
-            cta['cta'] = Subclass.objects.get(pk=page.cta.pk)
-            cta['cta_type'] = subclass_name
-            break
-        except ObjectDoesNotExist:
-            pass
+    if page.cta:
+        for (Subclass, subclass_name) in [(sub, sub.__name__.lower(),) for sub in CTA.__subclasses__()]:
+            try:
+                cta['cta'] = Subclass.objects.get(pk=page.cta.pk)
+                cta['cta_type'] = subclass_name
+                break
+            except ObjectDoesNotExist:
+                pass
 
     # Only campaign pages currently have donation modal CTA data
     # associated with them, so only add this if the accessor
