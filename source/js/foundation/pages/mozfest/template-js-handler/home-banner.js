@@ -1,12 +1,12 @@
-import {ReactGA} from "../../../../common";
+import { ReactGA } from "../../../../common";
 
 // For the featured banner type on mozefest homepage
 const watchFeaturedVideoHandler = () => {
   const watchVideoButton = document.querySelector(
       `#mozfest-home-watch-featured-video-button`
   );
-  const externalVideo = document.querySelector("#mozfest-hero-video iframe");
-  const internalVideo = document.querySelector("#mozfest-hero-video video");
+  const externalVideo = document.querySelector(`#mozfest-hero-video iframe`);
+  const internalVideo = document.querySelector(`#mozfest-hero-video video`);
 
   // If no video exists then do nothing
   if (!externalVideo && !internalVideo) {

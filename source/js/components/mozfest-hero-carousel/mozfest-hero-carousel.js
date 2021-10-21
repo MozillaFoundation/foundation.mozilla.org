@@ -77,11 +77,9 @@ class MozfestHeroCarousel {
 
 const MozfestHeroCarousels = {
   init: function () {
-    for (const carousel of document.querySelectorAll(
-      "[data-mozfest-hero-carousel]"
-    )) {
-      new MozfestHeroCarousel(carousel);
-    }
+    document
+      .querySelectorAll(`[data-mozfest-hero-carousel]`)
+      .forEach((e) => new MozfestHeroCarousel(e));
   },
 };
 

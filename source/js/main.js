@@ -141,7 +141,7 @@ let main = {
     }
 
     // Mozfest pages
-    if (document.querySelector(".mozfest")) {
+    if (document.querySelector(`.mozfest`)) {
       MozfestHeroCarousels.init();
     }
   },
