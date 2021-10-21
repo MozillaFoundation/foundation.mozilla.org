@@ -344,7 +344,6 @@ TEMPLATES = [
                 'class_tags': 'networkapi.wagtailpages.templatetags.class_tags',
                 'debug_tags': 'networkapi.wagtailpages.templatetags.debug_tags',
                 'homepage_tags': 'networkapi.wagtailpages.templatetags.homepage_tags',
-                'mozfest_tags': 'networkapi.wagtailpages.templatetags.mozfest_tags',
                 'localization': 'networkapi.wagtailpages.templatetags.localization',
                 'mini_site_tags': 'networkapi.wagtailpages.templatetags.mini_site_tags',
                 'custom_image_tags': 'networkapi.wagtailpages.templatetags.custom_image_tags',
