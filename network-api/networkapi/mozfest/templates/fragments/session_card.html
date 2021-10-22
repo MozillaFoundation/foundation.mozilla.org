@@ -12,14 +12,14 @@
     </div>
 
     <div class="medium:tw-order-2 tw-flex-shrink-0 medium:tw-col-span-2">
-      <div class="tw-relative w-full medium:w-[250px] tw-h-[140px]">
+      <div class="tw-relative w-full medium:w-[250px] tw-h-[140px] tw-overflow-hidden">
+        <img class="tw-absolute tw-top-1/2 tw--translate-y-1/2 tw-left-1/2 tw--translate-x-1/2 tw-transform tw-w-5 tw-h-5 tw-z-10   {% if animated_thumbnail %} group-hover:tw-opacity-0 tw-transition tw-duration-500 tw-ease-in-out tw-delay-100 {% endif %}"
+             src="{% static '_images/mozfest/play-triangle.svg' %}" alt="">
         {% if animated_thumbnail %}
-          <img class="tw-absolute tw-top-1/2 tw--translate-y-1/2 tw-left-1/2 tw--translate-x-1/2 tw-transform tw-w-5 tw-h-5 tw-z-10 group-hover:tw-opacity-0 tw-transition tw-duration-500 tw-ease-in-out tw-delay-100"
-               src="{% static '_images/mozfest/play-triangle.svg' %}" alt="">
-          <img class="tw-w-full tw-object-cover tw-absolute tw-left-1/2 tw-top-1/2 tw-h-full tw--translate-y-1/2 tw--translate-x-1/2" src="{{ animated_thumbnail }}" alt="">
+          <video class="tw-absolute tw-object-cover tw-absolute tw-left-1/2 tw-top-1/2 tw-h-full tw--translate-y-1/2 tw--translate-x-1/2" src="{{ animated_thumbnail }}" autoplay loop muted width="500" height="200"></video>
         {% endif %}
         {# Thumbnail Image #}
-        <img class="tw-w-full t tw-object-cover tw-absolute tw-left-1/2 tw-top-1/2 tw-h-full tw--translate-y-1/2 tw--translate-x-1/2 {% if animated_thumbnail %}group-hover:tw-opacity-0 {% endif %} tw-transition tw-duration-500 tw-ease-in-out tw-delay-100"
+        <img class="tw-w-full tw-object-cover tw-absolute tw-left-1/2 tw-top-1/2 tw-h-full tw--translate-y-1/2 tw--translate-x-1/2 {% if animated_thumbnail %}group-hover:tw-opacity-0 {% endif %} tw-transition tw-duration-500 tw-ease-in-out tw-delay-100"
              src="{{ image }}" alt="">
       </div>
     </div>
