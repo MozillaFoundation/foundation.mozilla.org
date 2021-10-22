@@ -154,6 +154,13 @@ class MozfestHomepage(MozfestPrimaryPage):
         help_text='A banner heading specific to the homepage'
     )
 
+    banner_cta_label = models.CharField(
+        max_length=250,
+        null=False,
+        blank=True,
+        help_text='The label for the CTA that scrolls down to the banner video when clicked',
+    )
+
     banner_guide_text = models.CharField(
         max_length=1000,
         blank=True,
@@ -207,6 +214,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         FieldPanel('cta_button_label'),
         FieldPanel('cta_button_destination'),
         FieldPanel('banner_heading'),
+        FieldPanel('banner_cta_label'),
         StreamFieldPanel('banner_carousel'),
         FieldPanel('banner_guide_text'),
         FieldPanel('banner_video_url'),
@@ -218,7 +226,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         content_panels = [
             field for field in all_panels
             if field.field_name not in [
-                'banner', 'header', 'intro', 'banner_carousel', 'banner_guide_text',
+                'banner', 'header', 'intro', 'banner_carousel', 'banner_guide_text', 'banner_cta_label',
                 'banner_video', 'banner_video_url',
             ]
         ]
