@@ -288,10 +288,6 @@ class TestPNIAirtableConnections(TestCase):
             ai_uses_personal_data='Yes',
             ai_is_transparent='No',
             ai_helptext='The AI is a black box and no one knows how it works',
-            email='test@example.org',
-            live_chat='http://example.org/chat',
-            phone_number='1-555-555-5555',
-            twitter='@TwitterHandle',
         )
         self.software_product_page = SoftwareProductPageFactory.create(
             # page fields
@@ -353,10 +349,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertEqual(mappings["Manages security help text"], "manage_vulnerabilities_helptext")
         self.assertEqual(mappings["Has privacy policy"], "privacy_policy")
         self.assertEqual(mappings["Privacy policy help text"], "privacy_policy_helptext")
-        self.assertEqual(mappings["Phone number"], "phone_number")
-        self.assertEqual(mappings["Live chat"], "live_chat")
-        self.assertEqual(mappings["Email address"], "email")
-        self.assertEqual(mappings["Twitter"], "twitter")
 
     def test_general_product_page_import_mappings(self):
         """
@@ -433,10 +425,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertIn("Manages security help text", export_fields)
         self.assertIn("Has privacy policy", export_fields)
         self.assertIn("Privacy policy help text", export_fields)
-        self.assertIn("Phone number", export_fields)
-        self.assertIn("Live chat", export_fields)
-        self.assertIn("Email address", export_fields)
-        self.assertIn("Twitter", export_fields)
 
     def test_general_page_export_fields(self):
         export_fields = self.general_product_page.get_export_fields()
