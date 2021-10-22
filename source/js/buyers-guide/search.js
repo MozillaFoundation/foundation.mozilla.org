@@ -3,12 +3,14 @@ const NO_RESULTS_NOTICE = document.getElementById(
   `product-filter-no-results-notice`
 );
 const FILTERS = [`company`, `name`, `blurb`, `worst-case`];
+const SORTS = [`name`, `company`, `blurb`];
 const SUBMIT_PRODUCT = document.querySelector(".recommend-product");
 const CREEPINESS_FACE = document.querySelector(".creep-o-meter-information");
 
 const SearchFilter = {
   init: () => {
     const searchBar = document.querySelector(`#product-filter-search`);
+    const categoryTitle = document.querySelector(`.category-title`);
 
     if (!searchBar) {
       return console.warn(
@@ -28,12 +30,6 @@ const SearchFilter = {
       }
     });
 
-    const categoryTitle = document.querySelector(`.category-title`);
-
-    if (categoryTitle.value.trim()) {
-      SearchFilter.filterCategory(categoryTitle.value.trim());
-    }
-
     const clear = searchBar.querySelector(`.clear-icon`);
     if (!clear) {
       return console.warn(
@@ -45,7 +41,11 @@ const SearchFilter = {
       searchBar.classList.remove(`has-content`);
       searchInput.value = ``;
       searchInput.focus();
-      ALL_PRODUCTS.forEach((product) => product.classList.remove(`d-none`));
+      ALL_PRODUCTS.forEach((product) => {
+        product.classList.remove(`d-none`);
+        product.classList.add(`d-flex`);
+      });
+      SearchFilter.sortOnCreepiness();
       SearchFilter.moveCreepyFace();
     };
 
@@ -59,6 +59,11 @@ const SearchFilter = {
     for (const nav of navLinks) {
       nav.addEventListener("click", (evt) => {
         evt.stopPropagation();
+
+        if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
+          return;
+        }
+
         evt.preventDefault();
 
         document
@@ -68,6 +73,17 @@ const SearchFilter = {
         evt.target.classList.add(`active`);
 
         if (evt.target.dataset.name) {
+          clearText();
+          history.pushState(
+            {
+              title: SearchFilter.getTitle(evt.target.dataset.name),
+              category: evt.target.dataset.name,
+            },
+            SearchFilter.getTitle(evt.target.dataset.name),
+            evt.target.href
+          );
+
+          document.title = SearchFilter.getTitle(evt.target.dataset.name);
           SearchFilter.filterCategory(evt.target.dataset.name);
         }
       });
@@ -79,8 +95,59 @@ const SearchFilter = {
         evt.stopPropagation();
         evt.preventDefault();
 
+        clearText();
+        history.pushState(
+          {
+            title: SearchFilter.getTitle("None"),
+            category: "None",
+          },
+          SearchFilter.getTitle(evt.target.dataset.name),
+          evt.target.href
+        );
+
+        document
+          .querySelector(`#multipage-nav a.active`)
+          .classList.remove(`active`);
+
+        document
+          .querySelector(`#multipage-nav a[data-name="None"]`)
+          .classList.add(`active`);
+
         SearchFilter.filterCategory("None");
       });
+
+    window.addEventListener(`popstate`, (event) => {
+      const { state } = event;
+      if (!state) return; // if it's a "real" back, we shouldn't need to do anything
+
+      const { title, category } = state;
+      document.title = title;
+
+      if (!searchInput.value) {
+        SearchFilter.clearCategories();
+        SearchFilter.filterCategory(category);
+
+        document
+          .querySelector(`#multipage-nav a.active`)
+          .classList.remove(`active`);
+
+        document
+          .querySelector(`#multipage-nav a[data-name="${category}"]`)
+          .classList.add(`active`);
+      }
+    });
+
+    history.replaceState(
+      {
+        title: SearchFilter.getTitle(categoryTitle.value.trim()),
+        category: categoryTitle.value.trim(),
+      },
+      SearchFilter.getTitle(categoryTitle.value.trim()),
+      location.href
+    );
+
+    searchBar.classList.remove(`has-content`);
+    searchInput.value = ``;
   },
 
   clearCategories: () => {
@@ -92,6 +159,16 @@ const SearchFilter = {
     document
       .querySelector(`#multipage-nav a[data-name="None"]`)
       .classList.add(`active`);
+  },
+
+  getTitle: (category) => {
+    if (category == "None")
+      return document.querySelector('meta[name="pni-home-title"]').content;
+    else {
+      return `${category} | ${
+        document.querySelector('meta[name="pni-category-title"]').content
+      }`;
+    }
   },
 
   moveCreepyFace: () => {
@@ -110,6 +187,7 @@ const SearchFilter = {
   filter: (text) => {
     // remove category filters
     SearchFilter.clearCategories();
+
     document
       .querySelector(`#multipage-nav a.active`)
       .classList.remove(`active`);
@@ -127,13 +205,56 @@ const SearchFilter = {
       }
     });
 
+    SearchFilter.sortProducts();
+
     SearchFilter.moveCreepyFace();
     SearchFilter.checkForEmptyNotice();
   },
 
+  sortProducts: () => {
+    const container = document.querySelector(`.product-box-list`);
+    const list = [...container.querySelectorAll(`.product-box`)];
+
+    list.sort((a, b) => {
+      for (field of SORTS) {
+        const qs = `.product-${field}`;
+        const [propertyA, propertyB] = [
+          a.querySelector(qs),
+          b.querySelector(qs),
+        ];
+        const [propertyNameA, propertyNameB] = [
+          (propertyA.value || propertyA.textContent).toLowerCase(),
+          (propertyB.value || propertyB.textContent).toLowerCase(),
+        ];
+
+        if (
+          propertyNameA !== propertyNameB ||
+          field === SORTS[SORTS.length - 1]
+        ) {
+          return propertyNameA < propertyNameB
+            ? -1
+            : propertyNameA > propertyNameB
+            ? 1
+            : 0;
+        }
+      }
+    });
+
+    list.forEach((p) => container.append(p));
+  },
+
+  sortOnCreepiness: () => {
+    const container = document.querySelector(`.product-box-list`);
+    const list = [...container.querySelectorAll(`.product-box`)];
+    const creepVal = (e) => parseFloat(e.dataset.creepiness);
+    list
+      .sort((a, b) => creepVal(a) - creepVal(b))
+      .forEach((p) => container.append(p));
+  },
+
   filterCategory: (category) => {
     ALL_PRODUCTS.forEach((product) => {
-      if (SearchFilter.testCateories(product, category)) {
+      if (SearchFilter.testCategories(product, category)) {
         product.classList.remove(`d-none`);
         product.classList.add(`d-flex`);
       } else {
@@ -142,6 +263,7 @@ const SearchFilter = {
       }
     });
 
+    SearchFilter.sortOnCreepiness();
     SearchFilter.moveCreepyFace();
     SearchFilter.checkForEmptyNotice();
   },
@@ -180,7 +302,7 @@ const SearchFilter = {
     return false;
   },
 
-  testCateories: (product, category) => {
+  testCategories: (product, category) => {
     if (category === "None") {
       return true;
     }
