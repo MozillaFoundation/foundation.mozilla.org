@@ -1,11 +1,16 @@
-{% load static %}
-<div class="tw-mb-6 last:tw-mt-6 tw-relative {% if not page.use_wide_template and page.signup %} tw-px-4 medium:tw-pl-0 medium:tw-mr-[calc(50%-50vw-33.3%)]{% else %} tw-container {% endif %}">
+{% load static wagtailimages_tags %}
+<div class="tw-mb-6 tw-mt-5 first:tw-mt-0 tw-relative tw-overflow-hidden {% if page.signup != None %} large:tw-mr-[calc(50%-50vw)]{% else %} tw-container{% endif %}">
 
   {# Slider main container #}
-  <div class="swiper tw-overflow-hidden" data-carousel>
+  <div class="swiper tw-px-3 tw-pb-7 tw-mx-0 tw-overflow-hidden tw-container" data-carousel>
 
     {# navigation buttons #}
-    {% include 'fragments/carousel/carousel_navigation.html' with title=value.title %}
+    <div class="tw-flex tw-justify-center tw-items-start tw-flex-col tw-mb-5 medium:tw-flex-row medium:tw-justify-between medium:tw-items-center">
+      <h2 class="font-weight-bold h3-heading tw-font-semibold tw-mb-0 tw-w-full">{{ value.title }}</h2>
+      {% if self.session_items|length > 2 %}
+        {% include 'fragments/carousel_navigation.html' %}
+      {% endif %}
+    </div>
 
     {# Additional required wrapper #}
     <div class="swiper-wrapper">
@@ -21,7 +26,7 @@
     </div>
 
     {# Pagination #}
-    <div class="swiper-pagination tw--bottom-7 medium:tw-hidden"></div>
+    <div class="swiper-pagination tw--bottom-[5px] large:tw-hidden"></div>
 
   </div>
 </div>
