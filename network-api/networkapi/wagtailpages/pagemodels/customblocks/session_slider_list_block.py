@@ -16,6 +16,7 @@ class SessionItemBlock(blocks.StructBlock):
     author_subheading = blocks.CharBlock(required=False, help_text='Author of this session.')
 
     image = ImageChooserBlock(help_text='The image associated with this session.')
+    video_thumbnail = ImageChooserBlock(help_text='Animated Gif or webp image to play on video hover', required=False)
 
     body = blocks.RichTextBlock(help_text='Body text of this card.')
 
