@@ -258,6 +258,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         TranslatableField('cta_button_label'),
         SynchronizedField('cta_button_destination'),
         TranslatableField('banner_heading'),
+        TranslatableField('banner_cta_label'),
         TranslatableField('banner_guide_text'),
         SynchronizedField('banner_video_url'),
         TranslatableField('signup'),
