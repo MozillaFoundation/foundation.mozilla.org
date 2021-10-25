@@ -66,13 +66,13 @@
         <div class="col-12 mt-3">
           <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review date: {{ date }}{% endblocktrans %}</p>
         </div>
-        <div class="col-12"><p class="body mb-0">{{product.blurb}}</p></div>
+        <div class="col-12 body">{{product.blurb | richtext}}</div>
       </div>
 
       <div class="row mb-4">
         <div class="col-12 worst-case">
-          <h2 class="h3-heading">{% trans "What could happen if something goes wrong" %}</h2>
-          <p class="mb-0">{{product.worst_case}}</p>
+          <h2 class="h3-heading">{% trans "What could happen if something goes wrong?" %}</h2>
+          <div class="body">{{product.worst_case | richtext}}</div>
         </div>
       </div>
 
