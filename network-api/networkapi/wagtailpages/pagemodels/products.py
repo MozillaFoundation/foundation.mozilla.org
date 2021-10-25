@@ -180,6 +180,7 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
         TranslatableField('description'),
         SynchronizedField('slug'),
         SynchronizedField('share_image'),
+        SynchronizedField('parent'),
     ]
 
     @property
