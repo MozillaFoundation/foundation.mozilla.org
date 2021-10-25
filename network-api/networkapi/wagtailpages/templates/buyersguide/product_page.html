@@ -238,9 +238,6 @@
             {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai   %}
 
             {% if uses_ai != "No" %}
-              {% trans "Does the AI use your personal data to make decisions about you?" as ai_uses_personal_data %}
-              {% include "fragments/product_criterion.html"  with  label=ai_uses_personal_data  value=product.ai_uses_personal_data|extended_yes_no   %}
-
               {% trans "Does the company allow users to see how the AI works?" as ai_is_transparent %}
               {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no           %}
 

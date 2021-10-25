@@ -159,7 +159,6 @@ class GeneralProductPageFactory(ProductPageFactory):
     offline_capable = LazyFunction(get_extended_yes_no_value)
     offline_use_description = Faker('sentence')
     uses_ai = LazyFunction(get_extended_yes_no_value)
-    ai_uses_personal_data = LazyFunction(get_extended_yes_no_value)
     ai_is_transparent = LazyFunction(get_extended_yes_no_value)
     ai_helptext = Faker('sentence')
 
@@ -227,7 +226,6 @@ def create_general_product_visual_regression_product(seed, pni_homepage):
         offline_capable='Yes',
         offline_use_description='Although it is unclear how offline capabilities work',
         uses_ai='NA',
-        ai_uses_personal_data='Yes',
         ai_is_transparent='No',
         ai_helptext='The AI is a black box and no one knows how it works',
     )
