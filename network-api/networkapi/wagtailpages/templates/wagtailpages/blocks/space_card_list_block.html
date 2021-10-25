@@ -7,16 +7,16 @@
     {% for space in self.space_cards %}
       {# Space Card #}
       <a class="tw-group tw-no-underline tw-p-5 tw-border tw-border-gray-60/20 tw-flex medium:tw-flex-row tw-flex-col medium:tw-space-x-4"
-         href="{{ space.link.0.value.link_url }}">
+         href="{{ space.value.link.0.value.link_url }}">
 
         <div class="tw-order-2 medium:tw-order-1 tw-flex-1">
-          <span class="h5-heading tw-text-blue tw-underline tw-mb-4 medium:mb-4 tw-underline group-hover:tw-text-blue-dark tw-font-zilla tw-font-semibold">{{ space.title }}</span>
-          <p class="body">{{ space.body }}</p>
+          <span class="h5-heading tw-text-blue tw-underline tw-mb-4 medium:mb-4 tw-underline group-hover:tw-text-blue-dark tw-font-zilla tw-font-semibold">{{ space.value.title }}</span>
+          <p class="body">{{ space.value.body }}</p>
         </div>
 
         <div class="tw-order-1 medium:tw-order-2 tw-flex-shrink-0 tw-mb-4 medium:tw-mb-0 medium:tw-w-1/3">
-          {% image space.image fill-158x158 as img_desktop %}
-          {% image space.image fill-290x125 as img_mobile %}
+          {% image space.value.image fill-158x158 as img_desktop %}
+          {% image space.value.image fill-290x125 as img_mobile %}
           <picture>
             <source media="(min-width:768px)" srcset="{{ img_desktop.url }}">
             <img class="tw-w-full tw-h-auto" src="{{ img_mobile.url }}" alt="">

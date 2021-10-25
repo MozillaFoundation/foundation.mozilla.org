@@ -32,7 +32,12 @@ class SpaceCardBlock(blocks.StructBlock):
 class SpaceCardListBlock(blocks.StructBlock):
     title = blocks.CharBlock()
 
-    space_cards = blocks.ListBlock(SpaceCardBlock(), help_text='A list of Space Cards.')
+    space_cards = blocks.StreamBlock(
+        [
+            ('space_card', SpaceCardBlock()),
+        ],
+        help_text='A list of Space Cards.',
+    )
 
     class Meta:
         icon = 'placeholder'
