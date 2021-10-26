@@ -180,16 +180,6 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
         SynchronizedField('share_image'),
     ]
 
-    panels = [
-        FieldPanel('name'),
-        FieldPanel('description'),
-        SnippetChooserPanel('parent'),
-        FieldPanel('featured'),
-        FieldPanel('hidden'),
-        FieldPanel('sort_order'),
-        FieldPanel('og_image'),  # FIXME: we really need to migrate this to a normal wagtail image.
-    ]
-
     @property
     def published_product_page_count(self):
         return ProductPage.objects.filter(product_categories__category=self).live().count()
