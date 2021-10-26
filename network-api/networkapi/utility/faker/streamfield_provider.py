@@ -142,7 +142,8 @@ def generate_spacer_field():
 
 
 def generate_quote_field():
-    quote = fake.sentence()
+    quote = f'<p>{fake.sentence()}</p>',
+
     attribution = fake.name()
 
     return generate_field('quote', {
