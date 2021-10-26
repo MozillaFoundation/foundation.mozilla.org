@@ -41,6 +41,9 @@ module.exports = {
       screens: {
         print: {raw: "print"},
       },
+      opacity: {
+        40: 0.4,
+      }
     },
     // Overriding default spacing
     spacing: {
@@ -106,9 +109,13 @@ module.exports = {
       festival: {
         blue: {
           DEFAULT: "#0e11bf",
-          100: "#4C56EC",
+          100: "#2e05ff",
+          200: "#4C56EC",
         },
-        purple: "#8f14fb",
+        purple: {
+          DEFAULT: "#8f14fb",
+          100: "#fa00ff",
+        },
       },
       "dear-internet": {
         lilac: "#d3d5fc",

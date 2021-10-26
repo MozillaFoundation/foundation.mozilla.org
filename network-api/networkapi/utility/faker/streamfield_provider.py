@@ -326,6 +326,21 @@ def generate_dear_internet_letter_field():
     return generate_field('letter', attributes)
 
 
+def generate_banner_carousel_field():
+    return generate_field('slide', {
+        'image': choice(Image.objects.all()).id,
+        'heading': fake.sentence(nb_words=4, variable_nb_words=True),
+        'description': fake.paragraph(nb_sentences=3, variable_nb_sentences=True),
+    })
+
+
+def generate_banner_video_field():
+    return generate_field('external_video', {
+        'video_url': 'https://www.youtube.com/embed/3FIVXBawyQw',
+        'thumbnail': choice(Image.objects.all()).id,
+    })
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -368,7 +383,9 @@ class StreamfieldProvider(BaseProvider):
             'recent_blog_entries': generate_recent_blog_entries_field,
             'blog_set': generate_blog_set_field,
             'airtable': generate_airtable_field,
-            'typeform': generate_typeform_field
+            'typeform': generate_typeform_field,
+            'banner_carousel': generate_banner_carousel_field,
+            'banner_video': generate_banner_video_field,
         }
 
         streamfield_data = []

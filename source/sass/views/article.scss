@@ -295,9 +295,7 @@
   }
 
   .article-blocks .rich-text .richtext-image {
-    &.full-width,
-    &.right,
-    &.left {
+    &.full-width {
       margin: 0 0 24px 0;
       width: 100%;
       max-width: 100%;
