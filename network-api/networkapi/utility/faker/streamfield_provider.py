@@ -142,8 +142,7 @@ def generate_spacer_field():
 
 
 def generate_quote_field():
-    quote = f'<p>{fake.sentence()}</p>',
-
+    quote = f'<p>{fake.sentence()}</p>'
     attribution = fake.name()
 
     return generate_field('quote', {
@@ -201,7 +200,7 @@ def generate_regret_story_field():
 
 
 def generate_callout_field():
-    value = f'<p>{fake.sentence(nb_words=10)}</p>',
+    value = f'<p>{fake.sentence(nb_words=10)}</p>'
 
     return generate_field('callout', value)
 
