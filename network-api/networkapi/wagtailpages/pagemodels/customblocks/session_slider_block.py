@@ -34,10 +34,15 @@ class SessionItemBlock(blocks.StructBlock):
     )
 
 
-class SessionSliderListBlock(blocks.StructBlock):
+class SessionSliderBlock(blocks.StructBlock):
     title = blocks.CharBlock(help_text='Heading for the slider.')
 
-    session_items = blocks.ListBlock(SessionItemBlock(), help_text='A list of sessions in the slider.')
+    session_items = blocks.StreamBlock(
+        [
+            ('session_item', SessionItemBlock()),
+        ],
+        help_text='A list of sessions in the slider.',
+    )
 
     button = blocks.StreamBlock(
         [
@@ -51,4 +56,4 @@ class SessionSliderListBlock(blocks.StructBlock):
     class Meta:
         icon = 'list-ul'
         help_text = 'Recommendation: No more than 5 items should be in this slider.'
-        template = 'wagtailpages/blocks/session_slider_list_block.html'
+        template = 'wagtailpages/blocks/session_slider_block.html'
