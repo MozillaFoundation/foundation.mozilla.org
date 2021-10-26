@@ -9,7 +9,7 @@
 
 <p class="mb-0">
   {% url 'buyersguide-home' as home_url %}
-  {% relocalized_url home_page.localized.url as home_url%}
+  {% relocalized_url home_page.localized.url as home_url %}
   {% blocktrans trimmed with home_url=home_url %}
     Try going back to <a href="{{home_url}}" class="go-back-to-all-link">All</a>. You might find it there.
   {% endblocktrans %}
