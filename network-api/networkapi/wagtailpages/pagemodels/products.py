@@ -167,6 +167,7 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
     panels = [
         FieldPanel('name'),
         FieldPanel('description'),
+        SnippetChooserPanel('parent'),
         FieldPanel('featured'),
         FieldPanel('hidden'),
         FieldPanel('sort_order'),
@@ -236,7 +237,7 @@ class ProductPageVotes(models.Model):
             "value": votes[highest],
             "label": label[0],
             "localized": label[1],
-            }
+        }
 
     def get_vote_labels(self):
         return [
@@ -245,7 +246,7 @@ class ProductPageVotes(models.Model):
             ("Somewhat creepy", gettext("Somewhat creepy")),
             ("Very creepy", gettext("Very creepy")),
             ("Super creepy", gettext("Super creepy")),
-            ]
+        ]
 
 
 class ProductPageCategory(TranslatableMixin, Orderable):
@@ -254,6 +255,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
         related_name='product_categories',
         on_delete=models.CASCADE
     )
+
     category = models.ForeignKey(
         'wagtailpages.BuyersGuideProductCategory',
         related_name='+',
@@ -261,6 +263,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
         null=True,
         on_delete=models.SET_NULL,
     )
+
     panels = [
         SnippetChooserPanel('category'),
     ]
@@ -877,13 +880,9 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('privacy_policy'),
         TranslatableField('privacy_policy_helptext'),
         # non-translatable fields:
-        SynchronizedField('email'),
-        SynchronizedField('live_chat'),
         SynchronizedField('mozilla_says'),
-        SynchronizedField('phone_number'),
         SynchronizedField('related_product_pages'),
         SynchronizedField('time_researched'),
-        SynchronizedField('twitter'),
         SynchronizedField('updates'),
         TranslatableField('tips_to_protect_yourself')
     ]
@@ -1239,9 +1238,6 @@ class GeneralProductPage(ProductPage):
         blank=True,
         help_text='Helptext that will appear in the can user control section.',
     )
-    ai_uses_personal_data = ExtendedYesNoField(
-        help_text='Does the AI use your personal data to make decisions about you?'
-    )
 
     @classmethod
     def map_import_fields(cls):
@@ -1262,7 +1258,6 @@ class GeneralProductPage(ProductPage):
             "Offline capable": "offline_capable",
             "Offline use": "offline_use_description",
             "Uses AI": "uses_ai",
-            "AI uses personal data": "ai_uses_personal_data",
             "AI help text": "ai_helptext",
             "AI is transparent": "ai_is_transparent",
             "AI is transparent help text": "ai_is_transparent_helptext",
@@ -1298,7 +1293,6 @@ class GeneralProductPage(ProductPage):
             "Offline capable": self.offline_capable,
             "Offline use": self.offline_use_description,
             "Uses AI": self.uses_ai,
-            "AI uses personal data": self.ai_uses_personal_data,
             "AI is transparent": self.ai_is_transparent,
             "AI is transparent help text": self.ai_is_transparent_helptext,
             "AI help text": self.ai_helptext,
@@ -1398,7 +1392,6 @@ class GeneralProductPage(ProductPage):
                     FieldPanel('ai_is_transparent_helptext'),
                     FieldPanel('ai_can_user_control'),
                     FieldPanel('ai_can_user_control_helptext'),
-                    FieldPanel('ai_uses_personal_data'),
 
                 ],
                 heading='Artificial Intelligence',
@@ -1419,7 +1412,6 @@ class GeneralProductPage(ProductPage):
         SynchronizedField('offline_capable'),
         TranslatableField('offline_use_description'),
         SynchronizedField('uses_ai'),
-        SynchronizedField('ai_uses_personal_data'),
         SynchronizedField('ai_is_transparent'),
         TranslatableField('ai_is_transparent_helptext'),
         TranslatableField('ai_helptext'),

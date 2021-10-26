@@ -225,7 +225,7 @@
 
                     {% trans "Can this product be used offline?" as offline_capable %}
                     {% include "fragments/product_criterion.html"  with  label=offline_capable  value=product.offline_capable   help=product.offline_use_description %}
-                    
+
                   {% endif %}
 
                   {% if product.product_type == 'general' %}
@@ -274,9 +274,6 @@
                           </div>
                         </section>
 
-                        {% trans "Is the company transparent about how the AI works?" as ai_uses_personal_data %}
-                        {% include "fragments/product_criterion.html"  with  label=ai_uses_personal_data  value=product.ai_uses_personal_data|extended_yes_no   %}
-
                         {% trans "Does the user have control over the AI features?" as ai_is_transparent %}
                         {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no           %}
 
@@ -288,7 +285,7 @@
                 </div>
               </div>
             </div>
-            
+
           </div>
         {% endwith %}
 
@@ -338,9 +335,9 @@
             {% endfor %}
           </div>
         </div>
-          
 
-          
+
+
 
       </div>
     </div>
