@@ -6,11 +6,11 @@ const FILTERS = [`company`, `name`, `blurb`, `worst-case`];
 const SORTS = [`name`, `company`, `blurb`];
 const SUBMIT_PRODUCT = document.querySelector(".recommend-product");
 const CREEPINESS_FACE = document.querySelector(".creep-o-meter-information");
+const categoryTitle = document.querySelector(`.category-title`);
 
 const SearchFilter = {
   init: () => {
     const searchBar = document.querySelector(`#product-filter-search`);
-    const categoryTitle = document.querySelector(`.category-title`);
 
     if (!searchBar) {
       return console.warn(
@@ -26,6 +26,7 @@ const SearchFilter = {
 
       if (searchText) {
         searchBar.classList.add(`has-content`);
+
         SearchFilter.filter(searchText);
       }
     });
@@ -45,6 +46,16 @@ const SearchFilter = {
         product.classList.remove(`d-none`);
         product.classList.add(`d-flex`);
       });
+
+      history.replaceState(
+        {
+          ...history.state,
+          search: "",
+        },
+        SearchFilter.getTitle(categoryTitle.value.trim()),
+        location.href
+      );
+
       SearchFilter.sortOnCreepiness();
       SearchFilter.moveCreepyFace();
     };
@@ -78,6 +89,7 @@ const SearchFilter = {
             {
               title: SearchFilter.getTitle(evt.target.dataset.name),
               category: evt.target.dataset.name,
+              search: "",
             },
             SearchFilter.getTitle(evt.target.dataset.name),
             evt.target.href
@@ -100,6 +112,7 @@ const SearchFilter = {
           {
             title: SearchFilter.getTitle("None"),
             category: "None",
+            search: "",
           },
           SearchFilter.getTitle(evt.target.dataset.name),
           evt.target.href
@@ -123,9 +136,11 @@ const SearchFilter = {
       const { title, category } = state;
       document.title = title;
 
-      if (!searchInput.value) {
+      if (!history.state?.search) {
         SearchFilter.clearCategories();
         SearchFilter.filterCategory(category);
+        searchBar.classList.remove(`has-content`);
+        searchInput.value = ``;
 
         document
           .querySelector(`#multipage-nav a.active`)
@@ -134,6 +149,11 @@ const SearchFilter = {
         document
           .querySelector(`#multipage-nav a[data-name="${category}"]`)
           .classList.add(`active`);
+      } else {
+        SearchFilter.filterCategory(category);
+        searchBar.classList.add(`has-content`);
+        searchInput.value = history.state?.search;
+        SearchFilter.filter(history.state.search);
       }
     });
 
@@ -141,13 +161,20 @@ const SearchFilter = {
       {
         title: SearchFilter.getTitle(categoryTitle.value.trim()),
         category: categoryTitle.value.trim(),
+        search: history.state?.search ?? "",
       },
       SearchFilter.getTitle(categoryTitle.value.trim()),
       location.href
     );
 
-    searchBar.classList.remove(`has-content`);
-    searchInput.value = ``;
+    if (history.state?.search) {
+      searchBar.classList.add(`has-content`);
+      searchInput.value = history.state?.search;
+      SearchFilter.filter(history.state?.search);
+    } else {
+      searchBar.classList.remove(`has-content`);
+      searchInput.value = ``;
+    }
   },
 
   clearCategories: () => {
@@ -204,6 +231,15 @@ const SearchFilter = {
         product.classList.remove(`d-flex`);
       }
     });
+
+    history.replaceState(
+      {
+        ...history.state,
+        search: text,
+      },
+      SearchFilter.getTitle(categoryTitle.value.trim()),
+      location.href
+    );
 
     SearchFilter.sortProducts();
 
@@ -263,6 +299,7 @@ const SearchFilter = {
       }
     });
 
+    categoryTitle.value = category;
     SearchFilter.sortOnCreepiness();
     SearchFilter.moveCreepyFace();
     SearchFilter.checkForEmptyNotice();

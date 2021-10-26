@@ -32,7 +32,6 @@ body.catalog {
 
       @media (min-width: $breakpoint) {
         padding-top: 12px;
-        padding-bottom: calc(var(--search-box-height-desktop) + 90px);
       }
       @media (min-width: $hero-breakpoint) {
         padding-top: 90px;

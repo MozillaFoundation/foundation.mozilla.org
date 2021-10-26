@@ -41,7 +41,7 @@
     <input type="hidden" class="product-worst-case" value="{{ product.worst_case }}">
     {% for cat in product.product_categories.all %}
       {% with category=cat.category %}
-        <input type="hidden" class="product-categories" value="{{category.localized.name}}">
+        <input type="hidden" class="product-categories" value="{{category.name}}">
       {% endwith %}
     {% endfor %}
   </figcaption>
