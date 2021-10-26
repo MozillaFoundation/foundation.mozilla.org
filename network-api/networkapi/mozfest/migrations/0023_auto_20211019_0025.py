@@ -11,7 +11,7 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mozfest', '0021_add_spaces_cards'),
+        ('mozfest', '0022_mozfesthomepage_banner_carousel_banner_video'),
     ]
 
     operations = [

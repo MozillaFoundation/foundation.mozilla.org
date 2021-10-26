@@ -10,7 +10,7 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mozfest', '0022_auto_20211019_0025'),
+        ('mozfest', '0021_add_spaces_cards'),
     ]
 
     operations = [
