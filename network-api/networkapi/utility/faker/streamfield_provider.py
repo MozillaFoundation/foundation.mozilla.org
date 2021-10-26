@@ -201,7 +201,8 @@ def generate_regret_story_field():
 
 
 def generate_callout_field():
-    value = fake.sentence(nb_words=10)
+    value = f'<p>{fake.sentence(nb_words=10)}</p>',
+
     return generate_field('callout', value)
 
 
