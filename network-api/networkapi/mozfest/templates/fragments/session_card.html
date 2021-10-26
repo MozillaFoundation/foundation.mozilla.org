@@ -5,8 +5,13 @@
   <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-5 tw-gap-4">
 
     <div class="medium:tw-col-span-3">
-      <div class="h3-heading tw-inline-block tw-text-black tw-mb-4 group-hover:tw-underline tw-font-zilla tw-transition">{{ title }}</div>
-      <div class=" tw-text-lg">
+      <div class="tw-mb-4 tw-text-black">
+        <div class="h3-heading tw-inline-block group-hover:tw-underline tw-font-zilla tw-transition">{{ title }}</div>
+        {% if author_subheading %}
+          <div class="body-small">{{ author_subheading }}</div>
+        {% endif %}
+      </div>
+      <div class="tw-text-lg">
         {{ text|richtext }}
       </div>
     </div>

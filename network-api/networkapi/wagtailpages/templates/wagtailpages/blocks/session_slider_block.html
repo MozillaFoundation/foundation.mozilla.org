@@ -19,7 +19,7 @@
       {% for item in self.session_items %}
         {% image item.value.image fill-250x140 as img %}
         <div class="swiper-slide">
-          {% include 'fragments/session_card.html' with title=item.value.title url=item.value.video.url image=img.url text=item.value.body animated_thumbnail=item.value.video.url %}
+          {% include 'fragments/session_card.html' with title=item.value.title author_subheading=item.value.author_subheading url=item.value.video.url image=img.url text=item.value.body animated_thumbnail=item.value.video.url %}
         </div>
       {% endfor %}
 
