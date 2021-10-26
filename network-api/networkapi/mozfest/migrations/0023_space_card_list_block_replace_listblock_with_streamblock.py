@@ -27,7 +27,7 @@ def convert_listblock_to_streamblock(apps, schema):
         needs_saving = False
 
         # Only loop through streamfield data if there's a `body` field on the page
-        if page.body:
+        if hasattr(page, 'body') and page.body:
             # Checking if page.body has raw_data, and looping through it.
             if hasattr(page.body, 'raw_data'):
                 for block in page.body.raw_data:
