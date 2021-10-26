@@ -20,9 +20,9 @@
 
       {# Slides #}
       {% for current_event in self.current_events %}
-        {% image current_event.image fill-445x185 as img %}
+        {% image current_event.value.image fill-445x185 as img %}
         <div class="swiper-slide">
-          {% include 'fragments/event_card.html' with title=current_event.title category_url=current_event.subheading_link.0.value.link_url category_title=current_event.subheading_link.0.value.label buttons=current_event.buttons image=img.url text=current_event.body %}
+          {% include 'fragments/event_card.html' with title=current_event.value.title category_url=current_event.value.subheading_link.0.value.link_url category_title=current_event.value.subheading_link.0.value.label buttons=current_event.value.buttons image=img.url text=current_event.value.body %}
         </div>
       {% endfor %}
     </div>

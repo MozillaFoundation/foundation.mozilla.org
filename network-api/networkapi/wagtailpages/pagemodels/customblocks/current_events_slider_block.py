@@ -38,10 +38,15 @@ class CurrentEventBlock(blocks.StructBlock):
         label = 'Current Event Item'
 
 
-class CurrentEventsSliderListBlock(blocks.StructBlock):
+class CurrentEventsSliderBlock(blocks.StructBlock):
     title = blocks.CharBlock(help_text='Heading for the slider.')
 
-    current_events = blocks.ListBlock(CurrentEventBlock(), help_text='A list of current events in the slider.')
+    current_events = blocks.StreamBlock(
+        [
+            ('current_event', CurrentEventBlock()),
+        ],
+        help_text='A list of current events in the slider.',
+    )
 
     class Meta:
         icon = 'list-ul'
@@ -49,4 +54,4 @@ class CurrentEventsSliderListBlock(blocks.StructBlock):
             'Recommendation: No more than 5 items should be in this slider. '
             'This slider cannot be placed at the top of the page when a signup form is present as they will overlap.'
         )
-        template = 'wagtailpages/blocks/current_events_slider_list_block.html'
+        template = 'wagtailpages/blocks/current_events_slider_block.html'
