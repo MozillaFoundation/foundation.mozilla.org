@@ -1,10 +1,11 @@
 // MozFest-specific styling
 // https://www.mozillafestival.org
 
-// Carousel
+// Mozfest Carousel Modules
 @import "../../node_modules/swiper/swiper-vars.scss";
 @import "../../node_modules/swiper/swiper.scss";
 @import "../../node_modules/swiper/components/pagination/pagination.scss";
+@import "../../node_modules/swiper/components/effect-fade/effect-fade.scss";
 
 body.mozfest {
   .primary-nav-container {
@@ -53,6 +54,7 @@ body.mozfest {
           height: $icon-size;
           background: center left/$icon-size $icon-size no-repeat transparent;
           padding-left: calc(#{$icon-size} + 0.5rem);
+          text-transform: uppercase;
           // due to a Safari bug, we have to remove transition for these buttons
           // so background SVGs don't get resized on hover
           transition: none;
@@ -180,42 +182,100 @@ body.mozfest {
     }
   }
 
-  .swiper-button-next,
-  .swiper-button-prev {
-    @apply tw-border-2 tw-text-blue tw-flex tw-flex-col tw-justify-center tw-items-center tw-w-[40px] tw-h-[40px] tw-transition;
+}
 
-    &.swiper-button-disabled {
-      @apply tw-border-gray-20;
+.swiper-button-next,
+.swiper-button-prev {
+  @apply tw-border-2 tw-text-blue tw-flex tw-flex-col tw-justify-center tw-items-center tw-w-[40px] tw-h-[40px] tw-transition;
+
+  &.swiper-button-disabled {
+    @apply tw-border-gray-20;
+  }
+
+  &::after {
+    content: "";
+  }
+
+  &:hover {
+    @apply tw-opacity-75;
+  }
+}
+
+.swiper-button-icon {
+  @apply tw-text-blue tw-w-4 tw-h-4;
+}
+
+.swiper-button-disabled {
+  .swiper-button-icon {
+    @apply tw-text-gray-20;
+  }
+}
+
+.swiper-button-prev {
+  @apply tw-mr-5;
+}
+
+.swiper-pagination-bullet {
+  @apply tw-w-3 tw-h-3;
+}
+
+.swiper-pagination-bullet-active {
+  @apply tw-bg-festival-blue-100;
+}
+
+@keyframes slide-progress-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+#view-mozfest-home {
+  .swiper-hero-pagination {
+    .swiper-pagination-bullet {
+      @apply tw-block tw-w-full tw-rounded-full tw-overflow-hidden tw-relative tw-bg-white;
+      height: 4px;
+
+      &::before {
+        @apply tw-block tw-inset-0 tw-absolute;
+        background: $white;
+        content: "";
+      }
     }
 
-    &::after {
+    .swiper-pagination-bullet-active {
+      /* stylelint-disable */
+      background: rgba($white, 0.2);
+      /* stylelint-enable */
+
+      &::before {
+        animation: slide-progress-bar 10s ease-in-out forwards;
+      }
+    }
+  }
+
+  .swiper-mobile-progress-bar {
+    @apply tw-rounded-full tw-relative tw-overflow-hidden tw-w-full;
+    height: 4px;
+    /* stylelint-disable */
+    background: rgba($white, 0.5);
+    /* stylelint-enable */
+
+    &::before {
+      @apply tw-block tw-inset-0 tw-absolute;
+      background: $white;
       content: "";
     }
+  }
 
-    &:hover {
-      @apply tw-opacity-75;
+  .swiper-slide-active {
+    .swiper-mobile-progress-bar {
+      &::before {
+        animation: slide-progress-bar 10s ease-in-out forwards;
+      }
     }
-  }
-
-  .swiper-button-icon {
-    @apply tw-text-blue tw-w-4 tw-h-4;
-  }
-
-  .swiper-button-disabled {
-    .swiper-button-icon {
-      @apply tw-text-gray-20;
-    }
-  }
-
-  .swiper-button-prev {
-    @apply tw-mr-5;
-  }
-
-  .swiper-pagination-bullet {
-    @apply tw-w-3 tw-h-3;
-  }
-
-  .swiper-pagination-bullet-active {
-    @apply tw-bg-festival-blue-100;
   }
 }

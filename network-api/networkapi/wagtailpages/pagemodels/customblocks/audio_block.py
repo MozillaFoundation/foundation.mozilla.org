@@ -1,10 +1,10 @@
 from wagtail.core import blocks
-from wagtailmedia.blocks import AbstractMediaChooserBlock
+from wagtailmedia.blocks import AudioChooserBlock
 
 
 class AudioBlock(blocks.StructBlock):
 
-    audio = AbstractMediaChooserBlock()
+    audio = AudioChooserBlock()
 
     caption = blocks.CharBlock(
         required=False
