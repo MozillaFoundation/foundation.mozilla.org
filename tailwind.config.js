@@ -13,7 +13,7 @@ module.exports = {
     container: false
   },
   plugins: [
-    plugin(function ({addUtilities}) {
+    plugin(function ({ addUtilities }) {
       // Adding Column Count to Tailwind CSS
       const newUtilities = {
         ".col-count-1": {
@@ -39,7 +39,7 @@ module.exports = {
         inherit: "inherit",
       },
       screens: {
-        print: {raw: "print"},
+        print: { raw: "print" },
       },
       opacity: {
         40: 0.4,
