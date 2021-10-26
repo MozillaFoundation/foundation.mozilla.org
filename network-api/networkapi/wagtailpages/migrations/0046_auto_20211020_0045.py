@@ -15,7 +15,7 @@ import wagtailmedia.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0042_add_callpower_cta'),
+        ('wagtailpages', '0045_quotes_to_richtext'),
     ]
 
     operations = [

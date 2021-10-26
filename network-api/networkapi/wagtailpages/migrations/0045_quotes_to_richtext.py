@@ -64,7 +64,7 @@ def loop_through_pages_with_quotes(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0044_auto_20211020_2230'),
+        ('wagtailpages', '0044_remove_generalproductpage_ai_uses_personal_data'),
     ]
 
     operations = [
