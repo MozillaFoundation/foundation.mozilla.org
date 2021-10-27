@@ -7,7 +7,7 @@ import django.db.models.expressions
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0044_remove_generalproductpage_ai_uses_personal_data'),
+        ('wagtailpages', '0046_auto_20211020_0045'),
     ]
 
     operations = [
