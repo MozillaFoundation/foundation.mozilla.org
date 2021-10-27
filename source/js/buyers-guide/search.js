@@ -7,6 +7,7 @@ const SORTS = [`name`, `company`, `blurb`];
 const SUBMIT_PRODUCT = document.querySelector(".recommend-product");
 const CREEPINESS_FACE = document.querySelector(".creep-o-meter-information");
 const categoryTitle = document.querySelector(`.category-title`);
+const toggle = document.querySelector(`#product-filter-pni-toggle`);
 
 const SearchFilter = {
   init: () => {
@@ -90,6 +91,7 @@ const SearchFilter = {
               title: SearchFilter.getTitle(evt.target.dataset.name),
               category: evt.target.dataset.name,
               search: "",
+              filter: history.state?.filter,
             },
             SearchFilter.getTitle(evt.target.dataset.name),
             evt.target.href
@@ -113,6 +115,7 @@ const SearchFilter = {
             title: SearchFilter.getTitle("None"),
             category: "None",
             search: "",
+            filter: history.state?.filter,
           },
           SearchFilter.getTitle(evt.target.dataset.name),
           evt.target.href
@@ -155,6 +158,16 @@ const SearchFilter = {
         searchInput.value = history.state?.search;
         SearchFilter.filter(history.state.search);
       }
+
+      if (history.state?.filter) {
+        toggle.checked = history.state.filter;
+
+        if (history.state.filter) {
+          document.body.classList.add(`show-ding-only`);
+        } else {
+          document.body.classList.remove(`show-ding-only`);
+        }
+      }
     });
 
     history.replaceState(
@@ -162,6 +175,7 @@ const SearchFilter = {
         title: SearchFilter.getTitle(categoryTitle.value.trim()),
         category: categoryTitle.value.trim(),
         search: history.state?.search ?? "",
+        filter: history.state?.filter,
       },
       SearchFilter.getTitle(categoryTitle.value.trim()),
       location.href
@@ -174,6 +188,16 @@ const SearchFilter = {
     } else {
       searchBar.classList.remove(`has-content`);
       searchInput.value = ``;
+    }
+
+    if (history.state?.filter) {
+      toggle.checked = history.state.filter;
+
+      if (history.state.filter) {
+        document.body.classList.add(`show-ding-only`);
+      } else {
+        document.body.classList.remove(`show-ding-only`);
+      }
     }
   },
 
@@ -354,8 +378,6 @@ const SearchFilter = {
 
 const PNIToggle = {
   init: () => {
-    const toggle = document.querySelector(`#product-filter-pni-toggle`);
-
     if (!toggle) {
       return console.warn(
         `Could not find the PNI filter checkbox. PNI filtering will not be available.`
@@ -364,6 +386,15 @@ const PNIToggle = {
 
     toggle.addEventListener(`change`, (evt) => {
       const filter = evt.target.checked;
+
+      history.replaceState(
+        {
+          ...history.state,
+          filter,
+        },
+        SearchFilter.getTitle(categoryTitle.value.trim()),
+        location.href
+      );
 
       if (filter) {
         document.body.classList.add(`show-ding-only`);
