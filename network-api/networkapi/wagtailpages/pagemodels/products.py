@@ -1645,7 +1645,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             )
 
         context['category'] = slug
-        context['original_category'] = original_category
+        context['original_category'] = original_category.localized.name
         context['current_category'] = category
         context['products'] = products
         context['pageTitle'] = f'{category.localized.name} | {gettext("Privacy & security guide")}'\
