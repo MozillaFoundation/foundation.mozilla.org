@@ -107,7 +107,6 @@ class GeneralProductPageSerializer(ProductSerializer):
     offline_capable = ExtendedYesNoSerializer(default='CD')
     offline_use_description = serializers.CharField(required=False, max_length=5000)
     uses_ai = ExtendedYesNoSerializer(default='CD')
-    ai_uses_personal_data = ExtendedYesNoSerializer(default='CD')
     ai_is_transparent = ExtendedYesNoSerializer(default='CD')
     ai_helptext = serializers.CharField(required=False, max_length=5000)
 

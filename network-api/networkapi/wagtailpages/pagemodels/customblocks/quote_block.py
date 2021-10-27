@@ -8,7 +8,7 @@ class QuoteBlock(blocks.StructBlock):
     # This way we don't have to migrate the model again later
 
     quotes = blocks.ListBlock(blocks.StructBlock([
-        ('quote', blocks.CharBlock()),
+        ('quote', blocks.RichTextBlock(features=['bold'])),
         ('attribution', blocks.CharBlock(required=False))
     ]))
 
