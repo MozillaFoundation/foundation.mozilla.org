@@ -496,7 +496,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         blank=True,
     )
     tips_to_protect_yourself = RichTextField(
-        features=['bold', 'italic', 'link'],
+        features=['ul', 'bold', 'italic', 'link'],
         blank=True
     )
     mozilla_says = models.BooleanField(
