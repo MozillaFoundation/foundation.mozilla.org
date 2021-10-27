@@ -91,7 +91,7 @@ const SearchFilter = {
               title: SearchFilter.getTitle(evt.target.dataset.name),
               category: evt.target.dataset.name,
               search: "",
-              filter: history.state?.filter,
+              filter: history.state.filter,
             },
             SearchFilter.getTitle(evt.target.dataset.name),
             evt.target.href
@@ -115,7 +115,7 @@ const SearchFilter = {
             title: SearchFilter.getTitle("None"),
             category: "None",
             search: "",
-            filter: history.state?.filter,
+            filter: history.state.filter,
           },
           SearchFilter.getTitle(evt.target.dataset.name),
           evt.target.href
@@ -139,7 +139,7 @@ const SearchFilter = {
       const { title, category } = state;
       document.title = title;
 
-      if (!history.state?.search) {
+      if (!history.state.search) {
         SearchFilter.clearCategories();
         SearchFilter.filterCategory(category);
         searchBar.classList.remove(`has-content`);
@@ -155,11 +155,11 @@ const SearchFilter = {
       } else {
         SearchFilter.filterCategory(category);
         searchBar.classList.add(`has-content`);
-        searchInput.value = history.state?.search;
+        searchInput.value = history.state.search;
         SearchFilter.filter(history.state.search);
       }
 
-      if (history.state?.filter) {
+      if (history.state.filter) {
         toggle.checked = history.state.filter;
 
         if (history.state.filter) {
@@ -174,23 +174,23 @@ const SearchFilter = {
       {
         title: SearchFilter.getTitle(categoryTitle.value.trim()),
         category: categoryTitle.value.trim(),
-        search: history.state?.search ?? "",
-        filter: history.state?.filter,
+        search: history.state.search || "",
+        filter: history.state.filter,
       },
       SearchFilter.getTitle(categoryTitle.value.trim()),
       location.href
     );
 
-    if (history.state?.search) {
+    if (history.state.search) {
       searchBar.classList.add(`has-content`);
-      searchInput.value = history.state?.search;
-      SearchFilter.filter(history.state?.search);
+      searchInput.value = history.state.search;
+      SearchFilter.filter(history.state.search);
     } else {
       searchBar.classList.remove(`has-content`);
       searchInput.value = ``;
     }
 
-    if (history.state?.filter) {
+    if (history.state.filter) {
       toggle.checked = history.state.filter;
 
       if (history.state.filter) {
