@@ -224,12 +224,8 @@
       }
 
       .rich-text {
-        p {
-          display: list-item;
-          list-style-type: disc;
-          list-style-position: inside;
-          padding-left: 0.5em;
-          margin-bottom: 0em;
+        ul {
+          padding-left: 1.5em;
         }
       }
     }
