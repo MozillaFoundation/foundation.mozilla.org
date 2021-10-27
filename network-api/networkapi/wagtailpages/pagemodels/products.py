@@ -1238,9 +1238,6 @@ class GeneralProductPage(ProductPage):
         blank=True,
         help_text='Helptext that will appear in the can user control section.',
     )
-    ai_uses_personal_data = ExtendedYesNoField(
-        help_text='Does the AI use your personal data to make decisions about you?'
-    )
 
     @classmethod
     def map_import_fields(cls):
@@ -1261,7 +1258,6 @@ class GeneralProductPage(ProductPage):
             "Offline capable": "offline_capable",
             "Offline use": "offline_use_description",
             "Uses AI": "uses_ai",
-            "AI uses personal data": "ai_uses_personal_data",
             "AI help text": "ai_helptext",
             "AI is transparent": "ai_is_transparent",
             "AI is transparent help text": "ai_is_transparent_helptext",
@@ -1297,7 +1293,6 @@ class GeneralProductPage(ProductPage):
             "Offline capable": self.offline_capable,
             "Offline use": self.offline_use_description,
             "Uses AI": self.uses_ai,
-            "AI uses personal data": self.ai_uses_personal_data,
             "AI is transparent": self.ai_is_transparent,
             "AI is transparent help text": self.ai_is_transparent_helptext,
             "AI help text": self.ai_helptext,
@@ -1397,7 +1392,6 @@ class GeneralProductPage(ProductPage):
                     FieldPanel('ai_is_transparent_helptext'),
                     FieldPanel('ai_can_user_control'),
                     FieldPanel('ai_can_user_control_helptext'),
-                    FieldPanel('ai_uses_personal_data'),
 
                 ],
                 heading='Artificial Intelligence',
@@ -1418,7 +1412,6 @@ class GeneralProductPage(ProductPage):
         SynchronizedField('offline_capable'),
         TranslatableField('offline_use_description'),
         SynchronizedField('uses_ai'),
-        SynchronizedField('ai_uses_personal_data'),
         SynchronizedField('ai_is_transparent'),
         TranslatableField('ai_is_transparent_helptext'),
         TranslatableField('ai_helptext'),

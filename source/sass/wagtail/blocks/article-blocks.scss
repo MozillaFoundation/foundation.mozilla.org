@@ -1,6 +1,6 @@
 // StreamBlock implmentation for article blocks
 
-.article-page-content .rich-text {
+.article-page-content .content-block .rich-text {
   /**
      * .rich-text styling needs to be specified in CSS rather than Bootstrap classes
      * because we don't have access to the individual elements.
