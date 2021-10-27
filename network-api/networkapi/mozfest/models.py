@@ -88,6 +88,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         TranslatableField('search_description'),
         SynchronizedField('search_image'),
         # Content tab fields
+        TranslatableField('title'),
         TranslatableField('header'),
         SynchronizedField('banner'),
         TranslatableField('intro'),

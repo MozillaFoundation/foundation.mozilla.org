@@ -7,7 +7,8 @@ from wagtail.contrib.table_block.blocks import TableBlock
 
 article_fields = [
     ('airtable', customblocks.AirTableBlock()),
-    ('callout', blocks.BlockQuoteBlock(
+    ('callout', blocks.RichTextBlock(
+        features=['bold'],
         template="wagtailpages/blocks/article_blockquote_block.html"
     )),
     ('card_grid', customblocks.CardGridBlock()),
