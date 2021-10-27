@@ -109,8 +109,7 @@ module.exports = {
       festival: {
         blue: {
           DEFAULT: "#0e11bf",
-          100: "#2e05ff",
-          200: "#4C56EC",
+          100: "#2e05ff"
         },
         purple: {
           DEFAULT: "#8f14fb",
