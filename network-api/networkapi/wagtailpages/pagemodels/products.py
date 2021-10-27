@@ -1645,7 +1645,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             )
 
         context['category'] = slug
-        context['original_category'] = original_category.localized.name
         context['current_category'] = category
         context['products'] = products
         context['pageTitle'] = f'{category.localized.name} | {gettext("Privacy & security guide")}'\
@@ -1711,7 +1710,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             )
 
         context['categories'] = get_categories_for_locale(language_code)
-        context['original_category'] = None
+        context['current_category'] = None
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         pni_home_page = BuyersGuidePage.objects.first()
