@@ -1,6 +1,11 @@
 {% extends "buyersguide/bg_base.html" %}
 
-{% load env i18n static wagtailimages_tags cache bg_nav_tags %}
+{% load static env i18n static wagtailimages_tags cache bg_nav_tags %}
+
+{% block additional_head_elements %}
+  {{ block.super }}
+  <script src="{% static "_js/bg-search.compiled.js" %}" async defer></script>
+{% endblock %}
 
 {% block bodyclass %}pni catalog{% endblock %}
 
