@@ -50,6 +50,7 @@ class SessionSliderBlock(blocks.StructBlock):
             ('external', LabelledExternalLinkBlock()),
         ],
         help_text='Button that appears below the slider.',
+        required=False,
         max_num=1,
     )
 
