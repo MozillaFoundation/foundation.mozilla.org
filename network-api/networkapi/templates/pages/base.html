@@ -92,7 +92,7 @@
       {% block prefooter %}{% endblock %}
 
       {% block footer_block %}
-      {% include "partials/footer.html" %}
+      {% include "partials/footer.html"  with web_monetization=True %}
       {% endblock %}
     </div>
     {% endblock %}
