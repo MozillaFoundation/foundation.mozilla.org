@@ -20,6 +20,13 @@ def bg_active_nav(current, target):
     return 'active' if urlparse(current).path == urlparse(target).path else ''
 
 
+@register.simple_tag(name='prod_in_cat')
+def prod_in_cat(productpage, categorySlug):
+    if categorySlug == "":
+        return True
+    return categorySlug in [cat.category.slug for cat in productpage.product_categories.all()]
+
+
 """
 # Instantiate a list of category page links based on the current page's relation to them
 # NOTE: this points to the new, namespaced category_nav_links. If we need to revert to the old app, change this back.
