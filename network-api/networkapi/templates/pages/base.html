@@ -10,6 +10,10 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    {% block web_monetization %}
+    <meta name="monetization" content="$ilp.uphold.com/aKpM9kwnGBy4">
+    {% endblock %}
+
     {% block social_metadata %}
       <meta property='og:type' content='website'>
       <meta property='og:locale' content='{{ lang_code|to_opengraph_locale }}'>
