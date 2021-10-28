@@ -285,7 +285,6 @@ class TestPNIAirtableConnections(TestCase):
             offline_capable='Yes',
             offline_use_description='Although it is unclear how offline capabilities work',
             uses_ai='NA',
-            ai_uses_personal_data='Yes',
             ai_is_transparent='No',
             ai_helptext='The AI is a black box and no one knows how it works',
         )
@@ -370,7 +369,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertEqual(mappings["Offline capable"], "offline_capable")
         self.assertEqual(mappings["Offline use"], "offline_use_description")
         self.assertEqual(mappings["Uses AI"], "uses_ai")
-        self.assertEqual(mappings["AI uses personal data"], "ai_uses_personal_data")
         self.assertEqual(mappings["AI help text"], "ai_helptext")
         self.assertEqual(mappings["AI is transparent"], "ai_is_transparent")
 
@@ -443,7 +441,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertIn("Offline capable", export_fields)
         self.assertIn("Offline use", export_fields)
         self.assertIn("Uses AI", export_fields)
-        self.assertIn("AI uses personal data", export_fields)
         self.assertIn("AI is transparent", export_fields)
         self.assertIn("AI help text", export_fields)
 

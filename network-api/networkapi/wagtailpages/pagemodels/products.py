@@ -1,12 +1,14 @@
 import json
 
 from datetime import datetime
-
 from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import int_list_validator
+
 from django.db import Error, models
+from django.db.models import F
+
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -112,7 +114,7 @@ def sort_average(products):
 
 
 @register_snippet
-class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Model):
+class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnippet, models.Model):
     """
     A simple category class for use with Buyers Guide products,
     registered as snippet so that we can moderate them if and
@@ -193,17 +195,27 @@ class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Mod
 
     def __str__(self):
         if self.parent is None:
-            return self.name
-        return f'{self.parent.name}: {self.name}'
+            return f'{self.name} (sort order: {self.sort_order})'
+        return f'{self.parent.name}: {self.name} (sort order: {self.sort_order})'
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
+    search_fields = [
+        index.SearchField('name', partial_match=True),
+        index.FilterField('locale_id'),
+    ]
+
     class Meta(TranslatableMixin.Meta):
         verbose_name = "Buyers Guide Product Category"
         verbose_name_plural = "Buyers Guide Product Categories"
-        ordering = ['sort_order', '-parent__name', 'name', ]
+        ordering = [
+            F('parent__sort_order').asc(nulls_first=True),
+            F('parent__name').asc(nulls_first=True),
+            'sort_order',
+            'name'
+        ]
 
 
 class ProductPageVotes(models.Model):
@@ -484,7 +496,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         blank=True,
     )
     tips_to_protect_yourself = RichTextField(
-        features=['bold', 'italic', 'link'],
+        features=['ul', 'bold', 'italic', 'link'],
         blank=True
     )
     mozilla_says = models.BooleanField(
@@ -1238,9 +1250,6 @@ class GeneralProductPage(ProductPage):
         blank=True,
         help_text='Helptext that will appear in the can user control section.',
     )
-    ai_uses_personal_data = ExtendedYesNoField(
-        help_text='Does the AI use your personal data to make decisions about you?'
-    )
 
     @classmethod
     def map_import_fields(cls):
@@ -1261,7 +1270,6 @@ class GeneralProductPage(ProductPage):
             "Offline capable": "offline_capable",
             "Offline use": "offline_use_description",
             "Uses AI": "uses_ai",
-            "AI uses personal data": "ai_uses_personal_data",
             "AI help text": "ai_helptext",
             "AI is transparent": "ai_is_transparent",
             "AI is transparent help text": "ai_is_transparent_helptext",
@@ -1297,7 +1305,6 @@ class GeneralProductPage(ProductPage):
             "Offline capable": self.offline_capable,
             "Offline use": self.offline_use_description,
             "Uses AI": self.uses_ai,
-            "AI uses personal data": self.ai_uses_personal_data,
             "AI is transparent": self.ai_is_transparent,
             "AI is transparent help text": self.ai_is_transparent_helptext,
             "AI help text": self.ai_helptext,
@@ -1397,7 +1404,6 @@ class GeneralProductPage(ProductPage):
                     FieldPanel('ai_is_transparent_helptext'),
                     FieldPanel('ai_can_user_control'),
                     FieldPanel('ai_can_user_control_helptext'),
-                    FieldPanel('ai_uses_personal_data'),
 
                 ],
                 heading='Artificial Intelligence',
@@ -1418,7 +1424,6 @@ class GeneralProductPage(ProductPage):
         SynchronizedField('offline_capable'),
         TranslatableField('offline_use_description'),
         SynchronizedField('uses_ai'),
-        SynchronizedField('ai_uses_personal_data'),
         SynchronizedField('ai_is_transparent'),
         TranslatableField('ai_is_transparent_helptext'),
         TranslatableField('ai_helptext'),

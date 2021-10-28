@@ -20,16 +20,18 @@
     margin: 0 auto 10px;
   }
 
-  h3 {
-    font-family: "Zilla Slab";
-    font-size: 24px;
-    color: $black;
-    line-height: 1.333333;
-    font-style: italic;
-    font-weight: 500;
+  .rich-text {
+    p {
+      font-family: "Zilla Slab";
+      font-size: 24px;
+      color: $black;
+      line-height: 1.333333;
+      font-style: italic;
+      margin: auto 0;
 
-    @media screen and (min-width: $breakpoint) {
-      font-size: 30px;
+      @media screen and (min-width: $breakpoint) {
+        font-size: 30px;
+      }
     }
   }
 }
