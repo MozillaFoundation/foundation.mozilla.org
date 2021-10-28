@@ -8,6 +8,8 @@ import wagtail.core.blocks.static_block
 import wagtail.core.fields
 import wagtail.images.blocks
 
+from networkapi.mozfest.models import MozfestPrimaryPage
+
 """
 Copies and converts existing ListBlock items in SpaceCardListBlock.space_cards
 to StreamBlock items.
@@ -15,8 +17,6 @@ The only difference between ListBlock items and StreamBlock items are that
 StreamBlock items have associated `type`s and unique `id`s.
 """
 def convert_listblock_to_streamblock(apps, schema):
-    MozfestPrimaryPage = apps.get_model('mozfest', 'MozfestPrimaryPage')
-
     for page in MozfestPrimaryPage.objects.all():
         if hasattr(page, 'alias_of') and page.alias_of != None:
             # This is a page alias, rather than a real page
@@ -75,8 +75,12 @@ def convert_listblock_to_streamblock(apps, schema):
                             # Mark this page to be saved
                             needs_saving = True
 
+            # If page is published already, continue to publish it.
+            # Otherwise just save a revision for draft history.
             if needs_saving:
-                page.save()
+                revision = page.save_revision()
+                if page.live:
+                    revision.publish()
 
 
 class Migration(migrations.Migration):
