@@ -181,6 +181,7 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
         TranslatableField('description'),
         SynchronizedField('slug'),
         SynchronizedField('share_image'),
+        SynchronizedField('parent'),
     ]
 
     @property
@@ -1649,8 +1650,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 self.cutoff_date,
                 authenticated,
                 key,
-                ProductPage.objects.filter(product_categories__category__in=[original_category])
-                                   .exclude(product_categories__category__id__in=exclude_cat_ids),
+                ProductPage.objects.exclude(product_categories__category__id__in=exclude_cat_ids),
                 language_code=language_code
             )
 
@@ -1720,6 +1720,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             )
 
         context['categories'] = get_categories_for_locale(language_code)
+        context['current_category'] = None
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         pni_home_page = BuyersGuidePage.objects.first()

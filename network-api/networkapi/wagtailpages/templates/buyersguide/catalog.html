@@ -1,12 +1,13 @@
 {% extends "buyersguide/bg_base.html" %}
 
-{% load env i18n static wagtailimages_tags cache %}
+{% load env i18n static wagtailimages_tags cache bg_nav_tags %}
 
 {% block bodyclass %}pni catalog{% endblock %}
 
 {% block main_content_class %}{% endblock %}
 
 {% block hero %}
+<input type="hidden" class="category-title" value="{{current_category.localized.name}}">
 <header
   class="container-fluid text-center page-header bg-gray"
   {% if page.get_banner != None %}style="background-image: url({% image page.get_banner max-1920x1280 as img %}{{ img.url }})"{% endif %}
@@ -20,7 +21,7 @@
         <p class="body-large mb-0">{{ page.intro_text }}</p>
           <div id="product-filter-search" class='col-12 col-md-9 tw-my-5' tabindex="0">
             <span class="search-icon">&nbsp;</span>
-            <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search all products" %}" class="body-large" value="">
+            <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search all products" %}" class="body-large tw-text-black" value="">
             <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
           </div>
       </div>
@@ -68,13 +69,15 @@
       {# User is not logged in. Return cached results. 24 hour caching applied. #}
       {% cache 86400 pni_home_page template_cache_key_fragment %}
         {% for product in products %}
-          {% include "../fragments/buyersguide_item.html" with product=product.localized %}
+          {% prod_in_cat product category as matched %}
+          {% include "../fragments/buyersguide_item.html" with product=product.localized matched=matched %}
         {% endfor %}
       {% endcache %}
     {% else %}
       {# User is logged in. Don't cache their results so they can see live and draft products here. #}
       {% for product in products %}
-        {% include "../fragments/buyersguide_item.html" with product=product.localized %}
+        {% prod_in_cat product category as matched %}
+        {% include "../fragments/buyersguide_item.html" with product=product.localized matched=matched %}
       {% endfor %}
     {% endif %}
     </div>

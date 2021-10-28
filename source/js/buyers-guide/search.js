@@ -3,8 +3,11 @@ const NO_RESULTS_NOTICE = document.getElementById(
   `product-filter-no-results-notice`
 );
 const FILTERS = [`company`, `name`, `blurb`, `worst-case`];
+const SORTS = [`name`, `company`, `blurb`];
 const SUBMIT_PRODUCT = document.querySelector(".recommend-product");
 const CREEPINESS_FACE = document.querySelector(".creep-o-meter-information");
+const categoryTitle = document.querySelector(`.category-title`);
+const toggle = document.querySelector(`#product-filter-pni-toggle`);
 
 const SearchFilter = {
   init: () => {
@@ -24,6 +27,7 @@ const SearchFilter = {
 
       if (searchText) {
         searchBar.classList.add(`has-content`);
+
         SearchFilter.filter(searchText);
       }
     });
@@ -39,7 +43,21 @@ const SearchFilter = {
       searchBar.classList.remove(`has-content`);
       searchInput.value = ``;
       searchInput.focus();
-      ALL_PRODUCTS.forEach((product) => product.classList.remove(`d-none`));
+      ALL_PRODUCTS.forEach((product) => {
+        product.classList.remove(`d-none`);
+        product.classList.add(`d-flex`);
+      });
+
+      history.replaceState(
+        {
+          ...history.state,
+          search: "",
+        },
+        SearchFilter.getTitle(categoryTitle.value.trim()),
+        location.href
+      );
+
+      SearchFilter.sortOnCreepiness();
       SearchFilter.moveCreepyFace();
     };
 
@@ -47,6 +65,161 @@ const SearchFilter = {
       evt.preventDefault();
       clearText();
     });
+
+    const navLinks = document.querySelectorAll(`#multipage-nav a`);
+
+    for (const nav of navLinks) {
+      nav.addEventListener("click", (evt) => {
+        evt.stopPropagation();
+
+        if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
+          return;
+        }
+
+        evt.preventDefault();
+
+        document
+          .querySelector(`#multipage-nav a.active`)
+          .classList.remove(`active`);
+
+        evt.target.classList.add(`active`);
+
+        if (evt.target.dataset.name) {
+          clearText();
+          history.pushState(
+            {
+              title: SearchFilter.getTitle(evt.target.dataset.name),
+              category: evt.target.dataset.name,
+              search: "",
+              filter: history.state.filter,
+            },
+            SearchFilter.getTitle(evt.target.dataset.name),
+            evt.target.href
+          );
+
+          document.title = SearchFilter.getTitle(evt.target.dataset.name);
+          SearchFilter.filterCategory(evt.target.dataset.name);
+        }
+      });
+    }
+
+    document
+      .querySelector(`.go-back-to-all-link`)
+      .addEventListener("click", (evt) => {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        clearText();
+        history.pushState(
+          {
+            title: SearchFilter.getTitle("None"),
+            category: "None",
+            search: "",
+            filter: history.state.filter,
+          },
+          SearchFilter.getTitle(evt.target.dataset.name),
+          evt.target.href
+        );
+
+        document
+          .querySelector(`#multipage-nav a.active`)
+          .classList.remove(`active`);
+
+        document
+          .querySelector(`#multipage-nav a[data-name="None"]`)
+          .classList.add(`active`);
+
+        SearchFilter.filterCategory("None");
+      });
+
+    window.addEventListener(`popstate`, (event) => {
+      const { state } = event;
+      if (!state) return; // if it's a "real" back, we shouldn't need to do anything
+
+      const { title, category } = state;
+      document.title = title;
+
+      if (!history.state.search) {
+        SearchFilter.clearCategories();
+        SearchFilter.filterCategory(category);
+        searchBar.classList.remove(`has-content`);
+        searchInput.value = ``;
+
+        document
+          .querySelector(`#multipage-nav a.active`)
+          .classList.remove(`active`);
+
+        document
+          .querySelector(`#multipage-nav a[data-name="${category}"]`)
+          .classList.add(`active`);
+      } else {
+        SearchFilter.filterCategory(category);
+        searchBar.classList.add(`has-content`);
+        searchInput.value = history.state.search;
+        SearchFilter.filter(history.state.search);
+      }
+
+      if (history.state.filter) {
+        toggle.checked = history.state.filter;
+
+        if (history.state.filter) {
+          document.body.classList.add(`show-ding-only`);
+        } else {
+          document.body.classList.remove(`show-ding-only`);
+        }
+      }
+    });
+
+    history.replaceState(
+      {
+        title: SearchFilter.getTitle(categoryTitle.value.trim()),
+        category: categoryTitle.value.trim(),
+        search: history.state.search || "",
+        filter: history.state.filter,
+      },
+      SearchFilter.getTitle(categoryTitle.value.trim()),
+      location.href
+    );
+
+    if (history.state.search) {
+      searchBar.classList.add(`has-content`);
+      searchInput.value = history.state.search;
+      SearchFilter.filter(history.state.search);
+    } else {
+      searchBar.classList.remove(`has-content`);
+      searchInput.value = ``;
+    }
+
+    if (history.state.filter) {
+      toggle.checked = history.state.filter;
+
+      if (history.state.filter) {
+        document.body.classList.add(`show-ding-only`);
+      } else {
+        document.body.classList.remove(`show-ding-only`);
+      }
+    }
+  },
+
+  clearCategories: () => {
+    SearchFilter.filterCategory("None");
+
+    document
+      .querySelector(`#multipage-nav a.active`)
+      .classList.remove(`active`);
+    document
+      .querySelector(`#multipage-nav a[data-name="None"]`)
+      .classList.add(`active`);
+  },
+
+  getTitle: (category) => {
+    if (category == "None")
+      return document.querySelector('meta[name="pni-home-title"]').content;
+    else {
+      return `${category} | ${
+        document.querySelector('meta[name="pni-category-title"]').content
+      }`;
+    }
   },
 
   moveCreepyFace: () => {
@@ -63,6 +236,16 @@ const SearchFilter = {
   },
 
   filter: (text) => {
+    // remove category filters
+    SearchFilter.clearCategories();
+
+    document
+      .querySelector(`#multipage-nav a.active`)
+      .classList.remove(`active`);
+    document
+      .querySelector(`#multipage-nav a[data-name="None"]`)
+      .classList.add(`active`);
+
     ALL_PRODUCTS.forEach((product) => {
       if (SearchFilter.test(product, text)) {
         product.classList.remove(`d-none`);
@@ -73,6 +256,75 @@ const SearchFilter = {
       }
     });
 
+    history.replaceState(
+      {
+        ...history.state,
+        search: text,
+      },
+      SearchFilter.getTitle(categoryTitle.value.trim()),
+      location.href
+    );
+
+    SearchFilter.sortProducts();
+
+    SearchFilter.moveCreepyFace();
+    SearchFilter.checkForEmptyNotice();
+  },
+
+  sortProducts: () => {
+    const container = document.querySelector(`.product-box-list`);
+    const list = [...container.querySelectorAll(`.product-box`)];
+
+    list.sort((a, b) => {
+      for (field of SORTS) {
+        const qs = `.product-${field}`;
+        const [propertyA, propertyB] = [
+          a.querySelector(qs),
+          b.querySelector(qs),
+        ];
+        const [propertyNameA, propertyNameB] = [
+          (propertyA.value || propertyA.textContent).toLowerCase(),
+          (propertyB.value || propertyB.textContent).toLowerCase(),
+        ];
+
+        if (
+          propertyNameA !== propertyNameB ||
+          field === SORTS[SORTS.length - 1]
+        ) {
+          return propertyNameA < propertyNameB
+            ? -1
+            : propertyNameA > propertyNameB
+            ? 1
+            : 0;
+        }
+      }
+    });
+
+    list.forEach((p) => container.append(p));
+  },
+
+  sortOnCreepiness: () => {
+    const container = document.querySelector(`.product-box-list`);
+    const list = [...container.querySelectorAll(`.product-box`)];
+    const creepVal = (e) => parseFloat(e.dataset.creepiness);
+    list
+      .sort((a, b) => creepVal(a) - creepVal(b))
+      .forEach((p) => container.append(p));
+  },
+
+  filterCategory: (category) => {
+    ALL_PRODUCTS.forEach((product) => {
+      if (SearchFilter.testCategories(product, category)) {
+        product.classList.remove(`d-none`);
+        product.classList.add(`d-flex`);
+      } else {
+        product.classList.add(`d-none`);
+        product.classList.remove(`d-flex`);
+      }
+    });
+
+    categoryTitle.value = category;
+    SearchFilter.sortOnCreepiness();
     SearchFilter.moveCreepyFace();
     SearchFilter.checkForEmptyNotice();
   },
@@ -110,12 +362,22 @@ const SearchFilter = {
 
     return false;
   },
+
+  testCategories: (product, category) => {
+    if (category === "None") {
+      return true;
+    }
+
+    const productCategories = Array.from(
+      product.querySelectorAll(".product-categories")
+    );
+
+    return productCategories.map((c) => c.value.trim()).includes(category);
+  },
 };
 
 const PNIToggle = {
   init: () => {
-    const toggle = document.querySelector(`#product-filter-pni-toggle`);
-
     if (!toggle) {
       return console.warn(
         `Could not find the PNI filter checkbox. PNI filtering will not be available.`
@@ -124,6 +386,15 @@ const PNIToggle = {
 
     toggle.addEventListener(`change`, (evt) => {
       const filter = evt.target.checked;
+
+      history.replaceState(
+        {
+          ...history.state,
+          filter,
+        },
+        SearchFilter.getTitle(categoryTitle.value.trim()),
+        location.href
+      );
 
       if (filter) {
         document.body.classList.add(`show-ding-only`);
