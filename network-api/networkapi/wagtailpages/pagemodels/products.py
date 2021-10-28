@@ -533,10 +533,11 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     )
 
     # How does it use this data?
-    how_does_it_use_data_collected = models.TextField(
+    how_does_it_use_data_collected = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='How does this product use the data collected?',
         blank=True,
-        help_text='How does this product use the data collected?'
     )
     data_collection_policy_is_bad = models.BooleanField(
         default=False,
@@ -585,9 +586,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     manage_vulnerabilities = ExtendedYesNoField(
         help_text='Manages security vulnerabilities?',
     )
-    manage_vulnerabilities_helptext = models.TextField(
+    manage_vulnerabilities_helptext = RichTextField(
         max_length=5000,
-        blank=True
+        features=['bold', 'italic', 'link'],
+        blank=True,
     )
     privacy_policy = ExtendedYesNoField(
         help_text='Does this product have a privacy policy?'
@@ -1165,10 +1167,11 @@ class GeneralProductPage(ProductPage):
 
     # How can you control your data
 
-    how_can_you_control_your_data = models.TextField(
+    how_can_you_control_your_data = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='How does this product let you control your data?',
         blank=True,
-        help_text='How does this product let you control your data?'
     )
 
     data_control_policy_is_bad = models.BooleanField(
@@ -1190,10 +1193,11 @@ class GeneralProductPage(ProductPage):
         verbose_name='Privacy ding'
     )
 
-    track_record_details = models.TextField(
+    track_record_details = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='Describe the track record of this company here.',
         blank=True,
-        help_text='Describe the track record of this company here.'
     )
 
     # Offline use
@@ -1202,10 +1206,11 @@ class GeneralProductPage(ProductPage):
         help_text='Can this product be used offline?',
     )
 
-    offline_use_description = models.TextField(
+    offline_use_description = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='Describe how this product can be used offline.',
         blank=True,
-        help_text='Describe how this product can be used offline.'
     )
 
     # Artificial Intelligence
@@ -1213,10 +1218,11 @@ class GeneralProductPage(ProductPage):
     uses_ai = ExtendedYesNoField(
         help_text='Does the product use AI?'
     )
-    ai_helptext = models.TextField(
+    ai_helptext = RichTextField(
         max_length=5000,
-        blank=True,
+        features=['bold', 'italic', 'link'],
         help_text='Helpful text around AI to show on the product page',
+        blank=True,
     )
     ai_is_untrustworthy = ExtendedYesNoField(
         help_text='Is the AI untrustworthy?'

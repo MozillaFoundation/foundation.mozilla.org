@@ -1,35 +1,40 @@
-{% load i18n static %}
+{% load i18n static wagtailcore_tags %}
 
 <div class="primary-info">
   <h3 class="pni-product-smaller-body-bold">{{ label }}</h3>
-
-  <p class="rating pni-product-smaller-body mb-0">
-    {% if value == "CD" %}
-      {% if show_value_as_symbol %}
-      <img src="{% static "_images/buyers-guide/score/icon-unknown.svg" %}" alt="{% trans "Can’t determine" context "Unknown rating" %}">
-      {% else %}
-      {% trans "Can’t determine" context "Unknown rating" %}
-      {% endif %}
-    {% elif value == "NA" %}
-      {% trans "Not applicable" %}
-    {% elif value == "Yes" %}
-      {% if show_value_as_symbol %}
-      <img src="{% static "_images/buyers-guide/score/icon-yes.svg" %}" alt="{% trans "Yes" %}">
-      {% else %}
-      {% trans "Yes" %}
-      {% endif %}
-    {% elif value == "No" %}
-      {% if show_value_as_symbol %}
-      <img src="{% static "_images/buyers-guide/score/icon-no.svg" %}" alt="{% trans "No" %}">
-      {% else %}
-      {% trans "No" %}
-      {% endif %}
+    {% if rich_text_value %}
+      <div class="criterion-value mb-0">
+        {{ value|richtext }}
+      </div>
     {% else %}
-      {% if show_value_as_symbol %}
-      <img src="{% get_static_prefix %}_images/buyers-guide/score/icon-{{value|lower}}.svg" alt="{{value}}">
+    <p class="rating pni-product-smaller-body mb-0">
+      {% if value == "Can’t Determine" or value == "CD"%}
+        {% if show_value_as_symbol %}
+        <img src="{% static "_images/buyers-guide/score/icon-unknown.svg" %}" alt="{% trans "Can’t determine" context "Unknown rating" %}">
+        {% else %}
+        {% trans "Can’t determine" context "Unknown rating" %}
+        {% endif %}
+      {% elif value == "NA" %}
+        {% trans "Not applicable" %}
+      {% elif value == "Yes" %}
+        {% if show_value_as_symbol %}
+        <img src="{% static "_images/buyers-guide/score/icon-yes.svg" %}" alt="{% trans "Yes" %}">
+        {% else %}
+        {% trans "Yes" %}
+        {% endif %}
+      {% elif value == "No" %}
+        {% if show_value_as_symbol %}
+        <img src="{% static "_images/buyers-guide/score/icon-no.svg" %}" alt="{% trans "No" %}">
+        {% else %}
+        {% trans "No" %}
+        {% endif %}
       {% else %}
-      {{ value }}
+        {% if show_value_as_symbol %}
+        <img src="{% get_static_prefix %}_images/buyers-guide/score/icon-{{value|lower}}.svg" alt="{{value}}">
+        {% else %}
+        {{ value }}
+        {% endif %}
       {% endif %}
-    {% endif %}
-  </p>
+    </p>
+  {% endif %}
 </div>
