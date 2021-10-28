@@ -420,13 +420,11 @@
   }
 
   .criterion-value {
-    .rich-text,
     * {
       @extend .pni-product-smaller-body;
     }
   }
   .criterion-helptext {
-    .rich-text,
     * {
       @extend .pni-product-helptext;
     }
