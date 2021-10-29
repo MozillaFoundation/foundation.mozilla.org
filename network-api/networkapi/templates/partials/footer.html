@@ -60,7 +60,6 @@
               </ul>
             </div>
           </div>
-          {% if web_monetization %}
           <div class='tw-mt-5'>
             <p class="h5-heading tw-mt-5 tw-mb-0">{% trans "This website supports Web Monetization." %}</p>
             <p class="body tw-mb-0">
@@ -69,7 +68,6 @@
               {% endblocktrans %}
             </p>
           </div>
-          {% endif %}
           {% if exclude_language_switcher != True %}
           {% block language_switcher %}
           <div class="tw-row tw-mt-7">
