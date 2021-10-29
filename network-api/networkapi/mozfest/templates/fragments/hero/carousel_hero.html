@@ -26,8 +26,8 @@
     <div class="tw-container tw-relative tw-z-20 tw-text-white">
       <div>
         <h1 class="tw-text-white tw-font-bold tw-mb-5">{{ page.banner_heading }}</h1>
-        {% if page.banner_video %}
-          <button id="mozfest-hero-video-cta" class="btn btn-primary tw-bg-white tw-text-black hover:tw-bg-blue hover:tw-text-white">{% trans "Watch last year’s recap video" %}</button>
+        {% if page.banner_video and page.banner_cta_label %}
+          <button id="mozfest-hero-video-cta" class="btn btn-primary tw-bg-white tw-text-black hover:tw-bg-blue hover:tw-text-white">{{ page.banner_cta_label }}</button>
         {% endif %}
       </div>
 
