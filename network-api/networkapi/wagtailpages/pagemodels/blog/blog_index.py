@@ -123,21 +123,8 @@ class BlogIndexPage(IndexPage):
         if localized_category.title:
             context['index_title'] = localized_category.title
 
-        if localized_category.title:
-            setattr(self, 'seo_title', localized_category.title)
-        elif localized_category.name:
-            setattr(self, 'seo_title', localized_category.name)
-
-        # If description not set, default to category's "intro" text.
-        # If "intro" is not set, use the foundation's default meta description.
-        if localized_category.share_description:
-            setattr(self, 'search_description', localized_category.share_description)
-        elif localized_category.intro:
-            setattr(self, 'search_description', localized_category.intro)
-
-        # If the category has a search image set, update page metadata.
-        if localized_category.share_image:
-            setattr(self, 'search_image_id', localized_category.share_image_id)
+        # update seo fields
+        self.set_seo_fields_from_category(localized_category)
 
         # This code is not efficient, but its purpose is to get us logs
         # that we can use to figure out what's going wrong more than
@@ -183,6 +170,23 @@ class BlogIndexPage(IndexPage):
         # ]
 
         return entries
+
+    def set_seo_fields_from_category(self, category):
+        if category.title:
+            setattr(self, 'seo_title', category.title)
+        elif category.name:
+            setattr(self, 'seo_title', category.name)
+
+        # If description not set, default to category's "intro" text.
+        # If "intro" is not set, use the foundation's default meta description.
+        if category.share_description:
+            setattr(self, 'search_description', category.share_description)
+        elif category.intro:
+            setattr(self, 'search_description', category.intro)
+
+        # If the category has a search image set, update page metadata.
+        if category.share_image:
+            setattr(self, 'search_image_id', category.share_image_id)
 
     # helper function to resolve category slugs to actual objects
     def get_category_object_for_slug(self, category_slug):

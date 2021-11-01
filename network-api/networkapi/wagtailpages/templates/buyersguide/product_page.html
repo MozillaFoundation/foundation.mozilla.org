@@ -1,6 +1,6 @@
 {% extends "buyersguide/bg_base.html" %}
 
-{% load bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
+{% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
 
 {% block head_extra %}
   <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
@@ -66,13 +66,13 @@
         <div class="col-12 mt-3">
           <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review date: {{ date }}{% endblocktrans %}</p>
         </div>
-        <div class="col-12"><p class="body mb-0">{{product.blurb}}</p></div>
+        <div class="col-12 body">{{product.blurb | richtext}}</div>
       </div>
 
       <div class="row mb-4">
         <div class="col-12 worst-case">
-          <h2 class="h3-heading">{% trans "What could happen if something goes wrong" %}</h2>
-          <p class="mb-0">{{product.worst_case}}</p>
+          <h2 class="h3-heading">{% trans "What could happen if something goes wrong?" %}</h2>
+          <div class="body">{{product.worst_case | richtext}}</div>
         </div>
       </div>
 
@@ -238,26 +238,12 @@
             {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai   %}
 
             {% if uses_ai != "No" %}
-              {% trans "Does the AI use your personal data to make decisions about you?" as ai_uses_personal_data %}
-              {% include "fragments/product_criterion.html"  with  label=ai_uses_personal_data  value=product.ai_uses_personal_data|extended_yes_no   %}
-
               {% trans "Does the company allow users to see how the AI works?" as ai_is_transparent %}
               {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no           %}
 
               <p class="pni-product-smaller-body mb-0">{{product.ai_helptext}}</p>
             {% endif %}
             {% endwith %}
-          </section>
-        {% endif %}
-
-
-        {% if product.product_type == 'general' %}
-          <section class="criterion-group">
-            <h2 class="h3-heading">{% trans "Company contact info" %}</h3>
-
-            <div>
-              {% include "fragments/product_contact.html" with product=product %}
-            </div>
           </section>
         {% endif %}
 

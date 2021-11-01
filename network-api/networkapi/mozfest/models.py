@@ -6,7 +6,6 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-
 from networkapi.wagtailpages.utils import (
     set_main_site_nav_information,
     get_page_tree_information
@@ -81,6 +80,22 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
        FieldPanel('use_wide_template')
     ]
 
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
+        TranslatableField('header'),
+        SynchronizedField('banner'),
+        TranslatableField('intro'),
+        TranslatableField('signup'),
+        TranslatableField('body'),
+    ]
+
     def get_template(self, request):
         if self.use_wide_template:
             return 'mozfest/mozfest_primary_page_wide.html'
@@ -111,10 +126,15 @@ class MozfestHomepage(MozfestPrimaryPage):
     MozFest Homepage
 
     'banner_video_type' determines what version of banner design the page should load
-    """
 
-    #  this tells the templates to load a hardcoded, pre-defined video in the banner background
-    banner_video_type = "hardcoded"
+    If the value of `banner_video_type` is `hardcoded`, it displays a hardcoded,
+    predefined video in the banner background.
+
+    If the value of `banner_video_type` is `featured`, it displays a carousel of
+    cards with their associated headings and body content (`banner_carousel`),
+    and an embedded user-defined video (`banner_video`).
+    """
+    banner_video_type = "featured"
 
     cta_button_label = models.CharField(
         max_length=250,
@@ -135,16 +155,50 @@ class MozfestHomepage(MozfestPrimaryPage):
         help_text='A banner heading specific to the homepage'
     )
 
+    banner_cta_label = models.CharField(
+        max_length=250,
+        null=False,
+        blank=True,
+        help_text='The label for the CTA that scrolls down to the banner video when clicked',
+    )
+
     banner_guide_text = models.CharField(
         max_length=1000,
         blank=True,
         help_text='A banner paragraph specific to the homepage'
     )
 
+    # For banner_video_type == 'hardcoded'
     banner_video_url = models.URLField(
         max_length=2048,
         blank=True,
         help_text='The video to play when users click "watch video"'
+    )
+
+    # For banner_video_type == 'featured'
+    banner_carousel = StreamField(
+        [
+            ('slide', customblocks.BannerCarouselSlideBlock()),
+        ],
+        max_num=3,
+        help_text='The slides shown on the new Hero. Please ensure that there '
+                  'are exactly 3 slides. The old Hero will be shown if there '
+                  'are no slides present.',
+        blank=True,
+        null=True,
+    )
+
+    # For banner_video_type == 'featured'
+    banner_video = StreamField(
+        [
+            ('CMS_video', customblocks.WagtailVideoChooserBlock()),
+            ('external_video', customblocks.ExternalVideoBlock()),
+        ],
+        max_num=1,
+        help_text='The video to play when users click "Watch Video". This is '
+                  'only shown on the new Hero.',
+        blank=True,
+        null=True,
     )
 
     subpage_types = [
@@ -161,16 +215,30 @@ class MozfestHomepage(MozfestPrimaryPage):
         FieldPanel('cta_button_label'),
         FieldPanel('cta_button_destination'),
         FieldPanel('banner_heading'),
+        FieldPanel('banner_cta_label'),
+        StreamFieldPanel('banner_carousel'),
         FieldPanel('banner_guide_text'),
         FieldPanel('banner_video_url'),
+        StreamFieldPanel('banner_video'),
     ] + parent_panels[n:]
 
     if banner_video_type == "hardcoded":
         # Hide all the panels that aren't relevant for the video banner version of the MozFest Homepage
         content_panels = [
             field for field in all_panels
-            if field.field_name not in
-            ['banner', 'header', 'intro', 'banner_guide_text', 'banner_video_url']
+            if field.field_name not in [
+                'banner', 'header', 'intro', 'banner_carousel', 'banner_guide_text', 'banner_cta_label',
+                'banner_video', 'banner_video_url',
+            ]
+        ]
+    elif banner_video_type == "featured":
+        # Hide all the panels that aren't relevant for the video banner version of the MozFest Homepage
+        content_panels = [
+            field for field in all_panels
+            if field.field_name not in [
+                'banner', 'banner_guide_text', 'banner_video_url', 'cta_button_destination',
+                'cta_button_label', 'header', 'hero_image', 'intro',
+            ]
         ]
     else:
         content_panels = all_panels
@@ -191,8 +259,11 @@ class MozfestHomepage(MozfestPrimaryPage):
         TranslatableField('cta_button_label'),
         SynchronizedField('cta_button_destination'),
         TranslatableField('banner_heading'),
+        TranslatableField('banner_cta_label'),
         TranslatableField('banner_guide_text'),
         SynchronizedField('banner_video_url'),
+        TranslatableField('banner_carousel'),
+        SynchronizedField('banner_video'),
         TranslatableField('signup'),
         TranslatableField('body'),
         TranslatableField('footnotes'),

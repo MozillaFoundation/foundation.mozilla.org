@@ -82,10 +82,6 @@ class ProductSerializer(AirtableSerializer):
     manage_vulnerabilities_helptext = serializers.CharField(required=False, max_length=5000)
     privacy_policy = ExtendedYesNoSerializer(default='CD')
     privacy_policy_helptext = serializers.CharField(required=False, max_length=5000)
-    phone_number = serializers.CharField(required=False, max_length=100)
-    live_chat = serializers.CharField(required=False, max_length=100)
-    email = serializers.CharField(required=False, max_length=100)
-    twitter = serializers.CharField(required=False, max_length=100)
 
 
 class GeneralProductPageSerializer(ProductSerializer):
@@ -111,7 +107,6 @@ class GeneralProductPageSerializer(ProductSerializer):
     offline_capable = ExtendedYesNoSerializer(default='CD')
     offline_use_description = serializers.CharField(required=False, max_length=5000)
     uses_ai = ExtendedYesNoSerializer(default='CD')
-    ai_uses_personal_data = ExtendedYesNoSerializer(default='CD')
     ai_is_transparent = ExtendedYesNoSerializer(default='CD')
     ai_helptext = serializers.CharField(required=False, max_length=5000)
 
