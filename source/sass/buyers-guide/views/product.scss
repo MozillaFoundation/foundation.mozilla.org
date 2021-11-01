@@ -419,13 +419,14 @@
     }
   }
 
-  .criterion-value {
-    * {
+  .criterion-richtext-value {
+    p {
       @extend .pni-product-smaller-body;
+      margin-bottom: unset;
     }
   }
-  .criterion-helptext {
-    * {
+  .criterion-richtext-help {
+    p {
       @extend .pni-product-helptext;
     }
   }

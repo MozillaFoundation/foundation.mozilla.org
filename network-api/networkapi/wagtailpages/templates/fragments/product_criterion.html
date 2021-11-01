@@ -5,8 +5,8 @@
   {% include "./product_criterion_primary_info.html"  with  show_value_as_symbol=show_value_as_symbol  label=label  value=value rich_text_value=rich_text_value %}
 
   {% if help != None and help != "" %}
-    {% if help_rich_text %}
-    <div class="criterion-helptext mb-0 mt-3">{{ help|richtext }}</div>
+    {% if rich_help_text %}
+    <div class="criterion-richtext-help mb-0 mt-3">{{ help|richtext }}</div>
     {% else %}
     <p class="pni-product-helptext mb-0 mt-3">{{ help }}</p>
     {% endif %}

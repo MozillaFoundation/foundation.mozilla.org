@@ -169,10 +169,10 @@
             {% include "fragments/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data    ding=product.data_control_policy_is_bad rich_text_value=True %}
 
             {% trans "What is the company’s known track record for protecting users’ data?" as company_track_record_label %}
-            {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record|track_record   help=product.track_record_details  ding=product.track_record_is_bad help_rich_text=True %}
+            {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record|track_record   help=product.track_record_details  ding=product.track_record_is_bad rich_help_text=True %}
 
             {% trans "Can this product be used offline?" as offline_capable %}
-            {% include "fragments/product_criterion.html"  with  label=offline_capable  value=product.offline_capable   help=product.offline_use_description help_rich_text=True %}
+            {% include "fragments/product_criterion.html"  with  label=offline_capable  value=product.offline_capable   help=product.offline_use_description rich_help_text=True %}
           {% endif %}
 
 
