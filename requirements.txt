@@ -98,7 +98,7 @@ draftjs-exporter==2.1.7
     # via wagtail
 et-xmlfile==1.1.0
     # via openpyxl
-factory-boy==3.2.0
+factory-boy==3.2.1
     # via
     #   -r requirements.in
     #   wagtail-factories
@@ -246,7 +246,7 @@ wagtail-airtable==0.2.1
     # via -r requirements.in
 wagtail-factories==2.0.1
     # via -r requirements.in
-git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
+wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
     # via -r requirements.in
 wagtail-inventory==1.3
     # via -r requirements.in
