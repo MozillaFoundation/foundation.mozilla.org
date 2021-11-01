@@ -117,7 +117,7 @@
               >
                 {% trans "Privacy" %}
                 {% if product.data_collection_policy_is_bad or product.data_control_policy_is_bad or product.track_record_is_bad %}
-                  <img class="tw-h-6 tw-w-6 tw-ml-3" src="{% static "_images/buyers-guide/warning-ding.svg" %}" alt="warning">
+                  <img class="tw-h-6 tw-w-6 tw-ml-3" src="{% static "_images/buyers-guide/warning-ding.svg" %}" alt="{% trans "warning" context "icon description for screen readers" %}">
                 {% endif %}
               </span>
               <span
@@ -126,7 +126,7 @@
               >
                 {% trans "Security" %}
                 {% if product.show_ding_for_minimum_security_standards %}
-                  <img class="tw-h-6 tw-w-6 tw-ml-3" src="{% static "_images/buyers-guide/warning-ding.svg" %}" alt="warning">
+                  <img class="tw-h-6 tw-w-6 tw-ml-3" src="{% static "_images/buyers-guide/warning-ding.svg" %}" alt="{% trans "warning" context "icon description for screen readers" %}">
                 {% endif %}
               </span>
               <span
