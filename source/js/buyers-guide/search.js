@@ -7,7 +7,9 @@ const SORTS = [`name`, `company`, `blurb`];
 const SUBMIT_PRODUCT = document.querySelector(".recommend-product");
 const CREEPINESS_FACE = document.querySelector(".creep-o-meter-information");
 const categoryTitle = document.querySelector(`.category-title`);
+const parentTitle = document.querySelector(`.parent-title`);
 const toggle = document.querySelector(`#product-filter-pni-toggle`);
+const subcategories = document.querySelectorAll(`.subcategories`);
 
 const SearchFilter = {
   init: () => {
@@ -27,7 +29,6 @@ const SearchFilter = {
 
       if (searchText) {
         searchBar.classList.add(`has-content`);
-
         SearchFilter.filter(searchText);
       }
     });
@@ -63,10 +64,14 @@ const SearchFilter = {
 
     clear.addEventListener(`click`, (evt) => {
       evt.preventDefault();
+      SearchFilter.filterSubcategory("None");
+      SearchFilter.updateHeader("None", null);
       clearText();
     });
 
-    const navLinks = document.querySelectorAll(`#multipage-nav a`);
+    const navLinks = document.querySelectorAll(
+      `#multipage-nav a,.category-header`
+    );
 
     for (const nav of navLinks) {
       nav.addEventListener("click", (evt) => {
@@ -82,23 +87,82 @@ const SearchFilter = {
           .querySelector(`#multipage-nav a.active`)
           .classList.remove(`active`);
 
-        evt.target.classList.add(`active`);
-
         if (evt.target.dataset.name) {
+          document
+            .querySelector(
+              `#multipage-nav a[data-name="${evt.target.dataset.name}"]`
+            )
+            .classList.add(`active`);
+
           clearText();
           history.pushState(
             {
               title: SearchFilter.getTitle(evt.target.dataset.name),
               category: evt.target.dataset.name,
+              parent: "",
               search: "",
-              filter: history.state.filter,
+              filter: history.state?.filter,
             },
             SearchFilter.getTitle(evt.target.dataset.name),
             evt.target.href
           );
 
           document.title = SearchFilter.getTitle(evt.target.dataset.name);
+          SearchFilter.filterSubcategory(evt.target.dataset.name);
+          SearchFilter.toggleSubcategory(true);
+          SearchFilter.updateHeader(evt.target.dataset.name, "");
           SearchFilter.filterCategory(evt.target.dataset.name);
+        }
+      });
+    }
+
+    for (const subcategory of subcategories) {
+      subcategory.addEventListener("click", (evt) => {
+        evt.stopPropagation();
+
+        if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
+          return;
+        }
+
+        evt.preventDefault();
+
+        let href;
+
+        if (evt.target.dataset.name) {
+          clearText();
+          if (categoryTitle.value.trim() !== evt.target.dataset.name) {
+            categoryTitle.value = evt.target.dataset.name;
+            parentTitle.value = evt.target.dataset.parent;
+            href = evt.target.href;
+            SearchFilter.toggleSubcategory();
+            SearchFilter.highlightParent();
+          } else {
+            categoryTitle.value = evt.target.dataset.parent;
+            parentTitle.value = "";
+            href = document.querySelector(
+              `#multipage-nav a[data-name="${evt.target.dataset.parent}"]`
+            ).href;
+            SearchFilter.toggleSubcategory(true);
+          }
+
+          history.pushState(
+            {
+              title: SearchFilter.getTitle(evt.target.dataset.name),
+              category: categoryTitle.value.trim(),
+              parent: parentTitle.value.trim(),
+              search: "",
+              filter: history.state?.filter,
+            },
+            SearchFilter.getTitle(evt.target.dataset.name),
+            href
+          );
+
+          document.title = SearchFilter.getTitle(categoryTitle.value.trim());
+          SearchFilter.updateHeader(
+            categoryTitle.value.trim(),
+            parentTitle.value.trim()
+          );
+          SearchFilter.filterCategory(categoryTitle.value.trim());
         }
       });
     }
@@ -107,6 +171,11 @@ const SearchFilter = {
       .querySelector(`.go-back-to-all-link`)
       .addEventListener("click", (evt) => {
         evt.stopPropagation();
+
+        if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
+          return;
+        }
+
         evt.preventDefault();
 
         clearText();
@@ -114,8 +183,9 @@ const SearchFilter = {
           {
             title: SearchFilter.getTitle("None"),
             category: "None",
+            parent: "",
             search: "",
-            filter: history.state.filter,
+            filter: history.state?.filter,
           },
           SearchFilter.getTitle(evt.target.dataset.name),
           evt.target.href
@@ -130,39 +200,53 @@ const SearchFilter = {
           .classList.add(`active`);
 
         SearchFilter.filterCategory("None");
+        parentTitle.value = "";
       });
 
     window.addEventListener(`popstate`, (event) => {
       const { state } = event;
       if (!state) return; // if it's a "real" back, we shouldn't need to do anything
 
-      const { title, category } = state;
+      const { title, category, parent } = state;
       document.title = title;
 
-      if (!history.state.search) {
+      if (!history.state?.search) {
         SearchFilter.clearCategories();
-        SearchFilter.filterCategory(category);
+        categoryTitle.value = category;
+        parentTitle.value = parent;
+
         searchBar.classList.remove(`has-content`);
         searchInput.value = ``;
 
-        document
-          .querySelector(`#multipage-nav a.active`)
-          .classList.remove(`active`);
+        if (parent) {
+          SearchFilter.highlightParent();
+          SearchFilter.toggleSubcategory();
+        } else {
+          document
+            .querySelector(`#multipage-nav a.active`)
+            .classList.remove(`active`);
 
-        document
-          .querySelector(`#multipage-nav a[data-name="${category}"]`)
-          .classList.add(`active`);
+          document
+            .querySelector(`#multipage-nav a[data-name="${category}"]`)
+            .classList.add(`active`);
+
+          SearchFilter.toggleSubcategory(true);
+        }
       } else {
-        SearchFilter.filterCategory(category);
+        SearchFilter.toggleSubcategory(true);
         searchBar.classList.add(`has-content`);
-        searchInput.value = history.state.search;
-        SearchFilter.filter(history.state.search);
+        searchInput.value = history.state?.search;
+        SearchFilter.filter(history.state?.search);
       }
 
-      if (history.state.filter) {
-        toggle.checked = history.state.filter;
+      SearchFilter.filterCategory(category);
+      SearchFilter.filterSubcategory(category);
+      SearchFilter.updateHeader(category, parent);
 
-        if (history.state.filter) {
+      if (history.state?.filter) {
+        toggle.checked = history.state?.filter;
+
+        if (history.state?.filter) {
           document.body.classList.add(`show-ding-only`);
         } else {
           document.body.classList.remove(`show-ding-only`);
@@ -174,26 +258,27 @@ const SearchFilter = {
       {
         title: SearchFilter.getTitle(categoryTitle.value.trim()),
         category: categoryTitle.value.trim(),
-        search: history.state.search || "",
-        filter: history.state.filter,
+        parent: parentTitle.value.trim(),
+        search: history.state?.search ?? "",
+        filter: history.state?.filter,
       },
       SearchFilter.getTitle(categoryTitle.value.trim()),
       location.href
     );
 
-    if (history.state.search) {
+    if (history.state?.search) {
       searchBar.classList.add(`has-content`);
-      searchInput.value = history.state.search;
-      SearchFilter.filter(history.state.search);
+      searchInput.value = history.state?.search;
+      SearchFilter.filter(history.state?.search);
     } else {
       searchBar.classList.remove(`has-content`);
       searchInput.value = ``;
     }
 
-    if (history.state.filter) {
-      toggle.checked = history.state.filter;
+    if (history.state?.filter) {
+      toggle.checked = history.state?.filter;
 
-      if (history.state.filter) {
+      if (history.state?.filter) {
         document.body.classList.add(`show-ding-only`);
       } else {
         document.body.classList.remove(`show-ding-only`);
@@ -203,13 +288,43 @@ const SearchFilter = {
 
   clearCategories: () => {
     SearchFilter.filterCategory("None");
+    parentTitle.value = null;
 
-    document
-      .querySelector(`#multipage-nav a.active`)
-      .classList.remove(`active`);
-    document
-      .querySelector(`#multipage-nav a[data-name="None"]`)
-      .classList.add(`active`);
+    if (document.querySelector(`#multipage-nav a.active`)) {
+      document
+        .querySelector(`#multipage-nav a.active`)
+        .classList.remove(`active`);
+      document
+        .querySelector(`#multipage-nav a[data-name="None"]`)
+        .classList.add(`active`);
+    }
+  },
+
+  updateHeader: (category, parent) => {
+    if (parent) {
+      document.querySelector(".category-header").textContent = parent;
+      document.querySelector(".category-header").dataset.name = parent;
+      document.querySelector(".category-header").href = document.querySelector(
+        `#multipage-nav a[data-name="${parent}"]`
+      ).href;
+    } else {
+      const header = category === "None" ? "All" : category;
+      document.querySelector(".category-header").textContent = header;
+      document.querySelector(".category-header").dataset.name = category;
+      document.querySelector(".category-header").href = document.querySelector(
+        `#multipage-nav a[data-name="${category}"]`
+      ).href;
+    }
+  },
+
+  filterSubcategory: (category) => {
+    for (const subcategory of subcategories) {
+      if (subcategory.dataset.parent === category) {
+        subcategory.classList.remove(`tw-hidden`);
+      } else {
+        subcategory.classList.add(`tw-hidden`);
+      }
+    }
   },
 
   getTitle: (category) => {
@@ -238,10 +353,16 @@ const SearchFilter = {
   filter: (text) => {
     // remove category filters
     SearchFilter.clearCategories();
+    SearchFilter.toggleSubcategory(true);
+    SearchFilter.filterSubcategory("None");
+    SearchFilter.updateHeader("None", null);
 
-    document
-      .querySelector(`#multipage-nav a.active`)
-      .classList.remove(`active`);
+    if (document.querySelector(`#multipage-nav a.active`)) {
+      document
+        .querySelector(`#multipage-nav a.active`)
+        .classList.remove(`active`);
+    }
+
     document
       .querySelector(`#multipage-nav a[data-name="None"]`)
       .classList.add(`active`);
@@ -327,6 +448,61 @@ const SearchFilter = {
     SearchFilter.sortOnCreepiness();
     SearchFilter.moveCreepyFace();
     SearchFilter.checkForEmptyNotice();
+  },
+
+  highlightParent: () => {
+    if (document.querySelector(`#multipage-nav a.active`)) {
+      document
+        .querySelector(`#multipage-nav a.active`)
+        .classList.remove(`active`);
+    }
+
+    document
+      .querySelector(
+        `#multipage-nav a[data-name="${parentTitle.value.trim()}"]`
+      )
+      .classList.add(`active`);
+  },
+
+  toggleSubcategory: (clear = false) => {
+    const activeClasses = [
+      "active",
+      "tw-bg-gray-80",
+      "tw-text-white",
+      "tw-border-gray-80",
+    ];
+    const defaultClasses = [
+      "hover:tw-border-pni-lilac",
+      "hover:tw-bg-pni-lilac",
+      "tw-text-gray-60",
+      "tw-border-gray-20",
+      "tw-bg-white",
+    ];
+
+    if (document.querySelector(`a.subcategories.active`)) {
+      document
+        .querySelector(`a.subcategories.active`)
+        .classList.add(...defaultClasses);
+      document
+        .querySelector(`a.subcategories.active`)
+        .classList.remove(...activeClasses);
+    }
+
+    if (clear) {
+      return;
+    }
+
+    document
+      .querySelector(
+        `a.subcategories[data-name="${categoryTitle.value.trim()}"]`
+      )
+      .classList.add(...activeClasses);
+
+    document
+      .querySelector(
+        `a.subcategories[data-name="${categoryTitle.value.trim()}"]`
+      )
+      .classList.remove(...defaultClasses);
   },
 
   checkForEmptyNotice: () => {
