@@ -10,7 +10,7 @@ module.exports = {
   important: true,
   corePlugins: {
     // overriding TW default container
-    container: false
+    container: false,
   },
   plugins: [
     plugin(function ({ addUtilities }) {
@@ -27,7 +27,14 @@ module.exports = {
         },
         ".hash": {
           content: "\"#\"",
-        }
+        },
+        ".no-scrollbar::-webkit-scrollbar": {
+          display: "none",
+        },
+        ".no-scrollbar": {
+          "-ms-overflow-style": "none" /* IE and Edge */,
+          "scrollbar-width": "none" /* Firefox */,
+        },
       };
       addUtilities(newUtilities);
     }),
@@ -41,9 +48,6 @@ module.exports = {
       screens: {
         print: { raw: "print" },
       },
-      opacity: {
-        40: 0.4,
-      }
     },
     // Overriding default spacing
     spacing: {
@@ -107,14 +111,8 @@ module.exports = {
         purple: "#a66efd",
       },
       festival: {
-        blue: {
-          DEFAULT: "#0e11bf",
-          100: "#2e05ff"
-        },
-        purple: {
-          DEFAULT: "#8f14fb",
-          100: "#fa00ff",
-        },
+        blue: "#0e11bf",
+        purple: "#8f14fb",
       },
       "dear-internet": {
         lilac: "#d3d5fc",

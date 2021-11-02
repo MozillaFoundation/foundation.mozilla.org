@@ -1,14 +1,12 @@
 import json
 
 from datetime import datetime
+
 from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import int_list_validator
-
 from django.db import Error, models
-from django.db.models import F
-
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -114,7 +112,7 @@ def sort_average(products):
 
 
 @register_snippet
-class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnippet, models.Model):
+class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Model):
     """
     A simple category class for use with Buyers Guide products,
     registered as snippet so that we can moderate them if and
@@ -181,6 +179,7 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
         TranslatableField('description'),
         SynchronizedField('slug'),
         SynchronizedField('share_image'),
+        SynchronizedField('parent'),
     ]
 
     @property
@@ -195,27 +194,17 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
 
     def __str__(self):
         if self.parent is None:
-            return f'{self.name} (sort order: {self.sort_order})'
-        return f'{self.parent.name}: {self.name} (sort order: {self.sort_order})'
+            return self.name
+        return f'{self.parent.name}: {self.name}'
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
-    search_fields = [
-        index.SearchField('name', partial_match=True),
-        index.FilterField('locale_id'),
-    ]
-
     class Meta(TranslatableMixin.Meta):
         verbose_name = "Buyers Guide Product Category"
         verbose_name_plural = "Buyers Guide Product Categories"
-        ordering = [
-            F('parent__sort_order').asc(nulls_first=True),
-            F('parent__name').asc(nulls_first=True),
-            'sort_order',
-            'name'
-        ]
+        ordering = ['sort_order', '-parent__name', 'name', ]
 
 
 class ProductPageVotes(models.Model):
@@ -1650,8 +1639,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 self.cutoff_date,
                 authenticated,
                 key,
-                ProductPage.objects.filter(product_categories__category__in=[original_category])
-                                   .exclude(product_categories__category__id__in=exclude_cat_ids),
+                ProductPage.objects.exclude(product_categories__category__id__in=exclude_cat_ids),
                 language_code=language_code
             )
 
@@ -1721,6 +1709,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             )
 
         context['categories'] = get_categories_for_locale(language_code)
+        context['current_category'] = None
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         pni_home_page = BuyersGuidePage.objects.first()
