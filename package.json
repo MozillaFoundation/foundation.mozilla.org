@@ -102,7 +102,7 @@
   },
   "devDependencies": {
     "browser-sync": "^2.27.5",
-    "browserslist": "^4.17.0",
+    "browserslist": "^4.17.6",
     "chokidar-cli": "^2.1.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.32.0",
