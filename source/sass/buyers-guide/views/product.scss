@@ -428,6 +428,7 @@
   .criterion-richtext-help {
     p {
       @extend .pni-product-helptext;
+      margin-bottom: unset;
     }
   }
 }
