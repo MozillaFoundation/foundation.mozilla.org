@@ -15,7 +15,6 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext, pgettext
 
-
 from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel
@@ -1650,8 +1649,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 self.cutoff_date,
                 authenticated,
                 key,
-                ProductPage.objects.filter(product_categories__category__in=[original_category])
-                                   .exclude(product_categories__category__id__in=exclude_cat_ids),
+                ProductPage.objects.exclude(product_categories__category__id__in=exclude_cat_ids),
                 language_code=language_code
             )
 
@@ -1721,6 +1719,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             )
 
         context['categories'] = get_categories_for_locale(language_code)
+        context['current_category'] = None
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         pni_home_page = BuyersGuidePage.objects.first()
