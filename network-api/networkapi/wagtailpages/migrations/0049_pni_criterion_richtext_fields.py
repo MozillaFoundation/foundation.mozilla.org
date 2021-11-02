@@ -10,10 +10,11 @@ from django.db import migrations
 
 # Forward migration content handler
 def update_fields_to_rich_text(product_qs):
-    # If the page has no fields that need updating, do not save. This will speed up the process.
-    needs_saving = False
 
     for product in product_qs:
+        
+        # If the page has no fields that need updating, do not save. This will speed up the process.
+        needs_saving = False
 
         if hasattr(product, 'how_does_it_use_data_collected') and product.how_does_it_use_data_collected != "":
             product.how_does_it_use_data_collected = f"<p> {product.how_does_it_use_data_collected} </p>"
