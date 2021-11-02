@@ -1,11 +1,8 @@
 {
-  "plugins": [
-    "prettier",
-    "react"
-  ],
+  "plugins": ["prettier", "react"],
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2020,
     "ecmaFeatures": {
       "jsx": true
     }
@@ -14,7 +11,12 @@
     "es6": true
   },
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "react/jsx-uses-vars": "error"
   }
 }
