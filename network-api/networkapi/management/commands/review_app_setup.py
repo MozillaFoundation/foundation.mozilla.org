@@ -87,7 +87,14 @@ class Command(BaseCommand):
             if domain in [domain.hostname for domain in heroku_domains]:
                 app.remove_domain(domain)
 
-            heroku_domain = app.add_domain(domain)
+            sni_endpoint_id = None
+            for sni_endpoint in app.sni_endpoints():
+                for cert_domain in sni_endpoint.ssl_cert.cert_domains:
+                    # check root or wildcard
+                    if cert_domain in domain or cert_domain[1:] in domain:
+                        sni_endpoint_id = sni_endpoint.id
+
+            heroku_domain = app.add_domain(domain, sni_endpoint_id)
             mapping[domain] = heroku_domain.cname
 
         has_acm = any(domain.acm_status for domain in app.domains())
