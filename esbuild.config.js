@@ -25,6 +25,7 @@ const sources = {
   "callpower": `foundation/pages/callpower.js`,
   "directory-listing-filters": `foundation/pages/directory-listing-filters.js`,
   "bg-main": `buyers-guide/bg-main.js`,
+  "bg-search": `buyers-guide/search.js`,
   polyfills: `polyfills.js`,
 };
 
