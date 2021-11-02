@@ -157,7 +157,7 @@ class GeneralProductPageFactory(ProductPageFactory):
     track_record_is_bad = Faker('boolean')
     track_record_details = Faker('sentence')
     offline_capable = LazyFunction(get_extended_yes_no_value)
-    offline_use_description = Faker('sentence')}
+    offline_use_description = Faker('sentence')
     uses_ai = LazyFunction(get_extended_yes_no_value)
     ai_is_transparent = LazyFunction(get_extended_yes_no_value)
     ai_helptext = Faker('sentence')
