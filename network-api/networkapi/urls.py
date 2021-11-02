@@ -31,10 +31,15 @@ from networkapi.redirects import foundation_redirects
 
 admin.autodiscover()
 
+def get_robots_content():
+    if settings.ASSET_DOMAIN != 'foundation.mozilla.org':
+        return 'User-Agent: *\nDisallow: /'
+    return 'User-Agent: *\nDisallow: /*/artifacts/thimble\nDisallow: /artifacts/thimble'
+
 urlpatterns = list(filter(None, [
     # Add robots.txt to exclude the thimble artifact page
     path('robots.txt', lambda x: HttpResponse(
-        'User-Agent: *\nDisallow: /*/artifacts/thimble\nDisallow: /artifacts/thimble',
+        get_robots_content(),
         content_type='text/plain; charset=utf-8'),
         name='robots_file'
         ),
