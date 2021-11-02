@@ -11,7 +11,9 @@ def check_active_category(current_category, target_category):
     # make sure to compare the linguistic originals.
     current_category = getattr(current_category, 'original', current_category)
     target_category = getattr(target_category, 'original', target_category)
-    match = current_category == target_category or current_category.parent == target_category
+    match = current_category == target_category
+    if hasattr(current_category, 'parent'):
+        match = match or current_category.parent == target_category
     return 'active' if match else ''
 
 
