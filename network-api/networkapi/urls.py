@@ -32,12 +32,16 @@ from networkapi.redirects import foundation_redirects
 admin.autodiscover()
 
 def get_robots_content():
+    """
+    Do not allow indexing of any content, except on the live site.
+    """
     if settings.ASSET_DOMAIN != 'foundation.mozilla.org':
         return 'User-Agent: *\nDisallow: /'
+    
+    # For anti-spam purposes, explicitly disallow indexing the thimble artifact page.
     return 'User-Agent: *\nDisallow: /*/artifacts/thimble\nDisallow: /artifacts/thimble'
 
 urlpatterns = list(filter(None, [
-    # Add robots.txt to exclude the thimble artifact page
     path('robots.txt', lambda x: HttpResponse(
         get_robots_content(),
         content_type='text/plain; charset=utf-8'),
