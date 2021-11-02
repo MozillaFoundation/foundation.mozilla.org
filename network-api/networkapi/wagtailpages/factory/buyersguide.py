@@ -151,16 +151,16 @@ class GeneralProductPageFactory(ProductPageFactory):
     personal_data_collected = Faker('sentence')
     biometric_data_collected = Faker('sentence')
     social_data_collected = Faker('sentence')
-    how_can_you_control_your_data = f"<p>{Faker('sentence')}</p>"
+    how_can_you_control_your_data = Faker('sentence')
     data_control_policy_is_bad = Faker('boolean')
     company_track_record = get_random_option(['Great', 'Average', 'Needs Improvement', 'Bad'])
     track_record_is_bad = Faker('boolean')
-    track_record_details = f"<p>{Faker('sentence')}</p>"
+    track_record_details = Faker('sentence')
     offline_capable = LazyFunction(get_extended_yes_no_value)
-    offline_use_description = f"<p>{Faker('sentence')}</p>"
+    offline_use_description = Faker('sentence')}
     uses_ai = LazyFunction(get_extended_yes_no_value)
     ai_is_transparent = LazyFunction(get_extended_yes_no_value)
-    ai_helptext = f"<p>{Faker('sentence')}</p>"
+    ai_helptext = Faker('sentence')
 
 
 class SoftwareProductPageFactory(ProductPageFactory):
