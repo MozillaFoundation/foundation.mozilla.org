@@ -1,6 +1,11 @@
 {% extends "buyersguide/bg_base.html" %}
 
-{% load env i18n static wagtailimages_tags cache bg_nav_tags localization %}
+{% load static env i18n static wagtailimages_tags cache bg_nav_tags localization %}
+
+{% block additional_head_elements %}
+  {{ block.super }}
+  <script src="{% static "_js/bg-search.compiled.js" %}" async defer></script>
+{% endblock %}
 
 {% block bodyclass %}pni catalog{% endblock %}
 
@@ -53,11 +58,11 @@
             <span class="current-creepiness"></span>
           </span>
 
-          
+
         </div>
       </div>
       <div class="col-12 tw-mb-4 tw-px-0 tw-flex tw-items-end">
-        <a 
+        <a
          href="{% if current_category.parent %}{% localizedroutablepageurl home_page 'category-view' current_category.parent.slug  %}{% elif current_category %}{% localizedroutablepageurl home_page 'category-view' current_category.slug  %}{% else %}{% relocalized_url home_page.localized.url %}{% endif %}"
          data-name="{% if current_category.parent %}{{ current_category.parent.name }}{% elif current_category %}{{current_category.name}}{% else %}None{% endif %}"
          class="tw-capitalize tw-text-5xl tw-font-zilla category-header tw-mb-2 tw-text-black hover:tw-text-pni-blue tw-no-underline tw-cursor-pointer"
@@ -78,7 +83,7 @@
           <label for="product-filter-pni-toggle">{% trans "*privacy not included" %} </label>
         </span>
       </div>
-      
+
     </div>
     <div class="row px-0 tw-mb-4">
       <div class="tw-w-full">
