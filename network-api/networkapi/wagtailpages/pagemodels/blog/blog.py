@@ -55,7 +55,6 @@ base_fields = [
     ('linkbutton', customblocks.LinkButtonBlock()),
     ('looping_video', customblocks.LoopingVideoBlock()),
     ('pulse_listing', customblocks.PulseProjectList()),
-    ('quote', customblocks.QuoteBlock()),
     ('single_quote', customblocks.SingleQuoteBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
 ]

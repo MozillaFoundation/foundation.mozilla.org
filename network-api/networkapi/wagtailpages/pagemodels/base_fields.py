@@ -26,7 +26,6 @@ base_fields = [
     ('iframe', customblocks.iFrameBlock()),
     ('linkbutton', customblocks.LinkButtonBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
-    ('quote', customblocks.QuoteBlock()),
     ('single_quote', customblocks.SingleQuoteBlock()),
     ('pulse_listing', customblocks.PulseProjectList()),
     ('profile_listing', customblocks.LatestProfileList()),
