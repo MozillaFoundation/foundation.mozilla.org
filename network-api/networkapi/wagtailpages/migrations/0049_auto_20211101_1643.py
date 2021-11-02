@@ -59,7 +59,7 @@ def process(apps, func):
     MozfestPrimaryPage = apps.get_model('mozfest', 'MozfestPrimaryPage')
     PrimaryPage = apps.get_model('wagtailpages', 'PrimaryPage')
 
-    LOCALE_ID=1
+    LOCALE_ID = 1 # English language pages
     
     pages = itertools.chain(
         BlogPage.objects.filter(locale_id=LOCALE_ID),
