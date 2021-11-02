@@ -6,11 +6,10 @@
     `.fellowships-directory-filter .filter-option button`
   );
   const profileContainer = document.querySelector(`.profiles .row`);
-  const { profileType, programType } = document.querySelector(
-    `.profiles`
-  ).dataset;
-  const API_ENDPOINT = document.querySelector(`[data-api-endpoint]`).dataset
-    .apiEndpoint;
+  const { profileType, programType } =
+    document.querySelector(`.profiles`).dataset;
+  const API_ENDPOINT =
+    document.querySelector(`[data-api-endpoint]`).dataset.apiEndpoint;
 
   /**
    * We're reasonably sure that profiles are sane already, but

@@ -20,9 +20,8 @@ export default () => {
   const mutationHandler = (mutations) => {
     mutations.forEach(function (mutation) {
       if (mutation.attributeName === "class") {
-        let currentMenuState = mutation.target.classList.contains(
-          classToDetect
-        );
+        let currentMenuState =
+          mutation.target.classList.contains(classToDetect);
         if (prevMenuState !== currentMenuState) {
           prevMenuState = currentMenuState;
           if (currentMenuState) {
