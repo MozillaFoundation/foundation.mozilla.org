@@ -1404,7 +1404,6 @@ class GeneralProductPage(ProductPage):
                     FieldPanel('ai_is_transparent_helptext'),
                     FieldPanel('ai_can_user_control'),
                     FieldPanel('ai_can_user_control_helptext'),
-
                 ],
                 heading='Artificial Intelligence',
                 classname='collapsible'

@@ -1,4 +1,3 @@
-const SEARCH_BAR = document.getElementById(`sticky-bar`);
 const ALL_PRODUCTS = document.querySelectorAll(`figure.product-box`);
 const NO_RESULTS_NOTICE = document.getElementById(
   `product-filter-no-results-notice`
@@ -17,44 +16,15 @@ const SearchFilter = {
       );
     }
 
-    const searchInput = (SearchFilter.searchInput = searchBar.querySelector(
-      `input`
-    ));
+    const searchInput = (SearchFilter.searchInput =
+      searchBar.querySelector(`input`));
 
     searchInput.addEventListener(`input`, (evt) => {
       const searchText = searchInput.value.trim();
 
       if (searchText) {
         searchBar.classList.add(`has-content`);
-        if (window.innerWidth > 768) {
-          SEARCH_BAR.classList.add(`search-active`, `creep-o-meter-moved`);
-        }
-      } else {
-        searchBar.classList.remove(`has-content`);
-      }
-
-      SearchFilter.filter(searchText);
-    });
-
-    searchBar.addEventListener(`focus`, (_evt) => {
-      // We want focus to fall through to the input element instead
-      searchInput.focus();
-    });
-
-    searchInput.addEventListener(`focus`, (_evt) => {
-      // And to make CSS work easier, set a class on the parent container
-      // for both search and the creep-o-meter component, so that it can
-      // relocate so as not to interfere with the search bar.
-      if (window.innerWidth > 768) {
-        SEARCH_BAR.classList.add(`search-active`, `creep-o-meter-moved`);
-      }
-    });
-
-    // Whenever focus is moved away from the search bar, check if we can
-    // safely restore the creep-o-meter component or not.
-    searchInput.addEventListener(`blur`, (_evt) => {
-      if (!searchInput.value.trim()) {
-        SEARCH_BAR.classList.remove(`search-active`);
+        SearchFilter.filter(searchText);
       }
     });
 
