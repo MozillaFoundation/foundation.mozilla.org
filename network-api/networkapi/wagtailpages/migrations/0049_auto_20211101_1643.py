@@ -34,8 +34,7 @@ def update_body_to_use_quote_list(content):
     needs_saving = False
     for index, block in enumerate(content):
             # If there is a type in the blocks, and the block type is a quote
-            # ListBlock Quotes are called "quote". Single quotes are called "callouts".
-            # This namespacing is very helpful in this scenario.
+            # ListBlock Quotes are called "quote".
             if 'type' in block and block['type'] == "single_quote":
                 quote_list_block = {
                     "type": "quote",
