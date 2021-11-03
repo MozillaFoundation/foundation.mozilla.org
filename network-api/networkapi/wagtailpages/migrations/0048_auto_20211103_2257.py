@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailimages', '0023_add_choose_permissions'),
-        ('wagtailpages', '0047_auto_20211027_0017'),
+        ('wagtailpages', '0048_auto_20211103_1531'),
     ]
 
     operations = [
@@ -197,7 +197,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='productpage',
             name='mozilla_says',
-            field=models.BooleanField(blank=True, help_text="Use 'Yes' for Thumbs Up, 'No' for Thumbs Down, and 'Unknown' for Thumb Sideway", null=True, verbose_name='mozilla Says'),
+            field=models.BooleanField(blank=True, help_text="Use 'Yes' for Thumbs Up, 'No' for Thumbs Down, and 'Unknown' for Thumb Sideways", null=True, verbose_name='mozilla Says'),
         ),
         migrations.AlterField(
             model_name='productpage',
