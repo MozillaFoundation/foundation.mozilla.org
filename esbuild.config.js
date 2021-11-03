@@ -16,6 +16,8 @@ const mode =
   arg > 0 ? process.argv[arg + 1] : process.env.NODE_ENV || `development`;
 const inProduction = mode === `production`;
 
+console.log(`ESBuild running in production mode?`, inProduction);
+
 const inDir = `./source/js/`;
 const outDir = `./network-api/networkapi/frontend/_js/`;
 
@@ -23,12 +25,14 @@ const sources = {
   main: {
     source: `main.js`,
     react: true,
+    bundle: true,
   },
   mozfest: {
     source: `foundation/pages/mozfest/index.js`,
     react: true,
+    bundle: true,
   },
-  "callpower": {
+  callpower: {
     source: `foundation/pages/callpower.js`,
   },
   "directory-listing-filters": {
@@ -37,6 +41,7 @@ const sources = {
   "bg-main": {
     source: `buyers-guide/bg-main.js`,
     react: true,
+    bundle: true,
   },
   "bg-search": {
     source: `buyers-guide/search.js`,
@@ -46,10 +51,7 @@ const sources = {
   },
 };
 
-
-
 const base = {
-  bundle: true,
   watch: !inProduction,
   sourcemap: !inProduction,
   minify: inProduction,
@@ -62,11 +64,14 @@ const base = {
   },
 };
 
-Object.entries(sources).map(([name, { source, react}]) => {
+Object.entries(sources).map(([name, { source, react, bundle }]) => {
   const opts = Object.assign({}, base);
   if (react) {
-    opts.inject = [`esbuild.react.shim.js`]
-  };
+    opts.inject = [`esbuild.react.shim.js`];
+  }
+  if (bundle) {
+    opts.bundle = true;
+  }
   opts.entryPoints = [path.join(inDir, source)];
   opts.outfile = `${path.join(outDir, name)}.compiled.js`;
   return build(opts);
