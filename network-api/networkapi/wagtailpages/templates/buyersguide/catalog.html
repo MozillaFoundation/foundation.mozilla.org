@@ -2,11 +2,6 @@
 
 {% load static env i18n static wagtailimages_tags cache bg_nav_tags localization %}
 
-{% block additional_head_elements %}
-  {{ block.super }}
-  <script src="{% static "_js/bg-search.compiled.js" %}" async defer></script>
-{% endblock %}
-
 {% block bodyclass %}pni catalog{% endblock %}
 
 {% block main_content_class %}{% endblock %}
@@ -146,4 +141,6 @@
   {% include "../fragments/submit_a_product.html" %}
  </div>
 </div>
+
+<script src="{% static "_js/bg-search.compiled.js" %}" async type="module"></script>
 {% endblock %}
