@@ -38,7 +38,7 @@ def get_robots_content():
     """
     if settings.ASSET_DOMAIN != 'foundation.mozilla.org':
         return 'User-Agent: *\nDisallow: /'
-    
+
     # For anti-spam purposes, explicitly disallow indexing the thimble artifact page.
     return 'User-Agent: *\nDisallow: /*/artifacts/thimble\nDisallow: /artifacts/thimble'
 
