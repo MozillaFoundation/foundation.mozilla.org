@@ -275,8 +275,9 @@
                         </section>
 
                         {% trans "Does the user have control over the AI features?" as ai_is_transparent %}
-                        {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no           %}
-                      {% endif %}
+                        {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no help=product.ai_can_user_control_helptext rich_help_text=True %}
+
+                        {% endif %}
                       {% endwith %}
                     </section>
                   {% endif %}
