@@ -665,7 +665,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Company": self.company,
             "Blurb": self.blurb,
             "Product link": self.product_url if self.product_url else '',
-            "Price": self.price,
             "Worst case": self.worst_case,
             "Signup requires email": self.signup_requires_email,
             "Signup requires phone number": self.signup_requires_phone,

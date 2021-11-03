@@ -6,7 +6,6 @@ from datetime import date, datetime, timezone, timedelta
 from factory import (
     Faker,
     post_generation,
-    LazyAttribute,
     LazyFunction,
 )
 from factory.django import DjangoModelFactory
@@ -166,7 +165,6 @@ class SoftwareProductPageFactory(ProductPageFactory):
 
     class Meta:
         model = SoftwareProductPage
-
 
     handles_recordings_how = Faker('sentence')
     recording_alert = LazyFunction(get_extended_yes_no_value)
