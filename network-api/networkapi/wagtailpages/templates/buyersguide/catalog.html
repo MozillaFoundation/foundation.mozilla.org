@@ -1,12 +1,20 @@
 {% extends "buyersguide/bg_base.html" %}
 
-{% load env i18n static wagtailimages_tags cache %}
+{% load static env i18n static wagtailimages_tags cache bg_nav_tags localization %}
+
+{% block additional_head_elements %}
+  {{ block.super }}
+  <script src="{% static "_js/bg-search.compiled.js" %}" async defer></script>
+{% endblock %}
 
 {% block bodyclass %}pni catalog{% endblock %}
 
 {% block main_content_class %}{% endblock %}
 
 {% block hero %}
+<input type="hidden" class="category-title" value="{% if current_category %}{{current_category.localized.name}}{% else %}None{% endif %}">
+<input type="hidden" class="parent-title" value="{{current_category.parent.localized.name}}">
+
 <header
   class="container-fluid text-center page-header bg-gray"
   {% if page.get_banner != None %}style="background-image: url({% image page.get_banner max-1920x1280 as img %}{{ img.url }})"{% endif %}
@@ -18,6 +26,11 @@
       <div class="col-12 col-lg-8 offset-lg-2 intro-text order-2 order-lg-1{% if page.dark_theme %} dark-theme{% endif %}">
         <h1 class="h1-heading text-center mt-0">{{ page.header }}</h1>
         <p class="body-large mb-0">{{ page.intro_text }}</p>
+          <div id="product-filter-search" class='col-12 col-md-9 tw-my-5' tabindex="0">
+            <span class="search-icon">&nbsp;</span>
+            <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search all products" %}" class="body-large tw-text-black" value="">
+            <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
+          </div>
       </div>
       <div class="col-12 col-lg-2 badge-container text-right order-1 order-lg-2">
         <img class="webby-award-badge" src="{% static '_images/buyers-guide/webby-award-badge.svg' %}" alt="{% trans "2020 Webby Award Winner Badge" %}">
@@ -30,16 +43,10 @@
 {% block guts %}
 <div class="project-list-section">
   <div class="container">
-    <div class="row px-3 px-sm-0">
+    <div class="row px-0 px-sm-0">
       <div class="col-12">
         <div id="sticky-bar" class="creepiness-slider bg-white text-center">
-
           <!-- temporary location for dev work -->
-          <span id="product-filter-search" tabindex="0">
-            <span class="search-icon">&nbsp;</span>
-            <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search product name…" %}" class="body-large" value="">
-            <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
-          </span>
 
           <span class="creep-o-meter-information">
             <p class="speech-bubble-container">
@@ -51,12 +58,51 @@
             <span class="current-creepiness"></span>
           </span>
 
-          <span id="product-filter-pni">
-            <input type="checkbox" id="product-filter-pni-toggle" autocomplete="off">
-            <label for="product-filter-pni-toggle" class="pni-checkbox-facade"></label>
-            <span class="pni-icon">&nbsp;</span>
-            <label for="product-filter-pni-toggle">{% trans "*privacy not included" %} </label>
-          </span>
+
+        </div>
+      </div>
+      <div class="col-12 tw-mb-4 tw-px-0 tw-flex tw-items-end">
+        <a
+         href="{% if current_category.parent %}{% localizedroutablepageurl home_page 'category-view' current_category.parent.slug  %}{% elif current_category %}{% localizedroutablepageurl home_page 'category-view' current_category.slug  %}{% else %}{% relocalized_url home_page.localized.url %}{% endif %}"
+         data-name="{% if current_category.parent %}{{ current_category.parent.name }}{% elif current_category %}{{current_category.name}}{% else %}None{% endif %}"
+         class="tw-capitalize tw-text-5xl tw-font-zilla category-header tw-mb-2 tw-text-black hover:tw-text-pni-blue tw-no-underline tw-cursor-pointer"
+        >
+          {% if current_category.parent %}
+            {{current_category.parent.localized.name}}
+          {% elif current_category %}
+            {{current_category.localized.name}}
+          {% else %}
+            {% trans "All" %}
+          {% endif %}
+        </a>
+
+        <span id="product-filter-pni">
+          <input type="checkbox" id="product-filter-pni-toggle" autocomplete="off">
+          <label for="product-filter-pni-toggle" class="pni-checkbox-facade"></label>
+          <span class="pni-icon">&nbsp;</span>
+          <label for="product-filter-pni-toggle">{% trans "*privacy not included" %} </label>
+        </span>
+      </div>
+
+    </div>
+    <div class="row px-0 tw-mb-4">
+      <div class="tw-w-full">
+        <div class="tw-flex tw-space-x-2">
+          {% for cat in categories %}
+            {% with original=cat.original selected_classes="active tw-bg-gray-80 tw-text-white tw-border-gray-80" default_classes="hover:tw-border-pni-lilac hover:tw-bg-pni-lilac tw-text-gray-60 tw-border-gray-20 tw-bg-white" tailwind_classes="tw-no-underline border tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3]" %}
+            {% if cat.parent != None %}
+              {% if original.published_product_page_count > 0 %}
+                {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
+                <a class="{% if current_category.name != cat.parent.name and current_category.parent.name != cat.parent.name %} tw-hidden {% endif %} subcategories {{ tailwind_classes }} {% if current_category.name == cat.name %}{{ selected_classes }}{% else %}{{ default_classes }}{% endif %}"
+                   href="{{ cat_url }}"
+                   data-parent="{{ cat.parent.name }}"
+                   data-name="{{ cat.name }}">
+                  {{ cat.name }}
+                </a>
+              {% endif %}
+            {% endif %}
+            {% endwith %}
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -68,13 +114,15 @@
       {# User is not logged in. Return cached results. 24 hour caching applied. #}
       {% cache 86400 pni_home_page template_cache_key_fragment %}
         {% for product in products %}
-          {% include "../fragments/buyersguide_item.html" with product=product.localized %}
+          {% prod_in_cat product category as matched %}
+          {% include "../fragments/buyersguide_item.html" with product=product.localized matched=matched %}
         {% endfor %}
       {% endcache %}
     {% else %}
       {# User is logged in. Don't cache their results so they can see live and draft products here. #}
       {% for product in products %}
-        {% include "../fragments/buyersguide_item.html" with product=product.localized %}
+        {% prod_in_cat product category as matched %}
+        {% include "../fragments/buyersguide_item.html" with product=product.localized matched=matched %}
       {% endfor %}
     {% endif %}
     </div>
