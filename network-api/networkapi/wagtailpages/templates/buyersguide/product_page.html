@@ -250,7 +250,7 @@
                   {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption               %}
                   {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password          %}
                   {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates         %}
-                  {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities  %}
+                  {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities  rich_help_text=True %}
                   {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy           %}
                 </div>
 
@@ -259,7 +259,7 @@
                     <section class="criterion-group">
                       {% with product.uses_ai|extended_yes_no as uses_ai %}
                       {% trans "Does the product use AI?" as uses_ai_label %}
-                      {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai info="/privacynotincluded/about/methodology"   %}
+                      {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai info="/privacynotincluded/about/methodology" help=product.ai_helptext rich_help_text=True  %}
 
                       {% if uses_ai != "No" %}
                         {% trans "Is this AI untrustworthy?" as ai_is_untrustworthy_label %}
@@ -276,8 +276,6 @@
 
                         {% trans "Does the user have control over the AI features?" as ai_is_transparent %}
                         {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no           %}
-
-                        <div class="criterion-richtext-help mb-0">{{product.ai_helptext|richtext}}</div>
                       {% endif %}
                       {% endwith %}
                     </section>
