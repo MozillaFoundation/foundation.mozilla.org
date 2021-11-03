@@ -498,7 +498,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         verbose_name='mozilla Says',
         null=True,
         blank=True,
-        help_text="Use 'Yes' for Thumbs Up, 'No' for Thumbs Down, and 'Unknown' for Thumb Sideway",
+        help_text="Use 'Yes' for Thumbs Up, 'No' for Thumbs Down, and 'Unknown' for Thumb Sideways",
     )
     time_researched = models.PositiveIntegerField(
         verbose_name='time spent on research',
