@@ -272,7 +272,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         with self.settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}}):
             response = self.client.get(url)
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(len(response.context['products']), 0)
+            self.assertEqual(len(response.context['products']), 1)
 
             # Add BuyersGuideProductCategory
             category_orderable = ProductPageCategory(
