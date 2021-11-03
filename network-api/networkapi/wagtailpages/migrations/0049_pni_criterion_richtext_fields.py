@@ -6,6 +6,7 @@
 # - Manages security vulnerabilities Description
 
 from django.db import migrations
+from networkapi.wagtailpages.utils import get_default_locale
 
 
 # Forward migration content handler
@@ -47,11 +48,11 @@ def gather_products_and_update_fields(apps, schema):
     GeneralProductPage = apps.get_model('wagtailpages', 'GeneralProductPage')
     SoftwareProductPage = apps.get_model('wagtailpages', 'SoftwareProductPage')
 
-    LOCALE_ID=1
+    (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
     
     product_pages = [
-        GeneralProductPage.objects.filter(locale_id=LOCALE_ID),
-        SoftwareProductPage.objects.filter(locale_id=LOCALE_ID)
+        GeneralProductPage.objects.filter(locale_id=DEFAULT_LOCALE_ID),
+        SoftwareProductPage.objects.filter(locale_id=DEFAULT_LOCALE_ID)
     ]
     
     for product_set in product_pages:

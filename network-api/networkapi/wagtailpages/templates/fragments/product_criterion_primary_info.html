@@ -19,10 +19,10 @@
         {% if show_value_as_symbol %}
         <img src="{% static "_images/buyers-guide/score/icon-unknown.svg" %}" alt="{% trans "Can’t determine" context "Unknown rating" %}">
         {% else %}
-        {% trans "Can’t determine" context "Unknown rating" %}
+        {% trans "Can’t Determine" context "Unknown rating" %}
         {% endif %}
       {% elif value == "NA" %}
-        {% trans "Not applicable" %}
+        {% trans "Not Applicable" %}
       {% elif value == "Yes" %}
         {% if show_value_as_symbol %}
         <img src="{% static "_images/buyers-guide/score/icon-yes.svg" %}" alt="{% trans "Yes" %}">
