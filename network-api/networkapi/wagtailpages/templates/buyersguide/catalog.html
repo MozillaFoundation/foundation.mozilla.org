@@ -4,7 +4,7 @@
 
 {% block additional_head_elements %}
   {{ block.super }}
-  <script src="{% static "_js/bg-search.compiled.js" %}" async="async" defer="defer"></script>
+  <script src="{% static "_js/bg-search.compiled.js" %}" async type="module"></script>
 {% endblock %}
 
 {% block bodyclass %}pni catalog{% endblock %}

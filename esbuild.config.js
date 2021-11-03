@@ -20,14 +20,33 @@ const inDir = `./source/js/`;
 const outDir = `./network-api/networkapi/frontend/_js/`;
 
 const sources = {
-  main: `main.js`,
-  mozfest: `foundation/pages/mozfest/index.js`,
-  "callpower": `foundation/pages/callpower.js`,
-  "directory-listing-filters": `foundation/pages/directory-listing-filters.js`,
-  "bg-main": `buyers-guide/bg-main.js`,
-  "bg-search": `buyers-guide/search.js`,
-  polyfills: `polyfills.js`,
+  main: {
+    source: `main.js`,
+    react: true,
+  },
+  mozfest: {
+    source: `foundation/pages/mozfest/index.js`,
+    react: true,
+  },
+  "callpower": {
+    source: `foundation/pages/callpower.js`,
+  },
+  "directory-listing-filters": {
+    source: `foundation/pages/directory-listing-filters.js`,
+  },
+  "bg-main": {
+    source: `buyers-guide/bg-main.js`,
+    react: true,
+  },
+  "bg-search": {
+    source: `buyers-guide/search.js`,
+  },
+  polyfills: {
+    source: `polyfills.js`,
+  },
 };
+
+
 
 const base = {
   bundle: true,
@@ -41,11 +60,13 @@ const base = {
   define: {
     "process.env.NODE_ENV": JSON.stringify(mode),
   },
-  inject: [`esbuild.react.shim.js`],
 };
 
-Object.entries(sources).map(([name, source]) => {
+Object.entries(sources).map(([name, { source, react}]) => {
   const opts = Object.assign({}, base);
+  if (react) {
+    opts.inject = [`esbuild.react.shim.js`]
+  };
   opts.entryPoints = [path.join(inDir, source)];
   opts.outfile = `${path.join(outDir, name)}.compiled.js`;
   return build(opts);
