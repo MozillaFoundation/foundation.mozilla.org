@@ -46,7 +46,7 @@
     "server": "python network-api/manage.py runserver 0.0.0.0:8000",
     "server:silent": "python network-api/manage.py runserver 0.0.0.0:8000 >> server.log 2>&1",
     "start": "docker-compose up",
-    "sync": "browser-sync start --proxy \"localhost:8000\" --reload-debounce 50 --files \"./network-api/networkapi/**/*.html\" \"./network-api/networkapi/frontend/_css/*.css\"",
+    "sync": "browser-sync start --proxy \"localhost:8000\" --reload-debounce 50 --files \"./network-api/networkapi/**/*.html\" \"./network-api/networkapi/frontend/_css/*.css\" \"./network-api/networkapi/frontend/_js/*.js\"",
     "tailwind": "run-p tailwind:watch sync",
     "tailwind:watch": "tailwindcss -i source/postcss/tailwind.css -o network-api/networkapi/frontend/_css/tailwind.compiled.css -w",
     "test:procfile": "node test/test-procfile.js",
@@ -101,6 +101,7 @@
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
+    "browser-sync": "^2.27.5",
     "browserslist": "^4.17.0",
     "chokidar-cli": "^2.1.0",
     "dotenv": "^8.2.0",

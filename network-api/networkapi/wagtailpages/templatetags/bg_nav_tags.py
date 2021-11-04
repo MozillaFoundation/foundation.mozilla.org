@@ -11,13 +11,23 @@ def check_active_category(current_category, target_category):
     # make sure to compare the linguistic originals.
     current_category = getattr(current_category, 'original', current_category)
     target_category = getattr(target_category, 'original', target_category)
-    return 'active' if current_category == target_category else ''
+    match = current_category == target_category
+    if hasattr(current_category, 'parent'):
+        match = match or current_category.parent == target_category
+    return 'active' if match else ''
 
 
 # Determine if a nav link should be active.
 @register.simple_tag(name='bg_active_nav')
 def bg_active_nav(current, target):
     return 'active' if urlparse(current).path == urlparse(target).path else ''
+
+
+@register.simple_tag(name='prod_in_cat')
+def prod_in_cat(productpage, categorySlug):
+    if categorySlug == "":
+        return True
+    return categorySlug in [cat.category.slug for cat in productpage.product_categories.all()]
 
 
 """
