@@ -2,11 +2,6 @@
 
 {% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
 
-{% block head_extra %}
-  <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
-  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
-{% endblock %}
-
 {% block body_id %}product-page{% endblock %}
 
 {% block guts %}

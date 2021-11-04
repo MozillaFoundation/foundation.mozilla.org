@@ -1,5 +1,6 @@
 import json
 
+from bs4 import BeautifulSoup
 from datetime import datetime
 from django.conf import settings
 from django.core.cache import cache
@@ -744,20 +745,31 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         votes = product.votes.get_votes()
         data = {
             'creepiness': {
-                'vote_breakdown':  {k: v for (k, v) in enumerate(votes)},
+                'vote_breakdown': {k: v for (k, v) in enumerate(votes)},
                 'average': product.creepiness
             },
             'total': product.total_vote_count
         }
         return json.dumps(data)
 
-    def get_meta_image_url(self, request):
-        """
-        See: https://pypi.org/project/wagtail-metadata/
+    # See package docs for `get_meta_*` methods: https://pypi.org/project/wagtail-metadata/
+    def get_meta_title(self):
+        return f"*Privacy Not Included review: {self.title}"
 
-        Heavy-duty exception handling so the page doesn't crash due to a
-        missing sharing image.
-        """
+    def get_meta_description(self):
+        if self.search_description:
+            return self.search_description
+
+        soup = BeautifulSoup(self.blurb, "html.parser")
+        first_paragraph = soup.find("p")
+        if first_paragraph:
+            return first_paragraph.text
+
+        return super().get_meta_description()
+
+    def get_meta_image_url(self, request):
+        # Heavy-duty exception handling so the page doesn't crash due for a
+        # missing sharing image.
         try:
             return (self.search_image or self.image).get_rendition("original").url
         except Exception:
