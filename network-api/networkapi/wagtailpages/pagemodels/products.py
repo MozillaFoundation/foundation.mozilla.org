@@ -606,6 +606,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         related_name='votes',
     )
 
+    def get_product_categories(self):
+        # Weed out possible NULL values from product categories having been deleted.
+        return self.product_categories.filter(category__isnull=False)
+
     @classmethod
     def map_import_fields(cls):
         mappings = {
