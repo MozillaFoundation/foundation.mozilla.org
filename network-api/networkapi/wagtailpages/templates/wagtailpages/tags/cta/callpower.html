@@ -27,9 +27,29 @@
   <div class="callpower-cta success tw-hidden">
     <h5>{{ cta.success_heading }}</h5>
     <p>{{ cta.success_text | safe }}</p>
-    <div class="share-button-group-wrapper d-print-none" data-layout="stacked"
-      data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}"
-      data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+
+    {% if cta.share_twitter %}
+    <div id="share-progress-tw" class='{{cta.share_twitter}} sp_tw_small d-none'></div>
+    {% endif %}
+
+    {% if cta.share_facebook %}
+    <div id="share-progress-fb" class='{{cta.share_facebook}} sp_fb_small d-none'></div>
+    {% endif %}
+
+    {% if cta.share_email %}
+    <div id="share-progress-em" class='{{cta.share_email}} sp_em_small tw-hidden'></div>
+    {% endif %}
+
+    <div class="share-button-group rectangle stacked">
+      <div class="subgroup">
+        <button class="btn btn-secondary btn-share facebook-share" data-target="share-progress-fb">{% trans "Facebook" %}</button>
+        <button class="btn btn-secondary btn-share twitter-share" data-target="share-progress-tw">{% trans "Twitter" %}</button>
+      </div>
+      <div class="subgroup">
+        <button class="btn btn-secondary btn-share email-share" data-target="share-progress-em">{% trans "Email" %}</button>
+        <button class="btn btn-secondary btn-share link-share" data-success-text="Copied">{% trans "Copy" %}</button>
+      </div>
+    </div>
   </div>
 
   <div class="callpower-cta unknown error-section tw-hidden">
@@ -44,3 +64,4 @@
 </div>
 
 <script src='{% static "_js/callpower.compiled.js" %}'' async defer></script>
+<script src="https://c.shpg.org/352/sp.js" async defer></script>
