@@ -768,7 +768,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         return super().get_meta_description()
 
     def get_meta_image_url(self, request):
-        # Heavy-duty exception handling so the page doesn't crash due for a
+        # Heavy-duty exception handling so the page doesn't crash due to a
         # missing sharing image.
         try:
             return (self.search_image or self.image).get_rendition("original").url
