@@ -24,7 +24,7 @@ from ..utils import (
 
 
 @register_snippet
-class CTA(models.Model):
+class CTA(TranslatableMixin, models.Model):
     name = models.CharField(
         default='',
         max_length=100,
@@ -48,15 +48,20 @@ class CTA(models.Model):
         default='mozilla-foundation'
     )
 
+    translatable_fields = [
+        TranslatableField('header'),
+        TranslatableField('description'),
+    ]
+
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name_plural = 'CTA'
 
 
 @register_snippet
-class Callpower(TranslatableMixin, CTA):
+class Callpower(CTA):
     campaign_id = models.CharField(
         max_length=20,
         help_text='Which Callpower campaign identifier should this CTA be tied to?',
@@ -97,10 +102,7 @@ class Callpower(TranslatableMixin, CTA):
         blank=True,
     )
 
-    translatable_fields = [
-        # Fields from the CTA model
-        TranslatableField('header'),
-        TranslatableField('description'),
+    translatable_fields = CTA.translatable_fields + [
         # Callpower fields
         TranslatableField('call_button_label'),
         TranslatableField('success_heading'),
@@ -111,12 +113,12 @@ class Callpower(TranslatableMixin, CTA):
         SynchronizedField('share_email'),
     ]
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta:
         verbose_name = 'callpower snippet'
 
 
 @register_snippet
-class Signup(TranslatableMixin, CTA):
+class Signup(CTA):
     campaign_id = models.CharField(
         max_length=20,
         help_text='Which campaign identifier should this petition be tied to?',
@@ -129,13 +131,9 @@ class Signup(TranslatableMixin, CTA):
         default=False,
     )
 
-    translatable_fields = [
-        # Fields from the CTA model
-        TranslatableField('header'),
-        TranslatableField('description'),
-    ]
+    translatable_fields = CTA.translatable_fields
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta:
         verbose_name = 'signup snippet'
 
 
@@ -170,7 +168,7 @@ class OpportunityPage(MiniSiteNameSpace):
 
 
 @register_snippet
-class Petition(TranslatableMixin, CTA):
+class Petition(CTA):
     campaign_id = models.CharField(
         max_length=20,
         help_text='Which campaign identifier should this petition be tied to?',
@@ -254,7 +252,7 @@ class Petition(TranslatableMixin, CTA):
         default='Thank you for signing too!',
     )
 
-    translatable_fields = [
+    translatable_fields = CTA.translatable_fields + [
         # This models fields
         SynchronizedField('requires_country_code'),
         SynchronizedField('requires_postal_code'),
@@ -265,12 +263,9 @@ class Petition(TranslatableMixin, CTA):
         SynchronizedField('share_facebook'),
         SynchronizedField('share_email'),
         TranslatableField('thank_you'),
-        # Fields from the CTA model
-        TranslatableField('header'),
-        TranslatableField('description'),
     ]
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta:
         verbose_name = 'petition snippet'
 
 
