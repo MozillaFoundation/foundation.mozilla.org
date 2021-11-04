@@ -1,0 +1,8 @@
+{% load i18n %}
+
+<span class="body-small">
+    {% with vote_data=product.votes.get_most_voted %} 
+    <a class="body-small" href="#creepiness-vote">{% trans "People voted:" %}</a> 
+    <span class="people-voted {{ vote_data.label|slugify }}">{{ vote_data.localized }}</span> 
+    {% endwith %} 
+</span>
