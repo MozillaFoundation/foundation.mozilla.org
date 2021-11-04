@@ -6,9 +6,9 @@ const languages = wagtailModelTranslations.languages.map((v) =>
 
 // Which fields are going to be potential deal-breakers?
 const fields = Object.fromEntries(
-  Array.from(
-    document.querySelectorAll(`.content input[type=text]`)
-  ).map((e) => [e.getAttribute(`name`), e])
+  Array.from(document.querySelectorAll(`.content input[type=text]`)).map(
+    (e) => [e.getAttribute(`name`), e]
+  )
 );
 
 // 1: Give staff a button that lets them reveal all locale fields, so they can

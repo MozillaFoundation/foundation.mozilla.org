@@ -1,0 +1,34 @@
+{% load static i18n localization %}
+
+{% comment %}
+ This is the section underneath the title of the products heading, where we display date and time spent researching, as well as creepiness level people have voted.
+{% endcomment %}
+
+<div class="col-12 tw-mt-5 tw-mb-3 tw-flex tw-flex-col medium:tw-flex-wrap large:tw-flex-row">
+  <div class="tw-flex tw-flex-col medium:tw-flex-2  medium:tw-flex-row">
+    <div class="pr-2 pl-0 tw-flex-2">
+      <p class="body-small date-reviewed">{% blocktrans with date=review_date|date:"DATE_FORMAT" context "Date format (e.g. Nov. 19, 2020)" %}Review date: {{ date }}{% endblocktrans %}</p>
+    </div>
+    <span class="tw-text-gray-20 body-small tw-hidden medium:tw-inline"> | </span>
+    <div class="d-flex pb-3 tw-flex-2 medium:tw-px-2">
+      <span class="body-small">
+        {% blocktrans count count=time_researched with link_attrs='class="body-small time-researched" href="/privacynotincluded/about/methodology"' trimmed %}
+          <a {{ link_attrs }}>Mozilla researched</a> {{ time_researched }} hour
+        {% plural %}
+          <a {{ link_attrs }}>Mozilla researched</a> {{ time_researched }} hours
+        {% endblocktrans %}
+        <a class="mozilla-researched-icon tw-inline" href="/privacynotincluded/about/methodology"></a>
+      </span>
+    </div>
+  </div>
+  <span class="tw-text-gray-20 body-small tw-hidden large:tw-inline"> | </span>
+  <div class="tw-flex tw-flex-col medium:tw-flex-2 medium:tw-flex-row">
+    <div class="d-flex tw-pr-2 large:tw-px-2">
+      <p class="body-small mozilla-says {% if mozilla_says %} thumb-up {% elif mozilla_says == False %} thumb-down {% else %} thumb-side {% endif %}"> {% trans "Mozilla says" context "This string is followed by a thumb up, thumb down, or thumb on the side icon to summarize Mozilla’s review of the product" %} </p>  
+    </div>
+    <span class="tw-text-gray-20 body-small tw-hidden medium:tw-inline"> | </span>
+    <div class="d-flex medium:tw-pl-2 pr-0 ">
+    {% include "fragments/most_voted_rating.html"%}
+    </div>
+  </div>
+</div>
