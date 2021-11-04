@@ -23,6 +23,10 @@
     border-bottom: none;
   }
 
+  @at-root #pni-nav-mobile &#{&}.active {
+    border-bottom: none;
+  }
+
   @at-root .vertical-nav #{&} {
     @include set-text-size(17px, 17px * 1.6);
   }
