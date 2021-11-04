@@ -11,6 +11,7 @@ from django.db.models import F
 
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
+from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext, pgettext
@@ -749,6 +750,18 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             'total': product.total_vote_count
         }
         return json.dumps(data)
+
+    def get_meta_image_url(self, request):
+        """
+        See: https://pypi.org/project/wagtail-metadata/
+
+        Heavy-duty exception handling so the page doesn't crash due to a
+        missing sharing image.
+        """
+        try:
+            return (self.search_image or self.image).get_rendition("original").url
+        except Exception:
+            return static("_images/buyers-guide/evergreen-social.png")
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(

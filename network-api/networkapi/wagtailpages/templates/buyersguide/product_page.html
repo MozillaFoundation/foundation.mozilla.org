@@ -7,18 +7,6 @@
   <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
 {% endblock %}
 
-{% block social_image %}
-  {% if page.search_image %}
-    {% image page.search_image original as search_image %}
-    <meta property="og:image" content="{{search_image.url}}">
-    <meta name="twitter:image" content="{{search_image.url}}">
-  {% else %}
-    {% static "_images/buyers-guide/evergreen-social.png" as default_image_url %}
-    <meta property="og:image" content="{{default_image_url}}">
-    <meta name="twitter:image" content="{{default_image_url}}">
-  {% endif %}
-{% endblock %}
-
 {% block body_id %}product-page{% endblock %}
 
 {% block guts %}
