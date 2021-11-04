@@ -1,0 +1,19 @@
+<div class="tw-border tw-border-gray-60/20 tw-p-5 medium:tw-p-6 tw-h-full tw-flex tw-flex-col tw-items-start">
+  <div class="tw-mb-4">
+    <h3>{{ title }}</h3>
+    {% if category_url %}
+      <div class="tw-mt-3">
+        <a class="tw-underline tw-text-blue body" href="{{ category_url }}">{{ category_title }}</a>
+      </div>
+    {% endif %}
+  </div>
+  {% if image %}
+    <img class="tw-w-full tw-h-auto" src="{{ image }}" alt="{{ image_alt }}">
+  {% endif %}
+  <p class="tw-my-5">{{ text }}</p>
+  <div class="tw-flex tw-flex-wrap tw-gap-3">
+    {% for button in buttons %}
+      <a class="btn btn-primary tw-mt-auto" href="{{ button.value.link_url }}">{{ button.value.label }}</a>
+    {% endfor %}
+  </div>
+</div>
