@@ -468,7 +468,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     )
     blurb = RichTextField(
         verbose_name='intro Blurb',
-        max_length=700,
         features=['bold', 'italic', 'link'],
         blank=True
     )
@@ -486,7 +485,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     )
     worst_case = RichTextField(
         verbose_name='what could happen if something goes wrong?',
-        max_length=700,
         features=['bold', 'italic', 'link'],
         blank=True,
     )
@@ -766,13 +764,13 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 FieldPanel('adult_content'),
                 ImageChooserPanel('image'),
                 FieldPanel('product_url'),
+                FieldPanel('time_researched'),
                 FieldPanel('mozilla_says'),
                 FieldPanel('uses_wifi'),
                 FieldPanel('uses_bluetooth'),
                 FieldPanel('blurb'),
                 FieldPanel('worst_case'),
                 FieldPanel('tips_to_protect_yourself'),
-                FieldPanel('time_researched')
             ],
             heading='General Product Details',
             classname='collapsible'
@@ -1199,10 +1197,6 @@ class GeneralProductPage(ProductPage):
     ai_is_untrustworthy = ExtendedYesNoField(
         verbose_name='is this AI untrustworthy?',
     )
-    ai_is_untrustworthy_helptext = models.TextField(
-        max_length=5000,
-        blank=True,
-    )
     ai_is_untrustworthy_ding = models.BooleanField(
         verbose_name='mini-ding for bad AI',
         default=False,
@@ -1251,7 +1245,6 @@ class GeneralProductPage(ProductPage):
             "AI is transparent": "ai_is_transparent",
             "AI is transparent help text": "ai_is_transparent_helptext",
             "AI is untrustworthy": "ai_is_untrustworthy",
-            "AI is untrustworthy help text": "ai_is_untrustworthy_helptext",
             "AI is untrustworthy ding": "ai_is_untrustworthy_ding",
             "AI What can it do": "ai_what_can_it_do",
             "AI can user control": "ai_can_user_control",
@@ -1286,7 +1279,6 @@ class GeneralProductPage(ProductPage):
             "AI is transparent help text": self.ai_is_transparent_helptext,
             "AI help text": self.ai_helptext,
             "AI is untrustworthy": self.ai_is_untrustworthy,
-            "AI is untrustworthy help text": self.ai_is_untrustworthy_helptext,
             "AI is untrustworthy ding": self.ai_is_untrustworthy_ding,
             "AI What can it do": self.ai_what_can_it_do,
             "AI can user control": self.ai_can_user_control,
@@ -1353,7 +1345,6 @@ class GeneralProductPage(ProductPage):
                     FieldPanel('uses_ai'),
                     FieldPanel('ai_helptext'),
                     FieldPanel('ai_is_untrustworthy'),
-                    FieldPanel('ai_is_untrustworthy_helptext'),
                     FieldPanel('ai_is_untrustworthy_ding'),
                     FieldPanel('ai_what_can_it_do'),
                     FieldPanel('ai_is_transparent'),
@@ -1383,7 +1374,6 @@ class GeneralProductPage(ProductPage):
         TranslatableField('ai_is_transparent_helptext'),
         TranslatableField('ai_helptext'),
         SynchronizedField('ai_is_untrustworthy'),
-        TranslatableField('ai_is_untrustworthy_helptext'),
         SynchronizedField('ai_is_untrustworthy_ding'),
         TranslatableField('ai_what_can_it_do'),
         SynchronizedField('ai_can_user_control'),
