@@ -2,7 +2,7 @@ body.catalog {
   $hero-breakpoint: $bp-lg;
   $breakpoint: $bp-md;
 
-  --sticky-height: 90px;
+  --sticky-height: 73px;
   --creep-o-height: 10px;
   --expanded-sticky-height: calc(11em + var(--creep-o-height));
   --small-sticky-height: calc(var(--expanded-sticky-height) - 6em);
@@ -322,7 +322,7 @@ body.catalog {
     z-index: 3;
     position: relative;
     top: 42px;
-    padding: 1rem 0;
+    margin: 2rem 0 1rem;
     top: initial;
     z-index: 10;
 
@@ -332,6 +332,8 @@ body.catalog {
 
     &.creep-o-meter-moved {
       height: 80px;
+      margin-bottom: 0;
+      margin-top: 1rem;
 
       @media (max-width: $bp-md) {
         height: 16px;
@@ -346,7 +348,6 @@ body.catalog {
       display: flex;
       height: var(--sticky-height);
       align-items: center;
-      padding-top: initial;
 
       &.creep-o-meter-moved {
         height: var(--sticky-height);
