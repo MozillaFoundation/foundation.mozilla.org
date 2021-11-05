@@ -27,8 +27,9 @@ const SearchFilter = {
       );
     }
 
-    const searchInput = (SearchFilter.searchInput =
-      searchBar.querySelector(`input`));
+    const searchInput = (SearchFilter.searchInput = searchBar.querySelector(
+      `input`
+    ));
 
     searchInput.addEventListener(`input`, (evt) => {
       const searchText = searchInput.value.trim();
@@ -332,14 +333,6 @@ const SearchFilter = {
           inline: "start",
         });
     }
-
-    const mediaQuery = window.matchMedia("(min-width: 576px)");
-    if (mediaQuery.matches) {
-      // We cannot override scrollbar stylings so we have to remove the classname on large screens (at least on chrome)
-      document
-        .querySelector(".subcategory-header")
-        .classList.remove("tw-scrollbar");
-    }
   },
 
   clearCategories: () => {
@@ -372,8 +365,9 @@ const SearchFilter = {
       document.querySelector(".category-header").href = document.querySelector(
         `#multipage-nav a[data-name="${parent}"]`
       ).href;
-      document.querySelector(`#pni-nav-mobile .active-link-label`).textContent =
-        parent;
+      document.querySelector(
+        `#pni-nav-mobile .active-link-label`
+      ).textContent = parent;
     } else {
       const header = category === "None" ? "All" : category;
       document.querySelector(".category-header").textContent = header;
