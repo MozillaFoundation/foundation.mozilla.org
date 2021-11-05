@@ -235,9 +235,9 @@
                 </div>
 
                 <div class="tw-w-full tw-flex-shrink-0" data-product-label="1">
-                  {% localizedroutablepageurl home_page 'min-security-view' as min_sec_url %}
+                  {% localizedroutablepageurl home_page 'methodology-view' as min_sec_url %}
                   {% blocktrans with url=min_sec_url asvar minimum_security_standards trimmed %}
-                    Does this product meet our <a id="mss-link" class="tw-ml-1" href="{{ url }}">Minimum Security Standards</a>?
+                    Does this product meet our <a id="mss-link" class="tw-ml-1" href="{{ url }}#minimum-security-standards">Minimum Security Standards</a>?
                   {% endblocktrans %}
                   {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False   value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards info=min_sec_url  %}
 

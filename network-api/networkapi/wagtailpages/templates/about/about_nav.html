@@ -3,7 +3,6 @@
 {% with request.get_full_path as current_url %}
 {% routablepageurl page 'about-why-view' as about_why_url %}
 {% routablepageurl page 'how-to-use-view' as how_to_use_url %}
-{% routablepageurl page 'min-security-view' as minimum_security_url %}
 {% routablepageurl page 'methodology-view' as methodology_url %}
 {% routablepageurl page 'contact-view' as contact_url %}
 {% routablepageurl page 'press-view' as press_url %}
@@ -13,7 +12,7 @@
     <div class="multipage-link-wrapper"><a class="multipage-link about-link {% bg_active_nav current_url about_why_url %}" href="{{ about_why_url }}">{% trans "Why we made this guide" %}</a></div>
     <div class="multipage-link-wrapper"><a class="multipage-link about-link {% bg_active_nav current_url how_to_use_url %}" href="{{ how_to_use_url }}">{% trans "How to use this guide" %}</a></div>
     <div class="multipage-link-wrapper"><a class="multipage-link about-link {% bg_active_nav current_url methodology_url %}" href="{{ methodology_url }}">{% trans "Methodology" %}</a></div>
-    <div class="multipage-link-wrapper"><a class="multipage-link about-link {% bg_active_nav current_url minimum_security_url %}" href="{{ minimum_security_url }}">{% trans "Minimum Security Standards explained" %}</a></div>
+    <div class="multipage-link-wrapper"><a class="multipage-link about-link {% bg_active_nav current_url minimum_security_url %}" href="{{ methodology_url }}#minimum-security-standards">{% trans "Minimum Security Standards explained" %}</a></div>
     <div class="multipage-link-wrapper"><a class="multipage-link about-link {% bg_active_nav current_url contact_url %}" href="{{ contact_url }}">{% trans "Contact us" %}</a></div>
     <div class="multipage-link-wrapper"><a class="multipage-link about-link {% bg_active_nav current_url press_url %}" href="{{ press_url }}">{% trans "Press" %}</a></div>
   </nav>
