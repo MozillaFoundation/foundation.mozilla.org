@@ -23,11 +23,12 @@ def bg_active_nav(current, target):
     return 'active' if urlparse(current).path == urlparse(target).path else ''
 
 
-@register.simple_tag(name='prod_in_cat')
-def prod_in_cat(productpage, categorySlug):
+@register.simple_tag(name='product_in_category')
+def product_in_category(productpage, categorySlug):
     if categorySlug == "":
         return True
-    return categorySlug in [cat.category.slug for cat in productpage.product_categories.all()]
+    categories = productpage.get_product_categories()
+    return categorySlug in [cat.category.slug for cat in categories]
 
 
 """
