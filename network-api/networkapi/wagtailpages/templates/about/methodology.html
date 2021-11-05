@@ -73,15 +73,16 @@
 
     <section aria-labelledby="product-selection">
       <p class="body">
-        {% blocktrans trimmed %}
+        {% blocktrans with company_data_use="#how-does-company-use-this-data" user_data_control="#how-can-you-control-your-data" track_record="#company-track-record" min_sec="#minimum-security-standards" trimmed %}
         We assign our <em>*Privacy Not Included</em> warning label to products we have determined to have the most problems when it comes
         to protecting a users privacy and security. A product will earn the <em>*Privacy Not Included</em> warning label if it receives
-        two or more warnings from us on the following criteria: How the company uses the data it collects on users. We ding
+        two or more warnings from us on the following criteria: <a href="{{company_data_use}}">How the company uses the data</a> it collects on users. We ding
         companies for selling users data or collecting more data than is necessary for general business purposes, for example,
-        buying data from data brokers. We ding a company if they don’t have a clear and manageable way for users to delete their
-        data from the company or explain how long they retain users’ data. We ding a company if they have a bad track record of
-        not protecting users’ data based on known and reported security breaches, leaks, or vulnerabilities. Finally, we ding a
-        company if we can not confirm if the product meets our Minimum Security Standards. In rare exceptions we might ding a
+        buying data from data brokers. <a href="{{user_data_control}}">How you can control your data.</a> We ding a company if they don’t have a clear and
+        manageable way for users to delete their data from the company or explain how long they retain users’ data. <a href="{{track_record}}">What is the
+        company’s known track record of protecting users’ data?</a> We ding a company if they have a bad track record of not
+        protecting users’ data based on known and reported security breaches, leaks, or vulnerabilities. Finally, we ding a
+        company if we can not confirm if the product <a href="{{min_sec}}">meets our Minimum Security Standards.</a> In rare exceptions we might ding a
         company if they only receive one warning from us if we determine that warning is particularly concerning for consumers.
         {% endblocktrans %}
       </p>
@@ -147,7 +148,7 @@
 
     <p class="body">
       {% blocktrans with google_play_url="https://play.google.com/store/apps" app_store_url="https://www.apple.com/app-store/" trimmed %}
-      To determine this, we check product websites and the <a href="{{google_play_url}}">Google Play store for Android</a> or the <a href="{{google_play_url}}">Apple App Store</a> to check on
+      To determine this, we check product websites and the <a href="{{google_play_url}}">Google Play Store</a> or the <a href="{{google_play_url}}">Apple App Store</a> to check on
       the permissions requested by each app to determine whether the device and its app uses a camera, microphone, or tracks
       your location. (Note: an app may access “approximate” or “network” based location. “Tracks Location” was marked as “Yes”
       if an app requests any location information, including approximate location.)
@@ -301,7 +302,7 @@
 
 
       <section aria-labelledby="track-record">
-        <h3 class="p-heading mt-3 mb-1" id="track-record">
+        <h3 class="p-heading mt-3 mb-1" id="company-track-record">
           {% trans "What is the company’s known track record of protecting users’ data?" %}
         </h3>
   
@@ -373,8 +374,8 @@
     </h2>
 
     <p>
-      {% blocktrans with sec_standards="https://foundation.mozilla.org/privacynotincluded/about/methodology/#minimum-security-standards" trimmed %}
-      Mozilla established a set of <a href="{{sec_standards}}">Minimum Security Standards</a> we determine should be met by any manufacturer developing
+      {% blocktrans trimmed %}
+      Mozilla established a set of Minimum Security Standards we determine should be met by any manufacturer developing
       connected products. We email each company at least three times (the first email at least 30 days prior to the
       publication) to ask for more information about their product and how it meets our standards. For the companies who do
       not respond, we conduct additional research to find the answers wherever possible. If we cannot determine an answer
