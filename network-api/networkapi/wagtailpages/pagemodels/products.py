@@ -754,7 +754,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
     # See package docs for `get_meta_*` methods: https://pypi.org/project/wagtail-metadata/
     def get_meta_title(self):
-        return f"*Privacy Not Included review: {self.title}"
+        return gettext("*Privacy Not Included review:") + f" {self.title}"
 
     def get_meta_description(self):
         if self.search_description:
