@@ -63,7 +63,7 @@
           <a
           href="{% if current_category.parent %}{% localizedroutablepageurl home_page 'category-view' current_category.parent.slug  %}{% elif current_category %}{% localizedroutablepageurl home_page 'category-view' current_category.slug  %}{% else %}{% relocalized_url home_page.localized.url %}{% endif %}"
           data-name="{% if current_category.parent %}{{ current_category.parent.name }}{% elif current_category %}{{current_category.name}}{% else %}None{% endif %}"
-          class="tw-capitalize tw-text-5xl tw-font-zilla category-header tw-text-black hover:tw-text-pni-blue tw-no-underline tw-cursor-pointer tw-hidden medium:tw-block"
+          class="tw-text-5xl tw-font-zilla category-header tw-text-black hover:tw-text-pni-blue tw-no-underline tw-cursor-pointer tw-hidden medium:tw-block"
           >
             {% if current_category.parent %}
               {{current_category.parent.localized.name}}
@@ -89,7 +89,7 @@
         <div class="tw-px-1 large:tw-px-0 tw-flex tw-space-x-2 tw-overflow-auto tw-pb-2 tw-no-scrollbar subcategory-header">
           {% for cat in categories %}
             {% with original=cat.original selected_classes="active tw-bg-gray-80 tw-text-white tw-border-gray-80" default_classes="hover:tw-border-pni-lilac hover:tw-bg-pni-lilac tw-text-gray-60 tw-border-gray-20 tw-bg-white" tailwind_classes="tw-no-underline border tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3] tw-whitespace-nowrap" %}
-            {% if cat.parent == None %}
+            {% if cat.parent != None %}
               {% if original.published_product_page_count > 0 %}
                 {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
                 <a class="{% if current_category.name != cat.parent.name and current_category.parent.name != cat.parent.name %} tw-hidden {% endif %} subcategories {{ tailwind_classes }} {% if current_category.name == cat.name %}{{ selected_classes }}{% else %}{{ default_classes }}{% endif %}"
