@@ -64,15 +64,12 @@ def process(apps, func):
         MozfestPrimaryPage.objects.all(),
         PrimaryPage.objects.all(),
     )
-
-    pages_updated = 0
-    revisions_updated = 0    
+   
     for page in pages:
         save_page, new_content = func(page.body.raw_data)
         if save_page:
             page.body.raw_data = new_content
             page.save()
-            pages_updated += 1
             print(f"Saved page: {page.id}")
 
         for revision in PageRevision.objects.filter(page=page):
@@ -82,11 +79,7 @@ def process(apps, func):
                 revision_content['body'] = json.dumps(new_content)
                 revision.content_json = json.dumps(revision_content)
                 revision.save()
-                revisions_updated += 1
                 print(f"Saved revision: {revision.id}")
-    
-    print(pages_updated)
-    print(revisions_updated)
 
 
 def migrate_quote_list_blocks_to_single_quote_block(apps, schema):
