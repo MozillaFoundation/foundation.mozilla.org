@@ -1,3 +1,5 @@
+import copyToClipboard from "../../copy-to-clipboard.js";
+
 (function () {
   "use strict";
 
@@ -103,6 +105,32 @@
   }
 
   /**
+   *
+   */
+  function shareButtonClicked(event, shareProgressButtonId) {
+    if (globalThis.ga && typeof globalThis.ga === `function`) {
+      globalThis.ga("send", {
+        hitType: "event",
+        category: `petition`,
+        action: `share tap`,
+        label: `${document.title} - share tap`,
+      });
+    }
+
+    if (shareProgressButtonId) {
+      let shareProgressButton = document.querySelector(
+        `#${shareProgressButtonId} a`
+      );
+
+      if (shareProgressButton) {
+        shareProgressButton.click();
+      }
+    } else {
+      copyToClipboard(event.target, window.location.href);
+    }
+  }
+
+  /**
    * When an error occurs during callpower POSTing,
    * figure out what to present the user based on
    * the type of error.
@@ -112,7 +140,7 @@
   function processError(_err, status = 500) {
     try {
       // is this our error, packed as JSON string?
-      const data = JSON.parse(error);
+      const data = JSON.parse(_err.message);
       status = parseInt(data.status);
     } catch (e) {
       // No, this was a "real" Fetch error.
@@ -169,6 +197,14 @@
       });
 
       callButton.removeAttribute(`disabled`);
+
+      // also make sure the social share buttons work on success
+      document.querySelectorAll(`.share-button-group .btn`).forEach((element) => {
+        const { target } = element.dataset;
+        element.addEventListener(`click`, (evt) =>
+          shareButtonClicked(evt, target)
+        );
+      });
     },
   };
 })().init();
