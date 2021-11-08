@@ -63,7 +63,7 @@ def gather_products_and_update_fields(apps, schema):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0048_auto_20211028_0220'),
+        ('wagtailpages', '0051_auto_20211028_0220'),
     ]
 
     operations = [

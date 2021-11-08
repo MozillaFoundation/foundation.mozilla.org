@@ -6,7 +6,6 @@ from datetime import date, datetime, timezone, timedelta
 from factory import (
     Faker,
     post_generation,
-    LazyAttribute,
     LazyFunction,
 )
 from factory.django import DjangoModelFactory
@@ -96,7 +95,6 @@ class ProductPageFactory(PageFactory):
     company = Faker('company')
     blurb = Faker('sentence')
     product_url = Faker('url')
-    price = LazyAttribute(lambda _: randint(49, 1500))
     worst_case = Faker('sentence')
     first_published_at = Faker('past_datetime', start_date='-2d', tzinfo=timezone.utc)
     last_published_at = Faker('past_datetime', start_date='-1d', tzinfo=timezone.utc)
@@ -168,8 +166,6 @@ class SoftwareProductPageFactory(ProductPageFactory):
     class Meta:
         model = SoftwareProductPage
 
-    price = 0
-
     handles_recordings_how = Faker('sentence')
     recording_alert = LazyFunction(get_extended_yes_no_value)
     recording_alert_helptext = Faker('sentence')
@@ -206,7 +202,6 @@ def create_general_product_visual_regression_product(seed, pni_homepage):
         company='Percy Corp',
         blurb='This is a general product specifically created for visual regression testing',
         product_url='http://example.com/general-percy',
-        price=999,
         worst_case='Visual regression fails',
         # general product fields
         camera_app='Yes',
@@ -248,7 +243,6 @@ def create_software_product_visual_regression_product(seed, pni_homepage):
         company='Percy Corp',
         blurb='This is a general product specifically created for visual regression testing',
         product_url='http://example.com/general-percy',
-        price=999,
         worst_case='Visual regression fails',
         # software product fields
     )

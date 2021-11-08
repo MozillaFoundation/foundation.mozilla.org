@@ -277,7 +277,6 @@ class YoutubeRegretsReporterPageTR(TranslationOptions):
 @register(ProductPage)
 class ProductPageTR(TranslationOptions):
     fields = (
-        'price',
         'blurb',
         'worst_case',
         'signup_requirement_explanation',
