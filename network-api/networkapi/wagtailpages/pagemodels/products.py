@@ -1588,15 +1588,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             '*privacy not included')
         return render(request, "about/methodology.html", context)
 
-    @route(r'^about/meets-minimum-security-standards/$', name='min-security-view')
-    def about_mss_page(self, request):
-        context = self.get_context(request)
-        context['pagetype'] = 'about'
-        context['pageTitle'] = gettext('Our minimum security standards') + ' | ' + pgettext(
-            'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included')
-        return render(request, "about/minimum_security.html", context)
-
     @route(r'^contest/$', name='contest')
     def about_contest(self, request):
         context = self.get_context(request)
@@ -1693,7 +1684,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         # Categories are added above. Products will be their own Wagtail pages and get their own URLs because of that.
         about_page_views = [
             'how-to-use-view', 'about-why-view', 'press-view',
-            'contact-view', 'methodology-view', 'min-security-view'
+            'contact-view', 'methodology-view'
         ]
         for about_page in about_page_views:
             sitemap.append(
