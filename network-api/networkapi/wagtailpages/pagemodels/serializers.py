@@ -60,7 +60,6 @@ class ProductSerializer(AirtableSerializer):
     company = serializers.CharField(required=False, max_length=100)
     blurb = serializers.CharField(required=False, max_length=5000)
     product_url = serializers.URLField(required=False, max_length=2048)
-    price = serializers.CharField(required=False, max_length=100)
     worst_case = serializers.CharField(required=False, max_length=5000)
     signup_requires_email = ExtendedYesNoSerializer(default='CD')
     signup_requires_phone = ExtendedYesNoSerializer(default='CD')
