@@ -202,9 +202,6 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
     def test_buyersguide_about_methodology_view(self):
         self.about_url_test('methodology-view', 'about/methodology/', 'methodology')
 
-    def test_buyersguide_about_mss_view(self):
-        self.about_url_test('min-security-view', 'about/meets-minimum-security-standards/', 'minimum_security')
-
     def test_contest_page(self):
         url = self.bg.reverse_subpage('contest')
         self.assertEqual(url, 'contest/')
@@ -248,7 +245,6 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertContains(response, 'about/press/')
         self.assertContains(response, 'about/contact/')
         self.assertContains(response, 'about/methodology/')
-        self.assertContains(response, 'about/meets-minimum-security-standards/')
 
         categories = BuyersGuideProductCategory.objects.filter(hidden=False)
         for category in categories:
@@ -272,7 +268,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         with self.settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}}):
             response = self.client.get(url)
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(len(response.context['products']), 0)
+            self.assertEqual(len(response.context['products']), 1)
 
             # Add BuyersGuideProductCategory
             category_orderable = ProductPageCategory(

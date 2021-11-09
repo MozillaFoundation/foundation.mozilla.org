@@ -1,12 +1,22 @@
-const SEARCH_BAR = document.getElementById(`sticky-bar`);
+/**
+ * Set up PNI search functionality, as well as the PNI "ding" toggle.
+ */
+
+// static values used throughout this code
 const ALL_PRODUCTS = document.querySelectorAll(`figure.product-box`);
 const NO_RESULTS_NOTICE = document.getElementById(
   `product-filter-no-results-notice`
 );
 const FILTERS = [`company`, `name`, `blurb`, `worst-case`];
+const SORTS = [`name`, `company`, `blurb`];
 const SUBMIT_PRODUCT = document.querySelector(".recommend-product");
 const CREEPINESS_FACE = document.querySelector(".creep-o-meter-information");
+const categoryTitle = document.querySelector(`.category-title`);
+const parentTitle = document.querySelector(`.parent-title`);
+const toggle = document.querySelector(`#product-filter-pni-toggle`);
+const subcategories = document.querySelectorAll(`.subcategories`);
 
+// TODO: turn this into a static class rather than plain JS object.
 const SearchFilter = {
   init: () => {
     const searchBar = document.querySelector(`#product-filter-search`);
@@ -26,35 +36,7 @@ const SearchFilter = {
 
       if (searchText) {
         searchBar.classList.add(`has-content`);
-        if (window.innerWidth > 768) {
-          SEARCH_BAR.classList.add(`search-active`, `creep-o-meter-moved`);
-        }
-      } else {
-        searchBar.classList.remove(`has-content`);
-      }
-
-      SearchFilter.filter(searchText);
-    });
-
-    searchBar.addEventListener(`focus`, (_evt) => {
-      // We want focus to fall through to the input element instead
-      searchInput.focus();
-    });
-
-    searchInput.addEventListener(`focus`, (_evt) => {
-      // And to make CSS work easier, set a class on the parent container
-      // for both search and the creep-o-meter component, so that it can
-      // relocate so as not to interfere with the search bar.
-      if (window.innerWidth > 768) {
-        SEARCH_BAR.classList.add(`search-active`, `creep-o-meter-moved`);
-      }
-    });
-
-    // Whenever focus is moved away from the search bar, check if we can
-    // safely restore the creep-o-meter component or not.
-    searchInput.addEventListener(`blur`, (_evt) => {
-      if (!searchInput.value.trim()) {
-        SEARCH_BAR.classList.remove(`search-active`);
+        SearchFilter.filter(searchText);
       }
     });
 
@@ -68,15 +50,357 @@ const SearchFilter = {
     const clearText = () => {
       searchBar.classList.remove(`has-content`);
       searchInput.value = ``;
-      searchInput.focus();
-      ALL_PRODUCTS.forEach((product) => product.classList.remove(`d-none`));
+      ALL_PRODUCTS.forEach((product) => {
+        product.classList.remove(`d-none`);
+        product.classList.add(`d-flex`);
+      });
+
+      history.replaceState(
+        {
+          ...history.state,
+          search: "",
+        },
+        SearchFilter.getTitle(categoryTitle.value.trim()),
+        location.href
+      );
+
+      SearchFilter.sortOnCreepiness();
       SearchFilter.moveCreepyFace();
     };
 
     clear.addEventListener(`click`, (evt) => {
       evt.preventDefault();
+      SearchFilter.filterSubcategory("None");
+      SearchFilter.updateHeader("None", null);
+      searchInput.focus();
       clearText();
     });
+
+    const navLinks = document.querySelectorAll(
+      `#multipage-nav a,.category-header,#pni-nav-mobile a`
+    );
+
+    for (const nav of navLinks) {
+      nav.addEventListener("click", (evt) => {
+        evt.stopPropagation();
+
+        if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
+          return;
+        }
+
+        evt.preventDefault();
+
+        document
+          .querySelector(`#multipage-nav a.active`)
+          .classList.remove(`active`);
+
+        document
+          .querySelector(`#pni-nav-mobile a.active`)
+          .classList.remove(`active`);
+
+        document
+          .querySelector("#pni-nav-mobile .dropdown-nav")
+          .classList.remove("dropdown-nav-open");
+
+        if (evt.target.dataset.name) {
+          document
+            .querySelector(
+              `#multipage-nav a[data-name="${evt.target.dataset.name}"]`
+            )
+            .classList.add(`active`);
+
+          document
+            .querySelector(
+              `#pni-nav-mobile a[data-name="${evt.target.dataset.name}"]`
+            )
+            .classList.add(`active`);
+
+          clearText();
+          history.pushState(
+            {
+              title: SearchFilter.getTitle(evt.target.dataset.name),
+              category: evt.target.dataset.name,
+              parent: "",
+              search: "",
+              filter: history.state?.filter,
+            },
+            SearchFilter.getTitle(evt.target.dataset.name),
+            evt.target.href
+          );
+
+          document.title = SearchFilter.getTitle(evt.target.dataset.name);
+          SearchFilter.filterSubcategory(evt.target.dataset.name);
+          SearchFilter.toggleSubcategory(true);
+          SearchFilter.updateHeader(evt.target.dataset.name, "");
+          SearchFilter.filterCategory(evt.target.dataset.name);
+        }
+      });
+    }
+
+    for (const subcategory of subcategories) {
+      subcategory.addEventListener("click", (evt) => {
+        evt.stopPropagation();
+
+        if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
+          return;
+        }
+
+        evt.preventDefault();
+
+        let href;
+
+        if (evt.target.dataset.name) {
+          clearText();
+          if (categoryTitle.value.trim() !== evt.target.dataset.name) {
+            categoryTitle.value = evt.target.dataset.name;
+            parentTitle.value = evt.target.dataset.parent;
+            href = evt.target.href;
+            SearchFilter.toggleSubcategory();
+            SearchFilter.highlightParent();
+          } else {
+            categoryTitle.value = evt.target.dataset.parent;
+            parentTitle.value = "";
+            href = document.querySelector(
+              `#multipage-nav a[data-name="${evt.target.dataset.parent}"]`
+            ).href;
+            SearchFilter.toggleSubcategory(true);
+          }
+
+          history.pushState(
+            {
+              title: SearchFilter.getTitle(evt.target.dataset.name),
+              category: categoryTitle.value.trim(),
+              parent: parentTitle.value.trim(),
+              search: "",
+              filter: history.state?.filter,
+            },
+            SearchFilter.getTitle(evt.target.dataset.name),
+            href
+          );
+
+          document.title = SearchFilter.getTitle(categoryTitle.value.trim());
+          SearchFilter.updateHeader(
+            categoryTitle.value.trim(),
+            parentTitle.value.trim()
+          );
+          SearchFilter.filterCategory(categoryTitle.value.trim());
+        }
+      });
+    }
+
+    document
+      .querySelector(`.go-back-to-all-link`)
+      .addEventListener("click", (evt) => {
+        evt.stopPropagation();
+
+        if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
+          return;
+        }
+
+        evt.preventDefault();
+
+        clearText();
+        history.pushState(
+          {
+            title: SearchFilter.getTitle("None"),
+            category: "None",
+            parent: "",
+            search: "",
+            filter: history.state?.filter,
+          },
+          SearchFilter.getTitle(evt.target.dataset.name),
+          evt.target.href
+        );
+
+        document
+          .querySelector(`#multipage-nav a.active`)
+          .classList.remove(`active`);
+
+        document
+          .querySelector(`#pni-nav-mobile a.active`)
+          .classList.remove(`active`);
+
+        document
+          .querySelector(`#multipage-nav a[data-name="None"]`)
+          .classList.add(`active`);
+
+        document
+          .querySelector(`#pni-nav-mobile a[data-name="None"]`)
+          .classList.add(`active`);
+
+        SearchFilter.filterCategory("None");
+        parentTitle.value = "";
+      });
+
+    window.addEventListener(`popstate`, (event) => {
+      const { state } = event;
+      if (!state) return; // if it's a "real" back, we shouldn't need to do anything
+
+      const { title, category, parent } = state;
+      document.title = title;
+
+      if (!history.state?.search) {
+        SearchFilter.clearCategories();
+        categoryTitle.value = category;
+        parentTitle.value = parent;
+
+        searchBar.classList.remove(`has-content`);
+        searchInput.value = ``;
+
+        if (parent) {
+          SearchFilter.highlightParent();
+          SearchFilter.toggleSubcategory();
+        } else {
+          document
+            .querySelector(`#multipage-nav a.active`)
+            .classList.remove(`active`);
+
+          document
+            .querySelector(`#pni-nav-mobile a.active`)
+            .classList.remove(`active`);
+
+          document
+            .querySelector(`#multipage-nav a[data-name="${category}"]`)
+            .classList.add(`active`);
+
+          document
+            .querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
+            .classList.add(`active`);
+
+          SearchFilter.toggleSubcategory(true);
+        }
+      } else {
+        SearchFilter.toggleSubcategory(true);
+        searchBar.classList.add(`has-content`);
+        searchInput.value = history.state?.search;
+        SearchFilter.filter(history.state?.search);
+      }
+
+      SearchFilter.filterCategory(category);
+      SearchFilter.filterSubcategory(parent ?? category);
+      SearchFilter.updateHeader(category, parent);
+
+      if (history.state?.filter) {
+        toggle.checked = history.state?.filter;
+
+        if (history.state?.filter) {
+          document.body.classList.add(`show-ding-only`);
+        } else {
+          document.body.classList.remove(`show-ding-only`);
+        }
+      }
+    });
+
+    history.replaceState(
+      {
+        title: SearchFilter.getTitle(categoryTitle.value.trim()),
+        category: categoryTitle.value.trim(),
+        parent: parentTitle.value.trim(),
+        search: history.state?.search ?? "",
+        filter: history.state?.filter,
+      },
+      SearchFilter.getTitle(categoryTitle.value.trim()),
+      location.href
+    );
+
+    if (history.state?.search) {
+      searchBar.classList.add(`has-content`);
+      searchInput.value = history.state?.search;
+      SearchFilter.filter(history.state?.search);
+    } else {
+      searchBar.classList.remove(`has-content`);
+      searchInput.value = ``;
+    }
+
+    if (history.state?.filter) {
+      toggle.checked = history.state?.filter;
+
+      if (history.state?.filter) {
+        document.body.classList.add(`show-ding-only`);
+      } else {
+        document.body.classList.remove(`show-ding-only`);
+      }
+    }
+
+    if (history.state?.parent && history.state?.category) {
+      document
+        .querySelector(
+          `a.subcategories[data-name="${history.state?.category}"]`
+        )
+        .scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "start",
+        });
+    }
+  },
+
+  clearCategories: () => {
+    SearchFilter.filterCategory("None");
+    parentTitle.value = null;
+
+    if (document.querySelector(`#multipage-nav a.active`)) {
+      document
+        .querySelector(`#multipage-nav a.active`)
+        .classList.remove(`active`);
+      document
+        .querySelector(`#multipage-nav a[data-name="None"]`)
+        .classList.add(`active`);
+    }
+
+    if (document.querySelector(`#pni-nav-mobile a.active`)) {
+      document
+        .querySelector(`#pni-nav-mobile a.active`)
+        .classList.remove(`active`);
+      document
+        .querySelector(`#pni-nav-mobile a[data-name="None"]`)
+        .classList.add(`active`);
+    }
+  },
+
+  updateHeader: (category, parent) => {
+    if (parent) {
+      document.querySelector(".category-header").textContent = parent;
+      document.querySelector(".category-header").dataset.name = parent;
+      document.querySelector(".category-header").href = document.querySelector(
+        `#multipage-nav a[data-name="${parent}"]`
+      ).href;
+      document.querySelector(
+        `#pni-nav-mobile .active-link-label`
+      ).textContent = parent;
+    } else {
+      const header = category === "None" ? "All" : category;
+      document.querySelector(".category-header").textContent = header;
+      document.querySelector(".category-header").dataset.name = category;
+      document.querySelector(".category-header").href = document.querySelector(
+        `#multipage-nav a[data-name="${category}"]`
+      ).href;
+      document.querySelector(`#pni-nav-mobile .active-link-label`).textContent =
+        category === "None"
+          ? document.querySelector(`#multipage-nav a[data-name="None"]`)
+              .textContent
+          : category;
+    }
+  },
+
+  filterSubcategory: (category) => {
+    for (const subcategory of subcategories) {
+      if (subcategory.dataset.parent === category) {
+        subcategory.classList.remove(`tw-hidden`);
+      } else {
+        subcategory.classList.add(`tw-hidden`);
+      }
+    }
+  },
+
+  getTitle: (category) => {
+    if (category == "None")
+      return document.querySelector('meta[name="pni-home-title"]').content;
+    else {
+      return `${category} | ${
+        document.querySelector('meta[name="pni-category-title"]').content
+      }`;
+    }
   },
 
   moveCreepyFace: () => {
@@ -93,6 +417,32 @@ const SearchFilter = {
   },
 
   filter: (text) => {
+    // remove category filters
+    SearchFilter.clearCategories();
+    SearchFilter.toggleSubcategory(true);
+    SearchFilter.filterSubcategory("None");
+    SearchFilter.updateHeader("None", null);
+
+    if (document.querySelector(`#multipage-nav a.active`)) {
+      document
+        .querySelector(`#multipage-nav a.active`)
+        .classList.remove(`active`);
+    }
+
+    if (document.querySelector(`#pni-nav-mobile a.active`)) {
+      document
+        .querySelector(`#pni-nav-mobile a.active`)
+        .classList.remove(`active`);
+    }
+
+    document
+      .querySelector(`#multipage-nav a[data-name="None"]`)
+      .classList.add(`active`);
+
+    document
+      .querySelector(`#pni-nav-mobile a[data-name="None"]`)
+      .classList.add(`active`);
+
     ALL_PRODUCTS.forEach((product) => {
       if (SearchFilter.test(product, text)) {
         product.classList.remove(`d-none`);
@@ -103,8 +453,154 @@ const SearchFilter = {
       }
     });
 
+    history.replaceState(
+      {
+        ...history.state,
+        search: text,
+      },
+      SearchFilter.getTitle(categoryTitle.value.trim()),
+      location.href
+    );
+
+    SearchFilter.sortProducts();
+
     SearchFilter.moveCreepyFace();
     SearchFilter.checkForEmptyNotice();
+  },
+
+  sortProducts: () => {
+    const container = document.querySelector(`.product-box-list`);
+    const list = [...container.querySelectorAll(`.product-box`)];
+
+    list.sort((a, b) => {
+      for (field of SORTS) {
+        const qs = `.product-${field}`;
+        const [propertyA, propertyB] = [
+          a.querySelector(qs),
+          b.querySelector(qs),
+        ];
+        const [propertyNameA, propertyNameB] = [
+          (propertyA.value || propertyA.textContent).toLowerCase(),
+          (propertyB.value || propertyB.textContent).toLowerCase(),
+        ];
+
+        if (
+          propertyNameA !== propertyNameB ||
+          field === SORTS[SORTS.length - 1]
+        ) {
+          return propertyNameA < propertyNameB
+            ? -1
+            : propertyNameA > propertyNameB
+            ? 1
+            : 0;
+        }
+      }
+    });
+
+    list.forEach((p) => container.append(p));
+  },
+
+  sortOnCreepiness: () => {
+    const container = document.querySelector(`.product-box-list`);
+    const list = [...container.querySelectorAll(`.product-box`)];
+    const creepVal = (e) => parseFloat(e.dataset.creepiness);
+    list
+      .sort((a, b) => creepVal(a) - creepVal(b))
+      .forEach((p) => container.append(p));
+  },
+
+  filterCategory: (category) => {
+    ALL_PRODUCTS.forEach((product) => {
+      if (SearchFilter.testCategories(product, category)) {
+        product.classList.remove(`d-none`);
+        product.classList.add(`d-flex`);
+      } else {
+        product.classList.add(`d-none`);
+        product.classList.remove(`d-flex`);
+      }
+    });
+
+    categoryTitle.value = category;
+    SearchFilter.sortOnCreepiness();
+    SearchFilter.moveCreepyFace();
+    SearchFilter.checkForEmptyNotice();
+  },
+
+  highlightParent: () => {
+    if (document.querySelector(`#multipage-nav a.active`)) {
+      document
+        .querySelector(`#multipage-nav a.active`)
+        .classList.remove(`active`);
+    }
+
+    if (document.querySelector(`#pni-nav-mobile a.active`)) {
+      document
+        .querySelector(`#pni-nav-mobile a.active`)
+        .classList.remove(`active`);
+    }
+
+    document
+      .querySelector(
+        `#pni-nav-mobile a[data-name="${parentTitle.value.trim()}"]`
+      )
+      .classList.add(`active`);
+
+    document
+      .querySelector(
+        `#multipage-nav a[data-name="${parentTitle.value.trim()}"]`
+      )
+      .classList.add(`active`);
+  },
+
+  toggleSubcategory: (clear = false) => {
+    const activeClasses = [
+      "active",
+      "tw-bg-gray-80",
+      "tw-text-white",
+      "tw-border-gray-80",
+    ];
+    const defaultClasses = [
+      "hover:tw-border-pni-lilac",
+      "hover:tw-bg-pni-lilac",
+      "tw-text-gray-60",
+      "tw-border-gray-20",
+      "tw-bg-white",
+    ];
+
+    if (document.querySelector(`a.subcategories.active`)) {
+      document
+        .querySelector(`a.subcategories.active`)
+        .classList.add(...defaultClasses);
+      document
+        .querySelector(`a.subcategories.active`)
+        .classList.remove(...activeClasses);
+    }
+
+    if (clear) {
+      return;
+    }
+
+    document
+      .querySelector(
+        `a.subcategories[data-name="${categoryTitle.value.trim()}"]`
+      )
+      .classList.add(...activeClasses);
+
+    document
+      .querySelector(
+        `a.subcategories[data-name="${categoryTitle.value.trim()}"]`
+      )
+      .classList.remove(...defaultClasses);
+
+    document
+      .querySelector(
+        `a.subcategories[data-name="${categoryTitle.value.trim()}"]`
+      )
+      .scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
   },
 
   checkForEmptyNotice: () => {
@@ -140,12 +636,23 @@ const SearchFilter = {
 
     return false;
   },
+
+  testCategories: (product, category) => {
+    if (category === "None") {
+      return true;
+    }
+
+    const productCategories = Array.from(
+      product.querySelectorAll(".product-categories")
+    );
+
+    return productCategories.map((c) => c.value.trim()).includes(category);
+  },
 };
 
+// TODO: turn this into a static class as well
 const PNIToggle = {
   init: () => {
-    const toggle = document.querySelector(`#product-filter-pni-toggle`);
-
     if (!toggle) {
       return console.warn(
         `Could not find the PNI filter checkbox. PNI filtering will not be available.`
@@ -154,6 +661,18 @@ const PNIToggle = {
 
     toggle.addEventListener(`change`, (evt) => {
       const filter = evt.target.checked;
+
+      // TODO: this might be an A/B testing opportunity to see
+      //       whether users assume this toggle is a navigation
+      //       action or not?
+      history.replaceState(
+        {
+          ...history.state,
+          filter,
+        },
+        SearchFilter.getTitle(categoryTitle.value.trim()),
+        location.href
+      );
 
       if (filter) {
         document.body.classList.add(`show-ding-only`);
@@ -169,4 +688,6 @@ const PNIToggle = {
   },
 };
 
-export { SearchFilter, PNIToggle };
+// bootstrap both searching and privacy-ding-filtering
+SearchFilter.init();
+PNIToggle.init();
