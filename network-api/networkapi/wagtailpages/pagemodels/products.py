@@ -526,9 +526,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     )
 
     # How does it use this data?
-    how_does_it_use_data_collected = models.TextField(
-        verbose_name='how does the company use this data?',
+    how_does_it_use_data_collected = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='How does this product use the data collected?',
         blank=True,
     )
     data_collection_policy_is_bad = models.BooleanField(
@@ -581,10 +582,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     manage_vulnerabilities = ExtendedYesNoField(
         verbose_name='manages security vulnerabilities',
     )
-    manage_vulnerabilities_helptext = models.TextField(
-        verbose_name='description',
+    manage_vulnerabilities_helptext = RichTextField(
         max_length=5000,
-        blank=True
+        features=['bold', 'italic', 'link'],
+        blank=True,
     )
     privacy_policy = ExtendedYesNoField(
     )
@@ -1141,9 +1142,10 @@ class GeneralProductPage(ProductPage):
 
     # How can you control your data
 
-    how_can_you_control_your_data = models.TextField(
-        verbose_name='how can you control your data?',
+    how_can_you_control_your_data = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='How does this product let you control your data?',
         blank=True,
     )
 
@@ -1166,9 +1168,10 @@ class GeneralProductPage(ProductPage):
         verbose_name='mini-ding for bad track record'
     )
 
-    track_record_details = models.TextField(
-        verbose_name='known track record description',
+    track_record_details = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='Describe the track record of this company here.',
         blank=True,
     )
 
@@ -1178,9 +1181,10 @@ class GeneralProductPage(ProductPage):
         verbose_name='can this product be used offline?',
     )
 
-    offline_use_description = models.TextField(
-        verbose_name='offline description',
+    offline_use_description = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='Describe how this product can be used offline.',
         blank=True,
     )
 
@@ -1189,9 +1193,10 @@ class GeneralProductPage(ProductPage):
     uses_ai = ExtendedYesNoField(
         verbose_name='does the product use AI?',
     )
-    ai_helptext = models.TextField(
-        verbose_name='general AI description',
+    ai_helptext = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='Helpful text around AI to show on the product page',
         blank=True,
     )
     ai_is_untrustworthy = ExtendedYesNoField(
