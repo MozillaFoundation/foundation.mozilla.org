@@ -274,7 +274,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
         related_name='+',
         blank=False,
         null=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
     )
 
     panels = [
@@ -604,10 +604,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         blank=True,
         related_name='votes',
     )
-
-    def get_product_categories(self):
-        # Weed out possible NULL values from product categories having been deleted.
-        return self.product_categories.filter(category__isnull=False)
 
     @classmethod
     def map_import_fields(cls):
