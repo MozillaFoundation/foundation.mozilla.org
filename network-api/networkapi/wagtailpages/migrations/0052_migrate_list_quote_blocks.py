@@ -93,7 +93,7 @@ def migrate_single_quote_block_to_quote_list_blocks(apps, schema):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0048_auto_20211101_1642'),
+        ('wagtailpages', '0051_add_single_quote_block'),
     ]
 
     operations = [

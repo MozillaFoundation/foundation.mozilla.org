@@ -11,7 +11,7 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mozfest', '0024_mozfesthomepage_banner_cta_label'),
+        ('mozfest', '0025_add_current_events_slider'),
     ]
 
     operations = [

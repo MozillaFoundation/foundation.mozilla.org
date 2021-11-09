@@ -12,7 +12,7 @@ import wagtailmedia.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0047_auto_20211027_0017'),
+        ('wagtailpages', '0050_auto_20211104_2126'),
     ]
 
     operations = [
