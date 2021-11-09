@@ -10,7 +10,8 @@ body.pni #nav-newsletter-form-wrapper {
 }
 
 .pni-category-nav,
-#multipage-nav-mobile {
+#multipage-nav-mobile,
+#pni-nav-mobile {
   position: sticky;
   position: -webkit-sticky;
   top: 0;
@@ -58,7 +59,8 @@ body.pni #nav-newsletter-form-wrapper {
   }
 }
 
-#multipage-nav-mobile {
+#multipage-nav-mobile,
+#pni-nav-mobile {
   @include set-category-border-bottom-style();
 
   background: $white;
