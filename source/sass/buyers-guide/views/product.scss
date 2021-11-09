@@ -525,6 +525,19 @@
       margin-bottom: 0.75rem;
     }
   }
+
+  .criterion-richtext-value {
+    p {
+      @extend .pni-product-smaller-body;
+      margin-bottom: unset;
+    }
+  }
+  .criterion-richtext-help {
+    p {
+      @extend .pni-product-helptext;
+      margin-bottom: unset;
+    }
+  }
 }
 
 .dotted-section {
