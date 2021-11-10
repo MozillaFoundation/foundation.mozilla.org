@@ -4,7 +4,6 @@
 
 {% block head_extra %}
   <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
-  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
 {% endblock %}
 
 {% block social_image %}
@@ -232,6 +231,9 @@
                     {% trans "User-friendly privacy information?" as user_friendly_privacy_policy %}
                     {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy|extended_yes_no   help=product.user_friendly_privacy_policy_helptext  %}
                   {% endif %}
+
+                  {% trans "Links to privacy information" as privacy_policy_links %}
+                  {% include "fragments/product_privacy.html"    with  label=privacy_policy_links          value=""         links=product.privacy_policy_links.all                  %}
                 </div>
 
                 <div class="tw-w-full tw-flex-shrink-0" data-product-label="1">
