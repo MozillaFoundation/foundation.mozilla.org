@@ -19,19 +19,45 @@
 
     <p class="body">
       {% blocktrans trimmed %}
-      In 2017, when we first started <em>*Privacy Not Included</em>, we didn’t know if people would be
-      interested in a guide about the privacy and security of connected toys, gadgets, and smart home
-      products. Turns out, they were. And it wasn’t just people who were interested. We discovered
-      companies were too. We’re happy to see both consumers and companies increasingly value connected
-      products that are safe, secure, and private.
+      In 2017, when we first started <em>*Privacy Not Included</em>, we didn’t know if people would be interested in a guide
+      about the privacy and security of connected toys, gadgets, and smart home products. Turns out, they were. And it wasn’t
+      just people who were interested. We discovered some companies were too. We’re happy to see both consumers and companies
+      increasingly value connected products that are safe, secure, and private.
+
       {% endblocktrans %}
     </p>
 
     <p class="body">
       {% blocktrans trimmed %}
-      What can you expect in <em>*Privacy Not Included</em>?
+      Unfortunately, It is often difficult for consumers to get clear, concrete information from companies about the security
+      and privacy of their connected products. Is your personal data shared or sold in ways you may not have expected? What is
+      the company’s known track record for protecting the personal information they collect on you? How does the company
+      regularly test for and fix security vulnerabilities?
       {% endblocktrans %}
     </p>
+    <p class="body">
+      {% blocktrans trimmed %}
+      With this guide, we hope to help you navigate this landscape by understanding what questions you should ask and what
+      answers you should expect before buying a connected tech product.
+      {% endblocktrans %}
+    </p>
+    <p class="body">
+      {% blocktrans trimmed %}
+      The way we approach our research here at <em>*Privacy Not Included</em> is from the viewpoint of you, the consumer. We just have
+      a bit more time and expertise to read privacy policies and delve into company’s security practices. We don’t purchase
+      the products and test them in a lab. Consumers can’t do that. Instead, we look at all the information we can find that
+      is publicly available to consumers before they purchase a product to try and understand the privacy and security
+      concerns you should be aware of. We seek a future in which hours of research like this aren’t required to buy safe,
+      responsible products. Unfortunately, it seems we have a long way to go. In the meantime, we’ll read those boring privacy
+      policies so you don’t have to.
+      {% endblocktrans %}
+    </p>
+    <p class="body">
+      {% blocktrans trimmed %}
+      What can you expect in our guide to help you shop safely for those connected products? Quite a few things.
+      {% endblocktrans %}
+    </p>
+
   </div>
 
 
@@ -39,15 +65,35 @@
     <p id="warning-label"><strong>{% trans "Our *Privacy Not Included warning label" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      We’re very excited our <em>*Privacy Not Included</em> buyer’s guide now comes with
-      <em>*Privacy Not Included</em> warning labels on products we think consumers should think twice
-      about before buying. It’s no small thing to assign such a label to a product, so we set
-      ourselves some strict standards. If we can’t confirm a product meets our Minimum Security Standards
-      it automatically earns the label. We also factor in if a product shares or sells your data,
-      doesn’t let you delete your data, or if the company has a poor track record of protecting their
-      users’ data into our decision to assign these warning labels. We hope users will find these
-      warnings useful. We also include a Best Of category now to showcase companies who are doing
-      privacy and security right.
+      We’re very excited our <em>*Privacy Not Included</em> buyer’s guide comes with <em>*Privacy Not Included</em> warning labels on products
+      we think consumers should think twice about before buying. It’s no small thing to assign such a label to a product, so
+      we set ourselves some strict standards. Where we have concerns, we aim to be as specific as possible about what could
+      happen so you can buy products that meet your standards.
+
+      {% endblocktrans %}
+    </p>
+  </section>
+
+  <section aria-labelledby="best-of-category">
+    <p id="best-of-category"><strong>{% trans "Our Best Of category" %}</strong></p>
+    <p class="body">
+      {% blocktrans trimmed %}
+      It’s one thing to call out products that are bad. We also want to help consumers know what products are good. Check out
+      our Best Of category to see which products and companies we think are doing privacy and security right.
+
+      {% endblocktrans %}
+    </p>
+  </section>
+
+  <section aria-labelledby="creep-o-meter">
+    <p id="creep-o-meter"><strong>{% trans "There is a Creep-O-Meter" %}</strong></p>
+    <p class="body">
+      {% blocktrans trimmed %}
+      We want you to be able to share your opinion too. It’s important for companies and other consumers to see which products
+      people think are safe, and which products people feel are a bit creepy. So we created our Creep-O-Meter—a user rating on
+      each product—to let you share your opinion. Companies are paying attention, so let them know if you think their product
+      is creepy or not!
+
       {% endblocktrans %}
     </p>
   </section>
@@ -55,42 +101,37 @@
   <section aria-labelledby="minimum-security">
     <p id="minimum-security"><strong>{% trans "Our Minimum Security Standards" %}</strong></p>
     <p class="body">
-      {% blocktrans with url="https://foundation.mozilla.org/privacynotincluded/about/meets-minimum-security-standards" trimmed %}
-      We realize people want to just know which products are safe and which aren’t. We are Mozilla—not a
-      consumer product review company—so we won’t say “Buy this, don’t buy that.” Instead, we used our
-      technical expertise to create a set of <a href="{{url}}">Minimum Security Standards</a> we think all
-      products should meet in order to be sold in stores. Those standards include using encryption,
-      automatic security updates, requiring strong passwords, having a system to manage vulnerabilities,
-      and having an accessible privacy policy.
+      {% blocktrans with url="https://foundation.mozilla.org/privacynotincluded/about/methodology" trimmed %}
+      We realize people want to <i>just know</i> which products are safe and which aren’t. We used our technical expertise here at
+      Mozilla to create a set of Minimum Security Standards we think all products should meet in order to be sold in stores.
+      Those standards include using encryption, automatic security updates, requiring strong passwords, having a system to
+      manage vulnerabilities, and having an accessible privacy policy. Read more about our Minimum Security Standards on our
+      <a href={{url}}>Methodology page</a>.
       {% endblocktrans %}
     </p>
   </section>
 
-  <section aria-labelledby="creep-o-meter">
-    <p id="creep-o-meter"><strong>{% trans "There is a Creep-O-Meter." %}</strong></p>
+  <section aria-labelledby="tons-of-research">
+    <p id="tons-of-research"><strong>{% trans "Tons of Research" %}</strong></p>
     <p class="body">
-      {% blocktrans trimmed %}
-      We want users of this guide to be able to share their opinion too. It’s important companies, and
-      other consumers, see which products people think are safe, and which products people feel are a
-      bit creepy. So we created our Creep-O-Meter—a user rating on each product—to let folks give their
-      opinion. Companies are paying attention, so let them know if you think their product is creepy or not.
+      {% blocktrans with url="https://foundation.mozilla.org/privacynotincluded/about/" trimmed %}
+      You’ll notice a lot of research went into this guide. We even include the hours we spent researching a product on every
+      page. Fortunately, we have great researchers and expertise here at Mozilla to dig into this so you don’t have to. We
+      don’t buy and test products. Instead we look at what we can find that is publicly available. Our researchers comb
+      through privacy policies, reach out to companies with questions about encryption and bug bounty programs, sift through
+      product and app specifications, and read the research and news articles written about the products in the past three
+      years. We do our best to then make your access to all this information accessible and easy to understand. We’ve even put
+      together a <a href={{url}}>How to Use This Guide page</a> to help you understand all the information we share here on <em>*Privacy Not Included</em>.
       {% endblocktrans %}
     </p>
-  </section>
 
-  <section aria-labelledby="bigger-better">
-    <p id="bigger-better"><strong>{% trans "Good research from good researchers." %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      You’ll notice a lot of research went into this guide. From knowing if the device uses a camera
-      or microphone, or tracks your location or biometric data, to our section laying out what could
-      happen if something goes wrong with a product—we’ve covered a lot of ground. Fortunately, we
-      have great researchers and expertise here at Mozilla to dig into this so you don’t have to.
-      Our researchers combed through privacy policies, reached out to companies with questions about
-      encryption and bug bounty programs, and sifted through product and app specifications. We’ve
-      done our best to make your access to all this research easy to understand.  One other note, in
-      <em>*Privacy Not Included</em> we review connected sex toys. This content is targeted for
-      readers 18+ and may contain sensitive or mature information.
+      We hope you use this guide to help you think about, shop for, and buy products from companies that show they value
+      privacy and security. Then share it with your friends and family to help them shop safe too. We as consumers need to
+      demand that privacy and security as a value from the people who build our products. It’s how we’ll start to make the
+      internet, and our lives, a bit safer in this digital world. That is our goal every day here at Mozilla.
+
       {% endblocktrans %}
     </p>
   </section>
@@ -107,7 +148,7 @@
 
     <p class="body mb-4 pb-2">
       {% trans "Thank you!" %}<br>
-      {% trans "The Team at Mozilla" %}
+      {% trans "The *Privacy Not Included Team" %}
     </p>
 
     <p class="body">
