@@ -1474,6 +1474,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     translatable_fields = [
         TranslatableField('title'),
+        SynchronizedField('cutoff_date'),
         SynchronizedField('hero_image'),
         TranslatableField('header'),
         TranslatableField('intro_text'),
