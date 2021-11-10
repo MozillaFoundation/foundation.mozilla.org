@@ -265,9 +265,11 @@ class YoutubeRegretsPageTR(TranslationOptions):
 class YoutubeRegretsPage2021TR(TranslationOptions):
     fields = {}
 
+
 @register(YoutubeRegretsReporterExtensionPage)
 class YoutubeRegretsReporterExtensionPageTR(TranslationOptions):
     fields = {}
+
 
 @register(YoutubeRegretsReporterPage)
 class YoutubeRegretsReporterPageTR(TranslationOptions):

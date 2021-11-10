@@ -148,7 +148,6 @@ class YoutubeRegrets2021Page(FoundationMetadataPageMixin, Page):
         verbose_name_plural = "YouTube Regrets 2021 Pages"
 
 
-
 class YoutubeRegretsReporterExtensionPage(FoundationMetadataPageMixin, Page):
 
     template = 'wagtailpages/pages/youtube_regrets_reporter_extension.html'
