@@ -265,7 +265,6 @@ class TestPNIAirtableConnections(TestCase):
             company='Percy Corp',
             blurb='This is a general product specifically created for visual regression testing',
             product_url='http://example.com/general-percy',
-            price=999,
             worst_case='Visual regression fails',
             # general product fields
             camera_app='Yes',
@@ -281,9 +280,9 @@ class TestPNIAirtableConnections(TestCase):
             data_control_policy_is_bad=True,
             company_track_record='Needs Improvement',
             track_record_is_bad=True,
-            track_record_details='What kind of track record are we talking about?',
+            track_record_details='<p> What kind of track record are we talking about? </p>',
             offline_capable='Yes',
-            offline_use_description='Although it is unclear how offline capabilities work',
+            offline_use_description='<p> Although it is unclear how offline capabilities work </p>',
             uses_ai='NA',
             ai_is_transparent='No',
             ai_helptext='The AI is a black box and no one knows how it works',
@@ -303,7 +302,6 @@ class TestPNIAirtableConnections(TestCase):
             company='Percy Corp',
             blurb='This is a general product specifically created for visual regression testing',
             product_url='http://example.com/general-percy',
-            price=999,
             worst_case='Visual regression fails',
             # software product fields
         )
@@ -326,7 +324,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertEqual(mappings["Company"], "company")
         self.assertEqual(mappings["Blurb"], "blurb")
         self.assertEqual(mappings["Product link"], "product_url")
-        self.assertEqual(mappings["Price"], "price")
         self.assertEqual(mappings["Worst case"], "worst_case")
         self.assertEqual(mappings["Signup requires email"], "signup_requires_email")
         self.assertEqual(mappings["Signup requires phone number"], "signup_requires_phone")
@@ -401,7 +398,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertIn("Company", export_fields)
         self.assertIn("Blurb", export_fields)
         self.assertIn("Product link", export_fields)
-        self.assertIn("Price", export_fields)
         self.assertIn("Worst case", export_fields)
         self.assertIn("Signup requires email", export_fields)
         self.assertIn("Signup requires phone number", export_fields)

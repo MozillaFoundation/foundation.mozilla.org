@@ -1,5 +1,6 @@
 #view-product-page {
-  #multipage-nav-mobile {
+  #multipage-nav-mobile,
+  #pni-nav-mobile {
     margin-bottom: 0;
   }
 
@@ -522,6 +523,19 @@
 
     @media (min-width: $pni-product-breakpoint-larger) {
       margin-bottom: 0.75rem;
+    }
+  }
+
+  .criterion-richtext-value {
+    p {
+      @extend .pni-product-smaller-body;
+      margin-bottom: unset;
+    }
+  }
+  .criterion-richtext-help {
+    p {
+      @extend .pni-product-helptext;
+      margin-bottom: unset;
     }
   }
 }
