@@ -12,6 +12,7 @@ from . import (
     homepage_usable_news,
     homepage,
     initiatives_page,
+    locale,
     news_page,
     opportunity,
     participate_page_featured_highlights,
@@ -24,6 +25,7 @@ from . import (
 
 def generate(seed):
     # these are not, and should not be, alphabetically ordered.
+    locale.generate(seed)
     homepage.generate(seed)
     participate_page.generate(seed)
     content_author.generate(seed)
