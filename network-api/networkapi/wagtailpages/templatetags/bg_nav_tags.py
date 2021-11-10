@@ -27,7 +27,7 @@ def bg_active_nav(current, target):
 def product_in_category(productpage, categorySlug):
     if categorySlug == "":
         return True
-    categories = productpage.get_product_categories()
+    categories = productpage.product_categories.all()
     return categorySlug in [cat.category.slug for cat in categories]
 
 
