@@ -25,6 +25,7 @@ from .models import (
     YoutubeRegretsPage,
     YoutubeRegrets2021Page,
     YoutubeRegretsReporterPage,
+    YoutubeRegretsReporterExtensionPage,
     ArticlePage,
     PublicationPage,
     CTA,
@@ -264,6 +265,9 @@ class YoutubeRegretsPageTR(TranslationOptions):
 class YoutubeRegretsPage2021TR(TranslationOptions):
     fields = {}
 
+@register(YoutubeRegretsReporterExtensionPage)
+class YoutubeRegretsReporterExtensionPageTR(TranslationOptions):
+    fields = {}
 
 @register(YoutubeRegretsReporterPage)
 class YoutubeRegretsReporterPageTR(TranslationOptions):

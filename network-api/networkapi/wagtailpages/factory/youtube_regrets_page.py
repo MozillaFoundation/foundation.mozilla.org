@@ -5,6 +5,7 @@ from wagtail.core.models import Page as WagtailPage
 from networkapi.wagtailpages.models import (
     YoutubeRegretsPage,
     YoutubeRegretsReporterPage,
+    YoutubeRegretsReporterExtensionPage,
     YoutubeRegrets2021Page,
 )
 from wagtail_factories import (
@@ -32,6 +33,19 @@ class YoutubeRegretsPageFactory(PageFactory):
     intro_images = Faker('streamfield', fields=['basic_image']*10)
     faq = Faker('streamfield', fields=['paragraph'])
     regret_stories = Faker('streamfield', fields=['regret_story']*28)
+
+
+class YoutubeRegretsReporterExtensionPageFactory(PageFactory):
+    class Meta:
+        model = YoutubeRegretsReporterExtensionPage
+        exclude = (
+            'title_text',
+            'header_text',
+            'header',
+        )
+
+    title = 'YouTube Regrets Reporter Extension'
+    slug = 'extension'
 
 
 class YoutubeRegrets2021PageFactory(PageFactory):
@@ -102,4 +116,5 @@ def generate(seed):
             title=reporter_page_title,
         )
         YoutubeRegrets2021PageFactory.create(parent=youtube_regrets)
+        YoutubeRegretsReporterExtensionPageFactory.create(parent=youtube_regrets)
     reseed(seed)
