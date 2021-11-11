@@ -105,3 +105,12 @@
     position: relative;
   }
 }
+
+// left-aligning link button streamfields to text content
+// since text content is 8-col instead of 10 like the available streamfields.
+.article-page-content {
+  .linkbutton-block .streamfield-content {
+    @extend .col-md-8;
+    padding-left: 12px;
+  }
+}

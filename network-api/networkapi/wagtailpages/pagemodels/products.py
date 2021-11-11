@@ -276,7 +276,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
         related_name='+',
         blank=False,
         null=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
     )
 
     panels = [
@@ -444,44 +444,38 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     template = 'buyersguide/product_page.html'
 
     privacy_ding = models.BooleanField(
-        help_text='Tick this box if privacy is not included for this product',
+        verbose_name='*privacy not included ding',
         default=False,
     )
     adult_content = models.BooleanField(
-        help_text='When checked, product thumbnail will appear blurred as well as have an 18+ badge on it',
+        verbose_name='adult Content',
         default=False,
     )
     uses_wifi = models.BooleanField(
-        help_text='Does this product rely on WiFi connectivity?',
+        verbose_name='uses WiFi',
         default=False,
     )
     uses_bluetooth = models.BooleanField(
-        help_text='Does this product rely on Bluetooth connectivity?',
+        verbose_name='uses Bluetooth',
         default=False,
     )
     review_date = models.DateField(
-        help_text='Review date of this product',
+        verbose_name='review Date',
         default=timezone.now,
     )
     company = models.CharField(
+        verbose_name='company Name',
         max_length=100,
-        help_text='Name of Company',
         blank=True,
     )
     blurb = RichTextField(
-        max_length=5000,
+        verbose_name='intro Blurb',
         features=['bold', 'italic', 'link'],
-        help_text='Description of the product',
         blank=True
     )
     product_url = models.URLField(
+        verbose_name='product URL',
         max_length=2048,
-        help_text='Link to this product page',
-        blank=True,
-    )
-    price = models.CharField(
-        max_length=100,
-        help_text='Price',
         blank=True,
     )
     image = models.ForeignKey(
@@ -490,12 +484,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        help_text='Image representing this product',
     )
     worst_case = RichTextField(
-        max_length=5000,
+        verbose_name='what could happen if something goes wrong?',
         features=['bold', 'italic', 'link'],
-        help_text="What's the worst thing that could happen by using this product?",
         blank=True,
     )
     tips_to_protect_yourself = RichTextField(
@@ -503,13 +495,13 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         blank=True
     )
     mozilla_says = models.BooleanField(
+        verbose_name='mozilla Says',
         null=True,
         blank=True,
-        help_text='Whether or not Mozilla would recommend this product. '
-                  'Will appear as a thumbs up/down/middle.',
+        help_text="Use 'Yes' for Thumbs Up, 'No' for Thumbs Down, and 'Unknown' for Thumb Sideways",
     )
     time_researched = models.PositiveIntegerField(
-        help_text="How many hours were spent researching this product?",
+        verbose_name='time spent on research',
         default=0
     )
 
@@ -521,37 +513,39 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
     # What is required to sign up?
     signup_requires_email = ExtendedYesNoField(
-        help_text='Does this product requires providing an email address in order to sign up?'
+        verbose_name='email'
     )
     signup_requires_phone = ExtendedYesNoField(
-        help_text='Does this product requires providing a phone number in order to sign up?'
+        verbose_name='phone'
     )
     signup_requires_third_party_account = ExtendedYesNoField(
-        help_text='Does this product require a third party account in order to sign up?'
+        verbose_name='third-party account'
     )
     signup_requirement_explanation = models.TextField(
+        verbose_name='signup requirement description',
         max_length=5000,
         blank=True,
-        help_text='Describe the particulars around sign-up requirements here.'
     )
 
     # How does it use this data?
-    how_does_it_use_data_collected = models.TextField(
+    how_does_it_use_data_collected = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='How does this product use the data collected?',
         blank=True,
-        help_text='How does this product use the data collected?'
     )
     data_collection_policy_is_bad = models.BooleanField(
         default=False,
-        verbose_name='Privacy ding'
+        verbose_name='mini-ding for bad data use?'
     )
 
     # Privacy policy
     user_friendly_privacy_policy = ExtendedYesNoField(
-        help_text='Does this product have a user-friendly privacy policy?'
+        verbose_name='user-friendly privacy information?',
     )
 
     user_friendly_privacy_policy_helptext = models.TextField(
+        verbose_name='user-friendly privacy description',
         max_length=5000,
         blank=True
     )
@@ -559,43 +553,46 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     # Minimum security standards
     show_ding_for_minimum_security_standards = models.BooleanField(
         default=False,
-        verbose_name="Privacy ding"
+        verbose_name='mini-ding for doesnt meet Minimum Security Standards'
     )
     meets_minimum_security_standards = models.BooleanField(
+        verbose_name='does this product meet our Minimum Security Standards?',
         null=True,
         blank=True,
-        help_text='Does this product meet our minimum security standards?',
     )
     uses_encryption = ExtendedYesNoField(
-        help_text='Does the product use encryption?',
+        verbose_name='encryption',
     )
     uses_encryption_helptext = models.TextField(
+        verbose_name='description',
         max_length=5000,
         blank=True
     )
     security_updates = ExtendedYesNoField(
-        help_text='Security updates?',
     )
     security_updates_helptext = models.TextField(
+        verbose_name='description',
         max_length=5000,
         blank=True
     )
     strong_password = ExtendedYesNoField()
     strong_password_helptext = models.TextField(
+        verbose_name='description',
         max_length=5000,
         blank=True
     )
     manage_vulnerabilities = ExtendedYesNoField(
-        help_text='Manages security vulnerabilities?',
+        verbose_name='manages security vulnerabilities',
     )
-    manage_vulnerabilities_helptext = models.TextField(
+    manage_vulnerabilities_helptext = RichTextField(
         max_length=5000,
-        blank=True
+        features=['bold', 'italic', 'link'],
+        blank=True,
     )
     privacy_policy = ExtendedYesNoField(
-        help_text='Does this product have a privacy policy?'
     )
     privacy_policy_helptext = models.TextField(  # REPURPOSED: WILL REQUIRE A 'clear' MIGRATION
+        verbose_name='description',
         max_length=5000,
         blank=True
     )
@@ -624,7 +621,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Company": "company",
             "Blurb": "blurb",
             "Product link": "product_url",
-            "Price": "price",
             "Worst case": "worst_case",
             "Signup requires email": "signup_requires_email",
             "Signup requires phone number": "signup_requires_phone",
@@ -670,7 +666,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Company": self.company,
             "Blurb": self.blurb,
             "Product link": self.product_url if self.product_url else '',
-            "Price": self.price,
             "Worst case": self.worst_case,
             "Signup requires email": self.signup_requires_email,
             "Signup requires phone number": self.signup_requires_phone,
@@ -776,32 +771,31 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             return static("_images/buyers-guide/evergreen-social.png")
 
     content_panels = Page.content_panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel('review_date'),
-                FieldPanel('privacy_ding'),
-                FieldPanel('adult_content'),
-                FieldPanel('company'),
-                FieldPanel('product_url'),
-                FieldPanel('price'),
-                FieldPanel('uses_wifi'),
-                FieldPanel('uses_bluetooth'),
-                FieldPanel('blurb'),
-                ImageChooserPanel('image'),
-                FieldPanel('worst_case'),
-                FieldPanel('tips_to_protect_yourself'),
-                FieldPanel('mozilla_says'),
-                FieldPanel('time_researched')
-            ],
-            heading='General Product Details',
-            classname='collapsible'
-        ),
+        FieldPanel('company'),
         MultiFieldPanel(
             [
                 InlinePanel('product_categories', label='Category'),
             ],
-            heading='Product Categories',
+            heading='Product Category',
             classname='collapsible',
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('privacy_ding'),
+                FieldPanel('review_date'),
+                FieldPanel('adult_content'),
+                ImageChooserPanel('image'),
+                FieldPanel('product_url'),
+                FieldPanel('time_researched'),
+                FieldPanel('mozilla_says'),
+                FieldPanel('uses_wifi'),
+                FieldPanel('uses_bluetooth'),
+                FieldPanel('blurb'),
+                FieldPanel('worst_case'),
+                FieldPanel('tips_to_protect_yourself'),
+            ],
+            heading='General Product Details',
+            classname='collapsible'
         ),
         MultiFieldPanel(
             [
@@ -810,24 +804,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 FieldPanel('signup_requires_third_party_account'),
                 FieldPanel('signup_requirement_explanation'),
             ],
-            heading='What is required to sign up',
-            classname='collapsible'
-        ),
-        MultiFieldPanel(
-            [
-
-                FieldPanel('how_does_it_use_data_collected'),
-                FieldPanel('data_collection_policy_is_bad'),
-            ],
-            heading='How does it use this data',
-            classname='collapsible',
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel('user_friendly_privacy_policy'),
-                FieldPanel('user_friendly_privacy_policy_helptext'),
-            ],
-            heading='Privacy policy',
+            heading='What can be used to sign up?',
             classname='collapsible'
         ),
         MultiFieldPanel(
@@ -844,14 +821,14 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                FieldPanel('show_ding_for_minimum_security_standards'),
                 FieldPanel('meets_minimum_security_standards'),
+                FieldPanel('show_ding_for_minimum_security_standards'),
                 FieldPanel('uses_encryption'),
                 FieldPanel('uses_encryption_helptext'),
-                FieldPanel('security_updates'),
-                FieldPanel('security_updates_helptext'),
                 FieldPanel('strong_password'),
                 FieldPanel('strong_password_helptext'),
+                FieldPanel('security_updates'),
+                FieldPanel('security_updates_helptext'),
                 FieldPanel('manage_vulnerabilities'),
                 FieldPanel('manage_vulnerabilities_helptext'),
                 FieldPanel('privacy_policy'),
@@ -864,7 +841,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             [
                 InlinePanel('updates', label='Update')
             ],
-            heading='Product Updates',
+            heading='News Links',
         ),
         MultiFieldPanel(
             [
@@ -891,7 +868,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('company'),
         TranslatableField('blurb'),
         SynchronizedField('product_url'),
-        TranslatableField('price'),
         SynchronizedField('image'),
         TranslatableField('worst_case'),
         SynchronizedField('product_categories'),
@@ -1020,12 +996,10 @@ class SoftwareProductPage(ProductPage):
     handles_recordings_how = models.TextField(
         max_length=5000,
         blank=True,
-        help_text='How does this software handle your recordings'
     )
 
     recording_alert = ExtendedYesNoField(
         null=True,
-        help_text='Alerts when calls are being recorded?',
     )
 
     recording_alert_helptext = models.TextField(
@@ -1034,7 +1008,6 @@ class SoftwareProductPage(ProductPage):
     )
 
     medical_privacy_compliant = ExtendedBoolean(
-        help_text='Compliant with US medical privacy laws?'
     )
 
     medical_privacy_compliant_helptext = models.TextField(
@@ -1050,7 +1023,6 @@ class SoftwareProductPage(ProductPage):
     )
 
     easy_to_learn_and_use = ExtendedBoolean(
-        help_text='Is it easy to learn & use the features?',
     )
 
     easy_to_learn_and_use_helptext = models.TextField(
@@ -1097,7 +1069,7 @@ class SoftwareProductPage(ProductPage):
     content_panels = ProductPage.content_panels.copy()
     content_panels = insert_panels_after(
         content_panels,
-        'Product Categories',
+        'Security',
         [
             MultiFieldPanel(
                 [
@@ -1146,135 +1118,134 @@ class GeneralProductPage(ProductPage):
     template = 'buyersguide/product_page.html'
 
     camera_device = ExtendedYesNoField(
-        help_text='Does this device have or access a camera?',
+        verbose_name='camera: Device',
     )
 
     camera_app = ExtendedYesNoField(
-        help_text='Does the app have or access a camera?',
+        verbose_name='camera: App',
     )
 
     microphone_device = ExtendedYesNoField(
-        help_text='Does this Device have or access a microphone?',
+        verbose_name='microphone: Device',
     )
 
     microphone_app = ExtendedYesNoField(
-        help_text='Does this app have or access a microphone?',
+        verbose_name='microphone: App',
     )
 
     location_device = ExtendedYesNoField(
-        help_text='Does this product access your location?',
+        verbose_name='tracks location: Device',
     )
 
     location_app = ExtendedYesNoField(
-        help_text='Does this app access your location?',
+        verbose_name='tracks location: App',
     )
 
     # What data does it collect?
 
     personal_data_collected = models.TextField(
+        verbose_name='personal',
         max_length=5000,
         blank=True,
-        help_text='What kind of personal data does this product collect?'
     )
 
     biometric_data_collected = models.TextField(
+        verbose_name='body Related',
         max_length=5000,
         blank=True,
-        help_text='What kind of biometric data does this product collect?'
     )
 
     social_data_collected = models.TextField(
+        verbose_name='social',
         max_length=5000,
         blank=True,
-        help_text='What kind of social data does this product collect?'
     )
 
     # How can you control your data
 
-    how_can_you_control_your_data = models.TextField(
+    how_can_you_control_your_data = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='How does this product let you control your data?',
         blank=True,
-        help_text='How does this product let you control your data?'
     )
 
     data_control_policy_is_bad = models.BooleanField(
         default=False,
-        verbose_name='Privacy ding'
+        verbose_name='mini-ding for bad data control?'
     )
 
     # Company track record
 
     company_track_record = models.CharField(
+        verbose_name="company's known track record?",
         choices=TRACK_RECORD_CHOICES,
         default='Average',
-        help_text='This company has a ... track record',
         max_length=20
     )
 
     track_record_is_bad = models.BooleanField(
         default=False,
-        verbose_name='Privacy ding'
+        verbose_name='mini-ding for bad track record'
     )
 
-    track_record_details = models.TextField(
+    track_record_details = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='Describe the track record of this company here.',
         blank=True,
-        help_text='Describe the track record of this company here.'
     )
 
     # Offline use
 
     offline_capable = ExtendedYesNoField(
-        help_text='Can this product be used offline?',
+        verbose_name='can this product be used offline?',
     )
 
-    offline_use_description = models.TextField(
+    offline_use_description = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='Describe how this product can be used offline.',
         blank=True,
-        help_text='Describe how this product can be used offline.'
     )
 
     # Artificial Intelligence
 
     uses_ai = ExtendedYesNoField(
-        help_text='Does the product use AI?'
+        verbose_name='does the product use AI?',
     )
-    ai_helptext = models.TextField(
+    ai_helptext = RichTextField(
         max_length=5000,
-        blank=True,
+        features=['bold', 'italic', 'link'],
         help_text='Helpful text around AI to show on the product page',
+        blank=True,
     )
     ai_is_untrustworthy = ExtendedYesNoField(
-        help_text='Is the AI untrustworthy?'
-    )
-    ai_is_untrustworthy_helptext = models.TextField(
-        max_length=5000,
-        blank=True,
-        help_text='Helptext that will appear in the AI is untrustworthy section.',
+        verbose_name='is this AI untrustworthy?',
     )
     ai_is_untrustworthy_ding = models.BooleanField(
-        help_text='Tick this box if the AI invades privacy or behaves unethically.',
+        verbose_name='mini-ding for bad AI',
         default=False,
     )
     ai_what_can_it_do = RichTextField(
+        verbose_name='what kind of decisions does the AI make about you or for you?',
         blank=True,
-        help_text='What kind of decisions does this AI make about you or for you?'
     )
     ai_is_transparent = ExtendedYesNoField(
-        help_text='Does the company allow users to see how the AI works?'
+        verbose_name='is the company transparent about how the AI works?',
     )
     ai_is_transparent_helptext = models.TextField(
+        verbose_name='aI transparency description',
         max_length=5000,
         blank=True,
-        help_text='Helptext that will appear in the AI is transparent section.',
     )
     ai_can_user_control = ExtendedYesNoField(
-        help_text='Does the user have control over the AI features?'
+        verbose_name='does the user have control over the AI features?',
     )
     ai_can_user_control_helptext = models.TextField(
+        verbose_name='control of AI description',
         max_length=5000,
         blank=True,
-        help_text='Helptext that will appear in the can user control section.',
     )
 
     @classmethod
@@ -1300,7 +1271,6 @@ class GeneralProductPage(ProductPage):
             "AI is transparent": "ai_is_transparent",
             "AI is transparent help text": "ai_is_transparent_helptext",
             "AI is untrustworthy": "ai_is_untrustworthy",
-            "AI is untrustworthy help text": "ai_is_untrustworthy_helptext",
             "AI is untrustworthy ding": "ai_is_untrustworthy_ding",
             "AI What can it do": "ai_what_can_it_do",
             "AI can user control": "ai_can_user_control",
@@ -1335,7 +1305,6 @@ class GeneralProductPage(ProductPage):
             "AI is transparent help text": self.ai_is_transparent_helptext,
             "AI help text": self.ai_helptext,
             "AI is untrustworthy": self.ai_is_untrustworthy,
-            "AI is untrustworthy help text": self.ai_is_untrustworthy_helptext,
             "AI is untrustworthy ding": self.ai_is_untrustworthy_ding,
             "AI What can it do": self.ai_what_can_it_do,
             "AI can user control": self.ai_can_user_control,
@@ -1349,7 +1318,7 @@ class GeneralProductPage(ProductPage):
     content_panels = ProductPage.content_panels.copy()
     content_panels = insert_panels_after(
         content_panels,
-        'Product Categories',
+        'General Product Details',
         [
             MultiFieldPanel(
                 [
@@ -1360,7 +1329,7 @@ class GeneralProductPage(ProductPage):
                     FieldPanel('location_device'),
                     FieldPanel('location_app'),
                 ],
-                heading='Can it snoop?',
+                heading='Can it snoop on me?',
                 classname='collapsible'
             ),
         ],
@@ -1368,50 +1337,29 @@ class GeneralProductPage(ProductPage):
 
     content_panels = insert_panels_after(
         content_panels,
-        'What is required to sign up',
+        'What can be used to sign up?',
         [
             MultiFieldPanel(
                 [
                     FieldPanel('personal_data_collected'),
                     FieldPanel('biometric_data_collected'),
                     FieldPanel('social_data_collected'),
+                    FieldPanel('how_does_it_use_data_collected'),
+                    FieldPanel('data_collection_policy_is_bad'),
+                    FieldPanel('how_can_you_control_your_data'),
+                    FieldPanel('data_control_policy_is_bad'),
+                    FieldPanel('company_track_record'),
+                    FieldPanel('track_record_details'),
+                    FieldPanel('track_record_is_bad'),
+                    FieldPanel('offline_capable'),
+                    FieldPanel('offline_use_description'),
+                    FieldPanel('user_friendly_privacy_policy'),
+                    FieldPanel('user_friendly_privacy_policy_helptext'),
                 ],
-                heading='What data does it collect',
+                heading='What data does the company collect?',
                 classname='collapsible',
             ),
         ]
-    )
-
-    content_panels = insert_panels_after(
-        content_panels,
-        'How does it use this data',
-        [
-            MultiFieldPanel(
-                [
-                    FieldPanel('how_can_you_control_your_data'),
-                    FieldPanel('data_control_policy_is_bad'),
-                ],
-                heading='How can you control your data',
-                classname='collapsible',
-            ),
-            MultiFieldPanel(
-                [
-                    FieldPanel('company_track_record'),
-                    FieldPanel('track_record_is_bad'),
-                    FieldPanel('track_record_details'),
-                ],
-                heading='Company track record',
-                classname='collapsible'
-            ),
-            MultiFieldPanel(
-                [
-                    FieldPanel('offline_capable'),
-                    FieldPanel('offline_use_description'),
-                ],
-                heading='Offline use',
-                classname='collapsible'
-            ),
-        ],
     )
 
     content_panels = insert_panels_after(
@@ -1423,7 +1371,6 @@ class GeneralProductPage(ProductPage):
                     FieldPanel('uses_ai'),
                     FieldPanel('ai_helptext'),
                     FieldPanel('ai_is_untrustworthy'),
-                    FieldPanel('ai_is_untrustworthy_helptext'),
                     FieldPanel('ai_is_untrustworthy_ding'),
                     FieldPanel('ai_what_can_it_do'),
                     FieldPanel('ai_is_transparent'),
@@ -1453,7 +1400,6 @@ class GeneralProductPage(ProductPage):
         TranslatableField('ai_is_transparent_helptext'),
         TranslatableField('ai_helptext'),
         SynchronizedField('ai_is_untrustworthy'),
-        TranslatableField('ai_is_untrustworthy_helptext'),
         SynchronizedField('ai_is_untrustworthy_ding'),
         TranslatableField('ai_what_can_it_do'),
         SynchronizedField('ai_can_user_control'),
@@ -1609,15 +1555,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             '*privacy not included')
         return render(request, "about/methodology.html", context)
 
-    @route(r'^about/meets-minimum-security-standards/$', name='min-security-view')
-    def about_mss_page(self, request):
-        context = self.get_context(request)
-        context['pagetype'] = 'about'
-        context['pageTitle'] = gettext('Our minimum security standards') + ' | ' + pgettext(
-            'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included')
-        return render(request, "about/minimum_security.html", context)
-
     @route(r'^contest/$', name='contest')
     def about_contest(self, request):
         context = self.get_context(request)
@@ -1714,7 +1651,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         # Categories are added above. Products will be their own Wagtail pages and get their own URLs because of that.
         about_page_views = [
             'how-to-use-view', 'about-why-view', 'press-view',
-            'contact-view', 'methodology-view', 'min-security-view'
+            'contact-view', 'methodology-view'
         ]
         for about_page in about_page_views:
             sitemap.append(
