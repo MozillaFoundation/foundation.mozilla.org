@@ -5,39 +5,45 @@
 {% block main_about_class %}how-to-use{% endblock %}
 
 {% block about_guts %}
+<section aria-labelledby="how-to-use-guide">
+
   <h1 class="h2-heading">
     {% trans "How to Use This Guide" %}
   </h1>
 
   <p>
-    {% trans "Need help understanding how to use this guide? Here you go:" %}
+    {% trans "Need help understanding how to use this guide? Here you go." %}
   </p>
 
   <section aria-labelledby="how-to-use-tip">
     <p id="how-to-use-tip"><strong>{% trans "Tip:" %}</strong></p>
     <p class="body">
+      <em>
       {% blocktrans trimmed %}
       If you don’t find the product you are looking for, search to see if we reviewed any other
       products made by that company. Often, criteria will match from one product to another from
       the same company. We simply don’t have time to review all the connected products out there.
       {% endblocktrans %}
+      </em>
     </p>
   </section>
 
   <section aria-labelledby="warning-label">
     <p id="warning-label"><strong>{% trans "*Privacy Not Included Warning Label" %}</strong></p>
     <p class="body">
-      {% blocktrans trimmed %}
-      Our <em>*Privacy Not Included</em> buyer’s guide now comes with <em>*Privacy Not Included</em>
-      warning labels on products we think consumers should think twice about before buying. It’s no
-      small thing to assign such a label to a product, so we set ourselves some strict standards.
-      If we can’t confirm a product meets our Minimum Security Standards, it automatically earned
-      the <em>*Privacy Not Included label</em>, as we feel those standards are the minimum a product
-      should meet to be on the market. We also look at how a company uses the data the product
-      collects on you, how you can control the data the company collects, and what the company’s
-      known track record is over the past two years for protecting their users’ data. How a company
-      performed on these criteria determined if we assigned them the warning label. You will see
-      little mini-warnings in our review section of the guide to help you understand what our concerns are.
+      {% blocktrans with url="https://foundation.mozilla.org/privacynotincluded/about/methodology" trimmed %}
+      Our <em>*Privacy Not Included</em> buyer’s guide comes with <em>*Privacy Not Included</em> warning labels on products we
+      think consumers
+      should think twice about before buying. It’s no small thing to assign such a label to a product, so we set ourselves
+      some <a href="{{url}}">strict standards</a>. If we can’t confirm a product meets our Minimum Security Standards, it
+      automatically earned the
+      <em>*Privacy Not Included</em> label, as we feel those standards are the minimum a product should meet to be on the
+      market. We
+      also look at how a company uses the data the product collects on you, how you can control the data the company collects,
+      and what the company’s known track record is over the past two years for protecting their users’ data. How a company
+      performs on these criteria determines if we assign them the warning label. You will see little <span
+        class='mini-warning-ding-icon'>mini-warnings</span> in our review section of the guide to help you understand what our
+      concerns are.
       {% endblocktrans %}
     </p>
   </section>
@@ -46,10 +52,44 @@
     <p id="what-could-go-wrong"><strong>{% trans "What could happen if something goes wrong" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      It’s likely nothing bad will happen with most of the products in this guide. However, it’s
-      also good to think through what could happen if something goes wrong. We explain what
-      concerns users should have about the product and often lay out a potential worst-case
-      scenario—in some cases for fun and in some cases based on things that have already happened.
+      It’s likely nothing bad will happen with most of the products in this guide. However, it’s also good to think through
+      what <em>could</em> happen if something goes wrong. We try to identify what risks and concerns users should have about the
+      product. We often lay out a potential worst-case scenario--in some cases for fun and in some cases based on things that
+      have already happened.
+      {% endblocktrans %}
+    </p>
+  </section>
+  <section aria-labelledby="tips-to-protect-yourself">
+    <p id="tips-to-protect-yourself"><strong>{% trans "Tips to protect yourself" %}</strong></p>
+    <p class="body">
+      {% blocktrans trimmed %}
+      While we don’t think all the responsibility should be on consumers to protect themselves when they buy a connected
+      product, the reality is, the more you can do as a consumer, the better. We lay out a few tips of things you can do to be
+      a little safer, whether it be to set up two-factor authentication, lock down your privacy settings, or remember to
+      opt-out of data sharing. And we try to link to places to help you understand how to do this too.
+      {% endblocktrans %}
+    </p>
+  </section>
+  <section aria-labelledby="time-spent-on-research">
+    <p id="time-spent-on-research"><strong>{% trans "Time Spent on Research" %}</strong></p>
+    <p class="body">
+      {% blocktrans trimmed %}
+      We approach our research for <em>*Privacy Not Included</em> from the viewpoint of you, the consumer. We don’t purchase the
+      products and test them in a lab. Consumers can’t do that. Instead, we look at all the publicly available information we
+      can find to try and understand the privacy and security concerns you should be aware of. We want to help you understand
+      how long this takes us, in part so you know we’ve taken the time to get things right. But also to help you understand
+      how ridiculous it is that consumers are expected to spend so much time researching connected products before they buy
+      them just to hopefully protect their privacy. It shouldn’t be like this. Companies should do better by building privacy
+      by design into their products.
+      {% endblocktrans %}
+    </p>
+  </section>
+  <section aria-labelledby="mozilla-says">
+    <p id="mozilla-says"><strong>{% trans "Mozilla Says" %}</strong></p>
+    <p class="body">
+      {% blocktrans trimmed %}
+      If a product receives our <em>*Privacy Not Included</em> warning label, we give it a Thumbs Down. If we designate a product as
+      Best Of, it receives a Thumbs Up. If a product receives neither, we give it a Thumbs Sideways.
       {% endblocktrans %}
     </p>
   </section>
@@ -57,22 +97,28 @@
     <p id="creep-o-meter"><strong>{% trans "Creep-O-Meter" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      Our Creep-O-Meter is for you to share your opinion. Read the review of the product,
-      then rate how creepy or not creepy you think the product is. Click vote to see how
-      your opinion stacks up with others.
+      Our Creep-O-Meter is a reader-generated rating - and an opportunity for you to share your opinion. Read the review of
+      the product, then rate how creepy or not creepy you think the product is. Click vote to see how your opinion stacks up
+      with others. It helps other consumers understand the risks of a product and shows companies how creepy customers find
+      their products. Look at the top of the page to see the “people voted” rating of each product in the guide.
       {% endblocktrans %}
     </p>
   </section>
+</section>
 
+<section aria-labelledby="privacy">
+
+  <h1 class="h2-heading">
+    {% trans "Privacy" %}
+  </h1>
   <section aria-labelledby="can-it-snoop">
     <p id="can-it-snoop"><strong>{% trans "Can it snoop on me?" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      Just because a device has a camera, microphone, or tracks location doesn’t mean it will
-      snoop on you. It simply means it could and you should be aware of that. Also, many
-      connected devices are controlled by apps on your phone. The apps often ask to use the
-      phone’s camera, microphone or location tracking. Keep an eye on that, as some of the
-      permissions the apps ask for might surprise you.
+      Just because a device has a camera, microphone, or tracks location doesn’t mean it <em>will</em> snoop on you. It simply means it
+      <em>could</em> and you should be aware of that. Also, many connected devices are controlled by apps on your phone. The apps often
+      ask to use the phone’s camera, microphone or location tracking. Keep an eye on that, as some of the permissions the apps
+      ask for might surprise you.
       {% endblocktrans %}
     </p>
   </section>
@@ -81,9 +127,10 @@
     <p id="what-is-required-to-sign-up"><strong>{% trans "What is required to sign up?" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      To use a product do you need to give up your email address, your phone number, or sign
-      in through a third party such as a social media account like Facebook? This is good to
-      know ahead of time so you’re aware of what you’ll need to use the product.
+      To use a product do you need to give up your email address, your phone number, or sign in through a third party such as
+      a social media account like Facebook? This is good to know ahead of time so you’re aware of what you’ll need to use the
+      product.
+
       {% endblocktrans %}
     </p>
   </section>
@@ -92,24 +139,14 @@
     <p id="data-collection"><strong>{% trans "What data does this product collect?" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      Connected devices collect information on their users. We look at what personal, biometric,
-      and social data a product is likely to collect on you when you use it. Knowing what sorts
-      of personal information you’ll need to give up to use a product is useful to help understand
-      just how much a company could be learning about you. The more information you give up,
-      the better they may know you. Personal data includes things like name, email address,
-      phone number, gender, age, and date of birth. Biometric data includes things like voice
-      recordings, fingerprint, facial recognition, height, weight, heart rate, sleep data,
-      menstrual cycles, and blood oxygen levels. Social data includes things like your contacts
-      and friends or connections you have through a platform, like gamer friends through a
-      gaming console or connections you have through a fitness app.
-      {% endblocktrans %}
-    </p>
-    <p class="body">
-      {% blocktrans trimmed %}
-      A note on biometric data. Your voice, heart rate, activity levels, stress levels, sleep
-      patterns, menstrual cycles, even your fingerprint and facial features are some of the
-      most intimate, sensitive data devices can collect on you. You should be aware if a device
-      collects this data and how that data is used after it is collected.
+      Connected devices collect information on their users. We look at what personal, body-related, and social data a product
+      is likely to collect on you when you use it. Knowing what sorts of personal information you’ll need to give up to use a
+      product is useful to help understand just how much a company could be learning about you. The more information you give
+      up, the better they may know you. Personal data includes things like name, email address, phone number, gender, age, and
+      date of birth. Body-related data includes things like voice recordings, fingerprint, facial recognition, height, weight,
+      heart rate, sleep data, menstrual cycles, and blood oxygen levels. Social data includes things like your contacts and
+      friends or connections you have through a platform, like gamer friends through a gaming console or connections you have
+      through a fitness app.
       {% endblocktrans %}
     </p>
   </section>
@@ -118,12 +155,11 @@
     <p id="how-data-is-used"><strong>{% trans "How does it use this data?" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      Nearly every company collects some kind of information on its users. That’s how the internet
-      works. It’s how they use and care for this information that matters. You should know
-      whether a company shares or sells your personal information to others and for what reasons.
-      This criteria is one of the criteria we use to determine if a product receives our
-      <em>*Privacy Not Included</em> warning label. Companies that share or sell your data to
-      third parties received a mini-warning label.
+      Nearly every company collects some kind of information on its users. That’s how the internet works. It’s how they use
+      and care for this information that matters. You should know whether a company shares or sells your personal information
+      to others and for what reasons. This criteria is one of the criteria we use to determine if a product receives our
+      <em>*Privacy Not Included</em> warning label. Companies that share or sell your data to third parties received a mini-warning
+      label.
       {% endblocktrans %}
     </p>
   </section>
@@ -132,29 +168,24 @@
     <p id="data-control"><strong>{% trans "How can you control your data?" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      Companies collect a lot of data on their consumers. Who controls that data? Being able to
-      contact a company and ask them to delete any data they have on you is a very good thing.
+      Many companies collect a lot of data on their consumers. Who controls that data? Being able to contact a company and ask
+      them to delete any data they have on you is a very good thing.
       {% endblocktrans %}
     </p>
   </section>
 
   <section aria-labelledby="track-record">
     <p id="track-record">
-      <strong>{% trans "What is the company’s known track record of protecting users’ data?" %}</strong>
+      <strong>{% trans "What is the company’s known track record of protecting users’ data? + mini ding" %}</strong>
     </p>
     <p class="body">
       {% blocktrans trimmed %}
-      It’s one thing for a company to say they care about their users’ privacy. It’s another
-      thing to show. We looked at the track records of all the companies in the guide dating
-      back to January, 2018 to see if they had known data breaches, security vulnerabilities,
-      or other public privacy missteps. We found concerns ranging from small—an employee
-      accidentally replying to all in an email exposing users email addresses—to large—corporate
-      espionage and data breaches involving millions of users’ data. This criteria is one of
-      the criteria we use to determine if a product receives our <em>*Privacy Not Included</em>
-      warning label. Companies that had multiple or large privacy or security breaches received
-      a mini-warning label.
+      It’s one thing for a company to say they care about their users’ privacy. It’s another thing to show that. We look at
+      the track records of all the companies in the guide dating back three years to see if they had known data leaks,
+      security vulnerabilities, or other privacy missteps. This criteria is one of the criteria we use to determine if a
+      product receives our <em>*Privacy Not Included</em> warning label. Companies that have multiple or serious privacy or security
+      breaches receive a mini-warning label.
       {% endblocktrans %}
-      <img src="{% static "_images/buyers-guide/icon-privacy-ding-mini.svg" %}" title="{% trans "*privacy not included with this product" %}" alt="{% trans "*privacy not included with this product" %}" width="24">
     </p>
   </section>
 
@@ -162,10 +193,9 @@
     <p id="used-offline"><strong>{% trans "Can this product be used offline?" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      Does every product really need to be connected to the internet to work? What happens if
-      the internet goes out or you just want to use that smart scale as a scale? Some
-      <em>*Privacy Not Included</em> users reached out to us over the past couple of years and
-      asked us to include this in our guide. We aim to please!
+      Does every product really need to be connected to the internet to work? What happens if the internet goes out or you
+      just want to use that smart scale as a scale? Some <em>*Privacy Not Included</em> users reached out to us over the past couple of
+      years and asked us to include this in our guide. We aim to please!
       {% endblocktrans %}
     </p>
   </section>
@@ -174,26 +204,29 @@
     <p id="user-friendly-privacy"><strong>{% trans "User friendly privacy info?" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      Privacy information should be clear, readable, and communicate basic information to consumers
-      about what happens to their data. Privacy policies are often written more for lawyers than
-      consumers. That’s why it’s nice to see more and more companies creating consumer-friendly
-      privacy pages to outline how they handle your personal information and the data they
-      collected on their users. We hope to see this trend continue.
+      Privacy information should be clear, readable, and communicate basic information to consumers about what happens to
+      their data. Privacy policies are often written more for lawyers than consumers. That’s why it’s nice to see more and
+      more companies creating consumer-friendly privacy pages to outline how they handle your personal information and the
+      data they collected on their users. We hope to see this trend continue.
       {% endblocktrans %}
     </p>
   </section>
+</section>
+
+<section aria-labelledby="security">
+  <h1 class="h2-heading">
+    {% trans "Security" %}
+  </h1>
 
   <section aria-labelledby="minimum-security">
     <p id="minimum-security"><strong>{% trans "Our Minimum Security Standards" %}</strong></p>
     <p class="body">
-      {% blocktrans with url="/privacynotincluded/about/methodology/#minimum-security-standards" trimmed %}
-      We developed a set of minimum security standards we think all connected products should meet
-      at the very least. Think of it as a “you must be this tall to ride” set of standards. These
-      include five basic things: The product must use encryption, the company must provide
-      automatic security updates, if a product uses a password, it must require a strong password,
-      the company must have a way to manage security vulnerabilities found in their products,
-      and the company must have an accessible privacy policy. If you would like to learn more
-      about our minimum security standards <a href="{{url}}">go here</a>.
+      {% blocktrans trimmed %}
+      We developed a set of minimum security standards we think all connected products should meet at the <em>very least</em>. Think of
+      it as a “you must be this tall to ride” set of standards. These include five basic things: The product must use
+      encryption, the company must provide automatic security updates, if a product uses a password, it must require a strong
+      password, the company must have a way to manage security vulnerabilities found in their products, and the company must
+      have an accessible privacy policy.
       {% endblocktrans %}
     </p>
   </section>
@@ -202,10 +235,9 @@
     <p id="encryption"><strong>{% trans "Encryption" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      Encryption is your friend. It protects your private and personal information by scrambling it
-      up into a code so that the only people or machines who can read it are the ones on the other
-      end who have the key to unscramble that code. Products that don’t use encryption send personal
-      information over the internet unscrambled so anyone can see it.
+      Encryption is your friend. It protects your private and personal information by scrambling it up into a code so that the
+      only people or machines who can read it are the ones on the other end who have the key to unscramble that code. Products
+      that don’t use encryption send personal information over the internet unscrambled so anyone can see it.
       {% endblocktrans %}
     </p>
   </section>
@@ -214,10 +246,9 @@
     <p id="security-updates"><strong>{% trans "Security updates" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      Sometimes security vulnerabilities are found in products after they are sold to the public.
-      For that reason, companies should have a way to quickly push a security update out to the
-      product automatically so it fixes the security vulnerability without the consumer ever
-      needing to worry about it.
+      Sometimes security vulnerabilities are found in products after they are sold to the public. For that reason, companies
+      should have a way to quickly push a security update out to the product automatically so it fixes the security
+      vulnerability without the consumer ever needing to worry about it.
       {% endblocktrans %}
     </p>
   </section>
@@ -240,10 +271,9 @@
     <p id="manages-vulnerabilities"><strong>{% trans "Manages vulnerabilities" %}</strong></p>
     <p class="body">
       {% blocktrans with url="https://en.wikipedia.org/wiki/Bug_bounty_program" trimmed %}
-      Security vulnerabilities in products happen. It’s how companies manage them when they
-      arise that matter. We looked at whether or not companies have a system in place to manage
-      vulnerabilities in the product when they are found. This includes having a point of
-      contact for reporting vulnerabilities or an equivalent <a href="{{url}}">bug bounty program</a>.
+      Security vulnerabilities in products happen. It’s how companies manage them when they arise that matters. We looked at
+      whether or not companies have a system in place to manage vulnerabilities in the product when they are found. This
+      includes having a point of contact for reporting vulnerabilities or an equivalent <a href="{{url}}">bug bounty program.</a>
       {% endblocktrans %}
     </p>
   </section>
@@ -252,58 +282,84 @@
     <p id="privacy-policies"><strong>{% trans "Privacy policies" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      Privacy policies detail a lot of important information about how companies collect, use,
-      and share your personal information. Because of that, this information should be easily
-      found and easily understood.
+      Privacy policies detail a lot of important information about how companies collect, use, and share your personal
+      information. Because of that, this information should be easily found and easily understood. Consumers shouldn’t have to
+      buy a product before they can find or read a privacy policy too.
       {% endblocktrans %}
     </p>
   </section>
+
+  <h1 class="h2-heading">
+    {% trans "A.I." %}
+  </h1>
 
   <section aria-labelledby="uses-ai">
     <p id="uses-ai"><strong>{% trans "Does the product use AI?" %}</strong></p>
     <p class="body">
+      {% blocktrans with url="https://foundation.mozilla.org/en/insights/trustworthy-ai-whitepaper/" trimmed %}
+      More and more products use artificial intelligence these days. It’s not just smart speakers and facial recognition in
+      security cameras either. It’s AI in dog toys and fitness trackers and connected workout equipment. For our reviews, we
+      defined AI as: <em>Automated technology that makes decisions for you and/or changes continually based on your user data.</em>
+      What does all this mean for consumers? We’re just starting to understand. However, most consumers don’t know when AI is
+      being used or how it may affect their experience. We believe companies should provide this information to consumers as
+      AI-enabled products become more prevalent and its decisions about you - and for you - more consequential. For more on
+      Mozilla’s position on creating trustworthy AI, you can read our whitepaper <a href="{{url}}">Creating Trustworthy AI</a>.
+      {% endblocktrans %}
+    </p>
+  </section>
+  <section aria-labelledby="is-ai-untrustworthy">
+    <p id="is-ai-untrustworthy"><strong>{% trans "Is this AI untrustworthy?" %}</strong></p>
+    <p class="body">
       {% blocktrans trimmed %}
-      More and more products use artificial intelligence these days. It’s not just smart
-      speakers and facial recognition in security cameras either. It’s AI in dog toys and
-      fitness trackers and connected workout equipment. For our reviews, we defined AI as:
-      “Changes are made to the product’s technology continually based on your user data.”
-      What does all this mean for consumers? We’re just starting to understand. However,
-      most consumers don’t know when AI is being used or how it may affect their experience.
-      We believe companies should provide this information to consumers as AI-enabled products
-      become more prevalent.
+      Too often, AI in our world comes with bias or unethical behavior. Unfortunately, it’s nearly impossible to tell if a
+      company’s AI algorithms are trustworthy and ethical or not, and there’s not a commonly agreed upon framework for
+      ‘trustworthy AI’ features and policies. However, we do know that companies are often not transparent about how their AI
+      algorithms work, and that leaves us concerned overall. If we are able to find credible reporting that shows an AI is
+      untrustworthy, we will note it here and issue a warning label with a clear description about how we came to this
+      conclusion.
       {% endblocktrans %}
     </p>
   </section>
 
-  <section aria-labelledby="ai-personal-data">
-    <p id="ai-personal-data"><strong>{% trans "Does the AI use your personal data to make decisions about you?" %}</strong></p>
+  <section aria-labelledby="what-kind-of-ai-decisions">
+    <p id="what-kind-of-ai-decisions"><strong>{% trans "What kind of decisions does the AI make about you or for you?" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      We think consumers should know if a product uses their personal data to make decisions
-      for or about them.
+      We think consumers should know if a product uses their personal data to make decisions for or about them. To answer this
+      question, we look to see what the company says the product’s AI is doing? We can’t always tell though, and that is not
+      good.
       {% endblocktrans %}
     </p>
   </section>
 
-  <section aria-labelledby="visible-ai">
-    <p id="visible-ai"><strong>{% trans "Does the company allow users to see how the AI works?" %}</strong></p>
+  <section aria-labelledby="is-ai-transparent">
+    <p id="is-ai-transparent"><strong>{% trans "Is the company transparent about how the AI works?" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      One of the biggest issues surrounding artificial intelligence in our consumer products is
-      having access to essential information about how AI-enabled features work. For example, what
-      data does it collect and how does it use that information to make decisions for or about you.
-      Knowing how it works lets users evaluate if there may be a chance of bias or ethical
-      implications they should consider before using a product driven by AI.
+      One of the biggest issues surrounding artificial intelligence in our consumer products is having access to essential
+      information about how AI-enabled features work. For example, what data does it collect and how does it use that
+      information to make decisions for or about you? Knowing how it works lets users evaluate if there may be a chance of
+      bias or ethical implications they should consider before using a product driven by AI. We think companies should have
+      publicly available information explaining this. We’ll let you know if they do.
       {% endblocktrans %}
     </p>
   </section>
 
-  <section aria-labelledby="product-updates">
-    <p id="product-updates"><strong>{% trans "Updates" %}</strong></p>
+  <section aria-labelledby="ai-can-user-control">
+    <p id="ai-can-user-control"><strong>{% trans "Does the user have control over the AI features?" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      When news breaks or we come across a relevant article about a product in this guide, we
-      will share it in the updates section on each product page.
+      We let you know if there is any way to opt out of AI or adjust the settings of the AI if you would like.
+      {% endblocktrans %}
+    </p>
+  </section>
+
+  <section aria-labelledby="updates">
+    <p id="updates"><strong>{% trans "Updates" %}</strong></p>
+    <p class="body">
+      {% blocktrans trimmed %}
+      When news breaks or we come across a relevant article about a product in this guide, we will share it in the updates
+      section on each product page. 
       {% endblocktrans %}
     </p>
   </section>
@@ -312,10 +368,9 @@
     <p id="product-comments"><strong>{% trans "Comments" %}</strong></p>
     <p class="body">
       {% blocktrans trimmed %}
-      We love to hear your thoughts and feedback on the products in this guide. And other users
-      might like to join you in a conversation about any experiences or concerns you’ve had
-      with a product. Please join the conversation in the comment section at the bottom of
-      each product page.
+      We love to hear your thoughts and feedback on the products in this guide. And other users might like to join you in a
+      conversation about any experiences or concerns you’ve had with a product. Please join the conversation in the comment
+      section at the bottom of each product page.
       {% endblocktrans %}
     </p>
   </section>
@@ -329,5 +384,5 @@
       {% endblocktrans %}
     </p>
   </section>
-
+</section>
 {% endblock %}
