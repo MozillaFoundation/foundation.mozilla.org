@@ -19,7 +19,9 @@ from networkapi.wagtailpages.pagemodels.products import (
 from networkapi.wagtailpages.utils import create_wagtail_image
 
 from wagtail.core.models import Page, Site
+from wagtail.core.models.i18n import Locale
 from wagtail.tests.utils import WagtailPageTests
+from wagtail_localize.models import LocaleSynchronization
 
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
@@ -33,6 +35,10 @@ class BuyersGuideViewTest(TestCase):
         )
         buyersguide = BuyersGuidePage.objects.first()
         if not buyersguide:
+            default = Locale.get_default()
+            french = Locale.objects.create(language_code="fr")
+            locale_sync = LocaleSynchronization.objects.create(locale=french, sync_from=default)
+
             homepage = Homepage.objects.first()
             if not homepage:
                 site_root = Page.objects.first()
@@ -50,6 +56,8 @@ class BuyersGuideViewTest(TestCase):
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
 
+            locale_sync.sync_trees()
+
     def test_homepage(self):
         """
         Test that the homepage works.
@@ -57,7 +65,7 @@ class BuyersGuideViewTest(TestCase):
         response = self.client.get('/privacynotincluded/')
         self.assertEqual(response.status_code, 302, 'Homepage should be forwarded to /en/ by default')
 
-    @skip("TODO: REENABLE: THIS HAS BEEN TESTED MANUALLY BUT FAILS IN THIS CODE FORM ATM")
+    #@skip("TODO: REENABLE: THIS HAS BEEN TESTED MANUALLY BUT FAILS IN THIS CODE FORM ATM")
     def test_localised_homepage(self):
         """
         Test that the homepage redirects properly under different locale configurations.
@@ -66,12 +74,14 @@ class BuyersGuideViewTest(TestCase):
         self.assertEqual(response.status_code, 302, 'simple locale gets redirected')
 
         response = self.client.get('/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='fr')
+        print(response.redirect_chain)
+        print(self.client.get('/fr/privacynotincluded/'))
         self.assertEqual(
             response.redirect_chain[0][0],
             '/fr/privacynotincluded/',
             'redirects according to HTTP_ACCEPT_LANGUAGE'
         )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
         response = self.client.get('/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='foo')
         self.assertEqual(response.redirect_chain[0][0], '/en/privacynotincluded/', 'redirects to /en/ by default')
