@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.test.utils import override_settings
 from rest_framework.test import APITestCase
 from django.test import TestCase, RequestFactory
-from unittest import skip
 
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
