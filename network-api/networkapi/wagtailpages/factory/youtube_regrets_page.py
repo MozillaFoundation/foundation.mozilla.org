@@ -44,7 +44,7 @@ class YoutubeRegretsReporterExtensionPageFactory(PageFactory):
             'header',
         )
 
-    title = 'YouTube Regrets Reporter Extension'
+    title = 'Regrets Reporter Extension'
     slug = 'extension'
 
 
@@ -116,5 +116,20 @@ def generate(seed):
             title=reporter_page_title,
         )
         YoutubeRegrets2021PageFactory.create(parent=youtube_regrets)
-        YoutubeRegretsReporterExtensionPageFactory.create(parent=youtube_regrets)
+    reseed(seed)
+
+    # Youtube Extension Landing page
+    try:
+        youtube_index_page = WagtailPage.objects.get(title='Youtube')
+        print('youtube campaign index page exists')
+    except WagtailPage.DoesNotExist:
+        print('Generating a youtube campaign index page')
+        youtube_index_page = CampaignIndexPageFactory.create(
+            parent=home_page,
+            title='Youtube',
+            live=True
+        )
+        YoutubeRegretsReporterExtensionPageFactory.create(parent=youtube_index_page)
+
+
     reseed(seed)
