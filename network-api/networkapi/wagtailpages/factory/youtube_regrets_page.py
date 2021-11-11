@@ -131,5 +131,4 @@ def generate(seed):
         )
         YoutubeRegretsReporterExtensionPageFactory.create(parent=youtube_index_page)
 
-
     reseed(seed)
