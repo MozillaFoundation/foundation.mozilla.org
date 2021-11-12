@@ -46,7 +46,7 @@
     </div>
     {% endif %}
 
-    <div class="bg-white py-3 tw-px-6">
+    <div class="bg-white tw-pb-4 tw-pt-5 tw-px-6">
       <div class="row intro mb-4">
         <div class="tw-flex tw-space-x-2 tw-flex-wrap tw-px-4 tw-mb-4">
           {% for cat in product.product_categories.all %}
@@ -149,12 +149,12 @@
                           <img src="{% static "_images/buyers-guide/icon-info-circle.svg" %}" alt="{% trans "information" context "icon description for screen readers" %}" class="tw-h-4 tw-w-4 tw-ml-2 tw-mb-1">
                         </a>
                       </h3>
-                      <div class="row">
+                      <div class="row tw-space-y-4 medium:tw-space-y-0">
                         {% trans "Camera"          as camera %}
                         {% trans "Microphone"      as microphone %}
                         {% trans "Tracks location" as tracks_location %}
 
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-4 ">
                           {% include "fragments/it_uses.html" with title=camera          device=product.camera_device     app=product.camera_app      %}
                         </div>
                         <div class="col-12 col-md-4">
@@ -170,7 +170,7 @@
                   <section class="criterion">
                     <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What can be used to sign up?" %}</h3>
 
-                    <div class="row">
+                    <div class="row tw-space-y-4 medium:tw-space-y-0">
                       {% trans "Email"               as email %}
                       {% trans "Phone"               as phone %}
                       {% trans "Third-party account" as third_party_account %}
@@ -194,7 +194,7 @@
                   <section class="criterion">
                     <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What data does the company collect?" %}</h3>
 
-                    <div class="row">
+                    <div class="row tw-space-y-4 medium:tw-space-y-0">
                       {% trans "Personal"      as personal_data_collected %}
                       {% trans "Body related"     as biometric_data_collected %}
                       {% trans "Social"        as social_data_collected %}
