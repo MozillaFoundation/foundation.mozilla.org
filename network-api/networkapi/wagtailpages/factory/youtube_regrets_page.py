@@ -45,7 +45,7 @@ class YoutubeRegretsReporterExtensionPageFactory(PageFactory):
         )
 
     title = 'Regrets Reporter Extension'
-    slug = 'extension'
+    slug = 'regretsreporter'
 
 
 class YoutubeRegrets2021PageFactory(PageFactory):
