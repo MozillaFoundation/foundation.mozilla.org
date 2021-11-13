@@ -150,7 +150,7 @@ class YoutubeRegrets2021Page(FoundationMetadataPageMixin, Page):
 
 class YoutubeRegretsReporterExtensionPage(FoundationMetadataPageMixin, Page):
 
-    template = 'wagtailpages/pages/youtube_regrets_reporter_extension.html'
+    template = 'wagtailpages/pages/regrets-reporter-landing-page/youtube_regrets_reporter_extension.html'
     max_count = 1
     zen_nav = True
 
