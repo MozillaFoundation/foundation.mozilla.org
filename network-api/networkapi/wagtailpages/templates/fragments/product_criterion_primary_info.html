@@ -1,7 +1,7 @@
 {% load i18n static wagtailcore_tags %}
 
 <div class="primary-info">
-    <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center">
+    <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center tw-flex-wrap">
       {{ label }}
       {% if info != None and info != "" %}
         <a href="{{info}}">
@@ -10,7 +10,7 @@
       {% endif %}
     </h3>
     {% if rich_text_value %}
-      <div class="criterion-richtext-value mb-0">
+      <div class="criterion-richtext-value mb-0 rating">
         {{ value|richtext }}
       </div>
     {% else %}
