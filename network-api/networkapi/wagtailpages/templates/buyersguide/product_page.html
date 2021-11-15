@@ -2,6 +2,12 @@
 
 {% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
 
+{% block social_metadata %}
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="{{ lang_code|to_opengraph_locale }}">
+  <meta property="wagtail:language" content="{{ lang_code }}">
+{% endblock %}
+
 {% block head_extra %}
   <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
 {% endblock %}
