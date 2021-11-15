@@ -27,9 +27,8 @@ const SearchFilter = {
       );
     }
 
-    const searchInput = (SearchFilter.searchInput = searchBar.querySelector(
-      `input`
-    ));
+    const searchInput = (SearchFilter.searchInput =
+      searchBar.querySelector(`input`));
 
     searchInput.addEventListener(`input`, (evt) => {
       const searchText = searchInput.value.trim();
@@ -365,9 +364,8 @@ const SearchFilter = {
       document.querySelector(".category-header").href = document.querySelector(
         `#multipage-nav a[data-name="${parent}"]`
       ).href;
-      document.querySelector(
-        `#pni-nav-mobile .active-link-label`
-      ).textContent = parent;
+      document.querySelector(`#pni-nav-mobile .active-link-label`).textContent =
+        parent;
     } else {
       const header = category === "None" ? "All" : category;
       document.querySelector(".category-header").textContent = header;
@@ -473,7 +471,7 @@ const SearchFilter = {
     const list = [...container.querySelectorAll(`.product-box`)];
 
     list.sort((a, b) => {
-      for (field of SORTS) {
+      for (const field of SORTS) {
         const qs = `.product-${field}`;
         const [propertyA, propertyB] = [
           a.querySelector(qs),
@@ -623,9 +621,9 @@ const SearchFilter = {
 
   test: (product, text) => {
     text = text.toLowerCase(); // Note that this is absolutely not true for all languages, but it's true for us.
-    let qs, data, field;
+    let qs, data;
 
-    for (field of FILTERS) {
+    for (const field of FILTERS) {
       qs = `.product-${field}`;
       data = product.querySelector(qs);
       data = (data.value || data.textContent).toLowerCase();
