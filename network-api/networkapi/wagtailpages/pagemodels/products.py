@@ -1,5 +1,6 @@
 import json
 
+from bs4 import BeautifulSoup
 from datetime import datetime
 from django.conf import settings
 from django.core.cache import cache
@@ -11,6 +12,7 @@ from django.db.models import F
 
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
+from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext, pgettext
@@ -738,12 +740,35 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         votes = product.votes.get_votes()
         data = {
             'creepiness': {
-                'vote_breakdown':  {k: v for (k, v) in enumerate(votes)},
+                'vote_breakdown': {k: v for (k, v) in enumerate(votes)},
                 'average': product.creepiness
             },
             'total': product.total_vote_count
         }
         return json.dumps(data)
+
+    # See package docs for `get_meta_*` methods: https://pypi.org/project/wagtail-metadata/
+    def get_meta_title(self):
+        return gettext("*Privacy Not Included review:") + f" {self.title}"
+
+    def get_meta_description(self):
+        if self.search_description:
+            return self.search_description
+
+        soup = BeautifulSoup(self.blurb, "html.parser")
+        first_paragraph = soup.find("p")
+        if first_paragraph:
+            return first_paragraph.text
+
+        return super().get_meta_description()
+
+    def get_meta_image_url(self, request):
+        # Heavy-duty exception handling so the page doesn't crash due to a
+        # missing sharing image.
+        try:
+            return (self.search_image or self.image).get_rendition("original").url
+        except Exception:
+            return static("_images/buyers-guide/evergreen-social.png")
 
     content_panels = Page.content_panels + [
         FieldPanel('company'),
@@ -1474,6 +1499,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     translatable_fields = [
         TranslatableField('title'),
+        SynchronizedField('cutoff_date'),
         SynchronizedField('hero_image'),
         TranslatableField('header'),
         TranslatableField('intro_text'),
