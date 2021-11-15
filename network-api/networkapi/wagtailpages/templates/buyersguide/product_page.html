@@ -48,7 +48,7 @@
 
     <div class="bg-white tw-pb-4 tw-pt-5 tw-px-6">
       <div class="row intro mb-4">
-        <div class="tw-flex tw-space-x-2 tw-flex-wrap tw-px-4 tw-mb-4">
+        <div class="tw-flex tw-gap-2 tw-flex-wrap tw-px-4 tw-mb-4">
           {% for cat in product.product_categories.all %}
             {% with category=cat.category %}
               {% localizedroutablepageurl home_page 'category-view' category.slug as cat_url %}
@@ -154,7 +154,7 @@
                         {% trans "Microphone"      as microphone %}
                         {% trans "Tracks location" as tracks_location %}
 
-                        <div class="col-12 col-md-4 ">
+                        <div class="col-12 col-md-4">
                           {% include "fragments/it_uses.html" with title=camera          device=product.camera_device     app=product.camera_app      %}
                         </div>
                         <div class="col-12 col-md-4">
@@ -239,7 +239,7 @@
                 <div class="tw-w-full tw-flex-shrink-0 tw-px-7" data-product-label="1">
                   {% localizedroutablepageurl home_page 'methodology-view' as min_sec_url %}
                   {% blocktrans with url=min_sec_url|add:"#minimum-security-standards" asvar minimum_security_standards trimmed %}
-                    Does this product meet our <a id="mss-link" class="tw-ml-1" href="{{ url }}">Minimum Security Standards</a>?
+                    Does this product meet our <span class="tw-ml-1"></span> <a id="mss-link" class="" href="{{ url }}">Minimum Security Standards</a>?
                   {% endblocktrans %}
                   {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False   value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards info=min_sec_url  %}
 
