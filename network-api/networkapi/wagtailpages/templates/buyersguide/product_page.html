@@ -2,6 +2,12 @@
 
 {% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
 
+{% block social_metadata %}
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="{{ lang_code|to_opengraph_locale }}">
+  <meta property="wagtail:language" content="{{ lang_code }}">
+{% endblock %}
+
 {% block head_extra %}
   <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
 {% endblock %}
@@ -132,15 +138,15 @@
                 data-product-label="2"
                 class="{{tab_class}}"
               >
+                {% trans "A.I." %}
                 {% if product.ai_is_untrustworthy_ding %}
                   <img class="tw-h-6 tw-w-6 tw-ml-3" src="{% static "_images/buyers-guide/warning-ding.svg" %}" alt="{% trans "warning" context "icon description for screen readers" %}">
                 {% endif %}
-                {% trans "A.I." %}
               </span>
             </div>
-            <div class="tw-overflow-hidden">
+            <div class="tw-overflow-hidden tw--mx-7">
               <div id="product-tab-content" class="tw-w-full tw-flex tw-transition-transform tw-ease-in-out tw-duration-300 tw-items-start">
-                <div class="tw-w-full tw-flex-shrink-0" data-product-label="0">
+                <div class="tw-w-full tw-flex-shrink-0 tw-px-7" data-product-label="0">
                   {% if product.product_type == 'general' %}
                     <section class="criterion">
                       <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center">
@@ -236,7 +242,7 @@
                   {% include "fragments/product_privacy.html"    with  label=privacy_policy_links          value=""         links=product.privacy_policy_links.all                  %}
                 </div>
 
-                <div class="tw-w-full tw-flex-shrink-0" data-product-label="1">
+                <div class="tw-w-full tw-flex-shrink-0 tw-px-7" data-product-label="1">
                   {% localizedroutablepageurl home_page 'methodology-view' as min_sec_url %}
                   {% blocktrans with url=min_sec_url|add:"#minimum-security-standards" asvar minimum_security_standards trimmed %}
                     Does this product meet our <a id="mss-link" class="tw-ml-1" href="{{ url }}">Minimum Security Standards</a>?
@@ -256,7 +262,7 @@
                   {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy           %}
                 </div>
 
-                <div class="tw-w-full tw-flex-shrink-0" data-product-label="2">
+                <div class="tw-w-full tw-flex-shrink-0 tw-px-7" data-product-label="2">
                   {% if product.product_type == 'general' %}
                     <section class="criterion-group">
                       {% with product.uses_ai|extended_yes_no as uses_ai %}
