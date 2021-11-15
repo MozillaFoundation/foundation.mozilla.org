@@ -10,9 +10,7 @@ const NO_RESULTS_NOTICE = document.getElementById(
 const FILTERS = [`company`, `name`, `blurb`, `worst-case`];
 const SORTS = [`name`, `company`, `blurb`];
 const SUBMIT_PRODUCT = document.querySelector(".recommend-product");
-const CREEPINESS_FACE = document.querySelector(
-  ".creep-o-meter-information"
-);
+const CREEPINESS_FACE = document.querySelector(".creep-o-meter-information");
 const categoryTitle = document.querySelector(`.category-title`);
 const parentTitle = document.querySelector(`.parent-title`);
 const toggle = document.querySelector(`#product-filter-pni-toggle`);
@@ -51,7 +49,6 @@ const SearchFilter = {
     const clearText = () => {
       searchBar.classList.remove(`has-content`);
       searchInput.value = ``;
-      searchInput.focus();
       ALL_PRODUCTS.forEach((product) => {
         product.classList.remove(`d-none`);
         product.classList.add(`d-flex`);
@@ -74,11 +71,12 @@ const SearchFilter = {
       evt.preventDefault();
       SearchFilter.filterSubcategory("None");
       SearchFilter.updateHeader("None", null);
+      searchInput.focus();
       clearText();
     });
 
     const navLinks = document.querySelectorAll(
-      `#multipage-nav a,.category-header`
+      `#multipage-nav a,.category-header,#pni-nav-mobile a`
     );
 
     for (const nav of navLinks) {
@@ -95,10 +93,24 @@ const SearchFilter = {
           .querySelector(`#multipage-nav a.active`)
           .classList.remove(`active`);
 
+        document
+          .querySelector(`#pni-nav-mobile a.active`)
+          .classList.remove(`active`);
+
+        document
+          .querySelector("#pni-nav-mobile .dropdown-nav")
+          .classList.remove("dropdown-nav-open");
+
         if (evt.target.dataset.name) {
           document
             .querySelector(
               `#multipage-nav a[data-name="${evt.target.dataset.name}"]`
+            )
+            .classList.add(`active`);
+
+          document
+            .querySelector(
+              `#pni-nav-mobile a[data-name="${evt.target.dataset.name}"]`
             )
             .classList.add(`active`);
 
@@ -165,9 +177,7 @@ const SearchFilter = {
             href
           );
 
-          document.title = SearchFilter.getTitle(
-            categoryTitle.value.trim()
-          );
+          document.title = SearchFilter.getTitle(categoryTitle.value.trim());
           SearchFilter.updateHeader(
             categoryTitle.value.trim(),
             parentTitle.value.trim()
@@ -206,7 +216,15 @@ const SearchFilter = {
           .classList.remove(`active`);
 
         document
+          .querySelector(`#pni-nav-mobile a.active`)
+          .classList.remove(`active`);
+
+        document
           .querySelector(`#multipage-nav a[data-name="None"]`)
+          .classList.add(`active`);
+
+        document
+          .querySelector(`#pni-nav-mobile a[data-name="None"]`)
           .classList.add(`active`);
 
         SearchFilter.filterCategory("None");
@@ -237,7 +255,15 @@ const SearchFilter = {
             .classList.remove(`active`);
 
           document
+            .querySelector(`#pni-nav-mobile a.active`)
+            .classList.remove(`active`);
+
+          document
             .querySelector(`#multipage-nav a[data-name="${category}"]`)
+            .classList.add(`active`);
+
+          document
+            .querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
             .classList.add(`active`);
 
           SearchFilter.toggleSubcategory(true);
@@ -250,7 +276,7 @@ const SearchFilter = {
       }
 
       SearchFilter.filterCategory(category);
-      SearchFilter.filterSubcategory(category);
+      SearchFilter.filterSubcategory(parent ?? category);
       SearchFilter.updateHeader(category, parent);
 
       if (history.state?.filter) {
@@ -294,6 +320,18 @@ const SearchFilter = {
         document.body.classList.remove(`show-ding-only`);
       }
     }
+
+    if (history.state?.parent && history.state?.category) {
+      document
+        .querySelector(
+          `a.subcategories[data-name="${history.state?.category}"]`
+        )
+        .scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "start",
+        });
+    }
   },
 
   clearCategories: () => {
@@ -308,24 +346,38 @@ const SearchFilter = {
         .querySelector(`#multipage-nav a[data-name="None"]`)
         .classList.add(`active`);
     }
+
+    if (document.querySelector(`#pni-nav-mobile a.active`)) {
+      document
+        .querySelector(`#pni-nav-mobile a.active`)
+        .classList.remove(`active`);
+      document
+        .querySelector(`#pni-nav-mobile a[data-name="None"]`)
+        .classList.add(`active`);
+    }
   },
 
   updateHeader: (category, parent) => {
     if (parent) {
       document.querySelector(".category-header").textContent = parent;
       document.querySelector(".category-header").dataset.name = parent;
-      document.querySelector(".category-header").href =
-        document.querySelector(
-          `#multipage-nav a[data-name="${parent}"]`
-        ).href;
+      document.querySelector(".category-header").href = document.querySelector(
+        `#multipage-nav a[data-name="${parent}"]`
+      ).href;
+      document.querySelector(`#pni-nav-mobile .active-link-label`).textContent =
+        parent;
     } else {
       const header = category === "None" ? "All" : category;
       document.querySelector(".category-header").textContent = header;
       document.querySelector(".category-header").dataset.name = category;
-      document.querySelector(".category-header").href =
-        document.querySelector(
-          `#multipage-nav a[data-name="${category}"]`
-        ).href;
+      document.querySelector(".category-header").href = document.querySelector(
+        `#multipage-nav a[data-name="${category}"]`
+      ).href;
+      document.querySelector(`#pni-nav-mobile .active-link-label`).textContent =
+        category === "None"
+          ? document.querySelector(`#multipage-nav a[data-name="None"]`)
+              .textContent
+          : category;
     }
   },
 
@@ -375,8 +427,18 @@ const SearchFilter = {
         .classList.remove(`active`);
     }
 
+    if (document.querySelector(`#pni-nav-mobile a.active`)) {
+      document
+        .querySelector(`#pni-nav-mobile a.active`)
+        .classList.remove(`active`);
+    }
+
     document
       .querySelector(`#multipage-nav a[data-name="None"]`)
+      .classList.add(`active`);
+
+    document
+      .querySelector(`#pni-nav-mobile a[data-name="None"]`)
       .classList.add(`active`);
 
     ALL_PRODUCTS.forEach((product) => {
@@ -409,7 +471,7 @@ const SearchFilter = {
     const list = [...container.querySelectorAll(`.product-box`)];
 
     list.sort((a, b) => {
-      for (field of SORTS) {
+      for (const field of SORTS) {
         const qs = `.product-${field}`;
         const [propertyA, propertyB] = [
           a.querySelector(qs),
@@ -469,6 +531,18 @@ const SearchFilter = {
         .classList.remove(`active`);
     }
 
+    if (document.querySelector(`#pni-nav-mobile a.active`)) {
+      document
+        .querySelector(`#pni-nav-mobile a.active`)
+        .classList.remove(`active`);
+    }
+
+    document
+      .querySelector(
+        `#pni-nav-mobile a[data-name="${parentTitle.value.trim()}"]`
+      )
+      .classList.add(`active`);
+
     document
       .querySelector(
         `#multipage-nav a[data-name="${parentTitle.value.trim()}"]`
@@ -515,6 +589,16 @@ const SearchFilter = {
         `a.subcategories[data-name="${categoryTitle.value.trim()}"]`
       )
       .classList.remove(...defaultClasses);
+
+    document
+      .querySelector(
+        `a.subcategories[data-name="${categoryTitle.value.trim()}"]`
+      )
+      .scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
   },
 
   checkForEmptyNotice: () => {
@@ -537,9 +621,9 @@ const SearchFilter = {
 
   test: (product, text) => {
     text = text.toLowerCase(); // Note that this is absolutely not true for all languages, but it's true for us.
-    let qs, data, field;
+    let qs, data;
 
-    for (field of FILTERS) {
+    for (const field of FILTERS) {
       qs = `.product-${field}`;
       data = product.querySelector(qs);
       data = (data.value || data.textContent).toLowerCase();

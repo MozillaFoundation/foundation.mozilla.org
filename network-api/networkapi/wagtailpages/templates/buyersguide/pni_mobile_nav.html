@@ -1,0 +1,56 @@
+{% load bg_nav_tags localization i18n static wagtailroutablepage_tags %}
+
+<!-- TODO: Replace this with the multipage-nav-mobile once we change that from a react component to a vanilla one -->
+<div class="d-md-none mt-0 mb-0" id="pni-nav-mobile">
+    <div class="container">
+        <div class="row px-3 px-sm-0">
+            <div class="col-12">
+                <div class="dropdown-nav">
+                    <div>
+                        <button class="expander">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <div class="active-link-label d-inline-block multipage-link active">
+                                        {% if current_category.parent %}
+                                            {{current_category.parent.localized.name}}
+                                        {% elif current_category %}
+                                            {{current_category.localized.name}}
+                                        {% else %}
+                                            {% trans "All Categories" %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="d-inline-block align-self-center control"></div>
+                            </div>
+                        </button>
+                    </div>
+                    <div>
+                        {% if pagetype == "product" or pagetype == "about" %}
+                            <a class="multipage-link active" data-name="None" href="{% relocalized_url home_page.localized.url %}">{% trans "All Categories" %}</a>
+                        {% else %}
+                            <a class="multipage-link {% if not category %} active{% endif %}" data-name="None" href="{% relocalized_url home_page.localized.url %}">{% trans "All Categories" %}</a>
+                        {% endif %}
+                    </div>
+                    {% for cat in categories %}
+                        {% with original=cat.original %}
+                            {% if cat.parent == None %}
+                                {% if original.published_product_page_count > 0 %}
+                                    {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
+                                    <div>
+                                        <a 
+                                            class="multipage-link {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}"
+                                            href="{{ cat_url }}"
+                                            data-name="{{ cat.name }}"
+                                        >
+                                            {{ cat.name }}
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

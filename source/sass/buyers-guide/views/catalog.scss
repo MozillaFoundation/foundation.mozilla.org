@@ -2,13 +2,13 @@ body.catalog {
   $hero-breakpoint: $bp-lg;
   $breakpoint: $bp-md;
 
-  --sticky-height: 128px;
-  --creep-o-height: 70px;
+  --sticky-height: 73px;
+  --creep-o-height: 10px;
   --expanded-sticky-height: calc(11em + var(--creep-o-height));
   --small-sticky-height: calc(var(--expanded-sticky-height) - 6em);
 
   /* the minimal value for this buffer is 2em */
-  --mobile-creep-buffer: 2em;
+  --mobile-creep-buffer: 0em;
   --mobile-creep-offset: calc(var(--mobile-creep-buffer) - 2em);
 
   --search-icon-size-desktop: 24px;
@@ -150,17 +150,11 @@ body.catalog {
 
   #product-filter-pni {
     user-select: none;
-    position: absolute;
-    left: 0;
-    top: calc(var(--sticky-height) + var(--mobile-creep-offset));
+    margin-left: 0.5rem;
 
     @media (min-width: $bp-md) {
-      left: unset;
-      right: 0;
-      margin-left: 0.5em;
-      width: var(--pni-checkbox-container-width);
+      margin-left: auto;
       font-size: 100%;
-      top: unset;
     }
 
     input[type="checkbox"] {
@@ -277,12 +271,12 @@ body.catalog {
           @media screen and (max-width: $breakpoint) {
             .product-company {
               color: $gray-80;
-              @include set-text-size(9px, 14px);
+              @include set-text-size(12px, 16px);
             }
 
             .product-name {
               color: $black;
-              @include set-text-size(11px, 14px);
+              @include set-text-size(12px, 16px);
             }
           }
         }
@@ -328,7 +322,7 @@ body.catalog {
     z-index: 3;
     position: relative;
     top: 42px;
-    padding-top: 16px;
+    margin: 2rem 0 1rem;
     top: initial;
     z-index: 10;
 
@@ -338,8 +332,12 @@ body.catalog {
 
     &.creep-o-meter-moved {
       height: 80px;
+      margin-bottom: 0;
+      margin-top: 1rem;
 
       @media (max-width: $bp-md) {
+        height: 16px;
+        padding-bottom: 0;
         #product-filter-pni {
           top: calc(var(--mobile-creep-offset));
         }
@@ -350,7 +348,6 @@ body.catalog {
       display: flex;
       height: var(--sticky-height);
       align-items: center;
-      padding-top: initial;
 
       &.creep-o-meter-moved {
         height: var(--sticky-height);
