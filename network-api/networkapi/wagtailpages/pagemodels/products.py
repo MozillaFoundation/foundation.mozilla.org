@@ -705,7 +705,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         try:
             original = get_original_by_slug(ProductPage, self.slug)
 
-        except ProductPage.DoesNotExist as error:
+        except ProductPage.DoesNotExist:
             """
             This may happen when a product was created, got localized,
             then the original product was deleted a new product with the
@@ -722,14 +722,13 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
             TODO: Remove this patch code once #7592 is addressed.
             """
-            slug = re.sub('(-\d+)+$', '', self.slug)
+            slug = re.sub('(-\\d+)+$', '', self.slug)
             original = get_original_by_slug(ProductPage, slug)
 
         if original is None:
             return self
 
         return original
-
 
     def get_or_create_votes(self):
         """
