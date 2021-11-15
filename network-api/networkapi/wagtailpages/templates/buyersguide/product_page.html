@@ -2,9 +2,14 @@
 
 {% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
 
+{% block social_metadata %}
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="{{ lang_code|to_opengraph_locale }}">
+  <meta property="wagtail:language" content="{{ lang_code }}">
+{% endblock %}
+
 {% block head_extra %}
   <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
-  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
 {% endblock %}
 
 {% block social_image %}
@@ -133,15 +138,15 @@
                 data-product-label="2"
                 class="{{tab_class}}"
               >
+                {% trans "A.I." %}
                 {% if product.ai_is_untrustworthy_ding %}
                   <img class="tw-h-6 tw-w-6 tw-ml-3" src="{% static "_images/buyers-guide/warning-ding.svg" %}" alt="{% trans "warning" context "icon description for screen readers" %}">
                 {% endif %}
-                {% trans "A.I." %}
               </span>
             </div>
-            <div class="tw-overflow-hidden">
+            <div class="tw-overflow-hidden tw--mx-7">
               <div id="product-tab-content" class="tw-w-full tw-flex tw-transition-transform tw-ease-in-out tw-duration-300 tw-items-start">
-                <div class="tw-w-full tw-flex-shrink-0" data-product-label="0">
+                <div class="tw-w-full tw-flex-shrink-0 tw-px-7" data-product-label="0">
                   {% if product.product_type == 'general' %}
                     <section class="criterion">
                       <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center">
@@ -213,18 +218,18 @@
                   </section>
 
                   {% trans "How does the company use this data?" as how_does_it_use_data_collected %}
-                  {% include "fragments/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected  ding=product.data_collection_policy_is_bad %}
+                  {% include "fragments/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected  ding=product.data_collection_policy_is_bad rich_text_value=True %}
 
                   {% if product.product_type == 'general' %}
 
                     {% trans "How can you control your data?" as how_can_you_control_your_data %}
-                    {% include "fragments/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data    ding=product.data_control_policy_is_bad   %}
+                    {% include "fragments/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data    ding=product.data_control_policy_is_bad rich_text_value=True %}
 
                     {% trans "What is the company’s known track record of protecting users’ data?" as company_track_record_label %}
-                    {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record|track_record   help=product.track_record_details  ding=product.track_record_is_bad %}
+                    {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record|track_record   help=product.track_record_details  ding=product.track_record_is_bad rich_help_text=True %}
 
                     {% trans "Can this product be used offline?" as offline_capable %}
-                    {% include "fragments/product_criterion.html"  with  label=offline_capable  value=product.offline_capable   help=product.offline_use_description %}
+                    {% include "fragments/product_criterion.html"  with  label=offline_capable  value=product.offline_capable   help=product.offline_use_description rich_help_text=True %}
 
                   {% endif %}
 
@@ -232,9 +237,12 @@
                     {% trans "User-friendly privacy information?" as user_friendly_privacy_policy %}
                     {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy|extended_yes_no   help=product.user_friendly_privacy_policy_helptext  %}
                   {% endif %}
+
+                  {% trans "Links to privacy information" as privacy_policy_links %}
+                  {% include "fragments/product_privacy.html"    with  label=privacy_policy_links          value=""         links=product.privacy_policy_links.all                  %}
                 </div>
 
-                <div class="tw-w-full tw-flex-shrink-0" data-product-label="1">
+                <div class="tw-w-full tw-flex-shrink-0 tw-px-7" data-product-label="1">
                   {% localizedroutablepageurl home_page 'methodology-view' as min_sec_url %}
                   {% blocktrans with url=min_sec_url|add:"#minimum-security-standards" asvar minimum_security_standards trimmed %}
                     Does this product meet our <a id="mss-link" class="tw-ml-1" href="{{ url }}">Minimum Security Standards</a>?
@@ -250,16 +258,16 @@
                   {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption               %}
                   {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password          %}
                   {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates         %}
-                  {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities  %}
+                  {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities  rich_help_text=True %}
                   {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy           %}
                 </div>
 
-                <div class="tw-w-full tw-flex-shrink-0" data-product-label="2">
+                <div class="tw-w-full tw-flex-shrink-0 tw-px-7" data-product-label="2">
                   {% if product.product_type == 'general' %}
                     <section class="criterion-group">
                       {% with product.uses_ai|extended_yes_no as uses_ai %}
                       {% trans "Does the product use AI?" as uses_ai_label %}
-                      {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai info="/privacynotincluded/about/methodology"   %}
+                      {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai info="/privacynotincluded/about/methodology" help=product.ai_helptext rich_help_text=True  %}
 
                       {% if uses_ai != "No" %}
                         {% trans "Is this AI untrustworthy?" as ai_is_untrustworthy_label %}
@@ -275,10 +283,9 @@
                         </section>
 
                         {% trans "Does the user have control over the AI features?" as ai_is_transparent %}
-                        {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no           %}
+                        {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no help=product.ai_can_user_control_helptext rich_help_text=True %}
 
-                        <p class="pni-product-smaller-body mb-0">{{product.ai_helptext}}</p>
-                      {% endif %}
+                        {% endif %}
                       {% endwith %}
                     </section>
                   {% endif %}

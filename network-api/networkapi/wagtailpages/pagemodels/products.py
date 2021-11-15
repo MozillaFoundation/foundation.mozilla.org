@@ -1,5 +1,6 @@
 import json
 
+from bs4 import BeautifulSoup
 from datetime import datetime
 from django.conf import settings
 from django.core.cache import cache
@@ -11,6 +12,7 @@ from django.db.models import F
 
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
+from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext, pgettext
@@ -274,7 +276,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
         related_name='+',
         blank=False,
         null=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
     )
 
     panels = [
@@ -526,9 +528,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     )
 
     # How does it use this data?
-    how_does_it_use_data_collected = models.TextField(
-        verbose_name='how does the company use this data?',
+    how_does_it_use_data_collected = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='How does this product use the data collected?',
         blank=True,
     )
     data_collection_policy_is_bad = models.BooleanField(
@@ -581,10 +584,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     manage_vulnerabilities = ExtendedYesNoField(
         verbose_name='manages security vulnerabilities',
     )
-    manage_vulnerabilities_helptext = models.TextField(
-        verbose_name='description',
+    manage_vulnerabilities_helptext = RichTextField(
         max_length=5000,
-        blank=True
+        features=['bold', 'italic', 'link'],
+        blank=True,
     )
     privacy_policy = ExtendedYesNoField(
     )
@@ -603,10 +606,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         blank=True,
         related_name='votes',
     )
-
-    def get_product_categories(self):
-        # Weed out possible NULL values from product categories having been deleted.
-        return self.product_categories.filter(category__isnull=False)
 
     @classmethod
     def map_import_fields(cls):
@@ -741,12 +740,35 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         votes = product.votes.get_votes()
         data = {
             'creepiness': {
-                'vote_breakdown':  {k: v for (k, v) in enumerate(votes)},
+                'vote_breakdown': {k: v for (k, v) in enumerate(votes)},
                 'average': product.creepiness
             },
             'total': product.total_vote_count
         }
         return json.dumps(data)
+
+    # See package docs for `get_meta_*` methods: https://pypi.org/project/wagtail-metadata/
+    def get_meta_title(self):
+        return gettext("*Privacy Not Included review:") + f" {self.title}"
+
+    def get_meta_description(self):
+        if self.search_description:
+            return self.search_description
+
+        soup = BeautifulSoup(self.blurb, "html.parser")
+        first_paragraph = soup.find("p")
+        if first_paragraph:
+            return first_paragraph.text
+
+        return super().get_meta_description()
+
+    def get_meta_image_url(self, request):
+        # Heavy-duty exception handling so the page doesn't crash due to a
+        # missing sharing image.
+        try:
+            return (self.search_image or self.image).get_rendition("original").url
+        except Exception:
+            return static("_images/buyers-guide/evergreen-social.png")
 
     content_panels = Page.content_panels + [
         FieldPanel('company'),
@@ -1141,9 +1163,10 @@ class GeneralProductPage(ProductPage):
 
     # How can you control your data
 
-    how_can_you_control_your_data = models.TextField(
-        verbose_name='how can you control your data?',
+    how_can_you_control_your_data = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='How does this product let you control your data?',
         blank=True,
     )
 
@@ -1166,9 +1189,10 @@ class GeneralProductPage(ProductPage):
         verbose_name='mini-ding for bad track record'
     )
 
-    track_record_details = models.TextField(
-        verbose_name='known track record description',
+    track_record_details = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='Describe the track record of this company here.',
         blank=True,
     )
 
@@ -1178,9 +1202,10 @@ class GeneralProductPage(ProductPage):
         verbose_name='can this product be used offline?',
     )
 
-    offline_use_description = models.TextField(
-        verbose_name='offline description',
+    offline_use_description = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='Describe how this product can be used offline.',
         blank=True,
     )
 
@@ -1189,9 +1214,10 @@ class GeneralProductPage(ProductPage):
     uses_ai = ExtendedYesNoField(
         verbose_name='does the product use AI?',
     )
-    ai_helptext = models.TextField(
-        verbose_name='general AI description',
+    ai_helptext = RichTextField(
         max_length=5000,
+        features=['bold', 'italic', 'link'],
+        help_text='Helpful text around AI to show on the product page',
         blank=True,
     )
     ai_is_untrustworthy = ExtendedYesNoField(
@@ -1473,6 +1499,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     translatable_fields = [
         TranslatableField('title'),
+        SynchronizedField('cutoff_date'),
         SynchronizedField('hero_image'),
         TranslatableField('header'),
         TranslatableField('intro_text'),
