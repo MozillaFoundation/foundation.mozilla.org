@@ -4,7 +4,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from .common.link_blocks import InternalLinkBlock, ExternalLinkBlock
 
 
-class SpaceCardBlock(blocks.StructBlock):
+class SpacesCardBlock(blocks.StructBlock):
     image = ImageChooserBlock()
 
     title = blocks.CharBlock(
@@ -26,14 +26,19 @@ class SpaceCardBlock(blocks.StructBlock):
 
     class Meta:
         icon = 'form'
-        label = 'Space Card'
+        label = 'Spaces Card'
 
 
-class SpaceCardListBlock(blocks.StructBlock):
+class SpacesBlock(blocks.StructBlock):
     title = blocks.CharBlock()
 
-    space_cards = blocks.ListBlock(SpaceCardBlock(), help_text='A list of Space Cards.')
+    cards = blocks.StreamBlock(
+        [
+            ('space_card', SpacesCardBlock()),
+        ],
+        help_text='A list of Spaces Cards.',
+    )
 
     class Meta:
         icon = 'placeholder'
-        template = 'wagtailpages/blocks/space_card_list_block.html'
+        template = 'wagtailpages/blocks/spaces_block.html'
