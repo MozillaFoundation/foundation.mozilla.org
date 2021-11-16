@@ -36,6 +36,9 @@ const SearchFilter = {
       if (searchText) {
         searchBar.classList.add(`has-content`);
         SearchFilter.filter(searchText);
+      } else {
+        clearText();
+        applyHistory();
       }
     });
 
@@ -67,12 +70,58 @@ const SearchFilter = {
       SearchFilter.moveCreepyFace();
     };
 
+    const applyHistory = () => {
+      const { category, parent } = history.state;
+
+      categoryTitle.value = category;
+      parentTitle.value = parent;
+
+      if (parent) {
+        SearchFilter.highlightParent();
+        SearchFilter.toggleSubcategory();
+      } else {
+        document
+          .querySelector(`#multipage-nav a.active`)
+          .classList.remove(`active`);
+
+        document
+          .querySelector(`#pni-nav-mobile a.active`)
+          .classList.remove(`active`);
+
+        document
+          .querySelector(`#multipage-nav a[data-name="${category}"]`)
+          .classList.add(`active`);
+
+        document
+          .querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
+          .classList.add(`active`);
+
+        SearchFilter.toggleSubcategory(true);
+      }
+      SearchFilter.filterCategory(category);
+      SearchFilter.filterSubcategory(parent || category);
+      SearchFilter.updateHeader(category, parent);
+      SearchFilter.sortOnCreepiness();
+      SearchFilter.moveCreepyFace();
+
+      if (history.state?.parent && history.state?.category) {
+        document
+          .querySelector(
+            `a.subcategories[data-name="${history.state?.category}"]`
+          )
+          .scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "start",
+          });
+      }
+    };
+
     clear.addEventListener(`click`, (evt) => {
       evt.preventDefault();
-      SearchFilter.filterSubcategory("None");
-      SearchFilter.updateHeader("None", null);
       searchInput.focus();
       clearText();
+      applyHistory();
     });
 
     const navLinks = document.querySelectorAll(
@@ -276,7 +325,7 @@ const SearchFilter = {
       }
 
       SearchFilter.filterCategory(category);
-      SearchFilter.filterSubcategory(parent ?? category);
+      SearchFilter.filterSubcategory(parent || category);
       SearchFilter.updateHeader(category, parent);
 
       if (history.state?.filter) {

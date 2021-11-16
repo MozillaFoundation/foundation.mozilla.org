@@ -1,3 +1,4 @@
+import re
 import json
 
 from bs4 import BeautifulSoup
@@ -701,7 +702,33 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
     @property
     def original_product(self):
-        return get_original_by_slug(ProductPage, self.slug)
+        try:
+            original = get_original_by_slug(ProductPage, self.slug)
+
+        except ProductPage.DoesNotExist:
+            """
+            This may happen when a product was created, got localized,
+            then the original product was deleted a new product with the
+            same title (and thus, slug) gets created.
+
+            The old localizations are still around, so `sync_locale_trees`
+            will see a new page to set up aliases for, but their slug ends
+            up conflicting with the slugs for the original localized pages,
+            and so they get `-1` appended, meaning we can't find their
+            "original" equivalent using their slug: we need to rewrite
+            the slug to remove the number suffix first.
+
+            See: https://github.com/wagtail/wagtail/issues/7592
+
+            TODO: Remove this patch code once #7592 is addressed.
+            """
+            slug = re.sub('(-\\d+)+$', '', self.slug)
+            original = get_original_by_slug(ProductPage, slug)
+
+        if original is None:
+            return self
+
+        return original
 
     def get_or_create_votes(self):
         """
@@ -1499,6 +1526,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     translatable_fields = [
         TranslatableField('title'),
+        SynchronizedField('cutoff_date'),
         SynchronizedField('hero_image'),
         TranslatableField('header'),
         TranslatableField('intro_text'),
