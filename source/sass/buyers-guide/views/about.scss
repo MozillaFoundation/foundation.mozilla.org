@@ -31,7 +31,6 @@
 .how-to-use,
 .why-we-made,
 .minimum-security-standards,
-.about-methodology,
 .about-minimum-security,
 .about-privacy,
 .about-permissions,
@@ -61,4 +60,14 @@
 .p-heading {
   @include heading("Nunito Sans", 700, 0, inherit, inherit);
   @include set-text-size(18px, 18px);
+}
+
+.mini-warning-ding-icon::after {
+  content: " ";
+  display: inline-block;
+  width: 24px;
+  height: 1.5rem;
+  background: url(../_images/buyers-guide/warning-ding.svg) no-repeat;
+  margin-left: 8px;
+  margin-bottom: -5px;
 }

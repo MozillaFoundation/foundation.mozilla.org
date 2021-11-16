@@ -9,7 +9,6 @@
 {% else %}{% blocktrans context "“*privacy not included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included | Shop smart and safe{% endblocktrans %} | Mozilla Foundation{% endif %}
 {% endblock %}
 
-
 {# TODO: consider using a different ga_identifier? #}
 
 
@@ -23,6 +22,8 @@
 
 {% block wagtail_metadata %}
   {% meta_tags %}
+  <meta name="pni-home-title" content="{% blocktrans context "“*privacy not included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included | Shop smart and safe | Mozilla Foundation{% endblocktrans %}">
+  <meta name="pni-category-title" content="{% trans "Privacy & Security Guide | Mozilla Foundation" %}">
 {% endblock %}
 
 
@@ -80,22 +81,24 @@
   {% block hero %}{% endblock %}
 
   {% block catgory_nav %}
-  {% include "../partials/multipage_nav_mobile.html" with pni_category_nav=True wrapper_classes="mt-0" %}
+  {% include "buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
   <nav id="multipage-nav" class="pni-category-nav text-center d-none d-md-block" title="{% trans "site navigation" context "Tooltip on menu items" %}">
     <div class="container">
       <div class="row">
         <div class="col">
           {% if pagetype == "product" or pagetype == "about" %}
-            <a class="multipage-link active" href="{% relocalized_url home_page.localized.url %}">{% trans "All" %}</a>
+            <a class="multipage-link active" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All" %}</a>
           {% else %}
-            <a class="multipage-link {% if not category %} active{% endif %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All" %}</a>
+            <a class="multipage-link {% if not category %} active{% endif %}" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All" %}</a>
           {% endif %}
 
           {% for cat in categories %}
             {% with original=cat.original %}
-            {% if original.published_product_page_count > 0 %}
-              {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
-              <a class="multipage-link {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}" href="{{ cat_url }}" data-name="{{ original.name }}">{{ cat.name }}</a>
+            {% if cat.parent == None %}
+              {% if original.published_product_page_count > 0 %}
+                {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
+                <a class="multipage-link {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
+              {% endif %}
             {% endif %}
             {% endwith %}
           {% endfor %}
