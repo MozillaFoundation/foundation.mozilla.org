@@ -416,7 +416,7 @@ const SearchFilter = {
       document.querySelector(`#pni-nav-mobile .active-link-label`).textContent =
         parent;
     } else {
-      const header = category === "None" ? "All" : category;
+      const header = category === "None" ? gettext("All") : category;
       document.querySelector(".category-header").textContent = header;
       document.querySelector(".category-header").dataset.name = category;
       document.querySelector(".category-header").href = document.querySelector(
