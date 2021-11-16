@@ -12,7 +12,7 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mozfest', '0026_add_single_quote_block'),
+        ('mozfest', '0027_add_single_quote_block'),
     ]
 
     operations = [
