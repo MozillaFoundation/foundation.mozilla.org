@@ -1,0 +1,10 @@
+// Contains rules for shared nav elements.
+// For component/section specifc rules: add them to their corresponding SCSS files instead of here (e.g., primary-nav.scss, multipage-nav.scss, multipage-nav-mobile.scss etc)
+
+.donate-banner {
+  background-color: $black;
+  background-image: url(../_images/mozilla-donate-banner-blue.jpg);
+  background-size: cover;
+  background-position: center center;
+}
+
