@@ -1,0 +1,40 @@
+{% load settings_value i18n static %}
+
+{% with wrapper_class="tw-py-7" %}
+<div class="donate-banner tw-bg-black dark-theme {{wrapper_class}} print:tw-hidden">
+    <div class="tw-container tw-mt-5">
+        <div class="tw-row">
+
+            {% block left_banner_column %}
+            <div class="medium:tw-w-5/12 large:tw-w-6/12 tw-px-4 tw-flex tw-flex-col">
+                <p class="h2-heading tw-mt-5 tw-mb-0">
+                    {% trans "Help Mozilla fight for a better internet this Giving Tuesday" %}
+                </p>
+                <p class="body-large tw-mt-3">
+                    {% trans "We're proudly nonprofit, working to keep the web healthy." %}
+                </p>
+            </div>
+            {% endblock %}
+
+            {% block right_banner_column %}
+            <div
+                class="medium:tw-w-6/12 large:tw-w-5/12 tw-px-4 tw-flex tw-flex-col tw-justify-between medium:tw-ml-[8.3%]">
+                <div class="tw-row">
+                    <div class="xlarge:tw-w-5/12 large:tw-w-6/12 tw-px-4">
+                        <p class="body">
+                            {% trans "Your contributions help build a safe and open internet. Can you donate today?" %}
+                        </p>
+                    </div>
+                </div>
+                <div class="tw-row">
+                    <div class="tw-w-full tw-px-4">
+                        <button class="btn btn-primary">{% trans "Donate" %}</button>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+
+        </div>
+    </div>
+</div>
+{% endwith %}
