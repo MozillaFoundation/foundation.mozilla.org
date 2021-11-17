@@ -14,7 +14,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('mozfest', '0028_auto_20211117_1231'),
-        ('wagtailpages', '0055_migrate_list_quote_blocks'),
     ]
 
     operations = [
