@@ -23,12 +23,13 @@ eggs/
 .eggs/
 lib/
 lib64/
-parts/
+parts/*
 sdist/
 var/
 *.egg-info/
 .installed.cfg
 *.egg
+!parts/tags.html
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
