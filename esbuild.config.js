@@ -34,6 +34,7 @@ const sources = {
   },
   callpower: {
     source: `foundation/pages/callpower.js`,
+    bundle: true,
   },
   "directory-listing-filters": {
     source: `foundation/pages/directory-listing-filters.js`,
