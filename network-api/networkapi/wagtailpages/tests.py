@@ -80,6 +80,14 @@ class BuyersGuideViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
+        response = self.client.get('/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='sw')
+        self.assertEqual(
+            response.redirect_chain[0][0],
+            '/sw/privacynotincluded/',
+            'redirects according to HTTP_ACCEPT_LANGUAGE for non-existent locale'
+        )
+        self.assertEqual(response.status_code, 200)
+
         response = self.client.get('/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='foo')
         self.assertEqual(response.redirect_chain[0][0], '/en/privacynotincluded/', 'redirects to /en/ by default')
         self.assertEqual(response.status_code, 200)
