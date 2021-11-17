@@ -281,8 +281,11 @@
                           </div>
                         </section>
 
-                        {% trans "Does the user have control over the AI features?" as ai_is_transparent %}
-                        {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no help=product.ai_can_user_control_helptext rich_help_text=True %}
+                        {% trans "Is the company transparent about how the AI works?" as ai_is_transparent %}
+                        {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no help=product.ai_is_transparent_helptext rich_help_text=True %}
+
+                        {% trans "Does the user have control over the AI features?" as ai_can_user_control %}
+                        {% include "fragments/product_criterion.html"  with  label=ai_can_user_control  value=product.ai_can_user_control|extended_yes_no help=product.ai_can_user_control_helptext rich_help_text=True %}
 
                         {% endif %}
                       {% endwith %}
