@@ -3,5 +3,5 @@
 
 {% block block_content %}
 {% image value.image original as img %}
-<img src="{{ img.url }}" alt="{{ img.alt }}" class="{{ value.size }} my-2">
+<img src="{{ img.url }}" alt="{{ value.altText }}" class="{{ value.size }} my-2" width="{{ img.width }}" height="{{ img.height }}">
 {% endblock %}

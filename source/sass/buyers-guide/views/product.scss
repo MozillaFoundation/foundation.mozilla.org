@@ -29,7 +29,7 @@
       content: "";
       position: absolute;
       top: 24px;
-      right: 24px;
+      right: 32px;
       background: url(../_images/buyers-guide/icon-privacy-ding.svg) center /
         contain no-repeat;
       width: 47px;
@@ -39,6 +39,7 @@
         top: 40px;
         width: 63px;
         height: 80px;
+        right: 30px;
       }
 
       @at-root html[lang="de"] & {
@@ -529,13 +530,11 @@
   .criterion-richtext-value {
     p {
       @extend .pni-product-smaller-body;
-      margin-bottom: unset;
     }
   }
   .criterion-richtext-help {
     p {
       @extend .pni-product-helptext;
-      margin-bottom: unset;
     }
   }
 }

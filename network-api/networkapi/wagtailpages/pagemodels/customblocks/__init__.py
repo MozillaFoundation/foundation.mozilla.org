@@ -22,7 +22,8 @@ from .recent_blog_entries import RecentBlogEntries
 from .typeform_block import TypeformBlock
 from .quote_block import QuoteBlock
 from .single_quote_block import SingleQuoteBlock
-from .space_card_list_block import SpaceCardListBlock
+from .session_slider_block import SessionSliderBlock
+from .spaces_block import SpacesBlock
 from .video_block import ExternalVideoBlock, VideoBlock, WagtailVideoChooserBlock
 from .youtube_regret_block import YoutubeRegretBlock
 from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidthImageBlock, ArticleImageBlock
@@ -60,8 +61,9 @@ __all__ = [
     PulseProjectList,
     QuoteBlock,
     SingleQuoteBlock,
-    SpaceCardListBlock,
     RecentBlogEntries,
+    SessionSliderBlock,
+    SpacesBlock,
     TypeformBlock,
     VideoBlock,
     WagtailVideoChooserBlock,
