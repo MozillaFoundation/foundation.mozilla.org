@@ -106,7 +106,6 @@
             <div class="creep-vote-target mb-5 mt-3 mt-md-4 p-5" data-product-name="{{product.title}}" data-product-type="{{product.product_type}}">
               <input type="hidden" name="productID" value="{{ product.id }}">
               <input type="hidden" name="votes" value='{{ product.get_voting_json | safe }}'>
-              {% csrf_token %}
             </div>
         </div>
       </div>
