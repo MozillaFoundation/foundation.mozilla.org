@@ -53,8 +53,9 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
 
     body = StreamField(
         base_fields + [
+            ('session_slider', customblocks.SessionSliderBlock()),
             ('current_events_slider', customblocks.CurrentEventsSliderBlock()),
-            ('space_card_list', customblocks.SpaceCardListBlock()),
+            ('spaces', customblocks.SpacesBlock()),
         ]
     )
 
@@ -212,7 +213,7 @@ class MozfestHomepage(MozfestPrimaryPage):
     panel_count = len(parent_panels)
     n = panel_count - 1
 
-    all_panels = parent_panels[:n] + [
+    content_panels = parent_panels[:n] + [
         FieldPanel('cta_button_label'),
         FieldPanel('cta_button_destination'),
         FieldPanel('banner_heading'),
@@ -222,27 +223,6 @@ class MozfestHomepage(MozfestPrimaryPage):
         FieldPanel('banner_video_url'),
         StreamFieldPanel('banner_video'),
     ] + parent_panels[n:]
-
-    if banner_video_type == "hardcoded":
-        # Hide all the panels that aren't relevant for the video banner version of the MozFest Homepage
-        content_panels = [
-            field for field in all_panels
-            if field.field_name not in [
-                'banner', 'header', 'intro', 'banner_carousel', 'banner_guide_text', 'banner_cta_label',
-                'banner_video', 'banner_video_url',
-            ]
-        ]
-    elif banner_video_type == "featured":
-        # Hide all the panels that aren't relevant for the video banner version of the MozFest Homepage
-        content_panels = [
-            field for field in all_panels
-            if field.field_name not in [
-                'banner', 'banner_guide_text', 'banner_video_url', 'cta_button_destination',
-                'cta_button_label', 'header', 'hero_image', 'intro',
-            ]
-        ]
-    else:
-        content_panels = all_panels
 
     # Because we inherit from PrimaryPage, but the "use_wide_template" property does nothing
     # we should hide it and make sure we use the right template
