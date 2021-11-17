@@ -32,7 +32,7 @@ export default (apps, siteUrl) => {
     }
 
     apps.push(
-      new Promise(async (resolve) => {
+      new Promise((resolve) => {
         ReactDOM.render(
           <CreepVote
             productType={productType}
