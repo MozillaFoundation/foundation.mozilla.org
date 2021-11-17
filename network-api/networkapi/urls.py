@@ -1,9 +1,10 @@
 from django.conf import settings
-from django.urls import path, re_path, include
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.http import HttpResponse
+from django.shortcuts import render
+from django.urls import path, re_path, include
 from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
@@ -59,6 +60,9 @@ urlpatterns = list(filter(None, [
 
     # social-sign-on routes so that Google auth works
     re_path(r'^soc/', include('social_django.urls', namespace='social')),
+
+    # CSRF endpoint
+    re_path(r'^api/csrf/', lambda request: render(request, 'api/csrf.html')),
 
     # network API routes:
 
