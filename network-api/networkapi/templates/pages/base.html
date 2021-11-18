@@ -69,9 +69,9 @@
     </div>
     {% endif %}
 
-    {% if 1 == 1 %}
+    {% block donate_banner %}
       {% include "partials/banner.html" %}
-    {% endif %}
+    {% endblock %}
 
     {% block body_wrapped %}
     <div class="wrapper">
