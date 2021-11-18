@@ -159,7 +159,3 @@ class YoutubeRegretsReporterExtensionPage(FoundationMetadataPageMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
         return set_main_site_nav_information(self, context, 'Homepage')
-
-    class Meta:
-        verbose_name = "YouTube Regrets Report Extension Page"
-        verbose_name_plural = "YouTube Regrets Report Extension Page"
