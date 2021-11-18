@@ -16,6 +16,7 @@ import {
 import primaryNav from "./primary-nav.js";
 import EmbedTypeform from "./embed-typeform.js";
 import Dropdowns from "./dropdowns.js";
+import DonateBanner from "./donate-banner";
 import MozfestCarousels from "./components/carousel/carousel.js";
 import MozfestHeroCarousels from "./components/mozfest-hero-carousel/mozfest-hero-carousel";
 import initializeSentry from "./common/sentry-config.js";
@@ -51,6 +52,7 @@ const apps = [];
 
 let main = {
   init() {
+    DonateBanner.init();
     GoogleAnalytics.init();
     EmbedTypeform.init();
     Dropdowns.init();
@@ -145,56 +147,6 @@ let main = {
     if (document.querySelector(`.mozfest`)) {
       MozfestCarousels.init();
       MozfestHeroCarousels.init();
-    }
-
-    if (document.querySelector(`.donate-banner`)) {
-      document
-        .querySelector(`.donate-banner .banner-close`)
-        .addEventListener(`click`, (e) => {
-          document.querySelector(`.donate-banner`).style.position = "absolute";
-          document.querySelector(`.donate-banner`).style.top = "0px";
-          e.preventDefault();
-
-          const animationOptions = {
-            // timing options
-            duration: 300,
-            fill: "forwards",
-            easing: "ease-in",
-          };
-
-          document.querySelector(`.wrapper`).animate(
-            [
-              // keyframes
-              {
-                marginTop:
-                  document.querySelector(`.donate-banner`).clientHeight + `px`,
-              },
-              {
-                marginTop: 0,
-              },
-            ],
-            animationOptions
-          );
-
-          const closeAnimation = document
-            .querySelector(`.donate-banner`)
-            .animate(
-              [
-                // keyframes
-                {
-                  transform: `translateY(0)`,
-                },
-                {
-                  transform: `translateY(-100%)`,
-                },
-              ],
-              animationOptions
-            );
-
-          closeAnimation.onfinish = () => {
-            document.querySelector(`.donate-banner`).style.display = "none";
-          };
-        });
     }
   },
 };

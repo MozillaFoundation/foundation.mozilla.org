@@ -13,19 +13,19 @@
 
   @at-root .dark-theme & {
     color: $black;
-    background: #00ffff;
+    background: $banner-default-color;
     box-shadow: 4px 4px $black;
     border-color: $black;
 
     &:hover {
       color: $black;
-      background: #00c2c2;
+      background: $banner-hover-color;
       border-color: $black;
     }
 
     &:active {
       color: $black;
-      background: #0d6c6c;
+      background: $banner-active-color;
       border-color: $black;
     }
   }
