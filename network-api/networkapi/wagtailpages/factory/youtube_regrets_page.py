@@ -136,6 +136,8 @@ def generate(seed):
         youtube_bannered_campaign_page = BanneredCampaignPageFactory.create(
             parent=home_page,
             title='YouTube Regrets',
+            slug='youtube',
+            show_in_menus=False,
             live=True
         )
         YoutubeRegretsReporterExtensionPageFactory.create(parent=youtube_bannered_campaign_page)
