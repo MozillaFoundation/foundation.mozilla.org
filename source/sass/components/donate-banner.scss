@@ -8,3 +8,25 @@
   background-position: center center;
 }
 
+.btn-banner {
+  @extend .btn-pop;
+
+  @at-root .dark-theme & {
+    color: $black;
+    background: #00ffff;
+    box-shadow: 4px 4px $black;
+    border-color: $black;
+
+    &:hover {
+      color: $black;
+      background: #00c2c2;
+      border-color: $black;
+    }
+
+    &:active {
+      color: $black;
+      background: #0d6c6c;
+      border-color: $black;
+    }
+  }
+}
