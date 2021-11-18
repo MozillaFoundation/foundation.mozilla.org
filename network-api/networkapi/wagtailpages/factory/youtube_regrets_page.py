@@ -12,6 +12,7 @@ from wagtail_factories import (
     PageFactory
 )
 from .campaign_page import CampaignIndexPageFactory
+from .bannered_campaign_page import BanneredCampaignPageFactory
 from networkapi.utility.faker.helpers import (
     reseed,
     get_homepage
@@ -119,16 +120,24 @@ def generate(seed):
     reseed(seed)
 
     # Youtube Extension Landing page
+    # Checking for a bannered campaign page titled "Youtube Regrets", and then creating the landing page if
+    # it does not exist.
     try:
-        youtube_index_page = WagtailPage.objects.get(title='Youtube')
-        print('youtube campaign index page exists')
+        youtube_bannered_campaign_page = WagtailPage.objects.child_of(home_page).get(title=title)
+        print('Youtube Regrets bannered campaign page exists')
+        # If extension landing page does not exist, create it.
+        if not WagtailPage.objects.child_of(youtube_bannered_campaign_page).type(YoutubeRegretsReporterExtensionPage):
+            print("Generating extension landing page")
+            YoutubeRegretsReporterExtensionPageFactory.create(parent=youtube_bannered_campaign_page)
+
+    # If bannered "YouTube Regrets" campaign page does not exist, create it and the extension landing page.
     except WagtailPage.DoesNotExist:
-        print('Generating a youtube campaign index page')
-        youtube_index_page = CampaignIndexPageFactory.create(
+        print('Generating a youtube bannered campaign page and extension landing page')
+        youtube_bannered_campaign_page = BanneredCampaignPageFactory.create(
             parent=home_page,
-            title='Youtube',
+            title='YouTube Regrets',
             live=True
         )
-        YoutubeRegretsReporterExtensionPageFactory.create(parent=youtube_index_page)
+        YoutubeRegretsReporterExtensionPageFactory.create(parent=youtube_bannered_campaign_page)
 
     reseed(seed)
