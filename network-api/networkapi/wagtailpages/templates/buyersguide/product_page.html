@@ -58,7 +58,7 @@
           {% for cat in product.product_categories.all %}
             {% with category=cat.category %}
               {% localizedroutablepageurl home_page 'category-view' category.slug as cat_url %}
-              <a href="{{cat_url}}" class="tw-no-underline tw-text-gray-60 border tw-border-gray-20 tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3]">
+              <a href="{{cat_url}}" class="category-tag {% if category.parent == None %}category{% else %}subcategory{% endif %} tw-no-underline tw-text-gray-60 border tw-border-gray-20 tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3]">
                 {{category.localized.name}}
               </a>
             {% endwith %}
@@ -106,7 +106,6 @@
             <div class="creep-vote-target mb-5 mt-3 mt-md-4 p-5" data-product-name="{{product.title}}" data-product-type="{{product.product_type}}">
               <input type="hidden" name="productID" value="{{ product.id }}">
               <input type="hidden" name="votes" value='{{ product.get_voting_json | safe }}'>
-              {% csrf_token %}
             </div>
         </div>
       </div>
@@ -282,8 +281,11 @@
                           </div>
                         </section>
 
-                        {% trans "Does the user have control over the AI features?" as ai_is_transparent %}
-                        {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no help=product.ai_can_user_control_helptext rich_help_text=True %}
+                        {% trans "Is the company transparent about how the AI works?" as ai_is_transparent %}
+                        {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no help=product.ai_is_transparent_helptext rich_help_text=True %}
+
+                        {% trans "Does the user have control over the AI features?" as ai_can_user_control %}
+                        {% include "fragments/product_criterion.html"  with  label=ai_can_user_control  value=product.ai_can_user_control|extended_yes_no help=product.ai_can_user_control_helptext rich_help_text=True %}
 
                         {% endif %}
                       {% endwith %}

@@ -145,11 +145,9 @@ def generate_quote_field():
     quote = f'<p>{fake.sentence()}</p>'
     attribution = fake.name()
 
-    return generate_field('quote', {
-        'quotes': [{
-            'quote': quote,
-            'attribution': attribution
-        }]
+    return generate_field('single_quote', {
+        'quote': quote,
+        'attribution': attribution,
     })
 
 

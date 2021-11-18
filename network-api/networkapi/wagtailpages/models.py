@@ -73,6 +73,7 @@ from .pagemodels.youtube import (
     YoutubeRegretsPage,
     YoutubeRegretsReporterPage,
     YoutubeRegrets2021Page,
+    YoutubeRegretsReporterExtensionPage
 )
 
 from .pagemodels.publications.publication import (
@@ -142,4 +143,5 @@ __all__ = [
     YoutubeRegretsPage,
     YoutubeRegrets2021Page,
     YoutubeRegretsReporterPage,
+    YoutubeRegretsReporterExtensionPage,
 ]
