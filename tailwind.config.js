@@ -26,7 +26,7 @@ module.exports = {
           columnCount: 3,
         },
         ".hash": {
-          content: '"#"',
+          content: "\"#\"",
         },
         ".no-scrollbar::-webkit-scrollbar": {
           display: "none",
