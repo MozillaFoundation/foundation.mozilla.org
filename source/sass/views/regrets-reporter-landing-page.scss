@@ -21,6 +21,11 @@
       height: 24px;
       background-image: url(../_images/youtube-regrets/regrets-reporter/landing-page/chrome.svg);
     }
+    &--email::before {
+      width: 25px;
+      height: 24px;
+      background-image: url(../_images/youtube-regrets/regrets-reporter/landing-page/mail.svg);
+    }
   }
 
   .video-container {

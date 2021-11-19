@@ -21,6 +21,7 @@ import MozfestCarousels from "./components/carousel/carousel.js";
 import MozfestHeroCarousels from "./components/mozfest-hero-carousel/mozfest-hero-carousel";
 import initializeSentry from "./common/sentry-config.js";
 import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/intro-tunnel";
+import YouTubeRegretsBrowserExtension from "./foundation/pages/youtube-regrets/browser-extension";
 import RegretsReporterTimeline from "./foundation/pages/youtube-regrets/regrets-reporter/timeline";
 import { bindEventHandlers as bindRegretsReporterEventHandlers } from "./foundation/pages/youtube-regrets/regrets-reporter";
 import { bindEventHandlers as bindDearInternetEventHandlers } from "./foundation/pages/dear-internet";
@@ -118,6 +119,10 @@ let main = {
     // YouTube Regrets page
     if (document.querySelector("#view-youtube-regrets")) {
       new YouTubeRegretsTunnel();
+    }
+
+    if (document.querySelector("#view-youtube-regrets-reporter-extension")) {
+      new YouTubeRegretsBrowserExtension();
     }
 
     // YouTube Regrets 2021 page
