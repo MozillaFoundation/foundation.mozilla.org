@@ -69,6 +69,10 @@
     </div>
     {% endif %}
 
+    {% block donate_banner %}
+      {% include "partials/banner.html" %}
+    {% endblock %}
+
     {% block body_wrapped %}
     <div class="wrapper">
       <div class="sticky-top d-print-none">

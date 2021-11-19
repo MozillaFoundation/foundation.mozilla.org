@@ -16,6 +16,7 @@ import {
 import primaryNav from "./primary-nav.js";
 import EmbedTypeform from "./embed-typeform.js";
 import Dropdowns from "./dropdowns.js";
+import DonateBanner from "./donate-banner";
 import MozfestCarousels from "./components/carousel/carousel.js";
 import MozfestHeroCarousels from "./components/mozfest-hero-carousel/mozfest-hero-carousel";
 import initializeSentry from "./common/sentry-config.js";
@@ -51,6 +52,7 @@ const apps = [];
 
 let main = {
   init() {
+    DonateBanner.init();
     GoogleAnalytics.init();
     EmbedTypeform.init();
     Dropdowns.init();

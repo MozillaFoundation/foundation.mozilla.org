@@ -1,0 +1,32 @@
+// Contains rules for shared nav elements.
+// For component/section specifc rules: add them to their corresponding SCSS files instead of here (e.g., primary-nav.scss, multipage-nav.scss, multipage-nav-mobile.scss etc)
+
+.donate-banner {
+  background-color: $black;
+  background-image: url(../_images/mozilla-donate-banner-blue.jpg);
+  background-size: cover;
+  background-position: center center;
+}
+
+.btn-banner {
+  @extend .btn-pop;
+
+  @at-root .dark-theme & {
+    color: $black;
+    background: $banner-default-color;
+    box-shadow: 4px 4px $black;
+    border-color: $black;
+
+    &:hover {
+      color: $black;
+      background: $banner-hover-color;
+      border-color: $black;
+    }
+
+    &:active {
+      color: $black;
+      background: $banner-active-color;
+      border-color: $black;
+    }
+  }
+}
