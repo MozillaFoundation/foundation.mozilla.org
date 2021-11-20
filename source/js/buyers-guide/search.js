@@ -15,10 +15,54 @@ const categoryTitle = document.querySelector(`.category-title`);
 const parentTitle = document.querySelector(`.parent-title`);
 const toggle = document.querySelector(`#product-filter-pni-toggle`);
 const subcategories = document.querySelectorAll(`.subcategories`);
+const subContainer = document.querySelector(`.subcategory-header`);
 
 // TODO: turn this into a static class rather than plain JS object.
 const SearchFilter = {
   init: () => {
+    let pos = { top: 0, left: 0, x: 0, y: 0 };
+
+    const mouseDownHandler = function (event) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      subContainer.style.cursor = "grabbing";
+      subContainer.style.userSelect = "none";
+
+      pos = {
+        left: subContainer.scrollLeft,
+        x: event.clientX,
+      };
+
+      document.addEventListener("mousemove", mouseMoveHandler);
+      document.addEventListener("mouseup", mouseUpHandler);
+    };
+
+    const mouseMoveHandler = function (event) {
+      event.preventDefault();
+      Array.from(subcategories).forEach((subcategory) => {
+        subcategory.style.pointerEvents = "none";
+      });
+      const dx = event.clientX - pos.x;
+      subContainer.scrollLeft = pos.left - dx;
+    };
+
+    const mouseUpHandler = function (event) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      subContainer.style.removeProperty("cursor");
+      subContainer.style.removeProperty("user-select");
+
+      Array.from(subcategories).forEach((subcategory) => {
+        subcategory.style.removeProperty("pointer-events");
+      });
+
+      document.removeEventListener("mousemove", mouseMoveHandler);
+      document.removeEventListener("mouseup", mouseUpHandler);
+    };
+
+    subContainer.addEventListener("mousedown", mouseDownHandler);
+    subContainer.addEventListener("mouseleave", mouseUpHandler);
+
     const searchBar = document.querySelector(`#product-filter-search`);
 
     if (!searchBar) {
@@ -188,7 +232,6 @@ const SearchFilter = {
     for (const subcategory of subcategories) {
       subcategory.addEventListener("click", (evt) => {
         evt.stopPropagation();
-
         if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
           return;
         }
