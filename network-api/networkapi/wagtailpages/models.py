@@ -97,6 +97,9 @@ from .pagemodels.products import (
     SoftwareProductPage,
 )
 
+from .pagemodels.feature_flags.feature_flags import (
+    FeatureFlags
+)
 
 __all__ = [
     ArticlePage,
@@ -112,6 +115,7 @@ __all__ = [
     ContentAuthor,
     CTA,
     DearInternetPage,
+    FeatureFlags,
     FocusArea,
     FoundationBannerInheritanceMixin,
     FoundationMetadataPageMixin,
