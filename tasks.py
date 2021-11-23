@@ -220,6 +220,12 @@ def makemigrations(ctx):
     manage(ctx, "makemigrations")
 
 
+@task(aliases=["docker-makemigrations-dryrun"])
+def makemigrations_dryrun(ctx):
+    """Show new migration(s) for apps without creating them"""
+    manage(ctx, "makemigrations --dry-run")
+
+
 # Tests
 @task(aliases=["docker-test"])
 def test(ctx):

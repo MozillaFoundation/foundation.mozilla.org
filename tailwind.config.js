@@ -50,7 +50,7 @@ module.exports = {
       },
       opacity: {
         40: 0.4,
-      }
+      },
     },
     // Overriding default spacing
     spacing: {
@@ -74,6 +74,7 @@ module.exports = {
     fontFamily: {
       sans: ["Nunito Sans", "Helvetica", "Arial", "sans-serif"],
       zilla: ["Zilla Slab", "sans-serif"],
+      changa: ["Changa", "sans-serif"],
     },
     colors: {
       transparent: "transparent",
@@ -116,7 +117,7 @@ module.exports = {
       festival: {
         blue: {
           DEFAULT: "#0e11bf",
-          100: "#2e05ff"
+          100: "#2e05ff",
         },
         purple: {
           DEFAULT: "#8f14fb",

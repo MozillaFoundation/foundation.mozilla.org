@@ -1,0 +1,47 @@
+{% load settings_value i18n static %}
+
+{% with wrapper_class="tw-py-7" %}
+<div class="donate-banner tw-bg-black dark-theme {{wrapper_class}} print:tw-hidden tw-w-full tw-hidden">
+    <a href="#" class="p-4 tw-box-content banner-close tw-cursor-pointer tw-absolute tw-right-0 tw-top-0 tw-group" aria-label="{% trans "Close Banner" %}">
+        <img src="{% static "_images/x.svg" %}" alt="{% trans "Close Banner" %}" class="tw-w-4 tw-h-4 tw-transition-transform tw-duration-100 tw-ease-in-out tw-transform group-hover:tw-scale-110">
+    </a>
+
+    <div class="tw-container">
+        <div class="tw-row">
+
+            {% block left_banner_column %}
+            <div class="medium:tw-w-6/12 large:tw-w-6/12 tw-px-4">
+                <p class="h2-heading tw-mb-0">
+                    {% trans "Help Mozilla fight for a better internet this Giving Tuesday" %}
+                </p>
+                <p class="body-large tw-mt-4 tw-leading-normal">
+                    {% trans "We're proudly nonprofit, working to keep the web healthy." %}
+                </p>
+            </div>
+            {% endblock %}
+
+            {% block right_banner_column %}
+            <div
+                class=" medium:tw-w-6/12 large:tw-w-3/12 tw-px-4 medium:tw-ml-auto large:tw-mt-2">
+                <div class="tw-row">
+                    <div class="tw-px-4">
+                        <p class="body">
+                            {% trans "Your contributions help build a safe and open internet." %}
+                        </p>
+                        <p class="body">
+                            {% trans "Can you donate today?" %}
+                        </p>
+                    </div>
+                </div>
+                <div class="tw-row">
+                    <div class="tw-w-full tw-px-4">
+                        <a class="btn btn-banner tw-w-full" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=header" target="_blank" rel="noopener noreferrer">{% trans "Support Mozilla" %}</a>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+
+        </div>
+    </div>
+</div>
+{% endwith %}
