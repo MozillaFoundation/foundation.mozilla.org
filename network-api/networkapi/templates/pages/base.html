@@ -69,6 +69,12 @@
     </div>
     {% endif %}
 
+    {% block donate_banner %}
+      {% if settings.wagtailpages.FeatureFlags.activate_donate_banner %}
+        {% include "partials/banner.html" %}
+      {% endif %}
+    {% endblock %}
+
     {% block body_wrapped %}
     <div class="wrapper">
       <div class="sticky-top d-print-none">

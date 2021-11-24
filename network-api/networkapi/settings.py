@@ -223,6 +223,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.contrib.table_block',
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.frontend_cache',
+    'wagtail.contrib.settings',
     'wagtailmedia',
     'wagtailinventory',
     'wagtail_footnotes',
@@ -336,6 +337,7 @@ TEMPLATES = [
                 'networkapi.context_processor.canonical_path',
                 'networkapi.context_processor.canonical_site_url',
                 'networkapi.context_processor.env_debug',
+                'wagtail.contrib.settings.context_processors.settings',
             ])),
             'libraries': {
                 'bg_nav_tags': 'networkapi.wagtailpages.templatetags.bg_nav_tags',

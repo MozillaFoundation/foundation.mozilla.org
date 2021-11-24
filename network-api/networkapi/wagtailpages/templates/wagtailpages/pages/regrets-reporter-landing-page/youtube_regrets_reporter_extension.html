@@ -1,0 +1,17 @@
+{% extends "pages/base.html" %}
+
+
+{% block body_id %}youtube-regrets-reporter-extension{% endblock %}
+
+{% block extended_head %}
+<link href="https://fonts.googleapis.com/css2?family=Changa:wght@700&display=swap" rel="stylesheet"> 
+{% endblock %}
+
+{% block content_wrapped %}
+
+  <!-- Hero Section with Buttons/Video -->
+  {% include "./extension_hero.html" %}
+  <!-- 3 col section with text -->
+  {% include "./extension_text_columns.html" %}
+
+{% endblock %}

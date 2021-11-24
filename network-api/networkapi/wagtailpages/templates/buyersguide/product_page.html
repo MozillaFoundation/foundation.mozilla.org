@@ -58,7 +58,7 @@
           {% for cat in product.product_categories.all %}
             {% with category=cat.category %}
               {% localizedroutablepageurl home_page 'category-view' category.slug as cat_url %}
-              <a href="{{cat_url}}" class="tw-no-underline tw-text-gray-60 border tw-border-gray-20 tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3]">
+              <a href="{{cat_url}}" class="category-tag {% if category.parent == None %}category{% else %}subcategory{% endif %} tw-no-underline tw-text-gray-60 border tw-border-gray-20 tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3]">
                 {{category.localized.name}}
               </a>
             {% endwith %}
@@ -268,7 +268,7 @@
                       {% trans "Does the product use AI?" as uses_ai_label %}
                       {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai info="/privacynotincluded/about/methodology" help=product.ai_helptext rich_help_text=True  %}
 
-                      {% if uses_ai != "No" %}
+                      {% if product.uses_ai != "No" %}
                         {% trans "Is this AI untrustworthy?" as ai_is_untrustworthy_label %}
                         {% include "fragments/product_criterion.html"  with  label=ai_is_untrustworthy_label  value=product.ai_is_untrustworthy|extended_yes_no ding=product.ai_is_untrustworthy_ding  %}
 
