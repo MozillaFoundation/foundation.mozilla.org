@@ -268,7 +268,7 @@
                       {% trans "Does the product use AI?" as uses_ai_label %}
                       {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai info="/privacynotincluded/about/methodology" help=product.ai_helptext rich_help_text=True  %}
 
-                      {% if uses_ai != "No" %}
+                      {% if product.uses_ai != "No" %}
                         {% trans "Is this AI untrustworthy?" as ai_is_untrustworthy_label %}
                         {% include "fragments/product_criterion.html"  with  label=ai_is_untrustworthy_label  value=product.ai_is_untrustworthy|extended_yes_no ding=product.ai_is_untrustworthy_ding  %}
 
