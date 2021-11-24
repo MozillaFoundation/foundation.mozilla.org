@@ -400,7 +400,8 @@ class BanneredCampaignPage(PrimaryPage):
         'RedirectingPage',
         'PublicationPage',
         'OpportunityPage',
-        'ArticlePage'
+        'ArticlePage',
+        'YoutubeRegretsReporterExtensionPage'
     ]
 
     show_in_menus_default = True
