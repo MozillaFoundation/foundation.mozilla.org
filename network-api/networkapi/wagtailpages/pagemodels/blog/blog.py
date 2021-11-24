@@ -57,6 +57,7 @@ base_fields = [
     ('pulse_listing', customblocks.PulseProjectList()),
     ('single_quote', customblocks.SingleQuoteBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
+    
 ]
 
 
@@ -107,7 +108,11 @@ class RelatedBlogPosts(Orderable):
 
 
 class BlogPage(FoundationMetadataPageMixin, Page):
-    body = StreamField(base_fields)
+    body = StreamField(
+        base_fields + [
+            ('airtable', customblocks.AirTableBlock()),
+        ]
+    )
 
     category = ParentalManyToManyField(
         BlogPageCategory,
