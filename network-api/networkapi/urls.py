@@ -44,6 +44,12 @@ def get_robots_content():
     return 'User-Agent: *\nDisallow: /*/artifacts/thimble\nDisallow: /artifacts/thimble'
 
 
+def csrf_response(request):
+    response = render(request, 'api/csrf.html')
+    response['Cache-Control'] = 'no-cache'
+    return response
+
+
 urlpatterns = list(filter(None, [
     path('robots.txt', lambda x: HttpResponse(
         get_robots_content(),
@@ -62,7 +68,7 @@ urlpatterns = list(filter(None, [
     re_path(r'^soc/', include('social_django.urls', namespace='social')),
 
     # CSRF endpoint
-    re_path(r'^api/csrf/', lambda request: render(request, 'api/csrf.html')),
+    re_path(r'^api/csrf/', csrf_response),
 
     # network API routes:
 
