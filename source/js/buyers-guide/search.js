@@ -20,48 +20,62 @@ const subContainer = document.querySelector(`.subcategory-header`);
 // TODO: turn this into a static class rather than plain JS object.
 const SearchFilter = {
   init: () => {
-    let pos = { top: 0, left: 0, x: 0, y: 0 };
+    let pos = { left: 0, x: 0 };
+    const subClasses = subContainer.classList;
 
-    const mouseDownHandler = function (event) {
+    const markScrollStart = (event) => {
       event.preventDefault();
       event.stopImmediatePropagation();
-      subContainer.style.cursor = "grabbing";
-      subContainer.style.userSelect = "none";
+      subClasses.add("cursor-grabbing", "select-none");
 
       pos = {
         left: subContainer.scrollLeft,
         x: event.clientX,
       };
 
-      document.addEventListener("mousemove", mouseMoveHandler);
-      document.addEventListener("mouseup", mouseUpHandler);
+      [`mousemove`, `touchmove`].forEach((type) =>
+        document.addEventListener(type, markScrollMove)
+      );
+
+      [`mouseup`, `touchend`, `touchcancel`].forEach((type) =>
+        document.addEventListener(type, markScrollEnd)
+      );
     };
 
-    const mouseMoveHandler = function (event) {
+    const markScrollMove = (event) => {
       event.preventDefault();
-      Array.from(subcategories).forEach((subcategory) => {
-        subcategory.style.pointerEvents = "none";
+      subcategories.forEach((subcategory) => {
+        subcategory.classList.add("pointer-events-none");
       });
       const dx = event.clientX - pos.x;
       subContainer.scrollLeft = pos.left - dx;
     };
 
-    const mouseUpHandler = function (event) {
+    const markScrollEnd = (event) => {
       event.preventDefault();
       event.stopImmediatePropagation();
-      subContainer.style.removeProperty("cursor");
-      subContainer.style.removeProperty("user-select");
+      subClasses.remove("cursor-grabbing", "select-none");
 
-      Array.from(subcategories).forEach((subcategory) => {
-        subcategory.style.removeProperty("pointer-events");
+      subcategories.forEach((subcategory) => {
+        subcategory.classList.remove("pointer-events-none");
       });
 
-      document.removeEventListener("mousemove", mouseMoveHandler);
-      document.removeEventListener("mouseup", mouseUpHandler);
+      [`mousemove`, `touchmove`].forEach((type) =>
+        document.removeEventListener(type, markScrollMove)
+      );
+
+      [`mouseup`, `touchend`, `touchcancel`].forEach((type) =>
+        document.removeEventListener(type, markScrollEnd)
+      );
     };
 
-    subContainer.addEventListener("mousedown", mouseDownHandler);
-    subContainer.addEventListener("mouseleave", mouseUpHandler);
+    [`mousemove`, `touchmove`].forEach((type) =>
+      document.addEventListener(type, markScrollMove)
+    );
+
+    [`mouseup`, `touchend`, `touchcancel`].forEach((type) =>
+      document.addEventListener(type, markScrollEnd)
+    );
 
     const searchBar = document.querySelector(`#product-filter-search`);
 
