@@ -94,7 +94,7 @@
                 {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
                 <a class="{% if current_category.name != cat.parent.name and current_category.parent.name != cat.parent.name %} tw-hidden {% endif %} subcategories {{ tailwind_classes }} {% if current_category.name == cat.name %}{{ selected_classes }}{% else %}{{ default_classes }}{% endif %}"
                    href="{{ cat_url }}"
-                   data-parent="{{ cat.parent.name }}"
+                   data-parent="{{ cat.parent.localized.name }}"
                    data-name="{{ cat.name }}">
                   {{ cat.name }}
                 </a>
