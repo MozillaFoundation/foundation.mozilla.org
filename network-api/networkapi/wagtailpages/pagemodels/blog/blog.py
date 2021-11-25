@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.template.defaultfilters import truncatechars
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
@@ -13,6 +14,7 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core import blocks
 from wagtail.core.models import Orderable, Locale, Page
 from wagtail.core.fields import StreamField
+from wagtail.core.rich_text import get_text_for_indexing
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 
@@ -295,3 +297,15 @@ class BlogPage(FoundationMetadataPageMixin, Page):
                 })
 
         return super().clean()
+
+    def get_meta_description(self):
+        # TODO: refactor this out as part of: https://github.com/mozilla/foundation.mozilla.org/issues/7828
+        if self.search_description:
+            return self.search_description
+
+        for block in self.body:
+            if block.block_type == "paragraph":
+                text = get_text_for_indexing(str(block))
+                return truncatechars(text, 153)
+
+        return super().get_meta_description()
