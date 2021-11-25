@@ -20,5 +20,5 @@
         </script>
     {% endif %}
 
-    <tito-button event="{{ value.event }}" releases="{{ value.releases }}" class="btn {{ value.styling }} link-button my-default">{{ value.button_label }}</tito-widget>
+    <tito-button event="{{ value.event }}"{% if value.releases %} releases="{{ value.releases }}"{% endif %} class="btn {{ value.styling }} link-button my-default">{{ value.button_label }}</tito-widget>
 {% endblock %}
