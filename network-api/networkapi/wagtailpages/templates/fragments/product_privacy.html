@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% if value != hide_value %}
 <section class="criterion value-{{value|lower}}">
   {% include "./product_criterion_primary_info.html"  with  label=label  value=value %}
@@ -7,7 +9,7 @@
     {% for link in links %}
       <li class="pni-product-helptext">
         {% if link.url != "" %}
-        <a class="privacy-policy-link" href="{{ link.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ link.label }} (opens is a new tab)">{{ link.label }}</a>
+        <a class="privacy-policy-link" href="{{ link.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ link.label }} {% trans "(opens in a new tab)" %}">{{ link.label }}</a>
         {% else %}
         <span>{{ link.label }}</span>
         {% endif %}
