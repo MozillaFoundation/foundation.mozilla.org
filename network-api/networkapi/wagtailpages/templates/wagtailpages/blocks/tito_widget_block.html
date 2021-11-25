@@ -1,0 +1,24 @@
+{% extends "./base_streamfield_block.html" %}
+
+{% block block_content %}
+    <script src='https://js.tito.io/v2' async></script>
+
+    {% if value.redirect_page %}
+        <script>
+        // This copes with the javascript being loaded
+        // asycronously (recommended)
+        window.tito =
+            window.tito ||
+            function() {
+            (tito.q = tito.q || []).push(arguments);
+            };
+
+        // For example:
+        tito('on:registration:finished', function(data){
+            window.location.assign("{{ value.redirect_page.full_url }}");
+        })
+        </script>
+    {% endif %}
+
+    <tito-button event="{{ value.event }}" releases="{{ value.releases }}" class="btn {{ value.styling }} link-button my-default">{{ value.button_label }}</tito-widget>
+{% endblock %}
