@@ -59,7 +59,6 @@ base_fields = [
     ('pulse_listing', customblocks.PulseProjectList()),
     ('single_quote', customblocks.SingleQuoteBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
-
 ]
 
 
