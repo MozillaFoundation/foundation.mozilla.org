@@ -54,11 +54,12 @@ const SearchFilter = {
     const markScrollEnd = (event) => {
       event.preventDefault();
       event.stopImmediatePropagation();
-      subClasses.remove("cursor-grabbing", "select-none");
 
       subcategories.forEach((subcategory) => {
         subcategory.classList.remove("pointer-events-none");
       });
+
+      subClasses.remove("cursor-grabbing", "select-none");
 
       [`mousemove`, `touchmove`].forEach((type) =>
         document.removeEventListener(type, markScrollMove)
@@ -69,12 +70,8 @@ const SearchFilter = {
       );
     };
 
-    [`mousemove`, `touchmove`].forEach((type) =>
-      document.addEventListener(type, markScrollMove)
-    );
-
-    [`mouseup`, `touchend`, `touchcancel`].forEach((type) =>
-      document.addEventListener(type, markScrollEnd)
+    [`mousedown`, `touchstart`].forEach((type) =>
+      subContainer.addEventListener(type, markScrollStart)
     );
 
     const searchBar = document.querySelector(`#product-filter-search`);
@@ -244,53 +241,57 @@ const SearchFilter = {
     }
 
     for (const subcategory of subcategories) {
-      subcategory.addEventListener("click", (evt) => {
-        evt.stopPropagation();
-        if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
-          return;
-        }
-
-        evt.preventDefault();
-
-        let href;
-
-        if (evt.target.dataset.name) {
-          clearText();
-          if (categoryTitle.value.trim() !== evt.target.dataset.name) {
-            categoryTitle.value = evt.target.dataset.name;
-            parentTitle.value = evt.target.dataset.parent;
-            href = evt.target.href;
-            SearchFilter.toggleSubcategory();
-            SearchFilter.highlightParent();
-          } else {
-            categoryTitle.value = evt.target.dataset.parent;
-            parentTitle.value = "";
-            href = document.querySelector(
-              `#multipage-nav a[data-name="${evt.target.dataset.parent}"]`
-            ).href;
-            SearchFilter.toggleSubcategory(true);
+      subcategory.addEventListener(
+        "click",
+        (evt) => {
+          evt.stopImmediatePropagation();
+          if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
+            return;
           }
 
-          history.pushState(
-            {
-              title: SearchFilter.getTitle(evt.target.dataset.name),
-              category: categoryTitle.value.trim(),
-              parent: parentTitle.value.trim(),
-              search: "",
-              filter: history.state?.filter,
-            },
-            SearchFilter.getTitle(evt.target.dataset.name),
-            href
-          );
+          evt.preventDefault();
 
-          document.title = SearchFilter.getTitle(categoryTitle.value.trim());
-          SearchFilter.updateHeader(
-            categoryTitle.value.trim(),
-            parentTitle.value.trim()
-          );
-          SearchFilter.filterCategory(categoryTitle.value.trim());
-        }
-      });
+          let href;
+
+          if (evt.target.dataset.name) {
+            clearText();
+            if (categoryTitle.value.trim() !== evt.target.dataset.name) {
+              categoryTitle.value = evt.target.dataset.name;
+              parentTitle.value = evt.target.dataset.parent;
+              href = evt.target.href;
+              SearchFilter.toggleSubcategory();
+              SearchFilter.highlightParent();
+            } else {
+              categoryTitle.value = evt.target.dataset.parent;
+              parentTitle.value = "";
+              href = document.querySelector(
+                `#multipage-nav a[data-name="${evt.target.dataset.parent}"]`
+              ).href;
+              SearchFilter.toggleSubcategory(true);
+            }
+
+            history.pushState(
+              {
+                title: SearchFilter.getTitle(evt.target.dataset.name),
+                category: categoryTitle.value.trim(),
+                parent: parentTitle.value.trim(),
+                search: "",
+                filter: history.state?.filter,
+              },
+              SearchFilter.getTitle(evt.target.dataset.name),
+              href
+            );
+
+            document.title = SearchFilter.getTitle(categoryTitle.value.trim());
+            SearchFilter.updateHeader(
+              categoryTitle.value.trim(),
+              parentTitle.value.trim()
+            );
+            SearchFilter.filterCategory(categoryTitle.value.trim());
+          }
+        },
+        true
+      );
     }
 
     document
