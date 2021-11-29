@@ -43,7 +43,6 @@ const SearchFilter = {
     };
 
     const markScrollMove = (event) => {
-      event.preventDefault();
       subcategories.forEach((subcategory) => {
         subcategory.classList.add("pointer-events-none");
       });
