@@ -9,5 +9,6 @@
 // ***********************************************************
 
 module.exports = function (on, config) {
-  // configure plugins here
+  const getCompareSnapshotsPlugin = require('cypress-image-diff-js/dist/plugin')
+  getCompareSnapshotsPlugin(on, config)
 };

@@ -122,6 +122,7 @@ network-api/networkapi/frontend/*
 # Cypress visual regression testing
 cypress/videos
 cypress/screenshots
+cypress-visual-screenshots/
 
 # Translations
 translations.tar
