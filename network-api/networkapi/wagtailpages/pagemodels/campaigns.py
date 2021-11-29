@@ -271,6 +271,7 @@ class Petition(TranslatableMixin, CTA):
     ]
 
     class Meta(TranslatableMixin.Meta):
+        ordering = ['-id']
         verbose_name = 'petition snippet'
 
 
