@@ -36,3 +36,5 @@ base_fields = [
     ('airtable', customblocks.AirTableBlock()),
     ('typeform', customblocks.TypeformBlock()),
 ]
+
+base_rich_text_options = ['bold', 'italic', 'link']

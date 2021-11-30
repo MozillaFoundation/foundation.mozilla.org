@@ -7,6 +7,7 @@ from wagtail.core.fields import StreamField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from wagtail.core import blocks
+from .base_fields import base_rich_text_options
 from . import customblocks
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..utils import set_main_site_nav_information
@@ -15,9 +16,7 @@ from ..utils import set_main_site_nav_information
 class DearInternetPage(FoundationMetadataPageMixin, Page):
     intro_texts = StreamField([
         ('intro_text', blocks.RichTextBlock(
-          features=[
-              'bold', 'italic', 'link',
-          ]
+        features=(base_rich_text_options)
         ))
       ],
     )

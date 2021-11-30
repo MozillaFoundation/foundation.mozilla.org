@@ -16,6 +16,7 @@ from modelcluster.fields import ParentalKey
 
 from .primary import PrimaryPage
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
+from .base_fields import base_rich_text_options
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
@@ -175,9 +176,7 @@ class ParticipatePage2(PrimaryPage):
     )
 
     ctaHeroSubhead = RichTextField(
-        features=[
-            'bold', 'italic', 'link',
-        ],
+        features=(base_rich_text_options),
         blank=True,
     )
 
@@ -206,9 +205,7 @@ class ParticipatePage2(PrimaryPage):
     )
 
     ctaHeroSubhead2 = RichTextField(
-        features=[
-            'bold', 'italic', 'link',
-        ],
+        features=(base_rich_text_options),
         blank=True,
     )
 
@@ -237,9 +234,7 @@ class ParticipatePage2(PrimaryPage):
     )
 
     ctaHeroSubhead3 = RichTextField(
-        features=[
-            'bold', 'italic', 'link',
-        ],
+        features=(base_rich_text_options),
         blank=True,
     )
 
@@ -421,9 +416,7 @@ class CTABase(WagtailOrderable, models.Model):
     )
 
     subhead = RichTextField(
-        features=[
-            'bold', 'italic', 'link',
-        ],
+        features=(base_rich_text_options),
         blank=True,
     )
 
