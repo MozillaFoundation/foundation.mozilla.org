@@ -6,6 +6,7 @@ from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
 
+from networkapi.wagtailpages.pagemodels.base_fields import base_rich_text_options
 
 @register_snippet
 class BlogPageCategory(TranslatableMixin, models.Model):
