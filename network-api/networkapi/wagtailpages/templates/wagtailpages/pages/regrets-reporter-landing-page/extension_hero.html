@@ -12,12 +12,12 @@
                 </p>
                 <div class="btn-container tw-mt-1 tw-flex tw-flex-wrap tw-gap-4">
                     <a class="btn download-link-button download-link-button--firefox tw-bg-white tw-text-youtube-regrets-red"
-                        href="https://addons.mozilla.org/en-us/firefox/addon/regretsreporter/?utm_subscribed=&utm_medium=email&utm_source=email&utm_campaign=youtuberr2021&utm_content=kicker"
+                        href="https://addons.mozilla.org/en-us/firefox/addon/regretsreporter/"
                         target="_blank">
                         {% trans "Add to Firefox" %}
                     </a>
                     <a class="btn download-link-button download-link-button--chrome tw-bg-white tw-text-youtube-regrets-red"
-                        href="https://chrome.google.com/webstore/detail/regretsreporter/obpoeflheeknapimliioeoefbfaakefn?utm_medium=email&utm_source=email&utm_campaign=youtuberr2021&utm_content=kicker"
+                        href="https://chrome.google.com/webstore/detail/regretsreporter/obpoeflheeknapimliioeoefbfaakefn"
                         target="_blank">
                         {% trans "Add to Chrome" %}
                     </a>
@@ -25,7 +25,7 @@
                     {% trans "Mozilla built RegretsReporter to help you take back control of your YouTube recommendations and make YouTube better for everyone else." as translated_body %}
                     {% with subject=translated_subject body=translated_body %}
                         <a class="btn download-link-button download-link-button--email tw-bg-white tw-text-youtube-regrets-red tw-hidden"
-                            href="mailto:?subject={{ subject|urlencode }}&body={{ body|urlencode }}%0D%0A%0D%0Ahttps://addons.mozilla.org/en-us/firefox/addon/regretsreporter/?utm_subscribed=&utm_medium=email&utm_source=email&utm_campaign=youtuberr2021&utm_content=first_email%0D%0Ahttps://chrome.google.com/webstore/detail/regretsreporter/obpoeflheeknapimliioeoefbfaakefn?utm_medium=email&utm_source=email&utm_campaign=youtuberr2021&utm_content=first_email%0D%0Ahttps://foundation.mozilla.org/youtube/regretsreporter?utm_medium=email&utm_source=email&utm_campaign=youtuberr2021&utm_content=first_email"
+                            href="mailto:?subject={{ subject|urlencode }}&body={{ body|urlencode }}"
                             target="_blank">
                             {% trans "Send Reminder" %}
                         </a>
