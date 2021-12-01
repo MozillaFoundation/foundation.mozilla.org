@@ -26,7 +26,7 @@ module.exports = {
           columnCount: 3,
         },
         ".hash": {
-          content: "\"#\"",
+          content: '"#"',
         },
         ".no-scrollbar::-webkit-scrollbar": {
           display: "none",
@@ -50,6 +50,9 @@ module.exports = {
       },
       opacity: {
         40: 0.4,
+      },
+      cursor: {
+        grabbing: "grabbing",
       },
     },
     // Overriding default spacing
