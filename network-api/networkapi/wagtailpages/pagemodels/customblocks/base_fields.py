@@ -1,4 +1,4 @@
-from . import customblocks
+from  .. import customblocks
 from wagtail.core import blocks
 
 """
@@ -36,5 +36,3 @@ base_fields = [
     ('airtable', customblocks.AirTableBlock()),
     ('typeform', customblocks.TypeformBlock()),
 ]
-
-base_rich_text_options = ['bold', 'italic', 'link']

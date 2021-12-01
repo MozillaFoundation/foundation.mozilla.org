@@ -5,7 +5,7 @@ from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from .base_fields import base_fields
+from .customblocks.base_fields import base_fields
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..utils import (
     set_main_site_nav_information,

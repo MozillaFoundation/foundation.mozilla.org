@@ -6,7 +6,7 @@ from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
 
-from networkapi.wagtailpages.pagemodels.base_fields import base_rich_text_options
+from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
 
 @register_snippet
 class BlogPageCategory(TranslatableMixin, models.Model):
@@ -21,9 +21,7 @@ class BlogPageCategory(TranslatableMixin, models.Model):
     )
 
     intro = RichTextField(
-        features=[
-            'bold', 'italic', 'link',
-        ],
+        features=base_rich_text_options,
         blank=True,
     )
     share_description = models.TextField(
@@ -52,16 +50,20 @@ class BlogPageCategory(TranslatableMixin, models.Model):
         """
         WARNING: this function is referenced by two migrations:
 
-        - mozfest/0014_auto_20200406_2109.py
-        - wagtailpages/0095_auto_20200406_2109.py
+        - mozfest/0001_10_0015.py
+        - wagtailpages/0001_initial.py
 
         This means that renaming/(re)moving this function will require
         back-updating those two migrations, as "from scratch" migrations
         (compared to update-only migrations) will throw errors when trying
         to apply this function from its original location.
         """
-        choices = [(cat.name, cat.name) for cat in BlogPageCategory.objects.all()]
-        choices.sort(key=lambda c: c[1])
+        choices = []
+        try:
+            choices = [(cat.name, cat.name) for cat in BlogPageCategory.objects.all()]
+            choices.sort(key=lambda c: c[1])
+        except:
+            pass
         choices.insert(0, ('All', 'All'))
         return choices
 

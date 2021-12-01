@@ -16,7 +16,7 @@ from modelcluster.fields import ParentalKey
 
 from .primary import PrimaryPage
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
-from .base_fields import base_rich_text_options
+from .customblocks.base_rich_text_options import base_rich_text_options
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
