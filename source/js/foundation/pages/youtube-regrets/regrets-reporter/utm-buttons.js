@@ -28,9 +28,12 @@ class regretsReporterUtmButtons {
       downloadBtn.href += params;
     });
 
+    // Encoding UTM params for mailto: links
+    const newParams = encodeURIComponent(params);
+
     const updatedEmailBtnUrls =
       emailReminderButton.href +
-      `%0D%0A%0D%0Ahttps://addons.mozilla.org/en-us/firefox/addon/regretsreporter/${params}%0D%0Ahttps://chrome.google.com/webstore/detail/regretsreporter/obpoeflheeknapimliioeoefbfaakefn${params}`;
+      `%0D%0A%0D%0Ahttps://addons.mozilla.org/en-us/firefox/addon/regretsreporter/${newParams}%0D%0Ahttps://chrome.google.com/webstore/detail/regretsreporter/obpoeflheeknapimliioeoefbfaakefn${newParams}`;
 
     emailReminderButton.href = updatedEmailBtnUrls;
   }
