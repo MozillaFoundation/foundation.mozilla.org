@@ -4,6 +4,7 @@ export function setupTito() {
     };
 
     tito('on:registration:finished', function(data) {
+        // TODO: this callback will be needed for #7435
         console.log(data);
     });
 };
