@@ -15,7 +15,7 @@ const SubfilterDropdown = ({
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (subFiltersDropdown) {
+      if (subFiltersDropdown.current) {
         if (!subFiltersDropdown.current.contains(event.target)) {
           setDropdownExpanded(false);
         }
@@ -34,12 +34,15 @@ const SubfilterDropdown = ({
   }, []);
 
   return (
-    <div className="tw-w-max tw-mb-6 tw-relative" ref={subFiltersDropdown}>
+    <div
+      className="tw-w-max tw-mb-6 tw-relative tw-min-w-[275px]"
+      ref={subFiltersDropdown}
+    >
       {label && (
         <button
           id="subfilters-dropdown"
           onClick={() => setDropdownExpanded(!dropdownExpanded)}
-          className="tw-font-normal tw-text-[15px] tw-p-3 tw-flex tw-flex-row tw-justify-between tw-items-center tw-border tw-border-gray-20"
+          className="tw-font-normal tw-text-[15px] tw-p-3 tw-flex tw-flex-row tw-justify-between tw-items-center tw-border tw-border-gray-20 tw-w-full"
           aria-expanded={dropdownExpanded}
           aria-haspopup="listbox"
         >
@@ -64,32 +67,40 @@ const SubfilterDropdown = ({
           aria-labelledby="subfilters-dropdown"
         >
           {/*Show all*/}
-          <div className="tw-pl-5" key={`show-all-subfilters-checkbox`}>
+          <div
+            className="tw-pl-6 tw-py-2 tw-relative"
+            key={`show-all-subfilters-checkbox`}
+          >
+            <input
+              className="profile-subfilter-checkbox tw-mt-1"
+              type="checkbox"
+              name="show-all"
+              checked={showAll}
+              value={getText("Show All")}
+              onChange={onChangeShowAll}
+            />
             <label className="form-check-label hover:tw-cursor-pointer">
-              <input
-                className="form-check-input tw-mt-1"
-                type="checkbox"
-                name="show-all"
-                checked={showAll}
-                value={getText("Show All")}
-                onChange={onChangeShowAll}
-              />
+              <span className="checkbox" />
               <div>{getText("Show All")}</div>
             </label>
           </div>
           {subfilters.map((option) => (
-            <div className="tw-pl-5" key={`${option.filter_value}-checkbox`}>
+            <div
+              className="tw-pl-6 tw-py-2 tw-relative"
+              key={`${option.filter_value}-checkbox`}
+            >
+              <input
+                className="profile-subfilter-checkbox tw-mt-1"
+                type="checkbox"
+                name={option.filter_value}
+                checked={selectedFilters[option.filter_value] || false}
+                value={option.filter_value}
+                onChange={(e) => {
+                  onChangeSubfilter(e);
+                }}
+              />
               <label className="form-check-label hover:tw-cursor-pointer">
-                <input
-                  className="form-check-input tw-mt-1"
-                  type="checkbox"
-                  name={option.filter_value}
-                  checked={selectedFilters[option.filter_value] || false}
-                  value={option.filter_value}
-                  onChange={(e) => {
-                    onChangeSubfilter(e);
-                  }}
-                />
+                <span className="checkbox" />
                 <div>{option.filter_label}</div>
               </label>
             </div>

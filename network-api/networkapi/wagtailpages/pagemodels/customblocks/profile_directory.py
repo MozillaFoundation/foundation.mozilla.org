@@ -67,8 +67,7 @@ class TabbedProfileDirectory(blocks.StructBlock):
     tabs = SnippetChooserBlock(
         'wagtailpages.PulseFilter',
         help_text=(
-            'The profile information to create tabs on. The first option in the snippet'
-            ' will be used as the initial filter.'
+            'Tabs are created based on the selected pulse filter and the first option in the snippet will be the first tab showing open on the page.'
         ),
     )
     subfilters = blocks.StreamBlock(
