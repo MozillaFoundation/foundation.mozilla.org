@@ -12,6 +12,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -19,6 +20,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/what-you-can-do/`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -26,6 +28,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/who-we-are`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -35,6 +38,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/blog`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -42,6 +46,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/blog/tags/iot`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -49,6 +54,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/blog/tags/randomnonsensetagthatdoesntexist`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -56,6 +62,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/blog/category/mozilla-festival`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -70,6 +77,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/blog/initial-test-blog-post-with-fixed-title`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -83,6 +91,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     );
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -94,6 +103,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     );
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -103,6 +113,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/campaigns`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -112,6 +123,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/campaigns/single-page/`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -119,6 +131,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/campaigns/multi-page/`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -128,6 +141,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/campaigns/initial-test-bannered-campaign-with-fixed-title`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -137,6 +151,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/publication-page-with-child-article-pages`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -144,6 +159,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/publication-page-with-chapter-pages`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -153,6 +169,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     );
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -162,6 +179,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     );
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -171,6 +189,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/privacynotincluded/`);
     cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -178,6 +197,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/privacynotincluded/categories/toys-games/`);
     cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -185,6 +205,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/privacynotincluded/general-percy-product/`);
     cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -192,6 +213,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`/en/privacynotincluded/software-percy-product/`);
     cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -200,30 +222,35 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   it(`Styleguide page`, function () {
     cy.visit(`/en/style-guide/`);
     cy.wait(1000);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
   it(`YouTube Regrets page`, function () {
     cy.visit(`/en/campaigns/youtube-regrets/`);
     cy.wait(1000);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
   it(`YouTube RegretsReporter page`, function () {
     cy.visit(`/en/campaigns/regrets-reporter/`);
     cy.wait(1000);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
   it(`YouTube RegretsReporter findings page`, function () {
     cy.visit(`/en/campaigns/regrets-reporter/findings/`);
     cy.wait(1000);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
   it(`Dear Internet page`, function () {
     cy.visit(`/en/campaigns/dearinternet/`);
     cy.wait(1000);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -233,6 +260,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`${MOZFEST_BASE_URL}`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 
@@ -240,6 +268,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.visit(`${MOZFEST_BASE_URL}/spaces`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
+    cy.screenshot();
     cy.percySnapshot();
   });
 });

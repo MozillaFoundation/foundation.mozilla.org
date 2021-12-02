@@ -8,23 +8,6 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
-// This function is called when a project is opened or re-opened (e.g. due to
-// the project's config changing)
-
-const percyHealthCheck = require('@percy/cypress/task')
-
-module.exports = (on, config) => {
-  on("task", percyHealthCheck);
-
-  // console logging is mighty useful.
-  on("task", {
-    log(message) {
-      console.log(message);
-    },
-    table(message) {
-      console.table(message);
-    }
-  });
-
-  return config;
+module.exports = function (on, config) {
+  // configure plugins here
 };

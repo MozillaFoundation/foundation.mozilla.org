@@ -1,6 +1,7 @@
 basket-client
 beautifulsoup4
 boto3
+cached_property==1.5.2
 Django==3.1.11
 dj-database-url
 djangorestframework
@@ -17,6 +18,7 @@ filebrowser-safe
 future
 gunicorn
 heroku3
+pygit2==1.7.1
 python-slugify
 requests
 social-auth-app-django
