@@ -70,7 +70,9 @@
     {% endif %}
 
     {% block donate_banner %}
-      {% include "partials/banner.html" %}
+      {% if settings.wagtailpages.FeatureFlags.activate_donate_banner %}
+        {% include "partials/banner.html" %}
+      {% endif %}
     {% endblock %}
 
     {% block body_wrapped %}
