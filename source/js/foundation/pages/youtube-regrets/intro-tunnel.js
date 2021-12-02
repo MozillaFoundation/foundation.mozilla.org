@@ -240,20 +240,6 @@ class YouTubeRegretsTunnel {
       return;
     }
 
-    if (this.includeNewsletterButtons) {
-      elements.newsletterButtonDesktop[0].addEventListener(`click`, (event) =>
-        navNewsletter.buttonDesktopClickHandler(event)
-      );
-
-      elements.newsletterButtonMobile[0].addEventListener(`click`, (event) => {
-        if (navNewsletter.isVisible()) {
-          navNewsletter.closeMobileNewsletter(event);
-        } else {
-          navNewsletter.expandMobileNewsletter(event);
-        }
-      });
-    }
-
     this.setSceneDepth();
     this.setObjectsOpacity();
     this.toggleScrollHint();
