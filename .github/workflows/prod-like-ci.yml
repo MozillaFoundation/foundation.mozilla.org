@@ -60,8 +60,8 @@ jobs:
     - name: Install additional tooling
       run: |
         sudo apt-get install -y gettext libgconf-2-4
-    - name: Install Cypress
-      run: npm run cypress:install
+    - name: Install Playwright
+      run: npm run playwright:install
     - name: Preroll
       run: |
         npm run build
@@ -71,4 +71,4 @@ jobs:
         python network-api/manage.py load_fake_data
     - name: Run URL tests
       run: |
-        npm run cypress:ci:prod
+        npm run playwright:urls
