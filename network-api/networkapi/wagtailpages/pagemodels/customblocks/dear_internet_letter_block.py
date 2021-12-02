@@ -1,14 +1,12 @@
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
-
+from ..customblocks import base_rich_text_options
 
 class DearInternetLetterBlock(blocks.StructBlock):
     author_name = blocks.CharBlock()
 
     author_description = blocks.RichTextBlock(
-        features=[
-            'bold', 'italic', 'link',
-        ],
+        features=base_rich_text_options,
     )
 
     author_photo = ImageChooserBlock(

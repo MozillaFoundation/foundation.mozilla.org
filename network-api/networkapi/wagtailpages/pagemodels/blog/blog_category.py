@@ -8,6 +8,7 @@ from wagtail.snippets.models import register_snippet
 
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
 
+
 @register_snippet
 class BlogPageCategory(TranslatableMixin, models.Model):
     name = models.CharField(
@@ -62,7 +63,8 @@ class BlogPageCategory(TranslatableMixin, models.Model):
         try:
             choices = [(cat.name, cat.name) for cat in BlogPageCategory.objects.all()]
             choices.sort(key=lambda c: c[1])
-        except:
+        except Exception as ex:
+            print('Could not find Blog Categories. Sending empty list.')
             pass
         choices.insert(0, ('All', 'All'))
         return choices
