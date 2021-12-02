@@ -208,7 +208,7 @@ All our containers run on Linux.
 For local development, we have two Dockerfiles that define our images:
 
 - `Dockerfile.node`: use a node8 Debian Stretch slim base image from the Docker Hub and install node dependencies,
-- `Dockerfile.python`: use a python3.7 Debian Stretch slim base image, install required build dependencies before installing pipenv and the project dependencies.
+- `Dockerfile.python`: use a python3.9 Debian Stretch slim base image, install required build dependencies before installing pipenv and the project dependencies.
   We don't have a custom image for running postgres and use one from the Docker Hub.
 
 The `docker-compose.yml` file describes the 3 services that the project needs to run:
