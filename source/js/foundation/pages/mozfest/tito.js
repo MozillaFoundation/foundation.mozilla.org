@@ -4,9 +4,6 @@ export function setupTito() {
     };
 
     tito('on:registration:finished', function(data) {
-        const redirectURL = document.querySelector(`input[name="tito-post-registration-url"]`)?.value;
-        if (redirectURL) {
-            globalThis.location = redirectURL;
-        }
+        console.log(data);
     });
 };

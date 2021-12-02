@@ -3,6 +3,5 @@
 {% block block_content %}
     <script src='https://js.tito.io/v2' async></script>
 
-    <input type="hidden" name="tito-post-registration-url" value="{{ value.redirect_page.full_url }}">
     <tito-button event="{{ value.event }}"{% if value.releases %} releases="{{ value.releases }}"{% endif %} class="btn {{ value.styling }} link-button my-default">{{ value.button_label }}</tito-button>
 {% endblock %}

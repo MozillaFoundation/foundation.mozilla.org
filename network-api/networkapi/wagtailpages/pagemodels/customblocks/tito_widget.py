@@ -15,9 +15,6 @@ class TitoWidgetBlock(blocks.StructBlock):
         required=False,
         help_text='Comma-separated list of ticket/release IDs to limit to, e.g. "3elajg6qcxu,6qiiw4socs4"',
     )
-    redirect_page = blocks.PageChooserBlock(
-        required=False, help_text="The page to redirect to once the order has finished."
-    )
 
     class Meta:
         icon = "form"
