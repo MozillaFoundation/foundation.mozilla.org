@@ -1,4 +1,4 @@
-from  .. import customblocks
+from .. import customblocks
 from wagtail.core import blocks
 
 """

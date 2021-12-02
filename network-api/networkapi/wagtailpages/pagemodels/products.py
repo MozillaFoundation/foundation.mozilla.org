@@ -45,6 +45,7 @@ from networkapi.wagtailpages.utils import (
     get_locale_from_request,
     get_original_by_slug
 )
+from .customblocks.base_rich_text_options import base_rich_text_options
 
 # TODO: Move this util function
 from .mixin.snippets import LocalizedSnippet
@@ -1244,7 +1245,7 @@ class GeneralProductPage(ProductPage):
     )
     ai_helptext = RichTextField(
         max_length=5000,
-        features=['bold', 'italic', 'link'],
+        features=base_rich_text_options,
         help_text='Helpful text around AI to show on the product page',
         blank=True,
     )

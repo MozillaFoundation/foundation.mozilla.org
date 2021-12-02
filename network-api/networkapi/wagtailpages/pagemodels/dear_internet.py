@@ -16,7 +16,7 @@ from ..utils import set_main_site_nav_information
 class DearInternetPage(FoundationMetadataPageMixin, Page):
     intro_texts = StreamField([
         ('intro_text', blocks.RichTextBlock(
-        features=(base_rich_text_options)
+            features=(base_rich_text_options)
         ))
       ],
     )
