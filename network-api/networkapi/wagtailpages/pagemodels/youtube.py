@@ -154,6 +154,17 @@ class YoutubeRegretsReporterExtensionPage(FoundationMetadataPageMixin, Page):
     max_count = 1
     zen_nav = True
 
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
+    ]
+
     content_panels = Page.content_panels  # Needed for wagtail-modeltranslation to work
 
     def get_context(self, request):
