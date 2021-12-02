@@ -38,10 +38,18 @@ def get_robots_content():
     Do not allow indexing of any content, except on the live site.
     """
     if settings.ASSET_DOMAIN != 'foundation.mozilla.org':
-        return 'User-Agent: *\nDisallow: /'
+        return """
+User-Agent: *
+Disallow: /
+        """.strip()
 
     # For anti-spam purposes, explicitly disallow indexing the thimble artifact page.
-    return 'User-Agent: *\nDisallow: /*/artifacts/thimble\nDisallow: /artifacts/thimble'
+    return """
+User-Agent: *
+Disallow: /*/artifacts/thimble
+Disallow: /artifacts/thimble
+crawl-delay: 10
+""".strip()
 
 
 def csrf_response(request):
