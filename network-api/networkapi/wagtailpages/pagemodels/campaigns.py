@@ -52,6 +52,7 @@ class CTA(models.Model):
         return self.name
 
     class Meta:
+        ordering = ['-id']
         verbose_name_plural = 'CTA'
 
 
@@ -271,6 +272,7 @@ class Petition(TranslatableMixin, CTA):
     ]
 
     class Meta(TranslatableMixin.Meta):
+        ordering = ['-id']
         verbose_name = 'petition snippet'
 
 
