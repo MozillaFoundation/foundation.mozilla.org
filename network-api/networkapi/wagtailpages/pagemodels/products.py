@@ -774,6 +774,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         }
         return json.dumps(data)
 
+    # TODO: refactor meta methods out as part of: https://github.com/mozilla/foundation.mozilla.org/issues/7828
     # See package docs for `get_meta_*` methods: https://pypi.org/project/wagtail-metadata/
     def get_meta_title(self):
         return gettext("*Privacy Not Included review:") + f" {self.title}"

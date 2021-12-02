@@ -38,10 +38,24 @@ def get_robots_content():
     Do not allow indexing of any content, except on the live site.
     """
     if settings.ASSET_DOMAIN != 'foundation.mozilla.org':
-        return 'User-Agent: *\nDisallow: /'
+        return """
+User-Agent: *
+Disallow: /
+        """.strip()
 
     # For anti-spam purposes, explicitly disallow indexing the thimble artifact page.
-    return 'User-Agent: *\nDisallow: /*/artifacts/thimble\nDisallow: /artifacts/thimble'
+    return """
+User-Agent: *
+Disallow: /*/artifacts/thimble
+Disallow: /artifacts/thimble
+crawl-delay: 10
+""".strip()
+
+
+def csrf_response(request):
+    response = render(request, 'api/csrf.html')
+    response['Cache-Control'] = 'no-cache'
+    return response
 
 
 urlpatterns = list(filter(None, [
@@ -62,7 +76,7 @@ urlpatterns = list(filter(None, [
     re_path(r'^soc/', include('social_django.urls', namespace='social')),
 
     # CSRF endpoint
-    re_path(r'^api/csrf/', lambda request: render(request, 'api/csrf.html')),
+    re_path(r'^api/csrf/', csrf_response),
 
     # network API routes:
 
