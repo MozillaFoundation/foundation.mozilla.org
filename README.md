@@ -69,17 +69,19 @@ When relevant, we encourage you to write tests. You can run the tests using `inv
 
 If `inv test-node` shows linting errors for either JS/JSX or CSS/SCSS, you can run the `inv npm "run fix"` command to make the linting utilities automatically fix (or at least try to fix) any errors they knows how to fix. This will almost always be the only step required to ensure the linting phase of testing passes.
 
+### Integration tests
+
+Integration testing is done using [Playwright](https://playwright.dev/), with the integration tests found in `./tests/integration`.
+
+You can run these tests locally by running a one-time `npm run playwright:install` after which you should be able to run `npm run test:playwright` to run the visual tests. Note that this is still a work in progress.
+
 ### Visual regression tests
 
-In addition to the code tests there are also visual regression tests, located in the `./cypress/integration` directory. You can run these tests locally by installing [cypress](https://www.cypress.io/) using `npm i cypress@3.0.3`, after which the command `npm run cypress` will run these tests locally. However, note that these tests are currently intended for screenshot comparisons across branches, and so will not yield any meaningful results when run for a single branch.
+We also use Playwright in combination with Browserstack's [Percy](https://percy.io/) to perform visual regression testing for PRs, using `./tests/visual.spec.js` as screenshot baseline.
 
-### Accessibility tests (a11y tests)
+### Accessibility tests
 
-Accessibility tests are not part of the standard tests covered by `inv test`. You can run them locally by running `npm install` and `npm run cypress:install` once, after which the following command will run the a11y testing:
-
-- `npm run cypress:a11y`
-
-Note that when tests fail, the `./cypress/screenshots` directory will contain one screenshot for each failed test.
+Accessibility tests are currently unavailable but will use [axe-playwright](https://www.npmjs.com/package/axe-playwright) when the switchover from Cypress to Playwright is complete.
 
 ## Mozilla Festival
 
