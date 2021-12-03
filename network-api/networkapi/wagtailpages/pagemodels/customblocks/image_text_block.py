@@ -1,10 +1,11 @@
 from wagtail.core import blocks
 from .image_block import ImageBlock
+from ..customblocks.base_rich_text_options import base_rich_text_options
 
 
 class ImageTextBlock(ImageBlock):
     text = blocks.RichTextBlock(
-        features=['bold', 'italic', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'link']
+        features=base_rich_text_options + ['h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul']
     )
     url = blocks.CharBlock(
         required=False,

@@ -8,6 +8,7 @@ from wagtail.core.fields import StreamField
 from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 from . import customblocks
+from .customblocks.base_rich_text_options import base_rich_text_options
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..utils import set_main_site_nav_information
 
@@ -30,11 +31,10 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
     faq = StreamField(
         [
             ('paragraph', blocks.RichTextBlock(
-                features=[
-                    'bold', 'italic',
+                features=base_rich_text_options + [
                     'h2', 'h3', 'h4', 'h5',
                     'ol', 'ul',
-                    'link', 'hr',
+                    'hr',
                 ]
             ))
         ],

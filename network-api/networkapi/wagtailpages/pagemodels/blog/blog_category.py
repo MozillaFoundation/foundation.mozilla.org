@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.utils import ProgrammingError
 from django.template.defaultfilters import slugify
 from wagtail.core.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -63,8 +64,7 @@ class BlogPageCategory(TranslatableMixin, models.Model):
         try:
             choices = [(cat.name, cat.name) for cat in BlogPageCategory.objects.all()]
             choices.sort(key=lambda c: c[1])
-        except Exception as err:
-            print(type(err))
+        except ProgrammingError:
             pass
         choices.insert(0, ('All', 'All'))
         return choices

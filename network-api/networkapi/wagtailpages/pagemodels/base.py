@@ -176,7 +176,7 @@ class ParticipatePage2(PrimaryPage):
     )
 
     ctaHeroSubhead = RichTextField(
-        features=(base_rich_text_options),
+        features=base_rich_text_options,
         blank=True,
     )
 
@@ -205,7 +205,7 @@ class ParticipatePage2(PrimaryPage):
     )
 
     ctaHeroSubhead2 = RichTextField(
-        features=(base_rich_text_options),
+        features=base_rich_text_options,
         blank=True,
     )
 
@@ -234,7 +234,7 @@ class ParticipatePage2(PrimaryPage):
     )
 
     ctaHeroSubhead3 = RichTextField(
-        features=(base_rich_text_options),
+        features=base_rich_text_options,
         blank=True,
     )
 
@@ -416,7 +416,7 @@ class CTABase(WagtailOrderable, models.Model):
     )
 
     subhead = RichTextField(
-        features=(base_rich_text_options),
+        features=base_rich_text_options,
         blank=True,
     )
 
