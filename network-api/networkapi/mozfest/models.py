@@ -56,6 +56,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ('session_slider', customblocks.SessionSliderBlock()),
             ('current_events_slider', customblocks.CurrentEventsSliderBlock()),
             ('spaces', customblocks.SpacesBlock()),
+            ('tito_widget', customblocks.TitoWidgetBlock()),
         ]
     )
 
