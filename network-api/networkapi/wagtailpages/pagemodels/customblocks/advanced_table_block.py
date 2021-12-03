@@ -8,7 +8,7 @@ We are using StreamBlocks instead of ListBlocks to account for wagtail-localize'
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 from wagtail.core import blocks
-from ..customblocks import base_rich_text_options
+from .base_rich_text_options import base_rich_text_options
 
 
 class Cell(blocks.StructBlock):

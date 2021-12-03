@@ -17,7 +17,7 @@ from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext, pgettext
-from .customblocks import base_rich_text_options
+from .customblocks.base_rich_text_options import base_rich_text_options
 
 from modelcluster.fields import ParentalKey
 
@@ -45,7 +45,6 @@ from networkapi.wagtailpages.utils import (
     get_locale_from_request,
     get_original_by_slug
 )
-from .customblocks.base_rich_text_options import base_rich_text_options
 
 # TODO: Move this util function
 from .mixin.snippets import LocalizedSnippet
