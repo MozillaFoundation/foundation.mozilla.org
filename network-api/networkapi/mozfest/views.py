@@ -12,6 +12,7 @@ from django.views.decorators.http import require_POST
 # To configure endpoints see:
 # https://ti.to/Mozilla/mozilla-festival-2022/admin/settings/webhook_endpoints
 
+
 @csrf_exempt
 @require_POST
 def tito_ticket_completed(request):
