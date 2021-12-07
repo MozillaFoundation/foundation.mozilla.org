@@ -10,7 +10,7 @@ module.exports = {
   important: true,
   corePlugins: {
     // overriding TW default container
-    container: false
+    container: false,
   },
   plugins: [
     plugin(function ({ addUtilities }) {
@@ -26,6 +26,7 @@ module.exports = {
           columnCount: 3,
         },
         ".hash": {
+<<<<<<< HEAD
           content: "\"#\"",
         },
         ".no-scrollbar": {
@@ -34,6 +35,16 @@ module.exports = {
         },
         ".no-scrollbar::-webkit-scrollbar": {
           display: "none" /* Chrome */
+=======
+          content: '"#"',
+        },
+        ".no-scrollbar::-webkit-scrollbar": {
+          display: "none",
+        },
+        ".no-scrollbar": {
+          "-ms-overflow-style": "none" /* IE and Edge */,
+          "scrollbar-width": "none" /* Firefox */,
+>>>>>>> main
         },
       };
       addUtilities(newUtilities);
@@ -47,6 +58,12 @@ module.exports = {
       },
       screens: {
         print: { raw: "print" },
+      },
+      opacity: {
+        40: 0.4,
+      },
+      cursor: {
+        grabbing: "grabbing",
       },
     },
     // Overriding default spacing
@@ -71,6 +88,7 @@ module.exports = {
     fontFamily: {
       sans: ["Nunito Sans", "Helvetica", "Arial", "sans-serif"],
       zilla: ["Zilla Slab", "sans-serif"],
+      changa: ["Changa", "sans-serif"],
     },
     colors: {
       transparent: "transparent",
@@ -111,8 +129,14 @@ module.exports = {
         purple: "#a66efd",
       },
       festival: {
-        blue: "#0e11bf",
-        purple: "#8f14fb",
+        blue: {
+          DEFAULT: "#0e11bf",
+          100: "#2e05ff",
+        },
+        purple: {
+          DEFAULT: "#8f14fb",
+          100: "#fa00ff",
+        },
       },
       "dear-internet": {
         lilac: "#d3d5fc",

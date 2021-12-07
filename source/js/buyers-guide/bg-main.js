@@ -13,9 +13,9 @@ import injectMultipageNav from "../foundation/inject-react/multipage-nav.js";
 import primaryNav from "../primary-nav.js";
 
 import HomepageSlider from "./homepage-c-slider.js";
-import { SearchFilter, PNIToggle } from "./search.js";
 import AnalyticsEvents from "./analytics-events.js";
 import initializeSentry from "../common/sentry-config.js";
+import PNIMobileNav from "./pni-mobile-nav.js";
 
 // Initializing component a11y browser console logging
 if (
@@ -67,6 +67,7 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
+      PNIMobileNav.init();
       this.injectReactComponents();
       this.bindHandlers();
       initializePrimaryNav(networkSiteURL, primaryNav);
@@ -111,8 +112,6 @@ let main = {
   initPageSpecificScript() {
     if (document.querySelector(`body.pni.catalog`)) {
       HomepageSlider.init();
-      SearchFilter.init();
-      PNIToggle.init();
     }
   },
 };

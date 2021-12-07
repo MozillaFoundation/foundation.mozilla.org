@@ -5,6 +5,8 @@ from .audio_block import AudioBlock
 from .blog_set_block import BlogSetBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
 from .card_grid import CardGrid, CardGridBlock
+from .current_events_slider_block import CurrentEventsSliderBlock
+from .banner_carousel import BannerCarouselSlideBlock
 from .iframe_block import iFrameBlock
 from .image_block import ImageBlock
 from .image_grid import ImageGrid, ImageGridBlock
@@ -20,8 +22,10 @@ from .recent_blog_entries import RecentBlogEntries
 from .typeform_block import TypeformBlock
 from .quote_block import QuoteBlock
 from .single_quote_block import SingleQuoteBlock
-from .space_card_list_block import SpaceCardListBlock
-from .video_block import VideoBlock
+from .session_slider_block import SessionSliderBlock
+from .spaces_block import SpacesBlock
+from .tito_widget import TitoWidgetBlock
+from .video_block import ExternalVideoBlock, VideoBlock, WagtailVideoChooserBlock
 from .youtube_regret_block import YoutubeRegretBlock
 from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidthImageBlock, ArticleImageBlock
 from .dear_internet_letter_block import DearInternetLetterBlock
@@ -36,11 +40,14 @@ __all__ = [
     ArticleFullWidthImageBlock,
     ArticleRichText,
     AudioBlock,
+    BannerCarouselSlideBlock,
     BlogSetBlock,
     BootstrapSpacerBlock,
     CardGrid,
     CardGridBlock,
+    CurrentEventsSliderBlock,
     DearInternetLetterBlock,
+    ExternalVideoBlock,
     iFrameBlock,
     ImageBlock,
     ImageGrid,
@@ -55,10 +62,13 @@ __all__ = [
     PulseProjectList,
     QuoteBlock,
     SingleQuoteBlock,
-    SpaceCardListBlock,
     RecentBlogEntries,
     TabbedProfileDirectory,
+    SessionSliderBlock,
+    SpacesBlock,
+    TitoWidgetBlock,
     TypeformBlock,
     VideoBlock,
+    WagtailVideoChooserBlock,
     YoutubeRegretBlock,
 ]

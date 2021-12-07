@@ -13,7 +13,6 @@ export default (apps, siteUrl) => {
     let productName = element.dataset.productName;
     let productID = element.querySelector(`input[name=productID]`).value;
     let votesValue = element.querySelector(`input[name=votes]`).value;
-    let csrfToken = element.querySelector(`input[name=csrfmiddlewaretoken]`).value;
 
     let votes = {
       total: 0,
@@ -42,7 +41,6 @@ export default (apps, siteUrl) => {
             votes={votes}
             whenLoaded={() => resolve()}
             joinUsApiUrl={`${siteUrl}/api/campaign/signups/0/`}
-            csrfToken={csrfToken}
           />,
           element
         );

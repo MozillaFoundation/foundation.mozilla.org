@@ -27,11 +27,12 @@
     "CSP_CONNECT_SRC": "*",
     "CSP_DEFAULT_SRC": "'none'",
     "CSP_FRAME_ANCESTORS": "'none'",
+    "CSP_FRAME_SRC": "'self' https://js.tito.io",
     "CSP_FONT_SRC": "'self' https://fonts.gstatic.com https://fonts.googleapis.com https://code.cdn.mozilla.net",
     "CSP_IMG_SRC": "* data:",
     "CSP_MEDIA_SRC": "'self' https://s3.amazonaws.com/mofo-assets/foundation/video/",
-    "CSP_SCRIPT_SRC": "'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdn.syndication.twimg.com",
-    "CSP_STYLE_SRC": "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com  https://platform.twitter.com",
+    "CSP_SCRIPT_SRC": "'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdn.syndication.twimg.com https://js.tito.io",
+    "CSP_STYLE_SRC": "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com  https://platform.twitter.com https://js.tito.io",
     "NPM_CONFIG_PRODUCTION": "true",
     "REVIEW_APP": "True",
     "XROBOTSTAG_ENABLED": "True"
@@ -45,7 +46,7 @@
     }
   ],
   "scripts": {
-    "postdeploy": "python network-api/manage.py load_fake_data && python network-api/manage.py review_app_setup create && python network-api/manage.py review_app_admin",
+    "postdeploy": "python network-api/manage.py load_fake_data && python network-api/manage.py review_app_setup create && python network-api/manage.py review_app_admin && python network-api/manage.py sync_locale_trees",
     "pr-predestroy": "python network-api/manage.py review_app_setup teardown"
   }
 }

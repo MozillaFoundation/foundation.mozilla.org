@@ -16,8 +16,13 @@ import {
 import primaryNav from "./primary-nav.js";
 import EmbedTypeform from "./embed-typeform.js";
 import Dropdowns from "./dropdowns.js";
+import DonateBanner from "./donate-banner";
+import MozfestCarousels from "./components/carousel/carousel.js";
+import MozfestHeroCarousels from "./components/mozfest-hero-carousel/mozfest-hero-carousel";
 import initializeSentry from "./common/sentry-config.js";
 import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/intro-tunnel";
+import YouTubeRegretsBrowserExtension from "./foundation/pages/youtube-regrets/browser-extension";
+import RegretsReporterUtmButtons from "./foundation/pages/youtube-regrets/regrets-reporter/utm-buttons";
 import RegretsReporterTimeline from "./foundation/pages/youtube-regrets/regrets-reporter/timeline";
 import { bindEventHandlers as bindRegretsReporterEventHandlers } from "./foundation/pages/youtube-regrets/regrets-reporter";
 import { bindEventHandlers as bindDearInternetEventHandlers } from "./foundation/pages/dear-internet";
@@ -49,6 +54,7 @@ const apps = [];
 
 let main = {
   init() {
+    DonateBanner.init();
     GoogleAnalytics.init();
     EmbedTypeform.init();
     Dropdowns.init();
@@ -116,6 +122,10 @@ let main = {
       new YouTubeRegretsTunnel();
     }
 
+    if (document.querySelector("#view-youtube-regrets-reporter-extension")) {
+      new YouTubeRegretsBrowserExtension();
+    }
+
     // YouTube Regrets 2021 page
     if (document.querySelector("#view-youtube-regrets-2021")) {
       initYouTubeRegretsCategoriesBarChart();
@@ -133,10 +143,20 @@ let main = {
       new RegretsReporterTimeline();
       bindRegretsReporterEventHandlers();
     }
+    // YouTube Regrets Reporter Extension Page
+    if (document.querySelector("#regrets-reporter-extension-page")) {
+      new RegretsReporterUtmButtons();
+    }
 
     // Dear Internet page
     if (document.querySelector("#view-dear-internet")) {
       bindDearInternetEventHandlers();
+    }
+
+    // Mozfest pages
+    if (document.querySelector(`.mozfest`)) {
+      MozfestCarousels.init();
+      MozfestHeroCarousels.init();
     }
   },
 };

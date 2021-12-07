@@ -1,5 +1,6 @@
 #view-product-page {
-  #multipage-nav-mobile {
+  #multipage-nav-mobile,
+  #pni-nav-mobile {
     margin-bottom: 0;
   }
 
@@ -28,7 +29,7 @@
       content: "";
       position: absolute;
       top: 24px;
-      right: 24px;
+      right: 32px;
       background: url(../_images/buyers-guide/icon-privacy-ding.svg) center /
         contain no-repeat;
       width: 47px;
@@ -38,6 +39,7 @@
         top: 40px;
         width: 63px;
         height: 80px;
+        right: 30px;
       }
 
       @at-root html[lang="de"] & {
@@ -108,7 +110,7 @@
   }
 }
 
-.product-section-padding-x {
+.comment-section-padding-x {
   padding-left: 18px;
   padding-right: 18px;
 
@@ -131,6 +133,19 @@
 
     @include hover-focus-active {
       color: $dark-blue;
+    }
+  }
+
+  .company-external-link {
+    display: inline-flex;
+    align-items: center;
+
+    &::after {
+      content: " ";
+      width: 1em;
+      height: 1em;
+      background: url(../_images/buyers-guide/external-link.svg) no-repeat;
+      margin-left: 0.5em;
     }
   }
 
@@ -187,6 +202,99 @@
         }
       }
     }
+  }
+  .tips-to-protect-yourself {
+    border: 1px solid $gray-20;
+    .tips {
+      h2 {
+        display: inline-block;
+        &:before {
+          content: "";
+          display: inline-block;
+          width: 29px;
+          height: 27px;
+          background: url(../_images/buyers-guide/protect-tip-icon.svg) center /
+            contain no-repeat;
+          position: relative;
+          top: 4px;
+          margin-right: 0.5rem;
+
+          @media (min-width: $pni-product-breakpoint-larger) {
+            margin-right: 1rem;
+          }
+        }
+      }
+
+      .rich-text {
+        ul {
+          padding-left: 1.5em;
+        }
+      }
+    }
+    // Removing padding from container so div can sit slightly outwards from rest of content.
+    @media (min-width: $pni-product-breakpoint-larger) {
+      margin-right: -2em;
+      margin-left: -2em;
+      padding-left: 1em;
+    }
+  }
+
+  .subheading-divider {
+    padding: 0em 0.5em 0em 0.5em;
+    @media (max-width: $bp-md) {
+      display: none;
+    }
+  }
+
+  .mozilla-researched-icon,
+  .mozilla-says,
+  .people-voted {
+    &::after {
+      content: "";
+      display: inline-block;
+      width: 1.5em;
+      height: 1.5em;
+      margin-left: 4px;
+      position: relative;
+      vertical-align: middle;
+    }
+  }
+
+  .mozilla-researched-icon::after {
+    background: url(../_images/buyers-guide/info-circle.svg) no-repeat;
+  }
+
+  // Thumb Icons
+  .thumb-down::after {
+    background: url(../_images/buyers-guide/mozilla-says/thumb-down.svg)
+      no-repeat;
+  }
+  .thumb-up::after {
+    background: url(../_images/buyers-guide/mozilla-says/thumb-up.svg) no-repeat;
+  }
+  .thumb-side::after {
+    background: url(../_images/buyers-guide/mozilla-says/thumb-side.svg)
+      no-repeat;
+  }
+  // "People Voted" Face Icons
+  .not-creepy::after {
+    background: url(../_images/buyers-guide/faces/not-creepy-face.svg) no-repeat;
+  }
+  .a-little-creepy::after {
+    background: url(../_images/buyers-guide/faces/a-little-creepy-face.svg)
+      no-repeat;
+  }
+  .somewhat-creepy::after {
+    background: url(../_images/buyers-guide/faces/somewhat-creepy-face.svg)
+      no-repeat;
+  }
+  .very-creepy::after {
+    background: url(../_images/buyers-guide/faces/very-creepy-face.svg)
+      no-repeat;
+  }
+  .super-creepy::after {
+    background: url(../_images/buyers-guide/faces/super-creepy-face.svg)
+      no-repeat;
   }
 }
 
@@ -418,6 +526,17 @@
       margin-bottom: 0.75rem;
     }
   }
+
+  .criterion-richtext-value {
+    p {
+      @extend .pni-product-smaller-body;
+    }
+  }
+  .criterion-richtext-help {
+    p {
+      @extend .pni-product-helptext;
+    }
+  }
 }
 
 .dotted-section {
@@ -428,9 +547,10 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 228px;
+    height: 120px;
     background-image: url(../_images/buyers-guide/dot-pattern.svg);
     background-size: 9px 9px;
+    margin-top: -1rem;
   }
 }
 
@@ -461,4 +581,15 @@
   min-height: 380px;
   min-width: 290px;
   background: $pni-product-image-background;
+}
+
+.pni-section-divider {
+  border-width: 4px;
+  border-color: $black;
+  padding-bottom: 1em;
+}
+
+#product-tab-content {
+  --x-offset: 0;
+  transform: translateX(var(--x-offset));
 }

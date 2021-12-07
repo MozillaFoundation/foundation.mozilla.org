@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.test.utils import override_settings
 from rest_framework.test import APITestCase
 from django.test import TestCase, RequestFactory
-from unittest import skip
 
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
@@ -19,6 +18,7 @@ from networkapi.wagtailpages.pagemodels.products import (
 from networkapi.wagtailpages.utils import create_wagtail_image
 
 from wagtail.core.models import Page, Site
+from wagtail.core.models.i18n import Locale
 from wagtail.tests.utils import WagtailPageTests
 
 
@@ -43,6 +43,9 @@ class BuyersGuideViewTest(TestCase):
                     hero_image__file__width=1080,
                     hero_image__file__height=720
                 )
+            site = Site.objects.first()
+            site.root_page = homepage
+            site.save()
             # Create the buyersguide page.
             buyersguide = BuyersGuidePage()
             buyersguide.title = 'Privacy not included'
@@ -50,28 +53,40 @@ class BuyersGuideViewTest(TestCase):
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
 
+            locale = Locale.objects.create(language_code="fr")
+            buyersguide.copy_for_translation(locale, copy_parents=True, alias=True)
+
     def test_homepage(self):
         """
         Test that the homepage works.
         """
         response = self.client.get('/privacynotincluded/')
-        self.assertEqual(response.status_code, 302, 'Homepage should be forwarded to /en/ by default')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response.url,
+            '/en/privacynotincluded/',
+            'Homepage should be forwarded to /en/ by default'
+        )
 
-    @skip("TODO: REENABLE: THIS HAS BEEN TESTED MANUALLY BUT FAILS IN THIS CODE FORM ATM")
     def test_localised_homepage(self):
         """
         Test that the homepage redirects properly under different locale configurations.
         """
-        response = self.client.get('/privacynotincluded/')
-        self.assertEqual(response.status_code, 302, 'simple locale gets redirected')
-
         response = self.client.get('/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='fr')
         self.assertEqual(
             response.redirect_chain[0][0],
             '/fr/privacynotincluded/',
             'redirects according to HTTP_ACCEPT_LANGUAGE'
         )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.get('/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='sw')
+        self.assertEqual(
+            response.redirect_chain[0][0],
+            '/sw/privacynotincluded/',
+            'redirects according to HTTP_ACCEPT_LANGUAGE for non-existent locale'
+        )
+        self.assertEqual(response.status_code, 200)
 
         response = self.client.get('/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='foo')
         self.assertEqual(response.redirect_chain[0][0], '/en/privacynotincluded/', 'redirects to /en/ by default')
@@ -202,9 +217,6 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
     def test_buyersguide_about_methodology_view(self):
         self.about_url_test('methodology-view', 'about/methodology/', 'methodology')
 
-    def test_buyersguide_about_mss_view(self):
-        self.about_url_test('min-security-view', 'about/meets-minimum-security-standards/', 'minimum_security')
-
     def test_contest_page(self):
         url = self.bg.reverse_subpage('contest')
         self.assertEqual(url, 'contest/')
@@ -248,7 +260,6 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertContains(response, 'about/press/')
         self.assertContains(response, 'about/contact/')
         self.assertContains(response, 'about/methodology/')
-        self.assertContains(response, 'about/meets-minimum-security-standards/')
 
         categories = BuyersGuideProductCategory.objects.filter(hidden=False)
         for category in categories:
@@ -272,7 +283,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         with self.settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}}):
             response = self.client.get(url)
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(len(response.context['products']), 0)
+            self.assertEqual(len(response.context['products']), 1)
 
             # Add BuyersGuideProductCategory
             category_orderable = ProductPageCategory(

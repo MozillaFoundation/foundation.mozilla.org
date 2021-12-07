@@ -10,6 +10,10 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    {% block web_monetization %}
+    <meta name="monetization" content="$ilp.uphold.com/aKpM9kwnGBy4">
+    {% endblock %}
+
     {% block social_metadata %}
       <meta property='og:type' content='website'>
       <meta property='og:locale' content='{{ lang_code|to_opengraph_locale }}'>
@@ -35,7 +39,7 @@
       <link rel="stylesheet" href="{% static "_css/main.compiled.css" %}">
 
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,800,900,400i">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i,400i,500i,600i">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i,400i,600i">
     {% endblock %}
 
     {% block extended_head %}{% endblock %}
@@ -64,6 +68,12 @@
       This is a draft page, and is only visible to users who are logged in to the CMS admin.
     </div>
     {% endif %}
+
+    {% block donate_banner %}
+      {% if settings.wagtailpages.FeatureFlags.activate_donate_banner %}
+        {% include "partials/banner.html" %}
+      {% endif %}
+    {% endblock %}
 
     {% block body_wrapped %}
     <div class="wrapper">

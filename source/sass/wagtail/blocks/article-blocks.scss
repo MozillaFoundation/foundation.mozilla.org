@@ -1,6 +1,6 @@
 // StreamBlock implmentation for article blocks
 
-.article-page-content .rich-text {
+.article-page-content .content-block .rich-text {
   /**
      * .rich-text styling needs to be specified in CSS rather than Bootstrap classes
      * because we don't have access to the individual elements.
@@ -103,5 +103,14 @@
     width: 100%;
     max-width: 100%;
     position: relative;
+  }
+}
+
+// left-aligning link button streamfields to text content
+// since text content is 8-col instead of 10 like the available streamfields.
+.article-page-content {
+  .linkbutton-block .streamfield-content {
+    @extend .col-md-8;
+    padding-left: 12px;
   }
 }

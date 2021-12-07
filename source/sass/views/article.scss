@@ -153,18 +153,25 @@
 }
 
 .article-blockquote-block {
-  color: $black;
-  @include set-text-size(20px, 30px);
-  font-family: $font-family-sans-serif;
-  font-weight: 400;
   background: $gray-05;
   padding: 24px 30px;
   width: calc(80% + 60px);
-
+  .rich-text {
+    p {
+      color: $black;
+      @include set-text-size(20px, 30px);
+      font-family: $font-family-sans-serif;
+      font-weight: 300;
+      margin: auto 0;
+    }
+  }
   &--small {
-    color: $black;
-    @include set-text-size(18px, 27px);
-    font-weight: normal;
+    .rich-text {
+      p {
+        @include set-text-size(18px, 27px);
+        font-weight: normal;
+      }
+    }
   }
 }
 
@@ -295,9 +302,7 @@
   }
 
   .article-blocks .rich-text .richtext-image {
-    &.full-width,
-    &.right,
-    &.left {
+    &.full-width {
       margin: 0 0 24px 0;
       width: 100%;
       max-width: 100%;
