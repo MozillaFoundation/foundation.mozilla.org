@@ -26,16 +26,6 @@ module.exports = {
           columnCount: 3,
         },
         ".hash": {
-<<<<<<< HEAD
-          content: "\"#\"",
-        },
-        ".no-scrollbar": {
-          "-ms-overflow-style": "none",  /* IE and Edge */
-          scrollbarWidth: "none"  /* Firefox */
-        },
-        ".no-scrollbar::-webkit-scrollbar": {
-          display: "none" /* Chrome */
-=======
           content: '"#"',
         },
         ".no-scrollbar::-webkit-scrollbar": {
@@ -44,7 +34,6 @@ module.exports = {
         ".no-scrollbar": {
           "-ms-overflow-style": "none" /* IE and Edge */,
           "scrollbar-width": "none" /* Firefox */,
->>>>>>> main
         },
       };
       addUtilities(newUtilities);

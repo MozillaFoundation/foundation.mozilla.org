@@ -181,7 +181,6 @@ body.mozfest {
       }
     }
   }
-<<<<<<< HEAD
 
   .profile-subfilter-checkbox {
     position: absolute;
@@ -202,7 +201,7 @@ body.mozfest {
       // checkbox surrounding box
       .checkbox {
         pointer-events: none;
-        content: '';
+        content: "";
         position: absolute;
         background-color: $white;
         border-radius: 6px;
@@ -247,67 +246,92 @@ body.mozfest {
     // keep focus styles
     &:focus + label .checkbox {
       outline: $blue;
-=======
+    }
+  }
   // Overriding sticky nav z-index to show tito widget
   .sticky-top {
     z-index: 999;
   }
-}
 
-.swiper-button-next,
-.swiper-button-prev {
-  @apply tw-border-2 tw-text-blue tw-flex tw-flex-col tw-justify-center tw-items-center tw-w-[40px] tw-h-[40px] tw-transition;
+  .swiper-button-next,
+  .swiper-button-prev {
+    @apply tw-border-2 tw-text-blue tw-flex tw-flex-col tw-justify-center tw-items-center tw-w-[40px] tw-h-[40px] tw-transition;
 
-  &.swiper-button-disabled {
-    @apply tw-border-gray-20;
+    &.swiper-button-disabled {
+      @apply tw-border-gray-20;
+    }
+
+    &::after {
+      content: "";
+    }
+
+    &:hover {
+      @apply tw-opacity-75;
+    }
   }
 
-  &::after {
-    content: "";
-  }
-
-  &:hover {
-    @apply tw-opacity-75;
-  }
-}
-
-.swiper-button-icon {
-  @apply tw-text-blue tw-w-4 tw-h-4;
-}
-
-.swiper-button-disabled {
   .swiper-button-icon {
-    @apply tw-text-gray-20;
-  }
-}
-
-.swiper-button-prev {
-  @apply tw-mr-5;
-}
-
-.swiper-pagination-bullet {
-  @apply tw-w-3 tw-h-3;
-}
-
-.swiper-pagination-bullet-active {
-  @apply tw-bg-blue-dark;
-}
-
-@keyframes slide-progress-bar {
-  0% {
-    transform: translateX(-100%);
+    @apply tw-text-blue tw-w-4 tw-h-4;
   }
 
-  100% {
-    transform: translateX(0);
+  .swiper-button-disabled {
+    .swiper-button-icon {
+      @apply tw-text-gray-20;
+    }
   }
-}
 
-#view-mozfest-home {
-  .swiper-hero-pagination {
-    .swiper-pagination-bullet {
-      @apply tw-block tw-w-full tw-rounded-full tw-overflow-hidden tw-relative tw-bg-white;
+  .swiper-button-prev {
+    @apply tw-mr-5;
+  }
+
+  .swiper-pagination-bullet {
+    @apply tw-w-3 tw-h-3;
+  }
+
+  .swiper-pagination-bullet-active {
+    @apply tw-bg-blue-dark;
+  }
+
+  @keyframes slide-progress-bar {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  #view-mozfest-home {
+    .swiper-hero-pagination {
+      .swiper-pagination-bullet {
+        @apply tw-block tw-w-full tw-rounded-full tw-overflow-hidden tw-relative tw-bg-white;
+        height: 4px;
+
+        &::before {
+          @apply tw-block tw-inset-0 tw-absolute;
+          background: $white;
+          content: "";
+        }
+      }
+
+      .swiper-pagination-bullet-active {
+        /* stylelint-disable */
+        background: rgba($white, 0.2);
+        /* stylelint-enable */
+
+        &::before {
+          animation: slide-progress-bar 10s ease-in-out forwards;
+        }
+      }
+    }
+
+    .swiper-mobile-progress-bar {
+      @apply tw-rounded-full tw-relative tw-overflow-hidden tw-w-full;
       height: 4px;
+      /* stylelint-disable */
+      background: rgba($white, 0.5);
+      /* stylelint-enable */
 
       &::before {
         @apply tw-block tw-inset-0 tw-absolute;
@@ -316,38 +340,12 @@ body.mozfest {
       }
     }
 
-    .swiper-pagination-bullet-active {
-      /* stylelint-disable */
-      background: rgba($white, 0.2);
-      /* stylelint-enable */
-
-      &::before {
-        animation: slide-progress-bar 10s ease-in-out forwards;
+    .swiper-slide-active {
+      .swiper-mobile-progress-bar {
+        &::before {
+          animation: slide-progress-bar 10s ease-in-out forwards;
+        }
       }
-    }
-  }
-
-  .swiper-mobile-progress-bar {
-    @apply tw-rounded-full tw-relative tw-overflow-hidden tw-w-full;
-    height: 4px;
-    /* stylelint-disable */
-    background: rgba($white, 0.5);
-    /* stylelint-enable */
-
-    &::before {
-      @apply tw-block tw-inset-0 tw-absolute;
-      background: $white;
-      content: "";
-    }
-  }
-
-  .swiper-slide-active {
-    .swiper-mobile-progress-bar {
-      &::before {
-        animation: slide-progress-bar 10s ease-in-out forwards;
-      }
->>>>>>> main
     }
   }
 }
-
