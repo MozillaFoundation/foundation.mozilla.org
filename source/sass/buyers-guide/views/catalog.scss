@@ -2,19 +2,18 @@ body.catalog {
   $hero-breakpoint: $bp-lg;
   $breakpoint: $bp-md;
 
-  --sticky-height: 128px;
-  --creep-o-height: 70px;
+  --sticky-height: 73px;
+  --creep-o-height: 10px;
   --expanded-sticky-height: calc(11em + var(--creep-o-height));
   --small-sticky-height: calc(var(--expanded-sticky-height) - 6em);
 
   /* the minimal value for this buffer is 2em */
-  --mobile-creep-buffer: 2em;
+  --mobile-creep-buffer: 0em;
   --mobile-creep-offset: calc(var(--mobile-creep-buffer) - 2em);
 
   --search-icon-size-desktop: 24px;
   --search-icon-size-mobile: 22px;
-  --search-box-height-desktop: 62px;
-  --search-box-height-mobile: 50px;
+  --search-box-height: 50px;
   --clear-icon-size: 14px;
 
   --search-element-buffer: 10%;
@@ -29,11 +28,13 @@ body.catalog {
 
     .intro-text {
       padding-top: 12px;
-      padding-bottom: 28px;
+      padding-bottom: 50px;
 
+      @media (min-width: $breakpoint) {
+        padding-top: 12px;
+      }
       @media (min-width: $hero-breakpoint) {
         padding-top: 90px;
-        padding-bottom: 90px;
       }
     }
 
@@ -56,37 +57,24 @@ body.catalog {
   }
 
   #product-filter-search {
-    --initial-width: calc(
-      100% - calc(var(--clear-icon-size) + var(--search-icon-size-desktop))
-    );
-    --expanded-width: var(--initial-width);
-
+    background-color: $white;
     cursor: pointer;
-    position: relative;
     display: flex;
     align-items: center;
     padding: 1em;
     width: 100%;
-    height: var(--search-box-height-mobile);
+    height: var(--search-box-height);
     box-sizing: border-box;
     text-align: left;
     border: 1px solid $black;
+    border-radius: 2em;
     transition: border-color 0.2s, width 0.2s;
+    margin: auto;
 
     @media (min-width: $bp-md) {
       --container-padding: 0.5em;
-      --initial-width: calc(
-        3 * var(--container-padding) + var(--search-icon-size-desktop)
-      );
-      --expanded-width: calc(100% - var(--pni-checkbox-container-width) - 2em);
-
-      position: absolute;
-      left: 0;
-      border: 1px solid transparent;
       padding: var(--container-padding);
       padding-right: 1em;
-      width: var(--initial-width);
-      height: var(--search-box-height-desktop);
       overflow: hidden;
 
       &::placeholder {
@@ -94,18 +82,10 @@ body.catalog {
       }
     }
 
-    @media (min-width: $bp-xl) {
-      margin-left: 0;
-    }
-
     &:focus-within,
     &.has-content {
       border-color: $black;
       cursor: default;
-
-      @media (min-width: $bp-md) {
-        width: var(--expanded-width);
-      }
 
       .search-icon {
         cursor: default;
@@ -129,12 +109,12 @@ body.catalog {
       cursor: pointer;
       height: var(--search-icon-size-mobile);
       width: var(--search-icon-size-mobile);
-      margin: 0 0.5em;
+      margin: 0 8px 0 4px;
 
       @media (min-width: $bp-sm) {
         height: var(--search-icon-size-desktop);
         width: var(--search-icon-size-desktop);
-        margin-right: 1em;
+        margin: 0 16px 0 8px;
       }
     }
 
@@ -155,7 +135,7 @@ body.catalog {
         outline: 0;
         padding: 0;
         margin: 0;
-        margin-right: 10px;
+        margin-right: 4px;
         height: var(--clear-icon-size);
         width: var(--clear-icon-size);
         background: url(../_images/buyers-guide/filter/clear-icon-black.svg);
@@ -170,15 +150,10 @@ body.catalog {
 
   #product-filter-pni {
     user-select: none;
-    position: absolute;
-    left: 0;
-    padding-top: 0.5em;
+    margin-left: 0.5rem;
 
     @media (min-width: $bp-md) {
-      left: unset;
-      right: 0;
-      margin-left: 0.5em;
-      width: var(--pni-checkbox-container-width);
+      margin-left: auto;
       font-size: 100%;
     }
 
@@ -296,12 +271,12 @@ body.catalog {
           @media screen and (max-width: $breakpoint) {
             .product-company {
               color: $gray-80;
-              @include set-text-size(9px, 14px);
+              @include set-text-size(12px, 16px);
             }
 
             .product-name {
               color: $black;
-              @include set-text-size(11px, 14px);
+              @include set-text-size(12px, 16px);
             }
           }
         }
@@ -347,7 +322,7 @@ body.catalog {
     z-index: 3;
     position: relative;
     top: 42px;
-    padding-top: 16px;
+    margin: 2rem 0 1rem;
     top: initial;
     z-index: 10;
 
@@ -356,14 +331,23 @@ body.catalog {
     );
 
     &.creep-o-meter-moved {
-      height: var(--small-sticky-height);
+      height: 80px;
+      margin-bottom: 0;
+      margin-top: 1rem;
+
+      @media (max-width: $bp-md) {
+        height: 16px;
+        padding-bottom: 0;
+        #product-filter-pni {
+          top: calc(var(--mobile-creep-offset));
+        }
+      }
     }
 
     @media (min-width: $breakpoint) {
       display: flex;
       height: var(--sticky-height);
       align-items: center;
-      padding-top: initial;
 
       &.creep-o-meter-moved {
         height: var(--sticky-height);
@@ -373,20 +357,19 @@ body.catalog {
     .creep-o-meter-information {
       position: absolute;
       white-space: nowrap;
-      top: calc(var(--sticky-height) + var(--mobile-creep-offset));
       right: 0;
-      left: 0;
       opacity: 1;
       transition: opacity 0.2s ease;
+      top: unset;
+      right: calc(50% - 36px);
+      left: unset;
 
       &.fade-out {
         opacity: 0;
       }
 
-      @media (min-width: $bp-md) {
-        top: unset;
-        right: calc(50% - 36px);
-        left: unset;
+      @media (max-width: $bp-sm) {
+        right: calc(50% - 144px);
       }
     }
 
@@ -484,6 +467,7 @@ body.catalog {
   .oh-no-face {
     width: 50px;
     height: 50px;
+    margin: auto;
   }
   @media (min-width: $breakpoint) {
     .oh-no-face {

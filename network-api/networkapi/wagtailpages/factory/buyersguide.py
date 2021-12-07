@@ -6,7 +6,6 @@ from datetime import date, datetime, timezone, timedelta
 from factory import (
     Faker,
     post_generation,
-    LazyAttribute,
     LazyFunction,
 )
 from factory.django import DjangoModelFactory
@@ -96,7 +95,6 @@ class ProductPageFactory(PageFactory):
     company = Faker('company')
     blurb = Faker('sentence')
     product_url = Faker('url')
-    price = LazyAttribute(lambda _: randint(49, 1500))
     worst_case = Faker('sentence')
     first_published_at = Faker('past_datetime', start_date='-2d', tzinfo=timezone.utc)
     last_published_at = Faker('past_datetime', start_date='-1d', tzinfo=timezone.utc)
@@ -159,21 +157,14 @@ class GeneralProductPageFactory(ProductPageFactory):
     offline_capable = LazyFunction(get_extended_yes_no_value)
     offline_use_description = Faker('sentence')
     uses_ai = LazyFunction(get_extended_yes_no_value)
-    ai_uses_personal_data = LazyFunction(get_extended_yes_no_value)
     ai_is_transparent = LazyFunction(get_extended_yes_no_value)
     ai_helptext = Faker('sentence')
-    email = Faker('email')
-    live_chat = Faker('url')
-    phone_number = Faker('phone_number')
-    twitter = '@TwitterHandle'
 
 
 class SoftwareProductPageFactory(ProductPageFactory):
 
     class Meta:
         model = SoftwareProductPage
-
-    price = 0
 
     handles_recordings_how = Faker('sentence')
     recording_alert = LazyFunction(get_extended_yes_no_value)
@@ -211,7 +202,6 @@ def create_general_product_visual_regression_product(seed, pni_homepage):
         company='Percy Corp',
         blurb='This is a general product specifically created for visual regression testing',
         product_url='http://example.com/general-percy',
-        price=999,
         worst_case='Visual regression fails',
         # general product fields
         camera_app='Yes',
@@ -227,17 +217,12 @@ def create_general_product_visual_regression_product(seed, pni_homepage):
         data_control_policy_is_bad=True,
         company_track_record='Needs Improvement',
         track_record_is_bad=True,
-        track_record_details='What kind of track record are we talking about?',
+        track_record_details='<p> What kind of track record are we talking about? </p>',
         offline_capable='Yes',
-        offline_use_description='Although it is unclear how offline capabilities work',
+        offline_use_description='<p> Although it is unclear how offline capabilities work </p>',
         uses_ai='NA',
-        ai_uses_personal_data='Yes',
         ai_is_transparent='No',
         ai_helptext='The AI is a black box and no one knows how it works',
-        email='test@example.org',
-        live_chat='http://example.org/chat',
-        phone_number='1-555-555-5555',
-        twitter='@TwitterHandle',
     )
 
 
@@ -258,7 +243,6 @@ def create_software_product_visual_regression_product(seed, pni_homepage):
         company='Percy Corp',
         blurb='This is a general product specifically created for visual regression testing',
         product_url='http://example.com/general-percy',
-        price=999,
         worst_case='Visual regression fails',
         # software product fields
     )

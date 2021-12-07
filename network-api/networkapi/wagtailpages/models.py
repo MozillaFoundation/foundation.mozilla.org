@@ -73,6 +73,7 @@ from .pagemodels.youtube import (
     YoutubeRegretsPage,
     YoutubeRegretsReporterPage,
     YoutubeRegrets2021Page,
+    YoutubeRegretsReporterExtensionPage
 )
 
 from .pagemodels.publications.publication import (
@@ -96,6 +97,9 @@ from .pagemodels.products import (
     SoftwareProductPage,
 )
 
+from .pagemodels.feature_flags.feature_flags import (
+    FeatureFlags
+)
 
 __all__ = [
     ArticlePage,
@@ -111,6 +115,7 @@ __all__ = [
     ContentAuthor,
     CTA,
     DearInternetPage,
+    FeatureFlags,
     FocusArea,
     FoundationBannerInheritanceMixin,
     FoundationMetadataPageMixin,
@@ -142,4 +147,5 @@ __all__ = [
     YoutubeRegretsPage,
     YoutubeRegrets2021Page,
     YoutubeRegretsReporterPage,
+    YoutubeRegretsReporterExtensionPage,
 ]

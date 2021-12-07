@@ -1,7 +1,7 @@
 {% load static i18n wagtailimages_tags l10n localization %}
 
 <figure
-  class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}{% if product.privacy_ding %} privacy-ding{% endif%}"
+  class="product-box {% if matched == False %}d-none{% else %}d-flex{% endif %}  flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}{% if product.privacy_ding %} privacy-ding{% endif%}"
   data-creepiness="{{ product.creepiness|unlocalize }}">
   <div class="top-left-badge-container">
       {% if product.privacy_ding %}
@@ -17,7 +17,7 @@
   {% include "fragments/adult_content_badge.html" with product=product %}
 
   <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% relocalized_url product.url %}">
-    <picture class="product-thumbnail">
+    <picture class="product-thumbnail" width="360" height="360">
       <source
         {% image product.image fill-360x360 as img_1x %}
         {% image product.image fill-720x720 as img_2x %}
@@ -26,6 +26,7 @@
       <img
         class="product-thumbnail"
         {% image product.image fill-600x600 as img %}
+        loading="lazy"
         src="{{ img.url }}"
         alt="{% blocktrans with product=product.title %}link to {{product}}{% endblocktrans %}"
       >
@@ -39,5 +40,10 @@
     </a>
     <input type="hidden" class="product-blurb" value="{{ product.blurb }}">
     <input type="hidden" class="product-worst-case" value="{{ product.worst_case }}">
+    {% for cat in product.product_categories.all %}
+      {% with category=cat.category %}
+        <input type="hidden" class="product-categories" value="{{category.localized.name}}">
+      {% endwith %}
+    {% endfor %}
   </figcaption>
 </figure>

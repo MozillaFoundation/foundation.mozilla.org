@@ -203,7 +203,9 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
 
         start = page * page_size
         end = start + page_size
-        entries = self.get_entries()
+        entries = self.get_entries({
+            'request': request
+        })
 
         # Exclude model types if data-exclude="" has a value in the template
         if 'exclude' in request.GET:

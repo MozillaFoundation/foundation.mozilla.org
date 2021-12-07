@@ -51,7 +51,11 @@ class MozfestHomepageFactory(MozfestPrimaryPageFactory):
                          'gathering of educators, activists, technologists, artists, and '
                          'young people dedicated to creating a better, healthier open internet.')
     banner_video_url = Faker('url')
+    banner_cta_label = 'Watch last year\'s recap video'
     banner_heading_text = Faker('sentence', nb_words=6, variable_nb_words=True)
+
+    banner_carousel = Faker('streamfield', fields=['banner_carousel'])
+    banner_video = Faker('streamfield', fields=['banner_video'])
 
     signup = SubFactory(SignupFactory)
 

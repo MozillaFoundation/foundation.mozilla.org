@@ -28,6 +28,7 @@ class Creepometer extends Component {
 
   setupDocumentListeners() {
     this.moveListener = (evt) => {
+      this.props.toggleMoved();
       evt.preventDefault();
       evt.stopPropagation();
       this.slideMove(evt);
@@ -88,6 +89,8 @@ class Creepometer extends Component {
   }
 
   slideFromClick(e) {
+    this.props.toggleMoved();
+
     let x = e.clientX;
 
     if (e.touches) {

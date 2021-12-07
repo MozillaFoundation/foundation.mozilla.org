@@ -86,6 +86,17 @@ def createsuperuser(ctx):
     print("\nCreated superuser `admin` with password `admin`.")
 
 
+def initialize_database(ctx):
+    print("* Applying database migrations.")
+    migrate(ctx)
+    print("* Creating fake data")
+    manage(ctx, "load_fake_data")
+    print("* Sync locales")
+    manage(ctx, "sync_locale_trees")
+    l10n_block_inventory(ctx)
+    createsuperuser(ctx)
+
+
 @task(aliases=["docker-new-db"])
 def new_db(ctx):
     """Delete your database and create a new one with fake data"""
@@ -95,12 +106,7 @@ def new_db(ctx):
     ctx.run("docker-compose run --rm postgres dropdb --if-exists wagtail -hpostgres -Ufoundation")
     print("* Create the database")
     ctx.run("docker-compose run --rm postgres createdb wagtail -hpostgres -Ufoundation")
-    print("* Applying database migrations.")
-    migrate(ctx)
-    print("* Creating fake data")
-    manage(ctx, "load_fake_data")
-    l10n_block_inventory(ctx)
-    createsuperuser(ctx)
+    initialize_database(ctx)
     print("Stop postgres service")
     ctx.run("docker-compose down")
 
@@ -160,14 +166,7 @@ def setup(ctx):
         )
         print("* Sync Python dependencies")
         pip_sync(ctx)
-        print("* Applying database migrations.")
-        migrate(ctx)
-        print("* Creating fake data.")
-        manage(ctx, "load_fake_data")
-        print("* Updating block information.")
-        l10n_block_inventory(ctx)
-        createsuperuser(ctx)
-
+        initialize_database(ctx)
         print("\n* Start your dev server with:\n docker-compose up")
 
 
@@ -219,6 +218,12 @@ def migrate(ctx):
 def makemigrations(ctx):
     """Creates new migration(s) for apps"""
     manage(ctx, "makemigrations")
+
+
+@task(aliases=["docker-makemigrations-dryrun"])
+def makemigrations_dryrun(ctx):
+    """Show new migration(s) for apps without creating them"""
+    manage(ctx, "makemigrations --dry-run")
 
 
 # Tests

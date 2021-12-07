@@ -52,6 +52,7 @@ class CTA(models.Model):
         return self.name
 
     class Meta:
+        ordering = ['-id']
         verbose_name_plural = 'CTA'
 
 
@@ -79,6 +80,24 @@ class Callpower(TranslatableMixin, CTA):
         blank=True
     )
 
+    share_twitter = models.CharField(
+        max_length=20,
+        help_text='Share Progress id for twitter button, including the sp_... prefix',
+        blank=True,
+    )
+
+    share_facebook = models.CharField(
+        max_length=20,
+        help_text='Share Progress id for facebook button, including the sp_... prefix',
+        blank=True,
+    )
+
+    share_email = models.CharField(
+        max_length=20,
+        help_text='Share Progress id for email button, including the sp_... prefix',
+        blank=True,
+    )
+
     translatable_fields = [
         # Fields from the CTA model
         TranslatableField('header'),
@@ -87,6 +106,10 @@ class Callpower(TranslatableMixin, CTA):
         TranslatableField('call_button_label'),
         TranslatableField('success_heading'),
         TranslatableField('success_text'),
+        # Shareprogress fields
+        SynchronizedField('share_twitter'),
+        SynchronizedField('share_facebook'),
+        SynchronizedField('share_email'),
     ]
 
     class Meta(TranslatableMixin.Meta):
@@ -249,6 +272,7 @@ class Petition(TranslatableMixin, CTA):
     ]
 
     class Meta(TranslatableMixin.Meta):
+        ordering = ['-id']
         verbose_name = 'petition snippet'
 
 
@@ -378,7 +402,10 @@ class BanneredCampaignPage(PrimaryPage):
         'RedirectingPage',
         'PublicationPage',
         'OpportunityPage',
-        'ArticlePage'
+        'ArticlePage',
+        'YoutubeRegretsReporterExtensionPage',
+        'YoutubeRegrets2021Page',
+        'YoutubeRegretsPage'
     ]
 
     show_in_menus_default = True

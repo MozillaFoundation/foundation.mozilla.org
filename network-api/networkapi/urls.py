@@ -1,9 +1,10 @@
 from django.conf import settings
-from django.urls import path, re_path, include
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.http import HttpResponse
+from django.shortcuts import render
+from django.urls import path, re_path, include
 from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
@@ -31,10 +32,35 @@ from networkapi.redirects import foundation_redirects
 
 admin.autodiscover()
 
+
+def get_robots_content():
+    """
+    Do not allow indexing of any content, except on the live site.
+    """
+    if settings.ASSET_DOMAIN != 'foundation.mozilla.org':
+        return """
+User-Agent: *
+Disallow: /
+        """.strip()
+
+    # For anti-spam purposes, explicitly disallow indexing the thimble artifact page.
+    return """
+User-Agent: *
+Disallow: /*/artifacts/thimble
+Disallow: /artifacts/thimble
+crawl-delay: 10
+""".strip()
+
+
+def csrf_response(request):
+    response = render(request, 'api/csrf.html')
+    response['Cache-Control'] = 'no-cache'
+    return response
+
+
 urlpatterns = list(filter(None, [
-    # Add robots.txt to exclude the thimble artifact page
     path('robots.txt', lambda x: HttpResponse(
-        'User-Agent: *\nDisallow: /*/artifacts/thimble\nDisallow: /artifacts/thimble',
+        get_robots_content(),
         content_type='text/plain; charset=utf-8'),
         name='robots_file'
         ),
@@ -48,6 +74,9 @@ urlpatterns = list(filter(None, [
 
     # social-sign-on routes so that Google auth works
     re_path(r'^soc/', include('social_django.urls', namespace='social')),
+
+    # CSRF endpoint
+    re_path(r'^api/csrf/', csrf_response),
 
     # network API routes:
 

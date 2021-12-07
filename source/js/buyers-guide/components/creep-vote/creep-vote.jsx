@@ -44,14 +44,14 @@ class CreepVote extends Component {
     sessionStorage.setItem("subscribed", subscribed);
 
     return {
-      totalVotes,
       creepiness: 50,
+      csrfToken: ``,
       didVote: false,
-      majority: {
-        creepiness: creepinessId,
-      },
-      subscribed,
+      hasMoved: false,
+      majority: { creepiness: creepinessId },
       showNewsletter: false,
+      subscribed,
+      totalVotes,
       voteCount,
     };
   }
@@ -60,6 +60,17 @@ class CreepVote extends Component {
     if (this.props.whenLoaded) {
       this.props.whenLoaded();
     }
+
+    // voting requires a CSRF token, which we can request on a dedicated API route
+    fetch(`/api/csrf/`)
+      .then((res) => res.text())
+      .then((html) => {
+        const d = document.createElement(`div`);
+        d.innerHTML = html
+        this.setState({
+          csrfToken: d.querySelector(`input`).value,
+        });
+      });
   }
 
   showVoteResult() {
@@ -85,7 +96,7 @@ class CreepVote extends Component {
     let method = `POST`;
     let credentials = `same-origin`;
     let headers = {
-      "X-CSRFToken": this.props.csrfToken,
+      "X-CSRFToken": this.state.csrfToken,
       "Content-Type": `application/json`,
     };
 
@@ -153,6 +164,7 @@ class CreepVote extends Component {
               </div>
               <Creepometer
                 initialValue={this.state.creepiness}
+                toggleMoved={() => this.setState({ hasMoved: true })}
                 onChange={(value) => this.setCreepiness(value)}
               />
             </div>
@@ -163,6 +175,7 @@ class CreepVote extends Component {
                 id="creep-vote-btn"
                 type="submit"
                 className="btn btn-pop mb-2"
+                disabled={!this.state.hasMoved}
               >
                 Vote & see results
               </button>
@@ -195,7 +208,6 @@ class CreepVote extends Component {
           flowText={getText(
             `Now that you’re on a roll, why not join Mozilla? We’re not creepy (we promise). We actually fight back against creepy. And we need more people like you.`
           )}
-          csrfToken={this.props.joinUsCSRF}
           apiUrl={this.props.joinUsApiUrl}
           handleSignUp={(successState) => this.handleSignUp(successState)}
         />

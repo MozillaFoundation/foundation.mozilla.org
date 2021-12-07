@@ -265,7 +265,6 @@ class TestPNIAirtableConnections(TestCase):
             company='Percy Corp',
             blurb='This is a general product specifically created for visual regression testing',
             product_url='http://example.com/general-percy',
-            price=999,
             worst_case='Visual regression fails',
             # general product fields
             camera_app='Yes',
@@ -281,17 +280,12 @@ class TestPNIAirtableConnections(TestCase):
             data_control_policy_is_bad=True,
             company_track_record='Needs Improvement',
             track_record_is_bad=True,
-            track_record_details='What kind of track record are we talking about?',
+            track_record_details='<p> What kind of track record are we talking about? </p>',
             offline_capable='Yes',
-            offline_use_description='Although it is unclear how offline capabilities work',
+            offline_use_description='<p> Although it is unclear how offline capabilities work </p>',
             uses_ai='NA',
-            ai_uses_personal_data='Yes',
             ai_is_transparent='No',
             ai_helptext='The AI is a black box and no one knows how it works',
-            email='test@example.org',
-            live_chat='http://example.org/chat',
-            phone_number='1-555-555-5555',
-            twitter='@TwitterHandle',
         )
         self.software_product_page = SoftwareProductPageFactory.create(
             # page fields
@@ -308,7 +302,6 @@ class TestPNIAirtableConnections(TestCase):
             company='Percy Corp',
             blurb='This is a general product specifically created for visual regression testing',
             product_url='http://example.com/general-percy',
-            price=999,
             worst_case='Visual regression fails',
             # software product fields
         )
@@ -331,7 +324,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertEqual(mappings["Company"], "company")
         self.assertEqual(mappings["Blurb"], "blurb")
         self.assertEqual(mappings["Product link"], "product_url")
-        self.assertEqual(mappings["Price"], "price")
         self.assertEqual(mappings["Worst case"], "worst_case")
         self.assertEqual(mappings["Signup requires email"], "signup_requires_email")
         self.assertEqual(mappings["Signup requires phone number"], "signup_requires_phone")
@@ -353,10 +345,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertEqual(mappings["Manages security help text"], "manage_vulnerabilities_helptext")
         self.assertEqual(mappings["Has privacy policy"], "privacy_policy")
         self.assertEqual(mappings["Privacy policy help text"], "privacy_policy_helptext")
-        self.assertEqual(mappings["Phone number"], "phone_number")
-        self.assertEqual(mappings["Live chat"], "live_chat")
-        self.assertEqual(mappings["Email address"], "email")
-        self.assertEqual(mappings["Twitter"], "twitter")
 
     def test_general_product_page_import_mappings(self):
         """
@@ -378,7 +366,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertEqual(mappings["Offline capable"], "offline_capable")
         self.assertEqual(mappings["Offline use"], "offline_use_description")
         self.assertEqual(mappings["Uses AI"], "uses_ai")
-        self.assertEqual(mappings["AI uses personal data"], "ai_uses_personal_data")
         self.assertEqual(mappings["AI help text"], "ai_helptext")
         self.assertEqual(mappings["AI is transparent"], "ai_is_transparent")
 
@@ -411,7 +398,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertIn("Company", export_fields)
         self.assertIn("Blurb", export_fields)
         self.assertIn("Product link", export_fields)
-        self.assertIn("Price", export_fields)
         self.assertIn("Worst case", export_fields)
         self.assertIn("Signup requires email", export_fields)
         self.assertIn("Signup requires phone number", export_fields)
@@ -433,10 +419,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertIn("Manages security help text", export_fields)
         self.assertIn("Has privacy policy", export_fields)
         self.assertIn("Privacy policy help text", export_fields)
-        self.assertIn("Phone number", export_fields)
-        self.assertIn("Live chat", export_fields)
-        self.assertIn("Email address", export_fields)
-        self.assertIn("Twitter", export_fields)
 
     def test_general_page_export_fields(self):
         export_fields = self.general_product_page.get_export_fields()
@@ -455,7 +437,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertIn("Offline capable", export_fields)
         self.assertIn("Offline use", export_fields)
         self.assertIn("Uses AI", export_fields)
-        self.assertIn("AI uses personal data", export_fields)
         self.assertIn("AI is transparent", export_fields)
         self.assertIn("AI help text", export_fields)
 
