@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mozfest', '0021_add_spaces_cards'),
+        ('mozfest', '0030_auto_20211202_1622'),
     ]
 
     operations = [
