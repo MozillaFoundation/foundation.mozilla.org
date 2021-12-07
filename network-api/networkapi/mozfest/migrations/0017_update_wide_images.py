@@ -17,7 +17,7 @@ def update_image_block(content):
         # check if the image has the wide setting on.
         if block.get('type', '') == "image":
             # If so, set the new image_width value to wide.
-            if block['value'].get('wideimage', False) == True:
+            if block['value'].get('wide_image', False) == True:
                 content[index]['value']['image_width'] = "wide"
                 needs_saving = True
 
