@@ -35,16 +35,14 @@ const PulseProfile = ({ profile }) => {
           {/* Social Icons */}
           <div className="tw-flex tw-flex-row tw-space-x-2 tw-mt-[7px]">
             {profile.twitter && (
-              <a
-                href={profile.twitter}
-                className="twitter twitter-glyph small"
-              />
+              <a className="hover:tw-no-underline" href={profile.twitter}>
+                <i className="twitter twitter-glyph small" />
+              </a>
             )}
             {profile.linkedin && (
-              <a
-                href={profile.linkedin}
-                className="linkedIn linkedIn-glyph small"
-              />
+              <a className="hover:tw-no-underline" href={profile.linkedin}>
+                <i className="linkedIn linkedIn-glyph small" />
+              </a>
             )}
           </div>
         </div>
