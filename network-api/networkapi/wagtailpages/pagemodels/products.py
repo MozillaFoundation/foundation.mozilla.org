@@ -43,7 +43,8 @@ from networkapi.wagtailpages.utils import (
     insert_panels_after,
     get_default_locale,
     get_locale_from_request,
-    get_original_by_slug
+    get_original_by_slug,
+    TitleWidget
 )
 
 # TODO: Move this util function
@@ -170,7 +171,10 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
     )
 
     panels = [
-        FieldPanel('name'),
+        FieldPanel(
+            'name',
+            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 50})
+        ),
         FieldPanel('description'),
         SnippetChooserPanel('parent'),
         FieldPanel('featured'),
