@@ -44,20 +44,20 @@ class Highlight(TranslatableMixin, SortableMixin):
     """
     title = models.CharField(
         max_length=300,
-        help_text='Title of the higlight',
+        help_text='Title of the highlight',
     )
     description = models.TextField(
         max_length=5000,
-        help_text='Description of the higlight',
+        help_text='Description of the highlight',
     )
     link_label = models.CharField(
         max_length=300,
-        help_text='Text to show that links to this higlight\'s '
+        help_text='Text to show that links to this highlight\'s '
                   'details page',
     )
     link_url = models.URLField(
         max_length=2048,
-        help_text='Link to this higlight\'s details page',
+        help_text='Link to this highlight\'s details page',
     )
     image = models.ForeignKey(
         'wagtailimages.Image',
