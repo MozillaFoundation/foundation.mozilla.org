@@ -15,6 +15,7 @@ const runTime = Date.now();
 function testURL(domain, path) {
   return async ({ page }, testInfo) => {
     const url = `${domain}${path}/`;
+    console.log(url);
     await page.goto(url);
 
     // Gets set once React has finished loading
