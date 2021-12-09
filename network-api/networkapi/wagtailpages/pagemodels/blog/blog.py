@@ -59,6 +59,7 @@ base_fields = [
     ('pulse_listing', customblocks.PulseProjectList()),
     ('single_quote', customblocks.SingleQuoteBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
+    ('airtable', customblocks.AirTableBlock()),
 ]
 
 
@@ -120,7 +121,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
-    zen_nav = True
+    zen_nav = False
 
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
