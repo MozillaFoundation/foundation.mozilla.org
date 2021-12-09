@@ -121,7 +121,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
-    zen_nav = True
+    zen_nav = False
 
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
