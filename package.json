@@ -32,7 +32,7 @@
     "optimize:jpg": "find source/images -type f -name '*.jpg' -print0 | xargs -0 -n 1 -P 6 -I '{}' guetzli --quality 93 '{}' '{}'",
     "optimize:png": "find source/images -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
     "optimize": "run-p optimize:**",
-    "percy": "percy exec -t 800 -- npm run playwright:ci",
+    "percy": "percy exec -t 750 -- npm run playwright:ci",
     "playwright": "npm run playwright:wait:dev && playwright test ./tests/integration.spec.js",
     "playwright:install": "playwright install chromium firefox webkit",
     "playwright:percy": "npm run playwright:wait:dev && playwright test ./tests/visual.spec.js",
