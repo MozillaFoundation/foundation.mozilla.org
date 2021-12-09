@@ -465,3 +465,30 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
         # Reset the page back to Live
         self.product_page.live = True
         self.product_page.save()
+
+
+class BuyersGuideProductCategoryTest(TestCase):
+
+    def test_cannot_be_direct_child_of_itself(self):
+        from wagtail.snippets.views.snippets import get_snippet_edit_handler
+
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", sort_order=1)
+
+        edit_handler = get_snippet_edit_handler(BuyersGuideProductCategory)
+        form_class = edit_handler.get_form_class()
+        form = form_class(instance=cat1, data={'name': "Cat 1", 'sort_order': 1, 'parent': cat1})
+
+        self.assertFalse(form.is_valid())
+        self.assertIn('parent', form.errors)
+
+    def test_cannot_be_descendent_of_itself(self):
+        from wagtail.snippets.views.snippets import get_snippet_edit_handler
+
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", sort_order=1)
+
+        edit_handler = get_snippet_edit_handler(BuyersGuideProductCategory)
+        form_class = edit_handler.get_form_class()
+        form = form_class(instance=cat1, data={'name': "Cat 1", 'sort_order': 1, 'parent': cat1})
+
+        self.assertFalse(form.is_valid())
+        self.assertIn('parent', form.errors)

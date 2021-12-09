@@ -116,6 +116,23 @@ def sort_average(products):
     return sorted(products, key=lambda p: p.creepiness)
 
 
+from wagtail.admin.forms import WagtailAdminModelForm
+
+class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
+
+    def clean_parent(self):
+        # node = self.instance.parent
+        node = self.cleaned_data['parent']
+        while node:
+            if node == self.instance:
+                self.add_error('parent', 'A category cannot be a decendent of itself.')
+                break
+            node = node.parent
+
+
 @register_snippet
 class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnippet, models.Model):
     """
@@ -123,7 +140,9 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
     registered as snippet so that we can moderate them if and
     when necessary.
     """
-    name = models.CharField(max_length=100)
+    base_form_class = BuyersGuideProductCategoryForm
+
+    name = models.CharField(max_length=100, unique=True)
 
     description = models.TextField(
         max_length=300,
