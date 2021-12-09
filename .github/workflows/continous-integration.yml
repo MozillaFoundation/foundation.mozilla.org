@@ -153,6 +153,6 @@ jobs:
         python network-api/manage.py block_inventory
         python network-api/manage.py load_fake_data
     - name: Percy Test
-        run: npx percy exec -- npm run playwright:ci
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      run: npx percy exec -- npm run playwright:ci
+      env:
+        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
