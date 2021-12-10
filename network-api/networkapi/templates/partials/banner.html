@@ -3,7 +3,7 @@
 {% with wrapper_class="tw-py-7" %}
 <div class="donate-banner tw-bg-black {{wrapper_class}} print:tw-hidden tw-w-full tw-hidden">
     <a href="#" class="p-4 tw-box-content banner-close tw-cursor-pointer tw-absolute tw-right-0 tw-top-0 tw-group" aria-label="{% trans "Close Banner" %}">
-        <img src="{% static "_images/x.svg" %}" alt="{% trans "Close Banner" %}" class="tw-w-4 tw-h-4 tw-transition-transform tw-duration-100 tw-ease-in-out tw-transform group-hover:tw-scale-110">
+        <img src="{% static "_images/x.svg" %}" alt="{% trans "Close Banner" %}" class="tw-w-4 tw-h-4 tw-transition-transform tw-duration-100 tw-ease-in-out tw-transform group-hover:tw-scale-110 tw-filter tw-invert">
     </a>
 
     <div class="tw-container">
@@ -11,7 +11,7 @@
 
             {% block left_banner_column %}
             <div class="medium:tw-w-6/12 large:tw-w-6/12 tw-px-4">
-                <p class="h2-heading tw-mb-0 tw-text-blue-dark tw-font-semibold">
+                <p class="h2-heading tw-mb-0 tw-text-blue-dark tw-font-semibold tw-italic">
                     {% trans "Help Mozilla fight for a better internet this holiday season" %}
                 </p>
                 <p class="body-large tw-mt-4 tw-leading-normal">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="tw-row">
                     <div class="tw-w-full tw-px-4">
-                        <a class="btn btn-banner tw-w-full tw-text-base active:tw-bg-blue-dark" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=2021_EOY_bannner_MoFo" target="_blank" rel="noopener noreferrer">
+                        <a class="btn btn-banner tw-w-full tw-text-base active:tw-text-white active:tw-bg-[#0a0c8f] active:tw-border-black" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=2021_EOY_bannner_MoFo" target="_blank" rel="noopener noreferrer">
                             {% trans "Support Mozilla" %}
                         </a>
                     </div>
