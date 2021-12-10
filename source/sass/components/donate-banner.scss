@@ -16,10 +16,15 @@
   box-shadow: 4px 4px $black;
   border-color: $black;
 
-  &:hover,
-  &:active {
+  &:hover {
     color: $white;
     background: $dark-blue;
+    border-color: $black;
+  }
+
+  &:active {
+    color: $white;
+    background: $banner-blue;
     border-color: $black;
   }
 }
