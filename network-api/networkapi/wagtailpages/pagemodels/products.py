@@ -153,7 +153,8 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
 
     slug = models.SlugField(
         blank=True,
-        help_text='A URL-friendly version of the category name. This is an auto-generated field.'
+        help_text='A URL-friendly version of the category name. This is an auto-generated field.',
+        max_length=100
     )
 
     sort_order = models.IntegerField(
