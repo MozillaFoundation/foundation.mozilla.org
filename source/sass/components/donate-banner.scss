@@ -3,9 +3,13 @@
 
 .donate-banner {
   background-color: $white;
-  background-image: url(../_images/mozilla-donate-dear-internet.png);
+  background-image: url(../_images/mozilla-donate-dear-internet-mobile.png);
   background-size: cover;
   background-position: center center;
+
+  @media (min-width: $bp-lg) {
+    background-image: url(../_images/mozilla-donate-dear-internet.png);
+  }
 }
 
 .btn-banner {
