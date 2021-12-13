@@ -1,4 +1,6 @@
 const { test } = require("@playwright/test");
+const FoundationURLs = require("./foundation-urls.js");
+const MozfestURLs = require("./mozfest-urls.js");
 
 function testURL(domain, path) {
   return async ({ page }) => {
