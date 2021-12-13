@@ -123,6 +123,123 @@ function clearText(NamespaceObject, searchBar, searchInput) {
   NamespaceObject.moveCreepyFace();
 }
 
+function setupNavLinks(NamespaceObject, searchBar, searchInput) {
+  const navLinks = document.querySelectorAll(
+    `#multipage-nav a,.category-header,#pni-nav-mobile a`
+  );
+
+  for (const nav of navLinks) {
+    nav.addEventListener("click", (evt) => {
+      evt.stopPropagation();
+
+      if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
+        return;
+      }
+
+      evt.preventDefault();
+
+      document
+        .querySelector(`#multipage-nav a.active`)
+        .classList.remove(`active`);
+
+      document
+        .querySelector(`#pni-nav-mobile a.active`)
+        .classList.remove(`active`);
+
+      document
+        .querySelector("#pni-nav-mobile .dropdown-nav")
+        .classList.remove("dropdown-nav-open");
+
+      if (evt.target.dataset.name) {
+        document
+          .querySelector(
+            `#multipage-nav a[data-name="${evt.target.dataset.name}"]`
+          )
+          .classList.add(`active`);
+
+        document
+          .querySelector(
+            `#pni-nav-mobile a[data-name="${evt.target.dataset.name}"]`
+          )
+          .classList.add(`active`);
+
+        clearText(NamespaceObject, searchBar, searchInput);
+        history.pushState(
+          {
+            title: NamespaceObject.getTitle(evt.target.dataset.name),
+            category: evt.target.dataset.name,
+            parent: "",
+            search: "",
+            filter: history.state?.filter,
+          },
+          NamespaceObject.getTitle(evt.target.dataset.name),
+          evt.target.href
+        );
+
+        document.title = NamespaceObject.getTitle(evt.target.dataset.name);
+        NamespaceObject.filterSubcategory(evt.target.dataset.name);
+        NamespaceObject.toggleSubcategory(true);
+        NamespaceObject.updateHeader(evt.target.dataset.name, "");
+        NamespaceObject.filterCategory(evt.target.dataset.name);
+      }
+    });
+  }
+
+  for (const subcategory of subcategories) {
+    subcategory.addEventListener(
+      "click",
+      (evt) => {
+        evt.stopImmediatePropagation();
+        if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
+          return;
+        }
+
+        evt.preventDefault();
+
+        let href;
+
+        if (evt.target.dataset.name) {
+          clearText(NamespaceObject, searchBar, searchInput);
+          if (categoryTitle.value.trim() !== evt.target.dataset.name) {
+            categoryTitle.value = evt.target.dataset.name;
+            parentTitle.value = evt.target.dataset.parent;
+            href = evt.target.href;
+            NamespaceObject.toggleSubcategory();
+            NamespaceObject.highlightParent();
+          } else {
+            categoryTitle.value = evt.target.dataset.parent;
+            parentTitle.value = "";
+            href = document.querySelector(
+              `#multipage-nav a[data-name="${evt.target.dataset.parent}"]`
+            ).href;
+            NamespaceObject.toggleSubcategory(true);
+          }
+
+          history.pushState(
+            {
+              title: NamespaceObject.getTitle(evt.target.dataset.name),
+              category: categoryTitle.value.trim(),
+              parent: parentTitle.value.trim(),
+              search: "",
+              filter: history.state?.filter,
+            },
+            NamespaceObject.getTitle(evt.target.dataset.name),
+            href
+          );
+
+          document.title = NamespaceObject.getTitle(categoryTitle.value.trim());
+          NamespaceObject.updateHeader(
+            categoryTitle.value.trim(),
+            parentTitle.value.trim()
+          );
+          NamespaceObject.filterCategory(categoryTitle.value.trim());
+        }
+      },
+      true
+    );
+  }
+}
+
 /**
  * ...
  */
@@ -169,122 +286,7 @@ export class SearchFilter {
       applyHistory(NamespaceObject);
     });
 
-    const navLinks = document.querySelectorAll(
-      `#multipage-nav a,.category-header,#pni-nav-mobile a`
-    );
-
-    for (const nav of navLinks) {
-      nav.addEventListener("click", (evt) => {
-        evt.stopPropagation();
-
-        if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
-          return;
-        }
-
-        evt.preventDefault();
-
-        document
-          .querySelector(`#multipage-nav a.active`)
-          .classList.remove(`active`);
-
-        document
-          .querySelector(`#pni-nav-mobile a.active`)
-          .classList.remove(`active`);
-
-        document
-          .querySelector("#pni-nav-mobile .dropdown-nav")
-          .classList.remove("dropdown-nav-open");
-
-        if (evt.target.dataset.name) {
-          document
-            .querySelector(
-              `#multipage-nav a[data-name="${evt.target.dataset.name}"]`
-            )
-            .classList.add(`active`);
-
-          document
-            .querySelector(
-              `#pni-nav-mobile a[data-name="${evt.target.dataset.name}"]`
-            )
-            .classList.add(`active`);
-
-          clearText(NamespaceObject, searchBar, searchInput);
-          history.pushState(
-            {
-              title: NamespaceObject.getTitle(evt.target.dataset.name),
-              category: evt.target.dataset.name,
-              parent: "",
-              search: "",
-              filter: history.state?.filter,
-            },
-            NamespaceObject.getTitle(evt.target.dataset.name),
-            evt.target.href
-          );
-
-          document.title = NamespaceObject.getTitle(evt.target.dataset.name);
-          NamespaceObject.filterSubcategory(evt.target.dataset.name);
-          NamespaceObject.toggleSubcategory(true);
-          NamespaceObject.updateHeader(evt.target.dataset.name, "");
-          NamespaceObject.filterCategory(evt.target.dataset.name);
-        }
-      });
-    }
-
-    for (const subcategory of subcategories) {
-      subcategory.addEventListener(
-        "click",
-        (evt) => {
-          evt.stopImmediatePropagation();
-          if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
-            return;
-          }
-
-          evt.preventDefault();
-
-          let href;
-
-          if (evt.target.dataset.name) {
-            clearText(NamespaceObject, searchBar, searchInput);
-            if (categoryTitle.value.trim() !== evt.target.dataset.name) {
-              categoryTitle.value = evt.target.dataset.name;
-              parentTitle.value = evt.target.dataset.parent;
-              href = evt.target.href;
-              NamespaceObject.toggleSubcategory();
-              NamespaceObject.highlightParent();
-            } else {
-              categoryTitle.value = evt.target.dataset.parent;
-              parentTitle.value = "";
-              href = document.querySelector(
-                `#multipage-nav a[data-name="${evt.target.dataset.parent}"]`
-              ).href;
-              NamespaceObject.toggleSubcategory(true);
-            }
-
-            history.pushState(
-              {
-                title: NamespaceObject.getTitle(evt.target.dataset.name),
-                category: categoryTitle.value.trim(),
-                parent: parentTitle.value.trim(),
-                search: "",
-                filter: history.state?.filter,
-              },
-              NamespaceObject.getTitle(evt.target.dataset.name),
-              href
-            );
-
-            document.title = NamespaceObject.getTitle(
-              categoryTitle.value.trim()
-            );
-            NamespaceObject.updateHeader(
-              categoryTitle.value.trim(),
-              parentTitle.value.trim()
-            );
-            NamespaceObject.filterCategory(categoryTitle.value.trim());
-          }
-        },
-        true
-      );
-    }
+    setupNavLinks(NamespaceObject, searchBar, searchInput);
 
     document
       .querySelector(`.go-back-to-all-link`)
