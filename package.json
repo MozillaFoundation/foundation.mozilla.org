@@ -68,7 +68,7 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "dependencies": {
-    "@glidejs/glide": "^3.4.1",
+    "@glidejs/glide": "^3.5.2",
     "@sentry/browser": "^6.2.1",
     "autoprefixer": "^10.3.4",
     "axe-core": "^4.1.4",
