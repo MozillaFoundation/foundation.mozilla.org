@@ -79,7 +79,7 @@ django-filter==2.4.0
     # via
     #   -r requirements.in
     #   wagtail
-django-modelcluster==5.1
+django-modelcluster==5.2
     # via wagtail
 django-redis==5.0.0
     # via -r requirements.in
@@ -226,7 +226,7 @@ urllib3[secure]==1.26.6
     #   requests
     #   scout-apm
     #   sentry-sdk
-wagtail==2.14.1
+wagtail==2.15.1
     # via
     #   -r requirements.in
     #   wagtail-airtable
@@ -245,11 +245,11 @@ wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.g
     # via -r requirements.in
 wagtail-inventory==1.3
     # via -r requirements.in
-wagtail-localize==1.0
+wagtail-localize==1.0.1
     # via
     #   -r requirements.in
     #   wagtail-localize-git
-wagtail-localize-git==0.10.0
+wagtail-localize-git==0.11.0
     # via -r requirements.in
 wagtail-metadata==3.4.0
     # via -r requirements.in
