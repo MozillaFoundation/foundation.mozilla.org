@@ -240,6 +240,52 @@ function setupNavLinks(NamespaceObject, searchBar, searchInput) {
   }
 }
 
+function setupGoBackToAll(NamespaceObject, searchBar, searchInput) {
+  document
+    .querySelector(`.go-back-to-all-link`)
+    .addEventListener("click", (evt) => {
+      evt.stopPropagation();
+
+      if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
+        return;
+      }
+
+      evt.preventDefault();
+
+      clearText(NamespaceObject, searchBar, searchInput);
+      history.pushState(
+        {
+          title: NamespaceObject.getTitle("None"),
+          category: "None",
+          parent: "",
+          search: "",
+          filter: history.state?.filter,
+        },
+        NamespaceObject.getTitle(evt.target.dataset.name),
+        evt.target.href
+      );
+
+      document
+        .querySelector(`#multipage-nav a.active`)
+        .classList.remove(`active`);
+
+      document
+        .querySelector(`#pni-nav-mobile a.active`)
+        .classList.remove(`active`);
+
+      document
+        .querySelector(`#multipage-nav a[data-name="None"]`)
+        .classList.add(`active`);
+
+      document
+        .querySelector(`#pni-nav-mobile a[data-name="None"]`)
+        .classList.add(`active`);
+
+      NamespaceObject.filterCategory("None");
+      parentTitle.value = "";
+    });
+}
+
 /**
  * ...
  */
@@ -287,50 +333,7 @@ export class SearchFilter {
     });
 
     setupNavLinks(NamespaceObject, searchBar, searchInput);
-
-    document
-      .querySelector(`.go-back-to-all-link`)
-      .addEventListener("click", (evt) => {
-        evt.stopPropagation();
-
-        if (evt.shiftKey || evt.metaKey || evt.ctrlKey || evt.altKey) {
-          return;
-        }
-
-        evt.preventDefault();
-
-        clearText(NamespaceObject, searchBar, searchInput);
-        history.pushState(
-          {
-            title: NamespaceObject.getTitle("None"),
-            category: "None",
-            parent: "",
-            search: "",
-            filter: history.state?.filter,
-          },
-          NamespaceObject.getTitle(evt.target.dataset.name),
-          evt.target.href
-        );
-
-        document
-          .querySelector(`#multipage-nav a.active`)
-          .classList.remove(`active`);
-
-        document
-          .querySelector(`#pni-nav-mobile a.active`)
-          .classList.remove(`active`);
-
-        document
-          .querySelector(`#multipage-nav a[data-name="None"]`)
-          .classList.add(`active`);
-
-        document
-          .querySelector(`#pni-nav-mobile a[data-name="None"]`)
-          .classList.add(`active`);
-
-        NamespaceObject.filterCategory("None");
-        parentTitle.value = "";
-      });
+    setupGoBackToAll(NamespaceObject, searchBar, searchInput);
 
     window.addEventListener(`popstate`, (event) => {
       const { state } = event;
