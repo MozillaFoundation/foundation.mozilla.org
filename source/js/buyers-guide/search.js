@@ -72,6 +72,7 @@ const SearchFilter = {
   },
   // MOVED OVER
 
+  // MOVED OVER
   filterSubcategory: (category) => {
     for (const subcategory of subcategories) {
       if (subcategory.dataset.parent === category) {
@@ -81,6 +82,7 @@ const SearchFilter = {
       }
     }
   },
+  // MOVED OVER
 
   getTitle: (category) => {
     if (category == "None")
