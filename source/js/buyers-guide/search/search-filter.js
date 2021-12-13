@@ -286,6 +286,67 @@ function setupGoBackToAll(NamespaceObject, searchBar, searchInput) {
     });
 }
 
+function setupPopStateHandler(NamespaceObject, searchBar, searchInput) {
+  window.addEventListener(`popstate`, (event) => {
+    const { state } = event;
+    if (!state) return; // if it's a "real" back, we shouldn't need to do anything
+
+    const { title, category, parent } = state;
+    document.title = title;
+
+    if (!history.state?.search) {
+      NamespaceObject.clearCategories();
+      categoryTitle.value = category;
+      parentTitle.value = parent;
+
+      searchBar.classList.remove(`has-content`);
+      searchInput.value = ``;
+
+      if (parent) {
+        NamespaceObject.highlightParent();
+        NamespaceObject.toggleSubcategory();
+      } else {
+        document
+          .querySelector(`#multipage-nav a.active`)
+          .classList.remove(`active`);
+
+        document
+          .querySelector(`#pni-nav-mobile a.active`)
+          .classList.remove(`active`);
+
+        document
+          .querySelector(`#multipage-nav a[data-name="${category}"]`)
+          .classList.add(`active`);
+
+        document
+          .querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
+          .classList.add(`active`);
+
+        NamespaceObject.toggleSubcategory(true);
+      }
+    } else {
+      NamespaceObject.toggleSubcategory(true);
+      searchBar.classList.add(`has-content`);
+      searchInput.value = history.state?.search;
+      NamespaceObject.filter(history.state?.search);
+    }
+
+    NamespaceObject.filterCategory(category);
+    NamespaceObject.filterSubcategory(parent || category);
+    NamespaceObject.updateHeader(category, parent);
+
+    if (history.state?.filter) {
+      toggle.checked = history.state?.filter;
+
+      if (history.state?.filter) {
+        document.body.classList.add(`show-ding-only`);
+      } else {
+        document.body.classList.remove(`show-ding-only`);
+      }
+    }
+  });
+}
+
 /**
  * ...
  */
@@ -334,65 +395,7 @@ export class SearchFilter {
 
     setupNavLinks(NamespaceObject, searchBar, searchInput);
     setupGoBackToAll(NamespaceObject, searchBar, searchInput);
-
-    window.addEventListener(`popstate`, (event) => {
-      const { state } = event;
-      if (!state) return; // if it's a "real" back, we shouldn't need to do anything
-
-      const { title, category, parent } = state;
-      document.title = title;
-
-      if (!history.state?.search) {
-        NamespaceObject.clearCategories();
-        categoryTitle.value = category;
-        parentTitle.value = parent;
-
-        searchBar.classList.remove(`has-content`);
-        searchInput.value = ``;
-
-        if (parent) {
-          NamespaceObject.highlightParent();
-          NamespaceObject.toggleSubcategory();
-        } else {
-          document
-            .querySelector(`#multipage-nav a.active`)
-            .classList.remove(`active`);
-
-          document
-            .querySelector(`#pni-nav-mobile a.active`)
-            .classList.remove(`active`);
-
-          document
-            .querySelector(`#multipage-nav a[data-name="${category}"]`)
-            .classList.add(`active`);
-
-          document
-            .querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
-            .classList.add(`active`);
-
-          NamespaceObject.toggleSubcategory(true);
-        }
-      } else {
-        NamespaceObject.toggleSubcategory(true);
-        searchBar.classList.add(`has-content`);
-        searchInput.value = history.state?.search;
-        NamespaceObject.filter(history.state?.search);
-      }
-
-      NamespaceObject.filterCategory(category);
-      NamespaceObject.filterSubcategory(parent || category);
-      NamespaceObject.updateHeader(category, parent);
-
-      if (history.state?.filter) {
-        toggle.checked = history.state?.filter;
-
-        if (history.state?.filter) {
-          document.body.classList.add(`show-ding-only`);
-        } else {
-          document.body.classList.remove(`show-ding-only`);
-        }
-      }
-    });
+    setupPopStateHandler(NamespaceObject, searchBar, searchInput);
 
     history.replaceState(
       {
