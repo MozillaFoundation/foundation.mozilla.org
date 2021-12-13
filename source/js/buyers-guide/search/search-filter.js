@@ -102,7 +102,7 @@ function applyHistory(NamespaceObject) {
   }
 }
 
-function clearText(NamespaceObject) {
+function clearText(NamespaceObject, searchBar, searchInput) {
   searchBar.classList.remove(`has-content`);
   searchInput.value = ``;
   ALL_PRODUCTS.forEach((product) => {
@@ -150,7 +150,7 @@ export class SearchFilter {
         searchBar.classList.add(`has-content`);
         NamespaceObject.filter(searchText);
       } else {
-        clearText(NamespaceObject);
+        clearText(NamespaceObject, searchBar, searchInput);
         applyHistory(NamespaceObject);
       }
     });
@@ -165,7 +165,7 @@ export class SearchFilter {
     clear.addEventListener(`click`, (evt) => {
       evt.preventDefault();
       searchInput.focus();
-      clearText(NamespaceObject);
+      clearText(NamespaceObject, searchBar, searchInput);
       applyHistory(NamespaceObject);
     });
 
@@ -208,7 +208,7 @@ export class SearchFilter {
             )
             .classList.add(`active`);
 
-          clearText(NamespaceObject);
+          clearText(NamespaceObject, searchBar, searchInput);
           history.pushState(
             {
               title: NamespaceObject.getTitle(evt.target.dataset.name),
@@ -244,7 +244,7 @@ export class SearchFilter {
           let href;
 
           if (evt.target.dataset.name) {
-            clearText(NamespaceObject);
+            clearText(NamespaceObject, searchBar, searchInput);
             if (categoryTitle.value.trim() !== evt.target.dataset.name) {
               categoryTitle.value = evt.target.dataset.name;
               parentTitle.value = evt.target.dataset.parent;
@@ -297,7 +297,7 @@ export class SearchFilter {
 
         evt.preventDefault();
 
-        clearText(NamespaceObject);
+        clearText(NamespaceObject, searchBar, searchInput);
         history.pushState(
           {
             title: NamespaceObject.getTitle("None"),
