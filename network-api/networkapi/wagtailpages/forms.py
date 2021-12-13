@@ -2,6 +2,16 @@ from wagtail.admin.forms import WagtailAdminModelForm
 
 
 class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
+    def clean_name(self):
+        name = self.cleaned_data["name"]
+        if (
+            self.instance.__class__.objects.filter(name=name)
+            .exclude(pk=self.instance.pk)
+            .exists()
+        ):
+            self.add_error("name", "A category with this name already exists.")
+        return name
+
     def clean_parent(self):
         parent = self.cleaned_data["parent"]
         if parent:

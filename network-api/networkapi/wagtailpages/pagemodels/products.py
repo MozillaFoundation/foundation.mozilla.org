@@ -125,7 +125,7 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
     registered as snippet so that we can moderate them if and
     when necessary.
     """
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
 
     description = models.TextField(
         max_length=300,
