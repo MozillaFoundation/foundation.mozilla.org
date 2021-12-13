@@ -61,6 +61,8 @@ class BlogPageCategory(TranslatableMixin, models.Model):
         to apply this function from its original location.
         """
         choices = []
+        # This Try/Except block is used to avoid errors during tests/new-envs,
+        # without this, it will return a ProgrammingError due to BlogPageCategories not yet existing.
         try:
             choices = [(cat.name, cat.name) for cat in BlogPageCategory.objects.all()]
             choices.sort(key=lambda c: c[1])

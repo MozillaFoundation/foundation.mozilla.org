@@ -1,6 +1,6 @@
 from .. import customblocks
 from wagtail.core import blocks
-from .base_rich_text_options import base_rich_text_options
+from .full_content_rich_text_options import full_content_rich_text_options
 
 """
 We'll need to figure out which components are truly "base" and
@@ -10,7 +10,7 @@ page types.
 
 base_fields = [
     ('paragraph', blocks.RichTextBlock(
-        features=base_rich_text_options + ['large', 'h2', 'h3', 'h4', 'h5', 'ol', 'ul', 'hr'],
+        features=full_content_rich_text_options + ['large'],
         template='wagtailpages/blocks/rich_text_block.html',
     )),
     ('card_grid', customblocks.CardGridBlock()),

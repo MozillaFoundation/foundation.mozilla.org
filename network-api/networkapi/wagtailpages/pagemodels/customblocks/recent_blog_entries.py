@@ -40,7 +40,6 @@ class RecentBlogEntries(blocks.StructBlock):
     #       error indication what's wrong.
 
     def get_context(self, value, parent_context=None):
-        from ..blog.blog_category import BlogPageCategory  # noqa
 
         context = super().get_context(value, parent_context=parent_context)
 
