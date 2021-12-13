@@ -14,7 +14,6 @@ const toggle = document.querySelector(`#product-filter-pni-toggle`);
 const subcategories = document.querySelectorAll(`.subcategories`);
 const subContainer = document.querySelector(`.subcategory-header`);
 
-
 // TODO: turn this into a static class rather than plain JS object.
 const SearchFilter = {
   init: () => {
@@ -94,6 +93,7 @@ const SearchFilter = {
     }
   },
 
+  // MOVED OVER
   moveCreepyFace: () => {
     // When searching, check to see how many products are still visible
     // If there are no visible products, there are "no search results"
@@ -106,6 +106,7 @@ const SearchFilter = {
       CREEPINESS_FACE.classList.add("d-none");
     }
   },
+  // MOVED OVER
 
   filter: (text) => {
     // remove category filters

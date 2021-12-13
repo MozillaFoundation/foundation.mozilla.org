@@ -1,3 +1,4 @@
+const CREEPINESS_FACE = document.querySelector(".creep-o-meter-information");
 const ALL_PRODUCTS = document.querySelectorAll(`figure.product-box`);
 const categoryTitle = document.querySelector(`.category-title`);
 const parentTitle = document.querySelector(`.parent-title`);
@@ -89,7 +90,7 @@ function applyHistory(instance, NamespaceObject) {
   instance.filterSubcategory(parent || category);
   instance.updateHeader(category, parent);
   instance.sortOnCreepiness();
-  NamespaceObject.moveCreepyFace();
+  instance.moveCreepyFace();
 
   if (history.state?.parent && history.state?.category) {
     document
@@ -120,7 +121,7 @@ function clearText(instance, NamespaceObject, searchBar, searchInput) {
   );
 
   instance.sortOnCreepiness();
-  NamespaceObject.moveCreepyFace();
+  instance.moveCreepyFace();
 }
 
 function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
@@ -494,7 +495,7 @@ export class SearchFilter {
 
     categoryTitle.value = category;
     this.sortOnCreepiness();
-    NamespaceObject.moveCreepyFace();
+    this.moveCreepyFace();
     NamespaceObject.checkForEmptyNotice();
   }
 
@@ -574,6 +575,7 @@ export class SearchFilter {
       .classList.add(`active`);
   }
 
+  // Candidate for moving into utils
   sortOnCreepiness() {
     const container = document.querySelector(`.product-box-list`);
     const list = [...container.querySelectorAll(`.product-box`)];
@@ -581,5 +583,19 @@ export class SearchFilter {
     list
       .sort((a, b) => creepVal(a) - creepVal(b))
       .forEach((p) => container.append(p));
+  }
+
+  // Candidate for moving into utils
+  moveCreepyFace() {
+    // When searching, check to see how many products are still visible
+    // If there are no visible products, there are "no search results"
+    // And when there are no search results, do not show the creepo-meter-face
+    if (document.querySelectorAll(".product-box:not(.d-none)").length) {
+      // If there are search results, show the creepo-meter-face
+      CREEPINESS_FACE.classList.remove("d-none");
+    } else {
+      // If there are no search results, hide the creepo-meter-face
+      CREEPINESS_FACE.classList.add("d-none");
+    }
   }
 }
