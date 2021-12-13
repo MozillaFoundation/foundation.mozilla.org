@@ -63,7 +63,7 @@ function markScrollEnd(event) {
   );
 }
 
-function applyHistory(instance, NamespaceObject) {
+function applyHistory(instance) {
   const { category, parent } = history.state;
 
   categoryTitle.value = category;
@@ -426,7 +426,7 @@ function setupSearchBar(instance, NamespaceObject) {
       NamespaceObject.filter(searchText);
     } else {
       clearText(instance, NamespaceObject, searchBar, searchInput);
-      applyHistory(instance, NamespaceObject);
+      applyHistory(instance);
     }
   });
 
@@ -441,7 +441,7 @@ function setupSearchBar(instance, NamespaceObject) {
     evt.preventDefault();
     searchInput.focus();
     clearText(instance, NamespaceObject, searchBar, searchInput);
-    applyHistory(instance, NamespaceObject);
+    applyHistory(instance);
   });
 
   return { searchBar, searchInput };
