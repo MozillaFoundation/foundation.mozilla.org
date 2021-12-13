@@ -347,6 +347,90 @@ function setupPopStateHandler(NamespaceObject, searchBar, searchInput) {
   });
 }
 
+function performInitialHistoryReplace(NamespaceObject) {
+  history.replaceState(
+    {
+      title: NamespaceObject.getTitle(categoryTitle.value.trim()),
+      category: categoryTitle.value.trim(),
+      parent: parentTitle.value.trim(),
+      search: history.state?.search ?? "",
+      filter: history.state?.filter,
+    },
+    NamespaceObject.getTitle(categoryTitle.value.trim()),
+    location.href
+  );
+
+  if (history.state?.search) {
+    searchBar.classList.add(`has-content`);
+    searchInput.value = history.state?.search;
+    NamespaceObject.filter(history.state?.search);
+  } else {
+    searchBar.classList.remove(`has-content`);
+    searchInput.value = ``;
+  }
+
+  if (history.state?.filter) {
+    toggle.checked = history.state?.filter;
+
+    if (history.state?.filter) {
+      document.body.classList.add(`show-ding-only`);
+    } else {
+      document.body.classList.remove(`show-ding-only`);
+    }
+  }
+
+  if (history.state?.parent && history.state?.category) {
+    document
+      .querySelector(`a.subcategories[data-name="${history.state?.category}"]`)
+      .scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+  }
+}
+
+function setupSearchBar(NamespaceObject) {
+  const searchBar = document.querySelector(`#product-filter-search`);
+
+  if (!searchBar) {
+    return console.warn(
+      `Could not find the PNI search bar. Search will not be available.`
+    );
+  }
+
+  const searchInput = (NamespaceObject.searchInput =
+    searchBar.querySelector(`input`));
+
+  searchInput.addEventListener(`input`, (evt) => {
+    const searchText = searchInput.value.trim();
+
+    if (searchText) {
+      searchBar.classList.add(`has-content`);
+      NamespaceObject.filter(searchText);
+    } else {
+      clearText(NamespaceObject, searchBar, searchInput);
+      applyHistory(NamespaceObject);
+    }
+  });
+
+  const clear = searchBar.querySelector(`.clear-icon`);
+  if (!clear) {
+    return console.warn(
+      `Could not find the PNI search input clear icon. Search will work, but clearing will not.`
+    );
+  }
+
+  clear.addEventListener(`click`, (evt) => {
+    evt.preventDefault();
+    searchInput.focus();
+    clearText(NamespaceObject, searchBar, searchInput);
+    applyHistory(NamespaceObject);
+  });
+
+  return { searchBar, searchInput };
+}
+
 /**
  * ...
  */
@@ -356,88 +440,10 @@ export class SearchFilter {
       subContainer.addEventListener(type, markScrollStart)
     );
 
-    const searchBar = document.querySelector(`#product-filter-search`);
-
-    if (!searchBar) {
-      return console.warn(
-        `Could not find the PNI search bar. Search will not be available.`
-      );
-    }
-
-    const searchInput = (NamespaceObject.searchInput =
-      searchBar.querySelector(`input`));
-
-    searchInput.addEventListener(`input`, (evt) => {
-      const searchText = searchInput.value.trim();
-
-      if (searchText) {
-        searchBar.classList.add(`has-content`);
-        NamespaceObject.filter(searchText);
-      } else {
-        clearText(NamespaceObject, searchBar, searchInput);
-        applyHistory(NamespaceObject);
-      }
-    });
-
-    const clear = searchBar.querySelector(`.clear-icon`);
-    if (!clear) {
-      return console.warn(
-        `Could not find the PNI search input clear icon. Search will work, but clearing will not.`
-      );
-    }
-
-    clear.addEventListener(`click`, (evt) => {
-      evt.preventDefault();
-      searchInput.focus();
-      clearText(NamespaceObject, searchBar, searchInput);
-      applyHistory(NamespaceObject);
-    });
-
+    const { searchBar, searchInput } = setupSearchBar(NamespaceObject);
     setupNavLinks(NamespaceObject, searchBar, searchInput);
     setupGoBackToAll(NamespaceObject, searchBar, searchInput);
     setupPopStateHandler(NamespaceObject, searchBar, searchInput);
-
-    history.replaceState(
-      {
-        title: NamespaceObject.getTitle(categoryTitle.value.trim()),
-        category: categoryTitle.value.trim(),
-        parent: parentTitle.value.trim(),
-        search: history.state?.search ?? "",
-        filter: history.state?.filter,
-      },
-      NamespaceObject.getTitle(categoryTitle.value.trim()),
-      location.href
-    );
-
-    if (history.state?.search) {
-      searchBar.classList.add(`has-content`);
-      searchInput.value = history.state?.search;
-      NamespaceObject.filter(history.state?.search);
-    } else {
-      searchBar.classList.remove(`has-content`);
-      searchInput.value = ``;
-    }
-
-    if (history.state?.filter) {
-      toggle.checked = history.state?.filter;
-
-      if (history.state?.filter) {
-        document.body.classList.add(`show-ding-only`);
-      } else {
-        document.body.classList.remove(`show-ding-only`);
-      }
-    }
-
-    if (history.state?.parent && history.state?.category) {
-      document
-        .querySelector(
-          `a.subcategories[data-name="${history.state?.category}"]`
-        )
-        .scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "start",
-        });
-    }
+    performInitialHistoryReplace(NamespaceObject);
   }
 }
