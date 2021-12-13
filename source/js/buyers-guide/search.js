@@ -191,6 +191,7 @@ const SearchFilter = {
     list.forEach((p) => container.append(p));
   },
 
+  // MOVED OVER
   sortOnCreepiness: () => {
     const container = document.querySelector(`.product-box-list`);
     const list = [...container.querySelectorAll(`.product-box`)];
@@ -199,6 +200,7 @@ const SearchFilter = {
       .sort((a, b) => creepVal(a) - creepVal(b))
       .forEach((p) => container.append(p));
   },
+  // MOVED OVER
 
   // MOVED OVER
   filterCategory: (category) => {

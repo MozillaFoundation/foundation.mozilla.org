@@ -57,7 +57,7 @@ function markScrollEnd(event) {
   );
 }
 
-function applyHistory(NamespaceObject) {
+function applyHistory(instance, NamespaceObject) {
   const { category, parent } = history.state;
 
   categoryTitle.value = category;
@@ -88,7 +88,7 @@ function applyHistory(NamespaceObject) {
   instance.filterCategory(NamespaceObject, category);
   instance.filterSubcategory(parent || category);
   instance.updateHeader(category, parent);
-  NamespaceObject.sortOnCreepiness();
+  instance.sortOnCreepiness();
   NamespaceObject.moveCreepyFace();
 
   if (history.state?.parent && history.state?.category) {
@@ -102,7 +102,7 @@ function applyHistory(NamespaceObject) {
   }
 }
 
-function clearText(NamespaceObject, searchBar, searchInput) {
+function clearText(instance, NamespaceObject, searchBar, searchInput) {
   searchBar.classList.remove(`has-content`);
   searchInput.value = ``;
   ALL_PRODUCTS.forEach((product) => {
@@ -119,7 +119,7 @@ function clearText(NamespaceObject, searchBar, searchInput) {
     location.href
   );
 
-  NamespaceObject.sortOnCreepiness();
+  instance.sortOnCreepiness();
   NamespaceObject.moveCreepyFace();
 }
 
@@ -163,7 +163,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
           )
           .classList.add(`active`);
 
-        clearText(NamespaceObject, searchBar, searchInput);
+        clearText(instance, NamespaceObject, searchBar, searchInput);
         history.pushState(
           {
             title: NamespaceObject.getTitle(evt.target.dataset.name),
@@ -199,7 +199,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
         let href;
 
         if (evt.target.dataset.name) {
-          clearText(NamespaceObject, searchBar, searchInput);
+          clearText(instance, NamespaceObject, searchBar, searchInput);
           if (categoryTitle.value.trim() !== evt.target.dataset.name) {
             categoryTitle.value = evt.target.dataset.name;
             parentTitle.value = evt.target.dataset.parent;
@@ -252,7 +252,7 @@ function setupGoBackToAll(instance, NamespaceObject, searchBar, searchInput) {
 
       evt.preventDefault();
 
-      clearText(NamespaceObject, searchBar, searchInput);
+      clearText(instance, NamespaceObject, searchBar, searchInput);
       history.pushState(
         {
           title: NamespaceObject.getTitle("None"),
@@ -419,8 +419,8 @@ function setupSearchBar(instance, NamespaceObject) {
       searchBar.classList.add(`has-content`);
       NamespaceObject.filter(searchText);
     } else {
-      clearText(NamespaceObject, searchBar, searchInput);
-      applyHistory(NamespaceObject);
+      clearText(instance, NamespaceObject, searchBar, searchInput);
+      applyHistory(instance, NamespaceObject);
     }
   });
 
@@ -434,8 +434,8 @@ function setupSearchBar(instance, NamespaceObject) {
   clear.addEventListener(`click`, (evt) => {
     evt.preventDefault();
     searchInput.focus();
-    clearText(NamespaceObject, searchBar, searchInput);
-    applyHistory(NamespaceObject);
+    clearText(instance, NamespaceObject, searchBar, searchInput);
+    applyHistory(instance, NamespaceObject);
   });
 
   return { searchBar, searchInput };
@@ -493,7 +493,7 @@ export class SearchFilter {
     });
 
     categoryTitle.value = category;
-    NamespaceObject.sortOnCreepiness();
+    this.sortOnCreepiness();
     NamespaceObject.moveCreepyFace();
     NamespaceObject.checkForEmptyNotice();
   }
@@ -572,5 +572,14 @@ export class SearchFilter {
         `#multipage-nav a[data-name="${parentTitle.value.trim()}"]`
       )
       .classList.add(`active`);
+  }
+
+  sortOnCreepiness() {
+    const container = document.querySelector(`.product-box-list`);
+    const list = [...container.querySelectorAll(`.product-box`)];
+    const creepVal = (e) => parseFloat(e.dataset.creepiness);
+    list
+      .sort((a, b) => creepVal(a) - creepVal(b))
+      .forEach((p) => container.append(p));
   }
 }
