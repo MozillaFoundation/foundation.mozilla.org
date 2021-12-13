@@ -24,7 +24,7 @@ from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from .. import customblocks
-from ..customblocks.base_rich_text_options import base_rich_text_options
+from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
 
 
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
@@ -41,11 +41,7 @@ from ..content_author import ContentAuthor
 
 base_fields = [
     ('paragraph', blocks.RichTextBlock(
-        features=base_rich_text_options + [
-            'h2', 'h3', 'h4', 'h5',
-            'ol', 'ul',
-            'hr',
-        ],
+        features=full_content_rich_text_options,
         template='wagtailpages/blocks/rich_text_block.html',
     )),
     ('card_grid', customblocks.CardGridBlock()),

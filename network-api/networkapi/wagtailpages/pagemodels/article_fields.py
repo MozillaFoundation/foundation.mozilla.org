@@ -2,7 +2,7 @@
 Article StreamBlocks
 """
 from . import customblocks
-from .customblocks.base_rich_text_options import base_rich_text_options
+from .customblocks.full_content_rich_text_options import full_content_rich_text_options
 from wagtail.core import blocks
 from wagtail.contrib.table_block.blocks import TableBlock
 
@@ -14,7 +14,7 @@ article_fields = [
     )),
     ('card_grid', customblocks.CardGridBlock()),
     ('content', customblocks.ArticleRichText(
-        features=base_rich_text_options + ['h2', 'h3', 'h4', 'h5', 'large', 'ol', 'ul', 'image', 'hr', 'footnotes'],
+        features=full_content_rich_text_options + ['large', 'image', 'footnotes'],
     )),
     ('image', customblocks.ArticleImageBlock()),
     ('double_image', customblocks.ArticleDoubleImageBlock()),
