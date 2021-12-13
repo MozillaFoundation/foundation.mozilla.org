@@ -85,7 +85,7 @@ function applyHistory(NamespaceObject) {
 
     NamespaceObject.toggleSubcategory(true);
   }
-  NamespaceObject.filterCategory(category);
+  instance.filterCategory(NamespaceObject, category);
   NamespaceObject.filterSubcategory(parent || category);
   NamespaceObject.updateHeader(category, parent);
   NamespaceObject.sortOnCreepiness();
@@ -123,7 +123,7 @@ function clearText(NamespaceObject, searchBar, searchInput) {
   NamespaceObject.moveCreepyFace();
 }
 
-function setupNavLinks(NamespaceObject, searchBar, searchInput) {
+function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
   const navLinks = document.querySelectorAll(
     `#multipage-nav a,.category-header,#pni-nav-mobile a`
   );
@@ -180,7 +180,7 @@ function setupNavLinks(NamespaceObject, searchBar, searchInput) {
         NamespaceObject.filterSubcategory(evt.target.dataset.name);
         NamespaceObject.toggleSubcategory(true);
         NamespaceObject.updateHeader(evt.target.dataset.name, "");
-        NamespaceObject.filterCategory(evt.target.dataset.name);
+        instance.filterCategory(NamespaceObject, evt.target.dataset.name);
       }
     });
   }
@@ -232,7 +232,7 @@ function setupNavLinks(NamespaceObject, searchBar, searchInput) {
             categoryTitle.value.trim(),
             parentTitle.value.trim()
           );
-          NamespaceObject.filterCategory(categoryTitle.value.trim());
+          instance.filterCategory(NamespaceObject, categoryTitle.value.trim());
         }
       },
       true
@@ -240,7 +240,7 @@ function setupNavLinks(NamespaceObject, searchBar, searchInput) {
   }
 }
 
-function setupGoBackToAll(NamespaceObject, searchBar, searchInput) {
+function setupGoBackToAll(instance, NamespaceObject, searchBar, searchInput) {
   document
     .querySelector(`.go-back-to-all-link`)
     .addEventListener("click", (evt) => {
@@ -281,12 +281,12 @@ function setupGoBackToAll(NamespaceObject, searchBar, searchInput) {
         .querySelector(`#pni-nav-mobile a[data-name="None"]`)
         .classList.add(`active`);
 
-      NamespaceObject.filterCategory("None");
+      instance.filterCategory(NamespaceObject, "None");
       parentTitle.value = "";
     });
 }
 
-function setupPopStateHandler(NamespaceObject, searchBar, searchInput) {
+function setupPopStateHandler(instance, NamespaceObject, searchBar, searchInput) {
   window.addEventListener(`popstate`, (event) => {
     const { state } = event;
     if (!state) return; // if it's a "real" back, we shouldn't need to do anything
@@ -331,7 +331,7 @@ function setupPopStateHandler(NamespaceObject, searchBar, searchInput) {
       NamespaceObject.filter(history.state?.search);
     }
 
-    NamespaceObject.filterCategory(category);
+    instance.filterCategory(NamespaceObject, category);
     NamespaceObject.filterSubcategory(parent || category);
     NamespaceObject.updateHeader(category, parent);
 
@@ -347,7 +347,7 @@ function setupPopStateHandler(NamespaceObject, searchBar, searchInput) {
   });
 }
 
-function performInitialHistoryReplace(NamespaceObject) {
+function performInitialHistoryReplace(instance, NamespaceObject) {
   history.replaceState(
     {
       title: NamespaceObject.getTitle(categoryTitle.value.trim()),
@@ -390,7 +390,7 @@ function performInitialHistoryReplace(NamespaceObject) {
   }
 }
 
-function setupSearchBar(NamespaceObject) {
+function setupSearchBar(instance, NamespaceObject) {
   const searchBar = document.querySelector(`#product-filter-search`);
 
   if (!searchBar) {
@@ -440,10 +440,27 @@ export class SearchFilter {
       subContainer.addEventListener(type, markScrollStart)
     );
 
-    const { searchBar, searchInput } = setupSearchBar(NamespaceObject);
-    setupNavLinks(NamespaceObject, searchBar, searchInput);
-    setupGoBackToAll(NamespaceObject, searchBar, searchInput);
-    setupPopStateHandler(NamespaceObject, searchBar, searchInput);
-    performInitialHistoryReplace(NamespaceObject);
+    const { searchBar, searchInput } = setupSearchBar(this, NamespaceObject);
+    setupNavLinks(this, NamespaceObject, searchBar, searchInput);
+    setupGoBackToAll(this, NamespaceObject, searchBar, searchInput);
+    setupPopStateHandler(this, NamespaceObject, searchBar, searchInput);
+    performInitialHistoryReplace(this, NamespaceObject);
+  }
+
+  filterCategory(NamespaceObject, category) {
+    ALL_PRODUCTS.forEach((product) => {
+      if (NamespaceObject.testCategories(product, category)) {
+        product.classList.remove(`d-none`);
+        product.classList.add(`d-flex`);
+      } else {
+        product.classList.add(`d-none`);
+        product.classList.remove(`d-flex`);
+      }
+    });
+
+    categoryTitle.value = category;
+    NamespaceObject.sortOnCreepiness();
+    NamespaceObject.moveCreepyFace();
+    NamespaceObject.checkForEmptyNotice();
   }
 }
