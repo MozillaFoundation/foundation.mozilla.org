@@ -250,6 +250,7 @@ const SearchFilter = {
   },
   // MOVED OVER
 
+  // MOVED OVER
   toggleSubcategory: (clear = false) => {
     const activeClasses = [
       "active",
@@ -300,6 +301,7 @@ const SearchFilter = {
         inline: "start",
       });
   },
+  // MOVED OVER
 
   // MOVED OVER
   checkForEmptyNotice: () => {

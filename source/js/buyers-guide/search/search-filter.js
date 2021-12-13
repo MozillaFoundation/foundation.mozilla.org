@@ -71,7 +71,7 @@ function applyHistory(instance, NamespaceObject) {
 
   if (parent) {
     instance.highlightParent();
-    NamespaceObject.toggleSubcategory();
+    instance.toggleSubcategory();
   } else {
     document
       .querySelector(`#multipage-nav a.active`)
@@ -89,7 +89,7 @@ function applyHistory(instance, NamespaceObject) {
       .querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
       .classList.add(`active`);
 
-    NamespaceObject.toggleSubcategory(true);
+    instance.toggleSubcategory(true);
   }
   instance.filterCategory(category);
   instance.filterSubcategory(parent || category);
@@ -184,7 +184,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
 
         document.title = NamespaceObject.getTitle(evt.target.dataset.name);
         instance.filterSubcategory(evt.target.dataset.name);
-        NamespaceObject.toggleSubcategory(true);
+        instance.toggleSubcategory(true);
         instance.updateHeader(evt.target.dataset.name, "");
         instance.filterCategory(evt.target.dataset.name);
       }
@@ -210,7 +210,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
             categoryTitle.value = evt.target.dataset.name;
             parentTitle.value = evt.target.dataset.parent;
             href = evt.target.href;
-            NamespaceObject.toggleSubcategory();
+            instance.toggleSubcategory();
             instance.highlightParent();
           } else {
             categoryTitle.value = evt.target.dataset.parent;
@@ -218,7 +218,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
             href = document.querySelector(
               `#multipage-nav a[data-name="${evt.target.dataset.parent}"]`
             ).href;
-            NamespaceObject.toggleSubcategory(true);
+            instance.toggleSubcategory(true);
           }
 
           history.pushState(
@@ -315,7 +315,7 @@ function setupPopStateHandler(
 
       if (parent) {
         instance.highlightParent();
-        NamespaceObject.toggleSubcategory();
+        instance.toggleSubcategory();
       } else {
         document
           .querySelector(`#multipage-nav a.active`)
@@ -333,10 +333,10 @@ function setupPopStateHandler(
           .querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
           .classList.add(`active`);
 
-        NamespaceObject.toggleSubcategory(true);
+        instance.toggleSubcategory(true);
       }
     } else {
-      NamespaceObject.toggleSubcategory(true);
+      instance.toggleSubcategory(true);
       searchBar.classList.add(`has-content`);
       searchInput.value = history.state?.search;
       NamespaceObject.filter(history.state?.search);
@@ -621,5 +621,57 @@ export class SearchFilter {
       NO_RESULTS_NOTICE.classList.add(`d-none`);
       SUBMIT_PRODUCT.classList.remove("d-none");
     }
+  }
+
+  //  Candidate for moving into utils
+  toggleSubcategory(clear = false) {
+    const activeClasses = [
+      "active",
+      "tw-bg-gray-80",
+      "tw-text-white",
+      "tw-border-gray-80",
+    ];
+    const defaultClasses = [
+      "hover:tw-border-pni-lilac",
+      "hover:tw-bg-pni-lilac",
+      "tw-text-gray-60",
+      "tw-border-gray-20",
+      "tw-bg-white",
+    ];
+
+    if (document.querySelector(`a.subcategories.active`)) {
+      document
+        .querySelector(`a.subcategories.active`)
+        .classList.add(...defaultClasses);
+      document
+        .querySelector(`a.subcategories.active`)
+        .classList.remove(...activeClasses);
+    }
+
+    if (clear) {
+      return;
+    }
+
+    document
+      .querySelector(
+        `a.subcategories[data-name="${categoryTitle.value.trim()}"]`
+      )
+      .classList.add(...activeClasses);
+
+    document
+      .querySelector(
+        `a.subcategories[data-name="${categoryTitle.value.trim()}"]`
+      )
+      .classList.remove(...defaultClasses);
+
+    document
+      .querySelector(
+        `a.subcategories[data-name="${categoryTitle.value.trim()}"]`
+      )
+      .scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
   }
 }
