@@ -87,7 +87,7 @@ function applyHistory(NamespaceObject) {
   }
   instance.filterCategory(NamespaceObject, category);
   NamespaceObject.filterSubcategory(parent || category);
-  NamespaceObject.updateHeader(category, parent);
+  instance.updateHeader(category, parent);
   NamespaceObject.sortOnCreepiness();
   NamespaceObject.moveCreepyFace();
 
@@ -179,7 +179,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
         document.title = NamespaceObject.getTitle(evt.target.dataset.name);
         NamespaceObject.filterSubcategory(evt.target.dataset.name);
         NamespaceObject.toggleSubcategory(true);
-        NamespaceObject.updateHeader(evt.target.dataset.name, "");
+        instance.updateHeader(evt.target.dataset.name, "");
         instance.filterCategory(NamespaceObject, evt.target.dataset.name);
       }
     });
@@ -228,7 +228,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
           );
 
           document.title = NamespaceObject.getTitle(categoryTitle.value.trim());
-          NamespaceObject.updateHeader(
+          instance.updateHeader(
             categoryTitle.value.trim(),
             parentTitle.value.trim()
           );
@@ -295,7 +295,7 @@ function setupPopStateHandler(instance, NamespaceObject, searchBar, searchInput)
     document.title = title;
 
     if (!history.state?.search) {
-      NamespaceObject.clearCategories();
+      instance.clearCategories();
       categoryTitle.value = category;
       parentTitle.value = parent;
 
@@ -333,7 +333,7 @@ function setupPopStateHandler(instance, NamespaceObject, searchBar, searchInput)
 
     instance.filterCategory(NamespaceObject, category);
     NamespaceObject.filterSubcategory(parent || category);
-    NamespaceObject.updateHeader(category, parent);
+    instance.updateHeader(category, parent);
 
     if (history.state?.filter) {
       toggle.checked = history.state?.filter;
@@ -347,7 +347,7 @@ function setupPopStateHandler(instance, NamespaceObject, searchBar, searchInput)
   });
 }
 
-function performInitialHistoryReplace(instance, NamespaceObject) {
+function performInitialHistoryReplace(instance, NamespaceObject, searchBar, searchInput) {
   history.replaceState(
     {
       title: NamespaceObject.getTitle(categoryTitle.value.trim()),
@@ -444,7 +444,30 @@ export class SearchFilter {
     setupNavLinks(this, NamespaceObject, searchBar, searchInput);
     setupGoBackToAll(this, NamespaceObject, searchBar, searchInput);
     setupPopStateHandler(this, NamespaceObject, searchBar, searchInput);
-    performInitialHistoryReplace(this, NamespaceObject);
+    performInitialHistoryReplace(this, NamespaceObject, searchBar, searchInput);
+  }
+
+  clearCategories() {
+    this.filterCategory("None");
+    parentTitle.value = null;
+
+    if (document.querySelector(`#multipage-nav a.active`)) {
+      document
+        .querySelector(`#multipage-nav a.active`)
+        .classList.remove(`active`);
+      document
+        .querySelector(`#multipage-nav a[data-name="None"]`)
+        .classList.add(`active`);
+    }
+
+    if (document.querySelector(`#pni-nav-mobile a.active`)) {
+      document
+        .querySelector(`#pni-nav-mobile a.active`)
+        .classList.remove(`active`);
+      document
+        .querySelector(`#pni-nav-mobile a[data-name="None"]`)
+        .classList.add(`active`);
+    }
   }
 
   filterCategory(NamespaceObject, category) {
@@ -463,4 +486,28 @@ export class SearchFilter {
     NamespaceObject.moveCreepyFace();
     NamespaceObject.checkForEmptyNotice();
   }
+
+  updateHeader(category, parent) {
+    if (parent) {
+      document.querySelector(".category-header").textContent = parent;
+      document.querySelector(".category-header").dataset.name = parent;
+      document.querySelector(".category-header").href = document.querySelector(
+        `#multipage-nav a[data-name="${parent}"]`
+      ).href;
+      document.querySelector(`#pni-nav-mobile .active-link-label`).textContent =
+        parent;
+    } else {
+      const header = category === "None" ? gettext("All") : category;
+      document.querySelector(".category-header").textContent = header;
+      document.querySelector(".category-header").dataset.name = category;
+      document.querySelector(".category-header").href = document.querySelector(
+        `#multipage-nav a[data-name="${category}"]`
+      ).href;
+      document.querySelector(`#pni-nav-mobile .active-link-label`).textContent =
+        category === "None"
+          ? document.querySelector(`#multipage-nav a[data-name="None"]`)
+              .textContent
+          : category;
+    }
+  },
 }

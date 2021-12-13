@@ -21,6 +21,7 @@ const SearchFilter = {
     new SearchFilterObject(SearchFilter);
   },
 
+  // MOVED OVER
   clearCategories: () => {
     SearchFilter.filterCategory("None");
     parentTitle.value = null;
@@ -43,7 +44,9 @@ const SearchFilter = {
         .classList.add(`active`);
     }
   },
+  // MOVED OVER
 
+  // MOVED OVER
   updateHeader: (category, parent) => {
     if (parent) {
       document.querySelector(".category-header").textContent = parent;
@@ -67,6 +70,7 @@ const SearchFilter = {
           : category;
     }
   },
+  // MOVED OVER
 
   filterSubcategory: (category) => {
     for (const subcategory of subcategories) {
@@ -194,6 +198,7 @@ const SearchFilter = {
       .forEach((p) => container.append(p));
   },
 
+  // MOVED OVER
   filterCategory: (category) => {
     ALL_PRODUCTS.forEach((product) => {
       if (SearchFilter.testCategories(product, category)) {
@@ -210,6 +215,7 @@ const SearchFilter = {
     SearchFilter.moveCreepyFace();
     SearchFilter.checkForEmptyNotice();
   },
+  // MOVED OVER
 
   highlightParent: () => {
     if (document.querySelector(`#multipage-nav a.active`)) {

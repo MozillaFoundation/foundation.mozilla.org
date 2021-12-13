@@ -1,0 +1,1 @@
+- select "health", search, clear search => active cat goes back to health, title stays "all"
