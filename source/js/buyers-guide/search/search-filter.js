@@ -64,7 +64,7 @@ function applyHistory(NamespaceObject) {
   parentTitle.value = parent;
 
   if (parent) {
-    NamespaceObject.highlightParent();
+    instance.highlightParent();
     NamespaceObject.toggleSubcategory();
   } else {
     document
@@ -205,7 +205,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
             parentTitle.value = evt.target.dataset.parent;
             href = evt.target.href;
             NamespaceObject.toggleSubcategory();
-            NamespaceObject.highlightParent();
+            instance.highlightParent();
           } else {
             categoryTitle.value = evt.target.dataset.parent;
             parentTitle.value = "";
@@ -286,7 +286,12 @@ function setupGoBackToAll(instance, NamespaceObject, searchBar, searchInput) {
     });
 }
 
-function setupPopStateHandler(instance, NamespaceObject, searchBar, searchInput) {
+function setupPopStateHandler(
+  instance,
+  NamespaceObject,
+  searchBar,
+  searchInput
+) {
   window.addEventListener(`popstate`, (event) => {
     const { state } = event;
     if (!state) return; // if it's a "real" back, we shouldn't need to do anything
@@ -303,7 +308,7 @@ function setupPopStateHandler(instance, NamespaceObject, searchBar, searchInput)
       searchInput.value = ``;
 
       if (parent) {
-        NamespaceObject.highlightParent();
+        instance.highlightParent();
         NamespaceObject.toggleSubcategory();
       } else {
         document
@@ -347,7 +352,12 @@ function setupPopStateHandler(instance, NamespaceObject, searchBar, searchInput)
   });
 }
 
-function performInitialHistoryReplace(instance, NamespaceObject, searchBar, searchInput) {
+function performInitialHistoryReplace(
+  instance,
+  NamespaceObject,
+  searchBar,
+  searchInput
+) {
   history.replaceState(
     {
       title: NamespaceObject.getTitle(categoryTitle.value.trim()),
@@ -447,6 +457,7 @@ export class SearchFilter {
     performInitialHistoryReplace(this, NamespaceObject, searchBar, searchInput);
   }
 
+  // Candidate for moving into utils
   clearCategories() {
     this.filterCategory("None");
     parentTitle.value = null;
@@ -472,7 +483,7 @@ export class SearchFilter {
 
   filterCategory(NamespaceObject, category) {
     ALL_PRODUCTS.forEach((product) => {
-      if (NamespaceObject.testCategories(product, category)) {
+      if (this.testCategories(product, category)) {
         product.classList.remove(`d-none`);
         product.classList.add(`d-flex`);
       } else {
@@ -487,6 +498,20 @@ export class SearchFilter {
     NamespaceObject.checkForEmptyNotice();
   }
 
+  // Candidate for moving into utils
+  testCategories(product, category) {
+    if (category === "None") {
+      return true;
+    }
+
+    const productCategories = Array.from(
+      product.querySelectorAll(".product-categories")
+    );
+
+    return productCategories.map((c) => c.value.trim()).includes(category);
+  }
+
+  // Candidate for moving into utils
   filterSubcategory(category) {
     for (const subcategory of subcategories) {
       if (subcategory.dataset.parent === category) {
@@ -497,6 +522,7 @@ export class SearchFilter {
     }
   }
 
+  // Candidate for moving into utils
   updateHeader(category, parent) {
     if (parent) {
       document.querySelector(".category-header").textContent = parent;
@@ -519,5 +545,32 @@ export class SearchFilter {
               .textContent
           : category;
     }
-  },
+  }
+
+  // Candidate for moving into utils
+  highlightParent() {
+    if (document.querySelector(`#multipage-nav a.active`)) {
+      document
+        .querySelector(`#multipage-nav a.active`)
+        .classList.remove(`active`);
+    }
+
+    if (document.querySelector(`#pni-nav-mobile a.active`)) {
+      document
+        .querySelector(`#pni-nav-mobile a.active`)
+        .classList.remove(`active`);
+    }
+
+    document
+      .querySelector(
+        `#pni-nav-mobile a[data-name="${parentTitle.value.trim()}"]`
+      )
+      .classList.add(`active`);
+
+    document
+      .querySelector(
+        `#multipage-nav a[data-name="${parentTitle.value.trim()}"]`
+      )
+      .classList.add(`active`);
+  }
 }

@@ -219,6 +219,7 @@ const SearchFilter = {
   },
   // MOVED OVER
 
+  // MOVED OVER
   highlightParent: () => {
     if (document.querySelector(`#multipage-nav a.active`)) {
       document
@@ -244,6 +245,7 @@ const SearchFilter = {
       )
       .classList.add(`active`);
   },
+  // MOVED OVER
 
   toggleSubcategory: (clear = false) => {
     const activeClasses = [
@@ -330,6 +332,7 @@ const SearchFilter = {
     return false;
   },
 
+  // MOVED OVER
   testCategories: (product, category) => {
     if (category === "None") {
       return true;
@@ -341,6 +344,7 @@ const SearchFilter = {
 
     return productCategories.map((c) => c.value.trim()).includes(category);
   },
+  // MOVED OVER
 };
 
 // TODO: turn this into a static class as well
