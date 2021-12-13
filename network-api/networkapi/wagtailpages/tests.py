@@ -483,6 +483,15 @@ class BuyersGuideProductCategoryTest(TestCase):
         self.assertEqual(1, len(form.errors))
         self.assertIn('name', form.errors)
 
+    def test_parent_saves(self):
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        form = self.form_class(
+            data={'name': 'Cat 2', 'sort_order': 1, 'parent': cat1}
+        )
+        cat2 = form.save()
+        self.assertEqual(cat1, cat2.parent)
+
     def test_cannot_be_direct_child_of_itself(self):
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
 

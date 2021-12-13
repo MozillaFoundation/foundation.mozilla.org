@@ -34,6 +34,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail_airtable.mixins import AirtableMixin
 
+from networkapi.wagtailpages.forms import BuyersGuideProductCategoryForm
 from networkapi.wagtailpages.fields import ExtendedBoolean, ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
@@ -116,20 +117,6 @@ def sort_average(products):
     return sorted(products, key=lambda p: p.creepiness)
 
 
-from wagtail.admin.forms import WagtailAdminModelForm
-
-class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
-
-    def clean_parent(self):
-        parent = self.cleaned_data['parent']
-        if parent:
-            ancestors = parent.get_ancestors(inclusive=True)
-            if len(ancestors) > 2:
-                self.add_error('parent', 'Categories can only be three levels deep.')
-            elif self.instance in ancestors:
-                self.add_error('parent', 'A category cannot be a decendent of itself.')
-
-
 @register_snippet
 class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnippet, models.Model):
     """
@@ -137,8 +124,6 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
     registered as snippet so that we can moderate them if and
     when necessary.
     """
-    base_form_class = BuyersGuideProductCategoryForm
-
     name = models.CharField(max_length=100, unique=True)
 
     description = models.TextField(
@@ -229,6 +214,8 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+    base_form_class = BuyersGuideProductCategoryForm
 
     search_fields = [
         index.SearchField('name', partial_match=True),
