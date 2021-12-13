@@ -1,5 +1,10 @@
-const CREEPINESS_FACE = document.querySelector(".creep-o-meter-information");
 const ALL_PRODUCTS = document.querySelectorAll(`figure.product-box`);
+const CREEPINESS_FACE = document.querySelector(".creep-o-meter-information");
+const NO_RESULTS_NOTICE = document.getElementById(
+  `product-filter-no-results-notice`
+);
+const SUBMIT_PRODUCT = document.querySelector(".recommend-product");
+
 const categoryTitle = document.querySelector(`.category-title`);
 const parentTitle = document.querySelector(`.parent-title`);
 const toggle = document.querySelector(`#product-filter-pni-toggle`);
@@ -496,7 +501,7 @@ export class SearchFilter {
     categoryTitle.value = category;
     this.sortOnCreepiness();
     this.moveCreepyFace();
-    NamespaceObject.checkForEmptyNotice();
+    this.checkForEmptyNotice();
   }
 
   // Candidate for moving into utils
@@ -596,6 +601,25 @@ export class SearchFilter {
     } else {
       // If there are no search results, hide the creepo-meter-face
       CREEPINESS_FACE.classList.add("d-none");
+    }
+  }
+
+  //  Candidate for moving into utils
+  checkForEmptyNotice() {
+    let qs = `figure.product-box:not(.d-none)`;
+
+    if (document.body.classList.contains(`show-ding-only`)) {
+      qs = `${qs}.privacy-ding`;
+    }
+
+    const results = document.querySelectorAll(qs);
+    const count = results.length;
+    if (count === 0) {
+      NO_RESULTS_NOTICE.classList.remove(`d-none`);
+      SUBMIT_PRODUCT.classList.add("d-none");
+    } else {
+      NO_RESULTS_NOTICE.classList.add(`d-none`);
+      SUBMIT_PRODUCT.classList.remove("d-none");
     }
   }
 }

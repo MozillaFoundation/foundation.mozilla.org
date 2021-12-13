@@ -301,6 +301,7 @@ const SearchFilter = {
       });
   },
 
+  // MOVED OVER
   checkForEmptyNotice: () => {
     let qs = `figure.product-box:not(.d-none)`;
 
@@ -318,6 +319,7 @@ const SearchFilter = {
       SUBMIT_PRODUCT.classList.remove("d-none");
     }
   },
+  // MOVED OVER
 
   test: (product, text) => {
     text = text.toLowerCase(); // Note that this is absolutely not true for all languages, but it's true for us.
