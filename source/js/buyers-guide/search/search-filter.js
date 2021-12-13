@@ -86,7 +86,7 @@ function applyHistory(NamespaceObject) {
     NamespaceObject.toggleSubcategory(true);
   }
   instance.filterCategory(NamespaceObject, category);
-  NamespaceObject.filterSubcategory(parent || category);
+  instance.filterSubcategory(parent || category);
   instance.updateHeader(category, parent);
   NamespaceObject.sortOnCreepiness();
   NamespaceObject.moveCreepyFace();
@@ -177,7 +177,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
         );
 
         document.title = NamespaceObject.getTitle(evt.target.dataset.name);
-        NamespaceObject.filterSubcategory(evt.target.dataset.name);
+        instance.filterSubcategory(evt.target.dataset.name);
         NamespaceObject.toggleSubcategory(true);
         instance.updateHeader(evt.target.dataset.name, "");
         instance.filterCategory(NamespaceObject, evt.target.dataset.name);
@@ -332,7 +332,7 @@ function setupPopStateHandler(instance, NamespaceObject, searchBar, searchInput)
     }
 
     instance.filterCategory(NamespaceObject, category);
-    NamespaceObject.filterSubcategory(parent || category);
+    instance.filterSubcategory(parent || category);
     instance.updateHeader(category, parent);
 
     if (history.state?.filter) {
@@ -485,6 +485,16 @@ export class SearchFilter {
     NamespaceObject.sortOnCreepiness();
     NamespaceObject.moveCreepyFace();
     NamespaceObject.checkForEmptyNotice();
+  }
+
+  filterSubcategory(category) {
+    for (const subcategory of subcategories) {
+      if (subcategory.dataset.parent === category) {
+        subcategory.classList.remove(`tw-hidden`);
+      } else {
+        subcategory.classList.add(`tw-hidden`);
+      }
+    }
   }
 
   updateHeader(category, parent) {
