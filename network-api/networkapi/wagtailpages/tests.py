@@ -19,6 +19,7 @@ from networkapi.wagtailpages.utils import create_wagtail_image
 
 from wagtail.core.models import Page, Site
 from wagtail.core.models.i18n import Locale
+from wagtail.snippets.views.snippets import get_snippet_edit_handler
 from wagtail.tests.utils import WagtailPageTests
 
 
@@ -469,26 +470,65 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
 
 class BuyersGuideProductCategoryTest(TestCase):
 
-    def test_cannot_be_direct_child_of_itself(self):
-        from wagtail.snippets.views.snippets import get_snippet_edit_handler
-
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", sort_order=1)
-
+    def setUp(self):
         edit_handler = get_snippet_edit_handler(BuyersGuideProductCategory)
-        form_class = edit_handler.get_form_class()
-        form = form_class(instance=cat1, data={'name': "Cat 1", 'sort_order': 1, 'parent': cat1})
+        self.form_class = edit_handler.get_form_class()
+
+    def test_cannot_have_duplicate_name(self):
+        BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        form = self.form_class(data={'name': 'Cat 1', 'sort_order': 1})
 
         self.assertFalse(form.is_valid())
+        self.assertEqual(1, len(form.errors))
+        self.assertIn('name', form.errors)
+
+    def test_cannot_be_direct_child_of_itself(self):
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        form = self.form_class(
+            instance=cat1,
+            data={'name': cat1.name, 'sort_order': cat1.sort_order, 'parent': cat1}
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(1, len(form.errors))
         self.assertIn('parent', form.errors)
+        self.assertIn(
+            'A category cannot be a decendent of itself.',
+            form.errors['parent']
+        )
 
     def test_cannot_be_descendent_of_itself(self):
-        from wagtail.snippets.views.snippets import get_snippet_edit_handler
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+        cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", parent=cat1)
 
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", sort_order=1)
-
-        edit_handler = get_snippet_edit_handler(BuyersGuideProductCategory)
-        form_class = edit_handler.get_form_class()
-        form = form_class(instance=cat1, data={'name': "Cat 1", 'sort_order': 1, 'parent': cat1})
+        form = self.form_class(
+            instance=cat1,
+            data={'name': cat1.name, 'sort_order': cat1.sort_order, 'parent': cat2}
+        )
 
         self.assertFalse(form.is_valid())
+        self.assertEqual(1, len(form.errors))
         self.assertIn('parent', form.errors)
+        self.assertIn(
+            'A category cannot be a decendent of itself.',
+            form.errors['parent']
+        )
+
+    def test_cannot_be_created_more_than_three_levels_deep(self):
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+        cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", parent=cat1)
+        cat3 = BuyersGuideProductCategory.objects.create(name="Cat 3", parent=cat2)
+
+        form = self.form_class(
+            data={'name': 'Cat 4', 'sort_order': 1, 'parent': cat3}
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(1, len(form.errors))
+        self.assertIn('parent', form.errors)
+        self.assertIn(
+            'Categories can only be three levels deep.',
+            form.errors['parent']
+        )

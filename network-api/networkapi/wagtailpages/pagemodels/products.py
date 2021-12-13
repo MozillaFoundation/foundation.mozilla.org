@@ -119,18 +119,15 @@ def sort_average(products):
 from wagtail.admin.forms import WagtailAdminModelForm
 
 class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
-    def clean(self):
-        cleaned_data = super().clean()
-        return cleaned_data
 
     def clean_parent(self):
-        # node = self.instance.parent
-        node = self.cleaned_data['parent']
-        while node:
-            if node == self.instance:
+        parent = self.cleaned_data['parent']
+        if parent:
+            ancestors = parent.get_ancestors(inclusive=True)
+            if len(ancestors) > 2:
+                self.add_error('parent', 'Categories can only be three levels deep.')
+            elif self.instance in ancestors:
                 self.add_error('parent', 'A category cannot be a decendent of itself.')
-                break
-            node = node.parent
 
 
 @register_snippet
@@ -215,6 +212,14 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
 
     def get_children(self):
         return BuyersGuideProductCategory.objects.filter(parent=self)
+
+    def get_ancestors(self, inclusive=False):
+        ancestors = []
+        node = self if inclusive else self.parent
+        while node:
+            ancestors.insert(0, node)
+            node = node.parent
+        return ancestors
 
     def __str__(self):
         if self.parent is None:
