@@ -21,7 +21,7 @@
 
 {% block org_schema %}
   {% if page.structured_data %}
-    <script type="application/ld+json">
+    <script type="application/json">
       {{ page.structured_data|safe }}
     </script>
   {% endif %}
