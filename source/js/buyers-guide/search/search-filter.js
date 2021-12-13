@@ -102,6 +102,27 @@ function applyHistory(NamespaceObject) {
   }
 }
 
+function clearText(NamespaceObject) {
+  searchBar.classList.remove(`has-content`);
+  searchInput.value = ``;
+  ALL_PRODUCTS.forEach((product) => {
+    product.classList.remove(`d-none`);
+    product.classList.add(`d-flex`);
+  });
+
+  history.replaceState(
+    {
+      ...history.state,
+      search: "",
+    },
+    NamespaceObject.getTitle(categoryTitle.value.trim()),
+    location.href
+  );
+
+  NamespaceObject.sortOnCreepiness();
+  NamespaceObject.moveCreepyFace();
+}
+
 /**
  * ...
  */
@@ -129,7 +150,7 @@ export class SearchFilter {
         searchBar.classList.add(`has-content`);
         NamespaceObject.filter(searchText);
       } else {
-        clearText();
+        clearText(NamespaceObject);
         applyHistory(NamespaceObject);
       }
     });
@@ -141,31 +162,10 @@ export class SearchFilter {
       );
     }
 
-    const clearText = () => {
-      searchBar.classList.remove(`has-content`);
-      searchInput.value = ``;
-      ALL_PRODUCTS.forEach((product) => {
-        product.classList.remove(`d-none`);
-        product.classList.add(`d-flex`);
-      });
-
-      history.replaceState(
-        {
-          ...history.state,
-          search: "",
-        },
-        NamespaceObject.getTitle(categoryTitle.value.trim()),
-        location.href
-      );
-
-      NamespaceObject.sortOnCreepiness();
-      NamespaceObject.moveCreepyFace();
-    };
-
     clear.addEventListener(`click`, (evt) => {
       evt.preventDefault();
       searchInput.focus();
-      clearText();
+      clearText(NamespaceObject);
       applyHistory(NamespaceObject);
     });
 
@@ -208,7 +208,7 @@ export class SearchFilter {
             )
             .classList.add(`active`);
 
-          clearText();
+          clearText(NamespaceObject);
           history.pushState(
             {
               title: NamespaceObject.getTitle(evt.target.dataset.name),
@@ -244,7 +244,7 @@ export class SearchFilter {
           let href;
 
           if (evt.target.dataset.name) {
-            clearText();
+            clearText(NamespaceObject);
             if (categoryTitle.value.trim() !== evt.target.dataset.name) {
               categoryTitle.value = evt.target.dataset.name;
               parentTitle.value = evt.target.dataset.parent;
@@ -297,7 +297,7 @@ export class SearchFilter {
 
         evt.preventDefault();
 
-        clearText();
+        clearText(NamespaceObject);
         history.pushState(
           {
             title: NamespaceObject.getTitle("None"),
