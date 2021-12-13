@@ -91,7 +91,7 @@ function applyHistory(instance, NamespaceObject) {
 
     NamespaceObject.toggleSubcategory(true);
   }
-  instance.filterCategory(NamespaceObject, category);
+  instance.filterCategory(category);
   instance.filterSubcategory(parent || category);
   instance.updateHeader(category, parent);
   instance.sortOnCreepiness();
@@ -186,7 +186,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
         instance.filterSubcategory(evt.target.dataset.name);
         NamespaceObject.toggleSubcategory(true);
         instance.updateHeader(evt.target.dataset.name, "");
-        instance.filterCategory(NamespaceObject, evt.target.dataset.name);
+        instance.filterCategory(evt.target.dataset.name);
       }
     });
   }
@@ -238,7 +238,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
             categoryTitle.value.trim(),
             parentTitle.value.trim()
           );
-          instance.filterCategory(NamespaceObject, categoryTitle.value.trim());
+          instance.filterCategory(categoryTitle.value.trim());
         }
       },
       true
@@ -287,7 +287,7 @@ function setupGoBackToAll(instance, NamespaceObject, searchBar, searchInput) {
         .querySelector(`#pni-nav-mobile a[data-name="None"]`)
         .classList.add(`active`);
 
-      instance.filterCategory(NamespaceObject, "None");
+      instance.filterCategory("None");
       parentTitle.value = "";
     });
 }
@@ -342,7 +342,7 @@ function setupPopStateHandler(
       NamespaceObject.filter(history.state?.search);
     }
 
-    instance.filterCategory(NamespaceObject, category);
+    instance.filterCategory(category);
     instance.filterSubcategory(parent || category);
     instance.updateHeader(category, parent);
 
@@ -487,7 +487,7 @@ export class SearchFilter {
     }
   }
 
-  filterCategory(NamespaceObject, category) {
+  filterCategory(category) {
     ALL_PRODUCTS.forEach((product) => {
       if (this.testCategories(product, category)) {
         product.classList.remove(`d-none`);
