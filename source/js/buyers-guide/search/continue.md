@@ -6,5 +6,10 @@
 - [x] continue the refactor
 - [x] move all "object functions" in search over as (temporary) "class functions"
 - [x] move all "can be moved to utils" functions into their own (possibly more than one) util modules
-- [ ] move the setupXYZ functions back into the class
+- [ ] move the setupXYZ functions back into the class (where sensible)
 - [ ] we should be done with the initial refactor now
+
+
+Outstanding tasks:
+- check if we can create a single history update function, as we call build and set state in several different places at the moment.
+- try to move as many consts into classes/constructors rather than keeping them bare consts

@@ -7,6 +7,10 @@ const parentTitle = document.querySelector(`.parent-title`);
 const subcategories = document.querySelectorAll(`.subcategories`);
 const toggle = document.querySelector(`#product-filter-pni-toggle`);
 
+/**
+ * ...
+ * @param {*} instance
+ */
 export function applyHistory(instance) {
   const { category, parent } = history.state;
 
@@ -52,7 +56,12 @@ export function applyHistory(instance) {
   }
 }
 
-export function clearText(instance, searchBar, searchInput) {
+/**
+ * ...
+ * @param {*} searchBar
+ * @param {*} searchInput
+ */
+export function clearText(searchBar, searchInput) {
   searchBar.classList.remove(`has-content`);
   searchInput.value = ``;
   ALL_PRODUCTS.forEach((product) => {
@@ -60,19 +69,20 @@ export function clearText(instance, searchBar, searchInput) {
     product.classList.add(`d-flex`);
   });
 
-  history.replaceState(
-    {
-      ...history.state,
-      search: "",
-    },
-    Utils.getTitle(categoryTitle.value.trim()),
-    location.href
-  );
+  const state = { ...history.state, search: "" };
+  const title = Utils.getTitle(categoryTitle.value.trim());
+  history.replaceState(state, title, location.href);
 
   CreepUtils.sortOnCreepiness();
   CreepUtils.moveCreepyFace();
 }
 
+/**
+ * ...
+ * @param {*} instance
+ * @param {*} searchBar
+ * @param {*} searchInput
+ */
 export function setupNavLinks(instance, searchBar, searchInput) {
   const navLinks = document.querySelectorAll(
     `#multipage-nav a,.category-header,#pni-nav-mobile a`
@@ -113,7 +123,7 @@ export function setupNavLinks(instance, searchBar, searchInput) {
           )
           .classList.add(`active`);
 
-        clearText(instance, searchBar, searchInput);
+        clearText(searchBar, searchInput);
         history.pushState(
           {
             title: Utils.getTitle(evt.target.dataset.name),
@@ -149,7 +159,7 @@ export function setupNavLinks(instance, searchBar, searchInput) {
         let href;
 
         if (evt.target.dataset.name) {
-          clearText(instance, searchBar, searchInput);
+          clearText(searchBar, searchInput);
           if (categoryTitle.value.trim() !== evt.target.dataset.name) {
             categoryTitle.value = evt.target.dataset.name;
             parentTitle.value = evt.target.dataset.parent;
@@ -190,6 +200,12 @@ export function setupNavLinks(instance, searchBar, searchInput) {
   }
 }
 
+/**
+ * ...
+ * @param {*} instance
+ * @param {*} searchBar
+ * @param {*} searchInput
+ */
 export function setupGoBackToAll(instance, searchBar, searchInput) {
   document
     .querySelector(`.go-back-to-all-link`)
@@ -202,7 +218,7 @@ export function setupGoBackToAll(instance, searchBar, searchInput) {
 
       evt.preventDefault();
 
-      clearText(instance, searchBar, searchInput);
+      clearText(searchBar, searchInput);
       history.pushState(
         {
           title: Utils.getTitle("None"),
@@ -236,6 +252,12 @@ export function setupGoBackToAll(instance, searchBar, searchInput) {
     });
 }
 
+/**
+ * ...
+ * @param {*} instance
+ * @param {*} searchBar
+ * @param {*} searchInput
+ */
 export function setupPopStateHandler(instance, searchBar, searchInput) {
   window.addEventListener(`popstate`, (event) => {
     const { state } = event;
@@ -297,6 +319,12 @@ export function setupPopStateHandler(instance, searchBar, searchInput) {
   });
 }
 
+/**
+ * ...
+ * @param {*} instance
+ * @param {*} searchBar
+ * @param {*} searchInput
+ */
 export function performInitialHistoryReplace(instance, searchBar, searchInput) {
   history.replaceState(
     {
@@ -340,6 +368,11 @@ export function performInitialHistoryReplace(instance, searchBar, searchInput) {
   }
 }
 
+/**
+ * ...
+ * @param {*} instance
+ * @returns
+ */
 export function setupSearchBar(instance) {
   const searchBar = document.querySelector(`#product-filter-search`);
 
@@ -358,7 +391,7 @@ export function setupSearchBar(instance) {
       searchBar.classList.add(`has-content`);
       instance.filter(searchText);
     } else {
-      clearText(instance, searchBar, searchInput);
+      clearText(searchBar, searchInput);
       applyHistory(instance);
     }
   });
@@ -373,7 +406,7 @@ export function setupSearchBar(instance) {
   clear.addEventListener(`click`, (evt) => {
     evt.preventDefault();
     searchInput.focus();
-    clearText(instance, searchBar, searchInput);
+    clearText(searchBar, searchInput);
     applyHistory(instance);
   });
 
