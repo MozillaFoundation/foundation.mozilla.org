@@ -119,9 +119,8 @@ network-api/networkapi/frontend/*
 # PyCharm
 .idea/
 
-# Cypress visual regression testing
-cypress/videos
-cypress/screenshots
+# Playwright testing
+tests/screenshots
 
 # Translations
 translations.tar

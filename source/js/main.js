@@ -83,7 +83,7 @@ let main = {
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
-        window[`main-js:react:finished`] = true;
+        document.body.classList.add(`react-loaded`);
         this.initPageSpecificScript();
       });
     });

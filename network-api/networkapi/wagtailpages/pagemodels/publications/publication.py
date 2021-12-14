@@ -13,6 +13,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.models import ContentAuthor
 from networkapi.wagtailpages.utils import set_main_site_nav_information
+from ..customblocks.base_rich_text_options import base_rich_text_options
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
 
@@ -89,11 +90,11 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     )
     intro_notes = RichTextField(
         blank=True,
-        features=['link', 'bold', 'italic', 'h4']
+        features=base_rich_text_options + ['h4']
     )
     notes = RichTextField(
         blank=True,
-        features=['link', 'bold', 'italic', 'h4', 'ol', 'ul']
+        features=base_rich_text_options + ['h4', 'ol', 'ul']
     )
     contents_title = models.CharField(
         blank=True,
