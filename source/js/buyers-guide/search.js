@@ -83,6 +83,7 @@ const SearchFilter = {
   },
   // MOVED OVER
 
+  // MOVED OVER
   getTitle: (category) => {
     if (category == "None")
       return document.querySelector('meta[name="pni-home-title"]').content;
@@ -92,6 +93,7 @@ const SearchFilter = {
       }`;
     }
   },
+  // MOVED OVER
 
   // MOVED OVER
   moveCreepyFace: () => {

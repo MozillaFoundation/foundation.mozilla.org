@@ -42,7 +42,7 @@ test(`PNI search`, async ({ page }, testInfo) => {
   let products, activeCategory;
 
   products = page.locator(`.product-box:visible`);
-  await expect(products).toHaveCount(35);
+  await expect(products).toHaveCount(45);
 
   const searchBar = page.locator(`#product-filter-search-input`);
   await searchBar.type("percy");
@@ -52,14 +52,22 @@ test(`PNI search`, async ({ page }, testInfo) => {
 
   await page.click(`label[for="product-filter-search-input"]`);
   products = page.locator(`.product-box:visible`);
-  await expect(products).toHaveCount(35);
+  await expect(products).toHaveCount(45);
 
   await page.click(`#multipage-nav a.multipage-link[data-name="Health & Exercise"]`);
   activeCategory = page.locator(`#multipage-nav a.multipage-link.active`);
   await expect(activeCategory).toHaveAttribute(`data-name`, `Health & Exercise`);
 
   products = page.locator(`.product-box:visible`);
-  await expect(products).toHaveCount(9);
+  await expect(products).toHaveCount(15);
+
+  subcats = page.locator(`a.subcategories`);
+  await expect(subcats).toHaveCount(3);
+  subcat = page.locator(`a.subcategories:nth-child(2)`);
+  await expect(subcat).toHaveText(`Smart Scales`);
+  await page.click(`a.subcategories:nth-child(2)`);
+  products = page.locator(`.product-box:visible`);
+  await expect(products).toHaveCount(5);
 
   await searchBar.type("percy");
   products = page.locator(`.product-box:visible`);

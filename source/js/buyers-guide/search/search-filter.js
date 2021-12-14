@@ -121,7 +121,7 @@ function clearText(instance, NamespaceObject, searchBar, searchInput) {
       ...history.state,
       search: "",
     },
-    NamespaceObject.getTitle(categoryTitle.value.trim()),
+    instance.getTitle(categoryTitle.value.trim()),
     location.href
   );
 
@@ -172,17 +172,17 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
         clearText(instance, NamespaceObject, searchBar, searchInput);
         history.pushState(
           {
-            title: NamespaceObject.getTitle(evt.target.dataset.name),
+            title: instance.getTitle(evt.target.dataset.name),
             category: evt.target.dataset.name,
             parent: "",
             search: "",
             filter: history.state?.filter,
           },
-          NamespaceObject.getTitle(evt.target.dataset.name),
+          instance.getTitle(evt.target.dataset.name),
           evt.target.href
         );
 
-        document.title = NamespaceObject.getTitle(evt.target.dataset.name);
+        document.title = instance.getTitle(evt.target.dataset.name);
         instance.filterSubcategory(evt.target.dataset.name);
         instance.toggleSubcategory(true);
         instance.updateHeader(evt.target.dataset.name, "");
@@ -223,17 +223,17 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
 
           history.pushState(
             {
-              title: NamespaceObject.getTitle(evt.target.dataset.name),
+              title: instance.getTitle(evt.target.dataset.name),
               category: categoryTitle.value.trim(),
               parent: parentTitle.value.trim(),
               search: "",
               filter: history.state?.filter,
             },
-            NamespaceObject.getTitle(evt.target.dataset.name),
+            instance.getTitle(evt.target.dataset.name),
             href
           );
 
-          document.title = NamespaceObject.getTitle(categoryTitle.value.trim());
+          document.title = instance.getTitle(categoryTitle.value.trim());
           instance.updateHeader(
             categoryTitle.value.trim(),
             parentTitle.value.trim()
@@ -261,13 +261,13 @@ function setupGoBackToAll(instance, NamespaceObject, searchBar, searchInput) {
       clearText(instance, NamespaceObject, searchBar, searchInput);
       history.pushState(
         {
-          title: NamespaceObject.getTitle("None"),
+          title: instance.getTitle("None"),
           category: "None",
           parent: "",
           search: "",
           filter: history.state?.filter,
         },
-        NamespaceObject.getTitle(evt.target.dataset.name),
+        instance.getTitle(evt.target.dataset.name),
         evt.target.href
       );
 
@@ -366,13 +366,13 @@ function performInitialHistoryReplace(
 ) {
   history.replaceState(
     {
-      title: NamespaceObject.getTitle(categoryTitle.value.trim()),
+      title: instance.getTitle(categoryTitle.value.trim()),
       category: categoryTitle.value.trim(),
       parent: parentTitle.value.trim(),
       search: history.state?.search ?? "",
       filter: history.state?.filter,
     },
-    NamespaceObject.getTitle(categoryTitle.value.trim()),
+    instance.getTitle(categoryTitle.value.trim()),
     location.href
   );
 
@@ -673,5 +673,16 @@ export class SearchFilter {
         block: "nearest",
         inline: "start",
       });
+  }
+
+  //  Candidate for moving into utils
+  getTitle(category) {
+    if (category == "None")
+      return document.querySelector('meta[name="pni-home-title"]').content;
+    else {
+      return `${category} | ${
+        document.querySelector('meta[name="pni-category-title"]').content
+      }`;
+    }
   }
 }
