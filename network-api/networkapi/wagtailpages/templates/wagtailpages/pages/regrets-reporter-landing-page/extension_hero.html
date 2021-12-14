@@ -10,26 +10,53 @@
                 <p class='body tw-text-white tw-font-light tw-pb-2'>
                     {% trans "Block harmful YouTube recommendations. Download the RegretsReporter browser extension." %}
                 </p>
-                <div class="btn-container tw-mt-1 tw-flex tw-flex-wrap tw-gap-4">
-                    <a class="btn download-link-button download-link-button--firefox tw-bg-white tw-text-youtube-regrets-red"
-                        href="https://addons.mozilla.org/en-us/firefox/addon/regretsreporter/"
-                        target="_blank">
-                        {% trans "Add to Firefox" %}
-                    </a>
-                    <a class="btn download-link-button download-link-button--chrome tw-bg-white tw-text-youtube-regrets-red"
-                        href="https://chrome.google.com/webstore/detail/regretsreporter/obpoeflheeknapimliioeoefbfaakefn"
-                        target="_blank">
-                        {% trans "Add to Chrome" %}
-                    </a>
-                    {% trans "Reminder to download RegretsReporter" as translated_subject %}
-                    {% trans "Mozilla built RegretsReporter to help you take back control of your YouTube recommendations and make YouTube better for everyone else." as translated_body %}
-                    {% with subject=translated_subject body=translated_body %}
+                <div class='download-share-btn-wrapper'>
+                    <div class="btn-container tw-mt-1 tw-flex tw-flex-wrap tw-gap-4">
+                        <a class="btn download-link-button download-link-button--firefox tw-bg-white tw-text-youtube-regrets-red"
+                          href="https://addons.mozilla.org/en-us/firefox/addon/regretsreporter/"
+                          target="_blank">
+                          {% trans "Add to Firefox" %}
+                        </a>
+                        <a class="btn download-link-button download-link-button--chrome tw-bg-white tw-text-youtube-regrets-red"
+                          href="https://chrome.google.com/webstore/detail/regretsreporter/obpoeflheeknapimliioeoefbfaakefn"
+                          target="_blank">
+                          {% trans "Add to Chrome" %}
+                        </a>
+                        {% trans "Reminder to download RegretsReporter" as translated_subject %}
+                        {% trans "Mozilla built RegretsReporter to help you take back control of your YouTube recommendations and make YouTube better for everyone else." as translated_body %}
+                        {% with subject=translated_subject body=translated_body %}
                         <a class="btn download-link-button download-link-button--email tw-bg-white tw-text-youtube-regrets-red tw-hidden"
-                            href="mailto:?subject={{ subject|urlencode }}&body={{ body|urlencode }}"
-                            target="_blank">
+                           href="mailto:?subject={{ subject|urlencode }}&body={{ body|urlencode }}"
+                           target="_blank">
                             {% trans "Send Reminder" %}
                         </a>
                     {% endwith %}
+
+                    </div>
+                    <div class="tw-mt-5">
+                        <div class="share-button-container">
+                            <button id='share-display-button' class="btn share-icon" title="Copy page URL to clipboard">
+                            </button>
+                            <span class="tw-ml-0 tw-text-white tw-font-bold tw-self-center" id='share-display-text'>
+                                Share This
+                            </span>
+                            <!-- These buttons are hidden by default, and displayed when button above is clicked. -->
+                            <!-- Functionality can be found in /share-buttons.js -->
+                            <a class="btn btn-share share-facebook "
+                                href="https://www.facebook.com/sharer/sharer.php?u=">
+                                <span class="sr-only">Share on Facebook</span>
+                            </a>
+                            <button class="btn btn-share share-link" title="Copy page URL to clipboard">
+                                <span class="sr-only">Copy page link</span>
+                            </button>
+                            <a class="btn btn-share share-twitter" href="https://twitter.com/intent/tweet?text=">
+                                <span class="sr-only">Share on Twitter</span>
+                            </a>
+                            <a class="btn btn-share share-email " href="mailto:?&amp;body=">
+                                <span class="sr-only">Share by email</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="tw-flex tw-flex-col tw-justify-center tw-mt-5 medium:tw-mt-0 large:tw-mt-5">

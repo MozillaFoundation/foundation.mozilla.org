@@ -47,4 +47,78 @@
     width: 100%;
     height: 100%;
   }
+
+  .share-button-container {
+    $margin: 16px;
+    display: flex;
+
+    .btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: $margin;
+
+      &-share {
+        display: none;
+      }
+
+      &::before {
+        filter: brightness(1);
+        content: " ";
+        display: block;
+        width: 36px;
+        height: 36px;
+        background: no-repeat 0 0 / contain;
+        transition: $button-icon-transition-speed;
+      }
+
+      @include hover-focus-active {
+        background-color: $white;
+        &::before {
+          filter: brightness(0);
+        }
+      }
+
+      &.share-icon {
+        &::before {
+          background-image: url(../_images/youtube-regrets/regrets-reporter/landing-page/share-icon.svg);
+        }
+      }
+
+      &.share-facebook {
+        &::before {
+          background-image: url(../_images/youtube-regrets/regrets-reporter/landing-page/share-facebook.svg);
+        }
+      }
+
+      &.share-twitter {
+        &::before {
+          background-image: url(../_images/youtube-regrets/regrets-reporter/landing-page/share-twitter.svg);
+        }
+      }
+
+      &.share-email {
+        &::before {
+          background-image: url(../_images/youtube-regrets/regrets-reporter/landing-page/share-email.svg);
+        }
+      }
+
+      &.share-link {
+        &::before {
+          background-image: url(../_images/youtube-regrets/regrets-reporter/landing-page/share-link.svg);
+        }
+
+        &.copied {
+          &::before {
+            background-image: url(../_images/glyphs/social-share/link-share-copied.svg);
+          }
+        }
+      }
+    }
+  }
 }

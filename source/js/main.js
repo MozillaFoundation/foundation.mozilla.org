@@ -23,6 +23,7 @@ import initializeSentry from "./common/sentry-config.js";
 import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/intro-tunnel";
 import YouTubeRegretsBrowserExtension from "./foundation/pages/youtube-regrets/browser-extension";
 import RegretsReporterUtmButtons from "./foundation/pages/youtube-regrets/regrets-reporter/utm-buttons";
+import RegretsReporterShareButtons from "./foundation/pages/youtube-regrets/regrets-reporter/share-buttons";
 import RegretsReporterTimeline from "./foundation/pages/youtube-regrets/regrets-reporter/timeline";
 import { bindEventHandlers as bindRegretsReporterEventHandlers } from "./foundation/pages/youtube-regrets/regrets-reporter";
 import { bindEventHandlers as bindDearInternetEventHandlers } from "./foundation/pages/dear-internet";
@@ -146,6 +147,7 @@ let main = {
     // YouTube Regrets Reporter Extension Page
     if (document.querySelector("#regrets-reporter-extension-page")) {
       new RegretsReporterUtmButtons();
+      new RegretsReporterShareButtons();
     }
 
     // Dear Internet page
