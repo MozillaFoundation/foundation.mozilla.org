@@ -1,9 +1,5 @@
 export class Utils {
   static clearCategories() {
-    this.filterCategory("None");
-
-    parentTitle.value = null;
-
     if (document.querySelector(`#multipage-nav a.active`)) {
       document
         .querySelector(`#multipage-nav a.active`)
@@ -22,5 +18,4 @@ export class Utils {
         .classList.add(`active`);
     }
   }
-
-};
+}

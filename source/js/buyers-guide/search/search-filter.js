@@ -239,9 +239,14 @@ export class SearchFilter {
     }
   }
 
-  filter(text) {
-    // remove category filters
+  clearCategories() {
+    this.filterCategory("None");
+    parentTitle.value = null;
     Utils.clearCategories();
+  }
+
+  filter(text) {
+    this.clearCategories();
     this.toggleSubcategory(true);
     this.filterSubcategory("None");
     this.updateHeader("None", null);
