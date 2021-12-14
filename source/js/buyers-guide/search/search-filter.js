@@ -109,7 +109,7 @@ function applyHistory(instance) {
   }
 }
 
-function clearText(instance, NamespaceObject, searchBar, searchInput) {
+function clearText(instance, searchBar, searchInput) {
   searchBar.classList.remove(`has-content`);
   searchInput.value = ``;
   ALL_PRODUCTS.forEach((product) => {
@@ -130,7 +130,7 @@ function clearText(instance, NamespaceObject, searchBar, searchInput) {
   instance.moveCreepyFace();
 }
 
-function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
+function setupNavLinks(instance, searchBar, searchInput) {
   const navLinks = document.querySelectorAll(
     `#multipage-nav a,.category-header,#pni-nav-mobile a`
   );
@@ -170,7 +170,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
           )
           .classList.add(`active`);
 
-        clearText(instance, NamespaceObject, searchBar, searchInput);
+        clearText(instance, searchBar, searchInput);
         history.pushState(
           {
             title: instance.getTitle(evt.target.dataset.name),
@@ -206,7 +206,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
         let href;
 
         if (evt.target.dataset.name) {
-          clearText(instance, NamespaceObject, searchBar, searchInput);
+          clearText(instance, searchBar, searchInput);
           if (categoryTitle.value.trim() !== evt.target.dataset.name) {
             categoryTitle.value = evt.target.dataset.name;
             parentTitle.value = evt.target.dataset.parent;
@@ -247,7 +247,7 @@ function setupNavLinks(instance, NamespaceObject, searchBar, searchInput) {
   }
 }
 
-function setupGoBackToAll(instance, NamespaceObject, searchBar, searchInput) {
+function setupGoBackToAll(instance, searchBar, searchInput) {
   document
     .querySelector(`.go-back-to-all-link`)
     .addEventListener("click", (evt) => {
@@ -259,7 +259,7 @@ function setupGoBackToAll(instance, NamespaceObject, searchBar, searchInput) {
 
       evt.preventDefault();
 
-      clearText(instance, NamespaceObject, searchBar, searchInput);
+      clearText(instance, searchBar, searchInput);
       history.pushState(
         {
           title: instance.getTitle("None"),
@@ -295,7 +295,6 @@ function setupGoBackToAll(instance, NamespaceObject, searchBar, searchInput) {
 
 function setupPopStateHandler(
   instance,
-  NamespaceObject,
   searchBar,
   searchInput
 ) {
@@ -361,7 +360,6 @@ function setupPopStateHandler(
 
 function performInitialHistoryReplace(
   instance,
-  NamespaceObject,
   searchBar,
   searchInput
 ) {
@@ -407,7 +405,7 @@ function performInitialHistoryReplace(
   }
 }
 
-function setupSearchBar(instance, NamespaceObject) {
+function setupSearchBar(instance) {
   const searchBar = document.querySelector(`#product-filter-search`);
 
   if (!searchBar) {
@@ -416,7 +414,7 @@ function setupSearchBar(instance, NamespaceObject) {
     );
   }
 
-  const searchInput = (NamespaceObject.searchInput =
+  const searchInput = (instance.searchInput =
     searchBar.querySelector(`input`));
 
   searchInput.addEventListener(`input`, (evt) => {
@@ -426,7 +424,7 @@ function setupSearchBar(instance, NamespaceObject) {
       searchBar.classList.add(`has-content`);
       instance.filter(searchText);
     } else {
-      clearText(instance, NamespaceObject, searchBar, searchInput);
+      clearText(instance, searchBar, searchInput);
       applyHistory(instance);
     }
   });
@@ -441,7 +439,7 @@ function setupSearchBar(instance, NamespaceObject) {
   clear.addEventListener(`click`, (evt) => {
     evt.preventDefault();
     searchInput.focus();
-    clearText(instance, NamespaceObject, searchBar, searchInput);
+    clearText(instance, searchBar, searchInput);
     applyHistory(instance);
   });
 
@@ -452,16 +450,16 @@ function setupSearchBar(instance, NamespaceObject) {
  * ...
  */
 export class SearchFilter {
-  constructor(NamespaceObject) {
+  constructor() {
     [`mousedown`, `touchstart`].forEach((type) =>
       subContainer.addEventListener(type, markScrollStart)
     );
 
-    const { searchBar, searchInput } = setupSearchBar(this, NamespaceObject);
-    setupNavLinks(this, NamespaceObject, searchBar, searchInput);
-    setupGoBackToAll(this, NamespaceObject, searchBar, searchInput);
-    setupPopStateHandler(this, NamespaceObject, searchBar, searchInput);
-    performInitialHistoryReplace(this, NamespaceObject, searchBar, searchInput);
+    const { searchBar, searchInput } = setupSearchBar(this);
+    setupNavLinks(this, searchBar, searchInput);
+    setupGoBackToAll(this, searchBar, searchInput);
+    setupPopStateHandler(this, searchBar, searchInput);
+    performInitialHistoryReplace(this, searchBar, searchInput);
   }
 
   // Candidate for moving into utils
