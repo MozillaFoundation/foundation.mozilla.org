@@ -1,3 +1,5 @@
+import { Utils } from "./utils.js";
+
 export class PNIToggle {
   constructor(searchFilter) {
     this.searchFilter = searchFilter;
@@ -25,21 +27,16 @@ export class PNIToggle {
     // TODO: this might be an A/B testing opportunity to see
     //       whether users assume this toggle is a navigation
     //       action or not?
-    history.replaceState(
-      {
-        ...history.state,
-        doFilter,
-      },
-      searchFilter.getTitle(categoryTitle.value.trim()),
-      location.href
-    );
+    const state = { ...history.state, filter: doFilter };
+    const title = Utils.getTitle(categoryTitle.value.trim());
+    history.replaceState(state, title, location.href);
 
     const toggleFunction = doFilter ? `add` : `remove`;
     document.body.classList[toggleFunction](`show-ding-only`);
 
     if (searchFilter.searchInput.value.trim()) {
       searchFilter.searchInput.focus();
-      searchFilter.checkForEmptyNotice();
+      Utils.checkForEmptyNotice();
     }
   }
 }

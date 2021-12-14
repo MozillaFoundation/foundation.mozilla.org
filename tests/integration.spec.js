@@ -33,40 +33,59 @@ test(`Foundation homepage`, async ({ page }, testInfo) => {
   expect(await languagePicker.isVisible()).toBe(true);
 });
 
+/**
+ * Perform several PNI tests related to searching/filtering
+ */
 test(`PNI search`, async ({ page }, testInfo) => {
   page.on(`console`, console.log);
   await page.goto(`http://localhost:8000/en/privacynotincluded`);
   await page.locator(`body.react-loaded`);
   await waitForImagesToLoad(page);
 
+  const qs = {
+    ding: `#product-filter-pni-toggle`,
+    dingLabel: `label[for="product-filter-pni-toggle"]`,
+    products: `.product-box:visible`,
+    searchBar: `#product-filter-search-input`,
+    clearSearch: `label[for="product-filter-search-input"]`,
+    activeCategory: `#multipage-nav a.multipage-link.active`,
+    activeSubCategory: `a.subcategories.active`,
+    healthCategory: `#multipage-nav a.multipage-link[data-name="Health & Exercise"]`,
+  };
+
   let products, activeCategory;
 
+  // verify that the PNI "ding" is not selected on initial load
+  const ding = page.locator(qs.ding);
+  await expect(ding).not.toBeChecked();
+
   // Baseline product count test
-  products = page.locator(`.product-box:visible`);
+  products = page.locator(qs.products);
   await expect(products).toHaveCount(45);
 
+  // Verify that all products are sorted on creepiness
+  expect(await confirmSorted(page)).toBe(true);
+
   // Test search filtering for "percy": there should be two products
-  const searchBar = page.locator(`#product-filter-search-input`);
+  const searchBar = page.locator(qs.searchBar);
   await searchBar.type("percy");
-  products = page.locator(`.product-box:visible`);
+  products = page.locator(qs.products);
   await expect(products).toHaveCount(2);
 
   // And we should be back to the original number when clearing search.
-  await page.click(`label[for="product-filter-search-input"]`);
-  products = page.locator(`.product-box:visible`);
+  await page.click(qs.clearSearch);
+  products = page.locator(qs.products);
   await expect(products).toHaveCount(45);
 
   // Click through to the Health & Exercise category and
   // verify the correct number of products show up.
-  await page.click(
-    `#multipage-nav a.multipage-link[data-name="Health & Exercise"]`
-  );
-  activeCategory = page.locator(`#multipage-nav a.multipage-link.active`);
+  await page.click(qs.healthCategory);
+  activeCategory = page.locator(qs.activeCategory);
   await expect(activeCategory).toHaveAttribute(
     `data-name`,
     `Health & Exercise`
   );
-  products = page.locator(`.product-box:visible`);
+  products = page.locator(qs.products);
   await expect(products).toHaveCount(15);
 
   // Select a known subcategory and verify the correct
@@ -76,43 +95,65 @@ test(`PNI search`, async ({ page }, testInfo) => {
   subcat = page.locator(`a.subcategories:nth-child(2)`);
   await expect(subcat).toHaveText(`Smart Scales`);
   await page.click(`a.subcategories:nth-child(2)`);
-  products = page.locator(`.product-box:visible`);
+  products = page.locator(qs.products);
   await expect(products).toHaveCount(5);
 
   // Filter for "percy" products: there should be two, and the active
   // category should be "all" while search filtering
   await searchBar.type("percy");
-  products = page.locator(`.product-box:visible`);
+  products = page.locator(qs.products);
   await expect(products).toHaveCount(2);
-  activeCategory = page.locator(`#multipage-nav a.multipage-link.active`);
+  activeCategory = page.locator(qs.activeCategory);
   await expect(activeCategory).toHaveAttribute(`data-name`, `None`);
 
   // Clear the search bar: original subcategory should be "active"
-  await page.click(`label[for="product-filter-search-input"]`);
-  activeCategory = page.locator(`#multipage-nav a.multipage-link.active`);
+  await page.click(qs.clearSearch);
+  activeCategory = page.locator(qs.activeCategory);
   await expect(activeCategory).toHaveAttribute(
     `data-name`,
     `Health & Exercise`
   );
-  activeSubCab = page.locator(`a.subcategories.active`);
-  await expect(activeSubCab).toHaveText(`Smart Scales`);
-  products = page.locator(`.product-box:visible`);
+  activeSubCat = page.locator(qs.activeSubCategory);
+  await expect(activeSubCat).toHaveText(`Smart Scales`);
+  products = page.locator(qs.products);
   await expect(products).toHaveCount(5);
 
   // Clicking the subcategory should restore the parent category
-  await page.click(`a.subcategories.active`);
-  products = page.locator(`.product-box:visible`);
+  await page.click(qs.activeSubCategory);
+  products = page.locator(qs.products);
   await expect(products).toHaveCount(15);
 
   // Filtering for "ding" should refocus on text field if there
   // was a search term, while filtering for ding-only
-  await searchBar.type("a");
+  await searchBar.type("ab");
   await page.click(`main`);
-  await page.click(`label[for="product-filter-pni-toggle"]`);
+  await page.click(qs.dingLabel);
   await expect(searchBar).toBeFocused();
-  products = page.locator(`.product-box:visible`);
-  await expect(products).toHaveCount(23);
-  await page.click(`label[for="product-filter-pni-toggle"]`);
-  products = page.locator(`.product-box:visible`);
-  await expect(products).toHaveCount(45);
+  products = page.locator(qs.products);
+  await expect(products).toHaveCount(3);
+  await page.click(qs.dingLabel);
+  products = page.locator(qs.products);
+  await expect(products).toHaveCount(6);
+
+  // Finally, verify that all products are still sorted
+  await page.click(qs.clearSearch);
+  expect(await confirmSorted(page)).toBe(true);
 });
+
+/**
+ * Helper function for PNI search/filter tests.
+ * Confirms whether or not all products are sorted by creepiness
+ * @param {Page} page The Playwright page handle
+ */
+async function confirmSorted(page) {
+  return page.evaluate(() => {
+    const products = [...document.querySelectorAll(`.product-box`)];
+    return products.every((e, i, list, a, b) => {
+      if (i === 0) return true;
+      a = parseFloat(list[i - 1].dataset.creepiness);
+      b = parseFloat(e.dataset.creepiness);
+      if (b < a) console.log(`${i - 1}=${a}, ${i}=${b}`);
+      return b >= a;
+    });
+  });
+}

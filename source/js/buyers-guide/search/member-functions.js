@@ -1,3 +1,6 @@
+import { Utils } from "./utils.js";
+import { CreepUtils } from "./creep-utils.js";
+
 let pos = { left: 0, x: 0 };
 
 const ALL_PRODUCTS = document.querySelectorAll(`figure.product-box`);
@@ -87,9 +90,9 @@ export function applyHistory(instance) {
   }
   instance.filterCategory(category);
   instance.filterSubcategory(parent || category);
-  instance.updateHeader(category, parent);
-  instance.sortOnCreepiness();
-  instance.moveCreepyFace();
+  Utils.updateHeader(category, parent);
+  CreepUtils.sortOnCreepiness();
+  CreepUtils.moveCreepyFace();
 
   if (history.state?.parent && history.state?.category) {
     document
@@ -115,12 +118,12 @@ export function clearText(instance, searchBar, searchInput) {
       ...history.state,
       search: "",
     },
-    instance.getTitle(categoryTitle.value.trim()),
+    Utils.getTitle(categoryTitle.value.trim()),
     location.href
   );
 
-  instance.sortOnCreepiness();
-  instance.moveCreepyFace();
+  CreepUtils.sortOnCreepiness();
+  CreepUtils.moveCreepyFace();
 }
 
 export function setupNavLinks(instance, searchBar, searchInput) {
@@ -166,20 +169,20 @@ export function setupNavLinks(instance, searchBar, searchInput) {
         clearText(instance, searchBar, searchInput);
         history.pushState(
           {
-            title: instance.getTitle(evt.target.dataset.name),
+            title: Utils.getTitle(evt.target.dataset.name),
             category: evt.target.dataset.name,
             parent: "",
             search: "",
             filter: history.state?.filter,
           },
-          instance.getTitle(evt.target.dataset.name),
+          Utils.getTitle(evt.target.dataset.name),
           evt.target.href
         );
 
-        document.title = instance.getTitle(evt.target.dataset.name);
+        document.title = Utils.getTitle(evt.target.dataset.name);
         instance.filterSubcategory(evt.target.dataset.name);
         instance.toggleSubcategory(true);
-        instance.updateHeader(evt.target.dataset.name, "");
+        Utils.updateHeader(evt.target.dataset.name, "");
         instance.filterCategory(evt.target.dataset.name);
       }
     });
@@ -217,18 +220,18 @@ export function setupNavLinks(instance, searchBar, searchInput) {
 
           history.pushState(
             {
-              title: instance.getTitle(evt.target.dataset.name),
+              title: Utils.getTitle(evt.target.dataset.name),
               category: categoryTitle.value.trim(),
               parent: parentTitle.value.trim(),
               search: "",
               filter: history.state?.filter,
             },
-            instance.getTitle(evt.target.dataset.name),
+            Utils.getTitle(evt.target.dataset.name),
             href
           );
 
-          document.title = instance.getTitle(categoryTitle.value.trim());
-          instance.updateHeader(
+          document.title = Utils.getTitle(categoryTitle.value.trim());
+          Utils.updateHeader(
             categoryTitle.value.trim(),
             parentTitle.value.trim()
           );
@@ -255,13 +258,13 @@ export function setupGoBackToAll(instance, searchBar, searchInput) {
       clearText(instance, searchBar, searchInput);
       history.pushState(
         {
-          title: instance.getTitle("None"),
+          title: Utils.getTitle("None"),
           category: "None",
           parent: "",
           search: "",
           filter: history.state?.filter,
         },
-        instance.getTitle(evt.target.dataset.name),
+        Utils.getTitle(evt.target.dataset.name),
         evt.target.href
       );
 
@@ -333,7 +336,7 @@ export function setupPopStateHandler(instance, searchBar, searchInput) {
 
     instance.filterCategory(category);
     instance.filterSubcategory(parent || category);
-    instance.updateHeader(category, parent);
+    Utils.updateHeader(category, parent);
 
     if (history.state?.filter) {
       toggle.checked = history.state?.filter;
@@ -350,13 +353,13 @@ export function setupPopStateHandler(instance, searchBar, searchInput) {
 export function performInitialHistoryReplace(instance, searchBar, searchInput) {
   history.replaceState(
     {
-      title: instance.getTitle(categoryTitle.value.trim()),
+      title: Utils.getTitle(categoryTitle.value.trim()),
       category: categoryTitle.value.trim(),
       parent: parentTitle.value.trim(),
       search: history.state?.search ?? "",
       filter: history.state?.filter,
     },
-    instance.getTitle(categoryTitle.value.trim()),
+    Utils.getTitle(categoryTitle.value.trim()),
     location.href
   );
 
