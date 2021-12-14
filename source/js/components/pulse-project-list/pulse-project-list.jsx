@@ -63,8 +63,21 @@ class PulseProjectList extends Component {
     projectXHR.send();
   }
 
+  // Giving users ability to link to pulse objects using an anchor link
+  // and having it render in the right place after recieving data.
+  scrollToLinkedPulseObject(){
+    const linkedPulseObject = document.querySelector(window.location.hash);
+    linkedPulseObject?.scrollIntoView()
+  }
+
   componentDidMount() {
     this.fetchProjects();
+  }
+
+  componentDidUpdate() {
+    if(window.location.hash){
+      this.scrollToLinkedPulseObject()
+    }
   }
 
   render() {
@@ -104,7 +117,7 @@ class PulseProjectList extends Component {
                   src={
                     project.thumbnail
                       ? project.thumbnail
-                      : `/_images/proportional-spacer.png`
+                      : `/static/_images/proportional-spacer.png`
                   }
                   alt=""
                 />

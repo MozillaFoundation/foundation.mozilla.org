@@ -78,6 +78,7 @@ class Creepometer extends Component {
   }
 
   slideFromKey(e) {
+    this.props.toggleMoved();
     const k = e.key;
     let p = this.state.percentage;
     if (k === `ArrowLeft`) {

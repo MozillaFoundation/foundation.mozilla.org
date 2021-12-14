@@ -17,7 +17,7 @@
   {% include "fragments/adult_content_badge.html" with product=product %}
 
   <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% relocalized_url product.url %}">
-    <picture class="product-thumbnail">
+    <picture class="product-thumbnail" width="360" height="360">
       <source
         {% image product.image fill-360x360 as img_1x %}
         {% image product.image fill-720x720 as img_2x %}
@@ -26,6 +26,7 @@
       <img
         class="product-thumbnail"
         {% image product.image fill-600x600 as img %}
+        loading="lazy"
         src="{{ img.url }}"
         alt="{% blocktrans with product=product.title %}link to {{product}}{% endblocktrans %}"
       >

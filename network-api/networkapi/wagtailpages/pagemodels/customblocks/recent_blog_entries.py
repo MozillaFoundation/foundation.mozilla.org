@@ -3,8 +3,8 @@ from django.template.defaultfilters import slugify
 
 from wagtail.core import blocks
 
-from ..blog.blog_category import BlogPageCategory
 from networkapi.wagtailpages.utils import get_locale_from_request
+from ..blog.blog_category import BlogPageCategory
 
 
 class RecentBlogEntries(blocks.StructBlock):
@@ -21,7 +21,7 @@ class RecentBlogEntries(blocks.StructBlock):
     category_filter = blocks.ChoiceBlock(
         label='Filter by Category',
         required=False,
-        choices=BlogPageCategory.get_categories,
+        choices=BlogPageCategory.get_categories(),
         help_text='Test this filter at foundation.mozilla.org/blog/category/',
     )
 
