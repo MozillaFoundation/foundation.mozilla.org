@@ -104,9 +104,15 @@ test(`PNI search`, async ({ page }, testInfo) => {
   products = page.locator(`.product-box:visible`);
   await expect(products).toHaveCount(15);
 
-  // Filtering for "ding" should refocus on text field if there was a search term
+  // Filtering for "ding" should refocus on text field if there
+  // was a search term, while filtering for ding-only
   await searchBar.type("a");
   await page.click(`main`);
   await page.click(`label[for="product-filter-pni-toggle"]`);
   await expect(searchBar).toBeFocused();
+  products = page.locator(`.product-box:visible`);
+  await expect(products).toHaveCount(23);
+  await page.click(`label[for="product-filter-pni-toggle"]`);
+  products = page.locator(`.product-box:visible`);
+  await expect(products).toHaveCount(45);
 });
