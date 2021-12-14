@@ -6,6 +6,7 @@ import {
   performInitialHistoryReplace,
   setupSearchBar,
 } from "./member-functions.js";
+import { Utils } from "./utils.js";
 
 const ALL_CATEGORY = document.querySelector(
   `#multipage-nav .multipage-link[data-name="None"]`
@@ -37,31 +38,6 @@ export class SearchFilter {
     setupGoBackToAll(this, searchBar, searchInput);
     setupPopStateHandler(this, searchBar, searchInput);
     performInitialHistoryReplace(this, searchBar, searchInput);
-  }
-
-  // Candidate for moving into utils
-  clearCategories() {
-    this.filterCategory("None");
-
-    parentTitle.value = null;
-
-    if (document.querySelector(`#multipage-nav a.active`)) {
-      document
-        .querySelector(`#multipage-nav a.active`)
-        .classList.remove(`active`);
-      document
-        .querySelector(`#multipage-nav a[data-name="None"]`)
-        .classList.add(`active`);
-    }
-
-    if (document.querySelector(`#pni-nav-mobile a.active`)) {
-      document
-        .querySelector(`#pni-nav-mobile a.active`)
-        .classList.remove(`active`);
-      document
-        .querySelector(`#pni-nav-mobile a[data-name="None"]`)
-        .classList.add(`active`);
-    }
   }
 
   filterCategory(category) {
@@ -265,7 +241,7 @@ export class SearchFilter {
 
   filter(text) {
     // remove category filters
-    this.clearCategories();
+    Utils.clearCategories();
     this.toggleSubcategory(true);
     this.filterSubcategory("None");
     this.updateHeader("None", null);
