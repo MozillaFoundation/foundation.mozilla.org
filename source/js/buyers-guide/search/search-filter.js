@@ -1,3 +1,4 @@
+const ALL_CATEGORY = document.querySelector(`#multipage-nav .multipage-link[data-name="None"]`).textContent;
 const ALL_PRODUCTS = document.querySelectorAll(`figure.product-box`);
 const NO_RESULTS_NOTICE = document.getElementById(
   `product-filter-no-results-notice`
@@ -538,7 +539,7 @@ export class SearchFilter {
       document.querySelector(`#pni-nav-mobile .active-link-label`).textContent =
         parent;
     } else {
-      const header = category === "None" ? gettext("All") : category;
+      const header = category === "None" ? ALL_CATEGORY : category;
       document.querySelector(".category-header").textContent = header;
       document.querySelector(".category-header").dataset.name = category;
       document.querySelector(".category-header").href = document.querySelector(

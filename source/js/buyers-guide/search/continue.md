@@ -2,9 +2,9 @@
 - [x] create PNI search test(s)
 - [x] move all `init()` calls out as plain functions
 - [x] updated the base data to include subcategories for a PNI main category.
-- [ ] update tests to check for subcategory behaviour.
-- [ ] continue the refactor
-- [-] move all "object functions" in search over as (temporary) "class functions"
+- [x] update tests to check for subcategory behaviour.
+- [x] continue the refactor
+- [x] move all "object functions" in search over as (temporary) "class functions"
 - [ ] move all "can be moved to utils" functions into their own (possibly more than one) util modules
 - [ ] move the setupXYZ functions back into the class
 - [ ] we should be done with the initial refactor now
