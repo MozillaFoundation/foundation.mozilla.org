@@ -95,8 +95,8 @@ jobs:
       run: coveralls
       continue-on-error: true
 
-  test_cypress:
-    name: Cypress/Percy CI
+  test_percy:
+    name: Percy CI
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -143,8 +143,8 @@ jobs:
     - name: Install additional tooling
       run: |
         sudo apt-get install -y gettext libgconf-2-4
-    - name: Install Cypress
-      run: npm run cypress:install
+    - name: Install Playwright
+      run: npm run playwright:install
     - name: Preroll
       run: |
         npm run build
@@ -153,8 +153,6 @@ jobs:
         python network-api/manage.py block_inventory
         python network-api/manage.py load_fake_data
     - name: Percy Test
-      uses: ./.github/actions/percy-exec
-      with:
-        command: "npm run cypress:ci"
+      run: npm run percy
       env:
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

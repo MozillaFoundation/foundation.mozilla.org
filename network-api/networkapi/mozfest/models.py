@@ -11,12 +11,12 @@ from networkapi.wagtailpages.utils import (
     get_page_tree_information
 )
 from networkapi.wagtailpages.models import (
-    base_fields,
     FoundationMetadataPageMixin,
     FoundationBannerInheritanceMixin,
     Signup
 )
 from networkapi.wagtailpages.pagemodels import customblocks
+from networkapi.wagtailpages.pagemodels.customblocks.base_fields import base_fields
 
 
 class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):

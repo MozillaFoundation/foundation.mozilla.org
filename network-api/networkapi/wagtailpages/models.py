@@ -1,7 +1,3 @@
-from .pagemodels.base_fields import (
-    base_fields
-)
-
 from .pagemodels.base import (
     FocusArea,
     FoundationMetadataPageMixin,
@@ -106,7 +102,6 @@ from .pagemodels.feature_flags.feature_flags import (
 __all__ = [
     ArticlePage,
     BanneredCampaignPage,
-    base_fields,
     BlogAuthors,
     BlogIndexPage,
     BlogPage,
