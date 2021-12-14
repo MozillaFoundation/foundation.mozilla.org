@@ -67,7 +67,7 @@ export function applyHistory(instance) {
   parentTitle.value = parent;
 
   if (parent) {
-    instance.highlightParent();
+    Utils.highlightParentCategory();
     instance.toggleSubcategory();
   } else {
     document
@@ -208,7 +208,7 @@ export function setupNavLinks(instance, searchBar, searchInput) {
             parentTitle.value = evt.target.dataset.parent;
             href = evt.target.href;
             instance.toggleSubcategory();
-            instance.highlightParent();
+            Utils.highlightParentCategory();
           } else {
             categoryTitle.value = evt.target.dataset.parent;
             parentTitle.value = "";
@@ -306,7 +306,7 @@ export function setupPopStateHandler(instance, searchBar, searchInput) {
       searchInput.value = ``;
 
       if (parent) {
-        instance.highlightParent();
+        Utils.highlightParentCategory();
         instance.toggleSubcategory();
       } else {
         document

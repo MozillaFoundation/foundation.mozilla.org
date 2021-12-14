@@ -33,31 +33,28 @@ export class SearchFilter {
     performInitialHistoryReplace(this, searchBar, searchInput);
   }
 
-  // Candidate for moving into utils
-  highlightParent() {
-    if (document.querySelector(`#multipage-nav a.active`)) {
-      document
-        .querySelector(`#multipage-nav a.active`)
-        .classList.remove(`active`);
-    }
+  /**
+   * Searching is really "filtering", toggling visibility for products
+   * based on whether they match the given text (from amongst several
+   * possible product fields).
+   * @param {*} text
+   */
+  filter(text) {
+    this.clearCategories();
+    this.toggleSubcategory(true);
+    this.filterSubcategory("None");
 
-    if (document.querySelector(`#pni-nav-mobile a.active`)) {
-      document
-        .querySelector(`#pni-nav-mobile a.active`)
-        .classList.remove(`active`);
-    }
+    Utils.updateHeader("None", null);
+    Utils.selectAllCategory();
+    Utils.toggleProducts(text);
 
-    document
-      .querySelector(
-        `#pni-nav-mobile a[data-name="${parentTitle.value.trim()}"]`
-      )
-      .classList.add(`active`);
+    const state = { ...history.state, search: text };
+    const title = Utils.getTitle(categoryTitle.value.trim());
+    history.replaceState(state, title, location.href);
 
-    document
-      .querySelector(
-        `#multipage-nav a[data-name="${parentTitle.value.trim()}"]`
-      )
-      .classList.add(`active`);
+    Utils.sortFilteredProducts();
+    CreepUtils.moveCreepyFace();
+    Utils.checkForEmptyNotice();
   }
 
   clearCategories() {
@@ -132,29 +129,5 @@ export class SearchFilter {
         subcategory.classList.add(`tw-hidden`);
       }
     }
-  }
-
-  /**
-   * Searching is really "filtering", toggling visibility for products
-   * based on whether they match the given text (from amongst several
-   * possible product fields).
-   * @param {*} text
-   */
-  filter(text) {
-    this.clearCategories();
-    this.toggleSubcategory(true);
-    this.filterSubcategory("None");
-
-    Utils.updateHeader("None", null);
-    Utils.selectAllCategory();
-    Utils.toggleProducts(text);
-
-    const state = { ...history.state, search: text };
-    const title = Utils.getTitle(categoryTitle.value.trim());
-    history.replaceState(state, title, location.href);
-
-    Utils.sortFilteredProducts();
-    CreepUtils.moveCreepyFace();
-    Utils.checkForEmptyNotice();
   }
 }

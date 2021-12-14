@@ -5,6 +5,6 @@
 - [x] update tests to check for subcategory behaviour.
 - [x] continue the refactor
 - [x] move all "object functions" in search over as (temporary) "class functions"
-- [ ] move all "can be moved to utils" functions into their own (possibly more than one) util modules
+- [x] move all "can be moved to utils" functions into their own (possibly more than one) util modules
 - [ ] move the setupXYZ functions back into the class
 - [ ] we should be done with the initial refactor now

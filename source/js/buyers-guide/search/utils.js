@@ -8,6 +8,8 @@ const NO_RESULTS_NOTICE = document.getElementById(
 const ALL_CATEGORY_LABEL = document.querySelector(
   `#multipage-nav .multipage-link[data-name="None"]`
 ).textContent;
+const PARENT_TITLE = document.querySelector(`.parent-title`);
+
 
 export class Utils {
   /**
@@ -99,6 +101,33 @@ export class Utils {
 
     document
       .querySelector(`#pni-nav-mobile a[data-name="None"]`)
+      .classList.add(`active`);
+  }
+
+  /**
+   *
+   */
+  static highlightParentCategory() {
+    if (document.querySelector(`#multipage-nav a.active`)) {
+      document
+        .querySelector(`#multipage-nav a.active`)
+        .classList.remove(`active`);
+    }
+
+    if (document.querySelector(`#pni-nav-mobile a.active`)) {
+      document
+        .querySelector(`#pni-nav-mobile a.active`)
+        .classList.remove(`active`);
+    }
+
+    document
+      .querySelector(        `#pni-nav-mobile a[data-name="${PARENT_TITLE.value.trim()}"]`
+      )
+      .classList.add(`active`);
+
+    document
+      .querySelector(        `#multipage-nav a[data-name="${PARENT_TITLE.value.trim()}"]`
+      )
       .classList.add(`active`);
   }
 
