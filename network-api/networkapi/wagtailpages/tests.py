@@ -483,6 +483,15 @@ class BuyersGuideProductCategoryTest(TestCase):
         self.assertEqual(1, len(form.errors))
         self.assertIn('name', form.errors)
 
+    def test_cannot_have_duplicate_lowercase_name(self):
+        BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        form = self.form_class(data={'name': 'cat 1', 'sort_order': 1})
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(1, len(form.errors))
+        self.assertIn('name', form.errors)
+
     def test_parent_saves(self):
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
 
@@ -504,40 +513,22 @@ class BuyersGuideProductCategoryTest(TestCase):
         self.assertEqual(1, len(form.errors))
         self.assertIn('parent', form.errors)
         self.assertIn(
-            'A category cannot be a decendent of itself.',
+            'A category cannot be a parent of itself.',
             form.errors['parent']
         )
 
-    def test_cannot_be_descendent_of_itself(self):
+    def test_cannot_be_created_more_than_two_levels_deep(self):
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
         cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", parent=cat1)
 
         form = self.form_class(
-            instance=cat1,
-            data={'name': cat1.name, 'sort_order': cat1.sort_order, 'parent': cat2}
+            data={'name': 'Cat 3', 'sort_order': 1, 'parent': cat2}
         )
 
         self.assertFalse(form.is_valid())
         self.assertEqual(1, len(form.errors))
         self.assertIn('parent', form.errors)
         self.assertIn(
-            'A category cannot be a decendent of itself.',
-            form.errors['parent']
-        )
-
-    def test_cannot_be_created_more_than_three_levels_deep(self):
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
-        cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", parent=cat1)
-        cat3 = BuyersGuideProductCategory.objects.create(name="Cat 3", parent=cat2)
-
-        form = self.form_class(
-            data={'name': 'Cat 4', 'sort_order': 1, 'parent': cat3}
-        )
-
-        self.assertFalse(form.is_valid())
-        self.assertEqual(1, len(form.errors))
-        self.assertIn('parent', form.errors)
-        self.assertIn(
-            'Categories can only be three levels deep.',
+            'Categories can only be two levels deep.',
             form.errors['parent']
         )

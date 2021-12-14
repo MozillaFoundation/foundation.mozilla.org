@@ -203,14 +203,6 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
     def get_children(self):
         return BuyersGuideProductCategory.objects.filter(parent=self)
 
-    def get_ancestors(self, inclusive=False):
-        ancestors = []
-        node = self if inclusive else self.parent
-        while node:
-            ancestors.insert(0, node)
-            node = node.parent
-        return ancestors
-
     def __str__(self):
         if self.parent is None:
             return f'{self.name} (sort order: {self.sort_order})'
