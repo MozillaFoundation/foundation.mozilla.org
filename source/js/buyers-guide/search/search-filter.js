@@ -1,10 +1,11 @@
 const ALL_PRODUCTS = document.querySelectorAll(`figure.product-box`);
-const CREEPINESS_FACE = document.querySelector(".creep-o-meter-information");
 const NO_RESULTS_NOTICE = document.getElementById(
   `product-filter-no-results-notice`
 );
+const FILTERS = [`company`, `name`, `blurb`, `worst-case`];
+const SORTS = [`name`, `company`, `blurb`];
 const SUBMIT_PRODUCT = document.querySelector(".recommend-product");
-
+const CREEPINESS_FACE = document.querySelector(".creep-o-meter-information");
 const categoryTitle = document.querySelector(`.category-title`);
 const parentTitle = document.querySelector(`.parent-title`);
 const toggle = document.querySelector(`#product-filter-pni-toggle`);
@@ -339,7 +340,7 @@ function setupPopStateHandler(
       instance.toggleSubcategory(true);
       searchBar.classList.add(`has-content`);
       searchInput.value = history.state?.search;
-      NamespaceObject.filter(history.state?.search);
+      instance.filter(history.state?.search);
     }
 
     instance.filterCategory(category);
@@ -379,7 +380,7 @@ function performInitialHistoryReplace(
   if (history.state?.search) {
     searchBar.classList.add(`has-content`);
     searchInput.value = history.state?.search;
-    NamespaceObject.filter(history.state?.search);
+    instance.filter(history.state?.search);
   } else {
     searchBar.classList.remove(`has-content`);
     searchInput.value = ``;
@@ -423,7 +424,7 @@ function setupSearchBar(instance, NamespaceObject) {
 
     if (searchText) {
       searchBar.classList.add(`has-content`);
-      NamespaceObject.filter(searchText);
+      instance.filter(searchText);
     } else {
       clearText(instance, NamespaceObject, searchBar, searchInput);
       applyHistory(instance);
@@ -684,5 +685,107 @@ export class SearchFilter {
         document.querySelector('meta[name="pni-category-title"]').content
       }`;
     }
+  }
+
+  filter(text) {
+    // remove category filters
+    this.clearCategories();
+    this.toggleSubcategory(true);
+    this.filterSubcategory("None");
+    this.updateHeader("None", null);
+
+    if (document.querySelector(`#multipage-nav a.active`)) {
+      document
+        .querySelector(`#multipage-nav a.active`)
+        .classList.remove(`active`);
+    }
+
+    if (document.querySelector(`#pni-nav-mobile a.active`)) {
+      document
+        .querySelector(`#pni-nav-mobile a.active`)
+        .classList.remove(`active`);
+    }
+
+    document
+      .querySelector(`#multipage-nav a[data-name="None"]`)
+      .classList.add(`active`);
+
+    document
+      .querySelector(`#pni-nav-mobile a[data-name="None"]`)
+      .classList.add(`active`);
+
+    ALL_PRODUCTS.forEach((product) => {
+      if (this.test(product, text)) {
+        product.classList.remove(`d-none`);
+        product.classList.add(`d-flex`);
+      } else {
+        product.classList.add(`d-none`);
+        product.classList.remove(`d-flex`);
+      }
+    });
+
+    history.replaceState(
+      {
+        ...history.state,
+        search: text,
+      },
+      this.getTitle(categoryTitle.value.trim()),
+      location.href
+    );
+
+    this.sortProducts();
+
+    this.moveCreepyFace();
+    this.checkForEmptyNotice();
+  }
+
+  test(product, text) {
+    // Note that the following is absolutely not true for all
+    // languages, but it's true for the ones we use.
+    text = text.toLowerCase();
+    let qs, data;
+
+    for (const field of FILTERS) {
+      qs = `.product-${field}`;
+      data = product.querySelector(qs);
+      data = (data.value || data.textContent).toLowerCase();
+      if (data.indexOf(text) !== -1) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  sortProducts() {
+    const container = document.querySelector(`.product-box-list`);
+    const list = [...container.querySelectorAll(`.product-box`)];
+
+    list.sort((a, b) => {
+      for (const field of SORTS) {
+        const qs = `.product-${field}`;
+        const [propertyA, propertyB] = [
+          a.querySelector(qs),
+          b.querySelector(qs),
+        ];
+        const [propertyNameA, propertyNameB] = [
+          (propertyA.value || propertyA.textContent).toLowerCase(),
+          (propertyB.value || propertyB.textContent).toLowerCase(),
+        ];
+
+        if (
+          propertyNameA !== propertyNameB ||
+          field === SORTS[SORTS.length - 1]
+        ) {
+          return propertyNameA < propertyNameB
+            ? -1
+            : propertyNameA > propertyNameB
+            ? 1
+            : 0;
+        }
+      }
+    });
+
+    list.forEach((p) => container.append(p));
   }
 }

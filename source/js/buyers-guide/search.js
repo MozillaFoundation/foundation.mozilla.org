@@ -110,6 +110,7 @@ const SearchFilter = {
   },
   // MOVED OVER
 
+  // MOVED OVER
   filter: (text) => {
     // remove category filters
     SearchFilter.clearCategories();
@@ -161,7 +162,9 @@ const SearchFilter = {
     SearchFilter.moveCreepyFace();
     SearchFilter.checkForEmptyNotice();
   },
+  // MOVED OVER
 
+  // MOVED OVER
   sortProducts: () => {
     const container = document.querySelector(`.product-box-list`);
     const list = [...container.querySelectorAll(`.product-box`)];
@@ -193,6 +196,7 @@ const SearchFilter = {
 
     list.forEach((p) => container.append(p));
   },
+  // MOVED OVER
 
   // MOVED OVER
   sortOnCreepiness: () => {
@@ -325,6 +329,7 @@ const SearchFilter = {
   },
   // MOVED OVER
 
+  // MOVED OVER
   test: (product, text) => {
     text = text.toLowerCase(); // Note that this is absolutely not true for all languages, but it's true for us.
     let qs, data;
@@ -340,6 +345,7 @@ const SearchFilter = {
 
     return false;
   },
+  // MOVED OVER
 
   // MOVED OVER
   testCategories: (product, category) => {
