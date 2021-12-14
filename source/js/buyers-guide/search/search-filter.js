@@ -1,13 +1,14 @@
 import {
-  markScrollStart,
   setupNavLinks,
   setupGoBackToAll,
   setupPopStateHandler,
   performInitialHistoryReplace,
   setupSearchBar,
 } from "./member-functions.js";
+
 import { Utils } from "./utils.js";
 import { CreepUtils } from "./creep-utils.js";
+import { markScrollStart } from "./slider-area.js";
 
 const categoryTitle = document.querySelector(`.category-title`);
 const parentTitle = document.querySelector(`.parent-title`);

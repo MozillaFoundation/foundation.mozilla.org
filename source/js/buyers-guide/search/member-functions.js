@@ -1,64 +1,11 @@
 import { Utils } from "./utils.js";
 import { CreepUtils } from "./creep-utils.js";
 
-let pos = { left: 0, x: 0 };
-
 const ALL_PRODUCTS = document.querySelectorAll(`figure.product-box`);
 const categoryTitle = document.querySelector(`.category-title`);
 const parentTitle = document.querySelector(`.parent-title`);
 const subcategories = document.querySelectorAll(`.subcategories`);
-const subContainer = document.querySelector(`.subcategory-header`);
-const subClasses = subContainer.classList;
 const toggle = document.querySelector(`#product-filter-pni-toggle`);
-
-function stop(evt) {
-  evt.preventDefault();
-  evt.stopImmediatePropagation();
-}
-
-export function markScrollStart(event) {
-  stop(event);
-  subClasses.add("cursor-grabbing", "select-none");
-
-  pos = {
-    left: subContainer.scrollLeft,
-    x: event.clientX,
-  };
-
-  [`mousemove`, `touchmove`].forEach((type) =>
-    document.addEventListener(type, markScrollMove)
-  );
-
-  [`mouseup`, `touchend`, `touchcancel`].forEach((type) =>
-    document.addEventListener(type, markScrollEnd)
-  );
-}
-
-export function markScrollMove(event) {
-  subcategories.forEach((subcategory) => {
-    subcategory.classList.add("pointer-events-none");
-  });
-  const dx = event.clientX - pos.x;
-  subContainer.scrollLeft = pos.left - dx;
-}
-
-export function markScrollEnd(event) {
-  stop(event);
-
-  subcategories.forEach((subcategory) => {
-    subcategory.classList.remove("pointer-events-none");
-  });
-
-  subClasses.remove("cursor-grabbing", "select-none");
-
-  [`mousemove`, `touchmove`].forEach((type) =>
-    document.removeEventListener(type, markScrollMove)
-  );
-
-  [`mouseup`, `touchend`, `touchcancel`].forEach((type) =>
-    document.removeEventListener(type, markScrollEnd)
-  );
-}
 
 export function applyHistory(instance) {
   const { category, parent } = history.state;
