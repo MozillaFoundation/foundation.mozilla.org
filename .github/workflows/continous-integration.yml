@@ -215,4 +215,4 @@ jobs:
         python network-api/manage.py block_inventory
         python network-api/manage.py load_fake_data
     - name: Integration Tests
-      run: npm run playwright
+      run: npm run playwright:integration
