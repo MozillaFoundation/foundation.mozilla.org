@@ -89,6 +89,11 @@ The fake data generator can generate a site structure for the Mozilla Festival t
 
 In order to access the Mozilla Festival site locally on a different domain than the main Foundation site, you'll need to edit your hosts file (`/etc/hosts` on *nix systems, `C:\Windows\System32\Drivers\etc\hosts` on Windows) to allow you to access the site at `mozfest.localhost:8000`. To enable this, add the following line to your hosts file: `127.0.0.1 mozfest.localhost`
 
+Ticket purchases are implemented using a third-party integration with [Tito](https://ti.to/).
+There is a `TitoWidget` Streamfield block that's used to place a button on a page to open the Tito widget.
+A webhook (Django view) receives requests from Tito when a ticket is completed in order to sign users up for the Mozilla newsletter. The event-specific environment variables `TITO_SECURITY_TOKEN` and `TITO_NEWSLETTER_QUESTION_ID` are required for this to work, and can be found in the Customize > Webhooks section of the Tito admin dashboard for the event. As these are currently global in the Mozilla site only one Tito event can be supported at a time.
+
+
 ## Gotchas
 
 As this is REST API and CMS built on top of Django, there are some "gotcha!"s to keep in mind due to the high level of magic in the Django code base (where things will happen automatically without the code explicitly telling you).
