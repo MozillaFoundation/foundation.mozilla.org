@@ -165,7 +165,6 @@ async function confirmSorted(page) {
       if (i === 0) return true;
       a = parseFloat(list[i - 1].dataset.creepiness);
       b = parseFloat(e.dataset.creepiness);
-      if (b < a) console.log(`${i - 1}=${a}, ${i}=${b}`);
       return b >= a;
     });
   });
