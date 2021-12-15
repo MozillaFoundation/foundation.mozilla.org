@@ -67,16 +67,16 @@ class regretsReporterShareButtons {
   // Display share buttons and hide "Share This" text
   displayShareButtons() {
     tl.to("#share-display-text", {
-      display: "none",
-      opacity: 0,
+      autoAlpha: 0,
       duration: 0,
     });
+    tl.set("#share-display-text", { display: "none" });
+    tl.set(".btn-share", { display: "block" });
     tl.fromTo(
       ".btn-share",
-      { y: 10, opacity: 0, display: "none" },
+      { y: 10, autoAlpha: 0 },
       {
-        opacity: 1,
-        display: "block",
+        autoAlpha: 1,
         stagger: 0.1,
         duration: 0.5,
         ease: "bounce.out",
@@ -90,21 +90,20 @@ class regretsReporterShareButtons {
     tl.fromTo(
       ".btn-share",
       {
-        opacity: 1,
-        display: "block",
+        autoAlpha: 1,
         y: 0,
       },
       {
         y: 10,
-        display: "none",
-        opacity: 0,
+        autoAlpha: 0,
         stagger: -0.1,
         duration: 0.4,
       }
     );
+    tl.set(".btn-share", { display: "none" });
+    tl.set("#share-display-text", { display: "block" });
     tl.to("#share-display-text", {
-      display: "block",
-      opacity: 1,
+      autoAlpha: 1,
       duration: 0.1,
     });
   }
