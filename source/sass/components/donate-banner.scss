@@ -2,31 +2,27 @@
 // For component/section specifc rules: add them to their corresponding SCSS files instead of here (e.g., primary-nav.scss, multipage-nav.scss, multipage-nav-mobile.scss etc)
 
 .donate-banner {
-  background-color: $black;
-  background-image: url(../_images/mozilla-donate-banner-blue.jpg);
+  background-color: $white;
+  background-image: url(../_images/mozilla-donate-dear-internet-mobile.png);
   background-size: cover;
   background-position: center center;
+
+  @media (min-width: $bp-lg) {
+    background-image: url(../_images/mozilla-donate-dear-internet.png);
+  }
 }
 
 .btn-banner {
   @extend .btn-pop;
 
-  @at-root .dark-theme & {
-    color: $black;
-    background: $banner-default-color;
-    box-shadow: 4px 4px $black;
+  color: $white;
+  background: $blue;
+  box-shadow: 4px 4px $black;
+  border-color: $black;
+
+  &:hover {
+    color: $white;
+    background: $dark-blue;
     border-color: $black;
-
-    &:hover {
-      color: $black;
-      background: $banner-hover-color;
-      border-color: $black;
-    }
-
-    &:active {
-      color: $black;
-      background: $banner-active-color;
-      border-color: $black;
-    }
   }
 }
