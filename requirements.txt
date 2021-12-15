@@ -24,6 +24,8 @@ botocore==1.21.36
     # via
     #   boto3
     #   s3transfer
+cached_property==1.5.2
+    # via -r requirements.in
 certifi==2021.5.30
     # via
     #   cloudinary
@@ -77,7 +79,7 @@ django-filter==2.4.0
     # via
     #   -r requirements.in
     #   wagtail
-django-modelcluster==5.1
+django-modelcluster==5.2
     # via wagtail
 django-redis==5.0.0
     # via -r requirements.in
@@ -144,8 +146,10 @@ psycopg2-binary==2.9.1
     # via -r requirements.in
 pycparser==2.20
     # via cffi
-pygit2==1.6.1
-    # via wagtail-localize-git
+pygit2==1.7.1
+    # via
+    #   -r requirements.in
+    #   wagtail-localize-git
 pyjwt==2.1.0
     # via social-auth-core
 pyopenssl==20.0.1
@@ -222,7 +226,7 @@ urllib3[secure]==1.26.6
     #   requests
     #   scout-apm
     #   sentry-sdk
-wagtail==2.14.1
+wagtail==2.15.1
     # via
     #   -r requirements.in
     #   wagtail-airtable
@@ -241,11 +245,11 @@ wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.g
     # via -r requirements.in
 wagtail-inventory==1.3
     # via -r requirements.in
-wagtail-localize==1.0
+wagtail-localize==1.0.1
     # via
     #   -r requirements.in
     #   wagtail-localize-git
-wagtail-localize-git==0.10.0
+wagtail-localize-git==0.11.0
     # via -r requirements.in
 wagtail-metadata==3.4.0
     # via -r requirements.in

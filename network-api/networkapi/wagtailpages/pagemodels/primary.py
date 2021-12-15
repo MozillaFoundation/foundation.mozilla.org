@@ -7,7 +7,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from .base_fields import base_fields
+from .customblocks.base_fields import base_fields
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .mixin.foundation_banner_inheritance import FoundationBannerInheritanceMixin
 from ..utils import (

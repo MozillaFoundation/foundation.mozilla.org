@@ -1,3 +1,5 @@
+# ⚠️⚠️⚠️ this doc is currently out of date, cypress is no longer used ⚠️⚠️⚠️
+
 # Accessibility Testing using Cypres and Axe
 
 This codebase comes with accessibility (a11y) testing in the form of [Axe](https://www.deque.com/axe/) combined with [Cypress](https://www.cypress.io/).
