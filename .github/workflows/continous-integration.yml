@@ -156,3 +156,63 @@ jobs:
       run: npm run percy
       env:
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
+  test_integration:
+    name: Integration testing
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13.2
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: network
+        ports:
+        - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
+      CONTENT_TYPE_NO_SNIFF: True
+      CORS_ALLOWED_ORIGINS: "*"
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
+      DEBUG: True
+      DJANGO_SECRET_KEY: secret
+      DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NETWORK_SITE_URL: https://foundation.mozilla.org
+      PIPENV_VERBOSITY: -1
+      PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
+      PULSE_DOMAIN: https://www.mozillapulse.org
+      RANDOM_SEED: 530910203
+      SET_HSTS: False
+      SSL_REDIRECT: False
+      TARGET_DOMAINS: foundation.mozilla.org
+      USE_S3: False
+      X_FRAME_OPTIONS: DENY
+      XSS_PROTECTION: True
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.9.9
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14
+    - name: Install Python Dependencies
+      run: pip install -r requirements.txt -r dev-requirements.txt
+    - name: Install Node Dependencies
+      run: npm ci
+    - name: Install additional tooling
+      run: |
+        sudo apt-get install -y gettext libgconf-2-4
+    - name: Install Playwright
+      run: npm run playwright:install
+    - name: Preroll
+      run: |
+        npm run build
+        python network-api/manage.py collectstatic --no-input --verbosity 0
+        python network-api/manage.py migrate --no-input
+        python network-api/manage.py block_inventory
+        python network-api/manage.py load_fake_data
+    - name: Integration Tests
+      run: npm run playwright

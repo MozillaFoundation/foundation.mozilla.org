@@ -26,7 +26,7 @@ def add_pni_subcategories(apps, schema):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0062_auto_20211213_2059'),
+        ('wagtailpages', '0063_pulsefilter_pulsefilteroption'),
     ]
 
     operations = [
