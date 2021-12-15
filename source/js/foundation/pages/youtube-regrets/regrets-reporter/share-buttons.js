@@ -1,5 +1,4 @@
 import { gsap } from "gsap";
-import copyToClipboard from "../../../../copy-to-clipboard";
 let tl = gsap.timeline();
 
 class regretsReporterShareButtons {
