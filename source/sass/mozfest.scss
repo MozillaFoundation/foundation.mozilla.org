@@ -181,7 +181,10 @@ body.mozfest {
       }
     }
   }
-
+  // Overriding sticky nav z-index to show tito widget
+  .sticky-top {
+    z-index: 999;
+  }
 }
 
 .swiper-button-next,

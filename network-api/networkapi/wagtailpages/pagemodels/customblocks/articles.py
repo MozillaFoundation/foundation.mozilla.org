@@ -1,6 +1,7 @@
 from wagtail.core import blocks
 from wagtail_footnotes.blocks import RichTextBlockWithFootnotes
 from wagtail.images.blocks import ImageChooserBlock
+from ..customblocks.base_rich_text_options import base_rich_text_options
 
 
 class ArticleRichText(RichTextBlockWithFootnotes):
@@ -16,13 +17,13 @@ class ArticleDoubleImageBlock(blocks.StructBlock):
     image_1_caption = blocks.RichTextBlock(
         label="Image caption",
         required=False,
-        features=['italic', 'bold', 'link'],
+        features=base_rich_text_options,
     )
     image_2 = ImageChooserBlock()
     image_2_caption = blocks.RichTextBlock(
         label="Image caption",
         required=False,
-        features=['italic', 'bold', 'link'],
+        features=base_rich_text_options,
     )
 
     class Meta:
@@ -43,7 +44,7 @@ class ArticleFullWidthImageBlock(blocks.StructBlock):
     caption = blocks.RichTextBlock(
         label="Image caption",
         required=False,
-        features=['italic', 'bold', 'link'],
+        features=base_rich_text_options,
     )
 
     class Meta:
@@ -57,7 +58,7 @@ class ArticleImageBlock(blocks.StructBlock):
     caption = blocks.RichTextBlock(
         label="Image caption",
         required=False,
-        features=['italic', 'bold', 'link'],
+        features=base_rich_text_options,
     )
     alt_text = blocks.CharBlock(required=False)
     wide_image = blocks.BooleanBlock(

@@ -74,7 +74,7 @@ let main = {
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
-        window[`bg-main-js:react:finished`] = true;
+        document.body.classList.add(`react-loaded`);
         this.initPageSpecificScript();
         // bind custom analytics only once everything's up and loaded
         AnalyticsEvents.init();
