@@ -34,6 +34,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail_airtable.mixins import AirtableMixin
 
+from networkapi.wagtailpages.forms import BuyersGuideProductCategoryForm
 from networkapi.wagtailpages.fields import ExtendedBoolean, ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
@@ -210,6 +211,8 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+    base_form_class = BuyersGuideProductCategoryForm
 
     search_fields = [
         index.SearchField('name', partial_match=True),
