@@ -40,6 +40,7 @@
     "playwright:ci": "run-p --race server playwright:visual",
     "playwright:urls": "wait-on -i 3000 http://localhost:8000/cms && playwright test ./tests/urls.spec.js",
     "playwright:visual": "wait-on -i 3000 http://localhost:8000/cms && playwright test ./tests/visual.spec.js",
+    "playwright:integration": "wait-on -i 3000 http://localhost:8000/cms && playwright test ./tests/integration.spec.js",
     "precommit": "npm run test",
     "server": "python network-api/manage.py runserver 0.0.0.0:8000",
     "server:silent": "python network-api/manage.py runserver 0.0.0.0:8000 >> server.log 2>&1",
