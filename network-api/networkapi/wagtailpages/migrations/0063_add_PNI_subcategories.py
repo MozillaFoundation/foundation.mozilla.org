@@ -5,8 +5,6 @@ def add_pni_subcategories(apps, schema):
     BuyersGuideProductCategory = apps.get_model("wagtailpages", "BuyersGuideProductCategory")
     healthAndExercise = BuyersGuideProductCategory.objects.get(name="Health & Exercise")
 
-    print(healthAndExercise);
-
     subcategories = [
         "Exercise Equipment",
         "Smart Scales",

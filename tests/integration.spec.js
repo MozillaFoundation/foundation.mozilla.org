@@ -35,12 +35,25 @@ test(`Foundation homepage`, async ({ page }, testInfo) => {
 
 /**
  * Perform several PNI tests related to searching/filtering
+ *
+ * NOTE: this requires a `new-db` run with the seed value set
+ *       through RANDOM_SEED=530910203 in your .env file
  */
 test(`PNI search`, async ({ page }, testInfo) => {
   page.on(`console`, console.log);
   await page.goto(`http://localhost:8000/en/privacynotincluded`);
   await page.locator(`body.react-loaded`);
   await waitForImagesToLoad(page);
+
+  const counts = {
+    // provided RANDOM_SEED=530910203 was used!
+    total: 41,
+    health: 14,
+    smart: 4,
+    percy: 2,
+    the: 14,
+    theWithDing: 4,
+  };
 
   const qs = {
     ding: `#product-filter-pni-toggle`,
@@ -61,7 +74,7 @@ test(`PNI search`, async ({ page }, testInfo) => {
 
   // Baseline product count test
   products = page.locator(qs.products);
-  await expect(products).toHaveCount(45);
+  await expect(products).toHaveCount(counts.total);
 
   // Verify that all products are sorted on creepiness
   expect(await confirmSorted(page)).toBe(true);
@@ -70,12 +83,12 @@ test(`PNI search`, async ({ page }, testInfo) => {
   const searchBar = page.locator(qs.searchBar);
   await searchBar.type("percy");
   products = page.locator(qs.products);
-  await expect(products).toHaveCount(2);
+  await expect(products).toHaveCount(counts.percy);
 
   // And we should be back to the original number when clearing search.
   await page.click(qs.clearSearch);
   products = page.locator(qs.products);
-  await expect(products).toHaveCount(45);
+  await expect(products).toHaveCount(counts.total);
 
   // Click through to the Health & Exercise category and
   // verify the correct number of products show up.
@@ -86,7 +99,7 @@ test(`PNI search`, async ({ page }, testInfo) => {
     `Health & Exercise`
   );
   products = page.locator(qs.products);
-  await expect(products).toHaveCount(15);
+  await expect(products).toHaveCount(counts.health);
 
   // Select a known subcategory and verify the correct
   // number of products show up.
@@ -96,7 +109,7 @@ test(`PNI search`, async ({ page }, testInfo) => {
   await expect(subcat).toHaveText(`Smart Scales`);
   await page.click(`a.subcategories:nth-child(2)`);
   products = page.locator(qs.products);
-  await expect(products).toHaveCount(5);
+  await expect(products).toHaveCount(counts.smart);
 
   // Filter for "percy" products: there should be two, and the active
   // category should be "all" while search filtering
@@ -116,24 +129,24 @@ test(`PNI search`, async ({ page }, testInfo) => {
   activeSubCat = page.locator(qs.activeSubCategory);
   await expect(activeSubCat).toHaveText(`Smart Scales`);
   products = page.locator(qs.products);
-  await expect(products).toHaveCount(5);
+  await expect(products).toHaveCount(counts.smart);
 
   // Clicking the subcategory should restore the parent category
   await page.click(qs.activeSubCategory);
   products = page.locator(qs.products);
-  await expect(products).toHaveCount(15);
+  await expect(products).toHaveCount(counts.health);
 
   // Filtering for "ding" should refocus on text field if there
   // was a search term, while filtering for ding-only
-  await searchBar.type("ab");
+  await searchBar.type("the");
   await page.click(`main`);
   await page.click(qs.dingLabel);
   await expect(searchBar).toBeFocused();
   products = page.locator(qs.products);
-  await expect(products).toHaveCount(3);
+  await expect(products).toHaveCount(counts.theWithDing);
   await page.click(qs.dingLabel);
   products = page.locator(qs.products);
-  await expect(products).toHaveCount(6);
+  await expect(products).toHaveCount(counts.the);
 
   // Finally, verify that all products are still sorted
   await page.click(qs.clearSearch);
