@@ -1,9 +1,29 @@
 {% load i18n wagtailcore_tags %}
 
+{% get_current_language as locale %}
+
 <!-- Hidden Shareprogress Buttons -->
-<div id="share-progress-tw" class='sp_221637 sp_tw_small tw-hidden'></div>
-<div id="share-progress-fb" class='sp_221639 sp_fb_small tw-hidden'></div>
-<div id="share-progress-em" class='sp_221640 sp_em_small tw-hidden'></div>
+{% if locale == 'de' %}
+    <div id="share-progress-tw" class='sp_221643 sp_tw_small tw-hidden'></div>
+    <div id="share-progress-fb" class='sp_221644 sp_fb_small tw-hidden'></div>
+    <div id="share-progress-em" class='sp_221645 sp_em_small tw-hidden'></div>
+{% elif locale == 'es' %}
+    <div id="share-progress-tw" class='sp_221649 sp_tw_small tw-hidden'></div>
+    <div id="share-progress-fb" class='sp_221650 sp_fb_small tw-hidden'></div>
+    <div id="share-progress-em" class='sp_221651 sp_em_small tw-hidden'></div>
+{% elif locale == 'fr' %}
+    <div id="share-progress-tw" class='sp_221646 sp_tw_small tw-hidden'></div>
+    <div id="share-progress-fb" class='sp_221647 sp_fb_small tw-hidden'></div>
+    <div id="share-progress-em" class='sp_221648 sp_em_small tw-hidden'></div>
+{% elif locale == 'pt-BR' %}
+    <div id="share-progress-tw" class='sp_221652 sp_tw_small tw-hidden'></div>
+    <div id="share-progress-fb" class='sp_221653 sp_fb_small tw-hidden'></div>
+    <div id="share-progress-em" class='sp_221654 sp_em_small tw-hidden'></div>
+{% else %}
+    <div id="share-progress-tw" class='sp_221637 sp_tw_small tw-hidden'></div>
+    <div id="share-progress-fb" class='sp_221639 sp_fb_small tw-hidden'></div>
+    <div id="share-progress-em" class='sp_221640 sp_em_small tw-hidden'></div>
+{% endif %}
 
 <div class="extension-hero tw-py-0 tw-flex medium:tw-py-7 tw-flex-col tw-justify-center tw-h-auto tw-min-h-[25em] medium:tw-h-[65vh] large:tw-h-[75vh]">
     <div class="tw-px-3 tw-py-7 small:tw-px-7 medium:tw-py-7 large:tw-container large:tw-px-0">
@@ -40,24 +60,24 @@
                     </div>
                     <div class="tw-mt-5">
                         <div class="share-button-container">
-                            <button id='share-display-button' class="btn share-icon" title="Copy page URL to clipboard">
+                            <button id='share-display-button' class="btn share-icon" title="{% trans "Copy page URL to clipboard" %}">
                             </button>
                             <span class="tw-ml-0 tw-text-white tw-font-bold tw-self-center" id='share-display-text'>
-                                Share This
+                                {% trans "Share This" %}
                             </span>
                             <!-- These buttons are hidden by default, and displayed when button above is clicked. -->
                             <!-- Functionality can be found in /share-buttons.js -->
-                            <button id='share-fb-button' class="btn btn-share share-facebook" title="Share on Facebook">
-                                <span class="sr-only">Share on Facebook</span>
+                            <button id='share-fb-button' class="btn btn-share share-facebook" title="{% trans "Share on Facebook" %}">
+                                <span class="sr-only">{% trans "Share on Facebook" %}</span>
                             </button>
-                            <button id='share-link-button' class="btn btn-share share-link" title="Copy page URL to clipboard">
-                                <span class="sr-only">Copy page link</span>
+                            <button id='share-link-button' class="btn btn-share share-link" title="{% trans "Copy page URL to clipboard" %}">
+                                <span class="sr-only">{% trans "Copy page link" %}</span>
                             </button>
-                            <button id='share-twitter-button' class="btn btn-share share-twitter" title="Share on Twitter">
-                                <span class="sr-only">Share on Twitter</span>
+                            <button id='share-twitter-button' class="btn btn-share share-twitter" title="{% trans "Share on Twitter" %}">
+                                <span class="sr-only">{% trans "Share on Twitter" %}</span>
                             </button>
-                            <button id='share-email-button' class="btn btn-share share-email" title="Share by email">
-                                <span class="sr-only">Share by email</span>
+                            <button id='share-email-button' class="btn btn-share share-email" title="{% trans "Share by email" %}">
+                                <span class="sr-only">{% trans "Share by email" %}</span>
                             </button>
                         </div>
                     </div>
