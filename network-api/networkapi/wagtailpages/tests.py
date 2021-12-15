@@ -19,6 +19,7 @@ from networkapi.wagtailpages.utils import create_wagtail_image
 
 from wagtail.core.models import Page, Site
 from wagtail.core.models.i18n import Locale
+from wagtail.snippets.views.snippets import get_snippet_edit_handler
 from wagtail.tests.utils import WagtailPageTests
 
 
@@ -465,3 +466,69 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
         # Reset the page back to Live
         self.product_page.live = True
         self.product_page.save()
+
+
+class BuyersGuideProductCategoryTest(TestCase):
+
+    def setUp(self):
+        edit_handler = get_snippet_edit_handler(BuyersGuideProductCategory)
+        self.form_class = edit_handler.get_form_class()
+
+    def test_cannot_have_duplicate_name(self):
+        BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        form = self.form_class(data={'name': 'Cat 1', 'sort_order': 1})
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(1, len(form.errors))
+        self.assertIn('name', form.errors)
+
+    def test_cannot_have_duplicate_lowercase_name(self):
+        BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        form = self.form_class(data={'name': 'cat 1', 'sort_order': 1})
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(1, len(form.errors))
+        self.assertIn('name', form.errors)
+
+    def test_parent_saves(self):
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        form = self.form_class(
+            data={'name': 'Cat 2', 'sort_order': 1, 'parent': cat1}
+        )
+        cat2 = form.save()
+        self.assertEqual(cat1, cat2.parent)
+
+    def test_cannot_be_direct_child_of_itself(self):
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        form = self.form_class(
+            instance=cat1,
+            data={'name': cat1.name, 'sort_order': cat1.sort_order, 'parent': cat1}
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(1, len(form.errors))
+        self.assertIn('parent', form.errors)
+        self.assertIn(
+            'A category cannot be a parent of itself.',
+            form.errors['parent']
+        )
+
+    def test_cannot_be_created_more_than_two_levels_deep(self):
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+        cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", parent=cat1)
+
+        form = self.form_class(
+            data={'name': 'Cat 3', 'sort_order': 1, 'parent': cat2}
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(1, len(form.errors))
+        self.assertIn('parent', form.errors)
+        self.assertIn(
+            'Categories can only be two levels deep.',
+            form.errors['parent']
+        )
