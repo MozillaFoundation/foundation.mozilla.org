@@ -1,4 +1,5 @@
 import { gsap } from "gsap";
+import copyToClipboard from "../../../../copy-to-clipboard";
 let tl = gsap.timeline();
 
 class regretsReporterShareButtons {
@@ -9,12 +10,49 @@ class regretsReporterShareButtons {
 
   bindEvents() {
     const shareDisplayButton = document.getElementById("share-display-button");
+    const shareFacebookButton = document.getElementById("share-fb-button");
+    const shareTwitterButton = document.getElementById("share-twitter-button");
+    const shareEmailButton = document.getElementById("share-email-button");
+    const shareLinkButton = document.getElementById("share-link-button");
 
     shareDisplayButton.addEventListener("click", () => {
       if (!tl.isActive()) {
         this.updateShareButtons();
       }
     });
+
+    shareFacebookButton.addEventListener("click", (e) => {
+      this.shareButtonClicked(e, "share-progress-fb");
+    });
+
+    shareTwitterButton.addEventListener("click", (e) => {
+      this.shareButtonClicked(e, "share-progress-tw");
+    });
+
+    shareEmailButton.addEventListener("click", (e) => {
+      this.shareButtonClicked(e, "share-progress-em");
+    });
+
+    shareLinkButton.addEventListener("click", (e) => {
+      this.shareButtonClicked(e);
+    });
+  }
+
+  // Clicks the hidden Shareprogress buttons on extension_hero.html,
+  // or copies URL to clipboard.
+  shareButtonClicked(event, shareProgressButtonId) {
+    if (shareProgressButtonId) {
+      let shareProgressButton = document.querySelector(
+        `#${shareProgressButtonId} a`
+      );
+
+      if (shareProgressButton) {
+        shareProgressButton.click();
+      }
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      event.target.classList.add(`copied`);
+    }
   }
 
   updateShareButtons() {

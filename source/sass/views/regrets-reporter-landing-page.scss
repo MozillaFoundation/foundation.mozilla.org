@@ -77,7 +77,7 @@
         transition: $button-icon-transition-speed;
       }
 
-      @include hover-focus-active {
+      &:hover {
         background-color: $white;
         &::before {
           filter: brightness(0);

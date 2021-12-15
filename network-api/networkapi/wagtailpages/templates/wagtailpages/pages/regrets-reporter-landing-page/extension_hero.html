@@ -1,5 +1,10 @@
 {% load i18n wagtailcore_tags %}
 
+<!-- Hidden Shareprogress Buttons -->
+<div id="share-progress-tw" class='sp_221637 sp_tw_small tw-hidden'></div>
+<div id="share-progress-fb" class='sp_221639 sp_fb_small tw-hidden'></div>
+<div id="share-progress-em" class='sp_221640 sp_em_small tw-hidden'></div>
+
 <div class="extension-hero tw-py-0 tw-flex medium:tw-py-7 tw-flex-col tw-justify-center tw-h-auto tw-min-h-[25em] medium:tw-h-[65vh] large:tw-h-[75vh]">
     <div class="tw-px-3 tw-py-7 small:tw-px-7 medium:tw-py-7 large:tw-container large:tw-px-0">
         <div class="tw-grid tw-gap-x-6 tw-grid-cols-1 tw-px-4 medium:tw-grid-cols-2 medium:tw-py-7">
@@ -42,19 +47,18 @@
                             </span>
                             <!-- These buttons are hidden by default, and displayed when button above is clicked. -->
                             <!-- Functionality can be found in /share-buttons.js -->
-                            <a class="btn btn-share share-facebook "
-                                href="https://www.facebook.com/sharer/sharer.php?u=">
+                            <button id='share-fb-button' class="btn btn-share share-facebook" title="Share on Facebook">
                                 <span class="sr-only">Share on Facebook</span>
-                            </a>
-                            <button class="btn btn-share share-link" title="Copy page URL to clipboard">
+                            </button>
+                            <button id='share-link-button' class="btn btn-share share-link" title="Copy page URL to clipboard">
                                 <span class="sr-only">Copy page link</span>
                             </button>
-                            <a class="btn btn-share share-twitter" href="https://twitter.com/intent/tweet?text=">
+                            <button id='share-twitter-button' class="btn btn-share share-twitter" title="Share on Twitter">
                                 <span class="sr-only">Share on Twitter</span>
-                            </a>
-                            <a class="btn btn-share share-email " href="mailto:?&amp;body=">
+                            </button>
+                            <button id='share-email-button' class="btn btn-share share-email" title="Share by email">
                                 <span class="sr-only">Share by email</span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
