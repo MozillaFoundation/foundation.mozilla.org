@@ -16,7 +16,7 @@ from .latest_profile_list import LatestProfileList
 from .link_button_block import LinkButtonBlock
 from .looping_video_block import LoopingVideoBlock
 from .profile_by_id import ProfileById
-from .profile_directory import ProfileDirectory
+from .profile_directory import ProfileDirectory, TabbedProfileDirectory
 from .pulse_project_list import PulseProjectList
 from .recent_blog_entries import RecentBlogEntries
 from .typeform_block import TypeformBlock
@@ -63,6 +63,7 @@ __all__ = [
     QuoteBlock,
     SingleQuoteBlock,
     RecentBlogEntries,
+    TabbedProfileDirectory,
     SessionSliderBlock,
     SpacesBlock,
     TitoWidgetBlock,

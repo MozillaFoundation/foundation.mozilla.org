@@ -1,0 +1,19 @@
+{% load wagtailcore_tags static %}
+
+{# Tabs #}
+<div class="tw-container">
+  <div data-tabbed-profile-filters-block>
+    {# JSON Data from backend #}
+    {{ profiles|json_script:"pulse-profiles" }}
+    {{ tab_options|json_script:"pulse-profile-filter-options" }}
+    {{ subfilters|json_script:"pulse-profile-subfilters" }}
+
+    {# Tabbed Profile Directory React Component #}
+    <div data-tabbed-profile-filters-content
+         data-api-endpoint="{{ api_endpoint }}"
+         data-filter-key="{{ value.tabs.filter_key }}"
+         data-subfilters-label="{{ subfilters_label }}"
+         data-subfilters-key="{{ subfilters_key }}">
+    </div>
+  </div>
+</div>
