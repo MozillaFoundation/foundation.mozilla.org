@@ -83,6 +83,9 @@
           filter: brightness(0);
         }
       }
+      &:focus {
+        box-shadow: none;
+      }
 
       &.share-icon {
         &::before {
@@ -115,7 +118,7 @@
 
         &.copied {
           &::before {
-            background-image: url(../_images/glyphs/social-share/link-share-copied.svg);
+            background-image: url(../_images/youtube-regrets/regrets-reporter/landing-page/share-link-copied.svg);
           }
         }
       }
