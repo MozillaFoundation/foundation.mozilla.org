@@ -43,11 +43,11 @@ class TitoTicketCompletedTest(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.content.decode(), "Payload verification failed")
 
-    @unittest.mock.patch("networkapi.events.views.basket")
     @override_settings(
         TITO_SECURITY_TOKEN=TITO_SECURITY_TOKEN,
         TITO_NEWSLETTER_QUESTION_ID=TITO_NEWSLETTER_QUESTION_ID,
     )
+    @unittest.mock.patch("networkapi.events.views.basket")
     def test_calls_basket_api(self, mock_basket):
         secret = bytes(TITO_SECURITY_TOKEN, "utf-8")
         data = {
@@ -74,4 +74,39 @@ class TitoTicketCompletedTest(TestCase):
         self.assertEqual(response.status_code, 202)
         mock_basket.subscribe.assert_called_once_with(
             "rich@test.com", "mozilla-festival"
+        )
+
+    @override_settings(
+        TITO_SECURITY_TOKEN=TITO_SECURITY_TOKEN,
+        TITO_NEWSLETTER_QUESTION_ID=TITO_NEWSLETTER_QUESTION_ID,
+    )
+    @unittest.mock.patch("networkapi.events.views.logger")
+    @unittest.mock.patch("networkapi.events.views.basket")
+    def test_logs_basket_exception(self, mock_basket, mock_logger):
+        mock_basket.subscribe.side_effect = Exception('Boom!')
+        secret = bytes(TITO_SECURITY_TOKEN, "utf-8")
+        data = {
+            "answers": [
+                {
+                    "question": {"id": TITO_NEWSLETTER_QUESTION_ID},
+                    "response": ["yes"],
+                },
+            ],
+            "email": "rich@test.com",
+        }
+
+        factory = RequestFactory()
+        request = factory.post(
+            self.url,
+            data=json.dumps(data),
+            content_type="application/json",
+            HTTP_X_WEBHOOK_NAME="ticket.completed",
+        )
+
+        request.META["HTTP_TITO_SIGNATURE"] = sign_tito_request(secret, request.body)
+
+        response = tito_ticket_completed(request)
+        self.assertEqual(response.status_code, 202)
+        mock_logger.exception.assert_called_once_with(
+            'Basket subscription from Tito webhook failed: Boom!'
         )

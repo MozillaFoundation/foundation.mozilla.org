@@ -1,4 +1,5 @@
 import json
+import logging
 
 import basket
 from django.http import HttpResponseBadRequest, HttpResponse
@@ -6,6 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from .utils import has_signed_up_to_newsletter, is_valid_tito_request
+
+logger = logging.getLogger(__name__)
 
 # To configure endpoints see:
 # https://ti.to/Mozilla/mozilla-festival-2022/admin/settings/webhook_endpoints
@@ -28,6 +31,11 @@ def tito_ticket_completed(request):
     data = json.loads(request.body.decode())
     email = data.get("email")
     if email and has_signed_up_to_newsletter(data.get("answers", [])):
-        basket.subscribe(email, "mozilla-festival")
+        try:
+            basket.subscribe(email, "mozilla-festival")
+        except Exception as error:
+            logger.exception(
+                f"Basket subscription from Tito webhook failed: {str(error)}"
+            )
 
     return HttpResponse(status=202)
