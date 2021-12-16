@@ -93,6 +93,8 @@ from .pagemodels.products import (
     SoftwareProductPage,
 )
 
+from .pagemodels.pulse import PulseFilter
+
 from .pagemodels.feature_flags.feature_flags import (
     FeatureFlags
 )
@@ -135,6 +137,7 @@ __all__ = [
     ProductPageCategory,
     ProductPagePrivacyPolicyLink,
     PublicationPage,
+    PulseFilter,
     RedirectingPage,
     Signup,
     SoftwareProductPage,

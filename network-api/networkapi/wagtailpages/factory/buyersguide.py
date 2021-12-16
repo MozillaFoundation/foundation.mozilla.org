@@ -112,6 +112,11 @@ class ProductPageFactory(PageFactory):
                     product=self,
                     category=category
                 )
+                if category.parent:
+                    ProductPageCategory.objects.get_or_create(
+                        product=self,
+                        category=category.parent
+                    )
                 ceiling = ceiling / 5
             else:
                 return
