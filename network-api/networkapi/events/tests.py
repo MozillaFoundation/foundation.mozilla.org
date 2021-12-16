@@ -1,12 +1,16 @@
-import base64
-import hashlib
-import hmac
 import json
+import unittest
 
 from django.urls import reverse
+
 from django.test import RequestFactory, TestCase, override_settings
 
+from .views import tito_ticket_completed
+from .utils import sign_tito_request
+
+
 TITO_SECURITY_TOKEN = "abcdef123456"
+TITO_NEWSLETTER_QUESTION_ID = 123456
 
 
 class TitoTicketCompletedTest(TestCase):
@@ -39,25 +43,35 @@ class TitoTicketCompletedTest(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.content.decode(), "Payload verification failed")
 
-    @override_settings(TITO_SECURITY_TOKEN=TITO_SECURITY_TOKEN)
-    def test_calls_basket_api(self):
-        from .views import tito_ticket_completed
-
+    @unittest.mock.patch("networkapi.events.views.basket")
+    @override_settings(
+        TITO_SECURITY_TOKEN=TITO_SECURITY_TOKEN,
+        TITO_NEWSLETTER_QUESTION_ID=TITO_NEWSLETTER_QUESTION_ID,
+    )
+    def test_calls_basket_api(self, mock_basket):
         secret = bytes(TITO_SECURITY_TOKEN, "utf-8")
-        data = {"answers": []}
+        data = {
+            "answers": [
+                {
+                    "question": {"id": TITO_NEWSLETTER_QUESTION_ID},
+                    "response": ["yes"],
+                },
+            ],
+            "email": "rich@test.com",
+        }
 
         factory = RequestFactory()
         request = factory.post(
             self.url,
             data=json.dumps(data),
-            content_type='application/json',
+            content_type="application/json",
             HTTP_X_WEBHOOK_NAME="ticket.completed",
         )
 
-        signature = base64.b64encode(
-            hmac.new(secret, request.body, digestmod=hashlib.sha256).digest()
-        ).decode("utf-8")
-        request.META["HTTP_TITO_SIGNATURE"] = signature
+        request.META["HTTP_TITO_SIGNATURE"] = sign_tito_request(secret, request.body)
 
         response = tito_ticket_completed(request)
         self.assertEqual(response.status_code, 202)
+        mock_basket.subscribe.assert_called_once_with(
+            "rich@test.com", "mozilla-festival"
+        )

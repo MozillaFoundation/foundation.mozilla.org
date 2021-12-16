@@ -1,13 +1,11 @@
-import base64
-import hashlib
-import hmac
 import json
 
 import basket
-from django.conf import settings
 from django.http import HttpResponseBadRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+
+from .utils import has_signed_up_to_newsletter, is_valid_tito_request
 
 # To configure endpoints see:
 # https://ti.to/Mozilla/mozilla-festival-2022/admin/settings/webhook_endpoints
@@ -22,24 +20,14 @@ def tito_ticket_completed(request):
         return HttpResponseBadRequest("Not a ticket completed request")
 
     # does the payload hash signature match
-    # https://ti.to/docs/api/admin#webhooks-verifying-the-payload
     tito_signature = request.META.get("HTTP_TITO_SIGNATURE", "")
-    secret = bytes(settings.TITO_SECURITY_TOKEN, "utf-8")
-    signature = base64.b64encode(
-        hmac.new(secret, request.body, digestmod=hashlib.sha256).digest()
-    ).decode("utf-8")
-
-    if tito_signature != signature:
+    if not is_valid_tito_request(tito_signature, request.body):
         return HttpResponseBadRequest("Payload verification failed")
 
     # have they signed up to the newsletter?
     data = json.loads(request.body.decode())
-    for answer in data.get("answers", []):
-        if (
-            answer["question"]["id"] == int(settings.TITO_NEWSLETTER_QUESTION_ID)
-            and len(answer["response"])
-            and data.get("email")
-        ):
-            basket.subscribe(data.get("email"), "mozilla-festival")
+    email = data.get("email")
+    if email and has_signed_up_to_newsletter(data.get("answers", [])):
+        basket.subscribe(email, "mozilla-festival")
 
     return HttpResponse(status=202)
