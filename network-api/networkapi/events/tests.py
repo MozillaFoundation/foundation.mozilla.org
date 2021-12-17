@@ -1,8 +1,7 @@
 import json
-import unittest
+from unittest import mock
 
 from django.urls import reverse
-
 from django.test import RequestFactory, TestCase, override_settings
 
 from .views import tito_ticket_completed
@@ -13,6 +12,10 @@ TITO_SECURITY_TOKEN = "abcdef123456"
 TITO_NEWSLETTER_QUESTION_ID = 123456
 
 
+@override_settings(
+    TITO_SECURITY_TOKEN=TITO_SECURITY_TOKEN,
+    TITO_NEWSLETTER_QUESTION_ID=TITO_NEWSLETTER_QUESTION_ID,
+)
 class TitoTicketCompletedTest(TestCase):
     def setUp(self):
         self.url = reverse("tito-ticket-completed")
@@ -43,11 +46,7 @@ class TitoTicketCompletedTest(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.content.decode(), "Payload verification failed")
 
-    @override_settings(
-        TITO_SECURITY_TOKEN=TITO_SECURITY_TOKEN,
-        TITO_NEWSLETTER_QUESTION_ID=TITO_NEWSLETTER_QUESTION_ID,
-    )
-    @unittest.mock.patch("networkapi.events.views.basket")
+    @mock.patch("networkapi.events.views.basket")
     def test_calls_basket_api(self, mock_basket):
         secret = bytes(TITO_SECURITY_TOKEN, "utf-8")
         data = {
@@ -76,14 +75,10 @@ class TitoTicketCompletedTest(TestCase):
             "rich@test.com", "mozilla-festival"
         )
 
-    @override_settings(
-        TITO_SECURITY_TOKEN=TITO_SECURITY_TOKEN,
-        TITO_NEWSLETTER_QUESTION_ID=TITO_NEWSLETTER_QUESTION_ID,
-    )
-    @unittest.mock.patch("networkapi.events.views.logger")
-    @unittest.mock.patch("networkapi.events.views.basket")
+    @mock.patch("networkapi.events.views.logger")
+    @mock.patch("networkapi.events.views.basket")
     def test_logs_basket_exception(self, mock_basket, mock_logger):
-        mock_basket.subscribe.side_effect = Exception('Boom!')
+        mock_basket.subscribe.side_effect = Exception("Boom!")
         secret = bytes(TITO_SECURITY_TOKEN, "utf-8")
         data = {
             "answers": [
@@ -108,5 +103,5 @@ class TitoTicketCompletedTest(TestCase):
         response = tito_ticket_completed(request)
         self.assertEqual(response.status_code, 202)
         mock_logger.exception.assert_called_once_with(
-            'Basket subscription from Tito webhook failed: Boom!'
+            "Basket subscription from Tito webhook failed: Boom!"
         )

@@ -2,6 +2,7 @@ import json
 import logging
 
 import basket
+
 from django.http import HttpResponseBadRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -30,6 +31,7 @@ def tito_ticket_completed(request):
     # have they signed up to the newsletter?
     data = json.loads(request.body.decode())
     email = data.get("email")
+
     if email and has_signed_up_to_newsletter(data.get("answers", [])):
         try:
             basket.subscribe(email, "mozilla-festival")
