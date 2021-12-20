@@ -66,19 +66,19 @@ class TitoTicketCompletedTest(TestCase):
             content_type="application/json",
             HTTP_X_WEBHOOK_NAME="ticket.completed",
         )
-
         request.META["HTTP_TITO_SIGNATURE"] = sign_tito_request(secret, request.body)
 
         response = tito_ticket_completed(request)
+
         self.assertEqual(response.status_code, 202)
         mock_basket.subscribe.assert_called_once_with(
             "rich@test.com", "mozilla-festival"
         )
 
-    @mock.patch("networkapi.events.views.logger")
-    @mock.patch("networkapi.events.views.basket")
-    def test_logs_basket_exception(self, mock_basket, mock_logger):
-        mock_basket.subscribe.side_effect = Exception("Boom!")
+    def test_logs_basket_exception(self):
+        # Using `failure@example.com` as the email causes an exception, see:
+        # https://github.com/mozilla/basket-example#tips
+
         secret = bytes(TITO_SECURITY_TOKEN, "utf-8")
         data = {
             "answers": [
@@ -87,7 +87,7 @@ class TitoTicketCompletedTest(TestCase):
                     "response": ["yes"],
                 },
             ],
-            "email": "rich@test.com",
+            "email": "failure@example.com",
         }
 
         factory = RequestFactory()
@@ -97,11 +97,9 @@ class TitoTicketCompletedTest(TestCase):
             content_type="application/json",
             HTTP_X_WEBHOOK_NAME="ticket.completed",
         )
-
         request.META["HTTP_TITO_SIGNATURE"] = sign_tito_request(secret, request.body)
 
-        response = tito_ticket_completed(request)
-        self.assertEqual(response.status_code, 202)
-        mock_logger.exception.assert_called_once_with(
-            "Basket subscription from Tito webhook failed: Boom!"
-        )
+        with self.assertLogs(logger="networkapi.events.views", level="ERROR") as cm:
+            response = tito_ticket_completed(request)
+            self.assertEqual(response.status_code, 202)
+            self.assertIn("Basket subscription from Tito webhook failed", cm.output[0])
