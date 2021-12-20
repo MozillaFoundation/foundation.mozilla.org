@@ -1,7 +1,3 @@
-from .pagemodels.base_fields import (
-    base_fields
-)
-
 from .pagemodels.base import (
     FocusArea,
     FoundationMetadataPageMixin,
@@ -97,6 +93,8 @@ from .pagemodels.products import (
     SoftwareProductPage,
 )
 
+from .pagemodels.pulse import PulseFilter
+
 from .pagemodels.feature_flags.feature_flags import (
     FeatureFlags
 )
@@ -104,7 +102,6 @@ from .pagemodels.feature_flags.feature_flags import (
 __all__ = [
     ArticlePage,
     BanneredCampaignPage,
-    base_fields,
     BlogAuthors,
     BlogIndexPage,
     BlogPage,
@@ -140,6 +137,7 @@ __all__ = [
     ProductPageCategory,
     ProductPagePrivacyPolicyLink,
     PublicationPage,
+    PulseFilter,
     RedirectingPage,
     Signup,
     SoftwareProductPage,

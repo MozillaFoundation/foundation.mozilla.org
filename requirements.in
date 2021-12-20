@@ -1,6 +1,7 @@
 basket-client
 beautifulsoup4
 boto3
+cached_property==1.5.2
 Django==3.1.11
 dj-database-url
 djangorestframework
@@ -17,14 +18,15 @@ filebrowser-safe
 future
 gunicorn
 heroku3
+pygit2==1.7.1
 python-slugify
 requests
 social-auth-app-django
 wagtail-airtable
-wagtail==2.14.1
+wagtail==2.15.1
 wagtail-factories
-wagtail-localize==1.0
-wagtail-localize-git==0.10.0
+wagtail-localize==1.0.1
+wagtail-localize-git==0.11.0
 wagtail-inventory
 wagtailmedia
 wagtail-metadata

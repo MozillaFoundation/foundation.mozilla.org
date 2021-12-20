@@ -10,15 +10,13 @@ from networkapi.wagtailpages.utils import (
     set_main_site_nav_information,
     get_page_tree_information
 )
-
 from networkapi.wagtailpages.models import (
-    base_fields,
     FoundationMetadataPageMixin,
     FoundationBannerInheritanceMixin,
     Signup
 )
-
 from networkapi.wagtailpages.pagemodels import customblocks
+from networkapi.wagtailpages.pagemodels.customblocks.base_fields import base_fields
 
 
 class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):
@@ -56,6 +54,8 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ('session_slider', customblocks.SessionSliderBlock()),
             ('current_events_slider', customblocks.CurrentEventsSliderBlock()),
             ('spaces', customblocks.SpacesBlock()),
+            ('tito_widget', customblocks.TitoWidgetBlock()),
+            ('tabbed_profile_directory', customblocks.TabbedProfileDirectory()),
         ]
     )
 
@@ -79,7 +79,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
     )
 
     settings_panels = Page.settings_panels + [
-       FieldPanel('use_wide_template')
+        FieldPanel('use_wide_template')
     ]
 
     translatable_fields = [

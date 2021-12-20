@@ -46,6 +46,7 @@ const sources = {
   },
   "bg-search": {
     source: `buyers-guide/search.js`,
+    bundle: true,
   },
   polyfills: {
     source: `polyfills.js`,

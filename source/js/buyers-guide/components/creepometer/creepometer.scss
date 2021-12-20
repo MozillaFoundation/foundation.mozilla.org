@@ -7,6 +7,10 @@
     position: relative;
     height: 100px;
     cursor: pointer;
+    // removing blue outline from chrome/safari
+    &:focus {
+      outline: none;
+    }
   }
 
   .copy {

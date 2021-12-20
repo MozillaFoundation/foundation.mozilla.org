@@ -1,5 +1,30 @@
 {% load i18n wagtailcore_tags %}
 
+{% get_current_language as locale %}
+
+<!-- Hidden Shareprogress Buttons -->
+{% if locale == 'de' %}
+    <div id="share-progress-tw" class='sp_221643 sp_tw_small tw-hidden'></div>
+    <div id="share-progress-fb" class='sp_221644 sp_fb_small tw-hidden'></div>
+    <div id="share-progress-em" class='sp_221645 sp_em_small tw-hidden'></div>
+{% elif locale == 'es' %}
+    <div id="share-progress-tw" class='sp_221649 sp_tw_small tw-hidden'></div>
+    <div id="share-progress-fb" class='sp_221650 sp_fb_small tw-hidden'></div>
+    <div id="share-progress-em" class='sp_221651 sp_em_small tw-hidden'></div>
+{% elif locale == 'fr' %}
+    <div id="share-progress-tw" class='sp_221646 sp_tw_small tw-hidden'></div>
+    <div id="share-progress-fb" class='sp_221647 sp_fb_small tw-hidden'></div>
+    <div id="share-progress-em" class='sp_221648 sp_em_small tw-hidden'></div>
+{% elif locale == 'pt-BR' %}
+    <div id="share-progress-tw" class='sp_221652 sp_tw_small tw-hidden'></div>
+    <div id="share-progress-fb" class='sp_221653 sp_fb_small tw-hidden'></div>
+    <div id="share-progress-em" class='sp_221654 sp_em_small tw-hidden'></div>
+{% else %}
+    <div id="share-progress-tw" class='sp_221637 sp_tw_small tw-hidden'></div>
+    <div id="share-progress-fb" class='sp_221639 sp_fb_small tw-hidden'></div>
+    <div id="share-progress-em" class='sp_221640 sp_em_small tw-hidden'></div>
+{% endif %}
+
 <div class="extension-hero tw-py-0 tw-flex medium:tw-py-7 tw-flex-col tw-justify-center tw-h-auto tw-min-h-[25em] medium:tw-h-[65vh] large:tw-h-[75vh]">
     <div class="tw-px-3 tw-py-7 small:tw-px-7 medium:tw-py-7 large:tw-container large:tw-px-0">
         <div class="tw-grid tw-gap-x-6 tw-grid-cols-1 tw-px-4 medium:tw-grid-cols-2 medium:tw-py-7">
@@ -10,26 +35,52 @@
                 <p class='body tw-text-white tw-font-light tw-pb-2'>
                     {% trans "Block harmful YouTube recommendations. Download the RegretsReporter browser extension." %}
                 </p>
-                <div class="btn-container tw-mt-1 tw-flex tw-flex-wrap tw-gap-4">
-                    <a class="btn download-link-button download-link-button--firefox tw-bg-white tw-text-youtube-regrets-red"
-                        href="https://addons.mozilla.org/en-us/firefox/addon/regretsreporter/"
-                        target="_blank">
-                        {% trans "Add to Firefox" %}
-                    </a>
-                    <a class="btn download-link-button download-link-button--chrome tw-bg-white tw-text-youtube-regrets-red"
-                        href="https://chrome.google.com/webstore/detail/regretsreporter/obpoeflheeknapimliioeoefbfaakefn"
-                        target="_blank">
-                        {% trans "Add to Chrome" %}
-                    </a>
-                    {% trans "Reminder to download RegretsReporter" as translated_subject %}
-                    {% trans "Mozilla built RegretsReporter to help you take back control of your YouTube recommendations and make YouTube better for everyone else." as translated_body %}
-                    {% with subject=translated_subject body=translated_body %}
+                <div class='download-share-btn-wrapper'>
+                    <div class="btn-container tw-mt-1 tw-flex tw-flex-wrap tw-gap-4">
+                        <a class="btn download-link-button download-link-button--firefox tw-bg-white tw-text-youtube-regrets-red"
+                          href="https://addons.mozilla.org/en-us/firefox/addon/regretsreporter/"
+                          target="_blank">
+                          {% trans "Add to Firefox" %}
+                        </a>
+                        <a class="btn download-link-button download-link-button--chrome tw-bg-white tw-text-youtube-regrets-red"
+                          href="https://chrome.google.com/webstore/detail/regretsreporter/obpoeflheeknapimliioeoefbfaakefn"
+                          target="_blank">
+                          {% trans "Add to Chrome" %}
+                        </a>
+                        {% trans "Reminder to download RegretsReporter" as translated_subject %}
+                        {% trans "Mozilla built RegretsReporter to help you take back control of your YouTube recommendations and make YouTube better for everyone else." as translated_body %}
+                        {% with subject=translated_subject body=translated_body %}
                         <a class="btn download-link-button download-link-button--email tw-bg-white tw-text-youtube-regrets-red tw-hidden"
-                            href="mailto:?subject={{ subject|urlencode }}&body={{ body|urlencode }}"
-                            target="_blank">
+                           href="mailto:?subject={{ subject|urlencode }}&body={{ body|urlencode }}"
+                           target="_blank">
                             {% trans "Send Reminder" %}
                         </a>
                     {% endwith %}
+
+                    </div>
+                    <div class="tw-mt-5">
+                        <div class="share-button-container">
+                            <button id='share-display-button' class="btn share-icon" title="{% trans "Copy page URL to clipboard" %}">
+                            </button>
+                            <span class="tw-ml-0 tw-text-white tw-font-bold tw-self-center" id='share-display-text'>
+                                {% trans "Share This" %}
+                            </span>
+                            <!-- These buttons are hidden by default, and displayed when button above is clicked. -->
+                            <!-- Functionality can be found in /share-buttons.js -->
+                            <button id='share-fb-button' class="btn btn-share share-facebook" title="{% trans "Share on Facebook" %}">
+                                <span class="sr-only">{% trans "Share on Facebook" %}</span>
+                            </button>
+                            <button id='share-link-button' class="btn btn-share share-link" title="{% trans "Copy page URL to clipboard" %}">
+                                <span class="sr-only">{% trans "Copy page link" %}</span>
+                            </button>
+                            <button id='share-twitter-button' class="btn btn-share share-twitter" title="{% trans "Share on Twitter" %}">
+                                <span class="sr-only">{% trans "Share on Twitter" %}</span>
+                            </button>
+                            <button id='share-email-button' class="btn btn-share share-email" title="{% trans "Share by email" %}">
+                                <span class="sr-only">{% trans "Share by email" %}</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="tw-flex tw-flex-col tw-justify-center tw-mt-5 medium:tw-mt-0 large:tw-mt-5">

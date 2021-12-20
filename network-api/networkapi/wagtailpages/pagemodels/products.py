@@ -17,7 +17,7 @@ from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext, pgettext
-
+from .customblocks.base_rich_text_options import base_rich_text_options
 
 from modelcluster.fields import ParentalKey
 
@@ -34,6 +34,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail_airtable.mixins import AirtableMixin
 
+from networkapi.wagtailpages.forms import BuyersGuideProductCategoryForm
 from networkapi.wagtailpages.fields import ExtendedBoolean, ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
@@ -43,7 +44,8 @@ from networkapi.wagtailpages.utils import (
     insert_panels_after,
     get_default_locale,
     get_locale_from_request,
-    get_original_by_slug
+    get_original_by_slug,
+    TitleWidget
 )
 
 # TODO: Move this util function
@@ -152,7 +154,8 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
 
     slug = models.SlugField(
         blank=True,
-        help_text='A URL-friendly version of the category name. This is an auto-generated field.'
+        help_text='A URL-friendly version of the category name. This is an auto-generated field.',
+        max_length=100
     )
 
     sort_order = models.IntegerField(
@@ -170,7 +173,10 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
     )
 
     panels = [
-        FieldPanel('name'),
+        FieldPanel(
+            'name',
+            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 50})
+        ),
         FieldPanel('description'),
         SnippetChooserPanel('parent'),
         FieldPanel('featured'),
@@ -205,6 +211,8 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+    base_form_class = BuyersGuideProductCategoryForm
 
     search_fields = [
         index.SearchField('name', partial_match=True),
@@ -471,7 +479,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     )
     blurb = RichTextField(
         verbose_name='intro Blurb',
-        features=['bold', 'italic', 'link'],
+        features=base_rich_text_options,
         blank=True
     )
     product_url = models.URLField(
@@ -488,11 +496,11 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     )
     worst_case = RichTextField(
         verbose_name='what could happen if something goes wrong?',
-        features=['bold', 'italic', 'link'],
+        features=base_rich_text_options,
         blank=True,
     )
     tips_to_protect_yourself = RichTextField(
-        features=['ul', 'bold', 'italic', 'link'],
+        features=base_rich_text_options + ['ul'],
         blank=True
     )
     mozilla_says = models.BooleanField(
@@ -531,7 +539,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     # How does it use this data?
     how_does_it_use_data_collected = RichTextField(
         max_length=5000,
-        features=['bold', 'italic', 'link'],
+        features=base_rich_text_options,
         help_text='How does this product use the data collected?',
         blank=True,
     )
@@ -587,7 +595,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     )
     manage_vulnerabilities_helptext = RichTextField(
         max_length=5000,
-        features=['bold', 'italic', 'link'],
+        features=base_rich_text_options,
         blank=True,
     )
     privacy_policy = ExtendedYesNoField(
@@ -1193,7 +1201,7 @@ class GeneralProductPage(ProductPage):
 
     how_can_you_control_your_data = RichTextField(
         max_length=5000,
-        features=['bold', 'italic', 'link'],
+        features=base_rich_text_options,
         help_text='How does this product let you control your data?',
         blank=True,
     )
@@ -1219,7 +1227,7 @@ class GeneralProductPage(ProductPage):
 
     track_record_details = RichTextField(
         max_length=5000,
-        features=['bold', 'italic', 'link'],
+        features=base_rich_text_options,
         help_text='Describe the track record of this company here.',
         blank=True,
     )
@@ -1232,7 +1240,7 @@ class GeneralProductPage(ProductPage):
 
     offline_use_description = RichTextField(
         max_length=5000,
-        features=['bold', 'italic', 'link'],
+        features=base_rich_text_options,
         help_text='Describe how this product can be used offline.',
         blank=True,
     )
@@ -1244,7 +1252,7 @@ class GeneralProductPage(ProductPage):
     )
     ai_helptext = RichTextField(
         max_length=5000,
-        features=['bold', 'italic', 'link'],
+        features=base_rich_text_options,
         help_text='Helpful text around AI to show on the product page',
         blank=True,
     )
