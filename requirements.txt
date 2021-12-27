@@ -89,7 +89,7 @@ django-taggit==1.5.1
     # via wagtail
 django-treebeard==4.5.1
     # via wagtail
-djangorestframework==3.12.4
+djangorestframework==3.13.1
     # via
     #   -r requirements.in
     #   wagtail
@@ -167,6 +167,7 @@ pytz==2021.1
     # via
     #   django
     #   django-modelcluster
+    #   djangorestframework
     #   l18n
 redis==3.5.3
     # via django-redis
