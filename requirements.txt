@@ -106,7 +106,7 @@ faker==9.8.3
     # via
     #   -r requirements.in
     #   factory-boy
-filebrowser-safe==0.5.0
+filebrowser-safe==1.1.0
     # via -r requirements.in
 future==0.18.2
     # via -r requirements.in
