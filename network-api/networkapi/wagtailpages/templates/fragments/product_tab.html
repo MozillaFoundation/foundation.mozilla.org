@@ -6,7 +6,7 @@
         
         <div class="tw-overflow-hidden medium:tw--mx-7">
             <div id="product-tab-content" class="tw-w-full tw-flex tw-transition-transform tw-ease-in-out tw-duration-300 tw-items-start">
-                <div class="tw-w-full tw-flex-shrink-0 medium:tw-px-7" data-product-label="0">
+                <div class="tw-w-full tw-shrink-0 medium:tw-px-7" data-product-label="0">
                     {% if product.product_type == 'general' %}
                     <section class="criterion">
                         <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center">
@@ -102,7 +102,7 @@
                     {% include "fragments/product_privacy.html"    with  label=privacy_policy_links          value=""         links=product.privacy_policy_links.all                  %}
                 </div>
 
-                <div class="tw-w-full tw-flex-shrink-0 medium:tw-px-7" data-product-label="1">
+                <div class="tw-w-full tw-shrink-0 medium:tw-px-7" data-product-label="1">
                     {% localizedroutablepageurl home_page 'methodology-view' as min_sec_url %}
                     {% blocktrans with url=min_sec_url|add:"#minimum-security-standards" asvar minimum_security_standards trimmed %}
                     Does this product meet our <span class="tw-ml-1"></span> <a id="mss-link" class="" href="{{ url }}">Minimum Security Standards</a>?
@@ -122,7 +122,7 @@
                     {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy           %}
                 </div>
 
-                <div class="tw-w-full tw-flex-shrink-0 medium:tw-px-7" data-product-label="2">
+                <div class="tw-w-full tw-shrink-0 medium:tw-px-7" data-product-label="2">
                     {% if product.product_type == 'general' %}
                     <section class="criterion-group">
                         {% with product.uses_ai|extended_yes_no as uses_ai %}
