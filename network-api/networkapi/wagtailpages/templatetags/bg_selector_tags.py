@@ -15,17 +15,6 @@ def yes_no(value):
 
 
 @register.filter
-def extended_boolean(value):
-    if value == 'Yes':
-        return gettext('Yes')
-    if value == 'No':
-        return gettext('No')
-    if value == 'U':
-        return gettext('Unknown')
-    return value
-
-
-@register.filter
 def extended_yes_no(value):
     """Converts quad-state to human readable string"""
     if value == 'CD':
@@ -36,6 +25,8 @@ def extended_yes_no(value):
         return gettext('Yes')
     if value == 'No':
         return gettext('No')
+    if value == 'U':
+        return gettext('Unknown')
     return value
 
 
