@@ -59,12 +59,8 @@ env = environ.Env(
     HEROKU_PR_NUMBER=(str, ''),
     HEROKU_RELEASE_VERSION=(str, None),
     INDEX_PAGE_CACHE_TIMEOUT=(int, 60*60*24),
-    # MOFO_NEWSLETTER_SUBSCRIBE_METHOD should be 'BASKET' or 'SQS'.
-    # We're using SQS by default until we move to sending newsletter data directly to Basket.
-    MOFO_NEWSLETTER_SUBSCRIBE_METHOD=(str, 'BASKET'),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
     NETWORK_SITE_URL=(str, ''),
-    PETITION_DATA_SUBMISSION_METHOD=(str, ''),
     PETITION_TEST_CAMPAIGN_ID=(str, ''),
     PNI_STATS_DB_URL=(str, None),
     PULSE_API_DOMAIN=(str, ''),
@@ -129,10 +125,6 @@ BASE_DIR = root()
 
 # Basket client configuration
 BASKET_URL = env('BASKET_URL')
-
-# Newsletter Configuration
-MOFO_NEWSLETTER_SUBSCRIBE_METHOD = env('MOFO_NEWSLETTER_SUBSCRIBE_METHOD')
-
 
 APP_DIR = app()
 
@@ -672,9 +664,6 @@ SLACK_WEBHOOK_RA = env('SLACK_WEBHOOK_RA')
 
 # Used by load_fake_data to ensure we have petitions that actually work
 PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
-
-# Choosing whether we want petition data to go to Basket or SQS
-PETITION_DATA_SUBMISSION_METHOD = env('PETITION_DATA_SUBMISSION_METHOD')
 
 # Buyers Guide Rate Limit Setting
 BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')
