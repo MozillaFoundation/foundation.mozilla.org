@@ -22,6 +22,9 @@ import wagtail.core.fields
 import wagtail.images.blocks
 import wagtailmetadata.models
 
+def print_progress(apps, schema_editor):
+    print('Applying wagtailpages 0001_initial')
+
 def create_default_blog_categories(apps, schema_editor):
     BlogPageCategory = apps.get_model("wagtailpages", "BlogPageCategory")
     BlogPageCategory.objects.get_or_create(name='Mozilla Festival')
@@ -79,6 +82,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(
+            code=print_progress,
+        ),
         migrations.CreateModel(
             name='BlogPage',
             fields=[

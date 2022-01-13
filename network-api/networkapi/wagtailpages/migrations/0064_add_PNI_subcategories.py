@@ -19,7 +19,6 @@ def add_pni_subcategories(apps, schema):
     ]
 
     for cat in subcategories:
-        print(f"creating {cat}")
         subcategory, created = BuyersGuideProductCategory.objects.get_or_create(
             name=cat,
             parent=healthAndExercise,
