@@ -2,6 +2,8 @@
 
 from django.db import migrations
 
+def print_progress(apps, schema_editor):
+    print('Applying wagtailpages 0060')
 
 class Migration(migrations.Migration):
 
@@ -10,6 +12,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(
+            code=print_progress,
+        ),
         migrations.AlterModelOptions(
             name='cta',
             options={'ordering': ['-id'], 'verbose_name_plural': 'CTA'},

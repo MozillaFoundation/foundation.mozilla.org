@@ -3,6 +3,10 @@
 from django.db import migrations, models
 import django.db.models.deletion
 
+def print_progress(apps, schema_editor):
+    print('Applying wagtailpages 0040')
+
+
 def copy_petition_cta_to_cta(apps, schema_editor):
     CTA = apps.get_model("wagtailpages", "CTA")
 
@@ -26,6 +30,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(
+            code=print_progress,
+        ),
         migrations.AddField(
             model_name='banneredcampaignpage',
             name='cta',

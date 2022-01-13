@@ -2,6 +2,8 @@
 
 from django.db import migrations
 
+def print_progress(apps, schema_editor):
+    print('Applying wagtailpages 0002')
 
 class Migration(migrations.Migration):
 
@@ -10,6 +12,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(
+            code=print_progress,
+        ),
         migrations.RemoveField(
             model_name='productpage',
             name='cloudinary_image',
