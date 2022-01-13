@@ -3,7 +3,7 @@ import injectNews from "./news.js";
 import injectPetition from "./petition.js";
 import injectPulseProjectList from "./pulse-project-list.js";
 import injectShareButtonGroup from "./share-button-group.js";
-import injectPulseTabbedProfileDirectory from "./pulse-tabbed-profile-filters"
+import injectPulseTabbedProfileDirectory from "./pulse-tabbed-profile-filters";
 
 /**
  * Inject React components
