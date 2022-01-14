@@ -10,7 +10,6 @@ const ALL_CATEGORY_LABEL = document.querySelector(
 ).textContent;
 const PARENT_TITLE = document.querySelector(`.parent-title`);
 
-
 export class Utils {
   /**
    *...
@@ -121,12 +120,14 @@ export class Utils {
     }
 
     document
-      .querySelector(        `#pni-nav-mobile a[data-name="${PARENT_TITLE.value.trim()}"]`
+      .querySelector(
+        `#pni-nav-mobile a[data-name="${PARENT_TITLE.value.trim()}"]`
       )
       .classList.add(`active`);
 
     document
-      .querySelector(        `#multipage-nav a[data-name="${PARENT_TITLE.value.trim()}"]`
+      .querySelector(
+        `#multipage-nav a[data-name="${PARENT_TITLE.value.trim()}"]`
       )
       .classList.add(`active`);
   }

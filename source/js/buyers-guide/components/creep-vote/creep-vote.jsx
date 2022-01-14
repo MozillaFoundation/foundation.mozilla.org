@@ -66,7 +66,7 @@ class CreepVote extends Component {
       .then((res) => res.text())
       .then((html) => {
         const d = document.createElement(`div`);
-        d.innerHTML = html
+        d.innerHTML = html;
         this.setState({
           csrfToken: d.querySelector(`input`).value,
         });
