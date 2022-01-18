@@ -1,4 +1,10 @@
-import Swiper, {A11y, Autoplay, Pagination, Navigation, Keyboard} from 'swiper';
+import Swiper, {
+  A11y,
+  Autoplay,
+  Pagination,
+  Navigation,
+  Keyboard,
+} from "swiper";
 
 Swiper.use([A11y, Autoplay, Pagination, Navigation, Keyboard]);
 
@@ -16,7 +22,7 @@ class Carousel {
         enabled: true,
       },
       pagination: {
-        el: '.swiper-pagination',
+        el: ".swiper-pagination",
         clickable: true,
       },
       navigation: {

@@ -14,7 +14,7 @@ module.exports = async function waitForImagesToLoad(page) {
     (async function testLoaded() {
       // force-load all lazy content
       await images.evaluateAll((imgs) => {
-        const visible = Array.from(imgs).filter(i => i.offsetParent !== null)
+        const visible = Array.from(imgs).filter((i) => i.offsetParent !== null);
         visible.forEach((img) => {
           if (img.loading === `lazy` && !img.complete) img.scrollIntoView();
         });
@@ -22,7 +22,7 @@ module.exports = async function waitForImagesToLoad(page) {
 
       // then check how many images aren't complete yet
       const result = await images.evaluateAll((imgs) => {
-        const visible = Array.from(imgs).filter(i => i.offsetParent !== null);
+        const visible = Array.from(imgs).filter((i) => i.offsetParent !== null);
         return visible.filter((img) => !img.complete).length;
       });
 

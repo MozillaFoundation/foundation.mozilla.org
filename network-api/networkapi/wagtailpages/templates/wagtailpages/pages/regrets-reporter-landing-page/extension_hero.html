@@ -59,26 +59,29 @@
 
                     </div>
                     <div class="tw-mt-5">
-                        <div class="share-button-container">
-                            <button id='share-display-button' class="btn share-icon" title="{% trans "Copy page URL to clipboard" %}">
+                        <div class="share-button-container tw-flex">
+                          {% with button_classes="btn tw-border-0 tw-p-0 tw-mr-4 tw-h-[36px] tw-w-[36px] tw-inline-flex tw-items-center tw-justify-center tw-rounded-3xl before:tw-filter before:tw-brightness-1 before:tw-h-[36px] before:tw-w-[36px] hover:tw-bg-white hover:before:tw-brightness-0 focus:tw-shadow-none" %}
+
+                            <button id='share-display-button' class="{{ button_classes }} share-icon" title="{% trans "Copy page URL to clipboard" %}">
                             </button>
                             <span class="tw-ml-0 tw-text-white tw-font-bold tw-self-center" id='share-display-text'>
                                 {% trans "Share This" %}
                             </span>
                             <!-- These buttons are hidden by default, and displayed when button above is clicked. -->
                             <!-- Functionality can be found in /share-buttons.js -->
-                            <button id='share-fb-button' class="btn btn-share share-facebook" title="{% trans "Share on Facebook" %}">
+                            <button id='share-fb-button' class="{{ button_classes }} btn-share share-facebook" title="{% trans "Share on Facebook" %}">
                                 <span class="sr-only">{% trans "Share on Facebook" %}</span>
                             </button>
-                            <button id='share-link-button' class="btn btn-share share-link" title="{% trans "Copy page URL to clipboard" %}">
+                            <button id='share-link-button' class="{{ button_classes }} btn-share share-link" title="{% trans "Copy page URL to clipboard" %}">
                                 <span class="sr-only">{% trans "Copy page link" %}</span>
                             </button>
-                            <button id='share-twitter-button' class="btn btn-share share-twitter" title="{% trans "Share on Twitter" %}">
+                            <button id='share-twitter-button' class="{{ button_classes }} btn-share share-twitter" title="{% trans "Share on Twitter" %}">
                                 <span class="sr-only">{% trans "Share on Twitter" %}</span>
                             </button>
-                            <button id='share-email-button' class="btn btn-share share-email" title="{% trans "Share by email" %}">
+                            <button id='share-email-button' class="{{ button_classes }} btn-share share-email" title="{% trans "Share by email" %}">
                                 <span class="sr-only">{% trans "Share by email" %}</span>
                             </button>
+                          {% endwith %}
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import { ReactGA } from "../../../../common";
 // For the featured banner type on mozefest homepage
 const watchFeaturedVideoHandler = () => {
   const watchVideoButton = document.querySelector(
-      `#mozfest-home-watch-featured-video-button`
+    `#mozfest-home-watch-featured-video-button`
   );
   const externalVideo = document.querySelector(`#mozfest-hero-video iframe`);
   const internalVideo = document.querySelector(`#mozfest-hero-video video`);
@@ -100,26 +100,25 @@ const trackWatchVideoClicks = () => {
     action: `watch video tap`,
     label: `watch video button tap`,
   });
-}
+};
 
 const scrollToVideoHandler = () => {
-  let element = document.getElementById('mozfest-hero-video');
-  let button = document.getElementById('mozfest-hero-video-cta');
+  let element = document.getElementById("mozfest-hero-video");
+  let button = document.getElementById("mozfest-hero-video-cta");
 
   if (element && button) {
     let headerOffset = 90;
     let elementPosition = element.getBoundingClientRect().top;
     let offsetPosition = elementPosition - headerOffset;
 
-    button.addEventListener('click', () => {
+    button.addEventListener("click", () => {
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth"
+        behavior: "smooth",
       });
-    })
+    });
   }
-}
-
+};
 
 /**
  * Bind handlers to MozFest homepage banner

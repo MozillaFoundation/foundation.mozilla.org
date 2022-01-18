@@ -3,6 +3,9 @@
 from django.db import migrations
 
 
+def print_progress(apps, schema_editor):
+    print('Applying wagtailpages 0020')
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -10,6 +13,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(
+            code=print_progress,
+        ),
         migrations.RemoveField(
             model_name='blogpage',
             name='body_de',
