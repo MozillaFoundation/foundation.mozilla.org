@@ -1,10 +1,11 @@
 import { gsap } from "gsap";
-let tl = gsap.timeline();
+let tl = gsap.timeline({ paused: true });
 
 class regretsReporterShareButtons {
   constructor() {
     this.shareButtonsActive = false;
     this.bindEvents();
+    this.buildTimeLine();
   }
 
   bindEvents() {
@@ -37,6 +38,26 @@ class regretsReporterShareButtons {
     });
   }
 
+  buildTimeLine() {
+    tl.to("#share-display-text", {
+      autoAlpha: 0,
+      duration: 0,
+    });
+    tl.set("#share-display-text", { display: "none" });
+    tl.set(".btn-share", { display: "block" });
+    tl.fromTo(
+      ".btn-share",
+      { y: 10, autoAlpha: 0 },
+      {
+        autoAlpha: 1,
+        stagger: 0.1,
+        duration: 0.5,
+        ease: "bounce.out",
+        y: 0,
+      }
+    );
+  }
+
   // Clicks the hidden Shareprogress buttons on extension_hero.html,
   // or copies URL to clipboard.
   shareButtonClicked(event, shareProgressButtonId) {
@@ -65,46 +86,12 @@ class regretsReporterShareButtons {
 
   // Display share buttons and hide "Share This" text
   displayShareButtons() {
-    tl.to("#share-display-text", {
-      autoAlpha: 0,
-      duration: 0,
-    });
-    tl.set("#share-display-text", { display: "none" });
-    tl.set(".btn-share", { display: "block" });
-    tl.fromTo(
-      ".btn-share",
-      { y: 10, autoAlpha: 0 },
-      {
-        autoAlpha: 1,
-        stagger: 0.1,
-        duration: 0.5,
-        ease: "bounce.out",
-        y: 0,
-      }
-    );
+    tl.play();
   }
 
   // Hide share buttons and display "Share This" text
   hideShareButtons() {
-    tl.fromTo(
-      ".btn-share",
-      {
-        autoAlpha: 1,
-        y: 0,
-      },
-      {
-        y: 10,
-        autoAlpha: 0,
-        stagger: -0.1,
-        duration: 0.4,
-      }
-    );
-    tl.set(".btn-share", { display: "none" });
-    tl.set("#share-display-text", { display: "block" });
-    tl.to("#share-display-text", {
-      autoAlpha: 1,
-      duration: 0.1,
-    });
+    tl.reverse();
   }
 }
 

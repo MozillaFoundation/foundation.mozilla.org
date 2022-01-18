@@ -65,9 +65,9 @@ class PulseProjectList extends Component {
 
   // Giving users ability to link to pulse objects using an anchor link
   // and having it render in the right place after recieving data.
-  scrollToLinkedPulseObject(){
+  scrollToLinkedPulseObject() {
     const linkedPulseObject = document.querySelector(window.location.hash);
-    linkedPulseObject?.scrollIntoView()
+    linkedPulseObject?.scrollIntoView();
   }
 
   componentDidMount() {
@@ -75,8 +75,8 @@ class PulseProjectList extends Component {
   }
 
   componentDidUpdate() {
-    if(window.location.hash){
-      this.scrollToLinkedPulseObject()
+    if (window.location.hash) {
+      this.scrollToLinkedPulseObject();
     }
   }
 

@@ -1,3 +1,16 @@
+queue_rules:
+  - name: dependabot
+    conditions:
+      - "status-success=percy/foundation.mozilla.org"
+      - "status-success=Continuous Integration / Node CI (pull_request)"
+      - "status-success=Continuous Integration / Wagtail CI (pull_request)"
+
+  - name: ready-to-merge
+    conditions:
+      - "status-success=percy/foundation.mozilla.org"
+      - "status-success=Continuous Integration / Node CI (pull_request)"
+      - "status-success=Continuous Integration / Wagtail CI (pull_request)"
+
 pull_request_rules:
   - name: Automatic merge for dependabot PRs
     conditions:
@@ -7,10 +20,10 @@ pull_request_rules:
       - "status-success=Continuous Integration / Node CI (pull_request)"
       - "status-success=Continuous Integration / Wagtail CI (pull_request)"
     actions:
-      merge:
+      queue:
         method: squash
-        strict_method: rebase
-        strict: true
+        name: dependabot
+
   - name: Automatic merge for PRs labelled "ready to merge"
     conditions:
       - "#approved-reviews-by>=1"
@@ -19,7 +32,6 @@ pull_request_rules:
       - "status-success=Continuous Integration / Wagtail CI (pull_request)"
       - "label=ready-to-merge"
     actions:
-      merge:
+      queue:
         method: squash
-        strict_method: rebase
-        strict: true
+        name: ready-to-merge
