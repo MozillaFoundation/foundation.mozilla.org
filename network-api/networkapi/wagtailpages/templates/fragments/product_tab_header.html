@@ -1,9 +1,9 @@
 {% load wagtailcore_tags bg_selector_tags l10n i18n localization static %}
 
-{% with tab_class="tw-bg-white tw-text-black tw-font-zilla tw-text-3xl tw-py-2 tw-px-5 tw-flex tw-justify-center tw-items-center medium:tw-flex-1 tw-flex-shrink-0 tw-text-center tw-relative tw-cursor-pointer tw-ease-in tw-transform tw-duration-150 medium:tw-w-auto" %}
+{% with tab_class="tw-bg-white tw-text-black tw-font-zilla tw-text-3xl tw-py-2 tw-px-5 tw-flex tw-justify-center tw-items-center medium:tw-flex-1 tw-shrink-0 tw-text-center tw-relative tw-cursor-pointer tw-ease-in tw-transform tw-duration-150 medium:tw-w-auto" %}
     <div id="product-tab-group" class="tw-bg-white tw-px-4 medium:tw-px-6 tw-flex tw-border-b-4 tw-justify-center tw-mb-7 tw-no-scrollbar tw-overflow-auto tw-sticky medium:tw-static tw-top-[52px] tw-z-[1000] tw--mx-4 medium:tw--mx-6">
         <!-- Need this span for x-scrolling on smaller devices so the first tab doesn't get cut off -->
-        <span class="tw-py-2 tw-px-7 medium:tw-flex-1 tw-flex-shrink-0 tw-relative medium:tw-w-auto  tw-w-[100px] tw-opacity-0 small:tw-hidden">mobile</span>
+        <span class="tw-py-2 tw-px-7 medium:tw-flex-1 tw-shrink-0 tw-relative medium:tw-w-auto  tw-w-[100px] tw-opacity-0 small:tw-hidden">mobile</span>
         <span
         data-product-label="0"
         class="{{tab_class}} "
