@@ -55,7 +55,6 @@ jobs:
       DJANGO_SECRET_KEY: secret
       DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      MOFO_NEWSLETTER_SUBSCRIBE_METHOD: BASKET
       NETWORK_SITE_URL: https://foundation.mozilla.org
       PIPENV_VERBOSITY: -1
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
