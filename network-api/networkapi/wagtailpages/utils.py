@@ -172,13 +172,20 @@ def get_content_related_by_tag(page, result_count=3):
 
     results = False
     own_tags = page.tags.all()
-    own_locale = page.locale
+
+    own_locale = None
+    if hasattr(page, "locale"):
+        own_locale = page.locale
 
     for page_type in page_models_with_tags:
-        # Get all pages that share tags and locale  with this page
+        # Get all pages that share tags with this page
         related_pages = (
-            page_type.objects.filter(tags__in=own_tags).filter(locale=own_locale).live()
+            page_type.objects.filter(tags__in=own_tags).live()
         )
+
+        # Filter related pages to be of same locale as reference page
+        if own_locale:
+            related_pages = related_pages.filter(locale=own_locale)
 
         # Exlude "this page" from the result set for the page's own page type
         # so that we don't end up with "this page is most similar to itself".
