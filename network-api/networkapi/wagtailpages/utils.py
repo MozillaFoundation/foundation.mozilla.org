@@ -179,9 +179,7 @@ def get_content_related_by_tag(page, result_count=3):
 
     for page_type in page_models_with_tags:
         # Get all pages that share tags with this page
-        related_pages = (
-            page_type.objects.filter(tags__in=own_tags).live()
-        )
+        related_pages = page_type.objects.filter(tags__in=own_tags).live()
 
         # Filter related pages to be of same locale as reference page
         if own_locale:
