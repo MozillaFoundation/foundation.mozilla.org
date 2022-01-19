@@ -173,9 +173,7 @@ def get_content_related_by_tag(page, result_count=3):
     results = False
     own_tags = page.tags.all()
 
-    own_locale = None
-    if hasattr(page, 'locale'):
-        own_locale = page.locale
+    own_locale = getattr(page, 'locale', None)
 
     for page_type in page_models_with_tags:
         # Get all pages that share tags with this page
