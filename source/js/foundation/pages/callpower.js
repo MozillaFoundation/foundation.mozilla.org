@@ -199,12 +199,14 @@ import copyToClipboard from "../../copy-to-clipboard.js";
       callButton.removeAttribute(`disabled`);
 
       // also make sure the social share buttons work on success
-      document.querySelectorAll(`.share-button-group .btn`).forEach((element) => {
-        const { target } = element.dataset;
-        element.addEventListener(`click`, (evt) =>
-          shareButtonClicked(evt, target)
-        );
-      });
+      document
+        .querySelectorAll(`.share-button-group .btn`)
+        .forEach((element) => {
+          const { target } = element.dataset;
+          element.addEventListener(`click`, (evt) =>
+            shareButtonClicked(evt, target)
+          );
+        });
     },
   };
 })().init();
