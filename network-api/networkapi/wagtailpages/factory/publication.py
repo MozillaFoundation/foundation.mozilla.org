@@ -52,7 +52,7 @@ class DocumentFactory(CollectionMemberFactory):
 
     title = Faker('text', max_nb_chars=250)
     file = django.FileField(
-        filename=Faker('file_name', category='text'), file_extension="pdf"
+        filename=Faker('file_name', category='image', extension='pdf')
     )
 
 
