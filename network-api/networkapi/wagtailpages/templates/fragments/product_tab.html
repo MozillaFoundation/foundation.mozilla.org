@@ -37,9 +37,9 @@
                     <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What can be used to sign up?" %}</h3>
 
                     <div class="row tw-space-y-4 medium:tw-space-y-0">
-                        {% trans "Email"               as email %}
-                        {% trans "Phone"               as phone %}
-                        {% trans "Third-party account" as third_party_account %}
+                        {% trans "Email" context "Email address" as email %}
+                        {% trans "Phone"                         as phone %}
+                        {% trans "Third-party account"           as third_party_account %}
 
                         <div class="col-12 col-md-4">
                         {% include "fragments/signup_requirement.html" with title=email                 value=product.signup_requires_email          %}
