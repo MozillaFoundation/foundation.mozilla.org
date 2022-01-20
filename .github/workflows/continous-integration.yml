@@ -25,6 +25,7 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: 14
+        cache: 'npm'
     - name: Install Node Dependencies
       run: npm ci
     - name: Run Tests
@@ -54,7 +55,6 @@ jobs:
       DJANGO_SECRET_KEY: secret
       DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      MOFO_NEWSLETTER_SUBSCRIBE_METHOD: BASKET
       NETWORK_SITE_URL: https://foundation.mozilla.org
       PIPENV_VERBOSITY: -1
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
@@ -71,6 +71,7 @@ jobs:
     - uses: actions/setup-python@v2
       with:
         python-version: 3.8
+        cache: 'pip'
     - uses: actions/setup-node@v2
       with:
         node-version: 14
@@ -133,9 +134,11 @@ jobs:
     - uses: actions/setup-python@v2
       with:
         python-version: 3.9.9
+        cache: 'pip'  
     - uses: actions/setup-node@v2
       with:
         node-version: 14
+        cache: 'npm'  
     - name: Install Python Dependencies
       run: pip install -r requirements.txt -r dev-requirements.txt
     - name: Install Node Dependencies
@@ -195,9 +198,11 @@ jobs:
     - uses: actions/setup-python@v2
       with:
         python-version: 3.9.9
+        cache: 'pip'  
     - uses: actions/setup-node@v2
       with:
         node-version: 14
+        cache: 'npm'  
     - name: Install Python Dependencies
       run: pip install -r requirements.txt -r dev-requirements.txt
     - name: Install Node Dependencies

@@ -14,6 +14,7 @@ import {
 } from "./foundation";
 
 import primaryNav from "./primary-nav.js";
+import injectMultipageNav from "./multipage-nav.js";
 import EmbedTypeform from "./embed-typeform.js";
 import Dropdowns from "./dropdowns.js";
 import DonateBanner from "./donate-banner";
@@ -55,6 +56,7 @@ const apps = [];
 
 let main = {
   init() {
+    injectMultipageNav();
     DonateBanner.init();
     GoogleAnalytics.init();
     EmbedTypeform.init();

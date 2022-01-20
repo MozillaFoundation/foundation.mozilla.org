@@ -49,42 +49,15 @@
   }
 
   .share-button-container {
-    $margin: 16px;
-    display: flex;
-
     .btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: none;
-      padding: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: $margin;
-
+      // Hiding share buttons until users click "share this"
+      // share-buttons.js then displays the 4 share buttons.
       &-share {
         display: none;
       }
 
       &::before {
-        filter: brightness(1);
-        content: " ";
-        display: block;
-        width: 36px;
-        height: 36px;
-        background: no-repeat 0 0 / contain;
         transition: $button-icon-transition-speed;
-      }
-
-      &:hover {
-        background-color: $white;
-        &::before {
-          filter: brightness(0);
-        }
-      }
-      &:focus {
-        box-shadow: none;
       }
 
       &.share-icon {

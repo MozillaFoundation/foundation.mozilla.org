@@ -8,7 +8,7 @@ import {
 } from "../common";
 
 import { injectReactComponents, bindEventHandlers } from "./index";
-import injectMultipageNav from "../foundation/inject-react/multipage-nav.js";
+import injectMultipageNav from "../multipage-nav.js";
 
 import primaryNav from "../primary-nav.js";
 
@@ -71,6 +71,7 @@ let main = {
       this.injectReactComponents();
       this.bindHandlers();
       initializePrimaryNav(networkSiteURL, primaryNav);
+      injectMultipageNav();
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
@@ -106,7 +107,6 @@ let main = {
   injectReactComponents() {
     injectCommonReactComponents(apps, networkSiteURL);
     injectReactComponents(apps, networkSiteURL);
-    injectMultipageNav(apps);
   },
 
   initPageSpecificScript() {
