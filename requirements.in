@@ -23,7 +23,7 @@ python-slugify
 requests
 social-auth-app-django
 wagtail-airtable
-wagtail==2.15.1
+wagtail==2.15.2
 wagtail-factories
 wagtail-localize==1.0.1
 wagtail-localize-git==0.11.0
