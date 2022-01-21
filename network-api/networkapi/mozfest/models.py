@@ -242,7 +242,6 @@ class MozfestHomepage(MozfestPrimaryPage):
         SynchronizedField('banner_video'),
         TranslatableField('signup'),
         TranslatableField('body'),
-        TranslatableField('footnotes'),
     ]
 
     def get_context(self, request):
