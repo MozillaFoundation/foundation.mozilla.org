@@ -9,6 +9,9 @@ import { setupNavLinks, setupGoBackToAll } from "./member-functions.js";
  */
 export class SearchFilter {
   constructor() {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.defaults({ ease: "power3" });
+
     const { searchBar, searchInput } = this.setupSearchBar();
     setupNavLinks(this);
     setupGoBackToAll(this);
@@ -21,6 +24,27 @@ export class SearchFilter {
 
     this.allProducts = document.querySelectorAll(`figure.product-box`);
     this.categoryTitle = document.querySelector(`.category-title`);
+
+    // we want the animation to start when the first eight products images are loaded
+    Promise.all(
+      Array.from(
+        document.querySelectorAll(".product-box.d-flex img.product-thumbnail")
+      )
+        .slice(0, 8)
+        .filter((img) => !img.complete)
+        .map(
+          (img) =>
+            new Promise((resolve) => {
+              img.onload = img.onerror = resolve;
+            })
+        )
+    ).then(() => {
+      if (this.categoryTitle.value === "None") {
+        Utils.toggleScrollAnimation();
+      } else {
+        Utils.toggleCategoryAnimation();
+      }
+    });
   }
 
   /**
@@ -78,6 +102,7 @@ export class SearchFilter {
     searchBar.classList.remove(`has-content`);
     searchInput.value = ``;
 
+    gsap.set(this.allProducts, { opacity: 1, scale: 1 });
     this.allProducts.forEach((product) => {
       product.classList.remove(`d-none`);
       product.classList.add(`d-flex`);
