@@ -1,4 +1,4 @@
-{% load i18n static wagtailcore_tags %}
+{% load i18n static wagtailcore_tags bg_selector_tags %}
 
 <div class="primary-info">
     <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center tw-flex-wrap">
@@ -14,34 +14,8 @@
         {{ value|richtext }}
       </div>
     {% else %}
-    <p class="rating pni-product-smaller-body mb-0">
-      {% if value == "Can’t Determine" or value == "CD"%}
-        {% if show_value_as_symbol %}
-        <img src="{% static "_images/buyers-guide/score/icon-unknown.svg" %}" alt="{% trans "Can’t determine" context "Unknown rating" %}">
-        {% else %}
-        {% trans "Can’t Determine" context "Unknown rating" %}
-        {% endif %}
-      {% elif value == "NA" %}
-        {% trans "Not Applicable" %}
-      {% elif value == "Yes" %}
-        {% if show_value_as_symbol %}
-        <img src="{% static "_images/buyers-guide/score/icon-yes.svg" %}" alt="{% trans "Yes" %}">
-        {% else %}
-        {% trans "Yes" %}
-        {% endif %}
-      {% elif value == "No" %}
-        {% if show_value_as_symbol %}
-        <img src="{% static "_images/buyers-guide/score/icon-no.svg" %}" alt="{% trans "No" %}">
-        {% else %}
-        {% trans "No" %}
-        {% endif %}
-      {% else %}
-        {% if show_value_as_symbol %}
-        <img src="{% get_static_prefix %}_images/buyers-guide/score/icon-{{value|lower}}.svg" alt="{{value}}">
-        {% else %}
-        {{ value }}
-        {% endif %}
-      {% endif %}
-    </p>
+      <p class="rating pni-product-smaller-body mb-0">
+        {% trans value|extended_yes_no context value|extended_yes_no %}
+      </p>
   {% endif %}
 </div>

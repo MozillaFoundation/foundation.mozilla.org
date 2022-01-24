@@ -106,7 +106,9 @@ run(`docker cp ${DUMP_FILE} ${IMAGE_NAMES.POSTGRES}:/`);
 postgres(`pg_restore ${DB_FLAGS} -dwagtail ${DUMP_FILE}`);
 
 console.log(`Migrating database...`);
-run(`docker exec ${IMAGE_NAMES.BACKEND} ./dockerpythonvenv/bin/python network-api/manage.py migrate`);
+run(
+  `docker exec ${IMAGE_NAMES.BACKEND} ./dockerpythonvenv/bin/python network-api/manage.py migrate`
+);
 
 console.log(`Updating site bindings...`);
 run(`inv manage fix_local_site_bindings`, true, silent);

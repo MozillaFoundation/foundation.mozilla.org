@@ -4,8 +4,7 @@ const plugin = require("tailwindcss/plugin");
 const componentPlugins = require("./tailwind.components");
 
 module.exports = {
-  purge: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
-  mode: "jit",
+  content: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
   darkMode: "class", // use tw-dark
   important: true,
   corePlugins: {
@@ -16,15 +15,6 @@ module.exports = {
     plugin(function ({ addUtilities }) {
       // Adding Column Count to Tailwind CSS
       const newUtilities = {
-        ".col-count-1": {
-          columnCount: 1,
-        },
-        ".col-count-2": {
-          columnCount: 2,
-        },
-        ".col-count-3": {
-          columnCount: 3,
-        },
         ".hash": {
           content: '"#"',
         },
@@ -44,12 +34,6 @@ module.exports = {
     extend: {
       fontWeight: {
         inherit: "inherit",
-      },
-      screens: {
-        print: { raw: "print" },
-      },
-      opacity: {
-        40: 0.4,
       },
       cursor: {
         grabbing: "grabbing",
@@ -140,9 +124,6 @@ module.exports = {
         purple: "#353552",
       },
     },
-  },
-  variants: {
-    extend: {},
   },
   prefix: "tw-",
 };

@@ -6,7 +6,7 @@
         
         <div class="tw-overflow-hidden medium:tw--mx-7">
             <div id="product-tab-content" class="tw-w-full tw-flex tw-transition-transform tw-ease-in-out tw-duration-300 tw-items-start">
-                <div class="tw-w-full tw-flex-shrink-0 medium:tw-px-7" data-product-label="0">
+                <div class="tw-w-full tw-shrink-0 medium:tw-px-7" data-product-label="0">
                     {% if product.product_type == 'general' %}
                     <section class="criterion">
                         <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center">
@@ -37,9 +37,9 @@
                     <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What can be used to sign up?" %}</h3>
 
                     <div class="row tw-space-y-4 medium:tw-space-y-0">
-                        {% trans "Email"               as email %}
-                        {% trans "Phone"               as phone %}
-                        {% trans "Third-party account" as third_party_account %}
+                        {% trans "Email" context "Email address" as email %}
+                        {% trans "Phone"                         as phone %}
+                        {% trans "Third-party account"           as third_party_account %}
 
                         <div class="col-12 col-md-4">
                         {% include "fragments/signup_requirement.html" with title=email                 value=product.signup_requires_email          %}
@@ -95,19 +95,19 @@
 
                     {% if product.product_type == 'general' %}
                     {% trans "User-friendly privacy information?" as user_friendly_privacy_policy %}
-                    {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy|extended_yes_no   help=product.user_friendly_privacy_policy_helptext  %}
+                    {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy help=product.user_friendly_privacy_policy_helptext  %}
                     {% endif %}
 
                     {% trans "Links to privacy information" as privacy_policy_links %}
                     {% include "fragments/product_privacy.html"    with  label=privacy_policy_links          value=""         links=product.privacy_policy_links.all                  %}
                 </div>
 
-                <div class="tw-w-full tw-flex-shrink-0 medium:tw-px-7" data-product-label="1">
+                <div class="tw-w-full tw-shrink-0 medium:tw-px-7" data-product-label="1">
                     {% localizedroutablepageurl home_page 'methodology-view' as min_sec_url %}
                     {% blocktrans with url=min_sec_url|add:"#minimum-security-standards" asvar minimum_security_standards trimmed %}
                     Does this product meet our <span class="tw-ml-1"></span> <a id="mss-link" class="" href="{{ url }}">Minimum Security Standards</a>?
                     {% endblocktrans %}
-                    {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False   value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards info=min_sec_url  %}
+                    {% include "fragments/product_criterion.html"  with  value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards info=min_sec_url  %}
 
                     {% trans "Encryption"              as encryption %}
                     {% trans "Security updates"        as security_updates %}
@@ -115,23 +115,22 @@
                     {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
                     {% trans "Privacy policy"          as privacy_policy %}
 
-                    {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption               %}
-                    {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password          %}
-                    {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates         %}
-                    {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities  rich_help_text=True %}
-                    {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy           %}
+                    {% include "fragments/product_criterion.html"  with  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption               %}
+                    {% include "fragments/product_criterion.html"  with  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password          %}
+                    {% include "fragments/product_criterion.html"  with  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates         %}
+                    {% include "fragments/product_criterion.html"  with  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities  rich_help_text=True %}
+                    {% include "fragments/product_criterion.html"  with  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy           %}
                 </div>
 
-                <div class="tw-w-full tw-flex-shrink-0 medium:tw-px-7" data-product-label="2">
+                <div class="tw-w-full tw-shrink-0 medium:tw-px-7" data-product-label="2">
                     {% if product.product_type == 'general' %}
                     <section class="criterion-group">
-                        {% with product.uses_ai|extended_yes_no as uses_ai %}
                         {% trans "Does the product use AI?" as uses_ai_label %}
-                        {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai info="/privacynotincluded/about/methodology" help=product.ai_helptext rich_help_text=True  %}
+                        {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=product.uses_ai info="/privacynotincluded/about/methodology" help=product.ai_helptext rich_help_text=True  %}
 
                         {% if product.uses_ai != "No" %}
                         {% trans "Is this AI untrustworthy?" as ai_is_untrustworthy_label %}
-                        {% include "fragments/product_criterion.html"  with  label=ai_is_untrustworthy_label  value=product.ai_is_untrustworthy|extended_yes_no ding=product.ai_is_untrustworthy_ding  %}
+                        {% include "fragments/product_criterion.html"  with  label=ai_is_untrustworthy_label  value=product.ai_is_untrustworthy ding=product.ai_is_untrustworthy_ding  %}
 
                         <section class="criterion">
                             <div class="primary-info">
@@ -143,13 +142,12 @@
                         </section>
 
                         {% trans "Is the company transparent about how the AI works?" as ai_is_transparent %}
-                        {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no help=product.ai_is_transparent_helptext rich_help_text=True %}
+                        {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent help=product.ai_is_transparent_helptext rich_help_text=True %}
 
                         {% trans "Does the user have control over the AI features?" as ai_can_user_control %}
-                        {% include "fragments/product_criterion.html"  with  label=ai_can_user_control  value=product.ai_can_user_control|extended_yes_no help=product.ai_can_user_control_helptext rich_help_text=True %}
+                        {% include "fragments/product_criterion.html"  with  label=ai_can_user_control  value=product.ai_can_user_control help=product.ai_can_user_control_helptext rich_help_text=True %}
 
                         {% endif %}
-                        {% endwith %}
                     </section>
                     {% endif %}
                 </div>

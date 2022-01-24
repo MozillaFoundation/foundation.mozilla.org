@@ -39,15 +39,11 @@ export function setupNavLinks(instance) {
 
       if (categoryName) {
         document
-          .querySelector(
-            `#multipage-nav a[data-name="${categoryName}"]`
-          )
+          .querySelector(`#multipage-nav a[data-name="${categoryName}"]`)
           .classList.add(`active`);
 
         document
-          .querySelector(
-            `#pni-nav-mobile a[data-name="${categoryName}"]`
-          )
+          .querySelector(`#pni-nav-mobile a[data-name="${categoryName}"]`)
           .classList.add(`active`);
 
         instance.clearText();

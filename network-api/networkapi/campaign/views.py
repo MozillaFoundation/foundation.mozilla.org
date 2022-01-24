@@ -148,26 +148,12 @@ def signup_submission(request, signup):
     if cid is not None and cid != '':
         data['campaign_id'] = cid
 
-    # If we want to subscribe them through basket, do so, if not, subscribe them using SQS.
-    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET':
-        response = basket.subscribe(data['email'], data['newsletters'], lang=data['lang'])
-        if response['status'] == 'ok':
-            return JsonResponse(data, status=status.HTTP_201_CREATED)
+    # Subscribing to newsletter using basket.
+    response = basket.subscribe(data['email'], data['newsletters'], lang=data['lang'])
+    if response['status'] == 'ok':
+        return JsonResponse(data, status=status.HTTP_201_CREATED)
 
-        return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
-
-    else:
-        # pack up as a basket message
-        message = json.dumps({
-            'app': settings.HEROKU_APP_NAME,
-            'timestamp': datetime.now().isoformat(),
-            'data': {
-                'json': True,
-                'form': data,
-                'event_type': 'newsletter_signup_data'
-            }
-        })
-        return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='signup')
+    return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
 
 
 # handle Salesforce petition data
@@ -220,29 +206,18 @@ def petition_submission(request, petition):
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
-    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'CINCHY':
-        # Rewriting payload for Cinchy
-        data['json'] = True
-        data['event_type'] = 'crm_petition_data'
-        message = json.dumps({
-            'app': settings.HEROKU_APP_NAME,
-            'timestamp': datetime.now().isoformat(),
-            'data': data
-            })
-    else:
-        # Formatting the payload the original way for Basket
-        message = json.dumps({
-            'app': settings.HEROKU_APP_NAME,
-            'timestamp': datetime.now().isoformat(),
-            'data': {
-                'json': True,
-                'form': data,
-                'event_type': 'crm_petition_data'
-            }
-        })
+    # Formatting the payload for Basket
+    message = json.dumps({
+        'app': settings.HEROKU_APP_NAME,
+        'timestamp': datetime.now().isoformat(),
+        'data': {
+            'json': True,
+            'form': data,
+            'event_type': 'crm_petition_data'
+        }
+    })
 
-    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET' \
-            and request.data['newsletterSignup'] is True:
+    if request.data['newsletterSignup'] is True:
 
         # Use basket-clients subscribe method, then send the petition information to SQS
         # with "newsletterSignup" set to false, to avoid subscribing them twice.
