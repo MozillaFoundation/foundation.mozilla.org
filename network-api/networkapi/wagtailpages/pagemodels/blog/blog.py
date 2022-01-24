@@ -104,6 +104,7 @@ class RelatedBlogPosts(Orderable):
     class Meta:
         verbose_name = 'Related blog posts'
         verbose_name_plural = 'Related blog posts'
+        ordering = ['sort_order']
 
 
 class BlogPage(FoundationMetadataPageMixin, Page):
