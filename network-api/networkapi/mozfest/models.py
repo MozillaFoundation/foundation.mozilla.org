@@ -208,6 +208,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         'MozfestHomepage',
     ]
 
+    # See https://github.com/mozilla/foundation.mozilla.org/issues/7883#issuecomment-996039763
     content_panels = Page.content_panels + [
         SnippetChooserPanel('signup'),
         MultiFieldPanel([
