@@ -5,6 +5,7 @@ class SingleQuoteBlock(blocks.StructBlock):
 
     quote = blocks.RichTextBlock(features=['bold'])
     attribution = blocks.CharBlock(required=False)
+    attribution_info = blocks.RichTextBlock(required=False)
 
     class Meta:
         template = 'wagtailpages/blocks/single_quote_block.html'

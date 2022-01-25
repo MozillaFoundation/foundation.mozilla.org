@@ -144,10 +144,12 @@ def generate_spacer_field():
 def generate_quote_field():
     quote = f'<p>{fake.sentence()}</p>'
     attribution = fake.name()
+    attribution_info = f'<p>{fake.sentence()} <a href="{fake.url(schemes=["https"])}">{fake.sentence()}</a></p>'
 
     return generate_field('single_quote', {
         'quote': quote,
         'attribution': attribution,
+        'attribution_info': attribution_info,
     })
 
 

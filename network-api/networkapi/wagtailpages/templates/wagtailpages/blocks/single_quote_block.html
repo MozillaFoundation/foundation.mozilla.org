@@ -4,8 +4,11 @@
 {% block block_content %}
   <div class="my-2">
     <div class="feature-quote">
-      {{ value.quote | richtext }}
-      <p class="h6-heading">{{value.attribution}}</p>
+      <div class="quote-content">{{ value.quote | richtext }}</div>
+      <p class="h6-heading tw-text-lg tw-max-w-4xl">{{value.attribution}}</p>
+      <div class="feature-quote-attribution-info tw-max-w-4xl tw-italic">
+        {{ value.attribution_info | richtext }}
+      </div>
     </div>
   </div>
 {% endblock %}
