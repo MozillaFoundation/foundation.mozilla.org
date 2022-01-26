@@ -73,7 +73,11 @@ If `inv test-node` shows linting errors for either JS/JSX or CSS/SCSS, you can r
 
 Integration testing is done using [Playwright](https://playwright.dev/), with the integration tests found in `./tests/integration`.
 
-You can run these tests locally by running a one-time `npm run playwright:install` after which you should be able to run `npm run playwright` to run the visual tests. Note that this is still a work in progress.
+You can run these tests locally by running a one-time `npm install` and `npm run playwright:install` after which you should be able to run `npm run playwright` to run the visual tests.
+
+In order to run the same tests as will run during CI testing, make sure that `RANDOM_SEED=530910203` is set in your `.env` file, and that your local database is a new db based on that seed (`inv new-db`).
+
+Note that this is still a work in progress.
 
 ### Visual regression tests
 
