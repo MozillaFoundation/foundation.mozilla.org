@@ -80,7 +80,9 @@ jobs:
     - name: Install Node Dependencies
       run: npm ci
     - name: Install additional tooling
-      run: sudo apt-get install -y gettext
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gettext
     - name: Preroll
       run: |
         npm run build
@@ -145,6 +147,7 @@ jobs:
       run: npm ci
     - name: Install additional tooling
       run: |
+        sudo apt-get update
         sudo apt-get install -y gettext libgconf-2-4
     - name: Install Playwright
       run: npm run playwright:install
@@ -212,6 +215,7 @@ jobs:
       run: npm ci
     - name: Install additional tooling
       run: |
+        sudo apt-get update
         sudo apt-get install -y gettext libgconf-2-4
     - name: Install Playwright
       run: npm run playwright:install

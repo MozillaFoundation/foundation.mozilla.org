@@ -3,13 +3,17 @@ from wagtail.admin.forms import WagtailAdminModelForm
 
 class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
     def clean_name(self):
+        instance = self.instance
+        set = instance.__class__.objects
         name = self.cleaned_data["name"]
-        if (
-            self.instance.__class__.objects.filter(name__iexact=name)
-            .exclude(pk=self.instance.pk)
-            .exists()
-        ):
+        duplicate = set.filter(name__iexact=name).exclude(pk=instance.pk)
+
+        if hasattr(instance, 'locale'):
+            duplicate = duplicate.filter(locale=instance.locale)
+
+        if duplicate.exists():
             self.add_error("name", "A category with this name already exists.")
+
         return name
 
     def clean_parent(self):
