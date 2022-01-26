@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField, RichTextField
@@ -80,6 +81,17 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
 
     settings_panels = Page.settings_panels + [
         FieldPanel('use_wide_template')
+    ]
+
+    structured_data = models.TextField(
+        help_text='Structured data JSON for Google search results. Do not include the <script> tag. '
+                  'See https://schema.org/ for properties and https://validator.schema.org/ to test validity.',
+        blank=True,
+        null=True,
+    )
+
+    promote_panels = FoundationMetadataPageMixin.promote_panels + [
+        FieldPanel('structured_data', widget=forms.Textarea(attrs={"rows": 10}))
     ]
 
     translatable_fields = [
