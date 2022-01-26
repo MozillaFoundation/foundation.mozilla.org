@@ -8,7 +8,7 @@ class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
         name = self.cleaned_data["name"]
         duplicate = set.filter(name__iexact=name).exclude(pk=instance.pk)
 
-        if instance.hasattr('locale'):
+        if hasattr(instance, 'locale'):
             duplicate = duplicate.filter(locale=instance.locale)
 
         if duplicate.exists():
