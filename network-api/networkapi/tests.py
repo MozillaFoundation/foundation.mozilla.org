@@ -57,11 +57,18 @@ class MissingMigrationsTests(TestCase):
         """
         Ensure we didn't forget a migration
         """
+
+        print("checking for migrations")
+
         output = StringIO()
         call_command('makemigrations', interactive=False, dry_run=True, stdout=output)
 
-        if output.getvalue() != "No changes detected\n":
-            raise AssertionError("Missing migrations detected:\n" + output.getvalue())
+        result = output.getvalue()
+
+        print(result)
+
+        if result != "No changes detected\n":
+            raise AssertionError(f"Missing migrations detected:\n{result}")
 
 
 class DeleteNonStaffTest(TestCase):
