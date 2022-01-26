@@ -193,6 +193,9 @@ jobs:
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
+      CSP_FONT_SRC: 'self' https://fonts.gstatic.com https://fonts.googleapis.com https://code.cdn.mozilla.net
+      CSP_SCRIPT_SRC: 'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js
+      CSP_STYLE_SRC: 'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com https://platform.twitter.com 
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
