@@ -6,14 +6,10 @@ class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
         instance = self.instance
         set = instance.__class__.objects
         name = self.cleaned_data["name"]
+        duplicate = set.filter(name__iexact=name).exclude(pk=instance.pk)
 
         if instance.hasattr('locale'):
-            duplicate = set.filter(
-                name__iexact=name,
-                locale=instance.locale,
-            ).exclude(pk=instance.pk)
-        else:
-            duplicate = set.filter(name__iexact=name).exclude(pk=instance.pk)
+            duplicate = duplicate.filter(locale=instance.locale)
 
         if duplicate.exists():
             self.add_error("name", "A category with this name already exists.")
