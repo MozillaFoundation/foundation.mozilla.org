@@ -26,7 +26,7 @@ export class SearchFilter {
     this.categoryTitle = document.querySelector(`.category-title`);
 
     // we want the animation to start when the first eight products images are loaded
-    Promise.all(
+    Promise.allSettled(
       Array.from(
         document.querySelectorAll(".product-box.d-flex img.product-thumbnail")
       )
@@ -34,8 +34,9 @@ export class SearchFilter {
         .filter((img) => !img.complete)
         .map(
           (img) =>
-            new Promise((resolve) => {
-              img.onload = img.onerror = resolve;
+            new Promise((resolve, reject) => {
+              img.onload = resolve;
+              img.onerror = reject;
             })
         )
     ).then(() => {

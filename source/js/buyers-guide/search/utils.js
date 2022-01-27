@@ -32,7 +32,7 @@ export class Utils {
    * @param {*} parent
    */
   static updateHeader(category, parent) {
-    let headerText = document.querySelector(".category-header");
+    const headerText = document.querySelector(".category-header");
 
     if (parent) {
       headerText.textContent = parent;
