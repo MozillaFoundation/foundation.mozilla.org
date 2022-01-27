@@ -6,7 +6,12 @@
 <html lang="{{ lang_code }}">
   <head>
     <meta charset="utf-8">
-    <title>{% block page_title %}{% trans "Mozilla Foundation" %} - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}</title>
+    <title>
+      {% block page_title %}
+        {% if APP_ENVIRONMENT == "Staging" %} [S] {% elif APP_ENVIRONMENT == "Review" %} [RA] {% endif %}
+        {% trans "Mozilla Foundation" %} - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}
+      {% endblock %}
+    </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -45,9 +50,8 @@
     {% block extended_head %}{% endblock %}
 
     {% block icons %}
-      <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{% static "_images/favicons/apple-touch-icon-180x180@2x.png" %}">
-      <link rel="icon" type="image/png" sizes="196x196" href="{% static "_images/favicons/favicon-196x196@2x.png" %}">
-      <link rel="shortcut icon" href="{% static "_images/favicons/favicon.ico" %}">
+      {% include "fragments/favicons.html" %}
+
     {% endblock %}
 
     {% block hreflang %}

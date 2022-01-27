@@ -1,7 +1,10 @@
 {% extends "./mozfest-base.html" %}
 {% load wagtailcore_tags %}
 
-{% block page_title %}{{page.title}}{% endblock%}
+{% block page_title %}
+  {% if APP_ENVIRONMENT == "Staging" %} [S] {% elif APP_ENVIRONMENT == "Review" %} [RA] {% endif %}
+  {{page.title}}
+{% endblock%}
 
 {% block mozfest_body_id %}home{% endblock %}
 {% block bodyclass %}mozfest {% if banner_video_type %}banner-type-{{banner_video_type}}{% endif %}{% endblock %}

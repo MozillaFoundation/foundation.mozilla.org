@@ -30,6 +30,7 @@ env = environ.Env(
     AIRTABLE_BASE_URL=(str, ''),
     AIRTABLE_ENABLED=(bool, False),
     ALLOWED_HOSTS=(list, []),
+    APP_ENVIRONMENT=(str, ''),
     ASSET_DOMAIN=(str, ''),
     AWS_LOCATION=(str, ''),
     BASKET_URL=(str, ''),
@@ -119,6 +120,9 @@ if SENTRY_DSN:
 
 # At True when running on a review app
 REVIEW_APP = env('REVIEW_APP', default=False)
+
+APP_ENVIRONMENT=env('APP_ENVIRONMENT')
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = root()
@@ -326,6 +330,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'networkapi.context_processor.review_app',
+                'networkapi.context_processor.app_environment',
                 'networkapi.context_processor.canonical_path',
                 'networkapi.context_processor.canonical_site_url',
                 'networkapi.context_processor.env_debug',

@@ -1,7 +1,10 @@
 {% extends "pages/base.html" %}
 {% load i18n %}
 
-{% block page_title %}{% trans "Page Not Found" %}{% endblock %}
+{% block page_title %}
+  {% if APP_ENVIRONMENT == "Staging" %} [S] {% elif APP_ENVIRONMENT == "Review" %} [RA] {% endif %}
+  {% trans "Page Not Found" %}
+{% endblock %}
 
 {% block web_monetization %}{% endblock %}
 

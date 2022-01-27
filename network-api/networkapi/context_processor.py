@@ -7,6 +7,9 @@ from django.utils import translation
 def review_app(request):
     return {'REVIEW_APP': settings.REVIEW_APP}
 
+def app_environment(request):
+    return {'APP_ENVIRONMENT': settings.APP_ENVIRONMENT}
+
 
 def canonical_path(request):
     lang = getattr(request, 'locale', translation.get_language())

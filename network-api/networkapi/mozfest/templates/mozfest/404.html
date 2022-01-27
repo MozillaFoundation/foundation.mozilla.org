@@ -3,7 +3,8 @@
 {% load i18n %}
 
 {% block page_title %}
-{% blocktrans %}Mozilla Festival - Page Not Found{% endblocktrans %}
+  {% if APP_ENVIRONMENT == "Staging" %} [S] {% elif APP_ENVIRONMENT == "Review" %} [RA] {% endif %}
+  {% blocktrans %}Mozilla Festival - Page Not Found{% endblocktrans %}
 {% endblock %}
 
 {% block body_id %}{% endblock %}
