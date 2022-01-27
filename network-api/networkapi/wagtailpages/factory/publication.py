@@ -52,7 +52,13 @@ class DocumentFactory(CollectionMemberFactory):
 
     title = Faker('text', max_nb_chars=250)
     file = django.FileField(
-        filename=Faker('file_name', category='text'), file_extension="pdf"
+        filename='test.pdf',
+        data=b'''
+              %PDF-1.0 1 0 obj<</Pages 2 0 R>>endobj
+              2 0 obj<</Kids[3 0 R]/Count 1>>endobj
+              3 0 obj<</MediaBox[0 0 3 3]>>endobj
+              trailer<</Root 1 0 R>>
+              '''
     )
 
 
