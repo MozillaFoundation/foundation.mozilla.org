@@ -2,11 +2,11 @@ name: Continuous Integration
 
 on:
   push:
-    branches: [ 'main' ]
+    branches: ["main"]
     paths-ignore:
       - maintenance/**/*.*
   pull_request:
-    branches: [ 'main' ]
+    branches: ["main"]
     paths-ignore:
       - maintenance/**/*.*
 
@@ -21,15 +21,15 @@ jobs:
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
       PULSE_DOMAIN: https://www.mozillapulse.org
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: 14
-        cache: 'npm'
-    - name: Install Node Dependencies
-      run: npm ci
-    - name: Run Tests
-      run: npm test
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: "npm"
+      - name: Install Node Dependencies
+        run: npm ci
+      - name: Run Tests
+        run: npm test
 
   test_wagtail:
     name: Wagtail CI
@@ -42,7 +42,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: network
         ports:
-        - 5432:5432
+          - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
@@ -67,36 +67,36 @@ jobs:
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-        cache: 'pip'
-    - uses: actions/setup-node@v2
-      with:
-        node-version: 14
-    - name: Install Python Dependencies
-      run: pip install -r requirements.txt -r dev-requirements.txt
-    - name: Install Node Dependencies
-      run: npm ci
-    - name: Install additional tooling
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y gettext
-    - name: Preroll
-      run: |
-        npm run build
-        python network-api/manage.py collectstatic --no-input --verbosity 0
-        python network-api/manage.py migrate --no-input
-        python network-api/manage.py block_inventory
-        python network-api/manage.py compilemessages
-    - name: Run Tests
-      run: |
-        flake8 tasks.py network-api/
-        coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
-    - name: Coveralls
-      run: coveralls
-      continue-on-error: true
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          cache: "pip"
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install Python Dependencies
+        run: pip install -r requirements.txt -r dev-requirements.txt
+      - name: Install Node Dependencies
+        run: npm ci
+      - name: Install additional tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gettext
+      - name: Preroll
+        run: |
+          npm run build
+          python network-api/manage.py collectstatic --no-input --verbosity 0
+          python network-api/manage.py migrate --no-input
+          python network-api/manage.py block_inventory
+          python network-api/manage.py compilemessages
+      - name: Run Tests
+        run: |
+          flake8 tasks.py network-api/
+          coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
+      - name: Coveralls
+        run: coveralls
+        continue-on-error: true
 
   test_percy:
     name: Percy CI
@@ -109,7 +109,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: network
         ports:
-        - 5432:5432
+          - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
@@ -132,36 +132,36 @@ jobs:
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-      with:
-        python-version: 3.9.9
-        cache: 'pip'  
-    - uses: actions/setup-node@v2
-      with:
-        node-version: 14
-        cache: 'npm'  
-    - name: Install Python Dependencies
-      run: pip install -r requirements.txt -r dev-requirements.txt
-    - name: Install Node Dependencies
-      run: npm ci
-    - name: Install additional tooling
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y gettext libgconf-2-4
-    - name: Install Playwright
-      run: npm run playwright:install
-    - name: Preroll
-      run: |
-        npm run build
-        python network-api/manage.py collectstatic --no-input --verbosity 0
-        python network-api/manage.py migrate --no-input
-        python network-api/manage.py block_inventory
-        python network-api/manage.py load_fake_data
-    - name: Percy Test
-      run: npm run percy
-      env:
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9.9
+          cache: "pip"
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: "npm"
+      - name: Install Python Dependencies
+        run: pip install -r requirements.txt -r dev-requirements.txt
+      - name: Install Node Dependencies
+        run: npm ci
+      - name: Install additional tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gettext libgconf-2-4
+      - name: Install Playwright
+        run: npm run playwright:install
+      - name: Preroll
+        run: |
+          npm run build
+          python network-api/manage.py collectstatic --no-input --verbosity 0
+          python network-api/manage.py migrate --no-input
+          python network-api/manage.py block_inventory
+          python network-api/manage.py load_fake_data
+      - name: Percy Test
+        run: npm run percy
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
   test_integration:
     name: Integration testing
@@ -174,7 +174,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: network
         ports:
-        - 5432:5432
+          - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
@@ -196,35 +196,35 @@ jobs:
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
-      CSP_FONT_SRC: 'self' https://fonts.gstatic.com https://fonts.googleapis.com https://code.cdn.mozilla.net
-      CSP_SCRIPT_SRC: 'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js
-      CSP_STYLE_SRC: 'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com https://platform.twitter.com 
+      CSP_FONT_SRC: "'self' https://fonts.gstatic.com https://fonts.googleapis.com https://code.cdn.mozilla.net"
+      CSP_SCRIPT_SRC: "'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js"
+      CSP_STYLE_SRC: "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com https://platform.twitter.com"
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-      with:
-        python-version: 3.9.9
-        cache: 'pip'  
-    - uses: actions/setup-node@v2
-      with:
-        node-version: 14
-        cache: 'npm'  
-    - name: Install Python Dependencies
-      run: pip install -r requirements.txt -r dev-requirements.txt
-    - name: Install Node Dependencies
-      run: npm ci
-    - name: Install additional tooling
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y gettext libgconf-2-4
-    - name: Install Playwright
-      run: npm run playwright:install
-    - name: Preroll
-      run: |
-        npm run build
-        python network-api/manage.py collectstatic --no-input --verbosity 0
-        python network-api/manage.py migrate --no-input
-        python network-api/manage.py block_inventory
-        python network-api/manage.py load_fake_data
-    - name: Integration Tests
-      run: npm run playwright:ci
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9.9
+          cache: "pip"
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: "npm"
+      - name: Install Python Dependencies
+        run: pip install -r requirements.txt -r dev-requirements.txt
+      - name: Install Node Dependencies
+        run: npm ci
+      - name: Install additional tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gettext libgconf-2-4
+      - name: Install Playwright
+        run: npm run playwright:install
+      - name: Preroll
+        run: |
+          npm run build
+          python network-api/manage.py collectstatic --no-input --verbosity 0
+          python network-api/manage.py migrate --no-input
+          python network-api/manage.py block_inventory
+          python network-api/manage.py load_fake_data
+      - name: Integration Tests
+        run: npm run playwright:ci
