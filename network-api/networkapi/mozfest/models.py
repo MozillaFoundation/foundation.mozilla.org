@@ -1,5 +1,6 @@
+from django import forms
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -80,6 +81,17 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
 
     settings_panels = Page.settings_panels + [
         FieldPanel('use_wide_template')
+    ]
+
+    structured_data = models.TextField(
+        help_text='Structured data JSON for Google search results. Do not include the <script> tag. '
+                  'See https://schema.org/ for properties and https://validator.schema.org/ to test validity.',
+        blank=True,
+        null=True,
+    )
+
+    promote_panels = FoundationMetadataPageMixin.promote_panels + [
+        FieldPanel('structured_data', widget=forms.Textarea(attrs={"rows": 10}))
     ]
 
     translatable_fields = [
@@ -208,21 +220,19 @@ class MozfestHomepage(MozfestPrimaryPage):
         'MozfestHomepage',
     ]
 
-    # Put everything above the body
-    parent_panels = MozfestPrimaryPage.content_panels
-    panel_count = len(parent_panels)
-    n = panel_count - 1
-
-    content_panels = parent_panels[:n] + [
-        FieldPanel('cta_button_label'),
-        FieldPanel('cta_button_destination'),
+    # See https://github.com/mozilla/foundation.mozilla.org/issues/7883#issuecomment-996039763
+    content_panels = Page.content_panels + [
+        SnippetChooserPanel('signup'),
+        MultiFieldPanel([
+            FieldPanel('cta_button_label', heading='Label'),
+            FieldPanel('cta_button_destination', heading='Destination'),
+        ], heading='CTA Button'),
         FieldPanel('banner_heading'),
         FieldPanel('banner_cta_label'),
         StreamFieldPanel('banner_carousel'),
-        FieldPanel('banner_guide_text'),
-        FieldPanel('banner_video_url'),
         StreamFieldPanel('banner_video'),
-    ] + parent_panels[n:]
+        StreamFieldPanel('body'),
+    ]
 
     # Because we inherit from PrimaryPage, but the "use_wide_template" property does nothing
     # we should hide it and make sure we use the right template
@@ -241,13 +251,10 @@ class MozfestHomepage(MozfestPrimaryPage):
         SynchronizedField('cta_button_destination'),
         TranslatableField('banner_heading'),
         TranslatableField('banner_cta_label'),
-        TranslatableField('banner_guide_text'),
-        SynchronizedField('banner_video_url'),
         TranslatableField('banner_carousel'),
         SynchronizedField('banner_video'),
         TranslatableField('signup'),
         TranslatableField('body'),
-        TranslatableField('footnotes'),
     ]
 
     def get_context(self, request):

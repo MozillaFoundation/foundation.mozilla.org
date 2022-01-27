@@ -104,6 +104,7 @@ class RelatedBlogPosts(Orderable):
     class Meta:
         verbose_name = 'Related blog posts'
         verbose_name_plural = 'Related blog posts'
+        ordering = ['sort_order']
 
 
 class BlogPage(FoundationMetadataPageMixin, Page):
@@ -274,20 +275,16 @@ class BlogPage(FoundationMetadataPageMixin, Page):
                 )
             )
 
-    def save(self, *args, **kwargs):
-        """
-        Ensure that we've tried to fill in three related posts
-        for this blog post if fewer than three were set by staff
-        """
-        self.ensure_related_posts()
-        return super().save(*args, *kwargs)
-
     def clean(self):
         if self.hero_image and self.hero_video:
             raise ValidationError({
                 'hero_image': ValidationError("Please select a video OR an image for the hero section."),
                 'hero_video': ValidationError("Please select a video OR an image for the hero section.")
                 })
+
+        # Ensure that we've tried to fill in three related posts
+        # for this blog post if fewer than three were set by staff
+        self.ensure_related_posts()
 
         return super().clean()
 
