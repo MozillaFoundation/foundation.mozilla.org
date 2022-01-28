@@ -98,3 +98,8 @@
 
 // Print Style
 @import "./print";
+
+// for smooth-scrolling with sticky nav
+html {
+  scroll-padding-top: 6rem;
+}

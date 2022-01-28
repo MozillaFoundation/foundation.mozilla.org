@@ -20,7 +20,7 @@
     margin: 0 auto 10px;
   }
 
-  .rich-text {
+  .quote-content .rich-text {
     p {
       font-family: "Zilla Slab";
       font-size: 24px;
@@ -32,6 +32,14 @@
       @media screen and (min-width: $breakpoint) {
         font-size: 30px;
       }
+    }
+  }
+
+  .feature-quote-attribution-info .rich-text {
+    p {
+      font-size: 0.75rem;
+      line-height: 1rem;
+      font-weight: light;
     }
   }
 }
