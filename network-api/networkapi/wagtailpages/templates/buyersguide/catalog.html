@@ -108,7 +108,7 @@
   </div>
 
   <div class="product-box-list-wrapper">
-    <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
+    <div class="product-box-list tw-overflow-hidden d-flex justify-content-center align-items-stretch flex-wrap">
     {% if request.user.is_anonymous %}
       {# User is not logged in. Return cached results. 24 hour caching applied. #}
       {% cache 86400 pni_home_page template_cache_key_fragment %}
@@ -141,5 +141,15 @@
  </div>
 </div>
 
+<noscript>
+    <style type="text/css">
+        body.catalog figure.product-box {
+            opacity: 1 !important;
+        }
+    </style>
+</noscript>
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{% static "_js/bg-search.compiled.js" %}" async type="module"></script>
 {% endblock %}
