@@ -2,7 +2,7 @@
 {% load wagtailcore_tags %}
 
 {% block page_title %}
-  {% if APP_ENVIRONMENT == "Staging" %} [S] {% elif APP_ENVIRONMENT == "Review" %} [RA] {% endif %}
+  {% include "fragments/environment_prefix.html" %}
   {{page.title}}
 {% endblock%}
 

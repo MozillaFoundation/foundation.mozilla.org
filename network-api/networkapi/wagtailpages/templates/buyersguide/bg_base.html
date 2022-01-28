@@ -5,7 +5,7 @@
 {% get_current_language as lang_code %}
 
 {% block page_title %}
-{% if APP_ENVIRONMENT == "Staging" %} [S] {% elif APP_ENVIRONMENT == "Review" %} [RA] {% endif %}
+{% include "fragments/environment_prefix.html" %}
 {% if pageTitle %}{{ pageTitle }}
 {% else %}{% blocktrans context "“*privacy not included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included | Shop smart and safe{% endblocktrans %} | Mozilla Foundation{% endif %}
 {% endblock %}

@@ -18,8 +18,8 @@
 
 
 {% block page_title %}
-    {% if APP_ENVIRONMENT == "Staging" %} [S] {% elif APP_ENVIRONMENT == "Review" %} [RA] {% endif %}
-    {% blocktrans %}Mozilla Festival{% endblocktrans %}{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
+  {% include "fragments/environment_prefix.html" %}
+  {% blocktrans %}Mozilla Festival{% endblocktrans %}{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
 {% endblock %}
 
 {% block org_schema %}

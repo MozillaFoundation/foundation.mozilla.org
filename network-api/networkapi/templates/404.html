@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block page_title %}
-  {% if APP_ENVIRONMENT == "Staging" %} [S] {% elif APP_ENVIRONMENT == "Review" %} [RA] {% endif %}
+  {% include "fragments/environment_prefix.html" %}
   {% trans "Page Not Found" %}
 {% endblock %}
 
