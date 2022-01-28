@@ -122,8 +122,6 @@ if SENTRY_DSN:
 REVIEW_APP = env('REVIEW_APP', default=False)
 
 APP_ENVIRONMENT = env('APP_ENVIRONMENT')
-
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = root()
 
