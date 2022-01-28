@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags custom_image_tags i18n static %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags custom_image_tags i18n static environment_prefix %}
 
 
 {% block web_monetization %}
@@ -18,7 +18,7 @@
 
 
 {% block page_title %}
-  {% include "fragments/environment_prefix.html" %}
+  {% environment_prefix %}
   {% blocktrans %}Mozilla Festival{% endblocktrans %}{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
 {% endblock %}
 

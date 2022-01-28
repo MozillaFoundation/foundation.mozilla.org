@@ -1,4 +1,4 @@
-{% load wagtailmetadata_tags i18n localization settings_value wagtailuserbar static %}
+{% load wagtailmetadata_tags i18n localization settings_value wagtailuserbar static environment_prefix %}
 
 {% get_current_language as lang_code %}
 
@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <title>
       {% block page_title %}
-        {% include "fragments/environment_prefix.html" %}
+        {% environment_prefix %}        
         {% trans "Mozilla Foundation" %} - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}
       {% endblock %}
     </title>

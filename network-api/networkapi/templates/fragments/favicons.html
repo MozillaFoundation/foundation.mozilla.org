@@ -1,10 +1,11 @@
-{% load static %}
+{% load static environment_prefix %}
+{% environment_prefix as env_prefix %}
 
-{% if APP_ENVIRONMENT == "Staging" %}
+{% if env_prefix  == '[S]' %}
   <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{% static "_images/favicons/favicon-staging.svg" %}">
   <link rel="icon" type="image/png" sizes="196x196" href="{% static "_images/favicons/favicon-staging.svg" %}">
   <link rel="shortcut icon" href="{% static "_images/favicons/favicon-staging.svg" %}">
-{% elif APP_ENVIRONMENT == "Review" %}
+{% elif env_prefix  == '[RA]' %}
   <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{% static "_images/favicons/favicon-reviewapp.svg" %}">
   <link rel="icon" type="image/png" sizes="196x196" href="{% static "_images/favicons/favicon-reviewapp.svg" %}">
   <link rel="shortcut icon" href="{% static "_images/favicons/favicon-reviewapp.svg" %}">

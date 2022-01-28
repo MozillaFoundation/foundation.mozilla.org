@@ -1,11 +1,11 @@
 {% extends "pages/base.html" %}
 
-{% load bg_nav_tags localization i18n static wagtailroutablepage_tags wagtailmetadata_tags debug_tags %}
+{% load bg_nav_tags localization i18n static wagtailroutablepage_tags wagtailmetadata_tags debug_tags environment_prefix %}
 
 {% get_current_language as lang_code %}
 
 {% block page_title %}
-{% include "fragments/environment_prefix.html" %}
+{% environment_prefix %}
 {% if pageTitle %}{{ pageTitle }}
 {% else %}{% blocktrans context "“*privacy not included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included | Shop smart and safe{% endblocktrans %} | Mozilla Foundation{% endif %}
 {% endblock %}

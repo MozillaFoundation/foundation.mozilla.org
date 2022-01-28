@@ -1,9 +1,9 @@
 {% extends "mozfest/mozfest-base.html" %}
 
-{% load i18n %}
+{% load i18n environment_prefix %}
 
 {% block page_title %}
-  {% include "fragments/environment_prefix.html" %}
+  {% environment_prefix %}
   {% blocktrans %}Mozilla Festival - Page Not Found{% endblocktrans %}
 {% endblock %}
 

@@ -1,8 +1,8 @@
 {% extends "./mozfest-base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags environment_prefix %}
 
 {% block page_title %}
-  {% include "fragments/environment_prefix.html" %}
+  {% environment_prefix %}
   {{page.title}}
 {% endblock%}
 
