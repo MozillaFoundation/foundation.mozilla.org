@@ -1,6 +1,10 @@
 import utility from "../../../utility.js";
 import navNewsletter from "../../../nav-newsletter.js";
 
+/**
+ * Animating the intro tunnel on the Youtube Regrets page.
+ */
+
 // factor for bringing image blocks closer to perspective origin
 const ZOOM_FACTOR = 2.5;
 // where on the z-axis do we want the rings to start spread out

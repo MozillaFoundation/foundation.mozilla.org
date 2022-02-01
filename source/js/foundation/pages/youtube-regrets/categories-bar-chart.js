@@ -1,5 +1,9 @@
 import { Chart, registerables } from "chart.js";
 
+/**
+ * Using chart.js to render the regret category graph on the Youtube Regrets page.
+ */
+
 export const initYouTubeRegretsCategoriesBarChart = () => {
   Chart.register(...registerables);
 

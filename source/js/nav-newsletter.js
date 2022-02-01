@@ -2,6 +2,12 @@ import ReactDOM from "react-dom";
 import JoinUs from "./components/join/join.jsx";
 import { ReactGA } from "../js/common";
 
+/**
+ * Logic for the Newsletter form that slides down from the top of page
+ * when the "Newsletter" button is clicked in the navigation bar.
+ * 
+ */
+
 const elements = {
   primaryNav: `.primary-nav-container`,
   narrowMenuContainer: `.primary-nav-container .narrow-screen-menu-container`,

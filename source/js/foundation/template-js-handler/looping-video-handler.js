@@ -1,3 +1,7 @@
+/**
+ * Adding play/pause functionality and autoplaying the video from the looping video component.
+ */
+
 const loopingVideoHandler = () => {
   let loopingVideoBlocks = document.querySelectorAll("#looping-video .banner");
 
