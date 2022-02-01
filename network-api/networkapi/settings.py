@@ -236,7 +236,6 @@ INSTALLED_APPS = list(filter(None, [
     'corsheaders',
     'storages',
     'adminsortable',
-    'cloudinary',
 
     # the network site
     'networkapi',
@@ -254,7 +253,6 @@ INSTALLED_APPS = list(filter(None, [
     # wagtail-specific app prefixed so that it can be localised
     'networkapi.wagtailpages',
     'networkapi.mozfest',
-    'networkapi.buyersguide',
 ]))
 
 MIDDLEWARE = list(filter(None, [

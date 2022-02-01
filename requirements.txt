@@ -28,7 +28,6 @@ cached_property==1.5.2
     # via -r requirements.in
 certifi==2021.5.30
     # via
-    #   cloudinary
     #   requests
     #   sentry-sdk
     #   urllib3
@@ -38,8 +37,6 @@ cffi==1.14.6
     #   pygit2
 charset-normalizer==2.0.4
     # via requests
-cloudinary==1.26.0
-    # via -r requirements.in
 cryptography==3.4.7
     # via
     #   pyopenssl
@@ -192,7 +189,6 @@ six==1.16.0
     # via
     #   airtable-python-wrapper
     #   basket-client
-    #   cloudinary
     #   html5lib
     #   l18n
     #   pyopenssl
@@ -222,7 +218,6 @@ tqdm==4.15.0
 urllib3[secure]==1.26.6
     # via
     #   botocore
-    #   cloudinary
     #   requests
     #   scout-apm
     #   sentry-sdk
