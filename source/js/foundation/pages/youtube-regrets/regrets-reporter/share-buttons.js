@@ -1,6 +1,11 @@
 import { gsap } from "gsap";
 let tl = gsap.timeline({ paused: true });
 
+/**
+ * Animating buttons in the "Share this" section of the youtube regrets reporter extension landing page.
+ * Uses GSAP to provide the animations.
+ */
+
 class regretsReporterShareButtons {
   constructor() {
     this.shareButtonsActive = false;

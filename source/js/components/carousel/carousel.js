@@ -6,6 +6,11 @@ import Swiper, {
   Keyboard,
 } from "swiper";
 
+/**
+ * Image Carousel on Mozfest Homepage Hero Section.
+ * Uses Swiper library to provide functionality to move between slides.
+ */
+
 Swiper.use([A11y, Autoplay, Pagination, Navigation, Keyboard]);
 
 class Carousel {

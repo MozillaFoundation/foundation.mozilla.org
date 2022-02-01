@@ -1,3 +1,8 @@
+/**
+ * Using the tito library to set up a ticket purchasing widget.
+ * This file is to hook into a callback which runs when someone completes registration.
+ */
+
 export function setupTito() {
   globalThis.tito =
     globalThis.tito ||
