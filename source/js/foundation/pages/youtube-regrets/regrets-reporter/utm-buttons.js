@@ -1,3 +1,11 @@
+/**
+ * Adding a UTM string to the download/share buttons on the youtube regrets extension landing page.
+ * 
+ * If there are UTM parameters in the URL bar, which means they got directed to the page through a
+ * marketing effort, we append those to the link buttons so the params get carried over to the download page.
+ * If there are none, we are appending a default UTM param to the button links.
+ */
+
 class regretsReporterUtmButtons {
   constructor() {
     this.checkForUtmParams();

@@ -1,5 +1,10 @@
 import Swiper from "swiper/bundle";
 
+/**
+ * Image Carousel on the Youtube Regrets page.
+ * Uses Swiper library to provide functionality to move between slides.
+ */
+
 class Carousel {
   // Note: ensure your parent element has a unique id and data-carousel attr
   constructor() {

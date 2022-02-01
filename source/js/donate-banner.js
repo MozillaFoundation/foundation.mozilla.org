@@ -1,3 +1,7 @@
+/**
+ * Open/Close functionality for the Donate banner that slides from the top of the page.
+ */
+
 const DonateBanner = {
   init: function () {
     const today = new Date();
