@@ -1,10 +1,11 @@
 {% extends "pages/base.html" %}
 
-{% load bg_nav_tags localization i18n static wagtailroutablepage_tags wagtailmetadata_tags debug_tags %}
+{% load bg_nav_tags localization i18n static wagtailroutablepage_tags wagtailmetadata_tags debug_tags mofo_common %}
 
 {% get_current_language as lang_code %}
 
 {% block page_title %}
+{% environment_prefix %}
 {% if pageTitle %}{{ pageTitle }}
 {% else %}{% blocktrans context "“*privacy not included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included | Shop smart and safe{% endblocktrans %} | Mozilla Foundation{% endif %}
 {% endblock %}
@@ -36,9 +37,7 @@
 
 
 {% block icons %}
-  <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{% static "_images/favicons/apple-touch-icon-180x180@2x.png" %}">
-  <link rel="icon" type="image/png" sizes="196x196" href="{% static "_images/favicons/favicon-196x196@2x.png" %}">
-  <link rel="shortcut icon" href="{% static "_images/favicons/favicon.ico" %}">
+  {% include "fragments/favicons.html" %}
 {% endblock %}
 
 
