@@ -1,9 +1,10 @@
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Utils } from "./utils.js";
 import { CreepUtils } from "./creep-utils.js";
 import { markScrollStart } from "./slider-area.js";
 import { setupHistoryManagement, applyHistory } from "./history.js";
 import { setupNavLinks, setupGoBackToAll } from "./member-functions.js";
-
 /**
  * ...
  */
