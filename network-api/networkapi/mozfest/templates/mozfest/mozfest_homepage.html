@@ -1,7 +1,10 @@
 {% extends "./mozfest-base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags mofo_common %}
 
-{% block page_title %}{{page.title}}{% endblock%}
+{% block page_title %}
+  {% environment_prefix %}
+  {{page.title}}
+{% endblock%}
 
 {% block mozfest_body_id %}home{% endblock %}
 {% block bodyclass %}mozfest {% if banner_video_type %}banner-type-{{banner_video_type}}{% endif %}{% endblock %}
