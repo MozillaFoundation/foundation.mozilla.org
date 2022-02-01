@@ -1,3 +1,7 @@
+/**
+ * Adding play/pause functionality to the optional Blog Page hero video section.
+ */
+
 const blogHeroVideoHandler = () => {
   let blogPageHero = document.querySelector("#page-hero .banner");
 

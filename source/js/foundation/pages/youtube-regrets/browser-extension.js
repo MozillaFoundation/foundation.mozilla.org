@@ -1,3 +1,8 @@
+/**
+ * Checking if the user is on a mobile device.
+ * If on desktop, render download buttons. If on mobile, render email reminder button.
+ */
+
 class BrowserExtension {
   constructor() {
     this.checkForMobile();

@@ -1,6 +1,10 @@
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/all";
 
+/**
+ * Animating the "Read More" tab that displays the regret categories chart.
+ */
+
 gsap.registerPlugin(ScrollToPlugin);
 
 class ReadMoreCategories {

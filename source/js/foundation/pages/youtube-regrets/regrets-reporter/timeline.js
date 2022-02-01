@@ -1,5 +1,9 @@
 import utility from "../../../../utility.js";
 
+/**
+ * Animating the timeline on the youtube regrets work page.
+ */
+
 let elements = {
   timeline: `#view-youtube-regrets-reporter .timeline-wrapper .timeline`,
   segments: `#view-youtube-regrets-reporter .timeline-wrapper .timeline .segment`,
