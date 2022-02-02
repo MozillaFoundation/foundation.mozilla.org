@@ -1,3 +1,5 @@
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 const SORTS = [`name`, `company`, `blurb`];
 const FILTERS = [`company`, `name`, `blurb`, `worst-case`];
 const ALL_PRODUCTS = document.querySelectorAll(`figure.product-box`);
@@ -32,8 +34,10 @@ export class Utils {
    * @param {*} parent
    */
   static updateHeader(category, parent) {
+    const headerText = document.querySelector(".category-header");
+
     if (parent) {
-      document.querySelector(".category-header").textContent = parent;
+      headerText.textContent = parent;
       document.querySelector(".category-header").dataset.name = parent;
       document.querySelector(".category-header").href = document.querySelector(
         `#multipage-nav a[data-name="${parent}"]`
@@ -42,7 +46,7 @@ export class Utils {
         parent;
     } else {
       const header = category === "None" ? ALL_CATEGORY_LABEL : category;
-      document.querySelector(".category-header").textContent = header;
+      headerText.textContent = header;
       document.querySelector(".category-header").dataset.name = category;
       document.querySelector(".category-header").href = document.querySelector(
         `#multipage-nav a[data-name="${category}"]`
@@ -137,6 +141,7 @@ export class Utils {
    * @param {*} text
    */
   static toggleProducts(text) {
+    gsap.set(ALL_PRODUCTS, { opacity: 1, y: 0 });
     ALL_PRODUCTS.forEach((product) => {
       if (this.test(product, text)) {
         product.classList.remove(`d-none`);
@@ -146,6 +151,46 @@ export class Utils {
         product.classList.remove(`d-flex`);
       }
     });
+
+    this.toggleCategoryAnimation();
+  }
+
+  /**
+   * Scroll Animation used solely for the 'All Products' section
+   */
+  static toggleScrollAnimation() {
+    ScrollTrigger.clearScrollMemory();
+    ScrollTrigger.refresh(true);
+    gsap.set("figure.product-box.d-flex", { opacity: 0, y: 100 });
+
+    // group products stagger animation based on mobile breakpoint
+    const responsiveBatch =
+      window.innerWidth > 991 ? 8 : window.innerWidth > 767 ? 6 : 4;
+
+    ScrollTrigger.batch("figure.product-box.d-flex", {
+      batchMax: responsiveBatch, // maximum batch size (targets)
+      onEnter: (batch) =>
+        gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          overwrite: true,
+        }),
+    });
+  }
+
+  /**
+   * Animation used for category selections
+   */
+  static toggleCategoryAnimation() {
+    gsap.set("figure.product-box.d-flex", { opacity: 0, y: 100 });
+
+    gsap.to("figure.product-box.d-flex", {
+      opacity: 1,
+      y: 0,
+      stagger: 0.1,
+      overwrite: true,
+    });
   }
 
   /**
@@ -153,6 +198,7 @@ export class Utils {
    * @param {*} category
    */
   static showProductsForCategory(category) {
+    gsap.set(ALL_PRODUCTS, { opacity: 1, y: 0 });
     ALL_PRODUCTS.forEach((product) => {
       if (this.testCategories(product, category)) {
         product.classList.remove(`d-none`);
@@ -162,6 +208,12 @@ export class Utils {
         product.classList.remove(`d-flex`);
       }
     });
+
+    if (category === "None") {
+      Utils.toggleScrollAnimation();
+    } else {
+      Utils.toggleCategoryAnimation();
+    }
   }
 
   /**

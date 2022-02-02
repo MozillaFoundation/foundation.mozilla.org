@@ -1,3 +1,8 @@
+/**
+ * Signing users up for the Foundation newsletter using the Basket client. 
+ * https://basket.readthedocs.io/
+ */
+
 // TODO: make this dynamic based on env. Staging is allizom.org. https://github.com/mozilla/network/issues/118
 var url = `https://www.mozilla.org/en-US/newsletter/`;
 

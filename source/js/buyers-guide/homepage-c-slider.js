@@ -1,5 +1,11 @@
 import CREEPINESS_LABELS from "./components/creepiness-labels.js";
 
+/**
+ * Logic to render the "Creep-O-Meter" face at the bottom right of the PNI homepage.
+ * As the user scrolls down the list of items, the rating gets creepier,
+ * and the text bubble and face change to reflect that.
+ */
+
 // Height of a single frame in the emoji sprite sheet,
 // see the ".current-creepiness" rule in homagepage.sccs
 const EMOJI_FRAME_HEIGHT = 70;

@@ -1,5 +1,9 @@
 import { CountUp } from "countup.js";
 
+/**
+ * Rendering and animating the numbers that "count up" using countup.js.
+ */
+
 export const initYoutubeRegretsResearchCountUp = () => {
   if ("IntersectionObserver" in window) {
     const localeSeparator = get_format("THOUSAND_SEPARATOR");

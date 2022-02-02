@@ -1,3 +1,8 @@
+/**
+ * Adding a click event listener for the mobile navigation on PNI.
+ * If the navigation menu button is clicked, open the navigation panel.
+ */
+
 const PNIMobileNav = {
   init: () => {
     const mobileNav = document.querySelector("#pni-nav-mobile");

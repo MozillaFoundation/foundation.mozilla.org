@@ -1,6 +1,10 @@
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/all";
 
+/**
+ * Open/Close functionality of the accordion on the Youtube Regrets page.
+ */
+
 gsap.registerPlugin(ScrollToPlugin);
 
 class Accordion {

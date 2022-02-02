@@ -215,6 +215,9 @@ body.catalog {
         $recommendation-width: 17px;
         $recommendation-height: 15.8px;
 
+        // Needed for animation state while JS loads
+        opacity: 0;
+
         display: inline-block;
         position: relative;
         margin-left: $box-margin;

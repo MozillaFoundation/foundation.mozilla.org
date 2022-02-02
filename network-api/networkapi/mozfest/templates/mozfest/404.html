@@ -1,9 +1,10 @@
 {% extends "mozfest/mozfest-base.html" %}
 
-{% load i18n %}
+{% load i18n mofo_common %}
 
 {% block page_title %}
-{% blocktrans %}Mozilla Festival - Page Not Found{% endblocktrans %}
+  {% environment_prefix %}
+  {% blocktrans %}Mozilla Festival - Page Not Found{% endblocktrans %}
 {% endblock %}
 
 {% block body_id %}{% endblock %}

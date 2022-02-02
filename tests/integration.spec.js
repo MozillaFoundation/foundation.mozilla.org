@@ -58,7 +58,7 @@ test(`PNI search`, async ({ page }, testInfo) => {
   const qs = {
     ding: `#product-filter-pni-toggle`,
     dingLabel: `label[for="product-filter-pni-toggle"]`,
-    products: `.product-box:visible`,
+    products: `.product-box.d-flex`,
     searchBar: `#product-filter-search-input`,
     clearSearch: `label[for="product-filter-search-input"]`,
     activeCategory: `#multipage-nav a.multipage-link.active`,
@@ -142,7 +142,9 @@ test(`PNI search`, async ({ page }, testInfo) => {
   await page.click(`main`);
   await page.click(qs.dingLabel);
   await expect(searchBar).toBeFocused();
-  products = page.locator(qs.products);
+  // have to check for the ding-only products here,
+  // since the ding - only class is added to a parent element
+  products = page.locator(".product-box:visible");
   await expect(products).toHaveCount(counts.theWithDing);
   await page.click(qs.dingLabel);
   products = page.locator(qs.products);

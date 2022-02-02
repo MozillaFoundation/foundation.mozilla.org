@@ -1,5 +1,10 @@
 import { ReactGA } from "../../../../common";
 
+/**
+ * Mozfest hero banner video component.
+ * Provides play/pause buttons functionality, as well as GA tracking of video plays.
+ */
+
 // For the featured banner type on mozefest homepage
 const watchFeaturedVideoHandler = () => {
   const watchVideoButton = document.querySelector(

@@ -1,3 +1,7 @@
+/**
+ * Adding play/pause/seek functionality to the Audio Player component.
+ */
+
 const audioBlockHandler = () => {
   let pageAudioBlocks = document.querySelectorAll("#audio-player");
 

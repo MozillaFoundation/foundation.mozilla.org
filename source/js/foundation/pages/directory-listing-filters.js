@@ -1,3 +1,7 @@
+/**
+ * Filtering functionality for the pulse directory component.
+ */
+
 (function () {
   // start of function
 
