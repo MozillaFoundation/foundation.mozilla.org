@@ -30,6 +30,7 @@ env = environ.Env(
     AIRTABLE_BASE_URL=(str, ''),
     AIRTABLE_ENABLED=(bool, False),
     ALLOWED_HOSTS=(list, []),
+    APP_ENVIRONMENT=(str, ''),
     ASSET_DOMAIN=(str, ''),
     AWS_LOCATION=(str, ''),
     BASKET_URL=(str, ''),
@@ -120,6 +121,7 @@ if SENTRY_DSN:
 # At True when running on a review app
 REVIEW_APP = env('REVIEW_APP', default=False)
 
+APP_ENVIRONMENT = env('APP_ENVIRONMENT')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = root()
 
@@ -335,6 +337,7 @@ TEMPLATES = [
                 'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'class_tags': 'networkapi.wagtailpages.templatetags.class_tags',
                 'debug_tags': 'networkapi.wagtailpages.templatetags.debug_tags',
+                'mofo_common': 'networkapi.utility.templatetags.mofo_common',
                 'homepage_tags': 'networkapi.wagtailpages.templatetags.homepage_tags',
                 'localization': 'networkapi.wagtailpages.templatetags.localization',
                 'mini_site_tags': 'networkapi.wagtailpages.templatetags.mini_site_tags',

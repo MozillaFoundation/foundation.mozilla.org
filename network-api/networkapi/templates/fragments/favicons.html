@@ -1,0 +1,16 @@
+{% load static mofo_common %}
+{% environment_prefix as env_prefix %}
+
+{% if env_prefix  == '[S]' %}
+  <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{% static "_images/favicons/favicon-staging.svg" %}">
+  <link rel="icon" type="image/png" sizes="196x196" href="{% static "_images/favicons/favicon-staging.svg" %}">
+  <link rel="shortcut icon" href="{% static "_images/favicons/favicon-staging.svg" %}">
+{% elif env_prefix  == '[RA]' %}
+  <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{% static "_images/favicons/favicon-reviewapp.svg" %}">
+  <link rel="icon" type="image/png" sizes="196x196" href="{% static "_images/favicons/favicon-reviewapp.svg" %}">
+  <link rel="shortcut icon" href="{% static "_images/favicons/favicon-reviewapp.svg" %}">
+{% else %}
+  <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{% static "_images/favicons/apple-touch-icon-180x180@2x.png" %}">
+  <link rel="icon" type="image/png" sizes="196x196" href="{% static "_images/favicons/favicon-196x196@2x.png" %}">
+  <link rel="shortcut icon" href="{% static "_images/favicons/favicon.ico" %}">
+{% endif %}

@@ -1,3 +1,5 @@
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 const SORTS = [`name`, `company`, `blurb`];
 const FILTERS = [`company`, `name`, `blurb`, `worst-case`];
 const ALL_PRODUCTS = document.querySelectorAll(`figure.product-box`);
