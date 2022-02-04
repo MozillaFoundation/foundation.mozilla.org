@@ -15,6 +15,7 @@ from wagtail.core import blocks
 from wagtail.core.models import Orderable, Locale, Page
 from wagtail.core.fields import StreamField
 from wagtail.core.rich_text import get_text_for_indexing
+from wagtail.embeds import blocks as embed_blocks
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 
@@ -57,6 +58,7 @@ base_fields = [
     ('single_quote', customblocks.SingleQuoteBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
     ('airtable', customblocks.AirTableBlock()),
+    ('embed', embed_blocks.EmbedBlock()),
 ]
 
 
