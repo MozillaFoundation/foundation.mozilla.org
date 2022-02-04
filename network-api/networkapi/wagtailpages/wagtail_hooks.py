@@ -25,7 +25,6 @@ from wagtail_localize.models import LocaleSynchronization, sync_trees_on_locale_
 post_save.disconnect(sync_trees_on_locale_sync_save, sender=LocaleSynchronization)
 
 
-    
 # Extended rich text features for our site
 @hooks.register('register_rich_text_features')
 def register_large_feature(features):
@@ -95,6 +94,7 @@ class RichTextExternalLinkHandler(LinkHandler):
     def add_target_blank(cls, attrs):
         href = attrs["href"]
         return '<a href="%s" target="_blank" rel="noopener nofollower">' % escape(href)
+
 
 @hooks.register('register_rich_text_features')
 def register_external_rich_text_link(features):
