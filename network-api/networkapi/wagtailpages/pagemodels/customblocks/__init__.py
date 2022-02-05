@@ -6,6 +6,7 @@ from .blog_set_block import BlogSetBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
 from .card_grid import CardGrid, CardGridBlock
 from .current_events_slider_block import CurrentEventsSliderBlock
+from .datawrapper_block import DatawrapperBlock
 from .banner_carousel import BannerCarouselSlideBlock
 from .iframe_block import iFrameBlock
 from .image_block import ImageBlock
@@ -46,6 +47,7 @@ __all__ = [
     CardGrid,
     CardGridBlock,
     CurrentEventsSliderBlock,
+    DatawrapperBlock,
     DearInternetLetterBlock,
     ExternalVideoBlock,
     iFrameBlock,
