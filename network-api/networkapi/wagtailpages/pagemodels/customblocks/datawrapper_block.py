@@ -41,4 +41,5 @@ class DatawrapperBlock(blocks.EmbedBlock):
         return super().__init__(*args, **kwargs)
 
     class Meta:
+        icon = 'image'
         template = 'wagtailpages/blocks/datawrapper_block.html'
