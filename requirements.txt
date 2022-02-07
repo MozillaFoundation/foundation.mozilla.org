@@ -38,7 +38,7 @@ cffi==1.14.6
     #   pygit2
 charset-normalizer==2.0.4
     # via requests
-cloudinary==1.26.0
+cloudinary==1.29.0
     # via -r requirements.in
 cryptography==3.4.7
     # via
