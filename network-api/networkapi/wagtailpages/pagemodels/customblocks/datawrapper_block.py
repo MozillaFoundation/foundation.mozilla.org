@@ -59,7 +59,6 @@ class DatawrapperBlock(blocks.EmbedBlock):
         }
         return path, args, kwargs
 
-
     class Meta:
         icon = 'image'
         template = 'wagtailpages/blocks/datawrapper_block.html'
