@@ -313,7 +313,9 @@ class CampaignPage(MiniSiteNameSpace):
         TranslatableField('search_description'),
         SynchronizedField('search_image'),
         # Content tab fields
-        TranslatableField('cta'),
+
+        # Contingency fix while https://github.com/mozilla/foundation.mozilla.org/pull/7777 is sorted out
+        # TranslatableField('cta'),
         TranslatableField('title'),
         TranslatableField('header'),
         SynchronizedField('narrowed_page_content'),
