@@ -505,7 +505,7 @@ if env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"):
 
 # Wagtail Embeds
 
-datawrapper_oembed = {
+DATAWRAPPER_PROVIDER = {
     'endpoint': 'https://api.datawrapper.de/v3/oembed',
     'urls': [
         r'^https:\/\/datawrapper\.dwcdn\.net\/(?:[\d\w]{5}\/){1}(?:[\d]+\/)?$',
@@ -515,7 +515,7 @@ datawrapper_oembed = {
 WAGTAILEMBEDS_FINDERS = [
     {
         'class': 'wagtail.embeds.finders.oembed',
-        'providers': [datawrapper_oembed],
+        'providers': [DATAWRAPPER_PROVIDER],
     }
 ]
 
