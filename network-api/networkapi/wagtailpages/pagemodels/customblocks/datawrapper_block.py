@@ -29,9 +29,16 @@ class DatawrapperBlock(blocks.EmbedBlock):
 
     """
 
-    class Meta:
-        template = 'wagtailpages/blocks/datawrapper_block.html'
-        help_text = (
-            'Enter the "visualisation only" link of the Datawrapper embed. '
+    def __init__(self, *args, **kwargs):
+        # Help text is set in the constructor rather than the `Meta` class to work
+        # around a bug in Wagtail: https://github.com/wagtail/wagtail/issues/7929
+        default_help_text = (
+            'Enter the "visualisation only" link of the Datawrapper chart. '
             'It looks something like this: https://datawrapper.dwcdn.net/KwSKp/1/'
         )
+        help_text = kwargs.get("help_text", default_help_text)
+        kwargs["help_text"] = help_text
+        return super().__init__(*args, **kwargs)
+
+    class Meta:
+        template = 'wagtailpages/blocks/datawrapper_block.html'
