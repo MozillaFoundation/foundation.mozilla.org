@@ -34,8 +34,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('wagtailcore', '0066_collection_management_permissions'),
-        ('wagtailimages', '0023_add_choose_permissions'),
+        ('wagtailcore', '0045_assign_unlock_grouppagepermission'),
+        ('wagtailimages', '0001_squashed_0021'),
         ('wagtailpages', '0001_initial_models'),
     ]
 
