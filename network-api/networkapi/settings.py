@@ -508,7 +508,7 @@ if env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"):
 datawrapper_oembed = {
     'endpoint': 'https://api.datawrapper.de/v3/oembed',
     'urls': [
-        '^https:\/\/datawrapper\.dwcdn\.net\/(?:[\d\w]{5}\/){1}(?:[\d]+\/)?$',
+        r'^https:\/\/datawrapper\.dwcdn\.net\/(?:[\d\w]{5}\/){1}(?:[\d]+\/)?$',
     ]
 }
 
