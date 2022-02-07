@@ -87,18 +87,18 @@ def register_large_feature(features):
 
 
 # Updating external links in rich text blocks to open in a new tab
-class RichTextExternalLinkHandler(LinkHandler):
+class RichTextExternalLinkNewTabHandler(LinkHandler):
     identifier = 'external'
 
     @classmethod
-    def add_target_blank(cls, attrs):
+    def expand_db_attributes(cls, attrs):
         href = attrs["href"]
         return '<a href="%s" target="_blank" rel="noopener nofollower">' % escape(href)
 
 
 @hooks.register('register_rich_text_features')
 def register_external_rich_text_link(features):
-    features.register_link_type(RichTextExternalLinkHandler)
+    features.register_link_type(RichTextExternalLinkNewTabHandler)
 
 
 # Ensure that pages in the PageChooserPanel listings are ordered on most-recent-ness
