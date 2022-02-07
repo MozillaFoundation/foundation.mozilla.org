@@ -28,17 +28,37 @@ class DatawrapperBlock(blocks.EmbedBlock):
     - https://developer.datawrapper.de/docs/embedding-charts-via-oembed
 
     """
+    _default_help_text = (
+        'Enter the "visualisation only" link of the Datawrapper chart. '
+        'It looks something like this: https://datawrapper.dwcdn.net/KwSKp/1/'
+    )
 
     def __init__(self, *args, **kwargs):
         # Help text is set in the constructor rather than the `Meta` class to work
         # around a bug in Wagtail: https://github.com/wagtail/wagtail/issues/7929
-        default_help_text = (
-            'Enter the "visualisation only" link of the Datawrapper chart. '
-            'It looks something like this: https://datawrapper.dwcdn.net/KwSKp/1/'
-        )
-        help_text = kwargs.get("help_text", default_help_text)
+        help_text = kwargs.get("help_text", self._default_help_text)
         kwargs["help_text"] = help_text
         return super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        """
+        Custom deconstruct method to define class representation in migrations.
+
+        This is necessary to prevent issue with migrations when the class is moved.
+
+        See also:
+        https://docs.wagtail.org/en/stable/advanced_topics/customisation/streamfield_blocks.html#handling-block-definitions-within-migrations
+
+        """
+        path = 'wagtail.embeds.blocks.EmbedBlock'
+        args = []
+        kwargs = {
+            "icon": self.meta.icon,
+            "template": self.meta.template,
+            "help_text": self._default_help_text,
+        }
+        return path, args, kwargs
+
 
     class Meta:
         icon = 'image'
