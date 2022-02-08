@@ -21,6 +21,16 @@ function testURL(domain, path) {
     // Gets set once React has finished loading
     await page.locator(`body.react-loaded`);
 
+    if (
+      [
+        "/privacynotincluded",
+        "/privacynotincluded/categories/toys-games",
+      ].includes(path)
+    ) {
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await page.waitForTimeout(2000);
+    }
+
     // we don't want to screenshot before images are done.
     await waitForImagesToLoad(page);
 
