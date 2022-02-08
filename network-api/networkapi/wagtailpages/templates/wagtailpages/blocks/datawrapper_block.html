@@ -1,0 +1,8 @@
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailembeds_tags %}
+
+{% block block_content %}
+  <div class="my-2">
+    {% embed value.url %}
+  </div>
+{% endblock %}

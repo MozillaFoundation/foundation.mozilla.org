@@ -502,6 +502,23 @@ if env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"):
         }
     }
 
+
+# Wagtail Embeds
+
+DATAWRAPPER_PROVIDER = {
+    'endpoint': 'https://api.datawrapper.de/v3/oembed',
+    'urls': [
+        r'^https:\/\/datawrapper\.dwcdn\.net\/(?:[\d\w]{5}\/){1}(?:[\d]+\/)?$',
+    ]
+}
+
+WAGTAILEMBEDS_FINDERS = [
+    {
+        'class': 'wagtail.embeds.finders.oembed',
+        'providers': [DATAWRAPPER_PROVIDER],
+    }
+]
+
 # Rest Framework Settings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
