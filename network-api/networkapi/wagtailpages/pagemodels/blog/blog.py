@@ -57,6 +57,7 @@ base_fields = [
     ('single_quote', customblocks.SingleQuoteBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
     ('airtable', customblocks.AirTableBlock()),
+    ('datawrapper', customblocks.DatawrapperBlock()),
 ]
 
 

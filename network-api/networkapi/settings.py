@@ -84,6 +84,7 @@ env = environ.Env(
     USE_X_FORWARDED_HOST=(bool, False),
     WAGTAILIMAGES_INDEX_PAGE_SIZE=(int, 60),
     WAGTAILLOCALIZE_GIT_URL=(str, ''),
+    WAGTAILLOCALIZE_GIT_DEFAULT_BRANCH=(str, ''),
     WAGTAILLOCALIZE_GIT_CLONE_DIR=(str, ''),
     WAGTAIL_LOCALIZE_PRIVATE_KEY=(str, ''),
     WEB_MONETIZATION_POINTER=(str, ''),
@@ -243,6 +244,7 @@ INSTALLED_APPS = list(filter(None, [
     # the network site
     'networkapi',
     'networkapi.campaign',
+    'networkapi.events',
     'networkapi.news',
     'networkapi.people',
     'networkapi.utility',
@@ -451,6 +453,7 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = (
 )
 
 WAGTAILLOCALIZE_GIT_URL = env('WAGTAILLOCALIZE_GIT_URL')
+WAGTAILLOCALIZE_GIT_DEFAULT_BRANCH = env('WAGTAILLOCALIZE_GIT_DEFAULT_BRANCH')
 WAGTAILLOCALIZE_GIT_CLONE_DIR = env('WAGTAILLOCALIZE_GIT_CLONE_DIR')
 WAGTAIL_LOCALIZE_PRIVATE_KEY = env('WAGTAIL_LOCALIZE_PRIVATE_KEY')
 
@@ -498,6 +501,23 @@ if env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"):
             'ZONEID': env("FRONTEND_CACHE_CLOUDFLARE_ZONEID")
         }
     }
+
+
+# Wagtail Embeds
+
+DATAWRAPPER_PROVIDER = {
+    'endpoint': 'https://api.datawrapper.de/v3/oembed',
+    'urls': [
+        r'^https:\/\/datawrapper\.dwcdn\.net\/(?:[\d\w]{5}\/){1}(?:[\d]+\/)?$',
+    ]
+}
+
+WAGTAILEMBEDS_FINDERS = [
+    {
+        'class': 'wagtail.embeds.finders.oembed',
+        'providers': [DATAWRAPPER_PROVIDER],
+    }
+]
 
 # Rest Framework Settings
 REST_FRAMEWORK = {
