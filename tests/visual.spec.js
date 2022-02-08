@@ -21,6 +21,7 @@ function testURL(domain, path) {
     // Gets set once React has finished loading
     await page.locator(`body.react-loaded`);
 
+    // For PNI catalog pages we need to scroll to the bottom of the page to trigger our scroll animations as well waiting for the animation to complete for the screenshot
     if (
       [
         "/privacynotincluded",
