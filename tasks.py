@@ -243,7 +243,7 @@ def test_python(ctx):
         **PLATFORM_ARG,
     )
     print("* Running tests")
-    manage(ctx, "test")
+    manage(ctx, "test networkapi")
 
 
 @task(aliases=["docker-test-node"])
