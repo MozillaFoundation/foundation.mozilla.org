@@ -57,6 +57,8 @@ base_fields = [
     ('single_quote', customblocks.SingleQuoteBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
     ('airtable', customblocks.AirTableBlock()),
+    ('datawrapper', customblocks.DatawrapperBlock()),
+    ('typeform', customblocks.TypeformBlock()),
 ]
 
 
@@ -108,7 +110,10 @@ class RelatedBlogPosts(Orderable):
 
 
 class BlogPage(FoundationMetadataPageMixin, Page):
-    body = StreamField(base_fields)
+    body = StreamField(
+        base_fields,
+        block_counts={'typeform': {'max_num': 1}},
+    )
 
     category = ParentalManyToManyField(
         BlogPageCategory,
