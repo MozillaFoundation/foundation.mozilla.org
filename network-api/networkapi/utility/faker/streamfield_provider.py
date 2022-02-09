@@ -296,6 +296,10 @@ def generate_typeform_field():
     })
 
 
+def generate_datawrapper_field():
+    return generate_field('datawrapper', 'https://datawrapper.dwcdn.net/0rmUn/3/')
+
+
 def generate_dear_internet_letter_field():
     author_name = fake.name()
     author_description = ''.join(
@@ -385,6 +389,7 @@ class StreamfieldProvider(BaseProvider):
             'blog_set': generate_blog_set_field,
             'airtable': generate_airtable_field,
             'typeform': generate_typeform_field,
+            'datawrapper': generate_datawrapper_field,
             'banner_carousel': generate_banner_carousel_field,
             'banner_video': generate_banner_video_field,
         }

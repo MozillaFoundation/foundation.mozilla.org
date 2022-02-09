@@ -3,7 +3,7 @@ from wagtail.embeds import blocks
 
 class DatawrapperBlock(blocks.EmbedBlock):
     """
-    Embed block for Datawrapper visualisations.
+    Embed block for Datawrapper visualizations.
 
     Currently, there is no limitation in the block itself on which oEmbed sources
     it can be used with. The available oEmbed source are limited in the settings
@@ -16,12 +16,12 @@ class DatawrapperBlock(blocks.EmbedBlock):
     The current implementation of the block simply inserts the HTML from Datawrappers
     oEmbed response into the template. The response from Datawrapper includes the
     `iframe` element and a small `script` tag. The JS only adds some additional
-    reponsiveness features to the embed. If multiple embeds are used on the same page
+    responsiveness features to the embed. If multiple embeds are used on the same page
     then the same `script` tag will be included multiple times on the page. This should
     not be much of an issue but only increase the length of the document a bit. If the
     repetition is considered an issue in the future, it should be possible to use the
     `options` settings for the Datawrapper oEmbed finder to modify the request so that
-    the reponse only contains the `iframe`.
+    the response only contains the `iframe`.
 
     See also:
     - https://docs.wagtail.org/en/stable/advanced_topics/embeds.html#customising-an-individual-provider
@@ -29,7 +29,7 @@ class DatawrapperBlock(blocks.EmbedBlock):
 
     """
     _default_help_text = (
-        'Enter the "visualisation only" link of the Datawrapper chart. '
+        'Enter the "visualization only" link of the Datawrapper chart. '
         'It looks something like this: https://datawrapper.dwcdn.net/KwSKp/1/'
     )
 
