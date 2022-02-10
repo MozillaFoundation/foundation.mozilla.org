@@ -34,6 +34,12 @@ class iFrameBlock(blocks.StructBlock):
         default='normal',
         help_text='Wide iframes are col-12, Full-Width iframes reach both ends of the screen'
     )
+    disable_scroll = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        help_text='Checking this will add "scrolling=no" to the iframe. '
+                  'Use this if your iframe is rendering an unnecessary scroll bar or whitespace below it.'
+    )
 
     class Meta:
         template = 'wagtailpages/blocks/iframe_block.html'

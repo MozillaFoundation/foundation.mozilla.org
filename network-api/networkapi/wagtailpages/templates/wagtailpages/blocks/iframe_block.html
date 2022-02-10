@@ -24,7 +24,7 @@ streamfield-content
 <div class="my-2">
   <div class="embed-responsive embed-responsive-16by9" {% if value.height %}style="height: {{value.height}}px;"
     {% endif %}>
-    <iframe src="{{ value.url }}" class="embed-responsive-item"></iframe>
+    <iframe src="{{ value.url }}" class="embed-responsive-item" {% if value.disable_scroll %}scrolling="no" style="overflow: hidden;"{% endif %}></iframe>
   </div>
   {% if value.caption %}
   <p class="body-small mt-2">
