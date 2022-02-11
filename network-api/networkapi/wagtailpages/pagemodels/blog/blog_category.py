@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.utils import ProgrammingError
 from django.template.defaultfilters import slugify
 from wagtail.core.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -60,16 +59,17 @@ class BlogPageCategory(TranslatableMixin, models.Model):
         (compared to update-only migrations) will throw errors when trying
         to apply this function from its original location.
         """
-        choices = []
-        # This Try/Except block is used to avoid errors during tests/new-envs,
-        # without this, it will return a ProgrammingError due to BlogPageCategories not yet existing.
-        try:
-            choices = [(cat.name, cat.name) for cat in BlogPageCategory.objects.all()]
-            choices.sort(key=lambda c: c[1])
-        except ProgrammingError:
-            pass
-        choices.insert(0, ('All', 'All'))
-        return choices
+        return [
+            ('All', 'All'),
+            ('Advocacy', 'Advocacy'),
+            ('Common Voice', 'Common Voice'),
+            ('Fellowships & Awards', 'Fellowships & Awards'),
+            ('Insights', 'Insights'),
+            ('Moz News Beat', 'Moz News Beat'),
+            ('Mozilla Explains', 'Mozilla Explains'),
+            ('Mozilla Festival', 'Mozilla Festival'),
+            ('Open Leadership & Events', 'Open Leadership & Events')
+        ]
 
     @property
     def slug(self):
