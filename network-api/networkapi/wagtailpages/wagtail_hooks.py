@@ -5,12 +5,14 @@
 from django.templatetags.static import static
 from django.core.cache import cache
 from django.urls import reverse
+from django.utils.html import escape
 
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
 from wagtail.core import hooks
 from wagtail.core.utils import find_available_slug
+from wagtail.core.rich_text import LinkHandler
 
 from networkapi.wagtailpages.pagemodels.products import BuyersGuidePage, ProductPage
 from networkapi.wagtailpages.utils import get_locale_from_request
@@ -82,6 +84,21 @@ def register_large_feature(features):
     # 6. (optional) Add the feature to the default features list to make it available
     # on rich text fields that do not specify an explicit 'features' list
     features.default_features.append('large')
+
+
+# Updating external links in rich text blocks to open in a new tab
+class RichTextExternalLinkNewTabHandler(LinkHandler):
+    identifier = 'external'
+
+    @classmethod
+    def expand_db_attributes(cls, attrs):
+        href = attrs["href"]
+        return '<a href="%s" target="_blank">' % escape(href)
+
+
+@hooks.register('register_rich_text_features')
+def register_external_rich_text_link(features):
+    features.register_link_type(RichTextExternalLinkNewTabHandler)
 
 
 # Ensure that pages in the PageChooserPanel listings are ordered on most-recent-ness

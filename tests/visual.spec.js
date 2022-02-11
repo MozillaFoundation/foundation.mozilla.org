@@ -21,6 +21,17 @@ function testURL(domain, path) {
     // Gets set once React has finished loading
     await page.locator(`body.react-loaded`);
 
+    // For PNI catalog pages we need to scroll to the bottom of the page to trigger our scroll animations as well waiting for the animation to complete for the screenshot
+    if (
+      [
+        "/privacynotincluded",
+        "/privacynotincluded/categories/toys-games",
+      ].includes(path)
+    ) {
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await page.waitForTimeout(2000);
+    }
+
     // we don't want to screenshot before images are done.
     await waitForImagesToLoad(page);
 

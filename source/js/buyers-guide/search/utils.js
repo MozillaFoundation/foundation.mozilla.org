@@ -158,39 +158,63 @@ export class Utils {
   /**
    * Scroll Animation used solely for the 'All Products' section
    */
-  static toggleScrollAnimation() {
+  static toggleScrollAnimation(initialLoad = false) {
     ScrollTrigger.clearScrollMemory();
     ScrollTrigger.refresh(true);
     gsap.set("figure.product-box.d-flex", { opacity: 0, y: 100 });
+
+    if (initialLoad) {
+      gsap.set("figure.product-box.d-flex:nth-child(-n+8)", {
+        opacity: 1,
+        y: 0,
+      });
+    }
 
     // group products stagger animation based on mobile breakpoint
     const responsiveBatch =
       window.innerWidth > 991 ? 8 : window.innerWidth > 767 ? 6 : 4;
 
-    ScrollTrigger.batch("figure.product-box.d-flex", {
-      batchMax: responsiveBatch, // maximum batch size (targets)
-      onEnter: (batch) =>
-        gsap.to(batch, {
-          opacity: 1,
-          y: 0,
-          stagger: 0.1,
-          overwrite: true,
-        }),
-    });
+    ScrollTrigger.batch(
+      initialLoad
+        ? "figure.product-box.d-flex:nth-child(n+8)"
+        : "figure.product-box.d-flex",
+      {
+        batchMax: responsiveBatch, // maximum batch size (targets)
+        onEnter: (batch) =>
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            stagger: 0.1,
+            overwrite: true,
+          }),
+      }
+    );
   }
 
   /**
    * Animation used for category selections
    */
-  static toggleCategoryAnimation() {
+  static toggleCategoryAnimation(initialLoad = false) {
     gsap.set("figure.product-box.d-flex", { opacity: 0, y: 100 });
 
-    gsap.to("figure.product-box.d-flex", {
-      opacity: 1,
-      y: 0,
-      stagger: 0.1,
-      overwrite: true,
-    });
+    if (initialLoad) {
+      gsap.set("figure.product-box.d-flex:nth-child(-n+8)", {
+        opacity: 1,
+        y: 0,
+      });
+    }
+
+    gsap.to(
+      initialLoad
+        ? "figure.product-box.d-flex:nth-child(n+8)"
+        : "figure.product-box.d-flex",
+      {
+        opacity: 1,
+        y: 0,
+        stagger: 0.1,
+        overwrite: true,
+      }
+    );
   }
 
   /**

@@ -42,9 +42,9 @@ export class SearchFilter {
         )
     ).then(() => {
       if (this.categoryTitle.value === "None") {
-        Utils.toggleScrollAnimation();
+        Utils.toggleScrollAnimation(true);
       } else {
-        Utils.toggleCategoryAnimation();
+        Utils.toggleCategoryAnimation(true);
       }
     });
   }
