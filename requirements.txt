@@ -24,7 +24,7 @@ botocore==1.23.14
     # via
     #   boto3
     #   s3transfer
-cached_property==1.5.2
+cached-property==1.5.2
     # via -r requirements.in
 certifi==2021.5.30
     # via
@@ -257,7 +257,7 @@ wagtailmedia==0.8.0
     # via -r requirements.in
 webencodings==0.5.1
     # via html5lib
-whitenoise==5.3.0
+whitenoise==6.0.0
     # via -r requirements.in
 willow==1.4
     # via wagtail
