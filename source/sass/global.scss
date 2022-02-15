@@ -119,3 +119,13 @@ hr {
   border-bottom: 1px solid $black;
   border-top: 1px solid $black;
 }
+
+.full-bleed {
+  @include full-bleed;
+}
+
+@include full-bleed-bp("xs");
+@include full-bleed-bp("sm");
+@include full-bleed-bp("md");
+@include full-bleed-bp("lg");
+@include full-bleed-bp("xl");

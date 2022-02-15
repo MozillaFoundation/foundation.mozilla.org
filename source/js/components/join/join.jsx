@@ -482,7 +482,7 @@ class JoinUs extends Component {
   renderSubmitButton() {
     let classnames = classNames("btn btn-primary", {
       "w-100": !this.isFlowForm(),
-      "flex-1 mr-3": this.isFlowForm(),
+      "tw-flex-1 mr-3": this.isFlowForm(),
     });
     return <button className={classnames}>{getText(`Sign up`)}</button>;
   }
@@ -525,7 +525,7 @@ class JoinUs extends Component {
           {this.renderSubmitButton()}
           {this.isFlowForm() && (
             <button
-              className="btn btn-primary btn-dismiss flex-1"
+              className="btn btn-primary btn-dismiss tw-flex-1"
               onClick={() => this.props.handleSignUp(false)}
               type="button"
             >
