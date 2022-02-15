@@ -14,6 +14,6 @@ export const injectReactComponents = (apps, siteUrl, env) => {
   injectNews(apps, env);
   injectPetition(apps, siteUrl);
   injectPulseProjectList(apps, env);
-  injectShareButtonGroup(apps);
+  // injectShareButtonGroup(apps);
   injectPulseTabbedProfileDirectory(apps);
 };

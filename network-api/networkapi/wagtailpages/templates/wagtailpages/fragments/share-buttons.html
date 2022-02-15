@@ -1,0 +1,41 @@
+{% load i18n %}
+
+{% with request.scheme|add:'://'|add:request.get_host|add:request.get_full_path as current_url %}
+        <div class="share-button-group-wrapper" 
+             data-link="{{current_url}}">
+            <div class="share-button-group {% if data_version == 'mini' %} circle {% else %} rectangle {% endif %} {% if data_layout == 'stacked' %} stacked {% endif %}">
+                <div class="subgroup">
+                    <a class="btn btn-secondary btn-share facebook-share" href="https://www.facebook.com/sharer/sharer.php?u={{current_url|urlencode}}">
+                        {% if data_version == 'mini' %} 
+                          <span class="sr-only">Share on Facebook</span>
+                        {% else %}
+                          <span> Facebook </span>
+                        {% endif %}
+                    </a>
+                    <a class="btn btn-secondary btn-share twitter-share" href="https://twitter.com/intent/tweet?text={% trans data_share_text %} {{current_url|urlencode}}">
+                        {% if data_version == 'mini' %} 
+                          <span class="sr-only">Share on Twitter</span>
+                        {% else %}
+                          <span> Twitter </span>
+                        {% endif %}                    
+                    </a>
+                </div>
+                <div class="subgroup">
+                    <a class="btn btn-secondary btn-share email-share" href="mailto:?&body={% trans data_share_text %} {{current_url|urlencode}}">
+                        {% if data_version == 'mini' %} 
+                          <span class="sr-only">Share by Email</span>
+                        {% else %}
+                          <span> Email </span>
+                        {% endif %}    
+                    </a>
+                    <button class="btn btn-secondary btn-share link-share" title="Copy page URL to clipboard">
+                        {% if data_version == 'mini' %} 
+                          <span class="sr-only">Copy to clipboard</span>
+                        {% else %}
+                          <span> Copy </span>
+                        {% endif %}                        
+                    </button>
+                </div>
+            </div>
+        </div>
+{% endwith %}
