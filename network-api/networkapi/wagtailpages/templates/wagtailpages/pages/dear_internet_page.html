@@ -59,7 +59,7 @@
       <div class="row">
         <div class="offset-md-1 col-md-1 text-center d-print-none">
           <div class="sticky-side d-none d-md-flex justify-content-lg-end">
-            {% include "./fragments/share-buttons.html" with data_version="mini" data_layout="stacked" data_share_text=page.title|add:' by @mozilla' %}
+            {% include "../fragments/share-buttons.html" with version="mini" layout="stacked" data_share_text=page.title|add:' by @mozilla' %}
           </div>
         </div>
         <div class="{{main_content_col}}">
@@ -68,7 +68,7 @@
           {% endfor %}
         </div>
         <div class="{{main_content_col}} d-block d-md-none d-print-none text-center">
-          {% include "./fragments/share-buttons.html" with data_version="mini" data_share_text=page.title|add:' by @mozilla' %}
+          {% include "../fragments/share-buttons.html" with version="mini" data_share_text=page.title|add:' by @mozilla' %}
         </div>
       </div>
     </div>
