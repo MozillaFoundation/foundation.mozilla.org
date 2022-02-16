@@ -29,11 +29,6 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    replaces = [
-        ('wagtailpages', '0001_squashed_migrations_feb_2022'),
-        ('wagtailpages', '0002_squashed_migrations_feb_2022_data'),
-    ]
-
     dependencies = [
         ('highlights', '0008_auto_20211209_0002'),
         ('wagtaildocs', '0012_uploadeddocument'),
