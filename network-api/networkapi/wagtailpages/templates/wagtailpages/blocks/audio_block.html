@@ -3,12 +3,12 @@
 
 {% block block_content %}
 
-<div class="player-and-caption my-default">
+<div class="player-and-caption tw-my-4">
     <div id="audio-player">
         <audio class="embedded-audio">
             <source src="{{self.audio.url}}" type="audio/mp3" preload="metadata" loop>
         </audio>
-        <div class="audio-player-controls my-default d-inline-flex">
+        <div class="audio-player-controls tw-my-4 d-inline-flex">
             <div class='px-3 play-btn-container'>            
                 <button class="btn btn-audio-control btn-pause d-none" id="pause-icon"></button>
                 <button class="btn btn-audio-control btn-play d-none" id="play-icon"></button>

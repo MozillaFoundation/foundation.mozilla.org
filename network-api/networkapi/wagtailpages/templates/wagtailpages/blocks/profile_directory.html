@@ -2,9 +2,9 @@
 {% load wagtailcore_tags static %}
 
 {% block block_content %}
-  <div class="fellowships-directory-filter px-2 mb-5">
+  <div class="fellowships-directory-filter tw-bg-gray-05 tw-px-2 tw-mb-6">
     {% for label in filters %}
-    <div class="filter-option">
+    <div class="filter-option tw-inline-block">
       <button {% if forloop.first %}class="active"{% endif %}>{{ label }}</button>
     </div>
     {% endfor %}

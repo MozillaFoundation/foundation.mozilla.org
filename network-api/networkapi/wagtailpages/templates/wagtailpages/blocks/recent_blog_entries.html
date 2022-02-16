@@ -3,15 +3,15 @@
 
 {% block block_content %}
   {% if entries|length != 0 %}
-  <div class="recent-blog-entries index-entries row my-2 mx-0 d-flex flex-column {{ divider_styles }}">
-    <div class="mb-4">
+  <div class="recent-blog-entries index-entries tw-row tw-my-2 tw-mx-0 tw-flex tw-flex-col {{ divider_styles }}">
+    <div class="tw-mb-5">
       <h3>{{ value.title }}</h3>
     </div>
-    <div class="row">
+    <div class="tw-row">
       {% include "../fragments/entry_cards.html" %}
     </div>
     {% if more_entries %}
-    <div class="col-12 text-center mb-5">
+    <div class="tw-w-full tw-px-4 tw-text-center tw-mb-6">
       <a class="btn btn-secondary text" href="{{ more_entries_link }}">
         {% trans "More from our blog" %}
       </a>
