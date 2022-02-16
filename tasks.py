@@ -215,9 +215,9 @@ def migrate(ctx):
 
 
 @task(aliases=["docker-makemigrations"])
-def makemigrations(ctx):
+def makemigrations(ctx, arguments=""):
     """Creates new migration(s) for apps"""
-    manage(ctx, "makemigrations")
+    manage(ctx, f"makemigrations {arguments}")
 
 
 @task(aliases=["docker-makemigrations-dryrun"])
