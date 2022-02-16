@@ -2,7 +2,7 @@
 {% load wagtailcore_tags %}
 
 {% block block_content %}
-  <div class="article-blockquote-block mx-auto my-4 {% if self|length > 230 %}article-blockquote-block--small{% endif %}">
+  <div class="article-blockquote-block tw-py-4 tw-px-5 medium:tw-py-5 medium:tw-px-6 tw-text-lg tw-leading-normal tw-bg-gray-05 tw-w-full medium:tw-w-[calc(80%+60px)] tw-mx-auto tw-my-5 {% if self|length > 230 %}article-blockquote-block--small{% endif %}">
     {{ self | richtext }}
   </div>
 {% endblock %}

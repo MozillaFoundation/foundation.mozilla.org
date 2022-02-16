@@ -11,7 +11,7 @@ full-width
 {% endblock %}
 
 {% block block_row_classes %}
-no-gutters
+tw-mx-0
 {% endblock %}
 
 {% block main_block_class %}
@@ -21,7 +21,7 @@ full-width
 
 {% block block_content %}
 <div id="looping-video">
-    <div class="banner my-default">
+    <div class="banner tw-my-4">
       <div class="background-wrapper">
         <video class="banner-video" playsinline muted loop preload>
           <source
@@ -30,10 +30,10 @@ full-width
         </video>
     
         <div class="video-control-wrapper dark-theme">
-            <div class="row mr-3">
-                <button class="btn btn-video-control btn-pause btn-secondary d-none ml-auto">
+            <div class="tw-row tw-mr-4">
+                <button class="btn btn-video-control btn-pause btn-secondary tw-hidden tw-ml-auto">
                 </button>
-                <button class="btn btn-video-control btn-play btn-secondary d-none ml-auto">
+                <button class="btn btn-video-control btn-play btn-secondary tw-hidden tw-ml-auto">
                 </button>
             </div>
         </div>  

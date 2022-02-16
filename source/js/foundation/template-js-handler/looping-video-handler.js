@@ -18,7 +18,7 @@ const loopingVideoHandler = () => {
     let playButton = loopingVideo.querySelector(".btn-video-control.btn-play");
 
     if (video && pauseButton && playButton) {
-      const HIDE = `d-none`;
+      const HIDE = `tw-hidden`;
 
       const showPauseButton = () => {
         playButton.classList.add(HIDE);

@@ -2,13 +2,13 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
-  <div class="row my-default">
+  <div class="tw-row tw-my-4">
     {% if value.small %}
-      <div class="col-12 d-flex flex-nowrap">
-        <div class="mr-3" style="width:50px; flex-shrink:0;">
+      <div class="tw-w-full tw-px-4 tw-flex tw-flex-nowrap">
+        <div class="tw-mr-3 tw-shrink-0 tw-w-7">
           {% if value.url %}<a href="{{ value.url }}">{% endif %}
             {% image value.image fill-100x100-c100 format-jpeg as img %}
-            <img src="{{ img.url }}" alt="{{ value.altText }}" class="w-100" width="{{ img.width }}" height="{{ img.height }}">
+            <img src="{{ img.url }}" alt="{{ value.altText }}" class="tw-w-full" width="{{ img.width }}" height="{{ img.height }}">
           {% if value.url %}</a>{% endif %}
         </div>
         <div>
@@ -16,15 +16,15 @@
         </div>
       </div>
     {% else %}
-    <div class="col-12 image-text-img">
-        <div class="col-12 px-0 d-md-flex align-items-md-center {{ divider_styles }}">
-          <div class="col-12 col-md-3 mb-3 mb-md-0 pl-0">
+    <div class="tw-w-full image-text-img">
+        <div class="tw-w-full tw-px-0 medium:tw-flex medium:tw-items-center {{ divider_styles }}">
+          <div class="tw-w-full medium:tw-w-1/4 tw-px-4 tw-mb-3 medium:tw-mb-0 tw-pl-0">
           {% if value.url %}<a href="{{ value.url }}">{% endif %}
             {% image value.image fill-760x760-c100 format-jpeg as img %}
             <img src="{{ img.url }}" alt="{{ value.altText }}" width="{{ img.width }}" height="{{ img.height }}">
           {% if value.url %}</a>{% endif %}
           </div>
-          <div class="col-12 col-md-9 pl-0">
+          <div class="tw-w-full medium:tw-w-3/4 tw-px-4 tw-pl-0">
               {{ value.text|richtext }}
           </div>
         </div>

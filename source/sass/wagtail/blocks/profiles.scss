@@ -1,89 +1,14 @@
 .cms {
-  .person-card {
-    $breakpoint: $bp-md;
-    $headshot-width: 92px;
-    $headshot-height: 92px;
-    $headshot-width-larger: 160px;
-    $headshot-height-larger: 160px;
-    $gutter: 14px;
-    $card-padding-top: 10px;
-
-    border-top: 1px solid $black;
-
-    @media screen and (min-width: $breakpoint) {
-      position: relative;
-      min-height: $headshot-height-larger;
-    }
-
-    .thumbnail-wrapper {
-      float: left;
-
-      @media screen and (min-width: $breakpoint) {
-        position: absolute;
-      }
-    }
-
-    .headshot-container {
-      width: $headshot-width;
-      height: $headshot-height;
-      margin-right: $gutter;
-      margin-bottom: $gutter;
-
-      @media screen and (min-width: $breakpoint) {
-        width: $headshot-width-larger;
-        height: $headshot-height-larger;
-        margin-right: 0;
-        margin-bottom: 0;
-      }
-
-      img {
-        object-fit: cover;
-        object-position: top center;
-        width: 100%;
-        height: 100%;
-      }
-    }
-
-    .short-meta-wrapper {
-      padding-top: $card-padding-top;
-      @media screen and (min-width: $breakpoint) {
-        margin-left: $headshot-width-larger + $gutter;
-      }
-    }
-
-    .meta-block-name {
-      @media screen and (min-width: $breakpoint) {
-        width: calc(100% - 70px);
-      }
-    }
-
-    .bio-wrapper {
-      clear: both;
-
-      @media screen and (min-width: $breakpoint) {
-        margin-left: $headshot-width-larger + $gutter;
-      }
-    }
-
-    .social-icons {
-      @media screen and (min-width: $breakpoint) {
-        position: absolute;
-        top: calc(#{$card-padding-top} + 5px);
-        right: 0;
-      }
-    }
-
-    .meta-block-location {
-      &::before {
-        width: 12px;
-        height: 12px;
-        display: block;
-        content: "";
-        margin-right: 5px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-image: url("../_images/glyphs/map-marker-icon.svg");
-      }
+  .person-card .meta-block-location {
+    &::before {
+      width: 12px;
+      height: 12px;
+      display: block;
+      content: "";
+      margin-right: 5px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-image: url("../_images/glyphs/map-marker-icon.svg");
     }
   }
 }

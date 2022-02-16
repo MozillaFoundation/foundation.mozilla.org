@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block block_row_classes %}
-no-gutters
+tw-mx-0
 {% endblock %}
 
 {% block main_block_class %}
@@ -19,10 +19,10 @@ streamfield-content
 {% block block_content %}
 {% image value.image original as img %}
 
-<figure class="my-1 annotated-image">
-  <img src="{{ img.url }}" alt="{{ value.altText }}" class="w-100" />
+<figure class="tw-my-1 annotated-image">
+  <img src="{{ img.url }}" alt="{{ value.altText }}" class="tw-w-full {% if value.image_width == "full_width" %} tw-object-cover tw-object-center tw-max-h-[400px] large:tw-max-h-[550px] x-large:tw-max-h-[650px] {% endif %}" />
   {% if value.caption %}
-  <figcaption class="body-small d-block mt-2">
+  <figcaption class="body-small tw-mt-2 tw-block {% if value.image_width == "full_width" %} tw-pl-3 {% endif %}">
     {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
     {{ value.caption }}
     {% if value.captionURL %}</a>{% endif %}
