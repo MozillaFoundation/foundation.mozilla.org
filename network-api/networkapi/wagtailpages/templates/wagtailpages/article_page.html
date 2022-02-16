@@ -18,7 +18,7 @@
       <div class="offset-sm-1 col-sm-10 col-12">
         {% if page.show_side_share_buttons %}
           <div class="article-summary-share-links d-lg-block d-none {% if get_titles %}with-top-offset{% endif %}">
-            {% include "./fragments/share-buttons.html" with version="mini" layout="stacked" data_share_text=page.title|add:' by @mozilla' %}
+            {% include "./fragments/share-buttons.html" with version="mini" layout="stacked" share_text=page.title|add:' by @mozilla' %}
           </div>
         {% endif %}
 
@@ -51,7 +51,7 @@
     <div class="row pt-5">
       <div class="col-sm-8 offset-sm-2 pt-4">
         <div class="pb-4">
-          {% include "./fragments/share-buttons.html" with data_share_text=page.title|add:' by @mozilla' %}
+          {% include "./fragments/share-buttons.html" with share_text=page.title|add:' by @mozilla' %}
         </div>
       </div>
     </div>
