@@ -24,13 +24,13 @@
 {% block body_id %}blog{% endblock %}
 
 {% block subcontent %}
-
+{% blocktrans with title=page.title asvar share_text_translated %}{{title}} by @mozilla{% endblocktrans %}
 <div class="cms blog-body">
   <div class="container share-button-blog-title-container">
     <div class="row">
       <div class="blog-sticky-side-container offset-lg-1 col-lg-1 pt-4 pt-md-5 mt-2 text-center d-print-none">
         <div class="blog-sticky-side d-none d-lg-flex justify-content-lg-end mt-1">
-          {% include "./fragments/share-buttons.html" with version="mini" layout="stacked" share_text=page.title|add:' by @mozilla' %}
+          {% include "./fragments/share-buttons.html" with version="mini" layout="stacked" share_text=share_text_translated %}
         </div>
         </div>
       <div class="pt-5 pt-md-5 pb-4 col-lg-8">
@@ -49,7 +49,7 @@
 <div class="container">
   <div class="row">
     <div class="pt-1 pt-md-5 pb-4 pb-md-5 col-lg-8 m-auto bottom-share-button-container">
-        {% include "./fragments/share-buttons.html" with share_text=page.title|add:' by @mozilla' %}
+        {% include "./fragments/share-buttons.html" with share_text=share_text_translated %}
       {% if show_comments %}
         <h2 class="h4-heading">{% trans "Comments" %}</h2>
         <div id="commento"></div>
