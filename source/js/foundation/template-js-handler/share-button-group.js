@@ -37,17 +37,9 @@ export default () => {
     const emailButton = shareButtonGroup.querySelector(".email-share");
     const linkButton = shareButtonGroup.querySelector(".link-share");
 
-    facebookButton.addEventListener(`click`, () => {
-      bindGaEvent("facebook");
-    });
-    twitterButton.addEventListener(`click`, () => {
-      bindGaEvent("twitter");
-    });
-    emailButton.addEventListener(`click`, () => {
-      bindGaEvent("email");
-    });
-    linkButton.addEventListener(`click`, (event) => {
-      linkButtonClick(event);
-    });
+    facebookButton.addEventListener(`click`, () => bindGaEvent("facebook"));
+    twitterButton.addEventListener(`click`, () => bindGaEvent("twitter"));
+    emailButton.addEventListener(`click`, () => bindGaEvent("email"));
+    linkButton.addEventListener(`click`, (event) => linkButtonClick(event));
   });
 };
