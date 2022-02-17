@@ -24,8 +24,8 @@ export default () => {
     const linkButton = event.target;
 
     linkButton.classList.add("copied");
-    linkButton.title = "Copied";
-    linkButton.querySelector("span").innerText = "Copied"
+    linkButton.title = window.gettext("Copied");
+    linkButton.querySelector("span").innerText = window.gettext("Copied");
 
     copyToClipboard(event.target, window.location.href);
     bindGaEvent("link");

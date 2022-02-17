@@ -12,13 +12,14 @@
 {% block content %}
 
   {% include "./fragments/publication_hero.html" with size="small" download_file=page.article_file is_publication_article=page.is_publication_article %}
+  {% blocktrans with title=page.title asvar share_text_translated %}{{title}} by @mozilla{% endblocktrans %}
 
   <div class="container {% if not get_titles %} mt-5{% endif %}">
     <div class="row">
       <div class="offset-sm-1 col-sm-10 col-12">
         {% if page.show_side_share_buttons %}
           <div class="article-summary-share-links d-lg-block d-none {% if get_titles %}with-top-offset{% endif %}">
-            {% include "./fragments/share-buttons.html" with version="mini" layout="stacked" share_text=page.title|add:' by @mozilla' %}
+            {% include "./fragments/share-buttons.html" with version="mini" layout="stacked" share_text=share_text_translated %}
           </div>
         {% endif %}
 
@@ -51,7 +52,7 @@
     <div class="row pt-5">
       <div class="col-sm-8 offset-sm-2 pt-4">
         <div class="pb-4">
-          {% include "./fragments/share-buttons.html" with share_text=page.title|add:' by @mozilla' %}
+          {% include "./fragments/share-buttons.html" with share_text=share_text_translated %}
         </div>
       </div>
     </div>
