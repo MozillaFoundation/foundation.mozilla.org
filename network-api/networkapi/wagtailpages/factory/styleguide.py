@@ -29,7 +29,8 @@ styleguide_streamfield_fields = [
     'recent_blog_entries',
     'blog_set',
     'airtable',
-    'typeform'
+    'typeform',
+    'datawrapper'
 ]
 
 

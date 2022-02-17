@@ -791,7 +791,7 @@
           <a href="#{{ block.block_type }}" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
         </h2>
         <hr>
-        {% if block.block_type == 'video' or block.block_type == 'image_text_mini' or block.block_type == 'image_text' or block.block_type == 'image' %}
+        {% if block.block_type == 'video' or block.block_type == 'image_text_mini' or block.block_type == 'image_text' or block.block_type == 'image' or block.block_type == 'datawrapper' %}
           <div class="cms blog-body">
             {% include_block block with parent_page=page %}
           </div>
@@ -799,6 +799,9 @@
           <div class="cms">
             {% include_block block with parent_page=page %}
           </div>
+        {% endif %}
+        {% if block.block_type == 'datawrapper' %}
+          <p>To learn more about the datawrapper component visit <a href="https://foundation.mozilla.org/en/docs/how-do-i-wagtail/datawrapper/">here</a></p>
         {% endif %}
       {% endfor %}
 
