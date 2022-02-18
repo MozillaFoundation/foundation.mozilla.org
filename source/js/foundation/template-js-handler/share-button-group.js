@@ -33,7 +33,7 @@ export default () => {
 
   shareButtonGroups.forEach((shareButtonGroup) => {
     const facebookButton = shareButtonGroup.querySelector(".facebook-share");
-    const twitterButton = shareButtonGroup.querySelector(".facebook-share");
+    const twitterButton = shareButtonGroup.querySelector(".twitter-share");
     const emailButton = shareButtonGroup.querySelector(".email-share");
     const linkButton = shareButtonGroup.querySelector(".link-share");
 
