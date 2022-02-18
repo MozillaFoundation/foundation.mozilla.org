@@ -35,7 +35,6 @@
 @import "../js/components/pulse-project-list/pulse-project-list";
 @import "../js/components/fellow-list/directory-filter-bar";
 @import "../js/components/petition/petition";
-@import "../js/components/share-button-group/share-button-group";
 
 // Non-React Components
 
@@ -47,6 +46,7 @@
 @import "./components/select-dropdown"; // TODO:FIXME: consider relocate code to a new file scss/form.scss
 @import "./components/blog-authors";
 @import "./components/blog-hero-video";
+@import "./components/share-button-group";
 
 // Wagtail Stream Blocks
 
