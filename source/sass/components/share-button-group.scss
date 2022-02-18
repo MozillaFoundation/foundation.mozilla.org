@@ -65,14 +65,23 @@
   &.circle {
     &.stacked {
       flex-direction: column;
-
+      .subgroup {
+        margin-right: 0;
+        flex-direction: column;
+      }
       .btn {
         margin-right: 0;
-
-        &:not(:last-child) {
-          margin-bottom: $margin;
-        }
+        margin-bottom: $margin;
       }
+      .link-share {
+        margin-bottom: 0;
+      }
+    }
+
+    .subgroup {
+      display: flex;
+      flex: 0;
+      margin-right: $margin;
     }
 
     .btn {

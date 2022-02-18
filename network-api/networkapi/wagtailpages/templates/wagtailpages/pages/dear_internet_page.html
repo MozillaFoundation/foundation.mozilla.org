@@ -10,6 +10,7 @@
 
 {% block content %}
 {% with main_content_col="col-12 col-md-8" %}
+{% blocktrans with title=page.title asvar share_text_translated %}{{title}} by @mozilla{% endblocktrans %}
 
 <div class="clouds-wrapper full-size-absolute-wrapper">
   {% include "../fragments/dear_internet_cloud.html" with class="white" %}
@@ -59,7 +60,7 @@
       <div class="row">
         <div class="offset-md-1 col-md-1 text-center d-print-none">
           <div class="sticky-side d-none d-md-flex justify-content-lg-end">
-            <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+            {% include "../fragments/share-buttons.html" with page=page version="mini" layout="stacked" share_text=share_text_translated %}
           </div>
         </div>
         <div class="{{main_content_col}}">
@@ -68,7 +69,7 @@
           {% endfor %}
         </div>
         <div class="{{main_content_col}} d-block d-md-none d-print-none text-center">
-          <div class="share-button-group-wrapper my-5 d-inline-block" data-version="mini" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+          {% include "../fragments/share-buttons.html" with page=page version="mini" share_text=share_text_translated %}
         </div>
       </div>
     </div>
