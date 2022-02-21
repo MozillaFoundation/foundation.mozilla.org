@@ -24,7 +24,7 @@ botocore==1.23.14
     # via
     #   boto3
     #   s3transfer
-cached_property==1.5.2
+cached-property==1.5.2
     # via -r requirements.in
 certifi==2021.5.30
     # via
@@ -159,7 +159,7 @@ python-dateutil==2.8.2
     #   botocore
     #   faker
     #   heroku3
-python-slugify==5.0.2
+python-slugify==6.0.1
     # via -r requirements.in
 python3-openid==3.2.0
     # via social-auth-core
