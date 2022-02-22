@@ -17,7 +17,7 @@
 <div class="container">
   <div class="row d-md-none my-3">
     <div class="col-12">
-      <div class="share-button-group-wrapper" data-version="mini" data-share-text="{{share_text}}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+      {% include "../fragments/share-buttons.html" with page=page version="mini" share_text=share_text %}
     </div>
   </div>
 
@@ -32,7 +32,7 @@
   <div class="row">
     <div class="offset-md-1 col-md-1 text-center pb-md-5 d-none d-md-block">
       <div class="sticky-side">
-        <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{{share_text}}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+        {% include "../fragments/share-buttons.html" with page=page version="mini" layout="stacked" share_text=share_text %}
       </div>
     </div>
 
