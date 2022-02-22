@@ -93,7 +93,6 @@ class News extends Component {
     const startYear = 2016;
     const currentYear = new Date().getFullYear()
 
-
     let year = startYear;
     let newsByYear = [];
 
