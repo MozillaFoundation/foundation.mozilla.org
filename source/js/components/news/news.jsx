@@ -1,5 +1,6 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
+import { getCurrentLanguage } from "../petition/locales";
 
 /**
  * Pulls news items from API and
@@ -15,7 +16,6 @@ class News extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.env)
     let networkSiteUrl = this.props.env.NETWORK_SITE_URL;
 
     // HEROKU_APP_DOMAIN is used by review apps
@@ -46,8 +46,10 @@ class News extends Component {
   }
 
   render() {
+    const currentLanguage = getCurrentLanguage();
+
     let blurb = (newsItem, hasHR = true) => {
-      let formattedTime = new Date(newsItem.date).toLocaleDateString('en', {month:'long', year:'numeric'})
+      let formattedPublishDate = new Date(newsItem.date).toLocaleDateString({currentLanguage}, {month:'long', year:'numeric'})
       return (
         <div key={newsItem.headline}>
           <div className="mb-3 news-item">
@@ -61,7 +63,7 @@ class News extends Component {
             </h3>
             <p className="h6-heading">
               {newsItem.author && <span>by {newsItem.author} on </span>}
-              {formattedTime}
+              {formattedPublishDate}
             </p>
           </div>
           {hasHR && <hr />}
