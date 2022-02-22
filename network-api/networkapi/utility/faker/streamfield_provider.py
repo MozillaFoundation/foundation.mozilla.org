@@ -375,7 +375,6 @@ def generate_current_event_field():
         generate_labelled_external_link_field(),
     ]
 
-
     return generate_field(
         'current_event',
         {
