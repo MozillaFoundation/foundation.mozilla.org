@@ -18,7 +18,7 @@ from .models import (
 from networkapi.utility.faker import StreamfieldProvider
 from networkapi.utility.faker.helpers import reseed
 
-streamfield_fields = ['paragraph', 'image', 'spacer', 'quote', 'current_events_slider']
+streamfield_fields = ['paragraph', 'image', 'spacer', 'quote']
 Faker.add_provider(StreamfieldProvider)
 
 is_review_app = False
@@ -56,6 +56,8 @@ class MozfestHomepageFactory(MozfestPrimaryPageFactory):
 
     banner_carousel = Faker('streamfield', fields=['banner_carousel', 'banner_carousel'])
     banner_video = Faker('streamfield', fields=['banner_video'])
+
+    body = Faker('streamfield', fields=streamfield_fields + ['current_events_slider'])
 
     signup = SubFactory(SignupFactory)
 
