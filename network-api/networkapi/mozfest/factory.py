@@ -18,7 +18,7 @@ from .models import (
 from networkapi.utility.faker import StreamfieldProvider
 from networkapi.utility.faker.helpers import reseed
 
-streamfield_fields = ['paragraph', 'image', 'spacer', 'quote']
+streamfield_fields = ['paragraph', 'image', 'spacer', 'quote', 'current_events_slider']
 Faker.add_provider(StreamfieldProvider)
 
 is_review_app = False

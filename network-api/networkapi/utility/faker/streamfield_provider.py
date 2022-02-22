@@ -346,6 +346,58 @@ def generate_banner_video_field():
     })
 
 
+def generate_current_events_slider_field():
+    title = fake.sentence(nb_words=4, variable_nb_words=True)
+    current_events = [
+        generate_current_event_field(),
+        generate_current_event_field(),
+        generate_current_event_field(),
+    ]
+
+    return generate_field(
+        'current_events_slider',
+        {
+            'title': title,
+            'current_events': current_events,
+        }
+    )
+
+
+def generate_current_event_field():
+    title = fake.sentence(nb_words=4, variable_nb_words=True)
+    subheading_link = [generate_labelled_external_link_field()]
+
+    image = choice(Image.objects.all()).id
+    body = fake.paragraph(nb_sentences=3, variable_nb_sentences=True)
+
+    buttons = [
+        generate_labelled_external_link_field(),
+        generate_labelled_external_link_field(),
+    ]
+
+
+    return generate_field(
+        'current_event',
+        {
+            'title': title,
+            'subheading_link': subheading_link,
+            'image': image,
+            'body': body,
+            'buttons': buttons,
+        }
+    )
+
+
+def generate_labelled_external_link_field():
+    return generate_field(
+        'external',
+        {
+            'label': fake.sentence(nb_words=3),
+            'link': fake.url(schemes=['https'])
+        }
+    )
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -392,6 +444,7 @@ class StreamfieldProvider(BaseProvider):
             'datawrapper': generate_datawrapper_field,
             'banner_carousel': generate_banner_carousel_field,
             'banner_video': generate_banner_video_field,
+            'current_events_slider': generate_current_events_slider_field,
         }
 
         streamfield_data = []
