@@ -17,11 +17,6 @@ import wagtailmetadata.models
 
 class Migration(migrations.Migration):
 
-    replaces = [
-        ('mozfest', '0001_squashed_mozfest_feb_2022'),
-        ('mozfest', '0002_squashed_mozfest_feb_2022_data'),
-    ]
-
     initial = True
 
     dependencies = [
