@@ -393,6 +393,7 @@ ASSET_DOMAIN = env('ASSET_DOMAIN')
 
 WSGI_APPLICATION = 'networkapi.wsgi.application'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
