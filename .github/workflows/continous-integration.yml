@@ -84,15 +84,20 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gettext
       - name: Preroll: build frontend
-        run: npm run build
+        run: |
+          npm run build
       - name: Preroll: collectstatic
-        run: python network-api/manage.py collectstatic --no-input --verbosity 0
+        run: |
+          python network-api/manage.py collectstatic --no-input --verbosity 0
       - name: Preroll: migrate database
-        run: python network-api/manage.py migrate --no-input
+        run: |
+          python network-api/manage.py migrate --no-input
       - name: Preroll: update block inventory
-        run: python network-api/manage.py block_inventory
+        run: |
+          python network-api/manage.py block_inventory
       - name: Preroll: compilemessages
-        run: python network-api/manage.py compilemessages
+        run: |
+          python network-api/manage.py compilemessages
       - name: Run Tests
         run: |
           flake8 tasks.py network-api/
