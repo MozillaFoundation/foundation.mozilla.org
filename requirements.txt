@@ -24,7 +24,7 @@ botocore==1.23.14
     # via
     #   boto3
     #   s3transfer
-cached_property==1.5.2
+cached-property==1.5.2
     # via -r requirements.in
 certifi==2021.5.30
     # via
@@ -51,7 +51,7 @@ defusedxml==0.7.1
     #   social-auth-core
 dj-database-url==0.5.0
     # via -r requirements.in
-django==3.1.11
+django==3.2.12
     # via
     #   -r requirements.in
     #   django-admin-sortable
@@ -85,7 +85,7 @@ django-redis==5.0.0
     # via -r requirements.in
 django-storages==1.11.1
     # via -r requirements.in
-django-taggit==1.5.1
+django-taggit==2.1.0
     # via wagtail
 django-treebeard==4.5.1
     # via wagtail
@@ -226,7 +226,7 @@ urllib3[secure]==1.26.6
     #   requests
     #   scout-apm
     #   sentry-sdk
-wagtail==2.15.1
+wagtail==2.16.1
     # via
     #   -r requirements.in
     #   wagtail-airtable
@@ -245,7 +245,7 @@ wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.g
     # via -r requirements.in
 wagtail-inventory==1.3
     # via -r requirements.in
-wagtail-localize==1.0.1
+wagtail-localize==1.1rc1
     # via
     #   -r requirements.in
     #   wagtail-localize-git

@@ -54,8 +54,10 @@ class MozfestHomepageFactory(MozfestPrimaryPageFactory):
     banner_cta_label = 'Watch last year\'s recap video'
     banner_heading_text = Faker('sentence', nb_words=6, variable_nb_words=True)
 
-    banner_carousel = Faker('streamfield', fields=['banner_carousel'])
+    banner_carousel = Faker('streamfield', fields=['banner_carousel', 'banner_carousel'])
     banner_video = Faker('streamfield', fields=['banner_video'])
+
+    body = Faker('streamfield', fields=streamfield_fields + ['current_events_slider'])
 
     signup = SubFactory(SignupFactory)
 

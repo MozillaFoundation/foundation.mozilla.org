@@ -393,6 +393,7 @@ ASSET_DOMAIN = env('ASSET_DOMAIN')
 
 WSGI_APPLICATION = 'networkapi.wsgi.application'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -487,6 +488,7 @@ STATICFILES_DIRS = [app('frontend')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
+WAGTAIL_SLIM_SIDEBAR = False
 WAGTAILIMAGES_INDEX_PAGE_SIZE = env('WAGTAILIMAGES_INDEX_PAGE_SIZE')
 WAGTAIL_USAGE_COUNT_ENABLED = True
 WAGTAIL_I18N_ENABLED = True
