@@ -482,7 +482,7 @@ class JoinUs extends Component {
   renderSubmitButton() {
     let classnames = classNames("btn btn-primary", {
       "w-100": !this.isFlowForm(),
-      "tw-flex-1 mr-3": this.isFlowForm(),
+      "tw-flex-1 tw-mr-4": this.isFlowForm(),
     });
     return <button className={classnames}>{getText(`Sign up`)}</button>;
   }

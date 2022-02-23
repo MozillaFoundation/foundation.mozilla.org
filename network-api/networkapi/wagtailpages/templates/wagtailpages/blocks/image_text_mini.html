@@ -2,7 +2,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
-    <div class="tw-p-2 medium:p-4 tw-my-6 tw-w-full tw-flex tw-items-center tw-border-t tw-border-b tw-border-black">
+    <div class="tw-p-2 medium:tw-p-4 tw-my-6 tw-w-full tw-flex tw-items-center tw-border-t tw-border-b tw-border-black">
       <div class="tw-flex-shrink-0 tw-grow-0 tw-basis-[50px] tw-mr-2 medium:tw-mr-4">
         {% image value.image fill-100x100-c100 format-jpeg as img %}
         <img src="{{ img.url }}" alt="{{ value.altText }}" class="tw-w-full" width="{{ img.width }}" height="{{ img.height }}">

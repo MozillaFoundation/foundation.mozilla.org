@@ -12,17 +12,17 @@
   {% image blog.localized.specific.get_meta_image fill-540x303 %}
 </div>
 
-<div class="d-flex flex-column tw-flex-1 tw-border-b-4 tw-border-gray-05 -tw-mt-5 tw-bg-white tw-relative mx-2 mx-md-4 p-3">
-  <p class="h6-heading mb-2">
+<div class="tw-flex tw-flex-col tw-flex-1 tw-border-b-4 tw-border-gray-05 -tw-mt-5 tw-bg-white tw-relative tw-mx-2 medium:tw-mx-5 tw-p-4">
+  <p class="h6-heading tw-mb-2">
     {% for category in blog.localized.category.all %}
       {% localized_version category as localized_category %}
       <a href="/blog/category/{{category.slug}}">{{ localized_category }}</a>{% if not forloop.last %}, {% endif %}
     {% endfor %}
   </p>
-  <h5 class="mb-2 h3-heading">
+  <h5 class="tw-mb-2 h3-heading">
     <a href="{% relocalized_url blog.localized.url %}">{{blog.localized.title}}</a>
   </h5>
-  <p class="body-small mb-2">
+  <p class="body-small tw-mb-2">
     {% if blog.author %}
       {% blocktrans with author=blog.author %}by {{author}}{% endblocktrans %}
     {% endif %}
