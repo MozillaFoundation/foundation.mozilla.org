@@ -92,7 +92,9 @@ jobs:
       - name: update block inventory
         run: python network-api/manage.py block_inventory
       - name: compilemessages
-        run: python network-api/manage.py compilemessages
+        run: |
+          cd network-api
+          python manage.py compilemessages
       - name: Run Tests
         run: |
           flake8 tasks.py network-api/
