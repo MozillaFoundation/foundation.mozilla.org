@@ -2,21 +2,21 @@
 
 
 <div class="section-take-action section-padding">
-    <div class="row">
-      <div class="col-12">
-        <h2 class="take-action-title mb-4">{{ page.take_action_title }}</h2>
+    <div class="tw-row">
+      <div class="tw-w-full tw-px-4">
+        <h2 class="take-action-title tw-mb-5">{{ page.take_action_title }}</h2>
       </div>
-      <div class="col-lg-8 col-md-12">
-        <div class="row">
+      <div class="tw-w-full tw-px-4 large:tw-w-2/3 tw-relative">
+        <div class="tw-row">
           {% for item in page.take_action_cards.all %}
             {% with target=item.internal_link.localized %}
-            <div class="col-md-6 d-flex">
-              <div class="card flex-grow-1 mb-4">
+            <div class="col-md-6 tw-flex">
+              <div class="card tw-flex-grow tw-mb-5">
                   <a href="{{ target.url }}">
                     <img src="{% image_url item.image "fill-350x130" %}" class="card-img-top" alt="{{ img.alt }}" aria-label="{{ item.text }}">
                   </a>
                   <div class="card-body">
-                    <a href="{{ target.url }}" class="h5-heading d-inline-block my-2">
+                    <a href="{{ target.url }}" class="h5-heading tw-inline-block tw-my-2">
                       {{ item.text }}
                     </a>
                   </div>
@@ -26,8 +26,8 @@
           {% endfor %}
         </div>
       </div>
-      <div class="col-lg-4 mb-md-4 mt-md-4 mt-lg-0 d-flex align-items-stretch">
-        <div class="tw-bg-black p-4 dark-theme">
+      <div class="tw-w-full tw-px-4 large:tw-w-1/3 medium:tw-mb-5 medium:tw-mt-5 large:tw-mt-0 tw-flex tw-items-stretch">
+        <div class="tw-bg-black tw-p-5 dark-theme">
           <div
             class="join-us"
             data-form-position="body"
