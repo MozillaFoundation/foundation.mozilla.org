@@ -1,6 +1,6 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
-import moment from "moment";
+import { getCurrentLanguage } from "../petition/locales";
 
 /**
  * Pulls news items from API and
@@ -46,7 +46,10 @@ class News extends Component {
   }
 
   render() {
+    const currentLanguage = getCurrentLanguage();
+
     let blurb = (newsItem, hasHR = true) => {
+      let formattedPublishDate = new Date(newsItem.date).toLocaleDateString({currentLanguage}, {month:'long', year:'numeric'})
       return (
         <div key={newsItem.headline}>
           <div className="mb-3 news-item">
@@ -60,7 +63,7 @@ class News extends Component {
             </h3>
             <p className="h6-heading">
               {newsItem.author && <span>by {newsItem.author} on </span>}
-              {moment(newsItem.date, `YYYY-MM-DD`).format(`MMMM YYYY`)}
+              {formattedPublishDate}
             </p>
           </div>
           {hasHR && <hr />}
@@ -88,7 +91,7 @@ class News extends Component {
     };
 
     const startYear = 2016;
-    const currentYear = moment().year();
+    const currentYear = new Date().getFullYear()
 
     let year = startYear;
     let newsByYear = [];
