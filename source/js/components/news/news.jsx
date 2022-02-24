@@ -46,9 +46,11 @@ class News extends Component {
   }
 
   render() {
+    const currentLanguage = getCurrentLanguage();
+
     let blurb = (newsItem, hasHR = true) => {
-      let formattedDate = new Date(newsItem.date).toLocaleDateString(
-        navigator.language || `en-US`,
+      let formattedPublishDate  = new Date(newsItem.date).toLocaleDateString(
+        currentLanguage|| `en-US`,
         {
           month: "long",
           year: "numeric",
@@ -68,7 +70,7 @@ class News extends Component {
             </h3>
             <p className="h6-heading">
               {newsItem.author && <span>by {newsItem.author} on </span>}
-              {formattedDate}
+              {formattedPublishDate}
             </p>
           </div>
           {hasHR && <hr />}
