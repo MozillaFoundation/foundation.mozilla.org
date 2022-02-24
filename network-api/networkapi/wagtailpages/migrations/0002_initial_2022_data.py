@@ -97,7 +97,7 @@ def bootstrap_data(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0001_squashed_migrations_feb_2022'),
+        ('wagtailpages', '0001_initial_2022'),
     ]
 
     operations = [

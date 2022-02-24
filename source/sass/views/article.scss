@@ -41,6 +41,7 @@
 .article-summary-share-links {
   position: absolute;
   left: 0;
+  z-index: 99;
 
   &.with-top-offset {
     top: 20px;

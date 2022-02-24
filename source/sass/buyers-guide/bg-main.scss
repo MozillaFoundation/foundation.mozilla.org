@@ -53,7 +53,6 @@ html {
 @import "../../js/buyers-guide/components/primary-nav/primary-nav";
 
 @import "../../js/buyers-guide/components/creepiness-chart/creepiness-chart";
-@import "../../js/components/share-button-group/share-button-group";
 @import "../../js/components/join/join";
 
 // Non-React Components
@@ -61,6 +60,7 @@ html {
 @import "../components/nav";
 @import "../components/multipage-nav";
 @import "../components/select-dropdown";
+@import "../components/share-button-group";
 
 // Wagtail Stream Blocks
 
