@@ -47,6 +47,14 @@ class News extends Component {
 
   render() {
     let blurb = (newsItem, hasHR = true) => {
+      let formattedDate = new Date(newsItem.date).toLocaleDateString(
+        navigator.language || `en-US`,
+        {
+          month: "long",
+          year: "numeric",
+        }
+      );
+
       return (
         <div key={newsItem.headline}>
           <div className="mb-3 news-item">
@@ -60,7 +68,7 @@ class News extends Component {
             </h3>
             <p className="h6-heading">
               {newsItem.author && <span>by {newsItem.author} on </span>}
-              {moment(newsItem.date, `YYYY-MM-DD`).format(`MMMM YYYY`)}
+              {formattedDate}
             </p>
           </div>
           {hasHR && <hr />}
