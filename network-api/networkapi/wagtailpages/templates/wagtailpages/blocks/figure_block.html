@@ -2,17 +2,17 @@
 
 {% with url=value.url square=value.square_image %}
 
-<div class="col-6 {% if count > 3 %}col-sm-3{% elif count == 3 %}col-sm-4{% elif count == 2 %}col-sm-6{% endif %} mb-2 mb-sm-4">
+<div class="tw-w-1/2 tw-px-4 {% if count > 3 %} small:tw-w-1/4 {% elif count == 3 %} small:tw-w-1/3 {% elif count == 2 %} small:tw-w-1/2 {% endif %} tw-mb-2 small:tw-mb-5">
 	{% if url %}<a href="{{ url }}">{% endif %}
     {% if square %}
-      {% image value.image fill-890x890-c100 format-jpeg class="w-100" alt=value.alt %}
+      {% image value.image fill-890x890-c100 format-jpeg class="tw-w-full" alt=value.alt %}
     {% else %}
-      {% image value.image format-jpeg class="w-100" alt=value.alt %}
+      {% image value.image format-jpeg class="tw-w-full" alt=value.alt %}
     {% endif %}
   {% if url %}</a>{% endif %}
 
   {% if value.caption %}
-	<p class="my-2">
+	<p class="tw-my-2">
     {% if url %}<a href="{{ url }}">{% endif %}
       {{ value.caption }}
     {% if url %}</a>{% endif %}

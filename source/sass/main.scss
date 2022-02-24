@@ -62,13 +62,11 @@
 @import "./wagtail/blocks/profiles";
 @import "./wagtail/blocks/video-block";
 @import "./wagtail/blocks/article-blocks";
-@import "./wagtail/blocks/annotated-image-block";
 @import "./wagtail/blocks";
 
 // Misc
 
 @import "./global";
-@import "./utilities";
 @import "./cms";
 @import "./wagtail";
 

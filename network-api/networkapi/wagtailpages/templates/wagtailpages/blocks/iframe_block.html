@@ -10,7 +10,7 @@ The iframe_block.html is used on Article pages and Blog pages.
 {% endblock %}
 
 {% block block_row_classes %}
-no-gutters
+tw-mx-0
 {% endblock %}
 
 {% block main_block_class %}
@@ -21,13 +21,13 @@ streamfield-content
 {% endblock %}
 
 {% block block_content %}
-<div class="my-2">
+<div class="tw-my-2">
   <div class="embed-responsive embed-responsive-16by9" {% if value.height %}style="height: {{value.height}}px;"
     {% endif %}>
     <iframe src="{{ value.url }}" class="embed-responsive-item" {% if value.disable_scroll %}scrolling="no" style="overflow: hidden;"{% endif %}></iframe>
   </div>
   {% if value.caption %}
-  <p class="body-small mt-2">
+  <p class="body-small tw-mt-2">
     {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
       {{ value.caption }}
       {% if value.captionURL %}</a>{% endif %}

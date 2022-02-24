@@ -2,20 +2,20 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
-	<div class="row">
+	<div class="tw-row">
 		{% for block in self.cards %}
           {% with card=block count=self.cards|length %}
             {% image card.image fill-350x197 as img %}
-            <div class="col-sm-12 {% if count > 2 %} col-lg-4 col-md-6 {% else %} col-md-6 {% endif %} mb-4">
-              <div class="card-regular h-100 d-flex flex-column ">
+            <div class="tw-px-4 small:tw-w-full {% if count > 2 %} large:tw-w-1/3 medium:tw-w-1/2 {% else %} medium:tw-w-1/2 {% endif %} tw-mb-5">
+              <div class="card-regular tw-h-full tw-flex tw-flex-col">
                 <img src="{{ img.url }}" alt="{{ img.alt_text }}" />
             
-                <div class="d-flex flex-1">
-                  <div class="key-item mx-2 mx-md-3 p-3 w-100 d-flex flex-column">
-                    <h3 class="h3-heading mb-2">{{ card.title }}</h3>
+                <div class="tw-flex tw-flex-1">
+                  <div class="tw-border-b-4 tw-border-gray-05 tw--mt-5 tw-bg-white tw-relative tw-mx-2 medium:tw-mx-4 tw-p-4 tw-w-full tw-flex tw-flex-col">
+                    <h3 class="h3-heading tw-mb-2">{{ card.title }}</h3>
                     <p>{{ card.body }}</p>
                     {% if card.link_label and card.link_url %}
-                      <a class="cta-link mb-2" href="{{ card.link_url }}">{{ card.link_label }}</a>
+                      <a class="cta-link tw-mb-2" href="{{ card.link_url }}">{{ card.link_label }}</a>
                     {% endif %}
                   </div>
                 </div>
