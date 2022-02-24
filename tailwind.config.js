@@ -2,6 +2,7 @@
 const colors = require("tailwindcss/colors");
 const plugin = require("tailwindcss/plugin");
 const componentPlugins = require("./tailwind.components");
+const buttonPlugins = require("./tailwind.button");
 
 module.exports = {
   content: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
@@ -29,6 +30,7 @@ module.exports = {
       addUtilities(newUtilities);
     }),
     ...componentPlugins,
+    ...buttonPlugins,
   ],
   theme: {
     extend: {
