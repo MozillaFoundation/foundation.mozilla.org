@@ -14,7 +14,7 @@ class Command(BaseCommand):
         )
         found = aliases_without_first_last_published.count()
         if not found:
-            return self.stdout.write(self.style.WARNING("Found no alias pages to update"))
+            return self.stdout.write("Found no alias pages to update")
 
         self.stdout.write(f"Found {found} alias page(s) to update")
         for alias in aliases_without_first_last_published:
