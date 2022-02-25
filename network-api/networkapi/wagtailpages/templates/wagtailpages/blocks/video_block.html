@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block block_row_classes %}
-no-gutters
+tw-mx-0
 {% endblock %}
 
 {% block main_block_class %}
@@ -16,9 +16,10 @@ streamfield-content
 {% endif %}
 {% endblock %}
 
+<!-- TODO replace bootstrap embed-responsive classes with one created by tailwind component -->
 {% block block_content %}
-<div class="my-2">
-    <div class="embed-responsive embed-responsive-16by9 d-print-none">
+<div class="tw-my-2">
+    <div class="embed-responsive embed-responsive-16by9 print:tw-hidden">
       <iframe
         src="{{ value.url }}"
         frameborder="0"
@@ -28,7 +29,7 @@ streamfield-content
       </iframe>
     </div>
     {% if value.caption %}
-    <p class="caption-wrapper body-small mt-2">
+    <p class="caption-wrapper body-small tw-mt-2">
       {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
       {{ value.caption }}
       {% if value.captionURL %}</a>{% endif %}
