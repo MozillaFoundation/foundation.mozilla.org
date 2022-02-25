@@ -23,10 +23,6 @@ from ..donation_modal import DonationModals  # noqa: F401
 from ..utils import TitleWidget
 
 
-class NewsPage(PrimaryPage):
-    template = 'wagtailpages/static/news_page.html'
-
-
 class InitiativeSection(TranslatableMixin, models.Model):
     page = ParentalKey(
         'wagtailpages.InitiativesPage',
@@ -869,7 +865,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'CampaignIndexPage',
         'InitiativesPage',
         'MiniSiteNameSpace',
-        'NewsPage',
         'OpportunityPage',
         'ParticipatePage2',
         'PrimaryPage',

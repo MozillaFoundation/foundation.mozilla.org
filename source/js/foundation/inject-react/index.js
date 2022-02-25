@@ -1,4 +1,3 @@
-import injectNews from "./news.js";
 import injectPetition from "./petition.js";
 import injectPulseProjectList from "./pulse-project-list.js";
 import injectPulseTabbedProfileDirectory from "./pulse-tabbed-profile-filters";
@@ -10,7 +9,6 @@ import injectPulseTabbedProfileDirectory from "./pulse-tabbed-profile-filters";
  * @param {Object} env Object of environment variables
  */
 export const injectReactComponents = (apps, siteUrl, env) => {
-  injectNews(apps, env);
   injectPetition(apps, siteUrl);
   injectPulseProjectList(apps, env);
   injectPulseTabbedProfileDirectory(apps);
