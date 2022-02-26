@@ -12,7 +12,7 @@
   color: $color;
   margin-bottom: 1rem;
 
-  @at-root .dark-theme & {
+  @at-root .tw-dark & {
     color: $dark-theme-color;
 
     a {
@@ -37,7 +37,7 @@
   font-weight: $font-weight;
   color: $color;
 
-  @at-root .dark-theme & {
+  @at-root .tw-dark & {
     color: $dark-theme-color;
 
     a {

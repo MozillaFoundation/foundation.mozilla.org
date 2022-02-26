@@ -27,6 +27,20 @@ const formControlStylings = {
     outline: "0",
     boxShadow: "0 0 0 0.2rem rgba(0, 123, 255, 0.25)",
   },
+  ".dark &": {
+    backgroundImage: "url(../_images/glyphs/down-chevron-dark-theme.svg)",
+    backgroundColor: "transparent",
+    border: "1px solid #ffffff",
+    color: "#ffffff",
+    option: {
+      color: "#000",
+    },
+    "&:focus": {
+      color: "#fff",
+      backgroundColor: "transparent",
+      borderColor: "#fff",
+    },
+  },
 };
 module.exports = [
   plugin(function ({ addComponents }) {

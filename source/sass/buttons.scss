@@ -65,7 +65,7 @@ button,
     box-shadow: none;
   }
 
-  @at-root .dark-theme & {
+  @at-root .tw-dark & {
     box-shadow: $offset $offset $white;
 
     @include hover-focus-active {
@@ -148,7 +148,7 @@ button,
     }
   }
 
-  @at-root .dark-theme & {
+  @at-root .tw-dark & {
     &::after {
       filter: brightness(1);
     }
@@ -159,8 +159,4 @@ button,
       }
     }
   }
-}
-
-.form-control {
-  border-radius: 0;
 }

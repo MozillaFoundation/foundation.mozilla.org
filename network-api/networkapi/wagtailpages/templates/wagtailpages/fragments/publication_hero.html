@@ -14,7 +14,7 @@
 {% endif %}
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 offset-lg-2 dark-theme">
+      <div class="col-lg-8 offset-lg-2 tw-dark">
         {% if is_publication_article or is_publication_page %}
           <div class="mb-2 body-small publication-breadcrumb">
             {% for entry in self.breadcrumb_list %}
@@ -50,7 +50,7 @@
           {% include "./author-images.html" with authors=authors %}
         </div>
         {% if page.authors.count %}
-          <div class="mt-2 dark-theme">
+          <div class="mt-2 tw-dark">
             <p>
             {% trans "Written by" %}
             {% with authors_length=page.authors.count %}
