@@ -1,5 +1,8 @@
 const plugin = require("tailwindcss/plugin");
 
+// TODO refactor with theme references after removing SASS/Bootstrap
+// https://tailwindcss.com/docs/theme#referencing-other-values
+
 const formControlStylings = {
   appearance: "none",
   backgroundImage: 'url("../_images/glyphs/down-chevron.svg")',
