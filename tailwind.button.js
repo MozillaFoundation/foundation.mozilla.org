@@ -1,7 +1,5 @@
 const plugin = require("tailwindcss/plugin");
 
-// TODO Add a dark theme to these buttons but switching to tw-dark is necessary first
-
 const btnDefault = {
   fontFamily: "Nunito Sans",
   display: "inline-block",
@@ -45,7 +43,6 @@ const btnDefault = {
 
 module.exports = [
   plugin(function ({ addComponents }) {
-    // Using Same breakpoints for containers as bootstrap
     addComponents([
       {
         ".btn": { ...btnDefault },
@@ -70,6 +67,18 @@ module.exports = [
           "&:focus, &.focus": {
             outline: "0",
             boxShadow: "0 0 0 0.2rem rgb(38 143 255 / 50%)",
+          },
+          ".dark &": {
+            "&:focus, &:hover": {
+              color: "#000000",
+              backgroundColor: "#b7b9fa",
+              borderColor: "transparent",
+            },
+            "&:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active":
+              {
+                color: "#000000",
+                backgroundColor: "#0d10bf",
+              },
           },
         },
         ".btn-secondary": {
@@ -112,6 +121,33 @@ module.exports = [
                 "&::after": { filter: "brightness(1)" },
               },
             },
+          ".dark &": {
+            color: "#ffffff",
+            backgroundColor: "#000000",
+            borderColor: "#ffffff",
+            fontWeight: "700",
+            "&:focus, &:hover": {
+              color: "#000000",
+              backgroundColor: "#ffffff",
+              borderColor: "transparent",
+              textDecoration: "none",
+            },
+            "&:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active":
+              {
+                color: "#000000",
+                backgroundColor: "#595cf3",
+                borderColor: "transparent",
+              },
+            '&[href*="//"]:not([href*="foundation.mozilla.org"]):not([href*="donate.mozilla.org"])':
+              {
+                "&::after": {
+                  filter: "brightness(1)",
+                },
+                "&:focus, &:hover": {
+                  "&::after": { filter: "brightness(0)" },
+                },
+              },
+          },
         },
         ".btn-pop": {
           ...btnDefault,
@@ -136,6 +172,29 @@ module.exports = [
             color: "#000000",
             backgroundColor: "transparent",
             borderColor: "#000000",
+          },
+          ".dark &": {
+            color: "#ffffff",
+            backgroundColor: "transparent",
+            borderColor: "#ffffff",
+            boxShadow: "4px 4px #ffffff",
+            fontWeight: "700",
+            "&:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active":
+              {
+                color: "#000",
+                backgroundColor: "#fff",
+                borderColor: "transparent",
+                transform: "translate(4px, 4px)",
+                boxShadow: "none",
+              },
+            "&:focus, &:hover": {
+              transform: "translate(4px, 4px)",
+              boxShadow: "none",
+              color: "#fff",
+              backgroundColor: "transparent",
+              borderColor: "#fff",
+              textDecoration: "none",
+            },
           },
         },
       },
