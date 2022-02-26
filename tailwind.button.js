@@ -1,5 +1,8 @@
 const plugin = require("tailwindcss/plugin");
 
+// TODO refactor with theme references after removing SASS/Bootstrap
+// https://tailwindcss.com/docs/theme#referencing-other-values
+
 const btnDefault = {
   fontFamily: "Nunito Sans",
   display: "inline-block",

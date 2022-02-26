@@ -54,6 +54,7 @@ module.exports = {
       7: "3rem",
     },
     // Renaming breakpoints temporary until we remove bootstrap usage
+    // Remove after removing SASS/Bootstrap
     screens: {
       small: "576px",
       medium: "768px",
@@ -127,5 +128,6 @@ module.exports = {
       },
     },
   },
+  // TODO remove after removing SASS/Bootstrap
   prefix: "tw-",
 };
