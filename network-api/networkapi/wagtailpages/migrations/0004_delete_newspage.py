@@ -6,11 +6,6 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailinventory', '0002_pageblock_unique_constraint'),
-        ('wagtail_footnotes', '0004_footnote_translatable_mixin_migration'),
-        ('wagtailredirects', '0007_add_autocreate_fields'),
-        ('wagtailcore', '0066_collection_management_permissions'),
-        ('wagtailforms', '0004_add_verbose_name_plural'),
         ('wagtailpages', '0003_auto_20220222_2022'),
     ]
 
