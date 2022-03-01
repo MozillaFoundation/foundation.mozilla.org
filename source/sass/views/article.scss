@@ -154,9 +154,6 @@
 }
 
 .article-blockquote-block {
-  background: $gray-05;
-  padding: 24px 30px;
-  width: calc(80% + 60px);
   .rich-text {
     p {
       color: $black;
@@ -173,14 +170,6 @@
         font-weight: normal;
       }
     }
-  }
-}
-
-@media (max-width: $bp-md) {
-  .article-blockquote-block {
-    padding: 18px 22px;
-    @include set-text-size(18px, 27px);
-    width: 100%;
   }
 }
 

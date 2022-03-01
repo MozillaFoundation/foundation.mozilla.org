@@ -2,11 +2,11 @@
 {% load wagtailcore_tags static %}
 
 {% block block_content %}
-<div class="profiles my-2"
+<div class="profiles tw-my-2"
         data-program-type="{{ value.program_type }}"
         data-program-year="{{ value.program_year }}"
         data-profile-type="{{ value.profile_type }}">
-  <div class="row">
+  <div class="tw-row">
     {% for profile in profiles %}
     {% include "./profile_block.html" with profile=profile %}
     {% endfor %}

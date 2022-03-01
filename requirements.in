@@ -2,7 +2,7 @@ basket-client
 beautifulsoup4
 boto3
 cached_property==1.5.2
-Django==3.1.11
+Django==3.2.12
 dj-database-url
 djangorestframework
 django-admin-sortable==2.2.3
@@ -23,9 +23,9 @@ python-slugify
 requests
 social-auth-app-django
 wagtail-airtable
-wagtail==2.15.1
+wagtail==2.16.1
 wagtail-factories
-wagtail-localize==1.0.1
+wagtail-localize==1.1rc1
 wagtail-localize-git==0.12.0
 wagtail-inventory
 wagtailmedia

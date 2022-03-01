@@ -1,9 +1,5 @@
 .fellowships-directory-filter {
-  background: $gray-05;
-
   .filter-option {
-    display: inline-block;
-
     &:not(:last-child) {
       &::after {
         content: "|";

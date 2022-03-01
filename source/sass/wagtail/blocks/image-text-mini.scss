@@ -1,24 +1,13 @@
 // ImageTextMini Stream Block
 // For #6496: this file should be relocated?
 
-.image-text-mini {
-  &-container {
-    border-top: 1px solid $black;
-    border-bottom: 1px solid $black;
-  }
+.image-text-mini-text {
+  .rich-text {
+    p {
+      margin-bottom: 0;
 
-  &-img-container {
-    flex: 0 0 50px;
-  }
-
-  &-text {
-    .rich-text {
-      p {
-        margin-bottom: 0;
-
-        &:not(:first-child) {
-          margin-top: 0.25rem;
-        }
+      &:not(:first-child) {
+        margin-top: 0.25rem;
       }
     }
   }

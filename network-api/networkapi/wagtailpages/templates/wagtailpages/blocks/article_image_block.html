@@ -2,22 +2,22 @@
 {% load wagtailimages_tags wagtailcore_tags remove_richtext_wrapping %}
 
 {% block block_container_classes %}
-{% if value.wide_image %} wide w-100 mw-100 px-0 mx-0{% endif %}
+{% if value.wide_image %} tw-relative tw-w-full tw-max-w-full tw-px-0 tw-mx-0{% endif %}
 {% endblock %}
 
 {% block block_row_classes %}
-no-gutters
+tw-mx-0
 {% endblock %}
 
 {% block main_block_class %}
-{% if value.wide_image %} wide {% else %} streamfield-content {% endif %}
+{% if value.wide_image %} tw-relative tw-w-full tw-px-4 {% else %} streamfield-content {% endif %}
 {% endblock %}
 
 {% block block_content %}
   {% image self.image width-1840 as img %}
-  <figure class="my-2">
+  <figure class="tw-my-2">
     <img src="{{ img.url }}" alt="{% if self.alt_text %}{{ self.alt_text }}{% else %}{{ img.alt }}{% endif %}"
-      class="w-100" />
+      class="tw-w-full" />
     {% if self.caption %}
     <figcaption class="body-small">
       {{ self.caption|richtext|remove_wrapping|safe }}
