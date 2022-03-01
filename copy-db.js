@@ -87,9 +87,11 @@ run(`docker-compose up -d backend`, true, silent);
 console.log(`Getting running image names...`);
 const IMAGE_NAMES = getContainerNames();
 
-console.log(`Downloading ${APP} database (this may take a while)...`);
 if (!fs.existsSync(DUMP_FILE)) {
+  console.log(`Downloading ${APP} database (this may take a while)...`);
   postgres(`pg_dump -F c ${DATABASE_URL} > ${DUMP_FILE}`);
+} else {
+  console.log(`Found local ${APP} database file, skipping download...`);
 }
 
 console.log(`Resetting db...`);
@@ -101,20 +103,20 @@ console.log(`Building user roles...`);
   postgres(`createuser ${DB_FLAGS} -s ${role}`, true)
 );
 
-console.log(`Importing snapshot...`);
+console.log(`Importing database snapshot...`);
 run(`docker cp ${DUMP_FILE} ${IMAGE_NAMES.POSTGRES}:/`);
 postgres(`pg_restore ${DB_FLAGS} -dwagtail ${DUMP_FILE}`);
-
-console.log(`Migrating database...`);
-run(
-  `docker exec ${IMAGE_NAMES.BACKEND} ./dockerpythonvenv/bin/python network-api/manage.py migrate`
-);
 
 console.log(`Updating site bindings...`);
 run(`inv manage fix_local_site_bindings`, true, silent);
 
 console.log(`Creating admin:admin superuser account...`);
 run(`inv createsuperuser`, true, silent);
+
+console.log(`Migrating database to match current branch migrations...`);
+run(
+  `docker exec ${IMAGE_NAMES.BACKEND} ./dockerpythonvenv/bin/python network-api/manage.py migrate`
+);
 
 console.log(`Stopping docker images...`);
 run(`docker-compose down`, true, silent);
