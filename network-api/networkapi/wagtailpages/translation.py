@@ -9,7 +9,6 @@ from .models import (
     BlogIndexPage,
     CampaignIndexPage,
 
-    NewsPage,
     InitiativesPage,
     ParticipatePage2,
     Styleguide,
@@ -149,11 +148,6 @@ class BlogIndexPageTR(TranslationOptions):
 
 @register(CampaignIndexPage)
 class CampaignIndexPageTR(TranslationOptions):
-    fields = ()
-
-
-@register(NewsPage)
-class NewsPageTR(TranslationOptions):
     fields = ()
 
 

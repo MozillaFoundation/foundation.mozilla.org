@@ -13,7 +13,6 @@ from . import (
     homepage,
     initiatives_page,
     locale,
-    news_page,
     opportunity,
     participate_page_featured_highlights,
     participate_page,
@@ -40,7 +39,6 @@ def generate(seed):
     homepage_take_action.generate(seed)
     homepage_usable_news.generate(seed)
     initiatives_page.generate(seed)
-    news_page.generate(seed)
     opportunity.generate(seed)
     participate_page_featured_highlights.generate(seed)
     publication.generate(seed)
