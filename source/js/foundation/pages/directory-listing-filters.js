@@ -9,7 +9,7 @@
   const labels = document.querySelectorAll(
     `.fellowships-directory-filter .filter-option button`
   );
-  const profileContainer = document.querySelector(`.profiles .row`);
+  const profileContainer = document.querySelector(`.profiles .tw-row`);
   const { profileType, programType } =
     document.querySelector(`.profiles`).dataset;
   const API_ENDPOINT =
