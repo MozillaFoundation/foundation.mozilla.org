@@ -56,6 +56,10 @@ from .pagemodels.blog.blog_index import (
     BlogIndexPage
 )
 
+from .pagemodels.blog.mock_search_blog_index import (
+    MockSearchBlogIndex
+)
+
 from .pagemodels.campaign_index import (
     CampaignIndexPage
 )
@@ -123,6 +127,7 @@ __all__ = [
     IndexPage,
     InitiativesPage,
     MiniSiteNameSpace,
+    MockSearchBlogIndex,
     ModularPage,
     OpportunityPage,
     ParticipateHighlights,

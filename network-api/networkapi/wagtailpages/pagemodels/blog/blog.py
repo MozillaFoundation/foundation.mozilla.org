@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import truncatechars
+
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
@@ -11,21 +12,21 @@ from wagtail.admin.edit_handlers import (
     PublishingPanel,
     StreamFieldPanel,
 )
+
 from wagtail.core import blocks
 from wagtail.core.models import Orderable, Locale, Page
 from wagtail.core.fields import StreamField
 from wagtail.core.rich_text import get_text_for_indexing
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
-
 from wagtail_localize.fields import TranslatableField, SynchronizedField
+from wagtail.search import index
 
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from .. import customblocks
 from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
-
 
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
@@ -135,6 +136,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         verbose_name='Hero Image',
         help_text='Image for the blog page hero section.',
     )
+
     hero_video = models.CharField(
         blank=True,
         max_length=500,
@@ -148,6 +150,11 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     )
 
     related_post_count = 3
+
+    search_fields = Page.search_fields + [
+        index.SearchField('title'),
+        index.SearchField('body'),
+    ]
 
     content_panels = [
         FieldPanel(

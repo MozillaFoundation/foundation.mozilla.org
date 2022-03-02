@@ -1,0 +1,32 @@
+{% load wagtailcore_tags wagtailimages_tags i18n wagtailroutablepage_tags %}
+
+<div>
+  <h1>Search</h1>
+  <form role="search" method="get" action="{% routablepageurl page "blog_page_search" %}">
+    <input type="text" name="q" placeholder="Search…" title="Search for:">
+    <button type="submit">🔎</button>
+  </form>
+</div>
+
+{% if page.search_term %}
+  <div>
+    Posts for {{ page.search_type }}: {{ page.search_term }}
+  </div>
+
+  {% if page.results|length > 0 %}
+    <ul>
+    {% for result in page.results %}
+      <li><a href="{% pageurl result %}">{{ result.title }}</a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if page.default_results and page.default_results|length > 0 %}
+    <h2>English results:</h2>
+    <ul>
+    {% for result in page.default_results %}
+      <li><a href="{% pageurl result %}">{{ result.title }}</a></li>
+    {% endfor%}
+    </ul>
+  {% endif %}
+{% endif %}

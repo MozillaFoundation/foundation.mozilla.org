@@ -860,20 +860,21 @@ class Homepage(FoundationMetadataPageMixin, Page):
     ]
 
     subpage_types = [
+        'ArticlePage',
         'BanneredCampaignPage',
         'BlogIndexPage',
+        'BuyersGuidePage',
         'CampaignIndexPage',
         'InitiativesPage',
         'MiniSiteNameSpace',
+        'MockSearchBlogIndex',
         'OpportunityPage',
         'ParticipatePage2',
         'PrimaryPage',
+        'ProductPage',
         'PublicationPage',
         'RedirectingPage',
         'Styleguide',
-        'ProductPage',
-        'BuyersGuidePage',
-        'ArticlePage'
     ]
 
     def get_context(self, request):

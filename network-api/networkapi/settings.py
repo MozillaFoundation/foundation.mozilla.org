@@ -492,6 +492,12 @@ WAGTAILIMAGES_INDEX_PAGE_SIZE = env('WAGTAILIMAGES_INDEX_PAGE_SIZE')
 WAGTAIL_USAGE_COUNT_ENABLED = True
 WAGTAIL_I18N_ENABLED = True
 
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.search.backends.database',
+    }
+}
+
 # Wagtail Frontend Cache Invalidator Settings
 
 if env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"):
