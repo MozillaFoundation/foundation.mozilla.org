@@ -1,9 +1,8 @@
-from filecmp import DEFAULT_IGNORES
-from django.db.models import Q
-from wagtail.core.models import Page, Locale
+from wagtail.core.models import Page
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from networkapi.wagtailpages.utils import get_locale_from_request, get_default_locale
 from .blog import BlogPage
+
 
 class MockSearchBlogIndex(RoutablePageMixin, Page):
 
