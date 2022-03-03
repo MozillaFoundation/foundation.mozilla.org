@@ -41,7 +41,7 @@
   }
   @include button-colors-by-mode($regular-mode);
 
-  @at-root .dark-theme & {
+  @at-root .tw-dark & {
     @include button-colors-by-mode($dark-mode);
     @include disabled {
       opacity: 0.5;

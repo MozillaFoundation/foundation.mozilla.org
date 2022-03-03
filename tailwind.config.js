@@ -2,6 +2,7 @@
 const colors = require("tailwindcss/colors");
 const plugin = require("tailwindcss/plugin");
 const componentPlugins = require("./tailwind.components");
+const buttonPlugins = require("./tailwind.button");
 
 module.exports = {
   content: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
@@ -29,6 +30,7 @@ module.exports = {
       addUtilities(newUtilities);
     }),
     ...componentPlugins,
+    ...buttonPlugins,
   ],
   theme: {
     extend: {
@@ -52,6 +54,7 @@ module.exports = {
       7: "3rem",
     },
     // Renaming breakpoints temporary until we remove bootstrap usage
+    // Remove after removing SASS/Bootstrap
     screens: {
       small: "576px",
       medium: "768px",
@@ -125,5 +128,6 @@ module.exports = {
       },
     },
   },
+  // TODO remove after removing SASS/Bootstrap
   prefix: "tw-",
 };
