@@ -4,16 +4,16 @@
 #
 #    pip-compile dev-requirements.in
 #
-certifi==2021.5.30
+certifi==2021.10.8
     # via
     #   -c requirements.txt
     #   requests
     #   urllib3
-cffi==1.14.6
+cffi==1.15.0
     # via
     #   -c requirements.txt
     #   cryptography
-charset-normalizer==2.0.4
+charset-normalizer==2.0.12
     # via
     #   -c requirements.txt
     #   requests
@@ -21,7 +21,7 @@ coverage==5.5
     # via coveralls
 coveralls==3.2.0
     # via -r dev-requirements.in
-cryptography==3.4.7
+cryptography==36.0.1
     # via
     #   -c requirements.txt
     #   pyopenssl
@@ -30,7 +30,7 @@ docopt==0.6.2
     # via coveralls
 flake8==3.9.2
     # via -r dev-requirements.in
-idna==3.2
+idna==3.3
     # via
     #   -c requirements.txt
     #   requests
@@ -41,25 +41,21 @@ ptvsd==4.3.2
     # via -r dev-requirements.in
 pycodestyle==2.7.0
     # via flake8
-pycparser==2.20
+pycparser==2.21
     # via
     #   -c requirements.txt
     #   cffi
 pyflakes==2.3.1
     # via flake8
-pyopenssl==20.0.1
+pyopenssl==22.0.0
     # via
     #   -c requirements.txt
     #   urllib3
-requests==2.26.0
+requests==2.27.1
     # via
     #   -c requirements.txt
     #   coveralls
-six==1.16.0
-    # via
-    #   -c requirements.txt
-    #   pyopenssl
-urllib3[secure]==1.26.6
+urllib3[secure]==1.26.8
     # via
     #   -c requirements.txt
     #   requests
