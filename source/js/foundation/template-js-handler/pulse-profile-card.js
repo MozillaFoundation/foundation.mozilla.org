@@ -53,7 +53,7 @@ export default () => {
     profileCards.forEach((card) => {
       let profileHeadshotElement = card.querySelector(`.headshot-container`);
       let profileNameElement = card.querySelector(`.meta-block-name`);
-      let profileName = profileNameElement.textContent.trim();
+      let profileName = profileNameElement?.textContent.trim();
 
       [(profileNameElement, profileHeadshotElement)].forEach((target) =>
         bindAnalytics(target, profileName)
