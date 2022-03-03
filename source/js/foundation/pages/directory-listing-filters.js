@@ -154,15 +154,17 @@
 
     // And then we update the content that the user sees:
     profileContainer.style.removeProperty(`height`);
+    profileContainer.style.removeProperty(`width`);
     profileContainer.innerHTML = cards.join("\n");
     document.dispatchEvent(new CustomEvent("profiles:list-updated"));
   }
 
   function showLoadSpinner() {
     profileContainer.style.height = `${profileContainer.offsetHeight}px`;
+    profileContainer.style.width = `${profileContainer.offsetWidth}px`; // width + padding
     profileContainer.innerHTML = `
-      <div class="col-12 mx-auto my-5 text-center">
-        <div class="loading-indicator d-inline-block">
+      <div class="tw-w-full tw-mx-auto tw-my-7 tw-text-center tw-px-4">
+        <div class="loading-indicator tw-inline-block">
           <div class="dot"></div>
           <div class="dot"></div>
           <div class="dot"></div>
