@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
 const colors = require("tailwindcss/colors");
 const plugin = require("tailwindcss/plugin");
-const componentPlugins = require("./tailwind.components");
-const buttonPlugins = require("./tailwind.button");
+const componentPlugins = require("./tailwind-plugins/components");
+const buttonPlugins = require("./tailwind-plugins/button");
+const typePlugins = require("./tailwind-plugins/type");
 
 module.exports = {
   content: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
@@ -31,6 +32,7 @@ module.exports = {
     }),
     ...componentPlugins,
     ...buttonPlugins,
+    ...typePlugins,
   ],
   theme: {
     extend: {
