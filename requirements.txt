@@ -251,7 +251,7 @@ wagtail-localize==1.1rc1
     #   wagtail-localize-git
 wagtail-localize-git==0.12.0
     # via -r requirements.in
-wagtail-metadata==3.4.0
+wagtail-metadata==3.5.0
     # via -r requirements.in
 wagtailmedia==0.8.0
     # via -r requirements.in
