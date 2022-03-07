@@ -79,6 +79,11 @@ from .pagemodels.publications.article import (
     ArticlePage
 )
 
+from .pagemodels.research_hub.authors_index import ResearchAuthorsIndexPage
+from .pagemodels.research_hub.detail_page import ResearchDetailPage
+from .pagemodels.research_hub.landing_page import ResearchLandingPage
+from .pagemodels.research_hub.library_page import ResearchLibraryPage
+
 from .pagemodels.dear_internet import (
     DearInternetPage
 )
@@ -137,6 +142,10 @@ __all__ = [
     PublicationPage,
     PulseFilter,
     RedirectingPage,
+    ResearchAuthorsIndexPage,
+    ResearchDetailPage,
+    ResearchLandingPage,
+    ResearchLibraryPage,
     Signup,
     SoftwareProductPage,
     Styleguide,
