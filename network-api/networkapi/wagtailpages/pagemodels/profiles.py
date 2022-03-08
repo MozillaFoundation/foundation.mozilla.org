@@ -17,9 +17,19 @@ class Profile(TranslatableMixin, models.Model):
         null=True,
     )
 
+    tagline = models.CharField(
+        max_length=50,
+        blank=True,
+        help_text="Use this field for things like a person's job title."
+    )
+
+    introduction = models.TextField(max_length=500, blank=True)
+
     panels = [
         FieldPanel("name"),
         ImageChooserPanel("image"),
+        FieldPanel("tagline"),
+        FieldPanel("introduction"),
     ]
 
     def __str__(self):
