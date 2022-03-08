@@ -14,6 +14,8 @@ class ProfileFactory(DjangoModelFactory):
         model = Profile
 
     name = Faker('name')
+    tagline = Faker('job')
+    introduction = Faker('paragraph')
 
 
 def generate(seed):
