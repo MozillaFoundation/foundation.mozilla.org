@@ -17,7 +17,7 @@ from networkapi.wagtailpages.models import (
     BlogPage,
     BlogPageCategory,
     BlogIndexPage,
-    ContentAuthor
+    Profile,
 )
 
 from networkapi.utility.faker.helpers import (
@@ -50,7 +50,7 @@ def add_category(post):
 
 
 def add_authors(post):
-    authors = list(ContentAuthor.objects.all())
+    authors = list(Profile.objects.all())
     count = len(authors)
 
     shuffle(authors)

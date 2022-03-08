@@ -1,17 +1,17 @@
 from factory import Faker
 from factory.django import DjangoModelFactory
 
-from networkapi.wagtailpages.models import ContentAuthor
+from networkapi.wagtailpages.models import Profile
 from networkapi.utility.faker import generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 
-NUM_CONTENT_AUTHORS = 10
+NUM_PROFILES = 10
 
 
-class ContentAuthorFactory(DjangoModelFactory):
+class ProfileFactory(DjangoModelFactory):
 
     class Meta:
-        model = ContentAuthor
+        model = Profile
 
     name = Faker('name')
 
@@ -19,5 +19,5 @@ class ContentAuthorFactory(DjangoModelFactory):
 def generate(seed):
     reseed(seed)
 
-    print('Generating Content Authors')
-    generate_fake_data(ContentAuthorFactory, NUM_CONTENT_AUTHORS)
+    print('Generating profiles')
+    generate_fake_data(ProfileFactory, NUM_PROFILES)
