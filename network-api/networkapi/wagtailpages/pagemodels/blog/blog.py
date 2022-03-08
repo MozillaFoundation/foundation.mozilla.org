@@ -35,9 +35,9 @@ from ...utils import (
     TitleWidget
 )
 
+from networkapi.wagtailpages.models import Profile
 from .blog_category import BlogPageCategory
 from .blog_index import BlogIndexPage
-from ..content_author import Profile
 
 base_fields = [
     ('paragraph', blocks.RichTextBlock(

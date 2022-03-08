@@ -39,7 +39,7 @@ from .pagemodels.index import (
     IndexPage
 )
 
-from .pagemodels.content_author import (
+from .pagemodels.profiles import (
     Profile
 )
 
