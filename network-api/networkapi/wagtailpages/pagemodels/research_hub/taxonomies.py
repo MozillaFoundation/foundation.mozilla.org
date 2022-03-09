@@ -5,7 +5,7 @@ from wagtail.snippets import models as snippet_models
 
 @snippet_models.register_snippet
 class ResearchRegion(models.Model):
-    name = models.CharField(max_length=50, null=False, blank=False)
+    name = models.CharField(max_length=50, null=False, blank=False, unique=True)
 
     panels = [
         edit_handlers.FieldPanel('name'),
@@ -17,7 +17,7 @@ class ResearchRegion(models.Model):
 
 @snippet_models.register_snippet
 class ResearchTopic(models.Model):
-    name = models.CharField(max_length=50, null=False, blank=False)
+    name = models.CharField(max_length=50, null=False, blank=False, unique=True)
     description = models.TextField(null=False, blank=True)
 
     panels = [
