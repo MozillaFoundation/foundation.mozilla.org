@@ -243,7 +243,7 @@ wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.g
     # via -r requirements.in
 wagtail-inventory==1.4.1
     # via -r requirements.in
-wagtail-localize==1.1rc1
+wagtail-localize==1.1rc2
     # via
     #   -r requirements.in
     #   wagtail-localize-git
