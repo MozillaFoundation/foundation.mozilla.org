@@ -81,7 +81,7 @@
   }
 }
 
-.dark-theme {
+.tw-dark {
   .twitter-glyph {
     @include composite-glyph("twitter-dark-theme");
     @include hover-glyph("twitter-dark-theme-hover");

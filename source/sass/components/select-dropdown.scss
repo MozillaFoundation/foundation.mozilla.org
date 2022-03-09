@@ -21,7 +21,7 @@ select {
       padding: $padding-x $padding-right $padding-x $padding-x;
     }
 
-    @at-root .dark-theme & {
+    @at-root .tw-dark & {
       background-image: url("../_images/glyphs/down-chevron-dark-theme.svg");
       background-color: transparent;
       border: 1px solid $white;

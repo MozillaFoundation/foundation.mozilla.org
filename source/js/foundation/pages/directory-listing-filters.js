@@ -9,7 +9,7 @@
   const labels = document.querySelectorAll(
     `.fellowships-directory-filter .filter-option button`
   );
-  const profileContainer = document.querySelector(`.profiles .row`);
+  const profileContainer = document.querySelector(`.profiles .tw-row`);
   const { profileType, programType } =
     document.querySelector(`.profiles`).dataset;
   const API_ENDPOINT =
@@ -102,25 +102,25 @@
 
     let cards = profiles.map((profile) => {
       return `
-      <div class="col-lg-6 col-12 mb-5">
-        <div class="person-card">
-          <div class="thumbnail-wrapper">
+      <div class="tw-px-4 tw-w-full large:tw-w-1/2 tw-mb-6">
+        <div class="person-card tw-border-t tw-border-black medium:tw-relative medium:tw-min-h-[160px]">
+          <div class="tw-float-left medium:tw-absolute">
             <a href="https://www.mozillapulse.org/profile/${
               profile.profile_id
-            }" class="d-block headshot-container">
+            }" class="tw-block headshot-container tw-w-[92px] tw-h-[92px] tw-mr-[14px] tw-mb-[14px] medium:tw-w-[160px] medium:tw-h-[160px] medium:tw-mr-[0px] medium:tw-mb-[0px]">
               <img
                 src="${
                   profile.thumbnail
                     ? profile.thumbnail
                     : `/_images/fellowships/headshot/placeholder.jpg`
                 }"
-                class="headshot"
+                class="tw-object-cover tw-w-full tw-h-full tw-object-center"
                 alt="Headshot">
             </a>
           </div>
 
-          <div class="short-meta-wrapper">
-            <a class="h5-heading meta-block-name mb-0 d-block"
+          <div class="short-meta-wrapper tw-pt-[10px] medium:tw-ml-[174px]">
+            <a class="h5-heading medium:tw-w-[calc(100%-70px)] tw-mb-0 tw-block"
                 href="https://www.mozillapulse.org/profile/${
                   profile.profile_id
                 }">
@@ -128,9 +128,9 @@
             </a>
             ${
               profile.location &&
-              `<p class="d-flex align-items-center meta-block-location body-small my-2">${profile.location}</p>`
+              `<p class="tw-flex tw-items-center meta-block-location body-small tw-my-2">${profile.location}</p>`
             }
-            <div class="social-icons">
+            <div class="medium:tw-absolute medium:tw-right-0 medium:tw-top-4">
               ${
                 profile.twitter
                   ? `<a href="${profile.twitter}" class="twitter twitter-glyph small"></a>`
@@ -144,8 +144,8 @@
             </div>
           </div>
 
-          <div class="bio-wrapper">
-            <p class="m-0">${profile.user_bio}</p>
+          <div class="tw-clear-both medium:tw-ml-[174px]">
+            <p class="tw-m-0">${profile.user_bio}</p>
           </div>
         </div>
       </div>
@@ -154,15 +154,17 @@
 
     // And then we update the content that the user sees:
     profileContainer.style.removeProperty(`height`);
+    profileContainer.style.removeProperty(`width`);
     profileContainer.innerHTML = cards.join("\n");
     document.dispatchEvent(new CustomEvent("profiles:list-updated"));
   }
 
   function showLoadSpinner() {
     profileContainer.style.height = `${profileContainer.offsetHeight}px`;
+    profileContainer.style.width = `${profileContainer.offsetWidth}px`; // width + padding
     profileContainer.innerHTML = `
-      <div class="col-12 mx-auto my-5 text-center">
-        <div class="loading-indicator d-inline-block">
+      <div class="tw-w-full tw-mx-auto tw-my-7 tw-text-center tw-px-4">
+        <div class="loading-indicator tw-inline-block">
           <div class="dot"></div>
           <div class="dot"></div>
           <div class="dot"></div>
