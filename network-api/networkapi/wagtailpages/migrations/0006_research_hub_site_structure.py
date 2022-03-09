@@ -10,9 +10,8 @@ class Migration(migrations.Migration):
     dependencies = [
         ('wagtailimages', '0023_add_choose_permissions'),
         ('wagtailcore', '0066_collection_management_permissions'),
-        ('wagtailpages', '0004_delete_newspage'),
+        ('wagtailpages', '0005_alter_relatedblogposts_related_post'),
     ]
-
     operations = [
         migrations.CreateModel(
             name='ResearchLibraryPage',
