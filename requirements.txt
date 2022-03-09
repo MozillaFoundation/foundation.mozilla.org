@@ -6,9 +6,9 @@
 #
 airtable-python-wrapper==0.13.0
     # via wagtail-airtable
-anyascii==0.2.0
+anyascii==0.3.0
     # via wagtail
-asgiref==3.4.1
+asgiref==3.5.0
     # via
     #   django
     #   scout-apm
@@ -18,29 +18,26 @@ beautifulsoup4==4.9.3
     # via
     #   -r requirements.in
     #   wagtail
-boto3==1.20.14
+boto3==1.21.12
     # via -r requirements.in
-botocore==1.23.14
+botocore==1.24.12
     # via
     #   boto3
     #   s3transfer
 cached-property==1.5.2
     # via -r requirements.in
-certifi==2021.5.30
+certifi==2021.10.8
     # via
-    #   cloudinary
     #   requests
     #   sentry-sdk
     #   urllib3
-cffi==1.14.6
+cffi==1.15.0
     # via
     #   cryptography
     #   pygit2
-charset-normalizer==2.0.4
+charset-normalizer==2.0.12
     # via requests
-cloudinary==1.26.0
-    # via -r requirements.in
-cryptography==3.4.7
+cryptography==36.0.1
     # via
     #   pyopenssl
     #   social-auth-core
@@ -49,6 +46,8 @@ defusedxml==0.7.1
     # via
     #   python3-openid
     #   social-auth-core
+deprecated==1.2.13
+    # via redis
 dj-database-url==0.5.0
     # via -r requirements.in
 django==3.2.12
@@ -69,27 +68,27 @@ django==3.2.12
     #   wagtail-localize-git
 django-admin-sortable==2.2.3
     # via -r requirements.in
-django-cors-headers==3.8.0
+django-cors-headers==3.11.0
     # via -r requirements.in
 django-csp==3.7
     # via -r requirements.in
-django-environ==0.4.5
+django-environ==0.8.1
     # via -r requirements.in
-django-filter==2.4.0
+django-filter==21.1
     # via
     #   -r requirements.in
     #   wagtail
 django-modelcluster==5.2
     # via wagtail
-django-redis==5.0.0
+django-redis==5.2.0
     # via -r requirements.in
-django-storages==1.11.1
+django-storages==1.12.3
     # via -r requirements.in
 django-taggit==2.1.0
     # via wagtail
 django-treebeard==4.5.1
     # via wagtail
-djangorestframework==3.12.4
+djangorestframework==3.13.1
     # via
     #   -r requirements.in
     #   wagtail
@@ -98,21 +97,21 @@ draftjs-exporter==2.1.7
     # via wagtail
 et-xmlfile==1.1.0
     # via openpyxl
-factory-boy==3.2.0
+factory-boy==3.2.1
     # via
     #   -r requirements.in
     #   wagtail-factories
-faker==9.8.3
+faker==13.3.0
     # via
     #   -r requirements.in
     #   factory-boy
-filebrowser-safe==0.5.0
+filebrowser-safe==1.1.1
     # via -r requirements.in
 future==0.18.2
     # via -r requirements.in
-gitdb==4.0.7
+gitdb==4.0.9
     # via gitpython
-gitpython==3.1.18
+gitpython==3.1.27
     # via wagtail-localize-git
 gunicorn==20.1.0
     # via -r requirements.in
@@ -120,7 +119,7 @@ heroku3==5.1.4
     # via -r requirements.in
 html5lib==1.1
     # via wagtail
-idna==3.2
+idna==3.3
     # via
     #   requests
     #   urllib3
@@ -128,101 +127,100 @@ jmespath==0.10.0
     # via
     #   boto3
     #   botocore
-l18n==2020.6.1
+l18n==2021.3
     # via wagtail
-oauthlib==3.1.1
+oauthlib==3.2.0
     # via
     #   requests-oauthlib
     #   social-auth-core
-openpyxl==3.0.7
+openpyxl==3.0.9
     # via tablib
-pillow==8.3.2
+packaging==21.3
+    # via redis
+pillow==9.0.1
     # via wagtail
 polib==1.1.1
     # via wagtail-localize
-psutil==5.8.0
+psutil==5.9.0
     # via scout-apm
-psycopg2-binary==2.9.1
+psycopg2-binary==2.9.3
     # via -r requirements.in
-pycparser==2.20
+pycparser==2.21
     # via cffi
 pygit2==1.7.1
     # via
     #   -r requirements.in
     #   wagtail-localize-git
-pyjwt==2.1.0
+pyjwt==2.3.0
     # via social-auth-core
-pyopenssl==20.0.1
+pyopenssl==22.0.0
     # via urllib3
+pyparsing==3.0.7
+    # via packaging
 python-dateutil==2.8.2
     # via
     #   botocore
     #   faker
     #   heroku3
-python-slugify==5.0.2
+python-slugify==6.1.1
     # via -r requirements.in
 python3-openid==3.2.0
     # via social-auth-core
-pytz==2021.1
+pytz==2021.3
     # via
     #   django
     #   django-modelcluster
+    #   djangorestframework
     #   l18n
-redis==3.5.3
+redis==4.1.4
     # via django-redis
-requests==2.26.0
+requests==2.27.1
     # via
     #   -r requirements.in
     #   airtable-python-wrapper
     #   basket-client
     #   heroku3
     #   requests-oauthlib
-    #   scout-apm
     #   social-auth-core
     #   wagtail
-requests-oauthlib==1.3.0
+requests-oauthlib==1.3.1
     # via social-auth-core
-s3transfer==0.5.0
+s3transfer==0.5.2
     # via boto3
-scout-apm==2.22.1
+scout-apm==2.24.2
     # via -r requirements.in
-sentry-sdk==1.3.1
+sentry-sdk==1.5.6
     # via -r requirements.in
 six==1.16.0
     # via
     #   airtable-python-wrapper
     #   basket-client
-    #   cloudinary
     #   html5lib
     #   l18n
-    #   pyopenssl
     #   python-dateutil
-smmap==4.0.0
+smmap==5.0.0
     # via gitdb
 social-auth-app-django==5.0.0
     # via -r requirements.in
-social-auth-core==4.1.0
+social-auth-core==4.2.0
     # via social-auth-app-django
-soupsieve==2.2.1
+soupsieve==2.3.1
     # via beautifulsoup4
-sqlparse==0.4.1
+sqlparse==0.4.2
     # via django
-tablib[xls,xlsx]==3.0.0
+tablib[xls,xlsx]==3.2.0
     # via wagtail
 telepath==0.2
     # via wagtail
 text-unidecode==1.3
-    # via
-    #   faker
-    #   python-slugify
+    # via python-slugify
 toml==0.10.2
     # via wagtail-localize-git
-tqdm==4.15.0
+tqdm==4.63.0
     # via wagtail-inventory
-urllib3[secure]==1.26.6
+urllib3[secure]==1.26.8
     # via
     #   botocore
-    #   cloudinary
     #   requests
     #   scout-apm
     #   sentry-sdk
@@ -243,7 +241,7 @@ wagtail-factories==2.0.1
     # via -r requirements.in
 wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
     # via -r requirements.in
-wagtail-inventory==1.3
+wagtail-inventory==1.4.1
     # via -r requirements.in
 wagtail-localize==1.1rc2
     # via
@@ -251,21 +249,23 @@ wagtail-localize==1.1rc2
     #   wagtail-localize-git
 wagtail-localize-git==0.12.0
     # via -r requirements.in
-wagtail-metadata==3.4.0
+wagtail-metadata==3.5.0
     # via -r requirements.in
-wagtailmedia==0.8.0
+wagtailmedia==0.9.0
     # via -r requirements.in
 webencodings==0.5.1
     # via html5lib
-whitenoise==5.3.0
+whitenoise==6.0.0
     # via -r requirements.in
-willow==1.4
+willow==1.4.1
     # via wagtail
-wrapt==1.12.1
-    # via scout-apm
+wrapt==1.13.3
+    # via
+    #   deprecated
+    #   scout-apm
 xlrd==2.0.1
     # via tablib
-xlsxwriter==1.4.5
+xlsxwriter==3.0.3
     # via wagtail
 xlwt==1.3.0
     # via tablib
