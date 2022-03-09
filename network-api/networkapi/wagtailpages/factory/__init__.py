@@ -3,7 +3,7 @@ from . import (
     blog,
     buyersguide,
     campaign_page,
-    content_author,
+    profiles,
     dear_internet_page,
     homepage_cause_statement_link,
     homepage_features,
@@ -27,7 +27,7 @@ def generate(seed):
     locale.generate(seed)
     homepage.generate(seed)
     participate_page.generate(seed)
-    content_author.generate(seed)
+    profiles.generate(seed)
     blog.generate(seed)
     buyersguide.generate(seed)
     bannered_campaign_page.generate(seed)

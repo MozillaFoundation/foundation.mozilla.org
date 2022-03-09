@@ -39,8 +39,8 @@ from .pagemodels.index import (
     IndexPage
 )
 
-from .pagemodels.content_author import (
-    ContentAuthor
+from .pagemodels.profiles import (
+    Profile
 )
 
 from .pagemodels.blog.blog import (
@@ -108,7 +108,7 @@ __all__ = [
     BuyersGuidePage,
     CampaignIndexPage,
     CampaignPage,
-    ContentAuthor,
+    Profile,
     CTA,
     DearInternetPage,
     FeatureFlags,
