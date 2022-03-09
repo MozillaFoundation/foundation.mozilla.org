@@ -91,9 +91,9 @@ class RelatedBlogPosts(Orderable):
 
     related_post = models.ForeignKey(
         'wagtailpages.BlogPage',
-        blank=True,
+        blank=False,
         null=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
     )
 
     panels = [
