@@ -2,10 +2,11 @@ import factory
 import wagtail_factories
 
 from networkapi.wagtailpages.models import (
+    ResearchAuthorsIndexPage,
+    ResearchDetailPage,
     ResearchLandingPage,
     ResearchLibraryPage,
-    ResearchDetailPage,
-    ResearchAuthorsIndexPage,
+    ResearchRegion,
 )
 
 from networkapi.utility.faker import helpers as faker_helpers
@@ -37,6 +38,13 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
         model = ResearchDetailPage
 
     title = factory.Faker('sentence', nb_words=8, variable_nb_words=True)
+
+
+class ResearchRegionFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = ResearchRegion
+
+    name = factory.Faker('country')
 
 
 def generate(seed):
