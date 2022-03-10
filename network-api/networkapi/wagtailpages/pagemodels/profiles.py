@@ -5,6 +5,8 @@ from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 
+from wagtail_localize.fields import TranslatableField, SynchronizedField
+
 
 @register_snippet
 class Profile(TranslatableMixin, models.Model):
@@ -30,6 +32,13 @@ class Profile(TranslatableMixin, models.Model):
         ImageChooserPanel("image"),
         FieldPanel("tagline"),
         FieldPanel("introduction"),
+    ]
+
+    translatable_fields = [
+        SynchronizedField('name'),
+        SynchronizedField('image'),
+        TranslatableField('tagline'),
+        TranslatableField('introduction'),
     ]
 
     def __str__(self):

@@ -4,7 +4,7 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import TranslatableMixin, Orderable, Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -17,7 +17,7 @@ from ..customblocks.base_rich_text_options import base_rich_text_options
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
 
-class PublicationAuthors(Orderable):
+class PublicationAuthors(TranslatableMixin, Orderable):
     """This allows us to select one or more blog authors from Snippets."""
 
     page = ParentalKey("wagtailpages.PublicationPage", related_name="authors")
@@ -135,7 +135,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         SynchronizedField('hero_image'),
         SynchronizedField('publication_date'),
         SynchronizedField('publication_file'),
-        SynchronizedField('authors'),
+        TranslatableField('authors'),
         TranslatableField('additional_author_copy'),
         TranslatableField('intro_notes'),
         TranslatableField('contents_title'),

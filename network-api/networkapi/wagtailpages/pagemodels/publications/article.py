@@ -1,7 +1,7 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
 
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import TranslatableMixin, Orderable, Page
 from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.documents.edit_handlers import DocumentChooserPanel
@@ -17,7 +17,7 @@ from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..article_fields import article_fields
 
 
-class ArticleAuthors(Orderable):
+class ArticleAuthors(TranslatableMixin, Orderable):
     """This allows us to select one or more blog authors from Snippets."""
 
     page = ParentalKey("wagtailpages.ArticlePage", related_name="authors")
@@ -126,7 +126,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         SynchronizedField('search_image'),
         # Content tab fields
         TranslatableField('title'),
-        SynchronizedField('authors'),
+        TranslatableField('authors'),
         SynchronizedField('toc_thumbnail_image'),
         SynchronizedField('hero_image'),
         TranslatableField('subtitle'),

@@ -202,7 +202,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         # Content tab fields
         TranslatableField('body'),
         TranslatableField('title'),
-        SynchronizedField('authors'),
+        TranslatableField('authors'),
         SynchronizedField('hero_video'),
         SynchronizedField('hero_image'),
         SynchronizedField('related_posts'),
