@@ -22,6 +22,7 @@ from networkapi.wagtailpages.models import (
 
 from networkapi.utility.faker.helpers import (
     get_homepage,
+    get_random_objects,
     reseed
 )
 from networkapi.wagtailpages.factory import profiles as profiles_factory
@@ -51,7 +52,7 @@ def add_category(post):
 
 
 def add_authors(post):
-    for profile in profiles_factory.get_random_profiles(max_count=5):
+    for profile in get_random_objects(model=Profile, max_count=5):
         author_orderable = BlogAuthors.objects.create(page=post, author=profile)
         post.authors.add(author_orderable)
 

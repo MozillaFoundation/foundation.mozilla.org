@@ -91,7 +91,7 @@ def generate(seed):
     for _ in range(6):
         research_detail_page = ResearchDetailPageFactory.create(parent=research_library_page)
 
-        for profile in profiles_factory.get_random_profiles(max_count=3):
+        for profile in faker_helpers.get_random_objects(model=wagtailpage_models.Profile, max_count=3):
             ResearchAuthorRelationFactory.create(
                 research_detail_page=research_detail_page,
                 author_profile=profile,

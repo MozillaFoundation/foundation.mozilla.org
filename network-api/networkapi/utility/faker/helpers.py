@@ -39,3 +39,26 @@ def get_homepage(will_generate=False):
         # In some cases, we will want to catch this exception and generate a homepage,
         # and in others we'll want to bail out on the load_fake_data task with an error.
         raise ex
+
+
+
+def get_random_objects(model, max_count=5):
+    """
+    Return randnom objects up to a maximum number.
+
+    The maximum is not guranteed to be reached. Rather at least one object of
+    the given `model` is returned, but never more than `max_count`.
+
+    Objects are not duplicated.
+
+    """
+    objects = list(model.objects.all())
+    count = len(objects)
+
+    random.shuffle(objects)
+
+    available_max = min(count, max_count)
+    random_max = random.randint(1, available_max)
+
+    for i in range(0, random_max):
+        yield objects[i]
