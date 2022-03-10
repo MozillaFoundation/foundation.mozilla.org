@@ -7,6 +7,7 @@ from networkapi.wagtailpages.models import (
     ResearchLandingPage,
     ResearchLibraryPage,
     ResearchRegion,
+    ResearchTopic,
 )
 
 from networkapi.utility.faker import helpers as faker_helpers
@@ -47,6 +48,14 @@ class ResearchRegionFactory(factory.django.DjangoModelFactory):
     name = factory.Faker('country')
 
 
+class ResearchTopicFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = ResearchTopic
+
+    name = factory.Faker('catch_phrase')
+    description = factory.Faker('paragraph')
+
+
 def generate(seed):
     faker_helpers.reseed(seed)
     home_page = faker_helpers.get_homepage()
@@ -70,6 +79,7 @@ def generate(seed):
 
     for _ in range(4):
         ResearchRegionFactory.create()
+        ResearchTopicFactory.create()
 
     for i in range(6):
         ResearchDetailPageFactory.create(parent=research_library_page)
