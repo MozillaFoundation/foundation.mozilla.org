@@ -83,6 +83,9 @@ from .pagemodels.research_hub.authors_index import ResearchAuthorsIndexPage
 from .pagemodels.research_hub.detail_page import ResearchDetailPage
 from .pagemodels.research_hub.landing_page import ResearchLandingPage
 from .pagemodels.research_hub.library_page import ResearchLibraryPage
+from .pagemodels.research_hub.relations import (
+    ResearchAuthorRelation,
+)
 from .pagemodels.research_hub.taxonomies import (
     ResearchRegion,
     ResearchTopic,
