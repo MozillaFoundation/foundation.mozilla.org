@@ -68,5 +68,8 @@ def generate(seed):
     if not research_authors_index_page:
         research_authors_index_page = ResearchAuthorsIndexPageFactory.create(parent=research_landing_page)
 
+    for _ in range(4):
+        ResearchRegionFactory.create()
+
     for i in range(6):
         ResearchDetailPageFactory.create(parent=research_library_page)
