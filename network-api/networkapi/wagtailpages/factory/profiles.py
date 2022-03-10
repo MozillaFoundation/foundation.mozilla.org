@@ -1,3 +1,5 @@
+from random import randint, shuffle
+
 from factory import Faker
 from factory.django import DjangoModelFactory
 
@@ -16,6 +18,25 @@ class ProfileFactory(DjangoModelFactory):
     name = Faker('name')
     tagline = Faker('job')
     introduction = Faker('paragraph')
+
+
+def get_random_profiles(max_count=5):
+    """
+    Return randnom profiles up to a maximum number.
+
+    The maximum is not guranteed to be reached. Rather at least one `Profile`
+    is returned, but never more than `max_count`.
+
+    Profiles are not duplicated.
+
+    """
+    profiles = list(Profile.objects.all())
+    count = len(profiles)
+
+    shuffle(profiles)
+
+    for i in range(0, randint(1, min(count, max_count))):
+        yield profiles[i]
 
 
 def generate(seed):

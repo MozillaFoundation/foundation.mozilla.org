@@ -1,5 +1,5 @@
 from datetime import timezone
-from random import choice, randint, shuffle
+from random import choice
 
 from django.conf import settings
 
@@ -24,6 +24,7 @@ from networkapi.utility.faker.helpers import (
     get_homepage,
     reseed
 )
+from networkapi.wagtailpages.factory import profiles as profiles_factory
 
 from .index_page import IndexPageFactory
 
@@ -50,13 +51,8 @@ def add_category(post):
 
 
 def add_authors(post):
-    authors = list(Profile.objects.all())
-    count = len(authors)
-
-    shuffle(authors)
-
-    for i in range(0, randint(1, min(count, 5))):
-        author_orderable = BlogAuthors.objects.create(page=post, author=authors[i])
+    for profile in profiles_factory.get_random_profiles(max_count=5):
+        author_orderable = BlogAuthors.objects.create(page=post, author=profile)
         post.authors.add(author_orderable)
 
     post.save()
