@@ -9,5 +9,6 @@ class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtai
 
     content_panels = wagtail_models.Page.content_panels + [
         edit_handlers.InlinePanel('research_authors', heading="Authors"),
+        edit_handlers.InlinePanel('related_topics', heading="Topics"),
         edit_handlers.InlinePanel('related_regions', heading="Regions"),
     ]

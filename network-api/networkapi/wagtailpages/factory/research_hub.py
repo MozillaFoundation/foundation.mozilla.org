@@ -75,6 +75,18 @@ class ResearchDetailPageResearchRegionRelationFactory(factory.django.DjangoModel
     )
 
 
+class ResearchDetailPageResearchTopicRelationFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = wagtailpage_models.ResearchDetailPageResearchTopicRelation
+
+    research_detail_page = factory.fuzzy.FuzzyChoice(
+        wagtailpage_models.ResearchDetailPage.objects.all(),
+    )
+    research_topic = factory.fuzzy.FuzzyChoice(
+        wagtailpage_models.ResearchTopic.objects.all(),
+    )
+
+
 
 def generate(seed):
     faker_helpers.reseed(seed)
@@ -116,3 +128,8 @@ def generate(seed):
                 research_region=region,
             )
 
+        for topic in faker_helpers.get_random_objects(model=wagtailpage_models.ResearchTopic, max_count=2):
+            ResearchDetailPageResearchTopicRelationFactory.create(
+                research_detail_page=research_detail_page,
+                research_topic=topic,
+            )

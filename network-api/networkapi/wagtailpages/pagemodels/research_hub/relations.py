@@ -44,3 +44,24 @@ class ResearchDetailPageResearchRegionRelation(wagtail_models.Orderable):
     panels = [
         snippet_handlers.SnippetChooserPanel('research_region'),
     ]
+
+
+class ResearchDetailPageResearchTopicRelation(wagtail_models.Orderable):
+    research_detail_page = cluster_fields.ParentalKey(
+        'wagtailpages.ResearchDetailPage',
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name='related_topics',
+    )
+    research_topic = models.ForeignKey(
+        'wagtailpages.ResearchTopic',
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name='related_research',
+    )
+
+    panels = [
+        snippet_handlers.SnippetChooserPanel('research_topic'),
+    ]
