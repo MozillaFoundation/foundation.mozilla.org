@@ -1,3 +1,5 @@
+import random
+
 import factory
 import factory.fuzzy
 import wagtail_factories
@@ -29,11 +31,24 @@ class ResearchAuthorsIndexPageFactory(wagtail_factories.PageFactory):
     title = "Authors"
 
 
+class ResearchDetailLinkFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = wagtailpage_models.ResearchDetailLink
+
+    label = factory.Faker('text', max_nb_chars=30)
+    url = factory.Faker('uri')
+
+
 class ResearchDetailPageFactory(wagtail_factories.PageFactory):
     class Meta:
         model = wagtailpage_models.ResearchDetailPage
 
     title = factory.Faker('sentence', nb_words=8, variable_nb_words=True)
+    research_links = factory.RelatedFactoryList(
+        factory=ResearchDetailLinkFactory,
+        factory_related_name='research_detail_page',
+        size=lambda: random.randint(1, 2),
+    )
 
 
 class ResearchRegionFactory(factory.django.DjangoModelFactory):

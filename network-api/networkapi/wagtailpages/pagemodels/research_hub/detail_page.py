@@ -48,12 +48,8 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
 class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtail_models.Page):
     parent_page_types = ['ResearchLibraryPage']
 
-#     override_translatable_fields = [
-#         localize_fields.TranslatableField('research_links')
-#     ]
-
     content_panels = wagtail_models.Page.content_panels + [
-        edit_handlers.InlinePanel('research_links', heading="Research links"),
+        edit_handlers.InlinePanel('research_links', heading="Research links", min_num=1),
         edit_handlers.InlinePanel('research_authors', heading="Authors", min_num=1),
         edit_handlers.InlinePanel('related_topics', heading="Topics"),
         edit_handlers.InlinePanel('related_regions', heading="Regions"),
