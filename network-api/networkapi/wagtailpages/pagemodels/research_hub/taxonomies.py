@@ -6,7 +6,7 @@ from wagtail.snippets import models as snippet_models
 
 @snippet_models.register_snippet
 class ResearchRegion(wagtail_models.TranslatableMixin, models.Model):
-    name = models.CharField(max_length=50, null=False, blank=False, unique=True)
+    name = models.CharField(max_length=50, null=False, blank=False)
 
     panels = [
         edit_handlers.FieldPanel('name'),
@@ -18,7 +18,7 @@ class ResearchRegion(wagtail_models.TranslatableMixin, models.Model):
 
 @snippet_models.register_snippet
 class ResearchTopic(wagtail_models.TranslatableMixin, models.Model):
-    name = models.CharField(max_length=50, null=False, blank=False, unique=True)
+    name = models.CharField(max_length=50, null=False, blank=False)
     description = models.TextField(null=False, blank=True)
 
     panels = [
