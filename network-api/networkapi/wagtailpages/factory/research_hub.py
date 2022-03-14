@@ -5,6 +5,7 @@ import factory.fuzzy
 import wagtail_factories
 
 from networkapi.wagtailpages import models as wagtailpage_models
+from networkapi.wagtailpages.factory import publication as publication_factory
 from networkapi.utility.faker import helpers as faker_helpers
 
 
@@ -34,7 +35,16 @@ class ResearchDetailLinkFactory(factory.django.DjangoModelFactory):
         model = wagtailpage_models.ResearchDetailLink
 
     label = factory.Faker('text', max_nb_chars=30)
-    url = factory.Faker('uri')
+    url = ''
+    document = None
+
+    class Params:
+        with_url = factory.Trait(
+            url=factory.Faker('uri'),
+        )
+        with_document = factory.Trait(
+            document=factory.SubFactory(publication_factory.DocumentFactory)
+        )
 
 
 class ResearchDetailPageFactory(wagtail_factories.PageFactory):
@@ -46,6 +56,7 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
         factory=ResearchDetailLinkFactory,
         factory_related_name='research_detail_page',
         size=lambda: random.randint(1, 2),
+        with_url=True,
     )
 
 
