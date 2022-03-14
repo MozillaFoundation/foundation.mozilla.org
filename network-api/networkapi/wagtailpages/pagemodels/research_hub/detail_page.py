@@ -4,8 +4,6 @@ from wagtail import documents as wagtail_docs
 from wagtail.documents import edit_handlers as docs_handlers
 from wagtail.admin import edit_handlers
 from wagtail.core import models as wagtail_models
-from wagtail_localize import fields as localize_fields
-
 
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 

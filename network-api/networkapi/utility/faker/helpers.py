@@ -41,7 +41,6 @@ def get_homepage(will_generate=False):
         raise ex
 
 
-
 def get_random_objects(model, max_count=5):
     """
     Return randnom objects up to a maximum number.

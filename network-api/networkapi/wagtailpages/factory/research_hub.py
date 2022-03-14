@@ -4,10 +4,8 @@ import factory
 import factory.fuzzy
 import wagtail_factories
 
-from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages import models as wagtailpage_models
 from networkapi.utility.faker import helpers as faker_helpers
-
 
 
 class ResearchLandingPageFactory(wagtail_factories.PageFactory):
@@ -100,7 +98,6 @@ class ResearchDetailPageResearchTopicRelationFactory(factory.django.DjangoModelF
     research_topic = factory.fuzzy.FuzzyChoice(
         wagtailpage_models.ResearchTopic.objects.all(),
     )
-
 
 
 def generate(seed):

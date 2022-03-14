@@ -25,7 +25,6 @@ from networkapi.utility.faker.helpers import (
     get_random_objects,
     reseed
 )
-from networkapi.wagtailpages.factory import profiles as profiles_factory
 
 from .index_page import IndexPageFactory
 
