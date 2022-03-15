@@ -263,30 +263,3 @@ p,
     }
   }
 }
-
-.cta-link {
-  @apply tw-font-bold tw-inline-block tw-text-[18px] tw-leading-[1.5];
-
-  @at-root .tw-dark & {
-    @apply tw-text-blue-light;
-
-    a {
-      @apply tw-text-blue-light;
-    }
-
-    a:hover,
-    a:focus,
-    a:active {
-      @apply tw-underline;
-    }
-  }
-
-  &::after {
-    content: " →";
-    text-decoration: none;
-    display: inline-block;
-    margin-left: 0.333em;
-    position: relative;
-    top: -1px;
-  }
-}
