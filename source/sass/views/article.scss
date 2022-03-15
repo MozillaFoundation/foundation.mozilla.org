@@ -316,11 +316,11 @@
   padding-top: 24px;
   padding-bottom: 56px;
 
-  .body-small {
+  .tw-body-small {
     color: $gray-80;
   }
 
-  .body-large {
+  .tw-body-large {
     text-decoration: underline;
   }
 
@@ -328,7 +328,7 @@
     background: $lightest-blue;
     text-decoration: none;
 
-    .body-large {
+    .tw-body-large {
       color: $dark-blue;
     }
   }
@@ -370,7 +370,7 @@
   position: relative;
   margin-left: auto;
 
-  .body-large {
+  .tw-body-large {
     margin-left: auto;
     max-width: calc(100% - 30px);
   }
@@ -393,7 +393,7 @@
   margin-right: auto;
   margin-left: initial;
 
-  .body-large {
+  .tw-body-large {
     margin-right: auto;
     margin-left: initial;
   }

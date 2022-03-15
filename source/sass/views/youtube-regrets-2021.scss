@@ -66,11 +66,11 @@
     font-family: $font-changa;
   }
 
-  .body {
+  .tw-body {
     @include set-text-size(18px, 27px);
   }
 
-  .body-large {
+  .tw-body-large {
     @include set-text-size(26px, 28px, 26px, 30px);
   }
 
@@ -226,7 +226,7 @@
     }
   }
 
-  .quote {
+  .tw-quote {
     margin-bottom: 6rem;
 
     @media (min-width: $bp-md) {
@@ -382,7 +382,7 @@
       /* Make the "gap" between the drawer content and the "Close" button smaller on mobile and tablets */
       @media (max-width: $bp-md) {
         &.is-open {
-          .h2-heading {
+          .tw-h2-heading {
             max-height: 0;
             overflow: hidden;
           }
@@ -430,7 +430,7 @@
       white-space: unset;
       text-align: left;
 
-      .h2-heading {
+      .tw-h2-heading {
         @include set-text-size(30px, 32px, 38px, 39px);
         font-weight: 600;
       }
