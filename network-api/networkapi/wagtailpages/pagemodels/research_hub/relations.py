@@ -4,7 +4,7 @@ from wagtail.core import models as wagtail_models
 from wagtail.snippets import edit_handlers as snippet_handlers
 
 
-class ResearchAuthorRelation(wagtail_models.Orderable):
+class ResearchAuthorRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
     research_detail_page = cluster_fields.ParentalKey(
         'wagtailpages.ResearchDetailPage',
         null=False,
@@ -25,7 +25,7 @@ class ResearchAuthorRelation(wagtail_models.Orderable):
     ]
 
 
-class ResearchDetailPageResearchRegionRelation(wagtail_models.Orderable):
+class ResearchDetailPageResearchRegionRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
     research_detail_page = cluster_fields.ParentalKey(
         'wagtailpages.ResearchDetailPage',
         null=False,
@@ -46,7 +46,7 @@ class ResearchDetailPageResearchRegionRelation(wagtail_models.Orderable):
     ]
 
 
-class ResearchDetailPageResearchTopicRelation(wagtail_models.Orderable):
+class ResearchDetailPageResearchTopicRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
     research_detail_page = cluster_fields.ParentalKey(
         'wagtailpages.ResearchDetailPage',
         null=False,
