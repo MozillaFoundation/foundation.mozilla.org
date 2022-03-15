@@ -51,13 +51,28 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
     class Meta:
         model = wagtailpage_models.ResearchDetailPage
 
-    title = factory.Faker('sentence', nb_words=8, variable_nb_words=True)
+    title = factory.Faker('text', max_nb_chars=50)
     research_links = factory.RelatedFactoryList(
         factory=ResearchDetailLinkFactory,
         factory_related_name='research_detail_page',
         size=lambda: random.randint(1, 2),
         with_url=True,
     )
+    original_publication_date = factory.Faker('date_object')
+    introduction = factory.Faker('text', max_nb_chars=300)
+
+    @factory.lazy_attribute
+    def overview(self):
+        faker = faker_helpers.get_faker()
+        return '\n\n'.join(faker.paragraphs(nb=3))
+
+    @factory.lazy_attribute
+    def collaborators(self):
+        faker = faker_helpers.get_faker()
+        names = []
+        for _ in range(random.randint(1, 5)):
+            names.append(faker.name())
+        return "; ".join(names)
 
 
 class ResearchRegionFactory(factory.django.DjangoModelFactory):

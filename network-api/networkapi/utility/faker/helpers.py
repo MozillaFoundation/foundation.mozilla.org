@@ -27,8 +27,12 @@ def generate_fake_data(factory_model, count):
 # reseed the Faker RNG used by factory using seed
 def reseed(seed):
     random.seed(seed)
-    faker = factory.faker.Faker._get_faker(locale='en-US')
+    faker = get_faker()
     faker.random.seed(seed)
+
+
+def get_faker():
+    return factory.faker.Faker._get_faker(locale='en-US')
 
 
 # get a reference to the site's home page
