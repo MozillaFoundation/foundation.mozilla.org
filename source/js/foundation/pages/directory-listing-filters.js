@@ -128,7 +128,7 @@
             </a>
             ${
               profile.location &&
-              `<p class="tw-flex tw-items-center meta-block-location body-small tw-my-2">${profile.location}</p>`
+              `<p class="tw-flex tw-items-center meta-block-location tw-body-small tw-my-2">${profile.location}</p>`
             }
             <div class="medium:tw-absolute medium:tw-right-0 medium:tw-top-4">
               ${

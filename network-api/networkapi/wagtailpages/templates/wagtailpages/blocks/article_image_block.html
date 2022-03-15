@@ -19,7 +19,7 @@ tw-mx-0
     <img src="{{ img.url }}" alt="{% if self.alt_text %}{{ self.alt_text }}{% else %}{{ img.alt }}{% endif %}"
       class="tw-w-full" />
     {% if self.caption %}
-    <figcaption class="body-small">
+    <figcaption class="tw-body-small">
       {{ self.caption|richtext|remove_wrapping|safe }}
     </figcaption>
     {% endif %}

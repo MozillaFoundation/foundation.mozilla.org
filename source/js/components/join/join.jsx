@@ -358,7 +358,7 @@ class JoinUs extends Component {
           )}
         </div>
         {this.state.userTriedSubmitting && !emailValidation.valid && (
-          <p className="body-small form-control-feedback">
+          <p className="tw-body-small form-control-feedback">
             {emailValidation.errorMessage}
           </p>
         )}
@@ -453,7 +453,7 @@ class JoinUs extends Component {
             required
           />
           <label
-            className="form-check-label body-small"
+            className="form-check-label tw-body-small"
             htmlFor={this.id.privacyCheckbox}
           >
             {getText(
@@ -468,7 +468,7 @@ class JoinUs extends Component {
             )}
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (
-          <p className="body-small form-control-feedback mt-0 mb-3">
+          <p className="tw-body-small form-control-feedback mt-0 mb-3">
             {getText(`Please check this box if you want to proceed.`)}
           </p>
         )}

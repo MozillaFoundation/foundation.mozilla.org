@@ -8,7 +8,7 @@ import CountrySelect from "./country-select.jsx";
 import { getText, getCurrentLanguage } from "./locales";
 import copyToClipboard from "../../copy-to-clipboard";
 const SALESFORCE_COMMENT_LIMIT = 500;
-const CHECKBOX_LABEL_CLASS = `body-small`;
+const CHECKBOX_LABEL_CLASS = `tw-body-small`;
 
 /**
  * Petition sign-up form
@@ -544,7 +544,7 @@ class Petition extends Component {
         this.state.userTriedSubmitting && !this.refs.privacy.checked,
     });
 
-    let errorMessageClass = `body-small form-control-feedback`;
+    let errorMessageClass = `tw-body-small form-control-feedback`;
 
     let checkboxes = this.generateCheckboxes(disableFields);
 

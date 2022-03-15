@@ -22,7 +22,7 @@
   <h5 class="tw-mb-2 h3-heading">
     <a href="{% relocalized_url blog.localized.url %}">{{blog.localized.title}}</a>
   </h5>
-  <p class="body-small tw-mb-2">
+  <p class="tw-body-small tw-mb-2">
     {% if blog.author %}
       {% blocktrans with author=blog.author %}by {{author}}{% endblocktrans %}
     {% endif %}
