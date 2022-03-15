@@ -26,7 +26,7 @@
     }
   }
 
-  .body-small {
+  .tw-body-small {
     @include set-text-size(14px, 18px);
 
     color: $black;

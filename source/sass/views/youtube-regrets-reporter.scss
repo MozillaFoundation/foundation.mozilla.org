@@ -6,7 +6,7 @@
       color: $youtube-regrets-red;
     }
 
-    .h2-heading {
+    .tw-h2-heading {
       @include set-text-size(26px, 35px, 38px, 42px);
 
       font-family: $font-changa;
@@ -26,7 +26,7 @@
     }
 
     .intro-stationary-wrapper {
-      .body-large {
+      .tw-body-large {
         @include set-text-size(20px, 26px, 32px, 40px);
       }
     }
@@ -75,7 +75,7 @@
           align-items: center;
         }
 
-        &.h6-heading {
+        &.tw-h6-heading {
           @include set-text-size(14px, 16px);
 
           font-family: $font-family-sans-serif;
@@ -113,7 +113,7 @@
         padding: 5.5rem 0;
       }
 
-      .h5-heading {
+      .tw-h5-heading {
         @include heading(
           $font-changa,
           400,
@@ -144,7 +144,7 @@
   }
 
   .section-articles {
-    .h6-heading {
+    .tw-h6-heading {
       @include heading($font-family-sans-serif, 700, 1px, $black, $black);
       @include set-text-size(14px, 28px);
     }
@@ -155,7 +155,7 @@
   }
 
   .section-for-years {
-    .body-large {
+    .tw-body-large {
       @include set-text-size(26px, 30px, 38px, 42px);
       letter-spacing: -2px;
     }
