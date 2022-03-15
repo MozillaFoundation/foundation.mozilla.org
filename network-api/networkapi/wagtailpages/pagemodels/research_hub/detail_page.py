@@ -1,4 +1,6 @@
 from django.db import models
+from django.core import exceptions
+from django.utils.translation import gettext_lazy as _
 from modelcluster import fields as cluster_fields
 from wagtail import documents as wagtail_docs
 from wagtail.documents import edit_handlers as docs_handlers
@@ -29,7 +31,7 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
 
     panels = [
         edit_handlers.HelpPanel(
-            content=(
+            content=_(
                 'Please provide an external link to the original source or upload a document and select it here. '
                 'If you wish to provide both, please create two separate "research links"'
             )
@@ -41,6 +43,21 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
 
     def __str__(self):
         return self.label
+
+    def clean(self):
+        super().clean()
+        if self.url and self.document:
+            error_message = _('Please provide a URL or a document, not both.')
+            raise exceptions.ValidationError(
+                {'url': error_message, 'document': error_message},
+                code='invalid',
+            )
+        elif not self.url and not self.document:
+            error_message = _('Please provide a URL or a document.')
+            raise exceptions.ValidationError(
+                {'url': error_message, 'document': error_message},
+                code='required',
+            )
 
 
 class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtail_models.Page):
