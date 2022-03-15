@@ -5,7 +5,7 @@ import factory.fuzzy
 import wagtail_factories
 
 from networkapi.wagtailpages import models as wagtailpage_models
-from networkapi.wagtailpages.factory import publication as publication_factory
+from networkapi.wagtailpages.factory import documents as documents_factory
 from networkapi.utility.faker import helpers as faker_helpers
 
 
@@ -43,7 +43,7 @@ class ResearchDetailLinkFactory(factory.django.DjangoModelFactory):
             url=factory.Faker('uri'),
         )
         with_document = factory.Trait(
-            document=factory.SubFactory(publication_factory.DocumentFactory)
+            document=factory.SubFactory(documents_factory.DocumentFactory)
         )
 
 

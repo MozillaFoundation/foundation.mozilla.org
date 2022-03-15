@@ -1,7 +1,6 @@
 from django import test
 from django.core import exceptions
 
-from networkapi.wagtailpages import models as wagtailpages_models
 from networkapi.wagtailpages.factory import research_hub as research_factory
 
 
