@@ -27,7 +27,7 @@ streamfield-content
     <iframe src="{{ value.url }}" class="embed-responsive-item" {% if value.disable_scroll %}scrolling="no" style="overflow: hidden;"{% endif %}></iframe>
   </div>
   {% if value.caption %}
-  <p class="body-small tw-mt-2">
+  <p class="tw-body-small tw-mt-2">
     {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
       {{ value.caption }}
       {% if value.captionURL %}</a>{% endif %}

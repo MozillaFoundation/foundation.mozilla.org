@@ -51,7 +51,7 @@ const PulseProfile = ({ profile }) => {
         {profile.location && (
           <p className="tw-flex-row tw-flex tw-items-center tw-justify-start tw-text-sm tw-my-0">
             <img
-              className="tw-w-[12px] tw-h-[12px] tw-block tw-mr-1 body-small"
+              className="tw-w-[12px] tw-h-[12px] tw-block tw-mr-1 tw-body-small"
               src="/static/_images/glyphs/map-marker-icon-dark.svg"
               alt=""
             />
