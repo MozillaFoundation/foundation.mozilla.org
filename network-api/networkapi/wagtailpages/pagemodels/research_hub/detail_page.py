@@ -50,7 +50,7 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     def clean(self):
         super().clean()
         if self.url and self.document:
-            error_message = _('Please provide a URL or a document, not both.')
+            error_message = _('Please provide a either URL or a document, not both.')
             raise exceptions.ValidationError(
                 {'url': error_message, 'document': error_message},
                 code='invalid',
@@ -61,6 +61,12 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
                 {'url': error_message, 'document': error_message},
                 code='required',
             )
+
+    def get_url(self):
+        if self.url:
+            return self.url
+        elif self.document:
+            return self.document.url
 
 
 class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtail_models.Page):
