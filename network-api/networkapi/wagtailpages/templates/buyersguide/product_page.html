@@ -79,13 +79,13 @@
           {% endif %}
         </div>
         {% include "fragments/research_details.html" with review_date=product.review_date time_researched=product.time_researched mozilla_says=product.mozilla_says %}
-        <div class="col-12 body">{{product.blurb | richtext}}</div>
+        <div class="col-12 tw-body">{{product.blurb | richtext}}</div>
       </div>
 
       <div class="row mb-4">
         <div class="col-12 worst-case">
           <h2 class="h3-heading">{% trans "What could happen if something goes wrong?" %}</h2>
-          <div class="body">{{product.worst_case | richtext}}</div>
+          <div class="tw-body">{{product.worst_case | richtext}}</div>
         </div>
       </div>
 

@@ -50,7 +50,7 @@
                 </h3>
                 {% for ancestor in child_page.grandchildren %}
                 {% with grandchild=ancestor.localized %}
-                  <h4 class="d-sm-block d-none body">
+                  <h4 class="d-sm-block d-none tw-body">
                     <a href="{{ grandchild.url }}" class="d-block w-75 publication-chapter-article-link">
                       {{ grandchild.title }}
                     </a>
@@ -64,7 +64,7 @@
               <div class="pt-2 d-sm-none d-block">
                 {% for ancestor in child_page.grandchildren %}
                 {% with grandchild=ancestor.localized %}
-                  <h4 class="body">
+                  <h4 class="tw-body">
                     <a href="{{ grandchild.url }}" class="d-block publication-chapter-article-link">
                       {{ grandchild.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
                     </a>
