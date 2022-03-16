@@ -97,7 +97,7 @@ class DonationModal extends Component {
           <h3 className={classNames(`h2-heading`, `text-center`)}>
             {this.props.heading}
           </h3>
-          <p className={classNames(`body-large`, `text-center`)}>
+          <p className={classNames(`tw-body-large`, `text-center`)}>
             {this.props.bodyText}
           </p>
         </div>
