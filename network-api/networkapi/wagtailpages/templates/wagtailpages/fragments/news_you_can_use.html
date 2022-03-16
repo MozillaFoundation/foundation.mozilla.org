@@ -35,10 +35,10 @@
             {% if first.category.count %}
               {% with category=first.category.first %}
                 {% localized_version category as localized_category %}
-                <a class="h6-heading d-block mb-2" href="/{{ lang_code }}/blog/category/{{ category.slug }}">{{ localized_category }}</a>
+                <a class="tw-h6-heading d-block mb-2" href="/{{ lang_code }}/blog/category/{{ category.slug }}">{{ localized_category }}</a>
               {% endwith %}
             {% else %}
-                <div class="h6-heading d-md-block d-none mb-2">&nbsp;</div>
+                <div class="tw-h6-heading d-md-block d-none mb-2">&nbsp;</div>
             {% endif %}
             <h3 class="mb-2 pb-1"><a href="{{first.url}}">{{ first.title }}</a></h3>
             <p class="d-none d-xl-block">{{ first.search_description|truncatechars:156 }}</p>
@@ -67,10 +67,10 @@
             {% if localized.category.count %}
               {% with category=localized.category.first %}
                 {% localized_version category as localized_category %}
-                <a class="h6-heading d-block mb-1" href="/{{ lang_code }}/blog/category/{{ category.slug }}">{{ localized_category }}</a>
+                <a class="tw-h6-heading d-block mb-1" href="/{{ lang_code }}/blog/category/{{ category.slug }}">{{ localized_category }}</a>
               {% endwith %}
             {% else %}
-                <div class="h6-heading d-md-block d-none mb-1">&nbsp;</div>
+                <div class="tw-h6-heading d-md-block d-none mb-1">&nbsp;</div>
             {% endif %}
             <h3 class="h4-heading"><a href="{{localized.url}}">{{ localized.title }}</a></h3>
             {% include "./blog_authors.html" with blog_page=item.blog %}
