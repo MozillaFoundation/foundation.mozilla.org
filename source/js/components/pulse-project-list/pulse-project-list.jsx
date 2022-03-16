@@ -124,7 +124,9 @@ class PulseProjectList extends Component {
                 />
               </div>
             </div>
-            <h5 className="project-title h5-heading my-2">{project.title}</h5>
+            <h5 className="project-title tw-h5-heading my-2">
+              {project.title}
+            </h5>
           </a>
           {byline && <p className="tw-body-small my-1">{byline}</p>}
         </div>

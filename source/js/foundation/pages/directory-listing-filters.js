@@ -120,7 +120,7 @@
           </div>
 
           <div class="short-meta-wrapper tw-pt-[10px] medium:tw-ml-[174px]">
-            <a class="h5-heading medium:tw-w-[calc(100%-70px)] tw-mb-0 tw-block"
+            <a class="tw-h5-heading medium:tw-w-[calc(100%-70px)] tw-mb-0 tw-block"
                 href="https://www.mozillapulse.org/profile/${
                   profile.profile_id
                 }">
