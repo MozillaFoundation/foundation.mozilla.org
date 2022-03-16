@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <div class="container tw-py-6 medium:tw-py-7 first:tw-pt-0">
-  <h2 class="h3-heading tw-font-semibold tw-mb-4">{{ value.title }}</h2>
+  <h2 class="tw-h3-heading tw-font-semibold tw-mb-4">{{ value.title }}</h2>
   <tempalte></tempalte>
   <div class="tw-grid tw-grid-cols-1 {% if page.signup == None %}large:tw-grid-cols-2 {% endif %}tw-gap-6 large:tw-gap-10">
     {% for card in self.cards %}

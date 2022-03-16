@@ -259,7 +259,7 @@ class JoinUs extends Component {
    */
   renderFlowHeading() {
     return [
-      <h2 className="h3-heading text-center" key={`flowheading`}>
+      <h2 className="tw-h3-heading text-center" key={`flowheading`}>
         {this.props.flowHeading}
       </h2>,
       <p className="text-center" key={`flowheadingpara`}>
