@@ -114,7 +114,7 @@
 
         {% if product.updates.count > 0 %}
         <hr class="pni-section-divider"/>
-        <h3 id="news" class="h2-heading mb-3">{% trans "News" %}</h3>
+        <h3 id="news" class="tw-h2-heading mb-3">{% trans "News" %}</h3>
           <div class="mb-5">
             {% for item in product.updates.all %}
             {% with update=item.update %}
@@ -132,7 +132,7 @@
         <hr class="pni-section-divider"/>
 
         <div class="tw-w-full">
-          <h3 class="h2-heading mb-4">{% trans "Related products" %}</h3>
+          <h3 class="tw-h2-heading mb-4">{% trans "Related products" %}</h3>
           <div class="row">
             {% for related_product_page in product.related_product_pages.all %}
             {% with related_product=related_product_page.related_product.localized %}
@@ -176,7 +176,7 @@
       <div class="{{section_class}}">
         <div class="mt-3 pt-3 bg-white tw-px-4 medium:tw-px-6">
 
-        <h3 class="h2-heading">{% trans "Comments" %}</h3>
+        <h3 class="tw-h2-heading">{% trans "Comments" %}</h3>
         <p class="mb-4">{% trans "Got a comment? Let us hear it." %}</p>
         <div id="commento"></div>
         </div>

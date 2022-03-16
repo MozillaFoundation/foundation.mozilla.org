@@ -94,7 +94,7 @@ class DonationModal extends Component {
         </button>
 
         <div className="modal-body">
-          <h3 className={classNames(`h2-heading`, `text-center`)}>
+          <h3 className={classNames(`tw-h2-heading`, `text-center`)}>
             {this.props.heading}
           </h3>
           <p className={classNames(`tw-body-large`, `text-center`)}>
