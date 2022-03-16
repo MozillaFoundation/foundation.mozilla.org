@@ -4,7 +4,7 @@
 
 <div class="row section-news-you-can-use section-padding">
   <div class="col-12 d-flex flex-row justify-content-between">
-    <h2 class="h4-heading mb-4">{% trans "News you can use" %}</h2>
+    <h2 class="tw-h4-heading mb-4">{% trans "News you can use" %}</h2>
     {# this should not be a hardcoded route... #}
     <a href="/{{ lang_code }}/blog" class="tw-cta-link d-none d-md-inline-block" id="news-you-can-use-cta">{% trans "Read more news" %}</a>
   </div>
@@ -72,7 +72,7 @@
             {% else %}
                 <div class="tw-h6-heading d-md-block d-none mb-1">&nbsp;</div>
             {% endif %}
-            <h3 class="h4-heading"><a href="{{localized.url}}">{{ localized.title }}</a></h3>
+            <h3 class="tw-h4-heading"><a href="{{localized.url}}">{{ localized.title }}</a></h3>
             {% include "./blog_authors.html" with blog_page=item.blog %}
           </div>
         </div>
