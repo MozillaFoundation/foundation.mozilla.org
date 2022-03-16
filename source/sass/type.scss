@@ -22,28 +22,3 @@ h1,
     }
   }
 }
-
-h2,
-.h2-heading {
-  @apply tw-font-light tw-mb-4 tw-text-black tw-tracking-normal tw-font-zilla tw-text-[28px] tw-leading-[1.2] medium:tw-text-[40px];
-
-  @at-root .tw-dark & {
-    @apply tw-text-white;
-
-    a:hover,
-    a:focus,
-    a:active {
-      @apply tw-text-blue-light tw-underline;
-    }
-  }
-
-  a {
-    @apply tw-text-inherit tw-font-inherit;
-
-    a:hover,
-    a:focus,
-    a:active {
-      @apply tw-text-inherit tw-underline;
-    }
-  }
-}
