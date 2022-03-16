@@ -47,28 +47,3 @@ h2,
     }
   }
 }
-
-h3,
-.h3-heading {
-  @apply tw-font-normal tw-mb-4 tw-text-black tw-tracking-normal tw-font-zilla tw-text-[24px] tw-leading-[1.2] medium:tw-text-[28px];
-
-  @at-root .tw-dark & {
-    @apply tw-text-white;
-
-    a:hover,
-    a:focus,
-    a:active {
-      @apply tw-text-blue-light tw-underline;
-    }
-  }
-
-  a {
-    @apply tw-text-inherit tw-font-inherit;
-
-    a:hover,
-    a:focus,
-    a:active {
-      @apply tw-text-inherit tw-underline;
-    }
-  }
-}
