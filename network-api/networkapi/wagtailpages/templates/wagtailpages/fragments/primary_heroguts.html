@@ -32,7 +32,7 @@
     <div class="container tw-dark banner-content">
       <div class="row">
         <div class="col-12 col-md-9 col-xl-6 mt-3 d-flex flex-column justify-content-end">
-          <h1 class="h1-heading">{{ page.hero_headline }}</h1>
+          <h1 class="tw-h1-heading">{{ page.hero_headline }}</h1>
           <div>
             <a href="{{page.hero_button_url}}" class="btn btn-secondary text-wrap" id="homepage-hero-cta">{{page.hero_button_text}}</a>
           </div>
@@ -46,7 +46,7 @@
   <div class="container">
     <div class="row cutout-wrapper-row">
       <div class="cutout col-12 col-lg-8 pt-4">
-        <h1 class="h1-heading mb-0">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
+        <h1 class="tw-h1-heading mb-0">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
         {% if page.intro %}
         <p class="tw-body-large mt-3 mb-0">{{ page.intro }}</p>
         {% endif %}
