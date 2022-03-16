@@ -274,7 +274,7 @@ class JoinUs extends Component {
   renderSnippetHeading() {
     return (
       <Fragment>
-        <p className="h5-heading">
+        <p className="tw-h5-heading">
           {!this.state.apiSuccess
             ? `${this.props.ctaHeader}`
             : getText(`Thanks!`)}

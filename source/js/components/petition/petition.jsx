@@ -465,7 +465,7 @@ class Petition extends Component {
   renderStandardHeading() {
     return (
       <div>
-        <h5 className="h5-heading">{this.props.ctaHeader}</h5>
+        <h5 className="tw-h5-heading">{this.props.ctaHeader}</h5>
         {this.renderCtaDescription()}
       </div>
     );
