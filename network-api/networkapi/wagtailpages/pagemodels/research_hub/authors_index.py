@@ -1,3 +1,5 @@
+from django import http
+from django.core import exceptions
 from wagtail.core import models as wagtail_models
 from wagtail.contrib.routable_page import models as routable_models
 
@@ -13,10 +15,13 @@ class ResearchAuthorsIndexPage(
     parent_page_types = ['ResearchLandingPage']
 
 
-    @routable_models.route(r'^test/$')
-    def author_detail(self, request):
+    @routable_models.route(r'^(?P<author_id>[0-9]+)/$')
+    def author_detail(self, request: http.HttpRequest, author_id: str):
+        author_id = int(author_id)
+
         return self.render(
             request=request,
             template='wagtailpages/research_author_detail_page.html',
+            context_overrides={'author_id': author_id},
         )
 
