@@ -1,9 +1,9 @@
 {% extends "./research_authors_index_page.html" %}
 
 {% block subcontent %}
-  <h1>
-    {{ page.title }}
-  </h1>
+  {% block research_author_header %}
+    {{ block.super }}
+  {% endblock research_author_header %}
   <p>
     AUTHOR {{ author_id }}
   </p>

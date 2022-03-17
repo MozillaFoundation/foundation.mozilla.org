@@ -15,6 +15,11 @@ class ResearchAuthorsIndexPage(
     parent_page_types = ['ResearchLandingPage']
 
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["test"] = "the value"
+        return context
+
     @routable_models.route(r'^(?P<author_id>[0-9]+)/$')
     def author_detail(self, request: http.HttpRequest, author_id: str):
         author_id = int(author_id)

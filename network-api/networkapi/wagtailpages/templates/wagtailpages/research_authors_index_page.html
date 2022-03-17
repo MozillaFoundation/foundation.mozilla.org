@@ -1,1 +1,13 @@
 {% extends "./research_base.html" %}
+{% load wagtailroutablepage_tags %}
+
+{% block subcontent %}
+  {% block research_author_header %}
+    <h1>
+      {{ page.title }}
+    </h1>
+  {% endblock research_author_header %}
+  <p>
+    <a href="{% routablepageurl page "author_detail" author_id=123 %}">Anchor Text</a>
+  </p>
+{% endblock subcontent %}
