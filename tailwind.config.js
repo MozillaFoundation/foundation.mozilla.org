@@ -12,6 +12,8 @@ module.exports = {
   corePlugins: {
     // overriding TW default container
     container: false,
+    // eventually we have to extract what bootstrap base/reset styles we need
+    preflight: false,
   },
   plugins: [
     plugin(function ({ addUtilities }) {
@@ -29,6 +31,19 @@ module.exports = {
         },
       };
       addUtilities(newUtilities);
+    }),
+    plugin(function ({ addBase }) {
+      const newBase = {
+        "*,::before,::after": {
+          borderWidth: 0,
+          borderStyle: "solid",
+        },
+        "img,svg,video,canvas,audio,iframe,embed,object": {
+          display: "block",
+          verticalAlign: "middle",
+        },
+      };
+      addBase(newBase);
     }),
     ...componentPlugins,
     ...buttonPlugins,

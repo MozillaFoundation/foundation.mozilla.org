@@ -100,6 +100,11 @@
   .youtube-glyph {
     @include composite-glyph("youtube-dark-theme");
     @include hover-glyph("youtube-dark-theme-hover");
+    &:before {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+    }
   }
 
   .email-glyph {

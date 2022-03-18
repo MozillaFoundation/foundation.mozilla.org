@@ -153,13 +153,6 @@
   .section-news-you-can-use {
     background: $gray-05;
 
-    h2.tw-h4-heading {
-      @include set-text-size(22px, 30px, 24px, 30px);
-
-      font-family: $font-family-sans-serif;
-      font-weight: 700;
-    }
-
     .feature {
       min-height: 400px;
 
