@@ -3,23 +3,12 @@ html {
   overflow-x: hidden;
 }
 
+// mofo-bootstrap
+@import "../mofo-bootstrap/mofo-bootstrap";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-  ol {
-    @apply tw-m-[revert] tw-list-decimal tw-p-[revert];
-  }
-
-  ul {
-    @apply tw-m-[revert] tw-list-disc tw-p-[revert];
-  }
-}
-
-// mofo-bootstrap
-
-@import "../mofo-bootstrap/mofo-bootstrap";
 
 // Custom variables
 @import "../variables"; // Foundation site shared variables
@@ -31,12 +20,12 @@ html {
 @import "../glyphs";
 @import "../mixins";
 @import "./mixins"; // Buyer's Guide specific mixins
-@import "../type";
 @import "../buttons";
 
 // PNI specific
 
 @import "./colors.scss";
+@import "./type.scss";
 
 // includes
 @import "./includes/draft-product";

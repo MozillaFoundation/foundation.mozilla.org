@@ -7,7 +7,7 @@ module.exports = [
       {
         base: "a",
         styles: (componentType) => ({
-          color: theme("colors.blue.DEFAULT"),
+          color: theme("colors.blue.dark"),
           "&:hover,&:focus,&:active": {
             color: theme("colors.blue.dark"),
             textDecoration: "underline",
@@ -19,8 +19,14 @@ module.exports = [
               color: theme("colors.blue.light"),
               textDecoration: "underline",
             },
+            '&[class*="btn"]': {
+              fontWeight: theme("fontWeight.bold"),
+              "&:hover,&:focus,&:active": {
+                textDecoration: "none",
+              },
+            },
           },
-          '&.[class^="tw-btn"],&.btn': {
+          '&[class*="btn"]': {
             fontWeight: theme("fontWeight.bold"),
             "&:hover,&:focus,&:active": {
               textDecoration: "none",
@@ -32,7 +38,7 @@ module.exports = [
         base: "h1",
         class: ".h1-heading",
         styles: (componentType) => ({
-          fontWeight: theme("fontWeight.bold"),
+          fontWeight: theme("fontWeight.normal"),
           marginBottom: theme("spacing.4"),
           color: theme("colors.black"),
           lineHeight: 1.2,
@@ -40,7 +46,7 @@ module.exports = [
           fontSize: theme("fontSize.4xl"),
           letterSpacing: theme("letterSpacing.normal"),
           [media(theme("screens.medium"))]: {
-            fontSize: theme("fontSize.5xl"),
+            fontSize: "48px",
           },
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.white"),
@@ -187,16 +193,14 @@ module.exports = [
         base: "h6",
         class: ".h6-heading",
         styles: (componentType) => ({
-          textTransformation: "uppercase",
+          textTransform: "uppercase",
           fontWeight: theme("fontWeight.normal"),
           marginBottom: theme("spacing.4"),
           color: theme("colors.gray.60"),
           lineHeight: 1.3,
+          letterSpacing: theme("letterSpacing.wide"),
           fontFamily: theme("fontFamily.sans"),
           fontSize: "12px",
-          [media(theme("screens.medium"))]: {
-            fontSize: "30px",
-          },
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.white"),
             "& a:hover,& a:focus,& a:active": {
@@ -332,7 +336,7 @@ module.exports = [
           display: "inline-block",
           fontSize: "18px",
           [componentType ? ".dark &" : ".tw-dark &"]: {
-            color: theme("colors.gray.40"),
+            color: theme("colors.blue.light"),
             a: {
               color: theme("colors.blue.light"),
             },
