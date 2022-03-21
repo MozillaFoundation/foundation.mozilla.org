@@ -1,5 +1,5 @@
 from django import http, shortcuts
-from django.core import exceptions
+from django.utils import text as text_utils
 from wagtail.core import models as wagtail_models
 from wagtail.contrib.routable_page import models as routable_models
 
@@ -22,12 +22,14 @@ class ResearchAuthorsIndexPage(
         context["test"] = "the value"
         return context
 
-    @routable_models.route(r'^(?P<author_id>[0-9]+)/$')
-    def author_detail(self, request: http.HttpRequest, author_id: str):
+    @routable_models.route(r'^(?P<author_id>[0-9]+)/(?P<author_slug>[-a-z]+)/$')
+    def author_detail(self, request: http.HttpRequest, author_id: str, author_slug: str):
         author_profile = shortcuts.get_object_or_404(
             profiles.Profile,
             id=int(author_id),
         )
+        if not text_utils.slugify(author_profile.name) == author_slug:
+            raise http.Http404('Slug does not match id')
 
         return self.render(
             request=request,
