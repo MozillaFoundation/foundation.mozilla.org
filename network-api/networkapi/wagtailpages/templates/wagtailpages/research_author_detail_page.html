@@ -1,10 +1,20 @@
 {% extends "./research_authors_index_page.html" %}
+{% load wagtailimages_tags %}
 
 {% block subcontent %}
-  {% block research_author_header %}
-    {{ block.super }}
-  {% endblock research_author_header %}
-  <p>
-    AUTHOR {{ author_profile.id }}
-  </p>
+  {% if author_profile.image %}
+    <div>
+      {% image author_profile.image fill-260x260 as img %}
+      <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}"  alt="{{ img.alt }}" class="tw-rounded-full" />
+    </div>
+  {% endif %}
+  <div>
+    <h1>{{ author_profile.name }}</h1>
+    <div>
+      {{ author_profile.tagline }}
+    </div>
+    <p>
+      {{ author_profile.introduction }}
+    </p>
+  </div>
 {% endblock subcontent %}

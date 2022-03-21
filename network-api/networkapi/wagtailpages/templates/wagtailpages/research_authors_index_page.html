@@ -2,11 +2,9 @@
 {% load wagtailroutablepage_tags %}
 
 {% block subcontent %}
-  {% block research_author_header %}
-    <h1>
-      {{ page.title }}
-    </h1>
-  {% endblock research_author_header %}
+  <h1>
+    {{ page.title }}
+  </h1>
   {% if author_profiles %}
     <ul>
       {% for author_profile in author_profiles  %}
