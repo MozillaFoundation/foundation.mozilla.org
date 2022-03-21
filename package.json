@@ -102,7 +102,7 @@
     "@percy/cli": "^1.0.0-beta.71",
     "@percy/playwright": "^1.0.1",
     "@playwright/test": "^1.17.0",
-    "browser-sync": "^2.27.5",
+    "browser-sync": "^2.27.9",
     "browserslist": "^4.17.0",
     "chokidar-cli": "^2.1.0",
     "dotenv": "^8.2.0",
