@@ -4,6 +4,7 @@ from wagtail.core import models as wagtail_models
 from wagtail.contrib.routable_page import models as routable_models
 
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
+from networkapi.wagtailpages.pagemodels import profiles
 
 
 class ResearchAuthorsIndexPage(
@@ -17,6 +18,7 @@ class ResearchAuthorsIndexPage(
 
     def get_context(self, request):
         context = super().get_context(request)
+        context["author_profiles"] = profiles.Profile.objects.all()
         context["test"] = "the value"
         return context
 
