@@ -50,7 +50,7 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     def clean(self):
         super().clean()
         if self.url and self.document:
-            error_message = _('Please provide a either URL or a document, not both.')
+            error_message = _('Please provide either a URL or a document, not both.')
             raise exceptions.ValidationError(
                 {'url': error_message, 'document': error_message},
                 code='invalid',
