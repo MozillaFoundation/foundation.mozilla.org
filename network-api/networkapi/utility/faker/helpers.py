@@ -47,7 +47,7 @@ def get_homepage(will_generate=False):
 
 def get_random_objects(model, max_count=5):
     """
-    Return randnom objects up to a maximum number.
+    Return random objects up to a maximum number.
 
     The maximum is not guranteed to be reached. Rather at least one object of
     the given `model` is returned, but never more than `max_count`.
