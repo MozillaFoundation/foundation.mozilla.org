@@ -21,13 +21,13 @@ class ResearchAuthorsIndexPage(
         context["author_profiles"] = profiles.Profile.objects.all()
         return context
 
-    @routable_models.route(r'^(?P<author_id>[0-9]+)/(?P<author_slug>[-a-z]+)/$')
-    def author_detail(self, request: http.HttpRequest, author_id: str, author_slug: str):
+    @routable_models.route(r'^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$')
+    def author_detail(self, request: http.HttpRequest, profile_id: str, profile_slug: str):
         author_profile = shortcuts.get_object_or_404(
             profiles.Profile,
-            id=int(author_id),
+            id=int(profile_id),
         )
-        if not text_utils.slugify(author_profile.name) == author_slug:
+        if not text_utils.slugify(author_profile.name) == profile_slug:
             raise http.Http404('Slug does not match id')
 
         return self.render(
