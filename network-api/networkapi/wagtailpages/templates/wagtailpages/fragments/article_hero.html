@@ -9,7 +9,7 @@
 
   <div class="article-hero tw-relative tw-flex tw-flex-col large:tw-flex-row tw-h-full tw-overflow-hidden">
     <div class="tw-w-full large:tw-w-1/2 tw-min-h-full {% if page.hero_layout == "image_right" %} tw-order-last {% endif %}">
-      {% if page.hero_video %}
+      {% if page.displayed_hero_content == "video" %}
         <div class="video-control-wrapper tw-w-full -tw-mb-7">
           <div class="tw-mx-2 tw-pt-2">
             <button class="{{ control_btn_classes }} btn-pause ">
@@ -43,7 +43,7 @@
 {% else %}
 
   <div class="article-hero tw-relative tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-overflow-hidden">
-    {% if page.hero_video %}
+    {% if page.displayed_hero_content == "video" %}
     <div class="video-control-wrapper tw-w-full tw-z-10 -tw-mb-7">
       <div class="tw-mx-2 tw-pt-2">
         <button class="{{ control_btn_classes }} btn-pause ">
