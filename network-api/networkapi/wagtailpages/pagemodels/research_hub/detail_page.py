@@ -9,7 +9,7 @@ from wagtail.core import fields as wagtail_fields
 from wagtail.core import models as wagtail_models
 from wagtail_localize import fields as localize_fields
 
-from networkapi.wagtailpages.pagemodels.customblocks import base_rich_text_options
+from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 
 
@@ -88,7 +88,7 @@ class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtai
     overview = wagtail_fields.RichTextField(
         null=False,
         blank=True,
-        features=base_rich_text_options.base_rich_text_options,
+        features=base_rich_text_options,
         help_text=_(
             'Provide an overview about the reseach. '
             'This can be an excerpt from or the executive summary of the original paper.'
