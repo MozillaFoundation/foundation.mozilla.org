@@ -150,7 +150,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
             widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60})
         ),
         MultiFieldPanel([
-            InlinePanel("authors", label="Author", min_num=0),
+            InlinePanel("authors", label="Author", min_num=0)
         ], heading="Author(s)"),
         MultiFieldPanel([
             ImageChooserPanel("toc_thumbnail_image"),
