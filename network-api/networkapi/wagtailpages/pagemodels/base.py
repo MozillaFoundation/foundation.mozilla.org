@@ -870,6 +870,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'PrimaryPage',
         'PublicationPage',
         'RedirectingPage',
+        'ResearchLandingPage',
         'Styleguide',
         'ProductPage',
         'BuyersGuidePage',

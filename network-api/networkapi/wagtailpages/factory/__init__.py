@@ -3,7 +3,7 @@ from . import (
     blog,
     buyersguide,
     campaign_page,
-    content_author,
+    profiles,
     dear_internet_page,
     homepage_cause_statement_link,
     homepage_features,
@@ -17,6 +17,7 @@ from . import (
     participate_page_featured_highlights,
     participate_page,
     publication,
+    research_hub,
     styleguide,
     youtube_regrets_page,
 )
@@ -27,7 +28,7 @@ def generate(seed):
     locale.generate(seed)
     homepage.generate(seed)
     participate_page.generate(seed)
-    content_author.generate(seed)
+    profiles.generate(seed)
     blog.generate(seed)
     buyersguide.generate(seed)
     bannered_campaign_page.generate(seed)
@@ -44,6 +45,7 @@ def generate(seed):
     publication.generate(seed)
     styleguide.generate(seed)
     youtube_regrets_page.generate(seed)
+    research_hub.generate(seed)
     # homepage_cause_statement_link requires child pages of homepage to exist
     homepage_cause_statement_link.generate(seed)
 

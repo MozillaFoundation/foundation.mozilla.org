@@ -35,9 +35,9 @@ from ...utils import (
     TitleWidget
 )
 
+from networkapi.wagtailpages.models import Profile
 from .blog_category import BlogPageCategory
 from .blog_index import BlogIndexPage
-from ..content_author import ContentAuthor
 
 base_fields = [
     ('paragraph', blocks.RichTextBlock(
@@ -71,7 +71,7 @@ class BlogAuthors(Orderable):
 
     page = ParentalKey('wagtailpages.BlogPage', related_name='authors')
     author = models.ForeignKey(
-        ContentAuthor,
+        Profile,
         on_delete=models.CASCADE,
     )
 
@@ -91,9 +91,9 @@ class RelatedBlogPosts(Orderable):
 
     related_post = models.ForeignKey(
         'wagtailpages.BlogPage',
-        blank=True,
+        blank=False,
         null=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
     )
 
     panels = [

@@ -25,14 +25,13 @@ social-auth-app-django
 wagtail-airtable
 wagtail==2.16.1
 wagtail-factories
-wagtail-localize==1.1rc1
+wagtail-localize==1.1
 wagtail-localize-git==0.12.0
 wagtail-inventory
 wagtailmedia
 wagtail-metadata
 whitenoise
 psycopg2-binary
-cloudinary
 sentry-sdk
 git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
 scout-apm

@@ -11,7 +11,7 @@ from django import forms
 
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.wagtailpages.models import ContentAuthor, PublicationPage
+from networkapi.wagtailpages.models import Profile, PublicationPage
 from networkapi.wagtailpages.utils import get_plaintext_titles, set_main_site_nav_information, TitleWidget
 
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
@@ -24,7 +24,7 @@ class ArticleAuthors(Orderable):
     page = ParentalKey("wagtailpages.ArticlePage", related_name="authors")
 
     author = models.ForeignKey(
-        ContentAuthor,
+        Profile,
         on_delete=models.SET_NULL,
         null=True,
         blank=False

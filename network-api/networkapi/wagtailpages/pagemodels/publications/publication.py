@@ -11,7 +11,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.wagtailpages.models import ContentAuthor
+from networkapi.wagtailpages.models import Profile
 from networkapi.wagtailpages.utils import set_main_site_nav_information
 from ..customblocks.base_rich_text_options import base_rich_text_options
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
@@ -23,7 +23,7 @@ class PublicationAuthors(Orderable):
     page = ParentalKey("wagtailpages.PublicationPage", related_name="authors")
 
     author = models.ForeignKey(
-        ContentAuthor, on_delete=models.SET_NULL, null=True, blank=False
+        Profile, on_delete=models.SET_NULL, null=True, blank=False
     )
 
     panels = [
