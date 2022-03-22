@@ -113,6 +113,15 @@ class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtai
         edit_handlers.InlinePanel('related_regions', heading="Regions"),
     ]
 
-    override_translatable_fields = [
+    translatable_fields = [
+        localize_fields.TranslatableField('title'),
+        localize_fields.SynchronizedField('slug'),
         localize_fields.SynchronizedField('original_publication_date', overridable=False),
+        localize_fields.TranslatableField('introduction'),
+        localize_fields.TranslatableField('overview'),
+        localize_fields.TranslatableField('research_authors'),
+        # Collaborators is translatable incase of connecting words like "and"
+        localize_fields.TranslatableField('collaborators'),
+        localize_fields.TranslatableField('related_topics'),
+        localize_fields.TranslatableField('related_regions'),
     ]
