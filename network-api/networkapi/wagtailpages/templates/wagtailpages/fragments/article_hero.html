@@ -1,0 +1,73 @@
+{% load static i18n wagtailimages_tags homepage_tags%}
+
+{% image page.hero_image fill-1400x675 as bg_img %}
+
+{% with control_btn_classes="ml-auto tw-opacity-80 hover:tw-opacity-100 tw-hidden" full_screen_content_classes="tw-absolute tw-min-w-full tw-min-h-full tw-max-w-none tw-top-0" two_col_content_classes="tw-h-full tw-w-full tw-object-center tw-object-cover" %}
+
+
+{% if page.hero_layout != "full_screen" %}
+
+  <div class="article-hero tw-relative tw-flex tw-flex-col large:tw-flex-row tw-h-full tw-overflow-hidden">
+    <div class="tw-w-full large:tw-w-1/2 tw-min-h-full {% if page.hero_layout == "image_right" %} tw-order-last {% endif %}">
+      {% if page.hero_video %}
+        <div class="video-control-wrapper tw-w-full -tw-mb-7">
+          <div class="tw-mx-2 tw-pt-2">
+            <button class="{{ control_btn_classes }} btn-pause ">
+              <img src="{% static '_images/video_pause_button.svg' %}"/>
+            </button>
+            <button class="{{ control_btn_classes }} btn-play">
+              <img src="{% static '_images/video_play_button.svg' %}"/>
+            </button>
+          </div>
+        </div>
+        <video class="hero-video {{two_col_content_classes}}" playsinline muted loop preload>
+          <source src="{{ page.hero_video }}" type="video/mp4">
+        </video>
+      {% else %} 
+        <img src="{{ bg_img.url }}" class="{{two_col_content_classes}}"/>
+      {% endif %}
+    </div>
+
+    <div class="tw-w-full large:tw-w-1/2 tw-min-h-full tw-py-[65px] large:tw-pb-[184px] large:tw-pt-[137px] {% if page.hero_layout == "image_left" %} tw-order-last tw-pb-[100px] medium:tw-pb-[137px] {% endif %}">
+        <div class="container">
+          <div class="row">
+            <div class="tw-px-3 large:tw-px-7">
+              {% include "./article_hero_guts.html" %}
+            </div>
+          </div>
+        </div>
+    </div>  
+
+  </div>
+
+{% else %}
+
+  <div class="article-hero tw-relative tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-overflow-hidden">
+    {% if page.hero_video %}
+    <div class="video-control-wrapper tw-w-full tw-z-10 -tw-mb-7">
+      <div class="tw-mx-2 tw-pt-2">
+        <button class="{{ control_btn_classes }} btn-pause ">
+          <img src="{% static '_images/video_pause_button.svg' %}"/>
+        </button>
+        <button class="{{ control_btn_classes }} btn-play">
+          <img src="{% static '_images/video_play_button.svg' %}"/>
+        </button>
+      </div>
+    </div>
+      <video class="hero-video {{full_screen_content_classes}}" autoplay loop muted>
+        <source src="{{ page.hero_video }}" type="video/mp4">
+      </video>
+    {% else %} 
+      <img class="{{full_screen_content_classes}}" src="{{ bg_img.url }}" />
+    {% endif %}
+      <div class="container tw-pb-[184px] tw-pt-[137px]">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+            {% include "./article_hero_guts.html" %}
+          </div>
+        </div>
+    </div>  
+  </div>
+
+{% endif %}
+{% endwith %}

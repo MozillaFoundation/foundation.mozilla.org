@@ -3,10 +3,11 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel, HelpPanel
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from django import forms
 
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -67,6 +68,19 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         related_name='+',
         verbose_name='Publication Hero Image',
     )
+    hero_video = models.CharField(
+        blank=True,
+        max_length=500,
+        help_text='URL to video for article page hero section.',
+    )
+    displayed_hero_content = models.CharField(
+        max_length=25,
+        choices=[
+            ('image', 'Image'),
+            ('video', 'Video'),
+        ],
+        default='image'
+    )
 
     subtitle = models.CharField(
         blank=True,
@@ -88,9 +102,45 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         related_name='+',
     )
 
+    hero_layout = models.CharField(
+        max_length=25,
+        choices=[
+            ('full_screen', 'Full Screen'),
+            ('image_left', 'Image Left'),
+            ('image_right', 'Image Right'),
+            ('static', 'Static'),
+        ],
+        default='static',
+    )
+
+    download_button_style = models.CharField(
+        max_length=25,
+        choices=[
+            ('primary', 'Primary'),
+            ('secondary', 'Secondary'),
+            ('tertiary', 'Tertiary'),
+        ],
+        default='primary',
+    )
+
+    download_button_icon = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Custom Icon for download button, please use http://feathericons.com"
+
+    )
+
     show_side_share_buttons = models.BooleanField(
         default=True,
         help_text="Show social share buttons on the side"
+    )
+
+    show_authors = models.BooleanField(
+        default=True,
+        help_text="Display authors in the hero section"
     )
 
     content_panels = [
@@ -100,13 +150,19 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
             widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60})
         ),
         MultiFieldPanel([
-            InlinePanel("authors", label="Author", min_num=0)
+            InlinePanel("authors", label="Author", min_num=0),
         ], heading="Author(s)"),
         MultiFieldPanel([
             ImageChooserPanel("toc_thumbnail_image"),
         ], heading="Table of Content Thumbnail"),
         MultiFieldPanel([
+            FieldPanel('hero_layout', widget=forms.RadioSelect),
+            FieldPanel("show_authors"),
+            FieldPanel('download_button_style', widget=forms.RadioSelect),
+            DocumentChooserPanel('download_button_icon'),
             ImageChooserPanel("hero_image"),
+            FieldPanel("hero_video"),
+            FieldPanel('displayed_hero_content', widget=forms.RadioSelect),
             FieldPanel('subtitle'),
             FieldPanel('secondary_subtitle'),
             FieldPanel('publication_date'),
