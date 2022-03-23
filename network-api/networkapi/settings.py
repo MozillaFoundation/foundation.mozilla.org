@@ -730,15 +730,9 @@ GENERAL_PNI_AIRTABLE_SETTINGS = {
     'PARENT_PAGE_ID': 'networkapi.wagtailpages.pagemodels.products.get_pni_home_page',
     'AUTO_PUBLISH_NEW_PAGES': False,
 }
-# Create duplicate airtable settings for another sheet in the same table.
-SOFTWARE_PNI_AIRTABLE_SETTINGS = GENERAL_PNI_AIRTABLE_SETTINGS.copy()
-SOFTWARE_PNI_AIRTABLE_SETTINGS['AIRTABLE_TABLE_NAME'] = 'Software PNI Products'
-SOFTWARE_PNI_AIRTABLE_SETTINGS[
-    'AIRTABLE_SERIALIZER'
-] = 'networkapi.wagtailpages.pagemodels.serializers.SoftwareProductPageSerializer'
+
 AIRTABLE_IMPORT_SETTINGS = {
     'wagtailpages.GeneralProductPage': GENERAL_PNI_AIRTABLE_SETTINGS,
-    'wagtailpages.SoftwareProductPage': SOFTWARE_PNI_AIRTABLE_SETTINGS,
 }
 
 if env("SCOUT_KEY"):
