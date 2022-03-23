@@ -35,7 +35,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail_airtable.mixins import AirtableMixin
 
 from networkapi.wagtailpages.forms import BuyersGuideProductCategoryForm
-from networkapi.wagtailpages.fields import ExtendedBoolean, ExtendedYesNoField
+from networkapi.wagtailpages.fields import ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
@@ -445,9 +445,12 @@ class ProductUpdates(TranslatableMixin, Orderable):
 
 class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     """
-    ProductPage is the superclass that SoftwareProductPage and
-    GeneralProductPage inherit from. This should not be an abstract
-    model as we need it to connect the two page types together.
+    ProductPage is the superclass that GeneralProductPages inherits from.
+
+    This used to be shared by the SoftwareProductPage, but that page type
+    has been removed. In the past, we needed to connect the two page
+    types together. This is why this superclass is abstract.
+
     """
 
     template = 'buyersguide/product_page.html'
@@ -1026,130 +1029,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         verbose_name = "Product Page"
 
 
-class SoftwareProductPage(ProductPage):
-    template = 'buyersguide/product_page.html'
-
-    handles_recordings_how = models.TextField(
-        max_length=5000,
-        blank=True,
-    )
-
-    recording_alert = ExtendedYesNoField(
-        null=True,
-    )
-
-    recording_alert_helptext = models.TextField(
-        max_length=5000,
-        blank=True
-    )
-
-    medical_privacy_compliant = ExtendedBoolean(
-    )
-
-    medical_privacy_compliant_helptext = models.TextField(
-        max_length=5000,
-        blank=True
-    )
-
-    # Can I control it?
-
-    host_controls = models.TextField(
-        max_length=5000,
-        blank=True
-    )
-
-    easy_to_learn_and_use = ExtendedBoolean(
-    )
-
-    easy_to_learn_and_use_helptext = models.TextField(
-        max_length=5000,
-        blank=True
-    )
-
-    @classmethod
-    def map_import_fields(cls):
-        generic_product_import_fields = super().map_import_fields()
-        software_product_mappings = {
-            "How it handles recording": "handles_recordings_how",
-            "Recording alert": "recording_alert",
-            "Recording alert help text": "recording_alert_helptext",
-            "Medical privacy compliant": "medical_privacy_compliant",
-            "Medical privacy compliant help text": "medical_privacy_compliant_helptext",
-            "Host controls": "host_controls",
-            "Easy to learn and use": "easy_to_learn_and_use",
-            "Easy to learn and use help text": "easy_to_learn_and_use_helptext",
-        }
-        # Return the merged fields
-        return {**generic_product_import_fields, **software_product_mappings}
-
-    def get_export_fields(self):
-        """
-        This should be a dictionary of the fields to send to Airtable.
-        Keys are the Column Names in Airtable. Values are the Wagtail values we want to send.
-        """
-        generic_product_data = super().get_export_fields()
-        software_product_data = {
-            "How it handles recording": self.handles_recordings_how,
-            "Recording alert": self.recording_alert,
-            "Recording alert help text": self.recording_alert_helptext,
-            "Medical privacy compliant": True if self.medical_privacy_compliant else False,
-            "Medical privacy compliant help text": self.medical_privacy_compliant_helptext,
-            "Host controls": self.host_controls,
-            "Easy to learn and use": True if self.easy_to_learn_and_use else False,
-            "Easy to learn and use help text": self.easy_to_learn_and_use_helptext,
-        }
-
-        data = {**generic_product_data, **software_product_data}
-        return data
-
-    content_panels = ProductPage.content_panels.copy()
-    content_panels = insert_panels_after(
-        content_panels,
-        'Security',
-        [
-            MultiFieldPanel(
-                [
-                    FieldPanel('handles_recordings_how'),
-                    FieldPanel('recording_alert'),
-                    FieldPanel('recording_alert_helptext'),
-                    FieldPanel('medical_privacy_compliant'),
-                    FieldPanel('medical_privacy_compliant_helptext'),
-                ],
-                heading='How does it handle privacy?',
-                classname='collapsible'
-            ),
-            MultiFieldPanel(
-                [
-                    FieldPanel('host_controls'),
-                    FieldPanel('easy_to_learn_and_use'),
-                    FieldPanel('easy_to_learn_and_use_helptext'),
-                ],
-                heading='Can I control it',
-                classname='collapsible'
-            ),
-        ],
-    )
-
-    translatable_fields = ProductPage.translatable_fields + [
-        TranslatableField('handles_recordings_how'),
-        SynchronizedField('recording_alert'),
-        TranslatableField('recording_alert_helptext'),
-        SynchronizedField('medical_privacy_compliant'),
-        TranslatableField('medical_privacy_compliant_helptext'),
-        TranslatableField('host_controls'),
-        SynchronizedField('easy_to_learn_and_use'),
-        TranslatableField('easy_to_learn_and_use_helptext'),
-    ]
-
-    @property
-    def product_type(self):
-        return "software"
-
-    # TODO: Needs translatable_fields
-    class Meta:
-        verbose_name = "Software Product Page"
-
-
 class GeneralProductPage(ProductPage):
     template = 'buyersguide/product_page.html'
 
@@ -1479,10 +1358,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     """
 
     template = 'buyersguide/home.html'
-    subpage_types = [
-        # SoftwareProductPage,
-        GeneralProductPage,
-    ]
+    subpage_types = [GeneralProductPage]
 
     cutoff_date = models.DateField(
         'Product listing cutoff date',

@@ -94,7 +94,6 @@ from .pagemodels.products import (
     ProductPage,
     ProductPageCategory,
     ProductPagePrivacyPolicyLink,
-    SoftwareProductPage,
 )
 
 from .pagemodels.pulse import PulseFilter
@@ -147,7 +146,6 @@ __all__ = [
     ResearchLandingPage,
     ResearchLibraryPage,
     Signup,
-    SoftwareProductPage,
     Styleguide,
     YoutubeRegretsPage,
     YoutubeRegrets2021Page,
