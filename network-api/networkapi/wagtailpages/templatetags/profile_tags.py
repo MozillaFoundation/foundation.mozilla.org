@@ -6,12 +6,19 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def routableprofileurl(context, page, profile, *args, url_name="profile_route", **kwargs):
+def routableprofileurl(context, *args, page, profile, url_name="profile_route", **kwargs):
     '''
     Get URL of the profile route on a given page.
 
-    This is a wrapper around Wagtail's `routablepageurl` and meant to be used with
-    `RoutableProfileMixin`.
+    This is a wrapper around Wagtail's `routablepageurl`. It passes the profiles id as `profile_id`
+    and the slugified profile name as `profile_slug` to the url reveral. That means the urls should
+    expect both these parameters. For example the route decorator could look something like this:
+
+    ```
+    @routable_models.route(r'^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$')`
+    def profile_route(self, request, profile_id, profile_slug):
+        ...
+    ```
 
     '''
     return wagtailroutablepage_tags.routablepageurl(

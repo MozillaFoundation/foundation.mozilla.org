@@ -8,7 +8,7 @@
   {% if author_profiles %}
     <ul>
       {% for author_profile in author_profiles  %}
-        <li><a href="{% routableprofileurl page "author_detail" profile=author_profile %}">{{ author_profile.name }}</a></li>
+        <li><a href="{% routableprofileurl page=page profile=author_profile url_name="author_detail"  %}">{{ author_profile.name }}</a></li>
       {% endfor %}
     </ul>
   {% endif %}
