@@ -25,7 +25,6 @@ from networkapi.wagtailpages.pagemodels.products import (
     ProductPagePrivacyPolicyLink,
     ProductUpdates,
     RelatedProducts,
-    SoftwareProductPage,
 )
 from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
@@ -166,21 +165,6 @@ class GeneralProductPageFactory(ProductPageFactory):
     ai_helptext = Faker('sentence')
 
 
-class SoftwareProductPageFactory(ProductPageFactory):
-
-    class Meta:
-        model = SoftwareProductPage
-
-    handles_recordings_how = Faker('sentence')
-    recording_alert = LazyFunction(get_extended_yes_no_value)
-    recording_alert_helptext = Faker('sentence')
-    medical_privacy_compliant = LazyFunction(get_extended_boolean_value)
-    medical_privacy_compliant_helptext = Faker('sentence')
-    host_controls = Faker('sentence')
-    easy_to_learn_and_use = LazyFunction(get_extended_boolean_value)
-    easy_to_learn_and_use_helptext = Faker('sentence')
-
-
 class ProductPagePrivacyPolicyLinkFactory(DjangoModelFactory):
 
     class Meta:
@@ -231,28 +215,6 @@ def create_general_product_visual_regression_product(seed, pni_homepage):
     )
 
 
-def create_software_product_visual_regression_product(seed, pni_homepage):
-    reseed(seed)
-    SoftwareProductPageFactory.create(
-        # page fields
-        title='Software Percy Product',
-        first_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
-        last_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
-        parent=pni_homepage,
-        # product fields
-        privacy_ding=True,
-        adult_content=True,
-        uses_wifi=True,
-        uses_bluetooth=True,
-        review_date=date(2025, 1, 1),
-        company='Percy Corp',
-        blurb='This is a general product specifically created for visual regression testing',
-        product_url='http://example.com/general-percy',
-        worst_case='Visual regression fails',
-        # software product fields
-    )
-
-
 def generate(seed):
     reseed(seed)
 
@@ -271,22 +233,14 @@ def generate(seed):
 
     print('Generating visual regression test products')
     create_general_product_visual_regression_product(seed, pni_homepage)
-    create_software_product_visual_regression_product(seed, pni_homepage)
 
-    print('Generating 52 ProductPages')
+    print('Generating 26 ProductPages')
     for i in range(26):
         # General products
         general_page = GeneralProductPageFactory.create(parent=pni_homepage,)
         fake_privacy_policy = ProductPagePrivacyPolicyLinkFactory(page=general_page)
         general_page.privacy_policy_links.add(fake_privacy_policy)
         general_page.save_revision().publish()
-
-        # Software products
-        software_page = SoftwareProductPageFactory.create(parent=pni_homepage,)
-        software_page.save_revision().publish()
-        fake_privacy_policy = ProductPagePrivacyPolicyLinkFactory(page=software_page)
-        software_page.privacy_policy_links.add(fake_privacy_policy)
-        software_page.save_revision().publish()
 
     print('Crosslinking related products')
     product_pages = ProductPage.objects.all()
