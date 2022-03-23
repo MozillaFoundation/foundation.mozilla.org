@@ -129,8 +129,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        help_text="Custom Icon for download button, please use http://feathericons.com"
-
+        help_text="Custom Icon for download button, please use https://feathericons.com"
     )
 
     show_side_share_buttons = models.BooleanField(
