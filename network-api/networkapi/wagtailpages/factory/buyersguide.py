@@ -234,8 +234,8 @@ def generate(seed):
     print('Generating visual regression test products')
     create_general_product_visual_regression_product(seed, pni_homepage)
 
-    print('Generating 26 ProductPages')
-    for i in range(26):
+    print('Generating 52 ProductPages')
+    for i in range(52):
         # General products
         general_page = GeneralProductPageFactory.create(parent=pni_homepage,)
         fake_privacy_policy = ProductPagePrivacyPolicyLinkFactory(page=general_page)
