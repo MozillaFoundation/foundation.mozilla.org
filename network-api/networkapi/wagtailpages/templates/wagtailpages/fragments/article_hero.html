@@ -10,16 +10,6 @@
   <div class="article-hero tw-relative tw-flex tw-flex-col large:tw-flex-row tw-h-full tw-overflow-hidden {% if not get_titles %} tw-mb-[0px] medium:tw-mb-[100px] {% endif %}">
     <div class="tw-w-full large:tw-w-1/2 tw-min-h-full {% if page.hero_layout == "image_right" %} tw-order-last {% endif %}">
       {% if page.displayed_hero_content == "video" %}
-        <div class="video-control-wrapper tw-w-full -tw-mb-7">
-          <div class="tw-mx-2 tw-pt-2">
-            <button class="{{ control_btn_classes }} btn-pause ">
-              <img src="{% static '_images/video_pause_button.svg' %}"/>
-            </button>
-            <button class="{{ control_btn_classes }} btn-play">
-              <img src="{% static '_images/video_play_button.svg' %}"/>
-            </button>
-          </div>
-        </div>
         <video class="hero-video {{two_col_content_classes}}" playsinline muted loop preload>
           <source src="{{ page.hero_video }}" type="video/mp4">
         </video>
@@ -44,23 +34,13 @@
 
   <div class="article-hero tw-relative tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-overflow-hidden">
     {% if page.displayed_hero_content == "video" %}
-    <div class="video-control-wrapper tw-w-full tw-z-10 -tw-mb-7">
-      <div class="tw-mx-2 tw-pt-2">
-        <button class="{{ control_btn_classes }} btn-pause ">
-          <img src="{% static '_images/video_pause_button.svg' %}"/>
-        </button>
-        <button class="{{ control_btn_classes }} btn-play">
-          <img src="{% static '_images/video_play_button.svg' %}"/>
-        </button>
-      </div>
-    </div>
       <video class="hero-video {{full_screen_content_classes}}" autoplay loop muted>
         <source src="{{ page.hero_video }}" type="video/mp4">
       </video>
     {% else %} 
       <img class="{{full_screen_content_classes}}" src="{{ bg_img.url }}" />
     {% endif %}
-      <div class="container tw-pb-[184px] tw-pt-[137px]">
+      <div class="container tw-pt-[85px] tw-pb-[140px] large:tw-pb-[184px] large:tw-pt-[137px]">
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
             {% include "./article_hero_guts.html" %}
