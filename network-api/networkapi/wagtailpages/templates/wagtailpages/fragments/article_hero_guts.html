@@ -72,7 +72,7 @@
 
   {% if download_file %}
 
-  {% with btn_setting=page.download_button_style primary_icon_class="tw-invert dark:group-hover:tw-invert-0" secondary_icon_class="group-hover:tw-invert dark:tw-invert dark:group-hover:tw-invert-0" tertiary_btn_class="tw-text-gray-80 tw-font-light tw-underline hover:tw-font-normal" %}
+  {% with btn_setting=page.download_button_style primary_icon_class="tw-invert dark:group-hover:tw-invert-0" secondary_icon_class="group-hover:tw-invert dark:tw-invert dark:group-hover:tw-invert-0" tertiary_btn_class="tw-text-black tw-font-light tw-underline hover:tw-opacity-50" %}
 
   <a class="tw-inline-flex tw-group {% if btn_setting == "primary" %} tw-btn-primary  {% elif btn_setting == "secondary" %} tw-btn-secondary {% else %} {{ tertiary_btn_class }} {% endif %}" 
    href="{{ download_file.url }}" download>
