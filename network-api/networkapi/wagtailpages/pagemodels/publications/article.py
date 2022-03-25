@@ -71,7 +71,11 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     hero_video = models.CharField(
         blank=True,
         max_length=500,
-        help_text='URL to video for article page hero section.',
+        help_text='Log into Vimeo using 1Password '
+                  'and upload the desired video. '
+                  'Then select the video and '
+                  'click "Advanced", "Distribution", '
+                  'and "Video File Links". Copy and paste the link here.'
     )
     displayed_hero_content = models.CharField(
         max_length=25,
