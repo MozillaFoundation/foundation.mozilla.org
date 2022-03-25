@@ -1,8 +1,8 @@
-{% load i18n wagtailimages_tags %}
+{% load static i18n wagtailimages_tags %}
 
-<div class="author-images d-flex flex-wrap">
+<div class="author-images tw-pl-[0.7rem] d-flex flex-wrap">
     {% for author in authors %}
-        <div class="author-image d-flex align-items-center justify-content-center {% if author.image is None %}no-avatar{% endif %}" aria-label="{{ author.name }}">
+        <div class="author-image last:tw-mr-2 -tw-ml-[0.7rem] tw-overflow-hidden tw-rounded-full tw-border-2 tw-border-white tw-inline-block tw-w-[40px] tw-h-[40px] tw-border-r d-flex align-items-center justify-content-center {% if author.image is None %}no-avatar tw-bg-[url('../_images/blog-author-placeholder.jpg')] tw-bg-cover{% endif %}" aria-label="{{ author.name }}">
             {% if author.image %}
             <img src="{% image_url author.image "fill-100x100" %}" alt="{{ author.name }}" title="{{ author.name }}" />
             {% endif %}
