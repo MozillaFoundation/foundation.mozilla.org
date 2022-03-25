@@ -8,13 +8,13 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-8 pt-4">
-        <h1 class="h1-heading mb-0 mt-1 pt-2">
+        <h1 class="tw-h1-heading mb-0 mt-1 pt-2">
           {% if index_title %}{{ index_title }}{% elif root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
         </h1>
         {% if index_intro %}
-        <div class="body-large mt-3 mb-0">{{ index_intro|safe }}</div>
+        <div class="tw-body-large mt-3 mb-0">{{ index_intro|safe }}</div>
         {% else %}
-        <p class="body-large mt-3 mb-0">{{ page.intro|safe }}</p>
+        <p class="tw-body-large mt-3 mb-0">{{ page.intro|safe }}</p>
         {% endif %}
       </div>
     </div>
@@ -31,7 +31,7 @@
     <div class="row mb-4">
       <div class="col-12 d-flex justify-content-between">
         <div class="search-result">
-          <h3 class="body result-info">
+          <h3 class="tw-body result-info">
             {% blocktrans count count=total_entries trimmed %}
                 {{ total_entries }} result
             {% plural %}
@@ -40,7 +40,7 @@
             {% if total_entries > 0 %} {% trans "for" context "Following “xx results” and followed by searched terms. Full string example: “12 results for Advocacy”" %}
             <ul class="term-list">
             {% for term in terms %}
-              <li class="term body-small">{{ term }}</li>
+              <li class="term tw-body-small">{{ term }}</li>
             {% endfor %}
             </ul>
             {% endif %}

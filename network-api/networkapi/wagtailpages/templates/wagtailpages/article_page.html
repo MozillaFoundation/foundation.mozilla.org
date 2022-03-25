@@ -30,7 +30,7 @@
         {% if get_titles %}
           {# If there are h2s in the body of this page, show the article "table of contents" #}
           <div class="article-summary">
-            <div class="article-summary-title body-small">{% trans "SUMMARY" %}</div>
+            <div class="article-summary-title tw-body-small">{% trans "SUMMARY" %}</div>
             <div class="article-links {% if get_titles|length > 5 %}article-links-two-column{% endif %}">
               {% for slug, header in get_titles %}
                 <a href="#{{ slug }}" class="article-summary-link {% if get_titles|length > 5 %}article-summary-link-two-column{% endif %}">{{ header }}</a>

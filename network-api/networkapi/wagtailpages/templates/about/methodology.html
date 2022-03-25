@@ -5,12 +5,12 @@
 {% block main_about_class %}{% endblock %}
 
 {% block about_guts %}
-  <h1 class="h2-heading mb-4">
+  <h1 class="tw-h2-heading mb-4">
     {% trans "About our Methodology" %}
   </h1>
 
   <section class="methodology-intro">
-    <p class="body">
+    <p class="tw-body">
       {% blocktrans trimmed %}
       The goal of Mozilla’s <em>*Privacy Not Included</em> buyer’s guide is to help consumers shop smart — and safe — for products and
       apps that connect to the Internet. It is often difficult for consumers to get clear, concrete information from companies
@@ -20,14 +20,14 @@
       {% endblocktrans %}
     </p>
 
-    <p class="body">
+    <p class="tw-body">
       {% blocktrans trimmed %}
       With this guide, we hope to help consumers navigate this landscape by understanding what questions they should ask and
       what answers they should expect before buying a connected tech product.
       {% endblocktrans %}
     </p>
 
-    <p class="body">
+    <p class="tw-body">
       {% blocktrans trimmed %}
       The way we approach our research here at <em>*Privacy Not Included</em> is from the viewpoint of a consumer, but with a bit more
       time and expertise. We don’t purchase the products and test them in a lab. Consumers can’t do that. Instead, we look at
@@ -40,13 +40,13 @@
       {% endblocktrans %}
     </p>
 
-    <p class="body">
+    <p class="tw-body">
       {% trans "Here is the methodology we used to develop this guide." %}
     </p>
   </section>
 
   <section class="mt-5 mb-4 about-methodology">
-    <h2 class="h3-heading">
+    <h2 class="tw-h3-heading">
       {% trans "Methodology" %}
     </h2>
 
@@ -55,7 +55,7 @@
         {% trans "Product Selection" %}
       </h3>
 
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans with consumer_reports="https://www.consumerreports.org/" wirecutter="https://thewirecutter.com/" cnet="https://cnet.com/" trimmed %}
         When we select products for *Privacy Not Included, our goal is to choose connected products and apps that are likely to
         be popular with consumers in North America and Europe. We make our decisions based on our own research of top selling
@@ -67,12 +67,12 @@
   </section>
 
   <section class="mt-5 mb-4 about-methodology">
-    <h2 class="h3-heading">
+    <h2 class="tw-h3-heading">
       {% trans "<em>*Privacy Not Included</em> Warning Labels" %}
     </h2>
 
     <section aria-labelledby="product-selection">
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans with company_data_use="#how-does-company-use-this-data" user_data_control="#how-can-you-control-your-data" track_record="#company-track-record" min_sec="#minimum-security-standards" trimmed %}
         We assign our <em>*Privacy Not Included</em> warning label to products we have determined to have the most problems when it comes
         to protecting a users privacy and security. A product will earn the <em>*Privacy Not Included</em> warning label if it receives
@@ -87,7 +87,7 @@
         {% endblocktrans %}
       </p>
 
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans trimmed %}
         While we currently can assign a product a warning for the use of untrustworthy artificial intelligence, we don’t use
         that rating to factor into our decision to assign the <em>*Privacy Not Included</em> warning label as the information from
@@ -105,7 +105,7 @@
         {% trans "What could happen if something goes wrong?" %}
       </h3>
 
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans trimmed %}
         We include this section to help people understand what could potentially go right or wrong related to the privacy and
         security with each product. We aim to identify risks and concerns that are relevant to consumers specifically. While it
@@ -121,7 +121,7 @@
         {% trans "Tips to protect yourself" %}
       </h3>
 
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans trimmed %}
         We review suggestions from both the product manufacturer and draw upon published privacy and security guidance from a
         range of experts, both within Mozilla and outside sources, to provide a few simple tips for each product users can take
@@ -133,11 +133,11 @@
   </section>
 
   <section class="mt-5 mb-4 about-methodology">
-    <h2 class="h3-heading">
+    <h2 class="tw-h3-heading">
       {% trans "Permissions" %}
     </h2>
 
-    <p class="body">
+    <p class="tw-body">
       {% blocktrans trimmed %}
       We look to see if it is possible the device could snoop on you if it were hacked, leaked, or not working correctly.
       Please note, just because a device could snoop on a user doesn’t mean it will. Simply that it is a possibility users
@@ -146,7 +146,7 @@
       {% endblocktrans %}
     </p>
 
-    <p class="body">
+    <p class="tw-body">
       {% blocktrans with google_play_url="https://play.google.com/store/apps" app_store_url="https://www.apple.com/app-store/" trimmed %}
       To determine this, we check product websites and the <a href="{{google_play_url}}">Google Play Store</a> or the <a href="{{google_play_url}}">Apple App Store</a> to check on
       the permissions requested by each app to determine whether the device and its app uses a camera, microphone, or tracks
@@ -156,7 +156,7 @@
       {% endblocktrans %}
     </p>
 
-    <p class="body">
+    <p class="tw-body">
       {% blocktrans trimmed %}
       The apps that control connected devices will typically need to request permissions from your phone for the app to work.
       This is mostly OK. However, we want consumers to understand when to look for things that don’t feel right, like a
@@ -169,11 +169,11 @@
   </section>
 
   <section class="mt-5 mb-4 about-methodology">
-    <h2 class="h3-heading">
+    <h2 class="tw-h3-heading">
       {% trans "Privacy" %}
     </h2>
 
-    <p class="body">
+    <p class="tw-body">
       {% blocktrans trimmed %}
       We evaluate the publicly available privacy documentation provided by each company for each product. This includes privacy policies, privacy
       pages, and FAQs. We attempt to determine (1) what kind of information is generally collected by a product, including
@@ -199,7 +199,7 @@
           {% trans "Personal" %}
         </h3>
   
-        <p class="body">
+        <p class="tw-body">
           {% blocktrans trimmed %}
           We list the personal data collected by each product, as specified in the privacy policy. This kind of information
           includes, but is not limited to, name, email address, phone number, and address.
@@ -212,7 +212,7 @@
           {% trans "Body-Related" %}
         </h3>
   
-        <p class="body">
+        <p class="tw-body">
           {% blocktrans trimmed %}
           Body-related (including biometric data) is data that describes our bodies and distinctive personal characteristics such
           as fingerprints, voices, and heart rates. Many devices collect sensitive data about stress, sleep patterns, and
@@ -226,7 +226,7 @@
           {% trans "Social" %}
         </h3>
   
-        <p class="body">
+        <p class="tw-body">
           {% blocktrans trimmed %}
           Social data includes information about your friends and contacts. We detailed which products collect this social
           information. This does not include the sharing of links or other information on social media through the product itself
@@ -241,7 +241,7 @@
           {% trans "How does the company use this data?" %}
         </h3>
   
-        <p class="body">
+        <p class="tw-body">
           {% blocktrans trimmed %}
           How do companies collect, use, and share or sell user data with third parties? Do companies combine user data with data
           from other sources? Is data used for advertisement? For this question, we analyzed the company’s privacy documentation
@@ -255,7 +255,7 @@
           {% endblocktrans %}
         </p>
 
-        <p class="body">
+        <p class="tw-body">
           {% blocktrans trimmed %}
           When determining if a product receives a warning on this criteria we look at three major factors. (1) How much data does
           the company collect on a user? What can and does the company learn about you with this data? Does it collect a large
@@ -275,7 +275,7 @@
           {% trans "How can you control your data?" %}
         </h3>
   
-        <p class="body">
+        <p class="tw-body">
           {% blocktrans trimmed %}
           Does the company provide a way for users to request access to and deletion of their data? We look for language around
           this in the privacy policy and/or whether the company has an online portal or contact that allows users to delete their
@@ -287,7 +287,7 @@
           {% endblocktrans %}
         </p>
 
-        <p class="body">
+        <p class="tw-body">
           {% blocktrans trimmed %}
           When determining if a product receives a warning on this criteria we look at three major factors. (1) Does the company
           have a means for a user to request access to the data the company has collected? (2) Does the company have a clear means
@@ -307,7 +307,7 @@
           {% trans "What is the company’s known track record of protecting users’ data?" %}
         </h3>
   
-        <p class="body">
+        <p class="tw-body">
           {% blocktrans trimmed %}
           We evaluated each company’s history of storing and protecting customer data within at least the previous three year
           period. We conduct research to find any known public hacks, data breaches, data leaks, or other incidents.
@@ -315,7 +315,7 @@
           {% endblocktrans %}
         </p>
 
-        <p class="body">
+        <p class="tw-body">
           {% blocktrans trimmed %}
           When determining if a product receives a warning on this criteria we look at four major factors. (1) Has the company
           had any major security vulnerabilities or data leaks in the past three years? (2) If the company has had known security
@@ -333,7 +333,7 @@
           {% trans "Can the product be used offline? " %}
         </h3>
   
-        <p class="body">
+        <p class="tw-body">
           {% blocktrans trimmed %}
           We checked to see if the product could be used offline or if being online was a requirement to use the product
           effectively (if applicable). We include this to let consumers know, for example, if an app that might collect data on
@@ -349,7 +349,7 @@
           {% trans "User-friendly privacy information" %}
         </h3>
   
-        <p class="body">
+        <p class="tw-body">
           {% blocktrans trimmed %}
           We evaluate how easy it is to find clear, specific, easy to understand information about a device’s privacy policies.
           How clearly is that information stated? Privacy information should be clear, readable, and communicate basic information
@@ -370,7 +370,7 @@
 
 
   <section class="mt-5 mb-4 about-minimum-security" id="minimum-security-standards">
-    <h2 class="h3-heading">
+    <h2 class="tw-h3-heading">
       {% trans "Minimum Security Standards" %}
     </h2>
 
@@ -395,7 +395,7 @@
         {% trans "Encryption" %}
       </h3>
 
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans trimmed %}
         A product should use encryption in transit and at rest (where applicable). The product must use encryption for all of
         its network communications functions and capabilities, ensuring that communications aren’t eavesdropped on or modified
@@ -410,7 +410,7 @@
         {% trans "Security updates" %}
       </h3>
 
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans trimmed %}
         The product must support automatic security updates for a reasonable period after sale, and be enabled by default. This
         ensures that when a vulnerability is known, the vendor can make security updates available for consumers, which are
@@ -424,7 +424,7 @@
         {% trans "Strong passwords" %}
       </h3>
 
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans trimmed %}
         If the product uses passwords or other means of security for remote authentication, it must require that strong
         passwords are used, including having password strength requirements. Any non-unique default passwords must also be reset
@@ -440,7 +440,7 @@
         {% trans "Vulnerability management" %}
       </h3>
 
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans trimmed %}
         The vendor must have a system in place to manage vulnerabilities in the product. This must also include a point of
         contact for reporting vulnerabilities or a bug bounty program. This ensures that vendors are actively managing
@@ -454,7 +454,7 @@
         {% trans "Privacy Policy" %}
       </h3>
 
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans trimmed %}
         The product must have a publicly available privacy policy and/or another privacy page that applies to the device, app, or service we are
         evaluating. The product must also have work contact information consumers can reach in a privacy policy for privacy
@@ -465,11 +465,11 @@
   </section>
 
   <section class="mt-5 mb-4 worst-case-scenario">
-    <h2 class="h3-heading">
+    <h2 class="tw-h3-heading">
       {% trans "Artificial Intelligence" %}
     </h2>
 
-    <p class="body">
+    <p class="tw-body">
       {% blocktrans with ai_link="https://foundation.mozilla.org/insights/trustworthy-ai-whitepaper/" trimmed %}
       We evaluate whether or not a product uses artificial intelligence. <b>We defined AI as: automated technology that makes
       decisions for you and/or changes continually based on your user data.</b> This would cover Alexa changing to better
@@ -484,7 +484,7 @@
         {% trans "Does the product use AI?" %}
       </h3>
 
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans trimmed %}
         Based on responses from companies and our own research, we note whether or not a product uses AI, or if we could not
         determine whether or not the product uses AI.
@@ -497,7 +497,7 @@
         {% trans "Is the AI untrustworthy?" %}
       </h3>
 
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans trimmed %}
         When determining if a product receives a warning on this criteria we look at two major factors. (1) If we are able to
         determine if AI decisions demonstrate biases based on reporting from experts and trusted sources. (2) If we are able to
@@ -512,7 +512,7 @@
         {% trans "What kind of decisions does the AI make about you or for you?" %}
       </h3>
 
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans trimmed %}
         What does the company say the product’s AI is doing? To answer this question, we analyzed the product description and,
         if available, AI documentation and white papers.
@@ -526,7 +526,7 @@
         {% trans "Is the company transparent about how the AI works?" %}
       </h3>
 
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans trimmed %}
         Is there publicly available information about how the algorithm behind the AI makes decisions? One of the biggest issues
         surrounding artificial intelligence in our consumer products is access to essential information about how AI-enabled
@@ -545,7 +545,7 @@
       <h3 class="p-heading mt-3 mb-1" id="can-user-control-ai">
         {% trans "Yes/No/Limited/NA/Can’t Determine" %}
       </h3>
-      <p class="body">
+      <p class="tw-body">
         {% blocktrans trimmed %}
         We attempt to determine if there is any way to opt out of AI, and/or adjust the settings of the AI.
 

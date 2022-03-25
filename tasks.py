@@ -146,13 +146,13 @@ def setup(ctx):
         ctx.run("docker-compose down --volumes")
         print("* Building Docker images")
         ctx.run("docker-compose build")
-        print("* Install Node dependencies")
-        npm_install(ctx)
         print("* Creating a Python virtualenv")
         ctx.run(
             "docker-compose run --rm backend python -m venv dockerpythonvenv",
             **PLATFORM_ARG,
         )
+        print("* Install Node dependencies")
+        npm_install(ctx)
         print("Done!")
         print("* Updating pip")
         ctx.run(

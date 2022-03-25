@@ -35,7 +35,7 @@
         </div>
       <div class="pt-5 pt-md-5 pb-4 col-lg-8">
         <div class="cms {% if show_comments %}mb-5{% endif %}">
-          <h1 class="h1-heading">{{ page.title }}</h1>
+          <h1 class="tw-h1-heading">{{ page.title }}</h1>
           {% include "./fragments/blog_authors.html" with blog_page=page show_full_info=True %}
         </div>
       </div>
@@ -51,7 +51,7 @@
     <div class="pt-1 pt-md-5 pb-4 pb-md-5 col-lg-8 m-auto bottom-share-button-container">
       {% include "./fragments/share-buttons.html" with page=page share_text=share_text_translated %}
       {% if show_comments %}
-        <h2 class="h4-heading">{% trans "Comments" %}</h2>
+        <h2 class="tw-h4-heading">{% trans "Comments" %}</h2>
         <div id="commento"></div>
       {% endif %}
 

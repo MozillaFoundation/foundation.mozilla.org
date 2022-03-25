@@ -158,7 +158,7 @@ class CreepVote extends Component {
           <div className="row mb-5">
             <div className="col-12">
               <div className="mb-4 text-center">
-                <h3 className="h3-heading mb-2">
+                <h3 className="tw-h3-heading mb-2">
                   How creepy do you think this is?
                 </h3>
               </div>
@@ -179,7 +179,9 @@ class CreepVote extends Component {
               >
                 Vote & see results
               </button>
-              <p className="h6-heading mb-0">{this.state.totalVotes} votes</p>
+              <p className="tw-h6-heading mb-0">
+                {this.state.totalVotes} votes
+              </p>
             </div>
           </div>
         </form>
@@ -227,10 +229,10 @@ class CreepVote extends Component {
       <div>
         <div className="mb-5">
           <div className="col-12 text-center">
-            <h3 className="h3-heading mb-1">
+            <h3 className="tw-h3-heading mb-1">
               {this.state.totalVotes + 1} Votes — invite your friends!
             </h3>
-            <div className="h6-heading text-muted" />
+            <div className="tw-h6-heading text-muted" />
           </div>
           <div className="row mt-4">
             <div className="col-12">

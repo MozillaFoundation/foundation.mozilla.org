@@ -16,11 +16,11 @@
     <div class="row">
       <div class="col-lg-8 offset-lg-2 tw-dark">
         {% if is_publication_article or is_publication_page %}
-          <div class="mb-2 body-small publication-breadcrumb">
+          <div class="mb-2 tw-body-small publication-breadcrumb">
             {% for entry in self.breadcrumb_list %}
             {% with parent_page=entry.localized %}
-              <a href="{{ parent_page.url }}" class="body-small">{{ parent_page.title }}</a>
-              <span class='body-small'> › </span>
+              <a href="{{ parent_page.url }}" class="tw-body-small">{{ parent_page.title }}</a>
+              <span class='tw-body-small'> › </span>
             {% endwith %}
             {% endfor %}
           </div>
@@ -29,12 +29,12 @@
           {{ page.title }}
         </h1>
         {% if page.subtitle %}
-          <h2 class="mt-4 body-large">
+          <h2 class="mt-4 tw-body-large">
             {{ page.subtitle }}
           </h2>
         {% endif %}
         {% if page.secondary_subtitle or page.publication_date %}
-          <div class="mt-2 mb-4 body-small publication-secondary-subtitle">
+          <div class="mt-2 mb-4 tw-body-small publication-secondary-subtitle">
             {% if page.secondary_subtitle %}
               {{ page.secondary_subtitle }}
             {% endif %}

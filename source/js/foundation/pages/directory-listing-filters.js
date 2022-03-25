@@ -120,7 +120,7 @@
           </div>
 
           <div class="short-meta-wrapper tw-pt-[10px] medium:tw-ml-[174px]">
-            <a class="h5-heading medium:tw-w-[calc(100%-70px)] tw-mb-0 tw-block"
+            <a class="tw-h5-heading medium:tw-w-[calc(100%-70px)] tw-mb-0 tw-block"
                 href="https://www.mozillapulse.org/profile/${
                   profile.profile_id
                 }">
@@ -128,7 +128,7 @@
             </a>
             ${
               profile.location &&
-              `<p class="tw-flex tw-items-center meta-block-location body-small tw-my-2">${profile.location}</p>`
+              `<p class="tw-flex tw-items-center meta-block-location tw-body-small tw-my-2">${profile.location}</p>`
             }
             <div class="medium:tw-absolute medium:tw-right-0 medium:tw-top-4">
               ${

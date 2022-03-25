@@ -7,7 +7,7 @@
   </div>
   <div class="col-12 col-lg-6 mb-md-4 mb-lg-0 tw-dark">
     <div class="spotlight-banner d-flex align-items-end full-bleed-xs p-3 p-md-4" style="background-image: linear-gradient(180deg, rgba(238,238,238,0) 14%, #000000 100%), url({% image_url page.spotlight_image "width-540" %});">
-      <h3 class="h2-heading spotlight-headline mb-0">{{ page.spotlight_headline }}</h3>
+      <h3 class="tw-h2-heading spotlight-headline mb-0">{{ page.spotlight_headline }}</h3>
     </div>
   </div>
 
@@ -15,7 +15,7 @@
     {% for post in page.spotlight_posts.all %}
     {% with localized=post.blog.localized %}
       <div class="spotlight-post">
-        <h4 class="mb-2 h5-heading">
+        <h4 class="mb-2 tw-h5-heading">
           <a href="{{localized.url}}">{{localized.title}}</a>
         </h4>
         {% include "./blog_authors.html" with blog_page=localized %}

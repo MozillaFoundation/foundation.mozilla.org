@@ -182,7 +182,7 @@ const ProductGA = {
       return;
     }
 
-    let productBox = document.querySelector(`.product-detail .h1-heading`);
+    let productBox = document.querySelector(`.product-detail .tw-h1-heading`);
     let productName = productBox ? productBox.textContent : `unknown product`;
     let pageTitle = document.title;
     let querySelectorEvents = getQuerySelectorEvents(pageTitle, productName);

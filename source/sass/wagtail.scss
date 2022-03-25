@@ -1,6 +1,6 @@
 .cms {
   a {
-    .body-large {
+    .tw-body-large {
       color: inherit;
     }
   }
@@ -63,7 +63,22 @@
       p,
       ul,
       ol {
-        @extend .body-large;
+        // temporary replacing extend body-large
+        @apply tw-font-light tw-text-black tw-font-sans tw-text-[18px] tw-leading-[1.3] medium:tw-text-[20px];
+
+        @at-root .tw-dark & {
+          @apply tw-text-white;
+
+          a {
+            @apply tw-text-blue-light;
+          }
+
+          a:hover,
+          a:focus,
+          a:active {
+            @apply tw-text-blue-light tw-underline;
+          }
+        }
       }
     }
   }

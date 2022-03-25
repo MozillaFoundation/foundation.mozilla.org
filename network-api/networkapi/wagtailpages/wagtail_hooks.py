@@ -31,7 +31,7 @@ def register_large_feature(features):
     """
     Registering the 'large' Draftail feature which
     adds a span around the selected text with its class
-    set to 'body-large'
+    set to 'tw-body-large'
     """
 
     # 1. Set up variables for use below
@@ -62,15 +62,15 @@ def register_large_feature(features):
 
     # 4.configure the content transform from the DB to the editor and back.
 
-    # The "From" version uses a CSS selector to find spans with a class of 'body-large'
-    # The "To" version adds a span with a class of 'body-large' surrounding the selected text
+    # The "From" version uses a CSS selector to find spans with a class of 'tw-body-large'
+    # The "To" version adds a span with a class of 'tw-body-large' surrounding the selected text
     db_conversion = {
         'from_database_format': {
-            'span[class="body-large"]':
+            'span[class="tw-body-large"]':
                 InlineStyleElementHandler(type_)
         },
         'to_database_format': {
-            'style_map': {type_: 'span class="body-large"'}
+            'style_map': {type_: 'span class="tw-body-large"'}
         },
     }
 

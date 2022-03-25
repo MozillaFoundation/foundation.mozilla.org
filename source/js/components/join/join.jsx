@@ -259,7 +259,7 @@ class JoinUs extends Component {
    */
   renderFlowHeading() {
     return [
-      <h2 className="h3-heading text-center" key={`flowheading`}>
+      <h2 className="tw-h3-heading text-center" key={`flowheading`}>
         {this.props.flowHeading}
       </h2>,
       <p className="text-center" key={`flowheadingpara`}>
@@ -274,7 +274,7 @@ class JoinUs extends Component {
   renderSnippetHeading() {
     return (
       <Fragment>
-        <p className="h5-heading">
+        <p className="tw-h5-heading">
           {!this.state.apiSuccess
             ? `${this.props.ctaHeader}`
             : getText(`Thanks!`)}
@@ -358,7 +358,7 @@ class JoinUs extends Component {
           )}
         </div>
         {this.state.userTriedSubmitting && !emailValidation.valid && (
-          <p className="body-small form-control-feedback">
+          <p className="tw-body-small form-control-feedback">
             {emailValidation.errorMessage}
           </p>
         )}
@@ -453,7 +453,7 @@ class JoinUs extends Component {
             required
           />
           <label
-            className="form-check-label body-small"
+            className="form-check-label tw-body-small"
             htmlFor={this.id.privacyCheckbox}
           >
             {getText(
@@ -468,7 +468,7 @@ class JoinUs extends Component {
             )}
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (
-          <p className="body-small form-control-feedback mt-0 mb-3">
+          <p className="tw-body-small form-control-feedback mt-0 mb-3">
             {getText(`Please check this box if you want to proceed.`)}
           </p>
         )}

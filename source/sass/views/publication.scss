@@ -23,17 +23,17 @@
     padding-bottom: 140px;
   }
 
-  .publication-breadcrumb.body-small a {
+  .publication-breadcrumb.tw-body-small a {
     @include set-text-size(16px);
 
     color: $lightest-blue;
   }
 
-  .publication-breadcrumb.body-small span {
+  .publication-breadcrumb.tw-body-small span {
     @include set-text-size(16px);
   }
 
-  .publication-secondary-subtitle.body-small {
+  .publication-secondary-subtitle.tw-body-small {
     color: $gray-20;
   }
 

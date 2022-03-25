@@ -1,20 +1,9 @@
+// mofo-bootstrap
+@import "./mofo-bootstrap/mofo-bootstrap";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-  ol {
-    @apply tw-m-[revert] tw-list-decimal tw-p-[revert];
-  }
-
-  ul {
-    @apply tw-m-[revert] tw-list-disc tw-p-[revert];
-  }
-}
-
-// mofo-bootstrap
-
-@import "./mofo-bootstrap/mofo-bootstrap";
 
 // Custom variables
 @import "./variables";
@@ -24,7 +13,6 @@
 @import "./resets";
 @import "./glyphs";
 @import "./mixins";
-@import "./type";
 @import "./buttons";
 
 // React Components

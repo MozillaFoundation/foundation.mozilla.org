@@ -2,7 +2,7 @@
 
 <div class="callpower-cta">
   <form class="cta-form">
-    <h5 class="h5-heading">{{ cta.header }}</h5>
+    <h5 class="tw-h5-heading">{{ cta.header }}</h5>
     <p>{{ cta.description | safe }}</p>
     <div>
       <input type="hidden" name="campaignId" value="{{ cta.campaign_id }}">
@@ -10,11 +10,11 @@
 
       <input type="text" name="userPhone" placeholder="{% trans "Your phone number" %}" class="{{ inputclass }}"
         data-pattern="^\d{10}$" aria-label="{% trans "Please enter a ten digit US phone number" %}">
-      <p class="body-small tw-text-red-dark tw-hidden">{% trans "Please enter a ten digit US phone number" %}</p>
+      <p class="tw-body-small tw-text-red-dark tw-hidden">{% trans "Please enter a ten digit US phone number" %}</p>
 
       <input type="text" name="userZipCode" placeholder="{% trans "Your zipcode" %}" class="{{ inputclass }}"
       data-pattern="^\d{5}$" aria-label="{% trans "Please enter a five digit US zip code" %}">
-      <p class="body-small tw-text-red-dark tw-hidden">{% trans "Please enter a five digit US zip code" %}</p>
+      <p class="tw-body-small tw-text-red-dark tw-hidden">{% trans "Please enter a five digit US zip code" %}</p>
 
       {% endwith %}
     </div>

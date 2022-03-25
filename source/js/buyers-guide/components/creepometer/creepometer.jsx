@@ -178,12 +178,12 @@ class Creepometer extends Component {
             aria-valuenow={this.state.percentage}
             aria-label="Please indicate how creepy you think this product is on a scale from 0 (not creepy at all) to 100 (incredibly creepy)"
           >
-            <div className="body-small copy copy-left">Not creepy</div>
+            <div className="tw-body-small copy copy-left">Not creepy</div>
             <div className="trackhead" {...trackheadOpts}>
               <div className="face" {...faceOpts} {...mouseOpts} />
               <div className="pip" {...mouseOpts} />
             </div>
-            <div className="body-small copy copy-right">Super creepy</div>
+            <div className="tw-body-small copy copy-right">Super creepy</div>
           </div>
         </div>
       </div>
