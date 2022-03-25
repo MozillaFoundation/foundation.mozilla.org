@@ -127,6 +127,8 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         default='primary',
     )
 
+    # Since wagtail cannot save SVG files as images,
+    # we are instead uploading them as a document.
     download_button_icon = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
