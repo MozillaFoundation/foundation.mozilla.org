@@ -22,7 +22,7 @@
     <div class="row">
       <div class="offset-sm-1 col-sm-10 col-12">
         {% if page.show_side_share_buttons %}
-         <div class="article-summary-share-links d-lg-block d-none {% if page.hero_layout == "image_left" or page.hero_layout == "image_right"  %} tw-mt-7 {%  endif %}{% if get_titles %} with-top-offset {% endif %}">
+         <div class="article-summary-share-links d-lg-block d-none {% if page.hero_layout == "image_left" or page.hero_layout == "image_right" %} tw-mt-7 {%  endif %} {% if get_titles %} with-top-offset {% endif %}">
             {% include "./fragments/share-buttons.html" with page=page version="mini" layout="stacked" share_text=share_text_translated %}
           </div>
         {% endif %}
