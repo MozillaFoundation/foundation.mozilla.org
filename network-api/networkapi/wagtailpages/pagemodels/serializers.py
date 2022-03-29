@@ -47,7 +47,7 @@ class ProductSerializer(AirtableSerializer):
     """
     The generic serializer for ProductPage's.
 
-    GeneralProductPage and SoftwareProductPage serializers inherit from this class,
+    GeneralProductPage serializer inherits from this class,
     the exact same way the pages do.
     """
 
@@ -108,14 +108,3 @@ class GeneralProductPageSerializer(ProductSerializer):
     uses_ai = ExtendedYesNoSerializer(default='CD')
     ai_is_transparent = ExtendedYesNoSerializer(default='CD')
     ai_helptext = serializers.CharField(required=False, max_length=5000)
-
-
-class SoftwareProductPageSerializer(ProductSerializer):
-    handles_recordings_how = serializers.CharField(required=False, max_length=5000)
-    recording_alert = ExtendedYesNoField(default='CD')
-    recording_alert_helptext = serializers.CharField(required=False, max_length=5000)
-    medical_privacy_compliant = serializers.BooleanField(default=False)
-    medical_privacy_compliant_helptext = serializers.CharField(required=False, max_length=5000)
-    host_controls = serializers.CharField(required=False, max_length=5000)
-    easy_to_learn_and_use = serializers.BooleanField(default=False)
-    easy_to_learn_and_use_helptext = serializers.CharField(required=False, max_length=5000)

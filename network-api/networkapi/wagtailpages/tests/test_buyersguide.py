@@ -170,7 +170,10 @@ class BuyersGuideTestMixin(WagtailPageTests):
     def get_or_create_product_page(self):
         product_page = ProductPage.objects.first()
         if not product_page:
-            image_path = abspath(join(dirname(__file__), '../../media/images/placeholders/products/babymonitor.jpg'))
+            image_path = abspath(join(
+                dirname(__file__),
+                '../../../media/images/placeholders/products/babymonitor.jpg',
+            ))
             wagtail_image = create_wagtail_image(
                 image_path,
                 collection_name='pni products'
