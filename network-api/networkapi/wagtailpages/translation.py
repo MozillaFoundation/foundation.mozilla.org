@@ -33,7 +33,6 @@ from .models import (
 
     # Product Pages
     ProductPage,
-    SoftwareProductPage,
     GeneralProductPage,
     BuyersGuidePage,
 
@@ -288,11 +287,6 @@ class ProductPageTR(TranslationOptions):
         'manage_vulnerabilities_helptext',
         'privacy_policy_helptext',
     )
-
-
-@register(SoftwareProductPage)
-class SoftwareProductPageTR(TranslationOptions):
-    fields = ()
 
 
 @register(GeneralProductPage)

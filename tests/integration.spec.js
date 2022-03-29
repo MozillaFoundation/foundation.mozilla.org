@@ -45,14 +45,16 @@ test(`PNI search`, async ({ page }, testInfo) => {
   await page.locator(`body.react-loaded`);
   await waitForImagesToLoad(page);
 
+  const searchTerm = 'ab'
+
   const counts = {
     // provided RANDOM_SEED=530910203 was used!
-    total: 41,
-    health: 14,
-    smart: 4,
-    percy: 2,
-    the: 14,
-    theWithDing: 4,
+    total: 42,
+    health: 13,
+    smart: 5,
+    percy: 1,
+    searchTerm: 6,
+    searchTermWithDing: 2,
   };
 
   const qs = {
@@ -115,7 +117,7 @@ test(`PNI search`, async ({ page }, testInfo) => {
   // category should be "all" while search filtering
   await searchBar.type("percy");
   products = page.locator(qs.products);
-  await expect(products).toHaveCount(2);
+  await expect(products).toHaveCount(counts.percy);
   activeCategory = page.locator(qs.activeCategory);
   await expect(activeCategory).toHaveAttribute(`data-name`, `None`);
 
@@ -138,17 +140,17 @@ test(`PNI search`, async ({ page }, testInfo) => {
 
   // Filtering for "ding" should refocus on text field if there
   // was a search term, while filtering for ding-only
-  await searchBar.type("the");
+  await searchBar.type(searchTerm);
   await page.click(`main`);
   await page.click(qs.dingLabel);
   await expect(searchBar).toBeFocused();
   // have to check for the ding-only products here,
   // since the ding - only class is added to a parent element
   products = page.locator(".product-box:visible");
-  await expect(products).toHaveCount(counts.theWithDing);
+  await expect(products).toHaveCount(counts.searchTermWithDing);
   await page.click(qs.dingLabel);
   products = page.locator(qs.products);
-  await expect(products).toHaveCount(counts.the);
+  await expect(products).toHaveCount(counts.searchTerm);
 
   // Finally, verify that all products are still sorted
   await page.click(qs.clearSearch);
