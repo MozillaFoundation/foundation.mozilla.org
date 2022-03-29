@@ -25,7 +25,7 @@
     <div id="share-progress-em" class='sp_221640 sp_em_small tw-hidden'></div>
 {% endif %}
 
-<div class="extension-hero tw-py-0 tw-flex medium:tw-py-7 tw-flex-col tw-justify-center tw-h-auto tw-min-h-[25em] medium:tw-h-[65vh] large:tw-h-[75vh]">
+<div class="extension-hero tw-py-0 tw-flex medium:tw-py-7 tw-flex-col tw-justify-center tw-h-auto tw-min-h-[25em] medium:tw-h-[65vh] large:tw-h-[75vh] tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/regrets-reporter-landing-hero.jpg')] tw-bg-center tw-bg-cover">
     <div class="tw-px-3 tw-py-7 small:tw-px-7 medium:tw-py-7 large:tw-container large:tw-px-0">
         <div class="tw-grid tw-gap-x-6 tw-grid-cols-1 tw-px-4 medium:tw-grid-cols-2 medium:tw-py-7">
             <div class="tw-flex tw-flex-col tw-justify-center">
@@ -35,14 +35,15 @@
                 <p class='tw-body tw-text-white tw-font-light tw-pb-2'>
                     {% trans "Block harmful YouTube recommendations. Download the RegretsReporter browser extension." %}
                 </p>
+                {% with download_button_classes="tw-max-w-max before:tw-content-[''] before:tw-inline-block before:tw-mr-3 before:-tw-mb-[0.3rem] before:tw-filter before:tw-brightness-100 tw-bg-white tw-text-youtube-regrets-red" %}   
                 <div class='download-share-btn-wrapper'>
                     <div class="btn-container tw-mt-1 tw-flex tw-flex-wrap tw-gap-4">
-                        <a class="btn download-link-button download-link-button--firefox tw-bg-white tw-text-youtube-regrets-red"
+                        <a class="tw-btn {{download_button_classes}} download-link-button download-link-button--firefox  before:tw-w-[23px] before:tw-h-[25px] before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/firefox-logo.svg')]"
                           href="https://addons.mozilla.org/en-us/firefox/addon/regretsreporter/"
                           target="_blank">
                           {% trans "Add to Firefox" %}
                         </a>
-                        <a class="btn download-link-button download-link-button--chrome tw-bg-white tw-text-youtube-regrets-red"
+                        <a class="tw-btn {{download_button_classes}} download-link-button download-link-button--chrome  before:tw-w-[25px] before:tw-h-[24px] before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/chrome.svg')]"
                           href="https://chrome.google.com/webstore/detail/regretsreporter/obpoeflheeknapimliioeoefbfaakefn"
                           target="_blank">
                           {% trans "Add to Chrome" %}
@@ -50,35 +51,36 @@
                         {% trans "Reminder to download RegretsReporter" as translated_subject %}
                         {% trans "Mozilla built RegretsReporter to help you take back control of your YouTube recommendations and make YouTube better for everyone else." as translated_body %}
                         {% with subject=translated_subject body=translated_body %}
-                        <a class="btn download-link-button download-link-button--email tw-bg-white tw-text-youtube-regrets-red tw-hidden"
+                        <a class="btn {{download_button_classes}} download-link-button download-link-button--email tw-hidden before:tw-w-[25px] before:tw-h-[24px] before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/mail.svg')]"
                            href="mailto:?subject={{ subject|urlencode }}&body={{ body|urlencode }}"
                            target="_blank">
                             {% trans "Send Reminder" %}
                         </a>
+                        {% endwith %}
                     {% endwith %}
 
                     </div>
                     <div class="tw-mt-5">
                         <div class="share-button-container tw-flex">
-                          {% with button_classes="btn tw-border-0 tw-p-0 tw-mr-4 tw-h-[36px] tw-w-[36px] tw-inline-flex tw-items-center tw-justify-center tw-rounded-3xl before:tw-filter before:tw-brightness-1 before:tw-h-[36px] before:tw-w-[36px] hover:tw-bg-white hover:before:tw-brightness-0 focus:tw-shadow-none" %}
+                          {% with button_classes="tw-w-[36px] tw-h-[36px] tw-rounded-[50%] tw-bg-transparent tw-border-none tw-p-0 tw-inline-flex tw-items-center tw-content-center tw-mr-4 share-icon before:tw-filter before:tw-brightness-100 before:tw-content-[''] before:tw-h-[36px] before:tw-w-[36px] hover:before:tw-brightness-0 hover:tw-bg-white focus:tw-shadow-none before:tw-transition before:tw-duration-200 before:tw-ease-in-out" %}
 
-                            <button id='share-display-button' class="{{ button_classes }} share-icon" title="{% trans "Copy page URL to clipboard" %}">
+                            <button id='share-display-button' class="{{ button_classes }} share-icon before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/share-icon.svg')]" title="{% trans "Copy page URL to clipboard" %}">
                             </button>
                             <span class="tw-ml-0 tw-text-white tw-font-bold tw-self-center" id='share-display-text'>
                                 {% trans "Share This" %}
                             </span>
                             <!-- These buttons are hidden by default, and displayed when button above is clicked. -->
                             <!-- Functionality can be found in /share-buttons.js -->
-                            <button id='share-fb-button' class="{{ button_classes }} btn-share share-facebook" title="{% trans "Share on Facebook" %}">
+                            <button id='share-fb-button' class="{{ button_classes }} btn-share share-facebook before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/share-facebook.svg')]" title="{% trans "Share on Facebook" %}">
                                 <span class="sr-only">{% trans "Share on Facebook" %}</span>
                             </button>
-                            <button id='share-link-button' class="{{ button_classes }} btn-share share-link" title="{% trans "Copy page URL to clipboard" %}">
+                            <button id='share-link-button' class="{{ button_classes }} btn-share share-link before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/share-link.svg')] copied:before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/share-link-copied.svg')]" title="{% trans "Copy page URL to clipboard" %}">
                                 <span class="sr-only">{% trans "Copy page link" %}</span>
                             </button>
-                            <button id='share-twitter-button' class="{{ button_classes }} btn-share share-twitter" title="{% trans "Share on Twitter" %}">
+                            <button id='share-twitter-button' class="{{ button_classes }} btn-share share-twitter before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/share-twitter.svg')]" title="{% trans "Share on Twitter" %}">
                                 <span class="sr-only">{% trans "Share on Twitter" %}</span>
                             </button>
-                            <button id='share-email-button' class="{{ button_classes }} btn-share share-email" title="{% trans "Share by email" %}">
+                            <button id='share-email-button' class="{{ button_classes }} btn-share share-email before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/share-icon.svg')]" title="{% trans "Share by email" %}">
                                 <span class="sr-only">{% trans "Share by email" %}</span>
                             </button>
                           {% endwith %}
@@ -87,8 +89,8 @@
                 </div>
             </div>
             <div class="tw-flex tw-flex-col tw-justify-center tw-mt-5 medium:tw-mt-0 large:tw-mt-5">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/q5Tp1ZUbAFQ" frameborder="0" allowfullscreen></iframe>
+                <div class="video-container tw-overflow-hidden tw-relative tw-w-full after:tw-pt-[56.25%] after:tw-block after:tw-content-['']">
+                    <iframe class="tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-full" src="https://www.youtube.com/embed/q5Tp1ZUbAFQ" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
