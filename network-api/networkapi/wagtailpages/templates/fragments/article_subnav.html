@@ -25,7 +25,7 @@
     <div class="
     tw-absolute tw-overflow-auto d-none tw-top-[100%] tw-right-0 tw-w-full medium:tw-w-[40%] tw-bg-white tw-border tw-border-gray-20 article-summary-menu" aria-labelledby="summaryMenu">
       {% if page.get_parent and page.get_parent.specific.get_verbose_name == "Publication page"%}
-        <div class="tw-px-7 tw-py-6 tw-sticky">
+        <div class="tw-px-7 tw-py-6 tw-sticky tw-top-0 tw-left-0 tw-bg-white">
           <div class="tw-text-2xl tw-leading-6 tw-font-zilla">{% trans "Table of Contents" %}</div>
           <div class="tw-text-sm tw-leading-4 tw-mt-2 tw-text-gray-80">{{ page.get_parent }}</div>
         </div>
