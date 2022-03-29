@@ -1,7 +1,31 @@
 from django import test
 from django.core import exceptions
+from wagtail.tests import utils as test_utils
 
 from networkapi.wagtailpages.factory import research_hub as research_factory
+from networkapi.wagtailpages.factory import homepage as home_factory
+from networkapi.wagtailpages.factory import profiles as profile_factory
+
+
+class TestResearchAuthorIndexPage(test_utils.WagtailPageTests):
+    def setUp(self):
+        self.author_index = research_factory.ResearchAuthorsIndexPageFactory(
+            parent=self.homepage,
+            title="Authors"
+        )
+
+    def test_index(self):
+        response = self.client.get(self.author_index.url)
+
+        breakpoint()
+        self.assertEqual(self.author_index.title, "Authors")
+        self.assertEqual(response.status_code, 200)
+
+
+    # def test_profile_route(self)
+    #     profile = profile_factory.ProfileFactory()
+
+
 
 
 class TestResearchDetailLink(test.TestCase):
