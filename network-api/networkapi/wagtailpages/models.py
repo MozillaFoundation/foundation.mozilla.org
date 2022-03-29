@@ -80,9 +80,21 @@ from .pagemodels.publications.article import (
 )
 
 from .pagemodels.research_hub.authors_index import ResearchAuthorsIndexPage
-from .pagemodels.research_hub.detail_page import ResearchDetailPage
+from .pagemodels.research_hub.detail_page import (
+    ResearchDetailLink,
+    ResearchDetailPage,
+)
 from .pagemodels.research_hub.landing_page import ResearchLandingPage
 from .pagemodels.research_hub.library_page import ResearchLibraryPage
+from .pagemodels.research_hub.relations import (
+    ResearchAuthorRelation,
+    ResearchDetailPageResearchRegionRelation,
+    ResearchDetailPageResearchTopicRelation,
+)
+from .pagemodels.research_hub.taxonomies import (
+    ResearchRegion,
+    ResearchTopic,
+)
 
 from .pagemodels.dear_internet import (
     DearInternetPage
@@ -142,9 +154,15 @@ __all__ = [
     PulseFilter,
     RedirectingPage,
     ResearchAuthorsIndexPage,
+    ResearchAuthorRelation,
+    ResearchDetailLink,
     ResearchDetailPage,
+    ResearchDetailPageResearchRegionRelation,
+    ResearchDetailPageResearchTopicRelation,
     ResearchLandingPage,
     ResearchLibraryPage,
+    ResearchRegion,
+    ResearchTopic,
     Signup,
     Styleguide,
     YoutubeRegretsPage,
