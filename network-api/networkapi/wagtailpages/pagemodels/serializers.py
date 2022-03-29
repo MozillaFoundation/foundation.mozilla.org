@@ -47,7 +47,7 @@ class ProductSerializer(AirtableSerializer):
     """
     The generic serializer for ProductPage's.
 
-    GeneralProductPage serializer inherit from this class,
+    GeneralProductPage serializer inherits from this class,
     the exact same way the pages do.
     """
 
