@@ -45,6 +45,7 @@ base_fields = [
         template='wagtailpages/blocks/rich_text_block.html',
     )),
     ('card_grid', customblocks.CardGridBlock()),
+    ('image_grid', customblocks.ImageGridBlock()),
     ('iframe', customblocks.iFrameBlock()),
     ('image', customblocks.AnnotatedImageBlock()),
     ('audio', customblocks.AudioBlock()),
