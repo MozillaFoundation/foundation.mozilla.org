@@ -133,26 +133,6 @@
   }
 }
 
-.article-summary-menu {
-  margin-top: 10px;
-  border-radius: 0;
-  border-top: 0;
-  padding-top: 29px;
-  padding-bottom: 22px;
-  z-index: 10;
-
-  .dropdown-item {
-    color: $gray-60;
-    @include set-text-size(18px, 27px);
-    padding: 5px 40px 5px 30px;
-
-    &:hover {
-      background: $gray-05;
-      color: $black;
-    }
-  }
-}
-
 .article-blockquote-block {
   .rich-text {
     p {
@@ -299,12 +279,6 @@
       position: relative;
       float: initial;
     }
-  }
-}
-
-@media (max-width: $bp-lg) {
-  .article-summary-menu {
-    margin-top: 9px;
   }
 }
 

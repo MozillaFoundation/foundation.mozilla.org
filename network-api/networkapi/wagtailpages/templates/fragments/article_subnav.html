@@ -1,34 +1,96 @@
-{% load i18n %}
+{% load i18n wagtailimages_tags wagtailcore_tags %}
 
 <div class="article-navbar-container" aria-hidden="true">
   <div class="article-navbar">
-    <div class="container">
-      <div class="row">
-        <div class="{% if get_titles %}col-lg-8{% else %}col-lg-12{% endif %} d-lg-flex d-none">
-          <div class="article-navbar-title tw-body-large">
-            {% if get_titles %}
-              {{ page.title|truncatechars:60 }}
-            {% else %}
-              {{ page.title|truncatechars:120 }}
-            {% endif %}
-          </div>
+    <div class="tw-container">
+      <div class="tw-row tw-items-end">
+        <div class="article-navbar-title tw-body-large tw-capitalize tw-pl-4 tw-hidden medium:tw-block">
+          {% if get_titles %}
+            {{ page.title|truncatechars:60 }} 
+          {% else %}
+            {{ page.title|truncatechars:120 }}
+          {% endif %}
         </div>
-        <div class="{% if get_titles %}col-lg-4{% else %}d-none{% endif %}">
-          <div class="dropdown">
-          <div class="position-relative mx-4 pl-1">
-            <button class="btn btn-sm btn-link dropdown-toggle article-summary-toggle d-block w-100 text-left pl-0" type="button" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {% trans "Summary" %}
+        <div class="dropdown medium:tw-ml-auto medium:tw-mr-4 tw-w-full medium:tw-w-auto tw-px-4 small:tw-px-0">
+          <div class="position-relative medium:tw-ml-5 medium:tw-pl-1">
+            <button class="btn btn-sm btn-link dropdown-toggle article-summary-toggle tw-flex w-100 text-left pl-0" type="button" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="medium:tw-w-[200px] tw-mr-auto medium:tw-mr-2 tw-truncate tw-block hover:tw-no-underline">{% trans "Summary" %}</span>
+              <span class="tw-mr-2 toggle-text tw-w-[75px] tw-text-right" data-open="{% trans "Show All" %}" data-close="{% trans "Close" %}">{% trans "Show All" %}</span>
             </button>
           </div>
-
-            <div class="dropdown-menu dropdown-menu-right w-100 article-summary-menu" aria-labelledby="summaryMenu">
-              {% for slug, header in get_titles %}
-                <a class="dropdown-item text-wrap" href="#{{ slug }}">{{ header }}</a>
-              {% endfor %}
-            </div>
-          </div>
         </div>
+        
       </div>
+    </div>
+    <div class="
+    tw-absolute tw-overflow-auto d-none tw-top-[100%] tw-right-0 tw-w-full medium:tw-w-[40%] tw-bg-white tw-border tw-border-gray-20 article-summary-menu" aria-labelledby="summaryMenu">
+      {% if page.get_parent and page.get_parent.specific.get_verbose_name == "Publication page"%}
+        <div class="tw-px-7 tw-py-6 tw-sticky">
+          <div class="tw-text-2xl tw-leading-6 tw-font-zilla">{% trans "Table of Contents" %}</div>
+          <div class="tw-text-sm tw-leading-4 tw-mt-2 tw-text-gray-80">{{ page.get_parent }}</div>
+        </div>
+
+        <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-6">
+          {% for child_page in page.get_parent.get_children.specific %}
+            <div class="tw-flex tw-py-5 first:tw-pt-0 tw-px-7 tw-items-center">
+              <a class="tw-whitespace-normal  tw-text-black hover:tw-no-underline hover:tw-text-blue tw-flex tw-items-center" href="{{ child_page.url }}">
+                <img class="tw-w-7 tw-h-7 tw-bg-cover tw-mr-2"
+                  {% with toc_image=child_page.toc_thumbnail_image %}
+                  {% if toc_image %}
+                  {% image toc_image fill-320x320 as thumbnail %}
+                  src='{{ thumbnail.url }}'
+                  {% endif %}
+                  {% endwith %}
+                >
+                </img>
+                {{ child_page }}
+              </a>
+
+              {% if child_page.get_children %}
+                <button data-expand="{{child_page.title}}"
+                  class="article-child-button
+                        tw-rounded-full
+                        tw-border
+                      tw-border-gray-60
+                      tw-text-gray-60
+                        tw-ml-auto
+                        tw-w-5
+                        tw-h-5
+                        tw-grid
+                        tw-place-items-center
+                      tw-bg-white
+                        tw-outline-none
+                        tw-font-bold
+                        tw-p-0">
+                        +
+                </button>
+              {% endif %}
+            </div>
+
+            {% if child_page.get_children %}
+              <div class="article-child-menu tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{child_page.title}}">
+                {% for grandchild_page in child_page.get_children.specific %}
+                  <div class="tw-flex tw-py-5 tw-px-7 tw-items-center tw-bg-gray-05">
+                    <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue tw-flex tw-items-center" href="{{ grandchild_page.url }}">
+                      {{ grandchild_page }}
+                    </a>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+          {% endfor %}
+        </div>
+      {% else %}
+      <div class="tw-px-7 tw-pt-6 tw-text-2xl tw-leading-6 tw-font-zilla">
+        {% trans "Summary" %}
+      </div>
+      <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-6">
+        {% for slug, header in get_titles %}
+          <a class="tw-whitespace-normal tw-py-5 tw-px-7 tw-text-black hover:tw-no-underline hover:tw-text-blue" href="#{{ slug }}">{{ header }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
   </div>
 </div>
