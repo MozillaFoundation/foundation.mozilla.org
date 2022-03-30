@@ -24,7 +24,7 @@ class ResearchAuthorsIndexPage(
     @routable_models.route(r'^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$')
     def author_detail(self, request: http.HttpRequest, profile_id: str, profile_slug: str):
         author_profile = shortcuts.get_object_or_404(
-            profiles.Profile,
+            profiles.Profile.objects.filter_research_authors(),
             id=int(profile_id),
         )
         if not text_utils.slugify(author_profile.name) == profile_slug:
