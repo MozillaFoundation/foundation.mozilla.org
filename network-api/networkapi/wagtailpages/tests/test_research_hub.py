@@ -1,31 +1,46 @@
 from django import test
 from django.core import exceptions
-from wagtail.tests import utils as test_utils
+from wagtail.core import models as wagtail_models
 
 from networkapi.wagtailpages.factory import research_hub as research_factory
 from networkapi.wagtailpages.factory import homepage as home_factory
 from networkapi.wagtailpages.factory import profiles as profile_factory
 
 
-class TestResearchAuthorIndexPage(test_utils.WagtailPageTests):
-    def setUp(self):
-        self.author_index = research_factory.ResearchAuthorsIndexPageFactory(
-            parent=self.homepage,
-            title="Authors"
+class TestResearchAuthorIndexPage(test.TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls._setup_homepage()
+        cls.author_index = research_factory.ResearchAuthorsIndexPageFactory(
+            parent=cls.homepage,
+            title="Authors",
         )
+
+    @classmethod
+    def _setup_homepage(cls):
+        root = wagtail_models.Page.get_first_root_node()
+        if not root:
+            raise ValueError('A root page should exist. Something is off.')
+        cls.homepage = home_factory.WagtailHomepageFactory(parent=root)
+
+        sites = wagtail_models.Site.objects.all()
+        if sites.count() != 1:
+            raise ValueError('There should be exactly one site. Something is off.')
+        cls.site = sites.first()
+
+        cls.site.root_page = cls.homepage
+        cls.site.clean()
+        cls.site.save()
 
     def test_index(self):
         response = self.client.get(self.author_index.url)
 
-        breakpoint()
         self.assertEqual(self.author_index.title, "Authors")
         self.assertEqual(response.status_code, 200)
 
 
     # def test_profile_route(self)
     #     profile = profile_factory.ProfileFactory()
-
-
 
 
 class TestResearchDetailLink(test.TestCase):
