@@ -57,10 +57,14 @@ class TestResearchAuthorIndexPage(test.TestCase):
         response = self.client.get(self.author_index.url)
 
         self.assertEqual(self.author_index.title, "Authors")
-        # TODO: Index only show research authors not all profiles
         self.assertContains(
             response,
             text=self.research_profile.name,
+            status_code=http.HTTPStatus.OK,
+        )
+        self.assertNotContains(
+            response,
+            text=self.none_research_profile.name,
             status_code=http.HTTPStatus.OK,
         )
 
