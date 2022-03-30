@@ -273,6 +273,10 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     def zen_nav(self):
         return True
 
+    @property
+    def get_page_titles(self):
+        return get_plaintext_titles(None, self.body, "content")
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         # Add get_titles to the page context. This is in get_context() because

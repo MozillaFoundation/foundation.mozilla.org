@@ -53,15 +53,49 @@ export default () => {
     });
 
     // accordion button toggle
-    document.querySelectorAll(".article-child-button").forEach((button) => {
+    document.querySelectorAll(".article-header-button").forEach((button) => {
       button.addEventListener("click", () => {
+        console.log(
+          document.querySelectorAll(
+            `.article-child-menu[data-expand="${button.dataset.expand}"]`
+          )
+        );
         document
           .querySelector(
             `.article-child-menu[data-expand="${button.dataset.expand}"]`
           )
           .classList.toggle("tw-hidden");
+        button
+          .querySelector("img[data-state='open']")
+          .classList.toggle("tw-hidden");
+        button
+          .querySelector("img[data-state='close']")
+          .classList.toggle("tw-hidden");
+      });
+    });
 
-        button.innerText = button.innerText === "+" ? "-" : "+";
+    // child button toggle
+    document.querySelectorAll(".article-child-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!button.dataset.expand) {
+          document
+            .querySelector(`.article-child-container:not(.tw-hidden)`)
+            .classList.add("tw-hidden");
+          document
+            .querySelector(".article-container")
+            .classList.remove("tw-hidden");
+
+          return;
+        }
+
+        document
+          .querySelector(
+            `.article-child-container[data-child="${button.dataset.expand}"]`
+          )
+          .classList.remove("tw-hidden");
+        document
+          .querySelector(".article-container")
+          .classList.toggle("tw-hidden");
       });
     });
 
@@ -71,7 +105,7 @@ export default () => {
         ".wrapper > .sticky-top.d-print-none"
       );
 
-      if (window.matchMedia("(min-width: 768px)").matches) {
+      if (window.matchMedia("(min-width: 992px)").matches) {
         dropDownMenu.style.maxHeight = `calc(100vh - ${stickyContent.offsetHeight}px)`;
         dropDownMenu.style.height = `auto`;
       } else {
@@ -83,7 +117,6 @@ export default () => {
 
     calcSummaryMenuHeight();
 
-    // to make it easier to test different mobile screens
-    window.addEventListener("resize", calcSummaryMenuHeight);
+    window.onresize = calcSummaryMenuHeight;
   }
 };
