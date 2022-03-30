@@ -59,9 +59,24 @@ class TestResearchAuthorIndexPage(test.TestCase):
             status_code=http.HTTPStatus.OK,
         )
 
-    # TODO: Test profile route wrong id
-    # TODO: Test profile route wrong name
+    def test_profile_route_wrong_id(self):
+        profile_slug = text_utils.slugify(self.profile.name)
+        url = f'{ self.author_index.url }{ self.profile.id + 1 }/{ profile_slug }/'
+
+        response = self.client.get(url)
+
+        self.assertEqual(response, http.HTTPStatus.NOT_FOUND)
+
+    def test_profile_route_wrong_name(self):
+        profile_slug = text_utils.slugify(self.profile.name + 'a')
+        url = f'{ self.author_index.url }{ self.profile.id }/{ profile_slug }/'
+
+        response = self.client.get(url)
+
+        self.assertEqual(response, http.HTTPStatus.NOT_FOUND)
+
     # TODO: Test profile route profile is not research author
+
 
 class TestResearchDetailLink(test.TestCase):
     def test_clean_with_url(self):
