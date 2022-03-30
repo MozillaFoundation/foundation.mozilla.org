@@ -104,7 +104,6 @@ class TestResearchAuthorIndexPage(test.TestCase):
 
         self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
-    # TODO: Test profile route profile is not research author
     def test_profile_route_with_non_research_profile(self):
         profile_slug = text_utils.slugify(self.non_research_profile.name)
         url = (

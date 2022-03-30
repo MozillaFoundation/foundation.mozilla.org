@@ -11,10 +11,9 @@ class ProfileTest(test.TestCase):
         self.assertTrue(True)
 
     def test_filter_research_authors(self):
-        research_detail_page = research_factory.ResearchDetailPageFactory()
         research_author_profile = profile_factories.ProfileFactory()
         research_factory.ResearchAuthorRelationFactory(
-            research_detail_page=research_detail_page,
+            research_detail_page=research_factory.ResearchDetailPageFactory(),
             author_profile=research_author_profile,
         )
         not_research_author_profile = profile_factories.ProfileFactory()
@@ -25,3 +24,27 @@ class ProfileTest(test.TestCase):
 
         self.assertIn(research_author_profile, research_author_profiles)
         self.assertNotIn(not_research_author_profile, research_author_profiles)
+
+    def test_filter_research_authors_distinct(self):
+        ''' Return research author profile only once'''
+
+        research_author_profile = profile_factories.ProfileFactory()
+        research_factory.ResearchAuthorRelationFactory(
+            research_detail_page=research_factory.ResearchDetailPageFactory(),
+            author_profile=research_author_profile,
+        )
+        research_factory.ResearchAuthorRelationFactory(
+            research_detail_page=research_factory.ResearchDetailPageFactory(),
+            author_profile=research_author_profile,
+        )
+
+        count = (
+            profile_models
+                .Profile
+                .objects
+                .filter_research_authors()
+                .filter(id=research_author_profile.id)
+                .count()
+        )
+
+        self.assertEqual(count, 1)
