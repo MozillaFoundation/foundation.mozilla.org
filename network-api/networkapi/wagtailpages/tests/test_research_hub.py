@@ -35,7 +35,7 @@ class TestResearchAuthorIndexPage(test.TestCase):
             author_profile=cls.research_profile,
         )
 
-        cls.none_research_profile = profile_factory.ProfileFactory()
+        cls.non_research_profile = profile_factory.ProfileFactory()
 
     @classmethod
     def _setup_homepage(cls):
@@ -64,7 +64,7 @@ class TestResearchAuthorIndexPage(test.TestCase):
         )
         self.assertNotContains(
             response,
-            text=self.none_research_profile.name,
+            text=self.non_research_profile.name,
             status_code=http.HTTPStatus.OK,
         )
 
@@ -105,6 +105,15 @@ class TestResearchAuthorIndexPage(test.TestCase):
         self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
     # TODO: Test profile route profile is not research author
+    def test_profile_route_with_non_research_profile(self):
+        profile_slug = text_utils.slugify(self.non_research_profile.name)
+        url = (
+            f'{ self.author_index.url }'
+            f'{ self.non_research_profile.id }/{ profile_slug }/'
+        )
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
 
 class TestResearchDetailLink(test.TestCase):
