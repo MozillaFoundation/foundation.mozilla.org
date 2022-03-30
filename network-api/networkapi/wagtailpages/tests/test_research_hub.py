@@ -14,11 +14,28 @@ class TestResearchAuthorIndexPage(test.TestCase):
     @classmethod
     def setUpTestData(cls):
         cls._setup_homepage()
-        cls.author_index = research_factory.ResearchAuthorsIndexPageFactory(
+        cls.landing_page = research_factory.ResearchLandingPageFactory(
             parent=cls.homepage,
+        )
+        cls.library_page = research_factory.ResearchLibraryPageFactory(
+            parent=cls.landing_page,
+        )
+        cls.author_index = research_factory.ResearchAuthorsIndexPageFactory(
+            parent=cls.landing_page,
             title="Authors",
         )
-        cls.profile = profile_factory.ProfileFactory()
+
+        # Profile associated with a research detail page
+        cls.detail_page = research_factory.ResearchDetailPageFactory(
+            parent=cls.library_page
+        )
+        cls.research_profile = profile_factory.ProfileFactory()
+        research_factory.ResearchAuthorRelationFactory(
+            research_detail_page=cls.detail_page,
+            author_profile=cls.research_profile,
+        )
+
+        cls.none_research_profile = profile_factory.ProfileFactory()
 
     @classmethod
     def _setup_homepage(cls):
@@ -43,37 +60,45 @@ class TestResearchAuthorIndexPage(test.TestCase):
         # TODO: Index only show research authors not all profiles
         self.assertContains(
             response,
-            text=self.profile.name,
+            text=self.research_profile.name,
             status_code=http.HTTPStatus.OK,
         )
 
     def test_profile_route(self):
-        profile_slug = text_utils.slugify(self.profile.name)
-        url = f'{ self.author_index.url }{ self.profile.id }/{ profile_slug }/'
-
+        profile_slug = text_utils.slugify(self.research_profile.name)
+        url = (
+            f'{ self.author_index.url }'
+            f'{ self.research_profile.id }/{ profile_slug }/'
+        )
         response = self.client.get(url)
 
         self.assertContains(
             response,
-            text=self.profile.name,
+            text=self.research_profile.name,
             status_code=http.HTTPStatus.OK,
         )
 
     def test_profile_route_wrong_id(self):
-        profile_slug = text_utils.slugify(self.profile.name)
-        url = f'{ self.author_index.url }{ self.profile.id + 1 }/{ profile_slug }/'
+        profile_slug = text_utils.slugify(self.research_profile.name)
+        url = (
+            f'{ self.author_index.url }'
+            f'{ self.research_profile.id + 1 }/{ profile_slug }/'
+        )
 
         response = self.client.get(url)
 
-        self.assertEqual(response, http.HTTPStatus.NOT_FOUND)
+        self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
     def test_profile_route_wrong_name(self):
-        profile_slug = text_utils.slugify(self.profile.name + 'a')
-        url = f'{ self.author_index.url }{ self.profile.id }/{ profile_slug }/'
+        profile_slug = text_utils.slugify(self.research_profile.name + 'a')
+        url = (
+            f'{ self.author_index.url }'
+            f'{ self.research_profile.id }/{ profile_slug }/'
+        )
 
         response = self.client.get(url)
 
-        self.assertEqual(response, http.HTTPStatus.NOT_FOUND)
+        self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
     # TODO: Test profile route profile is not research author
 
