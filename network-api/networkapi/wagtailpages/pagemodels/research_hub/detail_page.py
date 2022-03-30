@@ -1,6 +1,5 @@
 from django.db import models
 from django.core import exceptions
-from django.utils.translation import gettext_lazy as _
 from modelcluster import fields as cluster_fields
 from wagtail import documents as wagtail_docs
 from wagtail.documents import edit_handlers as docs_handlers
@@ -34,7 +33,7 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
 
     panels = [
         edit_handlers.HelpPanel(
-            content=_(
+            content=(
                 'Please provide an external link to the original source or upload a document and select it here. '
                 'If you wish to provide both, please create two separate "research links"'
             )
@@ -50,13 +49,13 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     def clean(self):
         super().clean()
         if self.url and self.document:
-            error_message = _('Please provide either a URL or a document, not both.')
+            error_message = 'Please provide either a URL or a document, not both.'
             raise exceptions.ValidationError(
                 {'url': error_message, 'document': error_message},
                 code='invalid',
             )
         elif not self.url and not self.document:
-            error_message = _('Please provide a URL or a document.')
+            error_message = 'Please provide a URL or a document.'
             raise exceptions.ValidationError(
                 {'url': error_message, 'document': error_message},
                 code='required',
@@ -75,21 +74,19 @@ class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtai
     original_publication_date = models.DateField(
         null=True,
         blank=True,
-        help_text=_('Date when the research paper was published')
+        help_text='Date when the research paper was published'
     )
     introduction = models.CharField(
         null=False,
         blank=True,
         max_length=300,
-        help_text=_(
-            'Provide a short blub about the research that will be displayed on listing pages and search results.'
-        )
+        help_text='Provide a short blub about the research that will be displayed on listing pages and search results.'
     )
     overview = wagtail_fields.RichTextField(
         null=False,
         blank=True,
         features=base_rich_text_options,
-        help_text=_(
+        help_text=(
             'Provide an overview about the reseach. '
             'This can be an excerpt from or the executive summary of the original paper.'
         )
@@ -97,9 +94,7 @@ class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtai
     collaborators = models.TextField(
         null=False,
         blank=True,
-        help_text=_(
-            'List all contributors that are not the project leading authors.'
-        )
+        help_text='List all contributors that are not the project leading authors.'
     )
 
     content_panels = wagtail_models.Page.content_panels + [
