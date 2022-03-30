@@ -1,5 +1,8 @@
+import http
+
 from django import test
 from django.core import exceptions
+from django.utils import text as text_utils
 from wagtail.core import models as wagtail_models
 
 from networkapi.wagtailpages.factory import research_hub as research_factory
@@ -37,16 +40,28 @@ class TestResearchAuthorIndexPage(test.TestCase):
         response = self.client.get(self.author_index.url)
 
         self.assertEqual(self.author_index.title, "Authors")
+        # TODO: Index only show research authors not all profiles
         self.assertContains(
             response,
             text=self.profile.name,
-            status_code=200,
+            status_code=http.HTTPStatus.OK,
         )
 
+    def test_profile_route(self):
+        profile_slug = text_utils.slugify(self.profile.name)
+        url = f'{ self.author_index.url }{ self.profile.id }/{ profile_slug }/'
 
-    # def test_profile_route(self)
-    #     profile = profile_factory.ProfileFactory()
+        response = self.client.get(url)
 
+        self.assertContains(
+            response,
+            text=self.profile.name,
+            status_code=http.HTTPStatus.OK,
+        )
+
+    # TODO: Test profile route wrong id
+    # TODO: Test profile route wrong name
+    # TODO: Test profile route profile is not research author
 
 class TestResearchDetailLink(test.TestCase):
     def test_clean_with_url(self):
