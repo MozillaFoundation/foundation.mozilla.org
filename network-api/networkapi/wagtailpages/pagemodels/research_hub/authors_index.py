@@ -18,7 +18,7 @@ class ResearchAuthorsIndexPage(
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["author_profiles"] = profiles.Profile.objects.all()
+        context["author_profiles"] = profiles.Profile.objects.filter_research_authors()
         return context
 
     @routable_models.route(r'^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$')
