@@ -8,7 +8,7 @@ from wagtail.snippets.models import register_snippet
 
 class ProfileQuerySet(models.QuerySet):
     def filter_research_authors(self):
-        return self.filter(authored_research__isnull=False)
+        return self.filter(authored_research__isnull=False).distinct()
 
 
 @register_snippet
