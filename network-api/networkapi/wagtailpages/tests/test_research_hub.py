@@ -15,6 +15,7 @@ class TestResearchAuthorIndexPage(test.TestCase):
             parent=cls.homepage,
             title="Authors",
         )
+        cls.profile = profile_factory.ProfileFactory()
 
     @classmethod
     def _setup_homepage(cls):
@@ -36,7 +37,11 @@ class TestResearchAuthorIndexPage(test.TestCase):
         response = self.client.get(self.author_index.url)
 
         self.assertEqual(self.author_index.title, "Authors")
-        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            text=self.profile.name,
+            status_code=200,
+        )
 
 
     # def test_profile_route(self)
