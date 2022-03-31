@@ -5,12 +5,12 @@
 <div class="blog-authors d-flex flex-wrap {% if show_full_info %}flex-column mb-4{% else %}align-items-center{% endif %}">
   {% include "./author-images.html" with authors=authors %}
 
-  <p class="tw-body-small my-2">
+  <p class="tw-text-sm my-2 tw-text-black">
     {% with authors_length=authors|length %}
     {% spaceless %}
     {% if show_full_info %}{% trans "By" %} {% endif %}
     {% for author in authors %}
-    <span>{% if authors_length > 1 and forloop.last %}{% trans "and" %} {% endif %}<b>{{ author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
+    <span>{% if authors_length > 1 and forloop.last %}{% trans "and" %} {% endif %}<b class="tw-font-extrabold">{{ author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
     {% endfor %}
     {% if show_full_info %}
       | {% if blog_page.first_published_at %}{{ blog_page.first_published_at|date:"DATE_FORMAT" }}
@@ -18,7 +18,7 @@
       {% with category=page.specific.category.first %}
       {% if category and blog_index %}
         {% localized_version category as localized_category %}
-        | <a class="category" href="{{blog_index.localized.url}}category/{{category.slug}}">{{ localized_category }}</a>
+        | <a class="category tw-text-inherit" href="{{blog_index.localized.url}}category/{{category.slug}}">{{ localized_category }}</a>
       {% endif %}
       {% endwith %}
     {% endif %}
