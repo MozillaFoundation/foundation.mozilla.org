@@ -7,6 +7,8 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail_color_panel.fields import ColorField
+from wagtail_color_panel.edit_handlers import NativeColorPanel
 from django import forms
 
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -84,6 +86,23 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
             ('video', 'Video'),
         ],
         default='image'
+    )
+
+    hero_background_color = ColorField(
+        default='#ffffff',
+        help_text='Background color of the hero section.'
+        )
+
+    hero_text_color = models.CharField(
+        max_length=25,
+        choices=[
+            ('light', 'Light'),
+            ('dark', 'Dark'),
+        ],
+        default='light',
+        help_text='Color theme of hero section text. '
+                  'Choose light for light colored backgrounds '
+                  'and dark for darker color backgrounds.'
     )
 
     subtitle = models.CharField(
@@ -166,6 +185,8 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
             ImageChooserPanel("hero_image"),
             FieldPanel("hero_video"),
             FieldPanel('displayed_hero_content', widget=forms.RadioSelect),
+            NativeColorPanel('hero_background_color'),
+            FieldPanel('hero_text_color', widget=forms.RadioSelect),
             FieldPanel('subtitle'),
             FieldPanel('secondary_subtitle'),
             FieldPanel('publication_date'),
@@ -268,6 +289,13 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         Get all the parent PublicationPages and return a QuerySet
         """
         return Page.objects.ancestor_of(self).type(PublicationPage).live()
+
+    # To avoid using inline styling, we are using this property to return
+    # the user selected bg color as a tailwind class for use in the template.
+    @property
+    def bg_color_tw_class(self):
+        tw_color_class = "style='background-color: " + self.hero_background_color + ";'"
+        return tw_color_class
 
     @property
     def zen_nav(self):
