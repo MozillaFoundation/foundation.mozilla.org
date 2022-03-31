@@ -16,5 +16,15 @@
     <p>
       {{ author_profile.introduction }}
     </p>
+    <div>
+      <h2>Latest research</h2>
+      <ul>
+        {% for research_detail_page in latest_research %}
+          <li>
+            <h3>{{ research_detail_page.title }}</h3>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 {% endblock subcontent %}
