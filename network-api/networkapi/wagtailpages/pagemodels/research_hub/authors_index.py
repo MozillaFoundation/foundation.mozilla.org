@@ -29,7 +29,7 @@ class ResearchAuthorsIndexPage(
             context_overrides['author_profile'].name
         )
         if not slugified_profile_name == profile_slug:
-            raise http.Http404('Slug does not match id')
+            raise http.Http404('Slug does not fit profile name')
 
         return self.render(
             request=request,
@@ -43,4 +43,16 @@ class ResearchAuthorsIndexPage(
             author_profiles,
             id=profile_id,
         )
-        return {'author_profile': author_profile}
+        LATEST_RESERACH_LIMIT = 3
+        latest_research = [
+            ar.research_detail_page
+            for ar in (
+                author_profile.authored_research.all()
+                .order_by('-research_detail_page__original_publication_date')
+                [:LATEST_RESERACH_LIMIT]
+            )
+        ]
+        return {
+            'author_profile': author_profile,
+            'latest_research': latest_research,
+        }

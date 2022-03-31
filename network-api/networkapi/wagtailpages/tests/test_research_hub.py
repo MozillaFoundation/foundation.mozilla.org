@@ -1,3 +1,4 @@
+import datetime
 import http
 
 from django import test
@@ -27,7 +28,11 @@ class TestResearchAuthorIndexPage(test.TestCase):
 
         # Profile associated with a research detail page
         cls.detail_page = research_factory.ResearchDetailPageFactory(
-            parent=cls.library_page
+            parent=cls.library_page,
+            original_publication_date=(
+                datetime.date.today() - datetime.timedelta(days=14)
+            ),
+
         )
         cls.research_profile = profile_factory.ProfileFactory()
         research_factory.ResearchAuthorRelationFactory(
@@ -74,6 +79,7 @@ class TestResearchAuthorIndexPage(test.TestCase):
             f'{ self.author_index.url }'
             f'{ self.research_profile.id }/{ profile_slug }/'
         )
+
         response = self.client.get(url)
 
         self.assertContains(
@@ -110,9 +116,53 @@ class TestResearchAuthorIndexPage(test.TestCase):
             f'{ self.author_index.url }'
             f'{ self.non_research_profile.id }/{ profile_slug }/'
         )
+
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
+
+    def test_get_author_detail_context(self):
+        detail_page_1 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=(
+                datetime.date.today() - datetime.timedelta(days=3)
+            ),
+        )
+        detail_page_2 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=(
+                datetime.date.today() - datetime.timedelta(days=2)
+            ),
+        )
+        detail_page_3 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=(
+                datetime.date.today() - datetime.timedelta(days=1)
+            ),
+        )
+        research_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page_1,
+            author_profile=self.research_profile,
+        )
+        research_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page_2,
+            author_profile=self.research_profile,
+        )
+        research_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page_3,
+            author_profile=self.research_profile,
+        )
+
+        context = self.author_index.get_author_detail_context(
+            profile_id=self.research_profile.id,
+        )
+
+        self.assertEqual(context['author_profile'], self.research_profile)
+        self.assertEqual(len(context['latest_research']), 3)
+        self.assertIn(detail_page_1, context['latest_research'])
+        self.assertIn(detail_page_2, context['latest_research'])
+        self.assertIn(detail_page_3, context['latest_research'])
+        self.assertNotIn(self.detail_page, context['latest_research'])
 
 
 class TestResearchDetailLink(test.TestCase):
