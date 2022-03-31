@@ -153,16 +153,17 @@ class TestResearchAuthorIndexPage(test.TestCase):
             author_profile=self.research_profile,
         )
 
-        context = self.author_index.get_author_detail_context(
-            profile_id=self.research_profile.id,
-        )
+        with self.assertNumQueries(2):
+            context = self.author_index.get_author_detail_context(
+                profile_id=self.research_profile.id,
+            )
 
-        self.assertEqual(context['author_profile'], self.research_profile)
-        self.assertEqual(len(context['latest_research']), 3)
-        self.assertIn(detail_page_1, context['latest_research'])
-        self.assertIn(detail_page_2, context['latest_research'])
-        self.assertIn(detail_page_3, context['latest_research'])
-        self.assertNotIn(self.detail_page, context['latest_research'])
+            self.assertEqual(context['author_profile'], self.research_profile)
+            self.assertEqual(len(context['latest_research']), 3)
+            self.assertIn(detail_page_1, context['latest_research'])
+            self.assertIn(detail_page_2, context['latest_research'])
+            self.assertIn(detail_page_3, context['latest_research'])
+            self.assertNotIn(self.detail_page, context['latest_research'])
 
 
 class TestResearchDetailLink(test.TestCase):

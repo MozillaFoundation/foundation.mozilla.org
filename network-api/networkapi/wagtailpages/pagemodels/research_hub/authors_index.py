@@ -5,6 +5,7 @@ from wagtail.contrib.routable_page import models as routable_models
 
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 from networkapi.wagtailpages.pagemodels import profiles
+from networkapi.wagtailpages.pagemodels.research_hub import detail_page
 
 
 class ResearchAuthorsIndexPage(
@@ -43,15 +44,13 @@ class ResearchAuthorsIndexPage(
             author_profiles,
             id=profile_id,
         )
-        LATEST_RESERACH_LIMIT = 3
-        latest_research = [
-            ar.research_detail_page
-            for ar in (
-                author_profile.authored_research.all()
-                .order_by('-research_detail_page__original_publication_date')
-                [:LATEST_RESERACH_LIMIT]
-            )
-        ]
+        LATEST_RESERACH_COUNT_LIMIT = 3
+        latest_research = (
+            detail_page.ResearchDetailPage.objects.all()
+                .filter(research_authors__author_profile=author_profile)
+                .order_by('-original_publication_date')
+                [:LATEST_RESERACH_COUNT_LIMIT]
+        )
         return {
             'author_profile': author_profile,
             'latest_research': latest_research,
