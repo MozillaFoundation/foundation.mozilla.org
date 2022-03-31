@@ -290,13 +290,6 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         """
         return Page.objects.ancestor_of(self).type(PublicationPage).live()
 
-    # To avoid using inline styling, we are using this property to return
-    # the user selected bg color as a tailwind class for use in the template.
-    @property
-    def bg_color_tw_class(self):
-        tw_color_class = "style='background-color: " + self.hero_background_color + ";'"
-        return tw_color_class
-
     @property
     def zen_nav(self):
         return True

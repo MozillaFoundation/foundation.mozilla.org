@@ -12,7 +12,7 @@
 {% block content %}
 
 {% if page.hero_layout != "static" %}
-  {% include "./fragments/article_hero.html" with page=page download_file=page.article_file is_publication_article=page.is_publication_article bg_color=page.bg_color_tw_class%}
+  {% include "./fragments/article_hero.html" with page=page download_file=page.article_file is_publication_article=page.is_publication_article %}
 {% else %}
   {% include "./fragments/publication_hero.html" with size="small" download_file=page.article_file is_publication_article=page.is_publication_article %}
 {% endif %}

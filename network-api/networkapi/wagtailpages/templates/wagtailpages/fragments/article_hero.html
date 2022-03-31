@@ -4,10 +4,14 @@
 
 {% with control_btn_classes="ml-auto tw-opacity-80 hover:tw-opacity-100 tw-hidden" full_screen_content_classes="tw-absolute tw-min-w-full tw-min-h-full tw-max-w-none tw-top-0" two_col_content_classes="tw-h-full tw-w-full tw-object-center tw-object-cover" %}
 
+{% comment %}
+  We are using inline styling to update the hero sections background color as this is selected by the user on the cms,
+  and tailwind would not pick it up in time to render correctly if we did it through a tw-class.
+{% endcomment %}
 
 {% if page.hero_layout != "full_screen" %}
 
-  <div class="article-hero tw-relative tw-flex tw-flex-col large:tw-flex-row tw-h-full tw-overflow-hidden {% if not get_titles %} tw-mb-[0px] medium:tw-mb-[100px] {% endif %} {{ bg_color }}">
+  <div class="article-hero tw-relative tw-flex tw-flex-col large:tw-flex-row tw-h-full tw-overflow-hidden {% if not get_titles %} tw-mb-[0px] medium:tw-mb-[100px] {% endif %}" style="background: {{page.hero_background_color}}">
     <div class="tw-w-full large:tw-w-1/2 tw-min-h-full {% if page.hero_layout == "image_right" %} tw-order-last {% endif %}">
       {% if page.displayed_hero_content == "video" %}
         <video class="hero-video {{two_col_content_classes}}" playsinline muted loop preload>
@@ -32,7 +36,7 @@
 
 {% else %}
 
-  <div class="article-hero tw-relative tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-overflow-hidden {{ bg_color }}">
+  <div class="article-hero tw-relative tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-overflow-hidden " style="background: {{page.hero_background_color}}">
     {% if page.displayed_hero_content == "video" %}
       <video class="hero-video {{full_screen_content_classes}}" autoplay loop muted>
         <source src="{{ page.hero_video }}" type="video/mp4">
