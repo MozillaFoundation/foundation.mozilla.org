@@ -14,7 +14,7 @@ class ProfileFactory(DjangoModelFactory):
         model = Profile
 
     name = Faker('name')
-    tagline = Faker('job')
+    tagline = Faker('text', max_nb_chars=50)
     introduction = Faker('paragraph')
 
 

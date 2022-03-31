@@ -1,1 +1,64 @@
 {% extends "./research_base.html" %}
+{% load wagtailcore_tags %}
+
+{% block subcontent %}
+  <h1>
+    {{ page.title }}
+  </h1>
+  <div>
+    {% spaceless %}
+      {% if page.original_publication_date %}
+        <span>{{ page.original_publication_date }}</span>
+        {% if page.research_authors or page.related_topics %}
+          <span>|</span>
+        {% endif %}
+      {% endif %}
+      {% if page.research_authors %}
+        {% for research_author in page.research_authors.all  %}
+          <span>{{ research_author.author_profile.name }}{% if not forloop.last %}, {% endif %}</span>
+        {% endfor %}
+        {% if page.related_topics %}
+          <span>|</span>
+        {% endif %}
+      {% endif %}
+      {% if page.related_topics %}
+        {% for related_topic in page.related_topics.all  %}
+          <span>{{ related_topic.research_topic.name }}{% if not forloop.last %}, {% endif %}</span>
+        {% endfor %}
+      {% endif %}
+    {% endspaceless %}
+  </div>
+  {% if page.introduction %}
+    <p>{{ page.introduction }}</p>
+  {% endif %}
+  {% if page.research_links %}
+    <div>
+      {% for research_link in page.research_links.all  %}
+        <a href="{{ research_link.get_url }}">{{ research_link.label }}</a>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if page.overview %}
+    <div>
+      <h2>Overview</h2>
+      {{ page.overview|richtext }}
+    </div>
+  {% endif %}
+  {% if page.research_authors %}
+    <div>
+      <h2>Project leads</h2>
+      {% for research_author in page.research_authors.all  %}
+        <div>
+          <h3>{{ research_author.author_profile.name }}</h3>
+          <p>{{ research_author.author_profile.tagline }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if page.collaborators %}
+    <div>
+      <h2>Collaborators</h2>
+      <p>{{ page.collaborators }}</p>
+    </div>
+  {% endif %}
+{% endblock subcontent %}

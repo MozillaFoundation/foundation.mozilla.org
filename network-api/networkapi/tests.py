@@ -29,7 +29,6 @@ from networkapi.wagtailpages import language_code_to_iso_3166, parse_accept_lang
 from networkapi.wagtailpages.factory.buyersguide import (
     BuyersGuidePageFactory,
     GeneralProductPageFactory,
-    SoftwareProductPageFactory,
 )
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.utils import create_wagtail_image
@@ -287,24 +286,6 @@ class TestPNIAirtableConnections(TestCase):
             ai_is_transparent='No',
             ai_helptext='The AI is a black box and no one knows how it works',
         )
-        self.software_product_page = SoftwareProductPageFactory.create(
-            # page fields
-            title='Software Percy Product',
-            first_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
-            last_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
-            parent=pni_homepage,
-            # product fields
-            privacy_ding=True,
-            adult_content=True,
-            uses_wifi=True,
-            uses_bluetooth=True,
-            review_date=date(2025, 1, 1),
-            company='Percy Corp',
-            blurb='This is a general product specifically created for visual regression testing',
-            product_url='http://example.com/general-percy',
-            worst_case='Visual regression fails',
-            # software product fields
-        )
 
     def test_product_page_import_mappings(self):
         """
@@ -369,20 +350,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertEqual(mappings["AI help text"], "ai_helptext")
         self.assertEqual(mappings["AI is transparent"], "ai_is_transparent")
 
-    def test_software_product_page_import_mappings(self):
-        """
-        Ensure import mapping are all what we expect them to be.
-        """
-        mappings = self.software_product_page.map_import_fields()
-        self.assertEqual(mappings["How it handles recording"], "handles_recordings_how")
-        self.assertEqual(mappings["Recording alert"], "recording_alert")
-        self.assertEqual(mappings["Recording alert help text"], "recording_alert_helptext")
-        self.assertEqual(mappings["Medical privacy compliant"], "medical_privacy_compliant")
-        self.assertEqual(mappings["Medical privacy compliant help text"], "medical_privacy_compliant_helptext")
-        self.assertEqual(mappings["Host controls"], "host_controls")
-        self.assertEqual(mappings["Easy to learn and use"], "easy_to_learn_and_use")
-        self.assertEqual(mappings["Easy to learn and use help text"], "easy_to_learn_and_use_helptext")
-
     def test_product_page_export_fields(self):
         # We can use a GeneralProduct here because it inherits from ProductPage
         export_fields = self.general_product_page.get_export_fields()
@@ -439,17 +406,6 @@ class TestPNIAirtableConnections(TestCase):
         self.assertIn("Uses AI", export_fields)
         self.assertIn("AI is transparent", export_fields)
         self.assertIn("AI help text", export_fields)
-
-    def test_software_page_export_fields(self):
-        export_fields = self.software_product_page.get_export_fields()
-        self.assertIn("How it handles recording", export_fields)
-        self.assertIn("Recording alert", export_fields)
-        self.assertIn("Recording alert help text", export_fields)
-        self.assertIn("Medical privacy compliant", export_fields)
-        self.assertIn("Medical privacy compliant help text", export_fields)
-        self.assertIn("Host controls", export_fields)
-        self.assertIn("Easy to learn and use", export_fields)
-        self.assertIn("Easy to learn and use help text", export_fields)
 
 
 class TestCreateWagtailImageUtility(TestCase):
