@@ -1,4 +1,5 @@
 from django import http, shortcuts
+from django.db import models
 from django.utils import text as text_utils
 from wagtail.core import models as wagtail_models
 from wagtail.contrib.routable_page import models as routable_models
@@ -19,7 +20,15 @@ class ResearchAuthorsIndexPage(
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["author_profiles"] = profiles.Profile.objects.filter_research_authors()
+        default_locale = wagtail_models.Locale.get_default()
+        active_locale = wagtail_models.Locale.get_active()
+        context["author_profiles"] = (
+            profiles.Profile.objects.all()
+                .filter_research_authors()
+                .filter(models.Q(locale=default_locale) | models.Q(locale=active_locale))
+                .order_by('translation_key', '-locale')
+                .distinct('translation_key')
+        )
         return context
 
     @routable_models.route(r'^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$')
