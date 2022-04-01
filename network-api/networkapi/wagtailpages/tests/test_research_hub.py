@@ -58,20 +58,11 @@ class TestResearchAuthorIndexPage(test.TestCase):
         cls.site.clean()
         cls.site.save()
 
-    def test_index(self):
-        response = self.client.get(self.author_index.url)
+    def test_get_context(self):
+        context = self.author_index.get_context(request=None)
 
-        self.assertEqual(self.author_index.title, "Authors")
-        self.assertContains(
-            response,
-            text=self.research_profile.name,
-            status_code=http.HTTPStatus.OK,
-        )
-        self.assertNotContains(
-            response,
-            text=self.non_research_profile.name,
-            status_code=http.HTTPStatus.OK,
-        )
+        self.assertIn(self.research_profile, context['author_profiles'])
+        self.assertNotIn(self.non_research_profile, context['author_profiles'])
 
     def test_profile_route(self):
         profile_slug = text_utils.slugify(self.research_profile.name)
