@@ -1,6 +1,6 @@
 {% extends "./research_base.html" %}
 {% load profile_tags %}
-
+(
 {% block subcontent %}
   <h1>
     {{ page.title }}
@@ -8,7 +8,7 @@
   {% if author_profiles %}
     <ul>
       {% for author_profile in author_profiles  %}
-        <li><a href="{% routableprofileurl page=page profile=author_profile url_name="author_detail"  %}">{{ author_profile.name }}</a></li>
+        <li><a href="{% routableprofileurl page=page profile=author_profile url_name="author_detail"  %}">{{ author_profile.name }} ({{ author_profile.locale.language_code }})</a></li>
       {% endfor %}
     </ul>
   {% endif %}

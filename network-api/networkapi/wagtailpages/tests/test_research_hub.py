@@ -4,7 +4,9 @@ import http
 from django import test
 from django.core import exceptions
 from django.utils import text as text_utils
+from django.utils import translation
 from wagtail.core import models as wagtail_models
+from wagtail_localize import synctree
 
 from networkapi.wagtailpages.factory import research_hub as research_factory
 from networkapi.wagtailpages.factory import homepage as home_factory
@@ -58,11 +60,69 @@ class TestResearchAuthorIndexPage(test.TestCase):
         cls.site.clean()
         cls.site.save()
 
+    def _setup_synchronized_tree(self):
+        # Set up additional locale
+        self.default_locale = wagtail_models.Locale.get_default()
+        self.assertEqual(self.research_profile.locale, self.default_locale)
+        self.active_locale = wagtail_models.Locale.get_active()
+        self.assertEqual(self.active_locale, self.default_locale)
+        self.fr_locale, _ = wagtail_models.Locale.objects.get_or_create(
+            language_code='fr'
+        )
+        self.assertNotEqual(self.fr_locale, self.default_locale)
+
+        # Translate the pages
+        synctree.synchronize_tree(
+            source_locale=self.default_locale,
+            target_locale=self.fr_locale
+        )
+
+    def _translate_research_profile(self):
+        # Translate profile and set it as author on the translated detail. This is what
+        # happens when you work in the localize UI.
+        self.fr_profile = self.research_profile.copy_for_translation(self.fr_locale)
+        self.fr_profile.save()
+        self.fr_detail = self.detail_page.get_translation(self.fr_locale)
+        self.fr_detail_author = self.fr_detail.research_authors.first()
+        self.fr_detail_author.author_profile = self.fr_profile
+        self.fr_detail_author.save()
+
     def test_get_context(self):
         context = self.author_index.get_context(request=None)
 
         self.assertIn(self.research_profile, context['author_profiles'])
+        # Non-research profile should not show up
         self.assertNotIn(self.non_research_profile, context['author_profiles'])
+
+    def test_get_context_default_locale(self):
+        self._setup_synchronized_tree()
+        self._translate_research_profile()
+
+        # Get context when default is active
+        context = self.author_index.localized.get_context(request=None)
+
+        self.assertIn(self.research_profile, context['author_profiles'])
+        self.assertNotIn(self.fr_profile, context['author_profiles'])
+
+    def test_get_context_fr_locale(self):
+        self._setup_synchronized_tree()
+        self._translate_research_profile()
+        translation.activate('fr')
+
+        # Get context when fr is active
+        fr_context = self.author_index.localized.get_context(request=None)
+
+        self.assertNotIn(self.research_profile, fr_context['author_profiles'])
+        self.assertIn(self.fr_profile, fr_context['author_profiles'])
+
+    def test_get_context_fr_locale_profile_not_translated(self):
+        self._setup_synchronized_tree()
+        translation.activate('fr')
+
+        fr_context = self.author_index.localized.get_context(request=None)
+
+        # When the profile is not translated, the default locales profile should show
+        self.assertIn(self.research_profile, fr_context['author_profiles'])
 
     def test_profile_route(self):
         profile_slug = text_utils.slugify(self.research_profile.name)

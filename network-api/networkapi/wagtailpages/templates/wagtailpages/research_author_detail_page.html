@@ -21,7 +21,7 @@
       <ul>
         {% for research_detail_page in latest_research %}
           <li>
-            <h3>{{ research_detail_page.title }}</h3>
+            <h3>{{ research_detail_page.title }} ({{ research_detail_page.locale.language_code }})</h3>
           </li>
         {% endfor %}
       </ul>
