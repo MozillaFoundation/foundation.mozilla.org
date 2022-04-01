@@ -77,12 +77,13 @@ class TestResearchAuthorIndexPage(test.TestCase):
             target_locale=self.fr_locale
         )
 
-    def _translate_research_profile(self):
+        self.fr_detail = self.detail_page.get_translation(self.fr_locale)
+
+    def _setup_translated_research_profile(self):
         # Translate profile and set it as author on the translated detail. This is what
         # happens when you work in the localize UI.
         self.fr_profile = self.research_profile.copy_for_translation(self.fr_locale)
         self.fr_profile.save()
-        self.fr_detail = self.detail_page.get_translation(self.fr_locale)
         self.fr_detail_author = self.fr_detail.research_authors.first()
         self.fr_detail_author.author_profile = self.fr_profile
         self.fr_detail_author.save()
@@ -96,7 +97,7 @@ class TestResearchAuthorIndexPage(test.TestCase):
 
     def test_get_context_default_locale(self):
         self._setup_synchronized_tree()
-        self._translate_research_profile()
+        self._setup_translated_research_profile()
 
         # Get context when default is active
         context = self.author_index.localized.get_context(request=None)
@@ -106,7 +107,7 @@ class TestResearchAuthorIndexPage(test.TestCase):
 
     def test_get_context_fr_locale(self):
         self._setup_synchronized_tree()
-        self._translate_research_profile()
+        self._setup_translated_research_profile()
         translation.activate('fr')
 
         # Get context when fr is active
@@ -215,6 +216,33 @@ class TestResearchAuthorIndexPage(test.TestCase):
             self.assertIn(detail_page_2, context['latest_research'])
             self.assertIn(detail_page_3, context['latest_research'])
             self.assertNotIn(self.detail_page, context['latest_research'])
+
+    def test_get_author_detail_context_default_locale_profile_not_translated(self):
+        # This condition exists when the pages are automatically synced, but have not
+        # really been translated.
+        self._setup_synchronized_tree()
+
+        context = self.author_index.localized.get_author_detail_context(
+            profile_id=self.research_profile.id,
+        )
+
+        self.assertIn(self.detail_page, context['latest_research'])
+        self.assertNotIn(self.fr_detail, context['latest_research'])
+
+    def test_get_author_detail_context_fr_locale_profile_not_translated(self):
+        # This condition exists when the pages are automatically synced, but have not
+        # really been translated.
+        self._setup_synchronized_tree()
+        translation.activate('fr')
+
+        # The profile is not translated. So even when the fr locale is active it will
+        # use the original profile
+        context = self.author_index.localized.get_author_detail_context(
+            profile_id=self.research_profile.localized.id,
+        )
+
+        self.assertNotIn(self.detail_page, context['latest_research'])
+        self.assertIn(self.fr_detail, context['latest_research'])
 
 
 class TestResearchDetailLink(test.TestCase):

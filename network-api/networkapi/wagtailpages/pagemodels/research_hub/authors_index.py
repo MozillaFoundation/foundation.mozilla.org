@@ -62,8 +62,9 @@ class ResearchAuthorsIndexPage(
         latest_research = (
             detail_page.ResearchDetailPage.objects.all()
                 .filter(research_authors__author_profile=author_profile)
+                .filter(locale=wagtail_models.Locale.get_active())
                 .order_by('-original_publication_date')
-                [:LATEST_RESERACH_COUNT_LIMIT]
+                # [:LATEST_RESERACH_COUNT_LIMIT]
         )
         return {
             'author_profile': author_profile,
