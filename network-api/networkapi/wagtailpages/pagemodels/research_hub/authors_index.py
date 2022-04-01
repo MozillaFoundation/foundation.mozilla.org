@@ -19,16 +19,21 @@ class ResearchAuthorsIndexPage(
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['author_profiles'] = profiles.Profile.objects.filter_research_authors()
         default_locale = wagtail_models.Locale.get_default()
         active_locale = wagtail_models.Locale.get_active()
-        # context["author_profiles"] = (
-        #     profiles.Profile.objects.all()
-        #         .filter_research_authors()
-        #         .filter(models.Q(locale=default_locale) | models.Q(locale=active_locale))
-        #         .order_by('translation_key', '-locale')
-        #         .distinct('translation_key')
-        # )
+        context["author_profiles"] = (
+            profiles.Profile.objects.all()
+                .filter_research_authors()
+                .filter(models.Q(locale=default_locale) | models.Q(locale=active_locale))
+                .annotate(
+                    locale_is_default=models.Case(
+                        models.When(locale=default_locale, then=True),
+                        default=False,
+                    )
+                )
+                .order_by('translation_key', 'locale_is_default')
+                .distinct('translation_key')
+        )
         return context
 
     @routable_models.route(r'^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$')
