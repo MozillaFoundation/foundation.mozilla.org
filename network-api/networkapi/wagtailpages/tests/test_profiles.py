@@ -38,13 +38,9 @@ class ProfileTest(test.TestCase):
             author_profile=research_author_profile,
         )
 
-        count = (
-            profile_models
-                .Profile
-                .objects
-                .filter_research_authors()
-                .filter(id=research_author_profile.id)
-                .count()
-        )
+        profiles = profile_models.Profile.objects.all()
+        profiles = profiles.filter_research_authors()
+        profiles = profiles.filter(id=research_author_profile.id)
+        count = profiles.count()
 
         self.assertEqual(count, 1)
