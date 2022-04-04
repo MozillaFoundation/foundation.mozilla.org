@@ -79,30 +79,41 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
                   'click "Advanced", "Distribution", '
                   'and "Video File Links". Copy and paste the link here.'
     )
+
+    HERO_CONTENT_IMAGE = 'image'
+    HERO_CONTENT_VIDEO = 'video'
+    
     displayed_hero_content = models.CharField(
         max_length=25,
         choices=[
-            ('image', 'Image'),
-            ('video', 'Video'),
+            (HERO_CONTENT_IMAGE, 'Image'),
+            (HERO_CONTENT_VIDEO, 'Video'),
         ],
-        default='image'
+        default=HERO_CONTENT_IMAGE
     )
 
     hero_background_color = ColorField(
         default='#ffffff',
-        help_text='Background color of the hero section.'
-        )
+        help_text='Please check your chosen background color with '
+                  'https://webaim.org/resources/contrastchecker/ to see if your text and background '
+                  'color pass accessibility standards. If your text is black '
+                  'enter #000000 in the Foreground Color box and #FFFFFF if '
+                  'your text is white. After you have selected your background color, '
+                  'please contact the design team for a design review!'
+    )
+
+    HERO_TEXT_COLOR_DARK = "black"
+    HERO_TEXT_COLOR_LIGHT = "white"
 
     hero_text_color = models.CharField(
         max_length=25,
         choices=[
-            ('light', 'Light'),
-            ('dark', 'Dark'),
+        (HERO_TEXT_COLOR_DARK, 'Black'),
+        (HERO_TEXT_COLOR_LIGHT, 'White'),
         ],
-        default='light',
-        help_text='Color theme of hero section text. '
-                  'Choose light for light colored backgrounds '
-                  'and dark for darker color backgrounds.'
+        default=HERO_TEXT_COLOR_DARK,
+        help_text='For proper contrast, we recommend using “White” for dark background colors, '
+                  'and “Black” for light background colors.'
     )
 
     subtitle = models.CharField(
@@ -125,25 +136,34 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         related_name='+',
     )
 
+    HERO_LAYOUT_FULL_SCREEN = 'full_screen'
+    HERO_LAYOUT_IMAGE_LEFT = 'image_left'
+    HERO_LAYOUT_IMAGE_RIGHT = 'image_right'
+    HERO_LAYOUT_STATIC = 'static'
+
     hero_layout = models.CharField(
         max_length=25,
         choices=[
-            ('full_screen', 'Full Screen'),
-            ('image_left', 'Image Left'),
-            ('image_right', 'Image Right'),
-            ('static', 'Static'),
+            (HERO_LAYOUT_FULL_SCREEN, 'Full Screen'),
+            (HERO_LAYOUT_IMAGE_LEFT, 'Image Left'),
+            (HERO_LAYOUT_IMAGE_RIGHT, 'Image Right'),
+            (HERO_LAYOUT_STATIC, 'Static'),
         ],
-        default='static',
+        default=HERO_LAYOUT_STATIC,
     )
+
+    HERO_BTN_STYLE_PRIMARY = 'primary'
+    HERO_BTN_STYLE_SECONDARY = 'secondary'
+    HERO_BTN_STYLE_TERTIARY = 'tertiary'
 
     download_button_style = models.CharField(
         max_length=25,
         choices=[
-            ('primary', 'Primary'),
-            ('secondary', 'Secondary'),
-            ('tertiary', 'Tertiary'),
+            (HERO_BTN_STYLE_PRIMARY, 'Primary'),
+            (HERO_BTN_STYLE_SECONDARY, 'Secondary'),
+            (HERO_BTN_STYLE_TERTIARY, 'Tertiary'),
         ],
-        default='primary',
+        default=HERO_BTN_STYLE_PRIMARY,
     )
 
     # Since wagtail cannot save SVG files as images,
@@ -181,9 +201,9 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         ], heading="Table of Content Thumbnail"),
         MultiFieldPanel([
             FieldPanel('hero_layout', widget=forms.RadioSelect),
-            FieldPanel("show_authors"),
-            ImageChooserPanel("hero_image"),
-            FieldPanel("hero_video"),
+            FieldPanel('show_authors'),
+            ImageChooserPanel('hero_image'),
+            FieldPanel('hero_video'),
             FieldPanel('displayed_hero_content', widget=forms.RadioSelect),
             NativeColorPanel('hero_background_color'),
             FieldPanel('hero_text_color', widget=forms.RadioSelect),

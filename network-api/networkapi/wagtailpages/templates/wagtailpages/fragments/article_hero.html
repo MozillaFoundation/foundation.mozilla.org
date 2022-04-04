@@ -9,11 +9,11 @@
   and tailwind would not pick it up in time to render correctly if we did it through a tw-class.
 {% endcomment %}
 
-{% if page.hero_layout != "full_screen" %}
+{% if page.hero_layout != page.HERO_LAYOUT_FULL_SCREEN %}
 
   <div class="article-hero tw-relative tw-flex tw-flex-col large:tw-flex-row tw-h-full tw-overflow-hidden {% if not get_titles %} tw-mb-[0px] medium:tw-mb-[100px] {% endif %}" style="background: {{page.hero_background_color}}">
     <div class="tw-w-full large:tw-w-1/2 tw-min-h-full {% if page.hero_layout == "image_right" %} tw-order-last {% endif %}">
-      {% if page.displayed_hero_content == "video" %}
+      {% if page.displayed_hero_content == page.HERO_CONTENT_VIDEO %}
         <video class="hero-video {{two_col_content_classes}}" playsinline muted loop preload>
           <source src="{{ page.hero_video }}" type="video/mp4">
         </video>
@@ -22,10 +22,10 @@
       {% endif %}
     </div>
 
-    <div class="tw-w-full large:tw-w-1/2 tw-min-h-full tw-py-[65px] large:tw-pb-[184px] large:tw-pt-[137px] {% if page.hero_layout == "image_left" %} tw-order-last tw-pb-[100px] large:tw-pb-[137px] {% if not get_titles %} tw-pb-[0px] {% endif %}{% endif %}">
+    <div class="tw-w-full large:tw-w-1/2 tw-min-h-full tw-py-[65px] large:tw-pb-[184px] large:tw-pt-[137px] {% if page.hero_layout == "image_left" %} tw-order-last tw-pb-[100px] {% if not get_titles %} tw-pb-[0px] {% endif %}{% endif %}">
         <div class="container">
           <div class="row">
-            <div class="tw-px-3 large:tw-px-[3.75rem] tw-max-w-[650px]">
+            <div class="tw-px-5 large:tw-px-[3.75rem] tw-max-w-[650px] {% if page.hero_layout == "image_right" %} large:tw-ml-auto {% endif %}">
               {% include "./article_hero_guts.html" %}
             </div>
           </div>
@@ -37,7 +37,7 @@
 {% else %}
 
   <div class="article-hero tw-relative tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-overflow-hidden " style="background: {{page.hero_background_color}}">
-    {% if page.displayed_hero_content == "video" %}
+    {% if page.displayed_hero_content == page.HERO_CONTENT_VIDEO %}
       <video class="hero-video {{full_screen_content_classes}}" autoplay loop muted>
         <source src="{{ page.hero_video }}" type="video/mp4">
       </video>
