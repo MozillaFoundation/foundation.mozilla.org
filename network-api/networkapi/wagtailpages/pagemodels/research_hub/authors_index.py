@@ -19,6 +19,10 @@ class ResearchAuthorsIndexPage(
 
     def get_context(self, request):
         context = super().get_context(request)
+        # When the index is displayed in a non-default locale, then want to show
+        # the profile associated with that locale. But, profiles do not necessarily
+        # exist in all locales. We prefer showing the profile for the locale, but fall
+        # back to the profile on the default locale.
         default_locale = wagtail_models.Locale.get_default()
         active_locale = wagtail_models.Locale.get_active()
         context["author_profiles"] = (
