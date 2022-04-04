@@ -1,5 +1,5 @@
 {% extends "./research_authors_index_page.html" %}
-{% load wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block subcontent %}
   {% if author_profile.image %}
@@ -21,7 +21,7 @@
       <ul>
         {% for research_detail_page in latest_research %}
           <li>
-            <h3>{{ research_detail_page.title }} ({{ research_detail_page.locale.language_code }})</h3>
+            <h3><a href="{% pageurl research_detail_page %}">{{ research_detail_page.title }} ({{ research_detail_page.locale.language_code }})</a></h3>
           </li>
         {% endfor %}
       </ul>
