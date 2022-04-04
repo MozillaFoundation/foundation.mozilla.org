@@ -57,19 +57,25 @@ class ResearchAuthorsIndexPage(
         )
 
     def get_author_detail_context(self, profile_id: int):
-        author_profiles = profiles.Profile.objects.filter_research_authors()
+        research_author_profiles = profiles.Profile.objects.filter_research_authors()
         author_profile = shortcuts.get_object_or_404(
-            author_profiles,
+            research_author_profiles,
             id=profile_id,
         )
+
         LATEST_RESERACH_COUNT_LIMIT = 3
-        latest_research = (
-            detail_page.ResearchDetailPage.objects.all()
-                .filter(research_authors__author_profile=author_profile)
-                .filter(locale=wagtail_models.Locale.get_active())
-                .order_by('-original_publication_date')
-                # [:LATEST_RESERACH_COUNT_LIMIT]
+        latest_research = detail_page.ResearchDetailPage.objects.all()
+        latest_research = latest_research.filter(
+            research_authors__author_profile__translation_key=(
+                author_profile.translation_key
+            )
         )
+        latest_research = latest_research.filter(
+            locale=wagtail_models.Locale.get_active()
+        )
+        latest_research = latest_research.order_by('-original_publication_date')
+        latest_research = latest_research[:LATEST_RESERACH_COUNT_LIMIT]
+
         return {
             'author_profile': author_profile,
             'latest_research': latest_research,
