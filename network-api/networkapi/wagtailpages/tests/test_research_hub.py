@@ -181,7 +181,7 @@ class TestResearchAuthorIndexPage(test.TestCase):
 
         self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
-    def test_get_author_detail_context(self):
+    def test_get_author_detail_context_multiple_detail_pages(self):
         detail_page_1 = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=(
@@ -213,7 +213,8 @@ class TestResearchAuthorIndexPage(test.TestCase):
             author_profile=self.research_profile,
         )
 
-        with self.assertNumQueries(2):
+        # author, locale, detail pages.
+        with self.assertNumQueries(3):
             context = self.author_index.get_author_detail_context(
                 profile_id=self.research_profile.id,
             )
