@@ -25,23 +25,32 @@ class ResearchAuthorsIndexPage(
         # back to the profile on the default locale.
         default_locale = wagtail_models.Locale.get_default()
         active_locale = wagtail_models.Locale.get_active()
-        context["author_profiles"] = (
-            profiles.Profile.objects.all()
-                .filter_research_authors()
-                .filter(models.Q(locale=default_locale) | models.Q(locale=active_locale))
-                .annotate(
-                    locale_is_default=models.Case(
-                        models.When(locale=default_locale, then=True),
-                        default=False,
-                    )
-                )
-                .order_by('translation_key', 'locale_is_default')
-                .distinct('translation_key')
+        author_profiles = profiles.Profile.objects.all()
+        author_profiles = author_profiles.filter_research_authors()
+        author_profiles = author_profiles.filter(
+            models.Q(locale=default_locale) | models.Q(locale=active_locale)
         )
+        author_profiles = author_profiles.annotate(
+            locale_is_default=models.Case(
+                models.When(locale=default_locale, then=True),
+                default=False,
+            )
+        )
+        author_profiles = author_profiles.order_by(
+            'translation_key',
+            'locale_is_default',
+        )
+        author_profiles = author_profiles.distinct('translation_key')
+        context["author_profiles"] = author_profiles
         return context
 
     @routable_models.route(r'^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$')
-    def author_detail(self, request: http.HttpRequest, profile_id: str, profile_slug: str):
+    def author_detail(
+        self,
+        request: http.HttpRequest,
+        profile_id: str,
+        profile_slug: str,
+    ):
         context_overrides = self.get_author_detail_context(profile_id=int(profile_id))
 
         slugified_profile_name = text_utils.slugify(
