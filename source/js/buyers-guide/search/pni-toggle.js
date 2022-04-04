@@ -1,4 +1,5 @@
 import { Utils } from "./utils.js";
+import { gsap } from "gsap";
 
 export class PNIToggle {
   constructor(searchFilter) {
@@ -24,6 +25,7 @@ export class PNIToggle {
   togglePrivacyOnly(doFilter) {
     const { searchFilter, categoryTitle } = this;
 
+    gsap.set("figure.product-box.privacy-ding", { opacity: 1, y: 0 });
     // TODO: this might be an A/B testing opportunity to see
     //       whether users assume this toggle is a navigation
     //       action or not?
