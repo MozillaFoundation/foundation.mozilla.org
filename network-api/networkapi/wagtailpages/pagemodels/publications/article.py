@@ -82,7 +82,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
 
     HERO_CONTENT_IMAGE = 'image'
     HERO_CONTENT_VIDEO = 'video'
-    
+
     displayed_hero_content = models.CharField(
         max_length=25,
         choices=[
@@ -108,8 +108,8 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     hero_text_color = models.CharField(
         max_length=25,
         choices=[
-        (HERO_TEXT_COLOR_DARK, 'Black'),
-        (HERO_TEXT_COLOR_LIGHT, 'White'),
+            (HERO_TEXT_COLOR_DARK, 'Black'),
+            (HERO_TEXT_COLOR_LIGHT, 'White'),
         ],
         default=HERO_TEXT_COLOR_DARK,
         help_text='For proper contrast, we recommend using “White” for dark background colors, '
