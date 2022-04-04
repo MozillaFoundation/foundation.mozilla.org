@@ -100,7 +100,14 @@ urlpatterns = list(filter(None, [
     re_path(r'^en/cms/', RedirectView.as_view(url='/cms/')),
     re_path(r'^documents/', include(wagtaildocs_urls)),
 
-    # Sentry test url
+    # This shims sentry's reporting URL, so that when you're running with
+    # sentry enabled locally, rather than sending sentry errors over to the
+    # remote service (which is guaranteed to reject the data), we generate
+    # an intentional exception so that python writes an error to the console
+    # locally, with a traceback. The role of sentry is to surface errors that
+    # happen in the user's browser, which we can normally not look at without
+    # sending over to a logging service, but when doing local dev we can see
+    # browser errors just fine.
     path('sentry-debug', lambda r:  1 / 0) if settings.SENTRY_DSN and settings.DEBUG else None,
 
     # set up set language redirect view
