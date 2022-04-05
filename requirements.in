@@ -24,6 +24,7 @@ requests
 social-auth-app-django
 wagtail-airtable
 wagtail==2.16.1
+wagtail-color-panel
 wagtail-factories
 wagtail-localize==1.1
 wagtail-localize-git==0.12.0
