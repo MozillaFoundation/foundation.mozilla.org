@@ -4,9 +4,10 @@ import factory
 import factory.fuzzy
 import wagtail_factories
 
+from networkapi.utility.faker import helpers as faker_helpers
 from networkapi.wagtailpages import models as wagtailpage_models
 from networkapi.wagtailpages.factory import documents as documents_factory
-from networkapi.utility.faker import helpers as faker_helpers
+from networkapi.wagtailpages.factory import profiles as profiles_factory
 
 
 class ResearchLandingPageFactory(wagtail_factories.PageFactory):
@@ -94,36 +95,24 @@ class ResearchAuthorRelationFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchAuthorRelation
 
-    research_detail_page = factory.fuzzy.FuzzyChoice(
-        wagtailpage_models.ResearchDetailPage.objects.all(),
-    )
-    author_profile = factory.fuzzy.FuzzyChoice(
-        wagtailpage_models.Profile.objects.all(),
-    )
+    research_detail_page = factory.SubFactory(ResearchDetailPageFactory)
+    author_profile = factory.SubFactory(profiles_factory.ProfileFactory)
 
 
 class ResearchDetailPageResearchRegionRelationFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchDetailPageResearchRegionRelation
 
-    research_detail_page = factory.fuzzy.FuzzyChoice(
-        wagtailpage_models.ResearchDetailPage.objects.all(),
-    )
-    research_region = factory.fuzzy.FuzzyChoice(
-        wagtailpage_models.ResearchRegion.objects.all(),
-    )
+    research_detail_page = factory.SubFactory(ResearchDetailPageFactory)
+    research_region = factory.SubFactory(ResearchRegionFactory)
 
 
 class ResearchDetailPageResearchTopicRelationFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchDetailPageResearchTopicRelation
 
-    research_detail_page = factory.fuzzy.FuzzyChoice(
-        wagtailpage_models.ResearchDetailPage.objects.all(),
-    )
-    research_topic = factory.fuzzy.FuzzyChoice(
-        wagtailpage_models.ResearchTopic.objects.all(),
-    )
+    research_detail_page = factory.SubFactory(ResearchDetailPageFactory)
+    research_topic = factory.SubFactory(ResearchTopicFactory)
 
 
 def generate(seed):
