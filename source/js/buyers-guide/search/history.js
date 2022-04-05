@@ -1,3 +1,4 @@
+import { gsap } from "gsap";
 import { Utils } from "./utils.js";
 import { CreepUtils } from "./creep-utils.js";
 
@@ -48,6 +49,7 @@ export function performInitialHistoryReplace(instance, searchBar, searchInput) {
     toggle.checked = history.state?.filter;
 
     if (history.state?.filter) {
+      gsap.set("figure.product-box.privacy-ding", { opacity: 1, y: 0 });
       document.body.classList.add(`show-ding-only`);
     } else {
       document.body.classList.remove(`show-ding-only`);
@@ -124,6 +126,7 @@ export function setupPopStateHandler(instance, searchBar, searchInput) {
       toggle.checked = history.state?.filter;
 
       if (history.state?.filter) {
+        gsap.set("figure.product-box.privacy-ding", { opacity: 1, y: 0 });
         document.body.classList.add(`show-ding-only`);
       } else {
         document.body.classList.remove(`show-ding-only`);
