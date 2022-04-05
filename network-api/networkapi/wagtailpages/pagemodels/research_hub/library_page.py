@@ -14,11 +14,13 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         context['research_detail_pages'] = self.get_research_detail_pages()
         return context
 
-    def get_research_detail_pages(self):
+    def get_research_detail_pages(self, *, search=''):
         ResearchDetailPage = apps.get_model('wagtailpages', 'ResearchDetailPage')
         active_locale = wagtail_models.Locale.get_active()
 
-        research_detail_pages = ResearchDetailPage.objects.all()
+        research_detail_pages = ResearchDetailPage.objects.live()
         research_detail_pages = research_detail_pages.filter(locale=active_locale)
+        if search:
+            research_detail_pages = research_detail_pages.search(search)
 
         return research_detail_pages

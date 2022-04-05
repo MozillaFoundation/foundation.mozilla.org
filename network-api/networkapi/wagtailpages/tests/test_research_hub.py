@@ -96,18 +96,22 @@ class TestResearchLibraryPage(ResearchHubTestCase):
         self.assertNotIn(fr_detail_page_1, research_detail_pages)
         self.assertNotIn(fr_detail_page_2, research_detail_pages)
 
-    def test_get_research_detail_pages_with_search_term(self):
+    def test_get_research_detail_pages_search_by_title(self):
+        # Fields other than title are empty to avoid accidental test failures due to
+        # fake data generation.
         apple_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title='Apples',
-            introduction='Apples apples.',
-            overview='Apples apples apples.',
+            introduction='',
+            overview='',
+            collaborators='',
         )
         banana_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title='Banana',
-            introduction='Banana banana.',
-            overview='Banana banana banana.',
+            introduction='',
+            overview='',
+            collaborators='',
         )
 
         research_detail_pages = self.library_page.get_research_detail_pages(
