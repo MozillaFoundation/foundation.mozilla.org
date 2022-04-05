@@ -101,7 +101,7 @@ class TestResearchLibraryPage(ResearchHubTestCase):
         # fake data generation.
         apple_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            title='Apples',
+            title='Apple',
             introduction='',
             overview='',
             collaborators='',
@@ -115,7 +115,7 @@ class TestResearchLibraryPage(ResearchHubTestCase):
         )
 
         research_detail_pages = self.library_page.get_research_detail_pages(
-            search='Apples',
+            search='Apple',
         )
 
         self.assertEqual(len(research_detail_pages), 1)
@@ -139,7 +139,7 @@ class TestResearchLibraryPage(ResearchHubTestCase):
         )
 
         research_detail_pages = self.library_page.get_research_detail_pages(
-            search='Apples',
+            search='Apple',
         )
 
         self.assertEqual(len(research_detail_pages), 1)
