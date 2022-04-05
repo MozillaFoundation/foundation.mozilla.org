@@ -3,9 +3,9 @@ from django.core import exceptions
 from wagtail.core import models as wagtail_models
 from wagtail_localize import synctree
 
-from networkapi.wagtailpages.factory import research_hub as research_factory
 from networkapi.wagtailpages.factory import homepage as home_factory
-from networkapi.wagtailpages import models as pagemodels
+from networkapi.wagtailpages.factory import research_hub as research_factory
+from networkapi.wagtailpages.factory import profiles as profiles_factory
 
 
 class ResearchHubTestCase(test.TestCase):
@@ -184,6 +184,54 @@ class TestResearchLibraryPage(ResearchHubTestCase):
             introduction='',
             overview='',
             collaborators='Banana',
+        )
+
+        research_detail_pages = self.library_page.get_research_detail_pages(
+            search='Apple',
+        )
+
+        self.assertEqual(len(research_detail_pages), 1)
+        self.assertIn(apple_page, research_detail_pages)
+        self.assertNotIn(banana_page, research_detail_pages)
+
+    def test_get_research_detail_pages_search_by_author_name(self):
+        '''
+        Test detail page can be searched by author profile name.
+
+        While it will also be possible to filter by author name, it would seem odd
+        that the main author names can not be searched, while the collaborators can.
+        '''
+        apple_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            title='Cherry',
+            introduction='',
+            overview='',
+            collaborators='',
+        )
+        apple_profile = profiles_factory.ProfileFactory(
+            name='Apple',
+            tagline='',
+            introduction='',
+        )
+        research_factory.ResearchAuthorRelationFactory(
+            research_detail_page=apple_page,
+            author_profile=apple_profile
+        )
+        banana_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            title='Also cherry',
+            introduction='',
+            overview='',
+            collaborators='',
+        )
+        banana_profile = profiles_factory.ProfileFactory(
+            name='Banana',
+            tagline='',
+            introduction='',
+        )
+        research_factory.ResearchAuthorRelationFactory(
+            research_detail_page=banana_page,
+            author_profile=banana_profile
         )
 
         research_detail_pages = self.library_page.get_research_detail_pages(
