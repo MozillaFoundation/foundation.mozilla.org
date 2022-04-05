@@ -96,6 +96,28 @@ class TestResearchLibraryPage(ResearchHubTestCase):
         self.assertNotIn(fr_detail_page_1, research_detail_pages)
         self.assertNotIn(fr_detail_page_2, research_detail_pages)
 
+    def test_get_research_detail_pages_with_search_term(self):
+        apple_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            title='Apples',
+            introduction='Apples apples.',
+            overview='Apples apples apples.',
+        )
+        banana_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            title='Banana',
+            introduction='Banana banana.',
+            overview='Banana banana banana.',
+        )
+
+        research_detail_pages = self.library_page.get_research_detail_pages(
+            search='Apples',
+        )
+
+        self.assertEqual(len(research_detail_pages), 1)
+        self.assertIn(apple_page, research_detail_pages)
+        self.assertNotIn(banana_page, research_detail_pages)
+
 
 class TestResearchDetailLink(test.TestCase):
     def test_clean_with_url(self):
