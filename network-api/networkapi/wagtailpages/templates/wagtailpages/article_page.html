@@ -33,7 +33,7 @@
             <div class="tw-body-small tw-bg-blue-lightest tw-px-6 large:tw-px-7 tw-py-4">{% trans "SUMMARY" %}</div>
             <div class="tw-bg-white tw-columns-1 article-column-rule tw-p-6 large:tw-px-7 {% if get_titles|length > 5 %} medium:tw-columns-2 {% endif %}">
               {% for slug, header in get_titles %}
-                <a href="#{{ slug }}" class="tw-block tw-text-black tw-mb-4 hover:tw-text-blue-dark hover:tw-no-underline" >{{ header }}</a>
+                <a href="#{{ slug }}" class="tw-block tw-text-black tw-mb-4 hover:tw-text-blue-dark hover:tw-no-underline tw-break-inside-avoid-column" >{{ header }}</a>
               {% endfor %}
             </div>
           </div>
