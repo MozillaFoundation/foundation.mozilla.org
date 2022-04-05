@@ -63,10 +63,38 @@ class ResearchHubTestCase(test.TestCase):
 
 
 class TestResearchLibraryPage(ResearchHubTestCase):
-    def test_get(self):
+    def test_get_context_detail_pages_in_context(self):
+        detail_page_1 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        detail_page_2 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+
         context = self.library_page.get_context(request=None)
 
-        self.assertEqual(context, {})
+        self.assertEqual(len(context['research_detail_pages']), 2)
+        self.assertIn(detail_page_1, context['research_detail_pages'])
+        self.assertIn(detail_page_2, context['research_detail_pages'])
+
+    def test_get_context_translation_aliases_not_in_context(self):
+        detail_page_1 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        detail_page_2 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        self.synchronize_tree()
+        fr_detail_page_1 = detail_page_1.get_translation(self.fr_locale)
+        fr_detail_page_2 = detail_page_2.get_translation(self.fr_locale)
+
+        context = self.library_page.get_context(request=None)
+
+        self.assertEqual(len(context['research_detail_pages']), 2)
+        self.assertIn(detail_page_1, context['research_detail_pages'])
+        self.assertIn(detail_page_2, context['research_detail_pages'])
+        self.assertNotIn(fr_detail_page_1, context['research_detail_pages'])
+        self.assertNotIn(fr_detail_page_2, context['research_detail_pages'])
 
 
 class TestResearchDetailLink(test.TestCase):
