@@ -9,7 +9,7 @@
       {% for entry in self.breadcrumb_list %}
       {% with parent_page=entry.localized %}
         <a href="{{ parent_page.url }}" class="body-small {% if page.hero_text_color == page.HERO_TEXT_COLOR_DARK %} tw-text-black {% endif %}">{{ parent_page.title }}</a>
-        <span class='body-small'> › </span>
+        <span class='body-small {% if page.hero_text_color == page.HERO_TEXT_COLOR_LIGHT %} tw-text-gray-20 {% endif %}' > › </span>
       {% endwith %}
       {% endfor %}
     </div>
