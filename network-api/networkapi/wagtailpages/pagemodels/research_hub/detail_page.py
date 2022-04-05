@@ -123,5 +123,7 @@ class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtai
     ]
 
     search_fields = wagtail_models.Page.search_fields + [
-        index.SearchField('introduction')
+        index.SearchField('introduction'),
+        index.SearchField('overview'),
+        index.SearchField('collaborators'),
     ]
