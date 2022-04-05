@@ -1,7 +1,10 @@
 from django import test
 from django.core import exceptions
+from wagtail.core import models as wagtail_models
+from wagtail_localize import synctree
 
 from networkapi.wagtailpages.factory import research_hub as research_factory
+from networkapi.wagtailpages.factory import homepage as home_factory
 from networkapi.wagtailpages import models as pagemodels
 
 
@@ -58,6 +61,12 @@ class ResearchHubTestCase(test.TestCase):
             target_locale=self.fr_locale
         )
 
+
+class TestResearchLibraryPage(ResearchHubTestCase):
+    def test_get(self):
+        context = self.library_page.get_context(request=None)
+
+        self.assertEqual(context, {})
 
 
 class TestResearchDetailLink(test.TestCase):
