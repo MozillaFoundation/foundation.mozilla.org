@@ -29,11 +29,11 @@
 
         {% if get_titles %}
           {# If there are h2s in the body of this page, show the article "table of contents" #}
-          <div class="article-summary">
-            <div class="article-summary-title tw-body-small">{% trans "SUMMARY" %}</div>
-            <div class="article-links {% if get_titles|length > 5 %}article-links-two-column{% endif %}">
+          <div class="tw-w-[calc(80%+60px)] mx-auto tw-mb-7 tw--mt-7 tw-border tw-border-gray-20">
+            <div class="tw-body-small tw-bg-blue-lightest tw-px-6 large:tw-px-7 tw-py-4">{% trans "SUMMARY" %}</div>
+            <div class="tw-bg-white tw-columns-1 article-column-rule tw-p-6 large:tw-px-7 {% if get_titles|length > 5 %} medium:tw-columns-2 {% endif %}">
               {% for slug, header in get_titles %}
-                <a href="#{{ slug }}" class="article-summary-link {% if get_titles|length > 5 %}article-summary-link-two-column{% endif %}">{{ header }}</a>
+                <a href="#{{ slug }}" class="tw-block tw-text-black tw-mb-4 hover:tw-text-blue-dark hover:tw-no-underline" >{{ header }}</a>
               {% endfor %}
             </div>
           </div>
