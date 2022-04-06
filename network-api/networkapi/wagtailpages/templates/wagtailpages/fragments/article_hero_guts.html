@@ -3,13 +3,13 @@
 
 
 
-<div class="article-hero-content">
+<div class="article-hero-content {% if page.hero_text_color == page.HERO_TEXT_COLOR_LIGHT %} tw-dark {% endif %}">
   {% if is_publication_article or is_publication_page %}
     <div class="mb-2 body-small publication-breadcrumb">
       {% for entry in self.breadcrumb_list %}
       {% with parent_page=entry.localized %}
-        <a href="{{ parent_page.url }}" class="body-small">{{ parent_page.title }}</a>
-        <span class='body-small'> › </span>
+        <a href="{{ parent_page.url }}" class="body-small {% if page.hero_text_color == page.HERO_TEXT_COLOR_DARK %} tw-text-black {% endif %}">{{ parent_page.title }}</a>
+        <span class='body-small {% if page.hero_text_color == page.HERO_TEXT_COLOR_LIGHT %} tw-text-gray-20 {% endif %}' > › </span>
       {% endwith %}
       {% endfor %}
     </div>
@@ -19,13 +19,13 @@
   </h1>
 
   {% if page.subtitle %}
-    <h2 class="tw-mt-4 body-large">
+    <h2 class="tw-mt-4 tw-body-large">
       {{ page.subtitle }}
     </h2>
   {% endif %}
 
   {% if page.secondary_subtitle or page.publication_date %}
-    <div class="mt-2 mb-4 body-small publication-secondary-subtitle">
+    <div class="mt-2 mb-4 tw-body-small publication-secondary-subtitle {% if page.hero_text_color == page.HERO_TEXT_COLOR_DARK %} tw-text-gray-80 {% else %} tw-text-gray-20 {% endif %}">
       {% if page.secondary_subtitle %}
         {{ page.secondary_subtitle }}
       {% endif %}
@@ -74,11 +74,11 @@
 
   {% with btn_setting=page.download_button_style primary_icon_class="tw-invert dark:group-hover:tw-invert-0" secondary_icon_class="group-hover:tw-invert dark:tw-invert dark:group-hover:tw-invert-0" tertiary_btn_class="tw-text-black tw-font-light tw-underline hover:tw-opacity-50" %}
 
-  <a class="tw-inline-flex tw-group {% if btn_setting == "primary" %} tw-btn-primary  {% elif btn_setting == "secondary" %} tw-btn-secondary {% else %} {{ tertiary_btn_class }} {% endif %}" 
+  <a class="tw-inline-flex tw-group {% if btn_setting == page.HERO_BTN_STYLE_PRIMARY %} tw-btn-primary  {% elif btn_setting == page.HERO_BTN_STYLE_SECONDARY %} tw-btn-secondary {% else %} {{ tertiary_btn_class }} {% endif %}" 
    href="{{ download_file.url }}" download>
     <img 
     src=" {% if page.download_button_icon %} {{ page.download_button_icon.url }} {% else %} {% static '_images/glyphs/download-file.svg' %} {% endif %}" 
-    class='tw-h-[18px] tw-w-[18px] tw-mr-3 tw-mt-[1px] tw-brightness-0 {% if btn_setting == "primary"%} {{primary_icon_class}} {% elif btn_setting == "secondary"%} {{secondary_icon_class}} {% endif %}'/>
+    class='tw-h-[18px] tw-w-[18px] tw-mr-3 tw-mt-[1px] tw-brightness-0 {% if btn_setting == page.HERO_BTN_STYLE_PRIMARY %} {{primary_icon_class}} {% elif btn_setting == page.HERO_BTN_STYLE_SECONDARY %} {{secondary_icon_class}} {% endif %}'/>
       {% trans "Download PDF" %}
       {% if download_file.file_size %}
         <span class="tw-font-thin tw-ml-2">({{ download_file.file_size|filesizeformat }})</span>

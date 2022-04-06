@@ -6,6 +6,11 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 
 
+class ProfileQuerySet(models.QuerySet):
+    def filter_research_authors(self):
+        return self.filter(authored_research__isnull=False).distinct()
+
+
 @register_snippet
 class Profile(TranslatableMixin, models.Model):
     name = models.CharField(max_length=70, blank=False)
@@ -31,6 +36,8 @@ class Profile(TranslatableMixin, models.Model):
         FieldPanel("tagline"),
         FieldPanel("introduction"),
     ]
+
+    objects = ProfileQuerySet.as_manager()
 
     def __str__(self):
         return self.name

@@ -228,6 +228,7 @@ wagtail==2.16.1
     # via
     #   -r requirements.in
     #   wagtail-airtable
+    #   wagtail-color-panel
     #   wagtail-factories
     #   wagtail-footnotes
     #   wagtail-inventory
@@ -236,6 +237,8 @@ wagtail==2.16.1
     #   wagtail-metadata
     #   wagtailmedia
 wagtail-airtable==0.2.1
+    # via -r requirements.in
+wagtail-color-panel==1.3.1
     # via -r requirements.in
 wagtail-factories==2.0.1
     # via -r requirements.in
