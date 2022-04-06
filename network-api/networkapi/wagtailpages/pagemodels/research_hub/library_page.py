@@ -11,6 +11,8 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
 
     SORT_NEWEST_FIRST = '-original_publication_date'
     SORT_OLDEST_FIRST = 'original_publication_date'
+    SORT_ALPHABETICAL = 'title'
+    SORT_ALPHABETICAL_REVERSED = '-title'
 
     def get_context(self, request):
         context = super().get_context(request)

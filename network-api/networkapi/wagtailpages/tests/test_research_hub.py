@@ -563,7 +563,46 @@ class TestResearchLibraryPage(ResearchHubTestCase):
         oldest_page_index = research_detail_pages.index(oldest_page)
         self.assertLess(oldest_page_index, newest_page_index)
 
-    # TODO: Newest first is default sort order
+    def test_get_research_detail_pages_sort_alphabetical(self):
+        apple_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            title='Apple',
+        )
+        banana_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            title='Banana',
+        )
+
+        research_detail_pages = list(
+            self.library_page.get_research_detail_pages(
+                sort=self.library_page.SORT_ALPHABETICAL
+            )
+        )
+
+        apple_page_index = research_detail_pages.index(apple_page)
+        banana_page_index = research_detail_pages.index(banana_page)
+        self.assertLess(apple_page_index, banana_page_index)
+
+    def test_get_research_detail_pages_sort_alphabetical_reversed(self):
+        apple_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            title='Apple',
+        )
+        banana_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            title='Banana',
+        )
+
+        research_detail_pages = list(
+            self.library_page.get_research_detail_pages(
+                sort=self.library_page.SORT_ALPHABETICAL_REVERSED
+            )
+        )
+
+        apple_page_index = research_detail_pages.index(apple_page)
+        banana_page_index = research_detail_pages.index(banana_page)
+        self.assertLess(banana_page_index, apple_page_index)
+
     def test_get_research_detail_pages_sort_default(self):
         oldest_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
