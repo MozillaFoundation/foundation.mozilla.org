@@ -1,0 +1,30 @@
+{% extends "./research_authors_index_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block subcontent %}
+  {% if author_profile.image %}
+    <div>
+      {% image author_profile.image fill-260x260 as img %}
+      <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}"  alt="{{ img.alt }}" class="tw-rounded-full" />
+    </div>
+  {% endif %}
+  <div>
+    <h1>{{ author_profile.name }}</h1>
+    <div>
+      {{ author_profile.tagline }}
+    </div>
+    <p>
+      {{ author_profile.introduction }}
+    </p>
+    <div>
+      <h2>Latest research</h2>
+      <ul>
+        {% for research_detail_page in latest_research %}
+          <li>
+            <h3><a href="{% pageurl research_detail_page %}">{{ research_detail_page.title }} ({{ research_detail_page.locale.language_code }})</a></h3>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock subcontent %}
