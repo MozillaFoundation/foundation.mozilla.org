@@ -4,189 +4,25 @@
   <div class="article-navbar">
     <div class="tw-container">
       <div class="tw-row tw-items-end">
-        <div class="article-navbar-title tw-body-large tw-capitalize tw-pl-4 tw-hidden medium:tw-block">
+        <div class="article-navbar-title tw-body-large tw-capitalize tw-pl-4 tw-hidden medium:tw-block tw-w-[350px] large:tw-w-auto tw-truncate">
           {% if get_titles %}
             {{ page.title|truncatechars:60 }} 
           {% else %}
             {{ page.title|truncatechars:120 }}
           {% endif %}
         </div>
-        <div class="dropdown medium:tw-ml-auto medium:tw-mr-4 tw-w-full medium:tw-w-auto tw-px-4 small:tw-px-0">
-          <div class="position-relative medium:tw-ml-5 medium:tw-pl-1">
-            <button class="btn btn-sm btn-link dropdown-toggle article-summary-toggle tw-flex w-100 text-left pl-0" type="button" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="medium:tw-w-[200px] tw-mr-auto medium:tw-mr-2 tw-truncate tw-block hover:tw-no-underline">{% trans "Summary" %}</span>
-              <span class="toggle-text tw-w-[75px] tw-text-right tw-mr-3" data-open="{% trans "Show All" %}" data-close="{% trans "Close" %}">{% trans "Show All" %}</span>
-            </button>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-    <div class="
-      tw-absolute 
-      tw-overflow-auto
-      tw-no-scrollbar 
-      d-none 
-      tw-top-[100%] 
-      tw-right-0 
-      tw-w-full 
-      large:tw-w-[40vw] 
-    tw-bg-white 
-      tw-border 
-    tw-border-gray-20 
-      article-summary-menu" aria-labelledby="summaryMenu">
-      {% if page.get_parent and page.is_publication_article %}
-        <div class="article-container">
-          <div class="tw-px-4 large:tw-px-7 tw-py-6 tw-sticky tw-top-0 tw-left-0 tw-bg-white">
-            <div class="tw-text-2xl tw-leading-6 tw-font-zilla">{% trans "Table of Contents" %}</div>
-            <div class="tw-text-sm tw-leading-4 tw-mt-2 tw-text-gray-80">{{ page.get_parent }}</div>
-          </div>
-
-          <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-6">
-            {% for child_page in page.get_parent.get_children.specific %}
-              <div class="tw-flex tw-py-5 first:tw-pt-0 tw-px-4 large:tw-px-7 tw-items-center">
-                <a class="tw-whitespace-normal  tw-text-black hover:tw-no-underline hover:tw-text-blue tw-flex tw-items-center" href="{{ child_page.url }}">
-                  {% with toc_image=child_page.toc_thumbnail_image %}
-                    {% if toc_image %}
-                      {% image toc_image fill-320x320 as thumbnail %}
-                      <img class="tw-w-7 tw-h-7 tw-bg-cover tw-mr-2"
-                        src='{{ thumbnail.url }}'
-                      />
-                    {% endif %}
-                  {% endwith %}
-                  {{ child_page }}
-                </a>
-
-                {% if child_page.get_page_titles %}
-                  <button data-expand="{{child_page.title}}"
-                    class="article-header-button
-                          tw-ml-auto
-                          tw-w-5
-                          tw-h-5
-                          tw-grid
-                          tw-place-items-center
-                        tw-bg-white
-                          tw-outline-none
-                          tw-p-0">
-                          <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="" />
-                          <img src="{% static "_images/x-circle.svg" %}" alt="" data-state="close" class="tw-hidden" />
-                  </button>
-                {% endif %}
-
-                {% if child_page.get_children %}
-                  <button data-expand="{{child_page.title}}"
-                    class="article-child-button
-                          tw-ml-auto
-                          tw-w-5
-                          tw-h-5
-                        tw-bg-white
-                          tw-grid
-                          tw-place-items-center
-                          tw-outline-none
-                          tw-p-0">
-                          <img src="{% static "_images/arrow-circle.svg" %}" alt="" />
-                  </button>
-                {% endif %}
-              </div>
-
-              {% if child_page.get_page_titles %}
-                <div class="article-child-menu tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{child_page.title}}">
-                  {% for slug, header in child_page.get_page_titles %}
-                    <div class="tw-flex tw-py-5 tw-px-4 large:tw-px-7 tw-items-center tw-bg-gray-05">
-                      <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue tw-flex tw-items-center" href="{{ child_page.url }}#{{ slug }}">
-                        {{ header }}
-                      </a>
-                    </div>
-                  {% endfor %}
-                </div>
-              {% endif %}
-
-            {% endfor %}
-          </div>
-        </div>
-        
-      {% else %}
-      <div class="article-container">
-        <div class="tw-px-4 large:tw-px-7 tw-pt-6 tw-text-2xl tw-leading-6 tw-font-zilla">
-          {% trans "Summary" %}
-        </div>
-        <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-6">
-          {% for slug, header in get_titles %}
-            <a class="tw-whitespace-normal tw-py-5 tw-px-4 large:tw-px-7 tw-text-black hover:tw-no-underline hover:tw-text-blue" href="#{{ slug }}">{{ header }}</a>
-          {% endfor %}
-        </div>
-      </div>
-      {% endif %}
-
-      {% if page.get_parent and page.is_publication_article %}
-        {% for child_page in page.get_parent.get_children.specific %}
-          {% if child_page.get_children %}
-            <div class="article-child-container tw-hidden" data-child="{{ child_page.title }}">
-              <div class="tw-flex tw-items-center tw-px-4 large:tw-px-7 tw-py-3 tw-bg-gray-20">
-                <button
-                  class="article-child-button
-                        tw-h-5
-                        tw-flex
-                        tw-bg-gray-20
-                        tw-items-center
-                        tw-outline-none
-                        tw-p-0">
-                        <img class="tw-scale-x-[-1] tw-mr-2" src="{% static "_images/arrow-circle.svg" %}" alt="" />
-                        <span class="tw-text-base tw-leading-5 tw-font-normal tw-font-sans tw-uppercase">{{ child_page.title }}</span>
-                </button>
-                
-              </div>
-
-              <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-6">
-                {% for grandchild_page in child_page.get_children.specific %}
-                  <div class="tw-flex tw-py-5 tw-px-4 large:tw-px-7 tw-items-center">
-                    <a class="tw-whitespace-normal  tw-text-black hover:tw-no-underline hover:tw-text-blue tw-flex tw-items-center" href="{{ child_page.url }}">
-                      {% with toc_image=grandchild_page.toc_thumbnail_image %}
-                        {% if toc_image %}
-                          {% image toc_image fill-320x320 as thumbnail %}
-                          <img class="tw-w-7 tw-h-7 tw-bg-cover tw-mr-2"
-                            src='{{ thumbnail.url }}'
-                          />
-                        {% endif %}
-                      {% endwith %}
-                      {{ grandchild_page }}
-                    </a>
-
-                    {% if grandchild_page.get_page_titles %}
-                      <button data-expand="{{grandchild_page.title}}"
-                        class="article-header-button
-                              tw-ml-auto
-                              tw-w-5
-                              tw-h-5
-                              tw-grid
-                              tw-place-items-center
-                            tw-bg-white
-                              tw-outline-none
-                              tw-p-0">
-                              <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="" />
-                              <img src="{% static "_images/x-circle.svg" %}" alt="" data-state="close" class="tw-hidden" />
-                      </button>
-                    {% endif %}
-                  </div>
-
-                  {% if grandchild_page.get_page_titles %}
-                    <div class="article-child-menu tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{grandchild_page.title}}">
-                      {% for slug, header in grandchild_page.get_page_titles %}
-                        <div class="tw-flex tw-py-5 tw-px-4 large:tw-px-7 tw-items-center tw-bg-gray-05">
-                          <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue tw-flex tw-items-center" href="{{ grandchild_page.url }}#{{ slug }}">
-                            {{ header }}
-                          </a>
-                        </div>
-                      {% endfor %}
-                    </div>
-                  {% endif %}
-
-                {% endfor %}
-              </div>
+        {% if get_titles or page.is_publication_article %}
+          <div class="dropdown medium:tw-ml-auto medium:tw-mr-4 tw-w-full medium:tw-w-auto tw-px-4 small:tw-px-0">
+            <div class="position-relative medium:tw-ml-5 medium:tw-pl-1">
+              <button class="btn btn-sm btn-link dropdown-toggle article-summary-toggle tw-flex w-100 text-left pl-0" type="button" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="tw-w-[180px] xlarge:tw-w-[325px] tw-mr-auto medium:tw-mr-2 tw-truncate tw-block hover:tw-no-underline">{% trans "Summary" %}</span>
+                <span class="toggle-text tw-w-[75px] tw-text-right tw-mr-3" data-open="{% trans "Show All" %}" data-close="{% trans "Close" %}">{% trans "Show All" %}</span>
+              </button>
             </div>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
+          </div>
+        {% endif %}
+      </div>
     </div>
+    {% include "sticky_dropdown.html" %}
   </div>
 </div>

@@ -1,0 +1,106 @@
+{% load i18n wagtailimages_tags wagtailcore_tags static %}
+
+<div class="
+    tw-absolute 
+    tw-overflow-auto
+    tw-no-scrollbar 
+    d-none 
+    tw-top-[100%] 
+    tw-right-0 
+    tw-w-full 
+    medium:tw-w-[500px]
+  tw-bg-white 
+    tw-border 
+  tw-border-gray-20 
+    article-summary-menu" aria-labelledby="summaryMenu">
+    {% if page.get_parent and page.is_publication_article %}
+    <div class="article-container">
+        <div class="tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-py-[1.4rem] tw-sticky tw-top-0 tw-left-0 tw-bg-white">
+        <div class="tw-text-2xl tw-leading-6 tw-font-zilla">{% trans "Table of Contents" %}</div>
+        <div class="tw-text-sm tw-leading-4 tw-mt-2 tw-text-gray-80">{{ page.get_parent }}</div>
+        </div>
+
+        <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-6">
+        {% for child_page in page.get_parent.get_children.specific %}
+            <div class="tw-flex tw-py-3 first:tw-pt-0 tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-items-center">
+            <a class="tw-whitespace-normal  tw-text-black hover:tw-no-underline hover:tw-text-blue-dark tw-flex tw-items-center tw-mr-3" href="{{ child_page.url }}">
+                
+                    <img class="tw-w-7 tw-h-7 tw-bg-cover tw-mr-4 tw-shrink-0"
+                    {% with toc_image=child_page.toc_thumbnail_image %}
+                    {% if toc_image %}
+                    {% image toc_image fill-320x320 as thumbnail %}
+                    src='{{ thumbnail.url }}'
+                    {% endif %}
+                    {% endwith %}
+                    />
+                
+                {{ child_page }}
+            </a>
+
+            {% if child_page.get_page_titles %}
+                <button data-expand="{{child_page.title}}"
+                class="article-header-button
+                        tw-ml-auto
+                        tw-shrink-0
+                        tw-w-5
+                        tw-h-5
+                        tw-grid
+                        tw-place-items-center
+                      tw-bg-white
+                        tw-outline-none
+                        tw-p-0">
+                        <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="" />
+                        <img src="{% static "_images/minus-circle.svg" %}" alt="" data-state="close" class="tw-hidden" />
+                </button>
+            {% endif %}
+
+            {% if child_page.get_children %}
+                <button data-expand="{{child_page.title}}"
+                class="article-child-button
+                        tw-ml-auto
+                        tw-w-5
+                        tw-h-5
+                        tw-shrink-0
+                        tw-bg-white
+                        tw-grid
+                        tw-place-items-center
+                        tw-outline-none
+                        tw-p-0">
+                        <img src="{% static "_images/arrow-circle.svg" %}" alt="" />
+                </button>
+            {% endif %}
+            </div>
+
+            {% if child_page.get_page_titles %}
+            <div class="article-child-menu tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{child_page.title}}">
+                {% for slug, header in child_page.get_page_titles %}
+                <div class="tw-flex tw-py-3 tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-items-center tw-bg-gray-05">
+                    <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-dark tw-flex tw-items-center" href="{{ child_page.url }}#{{ slug }}">
+                    {{ header }}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        {% endfor %}
+        </div>
+    </div>
+    
+    {% else %}
+    <div class="article-container">
+    <div class="tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-pt-6 tw-text-2xl tw-leading-6 tw-font-zilla">
+        {% trans "Summary" %}
+    </div>
+    <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-6">
+        {% for slug, header in get_titles %}
+        <a class="tw-whitespace-normal tw-py-5 tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-text-black hover:tw-no-underline hover:tw-text-blue" href="#{{ slug }}">{{ header }}</a>
+        {% endfor %}
+    </div>
+    </div>
+    {% endif %}
+
+    {% if page.get_parent and page.is_publication_article %}
+        {% include "publication_child_menu.html" %}
+    {% endif %}
+</div>

@@ -15,19 +15,10 @@ export default () => {
     // sticky nav toggle for scrolling past the header
     const summaryObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.intersectionRatio === 0) {
+        if (entry.intersectionRatio == 0) {
           // Toggle summary block off
           summaryBlock.style.top = "0";
           summaryBlock.setAttribute("aria-hidden", true);
-        } else {
-          // Toggle summary block on
-          summaryBlock.style.top = marginOffset;
-          summaryBlock.setAttribute("aria-hidden", false);
-          dropDownMenu.classList.remove("d-block");
-          articleSummaryToggle.classList.remove("show");
-          document.querySelector(".toggle-text").innerText = document
-            .querySelector(".toggle-text")
-            .getAttribute("data-open");
         }
       });
     });
@@ -55,11 +46,6 @@ export default () => {
     // accordion button toggle
     document.querySelectorAll(".article-header-button").forEach((button) => {
       button.addEventListener("click", () => {
-        console.log(
-          document.querySelectorAll(
-            `.article-child-menu[data-expand="${button.dataset.expand}"]`
-          )
-        );
         document
           .querySelector(
             `.article-child-menu[data-expand="${button.dataset.expand}"]`
@@ -99,13 +85,17 @@ export default () => {
       });
     });
 
-    // we need to calculate the height for the new dropdown menu since it is a absolute element with sticky elements in the way
+    /*
+     * We need to calculate the height for the new dropdown menu since it is a absolute element with sticky elements in the way
+     * If screen is desktop: a max height should be set to cover the page but the height is auto
+     * If screen is mobile: height should be set to cover the page
+     */
     function calcSummaryMenuHeight() {
       const stickyContent = document.querySelector(
         ".wrapper > .sticky-top.d-print-none"
       );
 
-      if (window.matchMedia("(min-width: 992px)").matches) {
+      if (window.matchMedia("(min-width: 768px)").matches) {
         dropDownMenu.style.maxHeight = `calc(100vh - ${stickyContent.offsetHeight}px)`;
         dropDownMenu.style.height = `auto`;
       } else {
@@ -117,6 +107,7 @@ export default () => {
 
     calcSummaryMenuHeight();
 
+    // Helps for testing other mobile screens with dev-tools without refreshing the page
     window.onresize = calcSummaryMenuHeight;
   }
 };
