@@ -11,7 +11,13 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['research_detail_pages'] = self.get_research_detail_pages()
+
+        search_query = request.GET.get('search', '')
+        context['search_query'] = search_query
+
+        context['research_detail_pages'] = self.get_research_detail_pages(
+            search=search_query
+        )
         return context
 
     def get_research_detail_pages(self, *, search=''):
