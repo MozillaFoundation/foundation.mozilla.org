@@ -8,6 +8,10 @@
 @import "../../node_modules/swiper/components/effect-fade/effect-fade.scss";
 
 body.mozfest {
+  .tito-widget-button {
+    background: unset;
+    color: unset;
+  }
   .primary-nav-container {
     // The following overrides are to make sure
     // 1) MozFest logo shows up larger than the default Mozilla logo that we have on the main site
