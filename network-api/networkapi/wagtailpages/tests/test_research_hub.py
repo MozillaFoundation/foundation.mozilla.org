@@ -1,5 +1,6 @@
 import datetime
 import http
+import unittest
 
 from django import test
 from django.core import exceptions
@@ -462,12 +463,24 @@ class TestResearchLibraryPage(ResearchHubTestCase):
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
 
+    @unittest.expectedFailure
     def test_get_research_detail_pages_search_by_author_name(self):
         '''
         Test detail page can be searched by author profile name.
 
         While it will also be possible to filter by author name, it would seem odd
         that the main author names can not be searched, while the collaborators can.
+
+        Foreign key relations can be indexed for Wagtail search with
+        `index.RelatedFields`. This does unfortunately not work for models related with
+        a through model. For through model relations to be indexable, we would need
+        to create a callable or attribute and index that. That functionality is only
+        available with the ElasticSearch backend. Therefore, until we switch the search
+        backend, this test is marked as an expected failure.
+
+        See also:
+        https://docs.wagtail.org/en/stable/topics/search/indexing.html#indexing-callables-and-other-attributes
+
         '''
         apple_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
