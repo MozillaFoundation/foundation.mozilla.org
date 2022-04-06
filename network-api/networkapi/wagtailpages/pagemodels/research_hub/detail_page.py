@@ -126,4 +126,5 @@ class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtai
         index.SearchField('introduction'),
         index.SearchField('overview'),
         index.SearchField('collaborators'),
+        index.FilterField('original_publication_date'),  # For sorting
     ]

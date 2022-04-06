@@ -539,12 +539,49 @@ class TestResearchLibraryPage(ResearchHubTestCase):
             )
         )
 
-        self.assertEqual(len(research_detail_pages), 2)
         newest_page_index = research_detail_pages.index(newest_page)
         oldest_page_index = research_detail_pages.index(oldest_page)
         self.assertLess(newest_page_index, oldest_page_index)
 
+    def test_get_research_detail_pages_sort_oldest_first(self):
+        oldest_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=days_ago(2)
+        )
+        newest_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=days_ago(1)
+        )
+
+        research_detail_pages = list(
+            self.library_page.get_research_detail_pages(
+                sort=self.library_page.SORT_OLDEST_FIRST
+            )
+        )
+
+        newest_page_index = research_detail_pages.index(newest_page)
+        oldest_page_index = research_detail_pages.index(oldest_page)
+        self.assertLess(oldest_page_index, newest_page_index)
+
     # TODO: Newest first is default sort order
+    def test_get_research_detail_pages_sort_default(self):
+        oldest_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=days_ago(2)
+        )
+        newest_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=days_ago(1)
+        )
+
+        default_sort_result = list( self.library_page.get_research_detail_pages())
+        newest_first_result = list(
+            self.library_page.get_research_detail_pages(
+                sort=self.library_page.SORT_NEWEST_FIRST
+            )
+        )
+
+        self.assertEqual(default_sort_result, newest_first_result)
 
 
 class TestResearchDetailLink(test.TestCase):
