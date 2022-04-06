@@ -75,7 +75,7 @@ class TestResearchAuthorIndexPage(ResearchHubTestCase):
         cls.detail_page = research_factory.ResearchDetailPageFactory(
             parent=cls.library_page,
             original_publication_date=(
-                datetime.date.today() - datetime.timedelta(days=14)
+                days_ago(n=14)
             ),
 
         )
@@ -201,19 +201,19 @@ class TestResearchAuthorIndexPage(ResearchHubTestCase):
         detail_page_1 = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=(
-                datetime.date.today() - datetime.timedelta(days=3)
+                days_ago(n=3)
             ),
         )
         detail_page_2 = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=(
-                datetime.date.today() - datetime.timedelta(days=2)
+                days_ago(n=2)
             ),
         )
         detail_page_3 = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=(
-                datetime.date.today() - datetime.timedelta(days=1)
+                days_ago(n=1)
             ),
         )
         research_factory.ResearchAuthorRelationFactory(
@@ -523,6 +523,27 @@ class TestResearchLibraryPage(ResearchHubTestCase):
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
 
+    def test_get_research_detail_pages_sort_newest_first(self):
+        oldest_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=days_ago(2)
+        )
+        newest_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=days_ago(1)
+        )
+
+        research_detail_pages = list(
+            self.library_page.get_research_detail_pages(
+                sort=self.library_page.SORT_NEWEST_FIRST
+            )
+        )
+
+        self.assertEqual(len(research_detail_pages), 2)
+        newest_page_index = research_detail_pages.index(newest_page)
+        oldest_page_index = research_detail_pages.index(oldest_page)
+        self.assertLess(newest_page_index, oldest_page_index)
+
 
 class TestResearchDetailLink(test.TestCase):
     def test_clean_with_url(self):
@@ -555,3 +576,7 @@ class TestResearchDetailLink(test.TestCase):
 
         with self.assertRaises(exceptions.ValidationError):
             link.clean()
+
+
+def days_ago(n: int):
+    return datetime.date.today() - datetime.timedelta(days=n)
