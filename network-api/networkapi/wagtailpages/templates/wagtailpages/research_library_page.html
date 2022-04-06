@@ -15,6 +15,16 @@
           <strong>{{ research_detail_pages.count }}</strong> results for "{{ search_query }}"
       </div>
     {% endif %}
+    <div>
+        <form action="" method="get" accept-charset="utf-8">
+          <select name="sort" class="tw-inline-block tw-form-control tw-w-1/2">
+            {% for choice in page.SORT_CHOICES.values  %}
+              <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit" class="tw-btn-primary">Sort</button>
+        </form>
+    </div>
   </div>
   <ul>
     {% for research_detail_page in research_detail_pages  %}
