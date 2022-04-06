@@ -604,16 +604,16 @@ class TestResearchLibraryPage(ResearchHubTestCase):
         self.assertLess(banana_page_index, apple_page_index)
 
     def test_get_research_detail_pages_sort_default(self):
-        oldest_page = research_factory.ResearchDetailPageFactory(
+        research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=days_ago(2)
         )
-        newest_page = research_factory.ResearchDetailPageFactory(
+        research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=days_ago(1)
         )
 
-        default_sort_result = list( self.library_page.get_research_detail_pages())
+        default_sort_result = list(self.library_page.get_research_detail_pages())
         newest_first_result = list(
             self.library_page.get_research_detail_pages(
                 sort=self.library_page.SORT_NEWEST_FIRST

@@ -14,6 +14,7 @@ SortOption = collections.namedtuple(
     ['label', 'value', 'order_by_value']
 )
 
+
 class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagtail_models.Page):
     max_count = 1
     parent_page_types = ['ResearchLandingPage']
@@ -25,7 +26,7 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         order_by_value='-original_publication_date',
     )
     SORT_OLDEST_FIRST = SortOption(
-        label= _('Oldest first'),
+        label=_('Oldest first'),
         value='oldest-first',
         order_by_value='original_publication_date',
     )
@@ -74,7 +75,7 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         if search:
             research_detail_pages = research_detail_pages.search(
                 search,
-                order_by_relevance=False, # To preserve original ordering
+                order_by_relevance=False,  # To preserve original ordering
             )
 
         return research_detail_pages
