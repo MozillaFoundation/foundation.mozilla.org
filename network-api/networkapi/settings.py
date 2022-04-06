@@ -520,6 +520,14 @@ WAGTAILEMBEDS_FINDERS = [
     }
 ]
 
+# Wagtail search
+
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.search.backends.database',
+    }
+}
+
 # Rest Framework Settings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
