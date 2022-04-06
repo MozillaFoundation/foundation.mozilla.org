@@ -9,6 +9,8 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
     parent_page_types = ['ResearchLandingPage']
     subpage_types = ['ResearchDetailPage']
 
+    SORT_NEWEST_FIRST = '-original_publication_date'
+
     def get_context(self, request):
         context = super().get_context(request)
 
@@ -20,12 +22,13 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         )
         return context
 
-    def get_research_detail_pages(self, *, search=''):
+    def get_research_detail_pages(self, *, search='', sort=None):
         ResearchDetailPage = apps.get_model('wagtailpages', 'ResearchDetailPage')
         active_locale = wagtail_models.Locale.get_active()
 
         research_detail_pages = ResearchDetailPage.objects.live()
         research_detail_pages = research_detail_pages.filter(locale=active_locale)
+        research_detail_pages = research_detail_pages.order_by(self.SORT_NEWEST_FIRST)
         if search:
             research_detail_pages = research_detail_pages.search(search)
 

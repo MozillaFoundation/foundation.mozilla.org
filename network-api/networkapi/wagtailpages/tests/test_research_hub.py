@@ -544,6 +544,8 @@ class TestResearchLibraryPage(ResearchHubTestCase):
         oldest_page_index = research_detail_pages.index(oldest_page)
         self.assertLess(newest_page_index, oldest_page_index)
 
+    # TODO: Newest first is default sort order
+
 
 class TestResearchDetailLink(test.TestCase):
     def test_clean_with_url(self):
