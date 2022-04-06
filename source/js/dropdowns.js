@@ -8,6 +8,17 @@ const Dropdowns = {
           `[aria-labelledby="${element.id}"]`
         );
         target.classList.toggle("d-block");
+
+        const toggleText = document.querySelector(".toggle-text");
+
+        if (!toggleText) {
+          return;
+        }
+        if (element.classList.contains("show")) {
+          toggleText.innerText = toggleText.getAttribute("data-close");
+        } else {
+          toggleText.innerText = toggleText.getAttribute("data-open");
+        }
       })
     );
 
