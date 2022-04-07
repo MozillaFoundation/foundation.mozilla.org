@@ -33,7 +33,7 @@ export default () => {
         const outro = gsap.timeline({
           onComplete: () => {
             sessionStorage.setItem("contScrolling", "true");
-            window.location =
+            window.location.href =
               document.querySelector(".cont-scrolling").dataset.href;
           },
         });
@@ -50,10 +50,13 @@ export default () => {
           duration: 0.2,
           delay: 0.3,
         });
-        outro.set("main > div:not(.cont-scrolling),.primary-nav-container", {
-          display: "none",
-          autoAlpha: 0,
-        });
+        outro.set(
+          "main > div:not(.cont-scrolling),.primary-nav-container,.article-navbar-container",
+          {
+            display: "none",
+            autoAlpha: 0,
+          }
+        );
         outro.set("main", {
           height: "100vh",
         });
