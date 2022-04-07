@@ -1,0 +1,11 @@
+{% load i18n %}
+<div class="cont-scrolling tw-w-full tw-h-screen tw-bg-blue-lightest tw-sticky tw-z-[2000] tw-overflow-hidden" data-href="{{ page.next_page.url }}">
+  <div class="tw-container tw-py-6">
+    <div class="tw-flex tw-flex-col tw-justify-center tw-items-center tw-text-black" >
+      <div class="tw-font-sans tw-text-xs tw-uppercase tw-mb-3 tw-tracking-wide">{% trans "Keep Scrolling For" %}</div>
+      <a href="{{ page.next_page.url }}" class="tw-font-zilla tw-text-3xl tw-text-black hover:tw-text-blue-dark hover:tw-no-underline">{{ page.next_page.title }}</a>
+    </div>
+  </div>
+  <div class="tw-w-full tw-h-screen tw-bg-white tw-translate-y-full tw-absolute tw-top-0 tw-right-0 outro-screen"></div>
+</div>
+

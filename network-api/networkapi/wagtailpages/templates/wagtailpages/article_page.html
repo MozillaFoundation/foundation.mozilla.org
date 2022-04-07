@@ -11,6 +11,15 @@
 
 {% block content %}
 
+<div class="tw-bg-white tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-screen tw-z-[1999] page-enter-transition"></div>
+<noscript>
+    <style type="text/css">
+        .page-enter-transition.tw-bg-white.tw-absolute {
+            display: none !important;
+        }
+    </style>
+</noscript>
+
 {% if page.hero_layout != "static" %}
   {% include "./fragments/article_hero.html" with page=page download_file=page.article_file is_publication_article=page.is_publication_article %}
 {% else %}
@@ -52,6 +61,7 @@
     {% include "fragments/footnotes.html" %}
   {% endif %}
 
+  {% if page.next_page == None or page.is_publication_article == False %}
   <div class="container my-5">
     <div class="row pt-5">
       <div class="col-sm-8 offset-sm-2 pt-4">
@@ -61,9 +71,16 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
   <!-- If this is a child of a publication, we want to render the next buttons -->
-  {% if page.is_publication_article %}
-    {% include "fragments/article_prev_next.html" with prev_page=page.prev_page next_page=page.next_page %}
+  {% if page.is_publication_article and page.next_page %}
+    {% include "fragments/continuous_scrolling_next.html" with prev_page=page.prev_page next_page=page.next_page %}
+  {% endif %}
+{% endblock %}
+
+{% block footer_block %}
+  {% if page.next_page == None or page.is_publication_article == False %}
+    {% include "../partials/footer.html" %}
   {% endif %}
 {% endblock %}
