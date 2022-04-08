@@ -1,0 +1,70 @@
+{% load i18n wagtailimages_tags wagtailcore_tags static %}
+{% for child_page in page.get_parent.get_children.specific %}
+        {% if child_page.get_children %}
+        <div class="article-child-container tw-hidden" data-child="{{ child_page.title }}">
+            <div class="tw-flex tw-items-center tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-py-3 tw-bg-gray-05">
+            <button
+                class="article-child-button
+                    tw-h-5
+                    tw-shrink-0
+                    tw-flex
+                    tw-bg-gray-05
+                    tw-items-center
+                    tw-outline-none
+                    tw-p-0">
+                    <img class="tw-scale-x-[-1] tw-mr-2" src="{% static "_images/arrow-circle.svg" %}" alt="" />
+                    <span class="tw-text-xs tw-leading-5 tw-font-normal tw-font-sans tw-uppercase tw-truncate tw-max-w-sm">{{ child_page.title }}</span>
+            </button>
+            
+            </div>
+
+            <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-6">
+            {% for grandchild_page in child_page.get_children.specific %}
+                <div class="tw-flex tw-py-3 tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-items-center">
+                <a class="tw-whitespace-normal  tw-text-black hover:tw-no-underline hover:tw-text-blue-dark tw-flex tw-items-center tw-mr-3" href="{{ child_page.url }}">
+                    <img class="tw-w-7 tw-h-7 tw-bg-cover tw-mr-4 tw-shrink-0"
+                        {% with toc_image=grandchild_page.toc_thumbnail_image %}
+                        {% if toc_image %}
+                        {% image toc_image fill-320x320 as thumbnail %}
+                        src='{{ thumbnail.url }}'
+                        {% endif %}
+                        {% endwith %}
+                    />
+                    {{ grandchild_page }}
+                </a>
+
+                {% if grandchild_page.get_page_titles %}
+                    <button data-expand="{{grandchild_page.title}}"
+                    class="article-header-button
+                            tw-shrink-0
+                            tw-ml-auto
+                            tw-w-5
+                            tw-h-5
+                            tw-grid
+                            tw-place-items-center
+                        tw-bg-white
+                            tw-outline-none
+                            tw-p-0">
+                            <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="" />
+                            <img src="{% static "_images/minus-circle.svg" %}" alt="" data-state="close" class="tw-hidden" />
+                    </button>
+                {% endif %}
+                </div>
+
+                {% if grandchild_page.get_page_titles %}
+                <div class="article-child-menu tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{grandchild_page.title}}">
+                    {% for slug, header in grandchild_page.get_page_titles %}
+                    <div class="tw-flex tw-py-3 tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-items-center tw-bg-gray-05">
+                        <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-dark tw-flex tw-items-center" href="{{ grandchild_page.url }}#{{ slug }}">
+                        {{ header }}
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+            {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}

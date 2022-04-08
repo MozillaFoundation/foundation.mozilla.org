@@ -1,34 +1,28 @@
-{% load i18n %}
+{% load i18n wagtailimages_tags wagtailcore_tags static %}
 
 <div class="article-navbar-container" aria-hidden="true">
   <div class="article-navbar">
-    <div class="container">
-      <div class="row">
-        <div class="{% if get_titles %}col-lg-8{% else %}col-lg-12{% endif %} d-lg-flex d-none">
-          <div class="article-navbar-title tw-body-large">
-            {% if get_titles %}
-              {{ page.title|truncatechars:60 }}
-            {% else %}
-              {{ page.title|truncatechars:120 }}
-            {% endif %}
-          </div>
+    <div class="tw-container">
+      <div class="tw-row tw-items-end">
+        <div class="article-navbar-title tw-body-large tw-capitalize tw-pl-4 tw-hidden medium:tw-block tw-w-[350px] large:tw-w-auto tw-truncate">
+          {% if get_titles %}
+            {{ page.title|truncatechars:60 }} 
+          {% else %}
+            {{ page.title|truncatechars:120 }}
+          {% endif %}
         </div>
-        <div class="{% if get_titles %}col-lg-4{% else %}d-none{% endif %}">
-          <div class="dropdown">
-          <div class="position-relative mx-4 pl-1">
-            <button class="btn btn-sm btn-link dropdown-toggle article-summary-toggle d-block w-100 text-left pl-0" type="button" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {% trans "Summary" %}
-            </button>
-          </div>
-
-            <div class="dropdown-menu dropdown-menu-right w-100 article-summary-menu" aria-labelledby="summaryMenu">
-              {% for slug, header in get_titles %}
-                <a class="dropdown-item text-wrap" href="#{{ slug }}">{{ header }}</a>
-              {% endfor %}
+        {% if get_titles or page.is_publication_article %}
+          <div class="dropdown medium:tw-ml-auto medium:tw-mr-4 tw-w-full medium:tw-w-auto tw-px-4 small:tw-px-0">
+            <div class="position-relative medium:tw-ml-5 medium:tw-pl-1">
+              <button class="btn btn-sm btn-link dropdown-toggle article-summary-toggle tw-flex w-100 text-left pl-0" type="button" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="tw-w-[180px] xlarge:tw-w-[325px] tw-mr-auto medium:tw-mr-2 tw-truncate tw-block hover:tw-no-underline">{% trans "Summary" %}</span>
+                <span class="toggle-text tw-w-[75px] tw-text-right tw-mr-3" data-open="{% trans "Show All" %}" data-close="{% trans "Close" %}">{% trans "Show All" %}</span>
+              </button>
             </div>
           </div>
-        </div>
+        {% endif %}
       </div>
     </div>
+    {% include "sticky_dropdown.html" %}
   </div>
 </div>
