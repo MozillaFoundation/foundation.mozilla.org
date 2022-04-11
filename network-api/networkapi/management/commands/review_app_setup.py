@@ -1,79 +1,69 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 import os
-import boto3
 import heroku3
+import requests
 
 from wagtail.core.models import Site
 
-ROUTE_53_ZONE = settings.REVIEW_APP_ROUTE_53_ZONE
+REVIEW_APP_DOMAIN = settings.REVIEW_APP_DOMAIN
+CLOUDFLARE_ZONE_ID = settings.REVIEW_APP_CLOUDFLARE_ZONE_ID
+CLOUDFLARE_TOKEN = settings.REVIEW_APP_CLOUDFLARE_TOKEN
 HEROKU_API_KEY = settings.REVIEW_APP_HEROKU_API_KEY
-AWS_ACCESS_KEY_ID = settings.REVIEW_APP_AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY = settings.REVIEW_APP_AWS_SECRET_ACCESS_KEY
+
+
+class CloudflareAPI:
+    CLOUDFLARE_API_BASE = "https://api.cloudflare.com/client/v4/"
+
+    def _build_headers(self):
+        return {
+            "Authorization": f"Bearer {CLOUDFLARE_TOKEN}",
+        }
+
+    def create_record(self, *, zone, hostname, type, content):
+        payload = {
+            "type": type,
+            "name": hostname,
+            "content": content,
+        }
+        r = requests.post(
+            f"{self.CLOUDFLARE_API_BASE}zones/{zone}/dns_records",
+            json=payload,
+            headers=self._build_headers(),
+        )
+        r.raise_for_status()
+        return r.json()
+
+    def delete_record(self, *, zone, record_id):
+        r = requests.delete(
+            f"{self.CLOUDFLARE_API_BASE}zones/{zone}/dns_records/{record_id}",
+            headers=self._build_headers(),
+        )
+        r.raise_for_status()
+        return r.json()
+
+    def get_records(self, *, zone):
+        r = requests.get(
+            f"{self.CLOUDFLARE_API_BASE}/zones/{CLOUDFLARE_ZONE_ID}/dns_records",
+            headers=self._build_headers(),
+        )
+        r.raise_for_status()
+        return r.json()
 
 
 class Command(BaseCommand):
-    help = "Create DNS records for review apps in Route 53"
-
-    def get_route53_client(self):
-        if not AWS_ACCESS_KEY_ID or not AWS_SECRET_ACCESS_KEY:
-            raise CommandError(
-                "REVIEW_APP_AWS_ACCESS_KEY_ID and REVIEW_APP_SECRET_ACCESS_KEY must be set"
-            )
-
-        return boto3.client(
-            "route53",
-            aws_access_key_id=AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-        )
+    help = "Create DNS records for review apps in Cloudflare"
 
     def get_domain_site_mapping(self):
-        """ Return a mapping of Site object names to the hostname that should be created for them """
+        """Return a mapping of Site object names to the hostname that should be created for them"""
         app_name = os.environ.get("HEROKU_APP_NAME")
         return {
-            "Foundation Home Page": f"{app_name}.{ROUTE_53_ZONE}",
-            "Mozilla Festival": f"mozfest-{app_name}.{ROUTE_53_ZONE}",
+            "Foundation Home Page": f"{app_name}.{REVIEW_APP_DOMAIN}",
+            "Mozilla Festival": f"mozfest-{app_name}.{REVIEW_APP_DOMAIN}",
         }
 
-    def get_hosted_zone_id(self):
-        """ Get the Route 53 hosted zone from AWS based on the name given in REVIEW_APP_ROUTE_53_ZONE """
-        client = self.get_route53_client()
-        zones = client.list_hosted_zones_by_name(DNSName=ROUTE_53_ZONE)
-
-        if not zones or not zones["HostedZones"]:
-            raise CommandError(
-                "Failed to retrieve Route 53 zone. Make sure REVIEW_APP_ROUTE_53_ZONE is set correctly."
-            )
-
-        if zones["HostedZones"][0]["Name"] != ROUTE_53_ZONE + ".":
-            raise CommandError("AWS API returned mismatched domain for review app")
-
-        return zones["HostedZones"][0]["Id"]
-
-    def do_dns_changes(self, mapping, action="CREATE"):
-        """ Given a mapping of hostnames to their target CNAME,
-        follow the given action to make these changes in Route 53
-        """
-        zone_id = self.get_hosted_zone_id()
-        client = self.get_route53_client()
-        changes = [
-            {
-                "Action": action,
-                "ResourceRecordSet": {
-                    "Name": hostname,
-                    "ResourceRecords": [{"Value": target}],
-                    "TTL": 60,
-                    "Type": "CNAME",
-                },
-            }
-            for hostname, target in mapping.items()
-        ]
-        client.change_resource_record_sets(
-            HostedZoneId=zone_id, ChangeBatch={"Changes": changes},
-        )
-
     def add_dns_records(self):
-        """ Prepare records to be added for each review app Site required """
+        """Prepare records to be added for each review app Site required"""
         heroku = heroku3.from_key(HEROKU_API_KEY)
         app_name = os.environ.get("HEROKU_APP_NAME")
         app = heroku.apps()[app_name]
@@ -103,23 +93,31 @@ class Command(BaseCommand):
                 method="POST", resource=("apps", app.id, "acm")
             ).raise_for_status()
 
-        self.do_dns_changes(mapping)
+        cloudflare = CloudflareAPI()
+        for hostname, target in mapping.items():
+            cloudflare.create_record(
+                zone=CLOUDFLARE_ZONE_ID, hostname=hostname, type="CNAME", content=target
+            )
 
     def remove_dns_records(self):
-        """ Prepare records to be removed for each review app Site """
+        """Prepare records to be removed for each review app Site"""
         app_name = os.environ.get("HEROKU_APP_NAME")
         heroku = heroku3.from_key(HEROKU_API_KEY)
         app = heroku.apps()[app_name]
         heroku_domains = app.domains()
 
-        mapping = {
-            domain.hostname: domain.cname for domain in heroku_domains if domain.cname
+        cloudflare = CloudflareAPI()
+        existing_records = cloudflare.get_records(zone=CLOUDFLARE_ZONE_ID)
+        existing_records_by_name = {
+            record["name"]: record["id"] for record in existing_records
         }
 
-        self.do_dns_changes(mapping, action="DELETE")
+        for domain in heroku_domains:
+            record_id = existing_records_by_name.get(domain.hostname)
+            cloudflare.delete_record(zone=CLOUDFLARE_ZONE_ID, record_id=record_id)
 
     def update_site_hostnames(self):
-        """ Find the relevant sites in Wagtail and update their hostnames to the new domains """
+        """Find the relevant sites in Wagtail and update their hostnames to the new domains"""
         domain_site_mapping = self.get_domain_site_mapping()
         for site_name, domain in domain_site_mapping.items():
             site = Site.objects.get(site_name=site_name)
@@ -133,9 +131,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         action = options["action"]
 
-        if not HEROKU_API_KEY or not ROUTE_53_ZONE:
+        if not HEROKU_API_KEY or not REVIEW_APP_DOMAIN:
             raise CommandError(
-                "Please set REVIEW_APP_HEROKU_API_KEY and REVIEW_APP_ROUTE_53_ZONE"
+                "Please set REVIEW_APP_HEROKU_API_KEY and REVIEW_APP_DOMAIN"
             )
 
         if action == "create":
