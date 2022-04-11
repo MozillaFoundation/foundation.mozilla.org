@@ -1,1 +1,43 @@
 {% extends "./research_base.html" %}
+{% load wagtailcore_tags %}
+
+{% block subcontent %}
+  <h1>{{ page.title }}</h1>
+  <div>
+    <form action="" method="get" accept-charset="utf-8">
+      <input type="text" value="{{ search_query }}" name="search" id="search" class="tw-inline-block form-control tw-w-1/2 tw-rounded-none" />
+      <input type="hidden" value="{{ sort.value }}" name="sort"/>
+      <button type="submit" class="tw-btn-primary">Search</button>
+    </form>
+  </div>
+  <div>
+    {% if search_query %}
+      <div>
+          <strong>{{ research_detail_pages.count }}</strong> results for "{{ search_query }}"
+      </div>
+    {% endif %}
+    <div>
+        <form action="" method="get" accept-charset="utf-8">
+          <input type="hidden" value="{{ search_query }}" name="search"/>
+          <select name="sort" class="tw-inline-block tw-form-control tw-w-1/2">
+            {% for choice in page.SORT_CHOICES.values  %}
+              <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit" class="tw-btn-primary">Sort</button>
+        </form>
+    </div>
+  </div>
+  <ul>
+    {% for research_detail_page in research_detail_pages  %}
+      <li>
+        <h2><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h2>
+        <div>
+          {{ research_detail_page.original_publication_date }}
+        </div>
+        <p>{{ research_detail_page.introduction }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock subcontent %}

@@ -6,6 +6,7 @@ from wagtail.documents import edit_handlers as docs_handlers
 from wagtail.admin import edit_handlers
 from wagtail.core import fields as wagtail_fields
 from wagtail.core import models as wagtail_models
+from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
@@ -119,4 +120,11 @@ class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtai
         localize_fields.TranslatableField('collaborators'),
         localize_fields.TranslatableField('related_topics'),
         localize_fields.TranslatableField('related_regions'),
+    ]
+
+    search_fields = wagtail_models.Page.search_fields + [
+        index.SearchField('introduction'),
+        index.SearchField('overview'),
+        index.SearchField('collaborators'),
+        index.FilterField('original_publication_date'),  # For sorting
     ]
