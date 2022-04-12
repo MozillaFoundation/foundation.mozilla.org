@@ -1,5 +1,7 @@
 import unittest
 
+from django.utils import translation
+
 from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages.factory import research_hub as research_factory
 from networkapi.wagtailpages.tests.research_hub import base as research_test_base
@@ -320,3 +322,57 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
 
     # TODO: Don't duplicates of the profiles from other locales
+    def test_research_author_in_context_aliased_detail_fr(self):
+        detail_page_en = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        self.synchronize_tree()
+        translation.activate(self.fr_locale.language_code)
+        detail_page_fr = detail_page.localized
+
+        response = self.client.get(self.library_page.localized.url)
+
+        self.assertIn(
+            detail_page_en.research_authors.first().author_profile,
+            response.context['research_authors'],
+        )
+
+    def test_research_author_in_context_translated_detail_fr(self):
+        detail_page_en = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        self.synchronize_tree()
+        detail_page_fr = translate_detail_page(detail_page_en, self.fr_locale)
+        translation.activate(self.fr_locale.language_code)
+
+        response = self.client.get(self.library_page.localized.url)
+
+        self.assertNotIn(
+            detail_page_en.research_authors.first().author_profile,
+            response.context['research_authors'],
+        )
+        self.assertIn(
+            detail_page_fr.research_authors.first().author_profile,
+            response.context['research_authors'],
+        )
+
+    # TODO: Filtering for localized value will show detail pages associated with localized value or origninal value, but preferes localized value. Just like the author detail page.
+    #       This is necessary, because the detail page might be alias, but not translated. That means the detail page exists in the current locale but it is still associate with the author/region/topic of the default locale
+
+# TODO: Move to helper module and use in test_author_index
+def translate_detail_page(detail_page, locale):
+    # Requires previous tree synchronization
+    trans_detail_page = detail_page.get_translation(locale)
+
+    for research_author_trans in trans_detail_page.research_authors.all():
+        # The through model is already for the new locale after the tree sync,
+        # but the related model is not.
+        author_profile_orig = research_author_trans.author_profile
+        author_profile_trans = author_profile_orig.copy_for_translation(locale)
+        author_profile_trans.save()
+        research_author_trans.author_profile = author_profile_trans
+        research_author_trans.save()
+
+    trans_detail_page.alias_of = None
+    trans_detail_page.save()
+    return trans_detail_page
