@@ -75,6 +75,12 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
             names.append(faker.name())
         return "; ".join(names)
 
+    research_authors = factory.RelatedFactoryList(
+        factory='networkapi.wagtailpages.factory.research_hub.ResearchAuthorRelationFactory',
+        factory_related_name='research_detail_page',
+        size=1,
+    )
+
 
 class ResearchRegionFactory(factory.django.DjangoModelFactory):
     class Meta:
