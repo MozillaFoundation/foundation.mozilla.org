@@ -296,3 +296,27 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
 
         self.assertEqual(default_sort_result, newest_first_result)
+
+    def test_research_author_in_context(self):
+        detail_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+
+        response = self.client.get(self.library_page.url)
+
+        self.assertIn(
+            detail_page.research_authors.first().author_profile,
+            response.context['research_authors'],
+        )
+
+    def test_non_research_author_profile_not_in_context(self):
+        profile = profiles_factory.ProfileFactory()
+
+        response = self.client.get(self.library_page.url)
+
+        self.assertNotIn(
+            profile,
+            response.context['research_authors'],
+        )
+
+    # TODO: Don't duplicates of the profiles from other locales
