@@ -310,7 +310,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         self.assertIn(
             detail_page.research_authors.first().author_profile,
-            response.context['research_authors'],
+            response.context['author_options'],
         )
 
     def test_non_research_author_profile_not_in_context(self):
@@ -320,7 +320,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         self.assertNotIn(
             profile,
-            response.context['research_authors'],
+            response.context['author_options'],
         )
 
     def test_research_author_in_context_aliased_detail_page_fr(self):
@@ -340,7 +340,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         self.assertIn(
             profile_en,
-            response.context['research_authors'],
+            response.context['author_options'],
         )
 
     def test_research_author_in_context_translated_detail_page_fr(self):
@@ -362,11 +362,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         self.assertNotIn(
             profile_en,
-            response.context['research_authors'],
+            response.context['author_options'],
         )
         self.assertIn(
             profile_fr,
-            response.context['research_authors'],
+            response.context['author_options'],
         )
 
     # TODO: Filtering for localized value will show detail pages associated with localized value or origninal value, but preferes localized value. Just like the author detail page.

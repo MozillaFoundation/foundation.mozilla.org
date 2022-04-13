@@ -59,14 +59,20 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         sort = self.SORT_CHOICES.get(sort_value, self.SORT_NEWEST_FIRST)
         context['sort'] = sort
 
+        author_options = profile_models.Profile.objects.filter_research_authors()
+        author_options = utils.localize_queryset(author_options.order_by('name'))
+        context['author_options'] = author_options
+
+        filtered_author_ids = [
+            int(author_id) for author_id in request.GET.getlist('author')
+        ]
+        context['filtered_author_ids'] = filtered_author_ids
+
         context['research_detail_pages'] = self.get_research_detail_pages(
             search=search_query,
             sort=sort,
         )
 
-        research_authors = profile_models.Profile.objects.filter_research_authors()
-        research_authors = utils.localize_queryset(research_authors)
-        context['research_authors'] = research_authors
         return context
 
     def get_research_detail_pages(self, *, search='', sort=None):

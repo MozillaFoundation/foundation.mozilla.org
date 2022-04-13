@@ -11,6 +11,15 @@
     </form>
   </div>
   <div>
+    <form action="" method="get" accept-charset="utf-8">
+      {% for author in author_options %}
+        <input type="checkbox" value="{{ author.id }}" name="author" id="author-option-{{ author.id }}" {% if author.id in filtered_author_ids %}checked{% endif %}/>
+        <label for="author-option-{{ author.id }}">{{ author.name }}</label>
+      {% endfor %}
+      <button type="submit" class="tw-btn-primary">Apply Filter</button>
+    </form>
+  </div>
+  <div>
     {% if search_query %}
       <div>
           <strong>{{ research_detail_pages.count }}</strong> results for "{{ search_query }}"
