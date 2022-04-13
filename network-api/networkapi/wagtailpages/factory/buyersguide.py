@@ -158,6 +158,7 @@ class GeneralProductPageFactory(ProductPageFactory):
     company_track_record = get_random_option(['Great', 'Average', 'Needs Improvement', 'Bad'])
     track_record_is_bad = Faker('boolean')
     track_record_details = Faker('sentence')
+    child_safety_blurb = Faker('sentence')
     offline_capable = LazyFunction(get_extended_yes_no_value)
     offline_use_description = Faker('sentence')
     uses_ai = LazyFunction(get_extended_yes_no_value)
@@ -207,6 +208,7 @@ def create_general_product_visual_regression_product(seed, pni_homepage):
         company_track_record='Needs Improvement',
         track_record_is_bad=True,
         track_record_details='<p> What kind of track record are we talking about? </p>',
+        child_safety_blurb='<p> This is the child safety blurb! </p>',
         offline_capable='Yes',
         offline_use_description='<p> Although it is unclear how offline capabilities work </p>',
         uses_ai='NA',
