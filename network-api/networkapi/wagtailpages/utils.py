@@ -13,9 +13,8 @@ from itertools import chain
 from django import forms
 from django.apps import apps
 from django.conf import settings
-
 from django.core.files.images import ImageFile
-from django.db.models import Count
+from django.db.models import Case, Count, Q, When
 from django.urls import LocalePrefixPattern, URLResolver
 from django.utils.text import slugify
 from django.utils.safestring import mark_safe
@@ -25,7 +24,6 @@ from django.utils.translation.trans_real import (
     get_supported_language_variant, parse_accept_lang_header, language_code_re
 )
 from sentry_sdk import capture_exception
-
 from wagtail.images.models import Image
 from wagtail.core.models import Collection, Locale
 
@@ -318,6 +316,40 @@ def get_language_from_request(request, check_path=True):
         return get_supported_language_variant(settings.LANGUAGE_CODE)
     except LookupError:
         return settings.LANGUAGE_CODE
+
+
+def localize_queryset(queryset):
+    '''
+    Localize the given queryset.
+
+    Localizing the queryset means that for each item, we check if there is a version
+    of it in the active locale. If it exists, then we use that one. If not, then we
+    fallback to the items equivalent in the default locale.
+
+    In the end, there is only one version of each item, either from the current or the
+    default locale. Items are considered the same when they have the same
+    `translation_key`.
+
+    '''
+    default_locale = Locale.get_default()
+    active_locale = Locale.get_active()
+
+    queryset = queryset.filter(
+        Q(locale=default_locale) | Q(locale=active_locale)
+    )
+    queryset = queryset.annotate(
+        locale_is_default=Case(
+            When(locale=default_locale, then=True),
+            default=False,
+        )
+    )
+    queryset = queryset.order_by(
+        'translation_key',
+        'locale_is_default',
+    )
+    queryset = queryset.distinct('translation_key')
+    return queryset
+
 
 
 def get_plaintext_titles(request, stream_data, stream_block_name):

@@ -7,6 +7,7 @@ from wagtail.contrib.routable_page import models as routable_models
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.research_hub import detail_page
+from networkapi.wagtailpages import utils
 
 
 class ResearchAuthorsIndexPage(
@@ -19,28 +20,13 @@ class ResearchAuthorsIndexPage(
 
     def get_context(self, request):
         context = super().get_context(request)
+        author_profiles = profiles.Profile.objects.all()
+        author_profiles = author_profiles.filter_research_authors()
         # When the index is displayed in a non-default locale, then want to show
         # the profile associated with that locale. But, profiles do not necessarily
         # exist in all locales. We prefer showing the profile for the locale, but fall
         # back to the profile on the default locale.
-        default_locale = wagtail_models.Locale.get_default()
-        active_locale = wagtail_models.Locale.get_active()
-        author_profiles = profiles.Profile.objects.all()
-        author_profiles = author_profiles.filter_research_authors()
-        author_profiles = author_profiles.filter(
-            models.Q(locale=default_locale) | models.Q(locale=active_locale)
-        )
-        author_profiles = author_profiles.annotate(
-            locale_is_default=models.Case(
-                models.When(locale=default_locale, then=True),
-                default=False,
-            )
-        )
-        author_profiles = author_profiles.order_by(
-            'translation_key',
-            'locale_is_default',
-        )
-        author_profiles = author_profiles.distinct('translation_key')
+        author_profiles = utils.localize_queryset(author_profiles)
         context["author_profiles"] = author_profiles
         return context
 
