@@ -9,7 +9,7 @@ from networkapi.wagtailpages.tests.research_hub import utils as research_test_ut
 
 
 class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
-    def test_get_research_detail_pages(self):
+    def test_detail_pages_in_context(self):
         detail_page_1 = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
@@ -17,13 +17,14 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             parent=self.library_page,
         )
 
-        research_detail_pages = self.library_page.get_research_detail_pages()
+        response = self.client.get(self.library_page.url)
 
+        research_detail_pages = response.context['research_detail_pages']
         self.assertEqual(len(research_detail_pages), 2)
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertIn(detail_page_2, research_detail_pages)
 
-    def test_get_research_detail_pages_with_translation_aliases(self):
+    def test_detail_pages_in_context_with_translation_aliases(self):
         detail_page_1 = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
@@ -34,15 +35,16 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         fr_detail_page_1 = detail_page_1.get_translation(self.fr_locale)
         fr_detail_page_2 = detail_page_2.get_translation(self.fr_locale)
 
-        research_detail_pages = self.library_page.get_research_detail_pages()
+        response = self.client.get(self.library_page.url)
 
+        research_detail_pages = response.context['research_detail_pages']
         self.assertEqual(len(research_detail_pages), 2)
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertIn(detail_page_2, research_detail_pages)
         self.assertNotIn(fr_detail_page_1, research_detail_pages)
         self.assertNotIn(fr_detail_page_2, research_detail_pages)
 
-    def test_get_research_detail_pages_search_by_title(self):
+    def test_search_by_detail_page_title(self):
         # Fields other than title are empty to avoid accidental test failures due to
         # fake data generation.
         apple_page = research_factory.ResearchDetailPageFactory(
@@ -60,15 +62,14 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             collaborators='',
         )
 
-        research_detail_pages = self.library_page.get_research_detail_pages(
-            search='Apple',
-        )
+        response = self.client.get(self.library_page.url, data={'search': 'Apple'})
 
+        research_detail_pages = response.context['research_detail_pages']
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
 
-    def test_get_research_detail_pages_search_by_introduction(self):
+    def test_search_by_detail_page_introduction(self):
         apple_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title='Cherry',
@@ -84,15 +85,14 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             collaborators='',
         )
 
-        research_detail_pages = self.library_page.get_research_detail_pages(
-            search='Apple',
-        )
+        response = self.client.get(self.library_page.url, data={'search': 'Apple'})
 
+        research_detail_pages = response.context['research_detail_pages']
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
 
-    def test_get_research_detail_pages_search_by_overview(self):
+    def test_search_by_detail_page_overview(self):
         apple_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title='Cherry',
@@ -108,15 +108,14 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             collaborators='',
         )
 
-        research_detail_pages = self.library_page.get_research_detail_pages(
-            search='Apple',
-        )
+        response = self.client.get(self.library_page.url, data={'search': 'Apple'})
 
+        research_detail_pages = response.context['research_detail_pages']
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
 
-    def test_get_research_detail_pages_search_by_collaborators(self):
+    def test_search_by_detail_page_collaborators(self):
         apple_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title='Cherry',
@@ -132,16 +131,15 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             collaborators='Banana',
         )
 
-        research_detail_pages = self.library_page.get_research_detail_pages(
-            search='Apple',
-        )
+        response = self.client.get(self.library_page.url, data={'search': 'Apple'})
 
+        research_detail_pages = response.context['research_detail_pages']
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
 
     @unittest.expectedFailure
-    def test_get_research_detail_pages_search_by_author_name(self):
+    def test_search_by_detail_page_author_name(self):
         '''
         Test detail page can be searched by author profile name.
 
@@ -192,15 +190,14 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             author_profile=banana_profile
         )
 
-        research_detail_pages = self.library_page.get_research_detail_pages(
-            search='Apple',
-        )
+        response = self.client.get(self.library_page.url, data={'search': 'Apple'})
 
+        research_detail_pages = response.context['research_detail_pages']
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
 
-    def test_get_research_detail_pages_sort_newest_first(self):
+    def test_sort_newest_first(self):
         oldest_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=research_test_utils.days_ago(2)
@@ -210,17 +207,17 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             original_publication_date=research_test_utils.days_ago(1)
         )
 
-        research_detail_pages = list(
-            self.library_page.get_research_detail_pages(
-                sort=self.library_page.SORT_NEWEST_FIRST
-            )
+        response = self.client.get(
+            self.library_page.url,
+            data={'sort': self.library_page.SORT_NEWEST_FIRST.value}
         )
 
+        research_detail_pages = list(response.context['research_detail_pages'])
         newest_page_index = research_detail_pages.index(newest_page)
         oldest_page_index = research_detail_pages.index(oldest_page)
         self.assertLess(newest_page_index, oldest_page_index)
 
-    def test_get_research_detail_pages_sort_oldest_first(self):
+    def test_sort_oldest_first(self):
         oldest_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=research_test_utils.days_ago(2)
@@ -230,17 +227,17 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             original_publication_date=research_test_utils.days_ago(1)
         )
 
-        research_detail_pages = list(
-            self.library_page.get_research_detail_pages(
-                sort=self.library_page.SORT_OLDEST_FIRST
-            )
+        response = self.client.get(
+            self.library_page.url,
+            data={'sort': self.library_page.SORT_OLDEST_FIRST.value}
         )
 
+        research_detail_pages = list(response.context['research_detail_pages'])
         newest_page_index = research_detail_pages.index(newest_page)
         oldest_page_index = research_detail_pages.index(oldest_page)
         self.assertLess(oldest_page_index, newest_page_index)
 
-    def test_get_research_detail_pages_sort_alphabetical(self):
+    def test_sort_alphabetical(self):
         apple_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title='Apple',
@@ -250,17 +247,17 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             title='Banana',
         )
 
-        research_detail_pages = list(
-            self.library_page.get_research_detail_pages(
-                sort=self.library_page.SORT_ALPHABETICAL
-            )
+        response = self.client.get(
+            self.library_page.url,
+            data={'sort': self.library_page.SORT_ALPHABETICAL.value}
         )
 
+        research_detail_pages = list(response.context['research_detail_pages'])
         apple_page_index = research_detail_pages.index(apple_page)
         banana_page_index = research_detail_pages.index(banana_page)
         self.assertLess(apple_page_index, banana_page_index)
 
-    def test_get_research_detail_pages_sort_alphabetical_reversed(self):
+    def test_sort_alphabetical_reversed(self):
         apple_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title='Apple',
@@ -270,12 +267,12 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             title='Banana',
         )
 
-        research_detail_pages = list(
-            self.library_page.get_research_detail_pages(
-                sort=self.library_page.SORT_ALPHABETICAL_REVERSED
-            )
+        response = self.client.get(
+            self.library_page.url,
+            data={'sort': self.library_page.SORT_ALPHABETICAL_REVERSED.value}
         )
 
+        research_detail_pages = list(response.context['research_detail_pages'])
         apple_page_index = research_detail_pages.index(apple_page)
         banana_page_index = research_detail_pages.index(banana_page)
         self.assertLess(banana_page_index, apple_page_index)
@@ -290,16 +287,21 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             original_publication_date=research_test_utils.days_ago(1)
         )
 
-        default_sort_result = list(self.library_page.get_research_detail_pages())
-        newest_first_result = list(
-            self.library_page.get_research_detail_pages(
-                sort=self.library_page.SORT_NEWEST_FIRST
-            )
+        default_response = self.client.get(self.library_page.url)
+        newest_first_response = self.client.get(
+            self.library_page.url,
+            data={'sort': self.library_page.SORT_NEWEST_FIRST.value}
         )
 
-        self.assertEqual(default_sort_result, newest_first_result)
+        default_sort_detail_pages = list(
+            default_response.context['research_detail_pages']
+        )
+        newest_first_detail_pages = list(
+            newest_first_response.context['research_detail_pages']
+        )
+        self.assertEqual(default_sort_detail_pages, newest_first_detail_pages)
 
-    def test_research_author_in_context(self):
+    def test_research_author_profile_in_context(self):
         detail_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
@@ -321,7 +323,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             response.context['research_authors'],
         )
 
-    def test_research_author_in_context_aliased_detail_fr(self):
+    def test_research_author_in_context_aliased_detail_page_fr(self):
         '''
         After the treesync, there are alias pages in the non-default locales. But,
         before the pages are translated (a manual action) the related models like author
@@ -341,7 +343,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             response.context['research_authors'],
         )
 
-    def test_research_author_in_context_translated_detail_fr(self):
+    def test_research_author_in_context_translated_detail_page_fr(self):
         '''
         When a profile for the active locale exists, pass that one to the context.
 
