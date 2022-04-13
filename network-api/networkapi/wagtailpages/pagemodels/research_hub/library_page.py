@@ -87,6 +87,10 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         research_detail_pages = research_detail_pages.filter(locale=active_locale)
 
         for author_profile_id in author_profile_ids:
+            # Synced but not translated pages are still associated with the default
+            # locale's author profile. But, we want to show them when we are filtering
+            # for the localized author profile. We use the fact that the localized and
+            # default locale's author profile have the same `translation_key`.
             author_profile = profile_models.Profile.objects.get(pk=author_profile_id)
             research_detail_pages = research_detail_pages.filter(
                 research_authors__author_profile__translation_key=(
