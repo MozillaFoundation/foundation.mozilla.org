@@ -4,20 +4,19 @@
 {% block subcontent %}
   <h1>{{ page.title }}</h1>
   <div>
-    <form action="" method="get" accept-charset="utf-8">
+    <form action="" method="get" accept-charset="utf-8" id="search-form">
       <input type="text" value="{{ search_query }}" name="search" id="search" class="tw-inline-block form-control tw-w-1/2 tw-rounded-none" />
-      <input type="hidden" value="{{ sort.value }}" name="sort"/>
       <button type="submit" class="tw-btn-primary">Search</button>
     </form>
   </div>
   <div>
-    <form action="" method="get" accept-charset="utf-8">
+    <div>
       {% for author in author_options %}
-        <input type="checkbox" value="{{ author.id }}" name="author" id="author-option-{{ author.id }}" {% if author.id in filtered_author_ids %}checked{% endif %}/>
+        <input type="checkbox" value="{{ author.id }}" name="author" id="author-option-{{ author.id }}" {% if author.id in filtered_author_ids %}checked{% endif %} form="search-form"/>
         <label for="author-option-{{ author.id }}">{{ author.name }}</label>
       {% endfor %}
-      <button type="submit" class="tw-btn-primary">Apply Filter</button>
-    </form>
+      <button type="submit" class="tw-btn-primary" form="search-form">Apply Filter</button>
+    </div>
   </div>
   <div>
     {% if search_query %}
@@ -26,15 +25,14 @@
       </div>
     {% endif %}
     <div>
-        <form action="" method="get" accept-charset="utf-8">
-          <input type="hidden" value="{{ search_query }}" name="search"/>
-          <select name="sort" class="tw-inline-block tw-form-control tw-w-1/2">
+        <div>
+          <select name="sort" class="tw-inline-block tw-form-control tw-w-1/2" form="search-form">
             {% for choice in page.SORT_CHOICES.values  %}
               <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
             {% endfor %}
           </select>
-          <button type="submit" class="tw-btn-primary">Sort</button>
-        </form>
+          <button type="submit" class="tw-btn-primary" form="search-form">Sort</button>
+        </div>
     </div>
   </div>
   <ul>
