@@ -80,11 +80,11 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         sort = sort or self.SORT_NEWEST_FIRST
         author_profile_ids = author_profile_ids or []
 
-        active_locale = wagtail_models.Locale.get_active()
-
         ResearchDetailPage = apps.get_model('wagtailpages', 'ResearchDetailPage')
         research_detail_pages = ResearchDetailPage.objects.live()
-        research_detail_pages = research_detail_pages.filter(locale=active_locale)
+        research_detail_pages = research_detail_pages.filter(
+            locale=wagtail_models.Locale.get_active()
+        )
 
         for author_profile_id in author_profile_ids:
             # Synced but not translated pages are still associated with the default
