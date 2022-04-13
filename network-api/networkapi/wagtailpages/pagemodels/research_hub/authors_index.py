@@ -60,11 +60,19 @@ class ResearchAuthorsIndexPage(
 
         LATEST_RESERACH_COUNT_LIMIT = 3
         latest_research = detail_page.ResearchDetailPage.objects.all()
+        # During tree sync, an alias is created for every detail page. But, these
+        # aliases are still associated with the profile in the default locale. So, when
+        # displaying the author page for a non-default locale author, we also want to
+        # the detail pages for active locale that are still associated with the default
+        # locales author. We know the default locale's author will have the same
+        # `translation_key` as the current locale's author. So, instead of filtering
+        # for the author `id`, we filter by `translation_key`.
         latest_research = latest_research.filter(
             research_authors__author_profile__translation_key=(
                 author_profile.translation_key
             )
         )
+        # And then we fitler for the active locale.
         latest_research = latest_research.filter(
             locale=wagtail_models.Locale.get_active()
         )
