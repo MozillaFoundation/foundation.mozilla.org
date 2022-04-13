@@ -87,8 +87,11 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         research_detail_pages = research_detail_pages.filter(locale=active_locale)
 
         for author_profile_id in author_profile_ids:
+            author_profile = profile_models.Profile.objects.get(pk=author_profile_id)
             research_detail_pages = research_detail_pages.filter(
-                research_authors__author_profile__id=author_profile_id,
+                research_authors__author_profile__translation_key=(
+                    author_profile.translation_key
+                )
             )
 
         research_detail_pages = research_detail_pages.order_by(sort.order_by_value)
