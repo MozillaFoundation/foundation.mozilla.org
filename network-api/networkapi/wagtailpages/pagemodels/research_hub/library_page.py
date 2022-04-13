@@ -78,6 +78,7 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
 
     def get_research_detail_pages(self, *, search='', sort=None, author_profile_ids=None):
         sort = sort or self.SORT_NEWEST_FIRST
+        author_profile_ids = author_profile_ids or []
 
         active_locale = wagtail_models.Locale.get_active()
 
@@ -85,9 +86,9 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         research_detail_pages = ResearchDetailPage.objects.live()
         research_detail_pages = research_detail_pages.filter(locale=active_locale)
 
-        if author_profile_ids:
+        for author_profile_id in author_profile_ids:
             research_detail_pages = research_detail_pages.filter(
-                research_authors__author_profile__id__in=author_profile_ids,
+                research_authors__author_profile__id=author_profile_id,
             )
 
         research_detail_pages = research_detail_pages.order_by(sort.order_by_value)

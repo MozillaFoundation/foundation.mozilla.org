@@ -391,6 +391,31 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
 
+    def test_filter_multiple_author_profiles(self):
+        detail_page_1 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        profile_a = detail_page_1.research_authors.first().author_profile
+        detail_page_2 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        profile_b = detail_page_2.research_authors.first().author_profile
+        # Make author of first page also an author of the second page
+        research_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page_2,
+            author_profile=profile_a,
+        )
+
+        response = self.client.get(
+            self.library_page.url,
+            data={'author': [profile_a.id, profile_b.id]},
+        )
+
+        # Only show the page where both profiles are authors
+        research_detail_pages = response.context['research_detail_pages']
+        self.assertNotIn(detail_page_1, research_detail_pages)
+        self.assertIn(detail_page_2, research_detail_pages)
+
     # TODO: Filter for multiple authors
 
     # TODO: Filtering for localized value will show detail pages associated with localized value or origninal value, but preferes localized value. Just like the author detail page.
