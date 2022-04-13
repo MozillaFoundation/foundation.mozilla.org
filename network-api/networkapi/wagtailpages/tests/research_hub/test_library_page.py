@@ -369,6 +369,30 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             response.context['author_options'],
         )
 
+    def test_filter_author_profile(self):
+        detail_page_1 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        detail_page_2 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        author_profile = detail_page_1.research_authors.first().author_profile
+        self.assertNotEqual(
+            author_profile,
+            detail_page_2.research_authors.first().author_profile,
+        )
+
+        response = self.client.get(
+            self.library_page.url,
+            data={'author': author_profile.id},
+        )
+
+        research_detail_pages = response.context['research_detail_pages']
+        self.assertIn(detail_page_1, research_detail_pages)
+        self.assertNotIn(detail_page_2, research_detail_pages)
+
+    # TODO: Filter for multiple authors
+
     # TODO: Filtering for localized value will show detail pages associated with localized value or origninal value, but preferes localized value. Just like the author detail page.
     #       This is necessary, because the detail page might be alias, but not translated. That means the detail page exists in the current locale but it is still associate with the author/region/topic of the default locale
 
