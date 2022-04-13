@@ -6,6 +6,7 @@ from wagtail.core import models as wagtail_models
 
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
+from networkapi.wagtailpages import utils
 
 
 # We don't want to expose the actual database column value that we use for sorting.
@@ -63,7 +64,9 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
             sort=sort,
         )
 
-        context['research_authors'] = profile_models.Profile.objects.filter_research_authors()
+        research_authors = profile_models.Profile.objects.filter_research_authors()
+        research_authors = utils.localize_queryset(research_authors)
+        context['research_authors'] = research_authors
         return context
 
     def get_research_detail_pages(self, *, search='', sort=None):

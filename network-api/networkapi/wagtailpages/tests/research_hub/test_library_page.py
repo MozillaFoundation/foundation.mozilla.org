@@ -321,38 +321,49 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             response.context['research_authors'],
         )
 
-    # TODO: Don't duplicates of the profiles from other locales
     def test_research_author_in_context_aliased_detail_fr(self):
+        '''
+        After the treesync, there are alias pages in the non-default locales. But,
+        before the pages are translated (a manual action) the related models like author
+        are still the ones from the default locale.
+        '''
         detail_page_en = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
+        profile_en = detail_page_en.research_authors.first().author_profile
         self.synchronize_tree()
         translation.activate(self.fr_locale.language_code)
-        detail_page_fr = detail_page.localized
 
         response = self.client.get(self.library_page.localized.url)
 
         self.assertIn(
-            detail_page_en.research_authors.first().author_profile,
+            profile_en,
             response.context['research_authors'],
         )
 
     def test_research_author_in_context_translated_detail_fr(self):
+        '''
+        When a profile for the active locale exists, pass that one to the context.
+
+        Profiles are not necessarily people, so they might have translated names.
+        '''
         detail_page_en = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
+        profile_en = detail_page_en.research_authors.first().author_profile
         self.synchronize_tree()
         detail_page_fr = translate_detail_page(detail_page_en, self.fr_locale)
+        profile_fr = detail_page_fr.research_authors.first().author_profile
         translation.activate(self.fr_locale.language_code)
 
         response = self.client.get(self.library_page.localized.url)
 
         self.assertNotIn(
-            detail_page_en.research_authors.first().author_profile,
+            profile_en,
             response.context['research_authors'],
         )
         self.assertIn(
-            detail_page_fr.research_authors.first().author_profile,
+            profile_fr,
             response.context['research_authors'],
         )
 
