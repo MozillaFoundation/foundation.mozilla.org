@@ -8,6 +8,7 @@ from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 from networkapi.wagtailpages.pagemodels.research_hub import detail_page
+from networkapi.wagtailpages.pagemodels.research_hub import taxonomies
 
 
 
@@ -64,6 +65,7 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         context['sort'] = sort
         context['author_options'] = self._get_author_options()
         context['filtered_author_ids'] = filtered_author_ids
+        context['topic_options'] = self._get_topic_options()
         context['research_detail_pages'] = self._get_research_detail_pages(
             search=search_query,
             sort=sort,
@@ -74,6 +76,9 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
     def _get_author_options(self):
         author_options = profile_models.Profile.objects.filter_research_authors()
         return utils.localize_queryset(author_options.order_by('name'))
+
+    def _get_topic_options(self):
+        return taxonomies.ResearchTopic.objects.all()
 
     def _get_research_detail_pages(
         self,
