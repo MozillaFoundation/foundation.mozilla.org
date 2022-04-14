@@ -45,7 +45,7 @@ test(`PNI search`, async ({ page }, testInfo) => {
   await page.locator(`body.react-loaded`);
   await waitForImagesToLoad(page);
 
-  const searchTerm = 'ab'
+  const searchTerm = "ab";
 
   const counts = {
     // provided RANDOM_SEED=530910203 was used!
@@ -53,7 +53,7 @@ test(`PNI search`, async ({ page }, testInfo) => {
     health: 13,
     smart: 5,
     percy: 1,
-    searchTerm: 6,
+    searchTerm: 4,
     searchTermWithDing: 2,
   };
 
