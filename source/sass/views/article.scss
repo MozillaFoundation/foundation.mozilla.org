@@ -11,6 +11,47 @@
   }
 }
 
+.article-loading {
+  margin: 1rem 0 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  & > div {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 100%;
+    background: $blue;
+    margin: 0 0.5rem;
+    opacity: 0;
+    animation: pulse 2s 0s linear infinite both;
+
+    &:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+    transform: scale(2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+    background: $lightest-blue;
+  }
+}
+
 .article-column-rule {
   column-rule: 1px solid $gray-20;
   column-gap: 6rem;
