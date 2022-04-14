@@ -51,28 +51,23 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
     }
 
     def get_context(self, request):
-        context = super().get_context(request)
-
         search_query = request.GET.get('search', '')
-        context['search_query'] = search_query
-
         sort_value = request.GET.get('sort', None)
         sort = self.SORT_CHOICES.get(sort_value, self.SORT_NEWEST_FIRST)
-        context['sort'] = sort
-
-        context['author_options'] = self._get_author_options()
-
         filtered_author_ids = [
             int(author_id) for author_id in request.GET.getlist('author')
         ]
-        context['filtered_author_ids'] = filtered_author_ids
 
+        context = super().get_context(request)
+        context['search_query'] = search_query
+        context['sort'] = sort
+        context['author_options'] = self._get_author_options()
+        context['filtered_author_ids'] = filtered_author_ids
         context['research_detail_pages'] = self._get_research_detail_pages(
             search=search_query,
             sort=sort,
             author_profile_ids=filtered_author_ids,
         )
-
         return context
 
     def _get_author_options(self):
