@@ -1,13 +1,14 @@
 import collections
 from typing import Optional
 
-from django.apps import apps
 from django.utils.translation import gettext_lazy as _
 from wagtail.core import models as wagtail_models
 
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
-from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages import utils
+from networkapi.wagtailpages.pagemodels import profiles as profile_models
+from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
+from networkapi.wagtailpages.pagemodels.research_hub import detail_page
+
 
 
 # We don't want to expose the actual database column value that we use for sorting.
@@ -84,8 +85,7 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         sort = sort or self.SORT_NEWEST_FIRST
         author_profile_ids = author_profile_ids or []
 
-        ResearchDetailPage = apps.get_model('wagtailpages', 'ResearchDetailPage')
-        research_detail_pages = ResearchDetailPage.objects.live()
+        research_detail_pages = detail_page.ResearchDetailPage.objects.live()
         research_detail_pages = research_detail_pages.filter(
             locale=wagtail_models.Locale.get_active()
         )
