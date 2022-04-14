@@ -238,8 +238,6 @@ def generate(seed):
     for i in range(52):
         # General products
         general_page = GeneralProductPageFactory.create(parent=pni_homepage,)
-        fake_privacy_policy = ProductPagePrivacyPolicyLinkFactory(page=general_page)
-        general_page.privacy_policy_links.add(fake_privacy_policy)
         general_page.save_revision().publish()
 
     print('Crosslinking related products')
