@@ -456,6 +456,16 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
 
+    def test_research_topics_in_context(self):
+        topic_1 = research_factory.ResearchTopicFactory()
+        topic_2 = research_factory.ResearchTopicFactory()
+
+        response = self.client.get(self.library_page.url)
+
+        topic_options = response.context['topic_options']
+        self.assertEqual(len(topic_options), 2)
+        self.assertIn(topic_1, topic_options)
+        self.assertIn(topic_2, topic_options)
 
 
 # TODO: Move to helper module and use in test_author_index

@@ -1,4 +1,5 @@
 import collections
+from typing import Optional
 
 from django.apps import apps
 from django.utils.translation import gettext_lazy as _
@@ -59,16 +60,14 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         sort = self.SORT_CHOICES.get(sort_value, self.SORT_NEWEST_FIRST)
         context['sort'] = sort
 
-        author_options = profile_models.Profile.objects.filter_research_authors()
-        author_options = utils.localize_queryset(author_options.order_by('name'))
-        context['author_options'] = author_options
+        context['author_options'] = self._get_author_options()
 
         filtered_author_ids = [
             int(author_id) for author_id in request.GET.getlist('author')
         ]
         context['filtered_author_ids'] = filtered_author_ids
 
-        context['research_detail_pages'] = self.get_research_detail_pages(
+        context['research_detail_pages'] = self._get_research_detail_pages(
             search=search_query,
             sort=sort,
             author_profile_ids=filtered_author_ids,
@@ -76,7 +75,17 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
 
         return context
 
-    def get_research_detail_pages(self, *, search='', sort=None, author_profile_ids=None):
+    def _get_author_options(self):
+        author_options = profile_models.Profile.objects.filter_research_authors()
+        return utils.localize_queryset(author_options.order_by('name'))
+
+    def _get_research_detail_pages(
+        self,
+        *,
+        search: str = '',
+        sort: Optional[SortOption] = None,
+        author_profile_ids: Optional[list[int]] = None,
+    ):
         sort = sort or self.SORT_NEWEST_FIRST
         author_profile_ids = author_profile_ids or []
 
