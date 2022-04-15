@@ -314,7 +314,7 @@ class CampaignPage(MiniSiteNameSpace):
         SynchronizedField('search_image'),
         # Content tab fields
 
-        # Contingency fix while https://github.com/mozilla/foundation.mozilla.org/pull/7777 is sorted out
+        # FIXME: Contingency fix while https://github.com/mozilla/foundation.mozilla.org/pull/7771 is sorted out
         # TranslatableField('cta'),
         TranslatableField('title'),
         TranslatableField('header'),
@@ -395,7 +395,8 @@ class BanneredCampaignPage(PrimaryPage):
         SynchronizedField("banner"),
         SynchronizedField("narrowed_page_content"),
         SynchronizedField("zen_nav"),
-        TranslatableField("cta"),
+        # FIXME: Contingency fix while https://github.com/mozilla/foundation.mozilla.org/pull/7771 is sorted out
+        # TranslatableField("cta"),
         TranslatableField("signup"),
     ]
 
