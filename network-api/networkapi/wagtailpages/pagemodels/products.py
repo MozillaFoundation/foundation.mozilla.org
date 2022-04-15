@@ -1188,7 +1188,7 @@ class GeneralProductPage(ProductPage):
             "How you can control your data": "how_can_you_control_your_data",
             "Company track record": "company_track_record",
             "Show company track record privacy ding": "track_record_is_bad",
-            "Child Safety Blurb": "child_safety_blurb",
+            "Child safety blurb": "child_safety_blurb",
             "Offline capable": "offline_capable",
             "Offline use": "offline_use_description",
             "Uses AI": "uses_ai",
