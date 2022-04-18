@@ -59,6 +59,9 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         filtered_author_ids = [
             int(author_id) for author_id in request.GET.getlist('author')
         ]
+        filtered_topic_ids = [
+            int(topic_id) for topic_id in request.GET.getlist('topic')
+        ]
 
         context = super().get_context(request)
         context['search_query'] = search_query
@@ -66,10 +69,12 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         context['author_options'] = self._get_author_options()
         context['filtered_author_ids'] = filtered_author_ids
         context['topic_options'] = self._get_topic_options()
+        context['filtered_topic_ids'] = filtered_topic_ids
         context['research_detail_pages'] = self._get_research_detail_pages(
             search=search_query,
             sort=sort,
             author_profile_ids=filtered_author_ids,
+            topic_ids=filtered_topic_ids,
         )
         return context
 
@@ -87,9 +92,11 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         search: str = '',
         sort: Optional[SortOption] = None,
         author_profile_ids: Optional[list[int]] = None,
+        topic_ids: Optional[list[int]] = None,
     ):
         sort = sort or self.SORT_NEWEST_FIRST
         author_profile_ids = author_profile_ids or []
+        topic_ids = topic_ids or []
 
         research_detail_pages = detail_page.ResearchDetailPage.objects.live()
         research_detail_pages = research_detail_pages.filter(
@@ -106,6 +113,11 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
                 research_authors__author_profile__translation_key=(
                     author_profile.translation_key
                 )
+            )
+
+        for topic_id in topic_ids:
+            research_detail_pages = research_detail_pages.filter(
+                related_topics__research_topic_id=topic_id
             )
 
         research_detail_pages = research_detail_pages.order_by(sort.order_by_value)

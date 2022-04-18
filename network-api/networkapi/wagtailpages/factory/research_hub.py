@@ -81,6 +81,12 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
         size=1,
     )
 
+    related_topics = factory.RelatedFactoryList(
+        factory='networkapi.wagtailpages.factory.research_hub.ResearchDetailPageResearchTopicRelationFactory',
+        factory_related_name='research_detail_page',
+        size=1,
+    )
+
 
 class ResearchRegionFactory(factory.django.DjangoModelFactory):
     class Meta:

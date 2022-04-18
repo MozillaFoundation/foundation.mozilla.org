@@ -500,6 +500,23 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(topic_1_fr, topic_options)
         self.assertIn(topic_2_en, topic_options)
 
+    def test_filter_topic(self):
+        topic_A = research_factory.ResearchTopicFactory()
+        detail_page_A = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            related_topics__research_topic=topic_A,
+        )
+        topic_B = research_factory.ResearchTopicFactory()
+        detail_page_B = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            related_topics__research_topic=topic_B,
+        )
+
+        response = self.client.get( self.library_page.url, data={'topic': topic_A.id})
+
+        research_detail_pages = response.context['research_detail_pages']
+        self.assertIn(detail_page_A, research_detail_pages)
+        self.assertNotIn(detail_page_B, research_detail_pages)
 
 
 
