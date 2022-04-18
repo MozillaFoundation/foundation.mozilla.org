@@ -685,6 +685,47 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
 
+    def test_filter_localized_region(self):
+        '''
+        When filtering for a localized region, we also want to show pages
+        associated with the default locale's region. This is because after tree sync,
+        pages are copied to the different locales, but related models are still the ones
+        from the default locale.
+
+        This test is setting up an aliased page and a translated page. The aliased page
+        is not associated with the translated region, but we still want to see it in
+        the results.
+        '''
+        region = research_factory.ResearchRegionFactory()
+        detail_page_1 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            related_regions__research_region=region,
+        )
+        detail_page_2 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            related_regions__research_region=region,
+        )
+        self.synchronize_tree()
+        detail_page_1_fr = detail_page_1.get_translation(self.fr_locale)
+        self.assertEqual(region, detail_page_1_fr.related_regions.first().research_region)
+        detail_page_2_fr = translate_detail_page(detail_page_2, self.fr_locale)
+        region_fr = detail_page_2_fr.related_regions.first().research_region
+        self.assertNotEqual(region, region_fr)
+        self.assertEqual(region.translation_key, region_fr.translation_key)
+        translation.activate(self.fr_locale.language_code)
+
+        response = self.client.get(
+            self.library_page.localized.url,
+            data={'region': region_fr.id},
+        )
+
+        research_detail_pages = response.context['research_detail_pages']
+        self.assertEqual(len(research_detail_pages), 2)
+        self.assertIn(detail_page_1_fr, research_detail_pages)
+        self.assertIn(detail_page_2_fr, research_detail_pages)
+        self.assertNotIn(detail_page_1, research_detail_pages)
+        self.assertNotIn(detail_page_2, research_detail_pages)
+
 # TODO: Move to helper module and use in test_author_index
 def translate_detail_page(detail_page, locale):
     # Requires previous tree synchronization
@@ -706,6 +747,12 @@ def translate_detail_page(detail_page, locale):
         related_topic_trans.research_topic = topic_trans
         related_topic_trans.save()
 
+    for related_region_trans in trans_detail_page.related_regions.all():
+        region_orig = related_region_trans.research_region
+        region_trans = region_orig.copy_for_translation(locale)
+        region_trans.save()
+        related_region_trans.research_region = region_trans
+        related_region_trans.save()
 
     trans_detail_page.alias_of = None
     trans_detail_page.save()

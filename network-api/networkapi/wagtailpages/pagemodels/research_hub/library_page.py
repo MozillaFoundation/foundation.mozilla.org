@@ -137,7 +137,7 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         regions = taxonomies.ResearchRegion.objects.filter(id__in=region_ids)
         for region in regions:
             research_detail_pages = research_detail_pages.filter(
-                related_regions__research_region=region
+                related_regions__research_region__translation_key=region.translation_key
             )
 
         research_detail_pages = research_detail_pages.order_by(sort.order_by_value)
