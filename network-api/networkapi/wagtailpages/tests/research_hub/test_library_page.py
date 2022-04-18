@@ -467,7 +467,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(topic_1, topic_options)
         self.assertIn(topic_2, topic_options)
 
-    def test_topic_translation_in_context_matches_active_locale(self):
+    def test_topic_in_context_matches_active_locale(self):
         topic_en = research_factory.ResearchTopicFactory()
         topic_fr = topic_en.copy_for_translation(self.fr_locale)
         topic_fr.save()
@@ -594,6 +594,24 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(region_options), 2)
         self.assertIn(region_1, region_options)
         self.assertIn(region_2, region_options)
+
+    def test_region_in_context_matches_active_locale(self):
+        region_en = research_factory.ResearchRegionFactory()
+        region_fr = region_en.copy_for_translation(self.fr_locale)
+        region_fr.save()
+
+        response_en = self.client.get(self.library_page.localized.url)
+        translation.activate(self.fr_locale.language_code)
+        response_fr = self.client.get(self.library_page.localized.url)
+
+        region_options_en = response_en.context['region_options']
+        self.assertEqual(len(region_options_en), 1)
+        self.assertIn(region_en, region_options_en)
+        self.assertNotIn(region_fr, region_options_en)
+        region_options_fr = response_fr.context['region_options']
+        self.assertEqual(len(region_options_fr), 1)
+        self.assertNotIn(region_en, region_options_fr)
+        self.assertIn(region_fr, region_options_fr)
 
 # TODO: Move to helper module and use in test_author_index
 def translate_detail_page(detail_page, locale):
