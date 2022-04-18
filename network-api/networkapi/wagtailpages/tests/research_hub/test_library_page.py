@@ -512,11 +512,39 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             related_topics__research_topic=topic_B,
         )
 
-        response = self.client.get( self.library_page.url, data={'topic': topic_A.id})
+        response = self.client.get(self.library_page.url, data={'topic': topic_A.id})
 
         research_detail_pages = response.context['research_detail_pages']
         self.assertIn(detail_page_A, research_detail_pages)
         self.assertNotIn(detail_page_B, research_detail_pages)
+
+    def test_filter_topic(self):
+        topic_A = research_factory.ResearchTopicFactory()
+        topic_B = research_factory.ResearchTopicFactory()
+        detail_page_1 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            related_topics__research_topic=topic_A,
+        )
+        research_factory.ResearchDetailPageResearchTopicRelationFactory(
+            research_detail_page=detail_page_1,
+            research_topic=topic_B
+        )
+        detail_page_2 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            related_topics__research_topic=topic_A,
+        )
+
+        response = self.client.get(
+            self.library_page.url,
+            data={'topic': [topic_A.id, topic_B.id]}
+        )
+
+        research_detail_pages = response.context['research_detail_pages']
+        self.assertIn(detail_page_1, research_detail_pages)
+        self.assertNotIn(detail_page_2, research_detail_pages)
+
+    # TODO: Test fr active, synced page, filter for en topic, shows fr page
+    # TODO: Test fr active, one translated page, one synced page, filter for fr topic, shows synces and translated page
 
 
 
