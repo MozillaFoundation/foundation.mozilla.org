@@ -543,9 +543,48 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
 
-    # TODO: Test fr active, synced page, filter for en topic, shows fr page
+    # TODO: Test fr active, synced page, filter for en topic, shows fr page. **This is not necessary, because the FR page is just normally associated with the EN topic**
     # TODO: Test fr active, one translated page, one synced page, filter for fr topic, shows synces and translated page
+    def test_filter_localized_topic(self):
+        '''
+        When filtering for a localized topic, we also want to show pages
+        associated with the default locale's topic. This is because after tree sync,
+        pages are copied to the different locales, but related models are still the ones
+        from the default locale.
 
+        This test is setting up an aliased page and a translated page. The aliased page
+        is not associated with the translated topic, but we still want to see it in
+        the results.
+        '''
+        topic = research_factory.ResearchTopicFactory()
+        detail_page_1 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            related_topics__research_topic=topic,
+        )
+        detail_page_2 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            related_topics__research_topic=topic,
+        )
+        self.synchronize_tree()
+        detail_page_1_fr = detail_page_1.get_translation(self.fr_locale)
+        self.assertEqual(topic, detail_page_1_fr.related_topics.first().research_topic)
+        detail_page_2_fr = translate_detail_page(detail_page_2, self.fr_locale)
+        topic_fr = detail_page_2_fr.related_topics.first().research_topic
+        self.assertNotEqual(topic, topic_fr)
+        self.assertEqual(topic.translation_key, topic_fr.translation_key)
+        translation.activate(self.fr_locale.language_code)
+
+        response = self.client.get(
+            self.library_page.localized.url,
+            data={'topic': topic_fr.id},
+        )
+
+        research_detail_pages = response.context['research_detail_pages']
+        self.assertEqual(len(research_detail_pages), 2)
+        self.assertIn(detail_page_1_fr, research_detail_pages)
+        self.assertIn(detail_page_2_fr, research_detail_pages)
+        self.assertNotIn(detail_page_1, research_detail_pages)
+        self.assertNotIn(detail_page_2, research_detail_pages)
 
 
 # TODO: Move to helper module and use in test_author_index
@@ -561,6 +600,14 @@ def translate_detail_page(detail_page, locale):
         author_profile_trans.save()
         research_author_trans.author_profile = author_profile_trans
         research_author_trans.save()
+
+    for related_topic_trans in trans_detail_page.related_topics.all():
+        topic_orig = related_topic_trans.research_topic
+        topic_trans = topic_orig.copy_for_translation(locale)
+        topic_trans.save()
+        related_topic_trans.research_topic = topic_trans
+        related_topic_trans.save()
+
 
     trans_detail_page.alias_of = None
     trans_detail_page.save()

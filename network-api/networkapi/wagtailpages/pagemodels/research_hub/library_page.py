@@ -115,9 +115,10 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
                 )
             )
 
-        for topic_id in topic_ids:
+        topics = taxonomies.ResearchTopic.objects.filter(id__in=topic_ids)
+        for topic in topics:
             research_detail_pages = research_detail_pages.filter(
-                related_topics__research_topic_id=topic_id
+                related_topics__research_topic__translation_key=topic.translation_key
             )
 
         research_detail_pages = research_detail_pages.order_by(sort.order_by_value)
