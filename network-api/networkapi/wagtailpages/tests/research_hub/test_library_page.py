@@ -486,6 +486,22 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(topic_fr, topic_options_fr)
 
     # TODO: Prefer localized options on localized page, but fallback to default
+    def test_use_tranlated_topic_if_available_but_fall_back(self):
+        topic_1_en = research_factory.ResearchTopicFactory()
+        topic_1_fr = topic_1_en.copy_for_translation(self.fr_locale)
+        topic_1_fr.save()
+        topic_2_en = research_factory.ResearchTopicFactory()
+        translation.activate(self.fr_locale.language_code)
+
+        response = self.client.get(self.library_page.localized.url)
+
+        topic_options = response.context['topic_options']
+        self.assertEqual(len(topic_options), 2)
+        self.assertNotIn(topic_1_en, topic_options)
+        self.assertIn(topic_1_fr, topic_options)
+        self.assertIn(topic_2_en, topic_options)
+
+
 
 
 # TODO: Move to helper module and use in test_author_index
