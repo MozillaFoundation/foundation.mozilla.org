@@ -467,6 +467,26 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(topic_1, topic_options)
         self.assertIn(topic_2, topic_options)
 
+    def test_topic_translation_in_context_matches_active_locale(self):
+        topic_en = research_factory.ResearchTopicFactory()
+        topic_fr = topic_en.copy_for_translation(self.fr_locale)
+        topic_fr.save()
+
+        response_en = self.client.get(self.library_page.localized.url)
+        translation.activate(self.fr_locale.language_code)
+        response_fr = self.client.get(self.library_page.localized.url)
+
+        topic_options_en = response_en.context['topic_options']
+        self.assertEqual(len(topic_options_en), 1)
+        self.assertIn(topic_en, topic_options_en)
+        self.assertNotIn(topic_fr, topic_options_en)
+        topic_options_fr = response_fr.context['topic_options']
+        self.assertEqual(len(topic_options_fr), 1)
+        self.assertNotIn(topic_en, topic_options_fr)
+        self.assertIn(topic_fr, topic_options_fr)
+
+    # TODO: Prefer localized options on localized page, but fallback to default
+
 
 # TODO: Move to helper module and use in test_author_index
 def translate_detail_page(detail_page, locale):

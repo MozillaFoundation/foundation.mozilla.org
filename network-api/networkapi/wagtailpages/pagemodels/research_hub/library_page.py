@@ -78,7 +78,8 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         return utils.localize_queryset(author_options.order_by('name'))
 
     def _get_topic_options(self):
-        return taxonomies.ResearchTopic.objects.all()
+        topics = taxonomies.ResearchTopic.objects.all().order_by('name')
+        return topics.filter(locale=wagtail_models.Locale.get_active())
 
     def _get_research_detail_pages(
         self,
