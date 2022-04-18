@@ -75,10 +75,10 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
 
     def _get_author_options(self):
         author_options = profile_models.Profile.objects.filter_research_authors()
-        return utils.localize_queryset(author_options.order_by('name'))
+        return utils.localize_queryset(author_options, order_by='name')
 
     def _get_topic_options(self):
-        topics = taxonomies.ResearchTopic.objects.all().order_by('name')
+        topics = taxonomies.ResearchTopic.objects.all()
         return utils.localize_queryset(topics)
 
     def _get_research_detail_pages(
