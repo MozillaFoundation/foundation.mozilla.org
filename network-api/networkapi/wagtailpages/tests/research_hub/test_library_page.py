@@ -543,8 +543,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
 
-    # TODO: Test fr active, synced page, filter for en topic, shows fr page. **This is not necessary, because the FR page is just normally associated with the EN topic**
-    # TODO: Test fr active, one translated page, one synced page, filter for fr topic, shows synces and translated page
     def test_filter_localized_topic(self):
         '''
         When filtering for a localized topic, we also want to show pages
@@ -586,6 +584,16 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
 
+    def test_research_regions_in_context(self):
+        region_1 = research_factory.ResearchRegionFactory()
+        region_2 = research_factory.ResearchRegionFactory()
+
+        response = self.client.get(self.library_page.url)
+
+        region_options = response.context['region_options']
+        self.assertEqual(len(region_options), 2)
+        self.assertIn(region_1, region_options)
+        self.assertIn(region_2, region_options)
 
 # TODO: Move to helper module and use in test_author_index
 def translate_detail_page(detail_page, locale):
