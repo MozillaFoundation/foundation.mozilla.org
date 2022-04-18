@@ -80,6 +80,7 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
             sort=sort,
             author_profile_ids=filtered_author_ids,
             topic_ids=filtered_topic_ids,
+            region_ids=filtered_region_ids,
         )
         return context
 
@@ -102,10 +103,12 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         sort: Optional[SortOption] = None,
         author_profile_ids: Optional[list[int]] = None,
         topic_ids: Optional[list[int]] = None,
+        region_ids: Optional[list[int]] = None,
     ):
         sort = sort or self.SORT_NEWEST_FIRST
         author_profile_ids = author_profile_ids or []
         topic_ids = topic_ids or []
+        region_ids = region_ids or []
 
         research_detail_pages = detail_page.ResearchDetailPage.objects.live()
         research_detail_pages = research_detail_pages.filter(
@@ -129,6 +132,12 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         for topic in topics:
             research_detail_pages = research_detail_pages.filter(
                 related_topics__research_topic__translation_key=topic.translation_key
+            )
+
+        regions = taxonomies.ResearchRegion.objects.filter(id__in=region_ids)
+        for region in regions:
+            research_detail_pages = research_detail_pages.filter(
+                related_regions__research_region=region
             )
 
         research_detail_pages = research_detail_pages.order_by(sort.order_by_value)

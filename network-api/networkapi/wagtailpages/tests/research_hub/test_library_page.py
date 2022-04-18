@@ -525,7 +525,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_A, research_detail_pages)
         self.assertNotIn(detail_page_B, research_detail_pages)
 
-    def test_filter_topic(self):
+    def test_filter_multiple_topics(self):
         topic_A = research_factory.ResearchTopicFactory()
         topic_B = research_factory.ResearchTopicFactory()
         detail_page_1 = research_factory.ResearchDetailPageFactory(
@@ -641,6 +641,49 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(region_1_en, region_options)
         self.assertIn(region_1_fr, region_options)
         self.assertIn(region_2_en, region_options)
+
+    def test_filter_region(self):
+        region_A = research_factory.ResearchRegionFactory()
+        detail_page_A = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            related_regions__research_region=region_A,
+        )
+        region_B = research_factory.ResearchRegionFactory()
+        detail_page_B = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            related_regions__research_region=region_B,
+        )
+
+        response = self.client.get(self.library_page.url, data={'region': region_A.id})
+
+        research_detail_pages = response.context['research_detail_pages']
+        self.assertIn(detail_page_A, research_detail_pages)
+        self.assertNotIn(detail_page_B, research_detail_pages)
+
+    def test_filter_multiple_regions(self):
+        region_A = research_factory.ResearchRegionFactory()
+        region_B = research_factory.ResearchRegionFactory()
+        detail_page_1 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            related_regions__research_region=region_A,
+        )
+        research_factory.ResearchDetailPageResearchRegionRelationFactory(
+            research_detail_page=detail_page_1,
+            research_region=region_B
+        )
+        detail_page_2 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            related_regions__research_region=region_A,
+        )
+
+        response = self.client.get(
+            self.library_page.url,
+            data={'region': [region_A.id, region_B.id]}
+        )
+
+        research_detail_pages = response.context['research_detail_pages']
+        self.assertIn(detail_page_1, research_detail_pages)
+        self.assertNotIn(detail_page_2, research_detail_pages)
 
 # TODO: Move to helper module and use in test_author_index
 def translate_detail_page(detail_page, locale):
