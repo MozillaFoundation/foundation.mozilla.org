@@ -62,6 +62,9 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         filtered_topic_ids = [
             int(topic_id) for topic_id in request.GET.getlist('topic')
         ]
+        filtered_region_ids = [
+            int(region_id) for region_id in request.GET.getlist('region')
+        ]
 
         context = super().get_context(request)
         context['search_query'] = search_query
@@ -71,6 +74,7 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         context['topic_options'] = self._get_topic_options()
         context['filtered_topic_ids'] = filtered_topic_ids
         context['region_options'] = self._get_region_options()
+        context['filtered_region_ids'] = filtered_region_ids
         context['research_detail_pages'] = self._get_research_detail_pages(
             search=search_query,
             sort=sort,

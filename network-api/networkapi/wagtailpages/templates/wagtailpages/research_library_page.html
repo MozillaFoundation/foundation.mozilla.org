@@ -24,6 +24,13 @@
         <label for="author-option-{{ author.id }}">{{ author.name }}</label>
       {% endfor %}
     </div>
+    <div>
+      <h2>Region</h2>
+      {% for region in region_options|dictsort:"name" %}
+        <input type="checkbox" value="{{ region.id }}" name="region" id="region-option-{{ region.id }}" {% if region.id in filtered_region_ids %}checked{% endif %} form="search-form"/>
+        <label for="region-option-{{ region.id }}">{{ region.name }}</label>
+      {% endfor %}
+    </div>
     <button type="submit" class="tw-btn-primary" form="search-form">Apply Filter</button>
   </div>
   <div>
