@@ -93,7 +93,7 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
 
     def _get_region_options(self):
         regions = taxonomies.ResearchRegion.objects.all()
-        return regions.filter(locale=wagtail_models.Locale.get_active())
+        return utils.localize_queryset(regions)
 
     def _get_research_detail_pages(
         self,
