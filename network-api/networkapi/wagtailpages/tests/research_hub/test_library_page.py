@@ -313,31 +313,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             response.context['author_options'],
         )
 
-    def test_research_author_profiles_order(self):
-        detail_by_apple = research_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-            research_authors__author_profile__name='Apple',
-        )
-        apple_profile = detail_by_apple.research_authors.first().author_profile
-        detail_by_cherry = research_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-            research_authors__author_profile__name='Cherry',
-        )
-        cherry_profile = detail_by_cherry.research_authors.first().author_profile
-        detail_by_banana = research_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-            research_authors__author_profile__name='Banana',
-        )
-        banana_profile = detail_by_banana.research_authors.first().author_profile
-
-        response = self.client.get(self.library_page.url)
-
-        author_options = list(response.context['author_options'])
-        self.assertEqual(len(author_options), 3)
-        self.assertEqual(author_options.index(apple_profile), 0)
-        self.assertEqual(author_options.index(banana_profile), 1)
-        self.assertEqual(author_options.index(cherry_profile), 2)
-
     def test_non_research_author_profile_not_in_context(self):
         profile = profiles_factory.ProfileFactory()
 
