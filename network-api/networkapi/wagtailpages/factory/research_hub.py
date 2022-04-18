@@ -92,14 +92,14 @@ class ResearchRegionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchRegion
 
-    name = factory.Faker('country')
+    name = factory.Faker('text', max_nb_chars=50)
 
 
 class ResearchTopicFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchTopic
 
-    name = factory.Faker('catch_phrase')
+    name = factory.Faker('text', max_nb_chars=50)
     description = factory.Faker('paragraph')
 
 
