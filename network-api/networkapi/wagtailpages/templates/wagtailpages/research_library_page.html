@@ -11,13 +11,20 @@
   </div>
   <div>
     <div>
+      <h2>Topic</h2>
+      {% for topic in topic_options %}
+        <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form"/>
+        <label for="topic-option-{{ topic.id }}">{{ topic.name }}</label>
+      {% endfor %}
+    </div>
+    <div>
       <h2>Author</h2>
       {% for author in author_options %}
         <input type="checkbox" value="{{ author.id }}" name="author" id="author-option-{{ author.id }}" {% if author.id in filtered_author_ids %}checked{% endif %} form="search-form"/>
         <label for="author-option-{{ author.id }}">{{ author.name }}</label>
       {% endfor %}
-      <button type="submit" class="tw-btn-primary" form="search-form">Apply Filter</button>
     </div>
+    <button type="submit" class="tw-btn-primary" form="search-form">Apply Filter</button>
   </div>
   <div>
     {% if search_query %}
