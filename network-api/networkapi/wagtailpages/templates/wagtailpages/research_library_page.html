@@ -1,18 +1,18 @@
 {% extends "./research_base.html" %}
-{% load wagtailcore_tags %}
+{% load i18n wagtailcore_tags %}
 
 {% block subcontent %}
   <h1>{{ page.title }}</h1>
   <div>
     <form action="" method="get" accept-charset="utf-8" id="search-form">
       <input type="text" value="{{ search_query }}" name="search" id="search" class="tw-inline-block form-control tw-w-1/2 tw-rounded-none" />
-      <button type="submit" class="tw-btn-primary">Search</button>
+      <button type="submit" class="tw-btn-primary">{% translate 'Search' %}</button>
     </form>
   </div>
   <div>
     <div>
       <fieldset>
-        <legend><h2>Topic</h2></legend>
+        <legend><h2>{% translate 'Topic' %}</h2></legend>
         {% for topic in topic_options|dictsort:"name" %}
           <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form"/>
           <label for="topic-option-{{ topic.id }}">{{ topic.name }}</label>
@@ -21,9 +21,9 @@
     </div>
     <div>
       <fieldset>
-        <legend><h2>Publication date</h2></legend>
+        <legend><h2>{% translate 'Publication date' %}</h2></legend>
         <input type="radio" value="" name="year" id="year-option-all" {% if not filtered_year %}checked{% endif %} form="search-form"/>
-        <label for="year-option-all">Any</label>
+        <label for="year-option-all">{% translate 'Any' %}</label>
         {% for year in year_options %}
           <input type="radio" value="{{ year }}" name="year" id="year-option-{{ year }}" {% if year == filtered_year %}checked{% endif %} form="search-form"/>
           <label for="year-option-{{ year }}">{{ year }}</label>
@@ -32,7 +32,7 @@
     </div>
     <div>
       <fieldset>
-        <legend><h2>Author</h2></legend>
+        <legend><h2>{% translate 'Author' %}</h2></legend>
         {% for author in author_options|dictsort:"name" %}
           <input type="checkbox" value="{{ author.id }}" name="author" id="author-option-{{ author.id }}" {% if author.id in filtered_author_ids %}checked{% endif %} form="search-form"/>
           <label for="author-option-{{ author.id }}">{{ author.name }}</label>
@@ -41,19 +41,19 @@
     </div>
     <div>
       <fieldset>
-        <legend><h2>Region</h2></legend>
+        <legend><h2>{% translate 'Region' %}</h2></legend>
         {% for region in region_options|dictsort:"name" %}
           <input type="checkbox" value="{{ region.id }}" name="region" id="region-option-{{ region.id }}" {% if region.id in filtered_region_ids %}checked{% endif %} form="search-form"/>
           <label for="region-option-{{ region.id }}">{{ region.name }}</label>
         {% endfor %}
       </fieldset>
     </div>
-    <button type="submit" class="tw-btn-primary" form="search-form">Apply Filter</button>
+    <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Apply filter' %}</button>
   </div>
   <div>
     {% if search_query %}
       <div>
-          <strong>{{ research_detail_pages.count }}</strong> results for "{{ search_query }}"
+          <strong>{{ research_detail_pages.count }}</strong> {% translate 'results for' %} "{{ search_query }}"
       </div>
     {% endif %}
     <div>
@@ -63,7 +63,7 @@
               <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
             {% endfor %}
           </select>
-          <button type="submit" class="tw-btn-primary" form="search-form">Sort</button>
+          <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Sort' %}</button>
         </div>
     </div>
   </div>
