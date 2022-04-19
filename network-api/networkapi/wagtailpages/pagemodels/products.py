@@ -1111,6 +1111,15 @@ class GeneralProductPage(ProductPage):
         blank=True,
     )
 
+    # Child Safety Blurb
+
+    child_safety_blurb = RichTextField(
+        max_length=5000,
+        features=base_rich_text_options,
+        help_text='Child safety information, if applicable.',
+        blank=True,
+    )
+
     # Offline use
 
     offline_capable = ExtendedYesNoField(
@@ -1179,6 +1188,7 @@ class GeneralProductPage(ProductPage):
             "How you can control your data": "how_can_you_control_your_data",
             "Company track record": "company_track_record",
             "Show company track record privacy ding": "track_record_is_bad",
+            "Child safety blurb": "child_safety_blurb",
             "Offline capable": "offline_capable",
             "Offline use": "offline_use_description",
             "Uses AI": "uses_ai",
@@ -1213,6 +1223,7 @@ class GeneralProductPage(ProductPage):
             "How you can control your data": self.how_can_you_control_your_data,
             "Company track record": self.company_track_record,
             "Show company track record privacy ding": self.track_record_is_bad,
+            "Child safety blurb": self.child_safety_blurb,
             "Offline capable": self.offline_capable,
             "Offline use": self.offline_use_description,
             "Uses AI": self.uses_ai,
@@ -1266,6 +1277,7 @@ class GeneralProductPage(ProductPage):
                     FieldPanel('company_track_record'),
                     FieldPanel('track_record_details'),
                     FieldPanel('track_record_is_bad'),
+                    FieldPanel('child_safety_blurb'),
                     FieldPanel('offline_capable'),
                     FieldPanel('offline_use_description'),
                     FieldPanel('user_friendly_privacy_policy'),
@@ -1308,6 +1320,7 @@ class GeneralProductPage(ProductPage):
         SynchronizedField('company_track_record'),
         SynchronizedField('track_record_is_bad'),
         TranslatableField('track_record_details'),
+        TranslatableField('child_safety_blurb'),
         SynchronizedField('offline_capable'),
         TranslatableField('offline_use_description'),
         SynchronizedField('uses_ai'),
