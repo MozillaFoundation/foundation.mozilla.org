@@ -38,31 +38,6 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.fr_profile = self.research_profile.copy_for_translation(self.fr_locale)
         self.fr_profile.save()
 
-    def translate_detail_page(self):
-        """
-        Simulate click on the "translate this page" button in the Wagtail admin.
-
-        The tree synchronzion creates page aliases with the new locale. But, at the
-        alias stage, the pages are not really translated yet. E.g. inline panels
-        like the research author are not translated until the "translate this page"
-        button is clicked in the admin. That means, until the "manual" action of
-        clicking the button is taken, the alias page is still associated with the
-        profile for the default locale.
-
-        This method simulates the manual click on the "translate this page" button.
-        That action removes the alias and sets associates the profile with the
-        translated profile.
-
-        """
-        if not hasattr(self, "fr_profile"):
-            self.translate_research_profile()
-
-        fr_research_author = self.fr_detail_page.research_authors.first()
-        fr_research_author.author_profile = self.fr_profile
-        fr_research_author.save()
-        self.fr_detail_page.alias_of = None
-        self.fr_detail_page.save()
-
     def test_get_context(self):
         context = self.author_index.get_context(request=None)
         self.translate_research_profile()
@@ -82,14 +57,18 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertIn(self.research_profile, fr_context['author_profiles'])
 
     def test_get_context_fr_locale_detail_translated(self):
-        self.translate_detail_page()
+        fr_detail_page = research_test_utils.translate_detail_page(
+            self.detail_page,
+            self.fr_locale,
+        )
+        fr_profile = fr_detail_page.research_authors.first().author_profile
         translation.activate(self.fr_locale.language_code)
 
         # Get context when fr is active
         fr_context = self.author_index.localized.get_context(request=None)
 
         self.assertNotIn(self.research_profile, fr_context['author_profiles'])
-        self.assertIn(self.fr_profile, fr_context['author_profiles'])
+        self.assertIn(fr_profile, fr_context['author_profiles'])
 
     def test_profile_route(self):
         profile_slug = text_utils.slugify(self.research_profile.name)
@@ -211,7 +190,10 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
     def test_get_author_detail_context_alias_and_translation(self):
         # There can be mixed situations, where only some research associated with
         # a profile is properly translated, but others are still only aliased.
-        self.translate_detail_page()
+        fr_detail_page = research_test_utils.translate_detail_page(
+            self.detail_page,
+            self.fr_locale,
+        )
         extra_detail_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
@@ -235,13 +217,16 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         # locale, rather than the locale of the profile we are looking at
         self.assertIn(self.detail_page, context['latest_research'])
         self.assertIn(extra_detail_page, context['latest_research'])
-        self.assertNotIn(self.fr_detail_page, context['latest_research'])
+        self.assertNotIn(fr_detail_page, context['latest_research'])
         self.assertNotIn(fr_extra_detail_page, context['latest_research'])
 
     def test_get_author_detail_context_fr_locale_alias_and_translation(self):
         # There can be mixed situations, where only some research associated with
         # a profile is properly translated, but others are still only aliased.
-        self.translate_detail_page()
+        fr_detail_page = research_test_utils.translate_detail_page(
+            self.detail_page,
+            self.fr_locale,
+        )
         extra_detail_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
@@ -269,5 +254,5 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         # locale, rather than the locale of the profile we are looking at
         self.assertNotIn(self.detail_page, context['latest_research'])
         self.assertNotIn(extra_detail_page, context['latest_research'])
-        self.assertIn(self.fr_detail_page, context['latest_research'])
+        self.assertIn(fr_detail_page, context['latest_research'])
         self.assertIn(fr_extra_detail_page, context['latest_research'])
