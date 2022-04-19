@@ -65,6 +65,12 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         filtered_region_ids = [
             int(region_id) for region_id in request.GET.getlist('region')
         ]
+        # Because a research detail page can only have a single publication date, we
+        # can also only select a single one. Otherwise we would filter for pages with
+        # two publication dates which does not exist.
+        filtered_year = request.GET.get('year')
+        if filtered_year:
+            filtered_year = int(filtered_year)
 
         context = super().get_context(request)
         context['search_query'] = search_query
@@ -76,12 +82,14 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         context['region_options'] = self._get_region_options()
         context['filtered_region_ids'] = filtered_region_ids
         context['year_options'] = self._get_year_options()
+        context['filtered_year'] = filtered_year
         context['research_detail_pages'] = self._get_research_detail_pages(
             search=search_query,
             sort=sort,
             author_profile_ids=filtered_author_ids,
             topic_ids=filtered_topic_ids,
             region_ids=filtered_region_ids,
+            year=filtered_year,
         )
         return context
 
@@ -116,6 +124,7 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         author_profile_ids: Optional[list[int]] = None,
         topic_ids: Optional[list[int]] = None,
         region_ids: Optional[list[int]] = None,
+        year: Optional[int] = None,
     ):
         sort = sort or self.SORT_NEWEST_FIRST
         author_profile_ids = author_profile_ids or []
@@ -150,6 +159,11 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         for region in regions:
             research_detail_pages = research_detail_pages.filter(
                 related_regions__research_region__translation_key=region.translation_key
+            )
+
+        if year:
+            research_detail_pages = research_detail_pages.filter(
+                original_publication_date__year=year
             )
 
         research_detail_pages = research_detail_pages.order_by(sort.order_by_value)

@@ -744,6 +744,22 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(year_1, year_options)
         self.assertIn(year_2, year_options)
 
+    def test_filter_for_year(self):
+        detail_page_1 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        year_1 = detail_page_1.original_publication_date.year
+        detail_page_2 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=datetime.date(year_1 + 1, 6, 1)
+        )
+
+        response = self.client.get(self.library_page.url, data={'year': year_1})
+
+        research_detail_pages = response.context['research_detail_pages']
+        self.assertIn(detail_page_1, research_detail_pages)
+        self.assertNotIn(detail_page_2, research_detail_pages)
+
 # TODO: Move to helper module and use in test_author_index
 def translate_detail_page(detail_page, locale):
     # Requires previous tree synchronization
