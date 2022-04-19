@@ -355,7 +355,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
         profile_en = detail_page_en.research_authors.first().author_profile
         self.synchronize_tree()
-        detail_page_fr = translate_detail_page(detail_page_en, self.fr_locale)
+        detail_page_fr = research_test_utils.translate_detail_page(detail_page_en, self.fr_locale)
         profile_fr = detail_page_fr.research_authors.first().author_profile
         translation.activate(self.fr_locale.language_code)
 
@@ -440,7 +440,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.synchronize_tree()
         detail_page_1_fr = detail_page_1.get_translation(self.fr_locale)
         self.assertEqual(profile, detail_page_1_fr.research_authors.first().author_profile)
-        detail_page_2_fr = translate_detail_page(detail_page_2, self.fr_locale)
+        detail_page_2_fr = research_test_utils.translate_detail_page(detail_page_2, self.fr_locale)
         profile_fr = detail_page_2_fr.research_authors.first().author_profile
         self.assertNotEqual(profile, profile_fr)
         self.assertEqual(profile.translation_key, profile_fr.translation_key)
@@ -574,7 +574,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.synchronize_tree()
         detail_page_1_fr = detail_page_1.get_translation(self.fr_locale)
         self.assertEqual(topic, detail_page_1_fr.related_topics.first().research_topic)
-        detail_page_2_fr = translate_detail_page(detail_page_2, self.fr_locale)
+        detail_page_2_fr = research_test_utils.translate_detail_page(detail_page_2, self.fr_locale)
         topic_fr = detail_page_2_fr.related_topics.first().research_topic
         self.assertNotEqual(topic, topic_fr)
         self.assertEqual(topic.translation_key, topic_fr.translation_key)
@@ -709,7 +709,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.synchronize_tree()
         detail_page_1_fr = detail_page_1.get_translation(self.fr_locale)
         self.assertEqual(region, detail_page_1_fr.related_regions.first().research_region)
-        detail_page_2_fr = translate_detail_page(detail_page_2, self.fr_locale)
+        detail_page_2_fr = research_test_utils.translate_detail_page(detail_page_2, self.fr_locale)
         region_fr = detail_page_2_fr.related_regions.first().research_region
         self.assertNotEqual(region, region_fr)
         self.assertEqual(region.translation_key, region_fr.translation_key)
@@ -759,35 +759,3 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         research_detail_pages = response.context['research_detail_pages']
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
-
-# TODO: Move to helper module and use in test_author_index
-def translate_detail_page(detail_page, locale):
-    # Requires previous tree synchronization
-    trans_detail_page = detail_page.get_translation(locale)
-
-    for research_author_trans in trans_detail_page.research_authors.all():
-        # The through model is already for the new locale after the tree sync,
-        # but the related model is not.
-        author_profile_orig = research_author_trans.author_profile
-        author_profile_trans = author_profile_orig.copy_for_translation(locale)
-        author_profile_trans.save()
-        research_author_trans.author_profile = author_profile_trans
-        research_author_trans.save()
-
-    for related_topic_trans in trans_detail_page.related_topics.all():
-        topic_orig = related_topic_trans.research_topic
-        topic_trans = topic_orig.copy_for_translation(locale)
-        topic_trans.save()
-        related_topic_trans.research_topic = topic_trans
-        related_topic_trans.save()
-
-    for related_region_trans in trans_detail_page.related_regions.all():
-        region_orig = related_region_trans.research_region
-        region_trans = region_orig.copy_for_translation(locale)
-        region_trans.save()
-        related_region_trans.research_region = region_trans
-        related_region_trans.save()
-
-    trans_detail_page.alias_of = None
-    trans_detail_page.save()
-    return trans_detail_page
