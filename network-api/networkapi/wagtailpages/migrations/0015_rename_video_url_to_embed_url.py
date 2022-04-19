@@ -15,7 +15,7 @@ import wagtailmedia.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0013_article_hero_custom_coloring'),
+        ('wagtailpages', '0014_child_safety_blurb'),
     ]
 
     operations = [
