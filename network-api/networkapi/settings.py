@@ -331,7 +331,6 @@ TEMPLATES = [
                 'networkapi.context_processor.review_app',
                 'networkapi.context_processor.canonical_path',
                 'networkapi.context_processor.canonical_site_url',
-                'networkapi.context_processor.env_debug',
                 'wagtail.contrib.settings.context_processors.settings',
             ])),
             'libraries': {
@@ -759,3 +758,10 @@ REVIEW_APP_DOMAIN = env("REVIEW_APP_DOMAIN", default=None)
 
 TITO_SECURITY_TOKEN = env("TITO_SECURITY_TOKEN", default=None)
 TITO_NEWSLETTER_QUESTION_ID = env("TITO_NEWSLETTER_QUESTION_ID", default=None)
+
+# Make sure the docker internal IP is a known internal IP, so that "debug" in templates works
+if DEBUG:
+    import os  # only if you haven't already imported this
+    import socket  # only if you haven't already imported this
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
