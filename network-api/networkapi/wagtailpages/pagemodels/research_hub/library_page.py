@@ -54,7 +54,7 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
 
     def get_context(self, request):
         search_query = request.GET.get('search', '')
-        sort_value = request.GET.get('sort', None)
+        sort_value = request.GET.get('sort', '')
         sort = self.SORT_CHOICES.get(sort_value, self.SORT_NEWEST_FIRST)
         filtered_author_ids = [
             int(author_id) for author_id in request.GET.getlist('author')
@@ -68,9 +68,11 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         # Because a research detail page can only have a single publication date, we
         # can also only select a single one. Otherwise we would filter for pages with
         # two publication dates which does not exist.
-        filtered_year = request.GET.get('year')
-        if filtered_year:
+        filtered_year = request.GET.get('year', '')
+        try:
             filtered_year = int(filtered_year)
+        except ValueError:
+            filtered_year = ''
 
         context = super().get_context(request)
         context['search_query'] = search_query

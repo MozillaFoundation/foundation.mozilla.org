@@ -19,8 +19,10 @@
     </div>
     <div>
       <h2>Publication date</h2>
+      <input type="radio" value="" name="year" id="year-option-all" {% if not filtered_year %}checked{% endif %} form="search-form"/>
+      <label for="year-option-all">Any</label>
       {% for year in year_options %}
-        <input type="checkbox" value="{{ year }}" name="year" id="year-option-{{ year }}" {% if year in filtered_years %}checked{% endif %} form="search-form"/>
+        <input type="radio" value="{{ year }}" name="year" id="year-option-{{ year }}" {% if year == filtered_year %}checked{% endif %} form="search-form"/>
         <label for="year-option-{{ year }}">{{ year }}</label>
       {% endfor %}
     </div>
