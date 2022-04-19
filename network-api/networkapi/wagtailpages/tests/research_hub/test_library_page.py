@@ -1,3 +1,4 @@
+import datetime
 import unittest
 
 from django.utils import translation
@@ -725,6 +726,23 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_2_fr, research_detail_pages)
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
+
+    def test_years_in_context(self):
+        detail_page_1 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        year_1 = detail_page_1.original_publication_date.year
+        detail_page_2 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        year_2 = detail_page_2.original_publication_date.year
+
+        response = self.client.get(self.library_page.url)
+
+        year_options = response.context['year_options']
+        self.assertEqual(len(year_options), 2)
+        self.assertIn(year_1, year_options)
+        self.assertIn(year_2, year_options)
 
 # TODO: Move to helper module and use in test_author_index
 def translate_detail_page(detail_page, locale):

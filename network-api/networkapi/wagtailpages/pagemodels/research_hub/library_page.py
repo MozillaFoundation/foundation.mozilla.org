@@ -75,6 +75,7 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         context['filtered_topic_ids'] = filtered_topic_ids
         context['region_options'] = self._get_region_options()
         context['filtered_region_ids'] = filtered_region_ids
+        context['year_options'] = self._get_year_options()
         context['research_detail_pages'] = self._get_research_detail_pages(
             search=search_query,
             sort=sort,
@@ -95,6 +96,16 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
     def _get_region_options(self):
         regions = taxonomies.ResearchRegion.objects.all()
         return utils.localize_queryset(regions)
+
+    def _get_year_options(self):
+        return [
+            date.year
+            for date
+            in detail_page.ResearchDetailPage.objects.dates(
+                'original_publication_date',
+                'year',
+            )
+        ]
 
     def _get_research_detail_pages(
         self,
