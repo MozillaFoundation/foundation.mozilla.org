@@ -351,7 +351,6 @@ def localize_queryset(queryset):
     return queryset
 
 
-
 def get_plaintext_titles(request, stream_data, stream_block_name):
     """
     Accepts a StreamField and the name of a streamblock to look for,

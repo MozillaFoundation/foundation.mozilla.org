@@ -1,5 +1,4 @@
 from django import http, shortcuts
-from django.db import models
 from django.utils import text as text_utils
 from wagtail.core import models as wagtail_models
 from wagtail.contrib.routable_page import models as routable_models

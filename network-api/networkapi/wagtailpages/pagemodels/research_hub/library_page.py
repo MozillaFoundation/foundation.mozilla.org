@@ -11,7 +11,6 @@ from networkapi.wagtailpages.pagemodels.research_hub import detail_page
 from networkapi.wagtailpages.pagemodels.research_hub import taxonomies
 
 
-
 # We don't want to expose the actual database column value that we use for sorting.
 # Therefore, we need a separate value that is used in the form and url.
 SortOption = collections.namedtuple(
