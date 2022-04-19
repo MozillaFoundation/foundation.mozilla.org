@@ -18,6 +18,13 @@
       {% endfor %}
     </div>
     <div>
+      <h2>Publication date</h2>
+      {% for year in year_options %}
+        <input type="checkbox" value="{{ year }}" name="year" id="year-option-{{ year }}" {% if year in filtered_years %}checked{% endif %} form="search-form"/>
+        <label for="year-option-{{ year }}">{{ year }}</label>
+      {% endfor %}
+    </div>
+    <div>
       <h2>Author</h2>
       {% for author in author_options|dictsort:"name" %}
         <input type="checkbox" value="{{ author.id }}" name="author" id="author-option-{{ author.id }}" {% if author.id in filtered_author_ids %}checked{% endif %} form="search-form"/>

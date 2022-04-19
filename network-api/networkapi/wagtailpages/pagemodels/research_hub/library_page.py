@@ -104,6 +104,7 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
             in detail_page.ResearchDetailPage.objects.dates(
                 'original_publication_date',
                 'year',
+                order='DESC',
             )
         ]
 
