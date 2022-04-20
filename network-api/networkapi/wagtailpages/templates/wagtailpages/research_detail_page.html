@@ -3,7 +3,8 @@
 
 {% block subcontent %}
   <div>
-    {% image page.cover_image fill-256x348 %}
+    {% image page.cover_image fill-256x348 as cover_image %}
+    <img src="{{ cover_image.url }}" alt="" class="tw-w-full tw-object-cover tw-object-center tw-max-w-[256px]"/>
   </div>
   <h1>
     {{ page.title }}
