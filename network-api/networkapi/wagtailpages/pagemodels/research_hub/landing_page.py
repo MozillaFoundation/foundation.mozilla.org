@@ -8,10 +8,6 @@ from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel
 )
 
-from ...utils import (
-    TitleWidget
-)
-
 
 class ResearchLandingPage(foundation_metadata.FoundationMetadataPageMixin, wagtail_models.Page):
     max_count = 1
@@ -25,12 +21,7 @@ class ResearchLandingPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         max_length=250,
     )
 
-    content_panels = [
-        FieldPanel(
-            'title',
-            classname='full title',
-            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60})
-        ),
+    content_panels = wagtail_models.Page.content_panels + [
         FieldPanel('intro'),
         InlinePanel('featured_topics', heading="Featured Topics"),
     ]
@@ -39,10 +30,10 @@ class ResearchLandingPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         context = super().get_context(request)
         ResearchLibraryPage = apps.get_model("wagtailpages", "ResearchLibraryPage")
         context['library_page'] = ResearchLibraryPage.objects.first()
-        context['latest_research_detail_pages'] = self.get_recent_research_pages
+        context['latest_research_detail_pages'] = self.get_latest_research_pages
         return context
 
-    def get_recent_research_pages(self, *, search='', sort=None):
+    def get_latest_research_pages(self):
         active_locale = wagtail_models.Locale.get_active()
 
         ResearchDetailPage = apps.get_model('wagtailpages', 'ResearchDetailPage')

@@ -57,7 +57,7 @@
   <ul>
     {% for featured_topic in page.featured_topics.all %}
     <li>
-      <h3><a href="{% pageurl library_page %}?topic={{featured_topic.id}}">{{ featured_topic.research_topic.name }}</a></h3>
+      <h3><a href="{% pageurl library_page %}?topic={{featured_topic.research_topic.id}}">{{ featured_topic.research_topic.name }}</a></h3>
       <div>
       </div>
     </li>

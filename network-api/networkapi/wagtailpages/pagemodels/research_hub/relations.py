@@ -68,7 +68,7 @@ class ResearchDetailPageResearchTopicRelation(wagtail_models.TranslatableMixin, 
 
 
 class ResearchLandingPageFeaturedResearchTopicRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
-    research_detail_page = cluster_fields.ParentalKey(
+    research_landing_page = cluster_fields.ParentalKey(
         'wagtailpages.ResearchLandingPage',
         null=False,
         blank=False,
