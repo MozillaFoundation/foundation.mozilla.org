@@ -12,6 +12,7 @@ from ...utils import (
     TitleWidget
 )
 
+
 class ResearchLandingPage(foundation_metadata.FoundationMetadataPageMixin, wagtail_models.Page):
     max_count = 1
     subpage_types = [
