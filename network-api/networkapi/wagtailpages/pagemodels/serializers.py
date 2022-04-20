@@ -103,6 +103,7 @@ class GeneralProductPageSerializer(ProductSerializer):
     company_track_record = TrackRecordChoicesSerializer(default='Average')  # TODO: Test this imports correctly
     track_record_is_bad = serializers.BooleanField(default=False, required=False)
     track_record_details = serializers.CharField(required=False, max_length=5000)
+    child_safety_blurb = serializers.CharField(required=False, max_length=5000)
     offline_capable = ExtendedYesNoSerializer(default='CD')
     offline_use_description = serializers.CharField(required=False, max_length=5000)
     uses_ai = ExtendedYesNoSerializer(default='CD')
