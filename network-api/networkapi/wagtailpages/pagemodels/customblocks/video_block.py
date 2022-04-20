@@ -30,7 +30,7 @@ class ExternalVideoBlock(blocks.StructBlock):
 
 
 class VideoBlock(blocks.StructBlock):
-    url = blocks.CharBlock(
+    embed_url = blocks.CharBlock(
         help_text='For YouTube: go to your YouTube video and click “Share,” '
                   'then “Embed,” and then copy and paste the provided URL only. '
                   'For example: https://www.youtube.com/embed/3FIVXBawyQw '

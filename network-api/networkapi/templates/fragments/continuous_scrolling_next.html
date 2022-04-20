@@ -1,0 +1,19 @@
+{% load i18n %}
+<div class="cont-scrolling tw-w-full tw-h-screen tw-bg-blue-lightest tw-sticky tw-z-[2000] tw-overflow-hidden" data-href="{{ page.next_page.url }}">
+  <div class="tw-container tw-py-6">
+    <div class="tw-flex tw-flex-col tw-justify-center tw-items-center tw-text-black" >
+      <div class="tw-font-sans tw-text-xs tw-uppercase tw-mb-3 tw-tracking-wide">
+        {% trans "Keep Scrolling For" context "String followed by the next page title the user will reach by scrolling down" %}
+      </div>
+      <a href="{{ page.next_page.url }}" class="tw-h4-heading tw-text-center tw-text-black hover:tw-text-blue-dark hover:tw-no-underline scrolling-link">{{ page.next_page.title }}</a>
+    </div>
+  </div>
+  <div class="tw-w-full tw-h-screen tw-bg-white tw-absolute tw-top-0 tw-right-0 outro-screen tw-grid tw-place-items-center" style="transform:translateY(100%)">
+    <div class="article-loading tw-hidden">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+  </div>
+</div>
+
