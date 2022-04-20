@@ -55,9 +55,9 @@
 <div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-w-max tw-p-6">
   <h2> User Selected Featured Topics:</h2>
   <ul>
-    {% for related_topic in page.featured_topics.all %}
+    {% for featured_topic in page.featured_topics.all %}
     <li>
-      <h3><a href="{% pageurl library_page %}/?topic={{related_topic.id}}">{{ related_topic.research_topic.name }}</a></h3>
+      <h3><a href="{% pageurl library_page %}?topic={{featured_topic.id}}">{{ featured_topic.research_topic.name }}</a></h3>
       <div>
       </div>
     </li>
