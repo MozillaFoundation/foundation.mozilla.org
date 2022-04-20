@@ -20,7 +20,7 @@
     <h2>
       Search Bar:
     </h2>
-    <form action="" method="get" accept-charset="utf-8">
+    <form action="library" method="get" accept-charset="utf-8">
       <input type="text" value="{{ search_query }}" name="search" id="search"
         class="tw-inline-block form-control tw-w-1/2 tw-rounded-none" />
       <button type="submit" class="tw-btn-primary">Search</button>
@@ -57,7 +57,7 @@
   <ul>
     {% for related_topic in page.featured_topics.all %}
     <li>
-      <h3><a href="">{{ related_topic.research_topic.name }}</a></h3>
+      <h3><a href="{% pageurl library_page %}/?topic={{related_topic.id}}">{{ related_topic.research_topic.name }}</a></h3>
       <div>
       </div>
     </li>
