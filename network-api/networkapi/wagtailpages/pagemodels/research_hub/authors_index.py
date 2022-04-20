@@ -1,5 +1,4 @@
 from django import http, shortcuts
-from django.db import models
 from django.utils import text as text_utils
 from wagtail.core import models as wagtail_models
 from wagtail.contrib.routable_page import models as routable_models
@@ -7,6 +6,7 @@ from wagtail.contrib.routable_page import models as routable_models
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.research_hub import detail_page
+from networkapi.wagtailpages import utils
 
 
 class ResearchAuthorsIndexPage(
@@ -19,28 +19,13 @@ class ResearchAuthorsIndexPage(
 
     def get_context(self, request):
         context = super().get_context(request)
+        author_profiles = profiles.Profile.objects.all()
+        author_profiles = author_profiles.filter_research_authors()
         # When the index is displayed in a non-default locale, then want to show
         # the profile associated with that locale. But, profiles do not necessarily
         # exist in all locales. We prefer showing the profile for the locale, but fall
         # back to the profile on the default locale.
-        default_locale = wagtail_models.Locale.get_default()
-        active_locale = wagtail_models.Locale.get_active()
-        author_profiles = profiles.Profile.objects.all()
-        author_profiles = author_profiles.filter_research_authors()
-        author_profiles = author_profiles.filter(
-            models.Q(locale=default_locale) | models.Q(locale=active_locale)
-        )
-        author_profiles = author_profiles.annotate(
-            locale_is_default=models.Case(
-                models.When(locale=default_locale, then=True),
-                default=False,
-            )
-        )
-        author_profiles = author_profiles.order_by(
-            'translation_key',
-            'locale_is_default',
-        )
-        author_profiles = author_profiles.distinct('translation_key')
+        author_profiles = utils.localize_queryset(author_profiles)
         context["author_profiles"] = author_profiles
         return context
 
@@ -74,11 +59,19 @@ class ResearchAuthorsIndexPage(
 
         LATEST_RESERACH_COUNT_LIMIT = 3
         latest_research = detail_page.ResearchDetailPage.objects.all()
+        # During tree sync, an alias is created for every detail page. But, these
+        # aliases are still associated with the profile in the default locale. So, when
+        # displaying the author page for a non-default locale author, we also want to
+        # the detail pages for active locale that are still associated with the default
+        # locales author. We know the default locale's author will have the same
+        # `translation_key` as the current locale's author. So, instead of filtering
+        # for the author `id`, we filter by `translation_key`.
         latest_research = latest_research.filter(
             research_authors__author_profile__translation_key=(
                 author_profile.translation_key
             )
         )
+        # And then we fitler for the active locale.
         latest_research = latest_research.filter(
             locale=wagtail_models.Locale.get_active()
         )
