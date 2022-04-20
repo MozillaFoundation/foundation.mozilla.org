@@ -138,12 +138,14 @@ class ResearchDetailPageResearchTopicRelationFactory(factory.django.DjangoModelF
     research_detail_page = factory.SubFactory(ResearchDetailPageFactory)
     research_topic = factory.SubFactory(ResearchTopicFactory)
 
+
 class ResearchLandingPageResearchTopicRelationFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchLandingPageFeaturedResearchTopicRelation
 
     research_landing_page = factory.SubFactory(ResearchLandingPageFactory)
     research_topic = factory.SubFactory(ResearchTopicFactory)
+
 
 def generate(seed):
     faker_helpers.reseed(seed)
