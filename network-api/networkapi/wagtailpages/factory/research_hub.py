@@ -75,19 +75,37 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
             names.append(faker.name())
         return "; ".join(names)
 
+    research_authors = factory.RelatedFactoryList(
+        factory='networkapi.wagtailpages.factory.research_hub.ResearchAuthorRelationFactory',
+        factory_related_name='research_detail_page',
+        size=1,
+    )
+
+    related_topics = factory.RelatedFactoryList(
+        factory='networkapi.wagtailpages.factory.research_hub.ResearchDetailPageResearchTopicRelationFactory',
+        factory_related_name='research_detail_page',
+        size=1,
+    )
+
+    related_regions = factory.RelatedFactoryList(
+        factory='networkapi.wagtailpages.factory.research_hub.ResearchDetailPageResearchRegionRelationFactory',
+        factory_related_name='research_detail_page',
+        size=1,
+    )
+
 
 class ResearchRegionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchRegion
 
-    name = factory.Faker('country')
+    name = factory.Faker('text', max_nb_chars=50)
 
 
 class ResearchTopicFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchTopic
 
-    name = factory.Faker('catch_phrase')
+    name = factory.Faker('text', max_nb_chars=50)
     description = factory.Faker('paragraph')
 
 
