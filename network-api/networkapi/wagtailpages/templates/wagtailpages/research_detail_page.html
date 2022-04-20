@@ -1,7 +1,10 @@
 {% extends "./research_base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block subcontent %}
+  <div>
+    {% image page.cover_image fill-256x348 %}
+  </div>
   <h1>
     {{ page.title }}
   </h1>

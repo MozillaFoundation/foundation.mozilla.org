@@ -2,10 +2,12 @@ from django.db import models
 from django.core import exceptions
 from modelcluster import fields as cluster_fields
 from wagtail import documents as wagtail_docs
+from wagtail import images as wagtail_images
 from wagtail.documents import edit_handlers as docs_handlers
 from wagtail.admin import edit_handlers
 from wagtail.core import fields as wagtail_fields
 from wagtail.core import models as wagtail_models
+from wagtail.images import edit_handlers as image_handlers
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
@@ -72,6 +74,16 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
 class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtail_models.Page):
     parent_page_types = ['ResearchLibraryPage']
 
+    cover_image = models.ForeignKey(
+        wagtail_images.get_image_model_string(),
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        help_text=(
+            'Select a cover image for this reserach.'
+            'The cover image is displayed on the detail page and all research listings.'
+        ),
+    )
     original_publication_date = models.DateField(
         null=True,
         blank=True,
@@ -99,6 +111,7 @@ class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtai
     )
 
     content_panels = wagtail_models.Page.content_panels + [
+        image_handlers.ImageChooserPanel('cover_image'),
         edit_handlers.InlinePanel('research_links', heading="Research links", min_num=1),
         edit_handlers.FieldPanel('original_publication_date'),
         edit_handlers.FieldPanel('introduction'),
@@ -112,6 +125,7 @@ class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtai
     translatable_fields = [
         localize_fields.TranslatableField('title'),
         localize_fields.SynchronizedField('slug'),
+        localize_fields.SynchronizedField('cover_image'),
         localize_fields.SynchronizedField('original_publication_date', overridable=False),
         localize_fields.TranslatableField('introduction'),
         localize_fields.TranslatableField('overview'),

@@ -7,6 +7,7 @@ import wagtail_factories
 from networkapi.utility.faker import helpers as faker_helpers
 from networkapi.wagtailpages import models as wagtailpage_models
 from networkapi.wagtailpages.factory import documents as documents_factory
+from networkapi.wagtailpages.factory import image_factory
 from networkapi.wagtailpages.factory import profiles as profiles_factory
 
 
@@ -54,6 +55,7 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
         model = wagtailpage_models.ResearchDetailPage
 
     title = factory.Faker('text', max_nb_chars=50)
+    cover_image = factory.SubFactory(image_factory.ImageFactory)
     research_links = factory.RelatedFactoryList(
         factory=ResearchDetailLinkFactory,
         factory_related_name='research_detail_page',
