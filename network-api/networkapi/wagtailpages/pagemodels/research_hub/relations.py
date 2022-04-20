@@ -65,3 +65,23 @@ class ResearchDetailPageResearchTopicRelation(wagtail_models.TranslatableMixin, 
     panels = [
         snippet_handlers.SnippetChooserPanel('research_topic'),
     ]
+
+
+class ResearchLandingPageFeaturedResearchTopicRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
+    research_detail_page = cluster_fields.ParentalKey(
+        'wagtailpages.ResearchLandingPage',
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name='featured_topics',
+    )
+    research_topic = models.ForeignKey(
+        'wagtailpages.ResearchTopic',
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        snippet_handlers.SnippetChooserPanel('research_topic'),
+    ]

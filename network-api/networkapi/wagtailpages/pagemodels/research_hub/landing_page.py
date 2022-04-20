@@ -5,7 +5,7 @@ from django.db import models
 
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 from wagtail.admin.edit_handlers import (
-    FieldPanel
+    FieldPanel, InlinePanel
 )
 
 from ...utils import (
@@ -31,11 +31,23 @@ class ResearchLandingPage(foundation_metadata.FoundationMetadataPageMixin, wagta
             widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60})
         ),
         FieldPanel('intro'),
-
+        InlinePanel('featured_topics', heading="Featured Topics"),
     ]
 
     def get_context(self, request):
         context = super().get_context(request)
         ResearchLibraryPage = apps.get_model("wagtailpages", "ResearchLibraryPage")
         context['library_page'] = ResearchLibraryPage.objects.first()
+        context['latest_research_detail_pages'] = self.get_recent_research_pages
         return context
+
+    def get_recent_research_pages(self, *, search='', sort=None):
+        active_locale = wagtail_models.Locale.get_active()
+
+        ResearchDetailPage = apps.get_model('wagtailpages', 'ResearchDetailPage')
+        research_detail_pages = ResearchDetailPage.objects.live()
+        research_detail_pages = research_detail_pages.filter(locale=active_locale)
+        research_detail_pages = research_detail_pages.order_by('-original_publication_date')
+        research_detail_pages = research_detail_pages[:3]
+
+        return research_detail_pages

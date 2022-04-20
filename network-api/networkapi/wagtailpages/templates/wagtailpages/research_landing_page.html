@@ -3,153 +3,66 @@
 
 {% block subcontent %}
 
-<div class="hero-image tw-h-[300px] tw-w-full tw-bg-red ">
-  <p> Image goes here</p>
+<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-w-max tw-p-6">
+  <h2>
+    Page Title: {{ page.title }}
+  </h2>
 </div>
-<div class="landing-page-body">
-  <div class="tw-w-11/12 large:tw-w-3/5 -tw-mt-[13rem] tw-bg-white tw-px-7 tw-py-2">
-    <h1>
-      {{ page.title }}
-    </h1>
-    <p class="tw-body">
-      {{ page.intro }}
-    </p>
+
+<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-w-max tw-p-6">
+  <h2>
+    Page Intro: {{ page.intro }}
+  </h2>
+</div>
+
+<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-w-max tw-p-6">
+  <div>
+    <h2>
+      Search Bar:
+    </h2>
+    <form action="" method="get" accept-charset="utf-8">
+      <input type="text" value="{{ search_query }}" name="search" id="search"
+        class="tw-inline-block form-control tw-w-1/2 tw-rounded-none" />
+      <button type="submit" class="tw-btn-primary">Search</button>
+    </form>
   </div>
-  <div class="tw-bg-white tw-grid tw-grid-cols-1 large:tw-grid-cols-5">
-    <div class="tw-bg-white research-latest tw-col-span-3 tw-px-7 tw-pt-4 tw-pb-[4rem] ">
+</div>
+
+<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-w-max tw-p-6">
+  <div>
+    <h2>
+      Browse All Button:
+    </h2>
+    <a href="{% pageurl library_page %}">Browse all</a>
+  </div>
+</div>
+
+<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-w-max tw-p-6">
+  <h2>3 Latest Research Detail Pages:</h2>
+  <ul>
+    {% for research_detail_page in latest_research_detail_pages %}
+    <li>
+      <h3><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h3>
       <div>
-          <input type="text" value="{{ search_query }}" name="search" id="search"
-            class="tw-inline-block form-control tw-w-10/12 tw-rounded-none" />
-            <span class='tw-px-2 tw-flex-nowrap' href="{% pageurl library_page %}">Browse all</span>
-
+        {{ research_detail_page.original_publication_date }}
       </div>
-      <div class="latest-research-section tw-pt-6">
-        <h1>
-          Latest Research
-        </h1>
-        <div class="tw-bg-gray-20 tw-w-full tw-mb-4 tw-px-5 tw-py-4 tw-inline-block large:tw-inline-flex tw-gap-4">
-          <p> IMAGE </p>
-          <div>
-            <p>2020 Internet Health Report </p>
-            <p>14 NOV 20202 / Bartholomew Bellchambers </p>
-            <p>Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta ac consectetur ac, vestibulum at
-              eros.</p>
-          </div>
-        </div>
-        <div class="tw-bg-gray-20 tw-w-full tw-mb-4 tw-px-5 tw-py-4 tw-inline-block large:tw-inline-flex tw-gap-4">
-          <p> IMAGE </p>
-          <div>
-            <p>2020 Internet Health Report </p>
-            <p>14 NOV 20202 / Bartholomew Bellchambers </p>
-            <p>Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta ac consectetur ac, vestibulum at
-              eros.</p>
-          </div>
-        </div>
-        <div class="tw-bg-gray-20 tw-w-full tw-mb-4 tw-px-5 tw-py-4 tw-inline-block large:tw-inline-flex tw-gap-4">
-          <p> IMAGE </p>
-          <div>
-            <p>2020 Internet Health Report </p>
-            <p>14 NOV 20202 / Bartholomew Bellchambers </p>
-            <p>Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta ac consectetur ac, vestibulum at
-              eros.</p>
-          </div>
-        </div>
-        <button class="tw-btn-secondary tw-my-5 tw-w-full medium:tw-w-auto"> Browse all projects </button>
-      </div>
-
-
-    </div>
-    <div class="research-topics tw-col-span-2 tw-px-7 tw-pt-2">
-      <hr class="tw-border-black">
-      <h2 class="tw-body-large">
-        Browse by topic
-      </h2>
-      <div class="tw-pr-5">
-        <div class="topic-section tw-py-3">
-          <a class="tw-link"> AI Transparency</a>
-          <p class="tw-body-small tw-text-base">Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.</p>
-        </div>
-        <div class="topic-section tw-py-3">
-          <a class="tw-link"> Bias in AI</a>
-          <p class="tw-body-small tw-text-base">Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.</p>
-        </div>
-        <div class="topic-section tw-py-3">
-          <a class="tw-link"> Data Stewardship</a>
-          <p class="tw-body-small tw-text-base">Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.</p>
-        </div>
-        <div class="topic-section tw-py-3">
-          <a class="tw-link"> Growing across Movements</a>
-          <p class="tw-body-small tw-text-base">Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.</p>
-        </div>
-        <div class="topic-section tw-py-3">
-          <a class="tw-link"> Organisational Effectiveness</a>
-          <p class="tw-body-small tw-text-base">Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="researcher-section tw-bg-gray-20 tw-px-7 tw-py-7">
-    <h1> Meet the researchers </h1>
-    <div class="researchers tw-grid tw-grid-cols-1 tw-gap-7 tw-pt-5 medium:tw-grid-cols-2 large:tw-grid-cols-4">
-      <div class="researcher-block tw-col-span-1">
-        <p> Picture</p>
-        
-        <h2 class="tw-body"> Test Name</h2>
-        <p class="tw-body">Senior Program Officer at Mozilla, cultivating community - driven solutions to mitigate
-          global threats to internet health.</p>
-      </div>
-      <div class="researcher-block tw-col-span-1">
-        <p> Picture</p>
-        <h2 class="tw-body"> Test Name</h2>
-        <p class="tw-body">Senior Program Officer at Mozilla, cultivating community - driven solutions to mitigate
-          global threats to internet health.</p>
-      </div>
-      <div class="researcher-block tw-col-span-1">
-        <p> Picture</p>
-        <h2 class="tw-body"> Test Name</h2>
-        <p class="tw-body">Senior Program Officer at Mozilla, cultivating community - driven solutions to mitigate
-          global threats to internet health.</p>
-      </div>
-      <div class="researcher-block tw-col-span-1">
-        <p> Picture</p>
-        <h2 class="tw-body"> Test Name</h2>
-        <p class="tw-body">Senior Program Officer at Mozilla, cultivating community - driven solutions to mitigate
-          global threats to internet health.</p>
-      </div>
-
-    </div>
-
-    <button class="tw-btn-secondary tw-my-5"> Browse all authors </button>
-
-  </div>
-
-
-
-  <div class="what-is-research-hub tw-bg-white tw-grid large:tw-grid-cols-2 tw-p-7">
-    <div>
-      <p> Picture</p>
-    </div>
-    <div>
-      <h2>
-        What is the Mozilla Research Hub?
-      </h2>
-      <p class="body-small">
-        The Mozilla Research Hub publishes critical analysis of the ideas and organizations working to reshape the
-        internet and trustworthy AI. Whether conducted by our Insights and Advocacy teams, our diverse group of fellows
-        or in collaboration with like-minded partners, our inclusive research slate — it includes everything from
-        playbooks to white papers to op-eds to podcasts — fuels the movement for a healthy, human-centered internet.
-      </p>
-    </div>
-  </div>
-
+      <p>{{ research_detail_page.introduction }}</p>
+    </li>
+    {% endfor %}
+  </ul>
 </div>
 
-
+<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-w-max tw-p-6">
+  <h2> User Selected Featured Topics:</h2>
+  <ul>
+    {% for related_topic in page.featured_topics.all %}
+    <li>
+      <h3><a href="">{{ related_topic.research_topic.name }}</a></h3>
+      <div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 
 {% endblock subcontent %}
