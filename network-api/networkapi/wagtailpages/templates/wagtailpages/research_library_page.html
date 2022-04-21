@@ -1,5 +1,5 @@
 {% extends "./research_base.html" %}
-{% load i18n wagtailcore_tags %}
+{% load i18n wagtailcore_tags wagtailimages_tags %}
 
 {% block subcontent %}
   <h1>{{ page.title }}</h1>
@@ -67,14 +67,18 @@
         </div>
     </div>
   </div>
-  <ul>
+  <ul class="tw-list-none px-2 py-4">
     {% for research_detail_page in research_detail_pages  %}
-      <li>
-        <h2><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h2>
+      <li class="tw-mb-6">
         <div>
-          {{ research_detail_page.original_publication_date }}
+          {% image research_detail_page.cover_image fill-288x112 as cover_image %}
+          <img class="tw-w-full tw-max-h-[112px]" src="{{ cover_image.url }}" alt="{{ cover_image.title }}"/>
+          <h2><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h2>
+          <div>
+            {{ research_detail_page.original_publication_date }}
+          </div>
+          <p>{{ research_detail_page.introduction }}</p>
         </div>
-        <p>{{ research_detail_page.introduction }}</p>
       </li>
     {% endfor %}
   </ul>
