@@ -16,11 +16,11 @@ class ResearchLandingPageFactory(wagtail_factories.PageFactory):
 
     title = "Research"
     intro = factory.Faker('text', max_nb_chars=250)
-    featured_topics = factory.RelatedFactoryList(
-        factory='networkapi.wagtailpages.factory.research_hub.ResearchLandingPageResearchTopicRelationFactory',
-        factory_related_name='research_landing_page',
-        size=3,
-    )
+    # featured_topics = factory.RelatedFactoryList(
+    #     factory='networkapi.wagtailpages.factory.research_hub.ResearchLandingPageResearchTopicRelationFactory',
+    #     factory_related_name='research_landing_page',
+    #     size=3,
+    # )
 
 
 class ResearchLibraryPageFactory(wagtail_factories.PageFactory):
@@ -192,3 +192,9 @@ def generate(seed):
                 research_detail_page=research_detail_page,
                 research_topic=topic,
             )
+
+    for topic in faker_helpers.get_random_objects(model=wagtailpage_models.ResearchTopic, max_count=3):
+        ResearchLandingPageResearchTopicRelationFactory.create(
+            research_landing_page=research_landing_page,
+            research_topic=topic,
+        )
