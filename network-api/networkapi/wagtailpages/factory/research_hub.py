@@ -18,7 +18,6 @@ class ResearchLandingPageFactory(wagtail_factories.PageFactory):
     intro = factory.Faker('text', max_nb_chars=250)
 
 
-
 class ResearchLibraryPageFactory(wagtail_factories.PageFactory):
     class Meta:
         model = wagtailpage_models.ResearchLibraryPage
