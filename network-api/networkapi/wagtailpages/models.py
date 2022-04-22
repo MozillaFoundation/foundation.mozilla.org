@@ -90,6 +90,7 @@ from .pagemodels.research_hub.relations import (
     ResearchAuthorRelation,
     ResearchDetailPageResearchRegionRelation,
     ResearchDetailPageResearchTopicRelation,
+    ResearchLandingPageFeaturedResearchTopicRelation
 )
 from .pagemodels.research_hub.taxonomies import (
     ResearchRegion,
@@ -160,6 +161,7 @@ __all__ = [
     ResearchDetailPageResearchRegionRelation,
     ResearchDetailPageResearchTopicRelation,
     ResearchLandingPage,
+    ResearchLandingPageFeaturedResearchTopicRelation,
     ResearchLibraryPage,
     ResearchRegion,
     ResearchTopic,

@@ -2,10 +2,67 @@
 {% load wagtailcore_tags %}
 
 {% block subcontent %}
-  <h1>
-    {{ page.title }}
-  </h1>
+
+<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-w-max tw-p-6">
+  <h2>
+    Page Title: {{ page.title }}
+  </h2>
+</div>
+
+<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-w-max tw-p-6">
+  <h2>
+    Page Intro: {{ page.intro }}
+  </h2>
+</div>
+
+<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-w-max tw-p-6">
   <div>
+    <h2>
+      Search Bar:
+    </h2>
+    <form action="library" method="get" accept-charset="utf-8">
+      <input type="text" value="{{ search_query }}" name="search" id="search"
+        class="tw-inline-block form-control tw-w-1/2 tw-rounded-none" />
+      <button type="submit" class="tw-btn-primary">Search</button>
+    </form>
+  </div>
+</div>
+
+<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-w-max tw-p-6">
+  <div>
+    <h2>
+      Browse All Button:
+    </h2>
     <a href="{% pageurl library_page %}">Browse all</a>
   </div>
+</div>
+
+<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-w-max tw-p-6">
+  <h2>3 Latest Research Detail Pages:</h2>
+  <ul>
+    {% for research_detail_page in latest_research_detail_pages %}
+    <li>
+      <h3><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h3>
+      <div>
+        {{ research_detail_page.original_publication_date }}
+      </div>
+      <p>{{ research_detail_page.introduction }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-w-max tw-p-6">
+  <h2> User Selected Featured Topics:</h2>
+  <ul>
+    {% for featured_topic in page.featured_topics.all %}
+    <li>
+      <h3><a href="{% pageurl library_page %}?topic={{featured_topic.research_topic.id}}">{{ featured_topic.research_topic.name }}</a></h3>
+      <div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
 {% endblock subcontent %}
