@@ -72,12 +72,19 @@
       <li class="tw-mb-6">
         <div>
           {% image research_detail_page.cover_image fill-576x224 as cover_image %}
-          <img class="tw-mb-4 tw-w-full" src="{{ cover_image.url }}" alt="{{ cover_image.title }}"/>
+          <img class="tw-mb-4 tw-w-full" src="{{ cover_image.url }}" alt="{{ research_detail_page.cover_image.title }}"/>
           <h2 class="tw-h5-heading tw-text-blue-dark"><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h2>
-          <div>
-            {{ research_detail_page.original_publication_date }}
+          <div class="tw-text-sm tw-text-gray-60">
+            {% for meta_group in research_detail_page.get_display_metadata_groups %}
+                <span>{{ meta_group|join:', '|upper }}</span>
+              {% if not forloop.last %}
+                <span class="tw-mx-2 tw-text-gray-20">|</span>
+              {% endif %}
+            {% endfor %}
           </div>
-          <p>{{ research_detail_page.introduction }}</p>
+          <p class="tw-mt-4 tw-text-gray-80 tw-text-md">
+            {{ research_detail_page.introduction }}
+          </p>
         </div>
       </li>
     {% endfor %}
