@@ -72,9 +72,9 @@
       <li class="tw-mb-6">
         <div>
           {% image research_detail_page.cover_image fill-576x224 as cover_image %}
-          <img class="tw-mb-4 tw-w-full" src="{{ cover_image.url }}" alt="{{ research_detail_page.cover_image.title }}"/>
-          <h2 class="tw-h5-heading tw-text-blue-dark"><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h2>
-          <div class="tw-text-sm tw-text-gray-60">
+          <img class="tw-mb-3 tw-w-full" src="{{ cover_image.url }}" alt="{{ research_detail_page.cover_image.title }}"/>
+          <h2 class="tw-h5-heading tw-text-blue-dark tw-mb-2"><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h2>
+          <div class="tw-text-xs tw-text-gray-60 tw-mb-2">
             {% for meta_group in research_detail_page.get_display_metadata_groups %}
                 <span>{{ meta_group|join:', '|upper }}</span>
               {% if not forloop.last %}
@@ -82,7 +82,7 @@
               {% endif %}
             {% endfor %}
           </div>
-          <p class="tw-mt-4 tw-text-gray-80 tw-text-md">
+          <p class="tw-text-gray-80 tw-text-sm">
             {{ research_detail_page.introduction }}
           </p>
         </div>
