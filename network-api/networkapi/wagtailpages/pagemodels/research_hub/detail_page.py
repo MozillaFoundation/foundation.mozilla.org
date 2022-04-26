@@ -143,13 +143,6 @@ class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtai
         index.FilterField('original_publication_date'),  # For sorting
     ]
 
-    def get_display_metadata_groups(self):
-        display_metadata = []
-        display_metadata.append([self.original_publication_date.strftime('%Y')])
-        display_metadata.append(self.get_research_author_names())
-        display_metadata.append(self.get_related_topic_names())
-        return display_metadata
-
     def get_research_author_names(self):
         return [
             ra.author_profile.name
