@@ -1,14 +1,19 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-<div>
-  {% image research_detail_page.cover_image fill-576x224 as cover_image %}
-  <img class="tw-mb-3 tw-w-full {% if hide_image_on_mobile %} tw-hidden small:tw-block {% endif %}" src="{{ cover_image.url }}" alt="{{ research_detail_page.cover_image.title }}"/>
-  <h2 class="tw-h5-heading tw-text-blue-dark tw-mb-2"><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h2>
-  <div class="tw-flex tw-text-xs tw-text-gray-80 tw-mb-2 tw-uppercase tw-divide-x tw-divide-gray-20">
-    <div class="tw-whitespace-nowrap tw-pr-1">{{ research_detail_page.original_publication_date|date:"DATE_FORMAT" }}</div>
-    <div class="tw-whitespace-nowrap tw-px-1 tw-overflow-hidden tw-text-ellipsis">{{ research_detail_page.get_research_author_names|join:', ' }}</div>
-    <div class="tw-whitespace-nowrap tw-pl-1 tw-overflow-hidden tw-text-ellipsis">{{ research_detail_page.get_related_topic_names|join:' / ' }}</div>
+<div class="tw-w-full tw-flex tw-flex-col small:tw-flex-row">
+  <picture class="{% if hide_image_on_mobile %} tw-hidden small:tw-block {% endif %} small:tw-w-[112px] tw-shrink-0 tw-mb-3 small:tw-mb-0 ">
+    {% image research_detail_page.cover_image fill-224x224 as square_image  %}
+    <source srcset="{{ square_image.url }}" media="(min-width: 576px)">
+    {% image research_detail_page.cover_image fill-576x224 class="tw-w-full small:tw-w-[112px]"  %}
+  </picture>
+  <div>
+    <h2 class="tw-h5-heading tw-text-blue-dark tw-mb-2"><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h2>
+    <div class="tw-flex tw-text-xs tw-text-gray-80 tw-mb-2 tw-uppercase tw-divide-x tw-divide-gray-20">
+      <div class="tw-whitespace-nowrap tw-pr-1">{{ research_detail_page.original_publication_date|date:"DATE_FORMAT" }}</div>
+      <div class="tw-whitespace-nowrap tw-px-1 tw-overflow-hidden tw-text-ellipsis">{{ research_detail_page.get_research_author_names|join:', ' }}</div>
+      <div class="tw-whitespace-nowrap tw-pl-1 tw-overflow-hidden tw-text-ellipsis">{{ research_detail_page.get_related_topic_names|join:' / ' }}</div>
+    </div>
+    <p class="tw-mb-0 tw-text-gray-60 tw-text-base">
+      {{ research_detail_page.introduction }}
+    </p>
   </div>
-  <p class="tw-mb-0 tw-text-gray-60 tw-text-base">
-    {{ research_detail_page.introduction }}
-  </p>
 </div>
