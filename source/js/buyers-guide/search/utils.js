@@ -39,18 +39,24 @@ export class Utils {
     if (parent) {
       headerText.textContent = parent;
       document.querySelector(".category-header").dataset.name = parent;
-      document.querySelector(".category-header").href = document.querySelector(
-        `#multipage-nav a[data-name="${parent}"]`
-      ).href;
+      if (document.querySelector(`#multipage-nav a[data-name="${parent}"]`)) {
+        document.querySelector(".category-header").href =
+          document.querySelector(
+            `#multipage-nav a[data-name="${parent}"]`
+          ).href;
+      }
       document.querySelector(`#pni-nav-mobile .active-link-label`).textContent =
         parent;
     } else {
       const header = category === "None" ? ALL_CATEGORY_LABEL : category;
       headerText.textContent = header;
       document.querySelector(".category-header").dataset.name = category;
-      document.querySelector(".category-header").href = document.querySelector(
-        `#multipage-nav a[data-name="${category}"]`
-      ).href;
+      if (document.querySelector(`#multipage-nav a[data-name="${category}"]`)) {
+        document.querySelector(".category-header").href =
+          document.querySelector(
+            `#multipage-nav a[data-name="${category}"]`
+          ).href;
+      }
       document.querySelector(`#pni-nav-mobile .active-link-label`).textContent =
         category === "None"
           ? document.querySelector(`#multipage-nav a[data-name="None"]`)
@@ -123,17 +129,29 @@ export class Utils {
         .classList.remove(`active`);
     }
 
-    document
-      .querySelector(
+    if (
+      document.querySelector(
         `#pni-nav-mobile a[data-name="${PARENT_TITLE.value.trim()}"]`
       )
-      .classList.add(`active`);
+    ) {
+      document
+        .querySelector(
+          `#pni-nav-mobile a[data-name="${PARENT_TITLE.value.trim()}"]`
+        )
+        .classList.add(`active`);
+    }
 
-    document
-      .querySelector(
+    if (
+      document.querySelector(
         `#multipage-nav a[data-name="${PARENT_TITLE.value.trim()}"]`
       )
-      .classList.add(`active`);
+    ) {
+      document
+        .querySelector(
+          `#multipage-nav a[data-name="${PARENT_TITLE.value.trim()}"]`
+        )
+        .classList.add(`active`);
+    }
   }
 
   /**
