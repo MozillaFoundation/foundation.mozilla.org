@@ -67,9 +67,9 @@
         </div>
     </div>
   </div>
-  <ul class="tw-list-none px-3 py-4">
+  <ul class="tw-list-none px-3 py-4 tw-divide-y tw-divide-gray-05">
     {% for research_detail_page in research_detail_pages  %}
-      <li class="tw-mb-6">
+      <li class="tw-mt-6 tw-pt-5">
         {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True %}
       </li>
     {% endfor %}
