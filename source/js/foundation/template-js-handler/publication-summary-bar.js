@@ -35,9 +35,12 @@ export default () => {
       });
     });
 
-    summaryObserver.observe(
-      document.querySelector(".publication-hero-container")
-    );
+    if(document.querySelector(".publication-hero-container")){
+      summaryObserver.observe(
+        document.querySelector(".publication-hero-container")
+      );
+    } 
+
 
     document.querySelectorAll(".rich-text h2").forEach((section) => {
       titleObserver.observe(section);
