@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div>
   {% image research_detail_page.cover_image fill-576x224 as cover_image %}
-  <img class="tw-mb-3 tw-w-full" src="{{ cover_image.url }}" alt="{{ research_detail_page.cover_image.title }}"/>
+  <img class="tw-mb-3 tw-w-full {% if hide_image_on_mobile %} tw-hidden small:tw-block {% endif %}" src="{{ cover_image.url }}" alt="{{ research_detail_page.cover_image.title }}"/>
   <h2 class="tw-h5-heading tw-text-blue-dark tw-mb-2"><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h2>
   <div class="tw-text-xs tw-text-gray-60 tw-mb-2">
     {% for meta_group in research_detail_page.get_display_metadata_groups %}

@@ -70,7 +70,7 @@
   <ul class="tw-list-none px-3 py-4">
     {% for research_detail_page in research_detail_pages  %}
       <li class="tw-mb-6">
-        {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page %}
+        {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True %}
       </li>
     {% endfor %}
   </ul>
