@@ -23,13 +23,17 @@ export function setupNavLinks(instance) {
 
       evt.preventDefault();
 
-      document
-        .querySelector(`#multipage-nav a.active`)
-        .classList.remove(`active`);
+      if (document.querySelector(`#multipage-nav a.active`)) {
+        document
+          .querySelector(`#multipage-nav a.active`)
+          .classList.remove(`active`);
+      }
 
-      document
-        .querySelector(`#pni-nav-mobile a.active`)
-        .classList.remove(`active`);
+      if (document.querySelector(`#pni-nav-mobile a.active`)) {
+        document
+          .querySelector(`#pni-nav-mobile a.active`)
+          .classList.remove(`active`);
+      }
 
       document
         .querySelector("#pni-nav-mobile .dropdown-nav")
@@ -38,13 +42,25 @@ export function setupNavLinks(instance) {
       const { name: categoryName } = evt.target.dataset ?? {};
 
       if (categoryName) {
-        document
-          .querySelector(`#multipage-nav a[data-name="${categoryName}"]`)
-          .classList.add(`active`);
+        if (
+          document.querySelector(
+            `#multipage-nav a[data-name="${categoryName}"]`
+          )
+        ) {
+          document
+            .querySelector(`#multipage-nav a[data-name="${categoryName}"]`)
+            .classList.add(`active`);
+        }
 
-        document
-          .querySelector(`#pni-nav-mobile a[data-name="${categoryName}"]`)
-          .classList.add(`active`);
+        if (
+          document.querySelector(
+            `#pni-nav-mobile a[data-name="${categoryName}"]`
+          )
+        ) {
+          document
+            .querySelector(`#pni-nav-mobile a[data-name="${categoryName}"]`)
+            .classList.add(`active`);
+        }
 
         instance.clearText();
         history.pushState(
@@ -154,13 +170,17 @@ export function setupGoBackToAll(instance) {
         evt.target.href
       );
 
-      document
-        .querySelector(`#multipage-nav a.active`)
-        .classList.remove(`active`);
+      if (document.querySelector(`#multipage-nav a.active`)) {
+        document
+          .querySelector(`#multipage-nav a.active`)
+          .classList.remove(`active`);
+      }
 
-      document
-        .querySelector(`#pni-nav-mobile a.active`)
-        .classList.remove(`active`);
+      if (document.querySelector(`#pni-nav-mobile a.active`)) {
+        document
+          .querySelector(`#pni-nav-mobile a.active`)
+          .classList.remove(`active`);
+      }
 
       document
         .querySelector(`#multipage-nav a[data-name="None"]`)

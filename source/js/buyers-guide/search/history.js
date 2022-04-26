@@ -93,21 +93,33 @@ export function setupPopStateHandler(instance, searchBar, searchInput) {
         Utils.highlightParentCategory();
         instance.toggleSubcategory();
       } else {
-        document
-          .querySelector(`#multipage-nav a.active`)
-          .classList.remove(`active`);
+        if (document.querySelector(`#multipage-nav a.active`)) {
+          document
+            .querySelector(`#multipage-nav a.active`)
+            .classList.remove(`active`);
+        }
 
-        document
-          .querySelector(`#pni-nav-mobile a.active`)
-          .classList.remove(`active`);
+        if (document.querySelector(`#pni-nav-mobile a.active`)) {
+          document
+            .querySelector(`#pni-nav-mobile a.active`)
+            .classList.remove(`active`);
+        }
 
-        document
-          .querySelector(`#multipage-nav a[data-name="${category}"]`)
-          .classList.add(`active`);
+        if (
+          document.querySelector(`#multipage-nav a[data-name="${category}"]`)
+        ) {
+          document
+            .querySelector(`#multipage-nav a[data-name="${category}"]`)
+            .classList.add(`active`);
+        }
 
-        document
-          .querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
-          .classList.add(`active`);
+        if (
+          document.querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
+        ) {
+          document
+            .querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
+            .classList.add(`active`);
+        }
 
         instance.toggleSubcategory(true);
       }
@@ -149,21 +161,29 @@ export function applyHistory(instance) {
     Utils.highlightParentCategory();
     instance.toggleSubcategory();
   } else {
-    document
-      .querySelector(`#multipage-nav a.active`)
-      .classList.remove(`active`);
+    if (document.querySelector(`#multipage-nav a.active`)) {
+      document
+        .querySelector(`#multipage-nav a.active`)
+        .classList.remove(`active`);
+    }
 
-    document
-      .querySelector(`#pni-nav-mobile a.active`)
-      .classList.remove(`active`);
+    if (document.querySelector(`#pni-nav-mobile a.active`)) {
+      document
+        .querySelector(`#pni-nav-mobile a.active`)
+        .classList.remove(`active`);
+    }
 
-    document
-      .querySelector(`#multipage-nav a[data-name="${category}"]`)
-      .classList.add(`active`);
+    if (document.querySelector(`#multipage-nav a[data-name="${category}"]`)) {
+      document
+        .querySelector(`#multipage-nav a[data-name="${category}"]`)
+        .classList.add(`active`);
+    }
 
-    document
-      .querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
-      .classList.add(`active`);
+    if (document.querySelector(`#pni-nav-mobile a[data-name="${category}"]`)) {
+      document
+        .querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
+        .classList.add(`active`);
+    }
 
     instance.toggleSubcategory(true);
   }
