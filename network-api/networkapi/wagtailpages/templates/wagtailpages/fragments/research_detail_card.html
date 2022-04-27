@@ -25,7 +25,7 @@
         <div class="tw-px-2 tw-min-w-0 tw-truncate" >{{ research_detail_page.get_research_author_names|join:', ' }}</div>
       {% endif %}
       {% if research_detail_page.get_related_topic_names %}
-        <div class="tw-pl-2 tw-min-w-0 tw-truncate">{{ research_detail_page.get_related_topic_names|join:' / ' }}</div>
+        <div class="tw-pl-2 tw-min-w-0 tw-truncate {% if hide_topics_on_mobile %} tw-hidden small:tw-block {% endif %}">{{ research_detail_page.get_related_topic_names|join:' / ' }}</div>
       {% endif %}
     </div>
     {% if research_detail_page.introduction %}
