@@ -37,16 +37,12 @@
   </div>
 </div>
 
-<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-p-6">
-  <h2>3 Latest Research Detail Pages:</h2>
-  <ul>
+<div class="tw-container tw-border-4 tw-border-gray-60 tw-my-5 tw-p-6">
+  <h2>Latest Research</h2>
+  <ul class="tw-list-none tw-space-y-3">
     {% for research_detail_page in latest_research_detail_pages %}
-    <li>
-      <h3><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h3>
-      <div>
-        {{ research_detail_page.original_publication_date }}
-      </div>
-      <p>{{ research_detail_page.introduction }}</p>
+    <li class="tw-p-5 tw-bg-gray-05 tw-border tw-border-gray-20 tw-rounded-md">
+      {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page heading_level=3 %}
     </li>
     {% endfor %}
   </ul>
