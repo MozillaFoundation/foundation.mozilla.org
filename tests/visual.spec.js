@@ -35,6 +35,17 @@ function testURL(domain, path) {
     // we don't want to screenshot before images are done.
     await waitForImagesToLoad(page);
 
+    // Delay for a bit to allow the page to settle down
+    if (
+      [
+        "/campaigns/dearinternet",
+        "/campaigns/initial-test-bannered-campaign-with-fixed-title",
+      ].includes(path)
+    ) {
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await page.waitForTimeout(3000);
+    }
+
     await percySnapshot(page, testInfo.title);
     await page.screenshot({
       path: `tests/screenshots/${runTime}/${testInfo.title}.png`,

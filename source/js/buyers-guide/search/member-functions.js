@@ -111,7 +111,7 @@ export function setupNavLinks(instance) {
             categoryTitle.value = evt.target.dataset.parent;
             parentTitle.value = "";
             href = document.querySelector(
-              `#multipage-nav a[data-name="${evt.target.dataset.parent}"]`
+              `#multipage-nav a[data-name="${evt.target.dataset.parent}"],.category-header`
             ).href;
             instance.toggleSubcategory(true);
           }
