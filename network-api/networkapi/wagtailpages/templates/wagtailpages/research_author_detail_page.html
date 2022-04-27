@@ -21,7 +21,7 @@
       <ul class="tw-list-none px-0 tw-divide-y tw-divide-gray-05">
         {% for research_detail_page in latest_research %}
           <li class="tw-mt-6 tw-pt-5">
-            {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=False %}
+            {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_author_names=True %}
           </li>
         {% endfor %}
       </ul>
