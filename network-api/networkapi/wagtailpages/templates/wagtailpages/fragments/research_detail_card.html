@@ -22,10 +22,10 @@
         <div class="tw-pr-2 tw-whitespace-nowrap ">{{ research_detail_page.original_publication_date|date:"DATE_FORMAT" }}</div>
       {% endif %}
       {% if research_detail_page.get_research_author_names  %}
-        <div class="tw-px-2 tw-truncate" >{{ research_detail_page.get_research_author_names|join:', ' }}</div>
+        <div class="tw-px-2 tw-min-w-0 tw-truncate" >{{ research_detail_page.get_research_author_names|join:', ' }}</div>
       {% endif %}
       {% if research_detail_page.get_related_topic_names %}
-        <div class="tw-pl-2 tw-truncate">{{ research_detail_page.get_related_topic_names|join:' / ' }}</div>
+        <div class="tw-pl-2 tw-min-w-0 tw-truncate">{{ research_detail_page.get_related_topic_names|join:' / ' }}</div>
       {% endif %}
     </div>
     {% if research_detail_page.introduction %}
