@@ -56,7 +56,7 @@
         <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Apply filter' %}</button>
       </div>
 
-      <div class="tw-container tw-max-w-[768px]">
+      <div class="tw-container">
         <div>
           {% if search_query %}
             <div>
@@ -64,14 +64,12 @@
             </div>
           {% endif %}
           <div>
-            <div>
-              <select name="sort" class="tw-inline-block tw-form-control tw-w-1/2" form="search-form">
-                {% for choice in page.SORT_CHOICES.values  %}
-                  <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
-                {% endfor %}
-              </select>
-              <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Sort' %}</button>
-            </div>
+            <select name="sort" class="tw-inline-block tw-form-control tw-w-1/2" form="search-form">
+              {% for choice in page.SORT_CHOICES.values  %}
+                <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
+              {% endfor %}
+            </select>
+            <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Sort' %}</button>
           </div>
         </div>
         <ul class="tw-list-none px-0 py-4 tw-divide-y tw-divide-gray-05">
