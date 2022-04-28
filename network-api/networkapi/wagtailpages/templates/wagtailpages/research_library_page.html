@@ -1,13 +1,26 @@
 {% extends "./research_base.html" %}
 {% load i18n wagtailcore_tags wagtailimages_tags %}
 
+{% block hero_guts %}
+  {% comment %}
+    {% include "./fragments/primary_heroguts.html" with root=root page=page %}
+  {% endcomment %}
+  <div class="tw-bg-black tw-h-[9rem]">
+
+  </div>
+{% endblock %}
+
 {% block subcontent %}
-  <div class="tw-container">
-    <div>
+  <div class="tw-container -tw-mt-6 tw-pt-7 tw-bg-white">
+    <div class="tw-border">
+      <div>
+        {# Replace this with real breadcrumbs #}
+        Research /
+      </div>
       <h1>{{ page.title }}</h1>
     </div>
 
-    <div class="tw-border-2">
+    <div class="tw-border">
       <div class="tw-w-[416px] tw-shrink-0 tw-bg-gray-05">
         <div>
           <form action="" method="get" accept-charset="utf-8" id="search-form">
