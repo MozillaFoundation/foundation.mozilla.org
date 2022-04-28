@@ -41,7 +41,7 @@
   <h2>Latest Research</h2>
   <ul class="tw-list-none tw-px-0 tw-space-y-3">
     {% for research_detail_page in latest_research_detail_pages %}
-    <li class="tw-p-5 tw-bg-gray-05 tw-border tw-border-gray-20 tw-rounded-md">
+    <li class="tw-p-5 tw-bg-gray-05">
       {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page heading_level=3 hide_topics_on_mobile=True %}
     </li>
     {% endfor %}
