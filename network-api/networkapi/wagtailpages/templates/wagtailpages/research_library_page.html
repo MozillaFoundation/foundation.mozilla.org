@@ -33,13 +33,16 @@
     </div>
 
     <div class="tw-border">
+      <div class="tw-border">
+        <h2>SEARCH BAR</h2>
+        <form action="" method="get" accept-charset="utf-8" id="search-form">
+          <input type="text" value="{{ search_query }}" name="search" id="search" class="tw-inline-block form-control tw-w-1/2 tw-rounded-none" />
+          <button type="submit" class="tw-btn-primary">{% translate 'Search' %}</button>
+        </form>
+      </div>
+
       <div class="tw-border tw-bg-gray-05">
-        <div>
-          <form action="" method="get" accept-charset="utf-8" id="search-form">
-            <input type="text" value="{{ search_query }}" name="search" id="search" class="tw-inline-block form-control tw-w-1/2 tw-rounded-none" />
-            <button type="submit" class="tw-btn-primary">{% translate 'Search' %}</button>
-          </form>
-        </div>
+        <h2>FILTER BLOCK</h2>
         <div>
           <fieldset>
             <legend><h2>{% translate 'Topic' %}</h2></legend>
@@ -47,7 +50,7 @@
               {% for topic in topic_options|dictsort:"name" %}
                 <li class="tw-flex tw-flex-row tw-items-baseline">
                   <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form" class="tw-mr-2" />
-                  <label for="topic-option-{{ topic.id }}" class="">{{ topic.name }}</label>
+                  <label for="topic-option-{{ topic.id }}" >{{ topic.name }}</label>
                 </li>
               {% endfor %}
             </ul>
@@ -115,6 +118,7 @@
             <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Sort' %}</button>
           </div>
         </div>
+
         <ul class="tw-list-none px-0 py-4 tw-divide-y tw-divide-gray-05">
           {% for research_detail_page in research_detail_pages  %}
             <li class="tw-mt-6 tw-pt-5">
@@ -124,5 +128,6 @@
         </ul>
       </div>
     </div>
+
   </div>
 {% endblock subcontent %}
