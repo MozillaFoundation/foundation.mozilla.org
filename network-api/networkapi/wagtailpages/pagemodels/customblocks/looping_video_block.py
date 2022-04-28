@@ -2,7 +2,8 @@ from wagtail.core import blocks
 
 
 class LoopingVideoBlock(blocks.StructBlock):
-    embed_url = blocks.CharBlock(
+    video_url = blocks.CharBlock(
+        label='Embed URL',
         help_text='Log into Vimeo using 1Password '
                   'and upload the desired video. '
                   'Then select the video and '
