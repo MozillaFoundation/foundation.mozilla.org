@@ -46,7 +46,7 @@ module.exports = [
           fontSize: theme("fontSize.4xl"),
           letterSpacing: theme("letterSpacing.normal"),
           [media(theme("screens.medium"))]: {
-            fontSize: "48px",
+            fontSize: "64px",
           },
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.white"),
