@@ -191,3 +191,6 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
             )
 
         return research_detail_pages
+
+    def get_banner(self):
+        return self.banner_image
