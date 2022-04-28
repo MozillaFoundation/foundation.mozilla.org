@@ -24,6 +24,7 @@ class ResearchLibraryPageFactory(wagtail_factories.PageFactory):
         model = wagtailpage_models.ResearchLibraryPage
 
     title = "Library"
+    banner_image = factory.SubFactory(image_factory.ImageFactory)
 
 
 class ResearchAuthorsIndexPageFactory(wagtail_factories.PageFactory):
