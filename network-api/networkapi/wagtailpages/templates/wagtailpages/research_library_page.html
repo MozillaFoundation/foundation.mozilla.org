@@ -32,16 +32,52 @@
       <h1>{{ page.title }}</h1>
     </div>
 
-    <div class="tw-border">
-      <div class="tw-border">
-        <h2>SEARCH BAR</h2>
-        <form action="" method="get" accept-charset="utf-8" id="search-form">
-          <input type="text" value="{{ search_query }}" name="search" id="search" class="tw-inline-block form-control tw-w-1/2 tw-rounded-none" />
-          <button type="submit" class="tw-btn-primary">{% translate 'Search' %}</button>
-        </form>
+    <div class="tw-border medium:tw-bg-gray-05 medium:tw-w-[26rem] medium:tw-h-[9rem]" >
+      <h2>SEARCH BAR</h2>
+      <form action="" method="get" accept-charset="utf-8" id="search-form">
+        <input type="text" value="{{ search_query }}" name="search" id="search" class="tw-inline-block form-control tw-w-1/2 tw-rounded-none" />
+        <button type="submit" class="tw-btn-primary">{% translate 'Search' %}</button>
+      </form>
+    </div>
+
+    <div class="tw-flex tw-flex-col medium:tw-flex-row-reverse tw-border-2 tw-border-blue-light">
+      <!-- FILTER AND RESULTS -->
+      {# For side-by-side layout, we need to pull the results up to that the upper end lines up with the search bar. #}
+      <div class="tw-border tw-min-w-0 medium:-tw-mt-[9rem]">
+        <h2>RESULTS AND SORT</h2>
+        <div>
+          <h3>FILTER BUTTON (mobile only)</h3>
+        </div>
+        <div>
+          <h3>SEARCH RESULTS COUNT (desktop only)</h3>
+          {% if search_query %}
+            <div>
+              <strong>{{ research_detail_pages.count }}</strong> {% translate 'results for' %} "{{ search_query }}"
+            </div>
+          {% endif %}
+        </div>
+        <div>
+          <h3>SORT</h3>
+          <select name="sort" class="tw-inline-block tw-form-control tw-w-1/2" form="search-form">
+            {% for choice in page.SORT_CHOICES.values  %}
+              <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Sort' %}</button>
+        </div>
+        <div>
+          <h3>RESULTS</h3>
+          <ul class="tw-list-none px-0 py-4 tw-divide-y tw-divide-gray-05">
+            {% for research_detail_page in research_detail_pages  %}
+              <li class="tw-mt-6 tw-pt-5">
+                {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_topics_on_mobile=True %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
 
-      <div class="tw-border tw-bg-gray-05">
+      <div class="tw-border tw-bg-gray-05 medium:tw-w-[26rem] tw-shrink-0">
         <h2>FILTER BLOCK</h2>
         <div>
           <fieldset>
@@ -95,37 +131,11 @@
                   <input type="checkbox" value="{{ region.id }}" name="region" id="region-option-{{ region.id }}" {% if region.id in filtered_region_ids %}checked{% endif %} form="search-form" class="tw-mr-2"/>
                   <label for="region-option-{{ region.id }}">{{ region.name }}</label>
                 </li>
-            {% endfor %}
+              {% endfor %}
             </ul>
           </fieldset>
         </div>
         <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Apply filter' %}</button>
-      </div>
-
-      <div class="tw-container">
-        <div>
-          {% if search_query %}
-            <div>
-              <strong>{{ research_detail_pages.count }}</strong> {% translate 'results for' %} "{{ search_query }}"
-            </div>
-          {% endif %}
-          <div>
-            <select name="sort" class="tw-inline-block tw-form-control tw-w-1/2" form="search-form">
-              {% for choice in page.SORT_CHOICES.values  %}
-                <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
-              {% endfor %}
-            </select>
-            <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Sort' %}</button>
-          </div>
-        </div>
-
-        <ul class="tw-list-none px-0 py-4 tw-divide-y tw-divide-gray-05">
-          {% for research_detail_page in research_detail_pages  %}
-            <li class="tw-mt-6 tw-pt-5">
-              {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_topics_on_mobile=True %}
-            </li>
-          {% endfor %}
-        </ul>
       </div>
     </div>
 
