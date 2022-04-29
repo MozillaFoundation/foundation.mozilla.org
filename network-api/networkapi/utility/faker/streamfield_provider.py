@@ -161,7 +161,7 @@ def generate_video_field():
         # Fake embed url will lead to timeout error for Percy.
         # Solution: either we provide a valid embed url or use an empty string.
         # See details: https://github.com/mozilla/foundation.mozilla.org/issues/3833#issuecomment-562240677
-        'embed_url': 'https://www.youtube.com/embed/83fk3RT8318',
+        'url': 'https://www.youtube.com/embed/83fk3RT8318',
         'caption': caption,
         'captionURL': captionURL,
         'video_width': 'full_width'
