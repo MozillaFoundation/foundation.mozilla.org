@@ -32,11 +32,10 @@
       <h1>{{ page.title }}</h1>
     </div>
 
-    <div class="tw-border medium:tw-bg-gray-05 medium:tw-w-[26rem] medium:tw-h-[9rem]" >
+    <div class="tw-border tw-border-gray-20 tw-mb-4 medium:tw-bg-gray-05 medium:tw-w-[26rem] medium:tw-h-[9rem]" >
       <h2>SEARCH BAR</h2>
       <form action="" method="get" accept-charset="utf-8" id="search-form">
-        <input type="text" value="{{ search_query }}" name="search" id="search" class="tw-inline-block form-control tw-w-1/2 tw-rounded-none" />
-        <button type="submit" class="tw-btn-primary">{% translate 'Search' %}</button>
+        {% include "wagtailpages/fragments/research_search_bar.html" %}
       </form>
     </div>
 
