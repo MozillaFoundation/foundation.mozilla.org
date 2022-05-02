@@ -16,12 +16,12 @@
     <p>
       {{ author_profile.introduction }}
     </p>
-    <div>
+    <div class="tw-container">
       <h2>Latest research</h2>
-      <ul>
+      <ul class="tw-list-none px-0 tw-divide-y tw-divide-gray-05">
         {% for research_detail_page in latest_research %}
-          <li>
-            <h3><a href="{% pageurl research_detail_page %}">{{ research_detail_page.title }} ({{ research_detail_page.locale.language_code }})</a></h3>
+          <li class="tw-mt-6 tw-pt-5">
+            {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_author_names=True %}
           </li>
         {% endfor %}
       </ul>
