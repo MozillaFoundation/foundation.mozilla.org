@@ -2,67 +2,117 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block subcontent %}
-  <div>
-    {% image page.cover_image fill-256x348 as cover_image %}
-    <img src="{{ cover_image.url }}" alt="" class="tw-w-full tw-object-cover tw-object-center tw-max-w-[256px]"/>
-  </div>
-  <h1>
-    {{ page.title }}
-  </h1>
-  <div>
-    {% spaceless %}
-      {% if page.original_publication_date %}
-        <span>{{ page.original_publication_date }}</span>
-        {% if page.research_authors or page.related_topics %}
-          <span>|</span>
-        {% endif %}
-      {% endif %}
-      {% if page.research_authors %}
-        {% for research_author in page.research_authors.all  %}
-          <span>{{ research_author.author_profile.name }}{% if not forloop.last %}, {% endif %}</span>
-        {% endfor %}
-        {% if page.related_topics %}
-          <span>|</span>
-        {% endif %}
-      {% endif %}
-      {% if page.related_topics %}
-        {% for related_topic in page.related_topics.all  %}
-          <span>{{ related_topic.research_topic.name }}{% if not forloop.last %}, {% endif %}</span>
-        {% endfor %}
-      {% endif %}
-    {% endspaceless %}
-  </div>
-  {% if page.introduction %}
-    <p>{{ page.introduction }}</p>
-  {% endif %}
-  {% if page.research_links %}
-    <div>
-      {% for research_link in page.research_links.all  %}
-        <a href="{{ research_link.get_url }}">{{ research_link.label }}</a>
-      {% endfor %}
-    </div>
-  {% endif %}
-  {% if page.overview %}
-    <div>
-      <h2>Overview</h2>
-      {{ page.overview|richtext }}
-    </div>
-  {% endif %}
-  {% if page.research_authors %}
-    <div>
-      <h2>Project leads</h2>
-      {% for research_author in page.research_authors.all  %}
-        <div>
-          <h3>{{ research_author.author_profile.name }}</h3>
-          <p>{{ research_author.author_profile.tagline }}</p>
+
+  <div class="container container-xl" style='padding-bottom: 100px;'>
+    <div class="tw-grid tw-grid-cols-5 tw-grid-rows-1 tw-grid-flow-col tw-gap-7">
+      <div class="tw-col-span-1 tw-pt-7">
+        {# TODO Add image #}
+        TODO: Add image
+        {% comment %}
+        {% image page.image fill-259x344 as img %}
+        <img src="{{ img.src }}" alt="{{ img.title }}" class="tw-w-full tw-h-auto" />
+        {% endcomment %}
+      </div>
+      <div class="tw-col-span-4">
+        <div class="tw-grid tw-grid-cols-3 tw-grid-rows-1">
+          <div class="tw-col-span-2">
+
+            {# TODO Add breadcrumb #}
+            <div class="tw-text-lg tw-my-4">
+              Research
+              /
+              Research Library
+              /
+            </div>
+
+            <h1 class="tw-text-black tw-my-4">{{ page.title }}</h1>
+
+            {# Article metadata #}
+            {% if page.original_publication_date or page.research_authors.count or page.related_topics %}
+              <div class="tw-flex tw-space-x-4 tw-divide-x tw-uppercase tw-mb-5 tw-text-gray-80">
+                {% if page.original_publication_date %}
+                  <div>{{ page.original_publication_date|date:"d M Y" }}</div>
+                {% endif %}
+                {% if page.research_authors.count %}
+                  <div class="tw-pl-4">
+                    {% for research_author in page.research_authors.all  %}
+                      <span>{{ research_author.author_profile.name }}{% if not forloop.last %}, {% endif %}</span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                {% if page.related_topics %}
+                  <div class="tw-pl-4">
+                    {% for related_topic in page.related_topics.all  %}
+                      <span>{{ related_topic.research_topic.name }}{% if not forloop.last %}, {% endif %}</span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if page.introduction %}
+              <p class="tw-font-light tw-text-xl tw-mb-5">{{ page.introduction }}</p>
+            {% endif %}
+
+            {% if page.research_links %}
+              <div>
+                {% for research_link in page.research_links.all %}
+                  {% if research_link.url and not research_link.document %}
+                    {# Has a URL, but not a document link. #}
+                    <a href="{{ research_link.get_url }}" class="tw-btn-primary">{{ research_link.label }}</a>
+                  {% elif research_link.document and not research_link.url %}
+                    {# Has a document link, but not an external link #}
+                    <a href="{{ research_link.get_url }}" class="tw-btn-secondary">{{ research_link.label }}</a>
+                  {% else %}
+                    {# Cover every other scenario with a default button #}
+                    <a href="{{ research_link.get_url }}" class="tw-btn-secondary">{{ research_link.label }}</a>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
         </div>
-      {% endfor %}
+        <div class="tw-grid tw-grid-cols-3 tw-grid-rows-1 tw-gap-7" style='margin-top: 80px;'>
+          <div class="tw-col-span-2 tw-border-t tw-border-black">
+            {% if page.overview %}
+              <div>
+                <h3 class="tw-mb-6 tw-mt-5">Overview</h3>
+                <div class="tw-text-lg">
+                  {{ page.overview|richtext }}
+                </div>
+              </div>
+            {% endif %}
+            </div>
+          <div class="tw-col-span-1 tw-border-t tw-border-black">
+            {% if page.research_authors %}
+              <div>
+                <h4 class="tw-my-6 tw-mt-5">Project leads</h4>
+                {% for research_author in page.research_authors.all  %}
+                  <div class="tw-flex tw-items-center tw-gap-4 tw-mb-5">
+                    {% if research_author.author_profile.image %}
+                      {% image research_author.author_profile.image fill-77x77 as img %}
+                      <div>
+                        <img src="{{ img.url }}" alt="{{ research_author.author_profile.name }}" class="tw-rounded-full">
+                      </div>
+                    {% endif %}
+                    <div>
+                      <h4 class="tw-mb-0 tw-text-blue-dark tw-font-semibold">{{ research_author.author_profile.name }}</h4>
+                      <p class="tw-text-lg tw-text-gray-60">{{ research_author.author_profile.tagline }}</p>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            {% if page.collaborators %}
+              <div class="tw-border-t tw-border-black tw-mt-7">
+                <h3 class="tw-my-5">Collaborators</h3>
+                <p class="tw-text-sm">{{ page.collaborators }}</p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
     </div>
-  {% endif %}
-  {% if page.collaborators %}
-    <div>
-      <h2>Collaborators</h2>
-      <p>{{ page.collaborators }}</p>
-    </div>
-  {% endif %}
-{% endblock subcontent %}
+  </div>
+{% endblock %}
