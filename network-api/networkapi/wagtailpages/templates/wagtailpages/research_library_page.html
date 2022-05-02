@@ -50,21 +50,15 @@
       <!-- FILTER AND RESULTS -->
       {# For side-by-side layout, we need to pull the results up to that the upper end lines up with the search bar. #}
       <div class="tw-border tw-min-w-0 medium:-tw-mt-[9rem]">
-        <h2>RESULTS AND SORT</h2>
-        <div>
-          <h3>FILTER BUTTON (mobile only)</h3>
-          <a href="#filter" class="small:hidden">Filter</a>
+        <div class="small:tw-hidden">
+          <a href="#filter" >Filter</a>
         </div>
+        {% if search_query %}
+          <div class="tw-hidden small:tw-block">
+            <strong>{{ research_detail_pages.count }}</strong> {% translate 'results for' %} "{{ search_query }}"
+          </div>
+        {% endif %}
         <div>
-          <h3>SEARCH RESULTS COUNT (desktop only)</h3>
-          {% if search_query %}
-            <div>
-              <strong>{{ research_detail_pages.count }}</strong> {% translate 'results for' %} "{{ search_query }}"
-            </div>
-          {% endif %}
-        </div>
-        <div>
-          <h3>SORT</h3>
           <select name="sort" class="tw-inline-block tw-form-control tw-w-1/2" form="search-form">
             {% for choice in page.SORT_CHOICES.values  %}
               <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
@@ -72,8 +66,7 @@
           </select>
           <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Sort' %}</button>
         </div>
-        <div>
-          <h3>RESULTS</h3>
+        <div class="tw-mt-7">
           <ul class="tw-list-none px-0 py-4 tw-divide-y tw-divide-gray-05">
             {% for research_detail_page in research_detail_pages  %}
               <li class="tw-mt-6 tw-pt-5">
