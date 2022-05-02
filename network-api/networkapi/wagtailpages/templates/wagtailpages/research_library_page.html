@@ -34,7 +34,14 @@
 
     <div class="tw-border tw-border-gray-20 tw-mb-4 medium:tw-bg-gray-05 medium:tw-w-[26rem] medium:tw-h-[9rem]" >
       <h2>SEARCH BAR</h2>
-      <form action="" method="get" accept-charset="utf-8" id="search-form">
+      {% comment %}
+        The page url is necessary in the form to that the filter anchor link is not carried forward.
+        Say on mobile the user used the "Filter" anchor link to get to the filter section,
+        that adds the `#filter` part to the URL. Submitting the form in that stage without the
+        explicit URL would carry the anchor link forward. That would mean the view is scrolled to the
+        filter section again upon page reload. This seems undesireable.
+      {% endcomment %}
+      <form action="{% pageurl page %}" method="get" accept-charset="utf-8" id="search-form">
         {% include "wagtailpages/fragments/research_search_bar.html" %}
       </form>
     </div>
@@ -46,6 +53,7 @@
         <h2>RESULTS AND SORT</h2>
         <div>
           <h3>FILTER BUTTON (mobile only)</h3>
+          <a href="#filter" class="small:hidden">Filter</a>
         </div>
         <div>
           <h3>SEARCH RESULTS COUNT (desktop only)</h3>
@@ -76,7 +84,7 @@
         </div>
       </div>
 
-      <div class="tw-border tw-bg-gray-05 medium:tw-w-[26rem] tw-shrink-0">
+      <div id="filter" class="tw-border tw-bg-gray-05 medium:tw-w-[26rem] tw-shrink-0">
         <h2>FILTER BLOCK</h2>
         <div>
           <fieldset>
