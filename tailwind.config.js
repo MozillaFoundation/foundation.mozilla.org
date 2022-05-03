@@ -48,6 +48,7 @@ module.exports = {
     ...componentPlugins,
     ...buttonPlugins,
     ...typePlugins,
+    require('@tailwindcss/forms'),
   ],
   theme: {
     extend: {
