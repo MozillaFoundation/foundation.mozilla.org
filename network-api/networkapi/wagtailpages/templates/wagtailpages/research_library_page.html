@@ -46,38 +46,47 @@
     </div>
 
     <div class="tw-flex tw-flex-col medium:tw-flex-row-reverse tw-border-2 tw-border-blue-light">
-      <!-- FILTER AND RESULTS -->
+      {# FILTER, SORT AND RESULTS #}
+
       {# For side-by-side layout, we need to pull the results up to that the upper end lines up with the search bar. #}
       <div class="tw-border tw-min-w-0 medium:-tw-mt-[9rem]">
-        <div class="small:tw-hidden">
-          <a href="#filter" >Filter</a>
-        </div>
-        {% if search_query %}
-          <div class="tw-hidden small:tw-block">
-            {% blocktranslate count results_count=research_detail_pages.count trimmed %}
-              <strong>{{ results_count }}</strong> result for <q>{{ search_query }}</q>
-            {% plural %}
-              <strong>{{ results_count }}</strong> results for <q>{{ search_query }}</q>
-            {% endblocktranslate %}
+        {# SORT AND RESULTS #}
+
+        <div class="tw-flex tw-flex-row tw-gap-3">
+          {# SORT CONTROLS #}
+
+          <a href="#filter" class="tw-relative tw-btn-secondary tw-flex tw-items-center small:tw-hidden tw-w-1/2 tw-px-3 tw-py-[5px] tw-text-left tw-text-base tw-font-normal hover:tw-text-white active:tw-text-white tw-border tw-border-gray-40 tw-text-inherit hover:tw-no-underline tw-align-middle">
+            <span>Filter</span>
+            <svg fill="currentColor" height="14" viewBox="0 0 14 14" width="14" xmlns="http://www.w3.org/2000/svg" stroke="none" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-right-2"><path d="m14 8h-6v6h-2v-6h-6v-2h6v-6h2v6h6z"/></svg>
+          </a>
+          {% if search_query %}
+            <div class="tw-hidden small:tw-block">
+              {% blocktranslate count results_count=research_detail_pages.count trimmed %}
+                <strong>{{ results_count }}</strong> result for <q>{{ search_query }}</q>
+                {% plural %}
+                <strong>{{ results_count }}</strong> results for <q>{{ search_query }}</q>
+              {% endblocktranslate %}
+            </div>
+          {% endif %}
+          <div class="tw-flex tw-flex-row tw-items-baseline tw-w-1/2 tw-border tw-border-gray-40">
+            <select name="sort" class="tw-inline-block tw-form-control tw-border-0" form="search-form">
+              {% for choice in page.SORT_CHOICES.values  %}
+                <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
+              {% endfor %}
+            </select>
+            {# The sort button is only needed for the no JS case. With JS, the form can be submitted on change of the select #}
+            <button type="submit" class="tw-btn-primary tw-text-base" form="search-form">{% translate 'Sort' context 'Button' %}</button>
           </div>
-        {% endif %}
-        <div>
-          <select name="sort" class="tw-inline-block tw-form-control tw-w-1/2" form="search-form">
-            {% for choice in page.SORT_CHOICES.values  %}
-              <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
-            {% endfor %}
-          </select>
-          <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Sort' context 'Button' %}</button>
         </div>
-        <div class="tw-mt-7">
-          <ul class="tw-list-none px-0 py-4 tw-divide-y tw-divide-gray-05">
-            {% for research_detail_page in research_detail_pages  %}
-              <li class="tw-mt-6 tw-pt-5">
-                {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_topics_on_mobile=True %}
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
+
+        <ul class="tw-list-none px-0 py-4 tw-divide-y tw-divide-gray-05">
+          {# RESULTS LIST #}
+          {% for research_detail_page in research_detail_pages  %}
+            <li class="tw-mt-6 tw-pt-5">
+              {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_topics_on_mobile=True %}
+            </li>
+          {% endfor %}
+        </ul>
       </div>
 
       <div id="filter" class="tw-border tw-bg-gray-05 medium:tw-w-[26rem] tw-shrink-0">
