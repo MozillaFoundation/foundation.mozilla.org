@@ -49,7 +49,7 @@
       {# FILTER, SORT AND RESULTS #}
 
       {# For side-by-side layout, we need to pull the results up to that the upper end lines up with the search bar. #}
-      <div class="tw-min-w-0 medium:-tw-mt-[9rem]">
+      <div class="tw-min-w-0 medium:-tw-mt-[9rem] tw-pb-7">
         {# SORT AND RESULTS #}
 
         <div class="tw-flex tw-flex-row tw-gap-3">
@@ -79,7 +79,7 @@
           </div>
         </div>
 
-        <ul class="tw-list-none tw-mt-7 px-0 tw-border-t tw-border-b tw-border-gray-20 tw-divide-y tw-divide-gray-05">
+        <ul class="tw-list-none tw-mt-7 tw-mb-5 tw-px-0 tw-border-t tw-border-b tw-border-gray-20 tw-divide-y tw-divide-gray-05">
           {# RESULTS LIST #}
           {% for research_detail_page in research_detail_pages  %}
             <li class="tw-m-0 tw-pt-5 tw-pb-5">
@@ -87,17 +87,19 @@
             </li>
           {% endfor %}
         </ul>
+        {% comment %}
+          Pagination goes here.
+        {% endcomment %}
       </div>
 
-      <div id="filter" class="tw-border tw-bg-gray-05 medium:tw-w-[26rem] tw-shrink-0">
-        <h2>FILTER BLOCK</h2>
-        <div>
+      <div id="filter" class="-tw-mx-4 tw-px-4 tw-pt-7 medium:tw-w-[26rem] tw-shrink-0 tw-bg-gray-05 ">
+        <div class="tw-pt-4 tw-border-t">
           <fieldset>
-            <legend><h2>{% translate 'Topic' %}</h2></legend>
+            <legend><h2>{% translate 'Topics' %}</h2></legend>
             <ul class="tw-list-none tw-pl-0">
               {% for topic in topic_options|dictsort:"name" %}
                 <li class="tw-flex tw-flex-row tw-items-baseline">
-                  <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form" class="tw-mr-2" />
+                  <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form" class="tw-mr-2 tw-appearance-none tw-w-[20px] tw-h-[20px] tw-bg-white checked:tw-bg-black" />
                   <label for="topic-option-{{ topic.id }}" >{{ topic.name }}</label>
                 </li>
               {% endfor %}
