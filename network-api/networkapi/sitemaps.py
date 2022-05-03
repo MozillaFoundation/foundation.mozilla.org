@@ -1,9 +1,9 @@
 # Solution came from Aleksi44 on Github:
 # https://github.com/wagtail/wagtail/issues/6583#issuecomment-798960446
 from django.contrib.sitemaps import views as sitemap_views
-from wagtail.contrib.sitemaps.sitemap_generator import Sitemap
-from django.shortcuts import render
 from django.conf import settings
+from django.shortcuts import render
+from wagtail.contrib.sitemaps.sitemap_generator import Sitemap
 
 
 class CustomSitemap(Sitemap):
@@ -30,4 +30,4 @@ def sitemap_index(request):
     context["languages"] = [lang[0] for lang in settings.LANGUAGES]
     context["domain"] = "https://foundation.mozilla.org"
 
-    return render(request, 'sitemap-index.xml',context, content_type='text/xml')
+    return render(request, 'sitemap-index.xml', context, content_type='text/xml')
