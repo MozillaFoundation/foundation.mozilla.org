@@ -55,7 +55,11 @@
         </div>
         {% if search_query %}
           <div class="tw-hidden small:tw-block">
-            <strong>{{ research_detail_pages.count }}</strong> {% translate 'results for' %} "{{ search_query }}"
+            {% blocktranslate count results_count=research_detail_pages.count trimmed %}
+              <strong>{{ results_count }}</strong> result for <q>{{ search_query }}</q>
+            {% plural %}
+              <strong>{{ results_count }}</strong> results for <q>{{ search_query }}</q>
+            {% endblocktranslate %}
           </div>
         {% endif %}
         <div>
@@ -64,7 +68,7 @@
               <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
             {% endfor %}
           </select>
-          <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Sort' %}</button>
+          <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Sort' context 'Button' %}</button>
         </div>
         <div class="tw-mt-7">
           <ul class="tw-list-none px-0 py-4 tw-divide-y tw-divide-gray-05">
@@ -98,7 +102,7 @@
             <ul class="tw-list-none tw-pl-0">
               <li class="tw-flex tw-flex-row tw-items-baseline">
                 <input type="radio" value="" name="year" id="year-option-all" {% if not filtered_year %}checked{% endif %} form="search-form" class="tw-mr-2" />
-                <label for="year-option-all">{% translate 'Any' %}</label>
+                <label for="year-option-all">{% translate 'Any' context 'Option in a radio button list of years' %}</label>
               </li>
               {% for year in year_options %}
                 <li class="tw-flex tw-flex-row tw-items-baseline">
@@ -135,7 +139,7 @@
             </ul>
           </fieldset>
         </div>
-        <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Apply filter' %}</button>
+        <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Apply filter' context 'Button' %}</button>
       </div>
     </div>
 
