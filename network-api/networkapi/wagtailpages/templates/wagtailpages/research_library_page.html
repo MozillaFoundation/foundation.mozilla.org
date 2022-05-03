@@ -45,11 +45,11 @@
       </form>
     </div>
 
-    <div class="tw-flex tw-flex-col medium:tw-flex-row-reverse tw-border-2 tw-border-blue-light">
+    <div class="tw-flex tw-flex-col medium:tw-flex-row-reverse">
       {# FILTER, SORT AND RESULTS #}
 
       {# For side-by-side layout, we need to pull the results up to that the upper end lines up with the search bar. #}
-      <div class="tw-border tw-min-w-0 medium:-tw-mt-[9rem]">
+      <div class="tw-min-w-0 medium:-tw-mt-[9rem]">
         {# SORT AND RESULTS #}
 
         <div class="tw-flex tw-flex-row tw-gap-3">
@@ -79,10 +79,10 @@
           </div>
         </div>
 
-        <ul class="tw-list-none px-0 py-4 tw-divide-y tw-divide-gray-05">
+        <ul class="tw-list-none tw-mt-7 px-0 tw-border-t tw-border-b tw-border-gray-20 tw-divide-y tw-divide-gray-05">
           {# RESULTS LIST #}
           {% for research_detail_page in research_detail_pages  %}
-            <li class="tw-mt-6 tw-pt-5">
+            <li class="tw-m-0 tw-pt-5 tw-pb-5">
               {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_topics_on_mobile=True %}
             </li>
           {% endfor %}
