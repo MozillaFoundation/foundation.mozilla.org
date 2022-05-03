@@ -35,12 +35,11 @@ export default () => {
       });
     });
 
-    if(document.querySelector(".publication-hero-container")){
+    if (document.querySelector(".publication-hero-container,.article-hero")) {
       summaryObserver.observe(
-        document.querySelector(".publication-hero-container")
+        document.querySelector(".publication-hero-container,.article-hero")
       );
-    } 
-
+    }
 
     document.querySelectorAll(".rich-text h2").forEach((section) => {
       titleObserver.observe(section);
