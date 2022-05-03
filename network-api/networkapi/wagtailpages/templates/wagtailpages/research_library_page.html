@@ -99,7 +99,7 @@
             <ul class="tw-list-none tw-pl-0">
               {% for topic in topic_options|dictsort:"name" %}
                 <li class="tw-flex tw-flex-row tw-items-baseline">
-                  <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form" class="tw-mr-2 tw-appearance-none tw-w-[20px] tw-h-[20px] tw-bg-white checked:tw-bg-black" />
+                  <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form" class="tw-relative tw-top-[3px] tw-mr-3 tw-w-[20px] tw-h-[20px] tw-border tw-border-gray-60" />
                   <label for="topic-option-{{ topic.id }}" >{{ topic.name }}</label>
                 </li>
               {% endfor %}
