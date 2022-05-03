@@ -60,7 +60,11 @@
         <div>
           {% if search_query %}
             <div>
-              <strong>{{ research_detail_pages.count }}</strong> {% translate 'results for' %} "{{ search_query }}"
+              {% blocktrans count result_number=research_detail_pages.count trimmed %}
+                <strong>{{ result_number }}</strong> result for “{{ search_query }}”
+              {% plural %}
+                <strong>{{ result_number }}</strong> results for “{{ search_query }}”
+              {% endblocktrans %}
             </div>
           {% endif %}
           <div>
