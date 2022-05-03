@@ -24,7 +24,7 @@
 {% block subcontent %}
   {# The relative position is necessary to allow this container to overflow the banner image #}
   <div class="tw-container tw-relative tw-w-auto tw-mt-[6rem] tw-pt-4 small:tw-pt-7 tw-ml-0 small:tw-ml-auto tw-mr-4 small:tw-mr-auto tw-pr-0 small:tw-pr-4 tw-pb-[3rem] tw-bg-white">
-    <div class="tw-border">
+    <div>
       <div>
         {# Replace this with real breadcrumbs #}
         Research /
@@ -32,8 +32,7 @@
       <h1>{{ page.title }}</h1>
     </div>
 
-    <div class="tw-border tw-border-gray-20 tw-mb-4 medium:tw-bg-gray-05 medium:tw-w-[26rem] medium:tw-h-[9rem]" >
-      <h2>SEARCH BAR</h2>
+    <div class="tw-mt-5 tw-mb-4 medium:tw-bg-gray-05 medium:tw-w-[26rem] medium:tw-h-[9rem]" >
       {% comment %}
         The page url is necessary in the form to that the filter anchor link is not carried forward.
         Say on mobile the user used the "Filter" anchor link to get to the filter section,
