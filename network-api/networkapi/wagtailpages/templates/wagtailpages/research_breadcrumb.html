@@ -8,7 +8,7 @@
     {% if bread_crumbs %}
       <div class="tw-flex">
         {% for bread_crumb in bread_crumbs %}
-        {% with bread_crumb_classes="tw-h4-heading tw-px-1 tw-mb-0"%}
+        {% with bread_crumb_classes="tw-h4-heading tw-px-1 tw-mb-0 tw-text-lg"%}
           <h4 class="{{bread_crumb_classes}}"><a href="{{bread_crumb.url}}">{{ bread_crumb.title }}</a></h4>
           <span class="{{bread_crumb_classes}}"> / </span> 
 
