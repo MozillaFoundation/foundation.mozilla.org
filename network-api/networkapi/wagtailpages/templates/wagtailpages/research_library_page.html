@@ -95,10 +95,10 @@
       </div>
 
       <div id="filter" class="-tw-mx-4 tw-px-4 tw-pt-7 tw-pb-7 medium:tw-w-[26rem] tw-shrink-0 tw-bg-gray-05 ">
-        <div class="tw-pt-4 tw-border-t">
+        <div class="tw-pt-4 tw-pb-6 tw-border-t">
           <fieldset>
             <legend><h2>{% translate 'Topics' %}</h2></legend>
-            <ul class="tw-list-none tw-pl-0">
+            <ul class="tw-list-none tw-mb-0 tw-pl-0">
               {% for topic in topic_options|dictsort:"name" %}
                 <li class="tw-flex tw-flex-row tw-items-baseline">
                   <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form" class="rh-checkbox" />
@@ -108,10 +108,10 @@
             </ul>
           </fieldset>
         </div>
-        <div>
+        <div class="tw-pt-4 tw-pb-6 tw-border-t">
           <fieldset>
             <legend><h2>{% translate 'Publication date' %}</h2></legend>
-            <ul class="tw-list-none tw-pl-0">
+            <ul class="tw-list-none tw-mb-0 tw-pl-0">
               <li class="tw-flex tw-flex-row tw-items-baseline">
                 <input type="radio" value="" name="year" id="year-option-all" {% if not filtered_year %}checked{% endif %} form="search-form" class="rh-radio" />
                 <label for="year-option-all">{% translate 'Any' context 'Option in a radio button list of years' %}</label>
@@ -125,10 +125,10 @@
             </ul>
           </fieldset>
         </div>
-        <div>
+        <div class="tw-pt-4 tw-pb-6 tw-border-t">
           <fieldset>
             <legend><h2>{% translate 'Authors' %}</h2></legend>
-            <ul class="tw-list-none tw-pl-0">
+            <ul class="tw-list-none tw-mb-0 tw-pl-0">
               {% for author in author_options|dictsort:"name" %}
                 <li class="tw-flex tw-flex-row tw-items-baseline">
                   <input type="checkbox" value="{{ author.id }}" name="author" id="author-option-{{ author.id }}" {% if author.id in filtered_author_ids %}checked{% endif %} form="search-form" class="rh-checkbox" />
@@ -138,10 +138,10 @@
           </fieldset>
             </ul>
         </div>
-        <div>
+        <div class="tw-pt-4 tw-pb-6 tw-border-t">
           <fieldset>
             <legend><h2>{% translate 'Regions' %}</h2></legend>
-            <ul class="tw-list-none tw-pl-0">
+            <ul class="tw-list-none tw-mb-0 tw-pl-0">
               {% for region in region_options|dictsort:"name" %}
                 <li class="tw-flex tw-flex-row tw-items-baseline">
                   <input type="checkbox" value="{{ region.id }}" name="region" id="region-option-{{ region.id }}" {% if region.id in filtered_region_ids %}checked{% endif %} form="search-form" class="rh-checkbox"/>
