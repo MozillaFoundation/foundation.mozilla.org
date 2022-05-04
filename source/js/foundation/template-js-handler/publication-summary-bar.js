@@ -26,7 +26,7 @@ export default () => {
     // update the title based on the header in the article in past by
     const titleObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        const title = entry.target.innerText;
+        const title = entry.target.innerText.trim();
         if (entry.intersectionRatio > 0) {
           document.querySelector(
             ".dropdown-toggle.article-summary-toggle span"
