@@ -1,0 +1,38 @@
+
+
+
+
+{% comment %}
+<!-- Leave comment about why we are slicing two from the list of ancestors, this is because technically these pages are children
+of root and homepage. -->
+{% endcomment %}
+
+  <div class="breadcrumb-container">
+    
+    {% with bread_crumbs=page.get_ancestors|slice:"2:"%}
+    {% if bread_crumbs %}
+      <div class="tw-flex">
+        {% for bread_crumb in bread_crumbs %}
+        {% with bread_crumb_classes="tw-h4-heading tw-px-1 tw-mb-0"%}
+          <h4 class="{{bread_crumb_classes}}"><a href="{{bread_crumb.url}}">{{ bread_crumb.title }}</a></h4>
+          <span class="{{bread_crumb_classes}}"> / </span> 
+
+          {% if author_profile %}
+            <h4 class="{{bread_crumb_classes}}"><a href="{{page.url}}">{{ self.title }}</a></h4>
+            <span class="{{bread_crumb_classes}} "> / </span> 
+          {% endif %}
+
+        {% endwith %}
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% endwith %}
+
+    
+    {% if author_profile %}
+      <h1>{{author_profile.name}}</h1>
+    {% else %}
+      <h1>{{page.title}}</h1>
+    {% endif %}
+
+  </div>
