@@ -1,3 +1,7 @@
 input[type="checkbox"].rh-checkbox {
   @apply tw-form-checkbox tw-relative tw-top-[3px] tw-mr-3 tw-w-[20px] tw-h-[20px] tw-border tw-border-gray-60 checked:tw-bg-pni-purple-pink focus:checked:tw-bg-pni-purple-pink focus:tw-outline-pni-purple-pink;
 }
+
+input[type="radio"].rh-radio {
+  @apply tw-form-radio tw-relative tw-top-[4px] tw-mr-3 tw-w-[20px] tw-h-[20px] tw-border tw-border-gray-60 checked:tw-bg-pni-purple-pink focus:checked:tw-bg-pni-purple-pink focus:tw-outline-pni-purple-pink;
+}
