@@ -98,7 +98,7 @@
         <div class="tw-pt-4 tw-pb-6 tw-border-t">
           <fieldset>
             <legend><h2>{% translate 'Topics' %}</h2></legend>
-            <ul class="tw-list-none tw-mb-0 tw-pl-0">
+            <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if topic_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
               {% for topic in topic_options|dictsort:"name" %}
                 <li class="tw-flex tw-flex-row tw-items-baseline">
                   <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form" class="rh-checkbox" />
