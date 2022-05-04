@@ -68,14 +68,16 @@
               {% endblocktranslate %}
             </div>
           {% endif %}
-          <div class="tw-flex tw-flex-row tw-items-baseline tw-w-1/2 tw-border tw-border-gray-40">
-            <select name="sort" class="tw-inline-block tw-form-control tw-border-0" form="search-form">
+          <div class="tw-flex tw-flex-row tw-items-baseline tw-w-1/2">
+            <select name="sort" class="tw-form-control tw-border-gray-40" form="search-form" onchange="this.form.submit()">
               {% for choice in page.SORT_CHOICES.values  %}
                 <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
               {% endfor %}
             </select>
-            {# The sort button is only needed for the no JS case. With JS, the form can be submitted on change of the select #}
-            <button type="submit" class="tw-btn-primary tw-text-base" form="search-form">{% translate 'Sort' context 'Button' %}</button>
+            <noscript>
+              {# The sort button is only needed for the no JS case. With JS, the form can be submitted on change of the select #}
+              <button type="submit" class="tw-btn-primary tw-text-base" form="search-form">{% translate 'Sort' context 'Button' %}</button>
+            </noscript>
           </div>
         </div>
 
