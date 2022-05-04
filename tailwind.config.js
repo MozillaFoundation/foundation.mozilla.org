@@ -48,7 +48,7 @@ module.exports = {
     ...componentPlugins,
     ...buttonPlugins,
     ...typePlugins,
-    require('@tailwindcss/forms'),
+    require('@tailwindcss/forms')({strategy: "class"}),
   ],
   theme: {
     extend: {
