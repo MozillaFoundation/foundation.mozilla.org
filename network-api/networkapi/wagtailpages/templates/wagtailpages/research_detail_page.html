@@ -3,8 +3,13 @@
 
 {% block subcontent %}
 
-  <div class="container container-xl" style='padding-bottom: 100px;'>
-    <div class="tw-grid tw-grid-cols-5 tw-grid-rows-1 tw-grid-flow-col tw-gap-7">
+  {% image page.cover_image fill-1240x144 as hero_img %}
+
+  <div class="tw-bg-no-repeat tw-bg-center tw-bg-cover tw-min-h-[144px]" style='background-image: url("{{ hero_img.url }}")'></div>
+
+
+  <div class="tw-max-w-6xl tw-mx-auto tw-pb-[100px] tw--mt-7 tw-bg-white tw-px-5 tw-pt-5">
+    <div class="medium:tw-grid tw-grid-cols-5 tw-grid-rows-1 tw-grid-flow-col tw-gap-7">
       <div class="tw-col-span-1 tw-pt-7">
         {# TODO Add image #}
         TODO: Add image
@@ -15,33 +20,33 @@
       </div>
       <div class="tw-col-span-4">
         <div class="tw-grid tw-grid-cols-3 tw-grid-rows-1">
-          <div class="tw-col-span-2">
+          <div class="xlarge:tw-col-span-2 tw-col-span-3 tw-pb-[80px]">
 
             {# TODO Add breadcrumb #}
-            <div class="tw-text-lg tw-my-4">
-              Research
+            <div class="tw-text-lg tw-my-4 tw-font-zilla">
+              {{ page.get_parent.get_parent.title }}
               /
-              Research Library
+              {{ page.get_parent.title }}
               /
             </div>
 
-            <h1 class="tw-text-black tw-my-4">{{ page.title }}</h1>
+            <h1 class="tw-text-black tw-my-">{{ page.title }}</h1>
 
             {# Article metadata #}
             {% if page.original_publication_date or page.research_authors.count or page.related_topics %}
-              <div class="tw-flex tw-space-x-4 tw-divide-x tw-uppercase tw-mb-5 tw-text-gray-80">
+              <div class="large:tw-flex large:tw-space-x-4 large:tw-space-y-0 large:tw-divide-x large:tw-divide-y-0 tw-divide-y tw-space-y-4 tw-uppercase tw-my-6 tw-text-gray-80 tw-items-center tw-divide-black/20">
                 {% if page.original_publication_date %}
-                  <div>{{ page.original_publication_date|date:"d M Y" }}</div>
+                  <div class="tw-min-w-[100px]">{{ page.original_publication_date|date:"d M Y" }}</div>
                 {% endif %}
                 {% if page.research_authors.count %}
-                  <div class="tw-pl-4">
+                  <div class="large:tw-px-4 large:tw-py-0 tw-pt-4 tw-min-w-[100px]">
                     {% for research_author in page.research_authors.all  %}
                       <span>{{ research_author.author_profile.name }}{% if not forloop.last %}, {% endif %}</span>
                     {% endfor %}
                   </div>
                 {% endif %}
                 {% if page.related_topics %}
-                  <div class="tw-pl-4">
+                  <div class="large:tw-px-4 large:tw-py-0 tw-pt-4">
                     {% for related_topic in page.related_topics.all  %}
                       <span>{{ related_topic.research_topic.name }}{% if not forloop.last %}, {% endif %}</span>
                     {% endfor %}
@@ -72,11 +77,11 @@
             {% endif %}
           </div>
         </div>
-        <div class="tw-grid tw-grid-cols-3 tw-grid-rows-1 tw-gap-7" style='margin-top: 80px;'>
-          <div class="tw-col-span-2 tw-border-t tw-border-black">
+        <div class="tw-grid xlarge:tw-grid-cols-3 tw-grid-cols-1 tw-grid-rows-1 tw-gap-7">
+          <div class="xlarge:tw-col-span-2 tw-border-t tw-border-black">
             {% if page.overview %}
               <div>
-                <h3 class="tw-mb-6 tw-mt-5">Overview</h3>
+                <h3 class="tw-my-5">Overview</h3>
                 <div class="tw-text-lg">
                   {{ page.overview|richtext }}
                 </div>
@@ -86,18 +91,18 @@
           <div class="tw-col-span-1 tw-border-t tw-border-black">
             {% if page.research_authors %}
               <div>
-                <h4 class="tw-my-6 tw-mt-5">Project leads</h4>
+                <h4 class="tw-my-5">Project leads</h4>
                 {% for research_author in page.research_authors.all  %}
                   <div class="tw-flex tw-items-center tw-gap-4 tw-mb-5">
                     {% if research_author.author_profile.image %}
                       {% image research_author.author_profile.image fill-77x77 as img %}
-                      <div>
+                      <div class="tw-min-w-[77px]">
                         <img src="{{ img.url }}" alt="{{ research_author.author_profile.name }}" class="tw-rounded-full">
                       </div>
                     {% endif %}
                     <div>
-                      <h4 class="tw-mb-0 tw-text-blue-dark tw-font-semibold">{{ research_author.author_profile.name }}</h4>
-                      <p class="tw-text-lg tw-text-gray-60">{{ research_author.author_profile.tagline }}</p>
+                      <h4 class="tw-mb-0 tw-text-blue-dark tw-font-semibold tw-text-[22px]">{{ research_author.author_profile.name }}</h4>
+                      <p class="tw-text-gray-60 tw-text-[15px] tw-mb-0">{{ research_author.author_profile.tagline }}</p>
                     </div>
                   </div>
                 {% endfor %}
@@ -107,7 +112,7 @@
             {% if page.collaborators %}
               <div class="tw-border-t tw-border-black tw-mt-7">
                 <h3 class="tw-my-5">Collaborators</h3>
-                <p class="tw-text-sm">{{ page.collaborators }}</p>
+                <p class="tw-text-[0.9375rem]">{{ page.collaborators }}</p>
               </div>
             {% endif %}
           </div>
