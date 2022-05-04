@@ -157,3 +157,8 @@
 
   </div>
 {% endblock subcontent %}
+
+{% block extra_scripts %}
+  {{ block.super }}
+  <script src="{% static "_js/research-hub-library.compiled.js" %}" async defer></script>
+{% endblock extra_scripts %}

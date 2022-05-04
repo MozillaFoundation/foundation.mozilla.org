@@ -48,6 +48,10 @@ const sources = {
     source: `buyers-guide/search.js`,
     bundle: true,
   },
+  "research-hub-library": {
+    source: `foundation/pages/research-hub-library.js`,
+    bundle: true,
+  },
   polyfills: {
     source: `polyfills.js`,
   },
