@@ -1,14 +1,9 @@
-
-
-
-
 {% comment %}
-<!-- Leave comment about why we are slicing two from the list of ancestors, this is because technically these pages are children
-of root and homepage. -->
+  This is the component for breadcrumbs and page title on pages in the research hub.
+  We get all page ancestors minus 2, as technically these pages are children of "root" and "homepage".
 {% endcomment %}
 
-  <div class="breadcrumb-container">
-    
+  <div class="breadcrumb-container">    
     {% with bread_crumbs=page.get_ancestors|slice:"2:"%}
     {% if bread_crumbs %}
       <div class="tw-flex">
@@ -28,7 +23,6 @@ of root and homepage. -->
     {% endif %}
     {% endwith %}
 
-    
     {% if author_profile %}
       <h1>{{author_profile.name}}</h1>
     {% else %}
