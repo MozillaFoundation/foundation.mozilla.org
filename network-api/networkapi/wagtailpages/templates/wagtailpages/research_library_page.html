@@ -23,7 +23,7 @@
 
 {% block subcontent %}
   {# The relative position is necessary to allow this container to overflow the banner image #}
-  <div class="tw-container tw-relative tw-w-auto tw-mt-[6rem] tw-pt-4 small:tw-pt-7 tw-ml-0 small:tw-ml-auto tw-mr-4 small:tw-mr-auto tw-pr-0 small:tw-pr-4 tw-pb-[3rem] tw-bg-white">
+  <div class="tw-container tw-relative tw-w-auto tw-mt-[6rem] tw-pt-4 small:tw-pt-7 tw-ml-0 small:tw-ml-auto tw-mr-4 small:tw-mr-auto tw-pr-0 small:tw-pr-4 small:tw-pb-[3rem] tw-bg-white">
     <div>
       <div>
         {# Replace this with real breadcrumbs #}
@@ -94,7 +94,7 @@
         {% endcomment %}
       </div>
 
-      <div id="filter" class="-tw-mx-4 tw-px-4 tw-pt-7 medium:tw-w-[26rem] tw-shrink-0 tw-bg-gray-05 ">
+      <div id="filter" class="-tw-mx-4 tw-px-4 tw-pt-7 tw-pb-7 medium:tw-w-[26rem] tw-shrink-0 tw-bg-gray-05 ">
         <div class="tw-pt-4 tw-border-t">
           <fieldset>
             <legend><h2>{% translate 'Topics' %}</h2></legend>
@@ -151,7 +151,7 @@
             </ul>
           </fieldset>
         </div>
-        <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Apply filter' context 'Button' %}</button>
+        <button type="submit" class="tw-w-full tw-btn-primary" form="search-form">{% translate 'Apply filters' context 'Button' %}</button>
       </div>
     </div>
 
