@@ -1,58 +1,92 @@
-{% load wagtailimages_tags wagtailcore_tags %}
-<div class="container">
-  {% comment %}
-    This first .row is the white "top" to the Table of Contents section.
-    It will disappear for non-desktop views.
-    This is somewhat of an HTML display "hack"
-  {% endcomment %}
-  <div class="row d-lg-flex justify-content-center no-gutters d-none">
-    <div class="col-lg-8 bg-white tw-mt-[-50px]"></div>
-  </div>
+{% load wagtailimages_tags wagtailcore_tags static %}
+<div class="tw-container">
   <div class="row">
     {% if page.intro_notes %}
       <div class="col-lg-8 offset-lg-2">
-        <div class="pt-lg-0 pt-5 px-lg-4">
+        <div class="pt-5">
           {{ page.intro_notes|richtext }}
         </div>
       </div>
     {% endif %}
-    <div class="pt-4 {% if not page.notes %}pb-4 pb-md-5{% endif %} col-lg-8 offset-lg-2 justify-content-center publication-container">
-      <div class="row mb-5">
-        <div class="col">
-          <h2 class="px-lg-4 px-0">{{ page.contents_title }}</h2>
+    <div class="{% if not page.notes %}pb-4 pb-md-5{% endif %} col-lg-8 offset-lg-2 justify-content-center publication-container">
+      <div class="row">
+        <div class="">
+          <h2 class="tw-px-4 small:tw-p-0 tw-my-6 tw-text-[28px] tw-leading-9 tw-font-normal">{{ page.contents_title }}</h2>
         </div>
-        <div class="col-12">
+        <div class="article-container col-12 tw-divide-y tw-divide-gray-20 tw-border-t-gray-20 tw-border-t">
           {% for child_page in child_pages %}
-            {% with child=child_page.child.localized %}
-            <div class="row publication-row pt-3 pb-3 d-flex align-items-center">
-              <div class="col-sm-1 d-md-block d-none">&nbsp;</div>
-              <div class="col-auto">
-                <div class="publication-chapter-number publication-chapter-number--small"
-                  {% with toc_image=child.specific.toc_thumbnail_image %}
-                  {% if toc_image %}
-                  {% image toc_image fill-256x256 as thumbnail %}
-                  style='background-image: url("{{ thumbnail.url }}")'
-                  {% endif %}
-                  {% endwith %}
-                >
+            {% with child=child_page.child.specific %}
+              <div class="row publication-row tw-min-h-[80px] pt-3 pb-3 d-flex align-items-center">
+                <div class="tw-px-4">
+                  <div class="publication-chapter-number tw-w-7 tw-h-7"
+                    {% with toc_image=child.specific.toc_thumbnail_image %}
+                    {% if toc_image %}
+                    {% image toc_image fill-256x256 as thumbnail %}
+                    style='background-image: url("{{ thumbnail.url }}")'
+                    {% endif %}
+                    {% endwith %}
+                  >
+                  </div>
                 </div>
+                <div class="d-flex align-items-center">
+                  <h3 class="tw-font-sans tw-text-base tw-leading-5 tw-font-normal my-0">
+                    <a href="{{ child.url }}" class="d-block tw-text-black hover:tw-no-underline hover:tw-text-blue-dark">
+                      {{ child.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
+                    </a>
+                  </h3>
+                </div>
+                {% if child.get_page_titles %}
+                  <button data-expand="{{child.title}}"
+                  class="article-header-button
+                          tw-ml-auto
+                          tw-shrink-0
+                          tw-w-5
+                          tw-h-5
+                          tw-grid
+                          tw-place-items-center
+                        tw-bg-white
+                          tw-outline-none
+                          tw-p-0
+                          tw-mr-4">
+                          <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="" />
+                          <img src="{% static "_images/minus-circle.svg" %}" alt="" data-state="close" class="tw-hidden" />
+                  </button>
+                {% endif %}
+
+                {% if child.get_children %}
+                <button data-expand="{{child.title}}"
+                    class="article-child-button
+                            tw-ml-auto
+                            tw-w-5
+                            tw-h-5
+                            tw-shrink-0
+                            tw-bg-white
+                            tw-grid
+                            tw-place-items-center
+                            tw-outline-none
+                            tw-p-0
+                            tw-mr-4">
+                            <img src="{% static "_images/arrow-circle.svg" %}" alt="" />
+                    </button>
+                {% endif %}
               </div>
-              <div class="col-sm col-8 d-flex align-items-center">
-                <h3 class="publication-chapter-title publication-chapter-title--small my-0">
-                  <a href="{{ child.url }}" class="d-block">
-                    {{ child.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
-                  </a>
-                </h3>
-              </div>
-              <div class="col-sm-1 d-md-block d-none">&nbsp;</div>
-            </div>
+
+              {% if child.get_page_titles %}
+                <div class="article-child-menu row tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{child.title}}">
+                    {% for slug, header in child.get_page_titles %}
+                      <div class="tw-flex tw-py-3 tw-px-4 medium:tw-px-4 tw-items-center tw-bg-gray-05 tw-w-full tw-min-h-[80px]">
+                          <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-dark tw-flex tw-items-center" href="{{ child.url }}#{{ slug }}">
+                          {{ header }}
+                          </a>
+                      </div>
+                    {% endfor %}
+                </div>
+              {% endif %}
             {% endwith %}
-            {% if not forloop.last %}
-              <hr/>
-            {% endif %}
           {% endfor %}
         </div>
       </div>
+      {% include "fragments/child_table_of_contents.html" %}
     </div>
   </div>
 </div>

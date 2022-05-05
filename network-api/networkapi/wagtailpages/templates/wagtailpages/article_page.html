@@ -76,7 +76,7 @@
 
   <!-- If this is a child of a publication, we want to render the next buttons -->
   {% if page.is_publication_article and page.next_page %}
-    {% include "fragments/continuous_scrolling_next.html" %}
+    {% include "fragments/continuous_scrolling_next.html" with page=page.next_page %}
   {% endif %}
 {% endblock %}
 
