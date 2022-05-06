@@ -1,5 +1,5 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-<div class="tw-flex tw-flex-col small:tw-flex-row">
+<div class="tw-flex tw-flex-col small:tw-flex-row {% if landing_page %} small:tw-bg-gray-05 small:tw-p-6 {% endif %}">
 
   {% if research_detail_page.cover_image %}
     <picture class="inline-block {% if hide_image_on_mobile %} tw-hidden small:tw-block {% endif %} small:tw-w-[112px] tw-shrink-0 tw-mb-3 small:tw-mb-0 small:tw-mr-5">
@@ -24,7 +24,7 @@
       {% if research_detail_page.get_research_author_names and not hide_author_names %}
         <div class="tw-px-2 tw-min-w-0 tw-truncate" >{{ research_detail_page.get_research_author_names|join:', ' }}</div>
       {% endif %}
-      {% if research_detail_page.get_related_topic_names %}
+      {% if research_detail_page.get_related_topic_names and not hide_related_topics %}
         <div class="tw-pl-2 tw-min-w-0 tw-truncate {% if hide_topics_on_mobile %} tw-hidden small:tw-block {% endif %}">{{ research_detail_page.get_related_topic_names|join:' / ' }}</div>
       {% endif %}
     </div>

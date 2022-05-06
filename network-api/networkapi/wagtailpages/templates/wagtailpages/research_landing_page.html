@@ -1,63 +1,77 @@
 {% extends "./research_base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block subcontent %}
 
-<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-p-6">
-  {% include './research_breadcrumb.html'%}
+<div class="">
+  <div id="hero">
+    <div class="tw-bg-black tw-overflow-hidden tw-w-full tw-h-[150px] medium:tw-h-[180px] ">
+      {% with banner=page.banner_image %}
+        {% if banner %}
+          <img class='tw-min-h-full' src="{% image_url banner "original" %}" alt="">
+        {% else %}
+        <img class='tw-min-w-full' src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
+        {% endif %}
+      {% endwith %}
+    </div>
+    <div class="xlarge:tw-container">
+      <div class="tw-grid tw-grid-cols-12">
+        <div class="tw-bg-white tw-col-span-12 large:tw-col-span-8">
 
-</div>
+          <div class="-tw-mt-[60px] medium:-tw-mt-[90px] tw-bg-white tw-pt-5 large:tw-w-full tw-px-4 large:tw-px-6 tw-mr-4">
+          {% include './research_breadcrumb.html'%}
+          {% if page.intro %}
+          <p class="tw-body-large mt-3 mb-0">{{ page.intro }}</p>
+          {% endif %}
 
-<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-p-6">
-  <h2>
-    Page Intro: {{ page.intro }}
-  </h2>
-</div>
+          <div class="search-bar tw-my-5 tw-block medium:tw-inline-flex tw-w-full">
 
-<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-p-6">
-  <div>
-    <h2>
-      Search Bar:
-    </h2>
-    <form action="library" method="get" accept-charset="utf-8">
-      <input type="text" value="{{ search_query }}" name="search" id="search"
-        class="tw-inline-block form-control tw-w-1/2 tw-rounded-none" />
-      <button type="submit" class="tw-btn-primary">Search</button>
-    </form>
-  </div>
-</div>
+          <form action="library" method="get" accept-charset="utf-8" class="tw-w-full medium:tw-w-3/4 tw-inline-flex">
+            <input type="text" value="{{ search_query }}" name="search" id="search"
+              class="tw-inline-block form-control tw-rounded-none tw-py-5 medium:tw-w-full" placeholder="Search our research by keyword, author, or topic..."/>
+             <button type="submit" class="-tw-ml-[48px] tw-bg-transparent "><img src="{% static "_images/research-hub/search.svg" %}" alt="Search"/>
+             </button>
+          </form>
+          <a href="{% pageurl library_page %}" class="tw-self-center tw-font-bold medium:tw-px-5">Browse all</a>
+        </div>
+        
+          </div>
 
-<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-p-6">
-  <div>
-    <h2>
-      Browse All Button:
-    </h2>
-    <a href="{% pageurl library_page %}">Browse all</a>
-  </div>
-</div>
+          <div>
+            <div class="tw-pt-5 tw-px-4 large:tw-px-6">
+              <hr class="tw-border-black tw-mt-6 large:tw-hidden"/>
+              <h2 class="tw-pb-2">Latest research</h2>
+              <ul class="tw-list-none px-0">
+                {% for research_detail_page in latest_research_detail_pages %}
+                  <li class="tw-py-4 small:tw-py-1">
+                    {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_related_topics=True landing_page=True%}
+                  </li>
+                {% endfor %}
+              </ul>
 
-<div class="tw-container tw-border-4 tw-border-gray-60 tw-my-5 tw-p-6">
-  <h2>Latest Research</h2>
-  <ul class="tw-list-none tw-px-0 tw-space-y-3">
-    {% for research_detail_page in latest_research_detail_pages %}
-    <li class="tw-p-5 tw-bg-gray-05">
-      {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page heading_level=3 hide_topics_on_mobile=True %}
-    </li>
-    {% endfor %}
-  </ul>
-</div>
+              <a href="{% pageurl library_page %}"><button class="tw-btn-secondary large:tw-mt-4 large:tw-mb-7 tw-w-full large:tw-w-auto"> Browse all projects </button></a>
+            </div>
+          </div>
 
-<div class="tw-border-4 tw-border-gray-60 tw-my-5 tw-p-6">
-  <h2> User Selected Featured Topics:</h2>
-  <ul>
-    {% for featured_topic in page.featured_topics.all %}
-    <li>
-      <h3><a href="{% pageurl library_page %}?topic={{featured_topic.research_topic.id}}">{{ featured_topic.research_topic.name }}</a></h3>
-      <div>
+        </div>
+        <div class="tw-bg-white tw-col-span-12 large:tw-col-span-4 tw-px-4">
+          <hr class="tw-border-black tw-mt-7"/>
+          <h4 class="tw-h4-heading tw-pb-4"> Browse by topic </h4>
+          <ul class="tw-list-none tw-px-0">
+            {% for featured_topic in page.featured_topics.all %}
+            <li class="tw-py-1">
+              <h2 class="tw-h5-heading tw-text-blue-dark tw-mb-1"><a href="{% pageurl library_page %}?topic={{featured_topic.research_topic.id}}">{{ featured_topic.research_topic.name }}</a></h3>
+              <p class="tw-body tw-text-gray-80 tw-text-base tw-pt-1"> {{ featured_topic.research_topic.description }} </p>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
-    </li>
-    {% endfor %}
-  </ul>
+    </div>
+
+  </div>
+  
 </div>
+
 
 {% endblock subcontent %}
