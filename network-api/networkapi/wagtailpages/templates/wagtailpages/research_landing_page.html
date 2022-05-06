@@ -33,7 +33,7 @@
 
             <form action="library" method="get" accept-charset="utf-8" class="tw-w-full tw-inline-flex medium:tw-w-3/4">
               <input type="text" value="{{ search_query }}" name="search" id="search"
-                class="tw-inline-block form-control tw-rounded-none tw-py-5 medium:tw-w-full"
+                class="tw-inline-block form-control tw-rounded-none tw-py-5 medium:tw-w-full placeholder-shown:tw-truncate placeholder:tw-text-sm placeholder:small:tw-text-base"
                 placeholder="Search our research by keyword, author, or topic..." />
               <button type="submit" class="-tw-ml-[48px] tw-bg-transparent"><img src="{% static "_images/research-hub/search.svg" %}" alt="Search" /></button>
             </form>
