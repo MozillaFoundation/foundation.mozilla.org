@@ -1,0 +1,34 @@
+{% load i18n %}
+<{% if not button %}a{% else %}button{% endif %}
+  {% if not button %}
+    id="filter-section-jump-link"
+    href="#filter"
+  {% else %}
+    id="filter-section-show-button"
+    href="#filter"
+  {% endif %}
+  class="
+    tw-relative
+    tw-btn-secondary
+    tw-flex
+    tw-items-center
+    small:tw-hidden
+    tw-w-1/2
+    tw-px-3
+    tw-py-[5px]
+    tw-text-left
+    tw-text-base
+    tw-font-normal
+    hover:tw-text-white
+    active:tw-text-white
+    tw-border
+    tw-border-gray-40
+    tw-text-inherit
+    hover:tw-no-underline
+    tw-align-middle
+    {% if not button %}tw-hidden{% endif %}
+  "
+>
+  <span>{% translate 'Filter' context 'Button'  %}</span>
+  <svg fill="currentColor" height="14" viewBox="0 0 14 14" width="14" xmlns="http://www.w3.org/2000/svg" stroke="none" class="tw-absolute tw-top-1/2 -tw-translate-y-1/2 tw-right-2"><path d="m14 8h-6v6h-2v-6h-6v-2h6v-6h2v6h6z"/></svg>
+</{% if not button %}a{% else %}button{% endif %}>
