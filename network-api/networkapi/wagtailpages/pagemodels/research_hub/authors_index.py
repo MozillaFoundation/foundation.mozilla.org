@@ -4,7 +4,6 @@ from wagtail.core import models as wagtail_models
 from wagtail.contrib.routable_page import models as routable_models
 
 from networkapi.wagtailpages import utils
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 from networkapi.wagtailpages.pagemodels.research_hub import detail_page

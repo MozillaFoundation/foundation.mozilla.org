@@ -5,8 +5,6 @@ from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel
 )
 
-from networkapi.wagtailpages import utils
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 
 

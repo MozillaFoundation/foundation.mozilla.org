@@ -12,7 +12,6 @@ from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 
 
