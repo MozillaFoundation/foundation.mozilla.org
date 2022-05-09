@@ -1,8 +1,11 @@
 import collections
 from typing import Optional
 
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from wagtail.core import models as wagtail_models
+from wagtail import images as wagtail_images
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
@@ -50,6 +53,21 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         SORT_ALPHABETICAL.value: SORT_ALPHABETICAL,
         SORT_ALPHABETICAL_REVERSED.value: SORT_ALPHABETICAL_REVERSED,
     }
+
+    background_image = models.ForeignKey(
+        wagtail_images.get_image_model_string(),
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        help_text=(
+            'The image to be used as a background image for all '
+            'research detail pages.'
+        ),
+    )
+
+    content_panels = wagtail_models.Page.content_panels + [
+        ImageChooserPanel('background_image'),
+    ]
 
     def get_context(self, request):
         search_query = request.GET.get('search', '')
