@@ -92,7 +92,20 @@
         {% endcomment %}
       </div>
 
-      <div id="filter" class="-tw-mx-4 tw-px-4 tw-pt-7 tw-pb-7 medium:tw-w-[26rem] tw-shrink-0 tw-bg-gray-05 ">
+      <div id="filter" data-open class="-tw-mx-4 tw-px-4 tw-pt-7 tw-pb-7 medium:tw-w-[26rem] tw-shrink-0 tw-bg-gray-05">
+        <div class="tw-flex tw-justify-end">
+          <button
+            id="filter-section-hide-button"
+            class="tw-h-7 tw-w-7 -tw-mt-2 -tw-mr-2 -tw-mb-4 tw-text-3xl tw-font-normal tw-text-blue-dark hover:tw-text-blue-light tw-bg-transparent tw-hidden"
+            aria-label="Close"
+            tabIndex="0"
+          >
+            <span aria-hidden="true" class="">&times;</span>
+          </button>
+        </div>
+        <div>
+          <h2 class="tw-h1-heading">{% translate 'Filter' %}</h2>
+        </div>
         <div class="tw-pt-4 tw-pb-7 tw-border-t">
           <fieldset>
             <legend><h2>{% translate 'Topics' %}</h2></legend>

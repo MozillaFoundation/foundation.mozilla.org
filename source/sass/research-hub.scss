@@ -5,3 +5,7 @@ input[type="checkbox"].rh-checkbox {
 input[type="radio"].rh-radio {
   @apply tw-form-radio tw-relative tw-top-[4px] tw-mr-3 tw-w-[20px] tw-h-[20px] tw-border tw-border-gray-60 checked:tw-bg-pni-purple-pink focus:checked:tw-bg-pni-purple-pink focus:tw-outline-pni-purple-pink;
 }
+
+.rh-filter-modal {
+  @apply tw-fixed tw-top-0 tw-bottom-0 tw-left-0 tw-right-0 tw-mx-0 tw-overflow-y-scroll tw-z-[1050] tw-pt-4
+}
