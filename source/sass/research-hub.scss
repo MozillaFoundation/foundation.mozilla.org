@@ -7,5 +7,5 @@ input[type="radio"].rh-radio {
 }
 
 .rh-filter-modal {
-  @apply tw-fixed tw-top-0 tw-bottom-0 tw-left-0 tw-right-0 tw-mx-0 tw-overflow-y-scroll tw-z-[1050] tw-pt-4
+  @apply tw-fixed large:tw-static tw-top-0 tw-bottom-0 tw-left-0 tw-right-0 tw-z-[1050] large:tw-z-0 tw-mx-0 tw-overflow-y-scroll
 }

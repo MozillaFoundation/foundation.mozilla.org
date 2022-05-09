@@ -32,7 +32,8 @@
       <h1>{{ page.title }}</h1>
     </div>
 
-    <div class="tw-mt-5 tw-mb-4 medium:tw-bg-gray-05 medium:tw-w-[26rem] medium:tw-h-[9rem]" >
+    <div class="large:tw-w-[20rem] large:tw-h-[8rem] tw-mt-5 tw-mb-4 large:tw-mb-0 large:-tw-ml-5 large:tw-p-5 large:tw-bg-gray-05" >
+      {# SEARCH BAR #}
       {% comment %}
         The page url is necessary in the form to that the filter anchor link is not carried forward.
         Say on mobile the user used the "Filter" anchor link to get to the filter section,
@@ -45,20 +46,37 @@
       </form>
     </div>
 
-    <div class="tw-flex tw-flex-col medium:tw-flex-row-reverse">
+    <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-gap-6">
       {# FILTER, SORT AND RESULTS #}
 
       {# For side-by-side layout, we need to pull the results up to that the upper end lines up with the search bar. #}
-      <div class="tw-min-w-0 medium:-tw-mt-[9rem] tw-pb-7">
+      <div class="tw-min-w-0 large:-tw-mt-[8rem] tw-pb-7">
         {# SORT AND RESULTS #}
 
-        <div class="tw-flex tw-flex-row tw-gap-3">
-          {# SORT CONTROLS #}
 
-          {% include "wagtailpages/fragments/research_filter_button.html" with button=False %}
-          {% include "wagtailpages/fragments/research_filter_button.html" with button=True %}
+        <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-justify-between tw-gap-5">
+          <div class="tw-flex tw-flex-row tw-gap-3">
+            {# FILTER BUTTON #}
+            <div class="large:tw-hidden tw-basis-1/2">
+              {% include "wagtailpages/fragments/research_filter_button.html" with button=False %}
+              {% include "wagtailpages/fragments/research_filter_button.html" with button=True %}
+            </div>
+            <div class="tw-flex tw-flex-row tw-items-baseline tw-basis-1/2 large:tw-basis-full">
+              {# SORT SELECT #}
+              <select name="sort" class="tw-form-control tw-border-gray-40" form="search-form" onchange="this.form.submit()">
+                {% for choice in page.SORT_CHOICES.values  %}
+                  <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
+                {% endfor %}
+              </select>
+              <noscript>
+                {# The sort button is only needed for the no JS case. With JS, the form can be submitted on change of the select #}
+                <button type="submit" class="tw-btn-primary tw-text-base" form="search-form">{% translate 'Sort' context 'Button' %}</button>
+              </noscript>
+            </div>
+          </div>
           {% if search_query %}
-            <div class="tw-hidden small:tw-block">
+            {# RESULTS COUNT #}
+            <div class="tw-h4-heading tw-mb-0">
               {% blocktranslate count results_count=research_detail_pages.count trimmed %}
                 <strong>{{ results_count }}</strong> result for <q>{{ search_query }}</q>
                 {% plural %}
@@ -66,20 +84,9 @@
               {% endblocktranslate %}
             </div>
           {% endif %}
-          <div class="tw-flex tw-flex-row tw-items-baseline tw-w-1/2">
-            <select name="sort" class="tw-form-control tw-border-gray-40" form="search-form" onchange="this.form.submit()">
-              {% for choice in page.SORT_CHOICES.values  %}
-                <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
-              {% endfor %}
-            </select>
-            <noscript>
-              {# The sort button is only needed for the no JS case. With JS, the form can be submitted on change of the select #}
-              <button type="submit" class="tw-btn-primary tw-text-base" form="search-form">{% translate 'Sort' context 'Button' %}</button>
-            </noscript>
-          </div>
         </div>
 
-        <ul class="tw-list-none tw-mt-7 tw-mb-5 tw-px-0 tw-border-t tw-border-b tw-border-gray-20 tw-divide-y tw-divide-gray-05">
+        <ul class="tw-list-none tw-mt-6 large:tw-mt-5 tw-mb-5 tw-px-0 tw-border-t tw-border-b tw-border-gray-20 tw-divide-y tw-divide-gray-05">
           {# RESULTS LIST #}
           {% for research_detail_page in research_detail_pages  %}
             <li class="tw-m-0 tw-pt-5 tw-pb-5">
@@ -92,11 +99,12 @@
         {% endcomment %}
       </div>
 
-      <div id="filter" data-open class="-tw-mx-4 tw-px-4 tw-pt-7 tw-pb-7 medium:tw-w-[26rem] tw-shrink-0 tw-bg-gray-05">
+      <div id="filter" class="large:tw-block large:tw-w-[20rem] tw-shrink-0 large:tw-mr-0 large:-tw-ml-5 tw-px-4 small:tw-px-5 medium:tw-px-6 large:tw-px-5 tw-pt-4 large:tw-pt-0 tw-pb-7 tw-bg-gray-05">
+        {# FILTER SECTION #}
         <div class="tw-flex tw-justify-end">
           <button
             id="filter-section-hide-button"
-            class="tw-h-7 tw-w-7 -tw-mt-2 -tw-mr-2 -tw-mb-4 tw-text-3xl tw-font-normal tw-text-blue-dark hover:tw-text-blue-light tw-bg-transparent tw-hidden"
+            class="tw-hidden large:tw-hidden tw-h-7 tw-w-7 -tw-mt-2 -tw-mr-2 -tw-mb-4 tw-text-3xl tw-font-normal tw-text-blue-dark hover:tw-text-blue-light tw-bg-transparent"
             aria-label="Close"
             tabIndex="0"
           >
@@ -104,11 +112,11 @@
           </button>
         </div>
         <div>
-          <h2 class="tw-h1-heading">{% translate 'Filter' %}</h2>
+          <h2 class="large:tw-hidden tw-h1-heading">{% translate 'Filter' %}</h2>
         </div>
         <div class="tw-pt-4 tw-pb-7 tw-border-t">
           <fieldset>
-            <legend><h2>{% translate 'Topics' %}</h2></legend>
+            <legend><h3 class="tw-h4-heading">{% translate 'Topics' %}</h3></legend>
             <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if topic_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
               {% for topic in topic_options|dictsort:"name" %}
                 <li class="tw-flex tw-flex-row tw-items-baseline">
@@ -121,7 +129,7 @@
         </div>
         <div class="tw-pt-4 tw-pb-7 tw-border-t">
           <fieldset>
-            <legend><h2>{% translate 'Publication date' %}</h2></legend>
+            <legend><h3 class="tw-h4-heading">{% translate 'Publication date' %}</h3></legend>
             <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if year_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
               <li class="tw-flex tw-flex-row tw-items-baseline">
                 <input type="radio" value="" name="year" id="year-option-all" {% if not filtered_year %}checked{% endif %} form="search-form" class="rh-radio" />
@@ -138,7 +146,7 @@
         </div>
         <div class="tw-pt-4 tw-pb-7 tw-border-t">
           <fieldset>
-            <legend><h2>{% translate 'Authors' %}</h2></legend>
+            <legend><h3 class="tw-h4-heading">{% translate 'Authors' %}</h3></legend>
             <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if author_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
               {% for author in author_options|dictsort:"name" %}
                 <li class="tw-flex tw-flex-row tw-items-baseline">
@@ -151,7 +159,7 @@
         </div>
         <div class="tw-pt-4 tw-pb-7 tw-border-t">
           <fieldset>
-            <legend><h2>{% translate 'Regions' %}</h2></legend>
+            <legend><h3 class="tw-h4-heading">{% translate 'Regions' %}</h3></legend>
             <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if region_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
               {% for region in region_options|dictsort:"name" %}
                 <li class="tw-flex tw-flex-row tw-items-baseline">
