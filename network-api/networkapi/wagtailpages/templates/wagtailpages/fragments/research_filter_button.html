@@ -25,7 +25,8 @@
     tw-text-inherit
     hover:tw-no-underline
     tw-align-middle
-    {% if not button %}tw-hidden{% endif %}
+    {# The button starts hidden, but can then be shown by JS, by adding the hidden class from the link and removing it from the button. #}
+    {% if button %}tw-hidden{% endif %}
   "
 >
   <span>{% translate 'Filter' context 'Button'  %}</span>
