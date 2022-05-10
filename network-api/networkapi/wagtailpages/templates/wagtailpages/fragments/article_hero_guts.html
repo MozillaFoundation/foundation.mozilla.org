@@ -72,13 +72,13 @@
 
   {% if download_file %}
 
-  {% with btn_setting=page.download_button_style primary_icon_class="tw-invert dark:group-hover:tw-invert-0" secondary_icon_class="group-hover:tw-invert dark:tw-invert dark:group-hover:tw-invert-0" tertiary_btn_class="tw-text-black tw-font-light tw-underline hover:tw-opacity-50" %}
+  {% with btn_setting=page.download_button_style primary_icon_class="tw-invert dark:group-hover:tw-invert-0" secondary_icon_class="group-hover:tw-invert dark:tw-invert dark:group-hover:tw-invert-0" tertiary_btn_class="tw-text-black dark:tw-text-white tw-font-light tw-underline hover:tw-opacity-50" %}
 
   <a class="tw-inline-flex tw-group {% if btn_setting == page.HERO_BTN_STYLE_PRIMARY %} tw-btn-primary  {% elif btn_setting == page.HERO_BTN_STYLE_SECONDARY %} tw-btn-secondary {% else %} {{ tertiary_btn_class }} {% endif %}" 
    href="{{ download_file.url }}" download>
     <img 
     src=" {% if page.download_button_icon %} {{ page.download_button_icon.url }} {% else %} {% static '_images/glyphs/download-file.svg' %} {% endif %}" 
-    class='tw-h-[18px] tw-w-[18px] tw-mr-3 tw-mt-[1px] tw-brightness-0 {% if btn_setting == page.HERO_BTN_STYLE_PRIMARY %} {{primary_icon_class}} {% elif btn_setting == page.HERO_BTN_STYLE_SECONDARY %} {{secondary_icon_class}} {% endif %}'/>
+    class='tw-h-[18px] tw-w-[18px] tw-mr-3 tw-mt-[1px] tw-brightness-0 dark:tw-brightness-100 {% if btn_setting == page.HERO_BTN_STYLE_PRIMARY %} {{primary_icon_class}} {% elif btn_setting == page.HERO_BTN_STYLE_SECONDARY %} {{secondary_icon_class}} {% endif %}'/>
       {% trans "Download PDF" %}
       {% if download_file.file_size %}
         <span class="tw-font-thin tw-ml-2">({{ download_file.file_size|filesizeformat }})</span>
