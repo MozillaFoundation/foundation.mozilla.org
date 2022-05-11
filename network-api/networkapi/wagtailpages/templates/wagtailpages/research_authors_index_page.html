@@ -11,18 +11,21 @@
       <div class="tw-text-lg tw-my-4 tw-font-zilla">
         {{ page.get_parent.title }} /
       </div>
-      <h1 class="tw-text-5xl tw-font-zilla">
+      <h1 class="large:tw-text-5xl tw-text-4xl tw-font-zilla tw-mb-6">
         {% trans "Browse authors" %}
       </h1>
-      <div class="tw-bg-gray-05 tw-p-4 tw-my-7">
+      {% comment %}
+        {# Search bar styling. Commented out for future use #}.
         {# TODO: Add search or filter functionality in here #}
-        <form class="tw-relative medium:tw-inline-block">
-          <input type="search" class="author-search tw-border tw-border-[#c4c4c4] medium:tw-w-[354px] tw-w-full tw-p-2 tw-text-lg" placeholder="{% trans 'Search author by name' %}" autofocus="autofocus">
-          <button type="submit" alt="Search" class="tw-absolute tw-right-4 tw-top-1/3 tw-w-[17px] tw-h-[17px] tw-bg-transparent tw-p-0">
-            <img src="{% static '_images/search-icon.svg' %}" alt="{% trans 'Search icon' %}">
-          </button>
-        </form>
-      </div>
+        <div class="tw-bg-gray-05 tw-p-4 tw-my-7">
+          <form class="tw-relative medium:tw-inline-block">
+            <input type="search" class="author-search tw-border tw-border-[#c4c4c4] medium:tw-w-[354px] tw-w-full tw-p-2 tw-text-lg" placeholder="{% trans 'Search author by name' %}" autofocus="autofocus">
+            <button type="submit" alt="Search" class="tw-absolute tw-right-4 tw-top-1/3 tw-w-[17px] tw-h-[17px] tw-bg-transparent tw-p-0">
+              <img src="{% static '_images/search-icon.svg' %}" alt="{% trans 'Search icon' %}">
+            </button>
+          </form>
+        </div>
+      {% endcomment %}
 
       {% if author_profiles %}
         <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-6 tw-gap-5 tw-gap-y-7 tw-list-none tw-p-0">
