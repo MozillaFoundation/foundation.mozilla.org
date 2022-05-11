@@ -1,5 +1,4 @@
 {% load i18n wagtailimages_tags wagtailcore_tags static %}
-
 <div class="
     tw-absolute 
     tw-overflow-auto
@@ -13,7 +12,7 @@
     tw-border 
   tw-border-gray-20 
     article-summary-menu" aria-labelledby="summaryMenu">
-    {% if page.get_parent and page.is_publication_article %}
+    {% if page.get_parent and page.get_parent.specific.is_publication_page %}
     <div class="article-container">
         <div class="tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-py-[1.4rem] tw-sticky tw-top-0 tw-left-0 tw-bg-white">
         <div class="tw-text-2xl tw-leading-6 tw-font-zilla">{% trans "Table of Contents" %}</div>
@@ -88,19 +87,19 @@
     </div>
     
     {% else %}
-    <div class="article-container">
-    <div class="tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-pt-6 tw-text-2xl tw-leading-6 tw-font-zilla">
-        {% trans "Summary" %}
-    </div>
-    <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-6">
-        {% for slug, header in get_titles %}
-        <a class="tw-whitespace-normal tw-py-5 tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-text-black hover:tw-no-underline hover:tw-text-blue" href="#{{ slug }}">{{ header }}</a>
-        {% endfor %}
-    </div>
-    </div>
+        <div class="article-container">
+            <div class="tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-pt-6 tw-text-2xl tw-leading-6 tw-font-zilla">
+                {% trans "Summary" %}
+            </div>
+            <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-6">
+                {% for slug, header in get_titles %}
+                <a class="tw-whitespace-normal tw-py-5 tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-text-black hover:tw-no-underline hover:tw-text-blue" href="#{{ slug }}">{{ header }}</a>
+                {% endfor %}
+            </div>
+        </div>
     {% endif %}
 
-    {% if page.get_parent and page.is_publication_article %}
+    {% if page.get_parent and page.get_parent.specific.is_publication_page %}
         {% include "publication_child_menu.html" %}
     {% endif %}
 </div>

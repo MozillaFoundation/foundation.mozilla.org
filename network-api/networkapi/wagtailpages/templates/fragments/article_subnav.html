@@ -14,7 +14,7 @@
         {% if get_titles or page.is_publication_article %}
           <div class="dropdown medium:tw-ml-auto medium:tw-mr-4 tw-w-full medium:tw-w-auto tw-px-4 small:tw-px-0">
             <div class="position-relative medium:tw-ml-5 medium:tw-pl-1">
-              <button class="btn btn-sm btn-link dropdown-toggle article-summary-toggle tw-flex w-100 text-left pl-0" type="button" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-sm btn-link dropdown-toggle article-summary-toggle tw-flex w-100 text-left pl-0 tw-shadow-none" type="button" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="tw-w-[180px] xlarge:tw-w-[325px] tw-mr-auto medium:tw-mr-2 tw-truncate tw-block hover:tw-no-underline">{% trans "Summary" %}</span>
                 <span class="toggle-text tw-w-[75px] tw-text-right tw-mr-3" data-open="{% trans "Show All" %}" data-close="{% trans "Close" %}">{% trans "Show All" %}</span>
               </button>
@@ -23,6 +23,13 @@
         {% endif %}
       </div>
     </div>
-    {% include "sticky_dropdown.html" %}
+    {% if page.get_parent.get_parent.specific.is_publication_page %}
+      {% comment %}
+        Needed for child publications within publications
+      {% endcomment %}
+      {% include "sticky_dropdown.html" with page=page.get_parent %}
+    {% else %}
+      {% include "sticky_dropdown.html" with page=page %}
+    {% endif %}
   </div>
 </div>

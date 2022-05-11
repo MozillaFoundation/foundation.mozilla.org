@@ -5,13 +5,7 @@
 
   {% include "./fragments/publication_hero.html" with  page=page download_file=page.publication_file is_publication_page=page.is_publication_page %}
 
-  {% if page.is_chapter_page %}
-    {# Chapter page #}
-    {% include "fragments/chapter_table_of_contents.html" %}
-  {% else %}
-    {# Publication Page #}
-    {% include "fragments/publication_table_of_contents.html" %}
-  {% endif %}
+  {% include "fragments/chapter_table_of_contents.html" %}
 
   {% if page.notes %}
     <div class="container">
@@ -26,5 +20,12 @@
     </div>
   {% endif %}
 
+  {% if child_pages.0 %}
+    {% include "fragments/continuous_scrolling_next.html" with page=child_pages.0.child.specific %}
+  {% endif %}
+
+{% endblock %}
+
+{% block footer_block %}
 {% endblock %}
 

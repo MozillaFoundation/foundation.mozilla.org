@@ -5,7 +5,7 @@ import { ReactGA } from "../js/common";
 /**
  * Logic for the Newsletter form that slides down from the top of page
  * when the "Newsletter" button is clicked in the navigation bar.
- * 
+ *
  */
 
 const elements = {

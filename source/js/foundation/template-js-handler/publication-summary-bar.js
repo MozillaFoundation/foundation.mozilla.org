@@ -1,16 +1,54 @@
 /**
  * Summary bar on the publication page shows up when scrolled passed the hero.
  */
+
+//TODO: This needs a refactor since it does quite a bit now.
 export default () => {
+  // accordion button toggle
+  document.querySelectorAll(".article-header-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      document
+        .querySelector(
+          `.article-child-menu[data-expand="${button.dataset.expand}"]`
+        )
+        .classList.toggle("tw-hidden");
+      button
+        .querySelector("img[data-state='open']")
+        .classList.toggle("tw-hidden");
+      button
+        .querySelector("img[data-state='close']")
+        .classList.toggle("tw-hidden");
+    });
+  });
+
+  // child button toggle
+  document.querySelectorAll(".article-child-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!button.dataset.expand) {
+        document
+          .querySelector(`.article-child-container:not(.tw-hidden)`)
+          .classList.add("tw-hidden");
+        document
+          .querySelector(".article-container")
+          .classList.remove("tw-hidden");
+
+        return;
+      }
+
+      document
+        .querySelector(
+          `.article-child-container[data-child="${button.dataset.expand}"]`
+        )
+        .classList.remove("tw-hidden");
+      document
+        .querySelector(".article-container")
+        .classList.toggle("tw-hidden");
+    });
+  });
+
   const summaryBlock = document.querySelector(".article-navbar-container");
   if (summaryBlock) {
-    const marginOffset = window
-      .getComputedStyle(summaryBlock)
-      .getPropertyValue("--top-offset");
     const dropDownMenu = document.querySelector(".article-summary-menu");
-    const articleSummaryToggle = document.querySelector(
-      ".article-summary-toggle"
-    );
 
     // sticky nav toggle for scrolling past the header
     const summaryObserver = new IntersectionObserver((entries) => {
@@ -26,7 +64,7 @@ export default () => {
     // update the title based on the header in the article in past by
     const titleObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        const title = entry.target.innerText;
+        const title = entry.target.innerText.trim();
         if (entry.intersectionRatio > 0) {
           document.querySelector(
             ".dropdown-toggle.article-summary-toggle span"
@@ -43,48 +81,6 @@ export default () => {
 
     document.querySelectorAll(".rich-text h2").forEach((section) => {
       titleObserver.observe(section);
-    });
-
-    // accordion button toggle
-    document.querySelectorAll(".article-header-button").forEach((button) => {
-      button.addEventListener("click", () => {
-        document
-          .querySelector(
-            `.article-child-menu[data-expand="${button.dataset.expand}"]`
-          )
-          .classList.toggle("tw-hidden");
-        button
-          .querySelector("img[data-state='open']")
-          .classList.toggle("tw-hidden");
-        button
-          .querySelector("img[data-state='close']")
-          .classList.toggle("tw-hidden");
-      });
-    });
-
-    // child button toggle
-    document.querySelectorAll(".article-child-button").forEach((button) => {
-      button.addEventListener("click", () => {
-        if (!button.dataset.expand) {
-          document
-            .querySelector(`.article-child-container:not(.tw-hidden)`)
-            .classList.add("tw-hidden");
-          document
-            .querySelector(".article-container")
-            .classList.remove("tw-hidden");
-
-          return;
-        }
-
-        document
-          .querySelector(
-            `.article-child-container[data-child="${button.dataset.expand}"]`
-          )
-          .classList.remove("tw-hidden");
-        document
-          .querySelector(".article-container")
-          .classList.toggle("tw-hidden");
-      });
     });
 
     /*
