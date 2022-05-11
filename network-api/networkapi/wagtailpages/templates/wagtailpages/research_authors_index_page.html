@@ -33,12 +33,8 @@
                 class="tw-flex large:tw-gap-6 medium:tw-gap-5 tw-gap-4 tw-items-center hover:tw-no-underline"
                 >
                 <div class="large:tw-w-[97px] medium:tw-w-[68px] tw-w-[77px]">
-                  {% if author_profile.image %}
-                    {% image author_profile.image fill-96x96 as profile_img %}
-                    <img src="{{ profile_img.url }}" alt="{{ author_profile.name }}" class="tw-w-full tw-h-auto tw-rounded-full">
-                  {% else %}
-                    <img src="/media/images/frame_generic_dark_8.2e16d0ba.fill-96x96.png" alt="{{ author_profile.name }}" class="tw-w-full tw-h-auto tw-rounded-full">
-                  {% endif %}
+                  {% image author_profile.image fill-96x96 as profile_img %}
+                  <img src="{{ profile_img.url }}" alt="{{ author_profile.name }}" class="tw-w-full tw-h-auto tw-rounded-full">
                 </div>
                 <div>
                   <div class="author-name tw-font-zilla tw-font-semibold tw-text-blue-dark large:tw-text-xl medium:tw-text-lg hover:tw-underline">
