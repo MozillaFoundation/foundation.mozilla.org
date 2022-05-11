@@ -1,0 +1,21 @@
+
+
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block block_content %}
+	<div class="tw-row">
+        <details class="tw-w-full tw-font-sans tw-font-light tw-mx-4">
+            <summary class="tw-list-none tw-w-full tw-text-lg tw-leading-7 tw-min-h-[80px] py-3 d-flex align-items-center tw-border-t-gray-20 tw-border-t">
+                <span class="tw-mr-auto">{{self.title}}</span>
+                <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="summary-open:tw-hidden" />
+                <img src="{% static "_images/minus-circle.svg" %}" alt="" data-state="close" class="tw-hidden summary-open:tw-block" />
+            </summary>
+            {% for block in self.accordion_items %}
+                {% with item=block count=self.accordion_items|length %}
+                    {% include_block block %}
+                {% endwith %}
+            {% endfor %}
+        </details>
+	</div>
+{% endblock %}
