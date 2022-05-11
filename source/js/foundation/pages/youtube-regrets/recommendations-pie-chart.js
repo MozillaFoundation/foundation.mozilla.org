@@ -4,7 +4,6 @@ import { Chart, registerables } from "chart.js";
  * Using chart.js to render the recommendation pie chart on the Youtube Regrets page.
  */
 
-
 export const initYouTubeRegretsRecommendationsPieChart = () => {
   Chart.register(...registerables);
 

@@ -1,0 +1,78 @@
+{% load i18n wagtailimages_tags wagtailcore_tags static %}
+{% for child_page in page.get_children.specific %}
+    {% if child_page.get_children %}
+        <div class="article-child-container row tw-flex-col tw-hidden" data-child="{{ child_page.title }}">
+            <div class="tw-flex tw-items-center tw-px-4 tw-py-3">
+            <button
+                class="article-child-button
+                    tw-h-5
+                    tw-shrink-0
+                    tw-flex
+                    tw-bg-white
+                    tw-items-center
+                    tw-outline-none
+                    group
+                    tw-p-0">
+                    <img class="tw-scale-x-[-1] tw-mr-2" src="{% static "_images/arrow-circle.svg" %}" alt="" />
+                    <span class="group-hover:tw-text-blue-dark tw-text-xs tw-leading-5 tw-font-normal tw-font-sans tw-uppercase tw-truncate tw-max-w-sm">{{ child_page.title }}</span>
+            </button>
+            
+            </div>
+
+            <div class="tw-divide-y col-12 tw-divide-gray-20 tw-border-t-gray-20 tw-border-t tw-flex tw-flex-col tw-pb-6">
+            {% for grandchild_page in child_page.get_children.specific %}
+                <div class="row publication-row tw-min-h-[80px] pt-3 pb-3 d-flex align-items-center">
+                    <div class="tw-px-4">
+                        <div class="publication-chapter-number tw-w-7 tw-h-7"
+                            {% with toc_image=grandchild_page.toc_thumbnail_image %}
+                            {% if toc_image %}
+                            {% image toc_image fill-256x256 as thumbnail %}
+                            style='background-image: url("{{ thumbnail.url }}")'
+                            {% endif %}
+                            {% endwith %}
+                        >
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <h3 class="tw-font-sans tw-text-base tw-leading-5 tw-font-normal my-0">
+                            <a href="{{ grandchild_page.url }}" class="d-block tw-text-black hover:tw-no-underline hover:tw-text-blue-dark">
+                            {{ grandchild_page.title }} {% if grandchild_page.has_unpublished_changes %}🐣{% endif %}
+                            </a>
+                        </h3>
+                    </div>
+                    {% if grandchild_page.get_page_titles %}
+                        <button data-expand="{{grandchild_page.title}}"
+                            class="article-header-button
+                                    tw-ml-auto
+                                    tw-shrink-0
+                                    tw-w-5
+                                    tw-h-5
+                                    tw-grid
+                                    tw-place-items-center
+                                    tw-bg-white
+                                    tw-outline-none
+                                    tw-p-0
+                                    tw-mr-4">
+                                    <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="" />
+                                    <img src="{% static "_images/minus-circle.svg" %}" alt="" data-state="close" class="tw-hidden" />
+                        </button>
+                    {% endif %}
+                </div>
+
+                {% if grandchild_page.get_page_titles %}
+                    <div class="article-child-menu row tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{grandchild_page.title}}">
+                        {% for slug, header in grandchild_page.get_page_titles %}
+                        <div class="tw-flex tw-min-h-[80px] tw-py-3 tw-px-4 medium:tw-px-4 tw-items-center tw-bg-gray-05 tw-w-full">
+                            <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-dark tw-flex tw-items-center" href="{{ grandchild_page.url }}#{{ slug }}">
+                            {{ header }}
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}

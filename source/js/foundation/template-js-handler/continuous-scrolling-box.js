@@ -96,5 +96,12 @@ export default () => {
   gsap.registerPlugin(ScrollTrigger);
   if (document.querySelector(".cont-scrolling")) {
     initScrollExitTransition();
+    // create an Observer instance
+    const resizeObserver = new ResizeObserver((entries) =>
+      ScrollTrigger.refresh()
+    );
+
+    // start observing a DOM node
+    resizeObserver.observe(document.body);
   }
 };
