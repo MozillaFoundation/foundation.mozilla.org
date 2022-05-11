@@ -2,11 +2,8 @@
 {% load profile_tags wagtailimages_tags i18n static %}
 
 {% block subcontent %}
-  {% comment %}
-    TODO: Add hero_img ForeignKey to `wagtailimages.Image` to the index page and apply it below.
-    {% image page.get_parent.specific.background_image fill-1240x144 as hero_img %}
-  {% endcomment %}
-  <div class="tw-bg-no-repeat tw-bg-center tw-bg-cover tw-min-h-[144px] tw-bg-gray-05" style='background-image: url("{{ hero_img.url }}")'></div>
+  {% image page.banner_image fill-1240x144 as hero_img %}
+  <div class="tw-bg-no-repeat tw-bg-center tw-bg-cover tw-min-h-[144px]" style='background-image: url("{{ hero_img.url }}")'></div>
     <div class="tw-max-w-[1180px] tw-mx-auto tw-pb-[100px] tw--mt-7 tw-bg-white tw-px-5 tw-pt-7">
       <div class="tw-text-lg tw-my-4 tw-font-zilla">
         {{ page.get_parent.title }} /
@@ -29,7 +26,7 @@
 
       {% if author_profiles %}
         <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-6 tw-gap-5 tw-gap-y-7 tw-list-none tw-p-0">
-          {% for author_profile in author_profiles  %}
+          {% for author_profile in author_profiles %}
             <li class="tw-m-0">
               <a
                 href="{% routableprofileurl page=page profile=author_profile url_name="author_detail" %}"
