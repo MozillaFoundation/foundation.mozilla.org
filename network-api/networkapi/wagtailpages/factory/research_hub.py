@@ -15,7 +15,7 @@ class ResearchLandingPageFactory(wagtail_factories.PageFactory):
     class Meta:
         model = wagtailpage_models.ResearchLandingPage
 
-    title = "Research"
+    title = 'Research'
     intro = factory.Faker('text', max_nb_chars=250)
 
 
@@ -24,6 +24,7 @@ class ResearchLibraryPageFactory(wagtail_factories.PageFactory):
         model = wagtailpage_models.ResearchLibraryPage
 
     title = "Library"
+    banner_image = factory.SubFactory(image_factory.ImageFactory)
 
 
 class ResearchAuthorsIndexPageFactory(wagtail_factories.PageFactory):
@@ -101,14 +102,14 @@ class ResearchRegionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchRegion
 
-    name = factory.Faker('text', max_nb_chars=50)
+    name = factory.Faker('text', max_nb_chars=25)
 
 
 class ResearchTopicFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchTopic
 
-    name = factory.Faker('text', max_nb_chars=50)
+    name = factory.Faker('text', max_nb_chars=25)
     description = factory.Faker('paragraph')
 
 

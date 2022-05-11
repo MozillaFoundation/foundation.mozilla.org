@@ -1,85 +1,185 @@
 {% extends "./research_base.html" %}
-{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
+
+{% block hero_guts %}
+  <div id="hero">
+    <div class="banner tw-bg-black">
+      {% with banner=page.specific.get_banner %}
+        {% if banner %}
+          <picture>
+            <source media="(min-width: 1200px)" srcset="{% image_url banner "fill-4032x1152" %}">
+            <source media="(min-width: 992px)" srcset="{% image_url banner "fill-2400x686" %}">
+            <source media="(min-width: 768px)" srcset="{% image_url banner "fill-1984x567" %}">
+            <source media="(min-width: 576px)" srcset="{% image_url banner "fill-1536x439" %}">
+            <img src="{% image_url banner "fill-1536x439" %}" alt="">
+          </picture>
+        {% else %}
+          <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+{% endblock %}
 
 {% block subcontent %}
-  <div class="tw-container">
+  {# The relative position is necessary to allow this container to overflow the banner image #}
+  <div class="tw-relative tw-w-auto tw-max-w-screen-large xlarge:tw-max-w-screen-xlarge tw-mt-[7rem] tw-mr-4 small:tw-mr-5 medium:tw-mr-7 large:tw-mr-auto tw-ml-0 large:tw-ml-auto tw-pt-4 medium:tw-pt-5 large:tw-pt-7 tw-pr-0 large:tw-pr-5 small:tw-pb-[3rem] tw-pl-4 small:tw-pl-5 medium:tw-pl-7 large:tw-pl-5 tw-bg-white">
     <div>
+      <div>
+        {# Replace this with real breadcrumbs #}
+        Research /
+      </div>
       <h1>{{ page.title }}</h1>
     </div>
 
-    <div class="tw-border-2">
-      <div class="tw-w-[416px] tw-shrink-0 tw-bg-gray-05">
-        <div>
-          <form action="" method="get" accept-charset="utf-8" id="search-form">
-            <input type="text" value="{{ search_query }}" name="search" id="search" class="tw-inline-block form-control tw-w-1/2 tw-rounded-none" />
-            <button type="submit" class="tw-btn-primary">{% translate 'Search' %}</button>
-          </form>
-        </div>
-        <div>
-          <fieldset>
-            <legend><h2>{% translate 'Topic' %}</h2></legend>
-            {% for topic in topic_options|dictsort:"name" %}
-              <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form"/>
-              <label for="topic-option-{{ topic.id }}">{{ topic.name }}</label>
-            {% endfor %}
-          </fieldset>
-        </div>
-        <div>
-          <fieldset>
-            <legend><h2>{% translate 'Publication date' %}</h2></legend>
-            <input type="radio" value="" name="year" id="year-option-all" {% if not filtered_year %}checked{% endif %} form="search-form"/>
-            <label for="year-option-all">{% translate 'Any' %}</label>
-            {% for year in year_options %}
-              <input type="radio" value="{{ year }}" name="year" id="year-option-{{ year }}" {% if year == filtered_year %}checked{% endif %} form="search-form"/>
-              <label for="year-option-{{ year }}">{{ year }}</label>
-            {% endfor %}
-          </fieldset>
-        </div>
-        <div>
-          <fieldset>
-            <legend><h2>{% translate 'Author' %}</h2></legend>
-            {% for author in author_options|dictsort:"name" %}
-              <input type="checkbox" value="{{ author.id }}" name="author" id="author-option-{{ author.id }}" {% if author.id in filtered_author_ids %}checked{% endif %} form="search-form"/>
-              <label for="author-option-{{ author.id }}">{{ author.name }}</label>
-            {% endfor %}
-          </fieldset>
-        </div>
-        <div>
-          <fieldset>
-            <legend><h2>{% translate 'Region' %}</h2></legend>
-            {% for region in region_options|dictsort:"name" %}
-              <input type="checkbox" value="{{ region.id }}" name="region" id="region-option-{{ region.id }}" {% if region.id in filtered_region_ids %}checked{% endif %} form="search-form"/>
-              <label for="region-option-{{ region.id }}">{{ region.name }}</label>
-            {% endfor %}
-          </fieldset>
-        </div>
-        <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Apply filter' %}</button>
-      </div>
+    <div class="large:tw-w-[20rem] large:tw-h-[8rem] tw-mt-5 tw-mb-4 large:tw-mb-0 large:-tw-ml-5 large:tw-p-5 large:tw-bg-gray-05" >
+      {# SEARCH BAR #}
+      {% comment %}
+        The page url is necessary in the form to that the filter anchor link is not carried forward.
+        Say on mobile the user used the "Filter" anchor link to get to the filter section,
+        that adds the `#filter` part to the URL. Submitting the form in that stage without the
+        explicit URL would carry the anchor link forward. That would mean the view is scrolled to the
+        filter section again upon page reload. This seems undesireable.
+      {% endcomment %}
+      <form action="{% pageurl page %}" method="get" accept-charset="utf-8" id="search-form">
+        {% include "wagtailpages/fragments/research_search_bar.html" %}
+      </form>
+    </div>
 
-      <div class="tw-container">
-        <div>
-          {% if search_query %}
-            <div>
-              <strong>{{ research_detail_pages.count }}</strong> {% translate 'results for' %} "{{ search_query }}"
+    <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-gap-6">
+      {# FILTER, SORT AND RESULTS #}
+
+      {# For side-by-side layout, we need to pull the results up to that the upper end lines up with the search bar. #}
+      <div class="tw-min-w-0 tw-grow large:-tw-mt-[8rem] tw-pb-7">
+        {# SORT AND RESULTS #}
+
+
+        <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-justify-between tw-gap-5">
+          <div class="tw-flex tw-flex-row tw-gap-3">
+            {# FILTER BUTTON #}
+            <div class="large:tw-hidden tw-basis-1/2">
+              {% include "wagtailpages/fragments/research_filter_button.html" with button=False %}
+              {% include "wagtailpages/fragments/research_filter_button.html" with button=True %}
             </div>
-          {% endif %}
-          <div>
-            <select name="sort" class="tw-inline-block tw-form-control tw-w-1/2" form="search-form">
-              {% for choice in page.SORT_CHOICES.values  %}
-                <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
-              {% endfor %}
-            </select>
-            <button type="submit" class="tw-btn-primary" form="search-form">{% translate 'Sort' %}</button>
+            <div class="tw-flex tw-flex-row tw-items-baseline tw-basis-1/2 large:tw-basis-full">
+              {# SORT SELECT #}
+              <select name="sort" class="tw-form-control tw-border-gray-40" form="search-form" onchange="this.form.submit()">
+                {% for choice in page.SORT_CHOICES.values  %}
+                  <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
+                {% endfor %}
+              </select>
+              <noscript>
+                {# The sort button is only needed for the no JS case. With JS, the form can be submitted on change of the select #}
+                <button type="submit" class="tw-btn-primary tw-text-base" form="search-form">{% translate 'Sort' context 'Button' %}</button>
+              </noscript>
+            </div>
+          </div>
+          <div class="tw-h4-heading tw-mb-0">
+            {# RESULTS COUNT #}
+            {% with research_detail_pages.count as results_count %}
+              <strong>{{ results_count }}</strong>
+              {% blocktranslate count counter=results_count trimmed %}
+                result
+              {% plural %}
+                results
+              {% endblocktranslate %}
+              {% if search_query %}{% translate 'for' context 'Heading describing the count of search results for a given search term' %} <q>{{ search_query }}</q>{% endif %}
+            {% endwith %}
           </div>
         </div>
-        <ul class="tw-list-none px-0 py-4 tw-divide-y tw-divide-gray-05">
+
+        <ul class="tw-list-none tw-mt-6 large:tw-mt-5 tw-mb-5 tw-px-0 tw-border-t tw-border-b tw-border-gray-20 tw-divide-y tw-divide-gray-05">
+          {# RESULTS LIST #}
           {% for research_detail_page in research_detail_pages  %}
-            <li class="tw-mt-6 tw-pt-5">
+            <li class="tw-m-0 tw-pt-5 tw-pb-5">
               {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_topics_on_mobile=True %}
             </li>
           {% endfor %}
         </ul>
+        {% comment %}
+          Pagination goes here.
+        {% endcomment %}
+      </div>
+
+      <div id="filter" class="large:tw-block large:tw-w-[20rem] tw-shrink-0 large:tw-mr-0 large:-tw-ml-5 tw-px-4 small:tw-px-5 medium:tw-px-6 large:tw-px-5 tw-pt-4 large:tw-pt-0 tw-pb-7 tw-bg-gray-05">
+        {# FILTER SECTION #}
+        <div class="tw-flex tw-justify-end">
+          <button
+            id="filter-section-hide-button"
+            class="tw-hidden large:tw-hidden tw-h-7 tw-w-7 -tw-mt-2 -tw-mr-2 -tw-mb-4 tw-text-3xl tw-font-normal tw-text-blue-dark hover:tw-text-blue-light tw-bg-transparent"
+            aria-label="Close"
+            tabIndex="0"
+          >
+            <span aria-hidden="true" class="">&times;</span>
+          </button>
+        </div>
+        <div>
+          <h2 class="large:tw-hidden tw-h1-heading">{% translate 'Filter' %}</h2>
+        </div>
+        <div class="tw-pt-4 tw-pb-7 tw-border-t">
+          <fieldset>
+            <legend><h3 class="tw-h4-heading">{% translate 'Topics' %}</h3></legend>
+            <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if topic_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
+              {% for topic in topic_options|dictsort:"name" %}
+                <li class="tw-flex tw-flex-row tw-items-baseline">
+                  <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form" class="rh-checkbox" />
+                  <label for="topic-option-{{ topic.id }}" >{{ topic.name }}</label>
+                </li>
+              {% endfor %}
+            </ul>
+          </fieldset>
+        </div>
+        <div class="tw-pt-4 tw-pb-7 tw-border-t">
+          <fieldset>
+            <legend><h3 class="tw-h4-heading">{% translate 'Publication date' %}</h3></legend>
+            <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if year_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
+              <li class="tw-flex tw-flex-row tw-items-baseline">
+                <input type="radio" value="" name="year" id="year-option-all" {% if not filtered_year %}checked{% endif %} form="search-form" class="rh-radio" />
+                <label for="year-option-all">{% translate 'Any' context 'Option in a radio button list of years' %}</label>
+              </li>
+              {% for year in year_options %}
+                <li class="tw-flex tw-flex-row tw-items-baseline">
+                  <input type="radio" value="{{ year }}" name="year" id="year-option-{{ year }}" {% if year == filtered_year %}checked{% endif %} form="search-form" class="rh-radio" />
+                  <label for="year-option-{{ year }}">{{ year }}</label>
+                </li>
+              {% endfor %}
+            </ul>
+          </fieldset>
+        </div>
+        <div class="tw-pt-4 tw-pb-7 tw-border-t">
+          <fieldset>
+            <legend><h3 class="tw-h4-heading">{% translate 'Authors' %}</h3></legend>
+            <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if author_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
+              {% for author in author_options|dictsort:"name" %}
+                <li class="tw-flex tw-flex-row tw-items-baseline">
+                  <input type="checkbox" value="{{ author.id }}" name="author" id="author-option-{{ author.id }}" {% if author.id in filtered_author_ids %}checked{% endif %} form="search-form" class="rh-checkbox" />
+                  <label for="author-option-{{ author.id }}">{{ author.name }}</label>
+                </li>
+              {% endfor %}
+          </fieldset>
+            </ul>
+        </div>
+        <div class="tw-pt-4 tw-pb-7 tw-border-t">
+          <fieldset>
+            <legend><h3 class="tw-h4-heading">{% translate 'Regions' %}</h3></legend>
+            <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if region_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
+              {% for region in region_options|dictsort:"name" %}
+                <li class="tw-flex tw-flex-row tw-items-baseline">
+                  <input type="checkbox" value="{{ region.id }}" name="region" id="region-option-{{ region.id }}" {% if region.id in filtered_region_ids %}checked{% endif %} form="search-form" class="rh-checkbox"/>
+                  <label for="region-option-{{ region.id }}">{{ region.name }}</label>
+                </li>
+              {% endfor %}
+            </ul>
+          </fieldset>
+        </div>
+        <button type="submit" class="tw-w-full tw-btn-primary" form="search-form">{% translate 'Apply filters' context 'Button' %}</button>
       </div>
     </div>
+
   </div>
 {% endblock subcontent %}
+
+{% block extra_scripts %}
+  {{ block.super }}
+  <script src="{% static "_js/research-hub-library.compiled.js" %}" async defer></script>
+{% endblock extra_scripts %}

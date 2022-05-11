@@ -1,12 +1,15 @@
 import collections
 from typing import Optional
 
+from django.db import models
 from django.utils.translation import gettext_lazy as _
+from wagtail import images as wagtail_images
+from wagtail.images import edit_handlers as image_panels
 from wagtail.core import models as wagtail_models
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
+from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 from networkapi.wagtailpages.pagemodels.research_hub import detail_page
 from networkapi.wagtailpages.pagemodels.research_hub import taxonomies
 
@@ -19,10 +22,21 @@ SortOption = collections.namedtuple(
 )
 
 
-class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagtail_models.Page):
+class ResearchLibraryPage(research_base.ResearchHubBasePage):
     max_count = 1
     parent_page_types = ['ResearchLandingPage']
     subpage_types = ['ResearchDetailPage']
+
+    banner_image = models.ForeignKey(
+        wagtail_images.get_image_model_string(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+
+    content_panels = research_base.ResearchHubBasePage.content_panels + [
+        image_panels.ImageChooserPanel('banner_image'),
+    ]
 
     SORT_NEWEST_FIRST = SortOption(
         label=_('Newest first'),
@@ -176,3 +190,6 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
             )
 
         return research_detail_pages
+
+    def get_banner(self):
+        return self.banner_image
