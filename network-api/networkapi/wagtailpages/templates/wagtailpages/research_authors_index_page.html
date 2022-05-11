@@ -1,15 +1,68 @@
 {% extends "./research_base.html" %}
-{% load profile_tags %}
-(
+{% load profile_tags wagtailimages_tags i18n static %}
+
 {% block subcontent %}
-  <h1>
-    {{ page.title }}
-  </h1>
-  {% if author_profiles %}
-    <ul>
-      {% for author_profile in author_profiles  %}
-        <li><a href="{% routableprofileurl page=page profile=author_profile url_name="author_detail"  %}">{{ author_profile.name }} ({{ author_profile.locale.language_code }})</a></li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+  {% comment %}
+    TODO: Add hero_img ForeignKey to `wagtailimages.Image` to the index page and apply it below.
+    {% image page.get_parent.specific.background_image fill-1240x144 as hero_img %}
+  {% endcomment %}
+  <div class="tw-bg-no-repeat tw-bg-center tw-bg-cover tw-min-h-[144px] tw-bg-gray-05" style='background-image: url("{{ hero_img.url }}")'></div>
+    <div class="tw-max-w-[1180px] tw-mx-auto tw-pb-[100px] tw--mt-7 tw-bg-white tw-px-5 tw-pt-7">
+      <div class="tw-text-lg tw-my-4 tw-font-zilla">
+        {{ page.get_parent.title }} /
+      </div>
+      <h1 class="tw-text-5xl tw-font-zilla">
+        {% trans "Browse authors" %}
+      </h1>
+      <div class="tw-bg-gray-05 tw-p-4 tw-my-7">
+        {# TODO: Add search or filter functionality in here #}
+        <form class="tw-relative medium:tw-inline-block">
+          <input type="search" class="author-search tw-border tw-border-[#c4c4c4] medium:tw-w-[354px] tw-w-full tw-p-2 tw-text-lg" placeholder="{% trans 'Search author by name' %}" autofocus="autofocus">
+          <button type="submit" alt="Search" class="tw-absolute tw-right-4 tw-top-1/3 tw-w-[17px] tw-h-[17px] tw-bg-transparent tw-p-0">
+            <img src="{% static '_images/search-icon.svg' %}" alt="{% trans 'Search icon' %}">
+          </button>
+        </form>
+      </div>
+
+      {% if author_profiles %}
+        <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-6 tw-gap-5 tw-gap-y-7 tw-list-none tw-p-0">
+          {% for author_profile in author_profiles  %}
+            <li class="tw-m-0">
+              <a
+                href="{% routableprofileurl page=page profile=author_profile url_name="author_detail" %}"
+                class="tw-flex large:tw-gap-6 medium:tw-gap-5 tw-gap-4 tw-items-center hover:tw-no-underline"
+                >
+                <div class="large:tw-w-[97px] medium:tw-w-[68px] tw-w-[77px]">
+                  {% if author_profile.image %}
+                    {% image author_profile.image fill-96x96 as profile_img %}
+                    <img src="{{ profile_img.url }}" alt="{{ author_profile.name }}" class="tw-w-full tw-h-auto tw-rounded-full">
+                  {% else %}
+                    <img src="/media/images/frame_generic_dark_8.2e16d0ba.fill-96x96.png" alt="{{ author_profile.name }}" class="tw-w-full tw-h-auto tw-rounded-full">
+                  {% endif %}
+                </div>
+                <div>
+                  <div class="author-name tw-font-zilla tw-font-semibold tw-text-blue-dark large:tw-text-xl medium:tw-text-lg hover:tw-underline">
+                    {{ author_profile.name }}
+                  </div>
+                  <div class="large:tw-text-base medium:tw-text-sm tw-text-xs tw-text-gray-80">
+                    {{ author_profile.tagline }}
+                  </div>
+                </div>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% comment %}
+        {# Pagination #}
+        {# TODO: Uncomment this and apply href's when pagination is hooked up #}
+        <div class="tw-flex tw-gap-4 tw-my-[48px]">
+          <a href="#" class="btn btn-secondary disabled">&larr; Prev. page</a>
+          <a href="#" class="btn btn-secondary">Next page &rarr;</a>
+        </div>
+      {% endcomment %}
+    </div>
+  </div>
+
 {% endblock subcontent %}
