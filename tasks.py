@@ -155,10 +155,10 @@ def setup(ctx):
         npm_install(ctx)
         print("Done!")
         print("* Updating pip")
-        # ctx.run(
-        #     "docker-compose run --rm backend ./dockerpythonvenv/bin/pip install -U pip==20.0.2",
-        #     **PLATFORM_ARG,
-        # )
+        ctx.run(
+            "docker-compose run --rm backend ./dockerpythonvenv/bin/pip install -U pip==20.0.2",
+            **PLATFORM_ARG,
+        )
         print("* Installing pip-tools")
         ctx.run(
             "docker-compose run --rm backend ./dockerpythonvenv/bin/pip install pip-tools",
