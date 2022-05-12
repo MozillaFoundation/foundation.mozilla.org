@@ -12,6 +12,7 @@ django-environ
 django-filter
 django-redis
 django-storages
+django-querystring-tag
 factory_boy
 Faker
 filebrowser-safe
