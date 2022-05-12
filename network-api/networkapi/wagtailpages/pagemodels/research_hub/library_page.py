@@ -4,6 +4,7 @@ from typing import Optional
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from wagtail import images as wagtail_images
+from wagtail.admin import edit_handlers as panels
 from wagtail.images import edit_handlers as image_panels
 from wagtail.core import models as wagtail_models
 
@@ -34,8 +35,17 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         on_delete=models.SET_NULL,
     )
 
+    results_count = models.PositiveSmallIntegerField(
+        default=10,
+        help_text="Maximum number of results to be displayed per page.",
+    )
+
     content_panels = research_base.ResearchHubBasePage.content_panels + [
         image_panels.ImageChooserPanel('banner_image'),
+    ]
+
+    settings_panels = research_base.ResearchHubBasePage.settings_panels + [
+        panels.FieldPanel("results_count")
     ]
 
     SORT_NEWEST_FIRST = SortOption(
