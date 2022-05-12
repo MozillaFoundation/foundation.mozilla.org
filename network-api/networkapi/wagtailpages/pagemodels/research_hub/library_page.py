@@ -1,6 +1,7 @@
 import collections
 from typing import Optional
 
+from django.core import paginator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from wagtail import images as wagtail_images
@@ -96,6 +97,21 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
             filtered_year = int(filtered_year)
         except ValueError:
             filtered_year = ''
+        page = request.GET.get('page')
+
+        searched_and_filtered_research_detail_pages = self._get_research_detail_pages(
+            search=search_query,
+            sort=sort,
+            author_profile_ids=filtered_author_ids,
+            topic_ids=filtered_topic_ids,
+            region_ids=filtered_region_ids,
+            year=filtered_year,
+        )
+        research_detail_pages_paginator = paginator.Paginator(
+            object_list=searched_and_filtered_research_detail_pages,
+            per_page=self.results_count,
+        )
+        research_detail_pages_page = research_detail_pages_paginator.get_page(page)
 
         context = super().get_context(request)
         context['search_query'] = search_query
@@ -108,14 +124,8 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         context['filtered_region_ids'] = filtered_region_ids
         context['year_options'] = self._get_year_options()
         context['filtered_year'] = filtered_year
-        context['research_detail_pages'] = self._get_research_detail_pages(
-            search=search_query,
-            sort=sort,
-            author_profile_ids=filtered_author_ids,
-            topic_ids=filtered_topic_ids,
-            region_ids=filtered_region_ids,
-            year=filtered_year,
-        )
+        context['research_detail_page_count'] = research_detail_pages_paginator.count
+        context['research_detail_pages'] = research_detail_pages_page
         return context
 
     def _get_author_options(self):
