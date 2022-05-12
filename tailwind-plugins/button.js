@@ -51,7 +51,7 @@ module.exports = [
         ".btn": { ...btnDefault },
         ".btn-primary": {
           ...btnDefault,
-          border: "none",
+          border: "2px solid #595cf3",
           color: "#ffffff",
           backgroundColor: "#595cf3",
           borderColor: "transparent",
