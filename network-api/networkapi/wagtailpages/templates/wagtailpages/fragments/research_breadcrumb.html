@@ -1,25 +1,11 @@
-{% comment %}
-  This is the component for breadcrumbs and page title on pages in the research hub.
-  We get all page ancestors minus 2, as technically these pages are children of "root" and "homepage".
-{% endcomment %}
 
-  <div class="breadcrumb-container">    
-    {% with bread_crumbs=page.get_ancestors|slice:"2:"%}
-    {% if bread_crumbs %}
+  <div id="breadcrumb-container">    
       <div class="tw-flex">
         {% for bread_crumb in bread_crumbs %}
-        {% with bread_crumb_classes="tw-h4-heading tw-px-1 tw-mb-0 tw-text-lg"%}
-          <h4 class="{{bread_crumb_classes}}"><a href="{{bread_crumb.url}}">{{ bread_crumb.title }}</a></h4>
-          <span class="{{bread_crumb_classes}}"> / </span> 
-
-          {% if author_profile %}
-            <h4 class="{{bread_crumb_classes}}"><a href="{{page.url}}">{{ self.title }}</a></h4>
-            <span class="{{bread_crumb_classes}} "> / </span> 
-          {% endif %}
-
-        {% endwith %}
+          {% with bread_crumb_classes="tw-h4-heading tw-px-1 tw-mb-0 tw-text-lg"%}
+            <h4 class="{{bread_crumb_classes}}"><a href="{{ bread_crumb.url }}">{{ bread_crumb.title }}</a></h4>
+            <span class="{{bread_crumb_classes}}"> / </span> 
+          {% endwith %}
         {% endfor %}
       </div>
-    {% endif %}
-    {% endwith %}
   </div>

@@ -9,7 +9,7 @@
     </div>
   {% endif %}
   <div>
-    {% include './fragments/research_breadcrumb.html'%}
+    {% include './fragments/research_breadcrumb.html' with bread_crumbs=page.get_breadcrumbs %}
     <h1>{{ author_profile.name }}</h1>
     <div>
       {{ author_profile.tagline }}

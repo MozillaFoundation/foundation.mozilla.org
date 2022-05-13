@@ -13,6 +13,7 @@ from wagtail_localize import fields as localize_fields
 
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
+from networkapi.wagtailpages.pagemodels.research_hub import landing_page
 
 
 class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
@@ -154,3 +155,10 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
             rt.research_topic.name
             for rt in self.related_topics.all()
         ]
+
+    def get_breadcrumbs(self):
+        research_landing_page = self.get_ancestors().type(landing_page.ResearchLandingPage).first()
+        page_parents = self.get_ancestors().descendant_of(research_landing_page, True)
+        breadcrumb_list = [{"title": parent_page.title, "url": parent_page.url} for parent_page in page_parents]
+
+        return breadcrumb_list
