@@ -12,7 +12,6 @@ from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 from networkapi.wagtailpages.pagemodels.research_hub import detail_page
 from networkapi.wagtailpages.pagemodels.research_hub import taxonomies
-from networkapi.wagtailpages.pagemodels.research_hub import landing_page
 
 
 # We don't want to expose the actual database column value that we use for sorting.
@@ -196,8 +195,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         return self.banner_image
 
     def get_breadcrumbs(self):
-        research_landing_page = self.get_ancestors().type(landing_page.ResearchLandingPage).first()
-        page_parents = self.get_ancestors().descendant_of(research_landing_page, True)
-        breadcrumb_list = [{"title": parent_page.title, "url": parent_page.url} for parent_page in page_parents]
+        breadcrumb_list = [{"title": parent_page.title, "url": parent_page.url}
+                           for parent_page in self.get_ancestors().order_by('-depth')[:1]]
 
         return breadcrumb_list

@@ -7,7 +7,6 @@ from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 from networkapi.wagtailpages.pagemodels.research_hub import detail_page
-from networkapi.wagtailpages.pagemodels.research_hub import landing_page
 
 
 class ResearchAuthorsIndexPage(
@@ -84,11 +83,10 @@ class ResearchAuthorsIndexPage(
         }
 
     def get_breadcrumbs(self):
-        research_landing_page = self.get_ancestors().type(landing_page.ResearchLandingPage).first()
-        page_parents = self.get_ancestors().descendant_of(research_landing_page, True)
-        breadcrumb_list = [{"title": parent_page.title, "url": parent_page.url} for parent_page in page_parents]
+        breadcrumb_list = [{"title": parent_page.title, "url": parent_page.url}
+                           for parent_page in self.get_ancestors().order_by('-depth')[:1]]
 
-        # TODO: If this is a author's detail page, add "authors" to the breadcrumbs.
-        breadcrumb_list.append({"title": self.title, "url": self.url})
+        # TODO: if statement to add line below, if we are on a author detail page
+        # breadcrumb_list.append({"title": self.title, "url": self.url})
 
         return breadcrumb_list
