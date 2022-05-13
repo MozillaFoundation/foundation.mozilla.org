@@ -110,6 +110,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         research_detail_pages_paginator = paginator.Paginator(
             object_list=searched_and_filtered_research_detail_pages,
             per_page=self.results_count,
+            allow_empty_first_page=True,
         )
         research_detail_pages_page = research_detail_pages_paginator.get_page(page)
 
@@ -124,8 +125,8 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         context['filtered_region_ids'] = filtered_region_ids
         context['year_options'] = self._get_year_options()
         context['filtered_year'] = filtered_year
-        context['research_detail_page_count'] = research_detail_pages_paginator.count
-        context['research_detail_pages'] = research_detail_pages_page
+        context['results_count'] = research_detail_pages_paginator.count
+        context['results'] = research_detail_pages_page
         return context
 
     def _get_author_options(self):

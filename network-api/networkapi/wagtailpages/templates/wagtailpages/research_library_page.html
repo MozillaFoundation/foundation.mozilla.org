@@ -1,5 +1,5 @@
 {% extends "./research_base.html" %}
-{% load i18n static wagtailcore_tags wagtailimages_tags %}
+{% load i18n static querystring_tag wagtailcore_tags wagtailimages_tags %}
 
 {% block hero_guts %}
   <div id="hero">
@@ -31,6 +31,7 @@
       </div>
       <h1>{{ page.title }}</h1>
     </div>
+
 
     <div class="large:tw-w-[20rem] large:tw-h-[8rem] tw-mt-5 tw-mb-4 large:tw-mb-0 large:-tw-ml-5 large:tw-p-5 large:tw-bg-gray-05" >
       {# SEARCH BAR #}
@@ -76,8 +77,8 @@
           </div>
           <div class="tw-h4-heading tw-mb-0">
             {# RESULTS COUNT #}
-            <strong>{{ research_detail_page_count }}</strong>
-            {% blocktranslate count counter=research_detail_page_count trimmed %}
+            <strong>{{ results_count }}</strong>
+            {% blocktranslate count counter=results_count trimmed %}
               result
             {% plural %}
               results
@@ -88,15 +89,28 @@
 
         <ul class="tw-list-none tw-mt-6 large:tw-mt-5 tw-mb-5 tw-px-0 tw-border-t tw-border-b tw-border-gray-20 tw-divide-y tw-divide-gray-05">
           {# RESULTS LIST #}
-          {% for research_detail_page in research_detail_pages  %}
+          {% for research_detail_page in results  %}
             <li class="tw-m-0 tw-pt-5 tw-pb-5">
               {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_related_topics_on_mobile=True %}
             </li>
           {% endfor %}
         </ul>
-        {% comment %}
-          Pagination goes here.
-        {% endcomment %}
+        <div>
+          {# PAGINATION #}
+            {% if results.has_other_pages %}
+              {% if results.has_previous  %}
+                <a href="{{ request.path }}{% querystring 'page'=results.previous_page_number %}">PREVIOUS</a>
+              {% else %}
+                <span>PREVIOUS</span>
+              {% endif %}
+
+              {% if results.has_next  %}
+                <a href="{{ request.path }}{% querystring 'page'=results.next_page_number %}">NEXT</a>
+              {% else %}
+                <span>NEXT</span>
+              {% endif %}
+            {% endif %}
+        </div>
       </div>
 
       <div id="filter" class="large:tw-block large:tw-w-[20rem] tw-shrink-0 large:tw-mr-0 large:-tw-ml-5 tw-px-4 small:tw-px-5 medium:tw-px-6 large:tw-px-5 tw-pt-4 large:tw-pt-0 tw-pb-7 tw-bg-gray-05">
