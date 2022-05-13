@@ -125,8 +125,8 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         context['filtered_region_ids'] = filtered_region_ids
         context['year_options'] = self._get_year_options()
         context['filtered_year'] = filtered_year
-        context['results_count'] = research_detail_pages_paginator.count
-        context['results'] = research_detail_pages_page
+        context['research_detail_pages_count'] = research_detail_pages_paginator.count
+        context['research_detail_pages'] = research_detail_pages_page
         return context
 
     def _get_author_options(self):
