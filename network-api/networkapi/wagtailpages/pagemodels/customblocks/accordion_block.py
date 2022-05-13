@@ -9,19 +9,22 @@ accordion_rich_text = blocks.RichTextBlock(
 )
 
 
-class AccordionBlock(blocks.StructBlock):
-
+class AccordionItem(blocks.StructBlock):
     title = blocks.CharBlock(
-        help_text='Heading for the Accordion.'
+        help_text='Heading for the Accordion Item'
     )
-
-    accordion_items = blocks.StreamBlock(
+    content = blocks.StreamBlock(
             [
                 ('rich_text', accordion_rich_text),
                 ('datawrapper', DatawrapperBlock()),
                 ('image', ImageBlock())
             ]
         )
+
+
+class AccordionBlock(blocks.StructBlock):
+
+    accordion_items = blocks.ListBlock(AccordionItem())
 
     class Meta:
 
