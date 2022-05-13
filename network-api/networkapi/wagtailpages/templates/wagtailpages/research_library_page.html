@@ -1,5 +1,5 @@
 {% extends "./research_base.html" %}
-{% load i18n static querystring_tag wagtailcore_tags wagtailimages_tags %}
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
 
 {% block hero_guts %}
   <div id="hero">
@@ -97,19 +97,7 @@
         </ul>
         <div>
           {# PAGINATION #}
-            {% if results.has_other_pages %}
-              {% if results.has_previous  %}
-                <a href="{{ request.path }}{% querystring 'page'=results.previous_page_number %}">PREVIOUS</a>
-              {% else %}
-                <span>PREVIOUS</span>
-              {% endif %}
-
-              {% if results.has_next  %}
-                <a href="{{ request.path }}{% querystring 'page'=results.next_page_number %}">NEXT</a>
-              {% else %}
-                <span>NEXT</span>
-              {% endif %}
-            {% endif %}
+          {% include "wagtailpages/fragments/pagination.html" with page=results %}
         </div>
       </div>
 
