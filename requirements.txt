@@ -258,7 +258,7 @@ wagtailmedia==0.9.0
     # via -r requirements.in
 webencodings==0.5.1
     # via html5lib
-whitenoise==6.0.0
+whitenoise==6.1.0
     # via -r requirements.in
 willow==1.4.1
     # via wagtail
