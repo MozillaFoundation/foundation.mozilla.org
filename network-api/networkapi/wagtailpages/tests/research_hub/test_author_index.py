@@ -150,9 +150,8 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             author_profile=self.research_profile,
         )
 
-        # author, detail pages.
+        # author, locale, detail pages.
         with self.assertNumQueries(2):
-            # get_latest_research, method that we have not added yet
             context = self.author_index.get_latest_research(
                 author_profile=self.research_profile,
             )
