@@ -88,6 +88,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
             filtered_year = ''
 
         context = super().get_context(request)
+        context["bread_crumbs"] = self.get_breadcrumbs()
         context['search_query'] = search_query
         context['sort'] = sort
         context['author_options'] = self._get_author_options()
@@ -193,9 +194,3 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
 
     def get_banner(self):
         return self.banner_image
-
-    def get_breadcrumbs(self):
-        breadcrumb_list = [{"title": parent_page.title, "url": parent_page.url}
-                           for parent_page in self.get_ancestors().order_by('-depth')[:1]]
-
-        return breadcrumb_list

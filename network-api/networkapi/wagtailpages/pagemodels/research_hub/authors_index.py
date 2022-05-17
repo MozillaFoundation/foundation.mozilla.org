@@ -26,6 +26,7 @@ class ResearchAuthorsIndexPage(
         # back to the profile on the default locale.
         author_profiles = utils.localize_queryset(author_profiles)
         context["author_profiles"] = author_profiles
+        context["bread_crumbs"] = self.get_breadcrumbs()
         return context
 
     @routable_models.route(r'^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$')
@@ -76,17 +77,11 @@ class ResearchAuthorsIndexPage(
         )
         latest_research = latest_research.order_by('-original_publication_date')
         latest_research = latest_research[:LATEST_RESERACH_COUNT_LIMIT]
+        # Updating breadcrumbs on detail pages to include link back to /authors
+        detail_page_breadcrumbs = self.get_breadcrumbs(include_self=True)
 
         return {
             'author_profile': author_profile,
             'latest_research': latest_research,
+            'bread_crumbs': detail_page_breadcrumbs
         }
-
-    def get_breadcrumbs(self):
-        breadcrumb_list = [{"title": parent_page.title, "url": parent_page.url}
-                           for parent_page in self.get_ancestors().order_by('-depth')[:1]]
-
-        # TODO: if statement to add line below, if we are on a author detail page
-        # breadcrumb_list.append({"title": self.title, "url": self.url})
-
-        return breadcrumb_list

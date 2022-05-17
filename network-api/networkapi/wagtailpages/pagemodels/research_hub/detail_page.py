@@ -143,6 +143,11 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
         index.FilterField('original_publication_date'),  # For sorting
     ]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["bread_crumbs"] = self.get_breadcrumbs()
+        return context
+
     def get_research_author_names(self):
         return [
             ra.author_profile.name
@@ -154,9 +159,3 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
             rt.research_topic.name
             for rt in self.related_topics.all()
         ]
-
-    def get_breadcrumbs(self):
-        breadcrumb_list = [{"title": parent_page.title, "url": parent_page.url}
-                           for parent_page in self.get_ancestors().order_by('-depth')[:2]]
-
-        return breadcrumb_list

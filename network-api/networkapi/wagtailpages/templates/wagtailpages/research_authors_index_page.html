@@ -2,7 +2,7 @@
 {% load profile_tags %}
 (
 {% block subcontent %}
-{% include './fragments/research_breadcrumb.html' with bread_crumbs=page.get_breadcrumbs %}
+{% include './fragments/research_breadcrumb.html' with bread_crumb_list=bread_crumbs %}
 <h1>
   {{ page.title }}
 </h1>
