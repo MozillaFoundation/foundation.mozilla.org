@@ -1,28 +1,37 @@
 {% extends "./research_base.html" %}
 {% load profile_tags wagtailimages_tags i18n static %}
 
+{% block hero_guts %}
+  <div id="hero">
+    <div class="banner tw-bg-black">
+      {% with banner=page.banner_image %}
+        {% if banner %}
+          <picture>
+            <source media="(min-width: 1200px)" srcset="{% image_url banner "fill-4032x1152" %}">
+            <source media="(min-width: 992px)" srcset="{% image_url banner "fill-2400x686" %}">
+            <source media="(min-width: 768px)" srcset="{% image_url banner "fill-1984x567" %}">
+            <source media="(min-width: 576px)" srcset="{% image_url banner "fill-1536x439" %}">
+            <img src="{% image_url banner "fill-1536x439" %}" alt="">
+          </picture>
+        {% else %}
+          <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+{% endblock %}
+
 {% block subcontent %}
   {% image page.banner_image fill-1240x144 as hero_img %}
-  <div class="tw-bg-no-repeat tw-bg-center tw-bg-cover tw-min-h-[144px]" style='background-image: url("{{ hero_img.url }}")'></div>
-    <div class="tw-max-w-[1180px] tw-mx-auto tw-pb-[100px] tw--mt-7 tw-bg-white tw-px-5 tw-pt-7">
-      <div class="tw-text-lg tw-my-4 tw-font-zilla">
-        {{ page.get_parent.title }} /
+  {# The relative position is necessary to allow this container to overflow the banner image #}
+  <div class="tw-relative tw-w-auto tw-max-w-screen-large xlarge:tw-max-w-screen-xlarge tw-mt-[7rem] tw-mr-4 small:tw-mr-5 medium:tw-mr-7 large:tw-mr-auto tw-ml-0 large:tw-ml-auto tw-pt-4 medium:tw-pt-5 large:tw-pt-7 tw-pr-0 large:tw-pr-5 small:tw-pb-[3rem] tw-pl-4 small:tw-pl-5 medium:tw-pl-7 large:tw-pl-5 tw-bg-white">
+    <div>
+      <div class="tw-font-zilla">
+        {# Replace this with real breadcrumbs #}
+        Research /
       </div>
-      <h1 class="large:tw-text-5xl tw-text-4xl tw-font-zilla tw-mb-6">
-        {% trans "Browse authors" %}
-      </h1>
-      {% comment %}
-        {# Search bar styling. Commented out for future use #}.
-        {# TODO: Add search or filter functionality in here #}
-        <div class="tw-bg-gray-05 tw-p-4 tw-my-7">
-          <form class="tw-relative medium:tw-inline-block">
-            <input type="search" class="author-search tw-border tw-border-[#c4c4c4] medium:tw-w-[354px] tw-w-full tw-p-2 tw-text-lg" placeholder="{% trans 'Search author by name' %}" autofocus="autofocus">
-            <button type="submit" alt="Search" class="tw-absolute tw-right-4 tw-top-1/3 tw-w-[17px] tw-h-[17px] tw-bg-transparent tw-p-0">
-              <img src="{% static '_images/search-icon.svg' %}" alt="{% trans 'Search icon' %}">
-            </button>
-          </form>
-        </div>
-      {% endcomment %}
+      <h1>{% trans "Browse Authors" %}</h1>
+    </div>
 
       {% if author_profiles %}
         <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-6 tw-gap-5 tw-gap-y-7 tw-list-none tw-p-0">
@@ -49,16 +58,6 @@
           {% endfor %}
         </ul>
       {% endif %}
-
-      {% comment %}
-        {# Pagination #}
-        {# TODO: Uncomment this and apply href's when pagination is hooked up #}
-        <div class="tw-flex tw-gap-4 tw-my-[48px]">
-          <a href="#" class="btn btn-secondary disabled">&larr; Prev. page</a>
-          <a href="#" class="btn btn-secondary">Next page &rarr;</a>
-        </div>
-      {% endcomment %}
-    </div>
   </div>
 
 {% endblock subcontent %}
