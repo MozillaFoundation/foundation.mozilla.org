@@ -7,8 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('wagtailpages', '0018_researchdetailpage_cover_image'),
+        ('wagtailpages', '0020_accordion_block'),
     ]
 
     operations = [
