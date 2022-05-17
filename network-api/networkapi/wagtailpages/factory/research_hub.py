@@ -16,6 +16,7 @@ class ResearchLandingPageFactory(wagtail_factories.PageFactory):
         model = wagtailpage_models.ResearchLandingPage
 
     title = 'Research'
+    banner_image = factory.SubFactory(image_factory.ImageFactory)
     intro = factory.Faker('text', max_nb_chars=250)
 
 

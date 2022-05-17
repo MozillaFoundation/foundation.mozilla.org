@@ -92,7 +92,7 @@
           {# RESULTS LIST #}
           {% for research_detail_page in research_detail_pages  %}
             <li class="tw-m-0 tw-pt-5 tw-pb-5">
-              {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_topics_on_mobile=True %}
+              {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_related_topics_on_mobile=True %}
             </li>
           {% endfor %}
         </ul>
