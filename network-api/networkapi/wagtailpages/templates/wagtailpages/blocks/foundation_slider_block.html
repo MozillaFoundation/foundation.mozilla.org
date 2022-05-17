@@ -1,0 +1,33 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block block_content %}
+  <div class="tw-mb-6 tw-mt-5 first:tw-mt-0 tw-relative tw-overflow-hidden {% if page.signup != None %} large:tw-mr-[calc(50%-50vw)] {% else %} tw-container {% endif %}">
+    <div class="swiper tw-px-3 tw-pb-7 tw-mx-0 tw-overflow-hidden tw-container" data-foundation-carousel>
+
+      {% block navigation %}
+        <div class="tw-flex tw-justify-center tw-items-start tw-flex-col tw-mb-5 medium:tw-flex-row medium:tw-justify-between medium:tw-items-center">
+          <h2 class="tw-h3-heading tw-font-semibold tw-mb-0 tw-w-full">{{ value.title }}</h2>
+          {% if self.current_events|length > 2 %}
+            {% include 'fragments/carousel/carousel_navigation.html' with fraction=True %}
+          {% endif %}
+        </div>
+      {% endblock %}
+
+      {% block slides %}
+        <div class="swiper-wrapper">
+          {% for current_event in self.current_events %}
+            {% image current_event.value.image fill-445x185 as img %}
+            <div class="swiper-slide tw-w-full large:tw-w-2/3">
+              {% include 'fragments/slider_card.html' with title=current_event.value.title detail=current_event.value.image_detail buttons=current_event.value.buttons image=img.url text=current_event.value.body %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endblock %}
+
+      {% block pagination %}
+        <div class="swiper-pagination tw--bottom-[5px] large:tw-hidden"></div>
+      {% endblock %}
+
+    </div>
+  </div>
+{% endblock %}

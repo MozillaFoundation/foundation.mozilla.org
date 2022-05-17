@@ -24,6 +24,7 @@ article_fields = [
     ('iframe', customblocks.iFrameBlock()),
     ('linkbutton', customblocks.LinkButtonBlock()),
     ('single_quote', customblocks.SingleQuoteBlock()),
+    ('slider', customblocks.FoundationSliderBlock()),
     ('table', TableBlock(
         template="wagtailpages/blocks/article_table_block.html"
     )),
