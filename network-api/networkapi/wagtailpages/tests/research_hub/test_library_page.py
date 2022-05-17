@@ -759,3 +759,23 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         research_detail_pages = response.context['research_detail_pages']
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
+
+    def test_library_page_bread_crumbs(self):
+        response = self.client.get(self.library_page.url)
+        bread_crumbs = response.context['bread_crumbs']
+        expected_bread_crumbs = [{'title': 'Research', 'url': '/en/research/'}]
+
+        self.assertEqual(len(bread_crumbs), 1)
+        self.assertEqual(bread_crumbs, expected_bread_crumbs)
+
+    def test_detail_page_bread_crumbs(self):
+        detail_page_1 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        response = self.client.get(detail_page_1.url)
+        bread_crumbs = response.context['bread_crumbs']
+        expected_bread_crumbs = [{'title': 'Research', 'url': '/en/research/'},
+                                 {'title': 'Library', 'url': '/en/research/library/'}]
+
+        self.assertEqual(len(bread_crumbs), 2)
+        self.assertEqual(bread_crumbs, expected_bread_crumbs)

@@ -150,18 +150,17 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             author_profile=self.research_profile,
         )
 
-        # author, locale, detail pages.
-        with self.assertNumQueries(3):
-            context = self.author_index.get_author_detail_context(
-                profile_id=self.research_profile.id,
+        # author, detail pages.
+        with self.assertNumQueries(2):
+            # get_latest_research, method that we have not added yet
+            context = self.author_index.get_latest_research(
+                author_profile=self.research_profile,
             )
-
-            self.assertEqual(context['author_profile'], self.research_profile)
-            self.assertEqual(len(context['latest_research']), 3)
-            self.assertIn(detail_page_1, context['latest_research'])
-            self.assertIn(detail_page_2, context['latest_research'])
-            self.assertIn(detail_page_3, context['latest_research'])
-            self.assertNotIn(self.detail_page, context['latest_research'])
+            self.assertEqual(len(context), 3)
+            self.assertIn(detail_page_1, context)
+            self.assertIn(detail_page_2, context)
+            self.assertIn(detail_page_3, context)
+            self.assertNotIn(self.detail_page, context)
 
     def test_get_author_detail_context(self):
         context = self.author_index.localized.get_author_detail_context(
@@ -256,3 +255,21 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(extra_detail_page, context['latest_research'])
         self.assertIn(fr_detail_page, context['latest_research'])
         self.assertIn(fr_extra_detail_page, context['latest_research'])
+
+    def test_author_index_bread_crumbs(self):
+        bread_crumbs = self.author_index.get_breadcrumbs()
+        # Author Index page should only have 1 breadcrumb, "Research"
+        expected_bread_crumbs = [{'title': 'Research', 'url': '/en/research/'}]
+        self.assertEqual(len(bread_crumbs), 1)
+        self.assertEqual(bread_crumbs, expected_bread_crumbs)
+
+    def test_author_detail_bread_crumbs_override(self):
+        context = self.author_index.localized.get_author_detail_context(
+            profile_id=self.research_profile.id,
+        )
+        # Author Detail page should have 2 breadcrumbs, "Research/Authors"
+        expected_bread_crumbs = [{'title': 'Research', 'url': '/en/research/'},
+                                 {'title': 'Authors', 'url': '/en/research/authors/'}]
+
+        self.assertEqual(len(context['bread_crumbs']), 2)
+        self.assertEqual(context['bread_crumbs'], expected_bread_crumbs)
