@@ -19,6 +19,7 @@ import EmbedTypeform from "./embed-typeform.js";
 import Dropdowns from "./dropdowns.js";
 import DonateBanner from "./donate-banner";
 import MozfestCarousels from "./components/carousel/carousel.js";
+import FoundationCarousels from "./components/foundation-carousel/foundation-carousel.js";
 import MozfestHeroCarousels from "./components/mozfest-hero-carousel/mozfest-hero-carousel";
 import initializeSentry from "./common/sentry-config.js";
 import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/intro-tunnel";
@@ -61,6 +62,7 @@ let main = {
     GoogleAnalytics.init();
     EmbedTypeform.init();
     Dropdowns.init();
+    FoundationCarousels.init();
 
     this.fetchEnv((envData) => {
       env = envData;
