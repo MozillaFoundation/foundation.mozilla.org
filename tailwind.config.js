@@ -32,7 +32,7 @@ module.exports = {
       };
       addUtilities(newUtilities);
     }),
-    plugin(function ({ addBase }) {
+    plugin(function ({ addBase, addVariant }) {
       const newBase = {
         "*,::before,::after": {
           borderWidth: 0,
@@ -43,11 +43,14 @@ module.exports = {
           verticalAlign: "middle",
         },
       };
+      addVariant("summary-open", ["details[open] > summary > &"]);
+      addVariant("details-open", ["details[open] > &"]);
       addBase(newBase);
     }),
     ...componentPlugins,
     ...buttonPlugins,
     ...typePlugins,
+    require("@tailwindcss/forms")({ strategy: "class" }),
   ],
   theme: {
     extend: {

@@ -6,16 +6,15 @@ from wagtail.core import models as wagtail_models
 from wagtail.contrib.routable_page import models as routable_models
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
-from networkapi.wagtailpages.pagemodels import profiles
-from networkapi.wagtailpages.pagemodels.research_hub import detail_page
 from networkapi.wagtailpages import utils
+from networkapi.wagtailpages.pagemodels import profiles
+from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
+from networkapi.wagtailpages.pagemodels.research_hub import detail_page
 
 
 class ResearchAuthorsIndexPage(
     routable_models.RoutablePageMixin,
-    foundation_metadata.FoundationMetadataPageMixin,
-    wagtail_models.Page,
+    research_base.ResearchHubBasePage,
 ):
     max_count = 1
     parent_page_types = ['ResearchLandingPage']

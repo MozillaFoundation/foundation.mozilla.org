@@ -76,8 +76,12 @@ class regretsReporterShareButtons {
       }
     } else {
       navigator.clipboard.writeText(window.location.href);
-      event.target.classList.remove("before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/share-link.svg')]");
-      event.target.classList.add("before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/share-link-copied.svg')]");      
+      event.target.classList.remove(
+        "before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/share-link.svg')]"
+      );
+      event.target.classList.add(
+        "before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/share-link-copied.svg')]"
+      );
     }
   }
 
@@ -93,7 +97,12 @@ class regretsReporterShareButtons {
   // Display share buttons and hide "Share This" text
   displayShareButtons() {
     // Callback is to remove the tw-hidden class from the share buttons, which was added to prevent them being visible while page loads.
-    tl.eventCallback('onStart', Array.from(document.querySelectorAll('.btn-share')).forEach((el) => el.classList.remove('tw-hidden')))
+    tl.eventCallback(
+      "onStart",
+      Array.from(document.querySelectorAll(".btn-share")).forEach((el) =>
+        el.classList.remove("tw-hidden")
+      )
+    );
     tl.play();
   }
 

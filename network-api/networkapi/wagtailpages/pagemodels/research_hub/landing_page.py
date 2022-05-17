@@ -1,15 +1,14 @@
 from django.apps import apps
-from wagtail.core import models as wagtail_models
 from django.db import models
-
-
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
+from wagtail.core import models as wagtail_models
 from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel
 )
 
+from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 
-class ResearchLandingPage(foundation_metadata.FoundationMetadataPageMixin, wagtail_models.Page):
+
+class ResearchLandingPage(research_base.ResearchHubBasePage):
     max_count = 1
     subpage_types = [
         'ResearchLibraryPage',
