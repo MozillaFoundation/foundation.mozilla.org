@@ -7,6 +7,7 @@ from wagtail.core import blocks
 from wagtail.contrib.table_block.blocks import TableBlock
 
 article_fields = [
+    ('accordion', customblocks.AccordionBlock()),
     ('airtable', customblocks.AirTableBlock()),
     ('datawrapper', customblocks.DatawrapperBlock()),
     ('callout', blocks.RichTextBlock(

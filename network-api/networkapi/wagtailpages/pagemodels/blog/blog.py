@@ -40,6 +40,7 @@ from .blog_category import BlogPageCategory
 from .blog_index import BlogIndexPage
 
 base_fields = [
+    ('accordion', customblocks.AccordionBlock()),
     ('paragraph', blocks.RichTextBlock(
         features=full_content_rich_text_options,
         template='wagtailpages/blocks/rich_text_block.html',

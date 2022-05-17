@@ -1,3 +1,4 @@
+from .accordion_block import AccordionBlock, AccordionItem
 from .advanced_table_block import AdvancedTableBlock
 from .annotated_image_block import AnnotatedImageBlock
 from .airtable_block import AirTableBlock
@@ -33,6 +34,8 @@ from .dear_internet_letter_block import DearInternetLetterBlock
 
 
 __all__ = [
+    AccordionBlock,
+    AccordionItem,
     AdvancedTableBlock,
     AnnotatedImageBlock,
     AirTableBlock,
