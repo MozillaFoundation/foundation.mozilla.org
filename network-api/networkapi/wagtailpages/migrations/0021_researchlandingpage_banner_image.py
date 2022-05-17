@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailimages', '0023_add_choose_permissions'),
-        ('wagtailpages', '0019_researchlibrarypage_banner_image'),
+        ('wagtailpages', '0020_accordion_block'),
     ]
 
     operations = [
