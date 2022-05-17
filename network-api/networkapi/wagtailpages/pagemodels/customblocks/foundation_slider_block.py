@@ -6,7 +6,7 @@ from .common.link_blocks import LabelledExternalLinkBlock, LabelledInternalLinkB
 
 
 class SlideBlock(blocks.StructBlock):
-    title = blocks.CharBlock(help_text='Heading of the card.',required=False)
+    title = blocks.CharBlock(help_text='Heading of the card.', required=False)
 
     image = ImageChooserBlock(help_text='The image associated with this event.')
 
