@@ -4,6 +4,7 @@ from wagtail.core import models as wagtail_models
 from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel
 )
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 
@@ -19,9 +20,17 @@ class ResearchLandingPage(research_base.ResearchHubBasePage):
         blank=True,
         max_length=250,
     )
+    banner_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        help_text='Image that will render at the top of the page.',
+    )
 
     content_panels = wagtail_models.Page.content_panels + [
         FieldPanel('intro'),
+        ImageChooserPanel('banner_image'),
         InlinePanel('featured_topics', heading="Featured Topics"),
     ]
 
