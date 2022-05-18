@@ -26,7 +26,7 @@ class ResearchAuthorsIndexPage(
         # back to the profile on the default locale.
         author_profiles = utils.localize_queryset(author_profiles)
         context["author_profiles"] = author_profiles
-        context["bread_crumbs"] = self.get_breadcrumbs()
+        context["breadcrumbs"] = self.get_breadcrumbs()
         return context
 
     @routable_models.route(r'^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$')
@@ -82,11 +82,11 @@ class ResearchAuthorsIndexPage(
         )
 
         latest_research = self.get_latest_research(author_profile)
-        # Updating breadcrumbs on detail pages to include link back to /authors
+        # Updating breadcrumbs on author detail pages to include link back to include the link to the authors index
         detail_page_breadcrumbs = self.get_breadcrumbs(include_self=True)
 
         return {
             'author_profile': author_profile,
             'latest_research': latest_research,
-            'bread_crumbs': detail_page_breadcrumbs
+            'breadcrumbs': detail_page_breadcrumbs
         }

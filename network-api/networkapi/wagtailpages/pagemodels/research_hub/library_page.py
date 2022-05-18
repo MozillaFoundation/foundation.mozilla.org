@@ -88,7 +88,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
             filtered_year = ''
 
         context = super().get_context(request)
-        context["bread_crumbs"] = self.get_breadcrumbs()
+        context["breadcrumbs"] = self.get_breadcrumbs()
         context['search_query'] = search_query
         context['sort'] = sort
         context['author_options'] = self._get_author_options()

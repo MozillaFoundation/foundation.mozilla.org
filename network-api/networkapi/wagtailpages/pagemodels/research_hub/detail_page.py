@@ -145,7 +145,7 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["bread_crumbs"] = self.get_breadcrumbs()
+        context["breadcrumbs"] = self.get_breadcrumbs()
         return context
 
     def get_research_author_names(self):

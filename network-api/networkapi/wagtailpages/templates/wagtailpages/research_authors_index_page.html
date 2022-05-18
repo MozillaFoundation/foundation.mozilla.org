@@ -2,11 +2,11 @@
 {% load profile_tags %}
 (
 {% block subcontent %}
-{% include './fragments/research_breadcrumb.html' with bread_crumb_list=bread_crumbs %}
+  {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
   <h1>
     {{ page.title }}
   </h1>
-{% if author_profiles %}
+  {% if author_profiles %}
     <ul>
       {% for author_profile in author_profiles  %}
         <li><a href="{% routableprofileurl page=page profile=author_profile url_name="author_detail"  %}">{{ author_profile.name }} ({{ author_profile.locale.language_code }})</a></li>
