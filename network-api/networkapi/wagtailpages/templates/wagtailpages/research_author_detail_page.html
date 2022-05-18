@@ -1,7 +1,7 @@
-{% extends "./research_authors_index_page.html" %}
+{% extends "./research_base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block subcontent %}
+{% block research_hub_content %}
   {% if author_profile.image %}
     <div>
       {% image author_profile.image fill-260x260 as img %}
@@ -28,4 +28,4 @@
       </ul>
     </div>
   </div>
-{% endblock subcontent %}
+{% endblock research_hub_content %}

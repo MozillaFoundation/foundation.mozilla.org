@@ -1,9 +1,6 @@
 {% extends "./research_base.html" %}
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
 
-{% block hero_guts %}
-  {% include "wagtailpages/fragments/research_hero_guts.html" with banner_image=page.banner_image %}
-{% endblock %}
 
 {% block subcontent %}
   {# The relative position is necessary to allow this container to overflow the banner image #}

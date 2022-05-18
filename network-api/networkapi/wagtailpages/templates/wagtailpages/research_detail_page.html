@@ -1,7 +1,7 @@
 {% extends "./research_base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block subcontent %}
+{% block research_hub_content %}
   <div>
     {% image page.cover_image fill-256x348 as cover_image %}
     <img src="{{ cover_image.url }}" alt="" class="tw-w-full tw-object-cover tw-object-center tw-max-w-[256px]"/>
@@ -66,4 +66,4 @@
       <p>{{ page.collaborators }}</p>
     </div>
   {% endif %}
-{% endblock subcontent %}
+{% endblock research_hub_content %}
