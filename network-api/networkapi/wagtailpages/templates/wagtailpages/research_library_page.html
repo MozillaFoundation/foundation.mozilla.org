@@ -2,23 +2,7 @@
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
 
 {% block hero_guts %}
-  <div id="hero">
-    <div class="banner tw-bg-black">
-      {% with banner=page.specific.get_banner %}
-        {% if banner %}
-          <picture>
-            <source media="(min-width: 1200px)" srcset="{% image_url banner "fill-4032x1152" %}">
-            <source media="(min-width: 992px)" srcset="{% image_url banner "fill-2400x686" %}">
-            <source media="(min-width: 768px)" srcset="{% image_url banner "fill-1984x567" %}">
-            <source media="(min-width: 576px)" srcset="{% image_url banner "fill-1536x439" %}">
-            <img src="{% image_url banner "fill-1536x439" %}" alt="">
-          </picture>
-        {% else %}
-          <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
-        {% endif %}
-      {% endwith %}
-    </div>
-  </div>
+  {% include "wagtailpages/fragments/research_hero_guts.html" %}
 {% endblock %}
 
 {% block subcontent %}
