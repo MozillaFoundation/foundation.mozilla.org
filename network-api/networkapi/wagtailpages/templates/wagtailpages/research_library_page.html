@@ -29,6 +29,7 @@
       <h1>{{ page.title }}</h1>
     </div>
 
+
     <div class="large:tw-w-[20rem] large:tw-h-[8rem] tw-mt-5 tw-mb-4 large:tw-mb-0 large:-tw-ml-5 large:tw-p-5 large:tw-bg-gray-05" >
       {# SEARCH BAR #}
       {% comment %}
@@ -73,15 +74,13 @@
           </div>
           <div class="tw-h4-heading tw-mb-0">
             {# RESULTS COUNT #}
-            {% with research_detail_pages.count as results_count %}
-              <strong>{{ results_count }}</strong>
-              {% blocktranslate count counter=results_count trimmed %}
-                result
-              {% plural %}
-                results
-              {% endblocktranslate %}
-              {% if search_query %}{% translate 'for' context 'Heading describing the count of search results for a given search term' %} <q>{{ search_query }}</q>{% endif %}
-            {% endwith %}
+            <strong>{{ research_detail_pages_count }}</strong>
+            {% blocktranslate count counter=research_detail_pages_count trimmed %}
+              result
+            {% plural %}
+              results
+            {% endblocktranslate %}
+            {% if search_query %}{% translate 'for' context 'Heading describing the count of search results for a given search term' %} <q>{{ search_query }}</q>{% endif %}
           </div>
         </div>
 
@@ -93,9 +92,10 @@
             </li>
           {% endfor %}
         </ul>
-        {% comment %}
-          Pagination goes here.
-        {% endcomment %}
+        <div>
+          {# PAGINATION #}
+          {% include "wagtailpages/fragments/pagination.html" with page=research_detail_pages %}
+        </div>
       </div>
 
       <div id="filter" class="large:tw-block large:tw-w-[20rem] tw-shrink-0 large:tw-mr-0 large:-tw-ml-5 tw-px-4 small:tw-px-5 medium:tw-px-6 large:tw-px-5 tw-pt-4 large:tw-pt-0 tw-pb-7 tw-bg-gray-05">

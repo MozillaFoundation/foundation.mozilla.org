@@ -240,6 +240,7 @@ INSTALLED_APPS = list(filter(None, [
     'corsheaders',
     'storages',
     'adminsortable',
+    'querystring_tag',
 
     # the network site
     'networkapi',

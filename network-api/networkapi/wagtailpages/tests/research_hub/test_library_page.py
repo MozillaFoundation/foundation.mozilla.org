@@ -767,3 +767,17 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         self.assertEqual(len(breadcrumbs), 1)
         self.assertEqual(breadcrumbs, expected_breadcrumbs)
+
+    def test_pagination(self):
+        self.library_page.results_count = 4
+        self.library_page.save()
+        for _ in range(6):
+            research_factory.ResearchDetailPageFactory(parent=self.library_page)
+
+        first_page_response = self.client.get(self.library_page.url, data={'page': 1})
+        second_page_response = self.client.get(self.library_page.url, data={'page': 2})
+
+        first_page_detail_pages = first_page_response.context['research_detail_pages']
+        self.assertEqual(len(first_page_detail_pages), 4)
+        second_page_detail_pages = second_page_response.context['research_detail_pages']
+        self.assertEqual(len(second_page_detail_pages), 2)

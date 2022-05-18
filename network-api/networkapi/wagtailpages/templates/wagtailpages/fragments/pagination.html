@@ -1,0 +1,26 @@
+{% load i18n querystring_tag %}
+
+{% if page.has_other_pages %}
+<div class="tw-flex tw-flex-row tw-flex-wrap tw-gap-5">
+  <a
+    {% if page.has_previous  %}
+      href="{{ request.path }}{% querystring 'page'=page.previous_page_number %}"
+    {% else %}
+        disabled
+    {% endif %}
+      class="tw-btn-secondary before:tw-content-['←'] before:tw-mr-1"
+      >
+      {% translate 'Prev. page' context 'Pagination link' %}
+  </a>
+  <a
+    {% if page.has_next  %}
+      href="{{ request.path }}{% querystring 'page'=page.next_page_number %}"
+    {% else %}
+        disabled
+    {% endif %}
+      class="tw-btn-secondary after:tw-content-['→'] after:tw-ml-1"
+      >
+      {% translate 'Next page' context 'Pagination link' %}
+  </a>
+</div>
+{% endif %}
