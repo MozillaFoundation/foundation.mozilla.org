@@ -2,30 +2,34 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block research_hub_content %}
-  {% if author_profile.image %}
-    <div>
-      {% image author_profile.image fill-260x260 as img %}
-      <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}"  alt="{{ img.alt }}" class="tw-rounded-full" />
-    </div>
-  {% endif %}
-  <div>
+  <div id="info" class="tw-border">
     {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
-    <h1>{{ author_profile.name }}</h1>
-    <div>
-      {{ author_profile.tagline }}
+    <div id="image-and-bio-container" class="tw-flex tw-flex-col medium:tw-flex-row">
+      {% if author_profile.image %}
+        <div id="image-container" class="tw-py-5 tw-self-center tw-w-[13rem]">
+          {% image author_profile.image fill-260x260 as img %}
+          <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}"  alt="{{ img.alt }}" class="tw-rounded-full" />
+        </div>
+      {% endif %}
+      <div id="bio">
+        <h1 class="tw-mb-4">{{ author_profile.name }}</h1>
+        <div class="tw-mb-4 tw-text-lg tw-text-gray-60">
+          {{ author_profile.tagline }}
+        </div>
+        <p class="tw-text-lg">
+          {{ author_profile.introduction }}
+        </p>
+      </div>
     </div>
-    <p>
-      {{ author_profile.introduction }}
-    </p>
-    <div class="tw-container">
-      <h2>Latest research</h2>
-      <ul class="tw-list-none px-0 tw-divide-y tw-divide-gray-05">
-        {% for research_detail_page in latest_research %}
-          <li class="tw-mt-6 tw-pt-5">
-            {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_author_names=True %}
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
+  </div>
+  <div id="latest-research" class="tw-border">
+    <h2>Latest research</h2>
+    <ul class="tw-list-none px-0 tw-divide-y tw-divide-gray-05">
+      {% for research_detail_page in latest_research %}
+        <li class="tw-mt-6 tw-pt-5">
+          {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_author_names=True %}
+        </li>
+      {% endfor %}
+    </ul>
   </div>
 {% endblock research_hub_content %}
