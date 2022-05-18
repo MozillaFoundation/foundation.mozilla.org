@@ -1,18 +1,16 @@
 {% load static wagtailimages_tags %}
 <div id="hero">
   <div class="banner tw-bg-black">
-    {% with banner=page.specific.get_banner %}
-      {% if banner %}
-        <picture>
-          <source media="(min-width: 1200px)" srcset="{% image_url banner "fill-4032x1152" %}">
-          <source media="(min-width: 992px)" srcset="{% image_url banner "fill-2400x686" %}">
-          <source media="(min-width: 768px)" srcset="{% image_url banner "fill-1984x567" %}">
-          <source media="(min-width: 576px)" srcset="{% image_url banner "fill-1536x439" %}">
-          <img src="{% image_url banner "fill-1536x439" %}" alt="">
-        </picture>
-      {% else %}
-        <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
-      {% endif %}
-    {% endwith %}
+    {% if banner_image %}
+      <picture>
+        <source media="(min-width: 1200px)" srcset="{% image_url banner_image "fill-4032x1152" %}">
+        <source media="(min-width: 992px)" srcset="{% image_url banner_image "fill-2400x686" %}">
+        <source media="(min-width: 768px)" srcset="{% image_url banner_image "fill-1984x567" %}">
+        <source media="(min-width: 576px)" srcset="{% image_url banner_image "fill-1536x439" %}">
+        <img src="{% image_url banner_image "fill-1536x439" %}" alt="">
+      </picture>
+    {% else %}
+      <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
+    {% endif %}
   </div>
 </div>
