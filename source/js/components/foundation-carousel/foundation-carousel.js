@@ -37,7 +37,7 @@ class Carousel {
       // Responsive breakpoints
       breakpoints: {
         992: {
-          slidesPerView: "auto",
+          slidesPerView: 2,
           spaceBetween: 30,
           pagination: {
             el: ".swiper-fraction",
