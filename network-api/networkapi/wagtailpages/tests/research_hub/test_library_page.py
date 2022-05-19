@@ -760,6 +760,14 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
 
+    def test_library_page_breadcrumbs(self):
+        response = self.client.get(self.library_page.url)
+        breadcrumbs = response.context['breadcrumbs']
+        expected_breadcrumbs = [{'title': 'Research', 'url': '/en/research/'}]
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(breadcrumbs, expected_breadcrumbs)
+
     def test_pagination(self):
         self.library_page.results_count = 4
         self.library_page.save()

@@ -118,7 +118,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
 
         self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
-    def test_get_author_detail_context_multiple_detail_pages(self):
+    def test_get_latest_research(self):
         detail_page_1 = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=(
@@ -150,18 +150,16 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             author_profile=self.research_profile,
         )
 
-        # author, locale, detail pages.
-        with self.assertNumQueries(3):
-            context = self.author_index.get_author_detail_context(
-                profile_id=self.research_profile.id,
+        # locale & detail pages.
+        with self.assertNumQueries(2):
+            latest_research = self.author_index.get_latest_research(
+                author_profile=self.research_profile,
             )
-
-            self.assertEqual(context['author_profile'], self.research_profile)
-            self.assertEqual(len(context['latest_research']), 3)
-            self.assertIn(detail_page_1, context['latest_research'])
-            self.assertIn(detail_page_2, context['latest_research'])
-            self.assertIn(detail_page_3, context['latest_research'])
-            self.assertNotIn(self.detail_page, context['latest_research'])
+            self.assertEqual(len(latest_research), 3)
+            self.assertIn(detail_page_1, latest_research)
+            self.assertIn(detail_page_2, latest_research)
+            self.assertIn(detail_page_3, latest_research)
+            self.assertNotIn(self.detail_page, latest_research)
 
     def test_get_author_detail_context(self):
         context = self.author_index.localized.get_author_detail_context(
@@ -256,3 +254,21 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(extra_detail_page, context['latest_research'])
         self.assertIn(fr_detail_page, context['latest_research'])
         self.assertIn(fr_extra_detail_page, context['latest_research'])
+
+    def test_author_index_breadcrumbs(self):
+        breadcrumbs = self.author_index.get_breadcrumbs()
+        # Author Index page should only have 1 breadcrumb, "Research"
+        expected_breadcrumbs = [{'title': 'Research', 'url': '/en/research/'}]
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(breadcrumbs, expected_breadcrumbs)
+
+    def test_author_detail_breadcrumbs_override(self):
+        context = self.author_index.localized.get_author_detail_context(
+            profile_id=self.research_profile.id,
+        )
+        # Author Detail page should have 2 breadcrumbs, "Research/Authors"
+        expected_breadcrumbs = [{'title': 'Research', 'url': '/en/research/'},
+                                {'title': 'Authors', 'url': '/en/research/authors/'}]
+
+        self.assertEqual(len(context['breadcrumbs']), 2)
+        self.assertEqual(context['breadcrumbs'], expected_breadcrumbs)
