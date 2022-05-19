@@ -12,6 +12,11 @@ export class SearchFilter {
   constructor() {
     gsap.registerPlugin(ScrollTrigger);
     gsap.defaults({ ease: "power3" });
+    gsap.config({
+      nullTargetWarn: false,
+    });
+    this.allProducts = document.querySelectorAll(`figure.product-box`);
+    this.categoryTitle = document.querySelector(`.category-title`);
 
     const { searchBar, searchInput } = this.setupSearchBar();
     setupNavLinks(this);
@@ -22,9 +27,6 @@ export class SearchFilter {
     [`mousedown`, `touchstart`].forEach((type) =>
       subContainer.addEventListener(type, markScrollStart)
     );
-
-    this.allProducts = document.querySelectorAll(`figure.product-box`);
-    this.categoryTitle = document.querySelector(`.category-title`);
 
     // we want the animation to start when the first eight products images are loaded
     Promise.allSettled(
@@ -65,19 +67,30 @@ export class SearchFilter {
       );
     }
 
+    const debounce = (fn, ms = 0) => {
+      let timeoutId;
+      return function (...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn.apply(this, args), ms);
+      };
+    };
+
     const searchInput = (this.searchInput = searchBar.querySelector(`input`));
 
-    searchInput.addEventListener(`input`, (evt) => {
-      const searchText = searchInput.value.trim();
+    searchInput.addEventListener(
+      `input`,
+      debounce(() => {
+        const searchText = searchInput.value.trim();
 
-      if (searchText) {
-        searchBar.classList.add(`has-content`);
-        this.filter(searchText);
-      } else {
-        this.clearText();
-        applyHistory(this);
-      }
-    });
+        if (searchText) {
+          searchBar.classList.add(`has-content`);
+          this.filter(searchText);
+        } else {
+          this.clearText();
+          applyHistory(this);
+        }
+      }, 500)
+    );
 
     const clear = searchBar.querySelector(`.clear-icon`);
     if (!clear) {
