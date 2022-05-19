@@ -57,6 +57,7 @@ base_fields = [
     ('looping_video', customblocks.LoopingVideoBlock()),
     ('pulse_listing', customblocks.PulseProjectList()),
     ('single_quote', customblocks.SingleQuoteBlock()),
+    ('slider', customblocks.FoundationSliderBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
     ('airtable', customblocks.AirTableBlock()),
     ('datawrapper', customblocks.DatawrapperBlock()),
