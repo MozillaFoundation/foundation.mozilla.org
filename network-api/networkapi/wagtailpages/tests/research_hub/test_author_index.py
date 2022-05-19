@@ -118,7 +118,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
 
         self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
-    def test_get_author_detail_context_multiple_detail_pages(self):
+    def test_get_latest_research(self):
         detail_page_1 = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=(

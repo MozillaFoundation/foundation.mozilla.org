@@ -82,7 +82,7 @@ class ResearchAuthorsIndexPage(
         )
 
         latest_research = self.get_latest_research(author_profile)
-        # Updating breadcrumbs on author detail pages to include link back to include the link to the authors index
+        # Updating breadcrumbs on author detail pages to include the link to the authors index.
         detail_page_breadcrumbs = self.get_breadcrumbs(include_self=True)
 
         return {
