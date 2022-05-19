@@ -10,7 +10,7 @@ class SlideBlock(blocks.StructBlock):
 
     image = ImageChooserBlock(help_text='The image associated with this event.')
 
-    image_detail = blocks.TextBlock(help_text='Detail text for slider image', required=False)
+    caption = blocks.TextBlock(help_text='Caption for slider image', required=False)
 
     body = blocks.RichTextBlock(
         features=base_rich_text_options + ['large'],
@@ -39,7 +39,7 @@ class SlideBlock(blocks.StructBlock):
 class FoundationSliderBlock(blocks.StructBlock):
     title = blocks.CharBlock(help_text='Heading for the slider.', required=False)
 
-    current_events = blocks.StreamBlock(
+    slides = blocks.StreamBlock(
         [
             ('slide', SlideBlock()),
         ],
