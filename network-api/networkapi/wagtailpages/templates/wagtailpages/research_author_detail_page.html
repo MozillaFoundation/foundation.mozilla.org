@@ -5,7 +5,7 @@
   <div id="info" class="tw-border tw-gap-4 medium:tw-gap-x-7 tw-grid tw-grid-cols-1 medium:tw-grid-cols-[13rem_1fr]">
     {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
     {% if author_profile.image %}
-      <div id="image-container" class="tw-place-self-center medium:tw-place-self-start tw-w-[13rem]">
+      <div id="image-container" class="tw-place-self-center medium:tw-place-self-start tw-max-w-[13rem]">
         {% image author_profile.image fill-260x260 as img %}
         <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}"  alt="{{ img.alt }}" class="tw-rounded-full" />
       </div>
