@@ -3,7 +3,9 @@
 
 {% block research_hub_content %}
   <div id="info" class="tw-gap-4 medium:tw-gap-x-7 tw-grid tw-grid-cols-1 medium:tw-grid-cols-[13rem_1fr] large:tw-grid-cols-[16rem_1fr]">
-    {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
+    <div class="medium:tw-col-start-2">
+      {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
+    </div>
     {% if author_profile.image %}
       <div id="image-container" class="tw-place-self-center medium:tw-place-self-start tw-max-w-[13rem] large:tw-max-w-[16rem]">
         {% image author_profile.image fill-260x260 as img %}
