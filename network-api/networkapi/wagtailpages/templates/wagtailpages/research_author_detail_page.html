@@ -2,8 +2,24 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block research_hub_content %}
-  <div id="info" class="tw-gap-4 medium:tw-gap-x-7 tw-grid tw-grid-cols-1 medium:tw-grid-cols-[13rem_1fr] large:tw-grid-cols-[16rem_1fr]">
-    <div class="medium:tw-col-start-2">
+  <div
+    id="info"
+    class="
+      tw-gap-4
+      tw-grid
+      tw-grid-cols-1
+      {% if author_profile.image %}
+        medium:tw-gap-x-7
+        medium:tw-grid-cols-[13rem_1fr]
+        large:tw-grid-cols-[16rem_1fr]
+      {% endif %}
+    "
+  >
+    <div
+      {% if author_profile.image %}
+        class="medium:tw-col-start-2"
+      {% endif %}
+    >
       {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
     </div>
     {% if author_profile.image %}
@@ -12,7 +28,7 @@
         <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}"  alt="{{ img.alt }}" class="tw-rounded-full" />
       </div>
     {% endif %}
-    <div id="bio" class="">
+    <div id="bio">
       <h1 class="tw-mb-4">{{ author_profile.name }}</h1>
       <div class="tw-mb-4 tw-text-lg tw-text-gray-60">
         {{ author_profile.tagline }}
@@ -21,7 +37,20 @@
         {{ author_profile.introduction }}
       </p>
     </div>
-    <div id="latest-research" class="tw-border-t medium:tw-col-span-2 large:tw-col-span-1 large:tw-col-start-2 tw-min-w-0 tw-mt-6 tw-pt-5">
+    <div
+      id="latest-research"
+      class="
+        tw-border-t
+        tw-min-w-0
+        tw-mt-6
+        tw-pt-5
+        {% if author_profile.image %}
+          medium:tw-col-span-2
+          large:tw-col-span-1
+          large:tw-col-start-2
+        {% endif %}
+      "
+    >
       <h2>Latest research</h2>
       <ul class="tw-list-none px-0">
         {% for research_detail_page in latest_research %}
