@@ -2,15 +2,15 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block research_hub_content %}
-  <div id="info" class="tw-border tw-gap-4 medium:tw-gap-x-7 tw-grid tw-grid-cols-1 medium:tw-grid-cols-[13rem_1fr] large:tw-grid-cols-[16rem_1fr]">
+  <div id="info" class="tw-gap-4 medium:tw-gap-x-7 tw-grid tw-grid-cols-1 medium:tw-grid-cols-[13rem_1fr] large:tw-grid-cols-[16rem_1fr]">
     {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
     {% if author_profile.image %}
-      <div id="image-container" class="tw-border tw-place-self-center medium:tw-place-self-start tw-max-w-[13rem] large:tw-max-w-[16rem]">
+      <div id="image-container" class="tw-place-self-center medium:tw-place-self-start tw-max-w-[13rem] large:tw-max-w-[16rem]">
         {% image author_profile.image fill-260x260 as img %}
         <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}"  alt="{{ img.alt }}" class="tw-rounded-full" />
       </div>
     {% endif %}
-    <div id="bio" class="tw-border">
+    <div id="bio" class="">
       <h1 class="tw-mb-4">{{ author_profile.name }}</h1>
       <div class="tw-mb-4 tw-text-lg tw-text-gray-60">
         {{ author_profile.tagline }}
@@ -19,11 +19,11 @@
         {{ author_profile.introduction }}
       </p>
     </div>
-    <div id="latest-research" class="tw-border medium:tw-col-span-2 large:tw-col-span-1 large:tw-col-start-2 tw-min-w-0 tw-mt-6">
+    <div id="latest-research" class="tw-border-t medium:tw-col-span-2 large:tw-col-span-1 large:tw-col-start-2 tw-min-w-0 tw-mt-6 tw-pt-5">
       <h2>Latest research</h2>
-      <ul class="tw-list-none px-0 tw-divide-y tw-divide-gray-05">
+      <ul class="tw-list-none px-0">
         {% for research_detail_page in latest_research %}
-          <li class="tw-mt-6 tw-pt-5">
+          <li class="tw-border-t tw-border-t-gray-20 tw-mt-5 tw-pt-5">
             {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_author_names=True hide_image_on_mobile=True %}
           </li>
         {% endfor %}
