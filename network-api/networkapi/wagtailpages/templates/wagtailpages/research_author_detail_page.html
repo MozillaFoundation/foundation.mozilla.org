@@ -24,8 +24,9 @@
     </div>
     {% if author_profile.image %}
       <div id="image-container" class="tw-place-self-center medium:tw-place-self-start tw-max-w-[13rem] large:tw-max-w-[16rem]">
-        {% image author_profile.image fill-260x260 as img %}
-        <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}"  alt="{{ img.alt }}" class="tw-rounded-full" />
+        {% image author_profile.image fill-256x256 as img_1x %}
+        {% image author_profile.image fill-512x512 as img_2x %}
+        <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x" src="{{ img_2x.url }}" width="{{ img_2x.width }}" height="{{ img_2x.height }}"  alt="{{ img_2x.alt }}" class="tw-rounded-full" />
       </div>
     {% endif %}
     <div id="bio">
