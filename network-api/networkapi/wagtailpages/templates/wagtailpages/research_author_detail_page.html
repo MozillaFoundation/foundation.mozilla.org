@@ -60,7 +60,9 @@
           </li>
         {% endfor %}
       </ul>
-      <a href="{% pageurl library_page %}?author={{ author_profile.id }}" class="tw-btn-secondary tw-mt-5 small:tw-mt-6 tw-w-full small:tw-w-auto">{% translate 'Browse all projects' context 'Button to see more then the latest three elements of reserach from an author' %}</a>
+      {% if author_research_count > 3 %}
+        <a href="{% pageurl library_page %}?author={{ author_profile.id }}" class="tw-btn-secondary tw-mt-5 small:tw-mt-6 tw-w-full small:tw-w-auto">{% translate 'Browse all projects' context 'Button to see more then the latest three elements of reserach from an author' %} ({{ author_research_count }})</a>
+      {% endif %}
     </div>
   </div>
 {% endblock research_hub_content %}
