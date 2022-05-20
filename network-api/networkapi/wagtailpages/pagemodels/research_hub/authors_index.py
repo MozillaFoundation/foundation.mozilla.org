@@ -7,6 +7,7 @@ from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 from networkapi.wagtailpages.pagemodels.research_hub import detail_page
+from networkapi.wagtailpages.pagemodels.research_hub import library_page
 
 
 class ResearchAuthorsIndexPage(
@@ -87,6 +88,7 @@ class ResearchAuthorsIndexPage(
 
         return {
             'author_profile': author_profile,
+            'breadcrumbs': detail_page_breadcrumbs,
             'latest_research': latest_research,
-            'breadcrumbs': detail_page_breadcrumbs
+            'library_page': library_page.ResearchLibraryPage.objects.first(),
         }

@@ -1,5 +1,5 @@
 {% extends "./research_base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load i18n wagtailcore_tags wagtailimages_tags %}
 
 {% block research_hub_content %}
   <div
@@ -60,6 +60,7 @@
           </li>
         {% endfor %}
       </ul>
+      <a href="{% pageurl library_page %}?author={{ author_profile.id }}" class="tw-btn-secondary tw-mt-5 small:tw-mt-6 tw-w-full small:tw-w-auto">{% translate 'Browse all projects' context 'Button to see more then the latest three elements of reserach from an author' %}</a>
     </div>
   </div>
 {% endblock research_hub_content %}
