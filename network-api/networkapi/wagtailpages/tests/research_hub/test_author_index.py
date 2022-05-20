@@ -118,49 +118,6 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
 
         self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
-    def test_get_latest_research(self):
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-            original_publication_date=(
-                research_test_utils.days_ago(n=3)
-            ),
-        )
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-            original_publication_date=(
-                research_test_utils.days_ago(n=2)
-            ),
-        )
-        detail_page_3 = research_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-            original_publication_date=(
-                research_test_utils.days_ago(n=1)
-            ),
-        )
-        research_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_1,
-            author_profile=self.research_profile,
-        )
-        research_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_2,
-            author_profile=self.research_profile,
-        )
-        research_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_3,
-            author_profile=self.research_profile,
-        )
-
-        # locale & detail pages.
-        with self.assertNumQueries(2):
-            latest_research = self.author_index.get_latest_research(
-                author_profile=self.research_profile,
-            )
-            self.assertEqual(len(latest_research), 3)
-            self.assertIn(detail_page_1, latest_research)
-            self.assertIn(detail_page_2, latest_research)
-            self.assertIn(detail_page_3, latest_research)
-            self.assertNotIn(self.detail_page, latest_research)
-
     def test_get_author_detail_context(self):
         context = self.author_index.localized.get_author_detail_context(
             profile_id=self.research_profile.id,
@@ -254,6 +211,57 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(extra_detail_page, context['latest_research'])
         self.assertIn(fr_detail_page, context['latest_research'])
         self.assertIn(fr_extra_detail_page, context['latest_research'])
+
+    def test_get_latest_research(self):
+        detail_page_1 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=(
+                research_test_utils.days_ago(n=3)
+            ),
+        )
+        detail_page_2 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=(
+                research_test_utils.days_ago(n=2)
+            ),
+        )
+        detail_page_3 = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=(
+                research_test_utils.days_ago(n=1)
+            ),
+        )
+        research_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page_1,
+            author_profile=self.research_profile,
+        )
+        research_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page_2,
+            author_profile=self.research_profile,
+        )
+        research_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page_3,
+            author_profile=self.research_profile,
+        )
+
+        latest_research = self.author_index.get_latest_research(
+            author_profile=self.research_profile,
+        )
+
+        self.assertEqual(len(latest_research), 3)
+        self.assertIn(detail_page_1, latest_research)
+        self.assertIn(detail_page_2, latest_research)
+        self.assertIn(detail_page_3, latest_research)
+        self.assertNotIn(self.detail_page, latest_research)
+
+    def test_get_author_research(self):
+        # Locale and detail pages.
+        with self.assertNumQueries(2):
+            author_research = self.author_index.get_author_research(
+                author_profile=self.research_profile,
+            )
+
+            self.assertIn(self.detail_page, author_research)
 
     def test_author_index_breadcrumbs(self):
         breadcrumbs = self.author_index.get_breadcrumbs()
