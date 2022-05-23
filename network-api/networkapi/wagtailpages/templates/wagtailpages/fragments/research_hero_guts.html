@@ -1,0 +1,10 @@
+{% load static wagtailimages_tags %}
+<div
+  class="tw-bg-black tw-h-[144px] tw-w-full tw-bg-no-repeat tw-bg-left-top tw-bg-cover"
+
+  {% if banner_image %}
+    style="background-image: url('{% image_url banner_image "width-4032" %}')"
+  {% else %}
+    style="background-image: url('{% static '_images/banner-black-white-marble.jpg' %}')"
+  {% endif %}
+></div>

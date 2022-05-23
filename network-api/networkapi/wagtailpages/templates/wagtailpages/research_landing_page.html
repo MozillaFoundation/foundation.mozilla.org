@@ -1,9 +1,7 @@
 {% extends "./research_base.html" %}
 {% load i18n wagtailcore_tags wagtailimages_tags static %}
 
-{% block subcontent %}
-
-
+{% block hero_guts %}
   {% with hero_image_classes="tw-bg-no-repeat tw-bg-left-top tw-bg-cover tw-min-h-[260px]" %}
     {% if page.banner_image %}
       {% image page.banner_image original as hero_img %}
@@ -12,7 +10,9 @@
       <div  class="{{hero_image_classes}}" style='background-image: url("{% static "_images/banner-black-white-marble.jpg" %}")'></div>
     {% endif %}
   {% endwith %}
+{% endblock hero_guts %}
 
+{% block subcontent %}
   <div id="landing-page-content" class="tw-flex tw-w-full">
 
     <div id="left-spacer-and-cutout" class="tw-bg-white tw-flex-auto -tw-mt-[125px] tw-pl-4 small:tw-pl-0"></div>
