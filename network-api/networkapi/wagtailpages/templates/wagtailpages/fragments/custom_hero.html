@@ -5,13 +5,17 @@
 {% with control_btn_classes="ml-auto tw-opacity-80 hover:tw-opacity-100 tw-hidden" full_screen_content_classes="tw-absolute tw-min-w-full tw-min-h-full tw-max-w-none tw-top-0" two_col_content_classes="tw-h-full tw-w-full tw-object-center tw-object-cover" %}
 
 {% comment %}
+
+  This template will be rendered if the user selects to customize the header on either a Publication or a Article page.
+
   We are using inline styling to update the hero sections background color as this is selected by the user on the cms,
   and tailwind would not pick it up in time to render correctly if we did it through a tw-class.
+  
 {% endcomment %}
 
 {% if page.hero_layout != page.HERO_LAYOUT_FULL_SCREEN %}
 
-  <div class="article-hero tw-relative tw-flex tw-flex-col large:tw-flex-row tw-h-full tw-overflow-hidden {% if not get_titles %} tw-mb-[0px] medium:tw-mb-[100px] {% endif %}" style="background: {{page.hero_background_color}}">
+  <div id="custom-hero" class="tw-relative tw-flex tw-flex-col large:tw-flex-row tw-h-full tw-overflow-hidden {% if not get_titles %} tw-mb-[0px] medium:tw-mb-[100px] {% endif %}" style="background: {{page.hero_background_color}}">
     <div class="tw-w-full large:tw-w-1/2 tw-min-h-full {% if page.hero_layout == "image_right" %} tw-order-last {% endif %}">
       {% if page.displayed_hero_content == page.HERO_CONTENT_VIDEO %}
         <video class="hero-video {{two_col_content_classes}}" playsinline muted loop preload>
@@ -22,7 +26,7 @@
       {% endif %}
     </div>
 
-    <div class="tw-w-full large:tw-w-1/2 tw-min-h-full tw-py-[65px] large:tw-pb-[184px] large:tw-pt-[137px] {% if page.hero_layout == "image_left" %} tw-order-last tw-pb-[100px] {% if not get_titles %} tw-pb-[0px] {% endif %}{% endif %}">
+    <div class="tw-w-full large:tw-w-1/2 tw-min-h-full tw-py-[65px] large:tw-pb-[184px] large:tw-pt-[137px] {% if page.hero_layout == "image_left" %} tw-order-last tw-pb-[100px] {% if not get_titles and is_publication_article %} tw-pb-[0px] {% endif %}{% endif %}">
         <div class="container">
           <div class="row">
             <div class="tw-px-5 large:tw-px-[3.75rem] tw-max-w-[650px] {% if page.hero_layout == "image_right" %} large:tw-ml-auto {% endif %}">
@@ -36,7 +40,7 @@
 
 {% else %}
 
-  <div class="article-hero tw-relative tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-overflow-hidden " style="background: {{page.hero_background_color}}">
+  <div id="custom-hero" class="tw-relative tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-overflow-hidden " style="background: {{page.hero_background_color}}">
     {% if page.displayed_hero_content == page.HERO_CONTENT_VIDEO %}
       <video class="hero-video {{full_screen_content_classes}}" autoplay loop muted>
         <source src="{{ page.hero_video }}" type="video/mp4">
