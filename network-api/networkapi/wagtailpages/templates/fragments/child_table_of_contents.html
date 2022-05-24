@@ -14,7 +14,7 @@
                     group
                     tw-p-0">
                     <img class="tw-scale-x-[-1] tw-mr-2" src="{% static "_images/arrow-circle.svg" %}" alt="" />
-                    <span class="group-hover:tw-text-blue-dark tw-text-xs tw-leading-5 tw-font-normal tw-font-sans tw-uppercase tw-truncate tw-max-w-sm">{{ child_page.title }}</span>
+                    <span class="group-hover:tw-text-blue-80 tw-text-xs tw-leading-5 tw-font-normal tw-font-sans tw-uppercase tw-truncate tw-max-w-sm">{{ child_page.title }}</span>
             </button>
             
             </div>
@@ -35,7 +35,7 @@
                     </div>
                     <div class="d-flex align-items-center">
                         <h3 class="tw-font-sans tw-text-base tw-leading-5 tw-font-normal my-0">
-                            <a href="{{ grandchild_page.url }}" class="d-block tw-text-black hover:tw-no-underline hover:tw-text-blue-dark">
+                            <a href="{{ grandchild_page.url }}" class="d-block tw-text-black hover:tw-no-underline hover:tw-text-blue-80">
                             {{ grandchild_page.title }} {% if grandchild_page.has_unpublished_changes %}🐣{% endif %}
                             </a>
                         </h3>
@@ -63,7 +63,7 @@
                     <div class="article-child-menu row tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{grandchild_page.title}}">
                         {% for slug, header in grandchild_page.get_page_titles %}
                         <div class="tw-flex tw-min-h-[80px] tw-py-3 tw-px-4 medium:tw-px-4 tw-items-center tw-bg-gray-05 tw-w-full">
-                            <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-dark tw-flex tw-items-center" href="{{ grandchild_page.url }}#{{ slug }}">
+                            <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-80 tw-flex tw-items-center" href="{{ grandchild_page.url }}#{{ slug }}">
                             {{ header }}
                             </a>
                         </div>

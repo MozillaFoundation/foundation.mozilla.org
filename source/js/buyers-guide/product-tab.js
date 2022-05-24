@@ -4,7 +4,7 @@ function setHighlight(target) {
   target.classList.remove(
     "tw-bg-white",
     "tw-text-black",
-    "hover:tw-text-blue-dark"
+    "hover:tw-text-blue-80"
   );
   target.classList.add("tw-bg-black", "tw-text-white");
   return target;
@@ -12,11 +12,7 @@ function setHighlight(target) {
 
 function removeHighlight(target) {
   target.classList.remove("tw-bg-black", "tw-text-white");
-  target.classList.add(
-    "tw-bg-white",
-    "tw-text-black",
-    "hover:tw-text-blue-dark"
-  );
+  target.classList.add("tw-bg-white", "tw-text-black", "hover:tw-text-blue-80");
   return target;
 }
 
