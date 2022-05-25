@@ -7,16 +7,16 @@ module.exports = [
       {
         base: "a",
         styles: (componentType) => ({
-          color: theme("colors.blue.dark"),
+          color: theme("colors.blue.80"),
           "&:hover,&:focus,&:active": {
-            color: theme("colors.blue.dark"),
+            color: theme("colors.blue.80"),
             textDecoration: "underline",
           },
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.white"),
             fontWeight: "inherit",
             "&:hover,&:focus,&:active": {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
               textDecoration: "underline",
             },
             '&[class*="btn"]': {
@@ -51,7 +51,7 @@ module.exports = [
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.white"),
             "& a:hover,& a:focus,& a:active": {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
               textDecoration: "underline",
             },
           },
@@ -82,7 +82,7 @@ module.exports = [
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.white"),
             "& a:hover,& a:focus,& a:active": {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
               textDecoration: "underline",
             },
           },
@@ -113,7 +113,7 @@ module.exports = [
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.white"),
             "& a:hover,& a:focus,& a:active": {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
               textDecoration: "underline",
             },
           },
@@ -144,7 +144,7 @@ module.exports = [
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.white"),
             "& a:hover,& a:focus,& a:active": {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
               textDecoration: "underline",
             },
           },
@@ -175,7 +175,7 @@ module.exports = [
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.white"),
             "& a:hover,& a:focus,& a:active": {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
               textDecoration: "underline",
             },
           },
@@ -204,7 +204,7 @@ module.exports = [
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.white"),
             "& a:hover,& a:focus,& a:active": {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
             },
           },
           a: {
@@ -232,10 +232,10 @@ module.exports = [
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.white"),
             a: {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
             },
             "& a:hover,& a:focus,& a:active": {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
               textDecoration: "underline",
             },
           },
@@ -255,10 +255,10 @@ module.exports = [
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.gray.20"),
             a: {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
             },
             "& a:hover,& a:focus,& a:active": {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
               textDecoration: "underline",
             },
           },
@@ -278,10 +278,10 @@ module.exports = [
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.white"),
             a: {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
             },
             "& a:hover,& a:focus,& a:active": {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
               textDecoration: "underline",
             },
           },
@@ -299,10 +299,10 @@ module.exports = [
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.white"),
             a: {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
             },
             "& a:hover,& a:focus,& a:active": {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
               textDecoration: "underline",
             },
           },
@@ -319,10 +319,10 @@ module.exports = [
           [componentType ? ".dark &" : ".tw-dark &"]: {
             color: theme("colors.gray.40"),
             a: {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
             },
             "& a:hover,& a:focus,& a:active": {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
               textDecoration: "underline",
             },
           },
@@ -336,12 +336,12 @@ module.exports = [
           display: "inline-block",
           fontSize: "18px",
           [componentType ? ".dark &" : ".tw-dark &"]: {
-            color: theme("colors.blue.light"),
+            color: theme("colors.blue.20"),
             a: {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
             },
             "& a:hover,& a:focus,& a:active": {
-              color: theme("colors.blue.light"),
+              color: theme("colors.blue.20"),
               textDecoration: "underline",
             },
           },
