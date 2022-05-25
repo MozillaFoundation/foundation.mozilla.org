@@ -1,23 +1,25 @@
 from django.db import models
+from django import forms
 
 from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField
+from wagtail_color_panel.fields import ColorField
+
 from wagtail.core.models import Orderable, Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail_color_panel.fields import ColorField
+from wagtail_color_panel.edit_handlers import NativeColorPanel
+
 
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-from wagtail_color_panel.edit_handlers import NativeColorPanel
 
 from networkapi.wagtailpages.models import Profile
 from networkapi.wagtailpages.utils import set_main_site_nav_information
 from ..customblocks.base_rich_text_options import base_rich_text_options
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
-from django import forms
 
 
 class PublicationAuthors(Orderable):
