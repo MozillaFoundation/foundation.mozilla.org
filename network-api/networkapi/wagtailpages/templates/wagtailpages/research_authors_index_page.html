@@ -35,6 +35,10 @@
         </li>
       {% endfor %}
     </ul>
+  {% else %}
+    <p>
+      {% trans "No authors found." %}
+    </p>
   {% endif %}
 
 {% endblock research_hub_content %}
