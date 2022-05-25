@@ -1,26 +1,6 @@
 {% extends "./research_base.html" %}
 {% load profile_tags wagtailimages_tags i18n static %}
 
-{% block hero_guts %}
-  <div id="hero">
-    <div class="banner tw-bg-black">
-      {% with banner=page.banner_image %}
-        {% if banner %}
-          <picture>
-            <source media="(min-width: 1200px)" srcset="{% image_url banner "fill-4032x1152" %}">
-            <source media="(min-width: 992px)" srcset="{% image_url banner "fill-2400x686" %}">
-            <source media="(min-width: 768px)" srcset="{% image_url banner "fill-1984x567" %}">
-            <source media="(min-width: 576px)" srcset="{% image_url banner "fill-1536x439" %}">
-            <img src="{% image_url banner "fill-1536x439" %}" alt="">
-          </picture>
-        {% else %}
-          <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
-        {% endif %}
-      {% endwith %}
-    </div>
-  </div>
-{% endblock %}
-
 {% block research_hub_content %}
   <div>
     {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
