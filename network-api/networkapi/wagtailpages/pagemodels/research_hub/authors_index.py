@@ -10,6 +10,7 @@ from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 from networkapi.wagtailpages.pagemodels.research_hub import detail_page
+from networkapi.wagtailpages.pagemodels.research_hub import library_page
 
 
 class ResearchAuthorsIndexPage(
@@ -44,6 +45,7 @@ class ResearchAuthorsIndexPage(
         # back to the profile on the default locale.
         author_profiles = utils.localize_queryset(author_profiles)
         context["author_profiles"] = author_profiles
+        context["breadcrumbs"] = self.get_breadcrumbs()
         return context
 
     @routable_models.route(r'^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$')
@@ -74,8 +76,29 @@ class ResearchAuthorsIndexPage(
             id=profile_id,
         )
 
-        LATEST_RESERACH_COUNT_LIMIT = 3
-        latest_research = detail_page.ResearchDetailPage.objects.all()
+        author_research_count = self.get_author_research(author_profile).count()
+        latest_research = self.get_latest_research(author_profile)
+
+        # On author detail pages to include the link to the authors index.
+        detail_page_breadcrumbs = self.get_breadcrumbs(include_self=True)
+
+        return {
+            'author_profile': author_profile,
+            'author_research_count': author_research_count,
+            'breadcrumbs': detail_page_breadcrumbs,
+            'latest_research': latest_research,
+            'library_page': library_page.ResearchLibraryPage.objects.first(),
+        }
+
+    def get_latest_research(self, author_profile):
+        LATEST_RESEARCH_COUNT_LIMIT = 3
+        author_research = self.get_author_research(author_profile)
+        author_research = author_research.order_by('-original_publication_date')
+        latest_research = author_research[:LATEST_RESEARCH_COUNT_LIMIT]
+        return latest_research
+
+    def get_author_research(self, author_profile):
+        author_research = detail_page.ResearchDetailPage.objects.all()
         # During tree sync, an alias is created for every detail page. But, these
         # aliases are still associated with the profile in the default locale. So, when
         # displaying the author page for a non-default locale author, we also want to
@@ -83,19 +106,13 @@ class ResearchAuthorsIndexPage(
         # locales author. We know the default locale's author will have the same
         # `translation_key` as the current locale's author. So, instead of filtering
         # for the author `id`, we filter by `translation_key`.
-        latest_research = latest_research.filter(
+        author_research = author_research.filter(
             research_authors__author_profile__translation_key=(
                 author_profile.translation_key
             )
         )
         # And then we fitler for the active locale.
-        latest_research = latest_research.filter(
+        author_research = author_research.filter(
             locale=wagtail_models.Locale.get_active()
         )
-        latest_research = latest_research.order_by('-original_publication_date')
-        latest_research = latest_research[:LATEST_RESERACH_COUNT_LIMIT]
-
-        return {
-            'author_profile': author_profile,
-            'latest_research': latest_research,
-        }
+        return author_research

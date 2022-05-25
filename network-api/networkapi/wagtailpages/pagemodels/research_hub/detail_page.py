@@ -143,6 +143,11 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
         index.FilterField('original_publication_date'),  # For sorting
     ]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["breadcrumbs"] = self.get_breadcrumbs()
+        return context
+
     def get_research_author_names(self):
         return [
             ra.author_profile.name

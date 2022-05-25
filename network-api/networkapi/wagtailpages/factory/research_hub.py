@@ -16,6 +16,7 @@ class ResearchLandingPageFactory(wagtail_factories.PageFactory):
         model = wagtailpage_models.ResearchLandingPage
 
     title = 'Research'
+    banner_image = factory.SubFactory(image_factory.ImageFactory)
     intro = factory.Faker('text', max_nb_chars=250)
 
 
@@ -171,8 +172,13 @@ def generate(seed):
         ResearchRegionFactory.create()
         ResearchTopicFactory.create()
 
-    for _ in range(6):
-        research_detail_page = ResearchDetailPageFactory.create(parent=research_library_page)
+    for _ in range(13):
+        research_detail_page = ResearchDetailPageFactory.create(
+            parent=research_library_page,
+            research_authors=None,
+            related_topics=None,
+            related_regions=None,
+        )
 
         for profile in faker_helpers.get_random_objects(model=wagtailpage_models.Profile, max_count=3):
             ResearchAuthorRelationFactory.create(

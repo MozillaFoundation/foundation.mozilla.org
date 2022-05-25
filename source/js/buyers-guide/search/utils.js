@@ -213,7 +213,9 @@ export class Utils {
    * Animation used for category selections
    */
   static toggleCategoryAnimation(initialLoad = false) {
-    gsap.set("figure.product-box.d-flex", { opacity: 0, y: 100 });
+    if (document.querySelectorAll("figure.product-box.d-flex")) {
+      gsap.set("figure.product-box.d-flex", { opacity: 0, y: 100 });
+    }
 
     if (initialLoad) {
       gsap.set("figure.product-box.d-flex:nth-child(-n+8)", {

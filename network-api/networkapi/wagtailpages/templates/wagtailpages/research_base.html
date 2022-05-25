@@ -1,9 +1,19 @@
 {% extends "./modular_page.html" %}
 
+{% block hero_guts %}
+  {% include "wagtailpages/fragments/research_hero_guts.html" with banner_image=page.get_banner %}
+{% endblock %}
+
 {% block subcontent %}
-  <h1>
-    {{ page.title }}
-  </h1>
+  <div class="tw-container small:tw-px-0">
+    <div class="tw-bg-white -tw-ml-4 small:tw-ml-0 -tw-mt-6 tw-pb-5 large:tw-pb-7 tw-pl-4 small:tw-pr-4 tw-pt-4 medium:tw-pt-5 large:tw-pt-7 large:tw-px-5 tw-w-auto">
+      {% block research_hub_content %}
+        <h1>
+          {{ page.title }}
+        </h1>
+      {% endblock research_hub_content %}
+    </div>
+  </div>
 {% endblock subcontent %}
 
 {% block footer_block %}

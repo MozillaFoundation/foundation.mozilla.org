@@ -21,42 +21,36 @@
   </div>
 {% endblock %}
 
-{% block subcontent %}
-  {# The relative position is necessary to allow this container to overflow the banner image #}
-  <div class="tw-relative tw-w-auto tw-max-w-screen-large xlarge:tw-max-w-screen-xlarge tw-mt-[7rem] tw-mr-4 small:tw-mr-5 medium:tw-mr-7 large:tw-mr-auto tw-ml-0 large:tw-ml-auto tw-pt-4 medium:tw-pt-5 large:tw-pt-7 tw-pr-0 large:tw-pr-5 small:tw-pb-[3rem] tw-pl-4 small:tw-pl-5 medium:tw-pl-7 large:tw-pl-5 tw-bg-white">
-    <div>
-      <div class="tw-font-zilla">
-        {# Replace this with real breadcrumbs #}
-        Research /
-      </div>
-      <h1>{% trans "Browse Authors" %}</h1>
-    </div>
-
-      {% if author_profiles %}
-        <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-6 tw-gap-5 tw-gap-y-7 tw-list-none tw-p-0">
-          {% for author_profile in author_profiles %}
-            <li class="tw-m-0">
-              <a
-                href="{% routableprofileurl page=page profile=author_profile url_name="author_detail" %}"
-                class="tw-flex large:tw-gap-6 medium:tw-gap-5 tw-gap-4 tw-items-center hover:tw-no-underline"
-                >
-                <div class="large:tw-w-[97px] medium:tw-w-[68px] tw-w-[77px]">
-                  {% image author_profile.image fill-96x96 as profile_img %}
-                  <img src="{{ profile_img.url }}" alt="{{ author_profile.name }}" class="tw-w-full tw-h-auto tw-rounded-full">
-                </div>
-                <div>
-                  <div class="author-name tw-font-zilla tw-font-semibold tw-text-blue-dark large:tw-text-xl medium:tw-text-lg hover:tw-underline">
-                    {{ author_profile.name }}
-                  </div>
-                  <div class="large:tw-text-base medium:tw-text-sm tw-text-xs tw-text-gray-80">
-                    {{ author_profile.tagline }}
-                  </div>
-                </div>
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
+{% block research_hub_content %}
+  <div>
+    {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
+    <h1>{% trans "Browse Authors" %}</h1>
   </div>
 
-{% endblock subcontent %}
+  {% if author_profiles %}
+    <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-6 tw-gap-5 tw-gap-y-7 tw-list-none tw-p-0">
+      {% for author_profile in author_profiles %}
+        <li class="tw-m-0">
+          <a
+            href="{% routableprofileurl page=page profile=author_profile url_name="author_detail" %}"
+            class="tw-flex large:tw-gap-6 medium:tw-gap-5 tw-gap-4 tw-items-center hover:tw-no-underline"
+           >
+             <div class="large:tw-w-[97px] medium:tw-w-[68px] tw-w-[77px]">
+               {% image author_profile.image fill-96x96 as profile_img %}
+               <img src="{{ profile_img.url }}" alt="{{ author_profile.name }}" class="tw-w-full tw-h-auto tw-rounded-full">
+             </div>
+             <div>
+               <div class="author-name tw-font-zilla tw-font-semibold tw-text-blue-dark large:tw-text-xl medium:tw-text-lg hover:tw-underline">
+                 {{ author_profile.name }}
+               </div>
+               <div class="large:tw-text-base medium:tw-text-sm tw-text-xs tw-text-gray-80">
+                 {{ author_profile.tagline }}
+               </div>
+             </div>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+{% endblock research_hub_content %}

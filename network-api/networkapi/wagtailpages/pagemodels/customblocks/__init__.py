@@ -31,6 +31,7 @@ from .video_block import ExternalVideoBlock, VideoBlock, WagtailVideoChooserBloc
 from .youtube_regret_block import YoutubeRegretBlock
 from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidthImageBlock, ArticleImageBlock
 from .dear_internet_letter_block import DearInternetLetterBlock
+from .foundation_slider_block import FoundationSliderBlock
 
 
 __all__ = [
@@ -76,4 +77,5 @@ __all__ = [
     VideoBlock,
     WagtailVideoChooserBlock,
     YoutubeRegretBlock,
+    FoundationSliderBlock
 ]
