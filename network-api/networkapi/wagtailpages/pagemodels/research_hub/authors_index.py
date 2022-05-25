@@ -26,8 +26,8 @@ class ResearchAuthorsIndexPage(
         blank=False,
         on_delete=models.SET_NULL,
         help_text=(
-            'The image to be used as a background image for all '
-            'research detail pages.'
+            'The image to be used as the banner background image for '
+            'the author index and all author detail pages.'
         ),
     )
 
@@ -116,3 +116,6 @@ class ResearchAuthorsIndexPage(
             locale=wagtail_models.Locale.get_active()
         )
         return author_research
+
+    def get_banner(self):
+        return self.banner_image
