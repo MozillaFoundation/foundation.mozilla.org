@@ -1,0 +1,20 @@
+{% load profile_tags wagtailimages_tags %}
+<a
+  href="{% routableprofileurl page=page profile=author_profile url_name="author_detail" %}"
+  class="tw-flex large:tw-gap-6 medium:tw-gap-5 tw-gap-4 tw-items-center hover:tw-no-underline"
+ >
+   <div class="tw-shrink-0 tw-w-[4rem] medium:tw-w-[5rem] large:tw-w-[6rem]">
+     {% if author_profile.image %}
+       {% image author_profile.image fill-182x182 as profile_img %}
+       <img src="{{ profile_img.url }}" alt="{{ author_profile.name }}" class="tw-w-full tw-h-auto tw-rounded-full">
+     {% endif %}
+   </div>
+   <div>
+     <div class="author-name tw-font-zilla tw-font-semibold tw-text-blue-dark large:tw-text-xl medium:tw-text-lg hover:tw-underline">
+       {{ author_profile.name }}
+     </div>
+     <div class="large:tw-text-base medium:tw-text-sm tw-text-xs tw-text-gray-80">
+       {{ author_profile.tagline }}
+     </div>
+   </div>
+</a>
