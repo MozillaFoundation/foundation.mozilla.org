@@ -12,7 +12,7 @@ from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
+from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 
 
 class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
@@ -71,7 +71,7 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
             return self.document.url
 
 
-class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtail_models.Page):
+class ResearchDetailPage(research_base.ResearchHubBasePage):
     parent_page_types = ['ResearchLibraryPage']
 
     cover_image = models.ForeignKey(
@@ -142,6 +142,11 @@ class ResearchDetailPage(foundation_metadata.FoundationMetadataPageMixin, wagtai
         index.SearchField('collaborators'),
         index.FilterField('original_publication_date'),  # For sorting
     ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["breadcrumbs"] = self.get_breadcrumbs()
+        return context
 
     def get_research_author_names(self):
         return [

@@ -40,6 +40,7 @@ from .blog_category import BlogPageCategory
 from .blog_index import BlogIndexPage
 
 base_fields = [
+    ('accordion', customblocks.AccordionBlock()),
     ('paragraph', blocks.RichTextBlock(
         features=full_content_rich_text_options,
         template='wagtailpages/blocks/rich_text_block.html',
@@ -56,6 +57,7 @@ base_fields = [
     ('looping_video', customblocks.LoopingVideoBlock()),
     ('pulse_listing', customblocks.PulseProjectList()),
     ('single_quote', customblocks.SingleQuoteBlock()),
+    ('slider', customblocks.FoundationSliderBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
     ('airtable', customblocks.AirTableBlock()),
     ('datawrapper', customblocks.DatawrapperBlock()),

@@ -1,15 +1,19 @@
 import collections
 from typing import Optional
 
+from django.core import paginator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from wagtail import images as wagtail_images
+from wagtail.admin import edit_handlers as panels
+from wagtail.images import edit_handlers as image_panels
 from wagtail.core import models as wagtail_models
 from wagtail import images as wagtail_images
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
+from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 from networkapi.wagtailpages.pagemodels.research_hub import detail_page
 from networkapi.wagtailpages.pagemodels.research_hub import taxonomies
 
@@ -22,10 +26,30 @@ SortOption = collections.namedtuple(
 )
 
 
-class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagtail_models.Page):
+class ResearchLibraryPage(research_base.ResearchHubBasePage):
     max_count = 1
     parent_page_types = ['ResearchLandingPage']
     subpage_types = ['ResearchDetailPage']
+
+    banner_image = models.ForeignKey(
+        wagtail_images.get_image_model_string(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+
+    results_count = models.PositiveSmallIntegerField(
+        default=10,
+        help_text="Maximum number of results to be displayed per page.",
+    )
+
+    content_panels = research_base.ResearchHubBasePage.content_panels + [
+        image_panels.ImageChooserPanel('banner_image'),
+    ]
+
+    settings_panels = research_base.ResearchHubBasePage.settings_panels + [
+        panels.FieldPanel("results_count")
+    ]
 
     SORT_NEWEST_FIRST = SortOption(
         label=_('Newest first'),
@@ -54,21 +78,6 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         SORT_ALPHABETICAL_REVERSED.value: SORT_ALPHABETICAL_REVERSED,
     }
 
-    background_image = models.ForeignKey(
-        wagtail_images.get_image_model_string(),
-        null=True,
-        blank=False,
-        on_delete=models.SET_NULL,
-        help_text=(
-            'The image to be used as a background image for all '
-            'research detail pages.'
-        ),
-    )
-
-    content_panels = wagtail_models.Page.content_panels + [
-        ImageChooserPanel('background_image'),
-    ]
-
     def get_context(self, request):
         search_query = request.GET.get('search', '')
         sort_value = request.GET.get('sort', '')
@@ -90,8 +99,25 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
             filtered_year = int(filtered_year)
         except ValueError:
             filtered_year = ''
+        page = request.GET.get('page')
+
+        searched_and_filtered_research_detail_pages = self._get_research_detail_pages(
+            search=search_query,
+            sort=sort,
+            author_profile_ids=filtered_author_ids,
+            topic_ids=filtered_topic_ids,
+            region_ids=filtered_region_ids,
+            year=filtered_year,
+        )
+        research_detail_pages_paginator = paginator.Paginator(
+            object_list=searched_and_filtered_research_detail_pages,
+            per_page=self.results_count,
+            allow_empty_first_page=True,
+        )
+        research_detail_pages_page = research_detail_pages_paginator.get_page(page)
 
         context = super().get_context(request)
+        context["breadcrumbs"] = self.get_breadcrumbs()
         context['search_query'] = search_query
         context['sort'] = sort
         context['author_options'] = self._get_author_options()
@@ -102,14 +128,8 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
         context['filtered_region_ids'] = filtered_region_ids
         context['year_options'] = self._get_year_options()
         context['filtered_year'] = filtered_year
-        context['research_detail_pages'] = self._get_research_detail_pages(
-            search=search_query,
-            sort=sort,
-            author_profile_ids=filtered_author_ids,
-            topic_ids=filtered_topic_ids,
-            region_ids=filtered_region_ids,
-            year=filtered_year,
-        )
+        context['research_detail_pages_count'] = research_detail_pages_paginator.count
+        context['research_detail_pages'] = research_detail_pages_page
         return context
 
     def _get_author_options(self):
@@ -194,3 +214,6 @@ class ResearchLibraryPage(foundation_metadata.FoundationMetadataPageMixin, wagta
             )
 
         return research_detail_pages
+
+    def get_banner(self):
+        return self.banner_image

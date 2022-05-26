@@ -1,7 +1,7 @@
 {% extends "./research_base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block subcontent %}
+{% block research_hub_content %}
 
   {% image page.get_parent.specific.background_image fill-1240x144 as hero_img %}
   <div class="tw-bg-no-repeat tw-bg-center tw-bg-cover tw-min-h-[144px]" style='background-image: url("{{ hero_img.url }}")'></div>
@@ -15,14 +15,7 @@
       <div class="tw-col-span-4">
         <div class="tw-grid tw-grid-cols-3 tw-grid-rows-1">
           <div class="xlarge:tw-col-span-2 tw-col-span-3 tw-pb-[80px]">
-
-            {# TODO Add breadcrumb #}
-            <div class="tw-text-lg tw-my-4 tw-font-zilla">
-              {{ page.get_parent.get_parent.title }}
-              /
-              {{ page.get_parent.title }}
-              /
-            </div>
+            {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
 
             <h1 class="tw-text-black tw-my-">{{ page.title }}</h1>
 
@@ -107,4 +100,4 @@
       </div>
     </div>
   </div>
-{% endblock %}
+{% endblock research_hub_content %}

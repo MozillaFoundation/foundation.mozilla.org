@@ -1,5 +1,5 @@
 /**
- * Signing users up for the Foundation newsletter using the Basket client. 
+ * Signing users up for the Foundation newsletter using the Basket client.
  * https://basket.readthedocs.io/
  */
 

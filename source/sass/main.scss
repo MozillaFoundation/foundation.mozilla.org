@@ -34,6 +34,7 @@
 @import "./components/select-dropdown"; // TODO:FIXME: consider relocate code to a new file scss/form.scss
 @import "./components/blog-hero-video";
 @import "./components/share-button-group";
+@import "./components/foundation-slider";
 
 // Wagtail Stream Blocks
 
@@ -56,6 +57,7 @@
 @import "./global";
 @import "./cms";
 @import "./wagtail";
+@import "./research-hub";
 
 // Shared between different views
 

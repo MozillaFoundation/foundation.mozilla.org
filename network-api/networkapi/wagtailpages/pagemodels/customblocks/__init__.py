@@ -1,3 +1,4 @@
+from .accordion_block import AccordionBlock, AccordionItem
 from .advanced_table_block import AdvancedTableBlock
 from .annotated_image_block import AnnotatedImageBlock
 from .airtable_block import AirTableBlock
@@ -30,9 +31,12 @@ from .video_block import ExternalVideoBlock, VideoBlock, WagtailVideoChooserBloc
 from .youtube_regret_block import YoutubeRegretBlock
 from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidthImageBlock, ArticleImageBlock
 from .dear_internet_letter_block import DearInternetLetterBlock
+from .foundation_slider_block import FoundationSliderBlock
 
 
 __all__ = [
+    AccordionBlock,
+    AccordionItem,
     AdvancedTableBlock,
     AnnotatedImageBlock,
     AirTableBlock,
@@ -73,4 +77,5 @@ __all__ = [
     VideoBlock,
     WagtailVideoChooserBlock,
     YoutubeRegretBlock,
+    FoundationSliderBlock
 ]

@@ -22,7 +22,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 # from wagtail.core import urls as wagtail_urls
 from .utility import watail_core_url_override as wagtail_urls
-from .sitemaps import sitemap
+from .sitemaps import sitemap, sitemap_index
 
 from wagtail_footnotes import urls as footnotes_urls
 from networkapi.wagtailcustomization.image_url_tag_urls import urlpatterns as image_url_tag_urls
@@ -148,6 +148,10 @@ if settings.DEBUG:
     urlpatterns += (
         path('maintenance/', TemplateView.as_view(template_name="maintenance/maintenance.html")),
     )
+
+urlpatterns += [
+    path('sitemap.xml', sitemap_index)
+]
 
 # Use a custom 404 handler so that we can serve distinct 404
 # pages for each "site" that wagtail services.
