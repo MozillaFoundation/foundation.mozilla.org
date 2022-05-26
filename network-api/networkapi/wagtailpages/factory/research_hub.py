@@ -32,8 +32,8 @@ class ResearchAuthorsIndexPageFactory(wagtail_factories.PageFactory):
     class Meta:
         model = wagtailpage_models.ResearchAuthorsIndexPage
 
-    banner_image = factory.SubFactory(image_factory.ImageFactory)
     title = "Authors"
+    banner_image = factory.SubFactory(image_factory.ImageFactory)
 
 
 class ResearchDetailLinkFactory(factory.django.DjangoModelFactory):
