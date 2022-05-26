@@ -4,7 +4,7 @@ from django.template.defaultfilters import slugify
 from wagtail.core import blocks
 
 from networkapi.wagtailpages.utils import get_locale_from_request
-from ..blog.blog_category import BlogPageCategory
+from ..blog.blog_topic import BlogPageTopic
 
 
 class RecentBlogEntries(blocks.StructBlock):
@@ -18,11 +18,11 @@ class RecentBlogEntries(blocks.StructBlock):
         help_text='Test this filter at foundation.mozilla.org/blog/tags/',
     )
 
-    category_filter = blocks.ChoiceBlock(
-        label='Filter by Category',
+    topic_filter = blocks.ChoiceBlock(
+        label='Filter by Topic',
         required=False,
-        choices=BlogPageCategory.get_categories(),
-        help_text='Test this filter at foundation.mozilla.org/blog/category/',
+        choices=BlogPageTopic.get_topics(),
+        help_text='Test this filter at foundation.mozilla.org/blog/topic/',
     )
 
     top_divider = blocks.BooleanBlock(
@@ -35,7 +35,7 @@ class RecentBlogEntries(blocks.StructBlock):
         help_text='Optional divider below content block.',
     )
 
-    # TODO: add in validation so that if there are no tags or category
+    # TODO: add in validation so that if there are no tags or topic
     #       filled in we don't allow the page to be saved, with a wagtail
     #       error indication what's wrong.
 
@@ -47,7 +47,7 @@ class RecentBlogEntries(blocks.StructBlock):
         blog_page = BlogIndexPage.objects.get(title__iexact="blog", locale=locale)
 
         tag = value.get("tag_filter", False)
-        category = value.get("category_filter", False)
+        topic = value.get("topic_filter", False)
 
         # default filter and query
         type = "tags"
@@ -55,26 +55,26 @@ class RecentBlogEntries(blocks.StructBlock):
         entries = []
 
         # If only tag_filter is chosen we want to load entries by tag and update the url accordingly
-        if tag and not category:
+        if tag and not topic:
             tag = slugify(tag)
             query = tag
             blog_page.extract_tag_information(tag)
             entries = blog_page.get_entries(context)
 
         '''
-        If category_filter is chosen at all, we want to load entries by category and
+        If topic_filter is chosen at all, we want to load entries by topic and
         update the url accordingly. Once we add validation, we'll be able to remove
-        the prioritization of category and instead notify the user that they must/can
+        the prioritization of topic and instead notify the user that they must/can
         only choose one filter option.
         '''
-        if category and category != "All":
-            type = "category"
-            query = slugify(category)
+        if topic and topic != "All":
+            type = "topic"
+            query = slugify(topic)
             try:
-                # verify this category exists, and set up a filter for it
-                category_object = BlogPageCategory.objects.get(name=category)
-                blog_page.extract_category_information(category_object.slug)
-            except BlogPageCategory.DoesNotExist:
+                # verify this topic exists, and set up a filter for it
+                topic_object = BlogPageTopic.objects.get(name=topic)
+                blog_page.extract_topic_information(topic_object.slug)
+            except BlogPageTopic.DoesNotExist:
                 # do nothing
                 pass
 

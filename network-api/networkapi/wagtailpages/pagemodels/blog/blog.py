@@ -36,7 +36,7 @@ from ...utils import (
 )
 
 from networkapi.wagtailpages.models import Profile
-from .blog_category import BlogPageCategory
+from .blog_topic import BlogPageTopic
 from .blog_index import BlogIndexPage
 
 base_fields = [
@@ -118,11 +118,11 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         block_counts={'typeform': {'max_num': 1}},
     )
 
-    category = ParentalManyToManyField(
-        BlogPageCategory,
-        help_text='Which blog categories is this blog page associated with?',
+    topics = ParentalManyToManyField(
+        BlogPageTopic,
+        help_text='Which blog topics is this blog page associated with?',
         blank=True,
-        verbose_name='Categories',
+        verbose_name='Topics',
     )
 
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
@@ -164,7 +164,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             ],
             heading='Author(s)'
         ),
-        FieldPanel('category'),
+        FieldPanel('topics'),
         MultiFieldPanel(
             [
                 FieldPanel("hero_video"),

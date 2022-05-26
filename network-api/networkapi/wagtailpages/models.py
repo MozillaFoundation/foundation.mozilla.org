@@ -48,8 +48,8 @@ from .pagemodels.blog.blog import (
     BlogPage,
 )
 
-from .pagemodels.blog.blog_category import (
-    BlogPageCategory
+from .pagemodels.blog.blog_topic import (
+    BlogPageTopic
 )
 
 from .pagemodels.blog.blog_index import (
@@ -121,7 +121,7 @@ __all__ = [
     BlogAuthors,
     BlogIndexPage,
     BlogPage,
-    BlogPageCategory,
+    BlogPageTopic,
     BuyersGuidePage,
     CampaignIndexPage,
     CampaignPage,
