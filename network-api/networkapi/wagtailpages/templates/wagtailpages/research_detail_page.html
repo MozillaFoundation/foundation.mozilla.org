@@ -75,8 +75,8 @@
                       </div>
                     {% endif %}
                     <div>
-                      <h4 class="tw-mb-0 tw-text-blue-dark tw-font-semibold tw-text-[22px]">{{ research_author.author_profile.name }}</h4>
-                      <p class="tw-text-gray-60 tw-text-[15px] tw-mb-0">{{ research_author.author_profile.tagline }}</p>
+                      <h4 class="tw-mb-0 tw-text-blue-dark tw-font-semibold tw-heading-5">{{ research_author.author_profile.name }}</h4>
+                      <p class="tw-text-gray-60 tw-text-sm tw-mb-0">{{ research_author.author_profile.tagline }}</p>
                     </div>
                   </div>
                 {% endfor %}
@@ -86,7 +86,7 @@
             {% if page.collaborators %}
               <div class="tw-border-t tw-border-black">
                 <h3 class="tw-my-5">Collaborators</h3>
-                <p class="tw-text-sm">{{ page.collaborators }}</p>
+                <p class="tw-text-xs">{{ page.collaborators }}</p>
               </div>
             {% endif %}
           </div>
