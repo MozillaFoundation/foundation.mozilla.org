@@ -13,8 +13,6 @@ import wagtailmedia.blocks
 
 class Migration(migrations.Migration):
 
-    replaces = [('mozfest', '0006_alter_mozfestprimarypage_body'), ('mozfest', '0007_alter_mozfestprimarypage_body')]
-
     dependencies = [
         ('mozfest', '0005_undo_0004_and_update_labels_instead'),
     ]

@@ -12,7 +12,6 @@ import wagtail.images.blocks
 
 class Migration(migrations.Migration):
 
-    replaces = [('wagtailpages', '0024_rename_blogpagecategory_blogpagetopic'), ('wagtailpages', '0025_update_blogpagetopic_help_text'), ('wagtailpages', '0026_rename_category_blogpage_topics'), ('wagtailpages', '0027_update_topics_helptext'), ('wagtailpages', '0028_rename_categoryfilter_topicfilter')]
 
     dependencies = [
         ('wagtailimages', '0023_add_choose_permissions'),
