@@ -11,7 +11,7 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0027_alter_blogpage_topics'),
+        ('wagtailpages', '0027_update_topics_helptext'),
     ]
 
     operations = [
