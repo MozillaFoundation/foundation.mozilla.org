@@ -15,7 +15,6 @@
           <div class="tw-px-2 first:tw-pl-0 tw-whitespace-nowrap ">{{ page.original_publication_date|date:"DATE_FORMAT" }}</div>
         {% endif %}
         {% if page.get_related_topic_names %}
-          <br/>
           <div class="tw-px-2 first:tw-pl-0 tw-min-w-0 tw-truncate">{{ page.get_related_topic_names|join:' / ' }}</div>
         {% endif %}
       </div>
