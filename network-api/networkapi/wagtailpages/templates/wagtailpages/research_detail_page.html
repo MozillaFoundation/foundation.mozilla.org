@@ -8,10 +8,16 @@
       {% include "wagtailpages/fragments/research_breadcrumb.html" with breadcrumb_list=breadcrumbs %}
     </div>
 
-    <div id="title-and-meta" class="tw-border medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3">
+    <div id="title-and-meta" class="tw-border medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3 tw-min-w-0">
       <h1>{{ page.title }}</h1>
-      <div class="tw-text-gray-80">
-        METADATA
+      <div class="tw-flex tw-flex-row tw-text-xs large:tw-text-base tw-text-gray-80 tw-mb-2 tw-uppercase tw-divide-x tw-divide-gray-20">
+        {% if page.original_publication_date %}
+          <div class="tw-px-2 first:tw-pl-0 tw-whitespace-nowrap ">{{ page.original_publication_date|date:"DATE_FORMAT" }}</div>
+        {% endif %}
+        {% if page.get_related_topic_names %}
+          <br/>
+          <div class="tw-px-2 first:tw-pl-0 tw-min-w-0 tw-truncate">{{ page.get_related_topic_names|join:' / ' }}</div>
+        {% endif %}
       </div>
     </div>
 
