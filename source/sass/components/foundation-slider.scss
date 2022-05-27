@@ -1,7 +1,7 @@
 [data-foundation-carousel] {
   .swiper-button-next,
   .swiper-button-prev {
-    @apply tw-border-2 tw-text-blue tw-flex tw-flex-col tw-justify-center tw-items-center tw-w-[40px] tw-h-[40px] tw-transition;
+    @apply tw-border-2 tw-text-blue-40 tw-flex tw-flex-col tw-justify-center tw-items-center tw-w-[40px] tw-h-[40px] tw-transition;
 
     &.swiper-button-disabled {
       @apply tw-border-gray-20;
@@ -17,7 +17,7 @@
   }
 
   .swiper-button-icon {
-    @apply tw-text-blue tw-w-4 tw-h-4;
+    @apply tw-text-blue-40 tw-w-4 tw-h-4;
   }
 
   .swiper-button-disabled {
@@ -35,7 +35,7 @@
   }
 
   .swiper-pagination-bullet-active {
-    @apply tw-bg-blue-dark;
+    @apply tw-bg-blue-80;
   }
 
   .swiper-hero-pagination {

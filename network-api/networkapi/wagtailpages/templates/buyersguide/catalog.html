@@ -88,7 +88,7 @@
       <div class="tw-w-[98vw] tw-relative tw-left-1/2 tw-ml-[-51vw] large:tw-left-auto large:tw-ml-0 large:tw-static large:tw-w-full">
         <div class="tw-px-4 large:tw-px-0 tw-flex tw-space-x-2 tw-overflow-auto tw-pb-2 tw-no-scrollbar subcategory-header">
           {% for cat in categories %}
-            {% with original=cat.original selected_classes="active tw-bg-gray-80 tw-text-white tw-border-gray-80" default_classes="hover:tw-border-pni-lilac hover:tw-bg-pni-lilac tw-text-gray-60 tw-border-gray-20 tw-bg-white" tailwind_classes="tw-no-underline border tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3] tw-whitespace-nowrap" %}
+            {% with original=cat.original selected_classes="active tw-bg-gray-80 tw-text-white tw-border-gray-80" default_classes="hover:tw-border-blue-10 hover:tw-bg-blue-10 tw-text-gray-60 tw-border-gray-20 tw-bg-white" tailwind_classes="tw-no-underline border tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3] tw-whitespace-nowrap" %}
             {% if cat.parent != None %}
               {% if original.published_product_page_count > 0 %}
                 {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
