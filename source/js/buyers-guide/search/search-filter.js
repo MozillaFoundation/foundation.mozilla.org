@@ -179,8 +179,8 @@ export class SearchFilter {
     ];
 
     const defaultClasses = [
-      "hover:tw-border-pni-lilac",
-      "hover:tw-bg-pni-lilac",
+      "hover:tw-border-blue-10",
+      "hover:tw-bg-blue-10",
       "tw-text-gray-60",
       "tw-border-gray-20",
       "tw-bg-white",
