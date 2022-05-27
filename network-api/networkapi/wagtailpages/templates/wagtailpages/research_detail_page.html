@@ -54,29 +54,16 @@
     </div>
 
     <div id="authors-and-collaborators" class="tw-border medium:tw-col-start-3 medium:tw-col-end-4">
-      {% if page.research_authors %}
+      {% if page.research_authors.all %}
         <div class="tw-border-t tw-border-black">
           <h2 class="tw-h4-heading tw-my-5">Project leads</h2>
-          {% comment %}
-            TODO: Use the research author card component here. The same that is used on the author index.
-          {% for research_author in page.research_authors.all  %}
-            <div class="tw-flex tw-items-center tw-gap-4 tw-mb-5">
-              {% if research_author.author_profile.image %}
-                {% image research_author.author_profile.image fill-77x77 as img %}
-                <div class="tw-min-w-[77px]">
-                  <img src="{{ img.url }}" alt="{{ research_author.author_profile.name }}" class="tw-rounded-full">
-                </div>
-              {% endif %}
-              <div>
-                <h2 class="tw-mb-0 tw-text-blue-dark tw-font-semibold tw-heading-5">{{ research_author.author_profile.name }}</h2>
-                <p class="tw-text-gray-60 tw-text-sm tw-mb-0">{{ research_author.author_profile.tagline }}</p>
-              </div>
-            </div>
-          {% endfor %}
-          {% endcomment %}
-          {% for research_author in page.research_authors.all  %}
-            {% include "wagtailpages/fragments/research_author_card.html" with authors_index=authors_index author_profile=research_author.author_profile tight=True %}
-          {% endfor %}
+          <ul class="tw-p-0 tw-list-none">
+            {% for research_author in page.research_authors.all  %}
+              <li class="tw-mb-5">
+                {% include "wagtailpages/fragments/research_author_card.html" with authors_index=authors_index author_profile=research_author.author_profile tight=True %}
+              </li>
+            {% endfor %}
+          </ul>
         </div>
       {% endif %}
 
