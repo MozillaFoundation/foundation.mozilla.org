@@ -2,21 +2,25 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block research_hub_content %}
-  <div class="tw-grid tw-grid-cols-1 tw-gap-7">
-    <div class="tw-border">
+  <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-[12rem_1fr_14rem] large:tw-grid-cols-[14rem_1fr_16rem] xlarge:tw-grid-cols-[14rem_1fr_16rem] tw-gap-5">
+
+    <div id="breadcrumbs-container" class="tw-border medium:tw-col-start-2 medium:tw-col-end-4">
       {% include "wagtailpages/fragments/research_breadcrumb.html" with breadcrumb_list=breadcrumbs %}
     </div>
-    <div class="tw-border">
+
+    <div id="title-and-meta" class="tw-border medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3">
       <h1>{{ page.title }}</h1>
       <div class="tw-text-gray-80">
         METADATA
       </div>
     </div>
-    <div class="tw-border">
+
+    <div id="cover-image-container" class="tw-border medium:tw-col-start-1 medium:tw-row-start-2 medium:tw-row-end-4">
       {% image page.cover_image fill-259x344 as img %}
       <img src="{{ img.url }}" alt="{{ img.title }}" class="tw-w-full tw-h-auto">
     </div>
-    <div class="tw-border">
+
+    <div id="intro-and-links" class="tw-border medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3">
       {% if page.introduction %}
         <p class="tw-font-light tw-text-xl tw-mb-5">{{ page.introduction }}</p>
       {% endif %}
@@ -31,7 +35,8 @@
         </div>
       {% endif %}
     </div>
-    <div class="tw-border">
+
+    <div id="overview" class="tw-border medium:tw-col-start-1 xlarge:tw-col-start-2 medium:tw-col-end-3">
       {% if page.overview %}
         <div class="tw-border-t tw-border-black">
           <h3 class="tw-my-5">Overview</h3>
@@ -41,7 +46,8 @@
         </div>
       {% endif %}
     </div>
-    <div class="tw-border">
+
+    <div id="authors-and-collaborators" class="tw-border medium:tw-col-start-3 medium:tw-col-end-4">
       {% if page.research_authors %}
         <div class="tw-border-t tw-border-black">
           <h4 class="tw-my-5">Project leads</h4>
