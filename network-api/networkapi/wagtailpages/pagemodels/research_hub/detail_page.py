@@ -161,3 +161,6 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
             rt.research_topic.name
             for rt in self.related_topics.all()
         ]
+
+    def get_banner(self):
+        return self.get_parent().specific.get_banner()
