@@ -75,7 +75,7 @@
           {% endfor %}
           {% endcomment %}
           {% for research_author in page.research_authors.all  %}
-            {% include "wagtailpages/fragments/research_author_card.html" with authors_index=authors_index author_profile=research_author.author_profile %}
+            {% include "wagtailpages/fragments/research_author_card.html" with authors_index=authors_index author_profile=research_author.author_profile tight=True %}
           {% endfor %}
         </div>
       {% endif %}
