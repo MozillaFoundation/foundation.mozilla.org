@@ -8,8 +8,6 @@ from wagtail import images as wagtail_images
 from wagtail.admin import edit_handlers as panels
 from wagtail.images import edit_handlers as image_panels
 from wagtail.core import models as wagtail_models
-from wagtail import images as wagtail_images
-from wagtail.images.edit_handlers import ImageChooserPanel
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
