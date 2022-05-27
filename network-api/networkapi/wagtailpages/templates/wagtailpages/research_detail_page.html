@@ -59,7 +59,6 @@
           <h2 class="tw-h4-heading tw-my-5">Project leads</h2>
           {% comment %}
             TODO: Use the research author card component here. The same that is used on the author index.
-          {% endcomment %}
           {% for research_author in page.research_authors.all  %}
             <div class="tw-flex tw-items-center tw-gap-4 tw-mb-5">
               {% if research_author.author_profile.image %}
@@ -73,6 +72,10 @@
                 <p class="tw-text-gray-60 tw-text-sm tw-mb-0">{{ research_author.author_profile.tagline }}</p>
               </div>
             </div>
+          {% endfor %}
+          {% endcomment %}
+          {% for research_author in page.research_authors.all  %}
+            {% include "wagtailpages/fragments/research_author_card.html" with authors_index=authors_index author_profile=research_author.author_profile %}
           {% endfor %}
         </div>
       {% endif %}

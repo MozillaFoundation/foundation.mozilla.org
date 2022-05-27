@@ -13,7 +13,7 @@
     <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-6 tw-gap-5 tw-gap-y-7 tw-list-none tw-p-0">
       {% for author_profile in author_profiles %}
         <li class="tw-flex tw-m-0">
-          {% include "wagtailpages/fragments/research_author_card.html" with author_profile=author_profile %}
+          {% include "wagtailpages/fragments/research_author_card.html" with authors_index=page author_profile=author_profile %}
         </li>
       {% endfor %}
     </ul>
