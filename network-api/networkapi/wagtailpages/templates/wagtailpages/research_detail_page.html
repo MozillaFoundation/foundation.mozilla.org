@@ -28,13 +28,13 @@
 
     <div id="intro-and-links" class="tw-border medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3">
       {% if page.introduction %}
-        <p class="tw-font-light tw-text-xl tw-mb-5">{{ page.introduction }}</p>
+        <p class="tw-font-light tw-text-lg large:tw-text-xl tw-mb-5">{{ page.introduction }}</p>
       {% endif %}
 
       {% if page.research_links %}
-        <div>
+        <div class="tw-flex tw-flex-col medium:tw-flex-row tw-gap-3">
           {% for research_link in page.research_links.all %}
-            <a href="{{ research_link.get_url }}" class="{% if forloop.first %}tw-btn-primary{% else %}tw-btn-secondary{% endif %}">
+            <a href="{{ research_link.get_url }}" class="tw-justify-center {% if forloop.first %} tw-btn-primary {% else %} tw-btn-secondary {% endif %}">
               {{ research_link.label }}
             </a>
           {% endfor %}
