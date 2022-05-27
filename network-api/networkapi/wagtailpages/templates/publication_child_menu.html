@@ -21,7 +21,7 @@
             <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-6">
             {% for grandchild_page in child_page.get_children.specific %}
                 <div class="tw-flex tw-py-3 tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-items-center">
-                <a class="tw-whitespace-normal  tw-text-black hover:tw-no-underline hover:tw-text-blue-dark tw-flex tw-items-center tw-mr-3" href="{{ child_page.url }}">
+                <a class="tw-whitespace-normal  tw-text-black hover:tw-no-underline hover:tw-text-blue-80 tw-flex tw-items-center tw-mr-3" href="{{ child_page.url }}">
                     <img class="tw-w-7 tw-h-7 tw-bg-cover tw-mr-4 tw-shrink-0"
                         {% with toc_image=grandchild_page.toc_thumbnail_image %}
                         {% if toc_image %}
@@ -55,7 +55,7 @@
                 <div class="article-child-menu tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{grandchild_page.title}}">
                     {% for slug, header in grandchild_page.get_page_titles %}
                     <div class="tw-flex tw-py-3 tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-items-center tw-bg-gray-05">
-                        <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-dark tw-flex tw-items-center" href="{{ grandchild_page.url }}#{{ slug }}">
+                        <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-80 tw-flex tw-items-center" href="{{ grandchild_page.url }}#{{ slug }}">
                         {{ header }}
                         </a>
                     </div>
