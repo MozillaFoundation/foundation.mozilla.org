@@ -2,7 +2,7 @@
  * Adding play/pause functionality to the optional custom hero video.
  */
 
-export default function customHeroHeroVideoHandler() {
+export default function customHeroVideoHandler() {
   const customPageHero = document.querySelector("#custom-hero");
 
   if (!customPageHero) {
