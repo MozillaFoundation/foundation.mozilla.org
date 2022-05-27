@@ -4,11 +4,11 @@
 {% block research_hub_content %}
   <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-[12rem_1fr_14rem] large:tw-grid-cols-[14rem_1fr_16rem] xlarge:tw-grid-cols-[14rem_1fr_16rem] tw-gap-5">
 
-    <div id="breadcrumbs-container" class="tw-border medium:tw-col-start-2 medium:tw-col-end-4">
+    <div id="breadcrumbs-container" class="medium:tw-col-start-2 medium:tw-col-end-4">
       {% include "wagtailpages/fragments/research_breadcrumb.html" with breadcrumb_list=breadcrumbs %}
     </div>
 
-    <div id="title-and-meta" class="tw-border medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3 tw-min-w-0">
+    <div id="title-and-meta" class="medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3 tw-min-w-0">
       <h1>{{ page.title }}</h1>
       <div class="tw-flex tw-flex-row tw-text-xs large:tw-text-base tw-text-gray-80 tw-mb-2 tw-uppercase tw-divide-x tw-divide-gray-20">
         {% if page.original_publication_date %}
@@ -21,12 +21,12 @@
       </div>
     </div>
 
-    <div id="cover-image-container" class="tw-border medium:tw-col-start-1 medium:tw-row-start-2 medium:tw-row-end-4">
+    <div id="cover-image-container" class="medium:tw-col-start-1 medium:tw-row-start-2 medium:tw-row-end-4">
       {% image page.cover_image fill-259x344 as img %}
       <img src="{{ img.url }}" alt="{{ img.title }}" class="tw-w-full tw-h-auto">
     </div>
 
-    <div id="intro-and-links" class="tw-border medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3">
+    <div id="intro-and-links" class="medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3">
       {% if page.introduction %}
         <p class="tw-font-light tw-text-lg large:tw-text-xl tw-mb-5">{{ page.introduction }}</p>
       {% endif %}
@@ -42,7 +42,7 @@
       {% endif %}
     </div>
 
-    <div id="overview" class="tw-border medium:tw-col-start-1 xlarge:tw-col-start-2 medium:tw-col-end-3">
+    <div id="overview" class="medium:tw-col-start-1 xlarge:tw-col-start-2 medium:tw-col-end-3 tw-mt-5 medium:tw-mt-7">
       {% if page.overview %}
         <div class="tw-border-t tw-border-black">
           <h2 class="tw-h3-heading tw-my-5">Overview</h2>
@@ -53,7 +53,7 @@
       {% endif %}
     </div>
 
-    <div id="authors-and-collaborators" class="tw-border medium:tw-col-start-3 medium:tw-col-end-4">
+    <div id="authors-and-collaborators" class="medium:tw-col-start-3 medium:tw-col-end-4 tw-mt-5 medium:tw-mt-7">
       {% if page.research_authors.all %}
         <div class="tw-border-t tw-border-black">
           <h2 class="tw-h4-heading tw-my-5">Project leads</h2>
@@ -68,7 +68,7 @@
       {% endif %}
 
       {% if page.collaborators %}
-        <div class="tw-border-t tw-border-black">
+        <div class="tw-border-t tw-border-black tw-mt-7">
           <h2 class="tw-h4-heading tw-my-5">Collaborators</h2>
           <p class="tw-text-sm large:tw-text-base">{{ page.collaborators }}</p>
         </div>
