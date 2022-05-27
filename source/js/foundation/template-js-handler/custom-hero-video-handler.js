@@ -1,8 +1,8 @@
 /**
- * Adding play/pause functionality to the optional Publication/Article Page hero video section.
+ * Adding play/pause functionality to the optional custom hero video.
  */
 
-export default function publicationArticleHeroVideoHandler() {
+export default function customHeroHeroVideoHandler() {
   const customPageHero = document.querySelector("#custom-hero");
 
   if (!customPageHero) {

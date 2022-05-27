@@ -1,3 +1,4 @@
+
 {% load static i18n wagtailimages_tags homepage_tags%}
 
 {% image page.hero_image fill-1400x675 as bg_img %}
@@ -5,8 +6,6 @@
 {% with control_btn_classes="ml-auto tw-opacity-80 hover:tw-opacity-100 tw-hidden" full_screen_content_classes="tw-absolute tw-min-w-full tw-min-h-full tw-max-w-none tw-top-0" two_col_content_classes="tw-h-full tw-w-full tw-object-center tw-object-cover" %}
 
 {% comment %}
-
-  This template will be rendered if the user selects to customize the header on either a Publication or a Article page.
 
   We are using inline styling to update the hero sections background color as this is selected by the user on the cms,
   and tailwind would not pick it up in time to render correctly if we did it through a tw-class.
