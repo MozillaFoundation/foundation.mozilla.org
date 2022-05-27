@@ -199,10 +199,10 @@ class BlogIndexPage(IndexPage):
 
         # We can't use .filter for @property fields,
         # so we have to run through all topics =(
-        for bpc in english_topics:
+        for blog_page_topic in english_topics:
 
-            if bpc.slug == topic_slug:
-                topic_object = bpc
+            if blog_page_topic.slug == topic_slug:
+                topic_object = blog_page_topic
                 break
         else:
             topic_object = None
