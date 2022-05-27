@@ -121,19 +121,23 @@
           </ul>
         </fieldset>
       </div>
-      <div class="tw-pt-4 tw-pb-7 tw-border-t">
-        <fieldset>
-          <legend><h3 class="tw-h4-heading">{% translate 'Authors' %}</h3></legend>
-          <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if author_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
-            {% for author in author_options|dictsort:"name" %}
-              <li class="tw-flex tw-flex-row tw-items-baseline">
-                <input type="checkbox" value="{{ author.id }}" name="author" id="author-option-{{ author.id }}" {% if author.id in filtered_author_ids %}checked{% endif %} form="search-form" class="rh-checkbox" />
-                <label for="author-option-{{ author.id }}">{{ author.name }}</label>
-              </li>
-            {% endfor %}
-        </fieldset>
-          </ul>
-      </div>
+
+      {% if author_options %}
+        <div class="tw-pt-4 tw-pb-7 tw-border-t">
+          <fieldset>
+            <legend><h3 class="tw-h4-heading">{% translate 'Authors' %}</h3></legend>
+            <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if author_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
+              {% for author in author_options|dictsort:"name" %}
+                <li class="tw-flex tw-flex-row tw-items-baseline">
+                  <input type="checkbox" value="{{ author.id }}" name="author" id="author-option-{{ author.id }}" {% if author.id in filtered_author_ids %}checked{% endif %} form="search-form" class="rh-checkbox" />
+                  <label for="author-option-{{ author.id }}">{{ author.name }}</label>
+                </li>
+              {% endfor %}
+            </ul>
+          </fieldset>
+        </div>
+      {% endif %}
+
       <div class="tw-pt-4 tw-pb-7 tw-border-t">
         <fieldset>
           <legend><h3 class="tw-h4-heading">{% translate 'Regions' %}</h3></legend>
