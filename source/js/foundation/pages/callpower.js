@@ -11,7 +11,7 @@ import copyToClipboard from "../../copy-to-clipboard.js";
   const RATE_LIMIT_ERROR = 429;
 
   // Form field coloring
-  const INVALID_FORM_FIELD = `tw-border-red-dark`;
+  const INVALID_FORM_FIELD = `tw-border-red-80`;
   const VALID_FORM_BORDER = `tw-border-gray-20`;
 
   // all the elements we'll need to work with.

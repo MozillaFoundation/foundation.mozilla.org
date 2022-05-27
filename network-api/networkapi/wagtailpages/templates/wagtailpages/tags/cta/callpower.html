@@ -10,15 +10,15 @@
 
       <input type="text" name="userPhone" placeholder="{% trans "Your phone number" %}" class="{{ inputclass }}"
         data-pattern="^\d{10}$" aria-label="{% trans "Please enter a ten digit US phone number" %}">
-      <p class="tw-body-small tw-text-red-dark tw-hidden">{% trans "Please enter a ten digit US phone number" %}</p>
+      <p class="tw-body-small tw-text-red-80 tw-hidden">{% trans "Please enter a ten digit US phone number" %}</p>
 
       <input type="text" name="userZipCode" placeholder="{% trans "Your zipcode" %}" class="{{ inputclass }}"
       data-pattern="^\d{5}$" aria-label="{% trans "Please enter a five digit US zip code" %}">
-      <p class="tw-body-small tw-text-red-dark tw-hidden">{% trans "Please enter a five digit US zip code" %}</p>
+      <p class="tw-body-small tw-text-red-80 tw-hidden">{% trans "Please enter a five digit US zip code" %}</p>
 
       {% endwith %}
     </div>
-    <p class="tw-text-red-dark error-400 tw-hidden tw-mt-5">
+    <p class="tw-text-red-80 error-400 tw-hidden tw-mt-5">
       {% trans "We’re sorry, we can’t call that number. Please check that it is the right number, or try a different one." %}
     </p>
     <button class="make-the-call btn btn-primary tw-w-full tw-mt-5" disabled>{{ cta.call_button_label }}</button>

@@ -30,7 +30,7 @@
                 </div>
                 <div class="d-flex align-items-center">
                   <h3 class="tw-font-sans tw-text-base tw-leading-5 tw-font-normal my-0">
-                    <a href="{{ child.url }}" class="d-block tw-text-black hover:tw-no-underline hover:tw-text-blue-dark">
+                    <a href="{{ child.url }}" class="d-block tw-text-black hover:tw-no-underline hover:tw-text-blue-80">
                       {{ child.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
                     </a>
                   </h3>
@@ -75,7 +75,7 @@
                 <div class="article-child-menu row tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{child.title}}">
                     {% for slug, header in child.get_page_titles %}
                       <div class="tw-flex tw-py-3 tw-px-4 medium:tw-px-4 tw-items-center tw-bg-gray-05 tw-w-full tw-min-h-[80px]">
-                          <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-dark tw-flex tw-items-center" href="{{ child.url }}#{{ slug }}">
+                          <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-80 tw-flex tw-items-center" href="{{ child.url }}#{{ slug }}">
                           {{ header }}
                           </a>
                       </div>

@@ -16,13 +16,13 @@
       @apply tw-text-white;
 
       a {
-        @apply tw-text-blue-light;
+        @apply tw-text-blue-20;
       }
 
       a:hover,
       a:focus,
       a:active {
-        @apply tw-text-blue-light tw-underline;
+        @apply tw-text-blue-20 tw-underline;
       }
     }
     @include set-text-size(18px, 27px, 24px, 34px);

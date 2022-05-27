@@ -1,7 +1,10 @@
 from django import http, shortcuts
+from django.db import models
 from django.utils import text as text_utils
+from wagtail import images as wagtail_images
 from wagtail.core import models as wagtail_models
 from wagtail.contrib.routable_page import models as routable_models
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles
@@ -16,6 +19,21 @@ class ResearchAuthorsIndexPage(
 ):
     max_count = 1
     parent_page_types = ['ResearchLandingPage']
+
+    banner_image = models.ForeignKey(
+        wagtail_images.get_image_model_string(),
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        help_text=(
+            'The image to be used as the banner background image for '
+            'the author index and all author detail pages.'
+        ),
+    )
+
+    content_panels = wagtail_models.Page.content_panels + [
+        ImageChooserPanel('banner_image'),
+    ]
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -98,3 +116,6 @@ class ResearchAuthorsIndexPage(
             locale=wagtail_models.Locale.get_active()
         )
         return author_research
+
+    def get_banner(self):
+        return self.banner_image

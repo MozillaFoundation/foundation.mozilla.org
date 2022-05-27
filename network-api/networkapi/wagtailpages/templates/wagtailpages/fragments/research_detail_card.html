@@ -16,7 +16,7 @@
   Otherwise the metadata will be at full width and driving this elements width.
   -->
   <div class="tw-min-w-0">
-    <h{% firstof heading_level '2' %} class="tw-h5-heading tw-text-blue-dark tw-mb-2"><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h{% firstof heading_level '2' %}>
+    <h{% firstof heading_level '2' %} class="tw-h5-heading tw-text-blue-80 tw-mb-2"><a href="{% pageurl research_detail_page  %}">{{ research_detail_page.title}}</a></h{% firstof heading_level '2' %}>
     <div class="tw-flex tw-flex-row tw-text-xs tw-text-gray-80 tw-mb-2 tw-uppercase tw-divide-x tw-divide-gray-20">
       {% if research_detail_page.original_publication_date %}
         <div class="tw-px-2 first:tw-pl-0 tw-whitespace-nowrap ">{{ research_detail_page.original_publication_date|date:"DATE_FORMAT" }}</div>
