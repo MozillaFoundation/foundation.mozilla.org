@@ -4,6 +4,7 @@ from typing import Optional
 from django.core import paginator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext_lazy
 from wagtail import images as wagtail_images
 from wagtail.admin import edit_handlers as panels
 from wagtail.images import edit_handlers as image_panels
@@ -168,15 +169,25 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         ]
 
     def _get_year_options(self):
-        return [
-            date.year
-            for date
-            in detail_page.ResearchDetailPage.objects.dates(
-                'original_publication_date',
-                'year',
-                order='DESC',
-            )
+        dates = detail_page.ResearchDetailPage.objects.dates(
+            'original_publication_date',
+            'year',
+            order='DESC',
+        )
+        year_options = [
+            {
+                'id': date.year,
+                'value': date.year,
+                'label': date.year,
+            }
+            for date in dates
         ]
+        empty_option = {
+            'id': 'any',
+            'value': '',
+            'label': pgettext_lazy('Option in a list of years', 'Any'),
+        }
+        return [empty_option] + year_options
 
     def _get_research_detail_pages(
         self,

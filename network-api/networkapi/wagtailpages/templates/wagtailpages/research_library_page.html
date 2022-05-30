@@ -97,23 +97,8 @@
       {% endif %}
 
       {% if year_options %}
-        <div class="tw-pt-4 tw-pb-7 tw-border-t">
-          <fieldset>
-            <legend><h3 class="tw-h4-heading">{% translate 'Publication date' %}</h3></legend>
-            <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if year_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
-              <li class="tw-flex tw-flex-row tw-items-baseline">
-                <input type="radio" value="" name="year" id="year-option-all" {% if not filtered_year %}checked{% endif %} form="search-form" class="rh-radio" />
-                <label for="year-option-all">{% translate 'Any' context 'Option in a radio button list of years' %}</label>
-              </li>
-              {% for year in year_options %}
-                <li class="tw-flex tw-flex-row tw-items-baseline">
-                  <input type="radio" value="{{ year }}" name="year" id="year-option-{{ year }}" {% if year == filtered_year %}checked{% endif %} form="search-form" class="rh-radio" />
-                  <label for="year-option-{{ year }}">{{ year }}</label>
-                </li>
-              {% endfor %}
-            </ul>
-          </fieldset>
-        </div>
+        {% translate 'Publication date' as heading %}
+        {% include "wagtailpages/fragments/research_filter_group.html" with heading=heading radio=True options=year_options checked_option_value=filtered_year field_name='year' %}
       {% endif %}
 
       {% if author_options %}
