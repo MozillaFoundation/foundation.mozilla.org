@@ -1,9 +1,9 @@
 input[type="checkbox"].rh-checkbox {
-  @apply tw-form-checkbox tw-relative tw-top-[3px] tw-mr-3 tw-w-[20px] tw-h-[20px] tw-border tw-border-gray-60 checked:tw-bg-blue-40 focus:checked:tw-bg-blue-40 focus:tw-outline-blue-40;
+  @apply tw-form-checkbox tw-relative tw-top-[3px] tw-ml-1 tw-mr-3 tw-scroll-m-1 tw-w-[20px] tw-h-[20px] tw-border tw-border-gray-60 checked:tw-bg-blue-40 focus:checked:tw-bg-blue-40 focus:tw-outline-blue-40;
 }
 
 input[type="radio"].rh-radio {
-  @apply tw-form-radio tw-relative tw-top-[4px] tw-mr-3 tw-w-[20px] tw-h-[20px] tw-border tw-border-gray-60 checked:tw-bg-blue-40 focus:checked:tw-bg-blue-40 focus:tw-outline-blue-40;
+  @apply tw-form-radio tw-relative tw-top-[4px] tw-ml-1 tw-mr-3 tw-scroll-m-1 tw-w-[20px] tw-h-[20px] tw-border tw-border-gray-60 checked:tw-bg-blue-40 focus:checked:tw-bg-blue-40 focus:tw-outline-blue-40;
 }
 
 .rh-filter-modal {
