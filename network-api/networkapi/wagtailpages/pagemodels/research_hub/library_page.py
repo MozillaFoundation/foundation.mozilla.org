@@ -143,7 +143,6 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
             for author_profile in author_profiles
         ]
 
-
     def _get_topic_options(self):
         topics = taxonomies.ResearchTopic.objects.all()
         topics = utils.localize_queryset(topics)
