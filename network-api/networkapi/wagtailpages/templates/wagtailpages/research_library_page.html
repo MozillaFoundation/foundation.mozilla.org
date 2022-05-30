@@ -91,19 +91,23 @@
       <div>
         <h2 class="large:tw-hidden tw-h1-heading">{% translate 'Filter' %}</h2>
       </div>
-      <div class="tw-pt-4 tw-pb-7 tw-border-t">
-        <fieldset>
-          <legend><h3 class="tw-h4-heading">{% translate 'Topics' %}</h3></legend>
-          <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if topic_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
-            {% for topic in topic_options|dictsort:"name" %}
-              <li class="tw-flex tw-flex-row tw-items-baseline">
-                <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form" class="rh-checkbox" />
-                <label for="topic-option-{{ topic.id }}" >{{ topic.name }}</label>
-              </li>
-            {% endfor %}
-          </ul>
-        </fieldset>
-      </div>
+
+      {% if topic_options %}
+        <div class="tw-pt-4 tw-pb-7 tw-border-t">
+          <fieldset>
+            <legend><h3 class="tw-h4-heading">{% translate 'Topics' %}</h3></legend>
+            <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if topic_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
+              {% for topic in topic_options|dictsort:"name" %}
+                <li class="tw-flex tw-flex-row tw-items-baseline">
+                  <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form" class="rh-checkbox" />
+                  <label for="topic-option-{{ topic.id }}" >{{ topic.name }}</label>
+                </li>
+              {% endfor %}
+            </ul>
+          </fieldset>
+        </div>
+      {% endif %}
+
       <div class="tw-pt-4 tw-pb-7 tw-border-t">
         <fieldset>
           <legend><h3 class="tw-h4-heading">{% translate 'Publication date' %}</h3></legend>
