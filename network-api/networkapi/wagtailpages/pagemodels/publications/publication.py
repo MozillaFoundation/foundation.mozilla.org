@@ -1,13 +1,18 @@
 from django.db import models
+from django import forms
 
 from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField
+from wagtail_color_panel.fields import ColorField
+
 from wagtail.core.models import Orderable, Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail_color_panel.edit_handlers import NativeColorPanel
+
 
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -67,15 +72,65 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         related_name='publication_hero_image',
         verbose_name='Publication Hero Image',
     )
+
+    hero_video = models.CharField(
+        blank=True,
+        max_length=500,
+        help_text='Log into Vimeo using 1Password '
+                  'and upload the desired video. '
+                  'Then select the video and '
+                  'click "Advanced", "Distribution", '
+                  'and "Video File Links". Copy and paste the link here.'
+    )
+
+    HERO_CONTENT_IMAGE = 'image'
+    HERO_CONTENT_VIDEO = 'video'
+
+    displayed_hero_content = models.CharField(
+        max_length=25,
+        choices=[
+            (HERO_CONTENT_IMAGE, 'Image'),
+            (HERO_CONTENT_VIDEO, 'Video'),
+        ],
+        default=HERO_CONTENT_IMAGE
+    )
+
+    hero_background_color = ColorField(
+        default='#ffffff',
+        help_text='Please check your chosen background color with '
+                  'https://webaim.org/resources/contrastchecker/ to see if your text and background '
+                  'color pass accessibility standards. If your text is black '
+                  'enter #000000 in the Foreground Color box and #FFFFFF if '
+                  'your text is white. After you have selected your background color, '
+                  'please contact the design team for a design review!'
+    )
+
+    HERO_TEXT_COLOR_DARK = "black"
+    HERO_TEXT_COLOR_LIGHT = "white"
+
+    hero_text_color = models.CharField(
+        max_length=25,
+        choices=[
+            (HERO_TEXT_COLOR_DARK, 'Black'),
+            (HERO_TEXT_COLOR_LIGHT, 'White'),
+        ],
+        default=HERO_TEXT_COLOR_DARK,
+        help_text='For proper contrast, we recommend using “White” for dark background colors, '
+                  'and “Black” for light background colors.'
+    )
+
     subtitle = models.CharField(
         blank=True,
         max_length=250,
     )
+
     secondary_subtitle = models.CharField(
         blank=True,
         max_length=250,
     )
+
     publication_date = models.DateField("Publication date", null=True, blank=True)
+
     publication_file = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
@@ -83,35 +138,99 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+',
     )
+
+    HERO_LAYOUT_FULL_SCREEN = 'full_screen'
+    HERO_LAYOUT_IMAGE_LEFT = 'image_left'
+    HERO_LAYOUT_IMAGE_RIGHT = 'image_right'
+    HERO_LAYOUT_STATIC = 'static'
+
+    hero_layout = models.CharField(
+        max_length=25,
+        choices=[
+            (HERO_LAYOUT_FULL_SCREEN, 'Full Screen'),
+            (HERO_LAYOUT_IMAGE_LEFT, 'Image Left'),
+            (HERO_LAYOUT_IMAGE_RIGHT, 'Image Right'),
+            (HERO_LAYOUT_STATIC, 'Static'),
+        ],
+        default=HERO_LAYOUT_STATIC,
+    )
+
+    HERO_BTN_STYLE_PRIMARY = 'primary'
+    HERO_BTN_STYLE_SECONDARY = 'secondary'
+    HERO_BTN_STYLE_TERTIARY = 'tertiary'
+
+    download_button_style = models.CharField(
+        max_length=25,
+        choices=[
+            (HERO_BTN_STYLE_PRIMARY, 'Primary'),
+            (HERO_BTN_STYLE_SECONDARY, 'Secondary'),
+            (HERO_BTN_STYLE_TERTIARY, 'Tertiary'),
+        ],
+        default=HERO_BTN_STYLE_PRIMARY,
+    )
+
+    # Since wagtail cannot save SVG files as images,
+    # we are instead uploading them as a document.
+    download_button_icon = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Custom Icon for download button, please use https://feathericons.com"
+    )
+
+    show_authors = models.BooleanField(
+        default=True,
+        help_text="Display authors in the hero section"
+    )
+
     additional_author_copy = models.CharField(
         help_text="Example: with contributing authors",
         max_length=100,
         blank=True,
     )
+
     intro_notes = RichTextField(
         blank=True,
         features=base_rich_text_options + ['h4']
     )
+
     notes = RichTextField(
         blank=True,
         features=base_rich_text_options + ['h4', 'ol', 'ul']
     )
+
     contents_title = models.CharField(
         blank=True,
         default="Table of Contents",
         max_length=250,
     )
+
     content_panels = Page.content_panels + [
+
+        MultiFieldPanel([
+            InlinePanel("authors", label="Author", min_num=0)
+        ], heading="Author(s)"),
+        MultiFieldPanel([
+            ImageChooserPanel("toc_thumbnail_image")
+        ], heading="Table of Content Thumbnail"),
         MultiFieldPanel(
             [
+                FieldPanel('hero_layout', widget=forms.RadioSelect),
+                FieldPanel('show_authors'),
+                FieldPanel('additional_author_copy'),
+                ImageChooserPanel('hero_image'),
+                FieldPanel('hero_video'),
+                FieldPanel('displayed_hero_content', widget=forms.RadioSelect),
+                NativeColorPanel('hero_background_color'),
+                FieldPanel('hero_text_color', widget=forms.RadioSelect),
                 FieldPanel('subtitle'),
                 FieldPanel('secondary_subtitle'),
                 FieldPanel('publication_date'),
-                ImageChooserPanel('toc_thumbnail_image'),
-                ImageChooserPanel('hero_image'),
-                DocumentChooserPanel('publication_file'),
-                InlinePanel('authors', label='Author'),
-                FieldPanel('additional_author_copy'),
+                FieldPanel('download_button_style', widget=forms.RadioSelect),
+                DocumentChooserPanel('download_button_icon'),
+                DocumentChooserPanel('publication_file', heading="Download button file"),
             ],
             heading='Hero',
         ),

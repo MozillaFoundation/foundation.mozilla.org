@@ -22,7 +22,7 @@
 </noscript>
 
 {% if page.hero_layout != "static" %}
-  {% include "./fragments/article_hero.html" with page=page download_file=page.article_file is_publication_article=page.is_publication_article %}
+  {% include "./fragments/custom_hero.html" with page=page download_file=page.article_file is_publication_article=page.is_publication_article %}
 {% else %}
   {% include "./fragments/publication_hero.html" with size="small" download_file=page.article_file is_publication_article=page.is_publication_article %}
 {% endif %}
