@@ -46,18 +46,6 @@
   }
 }
 
-.heart-glyph {
-  @include composite-glyph("heart");
-  @include hover-glyph("heart-hover");
-  &::before {
-    width: 19px;
-    height: 16px;
-    margin-right: 6px;
-    position: relative;
-    top: 2px;
-  }
-}
-
 .donate {
   @include composite-glyph("donate");
 }
