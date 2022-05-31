@@ -367,26 +367,28 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
         self.assertEqual(default_sort_detail_pages, newest_first_detail_pages)
 
-    def test_research_author_profile_in_context(self):
+    def test_research_author_profile_in_options(self):
         detail_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
 
         response = self.client.get(self.library_page.url)
 
+        author_option_values = [i['value'] for i in response.context['author_options']]
         self.assertIn(
-            detail_page.research_authors.first().author_profile,
-            response.context['author_options'],
+            detail_page.research_authors.first().author_profile.id,
+            author_option_values,
         )
 
-    def test_non_research_author_profile_not_in_context(self):
+    def test_non_research_author_profile_not_in_options(self):
         profile = profiles_factory.ProfileFactory()
 
         response = self.client.get(self.library_page.url)
 
+        author_option_values = [i['value'] for i in response.context['author_options']]
         self.assertNotIn(
-            profile,
-            response.context['author_options'],
+            profile.id,
+            author_option_values,
         )
 
     def test_research_author_in_context_aliased_detail_page_fr(self):
@@ -404,9 +406,10 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         response = self.client.get(self.library_page.localized.url)
 
+        author_option_values = [i['value'] for i in response.context['author_options']]
         self.assertIn(
-            profile_en,
-            response.context['author_options'],
+            profile_en.id,
+            author_option_values,
         )
 
     def test_research_author_in_context_translated_detail_page_fr(self):
@@ -426,13 +429,14 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         response = self.client.get(self.library_page.localized.url)
 
+        author_option_values = [i['value'] for i in response.context['author_options']]
         self.assertNotIn(
-            profile_en,
-            response.context['author_options'],
+            profile_en.id,
+            author_option_values,
         )
         self.assertIn(
-            profile_fr,
-            response.context['author_options'],
+            profile_fr.id,
+            author_option_values,
         )
 
     def test_filter_author_profile(self):
@@ -522,18 +526,18 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
 
-    def test_research_topics_in_context(self):
+    def test_research_topics_in_options(self):
         topic_1 = research_factory.ResearchTopicFactory()
         topic_2 = research_factory.ResearchTopicFactory()
 
         response = self.client.get(self.library_page.url)
 
-        topic_options = response.context['topic_options']
-        self.assertEqual(len(topic_options), 2)
-        self.assertIn(topic_1, topic_options)
-        self.assertIn(topic_2, topic_options)
+        topic_option_values = [i['value'] for i in response.context['topic_options']]
+        self.assertEqual(len(topic_option_values), 2)
+        self.assertIn(topic_1.id, topic_option_values)
+        self.assertIn(topic_2.id, topic_option_values)
 
-    def test_topic_in_context_matches_active_locale(self):
+    def test_topic_in_options_matches_active_locale(self):
         topic_en = research_factory.ResearchTopicFactory()
         topic_fr = topic_en.copy_for_translation(self.fr_locale)
         topic_fr.save()
@@ -542,14 +546,18 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         translation.activate(self.fr_locale.language_code)
         response_fr = self.client.get(self.library_page.localized.url)
 
-        topic_options_en = response_en.context['topic_options']
-        self.assertEqual(len(topic_options_en), 1)
-        self.assertIn(topic_en, topic_options_en)
-        self.assertNotIn(topic_fr, topic_options_en)
-        topic_options_fr = response_fr.context['topic_options']
-        self.assertEqual(len(topic_options_fr), 1)
-        self.assertNotIn(topic_en, topic_options_fr)
-        self.assertIn(topic_fr, topic_options_fr)
+        topic_option_values_en = [
+            i['value'] for i in response_en.context['topic_options']
+        ]
+        self.assertEqual(len(topic_option_values_en), 1)
+        self.assertIn(topic_en.id, topic_option_values_en)
+        self.assertNotIn(topic_fr.id, topic_option_values_en)
+        topic_option_values_fr = [
+            i['value'] for i in response_fr.context['topic_options']
+        ]
+        self.assertEqual(len(topic_option_values_fr), 1)
+        self.assertNotIn(topic_en.id, topic_option_values_fr)
+        self.assertIn(topic_fr.id, topic_option_values_fr)
 
     def test_localized_topic_options(self):
         '''
@@ -567,11 +575,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         response = self.client.get(self.library_page.localized.url)
 
-        topic_options = response.context['topic_options']
-        self.assertEqual(len(topic_options), 2)
-        self.assertNotIn(topic_1_en, topic_options)
-        self.assertIn(topic_1_fr, topic_options)
-        self.assertIn(topic_2_en, topic_options)
+        topic_option_values = [i['value'] for i in response.context['topic_options']]
+        self.assertEqual(len(topic_option_values), 2)
+        self.assertNotIn(topic_1_en.id, topic_option_values)
+        self.assertIn(topic_1_fr.id, topic_option_values)
+        self.assertIn(topic_2_en.id, topic_option_values)
 
     def test_filter_topic(self):
         topic_A = research_factory.ResearchTopicFactory()
@@ -657,18 +665,18 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
 
-    def test_research_regions_in_context(self):
+    def test_research_regions_in_options(self):
         region_1 = research_factory.ResearchRegionFactory()
         region_2 = research_factory.ResearchRegionFactory()
 
         response = self.client.get(self.library_page.url)
 
-        region_options = response.context['region_options']
-        self.assertEqual(len(region_options), 2)
-        self.assertIn(region_1, region_options)
-        self.assertIn(region_2, region_options)
+        region_option_values = [i['value'] for i in response.context['region_options']]
+        self.assertEqual(len(region_option_values), 2)
+        self.assertIn(region_1.id, region_option_values)
+        self.assertIn(region_2.id, region_option_values)
 
-    def test_region_in_context_matches_active_locale(self):
+    def test_region_in_options_matches_active_locale(self):
         region_en = research_factory.ResearchRegionFactory()
         region_fr = region_en.copy_for_translation(self.fr_locale)
         region_fr.save()
@@ -677,14 +685,18 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         translation.activate(self.fr_locale.language_code)
         response_fr = self.client.get(self.library_page.localized.url)
 
-        region_options_en = response_en.context['region_options']
-        self.assertEqual(len(region_options_en), 1)
-        self.assertIn(region_en, region_options_en)
-        self.assertNotIn(region_fr, region_options_en)
-        region_options_fr = response_fr.context['region_options']
-        self.assertEqual(len(region_options_fr), 1)
-        self.assertNotIn(region_en, region_options_fr)
-        self.assertIn(region_fr, region_options_fr)
+        region_option_values_en = [
+            i['value'] for i in response_en.context['region_options']
+        ]
+        self.assertEqual(len(region_option_values_en), 1)
+        self.assertIn(region_en.id, region_option_values_en)
+        self.assertNotIn(region_fr.id, region_option_values_en)
+        region_option_values_fr = [
+            i['value'] for i in response_fr.context['region_options']
+        ]
+        self.assertEqual(len(region_option_values_fr), 1)
+        self.assertNotIn(region_en.id, region_option_values_fr)
+        self.assertIn(region_fr.id, region_option_values_fr)
 
     def test_localized_region_options(self):
         '''
@@ -702,11 +714,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         response = self.client.get(self.library_page.localized.url)
 
-        region_options = response.context['region_options']
-        self.assertEqual(len(region_options), 2)
-        self.assertNotIn(region_1_en, region_options)
-        self.assertIn(region_1_fr, region_options)
-        self.assertIn(region_2_en, region_options)
+        region_option_values = [i['value'] for i in response.context['region_options']]
+        self.assertEqual(len(region_option_values), 2)
+        self.assertNotIn(region_1_en.id, region_option_values)
+        self.assertIn(region_1_fr.id, region_option_values)
+        self.assertIn(region_2_en.id, region_option_values)
 
     def test_filter_region(self):
         region_A = research_factory.ResearchRegionFactory()
@@ -792,7 +804,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
 
-    def test_years_in_context(self):
+    def test_years_in_options(self):
         detail_page_1 = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
@@ -804,10 +816,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         response = self.client.get(self.library_page.url)
 
-        year_options = response.context['year_options']
-        self.assertEqual(len(year_options), 2)
-        self.assertIn(year_1, year_options)
-        self.assertIn(year_2, year_options)
+        year_option_values = [i['value'] for i in response.context['year_options']]
+        # It's 3 options because of the two years and the "any" option.
+        self.assertEqual(len(year_option_values), 3)
+        self.assertIn(year_1, year_option_values)
+        self.assertIn(year_2, year_option_values)
 
     def test_filter_for_year(self):
         detail_page_1 = research_factory.ResearchDetailPageFactory(
