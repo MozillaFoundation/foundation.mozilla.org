@@ -88,65 +88,29 @@
           <span aria-hidden="true" class="">&times;</span>
         </button>
       </div>
-      <div>
-        <h2 class="large:tw-hidden tw-h1-heading">{% translate 'Filter' %}</h2>
-      </div>
-      <div class="tw-pt-4 tw-pb-7 tw-border-t">
-        <fieldset>
-          <legend><h3 class="tw-h4-heading">{% translate 'Topics' %}</h3></legend>
-          <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if topic_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
-            {% for topic in topic_options|dictsort:"name" %}
-              <li class="tw-flex tw-flex-row tw-items-baseline">
-                <input type="checkbox" value="{{ topic.id }}" name="topic" id="topic-option-{{ topic.id }}" {% if topic.id in filtered_topic_ids %}checked{% endif %} form="search-form" class="rh-checkbox" />
-                <label for="topic-option-{{ topic.id }}" >{{ topic.name }}</label>
-              </li>
-            {% endfor %}
-          </ul>
-        </fieldset>
-      </div>
-      <div class="tw-pt-4 tw-pb-7 tw-border-t">
-        <fieldset>
-          <legend><h3 class="tw-h4-heading">{% translate 'Publication date' %}</h3></legend>
-          <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if year_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
-            <li class="tw-flex tw-flex-row tw-items-baseline">
-              <input type="radio" value="" name="year" id="year-option-all" {% if not filtered_year %}checked{% endif %} form="search-form" class="rh-radio" />
-              <label for="year-option-all">{% translate 'Any' context 'Option in a radio button list of years' %}</label>
-            </li>
-            {% for year in year_options %}
-              <li class="tw-flex tw-flex-row tw-items-baseline">
-                <input type="radio" value="{{ year }}" name="year" id="year-option-{{ year }}" {% if year == filtered_year %}checked{% endif %} form="search-form" class="rh-radio" />
-                <label for="year-option-{{ year }}">{{ year }}</label>
-              </li>
-            {% endfor %}
-          </ul>
-        </fieldset>
-      </div>
-      <div class="tw-pt-4 tw-pb-7 tw-border-t">
-        <fieldset>
-          <legend><h3 class="tw-h4-heading">{% translate 'Authors' %}</h3></legend>
-          <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if author_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
-            {% for author in author_options|dictsort:"name" %}
-              <li class="tw-flex tw-flex-row tw-items-baseline">
-                <input type="checkbox" value="{{ author.id }}" name="author" id="author-option-{{ author.id }}" {% if author.id in filtered_author_ids %}checked{% endif %} form="search-form" class="rh-checkbox" />
-                <label for="author-option-{{ author.id }}">{{ author.name }}</label>
-              </li>
-            {% endfor %}
-        </fieldset>
-          </ul>
-      </div>
-      <div class="tw-pt-4 tw-pb-7 tw-border-t">
-        <fieldset>
-          <legend><h3 class="tw-h4-heading">{% translate 'Regions' %}</h3></legend>
-          <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if region_options|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll {% endif %}">
-            {% for region in region_options|dictsort:"name" %}
-              <li class="tw-flex tw-flex-row tw-items-baseline">
-                <input type="checkbox" value="{{ region.id }}" name="region" id="region-option-{{ region.id }}" {% if region.id in filtered_region_ids %}checked{% endif %} form="search-form" class="rh-checkbox"/>
-                <label for="region-option-{{ region.id }}">{{ region.name }}</label>
-              </li>
-            {% endfor %}
-          </ul>
-        </fieldset>
-      </div>
+
+      <h2 class="large:tw-hidden tw-h1-heading">{% translate 'Filter' %}</h2>
+
+      {% if topic_options %}
+        {% translate 'Topics' as heading %}
+        {% include "wagtailpages/fragments/research_filter_group.html" with heading=heading options=topic_options|dictsort:'label' checked_option_values=filtered_topic_ids field_name='topic' %}
+      {% endif %}
+
+      {% if year_options %}
+        {% translate 'Publication date' as heading %}
+        {% include "wagtailpages/fragments/research_filter_group.html" with heading=heading radio=True options=year_options checked_option_value=filtered_year field_name='year' %}
+      {% endif %}
+
+      {% if author_options %}
+        {% translate 'Authors' as heading %}
+        {% include "wagtailpages/fragments/research_filter_group.html" with heading=heading options=author_options|dictsort:'label' checked_option_values=filtered_author_ids field_name='author' %}
+      {% endif %}
+
+      {% if region_options %}
+        {% translate 'Regions' as heading %}
+        {% include "wagtailpages/fragments/research_filter_group.html" with heading=heading options=region_options|dictsort:'label' checked_option_values=filtered_region_ids field_name='region' %}
+      {% endif %}
+
       <button type="submit" class="tw-w-full tw-btn-primary" form="search-form">{% translate 'Apply filters' context 'Button' %}</button>
     </div>
   </div>
