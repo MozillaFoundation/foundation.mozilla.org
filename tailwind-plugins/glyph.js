@@ -84,6 +84,10 @@ module.exports = [
           "& .instagram-glyph": {
             ...glyph("instagram-dark-theme"),
             ...hoverGlyph("instagram-dark-theme-hover"),
+            "&:before": {
+              width: "16px",
+              height: "16px",
+            },
           },
           "& .medium-glyph": {
             ...glyph("medium-dark-theme"),
