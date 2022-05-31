@@ -52,11 +52,10 @@
         </div>
         <div class="tw-h4-heading tw-mb-0">
           {# RESULTS COUNT #}
-          <strong>{{ research_detail_pages_count }}</strong>
           {% blocktranslate count counter=research_detail_pages_count trimmed %}
-            result
+            <strong>{{ research_detail_pages_count }}</strong> result
           {% plural %}
-            results
+            <strong>{{ research_detail_pages_count }}</strong> results
           {% endblocktranslate %}
           {% if search_query %}{% translate 'for' context 'Heading describing the count of search results for a given search term' %} <q>{{ search_query }}</q>{% endif %}
         </div>
