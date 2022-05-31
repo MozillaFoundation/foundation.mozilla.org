@@ -160,6 +160,15 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
                 )
             ],
         ),
+        index.RelatedFields(
+            'related_regions',
+            [
+                index.RelatedFields(
+                    'research_region',
+                    [index.SearchField('name')],
+                )
+            ],
+        ),
     ]
 
     def get_context(self, request):
