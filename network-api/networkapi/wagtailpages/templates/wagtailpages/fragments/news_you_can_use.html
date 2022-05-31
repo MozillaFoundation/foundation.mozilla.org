@@ -32,10 +32,10 @@
             <img src="{% image_url first.get_meta_image "fill-1000x500" %}" alt="{{ first.title }}">
           </div>
           <div class="feature-content align-self-center">
-            {% if first.category.count %}
-              {% with category=first.category.first %}
-                {% localized_version category as localized_category %}
-                <a class="tw-h6-heading d-block mb-2" href="/{{ lang_code }}/blog/category/{{ category.slug }}">{{ localized_category }}</a>
+            {% if first.topics.count %}
+              {% with topic=first.topics.first %}
+                {% localized_version topic as localized_topic %}
+                <a class="tw-h6-heading d-block mb-2" href="/{{ lang_code }}/blog/topic/{{ topic.slug }}">{{ localized_topic }}</a>
               {% endwith %}
             {% else %}
                 <div class="tw-h6-heading d-md-block d-none mb-2">&nbsp;</div>
@@ -64,10 +64,10 @@
         <div class="bg-white">
           <img src="{% image_url localized.get_meta_image "fill-700x394" %}" alt="" class="embed-responsive-item">
           <div class="p-4">
-            {% if localized.category.count %}
-              {% with category=localized.category.first %}
-                {% localized_version category as localized_category %}
-                <a class="tw-h6-heading d-block mb-1" href="/{{ lang_code }}/blog/category/{{ category.slug }}">{{ localized_category }}</a>
+            {% if localized.topics.count %}
+              {% with topic=localized.topics.first %}
+                {% localized_version topic as localized_topic %}
+                <a class="tw-h6-heading d-block mb-1" href="/{{ lang_code }}/blog/topic/{{ topic.slug }}">{{ localized_topic }}</a>
               {% endwith %}
             {% else %}
                 <div class="tw-h6-heading d-md-block d-none mb-1">&nbsp;</div>
