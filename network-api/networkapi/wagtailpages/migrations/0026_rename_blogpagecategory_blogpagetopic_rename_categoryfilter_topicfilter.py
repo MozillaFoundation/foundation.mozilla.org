@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('wagtailimages', '0023_add_choose_permissions'),
         ('wagtailcore', '0066_collection_management_permissions'),
-        ('wagtailpages', '0023_foundation_slider'),
+        ('wagtailpages', '0025_publication_hero_customization'),
     ]
 
     operations = [
