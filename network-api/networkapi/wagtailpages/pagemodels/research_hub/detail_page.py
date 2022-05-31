@@ -142,6 +142,15 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
         index.SearchField('overview'),
         index.SearchField('collaborators'),
         index.FilterField('original_publication_date'),  # For sorting
+        index.RelatedFields(
+            'research_authors',
+            [
+                index.RelatedFields(
+                    'author_profile',
+                    [index.SearchField('name')],
+                )
+            ],
+        )
     ]
 
     def get_context(self, request):

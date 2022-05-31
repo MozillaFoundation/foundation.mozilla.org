@@ -1,7 +1,9 @@
 import datetime
+import os
 import unittest
 
 from django.utils import translation
+from django.core import management
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages.factory import research_hub as research_factory
@@ -10,6 +12,10 @@ from networkapi.wagtailpages.tests.research_hub import utils as research_test_ut
 
 
 class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
+    def update_index(self):
+        with open(os.devnull, 'w') as f:
+            management.call_command('update_index', verbosity=0, stdout=f)
+
     def test_detail_pages_in_context(self):
         detail_page_1 = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
@@ -173,6 +179,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             research_detail_page=banana_page,
             author_profile=banana_profile
         )
+        self.update_index()
 
         response = self.client.get(self.library_page.url, data={'search': 'Apple'})
 
