@@ -2,68 +2,76 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block research_hub_content %}
-  <div>
-    {% image page.cover_image fill-256x348 as cover_image %}
-    <img src="{{ cover_image.url }}" alt="" class="tw-w-full tw-object-cover tw-object-center tw-max-w-[256px]"/>
-  </div>
-  {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
-  <h1>
-    {{ page.title }}
-  </h1>
-  <div>
-    {% spaceless %}
-      {% if page.original_publication_date %}
-        <span>{{ page.original_publication_date }}</span>
-        {% if page.research_authors or page.related_topics %}
-          <span>|</span>
-        {% endif %}
-      {% endif %}
-      {% if page.research_authors %}
-        {% for research_author in page.research_authors.all  %}
-          <span>{{ research_author.author_profile.name }}{% if not forloop.last %}, {% endif %}</span>
-        {% endfor %}
-        {% if page.related_topics %}
-          <span>|</span>
-        {% endif %}
-      {% endif %}
-      {% if page.related_topics %}
-        {% for related_topic in page.related_topics.all  %}
-          <span>{{ related_topic.research_topic.name }}{% if not forloop.last %}, {% endif %}</span>
-        {% endfor %}
-      {% endif %}
-    {% endspaceless %}
-  </div>
-  {% if page.introduction %}
-    <p>{{ page.introduction }}</p>
-  {% endif %}
-  {% if page.research_links %}
-    <div>
-      {% for research_link in page.research_links.all  %}
-        <a href="{{ research_link.get_url }}">{{ research_link.label }}</a>
-      {% endfor %}
+  <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-[12rem_1fr_14rem] large:tw-grid-cols-[14rem_1fr_16rem] xlarge:tw-grid-cols-[14rem_1fr_16rem] tw-gap-5">
+
+    <div id="breadcrumbs-container" class="medium:tw-col-start-2 medium:tw-col-end-4">
+      {% include "wagtailpages/fragments/research_breadcrumb.html" with breadcrumb_list=breadcrumbs %}
     </div>
-  {% endif %}
-  {% if page.overview %}
-    <div>
-      <h2>Overview</h2>
-      {{ page.overview|richtext }}
+
+    <div id="title-and-meta" class="medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3 tw-min-w-0">
+      <h1>{{ page.title }}</h1>
+      <div class="tw-flex tw-flex-row tw-text-xs large:tw-text-base tw-text-gray-80 tw-mb-2 tw-uppercase tw-divide-x tw-divide-gray-20">
+        {% if page.original_publication_date %}
+          <div class="tw-px-2 first:tw-pl-0 tw-whitespace-nowrap ">{{ page.original_publication_date|date:"DATE_FORMAT" }}</div>
+        {% endif %}
+        {% if page.get_related_topic_names %}
+          <div class="tw-px-2 first:tw-pl-0 tw-min-w-0 tw-truncate">{{ page.get_related_topic_names|join:' / ' }}</div>
+        {% endif %}
+      </div>
     </div>
-  {% endif %}
-  {% if page.research_authors %}
-    <div>
-      <h2>Project leads</h2>
-      {% for research_author in page.research_authors.all  %}
-        <div>
-          <h3>{{ research_author.author_profile.name }}</h3>
-          <p>{{ research_author.author_profile.tagline }}</p>
+
+    <div id="cover-image-container" class="medium:tw-col-start-1 medium:tw-row-start-2 medium:tw-row-end-4">
+      {% image page.cover_image fill-259x344 as img %}
+      <img src="{{ img.url }}" alt="{{ img.title }}" class="tw-w-full tw-h-auto">
+    </div>
+
+    <div id="intro-and-links" class="medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3">
+      {% if page.introduction %}
+        <p class="tw-font-light tw-text-lg large:tw-text-xl tw-mb-5">{{ page.introduction }}</p>
+      {% endif %}
+
+      {% if page.research_links %}
+        <div class="tw-flex tw-flex-col medium:tw-flex-row tw-gap-3">
+          {% for research_link in page.research_links.all %}
+            <a href="{{ research_link.get_url }}" class="tw-justify-center {% if forloop.first %} tw-btn-primary {% else %} tw-btn-secondary {% endif %}">
+              {{ research_link.label }}
+            </a>
+          {% endfor %}
         </div>
-      {% endfor %}
+      {% endif %}
     </div>
-  {% endif %}
-  {% if page.collaborators %}
-    <div>
-      <h2>Collaborators</h2>
-      <p>{{ page.collaborators }}</p>
+
+    <div id="overview" class="medium:tw-col-start-1 xlarge:tw-col-start-2 medium:tw-col-end-3 tw-mt-5 medium:tw-mt-7">
+      {% if page.overview %}
+        <div class="tw-border-t tw-border-black">
+          <h2 class="tw-h3-heading tw-my-5">Overview</h2>
+          <div class="tw-text-lg">
+            {{ page.overview|richtext }}
+          </div>
+        </div>
+      {% endif %}
     </div>
-  {% endif %}
+
+    <div id="authors-and-collaborators" class="medium:tw-col-start-3 medium:tw-col-end-4 tw-mt-5 medium:tw-mt-7">
+      {% if page.research_authors.all %}
+        <div class="tw-border-t tw-border-black">
+          <h2 class="tw-h4-heading tw-my-5">Project leads</h2>
+          <ul class="tw-p-0 tw-list-none">
+            {% for research_author in page.research_authors.all  %}
+              <li class="tw-mb-5">
+                {% include "wagtailpages/fragments/research_author_card.html" with authors_index=authors_index author_profile=research_author.author_profile tight=True %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if page.collaborators %}
+        <div class="tw-border-t tw-border-black tw-mt-7">
+          <h2 class="tw-h4-heading tw-my-5">Collaborators</h2>
+          <p class="tw-text-sm large:tw-text-base">{{ page.collaborators }}</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
 {% endblock research_hub_content %}

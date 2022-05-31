@@ -13,6 +13,7 @@ from wagtail_localize import fields as localize_fields
 
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
+from networkapi.wagtailpages.pagemodels.research_hub import authors_index
 
 
 class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
@@ -146,6 +147,7 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
     def get_context(self, request):
         context = super().get_context(request)
         context["breadcrumbs"] = self.get_breadcrumbs()
+        context["authors_index"] = authors_index.ResearchAuthorsIndexPage.objects.first()
         return context
 
     def get_research_author_names(self):
@@ -159,3 +161,6 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
             rt.research_topic.name
             for rt in self.related_topics.all()
         ]
+
+    def get_banner(self):
+        return self.get_parent().specific.get_banner()
