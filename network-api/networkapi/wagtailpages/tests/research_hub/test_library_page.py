@@ -188,6 +188,47 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
 
+    def test_search_by_detail_page_topic_name(self):
+        '''Test detail page can be searched by topic name.'''
+        apple_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            title='Cherry',
+            introduction='',
+            overview='',
+            collaborators='',
+        )
+        apple_topic = research_factory.ResearchTopicFactory(
+            name='Apple',
+            description='',
+        )
+        research_factory.ResearchDetailPageResearchTopicRelationFactory(
+            research_detail_page=apple_page,
+            research_topic=apple_topic
+        )
+        banana_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            title='Also cherry',
+            introduction='',
+            overview='',
+            collaborators='',
+        )
+        banana_topic = research_factory.ResearchTopicFactory(
+            name='banana',
+            description='',
+        )
+        research_factory.ResearchDetailPageResearchTopicRelationFactory(
+            research_detail_page=banana_page,
+            research_topic=banana_topic
+        )
+        self.update_index()
+
+        response = self.client.get(self.library_page.url, data={'search': 'Apple'})
+
+        research_detail_pages = response.context['research_detail_pages']
+        self.assertEqual(len(research_detail_pages), 1)
+        self.assertIn(apple_page, research_detail_pages)
+        self.assertNotIn(banana_page, research_detail_pages)
+
     def test_sort_newest_first(self):
         oldest_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
