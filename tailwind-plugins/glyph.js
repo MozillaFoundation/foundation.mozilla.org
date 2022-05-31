@@ -105,6 +105,10 @@ module.exports = [
           "& .email-glyph": {
             ...glyph("email-dark-theme"),
             ...hoverGlyph("email-dark-theme-hover"),
+            "&:before": {
+              width: "16px",
+              height: "16px",
+            },
           },
           "& .github-glyph": {
             ...glyph("github-dark-theme"),
@@ -116,7 +120,8 @@ module.exports = [
           "& .globe-glyph": {
             ...glyph("globe-dark-theme"),
             "&:before": {
-              minWidth: "24px",
+              width: "24px",
+              height: "24px",
               marginRight: "10px",
             },
           },
