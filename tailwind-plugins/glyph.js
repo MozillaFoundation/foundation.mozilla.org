@@ -55,10 +55,18 @@ module.exports = [
         ".twitter-glyph": {
           ...glyph("twitter"),
           ...hoverGlyph("twitter-hover"),
+          "&:before": {
+            width: "16px",
+            height: "16px",
+          },
         },
         ".linkedIn-glyph": {
           ...glyph("linkedin"),
           ...hoverGlyph("linkedin-hover"),
+          "&:before": {
+            width: "16px",
+            height: "16px",
+          },
         },
         ".form-error-glyph": {
           ...glyph("form-error"),

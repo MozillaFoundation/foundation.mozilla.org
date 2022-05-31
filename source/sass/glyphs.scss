@@ -46,35 +46,7 @@
   }
 }
 
-.donate {
-  @include composite-glyph("donate");
-}
-
-.twitter-glyph {
-  @include composite-glyph("twitter");
-  @include hover-glyph("twitter-hover");
-}
-
-.linkedIn-glyph {
-  @include composite-glyph("linkedin");
-  @include hover-glyph("linkedin-hover");
-}
-
-.form-error-glyph {
-  @include composite-glyph("form-error");
-  &::before {
-    width: 13px;
-    height: 13px;
-    margin-right: 10px;
-  }
-}
-
 .tw-dark {
-  .twitter-glyph {
-    @include composite-glyph("twitter-dark-theme");
-    @include hover-glyph("twitter-dark-theme-hover");
-  }
-
   .instagram-glyph {
     @include composite-glyph("instagram-dark-theme");
     @include hover-glyph("instagram-dark-theme-hover");
@@ -103,10 +75,6 @@
   .github-glyph {
     @include composite-glyph("github-dark-theme");
     @include hover-glyph("github-dark-theme-hover");
-  }
-
-  .form-error-glyph {
-    @include composite-glyph("form-error-dark-theme");
   }
 
   .globe-glyph {
