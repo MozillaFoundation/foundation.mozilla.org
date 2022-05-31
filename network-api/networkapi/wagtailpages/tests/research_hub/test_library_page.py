@@ -1,6 +1,5 @@
 import datetime
 import os
-import unittest
 
 from django.utils import translation
 from django.core import management
