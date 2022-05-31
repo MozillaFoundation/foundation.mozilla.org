@@ -7,7 +7,7 @@ module.exports = {
   "Blog index (filtered on tag)": "/blog/tags/iot",
   "Blog index (non-existent tag)":
     "/blog/tags/randomnonsensetagthatdoesntexist",
-  "Blog index (filtered on category)": "/blog/category/mozilla-festival",
+  "Blog index (filtered on category)": "/blog/topic/mozilla-festival",
   "Fixed blog post": "/blog/initial-test-blog-post-with-fixed-title",
   "Campaign index": "/campaigns",
   "Single-page campaign": "/campaigns/single-page",

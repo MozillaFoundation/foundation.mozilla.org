@@ -15,10 +15,10 @@
     {% if show_full_info %}
       | {% if blog_page.first_published_at %}{{ blog_page.first_published_at|date:"DATE_FORMAT" }}
         {% else %}not published yet{% endif %}
-      {% with category=page.specific.category.first %}
-      {% if category and blog_index %}
-        {% localized_version category as localized_category %}
-        | <a class="category tw-text-inherit" href="{{blog_index.localized.url}}category/{{category.slug}}">{{ localized_category }}</a>
+      {% with topic=page.specific.topics.first %}
+      {% if topic and blog_index %}
+        {% localized_version topic as localized_topic %}
+        | <a class="topic tw-text-inherit" href="{{blog_index.localized.url}}topic/{{topic.slug}}">{{ localized_topic }}</a>
       {% endif %}
       {% endwith %}
     {% endif %}
