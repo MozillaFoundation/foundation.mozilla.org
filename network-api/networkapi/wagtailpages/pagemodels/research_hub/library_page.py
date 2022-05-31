@@ -4,6 +4,7 @@ from typing import Optional
 from django.core import paginator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext_lazy
 from wagtail import images as wagtail_images
 from wagtail.admin import edit_handlers as panels
 from wagtail.images import edit_handlers as image_panels
@@ -131,27 +132,61 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         return context
 
     def _get_author_options(self):
-        author_options = profile_models.Profile.objects.filter_research_authors()
-        return utils.localize_queryset(author_options)
+        author_profiles = profile_models.Profile.objects.filter_research_authors()
+        author_profiles = utils.localize_queryset(author_profiles)
+        return [
+            {
+                'id': author_profile.id,
+                'value': author_profile.id,
+                'label': author_profile.name,
+            }
+            for author_profile in author_profiles
+        ]
 
     def _get_topic_options(self):
         topics = taxonomies.ResearchTopic.objects.all()
-        return utils.localize_queryset(topics)
+        topics = utils.localize_queryset(topics)
+        return [
+            {
+                'id': topic.id,
+                'value': topic.id,
+                'label': topic.name,
+            }
+            for topic in topics
+        ]
 
     def _get_region_options(self):
         regions = taxonomies.ResearchRegion.objects.all()
-        return utils.localize_queryset(regions)
+        regions = utils.localize_queryset(regions)
+        return [
+            {
+                'id': region.id,
+                'value': region.id,
+                'label': region.name,
+            }
+            for region in regions
+        ]
 
     def _get_year_options(self):
-        return [
-            date.year
-            for date
-            in detail_page.ResearchDetailPage.objects.dates(
-                'original_publication_date',
-                'year',
-                order='DESC',
-            )
+        dates = detail_page.ResearchDetailPage.objects.dates(
+            'original_publication_date',
+            'year',
+            order='DESC',
+        )
+        year_options = [
+            {
+                'id': date.year,
+                'value': date.year,
+                'label': date.year,
+            }
+            for date in dates
         ]
+        empty_option = {
+            'id': 'any',
+            'value': '',
+            'label': pgettext_lazy('Option in a list of years', 'Any'),
+        }
+        return [empty_option] + year_options
 
     def _get_research_detail_pages(
         self,
