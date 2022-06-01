@@ -38,7 +38,8 @@
   }
 
   &__item-text {
-    @include set-text-size(28px, 30px);
+    font-size: 28px;
+    line-height: calc(30 / 28);
     font-family: $font-zilla;
     font-weight: 400;
     color: $white;
@@ -146,7 +147,8 @@
 
   &__count-first,
   &__count-second {
-    @include set-text-size(20px, 19px);
+    font-size: 20px;
+    line-height: calc(19 / 20);
     font-weight: 300;
   }
 

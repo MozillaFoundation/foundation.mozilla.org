@@ -30,15 +30,25 @@ body.has-regrets-intro {
 
     h2 {
       font-family: "Changa", sans-serif;
+      font-size: 30px;
+      line-height: calc(36 / 30);
 
-      @include set-text-size(30px, 36px, 38px, 42px);
+      @media screen and (min-width: $bp-md) {
+        font-size: 38px;
+        line-height: calc(42 / 38);
+      }
     }
 
     p {
       font-family: "Zilla Slab";
       font-weight: 500;
+      font-size: 18px;
+      line-height: calc(24 / 18);
 
-      @include set-text-size(18px, 24px, 22px, 32px);
+      @media screen and (min-width: $bp-md) {
+        font-size: 22px;
+        line-height: calc(32 / 22);
+      }
     }
 
     .btn.btn-secondary {

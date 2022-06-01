@@ -5,7 +5,8 @@
 
 .publication-hero-file-size {
   color: $gray-40;
-  @include set-text-size(12px, 16px);
+  font-size: 12px;
+  line-height: calc(16 / 12);
   top: 10px;
 }
 
@@ -24,13 +25,12 @@
   }
 
   .publication-breadcrumb.tw-body-small a {
-    @include set-text-size(16px);
-
+    font-size: 16px;
     color: $lightest-blue;
   }
 
   .publication-breadcrumb.tw-body-small span {
-    @include set-text-size(16px);
+    font-size: 16px;
   }
 
   .publication-secondary-subtitle.tw-body-small {
@@ -83,14 +83,16 @@
   align-items: center;
   justify-content: center;
   color: $white;
-  @include set-text-size(72px, 88px);
+  font-size: 72px;
+  line-height: calc(88 / 72);
   font-family: $font-family-slab-serif;
 
   &--small {
     width: 64px;
     height: 64px;
     color: $white;
-    @include set-text-size(30px, 44px);
+    font-size: 30px;
+    line-height: calc(44 / 30);
   }
 }
 
@@ -99,7 +101,8 @@
 
   &--small {
     color: $black;
-    @include set-text-size(24px, 30px);
+    font-size: 24px;
+    line-height: calc(30 / 24);
   }
 }
 
@@ -110,7 +113,8 @@
 }
 
 .publication-notes .rich-text {
-  @include set-text-size(16px, 24px);
+  font-size: 16px;
+  line-height: calc(24 / 16);
   margin-bottom: 96px;
   margin-top: 49px;
 
@@ -124,10 +128,12 @@
   .publication-chapter-number {
     height: 76px;
     width: 76px;
-    @include set-text-size(56px, 64px);
+    font-size: 56px;
+    line-height: calc(64 / 56);
 
     &--small {
-      @include set-text-size(30px, 44px);
+      font-size: 30px;
+      line-height: calc(44 / 30);
     }
   }
 

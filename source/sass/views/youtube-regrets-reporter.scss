@@ -7,7 +7,13 @@
     }
 
     .tw-h2-heading {
-      @include set-text-size(26px, 35px, 38px, 42px);
+      font-size: 26px;
+      line-height: calc(35 / 26);
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 38px;
+        line-height: calc(42 / 38);
+      }
 
       font-family: $font-changa;
       font-weight: 400;
@@ -27,7 +33,13 @@
 
     .intro-stationary-wrapper {
       .tw-body-large {
-        @include set-text-size(20px, 26px, 32px, 40px);
+        font-size: 20px;
+        line-height: calc(26 / 20);
+
+        @media screen and (min-width: $bp-md) {
+          font-size: 32px;
+          line-height: calc(40 / 32);
+        }
       }
     }
 
@@ -59,12 +71,19 @@
   .section-how-it-works {
     .steps {
       p {
-        @include set-text-size(18px, 21px, 26px, 30px);
+        font-size: 18px;
+        line-height: calc(21 / 18);
+
+        @media screen and (min-width: $bp-md) {
+          font-size: 26px;
+          line-height: calc(30 / 26);
+        }
         font-family: "Zilla Slab";
 
         .step-number {
           @include heading($font-family-sans-serif, 700, 0, $white, $white);
-          @include set-text-size(32px, 45px);
+          font-size: 32px;
+          line-height: calc(45 / 32);
 
           border-radius: 50%;
           background: $youtube-regrets-red;
@@ -76,7 +95,8 @@
         }
 
         &.tw-h6-heading {
-          @include set-text-size(14px, 16px);
+          font-size: 14px;
+          line-height: calc(16 / 14);
 
           font-family: $font-family-sans-serif;
           text-transform: initial;
@@ -94,7 +114,8 @@
     }
 
     p {
-      @include set-text-size(20px, 28px);
+      font-size: 20px;
+      line-height: calc(20 / 28);
     }
   }
 
@@ -121,7 +142,13 @@
           $youtube-regrets-red,
           $youtube-regrets-red
         );
-        @include set-text-size(26px, 30px, 38px, 42px);
+        font-size: 26px;
+        line-height: calc(30 / 26);
+
+        @media screen and (min-width: $bp-md) {
+          font-size: 38px;
+          line-height: calc(42 / 38);
+        }
       }
 
       .form-control {
@@ -146,22 +173,36 @@
   .section-articles {
     .tw-h6-heading {
       @include heading($font-family-sans-serif, 700, 1px, $black, $black);
-      @include set-text-size(14px, 28px);
+      font-size: 14px;
+      line-height: 2;
     }
 
     a {
-      @include set-text-size(18px, 26px, 24px, 31px);
+      font-size: 18px;
+      line-height: calc(26 / 18);
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 24px;
+        line-height: calc(31 / 24);
+      }
     }
   }
 
   .section-for-years {
     .tw-body-large {
-      @include set-text-size(26px, 30px, 38px, 42px);
+      font-size: 26px;
+      line-height: calc(30 / 26);
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 38px;
+        line-height: calc(42 / 38);
+      }
       letter-spacing: -2px;
     }
 
     p {
-      @include set-text-size(20px, 28px);
+      font-size: 20px;
+      line-height: calc(28 / 20);
     }
   }
 
@@ -177,7 +218,8 @@
       position: relative;
 
       h4 {
-        @include set-text-size(18px, 32px);
+        font-size: 18px;
+        line-height: calc(32 / 18);
 
         font-family: $font-changa;
         font-weight: 700;
@@ -260,7 +302,8 @@
           }
 
           p {
-            @include set-text-size(16px, 21px);
+            font-size: 16px;
+            line-height: calc(21 / 16);
           }
         }
       }

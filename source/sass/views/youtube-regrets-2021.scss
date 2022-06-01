@@ -27,34 +27,54 @@
   }
 
   .hero-heading {
-    @include set-text-size(38px, 38px, 62px, 62px);
+    font-size: 38px;
+    line-height: 1;
+
+    @media screen and (min-width: $bp-md) {
+      font-size: 62px;
+      line-height: 1;
+    }
     font-family: $font-changa;
     font-weight: 700;
   }
 
   h1,
   .heading-1 {
-    @include set-text-size(42px, 48px, 52px, 48px);
+    font-size: 42px;
+    line-height: calc(48 / 42);
+
+    @media screen and (min-width: $bp-md) {
+      font-size: 52px;
+      line-height: calc(48 / 52);
+    }
     font-family: $font-changa;
     font-weight: 700;
   }
 
   h2,
   .heading-2 {
-    @include set-text-size(30px, 34px, 38px, 34px);
+    font-size: 30px;
+    line-height: calc(34 / 30);
+
+    @media screen and (min-width: $bp-md) {
+      font-size: 38px;
+      line-height: calc(34 / 38);
+    }
     font-family: $font-changa;
     font-weight: 600;
   }
 
   h3,
   .heading-3 {
-    @include set-text-size(36px, 36px);
+    font-size: 36px;
+    line-height: 1;
     font-weight: 300;
   }
 
   h4,
   .heading-4 {
-    @include set-text-size(22px, 22px);
+    font-size: 22px;
+    line-height: 1;
     font-family: $font-nunito;
     text-transform: uppercase;
     font-weight: 700;
@@ -62,16 +82,24 @@
 
   h5,
   .heading-5 {
-    @include set-text-size(20px, 20px);
+    font-size: 20px;
+    line-height: 1;
     font-family: $font-changa;
   }
 
   .tw-body {
-    @include set-text-size(18px, 27px);
+    font-size: 18px;
+    line-height: calc(27 / 18);
   }
 
   .tw-body-large {
-    @include set-text-size(26px, 28px, 26px, 30px);
+    font-size: 26px;
+    line-height: calc(28 / 26);
+
+    @media screen and (min-width: $bp-md) {
+      font-size: 26px;
+      line-height: calc(30 / 26);
+    }
   }
 
   .btn-download {
@@ -234,7 +262,13 @@
     }
 
     &__text {
-      @include set-text-size(30px, 28px, 38px, 38.5px);
+      font-size: 30px;
+      line-height: calc(28 / 30);
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 38px;
+        line-height: 1;
+      }
       font-family: $font-changa;
       font-weight: 700;
       font-style: normal;
@@ -245,7 +279,8 @@
     }
 
     &__cite {
-      @include set-text-size(18px, 29px);
+      font-size: 18px;
+      line-height: calc(29 / 18);
       font-family: $font-nunito;
       font-style: normal;
     }
@@ -280,7 +315,14 @@
     text-align: center;
 
     &__number {
-      @include set-text-size(52px, 48px, 60px, 48px);
+      font-size: 52px;
+      line-height: calc(48 / 52);
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 60px;
+        line-height: calc(48 / 60);
+      }
+
       font-family: $font-changa;
       font-weight: 700;
     }
@@ -291,7 +333,8 @@
   }
 
   .our-research-teaser {
-    @include set-text-size(14px, 14px);
+    font-size: 14px;
+    line-height: 1;
   }
 
   .our-research {
@@ -312,7 +355,8 @@
     }
 
     &__legend-item {
-      @include set-text-size(18px, 18px);
+      font-size: 18px;
+      line-height: 1;
       font-family: $font-nunito;
       position: relative;
       padding-left: 30px;
@@ -431,30 +475,50 @@
       text-align: left;
 
       .tw-h2-heading {
-        @include set-text-size(30px, 32px, 38px, 39px);
+        font-size: 30px;
+        line-height: calc(32 / 30);
+
+        @media screen and (min-width: $bp-md) {
+          font-size: 38px;
+          line-height: calc(39 / 38);
+        }
         font-weight: 600;
       }
     }
 
     &__number {
-      @include set-text-size(36px, 49px, 36px, 49px);
+      font-size: 36px;
+      line-height: calc(49 / 36);
       font-weight: 300;
     }
   }
 
   .standout-stat {
     &__heading {
-      @include set-text-size(20px, 48px);
+      font-size: 20px;
+      line-height: calc(48 / 20);
       font-family: $font-changa;
     }
 
     &__number {
-      @include set-text-size(50px, 48px, 60px, 48px);
+      font-size: 50px;
+      line-height: calc(48 / 50);
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 60px;
+        line-height: calc(48 / 60);
+      }
       font-family: $font-changa;
       color: $white;
 
       &--smaller {
-        @include set-text-size(40px, 48px, 60px, 48px);
+        font-size: 40px;
+        line-height: calc(48 / 40);
+
+        @media screen and (min-width: $bp-md) {
+          font-size: 60px;
+          line-height: calc(48 / 60);
+        }
       }
     }
 
@@ -493,11 +557,23 @@
     padding-top: 85px;
 
     &__title {
-      @include set-text-size(30px, 34px, 52px, 60px);
+      font-size: 30px;
+      line-height: calc(34 / 30);
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 52px;
+        line-height: calc(60 / 52);
+      }
     }
 
     &__recommendation {
-      @include set-text-size(24px, 30px, 28px, 30px);
+      font-size: 24px;
+      line-height: calc(30 / 24);
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 28px;
+        line-height: calc(30 / 28);
+      }
       font-family: $font-family-slab-serif;
       color: $white;
       margin: 34px 0;
