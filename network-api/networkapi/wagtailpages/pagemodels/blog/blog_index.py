@@ -158,18 +158,6 @@ class BlogIndexPage(IndexPage):
 
         entries = in_topics
 
-        # Original code is as follows:
-        #
-        # entries = [
-        #     entry
-        #     for
-        #     entry in entries.specific()
-        #     if
-        #     hasattr(entry, 'topic')
-        #     and
-        #     topic in entry.topic.all()
-        # ]
-
         return entries
 
     def set_seo_fields_from_topic(self, topic):
