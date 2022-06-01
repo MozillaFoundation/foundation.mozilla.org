@@ -121,7 +121,9 @@
         {% include "wagtailpages/fragments/research_filter_group.html" with heading=heading options=region_options|dictsort:'label' checked_option_values=filtered_region_ids field_name='region' %}
       {% endif %}
 
+      <div class="tw-h-5 tw-relative -tw-bottom-5">COVER</div>
       <div class="
+        tw-opacity-50
         tw-bg-gray-05
         tw-bottom-0
         -tw-mx-4 small:-tw-mx-5 medium:-tw-mx-6 large:-tw-mx-5
@@ -129,9 +131,8 @@
         tw-px-4 small:tw-px-5 medium:tw-px-6 large:tw-px-5
         tw-sticky
       ">
-        <div class="tw-pt-5 large:tw-pt-4 tw-border-t tw-border-t-gray-20">
-          <button type="submit" class="tw-w-full tw-btn-primary" form="search-form">{% translate 'Apply filters' context 'Button' %}</button>
-        </div>
+        <div class="tw-h-5">MORE</div>
+        <button type="submit" class="tw-w-full tw-btn-primary" form="search-form">{% translate 'Apply filters' context 'Button' %}</button>
       </div>
     </div>
   </div>
