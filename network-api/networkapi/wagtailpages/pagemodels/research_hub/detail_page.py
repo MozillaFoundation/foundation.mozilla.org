@@ -81,20 +81,23 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
         blank=False,
         on_delete=models.SET_NULL,
         help_text=(
-            'Select a cover image for this reserach.'
+            'Select a cover image for this research. '
             'The cover image is displayed on the detail page and all research listings.'
         ),
     )
     original_publication_date = models.DateField(
         null=True,
         blank=True,
-        help_text='Date when the research paper was published'
+        help_text='When was the research (not this page) originally published?'
     )
     introduction = models.CharField(
         null=False,
         blank=True,
         max_length=300,
-        help_text='Provide a short blub about the research that will be displayed on listing pages and search results.'
+        help_text=(
+            'Provide a short blurb about the research '
+            'that will be displayed on listing pages and search results.'
+        )
     )
     overview = wagtail_fields.RichTextField(
         null=False,
@@ -142,6 +145,33 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
         index.SearchField('overview'),
         index.SearchField('collaborators'),
         index.FilterField('original_publication_date'),  # For sorting
+        index.RelatedFields(
+            'research_authors',
+            [
+                index.RelatedFields(
+                    'author_profile',
+                    [index.SearchField('name')],
+                )
+            ],
+        ),
+        index.RelatedFields(
+            'related_topics',
+            [
+                index.RelatedFields(
+                    'research_topic',
+                    [index.SearchField('name')],
+                )
+            ],
+        ),
+        index.RelatedFields(
+            'related_regions',
+            [
+                index.RelatedFields(
+                    'research_region',
+                    [index.SearchField('name')],
+                )
+            ],
+        ),
     ]
 
     def get_context(self, request):
