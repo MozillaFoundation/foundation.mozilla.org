@@ -4,8 +4,8 @@ http://localhost:8000/en/who-we-are
 http://localhost:8000/en/blog
 http://localhost:8000/en/blog/tags/iot
 http://localhost:8000/en/blog/tags/randomnonsensetagthatdoesntexist
-http://localhost:8000/en/blog/category/mozilla-festival
-http://localhost:8000/en/blog/category/randomnonsensecateogrythatdoesntexist
+http://localhost:8000/en/blog/topic/mozilla-festival
+http://localhost:8000/en/blog/topic/randomnonsensecateogrythatdoesntexist
 http://localhost:8000/en/blog/initial-test-blog-post-with-fixed-title
 http://localhost:8000/en/opportunity/single-page-opportunity/
 http://localhost:8000/en/opportunity/multi-page-opportunity/

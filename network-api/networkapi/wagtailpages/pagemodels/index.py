@@ -223,7 +223,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
 
         hide_classifiers = False
         if hasattr(self, 'filtered'):
-            if self.filtered.get('type') == 'category':
+            if self.filtered.get('type') == 'topic':
                 hide_classifiers = True
 
         html = loader.render_to_string(
