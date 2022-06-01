@@ -41,7 +41,7 @@ const PulseProfile = ({ profile }) => {
             )}
             {profile.linkedin && (
               <a className="hover:tw-no-underline" href={profile.linkedin}>
-                <i className="linkedIn tw-linkedIn-glyph" />
+                <i className="linkedIn tw-linkedin-glyph" />
               </a>
             )}
           </div>
