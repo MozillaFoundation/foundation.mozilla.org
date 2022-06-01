@@ -15,7 +15,7 @@ from factory import (
 from networkapi.wagtailpages.models import (
     BlogAuthors,
     BlogPage,
-    BlogPageCategory,
+    BlogPageTopic,
     BlogIndexPage,
     Profile,
 )
@@ -44,9 +44,9 @@ blog_body_streamfield_fields = [
 ]
 
 
-def add_category(post):
-    categories = BlogPageCategory.objects.all()
-    post.category.add(choice(categories))
+def add_topic(post):
+    topic_choices = BlogPageTopic.objects.all()
+    post.topics.add(choice(topic_choices))
     post.save()
 
 
@@ -109,7 +109,7 @@ def generate(seed):
         post = BlogPageFactory.create(parent=blog_namespace, title=title)
 
     add_tags(post)
-    add_category(post)
+    add_topic(post)
     add_authors(post)
 
     for i in range(6):
@@ -122,7 +122,7 @@ def generate(seed):
             post = BlogPageFactory.create(parent=blog_namespace, title=title)
 
         add_tags(post)
-        add_category(post)
+        add_topic(post)
         add_authors(post)
 
     for post in BlogPage.objects.all():

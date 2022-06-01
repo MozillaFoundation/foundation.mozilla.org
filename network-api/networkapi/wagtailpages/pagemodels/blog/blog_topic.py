@@ -10,14 +10,14 @@ from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options impo
 
 
 @register_snippet
-class BlogPageCategory(TranslatableMixin, models.Model):
+class BlogPageTopic(TranslatableMixin, models.Model):
     name = models.CharField(
         max_length=50
     )
 
     title = models.TextField(
         blank=True,
-        help_text='Optional title that will apear on the page and when category page is shared. '
+        help_text='Optional title that will apear on the page and when topic page is shared. '
                   'If not set, will default to "name" text.'
     )
 
@@ -27,7 +27,7 @@ class BlogPageCategory(TranslatableMixin, models.Model):
     )
     share_description = models.TextField(
         blank=True,
-        help_text='Optional description that will apear when category page is shared. '
+        help_text='Optional description that will apear when topic page is shared. '
                   'If not set, will default to "intro" text.'
     )
     share_image = models.ForeignKey(
@@ -36,7 +36,7 @@ class BlogPageCategory(TranslatableMixin, models.Model):
         blank=True,
         on_delete=models.SET_NULL,
         verbose_name='Share Image',
-        help_text='Optional image that will apear when category page is shared.',
+        help_text='Optional image that will apear when topic page is shared.',
     )
 
     panels = [
@@ -47,7 +47,7 @@ class BlogPageCategory(TranslatableMixin, models.Model):
         ImageChooserPanel("share_image"),
     ]
 
-    def get_categories():
+    def get_topics():
         """
         WARNING: this function is referenced by two migrations:
 
@@ -79,5 +79,5 @@ class BlogPageCategory(TranslatableMixin, models.Model):
         return self.name
 
     class Meta(TranslatableMixin.Meta):
-        verbose_name = "Blog Page Category"
-        verbose_name_plural = "Blog Page Categories"
+        verbose_name = "Blog Page Topic"
+        verbose_name_plural = "Blog Page Topics"

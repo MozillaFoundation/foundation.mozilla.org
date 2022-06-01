@@ -8,9 +8,9 @@
 {% if page.last_published_at %}
   <meta property="article:modified" content="{{ page.last_published_at|date:"DATE_FORMAT" }}"/>
 {% endif %}
-{% with category=page.specific.category.first %}
-  {% if category %}
-    <meta property="article:section" content="{{ category }}" />
+{% with topic=page.specific.topics.first %}
+  {% if topic %}
+    <meta property="article:section" content="{{ topic }}" />
   {% endif %}
 {% endwith %}
 {% endblock %}
