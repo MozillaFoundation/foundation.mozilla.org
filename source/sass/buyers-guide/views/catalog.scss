@@ -274,12 +274,14 @@ body.catalog {
           @media screen and (max-width: $breakpoint) {
             .product-company {
               color: $gray-80;
-              @include set-text-size(12px, 16px);
+              font-size: 12px;
+              line-height: calc(16 / 12);
             }
 
             .product-name {
               color: $black;
-              @include set-text-size(12px, 16px);
+              font-size: 12px;
+              line-height: calc(16 / 12);
             }
           }
         }

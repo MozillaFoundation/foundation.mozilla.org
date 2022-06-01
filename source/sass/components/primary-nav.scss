@@ -31,7 +31,8 @@
   }
 
   .primary-nav-special-link {
-    @include set-text-size(17px, 23px);
+    font-size: 17px;
+    line-height: calc(23 / 17);
     color: $black;
     font-weight: $btn-font-weight;
 
@@ -92,7 +93,8 @@
         @include padding-bottom(md);
       }
 
-      @include set-text-size(17px, 23px);
+      font-size: 17px;
+      line-height: calc(23 / 17);
 
       @include hover-focus-active {
         text-decoration: none;

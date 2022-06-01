@@ -46,34 +46,11 @@
   }
 }
 
-// Mixin for setting mobile and tablet+ font sizes
-@mixin set-text-size(
-  $base-font-size,
-  $base-line-height: null,
-  $large-font-size: null,
-  $large-line-height: null
-) {
-  font-size: $base-font-size;
-
-  @if ($base-line-height) {
-    line-height: $base-line-height/$base-font-size;
-  }
-
-  @if ($large-font-size) {
-    @media screen and (min-width: $bp-md) {
-      font-size: $large-font-size;
-
-      @if ($large-line-height) {
-        line-height: $large-line-height/$large-font-size;
-      }
-    }
-  }
-}
-
 // Mixin for setting body style text
 @mixin body-text-style() {
   @include text-base-style($font-family-sans-serif, 400, $black, $white);
-  @include set-text-size(18px, 27px);
+  font-size: 18px;
+  line-height: calc(27 / 18);
 }
 
 // Mixin for setting style for dark theme inline anchors

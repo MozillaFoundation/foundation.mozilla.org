@@ -59,7 +59,8 @@
 */
 .p-heading {
   @include heading("Nunito Sans", 700, 0, inherit, inherit);
-  @include set-text-size(18px, 18px);
+  font-size: 18px;
+  line-height: 1;
 }
 
 .mini-warning-ding-icon::after {

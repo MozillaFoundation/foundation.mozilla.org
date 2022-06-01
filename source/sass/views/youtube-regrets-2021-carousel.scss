@@ -63,7 +63,8 @@
   }
 
   &__item-text {
-    @include set-text-size(24px, 30px);
+    font-size: 24px;
+    line-height: calc(30 / 24);
     font-family: $font-zilla;
     font-weight: 500;
 
@@ -192,7 +193,7 @@
 
   &__count-inner {
     &--hero {
-      @include set-text-size(20px);
+      font-size: 20px;
     }
     .swiper-pagination-current {
       margin-right: 5px;
@@ -204,23 +205,27 @@
 
   &__count-first,
   .swiper-pagination-current {
-    @include set-text-size(36px, 50px);
+    font-size: 36px;
+    line-height: calc(50 / 36);
     font-weight: 300;
     margin-right: 10px;
 
     &--hero {
-      @include set-text-size(20px, 19px);
+      font-size: 20px;
+      line-height: calc(19 / 20);
       margin-right: 0;
     }
   }
 
   &__count-second,
   .swiper-pagination-total {
-    @include set-text-size(18px, 24px);
+    font-size: 18px;
+    line-height: calc(24 / 18);
     font-weight: 300;
 
     &--hero {
-      @include set-text-size(20px, 19px);
+      font-size: 20px;
+      line-height: calc(19 / 20);
     }
   }
 

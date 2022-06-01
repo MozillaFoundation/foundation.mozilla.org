@@ -183,7 +183,13 @@
         padding: 0 1rem;
         opacity: 0;
 
-        @include set-text-size(30px, 38px, 50px, 56px);
+        font-size: 30px;
+        line-height: calc(38 / 30);
+
+        @media screen and (min-width: $bp-md) {
+          font-size: 50px;
+          line-height: calc(56 / 50);
+        }
       }
     }
 

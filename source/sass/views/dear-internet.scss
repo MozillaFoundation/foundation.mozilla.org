@@ -25,13 +25,24 @@
         @apply tw-text-blue-20 tw-underline;
       }
     }
-    @include set-text-size(18px, 27px, 24px, 34px);
+    font-size: 18px;
+    line-height: calc(27 / 18);
+
+    @media screen and (min-width: $bp-md) {
+      font-size: 24px;
+      line-height: calc(34 / 24);
+    }
   }
 
   h1 {
     background: $light-red;
+    font-size: 40px;
+    line-height: calc(46 / 40);
 
-    @include set-text-size(40px, 46px, 70px, 82px);
+    @media screen and (min-width: $bp-md) {
+      font-size: 70px;
+      line-height: calc(82 / 70);
+    }
 
     @media (min-width: $bp-lg) {
       font-size: 112px;

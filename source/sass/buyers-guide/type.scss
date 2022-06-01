@@ -2,12 +2,14 @@
 
 .pni-product-intro-large {
   @include text-base-style($font-family-sans-serif, 400, $gray-60, $gray-60);
-  @include set-text-size(18px, 27px);
+  font-size: 18px;
+  line-height: calc(27 / 18);
 }
 
 .pni-product-smaller-body {
   @include text-base-style($font-family-sans-serif, 400, $black, $white);
-  @include set-text-size(16px, 24px);
+  font-size: 16px;
+  line-height: calc(24 / 16);
 }
 
 .pni-product-smaller-body-bold {

@@ -28,6 +28,7 @@
   }
 
   @at-root .vertical-nav #{&} {
-    @include set-text-size(17px, 17px * 1.6);
+    font-size: 17px;
+    line-height: calc(27 / 17);
   }
 }
