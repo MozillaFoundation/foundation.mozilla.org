@@ -60,7 +60,7 @@ module.exports = [
             height: "16px",
           },
         },
-        ".linkedIn-glyph": {
+        ".linkedin-glyph": {
           ...glyph("linkedin"),
           ...hoverGlyph("linkedin-hover"),
           "&:before": {
@@ -80,6 +80,10 @@ module.exports = [
           "& .twitter-glyph": {
             ...glyph("twitter-dark-theme"),
             ...hoverGlyph("twitter-dark-theme-hover"),
+            "&:before": {
+              width: "16px",
+              height: "16px",
+            },
           },
           "& .instagram-glyph": {
             ...glyph("instagram-dark-theme"),
@@ -99,7 +103,7 @@ module.exports = [
             "&:before": {
               width: "18px",
               height: "18px",
-              marginRight: "2px",
+              marginTop: "2px",
             },
           },
           "& .email-glyph": {
@@ -113,6 +117,10 @@ module.exports = [
           "& .github-glyph": {
             ...glyph("github-dark-theme"),
             ...hoverGlyph("github-dark-theme-hover"),
+            "&:before": {
+              width: "16px",
+              height: "16px",
+            },
           },
           "& .form-error-glyph": {
             ...glyph("form-error-dark-theme"),

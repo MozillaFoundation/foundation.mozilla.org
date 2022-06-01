@@ -138,7 +138,7 @@
               }
               ${
                 profile.linkedin
-                  ? `<a href="${profile.linkedin}" class="linkedIn tw-linkedIn-glyph"></a>`
+                  ? `<a href="${profile.linkedin}" class="linkedIn tw-linkedin-glyph"></a>`
                   : ``
               }
             </div>
