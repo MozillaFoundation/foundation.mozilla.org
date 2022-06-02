@@ -258,7 +258,23 @@
 }
 
 .partner-section-text {
-  @include text-base-style("Nunito Sans", 300, $black, $white);
+  font-family: "Nunito Sans";
+  font-weight: 300;
+  color: $black;
+
+  @at-root .tw-dark & {
+    color: $white;
+
+    a {
+      color: $light-blue;
+      font-weight: inherit;
+
+      @include hover-focus-active {
+        color: $light-blue;
+        text-decoration: underline;
+      }
+    }
+  }
   font-size: 20px;
   line-height: calc(30 / 20);
   max-width: 450px;
