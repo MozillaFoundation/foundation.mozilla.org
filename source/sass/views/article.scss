@@ -120,9 +120,6 @@
   padding-top: 0.5rem;
 
   &::after {
-    position: absolute;
-    right: 0;
-    top: 7px;
     border: 0;
     background-image: url("../_images/glyphs/down-chevron.svg");
     background-size: cover;
