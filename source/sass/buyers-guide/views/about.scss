@@ -58,7 +58,35 @@
   See https://github.com/MozillaFoundation/Design/issues/585
 */
 .p-heading {
-  @include heading("Nunito Sans", 700, 0, inherit, inherit);
+  font-family: "Nunito Sans";
+  font-weight: 700;
+  letter-spacing: 0;
+  color: inherit;
+  margin-bottom: 1rem;
+
+  @at-root .tw-dark & {
+    color: inherit;
+
+    a {
+      color: inherit;
+      font-weight: inherit;
+
+      @include hover-focus-active {
+        color: $light-blue;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  a {
+    color: inherit;
+    font-weight: inherit;
+
+    @include hover-focus-active {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
   font-size: 18px;
   line-height: 1;
 }

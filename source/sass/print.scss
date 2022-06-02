@@ -79,7 +79,25 @@
 
   .block-video {
     .caption-wrapper {
-      @include body-text-style();
+      font-family: $font-family-sans-serif;
+      font-weight: 400;
+      color: $black;
+
+      @at-root .tw-dark & {
+        color: $white;
+
+        a {
+          color: $light-blue;
+          font-weight: inherit;
+
+          @include hover-focus-active {
+            color: $light-blue;
+            text-decoration: underline;
+          }
+        }
+      }
+      font-size: 18px;
+      line-height: calc(27 / 18);
 
       &:before {
         content: "Video: ";
