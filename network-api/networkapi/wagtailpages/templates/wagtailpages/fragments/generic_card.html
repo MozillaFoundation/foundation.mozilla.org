@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags localization %}
 
 <div class="entry-card {% block card_type %}{% endblock %} col-6 col-md-4 mb-5">
-  <div class="card-image tw-mb-1">
+  <div class="card-image tw-mb-2">
     <a href="{% relocalized_url page.localized.url %}">
       {% image page.localized.specific.get_meta_image fill-400x225 %}
     </a>
