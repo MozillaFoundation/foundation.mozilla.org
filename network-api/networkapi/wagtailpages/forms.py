@@ -27,7 +27,7 @@ class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
 
 
 # Max number validation for blog page topics. Since this is a parental m2m relationship,
-# and gets handled after the model saves, this is the only way to return 
+# and gets handled after the model saves, this is the only way to return
 # a validation error on the admin panel instead of returning a 500 error.
 class BlogPageForm(WagtailAdminPageForm):
     def clean(self):
