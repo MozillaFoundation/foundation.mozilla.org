@@ -6,7 +6,10 @@
       {% image page.localized.specific.get_meta_image fill-400x225 %}
     </a>
   </div>
+  
   {% block tags %}{% endblock %}
+  {% block published_date %}{% endblock %}
+    
   <a class="tw-h4-heading d-inline-block mt-1 mb-2" href="{% relocalized_url page.localized.url %}">{{ page.localized.title }}</a>
   <p class="tw-body-small my-0">
     {% block byline %}{% endblock %}
