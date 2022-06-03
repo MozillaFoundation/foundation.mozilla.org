@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import truncatechars
+from django import forms
+
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
@@ -119,7 +121,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     topics = ParentalManyToManyField(
         BlogPageTopic,
-        help_text='Which blog topics is this blog page associated with? Please select 2 topics max using ctrl/cmd + click.',
+        help_text='Which blog topics is this blog page associated with? Please select 2 topics max.',
         blank=True,
         verbose_name='Topics',
     )
@@ -166,7 +168,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             ],
             heading='Author(s)'
         ),
-        FieldPanel('topics'),
+        FieldPanel('topics', widget=forms.CheckboxSelectMultiple),
         MultiFieldPanel(
             [
                 FieldPanel("hero_video"),
