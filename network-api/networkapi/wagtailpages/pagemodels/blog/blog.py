@@ -17,7 +17,6 @@ from wagtail.core.fields import StreamField
 from wagtail.core.rich_text import get_text_for_indexing
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
-
 from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 from taggit.models import TaggedItemBase
@@ -25,7 +24,6 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from .. import customblocks
 from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
-
 
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
@@ -36,6 +34,7 @@ from ...utils import (
 )
 
 from networkapi.wagtailpages.models import Profile
+from networkapi.wagtailpages.forms import BlogPageForm
 from .blog_topic import BlogPageTopic
 from .blog_index import BlogIndexPage
 
@@ -120,7 +119,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     topics = ParentalManyToManyField(
         BlogPageTopic,
-        help_text='Which blog topics is this blog page associated with?',
+        help_text='Which blog topics is this blog page associated with? Please select 2 topics max using ctrl/cmd + click.',
         blank=True,
         verbose_name='Topics',
     )
@@ -151,6 +150,9 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     )
 
     related_post_count = 3
+
+    # Custom form for topic validation
+    base_form_class = BlogPageForm
 
     content_panels = [
         FieldPanel(
@@ -194,7 +196,6 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         FieldPanel('first_published_at'),
         PrivacyModalPanel(),
     ]
-
     translatable_fields = [
         # Promote tab fields
         SynchronizedField('slug'),
