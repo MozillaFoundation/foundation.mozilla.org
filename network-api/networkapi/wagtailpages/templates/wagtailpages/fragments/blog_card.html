@@ -24,6 +24,10 @@ each blog page's dominant tag)
   {% endif %}
 {% endblock %}
 
+{% block description %}
+  <p class="tw-body tw-line-clamp-3"> {{page.specific.get_meta_description}} </p>
+{% endblock %}
+
 {% block byline %}
 {% include "./blog_authors.html" with blog_page=page.specific %}
 {% endblock %}
