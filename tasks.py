@@ -86,27 +86,53 @@ def createsuperuser(ctx):
     print("\nCreated superuser `admin` with password `admin`.")
 
 
-def initialize_database(ctx):
+def initialize_database(ctx, slow=False):
+    """
+    Initialize the database.
+
+    To stop all containers after each management command, pass `slow=True`.
+    """
     print("* Applying database migrations.")
     migrate(ctx)
+    if slow:
+        ctx.run("docker-compose stop")
+
     print("* Creating fake data")
     manage(ctx, "load_fake_data")
+    if slow:
+        ctx.run("docker-compose stop")
+
     print("* Sync locales")
     manage(ctx, "sync_locale_trees")
+    if slow:
+        ctx.run("docker-compose stop")
+
     l10n_block_inventory(ctx)
+    if slow:
+        ctx.run("docker-compose stop")
+
     createsuperuser(ctx)
+    if slow:
+        ctx.run("docker-compose stop")
 
 
 @task(aliases=["docker-new-db"])
-def new_db(ctx):
-    """Delete your database and create a new one with fake data"""
+def new_db(ctx, slow=False):
+    """
+    Delete your database and create a new one with fake data.
+
+    If you are experiencing "too many clients errors while running this command, try
+    to pass the `--slow` flag. This will make sure that the containers are stopped
+    between the management commands and prevent that issue.
+
+    """
     print("* Starting the postgres service")
     ctx.run("docker-compose up -d postgres")
     print("* Delete the database")
     ctx.run("docker-compose run --rm postgres dropdb --if-exists wagtail -hpostgres -Ufoundation")
     print("* Create the database")
     ctx.run("docker-compose run --rm postgres createdb wagtail -hpostgres -Ufoundation")
-    initialize_database(ctx)
+    initialize_database(ctx, slow=slow)
     print("Stop postgres service")
     ctx.run("docker-compose down")
 
