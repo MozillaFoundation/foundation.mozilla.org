@@ -36,7 +36,6 @@ from ...utils import (
 )
 
 from networkapi.wagtailpages.models import Profile
-from networkapi.wagtailpages.forms import BlogPageForm
 from .blog_topic import BlogPageTopic
 from .blog_index import BlogIndexPage
 
@@ -152,9 +151,6 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     )
 
     related_post_count = 3
-
-    # Custom form for topic validation
-    base_form_class = BlogPageForm
 
     content_panels = [
         FieldPanel(
@@ -291,6 +287,12 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             )
 
     def clean(self):
+
+        if self.topics.count() > 2:
+            raise ValidationError({
+                'topics': ValidationError("Please select 2 topics max."),
+                }) 
+
         if self.hero_image and self.hero_video:
             raise ValidationError({
                 'hero_image': ValidationError("Please select a video OR an image for the hero section."),
@@ -314,3 +316,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
                 return truncatechars(text, 153)
 
         return super().get_meta_description()
+
+    def save(self, **kwargs):
+        self.clean()
+        return super(BlogPage, self).save(**kwargs)
