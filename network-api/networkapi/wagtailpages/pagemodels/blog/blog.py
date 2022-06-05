@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import truncatechars
-from django import forms
+from django.forms import CheckboxSelectMultiple
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -164,7 +164,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             ],
             heading='Author(s)'
         ),
-        FieldPanel('topics', widget=forms.CheckboxSelectMultiple),
+        FieldPanel('topics', widget=CheckboxSelectMultiple),
         MultiFieldPanel(
             [
                 FieldPanel("hero_video"),
