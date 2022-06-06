@@ -11,6 +11,7 @@
     
   <a class="tw-h4-heading d-inline-block mt-1 mb-2" href="{% relocalized_url page.localized.url %}">{{ page.localized.title }}</a>
   <p class="tw-body-small my-0">
+    {% block description %}{% endblock %}
     {% block byline %}{% endblock %}
   </p>
 </div>
