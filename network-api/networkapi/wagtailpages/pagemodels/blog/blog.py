@@ -291,7 +291,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         if self.topics.count() > 2:
             raise ValidationError({
                 'topics': ValidationError("Please select 2 topics max."),
-                }) 
+                })
 
         if self.hero_image and self.hero_video:
             raise ValidationError({
