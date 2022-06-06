@@ -287,8 +287,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             )
 
     def clean(self):
-        
-        # Validation for topics
+
         if self.topics.count() > 2:
             raise ValidationError({
                 'topics': ValidationError("Please select 2 topics max."),
