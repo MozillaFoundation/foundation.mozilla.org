@@ -36,12 +36,12 @@ const PulseProfile = ({ profile }) => {
           <div className="tw-flex tw-flex-row tw-space-x-2 tw-mt-[7px]">
             {profile.twitter && (
               <a className="hover:tw-no-underline" href={profile.twitter}>
-                <i className="twitter twitter-glyph small" />
+                <i className="twitter tw-twitter-glyph" />
               </a>
             )}
             {profile.linkedin && (
               <a className="hover:tw-no-underline" href={profile.linkedin}>
-                <i className="linkedIn linkedIn-glyph small" />
+                <i className="linkedIn tw-linkedin-glyph" />
               </a>
             )}
           </div>
