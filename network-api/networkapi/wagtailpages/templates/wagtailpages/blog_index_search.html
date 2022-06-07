@@ -1,0 +1,24 @@
+{% extends "./index_page.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags i18n %}
+
+
+{% block rss_metadata %}
+  <link rel="alternate" type="application/rss+xml" href="{% url 'rss-feed' %}" />
+{% endblock %}
+
+
+{% block featured %}
+  <h1>SEARCH</h1>
+  {% if not filtered %}
+    <div class="row">
+      {%  for feature in page.specific.featured_pages.all %}
+      <div class="col-12 col-md-6 mb-5">
+        <div class="card-regular h-100 d-flex flex-column">
+          {% include "./fragments/blog_index_feature.html" with blog=feature.blog %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}
