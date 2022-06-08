@@ -11,7 +11,6 @@
 
 // Site-wide
 @import "./resets";
-@import "./glyphs";
 @import "./mixins";
 @import "./buttons";
 
@@ -26,7 +25,6 @@
 
 // Non-React Components
 
-@import "./components/donate-banner";
 @import "./components/nav";
 @import "./components/primary-nav";
 @import "./components/multipage-nav";

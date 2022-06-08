@@ -81,7 +81,35 @@
         font-family: "Zilla Slab";
 
         .step-number {
-          @include heading($font-family-sans-serif, 700, 0, $white, $white);
+          font-family: $font-family-sans-serif;
+          font-weight: 700;
+          letter-spacing: 0;
+          color: $white;
+          margin-bottom: 1rem;
+
+          @at-root .tw-dark & {
+            color: $white;
+
+            a {
+              color: inherit;
+              font-weight: inherit;
+
+              @include hover-focus-active {
+                color: $light-blue;
+                text-decoration: underline;
+              }
+            }
+          }
+
+          a {
+            color: inherit;
+            font-weight: inherit;
+
+            @include hover-focus-active {
+              color: inherit;
+              text-decoration: underline;
+            }
+          }
           font-size: 32px;
           line-height: calc(45 / 32);
 
@@ -135,13 +163,35 @@
       }
 
       .tw-h5-heading {
-        @include heading(
-          $font-changa,
-          400,
-          0,
-          $youtube-regrets-red,
-          $youtube-regrets-red
-        );
+        font-family: $font-changa;
+        font-weight: 400;
+        letter-spacing: 0;
+        color: $youtube-regrets-red;
+        margin-bottom: 1rem;
+
+        @at-root .tw-dark & {
+          color: $youtube-regrets-red;
+
+          a {
+            color: inherit;
+            font-weight: inherit;
+
+            @include hover-focus-active {
+              color: $light-blue;
+              text-decoration: underline;
+            }
+          }
+        }
+
+        a {
+          color: inherit;
+          font-weight: inherit;
+
+          @include hover-focus-active {
+            color: inherit;
+            text-decoration: underline;
+          }
+        }
         font-size: 26px;
         line-height: calc(30 / 26);
 
@@ -172,7 +222,35 @@
 
   .section-articles {
     .tw-h6-heading {
-      @include heading($font-family-sans-serif, 700, 1px, $black, $black);
+      font-family: $font-family-sans-serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: $black;
+      margin-bottom: 1rem;
+
+      @at-root .tw-dark & {
+        color: $black;
+
+        a {
+          color: inherit;
+          font-weight: inherit;
+
+          @include hover-focus-active {
+            color: $light-blue;
+            text-decoration: underline;
+          }
+        }
+      }
+
+      a {
+        color: inherit;
+        font-weight: inherit;
+
+        @include hover-focus-active {
+          color: inherit;
+          text-decoration: underline;
+        }
+      }
       font-size: 14px;
       line-height: 2;
     }

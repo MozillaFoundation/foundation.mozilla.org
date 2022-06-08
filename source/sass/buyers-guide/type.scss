@@ -1,13 +1,45 @@
 // unoffiical text styles used only on PNI pages
 
 .pni-product-intro-large {
-  @include text-base-style($font-family-sans-serif, 400, $gray-60, $gray-60);
+  font-family: $font-family-sans-serif;
+  font-weight: 400;
+  color: $gray-60;
+
+  @at-root .tw-dark & {
+    color: $gray-60;
+
+    a {
+      color: $light-blue;
+      font-weight: inherit;
+
+      @include hover-focus-active {
+        color: $light-blue;
+        text-decoration: underline;
+      }
+    }
+  }
   font-size: 18px;
   line-height: calc(27 / 18);
 }
 
 .pni-product-smaller-body {
-  @include text-base-style($font-family-sans-serif, 400, $black, $white);
+  font-family: $font-family-sans-serif;
+  font-weight: 400;
+  color: $black;
+
+  @at-root .tw-dark & {
+    color: $white;
+
+    a {
+      color: $light-blue;
+      font-weight: inherit;
+
+      @include hover-focus-active {
+        color: $light-blue;
+        text-decoration: underline;
+      }
+    }
+  }
   font-size: 16px;
   line-height: calc(24 / 16);
 }

@@ -92,7 +92,36 @@
 
     .letter-body {
       p {
-        @include heading("Zilla Slab", 300, 0, $black, $white);
+        font-family: "Zilla Slab";
+        font-weight: 300;
+        letter-spacing: 0;
+        color: $black;
+        margin-bottom: 1rem;
+
+        @at-root .tw-dark & {
+          color: $white;
+
+          a {
+            color: inherit;
+            font-weight: inherit;
+
+            @include hover-focus-active {
+              color: $light-blue;
+              text-decoration: underline;
+            }
+          }
+        }
+
+        a {
+          color: inherit;
+          font-weight: inherit;
+
+          @include hover-focus-active {
+            color: inherit;
+            text-decoration: underline;
+          }
+        }
+
         font-size: 18px;
         line-height: calc(27 / 18);
 

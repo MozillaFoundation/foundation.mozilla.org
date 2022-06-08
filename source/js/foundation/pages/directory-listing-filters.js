@@ -133,12 +133,12 @@
             <div class="medium:tw-absolute medium:tw-right-0 medium:tw-top-4">
               ${
                 profile.twitter
-                  ? `<a href="${profile.twitter}" class="twitter twitter-glyph small"></a>`
+                  ? `<a href="${profile.twitter}" class="twitter tw-twitter-glyph"></a>`
                   : ``
               }
               ${
                 profile.linkedin
-                  ? `<a href="${profile.linkedin}" class="linkedIn linkedIn-glyph small"></a>`
+                  ? `<a href="${profile.linkedin}" class="linkedIn tw-linkedin-glyph"></a>`
                   : ``
               }
             </div>
