@@ -245,10 +245,10 @@ class BlogIndexPage(IndexPage):
             request,
             context_overrides={
                 'index_title': 'Search',
-                'entries': self.get_search_entires(),
+                'entries': self.get_search_entries(),
             },
             template="wagtailpages/blog_index_search.html"
         )
 
-    def get_search_entires(self):
+    def get_search_entries(self):
         return self.get_entries()[:6]
