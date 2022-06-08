@@ -58,4 +58,3 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertIn(blog_page_3, entries)
         self.assertIn(blog_page_2, entries)
         self.assertNotIn(blog_page_1, entries)
-

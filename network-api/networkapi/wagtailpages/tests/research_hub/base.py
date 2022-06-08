@@ -1,8 +1,3 @@
-from django import test
-from wagtail.core import models as wagtail_models
-from wagtail_localize import synctree
-
-from networkapi.wagtailpages.factory import homepage as home_factory
 from networkapi.wagtailpages.factory import research_hub as research_factory
 from networkapi.wagtailpages.tests import base as test_base
 
