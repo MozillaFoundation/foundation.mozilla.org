@@ -243,6 +243,9 @@ class BlogIndexPage(IndexPage):
         """Render search results view."""
         return self.render(
             request,
-            context_overrides={},
+            context_overrides={
+                'index_title': 'Search',
+                'entries': [],
+            },
             template="wagtailpages/blog_index_search.html"
         )
