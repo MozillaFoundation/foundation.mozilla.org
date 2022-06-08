@@ -198,6 +198,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         FieldPanel('first_published_at'),
         PrivacyModalPanel(),
     ]
+
     translatable_fields = [
         # Promote tab fields
         SynchronizedField('slug'),
@@ -291,7 +292,6 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             )
 
     def clean(self):
-
         if self.hero_image and self.hero_video:
             raise ValidationError({
                 'hero_image': ValidationError("Please select a video OR an image for the hero section."),

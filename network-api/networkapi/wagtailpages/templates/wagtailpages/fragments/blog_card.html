@@ -13,17 +13,15 @@ each blog page's dominant tag)
 
 {% block tags %}
   {% with topics=page.specific.topics.all %}
-    {% if topics %}
-      {% for topic in topics %}
-        {% localized_version topic as localized_topic %}
-        {% get_root_or_page as parent_page %}
-        {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
-        <a class="tw-h6-heading tw-mb-0 tw-text-blue-80" href="{% localizedroutablepageurl parent_page "entries_by_topic" topic.slug %}">{{ localized_topic }}</a>
-        {% if not forloop.last %}
-          <span class="tw-h6-heading tw-text-blue-80"> / </span>
-        {% endif %}
-      {% endfor %}
-    {% endif %} 
+    {% for topic in topics %}
+      {% localized_version topic as localized_topic %}
+      {% get_root_or_page as parent_page %}
+      {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
+      <a class="tw-h6-heading tw-mb-0 tw-text-blue-80" href="{% localizedroutablepageurl parent_page "entries_by_topic" topic.slug %}">{{ localized_topic }}</a>
+      {% if not forloop.last %}
+        <span class="tw-h6-heading tw-text-blue-80"> / </span>
+      {% endif %}
+    {% endfor %}
   {% endwith %}
 {% endblock %}
 

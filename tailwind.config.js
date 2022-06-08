@@ -51,7 +51,7 @@ module.exports = {
     ...buttonPlugins,
     ...typePlugins,
     require("@tailwindcss/forms")({ strategy: "class" }),
-    require("@tailwindcss/line-clamp"),
+    require('@tailwindcss/line-clamp'),
   ],
   theme: {
     extend: {
