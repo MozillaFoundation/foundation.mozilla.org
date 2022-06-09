@@ -1,3 +1,5 @@
+import typing
+
 from django.conf import settings
 from django.db import models
 from django.shortcuts import redirect
@@ -19,6 +21,10 @@ from sentry_sdk import capture_exception, push_scope
 
 from ..index import IndexPage
 from .blog_topic import BlogPageTopic
+
+if typing.TYPE_CHECKING:
+    from django.db.models import QuerySet
+    from wagtail.search.backends.db import DatabaseSearchResults
 
 
 class FeaturedBlogPages(WagtailOrderable, models.Model):
@@ -250,5 +256,8 @@ class BlogIndexPage(IndexPage):
             template="wagtailpages/blog_index_search.html"
         )
 
-    def get_search_entries(self):
-        return self.get_entries()[:6]
+    def get_search_entries(self, query: str = "") -> typing.Union['QuerySet', 'DatabaseSearchResults']:
+        entries = self.get_entries().specific()
+        if query:
+            entries = entries.search(query)
+        return entries[:6]
