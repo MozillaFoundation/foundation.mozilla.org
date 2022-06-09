@@ -273,11 +273,17 @@ class JoinUs extends Component {
    * Render the CTA heading.
    */
   renderSnippetHeading() {
+    let headingClasses = classNames(
+      `${
+        this.props.formStyle == "pop"
+          ? "tw-h1-heading large:tw-pr-7"
+          : "tw-h5-heading"
+      }`
+    );
+    let descriptionClasses = classNames(
+      `${this.props.formStyle == "pop" ? "large:tw-pr-7" : ""}`
+    );
 
-    let headingClasses = classNames(`${this.props.formStyle == 'pop' ? "tw-h1-heading large:tw-pr-7" : "tw-h5-heading"}`);
-    let descriptionClasses = classNames(`${this.props.formStyle == 'pop' ? "large:tw-pr-7" : ""}`);
-
-    
     return (
       <Fragment>
         <p className={headingClasses}>
@@ -286,7 +292,8 @@ class JoinUs extends Component {
             : getText(`Thanks!`)}
         </p>
         {!this.state.apiSuccess ? (
-          <div className={descriptionClasses}
+          <div
+            className={descriptionClasses}
             dangerouslySetInnerHTML={{
               __html: this.props.ctaDescription,
             }}
@@ -336,7 +343,8 @@ class JoinUs extends Component {
     });
 
     let inputClasses = classNames(`form-control`, {
-      "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-4": this.props.formStyle == `pop`,
+      "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-4":
+        this.props.formStyle == `pop`,
     });
 
     let errorWrapperClasses = classNames("glyph-container", {
@@ -390,9 +398,9 @@ class JoinUs extends Component {
   }
 
   renderLocaleFields() {
-
     let selectInputClasses = classNames(`w-100`, {
-      "tw-border-1 tw-border-black focus:tw-border-blue-40 focus:tw-shadow-none": this.props.formStyle == `pop`,
+      "tw-border-1 tw-border-black focus:tw-border-blue-40 focus:tw-shadow-none":
+        this.props.formStyle == `pop`,
     });
 
     return (
@@ -456,11 +464,10 @@ class JoinUs extends Component {
         this.state.userTriedSubmitting &&
         !this.privacy.checked,
     });
-    
-    let privacyStatementClasses = classNames('form-check-label tw-body-small', {
-      "tw-text-black": this.props.formStyle == "pop"
-    }
-    )
+
+    let privacyStatementClasses = classNames("form-check-label tw-body-small", {
+      "tw-text-black": this.props.formStyle == "pop",
+    });
 
     return (
       <div className={classes}>
@@ -503,16 +510,17 @@ class JoinUs extends Component {
     let classnames;
     let buttonText;
 
-    if (this.props.formStyle == "pop"){
-       classnames = classNames("tw-btn tw-border-1 tw-btn-secondary tw-mt-7 medium:tw-mt-5");
-      buttonText = getText('Subscribe')
-    } 
-    else{
-       classnames = classNames("btn btn-primary", {
+    if (this.props.formStyle == "pop") {
+      classnames = classNames(
+        "tw-btn tw-border-1 tw-btn-secondary tw-mt-7 medium:tw-mt-5"
+      );
+      buttonText = getText("Subscribe");
+    } else {
+      classnames = classNames("btn btn-primary", {
         "w-100": !this.isFlowForm(),
         "tw-flex-1 tw-mr-4": this.isFlowForm(),
       });
-      buttonText = getText('Sign up')
+      buttonText = getText("Sign up");
     }
 
     return <button className={classnames}>{buttonText}</button>;
