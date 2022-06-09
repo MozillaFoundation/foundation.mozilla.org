@@ -1,5 +1,5 @@
 {% extends "./research_base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load i18n wagtailcore_tags wagtailimages_tags %}
 
 {% block research_hub_content %}
   <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-[12rem_1fr_14rem] large:tw-grid-cols-[14rem_1fr_16rem] xlarge:tw-grid-cols-[14rem_1fr_16rem] tw-gap-5">
@@ -44,7 +44,7 @@
     <div id="overview" class="medium:tw-col-start-1 xlarge:tw-col-start-2 medium:tw-col-end-3 tw-mt-5 medium:tw-mt-7">
       {% if page.overview %}
         <div class="tw-border-t tw-border-black">
-          <h2 class="tw-h3-heading tw-my-5">Overview</h2>
+          <h2 class="tw-h3-heading tw-my-5">{% trans "Overview" context "Research page section heading" %}</h2>
           <div class="tw-text-lg">
             {{ page.overview|richtext }}
           </div>
@@ -55,7 +55,7 @@
     <div id="authors-and-collaborators" class="medium:tw-col-start-3 medium:tw-col-end-4 tw-mt-5 medium:tw-mt-7">
       {% if page.research_authors.all %}
         <div class="tw-border-t tw-border-black">
-          <h2 class="tw-h4-heading tw-my-5">Project leads</h2>
+          <h2 class="tw-h4-heading tw-my-5">{% trans "Project leads" %}</h2>
           <ul class="tw-p-0 tw-list-none">
             {% for research_author in page.research_authors.all  %}
               <li class="tw-mb-5">
@@ -68,7 +68,7 @@
 
       {% if page.collaborators %}
         <div class="tw-border-t tw-border-black tw-mt-7">
-          <h2 class="tw-h4-heading tw-my-5">Collaborators</h2>
+          <h2 class="tw-h4-heading tw-my-5">{% trans "Collaborators" %}</h2>
           <p class="tw-text-sm large:tw-text-base">{{ page.collaborators }}</p>
         </div>
       {% endif %}
