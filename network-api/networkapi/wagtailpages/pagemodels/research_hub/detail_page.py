@@ -128,9 +128,9 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
 
     translatable_fields = [
         localize_fields.TranslatableField('title'),
-        localize_fields.SynchronizedField('slug'),
         localize_fields.SynchronizedField('cover_image'),
         localize_fields.SynchronizedField('original_publication_date', overridable=False),
+        localize_fields.TranslatableField('research_links'),
         localize_fields.TranslatableField('introduction'),
         localize_fields.TranslatableField('overview'),
         localize_fields.TranslatableField('research_authors'),
@@ -138,6 +138,12 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
         localize_fields.TranslatableField('collaborators'),
         localize_fields.TranslatableField('related_topics'),
         localize_fields.TranslatableField('related_regions'),
+        # Promote tab fields
+        localize_fields.SynchronizedField('slug'),
+        localize_fields.TranslatableField('seo_title'),
+        localize_fields.SynchronizedField('show_in_menus'),
+        localize_fields.TranslatableField('search_description'),
+        localize_fields.SynchronizedField('search_image'),
     ]
 
     search_fields = wagtail_models.Page.search_fields + [
