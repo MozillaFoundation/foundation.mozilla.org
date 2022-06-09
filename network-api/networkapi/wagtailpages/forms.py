@@ -27,7 +27,7 @@ class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
 
 
 # Max number validation for blog page topics. We are using a custom form as if
-# we do this validation in the BlogPage models clean() method, it will return the 
+# we do this validation in the BlogPage models clean() method, it will return the
 # error as a 500, and not as an error in the admin panel.
 class BlogPageForm(WagtailAdminPageForm):
     def clean(self):
