@@ -52,12 +52,19 @@
         </div>
         <div class="tw-h4-heading tw-mb-0">
           {# RESULTS COUNT #}
-          {% blocktranslate count counter=research_detail_pages_count trimmed %}
-            <strong>{{ research_detail_pages_count }}</strong> result
-          {% plural %}
-            <strong>{{ research_detail_pages_count }}</strong> results
-          {% endblocktranslate %}
-          {% if search_query %}{% translate 'for' context 'Heading describing the count of search results for a given search term' %} <q>{{ search_query }}</q>{% endif %}
+          {% if search_query %}
+            {% blocktranslate count counter=research_detail_pages_count trimmed %}
+              <strong>{{ research_detail_pages_count }}</strong> result for <q>{{ search_query }}</q>
+            {% plural %}
+              <strong>{{ research_detail_pages_count }}</strong> results for <q>{{ search_query }}</q>
+            {% endblocktranslate %}
+          {% else %}
+            {% blocktranslate count counter=research_detail_pages_count trimmed %}
+              <strong>{{ research_detail_pages_count }}</strong> result
+            {% plural %}
+              <strong>{{ research_detail_pages_count }}</strong> results
+            {% endblocktranslate %}
+          {% endif %}
         </div>
       </div>
 
@@ -91,7 +98,7 @@
         <button
           id="filter-section-hide-button"
           class="tw-hidden large:tw-hidden tw-h-7 tw-w-7 -tw-mt-2 -tw-mr-2 -tw-mb-4 tw-text-3xl tw-font-normal tw-text-blue-80 hover:tw-text-blue-20 tw-bg-transparent"
-          aria-label="Close"
+          aria-label="{% translate "Close" %}"
           tabIndex="0"
         >
           <span aria-hidden="true" class="">&times;</span>
