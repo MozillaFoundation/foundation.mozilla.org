@@ -17,6 +17,7 @@ from wagtail.core import blocks
 from wagtail.core.models import Orderable, Locale, Page
 from wagtail.core.fields import StreamField
 from wagtail.core.rich_text import get_text_for_indexing
+from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail_localize.fields import TranslatableField, SynchronizedField
@@ -214,6 +215,15 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         SynchronizedField('hero_image'),
         SynchronizedField('related_posts'),
         SynchronizedField('first_published_at'),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.RelatedFields(
+            field_name='topics',
+            fields=[
+                index.SearchField('title'),
+            ],
+        )
     ]
 
     subpage_types = [

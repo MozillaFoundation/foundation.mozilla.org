@@ -79,7 +79,7 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertIn(match_post, results)
         self.assertNotIn(other_post, results)
 
-    def test_title_query(self):
+    def test_topic_match(self):
         topic = blog_topic.BlogPageTopic.objects.create(title=self.search_term)
         match_post = blog_factories.BlogPageFactory(parent=self.blog_index)
         match_post.topics.add(topic)
