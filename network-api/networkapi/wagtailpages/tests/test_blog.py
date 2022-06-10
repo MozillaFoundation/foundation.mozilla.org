@@ -1,12 +1,22 @@
 import datetime
 from http import HTTPStatus
+import os
+
+from django.core import management
 
 from networkapi.wagtailpages.pagemodels.blog import blog_topic
+from networkapi.wagtailpages.pagemodels.blog import blog as blog_models
 from networkapi.wagtailpages.factory import blog as blog_factories
+from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.tests import base as test_base
 
 
 class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
+    @staticmethod
+    def update_index():
+        with open(os.devnull, 'w') as f:
+            management.call_command('update_index', verbosity=0, stdout=f)
+
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
@@ -84,10 +94,23 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         match_post = blog_factories.BlogPageFactory(parent=self.blog_index)
         match_post.topics.add(topic)
         match_post.save()
+        self.assertIn(topic, match_post.topics.all())
         other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
 
         results = self.blog_index.get_search_entries(query=self.search_term)
 
-        self.assertIn(topic, match_post.topics.all())
+        self.assertIn(match_post, results)
+        self.assertNotIn(other_post, results)
+
+    def test_author_match(self):
+        author_profile = profile_factories.ProfileFactory(name=self.search_term)
+        match_post = blog_factories.BlogPageFactory(parent=self.blog_index)
+        blog_models.BlogAuthors.objects.create(page=match_post, author=author_profile)
+        self.assertEqual(match_post.authors.first().author, author_profile)
+        other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
+        self.update_index()
+
+        results = self.blog_index.get_search_entries(query=self.search_term)
+
         self.assertIn(match_post, results)
         self.assertNotIn(other_post, results)
