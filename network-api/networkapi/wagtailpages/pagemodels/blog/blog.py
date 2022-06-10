@@ -225,6 +225,12 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             ],
         ),
         index.RelatedFields(
+            field_name='tags',
+            fields=[
+                index.SearchField('name'),
+            ],
+        ),
+        index.RelatedFields(
             field_name='authors',
             fields=[
                 index.RelatedFields(

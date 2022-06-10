@@ -3,6 +3,7 @@ from http import HTTPStatus
 import os
 
 from django.core import management
+from taggit import models as tag_models
 
 from networkapi.wagtailpages.pagemodels.blog import blog_topic
 from networkapi.wagtailpages.pagemodels.blog import blog as blog_models
@@ -109,6 +110,19 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertEqual(match_post.authors.first().author, author_profile)
         other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
         self.update_index()
+
+        results = self.blog_index.get_search_entries(query=self.search_term)
+
+        self.assertIn(match_post, results)
+        self.assertNotIn(other_post, results)
+
+    def test_tags_match(self):
+        tag = tag_models.Tag.objects.create(name=self.search_term)
+        match_post = blog_factories.BlogPageFactory(parent=self.blog_index)
+        match_post.tags.add(tag)
+        match_post.save()
+        self.assertIn(tag, match_post.tags.all())
+        other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
 
         results = self.blog_index.get_search_entries(query=self.search_term)
 
