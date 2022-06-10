@@ -26,9 +26,11 @@ class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
         return parent
 
 
-# Max number validation for blog page topics. We are using a custom form as if
-# we do this validation in the BlogPage models clean() method, it will return the
-# error as a 500, and not as an error in the admin panel.
+# Max number validation for blog page topics. We are using a custom form to avoid
+# an issue where the `ValidationError` raised in the page's `clean` method is
+# not caught by Wagtail. Instead of displaying the `ValidationError` as a message to 
+# the editor, the admin crashes with a 500 error. Using the custom form gets around
+# that issue. 
 class BlogPageForm(WagtailAdminPageForm):
     def clean(self):
         cleaned_data = super(BlogPageForm, self).clean()
