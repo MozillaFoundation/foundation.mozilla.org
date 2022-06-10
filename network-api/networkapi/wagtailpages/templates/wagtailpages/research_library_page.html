@@ -52,13 +52,19 @@
         </div>
         <div class="tw-h4-heading tw-mb-0">
           {# RESULTS COUNT #}
-          <strong>{{ research_detail_pages_count }}</strong>
-          {% blocktranslate count counter=research_detail_pages_count trimmed %}
-            result
-          {% plural %}
-            results
-          {% endblocktranslate %}
-          {% if search_query %}{% translate 'for' context 'Heading describing the count of search results for a given search term' %} <q>{{ search_query }}</q>{% endif %}
+          {% if search_query %}
+            {% blocktranslate count counter=research_detail_pages_count trimmed %}
+              <strong>{{ research_detail_pages_count }}</strong> result for <q>{{ search_query }}</q>
+            {% plural %}
+              <strong>{{ research_detail_pages_count }}</strong> results for <q>{{ search_query }}</q>
+            {% endblocktranslate %}
+          {% else %}
+            {% blocktranslate count counter=research_detail_pages_count trimmed %}
+              <strong>{{ research_detail_pages_count }}</strong> result
+            {% plural %}
+              <strong>{{ research_detail_pages_count }}</strong> results
+            {% endblocktranslate %}
+          {% endif %}
         </div>
       </div>
 
@@ -76,13 +82,23 @@
       </div>
     </div>
 
-    <div id="filter" class="large:tw-block large:tw-w-[20rem] tw-shrink-0 large:tw-mr-0 large:-tw-ml-5 tw-px-4 small:tw-px-5 medium:tw-px-6 large:tw-px-5 tw-pt-4 large:tw-pt-0 tw-pb-7 tw-bg-gray-05">
+    <div id="filter" class="
+      tw-bg-gray-05
+      large:tw-block
+      large:tw-mr-0
+      large:-tw-ml-5
+      large:tw-overflow-y-clip
+      tw-pt-4 large:tw-pt-0
+      tw-px-4 small:tw-px-5 medium:tw-px-6 large:tw-px-5
+      tw-shrink-0
+      large:tw-w-[20rem]
+    ">
       {# FILTER SECTION #}
       <div class="tw-flex tw-justify-end">
         <button
           id="filter-section-hide-button"
           class="tw-hidden large:tw-hidden tw-h-7 tw-w-7 -tw-mt-2 -tw-mr-2 -tw-mb-4 tw-text-3xl tw-font-normal tw-text-blue-80 hover:tw-text-blue-20 tw-bg-transparent"
-          aria-label="Close"
+          aria-label="{% translate "Close" %}"
           tabIndex="0"
         >
           <span aria-hidden="true" class="">&times;</span>
@@ -111,7 +127,18 @@
         {% include "wagtailpages/fragments/research_filter_group.html" with heading=heading options=region_options|dictsort:'label' checked_option_values=filtered_region_ids field_name='region' %}
       {% endif %}
 
-      <button type="submit" class="tw-w-full tw-btn-primary" form="search-form">{% translate 'Apply filters' context 'Button' %}</button>
+      <div class="
+        tw-bg-gray-05
+        tw-bottom-0
+        -tw-mx-4 small:-tw-mx-5 medium:-tw-mx-6 large:-tw-mx-5
+        tw-pb-6 large:tw-pb-5
+        tw-px-4 small:tw-px-5 medium:tw-px-6 large:tw-px-5
+        tw-sticky
+      ">
+        <div class="tw-pt-5 large:tw-pt-4 tw-border-t tw-border-t-gray-20">
+          <button type="submit" class="tw-w-full tw-btn-primary" form="search-form">{% translate 'Apply filters' context 'Button' %}</button>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock research_hub_content %}

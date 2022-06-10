@@ -5,6 +5,7 @@ from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 
@@ -32,6 +33,19 @@ class ResearchLandingPage(research_base.ResearchHubBasePage):
         FieldPanel('intro'),
         ImageChooserPanel('banner_image'),
         InlinePanel('featured_topics', heading="Featured Topics"),
+    ]
+
+    translatable_fields = [
+        TranslatableField('title'),
+        SynchronizedField('banner_image'),
+        TranslatableField('intro'),
+        TranslatableField('featured_topics'),
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
     ]
 
     def get_context(self, request):
