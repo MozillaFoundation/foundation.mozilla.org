@@ -21,3 +21,11 @@
     </div>
   {% endif %}
 {% endblock %}
+
+{% block featured_video_post %}
+  {% if not filtered %}
+  {% with self.featured_video_post.first as featured_video_post %}
+  <h1> {{ featured_video_post.blog.get_meta_description }}</h1>
+  {% endwith %}
+  {% endif %}
+{% endblock %}
