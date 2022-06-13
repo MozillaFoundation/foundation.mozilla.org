@@ -157,3 +157,61 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
 
         self.assertIn(match_post, results)
         self.assertNotIn(other_post, results)
+
+    def test_ranking(self):
+        # Post with match in title
+        title_post = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            title=self.search_term
+        )
+        # Post with match in topic
+        topic = blog_topic.BlogPageTopic.objects.create(title=self.search_term)
+        topic_post = blog_factories.BlogPageFactory(parent=self.blog_index)
+        topic_post.topics.add(topic)
+        topic_post.save()
+        # Post with match in author
+        author_profile = profile_factories.ProfileFactory(name=self.search_term)
+        author_post = blog_factories.BlogPageFactory(parent=self.blog_index)
+        blog_models.BlogAuthors.objects.create(page=author_post, author=author_profile)
+        # Post with match in tag
+        tag = tag_models.Tag.objects.create(name=self.search_term)
+        tag_post = blog_factories.BlogPageFactory(parent=self.blog_index)
+        tag_post.tags.add(tag)
+        tag_post.save()
+        # Post with match in description
+        description_post = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            search_description=f'Something including the {self.search_term}',
+        )
+        # Post with match in body
+        body_post = blog_factories.BlogPageFactory(parent=self.blog_index)
+        body_post.body.append((
+            'paragraph',
+            rich_text.RichText(
+                f'<p>Some richtext containing the { self.search_term }</p>',
+            ),
+        ))
+        body_post.save()
+        # Non-matching post
+        other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
+        self.update_index()
+
+        results = self.blog_index.get_search_entries(query=self.search_term)
+
+        with self.subTest('All expected results are returned'):
+            self.assertIn(title_post, results)
+            self.assertIn(topic_post, results)
+            self.assertIn(author_post, results)
+            self.assertIn(tag_post, results)
+            self.assertIn(description_post, results)
+            self.assertIn(body_post, results)
+            self.assertNotIn(other_post, results)
+
+        with self.subTest('The expected results are in the right order'):
+            self.assertEqual(title_post, results[0])
+            self.assertEqual(topic_post, results[1])
+            self.assertEqual(author_post, results[2])
+            self.assertEqual(tag_post, results[3])
+            self.assertEqual(description_post, results[4])
+            self.assertEqual(body_post, results[5])
+

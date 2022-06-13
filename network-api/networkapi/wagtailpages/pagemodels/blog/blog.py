@@ -218,18 +218,10 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     ]
 
     search_fields = Page.search_fields + [
-        index.SearchField(field_name='search_description'),
-        index.SearchField(field_name='body'),
         index.RelatedFields(
             field_name='topics',
             fields=[
-                index.SearchField('title'),
-            ],
-        ),
-        index.RelatedFields(
-            field_name='tags',
-            fields=[
-                index.SearchField('name'),
+                index.SearchField(field_name='title', boost=1.9),
             ],
         ),
         index.RelatedFields(
@@ -238,11 +230,19 @@ class BlogPage(FoundationMetadataPageMixin, Page):
                 index.RelatedFields(
                     field_name='author',
                     fields=[
-                        index.SearchField('name'),
+                        index.SearchField(field_name='name', boost=1.8),
                     ],
                 ),
             ],
-        )
+        ),
+        index.RelatedFields(
+            field_name='tags',
+            fields=[
+                index.SearchField(field_name='name', boost=1.7),
+            ],
+        ),
+        index.SearchField(field_name='search_description', boost=1.6),
+        index.SearchField(field_name='body', boost=1.5),
     ]
 
     subpage_types = [
