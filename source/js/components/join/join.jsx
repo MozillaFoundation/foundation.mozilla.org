@@ -534,7 +534,12 @@ class JoinUs extends Component {
     if (this.state.apiSuccess) return null;
 
     let formClass = `d-flex flex-column`;
-    let fieldsWrapperClass = `w-100 large:tw-pl-7`;
+    
+    let fieldsWrapperClass = classNames(`w-100`, {
+      "large:tw-pl-7":
+        this.props.formStyle == `pop`,
+    });
+
     let buttonsWrapperClass = `w-100`;
 
     if (this.props.buttonPosition === `side`) {

@@ -23,5 +23,7 @@
 {% endblock %}
 
 {% block newsletter-callout-box %}
-  {% include "./fragments/newsletter-signup-box.html" %}
+  {% if not filtered %}
+    {% include "./fragments/newsletter-signup-box.html" %}
+  {% endif %}
 {% endblock %}
