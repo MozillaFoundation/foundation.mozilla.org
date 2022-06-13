@@ -237,3 +237,18 @@ class BlogIndexPage(IndexPage):
             return redirect(self.full_url)
 
         return IndexPage.serve(self, request, *args, **kwargs)
+
+    @route(r'^search/')
+    def search(self, request):
+        """Render search results view."""
+        return self.render(
+            request,
+            context_overrides={
+                'index_title': 'Search',
+                'entries': self.get_search_entries(),
+            },
+            template="wagtailpages/blog_index_search.html"
+        )
+
+    def get_search_entries(self):
+        return self.get_entries()[:6]
