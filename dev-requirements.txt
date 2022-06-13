@@ -51,7 +51,7 @@ pyopenssl==22.0.0
     # via
     #   -c requirements.txt
     #   urllib3
-requests==2.27.1
+requests==2.28.0
     # via
     #   -c requirements.txt
     #   coveralls
