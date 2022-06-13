@@ -21,3 +21,9 @@
     </div>
   {% endif %}
 {% endblock %}
+
+{% block newsletter-callout-box %}
+  {% if not filtered %}
+    {% include "./fragments/newsletter-signup-box.html" %}
+  {% endif %}
+{% endblock %}
