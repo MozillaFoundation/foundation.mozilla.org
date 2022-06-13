@@ -43,6 +43,33 @@ class FeaturedBlogPages(WagtailOrderable, models.Model):
     def __str__(self):
         return self.page.title + '->' + self.blog.title
 
+class FeaturedVideoPost(WagtailOrderable, models.Model):
+    page = ParentalKey(
+        'wagtailpages.BlogIndexPage',
+        related_name='featured_video_post',
+    )
+
+    blog = models.ForeignKey(
+        'wagtailpages.BlogPage',
+        on_delete=models.CASCADE,
+        related_name='+'
+    )
+    video_url = models.URLField(
+        help_text='For YouTube: go to your YouTube video and click “Share,” '
+                  'then “Embed,” and then copy and paste the provided URL only. '
+                  'For example: https://www.youtube.com/embed/3FIVXBawyQw '
+                  'For Vimeo: follow similar steps to grab the embed URL. '
+                  'For example: https://player.vimeo.com/video/9004979',
+        blank=True,
+    )
+
+    panels = [
+        PageChooserPanel('blog', 'wagtailpages.BlogPage'),
+    ]
+
+    def __str__(self):
+        return self.page.title + '->' + self.blog.title
+
 
 class BlogIndexPage(IndexPage):
     """
@@ -57,15 +84,23 @@ class BlogIndexPage(IndexPage):
     content_panels = IndexPage.content_panels + [
         InlinePanel(
             'featured_pages',
-            label='Featured',
+            label='Featured Posts',
             help_text='Choose two blog pages to feature',
             min_num=0,
             max_num=2,
+        ),
+        InlinePanel(
+            'featured_video_post',
+            label='Featured Video Post',
+            help_text='Choose a video blog post to feature',
+            min_num=0,
+            max_num=1,
         )
     ]
 
     translatable_fields = IndexPage.translatable_fields + [
         SynchronizedField('featured_pages'),
+        SynchronizedField('featured_video_post'),
     ]
 
     template = 'wagtailpages/blog_index_page.html'

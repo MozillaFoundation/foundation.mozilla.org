@@ -8,6 +8,10 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-8 pt-4">
+
+        {% for loop_cycle in self.featured_video_post.all %}
+        <h1> {{ loop_cycle.blog.get_meta_description }}</h1>
+        {% endfor %}
         <h1 class="tw-h1-heading mb-0 mt-1 pt-2">
           {% if index_title %}{{ index_title }}{% elif root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
         </h1>
@@ -59,7 +63,7 @@
     {% endif %}  {# End of IF for filtered page content _after_ starting a new row. #}
       {% block subcontent %}
         {% include "./fragments/entry_cards.html" %}
-      {% endblock %}
+    {% endblock %}
     </div>
 
     <div class="row">
