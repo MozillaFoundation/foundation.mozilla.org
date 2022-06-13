@@ -39,6 +39,7 @@ class JoinUs extends Component {
       hideLocaleFields: [
         `header`,
         `body`,
+        `callout-box`,
         `footer`,
         `youtube-regrets-reporter`,
       ].includes(props.formPosition),
@@ -272,15 +273,27 @@ class JoinUs extends Component {
    * Render the CTA heading.
    */
   renderSnippetHeading() {
+    let headingClasses = classNames(
+      `${
+        this.props.formStyle == "pop"
+          ? "tw-h1-heading large:tw-pr-7"
+          : "tw-h5-heading"
+      }`
+    );
+    let descriptionClasses = classNames(
+      `${this.props.formStyle == "pop" ? "large:tw-pr-7" : ""}`
+    );
+
     return (
       <Fragment>
-        <p className="tw-h5-heading">
+        <p className={headingClasses}>
           {!this.state.apiSuccess
             ? `${this.props.ctaHeader}`
             : getText(`Thanks!`)}
         </p>
         {!this.state.apiSuccess ? (
           <div
+            className={descriptionClasses}
             dangerouslySetInnerHTML={{
               __html: this.props.ctaDescription,
             }}
@@ -329,6 +342,11 @@ class JoinUs extends Component {
       "position-relative": wrapperClasses !== ``,
     });
 
+    let inputClasses = classNames(`form-control`, {
+      "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-4":
+        this.props.formStyle == `pop`,
+    });
+
     let errorWrapperClasses = classNames("glyph-container", {
       "d-none": this.isFlowForm(),
     });
@@ -344,7 +362,7 @@ class JoinUs extends Component {
           <input
             name="userEmail"
             type="email"
-            className="form-control"
+            className={inputClasses}
             placeholder={getText(`Please enter your email`)}
             ref={(el) => (this.email = el)}
             onFocus={(evt) => this.onInputFocus(evt)}
@@ -380,6 +398,11 @@ class JoinUs extends Component {
   }
 
   renderLocaleFields() {
+    let selectInputClasses = classNames(`w-100`, {
+      "tw-border-1 tw-border-black focus:tw-border-blue-40 focus:tw-shadow-none":
+        this.props.formStyle == `pop`,
+    });
+
     return (
       <div hidden={this.state.hideLocaleFields}>
         <div className="mb-2">
@@ -388,13 +411,13 @@ class JoinUs extends Component {
               this.country = element;
             }}
             label={getText(`Your country`)}
-            className="w-100"
+            className={selectInputClasses}
             formPosition={this.props.formPosition}
           />
         </div>
         <div>
           <LanguageSelect
-            className="w-100"
+            className={selectInputClasses}
             handleLangChange={(e) => this.setLang(e)}
             selectedLang={this.state.lang}
             formPosition={this.props.formPosition}
@@ -442,6 +465,10 @@ class JoinUs extends Component {
         !this.privacy.checked,
     });
 
+    let privacyStatementClasses = classNames("form-check-label tw-body-small", {
+      "tw-text-black": this.props.formStyle == "pop",
+    });
+
     return (
       <div className={classes}>
         <div className="d-flex align-items-start">
@@ -453,7 +480,7 @@ class JoinUs extends Component {
             required
           />
           <label
-            className="form-check-label tw-body-small"
+            className={privacyStatementClasses}
             htmlFor={this.id.privacyCheckbox}
           >
             {getText(
@@ -480,11 +507,23 @@ class JoinUs extends Component {
    * Render the submit button in signup CTA.
    */
   renderSubmitButton() {
-    let classnames = classNames("btn btn-primary", {
-      "w-100": !this.isFlowForm(),
-      "tw-flex-1 tw-mr-4": this.isFlowForm(),
-    });
-    return <button className={classnames}>{getText(`Sign up`)}</button>;
+    let classnames;
+    let buttonText;
+
+    if (this.props.formStyle == "pop") {
+      classnames = classNames(
+        "tw-btn tw-border-1 tw-btn-secondary tw-mt-7 medium:-tw-mb-6 medium:tw-mt-5"
+      );
+      buttonText = getText("Subscribe");
+    } else {
+      classnames = classNames("btn btn-primary", {
+        "w-100": !this.isFlowForm(),
+        "tw-flex-1 tw-mr-4": this.isFlowForm(),
+      });
+      buttonText = getText("Sign up");
+    }
+
+    return <button className={classnames}>{buttonText}</button>;
   }
 
   /**
@@ -495,7 +534,12 @@ class JoinUs extends Component {
     if (this.state.apiSuccess) return null;
 
     let formClass = `d-flex flex-column`;
-    let fieldsWrapperClass = `w-100`;
+    
+    let fieldsWrapperClass = classNames(`w-100`, {
+      "large:tw-pl-7":
+        this.props.formStyle == `pop`,
+    });
+
     let buttonsWrapperClass = `w-100`;
 
     if (this.props.buttonPosition === `side`) {
@@ -506,6 +550,10 @@ class JoinUs extends Component {
 
     if (this.props.formPosition === `flow`) {
       buttonsWrapperClass = `d-flex`;
+    }
+
+    if (this.props.formStyle === `pop`) {
+      buttonsWrapperClass = `w-auto tw-text-right`;
     }
 
     return (

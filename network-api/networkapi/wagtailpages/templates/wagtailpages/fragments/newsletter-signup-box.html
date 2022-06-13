@@ -1,0 +1,17 @@
+{% load wagtailcore_tags i18n %}
+
+<div class="-tw-ml-1 tw-mt-3 tw-mb-7 tw-py-5 tw-px-5 tw-border-2 tw-border-black tw-rounded-lg tw-shadow-[10px_10px_rgba(0,0,0)] medium:tw-ml-0 medium:tw-px-7 medium:tw-pb-7">
+    <div
+      class="join-us"
+      data-form-position="callout-box"
+      data-form-style="pop"
+      data-layout="2-column"
+      data-cta-header="{% trans "Subscribe to our newsletter" %}"
+      data-cta-description="<p class='tw-mb-5'>{% trans "Help shape the future of the web for the public good. Join our Mozilla News email list to get action alerts & internet tips right to your inbox." %}</p>"
+    >
+    </div>
+    <div class="tw-hidden medium:tw-block">
+        {% include "./mozilla-social-buttons.html" %}
+    </div>
+
+</div>   
