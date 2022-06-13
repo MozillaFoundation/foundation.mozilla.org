@@ -128,3 +128,15 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
 
         self.assertIn(match_post, results)
         self.assertNotIn(other_post, results)
+
+    def test_description_match(self):
+        match_post = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            search_description=f'Something including the {self.search_term}',
+        )
+        other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
+
+        results = self.blog_index.get_search_entries(query=self.search_term)
+
+        self.assertIn(match_post, results)
+        self.assertNotIn(other_post, results)
