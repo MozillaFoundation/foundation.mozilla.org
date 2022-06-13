@@ -219,6 +219,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     search_fields = Page.search_fields + [
         index.SearchField(field_name='search_description'),
+        index.SearchField(field_name='body'),
         index.RelatedFields(
             field_name='topics',
             fields=[

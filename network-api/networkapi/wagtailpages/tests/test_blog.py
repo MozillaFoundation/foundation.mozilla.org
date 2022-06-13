@@ -4,6 +4,7 @@ import os
 
 from django.core import management
 from taggit import models as tag_models
+from wagtail.core import rich_text
 
 from networkapi.wagtailpages.pagemodels.blog import blog_topic
 from networkapi.wagtailpages.pagemodels.blog import blog as blog_models
@@ -134,6 +135,22 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
             parent=self.blog_index,
             search_description=f'Something including the {self.search_term}',
         )
+        other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
+
+        results = self.blog_index.get_search_entries(query=self.search_term)
+
+        self.assertIn(match_post, results)
+        self.assertNotIn(other_post, results)
+
+    def test_body_match(self):
+        match_post = blog_factories.BlogPageFactory(parent=self.blog_index)
+        match_post.body.append((
+            'paragraph',
+            rich_text.RichText(
+                f'<p>Some richtext containing the { self.search_term }</p>',
+            ),
+        ))
+        match_post.save()
         other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
 
         results = self.blog_index.get_search_entries(query=self.search_term)
