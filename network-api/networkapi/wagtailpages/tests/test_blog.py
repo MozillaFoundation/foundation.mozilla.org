@@ -215,3 +215,30 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
             self.assertEqual(description_post, results[4])
             self.assertEqual(body_post, results[5])
 
+    def test_cache_not_interfering_with_two_sequential_searches(self):
+        """
+        Ensure the caching on the index page is not interferring with search.
+
+        The IndexPage from which BlogIndexPage inherits implements caching of the
+        displayed index entries. We need to make sure that this caching is not
+        interferring with the search functionality.
+
+        """
+        match_post = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            title=self.search_term
+        )
+        other_search_term = "Thisisanonsensesearchterm"
+        other_post = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            title=other_search_term,
+        )
+
+        match_results = self.blog_index.get_search_entries(query=self.search_term)
+        other_results = self.blog_index.get_search_entries(query=other_search_term)
+
+        self.assertIn(match_post, match_results)
+        self.assertNotIn(other_post, match_results)
+        self.assertNotIn(match_post, other_results)
+        self.assertIn(other_post, other_results)
+
