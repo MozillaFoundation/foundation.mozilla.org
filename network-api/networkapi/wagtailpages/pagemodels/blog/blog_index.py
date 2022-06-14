@@ -1,4 +1,4 @@
-import typing
+from typing import TYPE_CHECKING, Union
 
 from django.conf import settings
 from django.db import models
@@ -22,9 +22,12 @@ from sentry_sdk import capture_exception, push_scope
 from ..index import IndexPage
 from .blog_topic import BlogPageTopic
 
-if typing.TYPE_CHECKING:
+
+if TYPE_CHECKING:
     from django.db.models import QuerySet
-    from wagtail.search.backends.db import DatabaseSearchResults
+    from django.http import HttpRequest, HttpResponse
+    from wagtail.search.backends.database.fallback import DatabaseSearchResults
+
 
 
 class FeaturedBlogPages(WagtailOrderable, models.Model):
@@ -245,19 +248,24 @@ class BlogIndexPage(IndexPage):
         return IndexPage.serve(self, request, *args, **kwargs)
 
     @route(r'^search/')
-    def search(self, request):
+    def search(self, request: 'HttpRequest') -> 'HttpResponse':
         """Render search results view."""
+
+        query = request.GET.get('q', '')
+
+        context_overrides = {
+            'index_title': 'Search',
+            'entries': self.get_search_entries(query=query)[:6],
+        }
+
         return self.render(
             request,
-            context_overrides={
-                'index_title': 'Search',
-                'entries': self.get_search_entries(),
-            },
-            template="wagtailpages/blog_index_search.html"
+            context_overrides=context_overrides,
+            template='wagtailpages/blog_index_search.html',
         )
 
-    def get_search_entries(self, query: str = "") -> typing.Union['QuerySet', 'DatabaseSearchResults']:
+    def get_search_entries(self, query: str = '') -> Union['QuerySet', 'DatabaseSearchResults']:
         entries = self.get_entries().specific()
         if query:
             entries = entries.search(query)
-        return entries[:6]
+        return entries
