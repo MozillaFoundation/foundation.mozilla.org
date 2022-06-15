@@ -3,7 +3,7 @@ from django.db import models
 from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
 
-from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
+from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPanel
 from wagtail.contrib.routable_page.models import route
 from wagtail.core.models import Orderable as WagtailOrderable
 from wagtail_localize.fields import SynchronizedField
@@ -55,20 +55,21 @@ class FeaturedVideoPost(WagtailOrderable, models.Model):
         related_name='+'
     )
     video_url = models.URLField(
-        help_text='For YouTube: go to your YouTube video and click “Share,” '
-                  'then “Embed,” and then copy and paste the provided URL only. '
-                  'For example: https://www.youtube.com/embed/3FIVXBawyQw '
-                  'For Vimeo: follow similar steps to grab the embed URL. '
-                  'For example: https://player.vimeo.com/video/9004979',
+        help_text='Log into Vimeo using 1Password '
+                  'and upload the desired video. '
+                  'Then select the video and '
+                  'click "Advanced", "Distribution", '
+                  'and "Video File Links". Copy and paste the link here.',
         blank=True,
     )
 
     panels = [
         PageChooserPanel('blog', 'wagtailpages.BlogPage'),
+        FieldPanel("video_url"),
     ]
 
     def __str__(self):
-        return self.page.title + '->' + self.blog.title
+        return  self.blog.title
 
 
 class BlogIndexPage(IndexPage):
