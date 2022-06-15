@@ -8,7 +8,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
       action: `donate tap`,
       label: `${pageTitle} donate header`,
     },
-    ".donate-banner a.btn.btn-secondary": {
+    ".donate-banner a.tw-btn-secondary": {
       category: `buyersguide`,
       action: `donate tap`,
       label: `${pageTitle} donate footer`,

@@ -6,20 +6,20 @@
     <div class="tw-body-large">{{ description | richtext }}</div>
 
     {% if link_url %}
-    <a class="btn btn-secondary" href="{{ link_url }}">{{ link_label }}</a>
+    <a class="tw-btn-secondary" href="{{ link_url }}">{{ link_label }}</a>
     {% endif %}
 
     <div class="share-button-group circle">
       {% if facebook %}
-      <a class="btn btn-secondary btn-share facebook-share" href="https://www.facebook.com/sharer/sharer.php?u={{ facebook }}"></a>
+      <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden facebook-share" href="https://www.facebook.com/sharer/sharer.php?u={{ facebook }}"></a>
       {% endif %}
 
       {% if twitter %}
-      <a class="btn btn-secondary btn-share twitter-share" href="https://twitter.com/home?status={{ twitter }}"></a>
+      <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share" href="https://twitter.com/home?status={{ twitter }}"></a>
       {% endif %}
 
       {% if email_body and email_subject %}
-      <a class="btn btn-secondary btn-share email-share" href="mailto:?subject={{ email_subject|urlencode }}&body={{ email_body|urlencode }}"></a>
+      <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden email-share" href="mailto:?subject={{ email_subject|urlencode }}&body={{ email_body|urlencode }}"></a>
       {% endif %}
     </div>
   </div>

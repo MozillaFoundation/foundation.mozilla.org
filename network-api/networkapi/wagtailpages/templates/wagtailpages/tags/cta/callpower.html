@@ -21,7 +21,7 @@
     <p class="tw-text-red-80 error-400 tw-hidden tw-mt-5">
       {% trans "We’re sorry, we can’t call that number. Please check that it is the right number, or try a different one." %}
     </p>
-    <button class="make-the-call btn btn-primary tw-w-full tw-mt-5" disabled>{{ cta.call_button_label }}</button>
+    <button class="make-the-call tw-btn-primary tw-w-full tw-mt-5" disabled>{{ cta.call_button_label }}</button>
   </form>
 
   <div class="callpower-cta success tw-hidden">
@@ -42,12 +42,12 @@
 
     <div class="share-button-group rectangle stacked">
       <div class="subgroup">
-        <button class="btn btn-secondary btn-share facebook-share" data-target="share-progress-fb">{% trans "Facebook" %}</button>
-        <button class="btn btn-secondary btn-share twitter-share" data-target="share-progress-tw">{% trans "Twitter" %}</button>
+        <button class="tw-btn tw-btn-secondary btn-share after:tw-hidden facebook-share" data-target="share-progress-fb">{% trans "Facebook" %}</button>
+        <button class="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share" data-target="share-progress-tw">{% trans "Twitter" %}</button>
       </div>
       <div class="subgroup">
-        <button class="btn btn-secondary btn-share email-share" data-target="share-progress-em">{% trans "Email" %}</button>
-        <button class="btn btn-secondary btn-share link-share" data-success-text="Copied">{% trans "Copy" %}</button>
+        <button class="tw-btn tw-btn-secondary btn-share after:tw-hidden email-share" data-target="share-progress-em">{% trans "Email" %}</button>
+        <button class="tw-btn tw-btn-secondary btn-share after:tw-hidden link-share" data-success-text="Copied">{% trans "Copy" %}</button>
       </div>
     </div>
   </div>

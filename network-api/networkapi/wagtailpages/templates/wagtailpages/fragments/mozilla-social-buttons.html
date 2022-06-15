@@ -1,7 +1,7 @@
 {% load wagtailcore_tags i18n %}
 
 <div class="tw-flex">
-  {% with social_button_classes="btn-secondary btn-share tw-justify-center tw-rounded-full tw-mr-2 tw-items-center tw-inline-flex tw-p-0 tw-h-[36px] tw-w-[36px] before:tw-content-[''] before:tw-brightness-0 before:tw-w-4 before:tw-h-4 before:tw-bg-no-repeat before:hover:tw-brightness-100" %}
+  {% with social_button_classes="tw-btn tw-btn-secondary btn-share after:tw-hidden tw-justify-center tw-rounded-full tw-mr-2 tw-items-center tw-inline-flex tw-p-0 tw-h-[36px] tw-w-[36px] before:tw-content-[''] before:tw-brightness-0 before:tw-w-4 before:tw-h-4 before:tw-bg-no-repeat before:hover:tw-brightness-100" %}
     <a class="{{social_button_classes}} before:tw-bg-[url('../_images/glyphs/social-share/twitter-share.svg')]" href="https://twitter.com/mozilla">
       <span class="sr-only">{% trans "Twitter" %}</span>
     </a>
