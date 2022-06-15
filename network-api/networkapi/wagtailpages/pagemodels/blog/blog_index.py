@@ -108,6 +108,9 @@ class BlogIndexPage(IndexPage):
 
         # The following code first updates page share metadata when filtered by topic.
         # First, updating metadata that is not localized
+        #
+        # make sure we bypass "x results for Y"
+        context['no_filter_ui'] = True
 
         # and that we don't show the primary tag/topic
         context['hide_classifiers'] = True
