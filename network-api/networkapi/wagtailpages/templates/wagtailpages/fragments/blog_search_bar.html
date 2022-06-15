@@ -1,0 +1,4 @@
+
+{% load i18n %}
+{% translate "Search all blog" context "Search input placeholder text" as placeholder_text %}
+{% include "wagtailpages/fragments/search_bar.html" with placeholder_text=placeholder_text icon_styles="tw-text-black" %}
