@@ -190,15 +190,13 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         # Post with match in description
         description_post = blog_factories.BlogPageFactory(
             parent=self.blog_index,
-            search_description=f'Something including the {self.search_term}',
+            search_description=self.search_term,
         )
         # Post with match in body
         body_post = blog_factories.BlogPageFactory(parent=self.blog_index)
         body_post.body.append((
             'paragraph',
-            rich_text.RichText(
-                f'<p>Some richtext containing the { self.search_term }</p>',
-            ),
+            rich_text.RichText(self.search_term),
         ))
         body_post.save()
         # Non-matching post
@@ -223,6 +221,48 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertEqual(tag_post, results[3])
         self.assertEqual(description_post, results[4])
         self.assertEqual(body_post, results[5])
+
+    @unittest.expectedFailure
+    def test_ranking_non_related(self):
+        """
+        Test ranking of the search results based on non-related fields.
+
+        There is also something off here. For somereason the boost value does not
+        manage to get the body_post below the description_post.
+        """
+        # Post with match in title
+        title_post = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            title=self.search_term
+        )
+        # Post with match in description
+        description_post = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            search_description=self.search_term,
+        )
+        # Post with match in body
+        body_post = blog_factories.BlogPageFactory(parent=self.blog_index)
+        body_post.body.append((
+            'paragraph',
+            rich_text.RichText(self.search_term),
+        ))
+        body_post.save()
+        # Non-matching post
+        other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
+        self.update_index()
+
+        results = self.blog_index.get_search_entries(query=self.search_term)
+
+        # All expected results are returned
+        self.assertIn(title_post, results)
+        self.assertIn(description_post, results)
+        self.assertIn(body_post, results)
+        self.assertNotIn(other_post, results)
+
+        # The expected results are in the right order
+        self.assertEqual(title_post, results[0])
+        self.assertEqual(description_post, results[1])
+        self.assertEqual(body_post, results[2])
 
     def test_cache_not_interfering_with_two_sequential_searches(self):
         """
