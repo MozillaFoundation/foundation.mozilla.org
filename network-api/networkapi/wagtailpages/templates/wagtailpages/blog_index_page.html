@@ -42,21 +42,21 @@
     {% localized_version topic as localized_topic %}
     {% get_root_or_page as parent_page %}
     {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
-    <a class="tw-h6-heading tw-my-0 tw-text-blue-80 tw-mr-2" href="{% localizedroutablepageurl parent_page "entries_by_topic" topic.slug %}">{{ localized_topic }}</a>
+    <a class="tw-h6-headingtw-text-blue-80 tw-mr-2 tw-my-1" href="{% localizedroutablepageurl parent_page "entries_by_topic" topic.slug %}">{{ localized_topic }}</a>
     {% if not forloop.last %}
-      <span class="tw-h6-heading tw-text-blue-80 tw-mr-2"> / </span>
+      <span class="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-my-1"> / </span>
     {% endif %}
   {% endfor %}
 {% endwith %}
 
-<img src="{% static "_images/video-icon.svg" %}" alt="{% trans "information" context "icon description for screen readers" %}" class="tw-h-4 tw-w-4 tw-mb-1 tw-mr-2">
+<img src="{% static "_images/video-icon.svg" %}" alt="{% trans "information" context "icon description for screen readers" %}" class="tw-h-4 tw-w-4 tw-mr-2 tw-my-1">
 
 
 
-<span class="tw-h6-heading tw-text-gray-40"> {{ featured_video_post.blog.first_published_at|date:"DATE_FORMAT" }} </span>
+<span class="tw-h6-heading tw-text-gray-40 tw-my-1"> {{ featured_video_post.blog.first_published_at|date:"DATE_FORMAT" }} </span>
 </div>
 
-<a class="tw-h1-heading tw-text-3xl tw-my-2" href="">{{ featured_video_post.blog.localized.title}}</a>
+<a class="tw-h1-heading tw-text-3xl tw-mt-1 tw-mb-2"  href="">{{ featured_video_post.blog.localized.title}}</a>
 
 <p class="tw-body">{{ featured_video_post.blog.get_meta_description }}</p>
 
@@ -67,14 +67,30 @@
 </div>
 <div class="tw-col-span-12 large:tw-col-span-8 tw-order-first large:tw-order-last tw-overflow-hidden">
   {% with featured_video_post.video_url as video_url  %}
-  <div id="featured-video" class="tw-flex tw-relative hover:tw-cursor-pointer tw-group">
-      <video class="hero-video tw-absolute tw-top-0 tw-left-0 tw-min-h-full tw-min-w-full tw-w-auto tw-h-auto tw-overflow-hidden" loop muted>
+  {% if 'player.vimeo.com' in video_url %}
+  <div id="featured-video" class="hover:tw-cursor-pointer tw-group tw-aspect-w-16 tw-aspect-h-9">
+      <video class="hero-video tw-absolute tw-top-0 tw-left-0 tw-min-h-full tw-min-w-full tw-object-cover">
         <source src="{{video_url}}" type="video/mp4">
       </video>
-      <div class="tw-absolute tw-top-0 tw-left-0 tw-min-h-full tw-min-w-full tw-w-auto tw-h-auto tw-overflow-hidden tw-flex tw-justify-center tw-content-center">
+      <div class="tw-absolute tw-top-0 tw-left-0 tw-min-h-full tw-min-w-full tw-flex tw-justify-center tw-place-items-center">
         <img class="play-button tw-h-[4rem] tw-w-[4rem] tw-opacity-75 hover:tw-opacity-100" src="{% static "_images/video_play_button.svg" %}" alt="Play Button" />
       </div>
   </div>
+
+
+  {% else %}
+
+  <div class="embed-responsive embed-responsive-16by9 print:tw-hidden tw-h-full tw-w-full">
+    <iframe
+      src="{{ video_url }}"
+      frameborder="0"
+      class="embed-responsive-item"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+  
+  {% endif %}
   
 {% endwith %}
 
