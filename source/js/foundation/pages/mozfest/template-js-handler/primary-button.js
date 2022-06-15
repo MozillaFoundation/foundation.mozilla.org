@@ -5,7 +5,7 @@ import { ReactGA } from "../../../../common";
  */
 export default () => {
   document
-    .querySelectorAll(`body.mozfest .cms a.btn.btn-primary`)
+    .querySelectorAll(`body.mozfest .cms a.tw-btn-primary`)
     .forEach((button) => {
       button.addEventListener(`click`, () => {
         ReactGA.event({

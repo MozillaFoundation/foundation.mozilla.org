@@ -48,7 +48,7 @@
       @include stacked-rectangle();
     }
 
-    .btn {
+    .tw-btn {
       display: flex;
       justify-content: center;
       flex: 1 1 0;
@@ -69,7 +69,7 @@
         margin-right: 0;
         flex-direction: column;
       }
-      .btn {
+      .tw-btn {
         margin-right: 0;
         margin-bottom: $margin;
       }
@@ -84,7 +84,7 @@
       margin-right: $margin;
     }
 
-    .btn {
+    .tw-btn {
       width: 36px;
       height: 36px;
       border-radius: 50%;
@@ -95,7 +95,7 @@
     }
   }
 
-  .btn {
+  .tw-btn {
     margin-right: $margin;
 
     &:last-child {

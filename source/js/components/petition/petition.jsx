@@ -400,7 +400,7 @@ class Petition extends Component {
       return (
         <div>
           <p>{this.props.thankYou}</p>
-          <a href={this.props.shareLink} className="btn btn-info">
+          <a href={this.props.shareLink} className="tw-btn btn-info">
             {this.props.shareText}
           </a>
         </div>
@@ -412,13 +412,13 @@ class Petition extends Component {
           <div className="share-button-group rectangle stacked">
             <div className="subgroup">
               <button
-                className="btn btn-secondary btn-share facebook-share"
+                className="tw-btn tw-btn-secondary btn-share after:tw-hidden facebook-share"
                 onClick={(e) => this.shareButtonClicked(e, `share-progress-fb`)}
               >
                 Facebook
               </button>
               <button
-                className="btn btn-secondary btn-share twitter-share"
+                className="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share"
                 onClick={(e) => this.shareButtonClicked(e, `share-progress-tw`)}
               >
                 Twitter
@@ -426,13 +426,13 @@ class Petition extends Component {
             </div>
             <div className="subgroup">
               <button
-                className="btn btn-secondary btn-share email-share"
+                className="tw-btn tw-btn-secondary btn-share after:tw-hidden email-share"
                 onClick={(e) => this.shareButtonClicked(e, `share-progress-em`)}
               >
                 Email
               </button>
               <button
-                className="btn btn-secondary btn-share link-share"
+                className="tw-btn tw-btn-secondary btn-share after:tw-hidden link-share"
                 onClick={(e) => this.shareButtonClicked(e)}
                 data-success-text="Copied"
               >
@@ -729,7 +729,7 @@ class Petition extends Component {
           <div className="my-3">
             <button
               disabled={disableFields}
-              className="col-12 btn btn-primary petition-btn"
+              className="col-12 tw-btn-primary petition-btn"
             >
               {getText(`Add my name`)}
             </button>
