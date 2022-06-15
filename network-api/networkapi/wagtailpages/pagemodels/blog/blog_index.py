@@ -50,7 +50,7 @@ class FeaturedVideoPost(WagtailOrderable, models.Model):
         related_name='featured_video_post',
     )
 
-    blog_post = models.ForeignKey(
+    blog_page = models.ForeignKey(
         'wagtailpages.BlogPage',
         on_delete=models.CASCADE,
         related_name='+'
@@ -68,12 +68,12 @@ class FeaturedVideoPost(WagtailOrderable, models.Model):
     )
 
     panels = [
-        PageChooserPanel('blog_post', 'wagtailpages.BlogPage'),
+        PageChooserPanel('blog_page', 'wagtailpages.BlogPage'),
         FieldPanel("video_url"),
     ]
 
     def __str__(self):
-        return self.blog_post.title
+        return self.blog_page.title
 
 
 class BlogIndexPage(IndexPage):
@@ -97,7 +97,7 @@ class BlogIndexPage(IndexPage):
         InlinePanel(
             'featured_video_post',
             label='Featured Video Post',
-            help_text='Choose a video blog post to feature',
+            help_text='Choose a blog page with video to feature',
             min_num=0,
             max_num=1,
         )

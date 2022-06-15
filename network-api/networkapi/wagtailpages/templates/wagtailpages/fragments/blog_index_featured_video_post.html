@@ -1,10 +1,12 @@
 {% load wagtailcore_tags wagtailimages_tags i18n localization homepage_tags blog_tags static %}
 
 <div class="tw-mb-7 tw-pb-7"> 
+  {% with blog_page=featured_video_post.blog_page %}
+
   <div class="tw-grid tw-grid-cols-12 tw-relative">
     <div class="tw-col-span-12 large:tw-col-span-4 tw-pr-[36px] tw-flex tw-flex-col tw-py-3 large:tw-py-0">
       <div class="tw-flex tw-flex-wrap">
-        {% with topics=featured_video_post.blog_post.topics.all %}
+        {% with topics=blog_page.topics.all %}
           {% for topic in topics %}
             {% localized_version topic as localized_topic %}
             {% get_root_or_page as parent_page %}
@@ -16,14 +18,15 @@
           {% endfor %}
         {% endwith %}
         <img src="{% static "_images/video-icon.svg" %}" alt="{% trans "information" context "icon description for screen readers" %}" class="tw-h-4 tw-w-4 tw-mr-2 tw-my-1">
-        <span class="tw-h6-heading tw-text-gray-40 tw-mly-1"> {{ featured_video_post.blog_post.first_published_at|date:"DATE_FORMAT" }} </span>
+        <span class="tw-h6-heading tw-text-gray-40 tw-my-1"> {{ blog_page.first_published_at|date:"DATE_FORMAT" }} </span>
       </div>
-    <a class="tw-h1-heading tw-text-3xl tw-mt-1 tw-mb-2"  href="{% relocalized_url featured_video_post.blog_post.localized.url %}">{{ featured_video_post.blog.localized.title}}</a>
-    <p class="tw-body">{{ featured_video_post.blog_post.get_meta_description }}</p>
+    <a class="tw-h1-heading tw-text-3xl tw-mt-1 tw-mb-2"  href="{% relocalized_url blog_page.localized.url %}">{{ blog_page.localized.title}}</a>
+    <p class="tw-body">{{ blog_page.get_meta_description }}</p>
     <div class="tw-mt-auto">
-      {% include "./blog_authors.html" with blog_page=featured_video_post.blog_post %}
+      {% include "./blog_authors.html" with blog_page=blog_page %}
     </div>
   </div>
+ {% endwith %}
 
       <div class="tw-col-span-12 large:tw-col-span-8 tw-order-first large:tw-order-last tw-overflow-hidden">
         {% with featured_video_post.video_url as video_url  %}
