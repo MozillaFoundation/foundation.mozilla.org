@@ -266,11 +266,11 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
 
     def test_cache_not_interfering_with_two_sequential_searches(self):
         """
-        Ensure the caching on the index page is not interferring with search.
+        Ensure the caching on the index page is not interfering with search.
 
         The IndexPage from which BlogIndexPage inherits implements caching of the
         displayed index entries. We need to make sure that this caching is not
-        interferring with the search functionality.
+        interfering with the search functionality.
 
         """
         match_post = blog_factories.BlogPageFactory(
