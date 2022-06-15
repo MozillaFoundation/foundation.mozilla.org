@@ -252,6 +252,7 @@ class BlogIndexPage(IndexPage):
         context_overrides = {
             'index_title': 'Search',
             'entries': self.get_search_entries(query=query)[:6],
+            'query': query,
         }
 
         return self.render(

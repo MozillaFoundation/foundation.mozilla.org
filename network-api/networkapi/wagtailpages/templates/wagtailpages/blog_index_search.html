@@ -1,3 +1,15 @@
 {% extends "./blog_index_page.html" %}
 
+{% load i18n %}
+
+{% block index_header %}
+  <div>
+    <h1>{% trans "Search blog" context "Title of the blog search results page" %}</h1>
+    <form action="" method="get">
+      <input type="text" name="q" value="{{ query }}" class="border">
+      <button type="submit">Search</button>
+    </form>
+  </div>
+{% endblock %}
+
 {% block featured %}{% endblock %}
