@@ -43,33 +43,37 @@ class FeaturedBlogPages(WagtailOrderable, models.Model):
     def __str__(self):
         return self.page.title + '->' + self.blog.title
 
+
 class FeaturedVideoPost(WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.BlogIndexPage',
         related_name='featured_video_post',
     )
 
-    blog = models.ForeignKey(
+    blog_post = models.ForeignKey(
         'wagtailpages.BlogPage',
         on_delete=models.CASCADE,
         related_name='+'
     )
     video_url = models.URLField(
-        help_text='Log into Vimeo using 1Password '
+        help_text='For YouTube: go to your YouTube video and click “Share,” '
+                  'then “Embed,” and then copy and paste the provided URL only. '
+                  'For example: https://www.youtube.com/embed/3FIVXBawyQw '
+                  'For Vimeo: Log into Vimeo using 1Password '
                   'and upload the desired video. '
                   'Then select the video and '
                   'click "Advanced", "Distribution", '
                   'and "Video File Links". Copy and paste the link here.',
-        blank=True,
+        blank=False,
     )
 
     panels = [
-        PageChooserPanel('blog', 'wagtailpages.BlogPage'),
+        PageChooserPanel('blog_post', 'wagtailpages.BlogPage'),
         FieldPanel("video_url"),
     ]
 
     def __str__(self):
-        return  self.blog.title
+        return self.blog_post.title
 
 
 class BlogIndexPage(IndexPage):
