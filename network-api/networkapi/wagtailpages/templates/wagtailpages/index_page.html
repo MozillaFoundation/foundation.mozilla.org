@@ -29,40 +29,11 @@
 
     {% block featured %}{% endblock %}
 
-    {% if filtered and no_filter_ui != True %}  {# Start of IF for filtered page content. Note that this injects an entire row. #}
-    <div class="row mb-4">
-      <div class="col-12 d-flex justify-content-between">
-        <div class="search-result">
-          <h3 class="tw-body result-info">
-            {% blocktrans count count=total_entries trimmed %}
-                {{ total_entries }} result
-            {% plural %}
-                {{ total_entries }} results
-            {% endblocktrans %}
-            {% if total_entries > 0 %} {% trans "for" context "Following “xx results” and followed by searched terms. Full string example: “12 results for Advocacy”" %}
-            <ul class="term-list">
-            {% for term in terms %}
-              <li class="term tw-body-small">{{ term }}</li>
-            {% endfor %}
-            </ul>
-            {% endif %}
-          </h3>
-        </div>
-
-        <div class="clear-link">
-          <a href="{{ root.url }}">{% trans "clear filters" %}</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="index-entries row">
-    {% else %}
-    <div class="index-entries row mb-4">
-    {% endif %}  {# End of IF for filtered page content _after_ starting a new row. #}
-      {% block subcontent %}
+    {% block subcontent %}
+      <div class="index-entries row mb-4">
         {% include "./fragments/entry_cards.html" %}
-      {% endblock %}
-    </div>
+      </div>
+    {% endblock %}
 
     <div class="row">
       <div class="col-12 text-center mb-5">
