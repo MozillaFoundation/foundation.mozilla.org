@@ -29,7 +29,6 @@ if TYPE_CHECKING:
     from wagtail.search.backends.database.fallback import DatabaseSearchResults
 
 
-
 class FeaturedBlogPages(WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.BlogIndexPage',

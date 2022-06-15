@@ -290,4 +290,3 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertNotIn(other_post, match_results)
         self.assertNotIn(match_post, other_results)
         self.assertIn(other_post, other_results)
-
