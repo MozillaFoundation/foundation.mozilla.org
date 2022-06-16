@@ -1,4 +1,4 @@
-{% load wagtailimages_tags i18n localization homepage_tags %}
+{% load wagtailimages_tags i18n localization homepage_tags wagtailroutablepage_tags %}
 
 {% get_page_authors blog_page as authors %}
 
@@ -10,8 +10,7 @@
     {% spaceless %}
     {% if show_full_info %}{% trans "By" %} {% endif %}
     {% for author in authors %}
-    {# TODO - fix/find a solution for this lazy route #}
-        <a href="authors/{{ author.id }}/">
+        <a href="{% routablepageurl page=blog_index url_name='blog-author-detail' profile_id=author.id  %}">
             <span>{% if authors_length > 1 and forloop.last %}{% trans "and" %} {% endif %}<b class="tw-font-extrabold">{{ author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
         </a>
     {% endfor %}
