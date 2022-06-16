@@ -12,21 +12,11 @@ crawls up the ancestor tree until it has found it.
 each blog page's dominant tag)
 
 {% block tags %}
-  {% with topics=page.specific.topics.all %}
-    {% for topic in topics %}
-      {% localized_version topic as localized_topic %}
-      {% get_root_or_page as parent_page %}
-      {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
-      <a class="tw-h6-heading tw-mb-0 tw-text-blue-80" href="{% localizedroutablepageurl parent_page "entries_by_topic" topic.slug %}">{{ localized_topic }}</a>
-      {% if not forloop.last %}
-        <span class="tw-h6-heading tw-text-blue-80"> / </span>
-      {% endif %}
-    {% endfor %}
-  {% endwith %}
+  {% include "./blog_card_topics.html" with topics=page.specific.topics.all%}
 {% endblock %}
 
 {% block published_date %}
-  <span class="tw-h6-heading tw-mb-0 tw-ml-2 tw-text-gray-40"> {{ page.first_published_at|date:"DATE_FORMAT" }} </span>
+  <span class="tw-h6-heading tw-text-gray-40 tw-my-1"> {{ page.first_published_at|date:"DATE_FORMAT" }} </span>
 {% endblock %}
 
 {% block description %}
