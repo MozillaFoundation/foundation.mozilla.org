@@ -10,6 +10,9 @@ class ProfileQuerySet(models.QuerySet):
     def filter_research_authors(self):
         return self.filter(authored_research__isnull=False).distinct()
 
+    def filter_blog_authors(self):
+        return self.filter(blogauthors__isnull=False).distinct()
+
 
 @register_snippet
 class Profile(TranslatableMixin, models.Model):

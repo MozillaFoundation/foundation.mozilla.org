@@ -44,4 +44,11 @@ def get_page_authors(page):
         return []
     else:
         all_authors = page.authors.all()
-        return [{"image": author.author.image, "name": author.author.name} for author in all_authors]
+        return [
+            {
+                "image": author.author.image,
+                "name": author.author.name,
+                "id": author.author.id,
+            }
+            for author in all_authors
+        ]

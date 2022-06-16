@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.db import models
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpRequest, HttpResponse, Http404
 
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
 from wagtail.contrib.routable_page.models import route
@@ -9,10 +10,12 @@ from wagtail.core.models import Orderable as WagtailOrderable
 from wagtail_localize.fields import SynchronizedField
 
 from modelcluster.fields import ParentalKey
+from networkapi.wagtailpages.models import Profile
 from networkapi.wagtailpages.utils import (
     titlecase,
     get_locale_from_request,
     get_default_locale,
+    localize_queryset,
 )
 
 from sentry_sdk import capture_exception, push_scope
@@ -237,6 +240,39 @@ class BlogIndexPage(IndexPage):
             return redirect(self.full_url)
 
         return IndexPage.serve(self, request, *args, **kwargs)
+
+    @route(r'^authors/$')
+    def blog_author_index(self, request: HttpRequest, *args, **kwargs) -> 'HttpResponse':
+        author_profiles = Profile.objects.all()
+        author_profiles = author_profiles.filter_blog_authors()
+        author_profiles = localize_queryset(author_profiles)
+
+        return self.render(
+            request,
+            context_overrides={
+                'title': 'Blog authors',
+                'author_profiles': author_profiles
+            },
+            template="wagtailpages/blog_author_index_page.html"
+        )
+
+    @route(r'^authors/(?P<profile_id>.+)/', name='blog-author-detail')
+    def blog_author_detail(self, request: HttpRequest, profile_id: str, *args, **kwargs) -> 'HttpResponse':
+        try:
+            author_profile = get_object_or_404(Profile, id=profile_id)
+        except ValueError:
+            author_profile = None
+        if not author_profile:
+            raise Http404()
+
+        return self.render(
+            request,
+            context_overrides={
+                'author': author_profile,
+                'page': self,
+            },
+            template="wagtailpages/blog_author_detail_page.html"
+        )
 
     @route(r'^search/')
     def search(self, request):

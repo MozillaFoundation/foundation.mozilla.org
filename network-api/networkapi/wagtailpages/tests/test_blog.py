@@ -3,6 +3,10 @@ from http import HTTPStatus
 
 from networkapi.wagtailpages.factory import blog as blog_factories
 from networkapi.wagtailpages.tests import base as test_base
+from networkapi.wagtailpages.factory.blog import add_authors
+from networkapi.wagtailpages.factory import profiles as profile_factories
+from networkapi.wagtailpages.models import Profile
+from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors
 
 
 class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
@@ -58,3 +62,70 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertIn(blog_page_3, entries)
         self.assertIn(blog_page_2, entries)
         self.assertNotIn(blog_page_1, entries)
+
+
+class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
+    def setUp(self):
+        super().setUp()
+        self.blog_index = blog_factories.BlogIndexPageFactory(parent=self.homepage)
+        self.blog_index_url = self.blog_index.get_url() + self.blog_index.reverse_subpage("blog_author_index")
+
+        self.profile_1 = profile_factories.ProfileFactory()
+        self.profile_2 = profile_factories.ProfileFactory()
+        self.profile_3 = profile_factories.ProfileFactory()
+
+        self.blog_page_1 = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            authors=[
+                BlogAuthors(author=self.profile_1)
+            ]
+        )
+        self.blog_page_2 = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            authors=[
+                BlogAuthors(author=self.profile_2)
+            ]
+        )
+
+    def test_route_success(self):
+        response = self.client.get(path=self.blog_index_url)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_authors_rendered(self):
+        # Test that the blog index page renders blog authors
+        response = self.client.get(path=self.blog_index_url)
+        self.assertTemplateUsed(
+            response, "wagtailpages/blog_author_index_page.html"
+        )
+        self.assertContains(response, self.profile_1.name)
+        self.assertContains(response, self.profile_2.name)
+        self.assertNotIn(self.profile_3.name, str(response.content))
+        self.assertEqual(response.render().status_code, 200)
+
+    def test_authors_detail(self):
+        blog_author_url = self.blog_index.get_url() + self.blog_index.reverse_subpage("blog-author-detail", args=(self.profile_1.id,))
+        response = self.client.get(path=blog_author_url)
+        self.assertTemplateUsed(
+            response, "wagtailpages/blog_author_detail_page.html"
+        )
+        self.assertContains(response, self.profile_1.name)
+        self.assertContains(response, self.profile_1.tagline)
+        self.assertContains(response, self.profile_1.introduction)
+        self.assertNotIn(self.profile_2.name, str(response.content))
+        self.assertNotIn(self.profile_2.tagline, str(response.content))
+        self.assertNotIn(self.profile_2.introduction, str(response.content))
+
+    def test_authors_detail_bad_string_id_argument(self):
+        # Test bad author query blog/authors/oiwre results in 404 reponse
+        blog_author_url = self.blog_index.get_url() + self.blog_index.reverse_subpage("blog-author-detail", args=('badid',))
+        response = self.client.get(path=blog_author_url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_authors_detail_non_existent_id_argument(self):
+        # Test object not existing results in 404 reponse
+        blog_author_url = self.blog_index.get_url() + self.blog_index.reverse_subpage("blog-author-detail", args=(100,))
+        response = self.client.get(path=Profile.objects.last().id + 1, follow=True)
+        self.assertEqual(response.status_code, 404)
+
+
+    # test author not found raises 404

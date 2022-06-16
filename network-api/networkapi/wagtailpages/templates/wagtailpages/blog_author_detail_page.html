@@ -1,0 +1,19 @@
+{% load wagtailimages_tags %}
+
+<div class="tw-shrink-0 tw-w-[4rem] {% if not tight %} medium:tw-w-[5rem] large:tw-w-[6rem] {% endif %}">
+    {% if author.image %}
+      {% image author.image fill-182x182 as profile_img %}
+      <img src="{{ profile_img.url }}" alt="{{ author.name }}" class="tw-w-full tw-h-auto tw-rounded-full">
+    {% endif %}
+  </div>
+  <div>
+    <div class="tw-h5-heading tw-mb-1 tw-text-blue-80 group-hover:tw-underline">
+      {{ author.name }}
+    </div>
+    <div class="tw-text-xs medium:tw-text-sm large:tw-text-base tw-text-gray-60">
+      {{ author.tagline }}
+    </div>
+    <div class="tw-text-xs medium:tw-text-sm large:tw-text-base tw-text-gray-60">
+        {{ author.introduction }}
+      </div>
+  </div>

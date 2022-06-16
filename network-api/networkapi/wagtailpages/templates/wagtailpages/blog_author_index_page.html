@@ -1,0 +1,13 @@
+{% load wagtailroutablepage_tags %}
+
+<h1>{{title}}</h1>
+
+<ul>
+{% for profile in author_profiles %}
+    <li>
+        <a href="{% routablepageurl page 'blog-author-detail' profile_id=profile.id  %}">
+            {{ profile }}
+        </a>
+    </li>
+{% endfor %}
+</ul>
