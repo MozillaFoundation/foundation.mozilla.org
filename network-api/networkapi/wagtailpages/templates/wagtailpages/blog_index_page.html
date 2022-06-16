@@ -10,39 +10,69 @@
 
 {% block featured %}
   {% if not filtered %}
-    <div class="tw-row">
+    <div class="row tw-px-4">
       {%  for feature in page.specific.featured_pages.all %}
-      <div class="tw-grid tw-grid-cols-12 tw-mb-7">
-        <div class="tw-pr-[36px]  tw-py-3  tw-flex tw-flex-col tw-col-span-12 large:tw-col-span-4 large:tw-py-0">
-          <div class="tw-flex tw-flex-wrap">
-            {% with topics=feature.blog.topics.all topic_classes="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-my-1" %}
-              {% for topic in topics %}
-                {% localized_version topic as localized_topic %}
-                {% get_root_or_page as parent_page %}
-                {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
-                <a class="{{ topic_classes }}" href="{% localizedroutablepageurl parent_page "entries_by_topic" topic.slug %}">{{ localized_topic }}</a>
-                {% if not forloop.last %}
-                  <span class="{{ topic_classes }}"> / </span>
-                {% endif %}
-              {% endfor %}
-            {% endwith %}
-            <span class="tw-h6-heading tw-text-gray-40 tw-my-1"> {{ feature.blog.first_published_at|date:"DATE_FORMAT" }} </span>
+      {% if forloop.first %}
+        <div class="tw-grid tw-grid-cols-12 tw-mb-7">
+          <div class="tw-pr-[36px] tw-py-3  tw-flex tw-flex-col tw-col-span-12 large:tw-col-span-4 large:tw-py-0">
+            <div class="tw-flex tw-flex-wrap">
+              {% with topics=feature.blog.topics.all topic_classes="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-my-1" %}
+                {% for topic in topics %}
+                  {% localized_version topic as localized_topic %}
+                  {% get_root_or_page as parent_page %}
+                  {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
+                  <a class="{{ topic_classes }}" href="{% localizedroutablepageurl parent_page "entries_by_topic" topic.slug %}">{{ localized_topic }}</a>
+                  {% if not forloop.last %}
+                    <span class="{{ topic_classes }}"> / </span>
+                  {% endif %}
+                {% endfor %}
+              {% endwith %}
+              <span class="tw-h6-heading tw-text-gray-40 tw-my-1"> {{ feature.blog.first_published_at|date:"DATE_FORMAT" }} </span>
+            </div>
+          <a class="tw-h1-heading tw-text-3xl tw-mt-1 tw-mb-2"  href="{% relocalized_url feature.blog.localized.url %}">{{ feature.blog.localized.title}}</a>
+          <p class="tw-body">{{ feature.blog.get_meta_description }}</p>
+          <div class="tw-mt-auto">
+            {% include "./fragments/blog_authors.html" with blog_page=feature.blog %}
           </div>
-        <a class="tw-h1-heading tw-text-3xl tw-mt-1 tw-mb-2"  href="{% relocalized_url feature.blog.localized.url %}">{{ feature.blog.localized.title}}</a>
-        <p class="tw-body">{{ feature.blog.get_meta_description }}</p>
-        <div class="tw-mt-auto">
-          {% include "./fragments/blog_authors.html" with blog_page=feature.blog %}
         </div>
-      </div>
-    
-          <div class="tw-order-first tw-col-span-12 large:tw-col-span-8 large:tw-order-last">
-                <div id="featured-video-container" class="tw-group tw-aspect-w-16 tw-aspect-h-9 tw-h-full hover:tw-cursor-pointer">
-                  <div>
-                    {% image feature.blog.localized.specific.get_meta_image fill-540x303 %}
+            <div class="tw-order-first tw-col-span-12 large:tw-col-span-8 large:tw-order-last">
+                  <div id="featured-video-container" class="">
+                      {% image feature.blog.localized.specific.get_meta_image fill-750x400 %}
                   </div>
-                </div>
+          </div>
         </div>
-      </div>
+        {% elif forloop.last %}
+        <div class="tw-grid tw-grid-cols-12 tw-mb-7">
+          <div class="tw-pl-[36px] tw-py-3  tw-flex tw-flex-col tw-col-span-12 large:tw-col-span-4 large:tw-py-0">
+            <div class="tw-flex tw-flex-wrap">
+              {% with topics=feature.blog.topics.all topic_classes="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-my-1" %}
+                {% for topic in topics %}
+                  {% localized_version topic as localized_topic %}
+                  {% get_root_or_page as parent_page %}
+                  {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
+                  <a class="{{ topic_classes }}" href="{% localizedroutablepageurl parent_page "entries_by_topic" topic.slug %}">{{ localized_topic }}</a>
+                  {% if not forloop.last %}
+                    <span class="{{ topic_classes }}"> / </span>
+                  {% endif %}
+                {% endfor %}
+              {% endwith %}
+              <span class="tw-h6-heading tw-text-gray-40 tw-my-1"> {{ feature.blog.first_published_at|date:"DATE_FORMAT" }} </span>
+            </div>
+          <a class="tw-h1-heading tw-text-3xl tw-mt-1 tw-mb-2"  href="{% relocalized_url feature.blog.localized.url %}">{{ feature.blog.localized.title}}</a>
+          <p class="tw-body">{{ feature.blog.get_meta_description }}</p>
+          <div class="tw-mt-auto">
+            {% include "./fragments/blog_authors.html" with blog_page=feature.blog %}
+          </div>
+        </div>
+            <div class="tw-order-first tw-col-span-12 large:tw-col-span-8 ">
+                  <div id="featured-video-container" class="">
+                      {% image feature.blog.localized.specific.get_meta_image fill-750x400 %}
+                  </div>
+          </div>
+        </div>
+        {% elif not forloop.last and not forloop.first %}
+        {% include "./fragments/blog_card.html" with page=feature.blog %}
+        {% endif %}
       {% endfor %}
     </div>
   {% endif %}
