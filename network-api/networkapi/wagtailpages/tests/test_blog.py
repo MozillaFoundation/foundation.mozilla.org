@@ -34,6 +34,10 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/blog_index_search.html'
+        )
 
     def test_route_with_query_success(self):
         url = (
@@ -45,6 +49,10 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/blog_index_search.html'
+        )
 
     def test_no_query(self):
         """Default search page with no query shows latest 6 pages."""
