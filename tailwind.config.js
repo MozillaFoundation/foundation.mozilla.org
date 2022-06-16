@@ -54,7 +54,6 @@ module.exports = {
     ...glyphPlugins,
     require("@tailwindcss/forms")({ strategy: "class" }),
     require("@tailwindcss/line-clamp"),
-    require('@tailwindcss/aspect-ratio'),
   ],
   theme: {
     extend: {
