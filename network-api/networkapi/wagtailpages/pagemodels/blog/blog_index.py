@@ -58,9 +58,9 @@ class BlogIndexPage(IndexPage):
         InlinePanel(
             'featured_pages',
             label='Featured',
-            help_text='Choose two blog pages to feature',
+            help_text='Choose five blog pages to feature',
             min_num=0,
-            max_num=2,
+            max_num=5,
         )
     ]
 
