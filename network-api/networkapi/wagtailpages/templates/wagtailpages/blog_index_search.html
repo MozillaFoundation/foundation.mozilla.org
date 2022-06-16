@@ -13,3 +13,11 @@
 {% endblock %}
 
 {% block featured %}{% endblock %}
+
+{% block subcontent %}
+  {% if entries  %}
+    {{ block.super }}
+  {% else %}
+    No results for {{ query }}
+  {% endif %}
+{% endblock subcontent %}
