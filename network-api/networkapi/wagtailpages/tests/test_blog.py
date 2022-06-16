@@ -35,6 +35,17 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
+    def test_route_with_query_success(self):
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search")
+            + '?q=test'
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
     def test_no_query(self):
         """Default search page with no query shows latest 6 pages."""
         tz = datetime.timezone.utc
