@@ -1,17 +1,22 @@
 {% load wagtailcore_tags wagtailimages_tags localization %}
 
-<div class="entry-card {% block card_type %}{% endblock %} col-6 col-md-4 mb-5">
-  <div class="card-image tw-mb-2">
+<div class="entry-card {% block card_type %}{% endblock %} col-12 col-md-6 col-lg-4 mb-5">
+  <div class="card-image tw-mb-3">
     <a href="{% relocalized_url page.localized.url %}">
-      {% image page.localized.specific.get_meta_image fill-400x225 %}
+      {% image page.localized.specific.get_meta_image fill-1200x628 %}
     </a>
   </div>
-  {% block tags %}{% endblock %}
-  {% block published_date %}{% endblock %}
-    
-  <a class="tw-h4-heading d-inline-block mt-1 mb-2" href="{% relocalized_url page.localized.url %}">{{ page.localized.title }}</a>
-  <p class="tw-body-small my-0">
-    {% block description %}{% endblock %}
-    {% block byline %}{% endblock %}
-  </p>
+
+  <div class="tw-flex tw-flex-wrap">
+    {% block tags %}{% endblock %}
+    {% block published_date %}{% endblock %}
+  </div>
+
+  <a href="{% relocalized_url page.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
+    <p class="tw-h4-heading d-inline-block mt-1 mb-2 group-hover:tw-underline">{{ page.localized.title }}</p>
+    <p class="tw-body-small my-0">
+      {% block description %}{% endblock %}
+      {% block byline %}{% endblock %}
+    </p>
+  </a>
 </div>
