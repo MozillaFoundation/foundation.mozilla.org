@@ -174,7 +174,7 @@ class CreepVote extends Component {
               <button
                 id="creep-vote-btn"
                 type="submit"
-                className="btn btn-pop mb-2"
+                className="tw-btn-pop mb-2"
                 disabled={!this.state.hasMoved}
               >
                 Vote & see results

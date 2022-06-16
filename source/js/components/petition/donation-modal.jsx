@@ -105,7 +105,7 @@ class DonationModal extends Component {
         <div className="text-center">
           <a
             ref={(e) => (this.userElectedToDonateLink = e)}
-            className="btn btn-primary"
+            className="tw-btn-primary"
             href={this.donateURL}
             target="_blank"
             tabIndex="0"

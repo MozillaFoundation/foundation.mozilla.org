@@ -127,8 +127,8 @@
 .product-detail {
   margin-top: -88px;
 
-  a:not(.btn),
-  button:not(.btn) {
+  a:not(.tw-btn),
+  button:not(.tw-btn) {
     text-decoration: underline;
 
     @include hover-focus-active {

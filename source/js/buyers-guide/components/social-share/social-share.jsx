@@ -67,7 +67,7 @@ const SocialShareLink = (props) => {
   return (
     <a
       target="_blank"
-      className={`btn btn-secondary btn-share ${classes}`}
+      className={`tw-btn tw-btn-secondary btn-share after:tw-hidden ${classes}`}
       href={link}
       onClick={trackShareAction}
     >
