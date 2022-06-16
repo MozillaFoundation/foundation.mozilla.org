@@ -18,7 +18,7 @@
                     <div><a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}" href="{{ menu_root.url }}">{% trans "Home" %}</a></div>
                     {% include "fragments/nav_links.html" with pre="<div>" post="</div>" %}
                     {% endblock %}
-                    {% if page.signup == None %}<div class="mt-2"><button class="btn btn-secondary btn-newsletter">{% trans "Newsletter" %}</button></div>{% endif %}
+                    {% if page.signup == None %}<div class="mt-2"><button class="tw-btn-secondary btn-newsletter">{% trans "Newsletter" %}</button></div>{% endif %}
                   </div>
                 </div>
               </div>
@@ -64,7 +64,7 @@
               {% block donate_and_newsletter %}
               <div class="d-flex align-items-center">
                 <a id="donate-header-btn" class="primary-nav-special-link tw-heart-glyph" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=header" target="_blank" rel="noopener noreferrer">{% trans "Donate" %}</a>
-                {% if page.signup == None %}<button class="btn btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
+                {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
               </div>
               {% endblock %}
 
@@ -84,7 +84,7 @@
       <div class="col-12">
         <div class="join-us pt-5 on-nav" data-layout="2-column" data-form-position="header" data-button-position="side"></div>
         <div class="text-center mt-3 d-lg-none">
-          <button class="btn form-dismiss">{% trans "No thanks" %}</button>
+          <button class="tw-btn form-dismiss">{% trans "No thanks" %}</button>
         </div>
       </div>
     </div>

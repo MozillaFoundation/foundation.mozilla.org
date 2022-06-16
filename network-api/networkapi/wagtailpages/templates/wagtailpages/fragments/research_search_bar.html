@@ -1,8 +1,3 @@
 {% load i18n %}
-<div class="tw-relative">
-  <label for="search" class="tw-sr-only">{% translate 'Search' context 'Button' %}</label>
-  <input type="text" value="{{ search_query }}" name="search" id="search" placeholder="{% translate 'Search our research…' context 'Search input' %}" class="tw-w-full form-control tw-h-auto tw-p-4 tw-pr-7 tw-border-gray-40 tw-rounded-none" />
-  <button type="submit" class="tw-absolute -tw-translate-y-1/2 tw-top-1/2 tw-right-3 tw-text-blue-80 tw-bg-transparent">
-    <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"><g stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="-14.5" cy="9" r="8" transform="scale(-1 1)"/><path d="m8.682 14.818-7.682 7.682" transform="matrix(-1 0 0 -1 9.682 37.318)"/></g></svg>
-  </button>
-</div>
+{% translate "Search our Research..." context "Search input placeholder text" as placeholder_text %}
+{% include "wagtailpages/fragments/search_bar.html" with placeholder_text=placeholder_text input_styles="tw-border-gray-40" icon_styles="tw-text-blue-80" %}

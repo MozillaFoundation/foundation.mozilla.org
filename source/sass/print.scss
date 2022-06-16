@@ -37,7 +37,7 @@
   a {
     color: $text-color;
 
-    &:not(.btn) {
+    &:not(.tw-btn) {
       text-decoration-style: dotted;
     }
 
@@ -102,12 +102,6 @@
       &:before {
         content: "Video: ";
       }
-    }
-  }
-
-  .block-linkbutton {
-    .btn-primary {
-      @include btn-secondary-style();
     }
   }
 
