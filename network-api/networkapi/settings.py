@@ -16,6 +16,7 @@ import environ
 import logging.config
 import dj_database_url
 from django.utils.translation import gettext_lazy
+from wagtail.embeds.oembed_providers import youtube
 
 app = environ.Path(__file__) - 1
 root = app - 1
@@ -516,7 +517,7 @@ DATAWRAPPER_PROVIDER = {
 WAGTAILEMBEDS_FINDERS = [
     {
         'class': 'wagtail.embeds.finders.oembed',
-        'providers': [DATAWRAPPER_PROVIDER],
+        'providers': [youtube, DATAWRAPPER_PROVIDER],
     }
 ]
 

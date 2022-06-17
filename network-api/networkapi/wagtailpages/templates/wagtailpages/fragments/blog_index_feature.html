@@ -9,7 +9,9 @@
 {% endcomment %}
 
 <div>
-  {% image blog.localized.specific.get_meta_image fill-540x303 %}
+  <a href="{% relocalized_url blog.localized.url %}">
+    {% image blog.localized.specific.get_meta_image fill-540x303 %}
+  </a>
 </div>
 
 <div class="tw-flex tw-flex-col tw-flex-1 tw-border-b-4 tw-border-gray-05 -tw-mt-5 tw-bg-white tw-relative tw-mx-2 medium:tw-mx-5 tw-p-4">
@@ -19,14 +21,16 @@
       <a href="/blog/topic/{{topic.slug}}">{{ localized_topic }}</a>{% if not forloop.last %}, {% endif %}
     {% endfor %}
   </p>
-  <h5 class="tw-mb-2 tw-h3-heading">
-    <a href="{% relocalized_url blog.localized.url %}">{{blog.localized.title}}</a>
-  </h5>
-  <p class="tw-body-small tw-mb-2">
-    {% if blog.author %}
-      {% blocktrans with author=blog.author %}by {{author}}{% endblocktrans %}
-    {% endif %}
-    {% if blog.first_published_at %} {% blocktrans with date=blog.first_published_at|date:"DATE_FORMAT" %}on {{date}}{% endblocktrans %}{% else %}not published yet{% endif %}
-  </p>
-  <p>{{blog.localized.search_description}}</p>
+  <a href="{% relocalized_url blog.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
+    <h5 class="tw-mb-2 tw-h3-heading group-hover:tw-underline">
+     {{blog.localized.title}}
+    </h5>
+    <p class="tw-body-small tw-mb-2">
+      {% if blog.author %}
+        {% blocktrans with author=blog.author %}by {{author}}{% endblocktrans %}
+      {% endif %}
+      {% if blog.first_published_at %} {% blocktrans with date=blog.first_published_at|date:"DATE_FORMAT" %}on {{date}}{% endblocktrans %}{% else %}not published yet{% endif %}
+    </p>
+    <p>{{blog.localized.search_description}}</p>
+  </a>
 </div>

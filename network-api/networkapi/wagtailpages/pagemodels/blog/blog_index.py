@@ -3,7 +3,7 @@ from django.db import models
 from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
 
-from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
+from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPanel
 from wagtail.contrib.routable_page.models import route
 from wagtail.core.models import Orderable as WagtailOrderable
 from wagtail_localize.fields import SynchronizedField
@@ -44,6 +44,37 @@ class FeaturedBlogPages(WagtailOrderable, models.Model):
         return self.page.title + '->' + self.blog.title
 
 
+class FeaturedVideoPost(WagtailOrderable, models.Model):
+    page = ParentalKey(
+        'wagtailpages.BlogIndexPage',
+        related_name='featured_video_post',
+    )
+
+    blog_page = models.ForeignKey(
+        'wagtailpages.BlogPage',
+        on_delete=models.CASCADE,
+        related_name='+'
+    )
+    video_url = models.URLField(
+        help_text='For YouTube: Go to your YouTube video and copy the URL '
+                  'from your browsers navigation bar. '
+                  'For Vimeo: Log into Vimeo using 1Password '
+                  'and upload the desired video. '
+                  'Then select the video and '
+                  'click "Advanced", "Distribution", '
+                  'and "Video File Links". Copy and paste the link here.',
+        blank=False,
+    )
+
+    panels = [
+        PageChooserPanel('blog_page', 'wagtailpages.BlogPage'),
+        FieldPanel("video_url"),
+    ]
+
+    def __str__(self):
+        return self.blog_page.title
+
+
 class BlogIndexPage(IndexPage):
     """
     The blog index is specifically for blog pages,
@@ -61,11 +92,19 @@ class BlogIndexPage(IndexPage):
             help_text='Choose five blog pages to feature',
             min_num=0,
             max_num=5,
+        ),
+        InlinePanel(
+            'featured_video_post',
+            label='Featured Video Post',
+            help_text='Choose a blog page with video to feature',
+            min_num=0,
+            max_num=1,
         )
     ]
 
     translatable_fields = IndexPage.translatable_fields + [
         SynchronizedField('featured_pages'),
+        SynchronizedField('featured_video_post'),
     ]
 
     template = 'wagtailpages/blog_index_page.html'

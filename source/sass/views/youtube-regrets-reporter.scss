@@ -207,7 +207,7 @@
         background: none;
       }
 
-      .btn-primary {
+      .tw-btn-primary {
         background: transparent;
         color: $youtube-regrets-red;
         border: 2px solid $youtube-regrets-red;
@@ -391,7 +391,7 @@
         top: 40%;
         right: $button-right-offset;
 
-        .btn {
+        .tw-btn {
           cursor: pointer;
           padding: 0;
 
@@ -407,7 +407,7 @@
     }
   }
 
-  .btn-primary {
+  .tw-btn-primary {
     border-radius: 3px;
   }
 
