@@ -58,6 +58,8 @@ class FeaturedVideoPost(WagtailOrderable, models.Model):
     video_url = models.URLField(
         help_text='For YouTube: Go to your YouTube video and copy the URL '
                   'from your browsers navigation bar. '
+                  'If this video is not for our YouTube channel, '
+                  'please host it on Vimeo.'
                   'For Vimeo: Log into Vimeo using 1Password '
                   'and upload the desired video. '
                   'Then select the video and '
