@@ -1,22 +1,38 @@
 {% load wagtailcore_tags wagtailimages_tags localization %}
 
-<div class="tw-w-full medium:tw-w-1/2 large:tw-w-1/3 tw-px-[15px] mb-5">
+<div
+  class="
+    tw-flex
+    tw-w-full
+    {% if not horizontal %}
+      tw-flex-col
+      medium:tw-w-1/2
+      large:tw-w-1/3
+    {% else %}
+      tw-flex-row
+    {% endif %}
+    tw-px-[15px]
+    mb-5
+  "
+>
   <div class="tw-mb-3">
     <a href="{% relocalized_url page.localized.url %}">
       {% image page.localized.specific.get_meta_image fill-1200x628 %}
     </a>
   </div>
 
-  <div class="tw-flex tw-flex-wrap">
-    {% block tags %}{% endblock %}
-    {% block published_date %}{% endblock %}
-  </div>
+  <div>
+    <div class="tw-flex tw-flex-wrap">
+      {% block tags %}{% endblock %}
+      {% block published_date %}{% endblock %}
+    </div>
 
-  <a href="{% relocalized_url page.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
-    <p class="tw-h4-heading d-inline-block mt-1 mb-2 group-hover:tw-underline">{{ page.localized.title }}</p>
-    <p class="tw-body-small my-0">
-      {% block description %}{% endblock %}
-      {% block byline %}{% endblock %}
-    </p>
-  </a>
+    <a href="{% relocalized_url page.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
+      <p class="tw-h4-heading d-inline-block mt-1 mb-2 group-hover:tw-underline">{{ page.localized.title }}</p>
+      <p class="tw-body-small my-0">
+        {% block description %}{% endblock %}
+        {% block byline %}{% endblock %}
+      </p>
+    </a>
+  </div>
 </div>

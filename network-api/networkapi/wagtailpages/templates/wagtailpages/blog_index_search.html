@@ -19,7 +19,7 @@
     <ul class="tw-p-0 tw-list-none">
       {% for entry in entries %}
         <li>
-          {% include "wagtailpages/fragments/blog_card.html" with page=entry %}
+          {% include "wagtailpages/fragments/blog_card.html" with page=entry horizontal=True %}
         </li>
       {% endfor %}
     </ul>
