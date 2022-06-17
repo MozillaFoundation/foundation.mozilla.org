@@ -16,7 +16,13 @@
 
 {% block subcontent %}
   {% if entries  %}
-    {{ block.super }}
+    <ul class="tw-p-0 tw-list-none">
+      {% for entry in entries %}
+        <li>
+          {% include "wagtailpages/fragments/blog_card.html" with page=entry %}
+        </li>
+      {% endfor %}
+    </ul>
   {% else %}
     <div class="col-12 tw-my-[6rem] large:tw-my-[8rem]">
       {% include "wagtailpages/fragments/blog_search_no_results.html" %}
