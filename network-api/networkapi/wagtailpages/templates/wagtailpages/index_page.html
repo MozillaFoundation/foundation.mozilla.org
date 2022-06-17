@@ -6,24 +6,26 @@
 
 {% block content %}
   <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-8 pt-4">
-        <h1 class="tw-h1-heading mb-0 mt-1 pt-2">
-          {% if index_title %}{{ index_title }}{% elif root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
-        </h1>
-        {% if index_intro %}
-        <div class="tw-body-large mt-3 mb-0">{{ index_intro|safe }}</div>
-        {% else %}
-        <p class="tw-body-large mt-3 mb-0">{{ page.intro|safe }}</p>
-        {% endif %}
+    {% block index_header %}
+      <div class="row">
+        <div class="col-12 col-md-8 pt-4">
+          <h1 class="tw-h1-heading mb-0 mt-1 pt-2">
+            {% if index_title %}{{ index_title }}{% elif root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
+          </h1>
+          {% if index_intro %}
+          <div class="tw-body-large mt-3 mb-0">{{ index_intro|safe }}</div>
+          {% else %}
+          <p class="tw-body-large mt-3 mb-0">{{ page.intro|safe }}</p>
+          {% endif %}
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-12">
-        <hr class="intro-and-content-divider">
+      <div class="row">
+        <div class="col-12">
+          <hr class="intro-and-content-divider">
+        </div>
       </div>
-    </div>
+    {% endblock %}
 
     {% block featured %}{% endblock %}
 
