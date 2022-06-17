@@ -119,6 +119,9 @@ network-api/networkapi/frontend/*
 # PyCharm
 .idea/
 
+# VIM
+.vim/
+
 # Playwright testing
 tests/screenshots
 
