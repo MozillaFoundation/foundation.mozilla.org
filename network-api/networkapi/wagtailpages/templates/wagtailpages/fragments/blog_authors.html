@@ -10,7 +10,7 @@
     {% spaceless %}
     {% if show_full_info %}{% trans "By" %} {% endif %}
     {% for author in authors %}
-        <a href="{% routablepageurl page=blog_index url_name='blog-author-detail' profile_id=author.id  %}">
+        <a href="{% routablepageurl page=blog_index url_name='blog-author-detail' profile_slug=author.slug  %}">
             <span>{% if authors_length > 1 and forloop.last %}{% trans "and" %} {% endif %}<b class="tw-font-extrabold">{{ author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
         </a>
     {% endfor %}

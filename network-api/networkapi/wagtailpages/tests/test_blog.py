@@ -97,7 +97,7 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
 
     def test_authors_detail(self):
         blog_author_url = self.blog_index.get_url() + self.blog_index.reverse_subpage(
-            "blog-author-detail", args=(self.profile_1.id,)
+            "blog-author-detail", args=(self.profile_1.slug,)
         )
         response = self.client.get(path=blog_author_url)
         self.assertTemplateUsed(response, "wagtailpages/blog_author_detail_page.html")
@@ -108,20 +108,10 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
         self.assertNotIn(self.profile_2.tagline, str(response.content))
         self.assertNotIn(self.profile_2.introduction, str(response.content))
 
-    def test_authors_detail_bad_string_id_argument(self):
-        # Test bad author query blog/authors/oiwre results in 404 reponse
-        blog_author_url = self.blog_index.get_url() + self.blog_index.reverse_subpage(
-            "blog-author-detail", args=("badid",)
-        )
-        response = self.client.get(path=blog_author_url)
-        self.assertEqual(response.status_code, 404)
-
     def test_authors_detail_non_existent_id_argument(self):
         # Test object not existing results in 404 reponse
         blog_author_url = self.blog_index.get_url() + self.blog_index.reverse_subpage(
-            "blog-author-detail", args=(100,)
+            "blog-author-detail", args=('a-non-existent-slug',)
         )
         response = self.client.get(path=blog_author_url)
         self.assertEqual(response.status_code, 404)
-
-    # test author not found raises 404

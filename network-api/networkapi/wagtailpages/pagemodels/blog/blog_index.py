@@ -256,13 +256,9 @@ class BlogIndexPage(IndexPage):
             template="wagtailpages/blog_author_index_page.html"
         )
 
-    @route(r'^authors/(?P<profile_id>.+)/', name='blog-author-detail')
-    def blog_author_detail(self, request: HttpRequest, profile_id: str, *args, **kwargs) -> 'HttpResponse':
-        try:
-            author_profile = get_object_or_404(Profile, id=profile_id)
-        except ValueError as e:
-            raise Http404(f'Author: {profile_id} not found') from e
-
+    @route(r'^authors/(?P<profile_slug>.+)/', name='blog-author-detail')
+    def blog_author_detail(self, request: HttpRequest, profile_slug: str, *args, **kwargs) -> 'HttpResponse':
+        author_profile = get_object_or_404(Profile, slug=profile_slug)
         return self.render(
             request,
             context_overrides={

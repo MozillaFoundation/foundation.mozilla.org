@@ -5,7 +5,7 @@
 <ul>
 {% for profile in author_profiles %}
     <li>
-        <a href="{% routablepageurl page 'blog-author-detail' profile_id=profile.id  %}">
+        <a href="{% routablepageurl page 'blog-author-detail' profile_slug=profile.slug  %}">
             {{ profile }}
         </a>
     </li>

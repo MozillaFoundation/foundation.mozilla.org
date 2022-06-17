@@ -48,7 +48,7 @@ def get_page_authors(page):
             {
                 "image": author.author.image,
                 "name": author.author.name,
-                "id": author.author.id,
+                "slug": author.author.slug,
             }
             for author in all_authors
         ]
