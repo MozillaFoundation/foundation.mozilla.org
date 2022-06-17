@@ -267,5 +267,9 @@ class BlogIndexPage(IndexPage):
     def get_search_entries(self, query: str = '') -> Union['QuerySet', 'DatabaseSearchResults']:
         entries = self.get_entries().specific()
         if query:
-            entries = entries.search(query)
+            entries = entries.search(
+                query,
+                partial_match=False,
+                order_by_relevance=True,
+            )
         return entries
