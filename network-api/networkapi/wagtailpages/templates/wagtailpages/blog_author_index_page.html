@@ -1,13 +1,44 @@
-{% load wagtailroutablepage_tags %}
+{% extends "./modular_page.html" %}
+{% load wagtailroutablepage_tags i18n static wagtailimages_tags %}
 
-<h1>{{title}}</h1>
-
-<ul>
-{% for profile in author_profiles %}
-    <li>
-        <a href="{% routablepageurl page 'blog-author-detail' profile_slug=profile.slug  %}">
-            {{ profile }}
-        </a>
-    </li>
-{% endfor %}
-</ul>
+{% block subcontent %}
+    <div class="tw-container small:tw-px-0">
+        <div class="tw-bg-white -tw-ml-4 small:tw-ml-0 -tw-mt-6 tw-pb-5 medium:tw-pb-6 large:tw-pb-7 tw-pl-4 small:tw-pr-4 tw-pt-4 medium:tw-pt-5 large:tw-pt-7 large:tw-px-5 tw-w-auto">
+            <h1>
+                {% trans "Blog authors" %}
+            </h1>
+        </div>
+        <hr class="tw-border-black tw-my-5 medium:tw-my-6 large:tw-my-7">
+        {% if author_profiles %}
+            <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-6 tw-gap-5 tw-gap-y-7 tw-list-none tw-p-0">
+            {% for author_profile in author_profiles %}
+                <li class="tw-flex tw-m-0">
+                    <a
+                    href="{% routablepageurl page 'blog-author-detail' profile_slug=author_profile.slug  %}"
+                    class="tw-flex {% if not tight %} tw-gap-4 medium:tw-gap-5 large:tw-gap-6 {% else %} tw-gap-3 {% endif %} tw-group tw-items-center hover:tw-no-underline"
+                   >
+                     <div class="tw-shrink-0 tw-w-[4rem] {% if not tight %} medium:tw-w-[5rem] large:tw-w-[6rem] {% endif %}">
+                       {% if author_profile.image %}
+                         {% image author_profile.image fill-182x182 as profile_img %}
+                         <img src="{{ profile_img.url }}" alt="{{ author_profile.name }}" class="tw-w-full tw-h-auto tw-rounded-full">
+                       {% endif %}
+                     </div>
+                     <div>
+                       <div class="tw-h5-heading tw-mb-1 tw-text-blue-80 group-hover:tw-underline">
+                         {{ author_profile.name }}
+                       </div>
+                       <div class="tw-text-xs medium:tw-text-sm large:tw-text-base tw-text-gray-60">
+                         {{ author_profile.tagline }}
+                       </div>
+                     </div>
+                  </a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>
+            {% trans "No authors found." %}
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}
