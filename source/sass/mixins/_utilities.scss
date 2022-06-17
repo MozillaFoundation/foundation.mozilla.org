@@ -63,7 +63,7 @@
   $link-icon,
   $link-copied-icon
 ) {
-  .btn.btn-share {
+  .tw-btn.btn-share {
     border-color: $color;
 
     @include hover-focus-active {
@@ -76,6 +76,10 @@
 
     &::before {
       filter: brightness(1);
+    }
+
+    &:after {
+      content: none;
     }
 
     &.facebook-share {

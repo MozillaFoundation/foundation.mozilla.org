@@ -313,7 +313,7 @@
     "../_images/dear-internet/link-share-copied.svg"
   );
 
-  .btn.btn-share {
+  .tw-btn.btn-share {
     background: $dear-internet-lilac;
   }
 
@@ -384,7 +384,7 @@
       @include dear-internet-body-large();
     }
 
-    a.btn.btn-secondary.tw-heart-glyph {
+    a.tw-btn-secondary.tw-heart-glyph {
       border-color: $dark-blue;
       color: $dark-blue;
 

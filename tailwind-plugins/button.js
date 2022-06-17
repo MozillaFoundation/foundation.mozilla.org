@@ -126,7 +126,7 @@ module.exports = [
             },
           ".dark &": {
             color: "#ffffff",
-            backgroundColor: "#000000",
+            backgroundColor: "transparent",
             borderColor: "#ffffff",
             fontWeight: "700",
             "&:focus, &:hover": {

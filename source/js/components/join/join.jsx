@@ -512,11 +512,11 @@ class JoinUs extends Component {
 
     if (this.props.formStyle == "pop") {
       classnames = classNames(
-        "tw-btn tw-border-1 tw-btn-secondary tw-mt-7 medium:-tw-mb-6 medium:tw-mt-5"
+        "tw-border-1 tw-btn-secondary tw-mt-7 medium:-tw-mb-6 medium:tw-mt-5"
       );
       buttonText = getText("Subscribe");
     } else {
-      classnames = classNames("btn btn-primary", {
+      classnames = classNames("tw-btn-primary", {
         "w-100": !this.isFlowForm(),
         "tw-flex-1 tw-mr-4": this.isFlowForm(),
       });
@@ -534,10 +534,9 @@ class JoinUs extends Component {
     if (this.state.apiSuccess) return null;
 
     let formClass = `d-flex flex-column`;
-    
+
     let fieldsWrapperClass = classNames(`w-100`, {
-      "large:tw-pl-7":
-        this.props.formStyle == `pop`,
+      "large:tw-pl-7": this.props.formStyle == `pop`,
     });
 
     let buttonsWrapperClass = `w-100`;
@@ -573,7 +572,7 @@ class JoinUs extends Component {
           {this.renderSubmitButton()}
           {this.isFlowForm() && (
             <button
-              className="btn btn-primary btn-dismiss tw-flex-1"
+              className="tw-btn-primary btn-dismiss tw-flex-1"
               onClick={() => this.props.handleSignUp(false)}
               type="button"
             >
