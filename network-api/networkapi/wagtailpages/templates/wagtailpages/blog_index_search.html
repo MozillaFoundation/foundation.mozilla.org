@@ -1,3 +1,23 @@
 {% extends "./blog_index_page.html" %}
 
+{% load i18n %}
+
+{% block index_header %}
+  <div>
+    <h1>{% trans "Search blog" context "Title of the blog search results page" %}</h1>
+    <form action="" method="get" class="my-4">
+      {% trans "Search all blog" context "Blog search bar" as placeholde_text %}
+      {% include "wagtailpages/fragments/blog_search_bar.html" with name="q" search_query=query %}
+    </form>
+  </div>
+{% endblock %}
+
 {% block featured %}{% endblock %}
+
+{% block subcontent %}
+  {% if entries  %}
+    {{ block.super }}
+  {% else %}
+    No results for {{ query }}
+  {% endif %}
+{% endblock subcontent %}
