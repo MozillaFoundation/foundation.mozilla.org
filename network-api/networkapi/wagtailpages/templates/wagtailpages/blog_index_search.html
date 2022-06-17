@@ -18,6 +18,8 @@
   {% if entries  %}
     {{ block.super }}
   {% else %}
-    {% include "wagtailpages/fragments/blog_search_no_results.html" %}
+    <div class="col-12 tw-my-[6rem] large:tw-my-[8rem]">
+      {% include "wagtailpages/fragments/blog_search_no_results.html" %}
+    </div>
   {% endif %}
 {% endblock subcontent %}
