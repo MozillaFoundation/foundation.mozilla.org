@@ -12,17 +12,17 @@ crawls up the ancestor tree until it has found it.
 each blog page's dominant tag)
 
 {% block tags %}
-  {% include "./blog_card_topics.html" with topics=page.specific.topics.all%}
+  {% include "./blog_card_topics.html" with topics=blog_page.specific.topics.all %}
 {% endblock %}
 
 {% block published_date %}
-  <span class="tw-h6-heading tw-text-gray-40 tw-py-1"> {{ page.first_published_at|date:"DATE_FORMAT" }} </span>
+  <span class="tw-h6-heading tw-text-gray-40 tw-py-1 tw-mb-0"> {{ blog_page.first_published_at|date:"DATE_FORMAT" }} </span>
 {% endblock %}
 
 {% block description %}
-  <p class="tw-body tw-line-clamp-3">{{ page.specific.localized.get_meta_description }}</p>
+  <p class="tw-body tw-line-clamp-3 tw-mb-0">{{ blog_page.specific.localized.get_meta_description }}</p>
 {% endblock %}
 
 {% block byline %}
-  {% include "./blog_authors.html" with blog_page=page.specific %}
+  {% include "./blog_authors.html" with blog_page=blog_page.specific %}
 {% endblock %}
