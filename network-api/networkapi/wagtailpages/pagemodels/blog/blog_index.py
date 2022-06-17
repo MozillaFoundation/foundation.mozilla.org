@@ -260,10 +260,8 @@ class BlogIndexPage(IndexPage):
     def blog_author_detail(self, request: HttpRequest, profile_id: str, *args, **kwargs) -> 'HttpResponse':
         try:
             author_profile = get_object_or_404(Profile, id=profile_id)
-        except ValueError:
-            author_profile = None
-        if not author_profile:
-            raise Http404()
+        except ValueError as e:
+            raise Http404(f'Author: {profile_id} not found') from e
 
         return self.render(
             request,

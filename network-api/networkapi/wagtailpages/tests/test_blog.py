@@ -121,7 +121,7 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
         blog_author_url = self.blog_index.get_url() + self.blog_index.reverse_subpage(
             "blog-author-detail", args=(100,)
         )
-        response = self.client.get(path=blog_author_url, follow=True)
+        response = self.client.get(path=blog_author_url)
         self.assertEqual(response.status_code, 404)
 
     # test author not found raises 404
