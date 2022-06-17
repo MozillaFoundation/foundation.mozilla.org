@@ -17,7 +17,7 @@
         {% elif forloop.counter == 5 %}
           {% include "./fragments/blog_index_feature.html" with blog_page=feature.blog %}
         {% else %}
-          {% include "./fragments/blog_card.html" with blog_page=feature.blog %}
+          {% include "./fragments/blog_card.html" with page=feature.blog %}
         {% endif %}
       {% endfor %}
 
