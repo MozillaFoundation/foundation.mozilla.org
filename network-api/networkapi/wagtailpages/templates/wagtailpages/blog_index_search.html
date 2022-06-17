@@ -18,6 +18,6 @@
   {% if entries  %}
     {{ block.super }}
   {% else %}
-    No results for {{ query }}
+    {% include "wagtailpages/fragments/blog_search_no_results.html" %}
   {% endif %}
 {% endblock subcontent %}
