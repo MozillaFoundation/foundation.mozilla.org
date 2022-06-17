@@ -56,10 +56,9 @@ class FeaturedVideoPost(WagtailOrderable, models.Model):
         related_name='+'
     )
     video_url = models.URLField(
-        help_text='For YouTube: go to your YouTube video and click “Share,” '
-                  'then “Embed,” and then copy and paste the provided URL only. '
-                  'For example: https://www.youtube.com/embed/3FIVXBawyQw '
-                  'For Vimeo: Log into Vimeo using 1Password '
+        help_text='For YouTube: Go to your YouTube video and copy the URL '
+                  'from your browsers navigation bar. \n'
+                  'For Vimeo: Log into  \n Vimeo using 1Password '
                   'and upload the desired video. '
                   'Then select the video and '
                   'click "Advanced", "Distribution", '
