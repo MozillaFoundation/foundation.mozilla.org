@@ -25,6 +25,11 @@
         {% include "./fragments/blog_index_feature.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
       {% endfor %}
     </div>
+
+    {%  for video_post in page.specific.featured_video_post.all %}
+      {% include "./fragments/blog_index_featured_video_post.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
+    {% endfor %}
+
   {% endif %}
 {% endblock %}
 
