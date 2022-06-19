@@ -3,17 +3,13 @@
  */
 
 export default function blogIndexFeaturedVideoHandler() {
-  const featuredVideoPostContainer = document.querySelector(
-    "#featured-video-container"
-  );
+  const featuredVideoPostContainer = document.querySelector("#featured-video-container");
 
   if (!featuredVideoPostContainer) {
     return;
   }
 
-  const video = featuredVideoPostContainer.querySelector(
-    "video.featured-video"
-  );
+  const video = featuredVideoPostContainer.querySelector("video.featured-video");
   const playButton = featuredVideoPostContainer.querySelector(".play-button");
 
   function toggleVideo() {
