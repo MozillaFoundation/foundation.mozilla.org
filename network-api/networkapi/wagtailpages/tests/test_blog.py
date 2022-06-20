@@ -92,7 +92,7 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
         self.assertTemplateUsed(response, "wagtailpages/blog_author_index_page.html")
         self.assertContains(response, self.profile_1.name)
         self.assertContains(response, self.profile_2.name)
-        self.assertNotIn(self.profile_3.name, str(response.content))
+        self.assertNotContains(response, self.profile_3.name)
         self.assertEqual(response.render().status_code, 200)
 
     def test_authors_detail(self):
