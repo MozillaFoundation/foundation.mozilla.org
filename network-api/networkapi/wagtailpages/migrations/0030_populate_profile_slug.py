@@ -3,8 +3,7 @@
 import django.db.models.deletion
 import modelcluster.fields
 from django.db import migrations, models
-from networkapi.wagtailpages.models import Profile
-
+from django.utils.text import slugify
 
 class Migration(migrations.Migration):
 
@@ -15,9 +14,15 @@ class Migration(migrations.Migration):
     def populate_profile_slugs(apps, schema_editor):
         """Call save on the Profile snippets to populate
         slug values"""
+
+        Profile = apps.get_model("wagtailpages.Profile")
+
         for profile in Profile.objects.all():
+            # Custom model methods are not available during migrations
+            # so mimic what we want to happen on save from Profile.save()
+            profile.slug = slugify(f'{profile.name}-{str(profile.id)}')
             profile.save()
 
     operations = [
-        migrations.RunPython(populate_profile_slugs),
+        migrations.RunPython(populate_profile_slugs, reverse_code=migrations.RunPython.noop)
     ]
