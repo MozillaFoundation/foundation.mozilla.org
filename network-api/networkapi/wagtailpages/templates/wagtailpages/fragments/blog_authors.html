@@ -10,9 +10,7 @@
     {% spaceless %}
     {% if show_full_info %}{% trans "By" %} {% endif %}
     {% for author in authors %}
-        <a href="{% routablepageurl page=blog_index url_name='blog-author-detail' profile_slug=author.slug  %}">
-            <span>{% if authors_length > 1 and forloop.last %}{% trans "and" %} {% endif %}<b class="tw-font-extrabold">{{ author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
-        </a>
+            <span>{% if authors_length > 1 and forloop.last %} {% trans "and" %} {% endif %}<b class="tw-font-extrabold"><a class="tw-text-black" href="{% routablepageurl page=blog_index url_name='blog-author-detail' profile_slug=author.slug  %}">{{ author.name }}</a>{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
     {% endfor %}
     {% if show_full_info %}
       | {% if blog_page.first_published_at %}{{ blog_page.first_published_at|date:"DATE_FORMAT" }}
