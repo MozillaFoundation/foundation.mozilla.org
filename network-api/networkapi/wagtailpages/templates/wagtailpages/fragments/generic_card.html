@@ -5,19 +5,18 @@
     tw-flex
     tw-flex-col
     tw-gap-3
-    tw-mb-5
-    tw-px-[15px]
     tw-w-full
     {% if horizontal %}
       medium:tw-flex-row
       medium:tw-gap-6
-    {% else %}
-      medium:tw-w-1/2
-      large:tw-w-1/3
     {% endif %}
   "
 >
-  <div class="medium:tw-max-w-xs large:tw-max-w-sm tw-shrink-0">
+  <div
+    {% if horizontal %}
+      class="medium:tw-max-w-xs large:tw-max-w-sm medium:tw-shrink-0"
+    {% endif %}
+  >
     <a href="{% relocalized_url page.localized.url %}">
       {% image page.localized.specific.get_meta_image fill-1200x628 %}
     </a>
