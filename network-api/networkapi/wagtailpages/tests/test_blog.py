@@ -13,6 +13,29 @@ from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.tests import base as test_base
 
 
+class TestBlogIndex(test_base.WagtailpagesTestCase):
+    def test_templates(self):
+        blog_index = blog_factories.BlogIndexPageFactory(parent=self.homepage)
+        blog_factories.BlogPageFactory(parent=blog_index)
+        url = blog_index.get_url()
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/blog_index_page.html'
+        )
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/fragments/entry_cards.html'
+        )
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/fragments/blog_card.html'
+        )
+
+
 class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
     @staticmethod
     def update_index():
@@ -58,7 +81,7 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         )
         self.assertTemplateUsed(
             response,
-            template_name='wagtailpages/fragments/entry_cards.html'
+            template_name='wagtailpages/fragments/blog_card.html'
         )
 
     def test_no_results_template(self):
