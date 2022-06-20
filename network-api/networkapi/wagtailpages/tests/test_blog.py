@@ -104,9 +104,9 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
         self.assertContains(response, self.profile_1.name)
         self.assertContains(response, self.profile_1.tagline)
         self.assertContains(response, self.profile_1.introduction)
-        self.assertNotIn(self.profile_2.name, str(response.content))
-        self.assertNotIn(self.profile_2.tagline, str(response.content))
-        self.assertNotIn(self.profile_2.introduction, str(response.content))
+        self.assertNotContains(response, self.profile_2.name)
+        self.assertNotContains(response, self.profile_2.tagline)
+        self.assertNotContains(response, self.profile_2.introduction)
 
     def test_authors_detail_non_existent_id_argument(self):
         # Test object not existing results in 404 reponse
