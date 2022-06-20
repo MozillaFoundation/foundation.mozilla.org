@@ -244,7 +244,7 @@ class BlogIndexPage(IndexPage):
     @route(r'^authors/$')
     def blog_author_index(self, request: HttpRequest, *args, **kwargs) -> 'HttpResponse':
         """If the page is called with /authors/, render a list of Profile
-        objects that have been reference in blog pages.
+        objects that have been referenced in blog pages.
 
         Args:
             request (HttpRequest)
