@@ -73,9 +73,15 @@ export default () => {
       });
     });
 
-    if (document.querySelector(".publication-hero-container,.article-hero")) {
+    if (
+      document.querySelector(
+        ".publication-hero-container,.article-hero,#custom-hero"
+      )
+    ) {
       summaryObserver.observe(
-        document.querySelector(".publication-hero-container,.article-hero")
+        document.querySelector(
+          ".publication-hero-container,.article-hero,#custom-hero"
+        )
       );
     }
 
