@@ -56,16 +56,13 @@
     </div>
 
     <div class="index-entries row">
-
     {% else %}
-
 
     {% if not filtered %}
       {% block entry_list_title %}{% endblock%}
     {% endif %}
 
     <div class="index-entries row mb-4">
-
     {% endif %}  {# End of IF for filtered page content _after_ starting a new row. #}
       {% block subcontent %}
         {% include "./fragments/entry_cards.html" %}
