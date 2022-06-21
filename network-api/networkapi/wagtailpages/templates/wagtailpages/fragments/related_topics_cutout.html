@@ -1,0 +1,19 @@
+{% load blog_tags localization i18n %}
+    
+<div class="col-12 col-md-6 col-lg-4 mb-5">
+    <div class="tw-border-2 tw-px-5 tw-py-6 tw-border-black tw-shadow-[8px_8px_rgba(0,0,0)]">
+        <h2 class="tw-mb-5 tw-font-bold tw-text-lg tw-font-sans tw-uppercase">{% trans 'Related Topics' %} </h2>
+        <div class="tw-flex tw-flex-wrap">
+            {% for topic in topics %}
+              {% localized_version topic as localized_topic %}
+              {% get_root_or_page as parent_page %}
+              {# If we have a "root" context variable, we know this template is generated on an index page (or index page subroute) #}
+              {% with link_classes="tw-text-black tw-px-4 tw-border-black tw-my-2 tw-border tw-rounded-full tw-mr-3 tw-text-lg tw-font-normal tw-whitespace-nowrap tw-block tw-transition-colors" link_hover_classes="hover:tw-bg-black hover:tw-text-white hover:tw-no-underline hover:tw-border-white" %}
+                <a href="{% localizedroutablepageurl parent_page "entries_by_topic" topic.slug %}" class="{{link_classes}} {{link_hover_classes}}">
+                  {{localized_topic}}
+                </a>
+              {% endwith %}  
+            {% endfor %}
+        </div>
+    </div>
+</div>
