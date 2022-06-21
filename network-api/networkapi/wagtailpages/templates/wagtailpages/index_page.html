@@ -29,8 +29,6 @@
 
     {% block featured %}{% endblock %}
 
-    {% block entry_list_title %}{% endblock%}
-
     {% if filtered and no_filter_ui != True %}  {# Start of IF for filtered page content. Note that this injects an entire row. #}
     <div class="row mb-4">
       <div class="col-12 d-flex justify-content-between">
@@ -58,8 +56,16 @@
     </div>
 
     <div class="index-entries row">
+
     {% else %}
+
+
+    {% if not filtered %}
+      {% block entry_list_title %}{% endblock%}
+    {% endif %}
+
     <div class="index-entries row mb-4">
+
     {% endif %}  {# End of IF for filtered page content _after_ starting a new row. #}
       {% block subcontent %}
         {% include "./fragments/entry_cards.html" %}
