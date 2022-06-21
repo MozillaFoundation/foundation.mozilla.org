@@ -7,9 +7,9 @@
         <img src="{% static "_images/video-icon.svg" %}" alt="{% trans "video" context "icon description for screen readers" %}" class="tw-h-4 tw-w-4 tw-mr-2 tw-my-1">
         <span class="tw-h6-heading tw-text-gray-40 tw-py-1 tw-mb-0">{{ blog_page.first_published_at|date:"DATE_FORMAT" }}</span>
       </div>
-    <a href="{% relocalized_url page.localized.url %}" class="tw-group tw-block hover:tw-no-underline tw-h-full">
-      <h1 class="tw-h1-heading tw-text-[34px] tw-mt-1 tw-mb-2 group-hover:tw-underline"  href="{% relocalized_url blog_page.localized.url %}">{{ blog_page.localized.title}}</h1>
-      <p class="tw-body">{{ blog_page.get_meta_description }}</p>
+    <a href="{% relocalized_url blog_page.localized.url %}" class="tw-group tw-block hover:tw-no-underline tw-h-full">
+      <h1 class="tw-h1-heading tw-text-[34px] tw-mt-1 tw-mb-2 group-hover:tw-underline">{{ blog_page.localized.title}}</h1>
+      <p class="tw-body">{{ blog_page.localized.get_meta_description }}</p>
     </a>     
     <div class="tw-mt-auto">
       {% include "./blog_authors.html" with blog_page=blog_page %}
@@ -23,7 +23,7 @@
                 <source src="{{video_url}}" type="video/mp4">
               </video>
               <div class="tw-absolute tw-top-0 tw-left-0 tw-min-h-full tw-min-w-full tw-flex tw-justify-center tw-place-items-center">
-                <img class="play-button tw-h-[4rem] tw-w-[4rem] tw-opacity-75 hover:tw-opacity-100" src="{% static "_images/video_play_button.svg" %}" alt="Play Button" />
+                <img class="play-button tw-h-[4rem] tw-w-[4rem] tw-opacity-75 hover:tw-opacity-100" src="{% static "_images/video_play_button.svg" %}" alt="{% trans "Play Button" context "icon description for screen readers" %}" />
               </div>
             </div>
           {% else %}
