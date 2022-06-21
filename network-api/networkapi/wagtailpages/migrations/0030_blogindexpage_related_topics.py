@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='blogindexpage',
             name='related_topics',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, help_text='Which topics would you like to feature on the page? Please select a max of 7. ', to='wagtailpages.BlogPageTopic', verbose_name='Topics'),
+            field=modelcluster.fields.ParentalManyToManyField(blank=True, help_text='Which topics would you like to feature on the page? Please select a max of 7.', to='wagtailpages.BlogPageTopic', verbose_name='Topics'),
         ),
     ]
