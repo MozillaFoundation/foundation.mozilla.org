@@ -93,6 +93,8 @@ export default () => {
         ".wrapper > .sticky-top.d-print-none"
       );
 
+      if (!dropDownMenu) return;
+
       if (window.matchMedia("(min-width: 768px)").matches) {
         dropDownMenu.style.maxHeight = `calc(100vh - ${stickyContent.offsetHeight}px)`;
         dropDownMenu.style.height = `auto`;
