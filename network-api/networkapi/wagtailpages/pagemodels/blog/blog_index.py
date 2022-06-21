@@ -97,7 +97,7 @@ class BlogIndexPage(IndexPage):
     related_topics = ParentalManyToManyField(
         BlogPageTopic,
         help_text='Which topics would you like to feature on the page? '
-                  'Please select a max of 7. ',
+                  'Please select a max of 7.',
         blank=True,
         verbose_name='Topics',
     )
