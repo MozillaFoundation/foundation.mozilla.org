@@ -4,8 +4,8 @@
   {% localized_version topic as localized_topic %}
   {% get_root_or_page as parent_page %}
   {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
-    <a class="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-my-1" href="{% localizedroutablepageurl parent_page "entries_by_topic" topic.slug %}">{{ localized_topic }}</a>
+    <a class="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-py-1 tw-mb-0" href="{% localizedroutablepageurl parent_page "entries_by_topic" topic.slug %}">{{ localized_topic }}</a>
     {% if not forloop.last %}
-      <span class="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-my-1"> / </span>
+      <span class="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-py-1 tw-mb-0">/</span>
     {% endif %}
 {% endfor %}

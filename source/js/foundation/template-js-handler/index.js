@@ -13,6 +13,7 @@ import pulseProfileCardHandler from "./pulse-profile-card.js";
 import pulseProfileListFilterHandler from "./pulse-profile-list-filter.js";
 import customHeroVideoHandler from "./custom-hero-video-handler.js";
 import blogHeroVideoHandler from "./blog-hero-video-handler.js";
+import blogIndexFeaturedVideoHandler from "./featured-blog-video-handler.js";
 /**
  * Bind global event handlers
  */
@@ -38,5 +39,6 @@ export const bindEventHandlers = () => {
   pulseProfileListFilterHandler();
   shareButtonGroupHandler();
   blogHeroVideoHandler();
+  blogIndexFeaturedVideoHandler();
   continuousScrollingBox();
 };
