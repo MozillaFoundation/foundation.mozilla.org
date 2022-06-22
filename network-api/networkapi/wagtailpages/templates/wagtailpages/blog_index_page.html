@@ -15,7 +15,7 @@
         {% if forloop.first %}
           {% include "./fragments/blog_index_feature.html" with blog_page=feature.blog %}
         {% elif forloop.counter == 5 %}
-        <div class="large:-tw-mt-7">
+        <div class="large:-tw-mt-5">
             {% include "./fragments/blog_index_feature.html" with blog_page=feature.blog content_left=True %}
         </div>
 
