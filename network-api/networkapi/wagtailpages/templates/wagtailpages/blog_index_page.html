@@ -15,7 +15,10 @@
         {% if forloop.first %}
           {% include "./fragments/blog_index_feature.html" with blog_page=feature.blog %}
         {% elif forloop.counter == 5 %}
-          {% include "./fragments/blog_index_feature.html" with blog_page=feature.blog %}
+        <div class="large:-tw-mt-7">
+            {% include "./fragments/blog_index_feature.html" with blog_page=feature.blog content_left=True %}
+        </div>
+
         {% else %}
           {% include "./fragments/blog_card.html" with page=feature.blog %}
         {% endif %}
@@ -25,10 +28,6 @@
         {% include "./fragments/blog_index_feature.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
       {% endfor %}
     </div>
-
-    {%  for video_post in page.specific.featured_video_post.all %}
-      {% include "./fragments/blog_index_featured_video_post.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
-    {% endfor %}
 
   {% endif %}
 {% endblock %}
