@@ -39,10 +39,14 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         )
 
     def test_route_with_query_success(self):
+        blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            title=self.search_term,
+        )
         url = (
             self.blog_index.get_url()
             + self.blog_index.reverse_subpage("search")
-            + '?q=test'
+            + f'?q={ self.search_term }'
         )
 
         response = self.client.get(path=url)
@@ -51,6 +55,33 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertTemplateUsed(
             response,
             template_name='wagtailpages/blog_index_search.html'
+        )
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/fragments/entry_cards.html'
+        )
+
+    def test_no_results_template(self):
+        blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            title="This is not the search term",
+        )
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search")
+            + f'?q={ self.search_term }'
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/blog_index_search.html'
+        )
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/fragments/blog_search_no_results.html'
         )
 
     def test_no_query(self):
