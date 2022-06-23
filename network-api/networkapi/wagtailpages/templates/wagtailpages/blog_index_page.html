@@ -29,6 +29,6 @@
 
 {% block newsletter-callout-box %}
   {% if not filtered %}
-    {% include "./fragments/newsletter-signup-box.html" %}
+    {% include "./fragments/newsletter-signup-box.html" with show_socials=True %}
   {% endif %}
 {% endblock %}

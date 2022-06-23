@@ -10,8 +10,10 @@
       data-cta-description="<p class='tw-mb-5'>{% trans "Help shape the future of the web for the public good. Join our Mozilla News email list to get action alerts & internet tips right to your inbox." %}</p>"
     >
     </div>
-    <div class="tw-hidden medium:tw-block">
-        {% include "./mozilla-social-buttons.html" %}
-    </div>
+    {% if show_socials %}
+      <div class="tw-hidden medium:tw-block">
+          {% include "./mozilla-social-buttons.html" %}
+      </div>
+    {% endif %}
 
 </div>   
