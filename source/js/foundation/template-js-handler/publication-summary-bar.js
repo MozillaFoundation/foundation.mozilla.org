@@ -73,16 +73,12 @@ export default () => {
       });
     });
 
-    if (
-      document.querySelector(
-        ".publication-hero-container,.article-hero,#custom-hero"
-      )
-    ) {
-      summaryObserver.observe(
-        document.querySelector(
-          ".publication-hero-container,.article-hero,#custom-hero"
-        )
-      );
+    const heroContainer = document.querySelector(
+      ".publication-hero-container,.article-hero,#custom-hero"
+    );
+
+    if (heroContainer) {
+      summaryObserver.observe(heroContainer);
     }
 
     document.querySelectorAll(".rich-text h2").forEach((section) => {
