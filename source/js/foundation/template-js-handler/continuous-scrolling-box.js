@@ -83,7 +83,7 @@ export default () => {
           }
         );
         document
-          .querySelector(".publication-hero-container")
+          .querySelector(".publication-hero-container,#custom-hero")
           .classList.toggle("d-flex");
         outro.set("main", {
           height: "100%",
