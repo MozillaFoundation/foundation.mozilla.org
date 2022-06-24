@@ -357,6 +357,33 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
     def test_load_more_route_to_get_extra_entry(self):
         pass
 
+    def test_load_more_route_success(self):
+        url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search_load_more")
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    # def test_load_more_route_to_get_extra_entry(self):
+    #     tz = datetime.timezone.utc
+    #     blog_pages = []
+    #     for day in range(1, 8):
+    #         blog_pages.append(
+    #             blog_factories.BlogPageFactory(
+    #                 parent=self.blog_index,
+    #                 first_published_at=datetime.datetime(2020, 1, day, tzinfo=tz),
+    #             )
+    #         )
+    #     url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search")
+    #
+    #     response = self.client.get(path=url)
+    #
+    #     self.assertEqual(response.status_code, HTTPStatus.OK)
+    #     entries = response.context['entries']
+    #     for i in range(6, 0, -1):
+    #         self.assertIn(blog_pages[i], entries)
+    #     self.assertNotIn(blog_pages[0], entries)
+
 class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
     def setUp(self):
         super().setUp()

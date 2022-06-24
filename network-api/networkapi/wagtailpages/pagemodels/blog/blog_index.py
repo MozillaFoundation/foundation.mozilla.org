@@ -354,6 +354,10 @@ class BlogIndexPage(IndexPage):
             template='wagtailpages/blog_index_search.html',
         )
 
+    @route(r'^search/entries/')
+    def search_load_more(self, request: 'HttpRequest') -> 'HttpResponse':
+        return HttpResponse(status=200)
+
     def get_search_entries(self, query: str = '') -> Union['QuerySet', 'DatabaseSearchResults']:
         entries = self.get_entries().specific()
         if query:
