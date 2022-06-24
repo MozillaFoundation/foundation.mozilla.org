@@ -1,0 +1,8 @@
+{% load i18n static %}
+
+<div class="tw-flex tw-flex-col tw-items-center tw-gap-5 tw-w-full">
+  <img  class="tw-w-[5rem]" src="{% static "_images/buyers-guide/faces/super-creepy-face.svg" %}" alt="Shocked face">
+  <p class="tw-font-zilla tw-text-3xl tw-text-center">
+    {% trans "Sorry, we couldn't find anything with that search term." context "Search results page with no results to display." %}
+  </p>
+</div>

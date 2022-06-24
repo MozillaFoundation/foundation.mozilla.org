@@ -18,6 +18,10 @@
   {% if entries  %}
     {{ block.super }}
   {% else %}
-    No results for {{ query }}
+    <div class="col-12 tw-my-[6rem] large:tw-my-[8rem]">
+      {% include "wagtailpages/fragments/blog_search_no_results.html" %}
+    </div>
   {% endif %}
 {% endblock subcontent %}
+
+{% block newsletter-callout-box %}{% endblock newsletter-callout-box %}
