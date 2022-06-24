@@ -6,7 +6,7 @@ export default () => {
   // Enable the "load more results" button on index pages
   let loadMoreButton = document.querySelector(`.load-more-index-entries`);
   if (loadMoreButton) {
-    const entries = document.querySelector(`.index-entries`);
+    const entries = document.querySelector(`#index-entries`);
 
     // Get the page size from the document, which the IndexPage should
     // have templated into its button as a data-page-size attribute.
