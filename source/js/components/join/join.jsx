@@ -202,6 +202,15 @@ class JoinUs extends Component {
         this.props.formPosition ? this.props.formPosition : document.title
       }`,
     });
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "form_submission",
+      form_type: "newsletter_signup",
+      form_location: this.props.formPosition || null,
+      country: this.country?.element.value,
+      language: this.state.lang,
+    });
   }
 
   /**
