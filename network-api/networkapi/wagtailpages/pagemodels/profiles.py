@@ -6,6 +6,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 from django.utils.text import slugify
 
+
 class ProfileQuerySet(models.QuerySet):
     def filter_research_authors(self):
         return self.filter(authored_research__isnull=False).distinct()

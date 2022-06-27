@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.shortcuts import redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpRequest, HttpResponse, Http404
+from django.http import HttpRequest, HttpResponse
 
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
 from wagtail.contrib.routable_page.models import route

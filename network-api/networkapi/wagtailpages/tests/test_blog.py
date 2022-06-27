@@ -4,7 +4,6 @@ from http import HTTPStatus
 from networkapi.wagtailpages.factory import blog as blog_factories
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages.factory import profiles as profile_factories
-from networkapi.wagtailpages.models import Profile
 from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors
 
 
