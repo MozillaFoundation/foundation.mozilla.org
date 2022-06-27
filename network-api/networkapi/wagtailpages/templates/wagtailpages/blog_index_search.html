@@ -1,3 +1,33 @@
 {% extends "./blog_index_page.html" %}
 
+{% load i18n %}
+
+{% block index_header %}
+  <div>
+    <h1>{% trans "Search blog" context "Title of the blog search results page" %}</h1>
+    <form action="" method="get" class="my-4">
+      {% trans "Search all blog" context "Blog search bar" as placeholde_text %}
+      {% include "wagtailpages/fragments/blog_search_bar.html" with name="q" search_query=query %}
+    </form>
+  </div>
+{% endblock %}
+
 {% block featured %}{% endblock %}
+
+{% block subcontent %}
+  {% if entries  %}
+    <ul class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-gap-5 tw-list-none tw-px-[15px]">
+      {% for entry in entries %}
+        <li class="tw-m-0 tw-p-0 tw-pt-5">
+          {% include "wagtailpages/fragments/blog_card.html" with page=entry horizontal=True %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="col-12 tw-my-[6rem] large:tw-my-[8rem]">
+      {% include "wagtailpages/fragments/blog_search_no_results.html" %}
+    </div>
+  {% endif %}
+{% endblock subcontent %}
+
+{% block newsletter-callout-box %}{% endblock newsletter-callout-box %}

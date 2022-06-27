@@ -1,9 +1,13 @@
-{% for entry in entries %}
-    {% with type=entry.specific_class.get_verbose_name|lower %}
-    {% if type == "blog page" %}
-        {% include "./blog_card.html" with page=entry %}
-    {% else %}
-        {% include "./generic_card.html" with page=entry %}
-    {% endif %}
-    {% endwith %}
-{% endfor %}
+<ul class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-5 tw-gap-y-7 tw-list-none tw-px-[15px]">
+  {% for entry in entries %}
+    <li class="tw-m-0 tw-p-0">
+      {% with type=entry.specific_class.get_verbose_name|lower %}
+        {% if type == "blog page" %}
+          {% include "./blog_card.html" with page=entry %}
+        {% else %}
+          {% include "./generic_card.html" with page=entry %}
+        {% endif %}
+      {% endwith %}
+    </li>
+  {% endfor %}
+</ul>

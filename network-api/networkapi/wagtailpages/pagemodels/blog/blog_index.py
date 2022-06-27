@@ -1,10 +1,11 @@
+from typing import TYPE_CHECKING, Union
+
 from django.conf import settings
 from django.db import models
 from django.shortcuts import redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpRequest, HttpResponse
 
-from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
+from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPanel
 from wagtail.contrib.routable_page.models import route
 from wagtail.core.models import Orderable as WagtailOrderable
 from wagtail_localize.fields import SynchronizedField
@@ -22,6 +23,12 @@ from sentry_sdk import capture_exception, push_scope
 
 from ..index import IndexPage
 from .blog_topic import BlogPageTopic
+
+
+if TYPE_CHECKING:
+    from django.db.models import QuerySet
+    from django.http import HttpRequest, HttpResponse
+    from wagtail.search.backends.database.fallback import DatabaseSearchResults
 
 
 class FeaturedBlogPages(WagtailOrderable, models.Model):
@@ -47,6 +54,39 @@ class FeaturedBlogPages(WagtailOrderable, models.Model):
         return self.page.title + '->' + self.blog.title
 
 
+class FeaturedVideoPost(WagtailOrderable, models.Model):
+    page = ParentalKey(
+        'wagtailpages.BlogIndexPage',
+        related_name='featured_video_post',
+    )
+
+    blog_page = models.ForeignKey(
+        'wagtailpages.BlogPage',
+        on_delete=models.CASCADE,
+        related_name='+'
+    )
+    video_url = models.URLField(
+        help_text='For YouTube: Go to your YouTube video and copy the URL '
+                  'from your browsers navigation bar. '
+                  'If this video is not for our YouTube channel, '
+                  'please host it on Vimeo.'
+                  'For Vimeo: Log into Vimeo using 1Password '
+                  'and upload the desired video. '
+                  'Then select the video and '
+                  'click "Advanced", "Distribution", '
+                  'and "Video File Links". Copy and paste the link here.',
+        blank=False,
+    )
+
+    panels = [
+        PageChooserPanel('blog_page', 'wagtailpages.BlogPage'),
+        FieldPanel("video_url"),
+    ]
+
+    def __str__(self):
+        return self.blog_page.title
+
+
 class BlogIndexPage(IndexPage):
     """
     The blog index is specifically for blog pages,
@@ -60,15 +100,23 @@ class BlogIndexPage(IndexPage):
     content_panels = IndexPage.content_panels + [
         InlinePanel(
             'featured_pages',
-            label='Featured',
+            label='Featured Posts',
             help_text='Choose two blog pages to feature',
             min_num=0,
             max_num=2,
+        ),
+        InlinePanel(
+            'featured_video_post',
+            label='Featured Video Post',
+            help_text='Choose a blog page with video to feature',
+            min_num=0,
+            max_num=1,
         )
     ]
 
     translatable_fields = IndexPage.translatable_fields + [
         SynchronizedField('featured_pages'),
+        SynchronizedField('featured_video_post'),
     ]
 
     template = 'wagtailpages/blog_index_page.html'
@@ -242,7 +290,7 @@ class BlogIndexPage(IndexPage):
         return IndexPage.serve(self, request, *args, **kwargs)
 
     @route(r'^authors/$')
-    def blog_author_index(self, request: HttpRequest, *args, **kwargs) -> 'HttpResponse':
+    def blog_author_index(self, request: 'HttpRequest', *args, **kwargs) -> 'HttpResponse':
         """If the page is called with /authors/, render a list of Profile
         objects that have been referenced in blog pages.
 
@@ -266,7 +314,7 @@ class BlogIndexPage(IndexPage):
         )
 
     @route(r'^authors/(?P<profile_slug>.+)/', name='blog-author-detail')
-    def blog_author_detail(self, request: HttpRequest, profile_slug: str, *args, **kwargs) -> 'HttpResponse':
+    def blog_author_detail(self, request: 'HttpRequest', profile_slug: str, *args, **kwargs) -> 'HttpResponse':
         """If the page is /blog/authors/[profile_slug] is requested, render a template
         showing the blog authors profile data
 
@@ -289,16 +337,29 @@ class BlogIndexPage(IndexPage):
         )
 
     @route(r'^search/')
-    def search(self, request):
+    def search(self, request: 'HttpRequest') -> 'HttpResponse':
         """Render search results view."""
+
+        query = request.GET.get('q', '')
+
+        context_overrides = {
+            'index_title': 'Search',
+            'entries': self.get_search_entries(query=query)[:6],
+            'query': query,
+        }
+
         return self.render(
             request,
-            context_overrides={
-                'index_title': 'Search',
-                'entries': self.get_search_entries(),
-            },
-            template="wagtailpages/blog_index_search.html"
+            context_overrides=context_overrides,
+            template='wagtailpages/blog_index_search.html',
         )
 
-    def get_search_entries(self):
-        return self.get_entries()[:6]
+    def get_search_entries(self, query: str = '') -> Union['QuerySet', 'DatabaseSearchResults']:
+        entries = self.get_entries().specific()
+        if query:
+            entries = entries.search(
+                query,
+                partial_match=False,
+                order_by_relevance=True,
+            )
+        return entries
