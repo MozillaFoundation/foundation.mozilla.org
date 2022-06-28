@@ -1,0 +1,16 @@
+{
+  "include": [
+    "network-api/networkapi"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/migrations"
+  ],
+  "extraPaths": [
+    "./dockerpythonvenv/lib/python3.9/site-packages/"
+  ],
+  "venvPath": "dockerpythonvenv",
+  "pythonVersion": "3.9",
+  "pythonPlatform": "Linux"
+}
