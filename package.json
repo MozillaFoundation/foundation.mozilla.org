@@ -42,6 +42,7 @@
     "playwright:ci": "run-p --race server playwright:integration",
     "playwright:integration": "wait-on -i 3000 http://localhost:8000/cms && playwright test ./tests/integration.spec.js",
     "precommit": "npm run test",
+    "pyright": "pyright",
     "server": "python network-api/manage.py runserver 0.0.0.0:8000",
     "server:silent": "python network-api/manage.py runserver 0.0.0.0:8000 >> server.log 2>&1",
     "start": "docker-compose up",
