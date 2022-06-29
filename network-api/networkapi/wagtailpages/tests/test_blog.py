@@ -371,11 +371,25 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         pass
 
     def test_load_more_route_success(self):
-        url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search_load_more")
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search_load_more")
+            + "?page=1"
+        )
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_load_more_route_without_page(self):
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search_load_more")
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
 
     # def test_load_more_route_to_get_extra_entry(self):
     #     tz = datetime.timezone.utc

@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING, Union
 
 from django.conf import settings
 from django.db import models
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -27,7 +28,7 @@ from .blog_topic import BlogPageTopic
 
 if TYPE_CHECKING:
     from django.db.models import QuerySet
-    from django.http import HttpRequest, HttpResponse
+    from django.http import HttpRequest
     from wagtail.search.backends.database.fallback import DatabaseSearchResults
 
 
@@ -336,7 +337,7 @@ class BlogIndexPage(IndexPage):
             template="wagtailpages/blog_author_detail_page.html"
         )
 
-    @route(r'^search/')
+    @route(r'^search/$')
     def search(self, request: 'HttpRequest') -> 'HttpResponse':
         """Render search results view."""
 
@@ -354,8 +355,11 @@ class BlogIndexPage(IndexPage):
             template='wagtailpages/blog_index_search.html',
         )
 
-    @route(r'^search/entries/')
+    @route(r'^search/entries/$')
     def search_load_more(self, request: 'HttpRequest') -> 'HttpResponse':
+        page_parameter: str = request.GET.get('page', '')
+        if not page_parameter:
+            return HttpResponseBadRequest()
         return HttpResponse(status=200)
 
     def get_search_entries(self, query: str = '') -> Union['QuerySet', 'DatabaseSearchResults']:
