@@ -121,8 +121,8 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         """
         tz = datetime.timezone.utc
         blog_pages = []
-        page_count = self.page_size + 2
-        for day in range(1, page_count + 1):
+        blog_page_count = self.page_size + 2
+        for day in range(1, blog_page_count + 1):
             blog_pages.append(
                 blog_factories.BlogPageFactory(
                     parent=self.blog_index,
@@ -136,10 +136,13 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         entries = response.context['entries']
         self.assertEqual(len(entries), self.page_size)
-        for i in range(page_count - 1, 1, -1):
-            self.assertIn(blog_pages[i], entries)
-        self.assertNotIn(blog_pages[1], entries)
-        self.assertNotIn(blog_pages[0], entries)
+        blog_pages.reverse()  # Reversing blog pages so newest page is first
+        first_page_of_entries = blog_pages[0:self.page_size]
+        second_page_of_entries = blog_pages[self.page_size:]
+        for blog_page in first_page_of_entries:
+            self.assertIn(blog_page, entries)
+        for blog_page in second_page_of_entries:
+            self.assertNotIn(blog_page, entries)
 
     def test_title_match(self):
         match_post = blog_factories.BlogPageFactory(
