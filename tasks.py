@@ -122,7 +122,7 @@ def new_db(ctx, slow=False):
     """
     Delete your database and create a new one with fake data.
 
-    If you are experiencing "too many clients errors while running this command, try
+    If you are experiencing 'too many clients' errors while running this command, try
     to pass the `--slow` flag. This will make sure that the containers are stopped
     between the management commands and prevent that issue.
 
