@@ -225,13 +225,19 @@ def copy_production_database(ctx):
 
 # Django shorthands
 @task(aliases=["docker-manage"])
-def manage(ctx, command):
-    """Shorthand to manage.py. inv docker-manage \"[COMMAND] [ARG]\""""
+def manage(ctx, command, stop=False):
+    """
+    Shorthand to manage.py. inv docker-manage \"[COMMAND] [ARG]\"
+
+    To stop the containers after the command has been run, pass the `--stop` flag.
+    """
     with ctx.cd(ROOT):
         ctx.run(
             f"docker-compose run --rm backend ./dockerpythonvenv/bin/python network-api/manage.py {command}",
             **PLATFORM_ARG,
         )
+        if stop:
+            ctx.run("docker-compose stop")
 
 
 @task(aliases=["docker-migrate"])
