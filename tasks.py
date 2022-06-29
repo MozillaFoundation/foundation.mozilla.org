@@ -73,16 +73,27 @@ def create_env_file(env_file):
 
 
 # Project setup and update
-def l10n_block_inventory(ctx):
+def l10n_block_inventory(ctx, stop=False):
+    """
+    Update the block inventory.
+
+    To stop the containers after the command has run, pass `stop=True`.
+
+    """
     print("* Updating block information")
-    manage(ctx, "block_inventory")
+    manage(ctx, "block_inventory", stop=stop)
 
 
 @task(aliases=["create-super-user"])
-def createsuperuser(ctx):
+def createsuperuser(ctx, stop=False):
+    """
+    Create a superuser with username and password 'admin'.
+
+    To stop the containers after the command is run, pass the `--stop` flag.
+    """
     preamble = "from django.contrib.auth.models import User;"
     create = "User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
-    manage(ctx, f'shell -c "{preamble} {create}"')
+    manage(ctx, f'shell -c "{preamble} {create}"', stop=stop)
     print("\nCreated superuser `admin` with password `admin`.")
 
 
@@ -93,27 +104,17 @@ def initialize_database(ctx, slow=False):
     To stop all containers after each management command, pass `slow=True`.
     """
     print("* Applying database migrations.")
-    migrate(ctx)
-    if slow:
-        ctx.run("docker-compose stop")
+    migrate(ctx, stop=slow)
 
     print("* Creating fake data")
-    manage(ctx, "load_fake_data")
-    if slow:
-        ctx.run("docker-compose stop")
+    manage(ctx, "load_fake_data", stop=slow)
 
     print("* Sync locales")
-    manage(ctx, "sync_locale_trees")
-    if slow:
-        ctx.run("docker-compose stop")
+    manage(ctx, "sync_locale_trees", stop=slow)
 
-    l10n_block_inventory(ctx)
-    if slow:
-        ctx.run("docker-compose stop")
+    l10n_block_inventory(ctx, stop=slow)
 
-    createsuperuser(ctx)
-    if slow:
-        ctx.run("docker-compose stop")
+    createsuperuser(ctx, stop=slow)
 
 
 @task(aliases=["docker-new-db"])
@@ -241,9 +242,13 @@ def manage(ctx, command, stop=False):
 
 
 @task(aliases=["docker-migrate"])
-def migrate(ctx):
-    """Updates database schema"""
-    manage(ctx, "migrate --no-input")
+def migrate(ctx, stop=False):
+    """
+    Update the database schema.
+
+    To stop the containers after the command has run, pass the `--stop` flag.
+    """
+    manage(ctx, "migrate --no-input", stop=stop)
 
 
 @task(aliases=["docker-makemigrations"])
