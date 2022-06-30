@@ -486,7 +486,25 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         for blog_page in second_page_of_entries:
             self.assertIn(blog_page, entries)
 
-    # TODO: Out of range page number -> NOT FOUND
+    def test_search_entries_route_out_of_range_page(self):
+        """
+        Return 404 when requested page is out of range.
+
+        This is similar but slightly different to the above tests where no blog pages
+        exist. Here blog pages do exist, but we are requesting an entries page that
+        is empty.
+        """
+        self.fill_index_pages_with_blog_pages(1)
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search_entries")
+            # Out of range because the existing page has index 0
+            + "?page=1"
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
 
 class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
