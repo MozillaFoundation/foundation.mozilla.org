@@ -1,8 +1,9 @@
 from typing import TYPE_CHECKING, Union
 
 from django.conf import settings
+from django.core import paginator
 from django.db import models
-from django.http import HttpResponse, HttpResponseBadRequest
+from django import http
 from django.shortcuts import redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -28,7 +29,7 @@ from .blog_topic import BlogPageTopic
 
 if TYPE_CHECKING:
     from django.db.models import QuerySet
-    from django.http import HttpRequest
+    from django.http import HttpRequest, HttpResponse
     from wagtail.search.backends.database.fallback import DatabaseSearchResults
 
 
@@ -357,10 +358,28 @@ class BlogIndexPage(IndexPage):
 
     @route(r'^search/entries/$')
     def search_load_more(self, request: 'HttpRequest') -> 'HttpResponse':
-        page_parameter: str = request.GET.get('page', '')
-        if not page_parameter:
-            return HttpResponseBadRequest()
-        return HttpResponse(status=200)
+        page_number: str = request.GET.get('page', '')
+        if not page_number:
+            return http.HttpResponseBadRequest(reason='No page number defined.')
+
+        entries = self.get_search_entries()
+        try:
+            entries_page = paginator.Paginator(
+                object_list=entries,
+                per_page=self.page_size,
+                allow_empty_first_page=False,
+            ).page(
+                # JS is using 0 based page number, but the paginator is using 1 based.
+                int(page_number) + 1
+            )
+        except paginator.EmptyPage:
+            return http.HttpResponseNotFound(reason='No entries for this page number.')
+
+        return self.render(
+            request,
+            context_overrides={'entries': entries_page},
+            template='wagtailpages/fragments/entry_cards_item_loop.html',
+        )
 
     def get_search_entries(self, query: str = '') -> Union['QuerySet', 'DatabaseSearchResults']:
         entries = self.get_entries().specific()

@@ -367,18 +367,7 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertNotIn(match_post, other_results)
         self.assertIn(other_post, other_results)
 
-    def test_load_more_route_success(self):
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search_load_more")
-            + "?page=1"
-        )
-
-        response = self.client.get(path=url)
-
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-
-    def test_load_more_route_without_page(self):
+    def test_load_more_route_without_page_parameter(self):
         url = (
             self.blog_index.get_url()
             + self.blog_index.reverse_subpage("search_load_more")
@@ -388,25 +377,87 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
 
-    # def test_load_more_route_to_get_extra_entry(self):
-    #     tz = datetime.timezone.utc
-    #     blog_pages = []
-    #     for day in range(1, 8):
-    #         blog_pages.append(
-    #             blog_factories.BlogPageFactory(
-    #                 parent=self.blog_index,
-    #                 first_published_at=datetime.datetime(2020, 1, day, tzinfo=tz),
-    #             )
-    #         )
-    #     url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search")
-    #
-    #     response = self.client.get(path=url)
-    #
-    #     self.assertEqual(response.status_code, HTTPStatus.OK)
-    #     entries = response.context['entries']
-    #     for i in range(6, 0, -1):
-    #         self.assertIn(blog_pages[i], entries)
-    #     self.assertNotIn(blog_pages[0], entries)
+    def test_load_more_route_first_page_without_blog_pages_existing(self):
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search_load_more")
+            + "?page=0"
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
+
+    def test_load_more_route_second_page_without_blog_pages_existing(self):
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search_load_more")
+            + "?page=1"
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
+
+    def fill_index_pages_with_blog_pages(self, index_pages_to_fill: int = 1):
+        """
+        Make enough blog pages to fill given number of index pages.
+
+        Blog pages are ordered newest to oldest.
+        """
+        tz = datetime.timezone.utc
+        blog_page_count = self.page_size * index_pages_to_fill
+        blog_pages = []
+        for day in range(1, blog_page_count + 1):
+            blog_pages.append(
+                blog_factories.BlogPageFactory(
+                    parent=self.blog_index,
+                    first_published_at=datetime.datetime(2020, 1, day, tzinfo=tz),
+                )
+            )
+        blog_pages.reverse()
+        return blog_pages
+
+    def test_load_more_route_loads_second_page_entries(self):
+        """
+        Load more route loads more search results.
+
+        In this case there is no query defined, so it just loads the next page
+        of latest blog pages.
+        """
+        # tz = datetime.timezone.utc
+        # blog_pages = []
+        # blog_page_count = self.page_size + 2
+        # for day in range(1, blog_page_count + 1):
+        #     blog_pages.append(
+        #         blog_factories.BlogPageFactory(
+        #             parent=self.blog_index,
+        #             first_published_at=datetime.datetime(2020, 1, day, tzinfo=tz),
+        #         )
+        #     )
+        blog_pages = self.fill_index_pages_with_blog_pages(2)
+        # The page numbers are 0-indexed (with page 0 being included in the initial rendering of the page).
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search_load_more")
+            + "?page=1"
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        entries = response.context['entries']
+        self.assertEqual(len(entries), self.page_size)
+        first_page_of_entries = blog_pages[0:self.page_size]
+        second_page_of_entries = blog_pages[self.page_size:]
+        for blog_page in first_page_of_entries:
+            self.assertNotIn(blog_page, entries)
+        for blog_page in second_page_of_entries:
+            self.assertIn(blog_page, entries)
+
+    # TODO: Non integer page number -> BAD REQUEST
+    # TODO: Out of range page number -> BAD REQUEST
+
 
 class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
     def setUp(self):
