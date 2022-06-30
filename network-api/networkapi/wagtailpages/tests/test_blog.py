@@ -409,22 +409,52 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         tz = datetime.timezone.utc
         blog_page_count = self.page_size * index_pages_to_fill
         blog_pages = []
-        for day in range(1, blog_page_count + 1):
+        for day in range(0, blog_page_count):
             blog_pages.append(
                 blog_factories.BlogPageFactory(
                     parent=self.blog_index,
-                    first_published_at=datetime.datetime(2020, 1, day, tzinfo=tz),
+                    first_published_at=(
+                        datetime.datetime(2020, 1, 1, tzinfo=tz)
+                        + datetime.timedelta(days=day)
+                    )
                 )
             )
         blog_pages.reverse()
         return blog_pages
 
+    def test_search_entries_route_loads_first_page_entries(self):
+        """
+        Search entries route loads a given page of search entries.
+
+        In this case there is no query defined, so it just loads given page of the
+        latest blog pages.
+        """
+        # Make more than one page of blog pages to test that pagination really works.
+        blog_pages = self.fill_index_pages_with_blog_pages(2)
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search_entries")
+            + "?page=0"
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        entries = response.context['entries']
+        self.assertEqual(len(entries), self.page_size)
+        first_page_of_entries = blog_pages[0:self.page_size]
+        second_page_of_entries = blog_pages[self.page_size:]
+        for blog_page in first_page_of_entries:
+            self.assertIn(blog_page, entries)
+        for blog_page in second_page_of_entries:
+            self.assertNotIn(blog_page, entries)
+
     def test_search_entries_route_loads_second_page_entries(self):
         """
-        Load more route loads more search results.
+        Search entries route loads a given page of search entries.
 
-        In this case there is no query defined, so it just loads the next page
-        of latest blog pages.
+        In this case there is no query defined, so it just loads given page of the
+        latest blog pages.
         """
         blog_pages = self.fill_index_pages_with_blog_pages(2)
         url = (
