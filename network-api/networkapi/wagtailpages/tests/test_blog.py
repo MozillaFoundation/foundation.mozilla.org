@@ -377,6 +377,17 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
 
+    def test_search_entries_route_non_integer_page(self):
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search_entries")
+            + "?page=thisisnotaninteger"
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
+
     def test_search_entries_route_first_page_without_blog_pages_existing(self):
         url = (
             self.blog_index.get_url()
@@ -475,8 +486,7 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         for blog_page in second_page_of_entries:
             self.assertIn(blog_page, entries)
 
-    # TODO: Non integer page number -> BAD REQUEST
-    # TODO: Out of range page number -> BAD REQUEST
+    # TODO: Out of range page number -> NOT FOUND
 
 
 class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):

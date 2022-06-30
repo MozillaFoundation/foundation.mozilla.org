@@ -358,11 +358,17 @@ class BlogIndexPage(IndexPage):
 
     @route(r'^search/entries/$')
     def search_entries(self, request: 'HttpRequest') -> 'HttpResponse':
-        page_number: str = request.GET.get('page', '')
-        if not page_number:
+        page_parameter: str = request.GET.get('page', '')
+        if not page_parameter:
             return http.HttpResponseBadRequest(reason='No page number defined.')
 
+        try:
+            page_number: int = int(page_parameter)
+        except ValueError:
+            return http.HttpResponseBadRequest(reason='No page number is not an integer.')
+
         entries = self.get_search_entries()
+
         entries_paginator = paginator.Paginator(
             object_list=entries,
             per_page=self.page_size,
@@ -370,7 +376,7 @@ class BlogIndexPage(IndexPage):
         )
         try:
             # JS is using 0 based page number, but the paginator is using 1 based.
-            entries_page = entries_paginator.page(int(page_number) + 1)
+            entries_page = entries_paginator.page(page_number + 1)
         except paginator.EmptyPage:
             return http.HttpResponseNotFound(reason='No entries for this page number.')
 
