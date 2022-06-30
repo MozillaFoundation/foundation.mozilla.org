@@ -422,7 +422,7 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         blog_pages.reverse()
         return blog_pages
 
-    def test_search_entries_route_loads_first_page_entries(self):
+    def test_search_entries_route_loads_first_page_entries_no_query(self):
         """
         Search entries route loads a given page of search entries.
 
@@ -449,7 +449,7 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         for blog_page in second_page_of_entries:
             self.assertNotIn(blog_page, entries)
 
-    def test_search_entries_route_loads_second_page_entries(self):
+    def test_search_entries_route_loads_second_page_entries_no_query(self):
         """
         Search entries route loads a given page of search entries.
 

@@ -363,15 +363,14 @@ class BlogIndexPage(IndexPage):
             return http.HttpResponseBadRequest(reason='No page number defined.')
 
         entries = self.get_search_entries()
+        entries_paginator = paginator.Paginator(
+            object_list=entries,
+            per_page=self.page_size,
+            allow_empty_first_page=False,
+        )
         try:
-            entries_page = paginator.Paginator(
-                object_list=entries,
-                per_page=self.page_size,
-                allow_empty_first_page=False,
-            ).page(
-                # JS is using 0 based page number, but the paginator is using 1 based.
-                int(page_number) + 1
-            )
+            # JS is using 0 based page number, but the paginator is using 1 based.
+            entries_page = entries_paginator.page(int(page_number) + 1)
         except paginator.EmptyPage:
             return http.HttpResponseNotFound(reason='No entries for this page number.')
 
