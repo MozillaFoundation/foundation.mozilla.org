@@ -367,9 +367,6 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertNotIn(match_post, other_results)
         self.assertIn(other_post, other_results)
 
-    def test_load_more_route_to_get_extra_entry(self):
-        pass
-
     def test_load_more_route_success(self):
         url = (
             self.blog_index.get_url()
