@@ -41,6 +41,8 @@ export default () => {
       autoAlpha: 0,
     });
 
+    let outro;
+
     ScrollTrigger.create({
       trigger: ".cont-scrolling",
       start: "top center",
@@ -48,7 +50,7 @@ export default () => {
       scrub: true,
       toggleActions: "play none none reverse",
       onLeave: () => {
-        const outro = gsap.timeline({
+        outro = gsap.timeline({
           onComplete: () => {
             setTimeout(() => {
               const loadIndicator = document.querySelector(".article-loading");
@@ -83,12 +85,37 @@ export default () => {
           }
         );
         document
-          .querySelector(".publication-hero-container")
+          .querySelector(".publication-hero-container,#custom-hero")
           .classList.toggle("d-flex");
         outro.set("main", {
           height: "100%",
         });
       },
+    });
+
+    // Needed for firebox bfcache when navigating back to the article.
+    window.addEventListener("pagehide", function (event) {
+      if (event.persisted === true && outro) {
+        document
+          .querySelector(".cont-scrolling")
+          .classList.toggle(
+            "tw-sticky",
+            "tw-absolute",
+            "tw-top-0",
+            "tw-left-0"
+          );
+        const loadIndicator = document.querySelector(".article-loading");
+        if (loadIndicator) {
+          loadIndicator.classList.toggle("tw-hidden");
+        }
+        document
+          .querySelector(".publication-hero-container,#custom-hero")
+          .classList.toggle("d-flex");
+        outro.seek(0);
+        outro.pause();
+        window.scrollTo({ top: 0 });
+        ScrollTrigger.refresh();
+      }
     });
   }
 
@@ -97,6 +124,7 @@ export default () => {
   if (document.querySelector(".cont-scrolling")) {
     initScrollExitTransition();
     // create an Observer instance
+    // this observer is just here for testing when a user resizes the window so the scrolltriggers are recreated.
     const resizeObserver = new ResizeObserver((entries) =>
       ScrollTrigger.refresh()
     );
