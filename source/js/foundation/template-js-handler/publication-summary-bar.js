@@ -73,10 +73,12 @@ export default () => {
       });
     });
 
-    if (document.querySelector(".publication-hero-container,.article-hero")) {
-      summaryObserver.observe(
-        document.querySelector(".publication-hero-container,.article-hero")
-      );
+    const heroContainer = document.querySelector(
+      ".publication-hero-container,.article-hero,#custom-hero"
+    );
+
+    if (heroContainer) {
+      summaryObserver.observe(heroContainer);
     }
 
     document.querySelectorAll(".rich-text h2").forEach((section) => {
@@ -92,6 +94,8 @@ export default () => {
       const stickyContent = document.querySelector(
         ".wrapper > .sticky-top.d-print-none"
       );
+
+      if (!dropDownMenu) return;
 
       if (window.matchMedia("(min-width: 768px)").matches) {
         dropDownMenu.style.maxHeight = `calc(100vh - ${stickyContent.offsetHeight}px)`;
