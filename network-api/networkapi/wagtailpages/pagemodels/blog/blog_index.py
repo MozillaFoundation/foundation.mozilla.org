@@ -357,7 +357,7 @@ class BlogIndexPage(IndexPage):
         )
 
     @route(r'^search/entries/$')
-    def search_load_more(self, request: 'HttpRequest') -> 'HttpResponse':
+    def search_entries(self, request: 'HttpRequest') -> 'HttpResponse':
         page_number: str = request.GET.get('page', '')
         if not page_number:
             return http.HttpResponseBadRequest(reason='No page number defined.')

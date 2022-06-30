@@ -367,20 +367,20 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertNotIn(match_post, other_results)
         self.assertIn(other_post, other_results)
 
-    def test_load_more_route_without_page_parameter(self):
+    def test_search_entries_route_without_page_parameter(self):
         url = (
             self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search_load_more")
+            + self.blog_index.reverse_subpage("search_entries")
         )
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
 
-    def test_load_more_route_first_page_without_blog_pages_existing(self):
+    def test_search_entries_route_first_page_without_blog_pages_existing(self):
         url = (
             self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search_load_more")
+            + self.blog_index.reverse_subpage("search_entries")
             + "?page=0"
         )
 
@@ -388,10 +388,10 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
-    def test_load_more_route_second_page_without_blog_pages_existing(self):
+    def test_search_entries_route_second_page_without_blog_pages_existing(self):
         url = (
             self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search_load_more")
+            + self.blog_index.reverse_subpage("search_entries")
             + "?page=1"
         )
 
@@ -418,7 +418,7 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         blog_pages.reverse()
         return blog_pages
 
-    def test_load_more_route_loads_second_page_entries(self):
+    def test_search_entries_route_loads_second_page_entries(self):
         """
         Load more route loads more search results.
 
@@ -439,7 +439,7 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         # The page numbers are 0-indexed (with page 0 being included in the initial rendering of the page).
         url = (
             self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search_load_more")
+            + self.blog_index.reverse_subpage("search_entries")
             + "?page=1"
         )
 
