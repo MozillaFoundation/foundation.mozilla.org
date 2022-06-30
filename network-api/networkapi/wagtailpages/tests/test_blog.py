@@ -459,6 +459,10 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
             self.assertIn(blog_page, entries)
         for blog_page in second_page_of_entries:
             self.assertNotIn(blog_page, entries)
+        self.assertTemplateNotUsed(response, template_name='wagtailpages/fragments/entry_cards.html')
+        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/entry_cards_item_loop.html')
+        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/entry_cards_item.html')
+        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/blog_card.html')
 
     def test_search_entries_route_loads_second_page_entries_no_query(self):
         """
