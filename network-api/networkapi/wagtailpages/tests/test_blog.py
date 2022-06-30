@@ -2,6 +2,7 @@ import datetime
 from http import HTTPStatus
 import os
 
+from django import http
 from django.core import management
 from taggit import models as tag_models
 from wagtail.core import rich_text
@@ -450,19 +451,25 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
 
         response = self.client.get(path=url)
 
+        self.assertIsInstance(response, http.JsonResponse)
         self.assertEqual(response.status_code, HTTPStatus.OK)
+        # Though the response is a JsonResponse, we still have access to the context used by the template loader
+        # See: https://docs.djangoproject.com/en/4.0/topics/testing/tools/#django.test.Response.context
         entries = response.context['entries']
+        entries_html = response.json()['entries_html']
         self.assertEqual(len(entries), self.page_size)
         first_page_of_entries = blog_pages[0:self.page_size]
         second_page_of_entries = blog_pages[self.page_size:]
         for blog_page in first_page_of_entries:
             self.assertIn(blog_page, entries)
+            self.assertInHTML(needle=blog_page.title, haystack=entries_html)
         for blog_page in second_page_of_entries:
             self.assertNotIn(blog_page, entries)
         self.assertTemplateNotUsed(response, template_name='wagtailpages/fragments/entry_cards.html')
         self.assertTemplateUsed(response, template_name='wagtailpages/fragments/entry_cards_item_loop.html')
         self.assertTemplateUsed(response, template_name='wagtailpages/fragments/entry_cards_item.html')
         self.assertTemplateUsed(response, template_name='wagtailpages/fragments/blog_card.html')
+        self.assertTrue(response.json()['has_next'])
 
     def test_search_entries_route_loads_second_page_entries_no_query(self):
         """
@@ -480,8 +487,12 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
 
         response = self.client.get(path=url)
 
+        self.assertIsInstance(response, http.JsonResponse)
         self.assertEqual(response.status_code, HTTPStatus.OK)
+        # Though the response is a JsonResponse, we still have access to the context used by the template loader
+        # See: https://docs.djangoproject.com/en/4.0/topics/testing/tools/#django.test.Response.context
         entries = response.context['entries']
+        entries_html = response.json()['entries_html']
         self.assertEqual(len(entries), self.page_size)
         first_page_of_entries = blog_pages[0:self.page_size]
         second_page_of_entries = blog_pages[self.page_size:]
@@ -489,6 +500,12 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
             self.assertNotIn(blog_page, entries)
         for blog_page in second_page_of_entries:
             self.assertIn(blog_page, entries)
+            self.assertInHTML(needle=blog_page.title, haystack=entries_html)
+        self.assertTemplateNotUsed(response, template_name='wagtailpages/fragments/entry_cards.html')
+        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/entry_cards_item_loop.html')
+        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/entry_cards_item.html')
+        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/blog_card.html')
+        self.assertFalse(response.json()['has_next'])
 
     def test_search_entries_route_out_of_range_page(self):
         """

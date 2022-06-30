@@ -1,11 +1,12 @@
 from typing import TYPE_CHECKING, Union
 
+from django import http
 from django.conf import settings
 from django.core import paginator
-from django.db import models
-from django import http
-from django.shortcuts import redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import models
+from django.shortcuts import redirect, get_object_or_404
+from django.template import loader
 
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPanel
 from wagtail.contrib.routable_page.models import route
@@ -380,10 +381,17 @@ class BlogIndexPage(IndexPage):
         except paginator.EmptyPage:
             return http.HttpResponseNotFound(reason='No entries for this page number.')
 
-        return self.render(
-            request,
-            context_overrides={'entries': entries_page},
-            template='wagtailpages/fragments/entry_cards_item_loop.html',
+        entries_html = loader.render_to_string(
+            'wagtailpages/fragments/entry_cards_item_loop.html',
+            context={'entries': entries_page},
+            request=request
+        )
+
+        return http.JsonResponse(
+            data={
+                'entries_html': entries_html,
+                'has_next': entries_page.has_next(),
+            }
         )
 
     def get_search_entries(self, query: str = '') -> Union['QuerySet', 'DatabaseSearchResults']:
