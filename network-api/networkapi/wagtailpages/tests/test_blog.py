@@ -381,6 +381,7 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         url = (
             self.blog_index.get_url()
             + self.blog_index.reverse_subpage("search_entries")
+            # The page numbers are 0-indexed (with page 0 being included in the initial rendering of the page).
             + "?page=0"
         )
 
@@ -425,18 +426,7 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         In this case there is no query defined, so it just loads the next page
         of latest blog pages.
         """
-        # tz = datetime.timezone.utc
-        # blog_pages = []
-        # blog_page_count = self.page_size + 2
-        # for day in range(1, blog_page_count + 1):
-        #     blog_pages.append(
-        #         blog_factories.BlogPageFactory(
-        #             parent=self.blog_index,
-        #             first_published_at=datetime.datetime(2020, 1, day, tzinfo=tz),
-        #         )
-        #     )
         blog_pages = self.fill_index_pages_with_blog_pages(2)
-        # The page numbers are 0-indexed (with page 0 being included in the initial rendering of the page).
         url = (
             self.blog_index.get_url()
             + self.blog_index.reverse_subpage("search_entries")
