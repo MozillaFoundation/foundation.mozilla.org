@@ -33,7 +33,7 @@ class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
 # that issue.
 class BlogPageForm(WagtailAdminPageForm):
     def clean(self):
-        cleaned_data = super(BlogPageForm, self).clean()
+        cleaned_data = super().clean()
         topics = cleaned_data['topics']
         if topics.count() > 2:
             self.add_error('topics', 'Please select 2 topics max.')
@@ -43,9 +43,9 @@ class BlogPageForm(WagtailAdminPageForm):
 
 # Similar validation to the BlogPageForm, but for the Blog Index page
 # and its field 'related_topics'.
-class BlogIndexTopicCountValidationForm(WagtailAdminPageForm):
+class BlogIndexPageForm(WagtailAdminPageForm):
     def clean(self):
-        cleaned_data = super(BlogIndexTopicCountValidationForm, self).clean()
+        cleaned_data = super().clean()
         topics = cleaned_data['related_topics']
         if topics.count() > 7:
             self.add_error('related_topics', 'Please select 7 topics max.')

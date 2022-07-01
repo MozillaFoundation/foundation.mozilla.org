@@ -25,7 +25,7 @@ from sentry_sdk import capture_exception, push_scope
 
 from ..index import IndexPage
 from .blog_topic import BlogPageTopic
-from networkapi.wagtailpages.forms import BlogIndexTopicCountValidationForm
+from networkapi.wagtailpages.forms import BlogIndexPageForm
 
 
 if TYPE_CHECKING:
@@ -96,19 +96,18 @@ class BlogIndexPage(IndexPage):
     with additional logic to explore topics.
     """
 
+    base_form_class = BlogIndexPageForm
+
     related_topics = ParentalManyToManyField(
         BlogPageTopic,
         help_text='Which topics would you like to feature on the page? '
                   'Please select a max of 7.',
-        blank=True,
-        verbose_name='Topics',
+        blank=True
     )
 
     subpage_types = [
         'BlogPage'
     ]
-
-    base_form_class = BlogIndexTopicCountValidationForm
 
     content_panels = IndexPage.content_panels + [
         InlinePanel(
