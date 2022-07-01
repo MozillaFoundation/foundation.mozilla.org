@@ -359,6 +359,8 @@ class BlogIndexPage(IndexPage):
 
     @route(r'^search/entries/$')
     def search_entries(self, request: 'HttpRequest') -> 'HttpResponse':
+        query: str = request.GET.get('q', '')
+
         page_parameter: str = request.GET.get('page', '')
         if not page_parameter:
             return http.HttpResponseBadRequest(reason='No page number defined.')
@@ -368,7 +370,7 @@ class BlogIndexPage(IndexPage):
         except ValueError:
             return http.HttpResponseBadRequest(reason='No page number is not an integer.')
 
-        entries = self.get_search_entries()
+        entries = self.get_search_entries(query=query)
 
         entries_paginator = paginator.Paginator(
             object_list=entries,
