@@ -78,7 +78,7 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
             blog_pages.append(
                 blog_factories.BlogPageFactory(
                     parent=self.blog_index,
-                    title = base_title + f" {index + 1}",
+                    title=base_title + f" {index + 1}",
                     first_published_at=(
                         datetime.datetime(2020, 1, 1, tzinfo=tz)
                         + datetime.timedelta(days=index)
@@ -495,8 +495,7 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         for blog_page in second_page_of_entries:
             self.assertNotIn(blog_page, entries)
         self.assertTemplateNotUsed(response, template_name='wagtailpages/fragments/entry_cards.html')
-        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/entry_cards_item_loop.html')
-        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/entry_cards_item.html')
+        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/blog_search_item_loop.html')
         self.assertTemplateUsed(response, template_name='wagtailpages/fragments/blog_card.html')
         self.assertTrue(response.json()['has_next'])
 
@@ -531,8 +530,7 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
             self.assertIn(blog_page, entries)
             self.assertInHTML(needle=blog_page.title, haystack=entries_html)
         self.assertTemplateNotUsed(response, template_name='wagtailpages/fragments/entry_cards.html')
-        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/entry_cards_item_loop.html')
-        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/entry_cards_item.html')
+        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/blog_search_item_loop.html')
         self.assertTemplateUsed(response, template_name='wagtailpages/fragments/blog_card.html')
         self.assertFalse(response.json()['has_next'])
 

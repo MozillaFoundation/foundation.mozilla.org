@@ -17,11 +17,7 @@
 {% block subcontent %}
   {% if entries  %}
     <ul id="index-entries" class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-gap-5 tw-list-none tw-px-[15px]">
-      {% for entry in entries %}
-        <li class="tw-m-0 tw-p-0 tw-pt-5">
-          {% include "wagtailpages/fragments/blog_card.html" with page=entry horizontal=True %}
-        </li>
-      {% endfor %}
+      {% include "wagtailpages/fragments/blog_search_item_loop.html" with entries=entries %}
     </ul>
   {% else %}
     <div class="col-12 tw-my-[6rem] large:tw-my-[8rem]">

@@ -384,8 +384,8 @@ class BlogIndexPage(IndexPage):
             return http.HttpResponseNotFound(reason='No entries for this page number.')
 
         entries_html = loader.render_to_string(
-            'wagtailpages/fragments/entry_cards_item_loop.html',
-            context={'entries': entries_page, 'horizontal': True},
+            'wagtailpages/fragments/blog_search_item_loop.html',
+            context={'entries': entries_page},
             request=request
         )
 
