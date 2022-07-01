@@ -1,22 +1,39 @@
 {% load wagtailcore_tags wagtailimages_tags localization %}
 
-<div class="entry-card {% block card_type %}{% endblock %} col-12 col-md-6 col-lg-4 mb-5">
-  <div class="card-image tw-mb-3">
+<div
+  class="
+    tw-flex
+    tw-flex-col
+    tw-gap-3
+    tw-w-full
+    {% if horizontal %}
+      medium:tw-flex-row
+      medium:tw-gap-6
+    {% endif %}
+  "
+>
+  <div
+    {% if horizontal %}
+      class="medium:tw-max-w-xs large:tw-max-w-sm medium:tw-shrink-0"
+    {% endif %}
+  >
     <a href="{% relocalized_url page.localized.url %}">
       {% image page.localized.specific.get_meta_image fill-1200x628 %}
     </a>
   </div>
 
-  <div class="tw-flex tw-flex-wrap">
-    {% block tags %}{% endblock %}
-    {% block published_date %}{% endblock %}
-  </div>
+  <div>
+    <div class="tw-flex tw-flex-wrap">
+      {% block tags %}{% endblock %}
+      {% block published_date %}{% endblock %}
+    </div>
 
-  <a href="{% relocalized_url page.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
-    <p class="tw-h4-heading d-inline-block mt-1 mb-2 group-hover:tw-underline">{{ page.localized.title }}</p>
-    <p class="tw-body-small my-0">
-      {% block description %}{% endblock %}
-      {% block byline %}{% endblock %}
-    </p>
-  </a>
+    <a href="{% relocalized_url page.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
+      <p class="tw-h4-heading d-inline-block mt-1 mb-2 group-hover:tw-underline">{{ page.localized.title }}</p>
+      <p class="tw-body-small my-0">
+        {% block description %}{% endblock %}
+      </p>
+    </a>
+    {% block byline %}{% endblock %}
+  </div>
 </div>

@@ -11,6 +11,30 @@ from networkapi.wagtailpages.pagemodels.blog import blog as blog_models
 from networkapi.wagtailpages.factory import blog as blog_factories
 from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.tests import base as test_base
+from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors
+
+
+class TestBlogIndex(test_base.WagtailpagesTestCase):
+    def test_templates(self):
+        blog_index = blog_factories.BlogIndexPageFactory(parent=self.homepage)
+        blog_factories.BlogPageFactory(parent=blog_index)
+        url = blog_index.get_url()
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/blog_index_page.html'
+        )
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/fragments/entry_cards.html'
+        )
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/fragments/blog_card.html'
+        )
 
 
 class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
@@ -39,10 +63,14 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         )
 
     def test_route_with_query_success(self):
+        blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            title=self.search_term,
+        )
         url = (
             self.blog_index.get_url()
             + self.blog_index.reverse_subpage("search")
-            + '?q=test'
+            + f'?q={ self.search_term }'
         )
 
         response = self.client.get(path=url)
@@ -51,6 +79,33 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertTemplateUsed(
             response,
             template_name='wagtailpages/blog_index_search.html'
+        )
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/fragments/blog_card.html'
+        )
+
+    def test_no_results_template(self):
+        blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            title="This is not the search term",
+        )
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search")
+            + f'?q={ self.search_term }'
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/blog_index_search.html'
+        )
+        self.assertTemplateUsed(
+            response,
+            template_name='wagtailpages/fragments/blog_search_no_results.html'
         )
 
     def test_no_query(self):
@@ -320,3 +375,57 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertNotIn(other_post, match_results)
         self.assertNotIn(match_post, other_results)
         self.assertIn(other_post, other_results)
+
+
+class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
+    def setUp(self):
+        super().setUp()
+        self.blog_index = blog_factories.BlogIndexPageFactory(parent=self.homepage)
+        self.blog_index_url = self.blog_index.get_url() + self.blog_index.reverse_subpage(
+            "blog_author_index"
+        )
+
+        self.profile_1 = profile_factories.ProfileFactory()
+        self.profile_2 = profile_factories.ProfileFactory()
+        self.profile_3 = profile_factories.ProfileFactory()
+
+        self.blog_page_1 = blog_factories.BlogPageFactory(
+            parent=self.blog_index, authors=[BlogAuthors(author=self.profile_1)]
+        )
+        self.blog_page_2 = blog_factories.BlogPageFactory(
+            parent=self.blog_index, authors=[BlogAuthors(author=self.profile_2)]
+        )
+
+    def test_route_success(self):
+        response = self.client.get(path=self.blog_index_url)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_authors_rendered(self):
+        # Test that the blog index page renders blog authors
+        response = self.client.get(path=self.blog_index_url)
+        self.assertTemplateUsed(response, "wagtailpages/blog_author_index_page.html")
+        self.assertContains(response, self.profile_1.name)
+        self.assertContains(response, self.profile_2.name)
+        self.assertNotContains(response, self.profile_3.name)
+        self.assertEqual(response.render().status_code, 200)
+
+    def test_authors_detail(self):
+        blog_author_url = self.blog_index.get_url() + self.blog_index.reverse_subpage(
+            "blog-author-detail", args=(self.profile_1.slug,)
+        )
+        response = self.client.get(path=blog_author_url)
+        self.assertTemplateUsed(response, "wagtailpages/blog_author_detail_page.html")
+        self.assertContains(response, self.profile_1.name)
+        self.assertContains(response, self.profile_1.tagline)
+        self.assertContains(response, self.profile_1.introduction)
+        self.assertNotContains(response, self.profile_2.name)
+        self.assertNotContains(response, self.profile_2.tagline)
+        self.assertNotContains(response, self.profile_2.introduction)
+
+    def test_authors_detail_non_existent_id_argument(self):
+        # Test object not existing results in 404 reponse
+        blog_author_url = self.blog_index.get_url() + self.blog_index.reverse_subpage(
+            "blog-author-detail", args=('a-non-existent-slug',)
+        )
+        response = self.client.get(path=blog_author_url)
+        self.assertEqual(response.status_code, 404)
