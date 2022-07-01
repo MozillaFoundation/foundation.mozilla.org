@@ -385,7 +385,7 @@ class BlogIndexPage(IndexPage):
 
         entries_html = loader.render_to_string(
             'wagtailpages/fragments/entry_cards_item_loop.html',
-            context={'entries': entries_page},
+            context={'entries': entries_page, 'horizontal': True},
             request=request
         )
 
