@@ -55,16 +55,13 @@
       </div>
     </div>
 
-    <div class="index-entries row">
-    {% else %}
-
-    {% endif %}  {# End of IF for filtered page content _after_ starting a new row. #}
+    {% endif %}  {# End of IF for filtered page content #}
       
     {% block subcontent %}
         <div class="index-entries row mb-4">
           {% include "./fragments/entry_cards.html" %}
         </div>
-      {% endblock %}
+    {% endblock %}
 
     <div class="row">
       <div class="col-12 text-center mb-5">
