@@ -1,5 +1,5 @@
 from datetime import timezone
-from random import choice, choices
+from random import choice
 
 from django.conf import settings
 
@@ -49,11 +49,13 @@ def add_topic(post):
     post.topics.add(choice(topic_choices))
     post.save()
 
+
 def add_related_topics(blog_index):
     topics_to_add = BlogPageTopic.objects.all()[:5]
     for topic in topics_to_add:
         blog_index.related_topics.add(topic)
     blog_index.save()
+
 
 def add_authors(post):
     for profile in get_random_objects(model=Profile, max_count=5):
@@ -104,7 +106,7 @@ def generate(seed):
             live=True
         )
 
-    add_related_topics(blog_namespace)    
+    add_related_topics(blog_namespace)
 
     print('Generating blog posts under namespace')
     title = 'Initial test blog post with fixed title'
