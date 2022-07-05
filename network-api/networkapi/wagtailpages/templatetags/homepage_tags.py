@@ -38,7 +38,7 @@ def get_page_authors(page):
     and returns a list of dicts with the author.
 
     Graphically, this looks like:
-    Blog Orderable -> Author (with .name and .image)
+    Blog Orderable -> Author (with .name, .image, and .introduction)
     """
     if page is None:
         return []
@@ -48,6 +48,7 @@ def get_page_authors(page):
             {
                 "image": author.author.image,
                 "name": author.author.name,
+                "introduction": author.author.introduction,
                 "slug": author.author.slug,
             }
             for author in all_authors
