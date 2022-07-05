@@ -345,9 +345,12 @@ class BlogIndexPage(IndexPage):
 
         query = request.GET.get('q', '')
 
+        entries = self.get_search_entries(query=query)
+
         context_overrides = {
             'index_title': 'Search',
-            'entries': self.get_search_entries(query=query)[:self.page_size],
+            'entries': entries[:self.page_size],
+            'has_more': entries.count() > self.page_size,
             'query': query,
         }
 
