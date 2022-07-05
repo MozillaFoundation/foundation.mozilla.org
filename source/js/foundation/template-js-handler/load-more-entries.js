@@ -23,7 +23,17 @@ export default () => {
       loadMoreButton.disabled = true;
 
       // Construct our API call as a relative URL:
-      let url = `./entries/?page=${page++}&page_size=${pageSize}&exclude=${exclude}`;
+      const currentURL = new URL(window.location.href)
+      const entriesURL = new URL(`entries/`, currentURL)
+
+      const searchParams = new URLSearchParams(currentURL.searchParams.toString())
+      searchParams.set(`page`, page++)
+      searchParams.set(`page_size`, pageSize)
+      if (exclude) {
+        searchParams.set(`exclude`, exclude)
+      }
+
+      const url = `${ entriesURL.toString() }?${ searchParams.toString() }`
 
       // And then fetch the results and render them into the page.
       fetch(url)
