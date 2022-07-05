@@ -147,6 +147,13 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     )
 
+    feature_author_details = models.BooleanField(
+        default=False,
+        help_text='Check this box to render the author details section. '
+                  'If an author is missing from the list, please make '
+                  'sure they have an "introduction" set in their profile.'
+    )
+
     feature_comments = models.BooleanField(
         default=False,
         help_text='Check this box to add a comment section for this blog post.',
@@ -178,6 +185,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             heading="Hero Video/Image"
         ),
         StreamFieldPanel('body'),
+        FieldPanel('feature_author_details', heading='Feature Author Details Section'),
         FieldPanel('feature_comments'),
         InlinePanel(
             'related_posts',
