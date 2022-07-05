@@ -10,17 +10,20 @@
 
 {% block featured %}
   {% if not filtered %}
-    <div class="row">
+    <div class="tw-grid tw-grid-cols-12 tw-gap-x-5">
       {%  for feature in page.specific.featured_pages.all %}
         {% if forloop.first %}
+         <div class="tw-col-span-12">
           {% include "./fragments/blog_index_feature.html" with blog_page=feature.blog %}
+          </div>
         {% elif forloop.counter == 5 %}
-        <div class="large:-tw-mt-5">
+          <div class="tw-col-span-12">
             {% include "./fragments/blog_index_feature.html" with blog_page=feature.blog content_left=True %}
-        </div>
-
+         </div>
         {% else %}
-          {% include "./fragments/blog_card.html" with page=feature.blog %}
+          <div class="tw-col-span-12 medium:tw-col-span-6 large:tw-col-span-4 mb-5">
+            {% include "./fragments/blog_card.html" with page=feature.blog %}
+          </div>
         {% endif %}
       {% endfor %}
 

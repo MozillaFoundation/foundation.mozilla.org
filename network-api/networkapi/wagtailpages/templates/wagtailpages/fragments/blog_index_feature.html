@@ -1,24 +1,21 @@
 {% load wagtailcore_tags wagtailembeds_tags wagtailimages_tags i18n localization homepage_tags blog_tags static %}
 
 
-<div class="tw-grid tw-grid-cols-12 tw-mb-7 tw-px-[15px]">
-  <div class="tw-py-3 tw-flex tw-flex-col tw-col-span-12 {% if content_left %} large:tw-pl-[36px] {% else %} tw-pr-[36px] {% endif %} large:tw-col-span-4 large:tw-py-0">
-    <div class="tw-flex tw-flex-wrap">
-      {% include "./blog_card_topics.html" with topics=blog_page.specific.topics.all %}
+<div class="tw-grid tw-grid-cols-12 tw-mb-7 tw-gap-x-5">
+  <div class="tw-py-3 tw-h-full tw-flex tw-flex-col tw-col-span-12 tw-justify-between large:tw-col-span-4 large:tw-py-0 {% if content_left %} large:tw-pl-3 {% else %} large:tw-pr-3 {% endif %}">
+    <div id="title-and-description">
+      <div class="tw-flex tw-flex-wrap -tw-mt-1">
+        {% include "./blog_card_topics.html" with topics=blog_page.specific.topics.all video_post=True published_date=blog_page.first_published_at %}
       
-      {% if video_url %}
-        <img src="{% static "_images/video-icon.svg" %}" alt="{% trans "video" context "icon description for screen readers" %}" class="tw-h-4 tw-w-4 tw-mr-2 tw-my-1">
-      {% endif %}
-    
-      <span class="tw-h6-heading tw-text-gray-40 tw-my-1 tw-mb-0"> {{ blog_page.first_published_at|date:"DATE_FORMAT" }} </span>
-    </div>
-    <a href="{% relocalized_url blog_page.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
-      <h1 class="tw-h4-heading medium:tw-h1-heading medium:tw-text-[34px] tw-mt-1 tw-mb-2 group-hover:tw-underline">{{ blog_page.localized.title}}</h1>
-      <p class="tw-body">{{ blog_page.get_meta_description }}</p>
-      <div class="tw-mt-auto">
-        {% include "./blog_authors.html" with blog_page=blog_page %}
       </div>
-    </a>
+      <a href="{% relocalized_url blog_page.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
+        <h1 class="tw-h4-heading medium:tw-h1-heading medium:tw-text-[34px] tw-mt-1 tw-mb-2 group-hover:tw-underline">{{ blog_page.localized.title}}</h1>
+        <p class="tw-body">{{ blog_page.get_meta_description }}</p>
+      </a>
+    </div>
+    <div id="blog-authors">
+      {% include "./blog_authors.html" with blog_page=blog_page %}
+    </div>
   </div>
   <div class="tw-order-first tw-col-span-12 large:tw-col-span-8 {% if not content_left %} large:tw-order-last {% endif %}">
     {% if video_url %}

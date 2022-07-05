@@ -102,7 +102,7 @@ class BlogIndexPage(IndexPage):
             'featured_pages',
             label='Featured',
             help_text='Choose five blog pages to feature',
-            min_num=0,
+            min_num=5,
             max_num=5,
         ),
         InlinePanel(
@@ -133,6 +133,9 @@ class BlogIndexPage(IndexPage):
         featured = [
             entry.blog.get_translation(locale).pk for entry in self.featured_pages.all()
         ]
+        
+        if self.featured_video_post:
+            featured.extend([entry.blog_page.get_translation(locale).pk for entry in self.featured_video_post.all()])
 
         return super().get_all_entries(locale).exclude(pk__in=featured)
 
