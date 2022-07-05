@@ -133,7 +133,7 @@ class BlogIndexPage(IndexPage):
         featured = [
             entry.blog.get_translation(locale).pk for entry in self.featured_pages.all()
         ]
-        
+
         if self.featured_video_post:
             featured.extend([entry.blog_page.get_translation(locale).pk for entry in self.featured_video_post.all()])
 

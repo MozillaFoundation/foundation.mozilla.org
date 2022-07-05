@@ -59,6 +59,7 @@ def add_authors(post):
 
     post.save()
 
+
 def add_featured_posts(blog_index_page):
     for page in get_random_objects(model=BlogPage, max_count=5):
         featured_page_orderable = FeaturedBlogPages.objects.create(page=blog_index_page, blog=page)
