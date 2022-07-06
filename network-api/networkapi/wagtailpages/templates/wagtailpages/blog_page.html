@@ -35,6 +35,7 @@
         </div>
       <div class="pt-5 pt-md-5 pb-4 col-lg-8">
         <div class="cms {% if show_comments %}mb-5{% endif %}">
+          {% include "./fragments/blog_card_topics.html" with topics=page.topics.all %}
           <h1 class="tw-h1-heading">{{ page.title }}</h1>
           {% include "./fragments/blog_authors.html" with blog_page=page show_full_info=True %}
         </div>
