@@ -151,16 +151,9 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
 
         How many pages exactly depends on the page size set on the index.
         """
-        tz = datetime.timezone.utc
-        blog_pages = []
-        blog_page_count = self.page_size + 2
-        for day in range(1, blog_page_count + 1):
-            blog_pages.append(
-                blog_factories.BlogPageFactory(
-                    parent=self.blog_index,
-                    first_published_at=datetime.datetime(2020, 1, day, tzinfo=tz),
-                )
-            )
+        blog_pages = self.fill_index_pages_with_blog_pages(2)
+        first_page_of_blog_pages = blog_pages[0:self.page_size]
+        second_page_of_blog_pages = blog_pages[self.page_size:]
         url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search")
 
         response = self.client.get(path=url)
@@ -168,12 +161,9 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         entries = response.context['entries']
         self.assertEqual(len(entries), self.page_size)
-        blog_pages.reverse()  # Reversing blog pages so newest page is first
-        first_page_of_entries = blog_pages[0:self.page_size]
-        second_page_of_entries = blog_pages[self.page_size:]
-        for blog_page in first_page_of_entries:
+        for blog_page in first_page_of_blog_pages:
             self.assertIn(blog_page, entries)
-        for blog_page in second_page_of_entries:
+        for blog_page in second_page_of_blog_pages:
             self.assertNotIn(blog_page, entries)
 
     def test_title_match(self):
