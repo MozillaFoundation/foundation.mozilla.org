@@ -7,7 +7,7 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0031_merge_20220627_2350'),
+        ('wagtailpages', '0033_blogpage_feature_author_details'),
     ]
 
     operations = [
