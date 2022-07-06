@@ -18,6 +18,7 @@ services:
     volumes:
       - .:/app:delegated
       - node_modules:/app/node_modules/:delegated
+      - dockerpythonvenv:/app/dockerpythonvenv/:delegated
     depends_on:
       - backend
 
