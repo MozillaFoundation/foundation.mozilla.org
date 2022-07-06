@@ -496,6 +496,8 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         """
         # Make more than one page of blog pages to test that pagination really works.
         blog_pages = self.fill_index_pages_with_blog_pages(2)
+        first_page_of_blog_pages = blog_pages[0:self.page_size]
+        second_page_of_blog_pages = blog_pages[self.page_size:]
         url = (
             self.blog_index.get_url()
             + self.blog_index.reverse_subpage("search_entries")
@@ -511,12 +513,10 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         entries = response.context['entries']
         entries_html = response.json()['entries_html']
         self.assertEqual(len(entries), self.page_size)
-        first_page_of_entries = blog_pages[0:self.page_size]
-        second_page_of_entries = blog_pages[self.page_size:]
-        for blog_page in first_page_of_entries:
+        for blog_page in first_page_of_blog_pages:
             self.assertIn(blog_page, entries)
             self.assertInHTML(needle=blog_page.title, haystack=entries_html)
-        for blog_page in second_page_of_entries:
+        for blog_page in second_page_of_blog_pages:
             self.assertNotIn(blog_page, entries)
         self.assertTemplateNotUsed(response, template_name='wagtailpages/fragments/entry_cards.html')
         self.assertTemplateUsed(response, template_name='wagtailpages/fragments/blog_search_item_loop.html')
@@ -531,6 +531,8 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         latest blog pages.
         """
         blog_pages = self.fill_index_pages_with_blog_pages(2)
+        first_page_of_blog_pages = blog_pages[0:self.page_size]
+        second_page_of_blog_pages = blog_pages[self.page_size:]
         url = (
             self.blog_index.get_url()
             + self.blog_index.reverse_subpage("search_entries")
@@ -546,11 +548,9 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         entries = response.context['entries']
         entries_html = response.json()['entries_html']
         self.assertEqual(len(entries), self.page_size)
-        first_page_of_entries = blog_pages[0:self.page_size]
-        second_page_of_entries = blog_pages[self.page_size:]
-        for blog_page in first_page_of_entries:
+        for blog_page in first_page_of_blog_pages:
             self.assertNotIn(blog_page, entries)
-        for blog_page in second_page_of_entries:
+        for blog_page in second_page_of_blog_pages:
             self.assertIn(blog_page, entries)
             self.assertInHTML(needle=blog_page.title, haystack=entries_html)
         self.assertTemplateNotUsed(response, template_name='wagtailpages/fragments/entry_cards.html')
@@ -562,6 +562,8 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         """Search entries route loads first of two pages of search results."""
         # Make more than one page of blog pages to test that pagination really works.
         match_blog_pages = self.fill_index_pages_with_blog_pages(2, base_title=self.search_term)
+        first_page_of_matches = match_blog_pages[0:self.page_size]
+        second_page_of_matches = match_blog_pages[self.page_size:]
         nonmatch_blog_pages = self.fill_index_pages_with_blog_pages(2, base_title="Othertitle")
         url = (
             self.blog_index.get_url()
@@ -577,8 +579,6 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         # See: https://docs.djangoproject.com/en/4.0/topics/testing/tools/#django.test.Response.context
         entries = response.context['entries']
         self.assertEqual(len(entries), self.page_size)
-        first_page_of_matches = match_blog_pages[0:self.page_size]
-        second_page_of_matches = match_blog_pages[self.page_size:]
         for blog_page in first_page_of_matches:
             self.assertIn(blog_page, entries)
         for blog_page in second_page_of_matches:
@@ -590,6 +590,8 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         """Search entries route loads second of two pages of search results."""
         # Make more than one page of blog pages to test that pagination really works.
         match_blog_pages = self.fill_index_pages_with_blog_pages(2, base_title=self.search_term)
+        first_page_of_matches = match_blog_pages[0:self.page_size]
+        second_page_of_matches = match_blog_pages[self.page_size:]
         nonmatch_blog_pages = self.fill_index_pages_with_blog_pages(2, base_title="Othertitle")
         url = (
             self.blog_index.get_url()
@@ -605,8 +607,6 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         # See: https://docs.djangoproject.com/en/4.0/topics/testing/tools/#django.test.Response.context
         entries = response.context['entries']
         self.assertEqual(len(entries), self.page_size)
-        first_page_of_matches = match_blog_pages[0:self.page_size]
-        second_page_of_matches = match_blog_pages[self.page_size:]
         for blog_page in first_page_of_matches:
             self.assertNotIn(blog_page, entries)
         for blog_page in second_page_of_matches:
