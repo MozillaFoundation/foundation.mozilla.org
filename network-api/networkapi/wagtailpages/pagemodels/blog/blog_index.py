@@ -371,7 +371,7 @@ class BlogIndexPage(IndexPage):
         try:
             page_number: int = int(page_parameter)
         except ValueError:
-            return http.HttpResponseBadRequest(reason='No page number is not an integer.')
+            return http.HttpResponseBadRequest(reason='Page number is not an integer.')
 
         entries = self.get_search_entries(query=query)
 
