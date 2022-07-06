@@ -58,7 +58,7 @@
     {% endif %}  {# End of IF for filtered page content #}
       
     {% block subcontent %}
-        <div class="index-entries row {% if filtered and no_filter_ui != True %} {% else %} tw-mb-4 {% endif %}">
+        <div class="index-entries row {% if filtered and no_filter_ui != True %} {% else %} tw-mb-5 {% endif %}">
           {% include "./fragments/entry_cards.html" %}
         </div>
     {% endblock %}
