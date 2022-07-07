@@ -2,7 +2,7 @@
 {% load i18n wagtailcore_tags wagtailimages_tags %}
 
 {% block research_hub_content %}
-  <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-[12rem_1fr_14rem] large:tw-grid-cols-[14rem_1fr_16rem] xlarge:tw-grid-cols-[14rem_1fr_16rem] tw-gap-5">
+  <div class="tw-grid tw-grid-cols-1 tw-grid-rows-[auto_auto_1fr] medium:tw-grid-cols-[12rem_1fr_14rem] large:tw-grid-cols-[14rem_1fr_16rem] xlarge:tw-grid-cols-[14rem_1fr_16rem] tw-gap-5">
 
     <div id="breadcrumbs-container" class="medium:tw-col-start-2 medium:tw-col-end-4">
       {% include "wagtailpages/fragments/research_breadcrumb.html" with breadcrumb_list=breadcrumbs %}
@@ -10,7 +10,7 @@
 
     <div id="title-and-meta" class="medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3 tw-min-w-0">
       <h1>{{ page.title }}</h1>
-      <div class="tw-flex tw-flex-row tw-text-xs large:tw-text-base tw-text-gray-80 tw-mb-2 tw-uppercase tw-divide-x tw-divide-gray-20">
+      <div class="tw-flex tw-flex-row tw-text-xs large:tw-text-base tw-text-gray-80 tw-uppercase tw-divide-x tw-divide-gray-20 tw-mt-4">
         {% if page.original_publication_date %}
           <div class="tw-px-2 first:tw-pl-0 tw-whitespace-nowrap ">{{ page.original_publication_date|date:"DATE_FORMAT" }}</div>
         {% endif %}
