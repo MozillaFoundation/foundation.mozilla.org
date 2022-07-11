@@ -4,6 +4,9 @@ from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
+
+from wagtail_localize.fields import SynchronizedField, TranslatableField
+
 from django.utils.text import slugify
 
 
@@ -42,6 +45,13 @@ class Profile(TranslatableMixin, models.Model):
         FieldPanel("introduction"),
     ]
 
+    translatable_fields = [
+        SynchronizedField("slug"),
+        SynchronizedField("name"),
+        SynchronizedField("image"),
+        TranslatableField("tagline"),
+        TranslatableField("introduction"),
+    ]
     objects = ProfileQuerySet.as_manager()
 
     def __str__(self):
