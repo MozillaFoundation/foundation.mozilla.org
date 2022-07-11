@@ -1,3 +1,5 @@
 <ul id="index-entries" class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-5 tw-gap-y-7 tw-list-none tw-px-[15px]">
-  {% include "./entry_cards_item_loop.html" with entries=entries horizontal=horizontal %}
+  {% block item_loop %}
+    {% include "./entry_cards_item_loop.html" with entries=entries horizontal=horizontal %}
+  {% endblock  %}
 </ul>

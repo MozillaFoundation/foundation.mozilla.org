@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core import paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.forms import CheckboxSelectMultiple
 from django.shortcuts import redirect, get_object_or_404
 from django.template import loader
 
@@ -12,8 +13,9 @@ from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPane
 from wagtail.contrib.routable_page.models import route
 from wagtail.core.models import Orderable as WagtailOrderable
 from wagtail_localize.fields import SynchronizedField
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from sentry_sdk import capture_exception, push_scope
 
-from modelcluster.fields import ParentalKey
 from networkapi.wagtailpages.models import Profile
 from networkapi.wagtailpages.utils import (
     titlecase,
@@ -22,10 +24,9 @@ from networkapi.wagtailpages.utils import (
     localize_queryset,
 )
 
-from sentry_sdk import capture_exception, push_scope
-
 from ..index import IndexPage
 from .blog_topic import BlogPageTopic
+from networkapi.wagtailpages.forms import BlogIndexPageForm
 
 
 if TYPE_CHECKING:
@@ -96,6 +97,15 @@ class BlogIndexPage(IndexPage):
     with additional logic to explore topics.
     """
 
+    base_form_class = BlogIndexPageForm
+
+    related_topics = ParentalManyToManyField(
+        BlogPageTopic,
+        help_text='Which topics would you like to feature on the page? '
+                  'Please select a max of 7.',
+        blank=True
+    )
+
     subpage_types = [
         'BlogPage'
     ]
@@ -114,7 +124,8 @@ class BlogIndexPage(IndexPage):
             help_text='Choose a blog page with video to feature',
             min_num=0,
             max_num=1,
-        )
+        ),
+        FieldPanel('related_topics', widget=CheckboxSelectMultiple)
     ]
 
     translatable_fields = IndexPage.translatable_fields + [
@@ -123,6 +134,11 @@ class BlogIndexPage(IndexPage):
     ]
 
     template = 'wagtailpages/blog_index_page.html'
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["related_topics"] = self.get_related_topics()
+        return context
 
     # superclass override
     def get_all_entries(self, locale):
@@ -408,3 +424,7 @@ class BlogIndexPage(IndexPage):
                 order_by_relevance=True,
             )
         return entries
+
+    def get_related_topics(self):
+        related_topics = self.related_topics.all()
+        return related_topics
