@@ -1,36 +1,44 @@
-{% load wagtailimages_tags i18n localization %}
+{% load wagtailcore_tags wagtailembeds_tags wagtailimages_tags i18n localization homepage_tags blog_tags static %}
 
-{% comment %}
-  This template is similar to the featured_blogs.html code *and* the card.html
-  code, because it kind of needs to look like the first, while proportioning
-  itself similar to the second.
 
-  TODO: figure out if we can unify the three templates.
-{% endcomment %}
-
-<div>
-  <a href="{% relocalized_url blog.localized.url %}">
-    {% image blog.localized.specific.get_meta_image fill-540x303 %}
-  </a>
-</div>
-
-<div class="tw-flex tw-flex-col tw-flex-1 tw-border-b-4 tw-border-gray-05 -tw-mt-5 tw-bg-white tw-relative tw-mx-2 medium:tw-mx-5 tw-p-4">
-  <p class="tw-h6-heading tw-mb-2">
-    {% for topic in blog.localized.topics.all %}
-      {% localized_version topic as localized_topic %}
-      <a href="/blog/topic/{{topic.slug}}">{{ localized_topic }}</a>{% if not forloop.last %}, {% endif %}
-    {% endfor %}
-  </p>
-  <a href="{% relocalized_url blog.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
-    <h5 class="tw-mb-2 tw-h3-heading group-hover:tw-underline">
-     {{blog.localized.title}}
-    </h5>
-    <p class="tw-body-small tw-mb-2">
-      {% if blog.author %}
-        {% blocktrans with author=blog.author %}by {{author}}{% endblocktrans %}
+<div class="tw-grid tw-grid-cols-12 tw-mb-7 tw-gap-x-5">
+  <div class="tw-py-3 tw-h-full tw-flex tw-flex-col tw-col-span-12 tw-justify-between large:tw-col-span-4 large:tw-py-0 {% if content_left %} large:tw-pl-3 {% else %} large:tw-pr-3 {% endif %}">
+    <div id="title-and-description">
+      <div class="tw-flex tw-flex-wrap -tw-mt-1">
+        {% include "./blog_card_topics.html" with topics=blog_page.specific.topics.all video_post=True published_date=blog_page.first_published_at %}
+      
+      </div>
+      <a href="{% relocalized_url blog_page.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
+        <h1 class="tw-h4-heading medium:tw-h1-heading medium:tw-text-[34px] tw-mt-1 tw-mb-2 group-hover:tw-underline">{{ blog_page.localized.title}}</h1>
+        <p class="tw-body">{{ blog_page.get_meta_description }}</p>
+      </a>
+    </div>
+    <div id="blog-authors">
+      {% include "./blog_authors.html" with blog_page=blog_page %}
+    </div>
+  </div>
+  <div class="tw-order-first tw-col-span-12 large:tw-col-span-8 {% if not content_left %} large:tw-order-last {% endif %}">
+    {% if video_url %}
+      {% if 'player.vimeo.com' in video_url %}
+        <div id="featured-video-container" class=" tw-relative tw-aspect-[16/9] tw-w-full tw-h-full hover:tw-cursor-pointer">
+          <video class="featured-video tw-h-full tw-w-full">
+            <source src="{{video_url}}" type="video/mp4">
+          </video>
+          <div class="tw-absolute tw-top-0 tw-left-0 tw-min-h-full tw-min-w-full tw-flex tw-justify-center tw-place-items-center">
+            <img class="play-button tw-h-[4rem] tw-w-[4rem] tw-opacity-75 hover:tw-opacity-100" src="{% static "_images/video_play_button.svg" %}" alt="Play Button" />
+          </div>
+        </div>
+      {% else %}
+        <div class="tw-aspect-[16/9] embed-responsive tw-h-full tw-w-full">
+          {% embed video_url %}
+        </div>
       {% endif %}
-      {% if blog.first_published_at %} {% blocktrans with date=blog.first_published_at|date:"DATE_FORMAT" %}on {{date}}{% endblocktrans %}{% else %}not published yet{% endif %}
-    </p>
-    <p>{{blog.localized.search_description}}</p>
-  </a>
+    {% else %}
+      <div id="featured-image-container" class="tw-w-full tw-h-full">
+        <a href="{% relocalized_url blog_page.localized.url %}">
+          {% image blog_page.localized.specific.get_meta_image fill-1200x628 class='tw-h-full tw-w-full' %}
+        </a>
+      </div>
+    {% endif %}
+  </div>
 </div>
