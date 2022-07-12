@@ -58,11 +58,10 @@ class BlogIndexTestCase(test_base.WagtailpagesTestCase):
         return blog_pages
 
 
-class TestBlogIndex(test_base.WagtailpagesTestCase):
+class TestBlogIndex(BlogIndexTestCase):
     def test_templates(self):
-        blog_index = blog_factories.BlogIndexPageFactory(parent=self.homepage)
-        blog_factories.BlogPageFactory(parent=blog_index)
-        url = blog_index.get_url()
+        blog_factories.BlogPageFactory(parent=self.blog_index)
+        url = self.blog_index.get_url()
 
         response = self.client.get(path=url)
 
@@ -79,6 +78,27 @@ class TestBlogIndex(test_base.WagtailpagesTestCase):
             response,
             template_name='wagtailpages/fragments/blog_card.html'
         )
+
+    def test_featured_posts_not_in_entries(self):
+        """Don't the posts that are featured should not be repeated in the entries."""
+        blog_pages = self.fill_index_pages_with_blog_pages(1)
+        featured_blog_page = blog_pages[0]
+        unfeatured_blog_pages = blog_pages[1:]
+        blog_factories.FeaturedBlogPagesFactory(
+            page=self.blog_index,
+            blog=featured_blog_page,
+        )
+        self.assertEqual(self.blog_index.featured_pages.count(), 1)
+        url = self.blog_index.get_url()
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        entries = [e.specific for e in response.context['entries']]
+        self.assertNotIn(featured_blog_page, entries)
+        for blog_page in unfeatured_blog_pages:
+            self.assertIn(blog_page, entries)
+
 
 
 class TestBlogIndexSearch(BlogIndexTestCase):

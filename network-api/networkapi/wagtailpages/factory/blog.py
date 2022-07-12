@@ -9,8 +9,9 @@ from wagtail_factories import PageFactory
 
 from factory import (
     Faker,
-    LazyAttribute
+    LazyAttribute,
 )
+from factory.django import DjangoModelFactory
 
 from networkapi.wagtailpages.models import (
     BlogAuthors,
@@ -19,6 +20,7 @@ from networkapi.wagtailpages.models import (
     BlogIndexPage,
     Profile,
 )
+from networkapi.wagtailpages.pagemodels.blog.blog_index import FeaturedBlogPages
 
 from networkapi.utility.faker.helpers import (
     get_homepage,
@@ -63,6 +65,11 @@ def add_authors(post):
         post.authors.add(author_orderable)
 
     post.save()
+
+
+class FeaturedBlogPagesFactory(DjangoModelFactory):
+    class Meta:
+        model = FeaturedBlogPages
 
 
 class BlogIndexPageFactory(IndexPageFactory):
