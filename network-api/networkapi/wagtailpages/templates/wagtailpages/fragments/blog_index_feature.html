@@ -5,8 +5,8 @@
   <div class="tw-py-3 tw-h-full tw-flex tw-flex-col tw-col-span-12 tw-justify-between large:tw-col-span-4 large:tw-py-0 {% if content_left %} large:tw-pl-3 {% else %} large:tw-pr-3 {% endif %}">
     <div id="title-and-description">
       <div class="tw-flex tw-flex-wrap -tw-mt-1">
-        {% include "./blog_card_topics.html" with topics=blog_page.specific.topics.all video_post=True published_date=blog_page.first_published_at %}
-      
+        {% include "./blog_topics.html" with topics=blog_page.specific.topics.all video_post=True published_date=blog_page.first_published_at %}
+
       </div>
       <a href="{% relocalized_url blog_page.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
         <h1 class="tw-h4-heading medium:tw-h1-heading medium:tw-text-[34px] tw-mt-1 tw-mb-2 group-hover:tw-underline">{{ blog_page.localized.title}}</h1>
