@@ -100,7 +100,6 @@ class TestBlogIndex(BlogIndexTestCase):
             self.assertIn(blog_page, entries)
 
 
-
 class TestBlogIndexSearch(BlogIndexTestCase):
     @classmethod
     def setUpTestData(cls):
@@ -147,6 +146,34 @@ class TestBlogIndexSearch(BlogIndexTestCase):
             response,
             template_name='wagtailpages/fragments/blog_card.html'
         )
+
+    def test_search_route_featured_posts_are_in_entries(self):
+        """
+        Even the featured posts should be in the entries.
+
+        On the normal blog index view, we don't want the featured blog pages to be
+        included in the entries. That is because they are already shown on top.
+        Since we don't show featured posts up top on the search page, we want to also
+        include the featured blog posts in the list of entries.
+        """
+        blog_pages = self.fill_index_pages_with_blog_pages(1)
+        featured_blog_page = blog_pages[0]
+        blog_factories.FeaturedBlogPagesFactory(
+            page=self.blog_index,
+            blog=featured_blog_page,
+        )
+        self.assertEqual(self.blog_index.featured_pages.count(), 1)
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search")
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        entries = [e.specific for e in response.context['entries']]
+        for blog_page in blog_pages:
+            self.assertIn(blog_page, entries)
 
     def test_search_route_has_more_context_variable_false(self):
         """
