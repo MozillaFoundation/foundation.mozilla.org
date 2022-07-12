@@ -20,6 +20,8 @@ from networkapi.wagtailpages.models import (
     Profile,
 )
 
+from networkapi.wagtailpages.pagemodels.blog.blog_index import FeaturedBlogPages
+
 from networkapi.utility.faker.helpers import (
     get_homepage,
     get_random_objects,
@@ -63,6 +65,14 @@ def add_authors(post):
         post.authors.add(author_orderable)
 
     post.save()
+
+
+def add_featured_posts(blog_index_page):
+    for page in get_random_objects(model=BlogPage, max_count=5):
+        featured_page_orderable = FeaturedBlogPages.objects.create(page=blog_index_page, blog=page)
+        blog_index_page.featured_pages.add(featured_page_orderable)
+
+    blog_index_page.save()
 
 
 class BlogIndexPageFactory(IndexPageFactory):
@@ -137,3 +147,5 @@ def generate(seed):
     for post in BlogPage.objects.all():
         post.ensure_related_posts()
         post.save()
+
+    add_featured_posts(blog_namespace)

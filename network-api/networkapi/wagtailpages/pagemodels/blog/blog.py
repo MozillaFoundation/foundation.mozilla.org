@@ -14,7 +14,7 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
 )
 from wagtail.core import blocks
-from wagtail.core.models import Orderable, Locale, Page
+from wagtail.core.models import Orderable, Locale, TranslatableMixin, Page
 from wagtail.core.fields import StreamField
 from wagtail.core.rich_text import get_text_for_indexing
 from wagtail.search import index
@@ -71,7 +71,7 @@ class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey('wagtailpages.BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
 
 
-class BlogAuthors(Orderable):
+class BlogAuthors(TranslatableMixin, Orderable):
     """This allows us to select one or more blog authors from Snippets."""
 
     page = ParentalKey('wagtailpages.BlogPage', related_name='authors')
@@ -218,10 +218,12 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         # Content tab fields
         TranslatableField('body'),
         TranslatableField('title'),
-        SynchronizedField('authors'),
+        TranslatableField('authors'),
         SynchronizedField('hero_video'),
         SynchronizedField('hero_image'),
         SynchronizedField('related_posts'),
+        SynchronizedField('feature_author_details'),
+        SynchronizedField('feature_comments'),
         SynchronizedField('first_published_at'),
     ]
 
