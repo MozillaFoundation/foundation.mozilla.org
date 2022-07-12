@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Optional
 
 from django import http
 from django.conf import settings
@@ -12,6 +12,7 @@ from django.template import loader
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPanel
 from wagtail.contrib.routable_page.models import route
 from wagtail.core.models import Orderable as WagtailOrderable
+from wagtail.core.models import Locale
 from wagtail_localize.fields import SynchronizedField
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from sentry_sdk import capture_exception, push_scope
@@ -415,8 +416,13 @@ class BlogIndexPage(IndexPage):
             }
         )
 
-    def get_search_entries(self, query: str = '') -> Union['QuerySet', 'DatabaseSearchResults']:
-        entries = self.get_entries().specific()
+    def get_search_entries(
+        self,
+        query: str = '',
+        locale: Optional[Locale] = None,
+    ) -> Union['QuerySet', 'DatabaseSearchResults']:
+        locale = locale or Locale.get_active()
+        entries = self.get_all_entries(locale=locale).specific()
         if query:
             entries = entries.search(
                 query,
