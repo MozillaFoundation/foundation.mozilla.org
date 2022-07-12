@@ -16,7 +16,7 @@
           {% if not forloop.first %}{% if not forloop.last %}<span class="tw-font-extrabold">, </span>{% else %}<span> {% trans "and" %} </span>{% endif %}{% endif %}
           {% if authors_length > 1 and forloop.last %}  {% endif %}
             {% if blog_index %}
-              <a class="tw-font-extrabold tw-text-black" href="{% localizedroutablepageurl page=blog_index url_name='blog-author-detail' profile_slug=author.slug  %}">{{ author.name }}</a>
+              <a class="tw-font-extrabold tw-text-black" href="{% localizedroutablepageurl page=blog_index url_name='blog-author-detail' profile_slug=author.slug %}">{{ author.name }}</a>
             {% else %}
               <span class="tw-font-extrabold">{{ author.name }}</span>
             {% endif %}
@@ -30,7 +30,7 @@
             not published yet
           {% endif %}
         {% endif %}
-      {% endspaceless%}
+      {% endspaceless %}
     {% endwith %}
   </p>
 </div>
