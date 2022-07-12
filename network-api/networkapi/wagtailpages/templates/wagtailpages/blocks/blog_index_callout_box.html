@@ -1,0 +1,18 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
+
+{% block block_content %}
+
+<div class="tw-h-full tw-flex tw-flex-col tw-just tw-justify-between  tw-p-6 tw-border-2 tw-border-black tw-shadow-[10px_10px_rgba(0,0,0)]">
+    <div class="tw-mb-7">
+        <h1 class="tw-text-4xl"> {{ self.title }}</h1>
+        {{ self.body|richtext }}
+        {% include '../fragments/audio_player.html' with audio=self.audio.url spacing="tw-my-2"%}
+    </div>
+    <div class='tw-text-right'>
+        <a class="tw-btn-secondary tw-border" href="{{ self.cta_button_url }}">{{ self.cta_button_text }}</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -4,25 +4,7 @@
 {% block block_content %}
 
 <div class="player-and-caption tw-my-4">
-    <div id="audio-player">
-        <audio class="embedded-audio">
-            <source src="{{self.audio.url}}" type="audio/mp3" preload="metadata" loop>
-        </audio>
-        <div class="audio-player-controls tw-my-4 d-inline-flex">
-            <div class='px-3 play-btn-container'>            
-                <button class="tw-btn btn-audio-control btn-pause d-none" id="pause-icon"></button>
-                <button class="tw-btn btn-audio-control btn-play d-none" id="play-icon"></button>
-            </div>
-            <div class='seek-slider-container'>            
-                <input  type="range" id="seek-slider" max="100" value="0">
-            </div>
-            <div class='px-3 time-info-container'>            
-                <span id="current-time" class="time">0:00</span>
-                <span class="time">/</span>
-                <span id="duration" class="time">0:00</span>
-            </div>
-        </div>
-    </div>
+    {% include '../fragments/audio_player.html' with audio=self.audio.url spacing="tw-my-4"%}
     <p class="tw-body-small mt-2">{{self.caption}} </p>
 </div>
 {% endblock %}

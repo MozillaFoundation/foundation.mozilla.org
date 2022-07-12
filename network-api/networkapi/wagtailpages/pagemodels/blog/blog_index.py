@@ -7,10 +7,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.forms import CheckboxSelectMultiple
 
 
-from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPanel
+from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPanel, StreamFieldPanel
+
 from wagtail.contrib.routable_page.models import route
 from wagtail.core.models import Orderable as WagtailOrderable
 from wagtail_localize.fields import SynchronizedField
+from wagtail.core.fields import StreamField
+from networkapi.wagtailpages.pagemodels import customblocks
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from networkapi.wagtailpages.models import Profile
@@ -104,6 +107,12 @@ class BlogIndexPage(IndexPage):
                   'Please select a max of 7.',
         blank=True
     )
+    callout_box = StreamField(
+        [
+        ('callout', customblocks.BlogIndexCalloutBlock()),
+        ],
+        blank=True
+    )
 
     subpage_types = [
         'BlogPage'
@@ -124,7 +133,9 @@ class BlogIndexPage(IndexPage):
             min_num=0,
             max_num=1,
         ),
-        FieldPanel('related_topics', widget=CheckboxSelectMultiple)
+        FieldPanel('related_topics', widget=CheckboxSelectMultiple),
+        StreamFieldPanel('callout_box'),
+
     ]
 
     translatable_fields = IndexPage.translatable_fields + [
