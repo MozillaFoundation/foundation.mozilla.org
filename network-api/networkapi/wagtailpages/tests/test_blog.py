@@ -122,6 +122,40 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
             template_name='wagtailpages/fragments/blog_card.html'
         )
 
+    def test_search_route_has_more_context_variable_false(self):
+        """
+        The `has_more` context variable should be `False` if too few entries.
+
+        This variable controls if the "load more" button shows.
+        """
+        self.fill_index_pages_with_blog_pages(1)
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search")
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertFalse(response.context['has_more'])
+
+    def test_search_route_has_more_context_variable_true(self):
+        """
+        The `has_more` context variable should be `True` if enough entries.
+
+        This variable controls if the "load more" button shows.
+        """
+        self.fill_index_pages_with_blog_pages(2)
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage("search")
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTrue(response.context['has_more'])
+
     def test_search_route_no_results_template(self):
         blog_factories.BlogPageFactory(
             parent=self.blog_index,
@@ -388,40 +422,6 @@ class TestBlogIndexSearch(test_base.WagtailpagesTestCase):
         self.assertNotIn(other_post, match_results)
         self.assertNotIn(match_post, other_results)
         self.assertIn(other_post, other_results)
-
-    def test_search_route_has_more_context_variable_false(self):
-        """
-        The `has_more` context variable should be `False` if too few entries.
-
-        This variable controls if the "load more" button shows.
-        """
-        self.fill_index_pages_with_blog_pages(1)
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search")
-        )
-
-        response = self.client.get(path=url)
-
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertFalse(response.context['has_more'])
-
-    def test_search_route_has_more_context_variable_true(self):
-        """
-        The `has_more` context variable should be `True` if enough entries.
-
-        This variable controls if the "load more" button shows.
-        """
-        self.fill_index_pages_with_blog_pages(2)
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search")
-        )
-
-        response = self.client.get(path=url)
-
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTrue(response.context['has_more'])
 
     def test_search_entries_route_without_page_parameter(self):
         url = (
