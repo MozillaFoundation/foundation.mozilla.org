@@ -140,20 +140,20 @@ class BlogIndexPage(IndexPage):
         context["related_topics"] = self.get_related_topics()
         return context
 
-    # superclass override
-    def get_all_entries(self, locale):
+    # Superclass override
+    def get_entries(self, context=dict()):
         """
-        Do we need to filter the featured blog entries
-        out, so they don't show up twice?
+        Get list of index entries/child pages.
+
+        We filter the featured blog posts, because they are displayed separately.
         """
-        if hasattr(self, 'filtered'):
-            return super().get_all_entries(locale)
+        entries = super().get_entries(context=context)
 
         featured = [
-            entry.blog.get_translation(locale).pk for entry in self.featured_pages.all()
+            feature.blog.localized.pk for feature in self.featured_pages.all()
         ]
 
-        return super().get_all_entries(locale).exclude(pk__in=featured)
+        return entries.exclude(pk__in=featured)
 
     def filter_entries(self, entries, context):
         entries = super().filter_entries(entries, context)
