@@ -107,11 +107,11 @@ class BlogIndexPage(IndexPage):
                   'Please select a max of 7.',
         blank=True
     )
-    callout_box = StreamField(
-        [
-        ('callout', customblocks.BlogIndexCalloutBlock()),
-        ],
-        blank=True
+    
+    callout_box = StreamField([('callout_box', customblocks.BlogIndexCalloutBlock())],
+        blank=True,
+        min_num=1,
+        max_num=1
     )
 
     subpage_types = [
