@@ -102,23 +102,20 @@ class TestBlogIndex(BlogIndexTestCase):
 
     def test_featured_posts_not_in_entries(self):
         """The posts that are featured should not be repeated in the entries."""
-        blog_pages = self.fill_index_pages_with_blog_pages(1)
-        featured_blog_page = blog_pages[0]
-        unfeatured_blog_pages = blog_pages[1:]
+        unfeatured_blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
+        featured_blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
         blog_factories.FeaturedBlogPagesFactory(
             page=self.blog_index,
             blog=featured_blog_page,
         )
-        self.assertEqual(self.blog_index.featured_pages.count(), 1)
         url = self.blog_index.get_url()
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         entries = [e.specific for e in response.context['entries']]
+        self.assertIn(unfeatured_blog_page, entries)
         self.assertNotIn(featured_blog_page, entries)
-        for blog_page in unfeatured_blog_pages:
-            self.assertIn(blog_page, entries)
 
 
 class TestBlogIndexSearch(BlogIndexTestCase):
