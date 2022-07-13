@@ -2,7 +2,7 @@ import datetime
 from http import HTTPStatus
 import os
 
-from django import http
+from django import http, test
 from django.core import management
 from taggit import models as tag_models
 from wagtail.core import rich_text
@@ -16,6 +16,13 @@ from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors
 
 
+# To make sure we can control the data setup for each test, we need to deactivate the
+# caching behaviout that the BlogIndexPage inherits from IndexPage.
+@test.override_settings(
+    CACHES = {
+        'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}
+    }
+)
 class BlogIndexTestCase(test_base.WagtailpagesTestCase):
     @classmethod
     def setUpTestData(cls):
@@ -59,6 +66,21 @@ class BlogIndexTestCase(test_base.WagtailpagesTestCase):
 
 
 class TestBlogIndex(BlogIndexTestCase):
+    def test_page_loads(self):
+        blog_factories.BlogPageFactory(parent=self.blog_index)
+        url = self.blog_index.get_url()
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_empty_page_loads(self):
+        url = self.blog_index.get_url()
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
     def test_templates(self):
         blog_factories.BlogPageFactory(parent=self.blog_index)
         url = self.blog_index.get_url()
@@ -80,7 +102,7 @@ class TestBlogIndex(BlogIndexTestCase):
         )
 
     def test_featured_posts_not_in_entries(self):
-        """Don't the posts that are featured should not be repeated in the entries."""
+        """The posts that are featured should not be repeated in the entries."""
         blog_pages = self.fill_index_pages_with_blog_pages(1)
         featured_blog_page = blog_pages[0]
         unfeatured_blog_pages = blog_pages[1:]
@@ -448,33 +470,6 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         self.assertEqual(title_post, results[0])
         self.assertEqual(description_post, results[1])
         self.assertEqual(body_post, results[2])
-
-    def test_get_search_entries_cache_not_interfering_with_two_sequential_searches(self):
-        """
-        Ensure the caching on the index page is not interfering with search.
-
-        The IndexPage from which BlogIndexPage inherits implements caching of the
-        displayed index entries. We need to make sure that this caching is not
-        interfering with the search functionality.
-
-        """
-        match_post = blog_factories.BlogPageFactory(
-            parent=self.blog_index,
-            title=self.search_term
-        )
-        other_search_term = "Thisisanonsensesearchterm"
-        other_post = blog_factories.BlogPageFactory(
-            parent=self.blog_index,
-            title=other_search_term,
-        )
-
-        match_results = self.blog_index.get_search_entries(query=self.search_term)
-        other_results = self.blog_index.get_search_entries(query=other_search_term)
-
-        self.assertIn(match_post, match_results)
-        self.assertNotIn(other_post, match_results)
-        self.assertNotIn(match_post, other_results)
-        self.assertIn(other_post, other_results)
 
     def test_search_entries_route_without_page_parameter(self):
         url = (
