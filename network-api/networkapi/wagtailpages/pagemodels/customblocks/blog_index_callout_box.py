@@ -12,7 +12,7 @@ class BlogIndexCalloutBlock(blocks.StructBlock):
     )
 
     related_topics = blocks.ListBlock(
-        snippet_blocks.SnippetChooserBlock(BlogPageTopic), 
+        snippet_blocks.SnippetChooserBlock(BlogPageTopic),
         max_num=2,
         help_text='Optional topics to display at the top of the callout box.'
 

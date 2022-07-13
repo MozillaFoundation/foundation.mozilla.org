@@ -107,8 +107,9 @@ class BlogIndexPage(IndexPage):
                   'Please select a max of 7.',
         blank=True
     )
-    
-    callout_box = StreamField([('callout_box', customblocks.BlogIndexCalloutBlock())],
+
+    callout_box = StreamField(
+        [('callout_box', customblocks.BlogIndexCalloutBlock())],
         help_text='Callout box that appears after the featured posts section',
         blank=True,
         min_num=1,

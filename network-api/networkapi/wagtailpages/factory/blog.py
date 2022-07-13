@@ -81,6 +81,7 @@ class BlogIndexPageFactory(IndexPageFactory):
 
     callout_box = Faker('streamfield', fields=['callout_box'])
 
+
 class BlogPageFactory(PageFactory):
 
     class Meta:
