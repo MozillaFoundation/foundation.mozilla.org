@@ -1,0 +1,8 @@
+{% extends "./entry_cards.html" %}
+
+{% block item_loop %}
+    {{ block.super }}
+    <li class="tw-m-0 tw-p-0 tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3 tw-row-start-3 medium:tw-row-start-2 large:tw-row-start-1">
+      {% include "./related_topics_cutout.html" with topics=related_topics %}
+    </li>
+{% endblock item_loop %}

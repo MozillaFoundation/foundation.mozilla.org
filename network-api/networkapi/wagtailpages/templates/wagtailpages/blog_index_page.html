@@ -38,8 +38,14 @@
 {% block subcontent %}
   {% if not filtered %}
     <h2 class="tw-uppercase tw-text-3xl tw-font-bold tw-font-sans tw-text-gray-80 tw-mb-5">{% trans "Latest Blog Posts" %}</h2>
+    <div class="row">
+      {% include "./fragments/entry_cards_with_related_topics_callout.html" %}
+    </div>
+  {% else %}
+    <div class="row">
+      {% include "./fragments/entry_cards.html" %}
+    </div>
   {% endif %}
-  {{ block.super }}
 {% endblock %}
 
 {% block newsletter-callout-box %}
