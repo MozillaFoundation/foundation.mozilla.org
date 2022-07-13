@@ -3,13 +3,12 @@ from wagtail.snippets import blocks as snippet_blocks
 from ..customblocks.base_rich_text_options import base_rich_text_options
 from wagtailmedia.blocks import AudioChooserBlock
 from ..blog.blog_topic import BlogPageTopic
-from django import forms
 
 
 class BlogIndexCalloutBlock(blocks.StructBlock):
 
     title = blocks.CharBlock(
-        help_text='Heading for the Callout Box'
+        help_text='Heading for the callout box.'
     )
 
     related_topics = blocks.ListBlock(
@@ -25,18 +24,18 @@ class BlogIndexCalloutBlock(blocks.StructBlock):
     )
 
     body = blocks.RichTextBlock(
-        help_text="Body text for the callout block",
+        help_text="Body text for the callout box.",
         features=base_rich_text_options,
         required=False
     )
 
     audio = AudioChooserBlock(
-        help_text='Optional audio that can be played from the callout box.',
+        help_text='Optional audio player that will appear after the body.',
         required=False
         )
 
     link_button_text = blocks.CharBlock(
-        help_text='Label text for the link button',
+        help_text='Label text for the link button at the bottom of the box.',
         required=False
     )
 

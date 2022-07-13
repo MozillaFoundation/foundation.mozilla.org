@@ -10,30 +10,32 @@
 
 {% block featured %}
   {% if not filtered %}
-    <div class="tw-grid tw-grid-cols-12 tw-gap-x-5 tw-mb-7">
+    <div class="tw-grid tw-grid-cols-12 tw-gap-x-5 tw-gap-y-[3.5rem] tw-mb-7">
       {%  for feature in page.specific.featured_pages.all %}
         {% if forloop.first %}
           <div class="tw-col-span-12">
             {% include "./fragments/blog_index_feature.html" with blog_page=feature.blog %}
           </div>
         {% elif forloop.counter == 5 %}
-          <div class="large:tw-col-span-7 tw-col-span-12 tw-mb-7 tw-pb-7">
+          <div class="tw-col-span-12 large:tw-col-span-7 large:tw-pb-7">
             {% include "./fragments/blog_card.html" with page=feature.blog %}
           </div>
-          <div class="tw-col-span-12 large:tw-col-span-5 large:tw-pl-5">
+          <div class="tw-col-span-12 large:tw-col-span-5 xlarge:tw-pl-5">
             {% for block in page.callout_box %}
               {% include_block block %}
             {% endfor %}
           </div>
         {% else %}
-          <div class="tw-col-span-12 large:tw-col-span-4 mb-5">
+          <div class="tw-col-span-12 large:tw-col-span-4">
             {% include "./fragments/blog_card.html" with page=feature.blog %}
           </div>
         {% endif %}
       {% endfor %}
 
       {%  for video_post in page.specific.featured_video_post.all %}
-        {% include "./fragments/blog_index_feature.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
+        <div class="tw-col-span-12">
+          {% include "./fragments/blog_index_feature.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
+        </div>
       {% endfor %}
     </div>
 
