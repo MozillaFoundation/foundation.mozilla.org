@@ -7,11 +7,11 @@ from django.core import management
 from taggit import models as tag_models
 from wagtail.core import rich_text
 
+from networkapi.wagtailpages.factory import blog as blog_factories
+from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.pagemodels.blog import blog as blog_models
 from networkapi.wagtailpages.pagemodels.blog import blog_index
 from networkapi.wagtailpages.pagemodels.blog import blog_topic
-from networkapi.wagtailpages.factory import blog as blog_factories
-from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.tests import base as test_base
 
 
