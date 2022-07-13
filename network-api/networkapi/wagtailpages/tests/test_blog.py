@@ -128,6 +128,35 @@ class TestBlogIndex(BlogIndexTestCase):
         self.assertNotIn(featured_blog_page, entries)
 
 
+class TestBlogIndexTopic(BlogIndexTestCase):
+    def test_topic_route_success(self):
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage(
+                "entries_by_topic",
+                kwargs={'topic': topic.slug},
+            )
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_topic_route_non_existing_topic(self):
+        url = (
+            self.blog_index.get_url()
+            + self.blog_index.reverse_subpage(
+                "entries_by_topic",
+                kwargs={'topic': 'thisisnotatopic'},
+            )
+        )
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+
 class TestBlogIndexSearch(BlogIndexTestCase):
     @classmethod
     def setUpTestData(cls):

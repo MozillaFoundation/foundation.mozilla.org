@@ -67,11 +67,6 @@ def add_authors(post):
     post.save()
 
 
-class FeaturedBlogPagesFactory(DjangoModelFactory):
-    class Meta:
-        model = FeaturedBlogPages
-
-
 class BlogIndexPageFactory(IndexPageFactory):
     class Meta:
         model = BlogIndexPage
@@ -94,6 +89,16 @@ class BlogPageFactory(PageFactory):
 
     # Lazy Values
     title_text = Faker('sentence', nb_words=3, variable_nb_words=False)
+
+
+class FeaturedBlogPagesFactory(DjangoModelFactory):
+    class Meta:
+        model = FeaturedBlogPages
+
+
+class BlogPageTopicFactory(DjangoModelFactory):
+    class Meta:
+        model = BlogPageTopic
 
 
 def generate(seed):
