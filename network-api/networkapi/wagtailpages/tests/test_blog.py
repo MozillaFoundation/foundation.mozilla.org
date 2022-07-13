@@ -13,7 +13,6 @@ from networkapi.wagtailpages.pagemodels.blog import blog_topic
 from networkapi.wagtailpages.factory import blog as blog_factories
 from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.tests import base as test_base
-from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors
 
 
 # To make sure we can control the data setup for each test, we need to deactivate the
@@ -676,10 +675,10 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
         self.profile_3 = profile_factories.ProfileFactory()
 
         self.blog_page_1 = blog_factories.BlogPageFactory(
-            parent=self.blog_index, authors=[BlogAuthors(author=self.profile_1)]
+            parent=self.blog_index, authors=[blog_models.BlogAuthors(author=self.profile_1)]
         )
         self.blog_page_2 = blog_factories.BlogPageFactory(
-            parent=self.blog_index, authors=[BlogAuthors(author=self.profile_2)]
+            parent=self.blog_index, authors=[blog_models.BlogAuthors(author=self.profile_2)]
         )
 
     def test_search_route_success(self):
