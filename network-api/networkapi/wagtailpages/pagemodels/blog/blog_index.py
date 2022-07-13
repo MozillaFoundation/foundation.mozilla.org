@@ -150,11 +150,13 @@ class BlogIndexPage(IndexPage):
         """
         entries = super().get_entries(context=context)
 
-        featured = [
-            feature.blog.localized.pk for feature in self.featured_pages.all()
-        ]
+        if not hasattr(self, 'filtered'):
+            featured = [
+                feature.blog.localized.pk for feature in self.featured_pages.all()
+            ]
+            entries = entries.exclude(pk__in=featured)
 
-        return entries.exclude(pk__in=featured)
+        return entries
 
     def filter_entries(self, entries, context):
         entries = super().filter_entries(entries, context)
@@ -197,6 +199,10 @@ class BlogIndexPage(IndexPage):
 
         # update seo fields
         self.set_seo_fields_from_topic(localized_topic)
+
+        # TODO: REMOVE all of the following. The filtering should not be done in Python
+        #       at all, but rather in the database. There should be no need to iterate.
+        #       See also: https://stackoverflow.com/questions/4507893/django-filter-many-to-many-with-contains
 
         # This code is not efficient, but its purpose is to get us logs
         # that we can use to figure out what's going wrong more than
