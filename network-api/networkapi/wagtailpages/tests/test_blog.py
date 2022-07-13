@@ -18,7 +18,7 @@ from networkapi.wagtailpages.tests import base as test_base
 # To make sure we can control the data setup for each test, we need to deactivate the
 # caching behaviout that the BlogIndexPage inherits from IndexPage.
 @test.override_settings(
-    CACHES = {
+    CACHES={
         'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}
     }
 )
