@@ -1,6 +1,6 @@
 {% extends "./index_page.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags i18n localization blog_tags static %}
 
 
 {% block rss_metadata %}
@@ -10,19 +10,27 @@
 
 {% block featured %}
   {% if not filtered %}
-    <div class="row">
+    <div class="tw-grid tw-grid-cols-12 tw-gap-x-5">
       {%  for feature in page.specific.featured_pages.all %}
-      <div class="col-12 col-md-6 mb-5">
-        <div class="card-regular h-100 d-flex flex-column">
-          {% include "./fragments/blog_index_feature.html" with blog=feature.blog %}
-        </div>
-      </div>
+        {% if forloop.first %}
+         <div class="tw-col-span-12">
+          {% include "./fragments/blog_index_feature.html" with blog_page=feature.blog %}
+          </div>
+        {% elif forloop.counter == 5 %}
+          <div class="tw-col-span-12">
+            {% include "./fragments/blog_index_feature.html" with blog_page=feature.blog content_left=True %}
+         </div>
+        {% else %}
+          <div class="tw-col-span-12 medium:tw-col-span-6 large:tw-col-span-4 mb-5">
+            {% include "./fragments/blog_card.html" with page=feature.blog %}
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      {%  for video_post in page.specific.featured_video_post.all %}
+        {% include "./fragments/blog_index_feature.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
       {% endfor %}
     </div>
-
-    {%  for video_post in page.specific.featured_video_post.all %}
-      {% include "./fragments/blog_index_featured_video_post.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
-    {% endfor %}
 
   {% endif %}
 {% endblock %}

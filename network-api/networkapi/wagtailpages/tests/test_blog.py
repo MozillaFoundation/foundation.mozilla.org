@@ -110,13 +110,30 @@ class TestBlogIndex(BlogIndexTestCase):
         entries = [e.specific for e in response.context['entries']]
         self.assertIn(blog_page, entries)
 
-    def test_page_featured_posts_not_in_entries(self):
+    def test_page_featured_post_not_in_entries(self):
         """The posts that are featured should not be repeated in the entries."""
         unfeatured_blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
         featured_blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
         blog_factories.FeaturedBlogPagesFactory(
             page=self.blog_index,
             blog=featured_blog_page,
+        )
+        url = self.blog_index.get_url()
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        entries = [e.specific for e in response.context['entries']]
+        self.assertIn(unfeatured_blog_page, entries)
+        self.assertNotIn(featured_blog_page, entries)
+
+    def test_page_featured_video_post_not_in_entries(self):
+        """The post that is featured as video post should not be repeated in the entries."""
+        unfeatured_blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
+        featured_blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
+        blog_factories.FeaturedVideoPostFactory(
+            page=self.blog_index,
+            blog_page=featured_blog_page,
         )
         url = self.blog_index.get_url()
 

@@ -114,10 +114,10 @@ class BlogIndexPage(IndexPage):
     content_panels = IndexPage.content_panels + [
         InlinePanel(
             'featured_pages',
-            label='Featured Posts',
-            help_text='Choose two blog pages to feature',
-            min_num=0,
-            max_num=2,
+            label='Featured',
+            help_text='Choose five blog pages to feature',
+            min_num=5,
+            max_num=5,
         ),
         InlinePanel(
             'featured_video_post',
@@ -154,6 +154,9 @@ class BlogIndexPage(IndexPage):
             featured = [
                 feature.blog.localized.pk for feature in self.featured_pages.all()
             ]
+            featured.extend([
+                feature.blog_page.localized.pk for feature in self.featured_video_post.all()
+            ])
             entries = entries.exclude(pk__in=featured)
 
         return entries

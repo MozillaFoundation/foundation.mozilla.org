@@ -6,29 +6,29 @@
   {% include "./author-images.html" with authors=authors %}
 
   <p class="tw-text-sm my-2 tw-text-black">
-    {% with authors_length=authors|length %}
     {% spaceless %}
-    {% if show_full_info %}{% trans "By" %} {% endif %}
-    {% for author in authors %}
-      {% if not forloop.first %}{% if not forloop.last %}<span class="tw-font-extrabold">, </span>{% else %}<span> {% trans "and" %} </span>{% endif %}{% endif %}
-      {% if authors_length > 1 and forloop.last %}  {% endif %}
+      {% if show_full_info %}
+        {% trans "By" %}
+      {% endif %}
+
+      {% for author in authors %}
+        {% if not forloop.first %}{% if not forloop.last %}<span class="tw-font-extrabold">, </span>{% else %}<span> {% trans "and" %} </span>{% endif %}{% endif %}
+
         {% if blog_index %}
-          <a class="tw-font-extrabold tw-text-black" href="{{blog_index.localized.url}}authors/{{author.slug}}">{{ author.name }}</a>
+          <a class="tw-font-extrabold tw-text-black" href="{% localizedroutablepageurl page=blog_index url_name='blog-author-detail' profile_slug=author.slug %}">{{ author.name }}</a>
         {% else %}
           <span class="tw-font-extrabold">{{ author.name }}</span>
         {% endif %}
-    {% endfor %}
-    {% if show_full_info %}
-      | {% if blog_page.first_published_at %}{{ blog_page.first_published_at|date:"DATE_FORMAT" }}
-        {% else %}not published yet{% endif %}
-      {% with topic=page.specific.topics.first %}
-      {% if topic and blog_index %}
-        {% localized_version topic as localized_topic %}
-        | <a class="topic tw-text-inherit" href="{{blog_index.localized.url}}topic/{{topic.slug}}">{{ localized_topic }}</a>
+      {% endfor %}
+
+      {% if show_full_info %}
+        |
+        {% if blog_page.first_published_at %}
+          {{ blog_page.first_published_at|date:"DATE_FORMAT" }}
+        {% else %}
+          not published yet
+        {% endif %}
       {% endif %}
-      {% endwith %}
-    {% endif %}
-    {% endspaceless%}
-    {% endwith %}
+    {% endspaceless %}
   </p>
 </div>
