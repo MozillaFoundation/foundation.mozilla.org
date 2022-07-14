@@ -147,6 +147,7 @@ if settings.USE_S3 is not True:
 if settings.DEBUG:
     urlpatterns += (
         path('maintenance/', TemplateView.as_view(template_name="maintenance/maintenance.html")),
+        path('__debug__/', include('debug_toolbar.urls')),
     )
 
 urlpatterns += [

@@ -237,6 +237,7 @@ INSTALLED_APPS = list(filter(None, [
 
     'rest_framework',
     'django_filters',
+    'debug_toolbar',
     'gunicorn',
     'corsheaders',
     'storages',
@@ -273,6 +274,9 @@ MIDDLEWARE = list(filter(None, [
 
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.gzip.GZipMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
     'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # should be after SessionMiddleware and before CommonMiddleware
