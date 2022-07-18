@@ -10,7 +10,7 @@
       </div>
       <a href="{% relocalized_url blog_page.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
         <h1 class="tw-h4-heading medium:tw-h1-heading medium:tw-text-[34px] tw-mt-1 tw-mb-2 group-hover:tw-underline">{{ blog_page.localized.title}}</h1>
-        <p class="tw-body">{{ blog_page.get_meta_description }}</p>
+        <p class="tw-body">{{ blog_page.localized.get_meta_description }}</p>
       </a>
     </div>
     <div id="blog-authors">
@@ -25,7 +25,7 @@
             <source src="{{video_url}}" type="video/mp4">
           </video>
           <div class="tw-absolute tw-top-0 tw-left-0 tw-min-h-full tw-min-w-full tw-flex tw-justify-center tw-place-items-center">
-            <img class="play-button tw-h-[4rem] tw-w-[4rem] tw-opacity-75 hover:tw-opacity-100" src="{% static "_images/video_play_button.svg" %}" alt="Play Button" />
+            <img class="play-button tw-h-[4rem] tw-w-[4rem] tw-opacity-75 hover:tw-opacity-100" src="{% static "_images/video_play_button.svg" %}" alt="{% trans "Play Button" context "icon description for screen readers" %}" />
           </div>
         </div>
       {% else %}
