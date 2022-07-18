@@ -227,7 +227,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
                 hide_classifiers = True
 
         html = loader.render_to_string(
-            'wagtailpages/fragments/entry_cards.html',
+            'wagtailpages/fragments/entry_cards_item_loop.html',
             context={
                 'entries': entries[start:end],
                 'hide_classifiers': hide_classifiers

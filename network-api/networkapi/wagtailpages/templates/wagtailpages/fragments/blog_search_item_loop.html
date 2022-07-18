@@ -1,0 +1,5 @@
+{% for entry in entries %}
+  <li class="tw-m-0 tw-p-0 tw-pt-5">
+    {% include "wagtailpages/fragments/blog_card.html" with page=entry horizontal=True %}
+  </li>
+{% endfor %}

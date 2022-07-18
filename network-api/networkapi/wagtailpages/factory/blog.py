@@ -2,15 +2,13 @@ from datetime import timezone
 from random import choice
 
 from django.conf import settings
-
 from wagtail.core.models import Page as WagtailPage
-
 from wagtail_factories import PageFactory
-
 from factory import (
     Faker,
-    LazyAttribute
+    LazyAttribute,
 )
+from factory.django import DjangoModelFactory
 
 from networkapi.wagtailpages.models import (
     BlogAuthors,
@@ -19,18 +17,15 @@ from networkapi.wagtailpages.models import (
     BlogIndexPage,
     Profile,
 )
-
-from networkapi.wagtailpages.pagemodels.blog.blog_index import FeaturedBlogPages
-
+from networkapi.wagtailpages.pagemodels.blog import blog_index
 from networkapi.utility.faker.helpers import (
     get_homepage,
     get_random_objects,
     reseed
 )
-
 from .index_page import IndexPageFactory
-
 from .tagging import add_tags
+
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
@@ -69,7 +64,7 @@ def add_authors(post):
 
 def add_featured_posts(blog_index_page):
     for page in get_random_objects(model=BlogPage, max_count=5):
-        featured_page_orderable = FeaturedBlogPages.objects.create(page=blog_index_page, blog=page)
+        featured_page_orderable = blog_index.FeaturedBlogPages.objects.create(page=blog_index_page, blog=page)
         blog_index_page.featured_pages.add(featured_page_orderable)
 
     blog_index_page.save()
@@ -97,6 +92,21 @@ class BlogPageFactory(PageFactory):
 
     # Lazy Values
     title_text = Faker('sentence', nb_words=3, variable_nb_words=False)
+
+
+class FeaturedBlogPagesFactory(DjangoModelFactory):
+    class Meta:
+        model = blog_index.FeaturedBlogPages
+
+
+class FeaturedVideoPostFactory(DjangoModelFactory):
+    class Meta:
+        model = blog_index.FeaturedVideoPost
+
+
+class BlogPageTopicFactory(DjangoModelFactory):
+    class Meta:
+        model = BlogPageTopic
 
 
 def generate(seed):

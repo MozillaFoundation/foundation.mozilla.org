@@ -1,20 +1,5 @@
-<ul class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-5 tw-gap-y-7 tw-list-none tw-px-[15px]">
-  {% for entry in entries %}
-  {%  with card_classes="tw-m-0 tw-p-0" %}
-    {% if forloop.counter == 3 and related_topics.count > 0 %}
-      <li class="{{card_classes}}">
-        {% include "./related_topics_cutout.html" with topics=related_topics %}
-      </li>
-    {% endif %}
-    <li class="{{card_classes}}">
-      {% with type=entry.specific_class.get_verbose_name|lower %}
-        {% if type == "blog page" %}
-          {% include "./blog_card.html" with page=entry %}
-        {% else %}
-          {% include "./generic_card.html" with page=entry %}
-        {% endif %}
-      {% endwith %}
-    </li>
-  {% endwith %} 
-  {% endfor %}
+<ul id="index-entries" class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-5 tw-gap-y-7 tw-list-none tw-px-[15px]">
+  {% block item_loop %}
+    {% include "./entry_cards_item_loop.html" with entries=entries horizontal=horizontal %}
+  {% endblock  %}
 </ul>

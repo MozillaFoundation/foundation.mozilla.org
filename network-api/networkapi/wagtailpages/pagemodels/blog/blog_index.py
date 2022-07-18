@@ -1,18 +1,22 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, Optional
 
+from django import http
 from django.conf import settings
-from django.db import models
-from django.shortcuts import redirect, get_object_or_404
+from django.core import paginator
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import models
 from django.forms import CheckboxSelectMultiple
-
+from django.shortcuts import redirect, get_object_or_404
+from django.template import loader
 
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPanel
 from wagtail.contrib.routable_page.models import route
 from wagtail.core.models import Orderable as WagtailOrderable
+from wagtail.core.models import Locale
 from wagtail_localize.fields import SynchronizedField
-
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from sentry_sdk import capture_exception, push_scope
+
 from networkapi.wagtailpages.models import Profile
 from networkapi.wagtailpages.utils import (
     titlecase,
@@ -20,8 +24,6 @@ from networkapi.wagtailpages.utils import (
     get_default_locale,
     localize_queryset,
 )
-
-from sentry_sdk import capture_exception, push_scope
 
 from ..index import IndexPage
 from .blog_topic import BlogPageTopic
@@ -139,23 +141,25 @@ class BlogIndexPage(IndexPage):
         context["related_topics"] = self.get_related_topics()
         return context
 
-    # superclass override
-    def get_all_entries(self, locale):
+    # Superclass override
+    def get_entries(self, context=dict()):
         """
-        Do we need to filter the featured blog entries
-        out, so they don't show up twice?
+        Get list of index entries/child pages.
+
+        We filter the featured blog posts, because they are displayed separately.
         """
-        if hasattr(self, 'filtered'):
-            return super().get_all_entries(locale)
+        entries = super().get_entries(context=context)
 
-        featured = [
-            entry.blog.get_translation(locale).pk for entry in self.featured_pages.all()
-        ]
+        if not hasattr(self, 'filtered'):
+            featured = [
+                feature.blog.localized.pk for feature in self.featured_pages.all()
+            ]
+            featured.extend([
+                feature.blog_page.localized.pk for feature in self.featured_video_post.all()
+            ])
+            entries = entries.exclude(pk__in=featured)
 
-        if self.featured_video_post:
-            featured.extend([entry.blog_page.get_translation(locale).pk for entry in self.featured_video_post.all()])
-
-        return super().get_all_entries(locale).exclude(pk__in=featured)
+        return entries
 
     def filter_entries(self, entries, context):
         entries = super().filter_entries(entries, context)
@@ -198,6 +202,10 @@ class BlogIndexPage(IndexPage):
 
         # update seo fields
         self.set_seo_fields_from_topic(localized_topic)
+
+        # TODO: REMOVE all of the following. The filtering should not be done in Python
+        #       at all, but rather in the database. There should be no need to iterate.
+        #       See also: https://stackoverflow.com/questions/4507893/django-filter-many-to-many-with-contains
 
         # This code is not efficient, but its purpose is to get us logs
         # that we can use to figure out what's going wrong more than
@@ -357,15 +365,18 @@ class BlogIndexPage(IndexPage):
             template="wagtailpages/blog_author_detail_page.html"
         )
 
-    @route(r'^search/')
+    @route(r'^search/$')
     def search(self, request: 'HttpRequest') -> 'HttpResponse':
         """Render search results view."""
 
         query = request.GET.get('q', '')
 
+        entries = self.get_search_entries(query=query)
+
         context_overrides = {
             'index_title': 'Search',
-            'entries': self.get_search_entries(query=query)[:6],
+            'entries': entries[:self.page_size],
+            'has_more': entries.count() > self.page_size,
             'query': query,
         }
 
@@ -375,8 +386,52 @@ class BlogIndexPage(IndexPage):
             template='wagtailpages/blog_index_search.html',
         )
 
-    def get_search_entries(self, query: str = '') -> Union['QuerySet', 'DatabaseSearchResults']:
-        entries = self.get_entries().specific()
+    @route(r'^search/entries/$')
+    def search_entries(self, request: 'HttpRequest') -> 'HttpResponse':
+        query: str = request.GET.get('q', '')
+
+        page_parameter: str = request.GET.get('page', '')
+        if not page_parameter:
+            return http.HttpResponseBadRequest(reason='No page number defined.')
+
+        try:
+            page_number: int = int(page_parameter)
+        except ValueError:
+            return http.HttpResponseBadRequest(reason='Page number is not an integer.')
+
+        entries = self.get_search_entries(query=query)
+
+        entries_paginator = paginator.Paginator(
+            object_list=entries,
+            per_page=self.page_size,
+            allow_empty_first_page=False,
+        )
+        try:
+            # JS is using 0 based page number, but the paginator is using 1 based.
+            entries_page = entries_paginator.page(page_number + 1)
+        except paginator.EmptyPage:
+            return http.HttpResponseNotFound(reason='No entries for this page number.')
+
+        entries_html = loader.render_to_string(
+            'wagtailpages/fragments/blog_search_item_loop.html',
+            context={'entries': entries_page},
+            request=request
+        )
+
+        return http.JsonResponse(
+            data={
+                'entries_html': entries_html,
+                'has_next': entries_page.has_next(),
+            }
+        )
+
+    def get_search_entries(
+        self,
+        query: str = '',
+        locale: Optional[Locale] = None,
+    ) -> Union['QuerySet', 'DatabaseSearchResults']:
+        locale = locale or Locale.get_active()
+        entries = self.get_all_entries(locale=locale).specific()
         if query:
             entries = entries.search(
                 query,
