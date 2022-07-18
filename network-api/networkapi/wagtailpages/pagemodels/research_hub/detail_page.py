@@ -47,7 +47,7 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
         docs_handlers.DocumentChooserPanel('document'),
     ]
 
-    class Meta(wagtail_models.TranslatableMixin.Meta):
+    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
         ordering = ['sort_order']
 
     def __str__(self):
