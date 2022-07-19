@@ -24,9 +24,7 @@ export class SearchFilter {
     setupHistoryManagement(this, searchBar, searchInput);
 
     const subContainer = document.querySelector(`.subcategory-header`);
-    [`mousedown`, `touchstart`].forEach((type) =>
-      subContainer.addEventListener(type, markScrollStart)
-    );
+    subContainer.addEventListener(`mousedown`, markScrollStart);
 
     // we want the animation to start when the first eight products images are loaded
     Promise.allSettled(
