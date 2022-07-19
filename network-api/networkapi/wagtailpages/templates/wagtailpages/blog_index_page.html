@@ -10,7 +10,7 @@
 
 {% block featured %}
   {% if not filtered %}
-    <div class="tw-grid tw-grid-cols-12 tw-gap-x-5 tw-gap-y-[3.5rem] tw-mb-7">
+    <div class="tw-grid tw-grid-cols-12 tw-gap-x-5 tw-gap-y-7 tw-mb-7">
       {%  for feature in page.specific.featured_pages.all %}
         {% if forloop.first %}
           <div class="tw-col-span-12">

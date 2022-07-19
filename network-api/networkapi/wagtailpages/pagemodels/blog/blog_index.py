@@ -118,7 +118,7 @@ class BlogIndexPage(IndexPage):
         help_text='Callout box that appears after the featured posts section',
         blank=True,
         min_num=1,
-        max_num=1
+        max_num=1,
     )
 
     subpage_types = [
