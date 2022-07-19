@@ -8,7 +8,7 @@ from django.test import TestCase, RequestFactory
 
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
-from networkapi.wagtailpages.pagemodels.products import (
+from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuidePage,
     ProductPage,
     ProductPageVotes,

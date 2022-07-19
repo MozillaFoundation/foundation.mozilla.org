@@ -3,7 +3,7 @@ from rest_framework import serializers
 from wagtail_airtable.serializers import AirtableSerializer
 
 from networkapi.wagtailpages.fields import ExtendedYesNoField
-from networkapi.wagtailpages.pagemodels.products import TRACK_RECORD_CHOICES
+from networkapi.wagtailpages.pagemodels.buyersguide.products import TRACK_RECORD_CHOICES
 
 
 class TrackRecordChoicesSerializer(serializers.RelatedField):
