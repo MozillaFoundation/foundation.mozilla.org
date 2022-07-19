@@ -101,7 +101,7 @@ from .pagemodels.dear_internet import (
     DearInternetPage
 )
 
-from .pagemodels.products import (
+from .pagemodels.buyersguide.products import (
     BuyersGuidePage,
     GeneralProductPage,
     ProductPage,

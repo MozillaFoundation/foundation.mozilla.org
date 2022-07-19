@@ -17,7 +17,6 @@ from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext, pgettext
-from .customblocks.base_rich_text_options import base_rich_text_options
 
 from modelcluster.fields import ParentalKey
 
@@ -39,6 +38,7 @@ from networkapi.wagtailpages.fields import ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
+from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import (
     insert_panels_after,
@@ -49,7 +49,7 @@ from networkapi.wagtailpages.utils import (
 )
 
 # TODO: Move this util function
-from .mixin.snippets import LocalizedSnippet
+from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
 from networkapi.wagtailpages.utils import get_language_from_request
 
 TRACK_RECORD_CHOICES = [

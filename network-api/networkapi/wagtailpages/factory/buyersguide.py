@@ -16,7 +16,7 @@ from wagtail_factories import PageFactory
 
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
-from networkapi.wagtailpages.pagemodels.products import (
+from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuidePage,
     GeneralProductPage,
     BuyersGuideProductCategory,
@@ -25,11 +25,11 @@ from networkapi.wagtailpages.pagemodels.products import (
     ProductPagePrivacyPolicyLink,
     ProductUpdates,
     RelatedProducts,
+    Update,
 )
 from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 
-from networkapi.wagtailpages.pagemodels.products import Update
 Faker.add_provider(ImageProvider)
 
 
