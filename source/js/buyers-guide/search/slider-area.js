@@ -23,13 +23,8 @@ export function markScrollStart(event) {
     x: event.clientX,
   };
 
-  [`mousemove`, `touchmove`].forEach((type) =>
-    document.addEventListener(type, markScrollMove)
-  );
-
-  [`mouseup`, `touchend`, `touchcancel`].forEach((type) =>
-    document.addEventListener(type, markScrollEnd)
-  );
+  document.addEventListener(`mousemove`, markScrollMove);
+  document.addEventListener(`mouseup`, markScrollEnd);
 }
 
 function markScrollMove(event) {
@@ -49,11 +44,11 @@ function markScrollEnd(event) {
 
   subClasses.remove("cursor-grabbing", "select-none");
 
-  [`mousemove`, `touchmove`].forEach((type) =>
+  [`mousemove`].forEach((type) =>
     document.removeEventListener(type, markScrollMove)
   );
 
-  [`mouseup`, `touchend`, `touchcancel`].forEach((type) =>
+  [`mouseup`].forEach((type) =>
     document.removeEventListener(type, markScrollEnd)
   );
 }
