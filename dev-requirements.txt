@@ -4,6 +4,10 @@
 #
 #    pip-compile dev-requirements.in
 #
+asgiref==3.5.0
+    # via
+    #   -c requirements.txt
+    #   django
 certifi==2021.10.8
     # via
     #   -c requirements.txt
@@ -26,6 +30,12 @@ cryptography==36.0.1
     #   -c requirements.txt
     #   pyopenssl
     #   urllib3
+django==3.2.13
+    # via
+    #   -c requirements.txt
+    #   django-debug-toolbar
+django-debug-toolbar==3.5.0
+    # via -r dev-requirements.in
 docopt==0.6.2
     # via coveralls
 flake8==3.9.2
@@ -51,10 +61,19 @@ pyopenssl==22.0.0
     # via
     #   -c requirements.txt
     #   urllib3
+pytz==2021.3
+    # via
+    #   -c requirements.txt
+    #   django
 requests==2.27.1
     # via
     #   -c requirements.txt
     #   coveralls
+sqlparse==0.4.2
+    # via
+    #   -c requirements.txt
+    #   django
+    #   django-debug-toolbar
 urllib3[secure]==1.26.8
     # via
     #   -c requirements.txt

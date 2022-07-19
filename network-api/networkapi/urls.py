@@ -149,6 +149,11 @@ if settings.DEBUG:
         path('maintenance/', TemplateView.as_view(template_name="maintenance/maintenance.html")),
     )
 
+if settings.DEBUG_TOOLBAR_ENABLED:
+    urlpatterns += (
+        path('__debug__/', include('debug_toolbar.urls')),
+    )
+
 urlpatterns += [
     path('sitemap.xml', sitemap_index)
 ]
