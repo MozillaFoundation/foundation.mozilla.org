@@ -46,6 +46,7 @@ env = environ.Env(
     DATA_UPLOAD_MAX_NUMBER_FIELDS=(int, 2500),
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
+    DEBUG_TOOLBAR_ENABLED=(bool, False),
     DJANGO_LOG_LEVEL=(str, 'INFO'),
     FEED_CACHE_TIMEOUT=(int, 60*60*24),
     DOMAIN_REDIRECT_MIDDLEWARE_ENABLED=(bool, False),
@@ -137,6 +138,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
+DEBUG_TOOLBAR_ENABLED = env('DEBUG_TOOLBAR_ENABLED')
 
 # SECURITY WARNING: same as above!
 FORCE_500_STACK_TRACES = env('FORCE_500_STACK_TRACES')
@@ -237,6 +239,7 @@ INSTALLED_APPS = list(filter(None, [
 
     'rest_framework',
     'django_filters',
+    'debug_toolbar' if DEBUG_TOOLBAR_ENABLED else None,
     'gunicorn',
     'corsheaders',
     'storages',
@@ -273,6 +276,9 @@ MIDDLEWARE = list(filter(None, [
 
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.gzip.GZipMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware' if DEBUG_TOOLBAR_ENABLED else None,
+
     'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # should be after SessionMiddleware and before CommonMiddleware

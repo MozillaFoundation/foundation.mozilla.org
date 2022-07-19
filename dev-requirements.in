@@ -1,4 +1,5 @@
 -c requirements.txt
-flake8
 coveralls
+django-debug-toolbar
+flake8
 ptvsd
