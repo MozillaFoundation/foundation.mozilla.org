@@ -114,7 +114,7 @@ class BlogIndexPage(IndexPage):
     )
 
     callout_box = StreamField(
-        [('callout_box', customblocks.BlogIndexCalloutBlock())],
+        [('callout_box', customblocks.BlogIndexCalloutBoxBlock())],
         help_text='Callout box that appears after the featured posts section',
         blank=True,
         min_num=1,
@@ -142,7 +142,6 @@ class BlogIndexPage(IndexPage):
         ),
         FieldPanel('related_topics', widget=CheckboxSelectMultiple),
         StreamFieldPanel('callout_box'),
-
     ]
 
     translatable_fields = IndexPage.translatable_fields + [
