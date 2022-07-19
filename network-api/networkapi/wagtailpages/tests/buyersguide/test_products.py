@@ -1,6 +1,7 @@
 import json
-from os.path import abspath, dirname, join
+from os.path import abspath, join
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.test.utils import override_settings
 from rest_framework.test import APITestCase
@@ -171,8 +172,8 @@ class BuyersGuideTestMixin(WagtailPageTests):
         product_page = ProductPage.objects.first()
         if not product_page:
             image_path = abspath(join(
-                dirname(__file__),
-                '../../../media/images/placeholders/products/babymonitor.jpg',
+                settings.BASE_DIR,
+                'media/images/placeholders/products/babymonitor.jpg',
             ))
             wagtail_image = create_wagtail_image(
                 image_path,
