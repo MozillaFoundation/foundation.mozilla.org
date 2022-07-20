@@ -161,6 +161,16 @@ class ProductPagePrivacyPolicyLinkFactory(DjangoModelFactory):
     url = Faker('url')
 
 
+class BuyersGuideEditorialContentIndexPageFactory(PageFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideEditorialContentIndexPage
+
+
+class BuyersGuideArticlePageFactory(PageFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideArticlePage
+
+
 def create_general_product_visual_regression_product(seed, pni_homepage):
     # There are no random fields here: *everything* is prespecified
     GeneralProductPageFactory.create(
