@@ -9,6 +9,7 @@ from .card_grid import CardGrid, CardGridBlock
 from .current_events_slider_block import CurrentEventsSliderBlock
 from .datawrapper_block import DatawrapperBlock
 from .banner_carousel import BannerCarouselSlideBlock
+from .blog_index_callout_box_block import BlogIndexCalloutBoxBlock
 from .iframe_block import iFrameBlock
 from .image_block import ImageBlock
 from .image_grid import ImageGrid, ImageGridBlock
@@ -47,6 +48,7 @@ __all__ = [
     AudioBlock,
     BannerCarouselSlideBlock,
     BlogSetBlock,
+    BlogIndexCalloutBoxBlock,
     BootstrapSpacerBlock,
     CardGrid,
     CardGridBlock,

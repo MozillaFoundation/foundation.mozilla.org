@@ -1,0 +1,25 @@
+{% load wagtailcore_tags wagtailimages_tags static i18n %}
+
+<div class="tw-h-full tw-flex tw-flex-col tw-justify-between tw-p-6 tw-popout">
+  <div id="callout-box-body" class="tw-mb-7 tw-pb-4">
+    {% if value.related_topics or value.show_icon %}
+      <div class="tw-flex tw-mb-3">
+        {% include '../fragments/blog_topics.html' with topics=value.related_topics %}
+        {% if value.show_icon %}
+          <img src="{% static "_images/headphones-icon.svg" %}" alt="{% trans "audio" context "icon description for screen readers" %}" class="tw-h-4 tw-w-4 tw-mr-2 tw-my-1">
+        {% endif %}
+      </div>
+    {% endif %}
+    <h2 class="tw-text-[40px] tw-h2-heading tw-font-normal tw-mb-2">{{ value.title }}</h2>
+    <div class="tw-body tw-mb-5">{{ value.body | richtext }}</div>
+    {% if value.audio %}
+      {% include '../fragments/audio_player.html' with audio=value.audio.url extra_css="tw-my-2"%}
+    {% endif %}
+  </div>
+    {% if value.link_button_text and value.link_button_url %}
+      <div id="callout-box-button" class='tw-text-right tw-mt-7'>
+          <a class="tw-btn-secondary tw-border after:tw-content-[]" href="{{ value.link_button_url }}">{{ value.link_button_text }}</a>
+      </div>
+    {% endif %}
+</div>
+
