@@ -105,10 +105,15 @@ from .pagemodels.buyersguide.editorial_content_index import BuyersGuideEditorial
 from .pagemodels.buyersguide.article_page import BuyersGuideArticlePage
 from .pagemodels.buyersguide.products import (
     BuyersGuidePage,
+    BuyersGuideProductCategory,
     GeneralProductPage,
     ProductPage,
     ProductPageCategory,
     ProductPagePrivacyPolicyLink,
+    ProductPageVotes,
+    ProductUpdates,
+    RelatedProducts,
+    Update,
 )
 
 from .pagemodels.pulse import PulseFilter
@@ -127,6 +132,7 @@ __all__ = [
     BuyersGuideArticlePage,
     BuyersGuideEditorialContentIndexPage,
     BuyersGuidePage,
+    BuyersGuideProductCategory,
     CampaignIndexPage,
     CampaignPage,
     Profile,
@@ -155,9 +161,12 @@ __all__ = [
     ProductPage,
     ProductPageCategory,
     ProductPagePrivacyPolicyLink,
+    ProductPageVotes,
+    ProductUpdates,
     PublicationPage,
     PulseFilter,
     RedirectingPage,
+    RelatedProducts,
     ResearchAuthorsIndexPage,
     ResearchAuthorRelation,
     ResearchDetailLink,
@@ -171,6 +180,7 @@ __all__ = [
     ResearchTopic,
     Signup,
     Styleguide,
+    Update,
     YoutubeRegretsPage,
     YoutubeRegrets2021Page,
     YoutubeRegretsReporterPage,

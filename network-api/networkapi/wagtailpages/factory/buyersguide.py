@@ -9,24 +9,11 @@ from factory import (
     LazyFunction,
 )
 from factory.django import DjangoModelFactory
-
-
 from wagtail.images.models import Image
 from wagtail_factories import PageFactory
 
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
-from networkapi.wagtailpages.pagemodels.base import Homepage
-from networkapi.wagtailpages.pagemodels.buyersguide.products import (
-    BuyersGuidePage,
-    GeneralProductPage,
-    BuyersGuideProductCategory,
-    ProductPage,
-    ProductPageVotes,
-    ProductPagePrivacyPolicyLink,
-    ProductUpdates,
-    RelatedProducts,
-    Update,
-)
+from networkapi.wagtailpages import models as pagemodels
 from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 
@@ -49,7 +36,7 @@ def get_lowest_content_page_category():
     return sorted(
         [
             (cat.published_product_page_count, cat)
-            for cat in BuyersGuideProductCategory.objects.all()
+            for cat in pagemodels.BuyersGuideProductCategory.objects.all()
         ],
         key=lambda t: t[0]
     )[0][1]
@@ -57,7 +44,7 @@ def get_lowest_content_page_category():
 
 class ProductUpdateFactory(DjangoModelFactory):
     class Meta:
-        model = Update
+        model = pagemodels.Update
 
     source = Faker('url')
     title = Faker('sentence')
@@ -69,13 +56,13 @@ class ProductUpdateFactory(DjangoModelFactory):
 class BuyersGuidePageFactory(PageFactory):
 
     class Meta:
-        model = BuyersGuidePage
+        model = pagemodels.BuyersGuidePage
 
 
 class ProductPageVotesFactory(DjangoModelFactory):
 
     class Meta:
-        model = ProductPageVotes
+        model = pagemodels.ProductPageVotes
 
     vote_bins = LazyFunction(lambda: ','.join([str(randint(1, 50)) for x in range(0, 5)]))
 
@@ -83,7 +70,7 @@ class ProductPageVotesFactory(DjangoModelFactory):
 class ProductPageFactory(PageFactory):
 
     class Meta:
-        model = ProductPage
+        model = pagemodels.ProductPage
 
     title = Faker('sentence')
 
@@ -142,7 +129,7 @@ class ProductPageFactory(PageFactory):
 class GeneralProductPageFactory(ProductPageFactory):
 
     class Meta:
-        model = GeneralProductPage
+        model = pagemodels.GeneralProductPage
 
     camera_app = LazyFunction(get_extended_yes_no_value)
     camera_device = LazyFunction(get_extended_yes_no_value)
@@ -168,7 +155,7 @@ class GeneralProductPageFactory(ProductPageFactory):
 class ProductPagePrivacyPolicyLinkFactory(DjangoModelFactory):
 
     class Meta:
-        model = ProductPagePrivacyPolicyLink
+        model = pagemodels.ProductPagePrivacyPolicyLink
 
     label = Faker('sentence')
     url = Faker('url')
@@ -220,7 +207,7 @@ def generate(seed):
 
     print('Generating PNI Homepage')
     pni_homepage = BuyersGuidePageFactory.create(
-        parent=Homepage.objects.first(),
+        parent=pagemodels.Homepage.objects.first(),
         title='* Privacy not included',
         slug='privacynotincluded',
         header='Be Smart. Shop Safe.',
@@ -241,7 +228,7 @@ def generate(seed):
         general_page.save_revision().publish()
 
     print('Crosslinking related products')
-    product_pages = ProductPage.objects.all()
+    product_pages = pagemodels.ProductPage.objects.all()
     total_product_pages = product_pages.count()
     for product_page in product_pages:
         # Create a new orderable 3 times.
@@ -249,7 +236,7 @@ def generate(seed):
         for i in range(3):
             random_number = randint(1, total_product_pages) - 1
             random_page = product_pages[random_number]
-            related_product = RelatedProducts(
+            related_product = pagemodels.RelatedProducts(
                 page=product_page,
                 related_product=random_page,
             )
@@ -257,7 +244,7 @@ def generate(seed):
             product_page.related_product_pages.add(related_product)
 
             # Create new ProductUpdates orderable for each PNI product
-            product_update = ProductUpdates(
+            product_update = pagemodels.ProductUpdates(
                 page=product_page,
                 update=ProductUpdateFactory()
             )
@@ -280,7 +267,7 @@ def generate(seed):
 
     print('Generating predictable PNI images')
     pni_images = Image.objects.filter(collection__name='pni products')
-    for product_page in ProductPage.objects.all():
+    for product_page in pagemodels.ProductPage.objects.all():
         if pni_images:
             product_page.image = choice(pni_images)
         else:
