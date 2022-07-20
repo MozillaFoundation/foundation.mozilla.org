@@ -63,7 +63,7 @@ def add_authors(post):
 
 
 def add_featured_posts(blog_index_page):
-    for page in get_random_objects(model=BlogPage, max_count=5):
+    for page in BlogPage.objects.all()[:5]:
         featured_page_orderable = blog_index.FeaturedBlogPages.objects.create(page=blog_index_page, blog=page)
         blog_index_page.featured_pages.add(featured_page_orderable)
 
@@ -73,6 +73,8 @@ def add_featured_posts(blog_index_page):
 class BlogIndexPageFactory(IndexPageFactory):
     class Meta:
         model = BlogIndexPage
+
+    callout_box = Faker('streamfield', fields=['callout_box'])
 
 
 class BlogPageFactory(PageFactory):

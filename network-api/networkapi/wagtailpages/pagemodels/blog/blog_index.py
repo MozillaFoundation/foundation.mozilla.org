@@ -9,15 +9,22 @@ from django.forms import CheckboxSelectMultiple
 from django.shortcuts import redirect, get_object_or_404
 from django.template import loader
 
-from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPanel
+from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPanel, StreamFieldPanel
+
 from wagtail.contrib.routable_page.models import route
 from wagtail.core.models import Orderable as WagtailOrderable
 from wagtail.core.models import Locale
 from wagtail_localize.fields import SynchronizedField
+from wagtail.core.fields import StreamField
+
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from sentry_sdk import capture_exception, push_scope
 
 from networkapi.wagtailpages.models import Profile
+from networkapi.wagtailpages.pagemodels import customblocks
+from networkapi.wagtailpages.forms import BlogIndexPageForm
+
+
 from networkapi.wagtailpages.utils import (
     titlecase,
     get_locale_from_request,
@@ -27,7 +34,6 @@ from networkapi.wagtailpages.utils import (
 
 from ..index import IndexPage
 from .blog_topic import BlogPageTopic
-from networkapi.wagtailpages.forms import BlogIndexPageForm
 
 
 if TYPE_CHECKING:
@@ -107,6 +113,14 @@ class BlogIndexPage(IndexPage):
         blank=True
     )
 
+    callout_box = StreamField(
+        [('callout_box', customblocks.BlogIndexCalloutBoxBlock())],
+        help_text='Callout box that appears after the featured posts section',
+        blank=True,
+        min_num=1,
+        max_num=1,
+    )
+
     subpage_types = [
         'BlogPage'
     ]
@@ -126,7 +140,8 @@ class BlogIndexPage(IndexPage):
             min_num=0,
             max_num=1,
         ),
-        FieldPanel('related_topics', widget=CheckboxSelectMultiple)
+        FieldPanel('related_topics', widget=CheckboxSelectMultiple),
+        StreamFieldPanel('callout_box'),
     ]
 
     translatable_fields = IndexPage.translatable_fields + [
