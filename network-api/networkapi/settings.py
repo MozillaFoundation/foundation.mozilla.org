@@ -43,6 +43,7 @@ env = environ.Env(
     CRM_AWS_SQS_REGION=(str, None),
     CRM_AWS_SQS_SECRET_ACCESS_KEY=(str, None),
     CRM_PETITION_SQS_QUEUE_URL=(str, None),
+    CSP_INCLUDE_NONCE_IN=(list, []),
     DATA_UPLOAD_MAX_NUMBER_FIELDS=(int, 2500),
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
@@ -599,6 +600,7 @@ CSP_FORM_ACTION = env('CSP_FORM_ACTION', default=None)
 CSP_SANDBOX = env('CSP_SANDBOX', default=None)
 CSP_REPORT_URI = env('CSP_REPORT_URI', default=None)
 CSP_WORKER_SRC = env('CSP_WORKER_SRC', default=CSP_DEFAULT)
+CSP_INCLUDE_NONCE_IN = env('CSP_INCLUDE_NONCE_IN', default=None)
 
 # Security
 SECURE_BROWSER_XSS_FILTER = env('XSS_PROTECTION')
