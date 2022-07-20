@@ -124,6 +124,7 @@ __all__ = [
     BlogIndexPage,
     BlogPage,
     BlogPageTopic,
+    BuyersGuideArticlePage,
     BuyersGuideEditorialContentIndexPage,
     BuyersGuidePage,
     CampaignIndexPage,
