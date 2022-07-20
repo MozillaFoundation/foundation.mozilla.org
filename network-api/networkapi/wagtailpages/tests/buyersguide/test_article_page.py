@@ -15,4 +15,3 @@ class BuyersGuideArticlePageTest(wagtail_test.WagtailPageTests):
             child_model=pagemodels.BuyersGuideArticlePage,
             parent_models={pagemodels.BuyersGuideEditorialContentIndexPage},
         )
-

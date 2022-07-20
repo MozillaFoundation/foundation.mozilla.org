@@ -290,7 +290,6 @@ def generate(seed):
         product_page.save()
     # TODO: link updates into products
 
-
     print('Generating buyers guide editorial content')
     editorial_content_index = BuyersGuideEditorialContentIndexPageFactory(parent=pni_homepage)
     for _ in range(5):
