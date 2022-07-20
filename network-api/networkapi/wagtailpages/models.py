@@ -102,6 +102,7 @@ from .pagemodels.dear_internet import (
 )
 
 from .pagemodels.buyersguide.article_index import BuyersGuideArticleIndexPage
+from .pagemodels.buyersguide.article_page import BuyersGuideArticlePage
 from .pagemodels.buyersguide.products import (
     BuyersGuidePage,
     GeneralProductPage,
