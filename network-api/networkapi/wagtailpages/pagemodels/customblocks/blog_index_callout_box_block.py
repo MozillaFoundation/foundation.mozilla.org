@@ -16,7 +16,6 @@ class BlogIndexCalloutBoxBlock(blocks.StructBlock):
         snippet_blocks.SnippetChooserBlock(BlogPageTopic),
         max_num=2,
         help_text='Optional topics to display at the top of the callout box.',
-
     )
 
     show_icon = blocks.BooleanBlock(
