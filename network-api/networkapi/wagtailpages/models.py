@@ -101,6 +101,7 @@ from .pagemodels.dear_internet import (
     DearInternetPage
 )
 
+from .pagemodels.buyersguide.article_index import BuyersGuideArticleIndexPage
 from .pagemodels.buyersguide.products import (
     BuyersGuidePage,
     GeneralProductPage,
@@ -122,6 +123,7 @@ __all__ = [
     BlogIndexPage,
     BlogPage,
     BlogPageTopic,
+    BuyersGuideArticleIndexPage,
     BuyersGuidePage,
     CampaignIndexPage,
     CampaignPage,
