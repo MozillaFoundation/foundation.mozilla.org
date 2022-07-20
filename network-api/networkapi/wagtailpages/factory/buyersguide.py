@@ -5,8 +5,9 @@ from datetime import date, datetime, timezone, timedelta
 
 from factory import (
     Faker,
-    post_generation,
     LazyFunction,
+    Sequence,
+    post_generation,
 )
 from factory.django import DjangoModelFactory
 from wagtail.images.models import Image
@@ -165,10 +166,14 @@ class BuyersGuideEditorialContentIndexPageFactory(PageFactory):
     class Meta:
         model = pagemodels.BuyersGuideEditorialContentIndexPage
 
+    title = Sequence(lambda n: f'Editorial content index {n}')
+
 
 class BuyersGuideArticlePageFactory(PageFactory):
     class Meta:
         model = pagemodels.BuyersGuideArticlePage
+
+    title = Faker('sentence')
 
 
 def create_general_product_visual_regression_product(seed, pni_homepage):
@@ -285,33 +290,8 @@ def generate(seed):
         product_page.save()
     # TODO: link updates into products
 
-    """
-    reseed(seed)
 
-    print('Generating Buyer\'s Guide Products')
-    generate_fake_data(GeneralProductFactory, 70)
-
-    reseed(seed)
-
-    print('Generating Randomised Buyer\'s Guide Products Votes')
-    for p in Product.objects.all():
-        for _ in range(1, 15):
-            value = randint(1, 100)
-            RangeVote.objects.create(
-                product=p,
-                attribute='creepiness',
-                value=value
-            )
-
-            value = (random() < 0.5)
-            BooleanVote.objects.create(
-                product=p,
-                attribute='confidence',
-                value=value
-            )
-
-    reseed(seed)
-
-    print('Aggregating Buyer\'s Guide Product votes')
-    call_command('aggregate_product_votes')
-    """
+    print('Generating buyers guide editorial content')
+    editorial_content_index = BuyersGuideEditorialContentIndexPageFactory(parent=pni_homepage)
+    for _ in range(5):
+        BuyersGuideArticlePageFactory(parent=editorial_content_index)
