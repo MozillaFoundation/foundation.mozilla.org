@@ -1373,7 +1373,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     template = 'buyersguide/home.html'
     subpage_types = [
         'wagtailpages.GeneralProductPage',
-        'wagtailpages.BuyersGuideArticleIndexPage',
+        'wagtailpages.BuyersGuideEditorialContentIndexPage',
     ]
 
     cutoff_date = models.DateField(
