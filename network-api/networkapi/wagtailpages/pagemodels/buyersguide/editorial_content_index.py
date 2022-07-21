@@ -10,3 +10,8 @@ class BuyersGuideEditorialContentIndexPage(
     parent_page_types = ['wagtailpages.BuyersGuidePage']
     subpage_types = ['wagtailpages.BuyersGuideArticlePage']
     template = 'pages/buyersguide/editorial_content_index_page.html'
+
+    def get_context(self, request, *args, **kwargs):
+        context =  super().get_context(request, *args, **kwargs)
+        context["home_page"] = self.get_parent().specific
+        return context
