@@ -166,7 +166,7 @@ class BuyersGuideEditorialContentIndexPageFactory(PageFactory):
     class Meta:
         model = pagemodels.BuyersGuideEditorialContentIndexPage
 
-    title = Sequence(lambda n: f'Editorial content index {n}')
+    title = 'Articles'
 
 
 class BuyersGuideArticlePageFactory(PageFactory):
