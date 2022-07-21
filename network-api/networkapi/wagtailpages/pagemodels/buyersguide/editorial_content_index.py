@@ -9,4 +9,4 @@ class BuyersGuideEditorialContentIndexPage(
 ):
     parent_page_types = ['wagtailpages.BuyersGuidePage']
     subpage_types = ['wagtailpages.BuyersGuideArticlePage']
-    template = 'pages/buyersguide_editorial_content_index_page.html'
+    template = 'pages/buyersguide/editorial_content_index_page.html'
