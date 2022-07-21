@@ -224,21 +224,34 @@ def copy_production_database(ctx):
         ctx.run("node copy-db.js --prod")
 
 
-# Django shorthands
-@task(aliases=["docker-manage"])
-def manage(ctx, command, stop=False):
+# Python shorthands
+@task
+def pyrun(ctx, command, stop=False):
     """
-    Shorthand to manage.py. inv docker-manage \"[COMMAND] [ARG]\"
+    Shorthand to commands with the activated Python virutalenv.
 
     To stop the containers after the command has been run, pass the `--stop` flag.
     """
     with ctx.cd(ROOT):
         ctx.run(
-            f"docker-compose run --rm backend ./dockerpythonvenv/bin/python network-api/manage.py {command}",
+            f"docker-compose run --rm backend bash -c 'source ./dockerpythonvenv/bin/activate && {command}'",
             **PLATFORM_ARG,
         )
         if stop:
             ctx.run("docker-compose stop")
+
+
+@task(aliases=["docker-manage"])
+def manage(ctx, command, stop=False):
+    """
+    Shorthand to manage.py.
+
+    inv docker-manage \"[COMMAND] [ARG]\"
+
+    To stop the containers after the command has been run, pass the `--stop` flag.
+    """
+    command = f'python network-api/manage.py {command}'
+    pyrun(ctx, command, stop=stop)
 
 
 @task(aliases=["docker-migrate"])
@@ -275,10 +288,7 @@ def test(ctx):
 def test_python(ctx):
     """Run python tests"""
     print("* Running flake8")
-    ctx.run(
-        "docker-compose run --rm backend ./dockerpythonvenv/bin/python -m flake8 tasks.py network-api",
-        **PLATFORM_ARG,
-    )
+    pyrun(ctx, "flake8 tasks.py network-api")
     print("* Running tests")
     manage(ctx, "test networkapi")
 
