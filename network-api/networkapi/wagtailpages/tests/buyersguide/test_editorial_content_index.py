@@ -39,5 +39,20 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
+    def test_template(self):
+        content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
+            parent=self.pni_homepage,
+        )
+
+        response = self.client.get(content_index.url)
+
+        self.assertTemplateUsed(
+            response=response,
+            template_name='pages/buyersguide_editorial_content_index_page.html',
+        )
+        self.assertTemplateUsed(
+            response=response,
+            template_name='pages/base.html',
+        )
     # TODO: Test template
     # TODO: Test all children title on page
