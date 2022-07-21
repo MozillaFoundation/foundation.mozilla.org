@@ -52,6 +52,10 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         )
         self.assertTemplateUsed(
             response=response,
+            template_name='buyersguide/bg_base.html',
+        )
+        self.assertTemplateUsed(
+            response=response,
             template_name='pages/base.html',
         )
     # TODO: Test template
