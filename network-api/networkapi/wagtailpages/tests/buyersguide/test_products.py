@@ -8,6 +8,7 @@ from rest_framework.test import APITestCase
 from django.test import TestCase, RequestFactory
 
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
+from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuidePage,
@@ -301,6 +302,20 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
 
             response = self.client.get(url)
             self.assertEqual(len(response.context['products']), 1)
+
+    def test_find_editorial_content_index(self):
+        """Returns the editorial content index page."""
+        editorial_content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(parent=self.bg)
+
+        result = self.bg.find_editorial_content_index()
+
+        self.assertEqual(result, editorial_content_index)
+
+    def test_find_editorial_content_index_no_such_page(self):
+        """Returns None when there is no editorial content index page."""
+        result = self.bg.find_editorial_content_index()
+
+        self.assertEqual(result, None)
 
 
 class TestProductPage(BuyersGuideTestMixin):
