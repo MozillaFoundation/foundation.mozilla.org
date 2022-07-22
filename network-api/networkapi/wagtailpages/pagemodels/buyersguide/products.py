@@ -3,14 +3,14 @@ import json
 
 from bs4 import BeautifulSoup
 from datetime import datetime
+
+from django.apps import apps
 from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import int_list_validator
-
 from django.db import Error, models
 from django.db.models import F
-
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
 from django.templatetags.static import static
@@ -47,7 +47,6 @@ from networkapi.wagtailpages.utils import (
     get_original_by_slug,
     TitleWidget
 )
-
 # TODO: Move this util function
 from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
 from networkapi.wagtailpages.utils import get_language_from_request
@@ -1619,6 +1618,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['home_page'] = pni_home_page
         context['template_cache_key_fragment'] = f'pni_home_{request.LANGUAGE_CODE}'
         return context
+
+    def find_editorial_content_index(self):
+        BuyersGuideEditorialContentIndexPage = apps.get_model(
+            app_label='wagtailpages',
+            model_name='BuyersGuideEditorialContentIndexPage',
+        )
+        indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
+        return indexes.first()
 
     class Meta:
         verbose_name = "Buyers Guide Page"

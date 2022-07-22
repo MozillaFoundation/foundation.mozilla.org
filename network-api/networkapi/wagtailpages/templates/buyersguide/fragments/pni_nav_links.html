@@ -1,4 +1,11 @@
-{% load bg_nav_tags i18n localization %}
+{% load bg_nav_tags i18n localization wagtailcore_tags %}
 
+{{ pre }}
+{% with home_page.find_editorial_content_index as editorial_content_index  %}
+  {% if editorial_content_index %}
+    <a class="{{ class }}" href="{% pageurl editorial_content_index %}">{{ editorial_content_index }}</a>
+  {% endif %}
+{% endwith %}
 {% localizedroutablepageurl home_page 'about-why-view' as about_why_url %}
-{{ pre }}<a class="{{ class }} {% bg_active_nav request.get_full_path about_why_url %}" href="{{ about_why_url }}">{% trans "About the Guide" %}</a>{{ post }}
+<a class="{{ class }} {% bg_active_nav request.get_full_path about_why_url %}" href="{{ about_why_url }}">{% trans "About the Guide" %}</a>
+{{ post }}
