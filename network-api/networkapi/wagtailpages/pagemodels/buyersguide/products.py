@@ -1557,7 +1557,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         if category.description:
             setattr(self, 'search_description', category.localized.description)
 
-        return render(request, "buyersguide/category_page.html", context)
+        return render(request, "pages/buyersguide/category_page.html", context)
 
     def get_sitemap_urls(self, request):
         """
