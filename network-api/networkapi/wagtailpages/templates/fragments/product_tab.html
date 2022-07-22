@@ -3,7 +3,7 @@
     <div id="product-tab" class="tw-w-full tw-mb-4">
 
         {% include "fragments/product_tab_header.html"  %}
-        
+
         <div class="tw-overflow-hidden medium:tw--mx-7">
             <div id="product-tab-content" class="tw-w-full tw-flex tw-transition-transform tw-ease-in-out tw-duration-300 tw-items-start">
                 <div class="tw-w-full tw-shrink-0 medium:tw-px-7" data-product-label="0">
@@ -87,7 +87,7 @@
 
                     {% trans "What is the company’s known track record of protecting users’ data?" as company_track_record_label %}
                     {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record|track_record   help=product.track_record_details  ding=product.track_record_is_bad rich_help_text=True %}
-                    
+
                     {% if product.child_safety_blurb %}
                       {% trans "Child Privacy Information" as child_privacy_label %}
                       {% include "fragments/product_criterion.html"  with  label=child_privacy_label  value=product.child_safety_blurb rich_text_value=True  %}

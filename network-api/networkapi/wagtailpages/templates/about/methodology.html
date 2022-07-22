@@ -1,4 +1,4 @@
-{% extends "../bg_about_without_nav.html" %}
+{% extends "pages/buyersguide/about.html" %}
 
 {% load i18n %}
 
@@ -59,7 +59,7 @@
         {% blocktrans with consumer_reports="https://www.consumerreports.org/" wirecutter="https://thewirecutter.com/" cnet="https://cnet.com/" trimmed %}
         When we select products for *Privacy Not Included, our goal is to choose connected products and apps that are likely to
         be popular with consumers in North America and Europe. We make our decisions based on our own research of top selling
-        products that are highly rated across a variety of consumer product websites such as 
+        products that are highly rated across a variety of consumer product websites such as
         <a href="{{consumer_reports}}">Consumer Reports</a>, <a href="{{wirecutter}}">Wirecutter</a>, <a href="{{cnet}}">CNET</a>, and more.
         {% endblocktrans %}
       </p>
@@ -92,7 +92,7 @@
         While we currently can assign a product a warning for the use of untrustworthy artificial intelligence, we don’t use
         that rating to factor into our decision to assign the <em>*Privacy Not Included</em> warning label as the information from
         companies is currently very limited and we cannot easily compare one product another with a high degree of confidence.
-  
+
         {% endblocktrans %}
       </p>
 
@@ -183,8 +183,8 @@
       product-specific privacy notice, we rely on their general privacy policy for this information. This often means we
       cannot verify which information mentioned in a company’s privacy documentation may or may not be true about a specific
       product. In our requests for information from companies before publication, we ask for product-specific privacy policies
-      and if a company shares it, we analyze the product-specific policy. We believe consumers should be able to access privacy 
-      policies and documentation before they purchase a product. Learning what data a company collects and how it uses that data 
+      and if a company shares it, we analyze the product-specific policy. We believe consumers should be able to access privacy
+      policies and documentation before they purchase a product. Learning what data a company collects and how it uses that data
       is important to know before downloading an app or buying a product.
 
       {% endblocktrans %}
@@ -198,12 +198,12 @@
         <h3 class="p-heading mt-3 mb-1" id="personal-data">
           {% trans "Personal" %}
         </h3>
-  
+
         <p class="tw-body">
           {% blocktrans trimmed %}
           We list the personal data collected by each product, as specified in the privacy policy. This kind of information
           includes, but is not limited to, name, email address, phone number, and address.
-  
+
           {% endblocktrans %}
         </p>
       </section>
@@ -211,13 +211,13 @@
         <h3 class="p-heading mt-3 mb-1" id="body-related-data">
           {% trans "Body-Related" %}
         </h3>
-  
+
         <p class="tw-body">
           {% blocktrans trimmed %}
           Body-related (including biometric data) is data that describes our bodies and distinctive personal characteristics such
           as fingerprints, voices, and heart rates. Many devices collect sensitive data about stress, sleep patterns, and
           menstrual cycles, for instance. Some products use face and voice to identify users.
-  
+
           {% endblocktrans %}
         </p>
       </section>
@@ -225,13 +225,13 @@
         <h3 class="p-heading mt-3 mb-1" id="social-data">
           {% trans "Social" %}
         </h3>
-  
+
         <p class="tw-body">
           {% blocktrans trimmed %}
           Social data includes information about your friends and contacts. We detailed which products collect this social
           information. This does not include the sharing of links or other information on social media through the product itself
           (e.g. sharing your route for a run on Facebook).
-  
+
           {% endblocktrans %}
         </p>
       </section>
@@ -240,7 +240,7 @@
         <h3 class="p-heading mt-3 mb-1" id="how-does-company-use-this-data">
           {% trans "How does the company use this data?" %}
         </h3>
-  
+
         <p class="tw-body">
           {% blocktrans trimmed %}
           How do companies collect, use, and share or sell user data with third parties? Do companies combine user data with data
@@ -251,7 +251,7 @@
           options for data sharing and sales, even if they don’t currently engage in those activities. To determine current
           practices, we look for FAQs or other information on company websites to provide additional information. Additionally, if
           a company provides us with posted information about these practices, we include that information and relevant links.
-  
+
           {% endblocktrans %}
         </p>
 
@@ -264,7 +264,7 @@
           company provide clear and explicit notice before sharing user data with third parties? (4) What types of data are shared
           for advertising and marketing purposes? We attempt to explain to users what sorts of data collection they should be
           concerned about in our reviews.
-  
+
           {% endblocktrans %}
         </p>
 
@@ -274,7 +274,7 @@
         <h3 class="p-heading mt-3 mb-1" id="how-can-you-control-your-data">
           {% trans "How can you control your data?" %}
         </h3>
-  
+
         <p class="tw-body">
           {% blocktrans trimmed %}
           Does the company provide a way for users to request access to and deletion of their data? We look for language around
@@ -283,7 +283,7 @@
           periods vary greatly and may have different use cases for different types of products. Where anonymization is offered as
           an alternative to data deletion (which is allowable under GDPR) we note that some forms of anonymization do not
           completely eliminate the potential for identification.
-  
+
           {% endblocktrans %}
         </p>
 
@@ -295,7 +295,7 @@
           details for user data? Does the company promise to delete data after it is not needed to fulfill the purposes for which
           it was collected?
 
-  
+
           {% endblocktrans %}
         </p>
 
@@ -306,12 +306,12 @@
         <h3 class="p-heading mt-3 mb-1" id="company-track-record">
           {% trans "What is the company’s known track record of protecting users’ data?" %}
         </h3>
-  
+
         <p class="tw-body">
           {% blocktrans trimmed %}
           We evaluated each company’s history of storing and protecting customer data within at least the previous three year
           period. We conduct research to find any known public hacks, data breaches, data leaks, or other incidents.
-  
+
           {% endblocktrans %}
         </p>
 
@@ -322,7 +322,7 @@
           vulnerabilities, have they acted quickly and openly to fix these security vulnerabilities and leaks? (3) Does the
           company have a track record of being honest and ethical when it comes to protecting user data? (4) What was the volume
           and sensitivity of leaked data?
-  
+
           {% endblocktrans %}
         </p>
 
@@ -332,13 +332,13 @@
         <h3 class="p-heading mt-3 mb-1" id="can-be-used-offline">
           {% trans "Can the product be used offline? " %}
         </h3>
-  
+
         <p class="tw-body">
           {% blocktrans trimmed %}
           We checked to see if the product could be used offline or if being online was a requirement to use the product
           effectively (if applicable). We include this to let consumers know, for example, if an app that might collect data on
           them is required.
-  
+
           {% endblocktrans %}
         </p>
 
@@ -348,7 +348,7 @@
         <h3 class="p-heading mt-3 mb-1" id="user-friendly">
           {% trans "User-friendly privacy information" %}
         </h3>
-  
+
         <p class="tw-body">
           {% blocktrans trimmed %}
           We evaluate how easy it is to find clear, specific, easy to understand information about a device’s privacy policies.
@@ -356,7 +356,7 @@
           to consumers about what happens to their data. We looked for whether the company provides easy-to-read privacy
           information, either in the privacy policy or in another privacy page. Vaguely worded, dense, overly long and complex
           privacy policies are not considered user-friendly in our research
-  
+
           {% endblocktrans %}
         </p>
 
