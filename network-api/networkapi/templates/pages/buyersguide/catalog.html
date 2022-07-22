@@ -114,21 +114,21 @@
       {% cache 86400 pni_home_page template_cache_key_fragment %}
         {% for product in products %}
           {% product_in_category product category as matched %}
-          {% include "../fragments/buyersguide_item.html" with product=product.localized matched=matched %}
+          {% include "fragments/buyersguide_item.html" with product=product.localized matched=matched %}
         {% endfor %}
       {% endcache %}
     {% else %}
       {# User is logged in. Don't cache their results so they can see live and draft products here. #}
       {% for product in products %}
         {% product_in_category product category as matched %}
-        {% include "../fragments/buyersguide_item.html" with product=product.localized matched=matched %}
+        {% include "fragments/buyersguide_item.html" with product=product.localized matched=matched %}
       {% endfor %}
     {% endif %}
     </div>
 
     <div id="product-filter-no-results-notice" class="d-none text-center my-5 py-5">
       {% block no_products_found %}
-        {% include "../fragments/no_search_results.html" %}
+        {% include "fragments/no_search_results.html" %}
       {% endblock %}
     </div>
   </div>
@@ -137,7 +137,7 @@
  <div class="container text-center my-5">
   <h2 class="tw-h3-heading">{% trans "Don’t see the product you’re looking for?" %}</h2>
   <p class="tw-body">{% trans "Let us know what product you would like reviewed in the guide." %}</p>
-  {% include "../fragments/submit_a_product.html" %}
+  {% include "fragments/submit_a_product.html" %}
  </div>
 </div>
 
