@@ -2,7 +2,7 @@
 
 {% if value != hide_value %}
 <section class="criterion value-{{value|lower}}">
-  {% include "./product_criterion_primary_info.html"  with  label=label  value=value %}
+  {% include "fragments/buyersguide/product_criterion_primary_info.html"  with  label=label  value=value %}
 
   {% if links|length > 0 %}
   <ul class="list-unstyled mb-0">
