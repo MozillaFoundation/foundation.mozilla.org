@@ -42,13 +42,13 @@
                         {% trans "Third-party account"           as third_party_account %}
 
                         <div class="col-12 col-md-4">
-                        {% include "fragments/signup_requirement.html" with title=email                 value=product.signup_requires_email          %}
+                        {% include "fragments/buyersguide/signup_requirement.html" with title=email                 value=product.signup_requires_email          %}
                         </div>
                         <div class="col-12 col-md-4">
-                        {% include "fragments/signup_requirement.html" with title=phone                 value=product.signup_requires_phone          %}
+                        {% include "fragments/buyersguide/signup_requirement.html" with title=phone                 value=product.signup_requires_phone          %}
                         </div>
                         <div class="col-12 col-md-4">
-                        {% include "fragments/signup_requirement.html" with title=third_party_account   value=product.signup_requires_third_party_account    %}
+                        {% include "fragments/buyersguide/signup_requirement.html" with title=third_party_account   value=product.signup_requires_third_party_account    %}
                         </div>
                     </div>
 
@@ -66,13 +66,13 @@
                         {% trans "Social"        as social_data_collected %}
 
                         <div class="col-12 col-md-4">
-                        {% include "fragments/signup_requirement.html" with title=personal_data_collected   value=product.personal_data_collected    %}
+                        {% include "fragments/buyersguide/signup_requirement.html" with title=personal_data_collected   value=product.personal_data_collected    %}
                         </div>
                         <div class="col-12 col-md-4">
-                        {% include "fragments/signup_requirement.html" with title=biometric_data_collected  value=product.biometric_data_collected   %}
+                        {% include "fragments/buyersguide/signup_requirement.html" with title=biometric_data_collected  value=product.biometric_data_collected   %}
                         </div>
                         <div class="col-12 col-md-4">
-                        {% include "fragments/signup_requirement.html" with title=social_data_collected     value=product.social_data_collected      %}
+                        {% include "fragments/buyersguide/signup_requirement.html" with title=social_data_collected     value=product.social_data_collected      %}
                         </div>
                     </div>
                     </section>
