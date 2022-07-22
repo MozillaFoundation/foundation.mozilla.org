@@ -114,14 +114,14 @@
       {% cache 86400 pni_home_page template_cache_key_fragment %}
         {% for product in products %}
           {% product_in_category product category as matched %}
-          {% include "fragments/buyersguide_item.html" with product=product.localized matched=matched %}
+          {% include "fragments/buyersguide/item.html" with product=product.localized matched=matched %}
         {% endfor %}
       {% endcache %}
     {% else %}
       {# User is logged in. Don't cache their results so they can see live and draft products here. #}
       {% for product in products %}
         {% product_in_category product category as matched %}
-        {% include "fragments/buyersguide_item.html" with product=product.localized matched=matched %}
+        {% include "fragments/buyersguide/item.html" with product=product.localized matched=matched %}
       {% endfor %}
     {% endif %}
     </div>
