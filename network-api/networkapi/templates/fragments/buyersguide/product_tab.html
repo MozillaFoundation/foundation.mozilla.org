@@ -78,28 +78,28 @@
                     </section>
 
                     {% trans "How does the company use this data?" as how_does_it_use_data_collected %}
-                    {% include "fragments/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected  ding=product.data_collection_policy_is_bad rich_text_value=True %}
+                    {% include "fragments/buyersguide/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected  ding=product.data_collection_policy_is_bad rich_text_value=True %}
 
                     {% if product.product_type == 'general' %}
 
                     {% trans "How can you control your data?" as how_can_you_control_your_data %}
-                    {% include "fragments/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data    ding=product.data_control_policy_is_bad rich_text_value=True %}
+                    {% include "fragments/buyersguide/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data    ding=product.data_control_policy_is_bad rich_text_value=True %}
 
                     {% trans "What is the company’s known track record of protecting users’ data?" as company_track_record_label %}
-                    {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record|track_record   help=product.track_record_details  ding=product.track_record_is_bad rich_help_text=True %}
+                    {% include "fragments/buyersguide/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record|track_record   help=product.track_record_details  ding=product.track_record_is_bad rich_help_text=True %}
 
                     {% if product.child_safety_blurb %}
                       {% trans "Child Privacy Information" as child_privacy_label %}
-                      {% include "fragments/product_criterion.html"  with  label=child_privacy_label  value=product.child_safety_blurb rich_text_value=True  %}
+                      {% include "fragments/buyersguide/product_criterion.html"  with  label=child_privacy_label  value=product.child_safety_blurb rich_text_value=True  %}
                     {% endif %}
                     {% trans "Can this product be used offline?" as offline_capable %}
-                    {% include "fragments/product_criterion.html"  with  label=offline_capable  value=product.offline_capable   help=product.offline_use_description rich_help_text=True %}
+                    {% include "fragments/buyersguide/product_criterion.html"  with  label=offline_capable  value=product.offline_capable   help=product.offline_use_description rich_help_text=True %}
 
                     {% endif %}
 
                     {% if product.product_type == 'general' %}
                     {% trans "User-friendly privacy information?" as user_friendly_privacy_policy %}
-                    {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy help=product.user_friendly_privacy_policy_helptext  %}
+                    {% include "fragments/buyersguide/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy help=product.user_friendly_privacy_policy_helptext  %}
                     {% endif %}
 
                     {% trans "Links to privacy information" as privacy_policy_links %}
@@ -111,7 +111,7 @@
                     {% blocktrans with url=min_sec_url|add:"#minimum-security-standards" asvar minimum_security_standards trimmed %}
                     Does this product meet our <span class="tw-ml-1"></span> <a id="mss-link" class="" href="{{ url }}">Minimum Security Standards</a>?
                     {% endblocktrans %}
-                    {% include "fragments/product_criterion.html"  with  value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards info=min_sec_url  %}
+                    {% include "fragments/buyersguide/product_criterion.html"  with  value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards info=min_sec_url  %}
 
                     {% trans "Encryption"              as encryption %}
                     {% trans "Security updates"        as security_updates %}
@@ -119,22 +119,22 @@
                     {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
                     {% trans "Privacy policy"          as privacy_policy %}
 
-                    {% include "fragments/product_criterion.html"  with  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption               %}
-                    {% include "fragments/product_criterion.html"  with  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password          %}
-                    {% include "fragments/product_criterion.html"  with  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates         %}
-                    {% include "fragments/product_criterion.html"  with  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities  rich_help_text=True %}
-                    {% include "fragments/product_criterion.html"  with  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy           %}
+                    {% include "fragments/buyersguide/product_criterion.html"  with  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption               %}
+                    {% include "fragments/buyersguide/product_criterion.html"  with  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password          %}
+                    {% include "fragments/buyersguide/product_criterion.html"  with  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates         %}
+                    {% include "fragments/buyersguide/product_criterion.html"  with  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities  rich_help_text=True %}
+                    {% include "fragments/buyersguide/product_criterion.html"  with  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy           %}
                 </div>
 
                 <div class="tw-w-full tw-shrink-0 medium:tw-px-7" data-product-label="2">
                     {% if product.product_type == 'general' %}
                     <section class="criterion-group">
                         {% trans "Does the product use AI?" as uses_ai_label %}
-                        {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=product.uses_ai info="/privacynotincluded/about/methodology" help=product.ai_helptext rich_help_text=True  %}
+                        {% include "fragments/buyersguide/product_criterion.html"  with  label=uses_ai_label  value=product.uses_ai info="/privacynotincluded/about/methodology" help=product.ai_helptext rich_help_text=True  %}
 
                         {% if product.uses_ai != "No" %}
                         {% trans "Is this AI untrustworthy?" as ai_is_untrustworthy_label %}
-                        {% include "fragments/product_criterion.html"  with  label=ai_is_untrustworthy_label  value=product.ai_is_untrustworthy ding=product.ai_is_untrustworthy_ding  %}
+                        {% include "fragments/buyersguide/product_criterion.html"  with  label=ai_is_untrustworthy_label  value=product.ai_is_untrustworthy ding=product.ai_is_untrustworthy_ding  %}
 
                         <section class="criterion">
                             <div class="primary-info">
@@ -146,10 +146,10 @@
                         </section>
 
                         {% trans "Is the company transparent about how the AI works?" as ai_is_transparent %}
-                        {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent help=product.ai_is_transparent_helptext rich_help_text=True %}
+                        {% include "fragments/buyersguide/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent help=product.ai_is_transparent_helptext rich_help_text=True %}
 
                         {% trans "Does the user have control over the AI features?" as ai_can_user_control %}
-                        {% include "fragments/product_criterion.html"  with  label=ai_can_user_control  value=product.ai_can_user_control help=product.ai_can_user_control_helptext rich_help_text=True %}
+                        {% include "fragments/buyersguide/product_criterion.html"  with  label=ai_can_user_control  value=product.ai_can_user_control help=product.ai_can_user_control_helptext rich_help_text=True %}
 
                         {% endif %}
                     </section>
