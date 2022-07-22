@@ -29,16 +29,3 @@ def product_in_category(productpage, categorySlug):
         return True
     categories = productpage.product_categories.all()
     return categorySlug in [cat.category.slug for cat in categories]
-
-
-"""
-# Instantiate a list of category page links based on the current page's relation to them
-# NOTE: this points to the new, namespaced category_nav_links. If we need to revert to the old app, change this back.
-@register.inclusion_tag('buyersguide/fragments/category_nav_links.html', takes_context=True)
-def category_nav(context, current_url, current_category, all_categories):
-    return {
-        'current_url': current_url,
-        'current_category': current_category,
-        'sorted_categories': all_categories.order_by('-featured', 'sort_order', 'name'),  # featured categories first
-    }
-"""
