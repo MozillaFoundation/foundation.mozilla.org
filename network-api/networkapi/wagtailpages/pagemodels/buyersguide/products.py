@@ -1445,7 +1445,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['pageTitle'] = pgettext(
             '*privacy not included can be localized.',
             'How to use *privacy not included')
-        return render(request, "about/how_to_use.html", context)
+        return render(request, "pages/buyersguide/how_to_use.html", context)
 
     @route(r'^about/why/$', name='about-why-view')
     def about_why_page(self, request):
@@ -1454,7 +1454,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['pageTitle'] = pgettext(
             '*privacy not included can be localized.',
             'Why we made *privacy not included')
-        return render(request, "about/why_we_made.html", context)
+        return render(request, "pages/buyersguide/why_we_made.html", context)
 
     @route(r'^about/press/$', name='press-view')
     def about_press_page(self, request):
@@ -1463,7 +1463,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['pageTitle'] = pgettext('Noun, media', 'Press') + ' | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
             '*privacy not included')
-        return render(request, "about/press.html", context)
+        return render(request, "pages/buyersguide/press.html", context)
 
     @route(r'^about/contact/$', name='contact-view')
     def about_contact_page(self, request):
@@ -1472,7 +1472,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['pageTitle'] = gettext('Contact us') + ' | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
             '*privacy not included')
-        return render(request, "about/contact.html", context)
+        return render(request, "pages/buyersguide/contact.html", context)
 
     @route(r'^about/methodology/$', name='methodology-view')
     def about_methodology_page(self, request):
@@ -1481,7 +1481,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['pageTitle'] = gettext('Our methodology') + ' | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
             '*privacy not included')
-        return render(request, "about/methodology.html", context)
+        return render(request, "pages/buyersguide/methodology.html", context)
 
     @route(r'^contest/$', name='contest')
     def about_contest(self, request):
