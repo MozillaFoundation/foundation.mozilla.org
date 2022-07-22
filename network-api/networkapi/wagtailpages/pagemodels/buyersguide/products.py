@@ -452,7 +452,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
     """
 
-    template = 'buyersguide/product_page.html'
+    template = 'pages/buyersguide/product_page.html'
 
     privacy_ding = models.BooleanField(
         verbose_name='*privacy not included ding',
@@ -1029,7 +1029,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
 
 class GeneralProductPage(ProductPage):
-    template = 'buyersguide/product_page.html'
+    template = 'pages/buyersguide/product_page.html'
 
     camera_device = ExtendedYesNoField(
         verbose_name='camera: Device',
