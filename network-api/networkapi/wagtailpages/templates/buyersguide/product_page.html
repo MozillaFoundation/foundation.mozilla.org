@@ -1,4 +1,4 @@
-{% extends "buyersguide/bg_base.html" %}
+{% extends "pages/buyersguide/base.html" %}
 
 {% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
 
@@ -109,7 +109,7 @@
             </div>
         </div>
       </div>
-        
+
         {% include "fragments/product_tab.html" with  product=product %}
 
         {% if product.updates.count > 0 %}
