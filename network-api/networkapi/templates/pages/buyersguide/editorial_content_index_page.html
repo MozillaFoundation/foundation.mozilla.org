@@ -1,7 +1,17 @@
 {% extends "pages/buyersguide/base.html" %}
+{% load wagtailcore_tags %}
 
 {% block category_nav %}{% endblock category_nav %}
 
 {% block guts %}
   <h1>{{ page.title }}</h1>
+  {% if items %}
+    <ul>
+    {% for item in items %}
+      <li>
+        <a href="{% pageurl item %}">{{ item.title }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
 {% endblock guts %}
