@@ -80,7 +80,7 @@
 
   {% block hero %}{% endblock %}
 
-  {% block catgory_nav %}
+  {% block category_nav %}
   {% include "buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
   <nav id="multipage-nav" class="pni-category-nav text-center d-none d-md-block" title="{% trans "site navigation" context "Tooltip on menu items" %}">
     <div class="container">
@@ -106,7 +106,7 @@
       </div>
     </div>
   </nav>
-  {% endblock catgory_nav %}
+  {% endblock category_nav %}
 
   <div class="underneath-screen-overlay">
     <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
