@@ -52,7 +52,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         )
         self.assertTemplateUsed(
             response=response,
-            template_name='buyersguide/bg_base.html',
+            template_name='pages/buyersguide/base.html',
         )
         self.assertTemplateUsed(
             response=response,
