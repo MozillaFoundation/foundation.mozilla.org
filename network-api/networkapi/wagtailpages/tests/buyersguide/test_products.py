@@ -206,7 +206,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertEqual(url, target_url)
         response = self.client.get(self.bg.url + url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, f'about/{template}.html')
+        self.assertTemplateUsed(response, f'pages/buyersguide/{template}.html')
 
     def test_buyersguide_about_how_to_use_view(self):
         self.about_url_test('how-to-use-view', 'about/', 'how_to_use')
