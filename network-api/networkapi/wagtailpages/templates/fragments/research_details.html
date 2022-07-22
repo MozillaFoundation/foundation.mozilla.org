@@ -24,11 +24,11 @@
   <span class="tw-text-gray-20 tw-body-small tw-hidden large:tw-inline"> | </span>
   <div class="tw-flex tw-flex-col medium:tw-flex-2 medium:tw-flex-row">
     <div class="d-flex tw-pr-2 large:tw-px-2">
-      <p class="tw-body-small mozilla-says {% if mozilla_says %} thumb-up {% elif mozilla_says == False %} thumb-down {% else %} thumb-side {% endif %}"> {% trans "Mozilla says" context "This string is followed by a thumb up, thumb down, or thumb on the side icon to summarize Mozilla’s review of the product" %} </p>  
+      <p class="tw-body-small mozilla-says {% if mozilla_says %} thumb-up {% elif mozilla_says == False %} thumb-down {% else %} thumb-side {% endif %}"> {% trans "Mozilla says" context "This string is followed by a thumb up, thumb down, or thumb on the side icon to summarize Mozilla’s review of the product" %} </p>
     </div>
     <span class="tw-text-gray-20 tw-body-small tw-hidden medium:tw-inline"> | </span>
     <div class="d-flex medium:tw-pl-2 pr-0 ">
-    {% include "fragments/most_voted_rating.html"%}
+    {% include "fragments/buyersguide/most_voted_rating.html"%}
     </div>
   </div>
 </div>
