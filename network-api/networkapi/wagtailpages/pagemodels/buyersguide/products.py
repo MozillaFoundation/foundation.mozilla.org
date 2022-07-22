@@ -1369,7 +1369,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     When that happens, we should remove the RoutablePageMixin and @routes
     """
 
-    template = 'buyersguide/home.html'
+    template = 'pages/buyersguide/home.html'
     subpage_types = [
         'wagtailpages.GeneralProductPage',
         'wagtailpages.BuyersGuideEditorialContentIndexPage',
