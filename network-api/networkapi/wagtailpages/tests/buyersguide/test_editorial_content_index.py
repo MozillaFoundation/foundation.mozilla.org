@@ -17,6 +17,9 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         cls.pni_homepage = buyersguide_factories.BuyersGuidePageFactory(
             parent=cls.homepage,
         )
+        cls.content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
+            parent=cls.pni_homepage,
+        )
 
     def test_parents(self):
         self.assertAllowedParentPageTypes(
@@ -31,20 +34,12 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         )
 
     def test_page_success(self):
-        content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
-            parent=self.pni_homepage,
-        )
-
-        response = self.client.get(content_index.url)
+        response = self.client.get(self.content_index.url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_template(self):
-        content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
-            parent=self.pni_homepage,
-        )
-
-        response = self.client.get(content_index.url)
+        response = self.client.get(self.content_index.url)
 
         self.assertTemplateUsed(
             response=response,
@@ -58,5 +53,17 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             response=response,
             template_name='pages/base.html',
         )
-    # TODO: Test template
-    # TODO: Test all children title on page
+
+    def test_children_titles_shown(self):
+        children = []
+        for _ in range(5):
+            children.append(
+                buyersguide_factories.BuyersGuideArticlePageFactory(
+                    parent=self.content_index,
+                )
+            )
+
+        response = self.client.get(self.content_index.url)
+
+        for child in children:
+            self.assertContains(response=response, text=child.title, count=1)
