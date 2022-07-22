@@ -78,7 +78,7 @@
             </div>
           {% endif %}
         </div>
-        {% include "fragments/research_details.html" with review_date=product.review_date time_researched=product.time_researched mozilla_says=product.mozilla_says %}
+        {% include "fragments/buyersguide/research_details.html" with review_date=product.review_date time_researched=product.time_researched mozilla_says=product.mozilla_says %}
         <div class="col-12 tw-body">{{product.blurb | richtext}}</div>
       </div>
 
