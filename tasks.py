@@ -276,6 +276,13 @@ def makemigrations_dryrun(ctx):
     manage(ctx, "makemigrations --dry-run")
 
 
+@task(help={"args": "Override the arguments passed to mypy."})
+def mypy(ctx, args=None):
+    """Run mypy type checking on the project."""
+    args = args or "network-api"
+    pyrun(ctx, command=f"mypy {args}")
+
+
 # Tests
 @task(aliases=["docker-test"])
 def test(ctx):
