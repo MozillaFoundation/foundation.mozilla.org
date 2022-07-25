@@ -83,7 +83,6 @@ urlpatterns = list(filter(None, [
     re_path(r'^api/campaign/', include('networkapi.campaign.urls')),
     re_path(r'^api/highlights/', include('networkapi.highlights.urls')),
     re_path(r'^api/news/', include('networkapi.news.urls')),
-    re_path(r'^api/people/', include('networkapi.people.urls')),
     re_path(r'^environment.json', EnvVariablesView.as_view()),
     re_path(r'^help/', review_app_help_view, name='Review app help'),
     re_path(r'^tito/', include('networkapi.events.urls')),
