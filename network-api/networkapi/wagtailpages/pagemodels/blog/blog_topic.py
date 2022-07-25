@@ -47,7 +47,7 @@ class BlogPageTopic(TranslatableMixin, models.Model):
         ImageChooserPanel("share_image"),
     ]
 
-    def get_topics():
+    def get_topics(self):
         """
         WARNING: this function is referenced by two migrations:
 
