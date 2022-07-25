@@ -14,8 +14,5 @@ class BuyersGuideEditorialContentIndexPage(
     def get_context(self, request, *args, **kwargs):
         context =  super().get_context(request, *args, **kwargs)
         context["home_page"] = self.get_parent().specific
-        context["items"] = self.get_children()
+        context["items"] = self.get_descendants().public().live()
         return context
-
-    def get_children(self):
-        return self.get_descendants()
