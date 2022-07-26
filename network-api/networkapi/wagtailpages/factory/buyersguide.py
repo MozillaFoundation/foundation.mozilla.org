@@ -6,7 +6,6 @@ from datetime import date, datetime, timezone, timedelta
 from factory import (
     Faker,
     LazyFunction,
-    Sequence,
     post_generation,
 )
 from factory.django import DjangoModelFactory
@@ -172,6 +171,13 @@ class BuyersGuideEditorialContentIndexPageFactory(PageFactory):
 class BuyersGuideArticlePageFactory(PageFactory):
     class Meta:
         model = pagemodels.BuyersGuideArticlePage
+
+    title = Faker('sentence')
+
+
+class BuyersGuideContentCategoryFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideContentCategory
 
     title = Faker('sentence')
 

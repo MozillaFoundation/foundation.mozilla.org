@@ -115,6 +115,7 @@ from .pagemodels.buyersguide.products import (
     RelatedProducts,
     Update,
 )
+from .pagemodels.buyersguide.taxonomies import BuyersGuideContentCategory
 
 from .pagemodels.pulse import PulseFilter
 
@@ -130,6 +131,7 @@ __all__ = [
     BlogPage,
     BlogPageTopic,
     BuyersGuideArticlePage,
+    BuyersGuideContentCategory,
     BuyersGuideEditorialContentIndexPage,
     BuyersGuidePage,
     BuyersGuideProductCategory,
