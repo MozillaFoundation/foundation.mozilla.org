@@ -11,3 +11,6 @@ class BuyersGuideContentCategory(models.Model):
         verbose_name = 'Buyers Guide Content Category'
         verbose_name_plural = 'Buyers Guide Content Categories'
 
+    def __str__(self) -> str:
+        return self.title
+
