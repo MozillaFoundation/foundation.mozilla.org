@@ -97,8 +97,8 @@ jobs:
       - name: Coveralls
         run: coveralls
         continue-on-error: true
-      - name: PyRight
-        run: npm run pyright
+      - name: Run type checks
+        run: mypy network-api
         continue-on-error: true
 
   test_percy:
