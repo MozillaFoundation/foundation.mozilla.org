@@ -2,4 +2,5 @@
 coveralls
 django-debug-toolbar
 flake8
+mypy
 ptvsd

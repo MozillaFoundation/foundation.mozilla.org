@@ -47,6 +47,10 @@ idna==3.3
     #   urllib3
 mccabe==0.6.1
     # via flake8
+mypy==0.971
+    # via -r dev-requirements.in
+mypy-extensions==0.4.3
+    # via mypy
 ptvsd==4.3.2
     # via -r dev-requirements.in
 pycodestyle==2.7.0
@@ -74,6 +78,10 @@ sqlparse==0.4.2
     #   -c requirements.txt
     #   django
     #   django-debug-toolbar
+tomli==2.0.1
+    # via mypy
+typing-extensions==4.3.0
+    # via mypy
 urllib3[secure]==1.26.8
     # via
     #   -c requirements.txt
