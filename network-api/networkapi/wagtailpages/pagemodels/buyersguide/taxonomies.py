@@ -18,5 +18,6 @@ class BuyersGuideContentCategory(wagtail_models.TranslatableMixin, models.Model)
         return self.title
 
     def save(self, *args, **kwargs) -> None:
-        self.slug = text_utils.slugify(self.title)
+        if not self.slug:
+            self.slug = text_utils.slugify(self.title)
         super().save(*args, **kwargs)
