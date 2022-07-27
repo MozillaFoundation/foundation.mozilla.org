@@ -8,9 +8,12 @@ from wagtail.snippets import models as snippet_models
 @snippet_models.register_snippet
 class BuyersGuideContentCategory(wagtail_models.TranslatableMixin, models.Model):
     title = models.CharField(max_length=100, null=False, blank=False)
-    slug = models.SlugField(null=False, blank=True, unique=True)
+    slug = models.SlugField(max_length=100, null=False, blank=True)
 
     class Meta(wagtail_models.TranslatableMixin.Meta):
+        constraints = [
+            models.UniqueConstraint(fields=['slug', 'locale'], name='unique_slug'),
+        ]
         verbose_name = 'Buyers Guide Content Category'
         verbose_name_plural = 'Buyers Guide Content Categories'
 

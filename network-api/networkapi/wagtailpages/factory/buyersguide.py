@@ -179,7 +179,7 @@ class BuyersGuideContentCategoryFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.BuyersGuideContentCategory
 
-    title = Faker('sentence')
+    title = Faker('text', max_nb_chars=100)
 
 
 def create_general_product_visual_regression_product(seed, pni_homepage):

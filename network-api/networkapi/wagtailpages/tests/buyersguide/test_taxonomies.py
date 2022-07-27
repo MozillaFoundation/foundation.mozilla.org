@@ -28,14 +28,33 @@ class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
 
     def test_slug_has_to_be_unique(self):
         buyersguide_factories.BuyersGuideContentCategoryFactory(
-            title = 'Test category',
-            slug = 'test-category',
+            title='Test category',
+            slug='test-category',
         )
         category = buyersguide_factories.BuyersGuideContentCategoryFactory.build(
-            title = 'Test category',
-            slug = 'test-category',
+            title='Test category',
+            slug='test-category',
         )
 
         with self.assertRaises(db.IntegrityError) as _:
             category.save()
+
+    def test_same_slug_allowed_on_different_locale(self):
+        category_default_locale = buyersguide_factories.BuyersGuideContentCategoryFactory(
+            title='Test category',
+            slug='test-category',
+            locale=self.default_locale,
+        )
+        category_fr_locale = buyersguide_factories.BuyersGuideContentCategoryFactory.build(
+            title='Test category',
+            slug='test-category',
+            locale=self.fr_locale,
+        )
+
+        category_fr_locale.save()
+
+        self.assertEqual(category_fr_locale.slug, category_default_locale.slug)
+        self.assertNotEqual(category_fr_locale.locale, category_default_locale.locale)
+
+
 
