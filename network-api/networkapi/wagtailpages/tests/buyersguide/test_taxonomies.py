@@ -1,4 +1,4 @@
-from unicodedata import category
+from django import db
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 
@@ -26,4 +26,16 @@ class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
         self.assertEqual(category.title, 'Test category')
         self.assertEqual(category.slug, 'not-the-slugified-title')
 
+    def test_slug_has_to_be_unique(self):
+        buyersguide_factories.BuyersGuideContentCategoryFactory(
+            title = 'Test category',
+            slug = 'test-category',
+        )
+        category = buyersguide_factories.BuyersGuideContentCategoryFactory.build(
+            title = 'Test category',
+            slug = 'test-category',
+        )
+
+        with self.assertRaises(db.IntegrityError) as _:
+            category.save()
 
