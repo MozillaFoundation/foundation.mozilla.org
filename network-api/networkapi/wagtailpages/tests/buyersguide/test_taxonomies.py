@@ -50,6 +50,7 @@ class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
         'We need to manually create unique slugs if there are clashes between the locales. '
         'Because we are using slugs that need to be unique regradless of locale, this '
         'test would fail. Therefore it is skipped.'
+        'See also: https://github.com/wagtail/wagtail/issues/8918'
     )
     def test_same_slug_allowed_on_different_locale(self):
         category_default_locale = buyersguide_factories.BuyersGuideContentCategoryFactory(
