@@ -14,7 +14,7 @@ from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPane
 from wagtail.contrib.routable_page.models import route
 from wagtail.core.models import Orderable as WagtailOrderable
 from wagtail.core.models import Locale
-from wagtail_localize.fields import SynchronizedField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail.core.fields import StreamField
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -147,6 +147,7 @@ class BlogIndexPage(IndexPage):
     translatable_fields = IndexPage.translatable_fields + [
         SynchronizedField('featured_pages'),
         SynchronizedField('featured_video_post'),
+        TranslatableField('callout_box'),
     ]
 
     template = 'wagtailpages/blog_index_page.html'
