@@ -46,7 +46,7 @@
     <meta name="monetization" content="{{ web_monetization_pointer }}">
   {% endif %}
   <!-- TODO: determine if we still need this -->
-  <script>
+  <script nonce="{{request.csp_nonce}}">
     var modernBrowser = (
       'fetch' in window &&
       'assign' in Object
