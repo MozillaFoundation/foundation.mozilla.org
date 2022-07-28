@@ -1,4 +1,6 @@
-from django import db
+import unittest
+
+from django.core import exceptions
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 
@@ -36,9 +38,19 @@ class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
             slug='test-category',
         )
 
-        with self.assertRaises(db.IntegrityError) as _:
-            category.save()
+        with self.assertRaises(exceptions.ValidationError):
+            category.full_clean()
 
+    @unittest.skip(
+        'We would really want the slugs to be only unique per locale. '
+        'If we implement that with a UniqueContraint or unique_together, '
+        'Wagtail will crash if the constraint is violated. '
+        'Wagtail does handle the simple unique requirement on the slug field gracefully. '
+        'Therefore, we are using slugs that are unique regardless of locale. '
+        'We need to manually create unique slugs if there are clashes between the locales. '
+        'Because we are using slugs that need to be unique regradless of locale, this '
+        'test would fail. Therefore it is skipped.'
+    )
     def test_same_slug_allowed_on_different_locale(self):
         category_default_locale = buyersguide_factories.BuyersGuideContentCategoryFactory(
             title='Test category',
@@ -55,6 +67,4 @@ class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
 
         self.assertEqual(category_fr_locale.slug, category_default_locale.slug)
         self.assertNotEqual(category_fr_locale.locale, category_default_locale.locale)
-
-
 
