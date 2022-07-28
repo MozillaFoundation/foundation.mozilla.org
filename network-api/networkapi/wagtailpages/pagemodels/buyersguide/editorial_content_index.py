@@ -12,7 +12,7 @@ class BuyersGuideEditorialContentIndexPage(
     template = 'pages/buyersguide/editorial_content_index_page.html'
 
     def get_context(self, request, *args, **kwargs):
-        context =  super().get_context(request, *args, **kwargs)
+        context = super().get_context(request, *args, **kwargs)
         context["home_page"] = self.get_parent().specific
         context["items"] = self.get_descendants().public().live()
         return context

@@ -1,4 +1,3 @@
-from enum import unique
 from django.db import models
 from django.utils import text as text_utils
 
