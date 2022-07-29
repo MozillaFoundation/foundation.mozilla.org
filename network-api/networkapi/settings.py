@@ -418,7 +418,7 @@ DATABASE_URL = env('DATABASE_URL')
 if DATABASE_URL is not None:
     DATABASES['default'].update(dj_database_url.config())
 
-DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES['default']['ATOMIC_REQUESTS'] = True  # type: ignore
 
 RANDOM_SEED = env('RANDOM_SEED')
 
