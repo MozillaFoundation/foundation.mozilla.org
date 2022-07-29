@@ -91,7 +91,7 @@ def createsuperuser(ctx, stop=False):
 
     To stop the containers after the command is run, pass the `--stop` flag.
     """
-    manage(ctx, f'create_admin', stop=stop)
+    manage(ctx, 'create_admin', stop=stop)
 
 
 def initialize_database(ctx, slow=False):
