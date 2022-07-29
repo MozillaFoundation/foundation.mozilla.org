@@ -109,7 +109,7 @@ SENTRY_ENVIRONMENT = env('SENTRY_ENVIRONMENT')
 if SENTRY_DSN:
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
-    sentry_sdk.init(
+    sentry_sdk.init(  # type: ignore
         dsn=SENTRY_DSN,
         integrations=[DjangoIntegration()],
         release=HEROKU_RELEASE_VERSION,
