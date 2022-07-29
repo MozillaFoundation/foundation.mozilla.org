@@ -91,10 +91,7 @@ def createsuperuser(ctx, stop=False):
 
     To stop the containers after the command is run, pass the `--stop` flag.
     """
-    preamble = "from django.contrib.auth.models import User;"
-    create = "User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
-    manage(ctx, f'shell -c "{preamble} {create}"', stop=stop)
-    print("\nCreated superuser `admin` with password `admin`.")
+    manage(ctx, f'create_admin', stop=stop)
 
 
 def initialize_database(ctx, slow=False):
