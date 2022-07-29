@@ -99,7 +99,6 @@ jobs:
         continue-on-error: true
       - name: Run type checks
         run: mypy network-api
-        continue-on-error: true
 
   test_percy:
     name: Percy CI
