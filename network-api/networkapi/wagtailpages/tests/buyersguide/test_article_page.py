@@ -15,3 +15,9 @@ class BuyersGuideArticlePageTest(wagtail_test.WagtailPageTests):
             child_model=pagemodels.BuyersGuideArticlePage,
             parent_models={pagemodels.BuyersGuideEditorialContentIndexPage},
         )
+
+    def test_children(self):
+        self.assertAllowedSubpageTypes(
+            parent_model=pagemodels.BuyersGuideArticlePage,
+            child_models={},
+        )
