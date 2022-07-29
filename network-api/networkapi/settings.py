@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 import sys
+from typing import Dict, Literal
 
 import os
 import environ
@@ -363,7 +364,7 @@ TEMPLATES = [
 ]
 
 if env('REDIS_URL'):
-    connection_pool_kwargs = {}
+    connection_pool_kwargs: Dict[str, Literal[None]] = {}
 
     if env('REDIS_URL').startswith("rediss"):
         connection_pool_kwargs["ssl_cert_reqs"] = None
