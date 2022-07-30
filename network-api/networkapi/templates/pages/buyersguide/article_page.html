@@ -1,4 +1,13 @@
 {% extends "pages/buyersguide/base.html" %}
 
+{% load wagtailcore_tags %}
+
 {% block category_nav %}{% endblock category_nav %}
 
+{% block guts %}
+  <div class="cms blog-body">
+    {% for block in page.body %}
+        {% include_block block with parent_page=page page_type="blog" %}
+    {% endfor %}
+  </div>
+{% endblock guts %}

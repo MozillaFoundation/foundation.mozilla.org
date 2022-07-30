@@ -61,3 +61,15 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             response=response,
             template_name='pages/base.html',
         )
+
+    def test_content_template(self):
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index,
+        )
+
+        response = self.client.get(article_page.url)
+
+        self.assertTemplateUsed(
+            response=response,
+            template_name='wagtailpages/blocks/rich_text_block.html',
+        )

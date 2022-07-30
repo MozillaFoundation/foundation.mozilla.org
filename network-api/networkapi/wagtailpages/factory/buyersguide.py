@@ -174,6 +174,20 @@ class BuyersGuideArticlePageFactory(PageFactory):
 
     title = Faker('sentence')
 
+    body = Faker(
+        provider='streamfield',
+        fields=(
+            'paragraph',
+            'image',
+            'image_text',
+            'image_text_mini',
+            'video',
+            'linkbutton',
+            'spacer',
+            'quote',
+        ),
+    )
+
 
 class BuyersGuideContentCategoryFactory(DjangoModelFactory):
     class Meta:
