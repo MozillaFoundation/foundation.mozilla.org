@@ -195,7 +195,7 @@ class BuyersGuideContentCategoryFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.BuyersGuideContentCategory
 
-    title = Faker('text', max_nb_chars=100)
+    title = Faker('word')
 
 
 class BuyersGuideArticlePageAuthorFactory(DjangoModelFactory):
@@ -204,6 +204,14 @@ class BuyersGuideArticlePageAuthorFactory(DjangoModelFactory):
 
     page = SubFactory(BuyersGuideArticlePageFactory)
     author = SubFactory(profile_factories.ProfileFactory)
+
+
+class BuyersGuideArticlePageContentCategoryRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideArticlePageContentCategoryRelation
+
+    page = SubFactory(BuyersGuideArticlePageFactory)
+    category = SubFactory(BuyersGuideContentCategoryFactory)
 
 
 def create_general_product_visual_regression_product(seed, pni_homepage):
@@ -322,8 +330,16 @@ def generate(seed):
 
     print('Generating buyers guide editorial content')
     editorial_content_index = BuyersGuideEditorialContentIndexPageFactory(parent=pni_homepage)
+    for _ in range(3):
+        BuyersGuideContentCategoryFactory()
     for _ in range(5):
         article = BuyersGuideArticlePageFactory(parent=editorial_content_index)
         for profile in get_random_objects(pagemodels.Profile, max_count=3):
             BuyersGuideArticlePageAuthorFactory(page=article, author=profile)
-
+        if article.id % 2 == 0:
+            # Articles with even id get the content category
+            for category in get_random_objects(pagemodels.BuyersGuideContentCategory, max_count=2):
+                BuyersGuideArticlePageContentCategoryRelationFactory(
+                    page=article,
+                    category=category,
+                )

@@ -106,6 +106,7 @@ from .pagemodels.buyersguide.editorial_content_index import BuyersGuideEditorial
 from .pagemodels.buyersguide.article_page import (
     BuyersGuideArticlePage,
     BuyersGuideArticlePageAuthor,
+    BuyersGuideArticlePageContentCategoryRelation,
 )
 from .pagemodels.buyersguide.products import (
     BuyersGuidePage,
