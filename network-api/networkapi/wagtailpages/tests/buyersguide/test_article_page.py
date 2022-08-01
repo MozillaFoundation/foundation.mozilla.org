@@ -12,6 +12,9 @@ class FactoriesTest(test_base.WagtailpagesTestCase):
     def test_author_factory(self):
         buyersguide_factories.BuyersGuideArticlePageAuthorFactory()
 
+    def test_content_category_relation_factory(self):
+        buyersguide_factories.BuyersGuideArticlePageContentCategoryRelationFactory()
+
 
 class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
     @classmethod
