@@ -173,7 +173,7 @@ class BuyersGuideArticlePageFactory(PageFactory):
         model = pagemodels.BuyersGuideArticlePage
 
     title = Faker('sentence')
-
+    hero_image = ImageFactory()
     body = Faker(
         provider='streamfield',
         fields=(

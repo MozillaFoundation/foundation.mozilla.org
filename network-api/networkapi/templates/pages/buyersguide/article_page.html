@@ -1,13 +1,20 @@
 {% extends "pages/buyersguide/base.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block category_nav %}{% endblock category_nav %}
 
+{% block hero %}
+  {% if page.hero_image %}
+    {% image page.hero_image max-200x200 %}
+  {% endif %}
+{% endblock hero %}
+
 {% block guts %}
+  {{ page.title }}
   <div>
     {% for block in page.body %}
-        {% include_block block with parent_page=page %}
+        {% include_block block %}
     {% endfor %}
   </div>
 {% endblock guts %}

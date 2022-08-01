@@ -1,7 +1,10 @@
 from django import http
-from wagtail.core import blocks, fields
+from django.db import models
+from wagtail import images
 from wagtail.admin import edit_handlers as panels
+from wagtail.core import blocks, fields
 from wagtail.core import models as wagtail_models
+from wagtail.images import edit_handlers as image_panels
 
 from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
@@ -15,6 +18,13 @@ class BuyersGuideArticlePage(
     subpage_types = []
     template = 'pages/buyersguide/article_page.html'
 
+    hero_image = models.ForeignKey(
+        images.get_image_model_string(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        help_text='Image for the hero section of the page.',
+    )
     body = fields.StreamField(
         block_types=(
             ('accordion', customblocks.AccordionBlock()),
@@ -46,6 +56,7 @@ class BuyersGuideArticlePage(
     )
 
     content_panels = wagtail_models.Page.content_panels + [
+        image_panels.ImageChooserPanel('hero_image'),
         panels.StreamFieldPanel('body'),
     ]
 
