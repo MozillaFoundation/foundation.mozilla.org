@@ -74,7 +74,7 @@
     "@sentry/browser": "^6.2.1",
     "@tailwindcss/forms": "^0.5.1",
     "@tailwindcss/line-clamp": "^0.4.0",
-    "autoprefixer": "^10.4.2",
+    "autoprefixer": "^10.4.8",
     "axe-core": "^4.1.4",
     "bootstrap": "^4.6.0",
     "chart.js": "3.5.1",
