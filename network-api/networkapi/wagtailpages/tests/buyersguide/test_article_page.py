@@ -5,9 +5,12 @@ from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 
 
-class BuyersGuideArticlePageFactoryTest(test_base.WagtailpagesTestCase):
-    def test_factory(self):
+class FactoriesTest(test_base.WagtailpagesTestCase):
+    def test_page_factory(self):
         buyersguide_factories.BuyersGuideArticlePageFactory()
+
+    def test_author_factory(self):
+        buyersguide_factories.BuyersGuideArticlePageAuthorFactory()
 
 
 class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):

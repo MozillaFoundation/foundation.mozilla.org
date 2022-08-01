@@ -11,7 +11,12 @@
 {% endblock hero %}
 
 {% block guts %}
-  {{ page.title }}
+  <h1>{{ page.title }}</h1>
+  <ul>
+    {% for author in page.authors.all %}
+      <li>{{ author.author.name }}</li>
+    {% endfor %}
+  </ul>
   <div>
     {% for block in page.body %}
         {% include_block block %}

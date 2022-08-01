@@ -103,7 +103,10 @@ from .pagemodels.dear_internet import (
 )
 
 from .pagemodels.buyersguide.editorial_content_index import BuyersGuideEditorialContentIndexPage
-from .pagemodels.buyersguide.article_page import BuyersGuideArticlePage
+from .pagemodels.buyersguide.article_page import (
+    BuyersGuideArticlePage,
+    BuyersGuideArticlePageAuthor,
+)
 from .pagemodels.buyersguide.products import (
     BuyersGuidePage,
     BuyersGuideProductCategory,
