@@ -16,7 +16,9 @@
     <p class="tw-body-large mt-3 mb-0">{{ page.intro|safe }}</p>
   </div>
   <div class="tw-col-span-12 large:tw-col-span-4 tw-mt-4 large:tw-mt-6">
-    {% include "wagtailpages/fragments/blog_search_bar.html" with name="q" search_query=query %}
+    <form action="" method="get">
+      {% include "./fragments/blog_search_bar.html" with name="q" search_query=query %}
+    </form>
 </div>
 </div>
 
@@ -30,60 +32,57 @@
 {% block featured %}
   {% if not filtered %}
     <div class="tw-grid tw-grid-cols-12 tw-gap-5 tw-mb-1 medium:tw-mb-7">
-      {%  for feature in page.specific.featured_pages.all %}
       {% with divider_classes="tw-border-b tw-pb-5 tw-border-gray-20 medium:tw-border-b-0" %}
-        {% if forloop.first %}
-          <div class="tw-col-span-12 {{divider_classes}}">
-            {% include "./fragments/blog_index_feature.html" with blog_page=feature.blog %}
+       
+        {% for feature in page.specific.featured_pages.all %}
+          {% if forloop.first %}
+            <div class="tw-col-span-12 {{divider_classes}}">
+              {% include "./fragments/blog_index_feature.html" with blog_page=feature.blog %}
+            </div>
+          {% elif forloop.counter == 5 %}
+            <div class="tw-col-span-12 large:tw-col-span-7 large:tw-pb-7">
+              {% include "./fragments/blog_card.html" with page=feature.blog %}
+            </div>
+            <div class="tw-col-span-12 large:tw-col-span-5 xlarge:tw-pl-3">
+              {% for block in page.callout_box %}
+                {% include_block block %}
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="tw-col-span-12 large:tw-col-span-4 {{divider_classes}}">
+              {% include "./fragments/blog_card.html" with page=feature.blog %}
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        {% for video_post in page.specific.featured_video_post.all %}
+          <div class="tw-col-span-12 tw-pt-5 {{divider_classes}}">
+            {% include "./fragments/blog_index_feature.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
           </div>
-        {% elif forloop.counter == 5 %}
-          <div class="tw-col-span-12 large:tw-col-span-7 large:tw-pb-7">
-            {% include "./fragments/blog_card.html" with page=feature.blog %}
-          </div>
-          <div class="tw-col-span-12 large:tw-col-span-5 xlarge:tw-pl-3">
-            {% for block in page.callout_box %}
-              {% include_block block %}
-            {% endfor %}
-          </div>
-        {% else %}
-          <div class="tw-col-span-12 large:tw-col-span-4 {{divider_classes}}">
-            {% include "./fragments/blog_card.html" with page=feature.blog %}
-          </div>
-        {% endif %}
+        {% endfor %}
+
       {% endwith %}
-      {% endfor %}
-
-      {%  for video_post in page.specific.featured_video_post.all %}
-        <div class="tw-col-span-12 tw-pt-5 {{divider_classes}}">
-          {% include "./fragments/blog_index_feature.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
-        </div>
-      {% endfor %}
     </div>
-
   {% endif %}
 {% endblock %}
 
 {% block subcontent %}
   {% if not filtered %}
-    <h2 class="tw-hidden tw-uppercase tw-text-3xl tw-mb-0 tw-font-bold tw-font-sans tw-text-gray-80">{% trans "Latest Blog Posts" %}</h2>
+    <h2 class="tw-hidden tw-uppercase tw-text-3xl tw-mb-0 tw-font-bold tw-font-sans tw-text-gray-80 medium:tw-block">{% trans "Latest Blog Posts" %}</h2>
   {% endif %}
-  
-  <div class="row">
+
+  <div class="row {% if filtered %} -tw-mt-5 {% endif %} ">
     <ul id="index-entries" class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-5 tw-gap-y-4 tw-list-none tw-divide-y tw-divide-gray-20 tw-px-[15px] medium:tw-divide-y-0">
-      {% for entry in entries %}
-        <li class="tw-m-0 tw-pt-5">
-          {% include "./fragments/blog_card.html" with page=entry %}
-        </li>
-      {% endfor %}
+      {% include "./fragments/entry_cards_item_loop.html" %}   
 
       {% if not filtered %}
         <li class="tw-m-0 tw-pt-5 tw-border-none tw-pb-7 -tw-mb-6 tw-bg-white tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3 tw-row-start-3 medium:tw-row-start-2 large:tw-row-start-1">
           {% include "./fragments/related_topics_cutout.html" with topics=related_topics %}
         </li>
       {% endif %}
+  </ul>
+</div>
 
-    </ul>
-  </div>
 {% endblock %}
 
 {% block newsletter-callout-box %}
