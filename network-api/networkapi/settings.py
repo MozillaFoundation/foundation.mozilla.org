@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 import sys
+from typing import Dict, Literal
 
 import os
 import environ
@@ -109,7 +110,7 @@ SENTRY_ENVIRONMENT = env('SENTRY_ENVIRONMENT')
 if SENTRY_DSN:
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
-    sentry_sdk.init(
+    sentry_sdk.init(  # type: ignore
         dsn=SENTRY_DSN,
         integrations=[DjangoIntegration()],
         release=HEROKU_RELEASE_VERSION,
@@ -363,7 +364,7 @@ TEMPLATES = [
 ]
 
 if env('REDIS_URL'):
-    connection_pool_kwargs = {}
+    connection_pool_kwargs: Dict[str, Literal[None]] = {}
 
     if env('REDIS_URL').startswith("rediss"):
         connection_pool_kwargs["ssl_cert_reqs"] = None
@@ -417,7 +418,7 @@ DATABASE_URL = env('DATABASE_URL')
 if DATABASE_URL is not None:
     DATABASES['default'].update(dj_database_url.config())
 
-DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES['default']['ATOMIC_REQUESTS'] = True  # type: ignore
 
 RANDOM_SEED = env('RANDOM_SEED')
 

@@ -6,7 +6,6 @@ on:
     paths-ignore:
       - maintenance/**/*.*
   pull_request:
-    branches: ["main"]
     paths-ignore:
       - maintenance/**/*.*
 
@@ -97,9 +96,8 @@ jobs:
       - name: Coveralls
         run: coveralls
         continue-on-error: true
-      - name: PyRight
-        run: npm run pyright
-        continue-on-error: true
+      - name: Run type checks
+        run: mypy network-api
 
   test_percy:
     name: Percy CI
