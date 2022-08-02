@@ -6,7 +6,6 @@ from datetime import date, datetime, timezone, timedelta
 from factory import (
     Faker,
     LazyFunction,
-    Sequence,
     post_generation,
 )
 from factory.django import DjangoModelFactory
@@ -174,6 +173,13 @@ class BuyersGuideArticlePageFactory(PageFactory):
         model = pagemodels.BuyersGuideArticlePage
 
     title = Faker('sentence')
+
+
+class BuyersGuideContentCategoryFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideContentCategory
+
+    title = Faker('text', max_nb_chars=100)
 
 
 def create_general_product_visual_regression_product(seed, pni_homepage):
