@@ -9,11 +9,6 @@ from wagtail.images.models import Image
 
 from networkapi.highlights.models import Highlight
 from networkapi.news.models import News
-from networkapi.people.models import (
-    Person,
-    Affiliation,
-    InternetHealthIssue,
-)
 from networkapi.wagtailpages.models import CTA
 
 
@@ -32,15 +27,6 @@ class Command(BaseCommand):
 
         self.stdout.write('Dropping News objects...')
         News.objects.all().delete()
-
-        self.stdout.write('Dropping Person objects...')
-        Person.objects.all().delete()
-
-        self.stdout.write('Dropping InternetHealthIssue objects...')
-        InternetHealthIssue.objects.all().delete()
-
-        self.stdout.write('Dropping Affiliation objects...')
-        Affiliation.objects.all().delete()
 
         self.stdout.write('Dropping Wagtail CTAs...')
         CTA.objects.all().delete()

@@ -1,3 +1,4 @@
+# flake8: noqa
 from .accordion_block import AccordionBlock, AccordionItem
 from .advanced_table_block import AdvancedTableBlock
 from .annotated_image_block import AnnotatedImageBlock
@@ -33,51 +34,3 @@ from .youtube_regret_block import YoutubeRegretBlock
 from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidthImageBlock, ArticleImageBlock
 from .dear_internet_letter_block import DearInternetLetterBlock
 from .foundation_slider_block import FoundationSliderBlock
-
-
-__all__ = [
-    AccordionBlock,
-    AccordionItem,
-    AdvancedTableBlock,
-    AnnotatedImageBlock,
-    AirTableBlock,
-    ArticleDoubleImageBlock,
-    ArticleImageBlock,
-    ArticleFullWidthImageBlock,
-    ArticleRichText,
-    AudioBlock,
-    BannerCarouselSlideBlock,
-    BlogSetBlock,
-    BlogIndexCalloutBoxBlock,
-    BootstrapSpacerBlock,
-    CardGrid,
-    CardGridBlock,
-    CurrentEventsSliderBlock,
-    DatawrapperBlock,
-    DearInternetLetterBlock,
-    ExternalVideoBlock,
-    iFrameBlock,
-    ImageBlock,
-    ImageGrid,
-    ImageGridBlock,
-    ImageTextBlock,
-    ImageTextMini,
-    LatestProfileList,
-    LinkButtonBlock,
-    LoopingVideoBlock,
-    ProfileById,
-    ProfileDirectory,
-    PulseProjectList,
-    QuoteBlock,
-    SingleQuoteBlock,
-    RecentBlogEntries,
-    TabbedProfileDirectory,
-    SessionSliderBlock,
-    SpacesBlock,
-    TitoWidgetBlock,
-    TypeformBlock,
-    VideoBlock,
-    WagtailVideoChooserBlock,
-    YoutubeRegretBlock,
-    FoundationSliderBlock
-]
