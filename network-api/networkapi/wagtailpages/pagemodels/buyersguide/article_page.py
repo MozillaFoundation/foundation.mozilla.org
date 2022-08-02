@@ -120,3 +120,25 @@ class BuyersGuideArticlePageContentCategoryRelation(
 
     def __str__(self):
         return f'{self.page.title} -> {self.category.title}'
+
+
+class BuyersGuideArticlePageRelatedArticle(
+    wagtail_models.TranslatableMixin,
+    wagtail_models.Orderable,
+):
+    page = cluster_fields.ParentalKey(
+        'wagtailpages.BuyersGuideArticlePage',
+        related_name='related_articles',
+    )
+    article = models.ForeignKey(
+        'wagtailpages.BuyersGuideArticlePage',
+        on_delete=models.CASCADE,
+        related_name='+',
+        null=False,
+        blank=False,
+    )
+
+    panels = [panels.PageChooserPanel('article')]
+
+    def __str__(self):
+        return f'{self.page.title} -> {self.article.title}'

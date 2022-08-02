@@ -107,6 +107,7 @@ from .pagemodels.buyersguide.article_page import (
     BuyersGuideArticlePage,
     BuyersGuideArticlePageAuthor,
     BuyersGuideArticlePageContentCategoryRelation,
+    BuyersGuideArticlePageRelatedArticle,
 )
 from .pagemodels.buyersguide.products import (
     BuyersGuidePage,

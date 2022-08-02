@@ -214,6 +214,14 @@ class BuyersGuideArticlePageContentCategoryRelationFactory(DjangoModelFactory):
     category = SubFactory(BuyersGuideContentCategoryFactory)
 
 
+class BuyersGuideArticlePageRelatedArticleFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideArticlePageRelatedArticle
+
+    page = SubFactory(BuyersGuideArticlePageFactory)
+    article = SubFactory(BuyersGuideArticlePageFactory)
+
+
 def create_general_product_visual_regression_product(seed, pni_homepage):
     # There are no random fields here: *everything* is prespecified
     GeneralProductPageFactory.create(

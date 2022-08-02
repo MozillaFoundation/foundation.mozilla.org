@@ -15,6 +15,9 @@ class FactoriesTest(test_base.WagtailpagesTestCase):
     def test_content_category_relation_factory(self):
         buyersguide_factories.BuyersGuideArticlePageContentCategoryRelationFactory()
 
+    def test_content_category_relation_factory(self):
+        buyersguide_factories.BuyersGuideArticlePageRelatedArticleFactory()
+
 
 class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
     @classmethod
@@ -79,3 +82,5 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             response=response,
             template_name='wagtailpages/blocks/rich_text_block.html',
         )
+
+    # TODO: test splitting related articles into primary and secondary.
