@@ -10,10 +10,10 @@
 {% block index_header %}
 <div class="tw-grid tw-grid-cols-12">
   <div class="tw-col-span-12 large:tw-col-span-8 tw-mt-4">
-    <h1 class="tw-h1-heading mb-0 mt-1 pt-2">
+    <h1 class="tw-h1-heading tw-mb-0 tw-mt-1 tw-pt-2">
       {% if index_title %}{{ index_title }}{% elif root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
     </h1>
-    <p class="tw-body-large mt-3 mb-0">{{ page.intro|safe }}</p>
+    <p class="tw-body-large tw-mt-3 tw-mb-0 tw-pr-1 medium:tw-pr-3">{{ page.intro|safe }}</p>
   </div>
   <div class="tw-col-span-12 large:tw-col-span-4 tw-mt-4 large:tw-mt-6">
     <form action="" method="get">
