@@ -5,7 +5,7 @@ import requests
 from io import BytesIO
 from mimetypes import MimeTypes
 from PIL import Image as PILImage
-from typing import Union
+from typing import Optional
 
 from bs4 import BeautifulSoup
 
@@ -387,7 +387,7 @@ def get_plaintext_titles(request, stream_data, stream_block_name):
     return tuple(data.items())
 
 
-def create_wagtail_image(img_src: str, image_name: str = None, collection_name: str = None) -> Union[None, Image]:
+def create_wagtail_image(img_src: str, image_name: str = None, collection_name: str = None) -> Optional[Image]:
     """
     Create a Wagtail Image from a given source. It takes an optional file name
     and collection name.
@@ -402,10 +402,10 @@ def create_wagtail_image(img_src: str, image_name: str = None, collection_name: 
     """
 
     mime = MimeTypes()
-    mime_type = mime.guess_type(img_src)
+    guessed_mime_type = mime.guess_type(img_src)
 
-    if mime_type:
-        mime_type = mime_type[0].split('/')[1].upper()
+    if guessed_mime_type and guessed_mime_type[0]:
+        mime_type = guessed_mime_type[0].split('/')[1].upper()
     else:
         # Default to a JPEG mimetype.
         mime_type = 'JPEG'
@@ -423,7 +423,7 @@ def create_wagtail_image(img_src: str, image_name: str = None, collection_name: 
         else:
             # Image URL didn't 200 for us. Nothing we can do about that. Return early.
             print(f"Could not generate image from url {img_src}")
-            return
+            return None
     else:
         # Save the image from a local source. The requests package is not needed.
         pil_image = PILImage.open(img_src)

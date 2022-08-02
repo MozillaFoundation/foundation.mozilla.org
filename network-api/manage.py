@@ -4,7 +4,7 @@ import sys
 
 # Django runs twice to support live-reloading, so check Django's internal settings to determine whether or not
 # to start the debugger.
-if (os.environ.get("RUN_MAIN") or os.environ.get("WERKZEUG_RUN_MAIN")) and os.environ.get('VSCODE_DEBUGGER', False):
+if (os.environ.get("RUN_MAIN") or os.environ.get("WERKZEUG_RUN_MAIN")) and os.environ.get('VSCODE_DEBUGGER'):
     import ptvsd # noqa
     ptvsd_port = 8001
 
