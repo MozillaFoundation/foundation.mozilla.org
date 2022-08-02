@@ -8,14 +8,14 @@
 {% endblock %}
 
 {% block index_header %}
-<div class="row">
-  <div class="col-12 col-lg-8 pt-4">
+<div class="tw-grid tw-grid-cols-12">
+  <div class="tw-col-span-12 large:tw-col-span-8 tw-mt-4">
     <h1 class="tw-h1-heading mb-0 mt-1 pt-2">
       {% if index_title %}{{ index_title }}{% elif root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
     </h1>
     <p class="tw-body-large mt-3 mb-0">{{ page.intro|safe }}</p>
   </div>
-  <div class="col-12 col-lg-4 tw-mt-6">
+  <div class="tw-col-span-12 large:tw-col-span-4 tw-mt-4 large:tw-mt-6">
     {% include "wagtailpages/fragments/blog_search_bar.html" with name="q" search_query=query %}
 </div>
 </div>
@@ -29,7 +29,7 @@
 
 {% block featured %}
   {% if not filtered %}
-    <div class="tw-grid tw-grid-cols-12 tw-gap-x-5 tw-gap-y-7 tw-mb-7">
+    <div class="tw-grid tw-grid-cols-12 tw-gap-5 tw-mb-1 medium:tw-mb-7">
       {%  for feature in page.specific.featured_pages.all %}
       {% with divider_classes="tw-border-b tw-pb-5 tw-border-gray-20 medium:tw-border-b-0" %}
         {% if forloop.first %}
@@ -54,7 +54,7 @@
       {% endfor %}
 
       {%  for video_post in page.specific.featured_video_post.all %}
-        <div class="tw-col-span-12">
+        <div class="tw-col-span-12 tw-pt-5 {{divider_classes}}">
           {% include "./fragments/blog_index_feature.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
         </div>
       {% endfor %}
@@ -65,24 +65,25 @@
 
 {% block subcontent %}
   {% if not filtered %}
-    <h2 class="tw-hidden tw-uppercase tw-text-3xl tw-font-bold tw-font-sans tw-text-gray-80 tw-mb-0 medium:tw-block">{% trans "Latest Blog Posts" %}</h2>
-    <ul id="index-entries" class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-5 tw-gap-y-7 tw-list-none tw-px-0">
-      {% for entry in entries %}
-      <li class="tw-m-0 tw-p-0 tw-pt-5 {% if not forloop.first %} tw-border-t {% endif %}">
-            {% include "./fragments/blog_card.html" with page=entry %}
-      </li>
-      {% endfor %}
-      <li class="tw-m-0 tw-p-0 tw-pt-5 tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3 tw-row-start-3 medium:tw-row-start-2 large:tw-row-start-1 tw-border-red-60">
-        {% include "./fragments/related_topics_cutout.html" with topics=related_topics %}
-      </li>
-    
-    </ul>
-    
-  {% else %}
-    <div class="row">
-      {% include "./fragments/entry_cards.html" %}
-    </div>
+    <h2 class="tw-hidden tw-uppercase tw-text-3xl tw-mb-0 tw-font-bold tw-font-sans tw-text-gray-80">{% trans "Latest Blog Posts" %}</h2>
   {% endif %}
+  
+  <div class="row">
+    <ul id="index-entries" class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-5 tw-gap-y-4 tw-list-none tw-divide-y tw-divide-gray-20 tw-px-[15px] medium:tw-divide-y-0">
+      {% for entry in entries %}
+        <li class="tw-m-0 tw-pt-5">
+          {% include "./fragments/blog_card.html" with page=entry %}
+        </li>
+      {% endfor %}
+
+      {% if not filtered %}
+        <li class="tw-m-0 tw-pt-5 tw-border-none tw-pb-7 -tw-mb-6 tw-bg-white tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3 tw-row-start-3 medium:tw-row-start-2 large:tw-row-start-1">
+          {% include "./fragments/related_topics_cutout.html" with topics=related_topics %}
+        </li>
+      {% endif %}
+
+    </ul>
+  </div>
 {% endblock %}
 
 {% block newsletter-callout-box %}
