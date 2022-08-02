@@ -1,6 +1,6 @@
 {% extends "./index_page.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags i18n localization blog_tags static %}
+{% load wagtailcore_tags wagtailimages_tags i18n localization blog_tags static wagtailroutablepage_tags %}
 
 
 {% block rss_metadata %}
@@ -16,7 +16,7 @@
     <p class="tw-body-large tw-mt-3 tw-mb-0 tw-pr-1 medium:tw-pr-3">{{ page.intro|safe }}</p>
   </div>
   <div class="tw-col-span-12 large:tw-col-span-4 tw-mt-4 large:tw-mt-6">
-    <form action="" method="get">
+    <form action="{% routablepageurl page "search" %}" method="get">
       {% include "./fragments/blog_search_bar.html" with name="q" search_query=query %}
     </form>
 </div>
