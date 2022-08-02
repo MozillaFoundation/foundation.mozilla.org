@@ -41,15 +41,13 @@ class ArticleAuthors(Orderable):
 
 
 class ArticlePage(FoundationMetadataPageMixin, Page):
-
     """
-
     Articles can belong to any page in the Wagtail Tree.
     An ArticlePage can have no children
     If not a child of a Publication Page, page nav at bottom of page
     and breadcrumbs will not render.
     """
-    subpage_types = []
+    subpage_types: list = []
     body = StreamField(article_fields)
 
     toc_thumbnail_image = models.ForeignKey(

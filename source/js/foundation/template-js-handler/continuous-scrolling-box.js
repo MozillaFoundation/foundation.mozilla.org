@@ -46,7 +46,7 @@ export default () => {
     ScrollTrigger.create({
       trigger: ".cont-scrolling",
       start: "top center",
-      end: "bottom bottom",
+      end: "max bottom",
       scrub: true,
       toggleActions: "play none none reverse",
       onLeave: () => {
@@ -123,13 +123,5 @@ export default () => {
   gsap.registerPlugin(ScrollTrigger);
   if (document.querySelector(".cont-scrolling")) {
     initScrollExitTransition();
-    // create an Observer instance
-    // this observer is just here for testing when a user resizes the window so the scrolltriggers are recreated.
-    const resizeObserver = new ResizeObserver((entries) =>
-      ScrollTrigger.refresh()
-    );
-
-    // start observing a DOM node
-    resizeObserver.observe(document.body);
   }
 };

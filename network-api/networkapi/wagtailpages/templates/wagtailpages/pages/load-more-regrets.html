@@ -4,7 +4,7 @@
   <button id="load-more-regrets" class="tw-btn-secondary">{% trans "Load more stories" %}</button>
 </div>
 
-<script defer>
+<script nonce="{{request.csp_nonce}}" defer>
   /**
    * This is an inline script for toggling dynamically generated batch classes.
    * This is done in a closure to make sure we don't pollute global.
