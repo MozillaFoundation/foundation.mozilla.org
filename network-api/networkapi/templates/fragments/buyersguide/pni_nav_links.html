@@ -1,7 +1,7 @@
 {% load bg_nav_tags i18n localization wagtailcore_tags %}
 
 {{ pre }}
-{% with home_page.find_editorial_content_index as editorial_content_index  %}
+{% with home_page.get_editorial_content_index as editorial_content_index  %}
   {% if editorial_content_index %}
     <a class="{{ class }}" href="{% pageurl editorial_content_index %}">{{ editorial_content_index }}</a>
   {% endif %}
