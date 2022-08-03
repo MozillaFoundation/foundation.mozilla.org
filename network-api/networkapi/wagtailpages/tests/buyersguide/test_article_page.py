@@ -108,8 +108,15 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         for related_article in related_articles:
             self.assertIn(related_article, result)
 
-    # TODO: test splitting related articles into primary and secondary.
-    # TODO: test not enough related articles available.
+    def test_get_related_articles_no_related_articles(self):
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index,
+        )
+
+        result = article_page.get_related_articles()
+
+        self.assertQuerysetEqual(result, [])
+
     def test_primary_related_articles(self):
         """First three related articles are primary."""
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
@@ -132,6 +139,14 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             self.assertIn(related_article, primary_related_articles)
         self.assertNotIn(related_articles[-1], primary_related_articles)
 
+    def test_primary_related_articles_no_related_articles(self):
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index,
+        )
+
+        result = article_page.get_primary_related_articles()
+
+        self.assertQuerysetEqual(result, [])
 
     def test_secondary_related_articles(self):
         """Second three related articles are secondary."""
@@ -156,3 +171,11 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         for related_article in related_articles[3:]:
             self.assertIn(related_article, secondary_related_articles)
 
+    def test_secondary_related_articles_related_articles_no_related_articles(self):
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index,
+        )
+
+        result = article_page.get_secondary_related_articles()
+
+        self.assertQuerysetEqual(result, [])
