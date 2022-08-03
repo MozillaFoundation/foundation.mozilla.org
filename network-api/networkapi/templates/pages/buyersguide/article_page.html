@@ -12,8 +12,8 @@
 
 {% block guts %}
   <ul>
-    {% for content_category in page.content_categories.all %}
-      <li>{{ content_category.category.title|title }}</li>
+    {% for content_category_relation in page.content_category_relations.all %}
+      <li>{{ content_category_relation.content_category.title|title }}</li>
     {% endfor %}
   </ul>
   <h1>{{ page.title }}</h1>

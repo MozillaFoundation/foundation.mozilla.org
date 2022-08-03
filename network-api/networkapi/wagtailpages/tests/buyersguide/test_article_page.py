@@ -9,13 +9,13 @@ class FactoriesTest(test_base.WagtailpagesTestCase):
     def test_page_factory(self):
         buyersguide_factories.BuyersGuideArticlePageFactory()
 
-    def test_author_factory(self):
+    def test_author_profile_relation_factory(self):
         buyersguide_factories.BuyersGuideArticlePageAuthorProfileRelationFactory()
 
     def test_content_category_relation_factory(self):
         buyersguide_factories.BuyersGuideArticlePageContentCategoryRelationFactory()
 
-    def test_content_category_relation_factory(self):
+    def test_related_article_relation_factory(self):
         buyersguide_factories.BuyersGuideArticlePageRelatedArticleFactory()
 
 

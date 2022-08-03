@@ -61,7 +61,7 @@ class BuyersGuideArticlePage(
         image_panels.ImageChooserPanel('hero_image'),
         panels.InlinePanel('author_profile_relations', heading='Authors', label='Author'),
         panels.InlinePanel(
-            'content_categories',
+            'content_category_relations',
             heading='Content categories',
             label='Content category',
             max_num=2,
@@ -116,9 +116,9 @@ class BuyersGuideArticlePageContentCategoryRelation(
     """Through model for relation from article page to content category."""
     page = cluster_fields.ParentalKey(
         'wagtailpages.BuyersGuideArticlePage',
-        related_name='content_categories',
+        related_name='content_category_relations',
     )
-    category = models.ForeignKey(
+    content_category = models.ForeignKey(
         'wagtailpages.BuyersGuideContentCategory',
         on_delete=models.CASCADE,
         related_name='+',
@@ -126,10 +126,10 @@ class BuyersGuideArticlePageContentCategoryRelation(
         blank=False,
     )
 
-    panels = [snippet_panels.SnippetChooserPanel('category')]
+    panels = [snippet_panels.SnippetChooserPanel('content_category')]
 
     def __str__(self):
-        return f'{self.page.title} -> {self.category.title}'
+        return f'{self.page.title} -> {self.content_category.title}'
 
 
 class BuyersGuideArticlePageRelatedArticle(
