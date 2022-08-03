@@ -340,7 +340,8 @@ def generate(seed):
     editorial_content_index = BuyersGuideEditorialContentIndexPageFactory(parent=pni_homepage)
     for _ in range(3):
         BuyersGuideContentCategoryFactory()
-    for _ in range(5):
+    articles = []
+    for _ in range(6):
         article = BuyersGuideArticlePageFactory(parent=editorial_content_index)
         for profile in get_random_objects(pagemodels.Profile, max_count=3):
             BuyersGuideArticlePageAuthorFactory(page=article, author=profile)
@@ -351,3 +352,10 @@ def generate(seed):
                     page=article,
                     category=category,
                 )
+        # Add all previously existing articles as related articles
+        for existing_article in articles:
+            BuyersGuideArticlePageRelatedArticleFactory(
+                page=article,
+                article=existing_article,
+            )
+        articles.append(article)
