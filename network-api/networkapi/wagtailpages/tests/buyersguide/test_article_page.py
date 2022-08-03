@@ -133,11 +133,11 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             )
             related_articles.append(related_article)
 
-        primary_related_articles = article_page.get_primary_related_articles()
+        result = article_page.get_primary_related_articles()
 
         for related_article in related_articles[:3]:
-            self.assertIn(related_article, primary_related_articles)
-        self.assertNotIn(related_articles[-1], primary_related_articles)
+            self.assertIn(related_article, result)
+        self.assertNotIn(related_articles[-1], result)
 
     def test_primary_related_articles_no_related_articles(self):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
@@ -164,12 +164,12 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             )
             related_articles.append(related_article)
 
-        secondary_related_articles = article_page.get_secondary_related_articles()
+        result = article_page.get_secondary_related_articles()
 
         for related_article in related_articles[:3]:
-            self.assertNotIn(related_article, secondary_related_articles)
+            self.assertNotIn(related_article, result)
         for related_article in related_articles[3:]:
-            self.assertIn(related_article, secondary_related_articles)
+            self.assertIn(related_article, result)
 
     def test_secondary_related_articles_related_articles_no_related_articles(self):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
