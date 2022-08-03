@@ -125,6 +125,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         help_text='Which blog topics is this blog page associated with? Please select 2 topics max.',
         blank=True,
         verbose_name='Topics',
+        limit_choices_to=models.Q(locale__id="1"),
     )
 
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
