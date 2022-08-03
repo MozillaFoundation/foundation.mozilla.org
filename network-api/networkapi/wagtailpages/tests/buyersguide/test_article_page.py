@@ -84,3 +84,31 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         )
 
     # TODO: test splitting related articles into primary and secondary.
+    def test_primary_related_articles(self):
+        """First three related articles are primary."""
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index,
+        )
+        related_articles = []
+        for _  in range(4):
+            related_article = buyersguide_factories.BuyersGuideArticlePageFactory(
+                parent=self.content_index,
+            )
+            buyersguide_factories.BuyersGuideArticlePageRelatedArticleFactory(
+                page=article_page,
+                article=related_article,
+            )
+            related_articles.append(related_article)
+
+        primary_related_articles = article_page.get_primary_related_articles()
+
+        for related_article in related_articles[:3]:
+            self.assertIn(related_article, primary_related_articles)
+
+        self.assertNotIn(related_articles[-1], primary_related_articles)
+
+
+    def test_secondary_related_articles(self):
+        """Second three related articles are secondary."""
+
+    # TODO: test not enough related articles available.

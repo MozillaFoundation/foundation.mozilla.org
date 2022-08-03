@@ -81,6 +81,11 @@ class BuyersGuideArticlePage(
         context['home_page'] = self.get_parent().get_parent().specific
         return context
 
+    def get_primary_related_articles(self):
+        return BuyersGuideArticlePage.objects.filter(
+            id__in=self.related_articles.all().values_list('article_id', flat=True),
+        )
+
 
 class BuyersGuideArticlePageAuthor(
     wagtail_models.TranslatableMixin,
