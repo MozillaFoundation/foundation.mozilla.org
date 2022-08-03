@@ -88,7 +88,10 @@ class BuyersGuideArticlePage(
         return BuyersGuideArticlePage.objects.filter(id__in=related_article_ids)
 
     def get_primary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
-        return self.get_related_articles()
+        return self.get_related_articles()[:3]
+
+    def get_secondary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+        return self.get_related_articles()[3:]
 
 
 class BuyersGuideArticlePageAuthorProfileRelation(

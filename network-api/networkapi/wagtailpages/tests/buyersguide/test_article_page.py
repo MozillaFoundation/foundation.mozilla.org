@@ -135,4 +135,24 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
 
     def test_secondary_related_articles(self):
         """Second three related articles are secondary."""
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index,
+        )
+        related_articles = []
+        for _  in range(6):
+            related_article = buyersguide_factories.BuyersGuideArticlePageFactory(
+                parent=self.content_index,
+            )
+            buyersguide_factories.BuyersGuideArticlePageRelatedArticleRelationFactory(
+                page=article_page,
+                article=related_article,
+            )
+            related_articles.append(related_article)
+
+        secondary_related_articles = article_page.get_secondary_related_articles()
+
+        for related_article in related_articles[:3]:
+            self.assertNotIn(related_article, secondary_related_articles)
+        for related_article in related_articles[3:]:
+            self.assertIn(related_article, secondary_related_articles)
 
