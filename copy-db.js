@@ -105,7 +105,7 @@ console.log(`Building user roles...`);
 
 console.log(`Importing database snapshot...`);
 run(`docker cp ${DUMP_FILE} ${IMAGE_NAMES.POSTGRES}:/`);
-postgres(`pg_restore ${DB_FLAGS} -dwagtail ${DUMP_FILE}`);
+postgres(`pg_restore ${DB_FLAGS} -dwagtail --no-owner ${DUMP_FILE}`);
 
 console.log(`Updating site bindings...`);
 run(`inv manage fix_local_site_bindings`, true, silent);
