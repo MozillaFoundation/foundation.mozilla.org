@@ -198,12 +198,12 @@ class BuyersGuideContentCategoryFactory(DjangoModelFactory):
     title = Faker('word')
 
 
-class BuyersGuideArticlePageAuthorFactory(DjangoModelFactory):
+class BuyersGuideArticlePageAuthorProfileRelationFactory(DjangoModelFactory):
     class Meta:
-        model = pagemodels.BuyersGuideArticlePageAuthor
+        model = pagemodels.BuyersGuideArticlePageAuthorProfileRelation
 
     page = SubFactory(BuyersGuideArticlePageFactory)
-    author = SubFactory(profile_factories.ProfileFactory)
+    author_profile = SubFactory(profile_factories.ProfileFactory)
 
 
 class BuyersGuideArticlePageContentCategoryRelationFactory(DjangoModelFactory):
@@ -344,7 +344,10 @@ def generate(seed):
     for _ in range(6):
         article = BuyersGuideArticlePageFactory(parent=editorial_content_index)
         for profile in get_random_objects(pagemodels.Profile, max_count=3):
-            BuyersGuideArticlePageAuthorFactory(page=article, author=profile)
+            BuyersGuideArticlePageAuthorProfileRelationFactory(
+                page=article,
+                author_profile=profile,
+            )
         if article.id % 2 == 0:
             # Articles with even id get the content category
             for category in get_random_objects(pagemodels.BuyersGuideContentCategory, max_count=2):

@@ -18,8 +18,8 @@
   </ul>
   <h1>{{ page.title }}</h1>
   <ul>
-    {% for author in page.authors.all %}
-      <li>{{ author.author.name }}</li>
+    {% for author_profile_relation in page.author_profile_relations.all %}
+      <li>{{ author_profile_relation.author_profile.name }}</li>
     {% endfor %}
   </ul>
   <div>

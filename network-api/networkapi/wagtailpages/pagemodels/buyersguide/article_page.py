@@ -2,7 +2,6 @@ from django import http
 from django.db import models
 from modelcluster import fields as cluster_fields
 from wagtail import images
-import wagtail
 from wagtail.admin import edit_handlers as panels
 from wagtail.core import blocks, fields
 from wagtail.core import models as wagtail_models
@@ -60,7 +59,7 @@ class BuyersGuideArticlePage(
 
     content_panels = wagtail_models.Page.content_panels + [
         image_panels.ImageChooserPanel('hero_image'),
-        panels.InlinePanel('authors', heading='Authors', label='Author'),
+        panels.InlinePanel('author_profile_relations', heading='Authors', label='Author'),
         panels.InlinePanel(
             'content_categories',
             heading='Content categories',
@@ -87,16 +86,16 @@ class BuyersGuideArticlePage(
         )
 
 
-class BuyersGuideArticlePageAuthor(
+class BuyersGuideArticlePageAuthorProfileRelation(
     wagtail_models.TranslatableMixin,
     wagtail_models.Orderable,
 ):
     """Through model for relation from article page to author profile."""
     page = cluster_fields.ParentalKey(
         'wagtailpages.BuyersGuideArticlePage',
-        related_name='authors',
+        related_name='author_profile_relations',
     )
-    author = models.ForeignKey(
+    author_profile = models.ForeignKey(
         'wagtailpages.Profile',
         on_delete=models.CASCADE,
         related_name='+',
@@ -104,10 +103,10 @@ class BuyersGuideArticlePageAuthor(
         blank=False,
     )
 
-    panels = [snippet_panels.SnippetChooserPanel('author')]
+    panels = [snippet_panels.SnippetChooserPanel('author_profile')]
 
     def __str__(self):
-        return f'{self.page.title} -> {self.author.name}'
+        return f'{self.page.title} -> {self.author_profile.name}'
 
 
 class BuyersGuideArticlePageContentCategoryRelation(

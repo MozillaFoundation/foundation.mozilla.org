@@ -10,7 +10,7 @@ class FactoriesTest(test_base.WagtailpagesTestCase):
         buyersguide_factories.BuyersGuideArticlePageFactory()
 
     def test_author_factory(self):
-        buyersguide_factories.BuyersGuideArticlePageAuthorFactory()
+        buyersguide_factories.BuyersGuideArticlePageAuthorProfileRelationFactory()
 
     def test_content_category_relation_factory(self):
         buyersguide_factories.BuyersGuideArticlePageContentCategoryRelationFactory()
@@ -84,6 +84,7 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         )
 
     # TODO: test splitting related articles into primary and secondary.
+    # TODO: test not enough related articles available.
     def test_primary_related_articles(self):
         """First three related articles are primary."""
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
@@ -111,4 +112,3 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
     def test_secondary_related_articles(self):
         """Second three related articles are secondary."""
 
-    # TODO: test not enough related articles available.
