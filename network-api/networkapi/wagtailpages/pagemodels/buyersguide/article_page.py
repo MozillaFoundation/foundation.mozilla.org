@@ -67,6 +67,12 @@ class BuyersGuideArticlePage(
             label='Content category',
             max_num=2,
         ),
+        panels.InlinePanel(
+            'related_articles',
+            heading='Related articles',
+            label='Article',
+            max_num=6,
+        ),
         panels.StreamFieldPanel('body'),
     ]
 
