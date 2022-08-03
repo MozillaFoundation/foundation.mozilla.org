@@ -93,7 +93,7 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             parent=self.content_index,
         )
         related_articles = []
-        for _  in range(4):
+        for _ in range(4):
             related_article = buyersguide_factories.BuyersGuideArticlePageFactory(
                 parent=self.content_index,
             )
@@ -123,7 +123,7 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             parent=self.content_index,
         )
         related_articles = []
-        for _  in range(4):
+        for _ in range(4):
             related_article = buyersguide_factories.BuyersGuideArticlePageFactory(
                 parent=self.content_index,
             )
@@ -154,7 +154,7 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             parent=self.content_index,
         )
         related_articles = []
-        for _  in range(6):
+        for _ in range(6):
             related_article = buyersguide_factories.BuyersGuideArticlePageFactory(
                 parent=self.content_index,
             )
