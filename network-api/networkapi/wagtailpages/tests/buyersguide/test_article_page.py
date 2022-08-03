@@ -83,6 +83,31 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             template_name='wagtailpages/blocks/rich_text_block.html',
         )
 
+    def test_get_related_articles(self):
+        """
+        Returns all related articles.
+
+        We don't want the through model, we really want the articles.
+        """
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index,
+        )
+        related_articles = []
+        for _  in range(4):
+            related_article = buyersguide_factories.BuyersGuideArticlePageFactory(
+                parent=self.content_index,
+            )
+            buyersguide_factories.BuyersGuideArticlePageRelatedArticleRelationFactory(
+                page=article_page,
+                article=related_article,
+            )
+            related_articles.append(related_article)
+
+        result = article_page.get_related_articles()
+
+        for related_article in related_articles:
+            self.assertIn(related_article, result)
+
     # TODO: test splitting related articles into primary and secondary.
     # TODO: test not enough related articles available.
     def test_primary_related_articles(self):
@@ -105,7 +130,6 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
 
         for related_article in related_articles[:3]:
             self.assertIn(related_article, primary_related_articles)
-
         self.assertNotIn(related_articles[-1], primary_related_articles)
 
 

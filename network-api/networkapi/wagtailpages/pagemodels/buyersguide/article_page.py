@@ -17,7 +17,7 @@ class BuyersGuideArticlePage(
     wagtail_models.Page
 ):
     parent_page_types = ['wagtailpages.BuyersGuideEditorialContentIndexPage']
-    subpage_types = []
+    subpage_types: list = []
     template = 'pages/buyersguide/article_page.html'
 
     hero_image = models.ForeignKey(
@@ -80,12 +80,15 @@ class BuyersGuideArticlePage(
         context['home_page'] = self.get_parent().get_parent().specific
         return context
 
-    def get_primary_related_articles(self):
+    def get_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
         related_article_ids = self.related_article_relations.values_list(
             'article_id',
             flat=True,
         )
         return BuyersGuideArticlePage.objects.filter(id__in=related_article_ids)
+
+    def get_primary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+        return self.get_related_articles()
 
 
 class BuyersGuideArticlePageAuthorProfileRelation(
