@@ -214,9 +214,9 @@ class BuyersGuideArticlePageContentCategoryRelationFactory(DjangoModelFactory):
     content_category = SubFactory(BuyersGuideContentCategoryFactory)
 
 
-class BuyersGuideArticlePageRelatedArticleFactory(DjangoModelFactory):
+class BuyersGuideArticlePageRelatedArticleRelationFactory(DjangoModelFactory):
     class Meta:
-        model = pagemodels.BuyersGuideArticlePageRelatedArticle
+        model = pagemodels.BuyersGuideArticlePageRelatedArticleRelation
 
     page = SubFactory(BuyersGuideArticlePageFactory)
     article = SubFactory(BuyersGuideArticlePageFactory)
@@ -357,7 +357,7 @@ def generate(seed):
                 )
         # Add all previously existing articles as related articles
         for existing_article in articles:
-            BuyersGuideArticlePageRelatedArticleFactory(
+            BuyersGuideArticlePageRelatedArticleRelationFactory(
                 page=article,
                 article=existing_article,
             )

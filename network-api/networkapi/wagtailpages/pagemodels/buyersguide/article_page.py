@@ -67,7 +67,7 @@ class BuyersGuideArticlePage(
             max_num=2,
         ),
         panels.InlinePanel(
-            'related_articles',
+            'related_article_relations',
             heading='Related articles',
             label='Article',
             max_num=6,
@@ -81,9 +81,11 @@ class BuyersGuideArticlePage(
         return context
 
     def get_primary_related_articles(self):
-        return BuyersGuideArticlePage.objects.filter(
-            id__in=self.related_articles.all().values_list('article_id', flat=True),
+        related_article_ids = self.related_article_relations.values_list(
+            'article_id',
+            flat=True,
         )
+        return BuyersGuideArticlePage.objects.filter(id__in=related_article_ids)
 
 
 class BuyersGuideArticlePageAuthorProfileRelation(
@@ -132,13 +134,13 @@ class BuyersGuideArticlePageContentCategoryRelation(
         return f'{self.page.title} -> {self.content_category.title}'
 
 
-class BuyersGuideArticlePageRelatedArticle(
+class BuyersGuideArticlePageRelatedArticleRelation(
     wagtail_models.TranslatableMixin,
     wagtail_models.Orderable,
 ):
     page = cluster_fields.ParentalKey(
         'wagtailpages.BuyersGuideArticlePage',
-        related_name='related_articles',
+        related_name='related_article_relations',
     )
     article = models.ForeignKey(
         'wagtailpages.BuyersGuideArticlePage',

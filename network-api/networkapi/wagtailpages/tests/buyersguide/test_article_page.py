@@ -16,7 +16,7 @@ class FactoriesTest(test_base.WagtailpagesTestCase):
         buyersguide_factories.BuyersGuideArticlePageContentCategoryRelationFactory()
 
     def test_related_article_relation_factory(self):
-        buyersguide_factories.BuyersGuideArticlePageRelatedArticleFactory()
+        buyersguide_factories.BuyersGuideArticlePageRelatedArticleRelationFactory()
 
 
 class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
@@ -95,7 +95,7 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             related_article = buyersguide_factories.BuyersGuideArticlePageFactory(
                 parent=self.content_index,
             )
-            buyersguide_factories.BuyersGuideArticlePageRelatedArticleFactory(
+            buyersguide_factories.BuyersGuideArticlePageRelatedArticleRelationFactory(
                 page=article_page,
                 article=related_article,
             )
