@@ -10,7 +10,7 @@
         {% endif %}
       </div>
     {% endif %}
-    <h2 class="tw-text-[40px] tw-h2-heading tw-font-normal tw-mb-2">{{ value.title }}</h2>
+    <h2 class="tw-text-4xl tw-h2-heading tw-font-normal tw-mb-2">{{ value.title }}</h2>
     <div class="tw-body tw-mb-5">{{ value.body | richtext }}</div>
     {% if value.audio %}
       {% include '../fragments/audio_player.html' with audio=value.audio.url extra_css="tw-my-2"%}
