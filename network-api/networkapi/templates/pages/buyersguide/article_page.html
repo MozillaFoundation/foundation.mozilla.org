@@ -11,47 +11,72 @@
 {% endblock hero %}
 
 {% block guts %}
-  <div>
-    <h2>Categories</h2>
-    <ul>
-      {% for content_category_relation in page.content_category_relations.all %}
-        <li>{{ content_category_relation.content_category.title|title }}</li>
-      {% endfor %}
-    </ul>
-  </div>
+  {% with content_category_relations=page.content_category_relations.all  %}
+    {% if content_category_relations %}
+      <div>
+        <h2>Categories</h2>
+
+        <ul>
+          {% for content_category_relation in content_category_relations  %}
+            <li>{{ content_category_relation.content_category.title|title }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endwith %}
+
   <h1>{{ page.title }}</h1>
-  <div>
-    <h2>Authors</h2>
-    <ul>
-      {% for author_profile_relation in page.author_profile_relations.all %}
-        <li>{{ author_profile_relation.author_profile.name }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-  <div>
-    <h2>Related articles (primary)</h2>
-    <ul>
-      {% for related_article in page.get_primary_related_articles  %}
-        <li>
-          <a href="{% pageurl related_article %}">{{ related_article.title }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
+
+  {% with author_profile_relations=page.author_profile_relations.all  %}
+    {% if author_profile_relations %}
+      <div>
+        <h2>Authors</h2>
+
+        <ul>
+          {% for author_profile_relation in author_profile_relations %}
+            <li>{{ author_profile_relation.author_profile.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% with primary_related_articles=page.get_primary_related_articles  %}
+    {% if primary_related_articles %}
+      <div>
+        <h2>Related articles (primary)</h2>
+
+        <ul>
+          {% for related_article in primary_related_articles  %}
+            <li>
+              <a href="{% pageurl related_article %}">{{ related_article.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endwith %}
+
   <div>
     <h2>Body</h2>
     {% for block in page.body %}
         {% include_block block %}
     {% endfor %}
   </div>
-  <div>
-    <h2>Related articles (secondary)</h2>
-    <ul>
-      {% for related_article in page.get_secondary_related_articles  %}
-        <li>
-          <a href="{% pageurl related_article %}">{{ related_article.title }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
+
+  {% with secondary_related_articles=page.get_secondary_related_articles %}
+    {% if secondary_related_articles %}
+      <div>
+        <h2>Related articles (secondary)</h2>
+
+        <ul>
+          {% for related_article in secondary_related_articles %}
+            <li>
+              <a href="{% pageurl related_article %}">{{ related_article.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endwith %}
 {% endblock guts %}
