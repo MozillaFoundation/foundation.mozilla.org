@@ -105,7 +105,9 @@ console.log(`Building user roles...`);
 
 console.log(`Importing database snapshot...`);
 run(`docker cp ${DUMP_FILE} ${IMAGE_NAMES.POSTGRES}:/`);
-postgres(`pg_restore ${DB_FLAGS} -dwagtail ${DUMP_FILE}`);
+// Based on the Heroku docs for restoring to local database:
+// https://devcenter.heroku.com/articles/heroku-postgres-import-export#restore-to-local-database
+postgres(`pg_restore ${DB_FLAGS} -dwagtail --no-acl --no-owner ${DUMP_FILE}`);
 
 console.log(`Updating site bindings...`);
 run(`inv manage fix_local_site_bindings`, true, silent);
