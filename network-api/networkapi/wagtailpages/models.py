@@ -102,15 +102,15 @@ from .pagemodels.dear_internet import (
     DearInternetPage
 )
 
-from .pagemodels.buyersguide.editorial_content_index import BuyersGuideEditorialContentIndexPage
 from .pagemodels.buyersguide.article_page import (
     BuyersGuideArticlePage,
     BuyersGuideArticlePageAuthorProfileRelation,
     BuyersGuideArticlePageContentCategoryRelation,
     BuyersGuideArticlePageRelatedArticleRelation,
 )
+from .pagemodels.buyersguide.editorial_content_index import BuyersGuideEditorialContentIndexPage
+from .pagemodels.buyersguide.home_page import BuyersGuidePage
 from .pagemodels.buyersguide.products import (
-    BuyersGuidePage,
     BuyersGuideProductCategory,
     GeneralProductPage,
     ProductPage,

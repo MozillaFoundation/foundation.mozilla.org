@@ -10,8 +10,8 @@ from django.test import TestCase, RequestFactory
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.base import Homepage
+from networkapi.wagtailpages.pagemodels.buyersguide.home_page import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
-    BuyersGuidePage,
     ProductPage,
     ProductPageVotes,
     ProductPageCategory,
