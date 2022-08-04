@@ -85,7 +85,6 @@ jobs:
       - name: Preroll
         run: |
           npm run build
-          ls -l network-api/networkapi/wagtailpages/migrations/
           python network-api/manage.py collectstatic --no-input --verbosity 0
           python network-api/manage.py migrate --no-input
           python network-api/manage.py block_inventory
