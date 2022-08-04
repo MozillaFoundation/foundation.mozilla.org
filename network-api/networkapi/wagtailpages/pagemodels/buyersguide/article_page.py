@@ -1,4 +1,5 @@
 from django import http
+from django.apps import apps
 from django.db import models
 from modelcluster import fields as cluster_fields
 from wagtail import images
@@ -77,8 +78,16 @@ class BuyersGuideArticlePage(
 
     def get_context(self, request: http.HttpRequest, *args, **kwargs) -> dict:
         context = super().get_context(request, *args, **kwargs)
-        context['home_page'] = self.get_parent().get_parent().specific
+        context['home_page'] = self.get_buyersguide_homepage()
         return context
+
+    def get_buyersguide_homepage(self):
+        BuyersGuidePage = apps.get_model(
+            app_label='wagtailpages',
+            model_name='BuyersGuidePage',
+        )
+        ancestor_ids = self.get_ancestors().values_list('id', flat=True)
+        return BuyersGuidePage.objects.filter(id__in=ancestor_ids).first()
 
     def get_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
         related_article_ids = self.related_article_relations.values_list(

@@ -23,11 +23,11 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.pni_homepage = buyersguide_factories.BuyersGuidePageFactory(
+        cls.buyersguide_homepage = buyersguide_factories.BuyersGuidePageFactory(
             parent=cls.homepage,
         )
         cls.content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
-            parent=cls.pni_homepage,
+            parent=cls.buyersguide_homepage,
         )
 
     def test_parents(self):
@@ -70,6 +70,15 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             response=response,
             template_name='pages/base.html',
         )
+
+    def test_buyersguide_home_page_in_context(self):
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index,
+        )
+
+        response = self.client.get(article_page.url)
+
+        self.assertEqual(response.context['home_page'], self.buyersguide_homepage)
 
     def test_content_template(self):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
