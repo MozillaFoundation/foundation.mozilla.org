@@ -93,7 +93,7 @@ class TestBlogIndex(BlogIndexTestCase):
         )
         self.assertTemplateUsed(
             response,
-            template_name='wagtailpages/fragments/entry_cards.html'
+            template_name='wagtailpages/fragments/entry_cards_item_loop.html'
         )
         self.assertTemplateUsed(
             response,
