@@ -1,8 +1,29 @@
 {% extends "pages/buyersguide/catalog.html" %}
+{% load wagtailcore_tags %}
 
 {% block body_id %}home{% endblock %}
 
 {% block hero %}
   {{ block.super }}
+
   HERO
+  {% with page.hero_featured_article as hero_featured_article %}
+    {% if hero_featured_article %}
+      <div>
+        <a href=" {% pageurl hero_featured_article %}" class="tw-h1-heading">{{ hero_featured_article.title }}</a>
+        <div>
+          By
+          {% with author_profile_relations=hero_featured_article.author_profile_relations.all  %}
+            {% if author_profile_relations %}
+              <ul>
+                {% for author_profile_relation in author_profile_relations %}
+                  <li>{{ author_profile_relation.author_profile.name }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+    {% endif %}
+  {% endwith %}
 {% endblock hero %}

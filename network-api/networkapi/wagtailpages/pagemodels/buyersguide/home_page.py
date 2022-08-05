@@ -7,10 +7,14 @@ from django.core.cache import cache
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.text import slugify
 from django.utils.translation import gettext, pgettext
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import (
+        FieldPanel,
+        InlinePanel,
+        MultiFieldPanel,
+        PageChooserPanel,
+)
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Locale, Page
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
@@ -40,17 +44,24 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         'wagtailpages.BuyersGuideEditorialContentIndexPage',
     ]
 
+    intro_text = models.TextField(
+        max_length=500,
+        blank=True,
+        help_text='A short blurb to show at the top of the page.',
+    )
+
+    hero_featured_article = models.ForeignKey(
+        'wagtailpages.BuyersGuideArticlePage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
     cutoff_date = models.DateField(
         'Product listing cutoff date',
         help_text='Only show products that were reviewed on, or after this date.',
         default=datetime(2020, 10, 29),
-    )
-
-    intro_text = models.TextField(
-        max_length=500,
-        blank=True,
-        # TODO: Update this text to make sense.
-        help_text='A short blurb to show under the header',
     )
 
     # TODO: Remove this field
@@ -77,20 +88,30 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     content_panels = [
         FieldPanel('title'),
-        FieldPanel('cutoff_date'),
-        FieldPanel('intro_text'),
         MultiFieldPanel(
-            [
-                InlinePanel("excluded_categories", label="Category", min_num=0)
+            children=[
+                FieldPanel('intro_text'),
+                PageChooserPanel(
+                    'hero_featured_article',
+                    page_type='wagtailpages.BuyersGuideArticlePage',
+                ),
             ],
-            heading="Excluded Categories"
+            heading='Hero',
+        ),
+        FieldPanel('cutoff_date'),
+        InlinePanel(
+            "excluded_categories",
+            heading="Excluded categories",
+            label="Category",
+            min_num=0,
         ),
     ]
 
     translatable_fields = [
         TranslatableField('title'),
-        SynchronizedField('cutoff_date'),
         TranslatableField('intro_text'),
+        TranslatableField('hero_featured_article'),
+        SynchronizedField('cutoff_date'),
         SynchronizedField('excluded_categories'),
         # Promote tab fields
         TranslatableField('seo_title'),

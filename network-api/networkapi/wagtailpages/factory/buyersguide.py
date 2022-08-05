@@ -361,3 +361,7 @@ def generate(seed):
                 article=existing_article,
             )
         articles.append(article)
+
+    pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()
+    pni_homepage.full_clean()
+    pni_homepage.save()
