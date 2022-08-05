@@ -1,29 +1,15 @@
 import json
-from os.path import abspath, join
 
-from django.conf import settings
-from django.contrib.auth.models import User
+from django.test import TestCase
 from django.test.utils import override_settings
 from rest_framework.test import APITestCase
-from django.test import TestCase, RequestFactory
+from wagtail.snippets.views.snippets import get_snippet_edit_handler
 
-from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
-from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
-from networkapi.wagtailpages.pagemodels.base import Homepage
-from networkapi.wagtailpages.pagemodels.buyersguide.home_page import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
-    ProductPage,
     ProductPageVotes,
-    ProductPageCategory,
     BuyersGuideProductCategory,
 )
-from networkapi.wagtailpages.utils import create_wagtail_image
 from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestMixin
-
-from wagtail.core.models import Page, Site
-from wagtail.core.models.i18n import Locale
-from wagtail.snippets.views.snippets import get_snippet_edit_handler
-from wagtail.tests.utils import WagtailPageTests
 
 
 class TestProductPage(BuyersGuideTestMixin):
