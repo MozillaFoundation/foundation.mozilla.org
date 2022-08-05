@@ -32,7 +32,7 @@
   {% with hero_supporting_articles=page.get_hero_supporting_articles %}
     {% if hero_supporting_articles %}
       <div>
-        <h2>Related articles</h2>
+        <h2>{{ page.hero_supporting_articles_heading }}</h2>
 
         <ul>
           {% for article in hero_supporting_articles  %}

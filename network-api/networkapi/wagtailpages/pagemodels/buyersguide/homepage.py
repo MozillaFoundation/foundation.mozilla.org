@@ -7,10 +7,12 @@ from django.core.cache import cache
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.text import slugify
 from django.utils.translation import gettext, pgettext
+from django.utils.translation import gettext_lazy as _
 from modelcluster import fields as cluster_fields
 from wagtail.admin.edit_handlers import (
         FieldPanel,
         InlinePanel,
+        MultiFieldPanel,
         PageChooserPanel,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
@@ -63,6 +65,17 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         related_name='+',
     )
 
+    hero_supporting_articles_heading = models.CharField(
+        max_length=50,
+        default=_('Related articles'),
+        blank=False,
+        null=False,
+        help_text=(
+            'Heading for the articles rendered next to the hero featured article. '
+            'Common choices are "Related articles", "Popular articles", etc.'
+        ),
+    )
+
     cutoff_date = models.DateField(
         'Product listing cutoff date',
         help_text='Only show products that were reviewed on, or after this date.',
@@ -98,10 +111,16 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             'hero_featured_article',
             page_type='wagtailpages.BuyersGuideArticlePage',
         ),
-        InlinePanel(
-            'hero_supporting_article_relations',
+        MultiFieldPanel(
+            children=[
+                FieldPanel('hero_supporting_articles_heading', heading='Heading'),
+                InlinePanel(
+                    'hero_supporting_article_relations',
+                    heading='Hero supporting articles',
+                    label='Article',
+                ),
+            ],
             heading='Hero supporting articles',
-            label='Article',
         ),
         FieldPanel('cutoff_date'),
         InlinePanel(
@@ -116,6 +135,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('title'),
         TranslatableField('intro_text'),
         TranslatableField('hero_featured_article'),
+        TranslatableField('hero_supporting_article_relations'),
+        TranslatableField('hero_supporting_articles_heading'),
         SynchronizedField('cutoff_date'),
         SynchronizedField('excluded_categories'),
         # Promote tab fields
