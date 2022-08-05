@@ -6,7 +6,7 @@ from wagtail.core.models import Page, Site, Locale
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.base import Homepage
-from networkapi.wagtailpages.pagemodels.buyersguide.home_page import BuyersGuidePage
+from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     ProductPageCategory,
     BuyersGuideProductCategory,
