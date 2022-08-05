@@ -271,7 +271,6 @@ def generate(seed):
         parent=pagemodels.Homepage.objects.first(),
         title='* Privacy not included',
         slug='privacynotincluded',
-        header='Be Smart. Shop Safe.',
         intro_text=(
             'How creepy is that smart speaker, that fitness tracker'
             ', those wireless headphones? We created this guide to help you shop for safe'

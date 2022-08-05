@@ -46,6 +46,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         default=datetime(2020, 10, 29),
     )
 
+    intro_text = models.TextField(
+        max_length=500,
+        blank=True,
+        # TODO: Update this text to make sense.
+        help_text='A short blurb to show under the header',
+    )
+
+    # TODO: Remove this field
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -54,33 +62,23 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         related_name='pni_hero_image'
     )
 
+    # TODO: Remove this field
     header = models.CharField(
         max_length=120,
         blank=True,
         help_text='The header text for the PNI homepage',
     )
 
-    intro_text = models.TextField(
-        max_length=500,
-        blank=True,
-        help_text='A short blurb to show under the header',
-    )
-
+    # TODO: Remove this field
     dark_theme = models.BooleanField(
         default=False,
         help_text='Does the intro need to be white text (for dark backgrounds)?'
     )
 
-    def get_banner(self):
-        return self.hero_image
-
     content_panels = [
         FieldPanel('title'),
         FieldPanel('cutoff_date'),
-        ImageChooserPanel('hero_image'),
-        FieldPanel('header'),
         FieldPanel('intro_text'),
-        FieldPanel('dark_theme'),
         MultiFieldPanel(
             [
                 InlinePanel("excluded_categories", label="Category", min_num=0)
@@ -92,10 +90,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     translatable_fields = [
         TranslatableField('title'),
         SynchronizedField('cutoff_date'),
-        SynchronizedField('hero_image'),
-        TranslatableField('header'),
         TranslatableField('intro_text'),
-        SynchronizedField('dark_theme'),
         SynchronizedField('excluded_categories'),
         # Promote tab fields
         TranslatableField('seo_title'),
