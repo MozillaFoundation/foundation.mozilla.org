@@ -245,3 +245,20 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         result = self.bg.get_editorial_content_index()
 
         self.assertEqual(result, None)
+
+    def test_get_hero_supporting_articles(self):
+        editorial_content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
+            parent=self.bg,
+        )
+        articles = []
+        for _ in range(3):
+            article = buyersguide_factories.BuyersGuideArticlePageFactory(parent=editorial_content_index)
+            articles.append(article)
+            buyersguide_factories.BuyersGuidePageHeroSupportingArticleRelationFactory(
+                page=self.bg,
+                article=article,
+            )
+
+        result = self.bg.get_hero_supporting_articles()
+
+        self.assertQuerysetEqual(result, articles, ordered=False)

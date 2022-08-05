@@ -321,6 +321,15 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
         return indexes.first()
 
+    def get_hero_supporting_articles(self):
+        '''Return the article page objects that are supporting the hero featured article.'''
+        article_ids = self.hero_supporting_article_relations.values_list('article_id', flat=True)
+        BuyersGuideArticlePage = apps.get_model(
+            app_label='wagtailpages',
+            model_name='BuyersGuideArticlePage',
+        )
+        return BuyersGuideArticlePage.objects.filter(id__in=article_ids)
+
     class Meta:
         verbose_name = "Buyers Guide Page"
 
