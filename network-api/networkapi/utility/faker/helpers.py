@@ -45,12 +45,21 @@ def get_homepage(will_generate=False):
         raise ex
 
 
-def get_random_objects(model, max_count=5):
+def get_random_objects(model, max_count=0, exact_count=0):
     """
-    Return random objects up to a maximum number.
+    Return random objects.
 
-    The maximum is not guranteed to be reached. Rather at least one object of
-    the given `model` is returned, but never more than `max_count`.
+    Specifying `exact_count` takes precedent over `max_count`.
+
+    When you define `exact_count` this is the number of random objects returned.
+
+    When you define `max_count` a random number of objects in the range from 1 to
+    `max_count` is returned.
+
+    When neither is specified, all available objects are returned.
+
+    In either case, when there are not enough objects, all objects are returned in
+    random order.
 
     Objects are not duplicated.
 
@@ -60,8 +69,13 @@ def get_random_objects(model, max_count=5):
 
     random.shuffle(objects)
 
-    available_max = min(count, max_count)
-    random_max = random.randint(1, available_max)
+    if exact_count:
+        return_max = min(count, exact_count)
+    elif max_count:
+        available_max = min(count, max_count)
+        return_max = random.randint(1, available_max)
+    else:
+        return_max = count
 
-    for i in range(0, random_max):
+    for i in range(0, return_max):
         yield objects[i]

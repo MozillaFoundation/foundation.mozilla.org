@@ -109,7 +109,10 @@ from .pagemodels.buyersguide.article_page import (
     BuyersGuideArticlePageRelatedArticleRelation,
 )
 from .pagemodels.buyersguide.editorial_content_index import BuyersGuideEditorialContentIndexPage
-from .pagemodels.buyersguide.homepage import BuyersGuidePage
+from .pagemodels.buyersguide.homepage import (
+    BuyersGuidePage,
+    BuyersGuidePageHeroSupportingArticleRelation,
+)
 from .pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
     GeneralProductPage,

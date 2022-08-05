@@ -7,14 +7,19 @@ from django.core.cache import cache
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.text import slugify
 from django.utils.translation import gettext, pgettext
+from modelcluster import fields as cluster_fields
 from wagtail.admin.edit_handlers import (
         FieldPanel,
         InlinePanel,
-        MultiFieldPanel,
         PageChooserPanel,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.models import Locale, Page
+from wagtail.core.models import (
+        Locale,
+        Orderable,
+        Page,
+        TranslatableMixin,
+)
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
@@ -88,15 +93,15 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     content_panels = [
         FieldPanel('title'),
-        MultiFieldPanel(
-            children=[
-                FieldPanel('intro_text'),
-                PageChooserPanel(
-                    'hero_featured_article',
-                    page_type='wagtailpages.BuyersGuideArticlePage',
-                ),
-            ],
-            heading='Hero',
+        FieldPanel('intro_text'),
+        PageChooserPanel(
+            'hero_featured_article',
+            page_type='wagtailpages.BuyersGuideArticlePage',
+        ),
+        InlinePanel(
+            'hero_supporting_article_relations',
+            heading='Hero supporting articles',
+            label='Article',
         ),
         FieldPanel('cutoff_date'),
         InlinePanel(
@@ -318,6 +323,25 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     class Meta:
         verbose_name = "Buyers Guide Page"
+
+
+class BuyersGuidePageHeroSupportingArticleRelation(TranslatableMixin, Orderable):
+    page = cluster_fields.ParentalKey(
+        'wagtailpages.BuyersGuidePage',
+        related_name='hero_supporting_article_relations',
+    )
+    article = models.ForeignKey(
+        'wagtailpages.BuyersGuideArticlePage',
+        on_delete=models.CASCADE,
+        related_name='+',
+        null=False,
+        blank=False,
+    )
+
+    panels = [PageChooserPanel('article', page_type='wagtailpages.BuyersGuideArticlePage')]
+
+    def __str__(self):
+        return f'{self.page.title} -> {self.article.title}'
 
 
 def get_pni_home_page():

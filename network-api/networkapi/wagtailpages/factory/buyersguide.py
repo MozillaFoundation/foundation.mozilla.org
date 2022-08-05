@@ -61,6 +61,16 @@ class BuyersGuidePageFactory(PageFactory):
         model = pagemodels.BuyersGuidePage
 
 
+class BuyersGuidePageHeroSupportingArticleRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuidePageHeroSupportingArticleRelation
+
+    page = SubFactory(BuyersGuidePageFactory)
+    article = SubFactory(
+        'networkapi.wagtailpages.factory.buyersguide.BuyersGuideArticlePageFactory',
+    )
+
+
 class ProductPageVotesFactory(DjangoModelFactory):
 
     class Meta:
@@ -168,7 +178,6 @@ class BuyersGuideEditorialContentIndexPageFactory(PageFactory):
         model = pagemodels.BuyersGuideEditorialContentIndexPage
 
     title = 'Articles'
-
 
 class BuyersGuideArticlePageFactory(PageFactory):
     class Meta:
@@ -365,3 +374,9 @@ def generate(seed):
     pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()
     pni_homepage.full_clean()
     pni_homepage.save()
+
+    for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3):
+        BuyersGuidePageHeroSupportingArticleRelationFactory(
+            page=pni_homepage,
+            article=article,
+        )
