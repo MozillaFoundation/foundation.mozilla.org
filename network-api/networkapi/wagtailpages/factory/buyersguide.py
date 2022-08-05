@@ -179,6 +179,7 @@ class BuyersGuideEditorialContentIndexPageFactory(PageFactory):
 
     title = 'Articles'
 
+
 class BuyersGuideArticlePageFactory(PageFactory):
     class Meta:
         model = pagemodels.BuyersGuideArticlePage
