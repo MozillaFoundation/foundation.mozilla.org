@@ -6,16 +6,18 @@ from datetime import date, datetime, timezone, timedelta
 from factory import (
     Faker,
     LazyFunction,
+    SubFactory,
     post_generation,
 )
 from factory.django import DjangoModelFactory
 from wagtail.images.models import Image
 from wagtail_factories import PageFactory
 
+from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.utility.faker import ImageProvider, generate_fake_data
-from networkapi.utility.faker.helpers import reseed
+from networkapi.utility.faker.helpers import reseed, get_random_objects
 
 Faker.add_provider(ImageProvider)
 
@@ -173,13 +175,51 @@ class BuyersGuideArticlePageFactory(PageFactory):
         model = pagemodels.BuyersGuideArticlePage
 
     title = Faker('sentence')
+    hero_image = SubFactory(ImageFactory)
+    body = Faker(
+        provider='streamfield',
+        fields=(
+            'paragraph',
+            'image',
+            'image_text',
+            'image_text_mini',
+            'video',
+            'linkbutton',
+            'spacer',
+            'quote',
+        ),
+    )
 
 
 class BuyersGuideContentCategoryFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.BuyersGuideContentCategory
 
-    title = Faker('text', max_nb_chars=100)
+    title = Faker('word')
+
+
+class BuyersGuideArticlePageAuthorProfileRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideArticlePageAuthorProfileRelation
+
+    page = SubFactory(BuyersGuideArticlePageFactory)
+    author_profile = SubFactory(profile_factories.ProfileFactory)
+
+
+class BuyersGuideArticlePageContentCategoryRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideArticlePageContentCategoryRelation
+
+    page = SubFactory(BuyersGuideArticlePageFactory)
+    content_category = SubFactory(BuyersGuideContentCategoryFactory)
+
+
+class BuyersGuideArticlePageRelatedArticleRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideArticlePageRelatedArticleRelation
+
+    page = SubFactory(BuyersGuideArticlePageFactory)
+    article = SubFactory(BuyersGuideArticlePageFactory)
 
 
 def create_general_product_visual_regression_product(seed, pni_homepage):
@@ -298,5 +338,27 @@ def generate(seed):
 
     print('Generating buyers guide editorial content')
     editorial_content_index = BuyersGuideEditorialContentIndexPageFactory(parent=pni_homepage)
-    for _ in range(5):
-        BuyersGuideArticlePageFactory(parent=editorial_content_index)
+    for _ in range(3):
+        BuyersGuideContentCategoryFactory()
+    articles = []
+    for _ in range(7):
+        article = BuyersGuideArticlePageFactory(parent=editorial_content_index)
+        for profile in get_random_objects(pagemodels.Profile, max_count=3):
+            BuyersGuideArticlePageAuthorProfileRelationFactory(
+                page=article,
+                author_profile=profile,
+            )
+        if article.id % 2 == 0:
+            # Articles with even id get the content category
+            for category in get_random_objects(pagemodels.BuyersGuideContentCategory, max_count=2):
+                BuyersGuideArticlePageContentCategoryRelationFactory(
+                    page=article,
+                    content_category=category,
+                )
+        # Add all previously existing articles as related articles
+        for existing_article in articles:
+            BuyersGuideArticlePageRelatedArticleRelationFactory(
+                page=article,
+                article=existing_article,
+            )
+        articles.append(article)

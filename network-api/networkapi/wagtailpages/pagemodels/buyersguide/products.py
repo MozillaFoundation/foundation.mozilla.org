@@ -1619,7 +1619,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['template_cache_key_fragment'] = f'pni_home_{request.LANGUAGE_CODE}'
         return context
 
-    def find_editorial_content_index(self):
+    def get_editorial_content_index(self):
         BuyersGuideEditorialContentIndexPage = apps.get_model(
             app_label='wagtailpages',
             model_name='BuyersGuideEditorialContentIndexPage',
