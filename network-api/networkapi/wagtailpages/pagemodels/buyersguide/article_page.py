@@ -169,6 +169,8 @@ class BuyersGuideArticlePageRelatedArticleRelation(
     panels = [panels.PageChooserPanel('article')]
 
     objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "article"
 
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
+
