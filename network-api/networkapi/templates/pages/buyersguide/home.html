@@ -15,11 +15,11 @@
 
         <div>
           By
-          {% with author_profile_relations=hero_featured_article.author_profile_relations.all  %}
-            {% if author_profile_relations %}
+          {% with author_profiles=hero_featured_article.author_profile_relations.related_items  %}
+            {% if author_profiles %}
               <ul>
-                {% for author_profile_relation in author_profile_relations %}
-                  <li>{{ author_profile_relation.author_profile.name }}</li>
+                {% for author_profile in author_profiles %}
+                  <li>{{ author_profile.name }}</li>
                 {% endfor %}
               </ul>
             {% endif %}
@@ -29,7 +29,7 @@
     {% endif %}
   {% endwith %}
 
-  {% with hero_supporting_articles=page.get_hero_supporting_articles %}
+  {% with hero_supporting_articles=page.hero_supporting_article_relations.related_items %}
     {% if hero_supporting_articles %}
       <div>
         <h2>{{ page.hero_supporting_articles_heading }}</h2>

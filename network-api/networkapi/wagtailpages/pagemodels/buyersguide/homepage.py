@@ -24,6 +24,11 @@ from wagtail.core.models import (
 )
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from networkapi.wagtailpages.pagemodels import orderables
+from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
+    get_categories_for_locale,
+    sort_average,
+)
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
@@ -32,10 +37,6 @@ from networkapi.wagtailpages.utils import (
     get_default_locale,
     get_language_from_request,
     get_locale_from_request,
-)
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
-    get_categories_for_locale,
-    sort_average,
 )
 
 
@@ -342,15 +343,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
         return indexes.first()
 
-    def get_hero_supporting_articles(self):
-        '''Return the article page objects that are supporting the hero featured article.'''
-        article_ids = self.hero_supporting_article_relations.values_list('article_id', flat=True)
-        BuyersGuideArticlePage = apps.get_model(
-            app_label='wagtailpages',
-            model_name='BuyersGuideArticlePage',
-        )
-        return BuyersGuideArticlePage.objects.filter(id__in=article_ids)
-
     class Meta:
         verbose_name = "Buyers Guide Page"
 
@@ -369,6 +361,9 @@ class BuyersGuidePageHeroSupportingArticleRelation(TranslatableMixin, Orderable)
     )
 
     panels = [PageChooserPanel('article', page_type='wagtailpages.BuyersGuideArticlePage')]
+
+    objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "article"
 
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
