@@ -119,6 +119,9 @@ class BuyersGuideArticlePageAuthorProfileRelation(
 
     panels = [snippet_panels.SnippetChooserPanel('author_profile')]
 
+    objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "author_profile"
+
     def __str__(self):
         return f'{self.page.title} -> {self.author_profile.name}'
 
@@ -141,6 +144,9 @@ class BuyersGuideArticlePageContentCategoryRelation(
     )
 
     panels = [snippet_panels.SnippetChooserPanel('content_category')]
+
+    objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "content_category"
 
     def __str__(self):
         return f'{self.page.title} -> {self.content_category.title}'

@@ -11,14 +11,14 @@
 {% endblock hero %}
 
 {% block guts %}
-  {% with content_category_relations=page.content_category_relations.all  %}
-    {% if content_category_relations %}
+  {% with content_categories=page.content_category_relations.related_items  %}
+    {% if content_categories %}
       <div>
         <strong>Categories</strong>
 
         <ul>
-          {% for content_category_relation in content_category_relations  %}
-            <li>{{ content_category_relation.content_category.title|title }}</li>
+          {% for content_category in content_categories  %}
+            <li>{{ content_category.title|title }}</li>
           {% endfor %}
         </ul>
       </div>
@@ -27,14 +27,14 @@
 
   <h1>{{ page.title }}</h1>
 
-  {% with author_profile_relations=page.author_profile_relations.all  %}
-    {% if author_profile_relations %}
+  {% with author_profiles=page.author_profile_relations.related_items  %}
+    {% if author_profiles %}
       <div>
         <h2>Authors</h2>
 
         <ul>
-          {% for author_profile_relation in author_profile_relations %}
-            <li>{{ author_profile_relation.author_profile.name }}</li>
+          {% for author_profile in author_profiles %}
+            <li>{{ author_profile.name }}</li>
           {% endfor %}
         </ul>
       </div>
