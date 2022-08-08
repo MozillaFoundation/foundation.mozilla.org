@@ -91,11 +91,7 @@ class BuyersGuideArticlePage(
         return BuyersGuidePage.objects.filter(id__in=ancestor_ids).first()
 
     def get_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
-        related_article_ids = self.related_article_relations.values_list(
-            'article_id',
-            flat=True,
-        )
-        return BuyersGuideArticlePage.objects.filter(id__in=related_article_ids)
+        return self.related_article_relations.related_items()
 
     def get_primary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
         return self.get_related_articles()[:3]
