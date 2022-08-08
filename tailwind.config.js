@@ -32,7 +32,7 @@ module.exports = {
         },
         ".popout": {
           "box-shadow": "10px 10px rgba(0,0,0)",
-          "border": "1px solid #000000",
+          border: "1px solid #000000",
         },
       };
       addUtilities(newUtilities);
