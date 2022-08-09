@@ -23,6 +23,7 @@ from wagtail.core.models import (
         Page,
         TranslatableMixin,
 )
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels import orderables
@@ -130,6 +131,12 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             'featured_article_relations',
             heading='Popular articles',
             label='Article',
+            max_num=3,
+        ),
+        InlinePanel(
+            'featured_update_relations',
+            heading='In the press',
+            label='Press update',
             max_num=3,
         ),
         MultiFieldPanel(
@@ -401,6 +408,28 @@ class BuyersGuidePageFeaturedArticleRelation(TranslatableMixin, Orderable):
 
     objects = orderables.OrderableRelationQuerySet.as_manager()
     related_item_field_name = "article"
+
+    def __str__(self):
+        return f'{self.page.title} -> {self.article.title}'
+
+
+class BuyersGuidePageFeaturedUpdateRelation(TranslatableMixin, Orderable):
+    page = cluster_fields.ParentalKey(
+        'wagtailpages.BuyersGuidePage',
+        related_name='featured_update_relations',
+    )
+    update = models.ForeignKey(
+        'wagtailpages.Update',
+        on_delete=models.CASCADE,
+        related_name='+',
+        null=False,
+        blank=False,
+    )
+
+    panels = [SnippetChooserPanel('update')]
+
+    objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "update"
 
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'

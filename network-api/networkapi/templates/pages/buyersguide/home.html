@@ -56,4 +56,25 @@
       </div>
     {% endif %}
   {% endwith %}
+
+  {% with product_updates=page.featured_update_relations.related_items  %}
+    {% if product_updates %}
+      <div>
+        <h2>In the press</h2>
+
+        <ul>
+          {% for update in product_updates %}
+            <li>
+              <div>
+                <strong>{{ update.title }}</strong>
+              </div>
+              <div>
+                <a href="{{ update.source }}">{{ update.author }}</a>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endwith %}
 {% endblock hero %}
