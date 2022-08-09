@@ -10,6 +10,7 @@ from wagtail.images import edit_handlers as image_panels
 from wagtail.snippets import edit_handlers as snippet_panels
 
 from networkapi.wagtailpages.pagemodels import customblocks
+from networkapi.wagtailpages.pagemodels import orderables
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 
 
@@ -90,11 +91,7 @@ class BuyersGuideArticlePage(
         return BuyersGuidePage.objects.filter(id__in=ancestor_ids).first()
 
     def get_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
-        related_article_ids = self.related_article_relations.values_list(
-            'article_id',
-            flat=True,
-        )
-        return BuyersGuideArticlePage.objects.filter(id__in=related_article_ids)
+        return self.related_article_relations.related_items()
 
     def get_primary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
         return self.get_related_articles()[:3]
@@ -122,6 +119,9 @@ class BuyersGuideArticlePageAuthorProfileRelation(
 
     panels = [snippet_panels.SnippetChooserPanel('author_profile')]
 
+    objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "author_profile"
+
     def __str__(self):
         return f'{self.page.title} -> {self.author_profile.name}'
 
@@ -145,6 +145,9 @@ class BuyersGuideArticlePageContentCategoryRelation(
 
     panels = [snippet_panels.SnippetChooserPanel('content_category')]
 
+    objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "content_category"
+
     def __str__(self):
         return f'{self.page.title} -> {self.content_category.title}'
 
@@ -166,6 +169,9 @@ class BuyersGuideArticlePageRelatedArticleRelation(
     )
 
     panels = [panels.PageChooserPanel('article')]
+
+    objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "article"
 
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
