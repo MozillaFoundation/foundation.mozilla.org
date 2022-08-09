@@ -53,9 +53,9 @@ def get_random_objects(
     source: Union[models.Model, models.QuerySet],
     max_count: int = 0,
     exact_count: int = 0,
-) -> models.Model:
+) -> models.QuerySet:
     """
-    Return random objects.
+    Return queryset of random objects.
 
     Provide a model or queryset as the `source` from which the random objects will
     be taken.
@@ -79,10 +79,10 @@ def get_random_objects(
         queryset = source.objects.all()
     else:
         queryset = source
-    objects = list(queryset)
-    random.shuffle(objects)
+    primary_keys = list(queryset.values_list('pk', flat=True))
+    random.shuffle(primary_keys)
 
-    count = len(objects)
+    count = len(primary_keys)
     if exact_count:
         return_max = min(count, exact_count)
     elif max_count:
@@ -91,5 +91,5 @@ def get_random_objects(
     else:
         return_max = count
 
-    for i in range(0, return_max):
-        yield objects[i]
+    primary_keys_slice = primary_keys[:return_max]
+    return queryset.filter(pk__in=primary_keys_slice)

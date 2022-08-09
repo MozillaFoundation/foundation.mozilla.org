@@ -397,14 +397,19 @@ def generate(seed):
     pni_homepage.full_clean()
     pni_homepage.save()
     # Hero supporting articles
-    for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3):
+    supporting_articles = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
+    for article in supporting_articles:
         BuyersGuidePageHeroSupportingArticleRelationFactory(
             page=pni_homepage,
             article=article,
         )
 
-    # Featured articles
-    for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3):
+    # # Featured articles
+    featured_articles = get_random_objects(
+        source=pagemodels.BuyersGuideArticlePage.objects.exclude(id__in=supporting_articles),
+        exact_count=3,
+    )
+    for article in featured_articles:
         BuyersGuidePageFeaturedArticleRelationFactory(
             page=pni_homepage,
             article=article,
