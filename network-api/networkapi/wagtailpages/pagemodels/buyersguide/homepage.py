@@ -432,7 +432,7 @@ class BuyersGuidePageFeaturedUpdateRelation(TranslatableMixin, Orderable):
     related_item_field_name = "update"
 
     def __str__(self):
-        return f'{self.page.title} -> {self.article.title}'
+        return f'{self.page.title} -> {self.update.title}'
 
 
 def get_pni_home_page():
