@@ -71,6 +71,16 @@ class BuyersGuidePageHeroSupportingArticleRelationFactory(DjangoModelFactory):
     )
 
 
+class BuyersGuidePageFeaturedArticleRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuidePageFeaturedArticleRelation
+
+    page = SubFactory(BuyersGuidePageFactory)
+    article = SubFactory(
+        'networkapi.wagtailpages.factory.buyersguide.BuyersGuideArticlePageFactory',
+    )
+
+
 class ProductPageVotesFactory(DjangoModelFactory):
 
     class Meta:
@@ -372,12 +382,20 @@ def generate(seed):
             )
         articles.append(article)
 
+    # Hero article
     pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()
     pni_homepage.full_clean()
     pni_homepage.save()
-
+    # Hero supporting articles
     for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3):
         BuyersGuidePageHeroSupportingArticleRelationFactory(
+            page=pni_homepage,
+            article=article,
+        )
+
+    # Featured articles
+    for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3):
+        BuyersGuidePageFeaturedArticleRelationFactory(
             page=pni_homepage,
             article=article,
         )

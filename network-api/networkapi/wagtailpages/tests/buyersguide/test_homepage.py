@@ -14,6 +14,17 @@ from networkapi.wagtailpages.pagemodels.buyersguide.products import (
 from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestMixin
 
 
+class TestFactories(TestCase):
+    def test_homepage_factory(self):
+        buyersguide_factories.BuyersGuidePageFactory()
+
+    def test_hero_supporting_article_relation_factory(self):
+        buyersguide_factories.BuyersGuidePageHeroSupportingArticleRelationFactory()
+
+    def test_featured_article_relation_factory(self):
+        buyersguide_factories.BuyersGuidePageFeaturedArticleRelationFactory()
+
+
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class BuyersGuideViewTest(TestCase):
     def setUp(self):
