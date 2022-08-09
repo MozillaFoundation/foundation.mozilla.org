@@ -1,6 +1,10 @@
 from itertools import chain, combinations
-import factory
 import random
+from typing import Union
+
+from django.db import models
+import factory
+
 from networkapi.wagtailpages.models import Homepage
 
 
@@ -45,9 +49,16 @@ def get_homepage(will_generate=False):
         raise ex
 
 
-def get_random_objects(model, max_count=0, exact_count=0):
+def get_random_objects(
+    source: Union[models.Model, models.QuerySet],
+    max_count: int = 0,
+    exact_count: int = 0,
+) -> models.Model:
     """
     Return random objects.
+
+    Provide a model or queryset as the `source` from which the random objects will
+    be taken.
 
     Specifying `exact_count` takes precedent over `max_count`.
 
@@ -64,11 +75,14 @@ def get_random_objects(model, max_count=0, exact_count=0):
     Objects are not duplicated.
 
     """
-    objects = list(model.objects.all())
-    count = len(objects)
-
+    if not isinstance(source, models.QuerySet):
+        queryset = source.objects.all()
+    else:
+        queryset = source
+    objects = list(queryset)
     random.shuffle(objects)
 
+    count = len(objects)
     if exact_count:
         return_max = min(count, exact_count)
     elif max_count:
