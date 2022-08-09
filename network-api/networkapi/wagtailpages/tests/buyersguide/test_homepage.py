@@ -24,6 +24,9 @@ class TestFactories(TestCase):
     def test_featured_article_relation_factory(self):
         buyersguide_factories.BuyersGuidePageFeaturedArticleRelationFactory()
 
+    def test_featured_update_relation_factory(self):
+        buyersguide_factories.BuyersGuidePageFeaturedUpdateRelationFactory()
+
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class BuyersGuideViewTest(TestCase):

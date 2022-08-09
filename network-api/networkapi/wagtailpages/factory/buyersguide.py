@@ -81,6 +81,16 @@ class BuyersGuidePageFeaturedArticleRelationFactory(DjangoModelFactory):
     )
 
 
+class BuyersGuidePageFeaturedUpdateRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuidePageFeaturedUpdateRelation
+
+    page = SubFactory(BuyersGuidePageFactory)
+    update = SubFactory(
+        'networkapi.wagtailpages.factory.buyersguide.ProductUpdateFactory',
+    )
+
+
 class ProductPageVotesFactory(DjangoModelFactory):
 
     class Meta:
@@ -398,4 +408,11 @@ def generate(seed):
         BuyersGuidePageFeaturedArticleRelationFactory(
             page=pni_homepage,
             article=article,
+        )
+
+    # Featured product updates
+    for update in get_random_objects(pagemodels.Update, exact_count=3):
+        BuyersGuidePageFeaturedUpdateRelationFactory(
+            page=pni_homepage,
+            update=update,
         )

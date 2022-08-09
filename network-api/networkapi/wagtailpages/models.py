@@ -113,6 +113,7 @@ from .pagemodels.buyersguide.homepage import (
     BuyersGuidePage,
     BuyersGuidePageHeroSupportingArticleRelation,
     BuyersGuidePageFeaturedArticleRelation,
+    BuyersGuidePageFeaturedUpdateRelation,
 )
 from .pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
