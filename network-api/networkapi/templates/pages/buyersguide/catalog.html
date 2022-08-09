@@ -12,14 +12,13 @@
 
 <header
   class="container-fluid text-center page-header tw-bg-gray-05"
-  {% if page.get_banner != None %}style="background-image: url({% image page.get_banner max-1920x1280 as img %}{{ img.url }})"{% endif %}
   role="banner"
 >
+  <h1 class="tw-sr-only">{{ page.title }}</h1>
   <!-- home banner as css background -->
   <div class="container">
     <div class="row">
-      <div class="col-12 col-lg-8 offset-lg-2 intro-text order-2 order-lg-1{% if page.dark_theme %} tw-dark{% endif %}">
-        <h1 class="tw-h1-heading text-center mt-0">{{ page.header }}</h1>
+      <div class="col-12 col-lg-8 offset-lg-2 intro-text order-2 order-lg-1">
         <p class="tw-body-large mb-0">{{ page.intro_text }}</p>
           <div id="product-filter-search" class='col-12 col-md-9 tw-my-5' tabindex="0">
             <span class="search-icon">&nbsp;</span>

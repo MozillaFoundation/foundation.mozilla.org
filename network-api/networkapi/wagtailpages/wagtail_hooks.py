@@ -14,7 +14,8 @@ from wagtail.core import hooks
 from wagtail.core.utils import find_available_slug
 from wagtail.core.rich_text import LinkHandler
 
-from networkapi.wagtailpages.pagemodels.buyersguide.products import BuyersGuidePage, ProductPage
+from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
+from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
 from networkapi.wagtailpages.utils import get_locale_from_request
 
 # The real code runs "instance.sync_trees()" here, but we want this to do nothing instead,

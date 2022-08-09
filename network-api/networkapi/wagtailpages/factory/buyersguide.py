@@ -61,6 +61,16 @@ class BuyersGuidePageFactory(PageFactory):
         model = pagemodels.BuyersGuidePage
 
 
+class BuyersGuidePageHeroSupportingArticleRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuidePageHeroSupportingArticleRelation
+
+    page = SubFactory(BuyersGuidePageFactory)
+    article = SubFactory(
+        'networkapi.wagtailpages.factory.buyersguide.BuyersGuideArticlePageFactory',
+    )
+
+
 class ProductPageVotesFactory(DjangoModelFactory):
 
     class Meta:
@@ -271,7 +281,6 @@ def generate(seed):
         parent=pagemodels.Homepage.objects.first(),
         title='* Privacy not included',
         slug='privacynotincluded',
-        header='Be Smart. Shop Safe.',
         intro_text=(
             'How creepy is that smart speaker, that fitness tracker'
             ', those wireless headphones? We created this guide to help you shop for safe'
@@ -362,3 +371,13 @@ def generate(seed):
                 article=existing_article,
             )
         articles.append(article)
+
+    pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()
+    pni_homepage.full_clean()
+    pni_homepage.save()
+
+    for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3):
+        BuyersGuidePageHeroSupportingArticleRelationFactory(
+            page=pni_homepage,
+            article=article,
+        )
