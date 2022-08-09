@@ -42,4 +42,18 @@
       </div>
     {% endif %}
   {% endwith %}
+
+  {% with popular_articles=page.featured_article_relations.related_items  %}
+    {% if popular_articles %}
+      <div>
+        <h2>Popular</h2>
+
+        <ul>
+          {% for article in popular_articles  %}
+            <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endwith %}
 {% endblock hero %}

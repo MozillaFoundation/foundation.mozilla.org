@@ -123,6 +123,12 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             ],
             heading='Hero supporting articles',
         ),
+        InlinePanel(
+            'featured_article_relations',
+            heading='Popular articles',
+            label='Article',
+            max_num=3,
+        ),
         FieldPanel('cutoff_date'),
         InlinePanel(
             "excluded_categories",
@@ -351,6 +357,28 @@ class BuyersGuidePageHeroSupportingArticleRelation(TranslatableMixin, Orderable)
     page = cluster_fields.ParentalKey(
         'wagtailpages.BuyersGuidePage',
         related_name='hero_supporting_article_relations',
+    )
+    article = models.ForeignKey(
+        'wagtailpages.BuyersGuideArticlePage',
+        on_delete=models.CASCADE,
+        related_name='+',
+        null=False,
+        blank=False,
+    )
+
+    panels = [PageChooserPanel('article', page_type='wagtailpages.BuyersGuideArticlePage')]
+
+    objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "article"
+
+    def __str__(self):
+        return f'{self.page.title} -> {self.article.title}'
+
+
+class BuyersGuidePageFeaturedArticleRelation(TranslatableMixin, Orderable):
+    page = cluster_fields.ParentalKey(
+        'wagtailpages.BuyersGuidePage',
+        related_name='featured_article_relations',
     )
     article = models.ForeignKey(
         'wagtailpages.BuyersGuideArticlePage',
