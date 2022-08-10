@@ -39,7 +39,7 @@
           </div>
           <div class="tw-flex tw-flex-row tw-items-baseline tw-basis-1/2 large:tw-basis-full">
             {# SORT SELECT #}
-            <select name="sort" class="tw-form-control tw-border-gray-40" form="search-form" onchange="this.form.submit()">
+            <select id='sort-select' name="sort" class="tw-form-control tw-border-gray-40" form="search-form">
               {% for choice in page.SORT_CHOICES.values  %}
                 <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
               {% endfor %}
