@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from rest_framework.test import APITestCase
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
+from wagtail.tests.utils import form_data
 
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     ProductPageVotes,
@@ -187,10 +188,30 @@ class BuyersGuideProductCategoryTest(TestCase):
         edit_handler = get_snippet_edit_handler(BuyersGuideProductCategory)
         self.form_class = edit_handler.get_form_class()
 
+    @staticmethod
+    def generate_form_data(data: dict) -> dict:
+        """
+        Generate a valid from data for the product category form.
+
+        Because of the inline panel for the related articles, we need to provide all
+        the fields for those forms too. That would be quite tedious to do manually,
+        especically since we are not testing that part of the form. Luckily, Wagtail
+        provides some test helper function to generate this valid form data. This method
+        is an extra wrapper around Wagtails helpers that allows to only specify the
+        fields that we are interested in testing.
+        """
+        return form_data.nested_form_data({
+            **data,
+            'related_article_relations': form_data.inline_formset([])
+        })
+
+
     def test_cannot_have_duplicate_name(self):
         BuyersGuideProductCategory.objects.create(name="Cat 1")
 
-        form = self.form_class(data={'name': 'Cat 1', 'sort_order': 1})
+        form = self.form_class(
+            data=self.generate_form_data({'name': 'Cat 1', 'sort_order': 1}),
+        )
 
         self.assertFalse(form.is_valid())
         self.assertEqual(1, len(form.errors))
@@ -199,23 +220,23 @@ class BuyersGuideProductCategoryTest(TestCase):
     def test_cannot_have_duplicate_lowercase_name(self):
         BuyersGuideProductCategory.objects.create(name="Cat 1")
 
-        form = self.form_class(data={'name': 'cat 1', 'sort_order': 1})
+        form = self.form_class(
+            data=self.generate_form_data({'name': 'cat 1', 'sort_order': 1}),
+        )
 
         self.assertFalse(form.is_valid())
         self.assertEqual(1, len(form.errors))
         self.assertIn('name', form.errors)
 
     def test_parent_saves(self):
-        from wagtail.tests.utils import form_data
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
 
         form = self.form_class(
-            data=form_data.nested_form_data({
+            data=self.generate_form_data({
                 'name': 'Cat 2',
                 'sort_order': 1,
                 'parent': cat1,
-                'related_article_relations': form_data.inline_formset([])
-            })
+            }),
         )
 
         self.assertTrue(form.is_valid())
@@ -227,7 +248,11 @@ class BuyersGuideProductCategoryTest(TestCase):
 
         form = self.form_class(
             instance=cat1,
-            data={'name': cat1.name, 'sort_order': cat1.sort_order, 'parent': cat1}
+            data=self.generate_form_data({
+                'name': cat1.name,
+                'sort_order': cat1.sort_order,
+                'parent': cat1
+            }),
         )
 
         self.assertFalse(form.is_valid())
@@ -243,7 +268,11 @@ class BuyersGuideProductCategoryTest(TestCase):
         cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", parent=cat1)
 
         form = self.form_class(
-            data={'name': 'Cat 3', 'sort_order': 1, 'parent': cat2}
+            data=self.generate_form_data({
+                'name': 'Cat 3',
+                'sort_order': 1,
+                'parent': cat2
+            }),
         )
 
         self.assertFalse(form.is_valid())
