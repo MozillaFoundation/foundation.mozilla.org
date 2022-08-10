@@ -1,4 +1,24 @@
 {% extends "pages/buyersguide/catalog.html" %}
-{% load static i18n %}
+{% load static i18n wagtailcore_tags %}
 
 {% block body_id %}{{ category.slug }}{% endblock %}
+
+{% block guts %}
+  {{ block.super }}
+
+  {% with related_articles=current_category.related_article_relations.related_items  %}
+    {% if related_articles %}
+      <div>
+        <h2>What to read next</h2>
+        <div>
+          <a href="{% pageurl page.get_editorial_content_index %}">All articles</a>
+        </div>
+        <ul>
+          {% for article in related_articles %}
+            <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endwith %}
+{% endblock guts %}
