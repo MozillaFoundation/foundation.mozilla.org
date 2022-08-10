@@ -186,6 +186,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         JSON endpoint for getting a set of (pre-rendered) entries
         """
+        context = self.get_context(request)
 
         page = 1
         if 'page' in request.GET:
@@ -202,6 +203,9 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
                 pass
 
         start = page * page_size
+        if 'entries_offset_for_callout' in context:
+            start = start - 1
+
         end = start + page_size
         entries = self.get_entries({
             'request': request

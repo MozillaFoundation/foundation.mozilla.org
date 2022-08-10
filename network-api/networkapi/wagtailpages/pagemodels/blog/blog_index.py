@@ -155,6 +155,13 @@ class BlogIndexPage(IndexPage):
     def get_context(self, request):
         context = super().get_context(request)
         context["related_topics"] = self.get_related_topics()
+
+        if not hasattr(self, 'filtered') and self.page_size == 12 or self.page_size == 24:
+            # Offsetting initial entries by one to make room for calllout box
+            initial_entry_count = self.page_size - 1
+            context['entries'] = context['entries'][0:initial_entry_count]
+            context['entries_offset_for_callout'] = True
+
         return context
 
     # Superclass override
