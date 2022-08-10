@@ -206,18 +206,16 @@ class BuyersGuideProductCategoryTest(TestCase):
         self.assertIn('name', form.errors)
 
     def test_parent_saves(self):
+        from wagtail.tests.utils import form_data
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
 
         form = self.form_class(
-            data={
+            data=form_data.nested_form_data({
                 'name': 'Cat 2',
                 'sort_order': 1,
                 'parent': cat1,
-                'related_article_relations-TOTAL_FORMS': 0,
-                'related_article_relations-INITIAL_FORMS': 0,
-                'related_article_relations-MAX_NUM_FORMS': 6,
-                'related_article_relations-MIN_NUM_FORMS': 0,
-            }
+                'related_article_relations': form_data.inline_formset([])
+            })
         )
 
         self.assertTrue(form.is_valid())
