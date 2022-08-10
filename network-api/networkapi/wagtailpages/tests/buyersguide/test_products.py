@@ -209,8 +209,18 @@ class BuyersGuideProductCategoryTest(TestCase):
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
 
         form = self.form_class(
-            data={'name': 'Cat 2', 'sort_order': 1, 'parent': cat1}
+            data={
+                'name': 'Cat 2',
+                'sort_order': 1,
+                'parent': cat1,
+                'related_article_relations-TOTAL_FORMS': 0,
+                'related_article_relations-INITIAL_FORMS': 0,
+                'related_article_relations-MAX_NUM_FORMS': 6,
+                'related_article_relations-MIN_NUM_FORMS': 0,
+            }
         )
+
+        self.assertTrue(form.is_valid())
         cat2 = form.save()
         self.assertEqual(cat1, cat2.parent)
 
