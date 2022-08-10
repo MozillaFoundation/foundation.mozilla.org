@@ -1,0 +1,18 @@
+{% load wagtailcore_tags i18n static %}
+
+<div class="tw-relative tw-mt-3 tw-mb-7 tw-py-5 tw-px-5 tw-rounded-lg medium:tw-px-7 medium:tw-pb-7 tw-bg-gradient-to-r tw-from-purple-05 tw-to-blue-05">
+    <img
+  class="tw-absolute tw-right-0 tw-top-0 tw-hidden medium:tw-block"
+  src="{% static "_images/buyers-guide/asterick.svg" %}"
+  title="{% trans "*privacy not included" %}"
+  alt="{% trans "*privacy not included" %}"
+>
+    <div
+      class="join-us tw-bg-none"
+      data-form-position="callout-box"
+      data-form-style="pni"
+      data-cta-header="{% trans "Help shape the future of the web for the public good." %}"
+      data-cta-description="<p class='tw-mb-5'>{% trans "Join our Mozilla News email list to get action alerts & internet tips right to your inbox." %}</p>"
+    >
+    </div>
+</div>   
