@@ -117,6 +117,7 @@ from .pagemodels.buyersguide.homepage import (
 )
 from .pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
+    BuyersGuideProductCategoryArticlePageRelation,
     GeneralProductPage,
     ProductPage,
     ProductPageCategory,

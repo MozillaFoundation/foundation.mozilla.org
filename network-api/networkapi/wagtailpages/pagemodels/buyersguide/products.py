@@ -13,6 +13,7 @@ from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext
+from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.core.models import Orderable, Page, TranslatableMixin
@@ -26,13 +27,14 @@ from wagtail_airtable.mixins import AirtableMixin
 
 from networkapi.wagtailpages.forms import BuyersGuideProductCategoryForm
 from networkapi.wagtailpages.fields import ExtendedYesNoField
-from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
-    FoundationMetadataPageMixin
-)
+from networkapi.wagtailpages.pagemodels import orderables
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
 )
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
+from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
+    FoundationMetadataPageMixin
+)
 from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
 from networkapi.wagtailpages.utils import (
     TitleWidget,
@@ -50,7 +52,13 @@ TRACK_RECORD_CHOICES = [
 
 
 @register_snippet
-class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnippet, models.Model):
+class BuyersGuideProductCategory(
+    index.Indexed,
+    TranslatableMixin,
+    LocalizedSnippet,
+    # models.Model
+    cluster_models.ClusterableModel,
+):
     """
     A simple category class for use with Buyers Guide products,
     registered as snippet so that we can moderate them if and
@@ -114,11 +122,18 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
         FieldPanel('hidden'),
         FieldPanel('sort_order'),
         ImageChooserPanel('share_image'),
+        InlinePanel(
+            'related_article_relations',
+            heading='Related articles',
+            label='Article',
+            max_num=6,
+        ),
     ]
 
     translatable_fields = [
         TranslatableField('name'),
         TranslatableField('description'),
+        TranslatableField('related_article_relations'),
         SynchronizedField('slug'),
         SynchronizedField('share_image'),
         SynchronizedField('parent'),
@@ -159,6 +174,28 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
             'sort_order',
             'name'
         ]
+
+
+class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable):
+    category = ParentalKey(
+        'wagtailpages.BuyersGuideProductCategory',
+        related_name='related_article_relations',
+    )
+    article = models.ForeignKey(
+        'wagtailpages.BuyersGuideArticlePage',
+        on_delete=models.CASCADE,
+        related_name='+',
+        null=False,
+        blank=False,
+    )
+
+    panels = [PageChooserPanel('article')]
+
+    objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "article"
+
+    def __str__(self):
+        return f'{self.category.name} -> {self.article.title}'
 
 
 class ProductPageVotes(models.Model):
