@@ -1,0 +1,15 @@
+name: Deploy to Staging
+on: [workflow_dispatch]
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "foundation-mofostaging-net" #Must be unique in Heroku
+          heroku_email: "devops@mozillafoundation.org"
+          dontautocreate: true
+          team: "mozilla"
+          branch: "main"
