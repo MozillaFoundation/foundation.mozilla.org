@@ -203,7 +203,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
                 pass
 
         start = page * page_size
-        if 'entries_offset_for_callout' in context:
+        if 'entries_offset_for_topic_box' in context:
             start = start - 1
 
         end = start + page_size

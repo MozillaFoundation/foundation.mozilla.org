@@ -156,11 +156,11 @@ class BlogIndexPage(IndexPage):
         context = super().get_context(request)
         context["related_topics"] = self.get_related_topics()
 
-        if not hasattr(self, 'filtered') and self.page_size == 12 or self.page_size == 24:
-            # Offsetting initial entries by one to make room for calllout box
+        if self.is_showing_topics_box_in_entry_list():
+            # Offsetting initial entries by one to make room for featured topics box
             initial_entry_count = self.page_size - 1
             context['entries'] = context['entries'][0:initial_entry_count]
-            context['entries_offset_for_callout'] = True
+            context['entries_offset_for_topic_box'] = True
 
         return context
 
@@ -466,3 +466,13 @@ class BlogIndexPage(IndexPage):
     def get_related_topics(self):
         related_topics = self.related_topics.all()
         return related_topics
+
+    def is_showing_topics_box_in_entry_list(self):
+        if (
+            not hasattr(self, "filtered")
+            and self.get_related_topics().count()
+            and (self.page_size == 12 or self.page_size == 24)
+        ):
+            return True
+        else:
+            return False
