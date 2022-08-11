@@ -6,19 +6,29 @@
 {% block guts %}
   {{ block.super }}
 
-  {% with related_articles=current_category.related_article_relations.related_items  %}
-    {% if related_articles %}
-      <div>
-        <h2>What to read next</h2>
-        <div>
-          <a href="{% pageurl page.get_editorial_content_index %}">All articles</a>
+  {% for category in categories  %}
+    {% with related_articles=category.related_article_relations.related_items  %}
+      {% if related_articles %}
+        <div
+          class="
+            {% if category != current_category %}
+              d-none
+            {% endif %}
+          "
+        >
+          <h2>What to read next ({{ category.name }})</h2>
+
+          <div>
+            <a href="{% pageurl page.get_editorial_content_index %}">All articles</a>
+          </div>
+
+          <ul>
+            {% for article in related_articles %}
+              <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+            {% endfor %}
+          </ul>
         </div>
-        <ul>
-          {% for article in related_articles %}
-            <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
-  {% endwith %}
+      {% endif %}
+    {% endwith %}
+  {% endfor %}
 {% endblock guts %}
