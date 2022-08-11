@@ -71,6 +71,26 @@ class BuyersGuidePageHeroSupportingArticleRelationFactory(DjangoModelFactory):
     )
 
 
+class BuyersGuidePageFeaturedArticleRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuidePageFeaturedArticleRelation
+
+    page = SubFactory(BuyersGuidePageFactory)
+    article = SubFactory(
+        'networkapi.wagtailpages.factory.buyersguide.BuyersGuideArticlePageFactory',
+    )
+
+
+class BuyersGuidePageFeaturedUpdateRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuidePageFeaturedUpdateRelation
+
+    page = SubFactory(BuyersGuidePageFactory)
+    update = SubFactory(
+        'networkapi.wagtailpages.factory.buyersguide.ProductUpdateFactory',
+    )
+
+
 class ProductPageVotesFactory(DjangoModelFactory):
 
     class Meta:
@@ -372,12 +392,32 @@ def generate(seed):
             )
         articles.append(article)
 
+    # Hero article
     pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()
     pni_homepage.full_clean()
     pni_homepage.save()
-
-    for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3):
+    # Hero supporting articles
+    supporting_articles = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
+    for article in supporting_articles:
         BuyersGuidePageHeroSupportingArticleRelationFactory(
             page=pni_homepage,
             article=article,
+        )
+
+    # # Featured articles
+    featured_articles = get_random_objects(
+        source=pagemodels.BuyersGuideArticlePage.objects.exclude(id__in=supporting_articles),
+        exact_count=3,
+    )
+    for article in featured_articles:
+        BuyersGuidePageFeaturedArticleRelationFactory(
+            page=pni_homepage,
+            article=article,
+        )
+
+    # Featured product updates
+    for update in get_random_objects(pagemodels.Update, exact_count=3):
+        BuyersGuidePageFeaturedUpdateRelationFactory(
+            page=pni_homepage,
+            update=update,
         )

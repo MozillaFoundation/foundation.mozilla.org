@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from modelcluster import fields as cluster_fields
 from wagtail.admin.edit_handlers import (
         FieldPanel,
+        HelpPanel,
         InlinePanel,
         MultiFieldPanel,
         PageChooserPanel,
@@ -22,6 +23,7 @@ from wagtail.core.models import (
         Page,
         TranslatableMixin,
 )
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels import orderables
@@ -108,27 +110,47 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     content_panels = [
         FieldPanel('title'),
         FieldPanel('intro_text'),
-        PageChooserPanel(
-            'hero_featured_article',
-            page_type='wagtailpages.BuyersGuideArticlePage',
-        ),
         MultiFieldPanel(
             children=[
+                HelpPanel(content="<h2>Main article</h2>"),
+                PageChooserPanel(
+                    'hero_featured_article',
+                    page_type='wagtailpages.BuyersGuideArticlePage',
+                ),
+                HelpPanel(content="<h2>Supporting articles</h2>"),
                 FieldPanel('hero_supporting_articles_heading', heading='Heading'),
                 InlinePanel(
                     'hero_supporting_article_relations',
-                    heading='Hero supporting articles',
+                    heading='Supporting articles',
                     label='Article',
                 ),
             ],
-            heading='Hero supporting articles',
+            heading='Hero',
         ),
-        FieldPanel('cutoff_date'),
         InlinePanel(
-            "excluded_categories",
-            heading="Excluded categories",
-            label="Category",
-            min_num=0,
+            'featured_article_relations',
+            heading='Popular articles',
+            label='Article',
+            max_num=3,
+        ),
+        InlinePanel(
+            'featured_update_relations',
+            heading='In the press',
+            label='Press update',
+            max_num=3,
+        ),
+        MultiFieldPanel(
+            children=[
+                FieldPanel('cutoff_date'),
+                HelpPanel(content="<h2>Excluded categories</h2>"),
+                InlinePanel(
+                    "excluded_categories",
+                    heading="Excluded categories",
+                    label="Category",
+                    min_num=0,
+                ),
+            ],
+            heading="Product listing",
         ),
     ]
 
@@ -367,6 +389,50 @@ class BuyersGuidePageHeroSupportingArticleRelation(TranslatableMixin, Orderable)
 
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
+
+
+class BuyersGuidePageFeaturedArticleRelation(TranslatableMixin, Orderable):
+    page = cluster_fields.ParentalKey(
+        'wagtailpages.BuyersGuidePage',
+        related_name='featured_article_relations',
+    )
+    article = models.ForeignKey(
+        'wagtailpages.BuyersGuideArticlePage',
+        on_delete=models.CASCADE,
+        related_name='+',
+        null=False,
+        blank=False,
+    )
+
+    panels = [PageChooserPanel('article', page_type='wagtailpages.BuyersGuideArticlePage')]
+
+    objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "article"
+
+    def __str__(self):
+        return f'{self.page.title} -> {self.article.title}'
+
+
+class BuyersGuidePageFeaturedUpdateRelation(TranslatableMixin, Orderable):
+    page = cluster_fields.ParentalKey(
+        'wagtailpages.BuyersGuidePage',
+        related_name='featured_update_relations',
+    )
+    update = models.ForeignKey(
+        'wagtailpages.Update',
+        on_delete=models.CASCADE,
+        related_name='+',
+        null=False,
+        blank=False,
+    )
+
+    panels = [SnippetChooserPanel('update')]
+
+    objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "update"
+
+    def __str__(self):
+        return f'{self.page.title} -> {self.update.title}'
 
 
 def get_pni_home_page():

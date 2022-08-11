@@ -112,6 +112,8 @@ from .pagemodels.buyersguide.editorial_content_index import BuyersGuideEditorial
 from .pagemodels.buyersguide.homepage import (
     BuyersGuidePage,
     BuyersGuidePageHeroSupportingArticleRelation,
+    BuyersGuidePageFeaturedArticleRelation,
+    BuyersGuidePageFeaturedUpdateRelation,
 )
 from .pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
