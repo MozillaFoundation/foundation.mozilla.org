@@ -110,7 +110,10 @@ class BlogIndexPage(IndexPage):
         BlogPageTopic,
         help_text='Which topics would you like to feature on the page? '
                   'Please select a max of 7.',
-        blank=True
+        blank=True,
+        # Limiting CMS choices to English, as topics get
+        # localized using the {% localized_version %} template tag.
+        limit_choices_to=models.Q(locale__id="1"),
     )
 
     callout_box = StreamField(
