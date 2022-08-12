@@ -377,7 +377,6 @@ class BuyersGuidePageHeroSupportingArticleRelation(TranslatableMixin, Orderable)
     article = models.ForeignKey(
         'wagtailpages.BuyersGuideArticlePage',
         on_delete=models.CASCADE,
-        related_name='+',
         null=False,
         blank=False,
     )
@@ -389,6 +388,9 @@ class BuyersGuidePageHeroSupportingArticleRelation(TranslatableMixin, Orderable)
 
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
 
 
 class BuyersGuidePageFeaturedArticleRelation(TranslatableMixin, Orderable):
@@ -399,7 +401,6 @@ class BuyersGuidePageFeaturedArticleRelation(TranslatableMixin, Orderable):
     article = models.ForeignKey(
         'wagtailpages.BuyersGuideArticlePage',
         on_delete=models.CASCADE,
-        related_name='+',
         null=False,
         blank=False,
     )
@@ -412,6 +413,8 @@ class BuyersGuidePageFeaturedArticleRelation(TranslatableMixin, Orderable):
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
 
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
 
 class BuyersGuidePageFeaturedUpdateRelation(TranslatableMixin, Orderable):
     page = cluster_fields.ParentalKey(
@@ -421,7 +424,6 @@ class BuyersGuidePageFeaturedUpdateRelation(TranslatableMixin, Orderable):
     update = models.ForeignKey(
         'wagtailpages.Update',
         on_delete=models.CASCADE,
-        related_name='+',
         null=False,
         blank=False,
     )
@@ -433,6 +435,9 @@ class BuyersGuidePageFeaturedUpdateRelation(TranslatableMixin, Orderable):
 
     def __str__(self):
         return f'{self.page.title} -> {self.update.title}'
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
 
 
 def get_pni_home_page():

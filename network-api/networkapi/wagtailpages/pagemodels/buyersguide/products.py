@@ -184,7 +184,6 @@ class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable
     article = models.ForeignKey(
         'wagtailpages.BuyersGuideArticlePage',
         on_delete=models.CASCADE,
-        related_name='+',
         null=False,
         blank=False,
     )
@@ -196,6 +195,9 @@ class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable
 
     def __str__(self):
         return f'{self.category.name} -> {self.article.title}'
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
 
 
 class ProductPageVotes(models.Model):

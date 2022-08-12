@@ -112,7 +112,6 @@ class BuyersGuideArticlePageAuthorProfileRelation(
     author_profile = models.ForeignKey(
         'wagtailpages.Profile',
         on_delete=models.CASCADE,
-        related_name='+',
         null=False,
         blank=False,
     )
@@ -124,6 +123,9 @@ class BuyersGuideArticlePageAuthorProfileRelation(
 
     def __str__(self):
         return f'{self.page.title} -> {self.author_profile.name}'
+
+    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
+        pass
 
 
 class BuyersGuideArticlePageContentCategoryRelation(
@@ -138,7 +140,6 @@ class BuyersGuideArticlePageContentCategoryRelation(
     content_category = models.ForeignKey(
         'wagtailpages.BuyersGuideContentCategory',
         on_delete=models.CASCADE,
-        related_name='+',
         null=False,
         blank=False,
     )
@@ -150,6 +151,9 @@ class BuyersGuideArticlePageContentCategoryRelation(
 
     def __str__(self):
         return f'{self.page.title} -> {self.content_category.title}'
+
+    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
+        pass
 
 
 class BuyersGuideArticlePageRelatedArticleRelation(
@@ -163,7 +167,6 @@ class BuyersGuideArticlePageRelatedArticleRelation(
     article = models.ForeignKey(
         'wagtailpages.BuyersGuideArticlePage',
         on_delete=models.CASCADE,
-        related_name='+',
         null=False,
         blank=False,
     )
@@ -175,3 +178,6 @@ class BuyersGuideArticlePageRelatedArticleRelation(
 
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
+
+    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
+        pass
