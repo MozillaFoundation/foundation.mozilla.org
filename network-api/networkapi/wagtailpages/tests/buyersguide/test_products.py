@@ -6,6 +6,7 @@ from rest_framework.test import APITestCase
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
 from wagtail.tests.utils import form_data
 
+from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     ProductPageVotes,
     BuyersGuideProductCategory,
@@ -281,4 +282,78 @@ class BuyersGuideProductCategoryTest(TestCase):
         self.assertIn(
             'Categories can only be two levels deep.',
             form.errors['parent']
+        )
+
+    def test_related_articles(self):
+        cat = BuyersGuideProductCategory.objects.create(name="Test category")
+        article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        article2 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        article3 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat,
+            article=article2,
+            sort_order=0,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat,
+            article=article1,
+            sort_order=1,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat,
+            article=article3,
+            sort_order=2,
+        )
+
+        related_articles = cat.related_article_relations.related_items()
+
+
+        self.assertEqual(len(related_articles), 3)
+        self.assertQuerysetEqual(
+            related_articles,
+            [article2, article1, article3],
+            ordered=True,
+        )
+
+    def test_related_articles_on_multiple_categories(self):
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+        cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2")
+        article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        article2 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        article3 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat1,
+            article=article2,
+            sort_order=0,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat1,
+            article=article1,
+            sort_order=1,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat1,
+            article=article3,
+            sort_order=2,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat2,
+            article=article2,
+            sort_order=4,
+        )
+
+        cat1_related_articles = cat1.related_article_relations.related_items()
+        cat2_related_articles = cat2.related_article_relations.related_items()
+
+        self.assertEqual(len(cat1_related_articles), 3)
+        self.assertQuerysetEqual(
+            cat1_related_articles,
+            [article2, article1, article3],
+            ordered=True,
+        )
+        self.assertEqual(len(cat2_related_articles), 1)
+        self.assertQuerysetEqual(
+            cat2_related_articles,
+            [article2],
+            ordered=True,
         )
