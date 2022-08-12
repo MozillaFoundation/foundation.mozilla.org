@@ -53,10 +53,17 @@ class OrderableRelationQuerySet(models.QuerySet):
         related_field = getattr(self.model, related_field_name)
         reverse_name = related_field.field.related_query_name()
 
-        item_ids = self.values(related_field_name)
+        item_pks = self.values(related_field_name)
+        orderable_pks = self.values('pk')
 
-        items = related_field.get_queryset().order_by(
-            f'{reverse_name}__sort_order',
-        ).filter(pk__in=item_ids).distinct()
+        orderable_lookup = {f'{reverse_name}__pk__in': orderable_pks}
+        items = (
+            related_field.get_queryset()
+            .annotate(sort_order=models.F(f'{reverse_name}__sort_order'))
+            .order_by('sort_order')
+            .filter(pk__in=item_pks)
+            .filter(**orderable_lookup)
+            .distinct()
+        )
 
         return items
