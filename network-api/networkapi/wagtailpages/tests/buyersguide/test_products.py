@@ -206,7 +206,6 @@ class BuyersGuideProductCategoryTest(TestCase):
             'related_article_relations': form_data.inline_formset([])
         })
 
-
     def test_cannot_have_duplicate_name(self):
         BuyersGuideProductCategory.objects.create(name="Cat 1")
 
@@ -306,7 +305,6 @@ class BuyersGuideProductCategoryTest(TestCase):
         )
 
         related_articles = cat.related_article_relations.related_items()
-
 
         self.assertEqual(len(related_articles), 3)
         self.assertQuerysetEqual(

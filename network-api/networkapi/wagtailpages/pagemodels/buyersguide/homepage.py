@@ -416,6 +416,7 @@ class BuyersGuidePageFeaturedArticleRelation(TranslatableMixin, Orderable):
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
 
+
 class BuyersGuidePageFeaturedUpdateRelation(TranslatableMixin, Orderable):
     page = cluster_fields.ParentalKey(
         'wagtailpages.BuyersGuidePage',
