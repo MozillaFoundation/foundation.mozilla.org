@@ -29,19 +29,18 @@
     {% endif %}
   {% endwith %}
 
-  {% with hero_supporting_articles=page.hero_supporting_article_relations.related_items %}
-    {% if hero_supporting_articles %}
-      <div>
-        <h2>{{ page.hero_supporting_articles_heading }}</h2>
-
-        <ul>
-          {% for article in hero_supporting_articles  %}
-            <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
-  {% endwith %}
+  <div class="tw-container">
+    {% with hero_supporting_articles=page.hero_supporting_article_relations.related_items %}
+      {% if hero_supporting_articles %}
+        <div class="tw-row">
+          <div class="tw-px-4">
+            {% include "fragments/buyersguide/related_reading.html" with heading=page.hero_supporting_articles_heading articles=hero_supporting_articles all_articles=False %}
+          </div>
+        </div>
+      {% endif %}
+    {% endwith %}
+  </div>
+  
 
   <div class="tw-container tw-my-6">
       <div class="tw-row">
