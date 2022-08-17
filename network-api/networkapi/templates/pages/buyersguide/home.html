@@ -43,38 +43,38 @@
     {% endif %}
   {% endwith %}
 
-  {% with popular_articles=page.featured_article_relations.related_items  %}
-    {% if popular_articles %}
-      <div>
-        <h2>Popular</h2>
+  <div class="tw-container tw-my-6">
+      <div class="tw-row">
+        {% with popular_articles=page.featured_article_relations.related_items  %}
+          {% if popular_articles %}
+            <div class="tw-px-4 tw-w-full large:tw-w-1/3">
+              {% include "fragments/buyersguide/popular_articles.html" %}
+            </div>
+          {% endif %}
+        {% endwith %}
 
-        <ul>
-          {% for article in popular_articles  %}
-            <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
-          {% endfor %}
-        </ul>
+        {% with product_updates=page.featured_update_relations.related_items  %}
+          {% if product_updates %}
+            <div class="tw-px-4 tw-w-full large:tw-w-1/3">
+              <h2>In the press</h2>
+
+              <ul>
+                {% for update in product_updates %}
+                  <li>
+                    <div>
+                      <strong>{{ update.title }}</strong>
+                    </div>
+                    <div>
+                      <a href="{{ update.source }}">{{ update.author }}</a>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        {% endwith %}
+
       </div>
-    {% endif %}
-  {% endwith %}
+  </div>
 
-  {% with product_updates=page.featured_update_relations.related_items  %}
-    {% if product_updates %}
-      <div>
-        <h2>In the press</h2>
-
-        <ul>
-          {% for update in product_updates %}
-            <li>
-              <div>
-                <strong>{{ update.title }}</strong>
-              </div>
-              <div>
-                <a href="{{ update.source }}">{{ update.author }}</a>
-              </div>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
-  {% endwith %}
-{% endblock hero %}
+  {% endblock hero %}
