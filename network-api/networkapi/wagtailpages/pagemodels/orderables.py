@@ -57,6 +57,6 @@ class OrderableRelationQuerySet(models.QuerySet):
 
         items = related_field.get_queryset().order_by(
             f'{reverse_name}__sort_order',
-        ).filter(pk__in=item_ids).distinct()    
+        ).filter(pk__in=item_ids).distinct()
 
         return items
