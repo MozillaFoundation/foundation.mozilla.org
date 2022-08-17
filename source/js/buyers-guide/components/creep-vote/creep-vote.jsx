@@ -246,7 +246,6 @@ class CreepVote extends Component {
     let userVoteGroup = Math.floor((bins * (this.state.creepiness - 1)) / 100);
     let creepType = CREEPINESS_LABELS[userVoteGroup];
 
-    console.log(this.props.votes.creepiness.vote_breakdown);
     return (
       <div>
         <div className="mb-5">
