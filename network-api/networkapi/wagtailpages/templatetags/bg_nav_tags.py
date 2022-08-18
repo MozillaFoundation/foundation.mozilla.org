@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 register = template.Library()
 
 
+# Returns the PNI home page
 @register.simple_tag(name='get_bg_home_page')
 def get_bg_home_page():
     BuyersGuidePage = apps.get_model(app_label='wagtailpages', model_name='BuyersGuidePage')
