@@ -39,6 +39,7 @@ from networkapi.wagtailpages.utils import (
     get_default_locale,
     get_language_from_request,
     get_locale_from_request,
+    set_main_site_nav_information,
 )
 
 
@@ -354,6 +355,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         pni_home_page = BuyersGuidePage.objects.first()
         context['about_page'] = pni_home_page
         context['home_page'] = pni_home_page
+        context = set_main_site_nav_information(self, context, "BuyersGuidePage")
+
         context['template_cache_key_fragment'] = f'pni_home_{request.LANGUAGE_CODE}'
         return context
 
