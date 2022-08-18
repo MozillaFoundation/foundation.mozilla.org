@@ -5,11 +5,12 @@ from urllib.parse import urlparse
 register = template.Library()
 
 
-@register.simple_tag(name='bg_home_page')
-def bg_home_page():
+@register.simple_tag(name='get_bg_home_page')
+def get_bg_home_page():
     BuyersGuidePage = apps.get_model(app_label='wagtailpages', model_name='BuyersGuidePage')
     pni_home_page = BuyersGuidePage.objects.first()
     return pni_home_page
+
 
 # Determine if a category nav link should be marked active
 @register.simple_tag(name='check_active_category')
