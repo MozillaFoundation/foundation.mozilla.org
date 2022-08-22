@@ -8,9 +8,12 @@ register = template.Library()
 # Finds the page's parent "Buyer's Guide Homepage" and returns it.
 @register.simple_tag(name='get_bg_home_page', takes_context=True)
 def get_bg_home_page(context):
-    page = context.get('page', None)
     BuyersGuidePage = apps.get_model(app_label='wagtailpages', model_name='BuyersGuidePage')
-    pni_home_page = BuyersGuidePage.objects.ancestor_of(page, inclusive=True).live().first()
+    page = context.get('page', None)
+    if page:
+        pni_home_page = BuyersGuidePage.objects.ancestor_of(page, inclusive=True).live().first()
+    else:
+        pni_home_page = BuyersGuidePage.objects.first()
     return pni_home_page
 
 
