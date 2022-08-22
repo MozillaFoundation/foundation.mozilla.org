@@ -1,6 +1,9 @@
 {% extends "pages/buyersguide/base.html" %}
 
-{% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
+{% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags bg_nav_tags %}
+
+{% get_bg_home_page as home_page %}
+
 
 {% block social_metadata %}
   <meta property="og:type" content="website">
