@@ -1,10 +1,10 @@
 {% extends "partials/primary_nav.html" %}
 
 {% load bg_nav_tags i18n localization %}
-{% get_bg_home_page as home_page %}
 
 
 {% block nav_logo %}
+{% get_bg_home_page as home_page %}
   <div class="d-flex align-items-center logo-section">
     <a href="/" class="moz-logo mb-0 mr-3"><span class="sr-only">Mozilla</span></a>
     <p class="mb-0 tw-h3-heading flex-wrap">
@@ -14,6 +14,7 @@
 {% endblock %}
 
 {% block narrow_screen_nav_links %}
+{% get_bg_home_page as home_page %}
 <div><a class="{% bg_active_nav request.get_full_path home_page.url %}" href="{% relocalized_url home_page.url %}">{% trans "Privacy Not Included" %}</a></div>
 {% include "fragments/buyersguide/pni_nav_links.html" with pre="<div>" post="</div>" %}
 {% endblock %}
