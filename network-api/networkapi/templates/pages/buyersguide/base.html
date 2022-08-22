@@ -3,7 +3,6 @@
 {% load bg_nav_tags localization i18n static wagtailroutablepage_tags wagtailmetadata_tags debug_tags mofo_common %}
 
 {% get_current_language as lang_code %}
-{% get_bg_home_page as home_page %}
 
 {% block page_title %}
 {% environment_prefix %}
@@ -82,6 +81,7 @@
   {% block hero %}{% endblock %}
 
   {% block category_nav %}
+  {% get_bg_home_page as home_page %}
   {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
   <nav id="multipage-nav" class="pni-category-nav text-center d-none d-md-block" title="{% trans "site navigation" context "Tooltip on menu items" %}">
     <div class="container">
