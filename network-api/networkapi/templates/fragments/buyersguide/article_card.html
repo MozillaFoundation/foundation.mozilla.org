@@ -1,0 +1,25 @@
+{% extends "./editorial_content_base_card.html" %}
+
+{% load i18n localization wagtailimages_tags %}
+
+
+{% block image %}
+    <div class="medium:tw-max-w-xs large:tw-max-w-sm medium:tw-shrink-0">
+      <a href="{% relocalized_url page.localized.url %}">
+        {% image page.localized.specific.get_meta_image fill-255x131 %}
+      </a>
+    </div>
+{% endblock %}
+
+
+{% block categories %}
+    {% include "fragments/buyersguide/blog_topics.html" with page=page.specific %}
+{% endblock %}
+
+{% block published_date %}
+    <span class="tw-h6-heading tw-text-gray-40 tw-py-1 tw-mb-0">{{ page.first_published_at|date:"DATE_FORMAT" }}</span>
+{% endblock %}
+
+{% block description %}
+  <p class="tw-body tw-line-clamp-3">{{ page.specific.localized.get_meta_description }}</p>
+{% endblock %}

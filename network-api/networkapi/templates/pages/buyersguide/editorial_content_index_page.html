@@ -1,17 +1,26 @@
 {% extends "pages/buyersguide/base.html" %}
 {% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags localization %}
+
 
 {% block category_nav %}{% endblock category_nav %}
 
 {% block guts %}
-  <h1>{{ page.title }}</h1>
-  {% if items %}
-    <ul>
-    {% for item in items %}
-      <li>
-        <a href="{% pageurl item %}">{{ item.title }}</a>
-      </li>
-    {% endfor %}
-    </ul>
-  {% endif %}
+  <div class="tw-container tw-my-6">
+    <h1>{{ page.title }}</h1>
+    <div class="tw-row">
+      <div class="tw-grid tw-grid-cols-12 tw-gap-x-4">
+          <div class="tw-col-span-8">
+            {% if items %}
+            <ul id="index-entries" class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-gap-5 tw-list-none tw-px-[15px]">
+                {% include "fragments/buyersguide/editorial_content_item_loop.html" %}
+            </ul>
+          {% endif %}
+        </div>
+        <div class="tw-col-span-4">
+          <p> Placeholder </p>
+        </div>
+    </div>
+    </div>
+</div>
 {% endblock guts %}
