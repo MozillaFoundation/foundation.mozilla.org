@@ -49,6 +49,11 @@ class BuyersGuideProductCategoryArticlePageRelationFactory(DjangoModelFactory):
         model = pagemodels.BuyersGuideProductCategoryArticlePageRelation
 
 
+class BuyersGuideProductPageArticlePageRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideProductPageArticlePageRelation
+
+
 class ProductUpdateFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.Update
@@ -424,6 +429,13 @@ def generate(seed):
             page=pni_homepage,
             update=update,
         )
+
+    for product in pagemodels.ProductPage.objects.all():
+        for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=5):
+            BuyersGuideProductPageArticlePageRelationFactory(
+                product=product,
+                article=article,
+            )
 
     for product_category in pagemodels.BuyersGuideProductCategory.objects.all():
         for article in get_random_objects(pagemodels.BuyersGuideArticlePage, max_count=6):

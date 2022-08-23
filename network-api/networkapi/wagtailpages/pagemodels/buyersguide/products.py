@@ -200,6 +200,30 @@ class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable
         pass
 
 
+class BuyersGuideProductPageArticlePageRelation(TranslatableMixin, Orderable):
+    product = ParentalKey(
+        'wagtailpages.ProductPage',
+        related_name='related_article_relations',
+    )
+    article = models.ForeignKey(
+        'wagtailpages.BuyersGuideArticlePage',
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+    )
+
+    panels = [PageChooserPanel('article')]
+
+    objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "article"
+
+    def __str__(self):
+        return f'{self.product.name} -> {self.article.title}'
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
+
+
 class ProductPageVotes(models.Model):
     """
     PNI product voting bins. This does not need translating.
@@ -857,6 +881,17 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 InlinePanel('related_product_pages', label='Product')
             ],
             heading='Related Products',
+        ),
+        MultiFieldPanel(
+            [
+                InlinePanel(
+                    'related_article_relations',
+                    heading='Related articles',
+                    label='Article',
+                    max_num=5,
+                ),
+            ],
+            heading='Related Articles',
         ),
     ]
 

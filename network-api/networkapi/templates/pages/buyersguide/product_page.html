@@ -27,6 +27,20 @@
 {% block body_id %}product-page{% endblock %}
 
 {% block guts %}
+
+{% with related_articles=product.related_article_relations.related_items  %}
+      {% if related_articles %}
+        <div>
+          <h2>What to read next</h2>
+          <ul>
+            {% for article in related_articles %}
+              <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+
 <div class="text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">
   <div class="tw-container tw-block medium:tw-grid tw-grid-cols-12 tw-gap-x-6">
     <div class="tw-col-start-3 tw-col-end-11 tw--mx-4 medium:tw--mx-6">
