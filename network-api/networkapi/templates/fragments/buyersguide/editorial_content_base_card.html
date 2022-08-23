@@ -1,0 +1,23 @@
+{% load localization %}
+
+<li class="tw-m-0 tw-p-0 tw-pt-5">
+    <div class="tw-flex tw-flex-row tw-gap-3 medium:tw-gap-5 tw-w-full">
+
+    {% block image %}{% endblock %}
+
+    <div>
+      <div class="tw-flex tw-flex-wrap">
+        {% block categories %}{% endblock %}
+        {% block published_date %}{% endblock %}
+      </div>
+  
+      <a href="{% relocalized_url item.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
+        <p class="tw-h4-heading d-inline-block mt-1 mb-0 group-hover:tw-underline">{{ page.localized.title }}</p>
+
+        {% block external_news_link %}{% endblock %}
+
+        <p class="tw-body tw-line-clamp-3">{{ page.specific.localized.get_meta_description }}</p>
+      </a>
+    </div>
+  </div>
+</li>
