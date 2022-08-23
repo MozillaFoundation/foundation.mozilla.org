@@ -1,0 +1,12 @@
+{% load blog_tags localization wagtailcore_tags %}
+
+{% with content_categories=page.content_category_relations.related_items editorial_content_index=page.get_editorial_content_index  %}
+  {% for content_category in content_categories %}
+    {% with classes="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-py-1 tw-mb-0" %}
+      <a class="{{ classes }} {{ extra_classes }}" href="/privacynotincluded/articles/">{{ content_category.title|title }}</a>
+      {% if not forloop.last %}
+        <span class="{{ classes }} {{ extra_classes }}">/</span>
+      {% endif %}
+    {% endwith %}
+  {% endfor %}
+{% endwith %}

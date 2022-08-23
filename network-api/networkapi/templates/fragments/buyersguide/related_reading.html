@@ -1,0 +1,30 @@
+{% load static wagtailcore_tags i18n %}
+<div>
+    <img src="{% static "_images/buyers-guide/short-wavy-border.svg" %}" class="" />
+    <h2 class="tw-font-zilla tw-font-normal tw-text-2xl tw-text-black tw-mt-2 tw-mb-[20px]">
+        {% if heading %}
+            {{ heading }}
+        {% else %}
+            {% trans "Related" %}
+        {% endif %}
+    </h2>
+
+    <ul class="tw-list-none tw-space-y-5 tw-p-0">
+        {% for article in articles  %}
+            <li class="tw-m-0" >
+                <a href="{% pageurl article %}" class="tw-text-black tw-flex hover:tw-text-blue-40 tw-items-center tw-no-underline">
+                    <span class="tw-font-sans tw-font-bold tw-text-lg tw-leading-5">{{ article.title }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% with home_page.get_editorial_content_index as editorial_content_index  %}
+        {% if editorial_content_index and all_articles %}
+            <a href="{% pageurl editorial_content_index %}" class="tw-font-sans tw-font-bold tw-text-blue-80 tw-text-base tw-leading-5 tw-flex tw-no-underline">
+                {% trans "All Articles" %}
+                <img src="{% static "_images/buyers-guide/arrow-right.svg" %}" class="tw-ml-1 " />
+            </a>
+        {% endif %}
+    {% endwith %}
+</div>

@@ -1,82 +1,90 @@
 {% extends "pages/buyersguide/base.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags mini_site_tags i18n %}
 
 {% block category_nav %}{% endblock category_nav %}
 
 {% block hero %}
   {% if page.hero_image %}
-    {% image page.hero_image max-200x200 %}
+    {% image page.hero_image original as img %}
+    <div id="page-hero">
+      <div class="banner">
+        <div class="background-wrapper">
+          <img src="{{ img.url }}" alt="{{ img.alt }}" class="banner-image">
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row cutout-wrapper-row justify-content-center">
+          <div class="cutout col-10 pt-4">
+          </div>
+        </div>
+      </div>
+    </div>
   {% endif %}
 {% endblock hero %}
 
+{% block body_id %}article{% endblock %}
+
 {% block guts %}
-  {% with content_categories=page.content_category_relations.related_items  %}
-    {% if content_categories %}
-      <div>
-        <strong>Categories</strong>
 
-        <ul>
-          {% for content_category in content_categories  %}
-            <li>{{ content_category.title|title }}</li>
-          {% endfor %}
-        </ul>
+{% blocktrans with title=page.title asvar share_text_translated %}{{title}} by @mozilla{% endblocktrans %}
+<div class="cms blog-body">
+  <div class="container share-button-blog-title-container">
+    <div class="row">
+      <div class="blog-sticky-side-container offset-lg-1 col-lg-1 pt-4 pt-md-5 mt-2 text-center d-print-none">
+        <div class="blog-sticky-side d-none d-lg-flex justify-content-lg-end mt-1">
+          {% include "fragments/buyersguide/share-buttons.html" with version="mini" layout="stacked" share_text=share_text_translated page=page %}
+        </div>
+        </div>
+      <div class="pt-5 pt-md-5 pb-4 col-lg-8">
+        <div class="cms {% if show_comments %}mb-5{% endif %}">
+          {% include "fragments/buyersguide/blog_topics.html" with topics=page.topics.all extra_classes="tw-text-base" %}
+          <h1 class="tw-h1-heading">{{ page.title }}</h1>
+          {% include "fragments/buyersguide/blog_authors.html" with blog_page=page show_full_info=True %}
+        </div>
       </div>
-    {% endif %}
-  {% endwith %}
+    </div>
+  </div>
+  {% for block in page.body %}
+      {% include_block block with parent_page=page page_type="blog" %}
+  {% endfor %}
 
-  <h1>{{ page.title }}</h1>
-
-  {% with author_profiles=page.author_profile_relations.related_items  %}
-    {% if author_profiles %}
-      <div>
-        <h2>Authors</h2>
-
-        <ul>
+  <div class="tw-container tw-mt-6">
+    <div class="tw-row tw-justify-center">
+      <div class="tw-border-4 tw-border-black col-lg-8"></div>
+    </div>
+    <div class="tw-row tw-justify-center tw-divide-y tw-divide-gray-20">
+      {% with author_profiles=page.author_profile_relations.related_items  %}
+        {% if author_profiles %}
           {% for author_profile in author_profiles %}
-            <li>{{ author_profile.name }}</li>
+            <div class="col-lg-8 tw-flex tw-py-4">
+              {% if author_profile.image %}
+                <div class="tw-mr-4 tw-flex tw-items-start tw-flex-shrink-0">
+                  <img class="tw-rounded-full tw-border-2 tw-border-white" src="{% image_url author_profile.image "fill-75x75" %}" alt="{{ author_profile.name }}" title="{{ author_profile.name }}" />
+                </div>
+              {% endif %}
+              <div class="">
+                  <p class="tw-font-zilla tw-mb-2 tw-font-medium tw-text-2xl tw-leading-7">{{ author_profile.name }}</p>
+                  <p class="tw-font-sans tw-font-normal tw-text-lg tw-leading-6">{{ author_profile.introduction }}</p>
+              </div>
+            </div>
           {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
-  {% endwith %}
-
-  {% with primary_related_articles=page.get_primary_related_articles  %}
-    {% if primary_related_articles %}
-      <div>
-        <h2>Related articles (primary)</h2>
-
-        <ul>
-          {% for related_article in primary_related_articles  %}
-            <li>
-              <a href="{% pageurl related_article %}">{{ related_article.title }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
-  {% endwith %}
-
-  <div>
-    <h2>Body</h2>
-    {% for block in page.body %}
-        {% include_block block %}
-    {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
   </div>
 
-  {% with secondary_related_articles=page.get_secondary_related_articles %}
-    {% if secondary_related_articles %}
-      <div>
-        <h2>Related articles (secondary)</h2>
-
-        <ul>
-          {% for related_article in secondary_related_articles %}
-            <li>
-              <a href="{% pageurl related_article %}">{{ related_article.title }}</a>
-            </li>
-          {% endfor %}
-        </ul>
+  <div class="tw-container">
+    <div class="tw-row tw-justify-center">
+      <div class="col-lg-8">
+          {% include "fragments/buyersguide/pni_newsletter_box.html" %}
+        
       </div>
-    {% endif %}
-  {% endwith %}
+    </div>
+  </div>
+</div>
+
+  
+
 {% endblock guts %}

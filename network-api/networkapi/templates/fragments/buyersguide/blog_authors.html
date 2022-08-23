@@ -1,0 +1,45 @@
+{% load wagtailimages_tags static i18n localization homepage_tags wagtailroutablepage_tags %}
+
+{% with authors=page.author_profile_relations.related_items %}
+
+<div class="blog-authors d-flex flex-wrap {% if show_full_info %}flex-column mb-4{% else %}align-items-center{% endif %}">
+  {% with author_image_classes="-tw-ml-[0.7rem] tw-overflow-hidden tw-rounded-full tw-border-2 tw-border-white tw-inline-block tw-w-[40px] tw-h-[40px] tw-border-r d-flex align-items-center justify-content-center last:tw-mr-2" no_image_classes="tw-bg-[url('../_images/blog-author-placeholder.jpg')] tw-bg-cover "%}
+    <div class="author-images d-flex flex-wrap tw-pl-[0.7rem] tw-z-10">
+        {% for author in authors %}
+            <div class="author-image {{author_image_classes}} {% if author.image is None %} {{no_image_classes}} {% endif %}" aria-label="{{ author.name }}" style="z-index:-{{ forloop.counter }};">
+                {% if author.image %}
+                <img src="{% image_url author.image "fill-100x100" %}" alt="{{ author.name }}" title="{{ author.name }}" />
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+  {% endwith %}
+
+  <p class="tw-text-sm my-2 tw-text-black">
+    {% spaceless %}
+      {% if show_full_info %}
+        {% trans "By" %}
+      {% endif %}
+
+      {% for author in authors %}
+        {% if not forloop.first %}{% if not forloop.last %}<span class="tw-font-extrabold">, </span>{% else %}<span> {% trans "and" %} </span>{% endif %}{% endif %}
+
+        {% if blog_index %}
+          <a class="tw-font-extrabold tw-text-black" href="{% localizedroutablepageurl page=blog_index url_name='blog-author-detail' profile_slug=author.slug %}">{{ author.name }}</a>
+        {% else %}
+          <span class="tw-font-extrabold">{{ author.name }}</span>
+        {% endif %}
+      {% endfor %}
+
+      {% if show_full_info %}
+        |
+        {% if blog_page.first_published_at %}
+          {{ blog_page.first_published_at|date:"DATE_FORMAT" }}
+        {% else %}
+          not published yet
+        {% endif %}
+      {% endif %}
+    {% endspaceless %}
+  </p>
+</div>
+{% endwith %}
