@@ -2,7 +2,6 @@ import re
 import json
 
 from bs4 import BeautifulSoup
-from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import int_list_validator
@@ -950,7 +949,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         return "unknown"
 
     def get_context(self, request, *args, **kwargs):
-        BuyersGuidePage = apps.get_model(app_label='wagtailpages', model_name='BuyersGuidePage')
         context = super().get_context(request, *args, **kwargs)
         context['product'] = self
         language_code = get_language_from_request(request)
@@ -958,9 +956,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['mediaUrl'] = settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'{self.title} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
-        pni_home_page = BuyersGuidePage.objects.first()
-        context['about_page'] = pni_home_page
-        context['home_page'] = pni_home_page
         return context
 
     def serve(self, request, *args, **kwargs):

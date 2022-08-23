@@ -1,6 +1,6 @@
 {% extends "pages/buyersguide/base.html" %}
 
-{% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
+{% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags bg_nav_tags %}
 
 {% block social_metadata %}
   <meta property="og:type" content="website">
@@ -28,18 +28,20 @@
 
 {% block guts %}
 
+{% get_bg_home_page as home_page %}
+
 {% with related_articles=product.related_article_relations.related_items  %}
-      {% if related_articles %}
-        <div>
-          <h2>What to read next</h2>
-          <ul>
-            {% for article in related_articles %}
-              <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-    {% endwith %}
+  {% if related_articles %}
+    <div>
+      <h2>What to read next</h2>
+      <ul>
+        {% for article in related_articles %}
+          <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endwith %}
 
 <div class="text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">
   <div class="tw-container tw-block medium:tw-grid tw-grid-cols-12 tw-gap-x-6">
