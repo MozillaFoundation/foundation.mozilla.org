@@ -153,6 +153,88 @@ class TestProductPage(BuyersGuideTestMixin):
             ordered=True,
         )
 
+    def test_get_related_articles(self):
+        """
+        Returns all related articles.
+
+        We don't want the through model, we really want the articles.
+        """
+        product_page = self.product_page
+
+        related_articles = []
+        for _ in range(5):
+            related_article = buyersguide_factories.BuyersGuideArticlePageFactory()
+            buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
+                product=product_page,
+                article=related_article,
+            )
+            related_articles.append(related_article)
+
+        result = product_page.get_related_articles()
+
+        for related_article in related_articles:
+            self.assertIn(related_article, result)
+
+    def test_get_related_articles_no_related_articles(self):
+        product_page = self.product_page
+
+        result = product_page.get_related_articles()
+
+        self.assertQuerysetEqual(result, [])
+
+    def test_primary_related_articles(self):
+        """First three related articles are primary."""
+        product_page = self.product_page
+
+        related_articles = []
+        for _ in range(5):
+            related_article = buyersguide_factories.BuyersGuideArticlePageFactory()
+            buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
+                product=product_page,
+                article=related_article,
+            )
+            related_articles.append(related_article)
+
+        result = product_page.get_primary_related_articles()
+
+        for related_article in related_articles[:3]:
+            self.assertIn(related_article, result)
+        self.assertNotIn(related_articles[-1], result)
+
+    def test_primary_related_articles_no_related_articles(self):
+        product_page = self.product_page
+
+        result = product_page.get_primary_related_articles()
+
+        self.assertQuerysetEqual(result, [])
+
+    def test_secondary_related_articles(self):
+        """Second three related articles are secondary."""
+        product_page = self.product_page
+
+        related_articles = []
+        for _ in range(5):
+            related_article = buyersguide_factories.BuyersGuideArticlePageFactory()
+            buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
+                product=product_page,
+                article=related_article,
+            )
+            related_articles.append(related_article)
+
+        result = product_page.get_secondary_related_articles()
+
+        for related_article in related_articles[:3]:
+            self.assertNotIn(related_article, result)
+        for related_article in related_articles[3:]:
+            self.assertIn(related_article, result)
+
+    def test_secondary_related_articles_no_related_articles(self):
+        product_page = self.product_page
+
+        result = product_page.get_secondary_related_articles()
+
+        self.assertQuerysetEqual(result, [])
+
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
@@ -344,6 +426,88 @@ class BuyersGuideProductCategoryTest(TestCase):
             [article2, article1, article3],
             ordered=True,
         )
+
+    def test_get_related_articles(self):
+        """
+        Returns all related articles.
+
+        We don't want the through model, we really want the articles.
+        """
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        related_articles = []
+        for _ in range(6):
+            related_article = buyersguide_factories.BuyersGuideArticlePageFactory()
+            buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+                category=cat1,
+                article=related_article,
+            )
+            related_articles.append(related_article)
+
+        result = cat1.get_related_articles()
+
+        for related_article in related_articles:
+            self.assertIn(related_article, result)
+
+    def test_get_related_articles_no_related_articles(self):
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        result = cat1.get_related_articles()
+
+        self.assertQuerysetEqual(result, [])
+
+    def test_primary_related_articles(self):
+        """First three related articles are primary."""
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        related_articles = []
+        for _ in range(6):
+            related_article = buyersguide_factories.BuyersGuideArticlePageFactory()
+            buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+                category=cat1,
+                article=related_article,
+            )
+            related_articles.append(related_article)
+
+        result = cat1.get_primary_related_articles()
+
+        for related_article in related_articles[:3]:
+            self.assertIn(related_article, result)
+        self.assertNotIn(related_articles[-1], result)
+
+    def test_primary_related_articles_no_related_articles(self):
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        result = cat1.get_primary_related_articles()
+
+        self.assertQuerysetEqual(result, [])
+
+    def test_secondary_related_articles(self):
+        """Second three related articles are secondary."""
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        related_articles = []
+        for _ in range(6):
+            related_article = buyersguide_factories.BuyersGuideArticlePageFactory()
+            buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+                category=cat1,
+                article=related_article,
+            )
+            related_articles.append(related_article)
+
+        result = cat1.get_secondary_related_articles()
+
+        for related_article in related_articles[:3]:
+            self.assertNotIn(related_article, result)
+        for related_article in related_articles[3:]:
+            self.assertIn(related_article, result)
+
+    def test_secondary_related_articles_no_related_articles(self):
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+
+        result = cat1.get_secondary_related_articles()
+
+        self.assertQuerysetEqual(result, [])
 
     # TODO: Figure out why this test is failing
     @unittest.skip(
