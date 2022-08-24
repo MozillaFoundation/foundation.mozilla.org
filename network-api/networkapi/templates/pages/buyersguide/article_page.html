@@ -79,7 +79,9 @@
     <div class="tw-row tw-justify-center">
       <div class="col-lg-8">
           {% include "fragments/buyersguide/pni_newsletter_box.html" %}
-        
+          <div class="tw-m-4">
+            {% include "fragments/buyersguide/related_reading.html" with articles=page.get_primary_related_articles all_articles=False %}
+          </div>
       </div>
     </div>
   </div>

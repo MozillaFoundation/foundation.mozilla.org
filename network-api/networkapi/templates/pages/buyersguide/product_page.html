@@ -32,17 +32,12 @@
 
 {% with related_articles=product.related_article_relations.related_items  %}
       {% if related_articles %}
-        <div class="tw-pl-5">
-          <h3>Related</h3>
-          <p> Primary articles (First 3 of list of 6)</p>
-          <ul>
-            {% for article in product.get_primary_related_articles %}
-              <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
-            {% endfor %}
-          </ul>
+      <div class="tw-pl-5">
+            <div class="tw-m-4">
+              {% include "fragments/buyersguide/related_reading.html" with articles=product.get_primary_related_articles all_articles=False %}
+            </div>
 
           <h3>What to read next</h3>
-          <p> Secondary articles (Last 2 of list of 5)</p>
           <ul>
             {% for article in product.get_secondary_related_articles %}
               <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
