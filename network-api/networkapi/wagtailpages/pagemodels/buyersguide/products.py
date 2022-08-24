@@ -971,7 +971,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         return self.related_article_relations.related_items()
 
     def get_primary_related_articles(self) -> models.QuerySet['ProductPage']:
-        print(self.get_related_articles())
         return self.get_related_articles()[:3]
 
     def get_secondary_related_articles(self) -> models.QuerySet['ProductPage']:

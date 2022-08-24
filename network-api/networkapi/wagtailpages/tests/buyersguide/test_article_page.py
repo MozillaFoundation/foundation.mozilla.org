@@ -196,7 +196,7 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         for related_article in related_articles[3:]:
             self.assertIn(related_article, result)
 
-    def test_secondary_related_articles_related_articles_no_related_articles(self):
+    def test_secondary_related_articles_no_related_articles(self):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
             parent=self.content_index,
         )
