@@ -1,6 +1,6 @@
 {% extends "pages/buyersguide/base.html" %}
 
-{% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
+{% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags bg_nav_tags %}
 
 {% block social_metadata %}
   <meta property="og:type" content="website">
@@ -27,6 +27,8 @@
 {% block body_id %}product-page{% endblock %}
 
 {% block guts %}
+
+{% get_bg_home_page as home_page %}
 
 {% with related_articles=product.related_article_relations.related_items  %}
       {% if related_articles %}

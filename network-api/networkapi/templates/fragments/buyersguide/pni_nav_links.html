@@ -1,9 +1,10 @@
 {% load bg_nav_tags i18n localization wagtailcore_tags %}
+{% get_bg_home_page as home_page %}
 
 {{ pre }}
 {% with home_page.get_editorial_content_index as editorial_content_index  %}
   {% if editorial_content_index %}
-    <a class="{{ class }}" href="{% pageurl editorial_content_index %}">{{ editorial_content_index }}</a>
+    <a class="{{ class }} {% bg_active_nav request.get_full_path editorial_content_index.url %} " href="{% pageurl editorial_content_index %}">{{ editorial_content_index }}</a>
   {% endif %}
 {% endwith %}
 {% localizedroutablepageurl home_page 'about-why-view' as about_why_url %}
