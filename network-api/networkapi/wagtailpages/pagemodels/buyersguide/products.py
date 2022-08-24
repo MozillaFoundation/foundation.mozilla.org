@@ -149,6 +149,15 @@ class BuyersGuideProductCategory(
     def get_children(self):
         return BuyersGuideProductCategory.objects.filter(parent=self)
 
+    def get_related_articles(self) -> models.QuerySet['BuyersGuideProductCategory']:
+        return self.related_article_relations.related_items()
+
+    def get_primary_related_articles(self) -> models.QuerySet['BuyersGuideProductCategory']:
+        return self.get_related_articles()[:3]
+
+    def get_secondary_related_articles(self) -> models.QuerySet['BuyersGuideProductCategory']:
+        return self.get_related_articles()[3:]
+
     def __str__(self):
         if self.parent is None:
             return f'{self.name} (sort order: {self.sort_order})'
@@ -962,6 +971,16 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['about_page'] = pni_home_page
         context['home_page'] = pni_home_page
         return context
+
+    def get_related_articles(self) -> models.QuerySet['ProductPage']:
+        return self.related_article_relations.related_items()
+
+    def get_primary_related_articles(self) -> models.QuerySet['ProductPage']:
+        print(self.get_related_articles())
+        return self.get_related_articles()[:3]
+
+    def get_secondary_related_articles(self) -> models.QuerySet['ProductPage']:
+        return self.get_related_articles()[3:]
 
     def serve(self, request, *args, **kwargs):
         # In Wagtail we use the serve() method to detect POST submissions.

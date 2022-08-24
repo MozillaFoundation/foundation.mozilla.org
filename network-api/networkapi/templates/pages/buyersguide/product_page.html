@@ -30,10 +30,19 @@
 
 {% with related_articles=product.related_article_relations.related_items  %}
       {% if related_articles %}
-        <div>
-          <h2>What to read next</h2>
+        <div class="tw-pl-5">
+          <h3>Related</h3>
+          <p> Primary articles (First 3 of list of 6)</p>
           <ul>
-            {% for article in related_articles %}
+            {% for article in product.get_primary_related_articles %}
+              <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+            {% endfor %}
+          </ul>
+
+          <h3>What to read next</h3>
+          <p> Secondary articles (Last 2 of list of 5)</p>
+          <ul>
+            {% for article in product.get_secondary_related_articles %}
               <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
             {% endfor %}
           </ul>

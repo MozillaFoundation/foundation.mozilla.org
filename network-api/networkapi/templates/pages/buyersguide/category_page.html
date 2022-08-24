@@ -14,16 +14,27 @@
             {% if category != current_category %}
               d-none
             {% endif %}
+            tw-pl-5
           "
         >
-          <h2>What to read next ({{ category.name }})</h2>
+          <h2>({{ category.name }})</h2>
+
+          <p> Primary articles (First 3 of list of 6)</p>
+          <h3> Related: </h3>
+          <ul>
+            {% for article in category.get_primary_related_articles %}
+              <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+            {% endfor %}
+          </ul>
 
           <div>
             <a href="{% pageurl page.get_editorial_content_index %}">All articles</a>
           </div>
 
+          <p class="tw-mt-5"> Secondary articles (Last 3 of list of 6)</p>
+          <h3> What to read next: </h3>
           <ul>
-            {% for article in related_articles %}
+            {% for article in category.get_secondary_related_articles %}
               <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
             {% endfor %}
           </ul>
