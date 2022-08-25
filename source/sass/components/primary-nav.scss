@@ -35,6 +35,7 @@
     line-height: calc(23 / 17);
     color: $black;
     font-weight: $btn-font-weight;
+    text-decoration: none;
 
     @media (min-width: $bp-md) {
       &:not(:last-of-type) {
@@ -43,7 +44,8 @@
     }
 
     &:hover {
-      color: $dark-blue;
+      text-decoration: wavy #595cf3 2px underline;
+      text-underline-offset: 0.5rem;
     }
   }
 

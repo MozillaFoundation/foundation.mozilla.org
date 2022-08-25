@@ -1,12 +1,13 @@
 .moz-logo {
-  background-image: url("../_images/mozilla-m.svg");
+  background-image: url("../_images/mozilla-on-black.svg");
+  background-repeat: no-repeat;
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 12px;
 
-  @media (min-width: $nav-full-logo-breakpoint) {
-    width: 97px;
-    background-image: url("../_images/mozilla-on-black.svg");
+  @media (min-width: $bp-lg) {
+    width: 62px;
+    height: 18px;
   }
 }
 
@@ -25,17 +26,6 @@
 }
 
 .logo-section {
-  .tw-h3-heading {
-    font-size: 13px;
-    font-weight: 600;
-    max-width: 85px;
-
-    @media (min-width: $pni-primary-nav-breakpoint) {
-      font-size: 22px;
-      max-width: none;
-    }
-  }
-
   a.link-back {
     color: inherit;
     text-decoration: none;

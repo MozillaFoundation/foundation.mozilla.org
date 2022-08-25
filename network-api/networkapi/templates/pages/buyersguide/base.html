@@ -84,7 +84,7 @@
   {% get_bg_home_page as home_page %}
   {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
   <nav id="multipage-nav" class="pni-category-nav text-center d-none d-md-block" title="{% trans "site navigation" context "Tooltip on menu items" %}">
-    <div class="container">
+    <div class="container" id="product-review">
       <div class="row">
         <div class="col">
           {% if pagetype == "product" or pagetype == "about" %}
