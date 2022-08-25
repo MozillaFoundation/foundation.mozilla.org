@@ -7,7 +7,7 @@
   <input name="next" type="hidden" value="{% get_unlocalized_url page current_language %}" />
   <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-center mb-md-0">
     <label class="tw-h5-heading mb-0 d-flex align-items-center tw-globe-glyph" for="language-switcher">{% trans "Language" %}</label>
-    <select name="language" id="language-switcher" class="mt-3 mt-md-0 ml-md-3 w-100 form-control" onchange="submitLanguageChange()">
+    <select name="language" id="language-switcher" class="mt-3 mt-md-0 ml-md-3 w-100 form-control">
       {% for language_code, language_name in languages %}
         <option value="{{ language_code }}"{% if language_code == current_language %} selected{% endif %}>
           {{ language_name | capfirst }}
@@ -21,7 +21,9 @@
 
 <script nonce="{{request.csp_nonce}}">
   const form = document.getElementById('language-switcher-form')
-  function submitLanguageChange(){
-    form.submit()
-  }
+  const languageSelector = document.getElementById('language-switcher')
+  languageSelector.addEventListener(`change`, (e) => {
+          e.preventDefault();
+          form.submit()
+        });
 </script>
