@@ -194,3 +194,25 @@ export function setupGoBackToAll(instance) {
       parentTitle.value = "";
     });
 }
+
+/**
+ * ...
+ * @param {*} instance
+ */
+export function setupReviewLinks(instance) {
+  const navLinks = document.querySelectorAll(`.product-review-link`);
+
+  if (!navLinks) return;
+
+  for (const nav of navLinks) {
+    nav.addEventListener("click", (evt) => {
+      const editorialContent = document.querySelector(".editorial-content");
+
+      if (editorialContent) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        editorialContent.classList.add("tw-hidden");
+      }
+    });
+  }
+}

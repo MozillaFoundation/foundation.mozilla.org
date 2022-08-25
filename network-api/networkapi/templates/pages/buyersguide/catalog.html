@@ -10,12 +10,13 @@
 <input type="hidden" class="category-title" value="{% if current_category %}{{current_category.localized.name}}{% else %}None{% endif %}">
 <input type="hidden" class="parent-title" value="{{current_category.parent.localized.name}}">
 
+<!-- hiding until mission statement is complete -->
+
 <header
-  class="container-fluid text-center page-header tw-bg-gray-05"
+  class="tw-hidden container-fluid text-center page-header tw-bg-gray-05"
   role="banner"
 >
   <h1 class="tw-sr-only">{{ page.title }}</h1>
-  <!-- home banner as css background -->
   <div class="container">
     <div class="row">
       <div class="col-12 col-lg-8 offset-lg-2 intro-text order-2 order-lg-1">

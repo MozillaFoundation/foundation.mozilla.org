@@ -4,7 +4,11 @@ import { Utils } from "./utils.js";
 import { CreepUtils } from "./creep-utils.js";
 import { markScrollStart } from "./slider-area.js";
 import { setupHistoryManagement, applyHistory } from "./history.js";
-import { setupNavLinks, setupGoBackToAll } from "./member-functions.js";
+import {
+  setupNavLinks,
+  setupGoBackToAll,
+  setupReviewLinks,
+} from "./member-functions.js";
 /**
  * ...
  */
@@ -22,6 +26,14 @@ export class SearchFilter {
     setupNavLinks(this);
     setupGoBackToAll(this);
     setupHistoryManagement(this, searchBar, searchInput);
+    setupReviewLinks(this);
+
+    if (location.hash && location.hash === "#product-review") {
+      const editorialContent = document.querySelector(".editorial-content");
+      if (editorialContent) {
+        editorialContent.classList.add("tw-hidden");
+      }
+    }
 
     const subContainer = document.querySelector(`.subcategory-header`);
     subContainer.addEventListener(`mousedown`, markScrollStart);

@@ -5,7 +5,8 @@
 {% endif %}
   <div class="wrapper-burger">
     <div class="menu-container">
-
+      {% block mobile-search %}
+      {% endblock %}
       <div class="narrow-screen-menu hidden d-lg-none">
         {% block narrow_screen_menu %}
         <div class="narrow-screen-menu-background tw-dark">

@@ -3,9 +3,9 @@
 
 {{ pre }}
 {% with home_page.get_editorial_content_index as editorial_content_index  %}
-  <a class="{{ class }}" href="{% relocalized_url home_page.url %}#product-review">{% trans "Product Reviews" %}</a>
+  <a class="{{ class }} product-review-link" href="{% relocalized_url home_page.url %}#product-review">{% trans "Product Reviews" %}</a>
   <img
-    class="tw-mr-4 {{ class }}"
+    class="tw-mr-4 tw-hidden large:tw-block {{ class }}"
     src="{% static "_images/buyers-guide/asterick-mini.svg" %}"
   >
   {% if editorial_content_index %}

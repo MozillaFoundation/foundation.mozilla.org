@@ -2,6 +2,22 @@
 
 {% load bg_nav_tags i18n localization static %}
 
+{% block mobile-search %}
+  <div id="pni-mobile-container" class="tw-hidden large:tw-hidden tw-absolute tw-mt-[64px] tw-top-0 tw-w-full tw-left-0 tw-bg-blue-05">
+    <div class="tw-px-4 tw-flex tw-items-center">
+      <img
+        class="tw-w-4 tw-h-4 tw-mr-2"
+        src="{% static "_images/buyers-guide/pni-search.svg" %}"
+      >
+      <input
+        id="pni-mobile-bar" 
+        type="text" 
+        class="tw-w-full tw-bg-blue-05 tw-outline-none tw-py-4 tw-text-base tw-text-blue-60"
+        placeholder="{% trans "Search All Products" %}"
+      >
+    </div>
+  </div>
+{% endblock %}
 
 {% block nav_logo %}
   {% get_bg_home_page as home_page %}
@@ -20,21 +36,19 @@
 {% endblock %}
 
 {% block narrow_screen_nav_links %}
-{% get_bg_home_page as home_page %}
-  <div>
-    <a class="{% bg_active_nav request.get_full_path home_page.url %}" href="{% relocalized_url home_page.url %}">{% trans "Privacy Not Included" %}</a>
-  </div>
-{% include "fragments/buyersguide/pni_nav_links.html" with pre="<div class=\"tw-hidden large:tw-block\">" post="</div>" %}
+  {% get_bg_home_page as home_page %}
+  {% include "fragments/buyersguide/pni_nav_links.html" with class="tw-block tw-w-fit" pre="<div>" post="</div>" %}
 {% endblock %}
 
-{% block wide_screen_menu %}{% endblock %}
+{% block wide_screen_menu %}
+{% endblock %}
 
 {% block donate_and_newsletter %}
 <div class="d-flex align-items-center">
   {% include "fragments/buyersguide/pni_nav_links.html" with class="primary-nav-special-link tw-hidden large:tw-block" %}
   <a id="donate-header-btn" class="primary-nav-special-link tw-hidden large:tw-block" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=header" target="_blank" rel="noopener noreferrer">{% trans "Donate" %}</a>
   {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
-  <button class="tw-bg-transparent">
+  <button class="tw-bg-transparent" id="mobile-search">
     <img
       class="large:tw-hidden tw-w-5 tw-h-5"
       src="{% static "_images/buyers-guide/pni-search.svg" %}"
