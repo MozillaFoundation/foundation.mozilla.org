@@ -408,6 +408,7 @@ class BanneredCampaignPage(PrimaryPage):
         'ArticlePage',
         'YoutubeRegretsReporterExtensionPage',
         'YoutubeRegrets2021Page',
+        'YoutubeRegrets2022Page',
         'YoutubeRegretsPage'
     ]
 
