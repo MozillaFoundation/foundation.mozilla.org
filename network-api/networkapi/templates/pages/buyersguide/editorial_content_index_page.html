@@ -8,19 +8,22 @@
 {% block guts %}
   <div class="tw-container tw-my-6">
     <h1>{{ page.title }}</h1>
-    <div class="tw-row">
-      <div class="tw-grid tw-grid-cols-12 tw-gap-x-4">
-          <div class="tw-col-span-8">
+      <div class="tw-grid tw-grid-cols-12 tw-divide-y tw-divide-gray-20 tw-gap-x-5">
             {% if items %}
-            <ul id="index-entries" class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-gap-5 tw-list-none tw-px-[15px]">
-                {% include "fragments/buyersguide/editorial_content_item_loop.html" %}
-            </ul>
+            {% for item in items %}
+            <div class="tw-col-span-12 large:tw-col-span-8">
+                  {% include "fragments/buyersguide/product_update_card.html" with page=item %}
+            </div>
+
+          {% endfor %}
           {% endif %}
+        <div class="tw-col-span-12 large:tw-col-span-4 tw-row-start-3 large:tw-row-start-1 tw-col-start-1 large:tw-col-start-9 large:tw-border-none">
+          <div class="tw-py-3">   
+              <p> CTA </p>
+              <p> Related </p>
+          </div>
+
         </div>
-        <div class="tw-col-span-4">
-          <p> Placeholder </p>
-        </div>
-    </div>
     </div>
 </div>
 {% endblock guts %}

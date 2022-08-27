@@ -6,20 +6,16 @@
 {% block image %}
     <div class="medium:tw-max-w-xs large:tw-max-w-sm medium:tw-shrink-0">
       <a href="{% relocalized_url page.localized.url %}">
-        {% image page.localized.specific.get_meta_image fill-255x131 %}
+        {% image page.localized.specific.get_meta_image original class="tw-hidden medium:tw-block tw-max-h-[131px] tw-max-w-[255px]" %}
+        {% image page.localized.specific.get_meta_image fill-100x100 class="tw-block medium:tw-hidden tw-min-h-[78px] tw-min-w-[78px] tw-rounded-2xl"%}
       </a>
     </div>
 {% endblock %}
 
 
-{% block categories %}
-    {% include "fragments/buyersguide/blog_topics.html" with page=page.specific %}
-{% endblock %}
-
-{% block published_date %}
+{% block categories_and_published_date %}
+      <div class="tw-flex tw-flex-wrap">
+      {% include "fragments/buyersguide/blog_topics.html" with page=page.specific %}
     <span class="tw-h6-heading tw-text-gray-40 tw-py-1 tw-mb-0">{{ page.first_published_at|date:"DATE_FORMAT" }}</span>
-{% endblock %}
-
-{% block description %}
-  <p class="tw-body tw-line-clamp-3">{{ page.specific.localized.get_meta_description }}</p>
+    </div>
 {% endblock %}

@@ -206,6 +206,8 @@ class BuyersGuideArticlePageFactory(PageFactory):
 
     title = Faker('sentence')
     hero_image = SubFactory(ImageFactory)
+    first_published_at = Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
+    search_description = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
     body = Faker(
         provider='streamfield',
         fields=(
