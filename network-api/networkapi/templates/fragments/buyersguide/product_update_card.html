@@ -1,5 +1,11 @@
 {% extends "./editorial_content_base_card.html" %}
+{% load i18n localization wagtailimages_tags static %}
+
+
 
 {% block external_news_link %}
-    <a class="tw-text-blue-40 tw-text-xs tw-font-bold tw-uppercase" href=""> Press Name </a>
+<a href="{{update.source}}" class="tw-text-blue-40 tw-text-xs tw-font-bold tw-uppercase tw-pt-0 medium:tw-pt-2 tw-pb-2 medium:tw-pb-1 tw-leading-5 tw-flex tw-no-underline">
+    {% blocktrans with press_name=update.author %} {{press_name}} {% endblocktrans %}
+    <img src="{% static "_images/buyers-guide/external-link.svg" %}" class="tw-ml-2" />
+</a>
 {% endblock %}
