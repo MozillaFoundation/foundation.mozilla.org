@@ -1,9 +1,0 @@
-{% for item in items %}
-  {% with type=item.specific_class.get_verbose_name|lower %}
-  {% if type == "buyers guide article page" %}
-        {% include "./article_card.html" with page=item %}
-    {% else %}
-        {% include "./product_update_card.html" with page=item %}
-    {% endif %}  
-  {% endwith %}
-{% endfor %}
