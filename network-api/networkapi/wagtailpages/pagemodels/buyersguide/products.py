@@ -148,6 +148,15 @@ class BuyersGuideProductCategory(
     def get_children(self):
         return BuyersGuideProductCategory.objects.filter(parent=self)
 
+    def get_related_articles(self) -> models.QuerySet['BuyersGuideProductCategory']:
+        return self.related_article_relations.related_items()
+
+    def get_primary_related_articles(self) -> models.QuerySet['BuyersGuideProductCategory']:
+        return self.get_related_articles()[:3]
+
+    def get_secondary_related_articles(self) -> models.QuerySet['BuyersGuideProductCategory']:
+        return self.get_related_articles()[3:]
+
     def __str__(self):
         if self.parent is None:
             return f'{self.name} (sort order: {self.sort_order})'
@@ -194,6 +203,30 @@ class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable
 
     def __str__(self):
         return f'{self.category.name} -> {self.article.title}'
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
+
+
+class BuyersGuideProductPageArticlePageRelation(TranslatableMixin, Orderable):
+    product = ParentalKey(
+        'wagtailpages.ProductPage',
+        related_name='related_article_relations',
+    )
+    article = models.ForeignKey(
+        'wagtailpages.BuyersGuideArticlePage',
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+    )
+
+    panels = [PageChooserPanel('article')]
+
+    objects = orderables.OrderableRelationQuerySet.as_manager()
+    related_item_field_name = "article"
+
+    def __str__(self):
+        return f'{self.product.name} -> {self.article.title}'
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
@@ -857,6 +890,17 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             ],
             heading='Related Products',
         ),
+        MultiFieldPanel(
+            [
+                InlinePanel(
+                    'related_article_relations',
+                    heading='Related articles',
+                    label='Article',
+                    max_num=5,
+                ),
+            ],
+            heading='Related Articles',
+        ),
     ]
 
     translatable_fields = [
@@ -922,6 +966,15 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'{self.title} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
         return context
+
+    def get_related_articles(self) -> models.QuerySet['ProductPage']:
+        return self.related_article_relations.related_items()
+
+    def get_primary_related_articles(self) -> models.QuerySet['ProductPage']:
+        return self.get_related_articles()[:3]
+
+    def get_secondary_related_articles(self) -> models.QuerySet['ProductPage']:
+        return self.get_related_articles()[3:]
 
     def serve(self, request, *args, **kwargs):
         # In Wagtail we use the serve() method to detect POST submissions.

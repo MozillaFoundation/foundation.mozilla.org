@@ -14,4 +14,17 @@
     {% endfor %}
     </ul>
   {% endif %}
+
+  {% with related_articles=page.related_article_relations.related_items  %}
+      {% if related_articles %}
+        <div class="tw-pl-5">
+          <h3>Popular</h3>
+          <ul>
+            {% for article in related_articles %}
+              <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+            {% endfor %}
+          </ul>
+      {% endif %}
+  {% endwith %}
+
 {% endblock guts %}

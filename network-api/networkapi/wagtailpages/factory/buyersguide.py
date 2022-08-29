@@ -49,6 +49,16 @@ class BuyersGuideProductCategoryArticlePageRelationFactory(DjangoModelFactory):
         model = pagemodels.BuyersGuideProductCategoryArticlePageRelation
 
 
+class BuyersGuideProductPageArticlePageRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideProductPageArticlePageRelation
+
+
+class BuyersGuideEditorialContentIndexPageArticlePageRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideEditorialContentIndexPageArticlePageRelation
+
+
 class ProductUpdateFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.Update
@@ -397,6 +407,13 @@ def generate(seed):
             )
         articles.append(article)
 
+    # Adding related articles to the Editorial Content Index Page
+    for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3):
+        BuyersGuideEditorialContentIndexPageArticlePageRelationFactory(
+            page=editorial_content_index,
+            article=article,
+        )
+
     # Buyerguide homepage hero article
     pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()
     pni_homepage.full_clean()
@@ -425,6 +442,15 @@ def generate(seed):
             update=update,
         )
 
+    # Adding related articles to Product Pages
+    for product in pagemodels.ProductPage.objects.all():
+        for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=5):
+            BuyersGuideProductPageArticlePageRelationFactory(
+                product=product,
+                article=article,
+            )
+
+    # Adding related articles to Categories
     for product_category in pagemodels.BuyersGuideProductCategory.objects.all():
         for article in get_random_objects(pagemodels.BuyersGuideArticlePage, max_count=6):
             BuyersGuideProductCategoryArticlePageRelationFactory(
