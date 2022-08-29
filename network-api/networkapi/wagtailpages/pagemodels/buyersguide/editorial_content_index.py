@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, MultiFieldPanel
 from wagtail.core import models as wagtail_models
