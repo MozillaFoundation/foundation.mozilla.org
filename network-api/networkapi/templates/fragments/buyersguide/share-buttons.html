@@ -1,0 +1,41 @@
+{% load i18n %}
+
+{% with page.full_url as current_url %}
+        <div class="share-button-group-wrapper" 
+             data-link="{{current_url}}">
+            <div class="share-button-group {% if version == 'mini' %} circle {% else %} rectangle {% endif %} {% if layout == 'stacked' %} stacked {% endif %}">
+                <div class="subgroup">
+                    <a class="tw-btn tw-btn-secondary btn-share  after:tw-hidden facebook-share" href="https://www.facebook.com/sharer/sharer.php?u={{current_url|urlencode}}">
+                        {% if version == "mini" %}
+                          <span class="sr-only">{% trans "Share on Facebook" %}</span>
+                        {% else %}
+                          <span>{% trans "Facebook" %}</span>
+                        {% endif %}
+                    </a>
+                    <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share" href="https://twitter.com/intent/tweet?text={{share_text|urlencode}} {{current_url|urlencode}}">
+                        {% if version == "mini" %}
+                          <span class="sr-only">{% trans "Share on Twitter" %}</span>
+                        {% else %}
+                          <span>{% trans "Twitter" %}</span>
+                        {% endif %}                    
+                    </a>
+                </div>
+                <div class="subgroup">
+                    <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden email-share" href="mailto:?&body={{share_text|urlencode}} {{current_url|urlencode}}">
+                        {% if version == "mini" %} 
+                          <span class="sr-only">{% trans "Share by Email" %}</span>
+                        {% else %}
+                          <span>{% trans "Email" context "Button to share the page by email" %}</span>
+                        {% endif %}    
+                    </a>
+                    <button class="tw-btn tw-btn-secondary btn-share after:tw-hidden link-share" title="{% trans "Copy page URL to clipboard" %}">
+                        {% if version == "mini" %} 
+                          <span class="sr-only">{% trans "Copy to clipboard" %}</span>
+                        {% else %}
+                          <span>{% trans "Copy" %}</span>
+                        {% endif %}                        
+                    </button>
+                </div>
+            </div>
+        </div>
+{% endwith %}

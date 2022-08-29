@@ -71,15 +71,6 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             template_name='pages/base.html',
         )
 
-    def test_buyersguide_home_page_in_context(self):
-        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
-            parent=self.content_index,
-        )
-
-        response = self.client.get(article_page.url)
-
-        self.assertEqual(response.context['home_page'], self.buyersguide_homepage)
-
     def test_content_template(self):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
             parent=self.content_index,
