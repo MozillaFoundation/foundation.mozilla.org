@@ -573,14 +573,12 @@ class BuyersGuideProductCategoryTest(TestCase):
         cat2_related_articles = cat2.get_related_articles()
 
         self.assertEqual(len(cat1_related_articles), 3)
-        self.assertQuerysetEqual(
+        self.assertListEqual(
             cat1_related_articles,
             [article2, article1, article3],
-            ordered=True,
         )
         self.assertEqual(len(cat2_related_articles), 4)
-        self.assertQuerysetEqual(
+        self.assertListEqual(
             cat2_related_articles,
             [article1, article3, article4, article2],
-            ordered=True,
         )
