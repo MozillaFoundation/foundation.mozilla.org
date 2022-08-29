@@ -511,21 +511,28 @@ class BuyersGuideProductCategoryTest(TestCase):
         self.assertQuerysetEqual(result, [])
 
     # TODO: Figure out why this test is failing
-    @unittest.skip(
-        'Though the category snippets seem to be working correctly in the CMS, '
-        'this test appears to be failing as it is returning a duplicate article.'
-        'We believe this is due to a wagtail-localize issue that is preventing '
-        'these items from being translated, meaning a category is being used for '
-        'two different localizations of the same page (e.g. English and French). '
-        'See also: https://github.com/mozilla/foundation.mozilla.org/pull/9240'
-        'and: https://github.com/wagtail/wagtail-localize/issues/591'
-    )
+    # @unittest.skip(
+    #     'Though the category snippets seem to be working correctly in the CMS, '
+    #     'this test appears to be failing as it is returning a duplicate article.'
+    #     'We believe this is due to a wagtail-localize issue that is preventing '
+    #     'these items from being translated, meaning a category is being used for '
+    #     'two different localizations of the same page (e.g. English and French). '
+    #     'See also: https://github.com/mozilla/foundation.mozilla.org/pull/9240'
+    #     'and: https://github.com/wagtail/wagtail-localize/issues/591'
+    # )
     def test_related_articles_on_multiple_categories(self):
+        """
+        Make sure articles can be related to multiple categories.
+
+        During development I was running into issue with the OrderableRelationQuerySet
+        where the related items would contains items multiple times.
+        """
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
         cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2")
         article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
         article2 = buyersguide_factories.BuyersGuideArticlePageFactory()
         article3 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        article4 = buyersguide_factories.BuyersGuideArticlePageFactory()
         buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
             category=cat1,
             article=article2,
@@ -543,12 +550,27 @@ class BuyersGuideProductCategoryTest(TestCase):
         )
         buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
             category=cat2,
+            article=article1,
+            sort_order=0,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat2,
+            article=article3,
+            sort_order=1,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat2,
+            article=article4,
+            sort_order=2,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat2,
             article=article2,
-            sort_order=4,
+            sort_order=3,
         )
 
-        cat1_related_articles = cat1.related_article_relations.related_items()
-        cat2_related_articles = cat2.related_article_relations.related_items()
+        cat1_related_articles = cat1.get_related_articles()
+        cat2_related_articles = cat2.get_related_articles()
 
         self.assertEqual(len(cat1_related_articles), 3)
         self.assertQuerysetEqual(
@@ -556,9 +578,9 @@ class BuyersGuideProductCategoryTest(TestCase):
             [article2, article1, article3],
             ordered=True,
         )
-        self.assertEqual(len(cat2_related_articles), 1)
+        self.assertEqual(len(cat2_related_articles), 4)
         self.assertQuerysetEqual(
             cat2_related_articles,
-            [article2],
+            [article1, article3, article4, article2],
             ordered=True,
         )
