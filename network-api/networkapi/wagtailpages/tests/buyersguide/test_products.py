@@ -199,7 +199,8 @@ class TestProductPage(BuyersGuideTestMixin):
 
         for related_article in related_articles[:3]:
             self.assertIn(related_article, result)
-        self.assertNotIn(related_articles[-1], result)
+        for related_article in related_articles[3:]:
+            self.assertNotIn(related_article, result)
 
     def test_primary_related_articles_no_related_articles(self):
         product_page = self.product_page
