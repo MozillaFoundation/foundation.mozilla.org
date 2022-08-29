@@ -140,7 +140,7 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
 
         result = article_page.get_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
 
     def test_primary_related_articles(self):
         """First three related articles are primary."""
@@ -171,7 +171,7 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
 
         result = article_page.get_primary_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
 
     def test_secondary_related_articles(self):
         """Second three related articles are secondary."""
@@ -203,4 +203,4 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
 
         result = article_page.get_secondary_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])

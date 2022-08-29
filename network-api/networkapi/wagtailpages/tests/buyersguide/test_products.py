@@ -145,10 +145,9 @@ class TestProductPage(BuyersGuideTestMixin):
         related_articles = product_page.related_article_relations.related_items()
 
         self.assertEqual(len(related_articles), 3)
-        self.assertQuerysetEqual(
+        self.assertListEqual(
             related_articles,
             [article2, article1, article3],
-            ordered=True,
         )
 
     def test_get_related_articles(self):
@@ -178,7 +177,7 @@ class TestProductPage(BuyersGuideTestMixin):
 
         result = product_page.get_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
 
     def test_primary_related_articles(self):
         """First three related articles are primary."""
@@ -205,7 +204,7 @@ class TestProductPage(BuyersGuideTestMixin):
 
         result = product_page.get_primary_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
 
     def test_secondary_related_articles(self):
         """Second three related articles are secondary."""
@@ -232,7 +231,7 @@ class TestProductPage(BuyersGuideTestMixin):
 
         result = product_page.get_secondary_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
 
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
@@ -420,10 +419,9 @@ class BuyersGuideProductCategoryTest(TestCase):
         related_articles = cat.related_article_relations.related_items()
 
         self.assertEqual(len(related_articles), 3)
-        self.assertQuerysetEqual(
+        self.assertListEqual(
             related_articles,
             [article2, article1, article3],
-            ordered=True,
         )
 
     def test_get_related_articles(self):
@@ -453,7 +451,7 @@ class BuyersGuideProductCategoryTest(TestCase):
 
         result = cat1.get_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
 
     def test_primary_related_articles(self):
         """First three related articles are primary."""
@@ -479,7 +477,7 @@ class BuyersGuideProductCategoryTest(TestCase):
 
         result = cat1.get_primary_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
 
     def test_secondary_related_articles(self):
         """Second three related articles are secondary."""
@@ -506,7 +504,7 @@ class BuyersGuideProductCategoryTest(TestCase):
 
         result = cat1.get_secondary_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
 
     # TODO: Figure out why this test is failing
     # @unittest.skip(

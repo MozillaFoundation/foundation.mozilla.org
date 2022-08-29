@@ -92,8 +92,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         related_articles = content_index.related_article_relations.related_items()
 
         self.assertEqual(len(related_articles), 3)
-        self.assertQuerysetEqual(
+        self.assertListEqual(
             related_articles,
             [article2, article1, article3],
-            ordered=True,
         )
