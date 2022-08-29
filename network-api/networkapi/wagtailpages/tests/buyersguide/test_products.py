@@ -569,8 +569,10 @@ class BuyersGuideProductCategoryTest(TestCase):
             sort_order=3,
         )
 
-        cat1_related_articles = cat1.get_related_articles()
-        cat2_related_articles = cat2.get_related_articles()
+        with self.assertNumQueries(num=1):
+            cat1_related_articles = cat1.get_related_articles()
+        with self.assertNumQueries(num=1):
+            cat2_related_articles = cat2.get_related_articles()
 
         self.assertEqual(len(cat1_related_articles), 3)
         self.assertListEqual(

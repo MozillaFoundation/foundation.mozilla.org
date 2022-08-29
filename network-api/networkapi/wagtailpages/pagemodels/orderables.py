@@ -47,7 +47,7 @@ class OrderableRelationQuerySet(models.QuerySet):
         items = [
             getattr(item, related_field_name)
             for item
-            in self.all()
+            in self.select_related(related_field_name).all()
         ]
 
         return items
