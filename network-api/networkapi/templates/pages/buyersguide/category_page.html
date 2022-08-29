@@ -4,42 +4,62 @@
 {% block body_id %}{{ category.slug }}{% endblock %}
 
 {% block guts %}
-  {{ block.super }}
-
   {% for category in categories  %}
-    {% with related_articles=category.related_article_relations.related_items  %}
-      {% if related_articles %}
+    {% with primary_related_articles=category.get_primary_related_articles  %}
+      {% comment %}
+        JS needs to handle the visibility switch for the related articles from one to the other category.
+      {% endcomment %}
+      {% if primary_related_articles %}
         <div
           class="
             {% if category != current_category %}
               d-none
             {% endif %}
-            tw-pl-5
           "
         >
-          <h2>({{ category.name }})</h2>
+          <h3>({{ category.name }}) Primary related articles (First 3 of list of 6)</h3>
 
-          <p> Primary articles (First 3 of list of 6)</p>
-          <h3> Related: </h3>
           <ul>
-            {% for article in category.get_primary_related_articles %}
+            {% for article in primary_related_articles %}
               <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
             {% endfor %}
           </ul>
-
           <div>
             <a href="{% pageurl page.get_editorial_content_index %}">All articles</a>
           </div>
-
-          <p class="tw-mt-5"> Secondary articles (Last 3 of list of 6)</p>
-          <h3> What to read next: </h3>
-          <ul>
-            {% for article in category.get_secondary_related_articles %}
-              <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
-            {% endfor %}
-          </ul>
         </div>
       {% endif %}
     {% endwith %}
   {% endfor %}
+
+  {{ block.super }}
+
+  {% for category in categories  %}
+    {% with secondary_related_articles=category.get_secondary_related_articles  %}
+      {% comment %}
+        JS needs to handle the visibility switch for the related articles from one to the other category.
+      {% endcomment %}
+      {% if secondary_related_articles %}
+        <div
+          class="
+            {% if category != current_category %}
+              d-none
+            {% endif %}
+          "
+        >
+          <h3>({{ category.name }}) Secondary related articles (First 3 of list of 6)</h3>
+
+          <ul>
+            {% for article in secondary_related_articles %}
+              <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+            {% endfor %}
+          </ul>
+          <div>
+            <a href="{% pageurl page.get_editorial_content_index %}">All articles</a>
+          </div>
+        </div>
+      {% endif %}
+    {% endwith %}
+  {% endfor %}
+
 {% endblock guts %}
