@@ -72,7 +72,7 @@ class RecentBlogEntries(blocks.StructBlock):
             query = slugify(topic)
             try:
                 # verify this topic exists, and set up a filter for it
-                topic_object = BlogPageTopic.objects.get(name=topic)
+                topic_object = BlogPageTopic.objects.get(name=topic, locale=locale)
                 blog_page.extract_topic_information(topic_object.slug)
             except BlogPageTopic.DoesNotExist:
                 # do nothing
