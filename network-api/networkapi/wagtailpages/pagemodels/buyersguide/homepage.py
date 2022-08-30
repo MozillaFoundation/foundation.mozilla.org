@@ -351,9 +351,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['current_category'] = None
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
-        pni_home_page = BuyersGuidePage.objects.first()
-        context['about_page'] = pni_home_page
-        context['home_page'] = pni_home_page
         context['template_cache_key_fragment'] = f'pni_home_{request.LANGUAGE_CODE}'
         return context
 
