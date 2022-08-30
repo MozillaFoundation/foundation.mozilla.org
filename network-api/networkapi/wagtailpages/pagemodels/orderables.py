@@ -2,7 +2,7 @@ from django.db import models
 
 
 class OrderableRelationQuerySet(models.QuerySet):
-    def related_items(self):
+    def related_items(self) -> list[models.Model]:
         """
         Return list of the related items instead of the through model.
 

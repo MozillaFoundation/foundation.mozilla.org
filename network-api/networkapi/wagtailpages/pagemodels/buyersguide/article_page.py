@@ -80,13 +80,13 @@ class BuyersGuideArticlePage(
         context = super().get_context(request, *args, **kwargs)
         return context
 
-    def get_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+    def get_related_articles(self) -> list['BuyersGuideArticlePage']:
         return self.related_article_relations.related_items()
 
-    def get_primary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+    def get_primary_related_articles(self) -> list['BuyersGuideArticlePage']:
         return self.get_related_articles()[:3]
 
-    def get_secondary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+    def get_secondary_related_articles(self) -> list['BuyersGuideArticlePage']:
         return self.get_related_articles()[3:]
 
 

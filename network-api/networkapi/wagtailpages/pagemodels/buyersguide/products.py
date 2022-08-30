@@ -148,13 +148,13 @@ class BuyersGuideProductCategory(
     def get_children(self):
         return BuyersGuideProductCategory.objects.filter(parent=self)
 
-    def get_related_articles(self) -> models.QuerySet['BuyersGuideProductCategory']:
+    def get_related_articles(self) -> list['BuyersGuideProductCategory']:
         return self.related_article_relations.related_items()
 
-    def get_primary_related_articles(self) -> models.QuerySet['BuyersGuideProductCategory']:
+    def get_primary_related_articles(self) -> list['BuyersGuideProductCategory']:
         return self.get_related_articles()[:3]
 
-    def get_secondary_related_articles(self) -> models.QuerySet['BuyersGuideProductCategory']:
+    def get_secondary_related_articles(self) -> list['BuyersGuideProductCategory']:
         return self.get_related_articles()[3:]
 
     def __str__(self):
