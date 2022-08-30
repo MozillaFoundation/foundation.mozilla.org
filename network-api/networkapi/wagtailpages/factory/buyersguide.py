@@ -408,10 +408,13 @@ def generate(seed):
         articles.append(article)
 
     # Adding related articles to the Editorial Content Index Page
-    for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3):
+    for index, article in enumerate(
+        get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
+    ):
         BuyersGuideEditorialContentIndexPageArticlePageRelationFactory(
             page=editorial_content_index,
             article=article,
+            sort_order=index,
         )
 
     # Buyerguide homepage hero article
@@ -420,40 +423,51 @@ def generate(seed):
     pni_homepage.save()
     # Buyerguide homepage hero supporting articles
     supporting_articles = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
-    for article in supporting_articles:
+    for index, article in enumerate(supporting_articles):
         BuyersGuidePageHeroSupportingArticleRelationFactory(
             page=pni_homepage,
             article=article,
+            sort_order=index,
         )
     # Buyersguide homepage featured articles
     featured_articles = get_random_objects(
         source=pagemodels.BuyersGuideArticlePage.objects.exclude(id__in=supporting_articles),
         exact_count=3,
     )
-    for article in featured_articles:
+    for index, article in enumerate(featured_articles):
         BuyersGuidePageFeaturedArticleRelationFactory(
             page=pni_homepage,
             article=article,
+            sort_order=index,
         )
     # Buyersguide featured product updates
-    for update in get_random_objects(pagemodels.Update, exact_count=3):
+    for index, update in enumerate(
+        get_random_objects(pagemodels.Update, exact_count=3)
+    ):
         BuyersGuidePageFeaturedUpdateRelationFactory(
             page=pni_homepage,
             update=update,
+            sort_order=index,
         )
 
     # Adding related articles to Product Pages
     for product in pagemodels.ProductPage.objects.all():
-        for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=5):
+        for index, article in enumerate(
+            get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=5)
+        ):
             BuyersGuideProductPageArticlePageRelationFactory(
                 product=product,
                 article=article,
+                sort_order=index,
             )
 
     # Adding related articles to Categories
     for product_category in pagemodels.BuyersGuideProductCategory.objects.all():
-        for article in get_random_objects(pagemodels.BuyersGuideArticlePage, max_count=6):
+        for index, article in enumerate(
+            get_random_objects(pagemodels.BuyersGuideArticlePage, max_count=6)
+        ):
             BuyersGuideProductCategoryArticlePageRelationFactory(
                 category=product_category,
                 article=article,
+                sort_order=index,
             )
