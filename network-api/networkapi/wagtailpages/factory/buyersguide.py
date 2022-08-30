@@ -407,16 +407,6 @@ def generate(seed):
             )
         articles.append(article)
 
-    # Adding related articles to the Editorial Content Index Page
-    for index, article in enumerate(
-        get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
-    ):
-        BuyersGuideEditorialContentIndexPageArticlePageRelationFactory(
-            page=editorial_content_index,
-            article=article,
-            sort_order=index,
-        )
-
     # Buyerguide homepage hero article
     pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()
     pni_homepage.full_clean()
@@ -440,13 +430,23 @@ def generate(seed):
             article=article,
             sort_order=index,
         )
-    # Buyersguide featured product updates
+    # Buyersguide homepage featured product updates
     for index, update in enumerate(
         get_random_objects(pagemodels.Update, exact_count=3)
     ):
         BuyersGuidePageFeaturedUpdateRelationFactory(
             page=pni_homepage,
             update=update,
+            sort_order=index,
+        )
+
+    # Adding related articles to the Editorial Content Index Page
+    for index, article in enumerate(
+        get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
+    ):
+        BuyersGuideEditorialContentIndexPageArticlePageRelationFactory(
+            page=editorial_content_index,
+            article=article,
             sort_order=index,
         )
 
