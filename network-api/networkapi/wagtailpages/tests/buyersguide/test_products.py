@@ -506,16 +506,6 @@ class BuyersGuideProductCategoryTest(TestCase):
 
         self.assertListEqual(result, [])
 
-    # TODO: Figure out why this test is failing
-    # @unittest.skip(
-    #     'Though the category snippets seem to be working correctly in the CMS, '
-    #     'this test appears to be failing as it is returning a duplicate article.'
-    #     'We believe this is due to a wagtail-localize issue that is preventing '
-    #     'these items from being translated, meaning a category is being used for '
-    #     'two different localizations of the same page (e.g. English and French). '
-    #     'See also: https://github.com/mozilla/foundation.mozilla.org/pull/9240'
-    #     'and: https://github.com/wagtail/wagtail-localize/issues/591'
-    # )
     def test_related_articles_on_multiple_categories(self):
         """
         Make sure articles can be related to multiple categories.
