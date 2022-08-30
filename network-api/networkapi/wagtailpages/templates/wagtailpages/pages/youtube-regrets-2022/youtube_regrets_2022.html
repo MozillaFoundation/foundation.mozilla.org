@@ -33,11 +33,95 @@
       {% include './fragments/chart_section.html' %}
 
       {% include './fragments/standout_stats.html' %}
+
+
+            <section class="container" data-scroll-section>
+              <div class="tw-h-screen tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
+                  <span class="tw-h2-heading tw-font-bold">“It seems like you routinely have to prune things away or it will keep shoving them in your face until you tell it otherwise.”</span>
+                <svg id="dashed-line" width="3" height="190" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="#CCC" stroke-width="3" stroke-dasharray="12 12" d="M1.5 0v190"/>
+                </svg>
+                <p class="tw-font-bold tw-text-xl tw-max-w-sm">Scroll to explore a real recommendation timeline from our study</p>
+              </div>
+            </section>
+
+      <section class="timeline container">
+
+      <div class="timeline__scenes">
+        {# Fixed and floats on top of entire animation #}
+        <div class="timeline__person-date">
+          <h2>Dec 8, 2021</h2>
+          {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-thinking.svg' %}
+        </div>
+
+          <div class="timeline__scene timeline__scene--first" data-scene="1">
+            <div class="tw-grid medium:tw-grid-cols-3 tw-grid-cols-1">
+              <div class="tw-col-start-1 ">
+                <div class="tw-relative">
+                  <img class="timeline__scene-image" src="https://source.unsplash.com/random/500x250/?landscape,people,business,fun" alt="Fun Picture">
+                  <svg class="timeline__cross" width="255" height="255" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M255 16.587 238.413 0 127.517 110.896 16.587 0 0 16.587l110.896 110.93L0 238.413 16.587 255l110.93-110.896L238.413 255 255 238.413 144.104 127.517 255 16.587Z" fill="#FF2600"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="medium:tw-col-start-3">
+                <p class="timeline__scene-text" data-scene-text></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {# Images AND line on this one  #}
+        {#        <div class="timeline__contents">#}
+        {#          <div class="timeline__content" data-scroll-id="1" data-scene="1">#}
+        {#            <img src="https://source.unsplash.com/random/500x500/?landscape,people,business,fun" alt="Fun Picture">#}
+        {#          </div>#}
+        {#          <div class="timeline__content" data-scroll-id="2" data-scene="2">#}
+        {#            <img src="https://source.unsplash.com/random/500x500/?landscape,people,business,fun" alt="Fun Picture">#}
+        {#          </div>#}
+        {#          <div class="timeline__content" data-scroll-id="3" data-scene="3">#}
+        {#            <img src="https://source.unsplash.com/random/500x500/?landscape,people,business,fun" alt="Fun Picture">#}
+        {#            <img src="https://source.unsplash.com/random/500x500/?landscape,people,business,fun" alt="Fun Picture">#}
+        {#          </div>#}
+        {#        </div>#}
+      </section>
+
+      <div class="tw-min-h-[860px] container tw-py-[100px]" data-scroll-section>
+        <h2>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consequatur corporis cumque ducimus ea in
+          ipsam labore libero nulla omnis quo repudiandae, sapiente sed similique, sit totam voluptatem! Id, officia?
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae ea odit possimus sunt. Accusamus aliquam aut
+          blanditiis commodi deleniti ipsam neque quis quisquam veritatis voluptatum. Aliquid consectetur dolores fugiat
+          id.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam architecto cum cupiditate doloremque eaque
+          eius est ex expedita fugiat iure, nisi nobis nulla pariatur porro possimus ratione, soluta! Ratione, sit?
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam architecto cum cupiditate doloremque eaque
+          eius est ex expedita fugiat iure, nisi nobis nulla pariatur porro possimus ratione, soluta! Ratione, sit?
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam architecto cum cupiditate doloremque eaque
+          eius est ex expedita fugiat iure, nisi nobis nulla pariatur porro possimus ratione, soluta! Ratione, sit?
+        </h2>
+      </div>
     {% endblock %}
+
+    {#        <div class="timeline__scene" data-date-scene="2">#}
+    {#          <h2>Dec 8, 2021!!!!!!</h2>#}
+    {#          {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-pointing.svg' %}#}
+    {#        </div>#}
+    {#        <div class="timeline__scene" data-date-scene="3">#}
+    {#          <h2>Dec 20, 2021</h2>#}
+    {#          {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-pointing.svg' %}#}
+    {#        </div>#}
+    {#        <div class="timeline__scene" data-date-scene="4">#}
+    {#          <h2>A week later</h2>#}
+    {#          {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-thinking.svg' %}#}
+    {#        </div>#}
+
+    <div data-scroll-section>
+      {% include "partials/footer.html" %}
+    </div>
+
   </main>
 {% endblock %}
 
-
 {% block footer_block %}
-  {% include "partials/footer.html" %}
 {% endblock %}
