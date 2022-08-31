@@ -1,4 +1,4 @@
-import {CountUp} from "countup.js";
+import { CountUp } from "countup.js";
 
 /**
  * Rendering and animating the numbers that "count up" using countup.js.
@@ -34,8 +34,8 @@ export const initYoutubeRegretsResearchCountUp = () => {
       return {
         countUpObj: countUpObj,
         delay: delay,
-      }
-    }
+      };
+    };
 
     let observer = new IntersectionObserver(
       (entries, observer) => {
@@ -60,7 +60,7 @@ export const initYoutubeRegretsResearchCountUp = () => {
           }
         });
       },
-      {rootMargin: "0px 0px -10% 0px"}
+      { rootMargin: "0px 0px -10% 0px" }
     );
 
     stats.forEach((stat) => {
