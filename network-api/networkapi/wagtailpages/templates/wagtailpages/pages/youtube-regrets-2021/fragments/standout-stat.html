@@ -6,7 +6,14 @@
   {% endif %}
 
   <div class="standout-stat__wrap text-center p-4">
-    <p class="standout-stat__number mb-2 {% if smaller %}standout-stat__number--smaller{% endif %}" {% if id %}id="{{ id }}"{% endif %}>{{ number|intcomma }}</p>
+    <p class="standout-stat__number mb-2 {% if smaller %}standout-stat__number--smaller{% endif %}"
+       {% if id %}id="{{ id }}"{% endif %}
+       data-stat="{{ number }}"
+       data-stat-suffix="{{ suffix }}"
+       data-stat-prefix="{{ prefix }}"
+    >
+      {{ number|intcomma }}
+    </p>
     <p class="standout-stat__label mb-0 text-uppercase">{{ label }}</p>
   </div>
 </div>

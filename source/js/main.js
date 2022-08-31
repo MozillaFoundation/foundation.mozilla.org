@@ -136,10 +136,14 @@ let main = {
       initYouTubeRegretsCategoriesBarChart();
       initYouTubeRegretsRegretRatesChart();
       initYoutubeRegretsReadMoreCategories();
-      initYoutubeRegretsResearchCountUp();
       initYoutubeRegretsAccordions();
       initYouTubeRegretsRecommendationsPieChart();
       initYoutubeRegretsCarousel();
+    }
+
+    // Shared YouTube Regrets Pages
+    if (document.querySelector(".youtube-regrets-shared")) {
+      initYoutubeRegretsResearchCountUp();
     }
 
     // YouTube Regrets Reporter page

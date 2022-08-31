@@ -17,8 +17,8 @@
       {% trans "Reported Videos" as reported_videos %}
       {% trans "Other Videos" as other_videos %}
       {% trans "views per day" as view_per_day %}
-      {% include "./standout-stat.html" with heading=reported_videos number=5794 label=view_per_day classes="mb-5" id="reported-views-per-day-count-up" %}
-      {% include "./standout-stat.html" with heading=other_videos number=3312 label=view_per_day id="other-views-per-day-count-up" %}
+      {% include "./standout-stat.html" with heading=reported_videos number=5794 label=view_per_day classes="mb-5" id="reported-views-per-day-count-up" prefix="~" %}
+      {% include "./standout-stat.html" with heading=other_videos number=3312 label=view_per_day id="other-views-per-day-count-up" prefix="~" %}
     </div>
     <div class="col-12 col-lg-6 offset-lg-1 mt-3 mt-lg-3">
       <h2 class="heading-2 mb-4">{% trans "What we do know is that reported videos seemed to accumulate views faster than those that were not." %}</h2>

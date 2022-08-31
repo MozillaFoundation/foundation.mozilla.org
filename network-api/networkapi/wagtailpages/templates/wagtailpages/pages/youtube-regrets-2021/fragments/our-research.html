@@ -17,34 +17,46 @@
     </div>
 
     {% with reports_count=3362 volunteers_count=1662 countries_count=91 %}
-    <div class="row align-items-center mb-5">
-      <div class="col-md-4 col-xs-12 stat">
-        <p class="stat__number" id="reports-count-up">{{ reports_count|intcomma }}</p>
-        <p class="stat__label">{% trans "Reports" %}</p>
+      <div class="row align-items-center mb-5">
+        <div class="col-md-4 col-xs-12 stat">
+          <p class="stat__number" id="reports-count-up" data-stat="{{ reports_count }}">{{ reports_count|intcomma }}</p>
+          <p class="stat__label">{% trans "Reports" %}</p>
+        </div>
+        <div class="col-md-4 col-xs-12 stat">
+          <p class="stat__number"
+             id="volunteers-count-up"
+             data-stat="{{ volunteers_count }}"
+             data-stat-delay="250">
+            {{ volunteers_count|intcomma }}
+          </p>
+          <p class="stat__label">{% trans "Volunteers" %}</p>
+        </div>
+        <div class="col-md-4 col-xs-12 stat">
+          <p class="stat__number"
+             id="countries-count-up"
+             data-stat="{{ countries_count }}"
+             data-stat-delay="500">
+            {{ countries_count|intcomma }}
+          </p>
+          <p class="stat__label">{% trans "Countries" %}</p>
+        </div>
       </div>
-      <div class="col-md-4 col-xs-12 stat">
-        <p class="stat__number" id="volunteers-count-up">{{ volunteers_count|intcomma }}</p>
-        <p class="stat__label">{% trans "Volunteers" %}</p>
-      </div>
-      <div class="col-md-4 col-xs-12 stat">
-        <p class="stat__number" id="countries-count-up">{{ countries_count|intcomma }}</p>
-        <p class="stat__label">{% trans "Countries" %}</p>
-      </div>
-    </div>
     {% endwith %}
 
     <div class="row justify-content-center mb-5">
       <div class="col-12 col-md-8 text-center">
-          <p>
-            {% blocktrans trimmed %}
-            Reports were submitted between <span class="tw-font-bold">July 2020 - May 2021</span>. Volunteers who downloaded the extension but did <span class="tw-font-bold">not</span> file a report were an important part of our study. Their data — for example, how often they use YouTube — was essential to our understanding of how frequent regrettable experiences are on YouTube and how this varies between countries.
-            {% endblocktrans %}
-          </p>
-          <p class="mb-5 pb-5">
-            {% blocktrans with research_link="https://foundation.mozilla.org/blog/28-reasons-why-youtube-must-change/" trimmed %}
-            After delving into the data with a team of research assistants from the University of Exeter, Mozilla came away with three major criticisms of YouTube recommendations: from a problematic algorithm to poor corporate oversight to geographic disparities. And our <a href="{{research_link}}">past research</a> shows that these problems can inflict lasting harm on people.
-            {% endblocktrans %}
-          </p>
+        <p>
+          {% blocktrans trimmed %}
+            Reports were submitted between <span class="tw-font-bold">July 2020 - May 2021</span>. Volunteers who downloaded the extension but did <span class="tw-font-bold">not</span> file a report were an important part of our study.
+            Their data — for example, how often they use YouTube — was essential to our understanding of how frequent regrettable experiences are on YouTube and how this varies between countries.
+          {% endblocktrans %}
+        </p>
+        <p class="mb-5 pb-5">
+          {% blocktrans with research_link="https://foundation.mozilla.org/blog/28-reasons-why-youtube-must-change/" trimmed %}
+            After delving into the data with a team of research assistants from the University of Exeter, Mozilla came away with three major criticisms of YouTube recommendations: from a problematic algorithm to poor corporate oversight to
+            geographic disparities. And our <a href="{{ research_link }}">past research</a> shows that these problems can inflict lasting harm on people.
+          {% endblocktrans %}
+        </p>
 
         <h2 class="mb-1">{% trans "Here’s what we found" %}</h2>
         <p class="our-research__teaser mb-1 text-uppercase tw-italic">{% trans "(Click to read more)" %}</p>
