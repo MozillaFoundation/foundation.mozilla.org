@@ -1,0 +1,155 @@
+// These are the shared styles between 2021 and 2022
+
+.youtube-regrets-shared {
+  $font-changa: "Changa", sans-serif;
+  $font-nunito: "Nunito Sans", sans-serif;
+  $font-zilla: "Zilla Slab", sans-serif;
+
+  .transition-bg {
+    background: linear-gradient(
+        180deg,
+        $youtube-regrets-dark-blue 26.46%,
+        $black 57.83%,
+        $black 100%
+    ),
+    linear-gradient(0deg, $black, $black);
+    border-radius: 0 0 30px 30px;
+    overflow: hidden;
+  }
+
+  h1,
+  .heading-1 {
+    font-size: 42px;
+    line-height: calc(48 / 42);
+
+    @media screen and (min-width: $bp-md) {
+      font-size: 52px;
+      line-height: calc(48 / 52);
+    }
+    font-family: $font-changa;
+    font-weight: 700;
+  }
+
+  h2,
+  .heading-2 {
+    font-size: 30px;
+    line-height: calc(34 / 30);
+
+    @media screen and (min-width: $bp-md) {
+      font-size: 38px;
+      line-height: calc(34 / 38);
+    }
+    font-family: $font-changa;
+    font-weight: 600;
+  }
+
+  h3,
+  .heading-3 {
+    font-size: 36px;
+    line-height: 1;
+    font-weight: 300;
+  }
+
+  h4,
+  .heading-4 {
+    font-size: 22px;
+    line-height: 1;
+    font-family: $font-nunito;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  h5,
+  .heading-5 {
+    font-size: 20px;
+    line-height: 1;
+    font-family: $font-changa;
+  }
+
+  .btn-download {
+    $icon-width: 50px;
+
+    position: relative;
+    background: $youtube-regrets-dark-red;
+    color: $white;
+    padding-left: $icon-width;
+    padding-right: $icon-width * 0.3;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+
+    &:before,
+    &:after {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      width: $icon-width;
+      top: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    &:before {
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: brightness(0) invert(100%);
+      background-image: url(../_images/youtube-regrets/regrets-reporter/icon-download.svg);
+    }
+
+    &.btn-firefox-download {
+      background: $white;
+      color: $youtube-regrets-dark-red;
+
+      &:before {
+        background-image: url(../_images/youtube-regrets/regrets-reporter/firefox-logo-red.svg);
+        filter: none;
+      }
+
+      @include hover-focus-active {
+        color: $youtube-regrets-dark-red;
+        background: $youtube-regrets-offwhite;
+      }
+    }
+
+    &.btn-chrome-download {
+      background: $white;
+      color: $youtube-regrets-dark-red;
+
+      &:before {
+        background-image: url(../_images/youtube-regrets/regrets-reporter/chrome-logo-red.svg);
+        filter: none;
+      }
+
+      @include hover-focus-active {
+        color: $youtube-regrets-dark-red;
+        background: $youtube-regrets-offwhite;
+      }
+    }
+
+    @include hover-focus-active {
+      // todo - state styles (also update chrome download and firefox download above)
+      color: $white;
+      background: $youtube-regrets-darker-red;
+    }
+  }
+
+  .stat {
+    text-align: center;
+
+    &__number {
+      font-size: 52px;
+      line-height: calc(48 / 52);
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 60px;
+        line-height: calc(48 / 60);
+      }
+
+      font-family: $font-changa;
+      font-weight: 700;
+    }
+
+    &__label {
+      text-transform: uppercase;
+    }
+  }
+}
