@@ -66,69 +66,39 @@
     font-family: $font-changa;
   }
 
-  .btn-download {
-    $icon-width: 50px;
+  .btn {
+    padding: 12px 20px;
+  }
 
-    position: relative;
+  .btn-with-icon {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 20px 12px 25px;
+
+    > svg {
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .btn-red {
     background: $youtube-regrets-dark-red;
     color: $white;
-    padding-left: $icon-width;
-    padding-right: $icon-width * 0.3;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
-
-    &:before,
-    &:after {
-      content: "";
-      display: inline-block;
-      position: absolute;
-      width: $icon-width;
-      top: 0;
-      bottom: 0;
-      left: 0;
-    }
-
-    &:before {
-      background-repeat: no-repeat;
-      background-position: center;
-      filter: brightness(0) invert(100%);
-      background-image: url(../_images/youtube-regrets/regrets-reporter/icon-download.svg);
-    }
-
-    &.btn-firefox-download {
-      background: $white;
-      color: $youtube-regrets-dark-red;
-
-      &:before {
-        background-image: url(../_images/youtube-regrets/regrets-reporter/firefox-logo-red.svg);
-        filter: none;
-      }
-
-      @include hover-focus-active {
-        color: $youtube-regrets-dark-red;
-        background: $youtube-regrets-offwhite;
-      }
-    }
-
-    &.btn-chrome-download {
-      background: $white;
-      color: $youtube-regrets-dark-red;
-
-      &:before {
-        background-image: url(../_images/youtube-regrets/regrets-reporter/chrome-logo-red.svg);
-        filter: none;
-      }
-
-      @include hover-focus-active {
-        color: $youtube-regrets-dark-red;
-        background: $youtube-regrets-offwhite;
-      }
-    }
 
     @include hover-focus-active {
-      // todo - state styles (also update chrome download and firefox download above)
+      background: $white;
+      color: $youtube-regrets-dark-red;
+    }
+  }
+
+  .btn-white {
+    background: $white;
+    color: $youtube-regrets-dark-red;
+
+    @include hover-focus-active {
+      background: $youtube-regrets-dark-red;
       color: $white;
-      background: $youtube-regrets-darker-red;
     }
   }
 
