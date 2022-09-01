@@ -7,6 +7,7 @@ from networkapi.wagtailpages.models import (
     YoutubeRegretsReporterPage,
     YoutubeRegretsReporterExtensionPage,
     YoutubeRegrets2021Page,
+    YoutubeRegrets2022Page,
 )
 from wagtail_factories import (
     PageFactory
@@ -30,10 +31,10 @@ class YoutubeRegretsPageFactory(PageFactory):
 
     title = 'YouTube Regrets'
     headline = Faker('text', max_nb_chars=50)
-    intro_text = Faker('streamfield', fields=['text']*5)
-    intro_images = Faker('streamfield', fields=['basic_image']*10)
+    intro_text = Faker('streamfield', fields=['text'] * 5)
+    intro_images = Faker('streamfield', fields=['basic_image'] * 10)
     faq = Faker('streamfield', fields=['paragraph'])
-    regret_stories = Faker('streamfield', fields=['regret_story']*28)
+    regret_stories = Faker('streamfield', fields=['regret_story'] * 28)
 
 
 class YoutubeRegretsReporterExtensionPageFactory(PageFactory):
@@ -62,6 +63,19 @@ class YoutubeRegrets2021PageFactory(PageFactory):
     slug = 'findings'
 
 
+class YoutubeRegrets2022PageFactory(PageFactory):
+    class Meta:
+        model = YoutubeRegrets2022Page
+        exclude = (
+            'title_text',
+            'header_text',
+            'header',
+        )
+
+    title = 'YouTube Regrets 2022'
+    slug = 'findings-2022'
+
+
 class YoutubeRegretsReporterPageFactory(PageFactory):
     class Meta:
         model = YoutubeRegretsReporterPage
@@ -73,8 +87,8 @@ class YoutubeRegretsReporterPageFactory(PageFactory):
 
     title = 'YouTube Regrets'
     headline = Faker('text', max_nb_chars=50)
-    intro_text = Faker('streamfield', fields=['text']*5)
-    intro_images = Faker('streamfield', fields=['basic_image']*10)
+    intro_text = Faker('streamfield', fields=['text'] * 5)
+    intro_images = Faker('streamfield', fields=['basic_image'] * 10)
 
 
 def generate(seed):
@@ -117,6 +131,7 @@ def generate(seed):
             title=reporter_page_title,
         )
         YoutubeRegrets2021PageFactory.create(parent=youtube_regrets)
+        YoutubeRegrets2022PageFactory.create(parent=youtube_regrets)
     reseed(seed)
 
     # Youtube Extension Landing page
