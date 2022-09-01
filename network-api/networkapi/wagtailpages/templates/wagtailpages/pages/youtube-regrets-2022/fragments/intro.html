@@ -5,7 +5,7 @@
 
   <div class="container tw-dark rich-text tw-relative tw-z-10">
     <div class="tw-space-y-4 tw-max-w-3xl tw-mx-auto">
-      <h2>People feel like they don’t have control over their YouTube recommendations...</h2>
+      <h2>{% trans 'People feel like they don’t have control over their YouTube recommendations...' %}</h2>
       <p>
         {% blocktrans with 2021_report_link='https://assets.mofoprod.net/network/documents/Mozilla_YouTube_Regrets_Report.pdf' trimmed %}
           Our <a href="{{ 2021_report_link }}">2021 investigation into YouTube’s recommender system</a> uncovered a range of problems on the platform: an opaque algorithm, inconsistent oversight, and geographic inequalities. We also learned
@@ -19,13 +19,13 @@
       </p>
 
       {# This acts as a section separator #}
-      <h2 class="tw-py-6 medium:tw-pt-[60px] medium:tw-pb-[115px]">and our study shows that they really don’t.</h2>
+      <h2 class="tw-py-6 medium:tw-pt-[60px] medium:tw-pb-[115px]">{% trans 'and our study shows that they really don’t.' %}</h2>
 
       {# mobile only image #}
       <img class="w-full large:tw-hidden" src="{% static "_images/youtube-regrets/regrets-reporter/what-is-a-youtube-regret-mobile.png" %}" alt="">
 
       <p class="tw-h4-heading tw-font-sans medium:tw-text-[1.625rem] tw-font-light">
-        Our work is the first-ever experimental audit of YouTube by independent researchers, powered by Mozilla’s RegretsReporter.
+        {% trans 'Our work is the first-ever experimental audit of YouTube by independent researchers, powered by Mozilla’s RegretsReporter.' %}
       </p>
       <p>
         {% blocktrans with reporter_link='https://foundation.mozilla.org/campaigns/regrets-reporter/' trimmed %}
