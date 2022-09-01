@@ -1,12 +1,14 @@
 {% load static i18n %}
-<section class="tw-dark">
-  <div class="container">
-    <img src="{% static '_images/youtube-regrets/white-regrets-icon.png' %}">
-    <h2>{% trans 'But it’s hard to know what really works.' %}</h2>
-    <p>{% trans "Let's call on YouTube to empower users with real, meaningful controls" %}</p>
-    <a class="btn btn-with-icon btn-white" href="https://foundation.mozilla.org/campaigns/youtube-user-controls">
-      <svg aria-hidden="true" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m11 17.5 7-7 3 3-7 7-3-3Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 11.5 15.5 4 1 .5 4.5 15l7.5 1.5 5-5ZM1 .5l7.586 7.586" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 11.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span>Sign the petition</span>
-    </a>
+<section class="tw-dark tw-my-7 medium:tw-mt-[120px] medium:tw-mb-[80px]">
+  <div class="container tw-max-w-3xl tw-mx-auto">
+    <div class="tw-flex tw-flex-col tw-justify-center tw-items-center tw-text-center">
+      <svg class="tw-w-[45px] tw-h-[42px] tw-mb-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 56.93" aria-hidden="true"><path d="M59.16,0H4.84C2.17,0,0,2.17,0,4.84V40.65c0,2.67,2.17,4.84,4.84,4.84H15.42v9.61c0,1.55,1.81,2.4,3,1.4l13.15-11.01h27.59c2.67,0,4.84-2.17,4.84-4.84V4.84c0-2.67-2.17-4.84-4.84-4.84Z" fill="#fff"/><circle cx="22.78" cy="15.28" r="3.82"/><path d="M22.49,33.79c1.37-3.59,4.26-6.77,9.51-6.77s7.95,3.13,9.51,6.77" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/><circle cx="41.82" cy="15.28" r="3.82"/></svg>
+      <h2 class="tw-leading-none tw-text-4xl medium:tw-text-[3.25rem]">{% trans 'But it’s hard to know what really works.' %}</h2>
+      <p>{% trans "Let's call on YouTube to empower users with real, meaningful controls" %}</p>
+      <a class="btn btn-with-icon btn-white" href="https://foundation.mozilla.org/campaigns/youtube-user-controls">
+        <svg aria-hidden="true" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m11 17.5 7-7 3 3-7 7-3-3Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 11.5 15.5 4 1 .5 4.5 15l7.5 1.5 5-5ZM1 .5l7.586 7.586" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 11.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+       {% trans 'Sign the petition' %}
+      </a>
+    </div>
   </div>
 </section>
