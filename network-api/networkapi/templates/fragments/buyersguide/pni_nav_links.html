@@ -1,12 +1,17 @@
-{% load bg_nav_tags i18n localization wagtailcore_tags %}
+{% load bg_nav_tags i18n localization wagtailcore_tags static %}
 {% get_bg_home_page as home_page %}
 
 {{ pre }}
 {% with home_page.get_editorial_content_index as editorial_content_index  %}
+  <a class="{{ class }} product-review-link" href="{% relocalized_url home_page.url %}#product-review">{% trans "Product Reviews" %}</a>
+  <img
+    class="tw-mr-4 tw-hidden large:tw-block {{ class }}"
+    src="{% static "_images/buyers-guide/asterick-mini.svg" %}"
+  >
   {% if editorial_content_index %}
     <a class="{{ class }} {% bg_active_nav request.get_full_path editorial_content_index.url %} " href="{% pageurl editorial_content_index %}">{{ editorial_content_index }}</a>
   {% endif %}
 {% endwith %}
 {% localizedroutablepageurl home_page 'about-why-view' as about_why_url %}
-<a class="{{ class }} {% bg_active_nav request.get_full_path about_why_url %}" href="{{ about_why_url }}">{% trans "About the Guide" %}</a>
+<a class="{{ class }} {% bg_active_nav request.get_full_path about_why_url %}" href="{{ about_why_url }}">{% trans "About" %}</a>
 {{ post }}
