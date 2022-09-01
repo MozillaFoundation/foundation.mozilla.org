@@ -22,10 +22,17 @@ export class SearchFilter {
     this.allProducts = document.querySelectorAll(`figure.product-box`);
     this.categoryTitle = document.querySelector(`.category-title`);
 
-    const { searchBar, searchInput } = this.setupSearchBar();
+    const { searchBar, searchInput, mobileSearchBar, mobileSearchInput } =
+      this.setupSearchBar();
     setupNavLinks(this);
     setupGoBackToAll(this);
-    setupHistoryManagement(this, searchBar, searchInput);
+    setupHistoryManagement(
+      this,
+      searchBar,
+      searchInput,
+      mobileSearchBar,
+      mobileSearchInput
+    );
     setupReviewLinks(this);
 
     if (location.hash && location.hash === "#product-review") {
@@ -71,7 +78,11 @@ export class SearchFilter {
       `#product-filter-search`
     ));
 
-    if (!searchBar) {
+    const mobileSearchBar = (this.mobileSearchBar = document.querySelector(
+      `#pni-mobile-container`
+    ));
+
+    if (!searchBar || !mobileSearchBar) {
       return console.warn(
         `Could not find the PNI search bar. Search will not be available.`
       );
@@ -87,11 +98,14 @@ export class SearchFilter {
 
     const searchInput = (this.searchInput = searchBar.querySelector(`input`));
 
+    const mobileSearchInput = (this.mobileSearchInput =
+      mobileSearchBar.querySelector(`input`));
+
     searchInput.addEventListener(
       `input`,
       debounce(() => {
         const searchText = searchInput.value.trim();
-
+        mobileSearchInput.value = searchInput.value.trim();
         if (searchText) {
           searchBar.classList.add(`has-content`);
           this.filter(searchText);
@@ -102,8 +116,24 @@ export class SearchFilter {
       }, 500)
     );
 
+    mobileSearchInput.addEventListener(
+      `input`,
+      debounce(() => {
+        const searchText = mobileSearchInput.value.trim();
+        searchInput.value = mobileSearchInput.value.trim();
+        if (searchText) {
+          mobileSearchBar.classList.add(`has-content`);
+          this.filter(searchText);
+        } else {
+          this.clearText();
+          applyHistory(this);
+        }
+      }, 500)
+    );
+
     const clear = searchBar.querySelector(`.clear-icon`);
-    if (!clear) {
+    const mobileClear = mobileSearchBar.querySelector(`.clear-icon`);
+    if (!clear || !mobileClear) {
       return console.warn(
         `Could not find the PNI search input clear icon. Search will work, but clearing will not.`
       );
@@ -116,16 +146,37 @@ export class SearchFilter {
       applyHistory(this);
     });
 
-    return { searchBar, searchInput };
+    mobileClear.addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+      mobileSearchInput.focus();
+      this.clearText();
+      applyHistory(this);
+    });
+
+    return { searchBar, searchInput, mobileSearchBar, mobileSearchInput };
+  }
+
+  getURL(text) {
+    const url = new URL(location.href);
+    if (text) {
+      url.searchParams.set("search", text);
+    } else {
+      url.searchParams.delete("search");
+    }
+
+    url.search = url.searchParams.toString();
+    return url.toString();
   }
 
   /**
    * Clear the search text
    */
   clearText() {
-    const { searchBar, searchInput } = this;
+    const { searchBar, searchInput, mobileSearchBar, mobileSearchInput } = this;
     searchBar.classList.remove(`has-content`);
+    mobileSearchBar.classList.remove(`has-content`);
     searchInput.value = ``;
+    mobileSearchInput.value = ``;
 
     gsap.set(this.allProducts, { opacity: 1, scale: 1 });
     this.allProducts.forEach((product) => {
@@ -138,7 +189,7 @@ export class SearchFilter {
 
     const state = { ...history.state, search: "" };
     const title = Utils.getTitle(this.categoryTitle.value.trim());
-    history.replaceState(state, title, location.href);
+    history.replaceState(state, title, this.getURL(""));
   }
 
   /**
@@ -158,7 +209,7 @@ export class SearchFilter {
 
     const state = { ...history.state, search: text };
     const title = Utils.getTitle(this.categoryTitle.value.trim());
-    history.replaceState(state, title, location.href);
+    history.replaceState(state, title, this.getURL(text));
 
     Utils.sortFilteredProducts();
     CreepUtils.moveCreepyFace();

@@ -1,4 +1,4 @@
-body.catalog {
+body {
   $hero-breakpoint: $bp-lg;
   $breakpoint: $bp-md;
 
@@ -22,125 +22,20 @@ body.catalog {
   --pni-checkbox-size: 22px;
   --pni-icon-size: 1.2em;
 
-  .page-header {
-    background: url(../_images/buyers-guide/evergreen-header-light.jpg) center
-      center / cover no-repeat;
-
-    .intro-text {
-      padding-top: 12px;
-      padding-bottom: 50px;
-
-      @media (min-width: $breakpoint) {
-        padding-top: 12px;
-      }
-      @media (min-width: $hero-breakpoint) {
-        padding-top: 90px;
-      }
-    }
-
-    .badge-container {
-      margin-top: 12px;
-
-      @media (min-width: $hero-breakpoint) {
-        margin-top: 32px;
-      }
-    }
-
-    .webby-award-badge {
-      width: 76px;
-      height: auto;
-
-      @media (min-width: $hero-breakpoint) {
-        width: 125px;
-      }
-    }
-  }
-
-  #product-filter-search {
-    background-color: $white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: 1em;
-    width: 100%;
-    height: var(--search-box-height);
-    box-sizing: border-box;
-    text-align: left;
-    border: 1px solid $black;
-    border-radius: 2em;
-    transition: border-color 0.2s, width 0.2s;
-    margin: auto;
-
-    @media (min-width: $bp-md) {
-      --container-padding: 0.5em;
-      padding: var(--container-padding);
-      padding-right: 1em;
-      overflow: hidden;
-
-      &::placeholder {
-        color: transparent;
-      }
-    }
-
-    &:focus-within,
-    &.has-content {
-      border-color: $black;
-      cursor: default;
-
-      .search-icon {
-        cursor: default;
-      }
-    }
-
-    &:focus-within.has-content {
-      border-color: $light-blue;
-
-      .clear-icon {
-        background: url(../_images/buyers-guide/filter/clear-icon-blue.svg);
-      }
-    }
-
-    .search-icon {
+  #product-filter-search,
+  #pni-mobile-container {
+    & .clear-icon {
       flex: 0 0 auto;
-      display: inline-block;
-      background: url(../_images/buyers-guide/filter/search.svg);
-      background-size: 22px 22px;
-      background-repeat: no-repeat;
+      display: none;
       cursor: pointer;
-      height: var(--search-icon-size-mobile);
-      width: var(--search-icon-size-mobile);
-      margin: 0 8px 0 4px;
-
-      @media (min-width: $bp-sm) {
-        height: var(--search-icon-size-desktop);
-        width: var(--search-icon-size-desktop);
-        margin: 0 16px 0 8px;
-      }
-    }
-
-    input {
-      flex: 1 1 auto;
-      border: none;
       outline: 0;
-
-      &::placeholder,
-      &::-webkit-input-placeholder {
-        color: $gray-40;
-      }
-
-      & + .clear-icon {
-        flex: 0 0 auto;
-        display: none;
-        cursor: pointer;
-        outline: 0;
-        padding: 0;
-        margin: 0;
-        margin-right: 4px;
-        height: var(--clear-icon-size);
-        width: var(--clear-icon-size);
-        background: url(../_images/buyers-guide/filter/clear-icon-black.svg);
-        background-size: 100% 100%;
-      }
+      padding: 0;
+      margin: 0;
+      margin-right: 4px;
+      height: var(--clear-icon-size);
+      width: var(--clear-icon-size);
+      background: url(../_images/buyers-guide/filter/clear-icon-blue.svg);
+      background-size: 100% 100%;
     }
 
     &.has-content .clear-icon {

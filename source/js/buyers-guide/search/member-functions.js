@@ -207,11 +207,16 @@ export function setupReviewLinks(instance) {
   for (const nav of navLinks) {
     nav.addEventListener("click", (evt) => {
       const editorialContent = document.querySelector(".editorial-content");
+      const burger = document.querySelector(".burger");
 
       if (editorialContent) {
         evt.preventDefault();
         evt.stopPropagation();
+        location.hash = "product-review";
         editorialContent.classList.add("tw-hidden");
+        if (burger && burger.classList.contains("menu-open")) {
+          document.querySelector(".burger").click();
+        }
       }
     });
   }
