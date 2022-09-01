@@ -2,7 +2,7 @@
 {% load wagtailcore_tags %}
 
 {% block body_id %}youtube-regrets-2022{% endblock %}
-{% block bodyclass %}youtube-regrets-2022{% endblock %}
+{% block bodyclass %}youtube-regrets-2022 youtube-regrets-shared{% endblock %}
 
 {% block extended_head %}
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,6 +16,13 @@
 {% block content_wrapped %}
   <main>
     {% block main %}
+      <div class="transition-bg">
+        {% include './fragments/hero.html' %}
+
+        {% include './fragments/intro.html' %}
+
+        {% include './fragments/stats.html' %}
+      </div>
     {% endblock %}
   </main>
 {% endblock %}

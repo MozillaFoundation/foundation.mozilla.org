@@ -3,14 +3,6 @@
   $font-nunito: "Nunito Sans", sans-serif;
   $font-zilla: "Zilla Slab", sans-serif;
 
-  .fw-bold {
-    font-weight: 700;
-  }
-
-  .fst-italic {
-    font-style: italic;
-  }
-
   & main p {
     font-weight: 300;
 
@@ -26,6 +18,11 @@
     /* stylelint-enable */
   }
 
+  .tw-body {
+    font-size: 18px;
+    line-height: calc(27 / 18);
+  }
+
   .hero-heading {
     font-size: 38px;
     line-height: 1;
@@ -38,59 +35,6 @@
     font-weight: 700;
   }
 
-  h1,
-  .heading-1 {
-    font-size: 42px;
-    line-height: calc(48 / 42);
-
-    @media screen and (min-width: $bp-md) {
-      font-size: 52px;
-      line-height: calc(48 / 52);
-    }
-    font-family: $font-changa;
-    font-weight: 700;
-  }
-
-  h2,
-  .heading-2 {
-    font-size: 30px;
-    line-height: calc(34 / 30);
-
-    @media screen and (min-width: $bp-md) {
-      font-size: 38px;
-      line-height: calc(34 / 38);
-    }
-    font-family: $font-changa;
-    font-weight: 600;
-  }
-
-  h3,
-  .heading-3 {
-    font-size: 36px;
-    line-height: 1;
-    font-weight: 300;
-  }
-
-  h4,
-  .heading-4 {
-    font-size: 22px;
-    line-height: 1;
-    font-family: $font-nunito;
-    text-transform: uppercase;
-    font-weight: 700;
-  }
-
-  h5,
-  .heading-5 {
-    font-size: 20px;
-    line-height: 1;
-    font-family: $font-changa;
-  }
-
-  .tw-body {
-    font-size: 18px;
-    line-height: calc(27 / 18);
-  }
 
   .tw-body-large {
     font-size: 26px;
@@ -166,18 +110,6 @@
       color: $white;
       background: $youtube-regrets-darker-red;
     }
-  }
-
-  .transition-bg {
-    background: linear-gradient(
-        180deg,
-        $youtube-regrets-dark-blue 26.46%,
-        $black 57.83%,
-        $black 100%
-      ),
-      linear-gradient(0deg, $black, $black);
-    border-radius: 0 0 30px 30px;
-    overflow: hidden;
   }
 
   .hero {
@@ -308,27 +240,6 @@
 
     &__toggle-button {
       color: $white;
-    }
-  }
-
-  .stat {
-    text-align: center;
-
-    &__number {
-      font-size: 52px;
-      line-height: calc(48 / 52);
-
-      @media screen and (min-width: $bp-md) {
-        font-size: 60px;
-        line-height: calc(48 / 60);
-      }
-
-      font-family: $font-changa;
-      font-weight: 700;
-    }
-
-    &__label {
-      text-transform: uppercase;
     }
   }
 
