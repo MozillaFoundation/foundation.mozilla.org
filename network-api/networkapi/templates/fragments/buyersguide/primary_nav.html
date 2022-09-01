@@ -50,8 +50,8 @@
 
 {% block donate_and_newsletter %}
 <div class="d-flex align-items-center">
-  {% include "fragments/buyersguide/pni_nav_links.html" with class="primary-nav-special-link tw-hidden large:tw-block" %}
-  <a id="donate-header-btn" class="primary-nav-special-link tw-hidden large:tw-block" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=header" target="_blank" rel="noopener noreferrer">{% trans "Donate" %}</a>
+  {% include "fragments/buyersguide/pni_nav_links.html" with class="primary-nav-special-link pni-nav-link tw-hidden large:tw-block" %}
+  <a id="donate-header-btn" class="primary-nav-special-link pni-nav-link tw-hidden large:tw-block" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=header" target="_blank" rel="noopener noreferrer">{% trans "Donate" %}</a>
   {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
   <button class="tw-bg-transparent" id="mobile-search">
     <img

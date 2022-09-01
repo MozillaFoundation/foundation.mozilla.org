@@ -64,7 +64,7 @@
 
               {% block donate_and_newsletter %}
               <div class="d-flex align-items-center">
-                <a id="donate-header-btn" class="primary-nav-special-link tw-heart-glyph" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=header" target="_blank" rel="noopener noreferrer">{% trans "Donate" %}</a>
+                <a id="donate-header-btn" class="primary-nav-special-link tw-heart-glyph tw-flex" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=header" target="_blank" rel="noopener noreferrer">{% trans "Donate" %}</a>
                 {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
               </div>
               {% endblock %}

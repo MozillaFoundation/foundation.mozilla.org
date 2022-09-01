@@ -35,7 +35,14 @@
     line-height: calc(23 / 17);
     color: $black;
     font-weight: $btn-font-weight;
-    text-decoration: none;
+
+    &.pni-nav-link {
+      text-decoration: none;
+      &:hover {
+        text-decoration: wavy $pni-wavy-blue 2px underline;
+        text-underline-offset: 0.5rem;
+      }
+    }
 
     @media (min-width: $bp-md) {
       &:not(:last-of-type) {
@@ -44,8 +51,7 @@
     }
 
     &:hover {
-      text-decoration: wavy $pni-wavy-blue 2px underline;
-      text-underline-offset: 0.5rem;
+      color: $dark-blue;
     }
   }
 
