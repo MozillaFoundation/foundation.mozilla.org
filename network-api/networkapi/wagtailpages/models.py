@@ -69,6 +69,7 @@ from .pagemodels.youtube import (
     YoutubeRegretsPage,
     YoutubeRegretsReporterPage,
     YoutubeRegrets2021Page,
+    YoutubeRegrets2022Page,
     YoutubeRegretsReporterExtensionPage
 )
 

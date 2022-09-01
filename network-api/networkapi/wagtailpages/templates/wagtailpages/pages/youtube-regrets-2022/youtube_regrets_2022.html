@@ -1,0 +1,26 @@
+{% extends "pages/base.html" %}
+{% load wagtailcore_tags %}
+
+{% block body_id %}youtube-regrets-2022{% endblock %}
+{% block bodyclass %}youtube-regrets-2022{% endblock %}
+
+{% block extended_head %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Changa:wght@600;700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{# Empty header; Do not add <header role="banner"> to the page #}
+{% block header_wrapped %}{% endblock %}
+
+{% block content_wrapped %}
+  <main>
+    {% block main %}
+    {% endblock %}
+  </main>
+{% endblock %}
+
+
+{% block footer_block %}
+  {% include "partials/footer.html" %}
+{% endblock %}
