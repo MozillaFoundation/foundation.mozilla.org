@@ -34,30 +34,15 @@
 
       {% include './fragments/standout_stats.html' %}
 
-      <div class="tw-min-h-[860px] container tw-py-[100px]">
-        <h2>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consequatur corporis cumque ducimus ea in
-          ipsam labore libero nulla omnis quo repudiandae, sapiente sed similique, sit totam voluptatem! Id, officia?
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae ea odit possimus sunt. Accusamus aliquam aut
-          blanditiis commodi deleniti ipsam neque quis quisquam veritatis voluptatum. Aliquid consectetur dolores fugiat
-          id.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam architecto cum cupiditate doloremque eaque
-          eius est ex expedita fugiat iure, nisi nobis nulla pariatur porro possimus ratione, soluta! Ratione, sit?
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam architecto cum cupiditate doloremque eaque
-          eius est ex expedita fugiat iure, nisi nobis nulla pariatur porro possimus ratione, soluta! Ratione, sit?
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam architecto cum cupiditate doloremque eaque
-          eius est ex expedita fugiat iure, nisi nobis nulla pariatur porro possimus ratione, soluta! Ratione, sit?
-        </h2>
-      </div>
-
       <div class="scroll-container">
         <section class="container" data-scroll-section>
-          <div class="tw-h-screen tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
-            <span class="tw-h2-heading tw-font-bold">“It seems like you routinely have to prune things away or it will keep shoving them in your face until you tell it otherwise.”</span>
+          <div class="tw-max-w-3xl mx-auto tw-h-screen tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
+            <svg width="44" height="34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m17.5 3.1-2.9 11.6c2 .4 3.4 1.267 4.2 2.6.867 1.333 1.3 3.433 1.3 6.3 0 3.733-.733 6.3-2.2 7.7-1.4 1.4-3.967 2.1-7.7 2.1s-6.3-.7-7.7-2.1c-1.333-1.4-2-3.967-2-7.7.067-2.333.267-4.033.6-5.1.333-1.133 1.167-3.033 2.5-5.7L9.7.5l7.8 2.6Zm23.1 0-2.9 11.6c2 .4 3.4 1.267 4.2 2.6.867 1.333 1.3 3.433 1.3 6.3 0 3.733-.733 6.3-2.2 7.7-1.4 1.4-3.967 2.1-7.7 2.1s-6.3-.7-7.7-2.1c-1.333-1.4-2-3.967-2-7.7.067-2.333.267-4.033.6-5.1.333-1.133 1.167-3.033 2.5-5.7L32.8.5l7.8 2.6Z" fill="#000"/></svg>
+            <blockquote class="tw-text-[1.75rem] tw-font-zilla">“It seems like you routinely have to prune things away or it will keep shoving them in your face until you tell it otherwise.”</blockquote>
             <svg id="dashed-line" width="3" height="190" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path stroke="#CCC" stroke-width="3" stroke-dasharray="12 12" d="M1.5 0v190"/>
             </svg>
-            <p class="tw-font-bold tw-text-xl tw-max-w-sm">Scroll to explore a real recommendation timeline from our study</p>
+            <p class="tw-text-xl tw-max-w-sm">Scroll to explore a real recommendation timeline from our study</p>
           </div>
         </section>
       </div>
@@ -78,28 +63,15 @@
                 <p class="timeline__scene-text" data-scene-text></p>
               </div>
             </div>
-{##}
-{#            <div class="timeline__person-date">#}
-{#              <h2>Dec 8, 2021</h2>#}
-{#              {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-thinking.svg' %}#}
-{#            </div>#}
+
+            <div class="timeline__person-date">
+              <h2>Dec 8, 2021</h2>
+              {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-thinking.svg' %}
+            </div>
           </div>
 
-          <div class="timeline__scene">
-
-          </div>
         </div>
       </section>
-
-      <div class="tw-min-h-[860px] container tw-py-[100px]" >
-        <h2>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consequatur corporis cumque ducimus ea in
-          ipsam labore libero nulla omnis quo repudiandae, sapiente sed similique, sit totam voluptatem! Id, officia?
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae ea odit possimus sunt. Accusamus aliquam aut
-          blanditiis commodi deleniti ipsam neque quis quisquam veritatis voluptatum. Aliquid consectetur dolores fugiat
-          id.
-        </h2>
-      </div>
     {% endblock %}
 
     {#        <div class="timeline__scene" data-date-scene="2">#}
