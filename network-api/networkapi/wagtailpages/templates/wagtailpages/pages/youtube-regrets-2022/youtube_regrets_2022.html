@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags i18n static %}
 
 {% block body_id %}youtube-regrets-2022{% endblock %}
 {% block bodyclass %}youtube-regrets-2022 youtube-regrets-shared{% endblock %}
@@ -14,64 +14,49 @@
 {% block header_wrapped %}{% endblock %}
 
 {% block content_wrapped %}
-  <main role="main" data-scroll-container>
+  <main role="main" class="scroll-container" data-scroll-container>
     {% block main %}
-      <div class="transition-bg">
-        {% include './fragments/hero.html' %}
-
-        {% include './fragments/intro.html' %}
-
-        {% include './fragments/stats.html' %}
-
-        {% include './fragments/we_found_section.html' %}
-
-        {% include './fragments/trial_and_error.html' %}
-
-        {% include './fragments/petition_cta.html' %}
+      {#      <div class="transition-bg">#}
+      {#        {% include './fragments/hero.html' %}#}
+      {##}
+      {#        {% include './fragments/intro.html' %}#}
+      {##}
+      {#        {% include './fragments/stats.html' %}#}
+      {##}
+      {#        {% include './fragments/we_found_section.html' %}#}
+      {##}
+      {#        {% include './fragments/trial_and_error.html' %}#}
+      {##}
+      {#        {% include './fragments/petition_cta.html' %}#}
+      {#      </div>#}
+      {##}
+      <div data-scroll-section>
+        {% include './fragments/chart_section.html' %}
       </div>
 
-      {% include './fragments/chart_section.html' %}
-
-      {% include './fragments/standout_stats.html' %}
-
-      <div class="scroll-container">
-        <section class="container" data-scroll-section>
-          <div class="tw-max-w-3xl mx-auto tw-h-screen tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
-            <svg width="44" height="34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m17.5 3.1-2.9 11.6c2 .4 3.4 1.267 4.2 2.6.867 1.333 1.3 3.433 1.3 6.3 0 3.733-.733 6.3-2.2 7.7-1.4 1.4-3.967 2.1-7.7 2.1s-6.3-.7-7.7-2.1c-1.333-1.4-2-3.967-2-7.7.067-2.333.267-4.033.6-5.1.333-1.133 1.167-3.033 2.5-5.7L9.7.5l7.8 2.6Zm23.1 0-2.9 11.6c2 .4 3.4 1.267 4.2 2.6.867 1.333 1.3 3.433 1.3 6.3 0 3.733-.733 6.3-2.2 7.7-1.4 1.4-3.967 2.1-7.7 2.1s-6.3-.7-7.7-2.1c-1.333-1.4-2-3.967-2-7.7.067-2.333.267-4.033.6-5.1.333-1.133 1.167-3.033 2.5-5.7L32.8.5l7.8 2.6Z" fill="#000"/></svg>
-            <blockquote class="tw-text-[1.75rem] tw-font-zilla">“It seems like you routinely have to prune things away or it will keep shoving them in your face until you tell it otherwise.”</blockquote>
-            <svg id="dashed-line" width="3" height="190" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path stroke="#CCC" stroke-width="3" stroke-dasharray="12 12" d="M1.5 0v190"/>
-            </svg>
-            <p class="tw-text-xl tw-max-w-sm">Scroll to explore a real recommendation timeline from our study</p>
-          </div>
-        </section>
+      <div data-scroll-section>
+        {% include './fragments/standout_stats.html' %}
       </div>
 
-      <section class="timeline container">
-        <div class="timeline__scenes">
-          <div class="timeline__scene timeline__scene--first" data-scene="1">
-            <div class="tw-grid medium:tw-grid-cols-3 tw-grid-cols-1">
-              <div class="tw-col-start-1">
-                <div class="tw-relative">
-                  <img class="timeline__scene-image" src="https://source.unsplash.com/random/500x250/?landscape,people,business,fun" alt="Fun Picture">
-                  <svg class="timeline__cross" width="255" height="255" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M255 16.587 238.413 0 127.517 110.896 16.587 0 0 16.587l110.896 110.93L0 238.413 16.587 255l110.93-110.896L238.413 255 255 238.413 144.104 127.517 255 16.587Z" fill="#FF2600"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="medium:tw-col-start-3">
-                <p class="timeline__scene-text" data-scene-text></p>
-              </div>
-            </div>
-
-            <div class="timeline__person-date">
-              <h2>Dec 8, 2021</h2>
-              {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-thinking.svg' %}
-            </div>
-          </div>
-
+      <section class="container" data-scroll-section>
+        <div class="tw-max-w-3xl mx-auto tw-h-screen tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6" data-scroll data-scroll-speed="2">
+          <svg width="44" height="34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="m17.5 3.1-2.9 11.6c2 .4 3.4 1.267 4.2 2.6.867 1.333 1.3 3.433 1.3 6.3 0 3.733-.733 6.3-2.2 7.7-1.4 1.4-3.967 2.1-7.7 2.1s-6.3-.7-7.7-2.1c-1.333-1.4-2-3.967-2-7.7.067-2.333.267-4.033.6-5.1.333-1.133 1.167-3.033 2.5-5.7L9.7.5l7.8 2.6Zm23.1 0-2.9 11.6c2 .4 3.4 1.267 4.2 2.6.867 1.333 1.3 3.433 1.3 6.3 0 3.733-.733 6.3-2.2 7.7-1.4 1.4-3.967 2.1-7.7 2.1s-6.3-.7-7.7-2.1c-1.333-1.4-2-3.967-2-7.7.067-2.333.267-4.033.6-5.1.333-1.133 1.167-3.033 2.5-5.7L32.8.5l7.8 2.6Z" fill="#000"/>
+          </svg>
+          <blockquote class="tw-text-[1.75rem] tw-font-zilla">{% trans '“It seems like you routinely have to prune things away or it will keep shoving them in your face until you tell it otherwise.”' %}</blockquote>
+          <svg id="dashed-line" width="3" height="190" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path stroke="#CCC" stroke-width="3" stroke-dasharray="12 12" d="M1.5 0v190"/>
+          </svg>
+          <p class="tw-text-xl tw-max-w-sm">{% trans 'Scroll to explore a real recommendation timeline from our study' %}</p>
         </div>
       </section>
+
+      {% include './fragments/timeline.html' %}
+
+      <div data-scroll-section>
+        {% include './fragments/chart_section.html' %}
+      </div>
+
     {% endblock %}
 
     {#        <div class="timeline__scene" data-date-scene="2">#}
