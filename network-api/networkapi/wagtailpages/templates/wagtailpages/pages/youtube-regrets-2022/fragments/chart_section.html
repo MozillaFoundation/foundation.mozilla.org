@@ -12,8 +12,10 @@
     {# Chart #}
     <div class="tw-max-w-4xl tw-mx-auto tw-text-center">
       <div class="tw-mb-5">
-        <p class="tw-uppercase tw-text-2xl tw-font-bold tw-mb-0">{% trans 'Percentage of Bad Recommendations' %}</p>
-        <p class="tw-italic tw-text-xl">among all video pairs assessed by our research assistants</p>
+        {% blocktrans trimmed %}
+          <p class="tw-uppercase tw-text-2xl tw-font-bold tw-mb-0">Percentage of Bad Recommendations</p>
+          <p class="tw-italic tw-text-xl">among all video pairs assessed by our research assistants</p>
+        {% endblocktrans %}
       </div>
       <iframe aria-label="{% trans 'YouTube Percentage of Bad Recommendations Chart' %}"
               class="tw-w-0 tw-min-w-full tw-border-none tw-h-[140px]"
@@ -23,12 +25,12 @@
 
     <div class="tw-flex tw-flex-col small:tw-flex-row tw-justify-start tw-items-start tw-gap-6 tw-max-w-4xl tw-mx-auto">
       <img src="https://placehold.co/256x168" alt="">
-      {% blocktrans trimmed %}
-        <div>
+      <div>
+        {% blocktrans trimmed %}
           <p class="tw-font-bold tw-text-xl tw-mb-2">What is a bad recommendation?</p>
           <p>In our experiment, a “bad recommendation” is when YouTube recommends videos to users that are similar to a video they had previously rejected (clicked “Stop Recommending”). We determined whether videos were similar by relying on assessments by our research assistants and our machine learning video similarity model.</p>
-        </div>
-      {% endblocktrans %}
+        {% endblocktrans %}
+      </div>
     </div>
   </div>
 </section>

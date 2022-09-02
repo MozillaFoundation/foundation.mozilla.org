@@ -1,0 +1,19 @@
+{% load i18n %}
+<section class="container-xl tw-mb-7 medium:tw-mb-[80px]">
+  <div class="tw-mb-7 tw-text-center">
+    <h3 class="tw-font-bold tw-mb-2 tw-font-changa">Which method was most effective?</h3>
+    <span class="tw-text-2xl medium:tw-text-[1.625rem] tw-font-light">None of them really.</span>
+  </div>
+
+  {% trans "Don’t recommend channel" as dont_recommend %}
+  {% trans "Not interested" as not_interested %}
+  {% trans "Dislike" as dislike_text %}
+  {% trans "Remove from watch history" as remove_from_watch_history %}
+
+  <div class="tw-grid tw-gap-6 large:tw-gap-7 tw-grid-cols-2 xlarge:tw-grid-cols-4">
+    {% include "../../youtube-regrets-shared/standout-stat.html" with number=43 label=dont_recommend id="dont-recommend-channel-count-up" prefix="~" suffix="%" %}
+    {% include "../../youtube-regrets-shared/standout-stat.html" with number=11 label=not_interested id="not-interested-count-up" prefix="~" suffix="%" %}
+    {% include "../../youtube-regrets-shared/standout-stat.html" with number=12 label=dislike_text id="dislike-count-up" prefix="~" suffix="%" %}
+    {% include "../../youtube-regrets-shared/standout-stat.html" with number=29 label=remove_from_watch_history id="remove-from-watch-history-count-up" prefix="~" suffix="%" %}
+  </div>
+</section>
