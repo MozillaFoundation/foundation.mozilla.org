@@ -1,8 +1,10 @@
 {% load i18n %}
 <section class="container-xl tw-mb-7 medium:tw-mb-[80px]">
   <div class="tw-mb-7 tw-text-center">
-    <h3 class="tw-font-bold tw-mb-2 tw-font-changa">Which method was most effective?</h3>
-    <span class="tw-text-2xl medium:tw-text-[1.625rem] tw-font-light">None of them really.</span>
+    {% blocktrans trimmed %}
+      <h3 class="tw-font-bold tw-mb-2 tw-font-changa">Which method was most effective?</h3>
+      <span class="tw-text-2xl medium:tw-text-[1.625rem] tw-font-light">None of them really.</span>
+    {% endblocktrans %}
   </div>
 
   {% trans "Don’t recommend channel" as dont_recommend %}
