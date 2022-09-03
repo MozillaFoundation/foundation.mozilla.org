@@ -9,32 +9,32 @@
 {% block hero %}
 <input type="hidden" class="category-title" value="{% if current_category %}{{current_category.localized.name}}{% else %}None{% endif %}">
 <input type="hidden" class="parent-title" value="{{current_category.parent.localized.name}}">
+<div class="tw-container">
+  <div class="tw-row">
+    <div class="tw-px-4 tw-w-full">
+      <div id="sticky-bar" class="creepiness-slider bg-white text-center tw-flex tw-justify-center">
 
+          <div class="creep-o-meter-information">
+            <p class="speech-bubble-container">
+              <span class="speech-bubble tw-bg-gradient-to-t tw-from-purple-05 tw-to-blue-05">
+                <img class="hook" src="{% static "_images/buyers-guide/icon-bubble-hook.svg" %}">
+                <span class="text">{% trans "We created this guide to help you shop<br> for safe, secure connected products." %}</span>
+              </span>
+            </p>
+            <span class="current-creepiness"></span>
+          </div>
+
+
+        </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block guts %}
 {% get_bg_home_page as home_page %}
 <div class="project-list-section">
   <div class="container">
-    <div class="row px-0 px-sm-0">
-      <div class="col-12">
-        <div id="sticky-bar" class="creepiness-slider bg-white text-center">
-          <!-- temporary location for dev work -->
-
-          <span class="creep-o-meter-information">
-            <p class="speech-bubble-container">
-              <span class="speech-bubble">
-                <img class="hook" src="{% static "_images/buyers-guide/icon-bubble-hook.svg" %}">
-                <span class="text">{% trans "Scroll to see how creepy<br>people find these products!" %}</span>
-              </span>
-            </p>
-            <span class="current-creepiness"></span>
-          </span>
-
-
-        </div>
-      </div>
-    </div>
     <div class="row">
       <div class="col-12 tw-mb-4 tw-px-0">
         <div class="tw-flex tw-items-end">
