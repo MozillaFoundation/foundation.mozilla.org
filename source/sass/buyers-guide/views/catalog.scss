@@ -255,21 +255,12 @@ body {
     }
 
     .creep-o-meter-information {
-      position: absolute;
       white-space: nowrap;
-      right: 0;
       opacity: 1;
       transition: opacity 0.2s ease;
-      top: unset;
-      right: calc(50% - 36px);
-      left: unset;
 
       &.fade-out {
         opacity: 0;
-      }
-
-      @media (max-width: $bp-sm) {
-        right: calc(50% - 144px);
       }
     }
 
@@ -283,7 +274,6 @@ body {
       .speech-bubble {
         position: relative;
         display: inline-block;
-        background: $pni-lilac;
         border-radius: 1em;
         padding: 0.5em 1em;
         color: $gray-80;
@@ -346,8 +336,6 @@ body {
     #sticky-bar.creepiness-slider {
       position: sticky;
       position: -webkit-sticky;
-      margin-bottom: 0em;
-      transition: margin-bottom 0.2s;
     }
   }
 
