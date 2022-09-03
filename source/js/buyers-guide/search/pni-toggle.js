@@ -6,6 +6,7 @@ export class PNIToggle {
     this.searchFilter = searchFilter;
     this.categoryTitle = document.querySelector(`.category-title`);
     this.toggle = document.querySelector(`#product-filter-pni-toggle`);
+    this.toggleContainer = document.querySelector("#product-filter-pni");
 
     if (!this.toggle) {
       // TODO: this should become a throw, with enough integration tests that
@@ -16,8 +17,36 @@ export class PNIToggle {
       );
     }
 
+    const activeClasses = [
+      "active",
+      "tw-bg-gray-80",
+      "tw-text-white",
+      "tw-border-gray-80",
+    ];
+
+    const defaultClasses = [
+      "hover:tw-border-blue-10",
+      "hover:tw-bg-blue-10",
+      "tw-text-gray-60",
+      "tw-border-gray-20",
+      "tw-bg-white",
+    ];
+
+    if (this.toggle.checked) {
+      this.toggleContainer.classList.remove(...defaultClasses);
+      this.toggleContainer.classList.add(...activeClasses);
+    }
+
     this.toggle.addEventListener(`change`, (evt) => {
       const doFilter = !!evt.target.checked;
+
+      if (!doFilter) {
+        this.toggleContainer.classList.add(...defaultClasses);
+        this.toggleContainer.classList.remove(...activeClasses);
+      } else {
+        this.toggleContainer.classList.remove(...defaultClasses);
+        this.toggleContainer.classList.add(...activeClasses);
+      }
       this.togglePrivacyOnly(doFilter);
     });
   }
