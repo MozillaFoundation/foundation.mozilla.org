@@ -45,34 +45,10 @@ body {
 
   #product-filter-pni {
     user-select: none;
-    margin-left: 0.5rem;
-
-    @media (min-width: $bp-md) {
-      margin-left: auto;
-      font-size: 100%;
-    }
 
     input[type="checkbox"] {
       position: relative;
       display: none;
-
-      & + .pni-checkbox-facade {
-        display: inline-block;
-        vertical-align: calc(0.4em - var(--pni-checkbox-size));
-        width: var(--pni-checkbox-size);
-        height: var(--pni-checkbox-size);
-        margin-right: 0.5em;
-        cursor: pointer;
-        background: url(../_images/buyers-guide/filter/checkbox.svg);
-
-        @media (min-width: $bp-sm) {
-          vertical-align: calc(-5px - var(--pni-checkbox-size) / 2);
-        }
-      }
-
-      &:checked + .pni-checkbox-facade {
-        background: url(../_images/buyers-guide/filter/checkbox-selected.svg);
-      }
     }
 
     .pni-icon {
@@ -85,7 +61,6 @@ body {
     }
 
     label {
-      vertical-align: sub;
       cursor: pointer;
     }
   }
