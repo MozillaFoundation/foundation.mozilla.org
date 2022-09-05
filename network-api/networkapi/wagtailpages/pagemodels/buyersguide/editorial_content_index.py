@@ -36,6 +36,12 @@ class BuyersGuideEditorialContentIndexPage(
         context["items"] = self.get_descendants().public().live()
         return context
 
+    def get_related_articles(self) -> list['BuyersGuideArticlePage']:
+        return orderables.get_related_items(
+            self.related_article_relations.all(),
+            'article',
+        )
+
 
 class BuyersGuideEditorialContentIndexPageArticlePageRelation(TranslatableMixin, Orderable):
     page = ParentalKey(
@@ -50,9 +56,6 @@ class BuyersGuideEditorialContentIndexPageArticlePageRelation(TranslatableMixin,
     )
 
     panels = [PageChooserPanel('article')]
-
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "article"
 
     def __str__(self):
         return f'{self.category.name} -> {self.article.title}'

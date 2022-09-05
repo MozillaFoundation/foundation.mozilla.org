@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  {% with related_articles=page.related_article_relations.related_items  %}
+  {% with related_articles=page.get_related_articles %}
       {% if related_articles %}
         <div>
           <h3>Popular</h3>
