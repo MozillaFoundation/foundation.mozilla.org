@@ -1,3 +1,5 @@
+import typing
+
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, MultiFieldPanel
@@ -6,6 +8,10 @@ from wagtail.core.models import Orderable, TranslatableMixin
 
 from networkapi.wagtailpages.pagemodels import orderables
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
+
+
+if typing.TYPE_CHECKING:
+    from networkapi.wagtailpages.models import BuyersGuideArticlePage
 
 
 class BuyersGuideEditorialContentIndexPage(

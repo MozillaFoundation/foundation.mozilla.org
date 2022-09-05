@@ -16,7 +16,7 @@ from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 
 
 if typing.TYPE_CHECKING:
-    from networkapi.wagtailpages.models import Profile
+    from networkapi.wagtailpages.models import BuyersGuideContentCategory, Profile
 
 
 class BuyersGuideArticlePage(

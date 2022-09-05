@@ -1,4 +1,5 @@
 from datetime import datetime
+import typing
 
 from django.apps import apps
 from django.conf import settings
@@ -40,6 +41,10 @@ from networkapi.wagtailpages.utils import (
     get_language_from_request,
     get_locale_from_request,
 )
+
+
+if typing.TYPE_CHECKING:
+    from networkapi.wagtailpages.models import BuyersGuideArticlePage, Update
 
 
 class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
