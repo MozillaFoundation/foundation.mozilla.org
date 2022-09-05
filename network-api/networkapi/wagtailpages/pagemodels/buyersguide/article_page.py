@@ -10,8 +10,8 @@ from wagtail.core import models as wagtail_models
 from wagtail.images import edit_handlers as image_panels
 from wagtail.snippets import edit_handlers as snippet_panels
 
+from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels import customblocks
-from networkapi.wagtailpages.pagemodels import orderables
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 
 

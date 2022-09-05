@@ -27,7 +27,7 @@ from wagtail.core.models import (
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.wagtailpages.pagemodels import orderables
+from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
     sort_average,

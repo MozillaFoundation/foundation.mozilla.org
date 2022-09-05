@@ -6,7 +6,7 @@ from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, MultiFiel
 from wagtail.core import models as wagtail_models
 from wagtail.core.models import Orderable, TranslatableMixin
 
-from networkapi.wagtailpages.pagemodels import orderables
+from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 
 
