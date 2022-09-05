@@ -1,3 +1,5 @@
+import typing
+
 from django import http
 from django.db import models
 from modelcluster import fields as cluster_fields
@@ -11,6 +13,10 @@ from wagtail.snippets import edit_handlers as snippet_panels
 from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.pagemodels import orderables
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
+
+
+if typing.TYPE_CHECKING:
+    from networkapi.wagtailpages.models import Profile
 
 
 class BuyersGuideArticlePage(
@@ -80,6 +86,12 @@ class BuyersGuideArticlePage(
         context = super().get_context(request, *args, **kwargs)
         return context
 
+    def get_author_profiles(self) -> list['Profile']:
+        return orderables.get_related_items(
+            self.author_profile_relations.all(),
+            'author_profile',
+        )
+
     def get_related_articles(self) -> list['BuyersGuideArticlePage']:
         return self.related_article_relations.related_items()
 
@@ -107,9 +119,6 @@ class BuyersGuideArticlePageAuthorProfileRelation(
     )
 
     panels = [snippet_panels.SnippetChooserPanel('author_profile')]
-
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "author_profile"
 
     def __str__(self):
         return f'{self.page.title} -> {self.author_profile.name}'
