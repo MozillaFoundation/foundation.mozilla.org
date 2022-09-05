@@ -83,31 +83,6 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             template_name='wagtailpages/blocks/rich_text_block.html',
         )
 
-    def test_related_article_relations_related_items(self):
-        """
-        Returns all related articles.
-
-        We don't want the through model, we really want the articles.
-        """
-        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
-            parent=self.content_index,
-        )
-        related_articles = []
-        for _ in range(4):
-            related_article = buyersguide_factories.BuyersGuideArticlePageFactory(
-                parent=self.content_index,
-            )
-            buyersguide_factories.BuyersGuideArticlePageRelatedArticleRelationFactory(
-                page=article_page,
-                article=related_article,
-            )
-            related_articles.append(related_article)
-
-        result = article_page.related_article_relations.related_items()
-
-        for related_article in related_articles:
-            self.assertIn(related_article, result)
-
     def test_get_related_articles(self):
         """
         Returns all related articles.

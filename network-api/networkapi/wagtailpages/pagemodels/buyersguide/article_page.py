@@ -93,7 +93,10 @@ class BuyersGuideArticlePage(
         )
 
     def get_related_articles(self) -> list['BuyersGuideArticlePage']:
-        return self.related_article_relations.related_items()
+        return orderables.get_related_items(
+            self.related_article_relations.all(),
+            'article',
+        )
 
     def get_primary_related_articles(self) -> list['BuyersGuideArticlePage']:
         return self.get_related_articles()[:3]
@@ -171,9 +174,6 @@ class BuyersGuideArticlePageRelatedArticleRelation(
     )
 
     panels = [panels.PageChooserPanel('article')]
-
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "article"
 
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
