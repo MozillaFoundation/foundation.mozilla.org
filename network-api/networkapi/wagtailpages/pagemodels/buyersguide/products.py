@@ -1,5 +1,6 @@
-import re
 import json
+import re
+import typing
 
 from bs4 import BeautifulSoup
 from django.conf import settings
@@ -41,6 +42,10 @@ from networkapi.wagtailpages.utils import (
     get_original_by_slug,
     get_language_from_request,
 )
+
+if typing.TYPE_CHECKING:
+    from networkapi.wagtailpages.models import BuyersGuideArticlePage
+
 
 TRACK_RECORD_CHOICES = [
     ('Great', 'Great'),
@@ -148,20 +153,16 @@ class BuyersGuideProductCategory(
     def get_children(self):
         return BuyersGuideProductCategory.objects.filter(parent=self)
 
-    def get_related_articles(self) -> list['BuyersGuideProductCategory']:
-        relation_field = 'related_article_relations'
-        related_item_field = 'article'
+    def get_related_articles(self) -> list['BuyersGuideArticlePage']:
+        return orderables.get_related_items(
+            self.related_article_relations.all(),
+            'article',
+        )
 
-        return [
-            getattr(relation, related_item_field)
-            for relation
-            in getattr(self, relation_field).select_related(related_item_field).all()
-        ]
-
-    def get_primary_related_articles(self) -> list['BuyersGuideProductCategory']:
+    def get_primary_related_articles(self) -> list['BuyersGuideArticlePage']:
         return self.get_related_articles()[:3]
 
-    def get_secondary_related_articles(self) -> list['BuyersGuideProductCategory']:
+    def get_secondary_related_articles(self) -> list['BuyersGuideArticlePage']:
         return self.get_related_articles()[3:]
 
     def __str__(self):
