@@ -948,13 +948,17 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['pageTitle'] = f'{self.title} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
         return context
 
-    def get_related_articles(self) -> models.QuerySet['ProductPage']:
-        return self.related_article_relations.related_items()
+    def get_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+        return orderables.get_related_items(
+            self.related_article_relations.all(),
+            'article',
+        )
 
-    def get_primary_related_articles(self) -> models.QuerySet['ProductPage']:
+
+    def get_primary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
         return self.get_related_articles()[:3]
 
-    def get_secondary_related_articles(self) -> models.QuerySet['ProductPage']:
+    def get_secondary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
         return self.get_related_articles()[3:]
 
     def serve(self, request, *args, **kwargs):
@@ -1042,9 +1046,6 @@ class BuyersGuideProductPageArticlePageRelation(TranslatableMixin, Orderable):
     )
 
     panels = [PageChooserPanel('article')]
-
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "article"
 
     def __str__(self):
         return f'{self.product.name} -> {self.article.title}'
