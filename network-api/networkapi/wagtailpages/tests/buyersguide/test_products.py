@@ -395,35 +395,6 @@ class BuyersGuideProductCategoryTest(TestCase):
             form.errors['parent']
         )
 
-    def test_related_articles(self):
-        cat = BuyersGuideProductCategory.objects.create(name="Test category")
-        article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
-        article2 = buyersguide_factories.BuyersGuideArticlePageFactory()
-        article3 = buyersguide_factories.BuyersGuideArticlePageFactory()
-        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
-            category=cat,
-            article=article2,
-            sort_order=0,
-        )
-        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
-            category=cat,
-            article=article1,
-            sort_order=1,
-        )
-        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
-            category=cat,
-            article=article3,
-            sort_order=2,
-        )
-
-        related_articles = cat.related_article_relations.related_items()
-
-        self.assertEqual(len(related_articles), 3)
-        self.assertListEqual(
-            related_articles,
-            [article2, article1, article3],
-        )
-
     def test_get_related_articles(self):
         """
         Returns all related articles.
@@ -452,6 +423,35 @@ class BuyersGuideProductCategoryTest(TestCase):
         result = cat1.get_related_articles()
 
         self.assertListEqual(result, [])
+
+    def test_get_related_articles_order(self):
+        cat = BuyersGuideProductCategory.objects.create(name="Test category")
+        article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        article2 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        article3 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat,
+            article=article2,
+            sort_order=0,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat,
+            article=article1,
+            sort_order=1,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat,
+            article=article3,
+            sort_order=2,
+        )
+
+        related_articles = cat.get_related_articles()
+
+        self.assertEqual(len(related_articles), 3)
+        self.assertListEqual(
+            related_articles,
+            [article2, article1, article3],
+        )
 
     def test_primary_related_articles(self):
         """First three related articles are primary."""

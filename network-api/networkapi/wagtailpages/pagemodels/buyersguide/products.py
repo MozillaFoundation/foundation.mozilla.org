@@ -149,7 +149,14 @@ class BuyersGuideProductCategory(
         return BuyersGuideProductCategory.objects.filter(parent=self)
 
     def get_related_articles(self) -> list['BuyersGuideProductCategory']:
-        return self.related_article_relations.related_items()
+        relation_field = 'related_article_relations'
+        related_item_field = 'article'
+
+        return [
+            getattr(relation, related_item_field)
+            for relation
+            in getattr(self, relation_field).select_related(related_item_field).all()
+        ]
 
     def get_primary_related_articles(self) -> list['BuyersGuideProductCategory']:
         return self.get_related_articles()[:3]
@@ -197,9 +204,6 @@ class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable
     )
 
     panels = [PageChooserPanel('article')]
-
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "article"
 
     def __str__(self):
         return f'{self.category.name} -> {self.article.title}'
