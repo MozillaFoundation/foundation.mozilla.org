@@ -92,6 +92,12 @@ class BuyersGuideArticlePage(
             'author_profile',
         )
 
+    def get_content_categories(self) -> list['BuyersGuideContentCategory']:
+        return orderables.get_related_items(
+            self.content_category_relations.all(),
+            'content_category',
+        )
+
     def get_related_articles(self) -> list['BuyersGuideArticlePage']:
         return orderables.get_related_items(
             self.related_article_relations.all(),
@@ -147,9 +153,6 @@ class BuyersGuideArticlePageContentCategoryRelation(
     )
 
     panels = [snippet_panels.SnippetChooserPanel('content_category')]
-
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "content_category"
 
     def __str__(self):
         return f'{self.page.title} -> {self.content_category.title}'
