@@ -16,30 +16,29 @@
 {% block content_wrapped %}
   <main role="main" class="scroll-container" data-scroll-container>
     {% block main %}
-      {#      <div class="transition-bg">#}
-      {#        {% include './fragments/hero.html' %}#}
-      {##}
-      {#        {% include './fragments/intro.html' %}#}
-      {##}
-      {#        {% include './fragments/stats.html' %}#}
-      {##}
-      {#        {% include './fragments/we_found_section.html' %}#}
-      {##}
-      {#        {% include './fragments/trial_and_error.html' %}#}
-      {##}
-      {#        {% include './fragments/petition_cta.html' %}#}
-      {#      </div>#}
-      {##}
-      <div data-scroll-section>
-        {% include './fragments/chart_section.html' %}
+      <div class="transition-bg tw-relative tw-z-10" data-scroll-section>
+        {% include './fragments/hero.html' %}
+
+        {% include './fragments/intro.html' %}
+
+        {% include './fragments/stats.html' %}
+
+        {% include './fragments/we_found_section.html' %}
+
+        {% include './fragments/trial_and_error.html' %}
+
+        {% include './fragments/petition_cta.html' %}
       </div>
 
       <div data-scroll-section>
-        {% include './fragments/standout_stats.html' %}
+        <div data-scroll data-scroll-speed="-3" data-scroll-repeat>
+          {% include './fragments/chart_section.html' %}
+          {% include './fragments/standout_stats.html' %}
+        </div>
       </div>
 
-      <section class="container" data-scroll-section>
-        <div class="tw-max-w-3xl mx-auto tw-h-screen tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6" data-scroll data-scroll-speed="2">
+      <section id="recommendation-quote" class="container" data-scroll-section>
+        <div data-scroll data-scroll-speed="-2" data-scroll-sticky data-scroll-target="#recommendation-quote" class="tw-mt-[20vh] medium:tw-mt-[25vh] tw-max-w-3xl mx-auto tw-h-screen tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
           <svg width="44" height="34" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="m17.5 3.1-2.9 11.6c2 .4 3.4 1.267 4.2 2.6.867 1.333 1.3 3.433 1.3 6.3 0 3.733-.733 6.3-2.2 7.7-1.4 1.4-3.967 2.1-7.7 2.1s-6.3-.7-7.7-2.1c-1.333-1.4-2-3.967-2-7.7.067-2.333.267-4.033.6-5.1.333-1.133 1.167-3.033 2.5-5.7L9.7.5l7.8 2.6Zm23.1 0-2.9 11.6c2 .4 3.4 1.267 4.2 2.6.867 1.333 1.3 3.433 1.3 6.3 0 3.733-.733 6.3-2.2 7.7-1.4 1.4-3.967 2.1-7.7 2.1s-6.3-.7-7.7-2.1c-1.333-1.4-2-3.967-2-7.7.067-2.333.267-4.033.6-5.1.333-1.133 1.167-3.033 2.5-5.7L32.8.5l7.8 2.6Z" fill="#000"/>
           </svg>
@@ -52,25 +51,7 @@
       </section>
 
       {% include './fragments/timeline.html' %}
-
-      <div data-scroll-section>
-        {% include './fragments/chart_section.html' %}
-      </div>
-
     {% endblock %}
-
-    {#        <div class="timeline__scene" data-date-scene="2">#}
-    {#          <h2>Dec 8, 2021!!!!!!</h2>#}
-    {#          {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-pointing.svg' %}#}
-    {#        </div>#}
-    {#        <div class="timeline__scene" data-date-scene="3">#}
-    {#          <h2>Dec 20, 2021</h2>#}
-    {#          {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-pointing.svg' %}#}
-    {#        </div>#}
-    {#        <div class="timeline__scene" data-date-scene="4">#}
-    {#          <h2>A week later</h2>#}
-    {#          {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-thinking.svg' %}#}
-    {#        </div>#}
 
     <div data-scroll-section>
       {% include "partials/footer.html" %}
