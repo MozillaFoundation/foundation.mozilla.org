@@ -83,8 +83,8 @@
   {% block category_nav %}
   {% get_bg_home_page as home_page %}
   {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
-  <nav id="multipage-nav" class="pni-category-nav text-center d-none d-md-block" title="{% trans "site navigation" context "Tooltip on menu items" %}">
-    <div class="container">
+  <nav id="multipage-nav" class="pni-category-nav text-center d-none d-md-block tw-no-scrollbar tw-mt-2" title="{% trans "site navigation" context "Tooltip on menu items" %}">
+    <div class="container" id="product-review">
       <div class="row">
         <div class="col">
           {% if pagetype == "product" or pagetype == "about" %}
@@ -103,6 +103,16 @@
             {% endif %}
             {% endwith %}
           {% endfor %}
+
+          <div id="product-filter-search" tabindex="0" class="tw-hidden large:tw-inline-flex tw-px-2 tw-items-center tw-bg-blue-05 tw-border-4 tw-border-blue-05 tw-w-[214px] tw-mr-4">
+            <img
+              class="tw-w-4 tw-h-4 tw-mr-2"
+              src="{% static "_images/buyers-guide/pni-search.svg" %}"
+            >
+            <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search all products" %}" value=""
+             class="tw-bg-blue-05 tw-outline-none tw-py-2 tw-text-base tw-text-blue-60 tw-min-w-0" />
+            <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
+          </div>
         </div>
       </div>
     </div>

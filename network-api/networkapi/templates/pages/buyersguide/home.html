@@ -5,25 +5,29 @@
 
 {% block hero %}
   {{ block.super }}
-
+  <div class="editorial-content">
   {% with hero_featured_article=page.hero_featured_article %}
     {% if hero_featured_article %}
-      <div>
-        <h2 class="tw-h1-heading">
-          <a href=" {% pageurl hero_featured_article %}">{{ hero_featured_article.title }}</a>
-        </h2>
+      <div class="tw-container">
+        <div class="tw-row">
+          <div class="tw-px-4 tw-w-full">
+            <h2 class="tw-h1-heading">
+              <a href=" {% pageurl hero_featured_article %}">{{ hero_featured_article.title }}</a>
+            </h2>
 
-        <div>
-          By
-          {% with author_profiles=hero_featured_article.get_author_profiles  %}
-            {% if author_profiles %}
-              <ul>
-                {% for author_profile in author_profiles %}
-                  <li>{{ author_profile.name }}</li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-          {% endwith %}
+            <div>
+              By
+              {% with author_profiles=hero_featured_article.get_author_profiles %}
+                {% if author_profiles %}
+                  <ul>
+                    {% for author_profile in author_profiles %}
+                      <li>{{ author_profile.name }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              {% endwith %}
+            </div>
+          </div>
         </div>
       </div>
     {% endif %}
@@ -76,4 +80,5 @@
       </div>
   </div>
 
+  </div>
   {% endblock hero %}
