@@ -362,6 +362,24 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
         return indexes.first()
 
+    def get_hero_supporting_articles(self) -> list['BuyersGuideArticlePage']:
+        return orderables.get_related_items(
+            self.hero_supporting_article_relations.all(),
+            'article',
+        )
+
+    def get_featured_articles(self) -> list['BuyersGuideArticlePage']:
+        return orderables.get_related_items(
+            self.featured_article_relations.all(),
+            'article',
+        )
+
+    def get_featured_updates(self) -> list['Update']:
+        return orderables.get_related_items(
+            self.featured_update_relations.all(),
+            'update',
+        )
+
     class Meta:
         verbose_name = "Buyers Guide Page"
 
@@ -379,9 +397,6 @@ class BuyersGuidePageHeroSupportingArticleRelation(TranslatableMixin, Orderable)
     )
 
     panels = [PageChooserPanel('article', page_type='wagtailpages.BuyersGuideArticlePage')]
-
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "article"
 
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
@@ -404,9 +419,6 @@ class BuyersGuidePageFeaturedArticleRelation(TranslatableMixin, Orderable):
 
     panels = [PageChooserPanel('article', page_type='wagtailpages.BuyersGuideArticlePage')]
 
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "article"
-
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
 
@@ -427,9 +439,6 @@ class BuyersGuidePageFeaturedUpdateRelation(TranslatableMixin, Orderable):
     )
 
     panels = [SnippetChooserPanel('update')]
-
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "update"
 
     def __str__(self):
         return f'{self.page.title} -> {self.update.title}'
