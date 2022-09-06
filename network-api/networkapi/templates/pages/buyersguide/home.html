@@ -45,6 +45,16 @@
       {% endwith %}
     </div>
 
+    {% if page.featured_advice_article %}
+      <div class="tw-container tw-my-6">
+        <h2>Ask Jen</h2>
+
+        <div>
+          Q: <a href="{% pageurl page.featured_advice_article %}">{{ page.featured_advice_article.title }}</a>
+        </div>
+      </div>
+    {% endif %}
+
     <div class="tw-container tw-my-6">
       <div class="tw-row">
         {% with popular_articles=page.get_featured_articles %}
