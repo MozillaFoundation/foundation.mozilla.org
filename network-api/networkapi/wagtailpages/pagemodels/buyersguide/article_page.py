@@ -1,3 +1,5 @@
+import typing
+
 from django import http
 from django.db import models
 from modelcluster import fields as cluster_fields
@@ -8,9 +10,13 @@ from wagtail.core import models as wagtail_models
 from wagtail.images import edit_handlers as image_panels
 from wagtail.snippets import edit_handlers as snippet_panels
 
+from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels import customblocks
-from networkapi.wagtailpages.pagemodels import orderables
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
+
+
+if typing.TYPE_CHECKING:
+    from networkapi.wagtailpages.models import BuyersGuideContentCategory, Profile
 
 
 class BuyersGuideArticlePage(
@@ -80,13 +86,28 @@ class BuyersGuideArticlePage(
         context = super().get_context(request, *args, **kwargs)
         return context
 
-    def get_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
-        return self.related_article_relations.related_items()
+    def get_author_profiles(self) -> list['Profile']:
+        return orderables.get_related_items(
+            self.author_profile_relations.all(),
+            'author_profile',
+        )
 
-    def get_primary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+    def get_content_categories(self) -> list['BuyersGuideContentCategory']:
+        return orderables.get_related_items(
+            self.content_category_relations.all(),
+            'content_category',
+        )
+
+    def get_related_articles(self) -> list['BuyersGuideArticlePage']:
+        return orderables.get_related_items(
+            self.related_article_relations.all(),
+            'article',
+        )
+
+    def get_primary_related_articles(self) -> list['BuyersGuideArticlePage']:
         return self.get_related_articles()[:3]
 
-    def get_secondary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+    def get_secondary_related_articles(self) -> list['BuyersGuideArticlePage']:
         return self.get_related_articles()[3:]
 
 
@@ -102,18 +123,17 @@ class BuyersGuideArticlePageAuthorProfileRelation(
     author_profile = models.ForeignKey(
         'wagtailpages.Profile',
         on_delete=models.CASCADE,
-        related_name='+',
         null=False,
         blank=False,
     )
 
     panels = [snippet_panels.SnippetChooserPanel('author_profile')]
 
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "author_profile"
-
     def __str__(self):
         return f'{self.page.title} -> {self.author_profile.name}'
+
+    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
+        pass
 
 
 class BuyersGuideArticlePageContentCategoryRelation(
@@ -128,18 +148,17 @@ class BuyersGuideArticlePageContentCategoryRelation(
     content_category = models.ForeignKey(
         'wagtailpages.BuyersGuideContentCategory',
         on_delete=models.CASCADE,
-        related_name='+',
         null=False,
         blank=False,
     )
 
     panels = [snippet_panels.SnippetChooserPanel('content_category')]
 
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "content_category"
-
     def __str__(self):
         return f'{self.page.title} -> {self.content_category.title}'
+
+    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
+        pass
 
 
 class BuyersGuideArticlePageRelatedArticleRelation(
@@ -153,15 +172,14 @@ class BuyersGuideArticlePageRelatedArticleRelation(
     article = models.ForeignKey(
         'wagtailpages.BuyersGuideArticlePage',
         on_delete=models.CASCADE,
-        related_name='+',
         null=False,
         blank=False,
     )
 
     panels = [panels.PageChooserPanel('article')]
 
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "article"
-
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
+
+    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
+        pass

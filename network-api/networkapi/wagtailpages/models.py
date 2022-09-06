@@ -108,7 +108,10 @@ from .pagemodels.buyersguide.article_page import (
     BuyersGuideArticlePageContentCategoryRelation,
     BuyersGuideArticlePageRelatedArticleRelation,
 )
-from .pagemodels.buyersguide.editorial_content_index import BuyersGuideEditorialContentIndexPage
+from .pagemodels.buyersguide.editorial_content_index import (
+    BuyersGuideEditorialContentIndexPage,
+    BuyersGuideEditorialContentIndexPageArticlePageRelation,
+)
 from .pagemodels.buyersguide.homepage import (
     BuyersGuidePage,
     BuyersGuidePageHeroSupportingArticleRelation,
@@ -117,6 +120,8 @@ from .pagemodels.buyersguide.homepage import (
 )
 from .pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
+    BuyersGuideProductCategoryArticlePageRelation,
+    BuyersGuideProductPageArticlePageRelation,
     GeneralProductPage,
     ProductPage,
     ProductPageCategory,

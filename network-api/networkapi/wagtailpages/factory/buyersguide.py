@@ -44,6 +44,21 @@ def get_lowest_content_page_category():
     )[0][1]
 
 
+class BuyersGuideProductCategoryArticlePageRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideProductCategoryArticlePageRelation
+
+
+class BuyersGuideProductPageArticlePageRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideProductPageArticlePageRelation
+
+
+class BuyersGuideEditorialContentIndexPageArticlePageRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideEditorialContentIndexPageArticlePageRelation
+
+
 class ProductUpdateFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.Update
@@ -394,32 +409,67 @@ def generate(seed):
             )
         articles.append(article)
 
-    # Hero article
+    # Buyerguide homepage hero article
     pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()
     pni_homepage.full_clean()
     pni_homepage.save()
-    # Hero supporting articles
+    # Buyerguide homepage hero supporting articles
     supporting_articles = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
-    for article in supporting_articles:
+    for index, article in enumerate(supporting_articles):
         BuyersGuidePageHeroSupportingArticleRelationFactory(
             page=pni_homepage,
             article=article,
+            sort_order=index,
         )
-
-    # # Featured articles
+    # Buyersguide homepage featured articles
     featured_articles = get_random_objects(
         source=pagemodels.BuyersGuideArticlePage.objects.exclude(id__in=supporting_articles),
         exact_count=3,
     )
-    for article in featured_articles:
+    for index, article in enumerate(featured_articles):
         BuyersGuidePageFeaturedArticleRelationFactory(
             page=pni_homepage,
             article=article,
+            sort_order=index,
         )
-
-    # Featured product updates
-    for update in get_random_objects(pagemodels.Update, exact_count=3):
+    # Buyersguide homepage featured product updates
+    for index, update in enumerate(
+        get_random_objects(pagemodels.Update, exact_count=3)
+    ):
         BuyersGuidePageFeaturedUpdateRelationFactory(
             page=pni_homepage,
             update=update,
+            sort_order=index,
         )
+
+    # Adding related articles to the Editorial Content Index Page
+    for index, article in enumerate(
+        get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
+    ):
+        BuyersGuideEditorialContentIndexPageArticlePageRelationFactory(
+            page=editorial_content_index,
+            article=article,
+            sort_order=index,
+        )
+
+    # Adding related articles to Product Pages
+    for product in pagemodels.ProductPage.objects.all():
+        for index, article in enumerate(
+            get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=5)
+        ):
+            BuyersGuideProductPageArticlePageRelationFactory(
+                product=product,
+                article=article,
+                sort_order=index,
+            )
+
+    # Adding related articles to Categories
+    for product_category in pagemodels.BuyersGuideProductCategory.objects.all():
+        for index, article in enumerate(
+            get_random_objects(pagemodels.BuyersGuideArticlePage, max_count=6)
+        ):
+            BuyersGuideProductCategoryArticlePageRelationFactory(
+                category=product_category,
+                article=article,
+                sort_order=index,
+            )

@@ -1,5 +1,6 @@
-import re
 import json
+import re
+import typing
 
 from bs4 import BeautifulSoup
 from django.conf import settings
@@ -12,6 +13,7 @@ from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext
+from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.core.models import Orderable, Page, TranslatableMixin
@@ -23,15 +25,16 @@ from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail_airtable.mixins import AirtableMixin
 
+from networkapi.utility import orderables
 from networkapi.wagtailpages.forms import BuyersGuideProductCategoryForm
 from networkapi.wagtailpages.fields import ExtendedYesNoField
-from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
-    FoundationMetadataPageMixin
-)
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
 )
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
+from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
+    FoundationMetadataPageMixin
+)
 from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
 from networkapi.wagtailpages.utils import (
     TitleWidget,
@@ -39,6 +42,10 @@ from networkapi.wagtailpages.utils import (
     get_original_by_slug,
     get_language_from_request,
 )
+
+if typing.TYPE_CHECKING:
+    from networkapi.wagtailpages.models import BuyersGuideArticlePage
+
 
 TRACK_RECORD_CHOICES = [
     ('Great', 'Great'),
@@ -49,7 +56,13 @@ TRACK_RECORD_CHOICES = [
 
 
 @register_snippet
-class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnippet, models.Model):
+class BuyersGuideProductCategory(
+    index.Indexed,
+    TranslatableMixin,
+    LocalizedSnippet,
+    # models.Model
+    cluster_models.ClusterableModel,
+):
     """
     A simple category class for use with Buyers Guide products,
     registered as snippet so that we can moderate them if and
@@ -113,11 +126,18 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
         FieldPanel('hidden'),
         FieldPanel('sort_order'),
         ImageChooserPanel('share_image'),
+        InlinePanel(
+            'related_article_relations',
+            heading='Related articles',
+            label='Article',
+            max_num=6,
+        ),
     ]
 
     translatable_fields = [
         TranslatableField('name'),
         TranslatableField('description'),
+        TranslatableField('related_article_relations'),
         SynchronizedField('slug'),
         SynchronizedField('share_image'),
         SynchronizedField('parent'),
@@ -132,6 +152,18 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
 
     def get_children(self):
         return BuyersGuideProductCategory.objects.filter(parent=self)
+
+    def get_related_articles(self) -> list['BuyersGuideArticlePage']:
+        return orderables.get_related_items(
+            self.related_article_relations.all(),
+            'article',
+        )
+
+    def get_primary_related_articles(self) -> list['BuyersGuideArticlePage']:
+        return self.get_related_articles()[:3]
+
+    def get_secondary_related_articles(self) -> list['BuyersGuideArticlePage']:
+        return self.get_related_articles()[3:]
 
     def __str__(self):
         if self.parent is None:
@@ -158,6 +190,27 @@ class BuyersGuideProductCategory(index.Indexed, TranslatableMixin, LocalizedSnip
             'sort_order',
             'name'
         ]
+
+
+class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable):
+    category = ParentalKey(
+        'wagtailpages.BuyersGuideProductCategory',
+        related_name='related_article_relations',
+    )
+    article = models.ForeignKey(
+        'wagtailpages.BuyersGuideArticlePage',
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+    )
+
+    panels = [PageChooserPanel('article')]
+
+    def __str__(self):
+        return f'{self.category.name} -> {self.article.title}'
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
 
 
 class ProductPageVotes(models.Model):
@@ -818,6 +871,17 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             ],
             heading='Related Products',
         ),
+        MultiFieldPanel(
+            [
+                InlinePanel(
+                    'related_article_relations',
+                    heading='Related articles',
+                    label='Article',
+                    max_num=5,
+                ),
+            ],
+            heading='Related Articles',
+        ),
     ]
 
     translatable_fields = [
@@ -883,6 +947,18 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'{self.title} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
         return context
+
+    def get_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+        return orderables.get_related_items(
+            self.related_article_relations.all(),
+            'article',
+        )
+
+    def get_primary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+        return self.get_related_articles()[:3]
+
+    def get_secondary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+        return self.get_related_articles()[3:]
 
     def serve(self, request, *args, **kwargs):
         # In Wagtail we use the serve() method to detect POST submissions.
@@ -954,6 +1030,27 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
     class Meta:
         verbose_name = "Product Page"
+
+
+class BuyersGuideProductPageArticlePageRelation(TranslatableMixin, Orderable):
+    product = ParentalKey(
+        'wagtailpages.ProductPage',
+        related_name='related_article_relations',
+    )
+    article = models.ForeignKey(
+        'wagtailpages.BuyersGuideArticlePage',
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+    )
+
+    panels = [PageChooserPanel('article')]
+
+    def __str__(self):
+        return f'{self.product.name} -> {self.article.title}'
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
 
 
 class GeneralProductPage(ProductPage):

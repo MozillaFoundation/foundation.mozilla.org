@@ -17,7 +17,7 @@
                   {% include "fragments/buyersguide/article_card.html" with page=item %}
                 {% else %}
                   {% include "fragments/buyersguide/product_update_card.html" with update=item %}
-                {% endif %}  
+                {% endif %}
               {% endwith %}
             </div>
           {% endfor %}
@@ -28,5 +28,19 @@
         <div class="tw-col-span-12 large:tw-col-span-4 tw-row-start-4 large:tw-row-start-1 tw-col-start-1 large:tw-col-start-9 large:tw-border-none">
         </div>
     </div>
-</div>
+  </div>
+
+  {% with related_articles=page.get_related_articles %}
+      {% if related_articles %}
+        <div>
+          <h3>Popular</h3>
+
+          <ul>
+            {% for article in related_articles %}
+              <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+  {% endwith %}
 {% endblock guts %}

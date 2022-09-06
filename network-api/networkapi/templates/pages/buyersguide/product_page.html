@@ -27,7 +27,25 @@
 {% block body_id %}product-page{% endblock %}
 
 {% block guts %}
+
 {% get_bg_home_page as home_page %}
+
+{% with primary_related_articles=product.get_primary_related_articles  %}
+  {% if primary_related_articles %}
+    <div class="tw-pl-5">
+      <h2>Related</h2>
+
+      <p> Primary related articles (first 3 of list of max 5)</p>
+
+      <ul>
+        {% for article in primary_related_articles %}
+          <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endwith %}
+
 <div class="text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">
   <div class="tw-container tw-block medium:tw-grid tw-grid-cols-12 tw-gap-x-6">
     <div class="tw-col-start-3 tw-col-end-11 tw--mx-4 medium:tw--mx-6">
@@ -168,6 +186,22 @@
     </div>
   </div>
 </div>
+
+{% with secondary_related_articles=product.get_secondary_related_articles  %}
+  {% if secondary_related_articles %}
+    <div class="tw-pl-5">
+      <h2>What to read next</h2>
+
+      <p>Secondary related articles (last 3 of list of max 5)</p>
+
+      <ul>
+        {% for article in secondary_related_articles %}
+          <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endwith %}
 
 {% if use_commento %}
 
