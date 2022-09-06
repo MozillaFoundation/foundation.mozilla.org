@@ -1,0 +1,48 @@
+{% load i18n static %}
+<section class="tw-relative tw-mt-6 medium:tw-mt-7">
+  <img class="tw-hidden large:tw-block tw-absolute tw-right-0 tw-bottom-0 large:tw-max-w-[200px] xlarge:tw-max-w-[250px] 2xl:tw-max-w-[300px] tw-z-0" src="{% static "_images/youtube-regrets/regrets-reporter/what-is-a-youtube-regret-desktop.png" %}" alt="">
+  <img class="tw-hidden large:tw-block tw-absolute tw-left-0 tw-bottom-0 large:tw-max-w-[200px] xlarge:tw-max-w-[250px] 2xl:tw-max-w-[300px] tw-z-0" src="{% static "_images/youtube-regrets/regrets-reporter/what-is-a-youtube-regret-desktop.png" %}" alt="">
+
+  <div class="container tw-dark rich-text tw-relative tw-z-10">
+    <div class="tw-space-y-4 tw-max-w-3xl tw-mx-auto">
+      <h2>{% trans 'People feel like they don’t have control over their YouTube recommendations...' %}</h2>
+      <p>
+        {% blocktrans with 2021_report_link='https://assets.mofoprod.net/network/documents/Mozilla_YouTube_Regrets_Report.pdf' trimmed %}
+          Our <a href="{{ 2021_report_link }}">2021 investigation into YouTube’s recommender system</a> uncovered a range of problems on the platform: an opaque algorithm, inconsistent oversight, and geographic inequalities. We also learned that people feel they don’t have control over their YouTube experience — particularly the videos that are recommended to them.
+        {% endblocktrans %}
+      </p>
+      <p>
+        {% blocktrans with tools_link="https://support.google.com/youtube/answer/6342839" trimmed %}
+          YouTube says that people can manage their video recommendations through <a href="{{ tools_link }}">the feedback tools the platform offers.</a> But do YouTube’s user controls actually work?
+        {% endblocktrans %}
+      </p>
+
+      {# This acts as a section separator #}
+      <h2 class="tw-py-6 medium:tw-pt-[60px] medium:tw-pb-[115px]">{% trans 'and our study shows that they really don’t.' %}</h2>
+
+      {# mobile only image #}
+      <img class="w-full large:tw-hidden" src="{% static "_images/youtube-regrets/regrets-reporter/what-is-a-youtube-regret-mobile.png" %}" alt="">
+
+      <p class="tw-h4-heading tw-font-sans medium:tw-text-[1.625rem] tw-font-light">
+        {% trans 'Our work is the first-ever experimental audit of YouTube by independent researchers, powered by Mozilla’s RegretsReporter.' %}
+      </p>
+      <p>
+        {% blocktrans with reporter_link='https://foundation.mozilla.org/campaigns/regrets-reporter/' trimmed %}
+          Using <a href="{{ reporter_link }}">RegretsReporter</a>, an open source tool Mozilla built to study YouTube’s recommendation algorithm, we were able to independently audit YouTube.
+        {% endblocktrans %}
+      </p>
+      <ul>
+        <li>
+          {% trans 'We combined qualitative and quantitative insights to paint a more complete picture of the effectiveness — or rather, ineffectiveness — of YouTube’s controls.' %}
+        </li>
+        <li>
+          {% trans 'We leveraged a massive-scale community to collect our data.' %}
+        </li>
+        <li>
+          {% trans 'We applied rigorous and powerful research methods including a randomized controlled experiment and a machine learning model.' %}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</section>

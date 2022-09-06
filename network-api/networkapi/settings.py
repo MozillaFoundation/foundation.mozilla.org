@@ -477,6 +477,7 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'networkapi/wagtailpages/templates/buyersguide/locale'),
     os.path.join(BASE_DIR, 'networkapi/wagtailpages/templates/wagtailpages/pages/locale'),
     os.path.join(BASE_DIR, 'networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale'),
+    os.path.join(BASE_DIR, 'networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale'),
 )
 
 

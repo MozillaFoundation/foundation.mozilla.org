@@ -167,7 +167,7 @@ class ProductPageFactory(PageFactory):
     @post_generation
     def set_random_creepiness(self, create, extracted, **kwargs):
         self.get_or_create_votes()
-        single_vote = [0, 0, 0, 0, 1]
+        single_vote = [0, 0, 0, 0, 0]
         shuffle(single_vote)
         self.votes.set_votes(single_vote)
         self.creepiness_value = randint(0, 100)

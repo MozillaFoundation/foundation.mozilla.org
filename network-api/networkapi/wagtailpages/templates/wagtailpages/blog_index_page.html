@@ -75,7 +75,7 @@
     <ul id="index-entries" class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-5 tw-gap-y-4 tw-list-none tw-divide-y tw-divide-gray-20 tw-px-[15px] medium:tw-divide-y-0">
       {% include "./fragments/entry_cards_item_loop.html" %}   
 
-      {% if not filtered %}
+      {% if not filtered and related_topics %}
         <li class="tw-m-0 tw-pt-5 tw-border-none tw-pb-7 -tw-mb-6 tw-bg-white tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3 tw-row-start-3 medium:tw-row-start-2 large:tw-row-start-1">
           {% include "./fragments/related_topics_cutout.html" with topics=related_topics %}
         </li>

@@ -195,24 +195,24 @@ class JoinUs extends Component {
           this.apiSubmissionSuccessful();
         })
         .catch((e) => this.apiSubmissionFailure(e));
+
+      ReactGA.event({
+        category: `signup`,
+        action: `form submit tap`,
+        label: `Signup submitted from ${
+          this.props.formPosition ? this.props.formPosition : document.title
+        }`,
+      });
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "form_submission",
+        form_type: "newsletter_signup",
+        form_location: this.props.formPosition || null,
+        country: this.country?.element.value,
+        language: this.state.lang,
+      });
     }
-
-    ReactGA.event({
-      category: `signup`,
-      action: `form submit tap`,
-      label: `Signup submitted from ${
-        this.props.formPosition ? this.props.formPosition : document.title
-      }`,
-    });
-
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "form_submission",
-      form_type: "newsletter_signup",
-      form_location: this.props.formPosition || null,
-      country: this.country?.element.value,
-      language: this.state.lang,
-    });
   }
 
   /**

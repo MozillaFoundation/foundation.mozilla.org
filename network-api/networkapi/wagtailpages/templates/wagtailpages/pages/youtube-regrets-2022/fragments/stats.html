@@ -1,0 +1,20 @@
+{% load static i18n l10n humanize %}
+
+<div class="container tw-dark tw-my-5 medium:tw-my-7">
+   {% with participants=22722 videos_analyzed=567880195 people_surveyed=2758 %}
+    <div class="tw-flex tw-gap-6 tw-flex-col medium:tw-flex-wrap medium:tw-flex-row tw-justify-evenly tw-mb-5">
+      <div class="stat tw-text-white" >
+        <p class="stat__number" id="participants-count" data-stat="{{ participants }}">{{ participants|intcomma }}</p>
+        <p class="stat__label">{% trans "Participants" %}</p>
+      </div>
+      <div class="stat tw-text-white">
+        <p class="stat__number" id="videos-analyzed-count" data-stat="{{ videos_analyzed }}" data-stat-delay="250">{{ videos_analyzed|intcomma }}</p>
+        <p class="stat__label">{% trans "Videos Analyzed" %}</p>
+      </div>
+      <div class="stat tw-text-white">
+        <p class="stat__number" id="people-surveyed-count" data-stat="{{ people_surveyed }}" data-stat-delay="500">{{ people_surveyed|intcomma }}</p>
+        <p class="stat__label">{% trans "People Surveyed" %}</p>
+      </div>
+    </div>
+    {% endwith %}
+</div>

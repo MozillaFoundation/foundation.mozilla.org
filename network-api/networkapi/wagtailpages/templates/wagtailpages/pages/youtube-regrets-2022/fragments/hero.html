@@ -1,0 +1,26 @@
+{% load static i18n youtube_tags %}
+<div class="container tw-dark tw-py-[40px]">
+  <div class="tw-relative medium:tw-min-h-[600px] large:tw-min-h-[850px] tw-grid medium:tw-grid-cols-2">
+
+    {# images swapped on mobile and desktop #}
+    <div>
+      <img class="medium:tw-hidden" src="{% static "_images/youtube-regrets/regrets-reporter/report-findings-hero-mobile.png" %}" alt="">
+      <img class="tw-hidden medium:tw-block tw-absolute medium:tw-left-[-10%] medium:tw-top-1/2 medium:tw--translate-y-1/2 tw-w-full" src="{% static "_images/youtube-regrets/regrets-reporter/report-findings-hero-desktop.png" %}" alt="">
+    </div>
+
+    <div class="tw-relative tw-space-y-5 medium:tw-space-y-6 tw-flex tw-flex-col tw-justify-center tw-items-start">
+      <h1 class="tw-mb-0 tw-leading-none tw-font-bold tw-text-4xl medium:tw-text-[3.25rem]">{% trans "Does this button work?" %}</h1>
+      <p class="tw-body-large large:tw-text-2xl">
+        {% blocktrans trimmed %}
+          <span class="tw-font-bold">Investigating YouTube's ineffective user controls</span> powered by 22,722 volunteers, Mozilla scrutinized YouTube to determine how much control people actually have over the platform’s recommendation algorithm.
+          <span class="tw-italic">This is what we learned</span>.
+        {% endblocktrans %}
+      </p>
+      <a href="https://foundation.mozilla.org/research/library/user-controls/report/" class="btn btn-with-icon btn-red">
+        <svg aria-hidden="true" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 3.395h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2v-15ZM22 3.395h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7v-15Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        {% trans "Read the Full Report" %}
+      </a>
+    </div>
+  </div>
+</div>
+

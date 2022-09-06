@@ -1,0 +1,19 @@
+{% load i18n l10n humanize %}
+
+<div class="standout-stat stat {% if classes %}{{ classes }}{% endif %}">
+  {% if heading %}
+    <p class="standout-stat__heading mb-0">{{ heading }}</p>
+  {% endif %}
+
+  <div class="standout-stat__wrap">
+    <p class="standout-stat__number {% if smaller %}standout-stat__number--smaller{% endif %}"
+       {% if id %}id="{{ id }}"{% endif %}
+       data-stat="{{ number }}"
+       data-stat-suffix="{{ suffix }}"
+       data-stat-prefix="{{ prefix }}"
+    >
+      {{ number|intcomma }}
+    </p>
+    <p class="standout-stat__label mb-0 text-uppercase">{{ label }}</p>
+  </div>
+</div>

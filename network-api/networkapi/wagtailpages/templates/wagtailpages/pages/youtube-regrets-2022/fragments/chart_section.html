@@ -1,0 +1,55 @@
+{% load static i18n %}
+<section class="tw-flex tw-flex-col tw-justify-center tw-items-center tw-my-7 medium:tw-my-[80px]">
+  <img src="{% static "_images/youtube-regrets/regrets-reporter/our-research-desktop.png" %}" alt="">
+  <div class="container tw-mt-5 medium:tw-mt-7 tw-space-y-7 medium:tw-space-y-[80px]">
+    <div class="tw-text-center tw-max-w-3xl tw-mx-auto">
+      {% blocktrans trimmed %}
+        <h2 class="tw-text-4xl medium:tw-text-[3.25rem] tw-leading-none">The result? People can’t escape bad recommendations.</h2>
+        <p>In the quantitative portion of our study, we ran a randomized controlled experiment across our community of RegretsReporter participants that could directly test the effectiveness of YouTube’s user controls. We found that YouTube’s user controls somewhat influence what is recommended, but this effect is meager and most unwanted videos still slip through.</p>
+      {% endblocktrans %}
+    </div>
+
+    {# Chart #}
+    <div class="tw-max-w-4xl tw-mx-auto tw-text-center">
+      <div class="tw-mb-5">
+        {% blocktrans trimmed %}
+          <p class="tw-uppercase tw-text-2xl tw-font-bold tw-mb-0">Percentage of Bad Recommendations</p>
+          <p class="tw-italic tw-text-xl">among all video pairs assessed by our research assistants</p>
+        {% endblocktrans %}
+      </div>
+      <iframe aria-label="{% trans 'YouTube Percentage of Bad Recommendations Chart' %}"
+              class="tw-w-0 tw-min-w-full tw-border-none"
+              src="https://datawrapper.dwcdn.net/kl3jI/7/">
+      </iframe>
+    </div>
+
+    <div class="tw-flex tw-flex-col small:tw-flex-row tw-justify-start tw-items-start tw-gap-6 tw-max-w-4xl tw-mx-auto">
+      <img src="https://placehold.co/256x168" alt="">
+      <div>
+        {% blocktrans trimmed %}
+          <p class="tw-font-bold tw-text-xl tw-mb-2">What is a bad recommendation?</p>
+          <p>In our experiment, a “bad recommendation” is when YouTube recommends videos to users that are similar to a video they had previously rejected (clicked “Stop Recommending”). We determined whether videos were similar by relying on assessments by our research assistants and our machine learning video similarity model.</p>
+        {% endblocktrans %}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{# Extra script for the data wrapper iframe #}
+{% block extra_scripts %}
+  <script type="text/javascript" nonce="{{ request.csp_nonce }}">
+    !function () {
+      "use strict";
+      window.addEventListener("message", (function (e) {
+        if (void 0 !== e.data["datawrapper-height"]) {
+          var t = document.querySelectorAll("iframe");
+          for (var a in e.data["datawrapper-height"]) for (var r = 0; r < t.length; r++) {
+            if (t[r].contentWindow === e.source) t[r].style.height = e.data["datawrapper-height"][a] + "px"
+          }
+        }
+      }))
+    }();
+  </script>
+{% endblock %}
+
