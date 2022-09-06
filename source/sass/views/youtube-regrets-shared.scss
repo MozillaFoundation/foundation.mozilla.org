@@ -11,8 +11,8 @@
         $youtube-regrets-dark-blue 26.46%,
         $black 57.83%,
         $black 100%
-    ),
-    linear-gradient(0deg, $black, $black);
+      ),
+      linear-gradient(0deg, $black, $black);
     border-radius: 0 0 30px 30px;
     overflow: hidden;
   }
@@ -68,6 +68,8 @@
 
   .btn {
     padding: 12px 20px;
+    font-weight: 800;
+    font-family: $font-nunito;
   }
 
   .btn-with-icon {
