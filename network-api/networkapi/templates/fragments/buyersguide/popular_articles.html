@@ -15,7 +15,7 @@
         {% endfor %}
     </ul>
 
-    {% with home_page.get_editorial_content_index as editorial_content_index  %}
+    {% with page.get_editorial_content_index as editorial_content_index  %}
         {% if editorial_content_index %}
             <a href="{% pageurl editorial_content_index %}" class="tw-font-sans tw-font-bold tw-text-blue-80 tw-text-base tw-leading-5 tw-flex tw-no-underline">
                 {% trans "All Articles" %}
