@@ -1,8 +1,16 @@
-{% load static %}
+{% load static wagtailcore_tags %}
 
 <div class="tw-bg-gradient-to-b tw-from-yellow-10 tw-to-purple-05">
-  <a href="{{ link_href  }}" class="tw-font-sans tw-font-bold tw-text-blue-80 tw-text-base tw-leading-5 tw-flex tw-no-underline">
-    {{ link_text }}
-    <img src="{% static "_images/buyers-guide/arrow-right.svg" %}" class="tw-ml-1 " />
-  </a>
+  <div class="tw-h3-heading">
+    {{ heading }}
+  </div>
+  <div class="tw-text-base tw-leading-6">
+    {{ body|richtext }}
+  </div>
+  <div>
+    <a href="{{ link_href  }}" class="tw-font-sans tw-font-bold tw-text-blue-80 tw-text-base tw-leading-5 tw-flex tw-no-underline">
+      {{ link_text }}
+      <img src="{% static "_images/buyers-guide/arrow-right.svg" %}" class="tw-ml-1 " />
+    </a>
+  </div>
 </div>
