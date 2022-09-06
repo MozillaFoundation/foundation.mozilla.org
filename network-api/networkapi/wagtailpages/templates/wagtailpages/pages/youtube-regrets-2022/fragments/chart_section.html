@@ -38,7 +38,7 @@
 
 {# Extra script for the data wrapper iframe #}
 {% block extra_scripts %}
-  <script type="text/javascript">
+  <script type="text/javascript" nonce="{{ request.csp_nonce }}">
     !function () {
       "use strict";
       window.addEventListener("message", (function (e) {
