@@ -166,6 +166,8 @@
         {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pni-pink" name="PNI Pink ($pni-pink)" hex="#e4487d" %}
 
         {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-pni-blue tw-to-pni-pink" name="PNI Gradient ($pni-gradient)" hex="linear-gradient(to right, #1808f2 0%, #e4487d 100%)" %}
+
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-yellow-10 tw-to-purple-05" name="PNI CTA Gradient" hex="" %}
       </div>
 
       <h3 class="tw-h2-heading tw-mt-7 tw-group" id="festival-palette">
@@ -851,6 +853,17 @@
           <img src="{% static "_images/audio_pause_button.svg" %}" class="tw-w-1/12 tw-h-auto">
           <img src="{% static "_images/404.svg" %}" class="tw-w-1/12 tw-h-auto">
         </div>
+      </div>
+
+      <div>
+        <h2 class="tw-h1-heading tw-mt-7 tw-group" id="buyersguide">
+          <span>Buyer's Guide</span>
+          <a href="#buyersguide" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+        </h2>
+
+        <hr class="hr-emphasis">
+
+        {% include "fragments/buyersguide/call_to_action_box.html" with link_text="Donate today" link_href="https://example.com" %}
       </div>
 
       {% if page.body|length != 0 %}
