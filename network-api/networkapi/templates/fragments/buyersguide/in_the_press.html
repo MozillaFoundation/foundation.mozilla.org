@@ -1,0 +1,26 @@
+{% load static wagtailcore_tags wagtailimages_tags i18n %}
+<div>
+    <img src="{% static "_images/buyers-guide/long-wavy-border.svg" %}" class="tw-w-full" />
+    <h2 class="tw-font-zilla tw-font-normal tw-text-2xl tw-text-black tw-mt-2 tw-mb-[20px]">{% trans "In the press" %}</h2>
+
+    <ul class="tw-list-none tw-space-y-4 tw-p-0">
+        {% for update in product_updates %}
+            <li class="tw-m-0 tw-min-h-[78px] tw-flex tw-flex-col tw-justify-center" >
+                <div class="tw-font-sans tw-font-bold tw-text-lg">{{ update.title }}</div>
+                <a href="{{ update.source }}" class= "tw-font-sans tw-font-bold tw-text-blue-40 tw-items-center tw-text-sm tw-no-underline tw-flex">
+                   <span class="tw-line-clamp-1">{{ update.author }}</span>
+                    <img src="{% static "_images/buyers-guide/external-link-blue.svg" %}" class="tw-ml-2" />
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% with page.get_editorial_content_index as editorial_content_index  %}
+        {% if editorial_content_index %}
+            <a href="{% pageurl editorial_content_index %}" class="tw-font-sans tw-font-bold tw-text-blue-80 tw-text-base tw-leading-5 tw-flex tw-no-underline">
+                {% trans "All Press" %}
+                <img src="{% static "_images/buyers-guide/arrow-right.svg" %}" class="tw-ml-1 " />
+            </a>
+        {% endif %}
+    {% endwith %}
+</div>
