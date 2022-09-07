@@ -1,0 +1,42 @@
+{% load i18n static youtube_tags %}
+<div class="recommendations tw-dark" id="recommendations">
+  <div class="container">
+    <picture class="d-block mb-5">
+      <source class="w-100" srcset="{% static '_images/youtube-regrets/recommendations/recommendations-desktop.png' %}" media="(min-width: 768px)">
+      <source class="w-100" srcset="{% static '_images/youtube-regrets/recommendations/recommendations-mobile.png' %}">
+      <img class="w-100" src="{% static '_images/youtube-regrets/recommendations/recommendations-desktop.png' %}" alt="">
+    </picture>
+    <div class="row d-flex flex-row justify-content-center">
+      <div class="col-lg-8">
+        <h2 class="text-white recommendations__title">{% trans "Our main recommendation is that YouTube should enable people to shape what they see." %}</h2>
+        <p class="recommendations__recommendation">
+          {% blocktrans trimmed %}
+          <span class="recommendations__accent">YouTube’s user controls should be easy to understand and access.</span> People should be provided with clear information about the steps they can take to influence their recommendations, and should be empowered to use those tools.
+          {% endblocktrans %}
+        </p>
+        <hr class="recommendations__divider" />
+        <p class="recommendations__recommendation">
+          {% blocktrans trimmed %}
+          <span class="recommendations__accent">YouTube should design its feedback tools in a way that puts people in the driver’s seat.</span> Feedback tools should enable people to proactively shape their experience, with user feedback given more weight in determining what videos are recommended.
+          {% endblocktrans %}
+        </p>
+        <hr class="recommendations__divider" />
+        <p class="recommendations__recommendation">
+          {% blocktrans trimmed %}
+          <span class="recommendations__accent">YouTube should enhance its data access tools.</span> YouTube should provide researchers with access to better tools that allow them to assess the signals that impact YouTube's algorithm.
+          {% endblocktrans %}
+        </p>
+        <hr class="recommendations__divider" />
+        <p class="recommendations__recommendation">
+          {% blocktrans trimmed %}
+          <span class="recommendations__accent">Policymakers should protect public interest researchers.</span> Policymakers should pass and/or clarify laws that provide legal protections for public interest research.
+          {% endblocktrans %}
+        </p>
+        <p class="text-white tw-italic">
+          {% trans "People who use YouTube can get informed about how YouTube recommendations work and download " %}<a href="https://foundation.mozilla.org/campaigns/regrets-reporter/">RegretsReporter</a>{% trans " to contribute data to future crowdsourced research." %}
+        </p>
+        <p class="text-white tw-italic">{% trans "Mozilla will continue to operate RegretsReporter as an independent tool for scrutinizing YouTube’s recommendation algorithm. We’ll run research experiments, analyze data, and publish our findings." %}</p>
+      </div>
+    </div>
+  </div>
+</div>

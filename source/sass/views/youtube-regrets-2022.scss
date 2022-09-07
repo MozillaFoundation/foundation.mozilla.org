@@ -1,0 +1,100 @@
+.youtube-regrets-2022 {
+  .recommendations {
+    background-color: $black;
+    padding-top: 85px;
+
+    &__title {
+      font-size: 30px;
+      line-height: calc(34 / 30);
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 52px;
+        line-height: calc(60 / 52);
+      }
+    }
+
+    &__recommendation {
+      font-size: 24px;
+      line-height: calc(30 / 24);
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 28px;
+        line-height: calc(30 / 28);
+      }
+      font-family: $font-family-slab-serif;
+      color: $white;
+      margin: 34px 0;
+
+      @media (min-width: $bp-md) {
+        margin: 72px 0;
+      }
+    }
+
+    &__accent {
+      font-weight: 600;
+    }
+
+    &__divider {
+      width: 118px;
+    }
+  }
+
+  .downloads-section {
+    background-color: $black;
+    padding: 150px 0 100px;
+
+    @media (min-width: $bp-md) {
+      padding: 230px 0 200px;
+    }
+  }
+
+  .btn-download {
+    $icon-width: 50px;
+
+    position: relative;
+    background: $youtube-regrets-dark-red;
+    color: $white;
+    padding-left: $icon-width;
+    padding-right: $icon-width * 0.3;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+
+    &:before,
+    &:after {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      width: $icon-width;
+      top: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    &:before {
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: brightness(0) invert(100%);
+      background-image: url(../_images/youtube-regrets/regrets-reporter/icon-download.svg);
+    }
+
+    &.btn-pen {
+      background: $youtube-regrets-dark-red;
+      color: $white;
+
+      &:before {
+        background-image: url(../_images/youtube-regrets/regrets-reporter/icon-pen.svg);
+        filter: none;
+      }
+    }
+
+    &.btn-book {
+      background: $white;
+      color: $youtube-regrets-dark-red;
+
+      &:before {
+        background-image: url(../_images/youtube-regrets/regrets-reporter/icon-book.svg);
+        filter: none;
+      }
+    }
+  }
+}
