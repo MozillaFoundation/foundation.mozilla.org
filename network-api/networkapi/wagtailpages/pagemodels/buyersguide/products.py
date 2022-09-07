@@ -115,6 +115,14 @@ class BuyersGuideProductCategory(
         help_text='Optional image that will apear when category page is shared.',
     )
 
+    call_to_action = models.ForeignKey(
+          'wagtailpages.BuyersGuideCallToAction',
+          null=True,
+          blank=True,
+          on_delete=models.SET_NULL,
+          related_name='+'
+      )
+
     panels = [
         FieldPanel(
             'name',
@@ -132,6 +140,7 @@ class BuyersGuideProductCategory(
             label='Article',
             max_num=6,
         ),
+        SnippetChooserPanel('call_to_action'),
     ]
 
     translatable_fields = [
@@ -141,6 +150,7 @@ class BuyersGuideProductCategory(
         SynchronizedField('slug'),
         SynchronizedField('share_image'),
         SynchronizedField('parent'),
+        SynchronizedField('call_to_action'),
     ]
 
     @property

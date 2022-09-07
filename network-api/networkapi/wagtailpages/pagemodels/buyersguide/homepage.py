@@ -90,6 +90,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         default=datetime(2020, 10, 29),
     )
 
+    call_to_action = models.ForeignKey(
+          'wagtailpages.BuyersGuideCallToAction',
+          null=True,
+          blank=True,
+          on_delete=models.SET_NULL,
+          related_name='+'
+      )
+
     # TODO: Remove this field
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -157,6 +165,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             ],
             heading="Product listing",
         ),
+        SnippetChooserPanel('call_to_action'),
     ]
 
     translatable_fields = [
@@ -167,6 +176,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('hero_supporting_articles_heading'),
         SynchronizedField('cutoff_date'),
         SynchronizedField('excluded_categories'),
+        SynchronizedField('call_to_action'),
         # Promote tab fields
         TranslatableField('seo_title'),
         TranslatableField('search_description'),
