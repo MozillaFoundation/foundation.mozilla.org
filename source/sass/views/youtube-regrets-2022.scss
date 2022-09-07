@@ -1,7 +1,6 @@
 @import "../../../node_modules/locomotive-scroll/dist/locomotive-scroll";
 
 .youtube-regrets-2022 {
-
   .timeline {
     position: relative;
     width: 100%;
@@ -20,7 +19,7 @@
       align-items: center;
       width: 100%;
 
-       > h2 {
+      > h2 {
         font-weight: 700;
       }
 
@@ -39,6 +38,10 @@
       &:last-of-type {
         padding-bottom: 0;
       }
+
+      &--double-top-padding {
+        padding-top: 32vh;
+      }
     }
 
     &__scene-text {
@@ -55,4 +58,8 @@
 }
 
 //Fix for images dissapearing https://github.com/locomotivemtl/locomotive-scroll/issues/435
-[data-scroll-container], [data-scroll-section] { transform-style: preserve-3d; will-change: transform; }
+[data-scroll-container],
+[data-scroll-section] {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
