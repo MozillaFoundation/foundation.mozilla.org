@@ -1,12 +1,15 @@
 from wagtail.snippets.models import register_snippet
 from django.db import models
 from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel
+from wagtail.admin.edit_handlers import  FieldPanel, PageChooserPanel, MultiFieldPanel, HelpPanel
 from wagtail.core.models import Page, TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail.search import index
 from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
+from django.core.exceptions import ValidationError
+from django.forms.utils import ErrorList
+from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
 
 
 @register_snippet
@@ -29,7 +32,7 @@ class BuyersGuideCallToAction(
         help_text='Optional image on CTA.',
     )
     title = models.CharField(max_length=200)
-    content = RichTextField()
+    content = RichTextField(features=base_rich_text_options, blank=True)
     link_label = models.CharField(max_length=2048, blank=True)
     link_target_url = models.URLField(blank=True)
     link_target_page = models.ForeignKey(
@@ -44,9 +47,11 @@ class BuyersGuideCallToAction(
         ImageChooserPanel("sticker_image"),
         FieldPanel('title'),
         FieldPanel('content'),
-        FieldPanel('link_label'),
-        FieldPanel('link_target_url'),
-        PageChooserPanel('link_target_page'),
+        MultiFieldPanel([
+            FieldPanel('link_label'),
+            FieldPanel('link_target_url'),
+            PageChooserPanel('link_target_page'),
+        ], heading='Call To Action Link'),
     ]
 
     translatable_fields = [
@@ -62,3 +67,21 @@ class BuyersGuideCallToAction(
 
     def __str__(self):
         return str(self.title)
+
+    def clean(self):
+        errors = {}
+
+        # If user enters both link URL and link page:
+        if self.link_label and self.link_target_url and self.link_target_page:
+            errors['link_target_url'] = ErrorList(['Please select a page OR enter a URL for the link (choose one)'])
+            errors['link_target_page'] = ErrorList(['Please select a page OR enter a URL for the link (choose one)'])
+        # If user enters link URL or page but no label:
+        elif self.link_target_page or self.link_target_url and not self.link_label:    
+            errors['link_label'] = ErrorList(['Please enter a label for the link'])
+        # If user enters link label but no page or URL to link to:
+        elif self.link_label and not self.link_target_url and not self.link_target_page:    
+            errors['link_target_url'] = ErrorList(['Please select a page OR enter a URL for the link (choose one)'])
+            errors['link_target_page'] = ErrorList(['Please select a page OR enter a URL for the link (choose one)'])
+
+        if errors:
+            raise ValidationError(errors)
