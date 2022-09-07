@@ -28,7 +28,7 @@
             <a href="{% pageurl page.get_editorial_content_index %}">All articles</a>
           </div>
           {% if category.show_cta %}
-            {% with cta=page.call_to_action %}
+            {% with cta=featured_cta %}
               {% if cta %}
                 <div>
                   <h2> Call to Action: </h2>

@@ -41,3 +41,9 @@ def sort_average(products):
     `products` is a QuerySet of ProductPages.
     """
     return sorted(products, key=lambda p: p.creepiness)
+
+def get_featured_cta(self):
+    BuyersGuidePage = apps.get_model(app_label='wagtailpages', model_name='BuyersGuidePage')
+    pni_home_page = BuyersGuidePage.objects.ancestor_of(self, inclusive=True).live().first()
+    featured_cta = pni_home_page.call_to_action
+    return featured_cta

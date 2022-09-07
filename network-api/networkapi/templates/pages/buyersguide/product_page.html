@@ -46,6 +46,21 @@
   {% endif %}
 {% endwith %}
 
+{% with cta=featured_cta %}
+  {% if cta %}
+    <div>
+      <h2> Call to Action: </h2>
+      <p> <b>Title:</b> {{ cta.title }} </p>
+      <p> <b>Sticker Image:</b> {{ cta.sticker_image }} </p>
+      <p> <b> Content: </b> </p>
+      {{ cta.content|richtext }}
+      <p> <b>Link Label: </b> {{cta.link_label }} </p>
+      <p> <b> Link Target: </b> {{cta.get_target_url }} </p>
+    </div>
+  {% endif %}
+{% endwith %}
+
+
 <div class="text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">
   <div class="tw-container tw-block medium:tw-grid tw-grid-cols-12 tw-gap-x-6">
     <div class="tw-col-start-3 tw-col-end-11 tw--mx-4 medium:tw--mx-6">

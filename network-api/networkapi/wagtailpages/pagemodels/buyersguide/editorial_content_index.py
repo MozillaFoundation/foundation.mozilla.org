@@ -5,6 +5,7 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, MultiFieldPanel
 from wagtail.core import models as wagtail_models
 from wagtail.core.models import Orderable, TranslatableMixin
+from networkapi.wagtailpages.pagemodels.buyersguide.utils import get_featured_cta
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
@@ -39,6 +40,7 @@ class BuyersGuideEditorialContentIndexPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["home_page"] = self.get_parent().specific
+        context["featured_cta"] = get_featured_cta(self)
         context["items"] = self.get_descendants().public().live()
         return context
 
@@ -48,10 +50,6 @@ class BuyersGuideEditorialContentIndexPage(
             'article',
         )
 
-    def get_featured_cta(self):
-        home_page = self.get_parent().specific
-        featured_call_to_action = home_page.call_to_action
-        return featured_call_to_action
 
 class BuyersGuideEditorialContentIndexPageArticlePageRelation(TranslatableMixin, Orderable):
     page = ParentalKey(

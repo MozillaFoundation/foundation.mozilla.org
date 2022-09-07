@@ -364,6 +364,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
         context['categories'] = get_categories_for_locale(language_code)
         context['current_category'] = None
+        context['featured_cta'] = self.call_to_action
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         context['template_cache_key_fragment'] = f'pni_home_{request.LANGUAGE_CODE}'
