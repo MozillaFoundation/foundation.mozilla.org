@@ -59,6 +59,15 @@ class BuyersGuideEditorialContentIndexPageArticlePageRelationFactory(DjangoModel
         model = pagemodels.BuyersGuideEditorialContentIndexPageArticlePageRelation
 
 
+class BuyersGuideCallToActionFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideCallToAction
+
+    title = Faker('sentence', nb_words=7, variable_nb_words=True)
+    content = Faker('paragraph', nb_sentences=3, variable_nb_sentences=True)
+    link_label = Faker('sentence', nb_words=2)
+    link_target_url = Faker('url')
+
 class ProductUpdateFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.Update
@@ -74,6 +83,8 @@ class BuyersGuidePageFactory(PageFactory):
 
     class Meta:
         model = pagemodels.BuyersGuidePage
+
+    call_to_action = SubFactory(BuyersGuideCallToActionFactory)
 
 
 class BuyersGuidePageHeroSupportingArticleRelationFactory(DjangoModelFactory):

@@ -70,18 +70,18 @@ class BuyersGuideCallToAction(
 
     def clean(self):
         errors = {}
-
+        duplicate_link_target_error = ErrorList(['Please select a page OR enter a URL for the link (choose one)'])
         # If user enters both link URL and link page:
         if self.link_label and self.link_target_url and self.link_target_page:
-            errors['link_target_url'] = ErrorList(['Please select a page OR enter a URL for the link (choose one)'])
-            errors['link_target_page'] = ErrorList(['Please select a page OR enter a URL for the link (choose one)'])
+            errors['link_target_url'] = duplicate_link_target_error
+            errors['link_target_page'] = duplicate_link_target_error
         # If user enters link URL or page but no label:
         elif self.link_target_page or self.link_target_url and not self.link_label:    
             errors['link_label'] = ErrorList(['Please enter a label for the link'])
         # If user enters link label but no page or URL to link to:
         elif self.link_label and not self.link_target_url and not self.link_target_page:    
-            errors['link_target_url'] = ErrorList(['Please select a page OR enter a URL for the link (choose one)'])
-            errors['link_target_page'] = ErrorList(['Please select a page OR enter a URL for the link (choose one)'])
+            errors['link_target_url'] = duplicate_link_target_error
+            errors['link_target_page'] = duplicate_link_target_error
 
         if errors:
             raise ValidationError(errors)

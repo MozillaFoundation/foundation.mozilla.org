@@ -44,7 +44,7 @@
       {% endif %}
   {% endwith %}
 
-  {% with cta=page.call_to_action %}
+  {% with cta=page.get_featured_cta %}
     {% if cta %}
       <div>
         <h2> Call to Action: </h2>

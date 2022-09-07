@@ -3,7 +3,6 @@ import typing
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, MultiFieldPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core import models as wagtail_models
 from wagtail.core.models import Orderable, TranslatableMixin
 
@@ -23,14 +22,6 @@ class BuyersGuideEditorialContentIndexPage(
     subpage_types = ['wagtailpages.BuyersGuideArticlePage']
     template = 'pages/buyersguide/editorial_content_index_page.html'
 
-    call_to_action = models.ForeignKey(
-          'wagtailpages.BuyersGuideCallToAction',
-          null=True,
-          blank=True,
-          on_delete=models.SET_NULL,
-          related_name='+'
-      )
-
     content_panels = wagtail_models.Page.content_panels + [
         MultiFieldPanel(
             [
@@ -43,7 +34,6 @@ class BuyersGuideEditorialContentIndexPage(
             ],
             heading='Related Articles',
         ),
-        SnippetChooserPanel('call_to_action'),
     ]
 
     def get_context(self, request, *args, **kwargs):
@@ -58,6 +48,10 @@ class BuyersGuideEditorialContentIndexPage(
             'article',
         )
 
+    def get_featured_cta(self):
+        home_page = self.get_parent().specific
+        featured_call_to_action = home_page.call_to_action
+        return featured_call_to_action
 
 class BuyersGuideEditorialContentIndexPageArticlePageRelation(TranslatableMixin, Orderable):
     page = ParentalKey(
