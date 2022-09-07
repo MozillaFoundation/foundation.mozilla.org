@@ -23,17 +23,26 @@
         "
       />
     {% endif %}
-    <div class="tw-h3-heading">
-      {{ heading }}
-    </div>
-    <div class="tw-text-base tw-leading-6">
-      {{ body|richtext }}
-    </div>
-    <div>
-      <a href="{{ link_href  }}" class="tw-font-sans tw-font-bold tw-text-blue-80 tw-text-base tw-leading-5 tw-flex tw-no-underline">
-        {{ link_text }}
-        <img src="{% static "_images/buyers-guide/arrow-right.svg" %}" class="tw-ml-1 " />
-      </a>
-    </div>
+
+    {% if heading %}
+      <div class="tw-h3-heading">
+        {{ heading }}
+      </div>
+    {% endif %}
+
+    {% if body %}
+      <div class="tw-text-base tw-leading-6">
+        {{ body|richtext }}
+      </div>
+    {% endif %}
+
+    {% if link_text and link_href %}
+      <div class="tw-mt-6">
+        <a href="{{ link_href  }}" class="tw-font-sans tw-font-bold tw-text-blue-80 tw-text-base tw-leading-5 tw-flex tw-no-underline">
+          {{ link_text }}
+          <img src="{% static "_images/buyers-guide/arrow-right.svg" %}" class="tw-ml-1 " />
+        </a>
+      </div>
+    {% endif %}
   </div>
 </div>
