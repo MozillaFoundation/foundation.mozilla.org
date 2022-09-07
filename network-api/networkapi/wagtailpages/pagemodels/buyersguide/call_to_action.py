@@ -1,7 +1,7 @@
 from wagtail.snippets.models import register_snippet
 from django.db import models
 from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import  FieldPanel, PageChooserPanel, MultiFieldPanel, HelpPanel
+from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, MultiFieldPanel
 from wagtail.core.models import Page, TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -68,13 +68,11 @@ class BuyersGuideCallToAction(
     def __str__(self):
         return str(self.title)
 
-
     def get_target_url(self):
         if self.link_target_url:
             return self.link_target_url
         else:
             return self.link_target_page.url
-
 
     def clean(self):
         errors = {}
@@ -84,10 +82,10 @@ class BuyersGuideCallToAction(
             errors['link_target_url'] = duplicate_link_target_error
             errors['link_target_page'] = duplicate_link_target_error
         # If user enters link URL or page but no label:
-        elif not self.link_label and self.link_target_page or self.link_target_url:    
+        elif not self.link_label and self.link_target_page or self.link_target_url:
             errors['link_label'] = ErrorList(['Please enter a label for the link'])
         # If user enters link label but no page or URL to link to:
-        elif not self.link_target_page and not self.link_target_url and self.link_label:    
+        elif not self.link_target_page and not self.link_target_url and self.link_label:
             errors['link_target_url'] = duplicate_link_target_error
             errors['link_target_page'] = duplicate_link_target_error
 

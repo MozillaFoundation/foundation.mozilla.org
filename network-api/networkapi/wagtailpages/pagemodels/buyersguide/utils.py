@@ -42,6 +42,7 @@ def sort_average(products):
     """
     return sorted(products, key=lambda p: p.creepiness)
 
+
 def get_featured_cta(self):
     BuyersGuidePage = apps.get_model(app_label='wagtailpages', model_name='BuyersGuidePage')
     pni_home_page = BuyersGuidePage.objects.ancestor_of(self, inclusive=True).live().first()

@@ -68,6 +68,7 @@ class BuyersGuideCallToActionFactory(DjangoModelFactory):
     link_label = Faker('sentence', nb_words=2)
     link_target_url = Faker('url')
 
+
 class ProductUpdateFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.Update
