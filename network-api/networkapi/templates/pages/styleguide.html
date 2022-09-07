@@ -864,10 +864,9 @@
         <hr class="hr-emphasis">
 
         <p>The compnent will fill 100% of the parent width. Control the size through the parent.</p>
-        <p>There is a variation for "large" use cases with more padding and the image does not overlap.</p>
+        <p>There is a variation for "large" use cases with more padding and the image does not overlap. However, the large variant does not change the component size itself.</p>
 
         <div>
-
           <h3>Normal variant</h3>
 
           <div class="tw-max-w-sm">
@@ -876,8 +875,8 @@
 
           <div class="tw-my-6"></div>
 
-          <div class="tw-max-w-xl">
-            {% include "fragments/buyersguide/call_to_action_box.html" with heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" %}
+          <div class="tw-max-w-sm">
+            {% include "fragments/buyersguide/call_to_action_box.html" with heading="Without an icon should also work." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" %}
           </div>
         </div>
 
@@ -886,14 +885,14 @@
         <div>
           <h3>Large variant</h3>
 
-          <div class="tw-max-w-sm">
-            {% include "fragments/buyersguide/call_to_action_box.html" with heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" large=True %}
+          <div class="tw-max-w-xl">
+            {% include "fragments/buyersguide/call_to_action_box.html" with icon=page.banner heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" large=True %}
           </div>
 
           <div class="tw-my-6"></div>
 
           <div class="tw-max-w-xl">
-            {% include "fragments/buyersguide/call_to_action_box.html" with heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" large=True %}
+            {% include "fragments/buyersguide/call_to_action_box.html" with heading="Without an icon should also work." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com"  large=True%}
           </div>
         </div>
       </section>
