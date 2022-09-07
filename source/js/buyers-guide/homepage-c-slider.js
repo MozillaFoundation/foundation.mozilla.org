@@ -178,6 +178,7 @@ export default {
           } else {
             SEARCH_BAR.classList.remove("search-active", "creep-o-meter-moved");
             document.querySelector(".speech-bubble>.text").innerHTML = heroMsg;
+            face.style.backgroundPositionY = `0px`;
           }
 
           const heightFromTop = RECOMMEND_PRODUCT.getBoundingClientRect().top;

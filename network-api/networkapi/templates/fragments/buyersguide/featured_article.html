@@ -1,0 +1,42 @@
+{% load static wagtailcore_tags wagtailimages_tags i18n %}
+{% with hero_featured_article=page.hero_featured_article %}
+    {% if hero_featured_article %}
+    
+        <div class="tw-row">
+            <div class="tw-px-4 tw-w-full tw-grid tw-grid-cols-1 tw-grid-rows-[(auto,auto,auto)] medium:tw-grid-cols-2 medium:tw-grid-rows-[(1fr,auto)]  large:tw-grid-cols-3 large:tw-grid-rows-[(1fr,auto)] tw-gap-6">
+                {% image hero_featured_article.hero_image original as img %}
+
+                <a href="{% pageurl hero_featured_article %}" class="medium:tw-col-span-2 medium:tw-row-start-1 large:tw-col-span-2 large:tw-row-span-2">
+                    <img src="{{ img.url }}" alt="{{ img.alt }}" class="tw-w-full tw-aspect-video tw-rounded-xl tw-object-cover " />
+                </a>
+               
+                <a href="{% pageurl hero_featured_article %}" class="medium:tw-col-start-1 medium:tw-row-start-2 large:tw-row-start-1 large:tw-col-start-3 tw-no-underline">
+                    <h2 class="tw-font-zilla tw-font-light tw-text-[40px] tw-leading-[48px]">
+                        {{ hero_featured_article.title }}
+                    </h2>
+
+                    <div class="tw-space-x-1 tw-text-black tw-font-sans tw-font-extrabold tw-text-sm">
+                        By
+                        {% with author_profiles=hero_featured_article.get_author_profiles %}
+                            {% if author_profiles %}
+                                {% for author_profile in author_profiles %}
+                                <span>{{ author_profile.name }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                </a>
+                
+                {% with hero_supporting_articles=page.get_hero_supporting_articles %}
+                    {% if hero_supporting_articles %}
+                        <div class="medium:tw-col-start-2 medium:tw-row-start-2 large:tw-col-start-3 large:tw-row-start-2">
+                            {% include "fragments/buyersguide/related_reading.html" with heading=page.hero_supporting_articles_heading articles=hero_supporting_articles all_articles=False %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}
