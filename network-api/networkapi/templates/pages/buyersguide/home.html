@@ -6,43 +6,9 @@
 {% block hero %}
   {{ block.super }}
   <div class="editorial-content">
-    {% with hero_featured_article=page.hero_featured_article %}
-      {% if hero_featured_article %}
-        <div class="tw-container">
-          <div class="tw-row">
-            <div class="tw-px-4 tw-w-full">
-              <h2 class="tw-h1-heading">
-                <a href=" {% pageurl hero_featured_article %}">{{ hero_featured_article.title }}</a>
-              </h2>
 
-              <div>
-                By
-                {% with author_profiles=hero_featured_article.get_author_profiles %}
-                  {% if author_profiles %}
-                    <ul>
-                      {% for author_profile in author_profiles %}
-                        <li>{{ author_profile.name }}</li>
-                      {% endfor %}
-                    </ul>
-                  {% endif %}
-                {% endwith %}
-              </div>
-            </div>
-          </div>
-        </div>
-      {% endif %}
-    {% endwith %}
-
-    <div class="tw-container">
-      {% with hero_supporting_articles=page.get_hero_supporting_articles %}
-        {% if hero_supporting_articles %}
-          <div class="tw-row">
-            <div class="tw-px-4">
-              {% include "fragments/buyersguide/related_reading.html" with heading=page.hero_supporting_articles_heading articles=hero_supporting_articles all_articles=False %}
-            </div>
-          </div>
-        {% endif %}
-      {% endwith %}
+    <div class="tw-container tw-mt-7">
+      {% include "fragments/buyersguide/featured_article.html" %}
     </div>
 
     {% if page.featured_advice_article %}
