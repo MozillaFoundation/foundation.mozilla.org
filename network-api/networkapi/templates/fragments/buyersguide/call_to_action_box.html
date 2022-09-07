@@ -13,14 +13,15 @@
       <img
         src="{{ img.url }}"
         class="
-        {% if not large %}
-          tw-max-h-[48px] medium:tw-max-h-[56px]
-          -tw-mt-[44px] medium:-tw-mt-[56px]  {# Negative margin to pull the icon up to the top and bleed 20px and 24px on medium+ screens. On large variant we don't need that. #}
-        {% else %}
-          tw-max-h-[36px] medium:tw-max-h-[48px]
-        {% endif %}
+          tw-mb-4
+          {% if not large %}
+            tw-max-h-[48px] medium:tw-max-h-[56px]
+            -tw-mt-[44px] medium:-tw-mt-[56px]  {# Negative margin to pull the icon up to the top and bleed 20px and 24px on medium+ screens. On large variant we don't need that. #}
+          {% else %}
+            tw-max-h-[36px] medium:tw-max-h-[48px]
+          {% endif %}
         "
-        />
+      />
     {% endif %}
     <div class="tw-h3-heading">
       {{ heading }}
