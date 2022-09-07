@@ -4,6 +4,11 @@
 
 {% block body_id %}style-guide{% endblock %}
 
+{% block stylesheets %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "_css/buyers-guide.compiled.css" %}">
+{% endblock %}
+
 {% block content %}
 <div class="tw-container tw-mt-7">
   <div class="tw-row">
@@ -943,3 +948,4 @@
   </div>
 </div>
 {% endblock %}
+
