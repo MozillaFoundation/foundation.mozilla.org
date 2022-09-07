@@ -53,8 +53,7 @@
         <p> <b> Content: </b> </p>
         {{ cta.content|richtext }}
         <p> <b>Link Label: </b> {{cta.link_label }} </p>
-        <p> <b> Link URL (if applicable): </b> {{cta.link_target_url }} </p>
-        <p> <b> Link Page (if applicable): </b> {{cta.link_target_page }} </p>
+        <p> <b> Link Target: </b> {{cta.get_target_url }} </p>
       </div>
     {% endif %}
   {% endwith %}

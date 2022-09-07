@@ -115,6 +115,11 @@ class BuyersGuideProductCategory(
         help_text='Optional image that will apear when category page is shared.',
     )
 
+    show_cta = models.BooleanField(
+        default=False,
+        help_text='Do we want the Buyers Guide featured CTA to be displayed on this categories page?'
+    )
+
     panels = [
         FieldPanel(
             'name',
@@ -126,6 +131,7 @@ class BuyersGuideProductCategory(
         FieldPanel('hidden'),
         FieldPanel('sort_order'),
         ImageChooserPanel('share_image'),
+        FieldPanel('show_cta'),
         InlinePanel(
             'related_article_relations',
             heading='Related articles',
