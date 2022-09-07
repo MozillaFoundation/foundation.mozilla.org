@@ -337,7 +337,7 @@ class ParticipatePage2(PrimaryPage):
 
 
 class Styleguide(PrimaryPage):
-    template = 'wagtailpages/static/styleguide.html'
+    template = 'pages/styleguide.html'
 
 
 class HomepageSpotlightPosts(TranslatableMixin, WagtailOrderable):

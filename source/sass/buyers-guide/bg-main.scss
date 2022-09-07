@@ -65,6 +65,12 @@ html {
   background: $pni-product-image-background;
 }
 
+.bg-call-to-action-content,
+.bg-call-to-action-content > .rich-text > p {
+  // Overriding the default styling for a paragraph.
+  @apply tw-text-base tw-leading-6;
+}
+
 img.thumb-border {
   background: $pni-product-image-background;
   border: 16px solid $pni-product-image-background;

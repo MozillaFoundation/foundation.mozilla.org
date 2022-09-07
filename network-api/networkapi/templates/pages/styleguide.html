@@ -1,8 +1,13 @@
-{% extends "../primary_page.html" %}
+{% extends "wagtailpages/primary_page.html" %}
 {% load wagtailcore_tags wagtailimages_tags card_tags %}
 {% load i18n static %}
 
 {% block body_id %}style-guide{% endblock %}
+
+{% block stylesheets %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "_css/buyers-guide.compiled.css" %}">
+{% endblock %}
 
 {% block content %}
 <div class="tw-container tw-mt-7">
@@ -21,131 +26,131 @@
       <hr />
 
       <div class="tw-row">
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-white" name="White ($white)" hex="#ffffff" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-white" name="White ($white)" hex="#ffffff" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gray-05" name="Gray 05 ($gray-05)" hex="#f2f2f2" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gray-05" name="Gray 05 ($gray-05)" hex="#f2f2f2" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gray-20" name="Gray 20 ($gray-20)" hex="#cccccc" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gray-20" name="Gray 20 ($gray-20)" hex="#cccccc" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gray-40" name="Gray 40 ($gray-40)" hex="#999999" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gray-40" name="Gray 40 ($gray-40)" hex="#999999" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gray-60" name="Gray 60 ($gray-60)" hex="#666666" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gray-60" name="Gray 60 ($gray-60)" hex="#666666" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gray-80" name="Gray 80 ($gray-80)" hex="#333333" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gray-80" name="Gray 80 ($gray-80)" hex="#333333" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-black" name="Black ($black)" hex="#000000" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-black" name="Black ($black)" hex="#000000" %}
       </div>
 
       <div class="tw-row">
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-red-05" name="Red 05" hex="#ffe6e8" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-05" name="Red 05" hex="#ffe6e8" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-red-10" name="Red 10" hex="#ffb4ba" %}
-        
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-red-20" name="Red 20" hex="#ff818c" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-10" name="Red 10" hex="#ffb4ba" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-red-40" name="Red 40" hex="#ff4f5e" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-20" name="Red 20" hex="#ff818c" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-red-60" name="Red 60" hex="#e62434" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-40" name="Red 40" hex="#ff4f5e" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-red-80" name="Red 80" hex="#cc0011" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-60" name="Red 60" hex="#e62434" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-red-100" name="Red 100" hex="#9a000e" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-80" name="Red 80" hex="#cc0011" %}
+
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-100" name="Red 100" hex="#9a000e" %}
       </div>
 
       <div class="tw-row">
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-blue-05" name="Blue 05" hex="#e7e7fc" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-05" name="Blue 05" hex="#e7e7fc" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-blue-10" name="Blue 10" hex="#d3d5fc" %}
-        
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-blue-20" name="Blue 20" hex="#b7b9fa" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-10" name="Blue 10" hex="#d3d5fc" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-blue-40" name="Blue 40" hex="#595cf3" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-20" name="Blue 20" hex="#b7b9fa" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-blue-60" name="Blue 60" hex="#3032d9" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-40" name="Blue 40" hex="#595cf3" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-blue-80" name="Blue 80" hex="#0d10bf" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-60" name="Blue 60" hex="#3032d9" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-blue-100" name="Blue 100" hex="#0003a6" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-80" name="Blue 80" hex="#0d10bf" %}
+
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-100" name="Blue 100" hex="#0003a6" %}
       </div>
 
       <div class="tw-row">
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-cyan-05" name="Cyan 05" hex="#e6ffff" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-05" name="Cyan 05" hex="#e6ffff" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-cyan-10" name="Cyan 10" hex="#acffff" %}
-        
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-cyan-20" name="Cyan 20" hex="#73ffff" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-10" name="Cyan 10" hex="#acffff" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-cyan-40" name="Cyan 40" hex="#00ffff" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-20" name="Cyan 20" hex="#73ffff" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-cyan-60" name="Cyan 60" hex="#00c9c9" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-40" name="Cyan 40" hex="#00ffff" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-cyan-80" name="Cyan 80" hex="#009494" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-60" name="Cyan 60" hex="#00c9c9" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-cyan-100" name="Cyan 100" hex="#005e5e" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-80" name="Cyan 80" hex="#009494" %}
+
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-100" name="Cyan 100" hex="#005e5e" %}
       </div>
 
       <div class="tw-row">
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-green-05" name="Green 05" hex="#d8fff0" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-05" name="Green 05" hex="#d8fff0" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-green-10" name="Green 10" hex="#acffe0" %}
-        
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-green-20" name="Green 20" hex="#80ffce" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-10" name="Green 10" hex="#acffe0" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-green-40" name="Green 40" hex="#54ffbd" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-20" name="Green 20" hex="#80ffce" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-green-60" name="Green 60" hex="#2cc98e" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-40" name="Green 40" hex="#54ffbd" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-green-80" name="Green 80" hex="#109462" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-60" name="Green 60" hex="#2cc98e" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-green-100" name="Green 100" hex="#005e3a" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-80" name="Green 80" hex="#109462" %}
+
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-100" name="Green 100" hex="#005e3a" %}
       </div>
 
       <div class="tw-row">
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-yellow-05" name="Yellow 05" hex="#fffcd9" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-05" name="Yellow 05" hex="#fffcd9" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-yellow-10" name="Yellow 10" hex="#fff9ab" %}
-        
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-yellow-20" name="Yellow 20" hex="#fff67d" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-10" name="Yellow 10" hex="#fff9ab" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-yellow-40" name="Yellow 40" hex="#fff44f" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-20" name="Yellow 20" hex="#fff67d" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-yellow-60" name="Yellow 60" hex="#e5d92f" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-40" name="Yellow 40" hex="#fff44f" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-yellow-80" name="Yellow 80" hex="#ccbf15" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-60" name="Yellow 60" hex="#e5d92f" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-yellow-100" name="Yellow 100" hex="#b2a600" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-80" name="Yellow 80" hex="#ccbf15" %}
+
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-100" name="Yellow 100" hex="#b2a600" %}
       </div>
 
       <div class="tw-row">
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-purple-05" name="Purple 05" hex="#ecd8fe" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-05" name="Purple 05" hex="#ecd8fe" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-purple-10" name="Purple 10" hex="#deb8fe" %}
-        
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-purple-20" name="Purple 20" hex="#cd97fd" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-10" name="Purple 10" hex="#deb8fe" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-purple-40" name="Purple 40" hex="#8f14fb" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-20" name="Purple 20" hex="#cd97fd" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-purple-60" name="Purple 60" hex="#760bd4" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-40" name="Purple 40" hex="#8f14fb" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-purple-80" name="Purple 80" hex="#5e05ac" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-60" name="Purple 60" hex="#760bd4" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-purple-100" name="Purple 100" hex="#470085" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-80" name="Purple 80" hex="#5e05ac" %}
+
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-100" name="Purple 100" hex="#470085" %}
       </div>
 
       <div class="tw-row">
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pink-05" name="Pink 05" hex="#ecd8fe" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-05" name="Pink 05" hex="#ecd8fe" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pink-10" name="Pink 10" hex="#deb8fe" %}
-        
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pink-20" name="Pink 20" hex="#cd97fd" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-10" name="Pink 10" hex="#deb8fe" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pink-40" name="Pink 40" hex="#8f14fb" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-20" name="Pink 20" hex="#cd97fd" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pink-60" name="Pink 60" hex="#760bd4" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-40" name="Pink 40" hex="#8f14fb" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pink-80" name="Pink 80" hex="#5e05ac" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-60" name="Pink 60" hex="#760bd4" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pink-100" name="Pink 100" hex="#470085" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-80" name="Pink 80" hex="#5e05ac" %}
+
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-100" name="Pink 100" hex="#470085" %}
       </div>
 
       <h3 class="tw-h2-heading tw-mt-7 tw-group" id="pni-palette">
@@ -155,17 +160,19 @@
       <hr />
 
       <div class="tw-row">
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pni-blue" name="PNI Blue ($pni-blue)" hex="#1808f2" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pni-blue" name="PNI Blue ($pni-blue)" hex="#1808f2" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pni-blue-purple" name="PNI Blue Purple ($pni-blue-purple)" hex="#4a17d4" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pni-blue-purple" name="PNI Blue Purple ($pni-blue-purple)" hex="#4a17d4" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pni-purple" name="PNI Purple ($pni-purple)" hex="#7f28b7" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pni-purple" name="PNI Purple ($pni-purple)" hex="#7f28b7" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pni-purple-pink" name="PNI Purple Pink ($pni-purple-pink)" hex="#b0379b" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pni-purple-pink" name="PNI Purple Pink ($pni-purple-pink)" hex="#b0379b" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pni-pink" name="PNI Pink ($pni-pink)" hex="#e4487d" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pni-pink" name="PNI Pink ($pni-pink)" hex="#e4487d" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-pni-blue tw-to-pni-pink" name="PNI Gradient ($pni-gradient)" hex="linear-gradient(to right, #1808f2 0%, #e4487d 100%)" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-pni-blue tw-to-pni-pink" name="PNI Gradient ($pni-gradient)" hex="linear-gradient(to right, #1808f2 0%, #e4487d 100%)" %}
+
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-yellow-10 tw-to-purple-05" name="PNI CTA Gradient" hex="" %}
       </div>
 
       <h3 class="tw-h2-heading tw-mt-7 tw-group" id="festival-palette">
@@ -175,9 +182,9 @@
       <hr />
 
       <div class="tw-row">
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-festival-blue" name="Festival Dark Blue ($festival-dark-blue)" hex="#0e11bf" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-festival-blue" name="Festival Dark Blue ($festival-dark-blue)" hex="#0e11bf" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-festival-blue tw-to-purple-40" name="Festival Gradient ($festival-gradient)" hex="linear-gradient(120deg, #0e11bf 0%, #8f14fb 100%)" %}
+        {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-festival-blue tw-to-purple-40" name="Festival Gradient ($festival-gradient)" hex="linear-gradient(120deg, #0e11bf 0%, #8f14fb 100%)" %}
       </div>
 
       <h2 class="tw-h1-heading tw-mt-7 tw-group" id="spacing">
@@ -732,7 +739,7 @@
       <hr>
 
       <div class="tw-mb-7">
-        {% include "../fragments/share-buttons.html" with page=page %}
+        {% include "wagtailpages/fragments/share-buttons.html" with page=page %}
       </div>
 
       <h3 class="tw-h2-heading tw-mt-7 tw-group" id="full-stacked">
@@ -742,7 +749,7 @@
       <hr>
 
       <div class="tw-mb-7">
-        {% include "../fragments/share-buttons.html" with page=page layout="stacked" %}
+        {% include "wagtailpages/fragments/share-buttons.html" with page=page layout="stacked" %}
       </div>
 
 
@@ -753,7 +760,7 @@
       <hr>
 
       <div class="tw-mb-7">
-        {% include "../fragments/share-buttons.html" with version="mini" page=page %}
+        {% include "wagtailpages/fragments/share-buttons.html" with version="mini" page=page %}
       </div>
 
       <h3 class="tw-h2-heading tw-mt-7 tw-group" id="mini-stacked">
@@ -763,7 +770,7 @@
       <hr>
 
       <div class="tw-mb-7">
-        {% include "../fragments/share-buttons.html" with version="mini" layout="stacked" page=page %}
+        {% include "wagtailpages/fragments/share-buttons.html" with version="mini" layout="stacked" page=page %}
       </div>
 
       <h2 class="tw-h1-heading tw-mt-7 tw-group" id="dropdown">
@@ -853,6 +860,49 @@
         </div>
       </div>
 
+      <section>
+        <h2 class="tw-h1-heading tw-mt-7 tw-group" id="buyersguide">
+          <span>Buyer's Guide</span>
+          <a href="#buyersguide" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+        </h2>
+
+        <hr class="hr-emphasis">
+
+        <p>The compnent will fill 100% of the parent width. Control the size through the parent.</p>
+        <p>There is a variation for "large" use cases with more padding and the image does not overlap. However, the large variant does not change the component size itself.</p>
+
+        <div>
+          <h3>Normal variant</h3>
+
+          <div class="tw-max-w-sm">
+            {% include "fragments/buyersguide/call_to_action_box.html" with icon=page.banner heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" %}
+          </div>
+
+          <div class="tw-my-6"></div>
+
+          <div class="tw-max-w-sm">
+            {% include "fragments/buyersguide/call_to_action_box.html" with heading="Without an icon should also work." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" %}
+          </div>
+        </div>
+
+        <div class="tw-my-7"></div>
+
+        <div>
+          <h3>Large variant</h3>
+
+          <div class="tw-max-w-xl">
+            {% include "fragments/buyersguide/call_to_action_box.html" with icon=page.banner heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" large=True %}
+          </div>
+
+          <div class="tw-my-6"></div>
+
+          <div class="tw-max-w-xl">
+            {% include "fragments/buyersguide/call_to_action_box.html" with heading="Without an icon should also work." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com"  large=True%}
+          </div>
+        </div>
+      </section>
+
+
       {% if page.body|length != 0 %}
         <h2 class="tw-h1-heading tw-mt-7 tw-group" id="streamblock">
           <span>Streamblocks</span>
@@ -868,12 +918,12 @@
 
       <div class="tw-mb-7">
         <div class="article-blockquote-block tw-py-4 tw-px-5 medium:tw-py-5 medium:tw-px-6 tw-text-lg tw-leading-normal tw-bg-gray-05 tw-w-full medium:tw-w-[calc(80%+60px)] tw-mx-auto tw-my-5 article-blockquote-block--small">
-          <span> 
-            This is a callout block, used on Article pages. 
-          </span>        
+          <span>
+            This is a callout block, used on Article pages.
+          </span>
         </div>
       </div>
-      
+
       {% for block in page.body %}
         <h2 class="tw-h2-heading tw-mt-7 tw-group" id="{{ block.block_type }}">
           <span class="tw-capitalize">{{ block.block_type }}</span>
@@ -898,3 +948,4 @@
   </div>
 </div>
 {% endblock %}
+

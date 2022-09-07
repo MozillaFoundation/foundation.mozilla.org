@@ -1,14 +1,11 @@
-from networkapi.wagtailpages.models import Styleguide
+import factory
 from wagtail_factories import PageFactory
 from wagtail.core.models import Page as WagtailPage
-from networkapi.utility.faker.helpers import (
-    reseed,
-    get_homepage
-)
 
-from factory import (
-    Faker
-)
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
+from networkapi.utility.faker.helpers import reseed, get_homepage
+from networkapi.wagtailpages.models import Styleguide
+
 
 styleguide_streamfield_fields = [
     'paragraph',
@@ -39,7 +36,8 @@ class StyleguideFactory(PageFactory):
         model = Styleguide
 
     title = 'Style-guide'
-    body = Faker('streamfield', fields=styleguide_streamfield_fields)
+    banner = factory.SubFactory(ImageFactory)
+    body = factory.Faker('streamfield', fields=styleguide_streamfield_fields)
 
 
 def generate(seed):

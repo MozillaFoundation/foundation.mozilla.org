@@ -1,0 +1,48 @@
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+<div
+  {% if icon and not large %} class="tw-pt-[20px] medium:tw-pt-[24px]" {% endif %} {# Margin to create space for the icon bleed. #}
+>
+  <div class="
+    tw-bg-gradient-to-b tw-from-yellow-10 tw-to-purple-05
+    tw-rounded-2xl
+    tw-p-[24px] {% if not large  %} medium:tw-p-[32px] {% else %} medium:tw-p-[40px] {% endif %}
+  ">
+    {% if icon %}
+      {% image icon height-56 as img %}
+      <img
+        src="{{ img.url }}"
+        class="
+          tw-mb-4
+          {% if not large %}
+            tw-max-h-[48px] medium:tw-max-h-[56px]
+            -tw-mt-[44px] medium:-tw-mt-[56px]  {# Negative margin to pull the icon up to the top and bleed 20px and 24px on medium+ screens. On large variant we don't need that. #}
+          {% else %}
+            tw-max-h-[36px] medium:tw-max-h-[48px]
+          {% endif %}
+        "
+      />
+    {% endif %}
+
+    {% if heading %}
+      <div class="tw-h3-heading tw-mb-2">
+        {{ heading }}
+      </div>
+    {% endif %}
+
+    {% if body %}
+      <div class="bg-call-to-action-content">
+        {{ body|richtext }}
+      </div>
+    {% endif %}
+
+    {% if link_text and link_href %}
+      <div class="tw-mt-6">
+        <a href="{{ link_href  }}" class="tw-font-sans tw-font-bold tw-text-blue-80 tw-text-base tw-leading-5 tw-flex tw-no-underline">
+          {{ link_text }}
+          <img src="{% static "_images/buyers-guide/arrow-right.svg" %}" class="tw-ml-1 " />
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
