@@ -65,4 +65,22 @@
       </div>
     </div>
   </div>
+  <div class="tw-container tw-my-6">
+    <div class="tw-row">
+      {% with cta=page.call_to_action %}
+        {% if cta %}
+          <div>
+            <h2> Call to Action: </h2>
+            <p> <b>Title:</b> {{ cta.title }} </p>
+            <p> <b>Sticker Image:</b> {{ cta.sticker_image }} </p>
+            <p> <b> Content: </b> </p>
+            {{ cta.content|richtext }}
+            <p> <b>Link Label: </b> {{cta.link_label }} </p>
+            <p> <b> Link URL (if applicable): </b> {{cta.link_target_url }} </p>
+            <p> <b> Link Page (if applicable): </b> {{cta.link_target_page }} </p>
+          </div>
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
 {% endblock hero %}
