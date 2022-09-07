@@ -1,6 +1,6 @@
 {% load static wagtailcore_tags %}
 
-<div class="tw-bg-gradient-to-b tw-from-yellow-10 tw-to-purple-05">
+<div class="tw-bg-gradient-to-b tw-from-yellow-10 tw-to-purple-05 tw-rounded-2xl tw-p-[24px] {% if not large  %} medium:tw-p-[32px] {% else %} medium:tw-p-[40px] {% endif %}">
   <div class="tw-h3-heading">
     {{ heading }}
   </div>

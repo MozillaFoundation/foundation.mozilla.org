@@ -855,7 +855,7 @@
         </div>
       </div>
 
-      <div>
+      <section>
         <h2 class="tw-h1-heading tw-mt-7 tw-group" id="buyersguide">
           <span>Buyer's Guide</span>
           <a href="#buyersguide" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
@@ -863,16 +863,41 @@
 
         <hr class="hr-emphasis">
 
-        <div class="tw-max-w-sm">
-          {% include "fragments/buyersguide/call_to_action_box.html" with heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" %}
+        <p>The compnent will fill 100% of the parent width. Control the size through the parent.</p>
+        <p>There is a variation for "large" use cases with more padding and the image does not overlap.</p>
+
+        <div>
+
+          <h3>Normal variant</h3>
+
+          <div class="tw-max-w-sm">
+            {% include "fragments/buyersguide/call_to_action_box.html" with heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" %}
+          </div>
+
+          <div class="tw-my-6"></div>
+
+          <div class="tw-max-w-xl">
+            {% include "fragments/buyersguide/call_to_action_box.html" with heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" %}
+          </div>
         </div>
 
-        <div class="tw-my-6"></div>
+        <div class="tw-my-7"></div>
 
-        <div class="tw-max-w-xl">
-          {% include "fragments/buyersguide/call_to_action_box.html" with heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" %}
+        <div>
+          <h3>Large variant</h3>
+
+          <div class="tw-max-w-sm">
+            {% include "fragments/buyersguide/call_to_action_box.html" with heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" large=True %}
+          </div>
+
+          <div class="tw-my-6"></div>
+
+          <div class="tw-max-w-xl">
+            {% include "fragments/buyersguide/call_to_action_box.html" with heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" large=True %}
+          </div>
         </div>
-      </div>
+      </section>
+
 
       {% if page.body|length != 0 %}
         <h2 class="tw-h1-heading tw-mt-7 tw-group" id="streamblock">
