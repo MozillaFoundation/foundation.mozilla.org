@@ -11,8 +11,8 @@
         $youtube-regrets-dark-blue 26.46%,
         $black 57.83%,
         $black 100%
-    ),
-    linear-gradient(0deg, $black, $black);
+      ),
+      linear-gradient(0deg, $black, $black);
     border-radius: 0 0 30px 30px;
     overflow: hidden;
   }
@@ -132,7 +132,7 @@
     }
 
     &__number {
-      font-size: 50px;
+      font-size: 42px;
       line-height: 1;
       margin-bottom: 0;
 
@@ -161,13 +161,19 @@
       justify-content: center;
       align-items: center;
       line-height: 1.2;
+      margin-top: -7px;
+      font-size: 15px;
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 18px;
+      }
     }
 
     &__wrap {
       background-color: $black;
       position: relative;
       margin-bottom: 10px;
-      padding: 15px;
+      padding: 10px 15px;
       text-align: center;
       display: flex;
       flex-direction: column;
