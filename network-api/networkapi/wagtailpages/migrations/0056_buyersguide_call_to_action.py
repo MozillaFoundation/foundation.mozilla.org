@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('wagtailcore', '0066_collection_management_permissions'),
         ('wagtailimages', '0023_add_choose_permissions'),
-        ('wagtailpages', '0054_merge_20220906_1800'),
+        ('wagtailpages', '0055_buyersguidepage_featured_advice_article'),
     ]
 
     operations = [
