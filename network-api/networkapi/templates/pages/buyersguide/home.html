@@ -7,9 +7,11 @@
   {{ block.super }}
   <div class="editorial-content">
 
-    <div class="tw-container tw-mt-7">
-      {% include "fragments/buyersguide/featured_article.html" %}
-    </div>
+    {% if page.hero_featured_article %}
+      <div class="tw-container tw-mt-7">
+        {% include "fragments/buyersguide/featured_article.html" with hero_featured_article=page.featured_hero_article %}
+      </div>
+    {% endif %}
 
     {% if page.featured_advice_article %}
       <div class="tw-container tw-my-6">
