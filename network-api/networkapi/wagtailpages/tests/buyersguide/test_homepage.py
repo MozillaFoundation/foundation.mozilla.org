@@ -260,6 +260,20 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
 
         self.assertEqual(result, None)
 
+    def test_bg_home_page_with_cta(self):
+        url = self.bg.url
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(response.context['featured_cta'])
+
+    def test_bg_home_page_with_no_cta(self):
+        self.bg.call_to_action = None
+        self.bg.save()
+        url = self.bg.url
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNone(response.context['featured_cta'])
+
     def test_category_page_context_with_cta_disabled(self):
         category = BuyersGuideProductCategory.objects.first()
         category.show_cta = False
