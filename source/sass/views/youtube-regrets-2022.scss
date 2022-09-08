@@ -34,13 +34,12 @@
       &::before {
         content: "";
         position: absolute;
-        top: -415px;
+        top: -315px;
         left: 0;
         right: 0;
         margin: 0 auto;
         width: 3px;
-        height: calc(100% + 415px);
-        background: black;
+        height: calc(100% + 315px);
         background-image: url("../_images/youtube-regrets/timeline-border-line.svg");
         background-repeat: repeat;
       }
