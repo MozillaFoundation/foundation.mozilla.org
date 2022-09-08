@@ -79,7 +79,13 @@
     <div class="tw-row tw-justify-center">
       <div class="col-12 col-lg-8">
           {% include "fragments/buyersguide/pni_newsletter_box.html" %}
-
+          {% with related_articles=page.get_primary_related_articles  %}
+            {% if related_articles %}
+              <div class="tw-m-4">
+                {% include "fragments/buyersguide/related_reading.html" with articles=related_articles all_articles=False %}
+              </div>
+            {% endif %}
+          {% endwith %}
       </div>
     </div>
   </div>

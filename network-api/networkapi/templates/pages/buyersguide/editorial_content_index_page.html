@@ -30,17 +30,11 @@
     </div>
   </div>
 
-  {% with related_articles=page.get_related_articles %}
+  {% with related_articles=page.get_related_articles  %}
       {% if related_articles %}
-        <div>
-          <h3>Popular</h3>
-
-          <ul>
-            {% for article in related_articles %}
-              <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
-            {% endfor %}
-          </ul>
-        </div>
+      <div class="tw-m-4">
+        {% include "fragments/buyersguide/related_reading.html" with articles=related_articles all_articles=False %}
+      </div>
       {% endif %}
   {% endwith %}
 
@@ -49,5 +43,4 @@
       {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
     {% endif %}
   {% endwith %}
-
 {% endblock guts %}

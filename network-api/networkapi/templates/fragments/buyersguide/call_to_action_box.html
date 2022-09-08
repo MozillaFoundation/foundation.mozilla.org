@@ -9,7 +9,8 @@
     tw-p-[24px] {% if not large  %} medium:tw-p-[32px] {% else %} medium:tw-p-[40px] {% endif %}
   ">
     {% if icon %}
-      {% image icon height-56 as img %}
+      {# Use image size twice as large as actual rendering size for better image quality. #}
+      {% image icon height-112 as img %}
       <img
         src="{{ img.url }}"
         class="
@@ -31,7 +32,8 @@
     {% endif %}
 
     {% if body %}
-      <div class="bg-call-to-action-content">
+      {# Arbitrary variant to override the global paragraph style. #}
+      <div class="[&_.rich-text_p]:tw-text-base">
         {{ body|richtext }}
       </div>
     {% endif %}

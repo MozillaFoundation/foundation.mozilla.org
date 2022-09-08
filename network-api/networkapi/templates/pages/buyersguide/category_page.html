@@ -19,13 +19,8 @@
         >
           <h2>({{ category.name }}) Primary related articles (First 3 of list of 6)</h2>
 
-          <ul>
-            {% for article in primary_related_articles %}
-              <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
-            {% endfor %}
-          </ul>
-          <div>
-            <a href="{% pageurl page.get_editorial_content_index %}">All articles</a>
+          <div class="tw-m-4">
+            {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles all_articles="True" %}
           </div>
 
             {% with cta=featured_cta %}
