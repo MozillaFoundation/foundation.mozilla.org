@@ -5,31 +5,20 @@ from datetime import date, datetime, timezone, timedelta
 
 from factory import (
     Faker,
-    post_generation,
     LazyFunction,
+    SubFactory,
+    post_generation,
 )
 from factory.django import DjangoModelFactory
-
-
 from wagtail.images.models import Image
 from wagtail_factories import PageFactory
 
+from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
-from networkapi.wagtailpages.pagemodels.base import Homepage
-from networkapi.wagtailpages.pagemodels.products import (
-    BuyersGuidePage,
-    GeneralProductPage,
-    BuyersGuideProductCategory,
-    ProductPage,
-    ProductPageVotes,
-    ProductPagePrivacyPolicyLink,
-    ProductUpdates,
-    RelatedProducts,
-)
+from networkapi.wagtailpages import models as pagemodels
 from networkapi.utility.faker import ImageProvider, generate_fake_data
-from networkapi.utility.faker.helpers import reseed
+from networkapi.utility.faker.helpers import reseed, get_random_objects
 
-from networkapi.wagtailpages.pagemodels.products import Update
 Faker.add_provider(ImageProvider)
 
 
@@ -49,15 +38,30 @@ def get_lowest_content_page_category():
     return sorted(
         [
             (cat.published_product_page_count, cat)
-            for cat in BuyersGuideProductCategory.objects.all()
+            for cat in pagemodels.BuyersGuideProductCategory.objects.all()
         ],
         key=lambda t: t[0]
     )[0][1]
 
 
+class BuyersGuideProductCategoryArticlePageRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideProductCategoryArticlePageRelation
+
+
+class BuyersGuideProductPageArticlePageRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideProductPageArticlePageRelation
+
+
+class BuyersGuideEditorialContentIndexPageArticlePageRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideEditorialContentIndexPageArticlePageRelation
+
+
 class ProductUpdateFactory(DjangoModelFactory):
     class Meta:
-        model = Update
+        model = pagemodels.Update
 
     source = Faker('url')
     title = Faker('sentence')
@@ -69,13 +73,43 @@ class ProductUpdateFactory(DjangoModelFactory):
 class BuyersGuidePageFactory(PageFactory):
 
     class Meta:
-        model = BuyersGuidePage
+        model = pagemodels.BuyersGuidePage
+
+
+class BuyersGuidePageHeroSupportingArticleRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuidePageHeroSupportingArticleRelation
+
+    page = SubFactory(BuyersGuidePageFactory)
+    article = SubFactory(
+        'networkapi.wagtailpages.factory.buyersguide.BuyersGuideArticlePageFactory',
+    )
+
+
+class BuyersGuidePageFeaturedArticleRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuidePageFeaturedArticleRelation
+
+    page = SubFactory(BuyersGuidePageFactory)
+    article = SubFactory(
+        'networkapi.wagtailpages.factory.buyersguide.BuyersGuideArticlePageFactory',
+    )
+
+
+class BuyersGuidePageFeaturedUpdateRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuidePageFeaturedUpdateRelation
+
+    page = SubFactory(BuyersGuidePageFactory)
+    update = SubFactory(
+        'networkapi.wagtailpages.factory.buyersguide.ProductUpdateFactory',
+    )
 
 
 class ProductPageVotesFactory(DjangoModelFactory):
 
     class Meta:
-        model = ProductPageVotes
+        model = pagemodels.ProductPageVotes
 
     vote_bins = LazyFunction(lambda: ','.join([str(randint(1, 50)) for x in range(0, 5)]))
 
@@ -83,7 +117,7 @@ class ProductPageVotesFactory(DjangoModelFactory):
 class ProductPageFactory(PageFactory):
 
     class Meta:
-        model = ProductPage
+        model = pagemodels.ProductPage
 
     title = Faker('sentence')
 
@@ -142,7 +176,7 @@ class ProductPageFactory(PageFactory):
 class GeneralProductPageFactory(ProductPageFactory):
 
     class Meta:
-        model = GeneralProductPage
+        model = pagemodels.GeneralProductPage
 
     camera_app = LazyFunction(get_extended_yes_no_value)
     camera_device = LazyFunction(get_extended_yes_no_value)
@@ -168,10 +202,71 @@ class GeneralProductPageFactory(ProductPageFactory):
 class ProductPagePrivacyPolicyLinkFactory(DjangoModelFactory):
 
     class Meta:
-        model = ProductPagePrivacyPolicyLink
+        model = pagemodels.ProductPagePrivacyPolicyLink
 
     label = Faker('sentence')
     url = Faker('url')
+
+
+class BuyersGuideEditorialContentIndexPageFactory(PageFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideEditorialContentIndexPage
+
+    title = 'Articles'
+
+
+class BuyersGuideArticlePageFactory(PageFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideArticlePage
+
+    title = Faker('sentence')
+    hero_image = SubFactory(ImageFactory)
+    first_published_at = Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
+    search_description = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
+    body = Faker(
+        provider='streamfield',
+        fields=(
+            'paragraph',
+            'image',
+            'image_text',
+            'image_text_mini',
+            'video',
+            'linkbutton',
+            'spacer',
+            'quote',
+        ),
+    )
+
+
+class BuyersGuideContentCategoryFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideContentCategory
+
+    title = Faker('word')
+
+
+class BuyersGuideArticlePageAuthorProfileRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideArticlePageAuthorProfileRelation
+
+    page = SubFactory(BuyersGuideArticlePageFactory)
+    author_profile = SubFactory(profile_factories.ProfileFactory)
+
+
+class BuyersGuideArticlePageContentCategoryRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideArticlePageContentCategoryRelation
+
+    page = SubFactory(BuyersGuideArticlePageFactory)
+    content_category = SubFactory(BuyersGuideContentCategoryFactory)
+
+
+class BuyersGuideArticlePageRelatedArticleRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideArticlePageRelatedArticleRelation
+
+    page = SubFactory(BuyersGuideArticlePageFactory)
+    article = SubFactory(BuyersGuideArticlePageFactory)
 
 
 def create_general_product_visual_regression_product(seed, pni_homepage):
@@ -220,10 +315,9 @@ def generate(seed):
 
     print('Generating PNI Homepage')
     pni_homepage = BuyersGuidePageFactory.create(
-        parent=Homepage.objects.first(),
+        parent=pagemodels.Homepage.objects.first(),
         title='* Privacy not included',
         slug='privacynotincluded',
-        header='Be Smart. Shop Safe.',
         intro_text=(
             'How creepy is that smart speaker, that fitness tracker'
             ', those wireless headphones? We created this guide to help you shop for safe'
@@ -241,7 +335,7 @@ def generate(seed):
         general_page.save_revision().publish()
 
     print('Crosslinking related products')
-    product_pages = ProductPage.objects.all()
+    product_pages = pagemodels.ProductPage.objects.all()
     total_product_pages = product_pages.count()
     for product_page in product_pages:
         # Create a new orderable 3 times.
@@ -249,7 +343,7 @@ def generate(seed):
         for i in range(3):
             random_number = randint(1, total_product_pages) - 1
             random_page = product_pages[random_number]
-            related_product = RelatedProducts(
+            related_product = pagemodels.RelatedProducts(
                 page=product_page,
                 related_product=random_page,
             )
@@ -257,7 +351,7 @@ def generate(seed):
             product_page.related_product_pages.add(related_product)
 
             # Create new ProductUpdates orderable for each PNI product
-            product_update = ProductUpdates(
+            product_update = pagemodels.ProductUpdates(
                 page=product_page,
                 update=ProductUpdateFactory()
             )
@@ -280,7 +374,7 @@ def generate(seed):
 
     print('Generating predictable PNI images')
     pni_images = Image.objects.filter(collection__name='pni products')
-    for product_page in ProductPage.objects.all():
+    for product_page in pagemodels.ProductPage.objects.all():
         if pni_images:
             product_page.image = choice(pni_images)
         else:
@@ -288,33 +382,98 @@ def generate(seed):
         product_page.save()
     # TODO: link updates into products
 
-    """
-    reseed(seed)
+    print('Generating buyers guide editorial content')
+    editorial_content_index = BuyersGuideEditorialContentIndexPageFactory(parent=pni_homepage)
+    for _ in range(3):
+        BuyersGuideContentCategoryFactory()
+    articles = []
+    for _ in range(7):
+        article = BuyersGuideArticlePageFactory(parent=editorial_content_index)
+        for profile in get_random_objects(pagemodels.Profile, max_count=3):
+            BuyersGuideArticlePageAuthorProfileRelationFactory(
+                page=article,
+                author_profile=profile,
+            )
+        if article.id % 2 == 0:
+            # Articles with even id get the content category
+            for category in get_random_objects(pagemodels.BuyersGuideContentCategory, max_count=2):
+                BuyersGuideArticlePageContentCategoryRelationFactory(
+                    page=article,
+                    content_category=category,
+                )
+        # Add all previously existing articles as related articles
+        for existing_article in articles:
+            BuyersGuideArticlePageRelatedArticleRelationFactory(
+                page=article,
+                article=existing_article,
+            )
+        articles.append(article)
 
-    print('Generating Buyer\'s Guide Products')
-    generate_fake_data(GeneralProductFactory, 70)
+    # Buyerguide homepage hero article
+    pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()
+    pni_homepage.full_clean()
+    pni_homepage.save()
+    # Buyerguide homepage hero supporting articles
+    supporting_articles = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
+    for index, article in enumerate(supporting_articles):
+        BuyersGuidePageHeroSupportingArticleRelationFactory(
+            page=pni_homepage,
+            article=article,
+            sort_order=index,
+        )
+    # Buyerguide homepage featured advice article
+    pni_homepage.featured_advice_article = pagemodels.BuyersGuideArticlePage.objects.last()
+    pni_homepage.full_clean()
+    pni_homepage.save()
+    # Buyersguide homepage featured articles
+    featured_articles = get_random_objects(
+        source=pagemodels.BuyersGuideArticlePage.objects.exclude(id__in=supporting_articles),
+        exact_count=3,
+    )
+    for index, article in enumerate(featured_articles):
+        BuyersGuidePageFeaturedArticleRelationFactory(
+            page=pni_homepage,
+            article=article,
+            sort_order=index,
+        )
+    # Buyersguide homepage featured product updates
+    for index, update in enumerate(
+        get_random_objects(pagemodels.Update, exact_count=3)
+    ):
+        BuyersGuidePageFeaturedUpdateRelationFactory(
+            page=pni_homepage,
+            update=update,
+            sort_order=index,
+        )
 
-    reseed(seed)
+    # Adding related articles to the Editorial Content Index Page
+    for index, article in enumerate(
+        get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
+    ):
+        BuyersGuideEditorialContentIndexPageArticlePageRelationFactory(
+            page=editorial_content_index,
+            article=article,
+            sort_order=index,
+        )
 
-    print('Generating Randomised Buyer\'s Guide Products Votes')
-    for p in Product.objects.all():
-        for _ in range(1, 15):
-            value = randint(1, 100)
-            RangeVote.objects.create(
-                product=p,
-                attribute='creepiness',
-                value=value
+    # Adding related articles to Product Pages
+    for product in pagemodels.ProductPage.objects.all():
+        for index, article in enumerate(
+            get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=5)
+        ):
+            BuyersGuideProductPageArticlePageRelationFactory(
+                product=product,
+                article=article,
+                sort_order=index,
             )
 
-            value = (random() < 0.5)
-            BooleanVote.objects.create(
-                product=p,
-                attribute='confidence',
-                value=value
+    # Adding related articles to Categories
+    for product_category in pagemodels.BuyersGuideProductCategory.objects.all():
+        for index, article in enumerate(
+            get_random_objects(pagemodels.BuyersGuideArticlePage, max_count=6)
+        ):
+            BuyersGuideProductCategoryArticlePageRelationFactory(
+                category=product_category,
+                article=article,
+                sort_order=index,
             )
-
-    reseed(seed)
-
-    print('Aggregating Buyer\'s Guide Product votes')
-    call_command('aggregate_product_votes')
-    """

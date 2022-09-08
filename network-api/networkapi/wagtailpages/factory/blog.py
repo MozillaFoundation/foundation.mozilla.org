@@ -55,7 +55,7 @@ def add_related_topics(blog_index):
 
 
 def add_authors(post):
-    for profile in get_random_objects(model=Profile, max_count=5):
+    for profile in get_random_objects(source=Profile, max_count=5):
         author_orderable = BlogAuthors.objects.create(page=post, author=profile)
         post.authors.add(author_orderable)
 

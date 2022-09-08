@@ -1,0 +1,129 @@
+{% extends "pages/base.html" %}
+
+{% load bg_nav_tags localization i18n static wagtailroutablepage_tags wagtailmetadata_tags debug_tags mofo_common %}
+
+{% get_current_language as lang_code %}
+
+{% block page_title %}
+{% environment_prefix %}
+{% if pageTitle %}{{ pageTitle }}
+{% else %}{% blocktrans context "“*privacy not included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included | Shop smart and safe{% endblocktrans %} | Mozilla Foundation{% endif %}
+{% endblock %}
+
+{# TODO: consider using a different ga_identifier? #}
+
+
+{% block social_metadata %}
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="{{ lang_code|to_opengraph_locale }}">
+  <meta property="og:title" content="{% trans "*Privacy Not Included: A Buyer’s Guide for Connected Products" context "*Privacy Not Included can be localized. This is a reference to the “*batteries not included” mention on toys." %}">
+  <meta property="wagtail:language" content="{{ lang_code }}">
+{% endblock %}
+
+
+{% block wagtail_metadata %}
+  {% meta_tags %}
+  <meta name="pni-home-title" content="{% blocktrans context "“*privacy not included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included | Shop smart and safe | Mozilla Foundation{% endblocktrans %}">
+  <meta name="pni-category-title" content="{% trans "Privacy & Security Guide | Mozilla Foundation" %}">
+{% endblock %}
+
+
+{% block stylesheets %}
+  {% if debug %}<link rel="stylesheet" href="{% static "_css/tailwind.compiled.css" %}">{% endif %}
+  <link rel="stylesheet" href="{% static "_css/buyers-guide.compiled.css" %}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,400i">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i,400i,600i">
+{% endblock %}
+
+
+{% block icons %}
+  {% include "fragments/favicons.html" %}
+{% endblock %}
+
+
+{% block additional_head_elements %}
+  {% if web_monetization_pointer %}
+    <meta name="monetization" content="{{ web_monetization_pointer }}">
+  {% endif %}
+  <!-- TODO: determine if we still need this -->
+  <script nonce="{{request.csp_nonce}}">
+    var modernBrowser = (
+      'fetch' in window &&
+      'assign' in Object
+    );
+
+    if ( !modernBrowser ) {
+      var scriptElement = document.createElement('script');
+      scriptElement.async = false;
+      scriptElement.src = '{% static "_js/polyfills.compiled.js" %}';
+      document.head.appendChild(scriptElement);
+    }
+  </script>
+{% endblock %}
+
+
+{% block bodyclass %}pni{% endblock %}
+
+
+{% block script_bundle %}
+  <script src="{% url "javascript-catalog" %}"></script>
+  <script src="{% static "_js/bg-main.compiled.js" %}" async defer></script>
+{% endblock %}
+
+{% block donate_banner %}{% endblock %}
+
+{% block body_wrapped %}
+
+  <div class="primary-nav-container-wrapper">
+  {% include "fragments/buyersguide/primary_nav.html" %}
+  </div>
+
+  {% block hero %}{% endblock %}
+
+  {% block category_nav %}
+  {% get_bg_home_page as home_page %}
+  {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
+  <nav id="multipage-nav" class="pni-category-nav text-center d-none d-md-block tw-no-scrollbar tw-mt-2" title="{% trans "site navigation" context "Tooltip on menu items" %}">
+    <div class="container" id="product-review">
+      <div class="row">
+        <div class="col">
+          {% if pagetype == "product" or pagetype == "about" %}
+            <a class="multipage-link active" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All" %}</a>
+          {% else %}
+            <a class="multipage-link {% if not category %} active{% endif %}" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All" %}</a>
+          {% endif %}
+
+          {% for cat in categories %}
+            {% with original=cat.original %}
+            {% if cat.parent == None %}
+              {% if original.published_product_page_count > 0 %}
+                {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
+                <a class="multipage-link {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
+              {% endif %}
+            {% endif %}
+            {% endwith %}
+          {% endfor %}
+
+          <div id="product-filter-search" tabindex="0" class="tw-hidden large:tw-inline-flex tw-px-2 tw-items-center tw-bg-blue-05 tw-border-4 tw-border-blue-05 tw-w-[214px] tw-mr-4">
+            <img
+              class="tw-w-4 tw-h-4 tw-mr-2"
+              src="{% static "_images/buyers-guide/pni-search.svg" %}"
+            >
+            <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search all products" %}" value=""
+             class="tw-bg-blue-05 tw-outline-none tw-py-2 tw-text-base tw-text-blue-60 tw-min-w-0 placeholder:tw-text-blue-60" />
+            <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  {% endblock category_nav %}
+
+  <div class="underneath-screen-overlay">
+    <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
+      {% block guts %}{% endblock %}
+    </main>
+
+    {% include "partials/footer.html" %}
+  </div>
+{% endblock %}

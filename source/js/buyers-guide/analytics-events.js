@@ -8,11 +8,6 @@ function getQuerySelectorEvents(pageTitle, productName) {
       action: `donate tap`,
       label: `${pageTitle} donate header`,
     },
-    ".donate-banner a.tw-btn-secondary": {
-      category: `buyersguide`,
-      action: `donate tap`,
-      label: `${pageTitle} donate footer`,
-    },
 
     // product events
     "#product-company-url": {

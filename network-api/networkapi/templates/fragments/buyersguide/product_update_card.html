@@ -1,0 +1,16 @@
+{% extends "./editorial_content_list_base_card.html" %}
+{% load i18n localization static %}
+
+
+{% block product_update_card_content %}
+  <div>
+    <a href="{{update.source}}" class="tw-group tw-block hover:tw-no-underline">
+      <p class="tw-h4-heading d-inline-block tw-mb-1 medium:tw-my-0 group-hover:tw-underline">{{ update.localized.title }}</p>
+        <a href="{{update.source}}" class="tw-text-blue-40 tw-text-xs tw-font-bold tw-uppercase tw-pt-0 medium:tw-pt-1 tw-pb-2 medium:tw-pb-1 tw-leading-5 tw-flex tw-no-underline">
+          {% blocktrans with press_name=update.author %} {{press_name}} {% endblocktrans %}
+          <img src="{% static "_images/buyers-guide/product-update-card-external-link.svg" %}" class="tw-ml-2" />
+        </a>
+      <p class="tw-text-xs medium:tw-text-lg tw-body tw-line-clamp-3 tw-leading-3 medium:tw-leading-6">{{ update.snippet }}</p>
+    </a>
+  </div>
+{% endblock %}

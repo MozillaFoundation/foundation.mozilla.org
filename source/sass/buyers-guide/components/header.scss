@@ -23,8 +23,6 @@ body.pni #nav-newsletter-form-wrapper {
   overflow-x: auto;
   white-space: nowrap;
 
-  @include set-category-border-bottom-style();
-
   a {
     display: inline-block;
     height: 42px;

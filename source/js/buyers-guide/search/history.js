@@ -12,9 +12,27 @@ const toggle = document.querySelector(`#product-filter-pni-toggle`);
  * @param {*} searchBar
  * @param {*} searchInput
  */
-export function setupHistoryManagement(instance, searchBar, searchInput) {
-  setupPopStateHandler(instance, searchBar, searchInput);
-  performInitialHistoryReplace(instance, searchBar, searchInput);
+export function setupHistoryManagement(
+  instance,
+  searchBar,
+  searchInput,
+  mobileSearchBar,
+  mobileSearchInput
+) {
+  setupPopStateHandler(
+    instance,
+    searchBar,
+    searchInput,
+    mobileSearchBar,
+    mobileSearchInput
+  );
+  performInitialHistoryReplace(
+    instance,
+    searchBar,
+    searchInput,
+    mobileSearchBar,
+    mobileSearchInput
+  );
 }
 
 /**
@@ -23,7 +41,13 @@ export function setupHistoryManagement(instance, searchBar, searchInput) {
  * @param {*} searchBar
  * @param {*} searchInput
  */
-export function performInitialHistoryReplace(instance, searchBar, searchInput) {
+export function performInitialHistoryReplace(
+  instance,
+  searchBar,
+  searchInput,
+  mobileSearchBar,
+  mobileSearchInput
+) {
   history.replaceState(
     {
       title: Utils.getTitle(categoryTitle.value.trim()),
@@ -39,10 +63,36 @@ export function performInitialHistoryReplace(instance, searchBar, searchInput) {
   if (history.state?.search) {
     searchBar.classList.add(`has-content`);
     searchInput.value = history.state?.search;
+    mobileSearchBar.classList.add(`has-content`);
+    mobileSearchInput.value = history.state?.search;
     instance.filter(history.state?.search);
   } else {
     searchBar.classList.remove(`has-content`);
     searchInput.value = ``;
+    mobileSearchBar.classList.remove(`has-content`);
+    mobileSearchInput.value = ``;
+  }
+
+  const url = new URLSearchParams(window.location.search);
+  const searchParameter = url.get("search");
+  if (searchParameter) {
+    history.replaceState(
+      {
+        title: Utils.getTitle(categoryTitle.value.trim()),
+        category: categoryTitle.value.trim(),
+        parent: parentTitle.value.trim(),
+        search: searchParameter ?? "",
+        filter: history.state?.filter,
+      },
+      Utils.getTitle(categoryTitle.value.trim()),
+      location.href
+    );
+
+    searchBar.classList.add(`has-content`);
+    searchInput.value = history.state?.search;
+    mobileSearchBar.classList.add(`has-content`);
+    mobileSearchInput.value = history.state?.search;
+    instance.filter(history.state?.search);
   }
 
   if (history.state?.filter) {
@@ -73,7 +123,13 @@ export function performInitialHistoryReplace(instance, searchBar, searchInput) {
  * @param {*} searchBar
  * @param {*} searchInput
  */
-export function setupPopStateHandler(instance, searchBar, searchInput) {
+export function setupPopStateHandler(
+  instance,
+  searchBar,
+  searchInput,
+  mobileSearchBar,
+  mobileSearchInput
+) {
   window.addEventListener(`popstate`, (event) => {
     const { state } = event;
     if (!state) return; // if it's a "real" back, we shouldn't need to do anything
@@ -87,7 +143,9 @@ export function setupPopStateHandler(instance, searchBar, searchInput) {
       parentTitle.value = parent;
 
       searchBar.classList.remove(`has-content`);
+      mobileSearchBar.classList.remove(`has-content`);
       searchInput.value = ``;
+      mobileSearchInput.value = ``;
 
       if (parent) {
         Utils.highlightParentCategory();
@@ -127,6 +185,8 @@ export function setupPopStateHandler(instance, searchBar, searchInput) {
       instance.toggleSubcategory(true);
       searchBar.classList.add(`has-content`);
       searchInput.value = history.state?.search;
+      mobileSearchBar.classList.add(`has-content`);
+      mobileSearchInput.value = history.state?.search;
       instance.filter(history.state?.search);
     }
 

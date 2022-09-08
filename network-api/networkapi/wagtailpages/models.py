@@ -103,13 +103,36 @@ from .pagemodels.dear_internet import (
     DearInternetPage
 )
 
-from .pagemodels.products import (
+from .pagemodels.buyersguide.article_page import (
+    BuyersGuideArticlePage,
+    BuyersGuideArticlePageAuthorProfileRelation,
+    BuyersGuideArticlePageContentCategoryRelation,
+    BuyersGuideArticlePageRelatedArticleRelation,
+)
+from .pagemodels.buyersguide.editorial_content_index import (
+    BuyersGuideEditorialContentIndexPage,
+    BuyersGuideEditorialContentIndexPageArticlePageRelation,
+)
+from .pagemodels.buyersguide.homepage import (
     BuyersGuidePage,
+    BuyersGuidePageHeroSupportingArticleRelation,
+    BuyersGuidePageFeaturedArticleRelation,
+    BuyersGuidePageFeaturedUpdateRelation,
+)
+from .pagemodels.buyersguide.products import (
+    BuyersGuideProductCategory,
+    BuyersGuideProductCategoryArticlePageRelation,
+    BuyersGuideProductPageArticlePageRelation,
     GeneralProductPage,
     ProductPage,
     ProductPageCategory,
     ProductPagePrivacyPolicyLink,
+    ProductPageVotes,
+    ProductUpdates,
+    RelatedProducts,
+    Update,
 )
+from .pagemodels.buyersguide.taxonomies import BuyersGuideContentCategory
 
 from .pagemodels.pulse import PulseFilter
 

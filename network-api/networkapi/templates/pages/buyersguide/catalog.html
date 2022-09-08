@@ -1,0 +1,133 @@
+{% extends "pages/buyersguide/base.html" %}
+
+{% load static env i18n static wagtailimages_tags cache bg_nav_tags localization %}
+
+{% block bodyclass %}pni catalog{% endblock %}
+
+{% block main_content_class %}{% endblock %}
+
+{% block hero %}
+<input type="hidden" class="category-title" value="{% if current_category %}{{current_category.localized.name}}{% else %}None{% endif %}">
+<input type="hidden" class="parent-title" value="{{current_category.parent.localized.name}}">
+<div class="tw-container">
+  <div class="tw-row">
+    <div class="tw-px-4 tw-w-full">
+      <div id="sticky-bar" class="creepiness-slider bg-white text-center tw-flex tw-justify-center">
+
+          <div class="creep-o-meter-information">
+            <p class="speech-bubble-container">
+              <span class="speech-bubble tw-bg-gradient-to-t tw-from-purple-05 tw-to-blue-05">
+                <img class="hook" src="{% static "_images/buyers-guide/icon-bubble-hook.svg" %}">
+                <span class="text">{% trans "We created this guide to help you shop<br> for safe, secure connected products." %}</span>
+              </span>
+            </p>
+            <span class="current-creepiness"></span>
+          </div>
+
+
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block guts %}
+{% get_bg_home_page as home_page %}
+<div class="project-list-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 tw-mb-4 tw-px-0">
+        <div class="tw-flex tw-items-end">
+          <a
+          href="{% if current_category.parent %}{% localizedroutablepageurl home_page 'category-view' current_category.parent.slug  %}{% elif current_category %}{% localizedroutablepageurl home_page 'category-view' current_category.slug  %}{% else %}{% relocalized_url home_page.localized.url %}{% endif %}"
+          data-name="{% if current_category.parent %}{{ current_category.parent.name }}{% elif current_category %}{{current_category.name}}{% else %}None{% endif %}"
+          class="tw-text-5xl tw-font-zilla category-header tw-text-black hover:tw-text-pni-blue tw-no-underline tw-cursor-pointer tw-hidden medium:tw-block"
+          >
+            {% if current_category.parent %}
+              {{current_category.parent.localized.name}}
+            {% elif current_category %}
+              {{current_category.localized.name}}
+            {% else %}
+              {% trans "All" %}
+            {% endif %}
+          </a>
+
+          
+        </div>
+
+      </div>
+    </div>
+    <div class="row px-0 tw-mb-6 medium:tw-mb-4">
+      <div class="tw-w-[98vw] tw-relative tw-left-1/2 tw-ml-[-51vw] large:tw-left-auto large:tw-ml-0 large:tw-static large:tw-w-full">
+        <div class="tw-px-4 large:tw-px-0 tw-flex tw-space-x-2 tw-overflow-auto tw-pb-2 tw-no-scrollbar tw-touch-pan-x subcategory-header">
+          
+          <span id="product-filter-pni" class="tw-flex tw-cursor-pointer tw-text-gray-60 border tw-border-gray-20 tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3] hover:tw-border-blue-10 hover:tw-bg-blue-10">
+            <input type="checkbox" id="product-filter-pni-toggle" autocomplete="off">
+            <span class="pni-icon tw-mr-1">&nbsp;</span>
+            <label for="product-filter-pni-toggle" class="tw-flex tw-m-0">{% trans "Has privacy ding" %} </label>
+          </span>
+          
+          {% for cat in categories %}
+            {% with original=cat.original selected_classes="active tw-bg-gray-80 tw-text-white tw-border-gray-80" default_classes="hover:tw-border-blue-10 hover:tw-bg-blue-10 tw-text-gray-60 tw-border-gray-20 tw-bg-white" tailwind_classes="tw-no-underline border tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3] tw-whitespace-nowrap" %}
+            {% if cat.parent != None %}
+              {% if original.published_product_page_count > 0 %}
+                {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
+                <a class="{% if current_category.name != cat.parent.name and current_category.parent.name != cat.parent.name %} tw-hidden {% endif %} subcategories {{ tailwind_classes }} {% if current_category.name == cat.name %}{{ selected_classes }}{% else %}{{ default_classes }}{% endif %}"
+                   href="{{ cat_url }}"
+                   data-parent="{{ cat.parent.localized.name }}"
+                   data-name="{{ cat.name }}">
+                  {{ cat.name }}
+                </a>
+              {% endif %}
+            {% endif %}
+            {% endwith %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-box-list-wrapper">
+    <div class="product-box-list tw-overflow-hidden d-flex justify-content-center align-items-stretch flex-wrap">
+    {% if request.user.is_anonymous %}
+      {# User is not logged in. Return cached results. 24 hour caching applied. #}
+      {% cache 86400 pni_home_page template_cache_key_fragment %}
+        {% for product in products %}
+          {% product_in_category product category as matched %}
+          {% include "fragments/buyersguide/item.html" with product=product.localized matched=matched %}
+        {% endfor %}
+      {% endcache %}
+    {% else %}
+      {# User is logged in. Don't cache their results so they can see live and draft products here. #}
+      {% for product in products %}
+        {% product_in_category product category as matched %}
+        {% include "fragments/buyersguide/item.html" with product=product.localized matched=matched %}
+      {% endfor %}
+    {% endif %}
+    </div>
+
+    <div id="product-filter-no-results-notice" class="d-none text-center my-5 py-5">
+      {% block no_products_found %}
+        {% include "fragments/buyersguide/no_search_results.html" %}
+      {% endblock %}
+    </div>
+  </div>
+</div>
+<div class="recommend-product">
+ <div class="container text-center my-5">
+  <h2 class="tw-h3-heading">{% trans "Don’t see the product you’re looking for?" %}</h2>
+  <p class="tw-body">{% trans "Let us know what product you would like reviewed in the guide." %}</p>
+  {% include "fragments/buyersguide/submit_a_product.html" %}
+ </div>
+</div>
+
+<noscript>
+    <style type="text/css">
+        tw-body.catalog figure.product-box {
+            opacity: 1 !important;
+        }
+    </style>
+</noscript>
+
+<script src="{% static "_js/bg-search.compiled.js" %}" async type="module"></script>
+{% endblock %}
