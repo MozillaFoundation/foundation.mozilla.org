@@ -29,6 +29,24 @@
       }
     }
 
+    &__scenes {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: -415px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 3px;
+        height: calc(100% + 415px);
+        background: black;
+        background-image: url("../_images/youtube-regrets/timeline-border-line.svg");
+        background-repeat: repeat;
+      }
+    }
+
     &__scene {
       position: relative;
       height: 100vh;
