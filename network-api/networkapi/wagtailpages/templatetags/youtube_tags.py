@@ -16,3 +16,20 @@ def yt2021report(context):
         report_url = document_root + 'Mozilla_YouTube_Regrets_Report_German.pdf'
 
     return report_url
+
+
+@register.simple_tag(takes_context=True)
+def yt2022data_wrapper_url(context):
+    if context['request'].LANGUAGE_CODE == "fr":
+        return 'https://datawrapper.dwcdn.net/kl3jI/'
+    if context['request'].LANGUAGE_CODE == "de":
+        return 'https://datawrapper.dwcdn.net/iHxzV/'
+    if context['request'].LANGUAGE_CODE == "es":
+        return 'https://datawrapper.dwcdn.net/QIjQb/'
+    if context['request'].LANGUAGE_CODE == "nl":
+        return 'https://datawrapper.dwcdn.net/d8LI4/'
+    if context['request'].LANGUAGE_CODE == "pt-BR":
+        return 'https://datawrapper.dwcdn.net/KhNFD/'
+    else:
+        return 'https://datawrapper.dwcdn.net/kl3jI/7/'
+
