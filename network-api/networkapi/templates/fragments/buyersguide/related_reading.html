@@ -1,4 +1,7 @@
-{% load static wagtailcore_tags i18n %}
+{% load static wagtailcore_tags i18n bg_nav_tags %}
+
+{% get_bg_home_page as home_page %}
+
 <div>
     <img src="{% static "_images/buyers-guide/short-wavy-border.svg" %}" class="" />
     <h2 class="tw-font-zilla tw-font-normal tw-text-2xl tw-text-black tw-mt-2 tw-mb-[20px]">

@@ -107,9 +107,9 @@ test(`PNI search`, async ({ page }, testInfo) => {
   // number of products show up.
   subcats = page.locator(`a.subcategories`);
   await expect(subcats).toHaveCount(3);
-  subcat = page.locator(`a.subcategories:nth-child(2)`);
+  subcat = page.locator(`a.subcategories:nth-child(3)`);
   await expect(subcat).toHaveText(`Smart Scales`);
-  await page.click(`a.subcategories:nth-child(2)`);
+  await page.click(`a.subcategories:nth-child(3)`);
   products = page.locator(qs.products);
   await expect(products).toHaveCount(counts.smart);
 
