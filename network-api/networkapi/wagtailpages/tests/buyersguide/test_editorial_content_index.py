@@ -105,6 +105,8 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     def test_context_with_no_home_page_cta_set(self):
         self.pni_homepage.call_to_action = None
+        self.pni_homepage.save()
+
         response = self.client.get(self.content_index.url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
