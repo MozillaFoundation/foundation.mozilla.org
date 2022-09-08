@@ -20,6 +20,10 @@
 
       > h2 {
         font-weight: 700;
+
+        @include media-breakpoint-up(lg) {
+          font-size: 4rem;
+        }
       }
 
       > svg {
@@ -47,17 +51,12 @@
 
     &__scene {
       position: relative;
-      //height: 100vh;
       min-height: 1000px;
       width: 100%;
       padding: 4vh 0;
 
       &:last-of-type {
         padding-bottom: 0;
-      }
-
-      &--double-top-padding {
-        padding-top: 32vh;
       }
     }
 
@@ -67,6 +66,11 @@
 
       @include media-breakpoint-up(md) {
         font-size: 1.25rem;
+      }
+
+
+      @include media-breakpoint-up(lg) {
+        font-size: 1.875rem;
       }
     }
 
