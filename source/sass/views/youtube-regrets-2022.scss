@@ -12,7 +12,6 @@
 
     &__person-date {
       position: absolute;
-      top: 600px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -52,7 +51,7 @@
       //height: 100vh;
       min-height: 1000px;
       width: 100%;
-      padding: 8vh 0;
+      padding: 4vh 0;
 
       &:last-of-type {
         padding-bottom: 0;

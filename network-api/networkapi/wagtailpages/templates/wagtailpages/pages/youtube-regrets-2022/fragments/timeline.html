@@ -9,6 +9,7 @@
       </div>
     {% endcomment %}
 
+  {% comment %}
     {# Scene 1 #}
     <div class="timeline__scene timeline__scene--first" data-scene="1">
       <div class="tw-grid medium:tw-grid-cols-3 tw-grid-cols-1">
@@ -22,7 +23,7 @@
           <p class="timeline__scene-text">{% trans 'A user sees a video they would rather not see again' %}</p>
         </div>
       </div>
-      <div class="timeline__person-date">
+      <div class="timeline__person-date tw-top-[600px]">
         <h2>{% trans 'Dec 8, 2021' %}</h2>
         {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-thinking.svg' %}
       </div>
@@ -45,7 +46,7 @@
         </div>
       </div>
 
-      <div class="timeline__person-date">
+      <div class="timeline__person-date tw-top-[600px]">
         <h2>{% trans 'Dec 8, 2021' %}</h2>
         {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-pointing.svg' %}
       </div>
@@ -61,11 +62,12 @@
 
       {% include './video-thumb.html' with class="tw-left-[50%] medium:tw-left-[75%] tw-top-[90%] " image='scene3/2.jpg' speed="3" text='A Student Ate 108 Gummy Antacids For Breakfast. This Is What Happened To Her Kidneys.' %}
 
-      <div class="timeline__person-date">
+      <div class="timeline__person-date tw-top-[600px]">
         <h2>{% trans 'A week later' %}</h2>
         {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-thinking.svg' %}
       </div>
     </div>
+  {% endcomment %}
 
     {# Scene 4 #}
     <div class="timeline__scene tw-grid tw-grid-cols-2" data-scene="4">
@@ -94,7 +96,7 @@
         <p class="timeline__scene-text">{% trans '...and showing up' %}</p>
       </div>
 
-      <div class="timeline__person-date">
+      <div class="timeline__person-date tw-top-[600px]">
         <h2>{% trans 'A month later' %}</h2>
         {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-thinking.svg' %}
       </div>
@@ -102,38 +104,39 @@
 
     {# Scene 5 #}
     <div class="timeline__scene tw-grid tw-grid-cols-2" data-scene="5">
-
-      <div class="timeline__scene-left">
-        {% include './video-thumb.html' with class="tw-left-0" image='scene5/17.jpg' speed="2" text='A Student Ate Suspicious Leftovers For Lunch. This Is What Happened To His Limbs.' %}
-        {% include './video-thumb.html' with class="tw-left-[10%]" image='scene5/9.jpg' speed="1" text='A Boy Ate 25 Laxative Brownies In 1 Hour. This Is What Happened To His Kidneys.' %}
-        {% include './video-thumb.html' with class="tw-left-0 " image='scene5/2.jpg' speed="5" text='A TikToker Drank 2 Bottles Benadryl. This Is What Happened To Her Organs.' %}
-        {% include './video-thumb.html' with class="tw-left-0" image='scene5/19.jpg' speed="3" text='A Bitcoin Miner Heatstroked In His Sleep. This Is What Happened To His Organs.' %}
-        {% include './video-thumb.html' with class="tw-left-0" image='scene5/5.jpg' speed="1" text='A TikToker Drank 1 Liter Cough Syrup. This Is What Happened To His Brain.' %}
-        {% include './video-thumb.html' with class="tw-left-0" image='scene5/6.jpg' speed="1" text='A Man Drank 6 Glowsticks For Dinner. This Is What Happened To His Stomach.' %}
-        {% include './video-thumb.html' with class="tw-left-0" image='scene5/4.jpg' speed="4" text='A Man Swallowed A Fishbone. This Is What Happened To His Liver.' %}
-        {% include './video-thumb.html' with class="tw-left-0" image='scene5/16.jpg' speed="3" text='A Student Ate 5 Day Old Pasta For Lunch. This Is How His Liver Shut Down.' %}
+      <div class="timeline__scene-left tw-grid tw-grid-cols-6 tw-grid-rows-8 tw-px-2">
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-1 tw-row-start-1" image='scene5/17.jpg' speed="2" text='A Student Ate Suspicious Leftovers For Lunch. This Is What Happened To His Limbs.' %}
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-4 tw-row-start-2" image='scene5/9.jpg' speed="3" text='A Boy Ate 25 Laxative Brownies In 1 Hour. This Is What Happened To His Kidneys.' %}
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-1 tw-row-start-3" image='scene5/2.jpg' speed="5" text='A TikToker Drank 2 Bottles Benadryl. This Is What Happened To Her Organs.' %}
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-2 tw-row-start-4" image='scene5/19.jpg' speed="4" text='A Bitcoin Miner Heatstroked In His Sleep. This Is What Happened To His Organs.' %}
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-1 tw-row-start-5" image='scene5/5.jpg' speed="3" text='A TikToker Drank 1 Liter Cough Syrup. This Is What Happened To His Brain.' %}
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-4 tw-row-start-6" image='scene5/6.jpg' speed="2" text='A Man Drank 6 Glowsticks For Dinner. This Is What Happened To His Stomach.' %}
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-1 tw-row-start-7" image='scene5/4.jpg' speed="4" text='A Man Swallowed A Fishbone. This Is What Happened To His Liver.' %}
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-2 tw-row-start-8" image='scene5/16.jpg' speed="3" text='A Student Ate 5 Day Old Pasta For Lunch. This Is How His Liver Shut Down.' %}
       </div>
 
-      <div class="timeline__scene-right">
-        {% include './video-thumb.html' with class="tw-left-[80%]" image='scene5/11.jpg' speed="4" text='A TikToker Chugged 8 Scoops PreWorkout Supplement. This Is What Happened To His Brain.' %}
-        {% include './video-thumb.html' with class="tw-left-[60%] tw-top-[10%]" image='scene5/8.jpg' speed="1" text='A Dad Drank A Snowglobe. This Is What Happened To His Kidneys.' %}
-        {% include './video-thumb.html' with class="tw-left-[60%]" image='scene5/7.jpg' speed="2" text='A Grandma Ate Cookie Dough For Lunch Every Week. This Is What Happened To Her Bones.' %}
-        {% include './video-thumb.html' with class="tw-left-[60%]" image='scene5/18.jpg' speed="5" text='A Man Ate 2 Pounds Licorice Candy. This Is What Happened To His Organs.' %}
-        {% include './video-thumb.html' with class="tw-left-[60%]" image='scene5/3.jpg' speed="5" text='A Grandma Ate 1 Pound Chocolate In 6 Hours. This Is What Happened To Her Brain.' %}
-        {% include './video-thumb.html' with class="tw-left-[60%]" image='scene5/20.jpg' speed="1" text='A Man Ate 100 Zinc Vitamin C Gummies Everyday. This Is What Happened To His Spinal Cord.' %}
+      <div class="timeline__scene-right tw-grid tw-grid-cols-6 tw-grid-rows-8">
+        <div class="tw-col-span-6 tw-row-start-1"></div>
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-4 tw-row-start-2" image='scene5/11.jpg' speed="4" text='A TikToker Chugged 8 Scoops PreWorkout Supplement. This Is What Happened To His Brain.' %}
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-5 tw-row-start-3" image='scene5/8.jpg' speed="3" text='A Dad Drank A Snowglobe. This Is What Happened To His Kidneys.' %}
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-3 tw-row-start-4" image='scene5/7.jpg' speed="2" text='A Grandma Ate Cookie Dough For Lunch Every Week. This Is What Happened To Her Bones.' %}
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-5 tw-row-start-5" image='scene5/18.jpg' speed="5" text='A Man Ate 2 Pounds Licorice Candy. This Is What Happened To His Organs.' %}
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-5 tw-row-start-6" image='scene5/3.jpg' speed="4" text='A Grandma Ate 1 Pound Chocolate In 6 Hours. This Is What Happened To Her Brain.' %}
+        {% include './video-thumb.html' with class="tw-col-span-6 tw-col-start-3 tw-row-start-7" image='scene5/20.jpg' speed="6" text='A Man Ate 100 Zinc Vitamin C Gummies Everyday. This Is What Happened To His Spinal Cord.' %}
+        <div class="tw-col-span-6 tw-row-start-8"></div>
       </div>
 
-      <div class="medium:tw-col-start-3 tw-absolute tw-left-[75%] tw-top-[30%]" data-scroll data-scroll-speed="1">
+      <div class="tw-absolute tw-left-[60%] tw-top-[30%]" data-scroll data-scroll-speed="1">
         <p class="timeline__scene-text">{% trans '...and showing up' %}</p>
       </div>
 
-      <div class="timeline__person-date tw-bottom-[600px]">
+      <div class="timeline__person-date tw-bottom-[200px]">
         <h2>{% trans 'Two months later' %}</h2>
         {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-thinking.svg' %}
       </div>
     </div>
-    {% comment %}
 
+    {% comment %}
       {# Scene 6 #}
       <div class="timeline__scene" data-scene="6">
         {% include './video-thumb.html' with class="tw-left-0" image='scene5/10.jpg' speed="5" text='A Boy Ate 150 Gummy Vitamins For Breakfast. This Is What Happened To His Bones.' %}
