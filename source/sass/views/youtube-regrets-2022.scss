@@ -49,9 +49,10 @@
 
     &__scene {
       position: relative;
-      height: 100vh;
+      //height: 100vh;
+      min-height: 1000px;
       width: 100%;
-      padding: 16vh 0;
+      padding: 8vh 0;
 
       &:last-of-type {
         padding-bottom: 0;
@@ -71,6 +72,30 @@
       position: absolute;
       top: -30px;
       right: 60px;
+    }
+  }
+
+  .video-thumb {
+    max-width: 185px;
+
+    @include media-breakpoint-up(md) {
+      max-width: 250px;
+    }
+
+    &--small {
+      max-width: 150px;
+
+      @include media-breakpoint-up(md) {
+        max-width: 200px;
+      }
+    }
+
+    &--large {
+      max-width: 200px;
+
+      @include media-breakpoint-up(md) {
+          max-width: 350px;
+      }
     }
   }
 }
