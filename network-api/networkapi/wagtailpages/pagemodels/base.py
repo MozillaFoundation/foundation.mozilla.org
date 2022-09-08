@@ -3,8 +3,8 @@ from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.models import TranslatableMixin, Page, Orderable as WagtailOrderable
-
 from wagtail.core.fields import RichTextField
+from wagtail.images import get_image_model_string
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -338,6 +338,18 @@ class ParticipatePage2(PrimaryPage):
 
 class Styleguide(PrimaryPage):
     template = 'pages/styleguide.html'
+
+    emoji_image = models.ForeignKey(
+        get_image_model_string(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        help_text='Emoji style image for use in the styleguide.',
+    )
+
+    content_panels = PrimaryPage.content_panels + [
+        ImageChooserPanel('emoji_image'),
+    ]
 
 
 class HomepageSpotlightPosts(TranslatableMixin, WagtailOrderable):

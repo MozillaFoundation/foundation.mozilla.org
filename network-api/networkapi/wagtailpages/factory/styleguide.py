@@ -1,4 +1,5 @@
 import factory
+from django.conf import settings
 from wagtail_factories import PageFactory
 from wagtail.core.models import Page as WagtailPage
 
@@ -31,13 +32,19 @@ styleguide_streamfield_fields = [
 ]
 
 
+
 class StyleguideFactory(PageFactory):
     class Meta:
         model = Styleguide
 
     title = 'Style-guide'
-    banner = factory.SubFactory(ImageFactory)
     body = factory.Faker('streamfield', fields=styleguide_streamfield_fields)
+    emoji_image = factory.SubFactory(
+        ImageFactory,
+        file=factory.django.ImageField(
+            from_path=settings.BASE_DIR + '/../source/images/buyers-guide/heart-emoji.png'
+        )
+    )
 
 
 def generate(seed):
