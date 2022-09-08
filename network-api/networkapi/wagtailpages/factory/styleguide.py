@@ -32,7 +32,6 @@ styleguide_streamfield_fields = [
 ]
 
 
-
 class StyleguideFactory(PageFactory):
     class Meta:
         model = Styleguide
