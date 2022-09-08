@@ -1,6 +1,6 @@
 {% load wagtailimages_tags static i18n localization homepage_tags wagtailroutablepage_tags %}
 
-{% with authors=page.author_profile_relations.related_items %}
+{% with authors=page.get_author_profiles %}
 
 <div class="blog-authors d-flex flex-wrap {% if show_full_info %}flex-column mb-4{% else %}align-items-center{% endif %}">
   {% with author_image_classes="-tw-ml-[0.7rem] tw-overflow-hidden tw-rounded-full tw-border-2 tw-border-white tw-inline-block tw-w-[40px] tw-h-[40px] tw-border-r d-flex align-items-center justify-content-center last:tw-mr-2" no_image_classes="tw-bg-[url('../_images/blog-author-placeholder.jpg')] tw-bg-cover "%}

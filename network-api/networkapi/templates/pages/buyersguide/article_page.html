@@ -55,7 +55,7 @@
       <div class="tw-border-4 tw-border-black col-lg-8"></div>
     </div>
     <div class="tw-row tw-justify-center tw-divide-y tw-divide-gray-20">
-      {% with author_profiles=page.author_profile_relations.related_items  %}
+      {% with author_profiles=page.get_author_profiles  %}
         {% if author_profiles %}
           {% for author_profile in author_profiles %}
             <div class="col-lg-8 tw-flex tw-py-4">
@@ -77,7 +77,7 @@
 
   <div class="tw-container">
     <div class="tw-row tw-justify-center">
-      <div class="col-lg-8">
+      <div class="col-12 col-lg-8">
           {% include "fragments/buyersguide/pni_newsletter_box.html" %}
           <div class="tw-m-4">
             {% include "fragments/buyersguide/related_reading.html" with articles=page.get_primary_related_articles all_articles=False %}
@@ -87,6 +87,6 @@
   </div>
 </div>
 
-  
+
 
 {% endblock guts %}

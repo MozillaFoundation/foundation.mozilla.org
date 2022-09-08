@@ -144,6 +144,85 @@ class TestBlogIndex(BlogIndexTestCase):
         self.assertIn(unfeatured_blog_page, entries)
         self.assertNotIn(featured_blog_page, entries)
 
+    def test_page_size_12_accounts_for_topics_box(self):
+        url = self.blog_index.get_url()
+
+        self.fill_index_pages_with_blog_pages(3)
+        self.blog_index.page_size = 12
+        self.blog_index.save()
+
+        response_without_topic = self.client.get(path=url)
+        entries_without_topic = response_without_topic.context['entries']
+
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
+        self.blog_index.related_topics.add(topic)
+        self.blog_index.save()
+
+        response_with_topic = self.client.get(path=url)
+        entries_with_topic = response_with_topic.context['entries']
+
+        self.assertEqual(len(entries_without_topic), 12)
+        self.assertEqual(len(entries_with_topic), 11)
+
+    def test_page_size_24_accounts_for_topics_box(self):
+        url = self.blog_index.get_url()
+
+        self.fill_index_pages_with_blog_pages(6)
+        self.blog_index.page_size = 24
+
+        self.blog_index.save()
+
+        response_without_topic = self.client.get(path=url)
+        entries_without_topic = response_without_topic.context['entries']
+
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
+        self.blog_index.related_topics.add(topic)
+        self.blog_index.save()
+
+        response_with_topic = self.client.get(path=url)
+        entries_with_topic = response_with_topic.context['entries']
+
+        self.assertEqual(len(entries_without_topic), 24)
+        self.assertEqual(len(entries_with_topic), 23)
+
+    def test_page_size_4_unaffected_by_topics_box(self):
+        url = self.blog_index.get_url()
+
+        self.fill_index_pages_with_blog_pages(1)
+
+        response_without_topic = self.client.get(path=url)
+        entries_without_topic = response_without_topic.context['entries']
+
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
+        self.blog_index.related_topics.add(topic)
+        self.blog_index.save()
+
+        response_with_topic = self.client.get(path=url)
+        entries_with_topic = response_with_topic.context['entries']
+
+        self.assertEqual(len(entries_without_topic), 4)
+        self.assertEqual(len(entries_with_topic), 4)
+
+    def test_page_size_8_unaffected_by_topics_box(self):
+        url = self.blog_index.get_url()
+
+        self.fill_index_pages_with_blog_pages(2)
+        self.blog_index.page_size = 8
+        self.blog_index.save()
+
+        response_without_topic = self.client.get(path=url)
+        entries_without_topic = response_without_topic.context['entries']
+
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
+        self.blog_index.related_topics.add(topic)
+        self.blog_index.save()
+
+        response_with_topic = self.client.get(path=url)
+        entries_with_topic = response_with_topic.context['entries']
+
+        self.assertEqual(len(entries_without_topic), 8)
+        self.assertEqual(len(entries_with_topic), 8)
+
 
 class TestBlogIndexTopic(BlogIndexTestCase):
     def test_topic_route_success(self):

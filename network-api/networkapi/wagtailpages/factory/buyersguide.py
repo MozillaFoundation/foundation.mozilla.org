@@ -167,7 +167,7 @@ class ProductPageFactory(PageFactory):
     @post_generation
     def set_random_creepiness(self, create, extracted, **kwargs):
         self.get_or_create_votes()
-        single_vote = [0, 0, 0, 0, 1]
+        single_vote = [0, 0, 0, 0, 0]
         shuffle(single_vote)
         self.votes.set_votes(single_vote)
         self.creepiness_value = randint(0, 100)
@@ -221,6 +221,8 @@ class BuyersGuideArticlePageFactory(PageFactory):
 
     title = Faker('sentence')
     hero_image = SubFactory(ImageFactory)
+    first_published_at = Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
+    search_description = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
     body = Faker(
         provider='streamfield',
         fields=(
@@ -407,53 +409,71 @@ def generate(seed):
             )
         articles.append(article)
 
-    # Adding related articles to the Editorial Content Index Page
-    for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3):
-        BuyersGuideEditorialContentIndexPageArticlePageRelationFactory(
-            page=editorial_content_index,
-            article=article,
-        )
-
     # Buyerguide homepage hero article
     pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()
     pni_homepage.full_clean()
     pni_homepage.save()
     # Buyerguide homepage hero supporting articles
     supporting_articles = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
-    for article in supporting_articles:
+    for index, article in enumerate(supporting_articles):
         BuyersGuidePageHeroSupportingArticleRelationFactory(
             page=pni_homepage,
             article=article,
+            sort_order=index,
         )
+    # Buyerguide homepage featured advice article
+    pni_homepage.featured_advice_article = pagemodels.BuyersGuideArticlePage.objects.last()
+    pni_homepage.full_clean()
+    pni_homepage.save()
     # Buyersguide homepage featured articles
     featured_articles = get_random_objects(
         source=pagemodels.BuyersGuideArticlePage.objects.exclude(id__in=supporting_articles),
         exact_count=3,
     )
-    for article in featured_articles:
+    for index, article in enumerate(featured_articles):
         BuyersGuidePageFeaturedArticleRelationFactory(
             page=pni_homepage,
             article=article,
+            sort_order=index,
         )
-    # Buyersguide featured product updates
-    for update in get_random_objects(pagemodels.Update, exact_count=3):
+    # Buyersguide homepage featured product updates
+    for index, update in enumerate(
+        get_random_objects(pagemodels.Update, exact_count=3)
+    ):
         BuyersGuidePageFeaturedUpdateRelationFactory(
             page=pni_homepage,
             update=update,
+            sort_order=index,
+        )
+
+    # Adding related articles to the Editorial Content Index Page
+    for index, article in enumerate(
+        get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
+    ):
+        BuyersGuideEditorialContentIndexPageArticlePageRelationFactory(
+            page=editorial_content_index,
+            article=article,
+            sort_order=index,
         )
 
     # Adding related articles to Product Pages
     for product in pagemodels.ProductPage.objects.all():
-        for article in get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=5):
+        for index, article in enumerate(
+            get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=5)
+        ):
             BuyersGuideProductPageArticlePageRelationFactory(
                 product=product,
                 article=article,
+                sort_order=index,
             )
 
     # Adding related articles to Categories
     for product_category in pagemodels.BuyersGuideProductCategory.objects.all():
-        for article in get_random_objects(pagemodels.BuyersGuideArticlePage, max_count=6):
+        for index, article in enumerate(
+            get_random_objects(pagemodels.BuyersGuideArticlePage, max_count=6)
+        ):
             BuyersGuideProductCategoryArticlePageRelationFactory(
                 category=product_category,
                 article=article,
+                sort_order=index,
             )

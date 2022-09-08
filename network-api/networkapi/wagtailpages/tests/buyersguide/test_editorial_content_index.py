@@ -68,7 +68,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         for child in children:
             self.assertContains(response=response, text=child.title, count=1)
 
-    def test_related_articles(self):
+    def test_get_related_articles(self):
         content_index = self.content_index
         article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
         article2 = buyersguide_factories.BuyersGuideArticlePageFactory()
@@ -89,11 +89,10 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             sort_order=2,
         )
 
-        related_articles = content_index.related_article_relations.related_items()
+        related_articles = content_index.get_related_articles()
 
         self.assertEqual(len(related_articles), 3)
-        self.assertQuerysetEqual(
+        self.assertListEqual(
             related_articles,
             [article2, article1, article3],
-            ordered=True,
         )

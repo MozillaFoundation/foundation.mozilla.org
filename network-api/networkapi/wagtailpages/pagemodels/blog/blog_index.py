@@ -8,6 +8,7 @@ from django.db import models
 from django.forms import CheckboxSelectMultiple
 from django.shortcuts import redirect, get_object_or_404
 from django.template import loader
+from django.http import JsonResponse
 
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPanel, StreamFieldPanel
 
@@ -110,7 +111,10 @@ class BlogIndexPage(IndexPage):
         BlogPageTopic,
         help_text='Which topics would you like to feature on the page? '
                   'Please select a max of 7.',
-        blank=True
+        blank=True,
+        # Limiting CMS choices to English, as topics get
+        # localized using the {% localized_version %} template tag.
+        limit_choices_to=models.Q(locale__id="1"),
     )
 
     callout_box = StreamField(
@@ -155,6 +159,12 @@ class BlogIndexPage(IndexPage):
     def get_context(self, request):
         context = super().get_context(request)
         context["related_topics"] = self.get_related_topics()
+
+        if self.is_showing_topics_box_in_entry_list():
+            # Offsetting initial entries by one to make room for featured topics box
+            initial_entry_count = self.page_size - 1
+            context['entries'] = context['entries'][0:initial_entry_count]
+
         return context
 
     # Superclass override
@@ -306,6 +316,68 @@ class BlogIndexPage(IndexPage):
             'topic': topic_object
         }
 
+    def get_related_topics(self):
+        related_topics = self.related_topics.all()
+        return related_topics
+
+    # Helper function to show if entry list is offset by topic box
+    def is_showing_topics_box_in_entry_list(self):
+        if (
+            not hasattr(self, "filtered")
+            and self.get_related_topics().count()
+            and (self.page_size == 12 or self.page_size == 24)
+        ):
+            return True
+        else:
+            return False
+
+    @route('^entries/')
+    def generate_entries_set_html(self, request, *args, **kwargs):
+        """
+        JSON endpoint for getting the next set of (pre-rendered) entries,
+        with additional logic in case the list is offset by the topic box.
+        """
+
+        page = 1
+        if 'page' in request.GET:
+            try:
+                page = int(request.GET['page'])
+            except ValueError:
+                pass
+
+        page_size = self.page_size
+        if 'page_size' in request.GET:
+            try:
+                page_size = int(request.GET['page_size'])
+            except ValueError:
+                pass
+
+        start = page * page_size
+
+        if self.is_showing_topics_box_in_entry_list():
+            # Account for offset of 1 due to topics box
+            start = start - 1
+
+        end = start + page_size
+        entries = self.get_entries({
+            'request': request
+        })
+
+        has_next = end < len(entries)
+
+        html = loader.render_to_string(
+            'wagtailpages/fragments/entry_cards_item_loop.html',
+            context={
+                'entries': entries[start:end],
+            },
+            request=request
+        )
+
+        return JsonResponse({
+            'entries_html': html,
+            'has_next': has_next,
+        })
+
     @route(r'^topic/(?P<topic>.+)/entries/')
     def generate_topic_entries_set_html(self, request, topic, *args, **kwargs):
         """
@@ -455,7 +527,3 @@ class BlogIndexPage(IndexPage):
                 order_by_relevance=True,
             )
         return entries
-
-    def get_related_topics(self):
-        related_topics = self.related_topics.all()
-        return related_topics

@@ -1,22 +1,38 @@
 {% extends "pages/buyersguide/base.html" %}
 {% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags localization %}
+
 
 {% block category_nav %}{% endblock category_nav %}
 
 {% block guts %}
-  <h1>{{ page.title }}</h1>
-  {% if items %}
-    <ul>
-    {% for item in items %}
-      <li>
-        <a href="{% pageurl item %}">{{ item.title }}</a>
-      </li>
-    {% endfor %}
-    </ul>
-  {% endif %}
+  <div class="tw-container tw-my-6">
+    <h1>{{ page.title }}</h1>
+      <div class="tw-grid tw-grid-cols-12 tw-divide-y tw-divide-gray-20 tw-gap-x-5">
+        {% if items %}
+          {% for item in items %}
+            <div class="tw-col-span-12 large:tw-col-span-8">
+              {% with type=item.specific_class.get_verbose_name|lower %}
+                {% if type == "buyers guide article page" %}
+                  {% include "fragments/buyersguide/article_card.html" with page=item %}
+                {% else %}
+                  {% include "fragments/buyersguide/product_update_card.html" with update=item %}
+                {% endif %}
+              {% endwith %}
+            </div>
+          {% endfor %}
+        {% endif %}
+        <div class="tw-col-span-12 large:tw-col-span-8 tw-border-none">
+          {% include "fragments/buyersguide/pni_newsletter_box.html" %}
+        </div>
+        <div class="tw-col-span-12 large:tw-col-span-4 tw-row-start-4 large:tw-row-start-1 tw-col-start-1 large:tw-col-start-9 large:tw-border-none">
+        </div>
+    </div>
+  </div>
 
   {% with related_articles=page.related_article_relations.related_items  %}
       {% if related_articles %}
+      <h3> Popular </h3>
       <div class="tw-m-4">
         {% include "fragments/buyersguide/related_reading.html" with heading=page.related_articles_heading articles=related_articles all_articles=False %}
       </div>

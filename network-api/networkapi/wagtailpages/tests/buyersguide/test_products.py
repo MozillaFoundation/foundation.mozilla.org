@@ -1,5 +1,3 @@
-import unittest
-
 import json
 
 from django.test import TestCase
@@ -123,36 +121,6 @@ class TestProductPage(BuyersGuideTestMixin):
 
         self.assertTrue(hasattr(product_page.votes, 'set_votes'))
 
-    def test_related_articles(self):
-        product_page = self.product_page
-        article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
-        article2 = buyersguide_factories.BuyersGuideArticlePageFactory()
-        article3 = buyersguide_factories.BuyersGuideArticlePageFactory()
-        buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
-            product=product_page,
-            article=article2,
-            sort_order=0,
-        )
-        buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
-            product=product_page,
-            article=article1,
-            sort_order=1,
-        )
-        buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
-            product=product_page,
-            article=article3,
-            sort_order=2,
-        )
-
-        related_articles = product_page.related_article_relations.related_items()
-
-        self.assertEqual(len(related_articles), 3)
-        self.assertQuerysetEqual(
-            related_articles,
-            [article2, article1, article3],
-            ordered=True,
-        )
-
     def test_get_related_articles(self):
         """
         Returns all related articles.
@@ -180,7 +148,36 @@ class TestProductPage(BuyersGuideTestMixin):
 
         result = product_page.get_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
+
+    def test_get_related_articles_order(self):
+        product_page = self.product_page
+        article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        article2 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        article3 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
+            product=product_page,
+            article=article2,
+            sort_order=0,
+        )
+        buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
+            product=product_page,
+            article=article1,
+            sort_order=1,
+        )
+        buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
+            product=product_page,
+            article=article3,
+            sort_order=2,
+        )
+
+        related_articles = product_page.get_related_articles()
+
+        self.assertEqual(len(related_articles), 3)
+        self.assertListEqual(
+            related_articles,
+            [article2, article1, article3],
+        )
 
     def test_primary_related_articles(self):
         """First three related articles are primary."""
@@ -199,14 +196,15 @@ class TestProductPage(BuyersGuideTestMixin):
 
         for related_article in related_articles[:3]:
             self.assertIn(related_article, result)
-        self.assertNotIn(related_articles[-1], result)
+        for related_article in related_articles[3:]:
+            self.assertNotIn(related_article, result)
 
     def test_primary_related_articles_no_related_articles(self):
         product_page = self.product_page
 
         result = product_page.get_primary_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
 
     def test_secondary_related_articles(self):
         """Second three related articles are secondary."""
@@ -233,7 +231,7 @@ class TestProductPage(BuyersGuideTestMixin):
 
         result = product_page.get_secondary_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
 
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
@@ -397,36 +395,6 @@ class BuyersGuideProductCategoryTest(TestCase):
             form.errors['parent']
         )
 
-    def test_related_articles(self):
-        cat = BuyersGuideProductCategory.objects.create(name="Test category")
-        article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
-        article2 = buyersguide_factories.BuyersGuideArticlePageFactory()
-        article3 = buyersguide_factories.BuyersGuideArticlePageFactory()
-        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
-            category=cat,
-            article=article2,
-            sort_order=0,
-        )
-        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
-            category=cat,
-            article=article1,
-            sort_order=1,
-        )
-        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
-            category=cat,
-            article=article3,
-            sort_order=2,
-        )
-
-        related_articles = cat.related_article_relations.related_items()
-
-        self.assertEqual(len(related_articles), 3)
-        self.assertQuerysetEqual(
-            related_articles,
-            [article2, article1, article3],
-            ordered=True,
-        )
-
     def test_get_related_articles(self):
         """
         Returns all related articles.
@@ -454,7 +422,36 @@ class BuyersGuideProductCategoryTest(TestCase):
 
         result = cat1.get_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
+
+    def test_get_related_articles_order(self):
+        cat = BuyersGuideProductCategory.objects.create(name="Test category")
+        article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        article2 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        article3 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat,
+            article=article2,
+            sort_order=0,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat,
+            article=article1,
+            sort_order=1,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat,
+            article=article3,
+            sort_order=2,
+        )
+
+        related_articles = cat.get_related_articles()
+
+        self.assertEqual(len(related_articles), 3)
+        self.assertListEqual(
+            related_articles,
+            [article2, article1, article3],
+        )
 
     def test_primary_related_articles(self):
         """First three related articles are primary."""
@@ -480,7 +477,7 @@ class BuyersGuideProductCategoryTest(TestCase):
 
         result = cat1.get_primary_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
 
     def test_secondary_related_articles(self):
         """Second three related articles are secondary."""
@@ -507,24 +504,21 @@ class BuyersGuideProductCategoryTest(TestCase):
 
         result = cat1.get_secondary_related_articles()
 
-        self.assertQuerysetEqual(result, [])
+        self.assertListEqual(result, [])
 
-    # TODO: Figure out why this test is failing
-    @unittest.skip(
-        'Though the category snippets seem to be working correctly in the CMS, '
-        'this test appears to be failing as it is returning a duplicate article.'
-        'We believe this is due to a wagtail-localize issue that is preventing '
-        'these items from being translated, meaning a category is being used for '
-        'two different localizations of the same page (e.g. English and French). '
-        'See also: https://github.com/mozilla/foundation.mozilla.org/pull/9240'
-        'and: https://github.com/wagtail/wagtail-localize/issues/591'
-    )
     def test_related_articles_on_multiple_categories(self):
+        """
+        Make sure articles can be related to multiple categories.
+
+        During development I was running into issue with the OrderableRelationQuerySet
+        where the related items would contains items multiple times.
+        """
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
         cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2")
         article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
         article2 = buyersguide_factories.BuyersGuideArticlePageFactory()
         article3 = buyersguide_factories.BuyersGuideArticlePageFactory()
+        article4 = buyersguide_factories.BuyersGuideArticlePageFactory()
         buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
             category=cat1,
             article=article2,
@@ -542,22 +536,37 @@ class BuyersGuideProductCategoryTest(TestCase):
         )
         buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
             category=cat2,
+            article=article1,
+            sort_order=0,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat2,
+            article=article3,
+            sort_order=1,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat2,
+            article=article4,
+            sort_order=2,
+        )
+        buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
+            category=cat2,
             article=article2,
-            sort_order=4,
+            sort_order=3,
         )
 
-        cat1_related_articles = cat1.related_article_relations.related_items()
-        cat2_related_articles = cat2.related_article_relations.related_items()
+        with self.assertNumQueries(num=1):
+            cat1_related_articles = cat1.get_related_articles()
+        with self.assertNumQueries(num=1):
+            cat2_related_articles = cat2.get_related_articles()
 
         self.assertEqual(len(cat1_related_articles), 3)
-        self.assertQuerysetEqual(
+        self.assertListEqual(
             cat1_related_articles,
             [article2, article1, article3],
-            ordered=True,
         )
-        self.assertEqual(len(cat2_related_articles), 1)
-        self.assertQuerysetEqual(
+        self.assertEqual(len(cat2_related_articles), 4)
+        self.assertListEqual(
             cat2_related_articles,
-            [article2],
-            ordered=True,
+            [article1, article3, article4, article2],
         )

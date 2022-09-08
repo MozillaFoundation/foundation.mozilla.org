@@ -5,7 +5,8 @@
 {% endif %}
   <div class="wrapper-burger">
     <div class="menu-container">
-
+      {% block mobile-search %}
+      {% endblock %}
       <div class="narrow-screen-menu hidden d-lg-none">
         {% block narrow_screen_menu %}
         <div class="narrow-screen-menu-background tw-dark">
@@ -32,7 +33,7 @@
         <div class="row">
           <div class="col">
             <div class="d-flex flex-row justify-content-between">
-              <div id="primary-nav-links">
+              <div id="primary-nav-links" class="tw-w-full large:tw-w-auto">
                 <div class="d-flex align-items-center flex-wrap">
 
                   <button class="burger {% if page.zen_nav is not True %} d-lg-none ml-md-0 {% endif %}" aria-label="{% trans 'Open menu' %}">
@@ -63,7 +64,7 @@
 
               {% block donate_and_newsletter %}
               <div class="d-flex align-items-center">
-                <a id="donate-header-btn" class="primary-nav-special-link tw-heart-glyph" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=header" target="_blank" rel="noopener noreferrer">{% trans "Donate" %}</a>
+                <a id="donate-header-btn" class="primary-nav-special-link tw-heart-glyph tw-flex" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=header" target="_blank" rel="noopener noreferrer">{% trans "Donate" %}</a>
                 {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
               </div>
               {% endblock %}

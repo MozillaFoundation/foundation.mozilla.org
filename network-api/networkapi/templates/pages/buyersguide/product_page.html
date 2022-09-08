@@ -30,21 +30,24 @@
 
 {% get_bg_home_page as home_page %}
 
-{% with related_articles=product.related_article_relations.related_items  %}
-      {% if related_articles %}
-      <div class="tw-pl-5">
-            <div class="tw-m-4">
-              {% include "fragments/buyersguide/related_reading.html" with articles=product.get_primary_related_articles all_articles=False %}
-            </div>
+{% with primary_related_articles=product.get_primary_related_articles  %}
+  {% if primary_related_articles %}
+    <div class="tw-pl-5">
+      <h2>Related</h2>
 
-          <h3>What to read next</h3>
-          <ul>
-            {% for article in product.get_secondary_related_articles %}
-              <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
+      <p> Primary related articles (first 3 of list of max 5)</p>
+      
+      <div class="tw-m-4">
+        {% include "fragments/buyersguide/related_reading.html" with articles=product.get_primary_related_articles all_articles=False %}
+      </div>
+
+      <ul>
+        {% for article in primary_related_articles %}
+          <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
 {% endwith %}
 
 <div class="text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">
@@ -187,6 +190,22 @@
     </div>
   </div>
 </div>
+
+{% with secondary_related_articles=product.get_secondary_related_articles  %}
+  {% if secondary_related_articles %}
+    <div class="tw-pl-5">
+      <h2>What to read next</h2>
+
+      <p>Secondary related articles (last 3 of list of max 5)</p>
+
+      <ul>
+        {% for article in secondary_related_articles %}
+          <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endwith %}
 
 {% if use_commento %}
 

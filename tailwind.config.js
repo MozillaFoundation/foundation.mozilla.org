@@ -87,6 +87,7 @@ module.exports = {
       medium: "768px",
       large: "992px",
       xlarge: "1200px",
+      "2xl": "1400px",
     },
     fontFamily: {
       sans: ["Nunito Sans", "Helvetica", "Arial", "sans-serif"],

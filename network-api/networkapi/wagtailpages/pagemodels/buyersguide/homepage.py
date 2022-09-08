@@ -1,4 +1,5 @@
 from datetime import datetime
+import typing
 
 from django.apps import apps
 from django.conf import settings
@@ -26,7 +27,7 @@ from wagtail.core.models import (
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.wagtailpages.pagemodels import orderables
+from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
     sort_average,
@@ -40,6 +41,10 @@ from networkapi.wagtailpages.utils import (
     get_language_from_request,
     get_locale_from_request,
 )
+
+
+if typing.TYPE_CHECKING:
+    from networkapi.wagtailpages.models import BuyersGuideArticlePage, Update
 
 
 class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
@@ -77,6 +82,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             'Heading for the articles rendered next to the hero featured article. '
             'Common choices are "Related articles", "Popular articles", etc.'
         ),
+    )
+
+    featured_advice_article = models.ForeignKey(
+        'wagtailpages.BuyersGuideArticlePage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
     )
 
     cutoff_date = models.DateField(
@@ -126,6 +139,10 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 ),
             ],
             heading='Hero',
+        ),
+        PageChooserPanel(
+            'featured_advice_article',
+            page_type='wagtailpages.BuyersGuideArticlePage',
         ),
         InlinePanel(
             'featured_article_relations',
@@ -362,6 +379,24 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
         return indexes.first()
 
+    def get_hero_supporting_articles(self) -> list['BuyersGuideArticlePage']:
+        return orderables.get_related_items(
+            self.hero_supporting_article_relations.all(),
+            'article',
+        )
+
+    def get_featured_articles(self) -> list['BuyersGuideArticlePage']:
+        return orderables.get_related_items(
+            self.featured_article_relations.all(),
+            'article',
+        )
+
+    def get_featured_updates(self) -> list['Update']:
+        return orderables.get_related_items(
+            self.featured_update_relations.all(),
+            'update',
+        )
+
     class Meta:
         verbose_name = "Buyers Guide Page"
 
@@ -379,9 +414,6 @@ class BuyersGuidePageHeroSupportingArticleRelation(TranslatableMixin, Orderable)
     )
 
     panels = [PageChooserPanel('article', page_type='wagtailpages.BuyersGuideArticlePage')]
-
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "article"
 
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
@@ -404,9 +436,6 @@ class BuyersGuidePageFeaturedArticleRelation(TranslatableMixin, Orderable):
 
     panels = [PageChooserPanel('article', page_type='wagtailpages.BuyersGuideArticlePage')]
 
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "article"
-
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
 
@@ -427,9 +456,6 @@ class BuyersGuidePageFeaturedUpdateRelation(TranslatableMixin, Orderable):
     )
 
     panels = [SnippetChooserPanel('update')]
-
-    objects = orderables.OrderableRelationQuerySet.as_manager()
-    related_item_field_name = "update"
 
     def __str__(self):
         return f'{self.page.title} -> {self.update.title}'

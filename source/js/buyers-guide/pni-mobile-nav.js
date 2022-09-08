@@ -7,6 +7,8 @@ const PNIMobileNav = {
   init: () => {
     const mobileNav = document.querySelector("#pni-nav-mobile");
 
+    if (!mobileNav) return;
+
     mobileNav.addEventListener("click", (e) => {
       mobileNav
         .querySelector(".dropdown-nav")

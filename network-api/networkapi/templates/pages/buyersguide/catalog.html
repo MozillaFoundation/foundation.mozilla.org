@@ -9,54 +9,32 @@
 {% block hero %}
 <input type="hidden" class="category-title" value="{% if current_category %}{{current_category.localized.name}}{% else %}None{% endif %}">
 <input type="hidden" class="parent-title" value="{{current_category.parent.localized.name}}">
+<div class="tw-container">
+  <div class="tw-row">
+    <div class="tw-px-4 tw-w-full">
+      <div id="sticky-bar" class="creepiness-slider bg-white text-center tw-flex tw-justify-center">
 
-<header
-  class="container-fluid text-center page-header tw-bg-gray-05"
-  role="banner"
->
-  <h1 class="tw-sr-only">{{ page.title }}</h1>
-  <!-- home banner as css background -->
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-lg-8 offset-lg-2 intro-text order-2 order-lg-1">
-        <p class="tw-body-large mb-0">{{ page.intro_text }}</p>
-          <div id="product-filter-search" class='col-12 col-md-9 tw-my-5' tabindex="0">
-            <span class="search-icon">&nbsp;</span>
-            <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search all products" %}" class="tw-body-large tw-text-black" value="">
-            <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
+          <div class="creep-o-meter-information">
+            <p class="speech-bubble-container">
+              <span class="speech-bubble tw-bg-gradient-to-t tw-from-purple-05 tw-to-blue-05">
+                <img class="hook" src="{% static "_images/buyers-guide/icon-bubble-hook.svg" %}">
+                <span class="text">{% trans "We created this guide to help you shop<br> for safe, secure connected products." %}</span>
+              </span>
+            </p>
+            <span class="current-creepiness"></span>
           </div>
-      </div>
-      <div class="col-12 col-lg-2 badge-container text-right order-1 order-lg-2">
-        <img class="webby-award-badge" src="{% static '_images/buyers-guide/webby-award-badge.svg' %}" alt="{% trans "2020 Webby Award Winner Badge" %}">
-      </div>
+
+
+        </div>
     </div>
   </div>
-</header>
+</div>
 {% endblock %}
 
 {% block guts %}
 {% get_bg_home_page as home_page %}
 <div class="project-list-section">
   <div class="container">
-    <div class="row px-0 px-sm-0">
-      <div class="col-12">
-        <div id="sticky-bar" class="creepiness-slider bg-white text-center">
-          <!-- temporary location for dev work -->
-
-          <span class="creep-o-meter-information">
-            <p class="speech-bubble-container">
-              <span class="speech-bubble">
-                <img class="hook" src="{% static "_images/buyers-guide/icon-bubble-hook.svg" %}">
-                <span class="text">{% trans "Scroll to see how creepy<br>people find these products!" %}</span>
-              </span>
-            </p>
-            <span class="current-creepiness"></span>
-          </span>
-
-
-        </div>
-      </div>
-    </div>
     <div class="row">
       <div class="col-12 tw-mb-4 tw-px-0">
         <div class="tw-flex tw-items-end">
@@ -74,12 +52,7 @@
             {% endif %}
           </a>
 
-          <span id="product-filter-pni">
-            <input type="checkbox" id="product-filter-pni-toggle" autocomplete="off">
-            <label for="product-filter-pni-toggle" class="pni-checkbox-facade"></label>
-            <span class="pni-icon">&nbsp;</span>
-            <label for="product-filter-pni-toggle">{% trans "*privacy not included" %} </label>
-          </span>
+          
         </div>
 
       </div>
@@ -87,6 +60,13 @@
     <div class="row px-0 tw-mb-6 medium:tw-mb-4">
       <div class="tw-w-[98vw] tw-relative tw-left-1/2 tw-ml-[-51vw] large:tw-left-auto large:tw-ml-0 large:tw-static large:tw-w-full">
         <div class="tw-px-4 large:tw-px-0 tw-flex tw-space-x-2 tw-overflow-auto tw-pb-2 tw-no-scrollbar tw-touch-pan-x subcategory-header">
+          
+          <span id="product-filter-pni" class="tw-flex tw-cursor-pointer tw-text-gray-60 border tw-border-gray-20 tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3] hover:tw-border-blue-10 hover:tw-bg-blue-10">
+            <input type="checkbox" id="product-filter-pni-toggle" autocomplete="off">
+            <span class="pni-icon tw-mr-1">&nbsp;</span>
+            <label for="product-filter-pni-toggle" class="tw-flex tw-m-0">{% trans "Has privacy ding" %} </label>
+          </span>
+          
           {% for cat in categories %}
             {% with original=cat.original selected_classes="active tw-bg-gray-80 tw-text-white tw-border-gray-80" default_classes="hover:tw-border-blue-10 hover:tw-bg-blue-10 tw-text-gray-60 tw-border-gray-20 tw-bg-white" tailwind_classes="tw-no-underline border tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3] tw-whitespace-nowrap" %}
             {% if cat.parent != None %}

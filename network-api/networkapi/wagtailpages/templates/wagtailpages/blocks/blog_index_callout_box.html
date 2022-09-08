@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags static i18n %}
 
-<div class="tw-h-full tw-flex tw-flex-col tw-justify-between tw-p-6 tw-popout">
+<div class="tw-h-full tw-flex tw-flex-col tw-justify-between tw-p-5 small:tw-p-6 tw-popout">
   <div id="callout-box-body" class="tw-mb-7 tw-pb-4">
     {% if value.related_topics or value.show_icon %}
       <div class="tw-flex tw-mb-3">
@@ -17,7 +17,7 @@
     {% endif %}
   </div>
     {% if value.link_button_text and value.link_button_url %}
-      <div id="callout-box-button" class='tw-text-right tw-mt-7'>
+      <div id="callout-box-button" class='tw-text-right tw-mt-6'>
           <a class="tw-btn-secondary tw-border after:tw-content-[]" href="{{ value.link_button_url }}">{{ value.link_button_text }}</a>
       </div>
     {% endif %}
