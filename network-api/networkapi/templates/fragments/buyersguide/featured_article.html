@@ -1,7 +1,4 @@
 {% load static wagtailcore_tags wagtailimages_tags i18n %}
-{% with hero_featured_article=page.hero_featured_article %}
-    {% if hero_featured_article %}
-    
         <div class="tw-row">
             <div class="tw-px-4 tw-w-full tw-grid tw-grid-cols-1 tw-grid-rows-[(auto,auto,auto)] medium:tw-grid-cols-2 medium:tw-grid-rows-[(1fr,auto)]  large:tw-grid-cols-3 large:tw-grid-rows-[(1fr,auto)] tw-gap-6">
                 {% image hero_featured_article.hero_image original as img %}
