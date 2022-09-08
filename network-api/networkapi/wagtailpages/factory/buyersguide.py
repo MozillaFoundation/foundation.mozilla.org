@@ -433,6 +433,10 @@ def generate(seed):
             article=article,
             sort_order=index,
         )
+    # Buyerguide homepage featured advice article
+    pni_homepage.featured_advice_article = pagemodels.BuyersGuideArticlePage.objects.last()
+    pni_homepage.full_clean()
+    pni_homepage.save()
     # Buyersguide homepage featured articles
     featured_articles = get_random_objects(
         source=pagemodels.BuyersGuideArticlePage.objects.exclude(id__in=supporting_articles),

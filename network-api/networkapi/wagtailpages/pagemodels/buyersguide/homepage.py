@@ -84,6 +84,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         ),
     )
 
+    featured_advice_article = models.ForeignKey(
+        'wagtailpages.BuyersGuideArticlePage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
     cutoff_date = models.DateField(
         'Product listing cutoff date',
         help_text='Only show products that were reviewed on, or after this date.',
@@ -139,6 +147,10 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 ),
             ],
             heading='Hero',
+        ),
+        PageChooserPanel(
+            'featured_advice_article',
+            page_type='wagtailpages.BuyersGuideArticlePage',
         ),
         InlinePanel(
             'featured_article_relations',
