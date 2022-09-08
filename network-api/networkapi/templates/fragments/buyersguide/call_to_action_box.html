@@ -9,7 +9,8 @@
     tw-p-[24px] {% if not large  %} medium:tw-p-[32px] {% else %} medium:tw-p-[40px] {% endif %}
   ">
     {% if icon %}
-      {% image icon height-56 as img %}
+      {# Use image size twice as large as actual rendering size for better image quality. #}
+      {% image icon height-112 as img %}
       <img
         src="{{ img.url }}"
         class="
