@@ -21,7 +21,7 @@ def yt2021report(context):
 @register.simple_tag(takes_context=True)
 def yt2022data_wrapper_url(context):
     if context['request'].LANGUAGE_CODE == "fr":
-        return 'https://datawrapper.dwcdn.net/kl3jI/'
+        return 'https://datawrapper.dwcdn.net/w8veu/'
     if context['request'].LANGUAGE_CODE == "de":
         return 'https://datawrapper.dwcdn.net/iHxzV/'
     if context['request'].LANGUAGE_CODE == "es":
@@ -31,5 +31,5 @@ def yt2022data_wrapper_url(context):
     if context['request'].LANGUAGE_CODE == "pt-BR":
         return 'https://datawrapper.dwcdn.net/KhNFD/'
     else:
-        return 'https://datawrapper.dwcdn.net/kl3jI/7/'
+        return 'https://datawrapper.dwcdn.net/kl3jI/'
 
