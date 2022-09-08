@@ -62,8 +62,12 @@
     }
 
     &__scene-text {
-      font-size: 20px;
+      font-size: 1rem;
       font-weight: bold;
+
+      @include media-breakpoint-up(md) {
+        font-size: 1.25rem;
+      }
     }
 
     &__cross {
