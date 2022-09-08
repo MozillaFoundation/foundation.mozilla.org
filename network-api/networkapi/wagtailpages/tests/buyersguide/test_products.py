@@ -236,7 +236,7 @@ class TestProductPage(BuyersGuideTestMixin):
 
     def test_product_with_enabled_category_shows_cta(self):
         """
-        Testing that a product with any assigned category that has 
+        Testing that a product with any assigned category that has
         show_cta=True displays the CTA as expected.
         """
         product_page = self.product_page
