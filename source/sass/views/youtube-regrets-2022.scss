@@ -76,6 +76,20 @@
   .video-thumb {
     max-width: 185px;
 
+    &__inner {
+      opacity: 0.5;
+      transform: scale(0.3);
+      transition: transform 0.5s, opacity 0.3s;
+      will-change: transform;
+    }
+
+    &.is-inview {
+      .video-thumb__inner {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
     @include media-breakpoint-up(md) {
       max-width: 250px;
     }
@@ -92,7 +106,7 @@
       max-width: 200px;
 
       @include media-breakpoint-up(md) {
-          max-width: 350px;
+        max-width: 350px;
       }
     }
   }
