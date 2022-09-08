@@ -31,7 +31,8 @@
     {% endif %}
 
     {% if body %}
-      <div class="bg-call-to-action-content">
+      {# Arbitrary variant to override the global paragraph style. #}
+      <div class="[&_.rich-text_p]:tw-text-base">
         {{ body|richtext }}
       </div>
     {% endif %}
