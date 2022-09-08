@@ -56,9 +56,9 @@ class BuyersGuideViewTest(TestCase):
             buyersguide = BuyersGuidePage()
             buyersguide.title = 'Privacy not included'
             buyersguide.slug = 'privacynotincluded'
+            buyersguide.call_to_action = buyersguide_factories.BuyersGuideCallToActionFactory()
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
-
             locale = Locale.objects.create(language_code="fr")
             buyersguide.copy_for_translation(locale, copy_parents=True, alias=True)
 
@@ -259,3 +259,27 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         result = self.bg.get_editorial_content_index()
 
         self.assertEqual(result, None)
+
+    def test_category_page_context_with_cta_disabled(self):
+        category = BuyersGuideProductCategory.objects.first()
+        category.show_cta = False
+        category.save()
+
+        url = self.bg.url + self.bg.reverse_subpage('category-view', args=(category.slug,))
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNone(response.context['featured_cta'])
+
+    def test_category_page_context_with_cta_enabled(self):
+        category = BuyersGuideProductCategory.objects.first()
+        category.show_cta = True
+        category.save()
+
+        url = self.bg.url + self.bg.reverse_subpage('category-view', args=(category.slug,))
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(response.context['featured_cta'])

@@ -4,7 +4,10 @@ from django.conf import settings
 from django.test.utils import override_settings
 
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
+from networkapi.wagtailpages.factory.buyersguide import BuyersGuideCallToActionFactory
+
 from networkapi.wagtailpages.pagemodels.base import Homepage
+
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     ProductPage,
@@ -48,6 +51,7 @@ class BuyersGuideTestMixin(WagtailPageTests):
             buyersguide = BuyersGuidePage()
             buyersguide.title = 'Privacy not included'
             buyersguide.slug = 'privacynotincluded'
+            buyersguide.call_to_action = BuyersGuideCallToActionFactory()
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
         self.homepage = Homepage.objects.first()

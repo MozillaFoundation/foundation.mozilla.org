@@ -27,13 +27,13 @@
           <div>
             <a href="{% pageurl page.get_editorial_content_index %}">All articles</a>
           </div>
-          {% if category.show_cta %}
+
             {% with cta=featured_cta %}
               {% if cta %}
                 {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
               {% endif %}
             {% endwith %}
-          {% endif %}
+            
         </div>
       {% endif %}
     {% endwith %}
