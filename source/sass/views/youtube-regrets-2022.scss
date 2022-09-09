@@ -18,13 +18,27 @@
       align-items: center;
       width: 100%;
 
-      > h2 {
-        font-weight: 700;
+      &-title {
+        background: $white;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px;
 
         @include media-breakpoint-up(lg) {
-          font-size: 4rem;
+          background: transparent;
+          padding: 0;
+        }
+
+        > h2 {
+          font-weight: 700;
+          margin-bottom: 0;
+
+          @include media-breakpoint-up(lg) {
+            font-size: 4rem;
+          }
         }
       }
+
 
       > svg {
         // Subtract the shadow to make the person appear centered
@@ -77,6 +91,14 @@
     &__scene-text {
       font-size: 1.25rem;
       font-weight: bold;
+      background: white;
+      padding: 10px;
+      border-radius: 5px;
+
+      @include media-breakpoint-up(md) {
+        background: transparent;
+        padding: 20px 0;
+      }
 
       @include media-breakpoint-up(lg) {
         font-size: 1.875rem;

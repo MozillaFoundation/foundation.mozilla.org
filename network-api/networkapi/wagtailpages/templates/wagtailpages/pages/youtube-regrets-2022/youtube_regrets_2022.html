@@ -14,7 +14,7 @@
 {% block header_wrapped %}{% endblock %}
 
 {% block content_wrapped %}
-  <main role="main" class="scroll-container" data-scroll-container>
+  <main class="scroll-container" data-scroll-container>
 
     {% block main %}
         <div class="transition-bg tw-relative tw-z-10" data-scroll-section>
@@ -31,14 +31,14 @@
           {% include './fragments/petition_cta.html' %}
         </div>
 
-        <div data-scroll-section>
+        <div data-scroll-section class="tw-py-[50vh] medium:tw-pt-[20vh] medium:tw-pb-0">
           <div data-scroll data-scroll-speed="-3" data-scroll-repeat>
             {% include './fragments/chart_section.html' %}
             {% include './fragments/standout_stats.html' %}
           </div>
         </div>
 
-      {% include './fragments/timeline.html' %}
+        {% include './fragments/timeline.html' %}
 
     {% endblock %}
 

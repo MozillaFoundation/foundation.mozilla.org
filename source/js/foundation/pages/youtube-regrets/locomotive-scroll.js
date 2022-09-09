@@ -5,6 +5,14 @@ export const initYoutubeRegretsLocomotiveScroll = () => {
     el: document.querySelector(".scroll-container"),
     smooth: true,
     repeat: true,
+    mobile: {
+      smooth: true,
+      breakpoint: 0,
+    },
+    tablet: {
+      smooth: true,
+      breakpoint: 0,
+    },
   });
 
   // Make sure loco scroll is up to date after page has totally finished laoding
