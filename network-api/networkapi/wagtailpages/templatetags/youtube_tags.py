@@ -32,4 +32,3 @@ def yt2022data_wrapper_url(context):
         return 'https://datawrapper.dwcdn.net/KhNFD/'
     else:
         return 'https://datawrapper.dwcdn.net/kl3jI/'
-
