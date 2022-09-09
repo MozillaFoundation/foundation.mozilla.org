@@ -1,5 +1,153 @@
+@import "../../../node_modules/locomotive-scroll/dist/locomotive-scroll";
+
 .youtube-regrets-2022 {
   $font-zilla: "Zilla Slab", sans-serif;
+
+  .timeline {
+    position: relative;
+    width: 100%;
+    height: auto;
+
+    &__container {
+      position: relative;
+    }
+
+    &__person-date {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+
+      &-title {
+        background: $white;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+
+        @include media-breakpoint-up(lg) {
+          background: transparent;
+          padding: 0;
+        }
+
+        > h2 {
+          font-weight: 700;
+          margin-bottom: 0;
+
+          @include media-breakpoint-up(lg) {
+            font-size: 4rem;
+          }
+        }
+      }
+
+      > svg {
+        // Subtract the shadow to make the person appear centered
+        margin-right: -60px;
+        max-width: 120px;
+
+        @include media-breakpoint-up(md) {
+          max-width: 200px;
+          margin-right: -100px;
+        }
+      }
+    }
+
+    &__scenes {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: -160px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 3px;
+        height: calc(100% + 160px);
+        background-image: url("../_images/youtube-regrets/timeline-border-line.svg");
+        background-repeat: repeat;
+
+        @include media-breakpoint-up(md) {
+          top: -315px;
+        }
+      }
+    }
+
+    &__scene {
+      position: relative;
+      min-height: 700px;
+      width: 100%;
+      padding: 4vh 0;
+
+      &:last-of-type {
+        padding-bottom: 0;
+      }
+
+      @include media-breakpoint-up(md) {
+        min-height: 1000px;
+      }
+    }
+
+    &__scene-text {
+      font-size: 1.25rem;
+      font-weight: bold;
+      background: $white;
+      padding: 10px;
+      border-radius: 5px;
+
+      @include media-breakpoint-up(md) {
+        background: transparent;
+        padding: 20px 0;
+      }
+
+      @include media-breakpoint-up(lg) {
+        font-size: 1.875rem;
+      }
+    }
+
+    &__cross {
+      position: absolute;
+      top: -5px;
+      width: 200px;
+      right: 50%;
+      transform: translateX(50%);
+
+      @include media-breakpoint-up(md) {
+        top: -30px;
+      }
+    }
+  }
+
+  .video-thumb {
+    max-width: 185px;
+
+    &__inner {
+      opacity: 0.5;
+      transform: scale(0.3);
+      transition: transform 0.5s, opacity 0.3s;
+      will-change: transform;
+    }
+
+    &.is-inview {
+      .video-thumb__inner {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @include media-breakpoint-up(md) {
+      max-width: 250px;
+    }
+
+    &--small {
+      max-width: 150px;
+
+      @include media-breakpoint-up(md) {
+        max-width: 200px;
+      }
+    }
+  }
 
   .recommendations {
     background-color: $black;
@@ -73,4 +221,11 @@
   @import "../../../node_modules/swiper/swiper-bundle";
   @import "./youtube-regrets-2021-carousel";
   @import "./youtube-regrets-2021-carousel-hero";
+}
+
+//Fix for images dissapearing https://github.com/locomotivemtl/locomotive-scroll/issues/435
+[data-scroll-container],
+[data-scroll-section] {
+  transform-style: preserve-3d;
+  will-change: transform;
 }
