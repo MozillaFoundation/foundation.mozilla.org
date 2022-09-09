@@ -231,7 +231,7 @@ def pyrun(ctx, command, stop=False):
     """
     with ctx.cd(ROOT):
         ctx.run(
-            f"docker-compose run --rm backend bash -c 'source ./dockerpythonvenv/bin/activate && {command}'",
+            f"docker-compose run --rm backend bash -c \"source ./dockerpythonvenv/bin/activate && {command}\"",
             **PLATFORM_ARG,
         )
         if stop:
