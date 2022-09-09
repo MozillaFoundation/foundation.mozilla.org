@@ -1,5 +1,4 @@
 {% load static i18n %}
-
 <section id="recommendation-quote" class="container tw-relative tw-z-10" data-scroll-section>
   <div data-scroll data-scroll-speed="3" data-scroll-sticky data-scroll-target="#recommendation-quote" class="tw-mt-[20vh] medium:tw-mt-[25vh] tw-max-w-3xl mx-auto tw-h-screen tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
     {% include 'wagtailpages/pages/youtube-regrets-2022/svg/quote.svg' %}
@@ -193,13 +192,15 @@
   <div data-scroll class="tw-max-w-3xl tw-my-7 medium:tw-my-[80px] tw-mx-auto tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
     {% include 'wagtailpages/pages/youtube-regrets-2022/svg/quote.svg' %}
     <blockquote class="tw-text-[1.75rem] tw-font-zilla">{% trans '“Eventually it always comes back. The algorithm seems incapable of remembering a lesson for very long.”' %}</blockquote>
-    <div class="tw-mr-[-100px]">
+    <div class="tw-mr-[-60px] medium:tw-mr-[-100px] tw-w-full tw-max-w-[120px] medium:tw-max-w-[200px]">
       {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-cheering.svg' %}
     </div>
   </div>
 </section>
 
-<section class="container tw-max-w-4xl tw-text-center tw-my-7 large:tw-my-[80px] large:tw-my-[120px]" data-scroll-section="">
-  <p class="tw-h1-heading tw-font-changa tw-font-bold medium:tw-text-[3.25rem]">Even the most effective feedback methods prevent less than half of bad recommendations.</p>
-</section>
-
+{# Create curved effect on section using border radius #}
+<div class="tw-rounded-b-[30px] tw-mb-[-30px]">
+  <section class="container tw-max-w-4xl tw-text-center tw-my-7 large:tw-my-[80px] large:tw-my-[120px]" data-scroll-section>
+    <p class="tw-h1-heading tw-font-changa tw-font-bold medium:tw-text-[3.25rem]">Even the most effective feedback methods prevent less than half of bad recommendations.</p>
+  </section>
+</div>
