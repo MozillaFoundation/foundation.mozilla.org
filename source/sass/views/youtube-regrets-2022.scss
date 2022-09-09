@@ -1,4 +1,6 @@
 .youtube-regrets-2022 {
+  $font-zilla: "Zilla Slab", sans-serif;
+
   .recommendations {
     background-color: $black;
     padding-top: 85px;
@@ -47,4 +49,9 @@
       padding: 230px 0 200px;
     }
   }
+
+  @import "./youtube-regrets-2021-utils";
+  @import "../../../node_modules/swiper/swiper-bundle";
+  @import "./youtube-regrets-2021-carousel";
+  @import "./youtube-regrets-2021-carousel-hero";
 }
