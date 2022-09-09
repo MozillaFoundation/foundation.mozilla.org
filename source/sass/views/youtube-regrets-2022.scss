@@ -1,6 +1,8 @@
 @import "../../../node_modules/locomotive-scroll/dist/locomotive-scroll";
 
 .youtube-regrets-2022 {
+  $font-zilla: "Zilla Slab", sans-serif;
+
   .timeline {
     position: relative;
     width: 100%;
@@ -147,6 +149,79 @@
       }
     }
   }
+
+  .recommendations {
+    background-color: $black;
+    padding-top: 85px;
+
+    &__title {
+      font-size: 30px;
+      line-height: calc(34 / 30);
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 52px;
+        line-height: calc(60 / 52);
+      }
+    }
+
+    &__recommendation {
+      font-size: 24px;
+      line-height: calc(30 / 24);
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 28px;
+        line-height: calc(30 / 28);
+      }
+      font-family: $font-family-slab-serif;
+      color: $white;
+      margin: 34px 0;
+
+      @media (min-width: $bp-md) {
+        margin: 72px 0;
+      }
+    }
+
+    &__accent {
+      font-weight: 600;
+    }
+
+    &__divider {
+      width: 118px;
+    }
+  }
+
+  .downloads-section {
+    background-color: $black;
+    padding: 150px 0 100px;
+
+    @media (min-width: $bp-md) {
+      padding: 230px 0 200px;
+    }
+  }
+
+  .standout-stat {
+    &__number {
+      font-size: 42px;
+    }
+
+    &__label {
+      margin-top: -7px;
+      font-size: 15px;
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 18px;
+      }
+    }
+
+    &__wrap {
+      padding: 10px 15px;
+    }
+  }
+
+  @import "./youtube-regrets-2021-utils";
+  @import "../../../node_modules/swiper/swiper-bundle";
+  @import "./youtube-regrets-2021-carousel";
+  @import "./youtube-regrets-2021-carousel-hero";
 }
 
 //Fix for images dissapearing https://github.com/locomotivemtl/locomotive-scroll/issues/435
