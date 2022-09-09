@@ -141,6 +141,11 @@ let main = {
       initYoutubeRegretsCarousel();
     }
 
+    // YouTube Regrets 2022 page
+    if (document.querySelector("#view-youtube-regrets-2022")) {
+      initYoutubeRegretsCarousel();
+    }
+
     // Shared YouTube Regrets Pages
     if (document.querySelector(".youtube-regrets-shared")) {
       initYoutubeRegretsResearchCountUp();
