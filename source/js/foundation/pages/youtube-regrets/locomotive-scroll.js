@@ -14,5 +14,4 @@ export const initYoutubeRegretsLocomotiveScroll = () => {
       locoScroll.update();
     }
   }, 100);
-
 };
