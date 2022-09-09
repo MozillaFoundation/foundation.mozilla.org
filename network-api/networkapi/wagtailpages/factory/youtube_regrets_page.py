@@ -7,6 +7,7 @@ from networkapi.wagtailpages.models import (
     YoutubeRegretsReporterPage,
     YoutubeRegretsReporterExtensionPage,
     YoutubeRegrets2021Page,
+    YoutubeRegrets2022Page,
 )
 from wagtail_factories import (
     PageFactory
@@ -60,6 +61,19 @@ class YoutubeRegrets2021PageFactory(PageFactory):
 
     title = 'YouTube Regrets 2021'
     slug = 'findings'
+
+
+class YoutubeRegrets2022PageFactory(PageFactory):
+    class Meta:
+        model = YoutubeRegrets2022Page
+        exclude = (
+            'title_text',
+            'header_text',
+            'header',
+        )
+
+    title = 'YouTube Regrets 2022'
+    slug = 'findings-2022'
 
 
 class YoutubeRegretsReporterPageFactory(PageFactory):
@@ -117,6 +131,7 @@ def generate(seed):
             title=reporter_page_title,
         )
         YoutubeRegrets2021PageFactory.create(parent=youtube_regrets)
+        YoutubeRegrets2022PageFactory.create(parent=youtube_regrets)
     reseed(seed)
 
     # Youtube Extension Landing page

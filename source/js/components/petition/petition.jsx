@@ -104,6 +104,15 @@ class Petition extends Component {
     }
 
     this.setState(update);
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'event' : 'form_submission',
+      'form_name' : this.props.ctaName,
+      'form_location' : this.props.formLocation,
+      'form_type' : 'petition-form',
+      'form_id' : this.props.petitionId
+    });
   }
 
   // state update function
