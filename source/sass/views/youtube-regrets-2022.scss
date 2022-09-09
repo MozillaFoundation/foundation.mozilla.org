@@ -41,7 +41,6 @@
         }
       }
 
-
       > svg {
         // Subtract the shadow to make the person appear centered
         margin-right: -60px;
@@ -93,7 +92,7 @@
     &__scene-text {
       font-size: 1.25rem;
       font-weight: bold;
-      background: white;
+      background: $white;
       padding: 10px;
       border-radius: 5px;
 
