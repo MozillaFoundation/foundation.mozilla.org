@@ -28,7 +28,14 @@
 
       > svg {
         // Subtract the shadow to make the person appear centered
-        margin-right: -100px;
+        margin-right: -60px;
+        max-width: 120px;
+
+        @include media-breakpoint-up(md) {
+          max-width: 200px;
+          margin-right: -100px;
+        }
+
       }
     }
 
@@ -38,36 +45,39 @@
       &::before {
         content: "";
         position: absolute;
-        top: -315px;
+        top: -160px;
         left: 0;
         right: 0;
         margin: 0 auto;
         width: 3px;
-        height: calc(100% + 315px);
+        height: calc(100% + 160px);
         background-image: url("../_images/youtube-regrets/timeline-border-line.svg");
         background-repeat: repeat;
+
+        @include media-breakpoint-up(md) {
+          top: -315px;
+        }
       }
     }
 
     &__scene {
       position: relative;
-      min-height: 1000px;
+      min-height: 700px;
       width: 100%;
       padding: 4vh 0;
 
       &:last-of-type {
         padding-bottom: 0;
       }
+
+      @include media-breakpoint-up(md) {
+        min-height: 1000px;
+      }
     }
 
     &__scene-text {
-      font-size: 1rem;
+       font-size: 1.25rem;
       font-weight: bold;
-
-      @include media-breakpoint-up(md) {
-        font-size: 1.25rem;
-      }
-
 
       @include media-breakpoint-up(lg) {
         font-size: 1.875rem;
@@ -76,8 +86,14 @@
 
     &__cross {
       position: absolute;
-      top: -30px;
-      right: 60px;
+      top: -5px;
+      width: 200px;
+      right: 50%;
+      transform: translateX(50%);
+
+      @include media-breakpoint-up(md) {
+         top: -30px;
+      }
     }
   }
 
@@ -107,14 +123,6 @@
 
       @include media-breakpoint-up(md) {
         max-width: 200px;
-      }
-    }
-
-    &--large {
-      max-width: 200px;
-
-      @include media-breakpoint-up(md) {
-        max-width: 350px;
       }
     }
   }
