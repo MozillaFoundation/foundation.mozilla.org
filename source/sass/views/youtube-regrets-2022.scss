@@ -50,6 +50,25 @@
     }
   }
 
+  .standout-stat {
+    &__number {
+      font-size: 42px;
+    }
+
+    &__label {
+      margin-top: -7px;
+      font-size: 15px;
+
+      @media screen and (min-width: $bp-md) {
+        font-size: 18px;
+      }
+    }
+
+    &__wrap {
+      padding: 10px 15px;
+    }
+  }
+
   @import "./youtube-regrets-2021-utils";
   @import "../../../node_modules/swiper/swiper-bundle";
   @import "./youtube-regrets-2021-carousel";
