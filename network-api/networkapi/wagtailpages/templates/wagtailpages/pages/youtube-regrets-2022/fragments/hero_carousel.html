@@ -1,0 +1,71 @@
+{% load static i18n %}
+
+<div class="container tw-dark full-width-container full-width-container--carousel">
+  <div class="full-width-container__inner">
+    <div class="carousel-hero swiper-container d-flex flex-column" data-carousel id="youtube-regrets-hero-carousel">
+      <svg width="44" height="34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m17.5 3.1-2.9 11.6c2 .4 3.4 1.267 4.2 2.6.867 1.333 1.3 3.433 1.3 6.3 0 3.733-.733 6.3-2.2 7.7-1.4 1.4-3.967 2.1-7.7 2.1s-6.3-.7-7.7-2.1c-1.333-1.4-2-3.967-2-7.7.067-2.333.267-4.033.6-5.1.333-1.133 1.167-3.033 2.5-5.7L9.7.5l7.8 2.6Zm23.1 0-2.9 11.6c2 .4 3.4 1.267 4.2 2.6.867 1.333 1.3 3.433 1.3 6.3 0 3.733-.733 6.3-2.2 7.7-1.4 1.4-3.967 2.1-7.7 2.1s-6.3-.7-7.7-2.1c-1.333-1.4-2-3.967-2-7.7.067-2.333.267-4.033.6-5.1.333-1.133 1.167-3.033 2.5-5.7L32.8.5l7.8 2.6Z" fill="#fff"/></svg>
+      <p class="heading-4 text-white tw-mt-2">{% trans "People said:" %}</p>
+
+      {# Controls #}
+      <div class="carousel-hero__controls mb-4 order-4 order-lg-3">
+        <div class="carousel-hero__controls-inner carousel__count-inner--hero">
+          <div class="d-flex align-items-center justify-content-end">
+            <div class="carousel-hero__count">
+              <div class="carousel__count-inner text-white d-flex align-items-baseline justify-content-end"></div>
+            </div>
+            <button class="carousel-hero__button carousel__button--prev button mr-3" aria-label="{% trans "Previous slide" %}">
+              <svg aria-hidden="true" width="41" height="41" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="circle" d="M20.48 39.736c10.586 0 19.167-8.581 19.167-19.167 0-10.585-8.58-19.166-19.166-19.166S1.314 9.983 1.314 20.569s8.581 19.167 19.167 19.167z" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/><path class="arrow" d="M20.48 12.903l-7.666 7.666 7.667 7.667M28.147 20.57H12.814" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="carousel-hero__button carousel__button--next button" aria-label="{% trans "Next slide" %}" >
+              <svg aria-hidden="true" width="41" height="41" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="circle" d="M20.48 39.736c10.586 0 19.167-8.581 19.167-19.167 0-10.585-8.58-19.166-19.166-19.166S1.314 9.983 1.314 20.569s8.581 19.167 19.167 19.167z" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/><path class="arrow" d="M20.48 28.236l7.667-7.667-7.666-7.666M12.814 20.57h15.333" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-hero__slides swiper-wrapper order-3 order-lg-4" aria-live="polite">
+        {# Slide 1 #}
+        <div class="carousel-hero__item swiper-slide">
+          <div class="carousel-hero__video">
+            <img class="tw-w-full large:w-auto large:tw-float-right mb-2" src="{% static "_images/youtube-regrets/hero-carousel/2022/carousel-1.jpg" %}">
+          </div>
+          <div class="carousel-hero__item-content">
+            <p class="carousel-hero__item-text">
+              {% blocktrans trimmed %}
+                <span class="tw-text-youtube-regrets-red">I avoided clicking a video</span> I would like to watch, only because I was worried that doing so would lead me to get politically extreme recommendations.
+              {% endblocktrans %}
+            </p>
+          </div>
+        </div>
+
+        {# Slide 2 #}
+        <div class="carousel-hero__item swiper-slide">
+          <div class="carousel-hero__video">
+            <img class="tw-w-full large:w-auto large:tw-float-right mb-2" src="{% static "_images/youtube-regrets/hero-carousel/2022/carousel-2.jpg" %}">
+          </div>
+          <div class="carousel-hero__item-content">
+            <p class="carousel-hero__item-text">
+              {% blocktrans trimmed %}
+                When the Superbowl came around…if someone recommended a particular commercial, <span class="tw-text-youtube-regrets-red">I used to log out of YouTube</span>, watch the commercial, and then log back in. I have sometimes even gone to a different device just because…I don't want that clouding my recommendations.
+              {% endblocktrans %}
+            </p>
+          </div>
+        </div>
+
+        {# Slide 3 #}
+        <div class="carousel-hero__item swiper-slide">
+          <div class="carousel-hero__video">
+            <img class="tw-w-full large:w-auto large:tw-float-right mb-2" src="{% static "_images/youtube-regrets/hero-carousel/2022/carousel-3.jpg" %}">
+          </div>
+          <div class="carousel-hero__item-content">
+            <p class="carousel-hero__item-text">
+              {% blocktrans trimmed %}
+                Just not clicking or hovering over certain videos in hope things will improve.
+              {% endblocktrans %}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
