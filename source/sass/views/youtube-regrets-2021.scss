@@ -403,56 +403,6 @@
     }
   }
 
-  .standout-stat {
-    &__heading {
-      font-size: 20px;
-      line-height: calc(48 / 20);
-      font-family: $font-changa;
-    }
-
-    &__number {
-      font-size: 50px;
-      line-height: calc(48 / 50);
-
-      @media screen and (min-width: $bp-md) {
-        font-size: 60px;
-        line-height: calc(48 / 60);
-      }
-      font-family: $font-changa;
-      color: $white;
-
-      &--smaller {
-        font-size: 40px;
-        line-height: calc(48 / 40);
-
-        @media screen and (min-width: $bp-md) {
-          font-size: 60px;
-          line-height: calc(48 / 60);
-        }
-      }
-    }
-
-    &__label {
-      color: $white;
-    }
-
-    &__wrap {
-      background-color: $black;
-      position: relative;
-      margin-bottom: 10px;
-
-      &::after {
-        content: "";
-        width: 100%;
-        height: 100%;
-        border: 1px solid $black;
-        left: 10px;
-        top: 10px;
-        position: absolute;
-      }
-    }
-  }
-
   .downloads-section {
     background-color: $black;
     padding: 150px 0 100px;
