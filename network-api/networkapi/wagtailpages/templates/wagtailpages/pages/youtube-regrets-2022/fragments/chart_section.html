@@ -1,4 +1,4 @@
-{% load static i18n %}
+{% load static i18n youtube_tags %}
 <section class="tw-flex tw-flex-col tw-justify-center tw-items-center tw-my-7 medium:tw-my-[80px]">
   <img src="{% static "_images/youtube-regrets/regrets-reporter/our-research-desktop.png" %}" alt="">
   <div class="container tw-mt-5 medium:tw-mt-7 tw-space-y-7 medium:tw-space-y-[80px]">
@@ -19,7 +19,7 @@
       </div>
       <iframe aria-label="{% trans 'YouTube Percentage of Bad Recommendations Chart' %}"
               class="tw-w-0 tw-min-w-full tw-border-none"
-              src="https://datawrapper.dwcdn.net/kl3jI/7/">
+              src="{% yt2022data_wrapper_url %}">
       </iframe>
     </div>
 
