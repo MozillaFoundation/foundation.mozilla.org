@@ -24,7 +24,7 @@
         <hr class="recommendations__divider" />
         <p class="recommendations__recommendation">
           {% blocktrans trimmed %}
-            <span class="recommendations__accent">YouTube should enhance its data access tools.</span> YouTube should provide researchers with access to better tools that allow them to assess the signals that impact YouTube's algorithm.
+            <span class="recommendations__accent">YouTube should enhance its data access tools.</span> YouTube should provide researchers with access to better tools that allow them to assess the signals that impact YouTube’s algorithm.
           {% endblocktrans %}
         </p>
         <hr class="recommendations__divider" />
@@ -34,7 +34,9 @@
           {% endblocktrans %}
         </p>
         <p class="text-white tw-italic">
-          {% trans "People who use YouTube can get informed about how YouTube recommendations work and download " %}<a href="https://foundation.mozilla.org/campaigns/regrets-reporter/">RegretsReporter</a>{% trans " to contribute data to future crowdsourced research." %}
+          {% blocktrans with reporter_link='https://foundation.mozilla.org/campaigns/regrets-reporter/' trimmed %}
+            People who use YouTube can get informed about how YouTube recommendations work and download <a href="{{ reporter_link }}">RegretsReporter</a> to contribute data to future crowdsourced research.
+          {% endblocktrans %}
         </p>
         <p class="text-white tw-italic">{% trans "Mozilla will continue to operate RegretsReporter as an independent tool for scrutinizing YouTube’s recommendation algorithm. We’ll run research experiments, analyze data, and publish our findings." %}</p>
       </div>
