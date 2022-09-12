@@ -46,7 +46,7 @@ export default () => {
     ScrollTrigger.create({
       trigger: ".cont-scrolling",
       start: "top center",
-      end: "max bottom",
+      end: "bottom bottom",
       scrub: true,
       toggleActions: "play none none reverse",
       onLeave: () => {
@@ -57,7 +57,7 @@ export default () => {
               if (loadIndicator) {
                 loadIndicator.classList.toggle("tw-hidden");
               }
-            }, 500);
+            }, 400);
 
             sessionStorage.setItem(CONTINUE_SCROLLING, "true");
             document.querySelector(".scrolling-link").click();
@@ -74,8 +74,8 @@ export default () => {
           );
         outro.to(".outro-screen", {
           y: "0vh",
-          duration: 0.3,
-          delay: 0.5,
+          duration: 0.2,
+          delay: 0.25,
         });
         outro.set(
           "main > div:not(.cont-scrolling),.primary-nav-container,.article-navbar-container",
