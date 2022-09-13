@@ -26,11 +26,6 @@
         border-radius: 5px;
         margin-bottom: 15px;
 
-        @include media-breakpoint-up(lg) {
-          background: transparent;
-          padding: 0;
-        }
-
         > h2 {
           font-weight: 700;
           margin-bottom: 0;
