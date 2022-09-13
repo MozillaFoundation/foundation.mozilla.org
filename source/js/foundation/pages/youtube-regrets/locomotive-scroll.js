@@ -5,13 +5,13 @@ export const initYoutubeRegretsLocomotiveScroll = () => {
     el: document.querySelector(".scroll-container"),
     smooth: true,
     repeat: true,
-    mobile: {
-      smooth: true,
-      breakpoint: 0,
+    smartphone: {
+      smooth: false,
+      breakpoint: 576,
     },
     tablet: {
-      smooth: true,
-      breakpoint: 0,
+      smooth: false,
+      breakpoint: 768,
     },
   });
 
