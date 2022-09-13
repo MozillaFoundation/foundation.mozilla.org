@@ -1,7 +1,9 @@
 
 {% load static i18n youtube_tags %}
 <section class="tw-flex tw-flex-col tw-justify-center tw-items-center tw-my-7 medium:tw-my-[80px]">
-  <img src="{% static "_images/youtube-regrets/regrets-reporter/2022/the-result.png" %}" alt="">
+  <img class="tw-hidden large:tw-block" src="{% static "_images/youtube-regrets/regrets-reporter/2022/the-result-desktop.png" %}" alt="">
+  <img class="large:tw-hidden" src="{% static "_images/youtube-regrets/regrets-reporter/2022/the-result-mobile.png" %}" alt="">
+
   <div class="container tw-mt-5 medium:tw-mt-7 tw-space-y-7 medium:tw-space-y-[80px]">
     <div class="tw-text-center tw-max-w-3xl tw-mx-auto">
       <h2 class="tw-text-4xl medium:tw-text-[3.25rem] tw-leading-none">{% trans "The result? People can’t escape bad recommendations." %}</h2>
