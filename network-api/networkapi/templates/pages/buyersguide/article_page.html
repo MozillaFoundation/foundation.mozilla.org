@@ -46,6 +46,16 @@
       </div>
     </div>
   </div>
+
+  PRIMARY RELATED ARTICLES
+  {% with related_articles=page.get_primary_related_articles  %}
+    {% if related_articles %}
+      <div class="tw-m-4">
+        {% include "fragments/buyersguide/related_reading.html" with articles=related_articles all_articles=False %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
   {% for block in page.body %}
       {% include_block block with parent_page=page page_type="blog" %}
   {% endfor %}
@@ -78,19 +88,19 @@
   <div class="tw-container">
     <div class="tw-row tw-justify-center">
       <div class="col-12 col-lg-8">
-          {% include "fragments/buyersguide/pni_newsletter_box.html" %}
-          {% with related_articles=page.get_primary_related_articles  %}
-            {% if related_articles %}
-              <div class="tw-m-4">
-                {% include "fragments/buyersguide/related_reading.html" with articles=related_articles all_articles=False %}
-              </div>
-            {% endif %}
-          {% endwith %}
+        {% include "fragments/buyersguide/pni_newsletter_box.html" %}
       </div>
     </div>
   </div>
+
+  SECONDARY RELATED ARTICLES
+  {% with related_articles=page.get_secondary_related_articles  %}
+    {% if related_articles %}
+      <div class="tw-m-4">
+        {% include "fragments/buyersguide/related_reading.html" with articles=related_articles all_articles=False %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
 </div>
-
-
-
 {% endblock guts %}
