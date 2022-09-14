@@ -5,9 +5,7 @@ from django.test.utils import override_settings
 
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.factory.buyersguide import BuyersGuideCallToActionFactory
-
 from networkapi.wagtailpages.pagemodels.base import Homepage
-
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     ProductPage,

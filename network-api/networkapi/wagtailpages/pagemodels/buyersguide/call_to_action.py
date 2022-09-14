@@ -1,15 +1,17 @@
-from wagtail.snippets.models import register_snippet
+from django.core.exceptions import ValidationError
 from django.db import models
-from wagtail.core.fields import RichTextField
+from django.forms.utils import ErrorList
+
 from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, MultiFieldPanel
+from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page, TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail.search import index
-from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
-from django.core.exceptions import ValidationError
-from django.forms.utils import ErrorList
+from wagtail.snippets.models import register_snippet
+
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
+from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
 
 
 @register_snippet
@@ -21,7 +23,7 @@ class BuyersGuideCallToAction(
 ):
     """
     Reusable call to action for the buyers guide,
-    features a title and rich text body, with optional image and link.
+    features a title and rich text content, with optional image and link.
     """
     sticker_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -66,7 +68,7 @@ class BuyersGuideCallToAction(
         verbose_name_plural = "Buyers Guide Call To Actions"
 
     def __str__(self):
-        return str(self.title)
+        return self.title
 
     def get_target_url(self):
         if self.link_target_url:
