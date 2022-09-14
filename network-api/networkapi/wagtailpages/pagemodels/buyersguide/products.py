@@ -118,7 +118,7 @@ class BuyersGuideProductCategory(
 
     show_cta = models.BooleanField(
         default=False,
-        help_text='Do we want the Buyers Guide featured CTA to be displayed on this categories page?'
+        help_text="Do we want the Buyers Guide featured CTA to be displayed on this category's page?"
     )
 
     panels = [
