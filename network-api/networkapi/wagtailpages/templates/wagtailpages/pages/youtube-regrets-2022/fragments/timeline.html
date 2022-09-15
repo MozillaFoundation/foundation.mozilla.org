@@ -68,11 +68,13 @@
     <div class="timeline__scene tw-grid tw-grid-cols-2 tw-mb-[80px]" data-scene="3">
 
       <div class="timeline__scene-left tw-mt-7">
-        {% include './video-thumb.html' with class="tw-top-[20%]" size="small" image='scene3/1.jpg' speed="-1" text='A Dad Ate 25 Packs Silica Gel For Breakfast. This Is What Happened To His Stomach.' %}
+        {% trans 'A Dad Ate 25 Packs Silica Gel For Breakfast. This Is What Happened To His Stomach.' as localized_title_3_1 %}
+        {% include './video-thumb.html' with class="tw-top-[20%]" size="small" image='scene3/1.jpg' speed="-1" text=localized_title_3_1 %}
       </div>
 
       <div class="timeline__scene-right tw-flex tw-items-end">
-        {% include './video-thumb.html' with class="tw-ml-[60px] medium:tw-ml-[160px]" image='scene3/2.jpg' speed="3" text='A Student Ate 108 Gummy Antacids For Breakfast. This Is What Happened To Her Kidneys.' %}
+        {% trans 'A Student Ate 108 Gummy Antacids For Breakfast. This Is What Happened To Her Kidneys.' as localized_title_3_2 %}
+        {% include './video-thumb.html' with class="tw-ml-[60px] medium:tw-ml-[160px]" image='scene3/2.jpg' speed="3" text=localized_title_3_2 %}
       </div>
 
       <div class="tw-absolute tw-left-50% tw--translate-y-1/2  tw-left-[60%] tw-top-[10%]" data-scroll data-scroll-speed="1">
@@ -110,7 +112,7 @@
       </div>
 
       <div class="tw-absolute tw-left-[60%] tw-top-[30%]" data-scroll data-scroll-speed="2">
-        <p class="timeline__scene-text">{% trans '…and showing up' %}</p>
+        <p class="timeline__scene-text">{% trans '…and showing up' context 'First occurrence' %}</p>
       </div>
 
       <div class="timeline__person-date tw-top-[600px]" data-scroll data-scroll-speed="-2">
@@ -160,7 +162,7 @@
       </div>
 
       <div class="tw-absolute tw-left-[60%] tw-top-[30%]" data-scroll data-scroll-speed="1">
-        <p class="timeline__scene-text">{% trans '…and showing up' %}</p>
+        <p class="timeline__scene-text">{% trans '…and showing up' context 'Second occurrence' %}</p>
       </div>
 
       <div class="timeline__person-date tw-bottom-[200px]" data-scroll data-scroll-speed="-2">
@@ -220,7 +222,7 @@
       </div>
 
       <div class="tw-absolute tw-left-[60%] tw-top-[25%]" data-scroll data-scroll-speed="1">
-        <p class="timeline__scene-text">{% trans '…and showing up' %}</p>
+        <p class="timeline__scene-text">{% trans '…and showing up' context 'Third occurrence' %}</p>
       </div>
 
       <div class="timeline__person-date tw-bottom-[30%]" data-scroll data-scroll-speed="-2">
