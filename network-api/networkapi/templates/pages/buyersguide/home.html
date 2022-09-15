@@ -14,12 +14,8 @@
     {% endif %}
 
     {% if page.featured_advice_article %}
-      <div class="tw-container tw-my-6">
-        <h2>Ask Jen</h2>
-
-        <div>
-          Q: <a href="{% pageurl page.featured_advice_article %}">{{ page.featured_advice_article.title }}</a>
-        </div>
+      <div class="large:tw-container tw-my-6">
+        {% include "fragments/buyersguide/ask_jen_advice_section.html" with featured_advice_article=page.featured_advice_article %}
       </div>
     {% endif %}
 
