@@ -1,8 +1,13 @@
 {% load static i18n %}
 
 <section id="recommendation-quote" class="container tw-relative tw-z-10" data-scroll-section>
-  <div data-scroll data-scroll-speed="3" data-scroll-sticky data-scroll-target="#recommendation-quote" class="large:tw-mt-[25vh] tw-max-w-3xl mx-auto tw-h-screen tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
-    {% include 'wagtailpages/pages/youtube-regrets-2022/svg/quote.svg' %}
+  <div data-scroll data-scroll-speed="3" data-scroll-sticky data-scroll-target="#recommendation-quote-text" class="medium:tw-mt-[20vh] large:tw-mt-[35vh] tw-max-w-3xl mx-auto tw-h-screen tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
+    <div class="tw-text-center tw-max-w-3xl tw-mx-auto tw-my-7 large:tw-my-[120px]">
+      <h2 class="tw-text-4xl medium:tw-text-[3.25rem] tw-leading-none">{% trans "Bad recommendations resurfaced over time." %}</h2>
+    </div>
+
+    <div>{% include 'wagtailpages/pages/youtube-regrets-2022/svg/quote.svg' %}</div>
+
     <blockquote class="tw-text-[1.75rem] tw-font-zilla">
       {% trans '“It seems like you routinely have to prune things away or it will keep shoving them in your face until you tell it otherwise.”' %}
       <cite class="block tw-not-italic">{% trans '(Participant 112)' %}</cite>
@@ -233,7 +238,7 @@
   </div>
 </section>
 
-<section id="recommendation-quote" class="container" data-scroll-section>
+<section id="recommendation-quote-text" class="container" data-scroll-section>
   <div data-scroll class="tw-max-w-3xl tw-my-7 medium:tw-my-[80px] tw-mx-auto tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
     {% include 'wagtailpages/pages/youtube-regrets-2022/svg/quote.svg' %}
     <blockquote class="tw-text-[1.75rem] tw-font-zilla">{% trans '“Eventually it always comes back. The algorithm seems incapable of remembering a lesson for very long.”'%}
