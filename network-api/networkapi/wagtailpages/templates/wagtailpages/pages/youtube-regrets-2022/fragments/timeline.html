@@ -3,7 +3,10 @@
 <section id="recommendation-quote" class="container tw-relative tw-z-10" data-scroll-section>
   <div data-scroll data-scroll-speed="3" data-scroll-sticky data-scroll-target="#recommendation-quote" class="large:tw-mt-[25vh] tw-max-w-3xl mx-auto tw-h-screen tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
     {% include 'wagtailpages/pages/youtube-regrets-2022/svg/quote.svg' %}
-    <blockquote class="tw-text-[1.75rem] tw-font-zilla">{% trans '“It seems like you routinely have to prune things away or it will keep shoving them in your face until you tell it otherwise.”' %}</blockquote>
+    <blockquote class="tw-text-[1.75rem] tw-font-zilla">
+      {% trans '“It seems like you routinely have to prune things away or it will keep shoving them in your face until you tell it otherwise.”' %}
+      <cite class="block tw-not-italic">{% trans '(Participant 112)' %}</cite>
+    </blockquote>
     <svg aria-hidden="true" id="dashed-line" width="3" height="190" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path stroke="#CCC" stroke-width="3" stroke-dasharray="12 12" d="M1.5 0v190"/>
     </svg>
@@ -235,7 +238,9 @@
 <section id="recommendation-quote" class="container" data-scroll-section>
   <div data-scroll class="tw-max-w-3xl tw-my-7 medium:tw-my-[80px] tw-mx-auto tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
     {% include 'wagtailpages/pages/youtube-regrets-2022/svg/quote.svg' %}
-    <blockquote class="tw-text-[1.75rem] tw-font-zilla">{% trans '“Eventually it always comes back. The algorithm seems incapable of remembering a lesson for very long.”' %}</blockquote>
+    <blockquote class="tw-text-[1.75rem] tw-font-zilla">{% trans '“Eventually it always comes back. The algorithm seems incapable of remembering a lesson for very long.”'%}
+      <cite class="tw-block tw-not-italic">{% trans '(Participant 187)' %}</cite>
+    </blockquote>
     <div class="tw-mr-[-60px] medium:tw-mr-[-100px] tw-w-full tw-max-w-[120px] medium:tw-max-w-[200px]">
       {% include 'wagtailpages/pages/youtube-regrets-2022/svg/person-cheering.svg' %}
     </div>
