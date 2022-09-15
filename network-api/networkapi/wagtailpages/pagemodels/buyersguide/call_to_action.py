@@ -61,8 +61,8 @@ class BuyersGuideCallToAction(
         TranslatableField('title'),
         TranslatableField('content'),
         TranslatableField('link_label'),
-        SynchronizedField('link_target_url'),
-        SynchronizedField('link_target_page'),
+        TranslatableField('link_target_url'),
+        TranslatableField('link_target_page'),
 
     ]
 

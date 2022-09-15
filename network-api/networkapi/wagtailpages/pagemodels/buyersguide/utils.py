@@ -43,8 +43,12 @@ def sort_average(products):
     return sorted(products, key=lambda p: p.creepiness)
 
 
-def get_featured_cta(self):
+def get_featured_cta(page):
+    """
+    This function takes a page, finds the PNI home page in it's list
+    of ancestors, and then returns the home page's featured CTA if applicable.
+    """
     BuyersGuidePage = apps.get_model(app_label='wagtailpages', model_name='BuyersGuidePage')
-    pni_home_page = BuyersGuidePage.objects.ancestor_of(self, inclusive=True).live().first()
+    pni_home_page = BuyersGuidePage.objects.ancestor_of(page, inclusive=True).live().first()
     featured_cta = pni_home_page.call_to_action
     return featured_cta

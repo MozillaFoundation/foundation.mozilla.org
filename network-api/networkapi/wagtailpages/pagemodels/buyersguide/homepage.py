@@ -188,7 +188,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('hero_supporting_articles_heading'),
         SynchronizedField('cutoff_date'),
         SynchronizedField('excluded_categories'),
-        SynchronizedField('call_to_action'),
+        TranslatableField('call_to_action'),
         # Promote tab fields
         TranslatableField('seo_title'),
         TranslatableField('search_description'),

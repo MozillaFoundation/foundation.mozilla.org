@@ -3,6 +3,7 @@ from http import HTTPStatus
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
+from networkapi.wagtailpages.pagemodels.buyersguide.utils import get_featured_cta
 
 
 class BuyersGuideEditorialContentIndexPageFactoryTest(test_base.WagtailpagesTestCase):
@@ -98,6 +99,9 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         )
 
     def test_featured_cta_in_context(self):
+        self.pni_homepage.call_to_action = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.pni_homepage.save()
+
         response = self.client.get(self.content_index.url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
@@ -111,3 +115,19 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertIsNone(response.context['featured_cta'])
+
+    def test_get_featured_cta_function(self):
+        self.pni_homepage.call_to_action = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.pni_homepage.save()
+
+        featured_cta = get_featured_cta(self.content_index)
+
+        self.assertIsNotNone(featured_cta)
+
+    def test_get_featured_cta_function_with_no_cta(self):
+        self.pni_homepage.call_to_action = None
+        self.pni_homepage.save()
+
+        featured_cta = get_featured_cta(self.content_index)
+
+        self.assertIsNone(featured_cta)

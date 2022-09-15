@@ -2,10 +2,12 @@ from django.contrib.auth.models import User
 from django.test import TestCase, RequestFactory
 from django.test.utils import override_settings
 from wagtail.core.models import Page, Site, Locale
+from wagtail.snippets.views.snippets import get_snippet_edit_handler
 
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.base import Homepage
+from networkapi.wagtailpages.pagemodels.buyersguide.call_to_action import BuyersGuideCallToAction
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     ProductPageCategory,
@@ -56,7 +58,6 @@ class BuyersGuideViewTest(TestCase):
             buyersguide = BuyersGuidePage()
             buyersguide.title = 'Privacy not included'
             buyersguide.slug = 'privacynotincluded'
-            buyersguide.call_to_action = buyersguide_factories.BuyersGuideCallToActionFactory()
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
             locale = Locale.objects.create(language_code="fr")
@@ -261,6 +262,8 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertEqual(result, None)
 
     def test_bg_home_page_with_cta(self):
+        self.bg.call_to_action = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.save()
         response = self.client.get(self.bg.url)
         self.assertEqual(response.status_code, 200)
         self.assertIsNotNone(response.context['featured_cta'])
@@ -285,6 +288,8 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertIsNone(response.context['featured_cta'])
 
     def test_category_page_context_with_cta_enabled(self):
+        self.bg.call_to_action = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.save()
         category = BuyersGuideProductCategory.objects.first()
         category.show_cta = True
         category.save()
@@ -295,3 +300,74 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
 
         self.assertEqual(response.status_code, 200)
         self.assertIsNotNone(response.context['featured_cta'])
+
+
+class BuyersGuideCallToActionTest(TestCase):
+
+    def setUp(self):
+        edit_handler = get_snippet_edit_handler(BuyersGuideCallToAction)
+        self.form_class = edit_handler.get_form_class()
+
+
+    def test_return_target_url_with_external_link(self):
+        test_url = "http://test.com"
+        cta = BuyersGuideCallToAction.objects.create(
+            title="Test CTA",
+            link_label="Test Link",
+            link_target_url=test_url,
+        )
+        cta.save()
+
+        target_url = cta.get_target_url()
+
+        self.assertEqual(target_url, test_url)
+
+    def test_return_target_url_with_page_link(self):
+        test_page = buyersguide_factories.BuyersGuidePageFactory()
+        cta = BuyersGuideCallToAction.objects.create(
+            title="Test CTA",
+            link_label="Test Link",
+            link_target_page=test_page,
+        )
+        cta.save()
+
+        target_url = cta.get_target_url()
+
+        self.assertEqual(target_url, test_page.url)
+
+    def test_cannot_be_missing_external_or_page_link(self):
+        form = self.form_class(
+            data=({"title": "Test CTA", "link_label": "Test Link"}),
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(2, len(form.errors))
+        self.assertIn("link_target_url", form.errors)
+        self.assertIn("link_target_page", form.errors)
+
+    def test_cannot_have_both_external_and_page_link(self):
+        test_page = buyersguide_factories.BuyersGuidePageFactory()
+        form = self.form_class(
+            data=(
+                {
+                    "title": "Test CTA",
+                    "link_label": "Test Link",
+                    "link_target_url": "http://test.com",
+                    "link_target_page": test_page,
+                }
+            )
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(2, len(form.errors))
+        self.assertIn("link_target_url", form.errors)
+        self.assertIn("link_target_page", form.errors)
+
+    def test_cannot_be_missing_link_label(self):
+        form = self.form_class(
+            data=({"title": "Test CTA", "link_target_url": "http://test.com"}),
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(1, len(form.errors))
+        self.assertIn("link_label", form.errors)

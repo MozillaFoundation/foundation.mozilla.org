@@ -239,6 +239,9 @@ class TestProductPage(BuyersGuideTestMixin):
         Testing that a product with any assigned category that has
         show_cta=True displays the CTA as expected.
         """
+        self.bg.call_to_action = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.save()
+
         product_page = self.product_page
 
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=True)
@@ -247,10 +250,12 @@ class TestProductPage(BuyersGuideTestMixin):
                 category=cat1,
             )
         category_orderable.save()
+
         self.product_page.product_categories.add(category_orderable)
         self.product_page.save_revision().publish()
 
         response = self.client.get(product_page.url)
+
         self.assertEqual(response.status_code, 200)
         self.assertIsNotNone(response.context['featured_cta'])
 
@@ -261,18 +266,52 @@ class TestProductPage(BuyersGuideTestMixin):
         """
         product_page = self.product_page
 
-        cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", show_cta=False)
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=False)
         category_orderable = ProductPageCategory(
                 product=product_page,
-                category=cat2,
+                category=cat1,
             )
         category_orderable.save()
+
         self.product_page.product_categories.add(category_orderable)
         self.product_page.save_revision().publish()
 
         response = self.client.get(product_page.url)
+
         self.assertEqual(response.status_code, 200)
         self.assertIsNone(response.context['featured_cta'])
+
+    def test_product_page_cta_with_multiple_categories(self):
+        """
+        Testing a product with multiple categories, including one with show_cta=True,
+        will display the CTA as expected.
+        """
+        self.bg.call_to_action = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.save()
+
+        product_page = self.product_page
+
+        cat_with_cta_enabled = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=True)
+        cat_with_cta_disabled = BuyersGuideProductCategory.objects.create(name="Cat 2", show_cta=False)
+        category_orderable_1 = ProductPageCategory(
+            product=product_page,
+            category=cat_with_cta_enabled,
+        )
+        category_orderable_1.save()
+        category_orderable_2 = ProductPageCategory(
+            product=product_page,
+            category=cat_with_cta_disabled,
+        )
+        category_orderable_2.save()
+        
+        self.product_page.product_categories.add(category_orderable_1)
+        self.product_page.product_categories.add(category_orderable_2)
+        self.product_page.save_revision().publish()
+
+        response = self.client.get(product_page.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(response.context['featured_cta'])
 
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
