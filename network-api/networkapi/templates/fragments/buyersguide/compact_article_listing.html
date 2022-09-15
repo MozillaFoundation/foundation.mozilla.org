@@ -1,27 +1,33 @@
-{% load static wagtailcore_tags wagtailimages_tags i18n %}
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
 
 <div>
-  <img src="{% static "_images/buyers-guide/long-wavy-border.svg" %}" class="tw-w-full" />
+  {% if short_waves %}
+    <img src="{% static "_images/buyers-guide/short-wavy-border.svg" %}" />
+  {% else %}
+    <img src="{% static "_images/buyers-guide/long-wavy-border.svg" %}" class="tw-w-full" />
+  {% endif %}
+
   <h2 class="tw-font-zilla tw-font-normal tw-text-2xl tw-text-black tw-mt-2 tw-mb-[20px]">{{ heading }}</h2>
 
-  <ul class="tw-list-none tw-space-y-4 tw-p-0">
+  <ul class="tw-list-none {% if show_images %} tw-space-y-4 {% else %} tw-space-y-5 {% endif %} tw-p-0">
     {% for article in articles  %}
       <li class="tw-m-0" >
-        {% image article.hero_image fill-156x156 as img %}
         <a href="{% pageurl article %}" class="tw-text-black tw-flex hover:tw-text-blue-40 tw-items-center tw-no-underline">
-          <img src="{{ img.url }}" alt="{{ img.alt }}" class="tw-w-[78px] tw-h-[78px] tw-rounded-2xl tw-mr-4"/>
+          {% if show_images %}
+            {% image article.hero_image fill-156x156 as img %}
+            <img src="{{ img.url }}" alt="{{ img.alt }}" class="tw-w-[78px] tw-h-[78px] tw-rounded-2xl tw-mr-4"/>
+          {% endif %}
+
           <span class="tw-font-sans tw-font-bold tw-text-lg tw-leading-5">{{ article.title }}</span>
         </a>
       </li>
     {% endfor %}
   </ul>
 
-  {% with page.get_editorial_content_index as editorial_content_index  %}
-    {% if editorial_content_index %}
-      <a href="{% pageurl editorial_content_index %}" class="tw-font-sans tw-font-bold tw-text-blue-80 tw-text-base tw-leading-5 tw-flex tw-no-underline hover:tw-underline">
-        {% trans "All articles" %}
-        <img src="{% static "_images/buyers-guide/arrow-right.svg" %}" class="tw-ml-1 " />
-      </a>
-    {% endif %}
-  {% endwith %}
+  {% if index_page %}
+    <a href="{% pageurl index_page %}" class="tw-font-sans tw-font-bold tw-text-blue-80 tw-text-base tw-leading-5 tw-flex tw-no-underline hover:tw-underline">
+      {% trans "All articles" %}
+      <img src="{% static "_images/buyers-guide/arrow-right.svg" %}" class="tw-ml-1 " />
+    </a>
+  {% endif %}
 </div>
