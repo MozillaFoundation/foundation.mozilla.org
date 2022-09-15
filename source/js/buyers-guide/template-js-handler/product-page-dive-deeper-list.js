@@ -3,7 +3,7 @@
  * which shows a list of a product's related "news updates".
  * 
  * If applicable, the component shows the first 3 items in this list, and gives
- * users the option to expand/collapse the list to show the rest of the items, 
+ * users the option to expand or collapse the list to show the rest of the items, 
  * which we do by toggling a tailwind class that hides any list item after item #3. 
  * 
  * We also update the "Read more" button's text and icon accordingly.
