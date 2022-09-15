@@ -11,15 +11,7 @@
         {% trans "By" %}
       {% endif %}
 
-      {% for author in authors %}
-        {% if not forloop.first %}{% if not forloop.last %}<span class="tw-font-extrabold">, </span>{% else %}<span> {% trans "and" %} </span>{% endif %}{% endif %}
-
-        {% if blog_index %}
-          <a class="tw-font-extrabold tw-text-black" href="{% localizedroutablepageurl page=blog_index url_name='blog-author-detail' profile_slug=author.slug %}">{{ author.name }}</a>
-        {% else %}
-          <span class="tw-font-extrabold">{{ author.name }}</span>
-        {% endif %}
-      {% endfor %}
+      {% include "fragments/profile_names_list.html" with profiles=authors %}
 
       {% if show_full_info %}
         |
