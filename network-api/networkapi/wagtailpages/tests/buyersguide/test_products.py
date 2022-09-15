@@ -1,4 +1,5 @@
 import json
+import unittest
 
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -245,13 +246,21 @@ class TestProductPage(BuyersGuideTestMixin):
         product_page = self.product_page
 
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=True)
-        category_orderable = ProductPageCategory(
+        cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", show_cta=False)
+        category_orderable_1 = ProductPageCategory(
                 product=product_page,
                 category=cat1,
             )
-        category_orderable.save()
+        category_orderable_2 = ProductPageCategory(
+            product=product_page,
+            category=cat2,
+        )
+        category_orderable_1.save()
+        category_orderable_2.save()
 
-        self.product_page.product_categories.add(category_orderable)
+
+        self.product_page.product_categories.add(category_orderable_1)
+        self.product_page.product_categories.add(category_orderable_2)
         self.product_page.save_revision().publish()
 
         response = self.client.get(product_page.url)
@@ -267,13 +276,20 @@ class TestProductPage(BuyersGuideTestMixin):
         product_page = self.product_page
 
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=False)
-        category_orderable = ProductPageCategory(
-                product=product_page,
-                category=cat1,
-            )
-        category_orderable.save()
+        cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", show_cta=False)
+        category_orderable_1 = ProductPageCategory(
+            product=product_page,
+            category=cat1,
+        )
+        category_orderable_2 = ProductPageCategory(
+            product=product_page,
+            category=cat2,
+        )
+        category_orderable_1.save()
+        category_orderable_2.save()
 
-        self.product_page.product_categories.add(category_orderable)
+        self.product_page.product_categories.add(category_orderable_1)
+        self.product_page.product_categories.add(category_orderable_2)
         self.product_page.save_revision().publish()
 
         response = self.client.get(product_page.url)
@@ -281,14 +297,12 @@ class TestProductPage(BuyersGuideTestMixin):
         self.assertEqual(response.status_code, 200)
         self.assertIsNone(response.context['featured_cta'])
 
-    def test_product_page_cta_with_multiple_categories(self):
-        """
-        Testing a product with multiple categories, including one with show_cta=True,
-        will display the CTA as expected.
-        """
-        self.bg.call_to_action = buyersguide_factories.BuyersGuideCallToActionFactory()
-        self.bg.save()
 
+    def test_return_featured_cta(self):
+        """
+        Testing the product page's return_featured_cta function with
+        multiple categories. If one has show_cta=True, should return CTA.
+        """
         product_page = self.product_page
 
         cat_with_cta_enabled = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=True)
@@ -303,15 +317,13 @@ class TestProductPage(BuyersGuideTestMixin):
             category=cat_with_cta_disabled,
         )
         category_orderable_2.save()
-
         self.product_page.product_categories.add(category_orderable_1)
         self.product_page.product_categories.add(category_orderable_2)
         self.product_page.save_revision().publish()
 
-        response = self.client.get(product_page.url)
+        featured_cta = product_page.return_featured_cta()
 
-        self.assertEqual(response.status_code, 200)
-        self.assertIsNotNone(response.context['featured_cta'])
+        self.assertIsNotNone(featured_cta)
 
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
