@@ -303,7 +303,7 @@ class TestProductPage(BuyersGuideTestMixin):
             category=cat_with_cta_disabled,
         )
         category_orderable_2.save()
-        
+
         self.product_page.product_categories.add(category_orderable_1)
         self.product_page.product_categories.add(category_orderable_2)
         self.product_page.save_revision().publish()

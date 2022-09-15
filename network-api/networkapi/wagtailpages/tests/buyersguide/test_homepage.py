@@ -308,7 +308,6 @@ class BuyersGuideCallToActionTest(TestCase):
         edit_handler = get_snippet_edit_handler(BuyersGuideCallToAction)
         self.form_class = edit_handler.get_form_class()
 
-
     def test_return_target_url_with_external_link(self):
         test_url = "http://test.com"
         cta = BuyersGuideCallToAction.objects.create(
