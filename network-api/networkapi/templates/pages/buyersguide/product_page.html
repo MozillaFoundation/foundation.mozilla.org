@@ -188,16 +188,9 @@
 
 {% with secondary_related_articles=product.get_secondary_related_articles  %}
   {% if secondary_related_articles %}
-    <div class="tw-pl-5">
-      <h2>What to read next</h2>
-
-      <p>Secondary related articles (last 3 of list of max 5)</p>
-
-      <ul>
-        {% for article in secondary_related_articles %}
-          <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
-        {% endfor %}
-      </ul>
+    <div class="tw-container">
+      {% trans "What to read next" as heading %}
+      {% include "fragments/buyersguide/compact_article_listing.html" with heading=heading articles=secondary_related_articles index_page=home_page.get_editorial_content_index show_images=True %}
     </div>
   {% endif %}
 {% endwith %}
