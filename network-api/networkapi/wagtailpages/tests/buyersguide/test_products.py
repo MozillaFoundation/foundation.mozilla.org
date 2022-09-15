@@ -1,5 +1,4 @@
 import json
-import unittest
 
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -258,7 +257,6 @@ class TestProductPage(BuyersGuideTestMixin):
         category_orderable_1.save()
         category_orderable_2.save()
 
-
         self.product_page.product_categories.add(category_orderable_1)
         self.product_page.product_categories.add(category_orderable_2)
         self.product_page.save_revision().publish()
@@ -296,7 +294,6 @@ class TestProductPage(BuyersGuideTestMixin):
 
         self.assertEqual(response.status_code, 200)
         self.assertIsNone(response.context['featured_cta'])
-
 
     def test_return_featured_cta(self):
         """
