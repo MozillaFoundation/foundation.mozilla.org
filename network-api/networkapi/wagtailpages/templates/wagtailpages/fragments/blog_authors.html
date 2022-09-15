@@ -3,7 +3,7 @@
 {% get_page_authors blog_page as authors %}
 
 <div class="blog-authors d-flex flex-wrap {% if show_full_info %}flex-column mb-4{% else %}align-items-center{% endif %}">
-  {% include "./author-images.html" with authors=authors %}
+  {% include "fragments/profile_images_stack.html" with profiles=authors %}
 
   <p class="tw-text-sm my-2 tw-text-black">
     {% spaceless %}
