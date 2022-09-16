@@ -3,22 +3,22 @@
 <div class="tw-flex tw-flex-row tw-gap-3 medium:tw-gap-5 tw-w-full">
   <div class="medium:tw-max-w-xs large:tw-max-w-sm medium:tw-shrink-0">
     <a href="{% relocalized_url page.localized.url %}">
-      {% image page.localized.specific.get_meta_image original class="tw-hidden medium:tw-block tw-max-h-[131px] tw-max-w-[255px] tw-object-cover" %}
-      {% image page.localized.specific.get_meta_image fill-100x100 class="tw-block medium:tw-hidden tw-min-h-[78px] tw-min-w-[78px] tw-rounded-2xl tw-object-cover"%}
+      {% image page.localized.get_meta_image original class="tw-hidden medium:tw-block tw-max-h-[131px] tw-max-w-[255px] tw-object-cover" %}
+      {% image page.localized.get_meta_image fill-100x100 class="tw-block medium:tw-hidden tw-min-h-[78px] tw-min-w-[78px] tw-rounded-2xl tw-object-cover"%}
     </a>
   </div>
 
   <div>
     <div class="tw-flex tw-flex-wrap">
-      {% include "fragments/buyersguide/content_category_links.html" with page=page.specific %}
+      {% include "fragments/buyersguide/content_category_links.html" with page=page %}
       <span class="tw-h6-heading tw-text-gray-40 tw-py-1 tw-mb-0">{{ page.first_published_at|date:"DATE_FORMAT" }}</span>
     </div>
 
     <a href="{% relocalized_url page.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
       <p class="tw-h4-heading d-inline-block tw-mb-1 medium:tw-my-0 group-hover:tw-underline">{{ page.localized.title }}</p>
-      <p class="tw-text-xs medium:tw-text-lg tw-body tw-line-clamp-3 tw-leading-3 medium:tw-leading-6 medium:tw-mt-2">{{ page.specific.localized.get_meta_description }}</p>
+      <p class="tw-text-xs medium:tw-text-lg tw-body tw-line-clamp-3 tw-leading-3 medium:tw-leading-6 medium:tw-mt-2">{{ page.localized.get_meta_description }}</p>
     </a>
 
-    {% include "fragments/byline.html" with authors=page.specific.get_author_profiles %}
+    {% include "fragments/byline.html" with authors=page.get_author_profiles %}
   </div>
 </div>
