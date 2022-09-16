@@ -18,5 +18,7 @@
       <p class="tw-h4-heading d-inline-block tw-mb-1 medium:tw-my-0 group-hover:tw-underline">{{ page.localized.title }}</p>
       <p class="tw-text-xs medium:tw-text-lg tw-body tw-line-clamp-3 tw-leading-3 medium:tw-leading-6 medium:tw-mt-2">{{ page.specific.localized.get_meta_description }}</p>
     </a>
+
+    {% include "fragments/byline.html" with authors=page.specific.get_author_profiles %}
   </div>
 </div>
