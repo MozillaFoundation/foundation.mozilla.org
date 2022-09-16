@@ -30,7 +30,7 @@ from networkapi.wagtailpages.forms import BuyersGuideProductCategoryForm
 from networkapi.wagtailpages.fields import ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
-    get_featured_cta
+    get_bg_featured_cta
 )
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
@@ -950,7 +950,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['product'] = self
         language_code = get_language_from_request(request)
         context['categories'] = get_categories_for_locale(language_code)
-        context['featured_cta'] = self.return_featured_cta()
+        context['featured_cta'] = self.get_featured_cta()
         context['mediaUrl'] = settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'{self.title} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
@@ -968,9 +968,9 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     def get_secondary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
         return self.get_related_articles()[3:]
 
-    def return_featured_cta(self):
-        if self.product_categories.filter(category__show_cta=True).exists():
-            return get_featured_cta(self)
+    def get_featured_cta(self):
+        if ProductPageCategory.objects.filter(product=self, category__show_cta=True):
+            return get_bg_featured_cta(self)
         else:
             return None
 

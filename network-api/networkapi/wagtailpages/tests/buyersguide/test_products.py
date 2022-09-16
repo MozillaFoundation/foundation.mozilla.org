@@ -295,11 +295,15 @@ class TestProductPage(BuyersGuideTestMixin):
         self.assertEqual(response.status_code, 200)
         self.assertIsNone(response.context['featured_cta'])
 
-    def test_return_featured_cta(self):
+    def test_get_featured_cta(self):
         """
-        Testing the product page's return_featured_cta function with
+        Testing the product page's get_featured_cta function with
         multiple categories. If one has show_cta=True, should return CTA.
         """
+
+        self.bg.call_to_action = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.save()
+
         product_page = self.product_page
 
         cat_with_cta_enabled = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=True)
@@ -318,7 +322,7 @@ class TestProductPage(BuyersGuideTestMixin):
         self.product_page.product_categories.add(category_orderable_2)
         self.product_page.save_revision().publish()
 
-        featured_cta = product_page.return_featured_cta()
+        featured_cta = product_page.get_featured_cta()
 
         self.assertIsNotNone(featured_cta)
 
