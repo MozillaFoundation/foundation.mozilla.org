@@ -39,9 +39,9 @@
         </div>
       <div class="pt-5 pt-md-5 pb-4 col-lg-8">
         <div class="cms {% if show_comments %}mb-5{% endif %}">
-          {% include "fragments/buyersguide/blog_topics.html" with topics=page.topics.all extra_classes="tw-text-base" %}
+          {% include "fragments/buyersguide/content_category_links.html" with page=page extra_classes="tw-text-base" %}
           <h1 class="tw-h1-heading">{{ page.title }}</h1>
-          {% include "fragments/buyersguide/blog_authors.html" with blog_page=page show_full_info=True %}
+          {% include "fragments/byline.html" with authors=page.get_author_profiles publication_date=page.first_published_at show_full_info=True %}
         </div>
       </div>
     </div>
