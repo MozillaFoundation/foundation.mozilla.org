@@ -969,7 +969,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         return self.get_related_articles()[3:]
 
     def get_featured_cta(self):
-        if ProductPageCategory.objects.filter(product=self, category__show_cta=True):
+        if ProductPageCategory.objects.filter(product=self, category__show_cta=True).exists():
             return get_bg_featured_cta(self)
         else:
             return None
