@@ -19,6 +19,8 @@
       <p class="tw-text-xs medium:tw-text-lg tw-body tw-line-clamp-3 tw-leading-3 medium:tw-leading-6 medium:tw-mt-2">{{ page.localized.get_meta_description }}</p>
     </a>
 
-    {% include "fragments/byline.html" with authors=page.get_author_profiles %}
+    {% if show_byline %}
+      {% include "fragments/byline.html" with authors=page.get_author_profiles %}
+    {% endif %}
   </div>
 </div>
