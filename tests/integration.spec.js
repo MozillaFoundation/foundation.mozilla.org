@@ -145,7 +145,7 @@ test.fixme(`PNI search`, async ({ page }, testInfo) => {
   await expect(products).toHaveCount(counts.health);
 
   // Filtering for "ding" should refocus on text field if there
-// was a search term, while filtering for ding-only
+  // was a search term, while filtering for ding-only
   await searchBar.type(searchTerm);
   await page.click(`main`);
   await page.click(qs.dingLabel);
