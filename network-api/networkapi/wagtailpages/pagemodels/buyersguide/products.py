@@ -868,7 +868,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                InlinePanel('updates', label='Update')
+                InlinePanel('updates', label='Update', max_num=7)
             ],
             heading='News Links',
         ),
