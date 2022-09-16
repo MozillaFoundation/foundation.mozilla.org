@@ -2,25 +2,4 @@
 
 {% get_page_authors blog_page as authors %}
 
-<div class="blog-authors d-flex flex-wrap {% if show_full_info %}flex-column mb-4{% else %}align-items-center{% endif %}">
-  {% include "fragments/profile_images_stack.html" with profiles=authors %}
-
-  <p class="tw-text-sm my-2 tw-text-black">
-    {% spaceless %}
-      {% if show_full_info %}
-        {% trans "By" %}
-      {% endif %}
-
-      {% include "fragments/profile_names_list.html" with profiles=authors %}
-
-      {% if show_full_info %}
-        |
-        {% if blog_page.first_published_at %}
-          {{ blog_page.first_published_at|date:"DATE_FORMAT" }}
-        {% else %}
-          not published yet
-        {% endif %}
-      {% endif %}
-    {% endspaceless %}
-  </p>
-</div>
+{% include "fragments/byline.html" with authors=authors publication_date=blog_page.first_published_at  %}
