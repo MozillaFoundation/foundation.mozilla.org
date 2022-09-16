@@ -45,6 +45,10 @@
   {% endif %}
 {% endwith %}
 
+<div class="tw-max-w-[410px] tw-mb-5">
+  {% include "fragments/buyersguide/dive_deeper.html" with updates=product.updates.all %}
+</div>
+
 <div class="text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">
   <div class="tw-container tw-block medium:tw-grid tw-grid-cols-12 tw-gap-x-6">
     <div class="tw-col-start-3 tw-col-end-11 tw--mx-4 medium:tw--mx-6">
