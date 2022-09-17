@@ -1,4 +1,4 @@
 {% load static wagtailcore_tags i18n bg_nav_tags %}
 
 {% trans "Related" as default_heading %}
-{% include "./compact_article_listing.html" with heading=heading|default:default_heading articles=articles index_page=index_page short_waves=True show_images=False %}
+{% include "./article_listing_compact.html" with heading=heading|default:default_heading articles=articles index_page=index_page short_waves=True show_images=False %}

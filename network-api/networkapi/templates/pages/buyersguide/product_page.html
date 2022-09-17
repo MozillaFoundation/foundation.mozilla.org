@@ -195,7 +195,7 @@
   {% if secondary_related_articles %}
     <div class="tw-container">
       {% trans "What to read next" as heading %}
-      {% include "fragments/buyersguide/compact_article_listing.html" with heading=heading articles=secondary_related_articles index_page=home_page.get_editorial_content_index show_images=True %}
+      {% include "fragments/buyersguide/article_listing_compact.html" with heading=heading articles=secondary_related_articles index_page=home_page.get_editorial_content_index show_images=True %}
     </div>
   {% endif %}
 {% endwith %}
