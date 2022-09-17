@@ -7,11 +7,13 @@
             <div class="tw-flex tw-items-center">
                 <div class="tw-mr-2">
                     <h2 class="tw-mb-0 tw-font-zilla tw-text-[40px] tw-leading-[48px] tw-w-max">{% trans "Ask Jen" %}</h2>
-                    <img src="{% static "_images/buyers-guide/short-wavy-border.svg" %}" class="tw-w-[80%]" />
+                    <div class="tw-max-w-[6rem]">
+                      {% include "./wavy_line.html" %}
+                    </div>
                 </div>
                 <img src="{% static "_images/buyers-guide/ask_jen.png" %}" class="tw-ml-1" />
             </div>
-            
+
             <p class="tw-text-base">
                 {% blocktrans %}
                     Have a question you want to ask? <a href="https://mozillafoundation.typeform.com/ask-jen" class="tw-underline tw-text-blue-80">Submit it here!</a>
@@ -21,7 +23,7 @@
         <img
             class="tw-absolute tw-w-[70px] tw-rotate-12 tw-top-[65px] tw-left-3"
             src="{% static "_images/buyers-guide/asterick-mini.svg" %}"
-        >        
+        >
     </div>
 
     <!-- Q/A Section -->
@@ -38,6 +40,6 @@
             </a>
         </div>
         <img src="{% static "_images/buyers-guide/emoji-eyes.png" %}" class="tw-absolute tw-bottom-0 tw-right-5 tw-hidden large:tw-block" />
-        
+
     </div>
 </div>
