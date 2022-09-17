@@ -103,16 +103,16 @@
           <div class="tw-whitespace-nowrap">
             {{ heading }}
           </div>
-          <div class="tw-overflow-x-hidden tw-flex">
-            <img src="{% static "_images/buyers-guide/very-long-wavy-border.svg" %}" class="tw-max-w-fit" />
-          </div>
+
+          {% include "fragments/buyersguide/wavy_line.html" %}
+
           <div class="tw-whitespace-nowrap">
             Link
           </div>
         </div>
+
         {% for article in related_articles  %}
           {% include "fragments/buyersguide/article_card_vertical.html" with page=article show_byline=True %}
-
         {% endfor %}
       </div>
 
