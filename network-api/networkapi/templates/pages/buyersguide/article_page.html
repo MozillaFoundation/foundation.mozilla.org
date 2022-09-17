@@ -1,6 +1,6 @@
 {% extends "pages/buyersguide/base.html" %}
 
-{% load i18n wagtailcore_tags wagtailimages_tags bg_nav_tags mini_site_tags %}
+{% load i18n static wagtailcore_tags wagtailimages_tags bg_nav_tags mini_site_tags %}
 
 {% block category_nav %}{% endblock category_nav %}
 
@@ -95,9 +95,28 @@
 
   {% with related_articles=page.get_secondary_related_articles  %}
     {% if related_articles %}
+      {% trans "What to read next" as heading %}
+      {% get_bg_home_page as bg_home_page %}
+
+      <div class="tw-container tw-grid tw-grid-cols-2 large:tw-grid-cols-3  tw-gap-6">
+        <div class="tw-col-span-full tw-flex tw-flex-row tw-justify-between tw-gap-5">
+          <div class="tw-whitespace-nowrap">
+            {{ heading }}
+          </div>
+          <div class="tw-overflow-x-hidden tw-flex">
+            <img src="{% static "_images/buyers-guide/very-long-wavy-border.svg" %}" class="tw-max-w-fit" />
+          </div>
+          <div class="tw-whitespace-nowrap">
+            Link
+          </div>
+        </div>
+        {% for article in related_articles  %}
+          {% include "fragments/buyersguide/article_card_vertical.html" with page=article show_byline=True %}
+
+        {% endfor %}
+      </div>
+
       <div class="tw-container">
-        {% trans "What to read next" as heading %}
-        {% get_bg_home_page as bg_home_page %}
         {% include "fragments/buyersguide/compact_article_listing.html" with heading=heading articles=related_articles index_page=bg_home_page.get_editorial_content_index show_images=True %}
       </div>
     {% endif %}
