@@ -41,23 +41,26 @@ export default () => {
       autoAlpha: 0,
     });
 
+    const SCROLL_BUFFER = 30;
     let outro;
+    let bottomOfPage = false;
 
-    ScrollTrigger.create({
-      trigger: ".cont-scrolling",
-      start: "top center",
-      end: "max bottom",
-      scrub: true,
-      toggleActions: "play none none reverse",
-      onLeave: () => {
+    //detects if it is on the bottom of the page
+    window.onscroll = function (ev) {
+      if (
+        window.innerHeight + window.pageYOffset + SCROLL_BUFFER >=
+          document.body.offsetHeight &&
+        !bottomOfPage
+      ) {
+        bottomOfPage = true;
         outro = gsap.timeline({
           onComplete: () => {
             setTimeout(() => {
               const loadIndicator = document.querySelector(".article-loading");
               if (loadIndicator) {
-                loadIndicator.classList.toggle("tw-hidden");
+                loadIndicator.classList.remove("tw-hidden");
               }
-            }, 500);
+            }, 300);
 
             sessionStorage.setItem(CONTINUE_SCROLLING, "true");
             document.querySelector(".scrolling-link").click();
@@ -66,32 +69,26 @@ export default () => {
         // Need to remove a lot of !important classes to allow animation to work.
         document
           .querySelector(".cont-scrolling")
-          .classList.toggle(
-            "tw-sticky",
-            "tw-absolute",
-            "tw-top-0",
-            "tw-left-0"
-          );
+          .classList.add("tw-sticky", "tw-absolute", "tw-top-0", "tw-left-0");
         outro.to(".outro-screen", {
           y: "0vh",
-          duration: 0.3,
-          delay: 0.5,
+          duration: 0.2,
+          delay: 0.25,
         });
-        outro.set(
-          "main > div:not(.cont-scrolling),.primary-nav-container,.article-navbar-container",
-          {
-            display: "none",
-            autoAlpha: 0,
-          }
-        );
+        [
+          ...document.querySelectorAll(
+            "main > div:not(.cont-scrolling),.primary-nav-container,.article-navbar-container"
+          ),
+        ].forEach((q) => q.classList.add("tw-hidden"));
+
         document
           .querySelector(".publication-hero-container,#custom-hero")
-          .classList.toggle("d-flex");
+          .classList.remove("d-flex");
         outro.set("main", {
           height: "100%",
         });
-      },
-    });
+      }
+    };
 
     // Needed for firebox bfcache when navigating back to the article.
     window.addEventListener("pagehide", function (event) {
