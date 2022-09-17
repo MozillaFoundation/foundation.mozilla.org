@@ -97,28 +97,15 @@
     {% if related_articles %}
       {% trans "What to read next" as heading %}
       {% get_bg_home_page as bg_home_page %}
-
-      <div class="tw-container tw-grid tw-grid-cols-2 large:tw-grid-cols-3  tw-gap-6">
-        <div class="tw-col-span-full tw-flex tw-flex-row tw-justify-between tw-items-baseline tw-gap-5">
-          <div class="tw-h4-heading tw-m-0 tw-whitespace-nowrap">
-            {{ heading }}
-          </div>
-
-          {% include "fragments/buyersguide/wavy_line.html" %}
-
-          <div class="tw-whitespace-nowrap">
-            Link
-          </div>
+      {% with editorial_content_index=bg_home_page.get_editorial_content_index %}
+        <div class="tw-hidden medium:tw-block tw-container">
+          {% include "fragments/buyersguide/article_listing_wide.html" with heading=heading articles=related_articles index_page=editorial_content_index %}
         </div>
 
-        {% for article in related_articles  %}
-          {% include "fragments/buyersguide/article_card_vertical.html" with page=article show_byline=True %}
-        {% endfor %}
-      </div>
-
-      <div class="tw-container">
-        {% include "fragments/buyersguide/compact_article_listing.html" with heading=heading articles=related_articles index_page=bg_home_page.get_editorial_content_index show_images=True %}
-      </div>
+        <div class="tw-block medium:tw-hidden tw-container">
+          {% include "fragments/buyersguide/compact_article_listing.html" with heading=heading articles=related_articles index_page=editorial_content_index show_images=True %}
+        </div>
+      {% endwith %}
     {% endif %}
   {% endwith %}
 
