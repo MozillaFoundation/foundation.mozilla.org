@@ -17,10 +17,9 @@
 
     {% with page.get_editorial_content_index as editorial_content_index  %}
         {% if editorial_content_index %}
-            <a href="{% pageurl editorial_content_index %}" class="tw-font-sans tw-font-bold tw-text-blue-80 tw-text-base tw-leading-5 tw-flex tw-no-underline">
-                {% trans "All Press" %}
-                <img src="{% static "_images/buyers-guide/arrow-right.svg" %}" class="tw-ml-1 " />
-            </a>
+          {% pageurl editorial_content_index as link_href %}
+          {% trans "All press" as link_text %}
+          {% include "./arrow_link.html" with link_href=link_href link_text=link_text %}
         {% endif %}
     {% endwith %}
 </div>
