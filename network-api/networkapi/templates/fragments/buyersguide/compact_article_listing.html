@@ -2,9 +2,11 @@
 
 <div>
   {% if short_waves %}
-    <img src="{% static "_images/buyers-guide/short-wavy-border.svg" %}" />
+    <div class="tw-max-w-[11rem]">
+      {% include "./wavy_line.html" %}
+    </div>
   {% else %}
-    <img src="{% static "_images/buyers-guide/long-wavy-border.svg" %}" class="tw-w-full" />
+    {% include "./wavy_line.html" %}
   {% endif %}
 
   <h2 class="tw-font-zilla tw-font-normal tw-text-2xl tw-text-black tw-mt-2 tw-mb-[20px]">{{ heading }}</h2>
