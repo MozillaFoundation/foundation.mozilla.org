@@ -42,12 +42,18 @@
               {% if category != current_category %}
                 tw-hidden
               {% endif %}
-              tw-container
               tw-my-7
             "
           >
             {% trans "What to read next" as heading %}
-            {% include "fragments/buyersguide/article_listing_compact.html" with heading=heading articles=secondary_related_articles index_page=editorial_content_index show_images=True %}
+
+            <div class="tw-hidden medium:tw-block tw-container">
+              {% include "fragments/buyersguide/article_listing_wide.html" with heading=heading articles=secondary_related_articles index_page=editorial_content_index %}
+            </div>
+
+            <div class="tw-block medium:tw-hidden tw-container">
+              {% include "fragments/buyersguide/article_listing_compact.html" with heading=heading articles=secondary_related_articles index_page=editorial_content_index show_images=True %}
+            </div>
           </div>
         {% endif %}
       {% endwith %}
