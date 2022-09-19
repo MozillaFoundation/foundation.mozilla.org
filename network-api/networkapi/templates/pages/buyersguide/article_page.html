@@ -97,7 +97,7 @@
     {% if related_articles %}
       {% get_bg_home_page as bg_home_page %}
       <div class="tw-container">
-        {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=related_articles index_page=bg_home_page.get_editorial_content_index %}
+        {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=related_articles index_page=bg_home_page.get_editorial_content_index use_wide_above="medium" %}
       </div>
     {% endif %}
   {% endwith %}
