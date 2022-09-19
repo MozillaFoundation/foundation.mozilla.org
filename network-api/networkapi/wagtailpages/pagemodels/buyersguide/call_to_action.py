@@ -90,7 +90,7 @@ class BuyersGuideCallToAction(
             errors['link_target_url'] = duplicate_link_target_error
             errors['link_target_page'] = duplicate_link_target_error
         # If user does not enter a label but has set link URL or page.
-        elif not self.link_label and (self.link_target_page or self.link_target_url:
+        elif not self.link_label and (self.link_target_page or self.link_target_url):
             errors['link_label'] = ErrorList(['Please enter a label for the link'])
 
         if errors:

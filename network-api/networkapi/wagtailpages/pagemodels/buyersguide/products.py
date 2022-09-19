@@ -30,7 +30,7 @@ from networkapi.wagtailpages.forms import BuyersGuideProductCategoryForm
 from networkapi.wagtailpages.fields import ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
-    get_bg_featured_cta
+    get_buyers_guide_featured_cta
 )
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
@@ -970,7 +970,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
     def get_featured_cta(self):
         if ProductPageCategory.objects.filter(product=self, category__show_cta=True).exists():
-            return get_bg_featured_cta(self)
+            return get_buyers_guide_featured_cta(self)
         else:
             return None
 

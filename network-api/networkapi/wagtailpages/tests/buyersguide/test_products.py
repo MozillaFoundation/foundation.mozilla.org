@@ -234,12 +234,65 @@ class TestProductPage(BuyersGuideTestMixin):
 
         self.assertListEqual(result, [])
 
-    def test_product_with_enabled_category_shows_cta(self):
+    def test_product_with_single_enabled_category_shows_cta(self):
+        """
+        Testing that a product with an assigned category that has
+        show_cta=True returns the CTA in context as expected.
+        """
+        cta = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.call_to_action = cta
+        self.bg.save()
+
+        product_page = self.product_page
+
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=True)
+        category_orderable_1 = ProductPageCategory(
+            product=product_page,
+            category=cat1,
+        )
+        category_orderable_1.save()
+
+        self.product_page.product_categories.add(category_orderable_1)
+        self.product_page.save_revision().publish()
+
+        response = self.client.get(product_page.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(cta, response.context['featured_cta'])
+
+    def test_product_with_single_disabled_category_hides_cta(self):
+        """
+        Testing that a product with an assigned category that has
+        show_cta=False does not return the CTA in context as expected.
+        """
+        cta = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.call_to_action = cta
+        self.bg.save()
+
+        product_page = self.product_page
+
+        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=False)
+        category_orderable_1 = ProductPageCategory(
+            product=product_page,
+            category=cat1,
+        )
+        category_orderable_1.save()
+
+        self.product_page.product_categories.add(category_orderable_1)
+        self.product_page.save_revision().publish()
+
+        response = self.client.get(product_page.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNone(response.context['featured_cta'])
+
+    def test_product_with_multiple_categories_shows_cta(self):
         """
         Testing that a product with any assigned category that has
-        show_cta=True displays the CTA as expected.
+        show_cta=True returns the CTA in context as expected.
         """
-        self.bg.call_to_action = buyersguide_factories.BuyersGuideCallToActionFactory()
+        cta = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.call_to_action = cta
         self.bg.save()
 
         product_page = self.product_page
@@ -264,12 +317,12 @@ class TestProductPage(BuyersGuideTestMixin):
         response = self.client.get(product_page.url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertIsNotNone(response.context['featured_cta'])
+        self.assertEqual(cta, response.context['featured_cta'])
 
-    def test_product_with_disabled_category_hides_cta(self):
+    def test_product_with_multiple_categories_hides_cta(self):
         """
         Testing that a product where no assigned categories have show_cta=True
-        hides the CTA as expected.
+        does not return the CTA in context as expected.
         """
         product_page = self.product_page
 
@@ -295,13 +348,60 @@ class TestProductPage(BuyersGuideTestMixin):
         self.assertEqual(response.status_code, 200)
         self.assertIsNone(response.context['featured_cta'])
 
-    def test_get_featured_cta(self):
+    def test_get_featured_cta_with_single_category_returns_cta(self):
         """
         Testing the product page's get_featured_cta function with
-        multiple categories. If one has show_cta=True, should return CTA.
+        a single category. If it has show_cta=True,
+        this function should return the CTA object.
         """
+        cta = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.call_to_action = cta
+        self.bg.save()
 
-        self.bg.call_to_action = buyersguide_factories.BuyersGuideCallToActionFactory()
+        product_page = self.product_page
+
+        cat_with_cta_enabled = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=True)
+        category_orderable_1 = ProductPageCategory(
+            product=product_page,
+            category=cat_with_cta_enabled,
+        )
+        category_orderable_1.save()
+        self.product_page.product_categories.add(category_orderable_1)
+        self.product_page.save_revision().publish()
+
+        self.assertEqual(cta, product_page.get_featured_cta())
+
+    def test_get_featured_cta_with_single_category_returns_none(self):
+        """
+        Testing the product page's get_featured_cta function with
+        a single category. If it has show_cta=False,
+        this function should return None.
+        """
+        cta = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.call_to_action = cta
+        self.bg.save()
+
+        product_page = self.product_page
+
+        cat_with_cta_disabled = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=False)
+        category_orderable_1 = ProductPageCategory(
+            product=product_page,
+            category=cat_with_cta_disabled,
+        )
+        category_orderable_1.save()
+        self.product_page.product_categories.add(category_orderable_1)
+        self.product_page.save_revision().publish()
+
+        self.assertEqual(None, product_page.get_featured_cta())
+
+    def test_get_featured_cta_with_multiple_categories_returns_cta(self):
+        """
+        Testing the product page's get_featured_cta function with
+        multiple categories. If none of the categories have show_cta=True,
+        this function should return the CTA object.
+        """
+        cta = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.call_to_action = cta
         self.bg.save()
 
         product_page = self.product_page
@@ -322,9 +422,37 @@ class TestProductPage(BuyersGuideTestMixin):
         self.product_page.product_categories.add(category_orderable_2)
         self.product_page.save_revision().publish()
 
-        featured_cta = product_page.get_featured_cta()
+        self.assertEqual(cta, product_page.get_featured_cta())
 
-        self.assertIsNotNone(featured_cta)
+    def test_get_featured_cta_with_multiple_categories_returns_none(self):
+        """
+        Testing the product page's get_featured_cta function with
+        multiple categories. If none of the categories have show_cta=True,
+        this function should return None.
+        """
+        cta = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.call_to_action = cta
+        self.bg.save()
+
+        product_page = self.product_page
+
+        cat_with_cta_disabled_1 = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=False)
+        cat_with_cta_disabled_2 = BuyersGuideProductCategory.objects.create(name="Cat 2", show_cta=False)
+        category_orderable_1 = ProductPageCategory(
+            product=product_page,
+            category=cat_with_cta_disabled_1,
+        )
+        category_orderable_1.save()
+        category_orderable_2 = ProductPageCategory(
+            product=product_page,
+            category=cat_with_cta_disabled_2,
+        )
+        category_orderable_2.save()
+        self.product_page.product_categories.add(category_orderable_1)
+        self.product_page.product_categories.add(category_orderable_2)
+        self.product_page.save_revision().publish()
+
+        self.assertEqual(None, product_page.get_featured_cta())
 
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
