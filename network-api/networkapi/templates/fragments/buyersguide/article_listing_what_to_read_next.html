@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% trans "What to read next" as heading %}
+
+<div>
+  <div class="tw-hidden medium:tw-block">
+    {% include "fragments/buyersguide/article_listing_wide.html" with heading=heading articles=articles index_page=index_page %}
+  </div>
+
+  <div class="tw-block medium:tw-hidden">
+    {% include "fragments/buyersguide/article_listing_compact.html" with heading=heading articles=articles index_page=index_page show_images=True %}
+  </div>
+</div>
