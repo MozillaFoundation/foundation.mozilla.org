@@ -397,7 +397,7 @@ class TestProductPage(BuyersGuideTestMixin):
     def test_get_featured_cta_with_multiple_categories_returns_cta(self):
         """
         Testing the product page's get_featured_cta function with
-        multiple categories. If none of the categories have show_cta=True,
+        multiple categories. If one of the categories has show_cta=True,
         this function should return the CTA object.
         """
         cta = buyersguide_factories.BuyersGuideCallToActionFactory()
