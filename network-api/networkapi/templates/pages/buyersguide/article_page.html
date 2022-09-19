@@ -95,17 +95,10 @@
 
   {% with related_articles=page.get_secondary_related_articles  %}
     {% if related_articles %}
-      {% trans "What to read next" as heading %}
       {% get_bg_home_page as bg_home_page %}
-      {% with editorial_content_index=bg_home_page.get_editorial_content_index %}
-        <div class="tw-hidden medium:tw-block tw-container">
-          {% include "fragments/buyersguide/article_listing_wide.html" with heading=heading articles=related_articles index_page=editorial_content_index %}
-        </div>
-
-        <div class="tw-block medium:tw-hidden tw-container">
-          {% include "fragments/buyersguide/article_listing_compact.html" with heading=heading articles=related_articles index_page=editorial_content_index show_images=True %}
-        </div>
-      {% endwith %}
+      <div class="tw-container">
+        {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=related_articles index_page=bg_home_page.get_editorial_content_index %}
+      </div>
     {% endif %}
   {% endwith %}
 
