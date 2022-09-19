@@ -43,7 +43,7 @@ def sort_average(products):
     return sorted(products, key=lambda p: p.creepiness)
 
 
-def get_buyers_guide_featured_cta(page):
+def get_buyersguide_featured_cta(page):
     """
     This function takes a page, finds the Buyer's Guide home page in its list
     of ancestors, and then returns the home page's featured CTA if applicable.

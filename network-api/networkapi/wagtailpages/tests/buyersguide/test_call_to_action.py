@@ -48,7 +48,7 @@ class BuyersGuideCallToActionTest(TestCase):
         self.assertTrue(form.is_valid())
         self.assertEqual(0, len(form.errors))
 
-    def test_cannot_have_label_and_both_external_and_page_link(self):
+    def test_cta_cannot_have_label_and_both_external_and_page_link(self):
         test_page = buyersguide_factories.BuyersGuidePageFactory()
         form = self.form_class(
             data=(
@@ -66,7 +66,7 @@ class BuyersGuideCallToActionTest(TestCase):
         self.assertIn("link_target_url", form.errors)
         self.assertIn("link_target_page", form.errors)
 
-    def test_label_and_page_link_is_valid(self):
+    def test_page_link_and_label_is_valid(self):
         test_page = buyersguide_factories.BuyersGuidePageFactory()
         form = self.form_class(
             data=(
@@ -81,7 +81,7 @@ class BuyersGuideCallToActionTest(TestCase):
         self.assertTrue(form.is_valid())
         self.assertEqual(0, len(form.errors))
 
-    def test_label_without_page_link_is_invalid(self):
+    def test_page_link_without_label_is_invalid(self):
         test_page = buyersguide_factories.BuyersGuidePageFactory()
         form = self.form_class(
             data=({"title": "Test CTA", "link_target_page": test_page}),
@@ -91,7 +91,7 @@ class BuyersGuideCallToActionTest(TestCase):
         self.assertEqual(1, len(form.errors))
         self.assertIn("link_label", form.errors)
 
-    def test_label_and_external_link_is_valid(self):
+    def test_external_link_and_label_is_valid(self):
         form = self.form_class(
             data=(
                 {
@@ -105,7 +105,7 @@ class BuyersGuideCallToActionTest(TestCase):
         self.assertTrue(form.is_valid())
         self.assertEqual(0, len(form.errors))
 
-    def test_label_without_external_link_is_invalid(self):
+    def test_external_link_without_label_is_invalid(self):
         form = self.form_class(
             data=({"title": "Test CTA", "link_target_url": "http://test.com"}),
         )
@@ -114,25 +114,7 @@ class BuyersGuideCallToActionTest(TestCase):
         self.assertEqual(1, len(form.errors))
         self.assertIn("link_label", form.errors)
 
-    def test_cta_link_cannot_have_both_external_and_page_link(self):
-        test_page = buyersguide_factories.BuyersGuidePageFactory()
-        form = self.form_class(
-            data=(
-                {
-                    "title": "Test CTA",
-                    "link_label": "Test Link",
-                    "link_target_url": "http://test.com",
-                    "link_target_page": test_page,
-                }
-            )
-        )
-
-        self.assertFalse(form.is_valid())
-        self.assertEqual(2, len(form.errors))
-        self.assertIn("link_target_url", form.errors)
-        self.assertIn("link_target_page", form.errors)
-
-    def test_cta_link_must_have_external_or_page_link(self):
+    def test_label_must_also_have_external_or_page_link(self):
         form = self.form_class(
             data=({"title": "Test CTA", "link_label": "Test Link"}),
         )
@@ -141,3 +123,19 @@ class BuyersGuideCallToActionTest(TestCase):
         self.assertEqual(2, len(form.errors))
         self.assertIn("link_target_url", form.errors)
         self.assertIn("link_target_page", form.errors)
+
+    def test_external_and_page_link_without_label_is_invalid(self):
+        test_page = buyersguide_factories.BuyersGuidePageFactory()
+        form = self.form_class(
+            data=(
+                {
+                    "title": "Test CTA",
+                    "link_target_url": "http://test.com",
+                    "link_target_page": test_page,
+                }
+            )
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(1, len(form.errors))
+        self.assertIn("link_label", form.errors)

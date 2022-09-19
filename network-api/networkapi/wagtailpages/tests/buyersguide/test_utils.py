@@ -1,5 +1,5 @@
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import get_buyers_guide_featured_cta
+from networkapi.wagtailpages.pagemodels.buyersguide.utils import get_buyersguide_featured_cta
 from networkapi.wagtailpages.tests import base as test_base
 
 
@@ -22,14 +22,14 @@ class TestGetFeaturedCallToActionFunction(test_base.WagtailpagesTestCase):
         self.pni_homepage.call_to_action = cta
         self.pni_homepage.save()
 
-        featured_cta = get_buyers_guide_featured_cta(self.product_page)
+        featured_cta = get_buyersguide_featured_cta(self.product_page)
         self.assertEqual(cta, featured_cta)
 
     def test_with_product_page_and_no_cta(self):
         self.pni_homepage.call_to_action = None
         self.pni_homepage.save()
 
-        featured_cta = get_buyers_guide_featured_cta(self.product_page)
+        featured_cta = get_buyersguide_featured_cta(self.product_page)
         self.assertIsNone(featured_cta)
 
     def test_with_editorial_index_page(self):
@@ -37,14 +37,14 @@ class TestGetFeaturedCallToActionFunction(test_base.WagtailpagesTestCase):
         self.pni_homepage.call_to_action = cta
         self.pni_homepage.save()
 
-        featured_cta = get_buyers_guide_featured_cta(self.content_index)
+        featured_cta = get_buyersguide_featured_cta(self.content_index)
         self.assertEqual(cta, featured_cta)
 
     def test_with_editorial_index_page_and_no_cta(self):
         self.pni_homepage.call_to_action = None
         self.pni_homepage.save()
 
-        featured_cta = get_buyers_guide_featured_cta(self.content_index)
+        featured_cta = get_buyersguide_featured_cta(self.content_index)
         self.assertIsNone(featured_cta)
 
     def test_with_buyers_guide_home_page(self):
@@ -52,12 +52,12 @@ class TestGetFeaturedCallToActionFunction(test_base.WagtailpagesTestCase):
         self.pni_homepage.call_to_action = cta
         self.pni_homepage.save()
 
-        featured_cta = get_buyers_guide_featured_cta(self.pni_homepage)
+        featured_cta = get_buyersguide_featured_cta(self.pni_homepage)
         self.assertEqual(cta, featured_cta)
 
     def test_with_buyers_guide_home_page_and_no_cta(self):
         self.pni_homepage.call_to_action = None
         self.pni_homepage.save()
 
-        featured_cta = get_buyers_guide_featured_cta(self.pni_homepage)
+        featured_cta = get_buyersguide_featured_cta(self.pni_homepage)
         self.assertIsNone(featured_cta)
