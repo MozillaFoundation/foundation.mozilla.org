@@ -17,7 +17,7 @@ class TestGetFeaturedCallToActionFunction(test_base.WagtailpagesTestCase):
             parent=cls.pni_homepage,
         )
 
-    def test_get_buyers_guide_featured_cta_with_product_page(self):
+    def test_with_product_page(self):
         cta = buyersguide_factories.BuyersGuideCallToActionFactory()
         self.pni_homepage.call_to_action = cta
         self.pni_homepage.save()
@@ -25,7 +25,14 @@ class TestGetFeaturedCallToActionFunction(test_base.WagtailpagesTestCase):
         featured_cta = get_buyers_guide_featured_cta(self.product_page)
         self.assertEqual(cta, featured_cta)
 
-    def test_get_buyers_guide_featured_cta_with_editorial_index_page(self):
+    def test_with_product_page_and_no_cta(self):
+        self.pni_homepage.call_to_action = None
+        self.pni_homepage.save()
+
+        featured_cta = get_buyers_guide_featured_cta(self.product_page)
+        self.assertIsNone(featured_cta)
+
+    def test_with_editorial_index_page(self):
         cta = buyersguide_factories.BuyersGuideCallToActionFactory()
         self.pni_homepage.call_to_action = cta
         self.pni_homepage.save()
@@ -33,7 +40,14 @@ class TestGetFeaturedCallToActionFunction(test_base.WagtailpagesTestCase):
         featured_cta = get_buyers_guide_featured_cta(self.content_index)
         self.assertEqual(cta, featured_cta)
 
-    def test_get_buyers_guide_featured_cta_with_bg_home_page(self):
+    def test_with_editorial_index_page_and_no_cta(self):
+        self.pni_homepage.call_to_action = None
+        self.pni_homepage.save()
+
+        featured_cta = get_buyers_guide_featured_cta(self.content_index)
+        self.assertIsNone(featured_cta)
+
+    def test_with_buyers_guide_home_page(self):
         cta = buyersguide_factories.BuyersGuideCallToActionFactory()
         self.pni_homepage.call_to_action = cta
         self.pni_homepage.save()
@@ -41,9 +55,9 @@ class TestGetFeaturedCallToActionFunction(test_base.WagtailpagesTestCase):
         featured_cta = get_buyers_guide_featured_cta(self.pni_homepage)
         self.assertEqual(cta, featured_cta)
 
-    def test_get_buyers_guide_featured_cta_with_no_cta_set(self):
+    def test_with_buyers_guide_home_page_and_no_cta(self):
         self.pni_homepage.call_to_action = None
         self.pni_homepage.save()
 
-        featured_cta = get_buyers_guide_featured_cta(self.content_index)
+        featured_cta = get_buyers_guide_featured_cta(self.pni_homepage)
         self.assertIsNone(featured_cta)
