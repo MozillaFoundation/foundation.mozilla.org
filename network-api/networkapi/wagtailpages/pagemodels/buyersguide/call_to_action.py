@@ -63,7 +63,6 @@ class BuyersGuideCallToAction(
         TranslatableField('link_label'),
         TranslatableField('link_target_url'),
         TranslatableField('link_target_page'),
-
     ]
 
     class Meta(TranslatableMixin.Meta):
@@ -87,11 +86,11 @@ class BuyersGuideCallToAction(
             errors['link_target_url'] = duplicate_link_target_error
             errors['link_target_page'] = duplicate_link_target_error
         # If user enters link label but no page or URL to link to:
-        elif (not self.link_target_page and not self.link_target_url) and self.link_label:
+        elif self.link_label and (not self.link_target_page and not self.link_target_url):
             errors['link_target_url'] = duplicate_link_target_error
             errors['link_target_page'] = duplicate_link_target_error
-        # If user enters link URL or page but no label:
-        elif (self.link_target_page or self.link_target_url) and not self.link_label:
+        # If user does not enter a label but has set link URL or page.
+        elif not self.link_label and (self.link_target_page or self.link_target_url:
             errors['link_label'] = ErrorList(['Please enter a label for the link'])
 
         if errors:

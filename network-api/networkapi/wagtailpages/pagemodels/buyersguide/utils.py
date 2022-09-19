@@ -45,7 +45,7 @@ def sort_average(products):
 
 def get_bg_featured_cta(page):
     """
-    This function takes a page, finds the PNI home page in it's list
+    This function takes a page, finds the PNI home page in its list
     of ancestors, and then returns the home page's featured CTA if applicable.
     """
     BuyersGuidePage = apps.get_model(app_label='wagtailpages', model_name='BuyersGuidePage')
