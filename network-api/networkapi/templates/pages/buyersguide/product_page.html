@@ -80,7 +80,7 @@
         {% endif %}
 
         <div class="bg-white tw-pb-4 tw-pt-5 tw-px-4 medium:tw-px-6">
-          <div class="row intro mb-4">
+          <div class="row intro">
             <div class="tw-flex tw-gap-2 tw-flex-wrap tw-px-4 tw-mb-4">
               {% for cat in product.product_categories.all %}
                 {% with category=cat.category %}
@@ -91,7 +91,9 @@
                 {% endwith %}
               {% endfor %}
             </div>
+
             <h1 class="tw-h1-heading col-12">{{product.title}}</h1>
+
             <div class="col-12 d-flex flex-column flex-md-row justify-content-between">
               <a id="product-company-url" class="company-external-link pni-product-intro-large mb-2 mb-md-0" href="{{product.product_url}}" target="_blank">{{product.company}}</a>
               {% if product.uses_wifi or product.uses_bluetooth %}
@@ -105,8 +107,15 @@
                 </div>
               {% endif %}
             </div>
+
             {% include "fragments/buyersguide/research_details.html" with review_date=product.review_date time_researched=product.time_researched mozilla_says=product.mozilla_says %}
-            <div class="col-12 tw-body">{{product.blurb | richtext}}</div>
+          </div>
+
+          <div class="row intro mb-4 tw-relative">
+            <div class="col-12 tw-body">THIS IS THE BLURB {{product.blurb | richtext}}</div>
+            <aside class="tw-absolute tw-w-[350px] tw-left-full tw-h-[700px] tw-border tw-border-red-40">
+              aside content
+            </aside>
           </div>
 
           <div class="row mb-4">
