@@ -98,7 +98,7 @@
           <div class="row intro mb-4 tw-relative">
             <div class="col-12 tw-body">{{product.blurb | richtext}}</div>
 
-            <aside class="tw-absolute tw-w-[350px] tw-left-full tw-h-[700px] tw-border tw-border-red-40">
+            <aside class="2xl:tw-absolute tw-mt-4 2xl:tw-mt-0 tw-px-4 tw-w-full 2xl:tw-w-[320px] 2xl:tw-left-full tw-grid tw-grid-cols-1 large:tw-grid-cols-2 2xl:tw-grid-cols-1 tw-gap-7 medium:tw-gap-5 tw-border tw-border-red-40">
               {% with cta=featured_cta %}
                 {% if cta %}
                   {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
