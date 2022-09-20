@@ -1,5 +1,3 @@
-{% load blog_tags localization wagtailcore_tags %}
-
 {% with content_categories=page.get_content_categories editorial_content_index=page.get_editorial_content_index  %}
   {% for content_category in content_categories %}
     {% with classes="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-py-1 tw-mb-0" %}

@@ -39,7 +39,7 @@ class BuyersGuideEditorialContentIndexPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["home_page"] = self.get_parent().specific
-        context["items"] = self.get_descendants().public().live()
+        context["items"] = self.get_descendants().public().live().specific()
         return context
 
     def get_related_articles(self) -> list['BuyersGuideArticlePage']:
