@@ -41,7 +41,7 @@ class BuyersGuideEditorialContentIndexPage(
         context = super().get_context(request, *args, **kwargs)
         context["home_page"] = self.get_parent().specific
         context["featured_cta"] = get_buyersguide_featured_cta(self)
-        context["items"] = self.get_descendants().public().live()
+        context["items"] = self.get_descendants().public().live().specific()
         return context
 
     def get_related_articles(self) -> list['BuyersGuideArticlePage']:

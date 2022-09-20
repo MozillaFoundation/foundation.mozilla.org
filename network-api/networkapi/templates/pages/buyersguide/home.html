@@ -24,7 +24,7 @@
         {% with popular_articles=page.get_featured_articles %}
           {% if popular_articles %}
             <div class="tw-px-4 tw-w-full large:tw-w-1/3 tw-mb-4">
-              {% include "fragments/buyersguide/popular_articles.html" %}
+              {% include "fragments/buyersguide/popular_articles.html" with index_page=page.get_editorial_content_index %}
             </div>
           {% endif %}
         {% endwith %}
