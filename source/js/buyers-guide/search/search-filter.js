@@ -37,8 +37,12 @@ export class SearchFilter {
 
     if (location.hash && location.hash === "#product-review") {
       const editorialContent = document.querySelector(".editorial-content");
+      const navLinks = document.querySelectorAll(`.product-review-link`);
       if (editorialContent) {
         editorialContent.classList.add("tw-hidden");
+        for (const nav of navLinks) {
+          nav.classList.add("active");
+        }
       }
     }
 

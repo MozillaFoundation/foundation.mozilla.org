@@ -208,10 +208,10 @@ export function setupReviewLinks(instance) {
     nav.addEventListener("click", (evt) => {
       const editorialContent = document.querySelector(".editorial-content");
       const burger = document.querySelector(".burger");
-
       if (editorialContent) {
         evt.preventDefault();
         evt.stopPropagation();
+        nav.classList.add("active");
         location.hash = "product-review";
         editorialContent.classList.add("tw-hidden");
         if (burger && burger.classList.contains("menu-open")) {
