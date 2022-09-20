@@ -1,7 +1,7 @@
 {% load static wagtailcore_tags i18n %}
 
 <div id="dive-deeper">
-    <img src="{% static "_images/buyers-guide/long-wavy-border.svg" %}" class="tw-w-full" />
+    {% include "./wavy_line.html" %}
     <h2 class="tw-font-zilla tw-font-normal tw-text-2xl tw-text-black tw-mt-2 tw-mb-[20px]">{% trans "Dive Deeper" %}</h2>
 
     <ul class="tw-list-none tw-space-y-4 tw-p-0">
