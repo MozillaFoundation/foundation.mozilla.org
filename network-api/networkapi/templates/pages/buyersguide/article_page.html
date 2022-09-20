@@ -47,9 +47,9 @@
     </div>
   </div>
 
-  PRIMARY RELATED ARTICLES
   {% with related_articles=page.get_primary_related_articles  %}
     {% if related_articles %}
+      PRIMARY RELATED ARTICLES
       <div class="tw-m-4">
         {% include "fragments/buyersguide/related_reading.html" with articles=related_articles %}
       </div>
