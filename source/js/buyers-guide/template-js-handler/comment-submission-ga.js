@@ -1,15 +1,21 @@
 /**
- * PNI product pages use commento to handle comment submissions.
- * This file adds a handler in order to fire a GA event if the user logs into commento and submits a comment.
+ * PNI product pages use commento.io (https://commento.io/) to handle comment submissions.
+ * Since at the moment there is no official callback for comment submission through commento itself,
+ * we have this file which will push a datalayer event whenever a user submits a comment.
  */
 export default () => {
   const commentoContainer = document.querySelector(
     "#view-product-page #commento"
   );
-  console.log(commentoContainer)
   const submitButton = commentoContainer.querySelector(
     "#commento-submit-button-root"
   );
+
+  if (commentoContainer && submitButton) {
+    submitButton.addEventListener(`click`, () => {
+      commentSubmittedEvent()
+    });
+  }
 
   function commentSubmittedEvent() {
       // Checking if the user is logged in. If so, we can
@@ -19,7 +25,7 @@ export default () => {
       );
 
       if (loggedInContainer) {
-        
+
         window.dataLayer = window.dataLayer || [];
 
         window.dataLayer.push({
@@ -29,13 +35,5 @@ export default () => {
           form_type: "comment",
         });
       }
-  }
-
-  if (commentoContainer && submitButton) {
-
-    submitButton.addEventListener(`click`, () => {
-
-      commentSubmittedEvent()
-    });
   }
 };
