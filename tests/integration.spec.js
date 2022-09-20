@@ -38,8 +38,14 @@ test(`Foundation homepage`, async ({ page }, testInfo) => {
  *
  * NOTE: this requires a `new-db` run with the seed value set
  *       through RANDOM_SEED=530910203 in your .env file
+ * 
+ * NOTE: This test has the .fixme flag as due to the
+ *       recently added load-in animations for products,
+ *       the PNI search test fails randomly.
+ *       A issue has been filed to fix this at:
+ *       https://github.com/mozilla/foundation.mozilla.org/issues/9373
  */
-test(`PNI search`, async ({ page }, testInfo) => {
+test.fixme(`PNI search`, async ({ page }, testInfo) => {
   page.on(`console`, console.log);
   await page.goto(`http://localhost:8000/en/privacynotincluded`);
   await page.locator(`body.react-loaded`);
