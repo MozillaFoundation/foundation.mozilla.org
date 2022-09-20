@@ -1,10 +1,10 @@
 import mobileNavStickinessHandler from "./mobile-nav-stickiness-handler";
-import commentoSubmissionGaEventHandler from "./comment-submission-ga";
+import productCommentGaEventHandler from "./product-page-comment-handler";
 
 /**
  * Bind event handlers
  */
 export const bindEventHandlers = () => {
   mobileNavStickinessHandler();
-  commentoSubmissionGaEventHandler();
+  productCommentGaEventHandler();
 };
