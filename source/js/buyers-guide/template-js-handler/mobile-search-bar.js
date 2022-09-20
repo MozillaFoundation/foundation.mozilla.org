@@ -55,5 +55,21 @@ export default () => {
         location.href = url.toString();
       }
     });
+  } else {
+    const input = document.querySelector("#pni-mobile-bar");
+
+    input.addEventListener("keypress", function (event) {
+      if (event.key === "Enter" && input.value) {
+        event.preventDefault();
+        const editorialContent = document.querySelector(".editorial-content");
+        const navLinks = document.querySelectorAll(`.product-review-link`);
+        for (const nav of navLinks) {
+          nav.classList.add("active");
+        }
+        location.hash = "product-review";
+        editorialContent.classList.add("tw-hidden");
+        window.scrollTo(0, 0);
+      }
+    });
   }
 };
