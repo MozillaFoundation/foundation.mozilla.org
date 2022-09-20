@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.test import TestCase, RequestFactory
 from django.test.utils import override_settings
 from wagtail.core.models import Page, Site, Locale
-
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.base import Homepage
@@ -58,7 +57,6 @@ class BuyersGuideViewTest(TestCase):
             buyersguide.slug = 'privacynotincluded'
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
-
             locale = Locale.objects.create(language_code="fr")
             buyersguide.copy_for_translation(locale, copy_parents=True, alias=True)
 
@@ -259,3 +257,47 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         result = self.bg.get_editorial_content_index()
 
         self.assertEqual(result, None)
+
+    def test_bg_home_page_with_cta(self):
+        cta = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.call_to_action = cta
+        self.bg.save()
+
+        response = self.client.get(self.bg.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(cta, response.context['featured_cta'])
+
+    def test_bg_home_page_with_no_cta(self):
+        self.bg.call_to_action = None
+        self.bg.save()
+        response = self.client.get(self.bg.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNone(response.context['featured_cta'])
+
+    def test_category_page_context_with_cta_disabled(self):
+        category = BuyersGuideProductCategory.objects.first()
+        category.show_cta = False
+        category.save()
+
+        url = self.bg.url + self.bg.reverse_subpage('category-view', args=(category.slug,))
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNone(response.context['featured_cta'])
+
+    def test_category_page_context_with_cta_enabled(self):
+        cta = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.bg.call_to_action = cta
+        self.bg.save()
+        category = BuyersGuideProductCategory.objects.first()
+        category.show_cta = True
+        category.save()
+
+        url = self.bg.url + self.bg.reverse_subpage('category-view', args=(category.slug,))
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(cta, response.context['featured_cta'])

@@ -134,6 +134,8 @@ from .pagemodels.buyersguide.products import (
 )
 from .pagemodels.buyersguide.taxonomies import BuyersGuideContentCategory
 
+from .pagemodels.buyersguide.call_to_action import BuyersGuideCallToAction
+
 from .pagemodels.pulse import PulseFilter
 
 from .pagemodels.feature_flags.feature_flags import (
