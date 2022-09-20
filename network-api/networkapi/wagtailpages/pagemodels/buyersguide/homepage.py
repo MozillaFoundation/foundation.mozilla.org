@@ -98,6 +98,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         default=datetime(2020, 10, 29),
     )
 
+    call_to_action = models.ForeignKey(
+          'wagtailpages.BuyersGuideCallToAction',
+          null=True,
+          blank=True,
+          on_delete=models.SET_NULL,
+          related_name='+'
+      )
+
     # TODO: Remove this field
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -169,6 +177,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             ],
             heading="Product listing",
         ),
+        SnippetChooserPanel('call_to_action'),
     ]
 
     translatable_fields = [
@@ -179,6 +188,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('hero_supporting_articles_heading'),
         SynchronizedField('cutoff_date'),
         SynchronizedField('excluded_categories'),
+        TranslatableField('call_to_action'),
         # Promote tab fields
         TranslatableField('seo_title'),
         TranslatableField('search_description'),
@@ -304,6 +314,9 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                                f' | Mozilla Foundation'
         context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'
 
+        if not category.show_cta:
+            context['featured_cta'] = None
+
         # Checking if category has custom metadata, if so, update the share image and description.
         if category.share_image:
             setattr(self, 'search_image_id', category.localized.share_image_id)
@@ -366,6 +379,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
         context['categories'] = get_categories_for_locale(language_code)
         context['current_category'] = None
+        context['featured_cta'] = self.call_to_action
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         context['template_cache_key_fragment'] = f'pni_home_{request.LANGUAGE_CODE}'

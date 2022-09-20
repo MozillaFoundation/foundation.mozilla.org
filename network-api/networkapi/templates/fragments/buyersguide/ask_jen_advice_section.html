@@ -7,11 +7,13 @@
             <div class="tw-flex tw-items-center">
                 <div class="tw-mr-2">
                     <h2 class="tw-mb-0 tw-font-zilla tw-text-[40px] tw-leading-[48px] tw-w-max">{% trans "Ask Jen" %}</h2>
-                    <img src="{% static "_images/buyers-guide/short-wavy-border.svg" %}" class="tw-w-[80%]" />
+                    <div class="tw-max-w-[6rem]">
+                      {% include "./wavy_line.html" %}
+                    </div>
                 </div>
                 <img src="{% static "_images/buyers-guide/ask_jen.png" %}" class="tw-ml-1" />
             </div>
-            
+
             <p class="tw-text-base">
                 {% blocktrans %}
                     Have a question you want to ask? <a target="_blank" href="https://mozillafoundation.typeform.com/ask-jen" class="tw-underline tw-text-blue-80">Submit it here!</a>
@@ -21,7 +23,7 @@
         <img
             class="tw-absolute tw-w-[70px] tw-rotate-12 tw-top-[65px] tw-left-3"
             src="{% static "_images/buyers-guide/asterick-mini.svg" %}"
-        >        
+        >
     </div>
 
     <!-- Q/A Section -->
@@ -32,12 +34,13 @@
             <div class="tw-col-start-1 tw-text-blue-40 tw-font-bold tw-text-5xl tw-leading-[36px] tw-self-start tw-font-zilla">A:</div>
             <div class="tw-col-start-2 tw-line-clamp-5 large:tw-line-clamp-3 tw-text-2xl large:tw-text-xl">{{ featured_advice_article.localized.get_meta_description }}</div>
 
-            <a href="{% pageurl featured_advice_article %}" class="tw-flex tw-col-start-2 tw-text-blue-80 tw-font-bold tw-text-xl">
-                {% trans "Read full answer" %}
-                <img src="{% static "_images/buyers-guide/arrow-right.svg" %}" class="tw-ml-1 " />
-            </a>
+            <div class="tw-col-start-2">
+              {% pageurl featured_advice_article as link_href %}
+              {% trans "Read full answer" as link_text %}
+              {% include "./arrow_link.html" with link_href=link_href link_text=link_text extra_classes="tw-text-xl" %}
+            </div>
         </div>
         <img src="{% static "_images/buyers-guide/emoji-eyes.png" %}" class="tw-absolute tw-bottom-0 tw-right-5 tw-hidden large:tw-block" />
-        
+
     </div>
 </div>

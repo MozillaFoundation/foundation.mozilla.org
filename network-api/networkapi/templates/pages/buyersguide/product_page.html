@@ -38,7 +38,7 @@
       <p> Primary related articles (first 3 of list of max 5)</p>
 
       <div class="tw-m-4">
-        {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles all_articles=False %}
+        {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles %}
       </div>
 
       <div class="tw-max-w-[410px] tw-mb-5">
@@ -49,6 +49,13 @@
     </div>
   {% endif %}
 {% endwith %}
+
+{% with cta=featured_cta %}
+  {% if cta %}
+    {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
+  {% endif %}
+{% endwith %}
+
 
 <div class="text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">
   <div class="tw-container tw-block medium:tw-grid tw-grid-cols-12 tw-gap-x-6">
@@ -193,16 +200,13 @@
 
 {% with secondary_related_articles=product.get_secondary_related_articles  %}
   {% if secondary_related_articles %}
-    <div class="tw-pl-5">
-      <h2>What to read next</h2>
-
-      <p>Secondary related articles (last 3 of list of max 5)</p>
-
-      <ul>
-        {% for article in secondary_related_articles %}
-          <li><a href="{% pageurl article %}">{{ article.title }}</a></li>
-        {% endfor %}
-      </ul>
+    <div class="tw-container tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-7">
+      <div class="tw-col-span-full medium:tw-col-span-1">
+        Dive deeper
+      </div>
+      <div class="tw-col-span-full medium:tw-col-start-2 medium:tw-col-span-1 large:tw-col-span-2">
+        {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=home_page.get_editorial_content_index use_wide_above="large" wide_columns_above_large=2  %}
+      </div>
     </div>
   {% endif %}
 {% endwith %}
