@@ -55,7 +55,7 @@ export function performInitialHistoryReplace(
       parent: parentTitle.value.trim(),
       search: history.state?.search ?? "",
       filter: history.state?.filter,
-      sort: "ALPHA",
+      sort: history.state?.sort ?? "ASCENDING",
     },
     Utils.getTitle(categoryTitle.value.trim()),
     location.href
