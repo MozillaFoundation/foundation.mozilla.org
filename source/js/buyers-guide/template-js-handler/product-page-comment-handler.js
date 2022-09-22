@@ -10,11 +10,13 @@ export default () => {
   );
 
   const commentListUpdateHandler = (mutations) => {
+    // The div which new comments get appended to.
     let commentList = document.querySelector("#commento-main-area");
 
     mutations.forEach(function (mutation) {
-      // If there was a added node to the comment list container div, push the datalayer event.
-      if ((mutation.target == commentList) && mutation.addedNodes.length) {
+      // New comment mutations come in the form of a single added node, with no attributes.
+      let newNodeAttributes = mutation.addedNodes[0].attributes;
+      if ((newNodeAttributes.length == 0) && (mutation.target == commentList)) {
 
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
@@ -28,24 +30,12 @@ export default () => {
     });
   };
 
-  const commentoFormHasBeenLoadedIn = () => {
-    // Stop listening to the parent div for any activity.
-    commentoParentDivObserver.disconnect();
 
-    // Instead create a new observer that listens for updates to the comments list.
-    const commentListObserver = new MutationObserver(commentListUpdateHandler);
-    commentListObserver.observe(commentoContainer, {
-      childList: true,
-      subtree:true
-    });
-  };
 
   // Listen to the Commento container div for any updates within.
-  const commentoParentDivObserver = new MutationObserver(commentoFormHasBeenLoadedIn);
-  commentoParentDivObserver.observe(commentoContainer, {
+  const commentListObserver = new MutationObserver(commentListUpdateHandler);
+  commentListObserver.observe(commentoContainer, {
     childList: true,
-    subtree: true,
-    attributes: true,
-    characterData: true,
+    subtree: true
   });
 };
