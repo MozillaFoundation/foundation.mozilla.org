@@ -17,7 +17,7 @@
         <li class="tw-m-0" >
           <a href="{% pageurl article %}" class="tw-text-black tw-flex hover:tw-text-blue-40 tw-items-center tw-no-underline">
             {% if show_images %}
-              {% image article.hero_image fill-156x156 as img %}
+              {% image article.get_meta_image fill-156x156 as img %}
               <img src="{{ img.url }}" alt="{{ img.alt }}" class="tw-w-[78px] tw-h-[78px] tw-rounded-2xl tw-mr-4"/>
             {% endif %}
 
