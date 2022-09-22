@@ -3,53 +3,49 @@
  * Since at the moment there is no official callback for comment submission through commento itself,
  * we have this file which will push a datalayer event whenever a user submits a comment.
  */
- export default () => {
+export default () => {
   // Commento's parent div, in which it loads all of its content through JS.
   const commentoContainer = document.querySelector(
     "#view-product-page #commento"
   );
-  // The products initial count of comments, which we will use to compare against the new number
-  let commentCount;
 
+  const commentListUpdateHandler = (mutations) => {
+    let commentList = document.querySelector("#commento-main-area");
 
-  const mutationHandler = (mutations) => {
-  // Since commento sometimes does not load its contents before we run this JS file,
-  // We are using this mutation handler to wait for a change in its parent div, 
-  // whether it be an item loading in, the user typing in the text box, etc, 
-  // so we know the content has loaded in, and its safe to add the event handlers 
-  // and define the initial count of comments. Then disconnecting the mutation handler.
-    let submitButton = document.querySelector("#commento-submit-button-root");
-    commentCount = document.querySelectorAll('.commento-card').length;
+    mutations.forEach(function (mutation) {
+      // If there was a added node to the comment list container div, push the datalayer event.
+      if ((mutation.target == commentList) && mutation.addedNodes.length) {
 
-    submitButton.addEventListener(`click`, () => {
-      submitButtonClicked();
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "form_submission",
+          form_name: commentoContainer.getAttribute("data-product-name"),
+          form_location: window.location.host + window.location.pathname,
+          form_type: "comment",
+        });
+        
+      }
     });
-
-    mutationObserver.disconnect()
   };
 
-  const mutationObserver = new MutationObserver(mutationHandler);
-  mutationObserver.observe(commentoContainer, { childList:true, subtree: true, attributes:true ,characterData:true });
+  const commentoFormHasBeenLoadedIn = () => {
+    // Stop listening to the parent div for any activity.
+    commentoParentDivObserver.disconnect();
 
-  function submitButtonClicked() {
+    // Instead create a new observer that listens for updates to the comments list.
+    const commentListObserver = new MutationObserver(commentListUpdateHandler);
+    commentListObserver.observe(commentoContainer, {
+      childList: true,
+      subtree:true
+    });
+  };
 
-    let newCommentCount = document.querySelectorAll('.commento-card').length;
-
-    // Ideally the list of comments would update, and we can compare these two numbers.
-    // However, since I am assuming commento is making a api call to post the comment, 
-    // The list does not get updated in time.
-    if(newCommentCount > commentCount){
-
-      window.dataLayer = window.dataLayer || [];
-
-      window.dataLayer.push({
-        event: "form_submission",
-        form_name: commentoContainer.getAttribute("data-product-name"),
-        form_location: window.location.host + window.location.pathname,
-        form_type: "comment",
-      });
-
-    }
-
-  }
+  // Listen to the Commento container div for any updates within.
+  const commentoParentDivObserver = new MutationObserver(commentoFormHasBeenLoadedIn);
+  commentoParentDivObserver.observe(commentoContainer, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    characterData: true,
+  });
 };
