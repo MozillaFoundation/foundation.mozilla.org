@@ -2,7 +2,7 @@ name: Continuous Integration
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "pni-2022"]
     paths-ignore:
       - maintenance/**/*.*
   pull_request:
