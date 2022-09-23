@@ -197,25 +197,25 @@
       </div>
     </div>
 
-    {% with secondary_related_articles=product.get_secondary_related_articles  %}
-      {% if secondary_related_articles %}
-        <div class="tw-container tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-7">
+    <div class="tw-container tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-7">
+      {% with product_updates=product.updates.all  %}
+        {% if product_updates %}
           <div class="tw-col-span-full medium:tw-col-span-1">
-            {% with product_updates=product.updates.all  %}
-              {% if product_updates %}
-                <div class="tw-max-w-[410px] tw-mb-5">
-                  {% include "fragments/buyersguide/dive_deeper.html" with updates=product_updates %}
-                </div>
-              {% endif %}
-            {% endwith %}
+            <div class="tw-max-w-[410px] tw-mb-5">
+              {% include "fragments/buyersguide/dive_deeper.html" with updates=product_updates %}
+            </div>
           </div>
+        {% endif %}
+      {% endwith %}
 
-          <div class="tw-col-span-full medium:tw-col-start-2 medium:tw-col-span-1 large:tw-col-span-2">
+      {% with secondary_related_articles=product.get_secondary_related_articles  %}
+        {% if secondary_related_articles %}
+          <div class="tw-col-span-full medium:tw-col-span-1 large:tw-col-span-2">
             {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=home_page.get_editorial_content_index use_wide_above="large" wide_columns_above_large=2  %}
           </div>
-        </div>
-      {% endif %}
-    {% endwith %}
+        {% endif %}
+      {% endwith %}
+    </div>
 
     {% if use_commento %}
       <div class="container-fluid position-relative comment-section">
