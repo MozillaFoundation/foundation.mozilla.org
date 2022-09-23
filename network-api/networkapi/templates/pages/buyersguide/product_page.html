@@ -160,20 +160,6 @@
                 </div>
               {% endif %}
             </div>
-
-            <hr class="pni-section-divider"/>
-
-            <div class="tw-w-full">
-              <h3 class="tw-h2-heading mb-4">{% trans "Related products" %}</h3>
-              <div class="row">
-                {% for related_product_page in product.related_product_pages.all %}
-                  {% with related_product=related_product_page.related_product.localized %}
-                    {% include "fragments/buyersguide/related_product.html" with related_product=related_product %}
-                  {% endwith %}
-                {% endfor %}
-              </div>
-            </div>
-
           </div>
         </div>
       </div>
@@ -197,6 +183,17 @@
           </div>
         {% endif %}
       {% endwith %}
+
+      <div>
+        <h3 class="tw-h2-heading mb-4">{% trans "Related products" %}</h3>
+        <div>
+          {% for related_product_page in product.related_product_pages.all %}
+            {% with related_product=related_product_page.related_product.localized %}
+              {% include "fragments/buyersguide/related_product.html" with related_product=related_product %}
+            {% endwith %}
+          {% endfor %}
+        </div>
+      </div>
     </div>
 
     {% if use_commento %}
