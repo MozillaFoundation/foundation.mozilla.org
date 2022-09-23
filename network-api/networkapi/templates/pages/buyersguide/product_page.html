@@ -30,14 +30,6 @@
 
   {% get_bg_home_page as home_page %}
 
-  {% with product_updates=product.updates.all  %}
-    {% if product_updates %}
-      <div class="tw-max-w-[410px] tw-mb-5">
-        {% include "fragments/buyersguide/dive_deeper.html" with updates=product_updates %}
-      </div>
-    {% endif %}
-  {% endwith %}
-
   <div class="text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">
     <div class="tw-container tw-block medium:tw-grid tw-grid-cols-12 tw-gap-x-6">
       <div class="tw-col-start-3 tw-col-end-11 tw--mx-4 medium:tw--mx-6">
@@ -209,8 +201,15 @@
       {% if secondary_related_articles %}
         <div class="tw-container tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-7">
           <div class="tw-col-span-full medium:tw-col-span-1">
-            Dive deeper
+            {% with product_updates=product.updates.all  %}
+              {% if product_updates %}
+                <div class="tw-max-w-[410px] tw-mb-5">
+                  {% include "fragments/buyersguide/dive_deeper.html" with updates=product_updates %}
+                </div>
+              {% endif %}
+            {% endwith %}
           </div>
+
           <div class="tw-col-span-full medium:tw-col-start-2 medium:tw-col-span-1 large:tw-col-span-2">
             {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=home_page.get_editorial_content_index use_wide_above="large" wide_columns_above_large=2  %}
           </div>
