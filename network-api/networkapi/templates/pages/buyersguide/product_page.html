@@ -144,21 +144,6 @@
 
               {% include "fragments/buyersguide/product_tab.html" with  product=product %}
 
-              {% if product.updates.count > 0 %}
-                <hr class="pni-section-divider"/>
-                <h3 id="news" class="tw-h2-heading mb-3">{% trans "News" %}</h3>
-                <div class="mb-5">
-                  {% for item in product.updates.all %}
-                    {% with update=item.update %}
-                      <div class="product-update mb-4">
-                        <a class="product-update-link tw-h5-heading title" href="{{update.source}}" target="_blank">{{update.title}}</a>
-                        <div class="author">{{update.author}}</div>
-                        <div class="snippet">{{update.snippet}}</div>
-                      </div>
-                    {% endwith %}
-                  {% endfor %}
-                </div>
-              {% endif %}
             </div>
           </div>
         </div>
