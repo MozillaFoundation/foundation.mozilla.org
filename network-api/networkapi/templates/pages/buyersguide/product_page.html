@@ -184,16 +184,18 @@
         {% endif %}
       {% endwith %}
 
-      <div>
-        <h3 class="tw-h2-heading mb-4">{% trans "Related products" %}</h3>
-        <div>
-          {% for related_product_page in product.related_product_pages.all %}
-            {% with related_product=related_product_page.related_product.localized %}
-              {% include "fragments/buyersguide/related_product.html" with related_product=related_product %}
-            {% endwith %}
-          {% endfor %}
-        </div>
-      </div>
+      {% with related_products=product.related_product_pages.all %}
+        {% if related_products %}
+          <div class="tw-col-span-full medium:tw-col-span-2 large:tw-col-start-2">
+            <h3 class="tw-h2-heading mb-4">{% trans "Related products" %}</h3>
+            <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-4 tw-gap-6">
+              {% for related_product_page in related_products  %}
+                {% include "fragments/buyersguide/related_product.html" with related_product=related_product_page.related_product.localized %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      {% endwith %}
     </div>
 
     {% if use_commento %}
