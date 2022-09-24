@@ -78,22 +78,25 @@
   {% include "fragments/buyersguide/primary_nav.html" %}
   </div>
 
+  {% get_bg_home_page as home_page %}
+
   {% block hero %}{% endblock %}
 
+  {% block category_header %}{% endblock %}
+
   {% block category_nav %}
-  {% get_bg_home_page as home_page %}
   {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
   <nav id="multipage-nav" class="pni-category-nav text-center d-none d-md-block tw-no-scrollbar tw-mt-2" title="{% trans "site navigation" context "Tooltip on menu items" %}">
-    <div class="container" id="product-review">
+    <div class="container tw-py-2" id="product-review">
       <div class="row">
         <div class="col">
           {% if pagetype == "product" or pagetype == "about" %}
-            <a class="multipage-link active" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All" %}</a>
+            <a class="multipage-link active" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All Reviews" %}</a>
           {% else %}
-            <a class="multipage-link {% if not category %} active{% endif %}" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All" %}</a>
+            <a class="multipage-link {% if not category %} active{% endif %}" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All Reviews" %}</a>
           {% endif %}
 
-          {% for cat in categories %}
+          {% for cat in categories|slice:":6" %}
             {% with original=cat.original %}
             {% if cat.parent == None %}
               {% if original.published_product_page_count > 0 %}
@@ -103,6 +106,8 @@
             {% endif %}
             {% endwith %}
           {% endfor %}
+
+          {% include "fragments/buyersguide/category_dropdown.html" %}
 
           <div id="product-filter-search" tabindex="0" class="tw-hidden large:tw-inline-flex tw-px-2 tw-items-center tw-bg-blue-05 tw-border-4 tw-border-blue-05 tw-w-[214px] tw-mr-4">
             <img

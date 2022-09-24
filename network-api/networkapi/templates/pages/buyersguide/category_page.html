@@ -18,10 +18,12 @@
               {% endif %}
             "
           >
-            <h2>({{ category.name }}) Primary related articles (First 3 of list of 6)</h2>
-
-            <div class="tw-m-4">
-              {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles index_page=editorial_content_index %}
+            <div class="tw-container">
+              <div class="tw-row">
+                <div class="col-12">
+                  {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles index_page=editorial_content_index %}
+                </div>
+              </div>
             </div>
 
           </div>
