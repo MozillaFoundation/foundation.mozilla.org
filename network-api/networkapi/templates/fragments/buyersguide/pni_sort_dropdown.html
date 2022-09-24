@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailimages_tags i18n %}
+{% load static i18n %}
 <ul 
     class="
       pni-creepiness
@@ -13,7 +13,6 @@
   >
     <li
       role="button"
-      aria-labelledby="dropdown-label"
       id="pni-creepiness__selected"
       class="tw-overflow-hidden tw-whitespace-nowrap tw-w-full tw-text-ellipsis tw-flex tw-items-center tw-m-0 tw-p-3"
       tabindex="0"
@@ -38,7 +37,7 @@
             {% trans "Creepiness: Least – Most" %}
           </div>
           <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" class="tw-ml-4 tw-rotate-180 tw-origin-center tw-pointer-events-none">
-            <title>Open drop down</title>
+            <title>Close drop down</title>
             <path d="M1 1L5.02504 5.02504L9.05007 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </li>
