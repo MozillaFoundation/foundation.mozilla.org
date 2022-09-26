@@ -30,14 +30,6 @@
 
   {% get_bg_home_page as home_page %}
 
-  {% with product_updates=product.updates.all  %}
-    {% if product_updates %}
-      <div class="tw-max-w-[410px] tw-mb-5">
-        {% include "fragments/buyersguide/dive_deeper.html" with updates=product_updates %}
-      </div>
-    {% endif %}
-  {% endwith %}
-
   <div class="text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">
     <div class="tw-container tw-block medium:tw-grid tw-grid-cols-12 tw-gap-x-6">
       <div class="tw-col-start-3 tw-col-end-11 tw--mx-4 medium:tw--mx-6">
@@ -151,72 +143,49 @@
               </div>
 
               {% include "fragments/buyersguide/product_tab.html" with  product=product %}
-
-              {% if product.updates.count > 0 %}
-                <hr class="pni-section-divider"/>
-                <h3 id="news" class="tw-h2-heading mb-3">{% trans "News" %}</h3>
-                <div class="mb-5">
-                  {% for item in product.updates.all %}
-                    {% with update=item.update %}
-                      <div class="product-update mb-4">
-                        <a class="product-update-link tw-h5-heading title" href="{{update.source}}" target="_blank">{{update.title}}</a>
-                        <div class="author">{{update.author}}</div>
-                        <div class="snippet">{{update.snippet}}</div>
-                      </div>
-                    {% endwith %}
-                  {% endfor %}
-                </div>
-              {% endif %}
             </div>
-
-            <hr class="pni-section-divider"/>
-
-            <div class="tw-w-full">
-              <h3 class="tw-h2-heading mb-4">{% trans "Related products" %}</h3>
-              <div class="row">
-                {% for related_product_page in product.related_product_pages.all %}
-                  {% with related_product=related_product_page.related_product.localized %}
-                    <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
-                      <a class="d-block{% if related_product.adult_content %} adult-content{% endif %}" href="{% relocalized_url related_product.url %}">
-                        <div class="img-container">
-                          {% image related_product.image width-600 as img %}
-                          <img
-                            class="product-thumbnail"
-                            width="600"
-                            loading="lazy"
-                            src="{{img.url}}"
-                            alt="{{related_product.title}}"
-                            >
-                        </div>
-                        <p class="tw-body-small mt-3 mb-1">{{related_product.company}}</p>
-                        <p>{{related_product.title}}</p>
-                      </a>
-
-                      {% include "fragments/buyersguide/privacy_ding.html" with product=related_product %}
-                      {% include "fragments/buyersguide/adult_content_badge.html" with product=related_product %}
-                    </div>
-                  {% endwith %}
-                {% endfor %}
-              </div>
-            </div>
-
           </div>
+
+          {% include "fragments/buyersguide/pni_newsletter_box.html" %}
         </div>
       </div>
     </div>
 
-    {% with secondary_related_articles=product.get_secondary_related_articles  %}
-      {% if secondary_related_articles %}
-        <div class="tw-container tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-7">
+    <div class="tw-container tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-7">
+      {% with product_updates=product.updates.all  %}
+        {% if product_updates %}
           <div class="tw-col-span-full medium:tw-col-span-1">
-            Dive deeper
+            <div class="tw-max-w-[410px] tw-mb-5">
+              {% include "fragments/buyersguide/dive_deeper.html" with updates=product_updates %}
+            </div>
           </div>
-          <div class="tw-col-span-full medium:tw-col-start-2 medium:tw-col-span-1 large:tw-col-span-2">
+        {% endif %}
+      {% endwith %}
+
+      {% with secondary_related_articles=product.get_secondary_related_articles  %}
+        {% if secondary_related_articles %}
+          <div class="tw-col-span-full medium:tw-col-span-1 large:tw-col-span-2">
             {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=home_page.get_editorial_content_index use_wide_above="large" wide_columns_above_large=2  %}
           </div>
-        </div>
-      {% endif %}
-    {% endwith %}
+        {% endif %}
+      {% endwith %}
+
+      {% with related_products=product.related_product_pages.all %}
+        {% if related_products %}
+          <div class="tw-col-span-full medium:tw-col-span-2 large:tw-col-start-2">
+            <div class="tw-flex tw-flex-col medium:tw-flex-row-reverse medium:tw-gap-5">
+              {% include "fragments/buyersguide/wavy_line.html" %}
+              <h2 class="tw-h3-heading tw-mt-2 tw-shrink-0">{% trans "Related products" %}</h2>
+            </div>
+            <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-4 tw-gap-6">
+              {% for related_product_page in related_products  %}
+                {% include "fragments/buyersguide/related_product.html" with related_product=related_product_page.related_product.localized %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      {% endwith %}
+    </div>
 
     {% if use_commento %}
       <div class="container-fluid position-relative comment-section">
