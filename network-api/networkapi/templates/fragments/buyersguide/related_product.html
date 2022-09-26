@@ -8,12 +8,12 @@
         class="product-thumbnail"
         width="600"
         loading="lazy"
-        src="{{img.url}}"
+        src="{{ img.url }}"
         alt=""
         >
     </div>
-    <p class="tw-body-small mt-3 mb-1">{{related_product.company}}</p>
-    <p>{{related_product.title}}</p>
+    <p class="tw-body-small mt-3 mb-1">{{ related_product.company }}</p>
+    <p>{{ related_product.title }}</p>
   </a>
 
   {% include "fragments/buyersguide/privacy_ding.html" with product=related_product %}
