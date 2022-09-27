@@ -94,7 +94,7 @@
         tw-justify-center
         tw-items-stretch
         tw-flex-wrap
-        [--gap-width:1px]
+        [--gap-width:2px]
         [--col-count:2] medium:[--col-count:3] large:[--col-count:4]
         [--item-width:calc((100%_+_var(--gap-width))/var(--col-count)_-_var(--gap-width))]
         tw-gap-[var(--gap-width)]
@@ -111,19 +111,7 @@
 
         {% for product in products %}
           {% product_in_category product category as matched %}
-          <div class="
-            tw-w-[var(--item-width)]
-            tw-flex
-            tw-items-stretch
-
-            {# We need to unset the order rule at the next breakpoint, because the nth-child pseudo-class changes. #}
-            tw-order-0
-            [&:nth-child(n+10)]:tw-order-2 medium:[&:nth-child(n+10)]:tw-order-[unset]
-            medium:[&:nth-child(n+9)]:tw-order-2 large:[&:nth-child(n+9)]:tw-order-[unset]
-            large:[&:nth-child(n+12)]:tw-order-2
-          ">
-            {% include "fragments/buyersguide/item.html" with product=product.localized matched=matched %}
-          </div>
+          {% include "fragments/buyersguide/item.html" with product=product.localized matched=matched %}
         {% endfor %}
 
         {% comment %}

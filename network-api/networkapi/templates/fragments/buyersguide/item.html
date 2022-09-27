@@ -6,10 +6,18 @@
     {% if matched == False %}d-none{% else %}d-flex{% endif %}
     tw-flex-col
     tw-justify-between
+    tw-m-0
+    tw-w-[var(--item-width)]
+
+    {# We need to unset the order rule at the next breakpoint, because the nth-child pseudo-class changes. #}
+    tw-order-0
+    [&:nth-child(n+10)]:tw-order-2 medium:[&:nth-child(n+10)]:tw-order-[unset]
+    medium:[&:nth-child(n+9)]:tw-order-2 large:[&:nth-child(n+9)]:tw-order-[unset]
+    large:[&:nth-child(n+12)]:tw-order-2
+
     {% if product.draft %}draft-product{% endif %}
     {% if product.adult_content %}adult-content{% endif %}
     {% if product.privacy_ding %}privacy-ding{% endif%}
-    tw-m-0
   "
   data-creepiness="{{ product.creepiness|unlocalize }}"
 >
