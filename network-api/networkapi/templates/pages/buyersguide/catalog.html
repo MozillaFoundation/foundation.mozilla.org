@@ -85,15 +85,21 @@
     <div class="product-box-list-wrapper">
       <div class="product-box-list tw-overflow-hidden tw-flex tw-justify-center tw-items-stretch tw-flex-wrap tw-gap-px">
         {% comment %}
-
-        <figure class="product-box tw-opacity-100">
-          <figcaption>TEST</figcaption>
-        </figure>
+          Full width = (n * item width) + (n - 1) * gap width
+          -> Item with = (Full width + gap width)/n - gap width
         {% endcomment %}
+        <div class="
+          tw-w-[calc(((100%_+_1px)/4_-_1px)*2_+_1px)]
+          tw-flex
+          tw-items-stretch
+          tw-bg-blue-05
+        ">
+        </div>
+
         {% for product in products %}
           {% product_in_category product category as matched %}
           <div class="
-            tw-w-[calc(100%/4-(1px*(4-1)))]
+            tw-w-[calc((100%_+_1px)/4_-_1px)]
             tw-flex
             tw-items-stretch
           ">
