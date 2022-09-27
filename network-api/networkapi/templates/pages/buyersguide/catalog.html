@@ -83,10 +83,25 @@
     </div>
 
     <div class="product-box-list-wrapper">
-      <div class="product-box-list tw-overflow-hidden tw-flex tw-justify-center tw-items-stretch tw-flex-wrap">
-        <figure class="product-box tw-opacity-1">
+      <div class="product-box-list tw-overflow-hidden tw-flex tw-justify-center tw-items-stretch tw-flex-wrap tw-gap-px">
+        {% comment %}
+
+        <figure class="product-box tw-opacity-100">
           <figcaption>TEST</figcaption>
         </figure>
+        {% endcomment %}
+        {% for product in products %}
+          {% product_in_category product category as matched %}
+          <div class="
+            tw-w-[calc(100%/4-(1px*(4-1)))]
+            tw-flex
+            tw-items-stretch
+          ">
+            {% include "fragments/buyersguide/item.html" with product=product.localized matched=matched %}
+          </div>
+        {% endfor %}
+
+        {% comment %}
         {% if request.user.is_anonymous %}
           {# User is not logged in. Return cached results. 24 hour caching applied. #}
           {% cache 86400 pni_home_page template_cache_key_fragment %}
@@ -102,6 +117,7 @@
             {% include "fragments/buyersguide/item.html" with product=product.localized matched=matched %}
           {% endfor %}
         {% endif %}
+        {% endcomment %}
       </div>
 
       <div id="product-filter-no-results-notice" class="d-none text-center my-5 py-5">
