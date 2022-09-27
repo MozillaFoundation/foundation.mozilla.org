@@ -1,0 +1,25 @@
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_content %}
+	<div class="tw-row tw-py-4">
+		{% for block in self.cards %}
+          {% with card=block count=self.cards|length %}
+            {% image card.image fill-350x197 as img %}
+            <div class="tw-px-4 small:tw-w-full {% if count > 2 %} large:tw-w-1/3 medium:tw-w-1/2 {% else %} medium:tw-w-1/2 {% endif %} tw-mb-5">
+              <div class="card-regular tw-h-full tw-flex tw-flex-col">
+                <img src="{{ img.url }}" alt="{{ card.alt_text }}" />
+                <div class="tw-flex tw-flex-1">
+                  <div class="tw-bg-white tw-relative tw-py-4 tw-w-full tw-flex tw-flex-col">
+                    {% if card.link %}<a href="{% pageurl card.link %}">{% endif %}
+                        <h3 class="tw-h3-heading tw-mb-2">{{ card.title }}</h3>
+                    {% if card.link %}</a>{% endif %}
+                    {{ card.body|richtext }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endwith %}
+		{% endfor %}
+	</div>
+{% endblock %}
