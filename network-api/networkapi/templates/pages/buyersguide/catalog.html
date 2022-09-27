@@ -82,24 +82,36 @@
       </div>
     </div>
 
+    {% comment %}
+      Full width = (column count * item width) + (column count - 1) * gap width
+      -> Item with = (Full width + gap width)/column count - gap width
+    {% endcomment %}
     <div class="product-box-list-wrapper">
-      <div class="product-box-list tw-overflow-hidden tw-flex tw-justify-center tw-items-stretch tw-flex-wrap tw-gap-px">
-        {% comment %}
-          Full width = (n * item width) + (n - 1) * gap width
-          -> Item with = (Full width + gap width)/n - gap width
-        {% endcomment %}
+      <div class="
+        product-box-list
+        tw-overflow-hidden
+        tw-flex
+        tw-justify-center
+        tw-items-stretch
+        tw-flex-wrap
+        [--gap-width:1px]
+        [--col-count:2] medium:[--col-count:3] large:[--col-count:4]
+        [--item-width:calc((100%_+_var(--gap-width))/var(--col-count)_-_var(--gap-width))]
+        tw-gap-[var(--gap-width)]
+      ">
         <div class="
-          tw-w-[calc(((100%_+_1px)/4_-_1px)*2_+_1px)]
+          tw-w-[calc(var(--item-width)*2_+_var(--gap-width))]
           tw-flex
           tw-items-stretch
           tw-bg-blue-05
         ">
+          <div class="tw-h-[200px]"></div>
         </div>
 
         {% for product in products %}
           {% product_in_category product category as matched %}
           <div class="
-            tw-w-[calc((100%_+_1px)/4_-_1px)]
+            tw-w-[var(--item-width)]
             tw-flex
             tw-items-stretch
           ">
