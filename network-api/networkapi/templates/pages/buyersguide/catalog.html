@@ -92,17 +92,7 @@
         tw-gap-[2px]
         tw-grid-flow-row-dense
       ">
-        <div class="
-          tw-col-span-2
-          tw-col-end-5
-          tw-order-1
-
-          tw-flex
-          tw-items-stretch
-          tw-bg-blue-05
-        ">
-          <div class="tw-h-[200px]"></div>
-        </div>
+        {% block extra_product_box_list_items %}{% endblock extra_product_box_list_items %}
 
         {% if request.user.is_anonymous %}
           {# User is not logged in. Return cached results. 24 hour caching applied. #}
