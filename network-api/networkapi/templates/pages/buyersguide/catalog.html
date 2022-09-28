@@ -82,28 +82,23 @@
       </div>
     </div>
 
-    {% comment %}
-      Full width = (column count * item width) + (column count - 1) * gap width
-      -> Item with = (Full width + gap width)/column count - gap width
-    {% endcomment %}
     <div class="product-box-list-wrapper">
       <div class="
         product-box-list
         tw-overflow-hidden
-        tw-flex
-        tw-justify-center
-        tw-items-stretch
-        tw-flex-wrap
-        [--gap-width:2px]
-        [--col-count:2] medium:[--col-count:3] large:[--col-count:4]
-        [--item-width:calc((100%_+_var(--gap-width))/var(--col-count)_-_var(--gap-width))]
-        tw-gap-[var(--gap-width)]
+
+        tw-grid
+        tw-grid-cols-4
+        tw-gap-[2px]
+        tw-grid-flow-row-dense
       ">
         <div class="
-          tw-w-[calc(var(--item-width)*2_+_var(--gap-width))]
+          tw-col-span-2
+          tw-col-end-5
+          tw-order-1
+
           tw-flex
           tw-items-stretch
-          tw-order-1
           tw-bg-blue-05
         ">
           <div class="tw-h-[200px]"></div>
