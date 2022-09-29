@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n l10n %}
 
 <div class="cta col-lg-4 offset-lg-1">
   <div class="narrow-sticky-button-container hidden">
@@ -10,7 +10,7 @@
         <div
           class="join-us mb-5"
           data-form-position="newsletter_signup_sidebar"
-          data-signup-id="{{ page.signup.id }}"
+          data-signup-id="{{ page.signup.id|unlocalize }}"
           data-cta-header="{{ page.signup.header | escape }}"
           data-cta-description="{{ page.signup.description | escape }}"
           data-newsletter="{{ page.signup.newsletter }}"
