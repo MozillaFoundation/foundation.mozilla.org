@@ -32,13 +32,13 @@
 {% endblock %}
 {% block category_header %}
 <div class="tw-container">
-  <div class="row">
-      <div class="col-12 col-lg-4 ">
+  <div class="tw-row">
+      <div class="large:tw-w-1/3 tw-w-full tw-px-4">
         <div class="tw-overflow-hidden">
           <img src="{% static "_images/buyers-guide/very-long-wavy-border.svg" %}" class="tw-max-w-fit tw-mb-2" />
         </div>
       </div>
-      <div class="col-12">
+      <div class="tw-w-full tw-px-4">
         <div class="tw-flex tw-items-end">
           <a
           href="{% if current_category.parent %}{% localizedroutablepageurl home_page 'category-view' current_category.parent.slug  %}{% elif current_category %}{% localizedroutablepageurl home_page 'category-view' current_category.slug  %}{% else %}{% relocalized_url home_page.localized.url %}{% endif %}"
@@ -62,9 +62,9 @@
 {% block guts %}
 {% get_bg_home_page as home_page %}
 <div class="project-list-section">
-  <div class="container">
+  <div class="tw-container">
     
-    <div class="row px-0 tw-mt-3 tw-mb-6 medium:tw-mb-4">
+    <div class="tw-row px-0 tw-mt-3 tw-mb-6 medium:tw-mb-4">
       <div class="tw-w-[98vw] tw-relative tw-left-1/2 tw-ml-[-51vw] large:tw-left-auto large:tw-ml-0 large:tw-static large:tw-w-full">
         <div class="tw-px-4 large:tw-px-0 tw-flex tw-space-x-2 tw-overflow-auto tw-pb-2 tw-no-scrollbar tw-touch-pan-x subcategory-header">
           
