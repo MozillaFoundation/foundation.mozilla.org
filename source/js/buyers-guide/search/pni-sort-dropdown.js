@@ -4,7 +4,7 @@ const DOWN_ARROW_KEY_CODE = 40;
 const UP_ARROW_KEY_CODE = 38;
 const ESCAPE_KEY_CODE = 27;
 
-export class PNISortCreepiness {
+export class PNISortDropdown {
   constructor(searchFilter) {
     this.searchFilter = searchFilter;
     this.dropdown = document.querySelector(`.pni-creepiness`);

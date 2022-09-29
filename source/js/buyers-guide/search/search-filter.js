@@ -1,7 +1,6 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Utils } from "./utils.js";
-import { CreepUtils } from "./creep-utils.js";
 import { markScrollStart } from "./slider-area.js";
 import { setupHistoryManagement, applyHistory } from "./history.js";
 import {
@@ -188,8 +187,8 @@ export class SearchFilter {
       product.classList.add(`d-flex`);
     });
 
-    CreepUtils.sortOnCreepiness();
-    CreepUtils.moveCreepyFace();
+    Utils.sortOnCreepiness();
+    Utils.moveCreepyFace();
 
     const state = { ...history.state, search: "" };
     const title = Utils.getTitle(this.categoryTitle.value.trim());
@@ -216,7 +215,7 @@ export class SearchFilter {
     history.replaceState(state, title, this.getURL(text));
 
     Utils.sortFilteredProducts();
-    CreepUtils.moveCreepyFace();
+    Utils.moveCreepyFace();
     Utils.checkForEmptyNotice();
   }
 
@@ -230,8 +229,8 @@ export class SearchFilter {
   filterCategory(category) {
     Utils.showProductsForCategory(category);
     this.categoryTitle.value = category;
-    CreepUtils.sortOnCreepiness();
-    CreepUtils.moveCreepyFace();
+    Utils.sortOnCreepiness();
+    Utils.moveCreepyFace();
     Utils.checkForEmptyNotice();
   }
 
@@ -301,6 +300,6 @@ export class SearchFilter {
     const state = { ...history.state, sort: value };
     const title = Utils.getTitle(this.categoryTitle.value.trim());
     history.replaceState(state, title, location.href);
-    CreepUtils.sortOnCreepiness();
+    Utils.sortOnCreepiness();
   }
 }

@@ -1,6 +1,5 @@
 import { gsap } from "gsap";
 import { Utils } from "./utils.js";
-import { CreepUtils } from "./creep-utils.js";
 
 const categoryTitle = document.querySelector(`.category-title`);
 const parentTitle = document.querySelector(`.parent-title`);
@@ -118,7 +117,7 @@ export function performInitialHistoryReplace(
       });
   }
 
-  CreepUtils.sortOnCreepiness();
+  Utils.sortOnCreepiness();
 }
 
 /**
@@ -255,8 +254,8 @@ export function applyHistory(instance) {
   instance.filterCategory(category);
   instance.filterSubcategory(parent || category);
   Utils.updateHeader(category, parent);
-  CreepUtils.sortOnCreepiness();
-  CreepUtils.moveCreepyFace();
+  Utils.sortOnCreepiness();
+  Utils.moveCreepyFace();
 
   if (history.state?.parent && history.state?.category) {
     document
