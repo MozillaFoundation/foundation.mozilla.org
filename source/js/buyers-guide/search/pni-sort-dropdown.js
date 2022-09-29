@@ -7,7 +7,7 @@ const ESCAPE_KEY_CODE = 27;
 export class PNISortDropdown {
   constructor(searchFilter) {
     this.searchFilter = searchFilter;
-    this.dropdown = document.querySelector(`.pni-creepiness`);
+    this.dropdown = document.querySelector(`#pni-creepiness`);
     this.list = document.querySelector(".pni-creepiness__list");
     this.listContainer = document.querySelector(
       ".pni-creepiness__list-container"
