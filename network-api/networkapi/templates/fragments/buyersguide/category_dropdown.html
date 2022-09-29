@@ -47,36 +47,33 @@
             </svg>
         </li>
         {% for cat in categories|slice:"6:" %}
-            
-                {% with original=cat.original %}
-                    {% if cat.parent == None %}
-                            {% if original.published_product_page_count > 0 %}
-                            {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
-                            <li class="tw-bg-white tw-text-gray-40 hover:tw-text-black tw-mb-0">
-                                <a 
-                                    class="
-                                        multipage-link
-                                        tw-w-full
-                                        tw-mr-0
-                                        tw-font-sans
-                                        tw-font-bold
-                                        tw-no-underline
-                                        tw-px-4
-                                        tw-py-3
-                                        tw-text-right
-                                        {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}
-                                        "
-                                    href="{{ cat_url }}"
-                                    data-name="{{ cat.name }}"
-                                >
-                                    {{ cat.name }}
-                                </a>
-                            </li>
-                            {% endif %}
-                        
+            {% with original=cat.original %}
+                {% if cat.parent == None %}
+                    {% if original.published_product_page_count > 0 %}
+                    {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
+                    <li class="tw-bg-white tw-text-gray-40 hover:tw-text-black tw-mb-0">
+                        <a 
+                            class="
+                                multipage-link
+                                tw-w-full
+                                tw-mr-0
+                                tw-font-sans
+                                tw-font-bold
+                                tw-no-underline
+                                tw-px-4
+                                tw-py-3
+                                tw-text-right
+                                {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}
+                                "
+                            href="{{ cat_url }}"
+                            data-name="{{ cat.name }}"
+                        >
+                            {{ cat.name }}
+                        </a>
+                    </li>
                     {% endif %}
-                {% endwith %}
-            
+                {% endif %}
+            {% endwith %}
         {% endfor %}
     </ul>
 
