@@ -9,7 +9,7 @@ from wagtail.documents.blocks import DocumentChooserBlock
 class InternalLinkBlockStructValue(blocks.StructValue):
     @property
     def link_url(self):
-        return self.get('link').url
+        return self.get('link').localized.url
 
 
 class ExternalLinkBlockStructValue(blocks.StructValue):
@@ -21,7 +21,7 @@ class ExternalLinkBlockStructValue(blocks.StructValue):
 class DocumentLinkBlockStructValue(blocks.StructValue):
     @property
     def link_url(self):
-        return self.get('document').url
+        return self.get('document').localized.url
 
 
 class InternalLinkBlock(blocks.StructBlock):
