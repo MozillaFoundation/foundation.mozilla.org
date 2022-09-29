@@ -1,10 +1,10 @@
 export default () => {
   const dropdown = document.querySelector(".pni-category-dropdown");
   const dropdownSelect = document.querySelector(
-    ".pni-category-dropdown-select"
+    "#pni-category-dropdown-select"
   );
   const dropdownSelectItems = document.querySelectorAll(
-    ".pni-category-dropdown-select > li, .pni-category-dropdown-select > li > a"
+    "#pni-category-dropdown-select > li, #pni-category-dropdown-select > li > a"
   );
 
   if (dropdown) {
