@@ -1,5 +1,5 @@
 {% extends "./research_base.html" %}
-{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% load i18n l10n wagtailcore_tags wagtailimages_tags %}
 
 {% block research_hub_content %}
   <div
@@ -61,7 +61,7 @@
         {% endfor %}
       </ul>
       {% if author_research_count > 3 %}
-        <a href="{% pageurl library_page %}?author={{ author_profile.id }}" class="tw-btn-secondary tw-mt-5 small:tw-mt-6 tw-w-full small:tw-w-auto">{% translate 'Browse all projects' context 'Button to see more than the latest three elements of research from an author' %} ({{ author_research_count }})</a>
+        <a href="{% pageurl library_page %}?author={{ author_profile.id|unlocalize }}" class="tw-btn-secondary tw-mt-5 small:tw-mt-6 tw-w-full small:tw-w-auto">{% translate 'Browse all projects' context 'Button to see more than the latest three elements of research from an author' %} ({{ author_research_count }})</a>
       {% endif %}
     </div>
   </div>
