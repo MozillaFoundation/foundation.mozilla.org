@@ -9,15 +9,17 @@ export default () => {
     "#view-product-page #commento"
   );
 
+  if (!commentoContainer) {
+    return;
+  }
+
   const commentListUpdateHandler = (mutations) => {
-    // The div which new comments get appended to.
-    let commentList = document.querySelector("#commento-main-area");
-
     mutations.forEach(function (mutation) {
-      // New comment mutations come in the form of a single added node, with no attributes.
-      let newNodeAttributes = mutation.addedNodes[0].attributes;
-      if ((newNodeAttributes.length == 0) && (mutation.target == commentList)) {
-
+      // New comments are appended in the form of: <div><div class='commento-card'/></div>
+      // If comment tracking ever breaks, this logic be a good place to check first.
+      if (
+        mutation.addedNodes[0].firstChild.classList.contains("commento-card")
+      ) {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "form_submission",
@@ -25,17 +27,15 @@ export default () => {
           form_location: window.location.host + window.location.pathname,
           form_type: "comment",
         });
-        
       }
     });
   };
 
-
-
-  // Listen to the Commento container div for any updates within.
+  // Listen to the Commento container div for any updates such as:
+  // Added nodes, removed nodes, etc.
   const commentListObserver = new MutationObserver(commentListUpdateHandler);
   commentListObserver.observe(commentoContainer, {
     childList: true,
-    subtree: true
+    subtree: true,
   });
 };
