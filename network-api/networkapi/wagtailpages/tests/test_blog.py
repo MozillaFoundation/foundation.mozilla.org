@@ -251,6 +251,7 @@ class TestBlogIndexTopic(BlogIndexTestCase):
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(response.url, self.blog_index.get_full_url())
 
 
 class TestBlogIndexSearch(BlogIndexTestCase):
