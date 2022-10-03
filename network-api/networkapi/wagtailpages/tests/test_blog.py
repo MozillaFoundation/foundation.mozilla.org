@@ -225,28 +225,25 @@ class TestBlogIndex(BlogIndexTestCase):
 
 
 class TestBlogIndexTopic(BlogIndexTestCase):
-    def test_topic_route_success(self):
-        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
-        url = (
+    def get_topic_route(self, /, **kwargs):
+        return (
             self.blog_index.get_url()
             + self.blog_index.reverse_subpage(
                 "entries_by_topic",
-                kwargs={'topic': topic.slug},
+                kwargs=kwargs,
             )
         )
+
+    def test_topic_route_success(self):
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
+        url = self.get_topic_route(topic=topic.slug)
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_topic_route_non_existing_topic(self):
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage(
-                "entries_by_topic",
-                kwargs={'topic': 'thisisnotatopic'},
-            )
-        )
+        url = self.get_topic_route(topic='thisisnotatopic')
 
         response = self.client.get(path=url)
 
