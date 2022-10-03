@@ -250,6 +250,22 @@ class TestBlogIndexTopic(BlogIndexTestCase):
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         self.assertEqual(response.url, self.blog_index.get_full_url())
 
+    def test_topic_route_shows_only_entries_of_topic(self):
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
+        topic_blog_page = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            topics=[topic],
+        )
+        other_blog_page = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+        )
+        url = self.get_topic_route(topic=topic.slug)
+
+        response = self.client.get(path=url)
+
+        self.assertIn(topic_blog_page, response.context["entries"])
+        self.assertNotIn(other_blog_page, response.context["entries"])
+
 
 class TestBlogIndexSearch(BlogIndexTestCase):
     @classmethod
