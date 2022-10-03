@@ -18,7 +18,7 @@ export default () => {
       // New comments are appended in the form of: <div><div class='commento-card'/></div>
       // If comment tracking ever breaks, this logic be a good place to check first.
       if (
-        mutation.addedNodes[0].firstChild.classList.contains("commento-card")
+        mutation.addedNodes[0].firstChild.matches(".commento-card")
       ) {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
