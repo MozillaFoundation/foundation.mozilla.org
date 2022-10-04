@@ -41,8 +41,17 @@ class BuyersGuideEditorialContentIndexPage(
         context = super().get_context(request, *args, **kwargs)
         context["home_page"] = self.get_parent().specific
         context["featured_cta"] = get_buyersguide_featured_cta(self)
-        context["items"] = self.get_descendants().public().live().specific()
+        context["items"] = self.get_items()
         return context
+
+    def get_items(self):
+        return (
+            self.get_descendants()
+            .order_by("-first_published_at")
+            .public()
+            .live()
+            .specific()
+        )
 
     def get_related_articles(self) -> list['BuyersGuideArticlePage']:
         return orderables.get_related_items(
