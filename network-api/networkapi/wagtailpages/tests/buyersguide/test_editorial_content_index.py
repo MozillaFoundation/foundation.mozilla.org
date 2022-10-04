@@ -1,4 +1,7 @@
+import datetime
 from http import HTTPStatus
+
+from django.utils import timezone
 
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages import models as pagemodels
@@ -67,6 +70,29 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         for child in children:
             self.assertContains(response=response, text=child.title, count=1)
+
+    def test_children_ordered_by_publication_date(self):
+        def create_days_old_article(days: int):
+            return buyersguide_factories.BuyersGuideArticlePageFactory(
+                parent=self.content_index,
+                first_published_at=timezone.now() - datetime.timedelta(days=days),
+            )
+
+        article_middle = create_days_old_article(days=10)
+        article_oldest = create_days_old_article(days=20)
+        article_newest = create_days_old_article(days=5)
+
+        response = self.client.get(self.content_index.url)
+
+        self.assertQuerysetEqual(
+            qs=response.context["items"],
+            values=[
+                article_newest,
+                article_middle,
+                article_oldest,
+            ],
+            ordered=True,
+        )
 
     def test_get_related_articles(self):
         content_index = self.content_index
