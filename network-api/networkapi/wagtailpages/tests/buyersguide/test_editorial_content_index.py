@@ -71,7 +71,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         for child in children:
             self.assertContains(response=response, text=child.title, count=1)
 
-    def test_children_ordered_by_publication_date(self):
+    def test_get_items_ordered_by_publication_date(self):
         def create_days_old_article(days: int):
             return buyersguide_factories.BuyersGuideArticlePageFactory(
                 parent=self.content_index,
@@ -82,10 +82,10 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         article_oldest = create_days_old_article(days=20)
         article_newest = create_days_old_article(days=5)
 
-        response = self.client.get(self.content_index.url)
+        result = self.content_index.get_items()
 
         self.assertQuerysetEqual(
-            qs=response.context["items"],
+            qs=result,
             values=[
                 article_newest,
                 article_middle,
