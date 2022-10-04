@@ -16,7 +16,7 @@ export default () => {
   const commentListUpdateHandler = (mutations) => {
     mutations.forEach(function (mutation) {
       // New comments are appended in the form of: <div><div class='commento-card'/></div>
-      // If comment tracking ever breaks, this logic be a good place to check first.
+      // If comment tracking ever breaks, this logic would be a good place to check first.
       if (
         mutation.addedNodes[0].firstChild.matches(".commento-card")
       ) {
