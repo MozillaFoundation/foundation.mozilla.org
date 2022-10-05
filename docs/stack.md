@@ -77,3 +77,8 @@ All assets are stored on S3.
     │   └── temp <- JSON pulled from web services. Don't commit!
     └── sass <- Sass code
 ```
+
+The templates are very scattered at the moment.
+We are trying to localize all tempaltes to the location `network-api/networkapi/templates`.
+When ever you touch or create a template, please move it to / create it in this location and place it in the appropriate sub-directory, `pages` or `fragments`.
+Create sub-directories under `pages` or `fragments` only when necessary and you have more than one template that needs to be grouped.
