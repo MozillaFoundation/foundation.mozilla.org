@@ -10,10 +10,9 @@
 {% block subcontent %}
 <div class="tw-container">
   <div class="tw-row">
-    <div class="{% if page.aside %}col-lg-8 row{% endif %}"> <!-- conditional side wrapper-->
       <div class="
       {% block content_wrapper_class %}tw-py-5 medium:tw-py-7{% endblock %}
-      {% if page.specific.narrowed_page_content %}
+      {% if page.specific.narrowed_page_content or page.aside %}
         tw-w-8/12 tw-mx-auto tw-px-4
       {% else %}
         tw-w-full tw-px-4
@@ -88,10 +87,9 @@
           </div>
         </div>
       </div>
-    </div>
 
     {% if page.aside %}
-      <div class="{% if page.aside %}col-lg-4{% endif %}"> <!-- conditional side wrapper-->
+      <div class="{% if page.aside %}tw-w-4/12{% endif %}">
         {% for block in page.aside %}
             {% include_block block with parent_page=page %}
         {% endfor %}
