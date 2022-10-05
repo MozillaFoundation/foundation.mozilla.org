@@ -37,3 +37,4 @@ from .foundation_slider_block import FoundationSliderBlock
 from .listing import ListingBlock
 from .aside import AsideBlock
 from .profile import ProfileBlock
+from .image_feature_block import ImageFeatureBlock

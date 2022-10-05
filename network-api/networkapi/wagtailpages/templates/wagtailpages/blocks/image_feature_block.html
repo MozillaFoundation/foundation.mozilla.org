@@ -1,0 +1,27 @@
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_content %}
+<div class="container">
+<div class="row">
+
+  <div class="d-xl-block feature mb-md-5">
+    <div class="position-relative h-100 d-xl-flex justify-content-end">
+      <div class="feature-image">
+        {% image value.image fill-928x400 as img %}
+        <img src="{{ img.url }}" alt="{{ value.altText }}">
+      </div>
+      <div class="feature-content align-self-center">
+        <div class="tw-h6-heading d-md-block mb-2">{{ value.metadata }}</div>
+        <h3 class="mb-2 pb-1">
+          {% if value.title_link %}<a href="{% pageurl value.title_link %}">{% endif %}
+            {{ value.title }}
+          {% if value.title_link %}</a>{% endif %}
+        </h3>
+        <p class="d-xl-block">{{ value.body|truncatechars:156 }}</p>
+      </div>
+    </div>
+  </div>
+
+</div></div>
+{% endblock %}
