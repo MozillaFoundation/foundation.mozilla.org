@@ -135,22 +135,6 @@ You don't need to run `compilemessages` and it works for both pipenv or docker w
 
 The `translations_github_commit_[...]` file from the archive is only used for debug purposes on Heroku. It can be safely deleted if needed.
 
-### Localiztion of numbers
-
-We are using Django's [`L10N` setting](https://docs.djangoproject.com/en/4.0/ref/settings/#use-l10n) set to `True`.
-This will also be the Django default starting in version 4.0 and can not be disabled starting version 5.0.
-
-With `L10N = True`, Django will use a formatting depending on the active locale when rendering numbers and dates.
-This can have impilcations when we dynamically render numbers into template that are meant for programmatic use, think `script` or `style` tags as well as attributes like `width` and `height` on the `img` tag.
-Rendering localized value can lead to wrong behaviour.
-
-Consider for example that in the German locale the decimal separator is a comma rather than a dot.
-This can lead to misinterpretation of the number as a list or otherwise invalid value.
-
-To ensure correct programmatic use of the rendered numbers, we need to prevent their localization.
-The `unlocalize` template filter can be used to deactivate the localization of a number in the template.
-
-See also: https://docs.djangoproject.com/en/4.1/topics/i18n/formatting/#controlling-localization-in-templates
 
 ## Contributing
 
