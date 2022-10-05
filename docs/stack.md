@@ -10,7 +10,12 @@ This site has a [styleguide](https://foundation.mozilla.org/en/style-guide/), wh
 
 ### CSS
 
-CSS is generated from [Sass](http://sass-lang.com/). Styles are based on the mofo-bootstrap theme found under `source/sass/mofo-bootstrap`.
+CSS is currently very messy.
+We are using a mix of custom [Sass](http://sass-lang.com/), mixed with the mofo-bootstrap theme found under `source/sass/mofo-bootstrap` while we also trying to move away from Bootstrap to [Tailwind CSS](https://tailwindcss.com/).
+
+All new CSS work should try to replace all use of Bootstrap and custom classes by applying the correct Tailwind utilities in the HMTL.
+
+For more complext components, there is also `tailwind-plugins/components.js`.
 
 ### React
 
