@@ -8,7 +8,7 @@
   <div class="standout-stat__wrap">
     <p class="standout-stat__number {% if smaller %}standout-stat__number--smaller{% endif %}"
        {% if id %}id="{{ id }}"{% endif %}
-       data-stat="{{ number }}"
+       data-stat="{{ number|unlocalize }}"
        data-stat-suffix="{{ suffix }}"
        data-stat-prefix="{{ prefix }}"
     >
