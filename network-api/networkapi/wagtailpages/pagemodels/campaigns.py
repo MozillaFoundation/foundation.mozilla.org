@@ -1,13 +1,11 @@
 import json
 
-from django.core.exceptions import ValidationError
 from django.db import models
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     StreamFieldPanel,
-    MultiFieldPanel
 )
 from wagtail.core.models import TranslatableMixin, Page
 from wagtail.core.fields import RichTextField, StreamField
