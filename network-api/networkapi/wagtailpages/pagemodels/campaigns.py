@@ -374,11 +374,6 @@ class BanneredCampaignPage(PrimaryPage):
 
     tags = ClusterTaggableManager(through=BanneredCampaignTag, blank=True)
 
-    aside_page_content = models.BooleanField(
-        default=False,
-        help_text=('Turning this on will create a right hand sidebar on large '
-                   'screens for any aside blocks added to the body.')
-        )
     panel_count = len(PrimaryPage.content_panels)
     n = panel_count - 1
 
@@ -389,12 +384,6 @@ class BanneredCampaignPage(PrimaryPage):
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
         FieldPanel('tags'),
-    ]
-
-    settings_panels = PrimaryPage.settings_panels + [
-        MultiFieldPanel(
-            [FieldPanel('aside_page_content')]
-        )
     ]
 
     translatable_fields = [
@@ -439,13 +428,3 @@ class BanneredCampaignPage(PrimaryPage):
     class Meta:
         verbose_name = "Banner Page"
         verbose_name_plural = "Banner pages"
-
-    def clean(self):
-        if self.narrowed_page_content and self.aside_page_content:
-            ERROR_MESSAGE = "Aside AND Narrow formats cannot be used together. "
-            raise ValidationError({
-                'narrowed_page_content': ValidationError(ERROR_MESSAGE),
-                'aside_page_content': ValidationError(ERROR_MESSAGE)
-            })
-
-        return super().clean()

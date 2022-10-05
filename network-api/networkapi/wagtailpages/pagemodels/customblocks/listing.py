@@ -19,7 +19,10 @@ class ListingCard(blocks.StructBlock):
         help_text='Body text of the card.'
     )
 
-    link = blocks.PageChooserBlock(help_text='Page that this should link out to.')
+    link = blocks.PageChooserBlock(
+        required=False,
+        help_text='Page that this should link out to.'
+    )
 
 
 class ListingBlock(blocks.StructBlock):
