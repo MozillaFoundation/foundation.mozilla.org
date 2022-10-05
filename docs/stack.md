@@ -1,14 +1,14 @@
-## Stack
+# Stack
 
-### HTML
+## HTML
 
 HTML for the majority of the site is generated from Django/Wagtail templates and components.
 
-### Frontend styleguide
+## Frontend styleguide
 
 This site has a [styleguide](https://foundation.mozilla.org/en/style-guide/), which can be refrenced for frontend development to note intended usage of exisitng styles and components.
 
-### CSS
+## CSS
 
 CSS is currently very messy.
 We are using a mix of custom [Sass](http://sass-lang.com/), mixed with the mofo-bootstrap theme found under `source/sass/mofo-bootstrap` while we also trying to move away from Bootstrap to [Tailwind CSS](https://tailwindcss.com/).
@@ -17,23 +17,23 @@ All new CSS work should try to replace all use of Bootstrap and custom classes b
 
 For more complext components, there is also `tailwind-plugins/components.js`.
 
-### React
+## React
 
 React is used _à la carte_ for isolated component instances (eg: a tab switcher) since the site is not designed as a single page application. This precludes the need for Flux architecture, or such libraries as React Router.
 
 To add a React component, you can target a container element from `/source/js/main.js` and inject it.
 
-### Django and Wagtail
+## Django and Wagtail
 
 Django powers the backend of the site, and we use Wagtail with Django to provide CMS features and functionality.
 
 If you are defining a new page class for the site, make sure it inherits both the Wagtail `Page` class as well as the `FoundationMetadataPageMixin` mixin. The first is a general Wagtail requirement, and the latter ensures that page metadata used for SEO and the like is (generally) correct.
 
-#### Localization
+### Localization
 
 We use [wagtail-localize](https://wagtail-localize.org/) for CMS content localization. Please see its documentation for more information.
 
-##### Localiztion of numbers
+#### Localiztion of numbers
 
 We are using Django's [`L10N` setting](https://docs.djangoproject.com/en/4.0/ref/settings/#use-l10n) set to `True`.
 This will also be the Django default starting in version 4.0 and can not be disabled starting version 5.0.
@@ -50,15 +50,15 @@ The `unlocalize` template filter can be used to deactivate the localization of a
 
 See also: https://docs.djangoproject.com/en/4.1/topics/i18n/formatting/#controlling-localization-in-templates
 
-#### A/B testing
+### A/B testing
 
 We currently don't have any A/B testing going on. We used to use [wagtail-experiments](https://github.com/torchbox/wagtail-experiments) but we're going to switch over to [wagtail-ab-testing](https://github.com/torchbox/wagtail-ab-testing)
 
-### S3
+## S3
 
 All assets are stored on S3.
 
-### File Structure
+## File Structure
 
 ```
 /
