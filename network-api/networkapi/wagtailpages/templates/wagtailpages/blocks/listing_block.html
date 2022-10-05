@@ -6,7 +6,7 @@
 		{% for block in self.cards %}
           {% with card=block count=self.cards|length %}
             {% image card.image fill-350x197 as img %}
-            <div class="tw-px-4 small:tw-w-full {% if count > 2 %} large:tw-w-1/2 medium:tw-w-1/2 {% else %} medium:tw-w-1/2 {% endif %} tw-mb-5">
+            <div class="tw-px-4 medium:tw-w-1/2 tw-mb-5">
               <div class="card-regular tw-h-full tw-flex tw-flex-col">
                 <img src="{{ img.url }}" alt="{{ card.alt_text }}" />
                 <div class="tw-flex tw-flex-1">
