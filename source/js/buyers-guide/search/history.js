@@ -117,7 +117,7 @@ export function performInitialHistoryReplace(
       });
   }
 
-  Utils.sortOnCreepiness();
+  Utils.sortProductCards();
 }
 
 /**
@@ -254,7 +254,7 @@ export function applyHistory(instance) {
   instance.filterCategory(category);
   instance.filterSubcategory(parent || category);
   Utils.updateHeader(category, parent);
-  Utils.sortOnCreepiness();
+  Utils.sortProductCards();
   Utils.moveCreepyFace();
 
   if (history.state?.parent && history.state?.category) {

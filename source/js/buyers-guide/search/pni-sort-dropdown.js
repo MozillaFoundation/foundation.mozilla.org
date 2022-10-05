@@ -87,7 +87,7 @@ export class PNISortDropdown {
     const content = this.dropdownSelectedNode.querySelector("div");
     content.innerHTML = targetContent.innerHTML;
     if (pushUpdate) {
-      this.searchFilter.updateSort(e.target.dataset.value);
+      this.searchFilter.updateSortHistoryState(e.target.dataset.value);
     }
   }
 

@@ -374,7 +374,11 @@ export class Utils {
     }
   }
 
-  static sortOnCreepiness() {
+  /**
+   * Sorts Products Review Cards based on history.state.sort
+   * value (alphabetical, ascending/descending creepiness value)
+   */
+  static sortProductCards() {
     const container = document.querySelector(`.product-box-list`);
     const list = [...container.querySelectorAll(`.product-box`)];
     const getCreepinessValue = (e) => parseFloat(e.dataset.creepiness);
