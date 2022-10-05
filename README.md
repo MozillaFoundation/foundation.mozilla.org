@@ -5,9 +5,9 @@
 [![Uses Mofo Standards](https://MozillaFoundation.github.io/mofo-standards/badge.svg)](https://github.com/MozillaFoundation/mofo-standards)
 [![Code Coverage](https://coveralls.io/repos/github/mozilla/foundation.mozilla.org/badge.svg?branch=main)](https://coveralls.io/github/mozilla/foundation.mozilla.org)
 
-## Table of contents
+## Getting started
 
-[Setup](#setup)
+Before you start working on the project, be sure to read this README and the linked docs.
 
 [Setup with Docker](#how-to-setup-your-dev-environment-with-docker)
 
@@ -134,7 +134,6 @@ Latest translations are uploaded to S3. To get them, run:
 You don't need to run `compilemessages` and it works for both pipenv or docker workflows.
 
 The `translations_github_commit_[...]` file from the archive is only used for debug purposes on Heroku. It can be safely deleted if needed.
-
 
 ## Contributing
 
