@@ -12,6 +12,7 @@ This site has a [styleguide](https://foundation.mozilla.org/en/style-guide/), wh
 
 CSS is currently very messy.
 We are using a mix of custom [Sass](http://sass-lang.com/), mixed with the mofo-bootstrap theme found under `source/sass/mofo-bootstrap` while we also trying to move away from Bootstrap to [Tailwind CSS](https://tailwindcss.com/).
+Reason for the transition to Tailwind is that it allows us to sync the design tokens defined by the design team with the available CSS utilities, which makes it easier for our implementation to stay true to the design system.
 
 All new CSS work should try to replace all use of Bootstrap and custom classes by applying the correct Tailwind utilities in the HMTL.
 
