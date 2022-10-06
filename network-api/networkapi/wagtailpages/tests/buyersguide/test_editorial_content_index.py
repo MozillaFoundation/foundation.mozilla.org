@@ -1,6 +1,8 @@
 import datetime
 from http import HTTPStatus
 
+from django import test
+from django.core.handlers import wsgi
 from django.utils import timezone
 
 from networkapi.wagtailpages.tests import base as test_base
@@ -23,6 +25,10 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         cls.content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
             parent=cls.pni_homepage,
         )
+
+    def create_request(self) -> wsgi.WSGIRequest:
+        request_factory = test.RequestFactory()
+        return request_factory.get(path=self.content_index.url)
 
     def test_parents(self):
         self.assertAllowedParentPageTypes(
@@ -124,19 +130,18 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         )
 
     def test_featured_cta_in_context(self):
-        self.pni_homepage.call_to_action = buyersguide_factories.BuyersGuideCallToActionFactory()
+        featured_cta = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.pni_homepage.call_to_action = featured_cta
         self.pni_homepage.save()
 
-        response = self.client.get(self.content_index.url)
+        context = self.content_index.get_context(request=self.create_request())
 
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertIsNotNone(response.context['featured_cta'])
+        self.assertEqual(context['featured_cta'], featured_cta)
 
     def test_context_with_no_home_page_cta_set(self):
         self.pni_homepage.call_to_action = None
         self.pni_homepage.save()
 
-        response = self.client.get(self.content_index.url)
+        context = self.content_index.get_context(request=self.create_request())
 
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertIsNone(response.context['featured_cta'])
+        self.assertIsNone(context['featured_cta'])
