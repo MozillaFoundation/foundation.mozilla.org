@@ -4,7 +4,7 @@
 {% block block_content %}
 	<div class="tw-row tw-py-4">
 		{% for block in self.cards %}
-          {% with card=block count=self.cards|length %}
+          {% with card=block %}
             {% image card.image fill-350x197 as img %}
             <div class="tw-px-4 medium:tw-w-1/2 tw-mb-5">
               <div class="card-regular tw-h-full tw-flex tw-flex-col">
