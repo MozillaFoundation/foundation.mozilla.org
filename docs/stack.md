@@ -17,6 +17,7 @@ Reason for the transition to Tailwind is that it allows us to sync the design to
 All new CSS work should try to replace all use of Bootstrap and custom classes by applying the correct Tailwind utilities in the HMTL.
 
 For more complex components, there is also `tailwind-plugins/components.js`.
+We are also using `tailwind-plugins/components.js` to define Tailwind equivalents of Bootstrap classes (e.g. `.container` and `.row`).
 
 ## React
 
