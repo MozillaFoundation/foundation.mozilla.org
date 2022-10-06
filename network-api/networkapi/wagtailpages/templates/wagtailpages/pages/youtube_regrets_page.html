@@ -1,5 +1,5 @@
 {% extends "./youtube_regrets_base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags custom_image_tags i18n static %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags custom_image_tags i18n l10n static %}
 
 {% block body_id %}youtube-regrets{% endblock %}
 
@@ -37,7 +37,7 @@
     </div>
 
     <style>
-      .regret-stories.show-1 .youtube-regret:nth-of-type(n+{% if page.specific.batch_size %}{{ page.specific.batch_size|add:"1" }}{% else %}11{% endif %}) {
+      .regret-stories.show-1 .youtube-regret:nth-of-type(n+{% if page.specific.batch_size %}{{ page.specific.batch_size|add:"1"|unlocalize }}{% else %}11{% endif %}) {
         display: none;
       }
     </style>

@@ -1,5 +1,5 @@
 {% extends "./base_streamfield_block.html" %}
-{% load wagtailcore_tags %}
+{% load l10n wagtailcore_tags %}
 
 {% comment %}
 The iframe_block.html is used on Article pages and Blog pages.
@@ -14,7 +14,7 @@ tw-mx-0
 {% endblock %}
 
 {% block main_block_class %}
-streamfield-content 
+streamfield-content
 {% if value.iframe_width == "full_width" %} full-width
 {% elif value.iframe_width == "wide" %} wide
 {% endif %}
@@ -22,7 +22,7 @@ streamfield-content
 
 {% block block_content %}
 <div class="tw-my-2">
-  <div class="embed-responsive embed-responsive-16by9" {% if value.height %}style="height: {{value.height}}px;"
+  <div class="embed-responsive embed-responsive-16by9" {% if value.height %}style="height: {{ value.height|unlocalize }}px;"
     {% endif %}>
     <iframe src="{{ value.url }}" class="embed-responsive-item" {% if value.disable_scroll %}scrolling="no" style="overflow: hidden;"{% endif %}></iframe>
   </div>

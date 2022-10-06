@@ -1,4 +1,4 @@
-{% load wagtailimages_tags %}
+{% load l10n wagtailimages_tags %}
 
 
 <div class="bg-secondary partner-section tw-dark" style='background-image: url("{% image_url page.partner_background_image "fill-1200x600" %}");'>
@@ -20,10 +20,10 @@
           <div class="partner-section-logo {% if forloop.counter > 4 %}d-none d-md-inline-block{% endif %}">
             {% if orderable.link %}
               <a href="{{ orderable.link }}">
-                <img src="{{ orderable.image_rendition.url }}" width="{{ orderable.width }}" alt="{{ orderable.name }}">
+                <img src="{{ orderable.image_rendition.url }}" width="{{ orderable.width|unlocalize }}" alt="{{ orderable.name }}">
               </a>
             {% else %}
-              <img src="{{ orderable.image_rendition.url }}" width="{{ orderable.width }}" alt="{{ orderable.name }}">
+              <img src="{{ orderable.image_rendition.url }}" width="{{ orderable.width|unlocalize }}" alt="{{ orderable.name }}">
             {% endif %}
           </div>
         {% endfor %}

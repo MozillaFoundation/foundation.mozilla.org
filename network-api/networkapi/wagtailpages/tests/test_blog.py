@@ -225,32 +225,46 @@ class TestBlogIndex(BlogIndexTestCase):
 
 
 class TestBlogIndexTopic(BlogIndexTestCase):
-    def test_topic_route_success(self):
-        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
-        url = (
+    def get_topic_route(self, /, **kwargs):
+        return (
             self.blog_index.get_url()
             + self.blog_index.reverse_subpage(
                 "entries_by_topic",
-                kwargs={'topic': topic.slug},
+                kwargs=kwargs,
             )
         )
+
+    def test_topic_route_success(self):
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
+        url = self.get_topic_route(topic=topic.slug)
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_topic_route_non_existing_topic(self):
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage(
-                "entries_by_topic",
-                kwargs={'topic': 'thisisnotatopic'},
-            )
-        )
+        url = self.get_topic_route(topic='thisisnotatopic')
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(response.url, self.blog_index.get_full_url())
+
+    def test_topic_route_shows_only_entries_of_topic(self):
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
+        topic_blog_page = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            topics=[topic],
+        )
+        other_blog_page = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+        )
+        url = self.get_topic_route(topic=topic.slug)
+
+        response = self.client.get(path=url)
+
+        self.assertIn(topic_blog_page, response.context["entries"])
+        self.assertNotIn(other_blog_page, response.context["entries"])
 
 
 class TestBlogIndexSearch(BlogIndexTestCase):
