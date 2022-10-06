@@ -53,7 +53,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
-    def test_template(self):
+    def test_templates_used(self):
         # Needs to use the client to test the templates
         response = self.client.get(self.content_index.url)
 
@@ -70,7 +70,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             template_name='pages/base.html',
         )
 
-    def test_children_titles_shown(self):
+    def test_serve_shows_children_titles(self):
         children = []
         for _ in range(5):
             children.append(
@@ -83,6 +83,23 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         for child in children:
             self.assertContains(response=response, text=child.title, count=1)
+
+    def test_get_context_featured_cta(self):
+        featured_cta = buyersguide_factories.BuyersGuideCallToActionFactory()
+        self.pni_homepage.call_to_action = featured_cta
+        self.pni_homepage.save()
+
+        context = self.content_index.get_context(request=self.create_request())
+
+        self.assertEqual(context['featured_cta'], featured_cta)
+
+    def test_get_context_no_cta_set_on_homepage(self):
+        self.pni_homepage.call_to_action = None
+        self.pni_homepage.save()
+
+        context = self.content_index.get_context(request=self.create_request())
+
+        self.assertIsNone(context['featured_cta'])
 
     def test_get_items_ordered_by_publication_date(self):
         article_middle = self.create_days_old_article(days=10)
@@ -113,7 +130,6 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         self.assertQuerysetEqual(result, articles[:items_per_page])
 
-
     def test_get_related_articles(self):
         content_index = self.content_index
         article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
@@ -143,19 +159,3 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             [article2, article1, article3],
         )
 
-    def test_featured_cta_in_context(self):
-        featured_cta = buyersguide_factories.BuyersGuideCallToActionFactory()
-        self.pni_homepage.call_to_action = featured_cta
-        self.pni_homepage.save()
-
-        context = self.content_index.get_context(request=self.create_request())
-
-        self.assertEqual(context['featured_cta'], featured_cta)
-
-    def test_context_with_no_home_page_cta_set(self):
-        self.pni_homepage.call_to_action = None
-        self.pni_homepage.save()
-
-        context = self.content_index.get_context(request=self.create_request())
-
-        self.assertIsNone(context['featured_cta'])
