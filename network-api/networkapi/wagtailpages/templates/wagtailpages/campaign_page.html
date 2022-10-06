@@ -16,7 +16,7 @@
       {% if page.specific.narrowed_page_content %}
         tw-w-8/12 tw-mx-auto tw-px-4
       {% elif page.aside %}
-        medium:tw-w-3/4 tw-px-4
+        large:tw-w-3/4 tw-px-4
       {% else %}
         tw-w-full tw-px-4
       {% endif %}"
@@ -92,7 +92,7 @@
       </div>
 
     {% if page.aside %}
-      <div class="medium:tw-w-1/4">
+      <div class="large:tw-w-1/4">
         {% for block in page.aside %}
             {% include_block block with parent_page=page %}
         {% endfor %}
