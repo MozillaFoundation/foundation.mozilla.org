@@ -1,14 +1,10 @@
 {% load wagtailcore_tags %}
 
-<div class="tw-container tw-border-t tw-border-black tw-py-2">
-  <div class="tw-row tw-justify-center {% block block_row_classes%}{% endblock %}">
-    <div class="{% block main_block_class %}streamfield-content{% endblock%} {% block streamfield_content_classes%}{% endblock %}">
-      {% if value.title %}
-        <h3>{{ value.title }}</h3>
-      {% endif %}
-      {% if value.body %}
-        <p>{{ value.body }}</p>
-      {% endif %}
-    </div>
-  </div>
+<div class="tw-border-t tw-border-black tw-py-2">
+    {% if value.title %}
+    <h3>{{ value.title }}</h3>
+    {% endif %}
+    {% if value.body %}
+    <p>{{ value.body }}</p>
+    {% endif %}
 </div>
