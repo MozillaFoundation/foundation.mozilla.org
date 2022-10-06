@@ -48,6 +48,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_template(self):
+        # Needs to use the client to test the templates
         response = self.client.get(self.content_index.url)
 
         self.assertTemplateUsed(
@@ -72,7 +73,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                 )
             )
 
-        response = self.client.get(self.content_index.url)
+        response = self.content_index.serve(request=self.create_request())
 
         for child in children:
             self.assertContains(response=response, text=child.title, count=1)
