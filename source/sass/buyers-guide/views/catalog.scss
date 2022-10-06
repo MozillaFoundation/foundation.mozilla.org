@@ -90,11 +90,7 @@ body {
 
         display: inline-block;
         position: relative;
-        margin-left: $box-margin;
-        margin-right: $box-margin;
-        margin-bottom: $box-margin * 2;
         padding: $padding-y $padding-x;
-        width: calc((100% - #{$row-total-gutter-width}) / #{$items-per-row});
         background: $pni-product-list-background;
 
         .privacy-ding {
