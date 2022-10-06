@@ -92,11 +92,11 @@
       </div>
 
     {% if page.aside %}
-      <div class="tw-w-full large:tw-w-1/4 tw-px-4">
+      <aside class="tw-w-full large:tw-w-1/4 tw-px-4">
         {% for block in page.aside %}
             {% include_block block with parent_page=page %}
         {% endfor %}
-      </div>
+      </aside>
     {% endif %}
 
   </div>
