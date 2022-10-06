@@ -30,6 +30,12 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         request_factory = test.RequestFactory()
         return request_factory.get(path=self.content_index.url)
 
+    def create_days_old_article(self, days: int):
+        return buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index,
+            first_published_at=timezone.now() - datetime.timedelta(days=days),
+        )
+
     def test_parents(self):
         self.assertAllowedParentPageTypes(
             child_model=pagemodels.BuyersGuideEditorialContentIndexPage,
@@ -79,15 +85,9 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             self.assertContains(response=response, text=child.title, count=1)
 
     def test_get_items_ordered_by_publication_date(self):
-        def create_days_old_article(days: int):
-            return buyersguide_factories.BuyersGuideArticlePageFactory(
-                parent=self.content_index,
-                first_published_at=timezone.now() - datetime.timedelta(days=days),
-            )
-
-        article_middle = create_days_old_article(days=10)
-        article_oldest = create_days_old_article(days=20)
-        article_newest = create_days_old_article(days=5)
+        article_middle = self.create_days_old_article(days=10)
+        article_oldest = self.create_days_old_article(days=20)
+        article_newest = self.create_days_old_article(days=5)
 
         result = self.content_index.get_items()
 
@@ -100,6 +100,19 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             ],
             ordered=True,
         )
+
+    def test_get_paginated_items_page_1(self):
+        items_per_page = 3
+        self.content_index.items_per_page = items_per_page
+        articles = []
+        # Create 2 more items then fit on page to check they are not in the page
+        for days_old in range(items_per_page + 2):
+            articles.append(self.create_days_old_article(days_old))
+
+        result = self.content_index.get_paginated_items(page=1)
+
+        self.assertQuerysetEqual(result, articles[:items_per_page])
+
 
     def test_get_related_articles(self):
         content_index = self.content_index
