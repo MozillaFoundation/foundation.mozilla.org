@@ -11,13 +11,17 @@
             <img src="{{ img.url }}" alt="{{ value.alt_text }}">
           </div>
           <div class="feature-content align-self-center">
-            <div class="tw-h6-heading d-md-block mb-2">{{ value.metadata }}</div>
+            {% if value.metadata %}
+              <div class="tw-h6-heading d-md-block mb-2">{{ value.metadata }}</div>
+            {% endif %}
             <h3 class="mb-2 pb-1">
               {% if value.title_link %}<a href="{% pageurl value.title_link %}">{% endif %}
                 {{ value.title }}
               {% if value.title_link %}</a>{% endif %}
             </h3>
-            <p class="d-xl-block">{{ value.body|truncatechars:156 }}</p>
+            {% if value.body %}
+              <p class="d-xl-block">{{ value.body|truncatechars:156 }}</p>
+            {% endif %}
           </div>
       </div>
     </div>
