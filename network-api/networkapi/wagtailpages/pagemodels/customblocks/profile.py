@@ -8,7 +8,7 @@ class ProfileCard(blocks.StructBlock):
 
 
 class ProfileBlock(blocks.StructBlock):
-    profiles = blocks.ListBlock(ProfileCard())
+    profiles = blocks.ListBlock(ProfileCard(), min_num=1)
 
     class Meta:
         icon = 'user'
