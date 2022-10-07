@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING,Iterable, Optional
+from typing import TYPE_CHECKING, Optional
 
 from django.core import paginator
 from django.db import models
@@ -13,7 +13,7 @@ from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 
 
 if TYPE_CHECKING:
-    from networkapi.wagtailpages.models import BuyersGuideArticlePage
+    from networkapi.wagtailpages import models as pagemodels
 
 
 class BuyersGuideEditorialContentIndexPage(
@@ -50,7 +50,7 @@ class BuyersGuideEditorialContentIndexPage(
     def get_paginated_items(
         self,
         page: Optional[int] = None
-    ) -> Iterable[BuyersGuideArticlePage]:
+    ) -> 'paginator.Page[pagemodels.BuyersGuideArticlePage]':
         """Get a page of items to list in the index."""
         items = self.get_items()
         items_paginator = paginator.Paginator(
@@ -59,7 +59,7 @@ class BuyersGuideEditorialContentIndexPage(
         )
         return items_paginator.get_page(page)
 
-    def get_items(self):
+    def get_items(self) -> 'models.QuerySet[pagemodels.BuyersGuideArticlePage]':
         """Get items to list in the index."""
         return (
             self.get_descendants()
@@ -69,7 +69,7 @@ class BuyersGuideEditorialContentIndexPage(
             .specific()
         )
 
-    def get_related_articles(self) -> list['BuyersGuideArticlePage']:
+    def get_related_articles(self) -> list['pagemodels.BuyersGuideArticlePage']:
         return orderables.get_related_items(
             self.related_article_relations.all(),
             'article',

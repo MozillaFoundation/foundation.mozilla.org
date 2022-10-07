@@ -1,14 +1,16 @@
 import datetime
 from http import HTTPStatus
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from django import test
-from django.core.handlers import wsgi
 from django.utils import timezone
 
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
+
+if TYPE_CHECKING:
+    from django.core.handlers import wsgi
 
 
 class BuyersGuideEditorialContentIndexPageFactoryTest(test_base.WagtailpagesTestCase):
@@ -27,7 +29,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             parent=cls.pni_homepage,
         )
 
-    def create_request(self, data: Optional[dict] = None) -> wsgi.WSGIRequest:
+    def create_request(self, data: Optional[dict] = None) -> 'wsgi.WSGIRequest':
         request_factory = test.RequestFactory()
         return request_factory.get(path=self.content_index.url, data=data)
 
