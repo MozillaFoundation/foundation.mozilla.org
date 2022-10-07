@@ -1,5 +1,6 @@
-import typing
+from typing import TYPE_CHECKING,Iterable, Optional
 
+from django.core import paginator
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, MultiFieldPanel
@@ -11,7 +12,7 @@ from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 
 
-if typing.TYPE_CHECKING:
+if TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideArticlePage
 
 
@@ -43,10 +44,23 @@ class BuyersGuideEditorialContentIndexPage(
         context = super().get_context(request, *args, **kwargs)
         context["home_page"] = self.get_parent().specific
         context["featured_cta"] = get_buyersguide_featured_cta(self)
-        context["items"] = self.get_items()[:self.items_per_page]
+        context["items"] = self.get_paginated_items(request.GET.get('page'))
         return context
 
+    def get_paginated_items(
+        self,
+        page: Optional[int] = None
+    ) -> Iterable[BuyersGuideArticlePage]:
+        """Get a page of items to list in the index."""
+        items = self.get_items()
+        items_paginator = paginator.Paginator(
+            object_list=items,
+            per_page=self.items_per_page,
+        )
+        return items_paginator.get_page(page)
+
     def get_items(self):
+        """Get items to list in the index."""
         return (
             self.get_descendants()
             .order_by("-first_published_at")

@@ -112,7 +112,20 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         context = self.content_index.get_context(request=self.create_request())
 
-        self.assertQuerysetEqual(context["items"], articles[:items_per_page])
+        self.assertQuerysetEqual(context['items'], articles[:items_per_page])
+
+    def test_get_context_paginated_items_page_2(self):
+        items_per_page = 3
+        self.content_index.items_per_page = items_per_page
+        articles = []
+        # Create 2 more items then fit on page to check they are not in the page
+        for days_old in range(items_per_page + 2):
+            articles.append(self.create_days_old_article(days_old))
+        request = self.create_request(data={'page': '2'})
+
+        context = self.content_index.get_context(request=request)
+
+        self.assertQuerysetEqual(context['items'], articles[items_per_page:])
 
     def test_get_items_ordered_by_publication_date(self):
         article_middle = self.create_days_old_article(days=10)
