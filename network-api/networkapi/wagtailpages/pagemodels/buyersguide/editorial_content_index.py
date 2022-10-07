@@ -37,11 +37,13 @@ class BuyersGuideEditorialContentIndexPage(
         ),
     ]
 
+    items_per_page: int = 10
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["home_page"] = self.get_parent().specific
         context["featured_cta"] = get_buyersguide_featured_cta(self)
-        context["items"] = self.get_items()
+        context["items"] = self.get_items()[:self.items_per_page]
         return context
 
     def get_items(self):
