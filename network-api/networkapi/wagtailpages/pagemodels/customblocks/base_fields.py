@@ -32,5 +32,6 @@ base_fields = [
     ('airtable', customblocks.AirTableBlock()),
     ('typeform', customblocks.TypeformBlock()),
     ('datawrapper', customblocks.DatawrapperBlock()),
-    ('listing', customblocks.ListingBlock())
+    ('listing', customblocks.ListingBlock()),
+    ('profiles', customblocks.ProfileBlock()),
 ]
