@@ -5,8 +5,7 @@ from wagtail.images.blocks import ImageChooserBlock
 class ImageFeatureBlock(blocks.StructBlock):
     image = ImageChooserBlock()
 
-    altText = blocks.CharBlock(
-        required=True,
+    alt_text = blocks.CharBlock(
         help_text='Image description (for screen readers).'
     )
     metadata = blocks.CharBlock(required=False)
