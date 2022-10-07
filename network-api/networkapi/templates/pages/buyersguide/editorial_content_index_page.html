@@ -1,6 +1,5 @@
 {% extends "pages/buyersguide/base.html" %}
-{% load wagtailcore_tags %}
-{% load wagtailcore_tags wagtailimages_tags localization %}
+{% load static wagtailcore_tags wagtailimages_tags localization %}
 
 
 {% block category_nav %}{% endblock category_nav %}
@@ -49,3 +48,8 @@
     </div>
   </div>
 {% endblock guts %}
+
+{% block extra_scripts %}
+  {{ block.super }}
+  <script src="{% static "_js/bg-editorial-content-index.compiled.js" %}" async defer></script>
+{% endblock extra_scripts %}
