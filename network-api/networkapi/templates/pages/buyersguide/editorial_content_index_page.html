@@ -21,6 +21,9 @@
                 {% include "fragments/buyersguide/editorial_content_list_article_card.html" with page=item %}
               </li>
             {% endfor %}
+            <li class="tw-border-none tw-py-5">
+              {% include "fragments/pagination.html" with page=items %}
+            </li>
           </ul>
         {% endif %}
 
