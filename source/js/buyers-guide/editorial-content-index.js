@@ -1,6 +1,7 @@
+import 'htmx.org'
+
 function main(){
-  console.log('Hello World')
-  switchFromPaginationToLoadMore()
+  htmx.onLoad(() => switchFromPaginationToLoadMore())
 }
 
 function switchFromPaginationToLoadMore(){
