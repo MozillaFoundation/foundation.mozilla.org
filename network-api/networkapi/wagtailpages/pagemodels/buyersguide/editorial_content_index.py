@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING, Optional
 
+from django import shortcuts
 from django.core import paginator
 from django.db import models
 from modelcluster.fields import ParentalKey
@@ -14,6 +15,7 @@ from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 
 
 if TYPE_CHECKING:
+    from django import http
     from networkapi.wagtailpages import models as pagemodels
 
 
@@ -43,8 +45,11 @@ class BuyersGuideEditorialContentIndexPage(
     items_per_page: int = 10
 
     @routable_models.route('items/', name='items')
-    def items_route(self):
-        pass
+    def items_route(self, request: 'http.HttpRequest') -> 'http.HttpResponse':
+        return shortcuts.render(
+            request=request,
+            template_name='fragments/buyersguide/editorial_content_index_items.html',
+        )
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)

@@ -92,6 +92,20 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         self.assertEqual(route, 'items/')
 
+    def test_items_route_template(self):
+        url = self.content_index.url + self.content_index.reverse_subpage('items')
+
+        response = self.client.get(url)
+
+        self.assertTemplateUsed(
+            response=response,
+            template_name='fragments/buyersguide/editorial_content_index_items.html',
+        )
+        self.assertTemplateNotUsed(
+            response=response,
+            template_name='pages/buyersguide/editorial_content_index_page.html',
+        )
+
     def test_get_context_featured_cta(self):
         featured_cta = buyersguide_factories.BuyersGuideCallToActionFactory()
         self.pni_homepage.call_to_action = featured_cta
