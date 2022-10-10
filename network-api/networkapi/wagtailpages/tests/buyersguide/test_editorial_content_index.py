@@ -82,7 +82,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                 )
             )
 
-        response = self.content_index.serve(request=self.create_request())
+        response = self.client.get(path=self.content_index.url)
 
         for child in children:
             self.assertContains(response=response, text=child.title, count=1)
@@ -115,10 +115,8 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                     parent=self.content_index,
                 )
             )
-        request_factory = test.RequestFactory()
-        request = request_factory.get(path=url)
 
-        response = self.content_index.items_route(request=request)
+        response = self.client.get(path=url)
 
         for child in children:
             self.assertContains(response=response, text=child.title, count=1)
