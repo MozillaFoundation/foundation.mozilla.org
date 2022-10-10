@@ -39,6 +39,15 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             first_published_at=timezone.now() - datetime.timedelta(days=days),
         )
 
+    def setup_content_index_with_pages_of_children(self):
+        self.items_per_page = 3
+        self.content_index.items_per_page = self.items_per_page
+        articles = []
+        # Create 2 more items then fit on page to check they are not in the page
+        for days_old in range(self.items_per_page + 2):
+            articles.append(self.create_days_old_article(days_old))
+        return articles
+
     def test_parents(self):
         self.assertAllowedParentPageTypes(
             child_model=pagemodels.BuyersGuideEditorialContentIndexPage,
@@ -139,29 +148,19 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         self.assertIsNone(context['featured_cta'])
 
     def test_get_context_paginated_items_page_1(self):
-        items_per_page = 3
-        self.content_index.items_per_page = items_per_page
-        articles = []
-        # Create 2 more items then fit on page to check they are not in the page
-        for days_old in range(items_per_page + 2):
-            articles.append(self.create_days_old_article(days_old))
+        articles = self.setup_content_index_with_pages_of_children()
 
         context = self.content_index.get_context(request=self.create_request())
 
-        self.assertQuerysetEqual(context['items'], articles[:items_per_page])
+        self.assertQuerysetEqual(context['items'], articles[:self.items_per_page])
 
     def test_get_context_paginated_items_page_2(self):
-        items_per_page = 3
-        self.content_index.items_per_page = items_per_page
-        articles = []
-        # Create 2 more items then fit on page to check they are not in the page
-        for days_old in range(items_per_page + 2):
-            articles.append(self.create_days_old_article(days_old))
+        articles = self.setup_content_index_with_pages_of_children()
         request = self.create_request(data={'page': '2'})
 
         context = self.content_index.get_context(request=request)
 
-        self.assertQuerysetEqual(context['items'], articles[items_per_page:])
+        self.assertQuerysetEqual(context['items'], articles[self.items_per_page:])
 
     def test_get_items_ordered_by_publication_date(self):
         article_middle = self.create_days_old_article(days=10)
