@@ -87,6 +87,11 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         for child in children:
             self.assertContains(response=response, text=child.title, count=1)
 
+    def test_items_route_exists(self):
+        route = self.content_index.reverse_subpage('items')
+
+        self.assertEqual(route, 'items/')
+
     def test_get_context_featured_cta(self):
         featured_cta = buyersguide_factories.BuyersGuideCallToActionFactory()
         self.pni_homepage.call_to_action = featured_cta
@@ -145,7 +150,6 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             ],
             ordered=True,
         )
-
 
     def test_get_related_articles(self):
         content_index = self.content_index

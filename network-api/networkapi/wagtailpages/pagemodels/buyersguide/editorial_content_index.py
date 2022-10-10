@@ -6,8 +6,9 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, MultiFieldPanel
 from wagtail.core import models as wagtail_models
 from wagtail.core.models import Orderable, TranslatableMixin
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import get_buyersguide_featured_cta
+from wagtail.contrib.routable_page import models as routable_models
 
+from networkapi.wagtailpages.pagemodels.buyersguide.utils import get_buyersguide_featured_cta
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 
@@ -18,6 +19,7 @@ if TYPE_CHECKING:
 
 class BuyersGuideEditorialContentIndexPage(
     foundation_metadata.FoundationMetadataPageMixin,
+    routable_models.RoutablePageMixin,
     wagtail_models.Page,
 ):
     parent_page_types = ['wagtailpages.BuyersGuidePage']
@@ -39,6 +41,10 @@ class BuyersGuideEditorialContentIndexPage(
     ]
 
     items_per_page: int = 10
+
+    @routable_models.route('items/', name='items')
+    def items_route(self):
+        pass
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
