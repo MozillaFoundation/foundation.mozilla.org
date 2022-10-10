@@ -46,9 +46,11 @@ class BuyersGuideEditorialContentIndexPage(
 
     @routable_models.route('items/', name='items')
     def items_route(self, request: 'http.HttpRequest') -> 'http.HttpResponse':
+        items = self.get_items()
         return shortcuts.render(
             request=request,
             template_name='fragments/buyersguide/editorial_content_index_items.html',
+            context={'items': items},
         )
 
     def get_context(self, request, *args, **kwargs):

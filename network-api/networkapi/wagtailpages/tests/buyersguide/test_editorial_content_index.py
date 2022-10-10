@@ -106,6 +106,23 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             template_name='pages/buyersguide/editorial_content_index_page.html',
         )
 
+    def test_items_route_shows_children_titles(self):
+        url = self.content_index.url + self.content_index.reverse_subpage('items')
+        children = []
+        for _ in range(5):
+            children.append(
+                buyersguide_factories.BuyersGuideArticlePageFactory(
+                    parent=self.content_index,
+                )
+            )
+        request_factory = test.RequestFactory()
+        request = request_factory.get(path=url)
+
+        response = self.content_index.items_route(request=request)
+
+        for child in children:
+            self.assertContains(response=response, text=child.title, count=1)
+
     def test_get_context_featured_cta(self):
         featured_cta = buyersguide_factories.BuyersGuideCallToActionFactory()
         self.pni_homepage.call_to_action = featured_cta

@@ -1,5 +1,5 @@
 {% extends "pages/buyersguide/base.html" %}
-{% load i18n localization querystring_tag static wagtailcore_tags wagtailimages_tags %}
+{% load i18n localization static wagtailcore_tags wagtailimages_tags %}
 
 {% block category_nav %}{% endblock category_nav %}
 
@@ -12,35 +12,7 @@
 
       {# Index wrapper #}
       <div class="tw-col-span-12 large:tw-col-span-8">
-        {% if items %}
-          <ul id="items-list" class="tw-flex tw-flex-col tw-list-none tw-p-0 tw-divide-y tw-divide-gray-20">
-            {% for item in items %}
-              <li class="tw-m-0 tw-py-5">
-                {% include "fragments/buyersguide/article_card_horizontal.html" with page=item %}
-              </li>
-            {% endfor %}
-
-            <li class="tw-border-none tw-py-5 tw-flex tw-flex-row">
-              <div id="pagination">
-                {% include "fragments/pagination.html" with page=items %}
-              </div>
-
-              {% if items.has_next %}
-                <div id="load-more" class="tw-hidden">
-                  {{ items.next_page_number }}
-                  <button
-                    class="tw-btn-primary"
-                    data-hx-get="{% querystring 'page'=items.next_page_number %}"  {# AJAX GET request to the next page #}
-                    data-hx-select="#items-list"  {# Element in response content to use for the swap. #}
-                    data-hx-target="#items-list"  {# Existing element that is being targeted by the swap  #}
-                    data-hx-swap="innerHTML"  {# How to swap the two elements #}
-
-                  >{% trans "Load more results" %}</button>
-                </div>
-              {% endif %}
-            </li>
-          </ul>
-        {% endif %}
+        {% include "fragments/buyersguide/editorial_content_index_items.html" with items=items %}
 
         {% include "fragments/buyersguide/pni_newsletter_box.html" %}
       </div>
