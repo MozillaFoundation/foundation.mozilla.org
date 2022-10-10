@@ -9,7 +9,7 @@ export default () => {
   const multipageLinks = document.querySelectorAll(`#multipage-nav a`);
 
   if (targetNode && multipageLinks.length) {
-    let activeLinkLabel;
+    let activeLinkLabel = window.gettext("Navigate to...");
 
     let links = Array.from(multipageLinks).map((link) => {
       const [href, isActive] = [
