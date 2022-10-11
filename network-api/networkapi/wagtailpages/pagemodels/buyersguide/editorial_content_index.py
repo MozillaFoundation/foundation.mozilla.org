@@ -59,6 +59,7 @@ class BuyersGuideEditorialContentIndexPage(
             request=request,
             template_name='fragments/buyersguide/editorial_content_index_items.html',
             context={
+                'index_page': self,
                 'items': items,
                 'show_load_more_button_immediately': True,
             },

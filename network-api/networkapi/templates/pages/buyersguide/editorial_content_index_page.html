@@ -12,7 +12,11 @@
 
       {# Index wrapper #}
       <div class="tw-col-span-12 large:tw-col-span-8">
-        {% include "fragments/buyersguide/editorial_content_index_items.html" with items=items %}
+        {% if items %}
+          <ul id="items-list" class="tw-flex tw-flex-col tw-list-none tw-p-0 tw-divide-y tw-divide-gray-20">
+            {% include "fragments/buyersguide/editorial_content_index_items.html" with index_page=page items=items %}
+          </ul>
+        {% endif %}
 
         {% include "fragments/buyersguide/pni_newsletter_box.html" %}
       </div>
