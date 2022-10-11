@@ -32,9 +32,10 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             parent=cls.pni_homepage,
         )
 
+        cls.request_factory = test.RequestFactory()
+
     def create_request(self, data: Optional[dict] = None) -> 'wsgi.WSGIRequest':
-        request_factory = test.RequestFactory()
-        return request_factory.get(path=self.content_index.url, data=data)
+        return self.request_factory.get(path=self.content_index.url, data=data)
 
     def create_days_old_article(self, days: int):
         return buyersguide_factories.BuyersGuideArticlePageFactory(
@@ -132,7 +133,10 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
             response = self.client.get(self.content_index.url, data={'page': 2})
 
-            self.assertQuerysetEqual(response.context['items'], articles[:self.items_per_page])
+            self.assertQuerysetEqual(
+                response.context['items'],
+                articles[self.items_per_page:],
+            )
 
     def test_items_route_exists(self):
         route = self.content_index.reverse_subpage('items')
