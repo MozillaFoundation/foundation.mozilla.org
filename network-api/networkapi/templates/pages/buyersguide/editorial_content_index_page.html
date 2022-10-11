@@ -33,8 +33,8 @@
             {# Mobile aside #}
             {% with cta=featured_cta related_articles=page.get_related_articles %}
               {% if cta or related_articles %}
-                <li id="mobile-aside">
-                  <aside class="tw-flex large:tw-hidden tw-flex-col medium:tw-flex-row tw-gap-6 tw-py-5">
+                <li id="mobile-aside" class="large:tw-hidden">
+                  <aside class="tw-flex tw-flex-col medium:tw-flex-row tw-gap-6 tw-py-5">
                     {% if cta %}
                       <div class="tw-basis-1/2">
                         {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
