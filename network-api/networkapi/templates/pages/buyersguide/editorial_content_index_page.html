@@ -13,7 +13,29 @@
       {# Index wrapper #}
       <div class="tw-col-span-12 large:tw-col-span-8">
         {% if items %}
-          <ul id="items-list" class="tw-flex tw-flex-col tw-list-none tw-p-0 tw-divide-y tw-divide-gray-20">
+          <ul id="items-list" class="tw-flex tw-flex-col tw-list-none tw-p-0 tw-divide-y tw-divide-gray-20 [&>li]:tw-m-0 [&>li]:tw-py-5">
+            {# Mobile aside #}
+            <li>
+              <aside class="tw-flex large:tw-hidden tw-flex-col medium:tw-flex-row tw-gap-6">
+                {% with cta=featured_cta %}
+                  {% if cta %}
+                    <div class="tw-basis-1/2">
+                      {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
+                    </div>
+                  {% endif %}
+                {% endwith %}
+
+                {% with related_articles=page.get_related_articles  %}
+                  {% if related_articles %}
+                    <div class="tw-basis-1/2">
+                      {% trans "Popular" as heading %}
+                      {% include "fragments/buyersguide/related_reading.html" with articles=related_articles heading=heading %}
+                    </div>
+                  {% endif %}
+                {% endwith %}
+              </aside>
+            </li>
+
             {% include "fragments/buyersguide/editorial_content_index_items.html" with index_page=page items=items %}
           </ul>
         {% endif %}
@@ -22,7 +44,7 @@
       </div>
 
       {# Desktop aside #}
-      <aside class="tw-hidden large:tw-block tw-col-span-4">
+      <aside class="tw-hidden large:tw-flex tw-col-span-4 tw-flex-col tw-gap-6">
         {% with cta=featured_cta %}
           {% if cta %}
             {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
@@ -31,10 +53,8 @@
 
         {% with related_articles=page.get_related_articles  %}
           {% if related_articles %}
-            <div class="tw-mt-7">
-              {% trans "Popular" as heading %}
-              {% include "fragments/buyersguide/related_reading.html" with articles=related_articles heading=heading %}
-            </div>
+            {% trans "Popular" as heading %}
+            {% include "fragments/buyersguide/related_reading.html" with articles=related_articles heading=heading %}
           {% endif %}
         {% endwith %}
       </aside>
