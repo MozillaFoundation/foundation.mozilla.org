@@ -172,6 +172,28 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         for child in children:
             self.assertContains(response=response, text=child.title, count=1)
 
+    def test_items_route_paginated_items_page_1(self):
+        with self.setup_content_index_with_pages_of_children() as articles:
+            url = self.content_index.url + self.content_index.reverse_subpage('items')
+
+            response = self.client.get(url)
+
+            self.assertQuerysetEqual(
+                response.context['items'],
+                articles[:self.items_per_page],
+            )
+
+    def test_items_route_paginated_items_page_2(self):
+        with self.setup_content_index_with_pages_of_children() as articles:
+            url = self.content_index.url + self.content_index.reverse_subpage('items')
+
+            response = self.client.get(url, data={'page': 2})
+
+            self.assertQuerysetEqual(
+                response.context['items'],
+                articles[self.items_per_page:],
+            )
+
     def test_get_context_featured_cta(self):
         featured_cta = buyersguide_factories.BuyersGuideCallToActionFactory()
         self.pni_homepage.call_to_action = featured_cta
