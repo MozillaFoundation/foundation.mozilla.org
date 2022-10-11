@@ -4,6 +4,7 @@ from http import HTTPStatus
 from typing import TYPE_CHECKING, Optional
 from unittest import mock
 
+import bs4
 from django import test
 from django.utils import timezone
 
@@ -156,6 +157,20 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             response=response,
             template_name='pages/buyersguide/editorial_content_index_page.html',
         )
+
+    def test_items_route_show_load_more_button_immediately(self):
+        with self.setup_content_index_with_pages_of_children():
+            url = self.content_index.url + self.content_index.reverse_subpage('items')
+
+            response = self.client.get(url)
+
+            self.assertTrue(response.context['show_load_more_button_immediately'])
+            soup = bs4.BeautifulSoup(response.content, 'html.parser')
+            # No pagination element in markup
+            self.assertEqual(soup.find_all(id='pagination'), [])
+            # But the load more element
+            self.assertNotEqual(soup.find_all(id='load-more'), [])
+
 
     def test_items_route_shows_children_titles(self):
         url = self.content_index.url + self.content_index.reverse_subpage('items')

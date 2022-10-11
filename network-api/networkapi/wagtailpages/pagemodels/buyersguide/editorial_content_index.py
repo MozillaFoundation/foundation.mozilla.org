@@ -46,11 +46,22 @@ class BuyersGuideEditorialContentIndexPage(
 
     @routable_models.route('items/', name='items')
     def items_route(self, request: 'http.HttpRequest') -> 'http.HttpResponse':
+        '''
+        Route to return only the content index items.
+
+        This route does not return a full page, but only an HTML fragment of list items
+        that is meant to be requested with AJAX and used to extend an existing list of
+        items.
+
+        '''
         items = self.get_paginated_items(page=request.GET.get('page'))
         return shortcuts.render(
             request=request,
             template_name='fragments/buyersguide/editorial_content_index_items.html',
-            context={'items': items},
+            context={
+                'items': items,
+                'show_load_more_button_immediately': True,
+            },
         )
 
     def get_context(self, request, *args, **kwargs):
