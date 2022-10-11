@@ -71,6 +71,9 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                 articles.append(self.create_days_old_article(days_old))
             yield articles
 
+    def get_items_route_url(self):
+        return self.content_index.url + self.content_index.reverse_subpage('items')
+
     def test_parents(self):
         self.assertAllowedParentPageTypes(
             child_model=pagemodels.BuyersGuideEditorialContentIndexPage,
@@ -145,7 +148,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         self.assertEqual(route, 'items/')
 
     def test_items_route_template(self):
-        url = self.content_index.url + self.content_index.reverse_subpage('items')
+        url = self.get_items_route_url()
 
         response = self.client.get(url)
 
@@ -160,7 +163,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     def test_items_route_show_load_more_button_immediately(self):
         with self.setup_content_index_with_pages_of_children():
-            url = self.content_index.url + self.content_index.reverse_subpage('items')
+            url = self.get_items_route_url()
 
             response = self.client.get(url)
 
@@ -173,7 +176,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
 
     def test_items_route_shows_children_titles(self):
-        url = self.content_index.url + self.content_index.reverse_subpage('items')
+        url = self.get_items_route_url()
         children = []
         for _ in range(5):
             children.append(
@@ -189,7 +192,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     def test_items_route_paginated_items_page_1(self):
         with self.setup_content_index_with_pages_of_children() as articles:
-            url = self.content_index.url + self.content_index.reverse_subpage('items')
+            url = self.get_items_route_url()
 
             response = self.client.get(url)
 
@@ -200,7 +203,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     def test_items_route_paginated_items_page_2(self):
         with self.setup_content_index_with_pages_of_children() as articles:
-            url = self.content_index.url + self.content_index.reverse_subpage('items')
+            url = self.get_items_route_url()
 
             response = self.client.get(url, data={'page': 2})
 
