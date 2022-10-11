@@ -21,8 +21,8 @@
         {% include "fragments/buyersguide/pni_newsletter_box.html" %}
       </div>
 
-      {# Aside #}
-      <aside class="tw-col-span-12 large:tw-col-span-4">
+      {# Desktop aside #}
+      <aside class="tw-hidden large:tw-block tw-col-span-4">
         {% with cta=featured_cta %}
           {% if cta %}
             {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
