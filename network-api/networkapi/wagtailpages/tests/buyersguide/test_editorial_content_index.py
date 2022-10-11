@@ -174,7 +174,6 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             # But the load more element
             self.assertNotEqual(soup.find_all(id='load-more'), [])
 
-
     def test_items_route_shows_children_titles(self):
         url = self.get_items_route_url()
         children = []
@@ -295,4 +294,3 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             related_articles,
             [article2, article1, article3],
         )
-

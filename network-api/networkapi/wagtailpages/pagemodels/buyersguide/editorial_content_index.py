@@ -54,8 +54,6 @@ class BuyersGuideEditorialContentIndexPage(
         items.
 
         '''
-        import time
-        time.sleep(5)
         items = self.get_paginated_items(page=request.GET.get('page'))
         return shortcuts.render(
             request=request,
