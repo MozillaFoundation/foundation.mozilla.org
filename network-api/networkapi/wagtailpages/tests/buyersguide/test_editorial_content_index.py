@@ -1,6 +1,8 @@
+import contextlib
 import datetime
 from http import HTTPStatus
 from typing import TYPE_CHECKING, Optional
+from unittest import mock
 
 from django import test
 from django.utils import timezone
@@ -22,6 +24,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
+
         cls.pni_homepage = buyersguide_factories.BuyersGuidePageFactory(
             parent=cls.homepage,
         )
@@ -39,14 +42,32 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             first_published_at=timezone.now() - datetime.timedelta(days=days),
         )
 
+    @contextlib.contextmanager
     def setup_content_index_with_pages_of_children(self):
+        """
+        Context manager setting up the content index with child pages.
+
+        This is implemented as a context manager to allow us to mock / override the
+        `items_per_page` attribute on the content index regardless of how often the
+        page instance is created. This is important for integration tests with the
+        Django test client, because the instance of the content index you set up with
+        the factory is not the same that the client is hitting. A new instance is
+        instantiated with the data from the datbase. Since `items_per_page` is not
+        saved in the database it would be different on that instance. Mocking allows
+        us to set a value we want to use for the test.
+
+        Use this is in a with statement. The generated child pages are bound to the
+        name after `as`.
+
+        """
         self.items_per_page = 3
-        self.content_index.items_per_page = self.items_per_page
-        articles = []
-        # Create 2 more items then fit on page to check they are not in the page
-        for days_old in range(self.items_per_page + 2):
-            articles.append(self.create_days_old_article(days_old))
-        return articles
+        with mock.patch('networkapi.wagtailpages.models.BuyersGuideEditorialContentIndexPage.items_per_page', 3):
+            self.content_index.items_per_page = self.items_per_page
+            articles = []
+            # Create 2 more items then fit on page to check they are not in the page
+            for days_old in range(self.items_per_page + 2):
+                articles.append(self.create_days_old_article(days_old))
+            yield articles
 
     def test_parents(self):
         self.assertAllowedParentPageTypes(
@@ -95,6 +116,23 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         for child in children:
             self.assertContains(response=response, text=child.title, count=1)
+
+    def test_serve_paginated_items_page_1(self):
+        with self.setup_content_index_with_pages_of_children() as articles:
+
+            response = self.client.get(self.content_index.url)
+
+            self.assertQuerysetEqual(
+                response.context['items'],
+                articles[:self.items_per_page],
+            )
+
+    def test_serve_paginated_items_page_2(self):
+        with self.setup_content_index_with_pages_of_children() as articles:
+
+            response = self.client.get(self.content_index.url, data={'page': 2})
+
+            self.assertQuerysetEqual(response.context['items'], articles[:self.items_per_page])
 
     def test_items_route_exists(self):
         route = self.content_index.reverse_subpage('items')
@@ -148,19 +186,19 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         self.assertIsNone(context['featured_cta'])
 
     def test_get_context_paginated_items_page_1(self):
-        articles = self.setup_content_index_with_pages_of_children()
+        with self.setup_content_index_with_pages_of_children() as articles:
 
-        context = self.content_index.get_context(request=self.create_request())
+            context = self.content_index.get_context(request=self.create_request())
 
-        self.assertQuerysetEqual(context['items'], articles[:self.items_per_page])
+            self.assertQuerysetEqual(context['items'], articles[:self.items_per_page])
 
     def test_get_context_paginated_items_page_2(self):
-        articles = self.setup_content_index_with_pages_of_children()
-        request = self.create_request(data={'page': '2'})
+        with self.setup_content_index_with_pages_of_children() as articles:
+            request = self.create_request(data={'page': '2'})
 
-        context = self.content_index.get_context(request=request)
+            context = self.content_index.get_context(request=request)
 
-        self.assertQuerysetEqual(context['items'], articles[self.items_per_page:])
+            self.assertQuerysetEqual(context['items'], articles[self.items_per_page:])
 
     def test_get_items_ordered_by_publication_date(self):
         article_middle = self.create_days_old_article(days=10)
