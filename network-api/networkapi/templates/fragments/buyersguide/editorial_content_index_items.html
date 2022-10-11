@@ -8,13 +8,13 @@
 
 <li id="index-navigation" class="tw-border-none tw-py-5 tw-flex tw-flex-row">
   {% if not show_load_more_button_immediately %}
-    <div id="pagination">
+    <nav id="pagination">
       {% include "fragments/pagination.html" with page=items %}
-    </div>
+    </nav>
   {% endif %}
 
   {% if items.has_next %}
-    <div id="load-more" {% if not show_load_more_button_immediately %}class="tw-hidden"{% endif %}>
+    <nav id="load-more" {% if not show_load_more_button_immediately %}class="tw-hidden"{% endif %}>
       <button
         class="tw-btn-primary"
 
@@ -27,6 +27,6 @@
         data-hx-target="#index-navigation"
         data-hx-swap="outerHTML"
         >{% trans "Load more results" %}</button>
-    </div>
+    </nav>
   {% endif %}
 </li>
