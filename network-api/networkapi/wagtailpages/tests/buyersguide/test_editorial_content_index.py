@@ -200,6 +200,9 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                 response.context['items'],
                 articles[:self.items_per_page],
             )
+            # There are more page so there should be a load more button
+            soup = bs4.BeautifulSoup(response.content, 'html.parser')
+            self.assertNotEqual(soup.find_all(id='load-more'), [])
 
     def test_items_route_paginated_items_page_2(self):
         with self.setup_content_index_with_pages_of_children() as articles:
@@ -211,6 +214,9 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                 response.context['items'],
                 articles[self.items_per_page:],
             )
+            # There are no more page so there should not be a load more button
+            soup = bs4.BeautifulSoup(response.content, 'html.parser')
+            self.assertEqual(soup.find_all(id='load-more'), [])
 
     def test_get_context_featured_cta(self):
         featured_cta = buyersguide_factories.BuyersGuideCallToActionFactory()
