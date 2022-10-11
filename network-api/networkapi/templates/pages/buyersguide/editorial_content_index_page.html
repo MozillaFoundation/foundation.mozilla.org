@@ -8,7 +8,7 @@
     <h1>{{ page.title }}</h1>
 
     {# Content wrapper #}
-    <div class="tw-grid tw-grid-cols-12 large:tw-gap-x-4">
+    <div class="tw-grid tw-grid-cols-12 large:tw-gap-x-6">
 
       {# Index wrapper #}
       <div class="tw-col-span-12 large:tw-col-span-8">
@@ -31,7 +31,7 @@
 
         {% with related_articles=page.get_related_articles  %}
           {% if related_articles %}
-            <div class="tw-m-4">
+            <div class="tw-mt-7">
               {% include "fragments/buyersguide/related_reading.html" with articles=related_articles %}
             </div>
           {% endif %}
