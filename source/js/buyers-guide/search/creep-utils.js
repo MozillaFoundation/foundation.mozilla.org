@@ -18,8 +18,24 @@ export class CreepUtils {
     const container = document.querySelector(`.product-box-list`);
     const list = [...container.querySelectorAll(`.product-box`)];
     const creepVal = (e) => parseFloat(e.dataset.creepiness);
-    list
-      .sort((a, b) => creepVal(a) - creepVal(b))
-      .forEach((p) => container.append(p));
+    const alphaSort = (e) => e.querySelector(".product-name").innerText;
+    switch (history.state?.sort) {
+      case "ALPHA":
+        list
+          .sort((a, b) => alphaSort(a).localeCompare(alphaSort(b)))
+          .forEach((p) => container.append(p));
+        break;
+      case "DESCENDING":
+        list
+          .sort((a, b) => creepVal(b) - creepVal(a))
+          .forEach((p) => container.append(p));
+        break;
+      case "ASCENDING":
+      default:
+        list
+          .sort((a, b) => creepVal(a) - creepVal(b))
+          .forEach((p) => container.append(p));
+        break;
+    }
   }
 }

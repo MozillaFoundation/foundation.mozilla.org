@@ -295,4 +295,12 @@ export class SearchFilter {
       }
     }
   }
+
+  updateSort(value) {
+    gsap.set("figure.product-box", { opacity: 1, y: 0 });
+    const state = { ...history.state, sort: value };
+    const title = Utils.getTitle(this.categoryTitle.value.trim());
+    history.replaceState(state, title, location.href);
+    CreepUtils.sortOnCreepiness();
+  }
 }

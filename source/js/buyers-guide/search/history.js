@@ -55,6 +55,7 @@ export function performInitialHistoryReplace(
       parent: parentTitle.value.trim(),
       search: history.state?.search ?? "",
       filter: history.state?.filter,
+      sort: "ALPHA",
     },
     Utils.getTitle(categoryTitle.value.trim()),
     location.href
@@ -83,6 +84,7 @@ export function performInitialHistoryReplace(
         parent: parentTitle.value.trim(),
         search: searchParameter ?? "",
         filter: history.state?.filter,
+        sort: history.state?.sort,
       },
       Utils.getTitle(categoryTitle.value.trim()),
       location.href
@@ -115,6 +117,8 @@ export function performInitialHistoryReplace(
         inline: "start",
       });
   }
+
+  CreepUtils.sortOnCreepiness();
 }
 
 /**
