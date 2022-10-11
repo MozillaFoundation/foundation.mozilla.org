@@ -4,7 +4,7 @@ from django import shortcuts
 from django.core import paginator
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
 from wagtail.core import models as wagtail_models
 from wagtail.core.models import Orderable, TranslatableMixin
 from wagtail.contrib.routable_page import models as routable_models
@@ -29,16 +29,11 @@ class BuyersGuideEditorialContentIndexPage(
     template = 'pages/buyersguide/editorial_content_index_page.html'
 
     content_panels = wagtail_models.Page.content_panels + [
-        MultiFieldPanel(
-            [
-                InlinePanel(
-                    'related_article_relations',
-                    heading='Related articles',
-                    label='Article',
-                    max_num=3,
-                ),
-            ],
-            heading='Related Articles',
+        InlinePanel(
+            'related_article_relations',
+            heading='Popular articles',
+            label='Article',
+            max_num=3,
         ),
     ]
 
