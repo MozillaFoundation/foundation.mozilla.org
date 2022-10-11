@@ -32,7 +32,8 @@
         {% with related_articles=page.get_related_articles  %}
           {% if related_articles %}
             <div class="tw-mt-7">
-              {% include "fragments/buyersguide/related_reading.html" with articles=related_articles %}
+              {% trans "Popular" as heading %}
+              {% include "fragments/buyersguide/related_reading.html" with articles=related_articles heading=heading %}
             </div>
           {% endif %}
         {% endwith %}
