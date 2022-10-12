@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n l10n %}
 
 <div class="text-center mb-5 d-none">
   <button id="load-more-regrets" class="tw-btn-secondary">{% trans "Load more stories" %}</button>
@@ -15,8 +15,8 @@
     const stories = document.querySelector(`.regret-stories`);
     const regrets = stories.querySelectorAll(`.youtube-regret`);
     const btn = document.getElementById(`load-more-regrets`);
-    const batchSize = {% if page.specific.batch_size %}{{ page.specific.batch_size }}{% else %}10{% endif %};
-    const maxBatch = {% if page.specific.max_batch_size %}{{ page.specific.max_batch_size }}{% else %}3{% endif %};
+    const batchSize = {% if page.specific.batch_size %}{{ page.specific.batch_size|unlocalize }}{% else %}10{% endif %};
+    const maxBatch = {% if page.specific.max_batch_size %}{{ page.specific.max_batch_size|unlocalize }}{% else %}3{% endif %};
 
     const style = document.createElement(`style`);
     for (let i=1; i<=maxBatch; i++) {

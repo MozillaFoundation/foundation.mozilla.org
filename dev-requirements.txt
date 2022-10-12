@@ -30,7 +30,7 @@ cryptography==36.0.1
     #   -c requirements.txt
     #   pyopenssl
     #   urllib3
-django==3.2.13
+django==3.2.16
     # via
     #   -c requirements.txt
     #   django-debug-toolbar

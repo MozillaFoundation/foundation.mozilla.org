@@ -1,5 +1,5 @@
 {% extends "./campaign_page.html" %}
-{% load wagtailcore_tags mini_site_tags i18n %}
+{% load wagtailcore_tags mini_site_tags i18n l10n %}
 
 {% block body_id %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
 
@@ -63,7 +63,7 @@ An extra check has been added so as to not show the fixed "Take action" button o
           {% if page.signup %}
             <div
               class="join-us mb-5"
-              data-signup-id="{{ page.signup.id }}"
+              data-signup-id="{{ page.signup.id|unlocalize }}"
               data-cta-header="{{ page.signup.header | escape }}"
               data-cta-description="{{ page.signup.description | escape }}"
               data-newsletter="{{ page.signup.newsletter }}"

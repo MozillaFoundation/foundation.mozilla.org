@@ -1,6 +1,6 @@
 {% extends "partials/footer.html" %}
 
-{% load i18n static %}
+{% load i18n l10n static %}
 
 {% block footer_donate %}
   <!-- nothing right now -->
@@ -12,7 +12,7 @@
       class="join-us"
       data-form-position="footer"
       data-button-position="side"
-      data-signup-id="{{ mozfest_footer.id }}"
+      data-signup-id="{{ mozfest_footer.id|unlocalize }}"
       data-cta-header="{{ mozfest_footer.localized.header | escape }}"
       data-cta-description="{{ mozfest_footer.localized.description | escape }}"
       data-newsletter="{{ mozfest_footer.newsletter }}">

@@ -10,15 +10,18 @@
 {% block subcontent %}
 <div class="tw-container">
   <div class="tw-row">
-    <div class="
+
+      <div class="
       {% block content_wrapper_class %}tw-py-5 medium:tw-py-7{% endblock %}
-      {% if page.specific.narrowed_page_content %}
-        tw-w-8/12 tw-mx-auto tw-px-4
+      {% if page.specific.narrowed_page_content and not page.aside %}
+        tw-w-3/14 tw-mx-auto tw-px-4
+      {% elif page.aside %}
+        tw-w-full large:tw-w-3/4 tw-px-4
       {% else %}
         tw-w-full tw-px-4
       {% endif %}"
-    >
-      <div class="tw-row">
+      >
+        <div class="tw-row">
           <div class="cms tw-pb-4
             {% if page.cta and page.specific.narrowed_page_content == False %}
               large:tw-w-7/12 tw-px-4
@@ -85,8 +88,17 @@
             {% endif %}"
           >
           </div>
+        </div>
       </div>
-    </div>
+
+    {% if page.aside %}
+      <aside class="tw-w-full large:tw-w-1/4 tw-px-4">
+        {% for block in page.aside %}
+            {% include_block block with parent_page=page %}
+        {% endfor %}
+      </aside>
+    {% endif %}
+
   </div>
 </div>
 {% endblock %}
