@@ -29,7 +29,7 @@ The main workflow of `htmx` is the following:
 2. Django renders a template in response to the AJAX request and sends the HTML back,
 3. `htmx` injects the HTML response into the DOM.
 
-This workflow fits particularly nice into a Django project like this, because most of this can be configured with a new HTML attributes.
+This workflow fits particularly nice into a Django project like this, because most of this can be configured with a few HTML attributes.
 
 For more information see the [`htmx` docs](https://htmx.org/docs/).
 
