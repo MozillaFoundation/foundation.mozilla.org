@@ -41,6 +41,8 @@ Opening a PR activates different services:
 
 ### Review Apps
 
+**REVIEW APPS ARE CURRENTLY NOT WORKING**
+
 #### Review App for PRs
 
 Opening a PR will automatically create a Review App in the `foundation-site` pipeline. A slack bot posts credentials and links to Review Apps in to the `mofo-ra-foundation` Slack channel.
