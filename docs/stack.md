@@ -15,6 +15,10 @@ We are using custom [Sass](http://sass-lang.com/), mixed with the mofo-bootstrap
 Reason for the transition to Tailwind is that it allows us to sync the design tokens defined by the design team with the available CSS utilities, which makes it easier for our implementation to stay true to the design system.
 The following epic should give a better picture as to where we stand in this transition: https://app.zenhub.com/workspaces/mofo-engagement-585335eab729771d0736378d/issues/mozilla/foundation.mozilla.org/6989
 
+We are utilizing the [Tailwind configuration file (`tailwind.config.js`)](https://tailwindcss.com/docs/configuration) to override some of the Tailwind's default design system options with our own.
+For example, we define our own screen breakpoints, sizing scale and colors.
+See the config file directly for more details.
+
 All new CSS work should try to replace all use of Bootstrap and custom classes by applying the correct Tailwind utilities in the HMTL.
 
 For more complex components, there is also `tailwind-plugins/components.js`.
