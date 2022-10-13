@@ -1,12 +1,12 @@
 {% load i18n querystring_tag wagtailroutablepage_tags %}
 
 {% for item in items %}
-  <li class="tw-m-0 tw-py-5">
+  <li>
     {% include "fragments/buyersguide/article_card_horizontal.html" with page=item %}
   </li>
 {% endfor %}
 
-<li id="index-navigation" class="tw-border-none tw-py-5 tw-flex tw-flex-row">
+<li id="index-navigation" class="tw-border-none tw-flex tw-flex-row">
   {% if not show_load_more_button_immediately %}
     <nav id="pagination">
       {% include "fragments/pagination.html" with page=items %}
