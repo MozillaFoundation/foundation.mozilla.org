@@ -32,27 +32,46 @@ command="$1"
 
 # Read path to local string repository from .env file
 L10N_REPO=$(grep LOCAL_PATH_TO_L10N_REPO .env | cut -d '=' -f2)
+L10N_REPO+="foundation/translations/"
+CODE_REPO="network-api/"
+
+FOLDERS=(
+  "locale/"
+  "networkapi/templates/pages/buyersguide/about/locale/"
+  "networkapi/wagtailpages/templates/wagtailpages/pages/locale/"
+  "networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale/"
+  "networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale/"
+  "networkapi/mozfest/locale/"
+)
+
+# Array of locale codes in ab-CD format that need to be converted into ab_CD for Django
+LOCALES=(
+  "fy-NL"
+  "pt-BR"
+)
 
 case $command in
   "import")
     echogreen "Importing latest translation files from fomo-l10n repository"
-    cp -r "${L10N_REPO}foundation/translations/locale/" "network-api/locale/"
-    cp -r "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/buyersguide/locale/" "network-api/networkapi/wagtailpages/templates/buyersguide/locale/"
-    cp -r "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/about/locale/" "network-api/networkapi/wagtailpages/templates/about/locale/"
-    cp -r "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/wagtailpages/pages/locale/" "network-api/networkapi/wagtailpages/templates/wagtailpages/pages/locale/"
-    cp -r "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale/" "network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale/"
-    cp -r "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale/" "network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale/"
-    cp -r "${L10N_REPO}foundation/translations/networkapi/mozfest/locale/" "network-api/networkapi/mozfest/locale/"
+    for FOLDER in "${FOLDERS[@]}"; do
+      cp -r "${L10N_REPO}${FOLDER}" "${CODE_REPO}${FOLDER}"
+
+      # Django >=3.2 stopped processing locale codes containing hyphens, we need to move the files between the two folders
+      for HYPHEN_LOCALE in "${LOCALES[@]}"; do
+        cp -r "${L10N_REPO}${FOLDER}${HYPHEN_LOCALE}/" "${CODE_REPO}${FOLDER}${HYPHEN_LOCALE//-/_}/"
+      done
+    done
 esac
 
 case $command in
   "export")
     echogreen "Exporting generated translation files to fomo-l10n repository"
-    cp -r "network-api/locale/" "${L10N_REPO}foundation/translations/locale/"
-    cp -r "network-api/networkapi/wagtailpages/templates/buyersguide/locale/" "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/buyersguide/locale/"
-    cp -r "network-api/networkapi/wagtailpages/templates/about/locale/" "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/about/locale/"
-    cp -r "network-api/networkapi/wagtailpages/templates/wagtailpages/pages/locale/" "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/wagtailpages/pages/locale/"
-    cp -r "network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale/" "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale/"
-    cp -r "network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale/" "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale/"
-    cp -r "network-api/networkapi/mozfest/locale/" "${L10N_REPO}foundation/translations/networkapi/mozfest/locale/"
+    for FOLDER in "${FOLDERS[@]}"; do
+      cp -r "${CODE_REPO}${FOLDER}" "${L10N_REPO}${FOLDER}"
+
+      # Django >=3.2 stopped processing locale codes containing hyphens, we need to move the files between the two folders
+      for HYPHEN_LOCALE in "${LOCALES[@]}"; do
+        cp -r "${CODE_REPO}${FOLDER}${HYPHEN_LOCALE//-/_}/" "${L10N_REPO}${FOLDER}${HYPHEN_LOCALE}/"
+      done
+    done
 esac

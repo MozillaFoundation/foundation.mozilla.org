@@ -18,6 +18,21 @@ React is used _à la carte_ for isolated component instances (eg: a tab switcher
 
 To add a React component, you can target a container element from `/source/js/main.js` and inject it.
 
+### HTMX
+
+We have added the [`htmx.org`](https://htmx.org) javascript library to the project.
+`htmx` allows us to combine server rendered HTML (as we have with Django templates) with dynamic updates on the frontend.
+
+The main workflow of `htmx` is the following:
+
+1. A trigger (e.g. button click) leads to an AJAX request to the backend (Django),
+2. Django renders a template in response to the AJAX request and sends the HTML back,
+3. `htmx` injects the HTML response into the DOM.
+
+This workflow fits particularly nice into a Django project like this, because most of this can be configured with a few HTML attributes.
+
+For more information see the [`htmx` docs](https://htmx.org/docs/).
+
 ### Django and Wagtail
 
 Django powers the backend of the site, and we use Wagtail with Django to provide CMS features and functionality.

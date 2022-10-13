@@ -58,8 +58,16 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         saved in the database it would be different on that instance. Mocking allows
         us to set a value we want to use for the test.
 
-        Use this is in a with statement. The generated child pages are bound to the
-        name after `as`.
+        Use this method as a context manager in a `with` statement. The generated child
+        pages are bound to the name after `as`. Example usage:
+
+        ```
+        with self.setup_content_index_with_pages_of_children() as children:
+            ...
+        ```
+
+        Within that `with` block, the `items_per_page` on the context index page are
+        set to 3 and the generated child pages are available as `children`.
 
         """
         self.items_per_page = 3

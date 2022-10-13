@@ -90,11 +90,7 @@ body {
 
         display: inline-block;
         position: relative;
-        margin-left: $box-margin;
-        margin-right: $box-margin;
-        margin-bottom: $box-margin * 2;
         padding: $padding-y $padding-x;
-        width: calc((100% - #{$row-total-gutter-width}) / #{$items-per-row});
         background: $pni-product-list-background;
 
         .privacy-ding {
@@ -206,12 +202,12 @@ body {
     );
 
     &.creep-o-meter-moved {
-      height: 80px;
+      height: 0px;
       margin-bottom: 0;
-      margin-top: 1rem;
+      margin-top: 0rem;
 
       @media (max-width: $bp-md) {
-        height: 16px;
+        height: 0px;
         padding-bottom: 0;
         #product-filter-pni {
           top: calc(var(--mobile-creep-offset));
