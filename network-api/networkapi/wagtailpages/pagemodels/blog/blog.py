@@ -201,7 +201,16 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         ),
     ]
 
-    promote_panels = FoundationMetadataPageMixin.promote_panels + [
+    promote_panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel('slug'),
+                FieldPanel('seo_title'),
+                FieldPanel('search_description'),
+                ImageChooserPanel('search_image'),
+            ],
+            heading='Common page configuration'
+        ),
         FieldPanel('tags'),
     ]
 
@@ -339,7 +348,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             raise ValidationError({
                 'hero_image': ValidationError("Please select a video OR an image for the hero section."),
                 'hero_video': ValidationError("Please select a video OR an image for the hero section.")
-                })
+            })
 
         # Ensure that we've tried to fill in three related posts
         # for this blog post if fewer than three were set by staff
@@ -358,3 +367,9 @@ class BlogPage(FoundationMetadataPageMixin, Page):
                 return truncatechars(text, 153)
 
         return super().get_meta_description()
+
+
+# Overriding wagtail-metadata's search_image and search_description
+# fields in the promote panel to make them required for blog pages.
+BlogPage._meta.get_field("search_image").blank = False
+BlogPage._meta.get_field("search_description").blank = False

@@ -14,7 +14,6 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
         # The first Wagtail image returned that has the specified tag name will
         # be the default image URL in social shares when no Image is specified at the Page level
         super().__init__(*args, **kwargs)
-        self.update_labels_and_requirements()
 
         # This will run once in the life-time of the server, when the first page instance
         # that inherits this mixin gets instantiated. After that, this code will not kick
@@ -71,16 +70,13 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
         # whatever is the default social share image. Which could be `None`!
         return default_social_share_image
 
-    def update_labels_and_requirements(self):
-        share_image = self._meta.get_field("search_image")
-        meta_description = self._meta.get_field("search_description")
-        meta_description.blank = False
-        share_image.verbose_name = "Share Image"
-        share_image.help_text = """
-                                Image must be high quality, include our logo mark and have the dimensions 1200 x 628 px.
-                                For more design guidelines see https://foundation.mozilla.org/en/docs/brand/brand-identity/social-media/#og-images.
-                                """
-        share_image.blank = False
-
     class Meta:
         abstract = True
+
+
+# Overriding default name and help text for the promote panels 'search_image' field.
+search_image_field = FoundationMetadataPageMixin._meta.get_field("search_image")
+search_image_field.verbose_name = "Share Image"
+search_image_field.help_text = 'Image must be high quality, include our logo mark and have the dimensions ' \
+                               '1200 x 628 px. For more design guidelines see here: ' \
+                               'https://foundation.mozilla.org/en/docs/brand/brand-identity/social-media/#og-images'
