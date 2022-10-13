@@ -114,7 +114,7 @@ network-api/media/
 *.psql
 
 # Compiled Frontend
-network-api/networkapi/frontend/*
+network-api/networkapi/frontend/
 
 # PyCharm
 .idea/

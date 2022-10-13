@@ -399,7 +399,7 @@ def generate(seed):
     for _ in range(3):
         BuyersGuideContentCategoryFactory()
     articles = []
-    for _ in range(7):
+    for _ in range(12):
         article = BuyersGuideArticlePageFactory(parent=editorial_content_index)
         for profile in get_random_objects(pagemodels.Profile, max_count=3):
             BuyersGuideArticlePageAuthorProfileRelationFactory(
