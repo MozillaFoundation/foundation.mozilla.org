@@ -371,5 +371,6 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
 # Overriding wagtail-metadata's search_image and search_description
 # fields in the promote panel to make them required for blog pages.
+# For more info see: https://learnwagtail.com/tutorials/customizing-default-property-values/
 BlogPage._meta.get_field("search_image").blank = False
 BlogPage._meta.get_field("search_description").blank = False
