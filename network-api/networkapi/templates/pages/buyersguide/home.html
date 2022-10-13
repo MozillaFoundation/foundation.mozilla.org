@@ -22,7 +22,7 @@
     <div class="tw-container tw-my-6">
       <div class="tw-row">
         {% with row_item_classes="tw-px-4 tw-w-full large:tw-w-1/3 tw-py-5 large:tw-py-0" %}
-        
+
           {% with popular_articles=page.get_featured_articles %}
             {% if popular_articles %}
               <div class="{{row_item_classes}}">
@@ -54,3 +54,16 @@
   </div>
 
 {% endblock hero %}
+
+{% block extra_product_box_list_items %}
+  <div class="
+    tw-col-span-2
+    tw-col-end-5
+    tw-order-1
+
+    tw-flex
+    tw-items-stretch
+  ">
+    {% include "fragments/buyersguide/pni_newsletter_box.html" %}
+  </div>
+{% endblock extra_product_box_list_items %}
