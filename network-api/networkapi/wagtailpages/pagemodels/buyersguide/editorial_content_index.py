@@ -26,7 +26,7 @@ class BuyersGuideEditorialContentIndexPage(
 ):
     parent_page_types = ['wagtailpages.BuyersGuidePage']
     subpage_types = [
-        'wagtailpages.BuyersGuideArticlePage', 
+        'wagtailpages.BuyersGuideArticlePage',
         'wagtailpages.BuyersGuideCampaignPage',
         ]
     template = 'pages/buyersguide/editorial_content_index_page.html'

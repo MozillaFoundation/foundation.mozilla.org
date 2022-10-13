@@ -10,8 +10,8 @@ from wagtail.core.models import TranslatableMixin, Page, Orderable
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
+from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
 from networkapi.wagtailpages.pagemodels import customblocks
-from networkapi.wagtailpages.pagemodels.customblocks.full_content_rich_text_options import full_content_rich_text_options
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import FoundationMetadataPageMixin
 
 
