@@ -231,7 +231,7 @@ class BlogIndexPage(IndexPage):
         # filtering has been applied to the entries at this point. This can probably
         # be simplyfied in a full refactor of `IndexPage` and its subclasses.
         #
-        # Attention: Blog pages are associated with topic from the deefault locale,
+        # Attention: Blog pages are associated with topic from the default locale,
         # rather than with the localized topic. This might have something to do with
         # localization issues of the ParentalManyToManyField. So the pages need to be
         # localized, but not the topic.
