@@ -1,0 +1,134 @@
+
+import json
+
+from django.db import models
+from modelcluster.fields import ParentalKey
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel, MultiFieldPanel
+from wagtail.core.blocks import RichTextBlock
+from wagtail.core.fields import StreamField
+from wagtail.core.models import TranslatableMixin, Page, Orderable
+from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+
+from networkapi.wagtailpages.pagemodels import customblocks
+from networkapi.wagtailpages.pagemodels.customblocks.full_content_rich_text_options import full_content_rich_text_options
+from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import FoundationMetadataPageMixin
+
+
+class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
+    parent_page_types = ['BuyersGuideEditorialContentIndexPage']
+    subpage_types = []
+    template = 'pages/buyersguide/campaign_page.html'
+
+    cta = models.ForeignKey(
+        'CTA',
+        related_name='buyersguide_campaign_page_for_cta',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='Choose one of our call-to-action snippets, or create a new one.'
+    )
+    header = models.CharField(
+        max_length=250,
+        blank=True
+    )
+    narrowed_page_content = models.BooleanField(
+        default=False,
+        help_text='For text-heavy pages, turn this on to reduce the overall width of the content on the page.'
+    )
+    zen_nav = models.BooleanField(
+        default=True,
+        help_text='For secondary nav pages, use this to collapse the primary nav under a toggle hamburger.'
+    )
+    body = StreamField(
+        block_types=(('accordion', customblocks.AccordionBlock()),
+                     ('paragraph', RichTextBlock(
+                         features=full_content_rich_text_options,
+                         template='wagtailpages/blocks/rich_text_block.html',
+                     )),
+                     ('card_grid', customblocks.CardGridBlock()),
+                     ('image_grid', customblocks.ImageGridBlock()),
+                     ('iframe', customblocks.iFrameBlock()),
+                     ('image', customblocks.AnnotatedImageBlock()),
+                     ('audio', customblocks.AudioBlock()),
+                     ('image_text', customblocks.ImageTextBlock()),
+                     ('image_text_mini', customblocks.ImageTextMini()),
+                     ('video', customblocks.VideoBlock()),
+                     ('linkbutton', customblocks.LinkButtonBlock()),
+                     ('looping_video', customblocks.LoopingVideoBlock()),
+                     ('pulse_listing', customblocks.PulseProjectList()),
+                     ('single_quote', customblocks.SingleQuoteBlock()),
+                     ('slider', customblocks.FoundationSliderBlock()),
+                     ('spacer', customblocks.BootstrapSpacerBlock()),
+                     ('airtable', customblocks.AirTableBlock()),
+                     ('datawrapper', customblocks.DatawrapperBlock()),
+                     ('typeform', customblocks.TypeformBlock()), )
+    )
+
+    def get_donation_modal_json(self):
+        modals = self.donation_modals.all()
+        modals_json = [m.donation_modal.to_simple_dict() for m in modals]
+        return json.dumps(modals_json)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('header'),
+        SnippetChooserPanel('cta'),
+        InlinePanel('donation_modals', label='Donation Modal', max_num=4),
+        StreamFieldPanel('body'),
+    ]
+
+    settings_panels = Page.settings_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel('narrowed_page_content'),
+            ],
+            classname="collapsible"
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('zen_nav'),
+            ],
+            classname="collapsible"
+        )
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+
+        # FIXME: Contingency fix while https://github.com/mozilla/foundation.mozilla.org/pull/7771 is sorted out
+        # TranslatableField('cta'),
+        TranslatableField('title'),
+        TranslatableField('header'),
+        SynchronizedField('narrowed_page_content'),
+        SynchronizedField('zen_nav'),
+        TranslatableField('body'),
+        TranslatableField('donation_modals'),
+    ]
+
+
+class BuyersGuideCampaignPageDonationModalRelation(TranslatableMixin, Orderable):
+    page = ParentalKey(
+        'BuyersGuideCampaignPage',
+        related_name='donation_modals',
+    )
+    donation_modal = models.ForeignKey(
+        'DonationModal',
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        help_text='Choose existing or create new donation modal'
+    )
+
+    panels = [
+        SnippetChooserPanel('donation_modal'),
+    ]
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        verbose_name = 'Donation Modals'
+        verbose_name_plural = 'Donation Modals'

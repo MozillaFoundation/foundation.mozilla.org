@@ -15,6 +15,8 @@ from wagtail_factories import PageFactory
 
 from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
+from networkapi.wagtailpages.factory.petition import PetitionFactory
+from networkapi.wagtailpages.factory.donation import DonationModalFactory
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed, get_random_objects
@@ -57,6 +59,11 @@ class BuyersGuideProductPageArticlePageRelationFactory(DjangoModelFactory):
 class BuyersGuideEditorialContentIndexPageArticlePageRelationFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.BuyersGuideEditorialContentIndexPageArticlePageRelation
+
+
+class BuyersGuideCampaignPageDonationModalRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideCampaignPageDonationModalRelation
 
 
 class BuyersGuideCallToActionFactory(DjangoModelFactory):
@@ -250,6 +257,27 @@ class BuyersGuideArticlePageFactory(PageFactory):
     )
 
 
+class BuyersGuideCampaignPageFactory(PageFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideCampaignPage
+
+    header = Faker('sentence')
+    title = Faker('sentence')
+    cta = SubFactory(PetitionFactory)
+    narrowed_page_content = Faker('boolean', chance_of_getting_true=50)
+    body = Faker(
+        provider='streamfield',
+        fields=(
+            'header',
+            'paragraph',
+            'image',
+            'spacer',
+            'image_text',
+            'quote',
+        ),
+    )
+
+
 class BuyersGuideContentCategoryFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.BuyersGuideContentCategory
@@ -420,6 +448,10 @@ def generate(seed):
                 article=existing_article,
             )
         articles.append(article)
+
+    # Creating Buyersguide Campaign pages
+    for _ in range(5):
+        BuyersGuideCampaignPageFactory(parent=editorial_content_index)
 
     # Buyerguide homepage hero article
     pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()

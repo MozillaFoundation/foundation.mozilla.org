@@ -109,6 +109,10 @@ from .pagemodels.buyersguide.article_page import (
     BuyersGuideArticlePageContentCategoryRelation,
     BuyersGuideArticlePageRelatedArticleRelation,
 )
+from .pagemodels.buyersguide.campaign_page import (
+    BuyersGuideCampaignPage,
+    BuyersGuideCampaignPageDonationModalRelation
+)
 from .pagemodels.buyersguide.editorial_content_index import (
     BuyersGuideEditorialContentIndexPage,
     BuyersGuideEditorialContentIndexPageArticlePageRelation,
@@ -141,3 +145,5 @@ from .pagemodels.pulse import PulseFilter
 from .pagemodels.feature_flags.feature_flags import (
     FeatureFlags
 )
+
+from .donation_modal import DonationModal
