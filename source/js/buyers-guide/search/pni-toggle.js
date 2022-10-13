@@ -55,9 +55,6 @@ export class PNIToggle {
     const { searchFilter, categoryTitle } = this;
 
     gsap.set("figure.product-box.privacy-ding", { opacity: 1, y: 0 });
-    // TODO: this might be an A/B testing opportunity to see
-    //       whether users assume this toggle is a navigation
-    //       action or not?
     const state = { ...history.state, filter: doFilter };
     const title = Utils.getTitle(categoryTitle.value.trim());
     history.replaceState(state, title, location.href);

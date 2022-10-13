@@ -1,6 +1,5 @@
 import { gsap } from "gsap";
 import { Utils } from "./utils.js";
-import { CreepUtils } from "./creep-utils.js";
 
 const categoryTitle = document.querySelector(`.category-title`);
 const parentTitle = document.querySelector(`.parent-title`);
@@ -55,6 +54,7 @@ export function performInitialHistoryReplace(
       parent: parentTitle.value.trim(),
       search: history.state?.search ?? "",
       filter: history.state?.filter,
+      sort: history.state?.sort ?? "ASCENDING",
     },
     Utils.getTitle(categoryTitle.value.trim()),
     location.href
@@ -83,6 +83,7 @@ export function performInitialHistoryReplace(
         parent: parentTitle.value.trim(),
         search: searchParameter ?? "",
         filter: history.state?.filter,
+        sort: history.state?.sort,
       },
       Utils.getTitle(categoryTitle.value.trim()),
       location.href
@@ -115,6 +116,8 @@ export function performInitialHistoryReplace(
         inline: "start",
       });
   }
+
+  Utils.sortProductCards();
 }
 
 /**
@@ -251,8 +254,8 @@ export function applyHistory(instance) {
   instance.filterCategory(category);
   instance.filterSubcategory(parent || category);
   Utils.updateHeader(category, parent);
-  CreepUtils.sortOnCreepiness();
-  CreepUtils.moveCreepyFace();
+  Utils.sortProductCards();
+  Utils.moveCreepyFace();
 
   if (history.state?.parent && history.state?.category) {
     document

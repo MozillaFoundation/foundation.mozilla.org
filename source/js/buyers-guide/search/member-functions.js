@@ -70,6 +70,7 @@ export function setupNavLinks(instance) {
             parent: "",
             search: "",
             filter: history.state?.filter,
+            sort: history.state?.sort,
           },
           Utils.getTitle(categoryName),
           evt.target.href
@@ -123,6 +124,7 @@ export function setupNavLinks(instance) {
               parent: parentTitle.value.trim(),
               search: "",
               filter: history.state?.filter,
+              sort: history.state?.sort,
             },
             Utils.getTitle(subcategoryName),
             href
@@ -165,6 +167,7 @@ export function setupGoBackToAll(instance) {
           parent: "",
           search: "",
           filter: history.state?.filter,
+          sort: history.state?.sort,
         },
         Utils.getTitle(evt.target.dataset.name),
         evt.target.href
