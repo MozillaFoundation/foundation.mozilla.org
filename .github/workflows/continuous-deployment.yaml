@@ -1,0 +1,32 @@
+name: Continuous Deployment
+# Based on https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-a-workflow-based-on-the-conclusion-of-another-workflow
+
+on:
+  workflow_run:
+    workflows: [Continuous Integration]
+    types: [completed]
+    branches: ["main"]
+
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    env:
+      # See Heroku authentication: https://devcenter.heroku.com/articles/authentication#retrieving-the-api-token
+      HEROKU_DEPLOYMENT_USER_LOGIN: ${{ secrets.HEROKU_DEPLOYMENT_USER_LOGIN }}
+      HEROKU_DEPLOYMENT_USER_API_TOKEN: ${{ secrets.HEROKU_DEPLOYMENT_USER_API_TOKEN }}
+    steps:
+      - run: echo 'The continuous integration passed. Deploying to staging...'
+      - uses: actions/checkout@v2
+      - name: Set up git remote
+        run: git remote add heroku https://git.heroku.com/foundation-mofostaging-net.git
+      - name: Configure Heroku credentials
+        run: echo "machine api.heroku.com\n  login ${HEROKU_DEPLOYMENT_USER_LOGIN}\n  passwork ${HEROKU_DEPLOYMENT_USER_API_TOKEN}\nmachine git.heroku.com\n  login ${HEROKU_DEPLOYMENT_USER_LOGIN}\n  password ${HEROKU_DEPLOYMENT_USER_API_TOKEN}" > ~/.netrc
+      - name: Deploy to staging
+        run: git push heroku main
+
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The continuous inegration failed. Not deploying.'
