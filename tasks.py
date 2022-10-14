@@ -262,15 +262,21 @@ def migrate(ctx, stop=False):
 
 
 @task(aliases=["docker-makemigrations"])
-def makemigrations(ctx, arguments=""):
-    """Creates new migration(s) for apps"""
-    manage(ctx, f"makemigrations {arguments}")
+def makemigrations(ctx, args=""):
+    """
+    Creates new migration(s) for apps
+    Arguments can be passed with: inv makemigrations --args=""
+    """
+    manage(ctx, f"makemigrations {args}")
 
 
 @task(aliases=["docker-makemigrations-dryrun"])
-def makemigrations_dryrun(ctx):
-    """Show new migration(s) for apps without creating them"""
-    manage(ctx, "makemigrations --dry-run")
+def makemigrations_dryrun(ctx, args=""):
+    """
+    Show new migration(s) for apps without creating them
+    Arguments can be passed with: inv makemigrations_dryrun --args=""
+    """
+    manage(ctx, f"makemigrations {args} --dry-run")
 
 
 @task(help={"args": "Override the arguments passed to mypy."})
