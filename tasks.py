@@ -264,8 +264,7 @@ def migrate(ctx, stop=False):
 @task(aliases=["docker-makemigrations"])
 def makemigrations(ctx, args=""):
     """
-    Creates new migration(s) for apps
-    Arguments can be passed with: inv makemigrations --args=""
+    Creates new migration(s) for apps. Optional: --args=""
     """
     manage(ctx, f"makemigrations {args}")
 
@@ -273,8 +272,7 @@ def makemigrations(ctx, args=""):
 @task(aliases=["docker-makemigrations-dryrun"])
 def makemigrations_dryrun(ctx, args=""):
     """
-    Show new migration(s) for apps without creating them
-    Arguments can be passed with: inv makemigrations_dryrun --args=""
+    Show new migration(s) for apps without creating them. Optional: --args=""
     """
     manage(ctx, f"makemigrations {args} --dry-run")
 
