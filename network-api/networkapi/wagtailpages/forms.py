@@ -38,7 +38,7 @@ class BlogPageForm(WagtailAdminPageForm):
     def clean(self):
         cleaned_data = super().clean()
         # Max number validation for blog page topics. We are using the admin form's clean method
-        # instead of the page model's, because validation through the page model's method would 
+        # instead of the page model's, because validation through the page model's method would
         # return a 500 error to the user instead of an admin form error.
         topics = cleaned_data['topics']
         if topics.count() > 2:
