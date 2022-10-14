@@ -860,3 +860,24 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
         )
         response = self.client.get(path=blog_author_url)
         self.assertEqual(response.status_code, 404)
+
+
+# class TestBlogPage(BlogIndexTestCase):
+#     def test_blog_search_description_required(self):
+
+#         blog_factories.BlogPageFactory(
+#                     parent=self.blog_index,
+#                     title=base_title + f" {index + 1}",
+#                     first_published_at=(
+#                         datetime.datetime(2020, 1, 1, tzinfo=tz)
+#                         + datetime.timedelta(days=index)
+#                     ),
+#                 )
+#         return (
+#             self.blog_index.get_url()
+#             + self.blog_index.reverse_subpage(
+#                 "entries_by_topic",
+#                 kwargs=kwargs,
+#             )
+#         )
+

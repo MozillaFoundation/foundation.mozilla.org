@@ -26,14 +26,20 @@ class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
         return parent
 
 
-# Max number validation for blog page topics. We are using a custom form to avoid
-# an issue where the `ValidationError` raised in the page's `clean` method is
-# not caught by Wagtail. Instead of displaying the `ValidationError` as a message to
-# the editor, the admin crashes with a 500 error. Using the custom form gets around
-# that issue.
 class BlogPageForm(WagtailAdminPageForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Overriding the blog page's admin form in order to make wagtail-metadata's
+        # promote tab "search image" and "search description" fields required.
+        self.fields['search_description'].required = True
+        self.fields['search_image'].required = True
+
     def clean(self):
         cleaned_data = super().clean()
+        # Max number validation for blog page topics. We are using the form's clean method
+        # instead of the page model's, because validation through that method would return a 500
+        # error to the user instead of a form error.
         topics = cleaned_data['topics']
         if topics.count() > 2:
             self.add_error('topics', 'Please select 2 topics max.')
