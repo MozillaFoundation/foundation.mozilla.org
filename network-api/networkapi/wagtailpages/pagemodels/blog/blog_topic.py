@@ -5,7 +5,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
-
+from django.db import ProgrammingError
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
 
 
@@ -49,28 +49,16 @@ class BlogPageTopic(TranslatableMixin, models.Model):
 
     @staticmethod
     def get_topics():
-        """
-        WARNING: this function is referenced by two migrations:
-
-        - mozfest/0001_10_0015.py
-        - wagtailpages/0001_initial.py
-
-        This means that renaming/(re)moving this function will require
-        back-updating those two migrations, as "from scratch" migrations
-        (compared to update-only migrations) will throw errors when trying
-        to apply this function from its original location.
-        """
-        return [
-            ('All', 'All'),
-            ('Advocacy', 'Advocacy'),
-            ('Common Voice', 'Common Voice'),
-            ('Fellowships & Awards', 'Fellowships & Awards'),
-            ('Insights', 'Insights'),
-            ('Moz News Beat', 'Moz News Beat'),
-            ('Mozilla Explains', 'Mozilla Explains'),
-            ('Mozilla Festival', 'Mozilla Festival'),
-            ('Open Leadership & Events', 'Open Leadership & Events')
-        ]
+        choices = []
+        # This Try/Except block is used to avoid errors during tests/new-envs,
+        # without this, it will return a ProgrammingError due to BlogPageTopics not yet existing.
+        try:
+            choices = [(cat.name, cat.name) for cat in BlogPageTopic.objects.all()]
+            choices.sort(key=lambda c: c[1])
+        except ProgrammingError:
+            pass
+        choices.insert(0, ('All', 'All'))
+        return choices
 
     @property
     def slug(self):
