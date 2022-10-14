@@ -348,7 +348,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             raise ValidationError({
                 'hero_image': ValidationError("Please select a video OR an image for the hero section."),
                 'hero_video': ValidationError("Please select a video OR an image for the hero section.")
-            })
+                })
 
         # Ensure that we've tried to fill in three related posts
         # for this blog post if fewer than three were set by staff
