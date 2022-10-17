@@ -1,24 +1,36 @@
-## Stack
+# Stack
 
-### HTML
+## HTML
 
 HTML for the majority of the site is generated from Django/Wagtail templates and components.
 
-### Frontend styleguide
+## Frontend styleguide
 
 This site has a [styleguide](https://foundation.mozilla.org/en/style-guide/), which can be refrenced for frontend development to note intended usage of exisitng styles and components.
 
-### CSS
+## CSS
 
-CSS is generated from [Sass](http://sass-lang.com/). Styles are based on the mofo-bootstrap theme found under `source/sass/mofo-bootstrap`.
+CSS is currently in a state of transition.
+We are using custom [Sass](http://sass-lang.com/), mixed with the mofo-bootstrap theme found under `source/sass/mofo-bootstrap` while we also trying to move away from Bootstrap to [Tailwind CSS](https://tailwindcss.com/).
+Reason for the transition to Tailwind is that it allows us to sync the design tokens defined by the design team with the available CSS utilities, which makes it easier for our implementation to stay true to the design system.
+The following epic should give a better picture as to where we stand in this transition: https://app.zenhub.com/workspaces/mofo-engagement-585335eab729771d0736378d/issues/mozilla/foundation.mozilla.org/6989
 
-### React
+We are utilizing the [Tailwind configuration file (`tailwind.config.js`)](https://tailwindcss.com/docs/configuration) to override some of the Tailwind's default design system options with our own.
+For example, we define our own screen breakpoints, sizing scale and colors.
+See the config file directly for more details.
+
+All new CSS work should try to replace all use of Bootstrap and custom classes by applying the correct Tailwind utilities in the HMTL.
+
+For more complex components, there is also `tailwind-plugins/components.js`.
+We are also using `tailwind-plugins/components.js` to define Tailwind equivalents of Bootstrap classes (e.g. `.container` and `.row`).
+
+## React
 
 React is used _à la carte_ for isolated component instances (eg: a tab switcher) since the site is not designed as a single page application. This precludes the need for Flux architecture, or such libraries as React Router.
 
 To add a React component, you can target a container element from `/source/js/main.js` and inject it.
 
-### HTMX
+## HTMX
 
 We have added the [`htmx.org`](https://htmx.org) javascript library to the project.
 `htmx` allows us to combine server rendered HTML (as we have with Django templates) with dynamic updates on the frontend.
@@ -33,25 +45,42 @@ This workflow fits particularly nice into a Django project like this, because mo
 
 For more information see the [`htmx` docs](https://htmx.org/docs/).
 
-### Django and Wagtail
+## Django and Wagtail
 
 Django powers the backend of the site, and we use Wagtail with Django to provide CMS features and functionality.
 
 If you are defining a new page class for the site, make sure it inherits both the Wagtail `Page` class as well as the `FoundationMetadataPageMixin` mixin. The first is a general Wagtail requirement, and the latter ensures that page metadata used for SEO and the like is (generally) correct.
 
-#### localization
+### Localization
 
 We use [wagtail-localize](https://wagtail-localize.org/) for CMS content localization. Please see its documentation for more information.
 
-#### A/B testing
+#### Localiztion of numbers
+
+We are using Django's [`L10N` setting](https://docs.djangoproject.com/en/4.0/ref/settings/#use-l10n) set to `True`.
+This will also be the Django default starting in version 4.0 and can not be disabled starting version 5.0.
+
+With `L10N = True`, Django will use a formatting depending on the active locale when rendering numbers and dates.
+This can have impilcations when we dynamically render numbers into template that are meant for programmatic use, think `script` or `style` tags as well as attributes like `width` and `height` on the `img` tag.
+Rendering localized value can lead to wrong behaviour.
+
+Consider for example that in the German locale the decimal separator is a comma rather than a dot.
+This can lead to misinterpretation of the number as a list or otherwise invalid value.
+
+To ensure correct programmatic use of the rendered numbers, we need to prevent their localization.
+The `unlocalize` template filter can be used to deactivate the localization of a number in the template.
+
+See also: https://docs.djangoproject.com/en/4.1/topics/i18n/formatting/#controlling-localization-in-templates
+
+### A/B testing
 
 We currently don't have any A/B testing going on. We used to use [wagtail-experiments](https://github.com/torchbox/wagtail-experiments) but we're going to switch over to [wagtail-ab-testing](https://github.com/torchbox/wagtail-ab-testing)
 
-### S3
+## S3
 
 All assets are stored on S3.
 
-### File Structure
+## File Structure
 
 ```
 /
@@ -70,3 +99,8 @@ All assets are stored on S3.
     │   └── temp <- JSON pulled from web services. Don't commit!
     └── sass <- Sass code
 ```
+
+The templates are very scattered at the moment.
+We are trying to localize all tempaltes to the location `network-api/networkapi/templates`.
+When ever you touch or create a template, please move it to / create it in this location and place it in the appropriate sub-directory, `pages` or `fragments`.
+Create sub-directories under `pages` or `fragments` only when necessary and you have more than one template that needs to be grouped.

@@ -19,13 +19,13 @@
     {% with reports_count=3362 volunteers_count=1662 countries_count=91 %}
       <div class="row align-items-center mb-5">
         <div class="col-md-4 col-xs-12 stat">
-          <p class="stat__number" id="reports-count-up" data-stat="{{ reports_count }}">{{ reports_count|intcomma }}</p>
+          <p class="stat__number" id="reports-count-up" data-stat="{{ reports_count|unlocalize }}">{{ reports_count|intcomma }}</p>
           <p class="stat__label">{% trans "Reports" %}</p>
         </div>
         <div class="col-md-4 col-xs-12 stat">
           <p class="stat__number"
              id="volunteers-count-up"
-             data-stat="{{ volunteers_count }}"
+             data-stat="{{ volunteers_count|unlocalize }}"
              data-stat-delay="250">
             {{ volunteers_count|intcomma }}
           </p>
@@ -34,7 +34,7 @@
         <div class="col-md-4 col-xs-12 stat">
           <p class="stat__number"
              id="countries-count-up"
-             data-stat="{{ countries_count }}"
+             data-stat="{{ countries_count|unlocalize }}"
              data-stat-delay="500">
             {{ countries_count|intcomma }}
           </p>

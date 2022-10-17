@@ -1,5 +1,5 @@
 {% extends "./research_base.html" %}
-{% load i18n wagtailcore_tags wagtailimages_tags static %}
+{% load i18n l10n wagtailcore_tags wagtailimages_tags static %}
 
 {% block hero_guts %}
   {% with hero_image_classes="tw-bg-no-repeat tw-bg-left-top tw-bg-cover tw-min-h-[260px]" %}
@@ -56,7 +56,7 @@
             {% for featured_topic in page.featured_topics.all %}
               <li class="tw-py-1 tw-col-span-12 medium:tw-col-span-4 large:tw-col-span-12">
                 <h2 class="tw-h5-heading tw-text-blue-80 tw-mb-1">
-                  <a href="{% pageurl library_page %}?topic={{featured_topic.research_topic.id}}">{{featured_topic.research_topic.name }}</a>
+                  <a href="{% pageurl library_page %}?topic={{ featured_topic.research_topic.id|unlocalize }}">{{ featured_topic.research_topic.name }}</a>
                 </h2>
                 <p class="tw-body tw-text-gray-80 tw-text-base medium:tw-text-xs large:tw-text-base tw-pt-1"> {{ featured_topic.research_topic.description }}</p>
               </li>

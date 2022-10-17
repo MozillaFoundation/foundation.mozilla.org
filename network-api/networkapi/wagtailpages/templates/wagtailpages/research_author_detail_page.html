@@ -1,5 +1,5 @@
 {% extends "./research_base.html" %}
-{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% load i18n l10n wagtailcore_tags wagtailimages_tags %}
 
 {% block research_hub_content %}
   <div
@@ -26,7 +26,7 @@
       <div id="image-container" class="tw-place-self-center medium:tw-place-self-start">
         {% image author_profile.image fill-256x256 as img_1x %}
         {% image author_profile.image fill-512x512 as img_2x %}
-        <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x" src="{{ img_2x.url }}" width="{{ img_2x.width }}" height="{{ img_2x.height }}"  alt="{{ img_2x.alt }}" class="tw-rounded-full tw-w-[13rem] large:tw-w-[16rem]" />
+        <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x" src="{{ img_2x.url }}" width="{{ img_2x.width|unlocalize }}" height="{{ img_2x.height|unlocalize }}"  alt="{{ img_2x.alt }}" class="tw-rounded-full tw-w-[13rem] large:tw-w-[16rem]" />
       </div>
     {% endif %}
     <div id="bio">
@@ -61,7 +61,7 @@
         {% endfor %}
       </ul>
       {% if author_research_count > 3 %}
-        <a href="{% pageurl library_page %}?author={{ author_profile.id }}" class="tw-btn-secondary tw-mt-5 small:tw-mt-6 tw-w-full small:tw-w-auto">{% translate 'Browse all projects' context 'Button to see more than the latest three elements of research from an author' %} ({{ author_research_count }})</a>
+        <a href="{% pageurl library_page %}?author={{ author_profile.id|unlocalize }}" class="tw-btn-secondary tw-mt-5 small:tw-mt-6 tw-w-full small:tw-w-auto">{% translate 'Browse all projects' context 'Button to see more than the latest three elements of research from an author' %} ({{ author_research_count }})</a>
       {% endif %}
     </div>
   </div>

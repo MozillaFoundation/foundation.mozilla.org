@@ -1,13 +1,8 @@
 # foundation.mozilla.org
 
-[![Dependency Status](https://david-dm.org/mozilla/network.svg)](https://david-dm.org/mozilla/network)
-[![Dev Dependency Status](https://david-dm.org/mozilla/network/dev-status.svg)](https://david-dm.org/mozilla/network/?type=dev)
-[![Uses Mofo Standards](https://MozillaFoundation.github.io/mofo-standards/badge.svg)](https://github.com/MozillaFoundation/mofo-standards)
-[![Code Coverage](https://coveralls.io/repos/github/mozilla/foundation.mozilla.org/badge.svg?branch=main)](https://coveralls.io/github/mozilla/foundation.mozilla.org)
+## Getting started
 
-## Table of contents
-
-[Setup](#setup)
+Before you start working on the project, be sure to read this README and the linked docs.
 
 [Setup with Docker](#how-to-setup-your-dev-environment-with-docker)
 

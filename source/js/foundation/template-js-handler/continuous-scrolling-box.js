@@ -9,12 +9,11 @@ export default () => {
    * that it is coming from another article via scrolltrigger, then we animate the white box that is overlaying the article.
    */
   function triggerIntroTransition() {
-    if (sessionStorage.getItem(CONTINUE_SCROLLING)) {
-      gsap.to(".page-enter-transition", {
-        y: "-100vh",
-        delay: 0.3,
-        duration: 0.3,
-      });
+    if (
+      sessionStorage.getItem(CONTINUE_SCROLLING) &&
+      document.querySelector(".page-enter-transition")
+    ) {
+      document.querySelector(".page-enter-transition").remove();
       sessionStorage.removeItem(CONTINUE_SCROLLING);
     } else if (document.querySelector(".page-enter-transition")) {
       document.querySelector(".page-enter-transition").remove();
@@ -60,7 +59,7 @@ export default () => {
               if (loadIndicator) {
                 loadIndicator.classList.remove("tw-hidden");
               }
-            }, 300);
+            }, 2000);
 
             sessionStorage.setItem(CONTINUE_SCROLLING, "true");
             document.querySelector(".scrolling-link").click();
@@ -72,8 +71,7 @@ export default () => {
           .classList.add("tw-sticky", "tw-absolute", "tw-top-0", "tw-left-0");
         outro.to(".outro-screen", {
           y: "0vh",
-          duration: 0.2,
-          delay: 0.25,
+          duration: 0.1,
         });
         [
           ...document.querySelectorAll(
