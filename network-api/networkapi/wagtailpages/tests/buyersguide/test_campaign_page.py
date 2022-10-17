@@ -1,8 +1,18 @@
 from http import HTTPStatus
+import json
 
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
+from networkapi.wagtailpages.factory.donation import DonationModalFactory
+
+
+class FactoriesTest(test_base.WagtailpagesTestCase):
+    def test_campaign_page_factory(self):
+        buyersguide_factories.BuyersGuideCampaignPageFactory()
+
+    def test_campaign_page_donation_modal_relation_factory(self):
+        buyersguide_factories.BuyersGuideCampaignPageDonationModalRelationFactory()
 
 
 class BuyersGuideCampaignPageTest(test_base.WagtailpagesTestCase):
@@ -57,14 +67,43 @@ class BuyersGuideCampaignPageTest(test_base.WagtailpagesTestCase):
             template_name='pages/base.html',
         )
 
-    def test_content_template(self):
+    def test_get_donation_modal_json(self):
+        """
+        Testing the campaign pages "get_donation_modal_json" method.
+
+        Takes all donation modal relations, and composes a json list of dictionaries
+        for use in petition.jsx.
+        """
         campaign_page = buyersguide_factories.BuyersGuideCampaignPageFactory(
-            parent=self.content_index,
+            parent=self.content_index
         )
+        donation_modal_data = []
 
-        response = self.client.get(campaign_page.url)
+        for _ in range(4):
+            donation_modal = DonationModalFactory()
+            buyersguide_factories.BuyersGuideCampaignPageDonationModalRelationFactory(
+                page=campaign_page,
+                donation_modal=donation_modal,
+            )
+            # Using the DonationModal's "to_simple_dict" method to
+            # append a dict of its values to the list.
+            donation_modal_data.append(donation_modal.to_simple_dict())
 
-        self.assertTemplateUsed(
-            response=response,
-            template_name='wagtailpages/blocks/rich_text_block.html',
+        donation_modal_relations_json = json.dumps(donation_modal_data)
+        list_returned_from_method = campaign_page.get_donation_modal_json()
+
+        self.assertEqual(donation_modal_relations_json, list_returned_from_method)
+        for modal in donation_modal_relations_json:
+            self.assertIn(modal, list_returned_from_method)
+
+    def test_get_donation_modal_json_with_no_modals_set(self):
+        """
+        Testing the campaign pages "get_donation_modal_json" method
+        with no modals set. Should return empty JSON list.
+        """
+        campaign_page = buyersguide_factories.BuyersGuideCampaignPageFactory(
+            parent=self.content_index
         )
+        list_returned_from_method = campaign_page.get_donation_modal_json()
+
+        self.assertEqual(list_returned_from_method, '[]')

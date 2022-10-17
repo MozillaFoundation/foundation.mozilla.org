@@ -12,7 +12,31 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
 from networkapi.wagtailpages.pagemodels import customblocks
+from networkapi.wagtailpages.pagemodels.buyersguide.utils import get_categories_for_locale
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import FoundationMetadataPageMixin
+from networkapi.wagtailpages.utils import get_language_from_request
+
+
+class BuyersGuideCampaignPageDonationModalRelation(TranslatableMixin, Orderable):
+    page = ParentalKey(
+        'BuyersGuideCampaignPage',
+        related_name='donation_modal_relations',
+    )
+    donation_modal = models.ForeignKey(
+        'DonationModal',
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        help_text='Choose existing or create new donation modal'
+    )
+
+    panels = [
+        SnippetChooserPanel('donation_modal'),
+    ]
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        verbose_name = 'Donation Modals'
+        verbose_name_plural = 'Donation Modals'
 
 
 class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
@@ -35,10 +59,6 @@ class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
     narrowed_page_content = models.BooleanField(
         default=False,
         help_text='For text-heavy pages, turn this on to reduce the overall width of the content on the page.'
-    )
-    zen_nav = models.BooleanField(
-        default=True,
-        help_text='For secondary nav pages, use this to collapse the primary nav under a toggle hamburger.'
     )
     body = StreamField(
         block_types=(('accordion', customblocks.AccordionBlock()),
@@ -66,14 +86,14 @@ class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
     )
 
     def get_donation_modal_json(self):
-        modals = self.donation_modals.all()
+        modals = self.donation_modal_relations.all()
         modals_json = [m.donation_modal.to_simple_dict() for m in modals]
         return json.dumps(modals_json)
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
         SnippetChooserPanel('cta'),
-        InlinePanel('donation_modals', label='Donation Modal', max_num=4),
+        InlinePanel('donation_modal_relations', label='Donation Modal', max_num=4),
         StreamFieldPanel('body'),
     ]
 
@@ -84,12 +104,6 @@ class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
             ],
             classname="collapsible"
         ),
-        MultiFieldPanel(
-            [
-                FieldPanel('zen_nav'),
-            ],
-            classname="collapsible"
-        )
     ]
 
     translatable_fields = [
@@ -106,29 +120,12 @@ class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
         TranslatableField('title'),
         TranslatableField('header'),
         SynchronizedField('narrowed_page_content'),
-        SynchronizedField('zen_nav'),
         TranslatableField('body'),
-        TranslatableField('donation_modals'),
+        TranslatableField('donation_modal_relations'),
     ]
 
-
-class BuyersGuideCampaignPageDonationModalRelation(TranslatableMixin, Orderable):
-    page = ParentalKey(
-        'BuyersGuideCampaignPage',
-        related_name='donation_modals',
-    )
-    donation_modal = models.ForeignKey(
-        'DonationModal',
-        null=False,
-        blank=False,
-        on_delete=models.CASCADE,
-        help_text='Choose existing or create new donation modal'
-    )
-
-    panels = [
-        SnippetChooserPanel('donation_modal'),
-    ]
-
-    class Meta(TranslatableMixin.Meta, Orderable.Meta):
-        verbose_name = 'Donation Modals'
-        verbose_name_plural = 'Donation Modals'
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        language_code = get_language_from_request(request)
+        context['categories'] = get_categories_for_locale(language_code)
+        return context
