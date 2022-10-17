@@ -185,11 +185,12 @@ class TestProductPage(BuyersGuideTestMixin):
         product_page = self.product_page
 
         related_articles = []
-        for _ in range(5):
+        for i in range(5):
             related_article = buyersguide_factories.BuyersGuideArticlePageFactory()
             buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
                 product=product_page,
                 article=related_article,
+                sort_order=i,
             )
             related_articles.append(related_article)
 
@@ -212,11 +213,12 @@ class TestProductPage(BuyersGuideTestMixin):
         product_page = self.product_page
 
         related_articles = []
-        for _ in range(5):
+        for i in range(5):
             related_article = buyersguide_factories.BuyersGuideArticlePageFactory()
             buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
                 product=product_page,
                 article=related_article,
+                sort_order=i,
             )
             related_articles.append(related_article)
 
