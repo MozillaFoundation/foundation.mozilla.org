@@ -5,7 +5,6 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
-from django.db import ProgrammingError
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
 
 
@@ -49,14 +48,7 @@ class BlogPageTopic(TranslatableMixin, models.Model):
 
     @staticmethod
     def get_topics():
-        choices = []
-        # This Try/Except block is used to avoid errors during tests/new-envs,
-        # without this, it will return a ProgrammingError due to BlogPageTopics not yet existing.
-        try:
-            choices = [(cat.name, cat.name) for cat in BlogPageTopic.objects.all()]
-            choices.sort(key=lambda c: c[1])
-        except ProgrammingError:
-            pass
+        choices = [(cat.name, cat.name) for cat in BlogPageTopic.objects.all().order_by('name')]
         choices.insert(0, ('All', 'All'))
         return choices
 
