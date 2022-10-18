@@ -168,7 +168,6 @@ class BuyersGuideArticlePageContentCategoryRelation(
 
 
 class BuyersGuideArticlePageRelatedArticleRelation(
-    wagtail_models.TranslatableMixin,
     wagtail_models.Orderable,
 ):
     page = cluster_fields.ParentalKey(
@@ -187,5 +186,5 @@ class BuyersGuideArticlePageRelatedArticleRelation(
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
 
-    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
+    class Meta(wagtail_models.Orderable.Meta):
         pass
