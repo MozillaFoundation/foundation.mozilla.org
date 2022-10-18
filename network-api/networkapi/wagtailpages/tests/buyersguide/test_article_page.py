@@ -122,8 +122,8 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         Related articles should be of same locale as the page itself.
 
         The relation is synchronized from the default locale, but when retrieved from
-        the version of the non-default locale the articles should be of that same
-        non-default locale.
+        the version of the non-default locale the related articles should be of that
+        same non-default locale.
         """
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
             parent=self.content_index,
@@ -137,15 +137,12 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         )
         self.synchronize_tree()
         article_page_fr = article_page.get_translation(self.fr_locale)
-        self.assertNotEqual(article_page, article_page_fr)
-
         related_article_fr = related_article.get_translation(self.fr_locale)
-        self.assertNotEqual(related_article, related_article_fr)
+        self.activate_locale(self.fr_locale)
 
         related_articles_fr = article_page_fr.get_related_articles()
 
-        self.assertIn(related_articles_fr, related_articles_fr)
-
+        self.assertIn(related_article_fr, related_articles_fr)
 
     def test_primary_related_articles(self):
         """First three related articles are primary."""
