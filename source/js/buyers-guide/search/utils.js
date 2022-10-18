@@ -37,7 +37,6 @@ export class Utils {
     const headerText = document.querySelector(".category-header");
 
     if (parent) {
-      headerText.textContent = parent;
       document.querySelector(".category-header").dataset.name = parent;
       if (document.querySelector(`#multipage-nav a[data-name="${parent}"]`)) {
         document.querySelector(".category-header").href =
@@ -49,7 +48,6 @@ export class Utils {
         parent;
     } else {
       const header = category === "None" ? ALL_CATEGORY_LABEL : category;
-      headerText.textContent = header;
       document.querySelector(".category-header").dataset.name = category;
       if (document.querySelector(`#multipage-nav a[data-name="${category}"]`)) {
         document.querySelector(".category-header").href =
