@@ -145,5 +145,3 @@ from .pagemodels.pulse import PulseFilter
 from .pagemodels.feature_flags.feature_flags import (
     FeatureFlags
 )
-
-from .donation_modal import DonationModal
