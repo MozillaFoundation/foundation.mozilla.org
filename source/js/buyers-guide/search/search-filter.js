@@ -227,6 +227,9 @@ export class SearchFilter {
   }
 
   filterCategory(category) {
+    document
+      .querySelector("#pni-category-dropdown-select")
+      .classList.add("tw-hidden");
     Utils.showProductsForCategory(category);
     this.categoryTitle.value = category;
     Utils.sortProductCards();
