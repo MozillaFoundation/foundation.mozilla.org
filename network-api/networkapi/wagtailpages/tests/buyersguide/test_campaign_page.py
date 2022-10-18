@@ -71,8 +71,8 @@ class BuyersGuideCampaignPageTest(test_base.WagtailpagesTestCase):
         """
         Testing the campaign pages "get_donation_modal_json" method.
 
-        Takes all donation modal relations, and composes a json list of dictionaries
-        for use in petition.jsx.
+        Loops through all donation modal relations, creates a dict for each item's data,
+        and then stores them in a JSON list for use in petition.jsx.
         """
         campaign_page = buyersguide_factories.BuyersGuideCampaignPageFactory(
             parent=self.content_index
@@ -85,8 +85,6 @@ class BuyersGuideCampaignPageTest(test_base.WagtailpagesTestCase):
                 page=campaign_page,
                 donation_modal=donation_modal,
             )
-            # Using the DonationModal's "to_simple_dict" method to
-            # append a dict of its values to the list.
             donation_modal_data.append(donation_modal.to_simple_dict())
 
         donation_modal_relations_json = json.dumps(donation_modal_data)

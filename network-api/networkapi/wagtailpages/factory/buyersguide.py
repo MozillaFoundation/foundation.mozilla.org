@@ -452,7 +452,7 @@ def generate(seed):
             )
         articles.append(article)
 
-    # Creating Buyersguide Campaign pages
+    # Creating Buyersguide Campaign pages and accompanying donation modals
     for _ in range(5):
         campaign_page = BuyersGuideCampaignPageFactory(parent=editorial_content_index)
         BuyersGuideCampaignPageDonationModalRelationFactory(page=campaign_page)
