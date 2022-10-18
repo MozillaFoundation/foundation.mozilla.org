@@ -2,7 +2,23 @@
 
 ## Staging
 
-Builds to staging are triggered by commits to `main`.
+~~Builds to staging are triggered by commits to `main`.~~
+
+Automatic deployments are currently broken.
+To get your work deployed after the PR has been merged to `main`, check that the [GitHub Actions CI running on `main`](https://github.com/mozilla/foundation.mozilla.org/actions?query=branch%3Amain) is passing.
+
+Once CI has passed you can pull the branch to local and push it to Heroku.
+
+```console
+git switch main
+git fetch origin
+git pull origin main
+git push heroku-staging main
+```
+
+For the above to work you will need access to the app on Heroku as well as the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed.
+Set up the Heroku git remote as `heroku-staging`, following the docs (except for the remote name): https://devcenter.heroku.com/articles/git
+
 
 The staging URLs are:
 

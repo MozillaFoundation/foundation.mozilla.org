@@ -1,11 +1,12 @@
-# Local Dev Documentation
+# Local Development
 
 This documentation is composed of three main sections:
 
-- [How to install and use Docker for local development](./local_development.md#how-to-use)
-- [Connecting Docker to your code editor](./local_development.md#connecting-docker-to-your-code-editor)
-- [Docker 101 and how we use it with the foundation site](./local_development.md#docker-vocabulary-and-overview). Start here if you're new to Docker
-- [FAQ](./local_development.md#faq)
+- [How to use Docker in this project](#how-to-use)
+- [Connecting Docker to your code editor](#connecting-docker-to-your-code-editor)
+- [Docker 101 and how we use it with the foundation site](#docker-vocabulary-and-overview). Start here if you're new to Docker
+
+We also have a list of common questions: [FAQ](#faq).
 
 ## How to use
 

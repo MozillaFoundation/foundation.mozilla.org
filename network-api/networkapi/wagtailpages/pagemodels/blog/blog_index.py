@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING, Union, Optional
 
 from django import http
-from django.conf import settings
 from django.core import paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -19,7 +18,6 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail.core.fields import StreamField
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from sentry_sdk import capture_exception, push_scope
 
 from networkapi.wagtailpages.models import Profile
 from networkapi.wagtailpages.pagemodels import customblocks
@@ -197,7 +195,6 @@ class BlogIndexPage(IndexPage):
         return entries
 
     def filter_entries_for_topic(self, entries, context):
-
         topic = self.filtered.get('topic')
 
         # The following code first updates page share metadata when filtered by topic.
@@ -229,40 +226,16 @@ class BlogIndexPage(IndexPage):
         # update seo fields
         self.set_seo_fields_from_topic(localized_topic)
 
-        # TODO: REMOVE all of the following. The filtering should not be done in Python
-        #       at all, but rather in the database. There should be no need to iterate.
-        #       See also: https://stackoverflow.com/questions/4507893/django-filter-many-to-many-with-contains
-
-        # This code is not efficient, but its purpose is to get us logs
-        # that we can use to figure out what's going wrong more than
-        # being efficient.
+        # This is filtering the existing entries instead of just using the
+        # `localized_topic.blogpage_set.all()` because I am not sure what other
+        # filtering has been applied to the entries at this point. This can probably
+        # be simplyfied in a full refactor of `IndexPage` and its subclasses.
         #
-        # See https://github.com/mozilla/foundation.mozilla.org/issues/6255
-        #
-
-        in_topics = []
-
-        try:
-            for entry in entries.specific():
-                if hasattr(entry, 'topics'):
-                    entry_topics = entry.topics.all()
-                    try:
-                        if topic in entry_topics:
-                            in_topics.append(entry)
-                    except Exception as e:
-                        if settings.SENTRY_ENVIRONMENT is not None:
-                            push_scope().set_extra(
-                                'reason',
-                                f'entry_topics has an iteration problem; {str(entry_topics)}'
-                            )
-                            capture_exception(e)
-
-        except Exception as e:
-            if settings.SENTRY_ENVIRONMENT is not None:
-                push_scope().set_extra('reason', 'entries.specific threw')
-                capture_exception(e)
-
-        entries = in_topics
+        # Attention: Blog pages are associated with topic from the default locale,
+        # rather than with the localized topic. This might have something to do with
+        # localization issues of the ParentalManyToManyField. So the pages need to be
+        # localized, but not the topic.
+        entries = entries.specific().filter(pk__in=topic.blogpage_set.all())
 
         return entries
 

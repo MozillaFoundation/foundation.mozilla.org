@@ -185,11 +185,12 @@ class TestProductPage(BuyersGuideTestMixin):
         product_page = self.product_page
 
         related_articles = []
-        for _ in range(5):
+        for i in range(5):
             related_article = buyersguide_factories.BuyersGuideArticlePageFactory()
             buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
                 product=product_page,
                 article=related_article,
+                sort_order=i,
             )
             related_articles.append(related_article)
 
@@ -212,11 +213,12 @@ class TestProductPage(BuyersGuideTestMixin):
         product_page = self.product_page
 
         related_articles = []
-        for _ in range(5):
+        for i in range(5):
             related_article = buyersguide_factories.BuyersGuideArticlePageFactory()
             buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
                 product=product_page,
                 article=related_article,
+                sort_order=i,
             )
             related_articles.append(related_article)
 
@@ -679,11 +681,12 @@ class BuyersGuideProductCategoryTest(TestCase):
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
 
         related_articles = []
-        for _ in range(6):
+        for i in range(6):
             related_article = buyersguide_factories.BuyersGuideArticlePageFactory()
             buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
                 category=cat1,
                 article=related_article,
+                sort_order=i,
             )
             related_articles.append(related_article)
 
@@ -691,7 +694,8 @@ class BuyersGuideProductCategoryTest(TestCase):
 
         for related_article in related_articles[:3]:
             self.assertIn(related_article, result)
-        self.assertNotIn(related_articles[-1], result)
+        for related_article in related_articles[3:]:
+            self.assertNotIn(related_article, result)
 
     def test_primary_related_articles_no_related_articles(self):
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
@@ -705,11 +709,12 @@ class BuyersGuideProductCategoryTest(TestCase):
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
 
         related_articles = []
-        for _ in range(6):
+        for i in range(6):
             related_article = buyersguide_factories.BuyersGuideArticlePageFactory()
             buyersguide_factories.BuyersGuideProductCategoryArticlePageRelationFactory(
                 category=cat1,
                 article=related_article,
+                sort_order=i,
             )
             related_articles.append(related_article)
 

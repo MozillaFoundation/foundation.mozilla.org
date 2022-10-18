@@ -50,7 +50,7 @@ deprecated==1.2.13
     # via redis
 dj-database-url==0.5.0
     # via -r requirements.in
-django==3.2.13
+django==3.2.16
     # via
     #   -r requirements.in
     #   django-admin-sortable
@@ -227,7 +227,7 @@ urllib3[secure]==1.26.8
     #   requests
     #   scout-apm
     #   sentry-sdk
-wagtail==2.16.1
+wagtail==2.16.3
     # via
     #   -r requirements.in
     #   wagtail-airtable
