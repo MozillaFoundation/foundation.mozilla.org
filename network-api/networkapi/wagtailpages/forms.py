@@ -30,8 +30,8 @@ class BlogPageForm(WagtailAdminPageForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Overriding the blog page's admin form in order to make wagtail-metadata's
-        # promote tab "search image" and "search description" fields required.
+        # Overriding the blog page's admin form in order to make promote tabs
+        # "search image" and "search description" fields required.
         self.fields['search_description'].required = True
         self.fields['search_image'].required = True
 

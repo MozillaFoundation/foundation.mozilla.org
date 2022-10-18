@@ -74,7 +74,8 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
         abstract = True
 
 
-# Overriding default name and help text for the promote panels 'search_image' field.
+# Overriding the name and help text for the FoundationMetadata's "search_image"
+# field, which is found in the "Promote" tab of all pages that inherit this class.
 # For more info see: https://learnwagtail.com/tutorials/customizing-default-property-values/
 search_image_field = FoundationMetadataPageMixin._meta.get_field("search_image")
 search_image_field.verbose_name = "Share Image"
