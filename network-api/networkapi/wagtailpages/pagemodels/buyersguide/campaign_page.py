@@ -41,7 +41,7 @@ class BuyersGuideCampaignPageDonationModalRelation(TranslatableMixin, Orderable)
 
 class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
     parent_page_types = ['BuyersGuideEditorialContentIndexPage']
-    subpage_types = []
+    subpage_types: list = []
     template = 'pages/buyersguide/campaign_page.html'
 
     cta = models.ForeignKey(
