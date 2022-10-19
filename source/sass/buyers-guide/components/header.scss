@@ -20,39 +20,24 @@ body.pni #nav-newsletter-form-wrapper {
 
 .pni-category-nav {
   background: $white;
-  overflow-x: auto;
   white-space: nowrap;
 
   a {
     display: inline-block;
-    height: 42px;
     font-size: 15px;
-    color: $gray-60;
+    line-height: 20px;
+    color: $gray-40;
     font-weight: 700;
     margin-right: 20px;
-    padding: 10px 0 6px;
+    padding: 8px 4px;
     text-decoration: none;
-    border-bottom: 4px solid $white;
+    border: none;
 
     &:hover,
     &.active {
       color: $black;
-    }
-
-    &.active {
-      border-color: $black;
-    }
-
-    &.featured[data-name="Valentine's Day"] {
-      @include category-nav-link-with-icon(
-        "../_images/buyers-guide/icon-heart.svg"
-      );
-    }
-
-    &.featured[data-name="Video Call Apps"] {
-      @include category-nav-link-with-icon(
-        "../_images/buyers-guide/icon-video-app.svg"
-      );
+      text-decoration: wavy $pni-wavy-blue 2px underline;
+      text-underline-offset: 0.75rem;
     }
   }
 }
