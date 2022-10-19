@@ -866,7 +866,6 @@ class TestBlogPageTopics(test.TestCase):
 
     def test_factory(self):
         blog_factories.BlogPageTopicFactory()
-        self.assertTrue(True)
 
     def test_get_topics_method(self):
         # Clearing DB of any existing topics
