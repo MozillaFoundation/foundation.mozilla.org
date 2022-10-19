@@ -46,9 +46,9 @@ class BlogPageTopic(TranslatableMixin, models.Model):
         ImageChooserPanel("share_image"),
     ]
 
-    @staticmethod
-    def get_topics():
-        choices = [(cat.name, cat.name) for cat in BlogPageTopic.objects.all().order_by('name')]
+    @classmethod
+    def get_topics(cls):
+        choices = [(topic.name, topic.name) for topic in BlogPageTopic.objects.all().order_by('name')]
         choices.insert(0, ('All', 'All'))
         return choices
 
