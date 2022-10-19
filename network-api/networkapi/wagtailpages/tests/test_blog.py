@@ -868,7 +868,7 @@ class TestBlogPageTopics(test.TestCase):
         blog_factories.BlogPageTopicFactory()
 
     def test_get_topics_method(self):
-        # Clearing DB of any existing topics
+        # Clearing test instance of any existing topics
         blog_models.BlogPageTopic.objects.all().delete()
 
         test_topic = blog_factories.BlogPageTopicFactory(name="Test_Topic_1")
