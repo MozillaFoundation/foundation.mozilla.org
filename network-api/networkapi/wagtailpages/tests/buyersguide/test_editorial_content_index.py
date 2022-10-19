@@ -94,7 +94,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             child_models={
                 pagemodels.BuyersGuideArticlePage,
                 pagemodels.BuyersGuideCampaignPage
-                },
+            },
         )
 
     def test_page_success(self):

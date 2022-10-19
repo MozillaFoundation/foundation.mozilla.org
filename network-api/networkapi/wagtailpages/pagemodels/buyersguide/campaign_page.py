@@ -35,8 +35,7 @@ class BuyersGuideCampaignPageDonationModalRelation(TranslatableMixin, Orderable)
     ]
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
-        verbose_name = 'Donation Modals'
-        verbose_name_plural = 'Donation Modals'
+        pass
 
 
 class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
@@ -61,28 +60,30 @@ class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
         help_text='For text-heavy pages, turn this on to reduce the overall width of the content on the page.'
     )
     body = StreamField(
-        block_types=(('accordion', customblocks.AccordionBlock()),
-                     ('paragraph', RichTextBlock(
-                         features=full_content_rich_text_options,
-                         template='wagtailpages/blocks/rich_text_block.html',
-                     )),
-                     ('card_grid', customblocks.CardGridBlock()),
-                     ('image_grid', customblocks.ImageGridBlock()),
-                     ('iframe', customblocks.iFrameBlock()),
-                     ('image', customblocks.AnnotatedImageBlock()),
-                     ('audio', customblocks.AudioBlock()),
-                     ('image_text', customblocks.ImageTextBlock()),
-                     ('image_text_mini', customblocks.ImageTextMini()),
-                     ('video', customblocks.VideoBlock()),
-                     ('linkbutton', customblocks.LinkButtonBlock()),
-                     ('looping_video', customblocks.LoopingVideoBlock()),
-                     ('pulse_listing', customblocks.PulseProjectList()),
-                     ('single_quote', customblocks.SingleQuoteBlock()),
-                     ('slider', customblocks.FoundationSliderBlock()),
-                     ('spacer', customblocks.BootstrapSpacerBlock()),
-                     ('airtable', customblocks.AirTableBlock()),
-                     ('datawrapper', customblocks.DatawrapperBlock()),
-                     ('typeform', customblocks.TypeformBlock()), )
+        block_types=(
+            ('accordion', customblocks.AccordionBlock()),
+            ('paragraph', RichTextBlock(
+                    features=full_content_rich_text_options,
+                    template='wagtailpages/blocks/rich_text_block.html',
+            )),
+            ('card_grid', customblocks.CardGridBlock()),
+            ('image_grid', customblocks.ImageGridBlock()),
+            ('iframe', customblocks.iFrameBlock()),
+            ('image', customblocks.AnnotatedImageBlock()),
+            ('audio', customblocks.AudioBlock()),
+            ('image_text', customblocks.ImageTextBlock()),
+            ('image_text_mini', customblocks.ImageTextMini()),
+            ('video', customblocks.VideoBlock()),
+            ('linkbutton', customblocks.LinkButtonBlock()),
+            ('looping_video', customblocks.LoopingVideoBlock()),
+            ('pulse_listing', customblocks.PulseProjectList()),
+            ('single_quote', customblocks.SingleQuoteBlock()),
+            ('slider', customblocks.FoundationSliderBlock()),
+            ('spacer', customblocks.BootstrapSpacerBlock()),
+            ('airtable', customblocks.AirTableBlock()),
+            ('datawrapper', customblocks.DatawrapperBlock()),
+            ('typeform', customblocks.TypeformBlock()),
+        )
     )
 
     def get_donation_modal_json(self):
@@ -107,12 +108,6 @@ class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
     ]
 
     translatable_fields = [
-        # Promote tab fields
-        SynchronizedField('slug'),
-        TranslatableField('seo_title'),
-        SynchronizedField('show_in_menus'),
-        TranslatableField('search_description'),
-        SynchronizedField('search_image'),
         # Content tab fields
 
         # FIXME: Contingency fix while https://github.com/mozilla/foundation.mozilla.org/pull/7771 is sorted out
@@ -122,6 +117,13 @@ class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
         SynchronizedField('narrowed_page_content'),
         TranslatableField('body'),
         TranslatableField('donation_modal_relations'),
+
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
     ]
 
     def get_context(self, request, *args, **kwargs):

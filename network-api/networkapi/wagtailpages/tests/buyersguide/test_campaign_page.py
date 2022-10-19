@@ -104,4 +104,4 @@ class BuyersGuideCampaignPageTest(test_base.WagtailpagesTestCase):
         )
         list_returned_from_method = campaign_page.get_donation_modal_json()
 
-        self.assertEqual(list_returned_from_method, '[]')
+        self.assertEqual(list_returned_from_method, json.dumps([]))
