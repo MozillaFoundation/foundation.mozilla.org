@@ -109,6 +109,10 @@ from .pagemodels.buyersguide.article_page import (
     BuyersGuideArticlePageContentCategoryRelation,
     BuyersGuideArticlePageRelatedArticleRelation,
 )
+from .pagemodels.buyersguide.campaign_page import (
+    BuyersGuideCampaignPage,
+    BuyersGuideCampaignPageDonationModalRelation
+)
 from .pagemodels.buyersguide.editorial_content_index import (
     BuyersGuideEditorialContentIndexPage,
     BuyersGuideEditorialContentIndexPageArticlePageRelation,

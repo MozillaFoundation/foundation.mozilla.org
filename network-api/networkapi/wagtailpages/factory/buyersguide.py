@@ -14,7 +14,9 @@ from wagtail.images.models import Image
 from wagtail_factories import PageFactory
 
 from networkapi.wagtailpages.factory import profiles as profile_factories
+from networkapi.wagtailpages.factory.donation import DonationModalFactory
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
+from networkapi.wagtailpages.factory.petition import PetitionFactory
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed, get_random_objects
@@ -250,6 +252,27 @@ class BuyersGuideArticlePageFactory(PageFactory):
     )
 
 
+class BuyersGuideCampaignPageFactory(PageFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideCampaignPage
+
+    header = Faker('sentence')
+    title = Faker('sentence')
+    cta = SubFactory(PetitionFactory)
+    narrowed_page_content = Faker('boolean', chance_of_getting_true=50)
+    body = Faker(
+        provider='streamfield',
+        fields=(
+            'header',
+            'paragraph',
+            'image',
+            'spacer',
+            'image_text',
+            'quote',
+        ),
+    )
+
+
 class BuyersGuideContentCategoryFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.BuyersGuideContentCategory
@@ -279,6 +302,14 @@ class BuyersGuideArticlePageRelatedArticleRelationFactory(DjangoModelFactory):
 
     page = SubFactory(BuyersGuideArticlePageFactory)
     article = SubFactory(BuyersGuideArticlePageFactory)
+
+
+class BuyersGuideCampaignPageDonationModalRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideCampaignPageDonationModalRelation
+
+    page = SubFactory(BuyersGuideCampaignPageFactory)
+    donation_modal = SubFactory(DonationModalFactory)
 
 
 def create_general_product_visual_regression_product(seed, pni_homepage):
@@ -420,6 +451,11 @@ def generate(seed):
                 article=existing_article,
             )
         articles.append(article)
+
+    # Creating Buyersguide Campaign pages and accompanying donation modals
+    for _ in range(5):
+        campaign_page = BuyersGuideCampaignPageFactory(parent=editorial_content_index)
+        BuyersGuideCampaignPageDonationModalRelationFactory(page=campaign_page)
 
     # Buyerguide homepage hero article
     pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()

@@ -1,4 +1,5 @@
 import injectJoinUs from "./join-us.js";
+import injectPetition from "./petition.js";
 
 /**
  * Inject React components
@@ -7,4 +8,5 @@ import injectJoinUs from "./join-us.js";
  */
 export const injectCommonReactComponents = (apps, siteUrl) => {
   injectJoinUs(apps, siteUrl);
+  injectPetition(apps, siteUrl);
 };
