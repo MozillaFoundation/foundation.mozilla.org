@@ -38,3 +38,4 @@ from .listing import ListingBlock
 from .aside import AsideBlock
 from .profile import ProfileBlock
 from .image_feature_block import ImageFeatureBlock
+from .text_only_teaser import TextOnlyTeaserBlock
