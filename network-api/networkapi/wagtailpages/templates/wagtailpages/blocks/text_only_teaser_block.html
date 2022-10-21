@@ -8,7 +8,7 @@
             <div class="tw-px-4 medium:tw-w-1/3 tw-mb-5">
                 <div class="tw-bg-white tw-relative tw-py-4 tw-w-full tw-flex tw-flex-col">
                 {% if card.heading_link %}<a href="{% pageurl card.heading_link %}">{% endif %}
-                    <h5 class="tw-h5-heading tw-mb-2">{{ card.heading }}</h5>
+                    <span class="tw-h5-heading tw-mb-2">{{ card.heading }}</span>
                 {% if card.heading_link %}</a>{% endif %}
                 {% if card.meta_data %}
                 <div class="tw-flex tw-flex-wrap">
