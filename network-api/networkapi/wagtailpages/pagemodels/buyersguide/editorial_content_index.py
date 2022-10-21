@@ -45,8 +45,12 @@ class BuyersGuideEditorialContentIndexPage(
     def serve(self, request: 'http.HttpRequest', *args, **kwargs) -> 'http.HttpResponse':
         if request.htmx:
             # This is an HTMX request and we are only interested in the items list.
-            items = self.get_paginated_items(page=request.GET.get('page'))
-            return self.render_items(request=request, items=items)
+            items = self.get_items()
+            paginated_items = self.paginate_items(
+                items=items,
+                page=request.GET.get('page'),
+            )
+            return self.render_items(request=request, items=paginated_items)
         return super().serve(request, *args, **kwargs)
 
     def render_items(
@@ -76,15 +80,19 @@ class BuyersGuideEditorialContentIndexPage(
         context = super().get_context(request, *args, **kwargs)
         context["home_page"] = self.get_parent().specific
         context["featured_cta"] = get_buyersguide_featured_cta(self)
-        context["items"] = self.get_paginated_items(request.GET.get('page'))
+        items = self.get_items()
+        context["items"] = self.paginate_items(
+            items=items,
+            page=request.GET.get('page'),
+        )
         return context
 
-    def get_paginated_items(
+    def paginate_items(
         self,
-        page: Optional[int] = None
+        items: 'models.QuerySet[pagemodels.BuyersGuideArticlePage]',
+        page: 'Optional[int]' = None,
     ) -> 'paginator.Page[pagemodels.BuyersGuideArticlePage]':
-        """Get a page of items to list in the index."""
-        items = self.get_items()
+        """Pagingate the given items."""
         items_paginator = paginator.Paginator(
             object_list=items,
             per_page=self.items_per_page,
@@ -92,7 +100,7 @@ class BuyersGuideEditorialContentIndexPage(
         return items_paginator.get_page(page)
 
     def get_items(self) -> 'models.QuerySet[pagemodels.BuyersGuideArticlePage]':
-        """Get items to list in the index."""
+        """Get default items to list in the index."""
         return (
             self.get_descendants()
             .order_by("-first_published_at")
