@@ -1,0 +1,25 @@
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_content %}
+  <div class="tw-row tw-py-4">
+	{% for block in self.cards %}
+      {% with card=block %}
+        {% comment %}
+        Check for the card.article, sometimes and article can get deleted
+        causing dangling references in streamfield blocks and passing None to
+        the `pageurl` template tag would throw an error.
+        {% endcomment %}
+        {% if card.article %}
+          <div class="tw-px-4 tw-w-full medium:tw-w-1/3 tw-mb-5">
+            <div class="tw-bg-white tw-relative tw-py-4 tw-w-full tw-flex tw-flex-col">
+              <a href="{% pageurl card.article %}">
+                <span class="tw-h5-heading tw-mb-2">{{ card.article.title }}</span>
+              </a>
+            </div>
+          </div>
+        {% endif %}
+      {% endwith %}
+    {% endfor %}
+  </div>
+{% endblock %}
