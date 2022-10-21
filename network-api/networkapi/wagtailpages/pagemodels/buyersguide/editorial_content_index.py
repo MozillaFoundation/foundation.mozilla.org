@@ -42,6 +42,12 @@ class BuyersGuideEditorialContentIndexPage(
 
     items_per_page: int = 10
 
+    def serve(self, request: 'http.HttpRequest', *args, **kwargs) -> 'http.HttpResponse':
+        if request.META.get('HTTP_HX_REQUEST', 'false') == 'true':
+            items = self.get_paginated_items(page=request.GET.get('page'))
+            return self.render_items(request=request, items=items)
+        return super().serve(request, *args, **kwargs)
+
     @routable_models.route('items/', name='items')
     def items_route(self, request: 'http.HttpRequest') -> 'http.HttpResponse':
         '''
@@ -53,6 +59,13 @@ class BuyersGuideEditorialContentIndexPage(
 
         '''
         items = self.get_paginated_items(page=request.GET.get('page'))
+        return self.render_items(request=request, items=items)
+
+    def render_items(
+        self,
+        request: 'http.HttpRequest',
+        items: 'models.QuerySet[pagemodels.BuyersGuideArticlePage]',
+    ) -> 'http.HttpResponse':
         return shortcuts.render(
             request=request,
             template_name='fragments/buyersguide/editorial_content_index_items.html',

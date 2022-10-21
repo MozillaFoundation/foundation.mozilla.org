@@ -172,6 +172,25 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             template_name='pages/buyersguide/editorial_content_index_page.html',
         )
 
+    def test_hx_request_templates(self):
+        """
+        Only the items template (not the full page) template is used for HTMX requests.
+
+        HTMX sets a header 'HX-Request' with value set to 'true' for it's requests.
+        Using this information, we don't need a separate route to return the fragment
+        for the index. This can simplify the logic and make it more reusable.
+        """
+        response = self.client.get(self.content_index.url, HTTP_HX_REQUEST='true')
+
+        self.assertTemplateUsed(
+            response=response,
+            template_name='fragments/buyersguide/editorial_content_index_items.html',
+        )
+        self.assertTemplateNotUsed(
+            response=response,
+            template_name='pages/buyersguide/editorial_content_index_page.html',
+        )
+
     def test_items_route_show_load_more_button_immediately(self):
         with self.setup_content_index_with_pages_of_children():
             url = self.get_items_route_url()
