@@ -46,7 +46,7 @@ class BuyersGuideEditorialContentIndexPage(
     items_per_page: int = 10
 
     def serve(self, request: 'http.HttpRequest', *args, **kwargs) -> 'http.HttpResponse':
-        if request.META.get('HTTP_HX_REQUEST', 'false') == 'true':
+        if request.htmx:
             # This is an HTMX request and we are only interested in the items list.
             items = self.get_paginated_items(page=request.GET.get('page'))
             return self.render_items(request=request, items=items)

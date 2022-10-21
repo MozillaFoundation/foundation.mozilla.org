@@ -57,6 +57,7 @@ django==3.2.16
     #   django-cors-headers
     #   django-csp
     #   django-filter
+    #   django-htmx
     #   django-querystring-tag
     #   django-redis
     #   django-storages
@@ -79,6 +80,8 @@ django-filter==21.1
     # via
     #   -r requirements.in
     #   wagtail
+django-htmx==1.12.2
+    # via -r requirements.in
 django-modelcluster==5.2
     # via wagtail
 django-querystring-tag==1.0.2
