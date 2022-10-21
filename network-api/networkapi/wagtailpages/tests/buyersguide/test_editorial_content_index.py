@@ -79,9 +79,6 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                 articles.append(self.create_days_old_article(days_old))
             yield articles
 
-    def get_items_route_url(self):
-        return self.content_index.url + self.content_index.reverse_subpage('items')
-
     def test_parents(self):
         self.assertAllowedParentPageTypes(
             child_model=pagemodels.BuyersGuideEditorialContentIndexPage,
@@ -153,25 +150,6 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                 articles[self.items_per_page:],
             )
 
-    def test_items_route_exists(self):
-        route = self.content_index.reverse_subpage('items')
-
-        self.assertEqual(route, 'items/')
-
-    def test_items_route_template(self):
-        url = self.get_items_route_url()
-
-        response = self.client.get(url)
-
-        self.assertTemplateUsed(
-            response=response,
-            template_name='fragments/buyersguide/editorial_content_index_items.html',
-        )
-        self.assertTemplateNotUsed(
-            response=response,
-            template_name='pages/buyersguide/editorial_content_index_page.html',
-        )
-
     def test_hx_request_templates(self):
         """
         Only the items template (not the full page) template is used for HTMX requests.
@@ -191,11 +169,10 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             template_name='pages/buyersguide/editorial_content_index_page.html',
         )
 
-    def test_items_route_show_load_more_button_immediately(self):
+    def test_hx_request_show_load_more_button_immediately(self):
         with self.setup_content_index_with_pages_of_children():
-            url = self.get_items_route_url()
 
-            response = self.client.get(url)
+            response = self.client.get(self.content_index.url, HTTP_HX_REQUEST='true')
 
             self.assertTrue(response.context['show_load_more_button_immediately'])
             soup = bs4.BeautifulSoup(response.content, 'html.parser')
@@ -204,8 +181,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             # But the load more element
             self.assertNotEqual(soup.find_all(id='load-more'), [])
 
-    def test_items_route_shows_children_titles(self):
-        url = self.get_items_route_url()
+    def test_hx_request_shows_children_titles(self):
         children = []
         for _ in range(5):
             children.append(
@@ -214,16 +190,15 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                 )
             )
 
-        response = self.client.get(path=url)
+            response = self.client.get(self.content_index.url, HTTP_HX_REQUEST='true')
 
         for child in children:
             self.assertContains(response=response, text=child.title, count=1)
 
-    def test_items_route_paginated_items_page_1(self):
+    def test_hx_request_paginated_items_page_1(self):
         with self.setup_content_index_with_pages_of_children() as articles:
-            url = self.get_items_route_url()
 
-            response = self.client.get(url)
+            response = self.client.get(self.content_index.url, HTTP_HX_REQUEST='true')
 
             self.assertQuerysetEqual(
                 response.context['items'],
@@ -233,11 +208,14 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             soup = bs4.BeautifulSoup(response.content, 'html.parser')
             self.assertNotEqual(soup.find_all(id='load-more'), [])
 
-    def test_items_route_paginated_items_page_2(self):
+    def test_hx_request_paginated_items_page_2(self):
         with self.setup_content_index_with_pages_of_children() as articles:
-            url = self.get_items_route_url()
 
-            response = self.client.get(url, data={'page': 2})
+            response = self.client.get(
+                self.content_index.url,
+                data={'page': 2},
+                HTTP_HX_REQUEST='true',
+            )
 
             self.assertQuerysetEqual(
                 response.context['items'],

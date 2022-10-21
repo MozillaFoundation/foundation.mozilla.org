@@ -44,28 +44,24 @@ class BuyersGuideEditorialContentIndexPage(
 
     def serve(self, request: 'http.HttpRequest', *args, **kwargs) -> 'http.HttpResponse':
         if request.META.get('HTTP_HX_REQUEST', 'false') == 'true':
+            # This is an HTMX request and we are only interested in the items list.
             items = self.get_paginated_items(page=request.GET.get('page'))
             return self.render_items(request=request, items=items)
         return super().serve(request, *args, **kwargs)
-
-    @routable_models.route('items/', name='items')
-    def items_route(self, request: 'http.HttpRequest') -> 'http.HttpResponse':
-        '''
-        Route to return only the content index items.
-
-        This route does not return a full page, but only an HTML fragment of list items
-        that is meant to be requested with AJAX and used to extend an existing list of
-        items.
-
-        '''
-        items = self.get_paginated_items(page=request.GET.get('page'))
-        return self.render_items(request=request, items=items)
 
     def render_items(
         self,
         request: 'http.HttpRequest',
         items: 'models.QuerySet[pagemodels.BuyersGuideArticlePage]',
     ) -> 'http.HttpResponse':
+        '''
+        Method to return only the content index items.
+
+        This method does not return a full page, but only an HTML fragment of list
+        items that is meant to be requested with AJAX and used to extend an existing
+        list of items.
+
+        '''
         return shortcuts.render(
             request=request,
             template_name='fragments/buyersguide/editorial_content_index_items.html',
