@@ -37,4 +37,5 @@ base_fields = [
     ('image_feature', customblocks.ImageFeatureBlock()),
     ('text_only_teaser', customblocks.TextOnlyTeaserBlock()),
     ('image_teaser_block', customblocks.ImageTeaserBlock()),
+    ('article_teaser_block', customblocks.ArticleTeaserBlock()),
 ]
