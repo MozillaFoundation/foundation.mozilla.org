@@ -1,4 +1,4 @@
-{% load i18n querystring_tag wagtailroutablepage_tags %}
+{% load i18n querystring_tag %}
 
 {% for item in items %}
   <li>
@@ -23,7 +23,7 @@
           Replace the entire list item that currently contains the pagination and load more button with the response.
           If there is yet another page, the another load more button will be rendered.
         {% endcomment %}
-        data-hx-get="{% routablepageurl index_page 'items' %}{% querystring 'page'=items.next_page_number %}"  {# AJAX GET request to the next page #}
+        data-hx-get="{{ request.path }}{% querystring 'page'=items.next_page_number %}"  {# AJAX GET request to the next page #}
         data-hx-target="#index-navigation"
         data-hx-swap="outerHTML"
         >{% trans "Load more results" %}</button>
