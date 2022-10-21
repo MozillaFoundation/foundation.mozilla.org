@@ -82,6 +82,12 @@ class BuyersGuideArticlePage(
         panels.StreamFieldPanel('body'),
     ]
 
+    settings_panels = [
+        panels.PublishingPanel(),
+        panels.FieldPanel('first_published_at'),
+        panels.PrivacyModalPanel(),
+    ]
+
     def get_context(self, request: http.HttpRequest, *args, **kwargs) -> dict:
         context = super().get_context(request, *args, **kwargs)
         return context
