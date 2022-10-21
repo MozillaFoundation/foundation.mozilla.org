@@ -241,6 +241,7 @@ INSTALLED_APPS = list(filter(None, [
 
     'rest_framework',
     'django_filters',
+    'django_htmx',
     'debug_toolbar' if DEBUG_TOOLBAR_ENABLED else None,
     'gunicorn',
     'corsheaders',
@@ -292,6 +293,7 @@ MIDDLEWARE = list(filter(None, [
     'networkapi.wagtailcustomization.redirects.middleware.RedirectMiddleware',
     # instead of 'django.middleware.csrf.CsrfViewMiddleware':
     'networkapi.wagtailcustomization.csrf.middleware.CustomCsrfViewMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]))
 
 if SOCIAL_SIGNIN:
