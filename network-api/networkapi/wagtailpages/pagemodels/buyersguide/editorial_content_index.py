@@ -53,6 +53,10 @@ class BuyersGuideEditorialContentIndexPage(
             return self.render_items(request=request, items=paginated_items)
         return super().serve(request, *args, **kwargs)
 
+    @routable_models.route(r'^press/$', name='press')
+    def press_route(self, request: 'http.HttpRequest') -> 'http.HttpResponse':
+        return None
+
     def render_items(
         self,
         request: 'http.HttpRequest',

@@ -79,6 +79,9 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                 articles.append(self.create_days_old_article(days_old))
             yield articles
 
+    def get_press_route_url(self):
+        return self.content_index.url + self.content_index.reverse_subpage('press')
+
     def test_parents(self):
         self.assertAllowedParentPageTypes(
             child_model=pagemodels.BuyersGuideEditorialContentIndexPage,
@@ -224,6 +227,24 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             # There are no more page so there should not be a load more button
             soup = bs4.BeautifulSoup(response.content, 'html.parser')
             self.assertEqual(soup.find_all(id='load-more'), [])
+
+    def test_press_route_exists(self):
+        self.content_index.reverse_subpage('press')
+
+    def test_press_route_templates_used(self):
+        response = self.client.get(self.get_press_route_url())
+
+        self.assertTemplateUsed(
+            response=response,
+            template_name='pages/buyersguide/editorial_content_index_page.html',
+        )
+
+    def test_press_route_shows_press_update_title(self):
+        press_update = buyersguide_factories.ProductUpdateFactory()
+
+        response = self.client.get(self.get_press_route_url())
+
+        self.assertContains(response, press_update.title)
 
     def test_get_context_featured_cta(self):
         featured_cta = buyersguide_factories.BuyersGuideCallToActionFactory()
