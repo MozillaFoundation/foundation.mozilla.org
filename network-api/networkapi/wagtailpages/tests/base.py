@@ -1,3 +1,5 @@
+from django.utils import translation
+
 from wagtail.tests import utils as wagtail_test
 from wagtail.core import models as wagtail_models
 from wagtail_localize import synctree
@@ -40,3 +42,6 @@ class WagtailpagesTestCase(wagtail_test.WagtailPageTests):
             source_locale=self.default_locale,
             target_locale=self.fr_locale
         )
+
+    def activate_locale(self, locale):
+        translation.activate(locale.language_code)

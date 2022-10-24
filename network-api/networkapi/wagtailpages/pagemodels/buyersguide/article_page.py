@@ -105,10 +105,19 @@ class BuyersGuideArticlePage(
         )
 
     def get_related_articles(self) -> list['BuyersGuideArticlePage']:
-        return orderables.get_related_items(
+        related_articles = orderables.get_related_items(
             self.related_article_relations.all(),
             'article',
         )
+        # The relations are synchronized from the default locale on non-default
+        # locales. But, then working with a page of a non-default locale we are of
+        # course interested in the related articles in that same locale.
+        #
+        # FIXME: This version is bad, because it uses 1+n queries to generate the list
+        #        related articles in the correct locale. We should create something
+        #        more elegant to retrieve the related articles of the correct locale
+        #        directly from the database.
+        return [a.localized for a in related_articles]
 
     def get_primary_related_articles(self) -> list['BuyersGuideArticlePage']:
         return self.get_related_articles()[:3]
@@ -168,7 +177,6 @@ class BuyersGuideArticlePageContentCategoryRelation(
 
 
 class BuyersGuideArticlePageRelatedArticleRelation(
-    wagtail_models.TranslatableMixin,
     wagtail_models.Orderable,
 ):
     page = cluster_fields.ParentalKey(
@@ -187,5 +195,5 @@ class BuyersGuideArticlePageRelatedArticleRelation(
     def __str__(self):
         return f'{self.page.title} -> {self.article.title}'
 
-    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
+    class Meta(wagtail_models.Orderable.Meta):
         pass
