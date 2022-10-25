@@ -19,11 +19,11 @@
               {% if value.metadata %}
                 <div class="tw-h6-heading medium:tw-block tw-mb-2">{{ value.metadata }}</div>
               {% endif %}
-              <h3 class="tw-mb-2 tw-pb-1">
+              <h2 class="tw-h3-heading tw-mb-2 tw-pb-1">
                 {% if value.title_link %}<a href="{% pageurl value.title_link %}">{% endif %}
                 {{ value.title }}
                 {% if value.title_link %}</a>{% endif %}
-              </h3>
+              </h2>
               {% if value.body %}
                 <p class="xlarge:tw-block xlarge:tw-mb-0">{{ value.body|truncatechars:156 }}</p>
               {% endif %}
