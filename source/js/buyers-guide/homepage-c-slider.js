@@ -174,9 +174,9 @@ export default {
             productListPosition.top + offset < window.innerHeight &&
             productListPosition.bottom >= 0
           ) {
-            SEARCH_BAR.classList.add("search-active", "creep-o-meter-moved");
+            SEARCH_BAR.classList.remove("tw-hidden");
           } else {
-            SEARCH_BAR.classList.remove("search-active", "creep-o-meter-moved");
+            SEARCH_BAR.classList.add("tw-hidden");
             document.querySelector(".speech-bubble>.text").innerHTML = heroMsg;
             face.style.backgroundPositionY = `0px`;
           }
