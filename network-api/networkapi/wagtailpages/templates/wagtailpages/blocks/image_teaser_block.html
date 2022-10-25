@@ -5,7 +5,7 @@
   {% with card=value %}
     <div class="tw-row tw-py-4">
       <div class="tw-px-4 medium:tw-w-1/2 tw-mb-5">
-        <span class="tw-h2-heading tw-mb-4">{{ card.title }}</span>
+        <h2 class="tw-mb-4">{{ card.title }}</h2>
         {{ card.text|richtext }}
         {% if card.url and card.url_label %}
           <a class="tw-{{ card.styling }} link-button tw-my-4" href="{{ card.url }}">
