@@ -11,27 +11,10 @@
   <input type="hidden" class="parent-title" value="{{current_category.parent.localized.name}}">
   <div class="tw-container">
     <div class="tw-row">
-      <div class="tw-w-full">
-        <div id="sticky-bar" class="creepiness-slider bg-white text-center tw-justify-center creep-o-meter-moved search-active tw-hidden">
-          <div class="creep-o-meter-information">
-            <p class="speech-bubble-container">
-              <span class="speech-bubble tw-bg-gradient-to-t tw-from-purple-05 tw-to-blue-05">
-                <img class="hook" src="{% static "_images/buyers-guide/icon-bubble-hook.svg" %}">
-                <span class="text"></span>
-              </span>
-            </p>
-            <span class="current-creepiness"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="tw-container">
-    <div class="tw-row">
       <div class="tw-px-4 tw-py-5 large:tw-py-7 tw-w-full">
-        <h1 class="tw-font-zilla tw-font-light tw-text-center tw-text-2xl large:tw-text-4xl tw-m-0">
+        <span class="tw-block tw-font-zilla tw-font-light tw-text-center tw-text-2xl large:tw-text-4xl tw-m-0">
           {% trans "Make smart choices to protect your privacy. <br /> Search for products. Read expert reviews. Get tips and tricks." %}
-        </h1>
+        </span>
       </div>
     </div>
   </div>
@@ -68,6 +51,23 @@
 {% endblock %}
 
 {% block guts %}
+  <div class="tw-container">
+    <div class="tw-row">
+      <div class="tw-w-full">
+        <div id="sticky-bar" class="creepiness-slider bg-white text-center tw-justify-center creep-o-meter-moved search-active tw-hidden">
+          <div class="creep-o-meter-information">
+            <p class="speech-bubble-container">
+              <span class="speech-bubble tw-bg-gradient-to-t tw-from-purple-05 tw-to-blue-05">
+                <img class="hook" src="{% static "_images/buyers-guide/icon-bubble-hook.svg" %}">
+                <span class="text"></span>
+              </span>
+            </p>
+            <span class="current-creepiness"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   {% get_bg_home_page as home_page %}
   <div class="project-list-section">
     <div class="container">
