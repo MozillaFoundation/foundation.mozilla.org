@@ -48,7 +48,7 @@
     {% with hero_supporting_articles=page.get_hero_supporting_articles %}
       {% if hero_supporting_articles %}
         <div class="tw-col-span-full medium:tw-col-span-6 large:tw-col-span-5">
-          {% include "fragments/buyersguide/related_reading.html" with heading=page.hero_supporting_articles_heading articles=hero_supporting_articles %}
+          {% include "fragments/buyersguide/related_reading.html" with heading=page.hero_supporting_articles_heading heading_level=3 articles=hero_supporting_articles %}
         </div>
       {% endif %}
     {% endwith %}
