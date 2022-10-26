@@ -1,6 +1,6 @@
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
 
-{% with heading_level=heading_level|default:2  %}
+{% with heading_level=heading_level|default:2 heading_classes=heading_classes|default:"tw-h3-heading tw-mt-2"  %}
   <div>
     {% if short_waves %}
       <div class="tw-max-w-[11rem]">
@@ -10,7 +10,7 @@
       {% include "./wavy_line.html" %}
     {% endif %}
 
-    <h{{ heading_level}} class="tw-h3-heading tw-mt-2">{{ heading }}</h{{ heading_level}}>
+    <h{{ heading_level}} class="{{ heading_classes }}">{{ heading }}</h{{ heading_level}}>
 
     {% if articles %}
       <ul class="tw-list-none {% if show_images %} tw-space-y-4 {% else %} tw-space-y-5 {% endif %} tw-p-0">
