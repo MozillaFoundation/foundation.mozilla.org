@@ -2,50 +2,37 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
-	<div class="tw-row tw-py-4">
-        <div class="tw-px-4 tw-w-full tw-mb-5">
-            <span class="tw-h2-heading tw-py-2 tw-border-t">{{ self.title }}</span>
-        </div>
+  <div class="tw-row tw-my-4 large:tw-mb-7">
+    <div class="tw-px-4 tw-w-full">
+      <h2 class="tw-pt-2 tw-pb-3 tw-border-t tw-inline-block">{{ self.title }}</h2>
+    </div>
 
-        {% for block in self.cards %}
-          {% with card=block %}
-            {% image card.image fill-345x194 as img %}
-            <div class="tw-h-full tw-flex">
-            <div class="tw-px-4 tw-w-full medium:tw-w-1/3 tw-mb-5">
-                <img src="{{ img.url }}" alt="{{ card.alt_text }}" />
-            </div>
-            <div class="tw-px-4 tw-w-full medium:tw-w-2/3 tw-mb-5">
-                <div class="tw-flex tw-flex-1">
-                    <div class="tw-bg-white tw-relative tw-py-4 tw-w-full tw-flex tw-flex-col">
-                        <span class="tw-h6-heading tw-text-gray-40 tw-py-1 tw-mb-0">{{ card.meta_data }}</span>
-                        {% if card.url %}<a href="{{ card.url }}">{% endif %}
-                            <span class="tw-h3-heading tw-mb-2">{{ card.title }}</span>
-                        {% if card.url %}</a>{% endif %}
-                        {{ card.body|richtext }}
-                    </div>
-                  </div>
-            </div>
-            </div>
-
-            {% comment %} <div class="tw-px-4 medium:tw-w-1/2 tw-mb-5">
-              <div class="card-regular tw-h-full tw-flex tw-mb-5">
-                <div class="medium:tw-w-1/3 tw-flex-col tw-px-4">
-                    <img src="{{ img.url }}" alt="{{ card.alt_text }}" />
-                </div>
-                <div class="medium:tw-w-2/3 tw-flex-col tw-px-4">
-                  <div class="tw-flex tw-flex-1">
-                    <div class="tw-bg-white tw-relative tw-py-4 tw-w-full tw-flex tw-flex-col">
-                        <span class="tw-h6-heading tw-text-gray-40 tw-py-1 tw-mb-0">{{ card.meta_data }}</span>
-                        {% if card.url %}<a href="{{ card.url }}">{% endif %}
-                            <span class="tw-h3-heading tw-mb-2">{{ card.title }}</span>
-                        {% if card.url %}</a>{% endif %}
-                        {{ card.body|richtext }}
-                    </div>
+    <div class="tw-space-y-4 large:tw-space-y-5">
+      {% for block in self.cards %}
+        {% with card=block %}
+          {% image card.image fill-690x388 as img %}
+          {% if card.url %}<a href="{{ card.url }}" class="tw-block tw-group hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black" aria-label="{{ card.title }}">{% endif %}
+            <div class="tw-px-4 tw-grid tw-grid-cols-1 large:tw-grid-cols-3 tw-gap-4 large:tw-gap-6">
+              <div class="tw-col-span-1">
+                <img class="tw-w-full large:tw-w-auto large:tw-max-w-[345px]" src="{{ img.url }}" alt="{{ card.alt_text }}" width="{{ img.width }}" height="{{ img.height }}"/>
+              </div>
+              <div class="tw-col-span-1 large:tw-col-span-2 large:tw-items-center large:tw-flex">
+                <div class="tw-bg-white tw-relative tw-w-full tw-flex tw-flex-col">
+                  <span class="tw-h6-heading tw-text-gray-40 tw-py-1 tw-mb-0">{{ card.meta_data }}</span>
+                  <span class="tw-h3-heading tw-mb-2 tw-block
+                      group-hover:tw-underline group-focus:tw-underline group-hover:tw-text-inherit group-focus:tw-text-inherit group-hover:tw-font-inherit">
+                      {{ card.title }}
+                    </span>
+                  <div class="[&_p]:tw-text-sm [&_p]:tw-text-gray-80">
+                    {{ card.body|richtext }}
                   </div>
                 </div>
               </div>
-            </div> {% endcomment %}
-          {% endwith %}
-		{% endfor %}
-	</div>
+            </div>
+          {% if card.url %}</a>{% endif %}
+        {% endwith %}
+      {% endfor %}
+    </div>
+
+  </div>
 {% endblock %}
