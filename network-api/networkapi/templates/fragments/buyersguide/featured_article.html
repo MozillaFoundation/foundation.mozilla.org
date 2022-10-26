@@ -6,7 +6,9 @@
     tw-grid
     tw-grid-cols-12
     tw-grid-rows-[(auto,auto,auto)] medium:tw-grid-rows-[(auto,auto)]
-    tw-gap-4
+    {# Only adding the x gap above medium screens because otherwise the gaps would define a min width for the grid. #}
+    medium:tw-gap-x-6
+    tw-gap-y-6
   ">
 
     {% image hero_featured_article.hero_image original as img %}
