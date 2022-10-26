@@ -7,10 +7,11 @@
       <h2 class="tw-pt-2 tw-pb-3 tw-border-t tw-inline-block">{{ self.title }}</h2>
     </div>
 
-    <div class="tw-space-y-4 large:tw-space-y-5">
+    <ul class="tw-space-y-4 large:tw-space-y-5 tw-list-none tw-pl-0">
       {% for block in self.cards %}
         {% with card=block %}
-          {% image card.image fill-690x388 as img %}
+          <li>
+            {% image card.image fill-690x388 as img %}
             {% if card.url %}
               <a href="{{ card.url }}" class="tw-block tw-group hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black" aria-label="{{ card.title }}">
             {% endif %}
@@ -21,10 +22,9 @@
               <div class="tw-col-span-1 large:tw-col-span-2 large:tw-items-center large:tw-flex">
                 <div class="tw-bg-white tw-relative tw-w-full tw-flex tw-flex-col">
                   <span class="tw-h6-heading tw-text-gray-40 tw-py-1 tw-mb-0">{{ card.meta_data }}</span>
-                  <span class="tw-h3-heading tw-mb-2 tw-block
-                      group-hover:tw-underline group-focus:tw-underline group-hover:tw-text-inherit group-focus:tw-text-inherit group-hover:tw-font-inherit">
-                      {{ card.title }}
-                    </span>
+                  <h3 class="tw-h3-heading tw-mb-2 tw-block group-hover:tw-underline group-focus:tw-underline group-hover:tw-text-inherit group-focus:tw-text-inherit group-hover:tw-font-inherit">
+                    {{ card.title }}
+                  </h3>
                   {# Adjust font sizes of rich text elements using [&_p,li,ul] to select them #}
                   <div class="[&_p,li,ul]:tw-text-sm [&_p,li,ul]:tw-text-gray-80">
                     {{ card.body|richtext }}
@@ -32,10 +32,11 @@
                 </div>
               </div>
             </div>
-          {% if card.url %}</a>{% endif %}
+            {% if card.url %}</a>{% endif %}
+          </li>
         {% endwith %}
       {% endfor %}
-    </div>
+    </ul>
 
   </div>
 {% endblock %}
