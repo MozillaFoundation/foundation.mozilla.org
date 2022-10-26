@@ -11,7 +11,9 @@
       {% for block in self.cards %}
         {% with card=block %}
           {% image card.image fill-690x388 as img %}
-          {% if card.url %}<a href="{{ card.url }}" class="tw-block tw-group hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black" aria-label="{{ card.title }}">{% endif %}
+            {% if card.url %}
+              <a href="{{ card.url }}" class="tw-block tw-group hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black" aria-label="{{ card.title }}">
+            {% endif %}
             <div class="tw-px-4 tw-grid tw-grid-cols-1 large:tw-grid-cols-3 tw-gap-4 large:tw-gap-6">
               <div class="tw-col-span-1">
                 <img class="tw-w-full large:tw-w-auto large:tw-max-w-[345px]" src="{{ img.url }}" alt="{{ card.alt_text }}" width="{{ img.width }}" height="{{ img.height }}"/>
@@ -23,7 +25,8 @@
                       group-hover:tw-underline group-focus:tw-underline group-hover:tw-text-inherit group-focus:tw-text-inherit group-hover:tw-font-inherit">
                       {{ card.title }}
                     </span>
-                  <div class="[&_p]:tw-text-sm [&_p]:tw-text-gray-80">
+                  {# Adjust font sizes of rich text elements using [&_p,li,ul] to select them #}
+                  <div class="[&_p,li,ul]:tw-text-sm [&_p,li,ul]:tw-text-gray-80">
                     {{ card.body|richtext }}
                   </div>
                 </div>
