@@ -34,4 +34,5 @@ base_fields = [
     ('datawrapper', customblocks.DatawrapperBlock()),
     ('listing', customblocks.ListingBlock()),
     ('profiles', customblocks.ProfileBlock()),
+    ('image_feature', customblocks.ImageFeatureBlock()),
 ]
