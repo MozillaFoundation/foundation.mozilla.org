@@ -35,7 +35,7 @@ base_fields = [
     ('listing', customblocks.ListingBlock()),
     ('profiles', customblocks.ProfileBlock()),
     ('article_teaser_block', customblocks.ArticleTeaserBlock()),
-    ('group_listing_block', customblocks.GroupListingBlock())
+    ('group_listing_block', customblocks.GroupListingBlock()),
     ('image_feature', customblocks.ImageFeatureBlock()),
     ('image_teaser_block', customblocks.ImageTeaserBlock()),
     ('text_only_teaser', customblocks.TextOnlyTeaserBlock()),
