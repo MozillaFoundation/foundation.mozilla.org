@@ -76,8 +76,8 @@ let main = {
         document.body.classList.add(`react-loaded`);
         this.initPageSpecificScript();
         // bind custom analytics only once everything's up and loaded
-        AnalyticsEvents.init();
         PNIMobileNav.init();
+        AnalyticsEvents.init();
       });
     });
   },
