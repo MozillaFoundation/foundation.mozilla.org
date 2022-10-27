@@ -43,6 +43,6 @@ class ImageTeaserBlock(blocks.StructBlock):
         return result
 
     class Meta:
-        label = 'Image Teaser'
+        label = 'Image teaser'
         icon = 'doc-full'
         template = 'wagtailpages/blocks/image_teaser_block.html'
