@@ -13,9 +13,11 @@
         {% if card.article %}
           <div class="tw-px-4 tw-w-full medium:tw-w-1/3 tw-mb-5">
             <div class="tw-bg-white tw-relative tw-py-4 tw-w-full tw-flex tw-flex-col">
-              <a href="{% pageurl card.article %}">
-                <span class="tw-h5-heading tw-mb-2">{{ card.article.title }}</span>
-              </a>
+              <span class="tw-h5-heading tw-mb-2 tw-block">
+                  <a href="{% pageurl card.article %}">
+                    {{ card.article.title }}
+                  </a>
+              </span>
             </div>
 
             <div class="blog-authors d-flex flex-wrap align-items-center">
