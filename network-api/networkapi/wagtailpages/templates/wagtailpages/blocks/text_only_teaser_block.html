@@ -3,15 +3,15 @@
 
 {% block block_content %}
   <section class="tw-container tw-mb-7">
-    <div class="tw-row tw-grid medium:tw-grid-cols-3 tw-gap-x-4 tw-gap-y-5 medium:tw-gap-6 medium:tw-space-y-0">
+    <div class="tw-row tw-grid medium:tw-grid-cols-3 tw-gap-x-4 tw-gap-y-5 medium:tw-gap-6">
       {% for block in self.cards %}
         {% with card=block %}
           <div class="tw-pt-4 tw-bg-white tw-relative tw-w-full tw-flex tw-flex-col tw-border-t tw-border-black/10">
             {% if card.heading_link %}<a class="hover:tw-text-inherit" href="{% pageurl card.heading_link %}">{% endif %}
-            <span class="tw-h5-heading tw-mb-2">{{ card.heading }}</span>
+            <div class="tw-h5-heading tw-mb-2">{{ card.heading }}</div>
             {% if card.heading_link %}</a>{% endif %}
             {% if card.meta_data %}
-              <span class="tw-body-small tw-py-2">{{ card.meta_data }}</span>
+              <span class="tw-body-small tw-pb-2">{{ card.meta_data }}</span>
             {% endif %}
             <p class="tw-text-sm tw-text-gray-60 tw-my-0">{{ card.body }}</p>
           </div>
