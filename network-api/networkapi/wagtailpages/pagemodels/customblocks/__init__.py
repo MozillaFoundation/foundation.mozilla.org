@@ -42,3 +42,4 @@ from .image_feature_block import ImageFeatureBlock
 from .image_teaser_block import ImageTeaserBlock
 from .profile import ProfileBlock
 from .text_only_teaser import TextOnlyTeaserBlock
+from .block_with_aside import BlockWithAside
