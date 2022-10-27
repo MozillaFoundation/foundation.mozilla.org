@@ -72,3 +72,13 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
 
     class Meta:
         abstract = True
+
+
+# Overriding the name and help text for the FoundationMetadata's "search_image"
+# field, which is found in the "Promote" tab of all pages that inherit this class.
+# For more info see: https://learnwagtail.com/tutorials/customizing-default-property-values/
+search_image_field = FoundationMetadataPageMixin._meta.get_field("search_image")
+search_image_field.verbose_name = "Share Image"
+search_image_field.help_text = 'Image must be high quality, include our logo mark and have the dimensions ' \
+                               '1200 x 628 px. For more design guidelines see here: ' \
+                               'https://foundation.mozilla.org/en/docs/brand/brand-identity/social-media/#og-images'

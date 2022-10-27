@@ -1,7 +1,8 @@
-from wagtail.core import blocks
-from wagtail.images.blocks import ImageChooserBlock
 from django.forms.utils import ErrorList
+
+from wagtail.core import blocks
 from wagtail.core.blocks.struct_block import StructBlockValidationError
+from wagtail.images.blocks import ImageChooserBlock
 
 
 class ImageTeaserBlock(blocks.StructBlock):
@@ -42,5 +43,6 @@ class ImageTeaserBlock(blocks.StructBlock):
         return result
 
     class Meta:
+        label = 'Image teaser'
         icon = 'doc-full'
         template = 'wagtailpages/blocks/image_teaser_block.html'

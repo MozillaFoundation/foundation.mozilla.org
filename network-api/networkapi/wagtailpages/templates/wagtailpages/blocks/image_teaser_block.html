@@ -3,20 +3,20 @@
 
 {% block block_content %}
   {% with card=value %}
-    <div class="tw-row tw-py-4">
-      <div class="tw-px-4 medium:tw-w-1/2 tw-mb-5">
-        <span class="tw-h2-heading tw-mb-4">{{ card.title }}</span>
+    <section class="tw-grid tw-grid-cols-1 large:tw-grid-cols-2 tw-gap-5 large:tw-gap-[60px] tw-mt-4 tw-mb-7">
+      <div class="tw-row-start-2 large:tw-row-start-1">
+        <h2 class="tw-mb-4">{{ card.title }}</h2>
         {{ card.text|richtext }}
         {% if card.url and card.url_label %}
-          <a class="tw-{{ card.styling }} link-button tw-my-4" href="{{ card.url }}">
+          <a class="tw-{{ card.styling }} link-button tw-mt-4" href="{{ card.url }}">
             {{ card.url_label }}
           </a>
         {% endif %}
       </div>
-      <div class="tw-px-4 medium:tw-w-1/2">
+      <div>
         {% image card.image fill-540x305-c100 format-jpeg as img %}
         <img src="{{ img.url }}" alt="{{ card.altText }}" class="tw-w-full" width="{{ img.width|unlocalize }}" height="{{ img.height|unlocalize }}">
       </div>
-  </div>
+    </section>
   {% endwith %}
 {% endblock %}
