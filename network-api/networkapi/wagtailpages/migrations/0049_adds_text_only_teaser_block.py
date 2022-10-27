@@ -13,7 +13,7 @@ import wagtail.snippets.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0047_adds_image_feature_block'),
+        ('wagtailpages', '0048_adds_image_feature_block'),
     ]
 
     operations = [

@@ -15,7 +15,7 @@ import wagtailmedia.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mozfest', '0009_adds_image_feature_block'),
+        ('mozfest', '0010_adds_image_feature_block'),
     ]
 
     operations = [
