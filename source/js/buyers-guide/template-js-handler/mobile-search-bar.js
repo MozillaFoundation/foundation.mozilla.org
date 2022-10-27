@@ -24,13 +24,46 @@ export default () => {
     !location.pathname.includes("categories") &&
     !location.pathname.endsWith("/privacynotincluded/")
   ) {
-    const input = document.querySelector("#pni-mobile-bar");
-    const clearIcon = document.querySelector(
+    const mobileInput = document.querySelector("#pni-mobile-bar");
+    const mobileClearIcon = document.querySelector(
       "#pni-mobile-container .clear-icon"
     );
 
-    clearIcon.addEventListener("click", function () {
+    mobileClearIcon.addEventListener("click", function () {
       searchContainer.classList.remove(`has-content`);
+      mobileInput.value = "";
+    });
+
+    mobileInput.addEventListener(`input`, function () {
+      const searchText = mobileInput.value.trim();
+
+      if (searchText) {
+        searchContainer.classList.add(`has-content`);
+      } else {
+        searchContainer.classList.remove(`has-content`);
+      }
+    });
+
+    mobileInput.addEventListener("keypress", function (event) {
+      // If the user presses the "Enter" key on the keyboard or mobile
+      if (event.key === "Enter" && mobileInput.value) {
+        event.preventDefault();
+        const url = new URL("/privacynotincluded/", location.href);
+        url.searchParams.set("search", mobileInput.value);
+        url.search = url.searchParams.toString();
+        url.hash = "product-review";
+        location.href = url.toString();
+      }
+    });
+
+    const input = document.querySelector("#product-filter-search-input");
+    const clearIcon = document.querySelector(
+      "#product-filter-search-input + .clear-icon"
+    );
+    const searchBar = document.querySelector(`#product-filter-search`);
+
+    clearIcon.addEventListener("click", function () {
+      searchBar.classList.remove(`has-content`);
       input.value = "";
     });
 
@@ -38,9 +71,9 @@ export default () => {
       const searchText = input.value.trim();
 
       if (searchText) {
-        searchContainer.classList.add(`has-content`);
+        searchBar.classList.add(`has-content`);
       } else {
-        searchContainer.classList.remove(`has-content`);
+        searchBar.classList.remove(`has-content`);
       }
     });
 
