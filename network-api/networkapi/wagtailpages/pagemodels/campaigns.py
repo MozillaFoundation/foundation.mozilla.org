@@ -147,7 +147,6 @@ class Signup(TranslatableMixin, CTA):
 
 
 class OpportunityPage(MiniSiteNameSpace):
-
     content_panels = Page.content_panels + [
         FieldPanel('header'),
         StreamFieldPanel('body'),
@@ -375,7 +374,11 @@ class BanneredCampaignPage(PrimaryPage):
     tags = ClusterTaggableManager(through=BanneredCampaignTag, blank=True)
     aside = StreamField(aside_fields, blank=True)
 
-    use_intro_from_parent = models.BooleanField(default=False, blank=False, help_text='This field will overwrite the intro field above with the intro field from this pages parent')
+    use_intro_from_parent = models.BooleanField(
+        default=False,
+        blank=False,
+        help_text='This field will overwrite the intro field above with the intro field from this pages parent'
+    )
 
     panel_count = len(PrimaryPage.content_panels)
     introPanel = PrimaryPage.content_panels.pop(-2)
@@ -386,12 +389,14 @@ class BanneredCampaignPage(PrimaryPage):
         MultiFieldPanel([
             introPanel,
             FieldPanel('use_intro_from_parent'),
-        ], heading='Intro options', help_text='Select a parent intro, write your own intro or leave both blank for no intro'),
+        ],
+            heading='Intro options',
+            help_text='Select a parent intro, write your own intro or leave both blank for no intro'),
         SnippetChooserPanel('cta'),
         SnippetChooserPanel('signup'),
     ] + PrimaryPage.content_panels[n:] + [
-        StreamFieldPanel('aside'),
-    ]
+                         StreamFieldPanel('aside'),
+                     ]
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
         FieldPanel('tags'),
