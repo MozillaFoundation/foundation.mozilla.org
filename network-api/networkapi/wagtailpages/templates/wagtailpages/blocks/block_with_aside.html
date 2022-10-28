@@ -1,10 +1,18 @@
-<section class="tw-@container">
-  <div class="tw-grid tw-grid-cols-1 @[41.56rem]:tw-grid-cols-4 tw-gap-4 @[41.56rem]:tw-gap-7">
-    <div class="tw-col-span-1 @[41.56rem]:tw-col-span-3 tw-row-start-2 @[41.56rem]:tw-row-start-1">
+{% comment %}
+  This component uses @container queries to determine if a pr-existing cta or signup block is set
+  and if so reduces the columns to the mobile / single column view
+
+  [&.block-with-aside_+_.block-with-aside] - Will add a margin to space out these specific blocks from each other
+  The blocks inside content will determine their own margin bottom for vertical spacing
+{% endcomment %}
+
+<section class="block-with-aside tw-@container [&.block-with-aside_+_.block-with-aside]:tw-mt-7">
+  <div class="tw-grid tw-grid-cols-1 @[689px]:tw-grid-cols-4 @[689px]:[&_aside]:tw-col-start-4 tw-gap-4 @[689px]:tw-gap-7">
+    <div class="aside-content tw-col-span-3 max-large:tw-col-span-1">
       {{ value.content }}
     </div>
-    <div class="tw-col-span-1 @[41.56rem]:tw-col-span-1 tw-row-start-1">
+    <aside class="tw-row-start-1">
       {{ value.aside }}
-    </div>
+    </aside>
   </div>
 </section>

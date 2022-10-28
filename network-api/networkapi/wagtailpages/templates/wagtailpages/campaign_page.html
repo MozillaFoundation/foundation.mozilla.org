@@ -90,15 +90,6 @@
           </div>
         </div>
       </div>
-
-    {% if page.aside %}
-      <aside class="tw-w-full large:tw-w-1/4 tw-px-4 tw-mb-5 [&_.streamfield-content]:tw-w-full">
-        {% for block in page.aside %}
-            {% include_block block with parent_page=page %}
-        {% endfor %}
-      </aside>
-    {% endif %}
-
   </div>
 </div>
 {% endblock %}
