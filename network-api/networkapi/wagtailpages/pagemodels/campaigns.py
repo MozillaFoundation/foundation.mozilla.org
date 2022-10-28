@@ -379,7 +379,7 @@ class BanneredCampaignPage(PrimaryPage):
     use_intro_from_parent = models.BooleanField(
         default=False,
         blank=False,
-        help_text='This field will overwrite the intro field above with the intro field from this pages parent'
+        help_text='Overwrite the intro field above with the intro field from this pages parent'
     )
 
     content_panels = Page.content_panels + [
