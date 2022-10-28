@@ -217,6 +217,7 @@ export function setupReviewLinks(instance) {
         nav.classList.add("active");
         location.hash = "product-review";
         editorialContent.classList.add("tw-hidden");
+        window.scrollTo(0, 0);
         if (burger && burger.classList.contains("menu-open")) {
           document.querySelector(".burger").click();
         }
