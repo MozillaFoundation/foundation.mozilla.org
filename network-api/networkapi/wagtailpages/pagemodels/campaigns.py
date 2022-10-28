@@ -5,6 +5,7 @@ from django.db import models
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
+    MultiFieldPanel,
     StreamFieldPanel,
 )
 from wagtail.core.models import TranslatableMixin, Page
@@ -374,10 +375,18 @@ class BanneredCampaignPage(PrimaryPage):
     tags = ClusterTaggableManager(through=BanneredCampaignTag, blank=True)
     aside = StreamField(aside_fields, blank=True)
 
+    use_intro_from_parent = models.BooleanField(default=False, blank=False, help_text='This field will overwrite the intro field above with the intro field from this pages parent')
+
     panel_count = len(PrimaryPage.content_panels)
-    n = panel_count - 1
+    introPanel = PrimaryPage.content_panels.pop(-2)
+
+    n = panel_count - 2
 
     content_panels = PrimaryPage.content_panels[:n] + [
+        MultiFieldPanel([
+            introPanel,
+            FieldPanel('use_intro_from_parent'),
+        ], heading='Intro options', help_text='Select a parent intro, write your own intro or leave both blank for no intro'),
         SnippetChooserPanel('cta'),
         SnippetChooserPanel('signup'),
     ] + PrimaryPage.content_panels[n:] + [
