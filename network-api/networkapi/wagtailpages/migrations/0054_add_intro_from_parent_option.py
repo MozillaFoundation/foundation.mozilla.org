@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='banneredcampaignpage',
             name='use_intro_from_parent',
-            field=models.BooleanField(default=False),
+            field=models.BooleanField(default=False, help_text='This field will overwrite the intro field above with the intro field from this pages parent'),
         ),
     ]

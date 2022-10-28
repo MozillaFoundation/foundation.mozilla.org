@@ -10,6 +10,8 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.models import TranslatableMixin, Page
 from wagtail.core.fields import RichTextField, StreamField
+from wagtail.images.edit_handlers import ImageChooserPanel
+
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
@@ -380,23 +382,19 @@ class BanneredCampaignPage(PrimaryPage):
         help_text='This field will overwrite the intro field above with the intro field from this pages parent'
     )
 
-    panel_count = len(PrimaryPage.content_panels)
-    introPanel = PrimaryPage.content_panels.pop(-2)
-
-    n = panel_count - 2
-
-    content_panels = PrimaryPage.content_panels[:n] + [
+    content_panels = Page.content_panels + [
+        FieldPanel('header'),
+        ImageChooserPanel('banner'),
         MultiFieldPanel([
-            introPanel,
+            FieldPanel('intro'),
             FieldPanel('use_intro_from_parent'),
-        ],
-            heading='Intro options',
-            help_text='Select a parent intro, write your own intro or leave both blank for no intro'),
+        ], heading='Intro options',
+        help_text='Select a parent intro, write your own intro or leave both blank for no intro'),
         SnippetChooserPanel('cta'),
         SnippetChooserPanel('signup'),
-    ] + PrimaryPage.content_panels[n:] + [
-                         StreamFieldPanel('aside'),
-                     ]
+        StreamFieldPanel('body'),
+        StreamFieldPanel('aside'),
+    ]
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
         FieldPanel('tags'),
