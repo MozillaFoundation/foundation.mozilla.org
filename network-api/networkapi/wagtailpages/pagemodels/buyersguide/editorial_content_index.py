@@ -9,10 +9,13 @@ from wagtail.core import models as wagtail_models
 from wagtail.core.models import Orderable, TranslatableMixin
 from wagtail.contrib.routable_page import models as routable_models
 
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import get_buyersguide_featured_cta
+from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
+    get_categories_for_locale,
+    get_buyersguide_featured_cta
+)
+from networkapi.wagtailpages.utils import get_language_from_request
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
-
 
 if TYPE_CHECKING:
     from django import http
@@ -68,6 +71,8 @@ class BuyersGuideEditorialContentIndexPage(
         context["home_page"] = self.get_parent().specific
         context["featured_cta"] = get_buyersguide_featured_cta(self)
         context["items"] = self.get_paginated_items(request.GET.get('page'))
+        language_code = get_language_from_request(request)
+        context['categories'] = get_categories_for_locale(language_code)
         return context
 
     def get_paginated_items(
