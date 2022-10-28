@@ -1,22 +1,17 @@
 {% comment %}
-  This component uses @container queries to determine if a pre-existing cta or signup block is set
-  and if so reduces the columns to the mobile / single column view
-
   [&.block-with-aside_+_.block-with-aside] - Will add a margin to space out these specific blocks from each other
   The blocks inside content will determine their own margin bottom for vertical spacing
+
+  group-[.has-sidebar] - If the parent has a sidebar like CTA or Signup Block then apply styles to convert this into a single column
 {% endcomment %}
 
-<section class="block-with-aside tw-@container [&.block-with-aside_+_.block-with-aside]:tw-mt-7">
-  {# When the container is larger than 723px (2/3) then we use container queries to apply these styles #}
-  <div class="tw-grid tw-grid-cols-1 @[723px]:tw-grid-cols-3 @[723px]:[&_aside]:tw-col-start-3 @[723px]:[&_aside]:tw-ml-[34px] tw-gap-4 @[723px]:tw-gap-7">
-    <div class="tw-col-span-2 max-large:tw-col-span-1">
+<section class="block-with-aside [&.block-with-aside_+_.block-with-aside]:tw-mt-7">
+  <div class="tw-grid tw-grid-cols-1 large:tw-grid-cols-3 tw-gap-4 large:tw-gap-7 group-[.has-sidebar]:tw-grid-cols-1 group-[.has-sidebar]:tw-gap-4 ">
+    <div class="tw-col-span-1 large:tw-col-span-2 group-[.has-sidebar]:tw-col-span-1">
       {{ value.content }}
     </div>
-    <aside class="tw-row-start-1">
+    <aside class="tw-row-start-1 large:tw-col-start-3 large:tw-ml-[34px] group-[.has-sidebar]:tw-ml-0 group-[.has-sidebar]:tw-col-start-1">
       {{ value.aside }}
     </aside>
   </div>
 </section>
-
-
-{#@[689px]:tw-grid-cols-3#}
