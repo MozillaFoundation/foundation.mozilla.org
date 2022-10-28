@@ -3,9 +3,9 @@
 {% if page.zen_nav == True %}<div data-nav-mode="zen" class="zen-mode primary-nav-container">
 {% else %}<div class="primary-nav-container">
 {% endif %}
-  <div class="wrapper-burger">
-    <div class="menu-container">
-      {% block mobile-search %}
+  <div class="wrapper-burger {% block wrapper_classes %}{% endblock %}">
+    <div class="menu-container {% block menu_container_classes %}{% endblock %}">
+      {% block mobile_search %}
       {% endblock %}
       <div class="narrow-screen-menu hidden d-lg-none">
         {% block narrow_screen_menu %}
