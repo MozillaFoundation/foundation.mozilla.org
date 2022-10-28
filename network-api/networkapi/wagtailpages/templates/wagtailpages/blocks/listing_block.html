@@ -2,11 +2,11 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
-  <ul class="tw-row tw-mb-7 tw-list-none tw-pl-0">
+  <ul class="tw-row tw-mb-7 tw-list-none tw-pl-0 tw-grid tw-gap-4 medium:tw-grid-cols-2 medium:tw-gap-7">
     {% for block in self.cards %}
       {% with card=block %}
         {% image card.image fill-350x197 as img %}
-        <li class="tw-px-4 medium:tw-w-1/2 tw-mb-5">
+        <li>
           {% if card.link %}
             <a href="{% pageurl card.link %}"
                class="tw-group/listing hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black"

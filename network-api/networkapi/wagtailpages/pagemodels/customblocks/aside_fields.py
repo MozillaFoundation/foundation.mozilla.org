@@ -2,7 +2,7 @@ from .. import customblocks
 
 
 aside_fields = [
-    ('aside', customblocks.AsideBlock()),
+    ('aside_content', customblocks.AsideContentBlock()),
     ('linkbutton', customblocks.LinkButtonBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
 ]
