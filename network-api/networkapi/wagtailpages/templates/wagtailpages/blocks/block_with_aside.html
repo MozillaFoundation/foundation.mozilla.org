@@ -7,12 +7,12 @@
 {% endcomment %}
 
 <section class="block-with-aside tw-@container [&.block-with-aside_+_.block-with-aside]:tw-mt-7">
-  <div class="tw-grid tw-grid-cols-1 tw-grid-cols-3 @[723px]:[&_aside]:tw-col-start-3 @[723px]:[&_aside]:tw-ml-6 tw-gap-4 @[723px]:tw-gap-7">
+  <div class="tw-grid tw-grid-cols-1 @[723px]:tw-grid-cols-3 @[723px]:[&_aside]:tw-col-start-3 @[723px]:[&_aside]:tw-ml-[34px] tw-gap-4 @[723px]:tw-gap-7">
     <div class="aside-content tw-col-span-2 max-large:tw-col-span-1">
       {{ value.content }}
     </div>
     <aside class="tw-row-start-1">
-      {{ value.aside_content }}
+      {{ value.aside }}
     </aside>
   </div>
 </section>
