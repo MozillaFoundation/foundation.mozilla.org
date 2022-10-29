@@ -537,7 +537,7 @@ class JoinUs extends Component {
       );
       buttonText = getText("Subscribe");
     } else if (this.props.formStyle == "pni") {
-      classnames = classNames("tw-btn-primary", "tw-w-max", "tw-h-7");
+      classnames = classNames("tw-btn", "tw-btn-primary", "tw-w-max", "tw-h-7");
       buttonText = getText("Sign up");
     } else {
       classnames = classNames("tw-btn-primary", {
