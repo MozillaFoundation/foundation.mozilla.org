@@ -47,6 +47,10 @@
     </div>
   </div>
 
+  {% for block in page.body %}
+      {% include_block block with parent_page=page page_type="blog" %}
+  {% endfor %}
+
   {% with related_articles=page.get_primary_related_articles  %}
     {% if related_articles %}
     <div class="tw-container tw-my-4">
@@ -58,10 +62,6 @@
     </div>
     {% endif %}
   {% endwith %}
-
-  {% for block in page.body %}
-      {% include_block block with parent_page=page page_type="blog" %}
-  {% endfor %}
 
   <div class="tw-container tw-mt-6">
     <div class="tw-row tw-justify-center">

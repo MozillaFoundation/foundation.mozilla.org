@@ -125,7 +125,8 @@ let main = {
       firstParagraph.insertBefore(relatedContent, relatedPlace);
       relatedContent.classList.add(
         "large:tw-float-right",
-        "large:tw-pl-4",
+        "tw-p-4",
+        "tw-pr-0",
         "large:tw-mr-[-20%]"
       );
     }
