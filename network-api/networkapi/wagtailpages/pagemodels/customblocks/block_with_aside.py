@@ -19,7 +19,8 @@ class BlockWithAside(blocks.StructBlock):
         aside_fields,
         required=False,
         icon='doc-full',
-        help_text='Elements here will appear in the column on the right side of the page on desktop. This can be left blank if you would just like a 2/3 column on the left'
+        help_text='Elements here will appear in the column on the right side of the page on desktop. '
+                  'This can be left blank if you would just like a 2/3 column on the left'
     )
 
     class Meta:

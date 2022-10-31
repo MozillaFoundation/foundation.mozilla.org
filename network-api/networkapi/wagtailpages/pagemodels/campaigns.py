@@ -8,7 +8,7 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
 )
 from wagtail.core.models import TranslatableMixin, Page
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.fields import RichTextField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
