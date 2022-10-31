@@ -435,14 +435,18 @@ class BanneredCampaignPage(PrimaryPage):
 
     show_in_menus_default = True
 
+    def get_intro(self):
+        if self.use_intro_from_parent:
+            parent = self.get_parent()
+            if parent:
+                return parent.specific.intro
+        else:
+            return self.intro
+
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
         context = get_page_tree_information(self, context)
-
-        if self.use_intro_from_parent:
-            if context['root']:
-                self.intro = context['root'].specific.intro
 
         return context
 

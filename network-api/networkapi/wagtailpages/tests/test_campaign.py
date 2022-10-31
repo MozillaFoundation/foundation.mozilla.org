@@ -30,4 +30,4 @@ class TestBanneredCampaignPage(test_base.WagtailpagesTestCase):
             use_intro_from_parent=True
         )
         # Ensure parent and child have same intro
-        self.assertEqual(self.bannered_campaign_page_child.intro, self.bannered_campaign_page.intro)
+        self.assertEqual(self.bannered_campaign_page_child.get_intro(), self.bannered_campaign_page.intro)
