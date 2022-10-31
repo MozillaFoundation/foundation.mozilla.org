@@ -388,7 +388,8 @@ class BanneredCampaignPage(PrimaryPage):
         MultiFieldPanel([
             FieldPanel('intro'),
             FieldPanel('use_intro_from_parent'),
-        ], heading='Intro options',
+        ],
+            heading='Intro options',
             help_text='Select a parent intro, write your own intro or leave both blank for no intro'),
         SnippetChooserPanel('cta'),
         SnippetChooserPanel('signup'),
