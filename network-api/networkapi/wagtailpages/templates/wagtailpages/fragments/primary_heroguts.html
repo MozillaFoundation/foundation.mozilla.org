@@ -47,9 +47,7 @@
     <div class="row cutout-wrapper-row">
       <div class="cutout col-12 col-lg-8 pt-4">
         <h1 class="tw-h1-heading mb-0">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
-        {% if page.use_intro_from_parent and root.specific.intro %}
-          <p class="tw-body-large mt-3 mb-0">{{ root.specific.intro }}</p>
-        {% elif page.intro %}
+        {% if page.intro %}
           <p class="tw-body-large mt-3 mb-0">{{ page.intro }}</p>
         {% endif %}
       </div>

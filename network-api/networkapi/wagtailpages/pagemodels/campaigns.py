@@ -389,7 +389,7 @@ class BanneredCampaignPage(PrimaryPage):
             FieldPanel('intro'),
             FieldPanel('use_intro_from_parent'),
         ], heading='Intro options',
-        help_text='Select a parent intro, write your own intro or leave both blank for no intro'),
+            help_text='Select a parent intro, write your own intro or leave both blank for no intro'),
         SnippetChooserPanel('cta'),
         SnippetChooserPanel('signup'),
         StreamFieldPanel('body'),
@@ -437,7 +437,12 @@ class BanneredCampaignPage(PrimaryPage):
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
-        return get_page_tree_information(self, context)
+        context = get_page_tree_information(self, context)
+
+        if self.use_intro_from_parent:
+            if context['root']:
+                self.intro = context['root'].specific.intro
+        return context
 
     class Meta:
         verbose_name = "Banner Page"
