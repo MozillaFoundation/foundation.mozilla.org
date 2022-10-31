@@ -443,6 +443,7 @@ class BanneredCampaignPage(PrimaryPage):
         if self.use_intro_from_parent:
             if context['root']:
                 self.intro = context['root'].specific.intro
+
         return context
 
     class Meta:

@@ -9,25 +9,25 @@ class TestBanneredCampaignPage(test_base.WagtailpagesTestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.bannered_campaign_page = BanneredCampaignPageFactory.create(
+        cls.bannered_campaign_page = BanneredCampaignPageFactory(
             parent=cls.homepage,
             title='Bannered campaign page',
             intro='I am the introduction'
         )
 
     def test_page_loads(self):
-        BanneredCampaignPageFactory(parent=self.bannered_campaign_page)
         url = self.bannered_campaign_page.get_url()
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
-    # def test_page_uses_intro_from_parent(self):
-    #     bannered_campaign_page_child = BanneredCampaignPageFactory.create(
-    #         parent=self.bannered_campaign_page,
-    #         use_intro_from_parent=True
-    #     )
-    #     print('first', bannered_campaign_page_child.intro)
-    #     print('second', self.bannered_campaign_page.intro)
-        # self.assertEqual(bannered_campaign_page_child.intro, self.bannered_campaign_page.intro)
+    def test_page_uses_intro_from_parent(self):
+        self.bannered_campaign_page_child = BanneredCampaignPageFactory(
+            parent=self.bannered_campaign_page,
+            title='Bannered campaign page child',
+            intro='I am the child introduction',
+            use_intro_from_parent=True
+        )
+        # Ensure parent and child have same intro
+        self.assertEqual(self.bannered_campaign_page_child.intro, self.bannered_campaign_page.intro)
