@@ -4,7 +4,7 @@
 {% block block_content %}
   <div class="tw-row tw-my-4 large:tw-mb-7">
     <div class="tw-px-4 tw-w-full">
-      <h2 class="tw-pt-2 tw-pb-3 tw-border-t tw-inline-block">{{ self.title }}</h2>
+      <h2 class="tw-h3-heading tw-pt-2 tw-pb-3 tw-border-t tw-inline-block">{{ self.title }}</h2>
     </div>
 
     <ul class="tw-space-y-4 large:tw-space-y-5 tw-list-none tw-pl-0">
@@ -17,7 +17,7 @@
             {% endif %}
             <div class="tw-px-4 tw-grid tw-grid-cols-1 large:tw-grid-cols-3 tw-gap-4 large:tw-gap-6">
               <div class="tw-col-span-1">
-                <img class="tw-w-full large:tw-w-auto large:tw-max-w-[345px]" src="{{ img.url }}" alt="{{ card.alt_text }}" width="{{ img.width }}" height="{{ img.height }}"/>
+                <img class="tw-w-full xlarge:tw-max-w-[345px]" src="{{ img.url }}" alt="{{ card.alt_text }}" width="{{ img.width }}" height="{{ img.height }}"/>
               </div>
               <div class="tw-col-span-1 large:tw-col-span-2 large:tw-items-center large:tw-flex">
                 <div class="tw-bg-white tw-relative tw-w-full tw-flex tw-flex-col">
