@@ -52,6 +52,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ("spaces", customblocks.SpacesBlock()),
             ("tito_widget", customblocks.TitoWidgetBlock()),
             ("tabbed_profile_directory", customblocks.TabbedProfileDirectory()),
+            ("newsletter_signup", customblocks.NewsletterSignupBlock()),
         ]
     )
 
