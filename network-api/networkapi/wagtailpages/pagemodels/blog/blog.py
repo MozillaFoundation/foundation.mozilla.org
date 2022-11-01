@@ -201,7 +201,16 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         ),
     ]
 
-    promote_panels = FoundationMetadataPageMixin.promote_panels + [
+    promote_panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel('slug'),
+                FieldPanel('seo_title'),
+                FieldPanel('search_description'),
+                ImageChooserPanel('search_image'),
+            ],
+            heading='Common page configuration'
+        ),
         FieldPanel('tags'),
     ]
 
