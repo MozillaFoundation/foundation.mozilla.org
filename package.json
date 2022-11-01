@@ -61,7 +61,7 @@
     "test": "run-s test:** build",
     "watch": "wait-on http://backend:8000/cms && run-s build:clean && run-p build:js:dev build:common watch:**",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
-    "watch:sass": "chokidar \"source/**/*.scss\" -c \"npm run build:sass\""
+    "watch:sass": "chokidar \"source/**/*.scss\" \"**/*.html\" -c \"npm run build:sass\""
   },
   "browserslist": [
     "> 1%",
@@ -84,6 +84,7 @@
     "esbuild": "^0.12.24",
     "event-stream": "3.3.4",
     "gsap": "^3.9.1",
+    "htmx.org": "^1.8.0",
     "locomotive-scroll": "^4.1.4",
     "moment": "^2.29.1",
     "npm-run-all": "^4.1.3",

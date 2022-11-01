@@ -4,15 +4,15 @@
  * Without making primary-nav.js more complicated just to handle this special case,
  * we use MutationObserver to detect PNI's mobile menu's close/open state
  * so we can toggle class on .primary-nav-container-wrapper to
- * acheive the visual effects we want.
+ * achieve the visual effects we want.
  */
 export default () => {
   const menuBurger = document.querySelector(".burger");
-  const primanyNavContainer = document.querySelector(
+  const primaryNavContainer = document.querySelector(
     ".primary-nav-container-wrapper"
   );
 
-  if (!menuBurger || !primanyNavContainer) return;
+  if (!menuBurger || !primaryNavContainer) return;
 
   const classToDetect = "menu-open";
   const classToToggle = "sticky-top";
@@ -25,9 +25,12 @@ export default () => {
         if (prevMenuState !== currentMenuState) {
           prevMenuState = currentMenuState;
           if (currentMenuState) {
-            primanyNavContainer.classList.add(classToToggle);
+            primaryNavContainer.classList.add(classToToggle);
+            document
+              .querySelector("#pni-mobile-container")
+              .classList.add("tw-hidden");
           } else {
-            primanyNavContainer.classList.remove(classToToggle);
+            primaryNavContainer.classList.remove(classToToggle);
           }
         }
       }
