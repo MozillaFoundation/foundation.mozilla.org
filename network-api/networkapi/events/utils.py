@@ -1,13 +1,23 @@
 import base64
 import hashlib
 import hmac
+import json
 
 from django.conf import settings
+from .models import TitoEvent
 
 
 def is_valid_tito_request(signature, request_body):
-    secret = bytes(settings.TITO_SECURITY_TOKEN, "utf-8")
-    signed = sign_tito_request(secret, request_body)
+    event_details = json.loads(request_body.decode())['event']
+    event_url = f"{event_details['account_slug']}/{event_details['slug']}"
+    try:
+        matching_event = TitoEvent.objects.get(event_id=event_url)
+        secret = bytes(matching_event.security_token, "utf-8")
+        data = json.loads(request.body.decode())
+        signed = sign_tito_request(secret, request_body)
+    except TitoEvent.DoesNotExist:
+        # If there's no matching event, consider this request invalid
+        return False
 
     return signature == signed
 
