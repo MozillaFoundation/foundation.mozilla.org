@@ -37,4 +37,9 @@ from .dear_internet_letter_block import DearInternetLetterBlock
 from .foundation_slider_block import FoundationSliderBlock
 from .listing import ListingBlock
 from .aside import AsideBlock
+from .article_teaser_block import ArticleTeaserBlock
+from .group_listing import GroupListingBlock
+from .image_feature_block import ImageFeatureBlock
+from .image_teaser_block import ImageTeaserBlock
 from .profile import ProfileBlock
+from .text_only_teaser import TextOnlyTeaserBlock
