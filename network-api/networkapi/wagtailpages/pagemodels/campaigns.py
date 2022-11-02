@@ -440,10 +440,8 @@ class BanneredCampaignPage(PrimaryPage):
             parent = self.get_parent()
             if parent.specific.intro:
                 return parent.specific.intro
-            elif self.intro:
-                return self.intro
             else:
-                return False
+                return ''
         else:
             return self.intro
 
@@ -457,3 +455,10 @@ class BanneredCampaignPage(PrimaryPage):
     class Meta:
         verbose_name = "Banner Page"
         verbose_name_plural = "Banner pages"
+
+    def clean(self):
+        if self.use_intro_from_parent and self.intro:
+            raise ValidationError({
+                'use_intro_from_parent': ValidationError("Please use only one intro option."),
+                'intro': ValidationError("Please use only one intro option.")
+            })
