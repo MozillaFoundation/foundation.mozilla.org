@@ -110,9 +110,6 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         TranslatableField('body'),
     ]
 
-    def get_intro(self):
-        return self.intro
-
     def get_template(self, request):
         if self.use_wide_template:
             return 'mozfest/mozfest_primary_page_wide.html'
@@ -265,9 +262,6 @@ class MozfestHomepage(MozfestPrimaryPage):
         context['banner_video_type'] = self.specific.banner_video_type
 
         return context
-
-    def get_intro(self):
-        return self.intro
 
     def get_template(self, request):
         return 'mozfest/mozfest_homepage.html'
