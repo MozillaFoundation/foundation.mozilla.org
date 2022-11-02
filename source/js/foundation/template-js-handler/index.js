@@ -1,4 +1,3 @@
-import stickyCtaHandler from "./window/sticky-cta";
 import shareButtonGroupHandler from "./share-button-group.js";
 import stickyShareButtonGroupHandler from "./window/sticky-share-button-group";
 import articleFootLinkHandler from "./article-footnote-link.js";
@@ -19,7 +18,6 @@ import blogIndexFeaturedVideoHandler from "./featured-blog-video-handler.js";
  */
 export const bindWindowEventHandlers = () => {
   // global handlers for "window"
-  stickyCtaHandler();
   stickyShareButtonGroupHandler();
 };
 

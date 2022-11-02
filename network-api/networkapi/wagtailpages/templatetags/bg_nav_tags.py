@@ -1,7 +1,20 @@
 from django import template
+from django.apps import apps
 from urllib.parse import urlparse
 
 register = template.Library()
+
+
+# Finds the page's parent "Buyer's Guide Homepage" and returns it.
+@register.simple_tag(name='get_bg_home_page', takes_context=True)
+def get_bg_home_page(context):
+    BuyersGuidePage = apps.get_model(app_label='wagtailpages', model_name='BuyersGuidePage')
+    page = context.get('page', None)
+    if page:
+        pni_home_page = BuyersGuidePage.objects.ancestor_of(page, inclusive=True).live().first()
+    else:
+        pni_home_page = BuyersGuidePage.objects.first()
+    return pni_home_page
 
 
 # Determine if a category nav link should be marked active
@@ -29,16 +42,3 @@ def product_in_category(productpage, categorySlug):
         return True
     categories = productpage.product_categories.all()
     return categorySlug in [cat.category.slug for cat in categories]
-
-
-"""
-# Instantiate a list of category page links based on the current page's relation to them
-# NOTE: this points to the new, namespaced category_nav_links. If we need to revert to the old app, change this back.
-@register.inclusion_tag('buyersguide/fragments/category_nav_links.html', takes_context=True)
-def category_nav(context, current_url, current_category, all_categories):
-    return {
-        'current_url': current_url,
-        'current_category': current_category,
-        'sorted_categories': all_categories.order_by('-featured', 'sort_order', 'name'),  # featured categories first
-    }
-"""

@@ -64,6 +64,8 @@ export default {
     let bubbleText = bubble.querySelector(`.text`);
     let products = document.querySelectorAll(`.product-box`);
 
+    const heroMsg = document.querySelector(".speech-bubble>.text").innerHTML;
+
     window.addEventListener(
       `scroll`,
       () => {
@@ -172,7 +174,11 @@ export default {
             productListPosition.top + offset < window.innerHeight &&
             productListPosition.bottom >= 0
           ) {
-            SEARCH_BAR.classList.add("search-active", "creep-o-meter-moved");
+            SEARCH_BAR.classList.remove("tw-hidden");
+          } else {
+            SEARCH_BAR.classList.add("tw-hidden");
+            document.querySelector(".speech-bubble>.text").innerHTML = heroMsg;
+            face.style.backgroundPositionY = `0px`;
           }
 
           const heightFromTop = RECOMMEND_PRODUCT.getBoundingClientRect().top;

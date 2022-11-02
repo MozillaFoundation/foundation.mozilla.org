@@ -180,26 +180,26 @@ def generate(seed):
             related_regions=None,
         )
 
-        for profile in faker_helpers.get_random_objects(model=wagtailpage_models.Profile, max_count=3):
+        for profile in faker_helpers.get_random_objects(source=wagtailpage_models.Profile, max_count=3):
             ResearchAuthorRelationFactory.create(
                 research_detail_page=research_detail_page,
                 author_profile=profile,
             )
 
-        for region in faker_helpers.get_random_objects(model=wagtailpage_models.ResearchRegion, max_count=2):
+        for region in faker_helpers.get_random_objects(source=wagtailpage_models.ResearchRegion, max_count=2):
             ResearchDetailPageResearchRegionRelationFactory.create(
                 research_detail_page=research_detail_page,
                 research_region=region,
             )
 
-        for topic in faker_helpers.get_random_objects(model=wagtailpage_models.ResearchTopic, max_count=2):
+        for topic in faker_helpers.get_random_objects(source=wagtailpage_models.ResearchTopic, max_count=2):
             ResearchDetailPageResearchTopicRelationFactory.create(
                 research_detail_page=research_detail_page,
                 research_topic=topic,
             )
 
     # Populating research landing page with featured research topics
-    for topic in faker_helpers.get_random_objects(model=wagtailpage_models.ResearchTopic, max_count=3):
+    for topic in faker_helpers.get_random_objects(source=wagtailpage_models.ResearchTopic, max_count=3):
         ResearchLandingPageResearchTopicRelationFactory.create(
             research_landing_page=research_landing_page,
             research_topic=topic,
