@@ -1,7 +1,7 @@
 import datetime
 import os
 
-from django.utils import translation
+from django.utils import translation, timezone
 from django.core import management
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
@@ -805,14 +805,16 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_2, research_detail_pages)
 
     def test_years_in_options(self):
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
+        year_1 = timezone.now().year
+        year_2 = year_1 - 1
+        research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
+            original_publication_date=datetime.date(year=year_1, month=1, day=1)
         )
-        year_1 = detail_page_1.original_publication_date.year
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
+        research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
+            original_publication_date=datetime.date(year=year_2, month=1, day=1)
         )
-        year_2 = detail_page_2.original_publication_date.year
 
         response = self.client.get(self.library_page.url)
 
