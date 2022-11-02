@@ -266,5 +266,8 @@ class MozfestHomepage(MozfestPrimaryPage):
 
         return context
 
+    def get_intro(self):
+        return self.intro
+
     def get_template(self, request):
         return 'mozfest/mozfest_homepage.html'
