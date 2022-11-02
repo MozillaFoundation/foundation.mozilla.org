@@ -33,7 +33,7 @@ class TestBanneredCampaignPage(test_base.WagtailpagesTestCase):
         self.assertEqual(self.bannered_campaign_page_child.get_intro(), self.bannered_campaign_page.intro)
 
     def test_child_intro_returns_empty_if_parent_intro_empty(self):
-        self.bannered_campaign_page.intro = ''
+        self.bannered_campaign_page.intro = None
         self.bannered_campaign_page_child = BanneredCampaignPageFactory(
             parent=self.bannered_campaign_page,
             title='Bannered campaign page child',
