@@ -438,8 +438,12 @@ class BanneredCampaignPage(PrimaryPage):
     def get_intro(self):
         if self.use_intro_from_parent:
             parent = self.get_parent()
-            if parent:
+            if parent.specific.intro:
                 return parent.specific.intro
+            elif self.intro:
+                return self.intro
+            else:
+                return False
         else:
             return self.intro
 

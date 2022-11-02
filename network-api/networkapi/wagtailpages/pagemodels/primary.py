@@ -60,16 +60,16 @@ class PrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin,
 
     settings_panels = Page.settings_panels + [
         MultiFieldPanel(
-          [
-            FieldPanel('narrowed_page_content'),
-          ],
-          classname="collapsible"
+            [
+                FieldPanel('narrowed_page_content'),
+            ],
+            classname="collapsible"
         ),
         MultiFieldPanel(
-          [
-            FieldPanel('zen_nav'),
-          ],
-          classname="collapsible"
+            [
+                FieldPanel('zen_nav'),
+            ],
+            classname="collapsible"
         )
     ]
 
@@ -103,10 +103,12 @@ class PrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin,
         'BanneredCampaignPage',
         'OpportunityPage',
         'ArticlePage'
-
     ]
 
     show_in_menus_default = True
+
+    def get_intro(self):
+        return self.intro
 
     def get_context(self, request):
         context = super().get_context(request)
