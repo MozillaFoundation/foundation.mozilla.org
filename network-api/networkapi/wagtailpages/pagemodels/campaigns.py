@@ -1,6 +1,7 @@
 import json
 
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
