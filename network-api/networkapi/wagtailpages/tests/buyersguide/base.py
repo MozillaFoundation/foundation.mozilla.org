@@ -12,7 +12,7 @@ from networkapi.wagtailpages.utils import create_wagtail_image
 
 
 @override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
-class BuyersGuideTestMixin(test_base.WagtailpagesTestCase):
+class BuyersGuideTestCase(test_base.WagtailpagesTestCase):
 
     @classmethod
     def setUpTestData(cls):

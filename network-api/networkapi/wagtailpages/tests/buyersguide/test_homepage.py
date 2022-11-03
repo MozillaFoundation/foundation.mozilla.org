@@ -10,7 +10,7 @@ from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     ProductPageCategory,
     BuyersGuideProductCategory,
 )
-from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestMixin
+from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
 
 class TestFactories(TestCase):
@@ -135,7 +135,7 @@ class BuyersGuideViewTest(TestCase):
 # Use dummy caching for BuyersGuide URLs.
 @override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
-class TestBuyersGuidePage(BuyersGuideTestMixin):
+class TestBuyersGuidePage(BuyersGuideTestCase):
 
     def test_buyersguide_url(self):
         self.assertEqual(self.bg.slug, 'privacynotincluded')
@@ -302,7 +302,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(cta, response.context['featured_cta'])
 
-class TestBuyersGuidePageRelatedArticles(BuyersGuideTestMixin):
+class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
