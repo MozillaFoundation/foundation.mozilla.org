@@ -183,7 +183,9 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     translatable_fields = [
         TranslatableField('title'),
         TranslatableField('intro_text'),
-        TranslatableField('hero_featured_article'),
+        # Hero featured article should be translatable.
+        # Using sync field as workaround for https://github.com/wagtail/wagtail-localize/issues/430
+        SynchronizedField('hero_featured_article'),
         TranslatableField('hero_supporting_article_relations'),
         TranslatableField('hero_supporting_articles_heading'),
         SynchronizedField('cutoff_date'),
