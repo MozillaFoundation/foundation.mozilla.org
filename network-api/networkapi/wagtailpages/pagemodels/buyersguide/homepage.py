@@ -1,5 +1,5 @@
 from datetime import datetime
-import typing
+from typing import TYPE_CHECKING, Optional
 
 from django.apps import apps
 from django.conf import settings
@@ -43,7 +43,7 @@ from networkapi.wagtailpages.utils import (
 )
 
 
-if typing.TYPE_CHECKING:
+if TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideArticlePage, Update
 
 
@@ -390,8 +390,13 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
         return indexes.first()
 
-    def get_hero_featured_article(self) -> 'BuyersGuideArticlePage':
-        return self.hero_featured_article
+    def get_hero_featured_article(self) -> Optional['BuyersGuideArticlePage']:
+        try:
+            return self.hero_featured_article.localized
+        except AttributeError:
+            # If no hero featured article is set (because `None` has no `localized`
+            # attribute)
+            return None
 
     def get_hero_supporting_articles(self) -> list['BuyersGuideArticlePage']:
         return orderables.get_related_items(
