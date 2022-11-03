@@ -7,11 +7,13 @@
   {{ block.super }}
   <div class="editorial-content">
 
-    {% if page.hero_featured_article %}
-      <div class="tw-container">
-        {% include "fragments/buyersguide/featured_article.html" with hero_featured_article=page.hero_featured_article %}
-      </div>
-    {% endif %}
+    {% with hero_featured_article=page.get_hero_featured_article %}
+      {% if hero_featured_article %}
+        <div class="tw-container">
+          {% include "fragments/buyersguide/featured_article.html" with featured_article=hero_featured_article %}
+        </div>
+      {% endif %}
+    {% endwith %}
 
     {% if page.featured_advice_article %}
       <div class="large:tw-container tw-my-6">
