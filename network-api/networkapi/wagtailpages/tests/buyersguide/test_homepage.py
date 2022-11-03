@@ -301,3 +301,29 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(cta, response.context['featured_cta'])
+
+class TestBuyersGuidePageRelatedArticles(BuyersGuideTestMixin):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        cls.content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
+            parent=cls.bg,
+        )
+
+    def test_get_hero_featured_article(self):
+        pass
+
+    def test_get_hero_featured_article_not_set(self):
+        pass
+
+    def test_get_hero_featured_article_non_default_locale(self):
+        pass
+
+    def test_get_hero_supporting_articles(self):
+        pass
+
+    def test_get_hero_supporting_articles_not_set(self):
+        pass
+
+    def test_get_hero_supporting_articles_non_default_locale(self):
+        pass
