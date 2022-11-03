@@ -10,8 +10,10 @@
     <div class="tw-col-span-1 large:tw-col-span-2 group-[.has-sidebar]:tw-col-span-1">
       {{ value.content }}
     </div>
-    <aside class="tw-row-start-1 large:tw-col-start-3 large:tw-ml-[34px] group-[.has-sidebar]:tw-ml-0 group-[.has-sidebar]:tw-col-start-1">
-      {{ value.aside }}
-    </aside>
+    {% if value.aside %}
+      <aside class="tw-mb-7 large:tw-mb-0 large:tw-ml-[34px] group-[.has-sidebar]:tw-ml-0 group-[.has-sidebar]:tw-col-start-1">
+        {{ value.aside }}
+      </aside>
+    {% endif %}
   </div>
 </section>
