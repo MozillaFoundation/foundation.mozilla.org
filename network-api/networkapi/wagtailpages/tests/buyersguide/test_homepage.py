@@ -311,10 +311,21 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
         )
 
     def test_get_hero_featured_article(self):
-        pass
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory.create(
+            parent=self.content_index,
+        )
+        self.bg.hero_featured_article = article_page
+
+        result = self.bg.get_hero_featured_article()
+
+        self.assertEqual(result, article_page)
 
     def test_get_hero_featured_article_not_set(self):
-        pass
+        self.bg.hero_featured_article = None
+
+        result = self.bg.get_hero_featured_article()
+
+        self.assertIsNone(result)
 
     def test_get_hero_featured_article_non_default_locale(self):
         pass

@@ -390,6 +390,9 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
         return indexes.first()
 
+    def get_hero_featured_article(self) -> 'BuyersGuideArticlePage':
+        return self.hero_featured_article
+
     def get_hero_supporting_articles(self) -> list['BuyersGuideArticlePage']:
         return orderables.get_related_items(
             self.hero_supporting_article_relations.all(),
