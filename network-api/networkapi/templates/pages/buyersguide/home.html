@@ -15,11 +15,13 @@
       {% endif %}
     {% endwith %}
 
-    {% if page.featured_advice_article %}
-      <div class="large:tw-container tw-my-6">
-        {% include "fragments/buyersguide/ask_jen_advice_section.html" with featured_advice_article=page.featured_advice_article %}
-      </div>
-    {% endif %}
+    {% with featured_advice_article=page.get_featured_advice_article  %}
+      {% if featured_advice_article %}
+        <div class="large:tw-container tw-my-6">
+          {% include "fragments/buyersguide/ask_jen_advice_section.html" with featured_advice_article=featured_advice_article %}
+        </div>
+      {% endif %}
+    {% endwith %}
 
     <div class="tw-container tw-my-6">
       <div class="tw-row">
