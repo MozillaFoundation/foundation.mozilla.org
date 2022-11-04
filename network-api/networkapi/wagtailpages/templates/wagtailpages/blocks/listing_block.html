@@ -17,8 +17,9 @@
             <div class="tw-flex tw-flex-1">
               <div class="tw-relative tw-pt-4 tw-w-full tw-flex tw-flex-col">
                 <h3 class="tw-h3-heading tw-mb-2 group-hover/listing:tw-underline group-focus/listing:tw-underline">{{ card.title }}</h3>
-                {# Remove last margin of paragraphs or lists #}
-                {{ card.body|richtext }}
+                <div class="[&_p,li,ul]:last:tw-mb-0">
+                  {{ card.body|richtext }}
+                </div>
               </div>
             </div>
           </div>
