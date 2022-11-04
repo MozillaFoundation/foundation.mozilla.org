@@ -343,10 +343,28 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
         self.assertEqual(result, article_page_fr)
 
     def test_get_hero_supporting_articles(self):
-        pass
+        articles = []
+        for i in range(1, 4):
+            article = buyersguide_factories.BuyersGuideArticlePageFactory(
+                parent=self.content_index,
+            )
+            buyersguide_factories.BuyersGuidePageHeroSupportingArticleRelationFactory(
+                page=self.bg,
+                article=article,
+                sort_order=i,
+            )
+            articles.append(article)
+
+        result = self.bg.get_hero_supporting_articles()
+
+        self.assertQuerysetEqual(qs=result, values=articles)
 
     def test_get_hero_supporting_articles_not_set(self):
-        pass
+        articles = []
+
+        result = self.bg.get_hero_supporting_articles()
+
+        self.assertQuerysetEqual(qs=result, values=articles)
 
     def test_get_hero_supporting_articles_non_default_locale(self):
         pass
