@@ -6,7 +6,7 @@
 
 {% block menu_container_classes %} tw-pb-0 {% endblock %}
 
-{% block mobile_search %}
+{% block menu_content %}
   <div id="pni-mobile-container" class="tw-hidden large:tw-hidden tw-absolute tw-mt-[64px] small:tw-mt-[69px] medium:tw-mt-[78px] tw-top-0 tw-w-full tw-left-0 tw-bg-blue-05">
     <div class="tw-container">
       <div class="tw-row">
@@ -26,6 +26,7 @@
       </div>
     </div>
   </div>
+  {{ block.super }}
 {% endblock %}
 
 {% block nav_logo %}

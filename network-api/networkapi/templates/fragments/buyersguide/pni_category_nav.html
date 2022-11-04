@@ -4,11 +4,7 @@
       <div class="row">
         <div class="col">
           <div id="pni-category-wrapper" class="tw-flex tw-items-center tw-w-max tw-min-w-full">
-            {% if pagetype == "product" or pagetype == "about" %}
-              <a class="multipage-link tw-block {% if not category %} active {% endif %}" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All Product Reviews" %}</a>
-            {% else %}
-              <a class="multipage-link tw-block" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All Reviews" %}</a>
-            {% endif %}
+            <a class="multipage-link tw-block {% if pagetype == "home" %} active {% endif %}" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All Reviews" %}</a>
 
             {% for cat in categories %}
               {% with original=cat.original %}
