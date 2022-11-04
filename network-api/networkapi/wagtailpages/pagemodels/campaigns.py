@@ -439,12 +439,11 @@ class BanneredCampaignPage(PrimaryPage):
     def get_intro(self):
         if self.use_intro_from_parent:
             parent = self.get_parent()
-            if parent.specific.intro:
+            try:
                 return parent.specific.intro
-            else:
-                return ''
-        else:
-            return self.intro
+            except AttributeError:
+                return None
+        return self.intro
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -463,3 +462,9 @@ class BanneredCampaignPage(PrimaryPage):
                 'use_intro_from_parent': ValidationError("Please use only one intro option."),
                 'intro': ValidationError("Please use only one intro option.")
             })
+        if self.use_intro_from_parent:
+            parent = self.get_parent()
+            if not hasattr(parent.specific, 'intro'):
+                raise ValidationError({
+                    'use_intro_from_parent': ValidationError("Parent intro field does not exist"),
+                })
