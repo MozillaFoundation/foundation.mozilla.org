@@ -192,6 +192,9 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         # See also: https://github.com/wagtail/wagtail-localize/issues/640
         SynchronizedField('hero_supporting_article_relations'),
         TranslatableField('hero_supporting_articles_heading'),
+        # Featured articles should be translatable too. See above explanation for
+        # hero supporting articles.
+        SynchronizedField('featured_article_relations'),
         SynchronizedField('cutoff_date'),
         SynchronizedField('excluded_categories'),
         TranslatableField('call_to_action'),
