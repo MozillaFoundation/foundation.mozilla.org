@@ -434,6 +434,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         #        efficient way of pulling all items for a given locale.
         return [a.localized for a in articles]
 
+    def get_featured_advice_article(self) -> Optional['BuyersGuideArticlePage']:
+        try:
+            return self.featured_advice_article.localized
+        except AttributeError:
+            # If no featured advice article is set (because `None` has no `localized`
+            # attribute)
+            return None
+
     def get_featured_updates(self) -> list['Update']:
         return orderables.get_related_items(
             self.featured_update_relations.all(),

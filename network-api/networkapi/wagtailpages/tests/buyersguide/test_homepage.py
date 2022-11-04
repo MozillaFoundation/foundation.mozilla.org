@@ -431,3 +431,35 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
         result = buyersguide_homepage_fr.get_featured_articles()
 
         self.assertQuerysetEqual(qs=result, values=articles_fr)
+
+    def test_get_featured_advice_article(self):
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory.create(
+            parent=self.content_index,
+        )
+        self.bg.featured_advice_article = article_page
+
+        result = self.bg.get_featured_advice_article()
+
+        self.assertEqual(result, article_page)
+
+    def test_get_featured_advice_article_not_set(self):
+        self.bg.featured_advice_article = None
+
+        result = self.bg.get_featured_advice_article()
+
+        self.assertIsNone(result)
+
+    def test_get_featured_advice_article_non_default_locale(self):
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index,
+        )
+        self.bg.featured_advice_article = article_page
+        self.bg.save()
+        self.synchronize_tree()
+        buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
+        article_page_fr = article_page.get_translation(self.fr_locale)
+        self.activate_locale(self.fr_locale)
+
+        result = buyersguide_homepage_fr.get_featured_advice_article()
+
+        self.assertEqual(result, article_page_fr)
