@@ -24,18 +24,18 @@ export default () => {
     !location.pathname.includes("categories") &&
     !location.pathname.endsWith("/privacynotincluded/")
   ) {
-    const mobileInput = document.querySelector("#pni-mobile-bar");
-    const mobileClearIcon = document.querySelector(
+    const input = document.querySelector("#pni-mobile-bar");
+    const clearIcon = document.querySelector(
       "#pni-mobile-container .clear-icon"
     );
 
-    mobileClearIcon.addEventListener("click", function () {
+    clearIcon.addEventListener("click", function () {
       searchContainer.classList.remove(`has-content`);
-      mobileInput.value = "";
+      input.value = "";
     });
 
-    mobileInput.addEventListener(`input`, function () {
-      const searchText = mobileInput.value.trim();
+    input.addEventListener(`input`, function () {
+      const searchText = input.value.trim();
 
       if (searchText) {
         searchContainer.classList.add(`has-content`);
@@ -44,12 +44,12 @@ export default () => {
       }
     });
 
-    mobileInput.addEventListener("keypress", function (event) {
+    input.addEventListener("keypress", function (event) {
       // If the user presses the "Enter" key on the keyboard or mobile
-      if (event.key === "Enter" && mobileInput.value) {
+      if (event.key === "Enter" && input.value) {
         event.preventDefault();
         const url = new URL("/privacynotincluded/", location.href);
-        url.searchParams.set("search", mobileInput.value);
+        url.searchParams.set("search", input.value);
         url.search = url.searchParams.toString();
         url.hash = "product-review";
         location.href = url.toString();
