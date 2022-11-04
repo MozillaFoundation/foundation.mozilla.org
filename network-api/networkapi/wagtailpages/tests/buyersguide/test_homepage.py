@@ -386,3 +386,48 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
         result = buyersguide_homepage_fr.get_hero_supporting_articles()
 
         self.assertQuerysetEqual(qs=result, values=articles_fr)
+
+    def test_get_featured_articles(self):
+        articles = []
+        for i in range(1, 4):
+            article = buyersguide_factories.BuyersGuideArticlePageFactory(
+                parent=self.content_index,
+            )
+            buyersguide_factories.BuyersGuidePageFeaturedArticleRelationFactory(
+                page=self.bg,
+                article=article,
+                sort_order=i,
+            )
+            articles.append(article)
+
+        result = self.bg.get_featured_articles()
+
+        self.assertQuerysetEqual(qs=result, values=articles)
+
+    def test_get_featured_articles_not_set(self):
+        articles = []
+
+        result = self.bg.get_featured_articles()
+
+        self.assertQuerysetEqual(qs=result, values=articles)
+
+    def test_get_featured_articles_non_default_locale(self):
+        articles = []
+        for i in range(1, 4):
+            article = buyersguide_factories.BuyersGuideArticlePageFactory(
+                parent=self.content_index,
+            )
+            buyersguide_factories.BuyersGuidePageFeaturedArticleRelationFactory(
+                page=self.bg,
+                article=article,
+                sort_order=i,
+            )
+            articles.append(article)
+        self.synchronize_tree()
+        articles_fr = [a.get_translation(self.fr_locale) for a in articles]
+        buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
+        self.activate_locale(self.fr_locale)
+
+        result = buyersguide_homepage_fr.get_featured_articles()
+
+        self.assertQuerysetEqual(qs=result, values=articles_fr)

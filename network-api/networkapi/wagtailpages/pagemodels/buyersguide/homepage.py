@@ -420,10 +420,16 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         return [a.localized for a in articles]
 
     def get_featured_articles(self) -> list['BuyersGuideArticlePage']:
-        return orderables.get_related_items(
+        articles = orderables.get_related_items(
             self.featured_article_relations.all(),
             'article',
         )
+        # FIXME: This implementation does return the localized version of each article.
+        #        But, it is inefficient. It would be better to pull all articles
+        #        for the correct locale at once. This would require the above returns
+        #        a queryset of the articles (rather than a list) and that we have an
+        #        efficient way of pulling all items for a given locale.
+        return [a.localized for a in articles]
 
     def get_featured_updates(self) -> list['Update']:
         return orderables.get_related_items(
