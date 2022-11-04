@@ -195,6 +195,9 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         # Featured articles should be translatable too. See above explanation for
         # hero supporting articles.
         SynchronizedField('featured_article_relations'),
+        # Featured advice article should be translatable. But this faces the same issue
+        # as the hero featured article.
+        SynchronizedField('featured_advice_article'),
         SynchronizedField('cutoff_date'),
         SynchronizedField('excluded_categories'),
         TranslatableField('call_to_action'),
