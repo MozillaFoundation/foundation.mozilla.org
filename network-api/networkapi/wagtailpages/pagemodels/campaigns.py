@@ -21,7 +21,6 @@ from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
-from .customblocks.aside_fields import aside_fields
 from .modular import MiniSiteNameSpace
 from .primary import PrimaryPage
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
@@ -149,6 +148,7 @@ class Signup(TranslatableMixin, CTA):
 
 
 class OpportunityPage(MiniSiteNameSpace):
+
     content_panels = Page.content_panels + [
         FieldPanel('header'),
         StreamFieldPanel('body'),
@@ -374,7 +374,6 @@ class BanneredCampaignPage(PrimaryPage):
     )
 
     tags = ClusterTaggableManager(through=BanneredCampaignTag, blank=True)
-    aside = StreamField(aside_fields, blank=True)
 
     use_intro_from_parent = models.BooleanField(
         default=False,
@@ -394,7 +393,6 @@ class BanneredCampaignPage(PrimaryPage):
         SnippetChooserPanel('cta'),
         SnippetChooserPanel('signup'),
         StreamFieldPanel('body'),
-        StreamFieldPanel('aside'),
     ]
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
@@ -447,9 +445,7 @@ class BanneredCampaignPage(PrimaryPage):
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
-        context = get_page_tree_information(self, context)
-
-        return context
+        return get_page_tree_information(self, context)
 
     class Meta:
         verbose_name = "Banner Page"

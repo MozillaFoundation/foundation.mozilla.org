@@ -7,7 +7,7 @@ from django.middleware.csrf import CsrfViewMiddleware
 
 from wagtail.core.views import serve
 
-from networkapi.wagtailpages.pagemodels.products import ProductPage
+from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
 
 
 class CustomCsrfViewMiddleware(CsrfViewMiddleware):
