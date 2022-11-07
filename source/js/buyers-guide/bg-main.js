@@ -75,9 +75,10 @@ let main = {
       Promise.all(apps).then(() => {
         document.body.classList.add(`react-loaded`);
         this.initPageSpecificScript();
-        // bind custom analytics only once everything's up and loaded
-        AnalyticsEvents.init();
         PNIMobileNav.init();
+        // bind custom analytics only once everything's up and loaded
+        // Analytics events does give errors quite often, do not add JS after this
+        AnalyticsEvents.init();
       });
     });
   },

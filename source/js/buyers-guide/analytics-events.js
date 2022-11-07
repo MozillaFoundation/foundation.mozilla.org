@@ -139,10 +139,6 @@ function trackSearchBoxUsage() {
     },
     true
   );
-
-  // window.addEventListener("beforeunload", (event) => {
-  //   console.log(`>>> beforeunload: ${window.location}`);
-  // });
 }
 
 function trackGoBackToAllProductsLink() {
