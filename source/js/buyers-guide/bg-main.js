@@ -13,6 +13,7 @@ import injectMultipageNav from "../multipage-nav.js";
 import primaryNav from "../primary-nav.js";
 
 import HomepageSlider from "./homepage-c-slider.js";
+import RelatedArticles from "./related-articles.js";
 import AnalyticsEvents from "./analytics-events.js";
 import initializeSentry from "../common/sentry-config.js";
 import PNIMobileNav from "./pni-mobile-nav.js";
@@ -114,21 +115,7 @@ let main = {
       HomepageSlider.init();
     }
     if (document.querySelector("#view-article")) {
-      const firstParagraph = document.querySelector(
-        ".paragraph-block .rich-text"
-      );
-      const relatedContainer = document.querySelector("#pni-related-content");
-      if (!firstParagraph || !relatedContainer) return;
-      const relatedContent = relatedContainer.querySelector("div");
-      const relatedPlace = firstParagraph.querySelector("*:nth-child(3)");
-      if (!relatedPlace) return;
-      firstParagraph.insertBefore(relatedContent, relatedPlace);
-      relatedContent.classList.add(
-        "large:tw-float-right",
-        "tw-p-4",
-        "tw-pr-0",
-        "large:tw-mr-[-20%]"
-      );
+      RelatedArticles.init();
     }
   },
 };
