@@ -302,6 +302,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(cta, response.context['featured_cta'])
 
+
 class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
     @classmethod
     def setUpTestData(cls):
