@@ -75,21 +75,12 @@ export default () => {
       ".pni-category-dropdown > span"
     );
 
-    const activeClasses = [
-      "tw-text-black",
-      "tw-underline-offset-[0.75rem]",
-      "tw-decoration-wavy",
-      "tw-decoration-blue-40",
-      "tw-decoration-2",
-      "tw-underline",
-    ];
-
     if (activeCategory) {
       dropdownHeaderText.innerText = activeCategory.innerText;
-      dropdownHeaderText.classList.add(...activeClasses);
+      dropdownHeaderText.classList.add("tw-text-black");
     } else {
       dropdownHeaderText.innerText = defaultDropdownHeaderText;
-      dropdownHeaderText.classList.remove(...activeClasses);
+      dropdownHeaderText.classList.remove("tw-text-black");
     }
   }
 
