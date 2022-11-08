@@ -41,7 +41,6 @@ let main = {
     this.fetchEnv((envData) => {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
-
       if (env.SENTRY_DSN) {
         // Initialize Sentry error reporting
         initializeSentry(
@@ -67,7 +66,6 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      PNIMobileNav.init();
       this.injectReactComponents();
       this.bindHandlers();
       initializePrimaryNav(networkSiteURL, primaryNav);
@@ -77,7 +75,9 @@ let main = {
       Promise.all(apps).then(() => {
         document.body.classList.add(`react-loaded`);
         this.initPageSpecificScript();
+        PNIMobileNav.init();
         // bind custom analytics only once everything's up and loaded
+        // Analytics events does give errors quite often, do not add JS after this
         AnalyticsEvents.init();
       });
     });

@@ -2,24 +2,30 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
-	<div class="tw-row tw-py-4">
-		{% for block in self.cards %}
-          {% with card=block %}
-            {% image card.image fill-350x197 as img %}
-            <div class="tw-px-4 medium:tw-w-1/2 tw-mb-5">
-              <div class="card-regular tw-h-full tw-flex tw-flex-col">
-                <img src="{{ img.url }}" alt="{{ card.alt_text }}" />
-                <div class="tw-flex tw-flex-1">
-                  <div class="tw-bg-white tw-relative tw-py-4 tw-w-full tw-flex tw-flex-col">
-                    {% if card.link %}<a href="{% pageurl card.link %}">{% endif %}
-                        <h3 class="tw-h3-heading tw-mb-2">{{ card.title }}</h3>
-                    {% if card.link %}</a>{% endif %}
-                    {{ card.body|richtext }}
-                  </div>
+  <ul class="tw-mb-7 tw-list-none tw-pl-0 tw-grid tw-gap-4 medium:tw-grid-cols-2 medium:tw-gap-7">
+    {% for block in self.cards %}
+      {% with card=block %}
+        {% image card.image fill-350x197 as img %}
+        <li>
+          {% if card.link %}
+            <a href="{% pageurl card.link %}"
+               class="tw-group/listing hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black"
+               aria-label="{{ card.title }}">
+          {% endif %}
+          <div class="card-regular tw-h-full tw-flex tw-flex-col">
+            <img src="{{ img.url }}" alt="{{ card.alt_text }}"/>
+            <div class="tw-flex tw-flex-1">
+              <div class="tw-relative tw-pt-4 tw-w-full tw-flex tw-flex-col">
+                <h3 class="tw-h3-heading tw-mb-2 group-hover/listing:tw-underline group-focus/listing:tw-underline">{{ card.title }}</h3>
+                <div class="[&_p,li,ul]:last:tw-mb-0">
+                  {{ card.body|richtext }}
                 </div>
               </div>
             </div>
-          {% endwith %}
-		{% endfor %}
-	</div>
+          </div>
+          {% if card.link %}</a>{% endif %}
+        </li>
+      {% endwith %}
+    {% endfor %}
+  </ul>
 {% endblock %}

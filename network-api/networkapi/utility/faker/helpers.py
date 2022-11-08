@@ -1,6 +1,10 @@
 from itertools import chain, combinations
-import factory
 import random
+from typing import Union
+
+from django.db import models
+import factory
+
 from networkapi.wagtailpages.models import Homepage
 
 
@@ -45,23 +49,47 @@ def get_homepage(will_generate=False):
         raise ex
 
 
-def get_random_objects(model, max_count=5):
+def get_random_objects(
+    source: Union[models.Model, models.QuerySet],
+    max_count: int = 0,
+    exact_count: int = 0,
+) -> models.QuerySet:
     """
-    Return random objects up to a maximum number.
+    Return queryset of random objects.
 
-    The maximum is not guranteed to be reached. Rather at least one object of
-    the given `model` is returned, but never more than `max_count`.
+    Provide a model or queryset as the `source` from which the random objects will
+    be taken.
+
+    Specifying `exact_count` takes precedent over `max_count`.
+
+    When you define `exact_count` this is the number of random objects returned.
+
+    When you define `max_count` a random number of objects in the range from 1 to
+    `max_count` is returned.
+
+    When neither is specified, all available objects are returned.
+
+    In either case, when there are not enough objects, all objects are returned in
+    random order.
 
     Objects are not duplicated.
 
     """
-    objects = list(model.objects.all())
-    count = len(objects)
+    if not isinstance(source, models.QuerySet):
+        queryset = source.objects.all()
+    else:
+        queryset = source
+    primary_keys = list(queryset.values_list('pk', flat=True))
+    random.shuffle(primary_keys)
 
-    random.shuffle(objects)
+    count = len(primary_keys)
+    if exact_count:
+        return_max = min(count, exact_count)
+    elif max_count:
+        available_max = min(count, max_count)
+        return_max = random.randint(1, available_max)
+    else:
+        return_max = count
 
-    available_max = min(count, max_count)
-    random_max = random.randint(1, available_max)
-
-    for i in range(0, random_max):
-        yield objects[i]
+    primary_keys_slice = primary_keys[:return_max]
+    return queryset.filter(pk__in=primary_keys_slice)

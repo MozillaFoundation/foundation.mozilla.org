@@ -11,6 +11,7 @@ from .current_events_slider_block import CurrentEventsSliderBlock
 from .datawrapper_block import DatawrapperBlock
 from .banner_carousel import BannerCarouselSlideBlock
 from .blog_index_callout_box_block import BlogIndexCalloutBoxBlock
+from .full_content_rich_text_options import full_content_rich_text_options
 from .iframe_block import iFrameBlock
 from .image_block import ImageBlock
 from .image_grid import ImageGrid, ImageGridBlock
@@ -35,5 +36,11 @@ from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidth
 from .dear_internet_letter_block import DearInternetLetterBlock
 from .foundation_slider_block import FoundationSliderBlock
 from .listing import ListingBlock
-from .aside import AsideBlock
+from .aside import AsideContentBlock
+from .article_teaser_block import ArticleTeaserBlock
+from .group_listing import GroupListingBlock
+from .image_feature_block import ImageFeatureBlock
+from .image_teaser_block import ImageTeaserBlock
 from .profile import ProfileBlock
+from .text_only_teaser import TextOnlyTeaserBlock
+from .block_with_aside import BlockWithAside

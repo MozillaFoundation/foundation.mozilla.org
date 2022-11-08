@@ -32,6 +32,7 @@
 @import "./components/blog-hero-video";
 @import "./components/share-button-group";
 @import "./components/foundation-slider";
+@import "./components/sticky-cta";
 
 // Wagtail Stream Blocks
 
@@ -47,6 +48,7 @@
 @import "./wagtail/blocks/profiles";
 @import "./wagtail/blocks/video-block";
 @import "./wagtail/blocks/article-blocks";
+@import "./wagtail/blocks/image-feature";
 @import "./wagtail/blocks";
 
 // Misc
@@ -55,10 +57,6 @@
 @import "./cms";
 @import "./wagtail";
 @import "./research-hub";
-
-// Shared between different views
-
-@import "./views/shared/sticky-cta";
 
 // View specific
 

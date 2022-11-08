@@ -33,6 +33,7 @@ html {
 @import "../../js/buyers-guide/components/creepometer/creepometer";
 @import "../../js/buyers-guide/components/creep-vote/creep-vote";
 @import "../../js/components/multipage-nav-mobile/multipage-nav-mobile";
+@import "../../js/components/petition/petition";
 
 // Primary navigation extends from the base nav, but with tweaks
 @import "../components/primary-nav";
@@ -47,6 +48,7 @@ html {
 @import "../components/multipage-nav";
 @import "../components/select-dropdown";
 @import "../components/share-button-group";
+@import "../components/sticky-cta";
 
 // Wagtail Stream Blocks
 
@@ -90,3 +92,4 @@ footer hr {
 @import "./views/product";
 @import "./views/about";
 @import "./views/contest";
+@import "./views/article";

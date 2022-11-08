@@ -1,14 +1,12 @@
-from networkapi.wagtailpages.models import Styleguide
+import factory
+from django.conf import settings
 from wagtail_factories import PageFactory
 from wagtail.core.models import Page as WagtailPage
-from networkapi.utility.faker.helpers import (
-    reseed,
-    get_homepage
-)
 
-from factory import (
-    Faker
-)
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
+from networkapi.utility.faker.helpers import reseed, get_homepage
+from networkapi.wagtailpages.models import Styleguide
+
 
 styleguide_streamfield_fields = [
     'paragraph',
@@ -39,7 +37,13 @@ class StyleguideFactory(PageFactory):
         model = Styleguide
 
     title = 'Style-guide'
-    body = Faker('streamfield', fields=styleguide_streamfield_fields)
+    body = factory.Faker('streamfield', fields=styleguide_streamfield_fields)
+    emoji_image = factory.SubFactory(
+        ImageFactory,
+        file=factory.django.ImageField(
+            from_path=settings.BASE_DIR + '/../source/images/buyers-guide/heart-emoji.png'
+        )
+    )
 
 
 def generate(seed):

@@ -1,10 +1,10 @@
 from wagtail.core import blocks
 
 
-class AsideBlock(blocks.StructBlock):
+class AsideContentBlock(blocks.StructBlock):
     class Meta:
         icon = 'placeholder'
-        template = 'wagtailpages/blocks/aside.html'
+        template = 'wagtailpages/blocks/aside_content.html'
 
     title = blocks.CharBlock(
         help_text='Heading for the card.',
