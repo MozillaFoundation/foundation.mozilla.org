@@ -1,24 +1,22 @@
 {% load i18n l10n %}
 
-{% with signup=page.signup.localized %}
-  <div class="cta col-lg-4 offset-lg-1">
-    <div class="narrow-sticky-button-container hidden">
-      <a href="#cta-anchor" class="tw-btn-primary tw-block">{% trans "SIGN UP" context "Sticky button in mobile view on MozFest homepage" %}</a>
-    </div>
-    <div class="sticky-cta">
-      <div id="cta-anchor">
-        <div class="mt-5 mt-md-0">
-          <div
-            class="join-us mb-5"
-            data-form-position="newsletter_signup_sidebar"
-            data-signup-id="{{ signup.id|unlocalize }}"
-            data-cta-header="{{ signup.header | escape }}"
-            data-cta-description="{{ signup.description | escape }}"
-            data-newsletter="{{ signup.newsletter }}"
-            data-ask-name="{{ signup.ask_name}}">
-          </div>
+<div class="cta col-lg-4 offset-lg-1">
+  <div class="narrow-sticky-button-container hidden">
+    <a href="#cta-anchor" class="tw-btn-primary tw-block">{% trans "SIGN UP" context "Sticky button in mobile view on MozFest homepage" %}</a>
+  </div>
+  <div class="sticky-cta">
+    <div id="cta-anchor">
+      <div class="mt-5 mt-md-0">
+        <div
+          class="join-us mb-5"
+          data-form-position="newsletter_signup_sidebar"
+          data-signup-id="{{ page.signup.id|unlocalize }}"
+          data-cta-header="{{ page.signup.localized.header | escape }}"
+          data-cta-description="{{ page.signup.localized.description | escape }}"
+          data-newsletter="{{ page.signup.newsletter }}"
+          data-ask-name="{{page.signup.ask_name}}">
         </div>
       </div>
     </div>
   </div>
-{% endwith %}
+</div>
