@@ -155,9 +155,7 @@
       {% with product_updates=product.updates.all  %}
         {% if product_updates %}
           <div class="tw-col-span-full medium:tw-col-span-1 large:tw-row-span-2">
-            <div class="tw-max-w-[410px] tw-mb-5">
-              {% include "fragments/buyersguide/dive_deeper.html" with updates=product_updates %}
-            </div>
+            {% include "fragments/buyersguide/dive_deeper.html" with updates=product_updates %}
           </div>
         {% endif %}
       {% endwith %}
