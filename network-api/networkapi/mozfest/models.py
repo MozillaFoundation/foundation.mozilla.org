@@ -106,7 +106,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         TranslatableField('header'),
         SynchronizedField('banner'),
         TranslatableField('intro'),
-        TranslatableField('signup'),
+        SynchronizedField('signup'),
         TranslatableField('body'),
     ]
 
@@ -253,7 +253,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         TranslatableField('banner_cta_label'),
         TranslatableField('banner_carousel'),
         SynchronizedField('banner_video'),
-        TranslatableField('signup'),
+        SynchronizedField('signup'),
         TranslatableField('body'),
     ]
 
