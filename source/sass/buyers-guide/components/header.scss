@@ -36,14 +36,11 @@ body.pni #nav-newsletter-form-wrapper {
     &:hover,
     &.active {
       color: $black;
-      text-decoration: wavy $pni-wavy-blue 2px underline;
-      text-underline-offset: 0.75rem;
     }
   }
 }
 
-#multipage-nav-mobile,
-#pni-nav-mobile {
+#multipage-nav-mobile {
   @include set-category-border-bottom-style();
 
   background: $white;
