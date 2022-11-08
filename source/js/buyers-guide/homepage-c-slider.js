@@ -174,9 +174,9 @@ export default {
             productListPosition.top + offset < window.innerHeight &&
             productListPosition.bottom >= 0
           ) {
-            SEARCH_BAR.classList.remove("tw-hidden");
+            SEARCH_BAR.classList.remove("tw-opacity-0", "tw-select-none");
           } else {
-            SEARCH_BAR.classList.add("tw-hidden");
+            SEARCH_BAR.classList.add("tw-opacity-0", "tw-select-none");
             document.querySelector(".speech-bubble>.text").innerHTML = heroMsg;
             face.style.backgroundPositionY = `0px`;
           }
