@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col">
           <div id="pni-category-wrapper" class="tw-flex tw-items-center tw-w-max tw-min-w-full">
-            <a class="multipage-link tw-block {% if pagetype == "home" %} active {% endif %}" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All Reviews" %}</a>
+            <a class="multipage-link tw-block {% if show_all_reviews_as_active_category %} active {% endif %}" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All Reviews" %}</a>
 
             {% for cat in categories %}
               {% with original=cat.original %}
