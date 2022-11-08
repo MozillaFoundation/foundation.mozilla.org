@@ -12,10 +12,10 @@ from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     ProductPageCategory,
     BuyersGuideProductCategory,
 )
-from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestMixin
+from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
 
-class TestProductPage(BuyersGuideTestMixin):
+class TestProductPage(BuyersGuideTestCase):
 
     def setUp(self):
         super().setUp()
@@ -458,7 +458,7 @@ class TestProductPage(BuyersGuideTestMixin):
 
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
-class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
+class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
 
     def test_successful_vote(self):
         product_page = self.product_page

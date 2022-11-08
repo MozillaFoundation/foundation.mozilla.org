@@ -1,5 +1,5 @@
 from datetime import datetime
-import typing
+from typing import TYPE_CHECKING, Optional
 
 from django.apps import apps
 from django.conf import settings
@@ -43,7 +43,7 @@ from networkapi.wagtailpages.utils import (
 )
 
 
-if typing.TYPE_CHECKING:
+if TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideArticlePage, Update
 
 
@@ -183,9 +183,21 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     translatable_fields = [
         TranslatableField('title'),
         TranslatableField('intro_text'),
-        TranslatableField('hero_featured_article'),
-        TranslatableField('hero_supporting_article_relations'),
+        # Hero featured article should be translatable, but that is causing issues.
+        # Using sync field as workaround.
+        # See also: https://github.com/wagtail/wagtail-localize/issues/430
+        SynchronizedField('hero_featured_article'),
+        # Hero supporting article relations should also be translatable, but that is
+        # also causing issues. Using sync filed as a workaround.
+        # See also: https://github.com/wagtail/wagtail-localize/issues/640
+        SynchronizedField('hero_supporting_article_relations'),
         TranslatableField('hero_supporting_articles_heading'),
+        # Featured articles should be translatable too. See above explanation for
+        # hero supporting articles.
+        SynchronizedField('featured_article_relations'),
+        # Featured advice article should be translatable. But this faces the same issue
+        # as the hero featured article.
+        SynchronizedField('featured_advice_article'),
         SynchronizedField('cutoff_date'),
         SynchronizedField('excluded_categories'),
         TranslatableField('call_to_action'),
@@ -390,17 +402,45 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
         return indexes.first()
 
+    def get_hero_featured_article(self) -> Optional['BuyersGuideArticlePage']:
+        try:
+            return self.hero_featured_article.localized
+        except AttributeError:
+            # If no hero featured article is set (because `None` has no `localized`
+            # attribute)
+            return None
+
     def get_hero_supporting_articles(self) -> list['BuyersGuideArticlePage']:
-        return orderables.get_related_items(
+        articles = orderables.get_related_items(
             self.hero_supporting_article_relations.all(),
             'article',
         )
+        # FIXME: This implementation does return the localized version of each article.
+        #        But, it is inefficient. It would be better to pull all articles
+        #        for the correct locale at once. This would require the above returns
+        #        a queryset of the articles (rather than a list) and that we have an
+        #        efficient way of pulling all items for a given locale.
+        return [a.localized for a in articles]
 
     def get_featured_articles(self) -> list['BuyersGuideArticlePage']:
-        return orderables.get_related_items(
+        articles = orderables.get_related_items(
             self.featured_article_relations.all(),
             'article',
         )
+        # FIXME: This implementation does return the localized version of each article.
+        #        But, it is inefficient. It would be better to pull all articles
+        #        for the correct locale at once. This would require the above returns
+        #        a queryset of the articles (rather than a list) and that we have an
+        #        efficient way of pulling all items for a given locale.
+        return [a.localized for a in articles]
+
+    def get_featured_advice_article(self) -> Optional['BuyersGuideArticlePage']:
+        try:
+            return self.featured_advice_article.localized
+        except AttributeError:
+            # If no featured advice article is set (because `None` has no `localized`
+            # attribute)
+            return None
 
     def get_featured_updates(self) -> list['Update']:
         return orderables.get_related_items(

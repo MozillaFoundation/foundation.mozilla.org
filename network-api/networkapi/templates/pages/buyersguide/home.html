@@ -7,17 +7,21 @@
   {{ block.super }}
   <div class="editorial-content">
 
-    {% if page.hero_featured_article %}
-      <div class="tw-container">
-        {% include "fragments/buyersguide/featured_article.html" with hero_featured_article=page.hero_featured_article %}
-      </div>
-    {% endif %}
+    {% with hero_featured_article=page.get_hero_featured_article %}
+      {% if hero_featured_article %}
+        <div class="tw-container">
+          {% include "fragments/buyersguide/featured_article.html" with featured_article=hero_featured_article supporting_articles=page.get_hero_supporting_articles supporting_articles_heading=page.hero_supporting_articles_heading %}
+        </div>
+      {% endif %}
+    {% endwith %}
 
-    {% if page.featured_advice_article %}
-      <div class="large:tw-container tw-my-6">
-        {% include "fragments/buyersguide/ask_jen_advice_section.html" with featured_advice_article=page.featured_advice_article %}
-      </div>
-    {% endif %}
+    {% with featured_advice_article=page.get_featured_advice_article  %}
+      {% if featured_advice_article %}
+        <div class="large:tw-container tw-my-6">
+          {% include "fragments/buyersguide/ask_jen_advice_section.html" with featured_advice_article=featured_advice_article %}
+        </div>
+      {% endif %}
+    {% endwith %}
 
     <div class="tw-container tw-my-6">
       <div class="tw-row">
