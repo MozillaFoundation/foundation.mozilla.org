@@ -115,7 +115,7 @@ let main = {
       HomepageSlider.init();
     }
     if (document.querySelector("#view-article")) {
-      RelatedArticles.init();
+      RelatedArticles.floatRelatedArticlesNextToThirdElement();
     }
   },
 };

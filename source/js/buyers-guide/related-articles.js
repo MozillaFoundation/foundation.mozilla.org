@@ -1,5 +1,5 @@
 const RelatedArticles = {
-  init: () => {
+  floatRelatedArticlesNextToThirdElement: () => {
     const firstParagraph = document.querySelector(
       ".paragraph-block .rich-text"
     );
