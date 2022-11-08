@@ -151,13 +151,11 @@
       </div>
     </div>
 
-    <div class="tw-container tw-mt-7 tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-7">
+    <div class="tw-container tw-mt-7 tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-grid-rows-3 medium:tw-grid-rows-2 large:tw-grid-rows-[min-content_1fr] tw-gap-7">
       {% with product_updates=product.updates.all  %}
         {% if product_updates %}
-          <div class="tw-col-span-full medium:tw-col-span-1">
-            <div class="tw-max-w-[410px] tw-mb-5">
-              {% include "fragments/buyersguide/dive_deeper.html" with updates=product_updates %}
-            </div>
+          <div class="tw-col-span-full medium:tw-col-span-1 large:tw-row-span-2">
+            {% include "fragments/buyersguide/dive_deeper.html" with updates=product_updates %}
           </div>
         {% endif %}
       {% endwith %}
