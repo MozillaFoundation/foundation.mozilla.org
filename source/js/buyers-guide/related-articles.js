@@ -8,6 +8,11 @@ const RelatedArticles = {
     );
     if (!firstParagraph || !relatedContainer) return;
     const relatedContent = relatedContainer.querySelector("div");
+    /*
+     * if there is at least 3 children inside the rich body container.
+     * Usually there is a header(h1-6) and a few paragraphs blocks to start most articles.
+     * If we do not have at least that many elements we leave the related articles at the bottom of the article page
+     */
     const relatedPlace = firstParagraph.querySelector("*:nth-child(3)");
     if (!relatedPlace) return;
     firstParagraph.insertBefore(relatedContent, relatedPlace);
