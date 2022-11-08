@@ -321,7 +321,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
         context['category'] = slug
         context['current_category'] = category
-        context['pagetype'] = 'category_page'
         context['products'] = products
         context['pageTitle'] = f'{category.localized.name} | {gettext("Privacy & security guide")}'\
                                f' | Mozilla Foundation'
@@ -389,7 +388,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
         context['categories'] = get_categories_for_locale(language_code)
         context['current_category'] = None
-        context['pagetype'] = 'home'
         context['featured_cta'] = self.call_to_action
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
