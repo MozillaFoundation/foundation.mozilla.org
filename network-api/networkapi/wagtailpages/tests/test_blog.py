@@ -877,9 +877,12 @@ class TestBlogPageTopics(test.TestCase):
 
         # Creating a list of all created BlogPageTopics sorted by name,
         # with an additional option of "All".
-        list_of_sorted_topics = [('All', 'All')]
-        for topic in blog_models.BlogPageTopic.objects.all().order_by('name'):
-            list_of_sorted_topics.append((topic.name, topic.name))
+        list_of_sorted_topics = [
+            ('All', 'All'),
+            ('Test_Topic_1', 'Test_Topic_1'),
+            ('Test_Topic_2', 'Test_Topic_2'),
+            ('Test_Topic_3', 'Test_Topic_3'),
+        ]
 
         topic_choices_from_method = test_topic.get_topics()
 
