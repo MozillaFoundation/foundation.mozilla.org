@@ -14,7 +14,7 @@ import wagtail.snippets.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0046_adds_profile_block'),
+        ('wagtailpages', '0047_update_searchimage_label_and_help_text'),
     ]
 
     operations = [

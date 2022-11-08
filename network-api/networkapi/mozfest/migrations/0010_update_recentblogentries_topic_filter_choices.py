@@ -16,7 +16,7 @@ import wagtailmedia.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mozfest', '0008_adds_profile_block'),
+        ('mozfest', '0009_update_searchimage_label_and_help_text'),
     ]
 
     operations = [
