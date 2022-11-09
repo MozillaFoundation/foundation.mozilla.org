@@ -108,6 +108,8 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         TranslatableField('intro'),
         TranslatableField('signup'),
         TranslatableField('body'),
+        # Settings tab fields
+        SynchronizedField('use_wide_template'),
     ]
 
     def get_template(self, request):
