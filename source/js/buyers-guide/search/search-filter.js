@@ -7,6 +7,7 @@ import {
   setupNavLinks,
   setupGoBackToAll,
   setupReviewLinks,
+  toggleProductReviewView,
 } from "./member-functions.js";
 /**
  * ...
@@ -34,15 +35,11 @@ export class SearchFilter {
     );
     setupReviewLinks(this);
 
-    if (location.hash && location.hash === "#product-review") {
-      const editorialContent = document.querySelector(".editorial-content");
-      const navLinks = document.querySelectorAll(`.product-review-link`);
-      if (editorialContent) {
-        editorialContent.classList.add("tw-hidden");
-        for (const nav of navLinks) {
-          nav.classList.add("active");
-        }
-      }
+    if (
+      (location.hash && location.hash === "#product-review") ||
+      location.pathname.includes("categories")
+    ) {
+      toggleProductReviewView();
     }
 
     const subContainer = document.querySelector(`.subcategory-header`);
@@ -230,6 +227,7 @@ export class SearchFilter {
     document
       .querySelector("#pni-category-dropdown-select")
       .classList.add("tw-hidden");
+    toggleProductReviewView();
     Utils.showProductsForCategory(category);
     this.categoryTitle.value = category;
     Utils.sortProductCards();
