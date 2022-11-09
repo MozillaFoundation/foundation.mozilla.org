@@ -106,6 +106,9 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         TranslatableField('header'),
         SynchronizedField('banner'),
         TranslatableField('intro'),
+        # Signup field should be translatable, but is having issues
+        # remaining synced across locales. Using sync field as workaround.
+        # See also: https://github.com/wagtail/wagtail-localize/issues/648
         SynchronizedField('signup'),
         TranslatableField('body'),
         # Settings tab fields
