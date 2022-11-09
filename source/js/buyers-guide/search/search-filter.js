@@ -35,7 +35,10 @@ export class SearchFilter {
     );
     setupReviewLinks(this);
 
-    if (location.hash && location.hash === "#product-review") {
+    if (
+      (location.hash && location.hash === "#product-review") ||
+      location.pathname.includes("categories")
+    ) {
       toggleProductReviewView();
     }
 

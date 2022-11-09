@@ -230,8 +230,8 @@ export function toggleProductReviewView() {
   const navLinks = document.querySelectorAll(`.product-review-link`);
   if (editorialContent) {
     editorialContent.classList.add("tw-hidden");
-    for (const nav of navLinks) {
-      nav.classList.add("active");
-    }
+  }
+  for (const nav of navLinks) {
+    nav.classList.add("active");
   }
 }
