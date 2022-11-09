@@ -9,7 +9,7 @@ export default () => {
   // Needed for calculating which items go into the dropdown
   const navLinkMargin = 20;
   const categoryWrapper = document.querySelector("#pni-category-wrapper");
-  const categoryNav = document.querySelector("#product-review");
+  const categoryNav = document.querySelector("#buyersguide-category-container");
 
   const calculateWidthAndMargin = (ele) => ele.clientWidth + navLinkMargin;
 
