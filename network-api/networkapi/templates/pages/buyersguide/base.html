@@ -84,15 +84,25 @@
     {% endblock %}
   </div>
 
-  {% block hero %}{% endblock %}
+  <div class="">
+    <div class="tw-relative">
+      <div class="tw-relative tw-z-10">
+        {% block hero %}{% endblock %}
 
-  {% block category_header %}{% endblock %}
+        {% block category_header %}{% endblock %}
 
-  <div class="underneath-screen-overlay">
-    <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
-      {% block guts %}{% endblock %}
-    </main>
+        <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
+          {% block guts %}{% endblock %}
+        </main>
+      </div>
+      
+      {% block background_parallax %}
+      {% endblock %}
+      <div class="tw-relative tw-z-10">
+        {% include "partials/footer.html" %}
+      </div>
+    </div>
 
-    {% include "partials/footer.html" %}
+
   </div>
 {% endblock %}

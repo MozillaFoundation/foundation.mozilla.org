@@ -74,9 +74,12 @@
         {% endwith %}
       </div>
     </div>
-    {% include "fragments/buyersguide/shape_background.html" %}
   </div>
 {% endblock guts %}
+
+{% block background_parallax %}
+  {% include "fragments/buyersguide/shape_background.html" %}
+{% endblock %}
 
 {% block extra_scripts %}
   {{ block.super }}

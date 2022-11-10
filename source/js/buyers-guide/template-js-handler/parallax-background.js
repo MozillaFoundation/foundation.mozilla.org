@@ -9,13 +9,14 @@ export default () => {
     const svgShapes = document.querySelectorAll("#pni-parallax-background svg");
     svgShapes.forEach((shape) => {
       gsap.to(shape, {
-        y: -1000,
+        y: -1500,
         ease: "none",
         scrollTrigger: {
           trigger: "body",
           start: "top top", // when the top of the trigger hits the top of the viewport
           end: "bottom bottom",
           scrub: true,
+          markers: true,
         },
       });
     });
@@ -25,8 +26,12 @@ export default () => {
       rotate: 45,
     });
 
+    gsap.set(".pni-asterick", {
+      rotate: 15,
+    });
+
     gsap.to(".pni-asterick", {
-      rotate: 270,
+      rotate: 540,
       ease: "none",
       scrollTrigger: {
         trigger: "body",
