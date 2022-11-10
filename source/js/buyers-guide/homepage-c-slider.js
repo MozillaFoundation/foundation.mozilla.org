@@ -162,10 +162,7 @@ export default {
 
           // If on desktop, don't delay moving creepo-face into the corner
           // If on mobile, make the creepy face move to the corner sooner
-          const offset =
-            window.innerWidth > 768
-              ? window.innerHeight - CATEGORY_BAR.offsetHeight
-              : 100;
+          const offset = 100;
 
           /**
            * Check if the product grid area is partially visible in the viewport
@@ -174,9 +171,7 @@ export default {
             productListPosition.top + offset < window.innerHeight &&
             productListPosition.bottom >= 0
           ) {
-            SEARCH_BAR.classList.remove("tw-opacity-0", "tw-select-none");
           } else {
-            SEARCH_BAR.classList.add("tw-opacity-0", "tw-select-none");
             document.querySelector(".speech-bubble>.text").innerHTML = heroMsg;
             face.style.backgroundPositionY = `0px`;
           }
