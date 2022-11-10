@@ -45,7 +45,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         )
 
     @contextlib.contextmanager
-    def setup_content_index_with_pages_of_children(self):
+    def setup_content_index_with_pages_of_children(self, pages: int = 2):
         """
         Context manager setting up the content index with child pages.
 
@@ -71,11 +71,13 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         """
         self.items_per_page = 3
+        self.items_on_last_page = self.items_per_page - 1
+        total_items = (pages - 1) * self.items_per_page + self.items_on_last_page
         with mock.patch('networkapi.wagtailpages.models.BuyersGuideEditorialContentIndexPage.items_per_page', 3):
             self.content_index.items_per_page = self.items_per_page
             articles = []
             # Create 2 more items then fit on page to check they are not in the page
-            for days_old in range(self.items_per_page + 2):
+            for days_old in range(total_items):
                 articles.append(self.create_days_old_article(days_old))
             yield articles
 
@@ -148,6 +150,27 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             self.assertQuerysetEqual(
                 response.context['items'],
                 articles[self.items_per_page:],
+            )
+
+    def test_serve_paginated_items_page_2_expanded(self):
+        """
+        When the expanded queryparameter is set to 'true', we want to render all the
+        items from the first to the given page inclusive.
+
+        We don't want to show pages from the following pages.
+        """
+        page = 2
+        with self.setup_content_index_with_pages_of_children(pages=page + 1) as articles:
+
+            response = self.client.get(
+                self.content_index.url,
+                data={'page': page, 'expanded': 'true'},
+            )
+
+            index_of_first_not_expected_article = page * self.items_per_page
+            self.assertQuerysetEqual(
+                response.context['items'],
+                articles[:index_of_first_not_expected_article],
             )
 
     def test_hx_request_templates(self):
