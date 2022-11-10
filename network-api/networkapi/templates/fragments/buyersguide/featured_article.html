@@ -1,5 +1,5 @@
 {% load static wagtailcore_tags wagtailimages_tags i18n %}
-<div class="tw-row">
+<div id="featured-article" class="tw-row">
   <div class="
     tw-px-4
     tw-w-full
@@ -50,7 +50,7 @@
     </a>
 
     {% if supporting_articles %}
-      <div class="tw-col-span-full medium:tw-col-span-6 large:tw-col-span-5">
+      <div id="related-articles" class="tw-col-span-full medium:tw-col-span-6 large:tw-col-span-5">
         {% include "fragments/buyersguide/related_reading.html" with heading=supporting_articles_heading heading_level=3 heading_classes='tw-font-sans tw-text-base tw-leading-5 tw-uppercase tw-my-4' articles=supporting_articles %}
       </div>
     {% endif %}
