@@ -168,10 +168,11 @@ export default {
            * Check if the product grid area is partially visible in the viewport
            */
           if (
-            productListPosition.top + offset < window.innerHeight &&
-            productListPosition.bottom >= 0
+            !(
+              productListPosition.top + offset < window.innerHeight &&
+              productListPosition.bottom >= 0
+            )
           ) {
-          } else {
             document.querySelector(".speech-bubble>.text").innerHTML = heroMsg;
             face.style.backgroundPositionY = `0px`;
           }
