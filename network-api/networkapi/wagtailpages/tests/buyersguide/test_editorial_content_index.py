@@ -154,8 +154,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     def test_serve_paginated_items_page_2_expanded(self):
         """
-        When the expanded queryparameter is set to 'true', we want to render all the
-        items from the first to the given page inclusive.
+        Render all the items from the first and second page.
 
         We don't want to show pages from the following pages.
         """
@@ -172,6 +171,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                 response.context['items'],
                 articles[:index_of_first_not_expected_article],
             )
+            self.assertTrue(response.context['items'].has_next())
 
     def test_hx_request_templates(self):
         """

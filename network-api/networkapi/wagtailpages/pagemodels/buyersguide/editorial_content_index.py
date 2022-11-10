@@ -91,20 +91,42 @@ class BuyersGuideEditorialContentIndexPage(
         context["items"] = self.paginate_items(
             items=items,
             page=request.GET.get('page'),
+            expanded=request.GET.get('expanded', 'false') == 'true',
         )
         return context
 
     def paginate_items(
         self,
         items: 'models.QuerySet[pagemodels.BuyersGuideArticlePage]',
-        page: 'Optional[int]' = None,
+        page: 'Optional[str]' = None,
+        expanded: bool = False,
     ) -> 'paginator.Page[pagemodels.BuyersGuideArticlePage]':
-        """Pagingate the given items."""
+        """
+        Pagingate the given items.
+
+        Return only the requested page of items. The number of items per page is
+        defined by `self.items_per_page`.
+
+        The page can be expanded. This means the page will include the items from
+        all previous pages as well. It does not include items from following pages.
+
+        """
         items_paginator = paginator.Paginator(
             object_list=items,
             per_page=self.items_per_page,
         )
-        return items_paginator.get_page(page)
+        page_of_items = items_paginator.get_page(page)
+        if not expanded:
+            return page_of_items
+
+        # Override the pages object_list with the original trimmed to the last index
+        # that the page would display.
+        index_of_last_item_on_page = page_of_items.end_index()
+        page_of_items.object_list = (
+            items_paginator.object_list[:index_of_last_item_on_page]
+        )
+
+        return page_of_items
 
     def get_items(self) -> 'models.QuerySet[pagemodels.BuyersGuideArticlePage]':
         """Get default items to list in the index."""
