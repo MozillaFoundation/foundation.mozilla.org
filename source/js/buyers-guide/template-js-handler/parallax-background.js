@@ -16,7 +16,6 @@ export default () => {
           start: "top top", // when the top of the trigger hits the top of the viewport
           end: "bottom bottom",
           scrub: true,
-          markers: true,
         },
       });
     });
