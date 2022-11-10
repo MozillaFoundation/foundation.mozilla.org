@@ -3,7 +3,7 @@
 
 {% block block_content %}
   {% with card=value %}
-    <section class="tw-grid tw-grid-cols-1 large:tw-grid-cols-2 tw-gap-5 large:tw-gap-[60px] tw-mt-4 tw-mb-7">
+    <section class="tw-grid tw-grid-cols-1 large:tw-grid-cols-2 tw-gap-5 large:tw-gap-[60px] tw-mb-7 {{ divider_styles }}">
       <div class="tw-row-start-2 large:tw-row-start-1">
         <h2 class="tw-mb-4">{{ card.title }}</h2>
         {{ card.text|richtext }}
