@@ -21,7 +21,7 @@ class RecentBlogEntries(blocks.StructBlock):
     topic_filter = blocks.ChoiceBlock(
         label='Filter by Topic',
         required=False,
-        choices=BlogPageTopic.get_topics(),
+        choices=BlogPageTopic.get_topics,
         help_text='Test this filter at foundation.mozilla.org/blog/topic/',
     )
 

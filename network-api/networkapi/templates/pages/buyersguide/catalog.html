@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block category_header %}
-<div class="tw-container">
+<div class="tw-container tw-mb-6">
   <div class="tw-row">
       <div class="large:tw-w-1/3 tw-w-full tw-px-4">
         <div class="tw-mb-2">
@@ -54,7 +54,7 @@
   <div class="tw-container">
     <div class="tw-row">
       <div class="tw-w-full">
-        <div id="sticky-bar" class="creepiness-slider bg-white text-center tw-justify-center creep-o-meter-moved search-active tw-hidden">
+        <div id="sticky-bar" class="creepiness-slider bg-white text-center tw-justify-center creep-o-meter-moved search-active tw-opacity-0 tw-select-none">
           <div class="creep-o-meter-information">
             <p class="speech-bubble-container">
               <span class="speech-bubble tw-bg-gradient-to-t tw-from-purple-05 tw-to-blue-05">
@@ -71,9 +71,9 @@
   {% get_bg_home_page as home_page %}
   <div class="project-list-section">
     <div class="container">
-      <div class="row px-0 tw-mb-6 medium:tw-mb-4">
-        <div class="tw-w-[98vw] tw-flex tw-relative tw-left-1/2 tw-ml-[-51vw] tw-flex-wrap large:tw-flex-nowrap large:tw-left-auto large:tw-ml-0 large:tw-static large:tw-w-full">
-          <div class="tw-px-4 large:tw-px-0 tw-flex tw-items-end tw-space-x-2 tw-overflow-auto tw-pb-2 tw-no-scrollbar tw-touch-pan-x tw-w-full large:tw-w-auto large:w-auto subcategory-header">
+      <div class="row tw-mb-6 medium:tw-mb-4">
+        <div class="tw-w-full tw-px-4 xlarge:tw-px-0 tw-flex tw-relative tw-flex-wrap medium:tw-flex-nowrap medium:tw-left-auto medium:tw-ml-0 medium:tw-static">
+          <div class="tw-flex tw-items-end tw-space-x-2 tw-overflow-auto tw-pb-2 tw-no-scrollbar tw-touch-pan-x tw-w-full medium:tw-w-auto medium:w-auto subcategory-header">
 
             <span id="product-filter-pni" class="tw-flex tw-cursor-pointer tw-text-gray-60 border tw-border-gray-20 tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3] hover:tw-border-blue-10 hover:tw-bg-blue-10">
               <input type="checkbox" id="product-filter-pni-toggle" autocomplete="off">
@@ -97,8 +97,8 @@
               {% endwith %}
             {% endfor %}
           </div>
-          <div class="tw-px-4 large:tw-ml-auto tw-flex tw-items-center">
-            <span class="tw-text-gray-80 tw-font-sans tw-text-xs">{% trans "Sort by " %}</span>
+          <div class="medium:tw-ml-auto tw-flex tw-items-center">
+            <span class="tw-text-gray-80 tw-font-sans tw-text-xs tw-w-max">{% trans "Sort by " %}</span>
             {% include "fragments/buyersguide/pni_sort_dropdown.html" %}
           </div>
         </div>
@@ -144,14 +144,18 @@
   <div class="recommend-product">
     <div class="container text-center my-5">
       <h2 class="tw-h3-heading">{% trans "Don’t see the product you’re looking for?" %}</h2>
-      <p class="tw-body">{% trans "Let us know what product you would like reviewed in the guide." %}</p>
+      <p class="tw-body tw-mb-0">
+        {% blocktrans trimmed %}
+            Try <a href="#top" class="tw-underline tw-text-blue-80">search</a> or let us know what product you would like reviewed in the guide.
+        {% endblocktrans %}
+      </p>
       {% include "fragments/buyersguide/submit_a_product.html" %}
     </div>
   </div>
 
   <noscript>
     <style type="text/css">
-      tw-body.catalog figure.product-box {
+      body.catalog figure.product-box {
         opacity: 1 !important;
       }
     </style>

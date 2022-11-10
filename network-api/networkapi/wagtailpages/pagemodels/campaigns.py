@@ -8,7 +8,7 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
 )
 from wagtail.core.models import TranslatableMixin, Page
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.fields import RichTextField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
@@ -18,7 +18,6 @@ from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
-from .customblocks.aside_fields import aside_fields
 from .modular import MiniSiteNameSpace
 from .primary import PrimaryPage
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
@@ -372,7 +371,6 @@ class BanneredCampaignPage(PrimaryPage):
     )
 
     tags = ClusterTaggableManager(through=BanneredCampaignTag, blank=True)
-    aside = StreamField(aside_fields, blank=True)
 
     panel_count = len(PrimaryPage.content_panels)
     n = panel_count - 1
@@ -380,9 +378,7 @@ class BanneredCampaignPage(PrimaryPage):
     content_panels = PrimaryPage.content_panels[:n] + [
         SnippetChooserPanel('cta'),
         SnippetChooserPanel('signup'),
-    ] + PrimaryPage.content_panels[n:] + [
-        StreamFieldPanel('aside'),
-    ]
+    ] + PrimaryPage.content_panels[n:]
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
         FieldPanel('tags'),
