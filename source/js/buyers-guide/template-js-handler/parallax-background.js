@@ -5,6 +5,19 @@ export default () => {
   gsap.registerPlugin(ScrollTrigger);
   const parallaxBackground = document.querySelector("#pni-parallax-background");
 
+  // Need to set since tailwind classes have !important prefix
+  gsap.set(".pni-triangle", {
+    rotate: 45,
+  });
+
+  gsap.set(".pni-asterick", {
+    rotate: 15,
+  });
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)")) {
+    return;
+  }
+
   if (parallaxBackground) {
     const svgShapes = document.querySelectorAll("#pni-parallax-background svg");
     svgShapes.forEach((shape) => {
@@ -18,15 +31,6 @@ export default () => {
           scrub: true,
         },
       });
-    });
-
-    // Need to set since tailwind classes have !important prefix
-    gsap.set(".pni-triangle", {
-      rotate: 45,
-    });
-
-    gsap.set(".pni-asterick", {
-      rotate: 15,
     });
 
     gsap.to(".pni-asterick", {
