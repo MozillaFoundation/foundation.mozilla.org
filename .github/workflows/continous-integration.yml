@@ -27,8 +27,8 @@ jobs:
           cache: "npm"
       - name: Install Node Dependencies
         run: npm ci
-      - name: Run Tests
-        run: npm test
+      - name: Run linting
+        run: npm run lint
 
   test_wagtail:
     name: Wagtail CI
