@@ -14,7 +14,7 @@ export default () => {
     rotate: 15,
   });
 
-  if (window.matchMedia("(prefers-reduced-motion: reduce)")) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     return;
   }
 
