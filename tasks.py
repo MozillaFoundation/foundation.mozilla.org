@@ -321,7 +321,20 @@ def lint_js(ctx):
 @task
 def lint_python(ctx):
     """Run python linting."""
+    flake8(ctx)
+    black_check(ctx)
+
+
+@task
+def flake8(ctx):
+    """Run flake8."""
     pyrun(ctx, "flake8 tasks.py network-api")
+
+
+@task
+def black_check(ctx):
+    """Run black code formatter in check mode."""
+    black(ctx, ". --check")
 
 
 # Formatting
@@ -342,6 +355,19 @@ def format_css(ctx):
 def format_js(ctx):
     """Run javascript formatting."""
     npm(ctx, "run fix:js")
+
+
+@task
+def format_python(ctx):
+    """Run python formatting."""
+    black(ctx)
+
+
+@task(help={"args": "Override the arguments passed to black."})
+def black(ctx, args=None):
+    """Run black code formatter."""
+    args = args or "."
+    pyrun(ctx, command=f"black {args}")
 
 
 # Translation
