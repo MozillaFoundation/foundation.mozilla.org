@@ -89,15 +89,15 @@ jobs:
           python network-api/manage.py migrate --no-input
           python network-api/manage.py block_inventory
           python network-api/manage.py compilemessages
+      - name: Run linting
+        run: flake8 tasks.py network-api/
+      - name: Run type checks
+        run: mypy network-api
       - name: Run Tests
-        run: |
-          flake8 tasks.py network-api/
-          coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
+        run: coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
       - name: Coveralls
         run: coveralls
         continue-on-error: true
-      - name: Run type checks
-        run: mypy network-api
 
   test_percy:
     name: Percy CI
