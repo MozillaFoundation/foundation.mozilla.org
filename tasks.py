@@ -287,27 +287,37 @@ def mypy(ctx, args=None):
 # Tests
 @task(aliases=["docker-test"])
 def test(ctx):
-    """Run both Node and Python tests"""
-    test_node(ctx)
+    """Run tests."""
     test_python(ctx)
 
 
 @task(aliases=["docker-test-python"])
 def test_python(ctx):
-    """Run python tests"""
-    print("* Running flake8")
-    pyrun(ctx, "flake8 tasks.py network-api")
-    print("* Running tests")
+    """Run python tests."""
     manage(ctx, "test networkapi")
 
 
-@task(aliases=["docker-test-node"])
-def test_node(ctx):
-    """Run node tests"""
-    print("* Running tests")
-    ctx.run("docker-compose run --rm watch-static-files npm run test")
+# Linting
+@task
+def lint(ctx):
+    """Run linting."""
+    lint_python(ctx)
+    lint_node(ctx)
 
 
+@task
+def lint_python(ctx):
+    """Run python linting."""
+    pyrun(ctx, "flake8 tasks.py network-api")
+
+
+@task
+def lint_node(ctx):
+    """Run node linting."""
+    npm(ctx, "run lint")
+
+
+# Translation
 @task(aliases=["docker-makemessages"])
 def makemessages(ctx):
     """Extract all template messages in .po files for localization"""
