@@ -59,12 +59,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         'wagtailpages.BuyersGuideEditorialContentIndexPage',
     ]
 
-    intro_text = models.TextField(
-        max_length=500,
-        blank=True,
-        help_text='A short blurb to show at the top of the page.',
-    )
-
     hero_featured_article = models.ForeignKey(
         'wagtailpages.BuyersGuideArticlePage',
         null=True,
@@ -130,7 +124,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     content_panels = [
         FieldPanel('title'),
-        FieldPanel('intro_text'),
         MultiFieldPanel(
             children=[
                 HelpPanel(content="<h2>Main article</h2>"),
@@ -182,7 +175,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     translatable_fields = [
         TranslatableField('title'),
-        TranslatableField('intro_text'),
         # Hero featured article should be translatable, but that is causing issues.
         # Using sync field as workaround.
         # See also: https://github.com/wagtail/wagtail-localize/issues/430
