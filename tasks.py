@@ -301,8 +301,21 @@ def test_python(ctx):
 @task
 def lint(ctx):
     """Run linting."""
+    lint_css(ctx)
+    lint_js(ctx)
     lint_python(ctx)
-    lint_node(ctx)
+
+
+@task
+def lint_css(ctx):
+    """Run css linting."""
+    npm(ctx, "run lint:css")
+
+
+@task
+def lint_js(ctx):
+    """Run node linting."""
+    npm(ctx, "run lint:js")
 
 
 @task
@@ -311,10 +324,24 @@ def lint_python(ctx):
     pyrun(ctx, "flake8 tasks.py network-api")
 
 
+# Formatting
 @task
-def lint_node(ctx):
-    """Run node linting."""
-    npm(ctx, "run lint")
+def format(ctx):
+    """Run formatters."""
+    format_css(ctx)
+    format_js(ctx)
+
+
+@task
+def format_css(ctx):
+    """Run css formatting."""
+    npm(ctx, "run fix:css")
+
+
+@task
+def format_js(ctx):
+    """Run javascript formatting."""
+    npm(ctx, "run fix:js")
 
 
 # Translation
