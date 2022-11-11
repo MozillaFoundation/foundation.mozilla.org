@@ -16,10 +16,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         super().setUpTestData()
         cls.detail_page = research_factory.ResearchDetailPageFactory(
             parent=cls.library_page,
-            original_publication_date=(
-                research_test_utils.days_ago(n=14)
-            ),
-
+            original_publication_date=(research_test_utils.days_ago(n=14)),
         )
         cls.research_profile = profiles_factory.ProfileFactory()
         research_factory.ResearchAuthorRelationFactory(
@@ -42,11 +39,11 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         context = self.author_index.get_context(request=None)
         self.translate_research_profile()
 
-        self.assertIn(self.research_profile, context['author_profiles'])
+        self.assertIn(self.research_profile, context["author_profiles"])
         # Non-research profile should not show up
-        self.assertNotIn(self.non_research_profile, context['author_profiles'])
+        self.assertNotIn(self.non_research_profile, context["author_profiles"])
         # Translated profile should not show up
-        self.assertNotIn(self.fr_profile, context['author_profiles'])
+        self.assertNotIn(self.fr_profile, context["author_profiles"])
 
     def test_get_context_fr_locale_detail_alias(self):
         translation.activate(self.fr_locale.language_code)
@@ -54,7 +51,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         fr_context = self.author_index.localized.get_context(request=None)
 
         # When the profile is not translated, the default locales profile should show
-        self.assertIn(self.research_profile, fr_context['author_profiles'])
+        self.assertIn(self.research_profile, fr_context["author_profiles"])
 
     def test_get_context_fr_locale_detail_translated(self):
         fr_detail_page = research_test_utils.translate_detail_page(
@@ -67,15 +64,12 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         # Get context when fr is active
         fr_context = self.author_index.localized.get_context(request=None)
 
-        self.assertNotIn(self.research_profile, fr_context['author_profiles'])
-        self.assertIn(fr_profile, fr_context['author_profiles'])
+        self.assertNotIn(self.research_profile, fr_context["author_profiles"])
+        self.assertIn(fr_profile, fr_context["author_profiles"])
 
     def test_profile_route(self):
         profile_slug = text_utils.slugify(self.research_profile.name)
-        url = (
-            f'{ self.author_index.url }'
-            f'{ self.research_profile.id }/{ profile_slug }/'
-        )
+        url = f"{ self.author_index.url }" f"{ self.research_profile.id }/{ profile_slug }/"
 
         response = self.client.get(url)
 
@@ -87,21 +81,15 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
 
     def test_profile_route_wrong_id(self):
         profile_slug = text_utils.slugify(self.research_profile.name)
-        url = (
-            f'{ self.author_index.url }'
-            f'{ self.research_profile.id + 1 }/{ profile_slug }/'
-        )
+        url = f"{ self.author_index.url }" f"{ self.research_profile.id + 1 }/{ profile_slug }/"
 
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
     def test_profile_route_wrong_name(self):
-        profile_slug = text_utils.slugify(self.research_profile.name + 'a')
-        url = (
-            f'{ self.author_index.url }'
-            f'{ self.research_profile.id }/{ profile_slug }/'
-        )
+        profile_slug = text_utils.slugify(self.research_profile.name + "a")
+        url = f"{ self.author_index.url }" f"{ self.research_profile.id }/{ profile_slug }/"
 
         response = self.client.get(url)
 
@@ -109,10 +97,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
 
     def test_profile_route_with_non_research_profile(self):
         profile_slug = text_utils.slugify(self.non_research_profile.name)
-        url = (
-            f'{ self.author_index.url }'
-            f'{ self.non_research_profile.id }/{ profile_slug }/'
-        )
+        url = f"{ self.author_index.url }" f"{ self.non_research_profile.id }/{ profile_slug }/"
 
         response = self.client.get(url)
 
@@ -123,8 +108,8 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             profile_id=self.research_profile.id,
         )
 
-        self.assertIn(self.detail_page, context['latest_research'])
-        self.assertNotIn(self.fr_detail_page, context['latest_research'])
+        self.assertIn(self.detail_page, context["latest_research"])
+        self.assertNotIn(self.fr_detail_page, context["latest_research"])
 
     def test_get_author_detail_context_fr_locale(self):
         translation.activate(self.fr_locale.language_code)
@@ -139,8 +124,8 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         )
 
         # The displayed detail pages should be the aliased pages not the original ones.
-        self.assertNotIn(self.detail_page, context['latest_research'])
-        self.assertIn(self.fr_detail_page, context['latest_research'])
+        self.assertNotIn(self.detail_page, context["latest_research"])
+        self.assertIn(self.fr_detail_page, context["latest_research"])
 
     def test_get_author_detail_context_alias_and_translation(self):
         # There can be mixed situations, where only some research associated with
@@ -170,10 +155,10 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
 
         # We need to make sure that the displayed works are picked based on the active
         # locale, rather than the locale of the profile we are looking at
-        self.assertIn(self.detail_page, context['latest_research'])
-        self.assertIn(extra_detail_page, context['latest_research'])
-        self.assertNotIn(fr_detail_page, context['latest_research'])
-        self.assertNotIn(fr_extra_detail_page, context['latest_research'])
+        self.assertIn(self.detail_page, context["latest_research"])
+        self.assertIn(extra_detail_page, context["latest_research"])
+        self.assertNotIn(fr_detail_page, context["latest_research"])
+        self.assertNotIn(fr_extra_detail_page, context["latest_research"])
 
     def test_get_author_detail_context_fr_locale_alias_and_translation(self):
         # There can be mixed situations, where only some research associated with
@@ -189,10 +174,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             research_detail_page=extra_detail_page,
             author_profile=self.research_profile,
         )
-        synctree.synchronize_tree(
-            source_locale=self.default_locale,
-            target_locale=self.fr_locale
-        )
+        synctree.synchronize_tree(source_locale=self.default_locale, target_locale=self.fr_locale)
         # Grab the alias page. Note: This page is not really translated, so it is still
         # associated with the original profile.
         fr_extra_detail_page = extra_detail_page.get_translation(self.fr_locale)
@@ -207,29 +189,23 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
 
         # We need to make sure that the displayed works are picked based on the active
         # locale, rather than the locale of the profile we are looking at
-        self.assertNotIn(self.detail_page, context['latest_research'])
-        self.assertNotIn(extra_detail_page, context['latest_research'])
-        self.assertIn(fr_detail_page, context['latest_research'])
-        self.assertIn(fr_extra_detail_page, context['latest_research'])
+        self.assertNotIn(self.detail_page, context["latest_research"])
+        self.assertNotIn(extra_detail_page, context["latest_research"])
+        self.assertIn(fr_detail_page, context["latest_research"])
+        self.assertIn(fr_extra_detail_page, context["latest_research"])
 
     def test_get_latest_research(self):
         detail_page_1 = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            original_publication_date=(
-                research_test_utils.days_ago(n=3)
-            ),
+            original_publication_date=(research_test_utils.days_ago(n=3)),
         )
         detail_page_2 = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            original_publication_date=(
-                research_test_utils.days_ago(n=2)
-            ),
+            original_publication_date=(research_test_utils.days_ago(n=2)),
         )
         detail_page_3 = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            original_publication_date=(
-                research_test_utils.days_ago(n=1)
-            ),
+            original_publication_date=(research_test_utils.days_ago(n=1)),
         )
         research_factory.ResearchAuthorRelationFactory(
             research_detail_page=detail_page_1,
@@ -266,7 +242,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
     def test_author_index_breadcrumbs(self):
         breadcrumbs = self.author_index.get_breadcrumbs()
         # Author Index page should only have 1 breadcrumb, "Research"
-        expected_breadcrumbs = [{'title': 'Research', 'url': '/en/research/'}]
+        expected_breadcrumbs = [{"title": "Research", "url": "/en/research/"}]
         self.assertEqual(len(breadcrumbs), 1)
         self.assertEqual(breadcrumbs, expected_breadcrumbs)
 
@@ -275,8 +251,10 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             profile_id=self.research_profile.id,
         )
         # Author Detail page should have 2 breadcrumbs, "Research/Authors"
-        expected_breadcrumbs = [{'title': 'Research', 'url': '/en/research/'},
-                                {'title': 'Authors', 'url': '/en/research/authors/'}]
+        expected_breadcrumbs = [
+            {"title": "Research", "url": "/en/research/"},
+            {"title": "Authors", "url": "/en/research/authors/"},
+        ]
 
-        self.assertEqual(len(context['breadcrumbs']), 2)
-        self.assertEqual(context['breadcrumbs'], expected_breadcrumbs)
+        self.assertEqual(len(context["breadcrumbs"]), 2)
+        self.assertEqual(context["breadcrumbs"], expected_breadcrumbs)

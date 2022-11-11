@@ -11,8 +11,8 @@ class BuyersGuideContentCategory(wagtail_models.TranslatableMixin, models.Model)
     slug = models.SlugField(max_length=100, null=False, blank=True, unique=True)
 
     class Meta(wagtail_models.TranslatableMixin.Meta):
-        verbose_name = 'Buyers Guide Content Category'
-        verbose_name_plural = 'Buyers Guide Content Categories'
+        verbose_name = "Buyers Guide Content Category"
+        verbose_name_plural = "Buyers Guide Content Categories"
 
     def __str__(self) -> str:
         return self.title

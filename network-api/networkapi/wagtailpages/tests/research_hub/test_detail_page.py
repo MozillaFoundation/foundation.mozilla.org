@@ -39,15 +39,16 @@ class TestResearchDetailLink(test.TestCase):
 
 
 class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
-
     def test_research_detail_page_breadcrumbs(self):
         detail_page = research_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
         response = self.client.get(detail_page.url)
-        breadcrumbs = response.context['breadcrumbs']
-        expected_breadcrumbs = [{'title': 'Research', 'url': '/en/research/'},
-                                {'title': 'Library', 'url': '/en/research/library/'}]
+        breadcrumbs = response.context["breadcrumbs"]
+        expected_breadcrumbs = [
+            {"title": "Research", "url": "/en/research/"},
+            {"title": "Library", "url": "/en/research/library/"},
+        ]
 
         self.assertEqual(len(breadcrumbs), 2)
         self.assertEqual(breadcrumbs, expected_breadcrumbs)

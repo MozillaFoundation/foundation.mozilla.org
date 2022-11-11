@@ -7,13 +7,17 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0013_article_hero_custom_coloring'),
+        ("wagtailpages", "0013_article_hero_custom_coloring"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='generalproductpage',
-            name='child_safety_blurb',
-            field=wagtail.core.fields.RichTextField(blank=True, help_text='Child safety information, if applicable.', max_length=5000),
+            model_name="generalproductpage",
+            name="child_safety_blurb",
+            field=wagtail.core.fields.RichTextField(
+                blank=True,
+                help_text="Child safety information, if applicable.",
+                max_length=5000,
+            ),
         ),
     ]

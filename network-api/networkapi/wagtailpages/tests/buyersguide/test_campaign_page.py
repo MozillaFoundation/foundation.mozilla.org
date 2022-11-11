@@ -56,15 +56,15 @@ class BuyersGuideCampaignPageTest(test_base.WagtailpagesTestCase):
 
         self.assertTemplateUsed(
             response=response,
-            template_name='pages/buyersguide/campaign_page.html',
+            template_name="pages/buyersguide/campaign_page.html",
         )
         self.assertTemplateUsed(
             response=response,
-            template_name='pages/buyersguide/base.html',
+            template_name="pages/buyersguide/base.html",
         )
         self.assertTemplateUsed(
             response=response,
-            template_name='pages/base.html',
+            template_name="pages/base.html",
         )
 
     def test_get_donation_modal_json(self):
@@ -74,9 +74,7 @@ class BuyersGuideCampaignPageTest(test_base.WagtailpagesTestCase):
         Loops through all donation modal relations, creates a dict for each item's data,
         and then stores them in a JSON list for use in petition.jsx.
         """
-        campaign_page = buyersguide_factories.BuyersGuideCampaignPageFactory(
-            parent=self.content_index
-        )
+        campaign_page = buyersguide_factories.BuyersGuideCampaignPageFactory(parent=self.content_index)
         donation_modal_data = []
 
         for _ in range(4):
@@ -99,9 +97,7 @@ class BuyersGuideCampaignPageTest(test_base.WagtailpagesTestCase):
         Testing the campaign pages "get_donation_modal_json" method
         with no modals set. Should return empty JSON list.
         """
-        campaign_page = buyersguide_factories.BuyersGuideCampaignPageFactory(
-            parent=self.content_index
-        )
+        campaign_page = buyersguide_factories.BuyersGuideCampaignPageFactory(parent=self.content_index)
         list_returned_from_method = campaign_page.get_donation_modal_json()
 
         self.assertEqual(list_returned_from_method, json.dumps([]))

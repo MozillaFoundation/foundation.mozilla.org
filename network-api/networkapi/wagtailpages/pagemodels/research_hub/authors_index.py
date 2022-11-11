@@ -18,7 +18,7 @@ class ResearchAuthorsIndexPage(
     research_base.ResearchHubBasePage,
 ):
     max_count = 1
-    parent_page_types = ['ResearchLandingPage']
+    parent_page_types = ["ResearchLandingPage"]
 
     banner_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),
@@ -26,13 +26,12 @@ class ResearchAuthorsIndexPage(
         blank=False,
         on_delete=models.SET_NULL,
         help_text=(
-            'The image to be used as the banner background image for '
-            'the author index and all author detail pages.'
+            "The image to be used as the banner background image for " "the author index and all author detail pages."
         ),
     )
 
     content_panels = wagtail_models.Page.content_panels + [
-        ImageChooserPanel('banner_image'),
+        ImageChooserPanel("banner_image"),
     ]
 
     def get_context(self, request):
@@ -48,7 +47,7 @@ class ResearchAuthorsIndexPage(
         context["breadcrumbs"] = self.get_breadcrumbs()
         return context
 
-    @routable_models.route(r'^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$')
+    @routable_models.route(r"^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$")
     def author_detail(
         self,
         request: http.HttpRequest,
@@ -57,15 +56,13 @@ class ResearchAuthorsIndexPage(
     ):
         context_overrides = self.get_author_detail_context(profile_id=int(profile_id))
 
-        slugified_profile_name = text_utils.slugify(
-            context_overrides['author_profile'].name
-        )
+        slugified_profile_name = text_utils.slugify(context_overrides["author_profile"].name)
         if not slugified_profile_name == profile_slug:
-            raise http.Http404('Slug does not fit profile name')
+            raise http.Http404("Slug does not fit profile name")
 
         return self.render(
             request=request,
-            template='wagtailpages/research_author_detail_page.html',
+            template="wagtailpages/research_author_detail_page.html",
             context_overrides=context_overrides,
         )
 
@@ -83,17 +80,17 @@ class ResearchAuthorsIndexPage(
         detail_page_breadcrumbs = self.get_breadcrumbs(include_self=True)
 
         return {
-            'author_profile': author_profile,
-            'author_research_count': author_research_count,
-            'breadcrumbs': detail_page_breadcrumbs,
-            'latest_research': latest_research,
-            'library_page': library_page.ResearchLibraryPage.objects.first(),
+            "author_profile": author_profile,
+            "author_research_count": author_research_count,
+            "breadcrumbs": detail_page_breadcrumbs,
+            "latest_research": latest_research,
+            "library_page": library_page.ResearchLibraryPage.objects.first(),
         }
 
     def get_latest_research(self, author_profile):
         LATEST_RESEARCH_COUNT_LIMIT = 3
         author_research = self.get_author_research(author_profile)
-        author_research = author_research.order_by('-original_publication_date')
+        author_research = author_research.order_by("-original_publication_date")
         latest_research = author_research[:LATEST_RESEARCH_COUNT_LIMIT]
         return latest_research
 
@@ -107,14 +104,10 @@ class ResearchAuthorsIndexPage(
         # `translation_key` as the current locale's author. So, instead of filtering
         # for the author `id`, we filter by `translation_key`.
         author_research = author_research.filter(
-            research_authors__author_profile__translation_key=(
-                author_profile.translation_key
-            )
+            research_authors__author_profile__translation_key=(author_profile.translation_key)
         )
         # And then we fitler for the active locale.
-        author_research = author_research.filter(
-            locale=wagtail_models.Locale.get_active()
-        )
+        author_research = author_research.filter(locale=wagtail_models.Locale.get_active())
         return author_research
 
     def get_banner(self):

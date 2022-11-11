@@ -11,5 +11,5 @@ class ProfileBlock(blocks.StructBlock):
     profiles = blocks.ListBlock(ProfileCard(), min_num=1)
 
     class Meta:
-        icon = 'user'
-        template = 'wagtailpages/blocks/profile_block_rounded.html'
+        icon = "user"
+        template = "wagtailpages/blocks/profile_block_rounded.html"

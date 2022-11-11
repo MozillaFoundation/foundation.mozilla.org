@@ -56,9 +56,7 @@ def create_env_file(env_file):
         dbname = re.search("POSTGRES_DB=(.*)", docker_compose).group(1) or dbname
 
     # Update the DATABASE_URL env
-    new_db_url = (
-        f"DATABASE_URL=postgresql://{username}@postgres:5432/{dbname}"
-    )
+    new_db_url = f"DATABASE_URL=postgresql://{username}@postgres:5432/{dbname}"
     old_db_url = re.search("DATABASE_URL=.*", env_vars)
     env_vars = env_vars.replace(old_db_url.group(0), new_db_url)
 
@@ -91,7 +89,7 @@ def createsuperuser(ctx, stop=False):
 
     To stop the containers after the command is run, pass the `--stop` flag.
     """
-    manage(ctx, 'create_admin', stop=stop)
+    manage(ctx, "create_admin", stop=stop)
 
 
 def initialize_database(ctx, slow=False):
@@ -159,9 +157,7 @@ def setup(ctx):
     with ctx.cd(ROOT):
         print("* Setting default environment variables")
         if os.path.isfile(".env"):
-            print(
-                "* Stripping quotes and making sure your DATABASE_URL and ALLOWED_HOSTS are properly setup"
-            )
+            print("* Stripping quotes and making sure your DATABASE_URL and ALLOWED_HOSTS are properly setup")
             create_env_file(".env")
         else:
             print("* Creating a new .env")
@@ -197,7 +193,7 @@ def setup(ctx):
 # Javascript shorthands
 @task(aliases=["docker-npm"])
 def npm(ctx, command):
-    """Shorthand to npm. inv docker-npm \"[COMMAND] [ARG]\""""
+    """Shorthand to npm. inv docker-npm \"[COMMAND] [ARG]\" """
     with ctx.cd(ROOT):
         ctx.run(f"docker-compose run --rm watch-static-files npm {command}")
 
@@ -231,7 +227,7 @@ def pyrun(ctx, command, stop=False):
     """
     with ctx.cd(ROOT):
         ctx.run(
-            f"docker-compose run --rm backend bash -c \"source ./dockerpythonvenv/bin/activate && {command}\"",
+            f'docker-compose run --rm backend bash -c "source ./dockerpythonvenv/bin/activate && {command}"',
             **PLATFORM_ARG,
         )
         if stop:
@@ -247,7 +243,7 @@ def manage(ctx, command, stop=False):
 
     To stop the containers after the command has been run, pass the `--stop` flag.
     """
-    command = f'python network-api/manage.py {command}'
+    command = f"python network-api/manage.py {command}"
     pyrun(ctx, command, stop=stop)
 
 
@@ -394,7 +390,7 @@ def compilemessages(ctx):
 # Pip-tools
 @task(aliases=["docker-pip-compile"])
 def pip_compile(ctx, command):
-    """Shorthand to pip-tools. inv pip-compile \"[COMMAND] [ARG]\""""
+    """Shorthand to pip-tools. inv pip-compile \"[COMMAND] [ARG]\" """
     with ctx.cd(ROOT):
         ctx.run(
             f"docker-compose run --rm backend ./dockerpythonvenv/bin/pip-compile {command}",
