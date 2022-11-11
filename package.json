@@ -49,6 +49,7 @@
     "sync": "browser-sync start --proxy \"localhost:8000\" --reload-debounce 50 --files \"./network-api/networkapi/**/*.html\" \"./network-api/networkapi/frontend/_css/*.css\" \"./network-api/networkapi/frontend/_js/*.js\"",
     "tailwind": "run-p tailwind:watch sync",
     "tailwind:watch": "npm run build:tailwind -- -w",
+    "test": "run-s test:**",
     "test:procfile": "node test/test-procfile.js",
     "test:eslint:js:pre": "prettier \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" \"tests/**/*.js\" ./*.js  --write",
     "test:eslint:js": "eslint --config ./.eslintrc.json \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" ./*.js",
@@ -58,7 +59,6 @@
     "test:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" --syntax scss",
     "test:scss:styleguide:color": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" \"!source/sass/**/_colors.scss\" --syntax scss --config .stylelintrc-colors.js",
     "test:css": "stylelint \"network-api/networkapi/{,!(frontend)/**/}*.css\" --syntax scss",
-    "test": "run-s test:** build",
     "watch": "wait-on http://backend:8000/cms && run-s build:clean && run-p build:js:dev build:common watch:**",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
     "watch:sass": "chokidar \"source/**/*.scss\" \"**/*.html\" -c \"npm run build:sass\""
