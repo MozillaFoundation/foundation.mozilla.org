@@ -90,10 +90,9 @@ jobs:
           python network-api/manage.py block_inventory
           python network-api/manage.py compilemessages
       - name: Run linting
-        run: flake8 tasks.py network-api/
-      - name: Run format check
-        run: black . --check
-        continue-on-error: true
+        run: |
+          flake8 tasks.py network-api/
+          black . --check
       - name: Run type checks
         run: mypy network-api
       - name: Run Tests
