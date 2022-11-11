@@ -53,7 +53,6 @@
     "test:procfile": "node test/test-procfile.js",
     "test:eslint:js:pre": "prettier \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" \"tests/**/*.js\" ./*.js  --write",
     "test:eslint:js": "eslint --config ./.eslintrc.json \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" ./*.js",
-    "test:eslint:a11y:pre": "prettier \"source/js/**/*.jsx\" --write",
     "test:eslint:a11y": "eslint --config ./.eslintrc.a11y.json \"source/js/**/*.jsx\"",
     "test:scss:pre": "prettier \"source/sass/**/*.scss\" \"source/js/**/*.scss\" \"network-api/networkapi/{,!(frontend)/**/}*.css\" --write",
     "test:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" --syntax scss",
