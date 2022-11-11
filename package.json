@@ -52,7 +52,7 @@
     "tailwind:watch": "npm run build:tailwind -- -w",
     "test": "run-s test:**",
     "test:procfile": "node test/test-procfile.js",
-    "test:eslint:js:pre": "prettier \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" \"tests/**/*.js\" ./*.js  --write",
+    "test:js:prettier": "npm run prettier:js -- --check",
     "test:eslint:js": "eslint --config ./.eslintrc.json \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" ./*.js",
     "test:eslint:a11y": "eslint --config ./.eslintrc.a11y.json \"source/js/**/*.jsx\"",
     "test:scss:pre": "prettier \"source/sass/**/*.scss\" \"source/js/**/*.scss\" \"network-api/networkapi/{,!(frontend)/**/}*.css\" --write",
