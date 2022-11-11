@@ -75,6 +75,9 @@ class BuyersGuideEditorialContentIndexPage(
             context={
                 'index_page': self,
                 'items': items,
+                # This is method returns only a template fragment and should be hit
+                # by AJAX requests only, so we know JS works and we can rely on JS
+                # pagination (load more).
                 'show_load_more_button_immediately': True,
             },
         )
