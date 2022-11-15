@@ -6,9 +6,11 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0042_youtuberegrets2022page'),
-        ('wagtailpages', '0053_remove_buyersguideeditorialcontentindexpage_related_articles_heading'),
+        ("wagtailpages", "0042_youtuberegrets2022page"),
+        (
+            "wagtailpages",
+            "0053_remove_buyersguideeditorialcontentindexpage_related_articles_heading",
+        ),
     ]
 
-    operations = [
-    ]
+    operations = []

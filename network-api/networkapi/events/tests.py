@@ -30,9 +30,7 @@ class TitoTicketCompletedTest(TestCase):
         self.assertEqual(response.content.decode(), "Not a ticket completed request")
 
     def test_missing_tito_signature(self):
-        response = self.client.post(
-            self.url, data={}, HTTP_X_WEBHOOK_NAME="ticket.completed"
-        )
+        response = self.client.post(self.url, data={}, HTTP_X_WEBHOOK_NAME="ticket.completed")
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.content.decode(), "Payload verification failed")
 
@@ -71,9 +69,7 @@ class TitoTicketCompletedTest(TestCase):
         response = tito_ticket_completed(request)
 
         self.assertEqual(response.status_code, 202)
-        mock_basket.subscribe.assert_called_once_with(
-            "rich@test.com", "mozilla-festival"
-        )
+        mock_basket.subscribe.assert_called_once_with("rich@test.com", "mozilla-festival")
 
     def test_logs_basket_exception(self):
         # Using `failure@example.com` as the email causes an exception, see:

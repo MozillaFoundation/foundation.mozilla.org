@@ -7,13 +7,19 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0054_merge_20220906_1800'),
+        ("wagtailpages", "0054_merge_20220906_1800"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='buyersguidepage',
-            name='featured_advice_article',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailpages.buyersguidearticlepage'),
+            model_name="buyersguidepage",
+            name="featured_advice_article",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailpages.buyersguidearticlepage",
+            ),
         ),
     ]

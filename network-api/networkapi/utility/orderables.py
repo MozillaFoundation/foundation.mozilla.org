@@ -4,10 +4,7 @@ if TYPE_CHECKING:
     from django.db import models
 
 
-def get_related_items(
-    queryset: 'models.QuerySet',
-    related_item_field: str
-) -> list['models.Model']:
+def get_related_items(queryset: "models.QuerySet", related_item_field: str) -> list["models.Model"]:
     """
     Return list of the related items from the queryset.
 
@@ -15,8 +12,4 @@ def get_related_items(
     returned.
 
     """
-    return [
-        getattr(relation, related_item_field)
-        for relation
-        in queryset.select_related(related_item_field)
-    ]
+    return [getattr(relation, related_item_field) for relation in queryset.select_related(related_item_field)]

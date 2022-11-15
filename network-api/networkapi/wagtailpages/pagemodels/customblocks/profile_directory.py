@@ -31,13 +31,13 @@ class ProfileDirectory(LatestProfileList):
 
     filter_values = blocks.CharBlock(
         required=True,
-        default='2019,2018,2017,2016,2015,2014,2013',
-        help_text='Example: 2019,2018,2017,2016,2015,2014,2013'
+        default="2019,2018,2017,2016,2015,2014,2013",
+        help_text="Example: 2019,2018,2017,2016,2015,2014,2013",
     )
 
     def get_context(self, value, parent_context=None):
-        pulse_api = settings.FRONTEND['PULSE_API_DOMAIN']
-        filter_values = value['filter_values']
+        pulse_api = settings.FRONTEND["PULSE_API_DOMAIN"]
+        filter_values = value["filter_values"]
         years = filter_values.split(",")
         initial_year = years[0]
 
@@ -46,16 +46,16 @@ class ProfileDirectory(LatestProfileList):
             parent_context=parent_context,
             no_limit=True,
             initial_year=initial_year,
-            ordering='custom_name'
+            ordering="custom_name",
         )
 
-        context['filters'] = years
-        context['api_endpoint'] = f"{pulse_api}/api/pulse/v2/profiles/?ordering=custom_name&is_active=true&format=json"
+        context["filters"] = years
+        context["api_endpoint"] = f"{pulse_api}/api/pulse/v2/profiles/?ordering=custom_name&is_active=true&format=json"
         return context
 
     class Meta:
-        template = 'wagtailpages/blocks/profile_directory.html'
-        icon = 'group'
+        template = "wagtailpages/blocks/profile_directory.html"
+        icon = "group"
 
 
 class TabbedProfileDirectory(blocks.StructBlock):
@@ -64,67 +64,59 @@ class TabbedProfileDirectory(blocks.StructBlock):
     specific profile field (e.g. profile_type).
     https://github.com/mozilla/foundation.mozilla.org/issues/7422
     """
+
     tabs = SnippetChooserBlock(
-        'wagtailpages.PulseFilter',
+        "wagtailpages.PulseFilter",
         help_text=(
-            'Tabs are created based on the selected pulse filter ',
-            'and the first option in the snippet will be the first tab showing open on the page.'
+            "Tabs are created based on the selected pulse filter ",
+            "and the first option in the snippet will be the first tab showing open on the page.",
         ),
     )
     subfilters = blocks.StreamBlock(
         [
-            ('filter', SnippetChooserBlock('wagtailpages.PulseFilter')),
+            ("filter", SnippetChooserBlock("wagtailpages.PulseFilter")),
         ],
         max_num=1,
         required=False,
     )
 
     advanced_filter_header = blocks.StaticBlock(
-        label='-------- ADVANCED FILTERS: OPTIONS TO DISPLAY FEWER, MORE TARGETED RESULTS. --------',
+        label="-------- ADVANCED FILTERS: OPTIONS TO DISPLAY FEWER, MORE TARGETED RESULTS. --------",
         admin_text=(
-            'Note that the filter not be used if selected as the tabs filter or as one of the subfilters.'
-            ' For example, if the tabs filter profile types, the profile type field below will be ignored.'
+            "Note that the filter not be used if selected as the tabs filter or as one of the subfilters."
+            " For example, if the tabs filter profile types, the profile type field below will be ignored."
         ),
     )
 
-    profile_type = blocks.CharBlock(
-        required=False,
-        default='',
-        help_text='Example: Fellow.'
-    )
-    program_type = blocks.CharBlock(
-        required=False,
-        default='',
-        help_text='Example: Tech Policy.'
-    )
-    year = blocks.CharBlock(
-        required=False,
-        default=''
-    )
+    profile_type = blocks.CharBlock(required=False, default="", help_text="Example: Fellow.")
+    program_type = blocks.CharBlock(required=False, default="", help_text="Example: Tech Policy.")
+    year = blocks.CharBlock(required=False, default="")
 
     class Meta:
-        template = 'wagtailpages/blocks/tabbed_profile_directory.html'
-        icon = 'group'
+        template = "wagtailpages/blocks/tabbed_profile_directory.html"
+        icon = "group"
 
     def clean(self, value):
         result = super().clean(value)
         errors = {}
 
         # Check if any of the subfilter snippets are the same as the tabs snippet.
-        for index, subfilter_block in enumerate(value['subfilters']):
-            if subfilter_block.value.pk == value['tabs'].pk:
-                errors['subfilters'] = ErrorList([
-                    StreamBlockValidationError(
-                        block_errors={
-                            index: ErrorList(
-                                [
-                                    ValidationError(ErrorList(['The subfilter cannot be the same as the tabs.'])),
-                                ]
-                            )
-                        },
-                        non_block_errors=ErrorList(),
-                    )
-                ])
+        for index, subfilter_block in enumerate(value["subfilters"]):
+            if subfilter_block.value.pk == value["tabs"].pk:
+                errors["subfilters"] = ErrorList(
+                    [
+                        StreamBlockValidationError(
+                            block_errors={
+                                index: ErrorList(
+                                    [
+                                        ValidationError(ErrorList(["The subfilter cannot be the same as the tabs."])),
+                                    ]
+                                )
+                            },
+                            non_block_errors=ErrorList(),
+                        )
+                    ]
+                )
 
         if errors:
             raise StructBlockValidationError(errors)
@@ -133,23 +125,23 @@ class TabbedProfileDirectory(blocks.StructBlock):
 
     def get_context(self, value, parent_context=None, ordering=False):
         context = super().get_context(value, parent_context=parent_context)
-        pulse_api = settings.FRONTEND['PULSE_API_DOMAIN']
+        pulse_api = settings.FRONTEND["PULSE_API_DOMAIN"]
 
         query_args = {
-            'profile_type': value['profile_type'],
-            'program_type': value['program_type'],
-            'program_year': value['year'],
-            'ordering': ordering if ordering else 'custom_name',
-            'is_active': 'true',
-            'format': 'json',
+            "profile_type": value["profile_type"],
+            "program_type": value["program_type"],
+            "program_year": value["year"],
+            "ordering": ordering if ordering else "custom_name",
+            "is_active": "true",
+            "format": "json",
         }
 
         # Use first tabs filter option as the initial filter.
-        tabs = value['tabs']
+        tabs = value["tabs"]
         query_args[tabs.filter_key] = tabs.options.first().filter_value
 
         # Remove specific filter if the filter is in use for subfilters.
-        for subfilter_block in value['subfilters']:
+        for subfilter_block in value["subfilters"]:
             filter_key = subfilter_block.value.filter_key
             if filter_key in query_args:
                 query_args.pop(filter_key)
@@ -157,9 +149,8 @@ class TabbedProfileDirectory(blocks.StructBlock):
         # Filter out emptish values
         query_args = {k: v for k, v in query_args.items() if v}
 
-        url = '{pulse_api}/api/pulse/v2/profiles/?{query}'.format(
-            pulse_api=pulse_api,
-            query=parse.urlencode(query_args)
+        url = "{pulse_api}/api/pulse/v2/profiles/?{query}".format(
+            pulse_api=pulse_api, query=parse.urlencode(query_args)
         )
 
         data = []
@@ -170,22 +161,22 @@ class TabbedProfileDirectory(blocks.StructBlock):
             data = json.loads(response_data)
 
             for profile in data:
-                profile['created_entries'] = False
-                profile['published_entries'] = False
-                profile['entry_count'] = False
-                profile['user_bio_long'] = False
+                profile["created_entries"] = False
+                profile["published_entries"] = False
+                profile["entry_count"] = False
+                profile["user_bio_long"] = False
 
         except (IOError, ValueError) as exception:
             print(str(exception))
             pass
 
-        context['profiles'] = data
-        context['profile_type'] = value['profile_type']
-        context['program_type'] = value['program_type']
-        context['program_year'] = value['year']
-        context['api_endpoint'] = f"{pulse_api}/api/pulse/v2/profiles/?ordering=custom_name&is_active=true&format=json"
-        context['tab_options'] = serializers.serialize('json', value['tabs'].options.all())
-        context['subfilters_label'] = value['subfilters'][0].value.filter_key_label
-        context['subfilters_key'] = value['subfilters'][0].value.filter_key
-        context['subfilters'] = serializers.serialize('json', value['subfilters'][0].value.options.all())
+        context["profiles"] = data
+        context["profile_type"] = value["profile_type"]
+        context["program_type"] = value["program_type"]
+        context["program_year"] = value["year"]
+        context["api_endpoint"] = f"{pulse_api}/api/pulse/v2/profiles/?ordering=custom_name&is_active=true&format=json"
+        context["tab_options"] = serializers.serialize("json", value["tabs"].options.all())
+        context["subfilters_label"] = value["subfilters"][0].value.filter_key_label
+        context["subfilters_key"] = value["subfilters"][0].value.filter_key
+        context["subfilters"] = serializers.serialize("json", value["subfilters"][0].value.options.all())
         return context

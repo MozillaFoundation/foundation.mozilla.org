@@ -1,6 +1,5 @@
 # A mixin that imparts banner inheritance for whatever model it gets tacked onto
-class FoundationBannerInheritanceMixin():
-
+class FoundationBannerInheritanceMixin:
     def get_banner(self):
         if self.banner is None:
             ancestors = self.get_ancestors()

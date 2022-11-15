@@ -6,29 +6,29 @@ from django.template.defaultfilters import slugify
 def create_default_blog_categories(apps, schema_editor, locale_id):
     BlogPageCategory = apps.get_model("wagtailpages", "BlogPageCategory")
 
-    BlogPageCategory.objects.get_or_create(name='Mozilla Festival', locale_id=locale_id)
-    BlogPageCategory.objects.get_or_create(name='Open Leadership & Events', locale_id=locale_id)
-    BlogPageCategory.objects.get_or_create(name='Internet Health Report', locale_id=locale_id)
-    BlogPageCategory.objects.get_or_create(name='Fellowships & Awards', locale_id=locale_id)
-    BlogPageCategory.objects.get_or_create(name='Advocacy', locale_id=locale_id)
+    BlogPageCategory.objects.get_or_create(name="Mozilla Festival", locale_id=locale_id)
+    BlogPageCategory.objects.get_or_create(name="Open Leadership & Events", locale_id=locale_id)
+    BlogPageCategory.objects.get_or_create(name="Internet Health Report", locale_id=locale_id)
+    BlogPageCategory.objects.get_or_create(name="Fellowships & Awards", locale_id=locale_id)
+    BlogPageCategory.objects.get_or_create(name="Advocacy", locale_id=locale_id)
 
 
 def create_default_focus_areas(apps, schema_editor, locale_id):
     FocusArea = apps.get_model("wagtailpages", "FocusArea")
 
     FocusArea.objects.get_or_create(
-        name='Rally Citizens',
-        description='Issues like privacy, trustworthy AI, and digital rights impact all of us who use the internet. Mozilla helps translate them and empower meaningful change.',
+        name="Rally Citizens",
+        description="Issues like privacy, trustworthy AI, and digital rights impact all of us who use the internet. Mozilla helps translate them and empower meaningful change.",
         locale_id=locale_id,
     )
     FocusArea.objects.get_or_create(
-        name='Connect Leaders',
-        description='We support activists and thought leaders shaping the future of our online lives.',
+        name="Connect Leaders",
+        description="We support activists and thought leaders shaping the future of our online lives.",
         locale_id=locale_id,
     )
     FocusArea.objects.get_or_create(
-        name='Shape the Agenda',
-        description='We publish open-source research and host global convenings to make ideas like trustworthy AI mainstream.',
+        name="Shape the Agenda",
+        description="We publish open-source research and host global convenings to make ideas like trustworthy AI mainstream.",
         locale_id=locale_id,
     )
 
@@ -93,15 +93,12 @@ def bootstrap_data(apps, schema_editor):
     add_pni_subcategories(apps, schema_editor, locale_id)
 
 
-
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0001_initial_2022'),
+        ("wagtailpages", "0001_initial_2022"),
     ]
 
     operations = [
-        migrations.RunPython(
-            bootstrap_data
-        ),
+        migrations.RunPython(bootstrap_data),
     ]

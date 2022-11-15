@@ -23,7 +23,7 @@ class Profile(TranslatableMixin, models.Model):
     name = models.CharField(max_length=70, blank=False)
 
     image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
@@ -32,7 +32,7 @@ class Profile(TranslatableMixin, models.Model):
     tagline = models.CharField(
         max_length=50,
         blank=True,
-        help_text="Use this field for things like a person's job title."
+        help_text="Use this field for things like a person's job title.",
     )
 
     introduction = models.TextField(max_length=500)
@@ -58,5 +58,5 @@ class Profile(TranslatableMixin, models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(f'{self.name}-{str(self.id)}')
+        self.slug = slugify(f"{self.name}-{str(self.id)}")
         super(Profile, self).save(*args, **kwargs)
