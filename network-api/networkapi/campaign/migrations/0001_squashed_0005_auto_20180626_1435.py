@@ -8,17 +8,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     replaces = [
-        ('campaign', '0001_initial'),
-        ('campaign', '0002_auto_20180206_2044'),
-        ('campaign', '0003_auto_20180206_2116'),
-        ('campaign', '0004_auto_20180228_2139'),
-        ('campaign', '0005_auto_20180626_1435')
+        ("campaign", "0001_initial"),
+        ("campaign", "0002_auto_20180206_2044"),
+        ("campaign", "0003_auto_20180206_2116"),
+        ("campaign", "0004_auto_20180228_2139"),
+        ("campaign", "0005_auto_20180626_1435"),
     ]
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
-    operations = [
-    ]
+    operations = []

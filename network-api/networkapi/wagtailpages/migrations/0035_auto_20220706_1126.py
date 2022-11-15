@@ -7,23 +7,29 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0066_collection_management_permissions'),
-        ('wagtailpages', '0034_blogindexpage_related_topics'),
+        ("wagtailcore", "0066_collection_management_permissions"),
+        ("wagtailpages", "0034_blogindexpage_related_topics"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='blogauthors',
+            name="blogauthors",
             options={},
         ),
         migrations.AddField(
-            model_name='blogauthors',
-            name='locale',
-            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            model_name="blogauthors",
+            name="locale",
+            field=models.ForeignKey(
+                editable=False,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="+",
+                to="wagtailcore.locale",
+            ),
         ),
         migrations.AddField(
-            model_name='blogauthors',
-            name='translation_key',
+            model_name="blogauthors",
+            name="translation_key",
             field=models.UUIDField(editable=False, null=True),
         ),
     ]

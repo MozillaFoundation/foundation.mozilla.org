@@ -6,13 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0032_blog_author_intro_required'),
+        ("wagtailpages", "0032_blog_author_intro_required"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='blogpage',
-            name='feature_author_details',
-            field=models.BooleanField(default=False, help_text='Check this box to render the author details section. If an author is missing from the list, please make sure they have an "introduction" set in their profile.'),
+            model_name="blogpage",
+            name="feature_author_details",
+            field=models.BooleanField(
+                default=False,
+                help_text='Check this box to render the author details section. If an author is missing from the list, please make sure they have an "introduction" set in their profile.',
+            ),
         ),
     ]

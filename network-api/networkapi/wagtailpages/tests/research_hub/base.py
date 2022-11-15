@@ -18,7 +18,7 @@ class ResearchHubTestCase(test_base.WagtailpagesTestCase):
         )
         cls.author_index = research_factory.ResearchAuthorsIndexPageFactory(
             parent=cls.landing_page,
-            title='Authors',
+            title="Authors",
         )
 
     def setUp(self):

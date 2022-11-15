@@ -5,8 +5,8 @@ from django.db import migrations
 
 
 def ensure_mozfest_signup(apps, schema_editor):
-    Signup = apps.get_model('wagtailpages', 'Signup')
-    test = Signup.objects.filter(name__iexact='mozfest').first()
+    Signup = apps.get_model("wagtailpages", "Signup")
+    test = Signup.objects.filter(name__iexact="mozfest").first()
 
     if test is None:
         Locale = apps.get_model("wagtailcore", "Locale")
@@ -14,10 +14,10 @@ def ensure_mozfest_signup(apps, schema_editor):
         locale_id = DEFAULT_LOCALE.pk
 
         Signup.objects.create(
-            name='Mozfest',
-            header='Sign Up for News and Updates',
-            description='<p>Receive emails about Mozilla Festival and Mozilla</p>',
-            newsletter='mozilla-foundation,mozilla-festival',
+            name="Mozfest",
+            header="Sign Up for News and Updates",
+            description="<p>Receive emails about Mozilla Festival and Mozilla</p>",
+            newsletter="mozilla-foundation,mozilla-festival",
             locale_id=locale_id,
         )
 
@@ -25,7 +25,7 @@ def ensure_mozfest_signup(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mozfest', '0001_initial_2022'),
+        ("mozfest", "0001_initial_2022"),
     ]
 
     operations = [

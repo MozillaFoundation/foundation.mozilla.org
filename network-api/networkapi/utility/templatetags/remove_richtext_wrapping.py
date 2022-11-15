@@ -1,5 +1,6 @@
 from django import template
 from bs4 import BeautifulSoup
+
 register = template.Library()
 
 
@@ -22,9 +23,9 @@ def remove_wrapping(content=None):
     allowing us to style the image captions easier.
     """
     if content:
-        soup = BeautifulSoup(str(content), 'html.parser')
-        richtext = soup.find('div', attrs={"class": "rich-text"})
+        soup = BeautifulSoup(str(content), "html.parser")
+        richtext = soup.find("div", attrs={"class": "rich-text"})
         if richtext:
-            paragraphs = richtext.findAll('p')
-            return ' '.join([str(x) for x in paragraphs])
+            paragraphs = richtext.findAll("p")
+            return " ".join([str(x) for x in paragraphs])
         return content

@@ -9,7 +9,7 @@ class ResearchRegion(wagtail_models.TranslatableMixin, models.Model):
     name = models.CharField(max_length=50, null=False, blank=False)
 
     panels = [
-        edit_handlers.FieldPanel('name'),
+        edit_handlers.FieldPanel("name"),
     ]
 
     def __str__(self):
@@ -22,8 +22,8 @@ class ResearchTopic(wagtail_models.TranslatableMixin, models.Model):
     description = models.TextField(null=False, blank=True)
 
     panels = [
-        edit_handlers.FieldPanel('name'),
-        edit_handlers.FieldPanel('description'),
+        edit_handlers.FieldPanel("name"),
+        edit_handlers.FieldPanel("description"),
     ]
 
     def __str__(self):

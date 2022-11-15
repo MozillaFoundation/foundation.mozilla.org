@@ -30,17 +30,17 @@ class BootstrapSpacerBlock(blocks.StructBlock):
     size = blocks.ChoiceBlock(
         choices=[
             # ('0', 'no spacing'),
-            ('1', 'quarter spacing'),
-            ('2', 'half spacing'),
-            ('3', 'single spacing'),
-            ('4', 'one and a half spacing'),
-            ('5', 'triple spacing'),
+            ("1", "quarter spacing"),
+            ("2", "half spacing"),
+            ("3", "single spacing"),
+            ("4", "one and a half spacing"),
+            ("5", "triple spacing"),
             # ('auto', 'automagical'),
         ],
-        default='3',
+        default="3",
     )
 
     class Meta:
-        icon = 'arrows-up-down'
-        template = 'wagtailpages/blocks/bootstrap_spacer_block.html'
-        help_text = 'A bootstrap based vertical spacing block.'
+        icon = "arrows-up-down"
+        template = "wagtailpages/blocks/bootstrap_spacer_block.html"
+        help_text = "A bootstrap based vertical spacing block."

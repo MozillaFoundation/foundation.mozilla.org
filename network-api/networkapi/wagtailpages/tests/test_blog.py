@@ -17,11 +17,7 @@ from networkapi.wagtailpages.tests import base as test_base
 
 # To make sure we can control the data setup for each test, we need to deactivate the
 # caching behaviout that the BlogIndexPage inherits from IndexPage.
-@test.override_settings(
-    CACHES={
-        'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}
-    }
-)
+@test.override_settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}})
 class BlogIndexTestCase(test_base.WagtailpagesTestCase):
     @classmethod
     def setUpTestData(cls):
@@ -33,9 +29,7 @@ class BlogIndexTestCase(test_base.WagtailpagesTestCase):
         )
 
     def fill_index_pages_with_blog_pages(
-        self,
-        index_pages_to_fill: int = 1,
-        base_title: str = 'Thisisnotthesearchterm'
+        self, index_pages_to_fill: int = 1, base_title: str = "Thisisnotthesearchterm"
     ):
         """
         Make enough blog pages to fill given number of index pages.
@@ -54,10 +48,7 @@ class BlogIndexTestCase(test_base.WagtailpagesTestCase):
                 blog_factories.BlogPageFactory(
                     parent=self.blog_index,
                     title=base_title + f" {index + 1}",
-                    first_published_at=(
-                        datetime.datetime(2020, 1, 1, tzinfo=tz)
-                        + datetime.timedelta(days=index)
-                    ),
+                    first_published_at=(datetime.datetime(2020, 1, 1, tzinfo=tz) + datetime.timedelta(days=index)),
                 )
             )
         blog_pages.reverse()
@@ -87,18 +78,9 @@ class TestBlogIndex(BlogIndexTestCase):
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(
-            response,
-            template_name='wagtailpages/blog_index_page.html'
-        )
-        self.assertTemplateUsed(
-            response,
-            template_name='wagtailpages/fragments/entry_cards_item_loop.html'
-        )
-        self.assertTemplateUsed(
-            response,
-            template_name='wagtailpages/fragments/blog_card.html'
-        )
+        self.assertTemplateUsed(response, template_name="wagtailpages/blog_index_page.html")
+        self.assertTemplateUsed(response, template_name="wagtailpages/fragments/entry_cards_item_loop.html")
+        self.assertTemplateUsed(response, template_name="wagtailpages/fragments/blog_card.html")
 
     def test_page_with_single_entry(self):
         blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
@@ -107,7 +89,7 @@ class TestBlogIndex(BlogIndexTestCase):
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        entries = [e.specific for e in response.context['entries']]
+        entries = [e.specific for e in response.context["entries"]]
         self.assertIn(blog_page, entries)
 
     def test_page_featured_post_not_in_entries(self):
@@ -123,7 +105,7 @@ class TestBlogIndex(BlogIndexTestCase):
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        entries = [e.specific for e in response.context['entries']]
+        entries = [e.specific for e in response.context["entries"]]
         self.assertIn(unfeatured_blog_page, entries)
         self.assertNotIn(featured_blog_page, entries)
 
@@ -140,7 +122,7 @@ class TestBlogIndex(BlogIndexTestCase):
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        entries = [e.specific for e in response.context['entries']]
+        entries = [e.specific for e in response.context["entries"]]
         self.assertIn(unfeatured_blog_page, entries)
         self.assertNotIn(featured_blog_page, entries)
 
@@ -152,14 +134,14 @@ class TestBlogIndex(BlogIndexTestCase):
         self.blog_index.save()
 
         response_without_topic = self.client.get(path=url)
-        entries_without_topic = response_without_topic.context['entries']
+        entries_without_topic = response_without_topic.context["entries"]
 
         topic = blog_factories.BlogPageTopicFactory(name="Test topic")
         self.blog_index.related_topics.add(topic)
         self.blog_index.save()
 
         response_with_topic = self.client.get(path=url)
-        entries_with_topic = response_with_topic.context['entries']
+        entries_with_topic = response_with_topic.context["entries"]
 
         self.assertEqual(len(entries_without_topic), 12)
         self.assertEqual(len(entries_with_topic), 11)
@@ -173,14 +155,14 @@ class TestBlogIndex(BlogIndexTestCase):
         self.blog_index.save()
 
         response_without_topic = self.client.get(path=url)
-        entries_without_topic = response_without_topic.context['entries']
+        entries_without_topic = response_without_topic.context["entries"]
 
         topic = blog_factories.BlogPageTopicFactory(name="Test topic")
         self.blog_index.related_topics.add(topic)
         self.blog_index.save()
 
         response_with_topic = self.client.get(path=url)
-        entries_with_topic = response_with_topic.context['entries']
+        entries_with_topic = response_with_topic.context["entries"]
 
         self.assertEqual(len(entries_without_topic), 24)
         self.assertEqual(len(entries_with_topic), 23)
@@ -191,14 +173,14 @@ class TestBlogIndex(BlogIndexTestCase):
         self.fill_index_pages_with_blog_pages(1)
 
         response_without_topic = self.client.get(path=url)
-        entries_without_topic = response_without_topic.context['entries']
+        entries_without_topic = response_without_topic.context["entries"]
 
         topic = blog_factories.BlogPageTopicFactory(name="Test topic")
         self.blog_index.related_topics.add(topic)
         self.blog_index.save()
 
         response_with_topic = self.client.get(path=url)
-        entries_with_topic = response_with_topic.context['entries']
+        entries_with_topic = response_with_topic.context["entries"]
 
         self.assertEqual(len(entries_without_topic), 4)
         self.assertEqual(len(entries_with_topic), 4)
@@ -211,14 +193,14 @@ class TestBlogIndex(BlogIndexTestCase):
         self.blog_index.save()
 
         response_without_topic = self.client.get(path=url)
-        entries_without_topic = response_without_topic.context['entries']
+        entries_without_topic = response_without_topic.context["entries"]
 
         topic = blog_factories.BlogPageTopicFactory(name="Test topic")
         self.blog_index.related_topics.add(topic)
         self.blog_index.save()
 
         response_with_topic = self.client.get(path=url)
-        entries_with_topic = response_with_topic.context['entries']
+        entries_with_topic = response_with_topic.context["entries"]
 
         self.assertEqual(len(entries_without_topic), 8)
         self.assertEqual(len(entries_with_topic), 8)
@@ -226,12 +208,9 @@ class TestBlogIndex(BlogIndexTestCase):
 
 class TestBlogIndexTopic(BlogIndexTestCase):
     def get_topic_route(self, /, **kwargs):
-        return (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage(
-                "entries_by_topic",
-                kwargs=kwargs,
-            )
+        return self.blog_index.get_url() + self.blog_index.reverse_subpage(
+            "entries_by_topic",
+            kwargs=kwargs,
         )
 
     def test_topic_route_success(self):
@@ -243,7 +222,7 @@ class TestBlogIndexTopic(BlogIndexTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_topic_route_non_existing_topic(self):
-        url = self.get_topic_route(topic='thisisnotatopic')
+        url = self.get_topic_route(topic="thisisnotatopic")
 
         response = self.client.get(path=url)
 
@@ -277,8 +256,8 @@ class TestBlogIndexSearch(BlogIndexTestCase):
     @staticmethod
     def update_index():
         # Redirect the command output to /dev/null
-        with open(os.devnull, 'w') as f:
-            management.call_command('update_index', verbosity=0, stdout=f)
+        with open(os.devnull, "w") as f:
+            management.call_command("update_index", verbosity=0, stdout=f)
 
     def test_search_route_success(self):
         url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search")
@@ -286,33 +265,20 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(
-            response,
-            template_name='wagtailpages/blog_index_search.html'
-        )
+        self.assertTemplateUsed(response, template_name="wagtailpages/blog_index_search.html")
 
     def test_search_route_with_query_success(self):
         blog_factories.BlogPageFactory(
             parent=self.blog_index,
             title=self.search_term,
         )
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search")
-            + f'?q={ self.search_term }'
-        )
+        url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search") + f"?q={ self.search_term }"
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(
-            response,
-            template_name='wagtailpages/blog_index_search.html'
-        )
-        self.assertTemplateUsed(
-            response,
-            template_name='wagtailpages/fragments/blog_card.html'
-        )
+        self.assertTemplateUsed(response, template_name="wagtailpages/blog_index_search.html")
+        self.assertTemplateUsed(response, template_name="wagtailpages/fragments/blog_card.html")
 
     def test_search_route_featured_posts_are_in_entries(self):
         """
@@ -330,15 +296,12 @@ class TestBlogIndexSearch(BlogIndexTestCase):
             blog=featured_blog_page,
         )
         self.assertEqual(self.blog_index.featured_pages.count(), 1)
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search")
-        )
+        url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search")
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        entries = [e.specific for e in response.context['entries']]
+        entries = [e.specific for e in response.context["entries"]]
         for blog_page in blog_pages:
             self.assertIn(blog_page, entries)
 
@@ -349,15 +312,12 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         This variable controls if the "load more" button shows.
         """
         self.fill_index_pages_with_blog_pages(1)
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search")
-        )
+        url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search")
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertFalse(response.context['has_more'])
+        self.assertFalse(response.context["has_more"])
 
     def test_search_route_has_more_context_variable_true(self):
         """
@@ -366,38 +326,25 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         This variable controls if the "load more" button shows.
         """
         self.fill_index_pages_with_blog_pages(2)
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search")
-        )
+        url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search")
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTrue(response.context['has_more'])
+        self.assertTrue(response.context["has_more"])
 
     def test_search_route_no_results_template(self):
         blog_factories.BlogPageFactory(
             parent=self.blog_index,
             title="This is not the search term",
         )
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search")
-            + f'?q={ self.search_term }'
-        )
+        url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search") + f"?q={ self.search_term }"
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(
-            response,
-            template_name='wagtailpages/blog_index_search.html'
-        )
-        self.assertTemplateUsed(
-            response,
-            template_name='wagtailpages/fragments/blog_search_no_results.html'
-        )
+        self.assertTemplateUsed(response, template_name="wagtailpages/blog_index_search.html")
+        self.assertTemplateUsed(response, template_name="wagtailpages/fragments/blog_search_no_results.html")
 
     def test_search_route_no_query(self):
         """
@@ -406,14 +353,14 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         How many pages exactly depends on the page size set on the index.
         """
         blog_pages = self.fill_index_pages_with_blog_pages(2)
-        first_page_of_blog_pages = blog_pages[0:self.page_size]
-        second_page_of_blog_pages = blog_pages[self.page_size:]
+        first_page_of_blog_pages = blog_pages[0 : self.page_size]
+        second_page_of_blog_pages = blog_pages[self.page_size :]
         url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search")
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        entries = response.context['entries']
+        entries = response.context["entries"]
         self.assertEqual(len(entries), self.page_size)
         for blog_page in first_page_of_blog_pages:
             self.assertIn(blog_page, entries)
@@ -421,10 +368,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
             self.assertNotIn(blog_page, entries)
 
     def test_get_search_entries_title_match(self):
-        match_post = blog_factories.BlogPageFactory(
-            parent=self.blog_index,
-            title=self.search_term
-        )
+        match_post = blog_factories.BlogPageFactory(parent=self.blog_index, title=self.search_term)
         other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
 
         results = self.blog_index.get_search_entries(query=self.search_term)
@@ -474,7 +418,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
     def test_get_search_entries_description_match(self):
         match_post = blog_factories.BlogPageFactory(
             parent=self.blog_index,
-            search_description=f'Something including the {self.search_term}',
+            search_description=f"Something including the {self.search_term}",
         )
         other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
 
@@ -485,12 +429,14 @@ class TestBlogIndexSearch(BlogIndexTestCase):
 
     def test_get_search_entries_body_match(self):
         match_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        match_post.body.append((
-            'paragraph',
-            rich_text.RichText(
-                f'<p>Some richtext containing the { self.search_term }</p>',
-            ),
-        ))
+        match_post.body.append(
+            (
+                "paragraph",
+                rich_text.RichText(
+                    f"<p>Some richtext containing the { self.search_term }</p>",
+                ),
+            )
+        )
         match_post.save()
         other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
 
@@ -510,10 +456,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
 
         """
         # Post with match in title
-        title_post = blog_factories.BlogPageFactory(
-            parent=self.blog_index,
-            title=self.search_term
-        )
+        title_post = blog_factories.BlogPageFactory(parent=self.blog_index, title=self.search_term)
         # Post with match in topic
         topic = blog_topic.BlogPageTopic.objects.create(title=self.search_term)
         topic_post = blog_factories.BlogPageFactory(parent=self.blog_index)
@@ -535,10 +478,12 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         )
         # Post with match in body
         body_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        body_post.body.append((
-            'paragraph',
-            rich_text.RichText(self.search_term),
-        ))
+        body_post.body.append(
+            (
+                "paragraph",
+                rich_text.RichText(self.search_term),
+            )
+        )
         body_post.save()
         # Non-matching post
         other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
@@ -583,10 +528,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
 
         """
         # Post with match in title
-        title_post = blog_factories.BlogPageFactory(
-            parent=self.blog_index,
-            title=self.search_term
-        )
+        title_post = blog_factories.BlogPageFactory(parent=self.blog_index, title=self.search_term)
         # Post with match in description
         description_post = blog_factories.BlogPageFactory(
             parent=self.blog_index,
@@ -594,10 +536,12 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         )
         # Post with match in body
         body_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        body_post.body.append((
-            'paragraph',
-            rich_text.RichText(self.search_term),
-        ))
+        body_post.body.append(
+            (
+                "paragraph",
+                rich_text.RichText(self.search_term),
+            )
+        )
         body_post.save()
         # Non-matching post
         other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
@@ -617,10 +561,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         self.assertEqual(body_post, results[2])
 
     def test_search_entries_route_without_page_parameter(self):
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search_entries")
-        )
+        url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search_entries")
 
         response = self.client.get(path=url)
 
@@ -628,9 +569,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
 
     def test_search_entries_route_non_integer_page(self):
         url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search_entries")
-            + "?page=thisisnotaninteger"
+            self.blog_index.get_url() + self.blog_index.reverse_subpage("search_entries") + "?page=thisisnotaninteger"
         )
 
         response = self.client.get(path=url)
@@ -650,11 +589,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
     def test_search_entries_route_second_page_without_blog_pages_existing(self):
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search_entries")
-            + "?page=1"
-        )
+        url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search_entries") + "?page=1"
 
         response = self.client.get(path=url)
 
@@ -689,13 +624,9 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         """
         # Make more than one page of blog pages to test that pagination really works.
         blog_pages = self.fill_index_pages_with_blog_pages(2)
-        first_page_of_blog_pages = blog_pages[0:self.page_size]
-        second_page_of_blog_pages = blog_pages[self.page_size:]
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search_entries")
-            + "?page=0"
-        )
+        first_page_of_blog_pages = blog_pages[0 : self.page_size]
+        second_page_of_blog_pages = blog_pages[self.page_size :]
+        url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search_entries") + "?page=0"
 
         response = self.client.get(path=url)
 
@@ -703,18 +634,18 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # Though the response is a JsonResponse, we still have access to the context used by the template loader
         # See: https://docs.djangoproject.com/en/4.0/topics/testing/tools/#django.test.Response.context
-        entries = response.context['entries']
-        entries_html = response.json()['entries_html']
+        entries = response.context["entries"]
+        entries_html = response.json()["entries_html"]
         self.assertEqual(len(entries), self.page_size)
         for blog_page in first_page_of_blog_pages:
             self.assertIn(blog_page, entries)
             self.assertInHTML(needle=blog_page.title, haystack=entries_html)
         for blog_page in second_page_of_blog_pages:
             self.assertNotIn(blog_page, entries)
-        self.assertTemplateNotUsed(response, template_name='wagtailpages/fragments/entry_cards.html')
-        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/blog_search_item_loop.html')
-        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/blog_card.html')
-        self.assertTrue(response.json()['has_next'])
+        self.assertTemplateNotUsed(response, template_name="wagtailpages/fragments/entry_cards.html")
+        self.assertTemplateUsed(response, template_name="wagtailpages/fragments/blog_search_item_loop.html")
+        self.assertTemplateUsed(response, template_name="wagtailpages/fragments/blog_card.html")
+        self.assertTrue(response.json()["has_next"])
 
     def test_search_entries_route_loads_second_page_entries_no_query(self):
         """
@@ -724,13 +655,9 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         latest blog pages.
         """
         blog_pages = self.fill_index_pages_with_blog_pages(2)
-        first_page_of_blog_pages = blog_pages[0:self.page_size]
-        second_page_of_blog_pages = blog_pages[self.page_size:]
-        url = (
-            self.blog_index.get_url()
-            + self.blog_index.reverse_subpage("search_entries")
-            + "?page=1"
-        )
+        first_page_of_blog_pages = blog_pages[0 : self.page_size]
+        second_page_of_blog_pages = blog_pages[self.page_size :]
+        url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search_entries") + "?page=1"
 
         response = self.client.get(path=url)
 
@@ -738,25 +665,25 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # Though the response is a JsonResponse, we still have access to the context used by the template loader
         # See: https://docs.djangoproject.com/en/4.0/topics/testing/tools/#django.test.Response.context
-        entries = response.context['entries']
-        entries_html = response.json()['entries_html']
+        entries = response.context["entries"]
+        entries_html = response.json()["entries_html"]
         self.assertEqual(len(entries), self.page_size)
         for blog_page in first_page_of_blog_pages:
             self.assertNotIn(blog_page, entries)
         for blog_page in second_page_of_blog_pages:
             self.assertIn(blog_page, entries)
             self.assertInHTML(needle=blog_page.title, haystack=entries_html)
-        self.assertTemplateNotUsed(response, template_name='wagtailpages/fragments/entry_cards.html')
-        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/blog_search_item_loop.html')
-        self.assertTemplateUsed(response, template_name='wagtailpages/fragments/blog_card.html')
-        self.assertFalse(response.json()['has_next'])
+        self.assertTemplateNotUsed(response, template_name="wagtailpages/fragments/entry_cards.html")
+        self.assertTemplateUsed(response, template_name="wagtailpages/fragments/blog_search_item_loop.html")
+        self.assertTemplateUsed(response, template_name="wagtailpages/fragments/blog_card.html")
+        self.assertFalse(response.json()["has_next"])
 
     def test_search_entries_route_loads_first_page_entries_with_query(self):
         """Search entries route loads first of two pages of search results."""
         # Make more than one page of blog pages to test that pagination really works.
         match_blog_pages = self.fill_index_pages_with_blog_pages(2, base_title=self.search_term)
-        first_page_of_matches = match_blog_pages[0:self.page_size]
-        second_page_of_matches = match_blog_pages[self.page_size:]
+        first_page_of_matches = match_blog_pages[0 : self.page_size]
+        second_page_of_matches = match_blog_pages[self.page_size :]
         nonmatch_blog_pages = self.fill_index_pages_with_blog_pages(2, base_title="Othertitle")
         url = (
             self.blog_index.get_url()
@@ -770,7 +697,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # Though the response is a JsonResponse, we still have access to the context used by the template loader
         # See: https://docs.djangoproject.com/en/4.0/topics/testing/tools/#django.test.Response.context
-        entries = response.context['entries']
+        entries = response.context["entries"]
         self.assertEqual(len(entries), self.page_size)
         for blog_page in first_page_of_matches:
             self.assertIn(blog_page, entries)
@@ -783,8 +710,8 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         """Search entries route loads second of two pages of search results."""
         # Make more than one page of blog pages to test that pagination really works.
         match_blog_pages = self.fill_index_pages_with_blog_pages(2, base_title=self.search_term)
-        first_page_of_matches = match_blog_pages[0:self.page_size]
-        second_page_of_matches = match_blog_pages[self.page_size:]
+        first_page_of_matches = match_blog_pages[0 : self.page_size]
+        second_page_of_matches = match_blog_pages[self.page_size :]
         nonmatch_blog_pages = self.fill_index_pages_with_blog_pages(2, base_title="Othertitle")
         url = (
             self.blog_index.get_url()
@@ -798,7 +725,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         # Though the response is a JsonResponse, we still have access to the context used by the template loader
         # See: https://docs.djangoproject.com/en/4.0/topics/testing/tools/#django.test.Response.context
-        entries = response.context['entries']
+        entries = response.context["entries"]
         self.assertEqual(len(entries), self.page_size)
         for blog_page in first_page_of_matches:
             self.assertNotIn(blog_page, entries)
@@ -812,19 +739,19 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
     def setUp(self):
         super().setUp()
         self.blog_index = blog_factories.BlogIndexPageFactory(parent=self.homepage)
-        self.blog_index_url = self.blog_index.get_url() + self.blog_index.reverse_subpage(
-            "blog_author_index"
-        )
+        self.blog_index_url = self.blog_index.get_url() + self.blog_index.reverse_subpage("blog_author_index")
 
         self.profile_1 = profile_factories.ProfileFactory()
         self.profile_2 = profile_factories.ProfileFactory()
         self.profile_3 = profile_factories.ProfileFactory()
 
         self.blog_page_1 = blog_factories.BlogPageFactory(
-            parent=self.blog_index, authors=[blog_models.BlogAuthors(author=self.profile_1)]
+            parent=self.blog_index,
+            authors=[blog_models.BlogAuthors(author=self.profile_1)],
         )
         self.blog_page_2 = blog_factories.BlogPageFactory(
-            parent=self.blog_index, authors=[blog_models.BlogAuthors(author=self.profile_2)]
+            parent=self.blog_index,
+            authors=[blog_models.BlogAuthors(author=self.profile_2)],
         )
 
     def test_search_route_success(self):
@@ -856,7 +783,33 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
     def test_authors_detail_non_existent_id_argument(self):
         # Test object not existing results in 404 reponse
         blog_author_url = self.blog_index.get_url() + self.blog_index.reverse_subpage(
-            "blog-author-detail", args=('a-non-existent-slug',)
+            "blog-author-detail", args=("a-non-existent-slug",)
         )
         response = self.client.get(path=blog_author_url)
         self.assertEqual(response.status_code, 404)
+
+
+class TestBlogPageTopics(test.TestCase):
+    def test_factory(self):
+        blog_factories.BlogPageTopicFactory()
+
+    def test_get_topics_method(self):
+        # Clearing test instance of any existing topics
+        blog_models.BlogPageTopic.objects.all().delete()
+
+        test_topic = blog_factories.BlogPageTopicFactory(name="Test_Topic_1")
+        blog_factories.BlogPageTopicFactory(name="Test_Topic_2")
+        blog_factories.BlogPageTopicFactory(name="Test_Topic_3")
+
+        # Creating a list of all created BlogPageTopics sorted by name,
+        # with an additional option of "All".
+        list_of_sorted_topics = [
+            ("All", "All"),
+            ("Test_Topic_1", "Test_Topic_1"),
+            ("Test_Topic_2", "Test_Topic_2"),
+            ("Test_Topic_3", "Test_Topic_3"),
+        ]
+
+        topic_choices_from_method = test_topic.get_topics()
+
+        self.assertEqual(list_of_sorted_topics, topic_choices_from_method)

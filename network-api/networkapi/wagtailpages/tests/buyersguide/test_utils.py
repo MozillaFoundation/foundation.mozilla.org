@@ -1,5 +1,7 @@
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import get_buyersguide_featured_cta
+from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
+    get_buyersguide_featured_cta,
+)
 from networkapi.wagtailpages.tests import base as test_base
 
 

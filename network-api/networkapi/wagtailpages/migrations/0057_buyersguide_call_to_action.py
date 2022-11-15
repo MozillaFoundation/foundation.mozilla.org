@@ -11,41 +11,92 @@ import wagtail.search.index
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('wagtailcore', '0066_collection_management_permissions'),
-        ('wagtailpages', '0056_merge_20220908_2104'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("wagtailcore", "0066_collection_management_permissions"),
+        ("wagtailpages", "0056_merge_20220908_2104"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='buyersguideproductcategory',
-            name='show_cta',
-            field=models.BooleanField(default=False, help_text="Do we want the Buyers Guide featured CTA to be displayed on this category's page?"),
+            model_name="buyersguideproductcategory",
+            name="show_cta",
+            field=models.BooleanField(
+                default=False,
+                help_text="Do we want the Buyers Guide featured CTA to be displayed on this category's page?",
+            ),
         ),
         migrations.CreateModel(
-            name='BuyersGuideCallToAction',
+            name="BuyersGuideCallToAction",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('translation_key', models.UUIDField(default=uuid.uuid4, editable=False)),
-                ('title', models.CharField(max_length=200)),
-                ('content', wagtail.core.fields.RichTextField(blank=True)),
-                ('link_label', models.CharField(blank=True, max_length=2048)),
-                ('link_target_url', models.URLField(blank=True)),
-                ('link_target_page', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='cta_link_page', to='wagtailcore.page')),
-                ('locale', models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale')),
-                ('sticker_image', models.ForeignKey(blank=True, help_text='Optional image on CTA.', null=True, on_delete=django.db.models.deletion.SET_NULL, to='wagtailimages.image', verbose_name='Sticker Image')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "translation_key",
+                    models.UUIDField(default=uuid.uuid4, editable=False),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("content", wagtail.core.fields.RichTextField(blank=True)),
+                ("link_label", models.CharField(blank=True, max_length=2048)),
+                ("link_target_url", models.URLField(blank=True)),
+                (
+                    "link_target_page",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="cta_link_page",
+                        to="wagtailcore.page",
+                    ),
+                ),
+                (
+                    "locale",
+                    models.ForeignKey(
+                        editable=False,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="+",
+                        to="wagtailcore.locale",
+                    ),
+                ),
+                (
+                    "sticker_image",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Optional image on CTA.",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="wagtailimages.image",
+                        verbose_name="Sticker Image",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Buyers Guide Call To Action',
-                'verbose_name_plural': 'Buyers Guide Call To Actions',
-                'abstract': False,
-                'unique_together': {('translation_key', 'locale')},
+                "verbose_name": "Buyers Guide Call To Action",
+                "verbose_name_plural": "Buyers Guide Call To Actions",
+                "abstract": False,
+                "unique_together": {("translation_key", "locale")},
             },
-            bases=(wagtail.search.index.Indexed, networkapi.wagtailpages.pagemodels.mixin.snippets.LocalizedSnippet, models.Model),
+            bases=(
+                wagtail.search.index.Indexed,
+                networkapi.wagtailpages.pagemodels.mixin.snippets.LocalizedSnippet,
+                models.Model,
+            ),
         ),
         migrations.AddField(
-            model_name='buyersguidepage',
-            name='call_to_action',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailpages.buyersguidecalltoaction'),
+            model_name="buyersguidepage",
+            name="call_to_action",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailpages.buyersguidecalltoaction",
+            ),
         ),
     ]

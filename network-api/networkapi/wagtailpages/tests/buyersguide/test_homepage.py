@@ -10,7 +10,7 @@ from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     ProductPageCategory,
     BuyersGuideProductCategory,
 )
-from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestMixin
+from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
 
 class TestFactories(TestCase):
@@ -32,9 +32,9 @@ class BuyersGuideViewTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.user = User.objects.create_user(
-            username='testuser',
-            email='testuser@example.com',
-            password='testuser password'
+            username="testuser",
+            email="testuser@example.com",
+            password="testuser password",
         )
         buyersguide = BuyersGuidePage.objects.first()
         if not buyersguide:
@@ -43,18 +43,18 @@ class BuyersGuideViewTest(TestCase):
                 site_root = Page.objects.first()
                 homepage = WagtailHomepageFactory.create(
                     parent=site_root,
-                    title='Homepage',
-                    slug='homepage',
+                    title="Homepage",
+                    slug="homepage",
                     hero_image__file__width=1080,
-                    hero_image__file__height=720
+                    hero_image__file__height=720,
                 )
             site = Site.objects.first()
             site.root_page = homepage
             site.save()
             # Create the buyersguide page.
             buyersguide = BuyersGuidePage()
-            buyersguide.title = 'Privacy not included'
-            buyersguide.slug = 'privacynotincluded'
+            buyersguide.title = "Privacy not included"
+            buyersguide.slug = "privacynotincluded"
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
             locale = Locale.objects.create(language_code="fr")
@@ -64,81 +64,88 @@ class BuyersGuideViewTest(TestCase):
         """
         Test that the homepage works.
         """
-        response = self.client.get('/privacynotincluded/')
+        response = self.client.get("/privacynotincluded/")
         self.assertEqual(response.status_code, 302)
         self.assertEqual(
             response.url,
-            '/en/privacynotincluded/',
-            'Homepage should be forwarded to /en/ by default'
+            "/en/privacynotincluded/",
+            "Homepage should be forwarded to /en/ by default",
         )
 
     def test_localised_homepage(self):
         """
         Test that the homepage redirects properly under different locale configurations.
         """
-        response = self.client.get('/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='fr')
+        response = self.client.get("/privacynotincluded", follow=True, HTTP_ACCEPT_LANGUAGE="fr")
         self.assertEqual(
             response.redirect_chain[0][0],
-            '/fr/privacynotincluded/',
-            'redirects according to HTTP_ACCEPT_LANGUAGE'
+            "/fr/privacynotincluded/",
+            "redirects according to HTTP_ACCEPT_LANGUAGE",
         )
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.get('/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='sw')
+        response = self.client.get("/privacynotincluded", follow=True, HTTP_ACCEPT_LANGUAGE="sw")
         self.assertEqual(
             response.redirect_chain[0][0],
-            '/sw/privacynotincluded/',
-            'redirects according to HTTP_ACCEPT_LANGUAGE for non-existent locale'
+            "/sw/privacynotincluded/",
+            "redirects according to HTTP_ACCEPT_LANGUAGE for non-existent locale",
         )
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.get('/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='foo')
-        self.assertEqual(response.redirect_chain[0][0], '/en/privacynotincluded/', 'redirects to /en/ by default')
+        response = self.client.get("/privacynotincluded", follow=True, HTTP_ACCEPT_LANGUAGE="foo")
+        self.assertEqual(
+            response.redirect_chain[0][0],
+            "/en/privacynotincluded/",
+            "redirects to /en/ by default",
+        )
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.get('/de/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='it')
-        self.assertEqual(response.redirect_chain[0][0], '/de/privacynotincluded/', 'no redirect from hardcoded locale')
+        response = self.client.get("/de/privacynotincluded", follow=True, HTTP_ACCEPT_LANGUAGE="it")
+        self.assertEqual(
+            response.redirect_chain[0][0],
+            "/de/privacynotincluded/",
+            "no redirect from hardcoded locale",
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_product_view_404(self):
         """
         Test that the product view raises an Http404 if the product name doesn't exist
         """
-        response = self.client.get('/en/privacynotincluded/products/this is not a product', follow=True)
-        self.assertEqual(response.status_code, 404, 'this is not a product')
+        response = self.client.get("/en/privacynotincluded/products/this is not a product", follow=True)
+        self.assertEqual(response.status_code, 404, "this is not a product")
 
-        response = self.client.get('/en/privacynotincluded/products/this is not a product/')
-        self.assertEqual(response.status_code, 404, 'this is not a product')
+        response = self.client.get("/en/privacynotincluded/products/this is not a product/")
+        self.assertEqual(response.status_code, 404, "this is not a product")
 
     def test_category_view_404(self):
         """
         Test that the category view raises an Http404 if the category name doesn't exist
         """
-        response = self.client.get('/en/privacynotincluded/categories/this is not a category', follow=True)
-        self.assertEqual(response.status_code, 404, 'this is not a category')
+        response = self.client.get("/en/privacynotincluded/categories/this is not a category", follow=True)
+        self.assertEqual(response.status_code, 404, "this is not a category")
 
-        response = self.client.get('/en/privacynotincluded/categories/this is not a category/')
-        self.assertEqual(response.status_code, 404, 'this is not a category')
+        response = self.client.get("/en/privacynotincluded/categories/this is not a category/")
+        self.assertEqual(response.status_code, 404, "this is not a category")
 
     def test_category_view(self):
         """
         Test that the category view returns a 302 for /privacynotincluded/ to /en/privacynotincluded/
         for both slug-based and name-based categories.
         """
-        response = self.client.get('/privacynotincluded/categories/Smart%20Home/')
+        response = self.client.get("/privacynotincluded/categories/Smart%20Home/")
         self.assertEqual(response.status_code, 302, 'The category "Smart Home" should work by name')
 
-        response = self.client.get('/privacynotincluded/categories/smart-home/')
+        response = self.client.get("/privacynotincluded/categories/smart-home/")
         self.assertEqual(response.status_code, 302, 'The category "Smart Home" should work by slug')
 
 
 # Use dummy caching for BuyersGuide URLs.
-@override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
+@override_settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}})
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
-class TestBuyersGuidePage(BuyersGuideTestMixin):
-
+class TestBuyersGuidePage(BuyersGuideTestCase):
     def test_buyersguide_url(self):
-        self.assertEqual(self.bg.slug, 'privacynotincluded')
+        self.assertEqual(self.bg.slug, "privacynotincluded")
         response = self.client.get(self.bg.url)
         self.assertEqual(response.status_code, 200)
 
@@ -147,42 +154,42 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertEqual(url, target_url)
         response = self.client.get(self.bg.url + url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, f'pages/buyersguide/about/{template}.html')
+        self.assertTemplateUsed(response, f"pages/buyersguide/about/{template}.html")
 
     def test_buyersguide_about_how_to_use_view(self):
-        self.about_url_test('how-to-use-view', 'about/', 'how_to_use')
+        self.about_url_test("how-to-use-view", "about/", "how_to_use")
 
     def test_buyersguide_about_why_view(self):
-        self.about_url_test('about-why-view', 'about/why/', 'why_we_made')
+        self.about_url_test("about-why-view", "about/why/", "why_we_made")
 
     def test_buyersguide_about_press_view(self):
-        self.about_url_test('press-view', 'about/press/', 'press')
+        self.about_url_test("press-view", "about/press/", "press")
 
     def test_buyersguide_about_contact_view(self):
-        self.about_url_test('contact-view', 'about/contact/', 'contact')
+        self.about_url_test("contact-view", "about/contact/", "contact")
 
     def test_buyersguide_about_methodology_view(self):
-        self.about_url_test('methodology-view', 'about/methodology/', 'methodology')
+        self.about_url_test("methodology-view", "about/methodology/", "methodology")
 
     def test_contest_page(self):
-        url = self.bg.reverse_subpage('contest')
-        self.assertEqual(url, 'contest/')
+        url = self.bg.reverse_subpage("contest")
+        self.assertEqual(url, "contest/")
         response = self.client.get(self.bg.url + url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'pages/buyersguide/contest.html')
+        self.assertTemplateUsed(response, "pages/buyersguide/contest.html")
 
     def test_buyersguide_category_route(self):
         # Missing category
-        missing_category = 'missing-category-slug'
-        category_url = self.bg.reverse_subpage('category-view', args=(missing_category,))
-        self.assertEqual(category_url, f'categories/{missing_category}/')
+        missing_category = "missing-category-slug"
+        category_url = self.bg.reverse_subpage("category-view", args=(missing_category,))
+        self.assertEqual(category_url, f"categories/{missing_category}/")
 
         full_url = self.bg.url + category_url
         response = self.client.get(full_url)
         self.assertEqual(response.status_code, 404)
 
         category = BuyersGuideProductCategory.objects.first()
-        response = self.client.get(f'/en/{self.bg.slug}/categories/{category.slug}/')
+        response = self.client.get(f"/en/{self.bg.slug}/categories/{category.slug}/")
         self.assertEqual(response.status_code, 200)
 
     def test_buyersguide_product_redirect_route(self):
@@ -193,44 +200,44 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         response = self.client.get(product.url)
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.get(f'/en/{self.bg.slug}/products/{product.slug}/', follow=True)
+        response = self.client.get(f"/en/{self.bg.slug}/products/{product.slug}/", follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.redirect_chain[0][0], product.url)
 
     def test_sitemap_entries(self):
-        response = self.client.get('/en/sitemap.xml')
+        response = self.client.get("/en/sitemap.xml")
         context = response.context
 
-        self.assertEqual(context.template_name, 'sitemap.xml')
-        self.assertContains(response, 'about/')
-        self.assertContains(response, 'about/why/')
-        self.assertContains(response, 'about/press/')
-        self.assertContains(response, 'about/contact/')
-        self.assertContains(response, 'about/methodology/')
+        self.assertEqual(context.template_name, "sitemap.xml")
+        self.assertContains(response, "about/")
+        self.assertContains(response, "about/why/")
+        self.assertContains(response, "about/press/")
+        self.assertContains(response, "about/contact/")
+        self.assertContains(response, "about/methodology/")
 
         categories = BuyersGuideProductCategory.objects.filter(hidden=False)
         for category in categories:
-            self.assertContains(response, f'categories/{category.slug}/')
+            self.assertContains(response, f"categories/{category.slug}/")
 
     def test_empty_products_url(self):
-        products_page = self.bg.url + 'products/'
+        products_page = self.bg.url + "products/"
         response = self.client.get(products_page)
         self.assertEqual(response.status_code, 404)
 
     def test_empty_categories_url(self):
-        categories_page = self.bg.url + 'categories/'
+        categories_page = self.bg.url + "categories/"
         response = self.client.get(categories_page)
         self.assertEqual(response.status_code, 404)
 
     def test_category_filter_view(self):
         category = BuyersGuideProductCategory.objects.first()
-        url = self.bg.url + self.bg.reverse_subpage('category-view', args=(category.slug,))
+        url = self.bg.url + self.bg.reverse_subpage("category-view", args=(category.slug,))
 
         # Need to set dummy cache
-        with self.settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}}):
+        with self.settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}):
             response = self.client.get(url)
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(len(response.context['products']), 1)
+            self.assertEqual(len(response.context["products"]), 1)
 
             # Add BuyersGuideProductCategory
             category_orderable = ProductPageCategory(
@@ -242,7 +249,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
             self.product_page.save_revision().publish()
 
             response = self.client.get(url)
-            self.assertEqual(len(response.context['products']), 1)
+            self.assertEqual(len(response.context["products"]), 1)
 
     def test_get_editorial_content_index(self):
         """Returns the editorial content index page."""
@@ -266,26 +273,26 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         response = self.client.get(self.bg.url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(cta, response.context['featured_cta'])
+        self.assertEqual(cta, response.context["featured_cta"])
 
     def test_bg_home_page_with_no_cta(self):
         self.bg.call_to_action = None
         self.bg.save()
         response = self.client.get(self.bg.url)
         self.assertEqual(response.status_code, 200)
-        self.assertIsNone(response.context['featured_cta'])
+        self.assertIsNone(response.context["featured_cta"])
 
     def test_category_page_context_with_cta_disabled(self):
         category = BuyersGuideProductCategory.objects.first()
         category.show_cta = False
         category.save()
 
-        url = self.bg.url + self.bg.reverse_subpage('category-view', args=(category.slug,))
+        url = self.bg.url + self.bg.reverse_subpage("category-view", args=(category.slug,))
 
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertIsNone(response.context['featured_cta'])
+        self.assertIsNone(response.context["featured_cta"])
 
     def test_category_page_context_with_cta_enabled(self):
         cta = buyersguide_factories.BuyersGuideCallToActionFactory()
@@ -295,9 +302,172 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         category.show_cta = True
         category.save()
 
-        url = self.bg.url + self.bg.reverse_subpage('category-view', args=(category.slug,))
+        url = self.bg.url + self.bg.reverse_subpage("category-view", args=(category.slug,))
 
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(cta, response.context['featured_cta'])
+        self.assertEqual(cta, response.context["featured_cta"])
+
+
+class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        cls.content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
+            parent=cls.bg,
+        )
+
+    def test_get_hero_featured_article(self):
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory.create(
+            parent=self.content_index,
+        )
+        self.bg.hero_featured_article = article_page
+
+        result = self.bg.get_hero_featured_article()
+
+        self.assertEqual(result, article_page)
+
+    def test_get_hero_featured_article_not_set(self):
+        self.bg.hero_featured_article = None
+
+        result = self.bg.get_hero_featured_article()
+
+        self.assertIsNone(result)
+
+    def test_get_hero_featured_article_non_default_locale(self):
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index,
+        )
+        self.bg.hero_featured_article = article_page
+        self.bg.save()
+        self.synchronize_tree()
+        buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
+        article_page_fr = article_page.get_translation(self.fr_locale)
+        self.activate_locale(self.fr_locale)
+
+        result = buyersguide_homepage_fr.get_hero_featured_article()
+
+        self.assertEqual(result, article_page_fr)
+
+    def test_get_hero_supporting_articles(self):
+        articles = []
+        for i in range(1, 4):
+            article = buyersguide_factories.BuyersGuideArticlePageFactory(
+                parent=self.content_index,
+            )
+            buyersguide_factories.BuyersGuidePageHeroSupportingArticleRelationFactory(
+                page=self.bg,
+                article=article,
+                sort_order=i,
+            )
+            articles.append(article)
+
+        result = self.bg.get_hero_supporting_articles()
+
+        self.assertQuerysetEqual(qs=result, values=articles)
+
+    def test_get_hero_supporting_articles_not_set(self):
+        articles = []
+
+        result = self.bg.get_hero_supporting_articles()
+
+        self.assertQuerysetEqual(qs=result, values=articles)
+
+    def test_get_hero_supporting_articles_non_default_locale(self):
+        articles = []
+        for i in range(1, 4):
+            article = buyersguide_factories.BuyersGuideArticlePageFactory(
+                parent=self.content_index,
+            )
+            buyersguide_factories.BuyersGuidePageHeroSupportingArticleRelationFactory(
+                page=self.bg,
+                article=article,
+                sort_order=i,
+            )
+            articles.append(article)
+        self.synchronize_tree()
+        articles_fr = [a.get_translation(self.fr_locale) for a in articles]
+        buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
+        self.activate_locale(self.fr_locale)
+
+        result = buyersguide_homepage_fr.get_hero_supporting_articles()
+
+        self.assertQuerysetEqual(qs=result, values=articles_fr)
+
+    def test_get_featured_articles(self):
+        articles = []
+        for i in range(1, 4):
+            article = buyersguide_factories.BuyersGuideArticlePageFactory(
+                parent=self.content_index,
+            )
+            buyersguide_factories.BuyersGuidePageFeaturedArticleRelationFactory(
+                page=self.bg,
+                article=article,
+                sort_order=i,
+            )
+            articles.append(article)
+
+        result = self.bg.get_featured_articles()
+
+        self.assertQuerysetEqual(qs=result, values=articles)
+
+    def test_get_featured_articles_not_set(self):
+        articles = []
+
+        result = self.bg.get_featured_articles()
+
+        self.assertQuerysetEqual(qs=result, values=articles)
+
+    def test_get_featured_articles_non_default_locale(self):
+        articles = []
+        for i in range(1, 4):
+            article = buyersguide_factories.BuyersGuideArticlePageFactory(
+                parent=self.content_index,
+            )
+            buyersguide_factories.BuyersGuidePageFeaturedArticleRelationFactory(
+                page=self.bg,
+                article=article,
+                sort_order=i,
+            )
+            articles.append(article)
+        self.synchronize_tree()
+        articles_fr = [a.get_translation(self.fr_locale) for a in articles]
+        buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
+        self.activate_locale(self.fr_locale)
+
+        result = buyersguide_homepage_fr.get_featured_articles()
+
+        self.assertQuerysetEqual(qs=result, values=articles_fr)
+
+    def test_get_featured_advice_article(self):
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory.create(
+            parent=self.content_index,
+        )
+        self.bg.featured_advice_article = article_page
+
+        result = self.bg.get_featured_advice_article()
+
+        self.assertEqual(result, article_page)
+
+    def test_get_featured_advice_article_not_set(self):
+        self.bg.featured_advice_article = None
+
+        result = self.bg.get_featured_advice_article()
+
+        self.assertIsNone(result)
+
+    def test_get_featured_advice_article_non_default_locale(self):
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index,
+        )
+        self.bg.featured_advice_article = article_page
+        self.bg.save()
+        self.synchronize_tree()
+        buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
+        article_page_fr = article_page.get_translation(self.fr_locale)
+        self.activate_locale(self.fr_locale)
+
+        result = buyersguide_homepage_fr.get_featured_advice_article()
+
+        self.assertEqual(result, article_page_fr)

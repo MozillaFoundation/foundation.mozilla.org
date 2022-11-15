@@ -3,12 +3,13 @@
 from django.db import migrations
 from wagtail.core.models import BootstrapTranslatableModel
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0035_auto_20220706_1126'),
+        ("wagtailpages", "0035_auto_20220706_1126"),
     ]
 
     operations = [
-        BootstrapTranslatableModel('wagtailpages.BlogAuthors'),
+        BootstrapTranslatableModel("wagtailpages.BlogAuthors"),
     ]

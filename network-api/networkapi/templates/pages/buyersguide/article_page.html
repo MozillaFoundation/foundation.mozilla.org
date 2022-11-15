@@ -2,8 +2,6 @@
 
 {% load i18n static wagtailcore_tags wagtailimages_tags bg_nav_tags mini_site_tags %}
 
-{% block category_nav %}{% endblock category_nav %}
-
 {% block hero %}
   {% if page.hero_image %}
     {% image page.hero_image original as img %}
@@ -47,18 +45,21 @@
     </div>
   </div>
 
-  {% with related_articles=page.get_primary_related_articles  %}
-    {% if related_articles %}
-      {% trans "PRIMARY RELATED ARTICLES" %}
-      <div class="tw-m-4">
-        {% include "fragments/buyersguide/related_reading.html" with articles=related_articles %}
-      </div>
-    {% endif %}
-  {% endwith %}
-
   {% for block in page.body %}
       {% include_block block with parent_page=page page_type="blog" %}
   {% endfor %}
+
+  {% with related_articles=page.get_primary_related_articles  %}
+    {% if related_articles %}
+    <div class="tw-container tw-my-4">
+      <div class="tw-row">
+        <div class="tw-px-4 tw-w-8/12 tw-mx-auto" id="buyersguide-related-content">
+          {% include "fragments/buyersguide/related_reading.html" with articles=related_articles %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  {% endwith %}
 
   <div class="tw-container tw-mt-6">
     <div class="tw-row tw-justify-center">
@@ -101,6 +102,5 @@
       </div>
     {% endif %}
   {% endwith %}
-
 </div>
 {% endblock guts %}

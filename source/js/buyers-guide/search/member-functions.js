@@ -224,3 +224,14 @@ export function setupReviewLinks(instance) {
     });
   }
 }
+
+export function toggleProductReviewView() {
+  const editorialContent = document.querySelector(".editorial-content");
+  const navLinks = document.querySelectorAll(`.product-review-link`);
+  if (editorialContent) {
+    editorialContent.classList.add("tw-hidden");
+  }
+  for (const nav of navLinks) {
+    nav.classList.add("active");
+  }
+}
