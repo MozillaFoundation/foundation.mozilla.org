@@ -60,15 +60,15 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
 
         self.assertTemplateUsed(
             response=response,
-            template_name='pages/buyersguide/article_page.html',
+            template_name="pages/buyersguide/article_page.html",
         )
         self.assertTemplateUsed(
             response=response,
-            template_name='pages/buyersguide/base.html',
+            template_name="pages/buyersguide/base.html",
         )
         self.assertTemplateUsed(
             response=response,
-            template_name='pages/base.html',
+            template_name="pages/base.html",
         )
 
     def test_content_template(self):
@@ -80,7 +80,7 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
 
         self.assertTemplateUsed(
             response=response,
-            template_name='wagtailpages/blocks/rich_text_block.html',
+            template_name="wagtailpages/blocks/rich_text_block.html",
         )
 
     def test_get_related_articles(self):

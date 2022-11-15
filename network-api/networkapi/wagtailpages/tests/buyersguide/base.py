@@ -11,9 +11,8 @@ from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages.utils import create_wagtail_image
 
 
-@override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
+@override_settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}})
 class BuyersGuideTestCase(test_base.WagtailpagesTestCase):
-
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
@@ -31,8 +30,8 @@ class BuyersGuideTestCase(test_base.WagtailpagesTestCase):
         if not buyersguide:
             # Create the buyersguide page.
             buyersguide = BuyersGuidePage()
-            buyersguide.title = 'Privacy not included'
-            buyersguide.slug = 'privacynotincluded'
+            buyersguide.title = "Privacy not included"
+            buyersguide.slug = "privacynotincluded"
             cls.homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
         return buyersguide
@@ -41,19 +40,18 @@ class BuyersGuideTestCase(test_base.WagtailpagesTestCase):
     def get_or_create_product_page(cls):
         product_page = ProductPage.objects.first()
         if not product_page:
-            image_path = abspath(join(
-                settings.BASE_DIR,
-                'media/images/placeholders/products/babymonitor.jpg',
-            ))
-            wagtail_image = create_wagtail_image(
-                image_path,
-                collection_name='pni products'
+            image_path = abspath(
+                join(
+                    settings.BASE_DIR,
+                    "media/images/placeholders/products/babymonitor.jpg",
+                )
             )
+            wagtail_image = create_wagtail_image(image_path, collection_name="pni products")
             product_page = ProductPage(
-                slug='product-page',
-                title='Product Page',
+                slug="product-page",
+                title="Product Page",
                 live=True,
-                image=wagtail_image
+                image=wagtail_image,
             )
             cls.bg.add_child(instance=product_page)
             product_page.save_revision().publish()

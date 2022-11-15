@@ -6,16 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0066_collection_management_permissions'),
-        ('wagtailinventory', '0002_pageblock_unique_constraint'),
-        ('wagtailforms', '0004_add_verbose_name_plural'),
-        ('wagtail_footnotes', '0004_footnote_translatable_mixin_migration'),
-        ('wagtailredirects', '0007_add_autocreate_fields'),
-        ('wagtailpages', '0009_auto_20220325_1735'),
+        ("wagtailcore", "0066_collection_management_permissions"),
+        ("wagtailinventory", "0002_pageblock_unique_constraint"),
+        ("wagtailforms", "0004_add_verbose_name_plural"),
+        ("wagtail_footnotes", "0004_footnote_translatable_mixin_migration"),
+        ("wagtailredirects", "0007_add_autocreate_fields"),
+        ("wagtailpages", "0009_auto_20220325_1735"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='SoftwareProductPage',
+            name="SoftwareProductPage",
         ),
     ]

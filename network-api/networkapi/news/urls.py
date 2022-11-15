@@ -6,6 +6,6 @@ from networkapi.news.views import (
 )
 
 urlpatterns = [
-    re_path('^$', NewsListView.as_view(), name='news-list'),
-    re_path(r'^(?P<pk>[0-9]+)/', NewsView.as_view(), name='news'),
+    re_path("^$", NewsListView.as_view(), name="news-list"),
+    re_path(r"^(?P<pk>[0-9]+)/", NewsView.as_view(), name="news"),
 ]

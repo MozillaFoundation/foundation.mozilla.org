@@ -6,21 +6,21 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('people', '0001_to_0026'),
+        ("people", "0001_to_0026"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='person',
-            name='internet_health_issues',
+            model_name="person",
+            name="internet_health_issues",
         ),
         migrations.DeleteModel(
-            name='Affiliation',
+            name="Affiliation",
         ),
         migrations.DeleteModel(
-            name='InternetHealthIssue',
+            name="InternetHealthIssue",
         ),
         migrations.DeleteModel(
-            name='Person',
+            name="Person",
         ),
     ]

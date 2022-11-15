@@ -7,13 +7,19 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0039_research_detail_link_sort_order'),
+        ("wagtailpages", "0039_research_detail_link_sort_order"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='blogpage',
-            name='topics',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, help_text='Which blog topics is this blog page associated with? Please select 2 topics max.', limit_choices_to=models.Q(('locale__id', '1')), to='wagtailpages.BlogPageTopic', verbose_name='Topics'),
+            model_name="blogpage",
+            name="topics",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                help_text="Which blog topics is this blog page associated with? Please select 2 topics max.",
+                limit_choices_to=models.Q(("locale__id", "1")),
+                to="wagtailpages.BlogPageTopic",
+                verbose_name="Topics",
+            ),
         ),
     ]

@@ -5,10 +5,9 @@ from ..customblocks.base_rich_text_options import base_rich_text_options
 
 
 class ArticleRichText(RichTextBlockWithFootnotes):
-
     class Meta:
         label = "Content"
-        template = 'wagtailpages/blocks/rich_text_block.html'
+        template = "wagtailpages/blocks/rich_text_block.html"
 
 
 class ArticleDoubleImageBlock(blocks.StructBlock):
@@ -36,10 +35,10 @@ class ArticleFullWidthImageBlock(blocks.StructBlock):
     image = ImageChooserBlock()
     image_height = blocks.IntegerBlock(
         default=410,
-        help_text='A custom height for this image. The image will be 1400px wide '
-                  'by this height. Note: This may cause images to look pixelated. '
-                  'If the browser is wider than 1400px the height will scale vertically '
-                  'while the width scales horizontally'
+        help_text="A custom height for this image. The image will be 1400px wide "
+        "by this height. Note: This may cause images to look pixelated. "
+        "If the browser is wider than 1400px the height will scale vertically "
+        "while the width scales horizontally",
     )
     caption = blocks.RichTextBlock(
         label="Image caption",
@@ -64,8 +63,8 @@ class ArticleImageBlock(blocks.StructBlock):
     wide_image = blocks.BooleanBlock(
         required=False,
         default=False,
-        help_text='Checking this will use a wider version of this image, but not full width. '
-                  'For an edge-to-edge image, use the "Wide Image" block.'
+        help_text="Checking this will use a wider version of this image, but not full width. "
+        'For an edge-to-edge image, use the "Wide Image" block.',
     )
 
     class Meta:

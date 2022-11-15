@@ -7,13 +7,17 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0004_delete_newspage'),
+        ("wagtailpages", "0004_delete_newspage"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='relatedblogposts',
-            name='related_post',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='wagtailpages.blogpage'),
+            model_name="relatedblogposts",
+            name="related_post",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="wagtailpages.blogpage",
+            ),
         ),
     ]
