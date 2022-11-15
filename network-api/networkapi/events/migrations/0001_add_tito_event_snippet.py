@@ -7,18 +7,29 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='TitoEvent',
+            name="TitoEvent",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255)),
-                ('event_id', models.CharField(help_text='The ID of the event, e.g. "ultimateconf/2013"', max_length=512)),
-                ('security_token', models.CharField(help_text='Token used to sign webhooks for this event', max_length=255)),
-                ('newsletter_question_id', models.CharField(help_text='ID of the question in the Tito form that asks whether a user has opted in to receive newsletters', max_length=255)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("title", models.CharField(max_length=255)),
+                (
+                    "event_id",
+                    models.CharField(help_text='The ID of the event, e.g. "ultimateconf/2013"', max_length=512),
+                ),
+                (
+                    "security_token",
+                    models.CharField(help_text="Token used to sign webhooks for this event", max_length=255),
+                ),
+                (
+                    "newsletter_question_id",
+                    models.CharField(
+                        help_text="ID of the question in the Tito form that asks whether a user has opted in to receive newsletters",
+                        max_length=255,
+                    ),
+                ),
             ],
         ),
     ]

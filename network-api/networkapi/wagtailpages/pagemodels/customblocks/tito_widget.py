@@ -11,7 +11,7 @@ class TitoWidgetBlock(blocks.StructBlock):
         ],
         default="btn-primary",
     )
-    event = SnippetChooserBlock('events.TitoEvent', help_event="The Tito event to be displayed")
+    event = SnippetChooserBlock("events.TitoEvent", help_event="The Tito event to be displayed")
     releases = blocks.CharBlock(
         required=False,
         help_text='Comma-separated list of ticket/release IDs to limit to, e.g. "3elajg6qcxu,6qiiw4socs4"',

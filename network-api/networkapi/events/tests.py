@@ -2,7 +2,7 @@ import json
 from unittest import mock
 
 from django.urls import reverse
-from django.test import RequestFactory, TestCase, override_settings
+from django.test import RequestFactory, TestCase
 
 from .views import tito_ticket_completed
 from .utils import sign_tito_request
@@ -16,12 +16,7 @@ class TitoTicketCompletedTest(TestCase):
 
     def _webhook_data(self):
         account_slug, slug = self.tito_event.event_id.split("/")
-        return {
-            "event": {
-                "account_slug": account_slug,
-                "slug": slug
-            }
-        }
+        return {"event": {"account_slug": account_slug, "slug": slug}}
 
     def test_incorrect_http_method(self):
         response = self.client.get(self.url)
@@ -29,10 +24,7 @@ class TitoTicketCompletedTest(TestCase):
 
     def test_incorrect_webhook_name(self):
         response = self.client.post(
-            self.url,
-            data=self._webhook_data(),
-            content_type="application/json",
-            HTTP_X_WEBHOOK_NAME="invalid"
+            self.url, data=self._webhook_data(), content_type="application/json", HTTP_X_WEBHOOK_NAME="invalid"
         )
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.content.decode(), "Not a ticket completed request")
@@ -42,7 +34,7 @@ class TitoTicketCompletedTest(TestCase):
             self.url,
             data=self._webhook_data(),
             content_type="application/json",
-            HTTP_X_WEBHOOK_NAME="ticket.completed"
+            HTTP_X_WEBHOOK_NAME="ticket.completed",
         )
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.content.decode(), "Payload verification failed")
