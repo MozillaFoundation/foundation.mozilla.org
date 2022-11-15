@@ -7,24 +7,48 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('wagtailpages', '0062_merge_20221101_2024'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("wagtailpages", "0062_merge_20221101_2024"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='buyersguidearticlepage',
-            name='search_image',
-            field=models.ForeignKey(blank=True, help_text='Image must be high quality, include our logo mark and have the dimensions 1200 x 628 px. For more design guidelines see here: https://foundation.mozilla.org/en/docs/brand/brand-identity/social-media/#og-images', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Search image'),
+            model_name="buyersguidearticlepage",
+            name="search_image",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Image must be high quality, include our logo mark and have the dimensions 1200 x 628 px. For more design guidelines see here: https://foundation.mozilla.org/en/docs/brand/brand-identity/social-media/#og-images",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailimages.image",
+                verbose_name="Search image",
+            ),
         ),
         migrations.AlterField(
-            model_name='buyersguidecampaignpage',
-            name='search_image',
-            field=models.ForeignKey(blank=True, help_text='Image must be high quality, include our logo mark and have the dimensions 1200 x 628 px. For more design guidelines see here: https://foundation.mozilla.org/en/docs/brand/brand-identity/social-media/#og-images', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Search image'),
+            model_name="buyersguidecampaignpage",
+            name="search_image",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Image must be high quality, include our logo mark and have the dimensions 1200 x 628 px. For more design guidelines see here: https://foundation.mozilla.org/en/docs/brand/brand-identity/social-media/#og-images",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailimages.image",
+                verbose_name="Search image",
+            ),
         ),
         migrations.AlterField(
-            model_name='buyersguideeditorialcontentindexpage',
-            name='search_image',
-            field=models.ForeignKey(blank=True, help_text='Image must be high quality, include our logo mark and have the dimensions 1200 x 628 px. For more design guidelines see here: https://foundation.mozilla.org/en/docs/brand/brand-identity/social-media/#og-images', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Search image'),
+            model_name="buyersguideeditorialcontentindexpage",
+            name="search_image",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Image must be high quality, include our logo mark and have the dimensions 1200 x 628 px. For more design guidelines see here: https://foundation.mozilla.org/en/docs/brand/brand-identity/social-media/#og-images",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailimages.image",
+                verbose_name="Search image",
+            ),
         ),
     ]

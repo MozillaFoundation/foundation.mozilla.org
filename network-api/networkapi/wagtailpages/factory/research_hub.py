@@ -15,9 +15,9 @@ class ResearchLandingPageFactory(wagtail_factories.PageFactory):
     class Meta:
         model = wagtailpage_models.ResearchLandingPage
 
-    title = 'Research'
+    title = "Research"
     banner_image = factory.SubFactory(image_factory.ImageFactory)
-    intro = factory.Faker('text', max_nb_chars=250)
+    intro = factory.Faker("text", max_nb_chars=250)
 
 
 class ResearchLibraryPageFactory(wagtail_factories.PageFactory):
@@ -40,38 +40,36 @@ class ResearchDetailLinkFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchDetailLink
 
-    label = factory.Faker('text', max_nb_chars=30)
-    url = ''
+    label = factory.Faker("text", max_nb_chars=30)
+    url = ""
     document = None
 
     class Params:
         with_url = factory.Trait(
-            url=factory.Faker('uri'),
+            url=factory.Faker("uri"),
         )
-        with_document = factory.Trait(
-            document=factory.SubFactory(documents_factory.DocumentFactory)
-        )
+        with_document = factory.Trait(document=factory.SubFactory(documents_factory.DocumentFactory))
 
 
 class ResearchDetailPageFactory(wagtail_factories.PageFactory):
     class Meta:
         model = wagtailpage_models.ResearchDetailPage
 
-    title = factory.Faker('text', max_nb_chars=50)
+    title = factory.Faker("text", max_nb_chars=50)
     cover_image = factory.SubFactory(image_factory.ImageFactory)
     research_links = factory.RelatedFactoryList(
         factory=ResearchDetailLinkFactory,
-        factory_related_name='research_detail_page',
+        factory_related_name="research_detail_page",
         size=lambda: random.randint(1, 2),
         with_url=True,
     )
-    original_publication_date = factory.Faker('date_object')
-    introduction = factory.Faker('text', max_nb_chars=300)
+    original_publication_date = factory.Faker("date_object")
+    introduction = factory.Faker("text", max_nb_chars=300)
 
     @factory.lazy_attribute
     def overview(self):
         faker = faker_helpers.get_faker()
-        return '\n\n'.join(faker.paragraphs(nb=3))
+        return "\n\n".join(faker.paragraphs(nb=3))
 
     @factory.lazy_attribute
     def collaborators(self):
@@ -82,20 +80,20 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
         return "; ".join(names)
 
     research_authors = factory.RelatedFactoryList(
-        factory='networkapi.wagtailpages.factory.research_hub.ResearchAuthorRelationFactory',
-        factory_related_name='research_detail_page',
+        factory="networkapi.wagtailpages.factory.research_hub.ResearchAuthorRelationFactory",
+        factory_related_name="research_detail_page",
         size=1,
     )
 
     related_topics = factory.RelatedFactoryList(
-        factory='networkapi.wagtailpages.factory.research_hub.ResearchDetailPageResearchTopicRelationFactory',
-        factory_related_name='research_detail_page',
+        factory="networkapi.wagtailpages.factory.research_hub.ResearchDetailPageResearchTopicRelationFactory",
+        factory_related_name="research_detail_page",
         size=1,
     )
 
     related_regions = factory.RelatedFactoryList(
-        factory='networkapi.wagtailpages.factory.research_hub.ResearchDetailPageResearchRegionRelationFactory',
-        factory_related_name='research_detail_page',
+        factory="networkapi.wagtailpages.factory.research_hub.ResearchDetailPageResearchRegionRelationFactory",
+        factory_related_name="research_detail_page",
         size=1,
     )
 
@@ -104,15 +102,15 @@ class ResearchRegionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchRegion
 
-    name = factory.Faker('text', max_nb_chars=25)
+    name = factory.Faker("text", max_nb_chars=25)
 
 
 class ResearchTopicFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchTopic
 
-    name = factory.Faker('text', max_nb_chars=25)
-    description = factory.Faker('paragraph')
+    name = factory.Faker("text", max_nb_chars=25)
+    description = factory.Faker("paragraph")
 
 
 class ResearchAuthorRelationFactory(factory.django.DjangoModelFactory):

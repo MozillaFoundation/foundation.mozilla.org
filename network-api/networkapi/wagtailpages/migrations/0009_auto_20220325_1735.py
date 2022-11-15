@@ -7,39 +7,71 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtaildocs', '0012_uploadeddocument'),
-        ('wagtailpages', '0008_research_hub_site_structure'),
+        ("wagtaildocs", "0012_uploadeddocument"),
+        ("wagtailpages", "0008_research_hub_site_structure"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='articlepage',
-            name='displayed_hero_content',
-            field=models.CharField(choices=[('image', 'Image'), ('video', 'Video')], default='image', max_length=25),
+            model_name="articlepage",
+            name="displayed_hero_content",
+            field=models.CharField(
+                choices=[("image", "Image"), ("video", "Video")],
+                default="image",
+                max_length=25,
+            ),
         ),
         migrations.AddField(
-            model_name='articlepage',
-            name='download_button_icon',
-            field=models.ForeignKey(blank=True, help_text='Custom Icon for download button, please use https://feathericons.com', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtaildocs.document'),
+            model_name="articlepage",
+            name="download_button_icon",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Custom Icon for download button, please use https://feathericons.com",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtaildocs.document",
+            ),
         ),
         migrations.AddField(
-            model_name='articlepage',
-            name='download_button_style',
-            field=models.CharField(choices=[('primary', 'Primary'), ('secondary', 'Secondary'), ('tertiary', 'Tertiary')], default='primary', max_length=25),
+            model_name="articlepage",
+            name="download_button_style",
+            field=models.CharField(
+                choices=[
+                    ("primary", "Primary"),
+                    ("secondary", "Secondary"),
+                    ("tertiary", "Tertiary"),
+                ],
+                default="primary",
+                max_length=25,
+            ),
         ),
         migrations.AddField(
-            model_name='articlepage',
-            name='hero_layout',
-            field=models.CharField(choices=[('full_screen', 'Full Screen'), ('image_left', 'Image Left'), ('image_right', 'Image Right'), ('static', 'Static')], default='static', max_length=25),
+            model_name="articlepage",
+            name="hero_layout",
+            field=models.CharField(
+                choices=[
+                    ("full_screen", "Full Screen"),
+                    ("image_left", "Image Left"),
+                    ("image_right", "Image Right"),
+                    ("static", "Static"),
+                ],
+                default="static",
+                max_length=25,
+            ),
         ),
         migrations.AddField(
-            model_name='articlepage',
-            name='hero_video',
-            field=models.CharField(blank=True, help_text='Log into Vimeo using 1Password and upload the desired video. Then select the video and click "Advanced", "Distribution", and "Video File Links". Copy and paste the link here.', max_length=500),
+            model_name="articlepage",
+            name="hero_video",
+            field=models.CharField(
+                blank=True,
+                help_text='Log into Vimeo using 1Password and upload the desired video. Then select the video and click "Advanced", "Distribution", and "Video File Links". Copy and paste the link here.',
+                max_length=500,
+            ),
         ),
         migrations.AddField(
-            model_name='articlepage',
-            name='show_authors',
-            field=models.BooleanField(default=True, help_text='Display authors in the hero section'),
+            model_name="articlepage",
+            name="show_authors",
+            field=models.BooleanField(default=True, help_text="Display authors in the hero section"),
         ),
     ]

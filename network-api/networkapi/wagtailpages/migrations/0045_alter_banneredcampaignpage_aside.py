@@ -8,13 +8,75 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0044_banneredcampaignpage_aside'),
+        ("wagtailpages", "0044_banneredcampaignpage_aside"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='banneredcampaignpage',
-            name='aside',
-            field=wagtail.core.fields.StreamField([('aside', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock(help_text='Heading for the card.', required=False)), ('body', wagtail.core.blocks.TextBlock(help_text='Body text of the card.', required=False))])), ('linkbutton', wagtail.core.blocks.StructBlock([('label', wagtail.core.blocks.CharBlock()), ('URL', wagtail.core.blocks.CharBlock()), ('styling', wagtail.core.blocks.ChoiceBlock(choices=[('btn-primary', 'Primary button'), ('btn-secondary', 'Secondary button')]))])), ('spacer', wagtail.core.blocks.StructBlock([('size', wagtail.core.blocks.ChoiceBlock(choices=[('1', 'quarter spacing'), ('2', 'half spacing'), ('3', 'single spacing'), ('4', 'one and a half spacing'), ('5', 'triple spacing')]))]))], blank=True),
+            model_name="banneredcampaignpage",
+            name="aside",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "aside",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                (
+                                    "title",
+                                    wagtail.core.blocks.CharBlock(
+                                        help_text="Heading for the card.",
+                                        required=False,
+                                    ),
+                                ),
+                                (
+                                    "body",
+                                    wagtail.core.blocks.TextBlock(
+                                        help_text="Body text of the card.",
+                                        required=False,
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "linkbutton",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("label", wagtail.core.blocks.CharBlock()),
+                                ("URL", wagtail.core.blocks.CharBlock()),
+                                (
+                                    "styling",
+                                    wagtail.core.blocks.ChoiceBlock(
+                                        choices=[
+                                            ("btn-primary", "Primary button"),
+                                            ("btn-secondary", "Secondary button"),
+                                        ]
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "spacer",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                (
+                                    "size",
+                                    wagtail.core.blocks.ChoiceBlock(
+                                        choices=[
+                                            ("1", "quarter spacing"),
+                                            ("2", "half spacing"),
+                                            ("3", "single spacing"),
+                                            ("4", "one and a half spacing"),
+                                            ("5", "triple spacing"),
+                                        ]
+                                    ),
+                                )
+                            ]
+                        ),
+                    ),
+                ],
+                blank=True,
+            ),
         ),
     ]

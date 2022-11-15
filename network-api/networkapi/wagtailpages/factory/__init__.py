@@ -51,5 +51,5 @@ def generate(seed):
 
 
 __all__ = [
-    'generate',
+    "generate",
 ]

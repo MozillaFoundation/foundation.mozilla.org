@@ -5,10 +5,11 @@ import modelcluster.fields
 from django.db import migrations, models
 from django.utils.text import slugify
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0029_adds_slug_field'),
+        ("wagtailpages", "0029_adds_slug_field"),
     ]
 
     def populate_profile_slugs(apps, schema_editor):
@@ -20,9 +21,7 @@ class Migration(migrations.Migration):
         for profile in Profile.objects.all():
             # Custom model methods are not available during migrations
             # so mimic what we want to happen on save from Profile.save()
-            profile.slug = slugify(f'{profile.name}-{str(profile.id)}')
+            profile.slug = slugify(f"{profile.name}-{str(profile.id)}")
             profile.save()
 
-    operations = [
-        migrations.RunPython(populate_profile_slugs, reverse_code=migrations.RunPython.noop)
-    ]
+    operations = [migrations.RunPython(populate_profile_slugs, reverse_code=migrations.RunPython.noop)]

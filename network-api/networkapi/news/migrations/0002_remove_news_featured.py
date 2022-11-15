@@ -8,12 +8,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('news', '0001_squashed_0013_remove_news_glyph'),
+        ("news", "0001_squashed_0013_remove_news_glyph"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='news',
-            name='featured',
+            model_name="news",
+            name="featured",
         ),
     ]

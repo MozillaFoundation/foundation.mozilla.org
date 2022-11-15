@@ -8,24 +8,30 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0062_comment_models_and_pagesubscription'),
-        ('highlights', '0006_bootstrap_migration'),
+        ("wagtailcore", "0062_comment_models_and_pagesubscription"),
+        ("highlights", "0006_bootstrap_migration"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='highlight',
-            name='locale',
-            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            model_name="highlight",
+            name="locale",
+            field=models.ForeignKey(
+                default=1,
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="+",
+                to="wagtailcore.locale",
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='highlight',
-            name='translation_key',
+            model_name="highlight",
+            name="translation_key",
             field=models.UUIDField(default=uuid.uuid4, editable=False),
         ),
         migrations.AlterUniqueTogether(
-            name='highlight',
-            unique_together={('translation_key', 'locale')},
+            name="highlight",
+            unique_together={("translation_key", "locale")},
         ),
     ]

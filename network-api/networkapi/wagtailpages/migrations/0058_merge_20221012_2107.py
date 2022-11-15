@@ -6,9 +6,8 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0046_adds_profile_block'),
-        ('wagtailpages', '0057_buyersguide_call_to_action'),
+        ("wagtailpages", "0046_adds_profile_block"),
+        ("wagtailpages", "0057_buyersguide_call_to_action"),
     ]
 
-    operations = [
-    ]
+    operations = []

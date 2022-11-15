@@ -7,9 +7,9 @@ from wagtail.core.models import BootstrapTranslatableModel
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('highlights', '0005_auto_20210531_1735'),
+        ("highlights", "0005_auto_20210531_1735"),
     ]
 
     operations = [
-        BootstrapTranslatableModel('highlights.Highlight'),
+        BootstrapTranslatableModel("highlights.Highlight"),
     ]

@@ -1,4 +1,5 @@
 -c requirements.txt
+black
 coveralls
 django-debug-toolbar
 flake8

@@ -6,18 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0006_rename_contentauthor_profile'),
+        ("wagtailpages", "0006_rename_contentauthor_profile"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='profile',
-            name='introduction',
+            model_name="profile",
+            name="introduction",
             field=models.TextField(blank=True, max_length=500),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='tagline',
-            field=models.CharField(blank=True, help_text="Use this field for things like a person's job title.", max_length=50),
+            model_name="profile",
+            name="tagline",
+            field=models.CharField(
+                blank=True,
+                help_text="Use this field for things like a person's job title.",
+                max_length=50,
+            ),
         ),
     ]

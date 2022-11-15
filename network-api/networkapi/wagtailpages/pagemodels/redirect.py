@@ -6,12 +6,10 @@ from wagtail.core.models import Page
 
 
 class RedirectingPage(Page):
-    URL = models.URLField(
-        help_text='The fully qualified URL that this page should map to.'
-    )
+    URL = models.URLField(help_text="The fully qualified URL that this page should map to.")
 
     content_panels = Page.content_panels + [
-        FieldPanel('URL'),
+        FieldPanel("URL"),
     ]
 
     show_in_menus_default = True

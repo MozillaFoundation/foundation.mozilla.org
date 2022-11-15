@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0045_buyersguidepageherosupportingarticlerelation'),
+        ("wagtailpages", "0045_buyersguidepageherosupportingarticlerelation"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='buyersguidepage',
-            name='hero_supporting_articles_heading',
-            field=models.CharField(default='Related articles', help_text='Heading for the articles rendered next to the hero featured article. Common choices are "Related articles", "Popular articles", etc.', max_length=50),
+            model_name="buyersguidepage",
+            name="hero_supporting_articles_heading",
+            field=models.CharField(
+                default="Related articles",
+                help_text='Heading for the articles rendered next to the hero featured article. Common choices are "Related articles", "Popular articles", etc.',
+                max_length=50,
+            ),
         ),
     ]

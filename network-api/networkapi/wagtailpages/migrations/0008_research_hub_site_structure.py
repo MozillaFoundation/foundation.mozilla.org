@@ -8,53 +8,149 @@ import wagtailmetadata.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('wagtailcore', '0066_collection_management_permissions'),
-        ('wagtailpages', '0007_profile_intro_tagline'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("wagtailcore", "0066_collection_management_permissions"),
+        ("wagtailpages", "0007_profile_intro_tagline"),
     ]
     operations = [
         migrations.CreateModel(
-            name='ResearchLibraryPage',
+            name="ResearchLibraryPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('search_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Search image')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.page",
+                    ),
+                ),
+                (
+                    "search_image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                        verbose_name="Search image",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtailmetadata.models.WagtailImageMetadataMixin, 'wagtailcore.page', models.Model),
+            bases=(
+                wagtailmetadata.models.WagtailImageMetadataMixin,
+                "wagtailcore.page",
+                models.Model,
+            ),
         ),
         migrations.CreateModel(
-            name='ResearchLandingPage',
+            name="ResearchLandingPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('search_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Search image')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.page",
+                    ),
+                ),
+                (
+                    "search_image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                        verbose_name="Search image",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtailmetadata.models.WagtailImageMetadataMixin, 'wagtailcore.page', models.Model),
+            bases=(
+                wagtailmetadata.models.WagtailImageMetadataMixin,
+                "wagtailcore.page",
+                models.Model,
+            ),
         ),
         migrations.CreateModel(
-            name='ResearchDetailPage',
+            name="ResearchDetailPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('search_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Search image')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.page",
+                    ),
+                ),
+                (
+                    "search_image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                        verbose_name="Search image",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtailmetadata.models.WagtailImageMetadataMixin, 'wagtailcore.page', models.Model),
+            bases=(
+                wagtailmetadata.models.WagtailImageMetadataMixin,
+                "wagtailcore.page",
+                models.Model,
+            ),
         ),
         migrations.CreateModel(
-            name='ResearchAuthorsIndexPage',
+            name="ResearchAuthorsIndexPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('search_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Search image')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.page",
+                    ),
+                ),
+                (
+                    "search_image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                        verbose_name="Search image",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtailmetadata.models.WagtailImageMetadataMixin, 'wagtailcore.page', models.Model),
+            bases=(
+                wagtailmetadata.models.WagtailImageMetadataMixin,
+                "wagtailcore.page",
+                models.Model,
+            ),
         ),
     ]
