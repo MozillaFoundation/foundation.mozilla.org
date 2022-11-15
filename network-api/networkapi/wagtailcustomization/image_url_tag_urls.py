@@ -27,8 +27,8 @@ from wagtail.images.views.serve import ServeView
 
 urlpatterns = [
     re_path(
-        r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$',
-        ServeView.as_view(action='redirect'),
-        name='wagtailimages_serve',
+        r"^images/([^/]*)/(\d*)/([^/]*)/[^/]*$",
+        ServeView.as_view(action="redirect"),
+        name="wagtailimages_serve",
     ),
 ]

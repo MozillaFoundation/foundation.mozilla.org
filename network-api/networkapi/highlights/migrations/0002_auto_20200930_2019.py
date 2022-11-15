@@ -7,13 +7,17 @@ import networkapi.highlights.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('highlights', '0001_squashed_0007_nullify_homepage'),
+        ("highlights", "0001_squashed_0007_nullify_homepage"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='highlight',
-            name='image',
-            field=models.FileField(help_text='Image representing this highlight', max_length=2048, upload_to=networkapi.highlights.models.get_highlights_image_upload_path),
+            model_name="highlight",
+            name="image",
+            field=models.FileField(
+                help_text="Image representing this highlight",
+                max_length=2048,
+                upload_to=networkapi.highlights.models.get_highlights_image_upload_path,
+            ),
         ),
     ]

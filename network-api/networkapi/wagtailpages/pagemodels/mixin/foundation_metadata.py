@@ -22,8 +22,10 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
             self.set_default_social_share_tag_and_image()
 
     # Change this string to update the default description of all pages on the site
-    default_description = 'Mozilla is a global non-profit dedicated to putting you in control of your online ' \
-                          'experience and shaping the future of the web for the public good. '
+    default_description = (
+        "Mozilla is a global non-profit dedicated to putting you in control of your online "
+        "experience and shaping the future of the web for the public good. "
+    )
 
     def get_meta_description(self):
         if self.search_description:
@@ -44,7 +46,7 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
         global default_social_share_tag, default_social_share_image
 
         # get the tag with name "social share image"
-        default_share_tag_name = 'social share image'
+        default_share_tag_name = "social share image"
         tag, create = Tag.objects.get_or_create(name=default_share_tag_name)
         default_social_share_tag = tag
 
@@ -60,9 +62,9 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
         # share image for an ancestor that explicitly has one set.
         parent = self.get_parent().specific
         while parent:
-            if hasattr(parent, 'search_image') and parent.search_image:
+            if hasattr(parent, "search_image") and parent.search_image:
                 return parent.search_image
-            if hasattr(parent, 'homepage') and parent.homepage.search_image:
+            if hasattr(parent, "homepage") and parent.homepage.search_image:
                 return parent.homepage.search_image
             parent = parent.get_parent()
 
@@ -79,6 +81,8 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
 # For more info see: https://learnwagtail.com/tutorials/customizing-default-property-values/
 search_image_field = FoundationMetadataPageMixin._meta.get_field("search_image")
 search_image_field.verbose_name = "Share Image"
-search_image_field.help_text = 'Image must be high quality, include our logo mark and have the dimensions ' \
-                               '1200 x 628 px. For more design guidelines see here: ' \
-                               'https://foundation.mozilla.org/en/docs/brand/brand-identity/social-media/#og-images'
+search_image_field.help_text = (
+    "Image must be high quality, include our logo mark and have the dimensions "
+    "1200 x 628 px. For more design guidelines see here: "
+    "https://foundation.mozilla.org/en/docs/brand/brand-identity/social-media/#og-images"
+)

@@ -7,71 +7,86 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0049_buyersguideproductcategoryarticlepagerelation'),
+        ("wagtailpages", "0049_buyersguideproductcategoryarticlepagerelation"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='buyersguidearticlepageauthorprofilerelation',
-            options={'ordering': ['sort_order']},
+            name="buyersguidearticlepageauthorprofilerelation",
+            options={"ordering": ["sort_order"]},
         ),
         migrations.AlterModelOptions(
-            name='buyersguidearticlepagecontentcategoryrelation',
-            options={'ordering': ['sort_order']},
+            name="buyersguidearticlepagecontentcategoryrelation",
+            options={"ordering": ["sort_order"]},
         ),
         migrations.AlterModelOptions(
-            name='buyersguidearticlepagerelatedarticlerelation',
-            options={'ordering': ['sort_order']},
+            name="buyersguidearticlepagerelatedarticlerelation",
+            options={"ordering": ["sort_order"]},
         ),
         migrations.AlterModelOptions(
-            name='buyersguidepagefeaturedarticlerelation',
-            options={'ordering': ['sort_order']},
+            name="buyersguidepagefeaturedarticlerelation",
+            options={"ordering": ["sort_order"]},
         ),
         migrations.AlterModelOptions(
-            name='buyersguidepagefeaturedupdaterelation',
-            options={'ordering': ['sort_order']},
+            name="buyersguidepagefeaturedupdaterelation",
+            options={"ordering": ["sort_order"]},
         ),
         migrations.AlterModelOptions(
-            name='buyersguidepageherosupportingarticlerelation',
-            options={'ordering': ['sort_order']},
+            name="buyersguidepageherosupportingarticlerelation",
+            options={"ordering": ["sort_order"]},
         ),
         migrations.AlterModelOptions(
-            name='buyersguideproductcategoryarticlepagerelation',
-            options={'ordering': ['sort_order']},
+            name="buyersguideproductcategoryarticlepagerelation",
+            options={"ordering": ["sort_order"]},
         ),
         migrations.AlterField(
-            model_name='buyersguidearticlepageauthorprofilerelation',
-            name='author_profile',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='wagtailpages.profile'),
+            model_name="buyersguidearticlepageauthorprofilerelation",
+            name="author_profile",
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="wagtailpages.profile"),
         ),
         migrations.AlterField(
-            model_name='buyersguidearticlepagecontentcategoryrelation',
-            name='content_category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='wagtailpages.buyersguidecontentcategory'),
+            model_name="buyersguidearticlepagecontentcategoryrelation",
+            name="content_category",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="wagtailpages.buyersguidecontentcategory",
+            ),
         ),
         migrations.AlterField(
-            model_name='buyersguidearticlepagerelatedarticlerelation',
-            name='article',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='wagtailpages.buyersguidearticlepage'),
+            model_name="buyersguidearticlepagerelatedarticlerelation",
+            name="article",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="wagtailpages.buyersguidearticlepage",
+            ),
         ),
         migrations.AlterField(
-            model_name='buyersguidepagefeaturedarticlerelation',
-            name='article',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='wagtailpages.buyersguidearticlepage'),
+            model_name="buyersguidepagefeaturedarticlerelation",
+            name="article",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="wagtailpages.buyersguidearticlepage",
+            ),
         ),
         migrations.AlterField(
-            model_name='buyersguidepagefeaturedupdaterelation',
-            name='update',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='wagtailpages.update'),
+            model_name="buyersguidepagefeaturedupdaterelation",
+            name="update",
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="wagtailpages.update"),
         ),
         migrations.AlterField(
-            model_name='buyersguidepageherosupportingarticlerelation',
-            name='article',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='wagtailpages.buyersguidearticlepage'),
+            model_name="buyersguidepageherosupportingarticlerelation",
+            name="article",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="wagtailpages.buyersguidearticlepage",
+            ),
         ),
         migrations.AlterField(
-            model_name='buyersguideproductcategoryarticlepagerelation',
-            name='article',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='wagtailpages.buyersguidearticlepage'),
+            model_name="buyersguideproductcategoryarticlepagerelation",
+            name="article",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="wagtailpages.buyersguidearticlepage",
+            ),
         ),
     ]

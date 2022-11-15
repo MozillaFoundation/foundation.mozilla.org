@@ -11,7 +11,7 @@ faker = Faker()
 
 
 def generate(seed):
-    print('Generating Homepage Take Actions')
+    print("Generating Homepage Take Actions")
 
     home_page = get_homepage()
 
