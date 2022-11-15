@@ -6,35 +6,28 @@ from wagtail.images.blocks import ImageChooserBlock
 
 
 class ImageTeaserBlock(blocks.StructBlock):
-    title = blocks.CharBlock(
-        help_text='Heading for the card.'
-    )
-    text = blocks.RichTextBlock(
-        features=['bold']
-    )
+    title = blocks.CharBlock(help_text="Heading for the card.")
+    text = blocks.RichTextBlock(features=["bold"])
     image = ImageChooserBlock()
 
-    altText = blocks.CharBlock(
-        required=True,
-        help_text='Image description (for screen readers).'
-    )
+    altText = blocks.CharBlock(required=True, help_text="Image description (for screen readers).")
 
     url_label = blocks.CharBlock(required=False)
     url = blocks.CharBlock(required=False)
     styling = blocks.ChoiceBlock(
         choices=[
-            ('btn-primary', 'Primary button'),
-            ('btn-secondary', 'Secondary button'),
+            ("btn-primary", "Primary button"),
+            ("btn-secondary", "Secondary button"),
         ],
-        default='btn-primary',
+        default="btn-primary",
     )
     top_divider = blocks.BooleanBlock(
         required=False,
-        help_text='Optional divider above content block.',
+        help_text="Optional divider above content block.",
     )
     bottom_divider = blocks.BooleanBlock(
         required=False,
-        help_text='Optional divider below content block.',
+        help_text="Optional divider below content block.",
     )
 
     def get_context(self, value, parent_context=None):
@@ -45,19 +38,19 @@ class ImageTeaserBlock(blocks.StructBlock):
         if not top_divider and not bottom_divider:
             divider_styles = "tw-mt-4"
         if top_divider:
-            divider_styles.append('tw-border-t tw-pt-7')
+            divider_styles.append("tw-border-t tw-pt-7")
         if bottom_divider:
-            divider_styles.append('tw-border-b tw-pb-7')
-        context['divider_styles'] = ' '.join(divider_styles)
+            divider_styles.append("tw-border-b tw-pb-7")
+        context["divider_styles"] = " ".join(divider_styles)
         return context
 
     def clean(self, value):
         result = super().clean(value)
         errors = {}
 
-        if value['url'] and not value['url_label']:
+        if value["url"] and not value["url_label"]:
             errors["url_label"] = ErrorList(["Please add a label value for the URL."])
-        if value['url_label'] and not value['url']:
+        if value["url_label"] and not value["url"]:
             errors["url"] = ErrorList(["Please add a URL value for the link."])
         if errors:
             raise StructBlockValidationError(errors)
@@ -65,6 +58,6 @@ class ImageTeaserBlock(blocks.StructBlock):
         return result
 
     class Meta:
-        label = 'Image teaser'
-        icon = 'doc-full'
-        template = 'wagtailpages/blocks/image_teaser_block.html'
+        label = "Image teaser"
+        icon = "doc-full"
+        template = "wagtailpages/blocks/image_teaser_block.html"

@@ -6,10 +6,8 @@ class AudioBlock(blocks.StructBlock):
 
     audio = AudioChooserBlock()
 
-    caption = blocks.CharBlock(
-        required=False
-    )
+    caption = blocks.CharBlock(required=False)
 
     class Meta:
-        icon = 'media'
-        template = 'wagtailpages/blocks/audio_block.html'
+        icon = "media"
+        template = "wagtailpages/blocks/audio_block.html"

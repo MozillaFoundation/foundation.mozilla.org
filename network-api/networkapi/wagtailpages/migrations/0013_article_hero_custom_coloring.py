@@ -7,18 +7,27 @@ import wagtail_color_panel.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0012_add_image_grid_block_to_blog'),
+        ("wagtailpages", "0012_add_image_grid_block_to_blog"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='articlepage',
-            name='hero_background_color',
-            field=wagtail_color_panel.fields.ColorField(default='#ffffff', help_text='Please check your chosen background color with https://webaim.org/resources/contrastchecker/ to see if your text and background color pass accessibility standards. If your text is black enter #000000 in the Foreground Color box and #FFFFFF if your text is white. After you have selected your background color, please contact the design team for a design review!', max_length=7),
+            model_name="articlepage",
+            name="hero_background_color",
+            field=wagtail_color_panel.fields.ColorField(
+                default="#ffffff",
+                help_text="Please check your chosen background color with https://webaim.org/resources/contrastchecker/ to see if your text and background color pass accessibility standards. If your text is black enter #000000 in the Foreground Color box and #FFFFFF if your text is white. After you have selected your background color, please contact the design team for a design review!",
+                max_length=7,
+            ),
         ),
         migrations.AddField(
-            model_name='articlepage',
-            name='hero_text_color',
-            field=models.CharField(choices=[('black', 'Black'), ('white', 'White')], default='black', help_text='For proper contrast, we recommend using “White” for dark background colors, and “Black” for light background colors.', max_length=25),
+            model_name="articlepage",
+            name="hero_text_color",
+            field=models.CharField(
+                choices=[("black", "Black"), ("white", "White")],
+                default="black",
+                help_text="For proper contrast, we recommend using “White” for dark background colors, and “Black” for light background colors.",
+                max_length=25,
+            ),
         ),
     ]

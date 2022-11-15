@@ -9,30 +9,69 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0066_collection_management_permissions'),
-        ('wagtailpages', '0051_buyersguideproductpagearticlepagerelation'),
+        ("wagtailcore", "0066_collection_management_permissions"),
+        ("wagtailpages", "0051_buyersguideproductpagearticlepagerelation"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='buyersguideeditorialcontentindexpage',
-            name='related_articles_heading',
-            field=models.CharField(default='Related', help_text='Heading for the related/featured articles section.Common choices are "Related", "Popular", etc.', max_length=50),
+            model_name="buyersguideeditorialcontentindexpage",
+            name="related_articles_heading",
+            field=models.CharField(
+                default="Related",
+                help_text='Heading for the related/featured articles section.Common choices are "Related", "Popular", etc.',
+                max_length=50,
+            ),
         ),
         migrations.CreateModel(
-            name='BuyersGuideEditorialContentIndexPageArticlePageRelation',
+            name="BuyersGuideEditorialContentIndexPageArticlePageRelation",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('translation_key', models.UUIDField(default=uuid.uuid4, editable=False)),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='wagtailpages.buyersguidearticlepage')),
-                ('locale', models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='related_article_relations', to='wagtailpages.buyersguideeditorialcontentindexpage')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "translation_key",
+                    models.UUIDField(default=uuid.uuid4, editable=False),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "article",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="wagtailpages.buyersguidearticlepage",
+                    ),
+                ),
+                (
+                    "locale",
+                    models.ForeignKey(
+                        editable=False,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="+",
+                        to="wagtailcore.locale",
+                    ),
+                ),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="related_article_relations",
+                        to="wagtailpages.buyersguideeditorialcontentindexpage",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-                'unique_together': {('translation_key', 'locale')},
+                "ordering": ["sort_order"],
+                "abstract": False,
+                "unique_together": {("translation_key", "locale")},
             },
         ),
     ]

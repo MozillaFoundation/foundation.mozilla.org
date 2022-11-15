@@ -6,13 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0021_researchlandingpage_banner_image'),
+        ("wagtailpages", "0021_researchlandingpage_banner_image"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='researchlibrarypage',
-            name='results_count',
-            field=models.PositiveSmallIntegerField(default=10, help_text='Maximum number of results to be displayed per page.'),
+            model_name="researchlibrarypage",
+            name="results_count",
+            field=models.PositiveSmallIntegerField(
+                default=10,
+                help_text="Maximum number of results to be displayed per page.",
+            ),
         ),
     ]

@@ -8,13 +8,54 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0043_adds_listing_block'),
+        ("wagtailpages", "0043_adds_listing_block"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='banneredcampaignpage',
-            name='aside',
-            field=wagtail.core.fields.StreamField([('linkbutton', wagtail.core.blocks.StructBlock([('label', wagtail.core.blocks.CharBlock()), ('URL', wagtail.core.blocks.CharBlock()), ('styling', wagtail.core.blocks.ChoiceBlock(choices=[('btn-primary', 'Primary button'), ('btn-secondary', 'Secondary button')]))])), ('spacer', wagtail.core.blocks.StructBlock([('size', wagtail.core.blocks.ChoiceBlock(choices=[('1', 'quarter spacing'), ('2', 'half spacing'), ('3', 'single spacing'), ('4', 'one and a half spacing'), ('5', 'triple spacing')]))]))], blank=True),
+            model_name="banneredcampaignpage",
+            name="aside",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "linkbutton",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("label", wagtail.core.blocks.CharBlock()),
+                                ("URL", wagtail.core.blocks.CharBlock()),
+                                (
+                                    "styling",
+                                    wagtail.core.blocks.ChoiceBlock(
+                                        choices=[
+                                            ("btn-primary", "Primary button"),
+                                            ("btn-secondary", "Secondary button"),
+                                        ]
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "spacer",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                (
+                                    "size",
+                                    wagtail.core.blocks.ChoiceBlock(
+                                        choices=[
+                                            ("1", "quarter spacing"),
+                                            ("2", "half spacing"),
+                                            ("3", "single spacing"),
+                                            ("4", "one and a half spacing"),
+                                            ("5", "triple spacing"),
+                                        ]
+                                    ),
+                                )
+                            ]
+                        ),
+                    ),
+                ],
+                blank=True,
+            ),
         ),
     ]

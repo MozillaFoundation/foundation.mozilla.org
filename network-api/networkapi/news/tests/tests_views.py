@@ -8,7 +8,6 @@ from networkapi.news.views import NewsListView, NewsView
 
 
 class TestNewsView(TestCase):
-
     def setUp(self):
         self.factory = APIRequestFactory()
 
@@ -19,7 +18,7 @@ class TestNewsView(TestCase):
 
         pk = NewsFactory.create().id
 
-        request = self.factory.get('/api/news/{}'.format(pk))
+        request = self.factory.get("/api/news/{}".format(pk))
         response = NewsView.as_view()(request, pk=pk)
 
         self.assertEqual(response.status_code, 200)
@@ -31,7 +30,7 @@ class TestNewsView(TestCase):
 
         pk = NewsFactory.create(unpublished=True).id
 
-        request = self.factory.get('/api/news/{}'.format(pk))
+        request = self.factory.get("/api/news/{}".format(pk))
         response = NewsView.as_view()(request, pk=pk)
 
         self.assertEqual(response.status_code, 404)
@@ -43,14 +42,13 @@ class TestNewsView(TestCase):
 
         pk = NewsFactory.create(expired=True).id
 
-        request = self.factory.get('/api/news/{}'.format(pk))
+        request = self.factory.get("/api/news/{}".format(pk))
         response = NewsView.as_view()(request, pk=pk)
 
         self.assertEqual(response.status_code, 404)
 
 
 class TestNewsListView(TestCase):
-
     def setUp(self):
         """
         Create some news
@@ -72,7 +70,7 @@ class TestNewsListView(TestCase):
         Make sure list news view returns a 200 status code
         """
 
-        request = self.factory.get('/api/news/')
+        request = self.factory.get("/api/news/")
         response = NewsListView.as_view()(request)
 
         self.assertEqual(response.status_code, 200)
@@ -82,9 +80,9 @@ class TestNewsListView(TestCase):
         Make sure list news view returns only the 4 published news
         """
 
-        request = self.factory.get('/api/news/')
+        request = self.factory.get("/api/news/")
         response = NewsListView.as_view()(request)
         response.render()
-        response_json = json.loads(str(response.content, 'utf-8'))
+        response_json = json.loads(str(response.content, "utf-8"))
 
         self.assertEqual(len(response_json), 5)

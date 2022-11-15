@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.utils import translation
 from django.utils.translation.trans_real import (
     to_language as django_to_language,
-    parse_accept_lang_header as django_parse_accept_lang_header
+    parse_accept_lang_header as django_parse_accept_lang_header,
 )
 
 # from django.test.utils import override_settings
@@ -25,7 +25,11 @@ from wagtail_factories import SiteFactory
 
 from networkapi.utility.redirects import redirect_to_default_cms_site
 from networkapi.utility.middleware import ReferrerMiddleware, XRobotsTagMiddleware
-from networkapi.wagtailpages import language_code_to_iso_3166, parse_accept_lang_header, to_language
+from networkapi.wagtailpages import (
+    language_code_to_iso_3166,
+    parse_accept_lang_header,
+    to_language,
+)
 from networkapi.wagtailpages.factory.buyersguide import (
     BuyersGuidePageFactory,
     GeneralProductPageFactory,
@@ -35,10 +39,9 @@ from networkapi.wagtailpages.utils import create_wagtail_image
 
 
 class ReferrerMiddlewareTests(TestCase):
-
     def setUp(self):
-        referrer_middleware = ReferrerMiddleware('response')
-        self.assertEqual(referrer_middleware.get_response, 'response')
+        referrer_middleware = ReferrerMiddleware("response")
+        self.assertEqual(referrer_middleware.get_response, "response")
 
     def test_requestProcessing(self):
         """
@@ -47,93 +50,87 @@ class ReferrerMiddlewareTests(TestCase):
 
         referrer_middleware = ReferrerMiddleware(MagicMock())
         response = referrer_middleware(MagicMock())
-        response.__setitem__.assert_called_with('Referrer-Policy', 'same-origin')
+        response.__setitem__.assert_called_with("Referrer-Policy", "same-origin")
 
 
 class MissingMigrationsTests(TestCase):
-
     def test_no_migrations_missing(self):
         """
         Ensure we didn't forget a migration
         """
         output = StringIO()
-        call_command('makemigrations', interactive=False, dry_run=True, stdout=output)
+        call_command("makemigrations", interactive=False, dry_run=True, stdout=output)
 
         if output.getvalue() != "No changes detected\n":
             raise AssertionError("Missing migrations detected:\n" + output.getvalue())
 
 
 class DeleteNonStaffTest(TestCase):
-
     def setUp(self):
-        User.objects.create(username='Alex'),
+        User.objects.create(username="Alex"),
 
     def test_non_staff_is_deleted(self):
         """
         Simple users are deleted
         """
 
-        call_command('delete_non_staff', '--now')
+        call_command("delete_non_staff", "--now")
 
         self.assertEqual(User.objects.count(), 0)
 
 
 class IsStaffNotDeletedTest(TestCase):
-
     def setUp(self):
-        User.objects.create(username='Alex', is_staff=True)
+        User.objects.create(username="Alex", is_staff=True)
 
     def test_is_staff_not_deleted(self):
         """
         Users with 'is_staff' flag at True are not deleted
         """
 
-        call_command('delete_non_staff', '--now')
+        call_command("delete_non_staff", "--now")
 
         self.assertEqual(User.objects.count(), 1)
 
 
 class InGroupNotDeletedTest(TestCase):
-
     def setUp(self):
-        group = Group.objects.create(name='TestGroup')
-        group.user_set.create(username='Alex')
+        group = Group.objects.create(name="TestGroup")
+        group.user_set.create(username="Alex")
 
     def test_in_group_not_deleted(self):
         """
         Users in a group are not deleted
         """
 
-        call_command('delete_non_staff', '--now')
+        call_command("delete_non_staff", "--now")
 
         self.assertEqual(User.objects.count(), 1)
 
 
 class MozillaFoundationUsersNotDeletedTest(TestCase):
-
     def setUp(self):
-        User.objects.create(username='Alex', email='alex@mozillafoundation.org')
+        User.objects.create(username="Alex", email="alex@mozillafoundation.org")
 
     def test_mozilla_foundation_users_not_deleted(self):
         """
         Mozilla Foundation Users are not deleted
         """
 
-        call_command('delete_non_staff', '--now')
+        call_command("delete_non_staff", "--now")
 
         self.assertEqual(User.objects.count(), 1)
 
 
 class RedirectDefaultSiteDecoratorTests(TestCase):
-
     def setUp(self):
         self.factory = RequestFactory()
         # Change the default site away from localhost
-        self.original_default_site = Site.objects.get(is_default_site=True, hostname='localhost')
+        self.original_default_site = Site.objects.get(is_default_site=True, hostname="localhost")
         self.original_default_site.is_default_site = False
         self.original_default_site.save()
         # Add a default site, and a secondary site.
-        self.default_site = SiteFactory(hostname='default-site.com', is_default_site=True)
+        self.default_site = SiteFactory(hostname="default-site.com", is_default_site=True)
         self.secondary_site = SiteFactory(hostname="secondary-site.com")
 
     def test_redirect_decorator(self):
@@ -141,7 +138,7 @@ class RedirectDefaultSiteDecoratorTests(TestCase):
         Test that the decorator redirects.
         """
         decorated_view = redirect_to_default_cms_site(lambda request: None)
-        response = decorated_view(self.factory.get('/example/', HTTP_HOST='secondary-site.com'))
+        response = decorated_view(self.factory.get("/example/", HTTP_HOST="secondary-site.com"))
         self.assertEqual(response.status_code, 302)
 
     def test_redirect_decorator_doesnt_redirect(self):
@@ -149,7 +146,7 @@ class RedirectDefaultSiteDecoratorTests(TestCase):
         Test that the redirect is triggered only when needed.
         """
         decorated_view = redirect_to_default_cms_site(lambda request: "untouched response")
-        response = decorated_view(self.factory.get('/example/'))
+        response = decorated_view(self.factory.get("/example/"))
         self.assertEqual(response, "untouched response")
 
     @skip("TODO: REENABLE: TEMPORARY SKIP TO MAKE PNI-AS-WAGTAIL LAUNCH POSSIBLE")
@@ -158,11 +155,11 @@ class RedirectDefaultSiteDecoratorTests(TestCase):
         """
         Test that users gets redirected to PNI on the foundation site when they visit it from a non-default CMS site
         """
-        response = self.client.get('/en/privacynotincluded/', HTTP_HOST='secondary-site.com')
+        response = self.client.get("/en/privacynotincluded/", HTTP_HOST="secondary-site.com")
         self.assertRedirects(
             response,
             "https://default-site.com/en/privacynotincluded/",
-            fetch_redirect_response=False
+            fetch_redirect_response=False,
         )
 
     def tearDown(self):
@@ -176,19 +173,18 @@ class RedirectDefaultSiteDecoratorTests(TestCase):
 
 
 class WagtailPagesTestCase(TestCase):
-
     def test_get_language_code_to_iso_3166(self):
-        self.assertEqual(language_code_to_iso_3166('en-gb'), 'en-GB')
-        self.assertEqual(language_code_to_iso_3166('en-us'), 'en-US')
-        self.assertEqual(language_code_to_iso_3166('fr'), 'fr')
+        self.assertEqual(language_code_to_iso_3166("en-gb"), "en-GB")
+        self.assertEqual(language_code_to_iso_3166("en-us"), "en-US")
+        self.assertEqual(language_code_to_iso_3166("fr"), "fr")
 
     def test_to_language(self):
-        self.assertEqual(to_language('en_US'), 'en-US')
+        self.assertEqual(to_language("en_US"), "en-US")
 
     def test_parse_accept_lang_header_returns_iso_3166_language(self):
         self.assertEqual(
-            parse_accept_lang_header('en-GB,en;q=0.5'),
-            (('en-GB', 1.0), ('en', 0.5)),
+            parse_accept_lang_header("en-GB,en;q=0.5"),
+            (("en-GB", 1.0), ("en", 0.5)),
         )
 
 
@@ -197,27 +193,28 @@ class WagtailPagesIntegrationTestCase(TestCase):
     """
     Test that our overrides to Django translation functions work.
     """
+
     def test_to_language(self):
-        self.assertEqual(django_to_language('fy_NL'), 'fy-NL')
+        self.assertEqual(django_to_language("fy_NL"), "fy-NL")
 
     def test_parse_accept_lang_header_returns_iso_3166_language(self):
         self.assertEqual(
-            django_parse_accept_lang_header('fy-NL,fy;q=0.5'),
-            (('fy-NL', 1.0), ('fy', 0.5)),
+            django_parse_accept_lang_header("fy-NL,fy;q=0.5"),
+            (("fy-NL", 1.0), ("fy", 0.5)),
         )
 
     @skip("TODO: REMOVE: NOW DONE BY WAGTAIL")
     def test_reverse_produces_correct_url_prefix(self):
-        translation.activate('fy-NL')
-        url = reverse('buyersguide-home')
-        self.assertTrue(url.startswith('/fy-NL/'))
+        translation.activate("fy-NL")
+        url = reverse("buyersguide-home")
+        self.assertTrue(url.startswith("/fy-NL/"))
         translation.deactivate()
 
 
 class XRobotsTagMiddlewareTest(TestCase):
     def test_returns_response(self):
-        xrobotstag_middleware = XRobotsTagMiddleware('response')
-        self.assertEqual(xrobotstag_middleware.get_response, 'response')
+        xrobotstag_middleware = XRobotsTagMiddleware("response")
+        self.assertEqual(xrobotstag_middleware.get_response, "response")
 
     def test_sends_x_robots_tag(self):
         """
@@ -226,7 +223,7 @@ class XRobotsTagMiddlewareTest(TestCase):
 
         xrobotstag_middleware = XRobotsTagMiddleware(MagicMock())
         response = xrobotstag_middleware(MagicMock())
-        response.__setitem__.assert_called_with('X-Robots-Tag', 'noindex')
+        response.__setitem__.assert_called_with("X-Robots-Tag", "noindex")
 
 
 class TestPNIAirtableConnections(TestCase):
@@ -241,12 +238,12 @@ class TestPNIAirtableConnections(TestCase):
     def setUp(self):
         pni_homepage = BuyersGuidePageFactory.create(
             parent=Homepage.objects.first(),
-            title='* Privacy not included',
-            slug='privacynotincluded',
-            header='Be Smart. Shop Safe.',
+            title="* Privacy not included",
+            slug="privacynotincluded",
+            header="Be Smart. Shop Safe.",
         )
         self.general_product_page = GeneralProductPageFactory.create(
-            title='General Percy Product',
+            title="General Percy Product",
             first_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
             last_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
             parent=pni_homepage,
@@ -256,30 +253,30 @@ class TestPNIAirtableConnections(TestCase):
             uses_wifi=True,
             uses_bluetooth=True,
             review_date=date(2025, 1, 1),
-            company='Percy Corp',
-            blurb='This is a general product specifically created for visual regression testing',
-            product_url='http://example.com/general-percy',
-            worst_case='Visual regression fails',
+            company="Percy Corp",
+            blurb="This is a general product specifically created for visual regression testing",
+            product_url="http://example.com/general-percy",
+            worst_case="Visual regression fails",
             # general product fields
-            camera_app='Yes',
-            camera_device='No',
-            microphone_app='NA',
-            microphone_device='CD',
-            location_app='Yes',
-            location_device='No',
-            personal_data_collected='Is personal data getting collected?',
-            biometric_data_collected='Is biometric data getting collected?',
-            social_data_collected='Is social data getting collected?',
-            how_can_you_control_your_data='So, how can you control your data?',
+            camera_app="Yes",
+            camera_device="No",
+            microphone_app="NA",
+            microphone_device="CD",
+            location_app="Yes",
+            location_device="No",
+            personal_data_collected="Is personal data getting collected?",
+            biometric_data_collected="Is biometric data getting collected?",
+            social_data_collected="Is social data getting collected?",
+            how_can_you_control_your_data="So, how can you control your data?",
             data_control_policy_is_bad=True,
-            company_track_record='Needs Improvement',
+            company_track_record="Needs Improvement",
             track_record_is_bad=True,
-            track_record_details='<p> What kind of track record are we talking about? </p>',
-            offline_capable='Yes',
-            offline_use_description='<p> Although it is unclear how offline capabilities work </p>',
-            uses_ai='NA',
-            ai_is_transparent='No',
-            ai_helptext='The AI is a black box and no one knows how it works',
+            track_record_details="<p> What kind of track record are we talking about? </p>",
+            offline_capable="Yes",
+            offline_use_description="<p> Although it is unclear how offline capabilities work </p>",
+            uses_ai="NA",
+            ai_is_transparent="No",
+            ai_helptext="The AI is a black box and no one knows how it works",
         )
 
     def test_product_page_import_mappings(self):
@@ -303,14 +300,23 @@ class TestPNIAirtableConnections(TestCase):
         self.assertEqual(mappings["Worst case"], "worst_case")
         self.assertEqual(mappings["Signup requires email"], "signup_requires_email")
         self.assertEqual(mappings["Signup requires phone number"], "signup_requires_phone")
-        self.assertEqual(mappings["Signup requires 3rd party account"], "signup_requires_third_party_account")
+        self.assertEqual(
+            mappings["Signup requires 3rd party account"],
+            "signup_requires_third_party_account",
+        )
         self.assertEqual(mappings["Signup explanation"], "signup_requirement_explanation")
         self.assertEqual(mappings["How it collects data"], "how_does_it_use_data_collected")
         self.assertEqual(mappings["Data collection privacy ding"], "data_collection_policy_is_bad")
         self.assertEqual(mappings["User friendly privacy policy"], "user_friendly_privacy_policy")
-        self.assertEqual(mappings["User friendly privacy policy help text"], "user_friendly_privacy_policy_helptext")
+        self.assertEqual(
+            mappings["User friendly privacy policy help text"],
+            "user_friendly_privacy_policy_helptext",
+        )
         self.assertEqual(mappings["Meets MSS"], "meets_minimum_security_standards")
-        self.assertEqual(mappings["Meets MSS privacy policy ding"], "show_ding_for_minimum_security_standards")
+        self.assertEqual(
+            mappings["Meets MSS privacy policy ding"],
+            "show_ding_for_minimum_security_standards",
+        )
         self.assertEqual(mappings["Uses encryption"], "uses_encryption")
         self.assertEqual(mappings["Encryption help text"], "uses_encryption_helptext")
         self.assertEqual(mappings["Has security updates"], "security_updates")
@@ -404,41 +410,36 @@ class TestPNIAirtableConnections(TestCase):
 
 
 class TestCreateWagtailImageUtility(TestCase):
-
     def setUp(self):
-        self.image_path = abspath(join(dirname(__file__), '../media/images/placeholders/products/teddy.jpg'))
+        self.image_path = abspath(join(dirname(__file__), "../media/images/placeholders/products/teddy.jpg"))
 
     def create_new_image(self):
         """A generic test to ensure the image is created properly."""
-        new_image = create_wagtail_image(
-            self.image_path,
-            image_name='fake teddy.jpg',
-            collection_name='pni products'
-        )
+        new_image = create_wagtail_image(self.image_path, image_name="fake teddy.jpg", collection_name="pni products")
         # Image was created
         self.assertIsNotNone(new_image)
         # Image has a collection and is in the proper collection
         self.assertIsNotNone(new_image.collection_id)
-        self.assertEqual(new_image.collection.name, 'pni products')
+        self.assertEqual(new_image.collection.name, "pni products")
 
     def test_empty_image_name_and_no_collection(self):
         new_image = create_wagtail_image(
             self.image_path,
         )
-        self.assertEqual(new_image.title, 'teddy.jpg')
-        self.assertEqual(new_image.collection.name, 'Root')
+        self.assertEqual(new_image.title, "teddy.jpg")
+        self.assertEqual(new_image.collection.name, "Root")
 
     def test_new_collection(self):
-        collection_name = 'brand new collection'
+        collection_name = "brand new collection"
         new_image = create_wagtail_image(
             self.image_path,
-            image_name='fake teddy.jpg',
-            collection_name=collection_name
+            image_name="fake teddy.jpg",
+            collection_name=collection_name,
         )
         self.assertEqual(new_image.collection.name, collection_name)
 
     def test_existing_collection(self):
-        new_collection_name = 'first collection'
+        new_collection_name = "first collection"
 
         root_collection = Collection.get_first_root_node()
         new_collection = root_collection.add_child(name=new_collection_name)
@@ -447,7 +448,7 @@ class TestCreateWagtailImageUtility(TestCase):
 
         new_image = create_wagtail_image(
             self.image_path,
-            image_name='fake teddy.jpg',
-            collection_name=new_collection_name
+            image_name="fake teddy.jpg",
+            collection_name=new_collection_name,
         )
         self.assertEqual(new_image.collection.name, new_collection_name)

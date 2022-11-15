@@ -6,14 +6,14 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('wagtailcore', '0066_collection_management_permissions'),
-        ('wagtailpages', '0005_alter_relatedblogposts_related_post'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("wagtailcore", "0066_collection_management_permissions"),
+        ("wagtailpages", "0005_alter_relatedblogposts_related_post"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='ContentAuthor',
-            new_name='Profile',
+            old_name="ContentAuthor",
+            new_name="Profile",
         ),
     ]

@@ -1,11 +1,12 @@
 from django.test import TestCase
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
-from networkapi.wagtailpages.pagemodels.buyersguide.call_to_action import BuyersGuideCallToAction
+from networkapi.wagtailpages.pagemodels.buyersguide.call_to_action import (
+    BuyersGuideCallToAction,
+)
 
 
 class BuyersGuideCallToActionTest(TestCase):
-
     def setUp(self):
         edit_handler = get_snippet_edit_handler(BuyersGuideCallToAction)
         self.form_class = edit_handler.get_form_class()

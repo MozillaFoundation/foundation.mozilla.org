@@ -36,8 +36,6 @@ def tito_ticket_completed(request):
         try:
             basket.subscribe(email, "mozilla-festival")
         except Exception as error:
-            logger.exception(
-                f"Basket subscription from Tito webhook failed: {str(error)}"
-            )
+            logger.exception(f"Basket subscription from Tito webhook failed: {str(error)}")
 
     return HttpResponse(status=202)

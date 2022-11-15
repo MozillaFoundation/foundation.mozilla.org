@@ -6,8 +6,9 @@ from wagtail.core.models import Collection
 # Slightly modify the wagtail_factories ImageFactory so that it
 # always generates images in the Root collection:
 
+
 class CollectionMemberFactory(DjangoModelFactory):
-    collection = Collection.objects.get(name='Root')
+    collection = Collection.objects.get(name="Root")
 
 
 class ImageFactory(CollectionMemberFactory):
