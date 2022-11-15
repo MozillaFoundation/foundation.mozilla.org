@@ -109,9 +109,9 @@
 
               {% with primary_related_articles=product.get_primary_related_articles  %}
                 {% if primary_related_articles %}
-                <div id="product-primary-related-articles">
-                  {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles %}
-                </div>
+                  <div id="product-primary-related-articles">
+                    {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles %}
+                  </div>
                 {% endif %}
               {% endwith %}
             </aside>
