@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0066_add_border_options_to_image_teaser_block'),
+        ("wagtailpages", "0066_add_border_options_to_image_teaser_block"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='buyersguidepage',
-            name='intro_text',
+            model_name="buyersguidepage",
+            name="intro_text",
         ),
     ]
