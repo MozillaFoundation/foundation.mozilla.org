@@ -64,8 +64,10 @@ Check available commands with `inv -l`.
 
 ### Formatting
 
-If `inv lint` shows linting errors for either JS/JSX or CSS/SCSS, you can run `inv format` for fix style issues.
-`inv format` should automatically fix most formatting issues in JS and CSS files.
+If `inv lint` shows linting errors you can try running `inv format` to fix style issues.
+`inv format` should automatically fix most formatting issues.
+
+There might be some linting issues that can not be fixed automatically.
 
 ## Testing
 
