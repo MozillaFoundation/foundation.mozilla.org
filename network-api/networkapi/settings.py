@@ -1,6 +1,8 @@
 """
 Django settings for networkapi project.
 
+Gnerated by 'django-admin startproject' using Django 1.10.3.
+
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
