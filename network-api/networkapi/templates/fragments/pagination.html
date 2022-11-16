@@ -1,8 +1,8 @@
 {% load i18n querystring_tag %}
 
 {% comment %}
-  When using the link based we don't want to navigate to expanded pages.
-  therefore, we discard the querystring parameter 'expanded' if it is present.
+  When using the link based pagination we don't want to navigate to expanded pages.
+  Therefore, we discard the querystring parameter 'expanded' if it is present in the pagination links.
 {% endcomment %}
 {% if page.has_other_pages %}
 <div class="tw-flex tw-flex-row tw-flex-wrap tw-gap-5">

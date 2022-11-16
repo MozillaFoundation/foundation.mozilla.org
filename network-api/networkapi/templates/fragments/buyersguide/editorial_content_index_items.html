@@ -24,7 +24,7 @@
           If there is yet another page, another load more button will be rendered.
         {% endcomment %}
         data-hx-get="{{ request.path }}{% querystring 'page'=items.next_page_number %}"  {# AJAX GET request to the next page. #}
-        data-hx-push-url="{{ request.path }}{% querystring 'page'=items.next_page_number expanded='true' %}" {# The expanded parameter is only important to regenerate the list, but not for the AJAX request itself.  #}
+        data-hx-push-url="{{ request.path }}{% querystring 'page'=items.next_page_number expanded='true' %}" {# The expanded parameter is only important to regenerate the items page, but not for the AJAX request itself (that only loads a single page at a time).  #}
         data-hx-target="#index-navigation"
         data-hx-swap="outerHTML"
         >{% trans "Load more results" %}</button>
