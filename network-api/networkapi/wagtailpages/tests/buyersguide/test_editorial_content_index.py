@@ -46,8 +46,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     @contextlib.contextmanager
     def setup_content_index_with_pages_of_children(
-        self,
-        pages: int = 2
+        self, pages: int = 2
     ) -> Generator[list["pagemodels.BuyersGuideArticlePage"], None, None]:
         """
         Context manager setting up the content index with child pages.
@@ -185,7 +184,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
     def test_serve_paginated_items_expanded_page_2_of_2(self):
         """There should be no other pages because they are all included."""
         page = 2
-        with self.setup_content_index_with_pages_of_children(pages=page) as articles:
+        with self.setup_content_index_with_pages_of_children(pages=page):
 
             response = self.client.get(
                 self.content_index.url,
