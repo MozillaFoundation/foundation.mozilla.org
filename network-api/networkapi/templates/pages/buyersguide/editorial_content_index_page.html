@@ -65,8 +65,10 @@
             {% endif %}
 
             {% if related_articles %}
-              {% trans "Popular" as heading %}
-              {% include "fragments/buyersguide/related_reading.html" with articles=related_articles heading=heading %}
+              <div id="article-index-popular-articles">
+                {% trans "Popular" as heading %}
+                {% include "fragments/buyersguide/related_reading.html" with articles=related_articles heading=heading %}
+              </div>
             {% endif %}
           </aside>
         {% endif %}
