@@ -45,40 +45,40 @@ class BuyersGuideEditorialContentIndexPage(
 
     items_per_page: int = 10
 
-    def serve(self, request: 'http.HttpRequest', *args, **kwargs) -> 'http.HttpResponse':
+    def serve(self, request: "http.HttpRequest", *args, **kwargs) -> "http.HttpResponse":
         if request.htmx:
             # This is an HTMX request and we are only interested in the items list.
             items = self.get_items()
             paginated_items = self.paginate_items(
                 items=items,
-                page=request.GET.get('page'),
+                page=request.GET.get("page"),
             )
             return self.render_items(request=request, items=paginated_items)
         return super().serve(request, *args, **kwargs)
 
     def render_items(
         self,
-        request: 'http.HttpRequest',
-        items: 'models.QuerySet[pagemodels.BuyersGuideArticlePage]',
-    ) -> 'http.HttpResponse':
-        '''
+        request: "http.HttpRequest",
+        items: "models.QuerySet[pagemodels.BuyersGuideArticlePage]",
+    ) -> "http.HttpResponse":
+        """
         Method to return only the content index items.
 
         This method does not return a full page, but only an HTML fragment of list
         items that is meant to be requested with AJAX and used to extend an existing
         list of items.
 
-        '''
+        """
         return shortcuts.render(
             request=request,
             template_name="fragments/buyersguide/editorial_content_index_items.html",
             context={
-                'index_page': self,
-                'items': items,
+                "index_page": self,
+                "items": items,
                 # This is method returns only a template fragment and should be hit
                 # by AJAX requests only, so we know JS works and we can rely on JS
                 # pagination (load more).
-                'show_load_more_button_immediately': True,
+                "show_load_more_button_immediately": True,
             },
         )
 
@@ -88,22 +88,22 @@ class BuyersGuideEditorialContentIndexPage(
         context["featured_cta"] = get_buyersguide_featured_cta(self)
 
         language_code = get_language_from_request(request)
-        context['categories'] = get_categories_for_locale(language_code)
+        context["categories"] = get_categories_for_locale(language_code)
 
         items = self.get_items()
         context["items"] = self.paginate_items(
             items=items,
-            page=request.GET.get('page'),
-            expanded=request.GET.get('expanded', 'false') == 'true',
+            page=request.GET.get("page"),
+            expanded=request.GET.get("expanded", "false") == "true",
         )
         return context
 
     def paginate_items(
         self,
-        items: 'models.QuerySet[pagemodels.BuyersGuideArticlePage]',
-        page: 'Optional[str]' = None,
+        items: "models.QuerySet[pagemodels.BuyersGuideArticlePage]",
+        page: "Optional[str]" = None,
         expanded: bool = False,
-    ) -> 'paginator.Page[pagemodels.BuyersGuideArticlePage]':
+    ) -> "paginator.Page[pagemodels.BuyersGuideArticlePage]":
         """
         Pagingate the given items.
 
@@ -125,9 +125,7 @@ class BuyersGuideEditorialContentIndexPage(
         # Override the pages object_list with the original trimmed to the last index
         # that the page would display.
         index_of_last_item_on_page = page_of_items.end_index()
-        page_of_items.object_list = (
-            items_paginator.object_list[:index_of_last_item_on_page]
-        )
+        page_of_items.object_list = items_paginator.object_list[:index_of_last_item_on_page]
 
         return page_of_items
 
