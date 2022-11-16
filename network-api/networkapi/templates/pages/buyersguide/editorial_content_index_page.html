@@ -40,7 +40,7 @@
                     {% endif %}
 
                     {% if related_articles %}
-                      <div id="article-index-popular-articles" class="tw-basis-1/2">
+                      <div class="tw-basis-1/2 article-index-popular-articles">
                         {% trans "Popular" as heading %}
                         {% include "fragments/buyersguide/related_reading.html" with articles=related_articles heading=heading %}
                       </div>
@@ -65,7 +65,7 @@
             {% endif %}
 
             {% if related_articles %}
-              <div id="article-index-popular-articles">
+              <div class="article-index-popular-articles">
                 {% trans "Popular" as heading %}
                 {% include "fragments/buyersguide/related_reading.html" with articles=related_articles heading=heading %}
               </div>
