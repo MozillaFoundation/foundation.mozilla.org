@@ -122,11 +122,11 @@ class BuyersGuideEditorialContentIndexPage(
         if not expanded:
             return page_of_items
 
-        # Override the pages object_list with the original trimmed to the last index
+        # Override the object_list on the page with the full object list, but trimmed to the last index
         # that the page would display.
         index_of_last_item_on_page = page_of_items.end_index()
         page_of_items.object_list = items_paginator.object_list[:index_of_last_item_on_page]
-        # The page is expanded so there should be no previous page. All items are already on the page.
+        # The page is expanded, so there should be no previous page. All items are already on the page.
         page_of_items.has_previous = lambda: False
 
         return page_of_items
