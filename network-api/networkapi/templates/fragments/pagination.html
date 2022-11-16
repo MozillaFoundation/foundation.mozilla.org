@@ -1,10 +1,14 @@
 {% load i18n querystring_tag %}
 
+{% comment %}
+  When using the link based we don't want to navigate to expanded pages.
+  therefore, we discard the querystring parameter 'expanded' if it is present.
+{% endcomment %}
 {% if page.has_other_pages %}
 <div class="tw-flex tw-flex-row tw-flex-wrap tw-gap-5">
   <a
     {% if page.has_previous %}
-      href="{{ request.path }}{% querystring 'page'=page.previous_page_number %}"
+      href="{{ request.path }}{% querystring discard 'expanded' 'page'=page.previous_page_number %}"
     {% else %}
         disabled
     {% endif %}
@@ -14,7 +18,7 @@
   </a>
   <a
     {% if page.has_next %}
-      href="{{ request.path }}{% querystring 'page'=page.next_page_number %}"
+      href="{{ request.path }}{% querystring discard 'expanded' 'page'=page.next_page_number %}"
     {% else %}
         disabled
     {% endif %}
