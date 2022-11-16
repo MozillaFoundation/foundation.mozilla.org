@@ -8,6 +8,7 @@ from wagtail.snippets.models import register_snippet
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
+from networkapi.wagtailpages.utils import get_default_locale
 
 
 @register_snippet
@@ -48,7 +49,11 @@ class BlogPageTopic(TranslatableMixin, models.Model):
 
     @classmethod
     def get_topics(cls):
-        choices = [(topic.name, topic.name) for topic in BlogPageTopic.objects.all().order_by("name")]
+        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+        choices = [
+            (topic.name, topic.name)
+            for topic in BlogPageTopic.objects.filter(locale_id=DEFAULT_LOCALE_ID).order_by("name")
+        ]
         choices.insert(0, ("All", "All"))
         return choices
 

@@ -4,7 +4,7 @@ const RelatedArticles = {
       ".paragraph-block .rich-text"
     );
     const relatedContainer = document.querySelector(
-      "#buyersguide-related-content"
+      "#article-primary-related-articles"
     );
     if (!firstParagraph || !relatedContainer) return;
     const relatedContent = relatedContainer.querySelector("div");
