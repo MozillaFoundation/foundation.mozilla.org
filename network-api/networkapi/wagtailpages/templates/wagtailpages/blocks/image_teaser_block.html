@@ -13,7 +13,7 @@
           </a>
         {% endif %}
       </div>
-      <div>
+      <div class="tw-flex tw-items-center">
         {% image card.image fill-540x305-c100 format-jpeg as img %}
         <img src="{{ img.url }}" alt="{{ card.altText }}" class="tw-w-full" width="{{ img.width|unlocalize }}" height="{{ img.height|unlocalize }}">
       </div>

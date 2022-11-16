@@ -20,7 +20,7 @@
           >
             <div class="tw-container">
               <div class="tw-row">
-                <div class="tw-w-full tw-px-4">
+                <div id="category-primary-related-articles" class="tw-w-full tw-px-4">
                   {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles index_page=editorial_content_index %}
                 </div>
               </div>
@@ -56,6 +56,7 @@
         {% endcomment %}
         {% if secondary_related_articles %}
           <div
+            id="category-secondary-related-articles"
             class="
               {% if category != current_category %}
                 tw-hidden
