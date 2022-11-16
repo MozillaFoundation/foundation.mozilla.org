@@ -1,7 +1,7 @@
 import contextlib
 import datetime
 from http import HTTPStatus
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Optional, Generator
 from unittest import mock
 
 import bs4
@@ -38,14 +38,17 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
     def create_request(self, data: Optional[dict] = None) -> "wsgi.WSGIRequest":
         return self.request_factory.get(path=self.content_index.url, data=data)
 
-    def create_days_old_article(self, days: int):
+    def create_days_old_article(self, days: int) -> "pagemodels.BuyersGuideArticlePage":
         return buyersguide_factories.BuyersGuideArticlePageFactory(
             parent=self.content_index,
             first_published_at=timezone.now() - datetime.timedelta(days=days),
         )
 
     @contextlib.contextmanager
-    def setup_content_index_with_pages_of_children(self, pages: int = 2):
+    def setup_content_index_with_pages_of_children(
+        self,
+        pages: int = 2
+    ) -> Generator[list["pagemodels.BuyersGuideArticlePage"], None, None]:
         """
         Context manager setting up the content index with child pages.
 
