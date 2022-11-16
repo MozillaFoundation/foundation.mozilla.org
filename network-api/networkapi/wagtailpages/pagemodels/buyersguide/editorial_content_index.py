@@ -126,6 +126,8 @@ class BuyersGuideEditorialContentIndexPage(
         # that the page would display.
         index_of_last_item_on_page = page_of_items.end_index()
         page_of_items.object_list = items_paginator.object_list[:index_of_last_item_on_page]
+        # The page is expanded so there should be no previous page. All items are already on the page.
+        page_of_items.has_previous = lambda: False
 
         return page_of_items
 

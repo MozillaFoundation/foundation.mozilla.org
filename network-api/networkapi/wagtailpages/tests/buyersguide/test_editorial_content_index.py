@@ -155,11 +155,13 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                 articles[self.items_per_page :],
             )
 
-    def test_serve_paginated_items_page_2_expanded(self):
+    def test_serve_paginated_items_expanded_page_2_of_3(self):
         """
         Render all the items from the first and second page.
 
         We don't want to show pages from the following pages.
+        Naviation to the first page should not be possible, because that page is
+        already included. Navigation to the next page should be possible.
         """
         page = 2
         with self.setup_content_index_with_pages_of_children(pages=page + 1) as articles:
@@ -175,6 +177,20 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                 articles[:index_of_first_not_expected_article],
             )
             self.assertTrue(response.context["items"].has_next())
+            self.assertFalse(response.context["items"].has_previous())
+
+    def test_serve_paginated_items_expanded_page_2_of_2(self):
+        """There should be no other pages because they are all included."""
+        page = 2
+        with self.setup_content_index_with_pages_of_children(pages=page) as articles:
+
+            response = self.client.get(
+                self.content_index.url,
+                data={"page": page, "expanded": "true"},
+            )
+
+            self.assertFalse(response.context["items"].has_next())
+            self.assertFalse(response.context["items"].has_previous())
 
     def test_hx_request_templates(self):
         """
