@@ -11,11 +11,11 @@
           <div
             class="join-us mb-5"
             data-form-position="newsletter_signup_sidebar"
-            data-signup-id="{{ page.signup.id|unlocalize }}"
+            data-signup-id="{{ localized_signup.id|unlocalize }}"
             data-cta-header="{{ localized_signup.header | escape }}"
             data-cta-description="{{ localized_signup.description | escape }}"
-            data-newsletter="{{ page.signup.newsletter }}"
-            data-ask-name="{{page.signup.ask_name}}">
+            data-newsletter="{{ localized_signup.newsletter }}"
+            data-ask-name="{{ localized_signup.ask_name}}">
           </div>
         {% endwith %}
       </div>

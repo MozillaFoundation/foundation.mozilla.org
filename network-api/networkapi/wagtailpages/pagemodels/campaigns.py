@@ -129,6 +129,9 @@ class Signup(TranslatableMixin, CTA):
         # Fields from the CTA model
         TranslatableField("header"),
         TranslatableField("description"),
+        SynchronizedField("newsletter"),
+        # Signup Fields
+        SynchronizedField("ask_name"),
     ]
 
     class Meta(TranslatableMixin.Meta):
