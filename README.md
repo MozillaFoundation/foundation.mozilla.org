@@ -51,18 +51,41 @@ Use `inv -l` to get a list of all the available invoke commands.
 
 More information on how to work with Docker and how to manage Python dependencies are available in the [local development](docs/local_development.md) part of the documentation.
 
+## Code style
+
+To ensure a consistent code style and quality, we use linters and formatters.
+
+### Linting
+
+To check the code base for quality and style issues run `inv lint`.
+This will run all configured linters.
+You can run the linters individually with, e.g. `inv lint-js` for JavaScript only.
+Check available commands with `inv -l`.
+
+### Formatting
+
+If `inv lint` shows linting errors you can try running `inv format` to fix style issues.
+`inv format` should automatically fix most formatting issues.
+
+There might be some linting issues that can not be fixed automatically.
+
 ## Testing
 
-### Code tests
+### Unit tests
 
-When relevant, we encourage you to write tests. You can run the tests using `inv test`, or you can run the Node and Python testing suites separately:
+When relevant, we encourage you to write tests.
 
-- Run Node tests: `inv test-node`
-- Run Python tests: `inv test-python`
+You can run the tests using `inv test`.
+This will the full test suite.
+To run only a subset or a specific Python test, you can use following command:
 
-#### Fixing linting errors
+```console
+inv manage "test <dotted-path-to-your-test>"
+```
 
-If `inv test-node` shows linting errors for either JS/JSX or CSS/SCSS, you can run the `inv npm "run fix"` command to make the linting utilities automatically fix (or at least try to fix) any errors they knows how to fix. This will almost always be the only step required to ensure the linting phase of testing passes.
+See also [the Django docs on running tests](https://docs.djangoproject.com/en/4.1/topics/testing/overview/#running-tests).
+
+There is currently no unit test framework for JavaScript tests set up.
 
 ### Integration tests
 

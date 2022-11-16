@@ -39,7 +39,7 @@ export default () => {
       ) {
         break;
       }
-      linksForDropdown.push(link);
+      linksForDropdown.unshift(link);
     }
 
     linksForDropdown.forEach((e) => addCategoryToDropdown(e));

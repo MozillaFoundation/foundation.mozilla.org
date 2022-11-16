@@ -14,16 +14,12 @@ def is_valid_tito_request(signature, request_body):
 
 def sign_tito_request(secret, content):
     # https://ti.to/docs/api/admin#webhooks-verifying-the-payload
-    return base64.b64encode(
-        hmac.new(secret, content, digestmod=hashlib.sha256).digest()
-    ).decode("utf-8")
+    return base64.b64encode(hmac.new(secret, content, digestmod=hashlib.sha256).digest()).decode("utf-8")
 
 
 def has_signed_up_to_newsletter(tito_answers):
     for answer in tito_answers:
-        if answer["question"]["id"] == int(
-            settings.TITO_NEWSLETTER_QUESTION_ID
-        ) and len(answer["response"]):
+        if answer["question"]["id"] == int(settings.TITO_NEWSLETTER_QUESTION_ID) and len(answer["response"]):
             return True
 
     return False

@@ -54,13 +54,13 @@ def add_id_attribute(match):
     hsuffix = match.group(1)
     n = match.group(2)
     text_content = match.group(3)
-    anchor = ''
+    anchor = ""
 
     if int(n) < 4:
         id = slugify(strip_tags(html.unescape(text_content)))
         anchor = f'<a class="fragment-id" id="{id}"></a>'
 
-    return f'<h{hsuffix}>{anchor}{text_content}</h{n}>'
+    return f"<h{hsuffix}>{anchor}{text_content}</h{n}>"
 
 
 def with_heading_ids(self):

@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0028_topics_max_num_helptext'),
+        ("wagtailpages", "0028_topics_max_num_helptext"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='profile',
-            name='slug',
+            model_name="profile",
+            name="slug",
             field=models.SlugField(blank=True),
         ),
     ]

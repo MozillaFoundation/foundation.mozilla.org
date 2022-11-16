@@ -13,12 +13,12 @@ class LinkButtonBlock(blocks.StructBlock):
     # should be used.
     styling = blocks.ChoiceBlock(
         choices=[
-            ('btn-primary', 'Primary button'),
-            ('btn-secondary', 'Secondary button'),
+            ("btn-primary", "Primary button"),
+            ("btn-secondary", "Secondary button"),
         ],
-        default='btn-primary',
+        default="btn-primary",
     )
 
     class Meta:
-        icon = 'link'
-        template = 'wagtailpages/blocks/link_button_block.html'
+        icon = "link"
+        template = "wagtailpages/blocks/link_button_block.html"

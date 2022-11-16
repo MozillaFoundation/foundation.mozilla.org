@@ -109,7 +109,9 @@
 
               {% with primary_related_articles=product.get_primary_related_articles  %}
                 {% if primary_related_articles %}
-                  {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles %}
+                  <div id="product-primary-related-articles">
+                    {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles %}
+                  </div>
                 {% endif %}
               {% endwith %}
             </aside>
@@ -162,7 +164,7 @@
 
       {% with secondary_related_articles=product.get_secondary_related_articles  %}
         {% if secondary_related_articles %}
-          <div class="tw-col-span-full medium:tw-col-span-1 large:tw-col-span-2">
+          <div id="product-secondary-related-articles" class="tw-col-span-full medium:tw-col-span-1 large:tw-col-span-2">
             {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=home_page.get_editorial_content_index use_wide_above="large" wide_columns_above_large=2  %}
           </div>
         {% endif %}
@@ -170,10 +172,10 @@
 
       {% with related_products=product.related_product_pages.all %}
         {% if related_products %}
-          <div class="tw-col-span-full medium:tw-col-span-2 large:tw-col-start-2">
+          <div id="related-products" class="tw-col-span-full medium:tw-col-span-2 large:tw-col-start-2">
             <div class="tw-flex tw-flex-col medium:tw-items-center large:tw-items-baseline medium:tw-flex-row-reverse medium:tw-gap-5">
               {% include "fragments/buyersguide/wavy_line.html" %}
-              <h2 class="tw-h3-heading tw-mt-2 tw-shrink-0">{% trans "Related products" %}</h2>
+              <h2 class="tw-h3-heading tw-mt-2 large:tw-mt-0 tw-shrink-0">{% trans "Related products" %}</h2>
             </div>
             <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-4 tw-gap-6">
               {% for related_product_page in related_products  %}

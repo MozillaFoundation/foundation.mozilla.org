@@ -217,12 +217,7 @@ body {
 
     @media (min-width: $breakpoint) {
       display: flex;
-      height: var(--sticky-height);
       align-items: center;
-
-      &.creep-o-meter-moved {
-        height: var(--sticky-height);
-      }
     }
 
     .creep-o-meter-information {

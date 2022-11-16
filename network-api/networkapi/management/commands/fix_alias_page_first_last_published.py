@@ -4,13 +4,11 @@ from wagtail.core.models import Page
 
 
 class Command(BaseCommand):
-
     def handle(self, **options):
         aliases_without_first_last_published = (
-            Page.objects
-            .filter(alias_of__isnull=False)
+            Page.objects.filter(alias_of__isnull=False)
             .filter(Q(alias_of__first_published_at__isnull=False) | Q(alias_of__last_published_at__isnull=False))
-            .select_related('alias_of')
+            .select_related("alias_of")
         )
         found = aliases_without_first_last_published.count()
         if not found:

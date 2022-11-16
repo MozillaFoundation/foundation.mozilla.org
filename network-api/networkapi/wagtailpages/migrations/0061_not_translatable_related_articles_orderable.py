@@ -6,20 +6,20 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0060_buyersguidecampaignpage_donationmodal_relation'),
+        ("wagtailpages", "0060_buyersguidecampaignpage_donationmodal_relation"),
     ]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='buyersguidearticlepagerelatedarticlerelation',
+            name="buyersguidearticlepagerelatedarticlerelation",
             unique_together=set(),
         ),
         migrations.RemoveField(
-            model_name='buyersguidearticlepagerelatedarticlerelation',
-            name='locale',
+            model_name="buyersguidearticlepagerelatedarticlerelation",
+            name="locale",
         ),
         migrations.RemoveField(
-            model_name='buyersguidearticlepagerelatedarticlerelation',
-            name='translation_key',
+            model_name="buyersguidearticlepagerelatedarticlerelation",
+            name="translation_key",
         ),
     ]

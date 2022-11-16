@@ -16,6 +16,6 @@ class EnvVariablesView(View):
 
 def review_app_help_view(request):
     if settings.REVIEW_APP:
-        return render(request, 'reviewapp-help.html')
+        return render(request, "reviewapp-help.html")
     else:
         return HttpResponse(status=404)

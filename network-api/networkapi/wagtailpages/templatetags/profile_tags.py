@@ -7,7 +7,7 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def routableprofileurl(context, *args, page, profile, url_name="profile_route", **kwargs):
-    '''
+    """
     Get URL of the profile route on a given page.
 
     This is a wrapper around Wagtail's `routablepageurl`. It passes the profiles id as `profile_id`
@@ -20,7 +20,7 @@ def routableprofileurl(context, *args, page, profile, url_name="profile_route", 
         ...
     ```
 
-    '''
+    """
     return wagtailroutablepage_tags.routablepageurl(
         context=context,
         page=page,

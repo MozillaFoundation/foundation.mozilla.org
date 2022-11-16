@@ -11,7 +11,7 @@ from wagtail.contrib.routable_page import models as routable_models
 
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
-    get_buyersguide_featured_cta
+    get_buyersguide_featured_cta,
 )
 from networkapi.wagtailpages.utils import get_language_from_request
 from networkapi.utility import orderables
@@ -27,18 +27,18 @@ class BuyersGuideEditorialContentIndexPage(
     routable_models.RoutablePageMixin,
     wagtail_models.Page,
 ):
-    parent_page_types = ['wagtailpages.BuyersGuidePage']
+    parent_page_types = ["wagtailpages.BuyersGuidePage"]
     subpage_types = [
-        'wagtailpages.BuyersGuideArticlePage',
-        'wagtailpages.BuyersGuideCampaignPage',
-        ]
-    template = 'pages/buyersguide/editorial_content_index_page.html'
+        "wagtailpages.BuyersGuideArticlePage",
+        "wagtailpages.BuyersGuideCampaignPage",
+    ]
+    template = "pages/buyersguide/editorial_content_index_page.html"
 
     content_panels = wagtail_models.Page.content_panels + [
         InlinePanel(
-            'related_article_relations',
-            heading='Popular articles',
-            label='Article',
+            "related_article_relations",
+            heading="Popular articles",
+            label="Article",
             max_num=3,
         ),
     ]
@@ -71,7 +71,7 @@ class BuyersGuideEditorialContentIndexPage(
         '''
         return shortcuts.render(
             request=request,
-            template_name='fragments/buyersguide/editorial_content_index_items.html',
+            template_name="fragments/buyersguide/editorial_content_index_items.html",
             context={
                 'index_page': self,
                 'items': items,
@@ -131,39 +131,33 @@ class BuyersGuideEditorialContentIndexPage(
 
         return page_of_items
 
-    def get_items(self) -> 'models.QuerySet[pagemodels.BuyersGuideArticlePage]':
-        """Get default items to list in the index."""
-        return (
-            self.get_descendants()
-            .order_by("-first_published_at")
-            .public()
-            .live()
-            .specific()
-        )
+    def get_items(self) -> "models.QuerySet[pagemodels.BuyersGuideArticlePage]":
+        """Get items to list in the index."""
+        return self.get_descendants().order_by("-first_published_at").public().live().specific()
 
-    def get_related_articles(self) -> list['pagemodels.BuyersGuideArticlePage']:
+    def get_related_articles(self) -> list["pagemodels.BuyersGuideArticlePage"]:
         return orderables.get_related_items(
             self.related_article_relations.all(),
-            'article',
+            "article",
         )
 
 
 class BuyersGuideEditorialContentIndexPageArticlePageRelation(TranslatableMixin, Orderable):
     page = ParentalKey(
-        'wagtailpages.BuyersGuideEditorialContentIndexPage',
-        related_name='related_article_relations',
+        "wagtailpages.BuyersGuideEditorialContentIndexPage",
+        related_name="related_article_relations",
     )
     article = models.ForeignKey(
-        'wagtailpages.BuyersGuideArticlePage',
+        "wagtailpages.BuyersGuideArticlePage",
         on_delete=wagtail_models.models.CASCADE,
         null=False,
         blank=False,
     )
 
-    panels = [PageChooserPanel('article')]
+    panels = [PageChooserPanel("article")]
 
     def __str__(self):
-        return f'{self.category.name} -> {self.article.title}'
+        return f"{self.category.name} -> {self.article.title}"
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass

@@ -7,14 +7,19 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('wagtailpages', '0017_undo_0015_and_update_label_instead'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("wagtailpages", "0017_undo_0015_and_update_label_instead"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='researchdetailpage',
-            name='cover_image',
-            field=models.ForeignKey(help_text='Select a cover image for this reserach.The cover image is displayed on the detail page and all research listings.', null=True, on_delete=django.db.models.deletion.SET_NULL, to='wagtailimages.image'),
+            model_name="researchdetailpage",
+            name="cover_image",
+            field=models.ForeignKey(
+                help_text="Select a cover image for this reserach.The cover image is displayed on the detail page and all research listings.",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="wagtailimages.image",
+            ),
         ),
     ]

@@ -35,7 +35,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         cls.request_factory = test.RequestFactory()
 
-    def create_request(self, data: Optional[dict] = None) -> 'wsgi.WSGIRequest':
+    def create_request(self, data: Optional[dict] = None) -> "wsgi.WSGIRequest":
         return self.request_factory.get(path=self.content_index.url, data=data)
 
     def create_days_old_article(self, days: int):
@@ -73,7 +73,10 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         self.items_per_page = 3
         self.items_on_last_page = self.items_per_page - 1
         total_items = (pages - 1) * self.items_per_page + self.items_on_last_page
-        with mock.patch('networkapi.wagtailpages.models.BuyersGuideEditorialContentIndexPage.items_per_page', 3):
+        with mock.patch(
+            "networkapi.wagtailpages.models.BuyersGuideEditorialContentIndexPage.items_per_page",
+            3,
+        ):
             self.content_index.items_per_page = self.items_per_page
             articles = []
             # Create 2 more items then fit on page to check they are not in the page
@@ -92,7 +95,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             parent_model=pagemodels.BuyersGuideEditorialContentIndexPage,
             child_models={
                 pagemodels.BuyersGuideArticlePage,
-                pagemodels.BuyersGuideCampaignPage
+                pagemodels.BuyersGuideCampaignPage,
             },
         )
 
@@ -107,15 +110,15 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         self.assertTemplateUsed(
             response=response,
-            template_name='pages/buyersguide/editorial_content_index_page.html',
+            template_name="pages/buyersguide/editorial_content_index_page.html",
         )
         self.assertTemplateUsed(
             response=response,
-            template_name='pages/buyersguide/base.html',
+            template_name="pages/buyersguide/base.html",
         )
         self.assertTemplateUsed(
             response=response,
-            template_name='pages/base.html',
+            template_name="pages/base.html",
         )
 
     def test_serve_shows_children_titles(self):
@@ -138,18 +141,18 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             response = self.client.get(self.content_index.url)
 
             self.assertQuerysetEqual(
-                response.context['items'],
-                articles[:self.items_per_page],
+                response.context["items"],
+                articles[: self.items_per_page],
             )
 
     def test_serve_paginated_items_page_2(self):
         with self.setup_content_index_with_pages_of_children() as articles:
 
-            response = self.client.get(self.content_index.url, data={'page': 2})
+            response = self.client.get(self.content_index.url, data={"page": 2})
 
             self.assertQuerysetEqual(
-                response.context['items'],
-                articles[self.items_per_page:],
+                response.context["items"],
+                articles[self.items_per_page :],
             )
 
     def test_serve_paginated_items_page_2_expanded(self):
@@ -185,11 +188,11 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         self.assertTemplateUsed(
             response=response,
-            template_name='fragments/buyersguide/editorial_content_index_items.html',
+            template_name="fragments/buyersguide/editorial_content_index_items.html",
         )
         self.assertTemplateNotUsed(
             response=response,
-            template_name='pages/buyersguide/editorial_content_index_page.html',
+            template_name="pages/buyersguide/editorial_content_index_page.html",
         )
 
     def test_hx_request_show_load_more_button_immediately(self):
@@ -197,12 +200,12 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
             response = self.client.get(self.content_index.url, HTTP_HX_REQUEST='true')
 
-            self.assertTrue(response.context['show_load_more_button_immediately'])
-            soup = bs4.BeautifulSoup(response.content, 'html.parser')
+            self.assertTrue(response.context["show_load_more_button_immediately"])
+            soup = bs4.BeautifulSoup(response.content, "html.parser")
             # No pagination element in markup
-            self.assertEqual(soup.find_all(id='pagination'), [])
+            self.assertEqual(soup.find_all(id="pagination"), [])
             # But the load more element
-            self.assertNotEqual(soup.find_all(id='load-more'), [])
+            self.assertNotEqual(soup.find_all(id="load-more"), [])
 
     def test_hx_request_shows_children_titles(self):
         children = []
@@ -224,12 +227,12 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             response = self.client.get(self.content_index.url, HTTP_HX_REQUEST='true')
 
             self.assertQuerysetEqual(
-                response.context['items'],
-                articles[:self.items_per_page],
+                response.context["items"],
+                articles[: self.items_per_page],
             )
             # There are more page so there should be a load more button
-            soup = bs4.BeautifulSoup(response.content, 'html.parser')
-            self.assertNotEqual(soup.find_all(id='load-more'), [])
+            soup = bs4.BeautifulSoup(response.content, "html.parser")
+            self.assertNotEqual(soup.find_all(id="load-more"), [])
 
     def test_hx_request_paginated_items_page_2(self):
         with self.setup_content_index_with_pages_of_children() as articles:
@@ -241,12 +244,12 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             )
 
             self.assertQuerysetEqual(
-                response.context['items'],
-                articles[self.items_per_page:],
+                response.context["items"],
+                articles[self.items_per_page :],
             )
             # There are no more page so there should not be a load more button
-            soup = bs4.BeautifulSoup(response.content, 'html.parser')
-            self.assertEqual(soup.find_all(id='load-more'), [])
+            soup = bs4.BeautifulSoup(response.content, "html.parser")
+            self.assertEqual(soup.find_all(id="load-more"), [])
 
     def test_get_context_featured_cta(self):
         featured_cta = buyersguide_factories.BuyersGuideCallToActionFactory()
@@ -255,7 +258,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         context = self.content_index.get_context(request=self.create_request())
 
-        self.assertEqual(context['featured_cta'], featured_cta)
+        self.assertEqual(context["featured_cta"], featured_cta)
 
     def test_get_context_no_cta_set_on_homepage(self):
         self.pni_homepage.call_to_action = None
@@ -263,22 +266,22 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         context = self.content_index.get_context(request=self.create_request())
 
-        self.assertIsNone(context['featured_cta'])
+        self.assertIsNone(context["featured_cta"])
 
     def test_get_context_paginated_items_page_1(self):
         with self.setup_content_index_with_pages_of_children() as articles:
 
             context = self.content_index.get_context(request=self.create_request())
 
-            self.assertQuerysetEqual(context['items'], articles[:self.items_per_page])
+            self.assertQuerysetEqual(context["items"], articles[: self.items_per_page])
 
     def test_get_context_paginated_items_page_2(self):
         with self.setup_content_index_with_pages_of_children() as articles:
-            request = self.create_request(data={'page': '2'})
+            request = self.create_request(data={"page": "2"})
 
             context = self.content_index.get_context(request=request)
 
-            self.assertQuerysetEqual(context['items'], articles[self.items_per_page:])
+            self.assertQuerysetEqual(context["items"], articles[self.items_per_page :])
 
     def test_get_items_ordered_by_publication_date(self):
         article_middle = self.create_days_old_article(days=10)
