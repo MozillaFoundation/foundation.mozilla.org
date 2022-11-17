@@ -2,23 +2,19 @@
 
 ## Staging
 
-~~Builds to staging are triggered by commits to `main`.~~
+We are deploying the `main` branch automatically to the staging environment via a [custom GitHub Actions workflow](https://github.com/mozilla/foundation.mozilla.org/pull/9494/files#diff-d6e37d8db765e21cf58ba38c965d3b81e792b464d5bfe83e4314fbddd5c0a33d).
+The "continuous deployment" workflow is triggered by the "continuous integration" workflow finishing and checks that the "continuous integration" workflow was successful.
 
-Automatic deployments are currently broken.
-To get your work deployed after the PR has been merged to `main`, check that the [GitHub Actions CI running on `main`](https://github.com/mozilla/foundation.mozilla.org/actions?query=branch%3Amain) is passing.
+We are using a custom action instead of the Heroku-GitHub integration because of security concerns after the [Heroku-GitHub incident in April 2022](https://status.heroku.com/incidents/2413).
 
-Once CI has passed you can pull the branch to local and push it to Heroku.
+The deployment workflow uses the standard Heroku git push deployment.
+To run this workflow, we need to configure two secret variables for GitHub Action in https://github.com/mozilla/foundation.mozilla.org/settings/secrets/actions:
 
-```console
-git switch main
-git fetch origin
-git pull origin main
-git push heroku-staging main
-```
+ * `HEROKU_DEPLOYMENT_USER_LOGIN` - Email address of the Heroku user to use for the push,
+ * `HEROKU_DEPLOYMENT_USER_API_TOKEN` - API token of the same Heroku user. Note: API tokens are separate from API keys in Heroku. To create a new API token visit: https://dashboard.heroku.com/account/applications
 
-For the above to work you will need access to the app on Heroku as well as the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed.
-Set up the Heroku git remote as `heroku-staging`, following the docs (except for the remote name): https://devcenter.heroku.com/articles/git
-
+The above login credentials are used to build a `.netrc` file, which is used by Git (through cURL) when pushing to Heroku.
+See the [Heroku authentication docs](https://devcenter.heroku.com/articles/authentication) for more information.
 
 The staging URLs are:
 
@@ -27,7 +23,9 @@ The staging URLs are:
 
 ## Production
 
-Production deployments are done by promoting Staging in the Heroku pipeline.
+Production deployments are done by promoting the staging app to production in the Heroku pipeline.
+This is done on the Heroku dashboard.
+See also: https://devcenter.heroku.com/articles/pipelines#deployment-with-pipelines
 
 The production URLs are:
 
