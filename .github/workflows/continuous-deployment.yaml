@@ -2,6 +2,8 @@ name: Continuous Deployment
 # Based on https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-a-workflow-based-on-the-conclusion-of-another-workflow
 
 on:
+  # Trigger this workflow (continuous deployment) when the "Continous Integration" workflow
+  # had completed on the main branch.
   workflow_run:
     workflows: [Continuous Integration]
     types: [completed]
@@ -10,6 +12,7 @@ on:
 jobs:
   on-success:
     runs-on: ubuntu-latest
+    # Check that the triggering workflow ended successfully.
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     env:
       # See Heroku authentication: https://devcenter.heroku.com/articles/authentication#retrieving-the-api-token
@@ -20,10 +23,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set up git remote
         run: git remote add heroku https://git.heroku.com/foundation-mofostaging-net.git
-      - name: Configure Heroku credentials
+      - name: Configure Heroku credentials in .netrc file
         run: echo "machine api.heroku.com\n  login ${HEROKU_DEPLOYMENT_USER_LOGIN}\n  passwork ${HEROKU_DEPLOYMENT_USER_API_TOKEN}\nmachine git.heroku.com\n  login ${HEROKU_DEPLOYMENT_USER_LOGIN}\n  password ${HEROKU_DEPLOYMENT_USER_API_TOKEN}" > ~/.netrc
       - name: Deploy to staging
-        run: git push heroku main
+        # run: git push heroku main
+        # Test this workflow with a benign action at first
+        run: git fetch heroku main
 
   on-failure:
     runs-on: ubuntu-latest
