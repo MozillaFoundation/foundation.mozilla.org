@@ -10,6 +10,7 @@ django-cors-headers
 django_csp
 django-environ
 django-filter
+django-htmx
 django-redis
 django-storages
 django-querystring-tag
