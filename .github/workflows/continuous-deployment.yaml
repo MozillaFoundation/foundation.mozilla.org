@@ -24,7 +24,14 @@ jobs:
       - name: Set up git remote
         run: git remote add heroku https://git.heroku.com/foundation-mofostaging-net.git
       - name: Configure Heroku credentials in .netrc file
-        run: echo "machine api.heroku.com\n  login ${HEROKU_DEPLOYMENT_USER_LOGIN}\n  password ${HEROKU_DEPLOYMENT_USER_API_TOKEN}\nmachine git.heroku.com\n  login ${HEROKU_DEPLOYMENT_USER_LOGIN}\n  password ${HEROKU_DEPLOYMENT_USER_API_TOKEN}" > ~/.netrc
+        run: |
+          echo -e "machine api.heroku.com
+            login $HEROKU_DEPLOYMENT_USER_LOGIN
+            password $HEROKU_DEPLOYMENT_USER_API_TOKEN
+          machine git.heroku.com
+            login $HEROKU_DEPLOYMENT_USER_LOGIN
+            password $HEROKU_DEPLOYMENT_USER_API_TOKEN
+          " > ~/.netrc
       - name: Deploy to staging
         # run: git push heroku main
         # Test this workflow with a benign action at first
