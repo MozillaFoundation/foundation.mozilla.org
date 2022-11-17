@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0038_blogindexpage_callout_box'),
+        ("wagtailpages", "0038_blogindexpage_callout_box"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='researchdetaillink',
-            options={'ordering': ['sort_order']},
+            name="researchdetaillink",
+            options={"ordering": ["sort_order"]},
         ),
     ]

@@ -27,9 +27,7 @@ class PublicationAuthors(Orderable):
 
     page = ParentalKey("wagtailpages.PublicationPage", related_name="authors")
 
-    author = models.ForeignKey(
-        Profile, on_delete=models.SET_NULL, null=True, blank=False
-    )
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=False)
 
     panels = [
         SnippetChooserPanel("author"),
@@ -52,57 +50,57 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     An Article can only belong to one Chapter/Publication Page
     """
 
-    subpage_types = ['ArticlePage', 'PublicationPage']
+    subpage_types = ["ArticlePage", "PublicationPage"]
 
     toc_thumbnail_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='toc_thumbnail_image',
-        verbose_name='Table of Content Thumbnail',
-        help_text='Thumbnail image to show on table of content. Use square image of 320×320 pixels or larger.',
+        related_name="toc_thumbnail_image",
+        verbose_name="Table of Content Thumbnail",
+        help_text="Thumbnail image to show on table of content. Use square image of 320×320 pixels or larger.",
     )
 
     hero_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='publication_hero_image',
-        verbose_name='Publication Hero Image',
+        related_name="publication_hero_image",
+        verbose_name="Publication Hero Image",
     )
 
     hero_video = models.CharField(
         blank=True,
         max_length=500,
-        help_text='Log into Vimeo using 1Password '
-                  'and upload the desired video. '
-                  'Then select the video and '
-                  'click "Advanced", "Distribution", '
-                  'and "Video File Links". Copy and paste the link here.'
+        help_text="Log into Vimeo using 1Password "
+        "and upload the desired video. "
+        "Then select the video and "
+        'click "Advanced", "Distribution", '
+        'and "Video File Links". Copy and paste the link here.',
     )
 
-    HERO_CONTENT_IMAGE = 'image'
-    HERO_CONTENT_VIDEO = 'video'
+    HERO_CONTENT_IMAGE = "image"
+    HERO_CONTENT_VIDEO = "video"
 
     displayed_hero_content = models.CharField(
         max_length=25,
         choices=[
-            (HERO_CONTENT_IMAGE, 'Image'),
-            (HERO_CONTENT_VIDEO, 'Video'),
+            (HERO_CONTENT_IMAGE, "Image"),
+            (HERO_CONTENT_VIDEO, "Video"),
         ],
-        default=HERO_CONTENT_IMAGE
+        default=HERO_CONTENT_IMAGE,
     )
 
     hero_background_color = ColorField(
-        default='#ffffff',
-        help_text='Please check your chosen background color with '
-                  'https://webaim.org/resources/contrastchecker/ to see if your text and background '
-                  'color pass accessibility standards. If your text is black '
-                  'enter #000000 in the Foreground Color box and #FFFFFF if '
-                  'your text is white. After you have selected your background color, '
-                  'please contact the design team for a design review!'
+        default="#ffffff",
+        help_text="Please check your chosen background color with "
+        "https://webaim.org/resources/contrastchecker/ to see if your text and background "
+        "color pass accessibility standards. If your text is black "
+        "enter #000000 in the Foreground Color box and #FFFFFF if "
+        "your text is white. After you have selected your background color, "
+        "please contact the design team for a design review!",
     )
 
     HERO_TEXT_COLOR_DARK = "black"
@@ -111,12 +109,12 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     hero_text_color = models.CharField(
         max_length=25,
         choices=[
-            (HERO_TEXT_COLOR_DARK, 'Black'),
-            (HERO_TEXT_COLOR_LIGHT, 'White'),
+            (HERO_TEXT_COLOR_DARK, "Black"),
+            (HERO_TEXT_COLOR_LIGHT, "White"),
         ],
         default=HERO_TEXT_COLOR_DARK,
-        help_text='For proper contrast, we recommend using “White” for dark background colors, '
-                  'and “Black” for light background colors.'
+        help_text="For proper contrast, we recommend using “White” for dark background colors, "
+        "and “Black” for light background colors.",
     )
 
     subtitle = models.CharField(
@@ -132,39 +130,39 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     publication_date = models.DateField("Publication date", null=True, blank=True)
 
     publication_file = models.ForeignKey(
-        'wagtaildocs.Document',
+        "wagtaildocs.Document",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
     )
 
-    HERO_LAYOUT_FULL_SCREEN = 'full_screen'
-    HERO_LAYOUT_IMAGE_LEFT = 'image_left'
-    HERO_LAYOUT_IMAGE_RIGHT = 'image_right'
-    HERO_LAYOUT_STATIC = 'static'
+    HERO_LAYOUT_FULL_SCREEN = "full_screen"
+    HERO_LAYOUT_IMAGE_LEFT = "image_left"
+    HERO_LAYOUT_IMAGE_RIGHT = "image_right"
+    HERO_LAYOUT_STATIC = "static"
 
     hero_layout = models.CharField(
         max_length=25,
         choices=[
-            (HERO_LAYOUT_FULL_SCREEN, 'Full Screen'),
-            (HERO_LAYOUT_IMAGE_LEFT, 'Image Left'),
-            (HERO_LAYOUT_IMAGE_RIGHT, 'Image Right'),
-            (HERO_LAYOUT_STATIC, 'Static'),
+            (HERO_LAYOUT_FULL_SCREEN, "Full Screen"),
+            (HERO_LAYOUT_IMAGE_LEFT, "Image Left"),
+            (HERO_LAYOUT_IMAGE_RIGHT, "Image Right"),
+            (HERO_LAYOUT_STATIC, "Static"),
         ],
         default=HERO_LAYOUT_STATIC,
     )
 
-    HERO_BTN_STYLE_PRIMARY = 'primary'
-    HERO_BTN_STYLE_SECONDARY = 'secondary'
-    HERO_BTN_STYLE_TERTIARY = 'tertiary'
+    HERO_BTN_STYLE_PRIMARY = "primary"
+    HERO_BTN_STYLE_SECONDARY = "secondary"
+    HERO_BTN_STYLE_TERTIARY = "tertiary"
 
     download_button_style = models.CharField(
         max_length=25,
         choices=[
-            (HERO_BTN_STYLE_PRIMARY, 'Primary'),
-            (HERO_BTN_STYLE_SECONDARY, 'Secondary'),
-            (HERO_BTN_STYLE_TERTIARY, 'Tertiary'),
+            (HERO_BTN_STYLE_PRIMARY, "Primary"),
+            (HERO_BTN_STYLE_SECONDARY, "Secondary"),
+            (HERO_BTN_STYLE_TERTIARY, "Tertiary"),
         ],
         default=HERO_BTN_STYLE_PRIMARY,
     )
@@ -172,18 +170,15 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     # Since wagtail cannot save SVG files as images,
     # we are instead uploading them as a document.
     download_button_icon = models.ForeignKey(
-        'wagtaildocs.Document',
+        "wagtaildocs.Document",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
-        help_text="Custom Icon for download button, please use https://feathericons.com"
+        related_name="+",
+        help_text="Custom Icon for download button, please use https://feathericons.com",
     )
 
-    show_authors = models.BooleanField(
-        default=True,
-        help_text="Display authors in the hero section"
-    )
+    show_authors = models.BooleanField(default=True, help_text="Display authors in the hero section")
 
     additional_author_copy = models.CharField(
         help_text="Example: with contributing authors",
@@ -191,15 +186,9 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         blank=True,
     )
 
-    intro_notes = RichTextField(
-        blank=True,
-        features=base_rich_text_options + ['h4']
-    )
+    intro_notes = RichTextField(blank=True, features=base_rich_text_options + ["h4"])
 
-    notes = RichTextField(
-        blank=True,
-        features=base_rich_text_options + ['h4', 'ol', 'ul']
-    )
+    notes = RichTextField(blank=True, features=base_rich_text_options + ["h4", "ol", "ul"])
 
     contents_title = models.CharField(
         blank=True,
@@ -208,57 +197,55 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-
-        MultiFieldPanel([
-            InlinePanel("authors", label="Author", min_num=0)
-        ], heading="Author(s)"),
-        MultiFieldPanel([
-            ImageChooserPanel("toc_thumbnail_image")
-        ], heading="Table of Content Thumbnail"),
+        MultiFieldPanel([InlinePanel("authors", label="Author", min_num=0)], heading="Author(s)"),
+        MultiFieldPanel(
+            [ImageChooserPanel("toc_thumbnail_image")],
+            heading="Table of Content Thumbnail",
+        ),
         MultiFieldPanel(
             [
-                FieldPanel('hero_layout', widget=forms.RadioSelect),
-                FieldPanel('show_authors'),
-                FieldPanel('additional_author_copy'),
-                ImageChooserPanel('hero_image'),
-                FieldPanel('hero_video'),
-                FieldPanel('displayed_hero_content', widget=forms.RadioSelect),
-                NativeColorPanel('hero_background_color'),
-                FieldPanel('hero_text_color', widget=forms.RadioSelect),
-                FieldPanel('subtitle'),
-                FieldPanel('secondary_subtitle'),
-                FieldPanel('publication_date'),
-                FieldPanel('download_button_style', widget=forms.RadioSelect),
-                DocumentChooserPanel('download_button_icon'),
-                DocumentChooserPanel('publication_file', heading="Download button file"),
+                FieldPanel("hero_layout", widget=forms.RadioSelect),
+                FieldPanel("show_authors"),
+                FieldPanel("additional_author_copy"),
+                ImageChooserPanel("hero_image"),
+                FieldPanel("hero_video"),
+                FieldPanel("displayed_hero_content", widget=forms.RadioSelect),
+                NativeColorPanel("hero_background_color"),
+                FieldPanel("hero_text_color", widget=forms.RadioSelect),
+                FieldPanel("subtitle"),
+                FieldPanel("secondary_subtitle"),
+                FieldPanel("publication_date"),
+                FieldPanel("download_button_style", widget=forms.RadioSelect),
+                DocumentChooserPanel("download_button_icon"),
+                DocumentChooserPanel("publication_file", heading="Download button file"),
             ],
-            heading='Hero',
+            heading="Hero",
         ),
-        FieldPanel('intro_notes'),
-        FieldPanel('contents_title'),
-        FieldPanel('notes'),
+        FieldPanel("intro_notes"),
+        FieldPanel("contents_title"),
+        FieldPanel("notes"),
     ]
 
     translatable_fields = [
         # Promote tab fields
-        SynchronizedField('slug'),
-        TranslatableField('seo_title'),
-        SynchronizedField('show_in_menus'),
-        TranslatableField('search_description'),
-        SynchronizedField('search_image'),
+        SynchronizedField("slug"),
+        TranslatableField("seo_title"),
+        SynchronizedField("show_in_menus"),
+        TranslatableField("search_description"),
+        SynchronizedField("search_image"),
         # Content tab fields
         TranslatableField("title"),
         TranslatableField("subtitle"),
-        TranslatableField('secondary_subtitle'),
-        SynchronizedField('toc_thumbnail_image'),
-        SynchronizedField('hero_image'),
-        SynchronizedField('publication_date'),
-        SynchronizedField('publication_file'),
-        SynchronizedField('authors'),
-        TranslatableField('additional_author_copy'),
-        TranslatableField('intro_notes'),
-        TranslatableField('contents_title'),
-        TranslatableField('notes'),
+        TranslatableField("secondary_subtitle"),
+        SynchronizedField("toc_thumbnail_image"),
+        SynchronizedField("hero_image"),
+        SynchronizedField("publication_date"),
+        SynchronizedField("publication_file"),
+        SynchronizedField("authors"),
+        TranslatableField("additional_author_copy"),
+        TranslatableField("intro_notes"),
+        TranslatableField("contents_title"),
+        TranslatableField("notes"),
     ]
 
     @property
@@ -322,15 +309,9 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         for page in self.get_children():
             if request.user.is_authenticated:
                 # User is logged in, and can preview a page. Get all pages, even drafts.
-                pages.append({
-                    'child': page,
-                    'grandchildren': page.get_children()
-                })
+                pages.append({"child": page, "grandchildren": page.get_children()})
             elif page.live:
                 # User is not logged in AND this page is live. Only fetch live grandchild pages.
-                pages.append({
-                    'child': page,
-                    'grandchildren': page.get_children().live()
-                })
-        context['child_pages'] = pages
-        return set_main_site_nav_information(self, context, 'Homepage')
+                pages.append({"child": page, "grandchildren": page.get_children().live()})
+        context["child_pages"] = pages
+        return set_main_site_nav_information(self, context, "Homepage")

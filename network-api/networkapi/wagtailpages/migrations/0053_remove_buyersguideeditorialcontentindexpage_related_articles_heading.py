@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0052_bg_article_index_related_articles'),
+        ("wagtailpages", "0052_bg_article_index_related_articles"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='buyersguideeditorialcontentindexpage',
-            name='related_articles_heading',
+            model_name="buyersguideeditorialcontentindexpage",
+            name="related_articles_heading",
         ),
     ]

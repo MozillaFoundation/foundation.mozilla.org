@@ -36,13 +36,13 @@ def reseed(seed):
 
 
 def get_faker():
-    return factory.faker.Faker._get_faker(locale='en-US')
+    return factory.faker.Faker._get_faker(locale="en-US")
 
 
 # get a reference to the site's home page
 def get_homepage(will_generate=False):
     try:
-        return Homepage.objects.get(title='Homepage')
+        return Homepage.objects.get(title="Homepage")
     except Homepage.DoesNotExist as ex:
         # In some cases, we will want to catch this exception and generate a homepage,
         # and in others we'll want to bail out on the load_fake_data task with an error.
@@ -79,7 +79,7 @@ def get_random_objects(
         queryset = source.objects.all()
     else:
         queryset = source
-    primary_keys = list(queryset.values_list('pk', flat=True))
+    primary_keys = list(queryset.values_list("pk", flat=True))
     random.shuffle(primary_keys)
 
     count = len(primary_keys)

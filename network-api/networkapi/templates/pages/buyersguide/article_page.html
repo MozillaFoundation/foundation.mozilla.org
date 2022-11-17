@@ -2,8 +2,6 @@
 
 {% load i18n static wagtailcore_tags wagtailimages_tags bg_nav_tags mini_site_tags %}
 
-{% block category_nav %}{% endblock category_nav %}
-
 {% block hero %}
   {% if page.hero_image %}
     {% image page.hero_image original as img %}
@@ -47,18 +45,21 @@
     </div>
   </div>
 
-  {% with related_articles=page.get_primary_related_articles  %}
-    {% if related_articles %}
-      {% trans "PRIMARY RELATED ARTICLES" %}
-      <div class="tw-m-4">
-        {% include "fragments/buyersguide/related_reading.html" with articles=related_articles %}
-      </div>
-    {% endif %}
-  {% endwith %}
-
   {% for block in page.body %}
       {% include_block block with parent_page=page page_type="blog" %}
   {% endfor %}
+
+  {% with related_articles=page.get_primary_related_articles  %}
+    {% if related_articles %}
+    <div class="tw-container tw-my-4">
+      <div class="tw-row">
+        <div id="article-primary-related-articles" class="tw-px-4 tw-w-8/12 tw-mx-auto">
+          {% include "fragments/buyersguide/related_reading.html" with articles=related_articles %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  {% endwith %}
 
   <div class="tw-container tw-mt-6">
     <div class="tw-row tw-justify-center">
@@ -85,7 +86,7 @@
     </div>
   </div>
 
-  <div class="tw-container">
+  <div id="article-newsletter-signup" class="tw-container">
     <div class="tw-row tw-justify-center">
       <div class="col-12 col-lg-8">
         {% include "fragments/buyersguide/pni_newsletter_box.html" %}
@@ -96,11 +97,10 @@
   {% with related_articles=page.get_secondary_related_articles  %}
     {% if related_articles %}
       {% get_bg_home_page as bg_home_page %}
-      <div class="tw-container">
+      <div id="article-secondary-related-articles" class="tw-container">
         {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=related_articles index_page=bg_home_page.get_editorial_content_index use_wide_above="medium" %}
       </div>
     {% endif %}
   {% endwith %}
-
 </div>
 {% endblock guts %}

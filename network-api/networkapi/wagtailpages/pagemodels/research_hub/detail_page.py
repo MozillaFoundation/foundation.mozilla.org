@@ -11,18 +11,20 @@ from wagtail.images import edit_handlers as image_handlers
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
-from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
+from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
+    base_rich_text_options,
+)
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 from networkapi.wagtailpages.pagemodels.research_hub import authors_index
 
 
 class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
     research_detail_page = cluster_fields.ParentalKey(
-        'ResearchDetailPage',
+        "ResearchDetailPage",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
-        related_name='research_links',
+        related_name="research_links",
     )
 
     label = models.CharField(null=False, blank=False, max_length=50)
@@ -38,17 +40,17 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     panels = [
         edit_handlers.HelpPanel(
             content=(
-                'Please provide an external link to the original source or upload a document and select it here. '
+                "Please provide an external link to the original source or upload a document and select it here. "
                 'If you wish to provide both, please create two separate "research links"'
             )
         ),
-        edit_handlers.FieldPanel('label'),
-        edit_handlers.FieldPanel('url'),
-        docs_handlers.DocumentChooserPanel('document'),
+        edit_handlers.FieldPanel("label"),
+        edit_handlers.FieldPanel("url"),
+        docs_handlers.DocumentChooserPanel("document"),
     ]
 
     class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
-        ordering = ['sort_order']
+        ordering = ["sort_order"]
 
     def __str__(self):
         return self.label
@@ -56,16 +58,16 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     def clean(self):
         super().clean()
         if self.url and self.document:
-            error_message = 'Please provide either a URL or a document, not both.'
+            error_message = "Please provide either a URL or a document, not both."
             raise exceptions.ValidationError(
-                {'url': error_message, 'document': error_message},
-                code='invalid',
+                {"url": error_message, "document": error_message},
+                code="invalid",
             )
         elif not self.url and not self.document:
-            error_message = 'Please provide a URL or a document.'
+            error_message = "Please provide a URL or a document."
             raise exceptions.ValidationError(
-                {'url': error_message, 'document': error_message},
-                code='required',
+                {"url": error_message, "document": error_message},
+                code="required",
             )
 
     def get_url(self):
@@ -76,7 +78,7 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
 
 
 class ResearchDetailPage(research_base.ResearchHubBasePage):
-    parent_page_types = ['ResearchLibraryPage']
+    parent_page_types = ["ResearchLibraryPage"]
 
     cover_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),
@@ -84,100 +86,99 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
         blank=False,
         on_delete=models.SET_NULL,
         help_text=(
-            'Select a cover image for this research. '
-            'The cover image is displayed on the detail page and all research listings.'
+            "Select a cover image for this research. "
+            "The cover image is displayed on the detail page and all research listings."
         ),
     )
     original_publication_date = models.DateField(
         null=True,
         blank=True,
-        help_text='When was the research (not this page) originally published?'
+        help_text="When was the research (not this page) originally published?",
     )
     introduction = models.CharField(
         null=False,
         blank=True,
         max_length=300,
         help_text=(
-            'Provide a short blurb about the research '
-            'that will be displayed on listing pages and search results.'
-        )
+            "Provide a short blurb about the research " "that will be displayed on listing pages and search results."
+        ),
     )
     overview = wagtail_fields.RichTextField(
         null=False,
         blank=True,
         features=base_rich_text_options,
         help_text=(
-            'Provide an overview about the reseach. '
-            'This can be an excerpt from or the executive summary of the original paper.'
-        )
+            "Provide an overview about the reseach. "
+            "This can be an excerpt from or the executive summary of the original paper."
+        ),
     )
     collaborators = models.TextField(
         null=False,
         blank=True,
-        help_text='List all contributors that are not the project leading authors.'
+        help_text="List all contributors that are not the project leading authors.",
     )
 
     content_panels = wagtail_models.Page.content_panels + [
-        image_handlers.ImageChooserPanel('cover_image'),
-        edit_handlers.InlinePanel('research_links', heading="Research links", min_num=1),
-        edit_handlers.FieldPanel('original_publication_date'),
-        edit_handlers.FieldPanel('introduction'),
-        edit_handlers.FieldPanel('overview', classname='full'),
-        edit_handlers.InlinePanel('research_authors', heading="Authors", min_num=1),
-        edit_handlers.FieldPanel('collaborators'),
-        edit_handlers.InlinePanel('related_topics', heading="Topics"),
-        edit_handlers.InlinePanel('related_regions', heading="Regions"),
+        image_handlers.ImageChooserPanel("cover_image"),
+        edit_handlers.InlinePanel("research_links", heading="Research links", min_num=1),
+        edit_handlers.FieldPanel("original_publication_date"),
+        edit_handlers.FieldPanel("introduction"),
+        edit_handlers.FieldPanel("overview", classname="full"),
+        edit_handlers.InlinePanel("research_authors", heading="Authors", min_num=1),
+        edit_handlers.FieldPanel("collaborators"),
+        edit_handlers.InlinePanel("related_topics", heading="Topics"),
+        edit_handlers.InlinePanel("related_regions", heading="Regions"),
     ]
 
     translatable_fields = [
-        localize_fields.TranslatableField('title'),
-        localize_fields.SynchronizedField('cover_image'),
-        localize_fields.SynchronizedField('original_publication_date', overridable=False),
-        localize_fields.TranslatableField('research_links'),
-        localize_fields.TranslatableField('introduction'),
-        localize_fields.TranslatableField('overview'),
-        localize_fields.TranslatableField('research_authors'),
+        localize_fields.TranslatableField("title"),
+        localize_fields.SynchronizedField("cover_image"),
+        localize_fields.SynchronizedField("original_publication_date", overridable=False),
+        localize_fields.TranslatableField("research_links"),
+        localize_fields.TranslatableField("introduction"),
+        localize_fields.TranslatableField("overview"),
+        localize_fields.TranslatableField("research_authors"),
         # Collaborators is translatable incase of connecting words like "and"
-        localize_fields.TranslatableField('collaborators'),
-        localize_fields.TranslatableField('related_topics'),
-        localize_fields.TranslatableField('related_regions'),
+        localize_fields.TranslatableField("collaborators"),
+        localize_fields.TranslatableField("related_topics"),
+        localize_fields.TranslatableField("related_regions"),
         # Promote tab fields
-        localize_fields.SynchronizedField('slug'),
-        localize_fields.TranslatableField('seo_title'),
-        localize_fields.SynchronizedField('show_in_menus'),
-        localize_fields.TranslatableField('search_description'),
-        localize_fields.SynchronizedField('search_image'),
+        localize_fields.SynchronizedField("slug"),
+        localize_fields.TranslatableField("seo_title"),
+        localize_fields.SynchronizedField("show_in_menus"),
+        localize_fields.TranslatableField("search_description"),
+        localize_fields.SynchronizedField("search_image"),
     ]
 
     search_fields = wagtail_models.Page.search_fields + [
-        index.SearchField('introduction'),
-        index.SearchField('overview'),
-        index.SearchField('collaborators'),
-        index.FilterField('original_publication_date'),  # For sorting
+        index.SearchField("introduction"),
+        index.SearchField("overview"),
+        index.SearchField("collaborators"),
+        index.FilterField("original_publication_date"),  # For sorting
         index.RelatedFields(
-            'research_authors',
+            "research_authors",
             [
                 index.RelatedFields(
-                    'author_profile',
-                    [index.SearchField('name')],
+                    "author_profile",
+                    [index.SearchField("name")],
                 )
             ],
         ),
         index.RelatedFields(
-            'related_topics',
+            "related_topics",
             [
                 index.RelatedFields(
-                    'research_topic',
-                    [index.SearchField('name')],
+                    "research_topic",
+                    [index.SearchField("name")],
                 )
             ],
         ),
         index.RelatedFields(
-            'related_regions',
+            "related_regions",
             [
                 index.RelatedFields(
-                    'research_region',
-                    [index.SearchField('name')],
+                    "research_region",
+                    [index.SearchField("name")],
                 )
             ],
         ),
@@ -190,16 +191,10 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
         return context
 
     def get_research_author_names(self):
-        return [
-            ra.author_profile.name
-            for ra in self.research_authors.all()
-        ]
+        return [ra.author_profile.name for ra in self.research_authors.all()]
 
     def get_related_topic_names(self):
-        return [
-            rt.research_topic.name
-            for rt in self.related_topics.all()
-        ]
+        return [rt.research_topic.name for rt in self.related_topics.all()]
 
     def get_banner(self):
         return self.get_parent().specific.get_banner()

@@ -7,7 +7,7 @@ faker = Faker()
 
 
 def generate(seed):
-    print('Generating Homepage Cause Statement Link')
+    print("Generating Homepage Cause Statement Link")
 
     home_page = get_homepage()
 

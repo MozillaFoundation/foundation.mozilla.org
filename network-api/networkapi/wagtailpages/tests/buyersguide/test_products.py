@@ -12,14 +12,13 @@ from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     ProductPageCategory,
     BuyersGuideProductCategory,
 )
-from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestMixin
+from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
 
-class TestProductPage(BuyersGuideTestMixin):
-
+class TestProductPage(BuyersGuideTestCase):
     def setUp(self):
         super().setUp()
-        if not hasattr(self.product_page.votes, 'get_votes'):
+        if not hasattr(self.product_page.votes, "get_votes"):
             votes = ProductPageVotes()
             votes.save()
             self.product_page.votes = votes
@@ -94,17 +93,17 @@ class TestProductPage(BuyersGuideTestMixin):
         # votes = product_page.votes.get_votes()
         data = json.loads(product_page.get_voting_json)
         comparable_data = {
-            'creepiness': {
-                'vote_breakdown':  {
-                    '0': 1,
-                    '1': 2,
-                    '2': 3,
-                    '3': 4,
-                    '4': 5,
+            "creepiness": {
+                "vote_breakdown": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 3,
+                    "3": 4,
+                    "4": 5,
                 },
-                'average': 4.0,
+                "average": 4.0,
             },
-            'total': 15,
+            "total": 15,
         }
         self.assertDictEqual(data, comparable_data)
 
@@ -120,7 +119,7 @@ class TestProductPage(BuyersGuideTestMixin):
         votes = product_page.get_or_create_votes()
         self.assertEqual(votes, [0, 0, 0, 0, 0])
 
-        self.assertTrue(hasattr(product_page.votes, 'set_votes'))
+        self.assertTrue(hasattr(product_page.votes, "set_votes"))
 
     def test_get_related_articles(self):
         """
@@ -260,7 +259,7 @@ class TestProductPage(BuyersGuideTestMixin):
         response = self.client.get(product_page.url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(cta, response.context['featured_cta'])
+        self.assertEqual(cta, response.context["featured_cta"])
 
     def test_product_with_single_disabled_category_hides_cta(self):
         """
@@ -286,7 +285,7 @@ class TestProductPage(BuyersGuideTestMixin):
         response = self.client.get(product_page.url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertIsNone(response.context['featured_cta'])
+        self.assertIsNone(response.context["featured_cta"])
 
     def test_product_with_multiple_categories_shows_cta(self):
         """
@@ -302,9 +301,9 @@ class TestProductPage(BuyersGuideTestMixin):
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=True)
         cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", show_cta=False)
         category_orderable_1 = ProductPageCategory(
-                product=product_page,
-                category=cat1,
-            )
+            product=product_page,
+            category=cat1,
+        )
         category_orderable_2 = ProductPageCategory(
             product=product_page,
             category=cat2,
@@ -319,7 +318,7 @@ class TestProductPage(BuyersGuideTestMixin):
         response = self.client.get(product_page.url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(cta, response.context['featured_cta'])
+        self.assertEqual(cta, response.context["featured_cta"])
 
     def test_product_with_multiple_categories_hides_cta(self):
         """
@@ -348,7 +347,7 @@ class TestProductPage(BuyersGuideTestMixin):
         response = self.client.get(product_page.url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertIsNone(response.context['featured_cta'])
+        self.assertIsNone(response.context["featured_cta"])
 
     def test_get_featured_cta_with_single_category_returns_cta(self):
         """
@@ -458,8 +457,7 @@ class TestProductPage(BuyersGuideTestMixin):
 
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
-class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
-
+class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
     def test_successful_vote(self):
         product_page = self.product_page
 
@@ -467,9 +465,13 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
         product_page.get_or_create_votes()
         product_page.votes.set_votes([0, 0, 0, 0, 0])
 
-        response = self.client.post(product_page.url, {
-            'value': 25,
-        }, format='json')
+        response = self.client.post(
+            product_page.url,
+            {
+                "value": 25,
+            },
+            format="json",
+        )
         self.assertEqual(response.status_code, 200)
 
         product_page.refresh_from_db()
@@ -479,9 +481,13 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
         self.assertEqual(product_page.total_vote_count, 1)
         self.assertEqual(product_page.creepiness_value, 25)
 
-        response = self.client.post(product_page.url, {
-            'value': 100,
-        }, format='json')
+        response = self.client.post(
+            product_page.url,
+            {
+                "value": 100,
+            },
+            format="json",
+        )
         self.assertEqual(response.status_code, 200)
 
         product_page.refresh_from_db()
@@ -493,24 +499,33 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
 
     def test_bad_vote_value(self):
         # vote = 500
-        response = self.client.post(self.product_page.url, {
-            'value': -1,
-        }, format='json')
+        response = self.client.post(
+            self.product_page.url,
+            {
+                "value": -1,
+            },
+            format="json",
+        )
         self.assertEqual(response.status_code, 405)
 
-        response = self.client.post(self.product_page.url, {
-            'value': 101,
-        }, format='json')
+        response = self.client.post(
+            self.product_page.url,
+            {
+                "value": 101,
+            },
+            format="json",
+        )
         self.assertEqual(response.status_code, 405)
 
     def test_vote_on_draft_page(self):
         self.product_page.live = False
         self.product_page.save()
 
-        response = self.client.post(self.product_page.url, {
-            'value': 25,
-            'productID': self.product_page.id
-        }, format='json')
+        response = self.client.post(
+            self.product_page.url,
+            {"value": 25, "productID": self.product_page.id},
+            format="json",
+        )
         self.assertEqual(response.status_code, 404)
 
         # Reset the page back to Live
@@ -519,7 +534,6 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
 
 
 class BuyersGuideProductCategoryTest(TestCase):
-
     def setUp(self):
         edit_handler = get_snippet_edit_handler(BuyersGuideProductCategory)
         self.form_class = edit_handler.get_form_class()
@@ -536,42 +550,41 @@ class BuyersGuideProductCategoryTest(TestCase):
         is an extra wrapper around Wagtails helpers that allows to only specify the
         fields that we are interested in testing.
         """
-        return form_data.nested_form_data({
-            **data,
-            'related_article_relations': form_data.inline_formset([])
-        })
+        return form_data.nested_form_data({**data, "related_article_relations": form_data.inline_formset([])})
 
     def test_cannot_have_duplicate_name(self):
         BuyersGuideProductCategory.objects.create(name="Cat 1")
 
         form = self.form_class(
-            data=self.generate_form_data({'name': 'Cat 1', 'sort_order': 1}),
+            data=self.generate_form_data({"name": "Cat 1", "sort_order": 1}),
         )
 
         self.assertFalse(form.is_valid())
         self.assertEqual(1, len(form.errors))
-        self.assertIn('name', form.errors)
+        self.assertIn("name", form.errors)
 
     def test_cannot_have_duplicate_lowercase_name(self):
         BuyersGuideProductCategory.objects.create(name="Cat 1")
 
         form = self.form_class(
-            data=self.generate_form_data({'name': 'cat 1', 'sort_order': 1}),
+            data=self.generate_form_data({"name": "cat 1", "sort_order": 1}),
         )
 
         self.assertFalse(form.is_valid())
         self.assertEqual(1, len(form.errors))
-        self.assertIn('name', form.errors)
+        self.assertIn("name", form.errors)
 
     def test_parent_saves(self):
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
 
         form = self.form_class(
-            data=self.generate_form_data({
-                'name': 'Cat 2',
-                'sort_order': 1,
-                'parent': cat1,
-            }),
+            data=self.generate_form_data(
+                {
+                    "name": "Cat 2",
+                    "sort_order": 1,
+                    "parent": cat1,
+                }
+            ),
         )
 
         self.assertTrue(form.is_valid())
@@ -583,40 +596,26 @@ class BuyersGuideProductCategoryTest(TestCase):
 
         form = self.form_class(
             instance=cat1,
-            data=self.generate_form_data({
-                'name': cat1.name,
-                'sort_order': cat1.sort_order,
-                'parent': cat1
-            }),
+            data=self.generate_form_data({"name": cat1.name, "sort_order": cat1.sort_order, "parent": cat1}),
         )
 
         self.assertFalse(form.is_valid())
         self.assertEqual(1, len(form.errors))
-        self.assertIn('parent', form.errors)
-        self.assertIn(
-            'A category cannot be a parent of itself.',
-            form.errors['parent']
-        )
+        self.assertIn("parent", form.errors)
+        self.assertIn("A category cannot be a parent of itself.", form.errors["parent"])
 
     def test_cannot_be_created_more_than_two_levels_deep(self):
         cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
         cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", parent=cat1)
 
         form = self.form_class(
-            data=self.generate_form_data({
-                'name': 'Cat 3',
-                'sort_order': 1,
-                'parent': cat2
-            }),
+            data=self.generate_form_data({"name": "Cat 3", "sort_order": 1, "parent": cat2}),
         )
 
         self.assertFalse(form.is_valid())
         self.assertEqual(1, len(form.errors))
-        self.assertIn('parent', form.errors)
-        self.assertIn(
-            'Categories can only be two levels deep.',
-            form.errors['parent']
-        )
+        self.assertIn("parent", form.errors)
+        self.assertIn("Categories can only be two levels deep.", form.errors["parent"])
 
     def test_get_related_articles(self):
         """

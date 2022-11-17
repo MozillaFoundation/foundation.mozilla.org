@@ -2,36 +2,39 @@ import json
 from unittest import mock
 
 from django.urls import reverse
-from django.test import RequestFactory, TestCase, override_settings
+from django.test import RequestFactory, TestCase
 
 from .views import tito_ticket_completed
 from .utils import sign_tito_request
+from .factory import TitoEventFactory
 
 
-TITO_SECURITY_TOKEN = "abcdef123456"
-TITO_NEWSLETTER_QUESTION_ID = 123456
-
-
-@override_settings(
-    TITO_SECURITY_TOKEN=TITO_SECURITY_TOKEN,
-    TITO_NEWSLETTER_QUESTION_ID=TITO_NEWSLETTER_QUESTION_ID,
-)
 class TitoTicketCompletedTest(TestCase):
     def setUp(self):
         self.url = reverse("tito-ticket-completed")
+        self.tito_event = TitoEventFactory.create()
+
+    def _webhook_data(self):
+        account_slug, slug = self.tito_event.event_id.split("/")
+        return {"event": {"account_slug": account_slug, "slug": slug}}
 
     def test_incorrect_http_method(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 405)
 
     def test_incorrect_webhook_name(self):
-        response = self.client.post(self.url, data={}, HTTP_X_WEBHOOK_NAME="invalid")
+        response = self.client.post(
+            self.url, data=self._webhook_data(), content_type="application/json", HTTP_X_WEBHOOK_NAME="invalid"
+        )
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.content.decode(), "Not a ticket completed request")
 
     def test_missing_tito_signature(self):
         response = self.client.post(
-            self.url, data={}, HTTP_X_WEBHOOK_NAME="ticket.completed"
+            self.url,
+            data=self._webhook_data(),
+            content_type="application/json",
+            HTTP_X_WEBHOOK_NAME="ticket.completed",
         )
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.content.decode(), "Payload verification failed")
@@ -39,7 +42,8 @@ class TitoTicketCompletedTest(TestCase):
     def test_invalid_tito_signature(self):
         response = self.client.post(
             self.url,
-            data={},
+            data=self._webhook_data(),
+            content_type="application/json",
             HTTP_X_WEBHOOK_NAME="ticket.completed",
             HTTP_TITO_SIGNATURE="invalid",
         )
@@ -48,21 +52,21 @@ class TitoTicketCompletedTest(TestCase):
 
     @mock.patch("networkapi.events.views.basket")
     def test_calls_basket_api(self, mock_basket):
-        secret = bytes(TITO_SECURITY_TOKEN, "utf-8")
+        secret = bytes(self.tito_event.security_token, "utf-8")
         data = {
             "answers": [
                 {
-                    "question": {"id": TITO_NEWSLETTER_QUESTION_ID},
+                    "question": {"id": self.tito_event.newsletter_question_id},
                     "response": ["yes"],
                 },
             ],
             "email": "rich@test.com",
-        }
+        } | self._webhook_data()
 
         factory = RequestFactory()
         request = factory.post(
             self.url,
-            data=json.dumps(data),
+            data=data,
             content_type="application/json",
             HTTP_X_WEBHOOK_NAME="ticket.completed",
         )
@@ -71,24 +75,22 @@ class TitoTicketCompletedTest(TestCase):
         response = tito_ticket_completed(request)
 
         self.assertEqual(response.status_code, 202)
-        mock_basket.subscribe.assert_called_once_with(
-            "rich@test.com", "mozilla-festival"
-        )
+        mock_basket.subscribe.assert_called_once_with("rich@test.com", "mozilla-festival")
 
     def test_logs_basket_exception(self):
         # Using `failure@example.com` as the email causes an exception, see:
         # https://github.com/mozilla/basket-example#tips
 
-        secret = bytes(TITO_SECURITY_TOKEN, "utf-8")
+        secret = bytes(self.tito_event.security_token, "utf-8")
         data = {
             "answers": [
                 {
-                    "question": {"id": TITO_NEWSLETTER_QUESTION_ID},
+                    "question": {"id": self.tito_event.newsletter_question_id},
                     "response": ["yes"],
                 },
             ],
             "email": "failure@example.com",
-        }
+        } | self._webhook_data()
 
         factory = RequestFactory()
         request = factory.post(

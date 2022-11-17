@@ -1,5 +1,5 @@
 from datetime import datetime
-import typing
+from typing import TYPE_CHECKING, Optional
 
 from django.apps import apps
 from django.conf import settings
@@ -11,18 +11,18 @@ from django.utils.translation import gettext, pgettext
 from django.utils.translation import gettext_lazy as _
 from modelcluster import fields as cluster_fields
 from wagtail.admin.edit_handlers import (
-        FieldPanel,
-        HelpPanel,
-        InlinePanel,
-        MultiFieldPanel,
-        PageChooserPanel,
+    FieldPanel,
+    HelpPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import (
-        Locale,
-        Orderable,
-        Page,
-        TranslatableMixin,
+    Locale,
+    Orderable,
+    Page,
+    TranslatableMixin,
 )
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -33,7 +33,7 @@ from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     sort_average,
 )
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
-    FoundationMetadataPageMixin
+    FoundationMetadataPageMixin,
 )
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import (
@@ -43,7 +43,7 @@ from networkapi.wagtailpages.utils import (
 )
 
 
-if typing.TYPE_CHECKING:
+if TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideArticlePage, Update
 
 
@@ -53,120 +53,113 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     When that happens, we should remove the RoutablePageMixin and @routes
     """
 
-    template = 'pages/buyersguide/home.html'
+    template = "pages/buyersguide/home.html"
     subpage_types = [
-        'wagtailpages.GeneralProductPage',
-        'wagtailpages.BuyersGuideEditorialContentIndexPage',
+        "wagtailpages.GeneralProductPage",
+        "wagtailpages.BuyersGuideEditorialContentIndexPage",
     ]
 
-    intro_text = models.TextField(
-        max_length=500,
-        blank=True,
-        help_text='A short blurb to show at the top of the page.',
-    )
-
     hero_featured_article = models.ForeignKey(
-        'wagtailpages.BuyersGuideArticlePage',
+        "wagtailpages.BuyersGuideArticlePage",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
     )
 
     hero_supporting_articles_heading = models.CharField(
         max_length=50,
-        default=_('Related articles'),
+        default=_("Related articles"),
         blank=False,
         null=False,
         help_text=(
-            'Heading for the articles rendered next to the hero featured article. '
+            "Heading for the articles rendered next to the hero featured article. "
             'Common choices are "Related articles", "Popular articles", etc.'
         ),
     )
 
     featured_advice_article = models.ForeignKey(
-        'wagtailpages.BuyersGuideArticlePage',
+        "wagtailpages.BuyersGuideArticlePage",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
     )
 
     cutoff_date = models.DateField(
-        'Product listing cutoff date',
-        help_text='Only show products that were reviewed on, or after this date.',
+        "Product listing cutoff date",
+        help_text="Only show products that were reviewed on, or after this date.",
         default=datetime(2020, 10, 29),
     )
 
     call_to_action = models.ForeignKey(
-          'wagtailpages.BuyersGuideCallToAction',
-          null=True,
-          blank=True,
-          on_delete=models.SET_NULL,
-          related_name='+'
-      )
-
-    # TODO: Remove this field
-    hero_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailpages.BuyersGuideCallToAction",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='pni_hero_image'
+        related_name="+",
+    )
+
+    # TODO: Remove this field
+    hero_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="pni_hero_image",
     )
 
     # TODO: Remove this field
     header = models.CharField(
         max_length=120,
         blank=True,
-        help_text='The header text for the PNI homepage',
+        help_text="The header text for the PNI homepage",
     )
 
     # TODO: Remove this field
     dark_theme = models.BooleanField(
         default=False,
-        help_text='Does the intro need to be white text (for dark backgrounds)?'
+        help_text="Does the intro need to be white text (for dark backgrounds)?",
     )
 
     content_panels = [
-        FieldPanel('title'),
-        FieldPanel('intro_text'),
+        FieldPanel("title"),
         MultiFieldPanel(
             children=[
                 HelpPanel(content="<h2>Main article</h2>"),
                 PageChooserPanel(
-                    'hero_featured_article',
-                    page_type='wagtailpages.BuyersGuideArticlePage',
+                    "hero_featured_article",
+                    page_type="wagtailpages.BuyersGuideArticlePage",
                 ),
                 HelpPanel(content="<h2>Supporting articles</h2>"),
-                FieldPanel('hero_supporting_articles_heading', heading='Heading'),
+                FieldPanel("hero_supporting_articles_heading", heading="Heading"),
                 InlinePanel(
-                    'hero_supporting_article_relations',
-                    heading='Supporting articles',
-                    label='Article',
+                    "hero_supporting_article_relations",
+                    heading="Supporting articles",
+                    label="Article",
                 ),
             ],
-            heading='Hero',
+            heading="Hero",
         ),
         PageChooserPanel(
-            'featured_advice_article',
-            page_type='wagtailpages.BuyersGuideArticlePage',
+            "featured_advice_article",
+            page_type="wagtailpages.BuyersGuideArticlePage",
         ),
         InlinePanel(
-            'featured_article_relations',
-            heading='Popular articles',
-            label='Article',
+            "featured_article_relations",
+            heading="Popular articles",
+            label="Article",
             max_num=3,
         ),
         InlinePanel(
-            'featured_update_relations',
-            heading='In the press',
-            label='Press update',
+            "featured_update_relations",
+            heading="In the press",
+            label="Press update",
             max_num=3,
         ),
         MultiFieldPanel(
             children=[
-                FieldPanel('cutoff_date'),
+                FieldPanel("cutoff_date"),
                 HelpPanel(content="<h2>Excluded categories</h2>"),
                 InlinePanel(
                     "excluded_categories",
@@ -177,89 +170,122 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             ],
             heading="Product listing",
         ),
-        SnippetChooserPanel('call_to_action'),
+        SnippetChooserPanel("call_to_action"),
     ]
 
     translatable_fields = [
-        TranslatableField('title'),
-        TranslatableField('intro_text'),
-        TranslatableField('hero_featured_article'),
-        TranslatableField('hero_supporting_article_relations'),
-        TranslatableField('hero_supporting_articles_heading'),
-        SynchronizedField('cutoff_date'),
-        SynchronizedField('excluded_categories'),
-        TranslatableField('call_to_action'),
+        TranslatableField("title"),
+        # Hero featured article should be translatable, but that is causing issues.
+        # Using sync field as workaround.
+        # See also: https://github.com/wagtail/wagtail-localize/issues/430
+        SynchronizedField("hero_featured_article"),
+        # Hero supporting article relations should also be translatable, but that is
+        # also causing issues. Using sync filed as a workaround.
+        # See also: https://github.com/wagtail/wagtail-localize/issues/640
+        SynchronizedField("hero_supporting_article_relations"),
+        TranslatableField("hero_supporting_articles_heading"),
+        # Featured articles should be translatable too. See above explanation for
+        # hero supporting articles.
+        SynchronizedField("featured_article_relations"),
+        # Featured advice article should be translatable. But this faces the same issue
+        # as the hero featured article.
+        SynchronizedField("featured_advice_article"),
+        SynchronizedField("cutoff_date"),
+        SynchronizedField("excluded_categories"),
+        TranslatableField("call_to_action"),
         # Promote tab fields
-        TranslatableField('seo_title'),
-        TranslatableField('search_description'),
-        SynchronizedField('search_image'),
+        TranslatableField("seo_title"),
+        TranslatableField("search_description"),
+        SynchronizedField("search_image"),
     ]
 
-    @route(r'^about/$', name='how-to-use-view')
+    @route(r"^about/$", name="how-to-use-view")
     def about_page(self, request):
         context = self.get_context(request)
-        context['pagetype'] = 'about'
-        context['pageTitle'] = pgettext(
-            '*privacy not included can be localized.',
-            'How to use *privacy not included')
+        context["pagetype"] = "about"
+        context["pageTitle"] = pgettext(
+            "*privacy not included can be localized.",
+            "How to use *privacy not included",
+        )
         return render(request, "pages/buyersguide/about/how_to_use.html", context)
 
-    @route(r'^about/why/$', name='about-why-view')
+    @route(r"^about/why/$", name="about-why-view")
     def about_why_page(self, request):
         context = self.get_context(request)
-        context['pagetype'] = 'about'
-        context['pageTitle'] = pgettext(
-            '*privacy not included can be localized.',
-            'Why we made *privacy not included')
+        context["pagetype"] = "about"
+        context["pageTitle"] = pgettext(
+            "*privacy not included can be localized.",
+            "Why we made *privacy not included",
+        )
         return render(request, "pages/buyersguide/about/why_we_made.html", context)
 
-    @route(r'^about/press/$', name='press-view')
+    @route(r"^about/press/$", name="press-view")
     def about_press_page(self, request):
         context = self.get_context(request)
-        context['pagetype'] = 'about'
-        context['pageTitle'] = pgettext('Noun, media', 'Press') + ' | ' + pgettext(
-            'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included')
+        context["pagetype"] = "about"
+        context["pageTitle"] = (
+            pgettext("Noun, media", "Press")
+            + " | "
+            + pgettext(
+                "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
+                "*privacy not included",
+            )
+        )
         return render(request, "pages/buyersguide/about/press.html", context)
 
-    @route(r'^about/contact/$', name='contact-view')
+    @route(r"^about/contact/$", name="contact-view")
     def about_contact_page(self, request):
         context = self.get_context(request)
-        context['pagetype'] = 'about'
-        context['pageTitle'] = gettext('Contact us') + ' | ' + pgettext(
-            'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included')
+        context["pagetype"] = "about"
+        context["pageTitle"] = (
+            gettext("Contact us")
+            + " | "
+            + pgettext(
+                "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
+                "*privacy not included",
+            )
+        )
         return render(request, "pages/buyersguide/about/contact.html", context)
 
-    @route(r'^about/methodology/$', name='methodology-view')
+    @route(r"^about/methodology/$", name="methodology-view")
     def about_methodology_page(self, request):
         context = self.get_context(request)
-        context['pagetype'] = 'about'
-        context['pageTitle'] = gettext('Our methodology') + ' | ' + pgettext(
-            'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included')
+        context["pagetype"] = "about"
+        context["pageTitle"] = (
+            gettext("Our methodology")
+            + " | "
+            + pgettext(
+                "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
+                "*privacy not included",
+            )
+        )
         return render(request, "pages/buyersguide/about/methodology.html", context)
 
-    @route(r'^contest/$', name='contest')
+    @route(r"^contest/$", name="contest")
     def about_contest(self, request):
         context = self.get_context(request)
-        context['pagetype'] = 'contest'
-        context['pageTitle'] = gettext('Contest terms and conditions') + ' | ' + pgettext(
-            'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included')
+        context["pagetype"] = "contest"
+        context["pageTitle"] = (
+            gettext("Contest terms and conditions")
+            + " | "
+            + pgettext(
+                "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
+                "*privacy not included",
+            )
+        )
         return render(request, "pages/buyersguide/contest.html", context)
 
-    @route(r'^products/(?P<slug>[-\w\d]+)/$', name='product-view')
+    @route(r"^products/(?P<slug>[-\w\d]+)/$", name="product-view")
     def product_view(self, request, slug):
         # Find product by it's slug and redirect to the product page
         # If no product is found, redirect to the BuyersGuide page
         locale = get_locale_from_request(request)
-        ProductPage = apps.get_model(app_label='wagtailpages', model_name='ProductPage')
+        ProductPage = apps.get_model(app_label="wagtailpages", model_name="ProductPage")
         product = get_object_or_404(ProductPage, slug=slug, locale=locale)
         url = relocalize_url(product.url, locale.language_code)
         return redirect(url)
 
-    @route(r'^categories/(?P<slug>[\w\W]+)/', name='category-view')
+    @route(r"^categories/(?P<slug>[\w\W]+)/", name="category-view")
     def categories_page(self, request, slug):
         context = self.get_context(request, bypass_products=True)
         language_code = get_language_from_request(request)
@@ -272,8 +298,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         # will always be our english slug, we need to find the english
         # category first, and then find its corresponding localized version
         BuyersGuideProductCategory = apps.get_model(
-            app_label='wagtailpages',
-            model_name='BuyersGuideProductCategory',
+            app_label="wagtailpages",
+            model_name="BuyersGuideProductCategory",
         )
         try:
             original_category = BuyersGuideProductCategory.objects.get(slug=slug, locale_id=DEFAULT_LOCALE_ID)
@@ -292,33 +318,34 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             category = original_category
 
         authenticated = request.user.is_authenticated
-        key = f'cat_product_dicts_{slug}_auth' if authenticated else f'cat_product_dicts_{slug}_live'
-        key = f'{language_code}_{key}'
+        key = f"cat_product_dicts_{slug}_auth" if authenticated else f"cat_product_dicts_{slug}_live"
+        key = f"{language_code}_{key}"
         products = cache.get(key)
         exclude_cat_ids = [excats.category.id for excats in self.excluded_categories.all()]
 
-        ProductPage = apps.get_model(app_label='wagtailpages', model_name='ProductPage')
+        ProductPage = apps.get_model(app_label="wagtailpages", model_name="ProductPage")
         if products is None:
             products = get_product_subset(
                 self.cutoff_date,
                 authenticated,
                 key,
                 ProductPage.objects.exclude(product_categories__category__id__in=exclude_cat_ids),
-                language_code=language_code
+                language_code=language_code,
             )
 
-        context['category'] = slug
-        context['current_category'] = category
-        context['products'] = products
-        context['pageTitle'] = f'{category.localized.name} | {gettext("Privacy & security guide")}'\
-                               f' | Mozilla Foundation'
-        context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'
+        context["category"] = slug
+        context["current_category"] = category
+        context["products"] = products
+        context["pageTitle"] = (
+            f'{category.localized.name} | {gettext("Privacy & security guide")}' f" | Mozilla Foundation"
+        )
+        context["template_cache_key_fragment"] = f"{category.slug}_{request.LANGUAGE_CODE}"
 
         # Checking if category has custom metadata, if so, update the share image and description.
         if category.share_image:
-            setattr(self, 'search_image_id', category.localized.share_image_id)
+            setattr(self, "search_image_id", category.localized.share_image_id)
         if category.description:
-            setattr(self, 'search_description', category.localized.description)
+            setattr(self, "search_description", category.localized.description)
 
         return render(request, "pages/buyersguide/category_page.html", context)
 
@@ -329,7 +356,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         sitemap = super().get_sitemap_urls(request)
         last_modified = self.last_published_at or self.latest_revision_created_at
         # Add all the available Buyers Guide categories to the sitemap
-        BuyersGuideProductCategory = apps.get_model(app_label='wagtailpages', model_name='BuyersGuideProductCategory')
+        BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
         categories = BuyersGuideProductCategory.objects.filter(hidden=False)
         for category in categories:
             sitemap.append(
@@ -342,8 +369,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         # Add all the available "subpages" (routes) to the sitemap, excluding categories and products.
         # Categories are added above. Products will be their own Wagtail pages and get their own URLs because of that.
         about_page_views = [
-            'how-to-use-view', 'about-why-view', 'press-view',
-            'contact-view', 'methodology-view'
+            "how-to-use-view",
+            "about-why-view",
+            "press-view",
+            "contact-view",
+            "methodology-view",
         ]
         for about_page in about_page_views:
             sitemap.append(
@@ -359,53 +389,81 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         language_code = get_language_from_request(request)
 
         authenticated = request.user.is_authenticated
-        key = 'home_product_dicts_authed' if authenticated else 'home_product_dicts_live'
-        key = f'{key}_{language_code}'
+        key = "home_product_dicts_authed" if authenticated else "home_product_dicts_live"
+        key = f"{key}_{language_code}"
         products = cache.get(key)
         exclude_cat_ids = [excats.category.id for excats in self.excluded_categories.all()]
 
-        ProductPage = apps.get_model(app_label='wagtailpages', model_name='ProductPage')
-        if not kwargs.get('bypass_products', False) and products is None:
+        ProductPage = apps.get_model(app_label="wagtailpages", model_name="ProductPage")
+        if not kwargs.get("bypass_products", False) and products is None:
             products = get_product_subset(
                 self.cutoff_date,
                 authenticated,
                 key,
                 ProductPage.objects.exclude(product_categories__category__id__in=exclude_cat_ids),
-                language_code=language_code
+                language_code=language_code,
             )
 
-        context['categories'] = get_categories_for_locale(language_code)
-        context['current_category'] = None
-        context['featured_cta'] = self.call_to_action
-        context['products'] = products
-        context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
-        context['template_cache_key_fragment'] = f'pni_home_{request.LANGUAGE_CODE}'
+        context["categories"] = get_categories_for_locale(language_code)
+        context["current_category"] = None
+        context["featured_cta"] = self.call_to_action
+        context["products"] = products
+        context["web_monetization_pointer"] = settings.WEB_MONETIZATION_POINTER
+        context["template_cache_key_fragment"] = f"pni_home_{request.LANGUAGE_CODE}"
         return context
 
     def get_editorial_content_index(self):
         BuyersGuideEditorialContentIndexPage = apps.get_model(
-            app_label='wagtailpages',
-            model_name='BuyersGuideEditorialContentIndexPage',
+            app_label="wagtailpages",
+            model_name="BuyersGuideEditorialContentIndexPage",
         )
         indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
         return indexes.first()
 
-    def get_hero_supporting_articles(self) -> list['BuyersGuideArticlePage']:
-        return orderables.get_related_items(
+    def get_hero_featured_article(self) -> Optional["BuyersGuideArticlePage"]:
+        try:
+            return self.hero_featured_article.localized
+        except AttributeError:
+            # If no hero featured article is set (because `None` has no `localized`
+            # attribute)
+            return None
+
+    def get_hero_supporting_articles(self) -> list["BuyersGuideArticlePage"]:
+        articles = orderables.get_related_items(
             self.hero_supporting_article_relations.all(),
-            'article',
+            "article",
         )
+        # FIXME: This implementation does return the localized version of each article.
+        #        But, it is inefficient. It would be better to pull all articles
+        #        for the correct locale at once. This would require the above returns
+        #        a queryset of the articles (rather than a list) and that we have an
+        #        efficient way of pulling all items for a given locale.
+        return [a.localized for a in articles]
 
-    def get_featured_articles(self) -> list['BuyersGuideArticlePage']:
-        return orderables.get_related_items(
+    def get_featured_articles(self) -> list["BuyersGuideArticlePage"]:
+        articles = orderables.get_related_items(
             self.featured_article_relations.all(),
-            'article',
+            "article",
         )
+        # FIXME: This implementation does return the localized version of each article.
+        #        But, it is inefficient. It would be better to pull all articles
+        #        for the correct locale at once. This would require the above returns
+        #        a queryset of the articles (rather than a list) and that we have an
+        #        efficient way of pulling all items for a given locale.
+        return [a.localized for a in articles]
 
-    def get_featured_updates(self) -> list['Update']:
+    def get_featured_advice_article(self) -> Optional["BuyersGuideArticlePage"]:
+        try:
+            return self.featured_advice_article.localized
+        except AttributeError:
+            # If no featured advice article is set (because `None` has no `localized`
+            # attribute)
+            return None
+
+    def get_featured_updates(self) -> list["Update"]:
         return orderables.get_related_items(
             self.featured_update_relations.all(),
-            'update',
+            "update",
         )
 
     class Meta:
@@ -414,20 +472,20 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
 class BuyersGuidePageHeroSupportingArticleRelation(TranslatableMixin, Orderable):
     page = cluster_fields.ParentalKey(
-        'wagtailpages.BuyersGuidePage',
-        related_name='hero_supporting_article_relations',
+        "wagtailpages.BuyersGuidePage",
+        related_name="hero_supporting_article_relations",
     )
     article = models.ForeignKey(
-        'wagtailpages.BuyersGuideArticlePage',
+        "wagtailpages.BuyersGuideArticlePage",
         on_delete=models.CASCADE,
         null=False,
         blank=False,
     )
 
-    panels = [PageChooserPanel('article', page_type='wagtailpages.BuyersGuideArticlePage')]
+    panels = [PageChooserPanel("article", page_type="wagtailpages.BuyersGuideArticlePage")]
 
     def __str__(self):
-        return f'{self.page.title} -> {self.article.title}'
+        return f"{self.page.title} -> {self.article.title}"
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
@@ -435,20 +493,20 @@ class BuyersGuidePageHeroSupportingArticleRelation(TranslatableMixin, Orderable)
 
 class BuyersGuidePageFeaturedArticleRelation(TranslatableMixin, Orderable):
     page = cluster_fields.ParentalKey(
-        'wagtailpages.BuyersGuidePage',
-        related_name='featured_article_relations',
+        "wagtailpages.BuyersGuidePage",
+        related_name="featured_article_relations",
     )
     article = models.ForeignKey(
-        'wagtailpages.BuyersGuideArticlePage',
+        "wagtailpages.BuyersGuideArticlePage",
         on_delete=models.CASCADE,
         null=False,
         blank=False,
     )
 
-    panels = [PageChooserPanel('article', page_type='wagtailpages.BuyersGuideArticlePage')]
+    panels = [PageChooserPanel("article", page_type="wagtailpages.BuyersGuideArticlePage")]
 
     def __str__(self):
-        return f'{self.page.title} -> {self.article.title}'
+        return f"{self.page.title} -> {self.article.title}"
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
@@ -456,20 +514,20 @@ class BuyersGuidePageFeaturedArticleRelation(TranslatableMixin, Orderable):
 
 class BuyersGuidePageFeaturedUpdateRelation(TranslatableMixin, Orderable):
     page = cluster_fields.ParentalKey(
-        'wagtailpages.BuyersGuidePage',
-        related_name='featured_update_relations',
+        "wagtailpages.BuyersGuidePage",
+        related_name="featured_update_relations",
     )
     update = models.ForeignKey(
-        'wagtailpages.Update',
+        "wagtailpages.Update",
         on_delete=models.CASCADE,
         null=False,
         blank=False,
     )
 
-    panels = [SnippetChooserPanel('update')]
+    panels = [SnippetChooserPanel("update")]
 
     def __str__(self):
-        return f'{self.page.title} -> {self.update.title}'
+        return f"{self.page.title} -> {self.update.title}"
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
@@ -482,7 +540,7 @@ def get_pni_home_page():
     return BuyersGuidePage.objects.first().id
 
 
-def get_product_subset(cutoff_date, authenticated, key, products, language_code='en'):
+def get_product_subset(cutoff_date, authenticated, key, products, language_code="en"):
     """
     filter a queryset based on our current cutoff date,
     as well as based on whether a user is authenticated

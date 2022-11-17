@@ -8,14 +8,24 @@ from django.core.exceptions import ValidationError
 from django.core.validators import int_list_validator
 from django.db import Error, models
 from django.db.models import F
-from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError, HttpResponseNotFound
+from django.http import (
+    HttpResponse,
+    HttpResponseNotAllowed,
+    HttpResponseServerError,
+    HttpResponseNotFound,
+)
 from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.admin.edit_handlers import (
+    InlinePanel,
+    FieldPanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+)
 from wagtail.core.models import Orderable, Page, TranslatableMixin
 from wagtail.core.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -30,11 +40,13 @@ from networkapi.wagtailpages.forms import BuyersGuideProductCategoryForm
 from networkapi.wagtailpages.fields import ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
-    get_buyersguide_featured_cta
+    get_buyersguide_featured_cta,
 )
-from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
+from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
+    base_rich_text_options,
+)
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
-    FoundationMetadataPageMixin
+    FoundationMetadataPageMixin,
 )
 from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
 from networkapi.wagtailpages.utils import (
@@ -49,10 +61,10 @@ if typing.TYPE_CHECKING:
 
 
 TRACK_RECORD_CHOICES = [
-    ('Great', 'Great'),
-    ('Average', 'Average'),
-    ('Needs Improvement', 'Needs Improvement'),
-    ('Bad', 'Bad')
+    ("Great", "Great"),
+    ("Average", "Average"),
+    ("Needs Improvement", "Needs Improvement"),
+    ("Bad", "Bad"),
 ]
 
 
@@ -69,85 +81,86 @@ class BuyersGuideProductCategory(
     registered as snippet so that we can moderate them if and
     when necessary.
     """
+
     name = models.CharField(max_length=100)
 
     description = models.TextField(
         max_length=300,
-        help_text='Description of the product category. Max. 300 characters.',
-        blank=True
+        help_text="Description of the product category. Max. 300 characters.",
+        blank=True,
     )
 
     parent = models.ForeignKey(
-        'wagtailpages.BuyersGuideProductCategory',
-        related_name='+',
+        "wagtailpages.BuyersGuideProductCategory",
+        related_name="+",
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        help_text='Leave this blank for a top-level category, or pick another category to nest this under'
+        help_text="Leave this blank for a top-level category, or pick another category to nest this under",
     )
 
     featured = models.BooleanField(
         default=False,
-        help_text='Featured category will appear first on Buyer\'s Guide site nav'
+        help_text="Featured category will appear first on Buyer's Guide site nav",
     )
 
     hidden = models.BooleanField(
         default=False,
-        help_text='Hidden categories will not appear in the Buyer\'s Guide site nav at all'
+        help_text="Hidden categories will not appear in the Buyer's Guide site nav at all",
     )
 
     slug = models.SlugField(
         blank=True,
-        help_text='A URL-friendly version of the category name. This is an auto-generated field.',
-        max_length=100
+        help_text="A URL-friendly version of the category name. This is an auto-generated field.",
+        max_length=100,
     )
 
     sort_order = models.IntegerField(
         default=1,
-        help_text='Sort ordering number. Same-numbered items sort alphabetically'
+        help_text="Sort ordering number. Same-numbered items sort alphabetically",
     )
 
     share_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        verbose_name='Share Image',
-        help_text='Optional image that will apear when category page is shared.',
+        verbose_name="Share Image",
+        help_text="Optional image that will apear when category page is shared.",
     )
 
     show_cta = models.BooleanField(
         default=False,
-        help_text="Do we want the Buyers Guide featured CTA to be displayed on this category's page?"
+        help_text="Do we want the Buyers Guide featured CTA to be displayed on this category's page?",
     )
 
     panels = [
         FieldPanel(
-            'name',
-            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 50})
+            "name",
+            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 50}),
         ),
-        FieldPanel('description'),
-        SnippetChooserPanel('parent'),
-        FieldPanel('featured'),
-        FieldPanel('hidden'),
-        FieldPanel('sort_order'),
-        ImageChooserPanel('share_image'),
-        FieldPanel('show_cta'),
+        FieldPanel("description"),
+        SnippetChooserPanel("parent"),
+        FieldPanel("featured"),
+        FieldPanel("hidden"),
+        FieldPanel("sort_order"),
+        ImageChooserPanel("share_image"),
+        FieldPanel("show_cta"),
         InlinePanel(
-            'related_article_relations',
-            heading='Related articles',
-            label='Article',
+            "related_article_relations",
+            heading="Related articles",
+            label="Article",
             max_num=6,
         ),
     ]
 
     translatable_fields = [
-        TranslatableField('name'),
-        TranslatableField('description'),
-        TranslatableField('related_article_relations'),
-        SynchronizedField('slug'),
-        SynchronizedField('share_image'),
-        SynchronizedField('parent'),
+        TranslatableField("name"),
+        TranslatableField("description"),
+        TranslatableField("related_article_relations"),
+        SynchronizedField("slug"),
+        SynchronizedField("share_image"),
+        SynchronizedField("parent"),
     ]
 
     @property
@@ -160,22 +173,22 @@ class BuyersGuideProductCategory(
     def get_children(self):
         return BuyersGuideProductCategory.objects.filter(parent=self)
 
-    def get_related_articles(self) -> list['BuyersGuideArticlePage']:
+    def get_related_articles(self) -> list["BuyersGuideArticlePage"]:
         return orderables.get_related_items(
             self.related_article_relations.all(),
-            'article',
+            "article",
         )
 
-    def get_primary_related_articles(self) -> list['BuyersGuideArticlePage']:
+    def get_primary_related_articles(self) -> list["BuyersGuideArticlePage"]:
         return self.get_related_articles()[:3]
 
-    def get_secondary_related_articles(self) -> list['BuyersGuideArticlePage']:
+    def get_secondary_related_articles(self) -> list["BuyersGuideArticlePage"]:
         return self.get_related_articles()[3:]
 
     def __str__(self):
         if self.parent is None:
-            return f'{self.name} (sort order: {self.sort_order})'
-        return f'{self.parent.name}: {self.name} (sort order: {self.sort_order})'
+            return f"{self.name} (sort order: {self.sort_order})"
+        return f"{self.parent.name}: {self.name} (sort order: {self.sort_order})"
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -184,37 +197,37 @@ class BuyersGuideProductCategory(
     base_form_class = BuyersGuideProductCategoryForm
 
     search_fields = [
-        index.SearchField('name', partial_match=True),
-        index.FilterField('locale_id'),
+        index.SearchField("name", partial_match=True),
+        index.FilterField("locale_id"),
     ]
 
     class Meta(TranslatableMixin.Meta):
         verbose_name = "Buyers Guide Product Category"
         verbose_name_plural = "Buyers Guide Product Categories"
         ordering = [
-            F('parent__sort_order').asc(nulls_first=True),
-            F('parent__name').asc(nulls_first=True),
-            'sort_order',
-            'name'
+            F("parent__sort_order").asc(nulls_first=True),
+            F("parent__name").asc(nulls_first=True),
+            "sort_order",
+            "name",
         ]
 
 
 class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable):
     category = ParentalKey(
-        'wagtailpages.BuyersGuideProductCategory',
-        related_name='related_article_relations',
+        "wagtailpages.BuyersGuideProductCategory",
+        related_name="related_article_relations",
     )
     article = models.ForeignKey(
-        'wagtailpages.BuyersGuideArticlePage',
+        "wagtailpages.BuyersGuideArticlePage",
         on_delete=models.CASCADE,
         null=False,
         blank=False,
     )
 
-    panels = [PageChooserPanel('article')]
+    panels = [PageChooserPanel("article")]
 
     def __str__(self):
-        return f'{self.category.name} -> {self.article.title}'
+        return f"{self.category.name} -> {self.article.title}"
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
@@ -224,6 +237,7 @@ class ProductPageVotes(models.Model):
     """
     PNI product voting bins. This does not need translating.
     """
+
     vote_bins = models.CharField(default="0,0,0,0,0", max_length=50, validators=[int_list_validator])
 
     def set_votes(self, bin_list):
@@ -232,7 +246,7 @@ class ProductPageVotes(models.Model):
         When setting votes, ensure there are only 5 bins (max)
         """
         bin_list = [str(x) for x in bin_list]
-        self.vote_bins = ','.join(bin_list[0:5])
+        self.vote_bins = ",".join(bin_list[0:5])
         self.save()
 
     def get_votes(self):
@@ -265,21 +279,21 @@ class ProductPageVotes(models.Model):
 
 class ProductPageCategory(TranslatableMixin, Orderable):
     product = ParentalKey(
-        'wagtailpages.ProductPage',
-        related_name='product_categories',
-        on_delete=models.CASCADE
+        "wagtailpages.ProductPage",
+        related_name="product_categories",
+        on_delete=models.CASCADE,
     )
 
     category = models.ForeignKey(
-        'wagtailpages.BuyersGuideProductCategory',
-        related_name='+',
+        "wagtailpages.BuyersGuideProductCategory",
+        related_name="+",
         blank=False,
         null=True,
         on_delete=models.CASCADE,
     )
 
     panels = [
-        SnippetChooserPanel('category'),
+        SnippetChooserPanel("category"),
     ]
 
     def __str__(self):
@@ -291,66 +305,57 @@ class ProductPageCategory(TranslatableMixin, Orderable):
 
 class RelatedProducts(TranslatableMixin, Orderable):
     page = ParentalKey(
-        'wagtailpages.ProductPage',
-        related_name='related_product_pages',
+        "wagtailpages.ProductPage",
+        related_name="related_product_pages",
         on_delete=models.CASCADE,
     )
 
     related_product = models.ForeignKey(
-        'wagtailpages.ProductPage',
+        "wagtailpages.ProductPage",
         on_delete=models.SET_NULL,
         null=True,
-        related_name='+',
+        related_name="+",
     )
 
-    panels = [
-        PageChooserPanel('related_product')
-    ]
+    panels = [PageChooserPanel("related_product")]
 
     class Meta(TranslatableMixin.Meta):
-        verbose_name = 'Related Product'
+        verbose_name = "Related Product"
 
 
 class ProductPagePrivacyPolicyLink(TranslatableMixin, Orderable):
     page = ParentalKey(
-        'wagtailpages.ProductPage',
-        related_name='privacy_policy_links',
-        on_delete=models.CASCADE
+        "wagtailpages.ProductPage",
+        related_name="privacy_policy_links",
+        on_delete=models.CASCADE,
     )
 
-    label = models.CharField(
-        max_length=500,
-        help_text='Label for this link on the product page'
-    )
+    label = models.CharField(max_length=500, help_text="Label for this link on the product page")
 
-    url = models.URLField(
-        max_length=2048,
-        help_text='Privacy policy URL',
-        blank=True
-    )
+    url = models.URLField(max_length=2048, help_text="Privacy policy URL", blank=True)
 
     panels = [
-        FieldPanel('label'),
-        FieldPanel('url'),
+        FieldPanel("label"),
+        FieldPanel("url"),
     ]
 
     translatable_fields = [
-        TranslatableField('label'),
-        SynchronizedField('url'),
+        TranslatableField("label"),
+        SynchronizedField("url"),
     ]
 
     def __str__(self):
-        return f'{self.page.title}: {self.label} ({self.url})'
+        return f"{self.page.title}: {self.label} ({self.url})"
 
     class Meta(TranslatableMixin.Meta):
-        verbose_name = 'Privacy Link'
+        verbose_name = "Privacy Link"
 
 
 @register_snippet
 class Update(TranslatableMixin, index.Indexed, models.Model):
     source = models.URLField(
         max_length=2048,
-        help_text='Link to source',
+        help_text="Link to source",
     )
 
     title = models.CharField(
@@ -362,10 +367,7 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
         blank=True,
     )
 
-    featured = models.BooleanField(
-        default=False,
-        help_text='feature this update at the top of the list?'
-    )
+    featured = models.BooleanField(default=False, help_text="feature this update at the top of the list?")
 
     snippet = models.TextField(
         max_length=5000,
@@ -374,27 +376,27 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
 
     created_date = models.DateField(
         auto_now_add=True,
-        help_text='The date this product was created',
+        help_text="The date this product was created",
     )
 
     panels = [
-        FieldPanel('source'),
-        FieldPanel('title'),
-        FieldPanel('author'),
-        FieldPanel('featured'),
-        FieldPanel('snippet'),
+        FieldPanel("source"),
+        FieldPanel("title"),
+        FieldPanel("author"),
+        FieldPanel("featured"),
+        FieldPanel("snippet"),
     ]
 
     search_fields = [
-        index.SearchField('title', partial_match=True),
-        index.FilterField('locale_id'),
+        index.SearchField("title", partial_match=True),
+        index.FilterField("locale_id"),
     ]
 
     translatable_fields = [
-        SynchronizedField('source'),
-        SynchronizedField('title'),
-        SynchronizedField('author'),
-        SynchronizedField('snippet'),
+        SynchronizedField("source"),
+        SynchronizedField("title"),
+        SynchronizedField("author"),
+        SynchronizedField("snippet"),
     ]
 
     def __str__(self):
@@ -407,30 +409,25 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
 
 class ProductUpdates(TranslatableMixin, Orderable):
     page = ParentalKey(
-        'wagtailpages.ProductPage',
-        related_name='updates',
+        "wagtailpages.ProductPage",
+        related_name="updates",
         on_delete=models.CASCADE,
     )
 
     # This is the new update FK to wagtailpages.Update
-    update = models.ForeignKey(
-        Update,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        null=True
-    )
+    update = models.ForeignKey(Update, on_delete=models.SET_NULL, related_name="+", null=True)
 
     translatable_fields = [
         TranslatableField("update"),
     ]
 
     panels = [
-        SnippetChooserPanel('update'),
+        SnippetChooserPanel("update"),
     ]
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
-        verbose_name = 'Product Update'
-        ordering = ['sort_order']
+        verbose_name = "Product Update"
+        ordering = ["sort_order"]
 
 
 class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
@@ -443,69 +440,59 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
     """
 
-    template = 'pages/buyersguide/product_page.html'
+    template = "pages/buyersguide/product_page.html"
 
     privacy_ding = models.BooleanField(
-        verbose_name='*privacy not included ding',
+        verbose_name="*privacy not included ding",
         default=False,
     )
     adult_content = models.BooleanField(
-        verbose_name='adult Content',
+        verbose_name="adult Content",
         default=False,
     )
     uses_wifi = models.BooleanField(
-        verbose_name='uses WiFi',
+        verbose_name="uses WiFi",
         default=False,
     )
     uses_bluetooth = models.BooleanField(
-        verbose_name='uses Bluetooth',
+        verbose_name="uses Bluetooth",
         default=False,
     )
     review_date = models.DateField(
-        verbose_name='review Date',
+        verbose_name="review Date",
         default=timezone.now,
     )
     company = models.CharField(
-        verbose_name='company Name',
+        verbose_name="company Name",
         max_length=100,
         blank=True,
     )
-    blurb = RichTextField(
-        verbose_name='intro Blurb',
-        features=base_rich_text_options,
-        blank=True
-    )
+    blurb = RichTextField(verbose_name="intro Blurb", features=base_rich_text_options, blank=True)
     product_url = models.URLField(
-        verbose_name='product URL',
+        verbose_name="product URL",
         max_length=2048,
         blank=True,
     )
     image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
     )
     worst_case = RichTextField(
-        verbose_name='what could happen if something goes wrong?',
+        verbose_name="what could happen if something goes wrong?",
         features=base_rich_text_options,
         blank=True,
     )
-    tips_to_protect_yourself = RichTextField(
-        features=base_rich_text_options + ['ul'],
-        blank=True
-    )
+    tips_to_protect_yourself = RichTextField(features=base_rich_text_options + ["ul"], blank=True)
     mozilla_says = models.BooleanField(
-        verbose_name='mozilla Says',
+        verbose_name="mozilla Says",
         null=True,
         blank=True,
         help_text="Use 'Yes' for Thumbs Up, 'No' for Thumbs Down, and 'Unknown' for Thumb Sideways",
     )
-    time_researched = models.PositiveIntegerField(
-        verbose_name='time spent on research',
-        default=0
-    )
+    time_researched = models.PositiveIntegerField(verbose_name="time spent on research", default=0)
 
     """
     privacy_policy_links = Orderable, defined in ProductPagePrivacyPolicyLink
@@ -514,17 +501,11 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     """
 
     # What is required to sign up?
-    signup_requires_email = ExtendedYesNoField(
-        verbose_name='email'
-    )
-    signup_requires_phone = ExtendedYesNoField(
-        verbose_name='phone'
-    )
-    signup_requires_third_party_account = ExtendedYesNoField(
-        verbose_name='third-party account'
-    )
+    signup_requires_email = ExtendedYesNoField(verbose_name="email")
+    signup_requires_phone = ExtendedYesNoField(verbose_name="phone")
+    signup_requires_third_party_account = ExtendedYesNoField(verbose_name="third-party account")
     signup_requirement_explanation = models.TextField(
-        verbose_name='signup requirement description',
+        verbose_name="signup requirement description",
         max_length=5000,
         blank=True,
     )
@@ -533,70 +514,49 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     how_does_it_use_data_collected = RichTextField(
         max_length=5000,
         features=base_rich_text_options,
-        help_text='How does this product use the data collected?',
+        help_text="How does this product use the data collected?",
         blank=True,
     )
-    data_collection_policy_is_bad = models.BooleanField(
-        default=False,
-        verbose_name='mini-ding for bad data use?'
-    )
+    data_collection_policy_is_bad = models.BooleanField(default=False, verbose_name="mini-ding for bad data use?")
 
     # Privacy policy
     user_friendly_privacy_policy = ExtendedYesNoField(
-        verbose_name='user-friendly privacy information?',
+        verbose_name="user-friendly privacy information?",
     )
 
     user_friendly_privacy_policy_helptext = models.TextField(
-        verbose_name='user-friendly privacy description',
-        max_length=5000,
-        blank=True
+        verbose_name="user-friendly privacy description", max_length=5000, blank=True
     )
 
     # Minimum security standards
     show_ding_for_minimum_security_standards = models.BooleanField(
         default=False,
-        verbose_name='mini-ding for doesnt meet Minimum Security Standards'
+        verbose_name="mini-ding for doesnt meet Minimum Security Standards",
     )
     meets_minimum_security_standards = models.BooleanField(
-        verbose_name='does this product meet our Minimum Security Standards?',
+        verbose_name="does this product meet our Minimum Security Standards?",
         null=True,
         blank=True,
     )
     uses_encryption = ExtendedYesNoField(
-        verbose_name='encryption',
+        verbose_name="encryption",
     )
-    uses_encryption_helptext = models.TextField(
-        verbose_name='description',
-        max_length=5000,
-        blank=True
-    )
-    security_updates = ExtendedYesNoField(
-    )
-    security_updates_helptext = models.TextField(
-        verbose_name='description',
-        max_length=5000,
-        blank=True
-    )
+    uses_encryption_helptext = models.TextField(verbose_name="description", max_length=5000, blank=True)
+    security_updates = ExtendedYesNoField()
+    security_updates_helptext = models.TextField(verbose_name="description", max_length=5000, blank=True)
     strong_password = ExtendedYesNoField()
-    strong_password_helptext = models.TextField(
-        verbose_name='description',
-        max_length=5000,
-        blank=True
-    )
+    strong_password_helptext = models.TextField(verbose_name="description", max_length=5000, blank=True)
     manage_vulnerabilities = ExtendedYesNoField(
-        verbose_name='manages security vulnerabilities',
+        verbose_name="manages security vulnerabilities",
     )
     manage_vulnerabilities_helptext = RichTextField(
         max_length=5000,
         features=base_rich_text_options,
         blank=True,
     )
-    privacy_policy = ExtendedYesNoField(
-    )
+    privacy_policy = ExtendedYesNoField()
     privacy_policy_helptext = models.TextField(  # REPURPOSED: WILL REQUIRE A 'clear' MIGRATION
-        verbose_name='description',
-        max_length=5000,
-        blank=True
+        verbose_name="description", max_length=5000, blank=True
     )
 
     # Un-editable voting fields. Don't add these to the content_panels.
@@ -606,7 +566,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='votes',
+        related_name="votes",
     )
 
     @classmethod
@@ -657,7 +617,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         return {
             "Title": self.title,
             "Slug": self.slug,
-            "Wagtail Page ID": self.pk if hasattr(self, 'pk') else 0,
+            "Wagtail Page ID": self.pk if hasattr(self, "pk") else 0,
             "Last Updated": str(self.last_published_at) if self.last_published_at else str(timezone.now().isoformat()),
             "Status": self.get_status_for_airtable(),
             "Show privacy ding": self.privacy_ding,
@@ -667,7 +627,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Review date": str(self.review_date),
             "Company": self.company,
             "Blurb": self.blurb,
-            "Product link": self.product_url if self.product_url else '',
+            "Product link": self.product_url if self.product_url else "",
             "Worst case": self.worst_case,
             "Signup requires email": self.signup_requires_email,
             "Signup requires phone number": self.signup_requires_phone,
@@ -691,7 +651,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Privacy policy help text": self.privacy_policy_helptext,
             "Mozilla Says": self.mozilla_says,
             "Time Researched": self.time_researched,
-            "Tips to protect yourself": self.tips_to_protect_yourself
+            "Tips to protect yourself": self.tips_to_protect_yourself,
         }
 
     def get_status_for_airtable(self):
@@ -723,7 +683,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
             TODO: Remove this patch code once #7592 is addressed.
             """
-            slug = re.sub('(-\\d+)+$', '', self.slug)
+            slug = re.sub("(-\\d+)+$", "", self.slug)
             original = get_original_by_slug(ProductPage, slug)
 
         if original is None:
@@ -767,11 +727,11 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         product = self.original_product
         votes = product.votes.get_votes()
         data = {
-            'creepiness': {
-                'vote_breakdown': {k: v for (k, v) in enumerate(votes)},
-                'average': product.creepiness
+            "creepiness": {
+                "vote_breakdown": {k: v for (k, v) in enumerate(votes)},
+                "average": product.creepiness,
             },
-            'total': product.total_vote_count
+            "total": product.total_vote_count,
         }
         return json.dumps(data)
 
@@ -800,145 +760,142 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             return static("_images/buyers-guide/evergreen-social.png")
 
     content_panels = Page.content_panels + [
-        FieldPanel('company'),
+        FieldPanel("company"),
         MultiFieldPanel(
             [
-                InlinePanel('product_categories', label='Category'),
+                InlinePanel("product_categories", label="Category"),
             ],
-            heading='Product Category',
-            classname='collapsible',
+            heading="Product Category",
+            classname="collapsible",
         ),
         MultiFieldPanel(
             [
-                FieldPanel('privacy_ding'),
-                FieldPanel('review_date'),
-                FieldPanel('adult_content'),
-                ImageChooserPanel('image'),
-                FieldPanel('product_url'),
-                FieldPanel('time_researched'),
-                FieldPanel('mozilla_says'),
-                FieldPanel('uses_wifi'),
-                FieldPanel('uses_bluetooth'),
-                FieldPanel('blurb'),
-                FieldPanel('worst_case'),
-                FieldPanel('tips_to_protect_yourself'),
+                FieldPanel("privacy_ding"),
+                FieldPanel("review_date"),
+                FieldPanel("adult_content"),
+                ImageChooserPanel("image"),
+                FieldPanel("product_url"),
+                FieldPanel("time_researched"),
+                FieldPanel("mozilla_says"),
+                FieldPanel("uses_wifi"),
+                FieldPanel("uses_bluetooth"),
+                FieldPanel("blurb"),
+                FieldPanel("worst_case"),
+                FieldPanel("tips_to_protect_yourself"),
             ],
-            heading='General Product Details',
-            classname='collapsible'
+            heading="General Product Details",
+            classname="collapsible",
         ),
         MultiFieldPanel(
             [
-                FieldPanel('signup_requires_email'),
-                FieldPanel('signup_requires_phone'),
-                FieldPanel('signup_requires_third_party_account'),
-                FieldPanel('signup_requirement_explanation'),
+                FieldPanel("signup_requires_email"),
+                FieldPanel("signup_requires_phone"),
+                FieldPanel("signup_requires_third_party_account"),
+                FieldPanel("signup_requirement_explanation"),
             ],
-            heading='What can be used to sign up?',
-            classname='collapsible'
+            heading="What can be used to sign up?",
+            classname="collapsible",
         ),
         MultiFieldPanel(
             [
                 InlinePanel(
-                    'privacy_policy_links',
-                    label='link',
+                    "privacy_policy_links",
+                    label="link",
                     min_num=1,
                     max_num=3,
                 ),
             ],
-            heading='Privacy policy links',
-            classname='collapsible'
+            heading="Privacy policy links",
+            classname="collapsible",
         ),
         MultiFieldPanel(
             [
-                FieldPanel('meets_minimum_security_standards'),
-                FieldPanel('show_ding_for_minimum_security_standards'),
-                FieldPanel('uses_encryption'),
-                FieldPanel('uses_encryption_helptext'),
-                FieldPanel('strong_password'),
-                FieldPanel('strong_password_helptext'),
-                FieldPanel('security_updates'),
-                FieldPanel('security_updates_helptext'),
-                FieldPanel('manage_vulnerabilities'),
-                FieldPanel('manage_vulnerabilities_helptext'),
-                FieldPanel('privacy_policy'),
-                FieldPanel('privacy_policy_helptext'),
+                FieldPanel("meets_minimum_security_standards"),
+                FieldPanel("show_ding_for_minimum_security_standards"),
+                FieldPanel("uses_encryption"),
+                FieldPanel("uses_encryption_helptext"),
+                FieldPanel("strong_password"),
+                FieldPanel("strong_password_helptext"),
+                FieldPanel("security_updates"),
+                FieldPanel("security_updates_helptext"),
+                FieldPanel("manage_vulnerabilities"),
+                FieldPanel("manage_vulnerabilities_helptext"),
+                FieldPanel("privacy_policy"),
+                FieldPanel("privacy_policy_helptext"),
             ],
-            heading='Security',
-            classname='collapsible'
+            heading="Security",
+            classname="collapsible",
         ),
         MultiFieldPanel(
-            [
-                InlinePanel('updates', label='Update', max_num=7)
-            ],
-            heading='News Links',
+            [InlinePanel("updates", label="Update")],
+            heading="News Links",
+            classname="collapsible",
         ),
         MultiFieldPanel(
-            [
-                InlinePanel('related_product_pages', label='Product')
-            ],
-            heading='Related Products',
+            [InlinePanel("related_product_pages", label="Product")],
+            heading="Related Products",
         ),
         MultiFieldPanel(
             [
                 InlinePanel(
-                    'related_article_relations',
-                    heading='Related articles',
-                    label='Article',
+                    "related_article_relations",
+                    heading="Related articles",
+                    label="Article",
                     max_num=5,
                 ),
             ],
-            heading='Related Articles',
+            heading="Related Articles",
         ),
     ]
 
     translatable_fields = [
         # Promote tab fields
-        SynchronizedField('slug'),
-        TranslatableField('seo_title'),
-        SynchronizedField('show_in_menus'),
-        TranslatableField('search_description'),
-        SynchronizedField('search_image'),
+        SynchronizedField("slug"),
+        TranslatableField("seo_title"),
+        SynchronizedField("show_in_menus"),
+        TranslatableField("search_description"),
+        SynchronizedField("search_image"),
         # Content tab fields
-        TranslatableField('title'),
-        SynchronizedField('privacy_ding'),
-        SynchronizedField('adult_content'),
-        SynchronizedField('uses_wifi'),
-        SynchronizedField('uses_bluetooth'),
-        SynchronizedField('review_date'),
-        SynchronizedField('company'),
-        TranslatableField('blurb'),
-        SynchronizedField('product_url'),
-        SynchronizedField('image'),
-        TranslatableField('worst_case'),
-        SynchronizedField('product_categories'),
-        SynchronizedField('signup_requires_email'),
-        SynchronizedField('signup_requires_phone'),
-        SynchronizedField('signup_requires_third_party_account'),
-        TranslatableField('signup_requirement_explanation'),
-        SynchronizedField('signup_requires_third_party_account'),
-        TranslatableField('how_does_it_use_data_collected'),
-        SynchronizedField('data_collection_policy_is_bad'),
-        SynchronizedField('user_friendly_privacy_policy'),
-        TranslatableField('user_friendly_privacy_policy_helptext'),
-        SynchronizedField('privacy_policy_links'),
-        SynchronizedField('show_ding_for_minimum_security_standards'),
-        SynchronizedField('meets_minimum_security_standards'),
-        SynchronizedField('uses_encryption'),
-        TranslatableField('uses_encryption_helptext'),
-        SynchronizedField('security_updates'),
-        TranslatableField('security_updates_helptext'),
-        SynchronizedField('strong_password'),
-        TranslatableField('strong_password_helptext'),
-        SynchronizedField('manage_vulnerabilities'),
-        TranslatableField('manage_vulnerabilities_helptext'),
-        SynchronizedField('privacy_policy'),
-        TranslatableField('privacy_policy_helptext'),
+        TranslatableField("title"),
+        SynchronizedField("privacy_ding"),
+        SynchronizedField("adult_content"),
+        SynchronizedField("uses_wifi"),
+        SynchronizedField("uses_bluetooth"),
+        SynchronizedField("review_date"),
+        SynchronizedField("company"),
+        TranslatableField("blurb"),
+        SynchronizedField("product_url"),
+        SynchronizedField("image"),
+        TranslatableField("worst_case"),
+        SynchronizedField("product_categories"),
+        SynchronizedField("signup_requires_email"),
+        SynchronizedField("signup_requires_phone"),
+        SynchronizedField("signup_requires_third_party_account"),
+        TranslatableField("signup_requirement_explanation"),
+        SynchronizedField("signup_requires_third_party_account"),
+        TranslatableField("how_does_it_use_data_collected"),
+        SynchronizedField("data_collection_policy_is_bad"),
+        SynchronizedField("user_friendly_privacy_policy"),
+        TranslatableField("user_friendly_privacy_policy_helptext"),
+        SynchronizedField("privacy_policy_links"),
+        SynchronizedField("show_ding_for_minimum_security_standards"),
+        SynchronizedField("meets_minimum_security_standards"),
+        SynchronizedField("uses_encryption"),
+        TranslatableField("uses_encryption_helptext"),
+        SynchronizedField("security_updates"),
+        TranslatableField("security_updates_helptext"),
+        SynchronizedField("strong_password"),
+        TranslatableField("strong_password_helptext"),
+        SynchronizedField("manage_vulnerabilities"),
+        TranslatableField("manage_vulnerabilities_helptext"),
+        SynchronizedField("privacy_policy"),
+        TranslatableField("privacy_policy_helptext"),
         # non-translatable fields:
-        SynchronizedField('mozilla_says'),
-        SynchronizedField('related_product_pages'),
-        SynchronizedField('time_researched'),
-        SynchronizedField('updates'),
-        TranslatableField('tips_to_protect_yourself')
+        SynchronizedField("mozilla_says"),
+        SynchronizedField("related_product_pages"),
+        SynchronizedField("time_researched"),
+        SynchronizedField("updates"),
+        TranslatableField("tips_to_protect_yourself"),
     ]
 
     @property
@@ -947,25 +904,27 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['product'] = self
+        context["product"] = self
         language_code = get_language_from_request(request)
-        context['categories'] = get_categories_for_locale(language_code)
-        context['featured_cta'] = self.get_featured_cta()
-        context['mediaUrl'] = settings.MEDIA_URL
-        context['use_commento'] = settings.USE_COMMENTO
-        context['pageTitle'] = f'{self.title} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
+        context["categories"] = get_categories_for_locale(language_code)
+        context["featured_cta"] = self.get_featured_cta()
+        context["mediaUrl"] = settings.MEDIA_URL
+        context["use_commento"] = settings.USE_COMMENTO
+        context["pageTitle"] = f"{self.title} | " + gettext("Privacy & security guide") + " | Mozilla Foundation"
         return context
 
-    def get_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+    def get_related_articles(self) -> models.QuerySet["BuyersGuideArticlePage"]:
         return orderables.get_related_items(
             self.related_article_relations.all(),
-            'article',
+            "article",
         )
 
-    def get_primary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+    def get_primary_related_articles(self) -> models.QuerySet["BuyersGuideArticlePage"]:
         return self.get_related_articles()[:3]
 
-    def get_secondary_related_articles(self) -> models.QuerySet['BuyersGuideArticlePage']:
+    def get_secondary_related_articles(
+        self,
+    ) -> models.QuerySet["BuyersGuideArticlePage"]:
         return self.get_related_articles()[3:]
 
     def get_featured_cta(self):
@@ -988,10 +947,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 try:
                     value = int(data["value"])
                 except ValueError:
-                    return HttpResponseNotAllowed('Product ID or value is invalid')
+                    return HttpResponseNotAllowed("Product ID or value is invalid")
 
                 if value < 0 or value > 100:
-                    return HttpResponseNotAllowed('Cannot save vote')
+                    return HttpResponseNotAllowed("Cannot save vote")
 
                 try:
                     # Get the english version of this product, as votes should only be recorded
@@ -1014,7 +973,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
                     # Add the vote to the proper "vote bin"
                     votes = product.votes.get_votes()
-                    index = int((value-1) / 20)
+                    index = int((value - 1) / 20)
                     votes[index] += 1
                     product.votes.set_votes(votes)
 
@@ -1022,13 +981,13 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                     # And don't make this live with .publish(). The Page model will have the proper
                     # data stored on it already, and the revision history won't be spammed by votes.
                     product.save()
-                    return HttpResponse('Vote recorded', content_type='text/plain')
+                    return HttpResponse("Vote recorded", content_type="text/plain")
                 except ProductPage.DoesNotExist:
-                    return HttpResponseNotFound('Missing page')
+                    return HttpResponseNotFound("Missing page")
                 except ValidationError as ex:
-                    return HttpResponseNotAllowed(f'Payload validation failed: {ex}')
+                    return HttpResponseNotAllowed(f"Payload validation failed: {ex}")
                 except Error as ex:
-                    print(f'Internal Server Error (500) for ProductPage: {ex.message} ({type(ex)})')
+                    print(f"Internal Server Error (500) for ProductPage: {ex.message} ({type(ex)})")
                     return HttpResponseServerError()
 
         self.get_or_create_votes()
@@ -1048,68 +1007,68 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
 class BuyersGuideProductPageArticlePageRelation(TranslatableMixin, Orderable):
     product = ParentalKey(
-        'wagtailpages.ProductPage',
-        related_name='related_article_relations',
+        "wagtailpages.ProductPage",
+        related_name="related_article_relations",
     )
     article = models.ForeignKey(
-        'wagtailpages.BuyersGuideArticlePage',
+        "wagtailpages.BuyersGuideArticlePage",
         on_delete=models.CASCADE,
         null=False,
         blank=False,
     )
 
-    panels = [PageChooserPanel('article')]
+    panels = [PageChooserPanel("article")]
 
     def __str__(self):
-        return f'{self.product.name} -> {self.article.title}'
+        return f"{self.product.name} -> {self.article.title}"
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
 
 
 class GeneralProductPage(ProductPage):
-    template = 'pages/buyersguide/product_page.html'
+    template = "pages/buyersguide/product_page.html"
 
     camera_device = ExtendedYesNoField(
-        verbose_name='camera: Device',
+        verbose_name="camera: Device",
     )
 
     camera_app = ExtendedYesNoField(
-        verbose_name='camera: App',
+        verbose_name="camera: App",
     )
 
     microphone_device = ExtendedYesNoField(
-        verbose_name='microphone: Device',
+        verbose_name="microphone: Device",
     )
 
     microphone_app = ExtendedYesNoField(
-        verbose_name='microphone: App',
+        verbose_name="microphone: App",
     )
 
     location_device = ExtendedYesNoField(
-        verbose_name='tracks location: Device',
+        verbose_name="tracks location: Device",
     )
 
     location_app = ExtendedYesNoField(
-        verbose_name='tracks location: App',
+        verbose_name="tracks location: App",
     )
 
     # What data does it collect?
 
     personal_data_collected = models.TextField(
-        verbose_name='personal',
+        verbose_name="personal",
         max_length=5000,
         blank=True,
     )
 
     biometric_data_collected = models.TextField(
-        verbose_name='body Related',
+        verbose_name="body Related",
         max_length=5000,
         blank=True,
     )
 
     social_data_collected = models.TextField(
-        verbose_name='social',
+        verbose_name="social",
         max_length=5000,
         blank=True,
     )
@@ -1119,33 +1078,27 @@ class GeneralProductPage(ProductPage):
     how_can_you_control_your_data = RichTextField(
         max_length=5000,
         features=base_rich_text_options,
-        help_text='How does this product let you control your data?',
+        help_text="How does this product let you control your data?",
         blank=True,
     )
 
-    data_control_policy_is_bad = models.BooleanField(
-        default=False,
-        verbose_name='mini-ding for bad data control?'
-    )
+    data_control_policy_is_bad = models.BooleanField(default=False, verbose_name="mini-ding for bad data control?")
 
     # Company track record
 
     company_track_record = models.CharField(
         verbose_name="company's known track record?",
         choices=TRACK_RECORD_CHOICES,
-        default='Average',
-        max_length=20
+        default="Average",
+        max_length=20,
     )
 
-    track_record_is_bad = models.BooleanField(
-        default=False,
-        verbose_name='mini-ding for bad track record'
-    )
+    track_record_is_bad = models.BooleanField(default=False, verbose_name="mini-ding for bad track record")
 
     track_record_details = RichTextField(
         max_length=5000,
         features=base_rich_text_options,
-        help_text='Describe the track record of this company here.',
+        help_text="Describe the track record of this company here.",
         blank=True,
     )
 
@@ -1154,58 +1107,58 @@ class GeneralProductPage(ProductPage):
     child_safety_blurb = RichTextField(
         max_length=5000,
         features=base_rich_text_options,
-        help_text='Child safety information, if applicable.',
+        help_text="Child safety information, if applicable.",
         blank=True,
     )
 
     # Offline use
 
     offline_capable = ExtendedYesNoField(
-        verbose_name='can this product be used offline?',
+        verbose_name="can this product be used offline?",
     )
 
     offline_use_description = RichTextField(
         max_length=5000,
         features=base_rich_text_options,
-        help_text='Describe how this product can be used offline.',
+        help_text="Describe how this product can be used offline.",
         blank=True,
     )
 
     # Artificial Intelligence
 
     uses_ai = ExtendedYesNoField(
-        verbose_name='does the product use AI?',
+        verbose_name="does the product use AI?",
     )
     ai_helptext = RichTextField(
         max_length=5000,
         features=base_rich_text_options,
-        help_text='Helpful text around AI to show on the product page',
+        help_text="Helpful text around AI to show on the product page",
         blank=True,
     )
     ai_is_untrustworthy = ExtendedYesNoField(
-        verbose_name='is this AI untrustworthy?',
+        verbose_name="is this AI untrustworthy?",
     )
     ai_is_untrustworthy_ding = models.BooleanField(
-        verbose_name='mini-ding for bad AI',
+        verbose_name="mini-ding for bad AI",
         default=False,
     )
     ai_what_can_it_do = RichTextField(
-        verbose_name='what kind of decisions does the AI make about you or for you?',
+        verbose_name="what kind of decisions does the AI make about you or for you?",
         blank=True,
     )
     ai_is_transparent = ExtendedYesNoField(
-        verbose_name='is the company transparent about how the AI works?',
+        verbose_name="is the company transparent about how the AI works?",
     )
     ai_is_transparent_helptext = models.TextField(
-        verbose_name='aI transparency description',
+        verbose_name="aI transparency description",
         max_length=5000,
         blank=True,
     )
     ai_can_user_control = ExtendedYesNoField(
-        verbose_name='does the user have control over the AI features?',
+        verbose_name="does the user have control over the AI features?",
     )
     ai_can_user_control_helptext = models.TextField(
-        verbose_name='control of AI description',
+        verbose_name="control of AI description",
         max_length=5000,
         blank=True,
     )
@@ -1282,94 +1235,94 @@ class GeneralProductPage(ProductPage):
     content_panels = ProductPage.content_panels.copy()
     content_panels = insert_panels_after(
         content_panels,
-        'General Product Details',
+        "General Product Details",
         [
             MultiFieldPanel(
                 [
-                    FieldPanel('camera_device'),
-                    FieldPanel('camera_app'),
-                    FieldPanel('microphone_device'),
-                    FieldPanel('microphone_app'),
-                    FieldPanel('location_device'),
-                    FieldPanel('location_app'),
+                    FieldPanel("camera_device"),
+                    FieldPanel("camera_app"),
+                    FieldPanel("microphone_device"),
+                    FieldPanel("microphone_app"),
+                    FieldPanel("location_device"),
+                    FieldPanel("location_app"),
                 ],
-                heading='Can it snoop on me?',
-                classname='collapsible'
+                heading="Can it snoop on me?",
+                classname="collapsible",
             ),
         ],
     )
 
     content_panels = insert_panels_after(
         content_panels,
-        'What can be used to sign up?',
+        "What can be used to sign up?",
         [
             MultiFieldPanel(
                 [
-                    FieldPanel('personal_data_collected'),
-                    FieldPanel('biometric_data_collected'),
-                    FieldPanel('social_data_collected'),
-                    FieldPanel('how_does_it_use_data_collected'),
-                    FieldPanel('data_collection_policy_is_bad'),
-                    FieldPanel('how_can_you_control_your_data'),
-                    FieldPanel('data_control_policy_is_bad'),
-                    FieldPanel('company_track_record'),
-                    FieldPanel('track_record_details'),
-                    FieldPanel('track_record_is_bad'),
-                    FieldPanel('child_safety_blurb'),
-                    FieldPanel('offline_capable'),
-                    FieldPanel('offline_use_description'),
-                    FieldPanel('user_friendly_privacy_policy'),
-                    FieldPanel('user_friendly_privacy_policy_helptext'),
+                    FieldPanel("personal_data_collected"),
+                    FieldPanel("biometric_data_collected"),
+                    FieldPanel("social_data_collected"),
+                    FieldPanel("how_does_it_use_data_collected"),
+                    FieldPanel("data_collection_policy_is_bad"),
+                    FieldPanel("how_can_you_control_your_data"),
+                    FieldPanel("data_control_policy_is_bad"),
+                    FieldPanel("company_track_record"),
+                    FieldPanel("track_record_details"),
+                    FieldPanel("track_record_is_bad"),
+                    FieldPanel("child_safety_blurb"),
+                    FieldPanel("offline_capable"),
+                    FieldPanel("offline_use_description"),
+                    FieldPanel("user_friendly_privacy_policy"),
+                    FieldPanel("user_friendly_privacy_policy_helptext"),
                 ],
-                heading='What data does the company collect?',
-                classname='collapsible',
+                heading="What data does the company collect?",
+                classname="collapsible",
             ),
-        ]
+        ],
     )
 
     content_panels = insert_panels_after(
         content_panels,
-        'Security',
+        "Security",
         [
             MultiFieldPanel(
                 [
-                    FieldPanel('uses_ai'),
-                    FieldPanel('ai_helptext'),
-                    FieldPanel('ai_is_untrustworthy'),
-                    FieldPanel('ai_is_untrustworthy_ding'),
-                    FieldPanel('ai_what_can_it_do'),
-                    FieldPanel('ai_is_transparent'),
-                    FieldPanel('ai_is_transparent_helptext'),
-                    FieldPanel('ai_can_user_control'),
-                    FieldPanel('ai_can_user_control_helptext'),
+                    FieldPanel("uses_ai"),
+                    FieldPanel("ai_helptext"),
+                    FieldPanel("ai_is_untrustworthy"),
+                    FieldPanel("ai_is_untrustworthy_ding"),
+                    FieldPanel("ai_what_can_it_do"),
+                    FieldPanel("ai_is_transparent"),
+                    FieldPanel("ai_is_transparent_helptext"),
+                    FieldPanel("ai_can_user_control"),
+                    FieldPanel("ai_can_user_control_helptext"),
                 ],
-                heading='Artificial Intelligence',
-                classname='collapsible'
+                heading="Artificial Intelligence",
+                classname="collapsible",
             ),
         ],
     )
 
     translatable_fields = ProductPage.translatable_fields + [
-        TranslatableField('personal_data_collected'),
-        TranslatableField('biometric_data_collected'),
-        TranslatableField('social_data_collected'),
-        TranslatableField('how_can_you_control_your_data'),
-        SynchronizedField('data_control_policy_is_bad'),
-        SynchronizedField('company_track_record'),
-        SynchronizedField('track_record_is_bad'),
-        TranslatableField('track_record_details'),
-        TranslatableField('child_safety_blurb'),
-        SynchronizedField('offline_capable'),
-        TranslatableField('offline_use_description'),
-        SynchronizedField('uses_ai'),
-        SynchronizedField('ai_is_transparent'),
-        TranslatableField('ai_is_transparent_helptext'),
-        TranslatableField('ai_helptext'),
-        SynchronizedField('ai_is_untrustworthy'),
-        SynchronizedField('ai_is_untrustworthy_ding'),
-        TranslatableField('ai_what_can_it_do'),
-        SynchronizedField('ai_can_user_control'),
-        TranslatableField('ai_can_user_control_helptext'),
+        TranslatableField("personal_data_collected"),
+        TranslatableField("biometric_data_collected"),
+        TranslatableField("social_data_collected"),
+        TranslatableField("how_can_you_control_your_data"),
+        SynchronizedField("data_control_policy_is_bad"),
+        SynchronizedField("company_track_record"),
+        SynchronizedField("track_record_is_bad"),
+        TranslatableField("track_record_details"),
+        TranslatableField("child_safety_blurb"),
+        SynchronizedField("offline_capable"),
+        TranslatableField("offline_use_description"),
+        SynchronizedField("uses_ai"),
+        SynchronizedField("ai_is_transparent"),
+        TranslatableField("ai_is_transparent_helptext"),
+        TranslatableField("ai_helptext"),
+        SynchronizedField("ai_is_untrustworthy"),
+        SynchronizedField("ai_is_untrustworthy_ding"),
+        TranslatableField("ai_what_can_it_do"),
+        SynchronizedField("ai_can_user_control"),
+        TranslatableField("ai_can_user_control_helptext"),
     ]
 
     @property
@@ -1399,4 +1352,4 @@ class ExcludedCategories(TranslatableMixin, Orderable):
         return self.category.name
 
     class Meta(TranslatableMixin.Meta):
-        verbose_name = 'Excluded Category'
+        verbose_name = "Excluded Category"

@@ -5,13 +5,13 @@ register = template.Library()
 
 
 # A special tag for homepage images that use the correct URL, because S3 troubles
-@register.inclusion_tag('wagtailpages/tags/homepage_image.html', takes_context=True)
+@register.inclusion_tag("wagtailpages/tags/homepage_image.html", takes_context=True)
 def homepage_image(context, path):
-    return homepage_image_with_class(context, path, '')
+    return homepage_image_with_class(context, path, "")
 
 
 # A special tag for homepage images that use the correct URL, because S3 troubles
-@register.inclusion_tag('wagtailpages/tags/homepage_image.html', takes_context=True)
+@register.inclusion_tag("wagtailpages/tags/homepage_image.html", takes_context=True)
 def homepage_image_with_class(context, path, classname):
     root = settings.MEDIA_URL
 
@@ -20,14 +20,14 @@ def homepage_image_with_class(context, path, classname):
         awscd = settings.AWS_S3_CUSTOM_DOMAIN
         if awscd in root and awsl not in root:
             old = awscd
-            new = awscd + '/' + awsl
+            new = awscd + "/" + awsl
             root = root.replace(old, new)
 
-    url = '{}{}'.format(root, path)
+    url = "{}{}".format(root, path)
 
     return {
-        'url': url,
-        'classname': classname,
+        "url": url,
+        "classname": classname,
     }
 
 

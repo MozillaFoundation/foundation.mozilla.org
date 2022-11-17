@@ -10,18 +10,17 @@ NUM_PROFILES = 10
 
 
 class ProfileFactory(DjangoModelFactory):
-
     class Meta:
         model = Profile
 
-    name = Faker('name')
-    tagline = Faker('text', max_nb_chars=50)
-    introduction = Faker('paragraph')
+    name = Faker("name")
+    tagline = Faker("text", max_nb_chars=50)
+    introduction = Faker("paragraph")
     image = SubFactory(image_factory.ImageFactory)
 
 
 def generate(seed):
     reseed(seed)
 
-    print('Generating profiles')
+    print("Generating profiles")
     generate_fake_data(ProfileFactory, NUM_PROFILES)
