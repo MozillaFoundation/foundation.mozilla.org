@@ -241,11 +241,6 @@ class TestPNIAirtableConnections(TestCase):
             title="* Privacy not included",
             slug="privacynotincluded",
             header="Be Smart. Shop Safe.",
-            intro_text=(
-                "How creepy is that smart speaker, that fitness tracker"
-                ", those wireless headphones? We created this guide to help you shop for safe"
-                ", secure connected products."
-            ),
         )
         self.general_product_page = GeneralProductPageFactory.create(
             title="General Percy Product",
