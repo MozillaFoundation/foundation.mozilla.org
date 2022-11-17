@@ -3,11 +3,11 @@
 ## Staging
 
 We are deploying the `main` branch automatically to the staging environment via a [custom GitHub Actions workflow](https://github.com/mozilla/foundation.mozilla.org/blob/50ae3b68b00fcedda17d5f67d1fdfb6bca1a0f05/.github/workflows/continuous-deployment.yaml).
-The "continuous deployment" workflow is triggered by the "continuous integration" workflow finishing and checks that the "continuous integration" workflow was successful.
-
 We are using a custom action instead of the Heroku-GitHub integration because of security concerns after the [Heroku-GitHub incident in April 2022](https://status.heroku.com/incidents/2413).
 
-The deployment workflow uses the standard Heroku git push deployment.
+The "continuous deployment" workflow is triggered by the "continuous integration" workflow finishing and checks that the "continuous integration" workflow was successful.
+The workflow checks out the `main` branch and deploys it to Heroku using the traditional [Git push deployment](https://devcenter.heroku.com/articles/git) but without the need for the Heroku CLI.
+
 To run this workflow, we need to configure two secret variables for GitHub Action in https://github.com/mozilla/foundation.mozilla.org/settings/secrets/actions:
 
  * `HEROKU_DEPLOYMENT_USER_LOGIN` - Email address of the Heroku user to use for the push,
