@@ -15,7 +15,8 @@ jobs:
     # Check that the triggering workflow ended successfully.
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     env:
-      # See Heroku authentication: https://devcenter.heroku.com/articles/authentication#retrieving-the-api-token
+      # This workflow uses authentication through an API token according to: https://devcenter.heroku.com/articles/authentication
+      # Note: API token are differnt from API keys.
       HEROKU_DEPLOYMENT_USER_LOGIN: ${{ secrets.HEROKU_DEPLOYMENT_USER_LOGIN }}
       HEROKU_DEPLOYMENT_USER_API_TOKEN: ${{ secrets.HEROKU_DEPLOYMENT_USER_API_TOKEN }}
     steps:
