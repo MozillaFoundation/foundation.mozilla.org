@@ -2,7 +2,7 @@
 
 ## Staging
 
-We are deploying the `main` branch automatically to the staging environment via a [custom GitHub Actions workflow](https://github.com/mozilla/foundation.mozilla.org/pull/9494/files#diff-d6e37d8db765e21cf58ba38c965d3b81e792b464d5bfe83e4314fbddd5c0a33d).
+We are deploying the `main` branch automatically to the staging environment via a [custom GitHub Actions workflow](https://github.com/mozilla/foundation.mozilla.org/blob/50ae3b68b00fcedda17d5f67d1fdfb6bca1a0f05/.github/workflows/continuous-deployment.yaml).
 The "continuous deployment" workflow is triggered by the "continuous integration" workflow finishing and checks that the "continuous integration" workflow was successful.
 
 We are using a custom action instead of the Heroku-GitHub integration because of security concerns after the [Heroku-GitHub incident in April 2022](https://status.heroku.com/incidents/2413).
