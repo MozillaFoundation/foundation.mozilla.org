@@ -46,6 +46,14 @@ class CTA(models.Model):
         default="mozilla-foundation",
     )
 
+    translatable_fields = [
+        # Fields from the CTA model
+        TranslatableField("name"),
+        TranslatableField("header"),
+        TranslatableField("description"),
+        SynchronizedField("newsletter"),
+    ]
+
     def __str__(self):
         return self.name
 
@@ -127,10 +135,12 @@ class Signup(TranslatableMixin, CTA):
 
     translatable_fields = [
         # Fields from the CTA model
+        TranslatableField("name"),
         TranslatableField("header"),
         TranslatableField("description"),
         SynchronizedField("newsletter"),
         # Signup Fields
+        SynchronizedField("campaign_id"),
         SynchronizedField("ask_name"),
     ]
 
