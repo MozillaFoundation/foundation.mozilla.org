@@ -47,7 +47,6 @@ class CTA(models.Model):
     )
 
     translatable_fields = [
-        # Fields from the CTA model
         TranslatableField("name"),
         TranslatableField("header"),
         TranslatableField("description"),
@@ -133,13 +132,7 @@ class Signup(TranslatableMixin, CTA):
         default=False,
     )
 
-    translatable_fields = [
-        # Fields from the CTA model
-        TranslatableField("name"),
-        TranslatableField("header"),
-        TranslatableField("description"),
-        SynchronizedField("newsletter"),
-        # Signup Fields
+    translatable_fields = CTA.translatable_fields + [
         SynchronizedField("campaign_id"),
         SynchronizedField("ask_name"),
     ]
