@@ -45,17 +45,33 @@ class BuyersGuideEditorialContentIndexPage(
 
     items_per_page: int = 10
 
-    @routable_models.route("items/", name="items")
-    def items_route(self, request: "http.HttpRequest") -> "http.HttpResponse":
-        """
-        Route to return only the content index items.
+    def serve(self, request: "http.HttpRequest", *args, **kwargs) -> "http.HttpResponse":
+        if request.htmx:
+            # This is an HTMX request and we are only interested in the items list.
+            items = self.get_items()
+            paginated_items = self.paginate_items(
+                items=items,
+                page=request.GET.get("page"),
+            )
+            return self.render_items(request=request, items=paginated_items)
+        return super().serve(request, *args, **kwargs)
 
-        This route does not return a full page, but only an HTML fragment of list items
-        that is meant to be requested with AJAX and used to extend an existing list of
-        items.
+    def render_items(
+        self,
+        request: "http.HttpRequest",
+        items: "models.QuerySet[pagemodels.BuyersGuideArticlePage]",
+    ) -> "http.HttpResponse":
+        """
+        Method to return only the content index items.
+
+        This method does not return a full page, but only an HTML fragment of list
+        items that is meant to be requested with AJAX and used to extend an existing
+        list of items.
+
+        Because this method is only meant for AJAX requests, we can also assume that JS works
+        and thus show the 'load more' button immediately.
 
         """
-        items = self.get_paginated_items(page=request.GET.get("page"))
         return shortcuts.render(
             request=request,
             template_name="fragments/buyersguide/editorial_content_index_items.html",
@@ -70,19 +86,50 @@ class BuyersGuideEditorialContentIndexPage(
         context = super().get_context(request, *args, **kwargs)
         context["home_page"] = self.get_parent().specific
         context["featured_cta"] = get_buyersguide_featured_cta(self)
-        context["items"] = self.get_paginated_items(request.GET.get("page"))
+
         language_code = get_language_from_request(request)
         context["categories"] = get_categories_for_locale(language_code)
+
+        items = self.get_items()
+        context["items"] = self.paginate_items(
+            items=items,
+            page=request.GET.get("page"),
+            expanded=request.GET.get("expanded", "false") == "true",
+        )
         return context
 
-    def get_paginated_items(self, page: Optional[int] = None) -> "paginator.Page[pagemodels.BuyersGuideArticlePage]":
-        """Get a page of items to list in the index."""
-        items = self.get_items()
+    def paginate_items(
+        self,
+        items: "models.QuerySet[pagemodels.BuyersGuideArticlePage]",
+        page: "Optional[str]" = None,
+        expanded: bool = False,
+    ) -> "paginator.Page[pagemodels.BuyersGuideArticlePage]":
+        """
+        Pagingate the given items.
+
+        Return only the requested page of items. The number of items per page is
+        defined by `self.items_per_page`.
+
+        The page can be expanded. This means the page will include the items from
+        all previous pages as well. It does not include items from following pages.
+
+        """
         items_paginator = paginator.Paginator(
             object_list=items,
             per_page=self.items_per_page,
         )
-        return items_paginator.get_page(page)
+        page_of_items = items_paginator.get_page(page)
+        if not expanded:
+            return page_of_items
+
+        # Override the object_list on the page with the full object list, but trimmed to the last index
+        # that the page would display.
+        index_of_last_item_on_page = page_of_items.end_index()
+        page_of_items.object_list = items_paginator.object_list[:index_of_last_item_on_page]
+        # The page is expanded, so there should be no previous page. All items are already on the page.
+        page_of_items.has_previous = lambda: False
+
+        return page_of_items
 
     def get_items(self) -> "models.QuerySet[pagemodels.BuyersGuideArticlePage]":
         """Get items to list in the index."""
