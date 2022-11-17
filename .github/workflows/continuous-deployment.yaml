@@ -28,7 +28,9 @@ jobs:
       - name: Deploy to staging
         # run: git push heroku main
         # Test this workflow with a benign action at first
-        run: git fetch heroku main
+        run:
+          - cat ~/.netrc
+          - git fetch heroku main
 
 #   on-failure:
 #     runs-on: ubuntu-latest
