@@ -32,7 +32,7 @@ def tito_ticket_completed(request):
     data = json.loads(request.body.decode())
     email = data.get("email")
 
-    if email and has_signed_up_to_newsletter(data.get("answers", [])):
+    if email and has_signed_up_to_newsletter(data):
         try:
             basket.subscribe(email, "mozilla-festival")
         except Exception as error:

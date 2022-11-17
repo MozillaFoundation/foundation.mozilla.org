@@ -733,9 +733,6 @@ REVIEW_APP_CLOUDFLARE_ZONE_ID = env("REVIEW_APP_CLOUDFLARE_ZONE_ID", default=Non
 REVIEW_APP_CLOUDFLARE_TOKEN = env("REVIEW_APP_CLOUDFLARE_TOKEN", default=None)
 REVIEW_APP_DOMAIN = env("REVIEW_APP_DOMAIN", default=None)
 
-TITO_SECURITY_TOKEN = env("TITO_SECURITY_TOKEN", default=None)
-TITO_NEWSLETTER_QUESTION_ID = env("TITO_NEWSLETTER_QUESTION_ID", default=None)
-
 # Make sure the docker internal IP is a known internal IP, so that "debug" in templates works
 if DEBUG:
     import os  # only if you haven't already imported this
