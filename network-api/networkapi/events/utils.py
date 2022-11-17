@@ -9,7 +9,7 @@ from .models import TitoEvent
 def _tito_event_from_request_dict(request_dict):
     """Given the decoded and parsed body of webhook request from Tito, return
     the appropriate TitoEvent if it exists.
-    Return False if a matching TitoEvent does not exit."""
+    Return False if a matching TitoEvent does not exist."""
 
     event_details = request_dict["event"]
     event_url = f"{event_details['account_slug']}/{event_details['slug']}"
