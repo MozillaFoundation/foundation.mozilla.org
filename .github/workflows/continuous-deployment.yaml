@@ -1,19 +1,19 @@
 name: Continuous Deployment
 # Based on https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-a-workflow-based-on-the-conclusion-of-another-workflow
 
-on:
-  # Trigger this workflow (continuous deployment) when the "Continous Integration" workflow
-  # had completed on the main branch.
-  workflow_run:
-    workflows: [Continuous Integration]
-    types: [completed]
-    branches: ["main"]
+on: push
+  # # Trigger this workflow (continuous deployment) when the "Continous Integration" workflow
+  # # had completed on the main branch.
+  # workflow_run:
+  #   workflows: [Continuous Integration]
+  #   types: [completed]
+  #   branches: ["main"]
 
 jobs:
   on-success:
     runs-on: ubuntu-latest
-    # Check that the triggering workflow ended successfully.
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # # Check that the triggering workflow ended successfully.
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     env:
       # See Heroku authentication: https://devcenter.heroku.com/articles/authentication#retrieving-the-api-token
       HEROKU_DEPLOYMENT_USER_LOGIN: ${{ secrets.HEROKU_DEPLOYMENT_USER_LOGIN }}
@@ -30,8 +30,8 @@ jobs:
         # Test this workflow with a benign action at first
         run: git fetch heroku main
 
-  on-failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - run: echo 'The continuous inegration failed. Not deploying.'
+#   on-failure:
+#     runs-on: ubuntu-latest
+#     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+#     steps:
+#       - run: echo 'The continuous inegration failed. Not deploying.'
