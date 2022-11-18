@@ -11,6 +11,7 @@ from wagtail.images import edit_handlers as image_panels
 from wagtail.snippets import edit_handlers as snippet_panels
 
 from networkapi.utility import orderables
+from networkapi.wagtailpages.forms import BuyersGuideArticlePageForm
 from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
@@ -27,6 +28,9 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
     parent_page_types = ["wagtailpages.BuyersGuideEditorialContentIndexPage"]
     subpage_types: list = []
     template = "pages/buyersguide/article_page.html"
+    # Custom base form for additional validation
+    base_form_class = BuyersGuideArticlePageForm
+
 
     hero_image = models.ForeignKey(
         images.get_image_model_string(),

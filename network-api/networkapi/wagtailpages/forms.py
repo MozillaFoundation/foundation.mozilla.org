@@ -1,5 +1,5 @@
+from networkapi.wagtailpages.utils import requireShareFields
 from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
-
 
 class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
     def clean_name(self):
@@ -25,15 +25,17 @@ class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
                 self.add_error("parent", "A category cannot be a parent of itself.")
         return parent
 
+class BuyersGuideArticlePageForm(WagtailAdminPageForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        requireShareFields(self)
+
 
 class BlogPageForm(WagtailAdminPageForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        requireShareFields(self)
 
-        # Overriding the blog page's admin form in order to make promote tab's
-        # "search image" and "search description" fields required.
-        self.fields["search_description"].required = True
-        self.fields["search_image"].required = True
 
     def clean(self):
         cleaned_data = super().clean()

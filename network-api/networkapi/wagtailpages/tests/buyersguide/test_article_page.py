@@ -3,7 +3,7 @@ from http import HTTPStatus
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
-
+from wagtail.admin.edit_handlers import get_form_for_model
 
 class FactoriesTest(test_base.WagtailpagesTestCase):
     def test_page_factory(self):
@@ -206,3 +206,16 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         result = article_page.get_secondary_related_articles()
 
         self.assertListEqual(result, [])
+
+    def test_article_page_requires_share_image(self):
+        BuyersGuideArticlePageForm = get_form_for_model(model=pagemodels.BuyersGuideArticlePage)
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index,
+        )
+        form = BuyersGuideArticlePageForm.get_form_class(instance=article_page,
+            data={
+                    "search_image": None,
+                }
+        )
+
+        self.assertFalse(form.is_valid())

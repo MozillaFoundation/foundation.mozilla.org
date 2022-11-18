@@ -118,6 +118,9 @@ class RelatedBlogPosts(Orderable):
 
 
 class BlogPage(FoundationMetadataPageMixin, Page):
+    # Custom base form for additional validation
+    base_form_class = BlogPageForm
+
     body = StreamField(
         base_fields,
         block_counts={"typeform": {"max_num": 1}},
@@ -165,9 +168,6 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     )
 
     related_post_count = 3
-
-    # Custom base form for topic count validation
-    base_form_class = BlogPageForm
 
     content_panels = [
         FieldPanel(
