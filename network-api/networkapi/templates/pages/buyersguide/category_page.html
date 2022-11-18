@@ -25,27 +25,32 @@
                 </div>
               </div>
             </div>
-
           </div>
         {% endif %}
       {% endwith %}
 
+    {% endfor %}
+
+    {% if featured_cta %}
+      {% comment %}
+        We render the featured CTA only once into the markup if one exists.
+        The categories only have a toggle to define if the featured CTA should be shown when the page is filtered for the category.
+        The "current category" is the one the page is first loaded with. We show the CTA immediately if that category would, otherwise the CTA is initially hidden.
+        JS needs to handle the show and hide of the CTA when the active category is changed with JS. The data attribute contains the information for which categories the CTA should be shown.
+      {% endcomment %}
       <div
-      class="
-        {% if category != current_category %}
-          d-none
-        {% endif %}
-      "
-      >
+        class="{% if not current_category.show_cta %} d-none {% endif %}"
+        data-show-for-categories="{% for category in categories %}{% if category.show_cta %}{{ category.name }}, {% endif %}{% endfor %}"
+        >
         {% with cta=featured_cta %}
-          {% if current_category.show_cta %}
-            {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
-          {% endif %}
+          {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
         {% endwith %}
       </div>
+    {% endif %}
 
+    {% block extra_product_box_list_items %}
 
-    {% endfor %}
+    {% endblock extra_product_box_list_items %}
 
     {{ block.super }}
 
