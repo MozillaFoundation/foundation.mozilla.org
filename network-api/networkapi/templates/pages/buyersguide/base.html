@@ -84,25 +84,24 @@
     {% endblock %}
   </div>
 
-  <div class="">
-    <div class="tw-relative">
-      <div class="tw-relative tw-z-10">
-        {% block hero %}{% endblock %}
+  <!-- Need to position relatives to deal with potential CSS transformations that change some stacking context of elements -->
+  <div class="tw-relative">
+    <div class="tw-relative tw-z-10">
+      {% block hero %}{% endblock %}
 
-        {% block category_header %}{% endblock %}
+      {% block category_header %}{% endblock %}
 
-        <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
-          {% block guts %}{% endblock %}
-        </main>
-      </div>
-      
-      {% block background_parallax %}
-      {% endblock %}
-      <div class="tw-relative tw-z-10">
-        {% include "partials/footer.html" %}
-      </div>
+      <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
+        {% block guts %}{% endblock %}
+      </main>
     </div>
-
-
+    
+    {% block background_parallax %}
+    {% endblock %}
+    <div class="tw-relative tw-z-10">
+      {% include "partials/footer.html" %}
+    </div>
   </div>
+
+
 {% endblock %}
