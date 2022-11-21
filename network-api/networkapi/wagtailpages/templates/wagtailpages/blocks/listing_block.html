@@ -11,6 +11,10 @@
             <a href="{% pageurl card.link %}"
                class="tw-group/listing hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black"
                aria-label="{{ card.title }}">
+          {% elif card.link_url %}
+            <a href="{{ card.link_url }}" target="_blank" rel="noopener"
+               class="tw-group/listing hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black"
+               aria-label="{{ card.title }}">
           {% endif %}
           <div class="card-regular tw-h-full tw-flex tw-flex-col">
             <img src="{{ img.url }}" alt="{{ card.alt_text }}"/>
@@ -23,7 +27,7 @@
               </div>
             </div>
           </div>
-          {% if card.link %}</a>{% endif %}
+          {% if card.link or card.link_url %}</a>{% endif %}
         </li>
       {% endwith %}
     {% endfor %}
