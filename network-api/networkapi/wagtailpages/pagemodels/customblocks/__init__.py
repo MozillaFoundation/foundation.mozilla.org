@@ -32,7 +32,12 @@ from .spaces_block import SpacesBlock
 from .tito_widget import TitoWidgetBlock
 from .video_block import ExternalVideoBlock, VideoBlock, WagtailVideoChooserBlock
 from .youtube_regret_block import YoutubeRegretBlock
-from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidthImageBlock, ArticleImageBlock
+from .articles import (
+    ArticleRichText,
+    ArticleDoubleImageBlock,
+    ArticleFullWidthImageBlock,
+    ArticleImageBlock,
+)
 from .dear_internet_letter_block import DearInternetLetterBlock
 from .foundation_slider_block import FoundationSliderBlock
 from .listing import ListingBlock
@@ -44,3 +49,4 @@ from .image_teaser_block import ImageTeaserBlock
 from .profile import ProfileBlock
 from .text_only_teaser import TextOnlyTeaserBlock
 from .block_with_aside import BlockWithAside
+from .newsletter_signup_block import NewsletterSignupBlock

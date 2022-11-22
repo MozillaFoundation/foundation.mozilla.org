@@ -4,70 +4,75 @@
 {% block body_id %}{{ category.slug }}{% endblock %}
 
 {% block guts %}
-  {% with editorial_content_index=page.get_editorial_content_index  %}
-    {% for category in categories  %}
-      {% with primary_related_articles=category.get_primary_related_articles  %}
-        {% comment %}
-          JS needs to handle the visibility switch for the related articles from one to the other category.
-        {% endcomment %}
-        {% if primary_related_articles %}
-          <div
-            class="
-              {% if category != current_category %}
-                d-none
-              {% endif %}
-            "
-          >
-            <div class="tw-container">
-              <div class="tw-row">
-                <div class="tw-w-full tw-px-4">
-                  {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles index_page=editorial_content_index %}
-                </div>
-              </div>
-            </div>
 
-          </div>
-        {% endif %}
-      {% endwith %}
+  {{ block.super }}
 
-      <div
-      class="
-        {% if category != current_category %}
-          d-none
-        {% endif %}
-      "
-      >
-        {% with cta=featured_cta %}
-          {% if current_category.show_cta %}
-            {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
-          {% endif %}
-        {% endwith %}
-      </div>
-
-
-    {% endfor %}
-
-    {{ block.super }}
-
-    {% for category in categories  %}
-      {% with secondary_related_articles=category.get_secondary_related_articles  %}
-        {% comment %}
-          JS needs to handle the visibility switch for the related articles from one to the other category.
-        {% endcomment %}
-        {% if secondary_related_articles %}
-          <div
-            class="
-              {% if category != current_category %}
-                tw-hidden
-              {% endif %}
-              tw-container
-              tw-my-7
-            "
-          >
-            {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=editorial_content_index use_wide_above="medium" %}
-          </div>
-        {% endif %}
-      {% endwith %}
-    {% endfor %}
-  {% endwith %}
+  {% for category in categories  %}
+    {% with secondary_related_articles=category.get_secondary_related_articles  %}
+      {% comment %}
+        JS needs to handle the visibility switch for the related articles from one to the other category.
+      {% endcomment %}
+      {% if secondary_related_articles %}
+        <div
+          id="category-secondary-related-articles"
+          class="
+            {% if category != current_category %}
+              tw-hidden
+            {% endif %}
+            tw-container
+            tw-my-7
+          "
+        >
+          {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=page.get_editorial_content_index use_wide_above="medium" %}
+        </div>
+      {% endif %}
+    {% endwith %}
+  {% endfor %}
 {% endblock guts %}
+
+{% block extra_product_box_list_items %}
+  {% if featured_cta %}
+    {% comment %}
+      We render the featured CTA only once into the markup if one exists.
+      The categories only have a toggle to define if the featured CTA should be shown when the page is filtered for the category.
+      The "current category" is the one the page is first loaded with. We show the CTA immediately if that category would, otherwise the CTA is initially hidden.
+      JS needs to handle the show and hide of the CTA when the active category is changed with JS. The data attribute contains the information for which categories the CTA should be shown.
+    {% endcomment %}
+    <div
+      class="tw-col-span-2 tw-flex tw-flex-row tw-w-full {% if not current_category.show_cta %} tw-hidden {% endif %}"
+      data-show-for-categories="{% for category in categories %}{% if category.show_cta %}{{ category.name }}, {% endif %}{% endfor %}"
+      >
+      {% with cta=featured_cta %}
+        {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
+      {% endwith %}
+    </div>
+  {% endif %}
+
+  {% for category in categories  %}
+    {% comment %}
+      Each category has it's own set of related articles.
+      So, for each category we render the full element into the markup.
+      If the category is also the "current_category" (the one that is active when the page is first loaded) we display the related articles immediately, otherwise the element is initially hidden.
+      JS needs to handle the visibility switch for the related articles from one to the other category. The data attribute contains the name of the category which the articles are related to.
+    {% endcomment %}
+    {% with primary_related_articles=category.get_primary_related_articles  %}
+      {% if primary_related_articles %}
+        <div
+          class="
+          tw-col-span-2
+          tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3
+          tw-row-start-3 large:tw-row-start-2
+          tw-flex
+          tw-flex-row
+          tw-w-full
+          tw-p-4
+          {% if category != current_category %} tw-hidden {% endif %}
+          "
+          data-show-for-category="{{ category.name }}"
+          >
+          {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles index_page=page.get_editorial_content_index %}
+        </div>
+      {% endif %}
+    {% endwith %}
+  {% endfor %}
+{% endblock extra_product_box_list_items %}

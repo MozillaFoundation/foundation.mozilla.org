@@ -4,9 +4,9 @@ from django.conf import settings
 hostnames = settings.TARGET_DOMAINS
 
 if len(hostnames) == 0:
-    print('Error: no TARGET_DOMAINS set, please ensure your environment variables are in order.')
+    print("Error: no TARGET_DOMAINS set, please ensure your environment variables are in order.")
 
-referrer_value = 'same-origin'
+referrer_value = "same-origin"
 
 if settings.REFERRER_HEADER_VALUE:
     referrer_value = settings.REFERRER_HEADER_VALUE
@@ -22,7 +22,7 @@ class ReferrerMiddleware:
 
     def __call__(self, request):
         response = self.get_response(request)
-        response['Referrer-Policy'] = referrer_value
+        response["Referrer-Policy"] = referrer_value
         return response
 
 
@@ -34,7 +34,7 @@ class XRobotsTagMiddleware:
         # Do not index this page in public search engine results
         # https://developers.google.com/search/reference/robots_meta_tag#xrobotstag
         response = self.get_response(request)
-        response['X-Robots-Tag'] = 'noindex'
+        response["X-Robots-Tag"] = "noindex"
         return response
 
 
@@ -44,26 +44,24 @@ class TargetDomainRedirectMiddleware:
 
     def __call__(self, request):
         if settings.DOMAIN_REDIRECT_MIDDLEWARE_ENABLED:
-            request_host = request.META['HTTP_HOST']
-            protocol = 'https' if request.is_secure() else 'http'
+            request_host = request.META["HTTP_HOST"]
+            protocol = "https" if request.is_secure() else "http"
 
             # Temporary Redirect prior to Mozilla Festival 2019 site launch
             if settings.MOZFEST_DOMAIN_REDIRECT_ENABLED:
-                if request_host == 'www.mozillafestival.org' and request.get_full_path() == '/':
-                    redirect_url = '{protocol}://{hostname}{path}'.format(
-                        protocol=protocol,
-                        hostname=hostnames[0],
-                        path='/mozfest/'
+                if request_host == "www.mozillafestival.org" and request.get_full_path() == "/":
+                    redirect_url = "{protocol}://{hostname}{path}".format(
+                        protocol=protocol, hostname=hostnames[0], path="/mozfest/"
                     )
 
                     return HttpResponseTemporaryRedirect(redirect_url)
 
             # Redirect to the first hostname listed in the config
             if request_host not in hostnames:
-                redirect_url = '{protocol}://{hostname}{path}'.format(
+                redirect_url = "{protocol}://{hostname}{path}".format(
                     protocol=protocol,
                     hostname=hostnames[0],
-                    path=request.get_full_path()
+                    path=request.get_full_path(),
                 )
 
                 return HttpResponseTemporaryRedirect(redirect_url)

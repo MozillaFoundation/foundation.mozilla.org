@@ -9,24 +9,60 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0059_buyersguidecampaignpage'),
+        ("wagtailpages", "0059_buyersguidecampaignpage"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='BuyersGuideCampaignPageDonationModalRelation',
+            name="BuyersGuideCampaignPageDonationModalRelation",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('translation_key', models.UUIDField(default=uuid.uuid4, editable=False)),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('donation_modal', models.ForeignKey(help_text='Choose existing or create new donation modal', on_delete=django.db.models.deletion.CASCADE, to='wagtailpages.donationmodal')),
-                ('locale', models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='donation_modal_relations', to='wagtailpages.buyersguidecampaignpage')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "translation_key",
+                    models.UUIDField(default=uuid.uuid4, editable=False),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "donation_modal",
+                    models.ForeignKey(
+                        help_text="Choose existing or create new donation modal",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="wagtailpages.donationmodal",
+                    ),
+                ),
+                (
+                    "locale",
+                    models.ForeignKey(
+                        editable=False,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="+",
+                        to="wagtailcore.locale",
+                    ),
+                ),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="donation_modal_relations",
+                        to="wagtailpages.buyersguidecampaignpage",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-                'unique_together': {('translation_key', 'locale')},
+                "ordering": ["sort_order"],
+                "abstract": False,
+                "unique_together": {("translation_key", "locale")},
             },
         ),
     ]

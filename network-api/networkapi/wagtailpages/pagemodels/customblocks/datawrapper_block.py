@@ -28,9 +28,10 @@ class DatawrapperBlock(blocks.EmbedBlock):
     - https://developer.datawrapper.de/docs/embedding-charts-via-oembed
 
     """
+
     _default_help_text = (
         'Enter the "visualization only" link of the Datawrapper chart. '
-        'It looks something like this: https://datawrapper.dwcdn.net/KwSKp/1/'
+        "It looks something like this: https://datawrapper.dwcdn.net/KwSKp/1/"
     )
 
     def __init__(self, *args, **kwargs):
@@ -50,7 +51,7 @@ class DatawrapperBlock(blocks.EmbedBlock):
         https://docs.wagtail.org/en/stable/advanced_topics/customisation/streamfield_blocks.html#handling-block-definitions-within-migrations
 
         """
-        path = 'wagtail.embeds.blocks.EmbedBlock'
+        path = "wagtail.embeds.blocks.EmbedBlock"
         args = []
         kwargs = {
             "icon": self.meta.icon,
@@ -60,5 +61,5 @@ class DatawrapperBlock(blocks.EmbedBlock):
         return path, args, kwargs
 
     class Meta:
-        icon = 'image'
-        template = 'wagtailpages/blocks/datawrapper_block.html'
+        icon = "image"
+        template = "wagtailpages/blocks/datawrapper_block.html"

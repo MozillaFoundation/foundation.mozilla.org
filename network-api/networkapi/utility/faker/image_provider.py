@@ -13,28 +13,28 @@ class ImageProvider(BaseProvider):
     >>> Faker.add_provider(ImageProvider)
     """
 
-    base_path = 'images/placeholders/'
+    base_path = "images/placeholders/"
 
     generic_images = (
-        'generic/tigerparrot.jpg',
-        'generic/photographer.jpg',
-        'generic/windfarm.jpg',
-        'generic/hotair.jpg',
-        'generic/computerandcoffee.jpg',
+        "generic/tigerparrot.jpg",
+        "generic/photographer.jpg",
+        "generic/windfarm.jpg",
+        "generic/hotair.jpg",
+        "generic/computerandcoffee.jpg",
     )
 
     headshot_images = (
-        'people/woman.jpg',
-        'people/man.jpg',
-        'people/dino.jpg',
+        "people/woman.jpg",
+        "people/man.jpg",
+        "people/dino.jpg",
     )
 
     product_images = (
-        'products/drone.jpg',
-        'products/echo.jpg',
-        'products/nest.jpg',
-        'products/babymonitor.jpg',
-        'products/teddy.jpg'
+        "products/drone.jpg",
+        "products/echo.jpg",
+        "products/nest.jpg",
+        "products/babymonitor.jpg",
+        "products/teddy.jpg",
     )
 
     def generic_image(self):
@@ -42,18 +42,18 @@ class ImageProvider(BaseProvider):
         returns a path to one of the predefined generic placeholder images
         """
 
-        return '{}{}'.format(self.base_path, self.random_element(self.generic_images))
+        return "{}{}".format(self.base_path, self.random_element(self.generic_images))
 
     def people_image(self):
         """
         returns a path to one of the predefined people placeholder images
         """
 
-        return '{}{}'.format(self.base_path, self.random_element(self.headshot_images))
+        return "{}{}".format(self.base_path, self.random_element(self.headshot_images))
 
     def product_image(self):
         """
         returns a path to one of the predefined product placeholder images
         """
 
-        return '{}{}'.format(self.base_path, self.random_element(self.product_images))
+        return "{}{}".format(self.base_path, self.random_element(self.product_images))

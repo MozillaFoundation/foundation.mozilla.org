@@ -29,57 +29,39 @@ from .pagemodels.modular import (
 )
 
 from .pagemodels.mixin.foundation_banner_inheritance import (
-    FoundationBannerInheritanceMixin
+    FoundationBannerInheritanceMixin,
 )
 
-from .pagemodels.primary import (
-    PrimaryPage
-)
+from .pagemodels.primary import PrimaryPage
 
-from .pagemodels.index import (
-    IndexPage
-)
+from .pagemodels.index import IndexPage
 
-from .pagemodels.profiles import (
-    Profile
-)
+from .pagemodels.profiles import Profile
 
 from .pagemodels.blog.blog import (
     BlogAuthors,
     BlogPage,
 )
 
-from .pagemodels.blog.blog_topic import (
-    BlogPageTopic
-)
+from .pagemodels.blog.blog_topic import BlogPageTopic
 
-from .pagemodels.blog.blog_index import (
-    BlogIndexPage
-)
+from .pagemodels.blog.blog_index import BlogIndexPage
 
-from .pagemodels.campaign_index import (
-    CampaignIndexPage
-)
+from .pagemodels.campaign_index import CampaignIndexPage
 
-from .pagemodels.redirect import (
-    RedirectingPage
-)
+from .pagemodels.redirect import RedirectingPage
 
 from .pagemodels.youtube import (
     YoutubeRegretsPage,
     YoutubeRegretsReporterPage,
     YoutubeRegrets2021Page,
     YoutubeRegrets2022Page,
-    YoutubeRegretsReporterExtensionPage
+    YoutubeRegretsReporterExtensionPage,
 )
 
-from .pagemodels.publications.publication import (
-    PublicationPage
-)
+from .pagemodels.publications.publication import PublicationPage
 
-from .pagemodels.publications.article import (
-    ArticlePage
-)
+from .pagemodels.publications.article import ArticlePage
 
 from .pagemodels.research_hub.authors_index import ResearchAuthorsIndexPage
 from .pagemodels.research_hub.detail_page import (
@@ -92,16 +74,14 @@ from .pagemodels.research_hub.relations import (
     ResearchAuthorRelation,
     ResearchDetailPageResearchRegionRelation,
     ResearchDetailPageResearchTopicRelation,
-    ResearchLandingPageFeaturedResearchTopicRelation
+    ResearchLandingPageFeaturedResearchTopicRelation,
 )
 from .pagemodels.research_hub.taxonomies import (
     ResearchRegion,
     ResearchTopic,
 )
 
-from .pagemodels.dear_internet import (
-    DearInternetPage
-)
+from .pagemodels.dear_internet import DearInternetPage
 
 from .pagemodels.buyersguide.article_page import (
     BuyersGuideArticlePage,
@@ -111,7 +91,7 @@ from .pagemodels.buyersguide.article_page import (
 )
 from .pagemodels.buyersguide.campaign_page import (
     BuyersGuideCampaignPage,
-    BuyersGuideCampaignPageDonationModalRelation
+    BuyersGuideCampaignPageDonationModalRelation,
 )
 from .pagemodels.buyersguide.editorial_content_index import (
     BuyersGuideEditorialContentIndexPage,
@@ -142,6 +122,4 @@ from .pagemodels.buyersguide.call_to_action import BuyersGuideCallToAction
 
 from .pagemodels.pulse import PulseFilter
 
-from .pagemodels.feature_flags.feature_flags import (
-    FeatureFlags
-)
+from .pagemodels.feature_flags.feature_flags import FeatureFlags

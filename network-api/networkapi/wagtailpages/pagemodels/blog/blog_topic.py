@@ -5,19 +5,20 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
-from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import base_rich_text_options
+from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
+    base_rich_text_options,
+)
+from networkapi.wagtailpages.utils import get_default_locale
 
 
 @register_snippet
 class BlogPageTopic(TranslatableMixin, models.Model):
-    name = models.CharField(
-        max_length=50
-    )
+    name = models.CharField(max_length=50)
 
     title = models.TextField(
         blank=True,
-        help_text='Optional title that will apear on the page and when topic page is shared. '
-                  'If not set, will default to "name" text.'
+        help_text="Optional title that will apear on the page and when topic page is shared. "
+        'If not set, will default to "name" text.',
     )
 
     intro = RichTextField(
@@ -26,16 +27,16 @@ class BlogPageTopic(TranslatableMixin, models.Model):
     )
     share_description = models.TextField(
         blank=True,
-        help_text='Optional description that will apear when topic page is shared. '
-                  'If not set, will default to "intro" text.'
+        help_text="Optional description that will apear when topic page is shared. "
+        'If not set, will default to "intro" text.',
     )
     share_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        verbose_name='Share Image',
-        help_text='Optional image that will apear when topic page is shared.',
+        verbose_name="Share Image",
+        help_text="Optional image that will apear when topic page is shared.",
     )
 
     panels = [
@@ -48,8 +49,12 @@ class BlogPageTopic(TranslatableMixin, models.Model):
 
     @classmethod
     def get_topics(cls):
-        choices = [(topic.name, topic.name) for topic in BlogPageTopic.objects.all().order_by('name')]
-        choices.insert(0, ('All', 'All'))
+        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+        choices = [
+            (topic.name, topic.name)
+            for topic in BlogPageTopic.objects.filter(locale_id=DEFAULT_LOCALE_ID).order_by("name")
+        ]
+        choices.insert(0, ("All", "All"))
         return choices
 
     @property
