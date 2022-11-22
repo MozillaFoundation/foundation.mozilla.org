@@ -113,9 +113,8 @@ function bindCheckboxCheckedGA(selector, eventMeta) {
 
 function trackSearchBoxUsage() {
   const SESSION_KEY = `searchBoxUsed`;
-  const searchBox = document.querySelector(
-    "body.catalog #product-filter-search-input"
-  );
+  const selector = `body.catalog #product-filter-search-input`;
+  const searchBox = document.querySelector(selector);
 
   if (!searchBox) {
     console.error(`cannot find ${selector}`);
