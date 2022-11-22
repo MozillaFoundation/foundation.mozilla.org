@@ -207,15 +207,18 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
 
         self.assertListEqual(result, [])
 
-    def test_article_page_requires_share_image(self):
-        BuyersGuideArticlePageForm = get_form_for_model(model=pagemodels.BuyersGuideArticlePage)
+    def test_article_page_requires_search_image(self):
+        edit_handler = pagemodels.BuyersGuideArticlePage.get_edit_handler()
+        article_page_form = edit_handler.get_form_class()
+
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
             parent=self.content_index,
         )
-        form = BuyersGuideArticlePageForm.get_form_class(instance=article_page,
-            data={
-                    "search_image": None,
-                }
+
+        form = article_page_form(
+            instance=article_page,
+            data=({"search_image": None}),
         )
 
-        self.assertFalse(form.is_valid())
+        self.assertTrue(form.is_valid())
+
