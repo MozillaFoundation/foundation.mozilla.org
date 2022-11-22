@@ -3,7 +3,6 @@ from http import HTTPStatus
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
-from wagtail.admin.edit_handlers import get_form_for_model
 
 class FactoriesTest(test_base.WagtailpagesTestCase):
     def test_page_factory(self):
