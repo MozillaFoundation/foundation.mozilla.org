@@ -1,6 +1,7 @@
 from networkapi.wagtailpages.utils import requireShareFields
 from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 
+
 class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
     def clean_name(self):
         instance = self.instance
@@ -25,6 +26,7 @@ class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
                 self.add_error("parent", "A category cannot be a parent of itself.")
         return parent
 
+
 class BuyersGuideArticlePageForm(WagtailAdminPageForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -35,7 +37,6 @@ class BlogPageForm(WagtailAdminPageForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         requireShareFields(self)
-
 
     def clean(self):
         cleaned_data = super().clean()

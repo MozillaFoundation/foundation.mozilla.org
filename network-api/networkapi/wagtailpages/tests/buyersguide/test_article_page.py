@@ -1,4 +1,3 @@
-
 from http import HTTPStatus
 
 from wagtail.tests.utils.form_data import nested_form_data, streamfield, rich_text
@@ -6,7 +5,6 @@ from wagtail.tests.utils.form_data import nested_form_data, streamfield, rich_te
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
-
 
 
 class FactoriesTest(test_base.WagtailpagesTestCase):
@@ -236,9 +234,7 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         Test that the buyersguide article page form will
         return a validation error if no "search_image" is set.
         """
-        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
-            parent=self.content_index
-        )
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(parent=self.content_index)
 
         test_form = self.article_page_form(
             instance=article_page,
@@ -249,22 +245,19 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
                     "search_description": article_page.search_description,
                     "search_image": None,
                 }
-            )
+            ),
         )
 
         self.assertEqual(1, len(test_form.errors))
         self.assertIn("search_image", test_form.errors)
         self.assertIn("This field is required.", test_form.errors["search_image"])
 
-
     def test_article_page_requires_search_description(self):
         """
         Test that the buyersguide article page form will
         return a validation error if no "search_description" is set.
         """
-        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
-            parent=self.content_index
-        )
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(parent=self.content_index)
 
         test_form = self.article_page_form(
             instance=article_page,
@@ -275,13 +268,12 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
                     "search_description": None,
                     "search_image": article_page.search_image,
                 }
-            )
+            ),
         )
 
         self.assertEqual(1, len(test_form.errors))
         self.assertIn("search_description", test_form.errors)
         self.assertIn("This field is required.", test_form.errors["search_description"])
-
 
     def test_article_page_requires_both_search_fields(self):
         """
@@ -289,9 +281,7 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         errors for both "search_image" and "search_description" fields
         if neither are updated.
         """
-        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
-            parent=self.content_index
-        )
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(parent=self.content_index)
 
         test_form = self.article_page_form(
             instance=article_page,
@@ -302,7 +292,7 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
                     "search_description": None,
                     "search_image": None,
                 }
-            )
+            ),
         )
 
         self.assertEqual(2, len(test_form.errors))
@@ -311,15 +301,12 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         self.assertIn("This field is required.", test_form.errors["search_image"])
         self.assertIn("This field is required.", test_form.errors["search_description"])
 
-
     def test_article_page_with_search_fields_is_valid(self):
         """
         Test that a buyersguide article page form with
         the search fields set is valid with no errors.
         """
-        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
-            parent=self.content_index
-        )
+        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(parent=self.content_index)
 
         test_form = self.article_page_form(
             instance=article_page,
@@ -330,7 +317,7 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
                     "search_description": article_page.search_description,
                     "search_image": article_page.search_image,
                 }
-            )
+            ),
         )
 
         self.assertEqual(0, len(test_form.errors))

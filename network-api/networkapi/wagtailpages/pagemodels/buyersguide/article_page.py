@@ -31,7 +31,6 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
     # Custom base form for additional validation
     base_form_class = BuyersGuideArticlePageForm
 
-
     hero_image = models.ForeignKey(
         images.get_image_model_string(),
         null=True,
