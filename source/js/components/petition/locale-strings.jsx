@@ -27,7 +27,9 @@ export default {
       (
         <span>
           I'm okay with Mozilla handling my info as explained in this{" "}
-          <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a>
+          <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
+            Privacy Notice
+          </a>
         </span>
       ),
     "Please check this box if you want to proceed": `Please check this box if you want to proceed`,
@@ -84,7 +86,7 @@ export default {
         <span>
           Ich bin einverstanden mit dem Umgang Mozillas mit meinen Informationen
           wie im{" "}
-          <a href="https://www.mozilla.org/privacy/websites/">
+          <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
             Datenschutzhinweis
           </a>{" "}
           beschrieben
@@ -143,7 +145,7 @@ export default {
         <span>
           Estoy de acuerdo con la gestión de mi información, tal y como se
           explica en este{" "}
-          <a href="https://www.mozilla.org/privacy/websites/">
+          <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
             Aviso de privacidad
           </a>
         </span>
@@ -203,7 +205,7 @@ export default {
       (
         <span>
           J’accepte que Mozilla utilise mes informations conformément à{" "}
-          <a href="https://www.mozilla.org/privacy/websites/">
+          <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
             cette politique de confidentialité
           </a>
         </span>
@@ -261,7 +263,7 @@ export default {
       (
         <span>
           Pozwalam Mozilli wykorzystywać te informacje w sposób opisany w{" "}
-          <a href="https://www.mozilla.org/privacy/websites/">
+          <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
             zasadach ochrony prywatności
           </a>
         </span>
@@ -319,7 +321,7 @@ export default {
         <span>
           Concordo com a Mozilla lidar com minhas informações, como explicado
           neste{" "}
-          <a href="https://www.mozilla.org/privacy/websites/">
+          <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
             Aviso de Privacidade
           </a>
         </span>
