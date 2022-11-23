@@ -67,7 +67,7 @@ jobs:
       XSS_PROTECTION: True
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.9.9
           cache: "pip"
@@ -136,7 +136,7 @@ jobs:
       XSS_PROTECTION: True
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.9.9
           cache: "pip"
@@ -204,7 +204,7 @@ jobs:
       CSP_STYLE_SRC: "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com https://platform.twitter.com"
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.9.9
           cache: "pip"
