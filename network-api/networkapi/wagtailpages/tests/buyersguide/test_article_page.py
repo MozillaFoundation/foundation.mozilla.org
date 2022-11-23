@@ -4,6 +4,9 @@ from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 
+from django.forms.models import model_to_dict
+from wagtail.tests.utils.form_data import nested_form_data, streamfield, rich_text
+
 class FactoriesTest(test_base.WagtailpagesTestCase):
     def test_page_factory(self):
         buyersguide_factories.BuyersGuideArticlePageFactory()
@@ -28,6 +31,8 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         cls.content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
             parent=cls.buyersguide_homepage,
         )
+        edit_handler = pagemodels.BuyersGuideArticlePage.get_edit_handler()
+        cls.article_page_form = edit_handler.get_form_class()
 
     def test_parents(self):
         self.assertAllowedParentPageTypes(
@@ -206,18 +211,79 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
 
         self.assertListEqual(result, [])
 
+
+    @staticmethod
+    def generate_form_data(data: dict) -> dict:
+        """
+        Generate valid form data for the BuyersGuide article page.
+
+        Since we have the "body" field set as required, we need to submit at least
+        one StreamField in the form, or else the form will return a validation error.
+        """
+        return nested_form_data(
+            {
+                **data,
+                "body": streamfield([("paragraph", rich_text("Hello world!"))]),
+            }
+        )
+
     def test_article_page_requires_search_image(self):
-        edit_handler = pagemodels.BuyersGuideArticlePage.get_edit_handler()
-        article_page_form = edit_handler.get_form_class()
-
-        article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
-            parent=self.content_index,
+        """
+        Test that the buyersguide article page form will
+        return a validation error if no "search_image" is set.
+        """
+        article_page_with_no_search_image = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index, search_image=None
         )
+        article_page_data = model_to_dict(article_page_with_no_search_image)
 
-        form = article_page_form(
-            instance=article_page,
-            data=({"search_image": None}),
+        test_form = self.article_page_form(data=self.generate_form_data(article_page_data))
+
+        self.assertEqual(1, len(test_form.errors))
+        self.assertIn("search_image", test_form.errors)
+
+    def test_article_page_requires_search_description(self):
+        """
+        Test that the buyersguide article page form will
+        return a validation error if no "search_description" is set.
+        """
+        article_page_with_no_search_description = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index, search_description=""
         )
+        article_page_data = model_to_dict(article_page_with_no_search_description)
 
-        self.assertTrue(form.is_valid())
+        test_form = self.article_page_form(data=self.generate_form_data(article_page_data))
 
+        self.assertEqual(1, len(test_form.errors))
+        self.assertIn("search_description", test_form.errors)
+
+    def test_article_page_requires_both_search_fields(self):
+        """
+        Test that the buyersguide article page form will return validation
+        errors for both "search_image" and "search_description" fields
+        if neither are updated.
+        """
+        article_page_with_no_search_fields = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index, search_description="", search_image=None
+        )
+        article_page_data = model_to_dict(article_page_with_no_search_fields)
+
+        test_form = self.article_page_form(data=self.generate_form_data(article_page_data))
+
+        self.assertEqual(2, len(test_form.errors))
+        self.assertIn("search_image", test_form.errors)
+        self.assertIn("search_description", test_form.errors)
+
+    def test_article_page_with_search_fields_is_valid(self):
+        """
+        Test that a buyersguide article page form with
+        the search fields updated is valid with no errors.
+        """
+        article_page_with_search_fields = buyersguide_factories.BuyersGuideArticlePageFactory(
+            parent=self.content_index
+        )
+        article_page_data = model_to_dict(article_page_with_search_fields)
+
+        test_form = self.article_page_form(data=self.generate_form_data(article_page_data))
+
+        self.assertEqual(0, len(test_form.errors))
