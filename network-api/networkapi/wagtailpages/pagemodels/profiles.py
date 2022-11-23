@@ -37,6 +37,7 @@ class Profile(TranslatableMixin, models.Model):
 
     introduction = models.TextField(max_length=500, blank=True)
 
+    # The slug field is set during save and should not be managed manually.
     slug = models.SlugField(blank=True)
 
     panels = [
@@ -47,7 +48,6 @@ class Profile(TranslatableMixin, models.Model):
     ]
 
     translatable_fields = [
-        SynchronizedField("slug"),
         SynchronizedField("name"),
         SynchronizedField("image"),
         TranslatableField("tagline"),
