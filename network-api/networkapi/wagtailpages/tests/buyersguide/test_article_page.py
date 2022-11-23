@@ -212,9 +212,9 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         self.assertListEqual(result, [])
 
     @staticmethod
-    def generate_form_data(data: dict) -> dict:
+    def generate_form_data(article_page, data: dict) -> dict:
         """
-        Generate valid form data for the BuyersGuide article page.
+        Generate valid form data for the BuyersGuide article page form.
 
         We add the extra fields below to the dict as all these fields are set as
         required, and the form will return a validation error against them if left out.
@@ -225,8 +225,8 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         return nested_form_data(
             {
                 **data,
-                "title": "New Test Title",
-                "slug": "new-test-title",
+                "title": article_page.title,
+                "slug": article_page.slug,
                 "body": streamfield([("paragraph", rich_text("Hello world!"))]),
             }
         )
@@ -241,10 +241,11 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         test_form = self.article_page_form(
             instance=article_page,
             data=self.generate_form_data(
+                article_page,
                 {
                     "search_description": article_page.search_description,
                     "search_image": None,
-                }
+                },
             ),
         )
 
@@ -262,10 +263,11 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         test_form = self.article_page_form(
             instance=article_page,
             data=self.generate_form_data(
+                article_page,
                 {
                     "search_description": None,
                     "search_image": article_page.search_image,
-                }
+                },
             ),
         )
 
@@ -284,10 +286,11 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         test_form = self.article_page_form(
             instance=article_page,
             data=self.generate_form_data(
+                article_page,
                 {
                     "search_description": None,
                     "search_image": None,
-                }
+                },
             ),
         )
 
@@ -307,10 +310,11 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         test_form = self.article_page_form(
             instance=article_page,
             data=self.generate_form_data(
+                article_page,
                 {
                     "search_description": article_page.search_description,
                     "search_image": article_page.search_image,
-                }
+                },
             ),
         )
 
