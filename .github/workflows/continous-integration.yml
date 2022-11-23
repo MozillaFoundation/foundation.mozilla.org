@@ -12,7 +12,7 @@ on:
 jobs:
   test_node:
     name: Node CI
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -32,7 +32,7 @@ jobs:
 
   test_wagtail:
     name: Wagtail CI
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     services:
       postgres:
         image: postgres:13.2
@@ -67,7 +67,7 @@ jobs:
       XSS_PROTECTION: True
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.9.9
           cache: "pip"
@@ -103,7 +103,7 @@ jobs:
 
   test_percy:
     name: Percy CI
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     services:
       postgres:
         image: postgres:13.2
@@ -136,7 +136,7 @@ jobs:
       XSS_PROTECTION: True
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.9.9
           cache: "pip"
@@ -168,7 +168,7 @@ jobs:
 
   test_integration:
     name: Integration testing
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     services:
       postgres:
         image: postgres:13.2
@@ -204,7 +204,7 @@ jobs:
       CSP_STYLE_SRC: "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com https://platform.twitter.com"
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.9.9
           cache: "pip"
