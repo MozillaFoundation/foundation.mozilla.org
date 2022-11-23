@@ -254,6 +254,8 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
 
         self.assertEqual(1, len(test_form.errors))
         self.assertIn("search_image", test_form.errors)
+        self.assertIn("This field is required.", test_form.errors["search_image"])
+
 
     def test_article_page_requires_search_description(self):
         """
@@ -278,6 +280,8 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
 
         self.assertEqual(1, len(test_form.errors))
         self.assertIn("search_description", test_form.errors)
+        self.assertIn("This field is required.", test_form.errors["search_description"])
+
 
     def test_article_page_requires_both_search_fields(self):
         """
@@ -304,6 +308,9 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         self.assertEqual(2, len(test_form.errors))
         self.assertIn("search_image", test_form.errors)
         self.assertIn("search_description", test_form.errors)
+        self.assertIn("This field is required.", test_form.errors["search_image"])
+        self.assertIn("This field is required.", test_form.errors["search_description"])
+
 
     def test_article_page_with_search_fields_is_valid(self):
         """
