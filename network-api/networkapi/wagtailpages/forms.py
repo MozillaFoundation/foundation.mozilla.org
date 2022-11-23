@@ -1,4 +1,4 @@
-from networkapi.wagtailpages.utils import requireShareFields
+from networkapi.wagtailpages.utils import require_share_fields
 from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 
 
@@ -30,13 +30,13 @@ class BuyersGuideProductCategoryForm(WagtailAdminModelForm):
 class BuyersGuideArticlePageForm(WagtailAdminPageForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        requireShareFields(self)
+        require_share_fields(self)
 
 
 class BlogPageForm(WagtailAdminPageForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        requireShareFields(self)
+        require_share_fields(self)
 
     def clean(self):
         cleaned_data = super().clean()

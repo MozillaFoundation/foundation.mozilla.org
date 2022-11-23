@@ -471,7 +471,7 @@ def get_original_by_slug(Model, slug):
     return Model.objects.get(slug=slug, locale=DEFAULT_LOCALE_ID)
 
 
-def requireShareFields(form):
+def require_share_fields(form):
     # Overrides a page's admin form in order to make promote tab's
     # "search image" and "search description" fields required.
     form.fields["search_description"].required = True

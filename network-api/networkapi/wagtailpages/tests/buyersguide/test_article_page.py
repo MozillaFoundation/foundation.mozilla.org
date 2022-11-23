@@ -225,6 +225,8 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         return nested_form_data(
             {
                 **data,
+                "title": "New Test Title",
+                "slug": "new-test-title",
                 "body": streamfield([("paragraph", rich_text("Hello world!"))]),
             }
         )
@@ -240,8 +242,6 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             instance=article_page,
             data=self.generate_form_data(
                 {
-                    "title": article_page.title,
-                    "slug": article_page.slug,
                     "search_description": article_page.search_description,
                     "search_image": None,
                 }
@@ -263,8 +263,6 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             instance=article_page,
             data=self.generate_form_data(
                 {
-                    "title": article_page.title,
-                    "slug": article_page.slug,
                     "search_description": None,
                     "search_image": article_page.search_image,
                 }
@@ -287,8 +285,6 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             instance=article_page,
             data=self.generate_form_data(
                 {
-                    "title": article_page.title,
-                    "slug": article_page.slug,
                     "search_description": None,
                     "search_image": None,
                 }
@@ -312,8 +308,6 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
             instance=article_page,
             data=self.generate_form_data(
                 {
-                    "title": "New Test Title",
-                    "slug": "new-test-title",
                     "search_description": article_page.search_description,
                     "search_image": article_page.search_image,
                 }
