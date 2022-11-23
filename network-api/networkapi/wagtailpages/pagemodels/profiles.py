@@ -35,7 +35,8 @@ class Profile(TranslatableMixin, models.Model):
         help_text="Use this field for things like a person's job title.",
     )
 
-    introduction = models.TextField(max_length=500)
+    introduction = models.TextField(max_length=500, blank=True)
+
     slug = models.SlugField(blank=True)
 
     panels = [
