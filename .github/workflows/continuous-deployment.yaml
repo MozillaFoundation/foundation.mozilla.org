@@ -34,7 +34,9 @@ jobs:
             password $HEROKU_DEPLOYMENT_USER_API_TOKEN
           " > ~/.netrc
       - name: Deploy to staging
-        run: git push heroku main
+        run: |
+          git fetch heroku
+          git push heroku main
 
   ci-failure:
     runs-on: ubuntu-latest
