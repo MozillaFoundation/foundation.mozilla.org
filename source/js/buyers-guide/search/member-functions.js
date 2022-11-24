@@ -209,7 +209,9 @@ export function setupReviewLinks(instance) {
 
   for (const nav of navLinks) {
     nav.addEventListener("click", (evt) => {
-      const editorialContent = document.querySelector(".editorial-content");
+      const editorialContent = document.querySelector(
+        ".editorial-content:not(.tw-hidden)"
+      );
       const burger = document.querySelector(".burger");
       if (editorialContent) {
         evt.preventDefault();
