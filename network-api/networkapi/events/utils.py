@@ -41,7 +41,7 @@ def has_signed_up_to_newsletter(request_dict):
     if matching_event:
         answers = request_dict.get("answers", [])
         for answer in answers:
-            if answer["question"]["id"] == matching_event.newsletter_question_id and len(answer["response"]):
+            if str(answer["question"]["id"]) == matching_event.newsletter_question_id and len(answer["response"]):
                 return True
 
     return False
