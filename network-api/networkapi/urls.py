@@ -33,7 +33,6 @@ from .utility import watail_core_url_override as wagtail_urls
 # See https://github.com/mozilla/foundation.mozilla.org/issues/6464
 
 
-
 admin.autodiscover()
 
 

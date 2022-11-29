@@ -34,10 +34,6 @@ from networkapi.wagtailpages.utils import create_wagtail_image
 # from django.test.utils import override_settings
 
 
-
-
-
-
 class ReferrerMiddlewareTests(TestCase):
     def setUp(self):
         referrer_middleware = ReferrerMiddleware("response")
