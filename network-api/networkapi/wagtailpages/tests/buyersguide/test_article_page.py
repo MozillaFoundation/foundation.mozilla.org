@@ -239,7 +239,6 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(parent=self.content_index)
 
         test_form = self.article_page_form(
-            instance=article_page,
             data=self.generate_form_data(
                 article_page,
                 {
@@ -248,7 +247,6 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
                 },
             ),
         )
-
         self.assertEqual(1, len(test_form.errors))
         self.assertIn("search_image", test_form.errors)
         self.assertIn("This field is required.", test_form.errors["search_image"])
@@ -261,7 +259,6 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(parent=self.content_index)
 
         test_form = self.article_page_form(
-            instance=article_page,
             data=self.generate_form_data(
                 article_page,
                 {
@@ -284,7 +281,6 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(parent=self.content_index)
 
         test_form = self.article_page_form(
-            instance=article_page,
             data=self.generate_form_data(
                 article_page,
                 {
@@ -308,7 +304,6 @@ class BuyersGuideArticlePageTest(test_base.WagtailpagesTestCase):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(parent=self.content_index)
 
         test_form = self.article_page_form(
-            instance=article_page,
             data=self.generate_form_data(
                 article_page,
                 {

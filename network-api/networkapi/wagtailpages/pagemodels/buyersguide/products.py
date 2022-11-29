@@ -36,8 +36,8 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail_airtable.mixins import AirtableMixin
 
 from networkapi.utility import orderables
-from networkapi.wagtailpages.forms import BuyersGuideProductCategoryForm
 from networkapi.wagtailpages.fields import ExtendedYesNoField
+from networkapi.wagtailpages.pagemodels.buyersguide.forms import BuyersGuideProductCategoryForm
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
     get_buyersguide_featured_cta,
