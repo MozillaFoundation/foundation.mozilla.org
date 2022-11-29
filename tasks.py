@@ -320,6 +320,7 @@ def lint_python(ctx):
     """Run python linting."""
     flake8(ctx)
     black_check(ctx)
+    isort_check(ctx)
 
 
 @task
@@ -346,6 +347,7 @@ def format(ctx):
     """Run formatters."""
     format_css(ctx)
     format_js(ctx)
+    format_python(ctx)
 
 
 @task
@@ -364,6 +366,7 @@ def format_js(ctx):
 def format_python(ctx):
     """Run python formatting."""
     black(ctx)
+    isort(ctx)
 
 
 @task(help={"args": "Override the arguments passed to black."})
