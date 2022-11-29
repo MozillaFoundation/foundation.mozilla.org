@@ -469,10 +469,3 @@ def get_default_locale():
 def get_original_by_slug(Model, slug):
     (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
     return Model.objects.get(slug=slug, locale=DEFAULT_LOCALE_ID)
-
-
-def require_share_fields(form):
-    # Overrides a page's admin form in order to make promote tab's
-    # "search image" and "search description" fields required.
-    form.fields["search_description"].required = True
-    form.fields["search_image"].required = True

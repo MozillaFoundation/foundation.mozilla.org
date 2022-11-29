@@ -11,9 +11,9 @@ from wagtail.images import edit_handlers as image_panels
 from wagtail.snippets import edit_handlers as snippet_panels
 
 from networkapi.utility import orderables
-from networkapi.wagtailpages.forms import BuyersGuideArticlePageForm
 from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
+from networkapi.wagtailpages.pagemodels.buyersguide.forms import BuyersGuideArticlePageForm
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
 )
