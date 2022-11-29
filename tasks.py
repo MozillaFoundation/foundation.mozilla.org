@@ -1,6 +1,7 @@
 import os
 import re
 from sys import platform
+
 from invoke import task
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -364,6 +365,13 @@ def black(ctx, args=None):
     """Run black code formatter."""
     args = args or "."
     pyrun(ctx, command=f"black {args}")
+
+
+@task(help={"args": "Override the arguments passed to isort."})
+def isort(ctx, args=None):
+    """Run isort code formatter."""
+    args = args or "."
+    pyrun(ctx, command=f"isort {args}")
 
 
 # Translation
