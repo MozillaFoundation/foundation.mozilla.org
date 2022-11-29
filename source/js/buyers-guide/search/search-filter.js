@@ -8,6 +8,7 @@ import {
   setupGoBackToAll,
   setupReviewLinks,
   toggleProductReviewView,
+  toggleCategoryRelatedArticles,
 } from "./member-functions.js";
 /**
  * ...
@@ -228,6 +229,7 @@ export class SearchFilter {
       .querySelector("#pni-category-dropdown-select")
       .classList.add("tw-hidden");
     toggleProductReviewView();
+    toggleCategoryRelatedArticles(category);
     Utils.showProductsForCategory(category);
     this.categoryTitle.value = category;
     Utils.sortProductCards();

@@ -235,3 +235,17 @@ export function toggleProductReviewView() {
     nav.classList.add("active");
   }
 }
+
+export function toggleCategoryRelatedArticles(category) {
+  const relatedArticles = document.querySelectorAll("[data-show-for-category]");
+
+  // Probably means we are on PNI homepage!
+  if (!relatedArticles) return;
+  [...relatedArticles].forEach((relatedArticle) => {
+    if (category === relatedArticle.dataset.showForCategory) {
+      relatedArticle.classList.remove("tw-hidden");
+    } else {
+      relatedArticle.classList.add("tw-hidden");
+    }
+  });
+}

@@ -117,7 +117,12 @@ export function performInitialHistoryReplace(
       });
   }
 
-  Utils.sortProductCards();
+  // sorting priorities change when search text is applied
+  if (searchParameter) {
+    Utils.sortFilteredProducts();
+  } else {
+    Utils.sortProductCards();
+  }
 }
 
 /**
