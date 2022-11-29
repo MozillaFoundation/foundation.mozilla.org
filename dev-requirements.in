@@ -3,6 +3,7 @@ black
 coveralls
 django-debug-toolbar
 flake8
+isort
 mypy
 ptvsd
 types-python-slugify
