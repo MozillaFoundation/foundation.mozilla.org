@@ -9,12 +9,10 @@
 
   {% for category in categories  %}
     {% with secondary_related_articles=category.get_secondary_related_articles  %}
-      {% comment %}
-        JS needs to handle the visibility switch for the related articles from one to the other category.
-      {% endcomment %}
       {% if secondary_related_articles %}
         <div
           id="category-secondary-related-articles"
+          data-show-for-category="{{ category.name }}"
           class="
             {% if category != current_category %}
               tw-hidden
@@ -53,7 +51,6 @@
       Each category has it's own set of related articles.
       So, for each category we render the full element into the markup.
       If the category is also the "current_category" (the one that is active when the page is first loaded) we display the related articles immediately, otherwise the element is initially hidden.
-      JS needs to handle the visibility switch for the related articles from one to the other category. The data attribute contains the name of the category which the articles are related to.
     {% endcomment %}
     {% with primary_related_articles=category.get_primary_related_articles  %}
       {% if primary_related_articles %}
