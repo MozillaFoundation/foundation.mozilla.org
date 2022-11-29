@@ -27,7 +27,7 @@ def review_app_help_view(request):
 @require_GET
 def apple_pay_domain_association_view(request):
     """ 
-    Returns key needed for Apple Pay domain association/verification.
+    Returns string needed for Apple Pay domain association/verification.
     """
     if Site.find_for_request(request).hostname == "www.mozillafestival.org":
         verification_key = settings.APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST
