@@ -326,7 +326,7 @@ def lint_python(ctx):
 @task
 def flake8(ctx):
     """Run flake8."""
-    pyrun(ctx, "flake8 tasks.py network-api")
+    pyrun(ctx, "flake8 .")
 
 
 @task
