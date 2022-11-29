@@ -29,7 +29,7 @@ def apple_pay_domain_association_view(request):
     """ 
     Returns key needed for Apple Pay domain association/verification.
     """
-    if "mozillafestival" or "mozfest" in Site.find_for_request(request).hostname:
+    if Site.find_for_request(request).hostname == "www.mozillafestival.org":
         verification_key = settings.APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST
     else:
         verification_key = settings.APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION
