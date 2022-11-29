@@ -1,6 +1,6 @@
 from django import forms
-from django.utils import timezone
 from django.contrib.admin.widgets import AdminSplitDateTime
+from django.utils import timezone
 
 from networkapi.highlights.models import Highlight
 

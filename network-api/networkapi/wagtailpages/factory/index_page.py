@@ -1,5 +1,6 @@
-from networkapi.wagtailpages.models import IndexPage
 from wagtail_factories import PageFactory
+
+from networkapi.wagtailpages.models import IndexPage
 
 
 class IndexPageFactory(PageFactory):

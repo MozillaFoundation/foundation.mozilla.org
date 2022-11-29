@@ -2,12 +2,11 @@
 Management command called during the Heroku Review App post-deployment phase.
 Creates an admin user and prints the password to the build logs.
 """
+import requests
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User
-from django.conf import settings
-import requests
-
 from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
 
 faker = Faker()

@@ -1,5 +1,5 @@
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface, ObjectList
+from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 
 

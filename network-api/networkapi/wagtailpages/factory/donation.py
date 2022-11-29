@@ -1,6 +1,7 @@
-from networkapi.wagtailpages.donation_modal import DonationModal, DonationModals
 from factory import Faker, SubFactory
 from factory.django import DjangoModelFactory
+
+from networkapi.wagtailpages.donation_modal import DonationModal, DonationModals
 
 
 class DonationModalFactory(DjangoModelFactory):

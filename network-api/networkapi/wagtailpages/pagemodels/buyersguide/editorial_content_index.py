@@ -4,21 +4,22 @@ from django import shortcuts
 from django.core import paginator
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
+from wagtail.admin.edit_handlers import InlinePanel, PageChooserPanel
+from wagtail.contrib.routable_page import models as routable_models
 from wagtail.core import models as wagtail_models
 from wagtail.core.models import Orderable, TranslatableMixin
-from wagtail.contrib.routable_page import models as routable_models
 
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
-    get_categories_for_locale,
-    get_buyersguide_featured_cta,
-)
-from networkapi.wagtailpages.utils import get_language_from_request
 from networkapi.utility import orderables
+from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
+    get_buyersguide_featured_cta,
+    get_categories_for_locale,
+)
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
+from networkapi.wagtailpages.utils import get_language_from_request
 
 if TYPE_CHECKING:
     from django import http
+
     from networkapi.wagtailpages import models as pagemodels
 
 

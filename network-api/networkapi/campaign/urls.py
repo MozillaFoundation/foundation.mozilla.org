@@ -1,10 +1,6 @@
 from django.urls import re_path
 
-from networkapi.campaign.views import (
-    petition_submission_view,
-    signup_submission_view,
-)
-
+from networkapi.campaign.views import petition_submission_view, signup_submission_view
 
 urlpatterns = [
     re_path(

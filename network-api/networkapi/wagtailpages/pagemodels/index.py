@@ -1,28 +1,25 @@
 import re
 
-from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
 from django.db import models
 from django.http import JsonResponse
 from django.template import loader
-
 from taggit.models import Tag
-
 from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.core.models import Page
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-
+from wagtail.core.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from .mixin.foundation_metadata import FoundationMetadataPageMixin
-
 from networkapi.wagtailpages.utils import (
-    set_main_site_nav_information,
-    get_page_tree_information,
-    get_locale_from_request,
     get_default_locale,
+    get_locale_from_request,
+    get_page_tree_information,
+    set_main_site_nav_information,
 )
+
+from .mixin.foundation_metadata import FoundationMetadataPageMixin
 
 
 class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):

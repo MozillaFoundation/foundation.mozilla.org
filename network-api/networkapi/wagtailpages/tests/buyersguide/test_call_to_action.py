@@ -1,5 +1,6 @@
 from django.test import TestCase
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
+
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.buyersguide.call_to_action import (
     BuyersGuideCallToAction,

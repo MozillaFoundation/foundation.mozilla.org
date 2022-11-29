@@ -1,12 +1,12 @@
-from django.db import models
 from django.core import exceptions
+from django.db import models
 from modelcluster import fields as cluster_fields
 from wagtail import documents as wagtail_docs
 from wagtail import images as wagtail_images
-from wagtail.documents import edit_handlers as docs_handlers
 from wagtail.admin import edit_handlers
 from wagtail.core import fields as wagtail_fields
 from wagtail.core import models as wagtail_models
+from wagtail.documents import edit_handlers as docs_handlers
 from wagtail.images import edit_handlers as image_handlers
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
@@ -14,8 +14,8 @@ from wagtail_localize import fields as localize_fields
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 from networkapi.wagtailpages.pagemodels.research_hub import authors_index
+from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 
 
 class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Orderable):

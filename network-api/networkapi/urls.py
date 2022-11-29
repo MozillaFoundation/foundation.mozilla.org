@@ -4,15 +4,27 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.urls import path, re_path, include
+from django.urls import include, path, re_path
 from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
-from django.views.i18n import set_language, JavaScriptCatalog
-
+from django.views.i18n import JavaScriptCatalog, set_language
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
+from wagtail_footnotes import urls as footnotes_urls
+
+from networkapi.redirects import foundation_redirects
+from networkapi.views import EnvVariablesView, review_app_help_view
+from networkapi.wagtailcustomization.image_url_tag_urls import (
+    urlpatterns as image_url_tag_urls,
+)
+from networkapi.wagtailpages.rss import AtomFeed, RSSFeed
+
+from .sitemaps import sitemap, sitemap_index
+
+# from wagtail.core import urls as wagtail_urls
+from .utility import watail_core_url_override as wagtail_urls
 
 # The following line is commented off in favour of the utility import,
 # to allow better URL matching by wagtail (which, by default only
@@ -20,17 +32,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 #
 # See https://github.com/mozilla/foundation.mozilla.org/issues/6464
 
-# from wagtail.core import urls as wagtail_urls
-from .utility import watail_core_url_override as wagtail_urls
-from .sitemaps import sitemap, sitemap_index
 
-from wagtail_footnotes import urls as footnotes_urls
-from networkapi.wagtailcustomization.image_url_tag_urls import (
-    urlpatterns as image_url_tag_urls,
-)
-from networkapi.views import EnvVariablesView, review_app_help_view
-from networkapi.wagtailpages.rss import RSSFeed, AtomFeed
-from networkapi.redirects import foundation_redirects
 
 admin.autodiscover()
 

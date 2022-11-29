@@ -1,23 +1,23 @@
 from django import forms
 from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.core.fields import StreamField, RichTextField
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.wagtailpages.utils import (
-    set_main_site_nav_information,
-    get_page_tree_information,
-)
 from networkapi.wagtailpages.models import (
-    FoundationMetadataPageMixin,
     FoundationBannerInheritanceMixin,
+    FoundationMetadataPageMixin,
     Signup,
 )
 from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.pagemodels.customblocks.base_fields import base_fields
+from networkapi.wagtailpages.utils import (
+    get_page_tree_information,
+    set_main_site_nav_information,
+)
 
 
 class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):

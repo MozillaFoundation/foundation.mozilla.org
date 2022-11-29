@@ -1,30 +1,24 @@
 from datetime import date, datetime, timezone
-
 from io import StringIO
-from os.path import join, abspath, dirname
+from os.path import abspath, dirname, join
+from unittest import skip
+from unittest.mock import MagicMock
 
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group, User
 from django.core.management import call_command
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory, TestCase
 from django.urls import reverse
 from django.utils import translation
 from django.utils.translation.trans_real import (
-    to_language as django_to_language,
     parse_accept_lang_header as django_parse_accept_lang_header,
 )
-
-# from django.test.utils import override_settings
-
-from unittest.mock import MagicMock
-from unittest import skip
-
+from django.utils.translation.trans_real import to_language as django_to_language
 from wagtail.core.models import Collection, Site
 from wagtail.images.models import Image
-
 from wagtail_factories import SiteFactory
 
-from networkapi.utility.redirects import redirect_to_default_cms_site
 from networkapi.utility.middleware import ReferrerMiddleware, XRobotsTagMiddleware
+from networkapi.utility.redirects import redirect_to_default_cms_site
 from networkapi.wagtailpages import (
     language_code_to_iso_3166,
     parse_accept_lang_header,
@@ -36,6 +30,12 @@ from networkapi.wagtailpages.factory.buyersguide import (
 )
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.utils import create_wagtail_image
+
+# from django.test.utils import override_settings
+
+
+
+
 
 
 class ReferrerMiddlewareTests(TestCase):

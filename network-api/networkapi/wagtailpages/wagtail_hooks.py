@@ -2,32 +2,31 @@
 #   See https://docs.wagtail.io/en/v2.7/advanced_topics/customisation/extending_draftail.html
 #   And https://medium.com/@timlwhite/custom-in-line-styles-with-draftail-939201c2bbda
 
-from django.templatetags.static import static
 from django.core.cache import cache
-from django.urls import reverse
-from django.utils.html import escape
-
-from wagtail.admin.menu import MenuItem
-from wagtail.admin.rich_text.editors.draftail import features as draftail_features
-from wagtail.admin.rich_text.converters.html_to_contentstate import (
-    InlineStyleElementHandler,
-)
-from wagtail.core import hooks
-from wagtail.core.utils import find_available_slug
-from wagtail.core.rich_text import LinkHandler
-
-from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
-from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
-from networkapi.wagtailpages.utils import get_locale_from_request
 
 # The real code runs "instance.sync_trees()" here, but we want this to do nothing instead,
 # so that locale creation creates the locale entry but does not try to sync 1300+ pages as
 # part of the same web request.
 from django.db.models.signals import post_save
+from django.templatetags.static import static
+from django.urls import reverse
+from django.utils.html import escape
+from wagtail.admin.menu import MenuItem
+from wagtail.admin.rich_text.converters.html_to_contentstate import (
+    InlineStyleElementHandler,
+)
+from wagtail.admin.rich_text.editors.draftail import features as draftail_features
+from wagtail.core import hooks
+from wagtail.core.rich_text import LinkHandler
+from wagtail.core.utils import find_available_slug
 from wagtail_localize.models import (
     LocaleSynchronization,
     sync_trees_on_locale_sync_save,
 )
+
+from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
+from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
+from networkapi.wagtailpages.utils import get_locale_from_request
 
 post_save.disconnect(sync_trees_on_locale_sync_save, sender=LocaleSynchronization)
 

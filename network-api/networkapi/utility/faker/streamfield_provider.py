@@ -1,12 +1,12 @@
 import json
+from random import choice, randint, random
 
-from random import randint, choice, random
 from django.conf import settings
 from faker import Faker
 from faker.providers import BaseProvider
 from wagtail.images.models import Image
-from networkapi.wagtailpages.models import BlogPage, BlogPageTopic
 
+from networkapi.wagtailpages.models import BlogPage, BlogPageTopic
 
 seed = randint(0, 5000000)
 if settings.RANDOM_SEED is not None:

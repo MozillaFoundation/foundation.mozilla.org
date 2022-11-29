@@ -1,9 +1,11 @@
-from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.template.defaultfilters import truncatechars
+from django.db import models
 from django.forms import CheckboxSelectMultiple
-
+from django.template.defaultfilters import truncatechars
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
@@ -14,32 +16,27 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
 )
 from wagtail.core import blocks
-from wagtail.core.models import Orderable, Locale, TranslatableMixin, Page
 from wagtail.core.fields import StreamField
+from wagtail.core.models import Locale, Orderable, Page, TranslatableMixin
 from wagtail.core.rich_text import get_text_for_indexing
+from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail_localize.fields import TranslatableField, SynchronizedField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from taggit.models import TaggedItemBase
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from .. import customblocks
-from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
-
-from ..mixin.foundation_metadata import FoundationMetadataPageMixin
+from networkapi.wagtailpages.forms import BlogPageForm
+from networkapi.wagtailpages.models import Profile
 
 from ...utils import (
-    set_main_site_nav_information,
-    get_content_related_by_tag,
     TitleWidget,
+    get_content_related_by_tag,
+    set_main_site_nav_information,
 )
-
-from networkapi.wagtailpages.models import Profile
-from networkapi.wagtailpages.forms import BlogPageForm
-from .blog_topic import BlogPageTopic
+from .. import customblocks
+from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
+from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from .blog_index import BlogIndexPage
+from .blog_topic import BlogPageTopic
 
 base_fields = [
     ("accordion", customblocks.AccordionBlock()),

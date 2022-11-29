@@ -1,9 +1,9 @@
-from itertools import chain, combinations
 import random
+from itertools import chain, combinations
 from typing import Union
 
-from django.db import models
 import factory
+from django.db import models
 
 from networkapi.wagtailpages.models import Homepage
 

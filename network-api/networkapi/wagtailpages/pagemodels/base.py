@@ -1,26 +1,27 @@
 from django.conf import settings
 from django.db import models
-
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.core.models import TranslatableMixin, Page, Orderable as WagtailOrderable
+from modelcluster.fields import ParentalKey
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+)
 from wagtail.core.fields import RichTextField
+from wagtail.core.models import Orderable as WagtailOrderable
+from wagtail.core.models import Page, TranslatableMixin
 from wagtail.images import get_image_model_string
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.admin.edit_handlers import PageChooserPanel
-
+from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-
-from modelcluster.fields import ParentalKey
-
-from .primary import PrimaryPage
-from .mixin.foundation_metadata import FoundationMetadataPageMixin
-from .customblocks.base_rich_text_options import base_rich_text_options
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
 from ..utils import TitleWidget
+from .customblocks.base_rich_text_options import base_rich_text_options
+from .mixin.foundation_metadata import FoundationMetadataPageMixin
+from .primary import PrimaryPage
 
 
 class InitiativeSection(TranslatableMixin, models.Model):

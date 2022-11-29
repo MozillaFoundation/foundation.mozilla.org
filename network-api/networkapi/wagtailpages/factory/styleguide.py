@@ -1,12 +1,11 @@
 import factory
 from django.conf import settings
-from wagtail_factories import PageFactory
 from wagtail.core.models import Page as WagtailPage
+from wagtail_factories import PageFactory
 
+from networkapi.utility.faker.helpers import get_homepage, reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
-from networkapi.utility.faker.helpers import reseed, get_homepage
 from networkapi.wagtailpages.models import Styleguide
-
 
 styleguide_streamfield_fields = [
     "paragraph",

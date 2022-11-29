@@ -1,44 +1,38 @@
-from typing import TYPE_CHECKING, Union, Optional
+from typing import TYPE_CHECKING, Optional, Union
 
 from django import http
 from django.core import paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.forms import CheckboxSelectMultiple
-from django.shortcuts import redirect, get_object_or_404
-from django.template import loader
 from django.http import JsonResponse
-
+from django.shortcuts import get_object_or_404, redirect
+from django.template import loader
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.admin.edit_handlers import (
-    PageChooserPanel,
-    InlinePanel,
     FieldPanel,
+    InlinePanel,
+    PageChooserPanel,
     StreamFieldPanel,
 )
-
 from wagtail.contrib.routable_page.models import route
-from wagtail.core.models import Orderable as WagtailOrderable
-from wagtail.core.models import Locale
-from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail.core.fields import StreamField
+from wagtail.core.models import Locale
+from wagtail.core.models import Orderable as WagtailOrderable
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
-
+from networkapi.wagtailpages.forms import BlogIndexPageForm
 from networkapi.wagtailpages.models import Profile
 from networkapi.wagtailpages.pagemodels import customblocks
-from networkapi.wagtailpages.forms import BlogIndexPageForm
-
-
 from networkapi.wagtailpages.utils import (
-    titlecase,
-    get_locale_from_request,
     get_default_locale,
+    get_locale_from_request,
     localize_queryset,
+    titlecase,
 )
 
 from ..index import IndexPage
 from .blog_topic import BlogPageTopic
-
 
 if TYPE_CHECKING:
     from django.db.models import QuerySet

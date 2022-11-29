@@ -2,9 +2,9 @@ from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
 from .common.link_blocks import (
+    LabelledDocumentLinkBlock,
     LabelledExternalLinkBlock,
     LabelledInternalLinkBlock,
-    LabelledDocumentLinkBlock,
 )
 
 

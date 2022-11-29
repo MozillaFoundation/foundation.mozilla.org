@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+
 from django.test import TestCase
 
 from networkapi.news.factory import NewsFactory

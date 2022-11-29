@@ -1,8 +1,8 @@
 from django.contrib import admin
-
-from networkapi.news.models import News
-from networkapi.news.forms import NewsAdminForm
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+
+from networkapi.news.forms import NewsAdminForm
+from networkapi.news.models import News
 
 
 class NewsAdmin(admin.ModelAdmin):

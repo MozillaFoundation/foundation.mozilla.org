@@ -24,7 +24,6 @@ Non-block image rendition example:      {% image_url product.image 'fill-250x250
 from django.urls import re_path
 from wagtail.images.views.serve import ServeView
 
-
 urlpatterns = [
     re_path(
         r"^images/([^/]*)/(\d*)/([^/]*)/[^/]*$",
