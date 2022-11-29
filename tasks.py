@@ -334,6 +334,12 @@ def black_check(ctx):
     black(ctx, ". --check")
 
 
+@task
+def isort_check(ctx):
+    """Run isort code formatter in check mode."""
+    isort(ctx, ". --check-only")
+
+
 # Formatting
 @task
 def format(ctx):
