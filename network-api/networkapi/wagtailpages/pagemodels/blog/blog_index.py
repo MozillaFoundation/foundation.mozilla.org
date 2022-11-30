@@ -22,8 +22,8 @@ from wagtail.core.models import Orderable as WagtailOrderable
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.forms import BlogIndexPageForm
-from networkapi.wagtailpages.models import Profile
 from networkapi.wagtailpages.pagemodels import customblocks
+from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.utils import (
     get_default_locale,
     get_locale_from_request,
