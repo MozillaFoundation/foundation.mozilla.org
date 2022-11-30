@@ -25,7 +25,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.forms import BlogPageForm
-from networkapi.wagtailpages.models import Profile
+from networkapi.wagtailpages.pagemodels.profiles import Profile
 
 from ...utils import (
     TitleWidget,
