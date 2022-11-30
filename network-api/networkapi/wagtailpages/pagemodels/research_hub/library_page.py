@@ -8,7 +8,7 @@ from django.utils.translation import pgettext_lazy
 from wagtail import images as wagtail_images
 from wagtail.admin import edit_handlers as panels
 from wagtail.core import models as wagtail_models
-from wagtail.images import edit_handlers as image_panels
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
@@ -69,6 +69,17 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         SORT_ALPHABETICAL.value: SORT_ALPHABETICAL,
         SORT_ALPHABETICAL_REVERSED.value: SORT_ALPHABETICAL_REVERSED,
     }
+
+    translatable_fields = [
+        # Content tab fields
+        TranslatableField("title"),
+        # Promote tab fields
+        SynchronizedField("slug"),
+        TranslatableField("seo_title"),
+        SynchronizedField("show_in_menus"),
+        TranslatableField("search_description"),
+        SynchronizedField("search_image"),
+    ]
 
     def get_context(self, request):
         search_query = request.GET.get("search", "")

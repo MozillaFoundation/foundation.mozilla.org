@@ -5,6 +5,7 @@ from wagtail import images as wagtail_images
 from wagtail.contrib.routable_page import models as routable_models
 from wagtail.core import models as wagtail_models
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles
@@ -31,6 +32,17 @@ class ResearchAuthorsIndexPage(
 
     content_panels = wagtail_models.Page.content_panels + [
         ImageChooserPanel("banner_image"),
+    ]
+
+    translatable_fields = [
+        # Content tab fields
+        SynchronizedField("banner_image"),
+        # Promote tab fields
+        SynchronizedField("slug"),
+        TranslatableField("seo_title"),
+        SynchronizedField("show_in_menus"),
+        TranslatableField("search_description"),
+        SynchronizedField("search_image"),
     ]
 
     def get_context(self, request):
