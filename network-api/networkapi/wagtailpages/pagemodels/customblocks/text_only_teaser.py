@@ -6,7 +6,7 @@ from wagtail.core.blocks.struct_block import StructBlockValidationError
 class TextOnlyTeaserCard(blocks.StructBlock):
 
     heading = blocks.CharBlock(help_text="Heading for the card.")
-    heading_link = blocks.PageChooserBlock(required=False, help_text="Page that the header should link out to.")
+    link_page = blocks.PageChooserBlock(required=False, help_text="Page that the header should link out to.")
     link_url = blocks.CharBlock(
         required=False,
         help_text="Optional URL that the header should link out to.",
@@ -18,8 +18,8 @@ class TextOnlyTeaserCard(blocks.StructBlock):
         result = super().clean(value)
         errors = {}
 
-        if value["heading_link"] and value["link_url"]:
-            errors["heading_link"] = ErrorList(["Please choose between a heading link OR a URL value."])
+        if value["link_page"] and value["link_url"]:
+            errors["link_page"] = ErrorList(["Please choose between a heading link OR a URL value."])
         if errors:
             raise StructBlockValidationError(errors)
 
