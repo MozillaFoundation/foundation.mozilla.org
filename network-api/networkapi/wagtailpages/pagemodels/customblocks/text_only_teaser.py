@@ -18,7 +18,7 @@ class TextOnlyTeaserCard(blocks.StructBlock):
         result = super().clean(value)
         if value["link_page"] and value["link_url"]:
             raise StructBlockValidationError(
-                {"link_page": ErrorList(["Please choose between a heading link OR a URL value."])}
+                {"link_page": ErrorList(["Please choose between a link page OR a URL value."])}
             )
 
         return result
