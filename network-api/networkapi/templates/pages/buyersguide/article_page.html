@@ -75,7 +75,7 @@
                   <img 
                     class="tw-rounded-full tw-border-2 tw-border-white tw-w-[75px] tw-h-[75px]"
                     src="{% image_url author_profile.image "fill-75x75" %}"
-                    srcset="{% image_url author_profile.image "fill-150x150" %} 2x"
+                    srcset="{% image_url author_profile.image "fill-150x150" %} 2x, {% image_url author_profile.image "fill-225x225" %} 3x"
                     alt="{{ author_profile.name }}"
                     title="{{ author_profile.name }}"
                   />
