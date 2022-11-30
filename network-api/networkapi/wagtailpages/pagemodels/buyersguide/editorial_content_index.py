@@ -8,6 +8,7 @@ from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
 from wagtail.core import models as wagtail_models
 from wagtail.core.models import Orderable, TranslatableMixin
 from wagtail.contrib.routable_page import models as routable_models
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
@@ -44,6 +45,18 @@ class BuyersGuideEditorialContentIndexPage(
     ]
 
     items_per_page: int = 10
+
+    translatable_fields = [
+        # Content tab fields
+        TranslatableField("title"),
+        SynchronizedField("related_article_relations"),
+        # Promote tab fields
+        SynchronizedField("slug"),
+        TranslatableField("seo_title"),
+        SynchronizedField("show_in_menus"),
+        TranslatableField("search_description"),
+        SynchronizedField("search_image"),
+    ]
 
     def serve(self, request: "http.HttpRequest", *args, **kwargs) -> "http.HttpResponse":
         if request.htmx:
