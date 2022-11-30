@@ -65,8 +65,11 @@ export class PNISortDropdown {
       });
     });
 
-    // Update sort selected state on initialization
-    if (history.state?.sort) {
+    const url = new URLSearchParams(window.location.search);
+    const searchParameter = url.get("search");
+    // TODO need an inactive state for this dropdown when the search text is being applied
+    // Update sort selected state on initialization but not when a search parameter is mentioned on the starting url
+    if (history.state?.sort && !searchParameter) {
       document
         .querySelector(
           `li.pni-creepiness__list-item[data-value=${history.state.sort}]`

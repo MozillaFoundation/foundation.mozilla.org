@@ -1,3 +1,8 @@
 [tool.black]
 line-length = 119
 target-version = ['py39']
+
+[tool.isort]
+profile = "black"
+extend_skip = ["network-api/media", "network-api/staticfiles"]
+skip_gitignore = true
