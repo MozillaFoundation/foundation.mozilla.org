@@ -16,12 +16,10 @@ class TextOnlyTeaserCard(blocks.StructBlock):
 
     def clean(self, value):
         result = super().clean(value)
-        errors = {}
-
         if value["link_page"] and value["link_url"]:
-            errors["link_page"] = ErrorList(["Please choose between a heading link OR a URL value."])
-        if errors:
-            raise StructBlockValidationError(errors)
+            raise StructBlockValidationError(
+              {"link_page": ErrorList(["Please choose between a heading link OR a URL value."])}
+            )
 
         return result
 
