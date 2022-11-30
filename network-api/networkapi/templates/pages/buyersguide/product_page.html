@@ -156,7 +156,7 @@
     <div class="tw-container tw-mt-7 tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-auto-rows-min tw-gap-7">
       {% with product_updates=product.updates.all  %}
         {% if product_updates %}
-          <div class="tw-col-span-full medium:tw-col-span-1 large:tw-row-span-2">
+          <div class="tw-col-span-full medium:tw-col-span-1 tw-row-span-1 large:tw-row-span-3">
             {% include "fragments/buyersguide/dive_deeper.html" with updates=product_updates %}
           </div>
         {% endif %}
