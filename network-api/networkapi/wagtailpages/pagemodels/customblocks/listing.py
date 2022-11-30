@@ -14,7 +14,7 @@ class ListingCard(blocks.StructBlock):
 
     body = blocks.RichTextBlock(features=["bold"], help_text="Body text of the card.")
 
-    link = blocks.PageChooserBlock(required=False, help_text="Page that this should link out to.")
+    link_page = blocks.PageChooserBlock(required=False, help_text="Page that this should link out to.")
 
     link_url = blocks.CharBlock(
         required=False,
@@ -23,12 +23,10 @@ class ListingCard(blocks.StructBlock):
 
     def clean(self, value):
         result = super().clean(value)
-        errors = {}
-
-        if value["link"] and value["link_url"]:
-            errors["link"] = ErrorList(["Please choose between a link OR a URL value."])
-        if errors:
-            raise StructBlockValidationError(errors)
+        if value["link_page"] and value["link_url"]:
+            raise StructBlockValidationError(
+                {"link_page": ErrorList(["Please choose between a link page OR a URL value."])}
+            )
 
         return result
 

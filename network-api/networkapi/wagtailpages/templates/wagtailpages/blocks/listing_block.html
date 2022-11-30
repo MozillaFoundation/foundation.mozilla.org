@@ -7,8 +7,8 @@
       {% with card=block %}
         {% image card.image fill-350x197 as img %}
         <li>
-          {% if card.link %}
-            <a href="{% pageurl card.link %}"
+          {% if card.link_page %}
+            <a href="{% pageurl card.link_page %}"
                class="tw-group/listing hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black"
                aria-label="{{ card.title }}">
           {% elif card.link_url %}
@@ -27,7 +27,7 @@
               </div>
             </div>
           </div>
-          {% if card.link or card.link_url %}</a>{% endif %}
+          {% if card.link_page or card.link_url %}</a>{% endif %}
         </li>
       {% endwith %}
     {% endfor %}
