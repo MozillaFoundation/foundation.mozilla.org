@@ -16,7 +16,8 @@ from wagtail_color_panel.edit_handlers import NativeColorPanel
 from wagtail_color_panel.fields import ColorField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.wagtailpages.models import Profile, PublicationPage
+from networkapi.wagtailpages.pagemodels.profiles import Profile
+from networkapi.wagtailpages.pagemodels.publications.publication import PublicationPage
 from networkapi.wagtailpages.utils import (
     TitleWidget,
     get_plaintext_titles,
