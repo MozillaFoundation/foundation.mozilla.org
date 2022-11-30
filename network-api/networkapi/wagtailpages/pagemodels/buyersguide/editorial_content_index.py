@@ -8,7 +8,6 @@ from wagtail.admin.edit_handlers import InlinePanel, PageChooserPanel
 from wagtail.contrib.routable_page import models as routable_models
 from wagtail.core import models as wagtail_models
 from wagtail.core.models import Orderable, TranslatableMixin
-from wagtail.contrib.routable_page import models as routable_models
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
