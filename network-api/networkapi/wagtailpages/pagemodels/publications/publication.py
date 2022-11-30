@@ -11,7 +11,7 @@ from wagtail_color_panel.edit_handlers import NativeColorPanel
 from wagtail_color_panel.fields import ColorField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.wagtailpages.models import Profile
+from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.utils import set_main_site_nav_information
 
 from ..customblocks.base_rich_text_options import base_rich_text_options
