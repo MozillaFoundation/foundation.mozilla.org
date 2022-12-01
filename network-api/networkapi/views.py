@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.http import JsonResponse, HttpResponse, HttpResponseBadRequest
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.views import View
 from django.views.decorators.http import require_GET
@@ -47,14 +47,14 @@ def apple_pay_domain_association_view(request):
 
     elif isinstance(request_site_root, Homepage):
         if foundation_key:
-            response_contents = key_not_found_message
+            response_contents = foundation_key
             status_code = 200
         else:
-            response_contents = mozfest_key
+            response_contents = key_not_found_message
             status_code = 501
 
     else:
-        response_contents = "Site not recognized."
+        response_contents = "Request site not recognized."
         status_code = 400
 
-    return HttpResponse(response_contents, status=status_code, content_type="text/plain")
+    return HttpResponse(response_contents, status=status_code, content_type="text/plain; charset=utf-8")
