@@ -1,19 +1,19 @@
 name: Continuous Deployment
 # Based on https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-a-workflow-based-on-the-conclusion-of-another-workflow
 
-on:
+on: ["push"]
   # Trigger this workflow (continuous deployment) when the "Continous Integration" workflow
   # had completed on the main branch.
-  workflow_run:
-    workflows: [Continuous Integration]
-    types: [completed]
-    branches: ["main"]
+#  workflow_run:
+#    workflows: [Continuous Integration]
+#    types: [completed]
+#    branches: ["main"]
 
 jobs:
   ci-success:
     runs-on: ubuntu-latest
     # Check that the triggering workflow ended successfully.
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+#    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     env:
       # This workflow uses authentication through an API token according to: https://devcenter.heroku.com/articles/authentication
       # Note: API token are differnt from API keys.
@@ -38,8 +38,8 @@ jobs:
           git fetch heroku
           git push --dry-run heroku main
 
-  ci-failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - run: echo 'The continuous inegration failed. Not deploying.'
+#  ci-failure:
+#    runs-on: ubuntu-latest
+#    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+#    steps:
+#      - run: echo 'The continuous inegration failed. Not deploying.'
