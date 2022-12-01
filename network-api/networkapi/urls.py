@@ -15,7 +15,11 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail_footnotes import urls as footnotes_urls
 
 from networkapi.redirects import foundation_redirects
-from networkapi.views import EnvVariablesView, review_app_help_view
+from networkapi.views import (
+    EnvVariablesView,
+    apple_pay_domain_association_view,
+    review_app_help_view,
+)
 from networkapi.wagtailcustomization.image_url_tag_urls import (
     urlpatterns as image_url_tag_urls,
 )
@@ -79,6 +83,8 @@ urlpatterns = list(
                 ),
                 name="googled2a9d510ca850787.html",
             ),
+            # Apple Pay domain association
+            path(".well-known/apple-developer-merchantid-domain-association", apple_pay_domain_association_view),
             # social-sign-on routes so that Google auth works
             re_path(r"^soc/", include("social_django.urls", namespace="social")),
             # CSRF endpoint
