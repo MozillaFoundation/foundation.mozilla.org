@@ -1,25 +1,20 @@
 # TODO: Move these factories to the wagtailpages app.
 # To avoid too many code conflicts, this should happen after PR 6433 is merged
-from random import randint, random, choice, randrange, shuffle
-from datetime import date, datetime, timezone, timedelta
+from datetime import date, datetime, timedelta, timezone
+from random import choice, randint, random, randrange, shuffle
 
-from factory import (
-    Faker,
-    LazyFunction,
-    SubFactory,
-    post_generation,
-)
+from factory import Faker, LazyFunction, SubFactory, post_generation
 from factory.django import DjangoModelFactory
 from wagtail.images.models import Image
 from wagtail_factories import PageFactory
 
+from networkapi.utility.faker import ImageProvider, generate_fake_data
+from networkapi.utility.faker.helpers import get_random_objects, reseed
+from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.factory.donation import DonationModalFactory
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.factory.petition import PetitionFactory
-from networkapi.wagtailpages import models as pagemodels
-from networkapi.utility.faker import ImageProvider, generate_fake_data
-from networkapi.utility.faker.helpers import reseed, get_random_objects
 
 Faker.add_provider(ImageProvider)
 

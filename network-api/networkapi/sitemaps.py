@@ -1,7 +1,7 @@
 # Solution came from Aleksi44 on Github:
 # https://github.com/wagtail/wagtail/issues/6583#issuecomment-798960446
-from django.contrib.sitemaps import views as sitemap_views
 from django.conf import settings
+from django.contrib.sitemaps import views as sitemap_views
 from django.shortcuts import render
 from wagtail.contrib.sitemaps.sitemap_generator import Sitemap
 

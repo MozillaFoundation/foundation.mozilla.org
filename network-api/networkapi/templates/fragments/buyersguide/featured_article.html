@@ -37,15 +37,11 @@
         {{ featured_article.title }}
       </h2>
 
-      <div class="tw-space-x-1 tw-text-black tw-font-sans tw-font-extrabold tw-text-sm">
-        {% trans "By" %}
-        {% with author_profiles=featured_article.get_author_profiles %}
-          {% if author_profiles %}
-            {% for author_profile in author_profiles %}
-              <span>{{ author_profile.name }}</span>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
+      <div class="tw-text-black tw-font-sans tw-font-extrabold tw-text-sm">
+        {% spaceless %}
+          <span>{% trans "By" context "Article author attribution" %} </span>
+          {% include "fragments/profile_names_list.html" with profiles=featured_article.get_author_profiles %}
+        {% endspaceless %}
       </div>
     </a>
 

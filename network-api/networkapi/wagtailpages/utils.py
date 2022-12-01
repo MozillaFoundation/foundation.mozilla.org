@@ -1,35 +1,33 @@
 import ntpath
 import re
-import requests
-
 from io import BytesIO
+from itertools import chain
 from mimetypes import MimeTypes
-from PIL import Image as PILImage
 from typing import Optional
 
+import requests
 from bs4 import BeautifulSoup
-
-from itertools import chain
 from django import forms
 from django.apps import apps
 from django.conf import settings
 from django.core.files.images import ImageFile
 from django.db.models import Case, Count, Q, When
 from django.urls import LocalePrefixPattern, URLResolver
-from django.utils.text import slugify
 from django.utils.safestring import mark_safe
+from django.utils.text import slugify
 from django.utils.translation import gettext
 from django.utils.translation.trans_real import (
     check_for_language,
-    get_languages,
     get_language_from_path,
+    get_languages,
     get_supported_language_variant,
-    parse_accept_lang_header,
     language_code_re,
+    parse_accept_lang_header,
 )
+from PIL import Image as PILImage
 from sentry_sdk import capture_exception
-from wagtail.images.models import Image
 from wagtail.core.models import Collection, Locale
+from wagtail.images.models import Image
 
 
 def titlecase(s):

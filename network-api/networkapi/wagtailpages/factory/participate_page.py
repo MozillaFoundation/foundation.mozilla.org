@@ -1,10 +1,10 @@
-from wagtail_factories import PageFactory
 from factory import Faker, SubFactory
 from wagtail.core.models import Page as WagtailPage
+from wagtail_factories import PageFactory
 
+from networkapi.utility.faker.helpers import get_homepage, reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.models import ParticipatePage2
-from networkapi.utility.faker.helpers import reseed, get_homepage
 
 
 class ParticipatePage2Factory(PageFactory):

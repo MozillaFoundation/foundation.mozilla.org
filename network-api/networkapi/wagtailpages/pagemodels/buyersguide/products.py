@@ -11,8 +11,8 @@ from django.db.models import F
 from django.http import (
     HttpResponse,
     HttpResponseNotAllowed,
-    HttpResponseServerError,
     HttpResponseNotFound,
+    HttpResponseServerError,
 )
 from django.templatetags.static import static
 from django.utils import timezone
@@ -21,26 +21,26 @@ from django.utils.translation import gettext
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import (
-    InlinePanel,
     FieldPanel,
+    InlinePanel,
     MultiFieldPanel,
     PageChooserPanel,
 )
-from wagtail.core.models import Orderable, Page, TranslatableMixin
 from wagtail.core.fields import RichTextField
+from wagtail.core.models import Orderable, Page, TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
-from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail_airtable.mixins import AirtableMixin
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.fields import ExtendedYesNoField
-from networkapi.wagtailpages.pagemodels.buyersguide.forms import BuyersGuideProductCategoryForm
+from networkapi.wagtailpages.forms import BuyersGuideProductCategoryForm
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
-    get_categories_for_locale,
     get_buyersguide_featured_cta,
+    get_categories_for_locale,
 )
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
@@ -51,9 +51,9 @@ from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
 from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
 from networkapi.wagtailpages.utils import (
     TitleWidget,
-    insert_panels_after,
-    get_original_by_slug,
     get_language_from_request,
+    get_original_by_slug,
+    insert_panels_after,
 )
 
 if typing.TYPE_CHECKING:

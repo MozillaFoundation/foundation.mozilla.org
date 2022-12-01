@@ -6,13 +6,13 @@ Gnerated by 'django-admin startproject' using Django 1.10.3.
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
+import logging.config
+import os
 import sys
 from typing import Dict, Literal
 
-import os
-import environ
-import logging.config
 import dj_database_url
+import environ
 from django.utils.translation import gettext_lazy
 from wagtail.embeds.oembed_providers import youtube
 
@@ -30,6 +30,8 @@ env = environ.Env(
     AIRTABLE_ENABLED=(bool, False),
     ALLOWED_HOSTS=(list, []),
     APP_ENVIRONMENT=(str, ""),
+    APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION=(str, ""),
+    APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST=(str, ""),
     ASSET_DOMAIN=(str, ""),
     AWS_LOCATION=(str, ""),
     BASKET_URL=(str, ""),
@@ -125,6 +127,11 @@ if SENTRY_DSN:
 REVIEW_APP = env("REVIEW_APP", default=False)
 
 APP_ENVIRONMENT = env("APP_ENVIRONMENT")
+
+# Apple Pay domain association
+APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION = env("APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION")
+APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST = env("APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST")
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = root()
 

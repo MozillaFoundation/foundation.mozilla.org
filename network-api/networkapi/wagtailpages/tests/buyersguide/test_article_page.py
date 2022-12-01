@@ -1,10 +1,10 @@
 from http import HTTPStatus
 
-from wagtail.tests.utils.form_data import nested_form_data, streamfield, rich_text
+from wagtail.tests.utils.form_data import nested_form_data, rich_text, streamfield
 
-from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
+from networkapi.wagtailpages.tests import base as test_base
 
 
 class FactoriesTest(test_base.WagtailpagesTestCase):

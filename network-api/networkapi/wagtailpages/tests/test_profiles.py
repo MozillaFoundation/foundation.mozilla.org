@@ -1,9 +1,9 @@
 from django import test
 
-from networkapi.wagtailpages.pagemodels import profiles as profile_models
-from networkapi.wagtailpages.factory import research_hub as research_factory
-from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.factory import blog as blog_factories
+from networkapi.wagtailpages.factory import profiles as profile_factories
+from networkapi.wagtailpages.factory import research_hub as research_factory
+from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors
 
 

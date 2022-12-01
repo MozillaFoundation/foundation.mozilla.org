@@ -1,6 +1,7 @@
 import os
 import re
 from sys import platform
+
 from invoke import task
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -318,13 +319,14 @@ def lint_js(ctx):
 def lint_python(ctx):
     """Run python linting."""
     flake8(ctx)
+    isort_check(ctx)
     black_check(ctx)
 
 
 @task
 def flake8(ctx):
     """Run flake8."""
-    pyrun(ctx, "flake8 tasks.py network-api")
+    pyrun(ctx, "flake8 .")
 
 
 @task
@@ -333,12 +335,19 @@ def black_check(ctx):
     black(ctx, ". --check")
 
 
+@task
+def isort_check(ctx):
+    """Run isort code formatter in check mode."""
+    isort(ctx, ". --check-only")
+
+
 # Formatting
 @task
 def format(ctx):
     """Run formatters."""
     format_css(ctx)
     format_js(ctx)
+    format_python(ctx)
 
 
 @task
@@ -356,6 +365,7 @@ def format_js(ctx):
 @task
 def format_python(ctx):
     """Run python formatting."""
+    isort(ctx)
     black(ctx)
 
 
@@ -364,6 +374,13 @@ def black(ctx, args=None):
     """Run black code formatter."""
     args = args or "."
     pyrun(ctx, command=f"black {args}")
+
+
+@task(help={"args": "Override the arguments passed to isort."})
+def isort(ctx, args=None):
+    """Run isort code formatter."""
+    args = args or "."
+    pyrun(ctx, command=f"isort {args}")
 
 
 # Translation

@@ -1,4 +1,5 @@
 from wagtail.core import blocks
+
 from ..customblocks.base_rich_text_options import base_rich_text_options
 from .datawrapper_block import DatawrapperBlock
 from .image_block import ImageBlock

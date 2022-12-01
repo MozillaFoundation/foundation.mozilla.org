@@ -2,26 +2,23 @@ from datetime import timezone
 from random import choice
 
 from django.conf import settings
+from factory import Faker, LazyAttribute
+from factory.django import DjangoModelFactory
 from wagtail.core.models import Page as WagtailPage
 from wagtail_factories import PageFactory
-from factory import (
-    Faker,
-    LazyAttribute,
-)
-from factory.django import DjangoModelFactory
 
+from networkapi.utility.faker.helpers import get_homepage, get_random_objects, reseed
 from networkapi.wagtailpages.models import (
     BlogAuthors,
+    BlogIndexPage,
     BlogPage,
     BlogPageTopic,
-    BlogIndexPage,
     Profile,
 )
 from networkapi.wagtailpages.pagemodels.blog import blog_index
-from networkapi.utility.faker.helpers import get_homepage, get_random_objects, reseed
+
 from .index_page import IndexPageFactory
 from .tagging import add_tags
-
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING

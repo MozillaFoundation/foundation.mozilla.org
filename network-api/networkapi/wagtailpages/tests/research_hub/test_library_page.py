@@ -1,8 +1,8 @@
 import datetime
 import os
 
-from django.utils import translation, timezone
 from django.core import management
+from django.utils import timezone, translation
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages.factory import research_hub as research_factory

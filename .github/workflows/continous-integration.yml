@@ -2,7 +2,7 @@ name: Continuous Integration
 
 on:
   push:
-    branches: ["main", "pni-2022"]
+    branches: ["main"]
     paths-ignore:
       - maintenance/**/*.*
   pull_request:
@@ -91,7 +91,8 @@ jobs:
           python network-api/manage.py compilemessages
       - name: Run linting
         run: |
-          flake8 tasks.py network-api/
+          flake8 .
+          isort . --check-only
           black . --check
       - name: Run type checks
         run: mypy network-api
@@ -103,6 +104,7 @@ jobs:
 
   test_percy:
     name: Percy CI
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-20.04
     services:
       postgres:

@@ -1,8 +1,7 @@
-import django
 import functools
 
+import django
 from django.utils.translation.trans_real import accept_language_re
-
 
 # WARNING: this is not necessarily a good idea, but is the only way to override
 # Django's default behaviour of requiring language codes to be lowercased.

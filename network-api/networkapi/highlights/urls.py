@@ -1,8 +1,6 @@
 from django.urls import re_path
-from networkapi.highlights.views import (
-    HighlightListView,
-    HighlightView,
-)
+
+from networkapi.highlights.views import HighlightListView, HighlightView
 
 urlpatterns = [
     re_path("^$", HighlightListView.as_view(), name="highlight-list"),

@@ -1,16 +1,14 @@
 from django.db import models
-
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
-from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
+from wagtail.core.models import Page
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from wagtail_localize.fields import TranslatableField, SynchronizedField
-
+from ..utils import set_main_site_nav_information
 from . import customblocks
 from .customblocks.full_content_rich_text_options import full_content_rich_text_options
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
-from ..utils import set_main_site_nav_information
 
 
 class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):

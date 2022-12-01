@@ -1,7 +1,6 @@
 from django.utils import translation
-
-from wagtail.tests import utils as wagtail_test
 from wagtail.core import models as wagtail_models
+from wagtail.tests import utils as wagtail_test
 from wagtail_localize import synctree
 
 from networkapi.wagtailpages.factory import homepage as home_factory

@@ -1,13 +1,12 @@
 from django.db import models
-
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
+from wagtail.core.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from ..utils import get_page_tree_information, set_main_site_nav_information
 from .customblocks.base_fields import base_fields
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
-from ..utils import set_main_site_nav_information, get_page_tree_information
 
 
 class ModularPage(FoundationMetadataPageMixin, Page):

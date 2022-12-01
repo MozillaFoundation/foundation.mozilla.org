@@ -1,6 +1,7 @@
-from slugify import slugify
-from datetime import datetime, timezone
 import os
+from datetime import datetime, timezone
+
+from slugify import slugify
 
 
 def get_image_upload_path(app_name, prop_name, instance, current_filename, suffix=""):

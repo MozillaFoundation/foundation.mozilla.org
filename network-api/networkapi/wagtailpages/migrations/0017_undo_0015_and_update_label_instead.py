@@ -6,8 +6,6 @@
 # 'URL', but updating the label in the CMS to be 'embed URL' to preserve existing videos.
 
 import django.core.validators
-from django.db import migrations
-import networkapi.wagtailpages.pagemodels.customblocks.articles
 import wagtail.contrib.table_block.blocks
 import wagtail.core.blocks
 import wagtail.core.blocks.static_block
@@ -15,6 +13,9 @@ import wagtail.core.fields
 import wagtail.embeds.blocks
 import wagtail.images.blocks
 import wagtailmedia.blocks
+from django.db import migrations
+
+import networkapi.wagtailpages.pagemodels.customblocks.articles
 
 
 class Migration(migrations.Migration):

@@ -1,16 +1,16 @@
 import contextlib
 import datetime
 from http import HTTPStatus
-from typing import TYPE_CHECKING, Optional, Generator
+from typing import TYPE_CHECKING, Generator, Optional
 from unittest import mock
 
 import bs4
 from django import test
 from django.utils import timezone
 
-from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
+from networkapi.wagtailpages.tests import base as test_base
 
 if TYPE_CHECKING:
     from django.core.handlers import wsgi

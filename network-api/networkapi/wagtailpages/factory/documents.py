@@ -1,5 +1,5 @@
-from factory import Faker, SubFactory, django
 import wagtail_factories
+from factory import Faker, SubFactory, django
 
 
 class CollectionFactory(wagtail_factories.CollectionFactory):

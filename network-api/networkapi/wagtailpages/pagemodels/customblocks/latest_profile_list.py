@@ -1,6 +1,6 @@
 import json
+from urllib import parse, request
 
-from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
 

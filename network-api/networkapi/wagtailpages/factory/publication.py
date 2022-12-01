@@ -1,20 +1,14 @@
 from datetime import timezone
-from random import randint, shuffle, random
+from random import randint, random, shuffle
 
 from django.conf import settings
+from factory import Faker, SubFactory, post_generation
+from wagtail_factories import ImageFactory, PageFactory
 
-from wagtail_factories import PageFactory, ImageFactory
-from networkapi.wagtailpages.models import ArticlePage, Profile, PublicationPage
 from networkapi.utility.faker.helpers import get_homepage, reseed
-from factory import (
-    post_generation,
-    Faker,
-    SubFactory,
-)
-
-from networkapi.wagtailpages.pagemodels.publications.article import ArticleAuthors
 from networkapi.wagtailpages.factory.documents import DocumentFactory
-
+from networkapi.wagtailpages.models import ArticlePage, Profile, PublicationPage
+from networkapi.wagtailpages.pagemodels.publications.article import ArticleAuthors
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING

@@ -1,6 +1,5 @@
 from django.db import models
 from django.http import HttpResponseRedirect
-
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
 

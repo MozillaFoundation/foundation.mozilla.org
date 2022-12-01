@@ -3,8 +3,8 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtailmedia.blocks import VideoChooserBlock
 
 from .common.link_blocks import (
-    InternalLinkBlock,
     ExternalLinkBlock,
+    InternalLinkBlock,
     LabelledExternalLinkBlock,
     LabelledInternalLinkBlock,
 )

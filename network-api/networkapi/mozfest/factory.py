@@ -1,12 +1,15 @@
 from django.conf import settings
-from wagtail.core.models import Page as WagtailPage, Site as WagtailSite
+from factory import Faker, LazyAttribute, SubFactory
+from wagtail.core.models import Page as WagtailPage
+from wagtail.core.models import Site as WagtailSite
 from wagtail_factories import PageFactory
-from factory import Faker, SubFactory, LazyAttribute
-from networkapi.wagtailpages.factory.image_factory import ImageFactory
-from networkapi.wagtailpages.factory.signup import SignupFactory
-from .models import MozfestHomepage, MozfestPrimaryPage
+
 from networkapi.utility.faker import StreamfieldProvider
 from networkapi.utility.faker.helpers import reseed
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
+from networkapi.wagtailpages.factory.signup import SignupFactory
+
+from .models import MozfestHomepage, MozfestPrimaryPage
 
 streamfield_fields = ["paragraph", "image", "spacer", "quote"]
 Faker.add_provider(StreamfieldProvider)
