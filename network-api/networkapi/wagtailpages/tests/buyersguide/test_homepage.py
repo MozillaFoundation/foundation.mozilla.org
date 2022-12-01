@@ -150,6 +150,11 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         response = self.client.get(self.bg.url)
         self.assertEqual(response.status_code, 200)
 
+    def test_serve(self):
+        response = self.client.get(self.bg.url)
+
+        self.assertEqual(response.status_code, 200)
+
     def about_url_test(self, view_name, target_url, template):
         url = self.bg.reverse_subpage(view_name)
         self.assertEqual(url, target_url)
