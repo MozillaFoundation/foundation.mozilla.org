@@ -49,6 +49,8 @@ idna==3.3
     #   -c requirements.txt
     #   requests
     #   urllib3
+isort==5.10.1
+    # via -r dev-requirements.in
 mccabe==0.6.1
     # via flake8
 mypy==0.971
