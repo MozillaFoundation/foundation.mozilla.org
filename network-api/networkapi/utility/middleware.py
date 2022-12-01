@@ -1,5 +1,5 @@
-from django.http.response import HttpResponseRedirectBase
 from django.conf import settings
+from django.http.response import HttpResponseRedirectBase
 
 hostnames = settings.TARGET_DOMAINS
 

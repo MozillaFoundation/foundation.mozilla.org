@@ -1,8 +1,9 @@
 from factory import SubFactory
 from factory.django import DjangoModelFactory
 
-from networkapi.wagtailpages.models import HomepageNewsYouCanUse, BlogPage
-from networkapi.utility.faker.helpers import reseed, get_homepage
+from networkapi.utility.faker.helpers import get_homepage, reseed
+from networkapi.wagtailpages.models import BlogPage, HomepageNewsYouCanUse
+
 from .blog import BlogPageFactory
 from .homepage import WagtailHomepageFactory
 

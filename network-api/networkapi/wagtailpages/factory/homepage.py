@@ -1,13 +1,14 @@
 from django.conf import settings
 from factory import Faker, SubFactory
-from wagtail_factories import PageFactory
-from wagtail.core.models import Site as WagtailSite, Page as WagtailPage
-
+from wagtail.core.models import Page as WagtailPage
+from wagtail.core.models import Site as WagtailSite
 from wagtail.images.models import Image
+from wagtail_factories import PageFactory
 
+from networkapi.utility.faker.helpers import get_homepage, reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
-from networkapi.wagtailpages.models import Homepage, FocusArea
-from networkapi.utility.faker.helpers import reseed, get_homepage
+from networkapi.wagtailpages.models import FocusArea, Homepage
+
 from .primary_page import PrimaryPageFactory
 
 if settings.HEROKU_APP_NAME:

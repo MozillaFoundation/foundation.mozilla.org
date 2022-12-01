@@ -1,8 +1,9 @@
 import unittest
 
 from django.core import exceptions
-from networkapi.wagtailpages.tests import base as test_base
+
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
+from networkapi.wagtailpages.tests import base as test_base
 
 
 class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):

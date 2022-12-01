@@ -1,9 +1,9 @@
-from django.contrib import admin
 from adminsortable.admin import SortableAdmin
-
-from networkapi.highlights.models import Highlight
-from networkapi.highlights.forms import HighlightAdminForm
+from django.contrib import admin
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+
+from networkapi.highlights.forms import HighlightAdminForm
+from networkapi.highlights.models import Highlight
 
 
 class HighlightAdmin(SortableAdmin):

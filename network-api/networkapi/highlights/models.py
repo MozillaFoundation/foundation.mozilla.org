@@ -1,14 +1,12 @@
-from django.utils import timezone
+from adminsortable.models import SortableMixin
 from django.db import models
 from django.db.models import Q
-
-from adminsortable.models import SortableMixin
+from django.utils import timezone
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
-
 from wagtail_localize.fields import TranslatableField
 
 from networkapi.utility.images import get_image_upload_path

@@ -1,16 +1,14 @@
 from django.db import models
-
-from wagtail.admin.edit_handlers import StreamFieldPanel, MultiFieldPanel, FieldPanel
-from wagtail.core.models import Page
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.core import blocks
 from wagtail.core.fields import StreamField
-
+from wagtail.core.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from wagtail.core import blocks
-from .customblocks.base_rich_text_options import base_rich_text_options
-from . import customblocks
-from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..utils import set_main_site_nav_information
+from . import customblocks
+from .customblocks.base_rich_text_options import base_rich_text_options
+from .mixin.foundation_metadata import FoundationMetadataPageMixin
 
 
 class DearInternetPage(FoundationMetadataPageMixin, Page):

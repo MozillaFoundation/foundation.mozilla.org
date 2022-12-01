@@ -1,17 +1,13 @@
-from factory import Trait, SubFactory
+from factory import SubFactory, Trait
 from wagtail.core.models import Page as WagtailPage
 
-from networkapi.wagtailpages.models import (
-    CampaignPage,
-    CampaignIndexPage,
-)
+from networkapi.utility.faker.helpers import get_homepage, reseed
+from networkapi.wagtailpages.models import CampaignIndexPage, CampaignPage
 
-from networkapi.utility.faker.helpers import reseed, get_homepage
-from .petition import PetitionFactory
-
-from .index_page import IndexPageFactory
-from .donation import DonationModalsFactory
 from .abstract import CMSPageFactory
+from .donation import DonationModalsFactory
+from .index_page import IndexPageFactory
+from .petition import PetitionFactory
 
 
 class CampaignIndexPageFactory(IndexPageFactory):

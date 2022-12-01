@@ -1,6 +1,7 @@
 from wagtail.core import blocks
-from wagtail_footnotes.blocks import RichTextBlockWithFootnotes
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail_footnotes.blocks import RichTextBlockWithFootnotes
+
 from ..customblocks.base_rich_text_options import base_rich_text_options
 
 

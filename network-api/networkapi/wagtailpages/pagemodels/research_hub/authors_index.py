@@ -2,16 +2,15 @@ from django import http, shortcuts
 from django.db import models
 from django.utils import text as text_utils
 from wagtail import images as wagtail_images
-from wagtail.core import models as wagtail_models
 from wagtail.contrib.routable_page import models as routable_models
+from wagtail.core import models as wagtail_models
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
-from networkapi.wagtailpages.pagemodels.research_hub import detail_page
-from networkapi.wagtailpages.pagemodels.research_hub import library_page
+from networkapi.wagtailpages.pagemodels.research_hub import detail_page, library_page
 
 
 class ResearchAuthorsIndexPage(

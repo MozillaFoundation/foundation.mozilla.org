@@ -1,8 +1,9 @@
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
-from ..utils import get_mini_side_nav_data
+
 from networkapi.wagtailpages.models import CTA
 
+from ..utils import get_mini_side_nav_data
 
 register = template.Library()
 

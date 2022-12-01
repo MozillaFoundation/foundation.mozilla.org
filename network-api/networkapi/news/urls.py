@@ -1,9 +1,6 @@
 from django.urls import re_path
 
-from networkapi.news.views import (
-    NewsListView,
-    NewsView,
-)
+from networkapi.news.views import NewsListView, NewsView
 
 urlpatterns = [
     re_path("^$", NewsListView.as_view(), name="news-list"),

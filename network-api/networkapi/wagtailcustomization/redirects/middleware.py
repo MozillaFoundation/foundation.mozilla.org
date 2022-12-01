@@ -1,4 +1,5 @@
 from urllib.parse import urlencode
+
 from wagtail.contrib.redirects import middleware
 from wagtail.contrib.redirects.models import Redirect
 

@@ -1,8 +1,9 @@
-from django import forms
-from django.forms.widgets import SelectDateWidget
 from datetime import date
-from django.utils import timezone
+
+from django import forms
 from django.contrib.admin.widgets import AdminSplitDateTime
+from django.forms.widgets import SelectDateWidget
+from django.utils import timezone
 
 from networkapi.news.models import News
 

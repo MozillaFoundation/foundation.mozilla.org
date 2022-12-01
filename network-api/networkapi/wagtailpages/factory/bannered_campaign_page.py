@@ -1,13 +1,13 @@
-from factory import Faker, Trait, SubFactory
+from factory import Faker, SubFactory, Trait
 from wagtail.core.models import Page as WagtailPage
 
+from networkapi.utility.faker.helpers import get_homepage, reseed
 from networkapi.wagtailpages.models import BanneredCampaignPage
-from networkapi.utility.faker.helpers import reseed, get_homepage
+
+from .abstract import CMSPageFactory
+from .campaign_page import CampaignIndexPageFactory
 from .petition import PetitionFactory
 from .signup import SignupFactory
-from .campaign_page import CampaignIndexPageFactory
-from .abstract import CMSPageFactory
-
 from .tagging import add_tags
 
 

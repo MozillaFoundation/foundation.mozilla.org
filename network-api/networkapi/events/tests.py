@@ -1,12 +1,12 @@
 import json
 from unittest import mock
 
-from django.urls import reverse
 from django.test import RequestFactory, TestCase
+from django.urls import reverse
 
-from .views import tito_ticket_completed
-from .utils import sign_tito_request
 from .factory import TitoEventFactory
+from .utils import sign_tito_request
+from .views import tito_ticket_completed
 
 
 class TitoTicketCompletedTest(TestCase):

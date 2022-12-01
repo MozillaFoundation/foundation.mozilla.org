@@ -1,7 +1,6 @@
 from taggit.models import Tag
-
-from wagtailmetadata.models import MetadataPageMixin
 from wagtail.images.models import Image
+from wagtailmetadata.models import MetadataPageMixin
 
 default_social_share_tag = None
 default_social_share_image = None

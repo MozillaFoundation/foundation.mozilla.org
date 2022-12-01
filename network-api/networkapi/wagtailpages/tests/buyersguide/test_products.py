@@ -8,9 +8,9 @@ from wagtail.tests.utils import form_data
 
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
-    ProductPageVotes,
-    ProductPageCategory,
     BuyersGuideProductCategory,
+    ProductPageCategory,
+    ProductPageVotes,
 )
 from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 

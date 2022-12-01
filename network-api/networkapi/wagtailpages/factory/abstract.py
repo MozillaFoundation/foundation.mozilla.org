@@ -1,6 +1,7 @@
+from factory import Faker, LazyAttribute
 from factory.django import DjangoModelFactory
 from wagtail_factories import PageFactory
-from factory import Faker, LazyAttribute
+
 from networkapi.utility.faker import StreamfieldProvider
 
 streamfield_fields = ["header", "paragraph", "image", "spacer", "image_text", "quote"]

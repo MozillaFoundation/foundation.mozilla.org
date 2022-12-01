@@ -1,19 +1,13 @@
 from datetime import timezone
 from random import shuffle
 
-from factory import (
-    Faker,
-    post_generation,
-    Trait,
-    LazyAttribute,
-)
+from django.conf import settings
+from factory import Faker, LazyAttribute, Trait, post_generation
 from factory.django import DjangoModelFactory
 
+from networkapi.news.models import News
 from networkapi.utility.faker import generate_fake_data
 from networkapi.utility.faker.helpers import reseed
-from networkapi.news.models import News
-
-from django.conf import settings
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING

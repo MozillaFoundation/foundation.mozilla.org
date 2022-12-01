@@ -4,9 +4,7 @@ from django.conf import settings
 from django.test.utils import override_settings
 
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
-from networkapi.wagtailpages.pagemodels.buyersguide.products import (
-    ProductPage,
-)
+from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages.utils import create_wagtail_image
 
