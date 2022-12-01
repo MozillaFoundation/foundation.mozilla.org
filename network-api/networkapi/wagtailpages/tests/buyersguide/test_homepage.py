@@ -150,10 +150,19 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         response = self.client.get(self.bg.url)
         self.assertEqual(response.status_code, 200)
 
-    def test_serve(self):
+    def test_serve_page(self):
         response = self.client.get(self.bg.url)
 
         self.assertEqual(response.status_code, 200)
+
+    def test_serve_page_queries(self):
+        """Check queries with only 1 product existing."""
+        query_number_limit = 100
+
+        with self.assertNumQueries(query_number_limit):
+            response = self.client.get(self.bg.url)
+
+            self.assertEqual(response.status_code, 200)
 
     def about_url_test(self, view_name, target_url, template):
         url = self.bg.reverse_subpage(view_name)
