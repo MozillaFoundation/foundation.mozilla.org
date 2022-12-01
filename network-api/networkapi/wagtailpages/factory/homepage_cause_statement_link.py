@@ -1,7 +1,8 @@
 from random import choice
-from networkapi.utility.faker.helpers import reseed, get_homepage
 
 from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
+
+from networkapi.utility.faker.helpers import get_homepage, reseed
 
 faker = Faker()
 

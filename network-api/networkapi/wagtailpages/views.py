@@ -1,7 +1,6 @@
 from django.http import HttpResponseNotFound
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils import translation
-
 from wagtail.core.models import Site
 
 

@@ -1,5 +1,7 @@
 from django.conf import settings
+
 from networkapi.wagtailpages.models import Petition
+
 from .abstract import CTAFactory
 
 

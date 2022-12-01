@@ -1,13 +1,10 @@
 from django.db import models
-
+from django.utils.text import slugify
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
-
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-
-from django.utils.text import slugify
 
 
 class ProfileQuerySet(models.QuerySet):

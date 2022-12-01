@@ -1,4 +1,5 @@
 from networkapi.wagtailpages.models import Signup
+
 from .abstract import CTAFactory
 
 

@@ -1,9 +1,11 @@
 from factory import Faker
 from wagtail.core.models import Page as WagtailPage
-from networkapi.wagtailpages.models import DearInternetPage
 from wagtail_factories import PageFactory
+
+from networkapi.utility.faker.helpers import get_homepage, reseed
+from networkapi.wagtailpages.models import DearInternetPage
+
 from .campaign_page import CampaignIndexPageFactory
-from networkapi.utility.faker.helpers import reseed, get_homepage
 
 
 class DearInternetPageFactory(PageFactory):

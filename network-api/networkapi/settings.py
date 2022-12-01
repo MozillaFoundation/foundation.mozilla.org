@@ -6,13 +6,13 @@ Gnerated by 'django-admin startproject' using Django 1.10.3.
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
+import logging.config
+import os
 import sys
 from typing import Dict, Literal
 
-import os
-import environ
-import logging.config
 import dj_database_url
+import environ
 from django.utils.translation import gettext_lazy
 from wagtail.embeds.oembed_providers import youtube
 

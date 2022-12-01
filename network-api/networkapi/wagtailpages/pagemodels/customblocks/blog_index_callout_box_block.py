@@ -1,11 +1,11 @@
 from wagtail.core import blocks
 from wagtail.snippets import blocks as snippet_blocks
+from wagtailmedia.blocks import AudioChooserBlock
+
+from networkapi.wagtailpages.pagemodels.blog.blog_topic import BlogPageTopic
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-from networkapi.wagtailpages.pagemodels.blog.blog_topic import BlogPageTopic
-
-from wagtailmedia.blocks import AudioChooserBlock
 
 
 class BlogIndexCalloutBoxBlock(blocks.StructBlock):

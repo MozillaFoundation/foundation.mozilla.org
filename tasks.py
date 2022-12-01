@@ -319,8 +319,8 @@ def lint_js(ctx):
 def lint_python(ctx):
     """Run python linting."""
     flake8(ctx)
-    black_check(ctx)
     isort_check(ctx)
+    black_check(ctx)
 
 
 @task
@@ -365,8 +365,8 @@ def format_js(ctx):
 @task
 def format_python(ctx):
     """Run python formatting."""
-    black(ctx)
     isort(ctx)
+    black(ctx)
 
 
 @task(help={"args": "Override the arguments passed to black."})

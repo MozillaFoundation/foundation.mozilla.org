@@ -3,12 +3,13 @@ from typing import TYPE_CHECKING, Optional
 
 from django.apps import apps
 from django.conf import settings
-from django.db import models
 from django.core.cache import cache
+from django.db import models
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.text import slugify
-from django.utils.translation import gettext, pgettext
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext
 from modelcluster import fields as cluster_fields
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -18,12 +19,7 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.models import (
-    Locale,
-    Orderable,
-    Page,
-    TranslatableMixin,
-)
+from wagtail.core.models import Locale, Orderable, Page, TranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -41,7 +37,6 @@ from networkapi.wagtailpages.utils import (
     get_language_from_request,
     get_locale_from_request,
 )
-
 
 if TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideArticlePage, Update

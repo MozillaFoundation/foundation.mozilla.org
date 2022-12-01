@@ -2,6 +2,7 @@ import json
 
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
+
 from networkapi.highlights.factory import HighlightFactory
 from networkapi.highlights.views import HighlightListView, HighlightView
 

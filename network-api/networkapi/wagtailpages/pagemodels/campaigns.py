@@ -1,27 +1,20 @@
 import json
 
 from django.db import models
-
-from wagtail.admin.edit_handlers import (
-    FieldPanel,
-    InlinePanel,
-    StreamFieldPanel,
-)
-from wagtail.core.models import TranslatableMixin, Page
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.core.fields import RichTextField
+from wagtail.core.models import Page, TranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
-
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from taggit.models import TaggedItemBase
-from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
-
+from ..utils import get_content_related_by_tag, get_page_tree_information
+from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .modular import MiniSiteNameSpace
 from .primary import PrimaryPage
-from .mixin.foundation_metadata import FoundationMetadataPageMixin
-from ..utils import get_page_tree_information, get_content_related_by_tag
 
 
 @register_snippet

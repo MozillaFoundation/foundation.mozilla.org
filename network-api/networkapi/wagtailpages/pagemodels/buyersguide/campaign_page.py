@@ -5,16 +5,15 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
-    StreamFieldPanel,
     MultiFieldPanel,
+    StreamFieldPanel,
 )
 from wagtail.core.blocks import RichTextBlock
 from wagtail.core.fields import StreamField
-from wagtail.core.models import TranslatableMixin, Page, Orderable
-from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail.core.models import Orderable, Page, TranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
 from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
@@ -23,6 +22,8 @@ from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin,
 )
 from networkapi.wagtailpages.utils import get_language_from_request
+
+from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
 
 
 class BuyersGuideCampaignPageDonationModalRelation(TranslatableMixin, Orderable):

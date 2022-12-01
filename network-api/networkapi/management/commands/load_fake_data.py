@@ -1,22 +1,20 @@
-import factory
 import random
 from os.path import abspath, dirname, join
 
-from django.core.management.base import BaseCommand
-from django.core.management import call_command
+import factory
 from django.conf import settings
-
+from django.core.management import call_command
+from django.core.management.base import BaseCommand
 from taggit.models import Tag
 
 # Factories
 import networkapi.highlights.factory as highlights_factory
+import networkapi.mozfest.factory as mozfest_factory
 import networkapi.news.factory as news_factory
 import networkapi.wagtailpages.factory as wagtailpages_factory
-import networkapi.mozfest.factory as mozfest_factory
-
+from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.utils import create_wagtail_image
-from networkapi.utility.faker.helpers import reseed
 
 
 class Command(BaseCommand):

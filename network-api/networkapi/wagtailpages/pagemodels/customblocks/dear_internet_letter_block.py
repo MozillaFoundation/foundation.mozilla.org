@@ -1,5 +1,6 @@
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
+
 from ..customblocks.base_rich_text_options import base_rich_text_options
 
 

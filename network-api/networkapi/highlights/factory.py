@@ -1,17 +1,12 @@
 from datetime import timezone
 
-from factory import (
-    Faker,
-    Trait,
-    LazyAttribute,
-    post_generation,
-)
+from factory import Faker, LazyAttribute, Trait, post_generation
 from factory.django import DjangoModelFactory
 from wagtail_factories import ImageFactory
 
+from networkapi.highlights.models import Highlight
 from networkapi.utility.faker import generate_fake_data
 from networkapi.utility.faker.helpers import reseed
-from networkapi.highlights.models import Highlight
 
 
 class HighlightFactory(DjangoModelFactory):

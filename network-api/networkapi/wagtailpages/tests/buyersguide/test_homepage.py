@@ -1,14 +1,15 @@
 from django.contrib.auth.models import User
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
-from wagtail.core.models import Page, Site, Locale
-from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
+from wagtail.core.models import Locale, Page, Site
+
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
+from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
-    ProductPageCategory,
     BuyersGuideProductCategory,
+    ProductPageCategory,
 )
 from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 

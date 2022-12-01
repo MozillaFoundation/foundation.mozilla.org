@@ -1,16 +1,18 @@
 from factory import Faker
 from wagtail.core.models import Page as WagtailPage
+from wagtail_factories import PageFactory
+
+from networkapi.utility.faker.helpers import get_homepage, reseed
 from networkapi.wagtailpages.models import (
-    YoutubeRegretsPage,
-    YoutubeRegretsReporterPage,
-    YoutubeRegretsReporterExtensionPage,
     YoutubeRegrets2021Page,
     YoutubeRegrets2022Page,
+    YoutubeRegretsPage,
+    YoutubeRegretsReporterExtensionPage,
+    YoutubeRegretsReporterPage,
 )
-from wagtail_factories import PageFactory
-from .campaign_page import CampaignIndexPageFactory
+
 from .bannered_campaign_page import BanneredCampaignPageFactory
-from networkapi.utility.faker.helpers import reseed, get_homepage
+from .campaign_page import CampaignIndexPageFactory
 
 
 class YoutubeRegretsPageFactory(PageFactory):

@@ -1,5 +1,5 @@
-from django import template
 from bs4 import BeautifulSoup
+from django import template
 
 register = template.Library()
 

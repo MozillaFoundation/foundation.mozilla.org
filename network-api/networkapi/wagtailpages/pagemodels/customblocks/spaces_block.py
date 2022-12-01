@@ -1,7 +1,7 @@
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
-from .common.link_blocks import InternalLinkBlock, ExternalLinkBlock
+from .common.link_blocks import ExternalLinkBlock, InternalLinkBlock
 
 
 class SpacesCardBlock(blocks.StructBlock):

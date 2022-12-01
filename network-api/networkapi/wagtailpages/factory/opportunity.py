@@ -1,8 +1,9 @@
 from wagtail.core.models import Page as WagtailPage
-from networkapi.wagtailpages.models import OpportunityPage, InitiativesPage
 from wagtail_factories import PageFactory
 
 from networkapi.utility.faker.helpers import get_homepage, reseed
+from networkapi.wagtailpages.models import InitiativesPage, OpportunityPage
+
 from .abstract import CMSPageFactory
 
 

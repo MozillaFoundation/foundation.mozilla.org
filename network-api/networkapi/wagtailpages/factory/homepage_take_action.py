@@ -1,11 +1,11 @@
 from random import choice
-from wagtail.images.models import Image
-from wagtail.core.models import Page
-
-from networkapi.wagtailpages.pagemodels.base import HomepageTakeActionCards
-from networkapi.utility.faker.helpers import reseed, get_homepage
 
 from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
+from wagtail.core.models import Page
+from wagtail.images.models import Image
+
+from networkapi.utility.faker.helpers import get_homepage, reseed
+from networkapi.wagtailpages.pagemodels.base import HomepageTakeActionCards
 
 faker = Faker()
 
