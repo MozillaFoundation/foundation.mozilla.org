@@ -22,6 +22,7 @@ jobs:
     steps:
       - run: echo 'The continuous integration passed. Deploying to staging...'
       - uses: actions/checkout@v2
+        ref: 'main'
       - name: Set up git remote
         run: git remote add heroku https://git.heroku.com/foundation-mofostaging-net.git
       - name: Configure Heroku credentials in .netrc file
