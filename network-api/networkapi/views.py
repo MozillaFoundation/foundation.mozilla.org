@@ -1,8 +1,10 @@
 from django.conf import settings
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.views import View
 from django.views.decorators.http import require_GET
+from networkapi.wagtailpages.models import Homepage
+from networkapi.mozfest.models import MozfestHomepage
 
 from wagtail.core.models import Site
 
@@ -27,10 +29,32 @@ def review_app_help_view(request):
 @require_GET
 def apple_pay_domain_association_view(request):
     """
-    Returns string needed for Apple Pay domain association/verification.
+    Returns string needed for Apple Pay domain association/verification,
+    based on which site is making the request.
     """
-    if Site.find_for_request(request).hostname == "www.mozillafestival.org":
-        verification_key = settings.APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST
+    request_site_root = Site.find_for_request(request).root_page.specific
+    mozfest_key = settings.APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST
+    foundation_key = settings.APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION
+    key_not_found_message = "Key not found. Please check environment variables."
+
+    if isinstance(request_site_root, MozfestHomepage):
+        if mozfest_key:
+            response_contents = mozfest_key
+            status_code = 200
+        else:
+            response_contents = key_not_found_message
+            status_code = 501
+
+    elif isinstance(request_site_root, Homepage):
+        if foundation_key:
+            response_contents = key_not_found_message
+            status_code = 200
+        else:
+            response_contents = mozfest_key
+            status_code = 501
+
     else:
-        verification_key = settings.APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION
-    return HttpResponse(verification_key, content_type="text/plain")
+        response_contents = "Site not recognized."
+        status_code = 400
+
+    return HttpResponse(response_contents, status=status_code, content_type="text/plain")
