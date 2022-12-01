@@ -1,9 +1,9 @@
 from django.conf import settings
-from django.core.cache import cache
 from django.contrib.syndication.views import Feed
+from django.core.cache import cache
 from django.utils.feedgenerator import Atom1Feed
-from networkapi.wagtailpages.utils import get_locale_from_request
 
+from networkapi.wagtailpages.utils import get_locale_from_request
 
 from .models import IndexPage
 

@@ -9,15 +9,15 @@ from wagtail.core import blocks, fields
 from wagtail.core import models as wagtail_models
 from wagtail.images import edit_handlers as image_panels
 from wagtail.snippets import edit_handlers as snippet_panels
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels import customblocks
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
 )
+from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 from networkapi.wagtailpages.utils import get_language_from_request
-
 
 if typing.TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideContentCategory, Profile
@@ -90,6 +90,22 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
         panels.PublishingPanel(),
         panels.FieldPanel("first_published_at"),
         panels.PrivacyModalPanel(),
+    ]
+
+    translatable_fields = [
+        # Content tab fields
+        TranslatableField("title"),
+        TranslatableField("body"),
+        SynchronizedField("hero_image"),
+        SynchronizedField("content_category_relations"),
+        SynchronizedField("related_article_relations"),
+        SynchronizedField("author_profile_relations"),
+        # Promote tab fields
+        SynchronizedField("slug"),
+        TranslatableField("seo_title"),
+        SynchronizedField("show_in_menus"),
+        TranslatableField("search_description"),
+        SynchronizedField("search_image"),
     ]
 
     def get_context(self, request: http.HttpRequest, *args, **kwargs) -> dict:

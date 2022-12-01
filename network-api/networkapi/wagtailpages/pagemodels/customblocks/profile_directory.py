@@ -1,11 +1,10 @@
 import json
-from django.core import serializers
-from urllib import request, parse
+from urllib import parse, request
 
 from django.conf import settings
+from django.core import serializers
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
-
 from wagtail.core import blocks
 from wagtail.core.blocks.stream_block import StreamBlockValidationError
 from wagtail.core.blocks.struct_block import StructBlockValidationError

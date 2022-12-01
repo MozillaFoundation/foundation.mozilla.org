@@ -1,9 +1,9 @@
-from .index import IndexPage
-
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.publications.publication import PublicationPage
 from networkapi.wagtailpages.utils import get_locale_from_request
+
+from .index import IndexPage
 
 
 class CampaignIndexPage(IndexPage):

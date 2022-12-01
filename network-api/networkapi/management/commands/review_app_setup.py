@@ -1,9 +1,9 @@
-from django.core.management.base import BaseCommand, CommandError
-from django.conf import settings
 import os
+
 import heroku3
 import requests
-
+from django.conf import settings
+from django.core.management.base import BaseCommand, CommandError
 from wagtail.core.models import Site
 
 REVIEW_APP_DOMAIN = settings.REVIEW_APP_DOMAIN

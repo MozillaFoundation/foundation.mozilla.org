@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.test import TestCase
 from wagtail.core.models import Site
+
 from networkapi.mozfest.factory import MozfestHomepageFactory
 from networkapi.wagtailpages.factory.blog import BlogPageFactory
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory

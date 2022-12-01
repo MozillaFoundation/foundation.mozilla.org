@@ -1,9 +1,10 @@
-import re
 import html
+import re
+
 from django import template
-from django.utils.text import slugify
 from django.utils.html import strip_tags
 from django.utils.safestring import SafeText
+from django.utils.text import slugify
 from wagtail.core.rich_text import RichText
 
 # We don't actually register any tags: the idea is to tap into

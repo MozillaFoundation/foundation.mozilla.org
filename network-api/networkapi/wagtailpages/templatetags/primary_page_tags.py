@@ -1,4 +1,5 @@
 from django import template
+
 from ..utils import get_mini_side_nav_data
 
 register = template.Library()

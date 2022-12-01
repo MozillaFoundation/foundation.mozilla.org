@@ -1,12 +1,12 @@
 from django.conf import settings
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views import View
 from django.views.decorators.http import require_GET
-from networkapi.wagtailpages.models import Homepage
-from networkapi.mozfest.models import MozfestHomepage
-
 from wagtail.core.models import Site
+
+from networkapi.mozfest.models import MozfestHomepage
+from networkapi.wagtailpages.models import Homepage
 
 
 class EnvVariablesView(View):

@@ -1,7 +1,8 @@
 from wagtail.core import blocks
+
 from .aside_fields import aside_fields
-from .listing import ListingBlock
 from .full_content_rich_text_options import full_content_rich_text_options
+from .listing import ListingBlock
 
 
 class BlockWithAside(blocks.StructBlock):

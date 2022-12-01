@@ -1,32 +1,31 @@
+from django import forms
 from django.db import models
 from modelcluster.fields import ParentalKey
-
-from wagtail.core.models import Orderable, Page
-from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     StreamFieldPanel,
 )
+from wagtail.core.fields import StreamField
+from wagtail.core.models import Orderable, Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail_color_panel.fields import ColorField
 from wagtail_color_panel.edit_handlers import NativeColorPanel
-from django import forms
-
+from wagtail_color_panel.fields import ColorField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.wagtailpages.models import Profile, PublicationPage
+from networkapi.wagtailpages.pagemodels.profiles import Profile
+from networkapi.wagtailpages.pagemodels.publications.publication import PublicationPage
 from networkapi.wagtailpages.utils import (
+    TitleWidget,
     get_plaintext_titles,
     set_main_site_nav_information,
-    TitleWidget,
 )
 
-from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..article_fields import article_fields
+from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
 
 class ArticleAuthors(Orderable):

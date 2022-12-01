@@ -1,13 +1,12 @@
 from random import choice
 
+from networkapi.utility.faker.helpers import get_homepage, reseed
 from networkapi.wagtailpages.models import (
+    BlogPage,
     FocusArea,
     HomepageFocusAreas,
     HomepageSpotlightPosts,
-    BlogPage,
 )
-
-from networkapi.utility.faker.helpers import reseed, get_homepage
 
 
 def generate(seed):

@@ -1,6 +1,6 @@
 from django.test import TestCase
-from wagtail.contrib.redirects.models import Redirect
 from django.test.utils import override_settings
+from wagtail.contrib.redirects.models import Redirect
 
 
 # Safeguard against the fact that static assets and views might be hosted remotely,

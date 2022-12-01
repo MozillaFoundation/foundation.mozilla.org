@@ -92,10 +92,8 @@ jobs:
       - name: Run linting
         run: |
           flake8 .
+          isort . --check-only
           black . --check
-      - name: Run isort (allowed to fail)
-        run: isort . --check-only
-        continue-on-error: true
       - name: Run type checks
         run: mypy network-api
       - name: Run Tests
