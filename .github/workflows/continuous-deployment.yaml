@@ -24,6 +24,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: 'main'
+          fetch-depth: 0
       - name: Set up git remote
         run: git remote add heroku https://git.heroku.com/foundation-mofostaging-net.git
       - name: Configure Heroku credentials in .netrc file
