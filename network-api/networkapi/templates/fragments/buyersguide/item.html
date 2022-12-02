@@ -41,10 +41,12 @@
         srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
       >
       <img
-        class="product-thumbnail"
+        class="product-thumbnail tw-w-full"
         {% image product.image fill-600x600 as img %}
         loading="lazy"
         src="{{ img.url }}"
+        width="500"
+        height="500"
         alt="{% blocktrans with product=product.title %}link to {{product}}{% endblocktrans %}"
       >
     </picture>
