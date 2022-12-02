@@ -38,7 +38,7 @@ jobs:
       - name: Deploy to staging
         run: |
           git fetch heroku
-          git push --dry-run heroku main
+          git push --dry-run heroku main:refs/heads/main
 
 #  ci-failure:
 #    runs-on: ubuntu-latest
