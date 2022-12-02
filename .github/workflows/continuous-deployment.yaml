@@ -22,6 +22,9 @@ jobs:
     steps:
       - run: echo 'The continuous integration passed. Deploying to staging...'
       - uses: actions/checkout@v2
+        with:
+          ref: 'main'
+          fetch-depth: 0
       - name: Set up git remote
         run: git remote add heroku https://git.heroku.com/foundation-mofostaging-net.git
       - name: Configure Heroku credentials in .netrc file
@@ -36,7 +39,7 @@ jobs:
       - name: Deploy to staging
         run: |
           git fetch heroku
-          git push heroku main
+          git push heroku main:refs/heads/main
 
   ci-failure:
     runs-on: ubuntu-latest
