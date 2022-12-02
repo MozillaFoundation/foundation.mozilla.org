@@ -72,7 +72,13 @@
             <div class="col-lg-8 tw-flex tw-py-4">
               {% if author_profile.image %}
                 <div class="tw-mr-4 tw-flex tw-items-start tw-flex-shrink-0">
-                  <img class="tw-rounded-full tw-border-2 tw-border-white" src="{% image_url author_profile.image "fill-75x75" %}" alt="{{ author_profile.name }}" title="{{ author_profile.name }}" />
+                  <img 
+                    class="tw-rounded-full tw-border-2 tw-border-white tw-w-[75px] tw-h-[75px]"
+                    src="{% image_url author_profile.image "fill-75x75" %}"
+                    srcset="{% image_url author_profile.image "fill-150x150" %} 2x, {% image_url author_profile.image "fill-225x225" %} 3x"
+                    alt="{{ author_profile.name }}"
+                    title="{{ author_profile.name }}"
+                  />
                 </div>
               {% endif %}
               <div class="">
