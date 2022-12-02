@@ -1,19 +1,12 @@
-from http import HTTPStatus
-
 from django.test import TestCase
 from wagtail.admin.edit_handlers import get_form_for_model
-from wagtail.snippets.views.snippets import get_snippet_edit_handler
 from wagtail.tests.utils.form_data import nested_form_data, rich_text, streamfield
 
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
-from networkapi.wagtailpages.pagemodels.buyersguide.call_to_action import (
-    BuyersGuideCallToAction,
-)
 from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideArticlePageForm,
 )
-from networkapi.wagtailpages.tests import base as test_base
 
 
 class BuyersGuideArticlePageFormTest(TestCase):
