@@ -3,6 +3,7 @@ from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
 from wagtail.core.models import Locale, Page, Site
 
+from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
@@ -180,12 +181,13 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
             self.assertEqual(response.status_code, 200)
 
     def test_serve_page_many_products(self):
+        reseed(12345)
         additional_products_count = 49
         for _ in range(additional_products_count):
             buyersguide_factories.ProductPageFactory(parent=self.bg)
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), additional_products_count + 1)
-        query_number = 888
+        query_number = 955
 
         with self.assertNumQueries(query_number):
             response = self.client.get(self.bg.url)
@@ -216,6 +218,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
             self.bg.get_context(request=request)
 
     def test_get_context_many_products(self):
+        reseed(12345)
         additional_products_count = 49
         for _ in range(additional_products_count):
             buyersguide_factories.ProductPageFactory(parent=self.bg)
@@ -224,7 +227,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 89
+        query_number = 209
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
