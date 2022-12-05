@@ -2,6 +2,10 @@
 line-length = 119
 target-version = ['py39']
 
+[tool.djlint]
+profile = "django"
+use_gitignore = true
+
 [tool.isort]
 profile = "black"
 extend_skip = ["network-api/media", "network-api/staticfiles"]
