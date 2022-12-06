@@ -274,13 +274,6 @@ def makemigrations_dryrun(ctx, args=""):
     manage(ctx, f"makemigrations {args} --dry-run")
 
 
-@task(help={"args": "Override the arguments passed to mypy."})
-def mypy(ctx, args=None):
-    """Run mypy type checking on the project."""
-    args = args or "network-api"
-    pyrun(ctx, command=f"mypy {args}")
-
-
 # Tests
 @task(aliases=["docker-test"])
 def test(ctx):
@@ -331,36 +324,6 @@ def lint_python(ctx):
     black_check(ctx)
 
 
-@task
-def flake8(ctx):
-    """Run flake8."""
-    pyrun(ctx, "flake8 .")
-
-
-@task
-def black_check(ctx):
-    """Run black code formatter in check mode."""
-    black(ctx, ". --check")
-
-
-@task
-def djlint_check(ctx):
-    """Run djlint in format checking mode."""
-    djlint(ctx, ". --check")
-
-
-@task
-def djlint_lint(ctx):
-    """Run djlint in linting mode."""
-    djlint(ctx, ". --lint")
-
-
-@task
-def isort_check(ctx):
-    """Run isort code formatter in check mode."""
-    isort(ctx, ". --check-only")
-
-
 # Formatting
 @task
 def format(ctx):
@@ -396,6 +359,7 @@ def format_python(ctx):
     black(ctx)
 
 
+# Tooling
 @task(help={"args": "Override the arguments passed to black."})
 def black(ctx, args=None):
     """Run black code formatter."""
@@ -403,11 +367,10 @@ def black(ctx, args=None):
     pyrun(ctx, command=f"black {args}")
 
 
-@task(help={"args": "Override the arguments passed to isort."})
-def isort(ctx, args=None):
-    """Run isort code formatter."""
-    args = args or "."
-    pyrun(ctx, command=f"isort {args}")
+@task
+def black_check(ctx):
+    """Run black code formatter in check mode."""
+    black(ctx, ". --check")
 
 
 @task(help={"args": "Override the arguments passed to djlint."})
@@ -418,30 +381,47 @@ def djlint(ctx, args=None):
 
 
 @task
+def djlint_check(ctx):
+    """Run djlint in format checking mode."""
+    djlint(ctx, ". --check")
+
+
+@task
 def djlint_format(ctx):
     """Run djlint formatting mode."""
     djlint(ctx, ". --reformat")
 
 
-# Translation
-@task(aliases=["docker-makemessages"])
-def makemessages(ctx):
-    """Extract all template messages in .po files for localization"""
-    ctx.run("./translation-management.sh import")
-    manage(ctx, locale_abstraction_instructions)
-    manage(ctx, locale_abstraction_instructions_js)
-    ctx.run("./translation-management.sh export")
+@task
+def djlint_lint(ctx):
+    """Run djlint in linting mode."""
+    djlint(ctx, ". --lint")
 
 
-@task(aliases=["docker-compilemessages"])
-def compilemessages(ctx):
-    """Compile the latest translations"""
-    with ctx.cd(ROOT):
-        ctx.run(
-            "docker-compose run --rm -w /app/network-api backend "
-            "../dockerpythonvenv/bin/python manage.py compilemessages",
-            **PLATFORM_ARG,
-        )
+@task
+def flake8(ctx):
+    """Run flake8."""
+    pyrun(ctx, "flake8 .")
+
+
+@task(help={"args": "Override the arguments passed to isort."})
+def isort(ctx, args=None):
+    """Run isort code formatter."""
+    args = args or "."
+    pyrun(ctx, command=f"isort {args}")
+
+
+@task
+def isort_check(ctx):
+    """Run isort code formatter in check mode."""
+    isort(ctx, ". --check-only")
+
+
+@task(help={"args": "Override the arguments passed to mypy."})
+def mypy(ctx, args=None):
+    """Run mypy type checking on the project."""
+    args = args or "network-api"
+    pyrun(ctx, command=f"mypy {args}")
 
 
 # Pip-tools
@@ -475,5 +455,26 @@ def pip_sync(ctx):
     with ctx.cd(ROOT):
         ctx.run(
             "docker-compose run --rm backend ./dockerpythonvenv/bin/pip-sync requirements.txt dev-requirements.txt",
+            **PLATFORM_ARG,
+        )
+
+
+# Translation
+@task(aliases=["docker-makemessages"])
+def makemessages(ctx):
+    """Extract all template messages in .po files for localization"""
+    ctx.run("./translation-management.sh import")
+    manage(ctx, locale_abstraction_instructions)
+    manage(ctx, locale_abstraction_instructions_js)
+    ctx.run("./translation-management.sh export")
+
+
+@task(aliases=["docker-compilemessages"])
+def compilemessages(ctx):
+    """Compile the latest translations"""
+    with ctx.cd(ROOT):
+        ctx.run(
+            "docker-compose run --rm -w /app/network-api backend "
+            "../dockerpythonvenv/bin/python manage.py compilemessages",
             **PLATFORM_ARG,
         )
