@@ -21,6 +21,31 @@ class JoinUs extends Component {
       privacyCheckbox: utility.generateUniqueId(`join-privacy-checkbox`),
     };
     this.state = this.getInitialState(props);
+
+    // Used for toggle visibility for buyersguide newsletter container
+    if (document.querySelector("#buyersguide_newsletter_box")) {
+      document
+        .querySelector("#buyersguide_newsletter_box")
+        .classList.remove("tw-hidden");
+    }
+
+    // Used for buyersguide product review grid toggle visibility
+    if (
+      document.querySelector(
+        ".product-box-list > .tw-col-span-full.tw-col-end-5.tw-order-1.tw-hidden"
+      )
+    ) {
+      document
+        .querySelector(
+          ".product-box-list > .tw-col-span-full.tw-col-end-5.tw-order-1.tw-hidden"
+        )
+        .classList.add("tw-flex");
+      document
+        .querySelector(
+          ".product-box-list > .tw-col-span-full.tw-col-end-5.tw-order-1.tw-hidden"
+        )
+        .classList.remove("tw-hidden");
+    }
   }
 
   reset() {
