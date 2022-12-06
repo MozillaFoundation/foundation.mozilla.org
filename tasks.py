@@ -298,26 +298,34 @@ def test_python(ctx):
 @task
 def lint(ctx):
     """Run linting."""
+    # lint_html(ctx)
     lint_css(ctx)
     lint_js(ctx)
     lint_python(ctx)
 
 
 @task
+def lint_html(ctx):
+    """Run HTML linting."""
+    djlint_check(ctx)
+    djlint_lint(ctx)
+
+
+@task
 def lint_css(ctx):
-    """Run css linting."""
+    """Run CSS linting."""
     npm(ctx, "run lint:css")
 
 
 @task
 def lint_js(ctx):
-    """Run node linting."""
+    """Run JavaScript linting."""
     npm(ctx, "run lint:js")
 
 
 @task
 def lint_python(ctx):
-    """Run python linting."""
+    """Run Python linting."""
     flake8(ctx)
     isort_check(ctx)
     black_check(ctx)
@@ -336,6 +344,18 @@ def black_check(ctx):
 
 
 @task
+def djlint_check(ctx):
+    """Run djlint in format checking mode."""
+    djlint(ctx, ". --check")
+
+
+@task
+def djlint_lint(ctx):
+    """Run djlint in linting mode."""
+    djlint(ctx, ". --lint")
+
+
+@task
 def isort_check(ctx):
     """Run isort code formatter in check mode."""
     isort(ctx, ". --check-only")
@@ -345,9 +365,16 @@ def isort_check(ctx):
 @task
 def format(ctx):
     """Run formatters."""
+    format_html(ctx)
     format_css(ctx)
     format_js(ctx)
     format_python(ctx)
+
+
+@task
+def format_html(ctx):
+    """Run HTML formatting."""
+    djlint_format(ctx)
 
 
 @task
@@ -388,6 +415,12 @@ def djlint(ctx, args=None):
     """Run djlint code formatter and linter."""
     args = args or "."
     pyrun(ctx, command=f"djlint {args}")
+
+
+@task
+def djlint_format(ctx):
+    """Run djlint formatting mode."""
+    djlint(ctx, ". --reformat")
 
 
 # Translation
