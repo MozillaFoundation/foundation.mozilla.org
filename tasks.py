@@ -383,6 +383,13 @@ def isort(ctx, args=None):
     pyrun(ctx, command=f"isort {args}")
 
 
+@task(help={"args": "Override the arguments passed to djlint."})
+def djlint(ctx, args=None):
+    """Run djlint code formatter and linter."""
+    args = args or "."
+    pyrun(ctx, command=f"djlint {args}")
+
+
 # Translation
 @task(aliases=["docker-makemessages"])
 def makemessages(ctx):
