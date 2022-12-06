@@ -194,6 +194,21 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
 
             self.assertEqual(response.status_code, 200)
 
+    def test_serve_page_many_products_logged_in(self):
+        reseed(12345)
+        additional_products_count = 49
+        for _ in range(additional_products_count):
+            buyersguide_factories.ProductPageFactory(parent=self.bg)
+        products = ProductPage.objects.descendant_of(self.bg)
+        self.assertEqual(products.count(), additional_products_count + 1)
+        query_number = 966
+        self.client.force_login(user=self.create_test_user())
+
+        with self.assertNumQueries(query_number):
+            response = self.client.get(self.bg.url)
+
+            self.assertEqual(response.status_code, 200)
+
     def test_get_context_no_products(self):
         products = ProductPage.objects.descendant_of(self.bg)
         products.delete()
