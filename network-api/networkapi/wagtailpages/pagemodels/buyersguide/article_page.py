@@ -13,6 +13,9 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels import customblocks
+from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
+    BuyersGuideArticlePageForm,
+)
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
 )
@@ -27,6 +30,8 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
     parent_page_types = ["wagtailpages.BuyersGuideEditorialContentIndexPage"]
     subpage_types: list = []
     template = "pages/buyersguide/article_page.html"
+    # Custom base form for additional validation
+    base_form_class = BuyersGuideArticlePageForm
 
     hero_image = models.ForeignKey(
         images.get_image_model_string(),
