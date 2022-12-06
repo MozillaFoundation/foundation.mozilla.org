@@ -3,7 +3,7 @@ from wagtail.admin.edit_handlers import get_form_for_model
 from wagtail.tests.utils.form_data import nested_form_data, rich_text, streamfield
 
 from networkapi.wagtailpages import models as pagemodels
-from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideArticlePageForm,
 )
@@ -40,6 +40,7 @@ class BuyersGuideArticlePageFormTest(TestCase):
         Test that the buyersguide article page form will
         return a validation error if no "search_image" is set.
         """
+
         test_form = self.article_page_form(
             data=self.generate_form_data(
                 {
@@ -59,13 +60,12 @@ class BuyersGuideArticlePageFormTest(TestCase):
         Test that the buyersguide article page form will
         return a validation error if no "search_description" is set.
         """
-        article_page = buyersguide_factories.BuyersGuideArticlePageFactory()
 
         test_form = self.article_page_form(
             data=self.generate_form_data(
                 {
                     "search_description": None,
-                    "search_image": article_page.search_image,
+                    "search_image": ImageFactory().id,
                 },
             ),
         )
@@ -81,6 +81,7 @@ class BuyersGuideArticlePageFormTest(TestCase):
         errors for both "search_image" and "search_description" fields
         if neither are updated.
         """
+
         test_form = self.article_page_form(
             data=self.generate_form_data(
                 {
@@ -102,13 +103,12 @@ class BuyersGuideArticlePageFormTest(TestCase):
         Test that a buyersguide article page form with
         the search fields set is valid with no errors.
         """
-        article_page = buyersguide_factories.BuyersGuideArticlePageFactory()
 
         test_form = self.article_page_form(
             data=self.generate_form_data(
                 {
-                    "search_description": article_page.search_description,
-                    "search_image": article_page.search_image,
+                    "search_description": "Test search description",
+                    "search_image": ImageFactory().id,
                 },
             ),
         )
