@@ -389,7 +389,7 @@ def djlint_check(ctx):
 @task
 def djlint_format(ctx):
     """Run djlint formatting mode."""
-    djlint(ctx, ". --reformat")
+    djlint(ctx, ". --reformat --quiet")
 
 
 @task
