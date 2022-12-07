@@ -291,7 +291,7 @@ def test_python(ctx):
 @task
 def lint(ctx):
     """Run linting."""
-    # lint_html(ctx)
+    lint_html(ctx)
     lint_css(ctx)
     lint_js(ctx)
     lint_python(ctx)
