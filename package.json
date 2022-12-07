@@ -64,7 +64,7 @@
     "test": "npm run lint",
     "watch": "wait-on http://backend:8000/cms && run-s build:clean && run-p build:js:dev build:common watch:**",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
-    "watch:sass": "chokidar \"source/**/*.scss\" \"**/*.html\" -c \"npm run build:sass\""
+    "watch:sass": "chokidar \"source/**/*.scss\" \"network-api/**/*.html\" -c \"npm run build:sass\""
   },
   "browserslist": [
     "> 1%",
