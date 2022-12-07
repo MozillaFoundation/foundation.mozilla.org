@@ -94,9 +94,9 @@ jobs:
           flake8 .
           isort . --check-only
           black . --check
+          djlint . --check
       - name: Run HTML linting
         run: |
-          djlint . --check
           djlint . --lint
         continue-on-error: true
       - name: Run type checks
