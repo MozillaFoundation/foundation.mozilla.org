@@ -1,14 +1,16 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AnonymousUser, User
 from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
 from wagtail.core.models import Locale, Page, Site
 
+from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
+    ProductPage,
     ProductPageCategory,
 )
 from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
@@ -145,10 +147,105 @@ class BuyersGuideViewTest(TestCase):
 @override_settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}})
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class TestBuyersGuidePage(BuyersGuideTestCase):
+    request_factory = RequestFactory()
+
     def test_buyersguide_url(self):
         self.assertEqual(self.bg.slug, "privacynotincluded")
         response = self.client.get(self.bg.url)
         self.assertEqual(response.status_code, 200)
+
+    def test_serve_page(self):
+        response = self.client.get(self.bg.url)
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_serve_page_no_products(self):
+        products = ProductPage.objects.descendant_of(self.bg)
+        products.delete()
+        self.assertEqual(products.count(), 0)
+        query_number = 156
+
+        with self.assertNumQueries(query_number):
+            response = self.client.get(self.bg.url)
+
+            self.assertEqual(response.status_code, 200)
+
+    def test_serve_page_one_product(self):
+        products = ProductPage.objects.descendant_of(self.bg)
+        self.assertEqual(products.count(), 1)
+        query_number = 186
+
+        with self.assertNumQueries(query_number):
+            response = self.client.get(self.bg.url)
+
+            self.assertEqual(response.status_code, 200)
+
+    def test_serve_page_many_products(self):
+        reseed(12345)
+        additional_products_count = 49
+        for _ in range(additional_products_count):
+            buyersguide_factories.ProductPageFactory(parent=self.bg)
+        products = ProductPage.objects.descendant_of(self.bg)
+        self.assertEqual(products.count(), additional_products_count + 1)
+        query_number = 955
+
+        with self.assertNumQueries(query_number):
+            response = self.client.get(self.bg.url)
+
+            self.assertEqual(response.status_code, 200)
+
+    def test_serve_page_many_products_logged_in(self):
+        reseed(12345)
+        additional_products_count = 49
+        for _ in range(additional_products_count):
+            buyersguide_factories.ProductPageFactory(parent=self.bg)
+        products = ProductPage.objects.descendant_of(self.bg)
+        self.assertEqual(products.count(), additional_products_count + 1)
+        query_number = 966
+        self.client.force_login(user=self.create_test_user())
+
+        with self.assertNumQueries(query_number):
+            response = self.client.get(self.bg.url)
+
+            self.assertEqual(response.status_code, 200)
+
+    def test_get_context_no_products(self):
+        products = ProductPage.objects.descendant_of(self.bg)
+        products.delete()
+        self.assertEqual(products.count(), 0)
+        request = self.request_factory.get(self.bg.url)
+        request.user = AnonymousUser()
+        request.LANGUAGE_CODE = "en"
+        query_number = 4
+
+        with self.assertNumQueries(query_number):
+            self.bg.get_context(request=request)
+
+    def test_get_context_one_product(self):
+        products = ProductPage.objects.descendant_of(self.bg)
+        self.assertEqual(products.count(), 1)
+        request = self.request_factory.get(self.bg.url)
+        request.user = AnonymousUser()
+        request.LANGUAGE_CODE = "en"
+        query_number = 9
+
+        with self.assertNumQueries(query_number):
+            self.bg.get_context(request=request)
+
+    def test_get_context_many_products(self):
+        reseed(12345)
+        additional_products_count = 49
+        for _ in range(additional_products_count):
+            buyersguide_factories.ProductPageFactory(parent=self.bg)
+        products = ProductPage.objects.descendant_of(self.bg)
+        self.assertEqual(products.count(), additional_products_count + 1)
+        request = self.request_factory.get(self.bg.url)
+        request.user = AnonymousUser()
+        request.LANGUAGE_CODE = "en"
+        query_number = 209
+
+        with self.assertNumQueries(query_number):
+            self.bg.get_context(request=request)
 
     def about_url_test(self, view_name, target_url, template):
         url = self.bg.reverse_subpage(view_name)
