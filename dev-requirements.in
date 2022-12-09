@@ -2,6 +2,7 @@
 black
 coveralls
 django-debug-toolbar
+djlint
 flake8
 isort
 mypy
