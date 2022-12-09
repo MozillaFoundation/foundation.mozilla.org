@@ -11,7 +11,10 @@
     tw-gap-y-6
   ">
 
-    {% image featured_article.hero_image original as img %}
+    {% with search_image=featured_article.search_image %}
+    {% image search_image width-650 as img1x %}
+    {% image search_image width-1350 as img2x %}
+    {% image search_image width-1950 as img3x %}
     {% pageurl featured_article as featured_article_url %}
     <a
       href="{{ featured_article_url }}"
@@ -22,8 +25,14 @@
       "
     >
       <span class="tw-sr-only">{{ featured_article.title }}</span>
-      <img src="{{ img.url }}" alt="{{ img.alt }}" class="tw-w-full tw-aspect-video tw-rounded-xl tw-object-cover " />
+      <img
+        src="{{ img1x.url }}"
+        srcset="{{ img2x.url }} 2x, {{ img3x.url }} 3x"
+        alt="{{ img1x.alt }}"
+        class="tw-w-full tw-aspect-video tw-rounded-xl tw-object-cover"
+      />
     </a>
+    {% endwith %}
 
     <a
       href="{{ featured_article_url }}"
