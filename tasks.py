@@ -203,7 +203,7 @@ def npm(ctx, command):
 def npm_install(ctx):
     """Install Node dependencies"""
     with ctx.cd(ROOT):
-        ctx.run("docker-compose run --rm watch-static-files npm install")
+        ctx.run("docker-compose run --rm watch-static-files npm ci")
 
 
 @task(aliases=["copy-stage-db"])
