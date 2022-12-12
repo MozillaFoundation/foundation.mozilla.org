@@ -93,3 +93,23 @@ footer hr {
 @import "./views/about";
 @import "./views/contest";
 @import "./views/article";
+
+//  The following is for testing purpose only. Will be removed.
+.blog-body {
+  .tw-container {
+    .embed-responsive.embed-responsive-16by9 {
+      background: rgb(71, 89, 255);
+    }
+  }
+
+  #test {
+    .tw-container {
+      &:nth-child(odd) {
+        background: rgb(223, 255, 229);
+      }
+      &:nth-child(even) {
+        background: rgb(247, 243, 212);
+      }
+    }
+  }
+}

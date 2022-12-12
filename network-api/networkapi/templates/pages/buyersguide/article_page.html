@@ -45,21 +45,43 @@
     </div>
   </div>
 
-  {% for block in page.body %}
-      {% include_block block with parent_page=page page_type="blog" %}
-  {% endfor %}
+  {% widthratio page.body|length 2 1 as midindex %}
+  <div style="color: red; text-align: center; margin-bottom: 10px;">
+    This line is for testing purpose. Num streamfields: {{ page.body|length }}, Mid: {{ midindex }}
+  </div>
+  <div id="test" class="relative">
+    {% with firstHalf=":"|add:midindex secondHalf=midindex|add:":" %}
 
-  {% with related_articles=page.get_primary_related_articles  %}
-    {% if related_articles %}
-    <div class="tw-container tw-my-4">
-      <div class="tw-row">
-        <div id="article-primary-related-articles" class="tw-px-4 tw-w-8/12 tw-mx-auto">
-          {% include "fragments/buyersguide/related_reading.html" with articles=related_articles %}
+    {% for block in page.body|slice:firstHalf %}
+      {% include_block block with parent_page=page page_type="blog" %}
+    {% endfor %}
+
+    {% with related_articles=page.get_primary_related_articles  %}
+      {% if related_articles %}
+      <aside class="tw-container">
+        <div class="tw-row">
+          <div id="article-primary-related-articles"
+            class="
+            min-[1800px]:tw-absolute min-[1800px]:tw-right-0 min-[1800px]:tw-top-1/2
+            tw-mx-auto
+            tw-px-[15px] tw-py-6
+            tw-w-full large:tw-w-2/3 min-[1800px]:tw-w-[320px]
+            "
+            style="border: 3px solid red"
+          >
+            {% include "fragments/buyersguide/related_reading.html" with articles=related_articles %}
+          </div>
         </div>
-      </div>
-    </div>
-    {% endif %}
-  {% endwith %}
+      </aside>
+      {% endif %}
+    {% endwith %}
+
+    {% for block in page.body|slice:secondHalf %}
+      {% include_block block with parent_page=page page_type="blog" %}
+    {% endfor %}
+    {% endwith %}
+
+  </div>
 
   <div class="tw-container tw-mt-6">
     <div class="tw-row tw-justify-center">
@@ -72,7 +94,7 @@
             <div class="col-lg-8 tw-flex tw-py-4">
               {% if author_profile.image %}
                 <div class="tw-mr-4 tw-flex tw-items-start tw-flex-shrink-0">
-                  <img 
+                  <img
                     class="tw-rounded-full tw-border-2 tw-border-white tw-w-[75px] tw-h-[75px]"
                     src="{% image_url author_profile.image "fill-75x75" %}"
                     srcset="{% image_url author_profile.image "fill-150x150" %} 2x, {% image_url author_profile.image "fill-225x225" %} 3x"
