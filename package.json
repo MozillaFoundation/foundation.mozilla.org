@@ -3,7 +3,7 @@
   "issues": "https://github.com/mozilla/foundation.mozilla.org/issues",
   "description": "Mozilla Foundation site",
   "engines": {
-    "node": ">=14.4.0"
+    "node": "18.x"
   },
   "scripts": {
     "build": "run-s build:clean && run-p build:js:prod build:common",
