@@ -18,7 +18,7 @@ from networkapi.wagtailpages.utils import create_wagtail_image
 
 class TestCreateWagtailImageUtility(TestCase):
     def setUp(self):
-        self.image_path = abspath(join(dirname(__file__), "../../media/images/placeholders/products/teddy.jpg"))
+        self.image_path = abspath(join(dirname(__file__), "../../../media/images/placeholders/products/teddy.jpg"))
 
     def create_new_image(self):
         """A generic test to ensure the image is created properly."""
