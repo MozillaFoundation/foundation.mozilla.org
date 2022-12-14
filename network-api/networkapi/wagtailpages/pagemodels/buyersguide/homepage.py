@@ -95,28 +95,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         related_name="+",
     )
 
-    # TODO: Remove this field
-    hero_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="pni_hero_image",
-    )
-
-    # TODO: Remove this field
-    header = models.CharField(
-        max_length=120,
-        blank=True,
-        help_text="The header text for the PNI homepage",
-    )
-
-    # TODO: Remove this field
-    dark_theme = models.BooleanField(
-        default=False,
-        help_text="Does the intro need to be white text (for dark backgrounds)?",
-    )
-
     content_panels = [
         FieldPanel("title"),
         MultiFieldPanel(
