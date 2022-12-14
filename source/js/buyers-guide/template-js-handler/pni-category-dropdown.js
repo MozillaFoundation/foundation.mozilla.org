@@ -22,7 +22,7 @@ export default () => {
 
   function resizeCategoryNavigation() {
     const categoryLinks = [
-      ...document.querySelectorAll("#pni-category-wrapper > .multipage-link"),
+      ...document.querySelectorAll("#pni-category-wrapper .multipage-link"),
     ].reverse();
 
     let linksForDropdown = [];
@@ -85,6 +85,19 @@ export default () => {
   }
 
   if (dropdown) {
+    // removing styling that are exclusive used when JS is disabled or before it is loaded
+    dropdown.classList.add("tw-inline-flex");
+    dropdown.classList.remove("tw-hidden");
+    categoryWrapper.classList.add("tw-w-max", "tw-min-w-full");
+    document
+      .querySelector("#pni-category-wrapper > div:first-child")
+      .classList.remove(
+        "tw-w-4/5",
+        "tw-overflow-x-auto",
+        "tw-no-scrollbar",
+        "tw-mr-4"
+      );
+
     defaultDropdownHeaderText = document.querySelector(
       ".pni-category-dropdown > span"
     ).innerText;
