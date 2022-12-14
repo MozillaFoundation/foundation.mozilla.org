@@ -6,20 +6,20 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0070_adds_url_field_for_listing_card'),
+        ("wagtailpages", "0070_adds_url_field_for_listing_card"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='buyersguidepage',
-            name='dark_theme',
+            model_name="buyersguidepage",
+            name="dark_theme",
         ),
         migrations.RemoveField(
-            model_name='buyersguidepage',
-            name='header',
+            model_name="buyersguidepage",
+            name="header",
         ),
         migrations.RemoveField(
-            model_name='buyersguidepage',
-            name='hero_image',
+            model_name="buyersguidepage",
+            name="hero_image",
         ),
     ]
