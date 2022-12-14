@@ -78,7 +78,6 @@ class TestLanguageUtilities(TestCase):
 
 
 class TestDjangoTranslationUtilityOverrides(TestCase):
-
     """
     Test that our overrides to Django translation functions work.
     """
