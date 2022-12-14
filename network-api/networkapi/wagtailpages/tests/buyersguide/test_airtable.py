@@ -23,7 +23,6 @@ class TestPNIAirtableConnections(TestCase):
             parent=Homepage.objects.first(),
             title="* Privacy not included",
             slug="privacynotincluded",
-            header="Be Smart. Shop Safe.",
         )
         self.general_product_page = GeneralProductPageFactory.create(
             title="General Percy Product",
