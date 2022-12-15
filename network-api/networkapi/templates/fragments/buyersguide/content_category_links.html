@@ -1,7 +1,9 @@
 {% with content_categories=page.get_content_categories editorial_content_index=page.get_editorial_content_index  %}
   {% for content_category in content_categories %}
-    {% with classes="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-py-1 tw-mb-0" %}
-      <a class="{{ classes }} {{ extra_classes }}" href="/privacynotincluded/articles/">{{ content_category.title|title }}</a>
+    {% with classes="tw-h6-heading tw-mr-2 tw-py-1 tw-mb-0" %}
+      <span class="{{ classes }} {{ extra_classes }}">
+        {{ content_category.title|title }}
+      </span>
       {% if not forloop.last %}
         <span class="{{ classes }} {{ extra_classes }}">/</span>
       {% endif %}
