@@ -71,12 +71,13 @@ class DonationModal extends Component {
 
   getModalContent() {
     if (!this.donateURL) {
-      let base = `https://donate.mozilla.org/?`,
+      let base = `?`,
         query = [
           `utm_source=foundation.mozilla.org`,
           `utm_medium=petitionmodal`,
           `utm_campaign=${this.props.slug}`,
           `utm_content=${this.props.name}`,
+          `form=donate`,
         ].join(`&`);
 
       this.donateURL = `${base}${query}`;
