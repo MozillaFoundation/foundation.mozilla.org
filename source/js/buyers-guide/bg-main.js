@@ -17,6 +17,7 @@ import RelatedArticles from "./related-articles.js";
 import AnalyticsEvents from "./analytics-events.js";
 import initializeSentry from "../common/sentry-config.js";
 import PNIMobileNav from "./pni-mobile-nav.js";
+import PNIStickyNav from "./pni-sticky-nav.js";
 
 // Initializing component a11y browser console logging
 if (
@@ -77,6 +78,7 @@ let main = {
         document.body.classList.add(`react-loaded`);
         this.initPageSpecificScript();
         PNIMobileNav.init();
+        PNIStickyNav.init();
         // bind custom analytics only once everything's up and loaded
         // Analytics events does give errors quite often, do not add JS after this
         AnalyticsEvents.init();
