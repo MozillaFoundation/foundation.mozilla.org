@@ -83,8 +83,8 @@
         {% if page.cta %}
         <p>{{page.cta}}</p>
         {% endif %}
-        {% if page.cta_button_text %}
-        <a class="tw-btn-secondary tw-heart-glyph my-3" href="?form=donate">{{page.cta_button_text}}</a>
+        {% if page.cta_button_text and page.cta_button_link %}
+        <a class="tw-btn-secondary tw-heart-glyph my-3" href="{{page.cta_button_link}}" target="_blank">{{page.cta_button_text}}</a>
         {% endif %}
       </div>
     </div>
