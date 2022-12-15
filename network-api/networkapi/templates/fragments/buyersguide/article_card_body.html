@@ -3,7 +3,7 @@
 <div class="tw-flex tw-flex-col tw-h-full tw-justify-between">
   <div>
     <div class="tw-flex tw-flex-wrap">
-      {% include "fragments/buyersguide/content_category_links.html" with page=page %}
+      {% include "fragments/buyersguide/content_category_links.html" with content_categories=page.get_content_categories %}
       <span class="tw-h6-heading tw-text-gray-40 tw-py-1 tw-mb-0">{{ page.first_published_at|date:"DATE_FORMAT" }}</span>
     </div>
 
