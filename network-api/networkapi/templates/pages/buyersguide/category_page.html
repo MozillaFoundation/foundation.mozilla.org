@@ -3,32 +3,6 @@
 
 {% block body_id %}{{ category.slug }}{% endblock %}
 
-{% block guts %}
-
-  {{ block.super }}
-
-  {% for category in categories  %}
-    {% with secondary_related_articles=category.get_secondary_related_articles  %}
-      {% if secondary_related_articles %}
-        <div
-          id="category-secondary-related-articles"
-          data-show-for-category="{{ category.name }}"
-          class="
-            {% if category != current_category %}
-              tw-hidden
-            {% endif %}
-            tw-container
-            tw-mt-[4rem]
-            tw-mb-[120px]
-          "
-        >
-          {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=page.get_editorial_content_index use_wide_above="medium" %}
-        </div>
-      {% endif %}
-    {% endwith %}
-  {% endfor %}
-{% endblock guts %}
-
 {% block extra_product_box_list_items %}
   {% if featured_cta %}
     {% comment %}
@@ -74,3 +48,30 @@
     {% endwith %}
   {% endfor %}
 {% endblock extra_product_box_list_items %}
+
+{% block guts %}
+
+  {{ block.super }}
+
+  {% for category in categories  %}
+    {% with secondary_related_articles=category.get_secondary_related_articles  %}
+      {% if secondary_related_articles %}
+        <div
+          id="category-secondary-related-articles"
+          data-show-for-category="{{ category.name }}"
+          class="
+            {% if category != current_category %}
+              tw-hidden
+            {% endif %}
+            tw-container
+            tw-mt-[4rem]
+            tw-mb-[120px]
+          "
+        >
+          {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=page.get_editorial_content_index use_wide_above="medium" %}
+        </div>
+      {% endif %}
+    {% endwith %}
+  {% endfor %}
+{% endblock guts %}
+
