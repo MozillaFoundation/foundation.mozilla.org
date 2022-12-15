@@ -35,6 +35,7 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
         max_length=100,
     )
 
+    # TODO: Remove this field
     cta_button_link = models.URLField()
 
     content_panels = Page.content_panels + [
