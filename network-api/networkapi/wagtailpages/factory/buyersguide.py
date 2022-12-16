@@ -447,7 +447,6 @@ def generate(seed):
             sort_order=index,
         )
 
-
     # The following section is commented, because the homepage redesign needs to be implemented.
     # Until then, we want the generated homepage to be closer to the production site, where none of these
     # relations are used.
