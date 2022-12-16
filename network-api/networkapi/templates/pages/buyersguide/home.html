@@ -47,6 +47,12 @@
             {% endif %}
           {% endwith %}
 
+          {% comment %}
+            We want to be able to use the CTA and have it show up on other pages, except for the homepage.
+            Displaying the CTA on the homepage should not happen until the redesign has been implemented.
+            See also: https://github.com/mozilla/foundation.mozilla.org/issues/9758.
+          {% endcomment %}
+          {% comment %}
           {% with cta=featured_cta %}
             {% if cta %}
               <div class="{{row_item_classes}}">
@@ -54,6 +60,7 @@
               </div>
             {% endif %}
           {% endwith %}
+          {% endcomment %}
 
         {% endwith %}
       </div>
