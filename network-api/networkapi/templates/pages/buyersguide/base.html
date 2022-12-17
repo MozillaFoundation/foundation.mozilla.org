@@ -76,7 +76,7 @@
 
   {% get_bg_home_page as home_page %}
 
-  <div class="primary-nav-container-wrapper tw-border-b tw-border-blue-10 tw-fixed tw-z-[999] tw-top-0 tw-w-full tw-transition-all tw-overflow-hidden">
+  <div class="primary-nav-container-wrapper tw-border-b tw-border-blue-10 tw-fixed tw-z-[999] tw-top-0 tw-w-full tw-transition-all">
     {% include "fragments/buyersguide/primary_nav.html" %}
     {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
     {% block category_nav %}
