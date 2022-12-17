@@ -4,7 +4,9 @@ from datetime import date, datetime, timedelta, timezone
 from random import choice, randint, random, randrange, shuffle
 
 from factory import Faker, LazyFunction, SubFactory, post_generation
+from factory.declarations import LazyAttribute
 from factory.django import DjangoModelFactory
+from wagtail.core.models import Locale
 from wagtail.images.models import Image
 from wagtail_factories import PageFactory
 
@@ -261,6 +263,7 @@ class BuyersGuideContentCategoryFactory(DjangoModelFactory):
         model = pagemodels.BuyersGuideContentCategory
 
     title = Faker("word")
+    locale = LazyFunction(lambda: Locale.get_default())
 
 
 class BuyersGuideArticlePageAuthorProfileRelationFactory(DjangoModelFactory):
