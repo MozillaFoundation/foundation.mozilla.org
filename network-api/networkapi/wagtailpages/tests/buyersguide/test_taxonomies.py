@@ -56,5 +56,13 @@ class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
         self.assertNotEqual(category_fr_locale.locale, category_default_locale.locale)
         self.assertNotEqual(category_fr_locale.slug, category_default_locale.slug)
 
+    def test_copy_for_translation(self):
+        category_default_locale = buyersguide_factories.BuyersGuideContentCategoryFactory(
+            title="Test category",
+        )
 
-    # TODO: test can copy for teranslation
+        fr_copy = category_default_locale.copy_for_translation(locale=self.fr_locale)
+
+        fr_copy.full_clean()
+        fr_copy.save()
+
