@@ -262,6 +262,12 @@ class BuyersGuideContentCategoryFactory(DjangoModelFactory):
     title = Faker("word")
     locale = LazyFunction(lambda: Locale.get_default())
 
+    @post_generation
+    def clean_slug(obj, create, extracted, **kwargs):
+        if not create:
+            return
+        obj.clean_slug()
+
 
 class BuyersGuideArticlePageAuthorProfileRelationFactory(DjangoModelFactory):
     class Meta:

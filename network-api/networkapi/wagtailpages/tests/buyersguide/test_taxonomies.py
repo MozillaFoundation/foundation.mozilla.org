@@ -19,7 +19,7 @@ class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
         self.assertEqual(category.slug, "en-test-category")
 
     def test_clean_overrides_exisiting_slug(self):
-        category = buyersguide_factories.BuyersGuideContentCategoryFactory(
+        category = buyersguide_factories.BuyersGuideContentCategoryFactory.build(
             title="Test category",
             slug="not-the-slugified-title",
         )
@@ -30,11 +30,9 @@ class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
         self.assertEqual(category.slug, "en-test-category")
 
     def test_clean_raises_if_category_with_same_title_and_locale_in_db(self):
-        existing_category = buyersguide_factories.BuyersGuideContentCategoryFactory(
+        buyersguide_factories.BuyersGuideContentCategoryFactory(
             title="Test category",
         )
-        existing_category.full_clean()
-        existing_category.save()
         category = buyersguide_factories.BuyersGuideContentCategoryFactory.build(
             title="Test category",
         )
