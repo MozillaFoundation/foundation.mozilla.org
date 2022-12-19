@@ -4,7 +4,6 @@ from datetime import date, datetime, timedelta, timezone
 from random import choice, randint, random, randrange, shuffle
 
 from factory import Faker, LazyFunction, SubFactory, post_generation
-from factory.declarations import LazyAttribute
 from factory.django import DjangoModelFactory
 from wagtail.core.models import Locale
 from wagtail.images.models import Image
