@@ -1,8 +1,8 @@
 from django.core import exceptions
 from django.db import models
 from django.utils import text as text_utils
-from wagtail.core import models as wagtail_models
 from wagtail.admin import edit_handlers as admin_panels
+from wagtail.core import models as wagtail_models
 from wagtail.snippets import models as snippet_models
 
 
