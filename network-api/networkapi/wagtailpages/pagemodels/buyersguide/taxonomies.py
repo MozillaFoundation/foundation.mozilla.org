@@ -36,31 +36,17 @@ class BuyersGuideContentCategory(wagtail_models.TranslatableMixin, models.Model)
 
         See also: https://github.com/wagtail/wagtail/issues/8918
 
-        """
-        self.slug = f"{ text_utils.slugify(self.locale.language_code) }-{ text_utils.slugify(self.title) }"
-
-    def clean(self):
-        """
-        Set the slug and clean the model.
-
         We are checking if the slug is already in use manually, because the Wagtail form seems to fail some how to
         apply the uniqueness check when the slug field is not displayed. I guess it would also be confusing to the
         user to get an error for a field they don't see. If we were to show the slug field it would also be confusing,
         because we are overriding that field.
 
         """
-        self.clean_slug()
+        self.slug = f"{ text_utils.slugify(self.locale.language_code) }-{ text_utils.slugify(self.title) }"
         if self.__class__.objects.filter(slug=self.slug).exists():
             raise exceptions.ValidationError({"title": "This title appears to be in use already."})
-        super().clean()
 
-    def save(self, *args, **kwargs) -> None:
-        """
-        Save category but always with a clean slug no matter how it's created.
-
-        Wagtail will usually clean the model before saving. Making sure that the slug is definitely updated before
-        saving is more of a testing convenience.
-
-        """
+    def clean(self):
+        """Clean the slug and clean the model."""
         self.clean_slug()
-        super().save(*args, **kwargs)
+        super().clean()
