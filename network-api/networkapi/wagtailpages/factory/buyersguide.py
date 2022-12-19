@@ -1,5 +1,3 @@
-# TODO: Move these factories to the wagtailpages app.
-# To avoid too many code conflicts, this should happen after PR 6433 is merged
 from datetime import date, datetime, timedelta, timezone
 from random import choice, randint, random, randrange, shuffle
 
