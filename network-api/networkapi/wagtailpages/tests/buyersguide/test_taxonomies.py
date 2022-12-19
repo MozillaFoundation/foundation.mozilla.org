@@ -3,7 +3,6 @@ from django.core import exceptions
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.tests import base as test_base
 
-
 TEST_CATEGORY_TITLE = "Test category"
 
 
