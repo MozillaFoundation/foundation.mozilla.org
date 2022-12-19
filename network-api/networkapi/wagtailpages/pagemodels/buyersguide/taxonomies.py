@@ -42,7 +42,7 @@ class BuyersGuideContentCategory(wagtail_models.TranslatableMixin, models.Model)
         because we are overriding that field.
 
         """
-        self.slug = f"{ text_utils.slugify(self.locale.language_code) }-{ text_utils.slugify(self.title) }"
+        self.slug = text_utils.slugify(f"{ self.locale.language_code } { self.title }")
         if self.__class__.objects.filter(slug=self.slug).exists():
             raise exceptions.ValidationError({"title": "This title appears to be in use already."})
 
