@@ -5,7 +5,6 @@ from networkapi.wagtailpages.tests import base as test_base
 
 
 class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
-
     def test_factory(self):
         buyersguide_factories.BuyersGuideContentCategoryFactory()
 
@@ -65,4 +64,3 @@ class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
 
         fr_copy.full_clean()
         fr_copy.save()
-
