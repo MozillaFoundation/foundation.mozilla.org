@@ -40,7 +40,18 @@ class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
         )
 
         with self.assertRaises(exceptions.ValidationError):
-            category.clean_slug()
+            category.clean()
+
+    def test_clean_of_existing_model_does_not_raise(self):
+        """When clicking the save button on an existing cateory, it would be weird to raise an error."""
+        category = buyersguide_factories.BuyersGuideContentCategoryFactory(
+            title=TEST_CATEGORY_TITLE,
+        )
+        self.assertEqual(category.slug, "en-test-category")
+
+        category.clean()
+
+        self.assertEqual(category.slug, "en-test-category")
 
     def test_clean_slug_different_for_different_locales(self):
         category_default_locale = buyersguide_factories.BuyersGuideContentCategoryFactory.build(
@@ -69,3 +80,4 @@ class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
 
         self.assertEqual(category_default_locale.slug, "en-test-category")
         self.assertEqual(fr_copy.slug, "fr-test-category")
+

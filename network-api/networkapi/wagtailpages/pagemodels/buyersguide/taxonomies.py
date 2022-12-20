@@ -42,9 +42,14 @@ class BuyersGuideContentCategory(wagtail_models.TranslatableMixin, models.Model)
         because we are overriding that field.
 
         """
-        self.slug = text_utils.slugify(f"{ self.locale.language_code } { self.title }")
-        if self.__class__.objects.filter(slug=self.slug).exists():
-            raise exceptions.ValidationError({"title": "This title appears to be in use already."})
+        cleaned_slug = text_utils.slugify(f"{ self.locale.language_code } { self.title }")
+
+        # Only update slug if necessary
+        if self.slug != cleaned_slug:
+            self.slug = cleaned_slug
+            # Only validate slug if updated, because otherwise we are throwing when cleaning the existing one itself.
+            if self.__class__.objects.filter(slug=self.slug).exists():
+                raise exceptions.ValidationError({"title": "This title appears to be in use already."})
 
     def clean(self):
         """Clean the slug and clean the model."""
