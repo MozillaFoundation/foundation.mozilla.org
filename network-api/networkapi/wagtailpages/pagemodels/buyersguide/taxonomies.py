@@ -4,6 +4,7 @@ from django.utils import text as text_utils
 from wagtail.admin import edit_handlers as admin_panels
 from wagtail.core import models as wagtail_models
 from wagtail.snippets import models as snippet_models
+from wagtail_localize import fields as localize_fields
 
 
 @snippet_models.register_snippet
@@ -12,6 +13,8 @@ class BuyersGuideContentCategory(wagtail_models.TranslatableMixin, models.Model)
     slug = models.SlugField(max_length=100, null=False, blank=True, unique=True)
 
     panels = [admin_panels.FieldPanel("title")]
+
+    translatable_fields = [localize_fields.TranslatableField('title')]
 
     class Meta(wagtail_models.TranslatableMixin.Meta):
         verbose_name = "Buyers Guide Content Category"
