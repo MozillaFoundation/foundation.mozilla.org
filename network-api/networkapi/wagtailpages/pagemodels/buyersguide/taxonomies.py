@@ -14,7 +14,7 @@ class BuyersGuideContentCategory(wagtail_models.TranslatableMixin, models.Model)
 
     panels = [admin_panels.FieldPanel("title")]
 
-    translatable_fields = [localize_fields.TranslatableField('title')]
+    translatable_fields = [localize_fields.TranslatableField("title")]
 
     class Meta(wagtail_models.TranslatableMixin.Meta):
         verbose_name = "Buyers Guide Content Category"
