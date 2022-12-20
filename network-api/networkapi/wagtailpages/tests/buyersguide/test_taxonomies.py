@@ -80,4 +80,3 @@ class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
 
         self.assertEqual(category_default_locale.slug, "en-test-category")
         self.assertEqual(fr_copy.slug, "fr-test-category")
-

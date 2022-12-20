@@ -120,7 +120,7 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
         return context
 
     def get_author_profiles(self) -> list["Profile"]:
-        author_profiles =  orderables.get_related_items(
+        author_profiles = orderables.get_related_items(
             self.author_profile_relations.all(),
             "author_profile",
         )
