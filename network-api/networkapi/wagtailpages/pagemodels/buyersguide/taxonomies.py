@@ -26,7 +26,7 @@ class BuyersGuideContentCategory(wagtail_models.TranslatableMixin, models.Model)
     def clean_slug(self):
         """
         We would really want the slugs to be only unique per locale.
-        If we implement that with a UniqueContraint or unique_together,
+        If we implement that with a UniqueConstraint or unique_together,
         Wagtail will crash if the constraint is violated.
         Wagtail does handle the simple unique requirement on the slug field gracefully.
         But, Wagtail Localize can not create a copy of the category for translation,
