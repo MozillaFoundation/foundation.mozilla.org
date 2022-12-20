@@ -1,7 +1,7 @@
 {% load bg_nav_tags localization i18n static wagtailroutablepage_tags %}
 {% get_bg_home_page as home_page %}
 
-<div class="d-md-none mt-0 mb-0" id="pni-nav-mobile">
+<div class="d-md-none mt-0 mb-0 tw-bg-white" id="pni-nav-mobile">
     <div class="container">
         <div class="row px-3 px-sm-0">
             <div class="col-12 tw-border-0">
@@ -37,7 +37,7 @@
                                 {% if original.published_product_page_count > 0 %}
                                     {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
                                     <div>
-                                        <a 
+                                        <a
                                             class="multipage-link {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}"
                                             href="{{ cat_url }}"
                                             data-name="{{ cat.name }}"
