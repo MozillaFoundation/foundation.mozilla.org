@@ -64,6 +64,8 @@ class TestBuyersGuideContentCategory(test_base.WagtailpagesTestCase):
         )
 
         fr_copy = category_default_locale.copy_for_translation(locale=self.fr_locale)
-
         fr_copy.full_clean()
         fr_copy.save()
+
+        self.assertEqual(category_default_locale.slug, "en-test-category")
+        self.assertEqual(fr_copy.slug, "fr-test-category")
