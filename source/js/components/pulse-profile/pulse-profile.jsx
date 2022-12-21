@@ -34,6 +34,11 @@ const PulseProfile = ({ profile }) => {
 
           {/* Social Icons */}
           <div className="tw-flex tw-flex-row tw-space-x-2 tw-mt-[7px]">
+            {profile.mastodon && (
+              <a className="hover:tw-no-underline" href={profile.mastodon}>
+                <i className="twitter tw-twitter-glyph" />
+              </a>
+            )}
             {profile.twitter && (
               <a className="hover:tw-no-underline" href={profile.twitter}>
                 <i className="twitter tw-twitter-glyph" />

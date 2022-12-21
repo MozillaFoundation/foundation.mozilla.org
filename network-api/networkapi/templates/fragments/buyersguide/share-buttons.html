@@ -12,6 +12,13 @@
                           <span>{% trans "Facebook" %}</span>
                         {% endif %}
                     </a>
+                    <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden mastodon-share" href="https://toot.kytta.dev/?text={{share_text|urlencode}} {{current_url|urlencode}}">
+                        {% if version == "mini" %}
+                          <span class="sr-only">{% trans "Share on Mastodon" %}</span>
+                        {% else %}
+                          <span>{% trans "Mastodon" %}</span>
+                        {% endif %}                    
+                    </a>
                     <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share" href="https://twitter.com/intent/tweet?text={{share_text|urlencode}} {{current_url|urlencode}}">
                         {% if version == "mini" %}
                           <span class="sr-only">{% trans "Share on Twitter" %}</span>

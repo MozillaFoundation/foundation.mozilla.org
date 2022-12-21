@@ -125,6 +125,12 @@
       }
     }
 
+    &.mastodon-share {
+      &::before {
+        background-image: url(../_images/glyphs/social-share/mastodon-share.svg);
+      }
+    }
+
     &.twitter-share {
       &::before {
         background-image: url(../_images/glyphs/social-share/twitter-share.svg);

@@ -28,6 +28,10 @@
     <h5>{{ cta.success_heading }}</h5>
     <p>{{ cta.success_text | safe }}</p>
 
+    {% if cta.share_mastodon %}
+    <div id="share-progress-tw" class='{{cta.share_mastodon}} sp_tw_small d-none'></div>
+    {% endif %}
+
     {% if cta.share_twitter %}
     <div id="share-progress-tw" class='{{cta.share_twitter}} sp_tw_small d-none'></div>
     {% endif %}
@@ -43,6 +47,7 @@
     <div class="share-button-group rectangle stacked">
       <div class="subgroup">
         <button class="tw-btn tw-btn-secondary btn-share after:tw-hidden facebook-share" data-target="share-progress-fb">{% trans "Facebook" %}</button>
+        <button class="tw-btn tw-btn-secondary btn-share after:tw-hidden mastodon-share" data-target="share-progress-tw">{% trans "Mastodon" %}</button>
         <button class="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share" data-target="share-progress-tw">{% trans "Twitter" %}</button>
       </div>
       <div class="subgroup">

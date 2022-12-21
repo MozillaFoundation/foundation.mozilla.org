@@ -14,6 +14,10 @@
       <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden facebook-share" href="https://www.facebook.com/sharer/sharer.php?u={{ facebook }}"></a>
       {% endif %}
 
+      {% if mastodon %}
+      <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden mastodon-share" href="https://toot.kytta.dev/?text={{ mastodon }}"></a>
+      {% endif %}
+
       {% if twitter %}
       <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share" href="https://twitter.com/home?status={{ twitter }}"></a>
       {% endif %}

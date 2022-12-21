@@ -427,6 +427,12 @@ class Petition extends Component {
                 Facebook
               </button>
               <button
+                className="tw-btn tw-btn-secondary btn-share after:tw-hidden mastodon-share"
+                onClick={(e) => this.shareButtonClicked(e, `share-progress-tw`)}
+              >
+                Mastodon
+              </button>
+              <button
                 className="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share"
                 onClick={(e) => this.shareButtonClicked(e, `share-progress-tw`)}
               >

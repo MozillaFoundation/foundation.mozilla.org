@@ -52,6 +52,14 @@ module.exports = [
         ".donate": {
           ...glyph("donate"),
         },
+        ".mastodon-glyph": {
+          ...glyph("mastodon"),
+          ...hoverGlyph("mastodon-hover"),
+          "&:before": {
+            width: "16px",
+            height: "16px",
+          },
+        },
         ".twitter-glyph": {
           ...glyph("twitter"),
           ...hoverGlyph("twitter-hover"),
@@ -77,6 +85,14 @@ module.exports = [
           },
         },
         ".dark": {
+          "& .mastodon-glyph": {
+            ...glyph("mastodon-dark-theme"),
+            ...hoverGlyph("mastodon-dark-theme-hover"),
+            "&:before": {
+              width: "16px",
+              height: "16px",
+            },
+          },
           "& .twitter-glyph": {
             ...glyph("twitter-dark-theme"),
             ...hoverGlyph("twitter-dark-theme-hover"),
