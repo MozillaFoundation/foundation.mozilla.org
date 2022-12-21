@@ -1,6 +1,7 @@
 from datetime import date, datetime, timedelta, timezone
 from random import choice, randint, random, randrange, shuffle
 
+from django.utils import text as text_utils
 from factory import Faker, LazyFunction, SubFactory, post_generation
 from factory.django import DjangoModelFactory
 from wagtail.core.models import Locale
@@ -263,10 +264,8 @@ class BuyersGuideContentCategoryFactory(DjangoModelFactory):
     locale = LazyFunction(lambda: Locale.get_default())
 
     @post_generation
-    def clean_slug(obj, create, extracted, **kwargs):
-        if not create:
-            return
-        obj.clean_slug()
+    def set_slug(obj, created, extracted, **kwargs):
+        obj.slug = text_utils.slugify(obj.title)
 
 
 class BuyersGuideArticlePageAuthorProfileRelationFactory(DjangoModelFactory):
