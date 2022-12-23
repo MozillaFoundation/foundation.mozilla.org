@@ -1,9 +1,9 @@
-import datetime
 import os
 from http import HTTPStatus
 
 from django import http, test
 from django.core import management
+from factory import base
 from taggit import models as tag_models
 from wagtail import rich_text
 
@@ -12,50 +12,30 @@ from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.pagemodels.blog import blog as blog_models
 from networkapi.wagtailpages.pagemodels.blog import blog_index, blog_topic
 from networkapi.wagtailpages.tests import base as test_base
+from networkapi.wagtailpages.tests import test_index
 
 
-# To make sure we can control the data setup for each test, we need to deactivate the
-# caching behaviout that the BlogIndexPage inherits from IndexPage.
-@test.override_settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}})
-class BlogIndexTestCase(test_base.WagtailpagesTestCase):
+class BlogIndexTestCase(test_index.IndexPageTestCase):
+
+    index_page_factory = blog_factories.BlogIndexPageFactory
+
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.page_size = blog_index.BlogIndexPage.PAGE_SIZES[0][0]
-        blog_factories.BlogIndexPageFactory(
-            parent=cls.homepage,
-            page_size=cls.page_size,
-        )
-        cls.blog_index = blog_models.BlogIndexPage.objects.first()
+        cls.blog_index = cls.index_page
 
     def fill_index_pages_with_blog_pages(
         self, index_pages_to_fill: int = 1, base_title: str = "Thisisnotthesearchterm"
     ):
-        """
-        Make enough blog pages to fill given number of index pages.
-
-        Blog pages are ordered newest to oldest.
-
-        All pages also use the same `base_title` for their `title`. For each page,
-        a number is appended to the `base_title` in order of their creation. That
-        means the oldest page has a `title = base_title + " 1"`.
-        """
-        tz = datetime.timezone.utc
-        blog_page_count = self.page_size * index_pages_to_fill
-        blog_pages = []
-        for index in range(0, blog_page_count):
-            blog_pages.append(
-                blog_factories.BlogPageFactory(
-                    parent=self.blog_index,
-                    title=base_title + f" {index + 1}",
-                    first_published_at=(datetime.datetime(2020, 1, 1, tzinfo=tz) + datetime.timedelta(days=index)),
-                )
-            )
-        blog_pages.reverse()
-        return blog_pages
+        return self.generate_enough_child_pages_to_fill_number_of_index_pages(
+            index_pages_to_fill=index_pages_to_fill,
+            base_title=base_title,
+            child_page_factory=blog_factories.BlogPageFactory,
+        )
 
 
 class TestBlogIndex(BlogIndexTestCase):
+
     def test_page_loads(self):
         blog_factories.BlogPageFactory(parent=self.blog_index)
         url = self.blog_index.get_url()

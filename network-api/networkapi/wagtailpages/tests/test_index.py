@@ -1,23 +1,66 @@
+import datetime
 from http import HTTPStatus
 
 from django import test
 from wagtail.core import models as wagtail_models
-
+import wagtail_factories
 
 from networkapi.wagtailpages.factory import bannered_campaign_page as bannered_factory
 from networkapi.wagtailpages.factory import index_page as index_factory
 from networkapi.wagtailpages.factory import publication as publication_factory
 from networkapi.wagtailpages.tests import base as test_base
+from networkapi.wagtailpages.pagemodels import index
 
 
 # TODO: We should be able to remove this when the cache is not needed anymore.
 @test.override_settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}})
-class IndexPageTests(test_base.WagtailpagesTestCase):
+class IndexPageTestCase(test_base.WagtailpagesTestCase):
+    index_page_factory: wagtail_factories.PageFactory = index_factory.IndexPageFactory
+
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.index_page = index_factory.IndexPageFactory(parent=cls.homepage)
+        cls.page_size = index.IndexPage.PAGE_SIZES[0][0]
+        cls.index_page = cls.index_page_factory(
+            parent=cls.homepage,
+            page_size=cls.page_size,
+        )
 
+    def generate_enough_child_pages_to_fill_number_of_index_pages(
+        self,
+        index_pages_to_fill: int = 1,
+        base_title: str = "Test child title",
+        child_page_factory: wagtail_factories.PageFactory = publication_factory.ArticlePageFactory,
+    ):
+        """
+        Make enough child pages to fill given number of index pages.
+
+        Child pages are ordered newest to oldest.
+
+        All pages also use the same `base_title` for their `title`. For each page,
+        a number is appended to the `base_title` in order of their creation. That
+        means the oldest page has a `title = base_title + " 1"`.
+
+        """
+        tz = datetime.timezone.utc
+        child_page_count = self.page_size * index_pages_to_fill
+        child_pages = []
+        for index in range(0, child_page_count):
+            child_pages.append(
+                child_page_factory(
+                    parent=self.index_page,
+                    title=base_title + f" {index + 1}",
+                    first_published_at=(
+                        datetime.datetime(2020, 1, 1, tzinfo=tz)
+                        + datetime.timedelta(days=index)
+                    ),
+                )
+            )
+        child_pages.reverse()
+        return child_pages
+
+
+class IndexPageTests(IndexPageTestCase):
     def test_serve_children_in_entries(self):
         """
         Currently, this is returning the generic page type, which requires the use of
