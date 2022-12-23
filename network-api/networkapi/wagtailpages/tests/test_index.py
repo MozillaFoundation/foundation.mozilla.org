@@ -69,3 +69,35 @@ class IndexPageTests(test_base.WagtailpagesTestCase):
         fr_entry_page = response.context["entries"][0]
         self.assertNotEqual(fr_entry_page.id, article_page.id)
         self.assertEqual(fr_entry_page.locale, self.fr_locale)
+
+    def test_entries_by_tag_route(self):
+        """
+        Show only the entries with the filtered tag.
+
+        Interestingly, the current filter implementation is resolving the pages to their specific type when filtering
+        by tag.
+
+        """
+        # Tagged page
+        TEST_TAG = "test-tag"
+        tagged_page = bannered_factory.BanneredCampaignPageFactory(parent=self.index_page)
+        tagged_page.tags.add(TEST_TAG)
+        tagged_page.save()
+        # Untagged page
+        untagged_page = bannered_factory.BanneredCampaignPageFactory(parent=self.index_page)
+        # Differently tagged page
+        differently_tagged_page = bannered_factory.BanneredCampaignPageFactory(parent=self.index_page)
+        differently_tagged_page.tags.add("differnt-tag")
+        differently_tagged_page.save()
+        #
+        path = (
+            self.index_page.get_url()
+            +  self.index_page.reverse_subpage('entries_by_tag', kwargs={"tag": TEST_TAG})
+        )
+
+        response = self.client.get(path=path)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertIn(tagged_page, response.context["entries"])
+        self.assertNotIn(untagged_page, response.context["entries"])
+        self.assertNotIn(differently_tagged_page, response.context["entries"])
