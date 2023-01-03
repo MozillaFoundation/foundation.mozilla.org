@@ -71,15 +71,7 @@ class DonationModal extends Component {
 
   getModalContent() {
     if (!this.donateURL) {
-      let base = `https://donate.mozilla.org/?`,
-        query = [
-          `utm_source=foundation.mozilla.org`,
-          `utm_medium=petitionmodal`,
-          `utm_campaign=${this.props.slug}`,
-          `utm_content=${this.props.name}`,
-        ].join(`&`);
-
-      this.donateURL = `${base}${query}`;
+      this.donateURL = `?form=donate`;
     }
     return (
       <div className="modal-content" role="dialog">
@@ -107,7 +99,6 @@ class DonationModal extends Component {
             ref={(e) => (this.userElectedToDonateLink = e)}
             className="tw-btn-primary"
             href={this.donateURL}
-            target="_blank"
             tabIndex="0"
           >
             {this.props.donateText}
