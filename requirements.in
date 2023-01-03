@@ -30,7 +30,7 @@ wagtail-color-panel
 wagtail-factories
 wagtail-localize==1.1
 wagtail-localize-git==0.13.0
-wagtail-inventory
+wagtail-inventory==1.6
 wagtailmedia
 wagtail-metadata
 whitenoise
