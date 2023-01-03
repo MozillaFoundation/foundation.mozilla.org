@@ -4,8 +4,6 @@
 #
 #    pip-compile
 #
-airtable-python-wrapper==0.13.0
-    # via wagtail-airtable
 anyascii==0.3.0
     # via wagtail
 asgiref==3.5.0
@@ -98,7 +96,6 @@ djangorestframework==3.13.1
     # via
     #   -r requirements.in
     #   wagtail
-    #   wagtail-airtable
 draftjs-exporter==2.1.7
     # via wagtail
 et-xmlfile==1.1.0
@@ -183,7 +180,6 @@ redis==4.1.4
 requests==2.27.1
     # via
     #   -r requirements.in
-    #   airtable-python-wrapper
     #   basket-client
     #   heroku3
     #   requests-oauthlib
@@ -199,7 +195,6 @@ sentry-sdk==1.5.6
     # via -r requirements.in
 six==1.16.0
     # via
-    #   airtable-python-wrapper
     #   basket-client
     #   html5lib
     #   l18n
@@ -233,7 +228,6 @@ urllib3[secure]==1.26.8
 wagtail==2.16.3
     # via
     #   -r requirements.in
-    #   wagtail-airtable
     #   wagtail-color-panel
     #   wagtail-factories
     #   wagtail-footnotes
@@ -242,8 +236,6 @@ wagtail==2.16.3
     #   wagtail-localize-git
     #   wagtail-metadata
     #   wagtailmedia
-wagtail-airtable==0.2.1
-    # via -r requirements.in
 wagtail-color-panel==1.4.0
     # via -r requirements.in
 wagtail-factories==2.0.1
