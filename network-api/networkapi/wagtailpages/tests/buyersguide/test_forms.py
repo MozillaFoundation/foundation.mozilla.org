@@ -12,7 +12,9 @@ from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
 class BuyersGuideArticlePageFormTest(TestCase):
     def setUp(self):
         self.article_page_form = get_form_for_model(
-            model=pagemodels.BuyersGuideArticlePage, form_class=BuyersGuideArticlePageForm
+            model=pagemodels.BuyersGuideArticlePage,
+            form_class=BuyersGuideArticlePageForm,
+            fields=["search_description", "search_image"],
         )
 
     @staticmethod
