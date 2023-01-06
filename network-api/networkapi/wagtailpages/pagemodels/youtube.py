@@ -1,6 +1,6 @@
 from django.db import models
 from wagtail import blocks
-from wagtail.admin.panels import FieldPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -45,10 +45,10 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("headline"),
-        StreamFieldPanel("intro_text"),
-        StreamFieldPanel("intro_images"),
-        StreamFieldPanel("faq"),
-        StreamFieldPanel("regret_stories"),
+        FieldPanel("intro_text"),
+        FieldPanel("intro_images"),
+        FieldPanel("faq"),
+        FieldPanel("regret_stories"),
     ]
 
     translatable_fields = [
@@ -99,8 +99,8 @@ class YoutubeRegretsReporterPage(FoundationMetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("headline"),
-        StreamFieldPanel("intro_text"),
-        StreamFieldPanel("intro_images"),
+        FieldPanel("intro_text"),
+        FieldPanel("intro_images"),
     ]
 
     translatable_fields = [

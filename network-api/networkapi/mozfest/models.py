@@ -1,6 +1,6 @@
 from django import forms
 from django.db import models
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Page
@@ -62,7 +62,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         ImageChooserPanel("banner"),
         FieldPanel("intro"),
         SnippetChooserPanel("signup"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
     subpage_types = [
@@ -232,9 +232,9 @@ class MozfestHomepage(MozfestPrimaryPage):
         ),
         FieldPanel("banner_heading"),
         FieldPanel("banner_cta_label"),
-        StreamFieldPanel("banner_carousel"),
-        StreamFieldPanel("banner_video"),
-        StreamFieldPanel("body"),
+        FieldPanel("banner_carousel"),
+        FieldPanel("banner_video"),
+        FieldPanel("body"),
     ]
 
     # Because we inherit from PrimaryPage, but the "use_wide_template" property does nothing

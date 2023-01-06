@@ -1,12 +1,7 @@
 from django import forms
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import (
-    FieldPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    StreamFieldPanel,
-)
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.fields import StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -215,7 +210,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
             heading="Hero",
         ),
         FieldPanel("show_side_share_buttons"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
         InlinePanel("footnotes", label="Footnotes"),
     ]
 

@@ -1,5 +1,5 @@
 from django.db import models
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -47,7 +47,7 @@ class ModularPage(FoundationMetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("header"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
     translatable_fields = [

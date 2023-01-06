@@ -2,12 +2,7 @@ import json
 
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import (
-    FieldPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    StreamFieldPanel,
-)
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.blocks import RichTextBlock
 from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page, TranslatableMixin
@@ -105,7 +100,7 @@ class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
         FieldPanel("header"),
         SnippetChooserPanel("cta"),
         InlinePanel("donation_modal_relations", label="Donation Modal", max_num=4),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
     settings_panels = Page.settings_panels + [

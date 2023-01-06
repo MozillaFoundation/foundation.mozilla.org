@@ -14,7 +14,6 @@ from wagtail.admin.panels import (
     PageChooserPanel,
     PrivacyModalPanel,
     PublishingPanel,
-    StreamFieldPanel,
 )
 from wagtail.fields import StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -178,7 +177,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             ],
             heading="Hero Video/Image",
         ),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
         FieldPanel("feature_author_details", heading="Feature Author Details Section"),
         FieldPanel("feature_comments"),
         InlinePanel(

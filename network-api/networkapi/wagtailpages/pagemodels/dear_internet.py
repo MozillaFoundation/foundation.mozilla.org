@@ -1,6 +1,6 @@
 from django.db import models
 from wagtail import blocks
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -39,9 +39,9 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
     cta_button_link = models.URLField()
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel("intro_texts"),
+        FieldPanel("intro_texts"),
         FieldPanel("letters_section_heading"),
-        StreamFieldPanel("letters"),
+        FieldPanel("letters"),
         MultiFieldPanel(
             [
                 FieldPanel("cta"),

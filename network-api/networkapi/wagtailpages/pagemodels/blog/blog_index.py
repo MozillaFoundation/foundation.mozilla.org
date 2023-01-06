@@ -9,12 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import loader
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from wagtail.admin.panels import (
-    FieldPanel,
-    InlinePanel,
-    PageChooserPanel,
-    StreamFieldPanel,
-)
+from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import route
 from wagtail.fields import StreamField
 from wagtail.models import Locale
@@ -132,7 +127,7 @@ class BlogIndexPage(IndexPage):
             max_num=1,
         ),
         FieldPanel("related_topics", widget=CheckboxSelectMultiple),
-        StreamFieldPanel("callout_box"),
+        FieldPanel("callout_box"),
     ]
 
     translatable_fields = IndexPage.translatable_fields + [

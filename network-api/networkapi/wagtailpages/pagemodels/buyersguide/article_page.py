@@ -82,7 +82,7 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
             label="Content category",
             max_num=2,
         ),
-        panels.StreamFieldPanel("body"),
+        panels.FieldPanel("body"),
         panels.InlinePanel(
             "related_article_relations",
             heading="What to read next (related articles)",

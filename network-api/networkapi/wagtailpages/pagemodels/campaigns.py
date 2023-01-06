@@ -4,7 +4,7 @@ from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
-from wagtail.admin.panels import FieldPanel, InlinePanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page, TranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -140,7 +140,7 @@ class OpportunityPage(MiniSiteNameSpace):
 
     content_panels = Page.content_panels + [
         FieldPanel("header"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
     subpage_types = [
@@ -299,7 +299,7 @@ class CampaignPage(MiniSiteNameSpace):
         FieldPanel("header"),
         SnippetChooserPanel("cta"),
         InlinePanel("donation_modals", label="Donation Modal", max_num=4),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
     translatable_fields = [
