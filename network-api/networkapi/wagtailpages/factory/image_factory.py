@@ -1,5 +1,5 @@
 from factory.django import DjangoModelFactory, ImageField
-from wagtail.core.models import Collection
+from wagtail.models import Collection
 from wagtail.images import get_image_model
 
 # Slightly modify the wagtail_factories ImageFactory so that it

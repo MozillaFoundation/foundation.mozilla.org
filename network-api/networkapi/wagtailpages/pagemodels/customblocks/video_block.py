@@ -1,5 +1,5 @@
 from django import forms
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtailmedia import blocks as wagtailmedia_blocks
 

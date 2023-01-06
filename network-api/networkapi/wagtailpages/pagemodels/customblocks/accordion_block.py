@@ -1,4 +1,4 @@
-from wagtail.core import blocks
+from wagtail import blocks
 
 from ..customblocks.base_rich_text_options import base_rich_text_options
 from .datawrapper_block import DatawrapperBlock

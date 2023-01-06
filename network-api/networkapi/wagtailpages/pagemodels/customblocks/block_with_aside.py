@@ -1,4 +1,4 @@
-from wagtail.core import blocks
+from wagtail import blocks
 
 from .aside_fields import aside_fields
 from .full_content_rich_text_options import full_content_rich_text_options

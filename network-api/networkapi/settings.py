@@ -213,7 +213,7 @@ INSTALLED_APPS = list(
             "wagtail.search",
             "wagtail.admin",
             "wagtail.contrib.legacy.richtext",
-            "wagtail.core",
+            "wagtail",
             "wagtail.contrib.forms",
             "wagtail.contrib.redirects",
             "wagtail.contrib.routable_page",

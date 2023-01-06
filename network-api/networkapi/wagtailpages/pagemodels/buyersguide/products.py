@@ -20,14 +20,14 @@ from django.utils.text import slugify
 from django.utils.translation import gettext
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     PageChooserPanel,
 )
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Orderable, Page, TranslatableMixin
+from wagtail.fields import RichTextField
+from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel

@@ -4,7 +4,7 @@ import uuid
 
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.core.fields
+import wagtail.fields
 from django.db import migrations, models
 
 
@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="researchdetailpage",
             name="overview",
-            field=wagtail.core.fields.RichTextField(
+            field=wagtail.fields.RichTextField(
                 blank=True,
                 help_text="Provide an overview about the reseach. This can be an excerpt from or the executive summary of the original paper.",
             ),

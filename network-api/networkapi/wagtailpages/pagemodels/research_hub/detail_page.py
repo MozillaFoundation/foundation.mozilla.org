@@ -4,8 +4,8 @@ from modelcluster import fields as cluster_fields
 from wagtail import documents as wagtail_docs
 from wagtail import images as wagtail_images
 from wagtail.admin import edit_handlers
-from wagtail.core import fields as wagtail_fields
-from wagtail.core import models as wagtail_models
+from wagtail import fields as wagtail_fields
+from wagtail import models as wagtail_models
 from wagtail.documents import edit_handlers as docs_handlers
 from wagtail.images import edit_handlers as image_handlers
 from wagtail.search import index

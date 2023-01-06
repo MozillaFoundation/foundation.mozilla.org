@@ -1,6 +1,6 @@
 from django.test import TestCase
-from wagtail.admin.edit_handlers import get_form_for_model
-from wagtail.tests.utils.form_data import nested_form_data, rich_text, streamfield
+from wagtail.admin.panels import get_form_for_model
+from wagtail.test.utils.form_data import nested_form_data, rich_text, streamfield
 
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory.image_factory import ImageFactory

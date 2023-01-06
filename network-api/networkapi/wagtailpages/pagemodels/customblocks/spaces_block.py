@@ -1,4 +1,4 @@
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
 from .common.link_blocks import ExternalLinkBlock, InternalLinkBlock

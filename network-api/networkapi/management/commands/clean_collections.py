@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from wagtail.core.models import Collection
+from wagtail.models import Collection
 from wagtail.images.models import Image
 
 

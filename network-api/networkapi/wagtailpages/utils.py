@@ -26,7 +26,7 @@ from django.utils.translation.trans_real import (
 )
 from PIL import Image as PILImage
 from sentry_sdk import capture_exception
-from wagtail.core.models import Collection, Locale
+from wagtail.models import Collection, Locale
 from wagtail.images.models import Image
 
 

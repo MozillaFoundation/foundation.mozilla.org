@@ -2,15 +2,15 @@ import json
 
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     StreamFieldPanel,
 )
-from wagtail.core.blocks import RichTextBlock
-from wagtail.core.fields import StreamField
-from wagtail.core.models import Orderable, Page, TranslatableMixin
+from wagtail.blocks import RichTextBlock
+from wagtail.fields import StreamField
+from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -92,7 +92,8 @@ class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
             ("airtable", customblocks.AirTableBlock()),
             ("datawrapper", customblocks.DatawrapperBlock()),
             ("typeform", customblocks.TypeformBlock()),
-        )
+        ),
+        use_json_field=True
     )
 
     def get_donation_modal_json(self):

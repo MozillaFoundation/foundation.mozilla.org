@@ -11,7 +11,7 @@ from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext
 from modelcluster import fields as cluster_fields
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     HelpPanel,
     InlinePanel,
@@ -19,7 +19,7 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.models import Locale, Orderable, Page, TranslatableMixin
+from wagtail.models import Locale, Orderable, Page, TranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 

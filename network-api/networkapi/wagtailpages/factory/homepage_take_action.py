@@ -1,7 +1,7 @@
 from random import choice
 
 from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.images.models import Image
 
 from networkapi.utility.faker.helpers import get_homepage, reseed

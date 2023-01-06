@@ -1,4 +1,4 @@
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail.snippets import blocks as snippet_blocks
 from wagtailmedia.blocks import AudioChooserBlock
 

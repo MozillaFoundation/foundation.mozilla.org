@@ -1,6 +1,11 @@
 from django.db import models
+<<<<<<< HEAD
 from wagtail.admin import edit_handlers as admin_panels
 from wagtail.core import models as wagtail_models
+=======
+from django.utils import text as text_utils
+from wagtail import models as wagtail_models
+>>>>>>> 0c1f7eec (Update module paths and correct streamfield usage)
 from wagtail.snippets import models as snippet_models
 from wagtail_localize import fields as localize_fields
 

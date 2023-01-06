@@ -16,9 +16,9 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineStyleElementHandler,
 )
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
-from wagtail.core import hooks
-from wagtail.core.rich_text import LinkHandler
-from wagtail.core.utils import find_available_slug
+from wagtail import hooks
+from wagtail.rich_text import LinkHandler
+from wagtail.coreutils import find_available_slug
 from wagtail_localize.models import (
     LocaleSynchronization,
     sync_trees_on_locale_sync_save,

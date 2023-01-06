@@ -1,5 +1,5 @@
 from django import forms
-from wagtail.core import blocks
+from wagtail import blocks
 
 from .image_block import ImageBlock
 

@@ -1,14 +1,14 @@
 from django import forms
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     StreamFieldPanel,
 )
-from wagtail.core.fields import StreamField
-from wagtail.core.models import Orderable, Page
+from wagtail.fields import StreamField
+from wagtail.models import Orderable, Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -52,7 +52,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     """
 
     subpage_types: list = []
-    body = StreamField(article_fields)
+    body = StreamField(article_fields, use_json_field=True)
 
     toc_thumbnail_image = models.ForeignKey(
         "wagtailimages.Image",

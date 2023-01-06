@@ -1,7 +1,7 @@
 from django.conf import settings
 from factory import Faker, LazyAttribute, SubFactory
-from wagtail.core.models import Page as WagtailPage
-from wagtail.core.models import Site as WagtailSite
+from wagtail.models import Page as WagtailPage
+from wagtail.models import Site as WagtailSite
 from wagtail_factories import PageFactory
 
 from networkapi.utility.faker import StreamfieldProvider

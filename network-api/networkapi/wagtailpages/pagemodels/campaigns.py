@@ -4,9 +4,9 @@ from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page, TranslatableMixin
+from wagtail.admin.panels import FieldPanel, InlinePanel, StreamFieldPanel
+from wagtail.fields import RichTextField
+from wagtail.models import Page, TranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField

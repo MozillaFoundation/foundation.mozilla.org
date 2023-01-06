@@ -3,7 +3,7 @@
 import uuid
 
 import django.db.models.deletion
-import wagtail.core.fields
+import wagtail.fields
 import wagtail.search.index
 from django.db import migrations, models
 
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                     models.UUIDField(default=uuid.uuid4, editable=False),
                 ),
                 ("title", models.CharField(max_length=200)),
-                ("content", wagtail.core.fields.RichTextField(blank=True)),
+                ("content", wagtail.fields.RichTextField(blank=True)),
                 ("link_label", models.CharField(blank=True, max_length=2048)),
                 ("link_target_url", models.URLField(blank=True)),
                 (

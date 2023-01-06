@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 
 # Redirect to the same page, but using the default CMS site.
