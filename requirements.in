@@ -11,7 +11,6 @@ django_csp
 django-environ
 django-filter
 django-htmx
- django-permissionedforms
 django-redis
 django-storages
 django-querystring-tag

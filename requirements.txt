@@ -83,7 +83,6 @@ django-filter==21.1
 django-htmx==1.13.0
     # via -r requirements.in
 django-modelcluster==6.0
-django-permissionedforms==0.1
     # via wagtail
 django-querystring-tag==1.0.2
     # via -r requirements.in
