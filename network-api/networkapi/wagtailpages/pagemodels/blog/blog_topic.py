@@ -2,7 +2,6 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
 

@@ -2,7 +2,6 @@ from django import forms
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 

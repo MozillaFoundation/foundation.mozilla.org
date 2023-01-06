@@ -2,7 +2,6 @@ from django.apps import apps
 from django.db import models
 from wagtail import models as wagtail_models
 from wagtail.admin.panels import FieldPanel, InlinePanel
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base

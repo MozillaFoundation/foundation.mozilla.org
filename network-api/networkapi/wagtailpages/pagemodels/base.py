@@ -4,7 +4,6 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.images import get_image_model_string
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Orderable as WagtailOrderable
 from wagtail.models import Page, TranslatableMixin
 from wagtail.snippets.models import register_snippet

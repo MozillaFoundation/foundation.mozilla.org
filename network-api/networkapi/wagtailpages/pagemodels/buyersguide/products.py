@@ -22,7 +22,6 @@ from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
