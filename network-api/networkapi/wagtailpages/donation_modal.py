@@ -1,5 +1,6 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
+from wagtail.admin.panels import FieldPanel
 from wagtail.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import TranslatableField

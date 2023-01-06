@@ -1,12 +1,7 @@
 from django.conf import settings
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import (
-    FieldPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    PageChooserPanel,
-)
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.images import get_image_model_string
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -352,7 +347,7 @@ class HomepageSpotlightPosts(TranslatableMixin, WagtailOrderable):
     )
     blog = models.ForeignKey("BlogPage", on_delete=models.CASCADE, related_name="+")
     panels = [
-        PageChooserPanel("blog"),
+        FieldPanel("blog"),
     ]
 
     class Meta(TranslatableMixin.Meta):
@@ -371,7 +366,7 @@ class HomepageNewsYouCanUse(TranslatableMixin, WagtailOrderable):
     )
     blog = models.ForeignKey("BlogPage", on_delete=models.CASCADE, related_name="+")
     panels = [
-        PageChooserPanel("blog"),
+        FieldPanel("blog"),
     ]
 
     class Meta(TranslatableMixin.Meta):
@@ -531,7 +526,7 @@ class FocusArea(TranslatableMixin, models.Model):
         FieldPanel("interest_icon"),
         FieldPanel("name"),
         FieldPanel("description"),
-        PageChooserPanel("page"),
+        FieldPanel("page"),
     ]
 
     translatable_fields = [
@@ -587,7 +582,7 @@ class HomepageTakeActionCards(TranslatableMixin, WagtailOrderable):
     panels = [
         FieldPanel("image"),
         FieldPanel("text"),
-        PageChooserPanel("internal_link"),
+        FieldPanel("internal_link"),
     ]
 
     # translatable_fields = [
@@ -765,7 +760,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
             [
                 FieldPanel("cause_statement"),
                 FieldPanel("cause_statement_link_text"),
-                PageChooserPanel("cause_statement_link_page"),
+                FieldPanel("cause_statement_link_page"),
             ],
             heading="cause statement",
             classname="collapsible collapsed",
@@ -816,7 +811,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
                 FieldPanel("partner_heading"),
                 FieldPanel("partner_intro_text"),
                 FieldPanel("partner_page_text"),
-                PageChooserPanel("partner_page"),
+                FieldPanel("partner_page"),
                 FieldPanel("partner_background_image"),
                 InlinePanel("partner_logos", label="Partner Logo", max_num=7, min_num=1),
             ],

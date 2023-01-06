@@ -20,12 +20,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import (
-    FieldPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    PageChooserPanel,
-)
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Orderable, Page, TranslatableMixin
@@ -224,7 +219,7 @@ class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable
         blank=False,
     )
 
-    panels = [PageChooserPanel("article")]
+    panels = [FieldPanel("article")]
 
     def __str__(self):
         return f"{self.category.name} -> {self.article.title}"
@@ -317,7 +312,7 @@ class RelatedProducts(TranslatableMixin, Orderable):
         related_name="+",
     )
 
-    panels = [PageChooserPanel("related_product")]
+    panels = [FieldPanel("related_product")]
 
     class Meta(TranslatableMixin.Meta):
         verbose_name = "Related Product"
@@ -966,7 +961,7 @@ class BuyersGuideProductPageArticlePageRelation(TranslatableMixin, Orderable):
         blank=False,
     )
 
-    panels = [PageChooserPanel("article")]
+    panels = [FieldPanel("article")]
 
     def __str__(self):
         return f"{self.product.name} -> {self.article.title}"

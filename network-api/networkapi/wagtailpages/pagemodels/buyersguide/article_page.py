@@ -231,7 +231,7 @@ class BuyersGuideArticlePageRelatedArticleRelation(
         blank=False,
     )
 
-    panels = [panels.PageChooserPanel("article")]
+    panels = [panels.FieldPanel("article")]
 
     def __str__(self):
         return f"{self.page.title} -> {self.article.title}"

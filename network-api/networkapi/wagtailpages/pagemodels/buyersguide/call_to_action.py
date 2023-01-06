@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.forms.utils import ErrorList
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Page, TranslatableMixin
@@ -50,7 +50,7 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, LocalizedSnippet
             [
                 FieldPanel("link_label"),
                 FieldPanel("link_target_url"),
-                PageChooserPanel("link_target_page"),
+                FieldPanel("link_target_page"),
             ],
             heading="Call To Action Link",
         ),

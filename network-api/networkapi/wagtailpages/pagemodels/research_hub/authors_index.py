@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import text as text_utils
 from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
+from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page import models as routable_models
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
