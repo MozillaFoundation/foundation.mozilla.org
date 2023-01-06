@@ -11,6 +11,7 @@ django_csp
 django-environ
 django-filter
 django-htmx
+ django-permissionedforms
 django-redis
 django-storages
 django-querystring-tag
@@ -24,7 +25,7 @@ pygit2==1.7.1
 python-slugify
 requests
 social-auth-app-django
-wagtail==2.16.3
+wagtail==3.0
 wagtail-color-panel
 wagtail-factories
 wagtail-localize==1.1
