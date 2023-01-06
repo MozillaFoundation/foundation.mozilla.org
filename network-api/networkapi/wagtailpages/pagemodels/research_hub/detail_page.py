@@ -46,7 +46,7 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
         ),
         edit_handlers.FieldPanel("label"),
         edit_handlers.FieldPanel("url"),
-        docs_handlers.DocumentChooserPanel("document"),
+        docs_handlers.FieldPanel("document"),
     ]
 
     class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):

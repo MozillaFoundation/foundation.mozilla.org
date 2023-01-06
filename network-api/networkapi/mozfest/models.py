@@ -4,7 +4,6 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Page
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.models import (
@@ -61,7 +60,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         FieldPanel("header"),
         FieldPanel("banner"),
         FieldPanel("intro"),
-        SnippetChooserPanel("signup"),
+        FieldPanel("signup"),
         FieldPanel("body"),
     ]
 
@@ -222,7 +221,7 @@ class MozfestHomepage(MozfestPrimaryPage):
 
     # See https://github.com/mozilla/foundation.mozilla.org/issues/7883#issuecomment-996039763
     content_panels = Page.content_panels + [
-        SnippetChooserPanel("signup"),
+        FieldPanel("signup"),
         MultiFieldPanel(
             [
                 FieldPanel("cta_button_label", heading="Label"),

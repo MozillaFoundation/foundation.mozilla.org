@@ -20,7 +20,6 @@ from wagtail.admin.panels import (
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.models import Locale, Orderable, Page, TranslatableMixin
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
@@ -143,7 +142,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             ],
             heading="Product listing",
         ),
-        SnippetChooserPanel("call_to_action"),
+        FieldPanel("call_to_action"),
     ]
 
     translatable_fields = [
@@ -497,7 +496,7 @@ class BuyersGuidePageFeaturedUpdateRelation(TranslatableMixin, Orderable):
         blank=False,
     )
 
-    panels = [SnippetChooserPanel("update")]
+    panels = [FieldPanel("update")]
 
     def __str__(self):
         return f"{self.page.title} -> {self.update.title}"

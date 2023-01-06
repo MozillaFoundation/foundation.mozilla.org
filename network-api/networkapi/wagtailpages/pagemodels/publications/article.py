@@ -2,10 +2,8 @@ from django import forms
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_color_panel.edit_handlers import NativeColorPanel
 from wagtail_color_panel.fields import ColorField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -30,7 +28,7 @@ class ArticleAuthors(Orderable):
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=False)
 
     panels = [
-        SnippetChooserPanel("author"),
+        FieldPanel("author"),
     ]
 
     def __str__(self):
@@ -203,8 +201,8 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
                 FieldPanel("secondary_subtitle"),
                 FieldPanel("publication_date"),
                 FieldPanel("download_button_style", widget=forms.RadioSelect),
-                DocumentChooserPanel("download_button_icon"),
-                DocumentChooserPanel("article_file", heading="Download button file"),
+                FieldPanel("download_button_icon"),
+                FieldPanel("article_file", heading="Download button file"),
             ],
             heading="Hero",
         ),

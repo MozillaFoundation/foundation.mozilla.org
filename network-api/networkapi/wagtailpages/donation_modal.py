@@ -1,7 +1,6 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.models import TranslatableMixin
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import TranslatableField
 
@@ -81,7 +80,7 @@ class DonationModals(TranslatableMixin, models.Model):
         return modal.to_simple_dict()
 
     panels = [
-        SnippetChooserPanel("donation_modal"),
+        FieldPanel("donation_modal"),
     ]
 
     class Meta(TranslatableMixin.Meta):

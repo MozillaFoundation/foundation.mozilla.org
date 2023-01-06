@@ -12,7 +12,6 @@ from wagtail.images import get_image_model_string
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Orderable as WagtailOrderable
 from wagtail.models import Page, TranslatableMixin
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -391,7 +390,7 @@ class InitiativesHighlights(TranslatableMixin, WagtailOrderable, models.Model):
     )
     highlight = models.ForeignKey("highlights.Highlight", on_delete=models.CASCADE, related_name="+")
     panels = [
-        SnippetChooserPanel("highlight"),
+        FieldPanel("highlight"),
     ]
 
     class Meta(TranslatableMixin.Meta):
@@ -468,7 +467,7 @@ class ParticipateHighlightsBase(TranslatableMixin, WagtailOrderable, models.Mode
     )
     highlight = models.ForeignKey("highlights.Highlight", on_delete=models.CASCADE, related_name="+")
     panels = [
-        SnippetChooserPanel("highlight"),
+        FieldPanel("highlight"),
     ]
 
     class Meta:
@@ -559,7 +558,7 @@ class HomepageFocusAreas(TranslatableMixin, WagtailOrderable):
     area = models.ForeignKey(FocusArea, on_delete=models.CASCADE, related_name="+")
 
     panels = [
-        SnippetChooserPanel("area"),
+        FieldPanel("area"),
     ]
 
     class Meta(TranslatableMixin.Meta):

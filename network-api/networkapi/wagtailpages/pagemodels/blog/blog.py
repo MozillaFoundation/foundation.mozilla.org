@@ -19,7 +19,6 @@ from wagtail.fields import StreamField
 from wagtail.models import Locale, Orderable, Page, TranslatableMixin
 from wagtail.rich_text import get_text_for_indexing
 from wagtail.search import index
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.forms import BlogPageForm
@@ -79,7 +78,7 @@ class BlogAuthors(TranslatableMixin, Orderable):
     )
 
     panels = [
-        SnippetChooserPanel("author"),
+        FieldPanel("author"),
     ]
 
     def __str__(self):

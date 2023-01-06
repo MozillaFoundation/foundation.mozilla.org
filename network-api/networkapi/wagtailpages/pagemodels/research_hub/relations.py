@@ -21,7 +21,7 @@ class ResearchAuthorRelation(wagtail_models.TranslatableMixin, wagtail_models.Or
     )
 
     panels = [
-        snippet_handlers.SnippetChooserPanel("author_profile"),
+        snippet_handlers.FieldPanel("author_profile"),
     ]
 
 
@@ -42,7 +42,7 @@ class ResearchDetailPageResearchRegionRelation(wagtail_models.TranslatableMixin,
     )
 
     panels = [
-        snippet_handlers.SnippetChooserPanel("research_region"),
+        snippet_handlers.FieldPanel("research_region"),
     ]
 
 
@@ -63,7 +63,7 @@ class ResearchDetailPageResearchTopicRelation(wagtail_models.TranslatableMixin, 
     )
 
     panels = [
-        snippet_handlers.SnippetChooserPanel("research_topic"),
+        snippet_handlers.FieldPanel("research_topic"),
     ]
 
 
@@ -83,5 +83,5 @@ class ResearchLandingPageFeaturedResearchTopicRelation(wagtail_models.Translatab
     )
 
     panels = [
-        snippet_handlers.SnippetChooserPanel("research_topic"),
+        snippet_handlers.FieldPanel("research_topic"),
     ]

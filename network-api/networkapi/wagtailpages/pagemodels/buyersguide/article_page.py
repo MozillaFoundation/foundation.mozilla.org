@@ -182,7 +182,7 @@ class BuyersGuideArticlePageAuthorProfileRelation(
         blank=False,
     )
 
-    panels = [snippet_panels.SnippetChooserPanel("author_profile")]
+    panels = [snippet_panels.FieldPanel("author_profile")]
 
     def __str__(self):
         return f"{self.page.title} -> {self.author_profile.name}"
@@ -208,7 +208,7 @@ class BuyersGuideArticlePageContentCategoryRelation(
         blank=False,
     )
 
-    panels = [snippet_panels.SnippetChooserPanel("content_category")]
+    panels = [snippet_panels.FieldPanel("content_category")]
 
     def __str__(self):
         return f"{self.page.title} -> {self.content_category.title}"

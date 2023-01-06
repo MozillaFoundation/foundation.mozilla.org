@@ -30,7 +30,6 @@ from wagtail.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail.search import index
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -141,7 +140,7 @@ class BuyersGuideProductCategory(
             widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 50}),
         ),
         FieldPanel("description"),
-        SnippetChooserPanel("parent"),
+        FieldPanel("parent"),
         FieldPanel("featured"),
         FieldPanel("hidden"),
         FieldPanel("sort_order"),
@@ -294,7 +293,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
     )
 
     panels = [
-        SnippetChooserPanel("category"),
+        FieldPanel("category"),
     ]
 
     def __str__(self):
@@ -424,7 +423,7 @@ class ProductUpdates(TranslatableMixin, Orderable):
     ]
 
     panels = [
-        SnippetChooserPanel("update"),
+        FieldPanel("update"),
     ]
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
@@ -1259,7 +1258,7 @@ class ExcludedCategories(TranslatableMixin, Orderable):
     )
 
     panels = [
-        SnippetChooserPanel("category"),
+        FieldPanel("category"),
     ]
 
     def __str__(self):

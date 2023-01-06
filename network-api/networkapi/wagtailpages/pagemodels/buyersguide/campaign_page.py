@@ -6,7 +6,6 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.blocks import RichTextBlock
 from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page, TranslatableMixin
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels import customblocks
@@ -35,7 +34,7 @@ class BuyersGuideCampaignPageDonationModalRelation(TranslatableMixin, Orderable)
     )
 
     panels = [
-        SnippetChooserPanel("donation_modal"),
+        FieldPanel("donation_modal"),
     ]
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
@@ -98,7 +97,7 @@ class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("header"),
-        SnippetChooserPanel("cta"),
+        FieldPanel("cta"),
         InlinePanel("donation_modal_relations", label="Donation Modal", max_num=4),
         FieldPanel("body"),
     ]
