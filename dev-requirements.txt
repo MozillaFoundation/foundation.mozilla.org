@@ -140,8 +140,9 @@ types-requests==2.28.3
     # via -r dev-requirements.in
 types-urllib3==1.26.16
     # via types-requests
-typing-extensions==4.3.0
+typing-extensions==4.4.0
     # via
+    #   -c requirements.txt
     #   black
     #   mypy
 urllib3[secure]==1.26.8

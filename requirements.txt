@@ -57,6 +57,8 @@ django==3.2.16
     #   django-csp
     #   django-filter
     #   django-htmx
+    #   django-modelcluster
+    #   django-permissionedforms
     #   django-querystring-tag
     #   django-redis
     #   django-storages
@@ -83,6 +85,8 @@ django-filter==21.1
 django-htmx==1.13.0
     # via -r requirements.in
 django-modelcluster==6.0
+    # via wagtail
+django-permissionedforms==0.1
     # via wagtail
 django-querystring-tag==1.0.2
     # via -r requirements.in
@@ -221,6 +225,8 @@ toml==0.10.2
     # via wagtail-localize-git
 tqdm==4.63.0
     # via wagtail-inventory
+typing-extensions==4.4.0
+    # via wagtail-localize
 urllib3[secure]==1.26.8
     # via
     #   botocore
