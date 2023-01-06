@@ -243,7 +243,7 @@ wagtail-color-panel==1.4.0
     # via -r requirements.in
 wagtail-factories==4.0.0
     # via -r requirements.in
-wagtail-footnotes==0.9.0
+wagtail-footnotes @ git+https://github.com/kevinhowbrook/wagtail-footnotes-moz-foundation.git@localized-footnotes
     # via -r requirements.in
 wagtail-inventory==1.6
     # via -r requirements.in
