@@ -44,4 +44,5 @@ base_fields = [
     ("image_teaser_block", customblocks.ImageTeaserBlock()),
     ("text_only_teaser", customblocks.TextOnlyTeaserBlock()),
     ("block_with_aside", customblocks.BlockWithAside()),
+    ("accordion", customblocks.AccordionBlock()),
 ]
