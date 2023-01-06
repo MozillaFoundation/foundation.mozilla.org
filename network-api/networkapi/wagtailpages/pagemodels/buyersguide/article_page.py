@@ -74,7 +74,7 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
     )
 
     content_panels = wagtail_models.Page.content_panels + [
-        image_panels.ImageChooserPanel("hero_image"),
+        image_panels.FieldPanel("hero_image"),
         panels.InlinePanel("author_profile_relations", heading="Authors", label="Author"),
         panels.InlinePanel(
             "content_category_relations",

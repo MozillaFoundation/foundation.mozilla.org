@@ -29,7 +29,7 @@ class ResearchLandingPage(research_base.ResearchHubBasePage):
 
     content_panels = wagtail_models.Page.content_panels + [
         FieldPanel("intro"),
-        ImageChooserPanel("banner_image"),
+        FieldPanel("banner_image"),
         InlinePanel("featured_topics", heading="Featured Topics"),
     ]
 

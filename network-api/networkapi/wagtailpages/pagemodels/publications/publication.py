@@ -195,7 +195,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel([InlinePanel("authors", label="Author", min_num=0)], heading="Author(s)"),
         MultiFieldPanel(
-            [ImageChooserPanel("toc_thumbnail_image")],
+            [FieldPanel("toc_thumbnail_image")],
             heading="Table of Content Thumbnail",
         ),
         MultiFieldPanel(
@@ -203,7 +203,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
                 FieldPanel("hero_layout", widget=forms.RadioSelect),
                 FieldPanel("show_authors"),
                 FieldPanel("additional_author_copy"),
-                ImageChooserPanel("hero_image"),
+                FieldPanel("hero_image"),
                 FieldPanel("hero_video"),
                 FieldPanel("displayed_hero_content", widget=forms.RadioSelect),
                 NativeColorPanel("hero_background_color"),

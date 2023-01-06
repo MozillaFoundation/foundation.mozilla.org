@@ -45,7 +45,7 @@ class BlogPageTopic(TranslatableMixin, models.Model):
         FieldPanel("title"),
         FieldPanel("intro"),
         FieldPanel("share_description"),
-        ImageChooserPanel("share_image"),
+        FieldPanel("share_image"),
     ]
 
     @classmethod

@@ -39,7 +39,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
     )
 
     content_panels = research_base.ResearchHubBasePage.content_panels + [
-        image_panels.ImageChooserPanel("banner_image"),
+        image_panels.FieldPanel("banner_image"),
     ]
 
     settings_panels = research_base.ResearchHubBasePage.settings_panels + [panels.FieldPanel("results_count")]

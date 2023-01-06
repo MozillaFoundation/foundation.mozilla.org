@@ -145,7 +145,7 @@ class BuyersGuideProductCategory(
         FieldPanel("featured"),
         FieldPanel("hidden"),
         FieldPanel("sort_order"),
-        ImageChooserPanel("share_image"),
+        FieldPanel("share_image"),
         FieldPanel("show_cta"),
         InlinePanel(
             "related_article_relations",
@@ -723,7 +723,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                 FieldPanel("privacy_ding"),
                 FieldPanel("review_date"),
                 FieldPanel("adult_content"),
-                ImageChooserPanel("image"),
+                FieldPanel("image"),
                 FieldPanel("product_url"),
                 FieldPanel("time_researched"),
                 FieldPanel("mozilla_says"),

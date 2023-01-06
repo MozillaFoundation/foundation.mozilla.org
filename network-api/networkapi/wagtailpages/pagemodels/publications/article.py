@@ -4,7 +4,6 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.fields import StreamField
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Orderable, Page
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_color_panel.edit_handlers import NativeColorPanel
@@ -187,7 +186,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         MultiFieldPanel([InlinePanel("authors", label="Author", min_num=0)], heading="Author(s)"),
         MultiFieldPanel(
             [
-                ImageChooserPanel("toc_thumbnail_image"),
+                FieldPanel("toc_thumbnail_image"),
             ],
             heading="Table of Content Thumbnail",
         ),
@@ -195,7 +194,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
             [
                 FieldPanel("hero_layout", widget=forms.RadioSelect),
                 FieldPanel("show_authors"),
-                ImageChooserPanel("hero_image"),
+                FieldPanel("hero_image"),
                 FieldPanel("hero_video"),
                 FieldPanel("displayed_hero_content", widget=forms.RadioSelect),
                 NativeColorPanel("hero_background_color"),

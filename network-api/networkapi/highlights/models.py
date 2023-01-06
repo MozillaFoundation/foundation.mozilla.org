@@ -91,7 +91,7 @@ class Highlight(TranslatableMixin, SortableMixin):
         FieldPanel("description"),
         FieldPanel("link_label"),
         FieldPanel("link_url"),
-        ImageChooserPanel("image"),
+        FieldPanel("image"),
         FieldPanel("footer"),
         FieldPanel("publish_after"),
         FieldPanel("expires"),

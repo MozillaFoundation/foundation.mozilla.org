@@ -31,7 +31,7 @@ class ResearchAuthorsIndexPage(
     )
 
     content_panels = wagtail_models.Page.content_panels + [
-        ImageChooserPanel("banner_image"),
+        FieldPanel("banner_image"),
     ]
 
     translatable_fields = [

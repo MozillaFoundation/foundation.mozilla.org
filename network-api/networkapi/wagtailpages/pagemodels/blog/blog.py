@@ -16,7 +16,6 @@ from wagtail.admin.panels import (
     PublishingPanel,
 )
 from wagtail.fields import StreamField
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Locale, Orderable, Page, TranslatableMixin
 from wagtail.rich_text import get_text_for_indexing
 from wagtail.search import index
@@ -173,7 +172,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         MultiFieldPanel(
             [
                 FieldPanel("hero_video"),
-                ImageChooserPanel("hero_image"),
+                FieldPanel("hero_image"),
             ],
             heading="Hero Video/Image",
         ),
@@ -197,7 +196,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
                 FieldPanel("slug"),
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
-                ImageChooserPanel("search_image"),
+                FieldPanel("search_image"),
             ],
             heading="Common page configuration",
         ),

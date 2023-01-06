@@ -43,7 +43,7 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, LocalizedSnippet
     )
 
     panels = [
-        ImageChooserPanel("sticker_image"),
+        FieldPanel("sticker_image"),
         FieldPanel("title"),
         FieldPanel("content"),
         MultiFieldPanel(

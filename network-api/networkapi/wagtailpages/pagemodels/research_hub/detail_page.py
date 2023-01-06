@@ -119,7 +119,7 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
     )
 
     content_panels = wagtail_models.Page.content_panels + [
-        image_handlers.ImageChooserPanel("cover_image"),
+        image_handlers.FieldPanel("cover_image"),
         edit_handlers.InlinePanel("research_links", heading="Research links", min_num=1),
         edit_handlers.FieldPanel("original_publication_date"),
         edit_handlers.FieldPanel("introduction"),

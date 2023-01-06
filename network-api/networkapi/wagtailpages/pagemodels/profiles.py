@@ -39,7 +39,7 @@ class Profile(TranslatableMixin, models.Model):
 
     panels = [
         FieldPanel("name"),
-        ImageChooserPanel("image"),
+        FieldPanel("image"),
         FieldPanel("tagline"),
         FieldPanel("introduction"),
     ]

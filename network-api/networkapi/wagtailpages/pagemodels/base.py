@@ -62,7 +62,7 @@ class InitiativeSection(TranslatableMixin, models.Model):
     sectionButtonURL2 = models.TextField(verbose_name="Button 2 URL", blank="True")
 
     panels = [
-        ImageChooserPanel("sectionImage"),
+        FieldPanel("sectionImage"),
         FieldPanel("sectionHeader"),
         FieldPanel("sectionCopy"),
         FieldPanel("sectionButtonTitle"),
@@ -121,7 +121,7 @@ class InitiativesPage(PrimaryPage):
     )
 
     content_panels = Page.content_panels + [
-        ImageChooserPanel("primaryHero"),
+        FieldPanel("primaryHero"),
         FieldPanel("header"),
         FieldPanel("subheader"),
         FieldPanel("h3"),
@@ -289,7 +289,7 @@ class ParticipatePage2(PrimaryPage):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                ImageChooserPanel("ctaHero"),
+                FieldPanel("ctaHero"),
                 FieldPanel("ctaHeroHeader"),
                 FieldPanel("ctaHeroSubhead"),
                 FieldPanel("ctaButtonTitle"),
@@ -303,7 +303,7 @@ class ParticipatePage2(PrimaryPage):
         InlinePanel("featured_highlights", label="Highlights Group 1", max_num=3),
         MultiFieldPanel(
             [
-                ImageChooserPanel("ctaHero2"),
+                FieldPanel("ctaHero2"),
                 FieldPanel("ctaHeroHeader2"),
                 FieldPanel("ctaHeroSubhead2"),
                 FieldPanel("ctaButtonTitle2"),
@@ -315,7 +315,7 @@ class ParticipatePage2(PrimaryPage):
         InlinePanel("featured_highlights2", label="Highlights Group 2", max_num=6),
         MultiFieldPanel(
             [
-                ImageChooserPanel("ctaHero3"),
+                FieldPanel("ctaHero3"),
                 FieldPanel("ctaHeroHeader3"),
                 FieldPanel("ctaHeroSubhead3"),
                 FieldPanel("ctaFacebook3"),
@@ -342,7 +342,7 @@ class Styleguide(PrimaryPage):
     )
 
     content_panels = PrimaryPage.content_panels + [
-        ImageChooserPanel("emoji_image"),
+        FieldPanel("emoji_image"),
     ]
 
 
@@ -434,7 +434,7 @@ class CTABase(WagtailOrderable, models.Model):
     )
 
     panels = [
-        ImageChooserPanel("hero"),
+        FieldPanel("hero"),
         FieldPanel("header"),
         FieldPanel("subhead"),
         FieldPanel("buttonTitle"),
@@ -529,7 +529,7 @@ class FocusArea(TranslatableMixin, models.Model):
     )
 
     panels = [
-        ImageChooserPanel("interest_icon"),
+        FieldPanel("interest_icon"),
         FieldPanel("name"),
         FieldPanel("description"),
         PageChooserPanel("page"),
@@ -586,7 +586,7 @@ class HomepageTakeActionCards(TranslatableMixin, WagtailOrderable):
     )
 
     panels = [
-        ImageChooserPanel("image"),
+        FieldPanel("image"),
         FieldPanel("text"),
         PageChooserPanel("internal_link"),
     ]
@@ -628,7 +628,7 @@ class PartnerLogos(TranslatableMixin, WagtailOrderable):
         help_text="The width of the image. Height will automatically be applied.",
     )
     panels = [
-        ImageChooserPanel("logo"),
+        FieldPanel("logo"),
         FieldPanel("name"),
         FieldPanel("link"),
         FieldPanel("width"),
@@ -757,7 +757,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
                 ),
                 FieldPanel("hero_button_text"),
                 FieldPanel("hero_button_url"),
-                ImageChooserPanel("hero_image"),
+                FieldPanel("hero_image"),
             ],
             heading="hero",
             classname="collapsible",
@@ -787,7 +787,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                ImageChooserPanel("spotlight_image"),
+                FieldPanel("spotlight_image"),
                 FieldPanel("spotlight_headline"),
                 InlinePanel("spotlight_posts", label="Posts", min_num=3, max_num=3),
             ],
@@ -804,7 +804,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                ImageChooserPanel("quote_image"),
+                FieldPanel("quote_image"),
                 FieldPanel("quote_text"),
                 FieldPanel("quote_source_name"),
                 FieldPanel("quote_source_job_title"),
@@ -818,7 +818,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
                 FieldPanel("partner_intro_text"),
                 FieldPanel("partner_page_text"),
                 PageChooserPanel("partner_page"),
-                ImageChooserPanel("partner_background_image"),
+                FieldPanel("partner_background_image"),
                 InlinePanel("partner_logos", label="Partner Logo", max_num=7, min_num=1),
             ],
             heading="Partner",

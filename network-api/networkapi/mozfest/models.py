@@ -59,7 +59,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
 
     content_panels = Page.content_panels + [
         FieldPanel("header"),
-        ImageChooserPanel("banner"),
+        FieldPanel("banner"),
         FieldPanel("intro"),
         SnippetChooserPanel("signup"),
         FieldPanel("body"),
