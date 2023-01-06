@@ -1,8 +1,8 @@
 """
 Article StreamBlocks
 """
-from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail import blocks
+from wagtail.contrib.table_block.blocks import TableBlock
 
 from . import customblocks
 from .customblocks.full_content_rich_text_options import full_content_rich_text_options

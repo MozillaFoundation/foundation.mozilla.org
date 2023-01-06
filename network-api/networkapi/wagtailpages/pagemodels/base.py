@@ -8,10 +8,10 @@ from wagtail.admin.panels import (
     PageChooserPanel,
 )
 from wagtail.fields import RichTextField
-from wagtail.models import Orderable as WagtailOrderable
-from wagtail.models import Page, TranslatableMixin
 from wagtail.images import get_image_model_string
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.models import Orderable as WagtailOrderable
+from wagtail.models import Page, TranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField

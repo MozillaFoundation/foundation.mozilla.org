@@ -3,9 +3,9 @@
 import django.db.models.deletion
 import wagtail.blocks
 import wagtail.blocks.static_block
-import wagtail.fields
 import wagtail.documents.blocks
 import wagtail.embeds.blocks
+import wagtail.fields
 import wagtail.images.blocks
 import wagtail.snippets.blocks
 import wagtailmedia.blocks
@@ -764,9 +764,7 @@ class Migration(migrations.Migration):
                                         (
                                             "blog_pages",
                                             wagtail.blocks.ListBlock(
-                                                wagtail.blocks.PageChooserBlock(
-                                                    page_type=["wagtailpages.BlogPage"]
-                                                )
+                                                wagtail.blocks.PageChooserBlock(page_type=["wagtailpages.BlogPage"])
                                             ),
                                         ),
                                     ]
@@ -1213,9 +1211,7 @@ class Migration(migrations.Migration):
                                     [
                                         (
                                             "button_label",
-                                            wagtail.blocks.CharBlock(
-                                                help_text="The text to show on the Tito button."
-                                            ),
+                                            wagtail.blocks.CharBlock(help_text="The text to show on the Tito button."),
                                         ),
                                         (
                                             "styling",

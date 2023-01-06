@@ -93,7 +93,7 @@ class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
             ("datawrapper", customblocks.DatawrapperBlock()),
             ("typeform", customblocks.TypeformBlock()),
         ),
-        use_json_field=True
+        use_json_field=True,
     )
 
     def get_donation_modal_json(self):

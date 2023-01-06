@@ -7,10 +7,10 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
     StreamFieldPanel,
 )
-from wagtail.fields import StreamField
-from wagtail.models import Orderable, Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.fields import StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.models import Orderable, Page
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_color_panel.edit_handlers import NativeColorPanel
 from wagtail_color_panel.fields import ColorField

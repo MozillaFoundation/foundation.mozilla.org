@@ -2,9 +2,9 @@
 
 import wagtail.blocks
 import wagtail.blocks.static_block
-import wagtail.fields
 import wagtail.documents.blocks
 import wagtail.embeds.blocks
+import wagtail.fields
 import wagtail.images.blocks
 import wagtail.snippets.blocks
 import wagtailmedia.blocks
@@ -345,9 +345,7 @@ class Migration(migrations.Migration):
                                 ("attribution", wagtail.blocks.CharBlock(required=False)),
                                 (
                                     "attribution_info",
-                                    wagtail.blocks.RichTextBlock(
-                                        features=["bold", "link", "large"], required=False
-                                    ),
+                                    wagtail.blocks.RichTextBlock(features=["bold", "link", "large"], required=False),
                                 ),
                             ]
                         ),
@@ -470,9 +468,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "profile_type",
-                                    wagtail.blocks.CharBlock(
-                                        default="", help_text="Example: Fellow.", required=False
-                                    ),
+                                    wagtail.blocks.CharBlock(default="", help_text="Example: Fellow.", required=False),
                                 ),
                                 (
                                     "program_type",
@@ -521,9 +517,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "profile_type",
-                                    wagtail.blocks.CharBlock(
-                                        default="", help_text="Example: Fellow.", required=False
-                                    ),
+                                    wagtail.blocks.CharBlock(default="", help_text="Example: Fellow.", required=False),
                                 ),
                                 (
                                     "program_type",
@@ -1150,9 +1144,7 @@ class Migration(migrations.Migration):
                                                     [
                                                         (
                                                             "label",
-                                                            wagtail.blocks.CharBlock(
-                                                                help_text="Label for this link."
-                                                            ),
+                                                            wagtail.blocks.CharBlock(help_text="Label for this link."),
                                                         ),
                                                         (
                                                             "link",
@@ -1169,9 +1161,7 @@ class Migration(migrations.Migration):
                                                     [
                                                         (
                                                             "label",
-                                                            wagtail.blocks.CharBlock(
-                                                                help_text="Label for this link."
-                                                            ),
+                                                            wagtail.blocks.CharBlock(help_text="Label for this link."),
                                                         ),
                                                         (
                                                             "link",
@@ -1206,9 +1196,7 @@ class Migration(migrations.Migration):
                                                     [
                                                         (
                                                             "title",
-                                                            wagtail.blocks.CharBlock(
-                                                                help_text="Heading of the card."
-                                                            ),
+                                                            wagtail.blocks.CharBlock(help_text="Heading of the card."),
                                                         ),
                                                         (
                                                             "subheading_link",
@@ -1489,9 +1477,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "profile_type",
-                                    wagtail.blocks.CharBlock(
-                                        default="", help_text="Example: Fellow.", required=False
-                                    ),
+                                    wagtail.blocks.CharBlock(default="", help_text="Example: Fellow.", required=False),
                                 ),
                                 (
                                     "program_type",

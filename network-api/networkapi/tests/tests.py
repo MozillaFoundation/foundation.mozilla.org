@@ -13,8 +13,8 @@ from django.utils.translation.trans_real import (
     parse_accept_lang_header as django_parse_accept_lang_header,
 )
 from django.utils.translation.trans_real import to_language as django_to_language
-from wagtail.models import Collection, Site
 from wagtail.images.models import Image
+from wagtail.models import Collection, Site
 from wagtail_factories import SiteFactory
 
 from networkapi.utility.middleware import ReferrerMiddleware, XRobotsTagMiddleware

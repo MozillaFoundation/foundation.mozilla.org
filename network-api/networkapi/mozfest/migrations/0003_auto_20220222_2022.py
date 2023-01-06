@@ -2,9 +2,9 @@
 
 import wagtail.blocks
 import wagtail.blocks.static_block
-import wagtail.fields
 import wagtail.documents.blocks
 import wagtail.embeds.blocks
+import wagtail.fields
 import wagtail.images.blocks
 import wagtail.snippets.blocks
 import wagtailmedia.blocks
@@ -854,9 +854,7 @@ class Migration(migrations.Migration):
                                                     [
                                                         (
                                                             "label",
-                                                            wagtail.blocks.CharBlock(
-                                                                help_text="Label for this link."
-                                                            ),
+                                                            wagtail.blocks.CharBlock(help_text="Label for this link."),
                                                         ),
                                                         (
                                                             "link",
@@ -873,9 +871,7 @@ class Migration(migrations.Migration):
                                                     [
                                                         (
                                                             "label",
-                                                            wagtail.blocks.CharBlock(
-                                                                help_text="Label for this link."
-                                                            ),
+                                                            wagtail.blocks.CharBlock(help_text="Label for this link."),
                                                         ),
                                                         (
                                                             "link",
@@ -913,9 +909,7 @@ class Migration(migrations.Migration):
                                                     [
                                                         (
                                                             "title",
-                                                            wagtail.blocks.CharBlock(
-                                                                help_text="Heading of the card."
-                                                            ),
+                                                            wagtail.blocks.CharBlock(help_text="Heading of the card."),
                                                         ),
                                                         (
                                                             "subheading_link",

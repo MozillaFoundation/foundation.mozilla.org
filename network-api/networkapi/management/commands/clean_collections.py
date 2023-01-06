@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
-from wagtail.models import Collection
 from wagtail.images.models import Image
+from wagtail.models import Collection
 
 
 class Command(BaseCommand):

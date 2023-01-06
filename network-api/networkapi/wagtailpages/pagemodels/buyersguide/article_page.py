@@ -3,10 +3,9 @@ import typing
 from django import http
 from django.db import models
 from modelcluster import fields as cluster_fields
-from wagtail import images
-from wagtail.admin import edit_handlers as panels
-from wagtail import blocks, fields
+from wagtail import blocks, fields, images
 from wagtail import models as wagtail_models
+from wagtail.admin import edit_handlers as panels
 from wagtail.images import edit_handlers as image_panels
 from wagtail.snippets import edit_handlers as snippet_panels
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -71,7 +70,7 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
         block_counts={"typeform": {"max_num": 1}},
         null=True,
         blank=False,
-        use_json_field=True
+        use_json_field=True,
     )
 
     content_panels = wagtail_models.Page.content_panels + [

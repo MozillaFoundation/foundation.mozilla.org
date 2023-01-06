@@ -4,8 +4,8 @@ from django.db.models import Q
 from django.utils import timezone
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
-from wagtail.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import TranslatableField
 

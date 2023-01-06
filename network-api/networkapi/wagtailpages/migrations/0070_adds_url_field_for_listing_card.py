@@ -2,8 +2,8 @@
 
 import wagtail.blocks
 import wagtail.blocks.static_block
-import wagtail.fields
 import wagtail.embeds.blocks
+import wagtail.fields
 import wagtail.images.blocks
 import wagtail.snippets.blocks
 from django.db import migrations
@@ -343,9 +343,7 @@ class Migration(migrations.Migration):
                                 ("attribution", wagtail.blocks.CharBlock(required=False)),
                                 (
                                     "attribution_info",
-                                    wagtail.blocks.RichTextBlock(
-                                        features=["bold", "link", "large"], required=False
-                                    ),
+                                    wagtail.blocks.RichTextBlock(features=["bold", "link", "large"], required=False),
                                 ),
                             ]
                         ),
@@ -468,9 +466,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "profile_type",
-                                    wagtail.blocks.CharBlock(
-                                        default="", help_text="Example: Fellow.", required=False
-                                    ),
+                                    wagtail.blocks.CharBlock(default="", help_text="Example: Fellow.", required=False),
                                 ),
                                 (
                                     "program_type",
@@ -519,9 +515,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "profile_type",
-                                    wagtail.blocks.CharBlock(
-                                        default="", help_text="Example: Fellow.", required=False
-                                    ),
+                                    wagtail.blocks.CharBlock(default="", help_text="Example: Fellow.", required=False),
                                 ),
                                 (
                                     "program_type",
@@ -1400,9 +1394,7 @@ class Migration(migrations.Migration):
                                 ("attribution", wagtail.blocks.CharBlock(required=False)),
                                 (
                                     "attribution_info",
-                                    wagtail.blocks.RichTextBlock(
-                                        features=["bold", "link", "large"], required=False
-                                    ),
+                                    wagtail.blocks.RichTextBlock(features=["bold", "link", "large"], required=False),
                                 ),
                             ]
                         ),
@@ -1525,9 +1517,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "profile_type",
-                                    wagtail.blocks.CharBlock(
-                                        default="", help_text="Example: Fellow.", required=False
-                                    ),
+                                    wagtail.blocks.CharBlock(default="", help_text="Example: Fellow.", required=False),
                                 ),
                                 (
                                     "program_type",
@@ -1576,9 +1566,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "profile_type",
-                                    wagtail.blocks.CharBlock(
-                                        default="", help_text="Example: Fellow.", required=False
-                                    ),
+                                    wagtail.blocks.CharBlock(default="", help_text="Example: Fellow.", required=False),
                                 ),
                                 (
                                     "program_type",

@@ -1,8 +1,8 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.fields import StreamField
-from wagtail.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import get_page_tree_information, set_main_site_nav_information

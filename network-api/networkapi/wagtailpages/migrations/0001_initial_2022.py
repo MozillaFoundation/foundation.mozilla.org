@@ -9,12 +9,12 @@ import django.db.models.expressions
 import django.utils.timezone
 import modelcluster.contrib.taggit
 import modelcluster.fields
-import wagtail.contrib.routable_page.models
-import wagtail.contrib.table_block.blocks
 import wagtail.blocks
 import wagtail.blocks.static_block
-import wagtail.fields
+import wagtail.contrib.routable_page.models
+import wagtail.contrib.table_block.blocks
 import wagtail.embeds.blocks
+import wagtail.fields
 import wagtail.images.blocks
 import wagtail.search.index
 import wagtailmedia.blocks
@@ -1980,9 +1980,7 @@ class Migration(migrations.Migration):
                                         (
                                             "blog_pages",
                                             wagtail.blocks.ListBlock(
-                                                wagtail.blocks.PageChooserBlock(
-                                                    page_type=["wagtailpages.BlogPage"]
-                                                )
+                                                wagtail.blocks.PageChooserBlock(page_type=["wagtailpages.BlogPage"])
                                             ),
                                         ),
                                     ]
@@ -2828,9 +2826,7 @@ class Migration(migrations.Migration):
                                         (
                                             "blog_pages",
                                             wagtail.blocks.ListBlock(
-                                                wagtail.blocks.PageChooserBlock(
-                                                    page_type=["wagtailpages.BlogPage"]
-                                                )
+                                                wagtail.blocks.PageChooserBlock(page_type=["wagtailpages.BlogPage"])
                                             ),
                                         ),
                                     ]

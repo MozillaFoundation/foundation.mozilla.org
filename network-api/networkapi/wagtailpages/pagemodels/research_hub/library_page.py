@@ -6,8 +6,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 from wagtail import images as wagtail_images
-from wagtail.admin import edit_handlers as panels
 from wagtail import models as wagtail_models
+from wagtail.admin import edit_handlers as panels
 from wagtail.images import edit_handlers as image_panels
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 

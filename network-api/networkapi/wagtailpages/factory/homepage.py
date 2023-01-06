@@ -1,8 +1,8 @@
 from django.conf import settings
 from factory import Faker, SubFactory
+from wagtail.images.models import Image
 from wagtail.models import Page as WagtailPage
 from wagtail.models import Site as WagtailSite
-from wagtail.images.models import Image
 from wagtail_factories import PageFactory
 
 from networkapi.utility.faker.helpers import get_homepage, reseed

@@ -6,6 +6,7 @@ from django.template.defaultfilters import truncatechars
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from taggit.models import TaggedItemBase
+from wagtail import blocks
 from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
@@ -15,11 +16,10 @@ from wagtail.admin.panels import (
     PublishingPanel,
     StreamFieldPanel,
 )
-from wagtail import blocks
 from wagtail.fields import StreamField
+from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Locale, Orderable, Page, TranslatableMixin
 from wagtail.rich_text import get_text_for_indexing
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -118,11 +118,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     # Custom base form for additional validation
     base_form_class = BlogPageForm
 
-    body = StreamField(
-        base_fields,
-        block_counts={"typeform": {"max_num": 1}},
-        use_json_field=True
-    )
+    body = StreamField(base_fields, block_counts={"typeform": {"max_num": 1}}, use_json_field=True)
 
     topics = ParentalManyToManyField(
         BlogPageTopic,

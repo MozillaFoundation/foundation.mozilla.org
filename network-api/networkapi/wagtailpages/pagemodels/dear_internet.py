@@ -1,6 +1,6 @@
 from django.db import models
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail import blocks
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -13,8 +13,7 @@ from .mixin.foundation_metadata import FoundationMetadataPageMixin
 
 class DearInternetPage(FoundationMetadataPageMixin, Page):
     intro_texts = StreamField(
-        [("intro_text", blocks.RichTextBlock(features=base_rich_text_options))],
-        use_json_field=True
+        [("intro_text", blocks.RichTextBlock(features=base_rich_text_options))], use_json_field=True
     )
 
     letters_section_heading = models.CharField(
@@ -25,7 +24,8 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
     letters = StreamField(
         [
             ("letter", customblocks.DearInternetLetterBlock()),
-        ], use_json_field=True
+        ],
+        use_json_field=True,
     )
 
     cta = models.CharField(

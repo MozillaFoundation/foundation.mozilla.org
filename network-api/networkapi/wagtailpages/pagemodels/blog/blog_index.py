@@ -111,7 +111,7 @@ class BlogIndexPage(IndexPage):
         blank=True,
         min_num=1,
         max_num=1,
-        use_json_field=True
+        use_json_field=True,
     )
 
     subpage_types = ["BlogPage"]

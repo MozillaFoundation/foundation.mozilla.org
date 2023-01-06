@@ -2,8 +2,8 @@
 
 import wagtail.blocks
 import wagtail.blocks.static_block
-import wagtail.fields
 import wagtail.embeds.blocks
+import wagtail.fields
 import wagtail.images.blocks
 import wagtail.snippets.blocks
 from django.db import migrations

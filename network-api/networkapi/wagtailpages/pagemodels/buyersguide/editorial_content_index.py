@@ -4,9 +4,9 @@ from django import shortcuts
 from django.core import paginator
 from django.db import models
 from modelcluster.fields import ParentalKey
+from wagtail import models as wagtail_models
 from wagtail.admin.panels import InlinePanel, PageChooserPanel
 from wagtail.contrib.routable_page import models as routable_models
-from wagtail import models as wagtail_models
 from wagtail.models import Orderable, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 

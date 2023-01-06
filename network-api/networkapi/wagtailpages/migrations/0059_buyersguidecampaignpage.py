@@ -3,9 +3,9 @@
 import django.db.models.deletion
 import wagtail.blocks
 import wagtail.blocks.static_block
-import wagtail.fields
 import wagtail.documents.blocks
 import wagtail.embeds.blocks
+import wagtail.fields
 import wagtail.images.blocks
 import wagtailmedia.blocks
 import wagtailmetadata.models
