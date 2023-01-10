@@ -51,11 +51,11 @@
 
   {% with author_profiles=page.get_author_profiles  %}
     {% if author_profiles %}
-      <div class="tw-container tw-mt-[2.5rem]">
+      <div class="tw-container tw-mt-[3rem]">
         <div class="tw-row tw-px-4 tw-justify-center">
           <div class="large:tw-w-2/3 tw-border-t-4 tw-border-black tw-divide-y tw-divide-gray-20">
             {% for author_profile in author_profiles %}
-              <div class="tw-flex tw-py-4">
+              <div class="tw-flex tw-py-4 last:tw-pb-0">
                 {% if author_profile.image %}
                   <div class="tw-mr-4 tw-flex tw-items-start tw-flex-shrink-0">
                     <img
@@ -69,7 +69,7 @@
                 {% endif %}
                 <div class="">
                   <p class="tw-font-zilla tw-mb-2 tw-font-medium tw-text-2xl tw-leading-7">{{ author_profile.name }}</p>
-                  <p class="tw-font-sans tw-font-normal tw-text-lg tw-leading-6">{{ author_profile.introduction }}</p>
+                  <p class="tw-font-sans tw-font-normal tw-text-lg tw-leading-6 tw-m-0">{{ author_profile.introduction }}</p>
                 </div>
               </div>
             {% endfor %}
@@ -79,7 +79,7 @@
     {% endif %}
   {% endwith %}
 
-  <div id="article-newsletter-signup" class="tw-container tw-mt-[2.5rem]">
+  <div id="article-newsletter-signup" class="tw-container tw-mt-[2.75rem]">
     <div class="tw-row tw-px-4 tw-justify-center">
       <div class="tw-w-full large:tw-w-2/3">
         {% include "fragments/buyersguide/pni_newsletter_box.html" %}
@@ -90,7 +90,7 @@
   {% with related_articles=page.get_related_articles  %}
     {% if related_articles %}
       {% get_bg_home_page as bg_home_page %}
-      <div class="tw-container tw-mt-[2.75rem]" data-gtm="article-what-to-read-next">
+      <div class="tw-container tw-mt-[3rem]" data-gtm="article-what-to-read-next">
         {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=related_articles index_page=bg_home_page.get_editorial_content_index use_wide_above="medium" %}
       </div>
     {% endif %}
