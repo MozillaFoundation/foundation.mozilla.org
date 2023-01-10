@@ -86,7 +86,7 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
             "related_article_relations",
             heading="Related articles",
             label="Article",
-            max_num=6,
+            max_num=3,
         ),
         panels.StreamFieldPanel("body"),
     ]
