@@ -83,6 +83,10 @@ def get_random_objects(
     random.shuffle(primary_keys)
 
     count = len(primary_keys)
+    if not count:
+        # No items available, return empty queryset.
+        return queryset.none()
+
     if exact_count:
         return_max = min(count, exact_count)
     elif max_count:

@@ -409,9 +409,10 @@ def generate(seed):
 
     print("Generating buyers guide editorial content")
     editorial_content_index = BuyersGuideEditorialContentIndexPageFactory(parent=pni_homepage)
+    # Create content categories
     for _ in range(3):
         BuyersGuideContentCategoryFactory()
-    articles = []
+    # Create articles
     for _ in range(12):
         article = BuyersGuideArticlePageFactory(parent=editorial_content_index)
         for profile in get_random_objects(pagemodels.Profile, max_count=3):
@@ -426,13 +427,16 @@ def generate(seed):
                     page=article,
                     content_category=category,
                 )
-        # Add all previously existing articles as related articles
-        for existing_article in articles:
+        # Add up to 3 previously existing articles as related articles (but not the article itself)
+        existing_articles = get_random_objects(
+            pagemodels.BuyersGuideArticlePage.objects.exclude(id=article.id),
+            max_count=3,
+        )
+        for existing_article in existing_articles:
             BuyersGuideArticlePageRelatedArticleRelationFactory(
                 page=article,
                 article=existing_article,
             )
-        articles.append(article)
 
     # Creating Buyersguide Campaign pages and accompanying donation modals
     for _ in range(5):
