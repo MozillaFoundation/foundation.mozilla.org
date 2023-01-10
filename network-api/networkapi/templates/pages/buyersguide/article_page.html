@@ -49,18 +49,6 @@
       {% include_block block with parent_page=page page_type="blog" %}
   {% endfor %}
 
-  {% with related_articles=page.get_primary_related_articles  %}
-    {% if related_articles %}
-    <div class="tw-container tw-my-4">
-      <div class="tw-row">
-        <div id="article-primary-related-articles" class="tw-px-4 tw-w-8/12 tw-mx-auto">
-          {% include "fragments/buyersguide/related_reading.html" with articles=related_articles %}
-        </div>
-      </div>
-    </div>
-    {% endif %}
-  {% endwith %}
-
   <div class="tw-container tw-mt-6">
     <div class="tw-row tw-justify-center">
       <div class="tw-border-4 tw-border-black col-lg-8"></div>
@@ -100,7 +88,7 @@
     </div>
   </div>
 
-  {% with related_articles=page.get_secondary_related_articles  %}
+  {% with related_articles=page.get_related_articles  %}
     {% if related_articles %}
       {% get_bg_home_page as bg_home_page %}
       <div id="article-secondary-related-articles" class="tw-container">

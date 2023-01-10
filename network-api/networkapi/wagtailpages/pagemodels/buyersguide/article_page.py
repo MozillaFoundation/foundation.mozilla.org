@@ -164,12 +164,6 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
         #        directly from the database.
         return [a.localized for a in related_articles]
 
-    def get_primary_related_articles(self) -> list["BuyersGuideArticlePage"]:
-        return self.get_related_articles()[:3]
-
-    def get_secondary_related_articles(self) -> list["BuyersGuideArticlePage"]:
-        return self.get_related_articles()[3:]
-
 
 class BuyersGuideArticlePageAuthorProfileRelation(
     wagtail_models.TranslatableMixin,
