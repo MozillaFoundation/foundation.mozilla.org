@@ -415,27 +415,33 @@ def generate(seed):
     # Create articles
     for _ in range(12):
         article = BuyersGuideArticlePageFactory(parent=editorial_content_index)
-        for profile in get_random_objects(pagemodels.Profile, max_count=3):
+        for index, profile in enumerate(get_random_objects(pagemodels.Profile, max_count=3), start=1):
             BuyersGuideArticlePageAuthorProfileRelationFactory(
                 page=article,
                 author_profile=profile,
+                sort_order=index,
             )
         if article.id % 2 == 0:
             # Articles with even id get the content category
-            for category in get_random_objects(pagemodels.BuyersGuideContentCategory, max_count=2):
+            for index, category in enumerate(
+                get_random_objects(pagemodels.BuyersGuideContentCategory, max_count=2),
+                start=1,
+            ):
                 BuyersGuideArticlePageContentCategoryRelationFactory(
                     page=article,
                     content_category=category,
+                    sort_order=index,
                 )
         # Add up to 3 previously existing articles as related articles (but not the article itself)
         existing_articles = get_random_objects(
             pagemodels.BuyersGuideArticlePage.objects.exclude(id=article.id),
             max_count=3,
         )
-        for existing_article in existing_articles:
+        for index, existing_article in enumerate(existing_articles, start=1):
             BuyersGuideArticlePageRelatedArticleRelationFactory(
                 page=article,
                 article=existing_article,
+                sort_order=index,
             )
 
     # Creating Buyersguide Campaign pages and accompanying donation modals
