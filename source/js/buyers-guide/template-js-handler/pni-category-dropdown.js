@@ -90,7 +90,7 @@ export default () => {
     dropdown.classList.remove("tw-hidden");
     categoryWrapper.classList.add("tw-w-max", "tw-min-w-full");
     document
-      .querySelector("#pni-category-wrapper > div:first-child")
+      .querySelector("#buyersguide-category-link-container")
       .classList.remove(
         "tw-w-4/5",
         "tw-overflow-x-auto",
