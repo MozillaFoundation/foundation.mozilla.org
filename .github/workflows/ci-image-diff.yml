@@ -61,7 +61,7 @@ jobs:
 
     - uses: actions/setup-node@v2
       with:
-        node-version: 14
+        node-version: 18
 
     - name: Configure AWS Credentials for visual diffing
       uses: aws-actions/configure-aws-credentials@v1

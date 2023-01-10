@@ -3,32 +3,6 @@
 
 {% block body_id %}{{ category.slug }}{% endblock %}
 
-{% block guts %}
-
-  {{ block.super }}
-
-  {% for category in categories  %}
-    {% with secondary_related_articles=category.get_secondary_related_articles  %}
-      {% if secondary_related_articles %}
-        <div
-          id="category-secondary-related-articles"
-          data-show-for-category="{{ category.name }}"
-          class="
-            {% if category != current_category %}
-              tw-hidden
-            {% endif %}
-            tw-container
-            tw-mt-[4rem]
-            tw-mb-[120px]
-          "
-        >
-          {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=page.get_editorial_content_index use_wide_above="medium" %}
-        </div>
-      {% endif %}
-    {% endwith %}
-  {% endfor %}
-{% endblock guts %}
-
 {% block extra_product_box_list_items %}
   {% if featured_cta %}
     {% comment %}
@@ -42,7 +16,7 @@
       data-show-for-categories="{% for category in categories %}{% if category.show_cta %}{{ category.name }}, {% endif %}{% endfor %}"
       >
       {% with cta=featured_cta %}
-        {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
+        {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url large=True %}
       {% endwith %}
     </div>
   {% endif %}
@@ -74,3 +48,30 @@
     {% endwith %}
   {% endfor %}
 {% endblock extra_product_box_list_items %}
+
+{% block guts %}
+
+  {{ block.super }}
+
+  {% for category in categories  %}
+    {% with secondary_related_articles=category.get_secondary_related_articles  %}
+      {% if secondary_related_articles %}
+        <div
+          id="category-secondary-related-articles"
+          data-show-for-category="{{ category.name }}"
+          class="
+            {% if category != current_category %}
+              tw-hidden
+            {% endif %}
+            tw-container
+            tw-mt-[4rem]
+            tw-mb-[120px]
+          "
+        >
+          {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=page.get_editorial_content_index use_wide_above="medium" %}
+        </div>
+      {% endif %}
+    {% endwith %}
+  {% endfor %}
+{% endblock guts %}
+
