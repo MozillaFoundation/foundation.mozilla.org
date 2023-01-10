@@ -91,7 +91,7 @@
   {% with related_articles=page.get_related_articles  %}
     {% if related_articles %}
       {% get_bg_home_page as bg_home_page %}
-      <div id="article-secondary-related-articles" class="tw-container">
+      <div class="tw-container" data-gtm-article-what-to-read-next>
         {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=related_articles index_page=bg_home_page.get_editorial_content_index use_wide_above="medium" %}
       </div>
     {% endif %}
