@@ -120,16 +120,34 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
         return context
 
     def get_author_profiles(self) -> list["Profile"]:
-        return orderables.get_related_items(
+        author_profiles = orderables.get_related_items(
             self.author_profile_relations.all(),
             "author_profile",
         )
+        # The relations are synchronized from the default locale on non-default
+        # locales. But, then working with a page of a non-default locale we are of
+        # course interested in the related articles in that same locale.
+        #
+        # FIXME: This version is bad, because it uses 1+n queries to generate the list
+        #        of author profiles in the correct locale. We should create something
+        #        more elegant to retrieve the author profiles of the correct locale
+        #        directly from the database.
+        return [ap.localized for ap in author_profiles]
 
     def get_content_categories(self) -> list["BuyersGuideContentCategory"]:
-        return orderables.get_related_items(
+        content_categories = orderables.get_related_items(
             self.content_category_relations.all(),
             "content_category",
         )
+        # The relations are synchronized from the default locale on non-default
+        # locales. But, then working with a page of a non-default locale we are of
+        # course interested in the related articles in that same locale.
+        #
+        # FIXME: This version is bad, because it uses 1+n queries to generate the list
+        #        content categories in the correct locale. We should create something
+        #        more elegant to retrieve the content categories of the correct locale
+        #        directly from the database.
+        return [cc.localized for cc in content_categories]
 
     def get_related_articles(self) -> list["BuyersGuideArticlePage"]:
         related_articles = orderables.get_related_items(

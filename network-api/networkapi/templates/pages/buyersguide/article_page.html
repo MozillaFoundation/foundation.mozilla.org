@@ -37,7 +37,7 @@
         </div>
       <div class="pt-5 pt-md-5 pb-4 col-lg-8">
         <div class="cms {% if show_comments %}mb-5{% endif %}">
-          {% include "fragments/buyersguide/content_category_links.html" with page=page extra_classes="tw-text-base" %}
+          {% include "fragments/buyersguide/content_category_links.html" with content_categories=page.get_content_categories extra_classes="tw-text-base" %}
           <h1 class="tw-h1-heading">{{ page.title }}</h1>
           {% include "fragments/byline.html" with authors=page.get_author_profiles publication_date=page.first_published_at show_full_info=True %}
         </div>
@@ -72,7 +72,7 @@
             <div class="col-lg-8 tw-flex tw-py-4">
               {% if author_profile.image %}
                 <div class="tw-mr-4 tw-flex tw-items-start tw-flex-shrink-0">
-                  <img 
+                  <img
                     class="tw-rounded-full tw-border-2 tw-border-white tw-w-[75px] tw-h-[75px]"
                     src="{% image_url author_profile.image "fill-75x75" %}"
                     srcset="{% image_url author_profile.image "fill-150x150" %} 2x, {% image_url author_profile.image "fill-225x225" %} 3x"

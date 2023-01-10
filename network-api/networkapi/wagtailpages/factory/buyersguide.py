@@ -1,10 +1,10 @@
-# TODO: Move these factories to the wagtailpages app.
-# To avoid too many code conflicts, this should happen after PR 6433 is merged
 from datetime import date, datetime, timedelta, timezone
 from random import choice, randint, random, randrange, shuffle
 
+from django.utils import text as text_utils
 from factory import Faker, LazyFunction, SubFactory, post_generation
 from factory.django import DjangoModelFactory
+from wagtail.core.models import Locale
 from wagtail.images.models import Image
 from wagtail_factories import PageFactory
 
@@ -261,6 +261,11 @@ class BuyersGuideContentCategoryFactory(DjangoModelFactory):
         model = pagemodels.BuyersGuideContentCategory
 
     title = Faker("word")
+    locale = LazyFunction(lambda: Locale.get_default())
+
+    @post_generation
+    def set_slug(obj, created, extracted, **kwargs):
+        obj.slug = text_utils.slugify(obj.title)
 
 
 class BuyersGuideArticlePageAuthorProfileRelationFactory(DjangoModelFactory):
