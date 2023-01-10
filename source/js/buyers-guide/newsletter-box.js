@@ -1,7 +1,7 @@
 const NewsletterBox = {
   toggleVisibilityClasses: () => {
     const buyersGuideNewsletterBox = document.querySelector(
-      "#buyersguide_newsletter_box"
+      "#buyersguide-newsletter-box"
     );
     // Used for toggle visibility for buyersguide newsletter container
     if (buyersGuideNewsletterBox) {
