@@ -68,7 +68,7 @@ django==3.2.16
     #   wagtail-footnotes
     #   wagtail-localize
     #   wagtail-localize-git
-django-admin-sortable==2.2.3
+django-admin-sortable==2.3
     # via -r requirements.in
 django-cors-headers==3.11.0
     # via -r requirements.in
