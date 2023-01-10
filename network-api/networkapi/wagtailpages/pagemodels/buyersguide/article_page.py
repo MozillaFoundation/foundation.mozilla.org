@@ -82,13 +82,13 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
             label="Content category",
             max_num=2,
         ),
+        panels.StreamFieldPanel("body"),
         panels.InlinePanel(
             "related_article_relations",
             heading="Related articles",
             label="Article",
             max_num=3,
         ),
-        panels.StreamFieldPanel("body"),
     ]
 
     settings_panels = [
