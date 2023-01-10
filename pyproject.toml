@@ -5,6 +5,7 @@ target-version = ['py39']
 [tool.djlint]
 profile = "django"
 use_gitignore = true
+format_attribute_template_tags = true
 
 [tool.isort]
 profile = "black"
