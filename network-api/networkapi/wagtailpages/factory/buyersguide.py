@@ -1,10 +1,10 @@
-# TODO: Move these factories to the wagtailpages app.
-# To avoid too many code conflicts, this should happen after PR 6433 is merged
 from datetime import date, datetime, timedelta, timezone
 from random import choice, randint, random, randrange, shuffle
 
+from django.utils import text as text_utils
 from factory import Faker, LazyFunction, SubFactory, post_generation
 from factory.django import DjangoModelFactory
+from wagtail.core.models import Locale
 from wagtail.images.models import Image
 from wagtail_factories import PageFactory
 
@@ -261,6 +261,11 @@ class BuyersGuideContentCategoryFactory(DjangoModelFactory):
         model = pagemodels.BuyersGuideContentCategory
 
     title = Faker("word")
+    locale = LazyFunction(lambda: Locale.get_default())
+
+    @post_generation
+    def set_slug(obj, created, extracted, **kwargs):
+        obj.slug = text_utils.slugify(obj.title)
 
 
 class BuyersGuideArticlePageAuthorProfileRelationFactory(DjangoModelFactory):
@@ -446,28 +451,34 @@ def generate(seed):
             article=article,
             sort_order=index,
         )
-    # Buyerguide homepage featured advice article
-    pni_homepage.featured_advice_article = pagemodels.BuyersGuideArticlePage.objects.last()
-    pni_homepage.full_clean()
-    pni_homepage.save()
-    # Buyersguide homepage featured articles
-    featured_articles = get_random_objects(
-        source=pagemodels.BuyersGuideArticlePage.objects.exclude(id__in=supporting_articles),
-        exact_count=3,
-    )
-    for index, article in enumerate(featured_articles):
-        BuyersGuidePageFeaturedArticleRelationFactory(
-            page=pni_homepage,
-            article=article,
-            sort_order=index,
-        )
-    # Buyersguide homepage featured product updates
-    for index, update in enumerate(get_random_objects(pagemodels.Update, exact_count=3)):
-        BuyersGuidePageFeaturedUpdateRelationFactory(
-            page=pni_homepage,
-            update=update,
-            sort_order=index,
-        )
+
+    # The following section is commented, because the homepage redesign needs to be implemented.
+    # Until then, we want the generated homepage to be closer to the production site, where none of these
+    # relations are used.
+    # See also: https://github.com/mozilla/foundation.mozilla.org/issues/9758
+    #
+    # # Buyerguide homepage featured advice article
+    # pni_homepage.featured_advice_article = pagemodels.BuyersGuideArticlePage.objects.last()
+    # pni_homepage.full_clean()
+    # pni_homepage.save()
+    # # Buyersguide homepage featured articles
+    # featured_articles = get_random_objects(
+    #     source=pagemodels.BuyersGuideArticlePage.objects.exclude(id__in=supporting_articles),
+    #     exact_count=3,
+    # )
+    # for index, article in enumerate(featured_articles):
+    #     BuyersGuidePageFeaturedArticleRelationFactory(
+    #         page=pni_homepage,
+    #         article=article,
+    #         sort_order=index,
+    #     )
+    # # Buyersguide homepage featured product updates
+    # for index, update in enumerate(get_random_objects(pagemodels.Update, exact_count=3)):
+    #     BuyersGuidePageFeaturedUpdateRelationFactory(
+    #         page=pni_homepage,
+    #         update=update,
+    #         sort_order=index,
+    #     )
 
     # Adding related articles to the Editorial Content Index Page
     for index, article in enumerate(get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)):

@@ -76,13 +76,13 @@
 
   {% get_bg_home_page as home_page %}
 
-  <div class="primary-nav-container-wrapper tw-border-b tw-border-blue-10">
+  <div class="primary-nav-container-wrapper">
     {% include "fragments/buyersguide/primary_nav.html" %}
-    {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
-    {% block category_nav %}
-      {% include "fragments/buyersguide/pni_category_nav.html" with show_all_reviews_as_active_category=False categories=categories current_category=current_category %}
-    {% endblock %}
   </div>
+  {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
+  {% block category_nav %}
+    {% include "fragments/buyersguide/pni_category_nav.html" with show_all_reviews_as_active_category=False categories=categories current_category=current_category %}
+  {% endblock %}
 
   <!-- Need to position relatives to deal with potential CSS transformations that change some stacking context of elements -->
   <div class="tw-relative">
@@ -95,7 +95,7 @@
         {% block guts %}{% endblock %}
       </main>
     </div>
-    
+
     {% block background_parallax %}
     {% endblock %}
     <div class="tw-relative tw-z-10">
