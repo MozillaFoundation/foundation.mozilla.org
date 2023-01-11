@@ -15,7 +15,7 @@ import networkapi.wagtailpages.pagemodels.profiles
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0071_buyersguidepage_remove_outdated_fields"),
+        ("wagtailpages", "0072_buyersguidecontentcategory_unique_together_slug_locale"),
     ]
 
     operations = [
