@@ -3,9 +3,11 @@ line-length = 119
 target-version = ['py39']
 
 [tool.djlint]
+blank_line_before_tag="load,extends,include,block"
+blank_line_after_tag="load,extends,include,endblock"
+format_attribute_template_tags = true
 profile = "django"
 use_gitignore = true
-format_attribute_template_tags = true
 
 [tool.isort]
 profile = "black"
