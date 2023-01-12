@@ -29,8 +29,8 @@ wagtail==2.16.3
 wagtail-color-panel
 wagtail-factories
 wagtail-localize==1.1
-wagtail-localize-git==0.13.0
-wagtail-inventory==1.6
+wagtail-localize-git
+wagtail-inventory
 wagtailmedia
 wagtail-metadata
 whitenoise
