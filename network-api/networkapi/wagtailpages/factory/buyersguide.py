@@ -409,30 +409,40 @@ def generate(seed):
 
     print("Generating buyers guide editorial content")
     editorial_content_index = BuyersGuideEditorialContentIndexPageFactory(parent=pni_homepage)
+    # Create content categories
     for _ in range(3):
         BuyersGuideContentCategoryFactory()
-    articles = []
+    # Create articles
     for _ in range(12):
         article = BuyersGuideArticlePageFactory(parent=editorial_content_index)
-        for profile in get_random_objects(pagemodels.Profile, max_count=3):
+        for index, profile in enumerate(get_random_objects(pagemodels.Profile, max_count=3), start=1):
             BuyersGuideArticlePageAuthorProfileRelationFactory(
                 page=article,
                 author_profile=profile,
+                sort_order=index,
             )
         if article.id % 2 == 0:
             # Articles with even id get the content category
-            for category in get_random_objects(pagemodels.BuyersGuideContentCategory, max_count=2):
+            for index, category in enumerate(
+                get_random_objects(pagemodels.BuyersGuideContentCategory, max_count=2),
+                start=1,
+            ):
                 BuyersGuideArticlePageContentCategoryRelationFactory(
                     page=article,
                     content_category=category,
+                    sort_order=index,
                 )
-        # Add all previously existing articles as related articles
-        for existing_article in articles:
+        # Add up to 3 previously existing articles as related articles (but not the article itself)
+        existing_articles = get_random_objects(
+            pagemodels.BuyersGuideArticlePage.objects.exclude(id=article.id),
+            max_count=3,
+        )
+        for index, existing_article in enumerate(existing_articles, start=1):
             BuyersGuideArticlePageRelatedArticleRelationFactory(
                 page=article,
                 article=existing_article,
+                sort_order=index,
             )
-        articles.append(article)
 
     # Creating Buyersguide Campaign pages and accompanying donation modals
     for _ in range(5):

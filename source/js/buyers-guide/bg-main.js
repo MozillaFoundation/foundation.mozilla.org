@@ -13,7 +13,6 @@ import injectMultipageNav from "../multipage-nav.js";
 import primaryNav from "../primary-nav.js";
 
 import HomepageSlider from "./homepage-c-slider.js";
-import RelatedArticles from "./related-articles.js";
 import AnalyticsEvents from "./analytics-events.js";
 import initializeSentry from "../common/sentry-config.js";
 import PNIMobileNav from "./pni-mobile-nav.js";
@@ -113,9 +112,6 @@ let main = {
   initPageSpecificScript() {
     if (document.querySelector(`body.pni.catalog`)) {
       HomepageSlider.init();
-    }
-    if (document.querySelector("#view-article")) {
-      RelatedArticles.floatRelatedArticlesNextToThirdElement();
     }
   },
 };

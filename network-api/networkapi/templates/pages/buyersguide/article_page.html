@@ -34,7 +34,7 @@
         <div class="blog-sticky-side d-none d-lg-flex justify-content-lg-end mt-1">
           {% include "fragments/buyersguide/share-buttons.html" with version="mini" layout="stacked" share_text=share_text_translated page=page %}
         </div>
-        </div>
+      </div>
       <div class="pt-5 pt-md-5 pb-4 col-lg-8">
         <div class="cms {% if show_comments %}mb-5{% endif %}">
           {% include "fragments/buyersguide/content_category_links.html" with content_categories=page.get_content_categories extra_classes="tw-text-base" %}
@@ -46,64 +46,51 @@
   </div>
 
   {% for block in page.body %}
-      {% include_block block with parent_page=page page_type="blog" %}
+    {% include_block block with parent_page=page page_type="blog" %}
   {% endfor %}
 
-  {% with related_articles=page.get_primary_related_articles  %}
-    {% if related_articles %}
-    <div class="tw-container tw-my-4">
-      <div class="tw-row">
-        <div id="article-primary-related-articles" class="tw-px-4 tw-w-8/12 tw-mx-auto">
-          {% include "fragments/buyersguide/related_reading.html" with articles=related_articles %}
+  {% with author_profiles=page.get_author_profiles  %}
+    {% if author_profiles %}
+      <div class="tw-container tw-mt-7">
+        <div class="tw-row tw-px-4 tw-justify-center">
+          <div class="large:tw-w-2/3 tw-border-t-4 tw-border-black tw-divide-y tw-divide-gray-20">
+            {% for author_profile in author_profiles %}
+              <div class="tw-flex tw-py-4 last:tw-pb-0">
+                {% if author_profile.image %}
+                  <div class="tw-mr-4 tw-flex tw-items-start tw-flex-shrink-0">
+                    <img
+                      class="tw-rounded-full tw-border-2 tw-border-white tw-w-[75px] tw-h-[75px]"
+                      src="{% image_url author_profile.image "fill-75x75" %}"
+                      srcset="{% image_url author_profile.image "fill-150x150" %} 2x, {% image_url author_profile.image "fill-225x225" %} 3x"
+                      alt="{{ author_profile.name }}"
+                      title="{{ author_profile.name }}"
+                      />
+                  </div>
+                {% endif %}
+                <div class="">
+                  <p class="tw-font-zilla tw-mb-2 tw-font-medium tw-text-2xl tw-leading-7">{{ author_profile.name }}</p>
+                  <p class="tw-font-sans tw-font-normal tw-text-lg tw-leading-6 tw-m-0">{{ author_profile.introduction }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
         </div>
       </div>
-    </div>
     {% endif %}
   {% endwith %}
 
-  <div class="tw-container tw-mt-6">
-    <div class="tw-row tw-justify-center">
-      <div class="tw-border-4 tw-border-black col-lg-8"></div>
-    </div>
-    <div class="tw-row tw-justify-center tw-divide-y tw-divide-gray-20">
-      {% with author_profiles=page.get_author_profiles  %}
-        {% if author_profiles %}
-          {% for author_profile in author_profiles %}
-            <div class="col-lg-8 tw-flex tw-py-4">
-              {% if author_profile.image %}
-                <div class="tw-mr-4 tw-flex tw-items-start tw-flex-shrink-0">
-                  <img
-                    class="tw-rounded-full tw-border-2 tw-border-white tw-w-[75px] tw-h-[75px]"
-                    src="{% image_url author_profile.image "fill-75x75" %}"
-                    srcset="{% image_url author_profile.image "fill-150x150" %} 2x, {% image_url author_profile.image "fill-225x225" %} 3x"
-                    alt="{{ author_profile.name }}"
-                    title="{{ author_profile.name }}"
-                  />
-                </div>
-              {% endif %}
-              <div class="">
-                  <p class="tw-font-zilla tw-mb-2 tw-font-medium tw-text-2xl tw-leading-7">{{ author_profile.name }}</p>
-                  <p class="tw-font-sans tw-font-normal tw-text-lg tw-leading-6">{{ author_profile.introduction }}</p>
-              </div>
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-    </div>
-  </div>
-
-  <div id="article-newsletter-signup" class="tw-container">
-    <div class="tw-row tw-justify-center">
-      <div class="col-12 col-lg-8">
+  <div id="article-newsletter-signup" class="tw-container tw-mt-[2.75rem]">
+    <div class="tw-row tw-px-4 tw-justify-center">
+      <div class="tw-w-full large:tw-w-2/3">
         {% include "fragments/buyersguide/pni_newsletter_box.html" %}
       </div>
     </div>
   </div>
 
-  {% with related_articles=page.get_secondary_related_articles  %}
+  {% with related_articles=page.get_related_articles  %}
     {% if related_articles %}
       {% get_bg_home_page as bg_home_page %}
-      <div id="article-secondary-related-articles" class="tw-container">
+      <div class="tw-container tw-mt-7" data-gtm="article-what-to-read-next">
         {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=related_articles index_page=bg_home_page.get_editorial_content_index use_wide_above="medium" %}
       </div>
     {% endif %}

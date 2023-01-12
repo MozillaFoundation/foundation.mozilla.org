@@ -82,13 +82,13 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
             label="Content category",
             max_num=2,
         ),
+        panels.StreamFieldPanel("body"),
         panels.InlinePanel(
             "related_article_relations",
-            heading="Related articles",
+            heading="What to read next (related articles)",
             label="Article",
-            max_num=6,
+            max_num=3,
         ),
-        panels.StreamFieldPanel("body"),
     ]
 
     settings_panels = [
@@ -163,12 +163,6 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
         #        more elegant to retrieve the related articles of the correct locale
         #        directly from the database.
         return [a.localized for a in related_articles]
-
-    def get_primary_related_articles(self) -> list["BuyersGuideArticlePage"]:
-        return self.get_related_articles()[:3]
-
-    def get_secondary_related_articles(self) -> list["BuyersGuideArticlePage"]:
-        return self.get_related_articles()[3:]
 
 
 class BuyersGuideArticlePageAuthorProfileRelation(
