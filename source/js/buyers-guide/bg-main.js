@@ -13,7 +13,6 @@ import injectMultipageNav from "../multipage-nav.js";
 import primaryNav from "../primary-nav.js";
 
 import HomepageSlider from "./homepage-c-slider.js";
-import RelatedArticles from "./related-articles.js";
 import NewsletterBox from "./newsletter-box.js";
 import AnalyticsEvents from "./analytics-events.js";
 import initializeSentry from "../common/sentry-config.js";
@@ -114,9 +113,6 @@ let main = {
   initPageSpecificScript() {
     if (document.querySelector(`body.pni.catalog`)) {
       HomepageSlider.init();
-    }
-    if (document.querySelector("#view-article")) {
-      RelatedArticles.floatRelatedArticlesNextToThirdElement();
     }
     NewsletterBox.toggleVisibilityClasses();
   },
