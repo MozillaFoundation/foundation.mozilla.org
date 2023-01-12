@@ -82,7 +82,8 @@ class RecentBlogEntries(blocks.StructBlock):
         entries = blog_page.get_entries(context)
 
         # Updates the href for the 'More from our blog' button
-        url = f"/{blog_page.slug}/{type}/{query}"
+        blog_page_url = blog_page.get_url()
+        url = f"{blog_page_url}{type}/{query}"
         context["more_entries_link"] = url
 
         # We only want to grab no more than the first 6 entries

@@ -1,10 +1,12 @@
-{% with content_categories=page.get_content_categories editorial_content_index=page.get_editorial_content_index  %}
-  {% for content_category in content_categories %}
-    {% with classes="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-py-1 tw-mb-0" %}
-      <a class="{{ classes }} {{ extra_classes }}" href="/privacynotincluded/articles/">{{ content_category.title|title }}</a>
-      {% if not forloop.last %}
-        <span class="{{ classes }} {{ extra_classes }}">/</span>
-      {% endif %}
-    {% endwith %}
-  {% endfor %}
-{% endwith %}
+{% if content_categories %}
+  <div class="tw-h6-heading tw-mr-2 tw-mb-0 {{ extra_classes }}">
+    {% for content_category in content_categories %}
+        <span>
+          {{ content_category.title }}
+        </span>
+        {% if not forloop.last %}
+          <span>/</span>
+        {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
