@@ -22,7 +22,9 @@ export default () => {
 
   function resizeCategoryNavigation() {
     const categoryLinks = [
-      ...document.querySelectorAll("#pni-category-wrapper .multipage-link"),
+      ...document.querySelectorAll(
+        "#buyersguide-category-link-container > .multipage-link"
+      ),
     ].reverse();
 
     let linksForDropdown = [];
