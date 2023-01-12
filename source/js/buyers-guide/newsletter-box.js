@@ -10,7 +10,7 @@ const NewsletterBox = {
 
     // Used for buyersguide product review grid toggle visibility
     const buyersGuideGridContainer = document.querySelector(
-      "#buyersguide-newsletter-grid-container"
+      "#product-grid-newsletter-signup"
     );
     if (buyersGuideGridContainer) {
       buyersGuideGridContainer.classList.add("tw-flex");
