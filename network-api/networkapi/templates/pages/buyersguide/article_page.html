@@ -51,7 +51,7 @@
 
   {% with author_profiles=page.get_author_profiles  %}
     {% if author_profiles %}
-      <div class="tw-container tw-mt-[3rem]">
+      <div class="tw-container tw-mt-7">
         <div class="tw-row tw-px-4 tw-justify-center">
           <div class="large:tw-w-2/3 tw-border-t-4 tw-border-black tw-divide-y tw-divide-gray-20">
             {% for author_profile in author_profiles %}
@@ -90,7 +90,7 @@
   {% with related_articles=page.get_related_articles  %}
     {% if related_articles %}
       {% get_bg_home_page as bg_home_page %}
-      <div class="tw-container tw-mt-[3rem]" data-gtm="article-what-to-read-next">
+      <div class="tw-container tw-mt-7" data-gtm="article-what-to-read-next">
         {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=related_articles index_page=bg_home_page.get_editorial_content_index use_wide_above="medium" %}
       </div>
     {% endif %}
