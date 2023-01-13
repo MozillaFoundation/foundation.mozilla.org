@@ -110,10 +110,9 @@ class TestBlogIndex(BlogIndexTestCase):
     def test_page_size_12_accounts_for_topics_box(self):
         url = self.blog_index.get_url()
 
-        # TODO: Page size needs to be set on the index before filling the pages with children
-        self.fill_index_pages_with_blog_pages(3)
         self.blog_index.page_size = 12
         self.blog_index.save()
+        self.fill_index_pages_with_blog_pages(1)
 
         response_without_topic = self.client.get(path=url)
         entries_without_topic = response_without_topic.context["entries"]
@@ -131,11 +130,9 @@ class TestBlogIndex(BlogIndexTestCase):
     def test_page_size_24_accounts_for_topics_box(self):
         url = self.blog_index.get_url()
 
-        # TODO: Page size needs to be set on the index before filling the pages with children
-        self.fill_index_pages_with_blog_pages(6)
         self.blog_index.page_size = 24
-
         self.blog_index.save()
+        self.fill_index_pages_with_blog_pages(1)
 
         response_without_topic = self.client.get(path=url)
         entries_without_topic = response_without_topic.context["entries"]
@@ -153,7 +150,8 @@ class TestBlogIndex(BlogIndexTestCase):
     def test_page_size_4_unaffected_by_topics_box(self):
         url = self.blog_index.get_url()
 
-        # TODO: Be specific about the set page size
+        self.blog_index.page_size = 4
+        self.blog_index.save()
         self.fill_index_pages_with_blog_pages(1)
 
         response_without_topic = self.client.get(path=url)
@@ -172,10 +170,9 @@ class TestBlogIndex(BlogIndexTestCase):
     def test_page_size_8_unaffected_by_topics_box(self):
         url = self.blog_index.get_url()
 
-        # TODO: Page size needs to be set on the index before filling the pages with children
-        self.fill_index_pages_with_blog_pages(2)
         self.blog_index.page_size = 8
         self.blog_index.save()
+        self.fill_index_pages_with_blog_pages(1)
 
         response_without_topic = self.client.get(path=url)
         entries_without_topic = response_without_topic.context["entries"]
