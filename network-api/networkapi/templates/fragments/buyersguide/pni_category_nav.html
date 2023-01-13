@@ -3,20 +3,20 @@
     <div class="container tw-py-2" id="product-review">
       <div class="row">
         <div class="col">
-          <div id="pni-category-wrapper" class="tw-flex tw-items-center tw-w-max tw-min-w-full">
-            <a class="multipage-link tw-block {% if show_all_reviews_as_active_category %} active {% endif %}" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All Reviews" %}</a>
-
-            {% for cat in categories %}
-              {% with original=cat.original %}
-              {% if cat.parent == None %}
-                {% if original.published_product_page_count > 0 %}
-                  {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
-                  <a class="multipage-link tw-block {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
+          <div id="pni-category-wrapper" class="tw-flex tw-items-center ">
+            <div id="buyersguide-category-link-container" class="tw-flex tw-items-center tw-w-4/5 tw-overflow-x-auto tw-no-scrollbar tw-mr-4">
+              <a class="multipage-link tw-block {% if show_all_reviews_as_active_category %} active {% endif %}" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All Reviews" %}</a>
+              {% for cat in categories %}
+                {% with original=cat.original %}
+                {% if cat.parent == None %}
+                  {% if original.published_product_page_count > 0 %}
+                    {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
+                    <a class="multipage-link tw-block {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
+                  {% endif %}
                 {% endif %}
-              {% endif %}
-              {% endwith %}
-            {% endfor %}
-
+                {% endwith %}
+              {% endfor %}
+            </div>
             {% include "fragments/buyersguide/category_dropdown.html" %}
 
             <div id="product-filter-search" tabindex="0" class="tw-hidden large:tw-inline-flex tw-px-2 tw-items-center tw-bg-blue-05 tw-border-4 tw-border-blue-05 tw-w-[214px] tw-mr-2">
