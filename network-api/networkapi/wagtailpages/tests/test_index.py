@@ -16,11 +16,11 @@ from networkapi.wagtailpages.pagemodels import index
 @test.override_settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}})
 class IndexPageTestCase(test_base.WagtailpagesTestCase):
     index_page_factory: wagtail_factories.PageFactory = index_factory.IndexPageFactory
+    page_size = index.IndexPage.PAGE_SIZES[0][0]
 
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.page_size = index.IndexPage.PAGE_SIZES[0][0]
         cls.index_page = cls.index_page_factory(
             parent=cls.homepage,
             page_size=cls.page_size,
@@ -43,8 +43,7 @@ class IndexPageTestCase(test_base.WagtailpagesTestCase):
 
         """
         tz = datetime.timezone.utc
-        # TODO: Make use page size of the actual index page
-        child_page_count = self.page_size * index_pages_to_fill
+        child_page_count = self.index_page.page_size * index_pages_to_fill
         child_pages = []
         for index in range(0, child_page_count):
             child_pages.append(
