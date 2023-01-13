@@ -43,6 +43,7 @@ class IndexPageTestCase(test_base.WagtailpagesTestCase):
 
         """
         tz = datetime.timezone.utc
+        # TODO: Make use page size of the actual index page
         child_page_count = self.page_size * index_pages_to_fill
         child_pages = []
         for index in range(0, child_page_count):
@@ -61,6 +62,9 @@ class IndexPageTestCase(test_base.WagtailpagesTestCase):
 
 
 class IndexPageTests(IndexPageTestCase):
+    # TODO: Test factory
+    # TODO: Test page load and templates
+
     def test_serve_children_in_entries(self):
         """
         Currently, this is returning the generic page type, which requires the use of
@@ -130,7 +134,7 @@ class IndexPageTests(IndexPageTestCase):
         untagged_page = bannered_factory.BanneredCampaignPageFactory(parent=self.index_page)
         # Differently tagged page
         differently_tagged_page = bannered_factory.BanneredCampaignPageFactory(parent=self.index_page)
-        differently_tagged_page.tags.add("differnt-tag")
+        differently_tagged_page.tags.add("different-tag")
         differently_tagged_page.save()
         #
         path = (
@@ -144,3 +148,5 @@ class IndexPageTests(IndexPageTestCase):
         self.assertIn(tagged_page, response.context["entries"])
         self.assertNotIn(untagged_page, response.context["entries"])
         self.assertNotIn(differently_tagged_page, response.context["entries"])
+
+    # TODO: Test load more pagination
