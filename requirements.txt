@@ -46,11 +46,12 @@ defusedxml==0.7.1
     #   social-auth-core
 deprecated==1.2.13
     # via redis
-dj-database-url==0.5.0
+dj-database-url==1.2.0
     # via -r requirements.in
 django==3.2.16
     # via
     #   -r requirements.in
+    #   dj-database-url
     #   django-admin-sortable
     #   django-cors-headers
     #   django-csp
