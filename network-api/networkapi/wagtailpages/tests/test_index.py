@@ -132,6 +132,26 @@ class IndexPageTests(IndexPageTestCase):
         self.assertNotEqual(fr_entry_page.id, article_page.id)
         self.assertEqual(fr_entry_page.locale, self.fr_locale)
 
+    def test_entries_route(self):
+        """Get JSON containing HTML fragment of second page of entries."""
+        children = self.generate_enough_child_pages_to_fill_number_of_index_pages(2)
+        first_page_children = children[:self.index_page.page_size]
+        second_page_children = children[self.index_page.page_size:]
+        path = self.index_page.get_url() + self.index_page.reverse_subpage("entries")
+
+        response = self.client.get(path=path)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(response, "wagtailpages/fragments/entry_cards_item_loop.html")
+        self.assertTemplateNotUsed(response, "wagtailpages/index_page.html")
+        response_data = response.json()
+        entries_html = response_data["entries_html"]
+        for child in first_page_children:
+            self.assertNotInHTML(needle=child.title, haystack=entries_html)
+        for child in second_page_children:
+            self.assertInHTML(needle=child.title, haystack=entries_html)
+        self.assertFalse(response_data["has_next"])
+
     def test_entries_by_tag_route(self):
         """
         Show only the entries with the filtered tag.
@@ -163,5 +183,3 @@ class IndexPageTests(IndexPageTestCase):
         self.assertIn(tagged_page, response.context["entries"])
         self.assertNotIn(untagged_page, response.context["entries"])
         self.assertNotIn(differently_tagged_page, response.context["entries"])
-
-    # TODO: Test load more pagination

@@ -172,7 +172,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
     Sub routes
     """
 
-    @route("^entries/")
+    @route("^entries/", name="entries")
     def generate_entries_set_html(self, request, *args, **kwargs):
         """
         JSON endpoint for getting a set of (pre-rendered) entries
