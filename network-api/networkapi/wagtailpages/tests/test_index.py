@@ -61,8 +61,24 @@ class IndexPageTestCase(test_base.WagtailpagesTestCase):
 
 
 class IndexPageTests(IndexPageTestCase):
-    # TODO: Test factory
-    # TODO: Test page load and templates
+    def test_factory(self):
+        self.index_page_factory()
+
+        self.assertTrue(True)
+
+    def test_page_loads_emtpy(self):
+        response = self.client.get(self.index_page.get_url())
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_page_loads(self):
+        self.generate_enough_child_pages_to_fill_number_of_index_pages(1)
+
+        response = self.client.get(self.index_page.get_url())
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(response, "wagtailpages/fragments/entry_cards_item_loop.html")
+        self.assertTemplateUsed(response, "wagtailpages/index_page.html")
 
     def test_serve_children_in_entries(self):
         """
