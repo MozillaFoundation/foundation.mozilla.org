@@ -79,7 +79,7 @@ django-filter==21.1
     # via
     #   -r requirements.in
     #   wagtail
-django-htmx==1.12.2
+django-htmx==1.13.0
     # via -r requirements.in
 django-modelcluster==5.2
     # via wagtail
@@ -155,7 +155,7 @@ pygit2==1.7.1
     # via
     #   -r requirements.in
     #   wagtail-localize-git
-pyjwt==2.3.0
+pyjwt==2.4.0
     # via social-auth-core
 pyopenssl==22.0.0
     # via urllib3
