@@ -110,7 +110,7 @@
     "@percy/cli": "^1.17.0",
     "@percy/playwright": "^1.0.1",
     "@playwright/test": "^1.17.0",
-    "browser-sync": "^2.27.5",
+    "browser-sync": "^2.27.11",
     "browserslist": "^4.21.4",
     "chokidar-cli": "^2.1.0",
     "dotenv": "^8.2.0",
