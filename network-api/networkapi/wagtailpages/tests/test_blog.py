@@ -34,6 +34,7 @@ class BlogIndexTestCase(test_index.IndexPageTestCase):
         )
 
 
+# TODO: Move blog index tests to separate file, because the source files are separate too.
 class TestBlogIndex(BlogIndexTestCase):
 
     def test_page_loads(self):
@@ -109,6 +110,7 @@ class TestBlogIndex(BlogIndexTestCase):
     def test_page_size_12_accounts_for_topics_box(self):
         url = self.blog_index.get_url()
 
+        # TODO: Page size needs to be set on the index before filling the pages with children
         self.fill_index_pages_with_blog_pages(3)
         self.blog_index.page_size = 12
         self.blog_index.save()
@@ -129,6 +131,7 @@ class TestBlogIndex(BlogIndexTestCase):
     def test_page_size_24_accounts_for_topics_box(self):
         url = self.blog_index.get_url()
 
+        # TODO: Page size needs to be set on the index before filling the pages with children
         self.fill_index_pages_with_blog_pages(6)
         self.blog_index.page_size = 24
 
@@ -150,6 +153,7 @@ class TestBlogIndex(BlogIndexTestCase):
     def test_page_size_4_unaffected_by_topics_box(self):
         url = self.blog_index.get_url()
 
+        # TODO: Be specific about the set page size
         self.fill_index_pages_with_blog_pages(1)
 
         response_without_topic = self.client.get(path=url)
@@ -168,6 +172,7 @@ class TestBlogIndex(BlogIndexTestCase):
     def test_page_size_8_unaffected_by_topics_box(self):
         url = self.blog_index.get_url()
 
+        # TODO: Page size needs to be set on the index before filling the pages with children
         self.fill_index_pages_with_blog_pages(2)
         self.blog_index.page_size = 8
         self.blog_index.save()
@@ -185,7 +190,11 @@ class TestBlogIndex(BlogIndexTestCase):
         self.assertEqual(len(entries_without_topic), 8)
         self.assertEqual(len(entries_with_topic), 8)
 
+    # TODO: Add test for the AJAX loaded entries to make sure those do contain the results that are removed from the
+    # first page because of the topic box.
 
+
+# TODO: Move to dedicated blog index test file
 class TestBlogIndexTopic(BlogIndexTestCase):
     def get_topic_route(self, /, **kwargs):
         return self.blog_index.get_url() + self.blog_index.reverse_subpage(
@@ -225,7 +234,12 @@ class TestBlogIndexTopic(BlogIndexTestCase):
         self.assertIn(topic_blog_page, response.context["entries"])
         self.assertNotIn(other_blog_page, response.context["entries"])
 
+    # TODO: Test SEO fields are set based on the filtered topic
+    # TODO: Test index title based on the filtered topic
+    # TODO: Does not show "x results for y"
 
+
+# TODO: Move to dedicated blog index test file
 class TestBlogIndexSearch(BlogIndexTestCase):
     @classmethod
     def setUpTestData(cls):
@@ -715,6 +729,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
             self.assertNotIn(blog_page, entries)
 
 
+# TODO: Move to dedicated blog index page test file
 class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
     def setUp(self):
         super().setUp()
