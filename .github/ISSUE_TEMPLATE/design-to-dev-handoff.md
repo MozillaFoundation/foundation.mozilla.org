@@ -2,7 +2,7 @@
 name: Design to Dev Handoff
 about: Issue template that comes with a design to dev handoff checklist
 title: ''
-labels: engineering, design
+labels: engineering, design, needs grooming
 assignees: ''
 
 ---
