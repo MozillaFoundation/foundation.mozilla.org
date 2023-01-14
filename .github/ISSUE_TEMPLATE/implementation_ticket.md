@@ -2,7 +2,7 @@
 name: Implementation issue
 about: Issue template for feature implementation issues
 title: ''
-labels: engineering
+labels: engineering, needs grooming
 assignees: ''
 ---
 
