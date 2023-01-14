@@ -59,7 +59,7 @@ jobs:
       with:
         python-version: 3.9.9
 
-    - uses: actions/setup-node@v2
+    - uses: actions/setup-node@v3
       with:
         node-version: 16
 
