@@ -221,12 +221,8 @@ body {
     }
 
     .creep-o-meter-information {
-      white-space: nowrap;
       opacity: 1;
       transition: opacity 0.2s ease;
-
-      display: flex;
-      align-items: center;
 
       &.fade-out {
         opacity: 0;
@@ -234,12 +230,7 @@ body {
     }
 
     .speech-bubble-container {
-      display: inline-block;
-      margin: 0;
-      margin-right: 16px;
-
       .speech-bubble {
-        position: relative;
         border-radius: 1em;
         padding: 0.5em 1em;
         color: $gray-80;
