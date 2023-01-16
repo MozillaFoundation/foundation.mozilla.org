@@ -14,10 +14,6 @@
   padding-top: 137px;
   padding-bottom: 184px;
   background-size: cover;
-  background-image: linear-gradient(
-    transparentize($black, 0.4),
-    transparentize($black, 0.25)
-  );
 
   &.small {
     padding-top: 105px;
