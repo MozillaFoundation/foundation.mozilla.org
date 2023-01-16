@@ -49,7 +49,7 @@ class ArticlePageFactory(PageFactory):
     subtitle = Faker("text", max_nb_chars=250)
     secondary_subtitle = Faker("text", max_nb_chars=250)
     publication_date = Faker("date_object")
-    article_file = DocumentFactory()
+    article_file = SubFactory(DocumentFactory)
     body = Faker("streamfield", fields=article_body_streamfield_fields)
     first_published_at = (
         Faker("date_time", tzinfo=timezone.utc)
