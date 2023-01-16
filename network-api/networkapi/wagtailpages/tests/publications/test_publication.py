@@ -38,5 +38,5 @@ class PublicationPageTests(test_base.WagtailpagesTestCase):
         response = self.client.get(path=publication_page.get_url())
 
         self.assertEqual(response.status_code, http.HTTPStatus.OK)
-        self.assertTemplateUsed("wagtailpages/fragments/custom_hero.html")
+        self.assertTemplateUsed("fragments/custom_hero.html")
         self.assertTemplateNotUsed("fragments/publication_hero.html")
