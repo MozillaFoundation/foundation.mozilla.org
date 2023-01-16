@@ -18,7 +18,7 @@ class PublicationPageTests(test_base.WagtailpagesTestCase):
 
         self.assertEqual(response.status_code, http.HTTPStatus.OK)
         self.assertContains(response, publication_page.title)
-        self.assertTemplateUsed("wagtailpages/fragments/publication_hero.html")
+        self.assertTemplateUsed("fragments/publication_hero.html")
 
     def test_page_loads_w_child(self):
         publication_page = publication_factory.PublicationPageFactory(parent=self.homepage)
@@ -39,4 +39,4 @@ class PublicationPageTests(test_base.WagtailpagesTestCase):
 
         self.assertEqual(response.status_code, http.HTTPStatus.OK)
         self.assertTemplateUsed("wagtailpages/fragments/custom_hero.html")
-        self.assertTemplateNotUsed("wagtailpages/fragments/publication_hero.html")
+        self.assertTemplateNotUsed("fragments/publication_hero.html")

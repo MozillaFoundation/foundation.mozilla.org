@@ -6,7 +6,7 @@
   {% if page.hero_layout != "static" %}
     {% include "wagtailpages/fragments/custom_hero.html" with page=page download_file=page.publication_file is_publication_page=page.is_publication_page %}
   {% else %}
-    {% include "wagtailpages/fragments/publication_hero.html" with  page=page download_file=page.publication_file is_publication_page=page.is_publication_page %}
+    {% include "fragments/publication_hero.html" with  page=page download_file=page.publication_file is_publication_page=page.is_publication_page %}
   {% endif %}
 
   {% include "fragments/chapter_table_of_contents.html" %}
