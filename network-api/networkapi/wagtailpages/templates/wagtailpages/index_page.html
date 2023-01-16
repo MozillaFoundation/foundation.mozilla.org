@@ -1,6 +1,6 @@
 {% extends "./modular_page.html" %}
 
-{% load wagtailcore_tags mini_site_tags i18n %}
+{% load wagtailcore_tags mini_site_tags i18n l10n %}
 
 {% block body_id %}blog-index{% endblock %}
 
@@ -54,20 +54,18 @@
         </div>
       </div>
     </div>
+    {% endif %}  {# End of IF for filtered page content #}
 
-    <div class="index-entries row">
-    {% else %}
-    <div class="index-entries row mb-4">
-    {% endif %}  {# End of IF for filtered page content _after_ starting a new row. #}
-      {% block subcontent %}
-        {% include "./fragments/entry_cards.html" %}
-      {% endblock %}
-    </div>
+    {% block subcontent %}
+        <div class="row {% if not filtered and no_filter_ui == True %} tw-mb-5 {% endif %}">
+          {% include "./fragments/entry_cards.html" %}
+        </div>
+    {% endblock %}
 
     <div class="row">
       <div class="col-12 text-center mb-5">
         {% if has_more %}
-        <button class="tw-btn-primary load-more-index-entries" data-exclude="{{ exclude_pagetype }}" data-page-size="{{ page.specific.page_size }}">
+        <button class="tw-btn-primary load-more-index-entries" data-exclude="{{ exclude_pagetype }}" data-page-size="{{ page.specific.page_size|unlocalize }}">
           {% trans "Load more results" %}
         </button>
         {% endif %}

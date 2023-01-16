@@ -36,6 +36,16 @@
     color: $black;
     font-weight: $btn-font-weight;
 
+    &.pni-nav-link {
+      text-decoration: none;
+      &.active,
+      &:hover {
+        text-decoration: wavy $pni-wavy-blue 2px underline;
+        text-underline-offset: 0.5rem;
+        color: $dark-blue;
+      }
+    }
+
     @media (min-width: $bp-md) {
       &:not(:last-of-type) {
         margin-right: 1rem;

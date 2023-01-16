@@ -10,6 +10,8 @@ import utility from "../../utility";
 
 /**
  * Newsletter sign-up form
+ * TODO: Need to split into separate components and reorganize. Component is way too big.
+ * Would recommend refactoring before adding a new variant of newsletter
  */
 class JoinUs extends Component {
   constructor(props) {
@@ -193,24 +195,24 @@ class JoinUs extends Component {
           this.apiSubmissionSuccessful();
         })
         .catch((e) => this.apiSubmissionFailure(e));
+
+      ReactGA.event({
+        category: `signup`,
+        action: `form submit tap`,
+        label: `Signup submitted from ${
+          this.props.formPosition ? this.props.formPosition : document.title
+        }`,
+      });
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "form_submission",
+        form_type: "newsletter_signup",
+        form_location: this.props.formPosition || null,
+        country: this.country?.element.value,
+        language: this.state.lang,
+      });
     }
-
-    ReactGA.event({
-      category: `signup`,
-      action: `form submit tap`,
-      label: `Signup submitted from ${
-        this.props.formPosition ? this.props.formPosition : document.title
-      }`,
-    });
-
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "form_submission",
-      form_type: "newsletter_signup",
-      form_location: this.props.formPosition || null,
-      country: this.country?.element.value,
-      language: this.state.lang,
-    });
   }
 
   /**
@@ -286,11 +288,19 @@ class JoinUs extends Component {
       `${
         this.props.formStyle == "pop"
           ? "tw-h1-heading large:tw-pr-7"
+          : this.props.formStyle == "pni"
+          ? "tw-text-3xl tw-font-zilla tw-mb-2 medium:tw-w-4/5"
           : "tw-h5-heading"
       }`
     );
     let descriptionClasses = classNames(
-      `${this.props.formStyle == "pop" ? "large:tw-pr-7" : ""}`
+      `${
+        this.props.formStyle == "pop"
+          ? "large:tw-pr-7"
+          : this.props.formStyle == "pni"
+          ? "tw-text-base tw-mb-2 medium:tw-w-4/5"
+          : ""
+      }`
     );
 
     return (
@@ -354,6 +364,7 @@ class JoinUs extends Component {
     let inputClasses = classNames(`form-control`, {
       "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-4":
         this.props.formStyle == `pop`,
+      "tw-h-7": this.props.formStyle == `pni`,
     });
 
     let errorWrapperClasses = classNames("glyph-container", {
@@ -475,7 +486,8 @@ class JoinUs extends Component {
     });
 
     let privacyStatementClasses = classNames("form-check-label tw-body-small", {
-      "tw-text-black": this.props.formStyle == "pop",
+      "tw-text-black":
+        this.props.formStyle == "pop" || this.props.formStyle == "pni",
     });
 
     return (
@@ -524,8 +536,11 @@ class JoinUs extends Component {
         "tw-border-1 tw-btn-secondary tw-mt-7 medium:-tw-mb-6 medium:tw-mt-5"
       );
       buttonText = getText("Subscribe");
+    } else if (this.props.formStyle == "pni") {
+      classnames = classNames("tw-btn", "tw-btn-primary", "tw-w-max", "tw-h-7");
+      buttonText = getText("Sign up");
     } else {
-      classnames = classNames("tw-btn-primary", {
+      classnames = classNames("tw-btn", "tw-btn-primary", {
         "w-100": !this.isFlowForm(),
         "tw-flex-1 tw-mr-4": this.isFlowForm(),
       });
@@ -564,6 +579,11 @@ class JoinUs extends Component {
       buttonsWrapperClass = `w-auto tw-text-right`;
     }
 
+    if (this.props.formStyle === "pni") {
+      formClass = `tw-w-full tw-flex tw-flex-row`;
+      buttonsWrapperClass = `w-auto`;
+    }
+
     return (
       <form
         noValidate
@@ -581,7 +601,7 @@ class JoinUs extends Component {
           {this.renderSubmitButton()}
           {this.isFlowForm() && (
             <button
-              className="tw-btn-primary btn-dismiss tw-flex-1"
+              className="tw-btn tw-btn-primary btn-dismiss tw-flex-1"
               onClick={() => this.props.handleSignUp(false)}
               type="button"
             >

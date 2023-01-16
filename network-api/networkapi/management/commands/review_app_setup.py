@@ -1,9 +1,9 @@
-from django.core.management.base import BaseCommand, CommandError
-from django.conf import settings
 import os
+
 import heroku3
 import requests
-
+from django.conf import settings
+from django.core.management.base import BaseCommand, CommandError
 from wagtail.core.models import Site
 
 REVIEW_APP_DOMAIN = settings.REVIEW_APP_DOMAIN
@@ -89,15 +89,11 @@ class Command(BaseCommand):
 
         has_acm = any(domain.acm_status for domain in app.domains())
         if not has_acm:
-            app._h._http_resource(
-                method="POST", resource=("apps", app.id, "acm")
-            ).raise_for_status()
+            app._h._http_resource(method="POST", resource=("apps", app.id, "acm")).raise_for_status()
 
         cloudflare = CloudflareAPI()
         for hostname, target in mapping.items():
-            cloudflare.create_record(
-                zone=CLOUDFLARE_ZONE_ID, hostname=hostname, type="CNAME", content=target
-            )
+            cloudflare.create_record(zone=CLOUDFLARE_ZONE_ID, hostname=hostname, type="CNAME", content=target)
 
     def remove_dns_records(self):
         """Prepare records to be removed for each review app Site"""
@@ -108,9 +104,7 @@ class Command(BaseCommand):
 
         cloudflare = CloudflareAPI()
         existing_records = cloudflare.get_records(zone=CLOUDFLARE_ZONE_ID)
-        existing_records_by_name = {
-            record["name"]: record["id"] for record in existing_records
-        }
+        existing_records_by_name = {record["name"]: record["id"] for record in existing_records}
 
         for domain in heroku_domains:
             record_id = existing_records_by_name.get(domain.hostname)
@@ -132,9 +126,7 @@ class Command(BaseCommand):
         action = options["action"]
 
         if not HEROKU_API_KEY or not REVIEW_APP_DOMAIN:
-            raise CommandError(
-                "Please set REVIEW_APP_HEROKU_API_KEY and REVIEW_APP_DOMAIN"
-            )
+            raise CommandError("Please set REVIEW_APP_HEROKU_API_KEY and REVIEW_APP_DOMAIN")
 
         if action == "create":
             print("Setting up DNS records and Sites for review app")

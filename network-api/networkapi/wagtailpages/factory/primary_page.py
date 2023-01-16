@@ -1,4 +1,5 @@
 from networkapi.wagtailpages.models import PrimaryPage
+
 from .abstract import CMSPageFactory
 
 

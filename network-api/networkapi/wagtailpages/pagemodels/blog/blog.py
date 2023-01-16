@@ -1,9 +1,11 @@
-from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.template.defaultfilters import truncatechars
+from django.db import models
 from django.forms import CheckboxSelectMultiple
-
+from django.template.defaultfilters import truncatechars
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
@@ -14,74 +16,72 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
 )
 from wagtail.core import blocks
-from wagtail.core.models import Orderable, Locale, Page
 from wagtail.core.fields import StreamField
+from wagtail.core.models import Locale, Orderable, Page, TranslatableMixin
 from wagtail.core.rich_text import get_text_for_indexing
+from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail_localize.fields import TranslatableField, SynchronizedField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from taggit.models import TaggedItemBase
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from .. import customblocks
-from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
-
-from ..mixin.foundation_metadata import FoundationMetadataPageMixin
+from networkapi.wagtailpages.forms import BlogPageForm
+from networkapi.wagtailpages.pagemodels.profiles import Profile
 
 from ...utils import (
-    set_main_site_nav_information,
+    TitleWidget,
     get_content_related_by_tag,
-    TitleWidget
+    set_main_site_nav_information,
 )
-
-from networkapi.wagtailpages.models import Profile
-from networkapi.wagtailpages.forms import BlogPageForm
-from .blog_topic import BlogPageTopic
+from .. import customblocks
+from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
+from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from .blog_index import BlogIndexPage
+from .blog_topic import BlogPageTopic
 
 base_fields = [
-    ('accordion', customblocks.AccordionBlock()),
-    ('paragraph', blocks.RichTextBlock(
-        features=full_content_rich_text_options,
-        template='wagtailpages/blocks/rich_text_block.html',
-    )),
-    ('card_grid', customblocks.CardGridBlock()),
-    ('image_grid', customblocks.ImageGridBlock()),
-    ('iframe', customblocks.iFrameBlock()),
-    ('image', customblocks.AnnotatedImageBlock()),
-    ('audio', customblocks.AudioBlock()),
-    ('image_text', customblocks.ImageTextBlock()),
-    ('image_text_mini', customblocks.ImageTextMini()),
-    ('video', customblocks.VideoBlock()),
-    ('linkbutton', customblocks.LinkButtonBlock()),
-    ('looping_video', customblocks.LoopingVideoBlock()),
-    ('pulse_listing', customblocks.PulseProjectList()),
-    ('single_quote', customblocks.SingleQuoteBlock()),
-    ('slider', customblocks.FoundationSliderBlock()),
-    ('spacer', customblocks.BootstrapSpacerBlock()),
-    ('airtable', customblocks.AirTableBlock()),
-    ('datawrapper', customblocks.DatawrapperBlock()),
-    ('typeform', customblocks.TypeformBlock()),
+    ("accordion", customblocks.AccordionBlock()),
+    (
+        "paragraph",
+        blocks.RichTextBlock(
+            features=full_content_rich_text_options,
+            template="wagtailpages/blocks/rich_text_block.html",
+        ),
+    ),
+    ("card_grid", customblocks.CardGridBlock()),
+    ("image_grid", customblocks.ImageGridBlock()),
+    ("iframe", customblocks.iFrameBlock()),
+    ("image", customblocks.AnnotatedImageBlock()),
+    ("audio", customblocks.AudioBlock()),
+    ("image_text", customblocks.ImageTextBlock()),
+    ("image_text_mini", customblocks.ImageTextMini()),
+    ("video", customblocks.VideoBlock()),
+    ("linkbutton", customblocks.LinkButtonBlock()),
+    ("looping_video", customblocks.LoopingVideoBlock()),
+    ("pulse_listing", customblocks.PulseProjectList()),
+    ("single_quote", customblocks.SingleQuoteBlock()),
+    ("slider", customblocks.FoundationSliderBlock()),
+    ("spacer", customblocks.BootstrapSpacerBlock()),
+    ("airtable", customblocks.AirTableBlock()),
+    ("datawrapper", customblocks.DatawrapperBlock()),
+    ("typeform", customblocks.TypeformBlock()),
 ]
 
 
 class BlogPageTag(TaggedItemBase):
-    content_object = ParentalKey('wagtailpages.BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
+    content_object = ParentalKey("wagtailpages.BlogPage", on_delete=models.CASCADE, related_name="tagged_items")
 
 
-class BlogAuthors(Orderable):
+class BlogAuthors(TranslatableMixin, Orderable):
     """This allows us to select one or more blog authors from Snippets."""
 
-    page = ParentalKey('wagtailpages.BlogPage', related_name='authors')
+    page = ParentalKey("wagtailpages.BlogPage", related_name="authors")
     author = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
     )
 
     panels = [
-        SnippetChooserPanel('author'),
+        SnippetChooserPanel("author"),
     ]
 
     def __str__(self):
@@ -90,41 +90,47 @@ class BlogAuthors(Orderable):
 
 class RelatedBlogPosts(Orderable):
     page = ParentalKey(
-        'wagtailpages.BlogPage',
-        related_name='related_posts',
+        "wagtailpages.BlogPage",
+        related_name="related_posts",
     )
 
     related_post = models.ForeignKey(
-        'wagtailpages.BlogPage',
+        "wagtailpages.BlogPage",
         blank=False,
         null=True,
         on_delete=models.CASCADE,
     )
 
     panels = [
-        PageChooserPanel('related_post'),
+        PageChooserPanel("related_post"),
     ]
 
     def __str__(self):
         return self.related_post.title
 
     class Meta:
-        verbose_name = 'Related blog posts'
-        verbose_name_plural = 'Related blog posts'
-        ordering = ['sort_order']
+        verbose_name = "Related blog posts"
+        verbose_name_plural = "Related blog posts"
+        ordering = ["sort_order"]
 
 
 class BlogPage(FoundationMetadataPageMixin, Page):
+    # Custom base form for additional validation
+    base_form_class = BlogPageForm
+
     body = StreamField(
         base_fields,
-        block_counts={'typeform': {'max_num': 1}},
+        block_counts={"typeform": {"max_num": 1}},
     )
 
     topics = ParentalManyToManyField(
         BlogPageTopic,
-        help_text='Which blog topics is this blog page associated with? Please select 2 topics max.',
+        help_text="Which blog topics is this blog page associated with? Please select 2 topics max.",
         blank=True,
-        verbose_name='Topics',
+        verbose_name="Topics",
+        # Limiting CMS choices to English, as topics get
+        # localized using the {% localized_version %} template tag.
+        limit_choices_to=models.Q(locale__id="1"),
     )
 
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
@@ -132,127 +138,135 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     zen_nav = False
 
     hero_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='hero_banner_image',
-        verbose_name='Hero Image',
-        help_text='Image for the blog page hero section.',
+        related_name="hero_banner_image",
+        verbose_name="Hero Image",
+        help_text="Image for the blog page hero section.",
     )
     hero_video = models.CharField(
         blank=True,
         max_length=500,
-        help_text='URL to video for blog page hero section.',
+        help_text="URL to video for blog page hero section.",
+    )
 
+    feature_author_details = models.BooleanField(
+        default=False,
+        help_text="Check this box to render the author details section. "
+        "If an author is missing from the list, please make "
+        'sure they have an "introduction" set in their profile.',
     )
 
     feature_comments = models.BooleanField(
         default=False,
-        help_text='Check this box to add a comment section for this blog post.',
+        help_text="Check this box to add a comment section for this blog post.",
     )
 
     related_post_count = 3
 
-    # Custom base form for topic count validation
-    base_form_class = BlogPageForm
-
     content_panels = [
         FieldPanel(
-            'title',
-            classname='full title',
-            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60})
+            "title",
+            classname="full title",
+            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
         ),
-        MultiFieldPanel(
-            [
-                InlinePanel('authors', label='Author', min_num=1)
-            ],
-            heading='Author(s)'
-        ),
-        FieldPanel('topics', widget=CheckboxSelectMultiple),
+        MultiFieldPanel([InlinePanel("authors", label="Author", min_num=1)], heading="Author(s)"),
+        FieldPanel("topics", widget=CheckboxSelectMultiple),
         MultiFieldPanel(
             [
                 FieldPanel("hero_video"),
-                ImageChooserPanel('hero_image'),
+                ImageChooserPanel("hero_image"),
             ],
-            heading="Hero Video/Image"
+            heading="Hero Video/Image",
         ),
-        StreamFieldPanel('body'),
-        FieldPanel('feature_comments'),
+        StreamFieldPanel("body"),
+        FieldPanel("feature_author_details", heading="Feature Author Details Section"),
+        FieldPanel("feature_comments"),
         InlinePanel(
-            'related_posts',
-            label='Related Blog Posts',
-            help_text='Pick three other posts that are related to this post. '
-                      'If you pick fewer than three (or none), saving will '
-                      'automatically bind some related posts based on tag matching.',
+            "related_posts",
+            label="Related Blog Posts",
+            help_text="Pick three other posts that are related to this post. "
+            "If you pick fewer than three (or none), saving will "
+            "automatically bind some related posts based on tag matching.",
             min_num=0,
-            max_num=related_post_count
+            max_num=related_post_count,
         ),
     ]
 
-    promote_panels = FoundationMetadataPageMixin.promote_panels + [
-        FieldPanel('tags'),
+    promote_panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel("slug"),
+                FieldPanel("seo_title"),
+                FieldPanel("search_description"),
+                ImageChooserPanel("search_image"),
+            ],
+            heading="Common page configuration",
+        ),
+        FieldPanel("tags"),
     ]
 
     settings_panels = [
         PublishingPanel(),
-        FieldPanel('first_published_at'),
+        FieldPanel("first_published_at"),
         PrivacyModalPanel(),
     ]
 
     translatable_fields = [
         # Promote tab fields
-        SynchronizedField('slug'),
-        TranslatableField('seo_title'),
-        SynchronizedField('show_in_menus'),
-        TranslatableField('search_description'),
-        SynchronizedField('search_image'),
+        SynchronizedField("slug"),
+        TranslatableField("seo_title"),
+        SynchronizedField("show_in_menus"),
+        TranslatableField("search_description"),
+        SynchronizedField("search_image"),
         # Content tab fields
-        TranslatableField('body'),
-        TranslatableField('title'),
-        SynchronizedField('authors'),
-        SynchronizedField('hero_video'),
-        SynchronizedField('hero_image'),
-        SynchronizedField('related_posts'),
-        SynchronizedField('first_published_at'),
+        TranslatableField("body"),
+        TranslatableField("title"),
+        TranslatableField("authors"),
+        SynchronizedField("hero_video"),
+        SynchronizedField("hero_image"),
+        SynchronizedField("related_posts"),
+        SynchronizedField("feature_author_details"),
+        SynchronizedField("feature_comments"),
+        SynchronizedField("first_published_at"),
     ]
 
     search_fields = Page.search_fields + [
-        index.SearchField(field_name='title', boost=10),
+        index.SearchField(field_name="title", boost=10),
         index.RelatedFields(
-            field_name='topics',
+            field_name="topics",
             fields=[
-                index.SearchField(field_name='title', boost=7),
+                index.SearchField(field_name="title", boost=7),
             ],
         ),
         index.RelatedFields(
-            field_name='authors',
+            field_name="authors",
             fields=[
                 index.RelatedFields(
-                    field_name='author',
+                    field_name="author",
                     fields=[
-                        index.SearchField(field_name='name', boost=7),
+                        index.SearchField(field_name="name", boost=7),
                     ],
                 ),
             ],
         ),
         index.RelatedFields(
-            field_name='tags',
+            field_name="tags",
             fields=[
-                index.SearchField(field_name='name', boost=7),
+                index.SearchField(field_name="name", boost=7),
             ],
         ),
-        index.SearchField(field_name='search_description', boost=4),
-        index.SearchField(field_name='body', boost=1),
+        index.SearchField(field_name="search_description", boost=4),
+        index.SearchField(field_name="body", boost=1),
     ]
 
-    subpage_types = [
-        'ArticlePage'
-    ]
+    subpage_types = ["ArticlePage"]
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['show_comments'] = settings.USE_COMMENTO and self.feature_comments
+        context["show_comments"] = settings.USE_COMMENTO and self.feature_comments
 
         related_posts = [post.related_post for post in self.related_posts.all()]
         if request.is_preview:
@@ -264,16 +278,16 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         # Make sure to filter out any None entries, which may happen if the
         # self.ensure_related_posts() function was unable to find any related
         # posts to pad the related posts set with.
-        context['related_posts'] = list(filter(None, related_posts))
+        context["related_posts"] = list(filter(None, related_posts))
 
         # Pull this object specifically using the English page title
         default_locale = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
-        blog_page = BlogIndexPage.objects.get(title__iexact='Blog', locale=default_locale)
+        blog_page = BlogIndexPage.objects.get(title__iexact="Blog", locale=default_locale)
 
         if blog_page:
-            context['blog_index'] = blog_page
+            context["blog_index"] = blog_page
 
-        return set_main_site_nav_information(self, context, 'Homepage')
+        return set_main_site_nav_information(self, context, "Homepage")
 
     def get_missing_related_posts(self):
         """
@@ -314,19 +328,16 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         out the related posts to three, before actually saving.
         """
         for post in self.get_missing_related_posts():
-            self.related_posts.add(
-                RelatedBlogPosts(
-                    page=self,
-                    related_post=post
-                )
-            )
+            self.related_posts.add(RelatedBlogPosts(page=self, related_post=post))
 
     def clean(self):
         if self.hero_image and self.hero_video:
-            raise ValidationError({
-                'hero_image': ValidationError("Please select a video OR an image for the hero section."),
-                'hero_video': ValidationError("Please select a video OR an image for the hero section.")
-                })
+            raise ValidationError(
+                {
+                    "hero_image": ValidationError("Please select a video OR an image for the hero section."),
+                    "hero_video": ValidationError("Please select a video OR an image for the hero section."),
+                }
+            )
 
         # Ensure that we've tried to fill in three related posts
         # for this blog post if fewer than three were set by staff

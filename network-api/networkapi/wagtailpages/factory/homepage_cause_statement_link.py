@@ -1,13 +1,14 @@
 from random import choice
-from networkapi.utility.faker.helpers import reseed, get_homepage
 
 from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
+
+from networkapi.utility.faker.helpers import get_homepage, reseed
 
 faker = Faker()
 
 
 def generate(seed):
-    print('Generating Homepage Cause Statement Link')
+    print("Generating Homepage Cause Statement Link")
 
     home_page = get_homepage()
 

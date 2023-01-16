@@ -2,6 +2,7 @@ import json
 
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
+
 from networkapi.highlights.factory import HighlightFactory
 from networkapi.highlights.views import HighlightListView, HighlightView
 
@@ -21,7 +22,7 @@ class TestHighlightView(TestCase):
 
         pk = HighlightFactory().id
 
-        request = self.factory.get('/api/highlights/{}'.format(pk))
+        request = self.factory.get("/api/highlights/{}".format(pk))
         response = HighlightView.as_view()(request, pk=pk)
 
         self.assertEqual(response.status_code, 200)
@@ -33,7 +34,7 @@ class TestHighlightView(TestCase):
 
         pk = HighlightFactory(unpublished=True).id
 
-        request = self.factory.get('/api/highlights/{}'.format(pk))
+        request = self.factory.get("/api/highlights/{}".format(pk))
         response = HighlightView.as_view()(request, pk=pk)
 
         self.assertEqual(response.status_code, 404)
@@ -45,7 +46,7 @@ class TestHighlightView(TestCase):
 
         pk = HighlightFactory(expired=True)
 
-        request = self.factory.get('/api/highlights/{}'.format(pk))
+        request = self.factory.get("/api/highlights/{}".format(pk))
         response = HighlightView.as_view()(request, pk=pk)
 
         self.assertEqual(response.status_code, 404)
@@ -77,7 +78,7 @@ class TestHighlightListView(TestCase):
         Make sure highlights view returns a 200 status code
         """
 
-        request = self.factory.get('/api/highlights/')
+        request = self.factory.get("/api/highlights/")
         response = HighlightListView.as_view()(request)
 
         self.assertEqual(response.status_code, 200)
@@ -87,9 +88,9 @@ class TestHighlightListView(TestCase):
         Make sure highlights view returns only the three published records
         """
 
-        request = self.factory.get('/api/highlights/')
+        request = self.factory.get("/api/highlights/")
         response = HighlightListView.as_view()(request)
         response.render()
-        response_json = json.loads(str(response.content, 'utf-8'))
+        response_json = json.loads(str(response.content, "utf-8"))
 
         self.assertEqual(len(response_json), 3)

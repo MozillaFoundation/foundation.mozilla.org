@@ -6,14 +6,13 @@ on:
     paths-ignore:
       - maintenance/**/*.*
   pull_request:
-    branches: ["main"]
     paths-ignore:
       - maintenance/**/*.*
 
 jobs:
   test_node:
     name: Node CI
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -24,16 +23,16 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 18
           cache: "npm"
       - name: Install Node Dependencies
         run: npm ci
-      - name: Run Tests
-        run: npm test
+      - name: Run linting
+        run: npm run lint
 
   test_wagtail:
     name: Wagtail CI
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     services:
       postgres:
         image: postgres:13.2
@@ -68,13 +67,13 @@ jobs:
       XSS_PROTECTION: True
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.9.9
           cache: "pip"
       - uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 18
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
       - name: Install Node Dependencies
@@ -90,17 +89,28 @@ jobs:
           python network-api/manage.py migrate --no-input
           python network-api/manage.py block_inventory
           python network-api/manage.py compilemessages
-      - name: Run Tests
+      - name: Run linting
         run: |
-          flake8 tasks.py network-api/
-          coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
+          flake8 .
+          isort . --check-only
+          black . --check
+      - name: Run HTML linting
+        run: |
+          djlint . --check
+          djlint . --lint
+        continue-on-error: true
+      - name: Run type checks
+        run: mypy network-api
+      - name: Run Tests
+        run: coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
       - name: Coveralls
         run: coveralls
         continue-on-error: true
 
   test_percy:
     name: Percy CI
-    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    runs-on: ubuntu-20.04
     services:
       postgres:
         image: postgres:13.2
@@ -112,7 +122,7 @@ jobs:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
-      ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
+      ALLOWED_HOSTS: 127.0.0.1,localhost,mozfest.localhost,default-site.com,secondary-site.com
       CONTENT_TYPE_NO_SNIFF: True
       CORS_ALLOWED_ORIGINS: "*"
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
@@ -133,13 +143,13 @@ jobs:
       XSS_PROTECTION: True
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.9.9
           cache: "pip"
       - uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 18
           cache: "npm"
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
@@ -165,7 +175,7 @@ jobs:
 
   test_integration:
     name: Integration testing
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     services:
       postgres:
         image: postgres:13.2
@@ -177,7 +187,7 @@ jobs:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
-      ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
+      ALLOWED_HOSTS: 127.0.0.1,localhost,mozfest.localhost,default-site.com,secondary-site.com
       CONTENT_TYPE_NO_SNIFF: True
       CORS_ALLOWED_ORIGINS: "*"
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
@@ -201,13 +211,13 @@ jobs:
       CSP_STYLE_SRC: "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com https://platform.twitter.com"
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.9.9
           cache: "pip"
       - uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 18
           cache: "npm"
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt

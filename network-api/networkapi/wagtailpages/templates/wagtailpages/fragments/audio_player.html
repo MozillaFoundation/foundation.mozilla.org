@@ -1,0 +1,19 @@
+<div id="audio-player">
+    <audio class="embedded-audio">
+        <source src="{{ audio }}" type="audio/mp3" preload="metadata" loop>
+    </audio>
+    <div class="audio-player-controls d-inline-flex {{ extra_css }}">
+        <div class='px-3 play-btn-container'>            
+            <button class="tw-btn btn-audio-control btn-pause d-none" id="pause-icon"></button>
+            <button class="tw-btn btn-audio-control btn-play d-none" id="play-icon"></button>
+        </div>
+        <div class='seek-slider-container'>            
+            <input  type="range" id="seek-slider" max="100" value="0">
+        </div>
+        <div class='px-3 time-info-container'>            
+            <span id="current-time" class="time">0:00</span>
+            <span class="time">/</span>
+            <span id="duration" class="time">0:00</span>
+        </div>
+    </div>
+</div>

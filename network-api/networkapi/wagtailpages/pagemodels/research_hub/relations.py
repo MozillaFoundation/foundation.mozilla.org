@@ -6,82 +6,82 @@ from wagtail.snippets import edit_handlers as snippet_handlers
 
 class ResearchAuthorRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
     research_detail_page = cluster_fields.ParentalKey(
-        'wagtailpages.ResearchDetailPage',
+        "wagtailpages.ResearchDetailPage",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
-        related_name='research_authors',
+        related_name="research_authors",
     )
     author_profile = models.ForeignKey(
-        'wagtailpages.Profile',
+        "wagtailpages.Profile",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
-        related_name='authored_research',
+        related_name="authored_research",
     )
 
     panels = [
-        snippet_handlers.SnippetChooserPanel('author_profile'),
+        snippet_handlers.SnippetChooserPanel("author_profile"),
     ]
 
 
 class ResearchDetailPageResearchRegionRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
     research_detail_page = cluster_fields.ParentalKey(
-        'wagtailpages.ResearchDetailPage',
+        "wagtailpages.ResearchDetailPage",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
-        related_name='related_regions',
+        related_name="related_regions",
     )
     research_region = models.ForeignKey(
-        'wagtailpages.ResearchRegion',
+        "wagtailpages.ResearchRegion",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
-        related_name='related_research',
+        related_name="related_research",
     )
 
     panels = [
-        snippet_handlers.SnippetChooserPanel('research_region'),
+        snippet_handlers.SnippetChooserPanel("research_region"),
     ]
 
 
 class ResearchDetailPageResearchTopicRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
     research_detail_page = cluster_fields.ParentalKey(
-        'wagtailpages.ResearchDetailPage',
+        "wagtailpages.ResearchDetailPage",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
-        related_name='related_topics',
+        related_name="related_topics",
     )
     research_topic = models.ForeignKey(
-        'wagtailpages.ResearchTopic',
+        "wagtailpages.ResearchTopic",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
-        related_name='related_research',
+        related_name="related_research",
     )
 
     panels = [
-        snippet_handlers.SnippetChooserPanel('research_topic'),
+        snippet_handlers.SnippetChooserPanel("research_topic"),
     ]
 
 
 class ResearchLandingPageFeaturedResearchTopicRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
     research_landing_page = cluster_fields.ParentalKey(
-        'wagtailpages.ResearchLandingPage',
+        "wagtailpages.ResearchLandingPage",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
-        related_name='featured_topics',
+        related_name="featured_topics",
     )
     research_topic = models.ForeignKey(
-        'wagtailpages.ResearchTopic',
+        "wagtailpages.ResearchTopic",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
     )
 
     panels = [
-        snippet_handlers.SnippetChooserPanel('research_topic'),
+        snippet_handlers.SnippetChooserPanel("research_topic"),
     ]

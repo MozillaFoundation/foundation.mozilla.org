@@ -14,7 +14,7 @@
       {% endblock %}
 
       {% block slides %}
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper tw-items-stretch">
           {% for current_event in self.current_events %}
             {% image current_event.value.image fill-445x185 as img %}
             <div class="swiper-slide">

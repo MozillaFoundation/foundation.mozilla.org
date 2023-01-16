@@ -8,13 +8,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('news', '0002_remove_news_featured'),
+        ("news", "0002_remove_news_featured"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='news',
-            name='featured',
-            field=models.BooleanField(default=False, help_text='Do you want to feature this news piece on the homepage?'),
+            model_name="news",
+            name="featured",
+            field=models.BooleanField(
+                default=False,
+                help_text="Do you want to feature this news piece on the homepage?",
+            ),
         ),
     ]

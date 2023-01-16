@@ -64,6 +64,8 @@ export default {
     let bubbleText = bubble.querySelector(`.text`);
     let products = document.querySelectorAll(`.product-box`);
 
+    const heroMsg = document.querySelector(".speech-bubble>.text").innerHTML;
+
     window.addEventListener(
       `scroll`,
       () => {
@@ -160,19 +162,19 @@ export default {
 
           // If on desktop, don't delay moving creepo-face into the corner
           // If on mobile, make the creepy face move to the corner sooner
-          const offset =
-            window.innerWidth > 768
-              ? window.innerHeight - CATEGORY_BAR.offsetHeight
-              : 100;
+          const offset = 100;
 
           /**
            * Check if the product grid area is partially visible in the viewport
            */
           if (
-            productListPosition.top + offset < window.innerHeight &&
-            productListPosition.bottom >= 0
+            !(
+              productListPosition.top + offset < window.innerHeight &&
+              productListPosition.bottom >= 0
+            )
           ) {
-            SEARCH_BAR.classList.add("search-active", "creep-o-meter-moved");
+            document.querySelector(".speech-bubble>.text").innerHTML = heroMsg;
+            face.style.backgroundPositionY = `0px`;
           }
 
           const heightFromTop = RECOMMEND_PRODUCT.getBoundingClientRect().top;

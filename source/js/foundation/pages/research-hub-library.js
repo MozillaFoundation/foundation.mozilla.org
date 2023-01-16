@@ -23,6 +23,9 @@ function initializeJS() {
   );
   filterHideButton.classList.remove("tw-hidden");
   filterHideButton.addEventListener("click", hideFilterModal);
+
+  const sortSelect = document.getElementById("sort-select");
+  sortSelect.addEventListener("change", updateSearchForm);
 }
 
 function showFilterModal(event) {
@@ -33,6 +36,11 @@ function showFilterModal(event) {
 function hideFilterModal(event) {
   const filterSection = document.getElementById("filter");
   filterSection.classList.add("tw-hidden");
+}
+
+function updateSearchForm(event) {
+  const searchForm = document.getElementById("search-form");
+  searchForm.submit();
 }
 
 main();

@@ -27,13 +27,16 @@ export default {
       (
         <span>
           I'm okay with Mozilla handling my info as explained in this{" "}
-          <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a>
+          <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
+            Privacy Notice
+          </a>
         </span>
       ),
     "Please check this box if you want to proceed": `Please check this box if you want to proceed`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Yes, I want to receive email updates about Mozilla’s campaigns.`,
     "Add my name": `Add my name`,
     "Sign up": `Sign up`,
+    Subscribe: `Subscribe`,
     "Help shape the future of the web for the public good": `Help shape the future of the web for the public good.`,
     "Join our list": `<p>Join our <b>Mozilla News</b> email list to get action alerts & internet tips right to your inbox.</p>`,
     "This is a required section.": `This is a required section.`,
@@ -83,7 +86,7 @@ export default {
         <span>
           Ich bin einverstanden mit dem Umgang Mozillas mit meinen Informationen
           wie im{" "}
-          <a href="https://www.mozilla.org/privacy/websites/">
+          <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
             Datenschutzhinweis
           </a>{" "}
           beschrieben
@@ -93,6 +96,7 @@ export default {
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Ja, ich möchte per E-Mail Neuigkeiten über Mozillas Kampagnen erfahren.`,
     "Add my name": `Meinen Namen hinzufügen`,
     "Sign up": `Abonnieren`,
+    Subscribe: `Abonnieren`,
     "Help shape the future of the web for the public good": `Gestalten Sie mit uns die Zukunft des Webs zum Wohle der Allgemeinheit.`,
     "Join our list": `<p>Tragen Sie sich in unsere E-Mail-Liste <b>Mozilla News</b> ein, um Benachrichtigungen über Aktionen und Tipps zum Internet direkt in Ihren Posteingang zu erhalten.</p>`,
     "This is a required section.": `Dies ist eine Pflichtangabe.`,
@@ -141,7 +145,7 @@ export default {
         <span>
           Estoy de acuerdo con la gestión de mi información, tal y como se
           explica en este{" "}
-          <a href="https://www.mozilla.org/privacy/websites/">
+          <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
             Aviso de privacidad
           </a>
         </span>
@@ -150,6 +154,7 @@ export default {
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Sí, quiero recibir actualizaciones sobre las campañas de Mozilla.`,
     "Add my name": `Añadir mi nombre`,
     "Sign up": `Suscribirme`,
+    Subscribe: `Suscribirme`,
     "Help shape the future of the web for the public good": `Ayuda a dar forma al futuro de la web para el bien público.`,
     "Join our list": `<p>Únete a nuestra lista de correo electrónico de <b>Noticias de Mozilla</b> para recibir alertas de acción y consejos sobre Internet directamente en tu bandeja de entrada.</p>`,
     "This is a required section.": `Esta sección es obligatoria.`,
@@ -200,7 +205,7 @@ export default {
       (
         <span>
           J’accepte que Mozilla utilise mes informations conformément à{" "}
-          <a href="https://www.mozilla.org/privacy/websites/">
+          <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
             cette politique de confidentialité
           </a>
         </span>
@@ -209,6 +214,7 @@ export default {
     "Yes, I want to receive email updates about Mozilla's campaigns.": `J’accepte de recevoir des informations par e-mail au sujet des campagnes de Mozilla.`,
     "Add my name": `Ajouter mon nom`,
     "Sign up": `Je m’inscris`,
+    Subscribe: `Je m’abonne`,
     "Help shape the future of the web for the public good": `Aidez à façonner l’avenir du Web pour le bien commun.`,
     "Join our list": `<p>Abonnez-vous à notre newsletter <b>Actualités de Mozilla</b> pour recevoir des conseils pour Internet et des alertes pour passer à l’action.</p>`,
     "This is a required section.": `Ce champ est obligatoire.`,
@@ -257,7 +263,7 @@ export default {
       (
         <span>
           Pozwalam Mozilli wykorzystywać te informacje w sposób opisany w{" "}
-          <a href="https://www.mozilla.org/privacy/websites/">
+          <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
             zasadach ochrony prywatności
           </a>
         </span>
@@ -266,6 +272,7 @@ export default {
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Tak, chcę otrzymywać wiadomości o kampaniach Mozilli.`,
     "Add my name": `Podpisz`,
     "Sign up": `Zapisz się`,
+    Subscribe: `Zapisz się`,
     "Help shape the future of the web for the public good": `Pomóż kształtować przyszłość Internetu dla wspólnego dobra.`,
     "Join our list": `<p>Dołącz do naszej listy <b>Aktualności Mozilli</b>, aby otrzymywać powiadomienia o możliwościach działania i wskazówki o Internecie prosto do swojej skrzynki.</p>`,
     "This is a required section.": `To jest wymagana sekcja.`,
@@ -314,7 +321,7 @@ export default {
         <span>
           Concordo com a Mozilla lidar com minhas informações, como explicado
           neste{" "}
-          <a href="https://www.mozilla.org/privacy/websites/">
+          <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
             Aviso de Privacidade
           </a>
         </span>
@@ -323,6 +330,7 @@ export default {
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Quero receber atualizações por e-mail sobre campanhas da Mozilla.`,
     "Add my name": `Adicionar meu nome`,
     "Sign up": `Inscreva-me`,
+    Subscribe: `Inscreva-me`,
     "Help shape the future of the web for the public good": `Ajude a moldar o futuro da web para o bem público.`,
     "Join our list": `<p>Junte-se à nossa lista de emails <b>Mozilla News</b> para receber alertas de ações e dicas de internet direto na sua caixa de entrada.</p>`,
     "This is a required section.": `Este campo é obrigatório.`,

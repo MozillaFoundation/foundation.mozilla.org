@@ -36,6 +36,7 @@ import { initYoutubeRegretsResearchCountUp } from "./foundation/pages/youtube-re
 import { initYoutubeRegretsAccordions } from "./foundation/pages/youtube-regrets/accordion";
 import { initYouTubeRegretsRecommendationsPieChart } from "./foundation/pages/youtube-regrets/recommendations-pie-chart";
 import { initYoutubeRegretsCarousel } from "./foundation/pages/youtube-regrets/carousel";
+import { initYoutubeRegretsLocomotiveScroll } from "./foundation/pages/youtube-regrets/locomotive-scroll";
 
 // Initializing component a11y browser console logging
 if (
@@ -136,10 +137,23 @@ let main = {
       initYouTubeRegretsCategoriesBarChart();
       initYouTubeRegretsRegretRatesChart();
       initYoutubeRegretsReadMoreCategories();
-      initYoutubeRegretsResearchCountUp();
       initYoutubeRegretsAccordions();
       initYouTubeRegretsRecommendationsPieChart();
       initYoutubeRegretsCarousel();
+    }
+
+    // YouTube Regrets 2022 page
+    if (document.querySelector("#view-youtube-regrets-2022")) {
+      initYoutubeRegretsCarousel();
+    }
+
+    // Shared YouTube Regrets Pages
+    if (document.querySelector(".youtube-regrets-shared")) {
+      initYoutubeRegretsResearchCountUp();
+    }
+
+    if (document.querySelector("#view-youtube-regrets-2022")) {
+      initYoutubeRegretsLocomotiveScroll();
     }
 
     // YouTube Regrets Reporter page

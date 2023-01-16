@@ -30,6 +30,10 @@ module.exports = {
           "-ms-overflow-style": "none" /* IE and Edge */,
           "scrollbar-width": "none" /* Firefox */,
         },
+        ".popout": {
+          "box-shadow": "10px 10px rgba(0,0,0)",
+          border: "1px solid #000000",
+        },
       };
       addUtilities(newUtilities);
     }),
@@ -83,6 +87,7 @@ module.exports = {
       medium: "768px",
       large: "992px",
       xlarge: "1200px",
+      "2xl": "1400px",
     },
     fontFamily: {
       sans: ["Nunito Sans", "Helvetica", "Arial", "sans-serif"],

@@ -180,7 +180,9 @@ class CreepVote extends Component {
                 Vote & see results
               </button>
               <p className="tw-h6-heading mb-0">
-                {this.state.totalVotes} votes
+                {this.state.totalVotes} vote
+                {this.state.totalVotes > 1 ||
+                  (this.state.totalVotes === 0 && "s")}
               </p>
             </div>
           </div>
@@ -217,6 +219,25 @@ class CreepVote extends Component {
     );
   }
 
+  calcVoteBreakdown() {
+    let new_breakdown = { ...this.props.votes.creepiness.vote_breakdown };
+
+    if (!this.state.creepiness) return new_breakdown;
+
+    if (this.state.creepiness > 80) {
+      new_breakdown[4] = new_breakdown[4] + 1;
+    } else if (this.state.creepiness > 60) {
+      new_breakdown[3] = new_breakdown[3] + 1;
+    } else if (this.state.creepiness > 40) {
+      new_breakdown[2] = new_breakdown[2] + 1;
+    } else if (this.state.creepiness > 20) {
+      new_breakdown[1] = new_breakdown[1] + 1;
+    } else {
+      new_breakdown[0] = new_breakdown[0] + 1;
+    }
+    return new_breakdown;
+  }
+
   /**
    * @returns {jsx} What users see when they have voted on this product.
    */
@@ -230,7 +251,8 @@ class CreepVote extends Component {
         <div className="mb-5">
           <div className="col-12 text-center">
             <h3 className="tw-h3-heading mb-1">
-              {this.state.totalVotes + 1} Votes — invite your friends!
+              {this.state.totalVotes + 1} Vote
+              {this.state.totalVotes + 1 > 1 && "s"} — invite your friends!
             </h3>
             <div className="tw-h6-heading text-muted" />
           </div>
@@ -238,7 +260,7 @@ class CreepVote extends Component {
             <div className="col-12">
               <CreepChart
                 userVoteGroup={userVoteGroup}
-                values={this.props.votes.creepiness.vote_breakdown}
+                values={this.calcVoteBreakdown()}
               />
             </div>
           </div>

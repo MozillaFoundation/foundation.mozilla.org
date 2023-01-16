@@ -2,13 +2,14 @@ from factory import SubFactory
 from factory.django import DjangoModelFactory
 from wagtail.core.models import Page as WagtailPage
 
-from networkapi.utility.faker.helpers import reseed
 from networkapi.highlights.factory import HighlightFactory
+from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.models import (
     ParticipateHighlights,
     ParticipateHighlights2,
-    ParticipatePage2
+    ParticipatePage2,
 )
+
 from .participate_page import ParticipatePage2Factory
 
 
@@ -37,14 +38,16 @@ def generate(seed):
     participate_page = None
 
     try:
-        participate_page = ParticipatePage2.objects.get(title='What you can do')
+        participate_page = ParticipatePage2.objects.get(title="What you can do")
     except WagtailPage.DoesNotExist:
-        print('Participate page must exist. Ensure that ' +
-              'networkapi.wagtailpages.factory.participage_page is executing first')
+        print(
+            "Participate page must exist. Ensure that "
+            + "networkapi.wagtailpages.factory.participage_page is executing first"
+        )
 
     reseed(seed)
 
-    print('Generating Participate Highlights')
+    print("Generating Participate Highlights")
     if participate_page is not None:
         featured_highlights = [HighlightFactory.create() for i in range(3)]
         participate_page.featured_highlights = [

@@ -8,11 +8,6 @@ function getQuerySelectorEvents(pageTitle, productName) {
       action: `donate tap`,
       label: `${pageTitle} donate header`,
     },
-    ".donate-banner a.tw-btn-secondary": {
-      category: `buyersguide`,
-      action: `donate tap`,
-      label: `${pageTitle} donate footer`,
-    },
 
     // product events
     "#product-company-url": {
@@ -118,9 +113,8 @@ function bindCheckboxCheckedGA(selector, eventMeta) {
 
 function trackSearchBoxUsage() {
   const SESSION_KEY = `searchBoxUsed`;
-  const searchBox = document.querySelector(
-    "body.catalog #product-filter-search-input"
-  );
+  const selector = `body.catalog #product-filter-search-input`;
+  const searchBox = document.querySelector(selector);
 
   if (!searchBox) {
     console.error(`cannot find ${selector}`);
@@ -144,10 +138,6 @@ function trackSearchBoxUsage() {
     },
     true
   );
-
-  // window.addEventListener("beforeunload", (event) => {
-  //   console.log(`>>> beforeunload: ${window.location}`);
-  // });
 }
 
 function trackGoBackToAllProductsLink() {

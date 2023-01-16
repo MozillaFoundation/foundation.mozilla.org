@@ -3,19 +3,19 @@ from . import (
     blog,
     buyersguide,
     campaign_page,
-    profiles,
     dear_internet_page,
+    homepage,
     homepage_cause_statement_link,
     homepage_features,
     homepage_partner_logos,
     homepage_take_action,
     homepage_usable_news,
-    homepage,
     initiatives_page,
     locale,
     opportunity,
-    participate_page_featured_highlights,
     participate_page,
+    participate_page_featured_highlights,
+    profiles,
     publication,
     research_hub,
     styleguide,
@@ -51,5 +51,5 @@ def generate(seed):
 
 
 __all__ = [
-    'generate',
+    "generate",
 ]

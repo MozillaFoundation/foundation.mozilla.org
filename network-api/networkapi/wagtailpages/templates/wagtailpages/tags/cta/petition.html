@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n l10n %}
 
 <div>
     <!-- ShareProgress button embedding doc:
@@ -19,8 +19,9 @@
 
 	<div
 		class="sign-petition tw-w-full tw-mb-12"
-        data-petition-id="{{ cta.id }}"
+        data-petition-id="{{ cta.id|unlocalize }}"
         data-cta-slug="{{ page.slug }}"
+        data-form-location="{{ page.url }}"
         data-cta-name="{{ cta.name }}"
         data-cta-header="{{ cta.header | escape }}"
         data-cta-description="{{ cta.description | escape }}"

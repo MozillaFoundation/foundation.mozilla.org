@@ -9,12 +9,11 @@ export default () => {
    * that it is coming from another article via scrolltrigger, then we animate the white box that is overlaying the article.
    */
   function triggerIntroTransition() {
-    if (sessionStorage.getItem(CONTINUE_SCROLLING)) {
-      gsap.to(".page-enter-transition", {
-        y: "-100vh",
-        delay: 0.3,
-        duration: 0.3,
-      });
+    if (
+      sessionStorage.getItem(CONTINUE_SCROLLING) &&
+      document.querySelector(".page-enter-transition")
+    ) {
+      document.querySelector(".page-enter-transition").remove();
       sessionStorage.removeItem(CONTINUE_SCROLLING);
     } else if (document.querySelector(".page-enter-transition")) {
       document.querySelector(".page-enter-transition").remove();
@@ -41,23 +40,26 @@ export default () => {
       autoAlpha: 0,
     });
 
+    const SCROLL_BUFFER = 30;
     let outro;
+    let bottomOfPage = false;
 
-    ScrollTrigger.create({
-      trigger: ".cont-scrolling",
-      start: "top center",
-      end: "bottom bottom",
-      scrub: true,
-      toggleActions: "play none none reverse",
-      onLeave: () => {
+    //detects if it is on the bottom of the page
+    window.onscroll = function (ev) {
+      if (
+        window.innerHeight + window.pageYOffset + SCROLL_BUFFER >=
+          document.body.offsetHeight &&
+        !bottomOfPage
+      ) {
+        bottomOfPage = true;
         outro = gsap.timeline({
           onComplete: () => {
             setTimeout(() => {
               const loadIndicator = document.querySelector(".article-loading");
               if (loadIndicator) {
-                loadIndicator.classList.toggle("tw-hidden");
+                loadIndicator.classList.remove("tw-hidden");
               }
-            }, 500);
+            }, 2000);
 
             sessionStorage.setItem(CONTINUE_SCROLLING, "true");
             document.querySelector(".scrolling-link").click();
@@ -66,32 +68,25 @@ export default () => {
         // Need to remove a lot of !important classes to allow animation to work.
         document
           .querySelector(".cont-scrolling")
-          .classList.toggle(
-            "tw-sticky",
-            "tw-absolute",
-            "tw-top-0",
-            "tw-left-0"
-          );
+          .classList.add("tw-sticky", "tw-absolute", "tw-top-0", "tw-left-0");
         outro.to(".outro-screen", {
           y: "0vh",
-          duration: 0.3,
-          delay: 0.5,
+          duration: 0.1,
         });
-        outro.set(
-          "main > div:not(.cont-scrolling),.primary-nav-container,.article-navbar-container",
-          {
-            display: "none",
-            autoAlpha: 0,
-          }
-        );
+        [
+          ...document.querySelectorAll(
+            "main > div:not(.cont-scrolling),.primary-nav-container,.article-navbar-container"
+          ),
+        ].forEach((q) => q.classList.add("tw-hidden"));
+
         document
           .querySelector(".publication-hero-container,#custom-hero")
-          .classList.toggle("d-flex");
+          .classList.remove("d-flex");
         outro.set("main", {
           height: "100%",
         });
-      },
-    });
+      }
+    };
 
     // Needed for firebox bfcache when navigating back to the article.
     window.addEventListener("pagehide", function (event) {
@@ -123,13 +118,5 @@ export default () => {
   gsap.registerPlugin(ScrollTrigger);
   if (document.querySelector(".cont-scrolling")) {
     initScrollExitTransition();
-    // create an Observer instance
-    // this observer is just here for testing when a user resizes the window so the scrolltriggers are recreated.
-    const resizeObserver = new ResizeObserver((entries) =>
-      ScrollTrigger.refresh()
-    );
-
-    // start observing a DOM node
-    resizeObserver.observe(document.body);
   }
 };

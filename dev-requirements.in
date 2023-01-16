@@ -1,4 +1,11 @@
 -c requirements.txt
-flake8
+black
 coveralls
+django-debug-toolbar
+djlint
+flake8
+isort
+mypy
 ptvsd
+types-python-slugify
+types-requests

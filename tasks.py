@@ -1,6 +1,7 @@
 import os
 import re
 from sys import platform
+
 from invoke import task
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -56,9 +57,7 @@ def create_env_file(env_file):
         dbname = re.search("POSTGRES_DB=(.*)", docker_compose).group(1) or dbname
 
     # Update the DATABASE_URL env
-    new_db_url = (
-        f"DATABASE_URL=postgresql://{username}@postgres:5432/{dbname}"
-    )
+    new_db_url = f"DATABASE_URL=postgresql://{username}@postgres:5432/{dbname}"
     old_db_url = re.search("DATABASE_URL=.*", env_vars)
     env_vars = env_vars.replace(old_db_url.group(0), new_db_url)
 
@@ -91,10 +90,7 @@ def createsuperuser(ctx, stop=False):
 
     To stop the containers after the command is run, pass the `--stop` flag.
     """
-    preamble = "from django.contrib.auth.models import User;"
-    create = "User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
-    manage(ctx, f'shell -c "{preamble} {create}"', stop=stop)
-    print("\nCreated superuser `admin` with password `admin`.")
+    manage(ctx, "create_admin", stop=stop)
 
 
 def initialize_database(ctx, slow=False):
@@ -162,9 +158,7 @@ def setup(ctx):
     with ctx.cd(ROOT):
         print("* Setting default environment variables")
         if os.path.isfile(".env"):
-            print(
-                "* Stripping quotes and making sure your DATABASE_URL and ALLOWED_HOSTS are properly setup"
-            )
+            print("* Stripping quotes and making sure your DATABASE_URL and ALLOWED_HOSTS are properly setup")
             create_env_file(".env")
         else:
             print("* Creating a new .env")
@@ -200,7 +194,7 @@ def setup(ctx):
 # Javascript shorthands
 @task(aliases=["docker-npm"])
 def npm(ctx, command):
-    """Shorthand to npm. inv docker-npm \"[COMMAND] [ARG]\""""
+    """Shorthand to npm. inv docker-npm \"[COMMAND] [ARG]\" """
     with ctx.cd(ROOT):
         ctx.run(f"docker-compose run --rm watch-static-files npm {command}")
 
@@ -209,7 +203,7 @@ def npm(ctx, command):
 def npm_install(ctx):
     """Install Node dependencies"""
     with ctx.cd(ROOT):
-        ctx.run("docker-compose run --rm watch-static-files npm install")
+        ctx.run("docker-compose run --rm watch-static-files npm ci")
 
 
 @task(aliases=["copy-stage-db"])
@@ -224,21 +218,34 @@ def copy_production_database(ctx):
         ctx.run("node copy-db.js --prod")
 
 
-# Django shorthands
-@task(aliases=["docker-manage"])
-def manage(ctx, command, stop=False):
+# Python shorthands
+@task
+def pyrun(ctx, command, stop=False):
     """
-    Shorthand to manage.py. inv docker-manage \"[COMMAND] [ARG]\"
+    Shorthand to commands with the activated Python virutalenv.
 
     To stop the containers after the command has been run, pass the `--stop` flag.
     """
     with ctx.cd(ROOT):
         ctx.run(
-            f"docker-compose run --rm backend ./dockerpythonvenv/bin/python network-api/manage.py {command}",
+            f'docker-compose run --rm backend bash -c "source ./dockerpythonvenv/bin/activate && {command}"',
             **PLATFORM_ARG,
         )
         if stop:
             ctx.run("docker-compose stop")
+
+
+@task(aliases=["docker-manage"])
+def manage(ctx, command, stop=False):
+    """
+    Shorthand to manage.py.
+
+    inv docker-manage \"[COMMAND] [ARG]\"
+
+    To stop the containers after the command has been run, pass the `--stop` flag.
+    """
+    command = f"python network-api/manage.py {command}"
+    pyrun(ctx, command, stop=stop)
 
 
 @task(aliases=["docker-migrate"])
@@ -252,68 +259,175 @@ def migrate(ctx, stop=False):
 
 
 @task(aliases=["docker-makemigrations"])
-def makemigrations(ctx, arguments=""):
-    """Creates new migration(s) for apps"""
-    manage(ctx, f"makemigrations {arguments}")
+def makemigrations(ctx, args=""):
+    """
+    Creates new migration(s) for apps. Optional: --args=""
+    """
+    manage(ctx, f"makemigrations {args}")
 
 
 @task(aliases=["docker-makemigrations-dryrun"])
-def makemigrations_dryrun(ctx):
-    """Show new migration(s) for apps without creating them"""
-    manage(ctx, "makemigrations --dry-run")
+def makemigrations_dryrun(ctx, args=""):
+    """
+    Show new migration(s) for apps without creating them. Optional: --args=""
+    """
+    manage(ctx, f"makemigrations {args} --dry-run")
 
 
 # Tests
 @task(aliases=["docker-test"])
 def test(ctx):
-    """Run both Node and Python tests"""
-    test_node(ctx)
+    """Run tests."""
     test_python(ctx)
 
 
 @task(aliases=["docker-test-python"])
 def test_python(ctx):
-    """Run python tests"""
-    print("* Running flake8")
-    ctx.run(
-        "docker-compose run --rm backend ./dockerpythonvenv/bin/python -m flake8 tasks.py network-api",
-        **PLATFORM_ARG,
-    )
-    print("* Running tests")
+    """Run python tests."""
     manage(ctx, "test networkapi")
 
 
-@task(aliases=["docker-test-node"])
-def test_node(ctx):
-    """Run node tests"""
-    print("* Running tests")
-    ctx.run("docker-compose run --rm watch-static-files npm run test")
+# Linting
+@task
+def lint(ctx):
+    """Run linting."""
+    lint_html(ctx)
+    lint_css(ctx)
+    lint_js(ctx)
+    lint_python(ctx)
 
 
-@task(aliases=["docker-makemessages"])
-def makemessages(ctx):
-    """Extract all template messages in .po files for localization"""
-    ctx.run("./translation-management.sh import")
-    manage(ctx, locale_abstraction_instructions)
-    manage(ctx, locale_abstraction_instructions_js)
-    ctx.run("./translation-management.sh export")
+@task
+def lint_html(ctx):
+    """Run HTML linting."""
+    djlint_check(ctx)
+    djlint_lint(ctx)
 
 
-@task(aliases=["docker-compilemessages"])
-def compilemessages(ctx):
-    """Compile the latest translations"""
-    with ctx.cd(ROOT):
-        ctx.run(
-            "docker-compose run --rm -w /app/network-api backend "
-            "../dockerpythonvenv/bin/python manage.py compilemessages",
-            **PLATFORM_ARG,
-        )
+@task
+def lint_css(ctx):
+    """Run CSS linting."""
+    npm(ctx, "run lint:css")
+
+
+@task
+def lint_js(ctx):
+    """Run JavaScript linting."""
+    npm(ctx, "run lint:js")
+
+
+@task
+def lint_python(ctx):
+    """Run Python linting."""
+    flake8(ctx)
+    isort_check(ctx)
+    black_check(ctx)
+
+
+# Formatting
+@task
+def format(ctx):
+    """Run formatters."""
+    format_html(ctx)
+    format_css(ctx)
+    format_js(ctx)
+    format_python(ctx)
+
+
+@task
+def format_html(ctx):
+    """Run HTML formatting."""
+    djlint_format(ctx)
+
+
+@task
+def format_css(ctx):
+    """Run css formatting."""
+    npm(ctx, "run fix:css")
+
+
+@task
+def format_js(ctx):
+    """Run javascript formatting."""
+    npm(ctx, "run fix:js")
+
+
+@task
+def format_python(ctx):
+    """Run python formatting."""
+    isort(ctx)
+    black(ctx)
+
+
+# Tooling
+@task(help={"args": "Override the arguments passed to black."})
+def black(ctx, args=None):
+    """Run black code formatter."""
+    args = args or "."
+    pyrun(ctx, command=f"black {args}")
+
+
+@task
+def black_check(ctx):
+    """Run black code formatter in check mode."""
+    black(ctx, ". --check")
+
+
+@task(help={"args": "Override the arguments passed to djlint."})
+def djlint(ctx, args=None):
+    """Run djlint code formatter and linter."""
+    args = args or "."
+    pyrun(ctx, command=f"djlint {args}")
+
+
+@task
+def djlint_check(ctx):
+    """Run djlint in format checking mode."""
+    djlint(ctx, ". --check")
+
+
+@task
+def djlint_format(ctx):
+    """Run djlint formatting mode."""
+    djlint(ctx, ". --reformat --quiet")
+
+
+@task
+def djlint_lint(ctx):
+    """Run djlint in linting mode."""
+    djlint(ctx, ". --lint")
+
+
+@task
+def flake8(ctx):
+    """Run flake8."""
+    pyrun(ctx, "flake8 .")
+
+
+@task(help={"args": "Override the arguments passed to isort."})
+def isort(ctx, args=None):
+    """Run isort code formatter."""
+    args = args or "."
+    pyrun(ctx, command=f"isort {args}")
+
+
+@task
+def isort_check(ctx):
+    """Run isort code formatter in check mode."""
+    isort(ctx, ". --check-only")
+
+
+@task(help={"args": "Override the arguments passed to mypy."})
+def mypy(ctx, args=None):
+    """Run mypy type checking on the project."""
+    args = args or "network-api"
+    pyrun(ctx, command=f"mypy {args}")
 
 
 # Pip-tools
 @task(aliases=["docker-pip-compile"])
 def pip_compile(ctx, command):
-    """Shorthand to pip-tools. inv pip-compile \"[COMMAND] [ARG]\""""
+    """Shorthand to pip-tools. inv pip-compile \"[COMMAND] [ARG]\" """
     with ctx.cd(ROOT):
         ctx.run(
             f"docker-compose run --rm backend ./dockerpythonvenv/bin/pip-compile {command}",
@@ -341,5 +455,26 @@ def pip_sync(ctx):
     with ctx.cd(ROOT):
         ctx.run(
             "docker-compose run --rm backend ./dockerpythonvenv/bin/pip-sync requirements.txt dev-requirements.txt",
+            **PLATFORM_ARG,
+        )
+
+
+# Translation
+@task(aliases=["docker-makemessages"])
+def makemessages(ctx):
+    """Extract all template messages in .po files for localization"""
+    ctx.run("./translation-management.sh import")
+    manage(ctx, locale_abstraction_instructions)
+    manage(ctx, locale_abstraction_instructions_js)
+    ctx.run("./translation-management.sh export")
+
+
+@task(aliases=["docker-compilemessages"])
+def compilemessages(ctx):
+    """Compile the latest translations"""
+    with ctx.cd(ROOT):
+        ctx.run(
+            "docker-compose run --rm -w /app/network-api backend "
+            "../dockerpythonvenv/bin/python manage.py compilemessages",
             **PLATFORM_ARG,
         )

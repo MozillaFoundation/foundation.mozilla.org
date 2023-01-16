@@ -5,13 +5,13 @@ register = template.Library()
 
 
 # A special tag for homepage images that use the correct URL, because S3 troubles
-@register.inclusion_tag('wagtailpages/tags/homepage_image.html', takes_context=True)
+@register.inclusion_tag("wagtailpages/tags/homepage_image.html", takes_context=True)
 def homepage_image(context, path):
-    return homepage_image_with_class(context, path, '')
+    return homepage_image_with_class(context, path, "")
 
 
 # A special tag for homepage images that use the correct URL, because S3 troubles
-@register.inclusion_tag('wagtailpages/tags/homepage_image.html', takes_context=True)
+@register.inclusion_tag("wagtailpages/tags/homepage_image.html", takes_context=True)
 def homepage_image_with_class(context, path, classname):
     root = settings.MEDIA_URL
 
@@ -20,14 +20,14 @@ def homepage_image_with_class(context, path, classname):
         awscd = settings.AWS_S3_CUSTOM_DOMAIN
         if awscd in root and awsl not in root:
             old = awscd
-            new = awscd + '/' + awsl
+            new = awscd + "/" + awsl
             root = root.replace(old, new)
 
-    url = '{}{}'.format(root, path)
+    url = "{}{}".format(root, path)
 
     return {
-        'url': url,
-        'classname': classname,
+        "url": url,
+        "classname": classname,
     }
 
 
@@ -38,7 +38,7 @@ def get_page_authors(page):
     and returns a list of dicts with the author.
 
     Graphically, this looks like:
-    Blog Orderable -> Author (with .name and .image)
+    Blog Orderable -> Author (with .name, .image, and .introduction)
     """
     if page is None:
         return []
@@ -48,6 +48,7 @@ def get_page_authors(page):
             {
                 "image": author.author.image,
                 "name": author.author.name,
+                "introduction": author.author.introduction,
                 "slug": author.author.slug,
             }
             for author in all_authors

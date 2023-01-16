@@ -1,8 +1,7 @@
-import django
 import functools
 
+import django
 from django.utils.translation.trans_real import accept_language_re
-
 
 # WARNING: this is not necessarily a good idea, but is the only way to override
 # Django's default behaviour of requiring language codes to be lowercased.
@@ -14,15 +13,15 @@ from django.utils.translation.trans_real import accept_language_re
 
 def language_code_to_iso_3166(language):
     """Turn a language name (en-us) into an ISO 3166 format (en-US)."""
-    language, _, country = language.lower().partition('-')
+    language, _, country = language.lower().partition("-")
     if country:
-        return f'{language}-{country.upper()}'
+        return f"{language}-{country.upper()}"
     return language
 
 
 def to_language(locale):
     """Turn a locale name (en_US) into a language name (en-US)."""
-    return locale.replace('_', '-')
+    return locale.replace("_", "-")
 
 
 @functools.lru_cache(maxsize=1000)
@@ -37,7 +36,7 @@ def parse_accept_lang_header(lang_string):
     if pieces[-1]:
         return ()
     for i in range(0, len(pieces) - 1, 3):
-        first, lang, priority = pieces[i:i + 3]
+        first, lang, priority = pieces[i : i + 3]
         if first:
             return ()
         if priority:

@@ -4,20 +4,18 @@ Ever other page should accept CSRF as normal.
 """
 
 from django.middleware.csrf import CsrfViewMiddleware
-
 from wagtail.core.views import serve
 
-from networkapi.wagtailpages.pagemodels.products import ProductPage
+from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
 
 
 class CustomCsrfViewMiddleware(CsrfViewMiddleware):
-
     def process_view(self, request, callback, callback_args, callback_kwargs):
 
         if callback == serve and request.method == "POST":
             # We are visiting a wagtail page. Check if this is a ProductPage
             # and if so, do not perform any CSRF validation
-            path = request.path.rstrip('/').split('/').pop()   # ie general-percy-product
+            path = request.path.rstrip("/").split("/").pop()  # ie general-percy-product
 
             # Find the page
             try:

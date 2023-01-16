@@ -47,7 +47,7 @@
           </div>
         {% endif %}
         <div class="blog-authors d-flex flex-wrap align-items-center">
-          {% include "./author-images.html" with authors=authors %}
+          {% include "fragments/profile_images_stack.html" with profiles=authors %}
         </div>
         {% if page.authors.count %}
           <div class="mt-2 tw-dark">

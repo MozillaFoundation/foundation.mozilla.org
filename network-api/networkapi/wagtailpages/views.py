@@ -1,7 +1,6 @@
 from django.http import HttpResponseNotFound
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils import translation
-
 from wagtail.core.models import Site
 
 
@@ -19,11 +18,11 @@ def custom404_view(request, exception):
     belongs to which site, as "a site" is not tied to "a django
     app" in the wagtail way of things.
     """
-    if Site.find_for_request(request).hostname == 'www.mozillafestival.org':
-        html = render(request, 'mozfest/404.html')
+    if Site.find_for_request(request).hostname == "www.mozillafestival.org":
+        html = render(request, "mozfest/404.html")
         return HttpResponseNotFound(html.content)
     else:
-        html = render(request, '404.html')
+        html = render(request, "404.html")
         return HttpResponseNotFound(html.content)
 
 
@@ -33,7 +32,7 @@ def localized_redirect(request, subpath, destination_path):
     request.session[translation.LANGUAGE_SESSION_KEY] = lang
     query_string = ""
 
-    if request.META['QUERY_STRING']:
+    if request.META["QUERY_STRING"]:
         query_string = f'?{request.META["QUERY_STRING"]}'
 
-    return redirect(f'/{request.LANGUAGE_CODE}/{destination_path}/{subpath}{query_string}')
+    return redirect(f"/{request.LANGUAGE_CODE}/{destination_path}/{subpath}{query_string}")

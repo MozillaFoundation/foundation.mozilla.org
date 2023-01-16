@@ -70,6 +70,7 @@ export function setupNavLinks(instance) {
             parent: "",
             search: "",
             filter: history.state?.filter,
+            sort: history.state?.sort,
           },
           Utils.getTitle(categoryName),
           evt.target.href
@@ -123,6 +124,7 @@ export function setupNavLinks(instance) {
               parent: parentTitle.value.trim(),
               search: "",
               filter: history.state?.filter,
+              sort: history.state?.sort,
             },
             Utils.getTitle(subcategoryName),
             href
@@ -165,6 +167,7 @@ export function setupGoBackToAll(instance) {
           parent: "",
           search: "",
           filter: history.state?.filter,
+          sort: history.state?.sort,
         },
         Utils.getTitle(evt.target.dataset.name),
         evt.target.href
@@ -193,4 +196,56 @@ export function setupGoBackToAll(instance) {
       instance.filterCategory("None");
       parentTitle.value = "";
     });
+}
+
+/**
+ * ...
+ * @param {*} instance
+ */
+export function setupReviewLinks(instance) {
+  const navLinks = document.querySelectorAll(`.product-review-link`);
+
+  if (!navLinks) return;
+
+  for (const nav of navLinks) {
+    nav.addEventListener("click", (evt) => {
+      const editorialContent = document.querySelector(".editorial-content");
+      const burger = document.querySelector(".burger");
+      if (editorialContent) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        nav.classList.add("active");
+        location.hash = "product-review";
+        editorialContent.classList.add("tw-hidden");
+        if (burger && burger.classList.contains("menu-open")) {
+          document.querySelector(".burger").click();
+        }
+      }
+    });
+  }
+}
+
+export function toggleProductReviewView() {
+  const editorialContent = document.querySelector(".editorial-content");
+  const navLinks = document.querySelectorAll(`.product-review-link`);
+  if (editorialContent) {
+    editorialContent.classList.add("tw-hidden");
+  }
+  for (const nav of navLinks) {
+    nav.classList.add("active");
+  }
+}
+
+export function toggleCategoryRelatedArticles(category) {
+  const relatedArticles = document.querySelectorAll("[data-show-for-category]");
+
+  // Probably means we are on PNI homepage!
+  if (!relatedArticles) return;
+  [...relatedArticles].forEach((relatedArticle) => {
+    if (category === relatedArticle.dataset.showForCategory) {
+      relatedArticle.classList.remove("tw-hidden");
+    } else {
+      relatedArticle.classList.add("tw-hidden");
+    }
+  });
 }

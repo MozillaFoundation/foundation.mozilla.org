@@ -4,17 +4,17 @@ from networkapi.wagtailpages.models import BlogPage
 
 
 class Command(BaseCommand):
-    help = '''
+    help = """
         Ensures that all blog posts have three explicit related posts,
         rather than relying on the "find related posts for a blog post"
         function every time the blog page is requested by a user.
-    '''
+    """
 
     def handle(self, *args, **options):
         all_posts = BlogPage.objects.all()
         total_posts = all_posts.count()
 
-        print('Total number of posts to update:', total_posts)
+        print("Total number of posts to update:", total_posts)
 
         for i, post in enumerate(all_posts):
             print(
@@ -25,7 +25,7 @@ class Command(BaseCommand):
             post.save_revision()
 
             related_post_count = post.related_posts.all().count()
-            print(f'-  post {i+1} updated to {related_post_count} related posts')
+            print(f"-  post {i+1} updated to {related_post_count} related posts")
 
             if post.live:
                 post.save_revision().publish()

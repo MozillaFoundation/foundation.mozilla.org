@@ -13,6 +13,7 @@ import injectMultipageNav from "../multipage-nav.js";
 import primaryNav from "../primary-nav.js";
 
 import HomepageSlider from "./homepage-c-slider.js";
+import NewsletterBox from "./newsletter-box.js";
 import AnalyticsEvents from "./analytics-events.js";
 import initializeSentry from "../common/sentry-config.js";
 import PNIMobileNav from "./pni-mobile-nav.js";
@@ -41,7 +42,6 @@ let main = {
     this.fetchEnv((envData) => {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
-
       if (env.SENTRY_DSN) {
         // Initialize Sentry error reporting
         initializeSentry(
@@ -67,7 +67,6 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      PNIMobileNav.init();
       this.injectReactComponents();
       this.bindHandlers();
       initializePrimaryNav(networkSiteURL, primaryNav);
@@ -77,7 +76,9 @@ let main = {
       Promise.all(apps).then(() => {
         document.body.classList.add(`react-loaded`);
         this.initPageSpecificScript();
+        PNIMobileNav.init();
         // bind custom analytics only once everything's up and loaded
+        // Analytics events does give errors quite often, do not add JS after this
         AnalyticsEvents.init();
       });
     });
@@ -113,6 +114,7 @@ let main = {
     if (document.querySelector(`body.pni.catalog`)) {
       HomepageSlider.init();
     }
+    NewsletterBox.toggleVisibilityClasses();
   },
 };
 

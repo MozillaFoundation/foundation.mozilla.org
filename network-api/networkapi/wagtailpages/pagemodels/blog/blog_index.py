@@ -1,29 +1,38 @@
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Optional, Union
 
-from django.conf import settings
-from django.db import models
-from django.shortcuts import redirect, get_object_or_404
+from django import http
+from django.core import paginator
 from django.core.exceptions import ObjectDoesNotExist
-
-from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, FieldPanel
-from wagtail.contrib.routable_page.models import route
-from wagtail.core.models import Orderable as WagtailOrderable
-from wagtail_localize.fields import SynchronizedField
-
-from modelcluster.fields import ParentalKey
-from networkapi.wagtailpages.models import Profile
-from networkapi.wagtailpages.utils import (
-    titlecase,
-    get_locale_from_request,
-    get_default_locale,
-    localize_queryset,
+from django.db import models
+from django.forms import CheckboxSelectMultiple
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect
+from django.template import loader
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    InlinePanel,
+    PageChooserPanel,
+    StreamFieldPanel,
 )
+from wagtail.contrib.routable_page.models import route
+from wagtail.core.fields import StreamField
+from wagtail.core.models import Locale
+from wagtail.core.models import Orderable as WagtailOrderable
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from sentry_sdk import capture_exception, push_scope
+from networkapi.wagtailpages.forms import BlogIndexPageForm
+from networkapi.wagtailpages.pagemodels import customblocks
+from networkapi.wagtailpages.pagemodels.profiles import Profile
+from networkapi.wagtailpages.utils import (
+    get_default_locale,
+    get_locale_from_request,
+    localize_queryset,
+    titlecase,
+)
 
 from ..index import IndexPage
 from .blog_topic import BlogPageTopic
-
 
 if TYPE_CHECKING:
     from django.db.models import QuerySet
@@ -33,53 +42,45 @@ if TYPE_CHECKING:
 
 class FeaturedBlogPages(WagtailOrderable, models.Model):
     page = ParentalKey(
-        'wagtailpages.BlogIndexPage',
-        related_name='featured_pages',
+        "wagtailpages.BlogIndexPage",
+        related_name="featured_pages",
     )
 
-    blog = models.ForeignKey(
-        'wagtailpages.BlogPage',
-        on_delete=models.CASCADE,
-        related_name='+'
-    )
+    blog = models.ForeignKey("wagtailpages.BlogPage", on_delete=models.CASCADE, related_name="+")
 
     panels = [
-        PageChooserPanel('blog', 'wagtailpages.BlogPage'),
+        PageChooserPanel("blog", "wagtailpages.BlogPage"),
     ]
 
     class Meta:
-        ordering = ['sort_order']  # not automatically inherited!
+        ordering = ["sort_order"]  # not automatically inherited!
 
     def __str__(self):
-        return self.page.title + '->' + self.blog.title
+        return self.page.title + "->" + self.blog.title
 
 
 class FeaturedVideoPost(WagtailOrderable, models.Model):
     page = ParentalKey(
-        'wagtailpages.BlogIndexPage',
-        related_name='featured_video_post',
+        "wagtailpages.BlogIndexPage",
+        related_name="featured_video_post",
     )
 
-    blog_page = models.ForeignKey(
-        'wagtailpages.BlogPage',
-        on_delete=models.CASCADE,
-        related_name='+'
-    )
+    blog_page = models.ForeignKey("wagtailpages.BlogPage", on_delete=models.CASCADE, related_name="+")
     video_url = models.URLField(
-        help_text='For YouTube: Go to your YouTube video and copy the URL '
-                  'from your browsers navigation bar. '
-                  'If this video is not for our YouTube channel, '
-                  'please host it on Vimeo.'
-                  'For Vimeo: Log into Vimeo using 1Password '
-                  'and upload the desired video. '
-                  'Then select the video and '
-                  'click "Advanced", "Distribution", '
-                  'and "Video File Links". Copy and paste the link here.',
+        help_text="For YouTube: Go to your YouTube video and copy the URL "
+        "from your browsers navigation bar. "
+        "If this video is not for our YouTube channel, "
+        "please host it on Vimeo."
+        "For Vimeo: Log into Vimeo using 1Password "
+        "and upload the desired video. "
+        "Then select the video and "
+        'click "Advanced", "Distribution", '
+        'and "Video File Links". Copy and paste the link here.',
         blank=False,
     )
 
     panels = [
-        PageChooserPanel('blog_page', 'wagtailpages.BlogPage'),
+        PageChooserPanel("blog_page", "wagtailpages.BlogPage"),
         FieldPanel("video_url"),
     ]
 
@@ -93,148 +94,159 @@ class BlogIndexPage(IndexPage):
     with additional logic to explore topics.
     """
 
-    subpage_types = [
-        'BlogPage'
-    ]
+    base_form_class = BlogIndexPageForm
+
+    related_topics = ParentalManyToManyField(
+        BlogPageTopic,
+        help_text="Which topics would you like to feature on the page? " "Please select a max of 7.",
+        blank=True,
+        # Limiting CMS choices to English, as topics get
+        # localized using the {% localized_version %} template tag.
+        limit_choices_to=models.Q(locale__id="1"),
+    )
+
+    callout_box = StreamField(
+        [("callout_box", customblocks.BlogIndexCalloutBoxBlock())],
+        help_text="Callout box that appears after the featured posts section",
+        blank=True,
+        min_num=1,
+        max_num=1,
+    )
+
+    subpage_types = ["BlogPage"]
 
     content_panels = IndexPage.content_panels + [
         InlinePanel(
-            'featured_pages',
-            label='Featured Posts',
-            help_text='Choose two blog pages to feature',
-            min_num=0,
-            max_num=2,
+            "featured_pages",
+            label="Featured",
+            help_text="Choose five blog pages to feature",
+            min_num=5,
+            max_num=5,
         ),
         InlinePanel(
-            'featured_video_post',
-            label='Featured Video Post',
-            help_text='Choose a blog page with video to feature',
+            "featured_video_post",
+            label="Featured Video Post",
+            help_text="Choose a blog page with video to feature",
             min_num=0,
             max_num=1,
-        )
+        ),
+        FieldPanel("related_topics", widget=CheckboxSelectMultiple),
+        StreamFieldPanel("callout_box"),
     ]
 
     translatable_fields = IndexPage.translatable_fields + [
-        SynchronizedField('featured_pages'),
-        SynchronizedField('featured_video_post'),
+        SynchronizedField("featured_pages"),
+        SynchronizedField("featured_video_post"),
+        TranslatableField("callout_box"),
     ]
 
-    template = 'wagtailpages/blog_index_page.html'
+    template = "wagtailpages/blog_index_page.html"
 
-    # superclass override
-    def get_all_entries(self, locale):
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["related_topics"] = self.get_related_topics()
+
+        if self.is_showing_topics_box_in_entry_list():
+            # Offsetting initial entries by one to make room for featured topics box
+            initial_entry_count = self.page_size - 1
+            context["entries"] = context["entries"][0:initial_entry_count]
+
+        return context
+
+    # Superclass override
+    def get_entries(self, context=dict()):
         """
-        Do we need to filter the featured blog entries
-        out, so they don't show up twice?
+        Get list of index entries/child pages.
+
+        We filter the featured blog posts, because they are displayed separately.
         """
-        if hasattr(self, 'filtered'):
-            return super().get_all_entries(locale)
+        entries = super().get_entries(context=context)
 
-        featured = [
-            entry.blog.get_translation(locale).pk for entry in self.featured_pages.all()
-        ]
+        if not hasattr(self, "filtered"):
+            featured = [feature.blog.localized.pk for feature in self.featured_pages.all()]
+            featured.extend([feature.blog_page.localized.pk for feature in self.featured_video_post.all()])
+            entries = entries.exclude(pk__in=featured)
 
-        return super().get_all_entries(locale).exclude(pk__in=featured)
+        return entries
 
     def filter_entries(self, entries, context):
         entries = super().filter_entries(entries, context)
 
-        if context['filtered'] == 'topic':
+        if context["filtered"] == "topic":
             entries = self.filter_entries_for_topic(entries, context)
-            context['total_entries'] = len(entries)
+            context["total_entries"] = len(entries)
 
         return entries
 
     def filter_entries_for_topic(self, entries, context):
-
-        topic = self.filtered.get('topic')
+        topic = self.filtered.get("topic")
 
         # The following code first updates page share metadata when filtered by topic.
         # First, updating metadata that is not localized
         #
         # make sure we bypass "x results for Y"
-        context['no_filter_ui'] = True
+        context["no_filter_ui"] = True
 
         # and that we don't show the primary tag/topic
-        context['hide_classifiers'] = True
+        context["hide_classifiers"] = True
 
         # store the base topic name
-        context['terms'] = [topic.name, ]
+        context["terms"] = [
+            topic.name,
+        ]
 
         # then explicitly set all the metadata that can be localized, making
         # sure to use the localized topic for those fields:
-        locale = get_locale_from_request(context['request'])
+        locale = get_locale_from_request(context["request"])
         try:
             localized_topic = topic.get_translation(locale)
         except ObjectDoesNotExist:
             localized_topic = topic
 
-        context['index_intro'] = localized_topic.intro
-        context['index_title'] = titlecase(f'{localized_topic.name} {self.title}')
+        context["index_intro"] = localized_topic.intro
+        context["index_title"] = titlecase(f"{localized_topic.name} {self.title}")
 
         if localized_topic.title:
-            context['index_title'] = localized_topic.title
+            context["index_title"] = localized_topic.title
 
         # update seo fields
         self.set_seo_fields_from_topic(localized_topic)
 
-        # This code is not efficient, but its purpose is to get us logs
-        # that we can use to figure out what's going wrong more than
-        # being efficient.
+        # This is filtering the existing entries instead of just using the
+        # `localized_topic.blogpage_set.all()` because I am not sure what other
+        # filtering has been applied to the entries at this point. This can probably
+        # be simplyfied in a full refactor of `IndexPage` and its subclasses.
         #
-        # See https://github.com/mozilla/foundation.mozilla.org/issues/6255
-        #
-
-        in_topics = []
-
-        try:
-            for entry in entries.specific():
-                if hasattr(entry, 'topics'):
-                    entry_topics = entry.topics.all()
-                    try:
-                        if topic in entry_topics:
-                            in_topics.append(entry)
-                    except Exception as e:
-                        if settings.SENTRY_ENVIRONMENT is not None:
-                            push_scope().set_extra(
-                                'reason',
-                                f'entry_topics has an iteration problem; {str(entry_topics)}'
-                            )
-                            capture_exception(e)
-
-        except Exception as e:
-            if settings.SENTRY_ENVIRONMENT is not None:
-                push_scope().set_extra('reason', 'entries.specific threw')
-                capture_exception(e)
-
-        entries = in_topics
+        # Attention: Blog pages are associated with topic from the default locale,
+        # rather than with the localized topic. This might have something to do with
+        # localization issues of the ParentalManyToManyField. So the pages need to be
+        # localized, but not the topic.
+        entries = entries.specific().filter(pk__in=topic.blogpage_set.all())
 
         return entries
 
     def set_seo_fields_from_topic(self, topic):
         if topic.title:
-            setattr(self, 'seo_title', topic.title)
+            setattr(self, "seo_title", topic.title)
         elif topic.name:
-            setattr(self, 'seo_title', topic.name)
+            setattr(self, "seo_title", topic.name)
 
         # If description not set, default to topic's "intro" text.
         # If "intro" is not set, use the foundation's default meta description.
         if topic.share_description:
-            setattr(self, 'search_description', topic.share_description)
+            setattr(self, "search_description", topic.share_description)
         elif topic.intro:
-            setattr(self, 'search_description', topic.intro)
+            setattr(self, "search_description", topic.intro)
 
         # If the topic has a search image set, update page metadata.
         if topic.share_image:
-            setattr(self, 'search_image_id', topic.share_image_id)
+            setattr(self, "search_image_id", topic.share_image_id)
 
     # helper function to resolve topic slugs to actual objects
     def get_topic_object_for_slug(self, topic_slug):
         (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
 
-        english_topics = BlogPageTopic.objects.filter(
-            locale_id=DEFAULT_LOCALE_ID
-        )
+        english_topics = BlogPageTopic.objects.filter(locale_id=DEFAULT_LOCALE_ID)
 
         # We can't use .filter for @property fields,
         # so we have to run through all topics =(
@@ -256,12 +268,71 @@ class BlogIndexPage(IndexPage):
         if topic_object is None:
             raise ObjectDoesNotExist
 
-        self.filtered = {
-            'type': 'topic',
-            'topic': topic_object
-        }
+        self.filtered = {"type": "topic", "topic": topic_object}
 
-    @route(r'^topic/(?P<topic>.+)/entries/')
+    def get_related_topics(self):
+        related_topics = self.related_topics.all()
+        return related_topics
+
+    # Helper function to show if entry list is offset by topic box
+    def is_showing_topics_box_in_entry_list(self):
+        if (
+            not hasattr(self, "filtered")
+            and self.get_related_topics().count()
+            and (self.page_size == 12 or self.page_size == 24)
+        ):
+            return True
+        else:
+            return False
+
+    @route("^entries/")
+    def generate_entries_set_html(self, request, *args, **kwargs):
+        """
+        JSON endpoint for getting the next set of (pre-rendered) entries,
+        with additional logic in case the list is offset by the topic box.
+        """
+
+        page = 1
+        if "page" in request.GET:
+            try:
+                page = int(request.GET["page"])
+            except ValueError:
+                pass
+
+        page_size = self.page_size
+        if "page_size" in request.GET:
+            try:
+                page_size = int(request.GET["page_size"])
+            except ValueError:
+                pass
+
+        start = page * page_size
+
+        if self.is_showing_topics_box_in_entry_list():
+            # Account for offset of 1 due to topics box
+            start = start - 1
+
+        end = start + page_size
+        entries = self.get_entries({"request": request})
+
+        has_next = end < len(entries)
+
+        html = loader.render_to_string(
+            "wagtailpages/fragments/entry_cards_item_loop.html",
+            context={
+                "entries": entries[start:end],
+            },
+            request=request,
+        )
+
+        return JsonResponse(
+            {
+                "entries_html": html,
+                "has_next": has_next,
+            }
+        )
+
+    @route(r"^topic/(?P<topic>.+)/entries/")
     def generate_topic_entries_set_html(self, request, topic, *args, **kwargs):
         """
         JSON endpoint for getting a set of (pre-rendered) topic entries
@@ -274,7 +345,7 @@ class BlogIndexPage(IndexPage):
 
         return self.generate_entries_set_html(request, *args, **kwargs)
 
-    @route(r'^topic/(?P<topic>.+)/')
+    @route(r"^topic/(?P<topic>.+)/")
     def entries_by_topic(self, request, topic, *args, **kwargs):
         """
         If this page was called with `/topic/...` as suffix, extract
@@ -289,8 +360,8 @@ class BlogIndexPage(IndexPage):
 
         return IndexPage.serve(self, request, *args, **kwargs)
 
-    @route(r'^authors/$')
-    def blog_author_index(self, request: 'HttpRequest', *args, **kwargs) -> 'HttpResponse':
+    @route(r"^authors/$")
+    def blog_author_index(self, request: "HttpRequest", *args, **kwargs) -> "HttpResponse":
         """If the page is called with /authors/, render a list of Profile
         objects that have been referenced in blog pages.
 
@@ -307,14 +378,14 @@ class BlogIndexPage(IndexPage):
         return self.render(
             request,
             context_overrides={
-                'title': 'Blog authors',
-                'author_profiles': author_profiles
+                "title": "Blog authors",
+                "author_profiles": author_profiles,
             },
-            template="wagtailpages/blog_author_index_page.html"
+            template="wagtailpages/blog_author_index_page.html",
         )
 
-    @route(r'^authors/(?P<profile_slug>.+)/', name='blog-author-detail')
-    def blog_author_detail(self, request: 'HttpRequest', profile_slug: str, *args, **kwargs) -> 'HttpResponse':
+    @route(r"^authors/(?P<profile_slug>.+)/", name="blog-author-detail")
+    def blog_author_detail(self, request: "HttpRequest", profile_slug: str, *args, **kwargs) -> "HttpResponse":
         """If the page is /blog/authors/[profile_slug] is requested, render a template
         showing the blog authors profile data
 
@@ -330,32 +401,79 @@ class BlogIndexPage(IndexPage):
         return self.render(
             request,
             context_overrides={
-                'author': author_profile,
-                'page': self,
+                "author": author_profile,
+                "page": self,
             },
-            template="wagtailpages/blog_author_detail_page.html"
+            template="wagtailpages/blog_author_detail_page.html",
         )
 
-    @route(r'^search/')
-    def search(self, request: 'HttpRequest') -> 'HttpResponse':
+    @route(r"^search/$")
+    def search(self, request: "HttpRequest") -> "HttpResponse":
         """Render search results view."""
 
-        query = request.GET.get('q', '')
+        query = request.GET.get("q", "")
+
+        entries = self.get_search_entries(query=query)
 
         context_overrides = {
-            'index_title': 'Search',
-            'entries': self.get_search_entries(query=query)[:6],
-            'query': query,
+            "index_title": "Search",
+            "entries": entries[: self.page_size],
+            "has_more": entries.count() > self.page_size,
+            "query": query,
         }
 
         return self.render(
             request,
             context_overrides=context_overrides,
-            template='wagtailpages/blog_index_search.html',
+            template="wagtailpages/blog_index_search.html",
         )
 
-    def get_search_entries(self, query: str = '') -> Union['QuerySet', 'DatabaseSearchResults']:
-        entries = self.get_entries().specific()
+    @route(r"^search/entries/$")
+    def search_entries(self, request: "HttpRequest") -> "HttpResponse":
+        query: str = request.GET.get("q", "")
+
+        page_parameter: str = request.GET.get("page", "")
+        if not page_parameter:
+            return http.HttpResponseBadRequest(reason="No page number defined.")
+
+        try:
+            page_number: int = int(page_parameter)
+        except ValueError:
+            return http.HttpResponseBadRequest(reason="Page number is not an integer.")
+
+        entries = self.get_search_entries(query=query)
+
+        entries_paginator = paginator.Paginator(
+            object_list=entries,
+            per_page=self.page_size,
+            allow_empty_first_page=False,
+        )
+        try:
+            # JS is using 0 based page number, but the paginator is using 1 based.
+            entries_page = entries_paginator.page(page_number + 1)
+        except paginator.EmptyPage:
+            return http.HttpResponseNotFound(reason="No entries for this page number.")
+
+        entries_html = loader.render_to_string(
+            "wagtailpages/fragments/blog_search_item_loop.html",
+            context={"entries": entries_page},
+            request=request,
+        )
+
+        return http.JsonResponse(
+            data={
+                "entries_html": entries_html,
+                "has_next": entries_page.has_next(),
+            }
+        )
+
+    def get_search_entries(
+        self,
+        query: str = "",
+        locale: Optional[Locale] = None,
+    ) -> Union["QuerySet", "DatabaseSearchResults"]:
+        locale = locale or Locale.get_active()
+        entries = self.get_all_entries(locale=locale).specific()
         if query:
             entries = entries.search(
                 query,
