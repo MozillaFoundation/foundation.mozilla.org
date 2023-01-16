@@ -6,9 +6,51 @@
   class="publication-hero-container tw-relative tw-bg-gradient-to-b tw-from-gray-60 tw-to-gray-80 {% if size == "small" %} small tw-pt-[7rem] tw-pb-[9rem] {% else %} tw-pt-[9rem] tw-pb-[12rem] {% endif %}"
   >
   {% if page.hero_image %}
-    {% image page.hero_image fill-1400x675 as bg_img %}
     <div class="tw-absolute tw-inset-0">
-      <img class="tw-h-full tw-w-full tw-object-cover" src="{{ bg_img.url }}" alt=""/>
+      <picture
+        >
+        {% comment %}
+          small: "576px",
+          medium: "768px",
+          large: "992px",
+          xlarge: "1200px",
+          "2xl": "1400px",
+        {% endcomment %}
+        {% image page.hero_image width-576 as bg_img_576 %}
+        {% image page.hero_image width-1152 as bg_img_576_2x %}
+        {% image page.hero_image width-768 as bg_img_768 %}
+        {% image page.hero_image width-1536 as bg_img_768_2x %}
+        {% image page.hero_image width-992 as bg_img_992 %}
+        {% image page.hero_image width-1984 as bg_img_992_2x %}
+        {% image page.hero_image width-1200 as bg_img_1200 %}
+        {% image page.hero_image width-2400 as bg_img_1200_2x %}
+        {% image page.hero_image width-1400 as bg_img_1400 %}
+        {% image page.hero_image width-2800 as bg_img_1400_2x %}
+        {% image page.hero_image original as bg_img_original %}
+        <source
+          media="(max-width: 576px)"
+          srcset="{{ bg_img_576.url }}, {{ bg_img_576_2x.url }} 2x">
+        <source
+          media="(max-width: 768px)"
+          srcset="{{ bg_img_768.url }}, {{ bg_img_768_2x.url }} 2x">
+          <source
+            media="(max-width: 992px)"
+            srcset="{{ bg_img_992.url }}, {{ bg_img_992_2x.url }} 2x">
+          <source
+            media="(max-width: 1200px)"
+            srcset="{{ bg_img_1200.url }}, {{ bg_img_1200_2x.url }} 2x">
+          <source
+            media="(max-width: 1400px)"
+            srcset="{{ bg_img_1400.url }}, {{ bg_img_1400_2x.url }} 2x">
+          <source
+            media="(min-width: 1401px)"
+            srcset="{{ bg_img_original.url }}">
+        <img
+          class="tw-h-full tw-w-full tw-object-cover"
+          src="{{ bg_img_1200.url }}"
+          alt=""
+          >
+      </picture>
       <div class="tw-absolute tw-inset-0 tw-bg-black tw-opacity-[0.6]" aria-hidden="true"></div>
     </div>
   {% endif %}
