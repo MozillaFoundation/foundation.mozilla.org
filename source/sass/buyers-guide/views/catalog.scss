@@ -280,14 +280,10 @@ body {
     &.search-active {
       .creep-o-meter-information {
         position: fixed;
+        padding-left: 2em;
         top: initial;
-        left: 2em;
         right: 2em;
         bottom: 2em;
-
-        @media (min-width: $bp-sm) {
-          left: initial;
-        }
       }
     }
   }
