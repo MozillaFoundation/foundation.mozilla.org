@@ -27,7 +27,7 @@ class PublicationPageFactory(PageFactory):
     secondary_subtitle = Faker("text", max_nb_chars=250)
     publication_date = Faker("date_object")
     hero_image = SubFactory(ImageFactory)
-    publication_file = DocumentFactory()
+    publication_file = SubFactory(DocumentFactory)
     intro_notes = Faker("sentence")
     notes = Faker("sentence")
 
