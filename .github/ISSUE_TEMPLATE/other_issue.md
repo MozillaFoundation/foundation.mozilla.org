@@ -2,7 +2,7 @@
 name: Other issue
 about: For when none of the other categories cover it
 title: ''
-labels: ''
+labels: needs grooming
 assignees: ''
 
 ---
