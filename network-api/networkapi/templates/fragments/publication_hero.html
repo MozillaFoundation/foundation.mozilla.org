@@ -3,13 +3,16 @@
 {% get_page_authors page as authors %}
 
 <div
-  class="publication-hero-container tw-bg-gradient-to-b tw-from-gray-60 tw-to-gray-80 {% if size == "small" %} small tw-pt-[7rem] tw-pb-[9rem] {% else %} tw-pt-[9rem] tw-pb-[12rem] {% endif %}"
+  class="publication-hero-container tw-relative tw-bg-gradient-to-b tw-from-gray-60 tw-to-gray-80 {% if size == "small" %} small tw-pt-[7rem] tw-pb-[9rem] {% else %} tw-pt-[9rem] tw-pb-[12rem] {% endif %}"
+  >
   {% if page.hero_image %}
     {% image page.hero_image fill-1400x675 as bg_img %}
-    style='background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("{{ bg_img.url }}")'
+    <div class="tw-absolute tw-inset-0">
+      <img class="tw-h-full tw-w-full tw-object-cover" src="{{ bg_img.url }}" alt=""/>
+      <div class="tw-absolute tw-inset-0 tw-bg-black tw-opacity-[0.6]" aria-hidden="true"></div>
+    </div>
   {% endif %}
-  >
-  <div class="container">
+  <div class="tw-relative container">
     <div class="row">
       <div class="col-lg-8 offset-lg-2 tw-dark">
         {% if is_publication_article or is_publication_page %}
