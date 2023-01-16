@@ -52,7 +52,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     """
 
     subpage_types: list = []
-    template = "wagtailpages/article_page.html"
+    template = "pages/article_page.html"
 
     body = StreamField(article_fields)
 

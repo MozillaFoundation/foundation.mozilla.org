@@ -22,9 +22,9 @@
 </noscript>
 
 {% if page.hero_layout != "static" %}
-  {% include "./fragments/custom_hero.html" with page=page download_file=page.article_file is_publication_article=page.is_publication_article %}
+  {% include "wagtailpages/fragments/custom_hero.html" with page=page download_file=page.article_file is_publication_article=page.is_publication_article %}
 {% else %}
-  {% include "./fragments/publication_hero.html" with size="small" download_file=page.article_file is_publication_article=page.is_publication_article %}
+  {% include "wagtailpages/fragments/publication_hero.html" with size="small" download_file=page.article_file is_publication_article=page.is_publication_article %}
 {% endif %}
   {% blocktrans with title=page.title asvar share_text_translated %}{{title}} by @mozilla{% endblocktrans %}
 
@@ -33,7 +33,7 @@
       <div class="offset-sm-1 col-sm-10 col-12">
         {% if page.show_side_share_buttons %}
          <div class="article-summary-share-links d-lg-block d-none {% if page.hero_layout == "image_left" or page.hero_layout == "image_right" %} tw-mt-7 {%  endif %} {% if get_titles %} with-top-offset {% endif %}">
-            {% include "./fragments/share-buttons.html" with page=page version="mini" layout="stacked" share_text=share_text_translated %}
+            {% include "wagtailpages/fragments/share-buttons.html" with page=page version="mini" layout="stacked" share_text=share_text_translated %}
           </div>
         {% endif %}
 
@@ -67,7 +67,7 @@
     <div class="row pt-5">
       <div class="col-sm-8 offset-sm-2 pt-4">
         <div class="pb-4">
-          {% include "./fragments/share-buttons.html" with page=page share_text=share_text_translated %}
+          {% include "wagtailpages/fragments/share-buttons.html" with page=page share_text=share_text_translated %}
         </div>
       </div>
     </div>
@@ -82,6 +82,6 @@
 
 {% block footer_block %}
   {% if page.next_page == None or page.is_publication_article == False %}
-    {% include "../partials/footer.html" %}
+    {% include "partials/footer.html" %}
   {% endif %}
 {% endblock %}
