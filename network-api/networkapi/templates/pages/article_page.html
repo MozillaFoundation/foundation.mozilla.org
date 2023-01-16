@@ -11,28 +11,28 @@
 
 {% block content %}
 
-<div class="tw-bg-white tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-screen tw-z-[1999] tw-grid tw-place-items-center page-enter-transition"></div>
+  <div class="tw-bg-white tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-screen tw-z-[1999] tw-grid tw-place-items-center page-enter-transition"></div>
 
-<noscript>
+  <noscript>
     <style type="text/css">
-        .page-enter-transition.tw-bg-white.tw-absolute {
-            display: none !important;
-        }
+.page-enter-transition.tw-bg-white.tw-absolute {
+  display: none !important;
+}
     </style>
-</noscript>
+  </noscript>
 
-{% if page.hero_layout != "static" %}
-  {% include "wagtailpages/fragments/custom_hero.html" with page=page download_file=page.article_file is_publication_article=page.is_publication_article %}
-{% else %}
-  {% include "wagtailpages/fragments/publication_hero.html" with size="small" download_file=page.article_file is_publication_article=page.is_publication_article %}
-{% endif %}
+  {% if page.hero_layout != "static" %}
+    {% include "wagtailpages/fragments/custom_hero.html" with page=page download_file=page.article_file is_publication_article=page.is_publication_article %}
+  {% else %}
+    {% include "wagtailpages/fragments/publication_hero.html" with size="small" download_file=page.article_file is_publication_article=page.is_publication_article %}
+  {% endif %}
   {% blocktrans with title=page.title asvar share_text_translated %}{{title}} by @mozilla{% endblocktrans %}
 
   <div class="container {% if page.hero_layout == "image_left" or page.hero_layout == "image_right"  %} medium:-tw-mt-4 large:-tw-mt-7 {% endif %} {% if not get_titles %} mt-5 {% endif %}">
     <div class="row">
       <div class="offset-sm-1 col-sm-10 col-12">
         {% if page.show_side_share_buttons %}
-         <div class="article-summary-share-links d-lg-block d-none {% if page.hero_layout == "image_left" or page.hero_layout == "image_right" %} tw-mt-7 {%  endif %} {% if get_titles %} with-top-offset {% endif %}">
+          <div class="article-summary-share-links d-lg-block d-none {% if page.hero_layout == "image_left" or page.hero_layout == "image_right" %} tw-mt-7 {%  endif %} {% if get_titles %} with-top-offset {% endif %}">
             {% include "wagtailpages/fragments/share-buttons.html" with page=page version="mini" layout="stacked" share_text=share_text_translated %}
           </div>
         {% endif %}
@@ -54,7 +54,7 @@
 
   <div class="cms article-page-content article-blocks">
     {% for block in page.body %}
-        {% include_block block with parent_page=page page_type="article" %}
+      {% include_block block with parent_page=page page_type="article" %}
     {% endfor %}
   </div>
 
@@ -63,15 +63,15 @@
   {% endif %}
 
   {% if page.next_page == None or page.is_publication_article == False %}
-  <div class="container my-5">
-    <div class="row pt-5">
-      <div class="col-sm-8 offset-sm-2 pt-4">
-        <div class="pb-4">
-          {% include "wagtailpages/fragments/share-buttons.html" with page=page share_text=share_text_translated %}
+    <div class="container my-5">
+      <div class="row pt-5">
+        <div class="col-sm-8 offset-sm-2 pt-4">
+          <div class="pb-4">
+            {% include "wagtailpages/fragments/share-buttons.html" with page=page share_text=share_text_translated %}
+          </div>
         </div>
       </div>
     </div>
-  </div>
   {% endif %}
 
   <!-- If this is a child of a publication, we want to render the next buttons -->
