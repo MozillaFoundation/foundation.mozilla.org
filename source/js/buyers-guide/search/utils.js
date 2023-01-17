@@ -266,7 +266,8 @@ export class Utils {
    */
   static toggleCtaForCategory(category) {
     const categoryPageCta = document.getElementById("category-featured-cta");
-    const categoriesWithShowCtaEnabled = categoryPageCta.dataset.showForCategories;
+    const categoriesWithShowCtaEnabled =
+      categoryPageCta.dataset.showForCategories;
 
     if (categoriesWithShowCtaEnabled.includes(category)) {
       categoryPageCta.classList.remove("tw-hidden");
