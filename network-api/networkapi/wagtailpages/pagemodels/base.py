@@ -545,6 +545,7 @@ class FocusArea(TranslatableMixin, models.Model):
         return self.name
 
     class Meta(TranslatableMixin.Meta):
+        ordering = ["name"]
         verbose_name = "Area of focus"
         verbose_name_plural = "Areas of focus"
 
