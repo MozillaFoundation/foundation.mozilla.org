@@ -94,9 +94,9 @@ export default () => {
     document
       .querySelector("#buyersguide-category-link-container")
       .classList.remove(
-        "tw-w-4/5",
+        "tw-w-full",
+        "large:tw-w-4/5",
         "tw-overflow-x-auto",
-        "tw-no-scrollbar",
         "tw-mr-4"
       );
 
