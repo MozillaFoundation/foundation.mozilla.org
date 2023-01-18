@@ -36,6 +36,9 @@ class PulseFilter(ClusterableModel):
     def __str__(self):
         return self.name
 
+    class Meta(ClusterableModel.Meta):
+        ordering = ["name"]
+
 
 class PulseFilterOption(models.Model):
     pulse_filter = ParentalKey(

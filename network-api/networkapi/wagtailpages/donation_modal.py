@@ -57,6 +57,7 @@ class DonationModal(TranslatableMixin, models.Model):
         return self.name
 
     class Meta(TranslatableMixin.Meta):
+        ordering = ["name"]
         verbose_name_plural = "Donation CTA"
 
 

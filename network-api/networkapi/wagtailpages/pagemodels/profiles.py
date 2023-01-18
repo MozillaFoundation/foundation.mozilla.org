@@ -58,3 +58,6 @@ class Profile(TranslatableMixin, models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(f"{self.name}-{str(self.id)}")
         super(Profile, self).save(*args, **kwargs)
+
+    class Meta(TranslatableMixin.Meta):
+        ordering = ["name"]
