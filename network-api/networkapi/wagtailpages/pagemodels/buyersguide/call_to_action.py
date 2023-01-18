@@ -66,6 +66,7 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, LocalizedSnippet
     ]
 
     class Meta(TranslatableMixin.Meta):
+        ordering = ["title"]
         verbose_name = "Buyers Guide Call To Action"
         verbose_name_plural = "Buyers Guide Call To Actions"
 
