@@ -1,7 +1,7 @@
 import http
 
-from networkapi.wagtailpages.pagemodels.publications import article
 from networkapi.wagtailpages.factory import publication as publication_factory
+from networkapi.wagtailpages.pagemodels.publications import article
 from networkapi.wagtailpages.tests import base as test_base
 
 
