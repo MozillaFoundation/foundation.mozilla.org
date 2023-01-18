@@ -32,7 +32,6 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
-from wagtail_airtable.mixins import AirtableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
@@ -432,7 +431,7 @@ class ProductUpdates(TranslatableMixin, Orderable):
         ordering = ["sort_order"]
 
 
-class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
+class ProductPage(FoundationMetadataPageMixin, Page):
     """
     ProductPage is the superclass that GeneralProductPages inherits from.
 
@@ -610,58 +609,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Time Researched ": "time_researched",
         }
         return mappings
-
-    def get_export_fields(self):
-        """
-        This should be a dictionary of the fields to send to Airtable.
-        Keys are the Column Names in Airtable. Values are the Wagtail values we want to send.
-        """
-        return {
-            "Title": self.title,
-            "Slug": self.slug,
-            "Wagtail Page ID": self.pk if hasattr(self, "pk") else 0,
-            "Last Updated": str(self.last_published_at) if self.last_published_at else str(timezone.now().isoformat()),
-            "Status": self.get_status_for_airtable(),
-            "Show privacy ding": self.privacy_ding,
-            "Has adult content": self.adult_content,
-            "Uses wifi": self.uses_wifi,
-            "Uses Bluetooth": self.uses_bluetooth,
-            "Review date": str(self.review_date),
-            "Company": self.company,
-            "Blurb": self.blurb,
-            "Product link": self.product_url if self.product_url else "",
-            "Worst case": self.worst_case,
-            "Signup requires email": self.signup_requires_email,
-            "Signup requires phone number": self.signup_requires_phone,
-            "Signup requires 3rd party account": self.signup_requires_third_party_account,
-            "Signup explanation": self.signup_requirement_explanation,
-            "How it collects data": self.how_does_it_use_data_collected,
-            "Data collection privacy ding": self.data_collection_policy_is_bad,
-            "User friendly privacy policy": self.user_friendly_privacy_policy,
-            "User friendly privacy policy help text": self.user_friendly_privacy_policy_helptext,
-            "Meets MSS": self.meets_minimum_security_standards,
-            "Meets MSS privacy policy ding": self.show_ding_for_minimum_security_standards,
-            "Uses encryption": self.uses_encryption,
-            "Encryption help text": self.uses_encryption_helptext,
-            "Has security updates": self.security_updates,
-            "Security updates help text": self.security_updates_helptext,
-            "Strong password": self.strong_password,
-            "Strong password help text": self.strong_password_helptext,
-            "Manages security vulnerabilities": self.manage_vulnerabilities,
-            "Manages security help text": self.manage_vulnerabilities_helptext,
-            "Has privacy policy": self.privacy_policy,
-            "Privacy policy help text": self.privacy_policy_helptext,
-            "Mozilla Says": self.mozilla_says,
-            "Time Researched": self.time_researched,
-            "Tips to protect yourself": self.tips_to_protect_yourself,
-        }
-
-    def get_status_for_airtable(self):
-        if self.live:
-            if self.has_unpublished_changes:
-                return "Live + Draft"
-            return "Live"
-        return "Draft"
 
     @property
     def original_product(self):
@@ -1196,42 +1143,6 @@ class GeneralProductPage(ProductPage):
         }
         # Return the merged fields
         return {**generic_product_import_fields, **general_product_mappings}
-
-    def get_export_fields(self):
-        """
-        This should be a dictionary of the fields to send to Airtable.
-        Keys are the Column Names in Airtable. Values are the Wagtail values we want to send.
-        """
-        generic_product_data = super().get_export_fields()
-        general_product_data = {
-            "Has camera device": self.camera_device,
-            "Has camera app": self.camera_app,
-            "Has microphone device": self.microphone_device,
-            "Has microphone app": self.microphone_app,
-            "Has location device": self.location_device,
-            "Has location app": self.location_app,
-            "Personal data collected": self.personal_data_collected,
-            "Biometric data collected": self.biometric_data_collected,
-            "Social data collected": self.social_data_collected,
-            "How you can control your data": self.how_can_you_control_your_data,
-            "Company track record": self.company_track_record,
-            "Show company track record privacy ding": self.track_record_is_bad,
-            "Child safety blurb": self.child_safety_blurb,
-            "Offline capable": self.offline_capable,
-            "Offline use": self.offline_use_description,
-            "Uses AI": self.uses_ai,
-            "AI is transparent": self.ai_is_transparent,
-            "AI is transparent help text": self.ai_is_transparent_helptext,
-            "AI help text": self.ai_helptext,
-            "AI is untrustworthy": self.ai_is_untrustworthy,
-            "AI is untrustworthy ding": self.ai_is_untrustworthy_ding,
-            "AI What can it do": self.ai_what_can_it_do,
-            "AI can user control": self.ai_can_user_control,
-            "AI can user control help text": self.ai_can_user_control_helptext,
-        }
-        # Merge the two dicts together.
-        data = {**generic_product_data, **general_product_data}
-        return data
 
     # administrative panels
     content_panels = ProductPage.content_panels.copy()

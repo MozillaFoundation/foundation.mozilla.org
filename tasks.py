@@ -203,7 +203,7 @@ def npm(ctx, command):
 def npm_install(ctx):
     """Install Node dependencies"""
     with ctx.cd(ROOT):
-        ctx.run("docker-compose run --rm watch-static-files npm install")
+        ctx.run("docker-compose run --rm watch-static-files npm ci")
 
 
 @task(aliases=["copy-stage-db"])
@@ -300,7 +300,13 @@ def lint(ctx):
 @task
 def lint_html(ctx):
     """Run HTML linting."""
-    djlint_check(ctx)
+    # Skipping djlint format checking because it has consistency issues and issues with blocktrans.
+    # This should change when formatting is moved to a version using and AST.
+    # See also: https://github.com/Riverside-Healthcare/djLint/issues/493
+    # djlint_check(ctx)
+    #
+    # Use djhtml indent checking until format checking with djlint becomes possible.
+    djhtml_check(ctx)
     djlint_lint(ctx)
 
 
@@ -337,7 +343,13 @@ def format(ctx):
 @task
 def format_html(ctx):
     """Run HTML formatting."""
-    djlint_format(ctx)
+    # Skipping djlint formatting because it has consistency issues and issues with blocktrans.
+    # This should change when formatting is moved to a version using and AST.
+    # See also: https://github.com/Riverside-Healthcare/djLint/issues/493
+    # djlint_format(ctx)
+    #
+    # Indent HTML until full formatting with djlint becomes possible
+    djhtml_format(ctx)
 
 
 @task
@@ -371,6 +383,25 @@ def black(ctx, args=None):
 def black_check(ctx):
     """Run black code formatter in check mode."""
     black(ctx, ". --check")
+
+
+@task(help={"args": "Override the arguments passed to djhtml."})
+def djhtml(ctx, args=None):
+    """Run djhtml code indenter."""
+    args = args or "-h"
+    pyrun(ctx, command=f"djhtml {args}")
+
+
+@task
+def djhtml_check(ctx):
+    """Run djhtml code indenter in check mode."""
+    djhtml(ctx, args="-c maintenance/ network-api/")
+
+
+@task
+def djhtml_format(ctx):
+    """Run djhtml code indenter in formatting mode."""
+    djhtml(ctx, args="-i maintenance/ network-api/")
 
 
 @task(help={"args": "Override the arguments passed to djlint."})

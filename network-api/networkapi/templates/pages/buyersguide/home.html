@@ -13,7 +13,7 @@
 
     {% with hero_featured_article=page.get_hero_featured_article %}
       {% if hero_featured_article %}
-        <div class="tw-container">
+        <div class="tw-container tw-mb-7">
           {% include "fragments/buyersguide/featured_article.html" with featured_article=hero_featured_article supporting_articles=page.get_hero_supporting_articles supporting_articles_heading=page.hero_supporting_articles_heading %}
         </div>
       {% endif %}
@@ -47,6 +47,12 @@
             {% endif %}
           {% endwith %}
 
+          {% comment %}
+            We want to be able to use the CTA and have it show up on other pages, except for the homepage.
+            Displaying the CTA on the homepage should not happen until the redesign has been implemented.
+            See also: https://github.com/mozilla/foundation.mozilla.org/issues/9758.
+          {% endcomment %}
+          {% comment %}
           {% with cta=featured_cta %}
             {% if cta %}
               <div class="{{row_item_classes}}">
@@ -54,6 +60,7 @@
               </div>
             {% endif %}
           {% endwith %}
+          {% endcomment %}
 
         {% endwith %}
       </div>
@@ -64,14 +71,13 @@
 {% endblock hero %}
 
 {% block extra_product_box_list_items %}
-  <div 
+  <div
     id="product-grid-newsletter-signup"
     class="
-    tw-col-span-full medium:tw-col-span-2
-    tw-col-end-5
-    tw-order-1
-    tw-flex
+    tw-col-[span_2_/_-1]
+    tw-row-start-5 medium:tw-row-start-4 large:tw-row-start-3
     tw-items-stretch
+    tw-hidden
   ">
     {% include "fragments/buyersguide/pni_newsletter_box.html" %}
   </div>

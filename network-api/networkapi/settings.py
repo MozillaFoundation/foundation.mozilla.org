@@ -24,10 +24,6 @@ root = app - 1
 # we rely on it being explicitly set (no default values) so that
 # we error out first.
 env = environ.Env(
-    AIRTABLE_API_KEY=(str, ""),
-    AIRTABLE_BASE_KEY=(str, ""),
-    AIRTABLE_BASE_URL=(str, ""),
-    AIRTABLE_ENABLED=(bool, False),
     ALLOWED_HOSTS=(list, []),
     APP_ENVIRONMENT=(str, ""),
     APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION=(str, ""),
@@ -256,8 +252,6 @@ INSTALLED_APPS = list(
             "networkapi.utility",
             # possibly still used?
             "networkapi.highlights",
-            # wagtail to airtable integration
-            "wagtail_airtable",
             # wagtail-specific app prefixed so that it can be localised
             "networkapi.wagtailpages",
             "networkapi.mozfest",
@@ -708,28 +702,6 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = env("DATA_UPLOAD_MAX_NUMBER_FIELDS")
 
 # Web Monetization: https://webmonetization.org/
 WEB_MONETIZATION_POINTER = env("WEB_MONETIZATION_POINTER")
-
-
-AIRTABLE_API_KEY = env("AIRTABLE_API_KEY")
-WAGTAIL_AIRTABLE_ENABLED = env("AIRTABLE_ENABLED")
-GENERAL_PNI_AIRTABLE_SETTINGS = {
-    "AIRTABLE_BASE_KEY": env("AIRTABLE_BASE_KEY"),
-    "AIRTABLE_TABLE_NAME": "General PNI Products",
-    "AIRTABLE_UNIQUE_IDENTIFIER": {
-        # 'Wagtail Page ID' is the column name in Airtable, 'pk' field name in Wagtail.
-        "Wagtail Page ID": "pk",
-    },
-    "AIRTABLE_IMPORT_ALLOWED": True,
-    "AIRTABLE_BASE_URL": env("AIRTABLE_BASE_URL"),
-    "AIRTABLE_SERIALIZER": "networkapi.wagtailpages.pagemodels.serializers.GeneralProductPageSerializer",
-    # Can be a callable or location to a function or an int representing the parent page ID to nest child pages under.
-    "PARENT_PAGE_ID": "networkapi.wagtailpages.pagemodels.products.get_pni_home_page",
-    "AUTO_PUBLISH_NEW_PAGES": False,
-}
-
-AIRTABLE_IMPORT_SETTINGS = {
-    "wagtailpages.GeneralProductPage": GENERAL_PNI_AIRTABLE_SETTINGS,
-}
 
 if env("SCOUT_KEY"):
     SCOUT_MONITOR = True
