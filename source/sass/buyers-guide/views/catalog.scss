@@ -221,7 +221,6 @@ body {
     }
 
     .creep-o-meter-information {
-      white-space: nowrap;
       opacity: 1;
       transition: opacity 0.2s ease;
 
@@ -231,31 +230,22 @@ body {
     }
 
     .speech-bubble-container {
-      display: inline-block;
-      margin: 0;
-      margin-right: 16px;
-      vertical-align: middle;
-      white-space: nowrap;
-
       .speech-bubble {
-        position: relative;
-        display: inline-block;
         border-radius: 1em;
         padding: 0.5em 1em;
         color: $gray-80;
 
-        .hook {
+        &::after {
+          content: "";
+          background-image: url(../_images/buyers-guide/icon-bubble-hook.svg);
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-position: right 60%;
           position: absolute;
-          right: -13px;
-          top: 20%;
+          top: 0;
+          right: -14px;
           width: 14px;
-          height: 60%;
-        }
-
-        .text {
-          display: inline-block;
-          position: relative;
-          font-size: 16px;
+          height: 100%;
         }
       }
     }
@@ -274,12 +264,12 @@ body {
         height: $face-dimension;
       }
 
+      flex: 0 0 $face-dimension;
       background-image: url(../_images/buyers-guide/faces/sprite-resized-64-colors.png);
       background-position: 0 0;
       background-repeat: no-repeat;
       background-size: 100%;
       position: relative;
-      vertical-align: middle;
 
       @media (min-width: $breakpoint) {
         top: unset;
@@ -290,8 +280,8 @@ body {
     &.search-active {
       .creep-o-meter-information {
         position: fixed;
+        padding-left: 2em;
         top: initial;
-        left: initial;
         right: 2em;
         bottom: 2em;
       }
