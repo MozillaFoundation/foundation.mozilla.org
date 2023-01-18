@@ -14,10 +14,10 @@
       {% endblock %}
 
       {% block slides %}
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper tw-items-stretch">
           {% for current_event in self.current_events %}
             {% image current_event.value.image fill-445x185 as img %}
-            <div class="swiper-slide">
+            <div class="swiper-slide tw-h-auto">
               {% include 'fragments/event_card.html' with title=current_event.value.title category_url=current_event.value.subheading_link.0.value.link_url category_title=current_event.value.subheading_link.0.value.label buttons=current_event.value.buttons image=img.url text=current_event.value.body %}
             </div>
           {% endfor %}
