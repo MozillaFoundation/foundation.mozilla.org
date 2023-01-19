@@ -7,7 +7,6 @@ from wagtail import blocks, fields, images
 from wagtail import models as wagtail_models
 from wagtail.admin import edit_handlers as panels
 from wagtail.images import edit_handlers as image_panels
-from wagtail.snippets import edit_handlers as snippet_panels
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
@@ -182,7 +181,7 @@ class BuyersGuideArticlePageAuthorProfileRelation(
         blank=False,
     )
 
-    panels = [snippet_panels.FieldPanel("author_profile")]
+    panels = [panels.FieldPanel("author_profile")]
 
     def __str__(self):
         return f"{self.page.title} -> {self.author_profile.name}"
@@ -208,7 +207,7 @@ class BuyersGuideArticlePageContentCategoryRelation(
         blank=False,
     )
 
-    panels = [snippet_panels.FieldPanel("content_category")]
+    panels = [panels.FieldPanel("content_category")]
 
     def __str__(self):
         return f"{self.page.title} -> {self.content_category.title}"
