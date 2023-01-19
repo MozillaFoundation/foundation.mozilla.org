@@ -231,6 +231,7 @@ export class SearchFilter {
     toggleProductReviewView();
     toggleCategoryRelatedArticles(category);
     Utils.showProductsForCategory(category);
+    Utils.toggleCtaForCategory(category);
     this.categoryTitle.value = category;
     Utils.sortProductCards();
     Utils.moveCreepyFace();
