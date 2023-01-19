@@ -66,5 +66,6 @@ class BlogPageTopic(TranslatableMixin, models.Model):
         return self.name
 
     class Meta(TranslatableMixin.Meta):
+        ordering = ["name"]
         verbose_name = "Blog Page Topic"
         verbose_name_plural = "Blog Page Topics"

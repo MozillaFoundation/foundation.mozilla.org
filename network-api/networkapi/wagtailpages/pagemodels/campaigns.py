@@ -108,7 +108,8 @@ class Callpower(TranslatableMixin, CTA):
     ]
 
     class Meta(TranslatableMixin.Meta):
-        verbose_name = "callpower snippet"
+        ordering = ["name"]
+        verbose_name = "Callpower"
 
 
 @register_snippet
@@ -131,7 +132,8 @@ class Signup(TranslatableMixin, CTA):
     ]
 
     class Meta(TranslatableMixin.Meta):
-        verbose_name = "signup snippet"
+        ordering = ["name"]
+        verbose_name = "Signup"
 
 
 class OpportunityPage(MiniSiteNameSpace):
