@@ -5,7 +5,7 @@ from django.utils.translation.trans_real import (
     parse_accept_lang_header as django_parse_accept_lang_header,
 )
 from django.utils.translation.trans_real import to_language as django_to_language
-from wagtail.core.models import Collection
+from wagtail.models import Collection
 from wagtail.images.models import Image
 
 from networkapi.wagtailpages import (

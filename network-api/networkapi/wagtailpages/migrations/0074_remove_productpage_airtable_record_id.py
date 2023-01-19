@@ -3,6 +3,12 @@
 from django.db import migrations
 
 
+def remove_airtable_record_id(apps, schema_editor):
+    migrations.RemoveField(
+        model_name="productpage",
+        name="airtable_record_id",
+    ),
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -10,8 +16,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name="productpage",
-            name="airtable_record_id",
-        ),
+        migrations.RunPython(remove_airtable_record_id)
     ]

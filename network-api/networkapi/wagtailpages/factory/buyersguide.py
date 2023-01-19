@@ -4,7 +4,7 @@ from random import choice, randint, random, randrange, shuffle
 from django.utils import text as text_utils
 from factory import Faker, LazyFunction, SubFactory, post_generation
 from factory.django import DjangoModelFactory
-from wagtail.core.models import Locale
+from wagtail.models import Locale
 from wagtail.images.models import Image
 from wagtail_factories import PageFactory
 
