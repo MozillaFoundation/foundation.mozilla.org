@@ -1,27 +1,26 @@
-{% load i18n wagtailimages_tags homepage_tags%}
+{% load i18n homepage_tags %}
 
 {% get_page_authors page as authors %}
 
-
-{% if page.hero_image %}
-  {% image page.hero_image fill-1400x675 as bg_img %}
-  <div
-    class="d-flex align-items-center publication-hero-container{% if size %} small{% endif %}"
-    style='background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("{{ bg_img.url }}")'>
-{% else %}
-  <div
-    class="d-flex align-items-center publication-hero-container{% if size %} small{% endif %}">
-{% endif %}
-  <div class="container">
+<div
+  class="publication-hero-container tw-relative tw-bg-gradient-to-b tw-from-gray-60 tw-to-gray-80 {% if size == "small" %} small tw-pt-[7rem] tw-pb-[9rem] {% else %} tw-pt-[9rem] tw-pb-[12rem] {% endif %}"
+  >
+  {% if page.hero_image %}
+    <div class="tw-absolute tw-inset-0">
+      {% include "fragments/responsive_screen_wide_image.html" with image_object=page.hero_image %}
+      <div class="tw-absolute tw-inset-0 tw-bg-black tw-opacity-[0.6]" aria-hidden="true"></div>
+    </div>
+  {% endif %}
+  <div class="tw-relative container">
     <div class="row">
       <div class="col-lg-8 offset-lg-2 tw-dark">
         {% if is_publication_article or is_publication_page %}
           <div class="mb-2 tw-body-small publication-breadcrumb">
             {% for entry in self.breadcrumb_list %}
-            {% with parent_page=entry.localized %}
-              <a href="{{ parent_page.url }}" class="tw-body-small">{{ parent_page.title }}</a>
-              <span class='tw-body-small'> › </span>
-            {% endwith %}
+              {% with parent_page=entry.localized %}
+                <a href="{{ parent_page.url }}" class="tw-body-small">{{ parent_page.title }}</a>
+                <span class='tw-body-small'> › </span>
+              {% endwith %}
             {% endfor %}
           </div>
         {% endif %}
@@ -52,20 +51,20 @@
         {% if page.authors.count %}
           <div class="mt-2 tw-dark">
             <p>
-            {% trans "Written by" %}
-            {% with authors_length=page.authors.count %}
-              {% for orderable in page.authors.all %}
-                <span>
-                  {% if authors_length > 1 and forloop.last %}
-                    {% trans "and" %}
-                  {% endif %}
-                  {{ orderable.author.name }}{% if not forloop.last and forloop.counter != authors_length|add:-1%},{% endif %}
-                </span>
-              {% endfor %}
-              {% if page.additional_author_copy %}
-                {{ page.additional_author_copy }}
-              {% endif %}
-            {% endwith %}
+              {% trans "Written by" %}
+              {% with authors_length=page.authors.count %}
+                {% for orderable in page.authors.all %}
+                  <span>
+                    {% if authors_length > 1 and forloop.last %}
+                      {% trans "and" %}
+                    {% endif %}
+                    {{ orderable.author.name }}{% if not forloop.last and forloop.counter != authors_length|add:-1%},{% endif %}
+                  </span>
+                {% endfor %}
+                {% if page.additional_author_copy %}
+                  {{ page.additional_author_copy }}
+                {% endif %}
+              {% endwith %}
             </p>
           </div>
         {% endif %}
