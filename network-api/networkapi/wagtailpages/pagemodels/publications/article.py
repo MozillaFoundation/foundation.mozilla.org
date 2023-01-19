@@ -52,6 +52,8 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     """
 
     subpage_types: list = []
+    template = "pages/article_page.html"
+
     body = StreamField(article_fields)
 
     toc_thumbnail_image = models.ForeignKey(
