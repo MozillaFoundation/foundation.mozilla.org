@@ -6,9 +6,8 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0072_remove_productpage_airtable_record_id'),
-        ('wagtailpages', '0075_order_snippets_alphabetically'),
+        ("wagtailpages", "0072_remove_productpage_airtable_record_id"),
+        ("wagtailpages", "0075_order_snippets_alphabetically"),
     ]
 
-    operations = [
-    ]
+    operations = []

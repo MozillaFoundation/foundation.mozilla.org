@@ -9,12 +9,11 @@ def remove_airtable_record_id(apps, schema_editor):
         name="airtable_record_id",
     ),
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
         ("wagtailpages", "0073_add_accordion_to_primary_page"),
     ]
 
-    operations = [
-        migrations.RunPython(remove_airtable_record_id)
-    ]
+    operations = [migrations.RunPython(remove_airtable_record_id)]
