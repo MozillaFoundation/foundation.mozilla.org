@@ -67,6 +67,7 @@ django==3.2.16
     #   wagtail-footnotes
     #   wagtail-localize
     #   wagtail-localize-git
+    #   wagtailmedia
 django-admin-sortable==2.3
     # via -r requirements.in
 django-cors-headers==3.13.0
@@ -253,7 +254,7 @@ wagtail-localize-git==0.13.0
     # via -r requirements.in
 wagtail-metadata==3.5.0
     # via -r requirements.in
-wagtailmedia==0.9.0
+wagtailmedia==0.12.0
     # via -r requirements.in
 webencodings==0.5.1
     # via html5lib
