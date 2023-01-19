@@ -262,6 +262,22 @@ export class Utils {
 
   /**
    * ...
+   * @param {*} category
+   */
+  static toggleCtaForCategory(category) {
+    const categoryPageCta = document.getElementById("category-featured-cta");
+    const categoriesWithShowCtaEnabled =
+      categoryPageCta.dataset.showForCategories;
+
+    if (categoriesWithShowCtaEnabled.includes(category)) {
+      categoryPageCta.classList.remove("tw-hidden");
+    } else {
+      categoryPageCta.classList.add("tw-hidden");
+    }
+  }
+
+  /**
+   * ...
    * @param {*} product
    * @param {*} text
    * @returns

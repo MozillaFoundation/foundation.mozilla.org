@@ -15,6 +15,9 @@ class ResearchRegion(wagtail_models.TranslatableMixin, models.Model):
     def __str__(self):
         return self.name
 
+    class Meta(wagtail_models.TranslatableMixin.Meta):
+        ordering = ["name"]
+
 
 @snippet_models.register_snippet
 class ResearchTopic(wagtail_models.TranslatableMixin, models.Model):
@@ -28,3 +31,6 @@ class ResearchTopic(wagtail_models.TranslatableMixin, models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta(wagtail_models.TranslatableMixin.Meta):
+        ordering = ["name"]

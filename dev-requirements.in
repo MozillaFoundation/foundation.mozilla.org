@@ -2,6 +2,7 @@
 black
 coveralls
 django-debug-toolbar
+djhtml
 djlint
 flake8
 isort

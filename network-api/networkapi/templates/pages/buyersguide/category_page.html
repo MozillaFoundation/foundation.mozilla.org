@@ -9,9 +9,10 @@
       We render the featured CTA only once into the markup if one exists.
       The categories only have a toggle to define if the featured CTA should be shown when the page is filtered for the category.
       The "current category" is the one the page is first loaded with. We show the CTA immediately if that category would, otherwise the CTA is initially hidden.
-      JS needs to handle the show and hide of the CTA when the active category is changed with JS. The data attribute contains the information for which categories the CTA should be shown.
+      JS is used to handle the show and hide of the CTA when the active category is changed. The data attribute contains the information for which categories the CTA should be shown.
     {% endcomment %}
     <div
+      id="category-featured-cta"
       class="tw-col-span-2 tw-flex tw-flex-row tw-w-full {% if not current_category.show_cta %} tw-hidden {% endif %}"
       data-show-for-categories="{% for category in categories %}{% if category.show_cta %}{{ category.name }}, {% endif %}{% endfor %}"
       >

@@ -227,7 +227,7 @@ The `docker-compose.yml` file describes the 3 services that the project needs to
 #### Useful commands using Django with Docker
 
 To open a terminal session inside the docker container (`docker container ls` to see active docker container ids):
-`docker exec it {docker-container-id} bash`
+`docker exec -it {docker-container-id} bash`
 Activate the python environment:
 `source dockerpythonvenv/bin/activate`
 
