@@ -5,10 +5,10 @@
       tw-list-none
       tw-relative
       tw-cursor-pointer
-      tw-m-0 tw-p-0 tw-ml-2
+      tw-m-0 tw-p-0 tw-ml-1
       tw-flex
       tw-items-center
-      tw-w-[250px]
+      tw-w-max
       "
   >
     <li
@@ -29,9 +29,9 @@
     </li>
 
     
-    <li aria-expanded="false" role="list" class="tw-absolute tw-top-0 tw-hidden tw-left-0 pni-creepiness__list-container tw-w-[250px] tw-z-50 tw-bg-white tw-border tw-border-gray-20">
+    <li aria-expanded="false" role="list" class="tw-absolute tw-top-0 tw-hidden tw-right-0 pni-creepiness__list-container tw-w-max tw-z-50 tw-bg-white tw-border tw-border-gray-20">
       <ul class="pni-creepiness__list tw-w-full tw-list-none tw-m-0 tw-p-0">
-        <li class="pni-creepiness__list-item tw-whitespace-nowrap tw-p-3 tw-text-sm tw-font-bold tw-group tw-font-sans tw-flex tw-items-center tw-overflow-ellipsis" tabindex="0" id="option-1" data-value="ASCENDING">
+        <li class="pni-creepiness__list-item tw-whitespace-nowrap tw-p-3 tw-text-sm tw-font-bold tw-group tw-font-sans tw-flex tw-items-center tw-overflow-ellipsis tw-w-max" tabindex="0" id="option-1" data-value="ASCENDING">
           <div class="tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-gray-40 group-hover:tw-text-black tw-font-sans tw-pointer-events-none">
             <img src="{% static "_images/buyers-guide/cry-face.svg" %}" class="tw-mr-2" />
             {% trans "Creepiness: Least – Most" %}
@@ -41,13 +41,13 @@
             <path d="M1 1L5.02504 5.02504L9.05007 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </li>
-        <li class="pni-creepiness__list-item tw-whitespace-nowrap tw-p-3 tw-text-sm tw-font-bold tw-group tw-font-sans tw-flex tw-items-center tw-overflow-ellipsis" tabindex="0" id="option-2" data-value="DESCENDING">
+        <li class="pni-creepiness__list-item tw-whitespace-nowrap tw-p-3 tw-text-sm tw-font-bold tw-group tw-font-sans tw-flex tw-items-center tw-overflow-ellipsis tw-w-max" tabindex="0" id="option-2" data-value="DESCENDING">
           <div class="tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-gray-40 group-hover:tw-text-black tw-font-sans tw-pointer-events-none">
             <img src="{% static "_images/buyers-guide/shock-face.svg" %}" class="tw-mr-2" />
             {% trans "Creepiness: Most – Least" %}
           </div>
         </li>
-        <li class="pni-creepiness__list-item tw-whitespace-nowrap tw-p-3 tw-text-sm tw-font-bold tw-group tw-font-sans tw-flex tw-items-center tw-overflow-ellipsis" tabindex="0" id="option-3" data-value="ALPHA">
+        <li class="pni-creepiness__list-item tw-whitespace-nowrap tw-p-3 tw-text-sm tw-font-bold tw-group tw-font-sans tw-flex tw-items-center tw-overflow-ellipsis tw-w-max" tabindex="0" id="option-3" data-value="ALPHA">
           <div class="tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-gray-40 group-hover:tw-text-black tw-font-sans tw-pointer-events-none mr-auto">
             <img src="{% static "_images/buyers-guide/alpha-emoji.png" %}" class="tw-mr-2" />
             {% trans "Alphabetical" %}
