@@ -35,5 +35,5 @@ wagtail-metadata
 whitenoise
 psycopg2-binary
 sentry-sdk
-git+https://github.com/kevinhowbrook/wagtail-footnotes-moz-foundation.git@localized-footnotes
+git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
 scout-apm
