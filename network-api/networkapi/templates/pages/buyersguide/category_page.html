@@ -4,75 +4,75 @@
 {% block body_id %}{{ category.slug }}{% endblock %}
 
 {% block extra_product_box_list_items %}
-  {% if featured_cta %}
-    {% comment %}
+    {% if featured_cta %}
+        {% comment %}
       We render the featured CTA only once into the markup if one exists.
       The categories only have a toggle to define if the featured CTA should be shown when the page is filtered for the category.
       The "current category" is the one the page is first loaded with. We show the CTA immediately if that category would, otherwise the CTA is initially hidden.
       JS is used to handle the show and hide of the CTA when the active category is changed. The data attribute contains the information for which categories the CTA should be shown.
     {% endcomment %}
-    <div
-      id="category-featured-cta"
-      class="tw-col-span-2 tw-flex tw-flex-row tw-w-full {% if not current_category.show_cta %} tw-hidden {% endif %}"
-      data-show-for-categories="{% for category in categories %}{% if category.show_cta %}{{ category.name }}, {% endif %}{% endfor %}"
-      >
-      {% with cta=featured_cta %}
-        {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url large=True %}
-      {% endwith %}
-    </div>
-  {% endif %}
+        <div
+            id="category-featured-cta"
+            class="tw-col-span-2 tw-flex tw-flex-row tw-w-full {% if not current_category.show_cta %} tw-hidden {% endif %}"
+            data-show-for-categories="{% for category in categories %}{% if category.show_cta %}{{ category.name }}, {% endif %}{% endfor %}"
+        >
+            {% with cta=featured_cta %}
+                {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url large=True %}
+            {% endwith %}
+        </div>
+    {% endif %}
 
-  {% for category in categories  %}
-    {% comment %}
+    {% for category in categories  %}
+        {% comment %}
       Each category has it's own set of related articles.
       So, for each category we render the full element into the markup.
       If the category is also the "current_category" (the one that is active when the page is first loaded) we display the related articles immediately, otherwise the element is initially hidden.
     {% endcomment %}
-    {% with primary_related_articles=category.get_primary_related_articles  %}
-      {% if primary_related_articles %}
-        <div
-          class="
-          tw-col-span-2
-          tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3
-          tw-row-start-3 large:tw-row-start-2
-          tw-flex
-          tw-flex-row
-          tw-w-full
-          tw-p-6
-          {% if category != current_category %} tw-hidden {% endif %}
-          "
-          data-show-for-category="{{ category.name }}"
-          >
-          {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles index_page=page.get_editorial_content_index %}
-        </div>
-      {% endif %}
-    {% endwith %}
-  {% endfor %}
+        {% with primary_related_articles=category.get_primary_related_articles  %}
+            {% if primary_related_articles %}
+                <div
+                    class="
+                        tw-col-span-2
+                        tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3
+                        tw-row-start-3 large:tw-row-start-2
+                        tw-flex
+                        tw-flex-row
+                        tw-w-full
+                        tw-p-6
+                        {% if category != current_category %} tw-hidden {% endif %}
+                    "
+                    data-show-for-category="{{ category.name }}"
+                >
+                    {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles index_page=page.get_editorial_content_index %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    {% endfor %}
 {% endblock extra_product_box_list_items %}
 
 {% block guts %}
 
-  {{ block.super }}
+    {{ block.super }}
 
-  {% for category in categories  %}
-    {% with secondary_related_articles=category.get_secondary_related_articles  %}
-      {% if secondary_related_articles %}
-        <div
-          id="category-secondary-related-articles"
-          data-show-for-category="{{ category.name }}"
-          class="
-            {% if category != current_category %}
-              tw-hidden
+    {% for category in categories  %}
+        {% with secondary_related_articles=category.get_secondary_related_articles  %}
+            {% if secondary_related_articles %}
+                <div
+                    id="category-secondary-related-articles"
+                    data-show-for-category="{{ category.name }}"
+                    class="
+                        {% if category != current_category %}
+                            tw-hidden
+                        {% endif %}
+                        tw-container
+                        tw-mt-[4rem]
+                        tw-mb-[120px]
+                    "
+                >
+                    {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=page.get_editorial_content_index use_wide_above="medium" %}
+                </div>
             {% endif %}
-            tw-container
-            tw-mt-[4rem]
-            tw-mb-[120px]
-          "
-        >
-          {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=page.get_editorial_content_index use_wide_above="medium" %}
-        </div>
-      {% endif %}
-    {% endwith %}
-  {% endfor %}
+        {% endwith %}
+    {% endfor %}
 {% endblock guts %}
 

@@ -8,7 +8,7 @@
                 <div class="tw-mr-2">
                     <h2 class="tw-mb-0 tw-font-zilla tw-text-[40px] tw-leading-[48px] tw-w-max">{% trans "Ask Jen" %}</h2>
                     <div class="tw-max-w-[6rem]">
-                      {% include "./wavy_line.html" %}
+                        {% include "./wavy_line.html" %}
                     </div>
                 </div>
                 <img src="{% static "_images/buyers-guide/ask_jen.png" %}" class="tw-ml-1" />
@@ -35,9 +35,9 @@
             <div class="tw-col-start-2 tw-line-clamp-5 large:tw-line-clamp-3 tw-text-2xl large:tw-text-xl">{{ featured_advice_article.get_meta_description }}</div>
 
             <div class="tw-col-start-2">
-              {% pageurl featured_advice_article as link_href %}
-              {% trans "Read full answer" as link_text %}
-              {% include "./arrow_link.html" with link_href=link_href link_text=link_text extra_classes="tw-text-xl" %}
+                {% pageurl featured_advice_article as link_href %}
+                {% trans "Read full answer" as link_text %}
+                {% include "./arrow_link.html" with link_href=link_href link_text=link_text extra_classes="tw-text-xl" %}
             </div>
         </div>
         <img src="{% static "_images/buyers-guide/emoji-eyes.png" %}" class="tw-absolute tw-bottom-0 tw-right-5 tw-hidden large:tw-block" />

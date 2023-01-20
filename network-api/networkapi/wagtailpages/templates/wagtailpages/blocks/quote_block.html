@@ -2,15 +2,15 @@
 {% load wagtailcore_tags %}
 
 {% block block_content %}
-  <div class="tw-my-2">
-    {% for quote in value.quotes %}
-    {% comment %} Next task for this component is to handle multiple quotes. For now, let's use just the first {% endcomment %}
-    {% if forloop.counter is 1 %}
-    <div class="feature-quote">
-      {{ quote.quote | richtext }}
-      <p class="tw-h6-heading">{{quote.attribution}}</p>
+    <div class="tw-my-2">
+        {% for quote in value.quotes %}
+            {% comment %} Next task for this component is to handle multiple quotes. For now, let's use just the first {% endcomment %}
+            {% if forloop.counter is 1 %}
+                <div class="feature-quote">
+                    {{ quote.quote | richtext }}
+                    <p class="tw-h6-heading">{{quote.attribution}}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
-    {% endif %}
-    {% endfor %}
-  </div>
 {% endblock %}

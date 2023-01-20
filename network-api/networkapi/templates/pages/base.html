@@ -4,128 +4,128 @@
 
 <!DOCTYPE html>
 <html lang="{{ lang_code }}">
-  <head>
-    <meta charset="utf-8">
-    <title>
-      {% block page_title %}
-        {% environment_prefix %}        
-        {% trans "Mozilla Foundation" %} - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}
-      {% endblock %}
-    </title>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            {% block page_title %}
+                {% environment_prefix %}
+                {% trans "Mozilla Foundation" %} - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}
+            {% endblock %}
+        </title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% block web_monetization %}
-    <meta name="monetization" content="$ilp.uphold.com/aKpM9kwnGBy4">
-    {% endblock %}
-
-    {% block social_metadata %}
-      <meta property='og:type' content='website'>
-      <meta property='og:locale' content='{{ lang_code|to_opengraph_locale }}'>
-      <meta property='wagtail:language' content='{{ lang_code }}'>
-    {% endblock %}
-
-    {% block rss_metadata %}{% endblock %}
-
-    {% block wagtail_metadata %}
-      {% meta_tags %}
-    {% endblock %}
-
-    {% block ga_identifier %}
-      <meta name="google-site-verification" content="D7k-r3fHm-XfJ9E7T1uZ5aqHJG2mx-0uUZFeBUDN2lY">
-      <meta name="ga-identifier" content="UA-87658599-6">
-      <meta name="gtm-identifier" content="GTM-MD3XGZ4">
-      <script nonce="{{request.csp_nonce}}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-MD3XGZ4');</script>
-    {% endblock %}
-
-    {% block fundraiseup_script %}
-      <script nonce="{{ request.csp_nonce }}">(function(w,d,s,n,a){if(!w[n]){var l='call,catch,on,once,set,then,track'
-      .split(','),i,o=function(n){return'function'==typeof n?o.l.push([arguments])&&o
-      :function(){return o.l.push([n,arguments])&&o}},t=d.getElementsByTagName(s)[0],
-      j=d.createElement(s);j.async=!0;j.src='https://cdn.fundraiseup.com/widget/'+a;
-      t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=4;o.h=w.location.href;o.l=[];
-      for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
-      })(window,document,'script','FundraiseUp','ADCYPWMX');</script>
-    {% endblock %}
-    
-    {% block commento_meta %}{% endblock %}
-
-    {% block stylesheets %}
-      <link rel="stylesheet" href="{% static "_css/main.compiled.css" %}">
-      {% if debug %}<link rel="stylesheet" href="{% static "_css/tailwind.compiled.css" %}">{% endif %}
-
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,800,900,400i">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,500,600,700,300i,400i,600i">
-    {% endblock %}
-
-    {% block extended_head %}{% endblock %}
-
-    {% block icons %}
-      {% include "fragments/favicons.html" %}
-    {% endblock %}
-
-    {% block hreflang %}
-      {% include "fragments/canonical_url.html" %}
-    {% endblock %}
-
-    {% block org_schema%}{% endblock %}
-
-    {% block additional_head_elements %}{% endblock %}
-  </head>
-  <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
-    {% if user.is_authenticated %}
-      {% wagtailuserbar 'bottom-left' %}
-    {% endif %}
-
-    {% if page.live == False %}
-    <div id="wagtail-draft-warning">
-      This is a draft page, and is only visible to users who are logged in to the CMS admin.
-    </div>
-    {% endif %}
-
-    {% block donate_banner %}
-      {% if settings.wagtailpages.FeatureFlags.activate_donate_banner %}
-        {% include "partials/banner.html" %}
-      {% endif %}
-    {% endblock %}
-
-    {% block body_wrapped %}
-    <div class="wrapper">
-      <div class="sticky-top d-print-none">
-        {% block primary_nav %}
-          {% include "partials/primary_nav.html" with background="simple-background" %}
+        {% block web_monetization %}
+            <meta name="monetization" content="$ilp.uphold.com/aKpM9kwnGBy4">
         {% endblock %}
-      </div>
 
-      {% block header_wrapped %}
-        <header role="banner">
-          {% block hero_guts %}{% endblock %}
-        </header>
-      {% endblock header_wrapped %}
+        {% block social_metadata %}
+            <meta property='og:type' content='website'>
+            <meta property='og:locale' content='{{ lang_code|to_opengraph_locale }}'>
+            <meta property='wagtail:language' content='{{ lang_code }}'>
+        {% endblock %}
 
-      {% block content_wrapped %}
-        <main role="main">
-          {% block content %}{% endblock %}
-        </main>
-      {% endblock content_wrapped %}
+        {% block rss_metadata %}{% endblock %}
 
-      {% block prefooter %}{% endblock %}
+        {% block wagtail_metadata %}
+            {% meta_tags %}
+        {% endblock %}
 
-      {% block footer_block %}
-      {% include "partials/footer.html" %}
-      {% endblock %}
-    </div>
-    {% endblock %}
+        {% block ga_identifier %}
+            <meta name="google-site-verification" content="D7k-r3fHm-XfJ9E7T1uZ5aqHJG2mx-0uUZFeBUDN2lY">
+            <meta name="ga-identifier" content="UA-87658599-6">
+            <meta name="gtm-identifier" content="GTM-MD3XGZ4">
+            <script nonce="{{request.csp_nonce}}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MD3XGZ4');</script>
+        {% endblock %}
 
-    {% block script_bundle %}
-      <script src="{% url "javascript-catalog" %}"></script>
-      <script src="{% static "_js/main.compiled.js" %}"></script>
-    {% endblock %}
+        {% block fundraiseup_script %}
+            <script nonce="{{ request.csp_nonce }}">(function(w,d,s,n,a){if(!w[n]){var l='call,catch,on,once,set,then,track'
+                    .split(','),i,o=function(n){return'function'==typeof n?o.l.push([arguments])&&o
+                    :function(){return o.l.push([n,arguments])&&o}},t=d.getElementsByTagName(s)[0],
+                j=d.createElement(s);j.async=!0;j.src='https://cdn.fundraiseup.com/widget/'+a;
+                t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=4;o.h=w.location.href;o.l=[];
+                for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
+            })(window,document,'script','FundraiseUp','ADCYPWMX');</script>
+        {% endblock %}
 
-    {% block extra_scripts %}{% endblock %}
-  </body>
+        {% block commento_meta %}{% endblock %}
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{% static "_css/main.compiled.css" %}">
+            {% if debug %}<link rel="stylesheet" href="{% static "_css/tailwind.compiled.css" %}">{% endif %}
+
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,800,900,400i">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,500,600,700,300i,400i,600i">
+        {% endblock %}
+
+        {% block extended_head %}{% endblock %}
+
+        {% block icons %}
+            {% include "fragments/favicons.html" %}
+        {% endblock %}
+
+        {% block hreflang %}
+            {% include "fragments/canonical_url.html" %}
+        {% endblock %}
+
+        {% block org_schema%}{% endblock %}
+
+        {% block additional_head_elements %}{% endblock %}
+    </head>
+    <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
+        {% if user.is_authenticated %}
+            {% wagtailuserbar 'bottom-left' %}
+        {% endif %}
+
+        {% if page.live == False %}
+            <div id="wagtail-draft-warning">
+                This is a draft page, and is only visible to users who are logged in to the CMS admin.
+            </div>
+        {% endif %}
+
+        {% block donate_banner %}
+            {% if settings.wagtailpages.FeatureFlags.activate_donate_banner %}
+                {% include "partials/banner.html" %}
+            {% endif %}
+        {% endblock %}
+
+        {% block body_wrapped %}
+            <div class="wrapper">
+                <div class="sticky-top d-print-none">
+                    {% block primary_nav %}
+                        {% include "partials/primary_nav.html" with background="simple-background" %}
+                    {% endblock %}
+                </div>
+
+                {% block header_wrapped %}
+                    <header role="banner">
+                        {% block hero_guts %}{% endblock %}
+                    </header>
+                {% endblock header_wrapped %}
+
+                {% block content_wrapped %}
+                    <main role="main">
+                        {% block content %}{% endblock %}
+                    </main>
+                {% endblock content_wrapped %}
+
+                {% block prefooter %}{% endblock %}
+
+                {% block footer_block %}
+                    {% include "partials/footer.html" %}
+                {% endblock %}
+            </div>
+        {% endblock %}
+
+        {% block script_bundle %}
+            <script src="{% url "javascript-catalog" %}"></script>
+            <script src="{% static "_js/main.compiled.js" %}"></script>
+        {% endblock %}
+
+        {% block extra_scripts %}{% endblock %}
+    </body>
 </html>
