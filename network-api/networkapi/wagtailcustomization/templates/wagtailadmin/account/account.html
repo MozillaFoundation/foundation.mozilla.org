@@ -11,25 +11,25 @@
         <ul class="listing">
 
             {% if request.user.is_superuser %}
-            <li class="row row-flush">
-                <div class="col6">
-                    <strong>{% trans "You are a system administrator!" %}</strong>
-                </div>
-                <div class="col6">
-                    {% trans "Wield this power with care..." %}
-                </div>
-            </li>
+                <li class="row row-flush">
+                    <div class="col6">
+                        <strong>{% trans "You are a system administrator!" %}</strong>
+                    </div>
+                    <div class="col6">
+                        {% trans "Wield this power with care..." %}
+                    </div>
+                </li>
             {% endif %}
 
             {% if request.user.groups.all.count > 0 %}
-            <li class="row row-flush">
-                <div class="col6">
-                    <strong>{% trans "You are part of the following user groups:" %}</strong>
-                </div>
-                <div class="col6">
-                    {% for group in request.user.groups.all %}{{ group.name }} {% endfor %}
-                </div>
-            </li>
+                <li class="row row-flush">
+                    <div class="col6">
+                        <strong>{% trans "You are part of the following user groups:" %}</strong>
+                    </div>
+                    <div class="col6">
+                        {% for group in request.user.groups.all %}{{ group.name }} {% endfor %}
+                    </div>
+                </li>
             {% endif %}
 
             <li class="row row-flush">
