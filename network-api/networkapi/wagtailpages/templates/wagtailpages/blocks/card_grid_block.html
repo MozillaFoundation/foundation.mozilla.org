@@ -13,6 +13,7 @@
                 Because of the card layout, the image size is not increasing consistently with the device size.
                 The image sizes are based on the layout on a banner page with wide layout.
                 The designed image aspect ratio is 16:9.
+
                 Screen sizes:
                   small: "576px"
                   medium: "768px"
@@ -24,12 +25,17 @@
                 Using min-media queries, we need to list the breakpoints in decending order, otherwise larger screens will always use the first listed (because that min-width query would be fulfilled).
               {% endcomment %}
               {% image card.image fill-512x288 as img_small %}
+              {% image card.image fill-1024x576 as img_small_2x %}
               {% image card.image fill-336x189 as img_medium %}
+              {% image card.image fill-672x378 as img_medium_2x %}
               {% image card.image fill-448x252 as img_large %}
+              {% image card.image fill-896x504 as img_large_2x %}
               {% image card.image fill-592x333 as img_xlarge %}
-              <source media="(min-width: 1200px)" srcset="{{ img_xlarge.url }}" />
-              <source media="(min-width: 992px)" srcset="{{ img_large.url }}" />
-              <source media="(min-width: 768px)" srcset="{{ img_medium.url }}" />
+              {% image card.image fill-1184x666 as img_xlarge_2x %}
+              <source media="(min-width: 1200px)" srcset="{{ img_xlarge.url }}, {{ img_xlarge_2x.url }} 2x" />
+              <source media="(min-width: 992px)" srcset="{{ img_large.url }}, {{ img_large_2x.url }} 2x" />
+              <source media="(min-width: 768px)" srcset="{{ img_medium.url }}, {{ img_medium_2x.url }} 2x" />
+              <source media="(max-width: 767px)" srcset="{{ img_small.url }}, {{ img_small_2x.url }} 2x" />
               <img class="tw-w-full" src="{{ img_small.url }}" alt="{{ img_small.alt_text }}" />
             </picture>
 
