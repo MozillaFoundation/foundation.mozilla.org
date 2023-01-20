@@ -11,19 +11,6 @@
 }
 
 .publication-hero-container {
-  padding-top: 137px;
-  padding-bottom: 184px;
-  background-size: cover;
-  background-image: linear-gradient(
-    transparentize($black, 0.4),
-    transparentize($black, 0.25)
-  );
-
-  &.small {
-    padding-top: 105px;
-    padding-bottom: 140px;
-  }
-
   .publication-breadcrumb.tw-body-small a {
     font-size: 16px;
     color: $lightest-blue;

@@ -44,6 +44,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     """
 
     subpage_types = ["ArticlePage", "PublicationPage"]
+    template = "pages/publication_page.html"
 
     toc_thumbnail_image = models.ForeignKey(
         "wagtailimages.Image",

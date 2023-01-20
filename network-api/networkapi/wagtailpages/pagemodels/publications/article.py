@@ -46,6 +46,8 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     subpage_types: list = []
     body = StreamField(article_fields, use_json_field=True)
 
+    template = "pages/article_page.html"
+
     toc_thumbnail_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
