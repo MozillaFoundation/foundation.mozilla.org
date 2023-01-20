@@ -2,8 +2,8 @@
 {% load i18n mofo_common %}
 
 {% block page_title %}
-  {% environment_prefix %}
-  {% trans "Page Not Found" %}
+    {% environment_prefix %}
+    {% trans "Page Not Found" %}
 {% endblock %}
 
 {% block web_monetization %}{% endblock %}
@@ -13,9 +13,9 @@
 {% block body_id %}404{% endblock%}
 
 {% block content %}
-{% include "partials/404.html" %}
+    {% include "partials/404.html" %}
 {% endblock %}
 
 {% block footer_block %}
-  {% include "partials/footer.html" with exclude_language_switcher=True %}
+    {% include "partials/footer.html" with exclude_language_switcher=True %}
 {% endblock %}

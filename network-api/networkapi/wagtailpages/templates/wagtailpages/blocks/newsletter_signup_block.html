@@ -4,18 +4,18 @@
 
 {% block block_content %}
 
-<div class="-tw-ml-1 tw-mt-3 tw-mb-7 tw-py-5 tw-px-5 tw-rounded-lg tw-popout medium:tw-ml-0 medium:tw-px-7 medium:tw-pb-7">
-    <div
-      class="join-us"
-      data-form-position="callout-box"
-      data-form-style="pop"
-      data-layout="2-column"
-      data-signup-id="{{ self.signup.id | unlocalize }}"
-      data-cta-header="{{ self.signup.header | escape }}"
-      data-cta-description="{{ self.signup.description | escape }}"
-      data-newsletter="{{ self.signup.newsletter }}"
-      data-ask-name="{{self.signup.ask_name}}">
-    >
+    <div class="-tw-ml-1 tw-mt-3 tw-mb-7 tw-py-5 tw-px-5 tw-rounded-lg tw-popout medium:tw-ml-0 medium:tw-px-7 medium:tw-pb-7">
+        <div
+            class="join-us"
+            data-form-position="callout-box"
+            data-form-style="pop"
+            data-layout="2-column"
+            data-signup-id="{{ self.signup.id | unlocalize }}"
+            data-cta-header="{{ self.signup.header | escape }}"
+            data-cta-description="{{ self.signup.description | escape }}"
+            data-newsletter="{{ self.signup.newsletter }}"
+            data-ask-name="{{self.signup.ask_name}}">
+            >
+        </div>
     </div>
-</div>
 {% endblock %}
