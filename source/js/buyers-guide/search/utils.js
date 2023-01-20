@@ -176,43 +176,36 @@ export class Utils {
   /**
    * Scroll Animation used solely for the 'All Products' section
    */
-  static toggleScrollAnimation(initialLoad = false) {
-    ScrollTrigger.clearScrollMemory();
-    ScrollTrigger.refresh(true);
+  static toggleScrollAnimation() {
     gsap.set("figure.product-box.d-flex", { opacity: 0, y: 100 });
 
-    if (initialLoad) {
-      gsap.set("figure.product-box.d-flex:nth-child(-n+8)", {
-        opacity: 1,
-        y: 0,
-      });
-    }
+    gsap.set("figure.product-box.d-flex:nth-child(-n+8)", {
+      opacity: 1,
+      y: 0,
+    });
 
     // group products stagger animation based on mobile breakpoint
     const responsiveBatch =
       window.innerWidth > 991 ? 8 : window.innerWidth > 767 ? 6 : 4;
 
-    ScrollTrigger.batch(
-      initialLoad
-        ? "figure.product-box.d-flex:nth-child(n+8)"
-        : "figure.product-box.d-flex",
-      {
-        batchMax: responsiveBatch, // maximum batch size (targets)
-        onEnter: (batch) =>
-          gsap.to(batch, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.1,
-            overwrite: true,
-          }),
-      }
-    );
+    ScrollTrigger.batch("figure.product-box.d-flex:nth-child(n+8)", {
+      batchMax: responsiveBatch, // maximum batch size (targets)
+      id: "scroll-products",
+      onEnter: (batch) =>
+        gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          overwrite: true,
+        }),
+    });
   }
 
   /**
    * Animation used for category selections
    */
   static toggleCategoryAnimation(initialLoad = false) {
+    ScrollTrigger.getById("scroll-products")?.kill(true);
     if (document.querySelectorAll("figure.product-box.d-flex")) {
       gsap.set("figure.product-box.d-flex", { opacity: 0, y: 100 });
     }
@@ -252,12 +245,7 @@ export class Utils {
         product.classList.remove(`d-flex`);
       }
     });
-
-    if (category === "None") {
-      Utils.toggleScrollAnimation();
-    } else {
-      Utils.toggleCategoryAnimation();
-    }
+    Utils.toggleCategoryAnimation();
   }
 
   /**
@@ -266,6 +254,7 @@ export class Utils {
    */
   static toggleCtaForCategory(category) {
     const categoryPageCta = document.getElementById("category-featured-cta");
+    if (!categoryPageCta) return;
     const categoriesWithShowCtaEnabled =
       categoryPageCta.dataset.showForCategories;
 
