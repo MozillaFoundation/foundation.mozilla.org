@@ -2,21 +2,21 @@
 {% load wagtailcore_tags %}
 
 {% block block_row_classes %}
-tw-mx-0
+    tw-mx-0
 {% endblock %}
 
 {% block main_block_class %}
-streamfield-content
+    streamfield-content
 {% endblock %}
 
 {% block block_content %}
-<video controls>
-  {% for source in value.sources %}
-  <source
-    {% for attr_key, attr_value in source.items %}
-    {{ attr_key }}="{{ attr_value }}"
-    {% endfor %}
-  >
-  {% endfor %}
-</video>
+    <video controls>
+        {% for source in value.sources %}
+            <source
+                {% for attr_key, attr_value in source.items %}
+                    {{ attr_key }}="{{ attr_value }}"
+                {% endfor %}
+            >
+        {% endfor %}
+    </video>
 {% endblock %}

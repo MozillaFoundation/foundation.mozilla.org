@@ -6,32 +6,32 @@ The iframe_block.html is used on Article pages and Blog pages.
 {% endcomment %}
 
 {% block block_container_classes %}
-   {% if value.iframe_width == "full_width" %} full-width {% endif %}
+    {% if value.iframe_width == "full_width" %} full-width {% endif %}
 {% endblock %}
 
 {% block block_row_classes %}
-tw-mx-0
+    tw-mx-0
 {% endblock %}
 
 {% block main_block_class %}
-streamfield-content
-{% if value.iframe_width == "full_width" %} full-width
-{% elif value.iframe_width == "wide" %} wide
-{% endif %}
+    streamfield-content
+    {% if value.iframe_width == "full_width" %} full-width
+    {% elif value.iframe_width == "wide" %} wide
+    {% endif %}
 {% endblock %}
 
 {% block block_content %}
-<div class="tw-my-2">
-  <div class="embed-responsive embed-responsive-16by9" {% if value.height %}style="height: {{ value.height|unlocalize }}px;"
-    {% endif %}>
-    <iframe src="{{ value.url }}" class="embed-responsive-item" {% if value.disable_scroll %}scrolling="no" style="overflow: hidden;"{% endif %}></iframe>
-  </div>
-  {% if value.caption %}
-  <p class="tw-body-small tw-mt-2">
-    {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
-      {{ value.caption }}
-      {% if value.captionURL %}</a>{% endif %}
-  </p>
-  {% endif %}
-</div>
+    <div class="tw-my-2">
+        <div class="embed-responsive embed-responsive-16by9" {% if value.height %}style="height: {{ value.height|unlocalize }}px;"
+        {% endif %}>
+            <iframe src="{{ value.url }}" class="embed-responsive-item" {% if value.disable_scroll %}scrolling="no" style="overflow: hidden;"{% endif %}></iframe>
+        </div>
+        {% if value.caption %}
+            <p class="tw-body-small tw-mt-2">
+                {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
+                {{ value.caption }}
+                {% if value.captionURL %}</a>{% endif %}
+            </p>
+        {% endif %}
+    </div>
 {% endblock %}
