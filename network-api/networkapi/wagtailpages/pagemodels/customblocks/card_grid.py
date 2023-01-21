@@ -28,4 +28,4 @@ class CardGridBlock(blocks.StructBlock):
     class Meta:
 
         icon = "placeholder"
-        template = "wagtailpages/blocks/card_grid_block.html"
+        template = "fragments/blocks/card_grid_block.html"
