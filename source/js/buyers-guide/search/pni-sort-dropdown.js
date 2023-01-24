@@ -95,8 +95,14 @@ export class PNISortDropdown {
   }
 
   closeList() {
-    this.listContainer.classList.add("tw-hidden");
+    this.listContainer.classList.add(
+      "tw-invisible",
+      "tw-select-none",
+      "tw-pointer-events-none"
+    );
     this.listContainer.setAttribute("aria-expanded", false);
+    // Reduces the width of the div to the size of its contents.
+    this.dropdown.style.width = ``;
   }
 
   toggleListVisibility(e) {
@@ -108,11 +114,22 @@ export class PNISortDropdown {
     }
 
     if (e.type === "click" || openDropDown) {
-      this.listContainer.classList.remove("tw-hidden");
+      // Expands the width of the div so the "Sort By" label does not get covered by the absolute dropdown options.
+      this.dropdown.style.width = `${this.list.getBoundingClientRect().width}px`;
+
+      this.listContainer.classList.remove(
+        "tw-invisible",
+        "tw-select-none",
+        "tw-pointer-events-none"
+      );
 
       this.listContainer.setAttribute(
         "aria-expanded",
-        this.listContainer.classList.contains("tw-hidden")
+        this.listContainer.classList.contains(
+          "tw-invisible",
+          "tw-select-none",
+          "tw-pointer-events-none"
+        )
       );
     }
 
