@@ -1,7 +1,10 @@
 {% extends "./base_streamfield_block.html" %}
+{% load i18n %}
+{% get_current_language as lang_code %}
+
 
 {% block block_content %}
     <script src='https://js.tito.io/v2' async></script>
 
-    <tito-button event="{{ value.event.event_id }}"{% if value.releases %} releases="{{ value.releases }}"{% endif %} class="tw-{{ value.styling }} link-button tw-my-4">{{ value.button_label }}</tito-button>
+    <tito-button event="{{ value.event.event_id }}" locale="{{ lang_code }}"{% if value.releases %} releases="{{ value.releases }}"{% endif %} class="tw-{{ value.styling }} link-button tw-my-4">{{ value.button_label }}</tito-button>
 {% endblock %}
