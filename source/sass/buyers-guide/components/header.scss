@@ -5,7 +5,8 @@
   border-bottom: 1px solid $gray-20;
 }
 
-body.pni #nav-newsletter-form-wrapper {
+body.pni #nav-newsletter-form-wrapper,
+#pni-mobile-container {
   z-index: $zindex-sticky;
 }
 
