@@ -76,6 +76,8 @@ export class PNISortDropdown {
         )
         .click();
     }
+    // Used to recalculate dropdown width based on absolute select options
+    this.dropdown.style.width = `${this.list.getBoundingClientRect().width}px`;
   }
 
   setSelectedListItem(e, pushUpdate = true) {
@@ -95,7 +97,11 @@ export class PNISortDropdown {
   }
 
   closeList() {
-    this.listContainer.classList.add("tw-hidden");
+    this.listContainer.classList.add(
+      "tw-invisible",
+      "tw-select-none",
+      "tw-pointer-events-none"
+    );
     this.listContainer.setAttribute("aria-expanded", false);
   }
 
@@ -108,11 +114,19 @@ export class PNISortDropdown {
     }
 
     if (e.type === "click" || openDropDown) {
-      this.listContainer.classList.remove("tw-hidden");
+      this.listContainer.classList.remove(
+        "tw-invisible",
+        "tw-select-none",
+        "tw-pointer-events-none"
+      );
 
       this.listContainer.setAttribute(
         "aria-expanded",
-        this.listContainer.classList.contains("tw-hidden")
+        this.listContainer.classList.contains(
+          "tw-invisible",
+          "tw-select-none",
+          "tw-pointer-events-none"
+        )
       );
     }
 
