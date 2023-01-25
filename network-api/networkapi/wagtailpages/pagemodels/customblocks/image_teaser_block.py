@@ -1,7 +1,15 @@
 from django.forms.utils import ErrorList
+from django.utils import functional as func_utils
+from django.utils import text as text_utils
 from wagtail.core import blocks
 from wagtail.core.blocks.struct_block import StructBlockValidationError
 from wagtail.images.blocks import ImageChooserBlock
+
+
+class ImageTeaserValue(blocks.StructValue):
+    @func_utils.cached_property
+    def slug(self):
+        return text_utils.slugify(self.get("title", ""))
 
 
 class ImageTeaserBlock(blocks.StructBlock):
@@ -60,3 +68,4 @@ class ImageTeaserBlock(blocks.StructBlock):
         label = "Image teaser"
         icon = "doc-full"
         template = "wagtailpages/blocks/image_teaser_block.html"
+        value_class = ImageTeaserValue
