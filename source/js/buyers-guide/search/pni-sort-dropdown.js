@@ -78,14 +78,6 @@ export class PNISortDropdown {
         )
         .click();
     }
-
-    // Used to recalculate dropdown width based on absolute select options
-    // addEventListener is there to calc width after images are loaded properly
-    window.addEventListener("load", () => {
-      this.dropdown.style.width = `${
-        this.listContainer.getBoundingClientRect().width
-      }px`;
-    });
   }
 
   setSelectedListItem(e, pushUpdate = true) {
@@ -111,9 +103,14 @@ export class PNISortDropdown {
       "tw-pointer-events-none"
     );
     this.listContainer.setAttribute("aria-expanded", false);
+    this.dropdown.style.width = null;
   }
 
   toggleListVisibility(e) {
+    this.dropdown.style.width = `${
+      this.listContainer.getBoundingClientRect().width
+    }px`;
+
     let openDropDown =
       SPACEBAR_KEY_CODE.includes(e.keyCode) || e.keyCode === ENTER_KEY_CODE;
 
