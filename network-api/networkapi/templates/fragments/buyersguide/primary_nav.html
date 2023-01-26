@@ -6,11 +6,6 @@
 
 {% block menu_container_classes %} tw-pb-0 {% endblock %}
 
-{% block menu_content %}
-    {% include 'fragments/buyersguide/pni_mobile_search_container.html' %}
-    {{ block.super }}
-{% endblock %}
-
 {% block nav_logo %}
     {% get_bg_home_page as home_page %}
     <div class="tw-flex tw-flex-col logo-section tw-mx-auto large:tw-mx-0">

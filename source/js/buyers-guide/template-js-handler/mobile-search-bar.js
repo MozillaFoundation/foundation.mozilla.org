@@ -3,18 +3,20 @@ import setupSearchBar from "./search-bar";
 export default () => {
   const mobileSearch = document.querySelector("#mobile-search");
   const searchContainer = document.querySelector("#pni-mobile-container");
+  const mobileCatNav = document.querySelector("#pni-nav-mobile");
 
   if (!mobileSearch) return;
 
   mobileSearch.addEventListener("click", function () {
     const burger = document.querySelector(".burger");
 
-    if (!searchContainer) return;
+    if (!searchContainer || !mobileCatNav) return;
 
     if (burger && burger.classList.contains("menu-open")) {
       document.querySelector(".burger").click();
     }
     searchContainer.classList.toggle("tw-hidden");
+    mobileCatNav.classList.toggle("tw-hidden");
   });
 
   if (
