@@ -25,6 +25,8 @@ export class PNISortDropdown {
       );
     }
 
+    this.dropdown.classList.add("tw-flex");
+    this.dropdown.classList.remove("tw-hidden");
     this.dropdownSelectedNode.addEventListener("click", (e) =>
       this.toggleListVisibility(e)
     );
@@ -76,8 +78,14 @@ export class PNISortDropdown {
         )
         .click();
     }
+
     // Used to recalculate dropdown width based on absolute select options
-    this.dropdown.style.width = `${this.list.getBoundingClientRect().width}px`;
+    // addEventListener is there to calc width after images are loaded properly
+    window.addEventListener("load", () => {
+      this.dropdown.style.width = `${
+        this.listContainer.getBoundingClientRect().width
+      }px`;
+    });
   }
 
   setSelectedListItem(e, pushUpdate = true) {
