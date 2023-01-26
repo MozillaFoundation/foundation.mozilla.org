@@ -25,6 +25,8 @@ export class PNISortDropdown {
       );
     }
 
+    this.dropdown.classList.add("tw-flex");
+    this.dropdown.classList.remove("tw-hidden");
     this.dropdownSelectedNode.addEventListener("click", (e) =>
       this.toggleListVisibility(e)
     );
@@ -76,6 +78,14 @@ export class PNISortDropdown {
         )
         .click();
     }
+
+    // Used to recalculate dropdown width based on absolute select options
+    // addEventListener is there to calc width after images are loaded properly
+    window.addEventListener("load", () => {
+      this.dropdown.style.width = `${
+        this.listContainer.getBoundingClientRect().width
+      }px`;
+    });
   }
 
   setSelectedListItem(e, pushUpdate = true) {
@@ -95,7 +105,11 @@ export class PNISortDropdown {
   }
 
   closeList() {
-    this.listContainer.classList.add("tw-hidden");
+    this.listContainer.classList.add(
+      "tw-invisible",
+      "tw-select-none",
+      "tw-pointer-events-none"
+    );
     this.listContainer.setAttribute("aria-expanded", false);
   }
 
@@ -108,11 +122,19 @@ export class PNISortDropdown {
     }
 
     if (e.type === "click" || openDropDown) {
-      this.listContainer.classList.remove("tw-hidden");
+      this.listContainer.classList.remove(
+        "tw-invisible",
+        "tw-select-none",
+        "tw-pointer-events-none"
+      );
 
       this.listContainer.setAttribute(
         "aria-expanded",
-        this.listContainer.classList.contains("tw-hidden")
+        this.listContainer.classList.contains(
+          "tw-invisible",
+          "tw-select-none",
+          "tw-pointer-events-none"
+        )
       );
     }
 
