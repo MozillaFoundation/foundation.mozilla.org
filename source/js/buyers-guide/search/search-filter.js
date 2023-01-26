@@ -80,7 +80,7 @@ export class SearchFilter {
     ));
 
     const mobileSearchBar = (this.mobileSearchBar = document.querySelector(
-      `#pni-mobile-container`
+      `#pni-mobile-search-container`
     ));
 
     if (!searchBar || !mobileSearchBar) {
