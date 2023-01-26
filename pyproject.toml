@@ -5,6 +5,9 @@ target-version = ['py39']
 [tool.djlint]
 profile = "django"
 use_gitignore = true
+# H017: Ignored because opposite of W3C validator recommendation.
+ignore="H017"
+
 
 [tool.isort]
 profile = "black"
