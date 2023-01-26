@@ -2,7 +2,9 @@ import setupSearchBar from "./search-bar";
 
 export default () => {
   const mobileSearch = document.querySelector("#mobile-search");
-  const searchContainer = document.querySelector("#pni-mobile-search-container");
+  const searchContainer = document.querySelector(
+    "#pni-mobile-search-container"
+  );
   const mobileCatNav = document.querySelector("#pni-nav-mobile");
 
   if (!mobileSearch) return;
