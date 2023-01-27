@@ -174,7 +174,7 @@
 
     &__guts {
       @media (min-width: $bp-md) {
-        margin-top: 7rem;
+        @apply tw-mt-56;
       }
     }
 
