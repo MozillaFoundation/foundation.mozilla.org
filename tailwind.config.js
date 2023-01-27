@@ -79,6 +79,7 @@ module.exports = {
       5: "1.5rem",
       6: "2rem",
       7: "3rem",
+      192: "24rem",
     },
     // Renaming breakpoints temporary until we remove bootstrap usage
     // Remove after removing SASS/Bootstrap
