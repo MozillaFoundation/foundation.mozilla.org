@@ -1,4 +1,4 @@
-name: Visual Regression Testing
+name: Visual Regression Testing with Percy
 
 on:
   pull_request_review:
