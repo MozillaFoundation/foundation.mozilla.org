@@ -416,7 +416,7 @@
     background: $white;
     border-radius: 3px;
     margin-bottom: 6rem;
-    margin-top: -12rem;
+    @apply -tw-mt-96;
   }
 
   .btn-download {
