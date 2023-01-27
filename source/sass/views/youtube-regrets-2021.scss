@@ -131,7 +131,7 @@
     }
 
     &__guts {
-      margin-bottom: 6rem;
+      @apply tw-mb-48;
 
       @media (min-width: $bp-md) {
         margin-bottom: 0;
@@ -145,11 +145,7 @@
   }
 
   .what-is {
-    margin-bottom: 6rem;
-
-    @media (min-width: $bp-md) {
-      @apply tw-mb-64;
-    }
+    @apply tw-mb-48 medium:tw-mb-64;
 
     &__image {
       &--desktop {
@@ -186,11 +182,7 @@
   }
 
   .tw-quote {
-    margin-bottom: 6rem;
-
-    @media (min-width: $bp-md) {
-      margin-bottom: 8rem;
-    }
+    @apply tw-mb-48 medium:tw-mb-64;
 
     &__text {
       font-size: 30px;

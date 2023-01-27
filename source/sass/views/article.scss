@@ -54,8 +54,8 @@
 
 .article-column-rule {
   column-rule: 1px solid $gray-20;
-  column-gap: 6rem;
   column-fill: balance;
+  @apply tw-gap-48;
 }
 
 .article-summary-share-links {

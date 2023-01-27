@@ -101,7 +101,7 @@
 .publication-notes .rich-text {
   font-size: 16px;
   line-height: calc(24 / 16);
-  margin-bottom: 96px;
+  @apply tw-mb-48;
   margin-top: 49px;
 
   *:not(strong):not(b) {

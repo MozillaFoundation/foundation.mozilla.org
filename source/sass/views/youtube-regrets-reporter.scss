@@ -415,8 +415,7 @@
     color: $youtube-regrets-dark-red;
     background: $white;
     border-radius: 3px;
-    margin-bottom: 6rem;
-    @apply -tw-mt-96;
+    @apply -tw-mt-96 tw-mb-48;
   }
 
   .btn-download {
