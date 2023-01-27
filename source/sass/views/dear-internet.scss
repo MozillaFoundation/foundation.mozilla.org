@@ -81,7 +81,7 @@
     }
 
     @media (min-width: $bp-lg) {
-      top: 20rem;
+      @apply tw-top-160;
     }
 
     @media (min-width: $bp-xl) {
