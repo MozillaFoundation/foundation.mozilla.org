@@ -27,7 +27,7 @@
                 <div id="image-container" class="tw-place-self-center medium:tw-place-self-start">
                     {% image author.image fill-256x256 as img_1x %}
                     {% image author.image fill-512x512 as img_2x %}
-                    <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x" src="{{ img_2x.url }}" width="{{ img_2x.width|unlocalize }}" height="{{ img_2x.height|unlocalize }}"  alt="{{ img_2x.alt }}" class="tw-rounded-full tw-w-[13rem] large:tw-w-[16rem]" />
+                    <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x" src="{{ img_2x.url }}" width="{{ img_2x.width|unlocalize }}" height="{{ img_2x.height|unlocalize }}"  alt="{{ img_2x.alt }}" class="tw-rounded-full tw-w-[13rem] large:tw-w-128" />
                 </div>
             {% endif %}
             <div id="bio">
