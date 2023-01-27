@@ -101,6 +101,8 @@ Note that this is still a work in progress.
 
 We also use Playwright in combination with Browserstack's [Percy](https://percy.io/) to perform visual regression testing for PRs, using `./tests/visual.spec.js` as screenshot baseline.
 
+Visual regression tests are run after a pull request review has been approved.
+
 ### Accessibility tests
 
 Accessibility tests are currently unavailable but will use [axe-playwright](https://www.npmjs.com/package/axe-playwright) when the switchover from Cypress to Playwright is complete.

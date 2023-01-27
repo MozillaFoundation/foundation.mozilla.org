@@ -35,8 +35,9 @@ Deploy each PR separately and in ascending order.
 ## Continuous Integration and Review Apps
 
 Opening a PR activates different services:
-- [Review app](#review-apps): temporary apps with fake data running on Heroku,
-- [Continuous Integration testing](#continuous-integration-testing): Github Actions,
+
+- [Review app](#review-apps): temporary apps with fake data running on Heroku (*this is currently not working*),
+- [Continuous integration testing](#continuous-integration-testing): Github Actions,
 - [Visual regression testing](#visual-regression-testing): Percy.
 
 ### Review Apps
@@ -60,7 +61,7 @@ To create one:
 
 The review app slack bot will post a message in the `foundation-site` with links and credentials as soon as the review app is ready.
 
-#### Environment variables:
+#### Environment variables
 
 - `REVIEW_APP`: set to True on review app.
 - `GITHUB_TOKEN`: GITHUB API authentication,
@@ -68,18 +69,23 @@ The review app slack bot will post a message in the `foundation-site` with links
 
 Non-secret envs can be added to the `app.json` file. Secrets must be set on Heroku in the `Review Apps` (pipelines' `settings` tab).
 
-### Continuous Integration testing
+### Continuous integration testing
 
 Opening a PR will trigger [Github Action](https://github.com/mozilla/foundation.mozilla.org/actions) continuous integration, which should pass before a PR is deemed good to merge.
 
-#### Mergify
-
-Mergify is a bot that automatically merges PRs under certain conditions defined in `.mergify.yml`. If you want your PR to be automatically merged, add the `ready-to-merge` label to your PR. Once it's reviewed and the tests are green, Mergify takes care of rebasing to the latest `main` and merges it for you.
-
 ### Visual regression testing
 
-The continuous integration run will also trigger a visual regression testing using [Percy.io](https://percy.io) (based on Cypress output). These tests do not need to pass for a PR to be merged in, but any discrepancies that are flagged by Percy should be reviewed and signed off on during the course of normal PR review.
+Once a PR has been reviewed and approved a GitHub Action is trigged that runs visual regression testing using [Percy.io](https://percy.io) (based on Playwright output).
+
+The PR status checks should update to show the result of the visual regression tests.
+These tests do not need to pass for a PR to be merged, but any discrepancies that are flagged by Percy should be reviewed and signed off on during the course of normal PR review.
 
 Note that any changes to model fields, field ordering, or factories, will likely result in charges to our testing data, which will result in Percy flagging changes: the test data is based on Python's pseudo-random number generator, which we seed at various points during test data generation, but between those seed points is based on the exact order in which fields are assigned testing data. If the order of assignments changes, or old fields are added/new fields are removed, then the PRNG sequence will be different, and Percy will likely show that there are visual diffs that require sign-off.
 
 It is possible that a PR has Percy-flagged changes, despite the PR not touching model/factory code nor introducing changes to the front-end code. In this case, please alert the engineering team: we've seen this happen in the past and it is unclear why it happens.
+
+For more information on how to work with visual regression tests, see the [Percy docs](https://docs.percy.io/docs).
+
+#### Mergify
+
+Mergify is a bot that automatically merges PRs under certain conditions defined in `.mergify.yml`. If you want your PR to be automatically merged, add the `ready-to-merge` label to your PR. Once it's reviewed and the tests are green, Mergify takes care of rebasing to the latest `main` and merges it for you.
