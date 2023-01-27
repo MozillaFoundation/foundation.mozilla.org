@@ -50,7 +50,7 @@
     .spotlight-banner {
       background-size: cover;
       background-position: center;
-      height: 240px;
+      @apply tw-h-120;
 
       @media (min-width: $bp-md) {
         height: 255px;
