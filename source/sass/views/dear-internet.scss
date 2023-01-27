@@ -273,7 +273,7 @@
       }
 
       @media (min-width: $breakpoint) {
-        width: 128px;
+        @apply tw-w-64;
       }
 
       &.stamp {

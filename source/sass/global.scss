@@ -104,7 +104,7 @@ hr {
         margin-bottom: 72px;
 
         @media screen and (min-width: $bp-md) {
-          margin-bottom: 128px;
+          @apply tw-mb-64;
         }
 
         h1 {

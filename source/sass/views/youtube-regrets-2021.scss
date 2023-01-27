@@ -148,7 +148,7 @@
     margin-bottom: 6rem;
 
     @media (min-width: $bp-md) {
-      margin-bottom: 8rem;
+      @apply tw-mb-64;
     }
 
     &__image {
