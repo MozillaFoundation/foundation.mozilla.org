@@ -7,7 +7,7 @@ on:
 jobs:
   approved:
     name: Percy CI
-    if: github.event.review.state == 'approved'
+    # if: github.event.review.state == 'approved'
     runs-on: ubuntu-20.04
     services:
       postgres:
