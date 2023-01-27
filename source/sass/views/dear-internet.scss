@@ -70,7 +70,7 @@
 
   #plane-pathway-wrapper {
     overflow: hidden;
-    top: 14rem;
+    @apply tw-top-112;
 
     @media (min-width: $bp-sm) {
       top: 10rem;
