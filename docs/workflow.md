@@ -75,7 +75,7 @@ Opening a PR will trigger [Github Action](https://github.com/mozilla/foundation.
 
 ### Visual regression testing
 
-Once a PR has been reviewed and approved a GitHub Action is trigged that runs visual regression testing using [Percy.io](https://percy.io) (based on Playwright output).
+[Once a PR has been reviewed and approved a GitHub Action is trigged](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-a-workflow-when-a-pull-request-is-approved) that runs visual regression testing using [Percy.io](https://percy.io) (based on Playwright output).
 
 The PR status checks should update to show the result of the visual regression tests.
 These tests do not need to pass for a PR to be merged, but any discrepancies that are flagged by Percy should be reviewed and signed off on during the course of normal PR review.
