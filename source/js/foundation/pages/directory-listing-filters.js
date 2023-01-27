@@ -107,7 +107,7 @@
           <div class="tw-float-left medium:tw-absolute">
             <a href="https://www.mozillapulse.org/profile/${
               profile.profile_id
-            }" class="tw-block headshot-container tw-w-[92px] tw-h-[92px] tw-mr-[14px] tw-mb-[14px] medium:tw-w-[160px] medium:tw-h-[160px] medium:tw-mr-[0px] medium:tw-mb-[0px]">
+            }" class="tw-block headshot-container tw-w-[92px] tw-h-[92px] tw-mr-[14px] tw-mb-[14px] medium:tw-w-80 medium:tw-h-80 medium:tw-mr-0 medium:tw-mb-0">
               <img
                 src="${
                   profile.thumbnail

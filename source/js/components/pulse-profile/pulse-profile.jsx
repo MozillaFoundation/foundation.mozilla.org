@@ -8,7 +8,7 @@ const PulseProfile = ({ profile }) => {
       {/* Image */}
       <a
         href={`https://www.mozillapulse.org/profile/${profile.profile_id}`}
-        className="tw-block tw-col-span-1 tw-relative tw-min-h-[160px] tw-h-[100%] tw-w-full tw-overflow-hidden"
+        className="tw-block tw-col-span-1 tw-relative tw-min-h-[160px] tw-h-full tw-w-full tw-overflow-hidden"
       >
         <img
           src={

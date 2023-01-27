@@ -36,7 +36,7 @@
     // Used for offsetting anchor tags in the .rich-text area on Article Pages
     a.fragment-id {
       position: absolute;
-      top: -160px;
+      @apply -tw-top-80;
     }
   }
 

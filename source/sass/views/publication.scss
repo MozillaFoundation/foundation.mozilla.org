@@ -61,8 +61,7 @@
 }
 
 .publication-chapter-number {
-  width: 160px;
-  height: 160px;
+  @apply tw-w-80 tw-h-80;
   background-color: $light-blue;
   background-position: center;
   background-size: cover;
