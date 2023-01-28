@@ -135,11 +135,10 @@
     }
 
     .burger {
-      margin-right: 24px;
       margin-left: -52px;
       border: 0;
       background: transparent;
-      @apply tw-w-14 tw-h-14;
+      @apply tw-w-14 tw-h-14 tw-mr-12;
       padding: 0;
       position: relative;
       z-index: 1;

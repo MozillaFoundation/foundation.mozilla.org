@@ -533,7 +533,7 @@ class JoinUs extends Component {
 
     if (this.props.formStyle == "pop") {
       classnames = classNames(
-        "tw-border-1 tw-btn-secondary tw-mt-24 medium:-tw-mb-16 medium:tw-mt-5"
+        "tw-border-1 tw-btn-secondary tw-mt-24 medium:-tw-mb-16 medium:tw-mt-12"
       );
       buttonText = getText("Subscribe");
     } else if (this.props.formStyle == "pni") {

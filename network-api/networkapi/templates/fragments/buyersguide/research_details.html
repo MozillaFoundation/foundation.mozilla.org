@@ -4,7 +4,7 @@
  This is the section underneath the title of the products heading, where we display date and time spent researching, as well as creepiness level people have voted.
 {% endcomment %}
 
-<div class="col-12 tw-mt-5 tw-mb-3 tw-flex tw-flex-col medium:tw-flex-wrap large:tw-flex-row">
+<div class="col-12 tw-mt-12 tw-mb-3 tw-flex tw-flex-col medium:tw-flex-wrap large:tw-flex-row">
     <div class="tw-flex tw-flex-col medium:tw-flex-2  medium:tw-flex-row">
         <div class="pr-2 pl-0 tw-flex-2">
             <p class="tw-body-small date-reviewed">{% blocktrans with date=review_date|date:"DATE_FORMAT" context "Date format (e.g. Nov. 19, 2020)" %}Review date: {{ date }}{% endblocktrans %}</p>

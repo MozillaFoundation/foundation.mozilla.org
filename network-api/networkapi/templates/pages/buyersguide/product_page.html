@@ -55,7 +55,7 @@
                     </div>
                 {% endif %}
 
-                <div class="bg-white tw-pb-4 tw-pt-5 tw-px-4 medium:tw-px-16">
+                <div class="bg-white tw-pb-4 tw-pt-12 tw-px-4 medium:tw-px-16">
                     <div class="row intro">
                         <div class="tw-flex tw-gap-2 tw-flex-wrap tw-px-4 tw-mb-4">
                             {% for cat in product.product_categories.all %}
@@ -99,7 +99,7 @@
                             2xl:tw-left-full
                             tw-grid
                             tw-grid-cols-1 large:tw-grid-cols-2 2xl:tw-grid-cols-1
-                            tw-gap-24 medium:tw-gap-5
+                            tw-gap-24 medium:tw-gap-12
                         ">
                             {% with cta=featured_cta %}
                                 {% if cta %}
@@ -125,8 +125,8 @@
                     </div>
 
                     {% if product.tips_to_protect_yourself %}
-                        <div class="row tw-my-5 tips-to-protect-yourself">
-                            <div class="col-12 tw-py-5 tips">
+                        <div class="row tw-my-12 tips-to-protect-yourself">
+                            <div class="col-12 tw-py-12 tips">
                                 <h2 class="tw-h3-heading">{% trans "Tips to protect yourself" %}</h2>
                                 {{ product.tips_to_protect_yourself | richtext }}
                             </div>
@@ -173,7 +173,7 @@
             {% with related_products=product.related_product_pages.all %}
                 {% if related_products %}
                     <div id="related-products" class="tw-col-span-full medium:tw-col-span-2 large:tw-col-start-2">
-                        <div class="tw-flex tw-flex-col medium:tw-items-center large:tw-items-baseline medium:tw-flex-row-reverse medium:tw-gap-5">
+                        <div class="tw-flex tw-flex-col medium:tw-items-center large:tw-items-baseline medium:tw-flex-row-reverse medium:tw-gap-12">
                             {% include "fragments/buyersguide/wavy_line.html" %}
                             <h2 class="tw-h3-heading tw-mt-2 large:tw-mt-0 tw-shrink-0">{% trans "Related products" %}</h2>
                         </div>

@@ -6,7 +6,7 @@
     <div class="tw-grid tw-grid-cols-1 {% if page.signup == None %}large:tw-grid-cols-2 {% endif %}tw-gap-16 large:tw-gap-10">
         {% for card in self.cards %}
             {# Spaces Card #}
-            <a class="tw-group tw-no-underline tw-p-5 tw-border tw-border-gray-60/20 tw-flex medium:tw-flex-row tw-flex-col medium:tw-space-x-4"
+            <a class="tw-group tw-no-underline tw-p-12 tw-border tw-border-gray-60/20 tw-flex medium:tw-flex-row tw-flex-col medium:tw-space-x-4"
                 href="{{ card.value.link.0.value.link_url }}">
 
                 <div class="tw-order-2 medium:tw-order-1 tw-flex-1">

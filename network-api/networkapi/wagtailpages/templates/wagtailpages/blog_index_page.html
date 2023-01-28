@@ -31,8 +31,8 @@
 
 {% block featured %}
     {% if not filtered %}
-        <div class="tw-grid tw-grid-cols-12 tw-gap-5 tw-mb-1 medium:tw-mb-24">
-            {% with divider_classes="tw-border-b tw-pb-5 tw-border-gray-20 medium:tw-border-b-0" %}
+        <div class="tw-grid tw-grid-cols-12 tw-gap-12 tw-mb-1 medium:tw-mb-24">
+            {% with divider_classes="tw-border-b tw-pb-12 tw-border-gray-20 medium:tw-border-b-0" %}
 
                 {% for feature in page.specific.featured_pages.all %}
                     {% if forloop.first %}
@@ -56,7 +56,7 @@
                 {% endfor %}
 
                 {% for video_post in page.specific.featured_video_post.all %}
-                    <div class="tw-col-span-12 tw-pt-5 {{divider_classes}}">
+                    <div class="tw-col-span-12 tw-pt-12 {{divider_classes}}">
                         {% include "./fragments/blog_index_feature.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
                     </div>
                 {% endfor %}
@@ -71,12 +71,12 @@
         <h2 class="tw-hidden tw-uppercase tw-text-3xl tw-mb-0 tw-font-bold tw-font-sans tw-text-gray-80 medium:tw-block">{% trans "Latest Blog Posts" %}</h2>
     {% endif %}
 
-    <div class="row {% if filtered %} -tw-mt-5 {% endif %} ">
-        <ul id="index-entries" class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-5 tw-gap-y-4 tw-list-none tw-divide-y tw-divide-gray-20 tw-px-[15px] medium:tw-divide-y-0">
+    <div class="row {% if filtered %} -tw-mt-12 {% endif %} ">
+        <ul id="index-entries" class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-12 tw-gap-y-4 tw-list-none tw-divide-y tw-divide-gray-20 tw-px-[15px] medium:tw-divide-y-0">
             {% include "./fragments/entry_cards_item_loop.html" %}
 
             {% if not filtered and related_topics %}
-                <li class="tw-m-0 tw-pt-5 tw-border-none tw-pb-24 -tw-mb-16 tw-bg-white tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3 tw-row-start-3 medium:tw-row-start-2 large:tw-row-start-1">
+                <li class="tw-m-0 tw-pt-12 tw-border-none tw-pb-24 -tw-mb-16 tw-bg-white tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3 tw-row-start-3 medium:tw-row-start-2 large:tw-row-start-1">
                     {% include "./fragments/related_topics_cutout.html" with topics=related_topics %}
                 </li>
             {% endif %}

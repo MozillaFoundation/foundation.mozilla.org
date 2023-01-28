@@ -7,10 +7,10 @@
         <h1>{{ page.title }}</h1>
     </div>
 
-    <hr class="tw-border-black tw-my-5 medium:tw-my-16 large:tw-my-24">
+    <hr class="tw-border-black tw-my-12 medium:tw-my-16 large:tw-my-24">
 
     {% if author_profiles %}
-        <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-16 tw-gap-5 tw-gap-y-24 tw-list-none tw-p-0">
+        <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-16 tw-gap-12 tw-gap-y-24 tw-list-none tw-p-0">
             {% for author_profile in author_profiles %}
                 <li class="tw-flex tw-m-0">
                     {% include "wagtailpages/fragments/research_author_card.html" with authors_index=page author_profile=author_profile %}

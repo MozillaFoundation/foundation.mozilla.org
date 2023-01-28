@@ -44,8 +44,8 @@
                                 class="article-header-button
                                     tw-ml-auto
                                     tw-shrink-0
-                                    tw-w-5
-                                    tw-h-5
+                                    tw-w-12
+                                    tw-h-12
                                     tw-grid
                                     tw-place-items-center
                                     tw-bg-white
@@ -60,8 +60,8 @@
                             <button data-expand="{{child_page.title}}"
                                 class="article-child-button
                                     tw-ml-auto
-                                    tw-w-5
-                                    tw-h-5
+                                    tw-w-12
+                                    tw-h-12
                                     tw-shrink-0
                                     tw-bg-white
                                     tw-grid
@@ -96,7 +96,7 @@
             </div>
             <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-16">
                 {% for slug, header in get_titles %}
-                    <a class="tw-whitespace-normal tw-py-5 tw-px-4 medium:tw-px-28 large:tw-px-24 tw-text-black hover:tw-no-underline hover:tw-text-blue-40" href="#{{ slug }}">{{ header }}</a>
+                    <a class="tw-whitespace-normal tw-py-12 tw-px-4 medium:tw-px-28 large:tw-px-24 tw-text-black hover:tw-no-underline hover:tw-text-blue-40" href="#{{ slug }}">{{ header }}</a>
                 {% endfor %}
             </div>
         </div>

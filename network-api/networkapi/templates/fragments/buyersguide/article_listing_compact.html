@@ -13,7 +13,7 @@
         <h{{ heading_level}} class="{{ heading_classes }}">{{ heading }}</h{{ heading_level}}>
 
         {% if articles %}
-            <ul class="tw-list-none {% if show_images %} tw-space-y-4 {% else %} tw-space-y-5 {% endif %} tw-p-0">
+            <ul class="tw-list-none {% if show_images %} tw-space-y-4 {% else %} tw-space-y-12 {% endif %} tw-p-0">
                 {% for article in articles  %}
                     <li class="tw-m-0" >
                         <a href="{% pageurl article %}" class="tw-text-black tw-flex hover:tw-text-blue-40 tw-items-center tw-no-underline">

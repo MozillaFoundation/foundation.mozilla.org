@@ -6,11 +6,11 @@
         {% if skip_donate != True %}
             {% block footer_donate %}
                 <div class="tw-bg-blue-40 tw-dark print:tw-hidden {{wrapper_class}}">
-                    <div class="tw-container tw-mt-5">
+                    <div class="tw-container tw-mt-12">
                         <div class="tw-row">
                             <div class="tw-w-full tw-px-4">
                                 <p class="tw-h3-heading tw-mb-0">{% trans "We all love the Web. Join Mozilla in defending it." %}</p>
-                                <p class="tw-h3-heading tw-mb-5">{% trans "Let’s protect the world’s largest resource for future generations." %}</p>
+                                <p class="tw-h3-heading tw-mb-12">{% trans "Let’s protect the world’s largest resource for future generations." %}</p>
                                 <div>
                                     <a href="?form=donate" class="tw-btn-secondary tw-dark" id="donate-banner-cta">{% trans "Donate now" %}</a>
                                 </div>
@@ -22,7 +22,7 @@
         {% endif %}
 
         <div class="site-footer tw-bg-black tw-dark {{wrapper_class}} print:tw-hidden">
-            <div class="tw-container tw-mt-5">
+            <div class="tw-container tw-mt-12">
                 <div class="tw-row">
 
                     {% block left_footer_column %}
@@ -61,8 +61,8 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class='tw-mt-5'>
-                                <p class="tw-h5-heading tw-mt-5 tw-mb-0">{% trans "This website supports Web Monetization." %}</p>
+                            <div class='tw-mt-12'>
+                                <p class="tw-h5-heading tw-mt-12 tw-mb-0">{% trans "This website supports Web Monetization." %}</p>
                                 <p class="tw-body tw-mb-0">
                                     {% blocktrans with url="https://foundation.mozilla.org/campaigns/web-monetization/" trimmed %}
                                         <a href="{{ url }}">Read more</a> about our implementation
