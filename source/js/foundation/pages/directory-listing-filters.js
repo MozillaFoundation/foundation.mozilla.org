@@ -102,7 +102,7 @@
 
     let cards = profiles.map((profile) => {
       return `
-      <div class="tw-px-4 tw-w-full large:tw-w-1/2 tw-mb-6">
+      <div class="tw-px-4 tw-w-full large:tw-w-1/2 tw-mb-16">
         <div class="person-card tw-border-t tw-border-black medium:tw-relative medium:tw-min-h-[160px]">
           <div class="tw-float-left medium:tw-absolute">
             <a href="https://www.mozillapulse.org/profile/${

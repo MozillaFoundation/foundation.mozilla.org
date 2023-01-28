@@ -17,7 +17,7 @@ const FiltersNav = ({ filters, onFilterClick, currentFilterValue }) => {
     <div className="my-2 tw--mx-4 small:tw-mx-0">
       <nav
         aria-label="Profile Filters"
-        className="tw-flex-row tw-mb-6 tw-w-full tw-flex"
+        className="tw-flex-row tw-mb-16 tw-w-full tw-flex"
       >
         <div
           className="tw-w-full tw-flex-nowrap tw-overflow-scroll tw-no-scrollbar"

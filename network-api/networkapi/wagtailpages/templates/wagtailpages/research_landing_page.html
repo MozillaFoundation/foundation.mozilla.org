@@ -38,7 +38,7 @@
                     <h2 class="tw-h3-heading large:tw-pb-2">{% trans "Latest Research" %}</h2>
                     <ul class="tw-list-none px-0 ">
                         {% for research_detail_page in latest_research_detail_pages %}
-                            <li class="tw-py-4 small:tw-my-4 small:tw-bg-gray-05 small:tw-p-6">
+                            <li class="tw-py-4 small:tw-my-4 small:tw-bg-gray-05 small:tw-p-16">
                                 {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_related_topics=True landing_page=True%}
                             </li>
                         {% endfor %}

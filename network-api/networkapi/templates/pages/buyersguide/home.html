@@ -21,7 +21,7 @@
 
         {% with featured_advice_article=page.get_featured_advice_article  %}
             {% if featured_advice_article %}
-                <div class="large:tw-container tw-my-6">
+                <div class="large:tw-container tw-my-16">
                     {% include "fragments/buyersguide/ask_jen_advice_section.html" with featured_advice_article=featured_advice_article %}
                 </div>
             {% endif %}

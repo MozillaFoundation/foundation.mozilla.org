@@ -11,7 +11,7 @@
     {% trans "Remove from watch history" as remove_from_watch_history %}
     {% trans "%" as localized_percentage_suffix context "Added after a number" %}
 
-    <div class="tw-grid tw-gap-6 large:tw-gap-24 tw-grid-cols-2 xlarge:tw-grid-cols-4">
+    <div class="tw-grid tw-gap-16 large:tw-gap-24 tw-grid-cols-2 xlarge:tw-grid-cols-4">
         {% include "../../youtube-regrets-shared/standout-stat.html" with number=43 label=dont_recommend id="dont-recommend-channel-count-up" prefix="~" suffix=localized_percentage_suffix %}
         {% include "../../youtube-regrets-shared/standout-stat.html" with number=11 label=not_interested id="not-interested-count-up" prefix="~" suffix=localized_percentage_suffix %}
         {% include "../../youtube-regrets-shared/standout-stat.html" with number=12 label=dislike_text id="dislike-count-up" prefix="~" suffix=localized_percentage_suffix %}

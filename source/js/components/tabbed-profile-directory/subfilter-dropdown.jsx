@@ -35,7 +35,7 @@ const SubfilterDropdown = ({
 
   return (
     <div
-      className="tw-w-max tw-mb-6 tw-relative tw-min-w-[275px]"
+      className="tw-w-max tw-mb-16 tw-relative tw-min-w-[275px]"
       ref={subFiltersDropdown}
     >
       {label && (
@@ -68,7 +68,7 @@ const SubfilterDropdown = ({
         >
           {/*Show all*/}
           <div
-            className="tw-pl-6 tw-py-2 tw-relative"
+            className="tw-pl-16 tw-py-2 tw-relative"
             key={`show-all-subfilters-checkbox`}
           >
             <input
@@ -86,7 +86,7 @@ const SubfilterDropdown = ({
           </div>
           {subfilters.map((option) => (
             <div
-              className="tw-pl-6 tw-py-2 tw-relative"
+              className="tw-pl-16 tw-py-2 tw-relative"
               key={`${option.filter_value}-checkbox`}
             >
               <input
