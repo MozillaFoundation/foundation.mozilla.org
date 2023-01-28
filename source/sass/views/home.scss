@@ -9,7 +9,7 @@
 
   .section-cause-statement {
     background: $black;
-    margin-top: -28px;
+    @apply -tw-mt-14;
 
     @media (min-width: $bp-md) {
       @apply -tw-mt-24;

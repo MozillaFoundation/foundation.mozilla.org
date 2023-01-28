@@ -139,8 +139,7 @@
       margin-left: -52px;
       border: 0;
       background: transparent;
-      width: 28px;
-      height: 28px;
+      @apply tw-w-14 tw-h-14;
       padding: 0;
       position: relative;
       z-index: 1;
@@ -149,7 +148,7 @@
         position: absolute;
         background: $black;
         height: 3px;
-        width: 28px;
+        @apply tw-w-14;
 
         &.burger-bar-top {
           top: 3px;
@@ -172,7 +171,7 @@
         .burger-bar {
           &.burger-bar-top {
             top: 12.5px;
-            width: 28px;
+            @apply tw-w-14;
             transform: rotate(135deg);
           }
 
@@ -182,7 +181,7 @@
 
           &.burger-bar-bottom {
             top: 12.5px;
-            width: 28px;
+            @apply tw-w-14;
             transform: rotate(45deg);
           }
 
@@ -208,7 +207,7 @@
     }
 
     .logo {
-      width: 28px;
+      @apply tw-w-14;
       height: $logo-height;
       background: url(../_images/mozilla-m.svg) no-repeat;
       background-size: contain;
