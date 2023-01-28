@@ -88,6 +88,6 @@ body.has-regrets-intro {
   }
 
   .youtube-regret {
-    margin-bottom: 80px;
+    @apply tw-mb-40;
   }
 }

@@ -38,7 +38,7 @@
       @media (min-width: $pni-product-breakpoint-larger) {
         top: 40px;
         width: 63px;
-        height: 80px;
+        @apply tw-h-40;
         right: 30px;
       }
 
@@ -117,8 +117,7 @@
   padding-right: 18px;
 
   @media (min-width: $pni-product-breakpoint-larger) {
-    padding-left: 5rem;
-    padding-right: 5rem;
+    @apply tw-px-40;
   }
 }
 

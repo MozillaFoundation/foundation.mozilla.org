@@ -4,8 +4,7 @@
     padding-bottom: 3rem;
 
     @media (min-width: $bp-md) {
-      padding-top: 5rem;
-      padding-bottom: 5rem;
+      @apply tw-py-40;
     }
   }
 
@@ -243,8 +242,7 @@
   background-position-y: top;
   background-position-x: right;
   position: relative;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  @apply tw-py-40;
 }
 
 .partner-section::before {
