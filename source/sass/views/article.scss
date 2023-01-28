@@ -282,7 +282,7 @@
 .article-link {
   background: $gray-05;
   padding-top: 24px;
-  padding-bottom: 56px;
+  @apply tw-pb-28;
 
   .tw-body-small {
     color: $gray-80;
