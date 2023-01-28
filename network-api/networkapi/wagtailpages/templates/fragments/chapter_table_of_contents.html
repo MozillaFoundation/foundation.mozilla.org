@@ -16,7 +16,7 @@
                 <div class="article-container col-12 tw-divide-y tw-divide-gray-20 tw-border-t-gray-20 tw-border-t">
                     {% for child_page in child_pages %}
                         {% with child=child_page.child.specific %}
-                            <div class="row publication-row tw-min-h-[80px] pt-3 pb-3 d-flex align-items-center">
+                            <div class="row publication-row tw-min-h-40 pt-3 pb-3 d-flex align-items-center">
                                 <div class="tw-px-4">
                                     <div class="publication-chapter-number tw-w-24 tw-h-24"
                                         {% with toc_image=child.specific.toc_thumbnail_image %}
@@ -74,7 +74,7 @@
                             {% if child.get_page_titles %}
                                 <div class="article-child-menu row tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{child.title}}">
                                     {% for slug, header in child.get_page_titles %}
-                                        <div class="tw-flex tw-py-3 tw-px-4 medium:tw-px-4 tw-items-center tw-bg-gray-05 tw-w-full tw-min-h-[80px]">
+                                        <div class="tw-flex tw-py-3 tw-px-4 medium:tw-px-4 tw-items-center tw-bg-gray-05 tw-w-full tw-min-h-40">
                                             <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-80 tw-flex tw-items-center" href="{{ child.url }}#{{ slug }}">
                                                 {{ header }}
                                             </a>
