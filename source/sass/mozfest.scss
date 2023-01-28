@@ -19,7 +19,7 @@ body.mozfest {
 
     @media (min-width: $nav-full-logo-breakpoint) {
       .wrapper-burger .logo {
-        height: 36px;
+        @apply tw-h-18;
         background-image: url(../_images/mozfest/logo.svg);
       }
     }
