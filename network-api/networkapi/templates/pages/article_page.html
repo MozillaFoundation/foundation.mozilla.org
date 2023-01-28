@@ -28,20 +28,20 @@
     {% endif %}
     {% blocktrans with title=page.title asvar share_text_translated %}{{title}} by @mozilla{% endblocktrans %}
 
-    <div class="container {% if get_titles %}{% if page.hero_layout == "image_left" or page.hero_layout == "image_right"  %} medium:-tw-mt-4 large:-tw-mt-7 {% endif %} {% else %} mt-5 {% endif %}">
+    <div class="container {% if get_titles %}{% if page.hero_layout == "image_left" or page.hero_layout == "image_right"  %} medium:-tw-mt-4 large:-tw-mt-24 {% endif %} {% else %} mt-5 {% endif %}">
         <div class="row">
             <div class="offset-sm-1 col-sm-10 col-12">
                 {% if page.show_side_share_buttons %}
-                    <div class="article-summary-share-links d-lg-block d-none {% if page.hero_layout == "image_left" or page.hero_layout == "image_right" %} tw-mt-7 {%  endif %} {% if get_titles %} with-top-offset {% endif %}">
+                    <div class="article-summary-share-links d-lg-block d-none {% if page.hero_layout == "image_left" or page.hero_layout == "image_right" %} tw-mt-24 {%  endif %} {% if get_titles %} with-top-offset {% endif %}">
                         {% include "wagtailpages/fragments/share-buttons.html" with page=page version="mini" layout="stacked" share_text=share_text_translated %}
                     </div>
                 {% endif %}
 
                 {% if get_titles %}
                     {# If there are h2s in the body of this page, show the article "table of contents" #}
-                    <div class="tw-w-[calc(80%+60px)] mx-auto tw-mb-7 tw--mt-7 tw-border tw-border-gray-20">
-                        <div class="tw-body-small tw-bg-blue-05 tw-px-6 large:tw-px-7 tw-py-4">{% trans "SUMMARY" %}</div>
-                        <div class="tw-bg-white tw-columns-1 article-column-rule tw-p-6 large:tw-px-7 {% if get_titles|length > 5 %} medium:tw-columns-2 {% endif %}">
+                    <div class="tw-w-[calc(80%+60px)] mx-auto tw-mb-24 tw--mt-24 tw-border tw-border-gray-20">
+                        <div class="tw-body-small tw-bg-blue-05 tw-px-6 large:tw-px-24 tw-py-4">{% trans "SUMMARY" %}</div>
+                        <div class="tw-bg-white tw-columns-1 article-column-rule tw-p-6 large:tw-px-24 {% if get_titles|length > 5 %} medium:tw-columns-2 {% endif %}">
                             {% for slug, header in get_titles %}
                                 <a href="#{{ slug }}" class="tw-block tw-text-black tw-mb-4 hover:tw-text-blue-80 hover:tw-no-underline tw-break-inside-avoid-column" >{{ header }}</a>
                             {% endfor %}

@@ -40,8 +40,7 @@
 
   @if ($adjust-spacing-for-md) {
     @media (min-width: $bp-md) {
-      margin-top: 48px;
-      margin-bottom: 48px;
+      @apply tw-my-24;
     }
   }
 }

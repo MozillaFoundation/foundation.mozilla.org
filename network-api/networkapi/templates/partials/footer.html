@@ -1,6 +1,6 @@
 {% load settings_value i18n static %}
 
-{% with wrapper_class="tw-py-7" %}
+{% with wrapper_class="tw-py-24" %}
 
     <footer role="contentinfo">
         {% if skip_donate != True %}
@@ -28,7 +28,7 @@
                     {% block left_footer_column %}
                         <div class="medium:tw-w-5/12 large:tw-w-6/12 tw-px-4 tw-flex tw-flex-col tw-justify-between">
                             <div class="join-us" data-form-position="footer" data-button-position="side"></div>
-                            <a class="logo tw-block tw-my-7 medium:tw-my-0" href="https://foundation.mozilla.org" aria-label="{% trans 'Return to Homepage' %}"><img src="{% static "_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}" width="96"></a>
+                            <a class="logo tw-block tw-my-24 medium:tw-my-0" href="https://foundation.mozilla.org" aria-label="{% trans 'Return to Homepage' %}"><img src="{% static "_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}" width="96"></a>
                         </div>
                     {% endblock %}
 
@@ -71,7 +71,7 @@
                             </div>
                             {% if exclude_language_switcher != True %}
                                 {% block language_switcher %}
-                                    <div class="tw-row tw-mt-7">
+                                    <div class="tw-row tw-mt-24">
                                         <div class="tw-w-full tw-px-4">
                                             {% include "../fragments/language_switcher.html" %}
                                         </div>
@@ -80,7 +80,7 @@
                             {% endif %}
                             <div class="tw-row">
                                 <div class="tw-w-full tw-px-4">
-                                    <hr class="tw-mt-7 tw-mb-4" />
+                                    <hr class="tw-mt-24 tw-mb-4" />
                                     <p class="tw-dark tw-body-small tw-mb-0">
                                         {% blocktrans with foundation_website_url='https://foundation.mozilla.org' foundation_website='foundation.mozilla.org' cc_website_url='https://foundation.mozilla.org/about/website-licensing/' %}Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="{{foundation_website_url}}">{{foundation_website}}</a>. Most content available under a <a href="{{cc_website_url}}">Creative Commons license</a>.{% endblocktrans %}
                                     </p>

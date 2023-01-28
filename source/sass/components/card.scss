@@ -12,7 +12,7 @@
 }
 
 .card-cta {
-  margin: 48px 0;
+  @apply tw-my-24 tw-mx-0;
   background: $gray-05;
 
   .wrapper {

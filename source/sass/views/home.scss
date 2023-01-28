@@ -1,7 +1,6 @@
 #view-home {
   .section-padding {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    @apply tw-py-24;
 
     @media (min-width: $bp-md) {
       @apply tw-py-40;
@@ -13,7 +12,7 @@
     margin-top: -28px;
 
     @media (min-width: $bp-md) {
-      margin-top: -48px;
+      @apply -tw-mt-24;
     }
 
     .tw-h4-heading {
@@ -283,7 +282,7 @@
 }
 
 .partner-section-logo {
-  margin-right: 48px;
+  @apply tw-mr-24;
   margin-top: 75px;
 }
 
@@ -295,7 +294,6 @@
 
 @media (max-width: $bp-sm) {
   .partner-section {
-    padding-top: 48px;
-    padding-bottom: 48px;
+    @apply tw-py-24;
   }
 }

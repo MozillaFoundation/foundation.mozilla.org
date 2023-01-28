@@ -23,7 +23,7 @@
                 {% for grandchild_page in child_page.get_children.specific %}
                     <div class="row publication-row tw-min-h-[80px] pt-3 pb-3 d-flex align-items-center">
                         <div class="tw-px-4">
-                            <div class="publication-chapter-number tw-w-7 tw-h-7"
+                            <div class="publication-chapter-number tw-w-24 tw-h-24"
                                 {% with toc_image=grandchild_page.toc_thumbnail_image %}
                                     {% if toc_image %}
                                         {% image toc_image fill-256x256 as thumbnail %}

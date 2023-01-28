@@ -48,8 +48,8 @@
     width: 100%;
     height: 1px;
     border-top: 1px solid $gray-20;
-    margin-bottom: 48px;
     margin-top: 47px;
+    @apply tw-mb-24;
   }
 
   hr ~ img.full-width {

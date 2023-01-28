@@ -387,7 +387,7 @@
 }
 
 .criterion-group {
-  margin-bottom: 3rem;
+  @apply tw-mb-24;
 
   &.privacy {
     [class^="col"]:not(:last-child) > * {

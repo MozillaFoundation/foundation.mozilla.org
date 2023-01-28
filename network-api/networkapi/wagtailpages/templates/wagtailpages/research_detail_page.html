@@ -41,7 +41,7 @@
             {% endif %}
         </div>
 
-        <div id="overview" class="medium:tw-col-start-1 xlarge:tw-col-start-2 medium:tw-col-end-3 tw-mt-5 medium:tw-mt-7">
+        <div id="overview" class="medium:tw-col-start-1 xlarge:tw-col-start-2 medium:tw-col-end-3 tw-mt-5 medium:tw-mt-24">
             {% if page.overview %}
                 <div class="tw-border-t tw-border-black">
                     <h2 class="tw-h3-heading tw-my-5">{% trans "Overview" context "Research page section heading" %}</h2>
@@ -52,7 +52,7 @@
             {% endif %}
         </div>
 
-        <div id="authors-and-collaborators" class="medium:tw-col-start-3 medium:tw-col-end-4 tw-mt-5 medium:tw-mt-7">
+        <div id="authors-and-collaborators" class="medium:tw-col-start-3 medium:tw-col-end-4 tw-mt-5 medium:tw-mt-24">
             {% if page.research_authors.all %}
                 <div class="tw-border-t tw-border-black">
                     <h2 class="tw-h4-heading tw-my-5">{% trans "Project leads" %}</h2>
@@ -67,7 +67,7 @@
             {% endif %}
 
             {% if page.collaborators %}
-                <div class="tw-border-t tw-border-black tw-mt-7">
+                <div class="tw-border-t tw-border-black tw-mt-24">
                     <h2 class="tw-h4-heading tw-my-5">{% trans "Collaborators" %}</h2>
                     <p class="tw-text-sm large:tw-text-base">{{ page.collaborators }}</p>
                 </div>

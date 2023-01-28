@@ -163,7 +163,7 @@
     profileContainer.style.height = `${profileContainer.offsetHeight}px`;
     profileContainer.style.width = `${profileContainer.offsetWidth}px`; // width + padding
     profileContainer.innerHTML = `
-      <div class="tw-w-full tw-mx-auto tw-my-7 tw-text-center tw-px-4">
+      <div class="tw-w-full tw-mx-auto tw-my-24 tw-text-center tw-px-4">
         <div class="loading-indicator tw-inline-block">
           <div class="dot"></div>
           <div class="dot"></div>
