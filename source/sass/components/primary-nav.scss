@@ -227,7 +227,7 @@
 
     .narrow-screen-menu {
       position: absolute;
-      padding-top: 64px;
+      @apply tw-pt-32;
 
       @media (min-width: $nav-full-logo-breakpoint) {
         padding-top: 72px;
