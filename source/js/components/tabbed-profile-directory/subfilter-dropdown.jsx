@@ -63,7 +63,7 @@ const SubfilterDropdown = ({
         <div
           role="listbox"
           tabIndex="-1"
-          className="tw-p-3 tw-pt-0 tw-absolute tw-top-[40px] tw-bg-white tw-w-full tw-z-10 tw-border-r tw-border-b tw-border-l tw-border-gray-20 tw-border-t-0"
+          className="tw-p-3 tw-pt-0 tw-absolute tw-top-20 tw-bg-white tw-w-full tw-z-10 tw-border-r tw-border-b tw-border-l tw-border-gray-20 tw-border-t-0"
           aria-labelledby="subfilters-dropdown"
         >
           {/*Show all*/}

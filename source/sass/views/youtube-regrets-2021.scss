@@ -280,7 +280,7 @@
       }
 
       &--dark {
-        margin-right: 40px;
+        @apply tw-mr-20;
 
         &::before {
           /* stylelint-disable */
@@ -355,8 +355,7 @@
         background-color: $black;
         position: absolute;
         left: -2px;
-        top: -40px;
-        height: 40px;
+        @apply -tw-top-20 tw-h-20;
       }
 
       &::after {

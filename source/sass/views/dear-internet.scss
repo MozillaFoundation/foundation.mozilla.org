@@ -257,7 +257,7 @@
   }
 
   .love-letter-stamp {
-    margin: 2.5rem 0;
+    @apply tw-my-20 tw-mx-0;
 
     @media (min-width: $breakpoint) {
       @apply tw-my-40 tw-mx-0;

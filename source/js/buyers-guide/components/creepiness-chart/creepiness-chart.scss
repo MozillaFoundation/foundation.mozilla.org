@@ -26,7 +26,7 @@
   .bar,
   td {
     position: relative;
-    bottom: -40px;
+    @apply -tw-bottom-20;
   }
 
   .creepiness {

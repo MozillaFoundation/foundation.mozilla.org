@@ -2,7 +2,7 @@
   background-image: url("../_images/mozilla-on-black.svg");
   background-repeat: no-repeat;
   flex-shrink: 0;
-  width: 40px;
+  @apply tw-w-20;
   height: 12px;
 
   @media (min-width: $bp-lg) {

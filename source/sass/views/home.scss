@@ -189,7 +189,7 @@
         $border-thickness: 4px;
 
         width: 50%;
-        padding: 2.5rem;
+        @apply tw-p-20;
         margin: 10px 0;
         background: $white;
         border-bottom: $border-thickness solid $black;

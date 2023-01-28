@@ -36,9 +36,8 @@
       height: 61px;
 
       @media (min-width: $pni-product-breakpoint-larger) {
-        top: 40px;
+        @apply tw-top-20 tw-h-40;
         width: 63px;
-        @apply tw-h-40;
         right: 30px;
       }
 
@@ -481,7 +480,7 @@
     border-bottom: 1px solid $gray-20;
 
     h3 {
-      padding-right: 40px;
+      @apply tw-pr-20;
 
       @media (min-width: $pni-product-breakpoint-larger) {
         padding-right: 0;
