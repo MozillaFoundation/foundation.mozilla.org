@@ -31,10 +31,12 @@ class TitoWidgetBlock(blocks.StructBlock):
 
         return context
 
-    # Checking if the user's requested language is currently supported by Tito.
-    # If not, default to English, to prevent the Tito widget from crashing due to an unsupported language.
-    # For more info see: https://github.com/mozilla/foundation.mozilla.org/issues/9790
     def get_widget_language_code(self, request_language_code):
+        """
+        Checking if the user's requested language is currently supported by Tito.
+        If not, default to English, to prevent the Tito widget from crashing due to an unsupported language.
+        For more info see: https://github.com/mozilla/foundation.mozilla.org/issues/9790
+        """
         tito_supported_language_codes = ["en", "de", "es", "fr", "nl", "pl"]
         default_language_code = settings.LANGUAGE_CODE
 
