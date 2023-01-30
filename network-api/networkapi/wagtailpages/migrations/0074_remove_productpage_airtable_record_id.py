@@ -3,17 +3,15 @@
 from django.db import migrations
 
 
-def remove_airtable_record_id(apps, schema_editor):
-    migrations.RemoveField(
-        model_name="productpage",
-        name="airtable_record_id",
-    ),
-
-
 class Migration(migrations.Migration):
 
     dependencies = [
         ("wagtailpages", "0073_add_accordion_to_primary_page"),
     ]
 
-    operations = [migrations.RunPython(remove_airtable_record_id)]
+    operations = [
+        migrations.RemoveField(
+            model_name='productpage',
+            name='airtable_record_id',
+        ),
+    ]

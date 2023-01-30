@@ -20,7 +20,7 @@ import networkapi.wagtailpages.pagemodels.profiles
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0076_merge_20230119_1232"),
+        ("wagtailpages", "0075_order_snippets_alphabetically"),
     ]
 
     operations = [
