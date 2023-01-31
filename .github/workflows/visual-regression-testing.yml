@@ -3,11 +3,13 @@ name: Visual Regression Tests
 on:
   pull_request_review:
     types: [submitted]
-
+  push:
+    branches:
+      - 'main'
 jobs:
   approved:
     name: Percy CI
-    if: github.event.review.state == 'approved'
+    if: github.event_name == 'push' || github.event.review.state == 'approved'
     runs-on: ubuntu-20.04
     services:
       postgres:
