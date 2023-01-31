@@ -52,7 +52,7 @@
     .pip {
       position: relative;
       width: 70px;
-      height: 20px;
+      @apply tw-h-10;
       background: transparent;
 
       &::after {
