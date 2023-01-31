@@ -7,9 +7,9 @@ on:
     branches:
       - 'main'
 jobs:
-  approved:
+  visual_regression_tests:
     name: Percy CI
-    if: github.event_name == 'push' || github.event.review.state == 'approved'
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/main') || github.event.review.state == 'approved'
     runs-on: ubuntu-20.04
     services:
       postgres:
