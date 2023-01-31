@@ -6,9 +6,9 @@
         tw-relative
         tw-cursor-pointer
         tw-m-0 tw-p-0 tw-ml-2
-        tw-hidden
+        tw-flex
         tw-items-center
-        tw-min-w-[250px]
+        tw-w-[250px]
     "
 >
     <li
@@ -18,7 +18,7 @@
         tabindex="0"
     >
         <div id="pni-creepiness__selected-text" class="tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-black tw-font-sans tw-mr-auto">
-            <img src="{% static "_images/buyers-guide/cry-face.svg" %}" class="tw-mr-2 tw-w-[20px]" />
+            <img src="{% static "_images/buyers-guide/cry-face.svg" %}" class="tw-mr-2" />
             {% trans "Creepiness: Least – Most" %}
         </div>
 
@@ -29,11 +29,11 @@
     </li>
 
 
-    <li aria-expanded="false" role="list" class="pni-creepiness__list-container tw-absolute tw-top-0 tw-invisible tw-select-none tw-pointer-events-none tw-right-0 tw-z-50 tw-bg-white tw-border tw-border-gray-20">
-        <ul class="pni-creepiness__list tw-w-max tw-list-none tw-m-0 tw-p-0">
+    <li aria-expanded="false" role="list" class="tw-absolute tw-top-0 tw-hidden tw-left-0 pni-creepiness__list-container tw-w-[250px] tw-z-50 tw-bg-white tw-border tw-border-gray-20">
+        <ul class="pni-creepiness__list tw-w-full tw-list-none tw-m-0 tw-p-0">
             <li class="pni-creepiness__list-item tw-whitespace-nowrap tw-p-3 tw-text-sm tw-font-bold tw-group tw-font-sans tw-flex tw-items-center tw-overflow-ellipsis" tabindex="0" id="option-1" data-value="ASCENDING">
-                <div class="tw-pr-4 tw-w-full tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-gray-40 group-hover:tw-text-black tw-font-sans tw-pointer-events-none">
-                    <img src="{% static "_images/buyers-guide/cry-face.svg" %}" class="tw-mr-2 tw-w-[20px]" />
+                <div class="tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-gray-40 group-hover:tw-text-black tw-font-sans tw-pointer-events-none">
+                    <img src="{% static "_images/buyers-guide/cry-face.svg" %}" class="tw-mr-2" />
                     {% trans "Creepiness: Least – Most" %}
                 </div>
                 <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" class="tw-ml-4 tw-rotate-180 tw-origin-center tw-pointer-events-none">
@@ -42,18 +42,18 @@
                 </svg>
             </li>
             <li class="pni-creepiness__list-item tw-whitespace-nowrap tw-p-3 tw-text-sm tw-font-bold tw-group tw-font-sans tw-flex tw-items-center tw-overflow-ellipsis" tabindex="0" id="option-2" data-value="DESCENDING">
-                <div class="tw-pr-4 tw-w-full tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-gray-40 group-hover:tw-text-black tw-font-sans tw-pointer-events-none">
-                    <img src="{% static "_images/buyers-guide/shock-face.svg" %}" class="tw-mr-2 tw-w-[20px]" />
+                <div class="tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-gray-40 group-hover:tw-text-black tw-font-sans tw-pointer-events-none">
+                    <img src="{% static "_images/buyers-guide/shock-face.svg" %}" class="tw-mr-2" />
                     {% trans "Creepiness: Most – Least" %}
                 </div>
             </li>
             <li class="pni-creepiness__list-item tw-whitespace-nowrap tw-p-3 tw-text-sm tw-font-bold tw-group tw-font-sans tw-flex tw-items-center tw-overflow-ellipsis" tabindex="0" id="option-3" data-value="ALPHA">
-                <div class="tw-pr-4 tw-w-full tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-gray-40 group-hover:tw-text-black tw-font-sans tw-pointer-events-none mr-auto">
-                    <img src="{% static "_images/buyers-guide/alpha-emoji.png" %}" class="tw-mr-2 tw-w-[20px]" />
+                <div class="tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-gray-40 group-hover:tw-text-black tw-font-sans tw-pointer-events-none mr-auto">
+                    <img src="{% static "_images/buyers-guide/alpha-emoji.png" %}" class="tw-mr-2" />
                     {% trans "Alphabetical" %}
                 </div>
             </li>
-        </ul tw-w-[20px]>
+        </ul>
     </li>
 
 </ul>
