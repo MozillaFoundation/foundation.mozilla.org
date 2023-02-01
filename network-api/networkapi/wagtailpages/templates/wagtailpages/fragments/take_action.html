@@ -3,10 +3,10 @@
 
 <div class="section-take-action section-padding">
     <div class="tw-row">
-        <div class="tw-w-full tw-px-4">
+        <div class="tw-w-full tw-px-8">
             <h2 class="take-action-title tw-mb-12">{{ page.take_action_title }}</h2>
         </div>
-        <div class="tw-w-full tw-px-4 large:tw-w-2/3 tw-relative">
+        <div class="tw-w-full tw-px-8 large:tw-w-2/3 tw-relative">
             <div class="tw-row">
                 {% for item in page.take_action_cards.all %}
                     {% with target=item.internal_link.localized %}
@@ -26,7 +26,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="tw-w-full tw-px-4 large:tw-w-1/3 medium:tw-mb-12 medium:tw-mt-12 large:tw-mt-0 tw-flex tw-items-stretch">
+        <div class="tw-w-full tw-px-8 large:tw-w-1/3 medium:tw-mb-12 medium:tw-mt-12 large:tw-mt-0 tw-flex tw-items-stretch">
             <div class="tw-bg-black tw-p-12 tw-dark">
                 <div
                     class="join-us"

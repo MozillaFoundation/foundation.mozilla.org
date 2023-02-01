@@ -7,7 +7,7 @@
             <div class="tw-flex tw-flex-wrap">
                 {% include "./blog_topics.html" with topics=blog_page.specific.topics.all video_post=True published_date=blog_page.first_published_at %}
                 {% if video_url %}
-                    <img src="{% static "_images/video-icon.svg" %}" alt="{% trans "video" context "icon description for screen readers" %}" class="tw-h-4 tw-w-4 tw-mr-2 tw-my-1">
+                    <img src="{% static "_images/video-icon.svg" %}" alt="{% trans "video" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-mr-2 tw-my-1">
                 {% endif %}
                 <span class="tw-h6-heading tw-text-gray-40 tw-py-1 tw-mb-0">{{ blog_page.first_published_at|date:"DATE_FORMAT" }}</span>
             </div>

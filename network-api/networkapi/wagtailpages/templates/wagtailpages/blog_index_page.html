@@ -9,13 +9,13 @@
 
 {% block index_header %}
     <div class="tw-grid tw-grid-cols-12">
-        <div class="tw-col-span-12 large:tw-col-span-8 tw-mt-4">
+        <div class="tw-col-span-12 large:tw-col-span-8 tw-mt-8">
             <h1 class="tw-h1-heading tw-mb-0 tw-mt-1 tw-pt-2">
                 {% if index_title %}{{ index_title }}{% elif root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
             </h1>
             <p class="tw-body-large tw-mt-3 tw-mb-0 tw-pr-1 medium:tw-pr-3">{{ page.intro|safe }}</p>
         </div>
-        <div class="tw-col-span-12 large:tw-col-span-4 tw-mt-4 large:tw-mt-16">
+        <div class="tw-col-span-12 large:tw-col-span-4 tw-mt-8 large:tw-mt-16">
             <form action="{% routablepageurl page "search" %}" method="get">
                 {% include "./fragments/blog_search_bar.html" with name="q" search_query=query %}
             </form>
@@ -72,7 +72,7 @@
     {% endif %}
 
     <div class="row {% if filtered %} -tw-mt-12 {% endif %} ">
-        <ul id="index-entries" class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-12 tw-gap-y-4 tw-list-none tw-divide-y tw-divide-gray-20 tw-px-[15px] medium:tw-divide-y-0">
+        <ul id="index-entries" class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-12 tw-gap-y-8 tw-list-none tw-divide-y tw-divide-gray-20 tw-px-[15px] medium:tw-divide-y-0">
             {% include "./fragments/entry_cards_item_loop.html" %}
 
             {% if not filtered and related_topics %}

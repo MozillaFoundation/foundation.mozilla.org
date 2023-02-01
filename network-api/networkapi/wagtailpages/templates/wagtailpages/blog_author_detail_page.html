@@ -2,11 +2,11 @@
 {% load l10n wagtailimages_tags %}
 
 {% block subcontent %}
-    <div class="tw-bg-white -tw-ml-4 small:tw-ml-0 -tw-mt-16 tw-pb-12 medium:tw-pb-16 large:tw-pb-24 tw-pl-4 small:tw-pr-4 tw-pt-4 medium:tw-pt-12 large:tw-pt-24 large:tw-px-12 tw-w-auto">
+    <div class="tw-bg-white -tw-ml-8 small:tw-ml-0 -tw-mt-16 tw-pb-12 medium:tw-pb-16 large:tw-pb-24 tw-pl-8 small:tw-pr-8 tw-pt-8 medium:tw-pt-12 large:tw-pt-24 large:tw-px-12 tw-w-auto">
         <div
             id="info"
             class="
-                tw-gap-4
+                tw-gap-8
                 tw-grid
                 tw-grid-cols-1
                 {% if author.image %}
@@ -31,8 +31,8 @@
                 </div>
             {% endif %}
             <div id="bio">
-                <h1 class="tw-mb-4">{{ author.name }}</h1>
-                <div class="tw-mb-4 tw-text-lg tw-text-gray-60">
+                <h1 class="tw-mb-8">{{ author.name }}</h1>
+                <div class="tw-mb-8 tw-text-lg tw-text-gray-60">
                     {{ author.localized.tagline }}
                 </div>
                 <p class="tw-text-lg">

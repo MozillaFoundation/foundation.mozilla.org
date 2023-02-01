@@ -8,7 +8,7 @@
                 <div class="tw-bg-blue-40 tw-dark print:tw-hidden {{wrapper_class}}">
                     <div class="tw-container tw-mt-12">
                         <div class="tw-row">
-                            <div class="tw-w-full tw-px-4">
+                            <div class="tw-w-full tw-px-8">
                                 <p class="tw-h3-heading tw-mb-0">{% trans "We all love the Web. Join Mozilla in defending it." %}</p>
                                 <p class="tw-h3-heading tw-mb-12">{% trans "Let’s protect the world’s largest resource for future generations." %}</p>
                                 <div>
@@ -26,16 +26,16 @@
                 <div class="tw-row">
 
                     {% block left_footer_column %}
-                        <div class="medium:tw-w-5/12 large:tw-w-6/12 tw-px-4 tw-flex tw-flex-col tw-justify-between">
+                        <div class="medium:tw-w-5/12 large:tw-w-6/12 tw-px-8 tw-flex tw-flex-col tw-justify-between">
                             <div class="join-us" data-form-position="footer" data-button-position="side"></div>
                             <a class="logo tw-block tw-my-24 medium:tw-my-0" href="https://foundation.mozilla.org" aria-label="{% trans 'Return to Homepage' %}"><img src="{% static "_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}" width="96"></a>
                         </div>
                     {% endblock %}
 
                     {% block right_footer_column %}
-                        <div class="medium:tw-w-6/12 large:tw-w-5/12 tw-px-4 tw-flex tw-flex-col tw-justify-between medium:tw-ml-[8.3%]">
+                        <div class="medium:tw-w-6/12 large:tw-w-5/12 tw-px-8 tw-flex tw-flex-col tw-justify-between medium:tw-ml-[8.3%]">
                             <div class="tw-row">
-                                <div class="xlarge:tw-w-5/12 large:tw-w-6/12 tw-px-4">
+                                <div class="xlarge:tw-w-5/12 large:tw-w-6/12 tw-px-8">
                                     <p class="tw-h5-heading">{% trans "More about us" %}</p>
                                     <ul class="tw-p-0 tw-ml-0 tw-flex tw-list-none">
                                         {% block social_links %}
@@ -46,7 +46,7 @@
                                         {% endblock %}
                                     </ul>
                                 </div>
-                                <div class="large:tw-w-6/12 xlarge:tw-w-7/12 tw-px-4">
+                                <div class="large:tw-w-6/12 xlarge:tw-w-7/12 tw-px-8">
                                     <ul class="tw-p-0 tw-ml-0 tw-list-none tw-mb-0 link-list large:tw-columns-2">
                                         {% block general_links %}
                                             <li class="tw-mb-2"><a id="donate-footer-btn" href="?form=donate" class="tw-dark tw-text-white hover:tw-text-blue-20 hover:tw-underline">{% trans "Donate" %}</a></li>
@@ -72,15 +72,15 @@
                             {% if exclude_language_switcher != True %}
                                 {% block language_switcher %}
                                     <div class="tw-row tw-mt-24">
-                                        <div class="tw-w-full tw-px-4">
+                                        <div class="tw-w-full tw-px-8">
                                             {% include "../fragments/language_switcher.html" %}
                                         </div>
                                     </div>
                                 {% endblock %}
                             {% endif %}
                             <div class="tw-row">
-                                <div class="tw-w-full tw-px-4">
-                                    <hr class="tw-mt-24 tw-mb-4" />
+                                <div class="tw-w-full tw-px-8">
+                                    <hr class="tw-mt-24 tw-mb-8" />
                                     <p class="tw-dark tw-body-small tw-mb-0">
                                         {% blocktrans with foundation_website_url='https://foundation.mozilla.org' foundation_website='foundation.mozilla.org' cc_website_url='https://foundation.mozilla.org/about/website-licensing/' %}Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="{{foundation_website_url}}">{{foundation_website}}</a>. Most content available under a <a href="{{cc_website_url}}">Creative Commons license</a>.{% endblocktrans %}
                                     </p>

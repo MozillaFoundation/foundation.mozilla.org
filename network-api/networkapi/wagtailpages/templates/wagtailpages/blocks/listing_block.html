@@ -2,7 +2,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
-    <ul class="tw-mb-24 tw-list-none tw-pl-0 tw-grid tw-gap-4 medium:tw-grid-cols-2 medium:tw-gap-24">
+    <ul class="tw-mb-24 tw-list-none tw-pl-0 tw-grid tw-gap-8 medium:tw-grid-cols-2 medium:tw-gap-24">
         {% for block in self.cards %}
             {% with card=block %}
                 {% image card.image fill-350x197 as img %}
@@ -19,7 +19,7 @@
                     <div class="card-regular tw-h-full tw-flex tw-flex-col">
                         <img src="{{ img.url }}" alt="{{ card.alt_text }}"/>
                         <div class="tw-flex tw-flex-1">
-                            <div class="tw-relative tw-pt-4 tw-w-full tw-flex tw-flex-col">
+                            <div class="tw-relative tw-pt-8 tw-w-full tw-flex tw-flex-col">
                                 <h3 class="tw-h3-heading tw-mb-2 group-hover/listing:tw-underline group-focus/listing:tw-underline">{{ card.title }}</h3>
                                 <div class="[&_p,li,ul]:last:tw-mb-0">
                                     {{ card.body|richtext }}

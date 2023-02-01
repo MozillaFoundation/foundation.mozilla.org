@@ -3,7 +3,7 @@
 {% with wrapper_class="tw-py-24 tw-shadow-[0_0_3px_2px_rgba(9,32,77,.12)_inset]" background_class="tw-bg-[url(../_images/donate-banner-giving.jpg)] tw-bg-[100%_0] tw-bg-no-repeat tw-bg-cover medium:tw-bg-contain" btn_class="tw-text-white tw-border-black tw-bg-blue-40 hover:tw-bg-blue-80 tw-shadow-black"%}
     <div class="donate-banner {{background_class}} {{wrapper_class}} tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden">
         <a href="#"
-            class="tw-p-4
+            class="tw-p-8
                 tw-box-content
                 banner-close
                 tw-cursor-pointer
@@ -11,7 +11,7 @@
                 tw-right-0
                 tw-top-0
                 tw-group" aria-label="{% trans "Close Banner" %}">
-            <img src="{% static "_images/x.svg" %}" alt="{% trans "Close Banner" %}" class="tw-w-4 tw-h-4 tw-transition-transform tw-duration-100 tw-ease-in-out tw-transform group-hover:tw-scale-110 tw-filter tw-invert">
+            <img src="{% static "_images/x.svg" %}" alt="{% trans "Close Banner" %}" class="tw-w-8 tw-h-8 tw-transition-transform tw-duration-100 tw-ease-in-out tw-transform group-hover:tw-scale-110 tw-filter tw-invert">
         </a>
 
         <div class="tw-container">
@@ -21,7 +21,7 @@
                         <p class="tw-h2-heading tw-mb-0 tw-text-blue-80 tw-font-semibold tw-italic">
                             {% trans "Help Mozilla fight for a better internet this holiday season" %}
                         </p>
-                        <p class="tw-body-large tw-mt-4 tw-leading-normal">
+                        <p class="tw-body-large tw-mt-8 tw-leading-normal">
                             {% blocktrans trimmed %}
                                 We're proudly nonprofit, working to keep the web healthy. Your contributions help build a safe and open internet.
                             {% endblocktrans %}

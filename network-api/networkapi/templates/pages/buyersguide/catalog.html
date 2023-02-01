@@ -11,7 +11,7 @@
     <input type="hidden" class="parent-title" value="{{current_category.parent.localized.name}}">
     <div class="tw-container">
         <div class="tw-row">
-            <div class="tw-px-4 tw-py-12 large:tw-py-24 tw-w-full">
+            <div class="tw-px-8 tw-py-12 large:tw-py-24 tw-w-full">
                 <span class="tw-block tw-font-zilla tw-font-light tw-text-center tw-leading-7 tw-text-2xl large:tw-text-4xl tw-m-0">
                     {% trans "Make smart choices to protect your privacy. <br /> Search for products. Read expert reviews. Get tips and tricks." %}
                 </span>
@@ -23,12 +23,12 @@
 {% block category_header %}
     <div class="tw-container tw-mb-16">
         <div class="tw-row">
-            <div class="large:tw-w-1/3 tw-w-full tw-px-4">
+            <div class="large:tw-w-1/3 tw-w-full tw-px-8">
                 <div class="tw-mb-2">
                     {% include "fragments/buyersguide/wavy_line.html" %}
                 </div>
             </div>
-            <div class="tw-w-full tw-px-4">
+            <div class="tw-w-full tw-px-8">
                 <div class="tw-flex tw-items-end">
                     <a
                         href="{% if current_category.parent %}{% localizedroutablepageurl home_page 'category-view' current_category.parent.slug  %}{% elif current_category %}{% localizedroutablepageurl home_page 'category-view' current_category.slug  %}{% else %}{% relocalized_url home_page.localized.url %}{% endif %}"
@@ -56,7 +56,7 @@
             <div class="tw-w-full">
                 <div id="sticky-bar" class="creepiness-slider bg-white text-center tw-justify-center creep-o-meter-moved search-active">
                     <div class="creep-o-meter-information tw-flex tw-items-center tw-whitespace-nowrap">
-                        <div class="speech-bubble-container tw-inline-block tw-mr-4 tw-max-w-[280px]">
+                        <div class="speech-bubble-container tw-inline-block tw-mr-8 tw-max-w-[280px]">
                             <div class="speech-bubble tw-relative tw-inline-block tw-whitespace-normal tw-bg-gradient-to-t tw-from-purple-05 tw-to-blue-05">
                                 <p class="text tw-text-base tw-mb-0">
                                     {% blocktrans trimmed %}

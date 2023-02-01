@@ -362,7 +362,7 @@ class JoinUs extends Component {
     });
 
     let inputClasses = classNames(`form-control`, {
-      "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-4":
+      "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-8":
         this.props.formStyle == `pop`,
       "tw-h-7": this.props.formStyle == `pni`,
     });
@@ -542,7 +542,7 @@ class JoinUs extends Component {
     } else {
       classnames = classNames("tw-btn", "tw-btn-primary", {
         "w-100": !this.isFlowForm(),
-        "tw-flex-1 tw-mr-4": this.isFlowForm(),
+        "tw-flex-1 tw-mr-8": this.isFlowForm(),
       });
       buttonText = getText("Sign up");
     }

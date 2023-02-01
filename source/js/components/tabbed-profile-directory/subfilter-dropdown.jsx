@@ -51,7 +51,7 @@ const SubfilterDropdown = ({
             {label}
           </span>
           <img
-            className={`tw-w-4 tw-h-4 tw-ml-2 ${
+            className={`tw-w-8 tw-h-8 tw-ml-2 ${
               dropdownExpanded ? "tw-rotate-180" : ""
             }`}
             src="/static/_images/glyphs/down-chevron.svg"

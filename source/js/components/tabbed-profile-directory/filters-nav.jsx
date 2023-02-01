@@ -14,7 +14,7 @@ const FiltersNav = ({ filters, onFilterClick, currentFilterValue }) => {
   };
 
   return (
-    <div className="my-2 tw--mx-4 small:tw-mx-0">
+    <div className="my-2 tw--mx-8 small:tw-mx-0">
       <nav
         aria-label="Profile Filters"
         className="tw-flex-row tw-mb-16 tw-w-full tw-flex"
@@ -25,7 +25,7 @@ const FiltersNav = ({ filters, onFilterClick, currentFilterValue }) => {
         >
           {filters.map((filter, index) => (
             <button
-              className={`multipage-link tw-p-4 tw-mx-0 ${
+              className={`multipage-link tw-p-8 tw-mx-0 ${
                 isActiveButton(filter, index) ? "active" : ""
               }`}
               onClick={(e) => {

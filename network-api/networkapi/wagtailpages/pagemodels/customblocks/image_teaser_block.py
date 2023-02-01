@@ -43,7 +43,7 @@ class ImageTeaserBlock(blocks.StructBlock):
         top_divider = value.get("top_divider")
         bottom_divider = value.get("bottom_divider")
         if not top_divider and not bottom_divider:
-            divider_styles = "tw-mt-4"
+            divider_styles = "tw-mt-8"
         if top_divider:
             divider_styles.append("tw-border-t tw-pt-7")
         if bottom_divider:

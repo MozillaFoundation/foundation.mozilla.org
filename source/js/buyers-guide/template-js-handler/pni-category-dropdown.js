@@ -60,7 +60,7 @@ export default () => {
       "tw-mr-0",
       "tw-font-sans",
       "tw-font-bold",
-      "tw-p-4",
+      "tw-p-8",
       "tw-text-right"
     );
     category.classList.remove("tw-block");
@@ -97,7 +97,7 @@ export default () => {
         "tw-w-full",
         "large:tw-w-4/5",
         "tw-overflow-x-auto",
-        "tw-mr-4"
+        "tw-mr-8"
       );
 
     defaultDropdownHeaderText = document.querySelector(

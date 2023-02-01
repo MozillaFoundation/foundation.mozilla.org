@@ -15,16 +15,16 @@
 {% block subcontent %}
     <div id="landing-page-content" class="tw-flex tw-w-full">
 
-        <div id="left-spacer-and-cutout" class="tw-bg-white tw-flex-auto -tw-mt-[125px] tw-pl-4 small:tw-pl-0"></div>
+        <div id="left-spacer-and-cutout" class="tw-bg-white tw-flex-auto -tw-mt-[125px] tw-pl-8 small:tw-pl-0"></div>
 
-        <div id="content-and-cutout" class="tw-grid tw-grid-cols-12 tw-container tw-mr-4 tw-px-0 small:tw-mr-0">
-            <div id="cutout" class="tw-bg-white tw-col-span-12 -tw-mt-[125px] medium:tw-pl-4 medium:tw-pr-12 large:tw-col-span-8">
-                <div class="tw-pt-12 tw-mr-4 medium:tw-mr-0 large:tw-w-full">
+        <div id="content-and-cutout" class="tw-grid tw-grid-cols-12 tw-container tw-mr-8 tw-px-0 small:tw-mr-0">
+            <div id="cutout" class="tw-bg-white tw-col-span-12 -tw-mt-[125px] medium:tw-pl-8 medium:tw-pr-12 large:tw-col-span-8">
+                <div class="tw-pt-12 tw-mr-8 medium:tw-mr-0 large:tw-w-full">
                     <h1>{{page.title}}</h1>
                     {% if page.intro %}
                         <p class="tw-body-large mt-3 mb-0">{{ page.intro }}</p>
                     {% endif %}
-                    <form id="search" action="{% pageurl library_page %}" method="get" accept-charset="utf-8" class="tw-my-12 tw-w-full tw-flex tw-flex-col medium:tw-flex-row tw-gap-4 medium:tw-gap-8 tw-items-start medium:tw-items-center">
+                    <form id="search" action="{% pageurl library_page %}" method="get" accept-charset="utf-8" class="tw-my-12 tw-w-full tw-flex tw-flex-col medium:tw-flex-row tw-gap-8 medium:tw-gap-8 tw-items-start medium:tw-items-center">
                         <div class="tw-w-full medium:tw-w-3/4">
                             {% include "wagtailpages/fragments/research_search_bar.html" %}
                         </div>
@@ -38,20 +38,20 @@
                     <h2 class="tw-h3-heading large:tw-pb-2">{% trans "Latest Research" %}</h2>
                     <ul class="tw-list-none px-0 ">
                         {% for research_detail_page in latest_research_detail_pages %}
-                            <li class="tw-py-4 small:tw-my-4 small:tw-bg-gray-05 small:tw-p-16">
+                            <li class="tw-py-8 small:tw-my-8 small:tw-bg-gray-05 small:tw-p-16">
                                 {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_related_topics=True landing_page=True%}
                             </li>
                         {% endfor %}
                     </ul>
-                    <a class="tw-btn-secondary tw-w-full medium:tw-w-auto large:tw-mt-4 large:tw-mb-24" href="{% pageurl library_page %}">
+                    <a class="tw-btn-secondary tw-w-full medium:tw-w-auto large:tw-mt-8 large:tw-mb-24" href="{% pageurl library_page %}">
                         {% trans "Browse all projects" context "Button" %}
                     </a>
                 </div>
             </div>
 
-            <div id="browse-topics" class="tw-col-span-12 medium:tw-px-4 large:tw-col-span-4">
+            <div id="browse-topics" class="tw-col-span-12 medium:tw-px-8 large:tw-col-span-4">
                 <hr class="tw-border-black tw-mt-24" />
-                <h2 class="tw-h4-heading tw-pb-4">{% trans "Browse by topic" context "Topic list heading" %}</h2>
+                <h2 class="tw-h4-heading tw-pb-8">{% trans "Browse by topic" context "Topic list heading" %}</h2>
                 <ul class="tw-list-none tw-px-0 tw-grid tw-grid-cols-12 tw-gap-0 medium:tw-gap-12 large:tw-gap-0">
                     {% for featured_topic in page.featured_topics.all %}
                         <li class="tw-py-1 tw-col-span-12 medium:tw-col-span-4 large:tw-col-span-12">

@@ -102,7 +102,7 @@
 
     let cards = profiles.map((profile) => {
       return `
-      <div class="tw-px-4 tw-w-full large:tw-w-1/2 tw-mb-16">
+      <div class="tw-px-8 tw-w-full large:tw-w-1/2 tw-mb-16">
         <div class="person-card tw-border-t tw-border-black medium:tw-relative medium:tw-min-h-[160px]">
           <div class="tw-float-left medium:tw-absolute">
             <a href="https://www.mozillapulse.org/profile/${
@@ -130,7 +130,7 @@
               profile.location &&
               `<p class="tw-flex tw-items-center meta-block-location tw-body-small tw-my-2">${profile.location}</p>`
             }
-            <div class="medium:tw-absolute medium:tw-right-0 medium:tw-top-4">
+            <div class="medium:tw-absolute medium:tw-right-0 medium:tw-top-8">
               ${
                 profile.twitter
                   ? `<a href="${profile.twitter}" class="twitter tw-twitter-glyph"></a>`
@@ -163,7 +163,7 @@
     profileContainer.style.height = `${profileContainer.offsetHeight}px`;
     profileContainer.style.width = `${profileContainer.offsetWidth}px`; // width + padding
     profileContainer.innerHTML = `
-      <div class="tw-w-full tw-mx-auto tw-my-24 tw-text-center tw-px-4">
+      <div class="tw-w-full tw-mx-auto tw-my-24 tw-text-center tw-px-8">
         <div class="loading-indicator tw-inline-block">
           <div class="dot"></div>
           <div class="dot"></div>
