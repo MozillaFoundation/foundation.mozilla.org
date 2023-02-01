@@ -2,7 +2,7 @@
 <div class="tw-flex tw-flex-col small:tw-flex-row">
 
     {% if research_detail_page.cover_image %}
-        <picture class="inline-block {% if hide_image_on_mobile %} tw-hidden small:tw-block {% endif %} small:tw-w-56 tw-shrink-0 tw-mb-3 small:tw-mb-0 small:tw-mr-12">
+        <picture class="inline-block {% if hide_image_on_mobile %} tw-hidden small:tw-block {% endif %} small:tw-w-56 tw-shrink-0 tw-mb-6 small:tw-mb-0 small:tw-mr-12">
             {% image research_detail_page.cover_image fill-224x224 as square_image  %}
             <source srcset="{{ square_image.url }}" media="(min-width: 576px)">
             {% image research_detail_page.cover_image fill-576x224 class="tw-w-full small:tw-w-56"  %}

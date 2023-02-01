@@ -2,7 +2,7 @@
 {% for child_page in page.get_children.specific %}
     {% if child_page.get_children %}
         <div class="article-child-container row tw-flex-col tw-hidden" data-child="{{ child_page.title }}">
-            <div class="tw-flex tw-items-center tw-px-8 tw-py-3">
+            <div class="tw-flex tw-items-center tw-px-8 tw-py-6">
                 <button
                     class="article-child-button
                         tw-h-12
@@ -62,7 +62,7 @@
                     {% if grandchild_page.get_page_titles %}
                         <div class="article-child-menu row tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{grandchild_page.title}}">
                             {% for slug, header in grandchild_page.get_page_titles %}
-                                <div class="tw-flex tw-min-h-40 tw-py-3 tw-px-8 tw-items-center tw-bg-gray-05 tw-w-full">
+                                <div class="tw-flex tw-min-h-40 tw-py-6 tw-px-8 tw-items-center tw-bg-gray-05 tw-w-full">
                                     <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-80 tw-flex tw-items-center" href="{{ grandchild_page.url }}#{{ slug }}">
                                         {{ header }}
                                     </a>

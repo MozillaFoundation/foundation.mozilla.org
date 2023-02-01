@@ -26,8 +26,7 @@ body.mozfest {
 
     @media (min-width: $bp-md) {
       .menu-container {
-        padding-top: 12px;
-        padding-bottom: 12px;
+        @apply tw-py-6;
       }
     }
   }
@@ -289,7 +288,7 @@ body.mozfest {
   }
 
   .swiper-pagination-bullet {
-    @apply tw-w-3 tw-h-3;
+    @apply tw-w-6 tw-h-6;
   }
 
   .swiper-pagination-bullet-active {

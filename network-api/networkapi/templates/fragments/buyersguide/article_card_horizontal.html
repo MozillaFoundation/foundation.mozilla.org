@@ -1,6 +1,6 @@
 {% load localization wagtailimages_tags %}
 
-<div class="tw-flex tw-flex-row tw-gap-3 medium:tw-gap-12 tw-w-full">
+<div class="tw-flex tw-flex-row tw-gap-6 medium:tw-gap-12 tw-w-full">
     <a href="{% relocalized_url page.localized.url %}" class="tw-block tw-shrink-0 tw-max-w-[256px]">
         {% image page.localized.get_meta_image fill-512x288 class="tw-hidden medium:tw-block tw-w-128 tw-aspect-video tw-object-cover" %}
         {% image page.localized.get_meta_image fill-160x160 class="tw-block medium:tw-hidden tw-w-40 tw-aspect-square tw-rounded-2xl tw-object-cover" %}

@@ -6,7 +6,7 @@
         <p>{{ cta.description | safe }}</p>
         <div>
             <input type="hidden" name="campaignId" value="{{ cta.campaign_id }}">
-            {% with inputclass="tw-w-full tw-transition-colors tw-px-3 tw-py-8 tw-my-1 tw-text-xl tw-text-black tw-font-sans tw-border tw-border-solid tw-border-gray-20 focus:tw-border-[#80bdff] tw-outline-none" %}
+            {% with inputclass="tw-w-full tw-transition-colors tw-px-6 tw-py-8 tw-my-1 tw-text-xl tw-text-black tw-font-sans tw-border tw-border-solid tw-border-gray-20 focus:tw-border-[#80bdff] tw-outline-none" %}
 
                 <input type="text" name="userPhone" placeholder="{% trans "Your phone number" %}" class="{{ inputclass }}"
                     data-pattern="^\d{10}$" aria-label="{% trans "Please enter a ten digit US phone number" %}">

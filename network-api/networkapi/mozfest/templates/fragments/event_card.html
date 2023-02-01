@@ -2,7 +2,7 @@
     <div class="tw-mb-8">
         <h3>{{ title }}</h3>
         {% if category_url %}
-            <div class="tw-mt-3">
+            <div class="tw-mt-6">
                 <a class="tw-underline tw-text-blue-40 tw-body" href="{{ category_url }}">{{ category_title }}</a>
             </div>
         {% endif %}
@@ -11,7 +11,7 @@
         <img class="tw-w-full tw-h-auto" src="{{ image }}" alt="{{ image_alt }}">
     {% endif %}
     <p class="tw-my-12">{{ text }}</p>
-    <div class="tw-flex tw-flex-wrap tw-gap-3">
+    <div class="tw-flex tw-flex-wrap tw-gap-6">
         {% for button in buttons %}
             <a class="tw-btn-primary tw-mt-auto" href="{{ button.value.link_url }}">{{ button.value.label }}</a>
         {% endfor %}

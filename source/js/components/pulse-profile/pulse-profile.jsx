@@ -4,7 +4,7 @@ import { getText } from "../petition/locales";
 const PulseProfile = ({ profile }) => {
   const profileUrl = "https://www.mozillapulse.org/profile/";
   return (
-    <div className="tw-grid tw-grid-cols-4 tw-gap-x-3 tw-gap-y-2 tw-border-t tw-border-black">
+    <div className="tw-grid tw-grid-cols-4 tw-gap-x-6 tw-gap-y-2 tw-border-t tw-border-black">
       {/* Image */}
       <a
         href={`https://www.mozillapulse.org/profile/${profile.profile_id}`}
@@ -51,7 +51,7 @@ const PulseProfile = ({ profile }) => {
         {profile.location && (
           <p className="tw-flex-row tw-flex tw-items-center tw-justify-start tw-text-sm tw-my-0">
             <img
-              className="tw-w-[12px] tw-h-[12px] tw-block tw-mr-1 tw-body-small"
+              className="tw-w-6 tw-h-6 tw-block tw-mr-1 tw-body-small"
               src="/static/_images/glyphs/map-marker-icon-dark.svg"
               alt=""
             />

@@ -42,7 +42,7 @@ const SubfilterDropdown = ({
         <button
           id="subfilters-dropdown"
           onClick={() => setDropdownExpanded(!dropdownExpanded)}
-          className="tw-font-normal tw-text-[15px] tw-p-3 tw-flex tw-flex-row tw-justify-between tw-items-center tw-border tw-border-gray-20 tw-w-full"
+          className="tw-font-normal tw-text-[15px] tw-p-6 tw-flex tw-flex-row tw-justify-between tw-items-center tw-border tw-border-gray-20 tw-w-full"
           aria-expanded={dropdownExpanded}
           aria-haspopup="listbox"
         >
@@ -63,7 +63,7 @@ const SubfilterDropdown = ({
         <div
           role="listbox"
           tabIndex="-1"
-          className="tw-p-3 tw-pt-0 tw-absolute tw-top-20 tw-bg-white tw-w-full tw-z-10 tw-border-r tw-border-b tw-border-l tw-border-gray-20 tw-border-t-0"
+          className="tw-p-6 tw-pt-0 tw-absolute tw-top-20 tw-bg-white tw-w-full tw-z-10 tw-border-r tw-border-b tw-border-l tw-border-gray-20 tw-border-t-0"
           aria-labelledby="subfilters-dropdown"
         >
           {/*Show all*/}
