@@ -42,11 +42,11 @@
                         </div>
 
                         <div class="tw-flex tw-flex-1">
-                            <div class="tw-border-b-4 tw-border-gray-05 tw--mt-12 tw-bg-white tw-relative tw-mx-2 medium:tw-mx-8 tw-p-8 tw-w-full tw-flex tw-flex-col">
-                                <h3 class="tw-h3-heading tw-mb-2">{{ card.title }}</h3>
+                            <div class="tw-border-b-4 tw-border-gray-05 tw--mt-12 tw-bg-white tw-relative tw-mx-4 medium:tw-mx-8 tw-p-8 tw-w-full tw-flex tw-flex-col">
+                                <h3 class="tw-h3-heading tw-mb-4">{{ card.title }}</h3>
                                 <p>{{ card.body }}</p>
                                 {% if card.link_label and card.link_url %}
-                                    <a class="tw-cta-link tw-mb-2" href="{{ card.link_url }}">{{ card.link_label }}</a>
+                                    <a class="tw-cta-link tw-mb-4" href="{{ card.link_url }}">{{ card.link_label }}</a>
                                 {% endif %}
                             </div>
                         </div>

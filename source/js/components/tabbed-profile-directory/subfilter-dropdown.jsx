@@ -51,7 +51,7 @@ const SubfilterDropdown = ({
             {label}
           </span>
           <img
-            className={`tw-w-8 tw-h-8 tw-ml-2 ${
+            className={`tw-w-8 tw-h-8 tw-ml-4 ${
               dropdownExpanded ? "tw-rotate-180" : ""
             }`}
             src="/static/_images/glyphs/down-chevron.svg"
@@ -68,7 +68,7 @@ const SubfilterDropdown = ({
         >
           {/*Show all*/}
           <div
-            className="tw-pl-16 tw-py-2 tw-relative"
+            className="tw-pl-16 tw-py-4 tw-relative"
             key={`show-all-subfilters-checkbox`}
           >
             <input
@@ -86,7 +86,7 @@ const SubfilterDropdown = ({
           </div>
           {subfilters.map((option) => (
             <div
-              className="tw-pl-16 tw-py-2 tw-relative"
+              className="tw-pl-16 tw-py-4 tw-relative"
               key={`${option.filter_value}-checkbox`}
             >
               <input

@@ -5,14 +5,14 @@
     <img src={{ image }} class="full-bleed-xs" />
 
     <div class="full-bleed-xs tw-flex tw-flex-1">
-        <div class="key-item tw-border-b-4 tw-border-gray-05 tw--mt-12 tw-bg-white tw-relative tw-mx-2 medium:tw-mx-8 tw-p-8 tw-w-full tw-flex tw-flex-col">
-            <h3 class="tw-h3-heading tw-mb-2">{{ title }}</h3>
+        <div class="key-item tw-border-b-4 tw-border-gray-05 tw--mt-12 tw-bg-white tw-relative tw-mx-4 medium:tw-mx-8 tw-p-8 tw-w-full tw-flex tw-flex-col">
+            <h3 class="tw-h3-heading tw-mb-4">{{ title }}</h3>
             {% if description_is_rich_text %}
                 {{ description|richtext }}
             {% else %}
                 <p>{{ description }}</p>
             {% endif %}
-            <a class="tw-cta-link tw-mb-2" href="{{ link_url }}">{{ link_label }}</a>
+            <a class="tw-cta-link tw-mb-4" href="{{ link_url }}">{{ link_label }}</a>
         </div>
     </div>
 

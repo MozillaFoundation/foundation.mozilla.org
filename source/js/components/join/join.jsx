@@ -289,7 +289,7 @@ class JoinUs extends Component {
         this.props.formStyle == "pop"
           ? "tw-h1-heading large:tw-pr-24"
           : this.props.formStyle == "pni"
-          ? "tw-text-3xl tw-font-zilla tw-mb-2 medium:tw-w-4/5"
+          ? "tw-text-3xl tw-font-zilla tw-mb-4 medium:tw-w-4/5"
           : "tw-h5-heading"
       }`
     );
@@ -298,7 +298,7 @@ class JoinUs extends Component {
         this.props.formStyle == "pop"
           ? "large:tw-pr-24"
           : this.props.formStyle == "pni"
-          ? "tw-text-base tw-mb-2 medium:tw-w-4/5"
+          ? "tw-text-base tw-mb-4 medium:tw-w-4/5"
           : ""
       }`
     );

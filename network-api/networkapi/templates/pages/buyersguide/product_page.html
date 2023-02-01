@@ -61,7 +61,7 @@
                             {% for cat in product.product_categories.all %}
                                 {% with category=cat.category %}
                                     {% localizedroutablepageurl home_page 'category-view' category.slug as cat_url %}
-                                    <a href="{{cat_url}}" class="category-tag {% if category.parent == None %}category{% else %}subcategory{% endif %} tw-no-underline tw-text-gray-60 border tw-border-gray-20 tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3]">
+                                    <a href="{{cat_url}}" class="category-tag {% if category.parent == None %}category{% else %}subcategory{% endif %} tw-no-underline tw-text-gray-60 border tw-border-gray-20 tw-px-4 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3]">
                                         {{category.localized.name}}
                                     </a>
                                 {% endwith %}
@@ -93,7 +93,7 @@
                         <aside class="
                             2xl:tw-absolute
                             tw-mt-16 2xl:tw-mt-0
-                            tw-mb-2
+                            tw-mb-4
                             tw-px-8
                             tw-w-full 2xl:tw-w-160
                             2xl:tw-left-full
@@ -175,7 +175,7 @@
                     <div id="related-products" class="tw-col-span-full medium:tw-col-span-2 large:tw-col-start-2">
                         <div class="tw-flex tw-flex-col medium:tw-items-center large:tw-items-baseline medium:tw-flex-row-reverse medium:tw-gap-12">
                             {% include "fragments/buyersguide/wavy_line.html" %}
-                            <h2 class="tw-h3-heading tw-mt-2 large:tw-mt-0 tw-shrink-0">{% trans "Related products" %}</h2>
+                            <h2 class="tw-h3-heading tw-mt-4 large:tw-mt-0 tw-shrink-0">{% trans "Related products" %}</h2>
                         </div>
                         <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-4 tw-gap-16">
                             {% for related_product_page in related_products  %}

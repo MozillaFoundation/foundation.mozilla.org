@@ -12,10 +12,10 @@
                         {% elif card.link_url %}
                             <a class="hover:tw-text-inherit" target="_blank" rel=”noopener” href="{{ card.link_url }}">
                         {% endif %}
-                        <div class="tw-h5-heading tw-mb-2">{{ card.heading }}</div>
+                        <div class="tw-h5-heading tw-mb-4">{{ card.heading }}</div>
                         {% if card.link_page or card.link_url %}</a>{% endif %}
                         {% if card.meta_data %}
-                            <div class="tw-body-small tw-pb-2">{{ card.meta_data }}</div>
+                            <div class="tw-body-small tw-pb-4">{{ card.meta_data }}</div>
                         {% endif %}
                         <p class="tw-text-sm tw-text-gray-60 tw-my-0">{{ card.body }}</p>
                     </div>

@@ -1,6 +1,6 @@
 {% load bg_nav_tags localization i18n static wagtailroutablepage_tags wagtailmetadata_tags %}
 <nav id="multipage-nav" class="pni-category-nav text-center d-none d-md-block tw-no-scrollbar tw-border-b tw-border-blue-10" title="{% trans "site navigation" context "Tooltip on menu items" %}">
-    <div class="container tw-py-2" id="product-review">
+    <div class="container tw-py-4" id="product-review">
         <div class="row">
             <div class="col">
                 <div id="pni-category-wrapper" class="tw-flex tw-items-center ">
@@ -19,13 +19,13 @@
                     </div>
                     {% include "fragments/buyersguide/category_dropdown.html" %}
 
-                    <div id="product-filter-search" tabindex="0" class="tw-hidden large:tw-inline-flex tw-px-2 tw-items-center tw-bg-blue-05 tw-border-4 tw-border-blue-05 tw-w-[214px] tw-mr-2">
+                    <div id="product-filter-search" tabindex="0" class="tw-hidden large:tw-inline-flex tw-px-4 tw-items-center tw-bg-blue-05 tw-border-4 tw-border-blue-05 tw-w-[214px] tw-mr-4">
                         <img
-                            class="tw-w-8 tw-h-8 tw-mr-2"
+                            class="tw-w-8 tw-h-8 tw-mr-4"
                             src="{% static "_images/buyers-guide/pni-search.svg" %}"
                         >
                         <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search all products" %}" value=""
-                            class="tw-bg-blue-05 tw-outline-none tw-py-2 tw-text-base tw-text-blue-60 tw-min-w-0 placeholder:tw-text-blue-60" />
+                            class="tw-bg-blue-05 tw-outline-none tw-py-4 tw-text-base tw-text-blue-60 tw-min-w-0 placeholder:tw-text-blue-60" />
                         <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
                     </div>
                 </div>

@@ -6,14 +6,14 @@
             <div class="tw-flex tw-mb-6">
                 {% include '../fragments/blog_topics.html' with topics=value.related_topics %}
                 {% if value.show_icon %}
-                    <img src="{% static "_images/headphones-icon.svg" %}" alt="{% trans "audio" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-mr-2 tw-my-1">
+                    <img src="{% static "_images/headphones-icon.svg" %}" alt="{% trans "audio" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-mr-4 tw-my-1">
                 {% endif %}
             </div>
         {% endif %}
-        <h2 class="tw-text-4xl tw-h2-heading tw-font-normal tw-mb-2">{{ value.title }}</h2>
+        <h2 class="tw-text-4xl tw-h2-heading tw-font-normal tw-mb-4">{{ value.title }}</h2>
         <div class="tw-body tw-mb-12">{{ value.body | richtext }}</div>
         {% if value.audio %}
-            {% include '../fragments/audio_player.html' with audio=value.audio.url extra_css="tw-my-2"%}
+            {% include '../fragments/audio_player.html' with audio=value.audio.url extra_css="tw-my-4"%}
         {% endif %}
     </div>
     {% if value.link_button_text and value.link_button_url %}
