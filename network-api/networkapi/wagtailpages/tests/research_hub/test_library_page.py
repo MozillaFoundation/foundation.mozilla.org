@@ -3,6 +3,7 @@ import os
 
 from django.core import management
 from django.utils import timezone, translation
+from wagtail.core import models as wagtail_models
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages.factory import research_hub as research_factory
@@ -49,6 +50,26 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_2, research_detail_pages)
         self.assertNotIn(fr_detail_page_1, research_detail_pages)
         self.assertNotIn(fr_detail_page_2, research_detail_pages)
+
+    def test_private_detail_pages_not_in_context(self):
+        public_detail_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        private_detail_page = research_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+        )
+        wagtail_models.PageViewRestriction.objects.create(
+            restriction_type=wagtail_models.PageViewRestriction.PASSWORD,
+            password="test",
+            page=private_detail_page,
+        )
+
+        response = self.client.get(self.library_page.url)
+
+        research_detail_pages = response.context["research_detail_pages"]
+        self.assertEqual(len(research_detail_pages), 1)
+        self.assertIn(public_detail_page, research_detail_pages)
+        self.assertNotIn(private_detail_page, research_detail_pages)
 
     def test_search_by_detail_page_title(self):
         # Fields other than title are empty to avoid accidental test failures due to
