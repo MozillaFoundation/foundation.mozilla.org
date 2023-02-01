@@ -26,7 +26,7 @@ const PulseProfile = ({ profile }) => {
         {/* Card top */}
         <div className="tw-flex tw-flex-row tw-justify-between tw-items-start tw-mt-4">
           <a
-            className="tw-text-lg tw-mb-1 tw-font-sans tw-font-normal tw-text-black"
+            className="tw-text-lg tw-mb-2 tw-font-sans tw-font-normal tw-text-black"
             href={`${profileUrl}${profile.profile_id}`}
           >
             {profile.name}
@@ -51,7 +51,7 @@ const PulseProfile = ({ profile }) => {
         {profile.location && (
           <p className="tw-flex-row tw-flex tw-items-center tw-justify-start tw-text-sm tw-my-0">
             <img
-              className="tw-w-6 tw-h-6 tw-block tw-mr-1 tw-body-small"
+              className="tw-w-6 tw-h-6 tw-block tw-mr-2 tw-body-small"
               src="/static/_images/glyphs/map-marker-icon-dark.svg"
               alt=""
             />

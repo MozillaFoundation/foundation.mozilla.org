@@ -54,11 +54,11 @@
                 <h2 class="tw-h4-heading tw-pb-8">{% trans "Browse by topic" context "Topic list heading" %}</h2>
                 <ul class="tw-list-none tw-px-0 tw-grid tw-grid-cols-12 tw-gap-0 medium:tw-gap-12 large:tw-gap-0">
                     {% for featured_topic in page.featured_topics.all %}
-                        <li class="tw-py-1 tw-col-span-12 medium:tw-col-span-4 large:tw-col-span-12">
-                            <h2 class="tw-h5-heading tw-text-blue-80 tw-mb-1">
+                        <li class="tw-py-2 tw-col-span-12 medium:tw-col-span-4 large:tw-col-span-12">
+                            <h2 class="tw-h5-heading tw-text-blue-80 tw-mb-2">
                                 <a href="{% pageurl library_page %}?topic={{ featured_topic.research_topic.id|unlocalize }}">{{ featured_topic.research_topic.name }}</a>
                             </h2>
-                            <p class="tw-body tw-text-gray-80 tw-text-base medium:tw-text-xs large:tw-text-base tw-pt-1"> {{ featured_topic.research_topic.description }}</p>
+                            <p class="tw-body tw-text-gray-80 tw-text-base medium:tw-text-xs large:tw-text-base tw-pt-2"> {{ featured_topic.research_topic.description }}</p>
                         </li>
                     {% endfor %}
                 </ul>

@@ -13,7 +13,7 @@
                         <h3 class="tw-mb-8 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center">
                             {% trans "Can it snoop on me?" %}
                             <a href="/privacynotincluded/about/methodology">
-                                <img src="{% static "_images/buyers-guide/icon-info-circle.svg" %}" alt="{% trans "information" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-ml-4 tw-mb-1">
+                                <img src="{% static "_images/buyers-guide/icon-info-circle.svg" %}" alt="{% trans "information" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-ml-4 tw-mb-2">
                             </a>
                         </h3>
                         <div class="row tw-space-y-8 medium:tw-space-y-0">
@@ -110,7 +110,7 @@
             <div class="tw-w-full tw-shrink-0 medium:tw-px-24" data-product-label="1">
                 {% localizedroutablepageurl home_page 'methodology-view' as min_sec_url %}
                 {% blocktrans with url=min_sec_url|add:"#minimum-security-standards" asvar minimum_security_standards trimmed %}
-                    Does this product meet our <span class="tw-ml-1"></span> <a id="mss-link" class="" href="{{ url }}">Minimum Security Standards</a>?
+                    Does this product meet our <span class="tw-ml-2"></span> <a id="mss-link" class="" href="{{ url }}">Minimum Security Standards</a>?
                 {% endblocktrans %}
                 {% include "fragments/buyersguide/product_criterion.html"  with  value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards info=min_sec_url  %}
 

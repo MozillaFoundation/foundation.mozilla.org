@@ -7,12 +7,12 @@
             <div class="tw-flex tw-flex-wrap">
                 {% include "./blog_topics.html" with topics=blog_page.specific.topics.all video_post=True published_date=blog_page.first_published_at %}
                 {% if video_url %}
-                    <img src="{% static "_images/video-icon.svg" %}" alt="{% trans "video" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-mr-4 tw-my-1">
+                    <img src="{% static "_images/video-icon.svg" %}" alt="{% trans "video" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-mr-4 tw-my-2">
                 {% endif %}
-                <span class="tw-h6-heading tw-text-gray-40 tw-py-1 tw-mb-0">{{ blog_page.first_published_at|date:"DATE_FORMAT" }}</span>
+                <span class="tw-h6-heading tw-text-gray-40 tw-py-2 tw-mb-0">{{ blog_page.first_published_at|date:"DATE_FORMAT" }}</span>
             </div>
             <a href="{% relocalized_url blog_page.localized.url %}" class="tw-group tw-block hover:tw-no-underline">
-                <h1 class="tw-h4-heading medium:tw-h1-heading medium:tw-text-[34px] tw-mt-1 tw-mb-4 group-hover:tw-underline">{{ blog_page.localized.title}}</h1>
+                <h1 class="tw-h4-heading medium:tw-h1-heading medium:tw-text-[34px] tw-mt-2 tw-mb-4 group-hover:tw-underline">{{ blog_page.localized.title}}</h1>
                 <p class="tw-body tw-line-clamp-3 medium:tw-line-clamp-none">{{ blog_page.localized.get_meta_description }}</p>
             </a>
         </div>
