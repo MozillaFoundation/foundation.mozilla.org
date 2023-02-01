@@ -188,66 +188,7 @@
                 </h2>
                 <hr class="hr-emphasis">
 
-                <div class="tw-row">
-                    <div class="tw-w-full tw-px-8">
-                        <table class="tw-table tw-w-full tw-border tw-border-table tw-overflow-x-auto tw-table-fixed">
-                            <thead>
-                                <tr>
-                                    <th class="tw-p-6 tw-border tw-border-table ">Name</th>
-                                    <th class="tw-p-6 tw-border tw-border-table ">Units</th>
-                                    <th class="tw-p-6 tw-border tw-border-table tw-w-2/5">Example</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="tw-bg-black tw-bg-opacity-5">
-                                    <td class="tw-p-6 tw-border tw-border-table tw-font-bold">0</td>
-                                    <td class="tw-p-6 tw-border tw-border-table">0px</td>
-                                    <td class="tw-p-6 tw-border tw-border-table"></td>
-                                </tr>
-                                <tr class="">
-                                    <td class="tw-p-6 tw-border tw-border-table tw-font-bold">px</td>
-                                    <td class="tw-p-6 tw-border tw-border-table">1px</td>
-                                    <td class="tw-p-6 tw-border tw-border-table"><div class="tw-bg-red-40 tw-w-px tw-h-px"></div></td>
-                                </tr>
-                                <tr class="tw-bg-black tw-bg-opacity-5">
-                                    <td class="tw-p-6 tw-border tw-border-table tw-font-bold">1</td>
-                                    <td class="tw-p-6 tw-border tw-border-table">4px (0.25rem)</td>
-                                    <td class="tw-p-6 tw-border tw-border-table"><div class="tw-bg-red-40 tw-w-1 tw-h-1"></div></td>
-                                </tr>
-                                <tr class="">
-                                    <td class="tw-p-6 tw-border tw-border-table tw-font-bold">2</td>
-                                    <td class="tw-p-6 tw-border tw-border-table">8px (0.5rem)</td>
-                                    <td class="tw-p-6 tw-border tw-border-table"><div class="tw-bg-red-40 tw-w-2 tw-h-2"></div></td>
-                                </tr>
-                                <tr class="tw-bg-black tw-bg-opacity-5">
-                                    <td class="tw-p-6 tw-border tw-border-table tw-font-bold">3</td>
-                                    <td class="tw-p-6 tw-border tw-border-table">12px (0.75rem)</td>
-                                    <td class="tw-p-6 tw-border tw-border-table"><div class="tw-bg-red-40 tw-w-3 tw-h-3"></div></td>
-                                </tr>
-                                <tr class="">
-                                    <td class="tw-p-6 tw-border tw-border-table tw-font-bold">4</td>
-                                    <td class="tw-p-6 tw-border tw-border-table">16px (1rem)</td>
-                                    <td class="tw-p-6 tw-border tw-border-table"><div class="tw-bg-red-40 tw-w-4 tw-h-4"></div></td>
-                                </tr>
-                                <tr class="tw-bg-black tw-bg-opacity-5">
-                                    <td class="tw-p-6 tw-border tw-border-table tw-font-bold">5</td>
-                                    <td class="tw-p-6 tw-border tw-border-table">24px (1.5rem)</td>
-                                    <td class="tw-p-6 tw-border tw-border-table"><div class="tw-bg-red-40 tw-w-12 tw-h-12"></div></td>
-                                </tr>
-                                <tr class="">
-                                    <td class="tw-p-6 tw-border tw-border-table tw-font-bold">6</td>
-                                    <td class="tw-p-6 tw-border tw-border-table">32px (2rem)</td>
-                                    <td class="tw-p-6 tw-border tw-border-table"><div class="tw-bg-red-40 tw-w-16 tw-h-16"></div></td>
-                                </tr>
-                                <tr class="tw-bg-black tw-bg-opacity-5">
-                                    <td class="tw-p-6 tw-border tw-border-table tw-font-bold">7</td>
-                                    <td class="tw-p-6 tw-border tw-border-table">48px (3rem)</td>
-                                    <td class="tw-p-6 tw-border tw-border-table"><div class="tw-bg-red-40 tw-w-24 tw-h-24"></div></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                {% include "wagtailpages/fragments/styleguide_spacing_table.html" %}
 
                 <h2 class="tw-h1-heading tw-mt-24 tw-group" id="grid">
                     <span>Grid</span>
