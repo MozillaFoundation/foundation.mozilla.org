@@ -74,7 +74,7 @@ module.exports = {
       px: "1px",
       1: "0.25rem",
       2: "0.5rem",
-      3: "0.75rem",
+      3: "0.375rem",
       4: "0.5rem",
       5: "0.625rem",
       6: "0.75rem",
