@@ -27,7 +27,7 @@ export default () => {
           if (currentMenuState) {
             primaryNavContainer.classList.add(classToToggle);
             document
-              .querySelector("#pni-mobile-container")
+              .querySelector("#pni-mobile-search-container")
               .classList.add("tw-hidden");
           } else {
             primaryNavContainer.classList.remove(classToToggle);

@@ -79,7 +79,12 @@
     <div class="primary-nav-container-wrapper">
         {% include "fragments/buyersguide/primary_nav.html" %}
     </div>
-    {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
+
+    <div id="pni-mobile-nav-search-wrapper" class="tw-border-b tw-border-blue-10 medium:tw-border-b-0">
+        {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
+        {% include 'fragments/buyersguide/pni_mobile_search.html' %}
+    </div>
+
     {% block category_nav %}
         {% include "fragments/buyersguide/pni_category_nav.html" with show_all_reviews_as_active_category=False categories=categories current_category=current_category %}
     {% endblock %}
