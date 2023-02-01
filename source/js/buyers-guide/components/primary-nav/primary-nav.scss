@@ -7,7 +7,7 @@
 
   @media (min-width: $bp-lg) {
     width: 62px;
-    height: 18px;
+    @apply tw-h-9;
   }
 }
 

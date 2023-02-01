@@ -267,8 +267,7 @@
         content: "";
         position: absolute;
         left: 0;
-        width: 18px;
-        height: 18px;
+        @apply tw-w-9 tw-h-9;
       }
 
       &--light {

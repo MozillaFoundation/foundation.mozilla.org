@@ -112,8 +112,7 @@
 }
 
 .comment-section-padding-x {
-  padding-left: 18px;
-  padding-right: 18px;
+  @apply tw-px-9;
 
   @media (min-width: $pni-product-breakpoint-larger) {
     @apply tw-px-40;
@@ -161,7 +160,7 @@
     &:before {
       content: "";
       display: inline-block;
-      height: 18px;
+      @apply tw-h-9;
       margin-right: 6px;
     }
 

@@ -33,8 +33,7 @@
   &::before {
     content: "";
     display: inline-block;
-    width: 18px;
-    height: 18px;
+    @apply tw-w-9 tw-h-9;
     margin-right: 10px;
     background-image: url(../_images/glyphs/download-file.svg);
     transition: $button-icon-transition-speed;
