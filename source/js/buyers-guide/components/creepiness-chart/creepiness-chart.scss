@@ -58,7 +58,7 @@
     background-color: transparent;
     background-repeat: no-repeat;
     height: 35px;
-    margin-bottom: 10px;
+    @apply tw-mb-5;
     position: relative;
   }
 
