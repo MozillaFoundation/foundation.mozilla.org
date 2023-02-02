@@ -85,7 +85,3 @@ Note that any changes to model fields, field ordering, or factories, will likely
 It is possible that a PR has Percy-flagged changes, despite the PR not touching model/factory code nor introducing changes to the front-end code. In this case, please alert the engineering team: we've seen this happen in the past and it is unclear why it happens.
 
 For more information on how to work with visual regression tests, see the [Percy docs](https://docs.percy.io/docs).
-
-#### Mergify
-
-Mergify is a bot that automatically merges PRs under certain conditions defined in `.mergify.yml`. If you want your PR to be automatically merged, add the `ready-to-merge` label to your PR. Once it's reviewed and the tests are green, Mergify takes care of rebasing to the latest `main` and merges it for you.
