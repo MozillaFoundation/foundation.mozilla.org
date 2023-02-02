@@ -202,7 +202,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         topic_ids = topic_ids or []
         region_ids = region_ids or []
 
-        research_detail_pages = detail_page.ResearchDetailPage.objects.live()
+        research_detail_pages = detail_page.ResearchDetailPage.objects.live().public()
         research_detail_pages = research_detail_pages.filter(locale=wagtail_models.Locale.get_active())
 
         author_profiles = profile_models.Profile.objects.filter_research_authors()
