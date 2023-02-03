@@ -4,11 +4,11 @@
  */
 
 const CREEPINESS_LABELS = [
-  `Not creepy`,
-  `A little creepy`,
-  `Somewhat creepy`,
-  `Very creepy`,
-  `Super creepy`,
+  gettext("Not creepy"),
+  gettext("A little creepy"),
+  gettext("Somewhat creepy"),
+  gettext("Very creepy"),
+  gettext("Super creepy"),
 ];
 
 export default CREEPINESS_LABELS;
