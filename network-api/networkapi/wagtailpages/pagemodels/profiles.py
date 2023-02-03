@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -16,7 +17,7 @@ class ProfileQuerySet(models.QuerySet):
 
 
 @register_snippet
-class Profile(TranslatableMixin, models.Model):
+class Profile(index.Indexed, TranslatableMixin, models.Model):
     name = models.CharField(max_length=70, blank=False)
 
     image = models.ForeignKey(
@@ -50,6 +51,13 @@ class Profile(TranslatableMixin, models.Model):
         TranslatableField("tagline"),
         TranslatableField("introduction"),
     ]
+
+    search_fields = [
+        index.SearchField("name", partial_match=True),
+        # Needed for locale filtering in the Wagtail admin. A helpful error message pointed this out.
+        index.FilterField("locale_id"),
+    ]
+
     objects = ProfileQuerySet.as_manager()
 
     def __str__(self):
