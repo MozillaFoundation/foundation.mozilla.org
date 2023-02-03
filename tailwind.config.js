@@ -67,6 +67,9 @@ module.exports = {
       cursor: {
         grabbing: "grabbing",
       },
+      backgroundSize: {
+        '8': '1rem'
+      }
     },
     // Overriding default spacing
     spacing: {
