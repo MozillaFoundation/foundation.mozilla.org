@@ -94,7 +94,7 @@ django-taggit==2.1.0
     # via wagtail
 django-treebeard==4.5.1
     # via wagtail
-djangorestframework==3.13.1
+djangorestframework==3.14.0
     # via
     #   -r requirements.in
     #   wagtail
