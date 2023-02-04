@@ -240,7 +240,7 @@ wagtail==2.16.3
     #   wagtailmedia
 wagtail-color-panel==1.4.0
     # via -r requirements.in
-wagtail-factories==2.0.1
+wagtail-factories==4.0.0
     # via -r requirements.in
 wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
     # via -r requirements.in
