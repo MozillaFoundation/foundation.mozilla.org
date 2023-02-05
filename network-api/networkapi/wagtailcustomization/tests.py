@@ -16,5 +16,9 @@ class LocalizedRedirectTests(TestCase):
         self.assertEqual(response.redirect_chain, [("/", 301), ("/en/", 302)])
 
     def test_localized_redirect(self):
+        redirect = Redirect(old_path="/en/test", redirect_link="/final")
+        redirect.save()
+        response = self.client.get("/final/", follow=True)
+        self.assertEqual(response.redirect_chain, [("/en/final/", 302)])
         response = self.client.get("/en/test/", follow=True)
-        self.assertEqual(response.redirect_chain, [("/", 301), ("/en/", 302)])
+        self.assertEqual(response.redirect_chain, [("/final", 301), ("/en/final/", 302)])
