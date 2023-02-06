@@ -32,7 +32,7 @@
 
   &.vertical-nav {
     .multipage-link-wrapper {
-      margin-bottom: 24px;
+      @apply tw-mb-12;
     }
   }
 

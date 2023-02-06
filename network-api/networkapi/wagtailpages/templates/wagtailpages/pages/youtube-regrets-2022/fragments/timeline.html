@@ -1,7 +1,7 @@
 {% load static i18n %}
 
 <section id="recommendation-quote" class="container tw-relative tw-z-10" data-scroll-section>
-    <div data-scroll data-scroll-speed="3" data-scroll-sticky data-scroll-target="#recommendation-quote" class="large:tw-mt-[25vh] tw-max-w-3xl mx-auto tw-h-screen tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
+    <div data-scroll data-scroll-speed="3" data-scroll-sticky data-scroll-target="#recommendation-quote" class="large:tw-mt-[25vh] tw-max-w-3xl mx-auto tw-h-screen tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-16">
         {% include 'wagtailpages/pages/youtube-regrets-2022/svg/quote.svg' %}
         <blockquote class="tw-text-[1.75rem] tw-font-zilla">
             {% trans '“It seems like you routinely have to prune things away or it will keep shoving them in your face until you tell it otherwise.”' %}
@@ -10,21 +10,21 @@
         <svg aria-hidden="true" id="dashed-line" width="3" height="190" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path stroke="#CCC" stroke-width="3" stroke-dasharray="12 12" d="M1.5 0v190"/>
         </svg>
-        <div class="tw-bg-white tw-p-5">
+        <div class="tw-bg-white tw-p-12">
             <p class="tw-text-xl tw-max-w-sm ">{% trans 'Scroll to explore a real recommendation timeline from our study' %}</p>
         </div>
     </div>
 </section>
 
 <section class="timeline">
-    <div class="timeline__scenes tw-max-w-[1200px] tw-mx-auto tw-px-4" id="timeline" data-scroll-section>
+    <div class="timeline__scenes tw-max-w-[1200px] tw-mx-auto tw-px-8" id="timeline" data-scroll-section>
         {# Scene 1 #}
-        <div class="timeline__scene medium:tw-mb-[80px] tw-min-h-[900px]" data-scene="1">
+        <div class="timeline__scene medium:tw-mb-40 tw-min-h-[900px]" data-scene="1">
             <div class="tw-grid medium:tw-grid-cols-3 tw-grid-cols-1">
                 <div class="tw-col-start-1 tw-order-2 medium:tw-col-start-1 medium:tw-order-1">
                     <div class="tw-relative tw-max-w-full medium:tw-max-w-[350px] tw-w-full" data-scroll data-scroll-speed="1">
                         <img class="timeline__scene-image tw-w-full" src="{% static "_images/youtube-regrets/regrets-reporter/2022-timeline/scene1.jpg" %}" alt="{% trans 'X-Ray image of broken bones' %}">
-                        <p class="tw-text-sm tw-font-bold tw-mt-2">{% trans 'A Grandma Ate Cookie Dough For Lunch Every Week. This Is What Happened To Her Bones.' %}</p>
+                        <p class="tw-text-sm tw-font-bold tw-mt-4">{% trans 'A Grandma Ate Cookie Dough For Lunch Every Week. This Is What Happened To Her Bones.' %}</p>
                     </div>
                 </div>
                 <div class="tw-order-1 medium:tw-col-start-3 medium:tw-order-2 tw-text-center medium:tw-text-left" data-scroll data-scroll-speed="1">
@@ -45,13 +45,13 @@
                 <div class="tw-col-start-1 tw-order-2 medium:tw-col-start-1 medium:tw-order-1">
                     <div class="tw-relative" data-scroll data-scroll-speed="1">
                         <img class="timeline__scene-image video-thumb  tw-max-w-full medium:tw-max-w-[350px] tw-w-full" src="{% static "_images/youtube-regrets/regrets-reporter/2022-timeline/scene1.jpg" %}" alt="{% trans 'X-Ray image of broken bones' %}">
-                        <p class="tw-text-sm tw-font-bold tw-mt-2 tw-mb-0">{% trans 'A Grandma Ate Cookie Dough For Lunch Every Week. This Is What Happened To Her Bones.' %}</p>
+                        <p class="tw-text-sm tw-font-bold tw-mt-4 tw-mb-0">{% trans 'A Grandma Ate Cookie Dough For Lunch Every Week. This Is What Happened To Her Bones.' %}</p>
                         <svg class="timeline__cross" viewBox="0 0 255 255" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="{% trans 'Cross over top of image' %}">
                             <path d="M255 16.587 238.413 0 127.517 110.896 16.587 0 0 16.587l110.896 110.93L0 238.413 16.587 255l110.93-110.896L238.413 255 255 238.413 144.104 127.517 255 16.587Z" fill="#FF2600"/>
                         </svg>
                     </div>
                 </div>
-                <div class="tw-order-1 medium:tw-col-start-3 medium:tw-order-2 tw-text-center medium:tw-text-left tw-my-[40px] small:tw-my-0" data-scroll data-scroll-speed="1">
+                <div class="tw-order-1 medium:tw-col-start-3 medium:tw-order-2 tw-text-center medium:tw-text-left tw-my-20 small:tw-my-0" data-scroll data-scroll-speed="1">
                     <p class="timeline__scene-text">{% trans 'The user decides to use YouTube’s feedback mechanism, ‘Remove from history’' %}</p>
                 </div>
             </div>
@@ -65,16 +65,16 @@
         </div>
 
         {# Scene 3 #}
-        <div class="timeline__scene tw-grid tw-grid-cols-2 tw-mb-[80px]" data-scene="3">
+        <div class="timeline__scene tw-grid tw-grid-cols-2 tw-mb-40" data-scene="3">
 
-            <div class="timeline__scene-left tw-mt-7">
+            <div class="timeline__scene-left tw-mt-24">
                 {% trans 'A Dad Ate 25 Packs Silica Gel For Breakfast. This Is What Happened To His Stomach.' as localized_title_3_1 %}
                 {% include './video-thumb.html' with class="tw-top-[20%]" size="small" image='scene3/1.jpg' speed="-1" text=localized_title_3_1 %}
             </div>
 
             <div class="timeline__scene-right tw-flex tw-items-end">
                 {% trans 'A Student Ate 108 Gummy Antacids For Breakfast. This Is What Happened To Her Kidneys.' as localized_title_3_2 %}
-                {% include './video-thumb.html' with class="tw-ml-[60px] medium:tw-ml-[160px]" image='scene3/2.jpg' speed="3" text=localized_title_3_2 %}
+                {% include './video-thumb.html' with class="tw-ml-[60px] medium:tw-ml-80" image='scene3/2.jpg' speed="3" text=localized_title_3_2 %}
             </div>
 
             <div class="tw-absolute tw-left-50% tw--translate-y-1/2  tw-left-[60%] tw-top-[10%]" data-scroll data-scroll-speed="1">
@@ -236,7 +236,7 @@
 </section>
 
 <section id="recommendation-quote" class="container" data-scroll-section>
-    <div data-scroll class="tw-max-w-3xl tw-my-7 medium:tw-my-[80px] tw-mx-auto tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-6">
+    <div data-scroll class="tw-max-w-3xl tw-my-24 medium:tw-my-40 tw-mx-auto tw-flex tw-justify-center tw-items-center tw-text-center tw-flex-col tw-gap-16">
         {% include 'wagtailpages/pages/youtube-regrets-2022/svg/quote.svg' %}
         <blockquote class="tw-text-[1.75rem] tw-font-zilla">{% trans '“Eventually it always comes back. The algorithm seems incapable of remembering a lesson for very long.”'%}
             <cite class="tw-block tw-not-italic">{% trans '(Participant 187)' %}</cite>
@@ -249,7 +249,7 @@
 
 {# Create curved effect on section using border radius #}
 <div class="tw-rounded-b-[30px] tw-mb-[-30px]">
-    <section class="container tw-max-w-4xl tw-text-center tw-my-7 large:tw-my-[80px] large:tw-my-[120px]" data-scroll-section>
+    <section class="container tw-max-w-4xl tw-text-center tw-my-24 large:tw-my-40" data-scroll-section>
         <p class="tw-h1-heading tw-font-changa tw-font-bold medium:tw-text-[3.25rem]">{% trans 'Even the most effective feedback methods prevent less than half of bad recommendations.' %}</p>
     </section>
 </div>

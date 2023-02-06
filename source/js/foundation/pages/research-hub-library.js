@@ -7,7 +7,7 @@ function initializeJS() {
   const filterSection = document.getElementById("filter");
   filterSection.classList.add("tw-hidden");
   filterSection.classList.add("rh-filter-modal");
-  filterSection.classList.remove("tw-pt-7");
+  filterSection.classList.remove("tw-pt-24");
 
   // Replace jump link with open button
   const filterJumpLink = document.getElementById("filter-section-jump-link");

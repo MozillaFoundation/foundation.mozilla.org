@@ -18,7 +18,7 @@
 
 <!-- TODO replace bootstrap embed-responsive classes with one created by tailwind component -->
 {% block block_content %}
-    <div class="tw-my-2">
+    <div class="tw-my-4">
         <div class="embed-responsive embed-responsive-16by9 print:tw-hidden" {% if 'player.vimeo.com' in value.url and value.video_width == "full_width" %}style="padding: 56.25% 0 0 0;"{% endif %}>
             <iframe
                 src="{{ value.url }}"
@@ -29,7 +29,7 @@
             </iframe>
         </div>
         {% if value.caption %}
-            <p class="caption-wrapper tw-body-small tw-mt-2">
+            <p class="caption-wrapper tw-body-small tw-mt-4">
                 {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
                 {{ value.caption }}
                 {% if value.captionURL %}</a>{% endif %}

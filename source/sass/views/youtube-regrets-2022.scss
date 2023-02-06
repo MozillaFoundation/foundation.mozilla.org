@@ -52,9 +52,9 @@
       position: relative;
 
       &::before {
+        @apply -tw-top-80;
         content: "";
         position: absolute;
-        top: -160px;
         left: 0;
         right: 0;
         margin: 0 auto;

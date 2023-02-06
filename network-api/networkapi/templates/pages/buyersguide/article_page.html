@@ -51,13 +51,13 @@
 
         {% with author_profiles=page.get_author_profiles  %}
             {% if author_profiles %}
-                <div class="tw-container tw-mt-7">
-                    <div class="tw-row tw-px-4 tw-justify-center">
+                <div class="tw-container tw-mt-24">
+                    <div class="tw-row tw-px-8 tw-justify-center">
                         <div class="large:tw-w-2/3 tw-border-t-4 tw-border-black tw-divide-y tw-divide-gray-20">
                             {% for author_profile in author_profiles %}
-                                <div class="tw-flex tw-py-4 last:tw-pb-0">
+                                <div class="tw-flex tw-py-8 last:tw-pb-0">
                                     {% if author_profile.image %}
-                                        <div class="tw-mr-4 tw-flex tw-items-start tw-flex-shrink-0">
+                                        <div class="tw-mr-8 tw-flex tw-items-start tw-flex-shrink-0">
                                             <img
                                                 class="tw-rounded-full tw-border-2 tw-border-white tw-w-[75px] tw-h-[75px]"
                                                 src="{% image_url author_profile.image "fill-75x75" %}"
@@ -79,8 +79,8 @@
             {% endif %}
         {% endwith %}
 
-        <div id="article-newsletter-signup" class="tw-container tw-mt-[2.75rem]">
-            <div class="tw-row tw-px-4 tw-justify-center">
+        <div id="article-newsletter-signup" class="tw-container tw-mt-22">
+            <div class="tw-row tw-px-8 tw-justify-center">
                 <div class="tw-w-full large:tw-w-2/3">
                     {% include "fragments/buyersguide/pni_newsletter_box.html" %}
                 </div>
@@ -90,7 +90,7 @@
         {% with related_articles=page.get_related_articles  %}
             {% if related_articles %}
                 {% get_bg_home_page as bg_home_page %}
-                <div class="tw-container tw-mt-7" data-gtm="related-articles">
+                <div class="tw-container tw-mt-24" data-gtm="related-articles">
                     {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=related_articles index_page=bg_home_page.get_editorial_content_index use_wide_above="medium" %}
                 </div>
             {% endif %}

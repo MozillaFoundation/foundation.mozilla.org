@@ -102,12 +102,12 @@
 
     let cards = profiles.map((profile) => {
       return `
-      <div class="tw-px-4 tw-w-full large:tw-w-1/2 tw-mb-6">
+      <div class="tw-px-8 tw-w-full large:tw-w-1/2 tw-mb-16">
         <div class="person-card tw-border-t tw-border-black medium:tw-relative medium:tw-min-h-[160px]">
           <div class="tw-float-left medium:tw-absolute">
             <a href="https://www.mozillapulse.org/profile/${
               profile.profile_id
-            }" class="tw-block headshot-container tw-w-[92px] tw-h-[92px] tw-mr-[14px] tw-mb-[14px] medium:tw-w-[160px] medium:tw-h-[160px] medium:tw-mr-[0px] medium:tw-mb-[0px]">
+            }" class="tw-block headshot-container tw-w-[92px] tw-h-[92px] tw-mr-7 tw-mb-7 medium:tw-w-80 medium:tw-h-80 medium:tw-mr-0 medium:tw-mb-0">
               <img
                 src="${
                   profile.thumbnail
@@ -119,7 +119,7 @@
             </a>
           </div>
 
-          <div class="short-meta-wrapper tw-pt-[10px] medium:tw-ml-[174px]">
+          <div class="short-meta-wrapper tw-pt-5 medium:tw-ml-[174px]">
             <a class="tw-h5-heading medium:tw-w-[calc(100%-70px)] tw-mb-0 tw-block"
                 href="https://www.mozillapulse.org/profile/${
                   profile.profile_id
@@ -128,9 +128,9 @@
             </a>
             ${
               profile.location &&
-              `<p class="tw-flex tw-items-center meta-block-location tw-body-small tw-my-2">${profile.location}</p>`
+              `<p class="tw-flex tw-items-center meta-block-location tw-body-small tw-my-4">${profile.location}</p>`
             }
-            <div class="medium:tw-absolute medium:tw-right-0 medium:tw-top-4">
+            <div class="medium:tw-absolute medium:tw-right-0 medium:tw-top-8">
               ${
                 profile.twitter
                   ? `<a href="${profile.twitter}" class="twitter tw-twitter-glyph"></a>`
@@ -163,7 +163,7 @@
     profileContainer.style.height = `${profileContainer.offsetHeight}px`;
     profileContainer.style.width = `${profileContainer.offsetWidth}px`; // width + padding
     profileContainer.innerHTML = `
-      <div class="tw-w-full tw-mx-auto tw-my-7 tw-text-center tw-px-4">
+      <div class="tw-w-full tw-mx-auto tw-my-24 tw-text-center tw-px-8">
         <div class="loading-indicator tw-inline-block">
           <div class="dot"></div>
           <div class="dot"></div>

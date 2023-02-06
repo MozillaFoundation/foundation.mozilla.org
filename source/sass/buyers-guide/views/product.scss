@@ -36,9 +36,8 @@
       height: 61px;
 
       @media (min-width: $pni-product-breakpoint-larger) {
-        top: 40px;
+        @apply tw-top-20 tw-h-40;
         width: 63px;
-        height: 80px;
         right: 30px;
       }
 
@@ -113,12 +112,10 @@
 }
 
 .comment-section-padding-x {
-  padding-left: 18px;
-  padding-right: 18px;
+  @apply tw-px-9;
 
   @media (min-width: $pni-product-breakpoint-larger) {
-    padding-left: 5rem;
-    padding-right: 5rem;
+    @apply tw-px-40;
   }
 }
 
@@ -163,7 +160,7 @@
     &:before {
       content: "";
       display: inline-block;
-      height: 18px;
+      @apply tw-h-9;
       margin-right: 6px;
     }
 
@@ -388,7 +385,7 @@
 }
 
 .criterion-group {
-  margin-bottom: 3rem;
+  @apply tw-mb-24;
 
   &.privacy {
     [class^="col"]:not(:last-child) > * {
@@ -482,7 +479,7 @@
     border-bottom: 1px solid $gray-20;
 
     h3 {
-      padding-right: 40px;
+      @apply tw-pr-20;
 
       @media (min-width: $pni-product-breakpoint-larger) {
         padding-right: 0;

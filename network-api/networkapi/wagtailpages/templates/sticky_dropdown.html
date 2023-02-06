@@ -7,7 +7,7 @@
     tw-left-0
     tw-top-[100%]
     medium:tw-top-[calc(100%+9px)]
-    medium:-tw-right-7
+    medium:-tw-right-24
     medium:tw-left-auto
     tw-w-full
     medium:tw-w-[500px]
@@ -17,17 +17,17 @@
     article-summary-menu" aria-labelledby="summaryMenu">
     {% if page.get_parent and page.get_parent.specific.is_publication_page %}
         <div class="article-container">
-            <div class="tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-py-[1.4rem] tw-sticky tw-top-0 tw-left-0 tw-bg-white">
+            <div class="tw-px-8 medium:tw-px-28 large:tw-px-24 tw-py-[1.4rem] tw-sticky tw-top-0 tw-left-0 tw-bg-white">
                 <div class="tw-text-2xl tw-leading-6 tw-font-zilla">{% trans "Table of Contents" %}</div>
-                <div class="tw-text-sm tw-leading-4 tw-mt-2 tw-text-gray-80">{{ page.get_parent }}</div>
+                <div class="tw-text-sm tw-leading-4 tw-mt-4 tw-text-gray-80">{{ page.get_parent }}</div>
             </div>
 
-            <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-6">
+            <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-16">
                 {% for child_page in page.get_parent.get_children.specific %}
-                    <div class="tw-flex tw-py-3 first:tw-pt-0 tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-items-center">
-                        <a class="tw-whitespace-normal  tw-text-black hover:tw-no-underline hover:tw-text-blue-80 tw-flex tw-items-center tw-mr-3" href="{{ child_page.url }}">
+                    <div class="tw-flex tw-py-6 first:tw-pt-0 tw-px-8 medium:tw-px-28 large:tw-px-24 tw-items-center">
+                        <a class="tw-whitespace-normal  tw-text-black hover:tw-no-underline hover:tw-text-blue-80 tw-flex tw-items-center tw-mr-6" href="{{ child_page.url }}">
 
-                            <img class="tw-w-7 tw-h-7 tw-bg-cover tw-mr-4 tw-shrink-0"
+                            <img class="tw-w-24 tw-h-24 tw-bg-cover tw-mr-8 tw-shrink-0"
                                 {% with toc_image=child_page.toc_thumbnail_image %}
                                     {% if toc_image %}
                                         {% image toc_image fill-320x320 as thumbnail %}
@@ -44,8 +44,8 @@
                                 class="article-header-button
                                     tw-ml-auto
                                     tw-shrink-0
-                                    tw-w-5
-                                    tw-h-5
+                                    tw-w-12
+                                    tw-h-12
                                     tw-grid
                                     tw-place-items-center
                                     tw-bg-white
@@ -60,8 +60,8 @@
                             <button data-expand="{{child_page.title}}"
                                 class="article-child-button
                                     tw-ml-auto
-                                    tw-w-5
-                                    tw-h-5
+                                    tw-w-12
+                                    tw-h-12
                                     tw-shrink-0
                                     tw-bg-white
                                     tw-grid
@@ -76,7 +76,7 @@
                     {% if child_page.get_page_titles %}
                         <div class="article-child-menu tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{child_page.title}}">
                             {% for slug, header in child_page.get_page_titles %}
-                                <div class="tw-flex tw-py-3 tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-items-center tw-bg-gray-05">
+                                <div class="tw-flex tw-py-6 tw-px-8 medium:tw-px-28 large:tw-px-24 tw-items-center tw-bg-gray-05">
                                     <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-80 tw-flex tw-items-center" href="{{ child_page.url }}#{{ slug }}">
                                         {{ header }}
                                     </a>
@@ -91,12 +91,12 @@
 
     {% else %}
         <div class="article-container">
-            <div class="tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-pt-6 tw-text-2xl tw-leading-6 tw-font-zilla">
+            <div class="tw-px-8 medium:tw-px-28 large:tw-px-24 tw-pt-16 tw-text-2xl tw-leading-6 tw-font-zilla">
                 {% trans "Summary" %}
             </div>
-            <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-6">
+            <div class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-pb-16">
                 {% for slug, header in get_titles %}
-                    <a class="tw-whitespace-normal tw-py-5 tw-px-4 medium:tw-px-[3.5rem] large:tw-px-7 tw-text-black hover:tw-no-underline hover:tw-text-blue-40" href="#{{ slug }}">{{ header }}</a>
+                    <a class="tw-whitespace-normal tw-py-12 tw-px-8 medium:tw-px-28 large:tw-px-24 tw-text-black hover:tw-no-underline hover:tw-text-blue-40" href="#{{ slug }}">{{ header }}</a>
                 {% endfor %}
             </div>
         </div>

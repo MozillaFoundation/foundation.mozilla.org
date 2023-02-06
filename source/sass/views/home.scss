@@ -1,20 +1,18 @@
 #view-home {
   .section-padding {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    @apply tw-py-24;
 
     @media (min-width: $bp-md) {
-      padding-top: 5rem;
-      padding-bottom: 5rem;
+      @apply tw-py-40;
     }
   }
 
   .section-cause-statement {
     background: $black;
-    margin-top: -28px;
+    @apply -tw-mt-14;
 
     @media (min-width: $bp-md) {
-      margin-top: -48px;
+      @apply -tw-mt-24;
     }
 
     .tw-h4-heading {
@@ -50,7 +48,7 @@
     .spotlight-banner {
       background-size: cover;
       background-position: center;
-      height: 240px;
+      @apply tw-h-120;
 
       @media (min-width: $bp-md) {
         height: 255px;
@@ -191,7 +189,7 @@
         $border-thickness: 4px;
 
         width: 50%;
-        padding: 2.5rem;
+        @apply tw-p-20;
         margin: 10px 0;
         background: $white;
         border-bottom: $border-thickness solid $black;
@@ -243,8 +241,7 @@
   background-position-y: top;
   background-position-x: right;
   position: relative;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  @apply tw-py-40;
 }
 
 .partner-section::before {
@@ -285,7 +282,7 @@
 }
 
 .partner-section-logo {
-  margin-right: 48px;
+  @apply tw-mr-24;
   margin-top: 75px;
 }
 
@@ -297,7 +294,6 @@
 
 @media (max-width: $bp-sm) {
   .partner-section {
-    padding-top: 48px;
-    padding-bottom: 48px;
+    @apply tw-py-24;
   }
 }

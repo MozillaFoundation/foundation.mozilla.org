@@ -13,7 +13,7 @@
 
         {% with hero_featured_article=page.get_hero_featured_article %}
             {% if hero_featured_article %}
-                <div class="tw-container tw-mb-7">
+                <div class="tw-container tw-mb-24">
                     {% include "fragments/buyersguide/featured_article.html" with featured_article=hero_featured_article supporting_articles=page.get_hero_supporting_articles supporting_articles_heading=page.hero_supporting_articles_heading %}
                 </div>
             {% endif %}
@@ -21,7 +21,7 @@
 
         {% with featured_advice_article=page.get_featured_advice_article  %}
             {% if featured_advice_article %}
-                <div class="large:tw-container tw-my-6">
+                <div class="large:tw-container tw-my-16">
                     {% include "fragments/buyersguide/ask_jen_advice_section.html" with featured_advice_article=featured_advice_article %}
                 </div>
             {% endif %}
@@ -29,7 +29,7 @@
 
         <div class="tw-container">
             <div class="tw-row">
-                {% with row_item_classes="tw-px-4 tw-w-full large:tw-w-1/3 tw-py-5 large:tw-py-0" %}
+                {% with row_item_classes="tw-px-8 tw-w-full large:tw-w-1/3 tw-py-12 large:tw-py-0" %}
 
                     {% with popular_articles=page.get_featured_articles %}
                         {% if popular_articles %}

@@ -10,12 +10,12 @@
 {% endblock %}
 
 {% block main_block_class %}
-    {% if value.wide_image %} tw-relative tw-w-full tw-px-4 {% else %} streamfield-content {% endif %}
+    {% if value.wide_image %} tw-relative tw-w-full tw-px-8 {% else %} streamfield-content {% endif %}
 {% endblock %}
 
 {% block block_content %}
     {% image self.image width-1840 as img %}
-    <figure class="tw-my-2">
+    <figure class="tw-my-4">
         <img src="{{ img.url }}" alt="{% if self.alt_text %}{{ self.alt_text }}{% else %}{{ img.alt }}{% endif %}"
             class="tw-w-full" />
         {% if self.caption %}

@@ -12,13 +12,13 @@
         <p class="mb-0 tw-h3-heading tw-max-w-none flex-wrap">
             <a class="link-back tw-flex" href="{% relocalized_url home_page.url %}">
                 <img
-                    class="tw-mr-1 tw-w-3 tw-h-3 large:tw-w-4 large:tw-h-4"
+                    class="tw-mr-2 tw-w-6 tw-h-6 large:tw-w-8 large:tw-h-8"
                     src="{% static "_images/buyers-guide/asterick-mini.svg" %}"
                 >
                 <span class="tw-font-semibold tw-text-base tw-leading-4 large:tw-text-[32px] large:tw-leading-[28px]">{% trans "Privacy Not Included" context 'Buyer’s guide name. This can be localized. This is a reference to the “*batteries not included” mention on toys.' %}</span>
             </a>
         </p>
-        <a href="/" class="moz-logo mb-0 mr-3 large:tw-mt-2 tw-ml-4 large:tw-ml-[20px]"><span class="sr-only">Mozilla</span></a>
+        <a href="/" class="moz-logo mb-0 mr-3 large:tw-mt-4 tw-ml-8 large:tw-ml-10"><span class="sr-only">Mozilla</span></a>
     </div>
 {% endblock %}
 
@@ -36,7 +36,7 @@
         {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
         <button class="tw-bg-transparent" id="mobile-search">
             <img
-                class="large:tw-hidden tw-w-5 tw-h-5"
+                class="large:tw-hidden tw-w-12 tw-h-12"
                 src="{% static "_images/buyers-guide/pni-search.svg" %}"
             >
         </button>

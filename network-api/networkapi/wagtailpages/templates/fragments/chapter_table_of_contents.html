@@ -11,14 +11,14 @@
         <div class="{% if not page.notes %}pb-4 pb-md-5{% endif %} col-lg-8 offset-lg-2 justify-content-center publication-container">
             <div class="row">
                 <div class="">
-                    <h2 class="tw-px-4 small:tw-p-0 tw-my-6 tw-text-[28px] tw-leading-9 tw-font-normal">{{ page.contents_title }}</h2>
+                    <h2 class="tw-px-8 small:tw-p-0 tw-my-16 tw-text-[28px] tw-leading-9 tw-font-normal">{{ page.contents_title }}</h2>
                 </div>
                 <div class="article-container col-12 tw-divide-y tw-divide-gray-20 tw-border-t-gray-20 tw-border-t">
                     {% for child_page in child_pages %}
                         {% with child=child_page.child.specific %}
-                            <div class="row publication-row tw-min-h-[80px] pt-3 pb-3 d-flex align-items-center">
-                                <div class="tw-px-4">
-                                    <div class="publication-chapter-number tw-w-7 tw-h-7"
+                            <div class="row publication-row tw-min-h-40 pt-3 pb-3 d-flex align-items-center">
+                                <div class="tw-px-8">
+                                    <div class="publication-chapter-number tw-w-24 tw-h-24"
                                         {% with toc_image=child.specific.toc_thumbnail_image %}
                                             {% if toc_image %}
                                                 {% image toc_image fill-256x256 as thumbnail %}
@@ -40,14 +40,14 @@
                                         class="article-header-button
                                             tw-ml-auto
                                             tw-shrink-0
-                                            tw-w-5
-                                            tw-h-5
+                                            tw-w-12
+                                            tw-h-12
                                             tw-grid
                                             tw-place-items-center
                                             tw-bg-white
                                             tw-outline-none
                                             tw-p-0
-                                            tw-mr-4">
+                                            tw-mr-8">
                                         <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="" />
                                         <img src="{% static "_images/minus-circle.svg" %}" alt="" data-state="close" class="tw-hidden" />
                                     </button>
@@ -57,15 +57,15 @@
                                     <button data-expand="{{child.title}}"
                                         class="article-child-button
                                             tw-ml-auto
-                                            tw-w-5
-                                            tw-h-5
+                                            tw-w-12
+                                            tw-h-12
                                             tw-shrink-0
                                             tw-bg-white
                                             tw-grid
                                             tw-place-items-center
                                             tw-outline-none
                                             tw-p-0
-                                            tw-mr-4">
+                                            tw-mr-8">
                                         <img src="{% static "_images/arrow-circle.svg" %}" alt="" />
                                     </button>
                                 {% endif %}
@@ -74,7 +74,7 @@
                             {% if child.get_page_titles %}
                                 <div class="article-child-menu row tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{child.title}}">
                                     {% for slug, header in child.get_page_titles %}
-                                        <div class="tw-flex tw-py-3 tw-px-4 medium:tw-px-4 tw-items-center tw-bg-gray-05 tw-w-full tw-min-h-[80px]">
+                                        <div class="tw-flex tw-py-6 tw-px-8 medium:tw-px-8 tw-items-center tw-bg-gray-05 tw-w-full tw-min-h-40">
                                             <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-80 tw-flex tw-items-center" href="{{ child.url }}#{{ slug }}">
                                                 {{ header }}
                                             </a>

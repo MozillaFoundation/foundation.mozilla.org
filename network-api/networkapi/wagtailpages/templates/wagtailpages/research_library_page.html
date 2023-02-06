@@ -8,7 +8,7 @@
         <h1>{{ page.title }}</h1>
     </div>
 
-    <div class="large:tw-w-[20rem] large:tw-h-[8rem] tw-mt-5 tw-mb-4 large:tw-mb-0 large:-tw-ml-5 large:tw-p-5 large:tw-bg-gray-05" >
+    <div class="large:tw-w-160 large:tw-h-64 tw-mt-12 tw-mb-8 large:tw-mb-0 large:-tw-ml-12 large:tw-p-12 large:tw-bg-gray-05" >
         {# SEARCH BAR #}
         {% comment %}
       The page url is necessary in the form to that the filter anchor link is not carried forward.
@@ -22,16 +22,16 @@
         </form>
     </div>
 
-    <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-gap-6">
+    <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-gap-16">
         {# FILTER, SORT AND RESULTS #}
 
         {# For side-by-side layout, we need to pull the results up to that the upper end lines up with the search bar. #}
-        <div class="tw-min-w-0 tw-grow large:-tw-mt-[8rem] tw-pb-7">
+        <div class="tw-min-w-0 tw-grow large:-tw-mt-64 tw-pb-24">
             {# SORT AND RESULTS #}
 
 
-            <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-justify-between tw-gap-5">
-                <div class="tw-flex tw-flex-row tw-gap-3">
+            <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-justify-between tw-gap-12">
+                <div class="tw-flex tw-flex-row tw-gap-6">
                     {# FILTER BUTTON #}
                     <div class="large:tw-hidden tw-basis-1/2">
                         {% include "wagtailpages/fragments/research_filter_button.html" with button=False %}
@@ -68,10 +68,10 @@
                 </div>
             </div>
 
-            <ul class="tw-list-none tw-mt-6 large:tw-mt-5 tw-mb-5 tw-px-0 tw-border-t tw-border-b tw-border-gray-20 tw-divide-y tw-divide-gray-05">
+            <ul class="tw-list-none tw-mt-16 large:tw-mt-12 tw-mb-12 tw-px-0 tw-border-t tw-border-b tw-border-gray-20 tw-divide-y tw-divide-gray-05">
                 {# RESULTS LIST #}
                 {% for research_detail_page in research_detail_pages  %}
-                    <li class="tw-m-0 tw-pt-5 tw-pb-5">
+                    <li class="tw-m-0 tw-pt-12 tw-pb-12">
                         {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_related_topics_on_mobile=True %}
                     </li>
                 {% endfor %}
@@ -86,18 +86,18 @@
             tw-bg-gray-05
             large:tw-block
             large:tw-mr-0
-            large:-tw-ml-5
+            large:-tw-ml-12
             large:tw-overflow-y-clip
-            tw-pt-4 large:tw-pt-0
-            tw-px-4 small:tw-px-5 medium:tw-px-6 large:tw-px-5
+            tw-pt-8 large:tw-pt-0
+            tw-px-8 small:tw-px-12 medium:tw-px-16 large:tw-px-12
             tw-shrink-0
-            large:tw-w-[20rem]
+            large:tw-w-160
         ">
             {# FILTER SECTION #}
             <div class="tw-flex tw-justify-end">
                 <button
                     id="filter-section-hide-button"
-                    class="tw-hidden large:tw-hidden tw-h-7 tw-w-7 -tw-mt-2 -tw-mr-2 -tw-mb-4 tw-text-3xl tw-font-normal tw-text-blue-80 hover:tw-text-blue-20 tw-bg-transparent"
+                    class="tw-hidden large:tw-hidden tw-h-24 tw-w-24 -tw-mt-4 -tw-mr-4 -tw-mb-8 tw-text-3xl tw-font-normal tw-text-blue-80 hover:tw-text-blue-20 tw-bg-transparent"
                     aria-label="{% translate "Close" %}"
                     tabIndex="0"
                 >
@@ -130,12 +130,12 @@
             <div class="
                 tw-bg-gray-05
                 tw-bottom-0
-                -tw-mx-4 small:-tw-mx-5 medium:-tw-mx-6 large:-tw-mx-5
-                tw-pb-6 large:tw-pb-5
-                tw-px-4 small:tw-px-5 medium:tw-px-6 large:tw-px-5
+                -tw-mx-8 small:-tw-mx-12 medium:-tw-mx-16 large:-tw-mx-12
+                tw-pb-16 large:tw-pb-12
+                tw-px-8 small:tw-px-12 medium:tw-px-16 large:tw-px-12
                 tw-sticky
             ">
-                <div class="tw-pt-5 large:tw-pt-4 tw-border-t tw-border-t-gray-20">
+                <div class="tw-pt-12 large:tw-pt-8 tw-border-t tw-border-t-gray-20">
                     <button type="submit" class="tw-w-full tw-btn-primary" form="search-form">{% translate 'Apply filters' context 'Button' %}</button>
                 </div>
             </div>
