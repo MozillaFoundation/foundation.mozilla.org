@@ -5,6 +5,7 @@ from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core import blocks
 
 from . import customblocks
+from .customblocks.base_rich_text_options import base_rich_text_options
 from .customblocks.full_content_rich_text_options import full_content_rich_text_options
 
 article_fields = [
@@ -14,7 +15,7 @@ article_fields = [
     (
         "callout",
         blocks.RichTextBlock(
-            features=["bold"],
+            features=base_rich_text_options + ["h2", "h3", "h4", "ul", "ol"],
             template="wagtailpages/blocks/article_blockquote_block.html",
         ),
     ),

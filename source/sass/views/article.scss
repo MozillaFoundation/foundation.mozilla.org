@@ -135,6 +135,8 @@
 
 .article-blockquote-block {
   .rich-text {
+    ul,
+    ol,
     p {
       color: $black;
       font-size: 20px;
@@ -146,6 +148,8 @@
   }
   &--small {
     .rich-text {
+      ul,
+      ol,
       p {
         font-size: 18px;
         line-height: calc(27 / 18);
