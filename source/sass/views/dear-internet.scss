@@ -70,10 +70,10 @@
 
   #plane-pathway-wrapper {
     overflow: hidden;
-    top: 14rem;
+    @apply tw-top-112;
 
     @media (min-width: $bp-sm) {
-      top: 10rem;
+      @apply tw-top-80;
     }
 
     @media (min-width: $bp-md) {
@@ -81,7 +81,7 @@
     }
 
     @media (min-width: $bp-lg) {
-      top: 20rem;
+      @apply tw-top-160;
     }
 
     @media (min-width: $bp-xl) {
@@ -257,10 +257,10 @@
   }
 
   .love-letter-stamp {
-    margin: 2.5rem 0;
+    @apply tw-my-20 tw-mx-0;
 
     @media (min-width: $breakpoint) {
-      margin: 5rem 0;
+      @apply tw-my-40 tw-mx-0;
     }
 
     img {
@@ -269,11 +269,11 @@
       width: calc((100% - var(--spacing-x) * 2) / 3);
 
       @media (min-width: $bp-sm) {
-        width: 80px;
+        @apply tw-w-40;
       }
 
       @media (min-width: $breakpoint) {
-        width: 128px;
+        @apply tw-w-64;
       }
 
       &.stamp {

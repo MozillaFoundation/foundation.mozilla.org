@@ -1,22 +1,22 @@
 {% load wagtailcore_tags bg_selector_tags l10n i18n localization static bg_nav_tags %}
 {% get_bg_home_page as home_page %}
 
-<div id="product-tab" class="tw-w-full tw-mb-4">
+<div id="product-tab" class="tw-w-full tw-mb-8">
 
     {% include "fragments/buyersguide/product_tab_header.html"  %}
 
-    <div class="tw-overflow-hidden medium:tw--mx-7">
+    <div class="tw-overflow-hidden medium:tw--mx-24">
         <div id="product-tab-content" class="tw-w-full tw-flex tw-transition-transform tw-ease-in-out tw-duration-300 tw-items-start">
-            <div class="tw-w-full tw-shrink-0 medium:tw-px-7" data-product-label="0">
+            <div class="tw-w-full tw-shrink-0 medium:tw-px-24" data-product-label="0">
                 {% if product.product_type == 'general' %}
                     <section class="criterion">
-                        <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center">
+                        <h3 class="tw-mb-8 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center">
                             {% trans "Can it snoop on me?" %}
                             <a href="/privacynotincluded/about/methodology">
-                                <img src="{% static "_images/buyers-guide/icon-info-circle.svg" %}" alt="{% trans "information" context "icon description for screen readers" %}" class="tw-h-4 tw-w-4 tw-ml-2 tw-mb-1">
+                                <img src="{% static "_images/buyers-guide/icon-info-circle.svg" %}" alt="{% trans "information" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-ml-4 tw-mb-2">
                             </a>
                         </h3>
-                        <div class="row tw-space-y-4 medium:tw-space-y-0">
+                        <div class="row tw-space-y-8 medium:tw-space-y-0">
                             {% trans "Camera"          as camera %}
                             {% trans "Microphone"      as microphone %}
                             {% trans "Tracks location" as tracks_location %}
@@ -35,9 +35,9 @@
                 {% endif %}
 
                 <section class="criterion">
-                    <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What can be used to sign up?" %}</h3>
+                    <h3 class="tw-mb-8 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What can be used to sign up?" %}</h3>
 
-                    <div class="row tw-space-y-4 medium:tw-space-y-0">
+                    <div class="row tw-space-y-8 medium:tw-space-y-0">
                         {% trans "Email" context "Email address" as email %}
                         {% trans "Phone"                         as phone %}
                         {% trans "Third-party account"           as third_party_account %}
@@ -59,9 +59,9 @@
                 </section>
 
                 <section class="criterion">
-                    <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What data does the company collect?" %}</h3>
+                    <h3 class="tw-mb-8 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What data does the company collect?" %}</h3>
 
-                    <div class="row tw-space-y-4 medium:tw-space-y-0">
+                    <div class="row tw-space-y-8 medium:tw-space-y-0">
                         {% trans "Personal"      as personal_data_collected %}
                         {% trans "Body related"     as biometric_data_collected %}
                         {% trans "Social"        as social_data_collected %}
@@ -107,10 +107,10 @@
                 {% include "fragments/buyersguide/product_privacy.html"    with  label=privacy_policy_links          value=""         links=product.privacy_policy_links.all                  %}
             </div>
 
-            <div class="tw-w-full tw-shrink-0 medium:tw-px-7" data-product-label="1">
+            <div class="tw-w-full tw-shrink-0 medium:tw-px-24" data-product-label="1">
                 {% localizedroutablepageurl home_page 'methodology-view' as min_sec_url %}
                 {% blocktrans with url=min_sec_url|add:"#minimum-security-standards" asvar minimum_security_standards trimmed %}
-                    Does this product meet our <span class="tw-ml-1"></span> <a id="mss-link" class="" href="{{ url }}">Minimum Security Standards</a>?
+                    Does this product meet our <span class="tw-ml-2"></span> <a id="mss-link" class="" href="{{ url }}">Minimum Security Standards</a>?
                 {% endblocktrans %}
                 {% include "fragments/buyersguide/product_criterion.html"  with  value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards info=min_sec_url  %}
 
@@ -127,7 +127,7 @@
                 {% include "fragments/buyersguide/product_criterion.html"  with  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy           %}
             </div>
 
-            <div class="tw-w-full tw-shrink-0 medium:tw-px-7" data-product-label="2">
+            <div class="tw-w-full tw-shrink-0 medium:tw-px-24" data-product-label="2">
                 {% if product.product_type == 'general' %}
                     <section class="criterion-group">
                         {% trans "Does the product use AI?" as uses_ai_label %}
@@ -139,7 +139,7 @@
 
                             <section class="criterion">
                                 <div class="primary-info">
-                                    <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What kind of decisions does the AI make about you or for you?" %}</h3>
+                                    <h3 class="tw-mb-8 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What kind of decisions does the AI make about you or for you?" %}</h3>
                                     <p class="rating pni-product-smaller-body mb-0">
                                         {{product.ai_what_can_it_do|richtext}}
                                     </p>

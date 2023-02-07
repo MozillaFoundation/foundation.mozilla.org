@@ -84,5 +84,5 @@
 
 // for smooth-scrolling with sticky nav
 html {
-  scroll-padding-top: 6rem;
+  @apply tw-scroll-p-48;
 }

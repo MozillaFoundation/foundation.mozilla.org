@@ -3,12 +3,12 @@
 
 {% block block_content %}
     {% with card=value %}
-        <section id="{{ card.slug }}" class="tw-grid tw-grid-cols-1 large:tw-grid-cols-2 tw-gap-5 large:tw-gap-[60px] tw-mb-7 {{ divider_styles }}">
+        <section id="{{ card.slug }}" class="tw-grid tw-grid-cols-1 large:tw-grid-cols-2 tw-gap-12 large:tw-gap-[60px] tw-mb-24 {{ divider_styles }}">
             <div class="tw-row-start-2 large:tw-row-start-1">
-                <h2 class="tw-mb-4">{{ card.title }}<a href="#{{ card.slug }}"></a></h2>
+                <h2 class="tw-mb-8">{{ card.title }}<a href="#{{ card.slug }}"></a></h2>
                 {{ card.text|richtext }}
                 {% if card.url and card.url_label %}
-                    <a class="tw-{{ card.styling }} link-button tw-mt-4" href="{{ card.url }}">
+                    <a class="tw-{{ card.styling }} link-button tw-mt-8" href="{{ card.url }}">
                         {{ card.url_label }}
                     </a>
                 {% endif %}

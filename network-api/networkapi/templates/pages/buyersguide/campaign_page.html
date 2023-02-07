@@ -8,21 +8,21 @@
     <div class="tw-container">
         <div class="tw-row">
             <div class="
-                {% block content_wrapper_class %}tw-py-5 medium:tw-py-7{% endblock %}
+                {% block content_wrapper_class %}tw-py-12 medium:tw-py-24{% endblock %}
                 {% if page.specific.narrowed_page_content %}
-                    tw-w-8/12 tw-mx-auto tw-px-4
+                    tw-w-8/12 tw-mx-auto tw-px-8
                 {% else %}
-                    tw-w-full tw-px-4
+                    tw-w-full tw-px-8
                 {% endif %}"
             >
                 <div class="tw-row">
-                    <div class="cms tw-pb-4
+                    <div class="cms tw-pb-8
                         {% if page.cta and page.specific.narrowed_page_content == False %}
-                            large:tw-w-7/12 tw-px-4
+                            large:tw-w-7/12 tw-px-8
                         {% elif page.signup and page.specific.narrowed_page_content == False %}
-                            large:tw-w-7/12 tw-px-4
+                            large:tw-w-7/12 tw-px-8
                         {% else %}
-                            tw-w-full tw-px-4
+                            tw-w-full tw-px-8
                         {% endif %}"
                     >
                         {% block campaign_page_header %}
@@ -36,7 +36,7 @@
                             </h1>
                         {% endblock %}
                         {% block campaign_page_menu %}
-                            <div class="tw-mb-5 tw-hidden medium:tw-block">
+                            <div class="tw-mb-12 tw-hidden medium:tw-block">
                             </div>
                         {% endblock %}
                         {% block html_content %}
@@ -52,7 +52,7 @@
                         {% if page.cta != None %}
                             <div class="cta tw-pb-2
                                 {% if page.specific.narrowed_page_content == False %}
-                                    large:tw-w-4/12 large:tw-ml-[8.3%] tw-px-4
+                                    large:tw-w-4/12 large:tw-ml-[8.3%] tw-px-8
                                 {% else %}
                                     tw-w-full
                                 {% endif %}"
@@ -60,8 +60,8 @@
                                 <div class="narrow-sticky-button-container hidden">
                                     <a href="#cta-anchor" class="tw-btn-primary tw-block">{% trans "TAKE ACTION" context "Sticky button in mobile view on campaign pages" %}</a>
                                 </div>
-                                <div class="tw-sticky tw-top-[5rem] tw-overflow-hidden tw-z-[1018]">
-                                    <div id="cta-anchor" class="tw-mt-[-80px] tw-pt-[80px]">
+                                <div class="tw-sticky tw-top-40 tw-overflow-hidden tw-z-[1018]">
+                                    <div id="cta-anchor" class="-tw-mt-40 tw-pt-40">
                                         {% cta page %}
                                     </div>
                                 </div>
@@ -72,11 +72,11 @@
 
                     <div class="
                         {% if page.cta and page.specific.narrowed_page_content == False %}
-                            tw-w-7/12 tw-px-4
+                            tw-w-7/12 tw-px-8
                         {% elif page.signup and page.specific.narrowed_page_content == False %}
-                            tw-w-7/12 tw-px-4
+                            tw-w-7/12 tw-px-8
                         {% else %}
-                            tw-w-full tw-px-4
+                            tw-w-full tw-px-8
                         {% endif %}"
                     >
                     </div>

@@ -47,7 +47,7 @@
 
   &__item-content {
     @media (min-width: $bp-sm) {
-      padding-right: 40px;
+      @apply tw-pr-20;
     }
 
     @media (min-width: $bp-xl) {

@@ -30,7 +30,7 @@ hr {
 }
 
 .hr-emphasis {
-  @apply tw-bg-black tw-border-0 tw-h-1 tw-mx-0 tw-my-6;
+  @apply tw-bg-black tw-border-0 tw-h-1 tw-mx-0 tw-my-16;
 }
 
 #hero {
@@ -104,7 +104,7 @@ hr {
         margin-bottom: 72px;
 
         @media screen and (min-width: $bp-md) {
-          margin-bottom: 128px;
+          @apply tw-mb-64;
         }
 
         h1 {

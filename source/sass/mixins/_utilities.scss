@@ -35,13 +35,11 @@
 
 // Mixin for setting vertical margin for mobile and tablet+
 @mixin vertical-spacing($adjust-spacing-for-md: null) {
-  margin-top: 24px;
-  margin-bottom: 24px;
+  @apply tw-my-12;
 
   @if ($adjust-spacing-for-md) {
     @media (min-width: $bp-md) {
-      margin-top: 48px;
-      margin-bottom: 48px;
+      @apply tw-my-24;
     }
   }
 }

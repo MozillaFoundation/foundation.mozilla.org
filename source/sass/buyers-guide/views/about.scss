@@ -1,5 +1,5 @@
 #view-about .main-content .tw-h3-heading {
-  margin-top: 2.5rem;
+  @apply tw-mt-20;
   margin-bottom: 0.75rem;
 }
 
@@ -24,7 +24,7 @@
   }
 
   .vertical-nav .multipage-link-wrapper {
-    margin-bottom: 24px;
+    @apply tw-mb-12;
   }
 }
 
@@ -94,7 +94,7 @@
 .mini-warning-ding-icon::after {
   content: " ";
   display: inline-block;
-  width: 24px;
+  @apply tw-w-12;
   height: 1.5rem;
   background: url(../_images/buyers-guide/warning-ding.svg) no-repeat;
   margin-left: 8px;

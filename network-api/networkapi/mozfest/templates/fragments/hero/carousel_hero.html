@@ -1,6 +1,6 @@
 {% load i18n wagtailimages_tags %}
 <div data-mozfest-hero-carousel>
-    <div class="tw-relative tw-pt-[120px] tw-flex tw-flex-col tw-justify-end{% if not page.banner_video %} tw-pb-6 medium:tw-pb-[120px] {% endif %}">
+    <div class="tw-relative tw-pt-[120px] tw-flex tw-flex-col tw-justify-end{% if not page.banner_video %} tw-pb-16 medium:tw-pb-[120px] {% endif %}">
 
         {# Background images slider #}
         <div class="tw-absolute tw-inset-0">
@@ -25,7 +25,7 @@
         {# Text slider #}
         <div class="tw-container tw-relative tw-z-20 tw-text-white">
             <div>
-                <h1 class="tw-text-white tw-font-bold tw-mb-5">{{ page.banner_heading }}</h1>
+                <h1 class="tw-text-white tw-font-bold tw-mb-12">{{ page.banner_heading }}</h1>
                 {% if page.banner_video and page.banner_cta_label %}
                     <button id="mozfest-hero-video-cta" class="tw-btn-primary tw-bg-white tw-text-black hover:tw-bg-blue-40 hover:tw-text-white">{{ page.banner_cta_label }}</button>
                 {% endif %}
@@ -34,10 +34,10 @@
             <div class="tw-relative tw-pt-[60px] medium:tw-pt-[100px]  tw-hidden medium:tw-block">
 
                 {# pagination progress bars on desktop #}
-                <div class="swiper-hero-pagination tw-bottom-3 tw-relative tw-z-40 tw-grid tw-grid-cols-3 tw-gap-3 medium:tw-gap-4"></div>
+                <div class="swiper-hero-pagination tw-bottom-6 tw-relative tw-z-40 tw-grid tw-grid-cols-3 tw-gap-6 medium:tw-gap-8"></div>
 
                 {# Text #}
-                <div class="tw-grid tw-grid-cols-3 tw-gap-3 medium:tw-gap-4">
+                <div class="tw-grid tw-grid-cols-3 tw-gap-6 medium:tw-gap-8">
                     {% for slide_block in page.specific.banner_carousel %}
                         {% with slide=slide_block.value %}
                             <div>
@@ -63,7 +63,7 @@
 
 {# Spacing for top of content section when there is no video #}
 {% if not page.banner_video %}
-    <div class="tw-w-full tw-bg-white tw-h-7"></div>
+    <div class="tw-w-full tw-bg-white tw-h-24"></div>
 {% endif %}
 
 
