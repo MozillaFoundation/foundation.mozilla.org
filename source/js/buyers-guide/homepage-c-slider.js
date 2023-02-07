@@ -118,7 +118,15 @@ export default {
           bubbleText.textContent = ``;
           bubble.classList.add(`d-none`);
         } else {
-          bubbleText.textContent = `${CREEPINESS_LABELS[bin]}!`;
+          let format = pgettext(
+            "Creepiness label followed by an exclamation mark",
+            "%(label)s!"
+          );
+          bubbleText.textContent = interpolate(
+            format,
+            { label: CREEPINESS_LABELS[bin] },
+            true
+          );
           bubble.classList.remove(`d-none`);
         }
       },
