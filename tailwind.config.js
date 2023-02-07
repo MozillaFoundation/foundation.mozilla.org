@@ -67,9 +67,12 @@ module.exports = {
       cursor: {
         grabbing: "grabbing",
       },
-      backgroundSize: {
-        '8': '1rem'
-      }
+      backgroundSize: ({ theme }) => ({
+        auto: "auto",
+        cover: "cover",
+        contain: "contain",
+        ...theme("spacing"),
+      }),
     },
     // Overriding default spacing
     spacing: {
