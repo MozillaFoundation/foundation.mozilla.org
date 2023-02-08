@@ -1,7 +1,7 @@
 {% load settings_value i18n static %}
 
 {% with wrapper_class="tw-py-24 tw-shadow-[0_0_3px_2px_rgba(9,32,77,.12)_inset]" background_class="tw-bg-[url(../_images/donate-banner-giving.jpg)] tw-bg-[100%_0] tw-bg-no-repeat tw-bg-cover medium:tw-bg-contain" btn_class="tw-text-white tw-border-black tw-bg-blue-40 hover:tw-bg-blue-80 tw-shadow-black"%}
-    <div class="donate-banner {{background_class}} {{wrapper_class}} tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden">
+    <div class="donate-banner {{ background_class}} {{wrapper_class }} tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden">
         <a href="#"
             class="tw-p-8
                 tw-box-content
@@ -30,7 +30,7 @@
                             {% trans "Can you donate today?" %}
                         </p>
                         <div class="tw-w-full tw-pt-6">
-                            <a class="tw-btn-pop {{btn_class}} tw-shadow-[4px_4px]" tw-w-full tw-text-base active:tw-text-white active:tw-bg-[#0a0c8f] active:tw-border-black" href="?form=donate">
+                            <a class="tw-btn-pop {{ btn_class }} tw-shadow-[4px_4px]" tw-w-full tw-text-base active:tw-text-white active:tw-bg-[#0a0c8f] active:tw-border-black" href="?form=donate">
                                 {% trans "Support Mozilla" %}
                                 </a>
                                 </div>

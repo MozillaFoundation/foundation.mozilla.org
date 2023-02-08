@@ -25,7 +25,7 @@
             {% if 'player.vimeo.com' in video_url %}
                 <div id="featured-video-container" class=" tw-relative tw-aspect-[16/9] tw-w-full tw-h-full hover:tw-cursor-pointer">
                     <video class="featured-video tw-h-full tw-w-full">
-                        <source src="{{video_url}}" type="video/mp4">
+                        <source src="{{ video_url }}" type="video/mp4">
                     </video>
                     <div class="tw-absolute tw-top-0 tw-left-0 tw-min-h-full tw-min-w-full tw-flex tw-justify-center tw-place-items-center">
                         <img class="play-button tw-h-32 tw-w-32 tw-opacity-75 hover:tw-opacity-100" src="{% static "_images/video_play_button.svg" %}" alt="{% trans "Play Button" context "icon description for screen readers" %}" />
