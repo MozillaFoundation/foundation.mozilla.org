@@ -62,7 +62,7 @@ export class SearchFilter {
         )
     ).then(() => {
       if (this.categoryTitle.value === "None") {
-        Utils.toggleScrollAnimation(true);
+        Utils.toggleScrollAnimation();
       } else {
         Utils.toggleCategoryAnimation(true);
       }
@@ -80,7 +80,7 @@ export class SearchFilter {
     ));
 
     const mobileSearchBar = (this.mobileSearchBar = document.querySelector(
-      `#pni-mobile-container`
+      `#pni-mobile-search-container`
     ));
 
     if (!searchBar || !mobileSearchBar) {
@@ -92,7 +92,9 @@ export class SearchFilter {
     const debounce = (fn, ms = 0) => {
       let timeoutId;
       return function (...args) {
-        clearTimeout(timeoutId);
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
         timeoutId = setTimeout(() => fn.apply(this, args), ms);
       };
     };

@@ -287,18 +287,18 @@ class JoinUs extends Component {
     let headingClasses = classNames(
       `${
         this.props.formStyle == "pop"
-          ? "tw-h1-heading large:tw-pr-7"
+          ? "tw-h1-heading large:tw-pr-24"
           : this.props.formStyle == "pni"
-          ? "tw-text-3xl tw-font-zilla tw-mb-2 medium:tw-w-4/5"
+          ? "tw-text-3xl tw-font-zilla tw-mb-4 medium:tw-w-4/5"
           : "tw-h5-heading"
       }`
     );
     let descriptionClasses = classNames(
       `${
         this.props.formStyle == "pop"
-          ? "large:tw-pr-7"
+          ? "large:tw-pr-24"
           : this.props.formStyle == "pni"
-          ? "tw-text-base tw-mb-2 medium:tw-w-4/5"
+          ? "tw-text-base tw-mb-4 medium:tw-w-4/5"
           : ""
       }`
     );
@@ -362,9 +362,9 @@ class JoinUs extends Component {
     });
 
     let inputClasses = classNames(`form-control`, {
-      "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-4":
+      "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-8":
         this.props.formStyle == `pop`,
-      "tw-h-7": this.props.formStyle == `pni`,
+      "tw-h-24": this.props.formStyle == `pni`,
     });
 
     let errorWrapperClasses = classNames("glyph-container", {
@@ -533,16 +533,21 @@ class JoinUs extends Component {
 
     if (this.props.formStyle == "pop") {
       classnames = classNames(
-        "tw-border-1 tw-btn-secondary tw-mt-7 medium:-tw-mb-6 medium:tw-mt-5"
+        "tw-border-1 tw-btn-secondary tw-mt-24 medium:-tw-mb-16 medium:tw-mt-12"
       );
       buttonText = getText("Subscribe");
     } else if (this.props.formStyle == "pni") {
-      classnames = classNames("tw-btn", "tw-btn-primary", "tw-w-max", "tw-h-7");
+      classnames = classNames(
+        "tw-btn",
+        "tw-btn-primary",
+        "tw-w-max",
+        "tw-h-24"
+      );
       buttonText = getText("Sign up");
     } else {
       classnames = classNames("tw-btn", "tw-btn-primary", {
         "w-100": !this.isFlowForm(),
-        "tw-flex-1 tw-mr-4": this.isFlowForm(),
+        "tw-flex-1 tw-mr-8": this.isFlowForm(),
       });
       buttonText = getText("Sign up");
     }
@@ -560,7 +565,7 @@ class JoinUs extends Component {
     let formClass = `d-flex flex-column`;
 
     let fieldsWrapperClass = classNames(`w-100`, {
-      "large:tw-pl-7": this.props.formStyle == `pop`,
+      "large:tw-pl-24": this.props.formStyle == `pop`,
     });
 
     let buttonsWrapperClass = `w-100`;

@@ -1,64 +1,64 @@
 {% load static wagtailcore_tags wagtailimages_tags i18n %}
 <div id="featured-article" class="tw-row">
-  <div class="
-    tw-px-4
-    tw-w-full
-    tw-grid
-    tw-grid-cols-12
-    tw-grid-rows-[(auto,auto,auto)] medium:tw-grid-rows-[(auto,auto)]
-    {# Only adding the x gap above medium screens because otherwise the gaps would define a min width for the grid. #}
-    medium:tw-gap-x-6
-    tw-gap-y-6
-  ">
+    <div class="
+        tw-px-8
+        tw-w-full
+        tw-grid
+        tw-grid-cols-12
+        tw-grid-rows-[(auto,auto,auto)] medium:tw-grid-rows-[(auto,auto)]
+        {# Only adding the x gap above medium screens because otherwise the gaps would define a min width for the grid. #}
+        medium:tw-gap-x-16
+        tw-gap-y-16
+    ">
 
-    {% with search_image=featured_article.search_image %}
-    {% image search_image width-650 as img1x %}
-    {% image search_image width-1350 as img2x %}
-    {% image search_image width-1950 as img3x %}
-    {% pageurl featured_article as featured_article_url %}
-    <a
-      href="{{ featured_article_url }}"
-      class="
-        tw-col-span-full large:tw-col-span-7
-        large:tw-row-span-2
-        [&_~_a>h2]:hover:tw-underline
-      "
-    >
-      <span class="tw-sr-only">{{ featured_article.title }}</span>
-      <img
-        src="{{ img1x.url }}"
-        srcset="{{ img2x.url }} 2x, {{ img3x.url }} 3x"
-        alt="{{ img1x.alt }}"
-        class="tw-w-full tw-aspect-video tw-rounded-xl tw-object-cover"
-      />
-    </a>
+        {% with search_image=featured_article.search_image %}
+            {% image search_image width-650 as img1x %}
+            {% image search_image width-1350 as img2x %}
+            {% image search_image width-1950 as img3x %}
+            {% pageurl featured_article as featured_article_url %}
+            <a
+                href="{{ featured_article_url }}"
+                class="
+                    tw-col-span-full large:tw-col-span-7
+                    large:tw-row-span-2
+                    [&_~_a>h2]:hover:tw-underline
+                "
+            >
+                <span class="tw-sr-only">{{ featured_article.title }}</span>
+                <img
+                    src="{{ img1x.url }}"
+                    srcset="{{ img2x.url }} 2x, {{ img3x.url }} 3x"
+                    alt="{{ img1x.alt }}"
+                    class="tw-w-full tw-aspect-video tw-rounded-xl tw-object-cover"
+                />
+            </a>
 
-    <a
-      href="{{ featured_article_url }}"
-      class="
-        tw-col-span-full medium:tw-col-span-6 large:tw-col-span-5
-        tw-no-underline
-        tw-group
-      "
-    >
-      <h2 class="tw-h3-heading group-hover:tw-underline">
-        {{ featured_article.title }}
-      </h2>
+            <a
+                href="{{ featured_article_url }}"
+                class="
+                    tw-col-span-full medium:tw-col-span-6 large:tw-col-span-5
+                    tw-no-underline
+                    tw-group
+                "
+            >
+                <h2 class="tw-h3-heading group-hover:tw-underline">
+                    {{ featured_article.title }}
+                </h2>
 
-      <div class="tw-text-black tw-font-sans tw-font-extrabold tw-text-sm">
-        {% spaceless %}
-          <span>{% trans "By" context "Article author attribution" %} </span>
-          {% include "fragments/profile_names_list.html" with profiles=featured_article.get_author_profiles %}
-        {% endspaceless %}
-      </div>
-    </a>
-    {% endwith %}
+                <div class="tw-text-black tw-font-sans tw-font-extrabold tw-text-sm">
+                    {% spaceless %}
+                        <span>{% trans "By" context "Article author attribution" %} </span>
+                        {% include "fragments/profile_names_list.html" with profiles=featured_article.get_author_profiles %}
+                    {% endspaceless %}
+                </div>
+            </a>
+        {% endwith %}
 
-    {% if supporting_articles %}
-      <div id="supporting-articles" class="tw-col-span-full medium:tw-col-span-6 large:tw-col-span-5">
-        {% include "fragments/buyersguide/related_reading.html" with heading=supporting_articles_heading heading_level=3 heading_classes='tw-font-sans tw-text-base tw-leading-5 tw-uppercase tw-my-4' articles=supporting_articles %}
-      </div>
-    {% endif %}
+        {% if supporting_articles %}
+            <div id="supporting-articles" class="tw-col-span-full medium:tw-col-span-6 large:tw-col-span-5">
+                {% include "fragments/buyersguide/related_reading.html" with heading=supporting_articles_heading heading_level=3 heading_classes='tw-font-sans tw-text-base tw-leading-5 tw-uppercase tw-my-8' articles=supporting_articles %}
+            </div>
+        {% endif %}
 
-  </div>
+    </div>
 </div>

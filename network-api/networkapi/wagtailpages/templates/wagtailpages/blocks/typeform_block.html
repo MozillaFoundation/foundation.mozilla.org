@@ -2,12 +2,12 @@
 {% load wagtailcore_tags %}
 
 {% block block_content %}
-  <a
-    id="btn-typeform-popup"
-    class="tw-{{ value.button_type }} tw-my-4"
-    href="https://form.typeform.com/to/{{ value.embed_id }}"
-    target="_blank">{{ value.button_text }}</a>
+    <a
+        id="btn-typeform-popup"
+        class="tw-{{ value.button_type }} tw-my-8"
+        href="https://form.typeform.com/to/{{ value.embed_id }}"
+        target="_blank">{{ value.button_text }}</a>
 
-  <script async defer src="https://embed.typeform.com/embed.js" ></script>
+    <script async defer src="https://embed.typeform.com/embed.js" ></script>
 
 {% endblock %}

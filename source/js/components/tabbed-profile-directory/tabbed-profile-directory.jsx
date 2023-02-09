@@ -177,7 +177,7 @@ const TabbedProfileFilters = ({
 
         {/*If profiles are filtered with the subfilter show them instead*/}
         {subFilteredProfiles.length > 0 && (
-          <div className="tw-grid large:tw-grid-cols-2 tw-mb-5 w-full tw-gap-6">
+          <div className="tw-grid large:tw-grid-cols-2 tw-mb-12 w-full tw-gap-16">
             {subFilteredProfiles.map((profile) => (
               <PulseProfile key={profile.id} profile={profile} />
             ))}
@@ -188,7 +188,7 @@ const TabbedProfileFilters = ({
         {!loading &&
           filteredProfiles.length > 1 &&
           subFilteredProfiles.length < 1 && (
-            <div className="tw-grid large:tw-grid-cols-2 tw-mb-5 w-full tw-gap-6">
+            <div className="tw-grid large:tw-grid-cols-2 tw-mb-12 w-full tw-gap-16">
               {filteredProfiles.map((profile) => (
                 <PulseProfile key={profile.id} profile={profile} />
               ))}

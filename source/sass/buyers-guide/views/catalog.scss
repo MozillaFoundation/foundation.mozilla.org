@@ -23,7 +23,7 @@ body {
   --pni-icon-size: 1.2em;
 
   #product-filter-search,
-  #pni-mobile-container {
+  #pni-mobile-search-container {
     & .clear-icon {
       flex: 0 0 auto;
       display: none;
@@ -66,115 +66,93 @@ body {
   }
 
   .product-box-list-wrapper {
-    // Mixin for setting product box styling in product box list
-    @mixin product-box-size($box-margin: 1px, $items-per-row: 2) {
-      $num-of-gutter: $items-per-row;
-      $gutter-width: $box-margin * 2;
-      $row-total-gutter-width: $gutter-width * $num-of-gutter;
+    figure.product-box {
+      $padding-x: 12px;
+      $padding-y: 12px;
+      $privacy-ding-width: 30px;
+      $privacy-ding-height: 25px;
+      $recommendation-width: 17px;
+      $recommendation-height: 15.8px;
 
-      .product-box-list {
-        margin-right: -$box-margin;
-        margin-left: -$box-margin;
+      // Needed for animation state while JS loads
+      opacity: 0;
+
+      display: inline-block;
+      position: relative;
+      padding: $padding-y $padding-x;
+      background: $pni-product-list-background;
+
+      .privacy-ding {
+        @include privacy-ding(
+          $padding-y,
+          $padding-x,
+          $privacy-ding-width,
+          $privacy-ding-height
+        );
+
+        position: static;
       }
 
-      figure.product-box {
-        $padding-x: 12px;
-        $padding-y: 12px;
-        $privacy-ding-width: 30px;
-        $privacy-ding-height: 25px;
-        $recommendation-width: 17px;
-        $recommendation-height: 15.8px;
+      .adult-content-badge {
+        @include adult-content-badge($padding-y, $padding-x, 41px, 35px);
+      }
 
-        // Needed for animation state while JS loads
-        opacity: 0;
+      .top-left-badge-container {
+        $badge-spacing: 0.5rem;
 
-        display: inline-block;
+        position: absolute;
+        top: $padding-y;
+        left: $padding-x;
+        width: calc(
+          #{$privacy-ding-width} + #{$recommendation-width} + #{$badge-spacing}
+        );
+        height: $privacy-ding-height;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .product-image {
+        img {
+          margin: 0 auto;
+
+          @media (min-width: $breakpoint) {
+            max-width: 78%;
+          }
+        }
+      }
+
+      .product-links {
+        @include hover-focus-active {
+          text-decoration: none;
+        }
+
+        @media screen and (max-width: $breakpoint) {
+          .product-company {
+            color: $gray-80;
+            font-size: 12px;
+            line-height: calc(16 / 12);
+          }
+
+          .product-name {
+            color: $black;
+            font-size: 12px;
+            line-height: calc(16 / 12);
+          }
+        }
+      }
+
+      figcaption {
+        color: $gray-40;
         position: relative;
-        padding: $padding-y $padding-x;
-        background: $pni-product-list-background;
+        bottom: -($padding-y/2); // to offset the extra bottom spacing from line-height
 
-        .privacy-ding {
-          @include privacy-ding(
-            $padding-y,
-            $padding-x,
-            $privacy-ding-width,
-            $privacy-ding-height
-          );
-
-          position: static;
-        }
-
-        .adult-content-badge {
-          @include adult-content-badge($padding-y, $padding-x, 41px, 35px);
-        }
-
-        .top-left-badge-container {
-          $badge-spacing: 0.5rem;
-
-          position: absolute;
-          top: $padding-y;
-          left: $padding-x;
-          width: calc(
-            #{$privacy-ding-width} + #{$recommendation-width} + #{$badge-spacing}
-          );
-          height: $privacy-ding-height;
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .product-image {
-          img {
-            margin: 0 auto;
-
-            @media (min-width: $breakpoint) {
-              max-width: 78%;
-            }
-          }
-        }
-
-        .product-links {
-          @include hover-focus-active {
-            text-decoration: none;
-          }
-
-          @media screen and (max-width: $breakpoint) {
-            .product-company {
-              color: $gray-80;
-              font-size: 12px;
-              line-height: calc(16 / 12);
-            }
-
-            .product-name {
-              color: $black;
-              font-size: 12px;
-              line-height: calc(16 / 12);
-            }
-          }
-        }
-
-        figcaption {
-          color: $gray-40;
-          position: relative;
-          bottom: -($padding-y/2); // to offset the extra bottom spacing from line-height
-
-          .tw-body {
-            font-weight: initial;
-          }
+        .tw-body {
+          font-weight: initial;
         }
       }
     }
 
     overflow-x: hidden;
-
-    @include product-box-size(1px, 2);
-
-    @media (min-width: $bp-md) {
-      @include product-box-size(1px, 3);
-    }
-
-    @media (min-width: $bp-lg) {
-      @include product-box-size(1px, 4);
-    }
   }
 
   .project-list-section {

@@ -1,8 +1,7 @@
 .cms {
   .person-card .meta-block-location {
     &::before {
-      width: 12px;
-      height: 12px;
+      @apply tw-w-6 tw-h-6;
       display: block;
       content: "";
       margin-right: 5px;

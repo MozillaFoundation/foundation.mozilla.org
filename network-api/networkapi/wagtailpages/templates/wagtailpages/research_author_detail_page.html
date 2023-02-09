@@ -2,67 +2,67 @@
 {% load i18n l10n wagtailcore_tags wagtailimages_tags %}
 
 {% block research_hub_content %}
-  <div
-    id="info"
-    class="
-      tw-gap-4
-      tw-grid
-      tw-grid-cols-1
-      {% if author_profile.image %}
-        medium:tw-gap-x-7
-        medium:tw-grid-cols-[13rem_1fr]
-        large:tw-grid-cols-[16rem_1fr]
-      {% endif %}
-    "
-  >
     <div
-      {% if author_profile.image %}
-        class="medium:tw-col-start-2"
-      {% endif %}
+        id="info"
+        class="
+            tw-gap-8
+            tw-grid
+            tw-grid-cols-1
+            {% if author_profile.image %}
+                medium:tw-gap-x-24
+                medium:tw-grid-cols-[13rem_1fr]
+                large:tw-grid-cols-[16rem_1fr]
+            {% endif %}
+        "
     >
-      {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
-    </div>
-    {% if author_profile.image %}
-      <div id="image-container" class="tw-place-self-center medium:tw-place-self-start">
-        {% image author_profile.image fill-256x256 as img_1x %}
-        {% image author_profile.image fill-512x512 as img_2x %}
-        <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x" src="{{ img_2x.url }}" width="{{ img_2x.width|unlocalize }}" height="{{ img_2x.height|unlocalize }}"  alt="{{ img_2x.alt }}" class="tw-rounded-full tw-w-[13rem] large:tw-w-[16rem]" />
-      </div>
-    {% endif %}
-    <div id="bio">
-      <h1 class="tw-mb-4">{{ author_profile.name }}</h1>
-      <div class="tw-mb-4 tw-text-lg tw-text-gray-60">
-        {{ author_profile.localized.tagline }}
-      </div>
-      <p class="tw-text-lg">
-        {{ author_profile.localized.introduction }}
-      </p>
-    </div>
-    <div
-      id="latest-research"
-      class="
-        tw-border-t
-        tw-min-w-0
-        tw-mt-6
-        tw-pt-5
+        <div
+            {% if author_profile.image %}
+                class="medium:tw-col-start-2"
+            {% endif %}
+        >
+            {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
+        </div>
         {% if author_profile.image %}
-          medium:tw-col-span-2
-          large:tw-col-span-1
-          large:tw-col-start-2
+            <div id="image-container" class="tw-place-self-center medium:tw-place-self-start">
+                {% image author_profile.image fill-256x256 as img_1x %}
+                {% image author_profile.image fill-512x512 as img_2x %}
+                <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x" src="{{ img_2x.url }}" width="{{ img_2x.width|unlocalize }}" height="{{ img_2x.height|unlocalize }}"  alt="{{ img_2x.alt }}" class="tw-rounded-full tw-w-104 large:tw-w-128" />
+            </div>
         {% endif %}
-      "
-    >
-      <h2>{% translate "Latest research" %}</h2>
-      <ul class="tw-list-none px-0">
-        {% for research_detail_page in latest_research %}
-          <li class="tw-border-t tw-border-t-gray-20 tw-mt-5 tw-pt-5">
-            {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_author_names=True hide_image_on_mobile=True %}
-          </li>
-        {% endfor %}
-      </ul>
-      {% if author_research_count > 3 %}
-        <a href="{% pageurl library_page %}?author={{ author_profile.id|unlocalize }}" class="tw-btn-secondary tw-mt-5 small:tw-mt-6 tw-w-full small:tw-w-auto">{% translate 'Browse all projects' context 'Button to see more than the latest three elements of research from an author' %} ({{ author_research_count }})</a>
-      {% endif %}
+        <div id="bio">
+            <h1 class="tw-mb-8">{{ author_profile.name }}</h1>
+            <div class="tw-mb-8 tw-text-lg tw-text-gray-60">
+                {{ author_profile.localized.tagline }}
+            </div>
+            <p class="tw-text-lg">
+                {{ author_profile.localized.introduction }}
+            </p>
+        </div>
+        <div
+            id="latest-research"
+            class="
+                tw-border-t
+                tw-min-w-0
+                tw-mt-16
+                tw-pt-12
+                {% if author_profile.image %}
+                    medium:tw-col-span-2
+                    large:tw-col-span-1
+                    large:tw-col-start-2
+                {% endif %}
+            "
+        >
+            <h2>{% translate "Latest research" %}</h2>
+            <ul class="tw-list-none px-0">
+                {% for research_detail_page in latest_research %}
+                    <li class="tw-border-t tw-border-t-gray-20 tw-mt-12 tw-pt-12">
+                        {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_author_names=True hide_image_on_mobile=True %}
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if author_research_count > 3 %}
+                <a href="{% pageurl library_page %}?author={{ author_profile.id|unlocalize }}" class="tw-btn-secondary tw-mt-12 small:tw-mt-16 tw-w-full small:tw-w-auto">{% translate 'Browse all projects' context 'Button to see more than the latest three elements of research from an author' %} ({{ author_research_count }})</a>
+            {% endif %}
+        </div>
     </div>
-  </div>
 {% endblock research_hub_content %}

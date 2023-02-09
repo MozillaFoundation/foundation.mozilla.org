@@ -19,7 +19,7 @@
       $border-thickness: 4px;
       @media (min-width: $bp-xl) {
         width: 50%;
-        padding: 2.5rem;
+        @apply tw-p-20;
       }
       margin: 10px 0;
       background: $white;

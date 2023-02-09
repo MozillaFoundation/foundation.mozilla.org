@@ -1,7 +1,15 @@
 from django.forms.utils import ErrorList
-from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
+from django.utils import functional as func_utils
+from django.utils import text as text_utils
+from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
+
+
+class ImageTeaserValue(blocks.StructValue):
+    @func_utils.cached_property
+    def slug(self):
+        return text_utils.slugify(self.get("title", ""))
 
 
 class ImageTeaserBlock(blocks.StructBlock):
@@ -35,11 +43,11 @@ class ImageTeaserBlock(blocks.StructBlock):
         top_divider = value.get("top_divider")
         bottom_divider = value.get("bottom_divider")
         if not top_divider and not bottom_divider:
-            divider_styles = "tw-mt-4"
+            divider_styles = "tw-mt-8"
         if top_divider:
-            divider_styles.append("tw-border-t tw-pt-7")
+            divider_styles.append("tw-border-t tw-pt-24")
         if bottom_divider:
-            divider_styles.append("tw-border-b tw-pb-7")
+            divider_styles.append("tw-border-b tw-pb-24")
         context["divider_styles"] = " ".join(divider_styles)
         return context
 
@@ -60,3 +68,4 @@ class ImageTeaserBlock(blocks.StructBlock):
         label = "Image teaser"
         icon = "doc-full"
         template = "wagtailpages/blocks/image_teaser_block.html"
+        value_class = ImageTeaserValue

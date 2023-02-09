@@ -33,8 +33,7 @@
   &::before {
     content: "";
     display: inline-block;
-    width: 18px;
-    height: 18px;
+    @apply tw-w-9 tw-h-9;
     margin-right: 10px;
     background-image: url(../_images/glyphs/download-file.svg);
     transition: $button-icon-transition-speed;
@@ -61,8 +60,7 @@
 }
 
 .publication-chapter-number {
-  width: 160px;
-  height: 160px;
+  @apply tw-w-80 tw-h-80;
   background-color: $light-blue;
   background-position: center;
   background-size: cover;
@@ -75,8 +73,7 @@
   font-family: $font-family-slab-serif;
 
   &--small {
-    width: 64px;
-    height: 64px;
+    @apply tw-w-32 tw-h-32;
     color: $white;
     font-size: 30px;
     line-height: calc(44 / 30);
@@ -84,7 +81,7 @@
 }
 
 .publication-chapter-title {
-  margin-top: 64px;
+  @apply tw-mt-32;
 
   &--small {
     color: $black;
@@ -102,7 +99,7 @@
 .publication-notes .rich-text {
   font-size: 16px;
   line-height: calc(24 / 16);
-  margin-bottom: 96px;
+  @apply tw-mb-48;
   margin-top: 49px;
 
   *:not(strong):not(b) {

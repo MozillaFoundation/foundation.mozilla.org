@@ -54,8 +54,8 @@
 
 .article-column-rule {
   column-rule: 1px solid $gray-20;
-  column-gap: 6rem;
   column-fill: balance;
+  @apply tw-gap-48;
 }
 
 .article-summary-share-links {
@@ -135,6 +135,8 @@
 
 .article-blockquote-block {
   .rich-text {
+    ul,
+    ol,
     p {
       color: $black;
       font-size: 20px;
@@ -146,6 +148,8 @@
   }
   &--small {
     .rich-text {
+      ul,
+      ol,
       p {
         font-size: 18px;
         line-height: calc(27 / 18);
@@ -156,8 +160,7 @@
 }
 
 .article-table-block .table {
-  margin-top: 24px;
-  margin-bottom: 24px;
+  @apply tw-my-12;
   background-color: $white;
 
   td,
@@ -281,8 +284,7 @@
    */
 .article-link {
   background: $gray-05;
-  padding-top: 24px;
-  padding-bottom: 56px;
+  @apply tw-pb-28 tw-pt-12;
 
   .tw-body-small {
     color: $gray-80;
@@ -311,8 +313,7 @@
       content: "";
       position: absolute;
       right: 0;
-      top: 24px;
-      bottom: 24px;
+      @apply tw-top-12 tw-bottom-12;
       border-right: 1px solid $gray-20;
     }
   }

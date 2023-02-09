@@ -2,12 +2,11 @@
   background-image: url("../_images/mozilla-on-black.svg");
   background-repeat: no-repeat;
   flex-shrink: 0;
-  width: 40px;
-  height: 12px;
+  @apply tw-w-20 tw-h-6;
 
   @media (min-width: $bp-lg) {
     width: 62px;
-    height: 18px;
+    @apply tw-h-9;
   }
 }
 

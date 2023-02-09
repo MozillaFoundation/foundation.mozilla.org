@@ -3,42 +3,42 @@
 {% load i18n l10n static %}
 
 {% block footer_donate %}
-  <!-- nothing right now -->
+    <!-- nothing right now -->
 {% endblock %}
 
 {% block left_footer_column %}
-  <div class="col-md-5 col-lg-6 d-flex flex-column justify-content-between">
-    {% with localized_footer_signup=mozfest_footer.localized %}
-      <div
-        class="join-us"
-        data-form-position="footer"
-        data-button-position="side"
-        data-signup-id="{{ localized_footer_signup.id }}"
-        data-cta-header="{{ localized_footer_signup.header | escape }}"
-        data-cta-description="{{ localized_footer_signup.description | escape }}"
-        data-newsletter="{{ localized_footer_signup.newsletter }}">
-      </div>
-    {% endwith %}
-    
+    <div class="col-md-5 col-lg-6 d-flex flex-column justify-content-between">
+        {% with localized_footer_signup=mozfest_footer.localized %}
+            <div
+                class="join-us"
+                data-form-position="footer"
+                data-button-position="side"
+                data-signup-id="{{ localized_footer_signup.id }}"
+                data-cta-header="{{ localized_footer_signup.header | escape }}"
+                data-cta-description="{{ localized_footer_signup.description | escape }}"
+                data-newsletter="{{ localized_footer_signup.newsletter }}">
+            </div>
+        {% endwith %}
 
-    <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org"><img src="{% static "_images/mozilla-block-white.svg" %}" width="96"></a>
-  </div>
+
+        <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org"><img src="{% static "_images/mozilla-block-white.svg" %}" width="96"></a>
+    </div>
 {% endblock %}
 
 {% block social_links %}
-  <li class="mr-2"><a class="tw-twitter-glyph d-inline-block" data-platform="twitter" href="https://twitter.com/mozillafestival"><span class="sr-only">Twitter</span></a></li>
-  <li class="mr-2"><a class="tw-youtube-glyph d-inline-block before:tw-content-[''] before:tw-w-4 before:tw-h-4" data-platform="youtube" href="https://www.youtube.com/playlist?list=PLnRGhgZaGeBt11miYYvKSSgbxkkbKKT7p"><span class="sr-only">YouTube</span></a></li>
-  <li class="mr-2"><a class="tw-email-glyph d-inline-block before:tw-content-[''] before:tw-w-4 before:tw-h-4" data-platform="email" href="mailto:festival@mozilla.org"><span class="sr-only">{% trans "Email" %}</span></a></li>
+    <li class="mr-2"><a class="tw-twitter-glyph d-inline-block" data-platform="twitter" href="https://twitter.com/mozillafestival"><span class="sr-only">Twitter</span></a></li>
+    <li class="mr-2"><a class="tw-youtube-glyph d-inline-block before:tw-content-[''] before:tw-w-8 before:tw-h-8" data-platform="youtube" href="https://www.youtube.com/playlist?list=PLnRGhgZaGeBt11miYYvKSSgbxkkbKKT7p"><span class="sr-only">YouTube</span></a></li>
+    <li class="mr-2"><a class="tw-email-glyph d-inline-block before:tw-content-[''] before:tw-w-8 before:tw-h-8" data-platform="email" href="mailto:festival@mozilla.org"><span class="sr-only">{% trans "Email" %}</span></a></li>
 {% endblock %}
 
 {% block general_links %}
-  <li><a id="donate-footer-btn" href="?form=donate" class="tw-dark">{% trans "Donate" %}</a></li>
-  <!-- the rest of the links should be listed alphabetically -->
-  <li><a href="https://www.mozillafestival.org/sponsor" class="tw-dark">{% trans "Support MozFest" %}</a></li>
-  <li><a href="https://careers.mozilla.org/listings/?team=Mozilla%20Foundation" class="tw-dark">{% trans "Careers" %}</a></li>
-  <li><a href="https://www.mozilla.org/privacy/websites/#cookies" class="tw-dark">{% trans "Cookies" %}</a></li>
-  <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="tw-dark">{% trans "Legal" %}</a></li>
-  <li><a href="/guidelines" class="tw-dark">{% trans "Participation Guidelines" %}</a></li>
-  <li><a href="/media" class="tw-dark">{% trans "Press Center" %}</a></li>
-  <li><a href="https://mozilla.org/privacy/websites/" class="tw-dark">{% trans "Privacy" %}</a></li>
+    <li><a id="donate-footer-btn" href="?form=donate" class="tw-dark">{% trans "Donate" %}</a></li>
+    <!-- the rest of the links should be listed alphabetically -->
+    <li><a href="https://www.mozillafestival.org/sponsor" class="tw-dark">{% trans "Support MozFest" %}</a></li>
+    <li><a href="https://careers.mozilla.org/listings/?team=Mozilla%20Foundation" class="tw-dark">{% trans "Careers" %}</a></li>
+    <li><a href="https://www.mozilla.org/privacy/websites/#cookies" class="tw-dark">{% trans "Cookies" %}</a></li>
+    <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="tw-dark">{% trans "Legal" %}</a></li>
+    <li><a href="/guidelines" class="tw-dark">{% trans "Participation Guidelines" %}</a></li>
+    <li><a href="/media" class="tw-dark">{% trans "Press Center" %}</a></li>
+    <li><a href="https://mozilla.org/privacy/websites/" class="tw-dark">{% trans "Privacy" %}</a></li>
 {% endblock %}

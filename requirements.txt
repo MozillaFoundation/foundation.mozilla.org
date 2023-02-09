@@ -76,7 +76,7 @@ django-cors-headers==3.13.0
     # via -r requirements.in
 django-csp==3.7
     # via -r requirements.in
-django-environ==0.8.1
+django-environ==0.9.0
     # via -r requirements.in
 django-filter==21.1
     # via
@@ -98,7 +98,7 @@ django-taggit==2.1.0
     # via wagtail
 django-treebeard==4.5.1
     # via wagtail
-djangorestframework==3.13.1
+djangorestframework==3.14.0
     # via
     #   -r requirements.in
     #   wagtail
@@ -116,7 +116,7 @@ faker==13.12.0
     #   factory-boy
 filebrowser-safe==1.1.1
     # via -r requirements.in
-future==0.18.2
+future==0.18.3
     # via -r requirements.in
 gitdb==4.0.9
     # via gitpython
@@ -152,7 +152,7 @@ polib==1.1.1
     # via wagtail-localize
 psutil==5.9.0
     # via scout-apm
-psycopg2-binary==2.9.3
+psycopg2-binary==2.9.5
     # via -r requirements.in
 pycparser==2.21
     # via cffi

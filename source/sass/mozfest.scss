@@ -19,15 +19,14 @@ body.mozfest {
 
     @media (min-width: $nav-full-logo-breakpoint) {
       .wrapper-burger .logo {
-        height: 36px;
+        @apply tw-h-18;
         background-image: url(../_images/mozfest/logo.svg);
       }
     }
 
     @media (min-width: $bp-md) {
       .menu-container {
-        padding-top: 12px;
-        padding-bottom: 12px;
+        @apply tw-py-6;
       }
     }
   }
@@ -259,7 +258,7 @@ body.mozfest {
 
   .swiper-button-next,
   .swiper-button-prev {
-    @apply tw-border-2 tw-text-blue-40 tw-flex tw-flex-col tw-justify-center tw-items-center tw-w-[40px] tw-h-[40px] tw-transition;
+    @apply tw-border-2 tw-text-blue-40 tw-flex tw-flex-col tw-justify-center tw-items-center tw-w-20 tw-h-20 tw-transition;
 
     &.swiper-button-disabled {
       @apply tw-border-gray-20;
@@ -275,7 +274,7 @@ body.mozfest {
   }
 
   .swiper-button-icon {
-    @apply tw-text-blue-40 tw-w-4 tw-h-4;
+    @apply tw-text-blue-40 tw-w-8 tw-h-8;
   }
 
   .swiper-button-disabled {
@@ -285,11 +284,11 @@ body.mozfest {
   }
 
   .swiper-button-prev {
-    @apply tw-mr-5;
+    @apply tw-mr-12;
   }
 
   .swiper-pagination-bullet {
-    @apply tw-w-3 tw-h-3;
+    @apply tw-w-6 tw-h-6;
   }
 
   .swiper-pagination-bullet-active {

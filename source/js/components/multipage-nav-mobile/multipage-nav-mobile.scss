@@ -18,7 +18,7 @@
         background-size: contain;
         background-position: center right;
         width: 15px;
-        height: 10px;
+        @apply tw-h-5;
         transform: rotate(180deg);
         transition: transform 100ms linear;
       }
