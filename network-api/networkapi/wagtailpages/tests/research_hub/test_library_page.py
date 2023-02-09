@@ -3,7 +3,7 @@ import os
 
 from django.core import management
 from django.utils import timezone, translation
-from wagtail.core import models as wagtail_models
+from wagtail import models as wagtail_models
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages.factory import research_hub as research_factory
