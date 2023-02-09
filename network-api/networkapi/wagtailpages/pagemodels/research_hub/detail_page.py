@@ -5,7 +5,7 @@ from wagtail import documents as wagtail_docs
 from wagtail import fields as wagtail_fields
 from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
-from wagtail.admin import edit_handlers
+from wagtail.admin import panels as edit_handlers
 from wagtail.documents import edit_handlers as docs_handlers
 from wagtail.images import edit_handlers as image_handlers
 from wagtail.search import index

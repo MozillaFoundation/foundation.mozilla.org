@@ -1,6 +1,6 @@
 from django.db import models
 from wagtail import models as wagtail_models
-from wagtail.admin import edit_handlers
+from wagtail.admin import panels as edit_handlers
 from wagtail.snippets import models as snippet_models
 
 
