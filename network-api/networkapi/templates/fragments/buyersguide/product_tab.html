@@ -3,7 +3,7 @@
 
 <div id="product-tab" class="tw-w-full tw-mb-8">
 
-    {% include "fragments/buyersguide/product_tab_header.html"  %}
+    {% include "fragments/buyersguide/product_tab_header.html" %}
 
     <div class="tw-overflow-hidden medium:tw--mx-24">
         <div id="product-tab-content" class="tw-w-full tw-flex tw-transition-transform tw-ease-in-out tw-duration-300 tw-items-start">
@@ -22,13 +22,13 @@
                             {% trans "Tracks location" as tracks_location %}
 
                             <div class="col-12 col-md-4">
-                                {% include "fragments/buyersguide/it_uses.html" with title=camera          device=product.camera_device     app=product.camera_app      %}
+                                {% include "fragments/buyersguide/it_uses.html" with title=camera          device=product.camera_device     app=product.camera_app %}
                             </div>
                             <div class="col-12 col-md-4">
-                                {% include "fragments/buyersguide/it_uses.html" with title=microphone      device=product.microphone_device app=product.microphone_app  %}
+                                {% include "fragments/buyersguide/it_uses.html" with title=microphone      device=product.microphone_device app=product.microphone_app %}
                             </div>
                             <div class="col-12 col-md-4">
-                                {% include "fragments/buyersguide/it_uses.html" with title=tracks_location device=product.location_device   app=product.location_app    %}
+                                {% include "fragments/buyersguide/it_uses.html" with title=tracks_location device=product.location_device   app=product.location_app %}
                             </div>
                         </div>
                     </section>
@@ -43,13 +43,13 @@
                         {% trans "Third-party account"           as third_party_account %}
 
                         <div class="col-12 col-md-4">
-                            {% include "fragments/buyersguide/signup_requirement.html" with title=email                 value=product.signup_requires_email          %}
+                            {% include "fragments/buyersguide/signup_requirement.html" with title=email                 value=product.signup_requires_email %}
                         </div>
                         <div class="col-12 col-md-4">
-                            {% include "fragments/buyersguide/signup_requirement.html" with title=phone                 value=product.signup_requires_phone          %}
+                            {% include "fragments/buyersguide/signup_requirement.html" with title=phone                 value=product.signup_requires_phone %}
                         </div>
                         <div class="col-12 col-md-4">
-                            {% include "fragments/buyersguide/signup_requirement.html" with title=third_party_account   value=product.signup_requires_third_party_account    %}
+                            {% include "fragments/buyersguide/signup_requirement.html" with title=third_party_account   value=product.signup_requires_third_party_account %}
                         </div>
                     </div>
 
@@ -67,13 +67,13 @@
                         {% trans "Social"        as social_data_collected %}
 
                         <div class="col-12 col-md-4">
-                            {% include "fragments/buyersguide/signup_requirement.html" with title=personal_data_collected   value=product.personal_data_collected    %}
+                            {% include "fragments/buyersguide/signup_requirement.html" with title=personal_data_collected   value=product.personal_data_collected %}
                         </div>
                         <div class="col-12 col-md-4">
-                            {% include "fragments/buyersguide/signup_requirement.html" with title=biometric_data_collected  value=product.biometric_data_collected   %}
+                            {% include "fragments/buyersguide/signup_requirement.html" with title=biometric_data_collected  value=product.biometric_data_collected %}
                         </div>
                         <div class="col-12 col-md-4">
-                            {% include "fragments/buyersguide/signup_requirement.html" with title=social_data_collected     value=product.social_data_collected      %}
+                            {% include "fragments/buyersguide/signup_requirement.html" with title=social_data_collected     value=product.social_data_collected %}
                         </div>
                     </div>
                 </section>
@@ -91,7 +91,7 @@
 
                     {% if product.child_safety_blurb %}
                         {% trans "Child Privacy Information" as child_privacy_label %}
-                        {% include "fragments/buyersguide/product_criterion.html"  with  label=child_privacy_label  value=product.child_safety_blurb rich_text_value=True  %}
+                        {% include "fragments/buyersguide/product_criterion.html"  with  label=child_privacy_label  value=product.child_safety_blurb rich_text_value=True %}
                     {% endif %}
                     {% trans "Can this product be used offline?" as offline_capable %}
                     {% include "fragments/buyersguide/product_criterion.html"  with  label=offline_capable  value=product.offline_capable   help=product.offline_use_description rich_help_text=True %}
@@ -100,11 +100,11 @@
 
                 {% if product.product_type == 'general' %}
                     {% trans "User-friendly privacy information?" as user_friendly_privacy_policy %}
-                    {% include "fragments/buyersguide/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy help=product.user_friendly_privacy_policy_helptext  %}
+                    {% include "fragments/buyersguide/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy help=product.user_friendly_privacy_policy_helptext %}
                 {% endif %}
 
                 {% trans "Links to privacy information" as privacy_policy_links %}
-                {% include "fragments/buyersguide/product_privacy.html"    with  label=privacy_policy_links          value=""         links=product.privacy_policy_links.all                  %}
+                {% include "fragments/buyersguide/product_privacy.html"    with  label=privacy_policy_links          value=""         links=product.privacy_policy_links.all %}
             </div>
 
             <div class="tw-w-full tw-shrink-0 medium:tw-px-24" data-product-label="1">
@@ -112,7 +112,7 @@
                 {% blocktrans with url=min_sec_url|add:"#minimum-security-standards" asvar minimum_security_standards trimmed %}
                     Does this product meet our <span class="tw-ml-2"></span> <a id="mss-link" class="" href="{{ url }}">Minimum Security Standards</a>?
                 {% endblocktrans %}
-                {% include "fragments/buyersguide/product_criterion.html"  with  value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards info=min_sec_url  %}
+                {% include "fragments/buyersguide/product_criterion.html"  with  value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards info=min_sec_url %}
 
                 {% trans "Encryption"              as encryption %}
                 {% trans "Security updates"        as security_updates %}
@@ -120,22 +120,22 @@
                 {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
                 {% trans "Privacy policy"          as privacy_policy %}
 
-                {% include "fragments/buyersguide/product_criterion.html"  with  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption               %}
-                {% include "fragments/buyersguide/product_criterion.html"  with  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password          %}
-                {% include "fragments/buyersguide/product_criterion.html"  with  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates         %}
+                {% include "fragments/buyersguide/product_criterion.html"  with  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption %}
+                {% include "fragments/buyersguide/product_criterion.html"  with  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password %}
+                {% include "fragments/buyersguide/product_criterion.html"  with  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates %}
                 {% include "fragments/buyersguide/product_criterion.html"  with  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities  rich_help_text=True %}
-                {% include "fragments/buyersguide/product_criterion.html"  with  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy           %}
+                {% include "fragments/buyersguide/product_criterion.html"  with  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy %}
             </div>
 
             <div class="tw-w-full tw-shrink-0 medium:tw-px-24" data-product-label="2">
                 {% if product.product_type == 'general' %}
                     <section class="criterion-group">
                         {% trans "Does the product use AI?" as uses_ai_label %}
-                        {% include "fragments/buyersguide/product_criterion.html"  with  label=uses_ai_label  value=product.uses_ai info="/privacynotincluded/about/methodology" help=product.ai_helptext rich_help_text=True  %}
+                        {% include "fragments/buyersguide/product_criterion.html"  with  label=uses_ai_label  value=product.uses_ai info="/privacynotincluded/about/methodology" help=product.ai_helptext rich_help_text=True %}
 
                         {% if product.uses_ai != "No" %}
                             {% trans "Is this AI untrustworthy?" as ai_is_untrustworthy_label %}
-                            {% include "fragments/buyersguide/product_criterion.html"  with  label=ai_is_untrustworthy_label  value=product.ai_is_untrustworthy ding=product.ai_is_untrustworthy_ding  %}
+                            {% include "fragments/buyersguide/product_criterion.html"  with  label=ai_is_untrustworthy_label  value=product.ai_is_untrustworthy ding=product.ai_is_untrustworthy_ding %}
 
                             <section class="criterion">
                                 <div class="primary-info">

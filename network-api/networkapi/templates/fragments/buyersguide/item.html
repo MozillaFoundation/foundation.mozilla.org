@@ -10,7 +10,7 @@
 
         {% if product.draft %}draft-product{% endif %}
         {% if product.adult_content %}adult-content{% endif %}
-        {% if product.privacy_ding %}privacy-ding{% endif%}
+        {% if product.privacy_ding %}privacy-ding{% endif %}
     "
     data-creepiness="{{ product.creepiness|unlocalize }}"
 >
@@ -32,7 +32,7 @@
             <source
                 {% image product.image fill-360x360 as img_1x %}
                 {% image product.image fill-720x720 as img_2x %}
-                srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
+                srcset="{{ img_1x.url }} 1x, {{ img_2x.url }} 2x"
             >
             <img
                 class="product-thumbnail tw-w-full"

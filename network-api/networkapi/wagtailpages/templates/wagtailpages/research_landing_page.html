@@ -39,7 +39,7 @@
                     <ul class="tw-list-none px-0 ">
                         {% for research_detail_page in latest_research_detail_pages %}
                             <li class="tw-py-8 small:tw-my-8 small:tw-bg-gray-05 small:tw-p-16">
-                                {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_related_topics=True landing_page=True%}
+                                {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_related_topics=True landing_page=True %}
                             </li>
                         {% endfor %}
                     </ul>

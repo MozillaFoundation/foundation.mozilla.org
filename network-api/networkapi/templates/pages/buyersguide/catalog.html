@@ -31,7 +31,7 @@
             <div class="tw-w-full tw-px-8">
                 <div class="tw-flex tw-items-end">
                     <a
-                        href="{% if current_category.parent %}{% localizedroutablepageurl home_page 'category-view' current_category.parent.slug  %}{% elif current_category %}{% localizedroutablepageurl home_page 'category-view' current_category.slug  %}{% else %}{% relocalized_url home_page.localized.url %}{% endif %}"
+                        href="{% if current_category.parent %}{% localizedroutablepageurl home_page 'category-view' current_category.parent.slug %}{% elif current_category %}{% localizedroutablepageurl home_page 'category-view' current_category.slug %}{% else %}{% relocalized_url home_page.localized.url %}{% endif %}"
                         data-name="{% if current_category.parent %}{{ current_category.parent.name }}{% elif current_category %}{{ current_category.name }}{% else %}None{% endif %}"
                         class="tw-text-2xl tw-font-zilla category-header tw-text-black hover:tw-text-pni-blue tw-no-underline tw-cursor-pointer tw-block"
                     >
