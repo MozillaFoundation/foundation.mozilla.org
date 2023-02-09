@@ -1,8 +1,8 @@
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
-from wagtail.core import blocks
-from wagtail.core.fields import StreamField
-from wagtail.core.models import Page
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel
+from wagtail.fields import StreamField
+from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import set_main_site_nav_information
@@ -21,32 +21,34 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
     intro_text = StreamField(
         [
             ("text", blocks.CharBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     intro_images = StreamField(
         [
             ("image", customblocks.ImageBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     faq = StreamField(
-        [("paragraph", blocks.RichTextBlock(features=full_content_rich_text_options))],
-        blank=True,
+        [("paragraph", blocks.RichTextBlock(features=full_content_rich_text_options))], blank=True, use_json_field=True
     )
 
     regret_stories = StreamField(
         [
             ("regret_story", customblocks.YoutubeRegretBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     content_panels = Page.content_panels + [
         FieldPanel("headline"),
-        StreamFieldPanel("intro_text"),
-        StreamFieldPanel("intro_images"),
-        StreamFieldPanel("faq"),
-        StreamFieldPanel("regret_stories"),
+        FieldPanel("intro_text"),
+        FieldPanel("intro_images"),
+        FieldPanel("faq"),
+        FieldPanel("regret_stories"),
     ]
 
     translatable_fields = [
@@ -84,19 +86,21 @@ class YoutubeRegretsReporterPage(FoundationMetadataPageMixin, Page):
     intro_text = StreamField(
         [
             ("text", blocks.CharBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     intro_images = StreamField(
         [
             ("image", customblocks.ImageBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     content_panels = Page.content_panels + [
         FieldPanel("headline"),
-        StreamFieldPanel("intro_text"),
-        StreamFieldPanel("intro_images"),
+        FieldPanel("intro_text"),
+        FieldPanel("intro_images"),
     ]
 
     translatable_fields = [

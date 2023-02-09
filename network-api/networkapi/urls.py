@@ -26,8 +26,6 @@ from networkapi.wagtailcustomization.image_url_tag_urls import (
 from networkapi.wagtailpages.rss import AtomFeed, RSSFeed
 
 from .sitemaps import sitemap, sitemap_index
-
-# from wagtail.core import urls as wagtail_urls
 from .utility import watail_core_url_override as wagtail_urls
 
 # The following line is commented off in favour of the utility import,

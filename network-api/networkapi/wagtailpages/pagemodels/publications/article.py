@@ -1,17 +1,9 @@
 from django import forms
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
-    FieldPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    StreamFieldPanel,
-)
-from wagtail.core.fields import StreamField
-from wagtail.core.models import Orderable, Page
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.fields import StreamField
+from wagtail.models import Orderable, Page
 from wagtail_color_panel.edit_handlers import NativeColorPanel
 from wagtail_color_panel.fields import ColorField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -36,7 +28,7 @@ class ArticleAuthors(Orderable):
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=False)
 
     panels = [
-        SnippetChooserPanel("author"),
+        FieldPanel("author"),
     ]
 
     def __str__(self):
@@ -52,9 +44,9 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     """
 
     subpage_types: list = []
-    template = "pages/article_page.html"
+    body = StreamField(article_fields, use_json_field=True)
 
-    body = StreamField(article_fields)
+    template = "pages/article_page.html"
 
     toc_thumbnail_image = models.ForeignKey(
         "wagtailimages.Image",
@@ -194,7 +186,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         MultiFieldPanel([InlinePanel("authors", label="Author", min_num=0)], heading="Author(s)"),
         MultiFieldPanel(
             [
-                ImageChooserPanel("toc_thumbnail_image"),
+                FieldPanel("toc_thumbnail_image"),
             ],
             heading="Table of Content Thumbnail",
         ),
@@ -202,7 +194,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
             [
                 FieldPanel("hero_layout", widget=forms.RadioSelect),
                 FieldPanel("show_authors"),
-                ImageChooserPanel("hero_image"),
+                FieldPanel("hero_image"),
                 FieldPanel("hero_video"),
                 FieldPanel("displayed_hero_content", widget=forms.RadioSelect),
                 NativeColorPanel("hero_background_color"),
@@ -211,13 +203,13 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
                 FieldPanel("secondary_subtitle"),
                 FieldPanel("publication_date"),
                 FieldPanel("download_button_style", widget=forms.RadioSelect),
-                DocumentChooserPanel("download_button_icon"),
-                DocumentChooserPanel("article_file", heading="Download button file"),
+                FieldPanel("download_button_icon"),
+                FieldPanel("article_file", heading="Download button file"),
             ],
             heading="Hero",
         ),
         FieldPanel("show_side_share_buttons"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
         InlinePanel("footnotes", label="Footnotes"),
     ]
 

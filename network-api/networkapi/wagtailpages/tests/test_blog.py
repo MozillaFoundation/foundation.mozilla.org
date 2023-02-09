@@ -5,7 +5,7 @@ from http import HTTPStatus
 from django import http, test
 from django.core import management
 from taggit import models as tag_models
-from wagtail.core import rich_text
+from wagtail import rich_text
 
 from networkapi.wagtailpages.factory import blog as blog_factories
 from networkapi.wagtailpages.factory import profiles as profile_factories

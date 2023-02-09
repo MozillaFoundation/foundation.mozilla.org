@@ -2,7 +2,7 @@
 These are utility blocks used for StructBlocks related to MozFest.
 """
 
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
 
 

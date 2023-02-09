@@ -1,18 +1,11 @@
 from django.conf import settings
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
-    FieldPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    PageChooserPanel,
-)
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Orderable as WagtailOrderable
-from wagtail.core.models import Page, TranslatableMixin
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.fields import RichTextField
 from wagtail.images import get_image_model_string
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.models import Orderable as WagtailOrderable
+from wagtail.models import Page, TranslatableMixin
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -62,7 +55,7 @@ class InitiativeSection(TranslatableMixin, models.Model):
     sectionButtonURL2 = models.TextField(verbose_name="Button 2 URL", blank="True")
 
     panels = [
-        ImageChooserPanel("sectionImage"),
+        FieldPanel("sectionImage"),
         FieldPanel("sectionHeader"),
         FieldPanel("sectionCopy"),
         FieldPanel("sectionButtonTitle"),
@@ -121,7 +114,7 @@ class InitiativesPage(PrimaryPage):
     )
 
     content_panels = Page.content_panels + [
-        ImageChooserPanel("primaryHero"),
+        FieldPanel("primaryHero"),
         FieldPanel("header"),
         FieldPanel("subheader"),
         FieldPanel("h3"),
@@ -289,7 +282,7 @@ class ParticipatePage2(PrimaryPage):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                ImageChooserPanel("ctaHero"),
+                FieldPanel("ctaHero"),
                 FieldPanel("ctaHeroHeader"),
                 FieldPanel("ctaHeroSubhead"),
                 FieldPanel("ctaButtonTitle"),
@@ -303,7 +296,7 @@ class ParticipatePage2(PrimaryPage):
         InlinePanel("featured_highlights", label="Highlights Group 1", max_num=3),
         MultiFieldPanel(
             [
-                ImageChooserPanel("ctaHero2"),
+                FieldPanel("ctaHero2"),
                 FieldPanel("ctaHeroHeader2"),
                 FieldPanel("ctaHeroSubhead2"),
                 FieldPanel("ctaButtonTitle2"),
@@ -315,7 +308,7 @@ class ParticipatePage2(PrimaryPage):
         InlinePanel("featured_highlights2", label="Highlights Group 2", max_num=6),
         MultiFieldPanel(
             [
-                ImageChooserPanel("ctaHero3"),
+                FieldPanel("ctaHero3"),
                 FieldPanel("ctaHeroHeader3"),
                 FieldPanel("ctaHeroSubhead3"),
                 FieldPanel("ctaFacebook3"),
@@ -342,7 +335,7 @@ class Styleguide(PrimaryPage):
     )
 
     content_panels = PrimaryPage.content_panels + [
-        ImageChooserPanel("emoji_image"),
+        FieldPanel("emoji_image"),
     ]
 
 
@@ -353,7 +346,7 @@ class HomepageSpotlightPosts(TranslatableMixin, WagtailOrderable):
     )
     blog = models.ForeignKey("BlogPage", on_delete=models.CASCADE, related_name="+")
     panels = [
-        PageChooserPanel("blog"),
+        FieldPanel("blog"),
     ]
 
     class Meta(TranslatableMixin.Meta):
@@ -372,7 +365,7 @@ class HomepageNewsYouCanUse(TranslatableMixin, WagtailOrderable):
     )
     blog = models.ForeignKey("BlogPage", on_delete=models.CASCADE, related_name="+")
     panels = [
-        PageChooserPanel("blog"),
+        FieldPanel("blog"),
     ]
 
     class Meta(TranslatableMixin.Meta):
@@ -391,7 +384,7 @@ class InitiativesHighlights(TranslatableMixin, WagtailOrderable, models.Model):
     )
     highlight = models.ForeignKey("highlights.Highlight", on_delete=models.CASCADE, related_name="+")
     panels = [
-        SnippetChooserPanel("highlight"),
+        FieldPanel("highlight"),
     ]
 
     class Meta(TranslatableMixin.Meta):
@@ -434,7 +427,7 @@ class CTABase(WagtailOrderable, models.Model):
     )
 
     panels = [
-        ImageChooserPanel("hero"),
+        FieldPanel("hero"),
         FieldPanel("header"),
         FieldPanel("subhead"),
         FieldPanel("buttonTitle"),
@@ -468,7 +461,7 @@ class ParticipateHighlightsBase(TranslatableMixin, WagtailOrderable, models.Mode
     )
     highlight = models.ForeignKey("highlights.Highlight", on_delete=models.CASCADE, related_name="+")
     panels = [
-        SnippetChooserPanel("highlight"),
+        FieldPanel("highlight"),
     ]
 
     class Meta:
@@ -529,10 +522,10 @@ class FocusArea(TranslatableMixin, models.Model):
     )
 
     panels = [
-        ImageChooserPanel("interest_icon"),
+        FieldPanel("interest_icon"),
         FieldPanel("name"),
         FieldPanel("description"),
-        PageChooserPanel("page"),
+        FieldPanel("page"),
     ]
 
     translatable_fields = [
@@ -559,7 +552,7 @@ class HomepageFocusAreas(TranslatableMixin, WagtailOrderable):
     area = models.ForeignKey(FocusArea, on_delete=models.CASCADE, related_name="+")
 
     panels = [
-        SnippetChooserPanel("area"),
+        FieldPanel("area"),
     ]
 
     class Meta(TranslatableMixin.Meta):
@@ -586,9 +579,9 @@ class HomepageTakeActionCards(TranslatableMixin, WagtailOrderable):
     )
 
     panels = [
-        ImageChooserPanel("image"),
+        FieldPanel("image"),
         FieldPanel("text"),
-        PageChooserPanel("internal_link"),
+        FieldPanel("internal_link"),
     ]
 
     # translatable_fields = [
@@ -628,7 +621,7 @@ class PartnerLogos(TranslatableMixin, WagtailOrderable):
         help_text="The width of the image. Height will automatically be applied.",
     )
     panels = [
-        ImageChooserPanel("logo"),
+        FieldPanel("logo"),
         FieldPanel("name"),
         FieldPanel("link"),
         FieldPanel("width"),
@@ -757,7 +750,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
                 ),
                 FieldPanel("hero_button_text"),
                 FieldPanel("hero_button_url"),
-                ImageChooserPanel("hero_image"),
+                FieldPanel("hero_image"),
             ],
             heading="hero",
             classname="collapsible",
@@ -766,7 +759,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
             [
                 FieldPanel("cause_statement"),
                 FieldPanel("cause_statement_link_text"),
-                PageChooserPanel("cause_statement_link_page"),
+                FieldPanel("cause_statement_link_page"),
             ],
             heading="cause statement",
             classname="collapsible collapsed",
@@ -787,7 +780,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                ImageChooserPanel("spotlight_image"),
+                FieldPanel("spotlight_image"),
                 FieldPanel("spotlight_headline"),
                 InlinePanel("spotlight_posts", label="Posts", min_num=3, max_num=3),
             ],
@@ -804,7 +797,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                ImageChooserPanel("quote_image"),
+                FieldPanel("quote_image"),
                 FieldPanel("quote_text"),
                 FieldPanel("quote_source_name"),
                 FieldPanel("quote_source_job_title"),
@@ -817,8 +810,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
                 FieldPanel("partner_heading"),
                 FieldPanel("partner_intro_text"),
                 FieldPanel("partner_page_text"),
-                PageChooserPanel("partner_page"),
-                ImageChooserPanel("partner_background_image"),
+                FieldPanel("partner_page"),
+                FieldPanel("partner_background_image"),
                 InlinePanel("partner_logos", label="Partner Logo", max_num=7, min_num=1),
             ],
             heading="Partner",

@@ -5,11 +5,11 @@
 # As this caused us to lose the data set for the URL field. We are now reverting back to
 # 'URL', but updating the label in the CMS to be 'embed URL' to preserve existing videos.
 
-import wagtail.core.blocks
-import wagtail.core.blocks.static_block
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.blocks.static_block
 import wagtail.documents.blocks
 import wagtail.embeds.blocks
+import wagtail.fields
 import wagtail.images.blocks
 import wagtail.snippets.blocks
 import wagtailmedia.blocks
@@ -26,11 +26,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="mozfestprimarypage",
             name="body",
-            field=wagtail.core.fields.StreamField(
+            field=wagtail.fields.StreamField(
                 [
                     (
                         "paragraph",
-                        wagtail.core.blocks.RichTextBlock(
+                        wagtail.blocks.RichTextBlock(
                             features=[
                                 "bold",
                                 "italic",
@@ -50,12 +50,12 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "card_grid",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "cards",
-                                    wagtail.core.blocks.ListBlock(
-                                        wagtail.core.blocks.StructBlock(
+                                    wagtail.blocks.ListBlock(
+                                        wagtail.blocks.StructBlock(
                                             [
                                                 (
                                                     "image",
@@ -63,29 +63,29 @@ class Migration(migrations.Migration):
                                                 ),
                                                 (
                                                     "alt_text",
-                                                    wagtail.core.blocks.CharBlock(
+                                                    wagtail.blocks.CharBlock(
                                                         help_text="Alt text for card's image.",
                                                         required=False,
                                                     ),
                                                 ),
                                                 (
                                                     "title",
-                                                    wagtail.core.blocks.CharBlock(help_text="Heading for the card."),
+                                                    wagtail.blocks.CharBlock(help_text="Heading for the card."),
                                                 ),
                                                 (
                                                     "body",
-                                                    wagtail.core.blocks.TextBlock(help_text="Body text of the card."),
+                                                    wagtail.blocks.TextBlock(help_text="Body text of the card."),
                                                 ),
                                                 (
                                                     "link_url",
-                                                    wagtail.core.blocks.CharBlock(
+                                                    wagtail.blocks.CharBlock(
                                                         help_text="Optional URL that this card should link out to. (Note: If left blank, link will not render.) ",
                                                         required=False,
                                                     ),
                                                 ),
                                                 (
                                                     "link_label",
-                                                    wagtail.core.blocks.CharBlock(
+                                                    wagtail.blocks.CharBlock(
                                                         help_text="Optional Label for the URL link above. (Note: If left blank, link will not render.) ",
                                                         required=False,
                                                     ),
@@ -100,30 +100,30 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "image",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 ("image", wagtail.images.blocks.ImageChooserBlock()),
                                 (
                                     "altText",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="Image description (for screen readers).",
                                         required=True,
                                     ),
                                 ),
                                 (
                                     "caption",
-                                    wagtail.core.blocks.CharBlock(required=False),
+                                    wagtail.blocks.CharBlock(required=False),
                                 ),
                                 (
                                     "captionURL",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="Optional URL that this caption should link out to.",
                                         required=False,
                                     ),
                                 ),
                                 (
                                     "image_width",
-                                    wagtail.core.blocks.ChoiceBlock(
+                                    wagtail.blocks.ChoiceBlock(
                                         choices=[
                                             ("normal", "Normal"),
                                             ("wide", "Wide"),
@@ -137,19 +137,19 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "image_text",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 ("image", wagtail.images.blocks.ImageChooserBlock()),
                                 (
                                     "altText",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="Image description (for screen readers).",
                                         required=True,
                                     ),
                                 ),
                                 (
                                     "text",
-                                    wagtail.core.blocks.RichTextBlock(
+                                    wagtail.blocks.RichTextBlock(
                                         features=[
                                             "bold",
                                             "italic",
@@ -167,21 +167,21 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "url",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="Optional URL that this image should link out to.",
                                         required=False,
                                     ),
                                 ),
                                 (
                                     "top_divider",
-                                    wagtail.core.blocks.BooleanBlock(
+                                    wagtail.blocks.BooleanBlock(
                                         help_text="Optional divider above content block.",
                                         required=False,
                                     ),
                                 ),
                                 (
                                     "bottom_divider",
-                                    wagtail.core.blocks.BooleanBlock(
+                                    wagtail.blocks.BooleanBlock(
                                         help_text="Optional divider below content block.",
                                         required=False,
                                     ),
@@ -191,31 +191,31 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "image_text_mini",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 ("image", wagtail.images.blocks.ImageChooserBlock()),
                                 (
                                     "altText",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="Image description (for screen readers).",
                                         required=True,
                                     ),
                                 ),
                                 (
                                     "text",
-                                    wagtail.core.blocks.RichTextBlock(features=["bold", "italic", "link"]),
+                                    wagtail.blocks.RichTextBlock(features=["bold", "italic", "link"]),
                                 ),
                             ]
                         ),
                     ),
                     (
                         "image_grid",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "grid_items",
-                                    wagtail.core.blocks.ListBlock(
-                                        wagtail.core.blocks.StructBlock(
+                                    wagtail.blocks.ListBlock(
+                                        wagtail.blocks.StructBlock(
                                             [
                                                 (
                                                     "image",
@@ -223,28 +223,28 @@ class Migration(migrations.Migration):
                                                 ),
                                                 (
                                                     "alt_text",
-                                                    wagtail.core.blocks.CharBlock(
+                                                    wagtail.blocks.CharBlock(
                                                         help_text="Alt text for this image.",
                                                         required=False,
                                                     ),
                                                 ),
                                                 (
                                                     "caption",
-                                                    wagtail.core.blocks.CharBlock(
+                                                    wagtail.blocks.CharBlock(
                                                         help_text="Please remember to properly attribute any images we use.",
                                                         required=False,
                                                     ),
                                                 ),
                                                 (
                                                     "url",
-                                                    wagtail.core.blocks.CharBlock(
+                                                    wagtail.blocks.CharBlock(
                                                         help_text="Optional URL that this figure should link out to.",
                                                         required=False,
                                                     ),
                                                 ),
                                                 (
                                                     "square_image",
-                                                    wagtail.core.blocks.BooleanBlock(
+                                                    wagtail.blocks.BooleanBlock(
                                                         default=True,
                                                         help_text="If left checked, the image will be cropped to be square.",
                                                         required=False,
@@ -259,29 +259,29 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "video",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "url",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="For YouTube: go to your YouTube video and click “Share,” then “Embed,” and then copy and paste the provided URL only. For example: https://www.youtube.com/embed/3FIVXBawyQw For Vimeo: follow similar steps to grab the embed URL. For example: https://player.vimeo.com/video/9004979",
                                         label="Embed URL",
                                     ),
                                 ),
                                 (
                                     "caption",
-                                    wagtail.core.blocks.CharBlock(required=False),
+                                    wagtail.blocks.CharBlock(required=False),
                                 ),
                                 (
                                     "captionURL",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="Optional URL for caption to link to.",
                                         required=False,
                                     ),
                                 ),
                                 (
                                     "video_width",
-                                    wagtail.core.blocks.ChoiceBlock(
+                                    wagtail.blocks.ChoiceBlock(
                                         choices=[
                                             ("normal", "Normal"),
                                             ("wide", "Wide"),
@@ -295,35 +295,35 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "iframe",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "url",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="Please note that only URLs from allow-listed domains will work."
                                     ),
                                 ),
                                 (
                                     "height",
-                                    wagtail.core.blocks.IntegerBlock(
+                                    wagtail.blocks.IntegerBlock(
                                         help_text="Optional integer pixel value for custom iFrame height",
                                         required=False,
                                     ),
                                 ),
                                 (
                                     "caption",
-                                    wagtail.core.blocks.CharBlock(required=False),
+                                    wagtail.blocks.CharBlock(required=False),
                                 ),
                                 (
                                     "captionURL",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="Optional URL that this caption should link out to.",
                                         required=False,
                                     ),
                                 ),
                                 (
                                     "iframe_width",
-                                    wagtail.core.blocks.ChoiceBlock(
+                                    wagtail.blocks.ChoiceBlock(
                                         choices=[
                                             ("normal", "Normal"),
                                             ("wide", "Wide"),
@@ -334,7 +334,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "disable_scroll",
-                                    wagtail.core.blocks.BooleanBlock(
+                                    wagtail.blocks.BooleanBlock(
                                         default=False,
                                         help_text='Checking this will add "scrolling=no" to the iframe. Use this if your iframe is rendering an unnecessary scroll bar or whitespace below it.',
                                         required=False,
@@ -345,13 +345,13 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "linkbutton",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
-                                ("label", wagtail.core.blocks.CharBlock()),
-                                ("URL", wagtail.core.blocks.CharBlock()),
+                                ("label", wagtail.blocks.CharBlock()),
+                                ("URL", wagtail.blocks.CharBlock()),
                                 (
                                     "styling",
-                                    wagtail.core.blocks.ChoiceBlock(
+                                    wagtail.blocks.ChoiceBlock(
                                         choices=[
                                             ("btn-primary", "Primary button"),
                                             ("btn-secondary", "Secondary button"),
@@ -363,11 +363,11 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "spacer",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "size",
-                                    wagtail.core.blocks.ChoiceBlock(
+                                    wagtail.blocks.ChoiceBlock(
                                         choices=[
                                             ("1", "quarter spacing"),
                                             ("2", "half spacing"),
@@ -382,19 +382,19 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "single_quote",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "quote",
-                                    wagtail.core.blocks.RichTextBlock(features=["bold"]),
+                                    wagtail.blocks.RichTextBlock(features=["bold"]),
                                 ),
                                 (
                                     "attribution",
-                                    wagtail.core.blocks.CharBlock(required=False),
+                                    wagtail.blocks.CharBlock(required=False),
                                 ),
                                 (
                                     "attribution_info",
-                                    wagtail.core.blocks.RichTextBlock(
+                                    wagtail.blocks.RichTextBlock(
                                         features=["bold", "link", "large"],
                                         required=False,
                                     ),
@@ -404,11 +404,11 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "pulse_listing",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "search_terms",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="Test your search at mozillapulse.org/search",
                                         label="Search",
                                         required=False,
@@ -416,7 +416,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "max_number_of_results",
-                                    wagtail.core.blocks.IntegerBlock(
+                                    wagtail.blocks.IntegerBlock(
                                         default=6,
                                         help_text="Choose 1-12. If you want visitors to see more, link to a search or tag on Pulse.",
                                         max_value=12,
@@ -426,7 +426,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "only_featured_entries",
-                                    wagtail.core.blocks.BooleanBlock(
+                                    wagtail.blocks.BooleanBlock(
                                         default=False,
                                         help_text="Featured items are selected by Pulse moderators.",
                                         label="Display only featured entries",
@@ -435,7 +435,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "newest_first",
-                                    wagtail.core.blocks.ChoiceBlock(
+                                    wagtail.blocks.ChoiceBlock(
                                         choices=[
                                             ("True", "Show newer entries first"),
                                             ("False", "Show older entries first"),
@@ -445,14 +445,14 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "advanced_filter_header",
-                                    wagtail.core.blocks.static_block.StaticBlock(
+                                    wagtail.blocks.static_block.StaticBlock(
                                         admin_text="-------- ADVANCED FILTERS: OPTIONS TO DISPLAY FEWER, MORE TARGETED RESULTS. --------",
                                         label=" ",
                                     ),
                                 ),
                                 (
                                     "issues",
-                                    wagtail.core.blocks.ChoiceBlock(
+                                    wagtail.blocks.ChoiceBlock(
                                         choices=[
                                             ("all", "All"),
                                             ("Decentralization", "Decentralization"),
@@ -468,7 +468,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "help",
-                                    wagtail.core.blocks.ChoiceBlock(
+                                    wagtail.blocks.ChoiceBlock(
                                         choices=[
                                             ("all", "All"),
                                             ("Attend", "Attend"),
@@ -496,7 +496,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "direct_link",
-                                    wagtail.core.blocks.BooleanBlock(
+                                    wagtail.blocks.BooleanBlock(
                                         default=False,
                                         help_text="Checked: user goes to project link. Unchecked: user goes to pulse entry",
                                         label="Direct link",
@@ -508,11 +508,11 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "profile_listing",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "max_number_of_results",
-                                    wagtail.core.blocks.IntegerBlock(
+                                    wagtail.blocks.IntegerBlock(
                                         default=12,
                                         help_text="Pick up to 48 profiles.",
                                         max_value=48,
@@ -522,14 +522,14 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "advanced_filter_header",
-                                    wagtail.core.blocks.static_block.StaticBlock(
+                                    wagtail.blocks.static_block.StaticBlock(
                                         admin_text="-------- ADVANCED FILTERS: OPTIONS TO DISPLAY FEWER, MORE TARGETED RESULTS. --------",
                                         label=" ",
                                     ),
                                 ),
                                 (
                                     "profile_type",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         default="",
                                         help_text="Example: Fellow.",
                                         required=False,
@@ -537,7 +537,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "program_type",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         default="",
                                         help_text="Example: Tech Policy.",
                                         required=False,
@@ -545,18 +545,18 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "year",
-                                    wagtail.core.blocks.CharBlock(default="", required=False),
+                                    wagtail.blocks.CharBlock(default="", required=False),
                                 ),
                             ]
                         ),
                     ),
                     (
                         "profile_by_id",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "ids",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="Show profiles for pulse users with specific profile ids (mozillapulse.org/profile/[##]). For multiple profiles, specify a comma separated list (e.g. 85,105,332).",
                                         label="Profile by ID",
                                     ),
@@ -566,11 +566,11 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "profile_directory",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "max_number_of_results",
-                                    wagtail.core.blocks.IntegerBlock(
+                                    wagtail.blocks.IntegerBlock(
                                         default=12,
                                         help_text="Pick up to 48 profiles.",
                                         max_value=48,
@@ -580,14 +580,14 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "advanced_filter_header",
-                                    wagtail.core.blocks.static_block.StaticBlock(
+                                    wagtail.blocks.static_block.StaticBlock(
                                         admin_text="-------- ADVANCED FILTERS: OPTIONS TO DISPLAY FEWER, MORE TARGETED RESULTS. --------",
                                         label=" ",
                                     ),
                                 ),
                                 (
                                     "profile_type",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         default="",
                                         help_text="Example: Fellow.",
                                         required=False,
@@ -595,7 +595,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "program_type",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         default="",
                                         help_text="Example: Tech Policy.",
                                         required=False,
@@ -603,11 +603,11 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "year",
-                                    wagtail.core.blocks.CharBlock(default="", required=False),
+                                    wagtail.blocks.CharBlock(default="", required=False),
                                 ),
                                 (
                                     "filter_values",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         default="2019,2018,2017,2016,2015,2014,2013",
                                         help_text="Example: 2019,2018,2017,2016,2015,2014,2013",
                                         required=True,
@@ -618,15 +618,15 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "recent_blog_entries",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "title",
-                                    wagtail.core.blocks.CharBlock(required=False),
+                                    wagtail.blocks.CharBlock(required=False),
                                 ),
                                 (
                                     "tag_filter",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="Test this filter at foundation.mozilla.org/blog/tags/",
                                         label="Filter by Tag",
                                         required=False,
@@ -634,7 +634,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "category_filter",
-                                    wagtail.core.blocks.ChoiceBlock(
+                                    wagtail.blocks.ChoiceBlock(
                                         choices=[
                                             ("All", "All"),
                                             ("Advocacy", "Advocacy"),
@@ -659,14 +659,14 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "top_divider",
-                                    wagtail.core.blocks.BooleanBlock(
+                                    wagtail.blocks.BooleanBlock(
                                         help_text="Optional divider above content block.",
                                         required=False,
                                     ),
                                 ),
                                 (
                                     "bottom_divider",
-                                    wagtail.core.blocks.BooleanBlock(
+                                    wagtail.blocks.BooleanBlock(
                                         help_text="Optional divider below content block.",
                                         required=False,
                                     ),
@@ -676,27 +676,27 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "blog_set",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
-                                ("title", wagtail.core.blocks.CharBlock()),
+                                ("title", wagtail.blocks.CharBlock()),
                                 (
                                     "top_divider",
-                                    wagtail.core.blocks.BooleanBlock(
+                                    wagtail.blocks.BooleanBlock(
                                         help_text="Optional divider above content block.",
                                         required=False,
                                     ),
                                 ),
                                 (
                                     "bottom_divider",
-                                    wagtail.core.blocks.BooleanBlock(
+                                    wagtail.blocks.BooleanBlock(
                                         help_text="Optional divider below content block.",
                                         required=False,
                                     ),
                                 ),
                                 (
                                     "blog_pages",
-                                    wagtail.core.blocks.ListBlock(
-                                        wagtail.core.blocks.PageChooserBlock(page_type=["wagtailpages.BlogPage"])
+                                    wagtail.blocks.ListBlock(
+                                        wagtail.blocks.PageChooserBlock(page_type=["wagtailpages.BlogPage"])
                                     ),
                                 ),
                             ]
@@ -704,17 +704,17 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "airtable",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "url",
-                                    wagtail.core.blocks.URLBlock(
+                                    wagtail.blocks.URLBlock(
                                         help_text="Copied from the Airtable embed code. The word 'embed' will be in the url"
                                     ),
                                 ),
                                 (
                                     "height",
-                                    wagtail.core.blocks.IntegerBlock(
+                                    wagtail.blocks.IntegerBlock(
                                         default=533,
                                         help_text="The pixel height on desktop view, usually copied from the Airtable embed code",
                                     ),
@@ -724,18 +724,18 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "typeform",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "embed_id",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="The embed id of your Typeform page (e.g. if the form is on admin.typeform.com/form/e8zScc6t, the id will be: e8zScc6t)",
                                         required=True,
                                     ),
                                 ),
                                 (
                                     "button_type",
-                                    wagtail.core.blocks.ChoiceBlock(
+                                    wagtail.blocks.ChoiceBlock(
                                         choices=[
                                             ("btn-primary", "Primary button"),
                                             ("btn-secondary", "Secondary button"),
@@ -744,7 +744,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "button_text",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="This is a text prompt for users to open the typeform content",
                                         required=True,
                                     ),
@@ -762,29 +762,29 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "session_slider",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "title",
-                                    wagtail.core.blocks.CharBlock(help_text="Heading for the slider."),
+                                    wagtail.blocks.CharBlock(help_text="Heading for the slider."),
                                 ),
                                 (
                                     "session_items",
-                                    wagtail.core.blocks.StreamBlock(
+                                    wagtail.blocks.StreamBlock(
                                         [
                                             (
                                                 "session_item",
-                                                wagtail.core.blocks.StructBlock(
+                                                wagtail.blocks.StructBlock(
                                                     [
                                                         (
                                                             "title",
-                                                            wagtail.core.blocks.CharBlock(
+                                                            wagtail.blocks.CharBlock(
                                                                 help_text="Heading for the card."
                                                             ),
                                                         ),
                                                         (
                                                             "author_subheading",
-                                                            wagtail.core.blocks.CharBlock(
+                                                            wagtail.blocks.CharBlock(
                                                                 help_text="Author of this session.",
                                                                 required=False,
                                                             ),
@@ -797,7 +797,7 @@ class Migration(migrations.Migration):
                                                         ),
                                                         (
                                                             "body",
-                                                            wagtail.core.blocks.RichTextBlock(
+                                                            wagtail.blocks.RichTextBlock(
                                                                 help_text="Body text of this card."
                                                             ),
                                                         ),
@@ -810,15 +810,15 @@ class Migration(migrations.Migration):
                                                         ),
                                                         (
                                                             "link",
-                                                            wagtail.core.blocks.StreamBlock(
+                                                            wagtail.blocks.StreamBlock(
                                                                 [
                                                                     (
                                                                         "internal",
-                                                                        wagtail.core.blocks.StructBlock(
+                                                                        wagtail.blocks.StructBlock(
                                                                             [
                                                                                 (
                                                                                     "link",
-                                                                                    wagtail.core.blocks.PageChooserBlock(
+                                                                                    wagtail.blocks.PageChooserBlock(
                                                                                         help_text="Page that this should link out to."
                                                                                     ),
                                                                                 )
@@ -827,11 +827,11 @@ class Migration(migrations.Migration):
                                                                     ),
                                                                     (
                                                                         "external",
-                                                                        wagtail.core.blocks.StructBlock(
+                                                                        wagtail.blocks.StructBlock(
                                                                             [
                                                                                 (
                                                                                     "link",
-                                                                                    wagtail.core.blocks.URLBlock(
+                                                                                    wagtail.blocks.URLBlock(
                                                                                         help_text="URL that this should link out to."
                                                                                     ),
                                                                                 )
@@ -852,21 +852,19 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "button",
-                                    wagtail.core.blocks.StreamBlock(
+                                    wagtail.blocks.StreamBlock(
                                         [
                                             (
                                                 "internal",
-                                                wagtail.core.blocks.StructBlock(
+                                                wagtail.blocks.StructBlock(
                                                     [
                                                         (
                                                             "label",
-                                                            wagtail.core.blocks.CharBlock(
-                                                                help_text="Label for this link."
-                                                            ),
+                                                            wagtail.blocks.CharBlock(help_text="Label for this link."),
                                                         ),
                                                         (
                                                             "link",
-                                                            wagtail.core.blocks.PageChooserBlock(
+                                                            wagtail.blocks.PageChooserBlock(
                                                                 help_text="Page that this should link out to."
                                                             ),
                                                         ),
@@ -875,17 +873,15 @@ class Migration(migrations.Migration):
                                             ),
                                             (
                                                 "external",
-                                                wagtail.core.blocks.StructBlock(
+                                                wagtail.blocks.StructBlock(
                                                     [
                                                         (
                                                             "label",
-                                                            wagtail.core.blocks.CharBlock(
-                                                                help_text="Label for this link."
-                                                            ),
+                                                            wagtail.blocks.CharBlock(help_text="Label for this link."),
                                                         ),
                                                         (
                                                             "link",
-                                                            wagtail.core.blocks.URLBlock(
+                                                            wagtail.blocks.URLBlock(
                                                                 help_text="URL that this should link out to."
                                                             ),
                                                         ),
@@ -903,43 +899,41 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "current_events_slider",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "title",
-                                    wagtail.core.blocks.CharBlock(help_text="Heading for the slider."),
+                                    wagtail.blocks.CharBlock(help_text="Heading for the slider."),
                                 ),
                                 (
                                     "current_events",
-                                    wagtail.core.blocks.StreamBlock(
+                                    wagtail.blocks.StreamBlock(
                                         [
                                             (
                                                 "current_event",
-                                                wagtail.core.blocks.StructBlock(
+                                                wagtail.blocks.StructBlock(
                                                     [
                                                         (
                                                             "title",
-                                                            wagtail.core.blocks.CharBlock(
-                                                                help_text="Heading of the card."
-                                                            ),
+                                                            wagtail.blocks.CharBlock(help_text="Heading of the card."),
                                                         ),
                                                         (
                                                             "subheading_link",
-                                                            wagtail.core.blocks.StreamBlock(
+                                                            wagtail.blocks.StreamBlock(
                                                                 [
                                                                     (
                                                                         "internal",
-                                                                        wagtail.core.blocks.StructBlock(
+                                                                        wagtail.blocks.StructBlock(
                                                                             [
                                                                                 (
                                                                                     "label",
-                                                                                    wagtail.core.blocks.CharBlock(
+                                                                                    wagtail.blocks.CharBlock(
                                                                                         help_text="Label for this link."
                                                                                     ),
                                                                                 ),
                                                                                 (
                                                                                     "link",
-                                                                                    wagtail.core.blocks.PageChooserBlock(
+                                                                                    wagtail.blocks.PageChooserBlock(
                                                                                         help_text="Page that this should link out to."
                                                                                     ),
                                                                                 ),
@@ -948,17 +942,17 @@ class Migration(migrations.Migration):
                                                                     ),
                                                                     (
                                                                         "external",
-                                                                        wagtail.core.blocks.StructBlock(
+                                                                        wagtail.blocks.StructBlock(
                                                                             [
                                                                                 (
                                                                                     "label",
-                                                                                    wagtail.core.blocks.CharBlock(
+                                                                                    wagtail.blocks.CharBlock(
                                                                                         help_text="Label for this link."
                                                                                     ),
                                                                                 ),
                                                                                 (
                                                                                     "link",
-                                                                                    wagtail.core.blocks.URLBlock(
+                                                                                    wagtail.blocks.URLBlock(
                                                                                         help_text="URL that this should link out to."
                                                                                     ),
                                                                                 ),
@@ -979,27 +973,27 @@ class Migration(migrations.Migration):
                                                         ),
                                                         (
                                                             "body",
-                                                            wagtail.core.blocks.TextBlock(
+                                                            wagtail.blocks.TextBlock(
                                                                 help_text="Body text of the card."
                                                             ),
                                                         ),
                                                         (
                                                             "buttons",
-                                                            wagtail.core.blocks.StreamBlock(
+                                                            wagtail.blocks.StreamBlock(
                                                                 [
                                                                     (
                                                                         "internal",
-                                                                        wagtail.core.blocks.StructBlock(
+                                                                        wagtail.blocks.StructBlock(
                                                                             [
                                                                                 (
                                                                                     "label",
-                                                                                    wagtail.core.blocks.CharBlock(
+                                                                                    wagtail.blocks.CharBlock(
                                                                                         help_text="Label for this link."
                                                                                     ),
                                                                                 ),
                                                                                 (
                                                                                     "link",
-                                                                                    wagtail.core.blocks.PageChooserBlock(
+                                                                                    wagtail.blocks.PageChooserBlock(
                                                                                         help_text="Page that this should link out to."
                                                                                     ),
                                                                                 ),
@@ -1008,17 +1002,17 @@ class Migration(migrations.Migration):
                                                                     ),
                                                                     (
                                                                         "external",
-                                                                        wagtail.core.blocks.StructBlock(
+                                                                        wagtail.blocks.StructBlock(
                                                                             [
                                                                                 (
                                                                                     "label",
-                                                                                    wagtail.core.blocks.CharBlock(
+                                                                                    wagtail.blocks.CharBlock(
                                                                                         help_text="Label for this link."
                                                                                     ),
                                                                                 ),
                                                                                 (
                                                                                     "link",
-                                                                                    wagtail.core.blocks.URLBlock(
+                                                                                    wagtail.blocks.URLBlock(
                                                                                         help_text="URL that this should link out to."
                                                                                     ),
                                                                                 ),
@@ -1027,11 +1021,11 @@ class Migration(migrations.Migration):
                                                                     ),
                                                                     (
                                                                         "document",
-                                                                        wagtail.core.blocks.StructBlock(
+                                                                        wagtail.blocks.StructBlock(
                                                                             [
                                                                                 (
                                                                                     "label",
-                                                                                    wagtail.core.blocks.CharBlock(
+                                                                                    wagtail.blocks.CharBlock(
                                                                                         help_text="Label for this link."
                                                                                     ),
                                                                                 ),
@@ -1062,16 +1056,16 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "spaces",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
-                                ("title", wagtail.core.blocks.CharBlock()),
+                                ("title", wagtail.blocks.CharBlock()),
                                 (
                                     "cards",
-                                    wagtail.core.blocks.StreamBlock(
+                                    wagtail.blocks.StreamBlock(
                                         [
                                             (
                                                 "space_card",
-                                                wagtail.core.blocks.StructBlock(
+                                                wagtail.blocks.StructBlock(
                                                     [
                                                         (
                                                             "image",
@@ -1079,27 +1073,27 @@ class Migration(migrations.Migration):
                                                         ),
                                                         (
                                                             "title",
-                                                            wagtail.core.blocks.CharBlock(
+                                                            wagtail.blocks.CharBlock(
                                                                 help_text="Heading for the card."
                                                             ),
                                                         ),
                                                         (
                                                             "body",
-                                                            wagtail.core.blocks.TextBlock(
+                                                            wagtail.blocks.TextBlock(
                                                                 help_text="Body text of the card."
                                                             ),
                                                         ),
                                                         (
                                                             "link",
-                                                            wagtail.core.blocks.StreamBlock(
+                                                            wagtail.blocks.StreamBlock(
                                                                 [
                                                                     (
                                                                         "internal",
-                                                                        wagtail.core.blocks.StructBlock(
+                                                                        wagtail.blocks.StructBlock(
                                                                             [
                                                                                 (
                                                                                     "link",
-                                                                                    wagtail.core.blocks.PageChooserBlock(
+                                                                                    wagtail.blocks.PageChooserBlock(
                                                                                         help_text="Page that this should link out to."
                                                                                     ),
                                                                                 )
@@ -1108,11 +1102,11 @@ class Migration(migrations.Migration):
                                                                     ),
                                                                     (
                                                                         "external",
-                                                                        wagtail.core.blocks.StructBlock(
+                                                                        wagtail.blocks.StructBlock(
                                                                             [
                                                                                 (
                                                                                     "link",
-                                                                                    wagtail.core.blocks.URLBlock(
+                                                                                    wagtail.blocks.URLBlock(
                                                                                         help_text="URL that this should link out to."
                                                                                     ),
                                                                                 )
@@ -1136,15 +1130,15 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "tito_widget",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "button_label",
-                                    wagtail.core.blocks.CharBlock(help_text="The text to show on the Tito button."),
+                                    wagtail.blocks.CharBlock(help_text="The text to show on the Tito button."),
                                 ),
                                 (
                                     "styling",
-                                    wagtail.core.blocks.ChoiceBlock(
+                                    wagtail.blocks.ChoiceBlock(
                                         choices=[
                                             ("btn-primary", "Primary button"),
                                             ("btn-secondary", "Secondary button"),
@@ -1153,13 +1147,13 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "event",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text='The ID of the event, e.g. "ultimateconf/2013"'
                                     ),
                                 ),
                                 (
                                     "releases",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text='Comma-separated list of ticket/release IDs to limit to, e.g. "3elajg6qcxu,6qiiw4socs4"',
                                         required=False,
                                     ),
@@ -1169,7 +1163,7 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "tabbed_profile_directory",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "tabs",
@@ -1183,7 +1177,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "subfilters",
-                                    wagtail.core.blocks.StreamBlock(
+                                    wagtail.blocks.StreamBlock(
                                         [
                                             (
                                                 "filter",
@@ -1198,14 +1192,14 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "advanced_filter_header",
-                                    wagtail.core.blocks.static_block.StaticBlock(
+                                    wagtail.blocks.static_block.StaticBlock(
                                         admin_text="Note that the filter not be used if selected as the tabs filter or as one of the subfilters. For example, if the tabs filter profile types, the profile type field below will be ignored.",
                                         label="-------- ADVANCED FILTERS: OPTIONS TO DISPLAY FEWER, MORE TARGETED RESULTS. --------",
                                     ),
                                 ),
                                 (
                                     "profile_type",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         default="",
                                         help_text="Example: Fellow.",
                                         required=False,
@@ -1213,7 +1207,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "program_type",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         default="",
                                         help_text="Example: Tech Policy.",
                                         required=False,
@@ -1221,7 +1215,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "year",
-                                    wagtail.core.blocks.CharBlock(default="", required=False),
+                                    wagtail.blocks.CharBlock(default="", required=False),
                                 ),
                             ]
                         ),

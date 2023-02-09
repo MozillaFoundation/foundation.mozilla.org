@@ -4,7 +4,7 @@ from random import choice
 from django.conf import settings
 from factory import Faker, LazyAttribute
 from factory.django import DjangoModelFactory
-from wagtail.core.models import Page as WagtailPage
+from wagtail.models import Page as WagtailPage
 from wagtail_factories import PageFactory
 
 from networkapi.utility.faker.helpers import get_homepage, get_random_objects, reseed

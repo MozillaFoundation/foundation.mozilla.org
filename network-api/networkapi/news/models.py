@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
-from wagtail.core.models import TranslatableMixin
+from wagtail.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
 
 from networkapi.utility.images import get_image_upload_path

@@ -2,10 +2,10 @@ from django.core import exceptions
 from django.db import models
 from modelcluster import fields as cluster_fields
 from wagtail import documents as wagtail_docs
+from wagtail import fields as wagtail_fields
 from wagtail import images as wagtail_images
-from wagtail.admin import edit_handlers
-from wagtail.core import fields as wagtail_fields
-from wagtail.core import models as wagtail_models
+from wagtail import models as wagtail_models
+from wagtail.admin import panels as edit_handlers
 from wagtail.documents import edit_handlers as docs_handlers
 from wagtail.images import edit_handlers as image_handlers
 from wagtail.search import index
@@ -46,7 +46,7 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
         ),
         edit_handlers.FieldPanel("label"),
         edit_handlers.FieldPanel("url"),
-        docs_handlers.DocumentChooserPanel("document"),
+        docs_handlers.FieldPanel("document"),
     ]
 
     class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
@@ -119,7 +119,7 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
     )
 
     content_panels = wagtail_models.Page.content_panels + [
-        image_handlers.ImageChooserPanel("cover_image"),
+        image_handlers.FieldPanel("cover_image"),
         edit_handlers.InlinePanel("research_links", heading="Research links", min_num=1),
         edit_handlers.FieldPanel("original_publication_date"),
         edit_handlers.FieldPanel("introduction"),

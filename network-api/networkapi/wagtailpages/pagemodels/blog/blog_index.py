@@ -9,16 +9,11 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import loader
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from wagtail.admin.edit_handlers import (
-    FieldPanel,
-    InlinePanel,
-    PageChooserPanel,
-    StreamFieldPanel,
-)
+from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import route
-from wagtail.core.fields import StreamField
-from wagtail.core.models import Locale
-from wagtail.core.models import Orderable as WagtailOrderable
+from wagtail.fields import StreamField
+from wagtail.models import Locale
+from wagtail.models import Orderable as WagtailOrderable
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.forms import BlogIndexPageForm
@@ -111,6 +106,7 @@ class BlogIndexPage(IndexPage):
         blank=True,
         min_num=1,
         max_num=1,
+        use_json_field=True,
     )
 
     subpage_types = ["BlogPage"]
@@ -131,7 +127,7 @@ class BlogIndexPage(IndexPage):
             max_num=1,
         ),
         FieldPanel("related_topics", widget=CheckboxSelectMultiple),
-        StreamFieldPanel("callout_box"),
+        FieldPanel("callout_box"),
     ]
 
     translatable_fields = IndexPage.translatable_fields + [

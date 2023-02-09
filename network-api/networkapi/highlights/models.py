@@ -2,10 +2,9 @@ from adminsortable.models import SortableMixin
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import TranslatableMixin
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel
+from wagtail.fields import RichTextField
+from wagtail.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import TranslatableField
 
@@ -91,7 +90,7 @@ class Highlight(TranslatableMixin, SortableMixin):
         FieldPanel("description"),
         FieldPanel("link_label"),
         FieldPanel("link_url"),
-        ImageChooserPanel("image"),
+        FieldPanel("image"),
         FieldPanel("footer"),
         FieldPanel("publish_after"),
         FieldPanel("expires"),

@@ -1,7 +1,7 @@
 from unittest import skip
 
 from django.test import RequestFactory, TestCase
-from wagtail.core.models import Site
+from wagtail.models import Site
 from wagtail_factories import SiteFactory
 
 from networkapi.utility.redirects import redirect_to_default_cms_site

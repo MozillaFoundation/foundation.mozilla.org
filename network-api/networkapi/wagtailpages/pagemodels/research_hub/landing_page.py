@@ -1,8 +1,7 @@
 from django.apps import apps
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
-from wagtail.core import models as wagtail_models
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail import models as wagtail_models
+from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
@@ -29,7 +28,7 @@ class ResearchLandingPage(research_base.ResearchHubBasePage):
 
     content_panels = wagtail_models.Page.content_panels + [
         FieldPanel("intro"),
-        ImageChooserPanel("banner_image"),
+        FieldPanel("banner_image"),
         InlinePanel("featured_topics", heading="Featured Topics"),
     ]
 

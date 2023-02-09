@@ -1,8 +1,7 @@
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.core.fields import StreamField
-from wagtail.core.models import Page
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.fields import StreamField
+from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import get_page_tree_information, set_main_site_nav_information
@@ -49,7 +48,7 @@ class PrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin,
         help_text="For secondary nav pages, use this to collapse the primary nav under a toggle hamburger.",
     )
 
-    body = StreamField(base_fields)
+    body = StreamField(base_fields, use_json_field=True)
 
     settings_panels = Page.settings_panels + [
         MultiFieldPanel(
@@ -68,9 +67,9 @@ class PrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin,
 
     content_panels = Page.content_panels + [
         FieldPanel("header"),
-        ImageChooserPanel("banner"),
+        FieldPanel("banner"),
         FieldPanel("intro"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
     translatable_fields = [

@@ -3,12 +3,10 @@ import typing
 from django import http
 from django.db import models
 from modelcluster import fields as cluster_fields
-from wagtail import images
-from wagtail.admin import edit_handlers as panels
-from wagtail.core import blocks, fields
-from wagtail.core import models as wagtail_models
+from wagtail import blocks, fields, images
+from wagtail import models as wagtail_models
+from wagtail.admin import panels as panels
 from wagtail.images import edit_handlers as image_panels
-from wagtail.snippets import edit_handlers as snippet_panels
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
@@ -71,10 +69,11 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
         block_counts={"typeform": {"max_num": 1}},
         null=True,
         blank=False,
+        use_json_field=True,
     )
 
     content_panels = wagtail_models.Page.content_panels + [
-        image_panels.ImageChooserPanel("hero_image"),
+        image_panels.FieldPanel("hero_image"),
         panels.InlinePanel("author_profile_relations", heading="Authors", label="Author"),
         panels.InlinePanel(
             "content_category_relations",
@@ -82,7 +81,7 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
             label="Content category",
             max_num=2,
         ),
-        panels.StreamFieldPanel("body"),
+        panels.FieldPanel("body"),
         panels.InlinePanel(
             "related_article_relations",
             heading="What to read next (related articles)",
@@ -182,7 +181,7 @@ class BuyersGuideArticlePageAuthorProfileRelation(
         blank=False,
     )
 
-    panels = [snippet_panels.SnippetChooserPanel("author_profile")]
+    panels = [panels.FieldPanel("author_profile")]
 
     def __str__(self):
         return f"{self.page.title} -> {self.author_profile.name}"
@@ -208,7 +207,7 @@ class BuyersGuideArticlePageContentCategoryRelation(
         blank=False,
     )
 
-    panels = [snippet_panels.SnippetChooserPanel("content_category")]
+    panels = [panels.FieldPanel("content_category")]
 
     def __str__(self):
         return f"{self.page.title} -> {self.content_category.title}"
@@ -231,7 +230,7 @@ class BuyersGuideArticlePageRelatedArticleRelation(
         blank=False,
     )
 
-    panels = [panels.PageChooserPanel("article")]
+    panels = [panels.FieldPanel("article")]
 
     def __str__(self):
         return f"{self.page.title} -> {self.article.title}"

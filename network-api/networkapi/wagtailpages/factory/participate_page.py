@@ -1,5 +1,5 @@
 from factory import Faker, SubFactory
-from wagtail.core.models import Page as WagtailPage
+from wagtail.models import Page as WagtailPage
 from wagtail_factories import PageFactory
 
 from networkapi.utility.faker.helpers import get_homepage, reseed

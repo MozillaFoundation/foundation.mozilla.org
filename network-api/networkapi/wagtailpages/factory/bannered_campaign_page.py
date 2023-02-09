@@ -1,5 +1,5 @@
 from factory import Faker, SubFactory, Trait
-from wagtail.core.models import Page as WagtailPage
+from wagtail.models import Page as WagtailPage
 
 from networkapi.utility.faker.helpers import get_homepage, reseed
 from networkapi.wagtailpages.models import BanneredCampaignPage

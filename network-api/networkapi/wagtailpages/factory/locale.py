@@ -1,4 +1,4 @@
-from wagtail.core.models.i18n import Locale
+from wagtail.models.i18n import Locale
 from wagtail_localize.models import LocaleSynchronization
 
 from networkapi.utility.faker.helpers import reseed

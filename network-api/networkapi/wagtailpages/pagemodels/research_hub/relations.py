@@ -1,7 +1,7 @@
 from django.db import models
 from modelcluster import fields as cluster_fields
-from wagtail.core import models as wagtail_models
-from wagtail.snippets import edit_handlers as snippet_handlers
+from wagtail import models as wagtail_models
+from wagtail.admin.panels import FieldPanel
 
 
 class ResearchAuthorRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
@@ -21,7 +21,7 @@ class ResearchAuthorRelation(wagtail_models.TranslatableMixin, wagtail_models.Or
     )
 
     panels = [
-        snippet_handlers.SnippetChooserPanel("author_profile"),
+        FieldPanel("author_profile"),
     ]
 
 
@@ -42,7 +42,7 @@ class ResearchDetailPageResearchRegionRelation(wagtail_models.TranslatableMixin,
     )
 
     panels = [
-        snippet_handlers.SnippetChooserPanel("research_region"),
+        FieldPanel("research_region"),
     ]
 
 
@@ -63,7 +63,7 @@ class ResearchDetailPageResearchTopicRelation(wagtail_models.TranslatableMixin, 
     )
 
     panels = [
-        snippet_handlers.SnippetChooserPanel("research_topic"),
+        FieldPanel("research_topic"),
     ]
 
 
@@ -83,5 +83,5 @@ class ResearchLandingPageFeaturedResearchTopicRelation(wagtail_models.Translatab
     )
 
     panels = [
-        snippet_handlers.SnippetChooserPanel("research_topic"),
+        FieldPanel("research_topic"),
     ]

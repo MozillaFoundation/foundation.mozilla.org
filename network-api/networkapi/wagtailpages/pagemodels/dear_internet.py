@@ -1,8 +1,8 @@
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.core import blocks
-from wagtail.core.fields import StreamField
-from wagtail.core.models import Page
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.fields import StreamField
+from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import set_main_site_nav_information
@@ -13,7 +13,7 @@ from .mixin.foundation_metadata import FoundationMetadataPageMixin
 
 class DearInternetPage(FoundationMetadataPageMixin, Page):
     intro_texts = StreamField(
-        [("intro_text", blocks.RichTextBlock(features=base_rich_text_options))],
+        [("intro_text", blocks.RichTextBlock(features=base_rich_text_options))], use_json_field=True
     )
 
     letters_section_heading = models.CharField(
@@ -24,7 +24,8 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
     letters = StreamField(
         [
             ("letter", customblocks.DearInternetLetterBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     cta = models.CharField(
@@ -38,9 +39,9 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
     cta_button_link = models.URLField()
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel("intro_texts"),
+        FieldPanel("intro_texts"),
         FieldPanel("letters_section_heading"),
-        StreamFieldPanel("letters"),
+        FieldPanel("letters"),
         MultiFieldPanel(
             [
                 FieldPanel("cta"),

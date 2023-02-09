@@ -1,12 +1,9 @@
 from django import forms
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Orderable, Page
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.fields import RichTextField
+from wagtail.models import Orderable, Page
 from wagtail_color_panel.edit_handlers import NativeColorPanel
 from wagtail_color_panel.fields import ColorField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -26,7 +23,7 @@ class PublicationAuthors(Orderable):
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=False)
 
     panels = [
-        SnippetChooserPanel("author"),
+        FieldPanel("author"),
     ]
 
     def __str__(self):
@@ -196,7 +193,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel([InlinePanel("authors", label="Author", min_num=0)], heading="Author(s)"),
         MultiFieldPanel(
-            [ImageChooserPanel("toc_thumbnail_image")],
+            [FieldPanel("toc_thumbnail_image")],
             heading="Table of Content Thumbnail",
         ),
         MultiFieldPanel(
@@ -204,7 +201,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
                 FieldPanel("hero_layout", widget=forms.RadioSelect),
                 FieldPanel("show_authors"),
                 FieldPanel("additional_author_copy"),
-                ImageChooserPanel("hero_image"),
+                FieldPanel("hero_image"),
                 FieldPanel("hero_video"),
                 FieldPanel("displayed_hero_content", widget=forms.RadioSelect),
                 NativeColorPanel("hero_background_color"),
@@ -213,8 +210,8 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
                 FieldPanel("secondary_subtitle"),
                 FieldPanel("publication_date"),
                 FieldPanel("download_button_style", widget=forms.RadioSelect),
-                DocumentChooserPanel("download_button_icon"),
-                DocumentChooserPanel("publication_file", heading="Download button file"),
+                FieldPanel("download_button_icon"),
+                FieldPanel("publication_file", heading="Download button file"),
             ],
             heading="Hero",
         ),
