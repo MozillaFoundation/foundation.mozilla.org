@@ -12,7 +12,6 @@ from wagtail.admin.panels import (
     InlinePanel,
     MultiFieldPanel,
     PageChooserPanel,
-    PrivacyModalPanel,
     PublishingPanel,
 )
 from wagtail.fields import StreamField
@@ -205,7 +204,6 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     settings_panels = [
         PublishingPanel(),
         FieldPanel("first_published_at"),
-        PrivacyModalPanel(),
     ]
 
     translatable_fields = [
