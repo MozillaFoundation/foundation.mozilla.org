@@ -75,6 +75,9 @@
         {% block org_schema %}{% endblock %}
 
         {% block additional_head_elements %}{% endblock %}
+        {% if request.in_preview_panel %}
+            <base target="_blank">
+        {% endif %}
     </head>
     <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
         {% if user.is_authenticated %}
