@@ -1,8 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.core.models import TranslatableMixin
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel
+from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -40,7 +39,7 @@ class Profile(index.Indexed, TranslatableMixin, models.Model):
 
     panels = [
         FieldPanel("name"),
-        ImageChooserPanel("image"),
+        FieldPanel("image"),
         FieldPanel("tagline"),
         FieldPanel("introduction"),
     ]

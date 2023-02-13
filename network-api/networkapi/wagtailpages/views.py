@@ -1,7 +1,7 @@
 from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.utils import translation
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 
 def custom404_view(request, exception):

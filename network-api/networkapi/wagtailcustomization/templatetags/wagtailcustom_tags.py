@@ -5,7 +5,7 @@ from django import template
 from django.utils.html import strip_tags
 from django.utils.safestring import SafeText
 from django.utils.text import slugify
-from wagtail.core.rich_text import RichText
+from wagtail.rich_text import RichText
 
 # We don't actually register any tags: the idea is to tap into
 # the richtext filter, but that won't let us change _all_ the

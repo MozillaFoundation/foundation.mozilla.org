@@ -2,7 +2,7 @@ import json
 from urllib import parse, request
 
 from django.conf import settings
-from wagtail.core import blocks
+from wagtail import blocks
 
 
 class LatestProfileQueryValue(blocks.StructValue):

@@ -5,9 +5,9 @@ from django.conf import settings
 from django.core import serializers
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
-from wagtail.core import blocks
-from wagtail.core.blocks.stream_block import StreamBlockValidationError
-from wagtail.core.blocks.struct_block import StructBlockValidationError
+from wagtail import blocks
+from wagtail.blocks.stream_block import StreamBlockValidationError
+from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.snippets.blocks import SnippetChooserBlock
 
 from .latest_profile_list import LatestProfileList

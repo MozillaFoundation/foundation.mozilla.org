@@ -6,22 +6,19 @@ from django.template.defaultfilters import truncatechars
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import (
+from wagtail import blocks
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     PageChooserPanel,
     PrivacyModalPanel,
     PublishingPanel,
-    StreamFieldPanel,
 )
-from wagtail.core import blocks
-from wagtail.core.fields import StreamField
-from wagtail.core.models import Locale, Orderable, Page, TranslatableMixin
-from wagtail.core.rich_text import get_text_for_indexing
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.fields import StreamField
+from wagtail.models import Locale, Orderable, Page, TranslatableMixin
+from wagtail.rich_text import get_text_for_indexing
 from wagtail.search import index
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.forms import BlogPageForm
@@ -81,7 +78,7 @@ class BlogAuthors(TranslatableMixin, Orderable):
     )
 
     panels = [
-        SnippetChooserPanel("author"),
+        FieldPanel("author"),
     ]
 
     def __str__(self):
@@ -118,10 +115,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     # Custom base form for additional validation
     base_form_class = BlogPageForm
 
-    body = StreamField(
-        base_fields,
-        block_counts={"typeform": {"max_num": 1}},
-    )
+    body = StreamField(base_fields, block_counts={"typeform": {"max_num": 1}}, use_json_field=True)
 
     topics = ParentalManyToManyField(
         BlogPageTopic,
@@ -177,11 +171,11 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         MultiFieldPanel(
             [
                 FieldPanel("hero_video"),
-                ImageChooserPanel("hero_image"),
+                FieldPanel("hero_image"),
             ],
             heading="Hero Video/Image",
         ),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
         FieldPanel("feature_author_details", heading="Feature Author Details Section"),
         FieldPanel("feature_comments"),
         InlinePanel(
@@ -201,7 +195,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
                 FieldPanel("slug"),
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
-                ImageChooserPanel("search_image"),
+                FieldPanel("search_image"),
             ],
             heading="Common page configuration",
         ),

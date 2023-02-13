@@ -1,6 +1,6 @@
 from django.test import TestCase
-from wagtail.admin.edit_handlers import get_form_for_model
-from wagtail.tests.utils.form_data import nested_form_data, rich_text, streamfield
+from wagtail.admin.panels import get_form_for_model
+from wagtail.test.utils.form_data import nested_form_data, rich_text, streamfield
 
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
@@ -12,7 +12,9 @@ from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
 class BuyersGuideArticlePageFormTest(TestCase):
     def setUp(self):
         self.article_page_form = get_form_for_model(
-            model=pagemodels.BuyersGuideArticlePage, form_class=BuyersGuideArticlePageForm
+            model=pagemodels.BuyersGuideArticlePage,
+            form_class=BuyersGuideArticlePageForm,
+            fields=["search_description", "search_image"],
         )
 
     @staticmethod

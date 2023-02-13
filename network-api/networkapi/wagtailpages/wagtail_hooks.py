@@ -11,14 +11,14 @@ from django.db.models.signals import post_save
 from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.html import escape
+from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineStyleElementHandler,
 )
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
-from wagtail.core import hooks
-from wagtail.core.rich_text import LinkHandler
-from wagtail.core.utils import find_available_slug
+from wagtail.coreutils import find_available_slug
+from wagtail.rich_text import LinkHandler
 from wagtail_localize.models import (
     LocaleSynchronization,
     sync_trees_on_locale_sync_save,

@@ -1,10 +1,8 @@
 from django import forms
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.models import (
@@ -53,15 +51,16 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ("tito_widget", customblocks.TitoWidgetBlock()),
             ("tabbed_profile_directory", customblocks.TabbedProfileDirectory()),
             ("newsletter_signup", customblocks.NewsletterSignupBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     content_panels = Page.content_panels + [
         FieldPanel("header"),
-        ImageChooserPanel("banner"),
+        FieldPanel("banner"),
         FieldPanel("intro"),
-        SnippetChooserPanel("signup"),
-        StreamFieldPanel("body"),
+        FieldPanel("signup"),
+        FieldPanel("body"),
     ]
 
     subpage_types = [
@@ -221,7 +220,7 @@ class MozfestHomepage(MozfestPrimaryPage):
 
     # See https://github.com/mozilla/foundation.mozilla.org/issues/7883#issuecomment-996039763
     content_panels = Page.content_panels + [
-        SnippetChooserPanel("signup"),
+        FieldPanel("signup"),
         MultiFieldPanel(
             [
                 FieldPanel("cta_button_label", heading="Label"),
@@ -231,9 +230,9 @@ class MozfestHomepage(MozfestPrimaryPage):
         ),
         FieldPanel("banner_heading"),
         FieldPanel("banner_cta_label"),
-        StreamFieldPanel("banner_carousel"),
-        StreamFieldPanel("banner_video"),
-        StreamFieldPanel("body"),
+        FieldPanel("banner_carousel"),
+        FieldPanel("banner_video"),
+        FieldPanel("body"),
     ]
 
     # Because we inherit from PrimaryPage, but the "use_wide_template" property does nothing

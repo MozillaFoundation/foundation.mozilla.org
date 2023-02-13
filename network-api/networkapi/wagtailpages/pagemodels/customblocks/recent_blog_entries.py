@@ -1,6 +1,6 @@
 from django.apps import apps
 from django.template.defaultfilters import slugify
-from wagtail.core import blocks
+from wagtail import blocks
 
 from networkapi.wagtailpages.utils import get_locale_from_request
 

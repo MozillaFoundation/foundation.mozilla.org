@@ -4,7 +4,7 @@ import heroku3
 import requests
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 REVIEW_APP_DOMAIN = settings.REVIEW_APP_DOMAIN
 CLOUDFLARE_ZONE_ID = settings.REVIEW_APP_CLOUDFLARE_ZONE_ID

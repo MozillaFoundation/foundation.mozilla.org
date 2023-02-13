@@ -3,7 +3,7 @@ from unittest import mock
 
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
-from wagtail.core.models import Page, Site
+from wagtail.models import Page, Site
 
 from networkapi.events.factory import TitoEventFactory
 from networkapi.events.utils import sign_tito_request

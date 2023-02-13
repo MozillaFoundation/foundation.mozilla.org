@@ -1,5 +1,5 @@
 from django.apps import apps
-from wagtail.core import models as wagtail_models
+from wagtail import models as wagtail_models
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata

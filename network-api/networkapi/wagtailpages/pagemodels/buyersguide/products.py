@@ -20,17 +20,10 @@ from django.utils.text import slugify
 from django.utils.translation import gettext
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
-    FieldPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    PageChooserPanel,
-)
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Orderable, Page, TranslatableMixin
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.fields import RichTextField
+from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail.search import index
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -141,11 +134,11 @@ class BuyersGuideProductCategory(
             widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 50}),
         ),
         FieldPanel("description"),
-        SnippetChooserPanel("parent"),
+        FieldPanel("parent"),
         FieldPanel("featured"),
         FieldPanel("hidden"),
         FieldPanel("sort_order"),
-        ImageChooserPanel("share_image"),
+        FieldPanel("share_image"),
         FieldPanel("show_cta"),
         InlinePanel(
             "related_article_relations",
@@ -225,7 +218,7 @@ class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable
         blank=False,
     )
 
-    panels = [PageChooserPanel("article")]
+    panels = [FieldPanel("article")]
 
     def __str__(self):
         return f"{self.category.name} -> {self.article.title}"
@@ -294,7 +287,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
     )
 
     panels = [
-        SnippetChooserPanel("category"),
+        FieldPanel("category"),
     ]
 
     def __str__(self):
@@ -318,7 +311,7 @@ class RelatedProducts(TranslatableMixin, Orderable):
         related_name="+",
     )
 
-    panels = [PageChooserPanel("related_product")]
+    panels = [FieldPanel("related_product")]
 
     class Meta(TranslatableMixin.Meta):
         verbose_name = "Related Product"
@@ -424,7 +417,7 @@ class ProductUpdates(TranslatableMixin, Orderable):
     ]
 
     panels = [
-        SnippetChooserPanel("update"),
+        FieldPanel("update"),
     ]
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
@@ -723,7 +716,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                 FieldPanel("privacy_ding"),
                 FieldPanel("review_date"),
                 FieldPanel("adult_content"),
-                ImageChooserPanel("image"),
+                FieldPanel("image"),
                 FieldPanel("product_url"),
                 FieldPanel("time_researched"),
                 FieldPanel("mozilla_says"),
@@ -967,7 +960,7 @@ class BuyersGuideProductPageArticlePageRelation(TranslatableMixin, Orderable):
         blank=False,
     )
 
-    panels = [PageChooserPanel("article")]
+    panels = [FieldPanel("article")]
 
     def __str__(self):
         return f"{self.product.name} -> {self.article.title}"
@@ -1259,7 +1252,7 @@ class ExcludedCategories(TranslatableMixin, Orderable):
     )
 
     panels = [
-        SnippetChooserPanel("category"),
+        FieldPanel("category"),
     ]
 
     def __str__(self):

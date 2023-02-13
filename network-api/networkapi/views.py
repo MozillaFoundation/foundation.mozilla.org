@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views import View
 from django.views.decorators.http import require_GET
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 from networkapi.mozfest.models import MozfestHomepage
 from networkapi.wagtailpages.models import Homepage

@@ -1,4 +1,4 @@
-from wagtail.core import blocks
+from wagtail import blocks
 
 from .. import customblocks
 from .full_content_rich_text_options import full_content_rich_text_options

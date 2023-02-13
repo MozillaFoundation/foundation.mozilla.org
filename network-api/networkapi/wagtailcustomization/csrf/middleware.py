@@ -4,7 +4,7 @@ Ever other page should accept CSRF as normal.
 """
 
 from django.middleware.csrf import CsrfViewMiddleware
-from wagtail.core.views import serve
+from wagtail.views import serve
 
 from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
 

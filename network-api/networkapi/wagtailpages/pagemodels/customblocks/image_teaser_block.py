@@ -1,8 +1,8 @@
 from django.forms.utils import ErrorList
+from wagtail.blocks.struct_block import StructBlockValidationError
 from django.utils import functional as func_utils
 from django.utils import text as text_utils
-from wagtail.core import blocks
-from wagtail.core.blocks.struct_block import StructBlockValidationError
+from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
 

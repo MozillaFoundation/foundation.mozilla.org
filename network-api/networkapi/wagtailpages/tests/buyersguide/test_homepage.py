@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AnonymousUser, User
 from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
-from wagtail.core.models import Locale, Page, Site
+from wagtail.models import Locale, Page, Site
 
 from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories

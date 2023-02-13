@@ -1,5 +1,5 @@
-from wagtail.core import blocks
-from wagtail.core.blocks import PageChooserBlock
+from wagtail import blocks
+from wagtail.blocks import PageChooserBlock
 
 
 class BlogSetBlock(blocks.StructBlock):

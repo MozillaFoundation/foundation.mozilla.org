@@ -1,6 +1,6 @@
 from factory import SubFactory
 from factory.django import DjangoModelFactory
-from wagtail.core.models import Page as WagtailPage
+from wagtail.models import Page as WagtailPage
 
 from networkapi.highlights.factory import HighlightFactory
 from networkapi.utility.faker.helpers import reseed

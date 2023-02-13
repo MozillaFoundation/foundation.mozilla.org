@@ -1,9 +1,9 @@
 from django.core.management.base import BaseCommand
+from wagtail.images.models import Image
 
 # Models
-from wagtail.core.models import Page as WagtailPage
-from wagtail.core.models import Site as WagtailSite
-from wagtail.images.models import Image
+from wagtail.models import Page as WagtailPage
+from wagtail.models import Site as WagtailSite
 
 from networkapi.highlights.models import Highlight
 from networkapi.news.models import News
