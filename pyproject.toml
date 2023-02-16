@@ -227,6 +227,7 @@ ignore="H017"
 "network-api/networkapi/wagtailpages/templates/wagtailpages/tags/cta/callpower.html" = "H008"
 "network-api/networkapi/wagtailpages/templates/wagtailpages/tags/cta/petition.html" = "H008"
 "network-api/networkapi/wagtailpages/templates/wagtailpages/tags/homepage_image.html" = "H006,H013"
+"network-api/networkapi/wagtailpages/templates/wagtailpages/tags/picture_ratios.html" = "T001"
 
 [tool.isort]
 profile = "black"
