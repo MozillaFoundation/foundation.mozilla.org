@@ -40,7 +40,12 @@
       text-decoration: none;
       &.active,
       &:hover {
-        text-decoration: wavy $pni-wavy-blue 2px underline;
+        // merging the following 4 text-decoration-* rules into 1 text-decoration rule
+        // causes Safari to not displaying the wavy underline at all
+        text-decoration-style: wavy;
+        text-decoration-line: underline;
+        text-decoration-thickness: 2px;
+        text-decoration-color: $pni-wavy-blue;
         text-underline-offset: 0.5rem;
       }
     }
