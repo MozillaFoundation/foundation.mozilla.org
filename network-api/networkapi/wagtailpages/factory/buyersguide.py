@@ -118,6 +118,11 @@ class ProductPageVotesFactory(DjangoModelFactory):
     vote_bins = LazyFunction(lambda: ",".join([str(randint(1, 50)) for x in range(0, 5)]))
 
 
+class ProductIndexPageFactory(PageFactory):
+    class Meta:
+        model = pagemodels.ProductIndexPage
+
+
 class ProductPageFactory(PageFactory):
     class Meta:
         model = pagemodels.ProductPage
