@@ -3,7 +3,9 @@ from os.path import abspath, join
 from django.conf import settings
 from django.test.utils import override_settings
 
+from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
+from networkapi.wagtailpages.pagemodels.buyersguide.product_index_page import ProductIndexPage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages.utils import create_wagtail_image
@@ -16,6 +18,7 @@ class BuyersGuideTestCase(test_base.WagtailpagesTestCase):
         super().setUpTestData()
         # Ensure there's always a BuyersGuide Page
         cls.bg = cls.get_or_create_buyers_guide()
+        cls.product_index_page = cls.get_or_create_product_index_page()
         cls.product_page = cls.get_or_create_product_page()
 
     @classmethod
@@ -35,6 +38,13 @@ class BuyersGuideTestCase(test_base.WagtailpagesTestCase):
         return buyersguide
 
     @classmethod
+    def get_or_create_product_index_page(cls):
+        product_index = ProductIndexPage.objects.first()
+        if not product_index:
+            product_index = buyersguide_factories.ProductIndexPageFactory(parent=cls.bg)
+        return product_index
+
+    @classmethod
     def get_or_create_product_page(cls):
         product_page = ProductPage.objects.first()
         if not product_page:
@@ -51,6 +61,6 @@ class BuyersGuideTestCase(test_base.WagtailpagesTestCase):
                 live=True,
                 image=wagtail_image,
             )
-            cls.bg.add_child(instance=product_page)
+            cls.product_index_page.add_child(instance=product_page)
             product_page.save_revision().publish()
         return product_page
