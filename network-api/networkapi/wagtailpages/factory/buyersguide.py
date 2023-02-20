@@ -305,14 +305,14 @@ class BuyersGuideCampaignPageDonationModalRelationFactory(DjangoModelFactory):
     donation_modal = SubFactory(DonationModalFactory)
 
 
-def create_general_product_visual_regression_product(seed, pni_homepage):
+def create_general_product_visual_regression_product(seed, parent):
     # There are no random fields here: *everything* is prespecified
     GeneralProductPageFactory.create(
         # page fields
         title="General Percy Product",
         first_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
         last_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
-        parent=pni_homepage,
+        parent=parent,
         # product fields
         privacy_ding=True,
         adult_content=True,
@@ -363,7 +363,7 @@ def generate(seed):
     )
 
     print("Generating visual regression test products")
-    create_general_product_visual_regression_product(seed, pni_homepage)
+    create_general_product_visual_regression_product(seed, parent=product_index_page)
 
     print("Generating 52 ProductPages")
     for _ in range(52):

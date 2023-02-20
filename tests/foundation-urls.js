@@ -23,7 +23,7 @@ module.exports = {
     "/publication-page-with-chapter-pages/fixed-title-chapter-page/fixed-title-article-page",
   PNI: "/privacynotincluded",
   "PNI (filtered for category)": "/privacynotincluded/categories/toys-games",
-  "PNI general product page": "/privacynotincluded/general-percy-product",
+  "PNI general product page": "/privacynotincluded/product-reviews/general-percy-product",
   "YouTube regrets": "/campaigns/youtube-regrets",
   "YouTube regrets  reporter": "/campaigns/regrets-reporter",
   "Dear Internet": "/campaigns/dearinternet",
