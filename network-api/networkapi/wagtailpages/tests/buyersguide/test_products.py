@@ -7,8 +7,11 @@ from wagtail.snippets.views.snippets import get_snippet_edit_handler
 from wagtail.test.utils import form_data
 
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
+from networkapi.wagtailpages.pagemodels.buyersguide import homepage
+from networkapi.wagtailpages.pagemodels.buyersguide import product_index_page
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
+    GeneralProductPage,
     ProductPageCategory,
     ProductPageVotes,
 )
@@ -23,6 +26,16 @@ class TestProductPage(BuyersGuideTestCase):
             votes.save()
             self.product_page.votes = votes
             self.product_page.save()
+
+    def test_allowed_parent_page_types(self):
+        self.assertCanCreateAt(
+            child_model=GeneralProductPage,
+            parent_model=product_index_page.ProductIndexPage,
+        )
+        self.assertCanNotCreateAt(
+            child_model=GeneralProductPage,
+            parent_model=homepage.BuyersGuidePage,
+        )
 
     def test_get_votes(self):
         product_page = self.product_page
