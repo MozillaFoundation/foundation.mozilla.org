@@ -84,7 +84,7 @@
     "classnames": "2.3.2",
     "countup.js": "^2.3.2",
     "cssnano": "^5.1.14",
-    "esbuild": "^0.12.24",
+    "esbuild": "^0.17.9",
     "event-stream": "3.3.4",
     "gsap": "^3.11.4",
     "htmx.org": "^1.8.5",
