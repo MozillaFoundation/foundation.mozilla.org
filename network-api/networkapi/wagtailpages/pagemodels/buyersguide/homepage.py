@@ -49,7 +49,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     template = "pages/buyersguide/home.html"
     subpage_types = [
-        "wagtailpages.GeneralProductPage",
+        "wagtailpages.ProductIndexPage",
         "wagtailpages.BuyersGuideEditorialContentIndexPage",
     ]
 
