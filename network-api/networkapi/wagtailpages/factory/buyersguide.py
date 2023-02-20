@@ -356,14 +356,20 @@ def generate(seed):
         slug="privacynotincluded",
     )
 
+    print("Generating product index page")
+    product_index_page = ProductIndexPageFactory.create(
+        parent=pni_homepage,
+        title="Product reviews",
+    )
+
     print("Generating visual regression test products")
     create_general_product_visual_regression_product(seed, pni_homepage)
 
     print("Generating 52 ProductPages")
-    for i in range(52):
+    for _ in range(52):
         # General products
         general_page = GeneralProductPageFactory.create(
-            parent=pni_homepage,
+            parent=product_index_page,
         )
         general_page.save_revision().publish()
 
@@ -373,7 +379,7 @@ def generate(seed):
     for product_page in product_pages:
         # Create a new orderable 3 times.
         # Each page will be randomly selected from an existing factory page.
-        for i in range(3):
+        for _ in range(3):
             random_number = randint(1, total_product_pages) - 1
             random_page = product_pages[random_number]
             related_product = pagemodels.RelatedProducts(
