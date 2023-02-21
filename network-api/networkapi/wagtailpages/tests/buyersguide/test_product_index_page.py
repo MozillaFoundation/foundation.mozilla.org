@@ -1,3 +1,5 @@
+import http
+
 from django import test
 
 from networkapi.wagtailpages.tests.buyersguide import base as test_base
@@ -26,3 +28,9 @@ class TestProductIndexPage(test_base.BuyersGuideTestCase):
             child_model=products.GeneralProductPage,
             parent_model=product_index_page.ProductIndexPage,
         )
+
+    def test_redirects_to_parent(self):
+        response = self.client.get(self.product_index_page.get_url())
+
+        self.assertEqual(response.status_code, http.HTTPStatus.FOUND)
+        self.assertEqual(response.headers["Location"], self.bg.get_url())
