@@ -1,6 +1,6 @@
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
 
-{% with heading_level=heading_level|default:2 heading_classes=heading_classes|default:"tw-h3-heading tw-mt-4"  %}
+{% with heading_level=heading_level|default:2 heading_classes=heading_classes|default:"tw-h3-heading tw-mt-4" %}
     <div>
         {% if short_waves %}
             <div class="tw-max-w-[11rem]">
@@ -10,11 +10,11 @@
             {% include "./wavy_line.html" %}
         {% endif %}
 
-        <h{{ heading_level}} class="{{ heading_classes }}">{{ heading }}</h{{ heading_level}}>
+        <h{{ heading_level }} class="{{ heading_classes }}">{{ heading }}</h{{ heading_level }}>
 
         {% if articles %}
             <ul class="tw-list-none {% if show_images %} tw-space-y-8 {% else %} tw-space-y-12 {% endif %} tw-p-0">
-                {% for article in articles  %}
+                {% for article in articles %}
                     <li class="tw-m-0" >
                         <a href="{% pageurl article %}" class="tw-text-black tw-flex hover:tw-text-blue-40 tw-items-center tw-no-underline">
                             {% if show_images %}

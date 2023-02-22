@@ -26,7 +26,7 @@
 
 {% block guts %}
 
-    {% blocktrans with title=page.title asvar share_text_translated %}{{title}} by @mozilla{% endblocktrans %}
+    {% blocktrans with title=page.title asvar share_text_translated %}{{ title }} by @mozilla{% endblocktrans %}
     <div class="cms blog-body">
         <div class="container share-button-blog-title-container">
             <div class="row">
@@ -49,7 +49,7 @@
             {% include_block block with parent_page=page page_type="blog" %}
         {% endfor %}
 
-        {% with author_profiles=page.get_author_profiles  %}
+        {% with author_profiles=page.get_author_profiles %}
             {% if author_profiles %}
                 <div class="tw-container tw-mt-24">
                     <div class="tw-row tw-px-8 tw-justify-center">
@@ -87,7 +87,7 @@
             </div>
         </div>
 
-        {% with related_articles=page.get_related_articles  %}
+        {% with related_articles=page.get_related_articles %}
             {% if related_articles %}
                 {% get_bg_home_page as bg_home_page %}
                 <div class="tw-container tw-mt-24" data-gtm="related-articles">

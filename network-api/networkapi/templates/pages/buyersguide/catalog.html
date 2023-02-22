@@ -7,8 +7,8 @@
 {% block main_content_class %}{% endblock %}
 
 {% block hero %}
-    <input type="hidden" class="category-title" value="{% if current_category %}{{current_category.localized.name}}{% else %}None{% endif %}">
-    <input type="hidden" class="parent-title" value="{{current_category.parent.localized.name}}">
+    <input type="hidden" class="category-title" value="{% if current_category %}{{ current_category.localized.name }}{% else %}None{% endif %}">
+    <input type="hidden" class="parent-title" value="{{ current_category.parent.localized.name }}">
     <div class="tw-container">
         <div class="tw-row">
             <div class="tw-px-8 tw-py-12 large:tw-py-24 tw-w-full">
@@ -31,14 +31,14 @@
             <div class="tw-w-full tw-px-8">
                 <div class="tw-flex tw-items-end">
                     <a
-                        href="{% if current_category.parent %}{% localizedroutablepageurl home_page 'category-view' current_category.parent.slug  %}{% elif current_category %}{% localizedroutablepageurl home_page 'category-view' current_category.slug  %}{% else %}{% relocalized_url home_page.localized.url %}{% endif %}"
-                        data-name="{% if current_category.parent %}{{ current_category.parent.name }}{% elif current_category %}{{current_category.name}}{% else %}None{% endif %}"
+                        href="{% if current_category.parent %}{% localizedroutablepageurl home_page 'category-view' current_category.parent.slug %}{% elif current_category %}{% localizedroutablepageurl home_page 'category-view' current_category.slug %}{% else %}{% relocalized_url home_page.localized.url %}{% endif %}"
+                        data-name="{% if current_category.parent %}{{ current_category.parent.name }}{% elif current_category %}{{ current_category.name }}{% else %}None{% endif %}"
                         class="tw-text-2xl tw-font-zilla category-header tw-text-black hover:tw-text-pni-blue tw-no-underline tw-cursor-pointer tw-block"
                     >
                         {% if current_category.parent %}
-                            {{current_category.parent.localized.name}}
+                            {{ current_category.parent.localized.name }}
                         {% elif current_category %}
-                            {{current_category.localized.name}}
+                            {{ current_category.localized.name }}
                         {% else %}
                             {% trans "Product Reviews" %}
                         {% endif %}

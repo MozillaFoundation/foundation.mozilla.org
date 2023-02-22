@@ -5,7 +5,7 @@
     <footer role="contentinfo">
         {% if skip_donate != True %}
             {% block footer_donate %}
-                <div class="tw-bg-blue-40 tw-dark print:tw-hidden {{wrapper_class}}">
+                <div class="tw-bg-blue-40 tw-dark print:tw-hidden {{ wrapper_class }}">
                     <div class="tw-container tw-mt-12">
                         <div class="tw-row">
                             <div class="tw-w-full tw-px-8">
@@ -21,7 +21,7 @@
             {% endblock %}
         {% endif %}
 
-        <div class="site-footer tw-bg-black tw-dark {{wrapper_class}} print:tw-hidden">
+        <div class="site-footer tw-bg-black tw-dark {{ wrapper_class }} print:tw-hidden">
             <div class="tw-container tw-mt-12">
                 <div class="tw-row">
 
@@ -82,7 +82,7 @@
                                 <div class="tw-w-full tw-px-8">
                                     <hr class="tw-mt-24 tw-mb-8" />
                                     <p class="tw-dark tw-body-small tw-mb-0">
-                                        {% blocktrans with foundation_website_url='https://foundation.mozilla.org' foundation_website='foundation.mozilla.org' cc_website_url='https://foundation.mozilla.org/about/website-licensing/' %}Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="{{foundation_website_url}}">{{foundation_website}}</a>. Most content available under a <a href="{{cc_website_url}}">Creative Commons license</a>.{% endblocktrans %}
+                                        {% blocktrans with foundation_website_url='https://foundation.mozilla.org' foundation_website='foundation.mozilla.org' cc_website_url='https://foundation.mozilla.org/about/website-licensing/' %}Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="{{ foundation_website_url }}">{{ foundation_website }}</a>. Most content available under a <a href="{{ cc_website_url }}">Creative Commons license</a>.{% endblocktrans %}
                                     </p>
                                 </div>
                             </div>
