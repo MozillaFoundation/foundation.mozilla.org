@@ -146,7 +146,7 @@ openpyxl==3.0.9
     # via tablib
 packaging==21.3
     # via redis
-pillow==9.0.1
+pillow==9.3.0
     # via wagtail
 polib==1.1.1
     # via wagtail-localize
