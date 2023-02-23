@@ -6,7 +6,7 @@
         <span class="tw-py-4 tw-px-24 tw-shrink-0 tw-relative tw-opacity-0 min-[330px]:tw-w-[50px] min-[400px]:tw-hidden">mobile</span>
         <span
             data-product-label="0"
-            class="{{tab_class}} "
+            class="{{ tab_class }} "
         >
             {% trans "Privacy" %}
             {% if product.data_collection_policy_is_bad or product.data_control_policy_is_bad or product.track_record_is_bad %}
@@ -15,7 +15,7 @@
         </span>
         <span
             data-product-label="1"
-            class="{{tab_class}} "
+            class="{{ tab_class }} "
         >
             {% trans "Security" %}
             {% if product.show_ding_for_minimum_security_standards %}
@@ -24,7 +24,7 @@
         </span>
         <span
             data-product-label="2"
-            class="{{tab_class}}"
+            class="{{ tab_class }}"
         >
             {% trans "A.I." %}
             {% if product.ai_is_untrustworthy_ding %}

@@ -22,13 +22,13 @@
         </div>
     {% endif %}
 
-    {% for category in categories  %}
+    {% for category in categories %}
         {% comment %}
       Each category has it's own set of related articles.
       So, for each category we render the full element into the markup.
       If the category is also the "current_category" (the one that is active when the page is first loaded) we display the related articles immediately, otherwise the element is initially hidden.
     {% endcomment %}
-        {% with primary_related_articles=category.get_primary_related_articles  %}
+        {% with primary_related_articles=category.get_primary_related_articles %}
             {% if primary_related_articles %}
                 <div
                     class="
@@ -54,8 +54,8 @@
 
     {{ block.super }}
 
-    {% for category in categories  %}
-        {% with secondary_related_articles=category.get_secondary_related_articles  %}
+    {% for category in categories %}
+        {% with secondary_related_articles=category.get_secondary_related_articles %}
             {% if secondary_related_articles %}
                 <div
                     id="category-secondary-related-articles"
