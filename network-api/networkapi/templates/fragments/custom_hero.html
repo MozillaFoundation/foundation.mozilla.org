@@ -1,4 +1,4 @@
-{% load static i18n wagtailimages_tags homepage_tags%}
+{% load static i18n wagtailimages_tags homepage_tags %}
 
 {% image page.hero_image fill-1400x675 as bg_img %}
 
@@ -11,7 +11,7 @@
 
     {% if page.hero_layout != page.HERO_LAYOUT_FULL_SCREEN %}
 
-        <div id="custom-hero" class="tw-relative tw-flex tw-flex-col large:tw-flex-row tw-h-full tw-overflow-hidden {% if not get_titles and is_publication_article %} tw-mb-[0px] medium:tw-mb-[100px] {% endif %}" style="background: {{page.hero_background_color}}">
+        <div id="custom-hero" class="tw-relative tw-flex tw-flex-col large:tw-flex-row tw-h-full tw-overflow-hidden {% if not get_titles and is_publication_article %} tw-mb-[0px] medium:tw-mb-[100px] {% endif %}" style="background: {{ page.hero_background_color }}">
 
             <div class="tw-relative tw-w-full large:tw-w-1/2 tw-min-h-full {% if page.hero_layout == "image_right" %} tw-order-last {% endif %}">
                 <div class="tw-relative large:tw-absolute large:tw-inset-0">
@@ -46,7 +46,7 @@
 
     {% else %}
 
-        <div id="custom-hero" class="tw-relative tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-overflow-hidden " style="background: {{page.hero_background_color}}">
+        <div id="custom-hero" class="tw-relative tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-overflow-hidden " style="background: {{ page.hero_background_color }}">
 
             <div class="tw-absolute tw-inset-0">
                 {% if page.displayed_hero_content == page.HERO_CONTENT_VIDEO and page.hero_video %}

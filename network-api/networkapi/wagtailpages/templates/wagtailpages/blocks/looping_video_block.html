@@ -1,5 +1,5 @@
 {% extends "./base_streamfield_block.html" %}
-{% load wagtailcore_tags wagtailimages_tags i18n static%}
+{% load wagtailcore_tags wagtailimages_tags i18n static %}
 {% image page.hero_image original as img %}
 
 {% comment %}
@@ -25,7 +25,7 @@ The looping_video_block.html is used on Blog pages to house looping, muted, full
             <div class="background-wrapper">
                 <video class="banner-video" playsinline muted loop preload>
                     <source
-                        src="{{ value.video_url  }}"
+                        src="{{ value.video_url }}"
                         type="video/mp4">
                 </video>
 

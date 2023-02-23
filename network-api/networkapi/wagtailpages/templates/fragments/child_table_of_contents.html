@@ -41,7 +41,7 @@
                             </h3>
                         </div>
                         {% if grandchild_page.get_page_titles %}
-                            <button data-expand="{{grandchild_page.title}}"
+                            <button data-expand="{{ grandchild_page.title }}"
                                 class="article-header-button
                                     tw-ml-auto
                                     tw-shrink-0
@@ -60,7 +60,7 @@
                     </div>
 
                     {% if grandchild_page.get_page_titles %}
-                        <div class="article-child-menu row tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{grandchild_page.title}}">
+                        <div class="article-child-menu row tw-divide-y tw-divide-gray-20 tw-hidden" data-expand="{{ grandchild_page.title }}">
                             {% for slug, header in grandchild_page.get_page_titles %}
                                 <div class="tw-flex tw-min-h-40 tw-py-6 tw-px-8 tw-items-center tw-bg-gray-05 tw-w-full">
                                     <a class="tw-whitespace-normal tw-text-black hover:tw-no-underline hover:tw-text-blue-80 tw-flex tw-items-center" href="{{ grandchild_page.url }}#{{ slug }}">

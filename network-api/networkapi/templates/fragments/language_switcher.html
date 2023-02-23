@@ -19,7 +19,7 @@
 
 
 
-<script nonce="{{request.csp_nonce}}">
+<script nonce="{{ request.csp_nonce }}">
     const form = document.getElementById('language-switcher-form')
     const languageSelector = document.getElementById('language-switcher')
     languageSelector.addEventListener(`change`, (e) => {
