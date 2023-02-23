@@ -88,7 +88,7 @@ django-modelcluster==6.0
     # via wagtail
 django-permissionedforms==0.1
     # via wagtail
-django-querystring-tag==1.0.2
+django-querystring-tag==1.0.3
     # via -r requirements.in
 django-redis==5.2.0
     # via -r requirements.in
