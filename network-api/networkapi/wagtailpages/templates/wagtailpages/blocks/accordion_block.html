@@ -11,7 +11,7 @@
                     <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="summary-open:tw-hidden" />
                     <img src="{% static "_images/minus-circle.svg" %}" alt="" data-state="close" class="tw-hidden summary-open:tw-block" />
                 </summary>
-                {% with istem=block count=self.accordion_items|length %}
+                {% with item=block count=self.accordion_items|length %}
                     {{ item.content }}
                 {% endwith %}
             </details>
