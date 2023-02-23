@@ -1,4 +1,4 @@
-{% load static i18n wagtailimages_tags homepage_tags%}
+{% load static i18n wagtailimages_tags homepage_tags %}
 {% get_page_authors page as authors %}
 
 
@@ -39,7 +39,7 @@
     {% endif %}
 
 
-    {% if page.show_authors  %}
+    {% if page.show_authors %}
 
         <div class="blog-authors d-flex flex-wrap align-items-center">
             {% include "fragments/profile_images_stack.html" with profiles=authors %}
@@ -55,7 +55,7 @@
                                 {% if authors_length > 1 and forloop.last %}
                                     {% trans "and" %}
                                 {% endif %}
-                                {{ orderable.author.name }}{% if not forloop.last and forloop.counter != authors_length|add:-1%},{% endif %}
+                                {{ orderable.author.name }}{% if not forloop.last and forloop.counter != authors_length|add:-1 %},{% endif %}
                             </span>
                         {% endfor %}
                         {% if page.additional_author_copy %}
@@ -78,7 +78,7 @@
                 href="{{ download_file.url }}" download>
                 <img
                     src=" {% if page.download_button_icon %} {{ page.download_button_icon.url }} {% else %} {% static '_images/glyphs/download-file.svg' %} {% endif %}"
-                    class='tw-h-9 tw-w-9 tw-mr-6 tw-mt-[1px] tw-brightness-0 {% if btn_setting == page.HERO_BTN_STYLE_PRIMARY %} {{primary_icon_class}} {% elif btn_setting == page.HERO_BTN_STYLE_SECONDARY %} {{secondary_icon_class}} {% else %} {{ tertiary_icon_class }} {% endif %}'/>
+                    class='tw-h-9 tw-w-9 tw-mr-6 tw-mt-[1px] tw-brightness-0 {% if btn_setting == page.HERO_BTN_STYLE_PRIMARY %} {{ primary_icon_class }} {% elif btn_setting == page.HERO_BTN_STYLE_SECONDARY %} {{ secondary_icon_class }} {% else %} {{ tertiary_icon_class }} {% endif %}'/>
                 {% trans "Download PDF" %}
                 {% if download_file.file_size %}
                     <span class="tw-font-thin tw-ml-2">({{ download_file.file_size|filesizeformat }})</span>

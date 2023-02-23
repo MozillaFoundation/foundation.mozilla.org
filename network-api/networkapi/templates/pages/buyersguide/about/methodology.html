@@ -60,7 +60,7 @@
                     When we select products for *Privacy Not Included, our goal is to choose connected products and apps that are likely to
                     be popular with consumers in North America and Europe. We make our decisions based on our own research of top selling
                     products that are highly rated across a variety of consumer product websites such as
-                    <a href="{{consumer_reports}}">Consumer Reports</a>, <a href="{{wirecutter}}">Wirecutter</a>, <a href="{{cnet}}">CNET</a>, and more.
+                    <a href="{{ consumer_reports }}">Consumer Reports</a>, <a href="{{ wirecutter }}">Wirecutter</a>, <a href="{{ cnet }}">CNET</a>, and more.
                 {% endblocktrans %}
             </p>
         </section>
@@ -76,13 +76,13 @@
                 {% blocktrans with company_data_use="#how-does-company-use-this-data" user_data_control="#how-can-you-control-your-data" track_record="#company-track-record" min_sec="#minimum-security-standards" trimmed %}
                     We assign our <em>*Privacy Not Included</em> warning label to products we have determined to have the most problems when it comes
                     to protecting a users privacy and security. A product will earn the <em>*Privacy Not Included</em> warning label if it receives
-                    two or more warnings from us on the following criteria: <a href="{{company_data_use}}">How the company uses the data</a> it collects on users. We ding
+                    two or more warnings from us on the following criteria: <a href="{{ company_data_use }}">How the company uses the data</a> it collects on users. We ding
                     companies for selling users data or collecting more data than is necessary for general business purposes, for example,
-                    buying data from data brokers. <a href="{{user_data_control}}">How users can control their data.</a> We ding a company if they don’t have a clear and
-                    manageable way for users to delete their data from the company or explain how long they retain users’ data. <a href="{{track_record}}">What is the
+                    buying data from data brokers. <a href="{{ user_data_control }}">How users can control their data.</a> We ding a company if they don’t have a clear and
+                    manageable way for users to delete their data from the company or explain how long they retain users’ data. <a href="{{ track_record }}">What is the
                         company’s known track record of protecting users’ data?</a> We ding a company if they have a bad track record of not
                     protecting users’ data based on known and reported security breaches, leaks, or vulnerabilities. Finally, we ding a
-                    company if we can not confirm if the product <a href="{{min_sec}}">meets our Minimum Security Standards.</a> In rare exceptions we might ding a
+                    company if we can not confirm if the product <a href="{{ min_sec }}">meets our Minimum Security Standards.</a> In rare exceptions we might ding a
                     company if they only receive one warning from us if we determine that warning is particularly concerning for consumers.
                 {% endblocktrans %}
             </p>
@@ -148,7 +148,7 @@
 
         <p class="tw-body">
             {% blocktrans with google_play_url="https://play.google.com/store/apps" app_store_url="https://www.apple.com/app-store/" trimmed %}
-                To determine this, we check product websites and the <a href="{{google_play_url}}">Google Play Store</a> or the <a href="{{google_play_url}}">Apple App Store</a> to check on
+                To determine this, we check product websites and the <a href="{{ google_play_url }}">Google Play Store</a> or the <a href="{{ google_play_url }}">Apple App Store</a> to check on
                 the permissions requested by each app to determine whether the device and its app uses a camera, microphone, or tracks
                 your location. (Note: an app may access “approximate” or “network” based location. “Tracks Location” was marked as “Yes”
                 if an app requests any location information, including approximate location.)
@@ -475,7 +475,7 @@
                     decisions for you and/or changes continually based on your user data.</b> This would cover Alexa changing to better
                 understand what you say, to your fitness wearable making recommendations on exercises to do so that you meet a specific
                 wellness goal, or your security camera deciding not to alert you because it can distinguish a raccoon from a human. For
-                more on Mozilla’s position on creating trustworthy AI, you can read our whitepaper <a href="{{ai_link}}">Creating Trustworthy AI</a>.
+                more on Mozilla’s position on creating trustworthy AI, you can read our whitepaper <a href="{{ ai_link }}">Creating Trustworthy AI</a>.
             {% endblocktrans %}
         </p>
 

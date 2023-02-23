@@ -1,7 +1,7 @@
 {% extends "./campaign_page.html" %}
 {% load wagtailcore_tags mini_site_tags i18n l10n %}
 
-{% block body_id %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
+{% block body_id %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock %}
 
 {% block hero_guts %}
     {% include "./fragments/primary_heroguts.html" with root=root page=page %}
@@ -68,7 +68,7 @@ An extra check has been added so as to not show the fixed "Take action" button o
                                     data-cta-header="{{ localized_signup.header | escape }}"
                                     data-cta-description="{{ localized_signup.description | escape }}"
                                     data-newsletter="{{ localized_signup.newsletter }}"
-                                    data-ask-name="{{ localized_signup.ask_name}}">
+                                    data-ask-name="{{ localized_signup.ask_name }}">
                                 </div>
                             {% endwith %}
                         {% endif %}

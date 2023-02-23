@@ -5,9 +5,9 @@
     {% with hero_image_classes="tw-bg-no-repeat tw-bg-left-top tw-bg-cover tw-min-h-[260px]" %}
         {% if page.banner_image %}
             {% image page.banner_image original as hero_img %}
-            <div class="{{hero_image_classes}}" style='background-image: url("{{ hero_img.url }}")'></div>
+            <div class="{{ hero_image_classes }}" style='background-image: url("{{ hero_img.url }}")'></div>
         {% else %}
-            <div  class="{{hero_image_classes}}" style='background-image: url("{% static "_images/banner-black-white-marble.jpg" %}")'></div>
+            <div  class="{{ hero_image_classes }}" style='background-image: url("{% static "_images/banner-black-white-marble.jpg" %}")'></div>
         {% endif %}
     {% endwith %}
 {% endblock hero_guts %}
@@ -20,7 +20,7 @@
         <div id="content-and-cutout" class="tw-grid tw-grid-cols-12 tw-container tw-mr-8 tw-px-0 small:tw-mr-0">
             <div id="cutout" class="tw-bg-white tw-col-span-12 -tw-mt-[125px] medium:tw-pl-8 medium:tw-pr-12 large:tw-col-span-8">
                 <div class="tw-pt-12 tw-mr-8 medium:tw-mr-0 large:tw-w-full">
-                    <h1>{{page.title}}</h1>
+                    <h1>{{ page.title }}</h1>
                     {% if page.intro %}
                         <p class="tw-body-large mt-3 mb-0">{{ page.intro }}</p>
                     {% endif %}
@@ -39,7 +39,7 @@
                     <ul class="tw-list-none px-0 ">
                         {% for research_detail_page in latest_research_detail_pages %}
                             <li class="tw-py-8 small:tw-my-8 small:tw-bg-gray-05 small:tw-p-16">
-                                {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_related_topics=True landing_page=True%}
+                                {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_related_topics=True landing_page=True %}
                             </li>
                         {% endfor %}
                     </ul>

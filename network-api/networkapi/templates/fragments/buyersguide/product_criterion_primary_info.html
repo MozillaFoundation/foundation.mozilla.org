@@ -4,7 +4,7 @@
     <h3 class="tw-mb-8 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center tw-flex-wrap">
         {{ label }}
         {% if info != None and info != "" %}
-            <a href="{{info}}">
+            <a href="{{ info }}">
                 <img src="{% static "_images/buyers-guide/icon-info-circle.svg" %}" alt="{% trans "information" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-ml-4 tw-mb-2">
             </a>
         {% endif %}

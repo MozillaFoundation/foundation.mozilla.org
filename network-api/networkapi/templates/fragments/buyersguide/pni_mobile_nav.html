@@ -12,9 +12,9 @@
                                 <div>
                                     <div class="active-link-label d-inline-block multipage-link active">
                                         {% if current_category.parent %}
-                                            {{current_category.parent.localized.name}}
+                                            {{ current_category.parent.localized.name }}
                                         {% elif current_category %}
-                                            {{current_category.localized.name}}
+                                            {{ current_category.localized.name }}
                                         {% else %}
                                             {% trans "All Categories" %}
                                         {% endif %}

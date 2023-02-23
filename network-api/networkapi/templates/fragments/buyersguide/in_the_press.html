@@ -15,7 +15,7 @@
         {% endfor %}
     </ul>
 
-    {% with page.get_editorial_content_index as editorial_content_index  %}
+    {% with page.get_editorial_content_index as editorial_content_index %}
         {% if editorial_content_index %}
             {% pageurl editorial_content_index as link_href %}
             {% trans "All press" as link_text %}

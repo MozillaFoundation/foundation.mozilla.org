@@ -1,7 +1,7 @@
 {% extends "./modular_page.html" %}
 {% load wagtailcore_tags wagtailimages_tags primary_page_tags %}
 
-{% block body_id %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
+{% block body_id %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock %}
 
 {% block primary_nav %}
     {% include "partials/primary_nav.html" %}

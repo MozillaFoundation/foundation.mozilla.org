@@ -57,7 +57,7 @@
                 <div class="tw-border-t tw-border-black">
                     <h2 class="tw-h4-heading tw-my-12">{% trans "Project leads" %}</h2>
                     <ul class="tw-p-0 tw-list-none">
-                        {% for research_author in page.research_authors.all  %}
+                        {% for research_author in page.research_authors.all %}
                             <li class="tw-mb-12">
                                 {% include "wagtailpages/fragments/research_author_card.html" with authors_index=authors_index author_profile=research_author.author_profile tight=True %}
                             </li>
