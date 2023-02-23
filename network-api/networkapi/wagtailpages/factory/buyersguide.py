@@ -449,8 +449,8 @@ def generate(seed):
         campaign_page = BuyersGuideCampaignPageFactory(parent=editorial_content_index)
         BuyersGuideCampaignPageDonationModalRelationFactory(page=campaign_page)
 
-    # Buyerguide homepage hero article
-    pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()
+    # Buyerguide homepage hero page
+    pni_homepage.hero_featured_page = pagemodels.BuyersGuideArticlePage.objects.first()
     pni_homepage.full_clean()
     pni_homepage.save()
     # Buyerguide homepage hero supporting articles

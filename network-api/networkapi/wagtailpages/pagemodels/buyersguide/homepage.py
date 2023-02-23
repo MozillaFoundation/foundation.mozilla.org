@@ -53,8 +53,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         "wagtailpages.BuyersGuideEditorialContentIndexPage",
     ]
 
-    hero_featured_article = models.ForeignKey(
-        "wagtailpages.BuyersGuideArticlePage",
+    hero_featured_page = models.ForeignKey(
+        'wagtailcore.Page',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -100,8 +100,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             children=[
                 HelpPanel(content="<h2>Main article</h2>"),
                 PageChooserPanel(
-                    "hero_featured_article",
-                    page_type="wagtailpages.BuyersGuideArticlePage",
+                    "hero_featured_page",
+                    page_type=["wagtailpages.BuyersGuideArticlePage", "wagtailpages.BuyersGuideCampaignPage"],
                 ),
                 HelpPanel(content="<h2>Supporting articles</h2>"),
                 FieldPanel("hero_supporting_articles_heading", heading="Heading"),
@@ -150,7 +150,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         # Hero featured article should be translatable, but that is causing issues.
         # Using sync field as workaround.
         # See also: https://github.com/wagtail/wagtail-localize/issues/430
-        SynchronizedField("hero_featured_article"),
+        SynchronizedField("hero_featured_page"),
         # Hero supporting article relations should also be translatable, but that is
         # also causing issues. Using sync filed as a workaround.
         # See also: https://github.com/wagtail/wagtail-localize/issues/640
@@ -392,9 +392,9 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
         return indexes.first()
 
-    def get_hero_featured_article(self) -> Optional["BuyersGuideArticlePage"]:
+    def get_hero_featured_page(self) -> Optional["BuyersGuideArticlePage"]:
         try:
-            return self.hero_featured_article.localized
+            return self.hero_featured_page.localized
         except AttributeError:
             # If no hero featured article is set (because `None` has no `localized`
             # attribute)
