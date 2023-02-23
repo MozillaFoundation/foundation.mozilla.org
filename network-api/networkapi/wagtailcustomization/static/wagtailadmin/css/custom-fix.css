@@ -1,0 +1,42 @@
+/*
+  To address bug from Wagtail v3
+  See context: https://github.com/mozilla/foundation.mozilla.org/issues/10192
+*/
+body#wagtail
+  .sidebar-panel
+  .c-page-explorer__see-more
+  svg.icon.icon-arrow-right {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: 5px;
+}
+
+/*
+  To address bug from Wagtail v3
+  See context: https://github.com/mozilla/foundation.mozilla.org/issues/10194
+*/
+
+body#wagtail
+  main#main
+  form
+  ul
+  li
+  .field
+  .c-dropdown.t-inverted.c-dropdown--large
+  a {
+  background-color: var(--color-primary-darker);
+  color: white;
+}
+
+body#wagtail
+  main#main
+  form
+  ul
+  li
+  .field
+  .c-dropdown.t-inverted.c-dropdown--large
+  .c-dropdown__item
+  a {
+  background-color: transparent;
+}
