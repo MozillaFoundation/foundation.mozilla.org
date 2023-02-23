@@ -416,37 +416,67 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
             parent=cls.bg,
         )
 
-    def test_get_hero_featured_article(self):
+    def test_get_hero_featured_page_with_article_page(self):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory.create(
             parent=self.content_index,
         )
-        self.bg.hero_featured_article = article_page
+        self.bg.hero_featured_page = article_page
 
-        result = self.bg.get_hero_featured_article()
+        result = self.bg.get_hero_featured_page()
 
         self.assertEqual(result, article_page)
+        self.assertEqual(type(result), type(article_page))
 
-    def test_get_hero_featured_article_not_set(self):
-        self.bg.hero_featured_article = None
+    def test_get_hero_featured_page_with_campaign_page(self):
+        campaign_page = buyersguide_factories.BuyersGuideCampaignPageFactory.create(
+            parent=self.content_index,
+        )
+        self.bg.hero_featured_page = campaign_page
 
-        result = self.bg.get_hero_featured_article()
+        result = self.bg.get_hero_featured_page()
+
+        self.assertEqual(result, campaign_page)
+        self.assertEqual(type(result), type(campaign_page))
+
+
+    def test_get_hero_featured_page_not_set(self):
+        self.bg.hero_featured_page = None
+
+        result = self.bg.get_hero_featured_page()
 
         self.assertIsNone(result)
 
-    def test_get_hero_featured_article_non_default_locale(self):
+    def test_get_hero_featured_page_with_article_page_non_default_locale(self):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
             parent=self.content_index,
         )
-        self.bg.hero_featured_article = article_page
+        self.bg.hero_featured_page = article_page
         self.bg.save()
         self.synchronize_tree()
         buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
         article_page_fr = article_page.get_translation(self.fr_locale)
         self.activate_locale(self.fr_locale)
 
-        result = buyersguide_homepage_fr.get_hero_featured_article()
+        result = buyersguide_homepage_fr.get_hero_featured_page()
 
         self.assertEqual(result, article_page_fr)
+        self.assertEqual(type(result), type(article_page_fr))
+
+    def test_get_hero_featured_page_with_campaign_page_non_default_locale(self):
+        campaign_page = buyersguide_factories.BuyersGuideCampaignPageFactory(
+            parent=self.content_index,
+        )
+        self.bg.hero_featured_page = campaign_page
+        self.bg.save()
+        self.synchronize_tree()
+        buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
+        campaign_page_fr = campaign_page.get_translation(self.fr_locale)
+        self.activate_locale(self.fr_locale)
+
+        result = buyersguide_homepage_fr.get_hero_featured_page()
+
+        self.assertEqual(result, campaign_page_fr)
+        self.assertEqual(type(result), type(campaign_page_fr))
 
     def test_get_hero_supporting_articles(self):
         articles = []

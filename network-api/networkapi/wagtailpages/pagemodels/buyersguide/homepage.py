@@ -394,7 +394,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     def get_hero_featured_page(self) -> Optional["BuyersGuideArticlePage"]:
         try:
-            return self.hero_featured_page.localized
+            return self.hero_featured_page.specific.localized
         except AttributeError:
             # If no hero featured article is set (because `None` has no `localized`
             # attribute)

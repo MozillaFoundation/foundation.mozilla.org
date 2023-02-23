@@ -46,10 +46,14 @@
                 </h2>
 
                 <div class="tw-text-black tw-font-sans tw-font-extrabold tw-text-sm">
-                    {% spaceless %}
-                        <span>{% trans "By" context "Article author attribution" %} </span>
-                        {% include "fragments/profile_names_list.html" with profiles=featured_article.get_author_profiles %}
-                    {% endspaceless %}
+                    {% with profile_list=featured_article.get_author_profiles %}
+                        {% if profile_list %}
+                            {% spaceless %}
+                                <span>{% trans "By" context "Article author attribution" %} </span>
+                                {% include "fragments/profile_names_list.html" with profiles=profile_list %}
+                            {% endspaceless %}
+                        {% endif %}
+                    {% endwith %}
                 </div>
             </a>
         {% endwith %}
