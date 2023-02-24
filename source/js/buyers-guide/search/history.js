@@ -159,34 +159,8 @@ export function setupPopStateHandler(
         Utils.highlightParentCategory();
         instance.toggleSubcategory();
       } else {
-        if (document.querySelector(`#multipage-nav a.active`)) {
-          document
-            .querySelector(`#multipage-nav a.active`)
-            .classList.remove(`active`);
-        }
-
-        if (document.querySelector(`#pni-nav-mobile a.active`)) {
-          document
-            .querySelector(`#pni-nav-mobile a.active`)
-            .classList.remove(`active`);
-        }
-
-        if (
-          document.querySelector(`#multipage-nav a[data-name="${category}"]`)
-        ) {
-          document
-            .querySelector(`#multipage-nav a[data-name="${category}"]`)
-            .classList.add(`active`);
-        }
-
-        if (
-          document.querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
-        ) {
-          document
-            .querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
-            .classList.add(`active`);
-        }
-
+        Utils.deactivateActiveCatNav();
+        Utils.activateCatNav(category);
         instance.toggleSubcategory(true);
       }
     } else {
@@ -229,30 +203,8 @@ export function applyHistory(instance) {
     Utils.highlightParentCategory();
     instance.toggleSubcategory();
   } else {
-    if (document.querySelector(`#multipage-nav a.active`)) {
-      document
-        .querySelector(`#multipage-nav a.active`)
-        .classList.remove(`active`);
-    }
-
-    if (document.querySelector(`#pni-nav-mobile a.active`)) {
-      document
-        .querySelector(`#pni-nav-mobile a.active`)
-        .classList.remove(`active`);
-    }
-
-    if (document.querySelector(`#multipage-nav a[data-name="${category}"]`)) {
-      document
-        .querySelector(`#multipage-nav a[data-name="${category}"]`)
-        .classList.add(`active`);
-    }
-
-    if (document.querySelector(`#pni-nav-mobile a[data-name="${category}"]`)) {
-      document
-        .querySelector(`#pni-nav-mobile a[data-name="${category}"]`)
-        .classList.add(`active`);
-    }
-
+    Utils.deactivateActiveCatNav();
+    Utils.activateCatNav(category);
     instance.toggleSubcategory(true);
   }
 

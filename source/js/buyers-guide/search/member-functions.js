@@ -23,17 +23,7 @@ export function setupNavLinks(instance) {
 
       evt.preventDefault();
 
-      if (document.querySelector(`#multipage-nav a.active`)) {
-        document
-          .querySelector(`#multipage-nav a.active`)
-          .classList.remove(`active`);
-      }
-
-      if (document.querySelector(`#pni-nav-mobile a.active`)) {
-        document
-          .querySelector(`#pni-nav-mobile a.active`)
-          .classList.remove(`active`);
-      }
+      Utils.deactivateActiveCatNav();
 
       document
         .querySelector("#pni-nav-mobile .dropdown-nav")
@@ -42,25 +32,7 @@ export function setupNavLinks(instance) {
       const { name: categoryName } = evt.target.dataset ?? {};
 
       if (categoryName) {
-        if (
-          document.querySelector(
-            `#multipage-nav a[data-name="${categoryName}"]`
-          )
-        ) {
-          document
-            .querySelector(`#multipage-nav a[data-name="${categoryName}"]`)
-            .classList.add(`active`);
-        }
-
-        if (
-          document.querySelector(
-            `#pni-nav-mobile a[data-name="${categoryName}"]`
-          )
-        ) {
-          document
-            .querySelector(`#pni-nav-mobile a[data-name="${categoryName}"]`)
-            .classList.add(`active`);
-        }
+        Utils.activateCatNav(categoryName);
 
         instance.clearText();
         history.pushState(
@@ -173,25 +145,7 @@ export function setupGoBackToAll(instance) {
         evt.target.href
       );
 
-      if (document.querySelector(`#multipage-nav a.active`)) {
-        document
-          .querySelector(`#multipage-nav a.active`)
-          .classList.remove(`active`);
-      }
-
-      if (document.querySelector(`#pni-nav-mobile a.active`)) {
-        document
-          .querySelector(`#pni-nav-mobile a.active`)
-          .classList.remove(`active`);
-      }
-
-      document
-        .querySelector(`#multipage-nav a[data-name="None"]`)
-        .classList.add(`active`);
-
-      document
-        .querySelector(`#pni-nav-mobile a[data-name="None"]`)
-        .classList.add(`active`);
+      Utils.resetCatNavLinks();
 
       instance.filterCategory("None");
       parentTitle.value = "";
