@@ -16,9 +16,8 @@
             {% block slides %}
                 <div class="swiper-wrapper">
                     {% for slide in self.slides %}
-                        {% image slide.value.image fill-429x241 as img %}
                         <div class="swiper-slide">
-                            {% include 'fragments/slider_card.html' with title=slide.value.title detail=slide.value.image_detail buttons=slide.value.buttons image=img.url text=slide.value.body %}
+                            {% include 'fragments/slider_card.html' with title=slide.value.title detail=slide.value.image_detail buttons=slide.value.buttons image=slide.value.image text=slide.value.body %}
                         </div>
                     {% endfor %}
                 </div>
