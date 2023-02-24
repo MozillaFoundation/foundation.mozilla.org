@@ -66,92 +66,68 @@ export class Utils {
   }
 
   /**
-   * ...
+   * Deactivate the currently active category nav link
    */
-  static clearCategories() {
-    if (document.querySelector(`#multipage-nav a.active`)) {
-      document
-        .querySelector(`#multipage-nav a.active`)
-        .classList.remove(`active`);
-      document
-        .querySelector(`#multipage-nav a[data-name="None"]`)
-        .classList.add(`active`);
+  static deactivateActiveCatNav() {
+    const linkForLarge = document.querySelector(`#multipage-nav a.active`);
+    const linkForMobile = document.querySelector(`#pni-nav-mobile a.active`);
+
+    // for larger screens
+    if (linkForLarge) {
+      linkForLarge.classList.remove(`active`);
     }
 
-    if (document.querySelector(`#pni-nav-mobile a.active`)) {
-      document
-        .querySelector(`#pni-nav-mobile a.active`)
-        .classList.remove(`active`);
-      document
-        .querySelector(`#pni-nav-mobile a[data-name="None"]`)
-        .classList.add(`active`);
+    // for small screens
+    if (linkForMobile) {
+      linkForMobile.classList.remove(`active`);
     }
   }
 
   /**
-   * ...
+   * Activate a specific category nav link
+   * @param {String} category category name
+   */
+  static activateCatNav(category = "None") {
+    const linkForLarge = document.querySelector(
+      `#multipage-nav a[data-name="${category}"]`
+    );
+    const linkForMobile = document.querySelector(
+      `#pni-nav-mobile a[data-name="${category}"]`
+    );
+
+    // for larger screens
+    if (linkForLarge) {
+      linkForLarge.classList.add(`active`);
+    }
+
+    // for small screens
+    if (linkForMobile) {
+      linkForMobile.classList.add(`active`);
+    }
+  }
+
+  /**
+   * TODO: this can be removed. Just keep resetCatNavLinks
+   */
+  static clearCategories() {
+    this.deactivateActiveCatNav();
+    this.activateCatNav();
+  }
+
+  /**
+   * TODO: rename to resetCatNavLinks
    */
   static selectAllCategory() {
-    if (document.querySelector(`#multipage-nav a.active`)) {
-      document
-        .querySelector(`#multipage-nav a.active`)
-        .classList.remove(`active`);
-    }
-
-    if (document.querySelector(`#pni-nav-mobile a.active`)) {
-      document
-        .querySelector(`#pni-nav-mobile a.active`)
-        .classList.remove(`active`);
-    }
-
-    document
-      .querySelector(`#multipage-nav a[data-name="None"]`)
-      .classList.add(`active`);
-
-    document
-      .querySelector(`#pni-nav-mobile a[data-name="None"]`)
-      .classList.add(`active`);
+    this.deactivateActiveCatNav();
+    this.activateCatNav();
   }
 
   /**
    *
    */
   static highlightParentCategory() {
-    if (document.querySelector(`#multipage-nav a.active`)) {
-      document
-        .querySelector(`#multipage-nav a.active`)
-        .classList.remove(`active`);
-    }
-
-    if (document.querySelector(`#pni-nav-mobile a.active`)) {
-      document
-        .querySelector(`#pni-nav-mobile a.active`)
-        .classList.remove(`active`);
-    }
-
-    if (
-      document.querySelector(
-        `#pni-nav-mobile a[data-name="${PARENT_TITLE.value.trim()}"]`
-      )
-    ) {
-      document
-        .querySelector(
-          `#pni-nav-mobile a[data-name="${PARENT_TITLE.value.trim()}"]`
-        )
-        .classList.add(`active`);
-    }
-
-    if (
-      document.querySelector(
-        `#multipage-nav a[data-name="${PARENT_TITLE.value.trim()}"]`
-      )
-    ) {
-      document
-        .querySelector(
-          `#multipage-nav a[data-name="${PARENT_TITLE.value.trim()}"]`
-        )
-        .classList.add(`active`);
-    }
+    this.deactivateActiveCatNav();
+    this.activateCatNav(PARENT_TITLE.value.trim());
   }
 
   /**
