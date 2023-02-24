@@ -12,6 +12,12 @@ body#wagtail
   top: 5px;
 }
 
+@media screen and (min-width: 50em) {
+  body#wagtail .sidebar-panel .c-page-explorer__see-more {
+    height: unset;
+  }
+}
+
 /*
   To address bug from Wagtail v3
   See context: https://github.com/mozilla/foundation.mozilla.org/issues/10194
