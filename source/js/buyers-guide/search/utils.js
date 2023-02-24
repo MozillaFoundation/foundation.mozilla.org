@@ -107,17 +107,9 @@ export class Utils {
   }
 
   /**
-   * TODO: this can be removed. Just keep resetCatNavLinks
+   * Reset active category link to default
    */
-  static clearCategories() {
-    this.deactivateActiveCatNav();
-    this.activateCatNav();
-  }
-
-  /**
-   * TODO: rename to resetCatNavLinks
-   */
-  static selectAllCategory() {
+  static resetCatNavLinks() {
     this.deactivateActiveCatNav();
     this.activateCatNav();
   }
