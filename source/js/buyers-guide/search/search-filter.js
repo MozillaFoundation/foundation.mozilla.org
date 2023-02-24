@@ -281,13 +281,7 @@ export class SearchFilter {
       .querySelector(`a.subcategories[data-name="${categoryName}"]`)
       .classList.remove(...defaultClasses);
 
-    document
-      .querySelector(`a.subcategories[data-name="${categoryName}"]`)
-      .scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "start",
-      });
+    Utils.scrollToSubCategory(categoryName);
   }
 
   filterSubcategory(category) {
