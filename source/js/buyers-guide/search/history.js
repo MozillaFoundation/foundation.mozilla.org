@@ -108,13 +108,7 @@ export function performInitialHistoryReplace(
   }
 
   if (history.state?.parent && history.state?.category) {
-    document
-      .querySelector(`a.subcategories[data-name="${history.state?.category}"]`)
-      .scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "start",
-      });
+    Utils.scrollToSubCategory(history.state?.category);
   }
 
   // sorting priorities change when search text is applied
@@ -263,12 +257,6 @@ export function applyHistory(instance) {
   Utils.moveCreepyFace();
 
   if (history.state?.parent && history.state?.category) {
-    document
-      .querySelector(`a.subcategories[data-name="${history.state?.category}"]`)
-      .scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "start",
-      });
+    Utils.scrollToSubCategory(history.state?.category);
   }
 }
