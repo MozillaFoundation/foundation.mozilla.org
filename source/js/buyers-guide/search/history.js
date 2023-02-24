@@ -159,8 +159,7 @@ export function setupPopStateHandler(
         Utils.highlightParentCategory();
         instance.toggleSubcategory();
       } else {
-        Utils.deactivateActiveCatNav();
-        Utils.activateCatNav(category);
+        Utils.setActiveCatNavLink(category);
         instance.toggleSubcategory(true);
       }
     } else {
@@ -203,8 +202,7 @@ export function applyHistory(instance) {
     Utils.highlightParentCategory();
     instance.toggleSubcategory();
   } else {
-    Utils.deactivateActiveCatNav();
-    Utils.activateCatNav(category);
+    Utils.setActiveCatNavLink(category);
     instance.toggleSubcategory(true);
   }
 

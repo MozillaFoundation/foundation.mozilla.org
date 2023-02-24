@@ -107,19 +107,19 @@ export class Utils {
   }
 
   /**
-   * Reset active category link to default
+   * Set active category nav link
+   * @param {String} category name of the category
    */
-  static resetCatNavLinks() {
+  static setActiveCatNavLink(category) {
     this.deactivateActiveCatNav();
-    this.activateCatNav();
+    this.activateCatNav(category);
   }
 
   /**
-   *
+   * Highlight parent category nav link
    */
   static highlightParentCategory() {
-    this.deactivateActiveCatNav();
-    this.activateCatNav(PARENT_TITLE.value.trim());
+    this.setActiveCatNavLink(PARENT_TITLE.value.trim());
   }
 
   /**

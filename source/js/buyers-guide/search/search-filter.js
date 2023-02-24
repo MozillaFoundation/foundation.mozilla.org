@@ -207,7 +207,7 @@ export class SearchFilter {
     this.filterSubcategory("None");
 
     Utils.updateHeader("None", null);
-    Utils.resetCatNavLinks();
+    Utils.setActiveCatNavLink("None");
     Utils.toggleProducts(text);
 
     const state = { ...history.state, search: text };
@@ -223,7 +223,7 @@ export class SearchFilter {
     const parentTitle = document.querySelector(`.parent-title`);
     parentTitle.value = null;
     this.filterCategory("None");
-    Utils.resetCatNavLinks();
+    Utils.setActiveCatNavLink("None");
   }
 
   filterCategory(category) {

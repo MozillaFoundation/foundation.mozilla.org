@@ -145,7 +145,7 @@ export function setupGoBackToAll(instance) {
         evt.target.href
       );
 
-      Utils.resetCatNavLinks();
+      Utils.setActiveCatNavLink("None");
 
       instance.filterCategory("None");
       parentTitle.value = "";
