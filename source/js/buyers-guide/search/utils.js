@@ -407,4 +407,22 @@ export class Utils {
         break;
     }
   }
+
+  /**
+   * Scroll to a specific subcategory nav link if it exists on the page
+   * @param {string} category - The name of the category
+   */
+  static scrollToSubCategory(category) {
+    const subcatLink = document.querySelector(
+      `a.subcategories[data-name="${category}"]`
+    );
+
+    if (!category || !subcatLink) return;
+
+    subcatLink.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "start",
+    });
+  }
 }
