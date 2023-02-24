@@ -61,13 +61,13 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         related_name="+",
     )
 
-    hero_supporting_articles_heading = models.CharField(
+    hero_supporting_pages_heading = models.CharField(
         max_length=50,
         default=_("Related articles"),
         blank=False,
         null=False,
         help_text=(
-            "Heading for the articles rendered next to the hero featured article. "
+            "Heading for the page links rendered next to the hero featured page. "
             'Common choices are "Related articles", "Popular articles", etc.'
         ),
     )
@@ -98,17 +98,17 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         FieldPanel("title"),
         MultiFieldPanel(
             children=[
-                HelpPanel(content="<h2>Main article</h2>"),
+                HelpPanel(content="<h2>Main Featured Page</h2>"),
                 PageChooserPanel(
                     "hero_featured_page",
                     page_type=["wagtailpages.BuyersGuideArticlePage", "wagtailpages.BuyersGuideCampaignPage"],
                 ),
-                HelpPanel(content="<h2>Supporting articles</h2>"),
-                FieldPanel("hero_supporting_articles_heading", heading="Heading"),
+                HelpPanel(content="<h2>Supporting Featured Pages</h2>"),
+                FieldPanel("hero_supporting_pages_heading", heading="Heading"),
                 InlinePanel(
-                    "hero_supporting_article_relations",
-                    heading="Supporting articles",
-                    label="Article",
+                    "hero_supporting_page_relations",
+                    heading="Supporting pages",
+                    label="Page",
                 ),
             ],
             heading="Hero",
@@ -154,8 +154,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         # Hero supporting article relations should also be translatable, but that is
         # also causing issues. Using sync filed as a workaround.
         # See also: https://github.com/wagtail/wagtail-localize/issues/640
-        SynchronizedField("hero_supporting_article_relations"),
-        TranslatableField("hero_supporting_articles_heading"),
+        SynchronizedField("hero_supporting_page_relations"),
+        TranslatableField("hero_supporting_pages_heading"),
         # Featured articles should be translatable too. See above explanation for
         # hero supporting articles.
         SynchronizedField("featured_article_relations"),
@@ -400,17 +400,17 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             # attribute)
             return None
 
-    def get_hero_supporting_articles(self) -> list["BuyersGuideArticlePage"]:
-        articles = orderables.get_related_items(
-            self.hero_supporting_article_relations.all(),
-            "article",
+    def get_hero_supporting_pages(self) -> list["BuyersGuideArticlePage"]:
+        supporting_pages = orderables.get_related_items(
+            self.hero_supporting_page_relations.all(),
+            "supporting_page",
         )
         # FIXME: This implementation does return the localized version of each article.
         #        But, it is inefficient. It would be better to pull all articles
         #        for the correct locale at once. This would require the above returns
         #        a queryset of the articles (rather than a list) and that we have an
         #        efficient way of pulling all items for a given locale.
-        return [a.localized for a in articles]
+        return [page.specific.localized for page in supporting_pages]
 
     def get_featured_articles(self) -> list["BuyersGuideArticlePage"]:
         articles = orderables.get_related_items(
@@ -442,22 +442,22 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         verbose_name = "Buyers Guide Page"
 
 
-class BuyersGuidePageHeroSupportingArticleRelation(TranslatableMixin, Orderable):
+class BuyersGuidePageHeroSupportingPageRelation(TranslatableMixin, Orderable):
     page = cluster_fields.ParentalKey(
         "wagtailpages.BuyersGuidePage",
-        related_name="hero_supporting_article_relations",
+        related_name="hero_supporting_page_relations",
     )
-    article = models.ForeignKey(
-        "wagtailpages.BuyersGuideArticlePage",
+    supporting_page = models.ForeignKey(
+        'wagtailcore.Page',
         on_delete=models.CASCADE,
         null=False,
         blank=False,
     )
 
-    panels = [PageChooserPanel("article", page_type="wagtailpages.BuyersGuideArticlePage")]
+    panels = [PageChooserPanel("supporting_page", page_type=["wagtailpages.BuyersGuideArticlePage", "wagtailpages.BuyersGuideCampaignPage"])]
 
     def __str__(self):
-        return f"{self.page.title} -> {self.article.title}"
+        return f"{self.page.title} -> {self.supporting_page.title}"
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass

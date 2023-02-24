@@ -81,12 +81,12 @@ class BuyersGuidePageFactory(PageFactory):
     call_to_action = SubFactory(BuyersGuideCallToActionFactory)
 
 
-class BuyersGuidePageHeroSupportingArticleRelationFactory(DjangoModelFactory):
+class BuyersGuidePageHeroSupportingPageRelationFactory(DjangoModelFactory):
     class Meta:
-        model = pagemodels.BuyersGuidePageHeroSupportingArticleRelation
+        model = pagemodels.BuyersGuidePageHeroSupportingPageRelation
 
     page = SubFactory(BuyersGuidePageFactory)
-    article = SubFactory(
+    supporting_page = SubFactory(
         "networkapi.wagtailpages.factory.buyersguide.BuyersGuideArticlePageFactory",
     )
 
@@ -454,9 +454,9 @@ def generate(seed):
     pni_homepage.full_clean()
     pni_homepage.save()
     # Buyerguide homepage hero supporting articles
-    supporting_articles = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
-    for index, article in enumerate(supporting_articles):
-        BuyersGuidePageHeroSupportingArticleRelationFactory(
+    supporting_pages = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
+    for index, article in enumerate(supporting_pages):
+        BuyersGuidePageHeroSupportingPageRelationFactory(
             page=pni_homepage,
             article=article,
             sort_order=index,
@@ -473,7 +473,7 @@ def generate(seed):
     # pni_homepage.save()
     # # Buyersguide homepage featured articles
     # featured_articles = get_random_objects(
-    #     source=pagemodels.BuyersGuideArticlePage.objects.exclude(id__in=supporting_articles),
+    #     source=pagemodels.BuyersGuideArticlePage.objects.exclude(id__in=supporting_pages),
     #     exact_count=3,
     # )
     # for index, article in enumerate(featured_articles):
