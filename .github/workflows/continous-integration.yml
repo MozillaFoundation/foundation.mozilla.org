@@ -102,7 +102,6 @@ jobs:
           #
           # Using djhtml indent check in the meantime.
           djhtml -c maintenance/ network-api/
-        continue-on-error: true
       - name: Run type checks
         run: mypy network-api
       - name: Run Tests

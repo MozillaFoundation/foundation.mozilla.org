@@ -1,5 +1,5 @@
-from wagtail import blocks
 from django.conf import settings
+from wagtail import blocks
 from wagtail.snippets.blocks import SnippetChooserBlock
 
 from networkapi.wagtailpages.utils import get_language_from_request
