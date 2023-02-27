@@ -147,11 +147,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     translatable_fields = [
         TranslatableField("title"),
-        # Hero featured article should be translatable, but that is causing issues.
+        # Hero featured page should be translatable, but that is causing issues.
         # Using sync field as workaround.
         # See also: https://github.com/wagtail/wagtail-localize/issues/430
         SynchronizedField("hero_featured_page"),
-        # Hero supporting article relations should also be translatable, but that is
+        # Hero supporting page relations should also be translatable, but that is
         # also causing issues. Using sync filed as a workaround.
         # See also: https://github.com/wagtail/wagtail-localize/issues/640
         SynchronizedField("hero_supporting_page_relations"),
@@ -392,23 +392,23 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
         return indexes.first()
 
-    def get_hero_featured_page(self) -> Optional["BuyersGuideArticlePage"]:
+    def get_hero_featured_page(self) -> Optional["Page"]:
         try:
             return self.hero_featured_page.specific.localized
         except AttributeError:
-            # If no hero featured article is set (because `None` has no `localized`
+            # If no hero featured page is set (because `None` has no `localized`
             # attribute)
             return None
 
-    def get_hero_supporting_pages(self) -> list["BuyersGuideArticlePage"]:
+    def get_hero_supporting_pages(self) -> list["Page"]:
         supporting_pages = orderables.get_related_items(
             self.hero_supporting_page_relations.all(),
             "supporting_page",
         )
         # FIXME: This implementation does return the localized version of each article.
-        #        But, it is inefficient. It would be better to pull all articles
+        #        But, it is inefficient. It would be better to pull all pages
         #        for the correct locale at once. This would require the above returns
-        #        a queryset of the articles (rather than a list) and that we have an
+        #        a queryset of the pages (rather than a list) and that we have an
         #        efficient way of pulling all items for a given locale.
         return [page.specific.localized for page in supporting_pages]
 
