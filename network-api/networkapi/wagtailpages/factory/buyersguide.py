@@ -453,7 +453,7 @@ def generate(seed):
     pni_homepage.hero_featured_page = pagemodels.BuyersGuideArticlePage.objects.first()
     pni_homepage.full_clean()
     pni_homepage.save()
-    # Buyerguide homepage hero supporting articles
+    # Buyerguide homepage hero supporting pages
     supporting_pages = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
     for index, article in enumerate(supporting_pages):
         BuyersGuidePageHeroSupportingPageRelationFactory(

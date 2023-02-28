@@ -54,7 +54,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     ]
 
     hero_featured_page = models.ForeignKey(
-        'wagtailcore.Page',
+        "wagtailcore.Page",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -448,13 +448,18 @@ class BuyersGuidePageHeroSupportingPageRelation(TranslatableMixin, Orderable):
         related_name="hero_supporting_page_relations",
     )
     supporting_page = models.ForeignKey(
-        'wagtailcore.Page',
+        "wagtailcore.Page",
         on_delete=models.CASCADE,
         null=False,
         blank=False,
     )
 
-    panels = [PageChooserPanel("supporting_page", page_type=["wagtailpages.BuyersGuideArticlePage", "wagtailpages.BuyersGuideCampaignPage"])]
+    panels = [
+        PageChooserPanel(
+            "supporting_page",
+            page_type=["wagtailpages.BuyersGuideArticlePage", "wagtailpages.BuyersGuideCampaignPage"],
+        )
+    ]
 
     def __str__(self):
         return f"{self.page.title} -> {self.supporting_page.title}"

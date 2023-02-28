@@ -438,7 +438,6 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
         self.assertEqual(result, campaign_page)
         self.assertEqual(type(result), type(campaign_page))
 
-
     def test_get_hero_featured_page_not_set(self):
         self.bg.hero_featured_page = None
 
@@ -601,7 +600,7 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
                 sort_order=i,
             )
             supporting_pages.append(page)
-            
+
         self.synchronize_tree()
         supporting_pages_fr = [page.get_translation(self.fr_locale) for page in supporting_pages]
         buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
