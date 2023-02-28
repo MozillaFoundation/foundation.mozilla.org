@@ -12,7 +12,7 @@
     <div class="editorial-content">
 
         {% with hero_featured_page=page.get_hero_featured_page %}
-        
+
             {% if hero_featured_page %}
                 <div class="tw-container tw-mb-24">
                     {% include "fragments/buyersguide/featured_page.html" with featured_page=hero_featured_page supporting_pages=page.get_hero_supporting_pages supporting_pages_heading=page.hero_supporting_pages_heading %}
