@@ -473,7 +473,7 @@ def generate(seed):
     # pni_homepage.save()
     # # Buyersguide homepage featured articles
     # featured_articles = get_random_objects(
-    #     source=pagemodels.BuyersGuideArticlePage.objects.exclude(id__in=supporting_pages),
+    #     source=pagemodels.BuyersGuideArticlePage.objects.exclude(id__in=supporting_articles),
     #     exact_count=3,
     # )
     # for index, article in enumerate(featured_articles):
