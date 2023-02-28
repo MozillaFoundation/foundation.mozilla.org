@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RemoveField(
-            model_name='productpage',
-            name='airtable_record_id',
+            model_name="productpage",
+            name="airtable_record_id",
         ),
     ]
