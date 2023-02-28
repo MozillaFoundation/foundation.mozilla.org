@@ -455,10 +455,10 @@ def generate(seed):
     pni_homepage.save()
     # Buyerguide homepage hero supporting pages
     supporting_pages = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
-    for index, article in enumerate(supporting_pages):
+    for index, page in enumerate(supporting_pages):
         BuyersGuidePageHeroSupportingPageRelationFactory(
             page=pni_homepage,
-            article=article,
+            supporting_page=page,
             sort_order=index,
         )
 
