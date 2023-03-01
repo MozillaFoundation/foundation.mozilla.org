@@ -25,6 +25,7 @@ from networkapi.wagtailpages.utils import (
     localize_queryset,
     titlecase,
 )
+from networkapi.wagtailpages.views import localized_redirect
 
 from ..index import IndexPage
 from .blog_topic import BlogPageTopic
@@ -340,6 +341,15 @@ class BlogIndexPage(IndexPage):
             return redirect(self.full_url)
 
         return self.generate_entries_set_html(request, *args, **kwargs)
+
+    @route(r"^category/(?P<topic_slug>.+)/")
+    def redirect_to_entries_by_topic_view(self, request, topic_slug):
+        """
+        If a user attempts to visit the "entries by topic" page using 
+        the deprecated /category/ route, we want to redirect them to the 
+        correct page using the /topic/ route.
+        """
+        return localized_redirect(request, destination_path=f"{self.slug}/topic", subpath=topic_slug, permanent=True)
 
     @route(r"^topic/(?P<topic>.+)/")
     def entries_by_topic(self, request, topic, *args, **kwargs):
