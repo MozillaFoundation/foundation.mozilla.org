@@ -11,6 +11,12 @@ def foundation_redirects():
             r"^opportunity/(?P<subpath>.*)",
             lambda req, subpath: localized_redirect(req, subpath, "initiatives"),
         ),
+        # redirect /blog/category path to /blog/topic
+        # see https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10060 for context
+        re_path(
+            r"^blog/category/(?P<subpath>.*)",
+            lambda req, subpath: localized_redirect(req, subpath, "blog/topic", permanent=True),
+        ),
         # redirect /about Wagtail pages to /who-we-are
         re_path(
             r"^about/(?P<subpath>.*)",
