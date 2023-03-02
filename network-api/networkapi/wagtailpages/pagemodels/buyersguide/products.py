@@ -836,6 +836,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         # non-translatable fields:
         SynchronizedField("mozilla_says"),
         SynchronizedField("related_product_pages"),
+        SynchronizedField("related_article_relations"),
         SynchronizedField("time_researched"),
         SynchronizedField("updates"),
         TranslatableField("tips_to_protect_yourself"),
@@ -857,10 +858,17 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         return context
 
     def get_related_articles(self) -> models.QuerySet["BuyersGuideArticlePage"]:
-        return orderables.get_related_items(
+        articles = orderables.get_related_items(
             self.related_article_relations.all(),
             "article",
         )
+        # FIXME: This implementation does return the localized version of each article.
+        #        But, it is inefficient. It would be better to pull all articles
+        #        for the correct locale at once. This would require the above returns
+        #        a queryset of the articles (rather than a list) and that we have an
+        #        efficient way of pulling all items for a given locale.
+        #        See: https://github.com/MozillaFoundation/foundation.mozilla.org/issues/9509
+        return [a.localized for a in articles]
 
     def get_primary_related_articles(self) -> models.QuerySet["BuyersGuideArticlePage"]:
         return self.get_related_articles()[:3]
