@@ -246,7 +246,9 @@ class TestBlogIndexTopic(BlogIndexTestCase):
 
         response = self.client.get(path=category_route_url_with_params, follow=True)
 
-        self.assertRedirects(response, expected_url=topic_route_url_with_params, status_code=301, target_status_code=200)
+        self.assertRedirects(
+            response, expected_url=topic_route_url_with_params, status_code=301, target_status_code=200
+        )
 
     def test_category_route_redirect_with_locale(self):
         """
@@ -258,7 +260,6 @@ class TestBlogIndexTopic(BlogIndexTestCase):
         blog_index__url_fr = self.blog_index.get_translation(self.fr_locale).url
         category_route_url_fr = f"{blog_index__url_fr}category/{topic.slug}/"
         topic_route_url_fr = f"{blog_index__url_fr}topic/{topic.slug}/"
-
 
         response = self.client.get(path=category_route_url_fr, follow=True)
 
@@ -274,7 +275,6 @@ class TestBlogIndexTopic(BlogIndexTestCase):
         blog_index__url_fr = self.blog_index.get_translation(self.fr_locale).url
         category_route_url_fr = f"{blog_index__url_fr}category/{topic.slug}/?test_param=123"
         topic_route_url_fr = f"{blog_index__url_fr}topic/{topic.slug}/?test_param=123"
-
 
         response = self.client.get(path=category_route_url_fr, follow=True)
 
