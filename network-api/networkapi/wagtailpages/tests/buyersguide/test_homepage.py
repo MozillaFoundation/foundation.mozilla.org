@@ -7,9 +7,13 @@ from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
+from networkapi.wagtailpages.pagemodels.buyersguide.article_page import (
+    BuyersGuideArticlePage,
+)
+from networkapi.wagtailpages.pagemodels.buyersguide.campaign_page import (
+    BuyersGuideCampaignPage,
+)
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
-from networkapi.wagtailpages.pagemodels.buyersguide.article_page import BuyersGuideArticlePage
-from networkapi.wagtailpages.pagemodels.buyersguide.campaign_page import BuyersGuideCampaignPage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
     ProductPage,

@@ -38,7 +38,11 @@ from networkapi.wagtailpages.utils import (
 )
 
 if TYPE_CHECKING:
-    from networkapi.wagtailpages.models import BuyersGuideArticlePage, BuyersGuideCampaignPage, Update
+    from networkapi.wagtailpages.models import (
+        BuyersGuideArticlePage,
+        BuyersGuideCampaignPage,
+        Update,
+    )
 
 
 class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):

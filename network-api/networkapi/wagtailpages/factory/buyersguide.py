@@ -1,6 +1,7 @@
 from datetime import date, datetime, timedelta, timezone
-from random import choice, randint, random, randrange, shuffle
 from itertools import chain
+from random import choice, randint, random, randrange, shuffle
+
 from django.utils import text as text_utils
 from factory import Faker, LazyFunction, SubFactory, post_generation
 from factory.django import DjangoModelFactory
