@@ -109,7 +109,7 @@
   },
   "devDependencies": {
     "@percy/cli": "^1.17.0",
-    "@percy/playwright": "^1.0.1",
+    "@percy/playwright": "^1.0.4",
     "@playwright/test": "^1.17.0",
     "browser-sync": "^2.28.1",
     "browserslist": "^4.21.5",
