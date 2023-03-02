@@ -156,7 +156,7 @@ psycopg2-binary==2.9.5
     # via -r requirements.in
 pycparser==2.21
     # via cffi
-pygit2==1.7.1
+pygit2==1.11.1
     # via
     #   -r requirements.in
     #   wagtail-localize-git
@@ -264,7 +264,7 @@ wagtailmedia==0.12.0
     # via -r requirements.in
 webencodings==0.5.1
     # via html5lib
-whitenoise==6.3.0
+whitenoise==6.4.0
     # via -r requirements.in
 willow==1.4.1
     # via wagtail
