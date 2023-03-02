@@ -220,6 +220,66 @@ class TestBlogIndexTopic(BlogIndexTestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
+    def test_category_route_redirect(self):
+        """
+        Checking that visits to the deprecated /category/{topic} route
+        redirect to the now used /topic/{topic} route.
+        """
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
+        blog_index_url = self.blog_index.url
+        category_route_url = f"{blog_index_url}category/{topic.slug}/"
+        topic_route_url = f"{blog_index_url}topic/{topic.slug}/"
+
+        response = self.client.get(path=category_route_url, follow=True)
+
+        self.assertRedirects(response, expected_url=topic_route_url, status_code=301, target_status_code=200)
+
+    def test_category_route_redirect_query_params(self):
+        """
+        Checking that URL query parameters persist after
+        redirect from /category/{topic} to /topic/{topic}
+        """
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
+        blog_index_url = self.blog_index.url
+        category_route_url_with_params = f"{blog_index_url}category/{topic.slug}/?test_param=123"
+        topic_route_url_with_params = f"{blog_index_url}topic/{topic.slug}/?test_param=123"
+
+        response = self.client.get(path=category_route_url_with_params, follow=True)
+
+        self.assertRedirects(response, expected_url=topic_route_url_with_params, status_code=301, target_status_code=200)
+
+    def test_category_route_redirect_with_locale(self):
+        """
+        Checking that requested language code (/fr/) persists after
+        redirect from /category/{topic} to /topic/{topic}
+        """
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
+        self.synchronize_tree()
+        blog_index__url_fr = self.blog_index.get_translation(self.fr_locale).url
+        category_route_url_fr = f"{blog_index__url_fr}category/{topic.slug}/"
+        topic_route_url_fr = f"{blog_index__url_fr}topic/{topic.slug}/"
+
+
+        response = self.client.get(path=category_route_url_fr, follow=True)
+
+        self.assertRedirects(response, expected_url=topic_route_url_fr, status_code=301, target_status_code=200)
+
+    def test_category_route_redirect_with_locale_and_params(self):
+        """
+        Checking that both language code (/fr/) and URL query params persist after
+        redirect from /category/{topic} to /topic/{topic}
+        """
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic")
+        self.synchronize_tree()
+        blog_index__url_fr = self.blog_index.get_translation(self.fr_locale).url
+        category_route_url_fr = f"{blog_index__url_fr}category/{topic.slug}/?test_param=123"
+        topic_route_url_fr = f"{blog_index__url_fr}topic/{topic.slug}/?test_param=123"
+
+
+        response = self.client.get(path=category_route_url_fr, follow=True)
+
+        self.assertRedirects(response, expected_url=topic_route_url_fr, status_code=301, target_status_code=200)
+
     def test_topic_route_non_existing_topic(self):
         url = self.get_topic_route(topic="thisisnotatopic")
 

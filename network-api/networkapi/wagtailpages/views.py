@@ -26,7 +26,7 @@ def custom404_view(request, exception):
         return HttpResponseNotFound(html.content)
 
 
-def localized_redirect(request, subpath, destination_path, permanent=False):
+def localized_redirect(request, subpath, destination_path, is_permanent=False):
     lang = request.LANGUAGE_CODE
     translation.activate(lang)
     request.session[translation.LANGUAGE_SESSION_KEY] = lang
@@ -35,4 +35,4 @@ def localized_redirect(request, subpath, destination_path, permanent=False):
     if request.META["QUERY_STRING"]:
         query_string = f'?{request.META["QUERY_STRING"]}'
 
-    return redirect(f"/{request.LANGUAGE_CODE}/{destination_path}/{subpath}{query_string}", permanent)
+    return redirect(f"/{request.LANGUAGE_CODE}/{destination_path}/{subpath}{query_string}", permanent=is_permanent)
