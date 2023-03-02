@@ -35,7 +35,7 @@ from .pagemodels.buyersguide.homepage import (
     BuyersGuidePage,
     BuyersGuidePageFeaturedArticleRelation,
     BuyersGuidePageFeaturedUpdateRelation,
-    BuyersGuidePageHeroSupportingArticleRelation,
+    BuyersGuidePageHeroSupportingPageRelation,
 )
 from .pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,

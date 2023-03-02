@@ -7,6 +7,12 @@ from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
+from networkapi.wagtailpages.pagemodels.buyersguide.article_page import (
+    BuyersGuideArticlePage,
+)
+from networkapi.wagtailpages.pagemodels.buyersguide.campaign_page import (
+    BuyersGuideCampaignPage,
+)
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
@@ -20,8 +26,8 @@ class TestFactories(TestCase):
     def test_homepage_factory(self):
         buyersguide_factories.BuyersGuidePageFactory()
 
-    def test_hero_supporting_article_relation_factory(self):
-        buyersguide_factories.BuyersGuidePageHeroSupportingArticleRelationFactory()
+    def test_hero_supporting_page_relation_factory(self):
+        buyersguide_factories.BuyersGuidePageHeroSupportingPageRelationFactory()
 
     def test_featured_article_relation_factory(self):
         buyersguide_factories.BuyersGuidePageFeaturedArticleRelationFactory()
@@ -416,71 +422,140 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
             parent=cls.bg,
         )
 
-    def test_get_hero_featured_article(self):
+    def test_get_hero_featured_page_with_article_page(self):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory.create(
             parent=self.content_index,
         )
-        self.bg.hero_featured_article = article_page
+        self.bg.hero_featured_page = article_page
 
-        result = self.bg.get_hero_featured_article()
+        result = self.bg.get_hero_featured_page()
 
         self.assertEqual(result, article_page)
+        self.assertEqual(type(result), BuyersGuideArticlePage)
 
-    def test_get_hero_featured_article_not_set(self):
-        self.bg.hero_featured_article = None
+    def test_get_hero_featured_page_with_campaign_page(self):
+        campaign_page = buyersguide_factories.BuyersGuideCampaignPageFactory.create(
+            parent=self.content_index,
+        )
+        self.bg.hero_featured_page = campaign_page
 
-        result = self.bg.get_hero_featured_article()
+        result = self.bg.get_hero_featured_page()
+
+        self.assertEqual(result, campaign_page)
+        self.assertEqual(type(result), BuyersGuideCampaignPage)
+
+    def test_get_hero_featured_page_not_set(self):
+        self.bg.hero_featured_page = None
+
+        result = self.bg.get_hero_featured_page()
 
         self.assertIsNone(result)
 
-    def test_get_hero_featured_article_non_default_locale(self):
+    def test_get_hero_featured_page_with_article_page_non_default_locale(self):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory(
             parent=self.content_index,
         )
-        self.bg.hero_featured_article = article_page
+        self.bg.hero_featured_page = article_page
         self.bg.save()
         self.synchronize_tree()
         buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
         article_page_fr = article_page.get_translation(self.fr_locale)
         self.activate_locale(self.fr_locale)
 
-        result = buyersguide_homepage_fr.get_hero_featured_article()
+        result = buyersguide_homepage_fr.get_hero_featured_page()
 
         self.assertEqual(result, article_page_fr)
+        self.assertEqual(type(result), BuyersGuideArticlePage)
 
-    def test_get_hero_supporting_articles(self):
+    def test_get_hero_featured_page_with_campaign_page_non_default_locale(self):
+        campaign_page = buyersguide_factories.BuyersGuideCampaignPageFactory(
+            parent=self.content_index,
+        )
+        self.bg.hero_featured_page = campaign_page
+        self.bg.save()
+        self.synchronize_tree()
+        buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
+        campaign_page_fr = campaign_page.get_translation(self.fr_locale)
+        self.activate_locale(self.fr_locale)
+
+        result = buyersguide_homepage_fr.get_hero_featured_page()
+
+        self.assertEqual(result, campaign_page_fr)
+        self.assertEqual(type(result), BuyersGuideCampaignPage)
+
+    def test_get_hero_supporting_pages_with_articles(self):
         articles = []
         for i in range(1, 4):
             article = buyersguide_factories.BuyersGuideArticlePageFactory(
                 parent=self.content_index,
             )
-            buyersguide_factories.BuyersGuidePageHeroSupportingArticleRelationFactory(
+            buyersguide_factories.BuyersGuidePageHeroSupportingPageRelationFactory(
                 page=self.bg,
-                article=article,
+                supporting_page=article,
                 sort_order=i,
             )
             articles.append(article)
 
-        result = self.bg.get_hero_supporting_articles()
+        result = self.bg.get_hero_supporting_pages()
 
         self.assertQuerysetEqual(qs=result, values=articles)
 
-    def test_get_hero_supporting_articles_not_set(self):
+    def test_get_hero_supporting_pages_with_campaign_pages(self):
+        campaign_pages = []
+        for i in range(1, 4):
+            campaign = buyersguide_factories.BuyersGuideCampaignPageFactory(
+                parent=self.content_index,
+            )
+            buyersguide_factories.BuyersGuidePageHeroSupportingPageRelationFactory(
+                page=self.bg,
+                supporting_page=campaign,
+                sort_order=i,
+            )
+            campaign_pages.append(campaign)
+
+        result = self.bg.get_hero_supporting_pages()
+
+        self.assertQuerysetEqual(qs=result, values=campaign_pages)
+
+    def test_get_hero_supporting_pages_with_mixed_page_types(self):
+        supporting_pages = []
+        for i in range(1, 4):
+            if i % 2 == 0:
+                page = buyersguide_factories.BuyersGuideArticlePageFactory(
+                    parent=self.content_index,
+                )
+            else:
+                page = buyersguide_factories.BuyersGuideCampaignPageFactory(
+                    parent=self.content_index,
+                )
+
+            buyersguide_factories.BuyersGuidePageHeroSupportingPageRelationFactory(
+                page=self.bg,
+                supporting_page=page,
+                sort_order=i,
+            )
+            supporting_pages.append(page)
+
+        result = self.bg.get_hero_supporting_pages()
+
+        self.assertQuerysetEqual(qs=result, values=supporting_pages)
+
+    def test_get_hero_supporting_pages_not_set(self):
         articles = []
 
-        result = self.bg.get_hero_supporting_articles()
+        result = self.bg.get_hero_supporting_pages()
 
         self.assertQuerysetEqual(qs=result, values=articles)
 
-    def test_get_hero_supporting_articles_non_default_locale(self):
+    def test_get_hero_supporting_pages_with_articles_non_default_locale(self):
         articles = []
         for i in range(1, 4):
             article = buyersguide_factories.BuyersGuideArticlePageFactory(
                 parent=self.content_index,
             )
-            buyersguide_factories.BuyersGuidePageHeroSupportingArticleRelationFactory(
+            buyersguide_factories.BuyersGuidePageHeroSupportingPageRelationFactory(
                 page=self.bg,
-                article=article,
+                supporting_page=article,
                 sort_order=i,
             )
             articles.append(article)
@@ -489,9 +564,57 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
         buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
         self.activate_locale(self.fr_locale)
 
-        result = buyersguide_homepage_fr.get_hero_supporting_articles()
+        result = buyersguide_homepage_fr.get_hero_supporting_pages()
 
         self.assertQuerysetEqual(qs=result, values=articles_fr)
+
+    def test_get_hero_supporting_pages_with_campaigns_non_default_locale(self):
+        campaign_pages = []
+        for i in range(1, 4):
+            campaign = buyersguide_factories.BuyersGuideCampaignPageFactory(
+                parent=self.content_index,
+            )
+            buyersguide_factories.BuyersGuidePageHeroSupportingPageRelationFactory(
+                page=self.bg,
+                supporting_page=campaign,
+                sort_order=i,
+            )
+            campaign_pages.append(campaign)
+        self.synchronize_tree()
+        campaigns_fr = [page.get_translation(self.fr_locale) for page in campaign_pages]
+        buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
+        self.activate_locale(self.fr_locale)
+
+        result = buyersguide_homepage_fr.get_hero_supporting_pages()
+
+        self.assertQuerysetEqual(qs=result, values=campaigns_fr)
+
+    def test_get_hero_supporting_pages_with_mixed_page_type_non_default_locale(self):
+        supporting_pages = []
+        for i in range(1, 4):
+            if i % 2 == 0:
+                page = buyersguide_factories.BuyersGuideArticlePageFactory(
+                    parent=self.content_index,
+                )
+            else:
+                page = buyersguide_factories.BuyersGuideCampaignPageFactory(
+                    parent=self.content_index,
+                )
+            buyersguide_factories.BuyersGuidePageHeroSupportingPageRelationFactory(
+                page=self.bg,
+                supporting_page=page,
+                sort_order=i,
+            )
+            supporting_pages.append(page)
+
+        self.synchronize_tree()
+        supporting_pages_fr = [page.get_translation(self.fr_locale) for page in supporting_pages]
+        buyersguide_homepage_fr = self.bg.get_translation(self.fr_locale)
+        self.activate_locale(self.fr_locale)
+
+        result = buyersguide_homepage_fr.get_hero_supporting_pages()
+
+        self.assertQuerysetEqual(qs=result, values=supporting_pages_fr)
 
     def test_get_featured_articles(self):
         articles = []
