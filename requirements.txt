@@ -82,7 +82,7 @@ django-filter==21.1
     # via
     #   -r requirements.in
     #   wagtail
-django-htmx==1.13.0
+django-htmx==1.14.0
     # via -r requirements.in
 django-modelcluster==6.0
     # via wagtail
@@ -138,7 +138,7 @@ jmespath==0.10.0
     #   botocore
 l18n==2021.3
     # via wagtail
-oauthlib==3.2.1
+oauthlib==3.2.2
     # via
     #   requests-oauthlib
     #   social-auth-core
