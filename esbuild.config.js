@@ -8,7 +8,7 @@
  * "production" or "development" so that process.env.NODE_ENV in our
  * code gets interpreted correctly.
  */
-const { build } = require(`esbuild`);
+const { context, build } = require(`esbuild`);
 const path = require(`path`);
 
 const arg = process.argv.indexOf(`--node-env`);
@@ -24,12 +24,12 @@ const outDir = `./network-api/networkapi/frontend/_js/`;
 const sources = {
   main: {
     source: `main.js`,
-    react: true,
+    jsx: "automatic",
     bundle: true,
   },
   mozfest: {
     source: `foundation/pages/mozfest/index.js`,
-    react: true,
+    jsx: "automatic",
     bundle: true,
   },
   callpower: {
@@ -41,7 +41,7 @@ const sources = {
   },
   "bg-main": {
     source: `buyers-guide/bg-main.js`,
-    react: true,
+    jsx: "automatic",
     bundle: true,
   },
   "bg-search": {
@@ -62,7 +62,6 @@ const sources = {
 };
 
 const base = {
-  watch: !inProduction,
   sourcemap: !inProduction,
   minify: inProduction,
   loader: {
@@ -74,15 +73,22 @@ const base = {
   },
 };
 
-Object.entries(sources).map(([name, { source, react, bundle }]) => {
-  const opts = Object.assign({}, base);
-  if (react) {
-    opts.inject = [`esbuild.react.shim.js`];
+const opts = Object.assign({}, base);
+
+Object.entries(sources).forEach(async ([name, { source, jsx, bundle }]) => {
+  if (jsx) {
+    opts.jsx = jsx;
   }
   if (bundle) {
     opts.bundle = true;
   }
   opts.entryPoints = [path.join(inDir, source)];
   opts.outfile = `${path.join(outDir, name)}.compiled.js`;
-  return build(opts);
+
+  if (inProduction) {
+    return build(opts);
+  } else {
+    let ctx = await context(opts);
+    await ctx.watch();
+  }
 });

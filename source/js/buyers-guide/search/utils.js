@@ -66,92 +66,60 @@ export class Utils {
   }
 
   /**
-   * ...
+   * Deactivate the currently active category nav link
    */
-  static clearCategories() {
-    if (document.querySelector(`#multipage-nav a.active`)) {
-      document
-        .querySelector(`#multipage-nav a.active`)
-        .classList.remove(`active`);
-      document
-        .querySelector(`#multipage-nav a[data-name="None"]`)
-        .classList.add(`active`);
+  static deactivateActiveCatNav() {
+    const linkForLarge = document.querySelector(`#multipage-nav a.active`);
+    const linkForMobile = document.querySelector(`#pni-nav-mobile a.active`);
+
+    // for larger screens
+    if (linkForLarge) {
+      linkForLarge.classList.remove(`active`);
     }
 
-    if (document.querySelector(`#pni-nav-mobile a.active`)) {
-      document
-        .querySelector(`#pni-nav-mobile a.active`)
-        .classList.remove(`active`);
-      document
-        .querySelector(`#pni-nav-mobile a[data-name="None"]`)
-        .classList.add(`active`);
+    // for small screens
+    if (linkForMobile) {
+      linkForMobile.classList.remove(`active`);
     }
   }
 
   /**
-   * ...
+   * Activate a specific category nav link
+   * @param {String} category category name
    */
-  static selectAllCategory() {
-    if (document.querySelector(`#multipage-nav a.active`)) {
-      document
-        .querySelector(`#multipage-nav a.active`)
-        .classList.remove(`active`);
+  static activateCatNav(category = "None") {
+    const linkForLarge = document.querySelector(
+      `#multipage-nav a[data-name="${category}"]`
+    );
+    const linkForMobile = document.querySelector(
+      `#pni-nav-mobile a[data-name="${category}"]`
+    );
+
+    // for larger screens
+    if (linkForLarge) {
+      linkForLarge.classList.add(`active`);
     }
 
-    if (document.querySelector(`#pni-nav-mobile a.active`)) {
-      document
-        .querySelector(`#pni-nav-mobile a.active`)
-        .classList.remove(`active`);
+    // for small screens
+    if (linkForMobile) {
+      linkForMobile.classList.add(`active`);
     }
-
-    document
-      .querySelector(`#multipage-nav a[data-name="None"]`)
-      .classList.add(`active`);
-
-    document
-      .querySelector(`#pni-nav-mobile a[data-name="None"]`)
-      .classList.add(`active`);
   }
 
   /**
-   *
+   * Set active category nav link
+   * @param {String} category name of the category
+   */
+  static setActiveCatNavLink(category) {
+    this.deactivateActiveCatNav();
+    this.activateCatNav(category);
+  }
+
+  /**
+   * Highlight parent category nav link
    */
   static highlightParentCategory() {
-    if (document.querySelector(`#multipage-nav a.active`)) {
-      document
-        .querySelector(`#multipage-nav a.active`)
-        .classList.remove(`active`);
-    }
-
-    if (document.querySelector(`#pni-nav-mobile a.active`)) {
-      document
-        .querySelector(`#pni-nav-mobile a.active`)
-        .classList.remove(`active`);
-    }
-
-    if (
-      document.querySelector(
-        `#pni-nav-mobile a[data-name="${PARENT_TITLE.value.trim()}"]`
-      )
-    ) {
-      document
-        .querySelector(
-          `#pni-nav-mobile a[data-name="${PARENT_TITLE.value.trim()}"]`
-        )
-        .classList.add(`active`);
-    }
-
-    if (
-      document.querySelector(
-        `#multipage-nav a[data-name="${PARENT_TITLE.value.trim()}"]`
-      )
-    ) {
-      document
-        .querySelector(
-          `#multipage-nav a[data-name="${PARENT_TITLE.value.trim()}"]`
-        )
-        .classList.add(`active`);
-    }
+    this.setActiveCatNavLink(PARENT_TITLE.value.trim());
   }
 
   /**
