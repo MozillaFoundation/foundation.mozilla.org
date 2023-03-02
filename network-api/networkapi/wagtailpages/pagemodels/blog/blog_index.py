@@ -349,7 +349,8 @@ class BlogIndexPage(IndexPage):
         the deprecated /category/ route, we want to redirect them to the 
         correct page using the /topic/ route.
         """
-        return localized_redirect(request, destination_path=f"{self.slug}/topic", subpath=topic_slug, is_permanent=True)
+        blog_index_slug = self.slug
+        return localized_redirect(request, destination_path=f"{blog_index_slug}/topic", subpath=topic_slug, is_permanent=True)
 
     @route(r"^topic/(?P<topic>.+)/")
     def entries_by_topic(self, request, topic, *args, **kwargs):
