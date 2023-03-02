@@ -8,6 +8,8 @@ from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
+from networkapi.wagtailpages.pagemodels.buyersguide.article_page import BuyersGuideArticlePage
+from networkapi.wagtailpages.pagemodels.buyersguide.campaign_page import BuyersGuideCampaignPage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
     ProductPage,
@@ -20,7 +22,7 @@ class TestFactories(TestCase):
     def test_homepage_factory(self):
         buyersguide_factories.BuyersGuidePageFactory()
 
-    def test_hero_supporting_article_relation_factory(self):
+    def test_hero_supporting_page_relation_factory(self):
         buyersguide_factories.BuyersGuidePageHeroSupportingPageRelationFactory()
 
     def test_featured_article_relation_factory(self):
@@ -425,7 +427,7 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
         result = self.bg.get_hero_featured_page()
 
         self.assertEqual(result, article_page)
-        self.assertEqual(type(result), type(article_page))
+        self.assertEqual(type(result), BuyersGuideArticlePage)
 
     def test_get_hero_featured_page_with_campaign_page(self):
         campaign_page = buyersguide_factories.BuyersGuideCampaignPageFactory.create(
@@ -436,7 +438,7 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
         result = self.bg.get_hero_featured_page()
 
         self.assertEqual(result, campaign_page)
-        self.assertEqual(type(result), type(campaign_page))
+        self.assertEqual(type(result), BuyersGuideCampaignPage)
 
     def test_get_hero_featured_page_not_set(self):
         self.bg.hero_featured_page = None
@@ -459,7 +461,7 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
         result = buyersguide_homepage_fr.get_hero_featured_page()
 
         self.assertEqual(result, article_page_fr)
-        self.assertEqual(type(result), type(article_page_fr))
+        self.assertEqual(type(result), BuyersGuideArticlePage)
 
     def test_get_hero_featured_page_with_campaign_page_non_default_locale(self):
         campaign_page = buyersguide_factories.BuyersGuideCampaignPageFactory(
@@ -475,7 +477,7 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
         result = buyersguide_homepage_fr.get_hero_featured_page()
 
         self.assertEqual(result, campaign_page_fr)
-        self.assertEqual(type(result), type(campaign_page_fr))
+        self.assertEqual(type(result), BuyersGuideCampaignPage)
 
     def test_get_hero_supporting_pages_with_articles(self):
         articles = []

@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Optional, Union
 
 from django.apps import apps
 from django.conf import settings
@@ -38,7 +38,7 @@ from networkapi.wagtailpages.utils import (
 )
 
 if TYPE_CHECKING:
-    from networkapi.wagtailpages.models import BuyersGuideArticlePage, Update
+    from networkapi.wagtailpages.models import BuyersGuideArticlePage, BuyersGuideCampaignPage, Update
 
 
 class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
@@ -63,11 +63,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     hero_supporting_pages_heading = models.CharField(
         max_length=50,
-        default=_("Related articles"),
+        default=_("Related reading"),
         blank=False,
         null=False,
         help_text=(
-            "Heading for the page links rendered next to the hero featured page. "
+            "Heading for the links rendered next to the main featured page. "
             'Common choices are "Related articles", "Popular articles", etc.'
         ),
     )
@@ -107,7 +107,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 FieldPanel("hero_supporting_pages_heading", heading="Heading"),
                 InlinePanel(
                     "hero_supporting_page_relations",
-                    heading="Supporting pages",
+                    heading="Supporting Pages",
                     label="Page",
                 ),
             ],
@@ -392,7 +392,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
         return indexes.first()
 
-    def get_hero_featured_page(self) -> Optional["Page"]:
+    def get_hero_featured_page(self) -> Optional[Union["BuyersGuideArticlePage", "BuyersGuideCampaignPage"]]:
         try:
             return self.hero_featured_page.specific.localized
         except AttributeError:
@@ -400,16 +400,17 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             # attribute)
             return None
 
-    def get_hero_supporting_pages(self) -> list["Page"]:
+    def get_hero_supporting_pages(self) -> list[Union["BuyersGuideArticlePage", "BuyersGuideCampaignPage"]]:
         supporting_pages = orderables.get_related_items(
             self.hero_supporting_page_relations.all(),
             "supporting_page",
         )
-        # FIXME: This implementation does return the localized version of each article.
-        #        But, it is inefficient. It would be better to pull all pages
-        #        for the correct locale at once. This would require the above returns
-        #        a queryset of the pages (rather than a list) and that we have an
-        #        efficient way of pulling all items for a given locale.
+        # FIXME: This implementation returns the localized, subclassed version of each page.
+        #        But, it is inefficient. Both ".localized" and ".specific" are N+1 queries.
+        #        It would be better to pull all pages for the correct locale at once,
+        #        and applying ".specific()" at the end of the queryset.
+        #        This would require the above returns a queryset of the pages (rather than a list)
+        #        and that we have an efficient way of pulling all items for a given locale.
         return [page.specific.localized for page in supporting_pages]
 
     def get_featured_articles(self) -> list["BuyersGuideArticlePage"]:

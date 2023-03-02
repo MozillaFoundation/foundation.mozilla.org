@@ -1,6 +1,6 @@
 from datetime import date, datetime, timedelta, timezone
 from random import choice, randint, random, randrange, shuffle
-
+from itertools import chain
 from django.utils import text as text_utils
 from factory import Faker, LazyFunction, SubFactory, post_generation
 from factory.django import DjangoModelFactory
@@ -454,7 +454,10 @@ def generate(seed):
     pni_homepage.full_clean()
     pni_homepage.save()
     # Buyerguide homepage hero supporting pages
-    supporting_pages = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
+    supporting_articles = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=2)
+    supporting_campaigns = get_random_objects(pagemodels.BuyersGuideCampaignPage, exact_count=1)
+    supporting_pages = chain(supporting_articles, supporting_campaigns)
+
     for index, page in enumerate(supporting_pages):
         BuyersGuidePageHeroSupportingPageRelationFactory(
             page=pni_homepage,
