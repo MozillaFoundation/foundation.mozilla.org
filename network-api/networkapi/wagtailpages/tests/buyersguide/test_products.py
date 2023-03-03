@@ -295,7 +295,7 @@ class TestProductPage(BuyersGuideTestCase):
             self.assertIn(related_article, result)
 
     def test_secondary_related_articles_non_default_locale(self):
-        """Second three related articles are primary and should be returned localized."""
+        """Second three related articles are secondary and should be returned localized."""
         content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
             parent=self.bg,
         )
