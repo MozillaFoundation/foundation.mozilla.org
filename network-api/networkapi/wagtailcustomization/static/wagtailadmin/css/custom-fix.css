@@ -46,3 +46,20 @@ body#wagtail
   a {
   background-color: transparent;
 }
+
+/*
+  To address bug from Wagtail v3
+  See context: https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10193
+*/
+
+body#wagtail.page-editor main#main aside.form-side {
+  /* Override the height: 100vh rule from Wagtail source code.
+     Minus 1px to account for bottom border in its ancestor div .content-wrapper
+     Minus 51px to account for the height of the sticky top bar
+  */
+  height: calc(100vh - 1px - 51px);
+}
+
+body#wagtail.page-editor main#main.content-wrapper {
+  margin-bottom: 0;
+}
