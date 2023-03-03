@@ -9,8 +9,12 @@ const SELECT = {
   paddingRight: "48px", // paddingX * 2 + backgroundSize
 };
 
-// .form-control
-const generateFormControl = (theme) => {
+/**
+ * Stylings for .form-control (converted from Bootstrap 4.6 with our custom SCSS)
+ * @param {*} theme Tailwind theme config
+ * @returns {object} Stylings
+ */
+function formControl(theme) {
   return {
     display: "block",
     width: "100%",
@@ -64,10 +68,14 @@ const generateFormControl = (theme) => {
       height: "auto",
     },
   };
-};
+}
 
-// .has-danger
-const generateHasDanger = (theme) => {
+/**
+ * Stylings for .has-danger (converted from our custom SCSS)
+ * @param {*} theme Tailwind theme config
+ * @returns {object} Stylings
+ */
+function hasDanger(theme) {
   const DANGER = "#c01";
   const DARK_DANGER = theme("colors.red.40");
 
@@ -88,11 +96,14 @@ const generateHasDanger = (theme) => {
       },
     },
   };
-};
+}
 
-// For select.form-control
-// Stylings combined from Bootstrap's and our custom SCSS
-const generateSelectFormControl = (theme) => {
+/**
+ * Stylings for select.form-control (converted from Bootstrap 4.6 with our custom SCSS)
+ * @param {*} theme Tailwind theme config
+ * @returns {object} Stylings
+ */
+function selectFormControl(theme) {
   return {
     appearance: "none",
     backgroundRepeat: "no-repeat",
@@ -127,37 +138,42 @@ const generateSelectFormControl = (theme) => {
       backgroundColor: theme("colors.white"),
     },
   };
-};
+}
 
-const generateSelectFormLgControl = (theme) => {
+/**
+ * Stylings for select.form-control-lg (converted from Bootstrap 4.6 with our custom SCSS)
+ * @param {*} theme Tailwind theme config
+ * @returns {object} Stylings
+ */
+function selectFormLgControl(theme) {
   return {
-    ...generateSelectFormControl(theme),
+    ...selectFormControl(theme),
     height: "auto",
     padding: `${SELECT.paddingX} ${SELECT.paddingRight} ${SELECT.paddingX} ${SELECT.paddingX}`,
     fontSize: "1.25rem",
     lineHeight: "1.25",
   };
-};
+}
 
 module.exports = [
   plugin(function ({ addComponents, theme }) {
     addComponents([
       {
         ".form-control": {
-          ...generateFormControl(theme),
+          ...formControl(theme),
         },
         "select.form-control": {
-          ...generateSelectFormControl(theme),
+          ...selectFormControl(theme),
         },
         "select.form-control-lg": {
-          ...generateSelectFormLgControl(theme),
+          ...selectFormLgControl(theme),
         },
         "input[type='date'].form-control, input[type='time'].form-control, input[type='datetime-local'].form-control, input[type='month'].form-control":
           {
             appearance: "none",
           },
         ".has-danger": {
-          ...generateHasDanger(theme),
+          ...hasDanger(theme),
         },
       },
     ]);
