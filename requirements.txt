@@ -72,7 +72,7 @@ django==3.2.16
     #   wagtailmedia
 django-admin-sortable==2.3
     # via -r requirements.in
-django-cors-headers==3.13.0
+django-cors-headers==3.14.0
     # via -r requirements.in
 django-csp==3.7
     # via -r requirements.in
@@ -124,7 +124,7 @@ gitpython==3.1.30
     # via wagtail-localize-git
 gunicorn==20.1.0
     # via -r requirements.in
-heroku3==5.1.4
+heroku3==5.2.0
     # via -r requirements.in
 html5lib==1.1
     # via wagtail
