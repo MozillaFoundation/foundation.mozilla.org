@@ -66,8 +66,12 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AlterField(
-            model_name='buyersguidepage',
-            name='hero_supporting_pages_heading',
-            field=models.CharField(default='Related reading', help_text='Heading for the links rendered next to the main featured page. Common choices are "Related articles", "Popular articles", etc.', max_length=50),
+            model_name="buyersguidepage",
+            name="hero_supporting_pages_heading",
+            field=models.CharField(
+                default="Related reading",
+                help_text='Heading for the links rendered next to the main featured page. Common choices are "Related articles", "Popular articles", etc.',
+                max_length=50,
+            ),
         ),
     ]
