@@ -352,9 +352,8 @@ class BlogIndexPage(IndexPage):
         blog_index_path = self.slug
         topic_path = self.reverse_subpage("entries_by_topic", args=(topic_slug,))
 
-        return localized_redirect(
-            request, destination_path=blog_index_path, subpath=topic_path, is_permanent=True
-        )
+        return localized_redirect(request, destination_path=blog_index_path, subpath=topic_path, is_permanent=True)
+
     @route(r"^topic/(?P<topic>.+)/")
     def entries_by_topic(self, request, topic, *args, **kwargs):
         """
