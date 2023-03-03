@@ -11,7 +11,7 @@ class FloatingLabelTextarea extends Component {
     return (
       <div className={className}>
         <textarea
-          className="form-control"
+          className="tw-form-control"
           disabled={this.props.disabled}
           ref={(element) => {
             this.element = element;

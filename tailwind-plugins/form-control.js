@@ -9,6 +9,7 @@ const SELECT = {
   paddingRight: "48px", // paddingX * 2 + backgroundSize
 };
 
+// .form-control
 const generateFormControl = (theme) => {
   return {
     display: "block",
@@ -22,7 +23,7 @@ const generateFormControl = (theme) => {
     color: theme("colors.black"),
     backgroundColor: theme("colors.white"),
     backgroundClip: "padding-box",
-    border: `1px solid ${theme("colors.gray.40")}`,
+    border: `1px solid ${theme("colors.gray.20")}`,
     borderRadius: 0,
     transition:
       "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out",
@@ -58,6 +59,33 @@ const generateFormControl = (theme) => {
       backgroundColor: "#e9ecef",
       // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
       opacity: 1,
+    },
+    "textarea&": {
+      height: "auto",
+    },
+  };
+};
+
+// .has-danger
+const generateHasDanger = (theme) => {
+  const DANGER = "#c01";
+  const DARK_DANGER = theme("colors.red.40");
+
+  return {
+    ".form-control": {
+      border: `1px solid ${DANGER}`,
+    },
+    ".form-control-feedback": {
+      color: DANGER,
+    },
+    ".dark &": {
+      ".form-control": {
+        borderColor: DARK_DANGER,
+        borderWidth: "2px",
+      },
+      ".form-control-feedback": {
+        color: DARK_DANGER,
+      },
     },
   };
 };
@@ -128,6 +156,9 @@ module.exports = [
           {
             appearance: "none",
           },
+        ".has-danger": {
+          ...generateHasDanger(theme),
+        },
       },
     ]);
   }),

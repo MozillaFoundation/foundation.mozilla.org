@@ -11,7 +11,7 @@ class FloatingLabelInput extends Component {
     return (
       <div className={className}>
         <input
-          className="form-control"
+          className="tw-form-control"
           disabled={this.props.disabled}
           ref={(element) => {
             this.element = element;

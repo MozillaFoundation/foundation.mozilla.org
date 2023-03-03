@@ -350,7 +350,7 @@ class JoinUs extends Component {
       : false;
 
     let wrapperClasses = classNames({
-      "has-danger":
+      "tw-has-danger":
         (!this.state.apiSuccess &&
           this.state.userTriedSubmitting &&
           !emailValidation.valid) ||
@@ -361,7 +361,7 @@ class JoinUs extends Component {
       "position-relative": wrapperClasses !== ``,
     });
 
-    let inputClasses = classNames(`tw-form-control`, {
+    let inputClasses = classNames(`tw-form-control tw-pr-18`, {
       "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-8":
         this.props.formStyle == `pop`,
       "tw-h-24": this.props.formStyle == `pni`,
@@ -396,12 +396,12 @@ class JoinUs extends Component {
           )}
         </div>
         {this.state.userTriedSubmitting && !emailValidation.valid && (
-          <p className="tw-body-small form-control-feedback">
+          <p className="tw-body-small tw-form-control-feedback">
             {emailValidation.errorMessage}
           </p>
         )}
         {this.state.signupFailed && (
-          <small className="form-control-feedback">
+          <small className="tw-form-control-feedback">
             Something went wrong. Please check your email address and try again
           </small>
         )}
@@ -479,7 +479,7 @@ class JoinUs extends Component {
    */
   renderPrivacyField() {
     let classes = classNames(`my-3 form-check form-group`, {
-      "has-danger":
+      "tw-has-danger":
         !this.state.apiSuccess &&
         this.state.userTriedSubmitting &&
         !this.privacy.checked,

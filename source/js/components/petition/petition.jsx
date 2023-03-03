@@ -506,38 +506,38 @@ class Petition extends Component {
         : null;
 
     let givenGroupClass = classNames({
-      "has-danger":
+      "tw-has-danger":
         this.state.userTriedSubmitting && !this.givenNames.element.value,
     });
 
     let surGroupClass = classNames({
-      "has-danger":
+      "tw-has-danger":
         this.state.userTriedSubmitting && !this.surname.element.value,
     });
 
     let emailGroupClass = classNames({
-      "has-danger":
+      "tw-has-danger":
         this.state.userTriedSubmitting &&
         (!this.email.element.value ||
           !this.validatesAsEmail(this.email.element.value)),
     });
 
     let countryGroupClass = classNames({
-      "has-danger":
+      "tw-has-danger":
         this.props.requiresCountryCode === `True` &&
         this.state.userTriedSubmitting &&
         !this.country.element.value,
     });
 
     let postalCodeGroupClass = classNames({
-      "has-danger":
+      "tw-has-danger":
         this.props.requiresPostalCode === `True` &&
         this.state.userTriedSubmitting &&
         !this.postalCode.element.value,
     });
 
     let commentGroupClass = classNames({
-      "has-danger":
+      "tw-has-danger":
         (this.props.commentRequirements === `required` &&
           this.state.userTriedSubmitting &&
           !this.comment.element.value) ||
@@ -549,11 +549,11 @@ class Petition extends Component {
 
     let privacyClass = classNames(`my-3`, {
       "form-check": true,
-      "has-danger":
+      "tw-has-danger":
         this.state.userTriedSubmitting && !this.refs.privacy.checked,
     });
 
-    let errorMessageClass = `tw-body-small form-control-feedback`;
+    let errorMessageClass = `tw-body-small tw-form-control-feedback`;
 
     let checkboxes = this.generateCheckboxes(disableFields);
 
@@ -709,7 +709,7 @@ class Petition extends Component {
                 </div>
                 {this.state.userTriedSubmitting &&
                   !this.refs.privacy.checked && (
-                    <p className={errorMessageClass}>
+                    <p className={`${errorMessageClass} tw-ml-[-1.2rem]`}>
                       {getText(`Please check this box if you want to proceed`)}
                     </p>
                   )}
