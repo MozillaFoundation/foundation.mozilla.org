@@ -160,9 +160,9 @@ class TestProductPage(BuyersGuideTestCase):
                 article=related_article,
             )
             related_articles_en.append(related_article)
-        
+
         self.synchronize_tree()
-        
+
         related_articles_fr = []
         for article in related_articles_en:
             article_fr = article.get_translation(self.fr_locale)
