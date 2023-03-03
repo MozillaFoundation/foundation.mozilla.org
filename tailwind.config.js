@@ -5,6 +5,7 @@ const componentPlugins = require("./tailwind-plugins/components");
 const buttonPlugins = require("./tailwind-plugins/button");
 const typePlugins = require("./tailwind-plugins/type");
 const glyphPlugins = require("./tailwind-plugins/glyph");
+const formControlPlugins = require("./tailwind-plugins/form-control");
 
 module.exports = {
   content: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
@@ -56,6 +57,7 @@ module.exports = {
     ...buttonPlugins,
     ...typePlugins,
     ...glyphPlugins,
+    ...formControlPlugins,
     require("@tailwindcss/forms")({ strategy: "class" }),
     require("@tailwindcss/line-clamp"),
   ],

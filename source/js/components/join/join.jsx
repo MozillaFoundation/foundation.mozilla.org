@@ -361,7 +361,7 @@ class JoinUs extends Component {
       "position-relative": wrapperClasses !== ``,
     });
 
-    let inputClasses = classNames(`form-control`, {
+    let inputClasses = classNames(`tw-form-control`, {
       "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-8":
         this.props.formStyle == `pop`,
       "tw-h-24": this.props.formStyle == `pni`,
@@ -418,7 +418,7 @@ class JoinUs extends Component {
   }
 
   renderLocaleFields() {
-    let selectInputClasses = classNames(`w-100`, {
+    let selectInputClasses = classNames(`tw-w-full`, {
       "tw-border-1 tw-border-black focus:tw-border-blue-40 focus:tw-shadow-none":
         this.props.formStyle == `pop`,
     });
@@ -456,7 +456,7 @@ class JoinUs extends Component {
         <div className="mb-2">
           <input
             type="text"
-            className="form-control"
+            className="tw-form-control"
             placeholder="First name"
             ref={(el) => (this.givenNames = el)}
             onFocus={(evt) => this.onInputFocus(evt)}
@@ -465,7 +465,7 @@ class JoinUs extends Component {
         <div className="mb-2">
           <input
             type="text"
-            className="form-control"
+            className="tw-form-control"
             placeholder="Last name"
             ref={(el) => (this.surname = el)}
             onFocus={(evt) => this.onInputFocus(evt)}
@@ -516,7 +516,7 @@ class JoinUs extends Component {
             )}
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (
-          <p className="tw-body-small form-control-feedback mt-0 mb-3">
+          <p className="tw-body-small tw-form-control-feedback mt-0 mb-3">
             {getText(`Please check this box if you want to proceed.`)}
           </p>
         )}

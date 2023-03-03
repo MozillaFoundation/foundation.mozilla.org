@@ -621,7 +621,7 @@ class Petition extends Component {
             </div>
             <div className={countryGroupClass}>
               <CountrySelect
-                className="form-control-lg mb-1 w-100"
+                className="tw-form-control-lg mb-1 w-100"
                 ref={(element) => {
                   this.country = element;
                 }}
