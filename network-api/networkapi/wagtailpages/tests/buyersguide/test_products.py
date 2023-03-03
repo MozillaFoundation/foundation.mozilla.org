@@ -151,7 +151,6 @@ class TestProductPage(BuyersGuideTestCase):
             parent=self.bg,
         )
         product_page = self.product_page
-
         related_articles_en = []
         for _ in range(5):
             related_article = buyersguide_factories.BuyersGuideArticlePageFactory(parent=content_index)
@@ -160,9 +159,7 @@ class TestProductPage(BuyersGuideTestCase):
                 article=related_article,
             )
             related_articles_en.append(related_article)
-
         self.synchronize_tree()
-
         related_articles_fr = []
         for article in related_articles_en:
             article_fr = article.get_translation(self.fr_locale)
@@ -238,7 +235,6 @@ class TestProductPage(BuyersGuideTestCase):
             parent=self.bg,
         )
         product_page = self.product_page
-
         related_articles_en = []
         for i in range(5):
             related_article = buyersguide_factories.BuyersGuideArticlePageFactory(parent=content_index)
@@ -248,9 +244,7 @@ class TestProductPage(BuyersGuideTestCase):
                 sort_order=i,
             )
             related_articles_en.append(related_article)
-
         self.synchronize_tree()
-
         related_articles_fr = []
         for article in related_articles_en:
             article_fr = article.get_translation(self.fr_locale)
@@ -258,7 +252,6 @@ class TestProductPage(BuyersGuideTestCase):
 
         product_page_fr = product_page.get_translation(self.fr_locale)
         self.activate_locale(self.fr_locale)
-
         result = product_page_fr.get_primary_related_articles()
 
         for related_article in related_articles_fr[:3]:
@@ -300,7 +293,6 @@ class TestProductPage(BuyersGuideTestCase):
             parent=self.bg,
         )
         product_page = self.product_page
-
         related_articles_en = []
         for i in range(5):
             related_article = buyersguide_factories.BuyersGuideArticlePageFactory(parent=content_index)
@@ -310,9 +302,7 @@ class TestProductPage(BuyersGuideTestCase):
                 sort_order=i,
             )
             related_articles_en.append(related_article)
-
         self.synchronize_tree()
-
         related_articles_fr = []
         for article in related_articles_en:
             article_fr = article.get_translation(self.fr_locale)
@@ -320,7 +310,6 @@ class TestProductPage(BuyersGuideTestCase):
 
         product_page_fr = product_page.get_translation(self.fr_locale)
         self.activate_locale(self.fr_locale)
-
         result = product_page_fr.get_secondary_related_articles()
 
         for related_article in related_articles_fr[:3]:
