@@ -39,6 +39,7 @@ import { initYoutubeRegretsCarousel } from "./foundation/pages/youtube-regrets/c
 import { initYoutubeRegretsLocomotiveScroll } from "./foundation/pages/youtube-regrets/locomotive-scroll";
 
 // Initializing component a11y browser console logging
+// TODO React-axe is currently deprecated, we should replace it with @axe-core/react
 if (
   typeof process !== "undefined" &&
   process.env &&

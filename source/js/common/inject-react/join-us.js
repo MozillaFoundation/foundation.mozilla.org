@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import JoinUs from "../../components/join/join.jsx";
 
 /**
@@ -18,10 +18,8 @@ export default (apps, siteUrl) => {
 
     apps.push(
       new Promise((resolve) => {
-        ReactDOM.render(
-          <JoinUs {...props} whenLoaded={() => resolve()} />,
-          element
-        );
+        const root = createRoot(element);
+        root.render(<JoinUs {...props} whenLoaded={() => resolve()} />);
       })
     );
   });

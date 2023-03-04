@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import JoinUs from "./components/join/join.jsx";
 import { ReactGA } from "../js/common";
 
@@ -163,7 +163,8 @@ class NavNewsletter {
       props.signupId || 0
     }/`;
     props.isHidden = false;
-    this.form = ReactDOM.render(<JoinUs {...props} />, elements.joinUs);
+    const root = createRoot(elements.joinUs);
+    this.form = root.render(<JoinUs {...props} />);
 
     // For desktop+ version:
     // make 'buttonDesktop' the trigger to open newsletter section

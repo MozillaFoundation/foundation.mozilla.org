@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import PulseProjectList from "../../components/pulse-project-list/pulse-project-list.jsx";
 
 /**
@@ -10,7 +10,8 @@ export default (apps, env) => {
   document.querySelectorAll(`.pulse-project-list`).forEach((target) => {
     apps.push(
       new Promise((resolve) => {
-        ReactDOM.render(
+        const root = createRoot(container);
+        root.render(
           <PulseProjectList
             env={env}
             featured={target.dataset.featured === `True`}

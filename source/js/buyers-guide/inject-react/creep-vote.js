@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import CreepVote from "../components/creep-vote/creep-vote.jsx";
 
 /**
@@ -33,7 +33,8 @@ export default (apps, siteUrl) => {
 
     apps.push(
       new Promise((resolve) => {
-        ReactDOM.render(
+        const root = createRoot(element);
+        root.render(
           <CreepVote
             productType={productType}
             productName={productName}
@@ -41,8 +42,7 @@ export default (apps, siteUrl) => {
             votes={votes}
             whenLoaded={() => resolve()}
             joinUsApiUrl={`${siteUrl}/api/campaign/signups/0/`}
-          />,
-          element
+          />
         );
       })
     );

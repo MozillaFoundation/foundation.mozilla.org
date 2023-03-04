@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import Petition from "../../components/petition/petition.jsx";
 
 /**
@@ -21,14 +21,14 @@ export default (apps, siteUrl) => {
 
     apps.push(
       new Promise((resolve) => {
-        ReactDOM.render(
+        const root = createRoot(element);
+        root.render(
           <Petition
             {...props}
             isHidden={false}
             subscribed={subscribed}
             whenLoaded={() => resolve()}
-          />,
-          element
+          />
         );
       })
     );
