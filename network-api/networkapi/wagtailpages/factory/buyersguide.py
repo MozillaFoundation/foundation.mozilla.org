@@ -1,4 +1,5 @@
 from datetime import date, datetime, timedelta, timezone
+from itertools import chain
 from random import choice, randint, random, randrange, shuffle
 
 from django.utils import text as text_utils
@@ -81,12 +82,12 @@ class BuyersGuidePageFactory(PageFactory):
     call_to_action = SubFactory(BuyersGuideCallToActionFactory)
 
 
-class BuyersGuidePageHeroSupportingArticleRelationFactory(DjangoModelFactory):
+class BuyersGuidePageHeroSupportingPageRelationFactory(DjangoModelFactory):
     class Meta:
-        model = pagemodels.BuyersGuidePageHeroSupportingArticleRelation
+        model = pagemodels.BuyersGuidePageHeroSupportingPageRelation
 
     page = SubFactory(BuyersGuidePageFactory)
-    article = SubFactory(
+    supporting_page = SubFactory(
         "networkapi.wagtailpages.factory.buyersguide.BuyersGuideArticlePageFactory",
     )
 
@@ -449,16 +450,19 @@ def generate(seed):
         campaign_page = BuyersGuideCampaignPageFactory(parent=editorial_content_index)
         BuyersGuideCampaignPageDonationModalRelationFactory(page=campaign_page)
 
-    # Buyerguide homepage hero article
-    pni_homepage.hero_featured_article = pagemodels.BuyersGuideArticlePage.objects.first()
+    # Buyerguide homepage hero page
+    pni_homepage.hero_featured_page = pagemodels.BuyersGuideArticlePage.objects.first()
     pni_homepage.full_clean()
     pni_homepage.save()
-    # Buyerguide homepage hero supporting articles
-    supporting_articles = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=3)
-    for index, article in enumerate(supporting_articles):
-        BuyersGuidePageHeroSupportingArticleRelationFactory(
+    # Buyerguide homepage hero supporting pages
+    supporting_articles = get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=2)
+    supporting_campaigns = get_random_objects(pagemodels.BuyersGuideCampaignPage, exact_count=1)
+    supporting_pages = chain(supporting_articles, supporting_campaigns)
+
+    for index, page in enumerate(supporting_pages):
+        BuyersGuidePageHeroSupportingPageRelationFactory(
             page=pni_homepage,
-            article=article,
+            supporting_page=page,
             sort_order=index,
         )
 
