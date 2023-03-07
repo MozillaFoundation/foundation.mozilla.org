@@ -25,7 +25,6 @@ from networkapi.wagtailpages.utils import (
     localize_queryset,
     titlecase,
 )
-from networkapi.wagtailpages.views import localized_redirect
 
 from ..index import IndexPage
 from .blog_topic import BlogPageTopic
