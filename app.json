@@ -2,7 +2,7 @@
   "name": "Mozilla Foundation site",
   "description": "Mozilla Foundation site",
   "addons": [
-    "heroku-postgresql:hobby-dev"
+    "heroku-postgresql:mini"
   ],
   "formation": {
     "web": {
