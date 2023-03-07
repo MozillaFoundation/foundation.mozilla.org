@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Optional, Union
 
 from django.apps import apps
 from django.conf import settings
@@ -38,7 +38,11 @@ from networkapi.wagtailpages.utils import (
 )
 
 if TYPE_CHECKING:
-    from networkapi.wagtailpages.models import BuyersGuideArticlePage, Update
+    from networkapi.wagtailpages.models import (
+        BuyersGuideArticlePage,
+        BuyersGuideCampaignPage,
+        Update,
+    )
 
 
 class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
@@ -53,21 +57,21 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         "wagtailpages.BuyersGuideEditorialContentIndexPage",
     ]
 
-    hero_featured_article = models.ForeignKey(
-        "wagtailpages.BuyersGuideArticlePage",
+    hero_featured_page = models.ForeignKey(
+        "wagtailcore.Page",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
     )
 
-    hero_supporting_articles_heading = models.CharField(
+    hero_supporting_pages_heading = models.CharField(
         max_length=50,
-        default=_("Related articles"),
+        default=_("Related reading"),
         blank=False,
         null=False,
         help_text=(
-            "Heading for the articles rendered next to the hero featured article. "
+            "Heading for the links rendered next to the main featured page. "
             'Common choices are "Related articles", "Popular articles", etc.'
         ),
     )
@@ -98,17 +102,17 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         FieldPanel("title"),
         MultiFieldPanel(
             children=[
-                HelpPanel(content="<h2>Main article</h2>"),
+                HelpPanel(content="<h2>Main Featured Page</h2>"),
                 PageChooserPanel(
-                    "hero_featured_article",
-                    page_type="wagtailpages.BuyersGuideArticlePage",
+                    "hero_featured_page",
+                    page_type=["wagtailpages.BuyersGuideArticlePage", "wagtailpages.BuyersGuideCampaignPage"],
                 ),
-                HelpPanel(content="<h2>Supporting articles</h2>"),
-                FieldPanel("hero_supporting_articles_heading", heading="Heading"),
+                HelpPanel(content="<h2>Supporting Featured Pages</h2>"),
+                FieldPanel("hero_supporting_pages_heading", heading="Heading"),
                 InlinePanel(
-                    "hero_supporting_article_relations",
-                    heading="Supporting articles",
-                    label="Article",
+                    "hero_supporting_page_relations",
+                    heading="Supporting Pages",
+                    label="Page",
                 ),
             ],
             heading="Hero",
@@ -147,15 +151,15 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     translatable_fields = [
         TranslatableField("title"),
-        # Hero featured article should be translatable, but that is causing issues.
+        # Hero featured page should be translatable, but that is causing issues.
         # Using sync field as workaround.
         # See also: https://github.com/wagtail/wagtail-localize/issues/430
-        SynchronizedField("hero_featured_article"),
-        # Hero supporting article relations should also be translatable, but that is
+        SynchronizedField("hero_featured_page"),
+        # Hero supporting page relations should also be translatable, but that is
         # also causing issues. Using sync filed as a workaround.
         # See also: https://github.com/wagtail/wagtail-localize/issues/640
-        SynchronizedField("hero_supporting_article_relations"),
-        TranslatableField("hero_supporting_articles_heading"),
+        SynchronizedField("hero_supporting_page_relations"),
+        TranslatableField("hero_supporting_pages_heading"),
         # Featured articles should be translatable too. See above explanation for
         # hero supporting articles.
         SynchronizedField("featured_article_relations"),
@@ -392,25 +396,26 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
         return indexes.first()
 
-    def get_hero_featured_article(self) -> Optional["BuyersGuideArticlePage"]:
+    def get_hero_featured_page(self) -> Optional[Union["BuyersGuideArticlePage", "BuyersGuideCampaignPage"]]:
         try:
-            return self.hero_featured_article.localized
+            return self.hero_featured_page.specific.localized
         except AttributeError:
-            # If no hero featured article is set (because `None` has no `localized`
+            # If no hero featured page is set (because `None` has no `localized`
             # attribute)
             return None
 
-    def get_hero_supporting_articles(self) -> list["BuyersGuideArticlePage"]:
-        articles = orderables.get_related_items(
-            self.hero_supporting_article_relations.all(),
-            "article",
+    def get_hero_supporting_pages(self) -> list[Union["BuyersGuideArticlePage", "BuyersGuideCampaignPage"]]:
+        supporting_pages = orderables.get_related_items(
+            self.hero_supporting_page_relations.all(),
+            "supporting_page",
         )
-        # FIXME: This implementation does return the localized version of each article.
-        #        But, it is inefficient. It would be better to pull all articles
-        #        for the correct locale at once. This would require the above returns
-        #        a queryset of the articles (rather than a list) and that we have an
-        #        efficient way of pulling all items for a given locale.
-        return [a.localized for a in articles]
+        # FIXME: This implementation returns the localized, subclassed version of each page.
+        #        But, it is inefficient. Both ".localized" and ".specific" are N+1 queries.
+        #        It would be better to pull all pages for the correct locale at once,
+        #        and applying ".specific()" at the end of the queryset.
+        #        This would require the above returns a queryset of the pages (rather than a list)
+        #        and that we have an efficient way of pulling all items for a given locale.
+        return [page.specific.localized for page in supporting_pages]
 
     def get_featured_articles(self) -> list["BuyersGuideArticlePage"]:
         articles = orderables.get_related_items(
@@ -442,22 +447,27 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         verbose_name = "Buyers Guide Page"
 
 
-class BuyersGuidePageHeroSupportingArticleRelation(TranslatableMixin, Orderable):
+class BuyersGuidePageHeroSupportingPageRelation(TranslatableMixin, Orderable):
     page = cluster_fields.ParentalKey(
         "wagtailpages.BuyersGuidePage",
-        related_name="hero_supporting_article_relations",
+        related_name="hero_supporting_page_relations",
     )
-    article = models.ForeignKey(
-        "wagtailpages.BuyersGuideArticlePage",
+    supporting_page = models.ForeignKey(
+        "wagtailcore.Page",
         on_delete=models.CASCADE,
         null=False,
         blank=False,
     )
 
-    panels = [PageChooserPanel("article", page_type="wagtailpages.BuyersGuideArticlePage")]
+    panels = [
+        PageChooserPanel(
+            "supporting_page",
+            page_type=["wagtailpages.BuyersGuideArticlePage", "wagtailpages.BuyersGuideCampaignPage"],
+        )
+    ]
 
     def __str__(self):
-        return f"{self.page.title} -> {self.article.title}"
+        return f"{self.page.title} -> {self.supporting_page.title}"
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
