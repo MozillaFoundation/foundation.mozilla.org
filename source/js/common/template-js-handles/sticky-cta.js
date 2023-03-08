@@ -15,11 +15,19 @@ export default () => {
   };
 
   let elCtaAnchor = document.querySelector(`#cta-anchor`);
-  let elStickyButton = document.querySelector(
-    `.narrow-sticky-button-container`
-  );
   let noopCtaButton = () => {};
   let adjustCtaButton = noopCtaButton;
+  // Set elStickyButton to a noop object if on MozFest site
+  // This is to address a bug when the sticky button is blocking users to access full content on Tito popup
+  // See https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10307
+  let elStickyButton = new URL(window.location.href).searchParams.has("tito")
+    ? {
+        classList: {
+          add: function () {},
+          remove: function () {},
+        },
+      }
+    : document.querySelector(`.narrow-sticky-button-container`);
 
   if (elCtaAnchor && elStickyButton) {
     let getAnchorPosition = () => {
