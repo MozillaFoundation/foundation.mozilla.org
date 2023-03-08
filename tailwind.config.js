@@ -49,6 +49,7 @@ module.exports = {
           verticalAlign: "middle",
         },
       };
+      addVariant("has-error", ".has-error &");
       addVariant("summary-open", ["details[open] > summary > &"]);
       addVariant("details-open", ["details[open] > &"]);
       addBase(newBase);

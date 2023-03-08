@@ -71,28 +71,6 @@ function formControl(theme) {
 }
 
 /**
- * Stylings for .has-danger (converted from our custom SCSS)
- * @param {*} theme Tailwind theme config
- * @returns {object} Stylings
- */
-function hasDanger(theme) {
-  const DANGER = "#c01";
-  const DARK_DANGER = theme("colors.red.40");
-
-  return {
-    ".form-control": {
-      border: `1px solid ${DANGER}`,
-    },
-    ".dark &": {
-      ".form-control": {
-        borderColor: DARK_DANGER,
-        borderWidth: "2px",
-      },
-    },
-  };
-}
-
-/**
  * Stylings for select.form-control (converted from Bootstrap 4.6 with our custom SCSS)
  * @param {*} theme Tailwind theme config
  * @returns {object} Stylings
@@ -166,9 +144,6 @@ module.exports = [
           {
             appearance: "none",
           },
-        ".has-danger": {
-          ...hasDanger(theme),
-        },
       },
     ]);
   }),

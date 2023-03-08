@@ -8,6 +8,8 @@ import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 import utility from "../../utility";
 
+const FORM_CONTROL_CLASS =
+  "tw-form-control has-error:tw-border has-error:tw-border-solid has-error:tw-border-[#c01] dark:has-error:tw-border-2 dark:has-error:tw-border-red-40";
 const ERROR_CLASSES = "tw-text-[#c01] dark:tw-text-red-40";
 
 /**
@@ -352,7 +354,7 @@ class JoinUs extends Component {
       : false;
 
     let wrapperClasses = classNames({
-      "tw-has-danger":
+      "tw-has-error":
         (!this.state.apiSuccess &&
           this.state.userTriedSubmitting &&
           !emailValidation.valid) ||
@@ -363,7 +365,7 @@ class JoinUs extends Component {
       "position-relative": wrapperClasses !== ``,
     });
 
-    let inputClasses = classNames(`tw-form-control tw-pr-18`, {
+    let inputClasses = classNames(`${FORM_CONTROL_CLASS} tw-pr-18`, {
       "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-8":
         this.props.formStyle == `pop`,
       "tw-h-24": this.props.formStyle == `pni`,
@@ -458,7 +460,7 @@ class JoinUs extends Component {
         <div className="mb-2">
           <input
             type="text"
-            className="tw-form-control"
+            className={FORM_CONTROL_CLASS}
             placeholder="First name"
             ref={(el) => (this.givenNames = el)}
             onFocus={(evt) => this.onInputFocus(evt)}
@@ -467,7 +469,7 @@ class JoinUs extends Component {
         <div className="mb-2">
           <input
             type="text"
-            className="tw-form-control"
+            className={FORM_CONTROL_CLASS}
             placeholder="Last name"
             ref={(el) => (this.surname = el)}
             onFocus={(evt) => this.onInputFocus(evt)}
@@ -481,7 +483,7 @@ class JoinUs extends Component {
    */
   renderPrivacyField() {
     let classes = classNames(`my-3 form-check form-group`, {
-      "tw-has-danger":
+      "tw-has-error":
         !this.state.apiSuccess &&
         this.state.userTriedSubmitting &&
         !this.privacy.checked,

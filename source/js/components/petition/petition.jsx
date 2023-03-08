@@ -9,6 +9,8 @@ import { getText, getCurrentLanguage } from "./locales";
 import copyToClipboard from "../../copy-to-clipboard";
 const SALESFORCE_COMMENT_LIMIT = 500;
 const CHECKBOX_LABEL_CLASS = `tw-body-small`;
+const FORM_CONTROL_CLASS =
+  "tw-form-control has-error:tw-border has-error:tw-border-solid has-error:tw-border-[#c01] dark:has-error:tw-border-2 dark:has-error:tw-border-red-40";
 
 /**
  * Petition sign-up form
@@ -506,38 +508,38 @@ class Petition extends Component {
         : null;
 
     let givenGroupClass = classNames({
-      "tw-has-danger":
+      "tw-has-error":
         this.state.userTriedSubmitting && !this.givenNames.element.value,
     });
 
     let surGroupClass = classNames({
-      "tw-has-danger":
+      "tw-has-error":
         this.state.userTriedSubmitting && !this.surname.element.value,
     });
 
     let emailGroupClass = classNames({
-      "tw-has-danger":
+      "tw-has-error":
         this.state.userTriedSubmitting &&
         (!this.email.element.value ||
           !this.validatesAsEmail(this.email.element.value)),
     });
 
     let countryGroupClass = classNames({
-      "tw-has-danger":
+      "tw-has-error":
         this.props.requiresCountryCode === `True` &&
         this.state.userTriedSubmitting &&
         !this.country.element.value,
     });
 
     let postalCodeGroupClass = classNames({
-      "tw-has-danger":
+      "tw-has-error":
         this.props.requiresPostalCode === `True` &&
         this.state.userTriedSubmitting &&
         !this.postalCode.element.value,
     });
 
     let commentGroupClass = classNames({
-      "tw-has-danger":
+      "tw-has-error":
         (this.props.commentRequirements === `required` &&
           this.state.userTriedSubmitting &&
           !this.comment.element.value) ||
@@ -549,7 +551,7 @@ class Petition extends Component {
 
     let privacyClass = classNames(`my-3`, {
       "form-check": true,
-      "tw-has-danger":
+      "tw-has-error":
         this.state.userTriedSubmitting && !this.refs.privacy.checked,
     });
 
