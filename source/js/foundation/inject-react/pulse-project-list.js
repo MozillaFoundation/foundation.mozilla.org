@@ -10,7 +10,7 @@ export default (apps, env) => {
   document.querySelectorAll(`.pulse-project-list`).forEach((target) => {
     apps.push(
       new Promise((resolve) => {
-        const root = createRoot(container);
+        const root = createRoot(target);
         root.render(
           <PulseProjectList
             env={env}
@@ -22,8 +22,7 @@ export default (apps, env) => {
             reverseChronological={target.dataset.reversed === `True`}
             whenLoaded={() => resolve()}
             directLink={target.dataset.directLink === `True`}
-          />,
-          target
+          />
         );
       })
     );

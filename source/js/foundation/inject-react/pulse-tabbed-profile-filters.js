@@ -36,7 +36,7 @@ export default (apps) => {
 
     apps.push(
       new Promise((resolve) => {
-        const root = createRoot(container);
+        const root = createRoot(target);
         root.render(
           <TabbedProfileFilters
             apiEndPoint={contentArea.dataset.apiEndpoint}
@@ -47,8 +47,7 @@ export default (apps) => {
             subfiltersKey={contentArea.dataset.subfiltersKey}
             whenLoaded={() => resolve}
             profiles={profiles}
-          />,
-          target
+          />
         );
       })
     );
