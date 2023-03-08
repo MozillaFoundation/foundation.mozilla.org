@@ -23,6 +23,7 @@ class NavNewsletter {
   constructor() {
     this.visible = false;
     this.form = null;
+    this.root = null;
   }
 
   isVisible() {
@@ -31,7 +32,9 @@ class NavNewsletter {
 
   // Reset form
   resetForm() {
-    this.form.reset();
+    this.root.unmount();
+    this.root = createRoot(elements.joinUs);
+    this.root.render(this.form);
 
     let handleTransitionend = () => {
       elements.container.removeEventListener(
@@ -163,8 +166,9 @@ class NavNewsletter {
       props.signupId || 0
     }/`;
     props.isHidden = false;
-    const root = createRoot(elements.joinUs);
-    this.form = root.render(<JoinUs {...props} />);
+    this.root = createRoot(elements.joinUs);
+    this.form = <JoinUs {...props} />;
+    this.root.render(this.form);
 
     // For desktop+ version:
     // make 'buttonDesktop' the trigger to open newsletter section
