@@ -10,7 +10,7 @@ import utility from "../../utility";
 
 const FORM_CONTROL_CLASS =
   "tw-form-control has-error:tw-border has-error:tw-border-solid has-error:tw-border-[#c01] dark:has-error:tw-border-2 dark:has-error:tw-border-red-40";
-const ERROR_CLASSES = "tw-text-[#c01] dark:tw-text-red-40";
+const ERROR_CLASS = "tw-text-[#c01] dark:tw-text-red-40";
 
 /**
  * Newsletter sign-up form
@@ -400,12 +400,12 @@ class JoinUs extends Component {
           )}
         </div>
         {this.state.userTriedSubmitting && !emailValidation.valid && (
-          <p className={`tw-body-small ${ERROR_CLASSES}`}>
+          <p className={`tw-body-small ${ERROR_CLASS}`}>
             {emailValidation.errorMessage}
           </p>
         )}
         {this.state.signupFailed && (
-          <small className={ERROR_CLASSES}>
+          <small className={ERROR_CLASS}>
             Something went wrong. Please check your email address and try again
           </small>
         )}
@@ -520,7 +520,7 @@ class JoinUs extends Component {
             )}
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (
-          <p className={`tw-body-small mt-0 mb-3 ${ERROR_CLASSES}`}>
+          <p className={`tw-body-small mt-0 mb-3 ${ERROR_CLASS}`}>
             {getText(`Please check this box if you want to proceed.`)}
           </p>
         )}
