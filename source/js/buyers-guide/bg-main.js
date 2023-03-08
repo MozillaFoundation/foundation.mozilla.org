@@ -20,6 +20,7 @@ import PNIMobileNav from "./pni-mobile-nav.js";
 
 // Initializing component a11y browser console logging
 // TODO React-axe is currently deprecated, we should replace it with @axe-core/react
+// https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10306
 if (
   typeof process !== "undefined" &&
   process.env &&
