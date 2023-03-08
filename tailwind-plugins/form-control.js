@@ -83,16 +83,10 @@ function hasDanger(theme) {
     ".form-control": {
       border: `1px solid ${DANGER}`,
     },
-    ".form-control-feedback": {
-      color: DANGER,
-    },
     ".dark &": {
       ".form-control": {
         borderColor: DARK_DANGER,
         borderWidth: "2px",
-      },
-      ".form-control-feedback": {
-        color: DARK_DANGER,
       },
     },
   };

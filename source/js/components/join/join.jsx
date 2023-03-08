@@ -8,6 +8,8 @@ import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 import utility from "../../utility";
 
+const ERROR_CLASSES = "tw-text-[#c01] dark:tw-text-red-40";
+
 /**
  * Newsletter sign-up form
  * TODO: Need to split into separate components and reorganize. Component is way too big.
@@ -396,12 +398,12 @@ class JoinUs extends Component {
           )}
         </div>
         {this.state.userTriedSubmitting && !emailValidation.valid && (
-          <p className="tw-body-small tw-form-control-feedback">
+          <p className={`tw-body-small ${ERROR_CLASSES}`}>
             {emailValidation.errorMessage}
           </p>
         )}
         {this.state.signupFailed && (
-          <small className="tw-form-control-feedback">
+          <small className={ERROR_CLASSES}>
             Something went wrong. Please check your email address and try again
           </small>
         )}
@@ -516,7 +518,7 @@ class JoinUs extends Component {
             )}
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (
-          <p className="tw-body-small tw-form-control-feedback mt-0 mb-3">
+          <p className={`tw-body-small mt-0 mb-3 ${ERROR_CLASSES}`}>
             {getText(`Please check this box if you want to proceed.`)}
           </p>
         )}

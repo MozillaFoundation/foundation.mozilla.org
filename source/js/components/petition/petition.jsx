@@ -553,7 +553,7 @@ class Petition extends Component {
         this.state.userTriedSubmitting && !this.refs.privacy.checked,
     });
 
-    let errorMessageClass = `tw-body-small tw-form-control-feedback`;
+    let errorMessageClass = `tw-body-small tw-text-[#c01] dark:tw-text-red-40`;
 
     let checkboxes = this.generateCheckboxes(disableFields);
 
