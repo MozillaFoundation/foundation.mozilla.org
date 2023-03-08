@@ -3,7 +3,7 @@ import Petition from "../../components/petition/petition.jsx";
 
 /**
  * Inject petition forms
- * @param {Array} apps The existing array we are using to to track all ReactDOM.render calls
+ * @param {Array} apps The existing array we are using to to track all React client rendering calls
  * @param {String} siteUrl Foundation site base URL
  */
 export default (apps, siteUrl) => {

@@ -52,7 +52,7 @@ if (
 // To be populated via XHR and querySelector
 let env, networkSiteURL;
 
-// Track all ReactDOM.render calls so we can use a Promise.all()
+// Track all React client rendering calls so we can use a Promise.all()
 // all the way at the end to make sure we don't report "we are done"
 // until all the React stuff is _actually_ done.
 const apps = [];

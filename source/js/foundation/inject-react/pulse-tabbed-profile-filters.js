@@ -4,7 +4,7 @@ import TabbedProfileFilters from "../../components/tabbed-profile-directory/tabb
 
 /**
  * Inject custom tabbed pulse profile filtering
- * @param {Array} apps The existing array we are using to to track all ReactDOM.render calls
+ * @param {Array} apps The existing array we are using to to track all React client rendering calls
  */
 export default (apps) => {
   const domContainers = document.querySelectorAll(

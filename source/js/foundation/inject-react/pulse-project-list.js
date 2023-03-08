@@ -3,7 +3,7 @@ import PulseProjectList from "../../components/pulse-project-list/pulse-project-
 
 /**
  * Inject Pulse project list
- * @param {Array} apps The existing array we are using to to track all ReactDOM.render calls
+ * @param {Array} apps The existing array we are using to to track all React client rendering calls
  * @param {Object} env Object of environment variables
  */
 export default (apps, env) => {
