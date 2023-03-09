@@ -5,7 +5,6 @@ const componentPlugins = require("./tailwind-plugins/components");
 const buttonPlugins = require("./tailwind-plugins/button");
 const typePlugins = require("./tailwind-plugins/type");
 const glyphPlugins = require("./tailwind-plugins/glyph");
-const formControlPlugins = require("./tailwind-plugins/form-control");
 
 module.exports = {
   content: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
@@ -49,7 +48,6 @@ module.exports = {
           verticalAlign: "middle",
         },
       };
-      addVariant("has-error", ".has-error &");
       addVariant("summary-open", ["details[open] > summary > &"]);
       addVariant("details-open", ["details[open] > &"]);
       addBase(newBase);
@@ -58,7 +56,6 @@ module.exports = {
     ...buttonPlugins,
     ...typePlugins,
     ...glyphPlugins,
-    ...formControlPlugins,
     require("@tailwindcss/forms")({ strategy: "class" }),
     require("@tailwindcss/line-clamp"),
   ],

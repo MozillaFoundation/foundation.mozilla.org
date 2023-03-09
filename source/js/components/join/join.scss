@@ -1,12 +1,33 @@
 .join-us {
   background: inherit;
 
-  .tw-has-error {
+  .has-danger {
     $glyph-container: (
       "margin-x": 10px,
       "height": 20px,
       "width": 13px,
     );
+
+    color: $danger;
+
+    .form-control {
+      padding-right: map-get($glyph-container, "margin-x") * 2 +
+        map-get($glyph-container, "width");
+      border: 1px solid $danger;
+
+      @at-root .tw-dark & {
+        border-width: 2px;
+        border-color: $dark-theme-danger;
+      }
+    }
+
+    .form-control-feedback {
+      color: $danger;
+
+      @at-root .tw-dark & {
+        color: $dark-theme-danger;
+      }
+    }
 
     .glyph-container {
       position: absolute;
@@ -27,6 +48,12 @@
         margin-left: 0;
       }
     }
+  }
+
+  .form-control {
+    font-weight: 400;
+    color: $black;
+    border-radius: 0;
   }
 
   .fields-wrapper {

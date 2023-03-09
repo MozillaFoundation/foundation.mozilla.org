@@ -12,7 +12,7 @@ class CountrySelect extends Component {
 
   render() {
     let classes = classNames(
-      `country-picker tw-form-control`,
+      `country-picker form-control`,
       this.props.className
     );
     let codes = Object.keys(SALESFORCE_COUNTRY_LIST);
