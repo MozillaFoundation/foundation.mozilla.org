@@ -28,7 +28,6 @@ class BlogIndexTestCase(test_base.WagtailpagesTestCase):
         )
         cls.blog_index = blog_models.BlogIndexPage.objects.first()
 
-
     def fill_index_pages_with_blog_pages(
         self, index_pages_to_fill: int = 1, base_title: str = "Thisisnotthesearchterm"
     ):

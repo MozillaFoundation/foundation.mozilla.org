@@ -90,7 +90,7 @@ env = environ.Env(
     XROBOTSTAG_ENABLED=(bool, False),
     XSS_PROTECTION=bool,
     SCOUT_KEY=(str, ""),
-    WAGTAILADMIN_BASE_URL = (str, "")
+    WAGTAILADMIN_BASE_URL=(str, ""),
 )
 
 # Read in the environment
