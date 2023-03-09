@@ -22,10 +22,12 @@ class BlogIndexTestCase(test_base.WagtailpagesTestCase):
     def setUpTestData(cls):
         super().setUpTestData()
         cls.page_size = blog_index.BlogIndexPage.PAGE_SIZES[0][0]
-        cls.blog_index = blog_factories.BlogIndexPageFactory(
+        blog_factories.BlogIndexPageFactory(
             parent=cls.homepage,
             page_size=cls.page_size,
         )
+        cls.blog_index = blog_models.BlogIndexPage.objects.first()
+
 
     def fill_index_pages_with_blog_pages(
         self, index_pages_to_fill: int = 1, base_title: str = "Thisisnotthesearchterm"
