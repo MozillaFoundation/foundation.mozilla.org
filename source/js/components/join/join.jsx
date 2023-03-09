@@ -8,10 +8,6 @@ import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 import utility from "../../utility";
 
-const FORM_CONTROL_CLASS =
-  "tw-form-control has-error:tw-border has-error:tw-border-solid has-error:tw-border-[#c01] dark:has-error:tw-border-2 dark:has-error:tw-border-red-40";
-const ERROR_CLASS = "tw-text-[#c01] dark:tw-text-red-40";
-
 /**
  * Newsletter sign-up form
  * TODO: Need to split into separate components and reorganize. Component is way too big.
@@ -354,7 +350,7 @@ class JoinUs extends Component {
       : false;
 
     let wrapperClasses = classNames({
-      "tw-has-error":
+      "has-danger":
         (!this.state.apiSuccess &&
           this.state.userTriedSubmitting &&
           !emailValidation.valid) ||
@@ -365,7 +361,7 @@ class JoinUs extends Component {
       "position-relative": wrapperClasses !== ``,
     });
 
-    let inputClasses = classNames(`${FORM_CONTROL_CLASS} tw-pr-18`, {
+    let inputClasses = classNames(`form-control`, {
       "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-8":
         this.props.formStyle == `pop`,
       "tw-h-24": this.props.formStyle == `pni`,
@@ -400,12 +396,12 @@ class JoinUs extends Component {
           )}
         </div>
         {this.state.userTriedSubmitting && !emailValidation.valid && (
-          <p className={`tw-body-small ${ERROR_CLASS}`}>
+          <p className="tw-body-small form-control-feedback">
             {emailValidation.errorMessage}
           </p>
         )}
         {this.state.signupFailed && (
-          <small className={ERROR_CLASS}>
+          <small className="form-control-feedback">
             Something went wrong. Please check your email address and try again
           </small>
         )}
@@ -422,7 +418,7 @@ class JoinUs extends Component {
   }
 
   renderLocaleFields() {
-    let selectInputClasses = classNames(`tw-w-full`, {
+    let selectInputClasses = classNames(`w-100`, {
       "tw-border-1 tw-border-black focus:tw-border-blue-40 focus:tw-shadow-none":
         this.props.formStyle == `pop`,
     });
@@ -460,7 +456,7 @@ class JoinUs extends Component {
         <div className="mb-2">
           <input
             type="text"
-            className={FORM_CONTROL_CLASS}
+            className="form-control"
             placeholder="First name"
             ref={(el) => (this.givenNames = el)}
             onFocus={(evt) => this.onInputFocus(evt)}
@@ -469,7 +465,7 @@ class JoinUs extends Component {
         <div className="mb-2">
           <input
             type="text"
-            className={FORM_CONTROL_CLASS}
+            className="form-control"
             placeholder="Last name"
             ref={(el) => (this.surname = el)}
             onFocus={(evt) => this.onInputFocus(evt)}
@@ -483,7 +479,7 @@ class JoinUs extends Component {
    */
   renderPrivacyField() {
     let classes = classNames(`my-3 form-check form-group`, {
-      "tw-has-error":
+      "has-danger":
         !this.state.apiSuccess &&
         this.state.userTriedSubmitting &&
         !this.privacy.checked,
@@ -520,7 +516,7 @@ class JoinUs extends Component {
             )}
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (
-          <p className={`tw-body-small mt-0 mb-3 ${ERROR_CLASS}`}>
+          <p className="tw-body-small form-control-feedback mt-0 mb-3">
             {getText(`Please check this box if you want to proceed.`)}
           </p>
         )}
