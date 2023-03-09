@@ -20,7 +20,7 @@ test(`Foundation homepage`, async ({ page }, testInfo) => {
 
   // Does the country list show only after we focus on the signup email field?
   const countryPicker = await page.locator(
-    `#nav-newsletter-form-wrapper .country-picker.form-control`
+    `#nav-newsletter-form-wrapper .country-picker.tw-form-control`
   );
   const languagePicker = await page.locator(`#userLanguage-header`);
   expect(await countryPicker.isVisible()).toBe(false);
