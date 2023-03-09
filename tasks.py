@@ -286,10 +286,6 @@ def test_python(ctx):
     """Run python tests."""
     manage(ctx, "test networkapi")
 
-@task(aliases=["docker-spot-test"])
-def spot_test(ctx):
-    """Run python tests."""
-    manage(ctx, "test networkapi.wagtailpages.tests.test_blog.TestBlogIndex")
 
 # Linting
 @task
