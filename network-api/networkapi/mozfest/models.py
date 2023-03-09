@@ -199,6 +199,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         "are no slides present.",
         blank=True,
         null=True,
+        use_json_field=True,
     )
 
     # For banner_video_type == 'featured'
