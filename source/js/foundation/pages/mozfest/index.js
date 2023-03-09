@@ -1,5 +1,5 @@
 import { bindEventHandlers } from "./template-js-handler";
-import { setupTitoEventListner } from "./tito";
+import { setupTitoEventListener } from "./tito";
 
 bindEventHandlers();
-setupTitoEventListner();
+setupTitoEventListener();

@@ -1,9 +1,9 @@
 /**
- * Update UI on the page based on Tito widget's loaded state
+ * Set up event listeners for Tito widget
  * Tito API Doc: https://ti.to/docs/api/widget#tito-widget-v2-callbacks
  */
 
-export function setupTitoEventListner() {
+export function setupTitoEventListener() {
   globalThis.tito =
     globalThis.tito ||
     function () {
