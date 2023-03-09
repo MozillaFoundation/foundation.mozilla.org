@@ -54,7 +54,11 @@
 
     <div class="cms article-page-content article-blocks">
         {% for block in page.body %}
-            {% include_block block with parent_page=page page_type="article" width='4_5' %}
+            {% if block.block_type == 'accordion' %}
+                {% include_block block with parent_page=page page_type="article" width='4_5' %}
+            {% else %}
+                {% include_block block with parent_page=page page_type="article" %}
+            {% endif %}
         {% endfor %}
     </div>
 
