@@ -124,7 +124,7 @@ let main = {
   },
 
   /**
-   * Initialized page specific script
+   * Initialize page specific script
    */
   initPageSpecificScript() {
     if (document.querySelector(`body.pni.catalog`)) {
