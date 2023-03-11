@@ -2,7 +2,7 @@
  * Replace pagination controls on the editorial content index page
  * with "load more" functionality.
  *
- * This is to be compiled as it's own JS file (bg-editorial-content-index.compiled.js)
+ * This is to be compiled as its own JS file (bg-editorial-content-index.compiled.js)
  * and not included in `bg-main.compiled.js`
  */
 
