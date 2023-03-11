@@ -1,17 +1,20 @@
 /**
- * Using the tito library to set up a ticket purchasing widget.
- * This file is to hook into a callback which runs when someone completes registration.
+ * Set up event listeners for Tito widget
+ * Tito API Doc: https://ti.to/docs/api/widget#tito-widget-v2-callbacks
  */
 
-export function setupTito() {
+export function setupTitoEventListener() {
   globalThis.tito =
     globalThis.tito ||
     function () {
       (tito.q = tito.q || []).push(arguments);
     };
 
-  tito("on:registration:finished", function (data) {
-    // TODO: this callback will be needed for #7435
-    console.log("Finished");
+  tito("on:widget:loaded", function () {
+    // To address a bug when the sticky button is blocking users to access full content on Tito popup
+    // See https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10307
+    document
+      .querySelector(`.narrow-sticky-button-container`)
+      .classList.add("hidden");
   });
 }
