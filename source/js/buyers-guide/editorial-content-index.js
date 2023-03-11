@@ -1,3 +1,11 @@
+/**
+ * Replace pagination controls on the editorial content index page
+ * with "load more" functionality.
+ *
+ * This is to be compiled as it's own JS file (bg-editorial-content-index.compiled.js)
+ * and not included in `bg-main.compiled.js`
+ */
+
 import "htmx.org";
 
 function main() {
@@ -12,6 +20,9 @@ function main() {
   });
 }
 
+/**
+ * Show "load more" and hide pagination controls
+ */
 function switchFromPaginationToLoadMore() {
   const loadMore = document.getElementById("load-more");
   const pagination = document.getElementById("pagination");
@@ -22,9 +33,11 @@ function switchFromPaginationToLoadMore() {
   }
 }
 
+/**
+ * Disable the load more button when the HTMX request is triggered.
+ */
 function setupLoadMoreButtonDisablingOnRequest() {
-  // Disable the load more button when the request is triggered.
-  // This is a signal to the user an prevents duplicate triggering.
+  // This is a signal to the user and prevents duplicate triggering.
   // We don't need to reactivate the button because it is replaced with the response.
   const loadMore = document.getElementById("load-more");
 

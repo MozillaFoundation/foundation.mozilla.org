@@ -1,3 +1,8 @@
+/**
+ * Newsletter box is hidden by default.
+ * Make newsletter box visible again for JS-enabled browser users
+ * so they can interact with the newsletter box.
+ */
 const NewsletterBox = {
   toggleVisibilityClasses: () => {
     const buyersGuideNewsletterBox = document.querySelector(

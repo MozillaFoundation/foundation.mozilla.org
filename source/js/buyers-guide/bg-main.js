@@ -36,6 +36,10 @@ const apps = [];
 let env, networkSiteURL;
 
 let main = {
+  /**
+   * Initializer
+   * Injects React components and bind event handlers for PNI specific elements
+   */
   init() {
     GoogleAnalytics.init();
 
@@ -84,6 +88,10 @@ let main = {
     });
   },
 
+  /**
+   * Fetch env var config from environment.json and process it for use
+   * @param {Object} processEnv env var config
+   */
   fetchEnv(processEnv) {
     let envReq = new XMLHttpRequest();
 
@@ -99,17 +107,25 @@ let main = {
     envReq.send();
   },
 
+  /**
+   * Bind event handlers
+   */
   bindHandlers() {
     bindCommonEventHandlers();
     bindEventHandlers();
   },
 
-  // Embed various React components based on the existence of containers within the current page
+  /**
+   * Inject React components
+   */
   injectReactComponents() {
     injectCommonReactComponents(apps, networkSiteURL);
     injectReactComponents(apps, networkSiteURL);
   },
 
+  /**
+   * Initialized page specific script
+   */
   initPageSpecificScript() {
     if (document.querySelector(`body.pni.catalog`)) {
       HomepageSlider.init();
