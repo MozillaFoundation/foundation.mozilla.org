@@ -1,5 +1,9 @@
 /**
- * Set up the search/filter functionality for PNI pages
+ * Set up the search/filter functionality PNI category page
+ * (See catalog.html and category_page.html)
+ *
+ * This is to be compiled as its own JS file (bg-search.compiled.js)
+ * and not included in `bg-main.compiled.js`
  */
 
 import { SearchFilter } from "./search/search-filter.js";
