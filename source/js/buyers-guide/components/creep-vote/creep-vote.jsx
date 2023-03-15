@@ -73,6 +73,9 @@ class CreepVote extends Component {
       });
   }
 
+  /**
+   * Show vote result
+   */
   showVoteResult() {
     const { creepinessSubmitted, voteCount } = this.state;
 
@@ -84,6 +87,10 @@ class CreepVote extends Component {
     }
   }
 
+  /**
+   * POST payload to /api/buyersguide/vote/
+   * @param {Object} payload data to submit
+   */
   sendVoteFor(payload) {
     let attribute = payload.attribute;
     // by default, we'll be posting to the PNI Django app posting route (see its views.py)
@@ -119,6 +126,10 @@ class CreepVote extends Component {
       });
   }
 
+  /**
+   * Event handler for form's submit event
+   * @param {Object} evt event object
+   */
   submitVote(evt) {
     evt.preventDefault();
 
@@ -135,17 +146,26 @@ class CreepVote extends Component {
     });
   }
 
+  /**
+   * Update component's creepiness state
+   * @param {number} creepiness
+   */
   setCreepiness(creepiness) {
     this.setState({ creepiness });
   }
 
+  /**
+   * Based on param successState,
+   * update session storage and component's showNewsletter state and subscribed state
+   * @param {boolean} successState
+   */
   handleSignUp(successState) {
     sessionStorage.setItem("subscribed", successState);
     this.setState({ showNewsletter: false, subscribed: successState });
   }
 
   /**
-   * @returns {jsx} What users see when they haven't voted on this product yet.
+   * @returns {React.ReactElement} What users see when they haven't voted on this product yet.
    */
   renderVoteAsk() {
     return (
@@ -192,10 +212,9 @@ class CreepVote extends Component {
   }
 
   /**
-   * @returns {jsx} Sign up ask in the middle of vote if user is not already subscribed
+   * @returns {React.ReactElement} Sign up ask in the middle of vote if user is not already subscribed
    * or if they haven't voted multiple times.
    */
-
   renderSignUp() {
     return (
       <Fragment>
@@ -219,6 +238,10 @@ class CreepVote extends Component {
     );
   }
 
+  /**
+   *
+   * @returns {Number[]} List of numbers to plug into CreepChart
+   */
   calcVoteBreakdown() {
     let new_breakdown = { ...this.props.votes.creepiness.vote_breakdown };
 
@@ -239,7 +262,7 @@ class CreepVote extends Component {
   }
 
   /**
-   * @returns {jsx} What users see when they have voted on this product.
+   * @returns {React.ReactElement} What users see when they have voted on this product.
    */
   renderDidVote() {
     let bins = CREEPINESS_LABELS.length;
@@ -273,6 +296,9 @@ class CreepVote extends Component {
     );
   }
 
+  /**
+   * @returns {React.ReactElement} Creep vote component
+   */
   render() {
     const { didVote, showNewsletter } = this.state;
     let content = this.renderVoteAsk();

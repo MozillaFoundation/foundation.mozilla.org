@@ -2,6 +2,11 @@ import React from "react";
 import { ReactGA } from "../../../common";
 import copyToClipboard from "../../../../js/copy-to-clipboard.js";
 
+/**
+ * Create anchor link based on the properties passed
+ * @param {Object} props Properties to use for the anchor link
+ * @returns {HTMLAnchorElement} anchor link
+ */
 const SocialShareLink = (props) => {
   let classes = ``;
   let srLabel = ``;
