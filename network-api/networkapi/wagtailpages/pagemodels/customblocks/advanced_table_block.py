@@ -45,6 +45,11 @@ class AdvancedTableBlock(blocks.StructBlock):
         required=False,
         help_text="A heading that identifies the overall topic of the table, and is useful for screen reader users",
     )
+    wide = blocks.BooleanBlock(
+        required=False,
+        default=True,
+        help_text="If this is checked, the table will render wider than the other page body content.",
+    )
 
     table = Table()
 
