@@ -1,5 +1,11 @@
 import { ReactGA, GoogleAnalytics } from "../common";
 
+/**
+ * Based on given page title and product name, generate an object to use for GA events
+ * @param {String} pageTitle page title
+ * @param {String} productName product name
+ * @returns {Object} Object that contains info to send to GA
+ */
 function getQuerySelectorEvents(pageTitle, productName) {
   return {
     // "site-wide" events
@@ -87,12 +93,22 @@ function getQuerySelectorEvents(pageTitle, productName) {
   };
 }
 
+/**
+ * Binds ReactGA.event to element's click event handler
+ * @param {HTMLElement} element
+ * @param {Object} eventData data to send as GA event
+ */
 function setupElementGA(element, eventData) {
   element.addEventListener("click", () => ReactGA.event(eventData), true);
 }
 
-// tracks only when users tick off the checkbox (and not when they uncheck it)
-function bindCheckboxCheckedGA(selector, eventMeta) {
+/**
+ * Binds ReactGA.event to checkbox's click event handler
+ * Tracks only when users tick off the checkbox (and not when they uncheck it)
+ * @param {*} selector query selector
+ * @param {*} eventData data to send as GA event
+ */
+function bindCheckboxCheckedGA(selector, eventData) {
   const checkbox = document.querySelector(selector);
 
   if (!checkbox) {
@@ -104,13 +120,17 @@ function bindCheckboxCheckedGA(selector, eventMeta) {
     "change",
     () => {
       if (checkbox.checked) {
-        ReactGA.event(eventMeta);
+        ReactGA.event(eventData);
       }
     },
     true
   );
 }
 
+/**
+ * Binds ReactGA.event to search box's keydown event handler
+ * GA Event gets sent when user triggers the keydown event for the first time during the current page session
+ */
 function trackSearchBoxUsage() {
   const SESSION_KEY = `searchBoxUsed`;
   const selector = `body.catalog #product-filter-search-input`;
@@ -140,6 +160,9 @@ function trackSearchBoxUsage() {
   );
 }
 
+/**
+ * Binds ReactGA.event to "Go Back to All Products" link's click event handler
+ */
 function trackGoBackToAllProductsLink() {
   const link = document.querySelector("body.catalog .go-back-to-all-link");
   const searchBox = document.querySelector(
@@ -164,7 +187,13 @@ function trackGoBackToAllProductsLink() {
   );
 }
 
+/**
+ * GA event setter
+ */
 const ProductGA = {
+  /**
+   * Binds ReactGA.event to various elements' event handlers
+   */
   init: () => {
     if (GoogleAnalytics.doNotTrack) {
       // explicit check on DNT left in, to prevent
