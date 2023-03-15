@@ -26,6 +26,9 @@ class Creepometer extends Component {
     }
   }
 
+  /**
+   * Prepare event handlers to bind to document
+   */
   setupDocumentListeners() {
     this.moveListener = (evt) => {
       this.props.toggleMoved();
@@ -42,6 +45,9 @@ class Creepometer extends Component {
     };
   }
 
+  /**
+   * Add various event handlers to document
+   */
   addDocumentListeners() {
     document.addEventListener(`mousemove`, this.moveListener, true);
     document.addEventListener(`touchmove`, this.moveListener, true);
@@ -49,6 +55,9 @@ class Creepometer extends Component {
     document.addEventListener(`touchstart`, this.releaseListener, true);
   }
 
+  /**
+   * Remove various event handlers from document
+   */
   removeDocumentListeners() {
     document.removeEventListener(`mousemove`, this.moveListener, true);
     document.removeEventListener(`touchmove`, this.moveListener, true);
@@ -56,6 +65,10 @@ class Creepometer extends Component {
     document.removeEventListener(`touchstart`, this.releaseListener, true);
   }
 
+  /**
+   * Update state to indicate sliding action has started
+   * @param {Object} e event object
+   */
   slideStart(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -71,12 +84,19 @@ class Creepometer extends Component {
     this.addDocumentListeners();
   }
 
+  /**
+   * Update state to indicate sliding action has stopped
+   */
   slideReleased() {
     this.setState({
       dragging: false,
     });
   }
 
+  /**
+   * Event handler for slider's keydown event
+   * @param {Object} e event object
+   */
   slideFromKey(e) {
     this.props.toggleMoved();
     const k = e.key;
@@ -89,6 +109,10 @@ class Creepometer extends Component {
     }
   }
 
+  /**
+   * Event handler for slider's click event
+   * @param {Object} e event object
+   */
   slideFromClick(e) {
     this.props.toggleMoved();
 
@@ -101,6 +125,11 @@ class Creepometer extends Component {
     this.repositionTrackHead(x, this.sliderElement.getBoundingClientRect());
   }
 
+  /**
+   * Find out where the mousemove/touchmove event is taken place
+   * and update the trackhead position accordingly
+   * @param {Object} e event object
+   */
   slideMove(e) {
     if (this.state.dragging) {
       let x = e.clientX,
@@ -121,12 +150,21 @@ class Creepometer extends Component {
     }
   }
 
+  /**
+   * Reposition track head
+   * @param {Number} x horizontal coordinate of the track head
+   * @param {Object} bbox parent's bounding box
+   */
   repositionTrackHead(x, bbox) {
     // compute the handle offset
     let percentage = Math.round((100 * (x - bbox.left)) / bbox.width);
     this.saveTrackHead(percentage);
   }
 
+  /**
+   * Update state and prop with the new percentage
+   * @param {Number} percentage
+   */
   saveTrackHead(percentage = 1) {
     if (percentage < 1) percentage = 1;
     if (percentage > 100) percentage = 100;
@@ -137,6 +175,9 @@ class Creepometer extends Component {
     });
   }
 
+  /**
+   * @returns {React.ReactElement} Creepometer component
+   */
   render() {
     let frameOffset = Math.round(
       (this.state.percentage * (this.faceCount - 1)) / 100
