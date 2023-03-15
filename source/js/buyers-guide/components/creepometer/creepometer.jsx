@@ -95,6 +95,7 @@ class Creepometer extends Component {
 
   /**
    * Event handler for slider's keydown event
+   * Calculate and save new creepiness percentage
    * @param {Object} e event object
    */
   slideFromKey(e) {
@@ -110,7 +111,8 @@ class Creepometer extends Component {
   }
 
   /**
-   * Event handler for slider's click event
+   * Event handler for slider's click event.
+   * Calculate and save new creepiness percentage.
    * @param {Object} e event object
    */
   slideFromClick(e) {
@@ -127,7 +129,7 @@ class Creepometer extends Component {
 
   /**
    * Find out where the mousemove/touchmove event is taken place
-   * and update the trackhead position accordingly
+   * so we can use it to calculate the new creepiness percentage
    * @param {Object} e event object
    */
   slideMove(e) {
@@ -151,19 +153,18 @@ class Creepometer extends Component {
   }
 
   /**
-   * Reposition track head
+   * Calculate and save new creepiness percentage
    * @param {Number} x horizontal coordinate of the track head
    * @param {Object} bbox parent's bounding box
    */
   repositionTrackHead(x, bbox) {
-    // compute the handle offset
     let percentage = Math.round((100 * (x - bbox.left)) / bbox.width);
     this.saveTrackHead(percentage);
   }
 
   /**
-   * Update state and prop with the new percentage
-   * @param {Number} percentage
+   * Update state and prop with the new percentage (in range 1-100)
+   * @param {Number} percentage creepiness percentage
    */
   saveTrackHead(percentage = 1) {
     if (percentage < 1) percentage = 1;
