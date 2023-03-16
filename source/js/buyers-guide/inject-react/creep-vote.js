@@ -1,10 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import CreepVote from "../components/creep-vote/creep-vote.jsx";
 
 /**
  * Inject creep vote section
- * @param {Array} apps The existing array we are using to to track all ReactDOM.render calls
+ * @param {Array} apps The existing array we are using to to track all React client rendering calls
  * @param {String} siteUrl Foundation site base URL
  */
 export default (apps, siteUrl) => {
@@ -33,7 +33,8 @@ export default (apps, siteUrl) => {
 
     apps.push(
       new Promise((resolve) => {
-        ReactDOM.render(
+        const root = createRoot(element);
+        root.render(
           <CreepVote
             productType={productType}
             productName={productName}
@@ -41,8 +42,7 @@ export default (apps, siteUrl) => {
             votes={votes}
             whenLoaded={() => resolve()}
             joinUsApiUrl={`${siteUrl}/api/campaign/signups/0/`}
-          />,
-          element
+          />
         );
       })
     );
