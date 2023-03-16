@@ -39,6 +39,8 @@ import { initYoutubeRegretsCarousel } from "./foundation/pages/youtube-regrets/c
 import { initYoutubeRegretsLocomotiveScroll } from "./foundation/pages/youtube-regrets/locomotive-scroll";
 
 // Initializing component a11y browser console logging
+// TODO React-axe is currently deprecated, we should replace it with @axe-core/react
+// https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10306
 if (
   typeof process !== "undefined" &&
   process.env &&
@@ -51,7 +53,7 @@ if (
 // To be populated via XHR and querySelector
 let env, networkSiteURL;
 
-// Track all ReactDOM.render calls so we can use a Promise.all()
+// Track all React client rendering calls so we can use a Promise.all()
 // all the way at the end to make sure we don't report "we are done"
 // until all the React stuff is _actually_ done.
 const apps = [];

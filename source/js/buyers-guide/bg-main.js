@@ -19,6 +19,8 @@ import initializeSentry from "../common/sentry-config.js";
 import PNIMobileNav from "./pni-mobile-nav.js";
 
 // Initializing component a11y browser console logging
+// TODO React-axe is currently deprecated, we should replace it with @axe-core/react
+// https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10306
 if (
   typeof process !== "undefined" &&
   process.env &&
@@ -28,7 +30,7 @@ if (
   axe(React, ReactDOM, 1000);
 }
 
-// Track all ReactDOM.render calls so we can use a Promise.all()
+// Track all React client rendering calls so we can use a Promise.all()
 // all the way at the end to make sure we don't report "we are done"
 // until all the React stuff is _actually_ done.
 const apps = [];
