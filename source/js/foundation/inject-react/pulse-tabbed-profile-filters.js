@@ -1,10 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import TabbedProfileFilters from "../../components/tabbed-profile-directory/tabbed-profile-directory";
 
 /**
  * Inject custom tabbed pulse profile filtering
- * @param {Array} apps The existing array we are using to to track all ReactDOM.render calls
+ * @param {Array} apps The existing array we are using to to track all React client rendering calls
  */
 export default (apps) => {
   const domContainers = document.querySelectorAll(
@@ -36,7 +36,8 @@ export default (apps) => {
 
     apps.push(
       new Promise((resolve) => {
-        ReactDOM.render(
+        const root = createRoot(target);
+        root.render(
           <TabbedProfileFilters
             apiEndPoint={contentArea.dataset.apiEndpoint}
             filterKey={contentArea.dataset.filterKey}
@@ -46,8 +47,7 @@ export default (apps) => {
             subfiltersKey={contentArea.dataset.subfiltersKey}
             whenLoaded={() => resolve}
             profiles={profiles}
-          />,
-          target
+          />
         );
       })
     );

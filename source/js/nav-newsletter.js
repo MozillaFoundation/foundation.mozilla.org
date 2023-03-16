@@ -1,4 +1,5 @@
-import ReactDOM from "react-dom";
+import React from "react";
+import { createRoot } from "react-dom/client";
 import JoinUs from "./components/join/join.jsx";
 import { ReactGA } from "../js/common";
 
@@ -22,7 +23,8 @@ const elements = {
 class NavNewsletter {
   constructor() {
     this.visible = false;
-    this.form = null;
+    this.form = React.createRef();
+    this.root = null;
   }
 
   isVisible() {
@@ -31,7 +33,7 @@ class NavNewsletter {
 
   // Reset form
   resetForm() {
-    this.form.reset();
+    this.form.current.reset();
 
     let handleTransitionend = () => {
       elements.container.removeEventListener(
@@ -163,7 +165,8 @@ class NavNewsletter {
       props.signupId || 0
     }/`;
     props.isHidden = false;
-    this.form = ReactDOM.render(<JoinUs {...props} />, elements.joinUs);
+    this.root = createRoot(elements.joinUs);
+    this.root.render(<JoinUs {...props} ref={this.form} />);
 
     // For desktop+ version:
     // make 'buttonDesktop' the trigger to open newsletter section

@@ -1,16 +1,17 @@
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import PulseProjectList from "../../components/pulse-project-list/pulse-project-list.jsx";
 
 /**
  * Inject Pulse project list
- * @param {Array} apps The existing array we are using to to track all ReactDOM.render calls
+ * @param {Array} apps The existing array we are using to to track all React client rendering calls
  * @param {Object} env Object of environment variables
  */
 export default (apps, env) => {
   document.querySelectorAll(`.pulse-project-list`).forEach((target) => {
     apps.push(
       new Promise((resolve) => {
-        ReactDOM.render(
+        const root = createRoot(target);
+        root.render(
           <PulseProjectList
             env={env}
             featured={target.dataset.featured === `True`}
@@ -21,8 +22,7 @@ export default (apps, env) => {
             reverseChronological={target.dataset.reversed === `True`}
             whenLoaded={() => resolve()}
             directLink={target.dataset.directLink === `True`}
-          />,
-          target
+          />
         );
       })
     );

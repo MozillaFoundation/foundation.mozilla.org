@@ -53,6 +53,9 @@ class CreepChart extends Component {
     };
   }
 
+  /**
+   * @returns {React.ReactElement} Creepiness chart component
+   */
   render() {
     return (
       <Fragment>

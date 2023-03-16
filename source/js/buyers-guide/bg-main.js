@@ -19,6 +19,8 @@ import initializeSentry from "../common/sentry-config.js";
 import PNIMobileNav from "./pni-mobile-nav.js";
 
 // Initializing component a11y browser console logging
+// TODO React-axe is currently deprecated, we should replace it with @axe-core/react
+// https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10306
 if (
   typeof process !== "undefined" &&
   process.env &&
@@ -28,7 +30,7 @@ if (
   axe(React, ReactDOM, 1000);
 }
 
-// Track all ReactDOM.render calls so we can use a Promise.all()
+// Track all React client rendering calls so we can use a Promise.all()
 // all the way at the end to make sure we don't report "we are done"
 // until all the React stuff is _actually_ done.
 const apps = [];
@@ -36,6 +38,10 @@ const apps = [];
 let env, networkSiteURL;
 
 let main = {
+  /**
+   * Initializer
+   * Injects React components and bind event handlers for PNI specific elements
+   */
   init() {
     GoogleAnalytics.init();
 
@@ -84,6 +90,10 @@ let main = {
     });
   },
 
+  /**
+   * Fetch env var config from environment.json and process it for use
+   * @param {Object} processEnv env var config
+   */
   fetchEnv(processEnv) {
     let envReq = new XMLHttpRequest();
 
@@ -99,17 +109,25 @@ let main = {
     envReq.send();
   },
 
+  /**
+   * Bind event handlers
+   */
   bindHandlers() {
     bindCommonEventHandlers();
     bindEventHandlers();
   },
 
-  // Embed various React components based on the existence of containers within the current page
+  /**
+   * Inject React components
+   */
   injectReactComponents() {
     injectCommonReactComponents(apps, networkSiteURL);
     injectReactComponents(apps, networkSiteURL);
   },
 
+  /**
+   * Initialize page specific script
+   */
   initPageSpecificScript() {
     if (document.querySelector(`body.pni.catalog`)) {
       HomepageSlider.init();
