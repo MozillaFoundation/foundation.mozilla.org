@@ -109,7 +109,7 @@
   "devDependencies": {
     "@percy/cli": "^1.21.0",
     "@percy/playwright": "^1.0.4",
-    "@playwright/test": "^1.31.1",
+    "@playwright/test": "^1.31.2",
     "browser-sync": "^2.28.3",
     "browserslist": "^4.21.5",
     "chokidar-cli": "^3.0.0",
