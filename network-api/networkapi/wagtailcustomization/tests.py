@@ -1,12 +1,13 @@
-from django.test import TestCase
 from django.test.utils import override_settings
 from wagtail.contrib.redirects.models import Redirect
+
+from networkapi.wagtailpages.tests import base as test_base
 
 
 # Safeguard against the fact that static assets and views might be hosted remotely,
 # see https://docs.djangoproject.com/en/3.1/topics/testing/tools/#urlconf-configuration
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
-class LocalizedRedirectTests(TestCase):
+class LocalizedRedirectTests(test_base.WagtailpagesTestCase):
     def test_redirect(self):
         """Check that we are redirected to the localized version
         of the homepage when a Redirect object exists.
@@ -33,6 +34,34 @@ class LocalizedRedirectTests(TestCase):
         response = self.client.get("/en/test/", follow=True)
 
         self.assertEqual(response.redirect_chain, [("/final", 301), ("/en/final/", 302)])
+
+    def test_localized_redirect_to_default_locale(self):
+        """Check that a Redirect with a language code in the old_path
+        and no language code in the redirect_link is handled correctly.
+        We expect /fr/test/ -> /final/ Should land at the default locale /en/final/
+        """
+        # First ensure no redirects exist that can intefere with this test
+        self.assertFalse(Redirect.objects.all())
+
+        redirect = Redirect(old_path="/fr/test", redirect_link="/final")
+        redirect.save()
+        response = self.client.get("/fr/test/", follow=True)
+
+        self.assertEqual(response.redirect_chain, [("/final", 301), ("/en/final/", 302)])
+
+    def test_fr_redirect_to_fr_target(self):
+        """Check that a Redirect with a language code in the old_path
+        and language code in the redirect_link is handled correctly.
+        We expect /fr/test/ -> /fr/final/ Should land at /fr/final/
+        """
+        # First ensure no redirects exist that can intefere with this test
+        self.assertFalse(Redirect.objects.all())
+
+        redirect = Redirect(old_path="/fr/test", redirect_link="/fr/final")
+        redirect.save()
+        response = self.client.get("/fr/test/", follow=True)
+
+        self.assertEqual(response.redirect_chain, [("/fr/final", 301), ("/fr/final/", 301)])
 
     def test_no_redirect_does_redirect(self):
         """Prove that a path is redirected to /en/ even if there isn't
