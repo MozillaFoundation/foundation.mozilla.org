@@ -78,7 +78,7 @@
     "@tailwindcss/line-clamp": "^0.4.2",
     "autoprefixer": "^10.4.14",
     "axe-core": "^4.6.3",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^5.2.3",
     "chart.js": "4.2.1",
     "classnames": "2.3.2",
     "countup.js": "^2.6.0",
