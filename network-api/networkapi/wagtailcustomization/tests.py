@@ -13,10 +13,11 @@ class LocalizedRedirectTests(TestCase):
         In this example, a Redirect object exists for /test/ -> /
         so we expect to be redirected to /en/ when we visit /test/
         """
-        redirect = Redirect(old_path="/test", redirect_link="/")
+        redirect = Redirect(old_path="/test", redirect_link="/final")
         redirect.save()
         response = self.client.get("/test/", follow=True)
-        self.assertEqual(response.redirect_chain, [("/", 301), ("/en/", 302)])
+
+        self.assertEqual(response.redirect_chain, [("/final", 301), ("/en/final/", 302)])
 
     def test_localized_redirect(self):
         """Check that a Redirect with a language code in the old_path
@@ -26,8 +27,11 @@ class LocalizedRedirectTests(TestCase):
         redirect = Redirect(old_path="/en/test", redirect_link="/final")
         redirect.save()
         response = self.client.get("/final/", follow=True)
+
         self.assertEqual(response.redirect_chain, [("/en/final/", 302)])
+
         response = self.client.get("/en/test/", follow=True)
+
         self.assertEqual(response.redirect_chain, [("/final", 301), ("/en/final/", 302)])
 
     def test_no_redirect_does_redirect(self):
@@ -36,4 +40,5 @@ class LocalizedRedirectTests(TestCase):
         framework is handling it.
         """
         response = self.client.get("/no-redirect/", follow=True)
+
         self.assertEqual(response.redirect_chain, [("/en/no-redirect/", 302)])
