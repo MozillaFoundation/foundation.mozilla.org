@@ -205,5 +205,7 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     def get_url(self):
         if self.url:
             return self.url
+        elif self.page:
+            return self.page.get_url()
         elif self.document:
             return self.document.url
