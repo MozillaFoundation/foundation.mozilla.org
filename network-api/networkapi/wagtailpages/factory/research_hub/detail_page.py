@@ -9,21 +9,6 @@ from networkapi.wagtailpages.factory import documents as documents_factory
 from networkapi.wagtailpages.factory import image_factory
 
 
-class ResearchDetailLinkFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = wagtailpage_models.ResearchDetailLink
-
-    label = factory.Faker("text", max_nb_chars=30)
-    url = ""
-    document = None
-
-    class Params:
-        with_url = factory.Trait(
-            url=factory.Faker("uri"),
-        )
-        with_document = factory.Trait(document=factory.SubFactory(documents_factory.DocumentFactory))
-
-
 class ResearchDetailPageFactory(wagtail_factories.PageFactory):
     class Meta:
         model = wagtailpage_models.ResearchDetailPage
@@ -31,7 +16,7 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
     title = factory.Faker("text", max_nb_chars=50)
     cover_image = factory.SubFactory(image_factory.ImageFactory)
     research_links = factory.RelatedFactoryList(
-        factory=ResearchDetailLinkFactory,
+        factory="networkapi.wagtailpages.factory.research_hub.detail_page.ResearchDetailLinkFactory",
         factory_related_name="research_detail_page",
         size=lambda: random.randint(1, 2),
         with_url=True,
@@ -73,3 +58,18 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
         factory_related_name="research_detail_page",
         size=1,
     )
+
+
+class ResearchDetailLinkFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = wagtailpage_models.ResearchDetailLink
+
+    label = factory.Faker("text", max_nb_chars=30)
+    url = ""
+    document = None
+
+    class Params:
+        with_url = factory.Trait(
+            url=factory.Faker("uri"),
+        )
+        with_document = factory.Trait(document=factory.SubFactory(documents_factory.DocumentFactory))
