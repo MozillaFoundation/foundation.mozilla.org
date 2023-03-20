@@ -1,13 +1,13 @@
 from django import test
 from django.core import exceptions
 
-from networkapi.wagtailpages.factory import research_hub as research_factory
+from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
 from networkapi.wagtailpages.tests.research_hub import base as research_test_base
 
 
 class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
     def test_research_detail_page_breadcrumbs(self):
-        detail_page = research_factory.ResearchDetailPageFactory(
+        detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
         response = self.client.get(detail_page.url)
@@ -23,7 +23,7 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
 
 class TestResearchDetailLink(test.TestCase):
     def test_clean_with_url(self):
-        link = research_factory.ResearchDetailLinkFactory.build(with_url=True)
+        link = detail_page_factory.ResearchDetailLinkFactory.build(with_url=True)
 
         link.clean()
 
@@ -31,7 +31,7 @@ class TestResearchDetailLink(test.TestCase):
         self.assertFalse(link.document)
 
     def test_clean_with_doc(self):
-        link = research_factory.ResearchDetailLinkFactory.build(with_document=True)
+        link = detail_page_factory.ResearchDetailLinkFactory.build(with_document=True)
 
         link.clean()
 
@@ -39,7 +39,7 @@ class TestResearchDetailLink(test.TestCase):
         self.assertFalse(link.url)
 
     def test_clean_with_url_and_doc(self):
-        link = research_factory.ResearchDetailLinkFactory.build(
+        link = detail_page_factory.ResearchDetailLinkFactory.build(
             with_url=True,
             with_document=True,
         )
@@ -48,7 +48,7 @@ class TestResearchDetailLink(test.TestCase):
             link.clean()
 
     def test_clean_with_neither_url_nor_doc(self):
-        link = research_factory.ResearchDetailLinkFactory.build()
+        link = detail_page_factory.ResearchDetailLinkFactory.build()
 
         with self.assertRaises(exceptions.ValidationError):
             link.clean()

@@ -7,6 +7,7 @@ from wagtail import models as wagtail_models
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages.factory import research_hub as research_factory
+from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
 from networkapi.wagtailpages.tests.research_hub import base as research_test_base
 from networkapi.wagtailpages.tests.research_hub import utils as research_test_utils
 
@@ -17,10 +18,10 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             management.call_command("update_index", verbosity=0, stdout=f)
 
     def test_detail_pages_in_context(self):
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
+        detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
+        detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
 
@@ -32,10 +33,10 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_2, research_detail_pages)
 
     def test_detail_pages_in_context_with_translation_aliases(self):
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
+        detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
+        detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
         self.synchronize_tree()
@@ -52,10 +53,10 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(fr_detail_page_2, research_detail_pages)
 
     def test_private_detail_pages_not_in_context(self):
-        public_detail_page = research_factory.ResearchDetailPageFactory(
+        public_detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
-        private_detail_page = research_factory.ResearchDetailPageFactory(
+        private_detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
         wagtail_models.PageViewRestriction.objects.create(
@@ -74,14 +75,14 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
     def test_search_by_detail_page_title(self):
         # Fields other than title are empty to avoid accidental test failures due to
         # fake data generation.
-        apple_page = research_factory.ResearchDetailPageFactory(
+        apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Apple",
             introduction="",
             overview="",
             collaborators="",
         )
-        banana_page = research_factory.ResearchDetailPageFactory(
+        banana_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Banana",
             introduction="",
@@ -97,14 +98,14 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(banana_page, research_detail_pages)
 
     def test_search_by_detail_page_introduction(self):
-        apple_page = research_factory.ResearchDetailPageFactory(
+        apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Cherry",
             introduction="Apple",
             overview="",
             collaborators="",
         )
-        banana_page = research_factory.ResearchDetailPageFactory(
+        banana_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
             introduction="Banana",
@@ -120,14 +121,14 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(banana_page, research_detail_pages)
 
     def test_search_by_detail_page_overview(self):
-        apple_page = research_factory.ResearchDetailPageFactory(
+        apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Cherry",
             introduction="",
             overview="Apple",
             collaborators="",
         )
-        banana_page = research_factory.ResearchDetailPageFactory(
+        banana_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
             introduction="",
@@ -143,14 +144,14 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(banana_page, research_detail_pages)
 
     def test_search_by_detail_page_collaborators(self):
-        apple_page = research_factory.ResearchDetailPageFactory(
+        apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Cherry",
             introduction="",
             overview="",
             collaborators="Apple",
         )
-        banana_page = research_factory.ResearchDetailPageFactory(
+        banana_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
             introduction="",
@@ -167,7 +168,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
     def test_search_by_detail_page_author_name(self):
         """Test detail page can be searched by author profile name."""
-        apple_page = research_factory.ResearchDetailPageFactory(
+        apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Cherry",
             introduction="",
@@ -180,7 +181,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             introduction="",
         )
         research_factory.ResearchAuthorRelationFactory(research_detail_page=apple_page, author_profile=apple_profile)
-        banana_page = research_factory.ResearchDetailPageFactory(
+        banana_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
             introduction="",
@@ -204,7 +205,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
     def test_search_by_detail_page_topic_name(self):
         """Test detail page can be searched by topic name."""
-        apple_page = research_factory.ResearchDetailPageFactory(
+        apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Cherry",
             introduction="",
@@ -218,7 +219,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         research_factory.ResearchDetailPageResearchTopicRelationFactory(
             research_detail_page=apple_page, research_topic=apple_topic
         )
-        banana_page = research_factory.ResearchDetailPageFactory(
+        banana_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
             introduction="",
@@ -243,7 +244,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
     def test_search_by_detail_page_region_name(self):
         """Test detail page can be searched by region name."""
-        apple_page = research_factory.ResearchDetailPageFactory(
+        apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Cherry",
             introduction="",
@@ -254,7 +255,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         research_factory.ResearchDetailPageResearchRegionRelationFactory(
             research_detail_page=apple_page, research_region=apple_region
         )
-        banana_page = research_factory.ResearchDetailPageFactory(
+        banana_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
             introduction="",
@@ -275,11 +276,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(banana_page, research_detail_pages)
 
     def test_sort_newest_first(self):
-        oldest_page = research_factory.ResearchDetailPageFactory(
+        oldest_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=research_test_utils.days_ago(2),
         )
-        newest_page = research_factory.ResearchDetailPageFactory(
+        newest_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=research_test_utils.days_ago(1),
         )
@@ -295,11 +296,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertLess(newest_page_index, oldest_page_index)
 
     def test_sort_oldest_first(self):
-        oldest_page = research_factory.ResearchDetailPageFactory(
+        oldest_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=research_test_utils.days_ago(2),
         )
-        newest_page = research_factory.ResearchDetailPageFactory(
+        newest_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=research_test_utils.days_ago(1),
         )
@@ -315,11 +316,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertLess(oldest_page_index, newest_page_index)
 
     def test_sort_alphabetical(self):
-        apple_page = research_factory.ResearchDetailPageFactory(
+        apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Apple",
         )
-        banana_page = research_factory.ResearchDetailPageFactory(
+        banana_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Banana",
         )
@@ -335,11 +336,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertLess(apple_page_index, banana_page_index)
 
     def test_sort_alphabetical_reversed(self):
-        apple_page = research_factory.ResearchDetailPageFactory(
+        apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Apple",
         )
-        banana_page = research_factory.ResearchDetailPageFactory(
+        banana_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Banana",
         )
@@ -355,11 +356,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertLess(banana_page_index, apple_page_index)
 
     def test_get_research_detail_pages_sort_default(self):
-        research_factory.ResearchDetailPageFactory(
+        detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=research_test_utils.days_ago(2),
         )
-        research_factory.ResearchDetailPageFactory(
+        detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=research_test_utils.days_ago(1),
         )
@@ -375,7 +376,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(default_sort_detail_pages, newest_first_detail_pages)
 
     def test_research_author_profile_in_options(self):
-        detail_page = research_factory.ResearchDetailPageFactory(
+        detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
 
@@ -404,7 +405,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         before the pages are translated (a manual action) the related models like author
         are still the ones from the default locale.
         """
-        detail_page_en = research_factory.ResearchDetailPageFactory(
+        detail_page_en = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
         profile_en = detail_page_en.research_authors.first().author_profile
@@ -425,7 +426,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         Profiles are not necessarily people, so they might have translated names.
         """
-        detail_page_en = research_factory.ResearchDetailPageFactory(
+        detail_page_en = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
         profile_en = detail_page_en.research_authors.first().author_profile
@@ -447,10 +448,10 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
 
     def test_filter_author_profile(self):
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
+        detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
+        detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
         author_profile = detail_page_1.research_authors.first().author_profile
@@ -469,11 +470,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_2, research_detail_pages)
 
     def test_filter_multiple_author_profiles(self):
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
+        detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
         profile_a = detail_page_1.research_authors.first().author_profile
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
+        detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
         profile_b = detail_page_2.research_authors.first().author_profile
@@ -505,11 +506,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         the results.
         """
         profile = profiles_factory.ProfileFactory()
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
+        detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             research_authors__author_profile=profile,
         )
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
+        detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             research_authors__author_profile=profile,
         )
@@ -586,12 +587,12 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
     def test_filter_topic(self):
         topic_A = research_factory.ResearchTopicFactory()
-        detail_page_A = research_factory.ResearchDetailPageFactory(
+        detail_page_A = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_topics__research_topic=topic_A,
         )
         topic_B = research_factory.ResearchTopicFactory()
-        detail_page_B = research_factory.ResearchDetailPageFactory(
+        detail_page_B = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_topics__research_topic=topic_B,
         )
@@ -605,14 +606,14 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
     def test_filter_multiple_topics(self):
         topic_A = research_factory.ResearchTopicFactory()
         topic_B = research_factory.ResearchTopicFactory()
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
+        detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_topics__research_topic=topic_A,
         )
         research_factory.ResearchDetailPageResearchTopicRelationFactory(
             research_detail_page=detail_page_1, research_topic=topic_B
         )
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
+        detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_topics__research_topic=topic_A,
         )
@@ -635,11 +636,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         the results.
         """
         topic = research_factory.ResearchTopicFactory()
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
+        detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_topics__research_topic=topic,
         )
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
+        detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_topics__research_topic=topic,
         )
@@ -717,12 +718,12 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
     def test_filter_region(self):
         region_A = research_factory.ResearchRegionFactory()
-        detail_page_A = research_factory.ResearchDetailPageFactory(
+        detail_page_A = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_regions__research_region=region_A,
         )
         region_B = research_factory.ResearchRegionFactory()
-        detail_page_B = research_factory.ResearchDetailPageFactory(
+        detail_page_B = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_regions__research_region=region_B,
         )
@@ -736,14 +737,14 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
     def test_filter_multiple_regions(self):
         region_A = research_factory.ResearchRegionFactory()
         region_B = research_factory.ResearchRegionFactory()
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
+        detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_regions__research_region=region_A,
         )
         research_factory.ResearchDetailPageResearchRegionRelationFactory(
             research_detail_page=detail_page_1, research_region=region_B
         )
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
+        detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_regions__research_region=region_A,
         )
@@ -766,11 +767,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         the results.
         """
         region = research_factory.ResearchRegionFactory()
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
+        detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_regions__research_region=region,
         )
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
+        detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_regions__research_region=region,
         )
@@ -798,11 +799,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
     def test_years_in_options(self):
         year_1 = timezone.now().year
         year_2 = year_1 - 1
-        research_factory.ResearchDetailPageFactory(
+        detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=datetime.date(year=year_1, month=1, day=1),
         )
-        research_factory.ResearchDetailPageFactory(
+        detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=datetime.date(year=year_2, month=1, day=1),
         )
@@ -816,11 +817,11 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(year_2, year_option_values)
 
     def test_filter_for_year(self):
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
+        detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
         year_1 = detail_page_1.original_publication_date.year
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
+        detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=datetime.date(year_1 + 1, 6, 1),
         )
@@ -843,7 +844,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.library_page.results_count = 4
         self.library_page.save()
         for _ in range(6):
-            research_factory.ResearchDetailPageFactory(parent=self.library_page)
+            detail_page_factory.ResearchDetailPageFactory(parent=self.library_page)
 
         first_page_response = self.client.get(self.library_page.url, data={"page": 1})
         second_page_response = self.client.get(self.library_page.url, data={"page": 2})
