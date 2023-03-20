@@ -1,5 +1,5 @@
-from django import test
 from django.core import exceptions
+import wagtail_factories
 
 from networkapi.wagtailpages.factory.research_hub import (
     detail_page as detail_page_factory,
@@ -23,7 +23,7 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(breadcrumbs, expected_breadcrumbs)
 
 
-class TestResearchDetailLink(test.TestCase):
+class TestResearchDetailLink(research_test_base.ResearchHubTestCase):
     def test_clean_with_url(self):
         link = detail_page_factory.ResearchDetailLinkFactory.build(with_url=True)
 
@@ -93,3 +93,21 @@ class TestResearchDetailLink(test.TestCase):
 
         with self.assertRaises(exceptions.ValidationError):
             link.clean()
+
+    def test_get_url_with_url(self):
+        url = "https://example.com"
+        link = detail_page_factory.ResearchDetailLinkFactory.build(url=url)
+
+        self.assertEqual(link.get_url(), url)
+
+    def test_get_url_with_page(self):
+        page = detail_page_factory.ResearchDetailPageFactory(parent=self.homepage)
+        link = detail_page_factory.ResearchDetailLinkFactory.build(page=page)
+
+        self.assertEqual(link.get_url(), page.get_url())
+
+    def test_get_url_with_doc(self):
+        doc = wagtail_factories.DocumentFactory()
+        link = detail_page_factory.ResearchDetailLinkFactory.build(document=doc)
+
+        self.assertEqual(link.get_url(), doc.url)
