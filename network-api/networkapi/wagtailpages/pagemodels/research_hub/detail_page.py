@@ -6,7 +6,6 @@ from wagtail import fields as wagtail_fields
 from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
 from wagtail.admin import panels as edit_handlers
-from wagtail.documents import edit_handlers as docs_handlers
 from wagtail.images import edit_handlers as image_handlers
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
@@ -175,7 +174,8 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
         ),
         edit_handlers.FieldPanel("label"),
         edit_handlers.FieldPanel("url"),
-        docs_handlers.FieldPanel("document"),
+        edit_handlers.FieldPanel("page"),
+        edit_handlers.FieldPanel("document"),
     ]
 
     class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
