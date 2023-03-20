@@ -1,28 +1,12 @@
 import factory
-import wagtail_factories
 
 from networkapi.utility.faker import helpers as faker_helpers
 from networkapi.wagtailpages import models as wagtailpage_models
-from networkapi.wagtailpages.factory import image_factory
 from networkapi.wagtailpages.factory import profiles as profiles_factory
+from networkapi.wagtailpages.factory.research_hub import author_index as author_index_factory
 from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
 from networkapi.wagtailpages.factory.research_hub import landing_page as landing_page_factory
-
-
-class ResearchLibraryPageFactory(wagtail_factories.PageFactory):
-    class Meta:
-        model = wagtailpage_models.ResearchLibraryPage
-
-    title = "Library"
-    banner_image = factory.SubFactory(image_factory.ImageFactory)
-
-
-class ResearchAuthorsIndexPageFactory(wagtail_factories.PageFactory):
-    class Meta:
-        model = wagtailpage_models.ResearchAuthorsIndexPage
-
-    title = "Authors"
-    banner_image = factory.SubFactory(image_factory.ImageFactory)
+from networkapi.wagtailpages.factory.research_hub import library_page as library_page_factory
 
 
 class ResearchRegionFactory(factory.django.DjangoModelFactory):
@@ -86,12 +70,12 @@ def generate(seed):
     # Only one library page can exist
     research_library_page = wagtailpage_models.ResearchLibraryPage.objects.first()
     if not research_library_page:
-        research_library_page = ResearchLibraryPageFactory.create(parent=research_landing_page)
+        research_library_page = library_page_factory.ResearchLibraryPageFactory.create(parent=research_landing_page)
 
     # Only one authors index page can exist
     research_authors_index_page = wagtailpage_models.ResearchAuthorsIndexPage.objects.first()
     if not research_authors_index_page:
-        research_authors_index_page = ResearchAuthorsIndexPageFactory.create(parent=research_landing_page)
+        research_authors_index_page = author_index_factory.ResearchAuthorsIndexPageFactory.create(parent=research_landing_page)
 
     for _ in range(4):
         ResearchRegionFactory.create()
