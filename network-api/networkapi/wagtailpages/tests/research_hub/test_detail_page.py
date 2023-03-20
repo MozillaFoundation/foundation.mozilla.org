@@ -30,6 +30,16 @@ class TestResearchDetailLink(test.TestCase):
         link.clean()
 
         self.assertTrue(link.url)
+        self.assertFalse(link.page)
+        self.assertFalse(link.document)
+
+    def test_clean_with_page(self):
+        link = detail_page_factory.ResearchDetailLinkFactory.build(with_page=True)
+
+        link.clean()
+
+        self.assertTrue(link.page)
+        self.assertFalse(link.url)
         self.assertFalse(link.document)
 
     def test_clean_with_doc(self):
@@ -39,6 +49,16 @@ class TestResearchDetailLink(test.TestCase):
 
         self.assertTrue(link.document)
         self.assertFalse(link.url)
+        self.assertFalse(link.page)
+
+    def test_clean_with_url_and_page(self):
+        link = detail_page_factory.ResearchDetailLinkFactory.build(
+            with_url=True,
+            with_page=True,
+        )
+
+        with self.assertRaises(exceptions.ValidationError):
+            link.clean()
 
     def test_clean_with_url_and_doc(self):
         link = detail_page_factory.ResearchDetailLinkFactory.build(
@@ -49,7 +69,26 @@ class TestResearchDetailLink(test.TestCase):
         with self.assertRaises(exceptions.ValidationError):
             link.clean()
 
-    def test_clean_with_neither_url_nor_doc(self):
+    def test_clean_with_page_and_doc(self):
+        link = detail_page_factory.ResearchDetailLinkFactory.build(
+            with_url=True,
+            with_page=True,
+        )
+
+        with self.assertRaises(exceptions.ValidationError):
+            link.clean()
+
+    def test_clean_with_url_and_page_and_doc(self):
+        link = detail_page_factory.ResearchDetailLinkFactory.build(
+            with_url=True,
+            with_page=True,
+            with_document=True,
+        )
+
+        with self.assertRaises(exceptions.ValidationError):
+            link.clean()
+
+    def test_clean_with_neither_url_page_nor_doc(self):
         link = detail_page_factory.ResearchDetailLinkFactory.build()
 
         with self.assertRaises(exceptions.ValidationError):
