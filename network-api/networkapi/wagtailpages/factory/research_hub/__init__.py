@@ -6,15 +6,7 @@ from networkapi.wagtailpages import models as wagtailpage_models
 from networkapi.wagtailpages.factory import image_factory
 from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
-
-
-class ResearchLandingPageFactory(wagtail_factories.PageFactory):
-    class Meta:
-        model = wagtailpage_models.ResearchLandingPage
-
-    title = "Research"
-    banner_image = factory.SubFactory(image_factory.ImageFactory)
-    intro = factory.Faker("text", max_nb_chars=250)
+from networkapi.wagtailpages.factory.research_hub import landing_page as landing_page_factory
 
 
 class ResearchLibraryPageFactory(wagtail_factories.PageFactory):
@@ -76,7 +68,7 @@ class ResearchLandingPageResearchTopicRelationFactory(factory.django.DjangoModel
     class Meta:
         model = wagtailpage_models.ResearchLandingPageFeaturedResearchTopicRelation
 
-    research_landing_page = factory.SubFactory(ResearchLandingPageFactory)
+    research_landing_page = factory.SubFactory(landing_page_factory.ResearchLandingPageFactory)
     research_topic = factory.SubFactory(ResearchTopicFactory)
 
 
@@ -89,7 +81,7 @@ def generate(seed):
     # Only one landing page can exist
     research_landing_page = wagtailpage_models.ResearchLandingPage.objects.first()
     if not research_landing_page:
-        research_landing_page = ResearchLandingPageFactory.create(parent=home_page)
+        research_landing_page = landing_page_factory.ResearchLandingPageFactory.create(parent=home_page)
 
     # Only one library page can exist
     research_library_page = wagtailpage_models.ResearchLibraryPage.objects.first()
