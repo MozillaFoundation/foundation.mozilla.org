@@ -2,8 +2,15 @@ import factory
 
 from networkapi.wagtailpages import models as wagtailpage_models
 from networkapi.wagtailpages.factory import profiles as profiles_factory
-from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory, \
-    taxonomies as taxonomies_factory, landing_page as landing_page_factory
+from networkapi.wagtailpages.factory.research_hub import (
+    detail_page as detail_page_factory,
+)
+from networkapi.wagtailpages.factory.research_hub import (
+    landing_page as landing_page_factory,
+)
+from networkapi.wagtailpages.factory.research_hub import (
+    taxonomies as taxonomies_factory,
+)
 
 
 class ResearchAuthorRelationFactory(factory.django.DjangoModelFactory):

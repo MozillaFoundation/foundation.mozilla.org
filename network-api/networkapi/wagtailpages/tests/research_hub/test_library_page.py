@@ -6,9 +6,13 @@ from django.utils import timezone, translation
 from wagtail import models as wagtail_models
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
-from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
+from networkapi.wagtailpages.factory.research_hub import (
+    detail_page as detail_page_factory,
+)
 from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
-from networkapi.wagtailpages.factory.research_hub import taxonomies as taxonomies_factory
+from networkapi.wagtailpages.factory.research_hub import (
+    taxonomies as taxonomies_factory,
+)
 from networkapi.wagtailpages.tests.research_hub import base as research_test_base
 from networkapi.wagtailpages.tests.research_hub import utils as research_test_utils
 
@@ -194,7 +198,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             tagline="",
             introduction="",
         )
-        relations_factory.ResearchAuthorRelationFactory(research_detail_page=banana_page, author_profile=banana_profile)
+        relations_factory.ResearchAuthorRelationFactory(
+            research_detail_page=banana_page, author_profile=banana_profile
+        )
         self.update_index()
 
         response = self.client.get(self.library_page.url, data={"search": "Apple"})

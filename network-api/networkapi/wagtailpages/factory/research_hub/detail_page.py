@@ -5,7 +5,8 @@ import wagtail_factories
 
 from networkapi.utility.faker import helpers as faker_helpers
 from networkapi.wagtailpages import models as wagtailpage_models
-from networkapi.wagtailpages.factory import documents as documents_factory, image_factory
+from networkapi.wagtailpages.factory import documents as documents_factory
+from networkapi.wagtailpages.factory import image_factory
 
 
 class ResearchDetailLinkFactory(factory.django.DjangoModelFactory):
@@ -58,13 +59,17 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
     )
 
     related_topics = factory.RelatedFactoryList(
-        factory="networkapi.wagtailpages.factory.research_hub.relations.ResearchDetailPageResearchTopicRelationFactory",
+        factory=(
+            "networkapi.wagtailpages.factory.research_hub.relations.ResearchDetailPageResearchTopicRelationFactory"
+        ),
         factory_related_name="research_detail_page",
         size=1,
     )
 
     related_regions = factory.RelatedFactoryList(
-        factory="networkapi.wagtailpages.factory.research_hub.relations.ResearchDetailPageResearchRegionRelationFactory",
+        factory=(
+            "networkapi.wagtailpages.factory.research_hub.relations.ResearchDetailPageResearchRegionRelationFactory"
+        ),
         factory_related_name="research_detail_page",
         size=1,
     )

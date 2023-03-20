@@ -2,7 +2,9 @@ from django import test
 
 from networkapi.wagtailpages.factory import blog as blog_factories
 from networkapi.wagtailpages.factory import profiles as profile_factories
-from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
+from networkapi.wagtailpages.factory.research_hub import (
+    detail_page as detail_page_factory,
+)
 from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors

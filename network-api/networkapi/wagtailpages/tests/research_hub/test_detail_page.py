@@ -1,7 +1,9 @@
 from django import test
 from django.core import exceptions
 
-from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
+from networkapi.wagtailpages.factory.research_hub import (
+    detail_page as detail_page_factory,
+)
 from networkapi.wagtailpages.tests.research_hub import base as research_test_base
 
 

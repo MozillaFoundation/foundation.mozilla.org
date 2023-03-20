@@ -1,11 +1,21 @@
 from networkapi.utility.faker import helpers as faker_helpers
 from networkapi.wagtailpages import models as wagtailpage_models
-from networkapi.wagtailpages.factory.research_hub import author_index as author_index_factory
-from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
-from networkapi.wagtailpages.factory.research_hub import landing_page as landing_page_factory
-from networkapi.wagtailpages.factory.research_hub import library_page as library_page_factory
-from networkapi.wagtailpages.factory.research_hub import taxonomies as taxonomies_factory
+from networkapi.wagtailpages.factory.research_hub import (
+    author_index as author_index_factory,
+)
+from networkapi.wagtailpages.factory.research_hub import (
+    detail_page as detail_page_factory,
+)
+from networkapi.wagtailpages.factory.research_hub import (
+    landing_page as landing_page_factory,
+)
+from networkapi.wagtailpages.factory.research_hub import (
+    library_page as library_page_factory,
+)
 from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
+from networkapi.wagtailpages.factory.research_hub import (
+    taxonomies as taxonomies_factory,
+)
 
 
 def generate(seed):
@@ -27,7 +37,9 @@ def generate(seed):
     # Only one authors index page can exist
     research_authors_index_page = wagtailpage_models.ResearchAuthorsIndexPage.objects.first()
     if not research_authors_index_page:
-        research_authors_index_page = author_index_factory.ResearchAuthorsIndexPageFactory.create(parent=research_landing_page)
+        research_authors_index_page = author_index_factory.ResearchAuthorsIndexPageFactory.create(
+            parent=research_landing_page
+        )
 
     for _ in range(4):
         taxonomies_factory.ResearchRegionFactory.create()
