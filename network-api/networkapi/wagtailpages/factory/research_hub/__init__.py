@@ -7,21 +7,7 @@ from networkapi.wagtailpages.factory.research_hub import author_index as author_
 from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
 from networkapi.wagtailpages.factory.research_hub import landing_page as landing_page_factory
 from networkapi.wagtailpages.factory.research_hub import library_page as library_page_factory
-
-
-class ResearchRegionFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = wagtailpage_models.ResearchRegion
-
-    name = factory.Faker("text", max_nb_chars=25)
-
-
-class ResearchTopicFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = wagtailpage_models.ResearchTopic
-
-    name = factory.Faker("text", max_nb_chars=25)
-    description = factory.Faker("paragraph")
+from networkapi.wagtailpages.factory.research_hub import taxonomies as taxonomies_factory
 
 
 class ResearchAuthorRelationFactory(factory.django.DjangoModelFactory):
@@ -37,7 +23,7 @@ class ResearchDetailPageResearchRegionRelationFactory(factory.django.DjangoModel
         model = wagtailpage_models.ResearchDetailPageResearchRegionRelation
 
     research_detail_page = factory.SubFactory(detail_page_factory.ResearchDetailPageFactory)
-    research_region = factory.SubFactory(ResearchRegionFactory)
+    research_region = factory.SubFactory(taxonomies_factory.ResearchRegionFactory)
 
 
 class ResearchDetailPageResearchTopicRelationFactory(factory.django.DjangoModelFactory):
@@ -45,7 +31,7 @@ class ResearchDetailPageResearchTopicRelationFactory(factory.django.DjangoModelF
         model = wagtailpage_models.ResearchDetailPageResearchTopicRelation
 
     research_detail_page = factory.SubFactory(detail_page_factory.ResearchDetailPageFactory)
-    research_topic = factory.SubFactory(ResearchTopicFactory)
+    research_topic = factory.SubFactory(taxonomies_factory.ResearchTopicFactory)
 
 
 class ResearchLandingPageResearchTopicRelationFactory(factory.django.DjangoModelFactory):
@@ -53,7 +39,7 @@ class ResearchLandingPageResearchTopicRelationFactory(factory.django.DjangoModel
         model = wagtailpage_models.ResearchLandingPageFeaturedResearchTopicRelation
 
     research_landing_page = factory.SubFactory(landing_page_factory.ResearchLandingPageFactory)
-    research_topic = factory.SubFactory(ResearchTopicFactory)
+    research_topic = factory.SubFactory(taxonomies_factory.ResearchTopicFactory)
 
 
 def generate(seed):
@@ -78,8 +64,8 @@ def generate(seed):
         research_authors_index_page = author_index_factory.ResearchAuthorsIndexPageFactory.create(parent=research_landing_page)
 
     for _ in range(4):
-        ResearchRegionFactory.create()
-        ResearchTopicFactory.create()
+        taxonomies_factory.ResearchRegionFactory.create()
+        taxonomies_factory.ResearchTopicFactory.create()
 
     for _ in range(13):
         research_detail_page = detail_page_factory.ResearchDetailPageFactory.create(

@@ -8,6 +8,7 @@ from wagtail import models as wagtail_models
 from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages.factory import research_hub as research_factory
 from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
+from networkapi.wagtailpages.factory.research_hub import taxonomies as taxonomies_factory
 from networkapi.wagtailpages.tests.research_hub import base as research_test_base
 from networkapi.wagtailpages.tests.research_hub import utils as research_test_utils
 
@@ -212,7 +213,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             overview="",
             collaborators="",
         )
-        apple_topic = research_factory.ResearchTopicFactory(
+        apple_topic = taxonomies_factory.ResearchTopicFactory(
             name="Apple",
             description="",
         )
@@ -226,7 +227,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             overview="",
             collaborators="",
         )
-        banana_topic = research_factory.ResearchTopicFactory(
+        banana_topic = taxonomies_factory.ResearchTopicFactory(
             name="banana",
             description="",
         )
@@ -251,7 +252,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             overview="",
             collaborators="",
         )
-        apple_region = research_factory.ResearchRegionFactory(name="Apple")
+        apple_region = taxonomies_factory.ResearchRegionFactory(name="Apple")
         research_factory.ResearchDetailPageResearchRegionRelationFactory(
             research_detail_page=apple_page, research_region=apple_region
         )
@@ -262,7 +263,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             overview="",
             collaborators="",
         )
-        banana_region = research_factory.ResearchRegionFactory(name="banana")
+        banana_region = taxonomies_factory.ResearchRegionFactory(name="banana")
         research_factory.ResearchDetailPageResearchRegionRelationFactory(
             research_detail_page=banana_page, research_region=banana_region
         )
@@ -535,8 +536,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_2, research_detail_pages)
 
     def test_research_topics_in_options(self):
-        topic_1 = research_factory.ResearchTopicFactory()
-        topic_2 = research_factory.ResearchTopicFactory()
+        topic_1 = taxonomies_factory.ResearchTopicFactory()
+        topic_2 = taxonomies_factory.ResearchTopicFactory()
 
         response = self.client.get(self.library_page.url)
 
@@ -546,7 +547,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(topic_2.id, topic_option_values)
 
     def test_topic_in_options_matches_active_locale(self):
-        topic_en = research_factory.ResearchTopicFactory()
+        topic_en = taxonomies_factory.ResearchTopicFactory()
         topic_fr = topic_en.copy_for_translation(self.fr_locale)
         topic_fr.save()
 
@@ -571,10 +572,10 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         topic.
 
         """
-        topic_1_en = research_factory.ResearchTopicFactory()
+        topic_1_en = taxonomies_factory.ResearchTopicFactory()
         topic_1_fr = topic_1_en.copy_for_translation(self.fr_locale)
         topic_1_fr.save()
-        topic_2_en = research_factory.ResearchTopicFactory()
+        topic_2_en = taxonomies_factory.ResearchTopicFactory()
         translation.activate(self.fr_locale.language_code)
 
         response = self.client.get(self.library_page.localized.url)
@@ -586,12 +587,12 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(topic_2_en.id, topic_option_values)
 
     def test_filter_topic(self):
-        topic_A = research_factory.ResearchTopicFactory()
+        topic_A = taxonomies_factory.ResearchTopicFactory()
         detail_page_A = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_topics__research_topic=topic_A,
         )
-        topic_B = research_factory.ResearchTopicFactory()
+        topic_B = taxonomies_factory.ResearchTopicFactory()
         detail_page_B = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_topics__research_topic=topic_B,
@@ -604,8 +605,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_B, research_detail_pages)
 
     def test_filter_multiple_topics(self):
-        topic_A = research_factory.ResearchTopicFactory()
-        topic_B = research_factory.ResearchTopicFactory()
+        topic_A = taxonomies_factory.ResearchTopicFactory()
+        topic_B = taxonomies_factory.ResearchTopicFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_topics__research_topic=topic_A,
@@ -635,7 +636,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         is not associated with the translated topic, but we still want to see it in
         the results.
         """
-        topic = research_factory.ResearchTopicFactory()
+        topic = taxonomies_factory.ResearchTopicFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_topics__research_topic=topic,
@@ -666,8 +667,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_2, research_detail_pages)
 
     def test_research_regions_in_options(self):
-        region_1 = research_factory.ResearchRegionFactory()
-        region_2 = research_factory.ResearchRegionFactory()
+        region_1 = taxonomies_factory.ResearchRegionFactory()
+        region_2 = taxonomies_factory.ResearchRegionFactory()
 
         response = self.client.get(self.library_page.url)
 
@@ -677,7 +678,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(region_2.id, region_option_values)
 
     def test_region_in_options_matches_active_locale(self):
-        region_en = research_factory.ResearchRegionFactory()
+        region_en = taxonomies_factory.ResearchRegionFactory()
         region_fr = region_en.copy_for_translation(self.fr_locale)
         region_fr.save()
 
@@ -702,10 +703,10 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         region.
 
         """
-        region_1_en = research_factory.ResearchRegionFactory()
+        region_1_en = taxonomies_factory.ResearchRegionFactory()
         region_1_fr = region_1_en.copy_for_translation(self.fr_locale)
         region_1_fr.save()
-        region_2_en = research_factory.ResearchRegionFactory()
+        region_2_en = taxonomies_factory.ResearchRegionFactory()
         translation.activate(self.fr_locale.language_code)
 
         response = self.client.get(self.library_page.localized.url)
@@ -717,12 +718,12 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(region_2_en.id, region_option_values)
 
     def test_filter_region(self):
-        region_A = research_factory.ResearchRegionFactory()
+        region_A = taxonomies_factory.ResearchRegionFactory()
         detail_page_A = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_regions__research_region=region_A,
         )
-        region_B = research_factory.ResearchRegionFactory()
+        region_B = taxonomies_factory.ResearchRegionFactory()
         detail_page_B = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_regions__research_region=region_B,
@@ -735,8 +736,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_B, research_detail_pages)
 
     def test_filter_multiple_regions(self):
-        region_A = research_factory.ResearchRegionFactory()
-        region_B = research_factory.ResearchRegionFactory()
+        region_A = taxonomies_factory.ResearchRegionFactory()
+        region_B = taxonomies_factory.ResearchRegionFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_regions__research_region=region_A,
@@ -766,7 +767,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         is not associated with the translated region, but we still want to see it in
         the results.
         """
-        region = research_factory.ResearchRegionFactory()
+        region = taxonomies_factory.ResearchRegionFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             related_regions__research_region=region,
