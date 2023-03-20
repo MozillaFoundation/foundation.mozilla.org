@@ -153,6 +153,12 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     label = models.CharField(null=False, blank=False, max_length=50)
 
     url = models.URLField(null=False, blank=True)
+    page = models.ForeignKey(
+        "wagtailcore.Page",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+    )
     document = models.ForeignKey(
         wagtail_docs.get_document_model_string(),
         null=True,
