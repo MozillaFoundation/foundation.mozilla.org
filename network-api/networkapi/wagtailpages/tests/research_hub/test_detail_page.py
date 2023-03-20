@@ -101,7 +101,7 @@ class TestResearchDetailLink(research_test_base.ResearchHubTestCase):
         self.assertEqual(link.get_url(), url)
 
     def test_get_url_with_page(self):
-        page = detail_page_factory.ResearchDetailPageFactory(parent=self.homepage)
+        page = wagtail_factories.PageFactory(parent=self.homepage)
         link = detail_page_factory.ResearchDetailLinkFactory.build(page=page)
 
         self.assertEqual(link.get_url(), page.get_url())
