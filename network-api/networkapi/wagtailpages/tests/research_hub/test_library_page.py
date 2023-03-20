@@ -6,8 +6,8 @@ from django.utils import timezone, translation
 from wagtail import models as wagtail_models
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
-from networkapi.wagtailpages.factory import research_hub as research_factory
 from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
+from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
 from networkapi.wagtailpages.factory.research_hub import taxonomies as taxonomies_factory
 from networkapi.wagtailpages.tests.research_hub import base as research_test_base
 from networkapi.wagtailpages.tests.research_hub import utils as research_test_utils
@@ -181,7 +181,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             tagline="",
             introduction="",
         )
-        research_factory.ResearchAuthorRelationFactory(research_detail_page=apple_page, author_profile=apple_profile)
+        relations_factory.ResearchAuthorRelationFactory(research_detail_page=apple_page, author_profile=apple_profile)
         banana_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
@@ -194,7 +194,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             tagline="",
             introduction="",
         )
-        research_factory.ResearchAuthorRelationFactory(research_detail_page=banana_page, author_profile=banana_profile)
+        relations_factory.ResearchAuthorRelationFactory(research_detail_page=banana_page, author_profile=banana_profile)
         self.update_index()
 
         response = self.client.get(self.library_page.url, data={"search": "Apple"})
@@ -217,7 +217,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             name="Apple",
             description="",
         )
-        research_factory.ResearchDetailPageResearchTopicRelationFactory(
+        relations_factory.ResearchDetailPageResearchTopicRelationFactory(
             research_detail_page=apple_page, research_topic=apple_topic
         )
         banana_page = detail_page_factory.ResearchDetailPageFactory(
@@ -231,7 +231,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             name="banana",
             description="",
         )
-        research_factory.ResearchDetailPageResearchTopicRelationFactory(
+        relations_factory.ResearchDetailPageResearchTopicRelationFactory(
             research_detail_page=banana_page, research_topic=banana_topic
         )
         self.update_index()
@@ -253,7 +253,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             collaborators="",
         )
         apple_region = taxonomies_factory.ResearchRegionFactory(name="Apple")
-        research_factory.ResearchDetailPageResearchRegionRelationFactory(
+        relations_factory.ResearchDetailPageResearchRegionRelationFactory(
             research_detail_page=apple_page, research_region=apple_region
         )
         banana_page = detail_page_factory.ResearchDetailPageFactory(
@@ -264,7 +264,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             collaborators="",
         )
         banana_region = taxonomies_factory.ResearchRegionFactory(name="banana")
-        research_factory.ResearchDetailPageResearchRegionRelationFactory(
+        relations_factory.ResearchDetailPageResearchRegionRelationFactory(
             research_detail_page=banana_page, research_region=banana_region
         )
         self.update_index()
@@ -480,7 +480,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
         profile_b = detail_page_2.research_authors.first().author_profile
         # Make author of first page also an author of the second page
-        research_factory.ResearchAuthorRelationFactory(
+        relations_factory.ResearchAuthorRelationFactory(
             research_detail_page=detail_page_2,
             author_profile=profile_a,
         )
@@ -611,7 +611,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             parent=self.library_page,
             related_topics__research_topic=topic_A,
         )
-        research_factory.ResearchDetailPageResearchTopicRelationFactory(
+        relations_factory.ResearchDetailPageResearchTopicRelationFactory(
             research_detail_page=detail_page_1, research_topic=topic_B
         )
         detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
@@ -742,7 +742,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             parent=self.library_page,
             related_regions__research_region=region_A,
         )
-        research_factory.ResearchDetailPageResearchRegionRelationFactory(
+        relations_factory.ResearchDetailPageResearchRegionRelationFactory(
             research_detail_page=detail_page_1, research_region=region_B
         )
         detail_page_2 = detail_page_factory.ResearchDetailPageFactory(

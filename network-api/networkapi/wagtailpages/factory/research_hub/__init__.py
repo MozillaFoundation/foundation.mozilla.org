@@ -1,45 +1,11 @@
-import factory
-
 from networkapi.utility.faker import helpers as faker_helpers
 from networkapi.wagtailpages import models as wagtailpage_models
-from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages.factory.research_hub import author_index as author_index_factory
 from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
 from networkapi.wagtailpages.factory.research_hub import landing_page as landing_page_factory
 from networkapi.wagtailpages.factory.research_hub import library_page as library_page_factory
 from networkapi.wagtailpages.factory.research_hub import taxonomies as taxonomies_factory
-
-
-class ResearchAuthorRelationFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = wagtailpage_models.ResearchAuthorRelation
-
-    research_detail_page = factory.SubFactory(detail_page_factory.ResearchDetailPageFactory)
-    author_profile = factory.SubFactory(profiles_factory.ProfileFactory)
-
-
-class ResearchDetailPageResearchRegionRelationFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = wagtailpage_models.ResearchDetailPageResearchRegionRelation
-
-    research_detail_page = factory.SubFactory(detail_page_factory.ResearchDetailPageFactory)
-    research_region = factory.SubFactory(taxonomies_factory.ResearchRegionFactory)
-
-
-class ResearchDetailPageResearchTopicRelationFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = wagtailpage_models.ResearchDetailPageResearchTopicRelation
-
-    research_detail_page = factory.SubFactory(detail_page_factory.ResearchDetailPageFactory)
-    research_topic = factory.SubFactory(taxonomies_factory.ResearchTopicFactory)
-
-
-class ResearchLandingPageResearchTopicRelationFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = wagtailpage_models.ResearchLandingPageFeaturedResearchTopicRelation
-
-    research_landing_page = factory.SubFactory(landing_page_factory.ResearchLandingPageFactory)
-    research_topic = factory.SubFactory(taxonomies_factory.ResearchTopicFactory)
+from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
 
 
 def generate(seed):
@@ -76,26 +42,26 @@ def generate(seed):
         )
 
         for profile in faker_helpers.get_random_objects(source=wagtailpage_models.Profile, max_count=3):
-            ResearchAuthorRelationFactory.create(
+            relations_factory.ResearchAuthorRelationFactory.create(
                 research_detail_page=research_detail_page,
                 author_profile=profile,
             )
 
         for region in faker_helpers.get_random_objects(source=wagtailpage_models.ResearchRegion, max_count=2):
-            ResearchDetailPageResearchRegionRelationFactory.create(
+            relations_factory.ResearchDetailPageResearchRegionRelationFactory.create(
                 research_detail_page=research_detail_page,
                 research_region=region,
             )
 
         for topic in faker_helpers.get_random_objects(source=wagtailpage_models.ResearchTopic, max_count=2):
-            ResearchDetailPageResearchTopicRelationFactory.create(
+            relations_factory.ResearchDetailPageResearchTopicRelationFactory.create(
                 research_detail_page=research_detail_page,
                 research_topic=topic,
             )
 
     # Populating research landing page with featured research topics
     for topic in faker_helpers.get_random_objects(source=wagtailpage_models.ResearchTopic, max_count=3):
-        ResearchLandingPageResearchTopicRelationFactory.create(
+        relations_factory.ResearchLandingPageResearchTopicRelationFactory.create(
             research_landing_page=research_landing_page,
             research_topic=topic,
         )

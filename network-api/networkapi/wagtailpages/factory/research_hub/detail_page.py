@@ -52,19 +52,19 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
         return "; ".join(names)
 
     research_authors = factory.RelatedFactoryList(
-        factory="networkapi.wagtailpages.factory.research_hub.ResearchAuthorRelationFactory",
+        factory="networkapi.wagtailpages.factory.research_hub.relations.ResearchAuthorRelationFactory",
         factory_related_name="research_detail_page",
         size=1,
     )
 
     related_topics = factory.RelatedFactoryList(
-        factory="networkapi.wagtailpages.factory.research_hub.ResearchDetailPageResearchTopicRelationFactory",
+        factory="networkapi.wagtailpages.factory.research_hub.relations.ResearchDetailPageResearchTopicRelationFactory",
         factory_related_name="research_detail_page",
         size=1,
     )
 
     related_regions = factory.RelatedFactoryList(
-        factory="networkapi.wagtailpages.factory.research_hub.ResearchDetailPageResearchRegionRelationFactory",
+        factory="networkapi.wagtailpages.factory.research_hub.relations.ResearchDetailPageResearchRegionRelationFactory",
         factory_related_name="research_detail_page",
         size=1,
     )
