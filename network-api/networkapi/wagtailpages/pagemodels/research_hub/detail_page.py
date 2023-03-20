@@ -186,16 +186,19 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
 
     def clean(self):
         super().clean()
-        if self.url and self.document:
-            error_message = "Please provide either a URL or a document, not both."
+
+        # Ensure that only one of the three fields is set
+        if sum([bool(self.url), bool(self.page), bool(self.document)]) > 1:
+            error_message = "Please provide either a URL, a page or a document, not multiple."
             raise exceptions.ValidationError(
-                {"url": error_message, "document": error_message},
+                {"url": error_message, "page": error_message, "document": error_message},
                 code="invalid",
             )
-        elif not self.url and not self.document:
-            error_message = "Please provide a URL or a document."
+        # Ensure that at least one of the three fields is set
+        elif not any([self.url, self.page, self.document]):
+            error_message = "Please provide a URL, a page or a document."
             raise exceptions.ValidationError(
-                {"url": error_message, "document": error_message},
+                {"url": error_message, "page": error_message, "document": error_message},
                 code="required",
             )
 
