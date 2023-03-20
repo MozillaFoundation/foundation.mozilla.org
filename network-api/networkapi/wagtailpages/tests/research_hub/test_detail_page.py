@@ -1,5 +1,5 @@
-from django.core import exceptions
 import wagtail_factories
+from django.core import exceptions
 
 from networkapi.wagtailpages.factory.research_hub import (
     detail_page as detail_page_factory,
