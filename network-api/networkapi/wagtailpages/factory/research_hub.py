@@ -1,7 +1,6 @@
 import random
 
 import factory
-import factory.fuzzy
 import wagtail_factories
 
 from networkapi.utility.faker import helpers as faker_helpers
