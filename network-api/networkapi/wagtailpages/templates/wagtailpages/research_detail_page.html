@@ -33,7 +33,7 @@
             {% if page.research_links %}
                 <div class="tw-flex tw-flex-col medium:tw-flex-row tw-gap-6">
                     {% for research_link in page.research_links.all %}
-                        {% with label=research_link.label url=research_link.get_url  %}
+                        {% with label=research_link.label url=research_link.get_url %}
                             {% if label and url %}
                                 <a href="{{ url }}" class="tw-justify-center {% if forloop.first %} tw-btn-primary {% else %} tw-btn-secondary {% endif %}">
                                     {{ label }}
