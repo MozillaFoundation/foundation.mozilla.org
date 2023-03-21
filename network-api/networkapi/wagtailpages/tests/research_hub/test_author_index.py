@@ -5,7 +5,10 @@ from django.utils import translation
 from wagtail_localize import synctree
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
-from networkapi.wagtailpages.factory import research_hub as research_factory
+from networkapi.wagtailpages.factory.research_hub import (
+    detail_page as detail_page_factory,
+)
+from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
 from networkapi.wagtailpages.tests.research_hub import base as research_test_base
 from networkapi.wagtailpages.tests.research_hub import utils as research_test_utils
 
@@ -14,12 +17,12 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.detail_page = research_factory.ResearchDetailPageFactory(
+        cls.detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=cls.library_page,
             original_publication_date=(research_test_utils.days_ago(n=14)),
         )
         cls.research_profile = profiles_factory.ProfileFactory()
-        research_factory.ResearchAuthorRelationFactory(
+        relations_factory.ResearchAuthorRelationFactory(
             research_detail_page=cls.detail_page,
             author_profile=cls.research_profile,
         )
@@ -134,10 +137,10 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             self.detail_page,
             self.fr_locale,
         )
-        extra_detail_page = research_factory.ResearchDetailPageFactory(
+        extra_detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
-        research_factory.ResearchAuthorRelationFactory(
+        relations_factory.ResearchAuthorRelationFactory(
             research_detail_page=extra_detail_page,
             author_profile=self.research_profile,
         )
@@ -167,10 +170,10 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             self.detail_page,
             self.fr_locale,
         )
-        extra_detail_page = research_factory.ResearchDetailPageFactory(
+        extra_detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
-        research_factory.ResearchAuthorRelationFactory(
+        relations_factory.ResearchAuthorRelationFactory(
             research_detail_page=extra_detail_page,
             author_profile=self.research_profile,
         )
@@ -195,27 +198,27 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertIn(fr_extra_detail_page, context["latest_research"])
 
     def test_get_latest_research(self):
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
+        detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=(research_test_utils.days_ago(n=3)),
         )
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
+        detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=(research_test_utils.days_ago(n=2)),
         )
-        detail_page_3 = research_factory.ResearchDetailPageFactory(
+        detail_page_3 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=(research_test_utils.days_ago(n=1)),
         )
-        research_factory.ResearchAuthorRelationFactory(
+        relations_factory.ResearchAuthorRelationFactory(
             research_detail_page=detail_page_1,
             author_profile=self.research_profile,
         )
-        research_factory.ResearchAuthorRelationFactory(
+        relations_factory.ResearchAuthorRelationFactory(
             research_detail_page=detail_page_2,
             author_profile=self.research_profile,
         )
-        research_factory.ResearchAuthorRelationFactory(
+        relations_factory.ResearchAuthorRelationFactory(
             research_detail_page=detail_page_3,
             author_profile=self.research_profile,
         )

@@ -2,7 +2,10 @@ from django import test
 
 from networkapi.wagtailpages.factory import blog as blog_factories
 from networkapi.wagtailpages.factory import profiles as profile_factories
-from networkapi.wagtailpages.factory import research_hub as research_factory
+from networkapi.wagtailpages.factory.research_hub import (
+    detail_page as detail_page_factory,
+)
+from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors
 
@@ -14,8 +17,8 @@ class ProfileTest(test.TestCase):
 
     def test_filter_research_authors(self):
         research_author_profile = profile_factories.ProfileFactory()
-        research_factory.ResearchAuthorRelationFactory(
-            research_detail_page=research_factory.ResearchDetailPageFactory(),
+        relations_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
             author_profile=research_author_profile,
         )
         not_research_author_profile = profile_factories.ProfileFactory()
@@ -40,12 +43,12 @@ class ProfileTest(test.TestCase):
         """Return research author profile only once"""
 
         research_author_profile = profile_factories.ProfileFactory()
-        research_factory.ResearchAuthorRelationFactory(
-            research_detail_page=research_factory.ResearchDetailPageFactory(),
+        relations_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
             author_profile=research_author_profile,
         )
-        research_factory.ResearchAuthorRelationFactory(
-            research_detail_page=research_factory.ResearchDetailPageFactory(),
+        relations_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
             author_profile=research_author_profile,
         )
 
