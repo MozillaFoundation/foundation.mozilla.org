@@ -186,10 +186,10 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
         ordering = ["sort_order"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.label
 
-    def clean(self):
+    def clean(self) -> None:
         super().clean()
 
         # Ensure that only one of the three fields is set
@@ -220,3 +220,5 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
             return self.page.get_url()
         elif self.document:
             return self.document.url
+        # Should never happen, but to have a fallback.
+        return ""
