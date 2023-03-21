@@ -202,10 +202,12 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
                 code="required",
             )
 
-    def get_url(self):
+    def get_url(self) -> str:
         if self.url:
             return self.url
         elif self.page:
+            if not self.page.live:
+                return ""
             return self.page.get_url()
         elif self.document:
             return self.document.url

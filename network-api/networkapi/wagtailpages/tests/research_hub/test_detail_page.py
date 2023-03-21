@@ -106,6 +106,12 @@ class TestResearchDetailLink(research_test_base.ResearchHubTestCase):
 
         self.assertEqual(link.get_url(), page.get_url())
 
+    def test_get_url_with_non_live_page(self):
+        page = wagtail_factories.PageFactory(parent=self.homepage, live=False)
+        link = detail_page_factory.ResearchDetailLinkFactory.build(page=page)
+
+        self.assertEqual(link.get_url(), "")
+
     def test_get_url_with_doc(self):
         doc = wagtail_factories.DocumentFactory()
         link = detail_page_factory.ResearchDetailLinkFactory.build(document=doc)
