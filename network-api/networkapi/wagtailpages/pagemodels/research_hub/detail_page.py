@@ -1,4 +1,5 @@
 import logging
+
 from django.core import exceptions
 from django.db import models
 from modelcluster import fields as cluster_fields
@@ -16,7 +17,6 @@ from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options impo
 )
 from networkapi.wagtailpages.pagemodels.research_hub import authors_index
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
-
 
 logger = logging.getLogger(__name__)
 
@@ -220,5 +220,3 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
             return self.page.get_url()
         elif self.document:
             return self.document.url
-
-
