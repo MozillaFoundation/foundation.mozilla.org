@@ -33,9 +33,11 @@
             {% if page.research_links %}
                 <div class="tw-flex tw-flex-col medium:tw-flex-row tw-gap-6">
                     {% for research_link in page.research_links.all %}
-                        <a href="{{ research_link.get_url }}" class="tw-justify-center {% if forloop.first %} tw-btn-primary {% else %} tw-btn-secondary {% endif %}">
-                            {{ research_link.label }}
-                        </a>
+                        {% if research_link.label and research_link.get_url %}
+                            <a href="{{ research_link.get_url }}" class="tw-justify-center {% if forloop.first %} tw-btn-primary {% else %} tw-btn-secondary {% endif %}">
+                                {{ research_link.label }}
+                            </a>
+                        {% endif %}
                     {% endfor %}
                 </div>
             {% endif %}
