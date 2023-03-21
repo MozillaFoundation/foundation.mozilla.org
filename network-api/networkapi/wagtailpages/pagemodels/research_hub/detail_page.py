@@ -172,8 +172,9 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     panels = [
         edit_handlers.HelpPanel(
             content=(
-                "Please provide an external link to the original source or upload a document and select it here. "
-                'If you wish to provide both, please create two separate "research links"'
+                "Please provide a link to the original resource. "
+                "You can link to an internal page, an external URL or upload a document. "
+                'If you wish to provide multiple, please create two separate "research links"'
             )
         ),
         edit_handlers.FieldPanel("label"),
