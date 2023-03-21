@@ -1,3 +1,4 @@
+import logging
 from django.core import exceptions
 from django.db import models
 from modelcluster import fields as cluster_fields
@@ -15,6 +16,9 @@ from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options impo
 )
 from networkapi.wagtailpages.pagemodels.research_hub import authors_index
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
+
+
+logger = logging.getLogger(__name__)
 
 
 class ResearchDetailPage(research_base.ResearchHubBasePage):
@@ -207,7 +211,13 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
             return self.url
         elif self.page:
             if not self.page.live:
+                logger.warning(
+                    f"Detail link to unpublished page defined: { self } -> { self.page }. "
+                    "This link will not be shown in the frontend."
+                )
                 return ""
             return self.page.get_url()
         elif self.document:
             return self.document.url
+
+
