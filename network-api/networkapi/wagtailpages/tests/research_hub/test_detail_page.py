@@ -130,4 +130,3 @@ class TestResearchDetailLink(research_test_base.ResearchHubTestCase):
 
         with self.assertRaises(ValueError):
             link.get_url()
-
