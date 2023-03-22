@@ -1,4 +1,5 @@
 import collections
+import typing
 from typing import Optional
 
 from django.core import paginator
@@ -15,6 +16,12 @@ from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 from networkapi.wagtailpages.pagemodels.research_hub import detail_page, taxonomies
+
+
+if typing.TYPE_CHECKING:
+    from django.db import models
+    from wagtail.core import models as wagtail_models
+
 
 # We don't want to expose the actual database column value that we use for sorting.
 # Therefore, we need a separate value that is used in the form and url.
@@ -196,7 +203,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         topic_ids: Optional[list[int]] = None,
         region_ids: Optional[list[int]] = None,
         year: Optional[int] = None,
-    ):
+    ) -> None:
         sort = sort or self.SORT_NEWEST_FIRST
         author_profile_ids = author_profile_ids or []
         topic_ids = topic_ids or []
@@ -238,7 +245,6 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
                 search,
                 order_by_relevance=False,  # To preserve original ordering
             )
-
         return research_detail_pages
 
     def get_banner(self):
