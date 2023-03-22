@@ -1,5 +1,3 @@
-import collections
-import typing
 from typing import Optional
 
 from django.core import paginator
@@ -15,17 +13,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
-from networkapi.wagtailpages.pagemodels.research_hub import detail_page, taxonomies
-
-
-if typing.TYPE_CHECKING:
-    from django.db import models
-    from wagtail.core import models as wagtail_models
-
-
-# We don't want to expose the actual database column value that we use for sorting.
-# Therefore, we need a separate value that is used in the form and url.
-SortOption = collections.namedtuple("SortOption", ["label", "value", "order_by_value"])
+from networkapi.wagtailpages.pagemodels.research_hub import constants, detail_page, taxonomies
 
 
 class ResearchLibraryPage(research_base.ResearchHubBasePage):
@@ -51,33 +39,6 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
 
     settings_panels = research_base.ResearchHubBasePage.settings_panels + [panels.FieldPanel("results_count")]
 
-    SORT_NEWEST_FIRST = SortOption(
-        label=_("Newest first"),
-        value="newest-first",
-        order_by_value="-original_publication_date",
-    )
-    SORT_OLDEST_FIRST = SortOption(
-        label=_("Oldest first"),
-        value="oldest-first",
-        order_by_value="original_publication_date",
-    )
-    SORT_ALPHABETICAL = SortOption(
-        label=_("Alphabetical (A-Z)"),
-        value="alphabetical",
-        order_by_value="title",
-    )
-    SORT_ALPHABETICAL_REVERSED = SortOption(
-        label=_("Alphabetical (Z-A)"),
-        value="alphabetical-reversed",
-        order_by_value="-title",
-    )
-    SORT_CHOICES = {
-        SORT_NEWEST_FIRST.value: SORT_NEWEST_FIRST,
-        SORT_OLDEST_FIRST.value: SORT_OLDEST_FIRST,
-        SORT_ALPHABETICAL.value: SORT_ALPHABETICAL,
-        SORT_ALPHABETICAL_REVERSED.value: SORT_ALPHABETICAL_REVERSED,
-    }
-
     translatable_fields = [
         # Content tab fields
         TranslatableField("title"),
@@ -92,7 +53,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
     def get_context(self, request):
         search_query = request.GET.get("search", "")
         sort_value = request.GET.get("sort", "")
-        sort = self.SORT_CHOICES.get(sort_value, self.SORT_NEWEST_FIRST)
+        sort = constants.SORT_CHOICES.get(sort_value, constants.SORT_NEWEST_FIRST)
         filtered_author_ids = [int(author_id) for author_id in request.GET.getlist("author")]
         filtered_topic_ids = [int(topic_id) for topic_id in request.GET.getlist("topic")]
         filtered_region_ids = [int(region_id) for region_id in request.GET.getlist("region")]
@@ -198,13 +159,12 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         self,
         *,
         search: str = "",
-        sort: Optional[SortOption] = None,
+        sort: constants.SortOption = constants.SORT_NEWEST_FIRST,
         author_profile_ids: Optional[list[int]] = None,
         topic_ids: Optional[list[int]] = None,
         region_ids: Optional[list[int]] = None,
         year: Optional[int] = None,
-    ) -> None:
-        sort = sort or self.SORT_NEWEST_FIRST
+    ):
         author_profile_ids = author_profile_ids or []
         topic_ids = topic_ids or []
         region_ids = region_ids or []
@@ -245,6 +205,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
                 search,
                 order_by_relevance=False,  # To preserve original ordering
             )
+
         return research_detail_pages
 
     def get_banner(self):
