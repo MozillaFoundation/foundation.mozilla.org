@@ -1,8 +1,8 @@
 from typing import Optional
+import typing
 
 from django.core import paginator
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
@@ -14,6 +14,9 @@ from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 from networkapi.wagtailpages.pagemodels.research_hub import constants, detail_page, taxonomies
+
+if typing.TYPE_CHECKING:
+    from django import http, template
 
 
 class ResearchLibraryPage(research_base.ResearchHubBasePage):
@@ -50,7 +53,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         SynchronizedField("search_image"),
     ]
 
-    def get_context(self, request):
+    def get_context(self, request: "http.HttpRequest") -> "template.Context":
         search_query = request.GET.get("search", "")
         sort_value = request.GET.get("sort", "")
         sort = constants.SORT_CHOICES.get(sort_value, constants.SORT_NEWEST_FIRST)
@@ -82,7 +85,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         )
         research_detail_pages_page = research_detail_pages_paginator.get_page(page)
 
-        context = super().get_context(request)
+        context: "template.Context" = super().get_context(request)
         context["breadcrumbs"] = self.get_breadcrumbs()
         context["search_query"] = search_query
         context["sort"] = sort
