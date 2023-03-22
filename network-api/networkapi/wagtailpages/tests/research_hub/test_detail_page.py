@@ -120,9 +120,10 @@ class TestResearchDetailLink(research_test_base.ResearchHubTestCase):
 
     def test_get_url_without_needed_data(self) -> None:
         """
-        Test the invalid link cas.
+        Test the invalid link case.
 
-        This should raise a validation error, but the `get_url` method still needs to handle this in a defined manner.
+        This link should raise a validation error when it is being created, but the `get_url` method still needs to
+        handle this logic branch in a sensible manner.
 
         """
         link = detail_page_factory.ResearchDetailLinkFactory.build()
