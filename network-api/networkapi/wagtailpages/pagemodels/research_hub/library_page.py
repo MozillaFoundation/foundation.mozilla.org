@@ -63,11 +63,12 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         # Because a research detail page can only have a single publication date, we
         # can also only select a single one. Otherwise we would filter for pages with
         # two publication dates which does not exist.
-        filtered_year = request.GET.get("year", "")
+        year_parameter: str = request.GET.get("year", "")
         try:
-            filtered_year = int(filtered_year)
+            filtered_year = int(year_parameter)
         except ValueError:
-            filtered_year = ""
+            # Any non-number year parameter will trigger the ValueError.
+            filtered_year = None
         page = request.GET.get("page")
 
         searched_and_filtered_research_detail_pages = self._get_research_detail_pages(
