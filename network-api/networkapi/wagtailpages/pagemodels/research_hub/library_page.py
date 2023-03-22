@@ -160,15 +160,11 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         *,
         search: str = "",
         sort: constants.SortOption = constants.SORT_NEWEST_FIRST,
-        author_profile_ids: Optional[list[int]] = None,
-        topic_ids: Optional[list[int]] = None,
-        region_ids: Optional[list[int]] = None,
+        author_profile_ids: list[int] = list(),
+        topic_ids: list[int] = list(),
+        region_ids: list[int] = list(),
         year: Optional[int] = None,
     ):
-        author_profile_ids = author_profile_ids or []
-        topic_ids = topic_ids or []
-        region_ids = region_ids or []
-
         research_detail_pages = detail_page.ResearchDetailPage.objects.live().public()
         research_detail_pages = research_detail_pages.filter(locale=wagtail_models.Locale.get_active())
 
