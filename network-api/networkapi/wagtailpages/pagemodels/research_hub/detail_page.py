@@ -220,5 +220,4 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
             return self.page.get_url()
         elif self.document:
             return self.document.url
-        # Should never happen, but to have a fallback.
-        return ""
+        raise ValueError("No URL defined for this detail link. This should not happen.")

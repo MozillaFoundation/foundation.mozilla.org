@@ -117,3 +117,16 @@ class TestResearchDetailLink(research_test_base.ResearchHubTestCase):
         link = detail_page_factory.ResearchDetailLinkFactory.build(document=doc)
 
         self.assertEqual(link.get_url(), doc.url)
+
+    def test_get_url_without_needed_data(self):
+        """
+        Test the invalid link cas.
+
+        This should raise a validation error, but the `get_url` method still needs to handle this in a defined manner.
+
+        """
+        link = detail_page_factory.ResearchDetailLinkFactory.build()
+
+        with self.assertRaises(ValueError):
+            link.get_url()
+
