@@ -10,9 +10,19 @@ import {
   toggleProductReviewView,
   toggleCategoryRelatedArticles,
 } from "./member-functions.js";
+
 /**
- * ...
+ * Update subcategory link's class list
+ * @param {HTMLElement} subCatLink HTMLElement of the subcategory link
+ * @param {string[]} classToAdd array of classes to add
+ * @param {string[]} classToRemove array of classes to remove
  */
+function updateSubCatLinkClass(subCatLink, classToAdd, classToRemove) {
+  if (!subCatLink) return;
+
+  subCatLink.classList.add(...classToAdd);
+  subCatLink.classList.remove(...classToRemove);
+}
 export class SearchFilter {
   constructor() {
     gsap.registerPlugin(ScrollTrigger);
@@ -207,7 +217,7 @@ export class SearchFilter {
     this.filterSubcategory("None");
 
     Utils.updateHeader("None", null);
-    Utils.selectAllCategory();
+    Utils.setActiveCatNavLink("None");
     Utils.toggleProducts(text);
 
     const state = { ...history.state, search: text };
@@ -223,7 +233,7 @@ export class SearchFilter {
     const parentTitle = document.querySelector(`.parent-title`);
     parentTitle.value = null;
     this.filterCategory("None");
-    Utils.clearCategories();
+    Utils.setActiveCatNavLink("None");
   }
 
   filterCategory(category) {
@@ -256,14 +266,11 @@ export class SearchFilter {
       "tw-bg-white",
     ];
 
-    if (document.querySelector(`a.subcategories.active`)) {
-      document
-        .querySelector(`a.subcategories.active`)
-        .classList.add(...defaultClasses);
-      document
-        .querySelector(`a.subcategories.active`)
-        .classList.remove(...activeClasses);
-    }
+    updateSubCatLinkClass(
+      document.querySelector(`a.subcategories.active`),
+      defaultClasses,
+      activeClasses
+    );
 
     if (clear === true) return;
 
@@ -273,21 +280,13 @@ export class SearchFilter {
   activateSubcategory(activeClasses, defaultClasses) {
     const categoryName = this.categoryTitle.value.trim();
 
-    document
-      .querySelector(`a.subcategories[data-name="${categoryName}"]`)
-      .classList.add(...activeClasses);
+    updateSubCatLinkClass(
+      document.querySelector(`a.subcategories[data-name="${categoryName}"]`),
+      activeClasses,
+      defaultClasses
+    );
 
-    document
-      .querySelector(`a.subcategories[data-name="${categoryName}"]`)
-      .classList.remove(...defaultClasses);
-
-    document
-      .querySelector(`a.subcategories[data-name="${categoryName}"]`)
-      .scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "start",
-      });
+    Utils.scrollToSubCategory(categoryName);
   }
 
   filterSubcategory(category) {

@@ -72,7 +72,7 @@ django==3.2.16
     #   wagtailmedia
 django-admin-sortable==2.3
     # via -r requirements.in
-django-cors-headers==3.13.0
+django-cors-headers==3.14.0
     # via -r requirements.in
 django-csp==3.7
     # via -r requirements.in
@@ -82,13 +82,13 @@ django-filter==21.1
     # via
     #   -r requirements.in
     #   wagtail
-django-htmx==1.13.0
+django-htmx==1.14.0
     # via -r requirements.in
 django-modelcluster==6.0
     # via wagtail
 django-permissionedforms==0.1
     # via wagtail
-django-querystring-tag==1.0.2
+django-querystring-tag==1.0.3
     # via -r requirements.in
 django-redis==5.2.0
     # via -r requirements.in
@@ -120,11 +120,11 @@ future==0.18.3
     # via -r requirements.in
 gitdb==4.0.9
     # via gitpython
-gitpython==3.1.27
+gitpython==3.1.30
     # via wagtail-localize-git
 gunicorn==20.1.0
     # via -r requirements.in
-heroku3==5.1.4
+heroku3==5.2.0
     # via -r requirements.in
 html5lib==1.1
     # via wagtail
@@ -138,7 +138,7 @@ jmespath==0.10.0
     #   botocore
 l18n==2021.3
     # via wagtail
-oauthlib==3.2.1
+oauthlib==3.2.2
     # via
     #   requests-oauthlib
     #   social-auth-core
@@ -156,7 +156,7 @@ psycopg2-binary==2.9.5
     # via -r requirements.in
 pycparser==2.21
     # via cffi
-pygit2==1.7.1
+pygit2==1.11.1
     # via
     #   -r requirements.in
     #   wagtail-localize-git
@@ -183,7 +183,7 @@ pytz==2021.3
     #   l18n
 redis==4.1.4
     # via django-redis
-requests==2.28.1
+requests==2.28.2
     # via
     #   -r requirements.in
     #   basket-client
@@ -244,7 +244,7 @@ wagtail==3.0
     #   wagtail-localize-git
     #   wagtail-metadata
     #   wagtailmedia
-wagtail-color-panel==1.4.0
+wagtail-color-panel==1.4.1
     # via -r requirements.in
 wagtail-factories==4.0.0
     # via -r requirements.in
@@ -264,7 +264,7 @@ wagtailmedia==0.12.0
     # via -r requirements.in
 webencodings==0.5.1
     # via html5lib
-whitenoise==6.0.0
+whitenoise==6.4.0
     # via -r requirements.in
 willow==1.4.1
     # via wagtail

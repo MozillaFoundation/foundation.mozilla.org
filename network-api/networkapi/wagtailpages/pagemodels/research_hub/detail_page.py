@@ -18,65 +18,6 @@ from networkapi.wagtailpages.pagemodels.research_hub import authors_index
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 
 
-class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
-    research_detail_page = cluster_fields.ParentalKey(
-        "ResearchDetailPage",
-        null=False,
-        blank=False,
-        on_delete=models.CASCADE,
-        related_name="research_links",
-    )
-
-    label = models.CharField(null=False, blank=False, max_length=50)
-
-    url = models.URLField(null=False, blank=True)
-    document = models.ForeignKey(
-        wagtail_docs.get_document_model_string(),
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE,
-    )
-
-    panels = [
-        edit_handlers.HelpPanel(
-            content=(
-                "Please provide an external link to the original source or upload a document and select it here. "
-                'If you wish to provide both, please create two separate "research links"'
-            )
-        ),
-        edit_handlers.FieldPanel("label"),
-        edit_handlers.FieldPanel("url"),
-        docs_handlers.FieldPanel("document"),
-    ]
-
-    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
-        ordering = ["sort_order"]
-
-    def __str__(self):
-        return self.label
-
-    def clean(self):
-        super().clean()
-        if self.url and self.document:
-            error_message = "Please provide either a URL or a document, not both."
-            raise exceptions.ValidationError(
-                {"url": error_message, "document": error_message},
-                code="invalid",
-            )
-        elif not self.url and not self.document:
-            error_message = "Please provide a URL or a document."
-            raise exceptions.ValidationError(
-                {"url": error_message, "document": error_message},
-                code="required",
-            )
-
-    def get_url(self):
-        if self.url:
-            return self.url
-        elif self.document:
-            return self.document.url
-
-
 class ResearchDetailPage(research_base.ResearchHubBasePage):
     parent_page_types = ["ResearchLibraryPage"]
 
@@ -198,3 +139,62 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
 
     def get_banner(self):
         return self.get_parent().specific.get_banner()
+
+
+class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
+    research_detail_page = cluster_fields.ParentalKey(
+        "ResearchDetailPage",
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name="research_links",
+    )
+
+    label = models.CharField(null=False, blank=False, max_length=50)
+
+    url = models.URLField(null=False, blank=True)
+    document = models.ForeignKey(
+        wagtail_docs.get_document_model_string(),
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        edit_handlers.HelpPanel(
+            content=(
+                "Please provide an external link to the original source or upload a document and select it here. "
+                'If you wish to provide both, please create two separate "research links"'
+            )
+        ),
+        edit_handlers.FieldPanel("label"),
+        edit_handlers.FieldPanel("url"),
+        docs_handlers.FieldPanel("document"),
+    ]
+
+    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
+        ordering = ["sort_order"]
+
+    def __str__(self):
+        return self.label
+
+    def clean(self):
+        super().clean()
+        if self.url and self.document:
+            error_message = "Please provide either a URL or a document, not both."
+            raise exceptions.ValidationError(
+                {"url": error_message, "document": error_message},
+                code="invalid",
+            )
+        elif not self.url and not self.document:
+            error_message = "Please provide a URL or a document."
+            raise exceptions.ValidationError(
+                {"url": error_message, "document": error_message},
+                code="required",
+            )
+
+    def get_url(self):
+        if self.url:
+            return self.url
+        elif self.document:
+            return self.document.url

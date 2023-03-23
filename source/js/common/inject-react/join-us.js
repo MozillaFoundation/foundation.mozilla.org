@@ -1,10 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import JoinUs from "../../components/join/join.jsx";
 
 /**
  * Inject newsletter signup forms
- * @param {Array} apps The existing array we are using to to track all ReactDOM.render calls
+ * @param {Array} apps The existing array we are using to to track all React client rendering calls
  * @param {String} siteUrl Foundation site base URL
  */
 export default (apps, siteUrl) => {
@@ -18,10 +18,8 @@ export default (apps, siteUrl) => {
 
     apps.push(
       new Promise((resolve) => {
-        ReactDOM.render(
-          <JoinUs {...props} whenLoaded={() => resolve()} />,
-          element
-        );
+        const root = createRoot(element);
+        root.render(<JoinUs {...props} whenLoaded={() => resolve()} />);
       })
     );
   });

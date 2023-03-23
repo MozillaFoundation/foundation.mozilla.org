@@ -14,7 +14,7 @@
                 {% for author_profile in author_profiles %}
                     <li class="tw-flex tw-m-0">
                         <a
-                            href="{% routablepageurl page 'blog-author-detail' profile_slug=author_profile.slug  %}"
+                            href="{% routablepageurl page 'blog-author-detail' profile_slug=author_profile.slug %}"
                             class="tw-flex {% if not tight %} tw-gap-8 medium:tw-gap-12 large:tw-gap-16 {% else %} tw-gap-6 {% endif %} tw-group tw-items-center hover:tw-no-underline"
                         >
                             <div class="tw-shrink-0 tw-w-32 {% if not tight %} medium:tw-w-40 large:tw-w-48 {% endif %}">

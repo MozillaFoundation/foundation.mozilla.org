@@ -11,15 +11,16 @@
     {{ block.super }}
     <div class="editorial-content">
 
-        {% with hero_featured_article=page.get_hero_featured_article %}
-            {% if hero_featured_article %}
+        {% with hero_featured_page=page.get_hero_featured_page %}
+
+            {% if hero_featured_page %}
                 <div class="tw-container tw-mb-24">
-                    {% include "fragments/buyersguide/featured_article.html" with featured_article=hero_featured_article supporting_articles=page.get_hero_supporting_articles supporting_articles_heading=page.hero_supporting_articles_heading %}
+                    {% include "fragments/buyersguide/featured_page.html" with featured_page=hero_featured_page supporting_pages=page.get_hero_supporting_pages supporting_pages_heading=page.hero_supporting_pages_heading %}
                 </div>
             {% endif %}
         {% endwith %}
 
-        {% with featured_advice_article=page.get_featured_advice_article  %}
+        {% with featured_advice_article=page.get_featured_advice_article %}
             {% if featured_advice_article %}
                 <div class="large:tw-container tw-my-16">
                     {% include "fragments/buyersguide/ask_jen_advice_section.html" with featured_advice_article=featured_advice_article %}
@@ -33,7 +34,7 @@
 
                     {% with popular_articles=page.get_featured_articles %}
                         {% if popular_articles %}
-                            <div class="{{row_item_classes}}">
+                            <div class="{{ row_item_classes }}">
                                 {% include "fragments/buyersguide/popular_articles.html" with index_page=page.get_editorial_content_index %}
                             </div>
                         {% endif %}
@@ -41,7 +42,7 @@
 
                     {% with product_updates=page.get_featured_updates %}
                         {% if product_updates %}
-                            <div class="{{row_item_classes}}">
+                            <div class="{{ row_item_classes }}">
                                 {% include "fragments/buyersguide/in_the_press.html" %}
                             </div>
                         {% endif %}
@@ -55,7 +56,7 @@
                     {% comment %}
           {% with cta=featured_cta %}
             {% if cta %}
-              <div class="{{row_item_classes}}">
+              <div class="{{ row_item_classes }}">
                 {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
               </div>
             {% endif %}

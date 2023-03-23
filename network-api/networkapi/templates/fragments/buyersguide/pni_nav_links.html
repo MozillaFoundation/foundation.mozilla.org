@@ -2,7 +2,7 @@
 {% get_bg_home_page as home_page %}
 
 {{ pre }}
-{% with home_page.get_editorial_content_index as editorial_content_index  %}
+{% with home_page.get_editorial_content_index as editorial_content_index %}
     <a class="{{ class }} product-review-link" href="{% relocalized_url home_page.url %}#product-review">{% trans "Product Reviews" %}</a>
     <img
         class="tw-mr-8 tw-hidden large:tw-block {{ class }}"
