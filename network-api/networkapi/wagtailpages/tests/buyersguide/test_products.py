@@ -3,7 +3,7 @@ import json
 from django.test import TestCase
 from django.test.utils import override_settings
 from rest_framework.test import APITestCase
-from wagtail.snippets.views.snippets import get_snippet_edit_handler
+from wagtail.admin.panels import get_edit_handler
 from wagtail.test.utils import form_data
 
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
@@ -624,7 +624,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
 
 class BuyersGuideProductCategoryTest(TestCase):
     def setUp(self):
-        edit_handler = get_snippet_edit_handler(BuyersGuideProductCategory)
+        edit_handler = get_edit_handler(BuyersGuideProductCategory)
         self.form_class = edit_handler.get_form_class()
 
     @staticmethod

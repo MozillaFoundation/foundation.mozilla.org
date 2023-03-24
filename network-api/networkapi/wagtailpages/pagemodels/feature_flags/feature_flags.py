@@ -1,10 +1,10 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, ObjectList, TabbedInterface
-from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 
 
 @register_setting(icon="tick")
-class FeatureFlags(BaseSetting):
+class FeatureFlags(BaseSiteSetting):
 
     activate_donate_banner = models.BooleanField(
         default=False,

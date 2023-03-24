@@ -199,6 +199,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         "are no slides present.",
         blank=True,
         null=True,
+        use_json_field=True,
     )
 
     # For banner_video_type == 'featured'
@@ -211,6 +212,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         help_text='The video to play when users click "Watch Video". This is ' "only shown on the new Hero.",
         blank=True,
         null=True,
+        use_json_field=True,
     )
 
     subpage_types = [
