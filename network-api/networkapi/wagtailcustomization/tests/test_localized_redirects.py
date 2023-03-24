@@ -1,6 +1,7 @@
 from django.test.utils import override_settings
 from wagtail.contrib.redirects.models import Redirect
 
+from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.tests import base as test_base
 
 
@@ -8,6 +9,16 @@ from networkapi.wagtailpages.tests import base as test_base
 # see https://docs.djangoproject.com/en/3.1/topics/testing/tools/#urlconf-configuration
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class LocalizedRedirectTests(test_base.WagtailpagesTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        cls.buyersguide_homepage = buyersguide_factories.BuyersGuidePageFactory(
+            parent=cls.homepage,
+        )
+        cls.content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
+            parent=cls.buyersguide_homepage,
+        )
+
     def test_redirect(self):
         """Check that we are redirected to the localized version
         of the homepage when a Redirect object exists.
