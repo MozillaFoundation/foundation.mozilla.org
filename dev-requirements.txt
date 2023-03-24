@@ -75,9 +75,9 @@ jsbeautifier==1.14.7
     #   djlint
 mccabe==0.6.1
     # via flake8
-mypy==0.971
+mypy==1.1.1
     # via -r dev-requirements.in
-mypy-extensions==0.4.3
+mypy-extensions==1.0.0
     # via
     #   black
     #   mypy
