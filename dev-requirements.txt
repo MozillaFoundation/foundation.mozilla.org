@@ -67,7 +67,7 @@ idna==3.3
     #   -c requirements.txt
     #   requests
     #   urllib3
-isort==5.10.1
+isort==5.12.0
     # via -r dev-requirements.in
 jsbeautifier==1.14.7
     # via
