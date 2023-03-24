@@ -207,7 +207,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
             buyersguide_factories.ProductPageFactory(parent=self.bg)
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), additional_products_count + 1)
-        query_number = 966
+        query_number = 961
         self.client.force_login(user=self.create_test_user())
 
         with self.assertNumQueries(query_number):

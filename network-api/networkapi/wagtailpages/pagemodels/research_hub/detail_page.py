@@ -64,7 +64,7 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
         edit_handlers.InlinePanel("research_links", heading="Research links", min_num=1),
         edit_handlers.FieldPanel("original_publication_date"),
         edit_handlers.FieldPanel("introduction"),
-        edit_handlers.FieldPanel("overview", classname="full"),
+        edit_handlers.FieldPanel("overview"),
         edit_handlers.InlinePanel("research_authors", heading="Authors", min_num=1),
         edit_handlers.FieldPanel("collaborators"),
         edit_handlers.InlinePanel("related_topics", heading="Topics"),
