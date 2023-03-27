@@ -54,22 +54,23 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
     ]
 
     def get_context(self, request: "http.HttpRequest") -> "template.Context":
-        search_query = request.GET.get("search", "")
-        sort_value = request.GET.get("sort", "")
-        sort = constants.SORT_CHOICES.get(sort_value, constants.SORT_NEWEST_FIRST)
-        filtered_author_ids = [int(author_id) for author_id in request.GET.getlist("author")]
-        filtered_topic_ids = [int(topic_id) for topic_id in request.GET.getlist("topic")]
-        filtered_region_ids = [int(region_id) for region_id in request.GET.getlist("region")]
+        search_query: str = request.GET.get("search", "")
+        sort_value: str = request.GET.get("sort", "")
+        sort: constants.SortOption = constants.SORT_CHOICES.get(sort_value, constants.SORT_NEWEST_FIRST)
+        filtered_author_ids: list[int] = [int(author_id) for author_id in request.GET.getlist("author")]
+        filtered_topic_ids: list[int] = [int(topic_id) for topic_id in request.GET.getlist("topic")]
+        filtered_region_ids: list[int] = [int(region_id) for region_id in request.GET.getlist("region")]
         # Because a research detail page can only have a single publication date, we
         # can also only select a single one. Otherwise we would filter for pages with
         # two publication dates which does not exist.
         year_parameter: str = request.GET.get("year", "")
+        filtered_year: Optional[int]
         try:
             filtered_year = int(year_parameter)
         except ValueError:
             # Any non-number year parameter will trigger the ValueError.
             filtered_year = None
-        page = request.GET.get("page")
+        page: Optional[str] = request.GET.get("page")
 
         searched_and_filtered_research_detail_pages = self._get_research_detail_pages(
             search=search_query,
