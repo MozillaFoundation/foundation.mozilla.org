@@ -1,5 +1,5 @@
-from typing import Optional
 import typing
+from typing import Optional
 
 from django.core import paginator
 from django.db import models
@@ -13,7 +13,11 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
-from networkapi.wagtailpages.pagemodels.research_hub import constants, detail_page, taxonomies
+from networkapi.wagtailpages.pagemodels.research_hub import (
+    constants,
+    detail_page,
+    taxonomies,
+)
 
 if typing.TYPE_CHECKING:
     from django import http, template
@@ -165,11 +169,15 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         *,
         search: str = "",
         sort: constants.SortOption = constants.SORT_NEWEST_FIRST,
-        author_profile_ids: list[int] = list(),
-        topic_ids: list[int] = list(),
-        region_ids: list[int] = list(),
+        author_profile_ids: Optional[list[int]] = None,
+        topic_ids: Optional[list[int]] = None,
+        region_ids: Optional[list[int]] = None,
         year: Optional[int] = None,
     ):
+        author_profile_ids = author_profile_ids or []
+        topic_ids = topic_ids or []
+        region_ids = region_ids or []
+
         research_detail_pages = detail_page.ResearchDetailPage.objects.live().public()
         research_detail_pages = research_detail_pages.filter(locale=wagtail_models.Locale.get_active())
 
