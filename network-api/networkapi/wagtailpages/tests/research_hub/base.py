@@ -1,3 +1,5 @@
+from wagtail import models as wagtail_models
+
 from networkapi.wagtailpages.factory.research_hub import (
     author_index as author_index_factory,
 )
@@ -38,6 +40,14 @@ class ResearchHubTestCase(test_base.WagtailpagesTestCase):
         return detail_page_factory.ResearchDetailPageFactory(
             parent=parent,
             original_publication_date=publication_date,
+        )
+
+    @staticmethod
+    def make_page_private(page):
+        wagtail_models.PageViewRestriction.objects.create(
+            page=page,
+            restriction_type=wagtail_models.PageViewRestriction.PASSWORD,
+            password="test",
         )
 
     def create_research_detail_page(self, days_ago=0):

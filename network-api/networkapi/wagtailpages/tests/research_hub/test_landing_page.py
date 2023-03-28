@@ -1,5 +1,3 @@
-from wagtail import models as wagtail_models
-
 from networkapi.wagtailpages.tests.research_hub import base
 
 
@@ -27,11 +25,7 @@ class ResearchLandingPageTestCase(base.ResearchHubTestCase):
         """
         detail_page_public = self.create_research_detail_page()
         detail_page_private = self.create_research_detail_page()
-        wagtail_models.PageViewRestriction.objects.create(
-            page=detail_page_private,
-            restriction_type=wagtail_models.PageViewRestriction.PASSWORD,
-            password="test",
-        )
+        self.make_page_private(detail_page_private)
 
         latest_research_pages = self.landing_page.get_latest_research_pages()
 

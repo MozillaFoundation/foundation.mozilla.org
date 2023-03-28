@@ -3,7 +3,6 @@ import os
 
 from django.core import management
 from django.utils import timezone, translation
-from wagtail import models as wagtail_models
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages.factory.research_hub import (
@@ -65,11 +64,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         private_detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
-        wagtail_models.PageViewRestriction.objects.create(
-            restriction_type=wagtail_models.PageViewRestriction.PASSWORD,
-            password="test",
-            page=private_detail_page,
-        )
+        self.make_page_private(private_detail_page)
 
         response = self.client.get(self.library_page.url)
 
