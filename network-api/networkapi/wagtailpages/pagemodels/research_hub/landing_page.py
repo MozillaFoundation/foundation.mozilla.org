@@ -57,7 +57,7 @@ class ResearchLandingPage(research_base.ResearchHubBasePage):
         active_locale = wagtail_models.Locale.get_active()
 
         ResearchDetailPage = apps.get_model("wagtailpages", "ResearchDetailPage")
-        research_detail_pages = ResearchDetailPage.objects.live()
+        research_detail_pages = ResearchDetailPage.objects.live().public()
         research_detail_pages = research_detail_pages.filter(locale=active_locale)
         research_detail_pages = research_detail_pages.order_by("-original_publication_date")
         research_detail_pages = research_detail_pages[:3]
