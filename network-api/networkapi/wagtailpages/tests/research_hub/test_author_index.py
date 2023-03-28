@@ -17,10 +17,8 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.detail_page = detail_page_factory.ResearchDetailPageFactory(
-            parent=cls.library_page,
-            original_publication_date=(research_test_utils.days_ago(n=14)),
-        )
+
+        cls.detail_page = cls.create_research_detail_page_on_parent(parent=cls.library_page, days_ago=14)
         cls.research_profile = profiles_factory.ProfileFactory()
         relations_factory.ResearchAuthorRelationFactory(
             research_detail_page=cls.detail_page,
