@@ -103,7 +103,8 @@ class ResearchAuthorsIndexPage(
     def get_author_research_count(self, author_profile):
         return self.get_author_research(author_profile).count()
 
-    def get_author_research(self, author_profile):
+    @staticmethod
+    def get_author_research(author_profile):
         author_research = detail_page.ResearchDetailPage.objects.all()
 
         # During tree sync, an alias is created for every detail page. But, these
@@ -114,7 +115,7 @@ class ResearchAuthorsIndexPage(
         # `translation_key` as the current locale's author. So, instead of filtering
         # for the author `id`, we filter by `translation_key`.
         author_research = author_research.filter(
-            research_authors__author_profile__translation_key=(author_profile.translation_key)
+            research_authors__author_profile__translation_key=author_profile.translation_key
         )
         # And then we fitler for the active locale.
         author_research = author_research.filter(locale=wagtail_models.Locale.get_active())
