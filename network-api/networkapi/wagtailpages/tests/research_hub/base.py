@@ -31,11 +31,19 @@ class ResearchHubTestCase(test_base.WagtailpagesTestCase):
             title="Authors",
         )
 
-    def create_research_detail_page(self, days_ago=0):
+
+    @staticmethod
+    def create_research_detail_page_on_parent(*, parent, days_ago=0):
         publication_date = utils.days_ago(n=days_ago)
         return detail_page_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
+            parent=parent,
             original_publication_date=publication_date,
+        )
+
+    def create_research_detail_page(self, days_ago=0):
+        return self.create_research_detail_page_on_parent(
+            parent=self.library_page,
+            days_ago=days_ago,
         )
 
     def setUp(self):
