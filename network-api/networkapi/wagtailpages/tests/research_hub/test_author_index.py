@@ -207,6 +207,14 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_2, latest_research)
         self.assertNotIn(detail_page_1, latest_research)
 
+    def test_get_author_research_count_return_number_of_associated_detail_pages(self):
+        # One page already exists, creating one more
+        self.create_research_detail_page_with_author(author_profile=self.research_profile)
+
+        count = self.author_index.get_author_research_count(author_profile=self.research_profile)
+
+        self.assertEqual(count, 2)
+
     def test_get_author_research_returns_profile_related_detail_pages(self):
         detail_page_1 = self.detail_page
         detail_page_2 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=3)

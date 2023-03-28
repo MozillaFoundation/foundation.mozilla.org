@@ -84,17 +84,12 @@ class ResearchAuthorsIndexPage(
             id=profile_id,
         )
 
-        author_research_count = self.get_author_research(author_profile).count()
-        latest_research = self.get_latest_research(author_profile)
-
-        # On author detail pages to include the link to the authors index.
-        detail_page_breadcrumbs = self.get_breadcrumbs(include_self=True)
-
         return {
             "author_profile": author_profile,
-            "author_research_count": author_research_count,
-            "breadcrumbs": detail_page_breadcrumbs,
-            "latest_research": latest_research,
+            "author_research_count": self.get_author_research_count(author_profile=author_profile),
+            # On author detail pages to include the link to the authors index.
+            "breadcrumbs": self.get_breadcrumbs(include_self=True),
+            "latest_research": self.get_latest_research(author_profile=author_profile),
             "library_page": library_page.ResearchLibraryPage.objects.first(),
         }
 
@@ -104,6 +99,9 @@ class ResearchAuthorsIndexPage(
         author_research = author_research.order_by("-original_publication_date")
         latest_research = author_research[:LATEST_RESEARCH_COUNT_LIMIT]
         return latest_research
+
+    def get_author_research_count(self, author_profile):
+        return self.get_author_research(author_profile).count()
 
     def get_author_research(self, author_profile):
         author_research = detail_page.ResearchDetailPage.objects.all()
