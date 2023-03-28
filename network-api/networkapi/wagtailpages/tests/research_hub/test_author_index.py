@@ -191,7 +191,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertIn(fr_detail_page, context["latest_research"])
         self.assertIn(fr_extra_detail_page, context["latest_research"])
 
-    def test_get_latest_research(self):
+    def test_get_latest_research_contains_latest_three_detail_pages(self):
         detail_page_1 = self.detail_page
         detail_page_2 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=3)
         detail_page_3 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=2)
@@ -207,7 +207,24 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_2, latest_research)
         self.assertNotIn(detail_page_1, latest_research)
 
-    def test_get_latest_research_not_returns_unpublished_pages(self):
+    def test_get_author_research_returns_profile_related_detail_pages(self):
+        detail_page_1 = self.detail_page
+        detail_page_2 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=3)
+        detail_page_3 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=2)
+        detail_page_4 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=1)
+
+        # 3 queries = 1 for the detail pages, 1 for the locale, 1 for the page  view restrictions
+        with self.assertNumQueries(3):
+            author_research = self.author_index.get_author_research(
+                author_profile=self.research_profile,
+            )
+
+            self.assertIn(detail_page_1, author_research)
+            self.assertIn(detail_page_2, author_research)
+            self.assertIn(detail_page_3, author_research)
+            self.assertIn(detail_page_4, author_research)
+
+    def test_get_author_research_not_returns_unpublished_pages(self):
         detail_page_published = self.detail_page
         detail_page_unpublished = self.create_research_detail_page_with_author(
             author_profile=self.research_profile,
@@ -216,7 +233,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         detail_page_unpublished.unpublish()
         detail_page_unpublished.save()
 
-        latest_research = self.author_index.get_latest_research(
+        latest_research = self.author_index.get_author_research(
             author_profile=self.research_profile,
         )
 
@@ -224,7 +241,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_published, latest_research)
         self.assertNotIn(detail_page_unpublished, latest_research)
 
-    def test_get_latest_research_not_returns_private_pages(self):
+    def test_get_author_research_not_returns_private_pages(self):
         detail_page_public = self.detail_page
         detail_page_private = self.create_research_detail_page_with_author(
             author_profile=self.research_profile,
@@ -232,22 +249,13 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         )
         self.make_page_private(detail_page_private)
 
-        latest_research = self.author_index.get_latest_research(
+        latest_research = self.author_index.get_author_research(
             author_profile=self.research_profile,
         )
 
         self.assertEqual(len(latest_research), 1)
         self.assertIn(detail_page_public, latest_research)
         self.assertNotIn(detail_page_private, latest_research)
-
-    def test_get_author_research(self):
-        # Locale and detail pages.
-        with self.assertNumQueries(2):
-            author_research = self.author_index.get_author_research(
-                author_profile=self.research_profile,
-            )
-
-            self.assertIn(self.detail_page, author_research)
 
     def test_author_index_breadcrumbs(self):
         breadcrumbs = self.author_index.get_breadcrumbs()

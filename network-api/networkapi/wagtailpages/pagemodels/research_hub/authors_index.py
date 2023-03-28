@@ -101,13 +101,13 @@ class ResearchAuthorsIndexPage(
     def get_latest_research(self, author_profile):
         LATEST_RESEARCH_COUNT_LIMIT = 3
         author_research = self.get_author_research(author_profile)
-        author_research = author_research.live().public()
         author_research = author_research.order_by("-original_publication_date")
         latest_research = author_research[:LATEST_RESEARCH_COUNT_LIMIT]
         return latest_research
 
     def get_author_research(self, author_profile):
         author_research = detail_page.ResearchDetailPage.objects.all()
+
         # During tree sync, an alias is created for every detail page. But, these
         # aliases are still associated with the profile in the default locale. So, when
         # displaying the author page for a non-default locale author, we also want to
@@ -120,6 +120,9 @@ class ResearchAuthorsIndexPage(
         )
         # And then we fitler for the active locale.
         author_research = author_research.filter(locale=wagtail_models.Locale.get_active())
+
+        author_research = author_research.live().public()
+
         return author_research
 
     def get_banner(self):
