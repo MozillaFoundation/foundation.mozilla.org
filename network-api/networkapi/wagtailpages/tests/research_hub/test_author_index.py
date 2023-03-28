@@ -197,7 +197,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         detail_page_3 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=2)
         detail_page_4 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=1)
 
-        latest_research = self.author_index.get_latest_research(
+        latest_research = self.author_index.get_latest_author_research(
             author_profile=self.research_profile,
         )
 
