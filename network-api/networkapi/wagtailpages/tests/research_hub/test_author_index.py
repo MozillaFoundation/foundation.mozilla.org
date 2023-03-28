@@ -143,13 +143,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             self.detail_page,
             self.fr_locale,
         )
-        extra_detail_page = detail_page_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-        )
-        relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=extra_detail_page,
-            author_profile=self.research_profile,
-        )
+        extra_detail_page = self.create_research_detail_page_with_author(author_profile=self.research_profile)
         self.synchronize_tree()
         # Grab the alias page. Note: This page is not really translated, so it is still
         # associated with the original profile.
@@ -176,13 +170,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             self.detail_page,
             self.fr_locale,
         )
-        extra_detail_page = detail_page_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-        )
-        relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=extra_detail_page,
-            author_profile=self.research_profile,
-        )
+        extra_detail_page = self.create_research_detail_page_with_author(author_profile=self.research_profile)
         synctree.synchronize_tree(source_locale=self.default_locale, target_locale=self.fr_locale)
         # Grab the alias page. Note: This page is not really translated, so it is still
         # associated with the original profile.
