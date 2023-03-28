@@ -101,6 +101,7 @@ class ResearchAuthorsIndexPage(
     def get_latest_research(self, author_profile):
         LATEST_RESEARCH_COUNT_LIMIT = 3
         author_research = self.get_author_research(author_profile)
+        author_research = author_research.live().public()
         author_research = author_research.order_by("-original_publication_date")
         latest_research = author_research[:LATEST_RESEARCH_COUNT_LIMIT]
         return latest_research
