@@ -36,6 +36,14 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.fr_profile = self.research_profile.copy_for_translation(self.fr_locale)
         self.fr_profile.save()
 
+    def create_research_detail_page_with_author(self, author_profile, days_ago=0):
+        detail_page = self.create_research_detail_page(days_ago=days_ago)
+        relations_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page,
+            author_profile=author_profile,
+        )
+        return detail_page
+
     def test_get_context(self):
         context = self.author_index.get_context(request=None)
         self.translate_research_profile()
@@ -197,21 +205,9 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
 
     def test_get_latest_research(self):
         detail_page_1 = self.detail_page
-        detail_page_2 = self.create_research_detail_page(days_ago=3)
-        detail_page_3 = self.create_research_detail_page(days_ago=2)
-        detail_page_4 = self.create_research_detail_page(days_ago=1)
-        relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_2,
-            author_profile=self.research_profile,
-        )
-        relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_3,
-            author_profile=self.research_profile,
-        )
-        relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_4,
-            author_profile=self.research_profile,
-        )
+        detail_page_2 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=3)
+        detail_page_3 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=2)
+        detail_page_4 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=1)
 
         latest_research = self.author_index.get_latest_research(
             author_profile=self.research_profile,
