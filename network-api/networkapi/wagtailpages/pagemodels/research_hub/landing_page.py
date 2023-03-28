@@ -52,7 +52,8 @@ class ResearchLandingPage(research_base.ResearchHubBasePage):
         context["latest_research_detail_pages"] = self.get_latest_research_pages
         return context
 
-    def get_latest_research_pages(self):
+    @staticmethod
+    def get_latest_research_pages():
         active_locale = wagtail_models.Locale.get_active()
 
         ResearchDetailPage = apps.get_model("wagtailpages", "ResearchDetailPage")
