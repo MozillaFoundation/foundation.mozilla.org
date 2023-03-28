@@ -207,6 +207,39 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_2, latest_research)
         self.assertNotIn(detail_page_1, latest_research)
 
+    def test_get_latest_research_not_returns_unpublished_pages(self):
+        detail_page_published = self.detail_page
+        detail_page_unpublished = self.create_research_detail_page_with_author(
+            author_profile=self.research_profile,
+            days_ago=1,
+        )
+        detail_page_unpublished.unpublish()
+        detail_page_unpublished.save()
+
+        latest_research = self.author_index.get_latest_research(
+            author_profile=self.research_profile,
+        )
+
+        self.assertEqual(len(latest_research), 1)
+        self.assertIn(detail_page_published, latest_research)
+        self.assertNotIn(detail_page_unpublished, latest_research)
+
+    def test_get_latest_research_not_returns_private_pages(self):
+        detail_page_public = self.detail_page
+        detail_page_private = self.create_research_detail_page_with_author(
+            author_profile=self.research_profile,
+            days_ago=1,
+        )
+        self.make_page_private(detail_page_private)
+
+        latest_research = self.author_index.get_latest_research(
+            author_profile=self.research_profile,
+        )
+
+        self.assertEqual(len(latest_research), 1)
+        self.assertIn(detail_page_public, latest_research)
+        self.assertNotIn(detail_page_private, latest_research)
+
     def test_get_author_research(self):
         # Locale and detail pages.
         with self.assertNumQueries(2):
