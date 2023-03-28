@@ -1,15 +1,13 @@
-import datetime
-
-from django.utils import timezone
 from wagtail import models as wagtail_models
 
 from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
 from networkapi.wagtailpages.tests.research_hub import base
+from networkapi.wagtailpages.tests.research_hub import utils
 
 
 class ResearchLandingPageTestCase(base.ResearchHubTestCase):
     def create_research_detail_page(self, days_ago=0):
-        publication_date = timezone.now().date() - datetime.timedelta(days=days_ago)
+        publication_date = utils.days_ago(n=days_ago)
         return detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=publication_date,
