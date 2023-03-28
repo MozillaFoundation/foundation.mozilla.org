@@ -1,8 +1,10 @@
 import datetime
 
+from django.utils import timezone
+
 
 def days_ago(n: int):
-    return datetime.date.today() - datetime.timedelta(days=n)
+    return timezone.now().date() - datetime.timedelta(days=n)
 
 
 def translate_detail_page(detail_page, locale):
