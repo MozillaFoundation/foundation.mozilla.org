@@ -1,6 +1,7 @@
 from networkapi.wagtailpages.factory.research_hub import (
     author_index as author_index_factory,
 )
+from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
 from networkapi.wagtailpages.factory.research_hub import (
     landing_page as landing_page_factory,
 )
@@ -8,6 +9,7 @@ from networkapi.wagtailpages.factory.research_hub import (
     library_page as library_page_factory,
 )
 from networkapi.wagtailpages.tests import base as test_base
+from networkapi.wagtailpages.tests.research_hub import utils
 
 
 class ResearchHubTestCase(test_base.WagtailpagesTestCase):
@@ -27,6 +29,13 @@ class ResearchHubTestCase(test_base.WagtailpagesTestCase):
         cls.author_index = author_index_factory.ResearchAuthorsIndexPageFactory(
             parent=cls.landing_page,
             title="Authors",
+        )
+
+    def create_research_detail_page(self, days_ago=0):
+        publication_date = utils.days_ago(n=days_ago)
+        return detail_page_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=publication_date,
         )
 
     def setUp(self):

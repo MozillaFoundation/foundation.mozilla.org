@@ -1,18 +1,9 @@
 from wagtail import models as wagtail_models
 
-from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
 from networkapi.wagtailpages.tests.research_hub import base
-from networkapi.wagtailpages.tests.research_hub import utils
 
 
 class ResearchLandingPageTestCase(base.ResearchHubTestCase):
-    def create_research_detail_page(self, days_ago=0):
-        publication_date = utils.days_ago(n=days_ago)
-        return detail_page_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-            original_publication_date=publication_date,
-        )
-
     def test_get_latest_research_pages_returns_three_latest_pages_by_publication_date(self):
         """
         Ensure that the latest research pages are returned
