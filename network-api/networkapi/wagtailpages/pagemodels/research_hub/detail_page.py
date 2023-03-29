@@ -1,3 +1,5 @@
+import logging
+
 from django.core import exceptions
 from django.db import models
 from modelcluster import fields as cluster_fields
@@ -6,7 +8,6 @@ from wagtail import fields as wagtail_fields
 from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
 from wagtail.admin import panels as edit_handlers
-from wagtail.documents import edit_handlers as docs_handlers
 from wagtail.images import edit_handlers as image_handlers
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
@@ -16,6 +17,8 @@ from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options impo
 )
 from networkapi.wagtailpages.pagemodels.research_hub import authors_index
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
+
+logger = logging.getLogger(__name__)
 
 
 class ResearchDetailPage(research_base.ResearchHubBasePage):
@@ -153,6 +156,12 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     label = models.CharField(null=False, blank=False, max_length=50)
 
     url = models.URLField(null=False, blank=True)
+    page = models.ForeignKey(
+        "wagtailcore.Page",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+    )
     document = models.ForeignKey(
         wagtail_docs.get_document_model_string(),
         null=True,
@@ -163,38 +172,52 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     panels = [
         edit_handlers.HelpPanel(
             content=(
-                "Please provide an external link to the original source or upload a document and select it here. "
-                'If you wish to provide both, please create two separate "research links"'
+                "Please provide a link to the original resource. "
+                "You can link to an internal page, an external URL or upload a document. "
+                'If you wish to provide multiple, please create two separate "research links"'
             )
         ),
         edit_handlers.FieldPanel("label"),
         edit_handlers.FieldPanel("url"),
-        docs_handlers.FieldPanel("document"),
+        edit_handlers.FieldPanel("page"),
+        edit_handlers.FieldPanel("document"),
     ]
 
     class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
         ordering = ["sort_order"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.label
 
-    def clean(self):
+    def clean(self) -> None:
         super().clean()
-        if self.url and self.document:
-            error_message = "Please provide either a URL or a document, not both."
+
+        # Ensure that only one of the three fields is set
+        if sum([bool(self.url), bool(self.page), bool(self.document)]) > 1:
+            error_message = "Please provide either a URL, a page or a document, not multiple."
             raise exceptions.ValidationError(
-                {"url": error_message, "document": error_message},
+                {"url": error_message, "page": error_message, "document": error_message},
                 code="invalid",
             )
-        elif not self.url and not self.document:
-            error_message = "Please provide a URL or a document."
+        # Ensure that at least one of the three fields is set
+        elif not any([self.url, self.page, self.document]):
+            error_message = "Please provide a URL, a page or a document."
             raise exceptions.ValidationError(
-                {"url": error_message, "document": error_message},
+                {"url": error_message, "page": error_message, "document": error_message},
                 code="required",
             )
 
-    def get_url(self):
+    def get_url(self) -> str:
         if self.url:
             return self.url
+        elif self.page:
+            if not self.page.live:
+                logger.warning(
+                    f"Detail link to unpublished page defined: { self } -> { self.page }. "
+                    "This link will not be shown in the frontend."
+                )
+                return ""
+            return self.page.get_url()
         elif self.document:
             return self.document.url
+        raise ValueError("No URL defined for this detail link. This should not happen.")

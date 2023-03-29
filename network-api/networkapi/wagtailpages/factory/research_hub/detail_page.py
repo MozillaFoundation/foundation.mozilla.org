@@ -66,10 +66,12 @@ class ResearchDetailLinkFactory(factory.django.DjangoModelFactory):
 
     label = factory.Faker("text", max_nb_chars=30)
     url = ""
+    page = None
     document = None
 
     class Params:
         with_url = factory.Trait(
             url=factory.Faker("uri"),
         )
+        with_page = factory.Trait(page=factory.SubFactory(wagtail_factories.PageFactory))
         with_document = factory.Trait(document=factory.SubFactory(documents_factory.DocumentFactory))
