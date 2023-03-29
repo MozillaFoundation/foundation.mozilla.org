@@ -93,7 +93,6 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
     settings_panels = [
         panels.PublishingPanel(),
         panels.FieldPanel("first_published_at"),
-        panels.PrivacyModalPanel(),
     ]
 
     translatable_fields = [
