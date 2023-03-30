@@ -13,6 +13,7 @@ from networkapi.wagtailpages.factory.research_hub import relations as relations_
 from networkapi.wagtailpages.factory.research_hub import (
     taxonomies as taxonomies_factory,
 )
+from networkapi.wagtailpages.pagemodels.research_hub import constants
 from networkapi.wagtailpages.tests.research_hub import base as research_test_base
 from networkapi.wagtailpages.tests.research_hub import utils as research_test_utils
 
@@ -294,7 +295,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         response = self.client.get(
             self.library_page.url,
-            data={"sort": self.library_page.SORT_NEWEST_FIRST.value},
+            data={"sort": constants.SORT_NEWEST_FIRST.value},
         )
 
         research_detail_pages = list(response.context["research_detail_pages"])
@@ -314,7 +315,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         response = self.client.get(
             self.library_page.url,
-            data={"sort": self.library_page.SORT_OLDEST_FIRST.value},
+            data={"sort": constants.SORT_OLDEST_FIRST.value},
         )
 
         research_detail_pages = list(response.context["research_detail_pages"])
@@ -334,7 +335,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         response = self.client.get(
             self.library_page.url,
-            data={"sort": self.library_page.SORT_ALPHABETICAL.value},
+            data={"sort": constants.SORT_ALPHABETICAL.value},
         )
 
         research_detail_pages = list(response.context["research_detail_pages"])
@@ -354,7 +355,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         response = self.client.get(
             self.library_page.url,
-            data={"sort": self.library_page.SORT_ALPHABETICAL_REVERSED.value},
+            data={"sort": constants.SORT_ALPHABETICAL_REVERSED.value},
         )
 
         research_detail_pages = list(response.context["research_detail_pages"])
@@ -375,7 +376,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         default_response = self.client.get(self.library_page.url)
         newest_first_response = self.client.get(
             self.library_page.url,
-            data={"sort": self.library_page.SORT_NEWEST_FIRST.value},
+            data={"sort": constants.SORT_NEWEST_FIRST.value},
         )
 
         default_sort_detail_pages = list(default_response.context["research_detail_pages"])
