@@ -47,9 +47,8 @@ class ResearchLandingPage(research_base.ResearchHubBasePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        ResearchLibraryPage = apps.get_model("wagtailpages", "ResearchLibraryPage")
-        context["library_page"] = ResearchLibraryPage.objects.first()
-        context["latest_research_detail_pages"] = self.get_latest_research_pages
+        context["library_page"] = self.get_library_page()
+        context["latest_research_detail_pages"] = self.get_latest_research_pages()
         return context
 
     @staticmethod
@@ -63,3 +62,7 @@ class ResearchLandingPage(research_base.ResearchHubBasePage):
         research_detail_pages = research_detail_pages[:3]
 
         return research_detail_pages
+
+    def get_library_page(self):
+        ResearchLibraryPage = apps.get_model("wagtailpages", "ResearchLibraryPage")
+        return ResearchLibraryPage.objects.first()

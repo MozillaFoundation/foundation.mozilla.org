@@ -39,3 +39,10 @@ class ResearchLandingPageTestCase(base.ResearchHubTestCase):
         self.assertEqual(len(latest_research_pages), 1)
         self.assertIn(detail_page_public, latest_research_pages)
         self.assertNotIn(detail_page_private, latest_research_pages)
+
+    def test_get_library_page(self):
+        """
+        Ensure that the library page is returned.
+        """
+        library_page = self.landing_page.get_library_page()
+        self.assertEqual(library_page, self.library_page)
