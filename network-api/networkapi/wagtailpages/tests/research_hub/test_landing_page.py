@@ -40,9 +40,20 @@ class ResearchLandingPageTestCase(base.ResearchHubTestCase):
         self.assertIn(detail_page_public, latest_research_pages)
         self.assertNotIn(detail_page_private, latest_research_pages)
 
-    def test_get_library_page(self):
+    def test_get_library_page_returns_library_page(self):
         """
         Ensure that the library page is returned.
         """
         library_page = self.landing_page.get_library_page()
         self.assertEqual(library_page, self.library_page)
+
+    def test_get_library_page_returns_library_page_of_same_locale(self):
+        """
+        Ensure that the library page is returned in the same locale as the landing page.
+        """
+        fr_landing_page = self.landing_page.get_translation(locale=self.fr_locale)
+
+        fr_library_page = fr_landing_page.get_library_page()
+
+        self.assertEqual(fr_library_page.locale, self.fr_locale)
+        self.assertEqual(fr_library_page.locale, fr_landing_page.locale)
