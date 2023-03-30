@@ -5,9 +5,6 @@ from django.utils import translation
 from wagtail_localize import synctree
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
-from networkapi.wagtailpages.factory.research_hub import (
-    detail_page as detail_page_factory,
-)
 from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
 from networkapi.wagtailpages.tests.research_hub import base as research_test_base
 from networkapi.wagtailpages.tests.research_hub import utils as research_test_utils

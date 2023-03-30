@@ -1,7 +1,9 @@
 from networkapi.wagtailpages.factory.research_hub import (
     author_index as author_index_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import detail_page as detail_page_factory
+from networkapi.wagtailpages.factory.research_hub import (
+    detail_page as detail_page_factory,
+)
 from networkapi.wagtailpages.factory.research_hub import (
     landing_page as landing_page_factory,
 )
@@ -30,7 +32,6 @@ class ResearchHubTestCase(test_base.WagtailpagesTestCase):
             parent=cls.landing_page,
             title="Authors",
         )
-
 
     @staticmethod
     def create_research_detail_page_on_parent(*, parent, days_ago=0):
