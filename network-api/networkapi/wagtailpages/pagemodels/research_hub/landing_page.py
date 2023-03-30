@@ -65,4 +65,4 @@ class ResearchLandingPage(research_base.ResearchHubBasePage):
 
     def get_library_page(self):
         ResearchLibraryPage = apps.get_model("wagtailpages", "ResearchLibraryPage")
-        return ResearchLibraryPage.objects.first()
+        return ResearchLibraryPage.objects.filter(locale=self.locale).first()
