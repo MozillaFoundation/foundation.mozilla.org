@@ -35,7 +35,7 @@ def generate(seed):
 
     print("Creating Donate Site record in Wagtail")
     tds = settings.TARGET_DOMAINS
-    if tds and len(tds) > 1:
+    if tds and len(tds) > 2:
         # Assume that tds[0] is the main mofo domain, and tds[1] is the Mozfest domain
         hostname = tds[2]
         port = 80
