@@ -105,7 +105,7 @@ class ResearchAuthorsIndexPage(
 
     @staticmethod
     def get_author_research(author_profile):
-        author_research = detail_page.ResearchDetailPage.objects.all()
+        author_research = detail_page.ResearchDetailPage.objects.live().public()
 
         # During tree sync, an alias is created for every detail page. But, these
         # aliases are still associated with the profile in the default locale. So, when
@@ -119,8 +119,6 @@ class ResearchAuthorsIndexPage(
         )
         # And then we fitler for the active locale.
         author_research = author_research.filter(locale=wagtail_models.Locale.get_active())
-
-        author_research = author_research.live().public()
 
         return author_research
 
