@@ -2,6 +2,13 @@ from networkapi.wagtailpages.tests.research_hub import base
 
 
 class ResearchLandingPageTestCase(base.ResearchHubTestCase):
+    def test_page_loads(self):
+        """
+        Ensure that the page loads
+        """
+        response = self.client.get(self.landing_page.url)
+        self.assertEqual(response.status_code, 200)
+
     def test_get_latest_research_pages_returns_three_latest_pages_by_publication_date(self):
         """
         Ensure that the latest research pages are returned
