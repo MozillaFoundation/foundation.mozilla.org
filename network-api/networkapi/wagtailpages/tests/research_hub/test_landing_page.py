@@ -2,6 +2,13 @@ from networkapi.wagtailpages.tests.research_hub import base
 
 
 class ResearchLandingPageTestCase(base.ResearchHubTestCase):
+    def test_page_loads(self):
+        """
+        Ensure that the page loads
+        """
+        response = self.client.get(self.landing_page.url)
+        self.assertEqual(response.status_code, 200)
+
     def test_get_latest_research_pages_returns_three_latest_pages_by_publication_date(self):
         """
         Ensure that the latest research pages are returned
@@ -32,3 +39,37 @@ class ResearchLandingPageTestCase(base.ResearchHubTestCase):
         self.assertEqual(len(latest_research_pages), 1)
         self.assertIn(detail_page_public, latest_research_pages)
         self.assertNotIn(detail_page_private, latest_research_pages)
+
+    def test_get_latest_research_pages_returns_detail_pages_of_same_locale(self):
+        """
+        Ensure that the latest research pages are returned in the same locale as the landing page.
+        """
+        # Create a detail page in the default locale
+        self.create_research_detail_page()
+        # Sync the tree to ensure that the detail page is created in the fr locale
+        self.synchronize_tree()
+        fr_landing_page = self.landing_page.get_translation(locale=self.fr_locale)
+
+        latest_research_pages = fr_landing_page.get_latest_research_pages()
+
+        self.assertEqual(len(latest_research_pages), 1)
+        self.assertEqual(latest_research_pages[0].locale, self.fr_locale)
+        self.assertEqual(latest_research_pages[0].locale, fr_landing_page.locale)
+
+    def test_get_library_page_returns_library_page(self):
+        """
+        Ensure that the library page is returned.
+        """
+        library_page = self.landing_page.get_library_page()
+        self.assertEqual(library_page, self.library_page)
+
+    def test_get_library_page_returns_library_page_of_same_locale(self):
+        """
+        Ensure that the library page is returned in the same locale as the landing page.
+        """
+        fr_landing_page = self.landing_page.get_translation(locale=self.fr_locale)
+
+        fr_library_page = fr_landing_page.get_library_page()
+
+        self.assertEqual(fr_library_page.locale, self.fr_locale)
+        self.assertEqual(fr_library_page.locale, fr_landing_page.locale)
