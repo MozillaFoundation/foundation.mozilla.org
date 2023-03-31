@@ -52,11 +52,12 @@ class ResearchLandingPage(research_base.ResearchHubBasePage):
         context["latest_research_detail_pages"] = self.get_latest_research_pages
         return context
 
-    def get_latest_research_pages(self):
+    @staticmethod
+    def get_latest_research_pages():
         active_locale = wagtail_models.Locale.get_active()
 
         ResearchDetailPage = apps.get_model("wagtailpages", "ResearchDetailPage")
-        research_detail_pages = ResearchDetailPage.objects.live()
+        research_detail_pages = ResearchDetailPage.objects.live().public()
         research_detail_pages = research_detail_pages.filter(locale=active_locale)
         research_detail_pages = research_detail_pages.order_by("-original_publication_date")
         research_detail_pages = research_detail_pages[:3]
