@@ -31,6 +31,16 @@ class LocalizedRedirectTests(test_base.WagtailpagesTestCase):
 
         self.assertEqual(response.redirect_chain, [("/final", 301), ("/en/final/", 302)])
 
+        # Finally, check that the redirect doesn't work for other locales
+        # since a redirect only exists for /test/ -> /final/
+        response = self.client.get("/en/test/", follow=True)
+
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get("/fr/test/", follow=True)
+
+        self.assertEqual(response.status_code, 404)
+
     def test_localized_redirect(self):
         """Check that a Redirect with a language code in the old_path
         and no language code in the redirect_link is handled correctly.
