@@ -118,6 +118,9 @@ A `Tito Event` snippet can be created for each event for which registration is n
 A `Tito Event` needs a security token and newsletter question ID which can be found in the Customize -> Webhooks section of the Tito admin dashboard for the event.
 A webhook (Django view) receives requests from Tito when a ticket is completed in order to sign users up for the Mozilla newsletter.
 
+## Donate Site
+
+Similar to the Mozilla Festival site, the fake data generator can generate a site structure for the Donation site that can be served under it's own domain.
 
 ## Gotchas
 
