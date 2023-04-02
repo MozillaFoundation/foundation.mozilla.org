@@ -1,9 +1,8 @@
-import collections
+import typing
 from typing import Optional
 
 from django.core import paginator
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
@@ -14,11 +13,14 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
-from networkapi.wagtailpages.pagemodels.research_hub import detail_page, taxonomies
+from networkapi.wagtailpages.pagemodels.research_hub import (
+    constants,
+    detail_page,
+    taxonomies,
+)
 
-# We don't want to expose the actual database column value that we use for sorting.
-# Therefore, we need a separate value that is used in the form and url.
-SortOption = collections.namedtuple("SortOption", ["label", "value", "order_by_value"])
+if typing.TYPE_CHECKING:
+    from django import http, template
 
 
 class ResearchLibraryPage(research_base.ResearchHubBasePage):
@@ -44,33 +46,6 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
 
     settings_panels = research_base.ResearchHubBasePage.settings_panels + [panels.FieldPanel("results_count")]
 
-    SORT_NEWEST_FIRST = SortOption(
-        label=_("Newest first"),
-        value="newest-first",
-        order_by_value="-original_publication_date",
-    )
-    SORT_OLDEST_FIRST = SortOption(
-        label=_("Oldest first"),
-        value="oldest-first",
-        order_by_value="original_publication_date",
-    )
-    SORT_ALPHABETICAL = SortOption(
-        label=_("Alphabetical (A-Z)"),
-        value="alphabetical",
-        order_by_value="title",
-    )
-    SORT_ALPHABETICAL_REVERSED = SortOption(
-        label=_("Alphabetical (Z-A)"),
-        value="alphabetical-reversed",
-        order_by_value="-title",
-    )
-    SORT_CHOICES = {
-        SORT_NEWEST_FIRST.value: SORT_NEWEST_FIRST,
-        SORT_OLDEST_FIRST.value: SORT_OLDEST_FIRST,
-        SORT_ALPHABETICAL.value: SORT_ALPHABETICAL,
-        SORT_ALPHABETICAL_REVERSED.value: SORT_ALPHABETICAL_REVERSED,
-    }
-
     translatable_fields = [
         # Content tab fields
         TranslatableField("title"),
@@ -82,22 +57,24 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         SynchronizedField("search_image"),
     ]
 
-    def get_context(self, request):
-        search_query = request.GET.get("search", "")
-        sort_value = request.GET.get("sort", "")
-        sort = self.SORT_CHOICES.get(sort_value, self.SORT_NEWEST_FIRST)
-        filtered_author_ids = [int(author_id) for author_id in request.GET.getlist("author")]
-        filtered_topic_ids = [int(topic_id) for topic_id in request.GET.getlist("topic")]
-        filtered_region_ids = [int(region_id) for region_id in request.GET.getlist("region")]
+    def get_context(self, request: "http.HttpRequest") -> "template.Context":
+        search_query: str = request.GET.get("search", "")
+        sort_value: str = request.GET.get("sort", "")
+        sort: constants.SortOption = constants.SORT_CHOICES.get(sort_value, constants.SORT_NEWEST_FIRST)
+        filtered_author_ids: list[int] = [int(author_id) for author_id in request.GET.getlist("author")]
+        filtered_topic_ids: list[int] = [int(topic_id) for topic_id in request.GET.getlist("topic")]
+        filtered_region_ids: list[int] = [int(region_id) for region_id in request.GET.getlist("region")]
         # Because a research detail page can only have a single publication date, we
         # can also only select a single one. Otherwise we would filter for pages with
         # two publication dates which does not exist.
-        filtered_year = request.GET.get("year", "")
+        year_parameter: str = request.GET.get("year", "")
+        filtered_year: Optional[int]
         try:
-            filtered_year = int(filtered_year)
+            filtered_year = int(year_parameter)
         except ValueError:
-            filtered_year = ""
-        page = request.GET.get("page")
+            # Any non-number year parameter will trigger the ValueError.
+            filtered_year = None
+        page: Optional[str] = request.GET.get("page")
 
         searched_and_filtered_research_detail_pages = self._get_research_detail_pages(
             search=search_query,
@@ -114,7 +91,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         )
         research_detail_pages_page = research_detail_pages_paginator.get_page(page)
 
-        context = super().get_context(request)
+        context: "template.Context" = super().get_context(request)
         context["breadcrumbs"] = self.get_breadcrumbs()
         context["search_query"] = search_query
         context["sort"] = sort
@@ -191,13 +168,12 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         self,
         *,
         search: str = "",
-        sort: Optional[SortOption] = None,
+        sort: constants.SortOption = constants.SORT_NEWEST_FIRST,
         author_profile_ids: Optional[list[int]] = None,
         topic_ids: Optional[list[int]] = None,
         region_ids: Optional[list[int]] = None,
         year: Optional[int] = None,
     ):
-        sort = sort or self.SORT_NEWEST_FIRST
         author_profile_ids = author_profile_ids or []
         topic_ids = topic_ids or []
         region_ids = region_ids or []

@@ -341,6 +341,20 @@ class BlogIndexPage(IndexPage):
 
         return self.generate_entries_set_html(request, *args, **kwargs)
 
+    @route(r"^category/(?P<topic_slug>.+)/")
+    def category_to_topic_redirect_view(self, request, topic_slug):
+        """
+        If a user attempts to visit the "entries by topic" page using
+        the deprecated /category/ route, we want to redirect them to the
+        correct page using the /topic/ route.
+        """
+        topic_path = self.url + self.reverse_subpage("entries_by_topic", args=(topic_slug,))
+
+        if request.META["QUERY_STRING"]:
+            topic_path += f'?{request.META["QUERY_STRING"]}'
+
+        return redirect(topic_path, permanent=True)
+
     @route(r"^topic/(?P<topic>.+)/")
     def entries_by_topic(self, request, topic, *args, **kwargs):
         """

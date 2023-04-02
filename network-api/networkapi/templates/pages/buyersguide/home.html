@@ -11,10 +11,11 @@
     {{ block.super }}
     <div class="editorial-content">
 
-        {% with hero_featured_article=page.get_hero_featured_article %}
-            {% if hero_featured_article %}
+        {% with hero_featured_page=page.get_hero_featured_page %}
+
+            {% if hero_featured_page %}
                 <div class="tw-container tw-mb-24">
-                    {% include "fragments/buyersguide/featured_article.html" with featured_article=hero_featured_article supporting_articles=page.get_hero_supporting_articles supporting_articles_heading=page.hero_supporting_articles_heading %}
+                    {% include "fragments/buyersguide/featured_page.html" with featured_page=hero_featured_page supporting_pages=page.get_hero_supporting_pages supporting_pages_heading=page.hero_supporting_pages_heading %}
                 </div>
             {% endif %}
         {% endwith %}

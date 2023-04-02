@@ -5,7 +5,7 @@ from django.utils import translation
 from wagtail_localize import synctree
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
-from networkapi.wagtailpages.factory import research_hub as research_factory
+from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
 from networkapi.wagtailpages.tests.research_hub import base as research_test_base
 from networkapi.wagtailpages.tests.research_hub import utils as research_test_utils
 
@@ -14,12 +14,10 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.detail_page = research_factory.ResearchDetailPageFactory(
-            parent=cls.library_page,
-            original_publication_date=(research_test_utils.days_ago(n=14)),
-        )
+
+        cls.detail_page = cls.create_research_detail_page_on_parent(parent=cls.library_page, days_ago=14)
         cls.research_profile = profiles_factory.ProfileFactory()
-        research_factory.ResearchAuthorRelationFactory(
+        relations_factory.ResearchAuthorRelationFactory(
             research_detail_page=cls.detail_page,
             author_profile=cls.research_profile,
         )
@@ -34,6 +32,14 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
     def translate_research_profile(self):
         self.fr_profile = self.research_profile.copy_for_translation(self.fr_locale)
         self.fr_profile.save()
+
+    def create_research_detail_page_with_author(self, author_profile, days_ago=0):
+        detail_page = self.create_research_detail_page(days_ago=days_ago)
+        relations_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page,
+            author_profile=author_profile,
+        )
+        return detail_page
 
     def test_get_context(self):
         context = self.author_index.get_context(request=None)
@@ -134,13 +140,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             self.detail_page,
             self.fr_locale,
         )
-        extra_detail_page = research_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-        )
-        research_factory.ResearchAuthorRelationFactory(
-            research_detail_page=extra_detail_page,
-            author_profile=self.research_profile,
-        )
+        extra_detail_page = self.create_research_detail_page_with_author(author_profile=self.research_profile)
         self.synchronize_tree()
         # Grab the alias page. Note: This page is not really translated, so it is still
         # associated with the original profile.
@@ -167,13 +167,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             self.detail_page,
             self.fr_locale,
         )
-        extra_detail_page = research_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-        )
-        research_factory.ResearchAuthorRelationFactory(
-            research_detail_page=extra_detail_page,
-            author_profile=self.research_profile,
-        )
+        extra_detail_page = self.create_research_detail_page_with_author(author_profile=self.research_profile)
         synctree.synchronize_tree(source_locale=self.default_locale, target_locale=self.fr_locale)
         # Grab the alias page. Note: This page is not really translated, so it is still
         # associated with the original profile.
@@ -194,50 +188,79 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertIn(fr_detail_page, context["latest_research"])
         self.assertIn(fr_extra_detail_page, context["latest_research"])
 
-    def test_get_latest_research(self):
-        detail_page_1 = research_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-            original_publication_date=(research_test_utils.days_ago(n=3)),
-        )
-        detail_page_2 = research_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-            original_publication_date=(research_test_utils.days_ago(n=2)),
-        )
-        detail_page_3 = research_factory.ResearchDetailPageFactory(
-            parent=self.library_page,
-            original_publication_date=(research_test_utils.days_ago(n=1)),
-        )
-        research_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_1,
-            author_profile=self.research_profile,
-        )
-        research_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_2,
-            author_profile=self.research_profile,
-        )
-        research_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_3,
-            author_profile=self.research_profile,
-        )
+    def test_get_latest_research_contains_latest_three_detail_pages(self):
+        detail_page_1 = self.detail_page
+        detail_page_2 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=3)
+        detail_page_3 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=2)
+        detail_page_4 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=1)
 
-        latest_research = self.author_index.get_latest_research(
+        latest_research = self.author_index.get_latest_author_research(
             author_profile=self.research_profile,
         )
 
         self.assertEqual(len(latest_research), 3)
-        self.assertIn(detail_page_1, latest_research)
-        self.assertIn(detail_page_2, latest_research)
+        self.assertIn(detail_page_4, latest_research)
         self.assertIn(detail_page_3, latest_research)
-        self.assertNotIn(self.detail_page, latest_research)
+        self.assertIn(detail_page_2, latest_research)
+        self.assertNotIn(detail_page_1, latest_research)
 
-    def test_get_author_research(self):
-        # Locale and detail pages.
-        with self.assertNumQueries(2):
+    def test_get_author_research_count_return_number_of_associated_detail_pages(self):
+        # One page already exists, creating one more
+        self.create_research_detail_page_with_author(author_profile=self.research_profile)
+
+        count = self.author_index.get_author_research_count(author_profile=self.research_profile)
+
+        self.assertEqual(count, 2)
+
+    def test_get_author_research_returns_profile_related_detail_pages(self):
+        detail_page_1 = self.detail_page
+        detail_page_2 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=3)
+        detail_page_3 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=2)
+        detail_page_4 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=1)
+
+        # 3 queries = 1 for the detail pages, 1 for the locale, 1 for the page  view restrictions
+        with self.assertNumQueries(3):
             author_research = self.author_index.get_author_research(
                 author_profile=self.research_profile,
             )
 
-            self.assertIn(self.detail_page, author_research)
+            self.assertIn(detail_page_1, author_research)
+            self.assertIn(detail_page_2, author_research)
+            self.assertIn(detail_page_3, author_research)
+            self.assertIn(detail_page_4, author_research)
+
+    def test_get_author_research_not_returns_unpublished_pages(self):
+        detail_page_published = self.detail_page
+        detail_page_unpublished = self.create_research_detail_page_with_author(
+            author_profile=self.research_profile,
+            days_ago=1,
+        )
+        detail_page_unpublished.unpublish()
+        detail_page_unpublished.save()
+
+        latest_research = self.author_index.get_author_research(
+            author_profile=self.research_profile,
+        )
+
+        self.assertEqual(len(latest_research), 1)
+        self.assertIn(detail_page_published, latest_research)
+        self.assertNotIn(detail_page_unpublished, latest_research)
+
+    def test_get_author_research_not_returns_private_pages(self):
+        detail_page_public = self.detail_page
+        detail_page_private = self.create_research_detail_page_with_author(
+            author_profile=self.research_profile,
+            days_ago=1,
+        )
+        self.make_page_private(detail_page_private)
+
+        latest_research = self.author_index.get_author_research(
+            author_profile=self.research_profile,
+        )
+
+        self.assertEqual(len(latest_research), 1)
+        self.assertIn(detail_page_public, latest_research)
+        self.assertNotIn(detail_page_private, latest_research)
 
     def test_author_index_breadcrumbs(self):
         breadcrumbs = self.author_index.get_breadcrumbs()

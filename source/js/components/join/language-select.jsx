@@ -36,7 +36,7 @@ class JoinUsLanguageSelect extends Component {
   }
 
   render() {
-    let classes = classNames(`form-control`, this.props.className);
+    let classes = classNames(`tw-form-control`, this.props.className);
 
     return (
       <select

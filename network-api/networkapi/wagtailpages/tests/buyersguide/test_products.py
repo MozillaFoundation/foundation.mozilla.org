@@ -3,7 +3,7 @@ import json
 from django.test import TestCase
 from django.test.utils import override_settings
 from rest_framework.test import APITestCase
-from wagtail.snippets.views.snippets import get_snippet_edit_handler
+from wagtail.admin.panels import get_edit_handler
 from wagtail.test.utils import form_data
 
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
@@ -143,6 +143,35 @@ class TestProductPage(BuyersGuideTestCase):
         for related_article in related_articles:
             self.assertIn(related_article, result)
 
+    def test_get_related_articles_non_default_locale(self):
+        """
+        Returns all related articles localized.
+        """
+        content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
+            parent=self.bg,
+        )
+        product_page = self.product_page
+        related_articles_en = []
+        for _ in range(5):
+            related_article = buyersguide_factories.BuyersGuideArticlePageFactory(parent=content_index)
+            buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
+                product=product_page,
+                article=related_article,
+            )
+            related_articles_en.append(related_article)
+        self.synchronize_tree()
+        related_articles_fr = []
+        for article in related_articles_en:
+            article_fr = article.get_translation(self.fr_locale)
+            related_articles_fr.append(article_fr)
+
+        product_page_fr = product_page.get_translation(self.fr_locale)
+        self.activate_locale(self.fr_locale)
+        results_fr = product_page_fr.get_related_articles()
+
+        for related_article in results_fr:
+            self.assertIn(related_article, related_articles_fr)
+
     def test_get_related_articles_no_related_articles(self):
         product_page = self.product_page
 
@@ -200,6 +229,36 @@ class TestProductPage(BuyersGuideTestCase):
         for related_article in related_articles[3:]:
             self.assertNotIn(related_article, result)
 
+    def test_primary_related_articles_non_default_locale(self):
+        """First three related articles are primary and should be returned localized."""
+        content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
+            parent=self.bg,
+        )
+        product_page = self.product_page
+        related_articles_en = []
+        for i in range(5):
+            related_article = buyersguide_factories.BuyersGuideArticlePageFactory(parent=content_index)
+            buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
+                product=product_page,
+                article=related_article,
+                sort_order=i,
+            )
+            related_articles_en.append(related_article)
+        self.synchronize_tree()
+        related_articles_fr = []
+        for article in related_articles_en:
+            article_fr = article.get_translation(self.fr_locale)
+            related_articles_fr.append(article_fr)
+
+        product_page_fr = product_page.get_translation(self.fr_locale)
+        self.activate_locale(self.fr_locale)
+        result = product_page_fr.get_primary_related_articles()
+
+        for related_article in related_articles_fr[:3]:
+            self.assertIn(related_article, result)
+        for related_article in related_articles_fr[3:]:
+            self.assertNotIn(related_article, result)
+
     def test_primary_related_articles_no_related_articles(self):
         product_page = self.product_page
 
@@ -226,6 +285,36 @@ class TestProductPage(BuyersGuideTestCase):
         for related_article in related_articles[:3]:
             self.assertNotIn(related_article, result)
         for related_article in related_articles[3:]:
+            self.assertIn(related_article, result)
+
+    def test_secondary_related_articles_non_default_locale(self):
+        """Second three related articles are secondary and should be returned localized."""
+        content_index = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
+            parent=self.bg,
+        )
+        product_page = self.product_page
+        related_articles_en = []
+        for i in range(5):
+            related_article = buyersguide_factories.BuyersGuideArticlePageFactory(parent=content_index)
+            buyersguide_factories.BuyersGuideProductPageArticlePageRelationFactory(
+                product=product_page,
+                article=related_article,
+                sort_order=i,
+            )
+            related_articles_en.append(related_article)
+        self.synchronize_tree()
+        related_articles_fr = []
+        for article in related_articles_en:
+            article_fr = article.get_translation(self.fr_locale)
+            related_articles_fr.append(article_fr)
+
+        product_page_fr = product_page.get_translation(self.fr_locale)
+        self.activate_locale(self.fr_locale)
+        result = product_page_fr.get_secondary_related_articles()
+
+        for related_article in related_articles_fr[:3]:
+            self.assertNotIn(related_article, result)
+        for related_article in related_articles_fr[3:]:
             self.assertIn(related_article, result)
 
     def test_secondary_related_articles_no_related_articles(self):
@@ -535,7 +624,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
 
 class BuyersGuideProductCategoryTest(TestCase):
     def setUp(self):
-        edit_handler = get_snippet_edit_handler(BuyersGuideProductCategory)
+        edit_handler = get_edit_handler(BuyersGuideProductCategory)
         self.form_class = edit_handler.get_form_class()
 
     @staticmethod

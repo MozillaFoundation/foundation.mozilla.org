@@ -1,5 +1,5 @@
 from django.test import TestCase
-from wagtail.snippets.views.snippets import get_snippet_edit_handler
+from wagtail.admin.panels import get_edit_handler
 
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.buyersguide.call_to_action import (
@@ -9,7 +9,7 @@ from networkapi.wagtailpages.pagemodels.buyersguide.call_to_action import (
 
 class BuyersGuideCallToActionTest(TestCase):
     def setUp(self):
-        edit_handler = get_snippet_edit_handler(BuyersGuideCallToAction)
+        edit_handler = get_edit_handler(BuyersGuideCallToAction)
         self.form_class = edit_handler.get_form_class()
 
     def test_return_target_url_with_external_link(self):
