@@ -20,7 +20,7 @@ filebrowser-safe
 future
 gunicorn
 heroku3
-pygit2==1.11.1
+pygit2==1.12.0
 python-slugify
 requests
 social-auth-app-django
