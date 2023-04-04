@@ -1,8 +1,19 @@
 import datetime
 
+from django.utils import timezone
+from wagtail import models as wagtail_models
+
 
 def days_ago(n: int):
-    return datetime.date.today() - datetime.timedelta(days=n)
+    return timezone.now().date() - datetime.timedelta(days=n)
+
+
+def make_page_private(page):
+    wagtail_models.PageViewRestriction.objects.create(
+        page=page,
+        restriction_type=wagtail_models.PageViewRestriction.PASSWORD,
+        password="test",
+    )
 
 
 def translate_detail_page(detail_page, locale):
