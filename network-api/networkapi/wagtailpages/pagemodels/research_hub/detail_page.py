@@ -24,6 +24,8 @@ logger = logging.getLogger(__name__)
 class ResearchDetailPage(research_base.ResearchHubBasePage):
     parent_page_types = ["ResearchLibraryPage"]
 
+    subpage_types = ["ArticlePage", "PublicationPage"]
+
     cover_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),
         null=True,
