@@ -23,7 +23,7 @@ class DonateLandingPageTest(test_base.WagtailpagesTestCase):
             parent=cls.homepage,
         )
 
-    def test_parents(self):
+    def test_parent_page_types(self):
         """
         Testing that the DonateLandingPage model can only be created at the root level.
         """
@@ -32,9 +32,9 @@ class DonateLandingPageTest(test_base.WagtailpagesTestCase):
             parent_models={WagtailPage},
         )
 
-    def test_children(self):
+    def test_subpage_types(self):
         """
-        Testing the allowed children page types of the DonateLandingPage model.
+        Testing the DonateLandingPage's allowed subpage types.
         """
         self.assertAllowedSubpageTypes(
             parent_model=pagemodels.DonateLandingPage,
@@ -43,7 +43,7 @@ class DonateLandingPageTest(test_base.WagtailpagesTestCase):
 
     def test_page_success(self):
         """
-        Testing that visiting a landing page is successful.
+        Testing that visiting a DonateLandingPage's URL returns a successful HTTP status.
         """
         url = self.donate_landing_page.get_url()
 
@@ -53,7 +53,7 @@ class DonateLandingPageTest(test_base.WagtailpagesTestCase):
 
     def test_template(self):
         """
-        Testing that visiting a DonateLandingPage renders the correct templates.
+        Testing that visiting a DonateLandingPage's URL renders the correct templates.
         """
         url = self.donate_landing_page.get_url()
 
