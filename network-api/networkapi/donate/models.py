@@ -7,12 +7,12 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.wagtailpages.models import FoundationMetadataPageMixin
 
 
-class DonationPage(FoundationMetadataPageMixin, Page):
+class BaseDonationPage(FoundationMetadataPageMixin, Page):
     class Meta:
         abstract = True
 
 
-class DonateLandingPage(DonationPage):
+class DonateLandingPage(BaseDonationPage):
     template = "pages/landing_page.html"
 
     # Only allow creating landing pages at the root level

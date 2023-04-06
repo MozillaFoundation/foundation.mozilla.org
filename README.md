@@ -122,6 +122,8 @@ A webhook (Django view) receives requests from Tito when a ticket is completed i
 
 Similar to the Mozilla Festival site, the fake data generator can generate a site structure for the Donation site that can be served under it's own domain.
 
+For local development, the donate site can be found at `donate.localhost:8000`.
+
 ## Gotchas
 
 As this is REST API and CMS built on top of Django, there are some "gotcha!"s to keep in mind due to the high level of magic in the Django code base (where things will happen automatically without the code explicitly telling you).
