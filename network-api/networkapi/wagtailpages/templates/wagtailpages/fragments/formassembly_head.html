@@ -1,0 +1,49 @@
+<!-- Code snippet copied from https://mozillafoundation.tfaforms.net/forms/edit/publish/9 -->
+<!-- FORM: HEAD SECTION -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="referrer" content="no-referrer-when-downgrade">
+<!-- THIS SCRIPT NEEDS TO BE LOADED FIRST BEFORE wforms.js -->
+<script type="text/javascript" data-for="FA__DOMContentLoadedEventDispatch" src="https://mozillafoundation.tfaforms.net/js/FA__DOMContentLoadedEventDispatcher.js" defer></script>
+<script type="text/javascript">
+    document.addEventListener("FA__DOMContentLoaded", function() {
+        const FORM_TIME_START = Math.floor((new Date).getTime() / 1000);
+        let formElement = document.getElementById("tfa_0");
+        if (null === formElement) {
+            formElement = document.getElementById("0");
+        }
+        let appendJsTimerElement = function() {
+            let formTimeDiff = Math.floor((new Date).getTime() / 1000) - FORM_TIME_START;
+            let cumulatedTimeElement = document.getElementById("tfa_dbCumulatedTime");
+            if (null !== cumulatedTimeElement) {
+                let cumulatedTime = parseInt(cumulatedTimeElement.value);
+                if (null !== cumulatedTime && cumulatedTime > 0) {
+                    formTimeDiff += cumulatedTime;
+                }
+            }
+            let jsTimeInput = document.createElement("input");
+            jsTimeInput.setAttribute("type", "hidden");
+            jsTimeInput.setAttribute("value", formTimeDiff.toString());
+            jsTimeInput.setAttribute("name", "tfa_dbElapsedJsTime");
+            jsTimeInput.setAttribute("id", "tfa_dbElapsedJsTime");
+            jsTimeInput.setAttribute("autocomplete", "off");
+            if (null !== formElement) {
+                formElement.appendChild(jsTimeInput);
+            }
+        };
+        if (null !== formElement) {
+            if (formElement.addEventListener) {
+                formElement.addEventListener('submit', appendJsTimerElement, false);
+            } else if (formElement.attachEvent) {
+                formElement.attachEvent('onsubmit', appendJsTimerElement);
+            }
+        }
+    });
+</script>
+<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-layout.css?v=a610d3c15a68f313d2439f7916a6c504f7c85f35" rel="stylesheet" type="text/css" />
+<link href="https://mozillafoundation.tfaforms.net/uploads/themes/theme-9.css" rel="stylesheet" type="text/css" />
+<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-jsonly.css?v=a610d3c15a68f313d2439f7916a6c504f7c85f35" rel="alternate stylesheet" title="This stylesheet activated by javascript" type="text/css" />
+<script type="text/javascript" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/wforms.js?v=a610d3c15a68f313d2439f7916a6c504f7c85f35"></script>
+<script type="text/javascript">
+    wFORMS.behaviors.prefill.skip = false;
+</script>
+<script type="text/javascript" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-en_US.js?v=a610d3c15a68f313d2439f7916a6c504f7c85f35"></script>
