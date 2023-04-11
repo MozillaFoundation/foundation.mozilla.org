@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <!-- Code snippet copied from https://mozillafoundation.tfaforms.net/forms/edit/publish/9 -->
 <!-- FORM: BODY SECTION -->
 <div class="wFormContainer">
@@ -32,6 +34,7 @@
                 </script>
             </div>
             <h3 class="wFormTitle" data-testid="form-title" id="9-T">Mavis Test Clone of Sample Petition Form (SBX)</h3>
+            <h4 style="color: green;">Note:<br> Form labels can be localized via Pontoon (e.g., first name, email, country etc). <br>Validation text is controlled by FormAssembly and not customizable.</h4>
             <form method="post" action="https://mozillafoundation.tfaforms.net/api_v2/workflow/processor" class=" labelsLeftAligned" id="9" role="form">
                 <input type="hidden" id="tfa_1" name="tfa_1" value="7017i000000bIgTAAU" class="">
                 <div class="oneField field-container-D     wf-acl-hidden" id="tfa_14-D">
@@ -56,29 +59,29 @@
                     </div>
                 </div>
                 <div class="oneField field-container-D    " id="tfa_28-D">
-                    <label id="tfa_28-L" class="label preField " for="tfa_28">First Name</label>
+                    <label id="tfa_28-L" class="label preField reqMark" for="tfa_28">{% trans "First Name" %}</label>
                     <div class="inputWrapper">
-                        <input type="text" id="tfa_28" name="tfa_28" value="" title="First Name" class="">
+                        <input aria-required="true" type="text" id="tfa_28" name="tfa_28" value="" title="First Name" class="required">
                     </div>
                 </div>
                 <div class="oneField field-container-D    " id="tfa_30-D">
-                    <label id="tfa_30-L" class="label preField reqMark" for="tfa_30">Last Name</label>
+                    <label id="tfa_30-L" class="label preField reqMark" for="tfa_30">{% trans "Last Name" %}</label>
                     <div class="inputWrapper">
                         <input aria-required="true" type="text" id="tfa_30" name="tfa_30" value="" title="Last Name" class="required">
                     </div>
                 </div>
                 <div class="oneField field-container-D    " id="tfa_31-D">
-                    <label id="tfa_31-L" class="label preField reqMark" for="tfa_31">Email</label>
+                    <label id="tfa_31-L" class="label preField reqMark" for="tfa_31">{% trans "Email" %}</label>
                     <div class="inputWrapper">
                         <input aria-required="true" type="text" id="tfa_31" name="tfa_31" value="" title="Email" class="validate-email required">
                     </div>
                 </div>
                 <div id="tfa_250" class="section group">
                     <div class="oneField field-container-D    " id="tfa_254-D">
-                        <label id="tfa_254-L" class="label preField " for="tfa_254">Country</label>
+                        <label id="tfa_254-L" class="label preField " for="tfa_254">{% trans "Country" %}</label>
                         <div class="inputWrapper">
                             <select id="tfa_254" name="tfa_254" title="Country" class="">
-                                <option value="">Please select...</option>
+                                <option value="">{% trans "Please select..." %}</option>
                                 <option value="tfa_255" id="tfa_255" class="">Afghanistan</option>
                                 <option value="tfa_256" id="tfa_256" class="">Albania</option>
                                 <option value="tfa_257" id="tfa_257" class="">Algeria</option>
@@ -325,7 +328,7 @@
                                 <span class="oneChoice">
                                     <input type="checkbox" value="tfa_493" class="" id="tfa_493" name="tfa_493" aria-labelledby="tfa_493-L" data-tfa-labelledby="tfa_492-L tfa_493-L">
                                     <label class="label postField" id="tfa_493-L" for="tfa_493">
-                                        <span class="input-checkbox-faux"></span>I'm okay with Mozilla handling my info as explained in this Privacy Notice. </label>
+                                        <span class="input-checkbox-faux"></span>{% trans "I'm okay with Mozilla handling my info as explained in this Privacy Notice." %}</label>
                                 </span>
                             </span>
                         </div>
@@ -336,14 +339,14 @@
                                 <span class="oneChoice">
                                     <input type="checkbox" value="tfa_495" class="" id="tfa_495" name="tfa_495" aria-labelledby="tfa_495-L" data-tfa-labelledby="tfa_494-L tfa_495-L">
                                     <label class="label postField" id="tfa_495-L" for="tfa_495">
-                                        <span class="input-checkbox-faux"></span>Yes, I want to receive email updates about Mozilla’s campaigns. </label>
+                                        <span class="input-checkbox-faux"></span>{% trans "Yes, I want to receive email updates about Mozilla’s campaigns." %}</label>
                                 </span>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div class="actions" id="9-A" data-contentid="submit_button">
-                    <input type="submit" data-label="Submit" class="primaryAction" id="submit_button" value="Submit">
+                    <input type="submit" data-label="Add my name" class="primaryAction" id="submit_button" value="{% trans 'Add my name' %}">
                 </div>
                 <div style="clear:both"></div>
                 <input type="hidden" value="9" name="tfa_dbFormId" id="tfa_dbFormId">

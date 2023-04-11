@@ -13,3 +13,10 @@ def environment_prefix(context):
     elif app_env == "Review":
         env_prefix = "[RA]"
     return env_prefix
+
+
+# TO BE REMOVED
+# Adding this here for now for the FormAssembly test
+@register.filter
+def dash_to_underscore(value):
+    return value.replace("-", "_")

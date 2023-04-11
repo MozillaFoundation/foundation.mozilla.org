@@ -1,3 +1,6 @@
+{% load i18n mofo_common %}
+{% get_current_language as LANGUAGE_CODE %}
+
 <!-- Code snippet copied from https://mozillafoundation.tfaforms.net/forms/edit/publish/9 -->
 <!-- FORM: HEAD SECTION -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -46,4 +49,4 @@
 <script type="text/javascript">
     wFORMS.behaviors.prefill.skip = false;
 </script>
-<script type="text/javascript" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-en_US.js?v=a610d3c15a68f313d2439f7916a6c504f7c85f35"></script>
+<script type="text/javascript" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{{ LANGUAGE_CODE|dash_to_underscore }}.js?v=a610d3c15a68f313d2439f7916a6c504f7c85f35"></script>
