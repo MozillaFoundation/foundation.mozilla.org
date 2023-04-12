@@ -521,12 +521,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             detail_page_2.research_authors.first().author_profile,
         )
 
-        response = self.client.get(
-            self.library_page.url,
-            data={"author": author_profile.id},
-        )
+        research_detail_pages = self.library_page._get_research_detail_pages(author_profile_ids=[author_profile.id])
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
         end_time = time.time()
@@ -593,12 +589,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(profile.translation_key, profile_fr.translation_key)
         translation.activate(self.fr_locale.language_code)
 
-        response = self.client.get(
-            self.library_page.localized.url,
-            data={"author": profile_fr.id},
-        )
+        research_detail_pages = self.library_page._get_research_detail_pages(author_profile_ids=[profile_fr.id])
 
-        research_detail_pages = response.context["research_detail_pages"]
+
         self.assertIn(detail_page_1_fr, research_detail_pages)
         self.assertIn(detail_page_2_fr, research_detail_pages)
         self.assertNotIn(detail_page_1, research_detail_pages)
