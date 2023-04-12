@@ -834,9 +834,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             related_regions__research_region=region_B,
         )
 
-        response = self.client.get(self.library_page.url, data={"region": region_A.id})
+        research_detail_pages = self.library_page._get_research_detail_pages(region_ids=[region_A.id])
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertIn(detail_page_A, research_detail_pages)
         self.assertNotIn(detail_page_B, research_detail_pages)
 
@@ -861,9 +860,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             related_regions__research_region=region_A,
         )
 
-        response = self.client.get(self.library_page.url, data={"region": [region_A.id, region_B.id]})
+        research_detail_pages = self.library_page._get_research_detail_pages(region_ids=[region_A.id, region_B.id])
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
         end_time = time.time()
@@ -901,12 +899,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(region.translation_key, region_fr.translation_key)
         translation.activate(self.fr_locale.language_code)
 
-        response = self.client.get(
-            self.library_page.localized.url,
-            data={"region": region_fr.id},
-        )
+        research_detail_pages = self.library_page.localized._get_research_detail_pages(region_ids=[region_fr.id])
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertEqual(len(research_detail_pages), 2)
         self.assertIn(detail_page_1_fr, research_detail_pages)
         self.assertIn(detail_page_2_fr, research_detail_pages)
