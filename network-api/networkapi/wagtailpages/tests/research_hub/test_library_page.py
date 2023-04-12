@@ -929,9 +929,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             original_publication_date=datetime.date(year=year_2, month=1, day=1),
         )
 
-        response = self.client.get(self.library_page.url)
+        year_options = self.library_page._get_year_options()
+        year_option_values = [i["value"] for i in year_options]
 
-        year_option_values = [i["value"] for i in response.context["year_options"]]
         # It's 3 options because of the two years and the "any" option.
         self.assertEqual(len(year_option_values), 3)
         self.assertIn(year_1, year_option_values)
@@ -951,9 +951,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             original_publication_date=datetime.date(year_1 + 1, 6, 1),
         )
 
-        response = self.client.get(self.library_page.url, data={"year": year_1})
+        research_detail_pages = self.library_page._get_research_detail_pages(year=year_1)
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
 
@@ -963,8 +962,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
     def test_library_page_breadcrumbs(self):
         start_time = time.time()
-        response = self.client.get(self.library_page.url)
-        breadcrumbs = response.context["breadcrumbs"]
+        breadcrumbs = self.library_page.get_breadcrumbs()
         expected_breadcrumbs = [{"title": "Research", "url": "/en/research/"}]
 
         self.assertEqual(len(breadcrumbs), 1)
