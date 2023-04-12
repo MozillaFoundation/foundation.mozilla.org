@@ -419,9 +419,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             parent=self.library_page,
         )
 
-        response = self.client.get(self.library_page.url)
+        author_options = self.library_page._get_author_options()
+        author_option_values = [i["value"] for i in author_options]
 
-        author_option_values = [i["value"] for i in response.context["author_options"]]
         self.assertIn(
             detail_page.research_authors.first().author_profile.id,
             author_option_values,
@@ -434,9 +434,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         start_time = time.time()
         profile = profiles_factory.ProfileFactory()
 
-        response = self.client.get(self.library_page.url)
+        author_options = self.library_page._get_author_options()
+        author_option_values = [i["value"] for i in author_options]
 
-        author_option_values = [i["value"] for i in response.context["author_options"]]
         self.assertNotIn(
             profile.id,
             author_option_values,
@@ -461,9 +461,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.synchronize_tree()
         translation.activate(self.fr_locale.language_code)
 
-        response = self.client.get(self.library_page.localized.url)
+        author_options = self.library_page.localized._get_author_options()
+        author_option_values = [i["value"] for i in author_options]
 
-        author_option_values = [i["value"] for i in response.context["author_options"]]
         self.assertIn(
             profile_en.id,
             author_option_values,
@@ -489,9 +489,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         profile_fr = detail_page_fr.research_authors.first().author_profile
         translation.activate(self.fr_locale.language_code)
 
-        response = self.client.get(self.library_page.localized.url)
+        author_options = self.library_page.localized._get_author_options()
+        author_option_values = [i["value"] for i in author_options]
 
-        author_option_values = [i["value"] for i in response.context["author_options"]]
         self.assertNotIn(
             profile_en.id,
             author_option_values,
