@@ -43,7 +43,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         execution_time = end_time - start_time
         print(f"Execution time for test_get_research_detail_pages: {execution_time} seconds")
 
-    def test_detail_pages_in_context_with_translation_aliases(self):
+    def test_get_research_detail_pages_with_translation_aliases(self):
         start_time = time.time()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
@@ -55,9 +55,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         fr_detail_page_1 = detail_page_1.get_translation(self.fr_locale)
         fr_detail_page_2 = detail_page_2.get_translation(self.fr_locale)
 
-        response = self.client.get(self.library_page.url)
+        research_detail_pages = self.library_page._get_research_detail_pages()
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertEqual(len(research_detail_pages), 2)
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertIn(detail_page_2, research_detail_pages)
@@ -77,9 +76,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
         self.make_page_private(private_detail_page)
 
-        response = self.client.get(self.library_page.url)
-
-        research_detail_pages = response.context["research_detail_pages"]
+        research_detail_pages = self.library_page._get_research_detail_pages()
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(public_detail_page, research_detail_pages)
         self.assertNotIn(private_detail_page, research_detail_pages)
@@ -106,9 +103,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             collaborators="",
         )
 
-        response = self.client.get(self.library_page.url, data={"search": "Apple"})
-
-        research_detail_pages = response.context["research_detail_pages"]
+        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
@@ -133,9 +128,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             collaborators="",
         )
 
-        response = self.client.get(self.library_page.url, data={"search": "Apple"})
+        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
@@ -160,9 +154,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             collaborators="",
         )
 
-        response = self.client.get(self.library_page.url, data={"search": "Apple"})
+        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
@@ -187,9 +180,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             collaborators="Banana",
         )
 
-        response = self.client.get(self.library_page.url, data={"search": "Apple"})
+        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
@@ -230,9 +222,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
         self.update_index()
 
-        response = self.client.get(self.library_page.url, data={"search": "Apple"})
+        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
@@ -274,9 +265,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
         self.update_index()
 
-        response = self.client.get(self.library_page.url, data={"search": "Apple"})
+        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
@@ -311,9 +301,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
         self.update_index()
 
-        response = self.client.get(self.library_page.url, data={"search": "Apple"})
+        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
