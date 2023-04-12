@@ -96,7 +96,7 @@
             </div>
             <h2 class="large:tw-hidden tw-h1-heading">{% translate 'Filter' %}</h2>
             <form action="{% pageurl page %}"
-                  method="GET"
+                  method="get"
                   accept-charset="utf-8"
                   id="filter-form">
                 {% include "wagtailpages/fragments/research_library_form.html" with form=form %}
