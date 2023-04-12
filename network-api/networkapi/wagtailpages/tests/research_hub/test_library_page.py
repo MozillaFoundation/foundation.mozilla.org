@@ -1,10 +1,8 @@
-
 import datetime
 import os
 import time
-import unittest
 
-from django.core import management, paginator
+from django.core import management
 from django.utils import timezone, translation
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
@@ -383,7 +381,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             title="Banana",
         )
 
-        research_detail_pages = list(self.library_page._get_research_detail_pages(sort=constants.SORT_ALPHABETICAL_REVERSED))
+        research_detail_pages = list(
+            self.library_page._get_research_detail_pages(sort=constants.SORT_ALPHABETICAL_REVERSED)
+        )
 
         apple_page_index = research_detail_pages.index(apple_page)
         banana_page_index = research_detail_pages.index(banana_page)
@@ -405,7 +405,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
 
         default_sort_detail_pages = list(self.library_page._get_research_detail_pages())
-        newest_first_detail_pages = list(self.library_page._get_research_detail_pages(sort=constants.SORT_NEWEST_FIRST))
+        newest_first_detail_pages = list(
+            self.library_page._get_research_detail_pages(sort=constants.SORT_NEWEST_FIRST)
+        )
 
         self.assertEqual(default_sort_detail_pages, newest_first_detail_pages)
         end_time = time.time()
@@ -589,8 +591,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(profile.translation_key, profile_fr.translation_key)
         translation.activate(self.fr_locale.language_code)
 
-        research_detail_pages = self.library_page.localized._get_research_detail_pages(author_profile_ids=[profile_fr.id])
-
+        research_detail_pages = self.library_page.localized._get_research_detail_pages(
+            author_profile_ids=[profile_fr.id]
+        )
 
         self.assertIn(detail_page_1_fr, research_detail_pages)
         self.assertIn(detail_page_2_fr, research_detail_pages)
@@ -984,4 +987,3 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         end_time = time.time()
         execution_time = end_time - start_time
         print(f"Execution time for test_pagination: {execution_time} seconds")
-
