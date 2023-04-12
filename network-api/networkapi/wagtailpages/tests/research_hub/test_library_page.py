@@ -589,7 +589,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(profile.translation_key, profile_fr.translation_key)
         translation.activate(self.fr_locale.language_code)
 
-        research_detail_pages = self.library_page._get_research_detail_pages(author_profile_ids=[profile_fr.id])
+        research_detail_pages = self.library_page.localized._get_research_detail_pages(author_profile_ids=[profile_fr.id])
 
 
         self.assertIn(detail_page_1_fr, research_detail_pages)
@@ -605,9 +605,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         topic_1 = taxonomies_factory.ResearchTopicFactory()
         topic_2 = taxonomies_factory.ResearchTopicFactory()
 
-        response = self.client.get(self.library_page.url)
+        topic_options = self.library_page._get_topic_options()
+        topic_option_values = [i["value"] for i in topic_options]
 
-        topic_option_values = [i["value"] for i in response.context["topic_options"]]
         self.assertEqual(len(topic_option_values), 2)
         self.assertIn(topic_1.id, topic_option_values)
         self.assertIn(topic_2.id, topic_option_values)
@@ -623,15 +623,17 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         topic_fr = topic_en.copy_for_translation(self.fr_locale)
         topic_fr.save()
 
-        response_en = self.client.get(self.library_page.localized.url)
-        translation.activate(self.fr_locale.language_code)
-        response_fr = self.client.get(self.library_page.localized.url)
+        topic_options_en = self.library_page.localized._get_topic_options()
+        topic_option_values_en = [i["value"] for i in topic_options_en]
 
-        topic_option_values_en = [i["value"] for i in response_en.context["topic_options"]]
+        translation.activate(self.fr_locale.language_code)
+
+        topic_options_fr = self.library_page.localized._get_topic_options()
+        topic_option_values_fr = [i["value"] for i in topic_options_fr]
+
         self.assertEqual(len(topic_option_values_en), 1)
         self.assertIn(topic_en.id, topic_option_values_en)
         self.assertNotIn(topic_fr.id, topic_option_values_en)
-        topic_option_values_fr = [i["value"] for i in response_fr.context["topic_options"]]
         self.assertEqual(len(topic_option_values_fr), 1)
         self.assertNotIn(topic_en.id, topic_option_values_fr)
         self.assertIn(topic_fr.id, topic_option_values_fr)
@@ -654,9 +656,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         topic_2_en = taxonomies_factory.ResearchTopicFactory()
         translation.activate(self.fr_locale.language_code)
 
-        response = self.client.get(self.library_page.localized.url)
+        topic_options = self.library_page.localized._get_topic_options()
+        topic_option_values = [i["value"] for i in topic_options]
 
-        topic_option_values = [i["value"] for i in response.context["topic_options"]]
         self.assertEqual(len(topic_option_values), 2)
         self.assertNotIn(topic_1_en.id, topic_option_values)
         self.assertIn(topic_1_fr.id, topic_option_values)
@@ -679,9 +681,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             related_topics__research_topic=topic_B,
         )
 
-        response = self.client.get(self.library_page.url, data={"topic": topic_A.id})
+        research_detail_pages = self.library_page._get_research_detail_pages(topic_ids=[topic_A.id])
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertIn(detail_page_A, research_detail_pages)
         self.assertNotIn(detail_page_B, research_detail_pages)
         end_time = time.time()
@@ -705,9 +706,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             related_topics__research_topic=topic_A,
         )
 
-        response = self.client.get(self.library_page.url, data={"topic": [topic_A.id, topic_B.id]})
+        research_detail_pages = self.library_page._get_research_detail_pages(topic_ids=[topic_A.id, topic_B.id])
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
         end_time = time.time()
@@ -745,12 +745,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(topic.translation_key, topic_fr.translation_key)
         translation.activate(self.fr_locale.language_code)
 
-        response = self.client.get(
-            self.library_page.localized.url,
-            data={"topic": topic_fr.id},
-        )
+        research_detail_pages = self.library_page.localized._get_research_detail_pages(topic_ids=[topic_fr.id])
 
-        research_detail_pages = response.context["research_detail_pages"]
         self.assertEqual(len(research_detail_pages), 2)
         self.assertIn(detail_page_1_fr, research_detail_pages)
         self.assertIn(detail_page_2_fr, research_detail_pages)
