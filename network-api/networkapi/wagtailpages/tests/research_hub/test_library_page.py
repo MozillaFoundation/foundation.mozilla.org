@@ -321,12 +321,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             original_publication_date=research_test_utils.days_ago(1),
         )
 
-        response = self.client.get(
-            self.library_page.url,
-            data={"sort": constants.SORT_NEWEST_FIRST.value},
-        )
+        research_detail_pages = list(self.library_page._get_research_detail_pages(sort=constants.SORT_NEWEST_FIRST))
 
-        research_detail_pages = list(response.context["research_detail_pages"])
         newest_page_index = research_detail_pages.index(newest_page)
         oldest_page_index = research_detail_pages.index(oldest_page)
         self.assertLess(newest_page_index, oldest_page_index)
@@ -345,12 +341,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             original_publication_date=research_test_utils.days_ago(1),
         )
 
-        response = self.client.get(
-            self.library_page.url,
-            data={"sort": constants.SORT_OLDEST_FIRST.value},
-        )
+        research_detail_pages = list(self.library_page._get_research_detail_pages(sort=constants.SORT_OLDEST_FIRST))
 
-        research_detail_pages = list(response.context["research_detail_pages"])
         newest_page_index = research_detail_pages.index(newest_page)
         oldest_page_index = research_detail_pages.index(oldest_page)
         self.assertLess(oldest_page_index, newest_page_index)
@@ -370,12 +362,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             title="Banana",
         )
 
-        response = self.client.get(
-            self.library_page.url,
-            data={"sort": constants.SORT_ALPHABETICAL.value},
-        )
+        research_detail_pages = list(self.library_page._get_research_detail_pages(sort=constants.SORT_ALPHABETICAL))
 
-        research_detail_pages = list(response.context["research_detail_pages"])
         apple_page_index = research_detail_pages.index(apple_page)
         banana_page_index = research_detail_pages.index(banana_page)
         self.assertLess(apple_page_index, banana_page_index)
@@ -395,12 +383,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             title="Banana",
         )
 
-        response = self.client.get(
-            self.library_page.url,
-            data={"sort": constants.SORT_ALPHABETICAL_REVERSED.value},
-        )
+        research_detail_pages = list(self.library_page._get_research_detail_pages(sort=constants.SORT_ALPHABETICAL_REVERSED))
 
-        research_detail_pages = list(response.context["research_detail_pages"])
         apple_page_index = research_detail_pages.index(apple_page)
         banana_page_index = research_detail_pages.index(banana_page)
         self.assertLess(banana_page_index, apple_page_index)
@@ -420,14 +404,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             original_publication_date=research_test_utils.days_ago(1),
         )
 
-        default_response = self.client.get(self.library_page.url)
-        newest_first_response = self.client.get(
-            self.library_page.url,
-            data={"sort": constants.SORT_NEWEST_FIRST.value},
-        )
+        default_sort_detail_pages = list(self.library_page._get_research_detail_pages())
+        newest_first_detail_pages = list(self.library_page._get_research_detail_pages(sort=constants.SORT_NEWEST_FIRST))
 
-        default_sort_detail_pages = list(default_response.context["research_detail_pages"])
-        newest_first_detail_pages = list(newest_first_response.context["research_detail_pages"])
         self.assertEqual(default_sort_detail_pages, newest_first_detail_pages)
         end_time = time.time()
         execution_time = end_time - start_time
