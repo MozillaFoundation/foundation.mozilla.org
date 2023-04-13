@@ -219,6 +219,8 @@ class IndexPageTests(IndexPageTestCase):
         Interestingly, the current filter implementation is resolving the pages to their specific type when filtering
         by tag.
 
+        This is using bannered campaign pages because article pages can not be tagged.
+
         """
         # Tagged page
         TEST_TAG = "test-tag"
@@ -244,4 +246,38 @@ class IndexPageTests(IndexPageTestCase):
         self.assertNotIn(untagged_page, response.context["entries"])
         self.assertNotIn(differently_tagged_page, response.context["entries"])
 
-    # TODO: Test pagination and tag filtering
+    def test_entries_by_tag_route_page_1_of_2(self):
+        """
+        Show only the entries with the filtered tag.
+
+        The pagination is not defined in the route, but happens in the `get_context` method, because the
+        route calls the `serve` method, which calls the `get_context` method.
+
+        """
+        TEST_TAG = "test-tag"
+        tagged_children = self.generate_enough_child_pages_to_fill_number_of_index_pages(
+            index_pages_to_fill=2,
+            child_page_factory=bannered_factory.BanneredCampaignPageFactory,
+        )
+        for tagged_child in tagged_children:
+            tagged_child.tags.add(TEST_TAG)
+            tagged_child.save()
+        first_page_of_tagged_children = tagged_children[:self.index_page.page_size]
+        second_page_of_tagges_children = tagged_children[self.index_page.page_size:]
+        #
+        path = (
+            self.index_page.get_url()
+            +  self.index_page.reverse_subpage('entries_by_tag', kwargs={"tag": TEST_TAG})
+        )
+
+        response = self.client.get(path=path)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(response, "wagtailpages/index_page.html")
+        self.assertTemplateUsed(response, "wagtailpages/fragments/entry_cards_item_loop.html")
+        entries = response.context["entries"]
+        for tagged_child in first_page_of_tagged_children:
+            self.assertIn(tagged_child, entries)
+        for tagged_child in second_page_of_tagges_children:
+            self.assertNotIn(tagged_child, entries)
+        self.assertTrue(response.context["has_more"])
