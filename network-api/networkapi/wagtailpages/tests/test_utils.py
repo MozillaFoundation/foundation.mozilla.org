@@ -190,11 +190,10 @@ class TestLocalizeQueryset(TestCase):
         self.assertIn(default3, result)
         self.assertIn(default4, result)
 
+    def test_localize_queryset_with_empty_queryset(self):
+        """Tests that the function returns an empty queryset when the input queryset is empty. tags: [edge case]"""
+        # Call the function with an empty queryset
+        result = localize_queryset(Profile.objects.none())
 
-def test_localize_queryset_with_empty_queryset(self):
-    """Tests that the function returns an empty queryset when the input queryset is empty. tags: [edge case]"""
-    # Call the function with an empty queryset
-    result = localize_queryset(Profile.objects.none())
-
-    # Assert that an empty queryset is returned
-    self.assertEqual(len(result), 0)
+        # Assert that an empty queryset is returned
+        self.assertEqual(len(result), 0)
