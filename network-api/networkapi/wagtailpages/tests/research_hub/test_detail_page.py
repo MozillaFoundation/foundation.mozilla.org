@@ -4,10 +4,21 @@ from django.core import exceptions
 from networkapi.wagtailpages.factory.research_hub import (
     detail_page as detail_page_factory,
 )
+from networkapi.wagtailpages.models import (
+    ArticlePage,
+    PublicationPage,
+    ResearchDetailPage,
+)
 from networkapi.wagtailpages.tests.research_hub import base as research_test_base
 
 
 class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
+    def test_children(self):
+        self.assertAllowedSubpageTypes(
+            parent_model=ResearchDetailPage,
+            child_models={ArticlePage, PublicationPage},
+        )
+
     def test_research_detail_page_breadcrumbs(self) -> None:
         detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,

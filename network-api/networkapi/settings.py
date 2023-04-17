@@ -260,6 +260,7 @@ INSTALLED_APPS = list(
             # wagtail-specific app prefixed so that it can be localised
             "networkapi.wagtailpages",
             "networkapi.mozfest",
+            "networkapi.donate",
         ],
     )
 )
