@@ -89,13 +89,17 @@ There is currently no unit test framework for JavaScript tests set up.
 
 ### Integration tests
 
+**(Note that this is still a work in progress.)**
+
 Integration testing is done using [Playwright](https://playwright.dev/), with the integration tests found in `./tests/integration`.
 
 You can run these tests locally by running a one-time `npm install` and `npm run playwright:install` after which you should be able to run `npm run playwright` to run the visual tests, with `docker-compose up` running in a secondary terminal.
 
 In order to run the same tests as will run during CI testing, make sure that `RANDOM_SEED=530910203` is set in your `.env` file, and that your local database is a new db based on that seed (`inv new-db`).
 
-Note that this is still a work in progress.
+#### URL checker
+
+URL checker can be initiated by running `npm run playwright:urls`. It checks to see if visiting URLs listed in [`tests/foundation-urls.js`](https://github.com/MozillaFoundation/foundation.mozilla.org/blob/main/tests/foundation-urls.js) and [`tests/mozfest-urls.js`](https://github.com/MozillaFoundation/foundation.mozilla.org/blob/main/tests/mozfest-urls.js) returns an OK response (i.e., status 200). Note that the URL lists in these two files are not complete and will require updates. We will also need to expand the lists to include PNI and Donate URLs.
 
 ### Visual regression tests
 
