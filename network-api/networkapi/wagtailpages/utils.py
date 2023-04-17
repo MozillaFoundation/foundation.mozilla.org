@@ -11,7 +11,7 @@ from django import forms
 from django.apps import apps
 from django.conf import settings
 from django.core.files.images import ImageFile
-from django.db.models import Case, Count, Q, When, Value
+from django.db.models import Case, Count, Q, Value, When
 from django.urls import LocalePrefixPattern, URLResolver
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify

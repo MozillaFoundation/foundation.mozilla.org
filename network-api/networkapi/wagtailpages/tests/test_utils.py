@@ -201,8 +201,12 @@ class TestLocalizeQueryset(TestCase):
         default4 = ProfileFactory(locale=self.default_locale)
 
         # Translate some items to active locale:
-        active1 = ProfileFactory(name=default1.name, locale=self.active_locale, translation_key=default1.translation_key)
-        active2 = ProfileFactory(name=default2.name, locale=self.active_locale, translation_key=default2.translation_key)
+        active1 = ProfileFactory(
+            name=default1.name, locale=self.active_locale, translation_key=default1.translation_key
+        )
+        active2 = ProfileFactory(
+            name=default2.name, locale=self.active_locale, translation_key=default2.translation_key
+        )
 
         # Override the current language to be the active locale
         translation.activate(self.active_locale.language_code)
