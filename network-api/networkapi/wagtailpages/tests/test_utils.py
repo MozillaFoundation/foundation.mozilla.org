@@ -190,6 +190,39 @@ class TestLocalizeQueryset(TestCase):
         self.assertIn(default3, result)
         self.assertIn(default4, result)
 
+    def test_localize_queryset_can_retrieve_translations(self):
+        """Tests that when the queryset only contains the items in the default location
+        but there are translations available, that those are retrieved and replace their
+        originals. tags: [edge case]"""
+        # Create items in default locale:
+        default1 = ProfileFactory(locale=self.default_locale)
+        default2 = ProfileFactory(locale=self.default_locale)
+        default3 = ProfileFactory(locale=self.default_locale)
+        default4 = ProfileFactory(locale=self.default_locale)
+
+        # Translate some items to active locale:
+        active1 = ProfileFactory(name=default1.name, locale=self.active_locale, translation_key=default1.translation_key)
+        active2 = ProfileFactory(name=default2.name, locale=self.active_locale, translation_key=default2.translation_key)
+
+        # Override the current language to be the active locale
+        translation.activate(self.active_locale.language_code)
+
+        # Call the function with the default location only
+        result = localize_queryset(Profile.objects.all().filter(locale=self.default_locale))
+
+        # We should see 4 items in the result
+        self.assertEqual(len(result), 4)
+        # For items that have translation, the active locale version should be returned
+        # `localize_queryset` should have retrieved the translations from the active location
+        # and replaced the originals with them
+        self.assertNotIn(default1, result)
+        self.assertIn(active1, result)
+        self.assertNotIn(default2, result)
+        self.assertIn(active2, result)
+        # For items that don't have translation, the default locale version should be returned
+        self.assertIn(default3, result)
+        self.assertIn(default4, result)
+
     def test_localize_queryset_with_empty_queryset(self):
         """Tests that the function returns an empty queryset when the input queryset is empty. tags: [edge case]"""
         # Call the function with an empty queryset
