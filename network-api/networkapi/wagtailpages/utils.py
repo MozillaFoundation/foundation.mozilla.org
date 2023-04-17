@@ -11,7 +11,7 @@ from django import forms
 from django.apps import apps
 from django.conf import settings
 from django.core.files.images import ImageFile
-from django.db.models import Case, Count, Q, When
+from django.db.models import Case, Count, Q, When, Value
 from django.urls import LocalePrefixPattern, URLResolver
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
@@ -336,6 +336,24 @@ def localize_queryset(queryset):
     default_locale = Locale.get_default()
     active_locale = Locale.get_active()
 
+    model = queryset.model
+    queryset_keys = queryset.values_list("translation_key", flat=True)
+
+    # Search for translated instances from model that were not included in the provided queryset
+    # (we need the same annotations/order_bt as the original queryset to be able to do the union later)
+    translated_instances = (
+        model._default_manager.filter(translation_key__in=queryset_keys, locale=active_locale)
+        .annotate(locale_is_default=Value(False))
+        .order_by(
+            "translation_key",
+            "locale_is_default",
+        )
+        .distinct("translation_key")
+    )
+
+    # Exclude the translated instances we found from the original queryset
+    queryset = queryset.exclude(translation_key__in=translated_instances.values_list("translation_key", flat=True))
+
     queryset = queryset.filter(Q(locale=default_locale) | Q(locale=active_locale))
     queryset = queryset.annotate(
         locale_is_default=Case(
@@ -348,6 +366,7 @@ def localize_queryset(queryset):
         "locale_is_default",
     )
     queryset = queryset.distinct("translation_key")
+    queryset = queryset.union(translated_instances)
     return queryset
 
 
