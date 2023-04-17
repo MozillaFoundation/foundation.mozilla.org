@@ -99,7 +99,7 @@ In order to run the same tests as will run during CI testing, make sure that `RA
 
 #### URL checker
 
-URL checker can be initiated by running `npm run playwright:urls`. It checks to see if visiting URLs listed in [`tests/foundation-urls.js`](https://github.com/MozillaFoundation/foundation.mozilla.org/blob/main/tests/foundation-urls.js) and [`tests/mozfest-urls.js`](https://github.com/MozillaFoundation/foundation.mozilla.org/blob/main/tests/mozfest-urls.js) returns an OK response (i.e., status 200). Note that the URL lists in these two files are not complete and will require updates. We will also need to expand the lists to include PNI and Donate URLs.
+URL checker can be initiated by running `docker-compose up` in one terminal and running `npm run playwright:urls` in a secondary terminal. It checks to see if visiting the URLs listed in [`tests/foundation-urls.js`](https://github.com/MozillaFoundation/foundation.mozilla.org/blob/main/tests/foundation-urls.js) and [`tests/mozfest-urls.js`](https://github.com/MozillaFoundation/foundation.mozilla.org/blob/main/tests/mozfest-urls.js) returns an OK response (i.e., status 200). Note that the URL lists in these two files are not complete and will require updates. We will also need to expand the lists to include PNI and Donate URLs.
 
 ### Visual regression tests
 
