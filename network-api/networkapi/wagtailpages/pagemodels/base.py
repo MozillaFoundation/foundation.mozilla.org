@@ -14,7 +14,13 @@ from ..donation_modal import DonationModals  # noqa: F401
 from ..utils import TitleWidget
 from .customblocks.base_rich_text_options import base_rich_text_options
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
+from .mixin.foundation_navigation import FoundationNavigationPageMixin
 from .primary import PrimaryPage
+
+
+class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page):
+    class Meta:
+        abstract = True
 
 
 class InitiativeSection(TranslatableMixin, models.Model):
