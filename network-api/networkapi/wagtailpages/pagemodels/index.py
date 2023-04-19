@@ -19,10 +19,10 @@ from networkapi.wagtailpages.utils import (
     set_main_site_nav_information,
 )
 
-from .mixin.foundation_metadata import FoundationMetadataPageMixin
+from .base import BasePage
 
 
-class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
+class IndexPage(RoutablePageMixin, BasePage):
     """
     This is a page type for creating "index" pages that
     can show cards for all their child content.
