@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.fields import RichTextField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Orderable as WagtailOrderable
 from wagtail.models import Page, TranslatableMixin
@@ -11,16 +11,112 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
-from ..utils import TitleWidget
+from ..utils import TitleWidget, get_page_tree_information
+from .customblocks.base_fields import base_fields
 from .customblocks.base_rich_text_options import base_rich_text_options
+from .mixin.foundation_banner_inheritance import FoundationBannerInheritanceMixin
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .mixin.foundation_navigation import FoundationNavigationPageMixin
-from .primary import PrimaryPage
 
 
 class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page):
     class Meta:
         abstract = True
+
+
+class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):
+    """
+    Basically a straight copy of modular page, but with
+    restrictions on what can live 'under it'.
+
+    Ideally this is just PrimaryPage(ModularPage) but
+    setting that up as a migration seems to be causing
+    problems.
+    """
+
+    header = models.CharField(max_length=250, blank=True)
+
+    banner = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="primary_banner",
+        verbose_name="Hero Image",
+        help_text="Choose an image that's bigger than 4032px x 1152px with aspect ratio 3.5:1",
+    )
+
+    intro = models.CharField(
+        max_length=350,
+        blank=True,
+        help_text="Intro paragraph to show in hero cutout box",
+    )
+
+    narrowed_page_content = models.BooleanField(
+        default=False,
+        help_text="For text-heavy pages, turn this on to reduce the overall width of the content on the page.",
+    )
+
+    zen_nav = models.BooleanField(
+        default=False,
+        help_text="For secondary nav pages, use this to collapse the primary nav under a toggle hamburger.",
+    )
+
+    body = StreamField(base_fields, use_json_field=True)
+
+    settings_panels = Page.settings_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel("narrowed_page_content"),
+            ],
+            classname="collapsible",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("zen_nav"),
+            ],
+            classname="collapsible",
+        ),
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel("header"),
+        FieldPanel("banner"),
+        FieldPanel("intro"),
+        FieldPanel("body"),
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField("slug"),
+        TranslatableField("seo_title"),
+        SynchronizedField("show_in_menus"),
+        TranslatableField("search_description"),
+        SynchronizedField("search_image"),
+        # Content tab fields
+        TranslatableField("title"),
+        TranslatableField("header"),
+        SynchronizedField("banner"),
+        TranslatableField("intro"),
+        TranslatableField("body"),
+        SynchronizedField("narrowed_page_content"),
+        SynchronizedField("zen_nav"),
+    ]
+
+    subpage_types = [
+        "PrimaryPage",
+        "RedirectingPage",
+        "BanneredCampaignPage",
+        "OpportunityPage",
+        "ArticlePage",
+    ]
+
+    show_in_menus_default = True
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context = get_page_tree_information(self, context)
+        return context
 
 
 class InitiativeSection(TranslatableMixin, models.Model):
