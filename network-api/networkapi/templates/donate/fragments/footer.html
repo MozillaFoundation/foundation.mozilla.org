@@ -1,0 +1,24 @@
+{% extends "partials/footer.html" %}
+
+{% load static %}
+
+{% block footer_donate %}
+{% endblock %}
+
+{% block left_footer_column %}
+    <div class="medium:tw-w-5/12 large:tw-w-6/12 tw-px-8 tw-flex tw-flex-col tw-justify-between">
+        <a class="logo tw-block tw-my-24 medium:tw-my-0" href="https://foundation.mozilla.org"><img src="{% static "_images/mozilla-block-white.svg" %}" width="96" alt="Mozilla logo"></a>
+    </div>
+{% endblock %}
+
+{% block right_footer_column %}
+    <div class="medium:tw-w-6/12 large:tw-w-5/12 tw-px-8 tw-flex tw-flex-col tw-justify-between medium:tw-ml-[8.3%]">
+        <div class="tw-row">
+            <div class="tw-w-full tw-px-8">
+                <p class="tw-text-xs tw-my-0">
+                   Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a class="link" href="https://foundation.mozilla.org/">foundation.mozilla.org</a>. Most content available under a <a class="link" href="https://foundation.mozilla.org/about/website-licensing/">Creative Commons license</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

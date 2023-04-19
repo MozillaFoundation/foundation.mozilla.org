@@ -1,0 +1,24 @@
+{% load i18n primary_active_nav %}
+
+{% trans "Home" as translated_root_name %}
+{% with root_name=translated_root_name %}
+    <div class="primary-nav-container">
+        <div class="wrapper-burger">
+            <div class="menu-container">
+                <nav class="tw-container tw-bg-green-20">
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                <div id="primary-nav-links">
+                                    <div class="d-flex align-items-center flex-wrap">
+                                        <a class="logo text-hide" href="{{ menu_root.url }}">{{ root_name }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+{% endwith %}
