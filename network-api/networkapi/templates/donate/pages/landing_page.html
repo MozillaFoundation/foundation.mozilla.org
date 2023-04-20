@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load static %}
+{% load static wagtailcore_tags wagtailimages_tags i18n %}
 
 {% block social_metadata %}
 {% endblock %}
@@ -54,13 +54,33 @@
 {% endblock %}
 
 {% block content %}
-<div class="tw-container" style="height: 60vh;">
-    <div class="tw-row">
-        <div class="medium:tw-w-6/12 tw-px-8 tw-bg-yellow-20">
-            left
+<div class="tw-container" style="">
+    <div class="tw-row tw-my-[50px]">
+        <div class="tw-w-full medium:tw-w-6/12 tw-px-8">
+            <picture class="image-feature__image">
+                {% image page.featured_image fill-290x95 as imageMobile %}
+                {% image page.featured_image fill-580x190 as imageMobile_2x %}
+                {% image page.featured_image width-350 as imageTablet %}
+                {% image page.featured_image width-700 as imageTablet_2x %}
+                {% image page.featured_image width-690 as imageDesktop %}
+                {% image page.featured_image width-1380 as imageDesktop_2x %}
+                <source media="(min-width: 1201px)" srcset="{{ imageDesktop.url }}, {{ imageDesktop_2x.url }} 2x">
+                <source media="(min-width: 600px)" srcset="{{ imageTablet.url }}, {{ imageTablet_2x.url }} 2x">
+                <source srcset="{{ imageMobile.url }}, {{ imageMobile_2x.url }} 2x">
+
+                <img src="{{ imageMobile.url }}" class="image-feature__image" alt="{% trans 'featured image' %}">
+            </picture>
+            {{ page.intro|richtext }}
         </div>
-        <div class="medium:tw-w-6/12 tw-px-8 tw-bg-gray-20">
-            right
+        <div class="tw-w-full medium:tw-w-6/12 tw-px-8">
+            <div class="medium:tw-ml-12">
+                <h1 class="tw-mt-0">{{ page.title }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="tw-row tw-my-12">
+        <div class="tw-w-full tw-px-8">
+            {% include "../fragments/fundraise_up_disclaimer.html" %}
         </div>
     </div>
 </div>
@@ -68,4 +88,9 @@
 
 {% block footer_block %}
     {% include "../fragments/footer.html" %}
+{% endblock %}
+
+
+{% block script_bundle %}
+    <script src="{% url "javascript-catalog" %}"></script>
 {% endblock %}

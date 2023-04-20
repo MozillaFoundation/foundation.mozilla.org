@@ -63,10 +63,6 @@ body {
 
 /* -------------------------------------------------- */
 
-.primary-nav-container .menu-container {
-  padding: 0 0 0 52px;
-}
-
 @media (min-width: 768px) {
   .primary-nav-container .menu-container {
     padding: 16px 0;
@@ -344,9 +340,36 @@ section {
   display: block;
 }
 
-/* -------------------------------------------------- */
+/* donate content -------------------------------------------------- */
+
+.image-feature__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
 /* -------------------------------------------------- */
+
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+}
 
 /* -------------------------------------------------- */
 
