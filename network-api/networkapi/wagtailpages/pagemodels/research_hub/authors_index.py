@@ -18,7 +18,10 @@ class ResearchAuthorsIndexPage(
     research_base.ResearchHubBasePage,
 ):
     max_count = 1
+
     parent_page_types = ["ResearchLandingPage"]
+
+    template = "pages/research-hub/authors_index_page.html"
 
     banner_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),
@@ -73,7 +76,7 @@ class ResearchAuthorsIndexPage(
 
         return self.render(
             request=request,
-            template="wagtailpages/research_author_detail_page.html",
+            template="pages/research-hub/author_detail_page.html",
             context_overrides=context_overrides,
         )
 

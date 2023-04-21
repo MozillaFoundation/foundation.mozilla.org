@@ -9,10 +9,13 @@ from networkapi.wagtailpages.pagemodels.research_hub import base as research_bas
 
 class ResearchLandingPage(research_base.ResearchHubBasePage):
     max_count = 1
+
     subpage_types = [
         "ResearchLibraryPage",
         "ResearchAuthorsIndexPage",
     ]
+
+    template = "pages/research-hub/landing_page.html"
 
     intro = models.CharField(
         blank=True,

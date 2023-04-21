@@ -1,4 +1,4 @@
-{% extends "./research_base.html" %}
+{% extends "./base.html" %}
 {% load i18n l10n wagtailcore_tags wagtailimages_tags %}
 
 {% block research_hub_content %}
@@ -20,7 +20,7 @@
                 class="medium:tw-col-start-2"
             {% endif %}
         >
-            {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
+            {% include 'fragments/research-hub/breadcrumb.html' with breadcrumb_list=breadcrumbs %}
         </div>
         {% if author_profile.image %}
             <div id="image-container" class="tw-place-self-center medium:tw-place-self-start">
@@ -56,7 +56,7 @@
             <ul class="tw-list-none px-0">
                 {% for research_detail_page in latest_research %}
                     <li class="tw-border-t tw-border-t-gray-20 tw-mt-12 tw-pt-12">
-                        {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_author_names=True hide_image_on_mobile=True %}
+                        {% include "fragments/research-hub/detail_card.html" with research_detail_page=research_detail_page hide_author_names=True hide_image_on_mobile=True %}
                     </li>
                 {% endfor %}
             </ul>

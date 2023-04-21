@@ -25,8 +25,12 @@ if typing.TYPE_CHECKING:
 
 class ResearchLibraryPage(research_base.ResearchHubBasePage):
     max_count = 1
+
     parent_page_types = ["ResearchLandingPage"]
+
     subpage_types = ["ResearchDetailPage"]
+
+    template = "pages/research-hub/library_page.html"
 
     banner_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),
