@@ -34,6 +34,8 @@ class Profile(index.Indexed, TranslatableMixin, models.Model):
 
     introduction = models.TextField(max_length=500, blank=True)
 
+    test_field = models.CharField(max_length=10, blank=True, default="")
+
     # The slug field is set during save and should not be managed manually.
     slug = models.SlugField(blank=True)
 
