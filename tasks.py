@@ -284,7 +284,8 @@ def test(ctx):
 @task(aliases=["docker-test-python"])
 def test_python(ctx):
     """Run python tests."""
-    manage(ctx, "test networkapi")
+    command = "pytest --verbose -n auto --reuse-db --cov=network-api/networkapi --cov-report=term-missing"
+    pyrun(ctx, command)
 
 
 # Linting
