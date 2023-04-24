@@ -20,7 +20,8 @@ from networkapi.wagtailpages.pagemodels.research_hub import (
 )
 
 if typing.TYPE_CHECKING:
-    from django import http, template as django_template
+    from django import http
+    from django import template as django_template
 
 
 class ResearchLibraryPage(research_base.ResearchHubBasePage):
