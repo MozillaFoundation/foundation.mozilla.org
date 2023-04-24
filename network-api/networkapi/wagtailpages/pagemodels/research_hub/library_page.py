@@ -31,7 +31,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
 
     subpage_types = ["ResearchDetailPage"]
 
-    template = "pages/research-hub/library_page.html"
+    template = "pages/research_hub/library_page.html"
 
     banner_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),

@@ -63,7 +63,7 @@
                     <ul class="tw-p-0 tw-list-none">
                         {% for research_author in page.research_authors.all %}
                             <li class="tw-mb-12">
-                                {% include "fragments/research-hub/author_card.html" with authors_index=authors_index author_profile=research_author.author_profile tight=True %}
+                                {% include "fragments/research_hub/author_card.html" with authors_index=authors_index author_profile=research_author.author_profile tight=True %}
                             </li>
                         {% endfor %}
                     </ul>
