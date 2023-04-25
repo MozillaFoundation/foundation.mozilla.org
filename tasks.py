@@ -293,10 +293,14 @@ def test(ctx):
 
 
 @task(aliases=["docker-test-python"])
-def test_python(ctx):
+def test_python(ctx, file="", n="1", verbose=False):
     """Run python tests."""
     checkmigrations(ctx)
-    command = "pytest --verbose -n auto --reuse-db --cov=network-api/networkapi --cov-report=term-missing"
+    parallel = f"-n {n}" if n != "1" else ""
+    v = "-v" if verbose else ""
+    # Don't run coverage if a file is specified
+    cov = "" if file else "--cov=networkapi/networkapi --cov-report=term-missing"
+    command = f"pytest {v} {parallel} {file} --reuse-db {cov}"
     pyrun(ctx, command)
 
 
