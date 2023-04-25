@@ -248,6 +248,17 @@ def manage(ctx, command, stop=False):
     pyrun(ctx, command, stop=stop)
 
 
+@task(aliases=["docker-checkmigrations"])
+def checkmigrations(ctx, stop=False):
+    """
+    Check if migrations are missing.
+
+    To stop the containers after the command has run, pass the `--stop` flag.
+    """
+    print("Checking migrations...")
+    manage(ctx, "makemigrations --check --no-input", stop=stop)
+
+
 @task(aliases=["docker-migrate"])
 def migrate(ctx, stop=False):
     """
@@ -284,6 +295,7 @@ def test(ctx):
 @task(aliases=["docker-test-python"])
 def test_python(ctx):
     """Run python tests."""
+    checkmigrations(ctx)
     command = "pytest --verbose -n auto --reuse-db --cov=network-api/networkapi --cov-report=term-missing"
     pyrun(ctx, command)
 
