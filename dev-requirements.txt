@@ -40,7 +40,7 @@ cryptography==36.0.1
     #   urllib3
 cssbeautifier==1.14.7
     # via djlint
-django==3.2.16
+django==3.2.18
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
