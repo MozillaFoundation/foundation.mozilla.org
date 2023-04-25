@@ -160,7 +160,7 @@ pygit2==1.11.1
     #   wagtail-localize-git
 pyjwt==2.4.0
     # via social-auth-core
-pyopenssl==22.0.0
+pyopenssl==23.0.0
     # via urllib3
 python-dateutil==2.8.2
     # via
