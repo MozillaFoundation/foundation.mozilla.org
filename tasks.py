@@ -248,15 +248,15 @@ def manage(ctx, command, stop=False):
     pyrun(ctx, command, stop=stop)
 
 
-@task(aliases=["docker-checkmigrations"])
-def checkmigrations(ctx, stop=False):
+@task(aliases=["docker-djcheck"])
+def djcheck(ctx, stop=False):
     """
-    Check if migrations are missing.
+    Django system check framework.
 
     To stop the containers after the command has run, pass the `--stop` flag.
     """
-    print("Checking migrations...")
-    manage(ctx, "makemigrations --check --no-input", stop=stop)
+    print("Running system check framework...")
+    manage(ctx, "check", stop=stop)
 
 
 @task(aliases=["docker-migrate"])
@@ -295,7 +295,8 @@ def test(ctx):
 @task(aliases=["docker-test-python"])
 def test_python(ctx, file="", n="1", verbose=False):
     """Run python tests."""
-    checkmigrations(ctx)
+    djcheck(ctx)
+    makemigrations_dryrun(ctx, args="--check")
     parallel = f"-n {n}" if n != "1" else ""
     v = "-v" if verbose else ""
     # Don't run coverage if a file is specified
