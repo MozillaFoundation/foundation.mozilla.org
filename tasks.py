@@ -300,7 +300,7 @@ def test_python(ctx, file="", n="1", verbose=False):
     parallel = f"-n {n}" if n != "1" else ""
     v = "-v" if verbose else ""
     # Don't run coverage if a file is specified
-    cov = "" if file else "--cov=networkapi/networkapi --cov-report=term-missing"
+    cov = "" if file else "--cov=network-api/networkapi --cov-report=term-missing"
     command = f"pytest {v} {parallel} {file} --reuse-db {cov}"
     pyrun(ctx, command)
 
