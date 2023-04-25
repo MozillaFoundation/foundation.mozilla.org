@@ -86,7 +86,8 @@ jobs:
         run: |
           npm run build
           python network-api/manage.py collectstatic --no-input --verbosity 0
-          python network-api/manage.py migrate --no-input
+          python network-api/manage.py check
+          python network-api/manage.py makemigrations --check --dry-run
           python network-api/manage.py block_inventory
           python network-api/manage.py compilemessages
       - name: Run linting
@@ -105,7 +106,7 @@ jobs:
       - name: Run type checks
         run: mypy network-api
       - name: Run Tests
-        run: coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
+        run: pytest -cov=network-api/networkapi --cov-report=term-missing
       - name: Coveralls
         run: coveralls
         continue-on-error: true
