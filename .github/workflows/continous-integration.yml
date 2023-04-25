@@ -88,6 +88,7 @@ jobs:
           python network-api/manage.py collectstatic --no-input --verbosity 0
           python network-api/manage.py check
           python network-api/manage.py makemigrations --check --dry-run
+          python network-api/manage.py migrate --no-input
           python network-api/manage.py block_inventory
           python network-api/manage.py compilemessages
       - name: Run linting
