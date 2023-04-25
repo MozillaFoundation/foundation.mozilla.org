@@ -364,9 +364,9 @@ def localize_queryset(queryset):
     queryset = queryset.order_by(
         "translation_key",
         "locale_is_default",
-    )
-    queryset = queryset.distinct("translation_key")
-    queryset = queryset.union(translated_instances)
+    ).distinct("translation_key")
+
+    queryset = queryset | translated_instances
     return queryset
 
 
