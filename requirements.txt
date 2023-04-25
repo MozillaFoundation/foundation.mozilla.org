@@ -144,7 +144,7 @@ oauthlib==3.2.2
     #   social-auth-core
 openpyxl==3.1.0
     # via wagtail
-pillow==9.0.1
+pillow==9.5.0
     # via wagtail
 polib==1.1.1
     # via wagtail-localize
