@@ -10,7 +10,7 @@ asgiref==3.5.0
     #   django
 black==22.10.0
     # via -r dev-requirements.in
-certifi==2021.10.8
+certifi==2022.12.7
     # via
     #   -c requirements.txt
     #   requests
