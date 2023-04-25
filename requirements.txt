@@ -10,6 +10,8 @@ asgiref==3.5.0
     # via
     #   django
     #   scout-apm
+async-timeout==4.0.2
+    # via redis
 basket-client==1.0.0
     # via -r requirements.in
 beautifulsoup4==4.9.3
@@ -44,8 +46,6 @@ defusedxml==0.7.1
     # via
     #   python3-openid
     #   social-auth-core
-deprecated==1.2.13
-    # via redis
 dj-database-url==1.2.0
     # via -r requirements.in
 django==3.2.18
@@ -144,8 +144,6 @@ oauthlib==3.2.2
     #   social-auth-core
 openpyxl==3.1.0
     # via wagtail
-packaging==21.3
-    # via redis
 pillow==9.0.1
     # via wagtail
 polib==1.1.1
@@ -164,8 +162,6 @@ pyjwt==2.4.0
     # via social-auth-core
 pyopenssl==22.0.0
     # via urllib3
-pyparsing==3.0.7
-    # via packaging
 python-dateutil==2.8.2
     # via
     #   botocore
@@ -181,7 +177,7 @@ pytz==2021.3
     #   django-modelcluster
     #   djangorestframework
     #   l18n
-redis==4.1.4
+redis==4.5.4
     # via django-redis
 requests==2.28.2
     # via
@@ -267,9 +263,7 @@ whitenoise==6.4.0
 willow==1.4.1
     # via wagtail
 wrapt==1.13.3
-    # via
-    #   deprecated
-    #   scout-apm
+    # via scout-apm
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
