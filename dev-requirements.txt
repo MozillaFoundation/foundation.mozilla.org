@@ -118,7 +118,7 @@ six==1.16.0
     #   -c requirements.txt
     #   cssbeautifier
     #   jsbeautifier
-sqlparse==0.4.2
+sqlparse==0.4.4
     # via
     #   -c requirements.txt
     #   django
