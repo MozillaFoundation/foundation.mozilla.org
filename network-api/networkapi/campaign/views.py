@@ -152,7 +152,7 @@ def signup_submission(request, signup):
         data["campaign_id"] = cid
 
     # Subscribing to newsletter using basket.
-    response = basket.subscribe(data["email"], data["newsletters"], lang=data["lang"])
+    response = basket.subscribe(data["email"], data["newsletters"], lang=data["lang"], source_url=data["source"])
     if response["status"] == "ok":
         return JsonResponse(data, status=status.HTTP_201_CREATED)
 
@@ -222,7 +222,7 @@ def petition_submission(request, petition):
 
         # Use basket-clients subscribe method, then send the petition information to SQS
         # with "newsletterSignup" set to false, to avoid subscribing them twice.
-        basket.subscribe(data["email"], "mozilla-foundation", lang=data["lang"])
+        basket.subscribe(data["email"], "mozilla-foundation", lang=data["lang"], source_url=data["source"])
         data["newsletterSignup"] = False
 
     return send_to_sqs(crm_sqs["client"], crm_queue_url, message, type="petition")
