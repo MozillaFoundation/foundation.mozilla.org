@@ -143,7 +143,11 @@ typing-extensions==4.4.0
     #   -c requirements.txt
     #   black
     #   mypy
-urllib3[secure]==1.26.8
+urllib3[secure]==1.26.15
     # via
     #   -c requirements.txt
     #   requests
+urllib3-secure-extra==0.1.0
+    # via
+    #   -c requirements.txt
+    #   urllib3
