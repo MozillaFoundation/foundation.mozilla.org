@@ -37,6 +37,9 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(breadcrumbs, expected_breadcrumbs)
 
     def test_get_research_authors(self) -> None:
+        """
+        This method should return the profiles of all related research authors.
+        """
         author_profiles = []
         detail_page = detail_page_factory.ResearchDetailPageFactory(parent=self.library_page, research_authors=[])
 
@@ -46,33 +49,48 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
             )
             author_profiles.append(research_author_relation.author_profile)
 
-        research_authors = list(detail_page.get_research_authors())
+        research_authors = detail_page.get_research_authors()
 
         self.assertEqual(len(research_authors), 3)
         self.assertCountEqual(author_profiles, research_authors)
 
-    def test_get_research_authors_returns_localized_profiles(self):
+    def test_get_research_authors_returns_localized_profiles(self) -> None:
         """
-        When a profile for the active locale exists, the get_research_authors method should return it.
+        If a related author's profile has a translated version available,
+        this method should return it in the active locale.
+        """
+        detail_page = detail_page_factory.ResearchDetailPageFactory(parent=self.library_page)
+        profile_en = detail_page.research_authors.first().author_profile
+        self.synchronize_tree()
+        # Translating both the page and the research author profile
+        detail_page_fr = research_test_utils.translate_detail_page(detail_page, self.fr_locale)
+        profile_fr = detail_page_fr.research_authors.first().author_profile
+
+        translation.activate(self.fr_locale.language_code)
+        research_authors_fr = detail_page.localized.get_research_authors()
+
+        self.assertEqual(len(research_authors_fr), 1)
+        self.assertIn(profile_fr, research_authors_fr)
+        self.assertNotIn(profile_en, research_authors_fr)
+
+
+    def test_get_research_authors_returns_default_locale(self) -> None:
+        """
+        If a related research author's profile does not have a translated version available,
+        localized pages should return it in the default locale (English).
         """
         detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
         profile_en = detail_page.research_authors.first().author_profile
         self.synchronize_tree()
-        detail_page_fr = research_test_utils.translate_detail_page(detail_page, self.fr_locale)
-        profile_fr = detail_page_fr.research_authors.first().author_profile
 
-        research_authors_en = detail_page.localized.get_research_authors()
         translation.activate(self.fr_locale.language_code)
         research_authors_fr = detail_page.localized.get_research_authors()
 
-        self.assertEqual(len(research_authors_en), 1)
         self.assertEqual(len(research_authors_fr), 1)
-        self.assertIn(profile_en, research_authors_en)
-        self.assertNotIn(profile_fr, research_authors_en)
-        self.assertIn(profile_fr, research_authors_fr)
-        self.assertNotIn(profile_en, research_authors_fr)
+        self.assertIn(profile_en, research_authors_fr)
+
 
 
 class TestResearchDetailLink(research_test_base.ResearchHubTestCase):
