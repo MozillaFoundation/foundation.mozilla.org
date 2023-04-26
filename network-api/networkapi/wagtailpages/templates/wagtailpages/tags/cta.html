@@ -1,7 +1,12 @@
 {{ cta.type }}
 
+
+<div style="background: gold; font-size: 25px; width: 100%; padding: 15px;">
+    show_formassembly: {{ show_formassembly }}
+</div>
+
 {% if cta_type == 'petition' %}
-    {% include './cta/petition.html' %}
+    {% include './cta/petition.html' with show_formassembly=show_formassembly %}
 {% endif %}
 
 
