@@ -15,8 +15,10 @@ from wagtail_localize import fields as localize_fields
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
+from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.pagemodels.research_hub import authors_index
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
+from networkapi.wagtailpages.utils import localize_queryset
 
 logger = logging.getLogger(__name__)
 
@@ -134,7 +136,14 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
         context = super().get_context(request)
         context["breadcrumbs"] = self.get_breadcrumbs()
         context["authors_index"] = authors_index.ResearchAuthorsIndexPage.objects.first()
+        context["research_authors"] = self.get_research_authors()
         return context
+
+    def get_research_authors(self):
+        research_author_profiles = localize_queryset(
+            Profile.objects.filter(authored_research__research_detail_page=self)
+        )
+        return research_author_profiles
 
     def get_research_author_names(self):
         return [ra.author_profile.name for ra in self.research_authors.all()]
