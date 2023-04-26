@@ -51,24 +51,6 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(research_authors), 3)
         self.assertCountEqual(author_profiles, research_authors)
 
-    def test_get_research_authors(self) -> None:
-        """
-        Testing that the get_research_authors method returns all research author profiles.
-        """
-        author_profiles = []
-        detail_page = detail_page_factory.ResearchDetailPageFactory(parent=self.library_page, research_authors=[])
-
-        for _ in range(3):
-            research_author_relation = relations_factory.ResearchAuthorRelationFactory(
-                research_detail_page=detail_page
-            )
-            author_profiles.append(research_author_relation.author_profile)
-
-        research_authors = list(detail_page.get_research_authors())
-
-        self.assertEqual(len(research_authors), 3)
-        self.assertCountEqual(author_profiles, research_authors)
-
     def test_get_research_authors_returns_localized_profiles(self):
         """
         When a profile for the active locale exists, the get_research_authors method should return it.
