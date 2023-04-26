@@ -20,13 +20,18 @@ from networkapi.wagtailpages.pagemodels.research_hub import (
 )
 
 if typing.TYPE_CHECKING:
-    from django import http, template
+    from django import http
+    from django import template as django_template
 
 
 class ResearchLibraryPage(research_base.ResearchHubBasePage):
     max_count = 1
+
     parent_page_types = ["ResearchLandingPage"]
+
     subpage_types = ["ResearchDetailPage"]
+
+    template = "pages/research_hub/library_page.html"
 
     banner_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),
@@ -57,7 +62,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         SynchronizedField("search_image"),
     ]
 
-    def get_context(self, request: "http.HttpRequest") -> "template.Context":
+    def get_context(self, request: "http.HttpRequest") -> "django_template.Context":
         search_query: str = request.GET.get("search", "")
         sort_value: str = request.GET.get("sort", "")
         sort: constants.SortOption = constants.SORT_CHOICES.get(sort_value, constants.SORT_NEWEST_FIRST)
@@ -91,7 +96,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         )
         research_detail_pages_page = research_detail_pages_paginator.get_page(page)
 
-        context: "template.Context" = super().get_context(request)
+        context: "django_template.Context" = super().get_context(request)
         context["breadcrumbs"] = self.get_breadcrumbs()
         context["search_query"] = search_query
         context["sort"] = sort
