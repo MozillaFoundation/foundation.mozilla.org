@@ -73,7 +73,6 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
         self.assertIn(profile_fr, research_authors_fr)
         self.assertNotIn(profile_en, research_authors_fr)
 
-
     def test_get_research_authors_returns_default_locale(self) -> None:
         """
         If a related research author's profile does not have a translated version available,
@@ -90,7 +89,6 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
 
         self.assertEqual(len(research_authors_fr), 1)
         self.assertIn(profile_en, research_authors_fr)
-
 
 
 class TestResearchDetailLink(research_test_base.ResearchHubTestCase):
