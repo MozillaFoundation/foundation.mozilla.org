@@ -1,6 +1,8 @@
 {% extends "pages/base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags i18n %}
 
+{% block html_class %}tw-bg-black{% endblock %}
+
 {% block social_metadata %}
 {% endblock %}
 
@@ -40,7 +42,7 @@
     <base target="_blank">
 {% endif %}
 
-{% block bodyclass %}donate{% endblock %}
+{% block bodyclass %}donate tw-m-0{% endblock %}
 
 {% block body_id %}landing{% endblock %}
 
@@ -59,7 +61,7 @@
 <div class="tw-container" style="">
     <div class="tw-row tw-my-[50px]">
         <div class="tw-w-full medium:tw-w-6/12 tw-px-8">
-            <picture class="image-feature__image">
+            <picture class="tw-w-full">
                 {% image page.featured_image fill-290x95 as imageMobile %}
                 {% image page.featured_image fill-580x190 as imageMobile_2x %}
                 {% image page.featured_image width-350 as imageTablet %}
@@ -70,7 +72,7 @@
                 <source media="(min-width: 600px)" srcset="{{ imageTablet.url }}, {{ imageTablet_2x.url }} 2x">
                 <source srcset="{{ imageMobile.url }}, {{ imageMobile_2x.url }} 2x">
 
-                <img src="{{ imageMobile.url }}" class="image-feature__image" alt="{% trans 'featured image' %}">
+                <img src="{{ imageMobile.url }}" class="tw-w-full" alt="{% trans 'featured image' %}">
             </picture>
             {{ page.intro|richtext }}
         </div>

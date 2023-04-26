@@ -4,6 +4,10 @@
 * --------------------------------------------------
 */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *,
 ::before,
 ::after {
@@ -13,22 +17,12 @@
 /* -------------------------------------------------- */
 
 html {
-  font-family: sans-serif;
-  line-height: 1.15;
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-html {
-  font-weight: 300;
-  background: #000000;
   scroll-behavior: smooth;
 }
 
 /* -------------------------------------------------- */
 
 body {
-  margin: 0;
   font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
   font-size: 1rem;
   font-weight: 400;
@@ -36,12 +30,6 @@ body {
   color: #000000;
   text-align: left;
   background-color: #fff;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
 }
 
 body {
@@ -104,21 +92,13 @@ section {
 /* -------------------------------------------------- */
 
 a {
-  color: #007bff;
   text-decoration: none;
   background-color: transparent;
 }
 
-a {
-  color: #0d10bf;
-}
-
 .text-hide {
   font: 0/0 a;
-  // line-height: 0; // tw-leading-[0]
-  // color: transparent; // tw-text-transparent
   text-shadow: none;
-  // background-color: transparent; // override by another rule
   border: 0;
 }
 
@@ -141,49 +121,11 @@ a {
   }
 }
 
-/* footer -------------------------------------------------- */
-
-article,
-aside,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-nav,
-section {
-  display: block;
-}
-
-/* donate content -------------------------------------------------- */
-
-.image-feature__image {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 /* -------------------------------------------------- */
 
 img {
-  vertical-align: middle;
   border-style: none;
-}
-
-img {
   max-width: 100%;
   height: auto;
-}
-
-img,
-svg,
-video,
-canvas,
-audio,
-iframe,
-embed,
-object {
-  display: block;
 }
 

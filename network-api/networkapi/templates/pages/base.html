@@ -3,7 +3,7 @@
 {% get_current_language as lang_code %}
 
 <!DOCTYPE html>
-<html lang="{{ lang_code }}">
+<html lang="{{ lang_code }}" class="{% block html_class %}{% endblock %}">
     <head>
         <meta charset="utf-8">
         <title>
