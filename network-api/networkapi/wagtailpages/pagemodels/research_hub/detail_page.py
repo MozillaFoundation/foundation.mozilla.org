@@ -141,7 +141,7 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
 
     def get_research_authors(self):
         research_author_profiles = localize_queryset(
-            Profile.objects.filter(authored_research__research_detail_page=self)
+            Profile.objects.prefetch_related("authored_research").filter(authored_research__research_detail_page=self)
         )
         return research_author_profiles
 
