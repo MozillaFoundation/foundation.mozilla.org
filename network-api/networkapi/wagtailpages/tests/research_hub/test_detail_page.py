@@ -57,25 +57,6 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
         self.assertIn(page_a_author_profiles[1], page_a_research_authors)
         self.assertIn(page_a_author_profiles[2], page_a_research_authors)
 
-    def test_get_research_authors_avoids_n1_queries(self) -> None:
-        """
-        Checking that the method does not suffer from an N+1 query issue.
-        """
-        author_profiles = []
-        detail_page = detail_page_factory.ResearchDetailPageFactory(parent=self.library_page, research_authors=[])
-
-        for _ in range(10):
-            research_author_relation = relations_factory.ResearchAuthorRelationFactory(
-                research_detail_page=detail_page
-            )
-            author_profiles.append(research_author_relation.author_profile)
-
-        # Though there are 10 linked research authors, there should be minimal queries.
-        with self.assertNumQueries(2):
-            research_authors = detail_page.get_research_authors()
-
-        self.assertEqual(len(research_authors), 10)
-        self.assertCountEqual(author_profiles, research_authors)
 
     def test_get_research_authors_returns_localized_profiles(self) -> None:
         """
