@@ -38,20 +38,46 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
 
     def test_get_research_authors(self) -> None:
         """
-        This method should return the profiles of all related research authors.
+        This method should return the profiles of all the page related research authors.
+        """
+        page_a_author_profiles = []
+        page_a = detail_page_factory.ResearchDetailPageFactory(parent=self.library_page, research_authors=[])
+        page_b = detail_page_factory.ResearchDetailPageFactory(parent=self.library_page)
+        page_b_author_profile = page_b.research_authors.first().author_profile
+
+        for _ in range(3):
+            research_author_relation = relations_factory.ResearchAuthorRelationFactory(
+                research_detail_page=page_a
+            )
+            page_a_author_profiles.append(research_author_relation.author_profile)
+
+        page_a_research_authors = page_a.get_research_authors()
+
+        self.assertEqual(len(page_a_research_authors), 3)
+        self.assertNotIn(page_b_author_profile, page_a_research_authors)
+        self.assertIn(page_a_author_profiles[0], page_a_research_authors)
+        self.assertIn(page_a_author_profiles[1], page_a_research_authors)
+        self.assertIn(page_a_author_profiles[2], page_a_research_authors)
+
+
+    def test_get_research_authors_avoids_n1_queries(self) -> None:
+        """
+        Checking that the method does not suffer from an N+1 query issue.
         """
         author_profiles = []
         detail_page = detail_page_factory.ResearchDetailPageFactory(parent=self.library_page, research_authors=[])
 
-        for _ in range(3):
+        for _ in range(10):
             research_author_relation = relations_factory.ResearchAuthorRelationFactory(
                 research_detail_page=detail_page
             )
             author_profiles.append(research_author_relation.author_profile)
 
-        research_authors = detail_page.get_research_authors()
+        # Though there are 10 linked research authors, there should be minimal queries.
+        with self.assertNumQueries(2):
+            research_authors = detail_page.get_research_authors()
 
-        self.assertEqual(len(research_authors), 3)
+        self.assertEqual(len(research_authors), 10)
         self.assertCountEqual(author_profiles, research_authors)
 
     def test_get_research_authors_returns_localized_profiles(self) -> None:
