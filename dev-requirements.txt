@@ -10,7 +10,7 @@ asgiref==3.5.0
     #   django
 black==22.10.0
     # via -r dev-requirements.in
-certifi==2021.10.8
+certifi==2022.12.7
     # via
     #   -c requirements.txt
     #   requests
@@ -35,14 +35,14 @@ coverage[toml]==5.5
     #   pytest-cov
 coveralls==3.3.1
     # via -r dev-requirements.in
-cryptography==36.0.1
+cryptography==39.0.1
     # via
     #   -c requirements.txt
     #   pyopenssl
     #   urllib3
 cssbeautifier==1.14.7
     # via djlint
-django==3.2.16
+django==3.2.18
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
@@ -112,7 +112,7 @@ pycparser==2.21
     #   cffi
 pyflakes==2.3.1
     # via flake8
-pyopenssl==22.0.0
+pyopenssl==23.0.0
     # via
     #   -c requirements.txt
     #   urllib3
@@ -152,7 +152,7 @@ six==1.16.0
     #   -c requirements.txt
     #   cssbeautifier
     #   jsbeautifier
-sqlparse==0.4.2
+sqlparse==0.4.4
     # via
     #   -c requirements.txt
     #   django
@@ -184,7 +184,11 @@ typing-extensions==4.4.0
     #   -c requirements.txt
     #   black
     #   mypy
-urllib3[secure]==1.26.8
+urllib3[secure]==1.26.15
     # via
     #   -c requirements.txt
     #   requests
+urllib3-secure-extra==0.1.0
+    # via
+    #   -c requirements.txt
+    #   urllib3
