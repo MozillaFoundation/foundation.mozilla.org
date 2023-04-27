@@ -18,7 +18,10 @@ class ResearchAuthorsIndexPage(
     research_base.ResearchHubBasePage,
 ):
     max_count = 1
+
     parent_page_types = ["ResearchLandingPage"]
+
+    template = "pages/research_hub/authors_index_page.html"
 
     banner_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),
@@ -58,7 +61,9 @@ class ResearchAuthorsIndexPage(
         context["breadcrumbs"] = self.get_breadcrumbs()
         return context
 
-    @routable_models.route(r"^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$")
+    @routable_models.route(
+        r"^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$", name="wagtailpages:research-author-detail"
+    )
     def author_detail(
         self,
         request: http.HttpRequest,
@@ -73,40 +78,40 @@ class ResearchAuthorsIndexPage(
 
         return self.render(
             request=request,
-            template="wagtailpages/research_author_detail_page.html",
+            template="pages/research_hub/author_detail_page.html",
             context_overrides=context_overrides,
         )
 
     def get_author_detail_context(self, profile_id: int):
-        research_author_profiles = profiles.Profile.objects.filter_research_authors()
+        author_profiles = utils.localize_queryset(profiles.Profile.objects.all().filter_research_authors())
         author_profile = shortcuts.get_object_or_404(
-            research_author_profiles,
+            author_profiles,
             id=profile_id,
         )
 
-        author_research_count = self.get_author_research(author_profile).count()
-        latest_research = self.get_latest_research(author_profile)
-
-        # On author detail pages to include the link to the authors index.
-        detail_page_breadcrumbs = self.get_breadcrumbs(include_self=True)
-
         return {
             "author_profile": author_profile,
-            "author_research_count": author_research_count,
-            "breadcrumbs": detail_page_breadcrumbs,
-            "latest_research": latest_research,
+            "author_research_count": self.get_author_research_count(author_profile=author_profile),
+            # On author detail pages to include the link to the authors index.
+            "breadcrumbs": self.get_breadcrumbs(include_self=True),
+            "latest_research": self.get_latest_author_research(author_profile=author_profile),
             "library_page": library_page.ResearchLibraryPage.objects.first(),
         }
 
-    def get_latest_research(self, author_profile):
+    def get_latest_author_research(self, author_profile):
         LATEST_RESEARCH_COUNT_LIMIT = 3
         author_research = self.get_author_research(author_profile)
         author_research = author_research.order_by("-original_publication_date")
         latest_research = author_research[:LATEST_RESEARCH_COUNT_LIMIT]
         return latest_research
 
-    def get_author_research(self, author_profile):
-        author_research = detail_page.ResearchDetailPage.objects.all()
+    def get_author_research_count(self, author_profile):
+        return self.get_author_research(author_profile).count()
+
+    @staticmethod
+    def get_author_research(author_profile):
+        author_research = detail_page.ResearchDetailPage.objects.live().public()
+
         # During tree sync, an alias is created for every detail page. But, these
         # aliases are still associated with the profile in the default locale. So, when
         # displaying the author page for a non-default locale author, we also want to
@@ -115,10 +120,11 @@ class ResearchAuthorsIndexPage(
         # `translation_key` as the current locale's author. So, instead of filtering
         # for the author `id`, we filter by `translation_key`.
         author_research = author_research.filter(
-            research_authors__author_profile__translation_key=(author_profile.translation_key)
+            research_authors__author_profile__translation_key=author_profile.translation_key
         )
         # And then we fitler for the active locale.
         author_research = author_research.filter(locale=wagtail_models.Locale.get_active())
+
         return author_research
 
     def get_banner(self):

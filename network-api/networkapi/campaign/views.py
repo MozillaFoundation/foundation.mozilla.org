@@ -114,7 +114,7 @@ def petition_submission_view(request, pk):
     return petition_submission(request, petition)
 
 
-# handle Salesforce petition data
+# handle Salesforce newsletter signup data
 def signup_submission(request, signup):
     rq = request.data
 
@@ -209,7 +209,7 @@ def petition_submission(request, petition):
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
-    # Formatting the payload for Basket
+    # Formatting the payload for SQS/Cinchy
     message = json.dumps(
         {
             "app": settings.HEROKU_APP_NAME,

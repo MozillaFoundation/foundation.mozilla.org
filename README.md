@@ -77,11 +77,23 @@ When relevant, we encourage you to write tests.
 
 You can run the tests using `inv test`.
 This will the full test suite.
+
 To run only a subset or a specific Python test, you can use following command:
 
 ```console
-inv manage "test <dotted-path-to-your-test>"
+inv test-python --file path/to/file.py
 ```
+
+The `test-python` command also support flags for turning increased verbosity on/off (`-v`) and
+for running tests in parallel (the `-n` option). To run tests with 4 parallel processes and increased
+verbosity, use:
+
+```console
+inv test-python -v -n 4
+```
+
+The `-n` flag also supports the `auto` value, which will run tests with as many parallel cores as possible.
+For more info, consult the [pytest-xdist docs](https://pytest-xdist.readthedocs.io/en/stable/distribution.html).
 
 See also [the Django docs on running tests](https://docs.djangoproject.com/en/4.1/topics/testing/overview/#running-tests).
 
@@ -118,6 +130,11 @@ A `Tito Event` snippet can be created for each event for which registration is n
 A `Tito Event` needs a security token and newsletter question ID which can be found in the Customize -> Webhooks section of the Tito admin dashboard for the event.
 A webhook (Django view) receives requests from Tito when a ticket is completed in order to sign users up for the Mozilla newsletter.
 
+## Donate Site
+
+Similar to the Mozilla Festival site, the fake data generator can generate a site structure for the Donation site that can be served under it's own domain.
+
+For local development, the donate site can be found at `donate.localhost:8000`.
 
 ## Gotchas
 
