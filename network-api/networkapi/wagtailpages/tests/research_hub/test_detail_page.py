@@ -46,9 +46,7 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
         page_b_author_profile = page_b.research_authors.first().author_profile
 
         for _ in range(3):
-            research_author_relation = relations_factory.ResearchAuthorRelationFactory(
-                research_detail_page=page_a
-            )
+            research_author_relation = relations_factory.ResearchAuthorRelationFactory(research_detail_page=page_a)
             page_a_author_profiles.append(research_author_relation.author_profile)
 
         page_a_research_authors = page_a.get_research_authors()
@@ -58,7 +56,6 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
         self.assertIn(page_a_author_profiles[0], page_a_research_authors)
         self.assertIn(page_a_author_profiles[1], page_a_research_authors)
         self.assertIn(page_a_author_profiles[2], page_a_research_authors)
-
 
     def test_get_research_authors_avoids_n1_queries(self) -> None:
         """
