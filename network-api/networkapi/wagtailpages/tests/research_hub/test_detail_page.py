@@ -57,7 +57,6 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
         self.assertIn(page_a_author_profiles[1], page_a_research_authors)
         self.assertIn(page_a_author_profiles[2], page_a_research_authors)
 
-
     def test_get_research_authors_returns_localized_profiles(self) -> None:
         """
         If a related author's profile has a translated version available,
