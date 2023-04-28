@@ -1,8 +1,8 @@
-{% extends "./research_base.html" %}
+{% extends "./base.html" %}
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
 {% block research_hub_content %}
     <div>
-        {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
+        {% include 'fragments/breadcrumbs.html' with breadcrumb_list=breadcrumbs %}
         <h1>{{ page.title }}</h1>
     </div>
     <div class="large:tw-w-160 large:tw-h-64 tw-mt-12 tw-mb-8 large:tw-mb-0 large:-tw-ml-12 large:tw-p-12 large:tw-bg-gray-05">
@@ -18,7 +18,7 @@
               method="get"
               accept-charset="utf-8"
               id="search-form">
-            {% include "wagtailpages/fragments/research_search_bar.html" %}
+            {% include "fragments/research_hub/search_bar.html" %}
         </form>
     </div>
     <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-gap-16">
@@ -30,8 +30,8 @@
                 <div class="tw-flex tw-flex-row tw-gap-6">
                     {# FILTER BUTTON #}
                     <div class="large:tw-hidden tw-basis-1/2">
-                        {% include "wagtailpages/fragments/research_filter_button.html" with button=False %}
-                        {% include "wagtailpages/fragments/research_filter_button.html" with button=True %}
+                        {% include "fragments/research_hub/filter_button.html" with button=False %}
+                        {% include "fragments/research_hub/filter_button.html" with button=True %}
                     </div>
                     <div class="tw-flex tw-flex-row tw-items-baseline tw-basis-1/2 large:tw-basis-full">
                         {# SORT SELECT #}
@@ -74,7 +74,7 @@
                 {# RESULTS LIST #}
                 {% for research_detail_page in research_detail_pages %}
                     <li class="tw-m-0 tw-pt-12 tw-pb-12">
-                        {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_related_topics_on_mobile=True %}
+                        {% include "fragments/research_hub/detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_related_topics_on_mobile=True %}
                     </li>
                 {% endfor %}
             </ul>
