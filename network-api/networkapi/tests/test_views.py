@@ -83,4 +83,4 @@ class TestApplePayDomainAssociationView(TestCase):
         response = self.client.get(self.view_url)
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.content.decode(), "Request site is not recognized.")
+        self.assertEqual(response.content.decode(), "Request site not recognized.")

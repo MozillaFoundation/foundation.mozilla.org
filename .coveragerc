@@ -1,0 +1,10 @@
+[coverage:run]
+source = netwrok-api/networkapi
+omit =
+   *migrations*
+   *settings.py*
+   *test_*d
+branch = true
+
+[coverage:report]
+show_missing = True
