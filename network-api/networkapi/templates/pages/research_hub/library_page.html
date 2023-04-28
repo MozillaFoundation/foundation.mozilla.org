@@ -15,9 +15,9 @@
       filter section again upon page reload. This seems undesireable.
         {% endcomment %}
         <form action="{% pageurl page %}"
-              method="get"
-              accept-charset="utf-8"
-              id="search-form">
+            method="get"
+            accept-charset="utf-8"
+            id="search-form">
             {% include "fragments/research_hub/search_bar.html" %}
         </form>
     </div>
@@ -36,9 +36,9 @@
                     <div class="tw-flex tw-flex-row tw-items-baseline tw-basis-1/2 large:tw-basis-full">
                         {# SORT SELECT #}
                         <select id='sort-select'
-                                name="sort"
-                                class="tw-form-control tw-border-gray-40"
-                                form="search-form">
+                            name="sort"
+                            class="tw-form-control tw-border-gray-40"
+                            form="search-form">
                             {% for choice in page.SORT_CHOICES.values %}
                                 <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>
                                     {{ choice.label }}
@@ -84,21 +84,21 @@
             </div>
         </div>
         <div id="filter"
-             class=" tw-bg-gray-05 large:tw-block large:tw-mr-0 large:-tw-ml-12 large:tw-overflow-y-clip tw-pt-8 large:tw-pt-0 tw-px-8 small:tw-px-12 medium:tw-px-16 large:tw-px-12 tw-shrink-0 large:tw-w-160 ">
+            class=" tw-bg-gray-05 large:tw-block large:tw-mr-0 large:-tw-ml-12 large:tw-overflow-y-clip tw-pt-8 large:tw-pt-0 tw-px-8 small:tw-px-12 medium:tw-px-16 large:tw-px-12 tw-shrink-0 large:tw-w-160 ">
             {# FILTER SECTION #}
             <div class="tw-flex tw-justify-end">
                 <button id="filter-section-hide-button"
-                        class="tw-hidden large:tw-hidden tw-h-24 tw-w-24 -tw-mt-4 -tw-mr-4 -tw-mb-8 tw-text-3xl tw-font-normal tw-text-blue-80 hover:tw-text-blue-20 tw-bg-transparent"
-                        aria-label="{% translate "Close" %}"
-                        tabIndex="0">
+                    class="tw-hidden large:tw-hidden tw-h-24 tw-w-24 -tw-mt-4 -tw-mr-4 -tw-mb-8 tw-text-3xl tw-font-normal tw-text-blue-80 hover:tw-text-blue-20 tw-bg-transparent"
+                    aria-label="{% translate "Close" %}"
+                    tabIndex="0">
                     <span aria-hidden="true" class="">&times;</span>
                 </button>
             </div>
             <h2 class="large:tw-hidden tw-h1-heading">{% translate 'Filter' %}</h2>
             <form action="{% pageurl page %}"
-                  method="get"
-                  accept-charset="utf-8"
-                  id="filter-form">
+                method="get"
+                accept-charset="utf-8"
+                id="filter-form">
                 {% include "fragments/research_library_form.html" with form=form %}
                 <div class=" tw-bg-gray-05 tw-bottom-0 -tw-mx-8 small:-tw-mx-12 medium:-tw-mx-16 large:-tw-mx-12 tw-pb-16 large:tw-pb-12 tw-px-8 small:tw-px-12 medium:tw-px-16 large:tw-px-12 tw-sticky ">
                     <div class="tw-pt-12 large:tw-pt-8 tw-border-t tw-border-t-gray-20">
