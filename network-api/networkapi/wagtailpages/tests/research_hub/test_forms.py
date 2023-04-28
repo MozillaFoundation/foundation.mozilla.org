@@ -109,14 +109,19 @@ class TestFormUtilitiesFunctions(research_test_base.ResearchHubTestCase):
         topic_fr = topic_en.copy_for_translation(self.fr_locale)
         topic_fr.save()
 
-        topic_options_en = forms._get_topic_options()
-        translation.activate(self.fr_locale.language_code)
-        topic_options_fr = forms._get_topic_options()
+        # Activate the default locale
+        translation.activate(self.default_locale.language_code)
 
+        topic_options_en = forms._get_topic_options()
         topic_option_values_en = [i for i, _ in topic_options_en]
         self.assertEqual(len(topic_option_values_en), 1)
         self.assertIn(topic_en.id, topic_option_values_en)
         self.assertNotIn(topic_fr.id, topic_option_values_en)
+
+        # Activate the French locale
+        translation.activate(self.fr_locale.language_code)
+
+        topic_options_fr = forms._get_topic_options()
         topic_option_values_fr = [i for i, _ in topic_options_fr]
         self.assertEqual(len(topic_option_values_fr), 1)
         self.assertNotIn(topic_en.id, topic_option_values_fr)
@@ -160,14 +165,19 @@ class TestFormUtilitiesFunctions(research_test_base.ResearchHubTestCase):
         region_fr = region_en.copy_for_translation(self.fr_locale)
         region_fr.save()
 
-        region_options_en = forms._get_region_options()
-        translation.activate(self.fr_locale.language_code)
-        region_options_fr = forms._get_region_options()
+        # Activate the default locale
+        translation.activate(self.default_locale.language_code)
 
+        region_options_en = forms._get_region_options()
         region_option_values_en = [i for i, _ in region_options_en]
         self.assertEqual(len(region_option_values_en), 1)
         self.assertIn(region_en.id, region_option_values_en)
         self.assertNotIn(region_fr.id, region_option_values_en)
+
+        # Activate the French locale
+        translation.activate(self.fr_locale.language_code)
+
+        region_options_fr = forms._get_region_options()
         region_option_values_fr = [i for i, _ in region_options_fr]
         self.assertEqual(len(region_option_values_fr), 1)
         self.assertNotIn(region_en.id, region_option_values_fr)
