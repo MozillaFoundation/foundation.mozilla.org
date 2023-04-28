@@ -1,18 +1,17 @@
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
-from wagtail.images.models import Image
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.models import Locale
 
-
 # Define the list of valid values to check against
-LOCALES = Locale.objects.all().values_list('language_code', flat=True)
+LOCALES = Locale.objects.all().values_list("language_code", flat=True)
+
 
 def check_path(url_path):
 
     # Extract the first part of the URL path
-    path_parts = url_path.split('/')
-    first_part = path_parts[1] if len(path_parts) > 1 else ''
+    path_parts = url_path.split("/")
+    first_part = path_parts[1] if len(path_parts) > 1 else ""
 
     # Check if the first part of the URL path is in the valid list of values
     if first_part in LOCALES:
@@ -21,6 +20,7 @@ def check_path(url_path):
     else:
         # Create a redirect for this path
         return False
+
 
 class Command(BaseCommand):
     help = "Creates redirects for each locale for each redirect if it doesn't exist."
@@ -36,21 +36,21 @@ class Command(BaseCommand):
                 for locale in LOCALES:
                     # first check if the redirect already exists, this will happen
                     # if we run this code more than once
-                    if not redirects.filter(old_path=f'/{locale}{redirect.old_path}'):
+                    if not redirects.filter(old_path=f"/{locale}{redirect.old_path}"):
                         try:
                             new_redirect = Redirect.objects.create(
-                                old_path= f'/{locale}{redirect.old_path}',
+                                old_path=f"/{locale}{redirect.old_path}",
                                 site_id=redirect.site_id,
                                 is_permanent=redirect.is_permanent,
                                 redirect_page_id=redirect.redirect_page_id,
                                 redirect_page_route_path=redirect.redirect_page_route_path,
                                 redirect_link=redirect.redirect_link,
                             )
-                            print(f'creating new redirect for {redirect.old_path}')
-                            print(f'new redirect old_path will be /{locale}{redirect.old_path}')
+                            print(f"creating new redirect for {redirect.old_path}")
+                            print(f"new redirect old_path will be /{locale}{redirect.old_path}")
                             new_redirect.save()
                         except IntegrityError:
-                            print(f'Redirect already exists: {redirect.old_path}')
+                            print(f"Redirect already exists: {redirect.old_path}")
                             pass
 
         redirects = Redirect.objects.all()
