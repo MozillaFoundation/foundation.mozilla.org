@@ -3,14 +3,12 @@ from typing import Optional
 
 from django.core import paginator
 from django.db import models
-from django.utils.translation import pgettext_lazy
 from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
 from wagtail.admin import panels
 from wagtail.images import edit_handlers as image_panels
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 from networkapi.wagtailpages.pagemodels.research_hub import (

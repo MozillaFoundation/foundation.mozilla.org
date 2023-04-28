@@ -2,7 +2,7 @@ import datetime
 import os
 
 from django.core import management
-from django.utils import timezone, translation
+from django.utils import translation
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages.factory.research_hub import (
