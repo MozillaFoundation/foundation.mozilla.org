@@ -248,6 +248,17 @@ def manage(ctx, command, stop=False):
     pyrun(ctx, command, stop=stop)
 
 
+@task(aliases=["docker-djcheck"])
+def djcheck(ctx, stop=False):
+    """
+    Django system check framework.
+
+    To stop the containers after the command has run, pass the `--stop` flag.
+    """
+    print("Running system check framework...")
+    manage(ctx, "check", stop=stop)
+
+
 @task(aliases=["docker-migrate"])
 def migrate(ctx, stop=False):
     """
@@ -282,9 +293,16 @@ def test(ctx):
 
 
 @task(aliases=["docker-test-python"])
-def test_python(ctx):
+def test_python(ctx, file="", n="auto", verbose=False):
     """Run python tests."""
-    manage(ctx, "test networkapi")
+    djcheck(ctx)
+    makemigrations_dryrun(ctx, args="--check")
+    parallel = f"-n {n}" if n != "1" else ""
+    v = "-v" if verbose else ""
+    # Don't run coverage if a file is specified
+    cov = "" if file else "--cov=network-api/networkapi --cov-report=term-missing"
+    command = f"pytest {v} {parallel} {file} --reuse-db {cov}"
+    pyrun(ctx, command)
 
 
 # Linting
