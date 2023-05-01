@@ -187,7 +187,7 @@ SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and SOCIAL_AUTH_GOOGLE
 USE_S3 = env("USE_S3")
 
 # Detect if Django is running normally, or in test mode through "manage.py test"
-TESTING = "test" in sys.argv
+TESTING = "test" in sys.argv or "pytest" in sys.argv
 
 INSTALLED_APPS = list(
     filter(
