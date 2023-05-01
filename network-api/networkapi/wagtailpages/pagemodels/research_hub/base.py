@@ -1,19 +1,9 @@
 from django.apps import apps
-from wagtail import models as wagtail_models
 
-from networkapi.wagtailpages import utils
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
+from networkapi.wagtailpages.pagemodels.base import BasePage
 
 
-class ResearchHubBasePage(
-    foundation_metadata.FoundationMetadataPageMixin,
-    wagtail_models.Page,
-):
-    def get_context(self, request):
-        context = super().get_context(request)
-        context = utils.set_main_site_nav_information(self, context, "Homepage")
-        return context
-
+class ResearchHubBasePage(BasePage):
     def get_breadcrumbs(self, include_self=False):
         ResearchLandingPageModel = apps.get_model("wagtailpages", "ResearchLandingPage")
         research_landing_page = self.get_ancestors().type(ResearchLandingPageModel).first()
