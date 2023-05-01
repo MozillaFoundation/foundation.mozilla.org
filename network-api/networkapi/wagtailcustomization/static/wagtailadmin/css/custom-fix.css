@@ -1,5 +1,5 @@
 /*
-  To address bug from Wagtail v3
+  To address bug from Wagtail v3+
   See context: https://github.com/mozilla/foundation.mozilla.org/issues/10192
 */
 body#wagtail
