@@ -248,6 +248,17 @@ def manage(ctx, command, stop=False):
     pyrun(ctx, command, stop=stop)
 
 
+@task(aliases=["docker-djcheck"])
+def djcheck(ctx, stop=False):
+    """
+    Django system check framework.
+
+    To stop the containers after the command has run, pass the `--stop` flag.
+    """
+    print("Running system check framework...")
+    manage(ctx, "check", stop=stop)
+
+
 @task(aliases=["docker-migrate"])
 def migrate(ctx, stop=False):
     """
@@ -282,9 +293,31 @@ def test(ctx):
 
 
 @task(aliases=["docker-test-python"])
-def test_python(ctx):
-    """Run python tests."""
-    manage(ctx, "test networkapi")
+def test_python(ctx, file="", n="auto", verbose=False):
+    """
+    Run python tests.
+
+    Example calls:
+    - test_python(ctx)
+    - test_python(ctx, file="test_something.py")
+    - test_python(ctx, n=4, verbose=True)
+
+    Parameters:
+    - ctx: Context object (provided by Invoke)
+    - file: Optional string representing the path to a specific test file to run.
+    - n: Optional integer or string 'auto' representing the number of parallel tests to run.
+    Default is 'auto' which allows pytest to automatically determine the optimal number.
+    - verbose: Optional boolean flag indicating whether to print verbose output during testing. Default is False.
+    """
+
+    djcheck(ctx)
+    makemigrations_dryrun(ctx, args="--check")
+    parallel = f"-n {n}" if n != "1" else ""
+    v = "-v" if verbose else ""
+    # Don't run coverage if a file is specified
+    cov = "" if file else "--cov=network-api/networkapi --cov-report=term-missing"
+    command = f"pytest {v} {parallel} {file} --reuse-db {cov}"
+    pyrun(ctx, command)
 
 
 # Linting

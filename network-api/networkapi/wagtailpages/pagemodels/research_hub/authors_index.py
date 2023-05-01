@@ -18,7 +18,10 @@ class ResearchAuthorsIndexPage(
     research_base.ResearchHubBasePage,
 ):
     max_count = 1
+
     parent_page_types = ["ResearchLandingPage"]
+
+    template = "pages/research_hub/authors_index_page.html"
 
     banner_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),
@@ -58,7 +61,9 @@ class ResearchAuthorsIndexPage(
         context["breadcrumbs"] = self.get_breadcrumbs()
         return context
 
-    @routable_models.route(r"^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$")
+    @routable_models.route(
+        r"^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$", name="wagtailpages:research-author-detail"
+    )
     def author_detail(
         self,
         request: http.HttpRequest,
@@ -73,14 +78,14 @@ class ResearchAuthorsIndexPage(
 
         return self.render(
             request=request,
-            template="wagtailpages/research_author_detail_page.html",
+            template="pages/research_hub/author_detail_page.html",
             context_overrides=context_overrides,
         )
 
     def get_author_detail_context(self, profile_id: int):
-        research_author_profiles = profiles.Profile.objects.filter_research_authors()
+        author_profiles = utils.localize_queryset(profiles.Profile.objects.all().filter_research_authors())
         author_profile = shortcuts.get_object_or_404(
-            research_author_profiles,
+            author_profiles,
             id=profile_id,
         )
 

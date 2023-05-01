@@ -77,11 +77,23 @@ When relevant, we encourage you to write tests.
 
 You can run the tests using `inv test`.
 This will the full test suite.
+
 To run only a subset or a specific Python test, you can use following command:
 
 ```console
-inv manage "test <dotted-path-to-your-test>"
+inv test-python --file path/to/file.py
 ```
+
+The `test-python` command also support flags for turning increased verbosity on/off (`-v`) and
+for running tests in parallel (the `-n` option). To run tests with 4 parallel processes and increased
+verbosity, use:
+
+```console
+inv test-python -v -n 4
+```
+
+The `-n` flag also supports the `auto` value, which will run tests with as many parallel cores as possible.
+For more info, consult the [pytest-xdist docs](https://pytest-xdist.readthedocs.io/en/stable/distribution.html).
 
 See also [the Django docs on running tests](https://docs.djangoproject.com/en/4.1/topics/testing/overview/#running-tests).
 
