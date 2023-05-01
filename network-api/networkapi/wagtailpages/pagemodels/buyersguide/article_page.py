@@ -11,6 +11,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels import customblocks
+from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideArticlePageForm,
 )
@@ -18,7 +19,6 @@ from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
 )
 from networkapi.wagtailpages.utils import get_language_from_request
-from networkapi.wagtailpages.pagemodels.base import BasePage
 
 if typing.TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideContentCategory, Profile

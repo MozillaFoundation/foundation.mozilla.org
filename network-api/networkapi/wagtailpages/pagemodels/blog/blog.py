@@ -23,15 +23,12 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.wagtailpages.forms import BlogPageForm
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 
-from ...utils import (
-    TitleWidget,
-    get_content_related_by_tag,
-)
+from ...utils import TitleWidget, get_content_related_by_tag
 from .. import customblocks
+from ..base import BasePage
 from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
 from .blog_index import BlogIndexPage
 from .blog_topic import BlogPageTopic
-from ..base import BasePage
 
 base_fields = [
     ("accordion", customblocks.AccordionBlock()),

@@ -10,10 +10,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.pagemodels.publications.publication import PublicationPage
-from networkapi.wagtailpages.utils import (
-    TitleWidget,
-    get_plaintext_titles,
-)
+from networkapi.wagtailpages.utils import TitleWidget, get_plaintext_titles
 
 from ..article_fields import article_fields
 from ..base import BasePage

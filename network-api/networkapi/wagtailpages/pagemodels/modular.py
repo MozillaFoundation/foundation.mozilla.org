@@ -5,8 +5,8 @@ from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import get_page_tree_information
-from .customblocks.base_fields import base_fields
 from .base import BasePage
+from .customblocks.base_fields import base_fields
 
 
 class ModularPage(BasePage):

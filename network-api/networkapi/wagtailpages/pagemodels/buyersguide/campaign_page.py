@@ -9,11 +9,11 @@ from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels import customblocks
+from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
 )
 from networkapi.wagtailpages.utils import get_language_from_request
-from networkapi.wagtailpages.pagemodels.base import BasePage
 
 from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
 

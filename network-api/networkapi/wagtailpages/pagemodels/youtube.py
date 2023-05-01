@@ -6,8 +6,8 @@ from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from . import customblocks
-from .customblocks.full_content_rich_text_options import full_content_rich_text_options
 from .base import BasePage
+from .customblocks.full_content_rich_text_options import full_content_rich_text_options
 
 
 class YoutubeRegretsPage(BasePage):

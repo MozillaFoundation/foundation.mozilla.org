@@ -11,11 +11,11 @@ from wagtail.models import Orderable, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
+from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_buyersguide_featured_cta,
     get_categories_for_locale,
 )
-from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.utils import get_language_from_request
 
 if TYPE_CHECKING:
