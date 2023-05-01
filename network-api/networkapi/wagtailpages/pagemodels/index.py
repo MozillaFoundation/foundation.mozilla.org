@@ -16,7 +16,6 @@ from networkapi.wagtailpages.utils import (
     get_default_locale,
     get_locale_from_request,
     get_page_tree_information,
-    set_main_site_nav_information,
 )
 
 from .base import BasePage
@@ -76,7 +75,6 @@ class IndexPage(RoutablePageMixin, BasePage):
     def get_context(self, request):
         # bootstrap the render context
         context = super().get_context(request)
-        context = set_main_site_nav_information(self, context, "Homepage")
         context = get_page_tree_information(self, context)
 
         # perform entry pagination and (optional) filterin
