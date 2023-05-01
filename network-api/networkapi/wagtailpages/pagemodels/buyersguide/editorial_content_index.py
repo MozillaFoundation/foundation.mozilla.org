@@ -15,7 +15,7 @@ from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_buyersguide_featured_cta,
     get_categories_for_locale,
 )
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
+from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.utils import get_language_from_request
 
 if TYPE_CHECKING:
@@ -25,9 +25,8 @@ if TYPE_CHECKING:
 
 
 class BuyersGuideEditorialContentIndexPage(
-    foundation_metadata.FoundationMetadataPageMixin,
     routable_models.RoutablePageMixin,
-    wagtail_models.Page,
+    BasePage,
 ):
     parent_page_types = ["wagtailpages.BuyersGuidePage"]
     subpage_types = [
