@@ -26,13 +26,12 @@ from networkapi.wagtailpages.pagemodels.profiles import Profile
 from ...utils import (
     TitleWidget,
     get_content_related_by_tag,
-    set_main_site_nav_information,
 )
 from .. import customblocks
 from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
-from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from .blog_index import BlogIndexPage
 from .blog_topic import BlogPageTopic
+from ..base import BasePage
 
 base_fields = [
     ("accordion", customblocks.AccordionBlock()),
@@ -110,7 +109,7 @@ class RelatedBlogPosts(Orderable):
         ordering = ["sort_order"]
 
 
-class BlogPage(FoundationMetadataPageMixin, Page):
+class BlogPage(BasePage):
     # Custom base form for additional validation
     base_form_class = BlogPageForm
 
@@ -279,7 +278,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         if blog_page:
             context["blog_index"] = blog_page
 
-        return set_main_site_nav_information(self, context, "Homepage")
+        return context
 
     def get_missing_related_posts(self):
         """
