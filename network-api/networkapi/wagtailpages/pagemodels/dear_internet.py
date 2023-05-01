@@ -5,13 +5,12 @@ from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from ..utils import set_main_site_nav_information
 from . import customblocks
 from .customblocks.base_rich_text_options import base_rich_text_options
-from .mixin.foundation_metadata import FoundationMetadataPageMixin
+from .base import BasePage
 
 
-class DearInternetPage(FoundationMetadataPageMixin, Page):
+class DearInternetPage(BasePage):
     intro_texts = StreamField(
         [("intro_text", blocks.RichTextBlock(features=base_rich_text_options))], use_json_field=True
     )
@@ -70,9 +69,5 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
     ]
 
     zen_nav = True
-
-    def get_context(self, request):
-        context = super().get_context(request)
-        return set_main_site_nav_information(self, context, "Homepage")
 
     template = "wagtailpages/pages/dear_internet_page.html"
