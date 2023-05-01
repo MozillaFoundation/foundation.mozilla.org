@@ -1,10 +1,10 @@
-{% extends "./research_base.html" %}
+{% extends "./base.html" %}
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
 
 
 {% block research_hub_content %}
     <div>
-        {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
+        {% include 'fragments/breadcrumbs.html' with breadcrumb_list=breadcrumbs %}
         <h1>{{ page.title }}</h1>
     </div>
 
@@ -18,7 +18,7 @@
       filter section again upon page reload. This seems undesireable.
     {% endcomment %}
         <form action="{% pageurl page %}" method="get" accept-charset="utf-8" id="search-form">
-            {% include "wagtailpages/fragments/research_search_bar.html" %}
+            {% include "fragments/research_hub/search_bar.html" %}
         </form>
     </div>
 
@@ -34,8 +34,8 @@
                 <div class="tw-flex tw-flex-row tw-gap-6">
                     {# FILTER BUTTON #}
                     <div class="large:tw-hidden tw-basis-1/2">
-                        {% include "wagtailpages/fragments/research_filter_button.html" with button=False %}
-                        {% include "wagtailpages/fragments/research_filter_button.html" with button=True %}
+                        {% include "fragments/research_hub/filter_button.html" with button=False %}
+                        {% include "fragments/research_hub/filter_button.html" with button=True %}
                     </div>
                     <div class="tw-flex tw-flex-row tw-items-baseline tw-basis-1/2 large:tw-basis-full">
                         {# SORT SELECT #}
@@ -72,7 +72,7 @@
                 {# RESULTS LIST #}
                 {% for research_detail_page in research_detail_pages %}
                     <li class="tw-m-0 tw-pt-12 tw-pb-12">
-                        {% include "wagtailpages/fragments/research_detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_related_topics_on_mobile=True %}
+                        {% include "fragments/research_hub/detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_related_topics_on_mobile=True %}
                     </li>
                 {% endfor %}
             </ul>
@@ -109,22 +109,22 @@
 
             {% if topic_options %}
                 {% translate 'Topics' as heading %}
-                {% include "wagtailpages/fragments/research_filter_group.html" with heading=heading options=topic_options|dictsort:'label' checked_option_values=filtered_topic_ids field_name='topic' %}
+                {% include "fragments/research_hub/filter_group.html" with heading=heading options=topic_options|dictsort:'label' checked_option_values=filtered_topic_ids field_name='topic' %}
             {% endif %}
 
             {% if year_options %}
                 {% translate 'Publication date' as heading %}
-                {% include "wagtailpages/fragments/research_filter_group.html" with heading=heading radio=True options=year_options checked_option_value=filtered_year field_name='year' %}
+                {% include "fragments/research_hub/filter_group.html" with heading=heading radio=True options=year_options checked_option_value=filtered_year field_name='year' %}
             {% endif %}
 
             {% if author_options %}
                 {% translate 'Authors' as heading %}
-                {% include "wagtailpages/fragments/research_filter_group.html" with heading=heading options=author_options|dictsort:'label' checked_option_values=filtered_author_ids field_name='author' %}
+                {% include "fragments/research_hub/filter_group.html" with heading=heading options=author_options|dictsort:'label' checked_option_values=filtered_author_ids field_name='author' %}
             {% endif %}
 
             {% if region_options %}
                 {% translate 'Regions' as heading %}
-                {% include "wagtailpages/fragments/research_filter_group.html" with heading=heading options=region_options|dictsort:'label' checked_option_values=filtered_region_ids field_name='region' %}
+                {% include "fragments/research_hub/filter_group.html" with heading=heading options=region_options|dictsort:'label' checked_option_values=filtered_region_ids field_name='region' %}
             {% endif %}
 
             <div class="
