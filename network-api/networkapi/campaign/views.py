@@ -153,10 +153,7 @@ def signup_submission(request, signup):
 
     # Subscribing to newsletter using basket.
     # https://basket-client.readthedocs.io/en/latest/usage.html
-    basket_additional = {
-        "lang": data["lang"],
-        "source_url": data["source_url"]
-    }
+    basket_additional = {"lang": data["lang"], "source_url": data["source_url"]}
 
     if data["country"] != "":
         basket_additional["country"] = data["country"]
@@ -232,10 +229,7 @@ def petition_submission(request, petition):
         # Use basket-clients subscribe method, then send the petition information to SQS
         # with "newsletterSignup" set to false, to avoid subscribing them twice.
         # https://basket-client.readthedocs.io/en/latest/usage.html
-        basket_additional = {
-            "lang": data["lang"],
-            "source_url": data["source_url"]
-        }
+        basket_additional = {"lang": data["lang"], "source_url": data["source_url"]}
 
         if "country" in data:
             basket_additional["country"] = data["country"]
