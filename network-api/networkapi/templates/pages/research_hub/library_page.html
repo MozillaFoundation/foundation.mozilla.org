@@ -1,14 +1,11 @@
 {% extends "./base.html" %}
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
-
-
 {% block research_hub_content %}
     <div>
         {% include 'fragments/breadcrumbs.html' with breadcrumb_list=breadcrumbs %}
         <h1>{{ page.title }}</h1>
     </div>
-
-    <div class="large:tw-w-160 large:tw-h-64 tw-mt-12 tw-mb-8 large:tw-mb-0 large:-tw-ml-12 large:tw-p-12 large:tw-bg-gray-05" >
+    <div class="large:tw-w-160 large:tw-h-64 tw-mt-12 tw-mb-8 large:tw-mb-0 large:-tw-ml-12 large:tw-p-12 large:tw-bg-gray-05">
         {# SEARCH BAR #}
         {% comment %}
       The page url is necessary in the form to that the filter anchor link is not carried forward.
@@ -16,20 +13,19 @@
       that adds the `#filter` part to the URL. Submitting the form in that stage without the
       explicit URL would carry the anchor link forward. That would mean the view is scrolled to the
       filter section again upon page reload. This seems undesireable.
-    {% endcomment %}
-        <form action="{% pageurl page %}" method="get" accept-charset="utf-8" id="search-form">
+        {% endcomment %}
+        <form action="{% pageurl page %}"
+            method="get"
+            accept-charset="utf-8"
+            id="search-form">
             {% include "fragments/research_hub/search_bar.html" %}
         </form>
     </div>
-
     <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-gap-16">
         {# FILTER, SORT AND RESULTS #}
-
         {# For side-by-side layout, we need to pull the results up to that the upper end lines up with the search bar. #}
         <div class="tw-min-w-0 tw-grow large:-tw-mt-64 tw-pb-24">
             {# SORT AND RESULTS #}
-
-
             <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-justify-between tw-gap-12">
                 <div class="tw-flex tw-flex-row tw-gap-6">
                     {# FILTER BUTTON #}
@@ -39,14 +35,21 @@
                     </div>
                     <div class="tw-flex tw-flex-row tw-items-baseline tw-basis-1/2 large:tw-basis-full">
                         {# SORT SELECT #}
-                        <select id='sort-select' name="sort" class="tw-form-control tw-border-gray-40" form="search-form">
+                        <select id='sort-select'
+                            name="sort"
+                            class="tw-form-control tw-border-gray-40"
+                            form="search-form">
                             {% for choice in page.SORT_CHOICES.values %}
-                                <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
+                                <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>
+                                    {{ choice.label }}
+                                </option>
                             {% endfor %}
                         </select>
                         <noscript>
                             {# The sort button is only needed for the no JS case. With JS, the form can be submitted on change of the select #}
-                            <button type="submit" class="tw-btn-primary tw-text-base" form="search-form">{% translate 'Sort' context 'Button' %}</button>
+                            <button type="submit" class="tw-btn-primary tw-text-base" form="search-form">
+                                {% translate 'Sort' context 'Button' %}
+                            </button>
                         </noscript>
                     </div>
                 </div>
@@ -67,7 +70,6 @@
                     {% endif %}
                 </div>
             </div>
-
             <ul class="tw-list-none tw-mt-16 large:tw-mt-12 tw-mb-12 tw-px-0 tw-border-t tw-border-b tw-border-gray-20 tw-divide-y tw-divide-gray-05">
                 {# RESULTS LIST #}
                 {% for research_detail_page in research_detail_pages %}
@@ -81,68 +83,34 @@
                 {% include "fragments/pagination.html" with page=research_detail_pages %}
             </div>
         </div>
-
-        <div id="filter" class="
-            tw-bg-gray-05
-            large:tw-block
-            large:tw-mr-0
-            large:-tw-ml-12
-            large:tw-overflow-y-clip
-            tw-pt-8 large:tw-pt-0
-            tw-px-8 small:tw-px-12 medium:tw-px-16 large:tw-px-12
-            tw-shrink-0
-            large:tw-w-160
-        ">
+        <div id="filter"
+            class=" tw-bg-gray-05 large:tw-block large:tw-mr-0 large:-tw-ml-12 large:tw-overflow-y-clip tw-pt-8 large:tw-pt-0 tw-px-8 small:tw-px-12 medium:tw-px-16 large:tw-px-12 tw-shrink-0 large:tw-w-160 ">
             {# FILTER SECTION #}
             <div class="tw-flex tw-justify-end">
-                <button
-                    id="filter-section-hide-button"
+                <button id="filter-section-hide-button"
                     class="tw-hidden large:tw-hidden tw-h-24 tw-w-24 -tw-mt-4 -tw-mr-4 -tw-mb-8 tw-text-3xl tw-font-normal tw-text-blue-80 hover:tw-text-blue-20 tw-bg-transparent"
                     aria-label="{% translate "Close" %}"
-                    tabIndex="0"
-                >
+                    tabIndex="0">
                     <span aria-hidden="true" class="">&times;</span>
                 </button>
             </div>
-
             <h2 class="large:tw-hidden tw-h1-heading">{% translate 'Filter' %}</h2>
-
-            {% if topic_options %}
-                {% translate 'Topics' as heading %}
-                {% include "fragments/research_hub/filter_group.html" with heading=heading options=topic_options|dictsort:'label' checked_option_values=filtered_topic_ids field_name='topic' %}
-            {% endif %}
-
-            {% if year_options %}
-                {% translate 'Publication date' as heading %}
-                {% include "fragments/research_hub/filter_group.html" with heading=heading radio=True options=year_options checked_option_value=filtered_year field_name='year' %}
-            {% endif %}
-
-            {% if author_options %}
-                {% translate 'Authors' as heading %}
-                {% include "fragments/research_hub/filter_group.html" with heading=heading options=author_options|dictsort:'label' checked_option_values=filtered_author_ids field_name='author' %}
-            {% endif %}
-
-            {% if region_options %}
-                {% translate 'Regions' as heading %}
-                {% include "fragments/research_hub/filter_group.html" with heading=heading options=region_options|dictsort:'label' checked_option_values=filtered_region_ids field_name='region' %}
-            {% endif %}
-
-            <div class="
-                tw-bg-gray-05
-                tw-bottom-0
-                -tw-mx-8 small:-tw-mx-12 medium:-tw-mx-16 large:-tw-mx-12
-                tw-pb-16 large:tw-pb-12
-                tw-px-8 small:tw-px-12 medium:tw-px-16 large:tw-px-12
-                tw-sticky
-            ">
-                <div class="tw-pt-12 large:tw-pt-8 tw-border-t tw-border-t-gray-20">
-                    <button type="submit" class="tw-w-full tw-btn-primary" form="search-form">{% translate 'Apply filters' context 'Button' %}</button>
+            <form action="{% pageurl page %}"
+                method="get"
+                accept-charset="utf-8"
+                id="filter-form">
+                {% include "fragments/research_library_form.html" with form=form %}
+                <div class=" tw-bg-gray-05 tw-bottom-0 -tw-mx-8 small:-tw-mx-12 medium:-tw-mx-16 large:-tw-mx-12 tw-pb-16 large:tw-pb-12 tw-px-8 small:tw-px-12 medium:tw-px-16 large:tw-px-12 tw-sticky ">
+                    <div class="tw-pt-12 large:tw-pt-8 tw-border-t tw-border-t-gray-20">
+                        <button type="submit" class="tw-w-full tw-btn-primary" form="filter-form">
+                            {% translate 'Apply filters' context 'Button' %}
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 {% endblock research_hub_content %}
-
 {% block extra_scripts %}
     {{ block.super }}
     <script src="{% static "_js/research-hub-library.compiled.js" %}" async defer></script>
