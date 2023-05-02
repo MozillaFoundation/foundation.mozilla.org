@@ -3,7 +3,7 @@ source = netwrok-api/networkapi
 omit =
    *migrations*
    *settings.py*
-   *test_*d
+   *test_*
 branch = true
 
 [coverage:report]

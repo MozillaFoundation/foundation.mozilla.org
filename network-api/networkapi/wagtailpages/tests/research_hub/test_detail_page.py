@@ -1,6 +1,7 @@
 import wagtail_factories
 from django.core import exceptions
 from django.utils import translation
+from django.utils.text import slugify
 
 from networkapi.wagtailpages.factory.research_hub import (
     detail_page as detail_page_factory,
@@ -11,6 +12,7 @@ from networkapi.wagtailpages.models import (
     PublicationPage,
     ResearchDetailPage,
 )
+from networkapi.wagtailpages.pagemodels.research_hub import authors_index
 from networkapi.wagtailpages.tests.research_hub import base as research_test_base
 from networkapi.wagtailpages.tests.research_hub import utils as research_test_utils
 
@@ -61,6 +63,32 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(research_authors_fr), 1)
         self.assertIn(profile_fr, research_authors_fr)
         self.assertNotIn(profile_en, research_authors_fr)
+
+    def test_get_research_authors_returns_localized_profiles_rendered(self) -> None:
+        """
+        Similar to the above, but these links get passed to routablepageurl in the template
+        so we can be certain that they come out localized.
+        """
+        detail_page = detail_page_factory.ResearchDetailPageFactory(parent=self.library_page)
+        self.synchronize_tree()
+        # Translating both the page and the research author profile.
+        detail_page_fr = research_test_utils.translate_detail_page(detail_page, self.fr_locale)
+        profile_fr = detail_page_fr.research_authors.first().author_profile
+        translation.activate(self.fr_locale.language_code)
+        author_index = authors_index.ResearchAuthorsIndexPage.objects.first()
+        fr_author_index = authors_index.ResearchAuthorsIndexPage.objects.filter(locale=self.fr_locale).first()
+
+        # Build a URL to check for in the response.
+        # E.G, /fr/research/authors/1/name-here/
+        fr_author_link = f'href="{fr_author_index.url}{profile_fr.id}/{slugify(profile_fr.name)}/"'
+        en_author_link = f'href="{author_index.url}{profile_fr.id}/{slugify(profile_fr.name)}/"'
+
+        # Request the fr version of the page.
+        response = self.client.get(detail_page_fr.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, fr_author_link)
+        self.assertNotContains(response, en_author_link)
 
     def test_get_research_authors_returns_default_locale(self) -> None:
         """

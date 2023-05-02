@@ -294,7 +294,22 @@ def test(ctx):
 
 @task(aliases=["docker-test-python"])
 def test_python(ctx, file="", n="auto", verbose=False):
-    """Run python tests."""
+    """
+    Run python tests.
+
+    Example calls:
+    - test_python(ctx)
+    - test_python(ctx, file="test_something.py")
+    - test_python(ctx, n=4, verbose=True)
+
+    Parameters:
+    - ctx: Context object (provided by Invoke)
+    - file: Optional string representing the path to a specific test file to run.
+    - n: Optional integer or string 'auto' representing the number of parallel tests to run.
+    Default is 'auto' which allows pytest to automatically determine the optimal number.
+    - verbose: Optional boolean flag indicating whether to print verbose output during testing. Default is False.
+    """
+
     djcheck(ctx)
     makemigrations_dryrun(ctx, args="--check")
     parallel = f"-n {n}" if n != "1" else ""
