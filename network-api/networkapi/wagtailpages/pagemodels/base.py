@@ -24,7 +24,7 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
         abstract = True
 
 
-class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):
+class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
     """
     Basically a straight copy of modular page, but with
     restrictions on what can live 'under it'.
