@@ -136,7 +136,6 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["breadcrumbs"] = self.get_breadcrumbs()
         context["authors_index"] = authors_index.ResearchAuthorsIndexPage.objects.first()
         context["research_authors"] = self.get_research_authors()
         return context

@@ -97,7 +97,6 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         research_detail_pages_page = research_detail_pages_paginator.get_page(page)
 
         context: "django_template.Context" = super().get_context(request)
-        context["breadcrumbs"] = self.get_breadcrumbs()
         context["search_query"] = search_query
         context["sort"] = sort
         context["author_options"] = self._get_author_options()
