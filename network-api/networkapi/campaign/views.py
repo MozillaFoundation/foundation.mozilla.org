@@ -158,7 +158,7 @@ def signup_submission(request, signup):
         "source_url": data["source_url"]
     }
 
-    if data["country"] is not "":
+    if data["country"] != "":
         basket_additional["country"] = data["country"]
 
     response = basket.subscribe(data["email"], data["newsletters"], **basket_additional)
