@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import F, Value
+from django.db.models.functions import Concat
 from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.models import TranslatableMixin
@@ -63,8 +65,9 @@ class Profile(index.Indexed, TranslatableMixin, models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(f"{self.name}-{str(self.id)}")
+        self.slug = slugify(self.name)
         super(Profile, self).save(*args, **kwargs)
+        self._meta.model.objects.filter(id=self.id).update(slug=Concat(F("slug"), Value("-"), F("id")))
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
