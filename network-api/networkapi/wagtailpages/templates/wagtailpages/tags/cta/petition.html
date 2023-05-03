@@ -17,6 +17,8 @@
         <div id="share-progress-em" class='{{ cta.share_email }} sp_em_small tw-hidden'></div>
     {% endif %}
 
+    {% include "../../fragments/formassembly_body.html" %}
+
     <div
         class="sign-petition tw-w-full tw-mb-12"
         data-petition-id="{{ cta.id|unlocalize }}"

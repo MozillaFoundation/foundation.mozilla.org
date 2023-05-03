@@ -7,6 +7,10 @@
   pages, we blank out the donation block.
 {% endcomment %}
 
+{% block extended_head %}
+    {% include "./fragments/formassembly_head.html" %}
+{% endblock %}
+
 {% block subcontent %}
     <div class="tw-container">
         <div class="tw-row">
