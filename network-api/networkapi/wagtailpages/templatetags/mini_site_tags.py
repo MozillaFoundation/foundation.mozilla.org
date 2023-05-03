@@ -27,6 +27,8 @@ def cta(context, page):
         "page": page,
         "cta": None,
         "cta_type": None,
+        "lang": context["request"].LANGUAGE_CODE,
+        "source_url": context["request"].build_absolute_uri(),
         "show_formassembly": context["request"].GET.get("showFormassembly") == "true"
     }
 

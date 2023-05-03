@@ -1,0 +1,61 @@
+.wFormContainer {
+  .wFormHeader {
+    display: none;
+  }
+
+  .wForm {
+    border: 0;
+    margin-top: 0;
+
+    form {
+      padding: 0;
+    }
+
+    .oneField {
+      padding: 0;
+      border: 0;
+    }
+
+    #submit_button {
+      @apply tw-btn-primary;
+      @apply tw-w-full;
+    }
+
+    .inputWrapper {
+      width: 100% !important;
+
+      input[type="text"],
+      input[type="text"].validate-email,
+      input[type="password"],
+      select,
+      select:not([multiple]),
+      textarea {
+        width: 100%;
+        padding: 1rem 0.75rem;
+        height: auto !important;
+      }
+    }
+  }
+}
+
+.required:not(.choices):not(select):not(.wfAutosuggest) {
+  padding: 1rem 0.75rem !important;
+}
+
+// Hidden fields:
+//   Campaign ID #tfa_1-D
+//   Source URL #tfa_498-D
+//   Lang #tfa_499-D
+#tfa_1-D,
+#tfa_498-D,
+#tfa_499-D {
+  display: none;
+}
+
+// Hidden labels:
+//   Privacy agreenment #tfa_492-L
+//   Email subscription #tfa_494-L
+#tfa_492-L,
+#tfa_494-L {
+  display: none;
+}
