@@ -1,5 +1,5 @@
 {% extends "./base.html" %}
-{% load i18n l10n wagtailcore_tags wagtailimages_tags %}
+{% load i18n l10n wagtailcore_tags wagtailimages_tags breadcrumbs %}
 
 {% block research_hub_content %}
     <div
@@ -20,7 +20,7 @@
                 class="medium:tw-col-start-2"
             {% endif %}
         >
-            {% include "fragments/breadcrumbs.html" with breadcrumb_list=breadcrumbs %}
+            {% get_research_breadcrumbs include_self=True %}
         </div>
         {% if author_profile.image %}
             <div id="image-container" class="tw-place-self-center medium:tw-place-self-start">
