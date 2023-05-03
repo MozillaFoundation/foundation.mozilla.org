@@ -1,4 +1,4 @@
-{% load i18n l10n %}
+{% load i18n l10n static %}
 
 <div>
     <!-- ShareProgress button embedding doc:
@@ -19,7 +19,7 @@
 
     {% if show_formassembly %}
         {% include "../../fragments/formassembly_body.html" %}
-        <hr>
+        <link rel="stylesheet" href="{% static "_css/formassembly-override.compiled.css" %}">
     {% endif %}
 
     <div
