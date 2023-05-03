@@ -7,11 +7,6 @@ from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 
-class ProfileQuerySet(models.QuerySet):
-    def filter_blog_authors(self):
-        return self.filter(blogauthors__isnull=False).distinct()
-
-
 @register_snippet
 class Profile(index.Indexed, TranslatableMixin, models.Model):
     name = models.CharField(max_length=70, blank=False)
@@ -53,8 +48,6 @@ class Profile(index.Indexed, TranslatableMixin, models.Model):
         # Needed for locale filtering in the Wagtail admin. A helpful error message pointed this out.
         index.FilterField("locale_id"),
     ]
-
-    objects = ProfileQuerySet.as_manager()
 
     def __str__(self):
         return self.name
