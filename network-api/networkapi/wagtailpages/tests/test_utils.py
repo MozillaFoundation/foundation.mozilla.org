@@ -16,8 +16,16 @@ from networkapi.wagtailpages import (
     to_language,
 )
 from networkapi.wagtailpages.factory.profiles import ProfileFactory
+from networkapi.wagtailpages.factory.research_hub import (
+    detail_page as detail_page_factory,
+)
+from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
 from networkapi.wagtailpages.pagemodels.profiles import Profile
-from networkapi.wagtailpages.utils import create_wagtail_image, localize_queryset
+from networkapi.wagtailpages.utils import (
+    create_wagtail_image,
+    get_research_authors,
+    localize_queryset,
+)
 
 
 class TestCreateWagtailImageUtility(TestCase):
@@ -234,3 +242,38 @@ class TestLocalizeQueryset(TestCase):
 
         # Assert that an empty queryset is returned
         self.assertEqual(len(result), 0)
+
+
+class TestGetResearchAuthors(TestCase):
+    def test_filter_research_authors(self):
+        research_author_profile = ProfileFactory()
+        relations_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
+            author_profile=research_author_profile,
+        )
+        not_research_author_profile = ProfileFactory()
+
+        research_author_profiles = get_research_authors(Profile.objects.all())
+
+        self.assertIn(research_author_profile, research_author_profiles)
+        self.assertNotIn(not_research_author_profile, research_author_profiles)
+
+    def test_filter_research_authors_distinct(self):
+        """Return research author profile only once"""
+
+        research_author_profile = ProfileFactory()
+        relations_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
+            author_profile=research_author_profile,
+        )
+        relations_factory.ResearchAuthorRelationFactory(
+            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
+            author_profile=research_author_profile,
+        )
+
+        profiles = Profile.objects.all()
+        profiles = get_research_authors(profiles)
+        profiles = profiles.filter(id=research_author_profile.id)
+        count = profiles.count()
+
+        self.assertEqual(count, 1)
