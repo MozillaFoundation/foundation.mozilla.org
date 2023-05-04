@@ -12,14 +12,14 @@ module.exports = {
   "Campaign index": "/campaigns",
   "Single-page campaign": "/campaigns/single-page",
   "Single-page campaign with FormAssembly form":
-    "/campaigns/single-page?show_formassembly=true",
+    "/campaigns/single-page/?show_formassembly=true",
   "Multi-page campaign": "/campaigns/multi-page",
   "Multi-page campaign with FormAssembly form":
-    "/campaigns/multi-page?show_formassembly=true",
+    "/campaigns/multi-page/?show_formassembly=true",
   "Bannered campaign":
     "/campaigns/initial-test-bannered-campaign-with-fixed-title",
   "Bannered campaign with FormAssembly form":
-    "/campaigns/initial-test-bannered-campaign-with-fixed-title?show_formassembly=true",
+    "/campaigns/initial-test-bannered-campaign-with-fixed-title/?show_formassembly=true",
   "Publication page with child article":
     "/publication-page-with-child-article-pages",
   "Publication page with child chapter": "/publication-page-with-chapter-pages",
