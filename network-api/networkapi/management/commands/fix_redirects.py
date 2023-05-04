@@ -64,7 +64,10 @@ class Command(BaseCommand):
                                 redirect_link=redirect.redirect_link,
                             )
                             print(f"creating new redirect for {redirect.old_path}")
-                            print(f"new redirect old_path will be /{locale}{redirect.old_path}")
+                            print(f"new redirect old_path: /{locale}{redirect.old_path}")
+                            print(f" new redirect page_id: {redirect.redirect_page_id}")
+                            print(f" new redirect redirect_page_route_path: {redirect.redirect_page_route_path}")
+                            print(f" new redirect redirect_link: {redirect.redirect_link}")
                             new_redirect.save()
                         except IntegrityError:
                             print(f"Redirect already exists: {redirect.old_path}")
