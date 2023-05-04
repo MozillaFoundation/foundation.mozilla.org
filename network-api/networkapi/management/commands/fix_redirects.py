@@ -53,7 +53,7 @@ class Command(BaseCommand):
                 for locale in LOCALES:
                     # first check if the redirect already exists, this will happen
                     # if we run this code more than once
-                    if not redirects.filter(old_path=f"/{locale}{redirect.old_path}"):
+                    if not redirects.filter(old_path=f"/{locale}{redirect.old_path}").exists():
                         try:
                             new_redirect = Redirect.objects.create(
                                 old_path=f"/{locale}{redirect.old_path}",
