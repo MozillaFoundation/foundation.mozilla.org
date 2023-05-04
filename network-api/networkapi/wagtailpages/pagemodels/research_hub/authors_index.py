@@ -51,7 +51,7 @@ class ResearchAuthorsIndexPage(
     def get_context(self, request):
         context = super().get_context(request)
         author_profiles = profiles.Profile.objects.all()
-        author_profiles = author_profiles.filter_research_authors()
+        author_profiles = utils.get_research_authors(author_profiles)
         # When the index is displayed in a non-default locale, then want to show
         # the profile associated with that locale. But, profiles do not necessarily
         # exist in all locales. We prefer showing the profile for the locale, but fall
@@ -82,7 +82,7 @@ class ResearchAuthorsIndexPage(
         )
 
     def get_author_detail_context(self, profile_id: int):
-        author_profiles = utils.localize_queryset(profiles.Profile.objects.all().filter_research_authors())
+        author_profiles = utils.localize_queryset(utils.get_research_authors(profiles.Profile.objects.all()))
         author_profile = shortcuts.get_object_or_404(
             author_profiles,
             id=profile_id,

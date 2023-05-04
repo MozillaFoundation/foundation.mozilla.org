@@ -9,6 +9,7 @@ from wagtail.admin import panels
 from wagtail.images import edit_handlers as image_panels
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.research_hub import (
@@ -122,7 +123,7 @@ class ResearchLibraryPage(BasePage):
         research_detail_pages = detail_page.ResearchDetailPage.objects.live().public()
         research_detail_pages = research_detail_pages.filter(locale=wagtail_models.Locale.get_active())
 
-        author_profiles = profile_models.Profile.objects.filter_research_authors()
+        author_profiles = utils.get_research_authors(profile_models.Profile.objects.all())
         author_profiles = author_profiles.filter(id__in=author_profile_ids)
         for author_profile in author_profiles:
             # Synced but not translated pages are still associated with the default
