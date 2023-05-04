@@ -7,7 +7,24 @@ from wagtail.models import Locale
 LOCALES = Locale.objects.all().values_list("language_code", flat=True)
 
 
-def check_path(url_path):
+def is_starting_with_language_code(url_path):
+    """
+    This function takes a URL path as input and checks if the first part of the path is a valid language code.
+
+    Args:
+        url_path (str): A string representing the URL path to be checked.
+
+    Returns:
+        bool: True if the first part of the URL path is a valid language code, otherwise False.
+
+    Example:
+        >>> is_starting_with_language_code("/en/example")
+        True
+        >>> is_starting_with_language_code("/fr/example")
+        True
+        >>> is_starting_with_language_code("/example")
+        False
+    """
 
     # Extract the first part of the URL path
     path_parts = url_path.split("/")
@@ -29,7 +46,7 @@ class Command(BaseCommand):
         redirects = Redirect.objects.all()
 
         for redirect in redirects:
-            has_locale_redirect = check_path(url_path=redirect.old_path)
+            has_locale_redirect = is_starting_with_language_code(url_path=redirect.old_path)
             if not has_locale_redirect:
                 # create a new redirect for each locale, it will be a copy
                 # of the original redirect but with the locale prefix
