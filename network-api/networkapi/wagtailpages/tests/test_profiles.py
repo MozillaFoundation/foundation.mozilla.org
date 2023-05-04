@@ -15,6 +15,18 @@ class ProfileTest(test.TestCase):
         profile_factories.ProfileFactory()
         self.assertTrue(True)
 
+    def test_profile_auto_slugs_name_and_id_when_creating_a_profile(self):
+        profile = profile_factories.ProfileFactory(name="John Doe")
+        profile.refresh_from_db()
+        self.assertEqual(profile.slug, f"john-doe-{profile.pk}")
+
+    def test_profile_auto_slugs_name_and_id_when_updating_a_profile(self):
+        profile = profile_factories.ProfileFactory(name="John Doe")
+        profile.name = "Jane Doe"
+        profile.save()
+        profile.refresh_from_db()
+        self.assertEqual(profile.slug, f"jane-doe-{profile.pk}")
+
     def test_filter_research_authors(self):
         research_author_profile = profile_factories.ProfileFactory()
         relations_factory.ResearchAuthorRelationFactory(
