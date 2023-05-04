@@ -17,14 +17,16 @@
         <div id="share-progress-em" class='{{ cta.share_email }} sp_em_small tw-hidden'></div>
     {% endif %}
 
-    {% comment %}
-        tfa_* refers to the name of the FormAssembly field.
-        We are inncluding tfa_* in the variable name to make it clear where the value should be plugged in.
-        For field name reference, see https://mozillafoundation.tfaforms.net/forms/definition/9
-    {% endcomment %}
-    <h5 class="tw-h5-heading">{{ cta.header | escape }}</h5>
-    {{ cta.description | richtext }}
-    {% include "../../fragments/formassembly_body.html" with campaign_id_tfa_1=cta.campaign_id source_url_tfa_498=source_url lang_tfa_499=lang %}
+    {% if show_formassembly %}
+        <h5 class="tw-h5-heading">{{ cta.header | escape }}</h5>
+        {{ cta.description | richtext }}
+        {% comment %}
+            tfa_* refers to the name of the FormAssembly field.
+            We are inncluding tfa_* in the variable name to make it clear where the value should be plugged in.
+            For field name reference, see https://mozillafoundation.tfaforms.net/forms/definition/9
+        {% endcomment %}
+        {% include "../../fragments/formassembly_body.html" with campaign_id_tfa_1=cta.campaign_id source_url_tfa_498=source_url lang_tfa_499=lang %}
+    {% endif %}
 
     <div
         class="sign-petition tw-w-full tw-mb-12"
