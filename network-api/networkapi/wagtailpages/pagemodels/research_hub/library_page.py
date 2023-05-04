@@ -10,7 +10,7 @@ from wagtail.images import edit_handlers as image_panels
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
-from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
+from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.research_hub import (
     constants,
     detail_page,
@@ -23,7 +23,7 @@ if typing.TYPE_CHECKING:
     from django import template as django_template
 
 
-class ResearchLibraryPage(research_base.ResearchHubBasePage):
+class ResearchLibraryPage(BasePage):
     max_count = 1
 
     parent_page_types = ["ResearchLandingPage"]
@@ -44,11 +44,11 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         help_text="Maximum number of results to be displayed per page.",
     )
 
-    content_panels = research_base.ResearchHubBasePage.content_panels + [
+    content_panels = BasePage.content_panels + [
         image_panels.FieldPanel("banner_image"),
     ]
 
-    settings_panels = research_base.ResearchHubBasePage.settings_panels + [panels.FieldPanel("results_count")]
+    settings_panels = BasePage.settings_panels + [panels.FieldPanel("results_count")]
 
     translatable_fields = [
         # Content tab fields

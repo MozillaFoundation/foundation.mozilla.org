@@ -5,13 +5,12 @@ from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from ..utils import set_main_site_nav_information
 from . import customblocks
+from .base import BasePage
 from .customblocks.full_content_rich_text_options import full_content_rich_text_options
-from .mixin.foundation_metadata import FoundationMetadataPageMixin
 
 
-class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
+class YoutubeRegretsPage(BasePage):
     headline = models.CharField(
         max_length=500,
         help_text="Page headline",
@@ -69,14 +68,10 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
 
     zen_nav = True
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        return set_main_site_nav_information(self, context, "Homepage")
-
     template = "wagtailpages/pages/youtube_regrets_page.html"
 
 
-class YoutubeRegretsReporterPage(FoundationMetadataPageMixin, Page):
+class YoutubeRegretsReporterPage(BasePage):
     headline = models.CharField(
         max_length=500,
         help_text="Page headline",
@@ -119,14 +114,10 @@ class YoutubeRegretsReporterPage(FoundationMetadataPageMixin, Page):
 
     zen_nav = True
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        return set_main_site_nav_information(self, context, "Homepage")
-
     template = "wagtailpages/pages/youtube_regrets_reporter_page.html"
 
 
-class YoutubeRegrets2021Page(FoundationMetadataPageMixin, Page):
+class YoutubeRegrets2021Page(BasePage):
 
     template = "wagtailpages/pages/youtube-regrets-2021/youtube_regrets_2021.html"
     max_count = 1
@@ -143,16 +134,12 @@ class YoutubeRegrets2021Page(FoundationMetadataPageMixin, Page):
         TranslatableField("title"),
     ]
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        return set_main_site_nav_information(self, context, "Homepage")
-
     class Meta:
         verbose_name = "YouTube Regrets 2021 Page"
         verbose_name_plural = "YouTube Regrets 2021 Pages"
 
 
-class YoutubeRegrets2022Page(FoundationMetadataPageMixin, Page):
+class YoutubeRegrets2022Page(BasePage):
 
     template = "wagtailpages/pages/youtube-regrets-2022/youtube_regrets_2022.html"
     max_count = 1
@@ -169,16 +156,12 @@ class YoutubeRegrets2022Page(FoundationMetadataPageMixin, Page):
         TranslatableField("title"),
     ]
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        return set_main_site_nav_information(self, context, "Homepage")
-
     class Meta:
         verbose_name = "YouTube Regrets 2022 Page"
         verbose_name_plural = "YouTube Regrets 2022 Pages"
 
 
-class YoutubeRegretsReporterExtensionPage(FoundationMetadataPageMixin, Page):
+class YoutubeRegretsReporterExtensionPage(BasePage):
 
     template = "wagtailpages/pages/regrets-reporter-landing-page/youtube_regrets_reporter_extension.html"
     max_count = 1
@@ -196,7 +179,3 @@ class YoutubeRegretsReporterExtensionPage(FoundationMetadataPageMixin, Page):
     ]
 
     content_panels = Page.content_panels  # Needed for wagtail-modeltranslation to work
-
-    def get_context(self, request):
-        context = super().get_context(request)
-        return set_main_site_nav_information(self, context, "Homepage")

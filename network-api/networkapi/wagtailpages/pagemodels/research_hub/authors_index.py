@@ -9,13 +9,13 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles
-from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
+from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.research_hub import detail_page, library_page
 
 
 class ResearchAuthorsIndexPage(
     routable_models.RoutablePageMixin,
-    research_base.ResearchHubBasePage,
+    BasePage,
 ):
     max_count = 1
 

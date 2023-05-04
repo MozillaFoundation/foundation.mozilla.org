@@ -4,10 +4,10 @@ from wagtail import models as wagtail_models
 from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
+from networkapi.wagtailpages.pagemodels.base import BasePage
 
 
-class ResearchLandingPage(research_base.ResearchHubBasePage):
+class ResearchLandingPage(BasePage):
     max_count = 1
 
     subpage_types = [

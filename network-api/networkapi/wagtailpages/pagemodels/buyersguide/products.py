@@ -29,6 +29,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.fields import ExtendedYesNoField
+from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideProductCategoryForm,
 )
@@ -38,9 +39,6 @@ from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
 )
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
-)
-from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
-    FoundationMetadataPageMixin,
 )
 from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
 from networkapi.wagtailpages.utils import (
@@ -425,7 +423,7 @@ class ProductUpdates(TranslatableMixin, Orderable):
         ordering = ["sort_order"]
 
 
-class ProductPage(FoundationMetadataPageMixin, Page):
+class ProductPage(BasePage):
     """
     ProductPage is the superclass that GeneralProductPages inherits from.
 
