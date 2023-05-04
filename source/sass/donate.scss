@@ -30,27 +30,7 @@ body {
   color: #000000;
   text-align: left;
   background-color: #fff;
-}
-
-body {
   scroll-behavior: smooth;
-}
-
-/* -------------------------------------------------- */
-
-.primary-nav-container .wrapper-burger {
-  -webkit-transition: background 200ms ease-in-out;
-  transition: background 200ms ease-in-out;
-  // background: #ffffff; // tw-bg-white
-  // border-bottom: 1px solid #cccccc; // tw-border-b-gray-20 tw-border-b-[1px]
-}
-
-/* -------------------------------------------------- */
-
-@media (min-width: 768px) {
-  .primary-nav-container .menu-container {
-    padding: 16px 0;
-  }
 }
 
 /* -------------------------------------------------- */
@@ -70,31 +50,11 @@ section {
 
 /* -------------------------------------------------- */
 
-.primary-nav-container #primary-nav-links {
-  padding-top: 18px;
-  padding-bottom: 18px;
-}
-
-@media (min-width: 576px) {
-  .primary-nav-container #primary-nav-links {
-    padding-top: 22px;
-    padding-bottom: 22px;
-  }
-}
-
-@media (min-width: 768px) {
-  .primary-nav-container #primary-nav-links {
-    padding-top: 9px;
-    padding-bottom: 9px;
-  }
+img {
+  max-width: 100%;
 }
 
 /* -------------------------------------------------- */
-
-a {
-  text-decoration: none;
-  background-color: transparent;
-}
 
 .text-hide {
   font: 0/0 a;
@@ -102,7 +62,7 @@ a {
   border: 0;
 }
 
-.primary-nav-container .wrapper-burger .logo {
+.primary-nav-container .logo {
   width: 1.75rem;
   height: 28px;
   background: url(../_images/mozilla-m.svg) no-repeat;
@@ -115,16 +75,8 @@ a {
 }
 
 @media (min-width: 576px) {
-  .primary-nav-container .wrapper-burger .logo {
+  .primary-nav-container .logo {
     width: 97px;
     background: url(../_images/mozilla-on-black.svg) no-repeat;
   }
-}
-
-/* -------------------------------------------------- */
-
-img {
-  border-style: none;
-  max-width: 100%;
-  height: auto;
 }

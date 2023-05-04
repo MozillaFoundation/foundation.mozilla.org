@@ -2,23 +2,17 @@
 
 {% trans "Home" as translated_root_name %}
 {% with root_name=translated_root_name %}
-    <div class="primary-nav-container">
-        <div class="wrapper-burger tw-bg-white tw-border-b-gray-20 tw-border-b-[1px]">
-            <div class="menu-container">
-                <nav class="tw-container">
-                    <div class="tw-row">
-                        <div class="tw-w-full tw-px-8 tw-grow tw-basis-0">
-                            <div class="tw-flex tw-flex-row tw-justify-between tw-items-center">
-                                <div id="primary-nav-links">
-                                    <div class="tw-flex tw-items-center tw-flex-wrap">
-                                        <a class="logo text-hide tw-text-transparent tw-leading-[0]" href="{{ menu_root.url }}">{{ root_name }}</a>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="primary-nav-container tw-bg-white tw-border-b-gray-20 tw-border-b-[1px]">
+        <nav class="tw-container medium:tw-py-8">
+            <div class="tw-row">
+                <div class="tw-w-full tw-px-8 tw-flex tw-flex-row tw-justify-between tw-items-center">
+                    <div id="primary-nav-links" class="tw-py-9 small:tw-py-[22px] medium:tw-py-[9px]">
+                        <div class="tw-flex tw-items-center tw-flex-wrap">
+                            <a class="logo text-hide tw-text-transparent tw-leading-[0]" href="{{ menu_root.url }}">{{ root_name }}</a>
                         </div>
                     </div>
-                </nav>
+                </div>
             </div>
-        </div>
+        </nav>
     </div>
 {% endwith %}
