@@ -11,7 +11,7 @@ from django import forms
 from django.apps import apps
 from django.conf import settings
 from django.core.files.images import ImageFile
-from django.db.models import Case, Count, Q, Value, When
+from django.db.models import Case, Count, Q, QuerySet, Value, When
 from django.urls import LocalePrefixPattern, URLResolver
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
@@ -28,6 +28,8 @@ from PIL import Image as PILImage
 from sentry_sdk import capture_exception
 from wagtail.images.models import Image
 from wagtail.models import Collection, Locale
+
+from networkapi.wagtailpages.pagemodels.profiles import Profile
 
 
 def titlecase(s):
@@ -486,3 +488,13 @@ def get_default_locale():
 def get_original_by_slug(Model, slug):
     (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
     return Model.objects.get(slug=slug, locale=DEFAULT_LOCALE_ID)
+
+
+def get_research_authors(profiles: "QuerySet[Profile]") -> "QuerySet[Profile]":
+    """Filter a queryset of profiles to only those who are research authors."""
+    return profiles.filter(authored_research__isnull=False).distinct()
+
+
+def get_blog_authors(profiles: "QuerySet[Profile]") -> "QuerySet[Profile]":
+    """Filter a queryset of profiles to only those who are blog authors."""
+    return profiles.filter(blogauthors__isnull=False).distinct()
