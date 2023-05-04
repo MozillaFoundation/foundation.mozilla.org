@@ -7,7 +7,7 @@ from networkapi.wagtailpages.pagemodels.research_hub import detail_page, taxonom
 
 
 def _get_author_options():
-    author_profiles = profile_models.Profile.objects.filter_research_authors()
+    author_profiles = utils.get_research_authors(profile_models.Profile.objects.all())
     author_profiles = utils.localize_queryset(author_profiles)
     return [(author_profile.id, author_profile.name) for author_profile in author_profiles]
 
