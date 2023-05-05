@@ -11,6 +11,7 @@ from .pagemodels.base import (
     ParticipateHighlights2,
     ParticipatePage2,
     PartnerLogos,
+    PrimaryPage,
     Styleguide,
 )
 from .pagemodels.blog.blog import BlogAuthors, BlogPage
@@ -67,7 +68,6 @@ from .pagemodels.mixin.foundation_banner_inheritance import (
     FoundationBannerInheritanceMixin,
 )
 from .pagemodels.modular import MiniSiteNameSpace, ModularPage
-from .pagemodels.primary import PrimaryPage
 from .pagemodels.profiles import Profile
 from .pagemodels.publications.article import ArticlePage
 from .pagemodels.publications.publication import PublicationPage

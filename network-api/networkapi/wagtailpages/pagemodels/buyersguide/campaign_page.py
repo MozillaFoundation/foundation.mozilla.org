@@ -9,11 +9,9 @@ from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels import customblocks
+from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
-)
-from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
-    FoundationMetadataPageMixin,
 )
 from networkapi.wagtailpages.utils import get_language_from_request
 
@@ -41,7 +39,7 @@ class BuyersGuideCampaignPageDonationModalRelation(TranslatableMixin, Orderable)
         pass
 
 
-class BuyersGuideCampaignPage(FoundationMetadataPageMixin, Page):
+class BuyersGuideCampaignPage(BasePage):
     parent_page_types = ["BuyersGuideEditorialContentIndexPage"]
     subpage_types: list = []
     template = "pages/buyersguide/campaign_page.html"
