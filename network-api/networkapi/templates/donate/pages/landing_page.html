@@ -1,19 +1,6 @@
 {% extends "pages/base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags i18n %}
 
-{% block html_class %}tw-bg-black{% endblock %}
-
-{% block social_metadata %}
-{% endblock %}
-
-{% block rss_metadata %}{% endblock %}
-
-{% block wagtail_metadata %}
-{% endblock %}
-
-{% block ga_identifier %}
-{% endblock %}
-
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static "_css/donate.compiled.css" %}">
     {% if debug %}<link rel="stylesheet" href="{% static "_css/tailwind.compiled.css" %}">{% endif %}
@@ -55,7 +42,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="tw-container" style="">
+<div class="tw-container">
     <div class="tw-row tw-my-[50px]">
         <div class="tw-w-full medium:tw-w-6/12 tw-px-8">
             <picture class="tw-w-full">
@@ -94,7 +81,6 @@
 {% block footer_block %}
     {% include "../fragments/footer.html" %}
 {% endblock %}
-
 
 {% block script_bundle %}
     <script src="{% url "javascript-catalog" %}"></script>
