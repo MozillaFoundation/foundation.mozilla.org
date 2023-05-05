@@ -14,13 +14,9 @@
   box-sizing: border-box;
 }
 
-/* -------------------------------------------------- */
-
 html {
   scroll-behavior: smooth;
 }
-
-/* -------------------------------------------------- */
 
 body {
   font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
@@ -60,23 +56,4 @@ img {
   font: 0/0 a;
   text-shadow: none;
   border: 0;
-}
-
-.primary-nav-container .logo {
-  width: 1.75rem;
-  height: 28px;
-  background: url(../_images/mozilla-m.svg) no-repeat;
-  background-size: contain;
-  position: relative;
-  z-index: 1;
-  margin: 0 26px 0 0;
-  padding: 0;
-  line-height: 0;
-}
-
-@media (min-width: 576px) {
-  .primary-nav-container .logo {
-    width: 97px;
-    background: url(../_images/mozilla-on-black.svg) no-repeat;
-  }
 }
