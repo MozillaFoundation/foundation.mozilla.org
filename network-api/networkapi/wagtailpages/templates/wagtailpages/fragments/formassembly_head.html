@@ -1,3 +1,6 @@
+{% load i18n formassembly_helper %}
+{% get_current_language as LANGUAGE_CODE %}
+
 <!-- FORM: HEAD SECTION -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="referrer" content="no-referrer-when-downgrade">
@@ -47,5 +50,4 @@
 <script type="text/javascript">
     wFORMS.behaviors.prefill.skip = false;
 </script>
-<script type="text/javascript" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-en_US.js?v=127d5d34f78f067204f2463a3699a1688fbf2ca7"></script>
-
+<script type="text/javascript" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=127d5d34f78f067204f2463a3699a1688fbf2ca7"></script>
