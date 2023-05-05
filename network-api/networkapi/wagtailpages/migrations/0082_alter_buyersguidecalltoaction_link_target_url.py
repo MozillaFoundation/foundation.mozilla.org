@@ -17,7 +17,6 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 max_length=255,
-                null=True,
                 validators=[
                     django.core.validators.RegexValidator(
                         message="Please enter a valid URL (starting with http:// or https://), or a valid query string starting with ? (Ex: ?form=donate).",
