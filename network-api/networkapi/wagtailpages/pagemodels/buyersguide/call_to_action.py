@@ -43,7 +43,10 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, LocalizedSnippet
         validators=[
             RegexValidator(
                 regex=url_or_query_regex,
-                message="Please enter a valid URL (starting with http:// or https://), or a valid query string starting with ? (Ex: ?form=donate).",
+                message=(
+                    "Please enter a valid URL (starting with http:// or https://), "
+                    "or a valid query string starting with ? (Ex: ?form=donate)."
+                ),
             ),
         ],
     )
