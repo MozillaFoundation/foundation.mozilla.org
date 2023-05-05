@@ -141,3 +141,40 @@ class BuyersGuideCallToActionTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(1, len(form.errors))
         self.assertIn("link_label", form.errors)
+
+    def test_link_target_url_valid_formats(self):
+        valid_urls = [
+            "http://google.com",
+            "http://google.com/?test_param=test",
+            "?test_param=test",
+            "?test_param=test&other_param=test",
+        ]
+
+        for url in valid_urls:
+            data = {
+                "title": "Test CTA",
+                "link_label": "Test Link",
+                "link_target_url": url,
+            }
+            form = self.form_class(data=data)
+
+            self.assertTrue(form.is_valid())
+
+    def test_link_target_url_invalid_formats(self):
+        invalid_urls = [
+            "google.com",
+            "not_a_valid_string",
+            "invalid_param=test",
+        ]
+
+        for url in invalid_urls:
+            data = {
+                "title": "Test CTA",
+                "link_label": "Test Link",
+                "link_target_url": url,
+            }
+            form = self.form_class(data=data)
+
+            self.assertFalse(form.is_valid())
+            self.assertEqual(1, len(form.errors))
+            self.assertIn("link_target_url", form.errors)

@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from django.db import models
 from django.forms.utils import ErrorList
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
@@ -12,6 +13,9 @@ from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options impo
     base_rich_text_options,
 )
 from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
+
+# Validates whether a string is either a valid URL, a query string (?param=test), or both.
+url_or_query_regex = r"^(https?://[\w.-]+(/\S*)?)?(\?[\w-]+(=[\w-]*)?(&[\w-]+(=[\w-]*)?)*)?$"
 
 
 @register_snippet
@@ -32,7 +36,17 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, LocalizedSnippet
     title = models.CharField(max_length=200)
     content = RichTextField(features=base_rich_text_options, blank=True)
     link_label = models.CharField(max_length=2048, blank=True)
-    link_target_url = models.URLField(blank=True)
+    link_target_url = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        validators=[
+            RegexValidator(
+                regex=url_or_query_regex,
+                message="Please enter a valid URL (starting with http:// or https://), or a valid query string starting with ? (Ex: ?form=donate).",
+            ),
+        ],
+    )
     link_target_page = models.ForeignKey(
         Page,
         null=True,
