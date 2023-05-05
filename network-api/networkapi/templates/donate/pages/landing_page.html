@@ -4,38 +4,38 @@
 {% block body_id %}landing{% endblock %}
 
 {% block content %}
-<div class="tw-container tw-my-[50px]">
-    <div class="tw-row">
-        <div class="tw-w-full medium:tw-w-6/12 tw-px-8">
-            <picture class="tw-w-full">
-                {% image page.featured_image fill-290x95 as imageMobile %}
-                {% image page.featured_image fill-580x190 as imageMobile_2x %}
-                {% image page.featured_image width-350 as imageTablet %}
-                {% image page.featured_image width-700 as imageTablet_2x %}
-                {% image page.featured_image width-690 as imageDesktop %}
-                {% image page.featured_image width-1380 as imageDesktop_2x %}
-                <source media="(min-width: 1201px)" srcset="{{ imageDesktop.url }}, {{ imageDesktop_2x.url }} 2x">
-                <source media="(min-width: 600px)" srcset="{{ imageTablet.url }}, {{ imageTablet_2x.url }} 2x">
-                <source srcset="{{ imageMobile.url }}, {{ imageMobile_2x.url }} 2x">
+    <div class="tw-container tw-my-[50px]">
+        <div class="tw-row">
+            <div class="tw-w-full medium:tw-w-6/12 tw-px-8">
+                <picture class="tw-w-full">
+                    {% image page.featured_image fill-290x95 as imageMobile %}
+                    {% image page.featured_image fill-580x190 as imageMobile_2x %}
+                    {% image page.featured_image width-350 as imageTablet %}
+                    {% image page.featured_image width-700 as imageTablet_2x %}
+                    {% image page.featured_image width-690 as imageDesktop %}
+                    {% image page.featured_image width-1380 as imageDesktop_2x %}
+                    <source media="(min-width: 1201px)" srcset="{{ imageDesktop.url }}, {{ imageDesktop_2x.url }} 2x">
+                    <source media="(min-width: 600px)" srcset="{{ imageTablet.url }}, {{ imageTablet_2x.url }} 2x">
+                    <source srcset="{{ imageMobile.url }}, {{ imageMobile_2x.url }} 2x">
 
-                <img src="{{ imageMobile.url }}" class="tw-w-full" alt="{% trans "featured image" %}">
-            </picture>
-            <h1 class="medium:tw-hidden">{{ page.title }}</h1>
-            <div class="intro">
-                {{ page.intro|richtext }}
+                    <img src="{{ imageMobile.url }}" class="tw-w-full" alt="{% trans "featured image" %}">
+                </picture>
+                <h1 class="medium:tw-hidden">{{ page.title }}</h1>
+                <div class="intro">
+                    {{ page.intro|richtext }}
+                </div>
+            </div>
+            <div class="tw-w-full medium:tw-w-6/12 tw-px-8">
+                <div class="medium:tw-ml-12">
+                    <h1 class="tw-mt-0 tw-pl-12 tw-hidden medium:tw-block">{{ page.title }}</h1>
+                    {% include "../fragments/fundraise_up_form.html" %}
+                </div>
             </div>
         </div>
-        <div class="tw-w-full medium:tw-w-6/12 tw-px-8">
-            <div class="medium:tw-ml-12">
-                <h1 class="tw-mt-0 tw-pl-12 tw-hidden medium:tw-block">{{ page.title }}</h1>
-                {% include "../fragments/fundraise_up_form.html" %}
+        <div class="tw-row tw-my-12">
+            <div class="tw-w-full tw-px-8">
+                {% include "../fragments/fundraise_up_disclaimer.html" %}
             </div>
         </div>
     </div>
-    <div class="tw-row tw-my-12">
-        <div class="tw-w-full tw-px-8">
-            {% include "../fragments/fundraise_up_disclaimer.html" %}
-        </div>
-    </div>
-</div>
 {% endblock %}
