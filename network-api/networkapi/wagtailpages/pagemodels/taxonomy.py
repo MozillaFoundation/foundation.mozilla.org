@@ -1,18 +1,19 @@
 from django.db import models
-from wagtail.admin import FieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
 
 
 class BaseTaxonomy(TranslatableMixin):
-    name = models.CharField(max_length=70, blank=False)
+    name = models.CharField(max_length=50, null=False, blank=False)
 
     panels = [
         FieldPanel("name"),
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         abstract = True
+        ordering = ["name"]
 
     search_fields = [
         index.SearchField("name", partial_match=True),
