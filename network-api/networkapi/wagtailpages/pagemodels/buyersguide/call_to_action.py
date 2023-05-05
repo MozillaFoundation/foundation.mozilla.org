@@ -39,7 +39,6 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, LocalizedSnippet
     link_target_url = models.CharField(
         max_length=255,
         blank=True,
-        null=True,
         validators=[
             RegexValidator(
                 regex=url_or_query_regex,
