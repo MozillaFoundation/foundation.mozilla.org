@@ -7,7 +7,7 @@
     <div class="tw-container tw-my-[50px]">
         <div class="tw-row">
             <div class="tw-w-full medium:tw-w-6/12 tw-px-8">
-                <picture class="tw-w-full tw-mb-8">
+                <picture class="tw-w-full">
                     {% image page.featured_image fill-290x95 as imageMobile %}
                     {% image page.featured_image fill-580x190 as imageMobile_2x %}
                     {% image page.featured_image width-350 as imageTablet %}
@@ -18,7 +18,7 @@
                     <source media="(min-width: 600px)" srcset="{{ imageTablet.url }}, {{ imageTablet_2x.url }} 2x">
                     <source srcset="{{ imageMobile.url }}, {{ imageMobile_2x.url }} 2x">
 
-                    <img src="{{ imageMobile.url }}" class="tw-w-full" alt="{% trans "featured image" %}">
+                    <img src="{{ imageMobile.url }}" class="tw-w-full tw-mb-8" alt="{% trans "featured image" %}">
                 </picture>
                 <h1 class="medium:tw-hidden">{{ page.title }}</h1>
                 <div class="intro">
