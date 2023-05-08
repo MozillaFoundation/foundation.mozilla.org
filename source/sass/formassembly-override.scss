@@ -1,6 +1,6 @@
 @import "mofo-bootstrap/colors";
 
-$font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif;
+$font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif !important;
 
 .wFormContainer {
   font-family: $font-family-sans-serif;
@@ -32,7 +32,7 @@ $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif;
     }
 
     // Mocking our .tw-btn-primary
-    #submit_button {
+    .actions .primaryAction#submit_button {
       font-family: $font-family-sans-serif;
       display: inline-block;
       font-weight: 700;
@@ -53,8 +53,8 @@ $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif;
         -webkit-box-shadow 0.15s ease-in-out;
       color: $white;
       background-color: $blue;
-
       width: 100%;
+      margin-top: 1rem;
 
       &:focus,
       &:hover {
@@ -84,6 +84,7 @@ $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif;
       select,
       select:not([multiple]),
       textarea {
+        font-family: $font-family-sans-serif;
         width: 100%;
         padding: 1rem 0.75rem;
         height: auto !important;
@@ -112,4 +113,11 @@ $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif;
 #tfa_492-L,
 #tfa_494-L {
   display: none;
+}
+
+
+// Reduce margin above email subscription checkbox
+//   Email subscription #tfa_494-D
+#tfa_494-D {
+  margin-top: 0;
 }
