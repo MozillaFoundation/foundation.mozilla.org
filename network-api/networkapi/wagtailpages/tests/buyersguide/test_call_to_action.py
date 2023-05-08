@@ -144,37 +144,61 @@ class BuyersGuideCallToActionTest(TestCase):
 
     def test_link_target_url_valid_formats(self):
         valid_urls = [
-            "http://google.com",
-            "http://google.com/?test_param=test",
-            "?test_param=test",
-            "?test_param=test&other_param=test",
+            "http://example.com",
+            "https://example.com",
+            "http://www.example.com",
+            "https://www.example.com",
+            "http://example.com/test_underscore",
+            "http://example.com/test_(parenthesis)",
+            "https://example.com/path/to/page?param1=value1&param2=value2[1]&param3=value3[2]",
+            "https://example.com/path/?list_of_params=1,2,3"
+            "http://www.example.com/test/?p=364",
+            "https://www.example.com/test/?param1=value1&param2=42&other_param",
+            "http://example.com/page#cite-1",
+            "http://example.com/path/to/page/#cite-1",
+            "http://example.com/path/to/page/#cite-1?with_params=true",
+            "http://example.com/path/to/page/#cite-1/?with_params=true",
+            "http://example.com/path/to/page/#cite-1/?param_1=value1&param_2=value2",
+            "http://example.bar/?q=Test%20URL-encoded%20stuff",
+            "http://example.com?param_1=value_1",
+            "http://example.com/?param_1=value_1&param2=value2",
+            "?param_1=value1",
+            "?param_1=value1&param_2=value2",
+            "?param_1=value1&param_2=1234",
         ]
 
         for url in valid_urls:
-            data = {
-                "title": "Test CTA",
-                "link_label": "Test Link",
-                "link_target_url": url,
-            }
-            form = self.form_class(data=data)
+            with self.subTest(name=url):
+            # Do test and assertions
+                data = {
+                    "title": "Test CTA",
+                    "link_label": "Test Link",
+                    "link_target_url": url,
+                }
+                form = self.form_class(data=data)
 
-            self.assertTrue(form.is_valid())
+                self.assertTrue(form.is_valid())
 
     def test_link_target_url_invalid_formats(self):
         invalid_urls = [
-            "google.com",
+            "example.com",
             "not_a_valid_string",
+            "not a valid string",
             "invalid_param=test",
+            "http://example.com?q=Spaces should be encoded",
+            "//test",
+            "http:// example.com",
         ]
 
         for url in invalid_urls:
-            data = {
-                "title": "Test CTA",
-                "link_label": "Test Link",
-                "link_target_url": url,
-            }
-            form = self.form_class(data=data)
+            with self.subTest(name=url):
+                data = {
+                    "title": "Test CTA",
+                    "link_label": "Test Link",
+                    "link_target_url": url,
+                }
+                form = self.form_class(data=data)
 
-            self.assertFalse(form.is_valid())
-            self.assertEqual(1, len(form.errors))
-            self.assertIn("link_target_url", form.errors)
+                self.assertFalse(form.is_valid())
+                self.assertEqual(1, len(form.errors))
+                self.assertIn("link_target_url", form.errors)
