@@ -1,6 +1,5 @@
 import datetime
 import os
-import time
 
 from django.core import management
 from django.utils import translation
@@ -24,7 +23,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             management.call_command("update_index", verbosity=0, stdout=f)
 
     def test_get_research_detail_pages(self):
-        start_time = time.time()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
@@ -37,12 +35,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(research_detail_pages), 2)
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertIn(detail_page_2, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_get_research_detail_pages: {execution_time} seconds")
 
     def test_get_research_detail_pages_with_translation_aliases(self):
-        start_time = time.time()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
@@ -60,12 +54,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_2, research_detail_pages)
         self.assertNotIn(fr_detail_page_1, research_detail_pages)
         self.assertNotIn(fr_detail_page_2, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_detail_pages_in_context_with_translation_aliases: {execution_time} seconds")
 
     def test_private_detail_pages_are_hidden(self):
-        start_time = time.time()
         public_detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
@@ -78,12 +68,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(public_detail_page, research_detail_pages)
         self.assertNotIn(private_detail_page, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_private_detail_pages_not_in_context: {execution_time} seconds")
+
 
     def test_search_by_detail_page_title(self):
-        start_time = time.time()
         # Fields other than title are empty to avoid accidental test failures due to
         # fake data generation.
         apple_page = detail_page_factory.ResearchDetailPageFactory(
@@ -105,12 +92,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_search_by_detail_page_title: {execution_time} seconds")
+
 
     def test_search_by_detail_page_introduction(self):
-        start_time = time.time()
         apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Cherry",
@@ -131,12 +115,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_search_by_detail_page_introduction: {execution_time} seconds")
+
 
     def test_search_by_detail_page_overview(self):
-        start_time = time.time()
         apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Cherry",
@@ -157,12 +138,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_search_by_detail_page_overview: {execution_time} seconds")
 
     def test_search_by_detail_page_collaborators(self):
-        start_time = time.time()
         apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Cherry",
@@ -183,13 +160,10 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_search_by_detail_page_collaborators: {execution_time} seconds")
+
 
     def test_search_by_detail_page_author_name(self):
         """Test detail page can be searched by author profile name."""
-        start_time = time.time()
         apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Cherry",
@@ -226,13 +200,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
 
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_search_by_detail_page_author_name: {execution_time} seconds")
 
     def test_search_by_detail_page_topic_name(self):
         """Test detail page can be searched by topic name."""
-        start_time = time.time()
         apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Cherry",
@@ -268,13 +238,10 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_search_by_detail_page_topic_name: {execution_time} seconds")
+
 
     def test_search_by_detail_page_region_name(self):
         """Test detail page can be searched by region name."""
-        start_time = time.time()
         apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Cherry",
@@ -304,12 +271,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_search_by_detail_page_region_name: {execution_time} seconds")
+
 
     def test_sort_newest_first(self):
-        start_time = time.time()
         oldest_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=research_test_utils.days_ago(2),
@@ -324,12 +288,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         newest_page_index = research_detail_pages.index(newest_page)
         oldest_page_index = research_detail_pages.index(oldest_page)
         self.assertLess(newest_page_index, oldest_page_index)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_sort_newest_first: {execution_time} seconds")
 
     def test_sort_oldest_first(self):
-        start_time = time.time()
         oldest_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=research_test_utils.days_ago(2),
@@ -344,13 +304,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         newest_page_index = research_detail_pages.index(newest_page)
         oldest_page_index = research_detail_pages.index(oldest_page)
         self.assertLess(oldest_page_index, newest_page_index)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_sort_oldest_first: {execution_time} seconds")
 
     def test_sort_alphabetical(self):
-        start_time = time.time()
-
         apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Apple",
@@ -365,12 +320,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         apple_page_index = research_detail_pages.index(apple_page)
         banana_page_index = research_detail_pages.index(banana_page)
         self.assertLess(apple_page_index, banana_page_index)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_sort_alphabetical: {execution_time} seconds")
+
 
     def test_sort_alphabetical_reversed(self):
-        start_time = time.time()
 
         apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
@@ -388,12 +340,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         apple_page_index = research_detail_pages.index(apple_page)
         banana_page_index = research_detail_pages.index(banana_page)
         self.assertLess(banana_page_index, apple_page_index)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_sort_alphabetical_reversed: {execution_time} seconds")
 
     def test_get_research_detail_pages_sort_default(self):
-        start_time = time.time()
 
         detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
@@ -410,13 +358,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
 
         self.assertEqual(default_sort_detail_pages, newest_first_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_get_research_detail_pages_sort_default: {execution_time} seconds")
+
 
     def test_filter_author_profile(self):
-        start_time = time.time()
-
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
@@ -433,12 +377,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_filter_author_profile: {execution_time} seconds")
 
     def test_filter_multiple_author_profiles(self):
-        start_time = time.time()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
@@ -462,9 +402,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         research_detail_pages = response.context["research_detail_pages"]
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertIn(detail_page_2, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_filter_multiple_author_profiles: {execution_time} seconds")
+
 
     def test_filter_localized_author_profile(self):
         """
@@ -477,8 +415,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         is not associated with the translated profile, but we still want to see it in
         the results.
         """
-        start_time = time.time()
-
         profile = profiles_factory.ProfileFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
@@ -505,13 +441,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_2_fr, research_detail_pages)
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_filter_localized_author_profile: {execution_time} seconds")
+
 
     def test_filter_topic(self):
-        start_time = time.time()
-
         topic_A = taxonomies_factory.ResearchTopicFactory()
         detail_page_A = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
@@ -527,13 +459,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         self.assertIn(detail_page_A, research_detail_pages)
         self.assertNotIn(detail_page_B, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_filter_topic: {execution_time} seconds")
+
 
     def test_filter_multiple_topics(self):
-        start_time = time.time()
-
         topic_A = taxonomies_factory.ResearchTopicFactory()
         topic_B = taxonomies_factory.ResearchTopicFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
@@ -552,9 +480,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_filter_multiple_topics: {execution_time} seconds")
+
 
     def test_filter_localized_topic(self):
         """
@@ -567,8 +493,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         is not associated with the translated topic, but we still want to see it in
         the results.
         """
-        start_time = time.time()
-
         topic = taxonomies_factory.ResearchTopicFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
@@ -594,12 +518,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_2_fr, research_detail_pages)
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_filter_localized_topic: {execution_time} seconds")
+
 
     def test_filter_region(self):
-        start_time = time.time()
         region_A = taxonomies_factory.ResearchRegionFactory()
         detail_page_A = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
@@ -616,13 +537,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_A, research_detail_pages)
         self.assertNotIn(detail_page_B, research_detail_pages)
 
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_filter_region: {execution_time} seconds")
 
     def test_filter_multiple_regions(self):
-        start_time = time.time()
-
         region_A = taxonomies_factory.ResearchRegionFactory()
         region_B = taxonomies_factory.ResearchRegionFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
@@ -641,9 +557,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_filter_multiple_regions: {execution_time} seconds")
 
     def test_filter_localized_region(self):
         """
@@ -656,8 +569,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         is not associated with the translated region, but we still want to see it in
         the results.
         """
-        start_time = time.time()
-
         region = taxonomies_factory.ResearchRegionFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
@@ -683,12 +594,8 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(detail_page_2_fr, research_detail_pages)
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_filter_localized_region: {execution_time} seconds")
 
     def test_filter_for_year(self):
-        start_time = time.time()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
@@ -704,8 +611,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_2, research_detail_pages)
 
     def test_pagination(self):
-        start_time = time.time()
-
         self.library_page.results_count = 4
         self.library_page.save()
         for _ in range(6):
@@ -718,7 +623,3 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(first_page_detail_pages), 4)
         second_page_detail_pages = second_page_response.context["research_detail_pages"]
         self.assertEqual(len(second_page_detail_pages), 2)
-
-        end_time = time.time()
-        execution_time = end_time - start_time
-        print(f"Execution time for test_pagination: {execution_time} seconds")
