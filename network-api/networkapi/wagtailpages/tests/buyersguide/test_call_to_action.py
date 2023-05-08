@@ -151,7 +151,7 @@ class BuyersGuideCallToActionTest(TestCase):
             "http://example.com/test_underscore",
             "http://example.com/test_(parenthesis)",
             "https://example.com/path/to/page?param1=value1&param2=value2[1]&param3=value3[2]",
-            "https://example.com/path/?list_of_params=1,2,3"
+            "https://example.com/path/?list_of_params=1,2,3",
             "http://www.example.com/test/?p=364",
             "https://www.example.com/test/?param1=value1&param2=42&other_param",
             "http://example.com/page#cite-1",
@@ -169,7 +169,6 @@ class BuyersGuideCallToActionTest(TestCase):
 
         for url in valid_urls:
             with self.subTest(name=url):
-            # Do test and assertions
                 data = {
                     "title": "Test CTA",
                     "link_label": "Test Link",
