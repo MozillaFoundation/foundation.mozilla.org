@@ -1,0 +1,115 @@
+@import "mofo-bootstrap/colors";
+
+$font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif;
+
+.wFormContainer {
+  font-family: $font-family-sans-serif;
+
+  .wFormHeader {
+    display: none;
+  }
+
+  .wForm {
+    border: 0;
+    margin-top: 0;
+
+    form {
+      padding: 0;
+
+      label {
+        font-family: $font-family-sans-serif;
+        margin-bottom: 0;
+      }
+    }
+
+    .reqMark::after {
+      content: "";
+    }
+
+    .oneField {
+      padding: 0;
+      border: 0;
+    }
+
+    // Mocking our .tw-btn-primary
+    #submit_button {
+      font-family: $font-family-sans-serif;
+      display: inline-block;
+      font-weight: 700;
+      line-height: 1.22;
+      text-align: center;
+      white-space: normal;
+      vertical-align: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      border: 2px solid $blue;
+      padding: 0.5rem 1rem;
+      font-size: 18px;
+      border-radius: 0;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+        -webkit-box-shadow 0.15s ease-in-out;
+      color: $white;
+      background-color: $blue;
+
+      width: 100%;
+
+      &:focus,
+      &:hover {
+        color: $white;
+        background-color: $dark-blue;
+        border-color: transparent;
+        text-decoration: none;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:focus {
+        outline: 0;
+        -webkit-box-shadow: 0 0 0 0.2rem rgb(38 143 255 / 50%);
+        box-shadow: 0 0 0 0.2rem rgb(38 143 255 / 50%);
+      }
+    }
+
+    .inputWrapper {
+      width: 100% !important;
+
+      input[type="text"],
+      input[type="text"].validate-email,
+      input[type="password"],
+      select,
+      select:not([multiple]),
+      textarea {
+        width: 100%;
+        padding: 1rem 0.75rem;
+        height: auto !important;
+      }
+    }
+  }
+}
+
+.required:not(.choices):not(select):not(.wfAutosuggest) {
+  padding: 1rem 0.75rem !important;
+}
+
+// Hidden fields:
+//   Campaign ID #tfa_1-D
+//   Source URL #tfa_498-D
+//   Lang #tfa_499-D
+#tfa_1-D,
+#tfa_498-D,
+#tfa_499-D {
+  display: none;
+}
+
+// Hidden labels:
+//   Privacy agreenment #tfa_492-L
+//   Email subscription #tfa_494-L
+#tfa_492-L,
+#tfa_494-L {
+  display: none;
+}
