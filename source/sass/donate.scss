@@ -1,9 +1,3 @@
-/*
-* Styling rules in this file are to be converted into Tailwind classes.
-* This SCSS file is to be deleted.
-* --------------------------------------------------
-*/
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -56,4 +50,10 @@ img {
   font: 0/0 a;
   text-shadow: none;
   border: 0;
+}
+
+#view-landing .intro .richtext > {
+  p {
+    @apply medium:tw-body-large;
+  }
 }
