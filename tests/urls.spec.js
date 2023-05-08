@@ -1,11 +1,18 @@
-const { test } = require("@playwright/test");
+const { test, expect } = require("@playwright/test");
 const FoundationURLs = require("./foundation-urls.js");
 const MozfestURLs = require("./mozfest-urls.js");
 
+/**
+ * Test to see if the given URL can be loaded
+ * and visiting it returns a successful response (status 200)
+ * @param {String} domain
+ * @param {String} path
+ */
 function testURL(domain, path) {
   return async ({ page }) => {
     const url = `${domain}${path}/`;
-    await page.goto(url);
+    const response = await page.goto(url);
+    expect(response.status()).toBe(200);
   };
 }
 

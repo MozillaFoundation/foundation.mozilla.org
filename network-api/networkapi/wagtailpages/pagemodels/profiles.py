@@ -1,18 +1,12 @@
 from django.db import models
+from django.db.models import F, Value
+from django.db.models.functions import Concat
 from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-
-
-class ProfileQuerySet(models.QuerySet):
-    def filter_research_authors(self):
-        return self.filter(authored_research__isnull=False).distinct()
-
-    def filter_blog_authors(self):
-        return self.filter(blogauthors__isnull=False).distinct()
 
 
 @register_snippet
@@ -57,14 +51,13 @@ class Profile(index.Indexed, TranslatableMixin, models.Model):
         index.FilterField("locale_id"),
     ]
 
-    objects = ProfileQuerySet.as_manager()
-
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(f"{self.name}-{str(self.id)}")
+        self.slug = slugify(self.name)
         super(Profile, self).save(*args, **kwargs)
+        self._meta.model.objects.filter(id=self.id).update(slug=Concat(F("slug"), Value("-"), F("id")))
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
