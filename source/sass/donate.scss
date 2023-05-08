@@ -52,8 +52,6 @@ img {
   border: 0;
 }
 
-#view-landing .intro .richtext > {
-  p {
-    @apply medium:tw-body-large;
-  }
+#view-landing .intro .rich-text {
+  @apply medium:tw-body-large;
 }
