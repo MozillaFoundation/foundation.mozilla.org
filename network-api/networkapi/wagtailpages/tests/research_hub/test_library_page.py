@@ -69,7 +69,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(public_detail_page, research_detail_pages)
         self.assertNotIn(private_detail_page, research_detail_pages)
 
-
     def test_search_by_detail_page_title(self):
         # Fields other than title are empty to avoid accidental test failures due to
         # fake data generation.
@@ -93,7 +92,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
 
-
     def test_search_by_detail_page_introduction(self):
         apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
@@ -115,7 +113,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
-
 
     def test_search_by_detail_page_overview(self):
         apple_page = detail_page_factory.ResearchDetailPageFactory(
@@ -161,7 +158,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
 
-
     def test_search_by_detail_page_author_name(self):
         """Test detail page can be searched by author profile name."""
         apple_page = detail_page_factory.ResearchDetailPageFactory(
@@ -199,7 +195,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
-
 
     def test_search_by_detail_page_topic_name(self):
         """Test detail page can be searched by topic name."""
@@ -239,7 +234,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
 
-
     def test_search_by_detail_page_region_name(self):
         """Test detail page can be searched by region name."""
         apple_page = detail_page_factory.ResearchDetailPageFactory(
@@ -271,7 +265,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
-
 
     def test_sort_newest_first(self):
         oldest_page = detail_page_factory.ResearchDetailPageFactory(
@@ -321,7 +314,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         banana_page_index = research_detail_pages.index(banana_page)
         self.assertLess(apple_page_index, banana_page_index)
 
-
     def test_sort_alphabetical_reversed(self):
 
         apple_page = detail_page_factory.ResearchDetailPageFactory(
@@ -358,7 +350,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
 
         self.assertEqual(default_sort_detail_pages, newest_first_detail_pages)
-
 
     def test_filter_author_profile(self):
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
@@ -403,7 +394,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertIn(detail_page_2, research_detail_pages)
 
-
     def test_filter_localized_author_profile(self):
         """
         When filtering for a localized author profile, we also want to show pages
@@ -442,7 +432,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
 
-
     def test_filter_topic(self):
         topic_A = taxonomies_factory.ResearchTopicFactory()
         detail_page_A = detail_page_factory.ResearchDetailPageFactory(
@@ -459,7 +448,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         self.assertIn(detail_page_A, research_detail_pages)
         self.assertNotIn(detail_page_B, research_detail_pages)
-
 
     def test_filter_multiple_topics(self):
         topic_A = taxonomies_factory.ResearchTopicFactory()
@@ -480,7 +468,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
-
 
     def test_filter_localized_topic(self):
         """
@@ -519,7 +506,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
 
-
     def test_filter_region(self):
         region_A = taxonomies_factory.ResearchRegionFactory()
         detail_page_A = detail_page_factory.ResearchDetailPageFactory(
@@ -536,7 +522,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
 
         self.assertIn(detail_page_A, research_detail_pages)
         self.assertNotIn(detail_page_B, research_detail_pages)
-
 
     def test_filter_multiple_regions(self):
         region_A = taxonomies_factory.ResearchRegionFactory()
