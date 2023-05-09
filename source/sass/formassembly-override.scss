@@ -89,6 +89,18 @@ $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif !important;
         padding: 1rem 0.75rem;
         height: auto !important;
       }
+
+      textarea:focus,
+      textarea.required:focus,
+      input[type="text"]:focus,
+      input[type="text"].required:focus,
+      input[type="password"]:focus,
+      input[type="password"].required:focus,
+      select:focus,
+      select.required:focus {
+        outline-style: auto;
+        border: 1px solid #80bdff !important;
+      }
     }
   }
 }
@@ -114,7 +126,6 @@ $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif !important;
 #tfa_494-L {
   display: none;
 }
-
 
 // Reduce margin above email subscription checkbox
 //   Email subscription #tfa_494-D
