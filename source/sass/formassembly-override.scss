@@ -29,6 +29,15 @@ $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif !important;
     .oneField {
       padding: 0;
       border: 0;
+
+      &.errFld {
+        .inputWrapper input[type="text"],
+        .inputWrapper input[type="password"],
+        .inputWrapper textarea,
+        .inputWrapper select {
+          border-color: rgb(255, 79, 94) !important;
+        }
+      }
     }
 
     // Mocking our .tw-btn-primary
@@ -100,6 +109,10 @@ $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif !important;
       select.required:focus {
         outline-style: auto;
         border: 1px solid #80bdff !important;
+      }
+
+      .errMsg {
+        color: rgb(255, 79, 94) !important;
       }
     }
   }
