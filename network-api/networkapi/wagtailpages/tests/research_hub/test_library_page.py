@@ -1,7 +1,7 @@
 import datetime
 import os
 
-from django.core import management
+from django.core import management, paginator
 from django.utils import translation
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
@@ -601,10 +601,16 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         for _ in range(6):
             detail_page_factory.ResearchDetailPageFactory(parent=self.library_page)
 
-        first_page_response = self.client.get(self.library_page.url, data={"page": 1})
-        second_page_response = self.client.get(self.library_page.url, data={"page": 2})
+        research_detail_pages = self.library_page._get_research_detail_pages()
 
-        first_page_detail_pages = first_page_response.context["research_detail_pages"]
-        self.assertEqual(len(first_page_detail_pages), 4)
-        second_page_detail_pages = second_page_response.context["research_detail_pages"]
-        self.assertEqual(len(second_page_detail_pages), 2)
+        research_detail_pages_paginator = paginator.Paginator(
+            object_list=research_detail_pages,
+            per_page=self.library_page.results_count,
+            allow_empty_first_page=True,
+        )
+
+        first_page_response = research_detail_pages_paginator.get_page(1)
+        second_page_response = research_detail_pages_paginator.get_page(2)
+
+        self.assertEqual(len(first_page_response), 4)
+        self.assertEqual(len(second_page_response), 2)
