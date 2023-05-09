@@ -1,6 +1,8 @@
 @import "mofo-bootstrap/colors";
 
 $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif !important;
+$validation-color: rgb(255, 79, 94) !important;
+$input-font-size: 1.25rem !important;
 
 .wFormContainer {
   font-family: $font-family-sans-serif;
@@ -35,7 +37,7 @@ $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif !important;
         .inputWrapper input[type="password"],
         .inputWrapper textarea,
         .inputWrapper select {
-          border-color: rgb(255, 79, 94) !important;
+          border-color: $validation-color;
         }
       }
     }
@@ -97,6 +99,7 @@ $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif !important;
         width: 100%;
         padding: 1rem 0.75rem;
         height: auto !important;
+        font-size: $input-font-size;
       }
 
       textarea:focus,
@@ -112,7 +115,13 @@ $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif !important;
       }
 
       .errMsg {
-        color: rgb(255, 79, 94) !important;
+        color: $validation-color;
+      }
+
+      .saveAndResume input[type="text"],
+      .saveAndResume input[type="password"],
+      .required:not(.choices):not(select):not(.wfAutosuggest) {
+        font-size: $input-font-size;
       }
     }
   }
@@ -132,11 +141,13 @@ $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif !important;
   display: none;
 }
 
-// Hidden labels:
+// Hide labels and extra line breaks:
 //   Privacy agreenment #tfa_492-L
 //   Email subscription #tfa_494-L
 #tfa_492-L,
-#tfa_494-L {
+#tfa_492-L br,
+#tfa_494-L,
+#tfa_494-L br {
   display: none;
 }
 
