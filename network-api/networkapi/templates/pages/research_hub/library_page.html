@@ -1,8 +1,8 @@
 {% extends "./base.html" %}
-{% load i18n static wagtailcore_tags wagtailimages_tags %}
+{% load i18n static wagtailcore_tags wagtailimages_tags breadcrumbs %}
 {% block research_hub_content %}
     <div>
-        {% include 'fragments/breadcrumbs.html' with breadcrumb_list=breadcrumbs %}
+        {% get_research_breadcrumbs %}
         <h1>{{ page.title }}</h1>
     </div>
     <div class="large:tw-w-160 large:tw-h-64 tw-mt-12 tw-mb-8 large:tw-mb-0 large:-tw-ml-12 large:tw-p-12 large:tw-bg-gray-05">
