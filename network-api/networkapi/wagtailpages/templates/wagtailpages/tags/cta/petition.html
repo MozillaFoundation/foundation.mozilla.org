@@ -1,4 +1,4 @@
-{% load i18n l10n wagtailcore_tags %}
+{% load i18n l10n wagtailcore_tags static %}
 
 <div>
     <!-- ShareProgress button embedding doc:
@@ -26,6 +26,7 @@
             For field name reference, see https://mozillafoundation.tfaforms.net/forms/definition/9
         {% endcomment %}
         {% include "../../fragments/formassembly_body.html" with campaign_id_tfa_1=cta.campaign_id source_url_tfa_498=source_url lang_tfa_499=lang %}
+        <link rel="stylesheet" href="{% static "_css/formassembly-override.compiled.css" %}">
     {% endif %}
 
     <div

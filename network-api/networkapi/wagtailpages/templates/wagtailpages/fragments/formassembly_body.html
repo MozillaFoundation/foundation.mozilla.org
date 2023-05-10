@@ -1,3 +1,27 @@
+{% load i18n %}
+
+{% comment %}
+*** IMPORTANT ***
+
+Please follow the steps below every time after you paste a new version of FormAssembly code.
+
+1. Replace everything starting from <!-- FORM: BODY SECTION -->
+2. Run `inv format-html` in terminal
+3. Plug in values into several fields
+    - Go to petition.html and look for this line {% include "../../fragments/formassembly_body.html"
+    - Update the variable names to they match the new FormAssembly field names
+    - Plug in those variables into corresponding form fields in formassembly_body.html
+4. If form field names are changed, update the bottom section of formassembly_override.scss to reflect new field names
+5. Get localization working again.
+    - Localize form fields. e.g., {% trans "text to be translated" %} or {% blocktrans %} ... {% endblocktrans %}
+      - first name, last name, email, country, postal code, comments, privacy notice, email subscription
+    - Go to formassembly_head.html
+        and update script file name https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-en_US.js?v=...
+        with {% fa_locale_code %}
+        e.g., https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=...
+
+{% endcomment %}
+
 <!-- FORM: BODY SECTION -->
 <div class="wFormContainer" style="max-width: 100%; width:auto;">
     <div class="wFormHeader"></div>
@@ -17,16 +41,16 @@
                 <label id="tfa_499-L" class="label preField reqMark" for="tfa_499">Lang</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_499" name="tfa_499" value="{{ lang_tfa_499 }}" title="Lang" class="required"></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_28-D">
-                <label id="tfa_28-L" class="label preField reqMark" for="tfa_28">First Name</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_28" name="tfa_28" value="" title="First Name" class="required"></div>
+                <label id="tfa_28-L" class="label preField reqMark" for="tfa_28">{% trans "First Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_28" name="tfa_28" value="" title="First Name" class="required"></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_30-D">
-                <label id="tfa_30-L" class="label preField reqMark" for="tfa_30">Last Name</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_30" name="tfa_30" value="" title="Last Name" class="required"></div>
+                <label id="tfa_30-L" class="label preField reqMark" for="tfa_30">{% trans "Last Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_30" name="tfa_30" value="" title="Last Name" class="required"></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_31-D">
-                <label id="tfa_31-L" class="label preField reqMark" for="tfa_31">Email</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_31" name="tfa_31" value="" title="Email" class="validate-email required"></div>
+                <label id="tfa_31-L" class="label preField reqMark" for="tfa_31">{% trans "Email" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_31" name="tfa_31" value="" title="Email" class="validate-email required"></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_254-D">
-                <label id="tfa_254-L" class="label preField " for="tfa_254">Country</label><br><div class="inputWrapper"><select id="tfa_254" name="tfa_254" title="Country" class=""><option value="">Please select...</option>
+                <label id="tfa_254-L" class="label preField " for="tfa_254">{% trans "Country" %}</label><br><div class="inputWrapper"><select id="tfa_254" name="tfa_254" title="Country" class=""><option value="">Please select...</option>
                     <option value="tfa_255" id="tfa_255" class="">Afghanistan</option>
                     <option value="tfa_256" id="tfa_256" class="">Albania</option>
                     <option value="tfa_257" id="tfa_257" class="">Algeria</option>
@@ -266,18 +290,18 @@
                     <option value="tfa_491" id="tfa_491" class="">Zimbabwe</option></select></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_496-D">
-                <label id="tfa_496-L" class="label preField " for="tfa_496">Postal Code</label><br><div class="inputWrapper"><input type="text" id="tfa_496" name="tfa_496" value="" title="Postal Code" class=""></div>
+                <label id="tfa_496-L" class="label preField " for="tfa_496">{% trans "Postal Code" %}</label><br><div class="inputWrapper"><input type="text" id="tfa_496" name="tfa_496" value="" title="Postal Code" class=""></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_497-D">
-                <label id="tfa_497-L" class="label preField " for="tfa_497">Comments</label><br><div class="inputWrapper"><textarea id="tfa_497" name="tfa_497" title="Comments" class=""></textarea></div>
+                <label id="tfa_497-L" class="label preField " for="tfa_497">{% trans "Comments" %}</label><br><div class="inputWrapper"><textarea id="tfa_497" name="tfa_497" title="Comments" class=""></textarea></div>
             </div>
             <div class="oneField field-container-D  labelsAbove  " id="tfa_492-D" role="group" aria-labelledby="tfa_492-L" data-tfa-labelledby="-L tfa_492-L" aria-required="true">
-                <label id="tfa_492-L" class="label preField reqMark" aria-label="Privacy Agreement   required">Privacy Agreement</label><br><div class="inputWrapper"><span id="tfa_492" class="choices vertical required" aria-required="true"><span class="oneChoice"><input type="checkbox" value="tfa_493" class="calc-DefaultName" id="tfa_493" name="tfa_493" aria-labelledby="tfa_493-L" data-tfa-labelledby="tfa_492-L tfa_493-L"><label class="label postField" id="tfa_493-L" for="tfa_493"><span class="input-checkbox-faux"></span>I'm okay with Mozilla handling my info as explained in this Privacy Notice.</label></span></span></div>
+                <label id="tfa_492-L" class="label preField reqMark" aria-label="Privacy Agreement   required">Privacy Agreement</label><br><div class="inputWrapper"><span id="tfa_492" class="choices vertical required" aria-required="true"><span class="oneChoice"><input type="checkbox" value="tfa_493" class="calc-DefaultName" id="tfa_493" name="tfa_493" aria-labelledby="tfa_493-L" data-tfa-labelledby="tfa_492-L tfa_493-L"><label class="label postField" id="tfa_493-L" for="tfa_493"><span class="input-checkbox-faux"></span>{% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}I'm okay with Mozilla handling my info as explained in this <a href="{{ link }}" target="_blank">Privacy Notice</a>.{% endblocktrans %}</label></span></span></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_494-D" role="group" aria-labelledby="tfa_494-L" data-tfa-labelledby="-L tfa_494-L">
                 <label id="tfa_494-L" class="label preField ">Email Subscription</label><br><div class="inputWrapper"><span id="tfa_494" class="choices vertical "><span class="oneChoice"><input type="checkbox" value="tfa_495" class="" id="tfa_495" name="tfa_495" aria-labelledby="tfa_495-L" data-tfa-labelledby="tfa_494-L tfa_495-L"><label class="label postField" id="tfa_495-L" for="tfa_495"><span class="input-checkbox-faux"></span>Yes, I want to receive email updates about Mozilla’s campaigns.</label></span></span></div>
             </div>
-            <div class="actions" id="9-A" data-contentid="submit_button"><input type="submit" data-label="Add my name" class="primaryAction" id="submit_button" value="Add my name"></div>
+            <div class="actions" id="9-A" data-contentid="submit_button"><input type="submit" data-label="Add my name" class="primaryAction" id="submit_button" value='{% trans "Add my name" %}'></div>
             <div style="clear:both"></div>
             <input type="hidden" value="9" name="tfa_dbFormId" id="tfa_dbFormId"><input type="hidden" value="" name="tfa_dbResponseId" id="tfa_dbResponseId"><input type="hidden" value="98d919a837a24531e4bbc050cdedb961" name="tfa_dbControl" id="tfa_dbControl"><input type="hidden" value="" name="tfa_dbWorkflowSessionUuid" id="tfa_dbWorkflowSessionUuid"><input type="hidden" value="25" name="tfa_dbVersionId" id="tfa_dbVersionId"><input type="hidden" value="" name="tfa_switchedoff" id="tfa_switchedoff">
         </form>
