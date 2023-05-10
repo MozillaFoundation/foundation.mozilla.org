@@ -23,8 +23,6 @@ body {
   scroll-behavior: smooth;
 }
 
-/* -------------------------------------------------- */
-
 article,
 aside,
 figcaption,
@@ -38,18 +36,8 @@ section {
   display: block;
 }
 
-/* -------------------------------------------------- */
-
 img {
   max-width: 100%;
-}
-
-/* -------------------------------------------------- */
-
-.text-hide {
-  font: 0/0 a;
-  text-shadow: none;
-  border: 0;
 }
 
 #view-landing .intro .rich-text {
