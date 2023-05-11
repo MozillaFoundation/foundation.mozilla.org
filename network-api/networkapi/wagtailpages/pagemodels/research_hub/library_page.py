@@ -3,7 +3,6 @@ from typing import Optional
 
 from django.core import paginator
 from django.db import models
-from django.utils.translation import pgettext_lazy
 from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
 from wagtail.admin import panels
@@ -12,19 +11,20 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
-from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
+from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.research_hub import (
     constants,
     detail_page,
     taxonomies,
 )
+from networkapi.wagtailpages.pagemodels.research_hub.forms import LibraryPageFilterForm
 
 if typing.TYPE_CHECKING:
     from django import http
     from django import template as django_template
 
 
-class ResearchLibraryPage(research_base.ResearchHubBasePage):
+class ResearchLibraryPage(BasePage):
     max_count = 1
 
     parent_page_types = ["ResearchLandingPage"]
@@ -32,6 +32,8 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
     subpage_types = ["ResearchDetailPage"]
 
     template = "pages/research_hub/library_page.html"
+
+    SORT_CHOICES = constants.SORT_CHOICES
 
     banner_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),
@@ -45,11 +47,11 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         help_text="Maximum number of results to be displayed per page.",
     )
 
-    content_panels = research_base.ResearchHubBasePage.content_panels + [
+    content_panels = BasePage.content_panels + [
         image_panels.FieldPanel("banner_image"),
     ]
 
-    settings_panels = research_base.ResearchHubBasePage.settings_panels + [panels.FieldPanel("results_count")]
+    settings_panels = BasePage.settings_panels + [panels.FieldPanel("results_count")]
 
     translatable_fields = [
         # Content tab fields
@@ -66,20 +68,20 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         search_query: str = request.GET.get("search", "")
         sort_value: str = request.GET.get("sort", "")
         sort: constants.SortOption = constants.SORT_CHOICES.get(sort_value, constants.SORT_NEWEST_FIRST)
-        filtered_author_ids: list[int] = [int(author_id) for author_id in request.GET.getlist("author")]
-        filtered_topic_ids: list[int] = [int(topic_id) for topic_id in request.GET.getlist("topic")]
-        filtered_region_ids: list[int] = [int(region_id) for region_id in request.GET.getlist("region")]
-        # Because a research detail page can only have a single publication date, we
-        # can also only select a single one. Otherwise we would filter for pages with
-        # two publication dates which does not exist.
-        year_parameter: str = request.GET.get("year", "")
-        filtered_year: Optional[int]
-        try:
-            filtered_year = int(year_parameter)
-        except ValueError:
-            # Any non-number year parameter will trigger the ValueError.
-            filtered_year = None
-        page: Optional[str] = request.GET.get("page")
+
+        filter_form = LibraryPageFilterForm(request.GET, label_suffix="")
+        if not filter_form.is_valid():
+            # If the form is not valid, we will not filter by any of the values.
+            # This will result in all research being displayed.
+            filtered_author_ids: list[int] = []
+            filtered_topic_ids: list[int] = []
+            filtered_region_ids: list[int] = []
+            filtered_year: Optional[int] = None
+
+        filtered_author_ids = filter_form.cleaned_data["author"]
+        filtered_topic_ids = filter_form.cleaned_data["topic"]
+        filtered_region_ids = filter_form.cleaned_data["region"]
+        filtered_year = filter_form.cleaned_data["year"]
 
         searched_and_filtered_research_detail_pages = self._get_research_detail_pages(
             search=search_query,
@@ -94,80 +96,17 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
             per_page=self.results_count,
             allow_empty_first_page=True,
         )
+
+        page: Optional[str] = request.GET.get("page")
         research_detail_pages_page = research_detail_pages_paginator.get_page(page)
 
         context: "django_template.Context" = super().get_context(request)
-        context["breadcrumbs"] = self.get_breadcrumbs()
         context["search_query"] = search_query
         context["sort"] = sort
-        context["author_options"] = self._get_author_options()
-        context["filtered_author_ids"] = filtered_author_ids
-        context["topic_options"] = self._get_topic_options()
-        context["filtered_topic_ids"] = filtered_topic_ids
-        context["region_options"] = self._get_region_options()
-        context["filtered_region_ids"] = filtered_region_ids
-        context["year_options"] = self._get_year_options()
-        context["filtered_year"] = filtered_year
+        context["form"] = filter_form
         context["research_detail_pages_count"] = research_detail_pages_paginator.count
         context["research_detail_pages"] = research_detail_pages_page
         return context
-
-    def _get_author_options(self):
-        author_profiles = profile_models.Profile.objects.filter_research_authors()
-        author_profiles = utils.localize_queryset(author_profiles)
-        return [
-            {
-                "id": author_profile.id,
-                "value": author_profile.id,
-                "label": author_profile.name,
-            }
-            for author_profile in author_profiles
-        ]
-
-    def _get_topic_options(self):
-        topics = taxonomies.ResearchTopic.objects.all()
-        topics = utils.localize_queryset(topics)
-        return [
-            {
-                "id": topic.id,
-                "value": topic.id,
-                "label": topic.name,
-            }
-            for topic in topics
-        ]
-
-    def _get_region_options(self):
-        regions = taxonomies.ResearchRegion.objects.all()
-        regions = utils.localize_queryset(regions)
-        return [
-            {
-                "id": region.id,
-                "value": region.id,
-                "label": region.name,
-            }
-            for region in regions
-        ]
-
-    def _get_year_options(self):
-        dates = detail_page.ResearchDetailPage.objects.dates(
-            "original_publication_date",
-            "year",
-            order="DESC",
-        )
-        year_options = [
-            {
-                "id": date.year,
-                "value": date.year,
-                "label": date.year,
-            }
-            for date in dates
-        ]
-        empty_option = {
-            "id": "any",
-            "value": "",
-            "label": pgettext_lazy("Option in a list of years", "Any"),
-        }
-        return [empty_option] + year_options
 
     def _get_research_detail_pages(
         self,
@@ -186,7 +125,7 @@ class ResearchLibraryPage(research_base.ResearchHubBasePage):
         research_detail_pages = detail_page.ResearchDetailPage.objects.live().public()
         research_detail_pages = research_detail_pages.filter(locale=wagtail_models.Locale.get_active())
 
-        author_profiles = profile_models.Profile.objects.filter_research_authors()
+        author_profiles = utils.get_research_authors(profile_models.Profile.objects.all())
         author_profiles = author_profiles.filter(id__in=author_profile_ids)
         for author_profile in author_profiles:
             # Synced but not translated pages are still associated with the default

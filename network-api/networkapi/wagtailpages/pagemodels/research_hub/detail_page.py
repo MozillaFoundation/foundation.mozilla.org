@@ -12,18 +12,18 @@ from wagtail.images import edit_handlers as image_handlers
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
+from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.pagemodels.research_hub import authors_index
-from networkapi.wagtailpages.pagemodels.research_hub import base as research_base
 from networkapi.wagtailpages.utils import localize_queryset
 
 logger = logging.getLogger(__name__)
 
 
-class ResearchDetailPage(research_base.ResearchHubBasePage):
+class ResearchDetailPage(BasePage):
     parent_page_types = ["ResearchLibraryPage"]
 
     subpage_types = ["ArticlePage", "PublicationPage"]
@@ -136,7 +136,6 @@ class ResearchDetailPage(research_base.ResearchHubBasePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["breadcrumbs"] = self.get_breadcrumbs()
         context["authors_index"] = authors_index.ResearchAuthorsIndexPage.objects.first()
         context["research_authors"] = self.get_research_authors()
         return context

@@ -91,7 +91,6 @@ mypy-extensions==0.4.3
     #   mypy
 packaging==21.3
     # via
-    #   -c requirements.txt
     #   pytest
     #   pytest-sugar
 pathspec==0.11.1
@@ -117,9 +116,7 @@ pyopenssl==23.0.0
     #   -c requirements.txt
     #   urllib3
 pyparsing==3.0.7
-    # via
-    #   -c requirements.txt
-    #   packaging
+    # via packaging
 pytest==7.3.1
     # via
     #   -r dev-requirements.in

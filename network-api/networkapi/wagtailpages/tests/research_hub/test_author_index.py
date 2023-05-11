@@ -261,23 +261,3 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(latest_research), 1)
         self.assertIn(detail_page_public, latest_research)
         self.assertNotIn(detail_page_private, latest_research)
-
-    def test_author_index_breadcrumbs(self):
-        breadcrumbs = self.author_index.get_breadcrumbs()
-        # Author Index page should only have 1 breadcrumb, "Research"
-        expected_breadcrumbs = [{"title": "Research", "url": "/en/research/"}]
-        self.assertEqual(len(breadcrumbs), 1)
-        self.assertEqual(breadcrumbs, expected_breadcrumbs)
-
-    def test_author_detail_breadcrumbs_override(self):
-        context = self.author_index.localized.get_author_detail_context(
-            profile_id=self.research_profile.id,
-        )
-        # Author Detail page should have 2 breadcrumbs, "Research/Authors"
-        expected_breadcrumbs = [
-            {"title": "Research", "url": "/en/research/"},
-            {"title": "Authors", "url": "/en/research/authors/"},
-        ]
-
-        self.assertEqual(len(context["breadcrumbs"]), 2)
-        self.assertEqual(context["breadcrumbs"], expected_breadcrumbs)
