@@ -43,7 +43,7 @@
         The following code {% if not show_formassembly_thank_you %} ... {% endif %}
         is to be deleted after FormAssembly petition is fully implemented and tested.
     {% endcomment %}
-    {% if not show_formassembly_thank_you %}
+    {% if not show_formassembly and not show_formassembly_thank_you %}
     <div
         class="sign-petition tw-w-full tw-mb-12"
         data-petition-id="{{ cta.id|unlocalize }}"

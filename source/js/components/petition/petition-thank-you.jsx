@@ -59,8 +59,11 @@ class PetitionThankYou extends Component {
         shareProgressButton.click();
       }
     } else {
-      // TODO: remove query param from URL
-      copyToClipboard(event.target, window.location.href);
+      // copying current page URL (without query param or hash) to clipboard
+      copyToClipboard(
+        event.target,
+        window.location.href.split("?")[0].split("#")[0]
+      );
     }
   }
 
