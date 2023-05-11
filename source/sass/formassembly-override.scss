@@ -131,16 +131,6 @@ $input-font-size: 1.25rem !important;
   padding: 1rem 0.75rem !important;
 }
 
-// Hidden fields:
-//   Campaign ID #tfa_1-D
-//   Source URL #tfa_498-D
-//   Lang #tfa_499-D
-#tfa_1-D,
-#tfa_498-D,
-#tfa_499-D {
-  display: none;
-}
-
 // Hide labels and extra line breaks:
 //   Privacy agreenment #tfa_492-L
 //   Email subscription #tfa_494-L
