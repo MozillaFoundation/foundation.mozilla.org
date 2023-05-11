@@ -17,6 +17,7 @@
         <div id="share-progress-em" class='{{ cta.share_email }} sp_em_small tw-hidden'></div>
     {% endif %}
 
+    {% comment %} The condition to show FormAssembly form {% endcomment %}
     {% if show_formassembly and not show_formassembly_thank_you %}
         <h5 class="tw-h5-heading">{{ cta.header | escape }}</h5>
         {{ cta.description | richtext }}
@@ -27,7 +28,9 @@
         {% endcomment %}
         {% include "../../fragments/formassembly_body.html" with campaign_id_tfa_1=cta.campaign_id source_url_tfa_498=source_url lang_tfa_499=lang %}
         <link rel="stylesheet" href="{% static "_css/formassembly-override.compiled.css" %}">
-        {% elif show_formassembly_thank_you and not show_formassembly %}
+
+    {% comment %} The condition to show FormAssembly form {% endcomment %}
+    {% elif show_formassembly_thank_you and not show_formassembly %}
         <div
             class="formassembly-petition-thank-you"
             data-cta-slug="{{ page.slug }}"
@@ -43,6 +46,7 @@
         The following code {% if not show_formassembly_thank_you %} ... {% endif %}
         is to be deleted after FormAssembly petition is fully implemented and tested.
     {% endcomment %}
+    {% comment %} The condition to show the original form {% endcomment %}
     {% if not show_formassembly and not show_formassembly_thank_you %}
     <div
         class="sign-petition tw-w-full tw-mb-12"
