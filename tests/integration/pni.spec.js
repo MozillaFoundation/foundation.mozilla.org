@@ -13,7 +13,9 @@ const waitForImagesToLoad = require("../wait-for-images.js");
  *       A issue has been filed to fix this at:
  *       https://github.com/mozilla/foundation.mozilla.org/issues/9373
  */
-test.fixme(`PNI search`, async ({ page }, testInfo) => {
+test(`PNI search`, async ({ page }) => {
+  test.fixme();
+
   page.on(`console`, console.log);
   await page.goto(`http://localhost:8000/en/privacynotincluded`);
   await page.locator(`body.react-loaded`);

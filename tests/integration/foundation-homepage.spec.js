@@ -1,7 +1,7 @@
 const { test, expect } = require("@playwright/test");
 const waitForImagesToLoad = require("../wait-for-images.js");
 
-test(`Foundation homepage`, async ({ page }, testInfo) => {
+test(`Foundation homepage`, async ({ page }) => {
   page.on(`console`, console.log);
   await page.goto(`http://localhost:8000/en/`);
   await page.locator(`body.react-loaded`);
