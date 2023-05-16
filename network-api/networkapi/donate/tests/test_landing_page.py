@@ -61,5 +61,5 @@ class DonateLandingPageTest(test_base.WagtailpagesTestCase):
 
         self.assertTemplateUsed(
             response=response,
-            template_name="pages/landing_page.html",
+            template_name="donate/pages/landing_page.html",
         )
