@@ -21,6 +21,7 @@ class TestGetResearchBreadcrumb(ResearchHubTestCase):
     def test_author_detail_breadcrumbs_override(self):
         detail_page = self.create_research_detail_page_on_parent(parent=self.library_page, days_ago=14)
         research_profile = profiles_factory.ProfileFactory()
+        research_profile.refresh_from_db()
         relations_factory.ResearchAuthorRelationFactory(
             research_detail_page=detail_page,
             author_profile=research_profile,
@@ -28,7 +29,7 @@ class TestGetResearchBreadcrumb(ResearchHubTestCase):
 
         profile_url = self.author_index.reverse_subpage(
             "wagtailpages:research-author-detail",
-            kwargs={"profile_id": research_profile.id, "profile_slug": text_utils.slugify(research_profile.name)},
+            kwargs={"profile_slug": research_profile.slug},
         )
 
         request = self.client.get(self.author_index.url + profile_url)

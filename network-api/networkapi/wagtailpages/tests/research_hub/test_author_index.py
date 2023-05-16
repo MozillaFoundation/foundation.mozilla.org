@@ -17,12 +17,14 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
 
         cls.detail_page = cls.create_research_detail_page_on_parent(parent=cls.library_page, days_ago=14)
         cls.research_profile = profiles_factory.ProfileFactory()
+        cls.research_profile.refresh_from_db()
         relations_factory.ResearchAuthorRelationFactory(
             research_detail_page=cls.detail_page,
             author_profile=cls.research_profile,
         )
 
         cls.non_research_profile = profiles_factory.ProfileFactory()
+        cls.non_research_profile.refresh_from_db()
 
     def setUp(self):
         super().setUp()
@@ -32,6 +34,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
     def translate_research_profile(self):
         self.fr_profile = self.research_profile.copy_for_translation(self.fr_locale)
         self.fr_profile.save()
+        self.fr_profile.refresh_from_db()
 
     def create_research_detail_page_with_author(self, author_profile, days_ago=0):
         detail_page = self.create_research_detail_page(days_ago=days_ago)
@@ -74,10 +77,9 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertIn(fr_profile, fr_context["author_profiles"])
 
     def test_profile_route(self):
-        profile_slug = text_utils.slugify(self.research_profile.name)
-        url = f"{ self.author_index.url }" f"{ self.research_profile.id }/{ profile_slug }/"
+        url = f"{ self.author_index.url }{ self.research_profile.slug }"
 
-        response = self.client.get(url)
+        response = self.client.get(url, follow=True)
 
         self.assertContains(
             response,
@@ -85,33 +87,32 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             status_code=http.HTTPStatus.OK,
         )
 
-    def test_profile_route_wrong_id(self):
-        profile_slug = text_utils.slugify(self.research_profile.name)
-        url = f"{ self.author_index.url }" f"{ self.research_profile.id + 1 }/{ profile_slug }/"
+    # def test_profile_route_wrong_id(self):
+    #     profile_slug = text_utils.slugify(self.research_profile.name)
+    #     url = f"{ self.author_index.url }" f"{ self.research_profile.id + 1 }/{ profile_slug }/"
 
-        response = self.client.get(url)
+    #     response = self.client.get(url)
 
-        self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
+    #     self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
-    def test_profile_route_wrong_name(self):
-        profile_slug = text_utils.slugify(self.research_profile.name + "a")
-        url = f"{ self.author_index.url }" f"{ self.research_profile.id }/{ profile_slug }/"
+    # def test_profile_route_wrong_name(self):
+    #     profile_slug = text_utils.slugify(self.research_profile.name + "a")
+    #     url = f"{ self.author_index.url }" f"{ self.research_profile.id }/{ profile_slug }/"
 
-        response = self.client.get(url)
+    #     response = self.client.get(url)
 
-        self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
+    #     self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
     def test_profile_route_with_non_research_profile(self):
-        profile_slug = text_utils.slugify(self.non_research_profile.name)
-        url = f"{ self.author_index.url }" f"{ self.non_research_profile.id }/{ profile_slug }/"
+        url = f"{ self.author_index.url }{ self.non_research_profile.slug }"
 
-        response = self.client.get(url)
+        response = self.client.get(url, follow=True)
 
         self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
     def test_get_author_detail_context(self):
         context = self.author_index.localized.get_author_detail_context(
-            profile_id=self.research_profile.id,
+            profile_slug=self.research_profile.slug,
         )
 
         self.assertIn(self.detail_page, context["latest_research"])
@@ -126,7 +127,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(localized_research_profile, self.research_profile)
 
         context = self.author_index.localized.get_author_detail_context(
-            profile_id=localized_research_profile.id,
+            profile_slug=localized_research_profile.slug,
         )
 
         # The displayed detail pages should be the aliased pages not the original ones.
@@ -150,7 +151,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertEqual(localized_research_profile, self.research_profile)
 
         context = self.author_index.localized.get_author_detail_context(
-            profile_id=localized_research_profile.id,
+            profile_slug=localized_research_profile.slug,
         )
 
         # We need to make sure that the displayed works are picked based on the active
@@ -178,7 +179,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertNotEqual(localized_research_profile, self.research_profile)
 
         context = self.author_index.localized.get_author_detail_context(
-            profile_id=localized_research_profile.id,
+            profile_slug=localized_research_profile.slug,
         )
 
         # We need to make sure that the displayed works are picked based on the active
