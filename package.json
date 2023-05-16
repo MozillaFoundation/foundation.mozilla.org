@@ -51,7 +51,7 @@
     "playwright:urls": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/urls.spec.js",
     "playwright:visual": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/visual.spec.js",
     "playwright:ci": "run-p --race server playwright:integration",
-    "playwright:integration": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/integration.spec.js",
+    "playwright:integration": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/integration/",
     "precommit": "npm run test",
     "prettier:js": "prettier \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" \"tests/**/*.js\" ./*.js",
     "prettier:scss": "prettier \"source/sass/**/*.scss\" \"source/js/**/*.scss\" \"network-api/networkapi/{,!(frontend)/**/}*.css\"",
