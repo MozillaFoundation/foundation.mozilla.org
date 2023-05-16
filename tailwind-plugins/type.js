@@ -8,6 +8,7 @@ module.exports = [
         base: "a",
         styles: (componentType) => ({
           color: theme("colors.blue.80"),
+          textDecoration: "none",
           "&:hover,&:focus,&:active": {
             color: theme("colors.blue.80"),
             textDecoration: "underline",
