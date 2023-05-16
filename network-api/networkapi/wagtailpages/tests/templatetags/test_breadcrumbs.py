@@ -1,5 +1,3 @@
-from django.utils import text as text_utils
-
 from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages.factory.research_hub import (
     detail_page as detail_page_factory,

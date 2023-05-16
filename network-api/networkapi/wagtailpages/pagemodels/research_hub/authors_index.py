@@ -1,6 +1,5 @@
 from django import http, shortcuts
 from django.db import models
-from django.utils import text as text_utils
 from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
 from wagtail.admin.panels import FieldPanel

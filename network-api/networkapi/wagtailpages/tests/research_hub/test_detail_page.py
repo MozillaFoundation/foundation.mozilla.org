@@ -1,7 +1,6 @@
 import wagtail_factories
 from django.core import exceptions
 from django.utils import translation
-from django.utils.text import slugify
 
 from networkapi.wagtailpages.factory.research_hub import (
     detail_page as detail_page_factory,

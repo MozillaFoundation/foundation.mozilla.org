@@ -1,6 +1,5 @@
 import http
 
-from django.utils import text as text_utils
 from django.utils import translation
 from wagtail_localize import synctree
 
@@ -86,22 +85,6 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             text=self.research_profile.name,
             status_code=http.HTTPStatus.OK,
         )
-
-    # def test_profile_route_wrong_id(self):
-    #     profile_slug = text_utils.slugify(self.research_profile.name)
-    #     url = f"{ self.author_index.url }" f"{ self.research_profile.id + 1 }/{ profile_slug }/"
-
-    #     response = self.client.get(url)
-
-    #     self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
-
-    # def test_profile_route_wrong_name(self):
-    #     profile_slug = text_utils.slugify(self.research_profile.name + "a")
-    #     url = f"{ self.author_index.url }" f"{ self.research_profile.id }/{ profile_slug }/"
-
-    #     response = self.client.get(url)
-
-    #     self.assertEqual(response.status_code, http.HTTPStatus.NOT_FOUND)
 
     def test_profile_route_with_non_research_profile(self):
         url = f"{ self.author_index.url }{ self.non_research_profile.slug }"
