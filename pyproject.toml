@@ -14,6 +14,9 @@ ignore="H017"
 # Over time, we should fix every file and remove it from the ignore list.
 [tool.djlint.per-file-ignores]
 "maintenance/maintenance.html" = "D004,H005,H006,H013,H014,H025,H026,H030,H031"
+"network-api/networkapi/templates/donate/fragments/footer.html" = "T003"
+"network-api/networkapi/templates/donate/pages/base.html" = "T003"
+"network-api/networkapi/templates/donate/pages/landing_page.html" = "H006, T003"
 "network-api/networkapi/mozfest/templates/fragments/event_card.html" = "H006"
 "network-api/networkapi/mozfest/templates/fragments/hero/carousel_hero.html" = "T002,H014"
 "network-api/networkapi/mozfest/templates/fragments/hero/featured_video.html" = "H021,H006"
