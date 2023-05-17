@@ -1,6 +1,5 @@
 from django import http, shortcuts
 from django.db import models
-from django.utils import text as text_utils
 from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
 from wagtail.admin.panels import FieldPanel
@@ -60,20 +59,13 @@ class ResearchAuthorsIndexPage(
         context["author_profiles"] = author_profiles
         return context
 
-    @routable_models.route(
-        r"^(?P<profile_id>[0-9]+)/(?P<profile_slug>[-a-z]+)/$", name="wagtailpages:research-author-detail"
-    )
+    @routable_models.route(r"^(?P<profile_slug>[-a-z0-9]+)/$", name="wagtailpages:research-author-detail")
     def author_detail(
         self,
         request: http.HttpRequest,
-        profile_id: str,
         profile_slug: str,
     ):
-        context_overrides = self.get_author_detail_context(profile_id=int(profile_id))
-
-        slugified_profile_name = text_utils.slugify(context_overrides["author_profile"].name)
-        if not slugified_profile_name == profile_slug:
-            raise http.Http404("Slug does not fit profile name")
+        context_overrides = self.get_author_detail_context(profile_slug=profile_slug)
 
         return self.render(
             request=request,
@@ -81,11 +73,11 @@ class ResearchAuthorsIndexPage(
             context_overrides=context_overrides,
         )
 
-    def get_author_detail_context(self, profile_id: int):
+    def get_author_detail_context(self, profile_slug: str):
         author_profiles = utils.localize_queryset(utils.get_research_authors(profiles.Profile.objects.all()))
         author_profile = shortcuts.get_object_or_404(
             author_profiles,
-            id=profile_id,
+            slug=profile_slug,
         )
 
         return {
