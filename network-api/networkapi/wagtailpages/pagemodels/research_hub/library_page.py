@@ -33,6 +33,8 @@ class ResearchLibraryPage(BasePage):
 
     template = "pages/research_hub/library_page.html"
 
+    SORT_CHOICES = constants.SORT_CHOICES
+
     banner_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),
         null=True,
