@@ -8,6 +8,7 @@ from django.core.management.base import BaseCommand
 from taggit.models import Tag
 
 # Factories
+import networkapi.donate.factory as donate_factory
 import networkapi.highlights.factory as highlights_factory
 import networkapi.mozfest.factory as mozfest_factory
 import networkapi.news.factory as news_factory
@@ -88,6 +89,7 @@ class Command(BaseCommand):
                 highlights_factory,
                 wagtailpages_factory,
                 mozfest_factory,
+                donate_factory,
             ]
         ]
 

@@ -1,9 +1,9 @@
-{% extends "./research_base.html" %}
-{% load i18n static %}
+{% extends "./base.html" %}
+{% load i18n static breadcrumbs %}
 
 {% block research_hub_content %}
     <div>
-        {% include './fragments/research_breadcrumb.html' with breadcrumb_list=breadcrumbs %}
+        {% get_research_breadcrumbs %}
         <h1>{{ page.title }}</h1>
     </div>
 
@@ -13,7 +13,7 @@
         <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-16 tw-gap-12 tw-gap-y-24 tw-list-none tw-p-0">
             {% for author_profile in author_profiles %}
                 <li class="tw-flex tw-m-0">
-                    {% include "wagtailpages/fragments/research_author_card.html" with authors_index=page author_profile=author_profile %}
+                    {% include "fragments/research_hub/author_card.html" with authors_index=page author_profile=author_profile %}
                 </li>
             {% endfor %}
         </ul>
