@@ -1,6 +1,6 @@
 from django import template
 
-from networkapi.wagtailpages.pagemodels.research_hub.landing_page import (
+from networkapi.libraries.pagemodels.research_hub.landing_page import (
     ResearchLandingPage,
 )
 

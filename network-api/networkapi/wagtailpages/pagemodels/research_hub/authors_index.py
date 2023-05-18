@@ -19,7 +19,7 @@ class ResearchAuthorsIndexPage(
 ):
     max_count = 1
 
-    parent_page_types = ["ResearchLandingPage"]
+    parent_page_types = ["libraries.ResearchLandingPage"]
 
     template = "pages/research_hub/authors_index_page.html"
 

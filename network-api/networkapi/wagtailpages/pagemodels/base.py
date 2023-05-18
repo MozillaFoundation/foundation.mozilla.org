@@ -967,7 +967,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "PrimaryPage",
         "PublicationPage",
         "RedirectingPage",
-        "ResearchLandingPage",
+        "libraries.ResearchLandingPage",
         "Styleguide",
         "ProductPage",
         "BuyersGuidePage",

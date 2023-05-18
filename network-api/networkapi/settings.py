@@ -252,6 +252,7 @@ INSTALLED_APPS = list(
             "networkapi",
             "networkapi.campaign",
             "networkapi.events",
+            "networkapi.libraries",
             "networkapi.news",
             "networkapi.people",
             "networkapi.utility",

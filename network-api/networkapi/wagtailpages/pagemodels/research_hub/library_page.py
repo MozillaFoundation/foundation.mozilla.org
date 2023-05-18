@@ -27,7 +27,7 @@ if typing.TYPE_CHECKING:
 class ResearchLibraryPage(BasePage):
     max_count = 1
 
-    parent_page_types = ["ResearchLandingPage"]
+    parent_page_types = ["libraries.ResearchLandingPage"]
 
     subpage_types = ["ResearchDetailPage"]
 

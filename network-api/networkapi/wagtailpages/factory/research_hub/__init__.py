@@ -1,5 +1,6 @@
 from networkapi.utility.faker import helpers as faker_helpers
 from networkapi.wagtailpages import models as wagtailpage_models
+from networkapi.libraries import models as library_models
 from networkapi.wagtailpages.factory.research_hub import (
     author_index as author_index_factory,
 )
@@ -25,7 +26,7 @@ def generate(seed):
     print("Generating research hub")
 
     # Only one landing page can exist
-    research_landing_page = wagtailpage_models.ResearchLandingPage.objects.first()
+    research_landing_page = library_models.ResearchLandingPage.objects.first()
     if not research_landing_page:
         research_landing_page = landing_page_factory.ResearchLandingPageFactory.create(parent=home_page)
 

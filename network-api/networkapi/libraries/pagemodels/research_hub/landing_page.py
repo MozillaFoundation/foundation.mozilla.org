@@ -11,10 +11,9 @@ class ResearchLandingPage(BasePage):
     max_count = 1
 
     subpage_types = [
-        "ResearchLibraryPage",
-        "ResearchAuthorsIndexPage",
+        "wagtailpages.ResearchLibraryPage",
+        "wagtailpages.ResearchAuthorsIndexPage",
     ]
-
     template = "pages/research_hub/landing_page.html"
 
     intro = models.CharField(
@@ -66,3 +65,6 @@ class ResearchLandingPage(BasePage):
     def get_library_page(self):
         ResearchLibraryPage = apps.get_model("wagtailpages", "ResearchLibraryPage")
         return ResearchLibraryPage.objects.filter(locale=self.locale).first()
+
+    class Meta:
+        app_label = "libraries"
