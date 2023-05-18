@@ -17,7 +17,7 @@ from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options impo
     base_rich_text_options,
 )
 from networkapi.wagtailpages.pagemodels.profiles import Profile
-from networkapi.wagtailpages.pagemodels.research_hub import authors_index
+from networkapi.wagtailpages.pagemodels.libraries.research_hub import authors_index
 from networkapi.wagtailpages.utils import localize_queryset
 
 logger = logging.getLogger(__name__)

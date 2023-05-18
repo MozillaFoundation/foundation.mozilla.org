@@ -73,17 +73,17 @@ from .pagemodels.publications.article import ArticlePage
 from .pagemodels.publications.publication import PublicationPage
 from .pagemodels.pulse import PulseFilter
 from .pagemodels.redirect import RedirectingPage
-from .pagemodels.research_hub.authors_index import ResearchAuthorsIndexPage
-from .pagemodels.research_hub.detail_page import ResearchDetailLink, ResearchDetailPage
-from .pagemodels.research_hub.landing_page import ResearchLandingPage
-from .pagemodels.research_hub.library_page import ResearchLibraryPage
-from .pagemodels.research_hub.relations import (
+from .pagemodels.libraries.research_hub.authors_index import ResearchAuthorsIndexPage
+from .pagemodels.libraries.research_hub.detail_page import ResearchDetailLink, ResearchDetailPage
+from .pagemodels.libraries.research_hub.landing_page import ResearchLandingPage
+from .pagemodels.libraries.research_hub.library_page import ResearchLibraryPage
+from .pagemodels.libraries.research_hub.relations import (
     ResearchAuthorRelation,
     ResearchDetailPageResearchRegionRelation,
     ResearchDetailPageResearchTopicRelation,
     ResearchLandingPageFeaturedResearchTopicRelation,
 )
-from .pagemodels.research_hub.taxonomies import ResearchRegion, ResearchTopic
+from .pagemodels.libraries.research_hub.taxonomies import ResearchRegion, ResearchTopic
 from .pagemodels.youtube import (
     YoutubeRegrets2021Page,
     YoutubeRegrets2022Page,

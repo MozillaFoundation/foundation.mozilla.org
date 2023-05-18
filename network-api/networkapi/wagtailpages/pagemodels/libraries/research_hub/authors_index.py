@@ -9,7 +9,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.base import BasePage
-from networkapi.wagtailpages.pagemodels.research_hub import detail_page, library_page
+from networkapi.wagtailpages.pagemodels.libraries.research_hub import detail_page, library_page
 
 
 class ResearchAuthorsIndexPage(
