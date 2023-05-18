@@ -4,13 +4,14 @@ from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
+
 class BaseTaxonomy(TranslatableMixin):
     """
     Base class for taxonomy models.
 
     Fields:
     - name: The name of the taxonomy (required).
-    - slug: The slug is auto-generated from the name but can be customized if needed. It needs to be unique per locale. (required)
+    - slug: The slug is auto-generated from the name but can be customized if needed. It needs to be unique per locale.
 
     Meta:
     - abstract: Indicates that this class is an abstract base class.
