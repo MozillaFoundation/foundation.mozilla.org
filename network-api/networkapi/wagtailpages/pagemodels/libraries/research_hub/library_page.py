@@ -17,7 +17,9 @@ from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
     detail_page,
     taxonomies,
 )
-from networkapi.wagtailpages.pagemodels.libraries.research_hub.forms import LibraryPageFilterForm
+from networkapi.wagtailpages.pagemodels.libraries.research_hub.forms import (
+    LibraryPageFilterForm,
+)
 
 if typing.TYPE_CHECKING:
     from django import http

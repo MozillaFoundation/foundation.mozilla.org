@@ -64,17 +64,11 @@ from .pagemodels.campaigns import (
 from .pagemodels.dear_internet import DearInternetPage
 from .pagemodels.feature_flags.feature_flags import FeatureFlags
 from .pagemodels.index import IndexPage
-from .pagemodels.mixin.foundation_banner_inheritance import (
-    FoundationBannerInheritanceMixin,
-)
-from .pagemodels.modular import MiniSiteNameSpace, ModularPage
-from .pagemodels.profiles import Profile
-from .pagemodels.publications.article import ArticlePage
-from .pagemodels.publications.publication import PublicationPage
-from .pagemodels.pulse import PulseFilter
-from .pagemodels.redirect import RedirectingPage
 from .pagemodels.libraries.research_hub.authors_index import ResearchAuthorsIndexPage
-from .pagemodels.libraries.research_hub.detail_page import ResearchDetailLink, ResearchDetailPage
+from .pagemodels.libraries.research_hub.detail_page import (
+    ResearchDetailLink,
+    ResearchDetailPage,
+)
 from .pagemodels.libraries.research_hub.landing_page import ResearchLandingPage
 from .pagemodels.libraries.research_hub.library_page import ResearchLibraryPage
 from .pagemodels.libraries.research_hub.relations import (
@@ -84,6 +78,15 @@ from .pagemodels.libraries.research_hub.relations import (
     ResearchLandingPageFeaturedResearchTopicRelation,
 )
 from .pagemodels.libraries.research_hub.taxonomies import ResearchRegion, ResearchTopic
+from .pagemodels.mixin.foundation_banner_inheritance import (
+    FoundationBannerInheritanceMixin,
+)
+from .pagemodels.modular import MiniSiteNameSpace, ModularPage
+from .pagemodels.profiles import Profile
+from .pagemodels.publications.article import ArticlePage
+from .pagemodels.publications.publication import PublicationPage
+from .pagemodels.pulse import PulseFilter
+from .pagemodels.redirect import RedirectingPage
 from .pagemodels.youtube import (
     YoutubeRegrets2021Page,
     YoutubeRegrets2022Page,
