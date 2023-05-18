@@ -17,7 +17,8 @@
         <div id="share-progress-em" class='{{ cta.share_email }} sp_em_small tw-hidden'></div>
     {% endif %}
 
-    {% if show_formassembly %}
+    {% comment %} The condition to show FormAssembly form {% endcomment %}
+    {% if show_formassembly and not show_formassembly_thank_you %}
         <h5 class="tw-h5-heading">{{ cta.header | escape }}</h5>
         {{ cta.description | richtext }}
         {% comment %}
@@ -25,29 +26,47 @@
             We are inncluding tfa_* in the variable name to make it clear where the value should be plugged in.
             For field name reference, see https://mozillafoundation.tfaforms.net/forms/definition/9
         {% endcomment %}
-        {% include "../../fragments/formassembly_body.html" with campaign_id_tfa_1=cta.campaign_id source_url_tfa_498=source_url lang_tfa_499=lang %}
+        {% include "../../fragments/formassembly_body.html" with campaign_id_tfa_1=cta.campaign_id source_url_tfa_498=source_url lang_tfa_499=lang thank_you_url_tfa_500=thank_you_url %}
         <link rel="stylesheet" href="{% static "_css/formassembly-override.compiled.css" %}">
+
+        {% comment %} The condition to show FormAssembly form {% endcomment %}
+    {% elif show_formassembly_thank_you and not show_formassembly %}
+        <div
+            class="formassembly-petition-thank-you"
+            data-cta-slug="{{ page.slug }}"
+            data-share-link="{{ cta.share_link }}"
+            data-share-text="{{ cta.share_link_text }}"
+            data-thank-you="{{ cta.thank_you }}"
+            data-modals="{{ modals_json }}"
+        ></div>
     {% endif %}
 
-    <div
-        class="sign-petition tw-w-full tw-mb-12"
-        data-petition-id="{{ cta.id|unlocalize }}"
-        data-cta-slug="{{ page.slug }}"
-        data-form-location="{{ page.url }}"
-        data-cta-name="{{ cta.name }}"
-        data-cta-header="{{ cta.header | escape }}"
-        data-cta-description="{{ cta.description | escape }}"
-        data-requires-country-code="{{ cta.requires_country_code }}"
-        data-requires-postal-code="{{ cta.requires_postal_code }}"
-        data-comment-requirements="{{ cta.comment_requirements }}"
-        data-newsletter="{{ cta.newsletter }}"
-        data-checkbox1="{{ cta.checkbox_1 | escape }}"
-        data-checkbox2="{{ cta.checkbox_2 | escape }}"
-        data-share-link="{{ cta.share_link }}"
-        data-share-text="{{ cta.share_link_text }}"
-        data-thank-you="{{ cta.thank_you }}"
-        data-modals="{{ modals_json }}"
-    >{% trans "Loading form…" %}</div>
+    {% comment %}
+        The following code {% if not show_formassembly_thank_you %} ... {% endif %}
+        is to be deleted after FormAssembly petition is fully implemented and tested.
+    {% endcomment %}
+    {% comment %} The condition to show the original form {% endcomment %}
+    {% if not show_formassembly and not show_formassembly_thank_you %}
+        <div
+            class="sign-petition tw-w-full tw-mb-12"
+            data-petition-id="{{ cta.id|unlocalize }}"
+            data-cta-slug="{{ page.slug }}"
+            data-form-location="{{ page.url }}"
+            data-cta-name="{{ cta.name }}"
+            data-cta-header="{{ cta.header | escape }}"
+            data-cta-description="{{ cta.description | escape }}"
+            data-requires-country-code="{{ cta.requires_country_code }}"
+            data-requires-postal-code="{{ cta.requires_postal_code }}"
+            data-comment-requirements="{{ cta.comment_requirements }}"
+            data-newsletter="{{ cta.newsletter }}"
+            data-checkbox1="{{ cta.checkbox_1 | escape }}"
+            data-checkbox2="{{ cta.checkbox_2 | escape }}"
+            data-share-link="{{ cta.share_link }}"
+            data-share-text="{{ cta.share_link_text }}"
+            data-thank-you="{{ cta.thank_you }}"
+            data-modals="{{ modals_json }}"
+        >{% trans "Loading form…" %}</div>
+    {% endif %}
 
     <script src="https://c.shpg.org/352/sp.js"></script>
 </div>

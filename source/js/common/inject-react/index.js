@@ -1,5 +1,6 @@
 import injectJoinUs from "./join-us.js";
 import injectPetition from "./petition.js";
+import injectPetitionThankYou from "./petition-thank-you.js";
 
 /**
  * Inject React components
@@ -8,5 +9,8 @@ import injectPetition from "./petition.js";
  */
 export const injectCommonReactComponents = (apps, siteUrl) => {
   injectJoinUs(apps, siteUrl);
+  // Current petition form and thank you screen
   injectPetition(apps, siteUrl);
+  // FormAssembly petition thank you screen
+  injectPetitionThankYou(apps);
 };
