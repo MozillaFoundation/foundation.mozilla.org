@@ -39,5 +39,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(set_default_slug),
+        migrations.RunPython(set_default_slug, reverse_code=migrations.RunPython.noop),
     ]
