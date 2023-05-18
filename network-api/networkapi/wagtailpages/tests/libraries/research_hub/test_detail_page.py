@@ -12,8 +12,8 @@ from networkapi.wagtailpages.models import (
     ResearchDetailPage,
 )
 from networkapi.wagtailpages.pagemodels.libraries.research_hub import authors_index
-from networkapi.wagtailpages.tests.research_hub import base as research_test_base
-from networkapi.wagtailpages.tests.research_hub import utils as research_test_utils
+from networkapi.wagtailpages.tests.libraries.research_hub import base as research_test_base
+from networkapi.wagtailpages.tests.libraries.research_hub import utils as research_test_utils
 
 
 class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):

@@ -11,7 +11,7 @@ from networkapi.wagtailpages.factory.research_hub import (
     library_page as library_page_factory,
 )
 from networkapi.wagtailpages.tests import base as test_base
-from networkapi.wagtailpages.tests.research_hub import utils
+from networkapi.wagtailpages.tests.libraries.research_hub import utils
 
 
 class ResearchHubTestCase(test_base.WagtailpagesTestCase):
