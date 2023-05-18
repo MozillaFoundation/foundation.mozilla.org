@@ -1,5 +1,6 @@
 import factory
 from django.utils import text as text_utils
+
 from networkapi.wagtailpages import models as wagtailpage_models
 
 

@@ -6,23 +6,33 @@ from django.db import migrations, models
 After the previous migration has run, we can now set the slug field
 as non-nullable since it has been populated with data.
 """
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0084_set_slugs_for_existing_taxonomy'),
+        ("wagtailpages", "0084_set_slugs_for_existing_taxonomy"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='researchregion',
-            name='slug',
-            field=models.SlugField(default='', help_text='The slug is auto-generated from the name, but can be customized if needed. It needs to be unique per locale.', max_length=100),
+            model_name="researchregion",
+            name="slug",
+            field=models.SlugField(
+                default="",
+                help_text="The slug is auto-generated from the name, but can be customized if needed. It needs to be unique per locale.",
+                max_length=100,
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='researchtopic',
-            name='slug',
-            field=models.SlugField(default='', help_text='The slug is auto-generated from the name, but can be customized if needed. It needs to be unique per locale.', max_length=100),
+            model_name="researchtopic",
+            name="slug",
+            field=models.SlugField(
+                default="",
+                help_text="The slug is auto-generated from the name, but can be customized if needed. It needs to be unique per locale.",
+                max_length=100,
+            ),
             preserve_default=False,
         ),
     ]

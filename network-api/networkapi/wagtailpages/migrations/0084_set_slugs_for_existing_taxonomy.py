@@ -3,8 +3,8 @@ from django.utils.text import slugify
 
 
 def set_default_slug(apps, schema_editor):
-    ResearchRegion = apps.get_model('wagtailpages', 'ResearchRegion')
-    ResearchTopic = apps.get_model('wagtailpages', 'ResearchTopic')
+    ResearchRegion = apps.get_model("wagtailpages", "ResearchRegion")
+    ResearchTopic = apps.get_model("wagtailpages", "ResearchTopic")
 
     for region in ResearchRegion.objects.all():
         slug = slugify(region.name)
@@ -34,8 +34,8 @@ def set_default_slug(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0078_referenceindex'),
-        ('wagtailpages', '0083_add_slug_to_base_taxonomy'),
+        ("wagtailcore", "0078_referenceindex"),
+        ("wagtailpages", "0083_add_slug_to_base_taxonomy"),
     ]
 
     operations = [
