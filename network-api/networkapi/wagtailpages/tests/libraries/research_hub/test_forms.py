@@ -12,8 +12,12 @@ from networkapi.wagtailpages.factory.research_hub import (
     taxonomies as taxonomies_factory,
 )
 from networkapi.wagtailpages.pagemodels.libraries.research_hub import forms
-from networkapi.wagtailpages.tests.libraries.research_hub import base as research_test_base
-from networkapi.wagtailpages.tests.libraries.research_hub import utils as research_test_utils
+from networkapi.wagtailpages.tests.libraries.research_hub import (
+    base as research_test_base,
+)
+from networkapi.wagtailpages.tests.libraries.research_hub import (
+    utils as research_test_utils,
+)
 
 
 class TestFormUtilitiesFunctions(research_test_base.ResearchHubTestCase):

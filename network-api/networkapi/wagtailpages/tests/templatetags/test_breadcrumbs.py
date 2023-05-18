@@ -4,7 +4,9 @@ from networkapi.wagtailpages.factory.research_hub import (
 )
 from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
 from networkapi.wagtailpages.templatetags import breadcrumbs as breadcrumbs_tags
-from networkapi.wagtailpages.tests.libraries.research_hub.base import ResearchHubTestCase
+from networkapi.wagtailpages.tests.libraries.research_hub.base import (
+    ResearchHubTestCase,
+)
 
 
 class TestGetResearchBreadcrumb(ResearchHubTestCase):
