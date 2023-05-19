@@ -16,11 +16,13 @@ from networkapi.wagtailpages import (
     to_language,
 )
 from networkapi.wagtailpages.factory import blog as blog_factories
-from networkapi.wagtailpages.factory.profiles import ProfileFactory
 from networkapi.wagtailpages.factory.libraries.research_hub import (
     detail_page as detail_page_factory,
 )
-from networkapi.wagtailpages.factory.libraries.research_hub import relations as relations_factory
+from networkapi.wagtailpages.factory.libraries.research_hub import (
+    relations as relations_factory,
+)
+from networkapi.wagtailpages.factory.profiles import ProfileFactory
 from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.utils import (
