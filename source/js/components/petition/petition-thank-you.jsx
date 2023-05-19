@@ -142,26 +142,38 @@ class PetitionThankYou extends Component {
           <p>{this.props.thankYou}</p>
           <div className="share-button-group rectangle stacked">
             <div className="subgroup">
-              <button
-                className="tw-btn tw-btn-secondary btn-share after:tw-hidden facebook-share"
-                onClick={(e) => this.shareButtonClicked(e, `share-progress-fb`)}
-              >
-                Facebook
-              </button>
-              <button
-                className="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share"
-                onClick={(e) => this.shareButtonClicked(e, `share-progress-tw`)}
-              >
-                Twitter
-              </button>
+              {this.props.spFacebook && (
+                <button
+                  className="tw-btn tw-btn-secondary btn-share after:tw-hidden facebook-share"
+                  onClick={(e) =>
+                    this.shareButtonClicked(e, `share-progress-fb`)
+                  }
+                >
+                  Facebook
+                </button>
+              )}
+              {this.props.spTwitter && (
+                <button
+                  className="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share"
+                  onClick={(e) =>
+                    this.shareButtonClicked(e, `share-progress-tw`)
+                  }
+                >
+                  Twitter
+                </button>
+              )}
             </div>
             <div className="subgroup">
-              <button
-                className="tw-btn tw-btn-secondary btn-share after:tw-hidden email-share"
-                onClick={(e) => this.shareButtonClicked(e, `share-progress-em`)}
-              >
-                Email
-              </button>
+              {this.props.spEmail && (
+                <button
+                  className="tw-btn tw-btn-secondary btn-share after:tw-hidden email-share"
+                  onClick={(e) =>
+                    this.shareButtonClicked(e, `share-progress-em`)
+                  }
+                >
+                  Email
+                </button>
+              )}
               <button
                 className="tw-btn tw-btn-secondary btn-share after:tw-hidden link-share"
                 onClick={(e) => this.shareButtonClicked(e)}
