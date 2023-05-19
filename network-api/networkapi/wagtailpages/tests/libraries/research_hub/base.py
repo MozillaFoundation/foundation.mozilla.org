@@ -1,17 +1,17 @@
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     author_index as author_index_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     detail_page as detail_page_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     landing_page as landing_page_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     library_page as library_page_factory,
 )
 from networkapi.wagtailpages.tests import base as test_base
-from networkapi.wagtailpages.tests.research_hub import utils
+from networkapi.wagtailpages.tests.libraries.research_hub import utils
 
 
 class ResearchHubTestCase(test_base.WagtailpagesTestCase):
