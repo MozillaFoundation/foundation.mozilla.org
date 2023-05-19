@@ -1,19 +1,21 @@
 from networkapi.utility.faker import helpers as faker_helpers
 from networkapi.wagtailpages import models as wagtailpage_models
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     author_index as author_index_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     detail_page as detail_page_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     landing_page as landing_page_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     library_page as library_page_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
+    relations as relations_factory,
+)
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     taxonomies as taxonomies_factory,
 )
 

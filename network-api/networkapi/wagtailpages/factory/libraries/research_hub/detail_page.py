@@ -16,7 +16,7 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
     title = factory.Faker("text", max_nb_chars=50)
     cover_image = factory.SubFactory(image_factory.ImageFactory)
     research_links = factory.RelatedFactoryList(
-        factory="networkapi.wagtailpages.factory.research_hub.detail_page.ResearchDetailLinkFactory",
+        factory="networkapi.wagtailpages.factory.libraries.research_hub.detail_page.ResearchDetailLinkFactory",
         factory_related_name="research_detail_page",
         size=lambda: random.randint(1, 2),
         with_url=True,
@@ -38,14 +38,14 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
         return "; ".join(names)
 
     research_authors = factory.RelatedFactoryList(
-        factory="networkapi.wagtailpages.factory.research_hub.relations.ResearchAuthorRelationFactory",
+        factory="networkapi.wagtailpages.factory.libraries.research_hub.relations.ResearchAuthorRelationFactory",
         factory_related_name="research_detail_page",
         size=1,
     )
 
     related_topics = factory.RelatedFactoryList(
         factory=(
-            "networkapi.wagtailpages.factory.research_hub.relations.ResearchDetailPageResearchTopicRelationFactory"
+            "networkapi.wagtailpages.factory.libraries.research_hub.relations.ResearchDetailPageResearchTopicRelationFactory"
         ),
         factory_related_name="research_detail_page",
         size=1,
@@ -53,7 +53,7 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
 
     related_regions = factory.RelatedFactoryList(
         factory=(
-            "networkapi.wagtailpages.factory.research_hub.relations.ResearchDetailPageResearchRegionRelationFactory"
+            "networkapi.wagtailpages.factory.libraries.research_hub.relations.ResearchDetailPageResearchRegionRelationFactory"
         ),
         factory_related_name="research_detail_page",
         size=1,

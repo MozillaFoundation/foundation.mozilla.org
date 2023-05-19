@@ -2,10 +2,12 @@ import wagtail_factories
 from django.core import exceptions
 from django.utils import translation
 
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     detail_page as detail_page_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
+from networkapi.wagtailpages.factory.libraries.research_hub import (
+    relations as relations_factory,
+)
 from networkapi.wagtailpages.models import (
     ArticlePage,
     PublicationPage,
