@@ -26,6 +26,9 @@ module.exports = {
   "PNI general product page": "/privacynotincluded/general-percy-product",
   "YouTube regrets": "/campaigns/youtube-regrets",
   "YouTube regrets  reporter": "/campaigns/regrets-reporter",
+  "Research Hub Landing Page": "/research",
+  "Research Hub Library Page": "/research/library",
+  "Research Hub Author Index Page": "/research/browse-authors",
   // Disabled Dear Internet for now as Percy been giving false positive visual diffs
   // "Dear Internet": "/campaigns/dearinternet",
   Styleguide: "/style-guide",
