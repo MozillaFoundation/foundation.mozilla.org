@@ -743,7 +743,7 @@ class ProductPage(BasePage):
                     "privacy_policy_links",
                     label="link",
                     min_num=1,
-                    max_num=3,
+                    max_num=25,
                 ),
             ],
             heading="Privacy policy links",
