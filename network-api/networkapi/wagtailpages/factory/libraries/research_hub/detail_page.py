@@ -45,7 +45,8 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
 
     related_topics = factory.RelatedFactoryList(
         factory=(
-            "networkapi.wagtailpages.factory.libraries.research_hub.relations.ResearchDetailPageResearchTopicRelationFactory"
+            "networkapi.wagtailpages.factory.libraries.research_hub"
+            ".relations.ResearchDetailPageResearchTopicRelationFactory"
         ),
         factory_related_name="research_detail_page",
         size=1,
@@ -53,7 +54,8 @@ class ResearchDetailPageFactory(wagtail_factories.PageFactory):
 
     related_regions = factory.RelatedFactoryList(
         factory=(
-            "networkapi.wagtailpages.factory.libraries.research_hub.relations.ResearchDetailPageResearchRegionRelationFactory"
+            "networkapi.wagtailpages.factory.libraries.research_hub"
+            ".relations.ResearchDetailPageResearchRegionRelationFactory"
         ),
         factory_related_name="research_detail_page",
         size=1,
