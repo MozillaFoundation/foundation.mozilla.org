@@ -18,7 +18,20 @@ from networkapi.wagtailpages.factory.libraries.research_hub import (
 from networkapi.wagtailpages.factory.libraries.research_hub import (
     taxonomies as taxonomies_factory,
 )
+from networkapi.wagtailpages.pagemodels.profiles import Profile
 
+
+
+def create_detail_page_for_visual_regression_tests(seed, research_library_page):
+    percy_author_profile = Profile.objects.first()
+
+    percy_research_detail_page = detail_page_factory.ResearchDetailPageFactory.create(
+        parent=research_library_page, title="Fixed Title Research Detail Page"
+    )
+    relations_factory.ResearchAuthorRelationFactory.create(
+        research_detail_page=percy_research_detail_page,
+        author_profile=percy_author_profile,
+    )
 
 def generate(seed):
     faker_helpers.reseed(seed)
@@ -42,6 +55,10 @@ def generate(seed):
         research_authors_index_page = author_index_factory.ResearchAuthorsIndexPageFactory.create(
             parent=research_landing_page
         )
+
+
+    create_detail_page_for_visual_regression_tests(seed, research_library_page)
+
 
     for _ in range(4):
         taxonomies_factory.ResearchRegionFactory.create()
