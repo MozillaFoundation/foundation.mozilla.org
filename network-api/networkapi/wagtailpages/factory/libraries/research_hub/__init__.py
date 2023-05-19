@@ -20,6 +20,13 @@ from networkapi.wagtailpages.factory.libraries.research_hub import (
 )
 
 
+def create_visual_regression_detail_page(seed, research_library_page):
+    detail_page_factory.ResearchDetailPageFactory.create(
+            parent=research_library_page,
+            title="Fixed Title Research Detail Page"
+        )
+
+
 def generate(seed):
     faker_helpers.reseed(seed)
     home_page = faker_helpers.get_homepage()
@@ -42,6 +49,9 @@ def generate(seed):
         research_authors_index_page = author_index_factory.ResearchAuthorsIndexPageFactory.create(
             parent=research_landing_page
         )
+
+    print("Generating detail page for use with visual regression testing")
+    create_visual_regression_detail_page(seed, research_library_page)
 
     for _ in range(4):
         taxonomies_factory.ResearchRegionFactory.create()

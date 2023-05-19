@@ -28,7 +28,8 @@ module.exports = {
   "YouTube regrets  reporter": "/campaigns/regrets-reporter",
   "Research Hub Landing Page": "/research",
   "Research Hub Library Page": "/research/library",
-  "Research Hub Author Index Page": "/research/browse-authors",
+  "Research Hub Detail Page": "/research/library/fixed-title-research-detail-page",
+  "Research Hub Author Index Page": "/research/authors",
   // Disabled Dear Internet for now as Percy been giving false positive visual diffs
   // "Dear Internet": "/campaigns/dearinternet",
   Styleguide: "/style-guide",
