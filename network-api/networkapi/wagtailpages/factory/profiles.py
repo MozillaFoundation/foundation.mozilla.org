@@ -25,7 +25,7 @@ def generate(seed):
     print("Generating profile for percy testing use")
     ProfileFactory(
         name="Percy Profile",
-        tagline="This is a author profile specifically created for visual regression testing",
+        tagline="Test",
     )
 
     print("Generating other profiles")
