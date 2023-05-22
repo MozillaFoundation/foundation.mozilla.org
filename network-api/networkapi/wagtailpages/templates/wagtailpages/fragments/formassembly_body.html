@@ -18,12 +18,17 @@ Please follow the steps below every time after you paste a new version of FormAs
    (Reference to the current fields:
     Go to https://mozillafoundation.tfaforms.net/forms/builder/5.0.0/9 and click on "OUTLINE" tab)
 
-5. Get localization working again.
+5. Wrap country field, postal code field, and comment field in {% if %} tag
+    - for country field:     {% if show_country_field %} ... {% endif %}
+    - for postal code field: {% if show_postal_code_field %}  ... {% endif %}
+    - for comment field:     {% if not show_comment_field == "none" %} ... {% endif %}
+
+6. Get localization working again.
     - Localize form fields. e.g., {% trans "text to be translated" %} or {% blocktrans %} ... {% endblocktrans %}
       - first name, last name, email, country, postal code, comments, privacy notice, email subscription
     - Go to formassembly_head.html and make sure everything has been updated according to the instructions
 
-6. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
+7. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
 
 The code snippet below is based on FormAssembly form revision #32
 
@@ -47,6 +52,7 @@ The code snippet below is based on FormAssembly form revision #32
             <div class="oneField field-container-D    " id="tfa_31-D">
                 <label id="tfa_31-L" class="label preField reqMark" for="tfa_31">{% trans "Email" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_31" name="tfa_31" value="" title="Email" class="validate-email required"></div>
             </div>
+            {% if show_country_field %}
             <div class="oneField field-container-D    " id="tfa_254-D">
                 <label id="tfa_254-L" class="label preField " for="tfa_254">{% trans "Country" %}</label><br><div class="inputWrapper"><select id="tfa_254" name="tfa_254" title="Country" class=""><option value="">Please select...</option>
                     <option value="tfa_255" id="tfa_255" class="">Afghanistan</option>
@@ -287,12 +293,17 @@ The code snippet below is based on FormAssembly form revision #32
                     <option value="tfa_490" id="tfa_490" class="">Zambia</option>
                     <option value="tfa_491" id="tfa_491" class="">Zimbabwe</option></select></div>
             </div>
+            {% endif %}
+            {% if show_postal_code_field %}
             <div class="oneField field-container-D    " id="tfa_496-D">
                 <label id="tfa_496-L" class="label preField " for="tfa_496">{% trans "Postal Code" %}</label><br><div class="inputWrapper"><input type="text" id="tfa_496" name="tfa_496" value="" title="Postal Code" class=""></div>
             </div>
+            {% endif %}
+            {% if not show_comment_field == "none" %}
             <div class="oneField field-container-D    " id="tfa_497-D">
                 <label id="tfa_497-L" class="label preField " for="tfa_497">{% trans "Comments" %}</label><br><div class="inputWrapper"><textarea maxlength="500" id="tfa_497" name="tfa_497" title="Comments" class=""></textarea></div>
             </div>
+            {% endif %}
             <div class="oneField field-container-D  labelsAbove  " id="tfa_492-D" role="group" aria-labelledby="tfa_492-L" data-tfa-labelledby="-L tfa_492-L" aria-required="true">
                 <label id="tfa_492-L" class="label preField reqMark" aria-label="Privacy Agreement   required">Privacy Agreement</label><br><div class="inputWrapper"><span id="tfa_492" class="choices vertical required" aria-required="true"><span class="oneChoice"><input type="checkbox" value="tfa_493" class="calc-DefaultName" id="tfa_493" name="tfa_493" aria-labelledby="tfa_493-L" data-tfa-labelledby="tfa_492-L tfa_493-L"><label class="label postField" id="tfa_493-L" for="tfa_493"><span class="input-checkbox-faux"></span>I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/" target="_blank">Privacy Notice</a>.</label></span></span></div>
             </div>
