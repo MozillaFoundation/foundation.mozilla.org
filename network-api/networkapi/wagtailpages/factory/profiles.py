@@ -22,5 +22,11 @@ class ProfileFactory(DjangoModelFactory):
 def generate(seed):
     reseed(seed)
 
-    print("Generating profiles")
+    print("Generating profile for percy testing use")
+    ProfileFactory(
+        name="Percy Profile",
+        tagline="This is a author profile specifically created for visual regression testing",
+    )
+
+    print("Generating other profiles")
     generate_fake_data(ProfileFactory, NUM_PROFILES)

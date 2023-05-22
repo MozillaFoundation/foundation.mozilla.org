@@ -19,6 +19,7 @@ from networkapi.wagtailpages.factory.libraries.research_hub import (
 from networkapi.wagtailpages.factory.libraries.research_hub import (
     taxonomies as taxonomies_factory,
 )
+from networkapi.wagtailpages.pagemodels.profiles import Profile
 
 
 def generate(seed):
@@ -45,7 +46,7 @@ def generate(seed):
         )
 
     print("Generating detail page for use with visual regression testing")
-    percy_research_author_profile = profiles_factory.ProfileFactory(name="Percy Author", slug="percy-author")
+    percy_research_author_profile = Profile.objects.first()
 
     percy_research_detail_page = detail_page_factory.ResearchDetailPageFactory.create(
         parent=research_library_page, title="Fixed Title Research Detail Page"
