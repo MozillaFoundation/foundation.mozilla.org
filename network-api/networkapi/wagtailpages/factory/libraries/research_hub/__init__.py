@@ -22,11 +22,12 @@ from networkapi.wagtailpages.pagemodels.profiles import Profile
 
 
 def create_detail_page_for_visual_regression_tests(seed, research_library_page):
-    percy_author_profile = Profile.objects.first()
+    percy_author_profile = Profile.objects.get(name="Percy Profile")
 
     percy_research_detail_page = detail_page_factory.ResearchDetailPageFactory.create(
         parent=research_library_page, title="Fixed Title Research Detail Page"
     )
+
     relations_factory.ResearchAuthorRelationFactory.create(
         research_detail_page=percy_research_detail_page,
         author_profile=percy_author_profile,
