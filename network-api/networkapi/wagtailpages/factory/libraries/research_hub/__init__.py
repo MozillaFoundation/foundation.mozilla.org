@@ -21,7 +21,6 @@ from networkapi.wagtailpages.factory.libraries.research_hub import (
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 
 
-
 def create_detail_page_for_visual_regression_tests(seed, research_library_page):
     percy_author_profile = Profile.objects.first()
 
@@ -32,6 +31,7 @@ def create_detail_page_for_visual_regression_tests(seed, research_library_page):
         research_detail_page=percy_research_detail_page,
         author_profile=percy_author_profile,
     )
+
 
 def generate(seed):
     faker_helpers.reseed(seed)
@@ -56,9 +56,7 @@ def generate(seed):
             parent=research_landing_page
         )
 
-
     create_detail_page_for_visual_regression_tests(seed, research_library_page)
-
 
     for _ in range(4):
         taxonomies_factory.ResearchRegionFactory.create()
