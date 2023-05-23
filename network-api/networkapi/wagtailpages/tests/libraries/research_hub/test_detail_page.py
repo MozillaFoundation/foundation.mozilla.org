@@ -2,18 +2,24 @@ import wagtail_factories
 from django.core import exceptions
 from django.utils import translation
 
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     detail_page as detail_page_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
+from networkapi.wagtailpages.factory.libraries.research_hub import (
+    relations as relations_factory,
+)
 from networkapi.wagtailpages.models import (
     ArticlePage,
     PublicationPage,
     ResearchDetailPage,
 )
-from networkapi.wagtailpages.pagemodels.research_hub import authors_index
-from networkapi.wagtailpages.tests.research_hub import base as research_test_base
-from networkapi.wagtailpages.tests.research_hub import utils as research_test_utils
+from networkapi.wagtailpages.pagemodels.libraries.research_hub import authors_index
+from networkapi.wagtailpages.tests.libraries.research_hub import (
+    base as research_test_base,
+)
+from networkapi.wagtailpages.tests.libraries.research_hub import (
+    utils as research_test_utils,
+)
 
 
 class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):

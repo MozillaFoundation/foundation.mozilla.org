@@ -1,4 +1,4 @@
-from networkapi.wagtailpages.tests.research_hub import base
+from networkapi.wagtailpages.tests.libraries.research_hub import base
 
 
 class ResearchLandingPageTestCase(base.ResearchHubTestCase):

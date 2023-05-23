@@ -12,12 +12,14 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.base import BasePage
-from networkapi.wagtailpages.pagemodels.research_hub import (
+from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
     constants,
     detail_page,
     taxonomies,
 )
-from networkapi.wagtailpages.pagemodels.research_hub.forms import LibraryPageFilterForm
+from networkapi.wagtailpages.pagemodels.libraries.research_hub.forms import (
+    LibraryPageFilterForm,
+)
 
 if typing.TYPE_CHECKING:
     from django import http
