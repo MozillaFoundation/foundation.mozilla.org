@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 
 class RCCDetailPage(BasePage):
-    # parent_page_types = ["RCCLibraryPage"]
+    parent_page_types = ["RCCLibraryPage"]
 
     subpage_types = ["ArticlePage", "PublicationPage"]
 

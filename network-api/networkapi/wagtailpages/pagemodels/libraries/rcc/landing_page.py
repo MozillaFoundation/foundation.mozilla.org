@@ -10,10 +10,10 @@ from networkapi.wagtailpages.pagemodels.base import BasePage
 class RCCLandingPage(BasePage):
     max_count = 1
 
-    # subpage_types = [
-    #     "RCCLibraryPage",
-    #     "RCCAuthorsIndexPage",
-    # ]
+    subpage_types = [
+        "RCCLibraryPage",
+        "RCCAuthorsIndexPage",
+    ]
 
     template = "pages/rcc/landing_page.html"
 
