@@ -63,7 +63,7 @@
                     <ul class="tw-p-0 tw-list-none">
                         {% for author in research_authors %}
                             <li class="tw-mb-12">
-                                {% include "fragments/libraries/author_card.html" with url_name="wagtailpages:research-author-detail" authors_index=authors_index author_profile=author tight=True %}
+                                {% include "fragments/libraries/author_card.html" with url_name="research-author-detail" authors_index=authors_index author_profile=author tight=True %}
                             </li>
                         {% endfor %}
                     </ul>
