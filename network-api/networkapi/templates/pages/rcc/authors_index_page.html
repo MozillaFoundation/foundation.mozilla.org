@@ -1,0 +1,26 @@
+{% extends "pages/libraries/base.html" %}
+{% load i18n static breadcrumbs %}
+
+{% block library_content %}
+    <div>
+        {% get_research_breadcrumbs %}
+        <h1>{{ page.title }}</h1>
+    </div>
+
+    <hr class="tw-border-black tw-my-12 medium:tw-my-16 large:tw-my-24">
+
+    {% if author_profiles %}
+        <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-16 tw-gap-12 tw-gap-y-24 tw-list-none tw-p-0">
+            {% for author_profile in author_profiles %}
+                <li class="tw-flex tw-m-0">
+                    {% include "fragments/libraries/author_card.html" with url_name="rcc-author-detail" authors_index=page author_profile=author_profile %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>
+            {% trans "No authors found." %}
+        </p>
+    {% endif %}
+
+{% endblock library_content %}
