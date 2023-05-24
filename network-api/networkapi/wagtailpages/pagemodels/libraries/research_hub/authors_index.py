@@ -62,7 +62,7 @@ class ResearchAuthorsIndexPage(
         context["author_profiles"] = author_profiles
         return context
 
-    @routable_models.route(r"^(?P<profile_slug>[-a-z0-9]+)/$", name="wagtailpages:research-author-detail")
+    @routable_models.route(r"^(?P<profile_slug>[-a-z0-9]+)/$", name="research-author-detail")
     def author_detail(
         self,
         request: http.HttpRequest,
