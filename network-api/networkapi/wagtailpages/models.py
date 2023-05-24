@@ -81,6 +81,8 @@ from .pagemodels.libraries.research_hub.taxonomies import ResearchRegion, Resear
 from .pagemodels.mixin.foundation_banner_inheritance import (
     FoundationBannerInheritanceMixin,
 )
+from .pagemodels.mixin.foundation_metadata import FoundationMetadataPageMixin
+from .pagemodels.mixin.foundation_navigation import FoundationNavigationPageMixin
 from .pagemodels.modular import MiniSiteNameSpace, ModularPage
 from .pagemodels.profiles import Profile
 from .pagemodels.publications.article import ArticlePage
