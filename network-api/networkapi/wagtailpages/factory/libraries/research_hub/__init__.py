@@ -22,6 +22,8 @@ from networkapi.wagtailpages.pagemodels.profiles import Profile
 
 
 def create_detail_page_for_visual_regression_tests(seed, research_library_page):
+    faker_helpers.reseed(seed)
+
     percy_author_profile = Profile.objects.get(name="Percy Profile")
 
     percy_research_detail_page = detail_page_factory.ResearchDetailPageFactory.create(
