@@ -71,7 +71,7 @@ class RCCDetailPage(BasePage):
 
     content_panels = wagtail_models.Page.content_panels + [
         image_handlers.FieldPanel("cover_image"),
-        # edit_handlers.InlinePanel("research_links", heading="Research links"),
+        edit_handlers.InlinePanel("rcc_links", heading="Article links"),
         edit_handlers.FieldPanel("original_publication_date"),
         edit_handlers.FieldPanel("introduction"),
         edit_handlers.FieldPanel("overview"),
@@ -85,7 +85,7 @@ class RCCDetailPage(BasePage):
         localize_fields.TranslatableField("title"),
         localize_fields.SynchronizedField("cover_image"),
         localize_fields.SynchronizedField("original_publication_date", overridable=False),
-        # localize_fields.TranslatableField("research_links"),
+        localize_fields.TranslatableField("rcc_links"),
         localize_fields.TranslatableField("introduction"),
         localize_fields.TranslatableField("overview"),
         # localize_fields.TranslatableField("research_authors"),
@@ -155,3 +155,82 @@ class RCCDetailPage(BasePage):
 
     def get_banner(self):
         return self.get_parent().specific.get_banner()
+
+
+class RCCDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
+    rcc_detail_page = cluster_fields.ParentalKey(
+        "RCCDetailPage",
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name="rcc_links",
+    )
+
+    label = models.CharField(null=False, blank=False, max_length=50)
+
+    url = models.URLField(null=False, blank=True)
+    page = models.ForeignKey(
+        "wagtailcore.Page",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+    )
+    document = models.ForeignKey(
+        wagtail_docs.get_document_model_string(),
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        edit_handlers.HelpPanel(
+            content=(
+                "Please provide a link to the original resource. "
+                "You can link to an internal page, an external URL or upload a document. "
+                'If you wish to provide multiple, please create two separate "article links"'
+            )
+        ),
+        edit_handlers.FieldPanel("label"),
+        edit_handlers.FieldPanel("url"),
+        edit_handlers.FieldPanel("page"),
+        edit_handlers.FieldPanel("document"),
+    ]
+
+    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
+        ordering = ["sort_order"]
+
+    def __str__(self) -> str:
+        return self.label
+
+    def clean(self) -> None:
+        super().clean()
+
+        # Ensure that only one of the three fields is set
+        if sum([bool(self.url), bool(self.page), bool(self.document)]) > 1:
+            error_message = "Please provide either a URL, a page or a document, not multiple."
+            raise exceptions.ValidationError(
+                {"url": error_message, "page": error_message, "document": error_message},
+                code="invalid",
+            )
+        # Ensure that at least one of the three fields is set
+        elif not any([self.url, self.page, self.document]):
+            error_message = "Please provide a URL, a page or a document."
+            raise exceptions.ValidationError(
+                {"url": error_message, "page": error_message, "document": error_message},
+                code="required",
+            )
+
+    def get_url(self) -> str:
+        if self.url:
+            return self.url
+        elif self.page:
+            if not self.page.live:
+                logger.warning(
+                    f"Detail link to unpublished page defined: { self } -> { self.page }. "
+                    "This link will not be shown in the frontend."
+                )
+                return ""
+            return self.page.get_url()
+        elif self.document:
+            return self.document.url
+        raise ValueError("No URL defined for this detail link. This should not happen.")
