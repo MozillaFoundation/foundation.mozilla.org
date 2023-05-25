@@ -1,4 +1,4 @@
-from networkapi.wagtailpages.factory.libraries import research_hub
+from networkapi.wagtailpages.factory.libraries import rcc, research_hub
 
 from . import (
     bannered_campaign_page,
@@ -47,6 +47,7 @@ def generate(seed):
     styleguide.generate(seed)
     youtube_regrets_page.generate(seed)
     research_hub.generate(seed)
+    rcc.generate(seed)
     # homepage_cause_statement_link requires child pages of homepage to exist
     homepage_cause_statement_link.generate(seed)
 
