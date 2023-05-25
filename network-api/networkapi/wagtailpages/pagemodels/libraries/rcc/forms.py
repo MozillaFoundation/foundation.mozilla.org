@@ -3,7 +3,7 @@ from django.utils.translation import pgettext_lazy
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
-from networkapi.wagtailpages.pagemodels.libraries.rcc import detail_page, taxonomies
+from networkapi.wagtailpages.pagemodels.libraries.rcc import taxonomies
 
 
 def _get_author_options():
