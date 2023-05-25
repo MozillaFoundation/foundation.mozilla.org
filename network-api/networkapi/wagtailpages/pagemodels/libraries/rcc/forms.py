@@ -1,0 +1,57 @@
+from django import forms
+from django.utils.translation import pgettext_lazy
+
+from networkapi.wagtailpages import utils
+from networkapi.wagtailpages.pagemodels import profiles as profile_models
+from networkapi.wagtailpages.pagemodels.libraries.rcc import detail_page, taxonomies
+
+
+def _get_author_options():
+    author_profiles = utils.get_rcc_authors(profile_models.Profile.objects.all())
+    author_profiles = utils.localize_queryset(author_profiles)
+    return [(author_profile.id, author_profile.name) for author_profile in author_profiles]
+
+
+def _get_content_type_options():
+    content_types = taxonomies.RCCContentType.objects.all()
+    content_types = utils.localize_queryset(content_types)
+    return [(ct.id, ct.name) for ct in content_types]
+
+
+def _get_curricular_area_options():
+    curricular_areas = taxonomies.RCCCurricularArea.objects.all()
+    curricular_areas = utils.localize_queryset(curricular_areas)
+    return [(ca.id, ca.name) for ca in curricular_areas]
+
+
+def _get_topic_options():
+    topics = taxonomies.RCCTopic.objects.all()
+    topics = utils.localize_queryset(topics)
+    return [(topic.id, topic.name) for topic in topics]
+
+
+class RCCLibraryPageFilterForm(forms.Form):
+    content_types = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
+        choices=_get_content_type_options,
+        label=pgettext_lazy("Filter form field label", "Content Type"),
+    )
+    contributors = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
+        choices=_get_author_options,
+        label=pgettext_lazy("Filter form field label - Authors of RCC articles", "Contributors"),
+    )
+    topics = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
+        choices=_get_topic_options,
+        label=pgettext_lazy("Filter form field label", "Topics"),
+    )
+    curricular_areas = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
+        choices=_get_curricular_area_options,
+        label=pgettext_lazy("Filter form field label", "Curricular Area"),
+    )
