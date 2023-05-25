@@ -231,6 +231,10 @@ ignore="H017"
 "network-api/networkapi/wagtailpages/templates/wagtailpages/tags/cta/petition.html" = "H008"
 "network-api/networkapi/wagtailpages/templates/wagtailpages/tags/homepage_image.html" = "H006,H013"
 "network-api/networkapi/wagtailpages/templates/wagtailpages/tags/picture_ratios.html" = "H006"
+"network-api/networkapi/templates/fragments/libraries/author_card.html" = "H006"
+"network-api/networkapi/templates/pages/rcc/detail_page.html" = "H006"
+"network-api/networkapi/templates/pages/rcc/library_page.html" = "H023"
+
 
 [tool.isort]
 profile = "black"
