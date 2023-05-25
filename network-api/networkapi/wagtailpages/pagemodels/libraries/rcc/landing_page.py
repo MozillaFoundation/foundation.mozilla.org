@@ -32,12 +32,14 @@ class RCCLandingPage(BasePage):
     content_panels = wagtail_models.Page.content_panels + [
         FieldPanel("intro"),
         FieldPanel("banner_image"),
+        InlinePanel("featured_content_types", heading="Featured content types"),
     ]
 
     translatable_fields = [
         TranslatableField("title"),
         SynchronizedField("banner_image"),
         TranslatableField("intro"),
+        TranslatableField("featured_content_types"),
         # Promote tab fields
         SynchronizedField("slug"),
         TranslatableField("seo_title"),

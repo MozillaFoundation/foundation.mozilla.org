@@ -16,10 +16,9 @@ from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-
-# from networkapi.wagtailpages.pagemodels.libraries.rcc import authors_index
-# from networkapi.wagtailpages.pagemodels.profiles import Profile
-# from networkapi.wagtailpages.utils import localize_queryset
+from networkapi.wagtailpages.pagemodels.libraries.rcc import authors_index
+from networkapi.wagtailpages.pagemodels.profiles import Profile
+from networkapi.wagtailpages.utils import localize_queryset
 
 logger = logging.getLogger(__name__)
 
@@ -75,10 +74,11 @@ class RCCDetailPage(BasePage):
         edit_handlers.FieldPanel("original_publication_date"),
         edit_handlers.FieldPanel("introduction"),
         edit_handlers.FieldPanel("overview"),
-        # edit_handlers.InlinePanel("research_authors", heading="Authors", min_num=1),
+        edit_handlers.InlinePanel("rcc_authors", heading="Authors", min_num=1),
         edit_handlers.FieldPanel("contributors"),
-        # edit_handlers.InlinePanel("related_topics", heading="Topics"),
-        # edit_handlers.InlinePanel("related_regions", heading="Regions"),
+        edit_handlers.InlinePanel("related_content_types", heading="Content types"),
+        edit_handlers.InlinePanel("related_curricular_areas", heading="Curricular areas"),
+        edit_handlers.InlinePanel("related_topics", heading="Topics"),
     ]
 
     translatable_fields = [
@@ -88,11 +88,12 @@ class RCCDetailPage(BasePage):
         localize_fields.TranslatableField("rcc_links"),
         localize_fields.TranslatableField("introduction"),
         localize_fields.TranslatableField("overview"),
-        # localize_fields.TranslatableField("research_authors"),
+        localize_fields.TranslatableField("rcc_authors"),
         # Contributors is translatable in case of connecting words like "and"
         localize_fields.TranslatableField("contributors"),
-        # localize_fields.TranslatableField("related_topics"),
-        # localize_fields.TranslatableField("related_regions"),
+        localize_fields.TranslatableField("related_content_types"),
+        localize_fields.TranslatableField("related_curricular_areas"),
+        localize_fields.TranslatableField("related_topics"),
         # Promote tab fields
         localize_fields.SynchronizedField("slug"),
         localize_fields.TranslatableField("seo_title"),
@@ -106,52 +107,63 @@ class RCCDetailPage(BasePage):
         index.SearchField("overview"),
         index.SearchField("contributors"),
         index.FilterField("original_publication_date"),  # For sorting
-        # index.RelatedFields(
-        #     "research_authors",
-        #     [
-        #         index.RelatedFields(
-        #             "author_profile",
-        #             [index.SearchField("name")],
-        #         )
-        #     ],
-        # ),
-        # index.RelatedFields(
-        #     "related_topics",
-        #     [
-        #         index.RelatedFields(
-        #             "research_topic",
-        #             [index.SearchField("name")],
-        #         )
-        #     ],
-        # ),
-        # index.RelatedFields(
-        #     "related_regions",
-        #     [
-        #         index.RelatedFields(
-        #             "research_region",
-        #             [index.SearchField("name")],
-        #         )
-        #     ],
-        # ),
+        index.RelatedFields(
+            "rcc_authors",
+            [
+                index.RelatedFields(
+                    "author_profile",
+                    [index.SearchField("name")],
+                )
+            ],
+        ),
+        index.RelatedFields(
+            "related_content_types",
+            [
+                index.RelatedFields(
+                    "content_type",
+                    [index.SearchField("name")],
+                )
+            ],
+        ),
+        index.RelatedFields(
+            "related_curricular_areas",
+            [
+                index.RelatedFields(
+                    "curricular_area",
+                    [index.SearchField("name")],
+                )
+            ],
+        ),
+        index.RelatedFields(
+            "related_topics",
+            [
+                index.RelatedFields(
+                    "rcc_topic",
+                    [index.SearchField("name")],
+                )
+            ],
+        ),
     ]
 
-    # def get_context(self, request):
-    #     context = super().get_context(request)
-    #     # context["authors_index"] = authors_index.ResearchAuthorsIndexPage.objects.first()
-    #     # context["research_authors"] = self.get_research_authors()
-    #     return context
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["authors_index"] = authors_index.RCCAuthorsIndexPage.objects.first()
+        context["rcc_authors"] = self.get_rcc_authors()
+        context["rcc_author_names"] = self.get_rcc_author_names()
+        context["content_type_names"] = self.get_related_content_types_names()
+        return context
 
-    # def get_authors(self):
-    #     research_author_profiles = localize_queryset(
-    #         Profile.objects.prefetch_related("authored_research").filter(authored_research__research_detail_page=self)
-    #     )
-    #     return research_author_profiles
+    def get_rcc_authors(self):
+        rcc_author_profiles = localize_queryset(
+            Profile.objects.prefetch_related("authored_rcc_entries").filter(authored_rcc_entries__rcc_detail_page=self)
+        )
+        return rcc_author_profiles
 
-    # def get_research_author_names(self):
-    #     return [ra.author_profile.name for ra in self.research_authors.all()]
+    def get_rcc_author_names(self):
+        return [ra.author_profile.name for ra in self.rcc_authors.all()]
 
-    # def get_related_topic_names(self):
-    #     return [rt.research_topic.name for rt in self.related_topics.all()]
+    def get_related_content_types_names(self):
+        return [ct.content_type.name for ct in self.related_content_types.all()]
 
     def get_banner(self):
         return self.get_parent().specific.get_banner()
