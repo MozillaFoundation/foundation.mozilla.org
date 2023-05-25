@@ -137,38 +137,51 @@ class PetitionThankYou extends Component {
         </div>
       );
     } else {
+      let facebookBtn = this.props.spFacebook && (
+        <button
+          className="tw-btn tw-btn-secondary btn-share after:tw-hidden facebook-share"
+          onClick={(e) => this.shareButtonClicked(e, `share-progress-fb`)}
+        >
+          Facebook
+        </button>
+      );
+      let twitterBtn = this.props.spTwitter && (
+        <button
+          className="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share"
+          onClick={(e) => this.shareButtonClicked(e, `share-progress-tw`)}
+        >
+          Twitter
+        </button>
+      );
+      let emailBtn = this.props.spEmail && (
+        <button
+          className="tw-btn tw-btn-secondary btn-share after:tw-hidden email-share"
+          onClick={(e) => this.shareButtonClicked(e, `share-progress-em`)}
+        >
+          Email
+        </button>
+      );
+      let linkBtn = (
+        <button
+          className="tw-btn tw-btn-secondary btn-share after:tw-hidden link-share"
+          onClick={(e) => this.shareButtonClicked(e)}
+          data-success-text="Copied"
+        >
+          Copy
+        </button>
+      );
+
       return (
         <div>
           <p>{this.props.thankYou}</p>
           <div className="share-button-group rectangle stacked">
             <div className="subgroup">
-              <button
-                className="tw-btn tw-btn-secondary btn-share after:tw-hidden facebook-share"
-                onClick={(e) => this.shareButtonClicked(e, `share-progress-fb`)}
-              >
-                Facebook
-              </button>
-              <button
-                className="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share"
-                onClick={(e) => this.shareButtonClicked(e, `share-progress-tw`)}
-              >
-                Twitter
-              </button>
+              {facebookBtn}
+              {twitterBtn}
             </div>
             <div className="subgroup">
-              <button
-                className="tw-btn tw-btn-secondary btn-share after:tw-hidden email-share"
-                onClick={(e) => this.shareButtonClicked(e, `share-progress-em`)}
-              >
-                Email
-              </button>
-              <button
-                className="tw-btn tw-btn-secondary btn-share after:tw-hidden link-share"
-                onClick={(e) => this.shareButtonClicked(e)}
-                data-success-text="Copied"
-              >
-                Copy
-              </button>
+              {emailBtn}
+              {linkBtn}
             </div>
           </div>
         </div>

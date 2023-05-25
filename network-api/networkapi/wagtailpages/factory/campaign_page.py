@@ -53,7 +53,9 @@ def generate(seed):
         print("single-page CampaignPage already exists")
     except CampaignPage.DoesNotExist:
         print("Generating single-page CampaignPage")
-        CampaignPageFactory.create(parent=campaign_index_page, title="single-page")
+        # Most Campaign Pages on prod use wide content layout,
+        # Setting narrowed_page_content to False to make it easier to test the real use case
+        CampaignPageFactory.create(parent=campaign_index_page, title="single-page", narrowed_page_content=False)
 
     reseed(seed)
 
