@@ -293,7 +293,7 @@ def test(ctx):
 
 
 @task(aliases=["docker-test-python"])
-def test_python(ctx, file="", n="auto", verbose=False):
+def test_python(ctx, file="", n="1", verbose=False):
     """
     Run python tests.
 
