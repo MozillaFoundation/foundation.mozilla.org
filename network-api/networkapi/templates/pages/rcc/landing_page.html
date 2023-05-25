@@ -5,9 +5,9 @@
     {% with hero_image_classes="tw-bg-no-repeat tw-bg-left-top tw-bg-cover tw-min-h-[260px]" %}
         {% if page.banner_image %}
             {% image page.banner_image original as hero_img %}
-            <div class="{{ hero_image_classes }}" style='background-image: url("{{ hero_img.url }}")'></div>
+            <div class="{{ hero_image_classes }}" style="background-image: url('{{ hero_img.url }}')"></div>
         {% else %}
-            <div  class="{{ hero_image_classes }}" style='background-image: url("{% static "_images/banner-black-white-marble.jpg" %}")'></div>
+            <div  class="{{ hero_image_classes }}" style="background-image: url('{% static "_images/banner-black-white-marble.jpg" %}')"></div>
         {% endif %}
     {% endwith %}
 {% endblock hero_guts %}
@@ -54,15 +54,13 @@
                 <hr class="tw-border-black tw-mt-24" />
                 <h2 class="tw-h4-heading tw-pb-8">{% trans "Browse by Content Type" context "Content Type list heading" %}</h2>
                 <ul class="tw-list-none tw-px-0 tw-grid tw-grid-cols-12 tw-gap-0 medium:tw-gap-12 large:tw-gap-0">
-                    <li>TODO: Add this section on #10426</li>
-                    {% comment %} {% for featured_topic in page.featured_topics.all %}
+                    {% for content_type in page.featured_content_types.all %}
                         <li class="tw-py-2 tw-col-span-12 medium:tw-col-span-4 large:tw-col-span-12">
                             <h2 class="tw-h5-heading tw-text-blue-80 tw-mb-2">
-                                <a href="{% pageurl library_page %}?topic={{ featured_topic.research_topic.id|unlocalize }}">{{ featured_topic.research_topic.name }}</a>
+                                <a href="{% pageurl library_page %}?topic={{ content_type.content_type.id|unlocalize }}">{{ content_type.content_type.name }}</a>
                             </h2>
-                            <p class="tw-body tw-text-gray-80 tw-text-base medium:tw-text-xs large:tw-text-base tw-pt-2"> {{ featured_topic.research_topic.description }}</p>
                         </li>
-                    {% endfor %} {% endcomment %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -71,4 +69,4 @@
 
     </div>
 
-{% endblock %}
+{% endblock subcontent %}

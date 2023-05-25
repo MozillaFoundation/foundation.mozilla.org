@@ -5,7 +5,7 @@
     <div class="tw-grid tw-grid-cols-1 tw-grid-rows-[auto_auto_1fr] medium:tw-grid-cols-[12rem_1fr_14rem] large:tw-grid-cols-[14rem_1fr_16rem] xlarge:tw-grid-cols-[14rem_1fr_16rem] tw-gap-12">
 
         <div id="breadcrumbs-container" class="medium:tw-col-start-2 medium:tw-col-end-4">
-            {% get_research_breadcrumbs %}
+            {% get_rcc_breadcrumbs %}
         </div>
 
         <div id="title-and-meta" class="medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3 tw-min-w-0">
@@ -14,10 +14,12 @@
                 {% if page.original_publication_date %}
                     <div class="tw-px-2 first:tw-pl-0 tw-whitespace-nowrap ">{{ page.original_publication_date|date:"DATE_FORMAT" }}</div>
                 {% endif %}
-                {% comment %} TODO: Replace by authors: {% endcomment %}
-                <div class="tw-px-2 first:tw-pl-0 tw-min-w-0 tw-truncate">LIST OF AUTHORS</div>
-                {% comment %} TODO: Replace by taxonomy: {% endcomment %}
-                <div class="tw-px-2 first:tw-pl-0 tw-min-w-0 tw-truncate">TAXONOMY</div>
+                {% if rcc_author_names %}
+                    <div class="tw-px-2 first:tw-pl-0 tw-whitespace-nowrap ">{{ rcc_author_names|join:", " }}</div>
+                {% endif %}
+                {% if content_type_names %}
+                    <div class="tw-px-2 first:tw-pl-0 tw-whitespace-nowrap ">{{ content_type_names|join:" / " }}</div>
+                {% endif %}
             </div>
         </div>
 
@@ -31,25 +33,21 @@
                 <p class="tw-font-light tw-text-lg large:tw-text-xl tw-mb-12">{{ page.introduction }}</p>
             {% endif %}
 
-            <div class="tw-flex tw-flex-col medium:tw-flex-row tw-gap-6">
-                <a href="#" class="tw-justify-center tw-btn-primary">
-                    TODO: Add article links
-                </a>
-            </div>
-
-            {% comment %} {% if page.research_links %}
-                <div class="tw-flex tw-flex-col medium:tw-flex-row tw-gap-6">
-                    {% for research_link in page.research_links.all %}
-                        {% with label=research_link.label url=research_link.get_url %}
-                            {% if label and url %}
-                                <a href="{{ url }}" class="tw-justify-center {% if forloop.first %} tw-btn-primary {% else %} tw-btn-secondary {% endif %}">
-                                    {{ label }}
-                                </a>
-                            {% endif %}
-                        {% endwith %}
-                    {% endfor %}
-                </div>
-            {% endif %} {% endcomment %}
+            {% with rcc_links=page.rcc_links.all %}
+                {% if rcc_links %}
+                    <div class="tw-flex tw-flex-col medium:tw-flex-row tw-gap-6">
+                        {% for rcc_link in rcc_links %}
+                            {% with label=rcc_link.label url=rcc_link.get_url %}
+                                {% if label and url %}
+                                    <a href="{{ url }}" class="tw-justify-center {% if forloop.first %} tw-btn-primary {% else %} tw-btn-secondary {% endif %}">
+                                        {{ label }}
+                                    </a>
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
         </div>
 
         <div id="overview" class="medium:tw-col-start-1 xlarge:tw-col-start-2 medium:tw-col-end-3 tw-mt-12 medium:tw-mt-24">
@@ -64,11 +62,11 @@
         </div>
 
         <div id="authors-and-contributors" class="medium:tw-col-start-3 medium:tw-col-end-4 tw-mt-12 medium:tw-mt-24">
-            {% if project_leads %}
+            {% if rcc_authors %}
                 <div class="tw-border-t tw-border-black">
                     <h2 class="tw-h4-heading tw-my-12">{% trans "Project leads" %}</h2>
                     <ul class="tw-p-0 tw-list-none">
-                        {% for author in project_leads %}
+                        {% for author in rcc_authors %}
                             <li class="tw-mb-12">
                                 {% include "fragments/libraries/author_card.html" with url_name="rcc-author-detail" authors_index=authors_index author_profile=author tight=True %}
                             </li>
