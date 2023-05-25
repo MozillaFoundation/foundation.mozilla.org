@@ -86,10 +86,10 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
         # Build a URL to check for in the response.
         # E.G, /fr/research/authors/1/name-here/
         fr_author_link = fr_author_index.url + fr_author_index.reverse_subpage(
-            "wagtailpages:research-author-detail", kwargs={"profile_slug": profile_fr.slug}
+            "research-author-detail", kwargs={"profile_slug": profile_fr.slug}
         )
         en_author_link = author_index.url + author_index.reverse_subpage(
-            "wagtailpages:research-author-detail", kwargs={"profile_slug": profile_fr.slug}
+            "research-author-detail", kwargs={"profile_slug": profile_fr.slug}
         )
 
         # Request the fr version of the page.
