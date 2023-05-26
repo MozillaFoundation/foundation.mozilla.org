@@ -145,9 +145,9 @@ jobs:
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
-      CSP_FONT_SRC: "'self' https://fonts.gstatic.com https://fonts.googleapis.com https://code.cdn.mozilla.net"
-      CSP_SCRIPT_SRC: "'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js"
-      CSP_STYLE_SRC: "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com https://platform.twitter.com"
+      CSP_FONT_SRC: "'self' https://fonts.gstatic.com https://fonts.googleapis.com https://code.cdn.mozilla.net https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/"
+      CSP_SCRIPT_SRC: "'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js https://mozillafoundation.tfaforms.net 'unsafe-eval'"
+      CSP_STYLE_SRC: "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com https://platform.twitter.com https://mozillafoundation.tfaforms.net https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4

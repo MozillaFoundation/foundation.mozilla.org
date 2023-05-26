@@ -86,6 +86,8 @@ async function fillFormAndSubmit(page, testNote = "Should go through.") {
   expect(await privacyInput.isChecked()).toBe(false);
 
   // test if submitting the form without filling out the required fields creates validation errors
+  // wait for submitButton's click event to be attached
+  await page.waitForSelector(`input[type="submit"]`, { state: "attached" });
   await submitButton.click();
   expect(await page.locator(".errFld").count()).toBe(4);
   expect(await page.locator(".errMsg").count()).toBe(4);
