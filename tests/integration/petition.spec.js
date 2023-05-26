@@ -7,8 +7,6 @@ const FA_PAGE_URL =
   "http://localhost:8000/en/campaigns/single-page/?show_formassembly=true";
 const THANK_YOU_PAGE_URL =
   "http://localhost:8000/en/campaigns/single-page/?thank_you=true";
-const FA_HOSTED_PAGE_URL =
-  "https://mozillafoundation.tfaforms.net/forms/legacyView/9";
 const FA_FIELDS = {
   campaignId: `input[name="tfa_1"]`,
   firstName: `input[name="tfa_28"]`,
@@ -28,7 +26,7 @@ test.describe("React form", () => {
     await page.locator("body.react-loaded");
     await waitForImagesToLoad(page);
 
-    // test if the React form is visible
+    // Test if the React form is visible
     const reactForm = page.locator("#petition-form");
     expect(await reactForm.count()).toBe(1);
     expect(await reactForm.isVisible()).toBe(true);
@@ -42,7 +40,7 @@ test.describe("FormAssembly form", () => {
     await waitForImagesToLoad(page);
 
     page = await fillFormAndSubmit(page);
-    // form has been submitted successfully. Page should be redirected to thank you page
+    // Form has been submitted successfully. Page should be redirected to thank you page
     expect(page.url()).toContain(THANK_YOU_PAGE_URL);
   });
 
@@ -52,9 +50,11 @@ test.describe("FormAssembly form", () => {
     await page.locator(`body.react-loaded`);
     await waitForImagesToLoad(page);
 
-    page = await fillFormAndSubmit(page, "Dupe. Should fail.");
+    // We turned off a config so that Salesforce errors won't be visible to the user.
+    // This is signing the petition using the same email address should still send users to the thank you page
+    page = await fillFormAndSubmit(page, "Dupe email. Should still go though.");
     // Submission errors encountered, page is redirected to FormAssembly hosted form page
-    expect(page.url()).toContain(FA_HOSTED_PAGE_URL);
+    expect(page.url()).toContain(THANK_YOU_PAGE_URL);
   });
 });
 
