@@ -28,7 +28,5 @@ def generate(seed):
         tagline="A profile made for visual regression testing.",
     )
 
-    reseed(seed)
-    
     print("Generating other profiles")
     generate_fake_data(ProfileFactory, NUM_PROFILES)
