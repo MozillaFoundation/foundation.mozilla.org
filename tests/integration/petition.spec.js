@@ -34,7 +34,7 @@ test.describe("React form", () => {
 });
 
 test.describe("FormAssembly form", () => {
-  test("Visibility and validation", async ({ page }) => {
+  test("Signing petition", async ({ page }) => {
     await page.goto(FA_PAGE_URL);
     await page.locator("body.react-loaded");
     await waitForImagesToLoad(page);
@@ -45,7 +45,6 @@ test.describe("FormAssembly form", () => {
   });
 
   test("Signing petition using the same email", async ({ page }) => {
-    // test.fixme();
     await page.goto(FA_PAGE_URL);
     await page.locator(`body.react-loaded`);
     await waitForImagesToLoad(page);
@@ -55,6 +54,104 @@ test.describe("FormAssembly form", () => {
     page = await fillFormAndSubmit(page, "Dupe email. Should still go though.");
     // Submission errors encountered, page is redirected to FormAssembly hosted form page
     expect(page.url()).toContain(THANK_YOU_PAGE_URL);
+  });
+});
+
+test.describe("Thank you page flow", () => {
+  test("Donation modal", async ({ page }) => {
+    await page.goto(THANK_YOU_PAGE_URL);
+    await page.locator("body.react-loaded");
+    await waitForImagesToLoad(page);
+
+    // test if donation modal is visible
+    await page.waitForSelector(`.modal-content`, { state: "attached" });
+    expect(await page.locator(`.modal-content`).isVisible()).toBe(true);
+
+    // test if donation modal can be closed using the "x" button
+    const closeButton = page.locator(
+      `.modal-content button[data-dismiss="modal"].close`
+    );
+    expect(await closeButton.count()).toBe(1);
+    await closeButton.click();
+    expect(await page.locator(`.modal-content`).isVisible()).toBe(false);
+
+    // refresh page
+    await page.reload();
+    await page.waitForSelector(`.modal-content`, { state: "attached" });
+
+    // test if donation modal can be closed using the "No thanks" button
+    const noThanksButton = page.locator(
+      `.modal-content button.text.dismiss[data-dismiss="modal"]`
+    );
+    expect(await noThanksButton.count()).toBe(1);
+    await noThanksButton.click();
+    expect(await page.locator(`.modal-content`).isVisible()).toBe(false);
+
+    // refresh page
+    await page.reload();
+    await page.waitForSelector(`.modal-content`, { state: "attached" });
+
+    // test if FRU iframe pops up after clicking the Yes button
+    const yesDonateButton = page.locator(
+      `.modal-content .tw-btn-primary[href="?form=donate"]`
+    );
+    expect(await yesDonateButton.count()).toBe(1);
+
+    const navigationPromise = page.waitForNavigation();
+    await yesDonateButton.click();
+    await navigationPromise;
+
+    // check if URL contains query parameter "form=donate"
+    expect(page.url()).toContain(`form=donate`);
+
+    // wait for FRU iframe to load
+    await page.waitForSelector(`iframe[title="Donation Widget"]`, {
+      state: "attached",
+    });
+
+    // test if FRU iframe is visible
+    const widgetIframe = page.locator(`iframe[title="Donation Widget"]`);
+    expect(await widgetIframe.count()).toBe(1);
+    expect(await widgetIframe.isVisible()).toBe(true);
+  });
+
+  test("Share buttons", async ({ page }) => {
+    await page.goto(THANK_YOU_PAGE_URL);
+    await page.locator("body.react-loaded");
+    await waitForImagesToLoad(page);
+
+    // test if donation modal is visible
+    await page.waitForSelector(`.modal-content`, { state: "attached" });
+    expect(await page.locator(`.modal-content`).isVisible()).toBe(true);
+
+    // test if donation modal can be closed using the "x" button
+    const closeButton = page.locator(
+      `.modal-content button[data-dismiss="modal"].close`
+    );
+    expect(await closeButton.count()).toBe(1);
+    await closeButton.click();
+    expect(await page.locator(`.modal-content`).isVisible()).toBe(false);
+
+    // test if Share section is visible
+    await page.waitForSelector(`.formassembly-petition-thank-you`, {
+      state: "attached",
+    });
+    expect(
+      await page.locator(`.formassembly-petition-thank-you`).isVisible()
+    ).toBe(true);
+
+    // test if Copy button is visible
+    const copyButton = page.locator(
+      ".formassembly-petition-thank-you button.link-share"
+    );
+    expect(await copyButton.count()).toBe(1);
+    // check if clicking the Copy button copies the current URL (without query params) to the clipboard
+    await copyButton.click();
+    let clipboardText = await await page.evaluate(
+      "navigator.clipboard.readText()"
+    );
+    let url = page.url().split("?")[0];
+    expect(clipboardText).toBe(url);
   });
 });
 
