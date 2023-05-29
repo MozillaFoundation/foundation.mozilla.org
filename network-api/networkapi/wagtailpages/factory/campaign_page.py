@@ -2,8 +2,8 @@ from factory import SubFactory, Trait
 from wagtail.models import Page as WagtailPage
 
 from networkapi.utility.faker.helpers import get_homepage, reseed
-from networkapi.wagtailpages.models import CampaignIndexPage, CampaignPage
 from networkapi.wagtailpages.donation_modal import DonationModals
+from networkapi.wagtailpages.models import CampaignIndexPage, CampaignPage
 
 from .abstract import CMSPageFactory
 from .donation import DonationModalsFactory
