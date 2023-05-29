@@ -28,8 +28,9 @@ test.describe("React form", () => {
 
     // Test if the React form is visible
     const reactForm = page.locator("#petition-form");
+    // wait for the form to be attached to the DOM
+    await reactForm.waitFor({ state: "visible" });
     expect(await reactForm.count()).toBe(1);
-    expect(await reactForm.isVisible()).toBe(true);
   });
 });
 
@@ -64,8 +65,8 @@ test.describe("Thank you page flow", () => {
     await waitForImagesToLoad(page);
 
     // test if donation modal is visible
-    await page.waitForSelector(`.modal-content`, { state: "attached" });
-    expect(await page.locator(`.modal-content`).isVisible()).toBe(true);
+    let modalContent = page.locator(`.modal-content`);
+    await modalContent.waitFor({ state: "visible" });
 
     // test if donation modal can be closed using the "x" button
     const closeButton = page.locator(
@@ -73,11 +74,12 @@ test.describe("Thank you page flow", () => {
     );
     expect(await closeButton.count()).toBe(1);
     await closeButton.click();
-    expect(await page.locator(`.modal-content`).isVisible()).toBe(false);
+    expect(await modalContent.isVisible()).toBe(false);
 
     // refresh page
     await page.reload();
-    await page.waitForSelector(`.modal-content`, { state: "attached" });
+    modalContent = page.locator(`.modal-content`);
+    await modalContent.waitFor({ state: "visible" });
 
     // test if donation modal can be closed using the "No thanks" button
     const noThanksButton = page.locator(
@@ -89,7 +91,8 @@ test.describe("Thank you page flow", () => {
 
     // refresh page
     await page.reload();
-    await page.waitForSelector(`.modal-content`, { state: "attached" });
+    modalContent = page.locator(`.modal-content`);
+    await modalContent.waitFor({ state: "visible" });
 
     // test if FRU iframe pops up after clicking the Yes button
     const yesDonateButton = page.locator(
@@ -104,15 +107,10 @@ test.describe("Thank you page flow", () => {
     // check if URL contains query parameter "form=donate"
     expect(page.url()).toContain(`form=donate`);
 
-    // wait for FRU iframe to load
-    await page.waitForSelector(`iframe[title="Donation Widget"]`, {
-      state: "attached",
-    });
-
     // test if FRU iframe is visible
     const widgetIframe = page.locator(`iframe[title="Donation Widget"]`);
+    await widgetIframe.waitFor({ state: "visible" });
     expect(await widgetIframe.count()).toBe(1);
-    expect(await widgetIframe.isVisible()).toBe(true);
   });
 
   test("Share buttons", async ({ page }) => {
@@ -121,8 +119,8 @@ test.describe("Thank you page flow", () => {
     await waitForImagesToLoad(page);
 
     // test if donation modal is visible
-    await page.waitForSelector(`.modal-content`, { state: "attached" });
-    expect(await page.locator(`.modal-content`).isVisible()).toBe(true);
+    let modalContent = page.locator(`.modal-content`);
+    await modalContent.waitFor({ state: "visible" });
 
     // test if donation modal can be closed using the "x" button
     const closeButton = page.locator(
@@ -133,12 +131,8 @@ test.describe("Thank you page flow", () => {
     expect(await page.locator(`.modal-content`).isVisible()).toBe(false);
 
     // test if Share section is visible
-    await page.waitForSelector(`.formassembly-petition-thank-you`, {
-      state: "attached",
-    });
-    expect(
-      await page.locator(`.formassembly-petition-thank-you`).isVisible()
-    ).toBe(true);
+    let shareSection = page.locator(`.formassembly-petition-thank-you`);
+    await shareSection.waitFor({ state: "visible" });
 
     // test if Copy button is visible
     const copyButton = page.locator(
@@ -147,9 +141,7 @@ test.describe("Thank you page flow", () => {
     expect(await copyButton.count()).toBe(1);
     // check if clicking the Copy button copies the current URL (without query params) to the clipboard
     await copyButton.click();
-    let clipboardText = await await page.evaluate(
-      "navigator.clipboard.readText()"
-    );
+    let clipboardText = await page.evaluate("navigator.clipboard.readText()");
     let url = page.url().split("?")[0];
     expect(clipboardText).toBe(url);
   });
@@ -158,8 +150,8 @@ test.describe("Thank you page flow", () => {
 async function fillFormAndSubmit(page, testNote = "Should go through.") {
   // test if the FormAssembly form is visible
   const wFormContainer = page.locator(".wFormContainer");
+  await wFormContainer.waitFor({ state: "visible" });
   expect(await wFormContainer.count()).toBe(1);
-  expect(await wFormContainer.isVisible()).toBe(true);
 
   // test if there's a submit button
   const submitButton = wFormContainer.locator(`input[type="submit"]`);
@@ -184,7 +176,7 @@ async function fillFormAndSubmit(page, testNote = "Should go through.") {
 
   // test if submitting the form without filling out the required fields creates validation errors
   // wait for submitButton's click event to be attached
-  await page.waitForSelector(`input[type="submit"]`, { state: "attached" });
+  await submitButton.waitFor({ state: "attached" });
   await submitButton.click();
   expect(await page.locator(".errFld").count()).toBe(4);
   expect(await page.locator(".errMsg").count()).toBe(4);

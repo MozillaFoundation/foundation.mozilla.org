@@ -56,8 +56,12 @@ def generate(seed):
         print("Generating single-page CampaignPage")
         # Most Campaign Pages on prod use wide content layout,
         # Setting narrowed_page_content to False to make it easier to test the real use case
-        CampaignPageFactory.create(parent=campaign_index_page, title="single-page",
-                                   narrowed_page_content=False, donation_modals=[DonationModals.objects.first()])
+        CampaignPageFactory.create(
+            parent=campaign_index_page,
+            title="single-page",
+            narrowed_page_content=False,
+            donation_modals=[DonationModals.objects.first()],
+        )
 
     reseed(seed)
 
