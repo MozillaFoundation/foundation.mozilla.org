@@ -22,6 +22,8 @@ class CampaignPageFactory(CMSPageFactory):
 
     class Params:
         no_cta = Trait(cta=None)
+        cta_show_all_fields = Trait(cta=SubFactory(PetitionFactory, requires_country_code=True,
+                                    requires_postal_code=True, comment_requirements="required"))
 
     cta = SubFactory(PetitionFactory)
 
@@ -56,12 +58,9 @@ def generate(seed):
         print("Generating single-page CampaignPage")
         # Most Campaign Pages on prod use wide content layout,
         # Setting narrowed_page_content to False to make it easier to test the real use case
-        CampaignPageFactory.create(
-            parent=campaign_index_page,
-            title="single-page",
-            narrowed_page_content=False,
-            donation_modals=[DonationModals.objects.first()],
-        )
+        CampaignPageFactory.create(parent=campaign_index_page, title="single-page",
+                                   narrowed_page_content=False, donation_modals=[DonationModals.objects.first()],
+                                   cta_show_all_fields=True)
 
     reseed(seed)
 
