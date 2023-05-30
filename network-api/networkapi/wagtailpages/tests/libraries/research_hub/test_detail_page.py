@@ -1,20 +1,25 @@
 import wagtail_factories
 from django.core import exceptions
 from django.utils import translation
-from django.utils.text import slugify
 
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     detail_page as detail_page_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
+from networkapi.wagtailpages.factory.libraries.research_hub import (
+    relations as relations_factory,
+)
 from networkapi.wagtailpages.models import (
     ArticlePage,
     PublicationPage,
     ResearchDetailPage,
 )
-from networkapi.wagtailpages.pagemodels.research_hub import authors_index
-from networkapi.wagtailpages.tests.research_hub import base as research_test_base
-from networkapi.wagtailpages.tests.research_hub import utils as research_test_utils
+from networkapi.wagtailpages.pagemodels.libraries.research_hub import authors_index
+from networkapi.wagtailpages.tests.libraries.research_hub import (
+    base as research_test_base,
+)
+from networkapi.wagtailpages.tests.libraries.research_hub import (
+    utils as research_test_utils,
+)
 
 
 class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
@@ -80,8 +85,12 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
 
         # Build a URL to check for in the response.
         # E.G, /fr/research/authors/1/name-here/
-        fr_author_link = f'href="{fr_author_index.url}{profile_fr.id}/{slugify(profile_fr.name)}/"'
-        en_author_link = f'href="{author_index.url}{profile_fr.id}/{slugify(profile_fr.name)}/"'
+        fr_author_link = fr_author_index.url + fr_author_index.reverse_subpage(
+            "wagtailpages:research-author-detail", kwargs={"profile_slug": profile_fr.slug}
+        )
+        en_author_link = author_index.url + author_index.reverse_subpage(
+            "wagtailpages:research-author-detail", kwargs={"profile_slug": profile_fr.slug}
+        )
 
         # Request the fr version of the page.
         response = self.client.get(detail_page_fr.url)

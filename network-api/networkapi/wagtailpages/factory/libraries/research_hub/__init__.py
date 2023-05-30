@@ -1,21 +1,39 @@
 from networkapi.utility.faker import helpers as faker_helpers
 from networkapi.wagtailpages import models as wagtailpage_models
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     author_index as author_index_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     detail_page as detail_page_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     landing_page as landing_page_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     library_page as library_page_factory,
 )
-from networkapi.wagtailpages.factory.research_hub import relations as relations_factory
-from networkapi.wagtailpages.factory.research_hub import (
+from networkapi.wagtailpages.factory.libraries.research_hub import (
+    relations as relations_factory,
+)
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     taxonomies as taxonomies_factory,
 )
+from networkapi.wagtailpages.pagemodels.profiles import Profile
+
+
+def create_detail_page_for_visual_regression_tests(seed, research_library_page):
+    faker_helpers.reseed(seed)
+
+    percy_author_profile = Profile.objects.get(name="Percy Profile")
+
+    percy_research_detail_page = detail_page_factory.ResearchDetailPageFactory.create(
+        parent=research_library_page, title="Fixed Title Research Detail Page"
+    )
+
+    relations_factory.ResearchAuthorRelationFactory.create(
+        research_detail_page=percy_research_detail_page,
+        author_profile=percy_author_profile,
+    )
 
 
 def generate(seed):
@@ -40,6 +58,8 @@ def generate(seed):
         research_authors_index_page = author_index_factory.ResearchAuthorsIndexPageFactory.create(
             parent=research_landing_page
         )
+
+    create_detail_page_for_visual_regression_tests(seed, research_library_page)
 
     for _ in range(4):
         taxonomies_factory.ResearchRegionFactory.create()

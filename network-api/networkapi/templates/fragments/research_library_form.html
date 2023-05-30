@@ -1,14 +1,16 @@
 {% load l10n %}
 {% for field in form %}
-    <div class="tw-pt-8 tw-pb-24 tw-border-t">
-        <fieldset>
-            <legend>
-                <h3 class="tw-h4-heading">{{ field.label_tag }}</h3>
-            </legend>
-            {{ field.errors }}
-            <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if field|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll{% endif %}">
-                {% for option in field %}<li class="tw-flex tw-flex-row tw-items-baseline">{{ option }}</li>{% endfor %}
-            </ul>
-        </fieldset>
-    </div>
+    {% if field|length %}
+        <div class="tw-pt-8 tw-pb-24 tw-border-t">
+            <fieldset>
+                <legend>
+                    <h3 class="tw-h4-heading">{{ field.label_tag }}</h3>
+                </legend>
+                {{ field.errors }}
+                <ul class="tw-list-none tw-mb-0 tw-pl-0 {% if field|length > 5 %} tw-max-h-[13.5rem] tw-overflow-y-scroll{% endif %}">
+                    {% for option in field %}<li class="tw-flex tw-flex-row tw-items-baseline">{{ option }}</li>{% endfor %}
+                </ul>
+            </fieldset>
+        </div>
+    {% endif %}
 {% endfor %}
