@@ -2,27 +2,36 @@ const { test, expect } = require("@playwright/test");
 const waitForImagesToLoad = require("../wait-for-images.js");
 
 const TEST_CAMPAIGN_ID = "7017i000000bIgTAAU";
-const PAGE_URL = "http://localhost:8000/en/campaigns/single-page";
-const FA_PAGE_URL =
-  "http://localhost:8000/en/campaigns/single-page/?show_formassembly=true";
-const THANK_YOU_PAGE_URL =
-  "http://localhost:8000/en/campaigns/single-page/?thank_you=true";
+const FA_PAGE_QUERY = "show_formassembly=true";
+const THANK_YOU_PAGE_QUERY = "thank_you=true";
 const FA_FIELDS = {
-  campaignId: `input[name="tfa_1"]`,
   firstName: `input[name="tfa_28"]`,
   lastName: `input[name="tfa_30"]`,
   email: `input[name="tfa_31"]`,
   privacy: `input[name="tfa_493"]`,
   comment: `textarea[name="tfa_497"]`,
 };
+const FA_HIDDEN_FIELDS = {
+  campaignId: `input[name="tfa_1"]`,
+  thankYouUrl: `input[name="tfa_500"]`,
+  sourceUrl: `input[name="tfa_498"]`,
+  lang: `input[name="tfa_499"]`,
+  newsletter: `input[name="tfa_501"]`,
+};
 
 const TIMESTAMP = Date.now();
 const TEST_EMAIL = `test-${TIMESTAMP}@example.com`;
 
+function generateUrl(locale = "en", queryString = "") {
+  let pageUrl = `http://localhost:8000/${locale}/campaigns/single-page/`;
+
+  return queryString ? `${pageUrl}?${queryString}` : pageUrl;
+}
+
 test.describe("React form", () => {
   test("Visibility", async ({ page }) => {
     page.on("console", console.log);
-    await page.goto(PAGE_URL);
+    await page.goto(generateUrl("en"));
     await page.locator("body.react-loaded");
     await waitForImagesToLoad(page);
 
@@ -34,9 +43,33 @@ test.describe("React form", () => {
   });
 });
 
+test.describe("Localization/Lang for FormAssembly form", () => {
+  // we are using pt-BR for this test
+  // however, this locale variable can be any non "en" locale we support on the site
+  let locale = "pt-BR";
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto(generateUrl(locale, FA_PAGE_QUERY));
+    await page.locator("body.react-loaded");
+    await waitForImagesToLoad(page);
+  });
+
+  test("FormAssembly form is localized", async ({ page }) => {
+    // test if the FormAssembly form is visible
+    const wFormContainer = page.locator(".wFormContainer");
+    await wFormContainer.waitFor({ state: "visible" });
+    expect(await wFormContainer.count()).toBe(1);
+
+    const langInput = wFormContainer.locator(FA_HIDDEN_FIELDS.lang);
+    expect(await langInput.count()).toBe(1);
+    expect(await langInput).toBeHidden();
+    expect(await langInput.inputValue()).toBe(locale);
+  });
+});
+
 test.describe("Signing FormAssembly petition form", () => {
   test.beforeEach(async ({ page }, testInfo) => {
-    await page.goto(FA_PAGE_URL);
+    await page.goto(generateUrl("en", FA_PAGE_QUERY));
     await page.locator("body.react-loaded");
     await waitForImagesToLoad(page);
 
@@ -66,6 +99,34 @@ test.describe("Signing FormAssembly petition form", () => {
     expect(await privacyInput.count()).toBe(1);
     expect(await privacyInput.isChecked()).toBe(false);
 
+    // test if hidden fields exist and are indeed hidden
+    const campaignIdInput = wFormContainer.locator(FA_HIDDEN_FIELDS.campaignId);
+    expect(await campaignIdInput.count()).toBe(1);
+    expect(await campaignIdInput).toBeHidden();
+
+    const thankYouUrlInput = wFormContainer.locator(
+      FA_HIDDEN_FIELDS.thankYouUrl
+    );
+    expect(await thankYouUrlInput.count()).toBe(1);
+    expect(await thankYouUrlInput).toBeHidden();
+    expect(await thankYouUrlInput.inputValue()).toContain(THANK_YOU_PAGE_QUERY);
+
+    const sourceUrlInput = wFormContainer.locator(FA_HIDDEN_FIELDS.sourceUrl);
+    expect(await sourceUrlInput.count()).toBe(1);
+    expect(await sourceUrlInput).toBeHidden();
+    expect((await sourceUrlInput.inputValue()).split("?")[0]).toContain(
+      generateUrl("en")
+    );
+
+    const langInput = wFormContainer.locator(FA_HIDDEN_FIELDS.lang);
+    expect(await langInput.count()).toBe(1);
+    expect(await langInput).toBeHidden();
+    expect(await langInput.inputValue()).toBe("en");
+
+    const newsletterInput = wFormContainer.locator(FA_HIDDEN_FIELDS.newsletter);
+    expect(await newsletterInput.count()).toBe(1);
+    expect(await newsletterInput).toBeHidden();
+
     // test if submitting the form without filling out the required fields creates validation errors
     // wait for submitButton's click event to be attached
     await submitButton.waitFor({ state: "attached" });
@@ -92,7 +153,7 @@ test.describe("Signing FormAssembly petition form", () => {
         }
       },
       {
-        campaignFieldId: FA_FIELDS.campaignId,
+        campaignFieldId: FA_HIDDEN_FIELDS.campaignId,
         testCampaignId: TEST_CAMPAIGN_ID,
         note: testInfo.title,
       }
@@ -106,7 +167,7 @@ test.describe("Signing FormAssembly petition form", () => {
 
   test("Integration test - Signing petition", async ({ page }) => {
     // Form has been submitted successfully. Page should be redirected to thank you page
-    expect(page.url()).toContain(THANK_YOU_PAGE_URL);
+    expect(page.url()).toContain(THANK_YOU_PAGE_QUERY);
   });
 
   test("Integration test - Signing petition using the same email", async ({
@@ -114,13 +175,13 @@ test.describe("Signing FormAssembly petition form", () => {
   }) => {
     // We turned off a config so that Salesforce errors won't be visible to the user.
     // This means signing the petition using the same email address should still send users to the thank you page
-    expect(page.url()).toContain(THANK_YOU_PAGE_URL);
+    expect(page.url()).toContain(THANK_YOU_PAGE_QUERY);
   });
 });
 
 test.describe("Thank you page flow", () => {
-  test.beforeEach(async ({ page }, testInfo) => {
-    await page.goto(THANK_YOU_PAGE_URL);
+  test.beforeEach(async ({ page }) => {
+    await page.goto(generateUrl("en", THANK_YOU_PAGE_QUERY));
     await page.locator("body.react-loaded");
     await waitForImagesToLoad(page);
 
