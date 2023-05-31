@@ -1,7 +1,7 @@
-{% extends "./base.html" %}
+{% extends "pages/libraries/base.html" %}
 {% load i18n wagtailcore_tags wagtailimages_tags breadcrumbs %}
 
-{% block research_hub_content %}
+{% block library_content %}
     <div class="tw-grid tw-grid-cols-1 tw-grid-rows-[auto_auto_1fr] medium:tw-grid-cols-[12rem_1fr_14rem] large:tw-grid-cols-[14rem_1fr_16rem] xlarge:tw-grid-cols-[14rem_1fr_16rem] tw-gap-12">
 
         <div id="breadcrumbs-container" class="medium:tw-col-start-2 medium:tw-col-end-4">
@@ -78,4 +78,4 @@
             {% endif %}
         </div>
     </div>
-{% endblock research_hub_content %}
+{% endblock library_content %}

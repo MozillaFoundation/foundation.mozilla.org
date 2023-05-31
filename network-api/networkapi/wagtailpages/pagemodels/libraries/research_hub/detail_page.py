@@ -28,7 +28,7 @@ class ResearchDetailPage(BasePage):
 
     subpage_types = ["ArticlePage", "PublicationPage"]
 
-    template = "pages/research_hub/detail_page.html"
+    template = "pages/libraries/research_hub/detail_page.html"
 
     cover_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),

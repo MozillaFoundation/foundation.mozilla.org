@@ -15,7 +15,7 @@ class ResearchLandingPage(BasePage):
         "ResearchAuthorsIndexPage",
     ]
 
-    template = "pages/research_hub/landing_page.html"
+    template = "pages/libraries/research_hub/landing_page.html"
 
     intro = models.CharField(
         blank=True,

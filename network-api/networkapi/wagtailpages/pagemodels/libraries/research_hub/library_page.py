@@ -33,7 +33,7 @@ class ResearchLibraryPage(BasePage):
 
     subpage_types = ["ResearchDetailPage"]
 
-    template = "pages/research_hub/library_page.html"
+    template = "pages/libraries/research_hub/library_page.html"
 
     SORT_CHOICES = constants.SORT_CHOICES
 
