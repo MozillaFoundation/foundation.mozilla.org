@@ -4,12 +4,11 @@ const utility = require("./utility.js");
 
 test.describe("React form", () => {
   test("Visibility", async ({ page }) => {
-    page.on("console", console.log);
     await page.goto(utility.generateUrl("en"));
     await page.locator("body.react-loaded");
     await waitForImagesToLoad(page);
 
-    // Test if the React form is visible
+    // test if the React form is visible
     const reactForm = page.locator("#petition-form");
     // wait for the form to be attached to the DOM
     await reactForm.waitFor({ state: "visible" });
@@ -17,33 +16,24 @@ test.describe("React form", () => {
   });
 });
 
-test.describe("Localization/Lang for FormAssembly form", () => {
-  // we are using pt-BR for this test
-  // however, this locale variable can be any non "en" locale we support on the site
-  let locale = "pt-BR";
+test.describe("FormAssembly petition form", () => {
+  const TIMESTAMP = Date.now();
+  // locales we support on foundation.mozilla.org
+  let supportedLocales = [
+    "en",
+    "de",
+    "es",
+    "fr",
+    "fy-NL",
+    "nl",
+    "pl",
+    "pt-BR",
+    "sw",
+  ];
+  let localeToTest = supportedLocales[0];
 
-  test.beforeEach(async ({ page }) => {
-    await page.goto(utility.generateUrl(locale, utility.FA_PAGE_QUERY));
-    await page.locator("body.react-loaded");
-    await waitForImagesToLoad(page);
-  });
-
-  test("FormAssembly form is localized", async ({ page }) => {
-    // test if the FormAssembly form is visible
-    const wFormContainer = page.locator(".wFormContainer");
-    await wFormContainer.waitFor({ state: "visible" });
-    expect(await wFormContainer.count()).toBe(1);
-
-    const langInput = wFormContainer.locator(utility.FA_HIDDEN_FIELDS.lang);
-    expect(await langInput.count()).toBe(1);
-    expect(await langInput).toBeHidden();
-    expect(await langInput.inputValue()).toBe(locale);
-  });
-});
-
-test.describe("Signing FormAssembly petition form", () => {
   test.beforeEach(async ({ page }, testInfo) => {
-    await page.goto(utility.generateUrl("en", utility.FA_PAGE_QUERY));
+    await page.goto(utility.generateUrl(localeToTest, utility.FA_PAGE_QUERY));
     await page.locator("body.react-loaded");
     await waitForImagesToLoad(page);
 
@@ -95,13 +85,13 @@ test.describe("Signing FormAssembly petition form", () => {
     expect(await sourceUrlInput.count()).toBe(1);
     expect(await sourceUrlInput).toBeHidden();
     expect((await sourceUrlInput.inputValue()).split("?")[0]).toContain(
-      utility.generateUrl("en")
+      utility.generateUrl(localeToTest)
     );
 
     const langInput = wFormContainer.locator(utility.FA_HIDDEN_FIELDS.lang);
     expect(await langInput.count()).toBe(1);
     expect(await langInput).toBeHidden();
-    expect(await langInput.inputValue()).toBe("en");
+    expect(await langInput.inputValue()).toBe(localeToTest);
 
     const newsletterInput = wFormContainer.locator(
       utility.FA_HIDDEN_FIELDS.newsletter
@@ -119,7 +109,7 @@ test.describe("Signing FormAssembly petition form", () => {
     // test if filling out the form and submitting it eliminates the validation errors
     await firstNameInput.fill("Integration");
     await lastNameInput.fill("Test");
-    await emailInput.fill(utility.TEST_EMAIL);
+    await emailInput.fill(`test-${TIMESTAMP}-${localeToTest}@example.com`);
     await privacyInput.check();
 
     // Update campaign id to TEST_CAMPAIGN_ID so this test can be submitted to FormAssembly
@@ -137,7 +127,7 @@ test.describe("Signing FormAssembly petition form", () => {
       {
         campaignFieldId: utility.FA_HIDDEN_FIELDS.campaignId,
         testCampaignId: utility.TEST_CAMPAIGN_ID,
-        note: testInfo.title,
+        note: `${testInfo.title} by integration test`,
       }
     );
 
@@ -147,16 +137,20 @@ test.describe("Signing FormAssembly petition form", () => {
     await navigationPromise;
   });
 
-  test("Integration test - Signing petition", async ({ page }) => {
-    // Form has been submitted successfully. Page should be redirected to thank you page
-    expect(page.url()).toContain(utility.THANK_YOU_PAGE_QUERY);
-  });
+  for (const locale of supportedLocales) {
+    test(`(${locale}) Signing petition`, async ({ page }) => {
+      localeToTest = locale;
+      // Form has been submitted successfully. Page should be redirected to thank you page
+      expect(page.url()).toContain(utility.THANK_YOU_PAGE_QUERY);
+    });
 
-  test("Integration test - Signing petition using the same email", async ({
-    page,
-  }) => {
-    // We turned off a config so that Salesforce errors won't be visible to the user.
-    // This means signing the petition using the same email address should still send users to the thank you page
-    expect(page.url()).toContain(utility.THANK_YOU_PAGE_QUERY);
-  });
+    test(`(${locale}) Signing petition using the same email`, async ({
+      page,
+    }) => {
+      localeToTest = locale;
+      // We turned off a config so that Salesforce errors won't be visible to the user.
+      // This means signing the petition using the same email address should still send users to the thank you page
+      expect(page.url()).toContain(utility.THANK_YOU_PAGE_QUERY);
+    });
+  }
 });

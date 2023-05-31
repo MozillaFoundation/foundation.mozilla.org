@@ -16,7 +16,6 @@ module.exports = {
     lang: `input[name="tfa_499"]`,
     newsletter: `input[name="tfa_501"]`,
   },
-  TEST_EMAIL: `test-${Date.now()}@example.com`,
   generateUrl: function (locale = "en", queryString = "") {
     let pageUrl = `http://localhost:8000/${locale}/campaigns/single-page/`;
 
