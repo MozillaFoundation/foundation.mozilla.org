@@ -2,7 +2,7 @@ const { test, expect } = require("@playwright/test");
 const waitForImagesToLoad = require("../../wait-for-images.js");
 const utility = require("./utility.js");
 
-test.describe("Thank you page flow", () => {
+test.describe("Donation modal", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(utility.generateUrl("en", utility.THANK_YOU_PAGE_QUERY));
     await page.locator("body.react-loaded");
@@ -11,20 +11,23 @@ test.describe("Thank you page flow", () => {
     // test if donation modal is visible
     let modalContent = page.locator(`.modal-content`);
     await modalContent.waitFor({ state: "visible" });
+  });
 
+  test("Donation modal can be closed using the 'x' button", async ({
+    page,
+  }) => {
     // test if donation modal can be closed using the "x" button
     const closeButton = page.locator(
       `.modal-content button[data-dismiss="modal"].close`
     );
     expect(await closeButton.count()).toBe(1);
     await closeButton.click();
-    expect(await modalContent.isVisible()).toBe(false);
+    expect(await page.locator(`.modal-content`).isVisible()).toBe(false);
+  });
 
-    // refresh page
-    await page.reload();
-    modalContent = page.locator(`.modal-content`);
-    await modalContent.waitFor({ state: "visible" });
-
+  test("Donation modal can be closed using the 'No thanks' button", async ({
+    page,
+  }) => {
     // test if donation modal can be closed using the "No thanks" button
     const noThanksButton = page.locator(
       `.modal-content button.text.dismiss[data-dismiss="modal"]`
@@ -35,11 +38,6 @@ test.describe("Thank you page flow", () => {
   });
 
   test("Donation modal can trigger FRU widget", async ({ page }) => {
-    // refresh page
-    await page.reload();
-    let modalContent = page.locator(`.modal-content`);
-    await modalContent.waitFor({ state: "visible" });
-
     // test if FRU iframe pops up after clicking the Yes button
     const yesDonateButton = page.locator(
       `.modal-content .tw-btn-primary[href="?form=donate"]`
@@ -58,8 +56,28 @@ test.describe("Thank you page flow", () => {
     await widgetIframe.waitFor({ state: "visible" });
     expect(await widgetIframe.count()).toBe(1);
   });
+});
 
-  test("Share buttons", async ({ page }) => {
+test.describe("Share buttons", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(utility.generateUrl("en", utility.THANK_YOU_PAGE_QUERY));
+    await page.locator("body.react-loaded");
+    await waitForImagesToLoad(page);
+
+    // test if donation modal is visible
+    let modalContent = page.locator(`.modal-content`);
+    await modalContent.waitFor({ state: "visible" });
+
+    // test if donation modal can be closed using the "x" button
+    const closeButton = page.locator(
+      `.modal-content button[data-dismiss="modal"].close`
+    );
+    expect(await closeButton.count()).toBe(1);
+    await closeButton.click();
+    expect(await page.locator(`.modal-content`).isVisible()).toBe(false);
+  });
+
+  test("Copy button", async ({ page }) => {
     // test if Share section is visible
     let shareSection = page.locator(`.formassembly-petition-thank-you`);
     await shareSection.waitFor({ state: "visible" });
