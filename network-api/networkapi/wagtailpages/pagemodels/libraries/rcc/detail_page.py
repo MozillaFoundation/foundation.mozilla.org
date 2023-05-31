@@ -77,7 +77,8 @@ class RCCDetailPage(BasePage):
         edit_handlers.FieldPanel("original_publication_date"),
         edit_handlers.FieldPanel("introduction"),
         edit_handlers.FieldPanel("overview"),
-        edit_handlers.InlinePanel("rcc_authors", heading="Authors", min_num=1),
+        # TODO: Reactivate once links are implemented
+        # edit_handlers.InlinePanel("rcc_authors", heading="Authors", min_num=1),
         edit_handlers.FieldPanel("contributors"),
         # TODO: Reactivate once links are implemented
         # edit_handlers.InlinePanel("related_content_types", heading="Content types"),
@@ -93,7 +94,8 @@ class RCCDetailPage(BasePage):
         # localize_fields.TranslatableField("rcc_links"),
         localize_fields.TranslatableField("introduction"),
         localize_fields.TranslatableField("overview"),
-        localize_fields.TranslatableField("rcc_authors"),
+        # TODO: Reactivate once links are implemented
+        # localize_fields.TranslatableField("rcc_authors"),
         # Contributors is translatable in case of connecting words like "and"
         localize_fields.TranslatableField("contributors"),
         # TODO: Reactivate once links are implemented
@@ -113,16 +115,16 @@ class RCCDetailPage(BasePage):
         index.SearchField("overview"),
         index.SearchField("contributors"),
         index.FilterField("original_publication_date"),  # For sorting
-        index.RelatedFields(
-            "rcc_authors",
-            [
-                index.RelatedFields(
-                    "author_profile",
-                    [index.SearchField("name")],
-                )
-            ],
-        ),
         # TODO: Reactivate once links are implemented
+        # index.RelatedFields(
+        #     "rcc_authors",
+        #     [
+        #         index.RelatedFields(
+        #             "author_profile",
+        #             [index.SearchField("name")],
+        #         )
+        #     ],
+        # ),
         # index.RelatedFields(
         #     "related_content_types",
         #     [
