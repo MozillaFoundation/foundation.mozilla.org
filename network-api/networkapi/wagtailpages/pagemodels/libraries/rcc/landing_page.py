@@ -15,7 +15,7 @@ class RCCLandingPage(BasePage):
         "RCCAuthorsIndexPage",
     ]
 
-    template = "pages/libraries/rcc/landing_page.html"
+    template = "pages/rcc/landing_page.html"
 
     intro = models.CharField(
         blank=True,
@@ -53,10 +53,10 @@ class RCCLandingPage(BasePage):
     def get_context(self, request):
         context = super().get_context(request)
         context["library_page"] = self.get_library_page()
-        context["latest_rcc_detail_pages"] = self.get_latest_rcc_pages()
+        context["latest_research_detail_pages"] = self.get_latest_research_pages()
         return context
 
-    def get_latest_rcc_pages(self):
+    def get_latest_research_pages(self):
         RCCDetailPage = apps.get_model("wagtailpages", "RCCDetailPage")
         rcc_detail_pages = RCCDetailPage.objects.live().public()
         rcc_detail_pages = rcc_detail_pages.filter(locale=self.locale)
