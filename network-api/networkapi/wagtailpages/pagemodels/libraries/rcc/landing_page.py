@@ -15,7 +15,7 @@ class RCCLandingPage(BasePage):
         "RCCAuthorsIndexPage",
     ]
 
-    template = "pages/rcc/landing_page.html"
+    template = "pages/libraries/rcc/landing_page.html"
 
     intro = models.CharField(
         blank=True,

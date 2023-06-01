@@ -21,7 +21,7 @@ class RCCAuthorsIndexPage(
 
     parent_page_types = ["RCCLandingPage"]
 
-    template = "pages/rcc/authors_index_page.html"
+    template = "pages/libraries/rcc/authors_index_page.html"
 
     banner_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),
@@ -70,7 +70,7 @@ class RCCAuthorsIndexPage(
 
     #     return self.render(
     #         request=request,
-    #         template="pages/rcc/author_detail_page.html",
+    #         template="pages/libraries/rcc/author_detail_page.html",
     #         context_overrides=context_overrides,
     #     )
 

@@ -30,7 +30,7 @@ class RCCDetailPage(BasePage):
 
     subpage_types = ["ArticlePage", "PublicationPage"]
 
-    template = "pages/rcc/detail_page.html"
+    template = "pages/libraries/rcc/detail_page.html"
 
     cover_image = models.ForeignKey(
         wagtail_images.get_image_model_string(),

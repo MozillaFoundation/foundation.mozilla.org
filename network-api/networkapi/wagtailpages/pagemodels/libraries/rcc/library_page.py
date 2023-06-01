@@ -34,7 +34,7 @@ class RCCLibraryPage(BasePage):
 
     subpage_types = ["RCCDetailPage"]
 
-    template = "pages/rcc/library_page.html"
+    template = "pages/libraries/rcc/library_page.html"
 
     SORT_CHOICES = constants.SORT_CHOICES
 
