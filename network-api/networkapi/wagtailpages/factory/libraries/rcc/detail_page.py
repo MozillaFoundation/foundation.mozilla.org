@@ -54,7 +54,8 @@ class RCCDetailPageFactory(wagtail_factories.PageFactory):
 
     # related_curricular_areas = factory.RelatedFactoryList(
     #     factory=(
-    #         "networkapi.wagtailpages.factory.libraries.rcc" ".relations.RCCDetailPageRCCCurricularAreaRelationFactory"
+    #         "networkapi.wagtailpages.factory.libraries.rcc"
+    #         ".relations.RCCDetailPageRCCCurricularAreaRelationFactory"
     #     ),
     #     factory_related_name="rcc_detail_page",
     #     size=1,
