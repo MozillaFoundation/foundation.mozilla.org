@@ -1,5 +1,7 @@
 from networkapi.utility.faker import helpers as faker_helpers
 from networkapi.wagtailpages import models as wagtailpage_models
+
+# from networkapi.wagtailpages.factory.libraries.rcc import relations as relations_factory
 from networkapi.wagtailpages.factory.libraries.rcc import (
     author_index as author_index_factory,
 )
@@ -12,11 +14,9 @@ from networkapi.wagtailpages.factory.libraries.rcc import (
 from networkapi.wagtailpages.factory.libraries.rcc import (
     library_page as library_page_factory,
 )
-
-# from networkapi.wagtailpages.factory.libraries.rcc import relations as relations_factory
-# from networkapi.wagtailpages.factory.libraries.rcc import (
-#     taxonomies as taxonomies_factory,
-# )
+from networkapi.wagtailpages.factory.libraries.rcc import (
+    taxonomies as taxonomies_factory,
+)
 
 
 def generate(seed):
@@ -40,10 +40,10 @@ def generate(seed):
     if not rcc_authors_index_page:
         rcc_authors_index_page = author_index_factory.RCCAuthorsIndexPageFactory.create(parent=rcc_landing_page)
 
-    # for _ in range(4):
-    #     taxonomies_factory.RCCContentTypeFactory.create()
-    #     taxonomies_factory.RCCCurricularAreaFactory.create()
-    #     taxonomies_factory.RCCTopicFactory.create()
+    for _ in range(4):
+        taxonomies_factory.RCCContentTypeFactory.create()
+        taxonomies_factory.RCCCurricularAreaFactory.create()
+        taxonomies_factory.RCCTopicFactory.create()
 
     for _ in range(13):
         detail_page_factory.RCCDetailPageFactory.create(
