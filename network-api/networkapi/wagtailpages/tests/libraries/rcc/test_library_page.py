@@ -3,8 +3,6 @@ import os
 
 from django.core import management, paginator
 
-# from django.utils import translation
-
 # from networkapi.wagtailpages.factory import profiles as profiles_factory
 from networkapi.wagtailpages.factory.libraries.rcc import (
     detail_page as detail_page_factory,
@@ -17,12 +15,10 @@ from networkapi.wagtailpages.factory.libraries.rcc import (
 #     taxonomies as taxonomies_factory,
 # )
 from networkapi.wagtailpages.pagemodels.libraries.rcc import constants
-from networkapi.wagtailpages.tests.libraries.rcc import (
-    base as research_test_base,
-)
-from networkapi.wagtailpages.tests.libraries.rcc import (
-    utils as research_test_utils,
-)
+from networkapi.wagtailpages.tests.libraries.rcc import base as research_test_base
+from networkapi.wagtailpages.tests.libraries.rcc import utils as research_test_utils
+
+# from django.utils import translation
 
 
 class TestRCCLibraryPage(research_test_base.RCCHubTestCase):

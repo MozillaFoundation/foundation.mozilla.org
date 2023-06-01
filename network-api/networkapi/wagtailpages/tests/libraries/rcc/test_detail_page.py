@@ -8,16 +8,10 @@
 # from networkapi.wagtailpages.factory.libraries.rcc import (
 #     relations as relations_factory,
 # )
-from networkapi.wagtailpages.models import (
-    ArticlePage,
-    PublicationPage,
-    RCCDetailPage,
-)
+from networkapi.wagtailpages.models import ArticlePage, PublicationPage, RCCDetailPage
 
 # from networkapi.wagtailpages.pagemodels.libraries.rcc import authors_index
-from networkapi.wagtailpages.tests.libraries.rcc import (
-    base as rcc_test_base,
-)
+from networkapi.wagtailpages.tests.libraries.rcc import base as rcc_test_base
 
 # from networkapi.wagtailpages.tests.libraries.rcc import (
 #     utils as rcc_test_utils,
