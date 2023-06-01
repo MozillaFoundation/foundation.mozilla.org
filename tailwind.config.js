@@ -60,7 +60,6 @@ module.exports = {
     ...glyphPlugins,
     ...formControlPlugins,
     require("@tailwindcss/forms")({ strategy: "class" }),
-    require("@tailwindcss/line-clamp"),
   ],
   theme: {
     extend: {

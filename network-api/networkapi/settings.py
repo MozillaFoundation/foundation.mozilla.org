@@ -90,6 +90,7 @@ env = environ.Env(
     XROBOTSTAG_ENABLED=(bool, False),
     XSS_PROTECTION=bool,
     SCOUT_KEY=(str, ""),
+    WAGTAILADMIN_BASE_URL=(str, ""),
 )
 
 # Read in the environment
@@ -101,6 +102,10 @@ else:
 SENTRY_DSN = env("SENTRY_DSN")
 HEROKU_RELEASE_VERSION = env("HEROKU_RELEASE_VERSION")
 SENTRY_ENVIRONMENT = env("SENTRY_ENVIRONMENT")
+
+# This is used by Wagtail's email notifications for constructing absolute
+# URLs. It should be set to the domain that users will access the admin site.
+WAGTAILADMIN_BASE_URL = env("WAGTAILADMIN_BASE_URL")
 
 if SENTRY_DSN:
     import sentry_sdk
@@ -182,7 +187,7 @@ SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and SOCIAL_AUTH_GOOGLE
 USE_S3 = env("USE_S3")
 
 # Detect if Django is running normally, or in test mode through "manage.py test"
-TESTING = "test" in sys.argv
+TESTING = "test" in sys.argv or "pytest" in sys.argv
 
 INSTALLED_APPS = list(
     filter(
@@ -255,6 +260,7 @@ INSTALLED_APPS = list(
             # wagtail-specific app prefixed so that it can be localised
             "networkapi.wagtailpages",
             "networkapi.mozfest",
+            "networkapi.donate",
         ],
     )
 )

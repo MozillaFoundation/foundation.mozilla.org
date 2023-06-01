@@ -20,6 +20,7 @@ from networkapi.wagtailpages.forms import BlogIndexPageForm
 from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.utils import (
+    get_blog_authors,
     get_default_locale,
     get_locale_from_request,
     localize_queryset,
@@ -382,7 +383,7 @@ class BlogIndexPage(IndexPage):
             Profiles used as blog authors.
         """
         author_profiles = Profile.objects.all()
-        author_profiles = author_profiles.filter_blog_authors()
+        author_profiles = get_blog_authors(author_profiles)
         author_profiles = localize_queryset(author_profiles)
 
         return self.render(

@@ -9,10 +9,9 @@ from wagtail_color_panel.fields import ColorField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.profiles import Profile
-from networkapi.wagtailpages.utils import set_main_site_nav_information
 
+from ..base import BasePage
 from ..customblocks.base_rich_text_options import base_rich_text_options
-from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
 
 class PublicationAuthors(Orderable):
@@ -30,7 +29,7 @@ class PublicationAuthors(Orderable):
         return f"Author: {self.author.name}"
 
 
-class PublicationPage(FoundationMetadataPageMixin, Page):
+class PublicationPage(BasePage):
     """
     This is the root page of a publication.
 
@@ -308,4 +307,4 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
                 # User is not logged in AND this page is live. Only fetch live grandchild pages.
                 pages.append({"child": page, "grandchildren": page.get_children().live()})
         context["child_pages"] = pages
-        return set_main_site_nav_information(self, context, "Homepage")
+        return context

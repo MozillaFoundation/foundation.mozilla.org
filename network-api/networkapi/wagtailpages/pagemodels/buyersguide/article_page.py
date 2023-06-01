@@ -11,20 +11,20 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels import customblocks
+from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideArticlePageForm,
 )
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
 )
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 from networkapi.wagtailpages.utils import get_language_from_request
 
 if typing.TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideContentCategory, Profile
 
 
-class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wagtail_models.Page):
+class BuyersGuideArticlePage(BasePage):
     parent_page_types = ["wagtailpages.BuyersGuideEditorialContentIndexPage"]
     subpage_types: list = []
     template = "pages/buyersguide/article_page.html"
@@ -93,7 +93,6 @@ class BuyersGuideArticlePage(foundation_metadata.FoundationMetadataPageMixin, wa
     settings_panels = [
         panels.PublishingPanel(),
         panels.FieldPanel("first_published_at"),
-        panels.PrivacyModalPanel(),
     ]
 
     translatable_fields = [

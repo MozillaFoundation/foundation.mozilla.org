@@ -3,7 +3,7 @@
 {% get_current_language as lang_code %}
 
 <!DOCTYPE html>
-<html lang="{{ lang_code }}">
+<html lang="{{ lang_code }}" class="{% block html_class %}{% endblock %}">
     <head>
         <meta charset="utf-8">
         <title>
@@ -75,6 +75,9 @@
         {% block org_schema %}{% endblock %}
 
         {% block additional_head_elements %}{% endblock %}
+        {% if request.in_preview_panel %}
+            <base target="_blank">
+        {% endif %}
     </head>
     <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
         {% if user.is_authenticated %}
@@ -95,7 +98,7 @@
 
         {% block body_wrapped %}
             <div class="wrapper">
-                <div class="sticky-top d-print-none">
+                <div class="{% block sticky_top_class %} sticky-top {% endblock %} d-print-none">
                     {% block primary_nav %}
                         {% include "partials/primary_nav.html" with background="simple-background" %}
                     {% endblock %}

@@ -6,7 +6,7 @@ from wagtail_localize import synctree
 from networkapi.wagtailpages.factory import homepage as home_factory
 
 
-class WagtailpagesTestCase(wagtail_test.WagtailPageTests):
+class WagtailpagesTestCase(wagtail_test.WagtailPageTestCase):
     @classmethod
     def setUpTestData(cls):
         cls._setup_homepage()
