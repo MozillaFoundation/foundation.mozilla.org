@@ -513,7 +513,7 @@ def generate(seed):
 
     # Adding related articles to Categories
     for product_category in pagemodels.BuyersGuideProductCategory.objects.all():
-        for index, article in enumerate(get_random_objects(pagemodels.BuyersGuideArticlePage, max_count=6)):
+        for index, article in enumerate(get_random_objects(pagemodels.BuyersGuideArticlePage, exact_count=6)):
             BuyersGuideProductCategoryArticlePageRelationFactory(
                 category=product_category,
                 article=article,
