@@ -2,7 +2,7 @@
 
 {% get_page_authors blog_page as authors %}
 <div class="tw-pt-4 tw-border-t-4">
-    {% with authors_length=authors|length author_image_classes="tw-rounded-full tw-overflow-hidden tw-h-28 tw-w-28 medium:tw-h-[72px] medium:tw-w-[72px] " no_image_classes="tw-bg-[url('../_images/blog-author-placeholder.jpg')] tw-bg-cover" %}
+    {% with authors_length=authors|length author_image_classes="tw-rounded-full tw-overflow-hidden tw-h-28 tw-w-28 medium:tw-h-[72px] medium:tw-w-[72px] " no_image_classes="tw-bg-[url('../_images/author-placeholder.jpg')] tw-bg-cover" %}
         {% for author in authors %}
             {% if author.introduction %}
                 <div class="tw-flex tw-w-full tw-py-8 {% if not forloop.last and authors_length > 1 %} tw-border-b-[1px] tw-border-gray-20 {% endif %}">
