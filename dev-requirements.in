@@ -10,3 +10,9 @@ mypy
 ptvsd
 types-python-slugify
 types-requests
+
+pytest
+pytest-django
+pytest-cov
+pytest-xdist
+pytest-sugar

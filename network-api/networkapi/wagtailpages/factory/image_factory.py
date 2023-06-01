@@ -1,3 +1,4 @@
+import factory
 from factory.django import DjangoModelFactory, ImageField
 from wagtail.images import get_image_model
 from wagtail.models import Collection
@@ -6,8 +7,16 @@ from wagtail.models import Collection
 # always generates images in the Root collection:
 
 
+class CollectionFactory(DjangoModelFactory):
+    class Meta:
+        model = Collection
+        django_get_or_create = ("name",)
+
+    name = "Root"
+
+
 class CollectionMemberFactory(DjangoModelFactory):
-    collection = Collection.objects.get(name="Root")
+    collection = factory.SubFactory(CollectionFactory)
 
 
 class ImageFactory(CollectionMemberFactory):
