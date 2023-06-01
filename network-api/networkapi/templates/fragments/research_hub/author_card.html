@@ -7,7 +7,7 @@
         {% with profile_image_classes="tw-w-full tw-h-auto tw-rounded-full" %}
             {% if author_profile.image %}
                 {% image author_profile.image fill-182x182 as profile_img %}
-                <img src="{{ profile_image.url }}" alt="{{ author_profile.name }}" class="{{ profile_image_classes }}">
+                <img src="{{ profile_img.url }}" alt="{{ author_profile.name }}" class="{{ profile_image_classes }}">
             {% else %}
                 <img src="{% static '_images/author-placeholder.jpg' %}" alt="{{ author_profile.name }}" class="{{ profile_image_classes }}">
             {% endif %}
