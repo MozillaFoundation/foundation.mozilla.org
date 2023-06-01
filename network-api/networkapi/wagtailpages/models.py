@@ -68,6 +68,11 @@ from .pagemodels.libraries.rcc.authors_index import RCCAuthorsIndexPage
 from .pagemodels.libraries.rcc.detail_page import RCCDetailPage
 from .pagemodels.libraries.rcc.landing_page import RCCLandingPage
 from .pagemodels.libraries.rcc.library_page import RCCLibraryPage
+from .pagemodels.libraries.rcc.taxonomies import (
+    RCCContentType,
+    RCCCurricularArea,
+    RCCTopic,
+)
 from .pagemodels.libraries.research_hub.authors_index import ResearchAuthorsIndexPage
 from .pagemodels.libraries.research_hub.detail_page import (
     ResearchDetailLink,
