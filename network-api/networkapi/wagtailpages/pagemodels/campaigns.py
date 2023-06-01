@@ -11,9 +11,9 @@ from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import get_content_related_by_tag, get_page_tree_information
+from .base import PrimaryPage
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .modular import MiniSiteNameSpace
-from .primary import PrimaryPage
 
 
 @register_snippet
