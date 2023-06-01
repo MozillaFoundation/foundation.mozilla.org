@@ -66,8 +66,8 @@ class RCCLibraryPage(BasePage):
 
     def get_context(self, request: "http.HttpRequest") -> "django_template.Context":
         #     search_query: str = request.GET.get("search", "")
-        #     sort_value: str = request.GET.get("sort", "")
-        #     sort: constants.SortOption = constants.SORT_CHOICES.get(sort_value, constants.SORT_NEWEST_FIRST)
+        sort_value: str = request.GET.get("sort", "")
+        sort: constants.SortOption = constants.SORT_CHOICES.get(sort_value, constants.SORT_NEWEST_FIRST)
 
         #     filter_form = RCCLibraryPageFilterForm(request.GET, label_suffix="")
         #     if not filter_form.is_valid():
@@ -83,7 +83,7 @@ class RCCLibraryPage(BasePage):
         #     filtered_curricular_area_ids = filter_form.cleaned_data["curricular_areas"]
         #     filtered_topic_ids = filter_form.cleaned_data["topics"]
 
-        searched_and_filtered_rcc_detail_pages = self._get_rcc_detail_pages()
+        searched_and_filtered_rcc_detail_pages = self._get_rcc_detail_pages(sort=sort)
         # search=search_query,
         # sort=sort,
         # author_profile_ids=filtered_author_ids,
@@ -158,7 +158,7 @@ class RCCLibraryPage(BasePage):
         # if year:
         #     rcc_detail_pages = rcc_detail_pages.filter(original_publication_date__year=year)
 
-        # rcc_detail_pages = rcc_detail_pages.order_by(sort.order_by_value)
+        rcc_detail_pages = rcc_detail_pages.order_by(sort.order_by_value)
 
         # if search:
         #     rcc_detail_pages = rcc_detail_pages.search(
