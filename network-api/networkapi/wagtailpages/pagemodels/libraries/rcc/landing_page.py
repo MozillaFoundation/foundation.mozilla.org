@@ -1,21 +1,21 @@
 from django.apps import apps
 from django.db import models
 from wagtail import models as wagtail_models
-from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.base import BasePage
 
 
-class ResearchLandingPage(BasePage):
+class RCCLandingPage(BasePage):
     max_count = 1
 
     subpage_types = [
-        "ResearchLibraryPage",
-        "ResearchAuthorsIndexPage",
+        "RCCLibraryPage",
+        "RCCAuthorsIndexPage",
     ]
 
-    template = "pages/libraries/research_hub/landing_page.html"
+    template = "pages/libraries/rcc/landing_page.html"
 
     intro = models.CharField(
         blank=True,
@@ -32,14 +32,16 @@ class ResearchLandingPage(BasePage):
     content_panels = wagtail_models.Page.content_panels + [
         FieldPanel("intro"),
         FieldPanel("banner_image"),
-        InlinePanel("featured_topics", heading="Featured Topics"),
+        # TODO: Reactivate once links are implemented
+        # InlinePanel("featured_content_types", heading="Featured content types"),
     ]
 
     translatable_fields = [
         TranslatableField("title"),
         SynchronizedField("banner_image"),
         TranslatableField("intro"),
-        TranslatableField("featured_topics"),
+        # TODO: Reactivate once links are implemented
+        # TranslatableField("featured_content_types"),
         # Promote tab fields
         SynchronizedField("slug"),
         TranslatableField("seo_title"),
@@ -51,18 +53,18 @@ class ResearchLandingPage(BasePage):
     def get_context(self, request):
         context = super().get_context(request)
         context["library_page"] = self.get_library_page()
-        context["latest_research_detail_pages"] = self.get_latest_research_pages()
+        context["latest_rcc_detail_pages"] = self.get_latest_rcc_pages()
         return context
 
-    def get_latest_research_pages(self):
-        ResearchDetailPage = apps.get_model("wagtailpages", "ResearchDetailPage")
-        research_detail_pages = ResearchDetailPage.objects.live().public()
-        research_detail_pages = research_detail_pages.filter(locale=self.locale)
-        research_detail_pages = research_detail_pages.order_by("-original_publication_date")
-        research_detail_pages = research_detail_pages[:3]
+    def get_latest_rcc_pages(self):
+        RCCDetailPage = apps.get_model("wagtailpages", "RCCDetailPage")
+        rcc_detail_pages = RCCDetailPage.objects.live().public()
+        rcc_detail_pages = rcc_detail_pages.filter(locale=self.locale)
+        rcc_detail_pages = rcc_detail_pages.order_by("-original_publication_date")
+        rcc_detail_pages = rcc_detail_pages[:3]
 
-        return research_detail_pages
+        return rcc_detail_pages
 
     def get_library_page(self):
-        ResearchLibraryPage = apps.get_model("wagtailpages", "ResearchLibraryPage")
-        return ResearchLibraryPage.objects.filter(locale=self.locale).first()
+        RCCLibraryPage = apps.get_model("wagtailpages", "RCCLibraryPage")
+        return RCCLibraryPage.objects.filter(locale=self.locale).first()

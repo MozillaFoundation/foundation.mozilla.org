@@ -64,6 +64,10 @@ from .pagemodels.campaigns import (
 from .pagemodels.dear_internet import DearInternetPage
 from .pagemodels.feature_flags.feature_flags import FeatureFlags
 from .pagemodels.index import IndexPage
+from .pagemodels.libraries.rcc.authors_index import RCCAuthorsIndexPage
+from .pagemodels.libraries.rcc.detail_page import RCCDetailPage
+from .pagemodels.libraries.rcc.landing_page import RCCLandingPage
+from .pagemodels.libraries.rcc.library_page import RCCLibraryPage
 from .pagemodels.libraries.research_hub.authors_index import ResearchAuthorsIndexPage
 from .pagemodels.libraries.research_hub.detail_page import (
     ResearchDetailLink,
