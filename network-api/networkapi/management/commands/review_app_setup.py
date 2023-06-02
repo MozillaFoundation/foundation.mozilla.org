@@ -60,6 +60,7 @@ class Command(BaseCommand):
         return {
             "Foundation Home Page": f"{app_name}.{REVIEW_APP_DOMAIN}",
             "Mozilla Festival": f"mozfest-{app_name}.{REVIEW_APP_DOMAIN}",
+            "Donate": f"donate-{app_name}.{REVIEW_APP_DOMAIN}",
         }
 
     def add_dns_records(self):

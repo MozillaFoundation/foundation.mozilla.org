@@ -8,6 +8,7 @@ module.exports = [
         base: "a",
         styles: (componentType) => ({
           color: theme("colors.blue.80"),
+          textDecoration: "none",
           "&:hover,&:focus,&:active": {
             color: theme("colors.blue.80"),
             textDecoration: "underline",
@@ -353,6 +354,19 @@ module.exports = [
             position: "relative",
             top: "-1px",
           },
+        }),
+      },
+      {
+        // Mocking Bootstrap v4's .text-hide class.
+        // Useful when you want to utilize a background-image instead of text,
+        // but still want to keep the text for accessibility and SEO purposes
+        class: ".text-hide",
+        styles: (componentType) => ({
+          backgroundColor: "transparent",
+          border: 0,
+          color: "transparent",
+          font: "0/0 a",
+          textShadow: "none",
         }),
       },
     ];
