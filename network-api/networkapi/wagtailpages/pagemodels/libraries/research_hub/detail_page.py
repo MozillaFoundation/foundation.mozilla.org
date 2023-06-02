@@ -204,15 +204,19 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     def clean(self) -> None:
         super().clean()
 
+        url_set = bool(self.url)
+        page_set = bool(self.page)
+        document_set = bool(self.document)
+
         # Ensure that only one of the three fields is set
-        if sum([bool(self.url), bool(self.page), bool(self.document)]) > 1:
+        if sum([url_set, page_set, document_set]) > 1:
             error_message = "Please provide either a URL, a page or a document, not multiple."
             raise exceptions.ValidationError(
                 {"url": error_message, "page": error_message, "document": error_message},
                 code="invalid",
             )
         # Ensure that at least one of the three fields is set
-        elif not any([self.url, self.page, self.document]):
+        if not any([url_set, page_set, document_set]):
             error_message = "Please provide a URL, a page or a document."
             raise exceptions.ValidationError(
                 {"url": error_message, "page": error_message, "document": error_message},
@@ -222,7 +226,7 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     def get_url(self) -> str:
         if self.url:
             return self.url
-        elif self.page:
+        if self.page:
             if not self.page.live:
                 logger.warning(
                     f"Detail link to unpublished page defined: { self } -> { self.page }. "
@@ -230,6 +234,6 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
                 )
                 return ""
             return self.page.get_url()
-        elif self.document:
+        if self.document:
             return self.document.url
         raise ValueError("No URL defined for this detail link. This should not happen.")
