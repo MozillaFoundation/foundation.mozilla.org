@@ -1,7 +1,5 @@
 from networkapi.utility.faker import helpers as faker_helpers
 from networkapi.wagtailpages import models as wagtailpage_models
-
-# from networkapi.wagtailpages.factory.libraries.rcc import relations as relations_factory
 from networkapi.wagtailpages.factory.libraries.rcc import (
     author_index as author_index_factory,
 )
