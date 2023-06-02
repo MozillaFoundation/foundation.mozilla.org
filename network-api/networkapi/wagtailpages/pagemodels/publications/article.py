@@ -10,14 +10,10 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.pagemodels.publications.publication import PublicationPage
-from networkapi.wagtailpages.utils import (
-    TitleWidget,
-    get_plaintext_titles,
-    set_main_site_nav_information,
-)
+from networkapi.wagtailpages.utils import TitleWidget, get_plaintext_titles
 
 from ..article_fields import article_fields
-from ..mixin.foundation_metadata import FoundationMetadataPageMixin
+from ..base import BasePage
 
 
 class ArticleAuthors(Orderable):
@@ -35,7 +31,7 @@ class ArticleAuthors(Orderable):
         return self.author.name
 
 
-class ArticlePage(FoundationMetadataPageMixin, Page):
+class ArticlePage(BasePage):
     """
     Articles can belong to any page in the Wagtail Tree.
     An ArticlePage can have no children
@@ -320,4 +316,4 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         # we need access to the `request` object
         # menu_items is required for zen_nav in the templates
         context["get_titles"] = get_plaintext_titles(request, self.body, "content")
-        return set_main_site_nav_information(self, context, "Homepage")
+        return context

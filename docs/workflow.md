@@ -76,17 +76,24 @@ Opening a PR will trigger [Github Action](https://github.com/mozilla/foundation.
 ### Visual regression testing
 
 [Once a PR has been reviewed and approved a GitHub Action is trigged](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-a-workflow-when-a-pull-request-is-approved) that runs visual regression testing using [Percy.io](https://percy.io) (based on Playwright output).
-
 The PR status checks should update to show the result of the visual regression tests.
-These tests do not need to pass for a PR to be merged, but any discrepancies that are flagged by Percy should be reviewed and signed off on during the course of normal PR review.
+
+The visual regression tests are required to pass before a PR can be merged.
+This is a change from our previous workflow.
+The visual regression tests have been made required to make sure that they have definitely run and passed before a PR is merged.
+Since we changed to only trigger the regression tests on PR approval, it could happen that a change is pushed to a PR after it has been approved, which would not trigger the visual regression tests to run again.
+That meant the PR status checks would show as passing, but the visual regression tests would not be reported anymore (because they did not trigger again).
+
+Now, the visual regression tests are always listed as a status check, and will always be required to pass before a PR can be merged.
+In the situation where a change is pushed to a PR after it has been approved, the visual regression tests will still not trigger again.
+It does however seem overkill to require a PR to be re-approved just because a change was pushed to it after it was approved as this will frequently happen due to a rebase.
+To run the visual regression tests in such a case, you can add the label `run visual regression tests` to the PR.
+This will also trigger the visual regression tests to run algain and update the status checks accordingly.
+Note that the **adding** is the trigger.
+So if you want to run the tests again (after the label was already added), just remove and re-add the label.
 
 Note that any changes to model fields, field ordering, or factories, will likely result in charges to our testing data, which will result in Percy flagging changes: the test data is based on Python's pseudo-random number generator, which we seed at various points during test data generation, but between those seed points is based on the exact order in which fields are assigned testing data. If the order of assignments changes, or old fields are added/new fields are removed, then the PRNG sequence will be different, and Percy will likely show that there are visual diffs that require sign-off.
 
 It is possible that a PR has Percy-flagged changes, despite the PR not touching model/factory code nor introducing changes to the front-end code. In this case, please alert the engineering team: we've seen this happen in the past and it is unclear why it happens.
-
-Because we have run into the need to check visual regression manually pretty quickly after adding the above, you can also trigger visual regression tests by adding the label `run visual regression tests` to the PR.
-The **adding** is the trigger.
-So if you want to run the tests again, just remove and re-add the label.
-The PR approval trigger will also still run the regression tests.
 
 For more information on how to work with visual regression tests, see the [Percy docs](https://docs.percy.io/docs).
