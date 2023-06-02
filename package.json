@@ -76,7 +76,6 @@
   "dependencies": {
     "@sentry/browser": "^6.2.1",
     "@tailwindcss/forms": "^0.5.3",
-    "@tailwindcss/line-clamp": "^0.4.4",
     "autoprefixer": "^10.4.14",
     "axe-core": "^4.6.3",
     "bootstrap": "^4.6.0",
@@ -86,7 +85,7 @@
     "cssnano": "^5.1.15",
     "esbuild": "^0.17.11",
     "event-stream": "3.3.4",
-    "gsap": "^3.11.4",
+    "gsap": "^3.11.5",
     "htmx.org": "^1.8.6",
     "locomotive-scroll": "^4.1.4",
     "moment": "^2.29.4",
