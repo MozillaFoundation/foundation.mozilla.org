@@ -5,12 +5,13 @@ const MozfestURLs = require("./mozfest-urls.js");
 /**
  * Test to see if the given URL can be loaded
  * and visiting it returns a successful response (status 200)
- * @param {String} domain
- * @param {String} path
+ * @param {String} baseUrl domain with locale
+ * @param {String} path path may or may not contain query string
  */
-function testURL(domain, path) {
+function testURL(baseUrl, path) {
   return async ({ page }) => {
-    const url = `${domain}${path}/`;
+    // append trailing slash to URL only if it doesn't contain query string
+    const url = `${baseUrl}${path}${path.includes("?") ? "" : "/"}`;
     const response = await page.goto(url);
     expect(response.status()).toBe(200);
   };
