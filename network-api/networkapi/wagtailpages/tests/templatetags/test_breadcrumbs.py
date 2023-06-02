@@ -30,7 +30,7 @@ class TestGetResearchBreadcrumb(ResearchHubTestCase):
         )
 
         profile_url = self.author_index.reverse_subpage(
-            "wagtailpages:research-author-detail",
+            "research-author-detail",
             kwargs={"profile_slug": research_profile.slug},
         )
 
