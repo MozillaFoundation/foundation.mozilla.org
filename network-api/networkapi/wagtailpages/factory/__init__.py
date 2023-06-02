@@ -1,3 +1,5 @@
+from networkapi.wagtailpages.factory.libraries import research_hub
+
 from . import (
     bannered_campaign_page,
     blog,
@@ -17,7 +19,6 @@ from . import (
     participate_page_featured_highlights,
     profiles,
     publication,
-    research_hub,
     styleguide,
     youtube_regrets_page,
 )

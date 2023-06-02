@@ -19,16 +19,14 @@ from wagtail.admin.panels import (
     PageChooserPanel,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.models import Locale, Orderable, Page, TranslatableMixin
+from wagtail.models import Locale, Orderable, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
+from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_categories_for_locale,
     sort_average,
-)
-from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
-    FoundationMetadataPageMixin,
 )
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import (
@@ -45,7 +43,7 @@ if TYPE_CHECKING:
     )
 
 
-class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
+class BuyersGuidePage(RoutablePageMixin, BasePage):
     """
     Note: We'll likely be converting the "about" pages to Wagtail Pages.
     When that happens, we should remove the RoutablePageMixin and @routes
@@ -361,6 +359,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         return sitemap
 
     def get_context(self, request, *args, **kwargs):
+        bypass_products = kwargs.pop("bypass_products", False)
         context = super().get_context(request, *args, **kwargs)
         language_code = get_language_from_request(request)
 
@@ -371,7 +370,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         exclude_cat_ids = [excats.category.id for excats in self.excluded_categories.all()]
 
         ProductPage = apps.get_model(app_label="wagtailpages", model_name="ProductPage")
-        if not kwargs.get("bypass_products", False) and products is None:
+        if not bypass_products and products is None:
             products = get_product_subset(
                 self.cutoff_date,
                 authenticated,
