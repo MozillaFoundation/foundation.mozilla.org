@@ -21,7 +21,7 @@ from networkapi.wagtailpages.tests.libraries.rcc import utils as research_test_u
 # from django.utils import translation
 
 
-class TestRCCLibraryPage(research_test_base.RCCHubTestCase):
+class TestRCCLibraryPage(research_test_base.RCCTestCase):
     def update_index(self):
         with open(os.devnull, "w") as f:
             management.call_command("update_index", verbosity=0, stdout=f)
