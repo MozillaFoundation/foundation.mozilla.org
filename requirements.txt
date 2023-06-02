@@ -76,9 +76,9 @@ django-cors-headers==3.14.0
     # via -r requirements.in
 django-csp==3.7
     # via -r requirements.in
-django-environ==0.9.0
+django-environ==0.10.0
     # via -r requirements.in
-django-filter==21.1
+django-filter==22.1
     # via
     #   -r requirements.in
     #   wagtail

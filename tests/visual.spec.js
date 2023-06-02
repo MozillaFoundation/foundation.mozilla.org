@@ -8,13 +8,14 @@ const runTime = Date.now();
 /**
  * Screenshot task runner
  *
- * @param {String} domain http://localhost:8000 or http://mozfest.localhost:8000
- * @param {String} path the URL path to screenshot
+ * @param {String} baseUrl domain with locale. e.g., http://localhost:8000/en or http://mozfest.localhost:8000/en
+ * @param {String} path path may or may not contain query string
  * @returns
  */
-function testURL(domain, path) {
+function testURL(baseUrl, path) {
   return async ({ page }, testInfo) => {
-    const url = `${domain}${path}/`;
+    // append trailing slash to URL only if it doesn't contain query string
+    const url = `${baseUrl}${path}${path.includes("?") ? "" : "/"}`;
     console.log(url);
     await page.goto(url);
 
