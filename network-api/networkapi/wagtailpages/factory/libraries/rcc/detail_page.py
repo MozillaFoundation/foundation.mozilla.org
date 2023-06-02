@@ -5,8 +5,7 @@ import wagtail_factories
 
 from networkapi.utility.faker import helpers as faker_helpers
 from networkapi.wagtailpages import models as wagtailpage_models
-
-# from networkapi.wagtailpages.factory import documents as documents_factory
+from networkapi.wagtailpages.factory import documents as documents_factory
 from networkapi.wagtailpages.factory import image_factory
 
 
@@ -16,12 +15,12 @@ class RCCDetailPageFactory(wagtail_factories.PageFactory):
 
     title = factory.Faker("text", max_nb_chars=50)
     cover_image = factory.SubFactory(image_factory.ImageFactory)
-    # research_links = factory.RelatedFactoryList(
-    #     factory="networkapi.wagtailpages.factory.libraries.rcc.detail_page.RCCDetailLinkFactory",
-    #     factory_related_name="rcc_detail_page",
-    #     size=lambda: random.randint(1, 2),
-    #     with_url=True,
-    # )
+    research_links = factory.RelatedFactoryList(
+        factory="networkapi.wagtailpages.factory.libraries.rcc.detail_page.RCCDetailLinkFactory",
+        factory_related_name="rcc_detail_page",
+        size=lambda: random.randint(1, 2),
+        with_url=True,
+    )
     original_publication_date = factory.Faker("date_object")
     introduction = factory.Faker("text", max_nb_chars=300)
 
@@ -38,48 +37,47 @@ class RCCDetailPageFactory(wagtail_factories.PageFactory):
             names.append(faker.name())
         return "; ".join(names)
 
-    # rcc_authors = factory.RelatedFactoryList(
-    #     factory="networkapi.wagtailpages.factory.libraries.rcc.relations.RCCAuthorRelationFactory",
-    #     factory_related_name="rcc_detail_page",
-    #     size=1,
-    # )
+    rcc_authors = factory.RelatedFactoryList(
+        factory="networkapi.wagtailpages.factory.libraries.rcc.relations.RCCAuthorRelationFactory",
+        factory_related_name="rcc_detail_page",
+        size=1,
+    )
 
-    # related_content_types = factory.RelatedFactoryList(
-    #     factory=(
-    #         "networkapi.wagtailpages.factory.libraries.rcc" ".relations.RCCDetailPageRCCContentTypeRelationFactory"
-    #     ),
-    #     factory_related_name="rcc_detail_page",
-    #     size=1,
-    # )
+    related_content_types = factory.RelatedFactoryList(
+        factory=(
+            "networkapi.wagtailpages.factory.libraries.rcc" ".relations.RCCDetailPageRCCContentTypeRelationFactory"
+        ),
+        factory_related_name="rcc_detail_page",
+        size=1,
+    )
 
-    # related_curricular_areas = factory.RelatedFactoryList(
-    #     factory=(
-    #         "networkapi.wagtailpages.factory.libraries.rcc"
-    #         ".relations.RCCDetailPageRCCCurricularAreaRelationFactory"
-    #     ),
-    #     factory_related_name="rcc_detail_page",
-    #     size=1,
-    # )
+    related_curricular_areas = factory.RelatedFactoryList(
+        factory=(
+            "networkapi.wagtailpages.factory.libraries.rcc" ".relations.RCCDetailPageRCCCurricularAreaRelationFactory"
+        ),
+        factory_related_name="rcc_detail_page",
+        size=1,
+    )
 
-    # related_topics = factory.RelatedFactoryList(
-    #     factory=("networkapi.wagtailpages.factory.libraries.rcc" ".relations.RCCDetailPageRCCTopicRelationFactory"),
-    #     factory_related_name="rcc_detail_page",
-    #     size=1,
-    # )
+    related_topics = factory.RelatedFactoryList(
+        factory=("networkapi.wagtailpages.factory.libraries.rcc" ".relations.RCCDetailPageRCCTopicRelationFactory"),
+        factory_related_name="rcc_detail_page",
+        size=1,
+    )
 
 
-# class RCCDetailLinkFactory(factory.django.DjangoModelFactory):
-#     class Meta:
-#         model = wagtailpage_models.RCCDetailLink
+class RCCDetailLinkFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = wagtailpage_models.RCCDetailLink
 
-#     label = factory.Faker("text", max_nb_chars=30)
-#     url = ""
-#     page = None
-#     document = None
+    label = factory.Faker("text", max_nb_chars=30)
+    url = ""
+    page = None
+    document = None
 
-#     class Params:
-#         with_url = factory.Trait(
-#             url=factory.Faker("uri"),
-#         )
-#         with_page = factory.Trait(page=factory.SubFactory(wagtail_factories.PageFactory))
-#         with_document = factory.Trait(document=factory.SubFactory(documents_factory.DocumentFactory))
+    class Params:
+        with_url = factory.Trait(
+            url=factory.Faker("uri"),
+        )
+        with_page = factory.Trait(page=factory.SubFactory(wagtail_factories.PageFactory))
+        with_document = factory.Trait(document=factory.SubFactory(documents_factory.DocumentFactory))
