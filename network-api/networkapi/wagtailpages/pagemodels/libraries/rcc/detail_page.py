@@ -17,8 +17,8 @@ from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options impo
     base_rich_text_options,
 )
 from networkapi.wagtailpages.pagemodels.libraries.rcc import authors_index
-from networkapi.wagtailpages.pagemodels.profiles import Profile
-from networkapi.wagtailpages.utils import localize_queryset
+from networkapi.wagtailpages.pagemodels import profiles
+from networkapi.wagtailpages import utils as wagtailpages_utils
 
 logger = logging.getLogger(__name__)
 
@@ -154,8 +154,8 @@ class RCCDetailPage(BasePage):
         return context
 
     def get_rcc_authors(self):
-        rcc_author_profiles = localize_queryset(
-            Profile.objects.prefetch_related("authored_rcc_articles").filter(
+        rcc_author_profiles = wagtailpages_utils.localize_queryset(
+            profiles.Profile.objects.prefetch_related("authored_rcc_articles").filter(
                 authored_rcc_articles__rcc_detail_page=self
             )
         )
