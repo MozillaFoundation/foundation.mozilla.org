@@ -12,13 +12,13 @@ from wagtail.images import edit_handlers as image_handlers
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
+from networkapi.wagtailpages import utils as wagtailpages_utils
+from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
 from networkapi.wagtailpages.pagemodels.libraries.research_hub import authors_index
-from networkapi.wagtailpages.pagemodels import profiles
-from networkapi.wagtailpages import utils as wagtailpages_utils
 
 logger = logging.getLogger(__name__)
 
