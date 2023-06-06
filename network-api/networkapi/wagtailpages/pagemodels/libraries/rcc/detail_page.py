@@ -155,9 +155,7 @@ class RCCDetailPage(BasePage):
 
     def get_rcc_authors(self):
         rcc_author_profiles = wagtailpages_utils.localize_queryset(
-            profiles.Profile.objects.prefetch_related("authored_rcc_articles").filter(
-                authored_rcc_articles__rcc_detail_page=self
-            )
+            profiles.Profile.objects.filter(authored_rcc_articles__rcc_detail_page=self)
         )
         return rcc_author_profiles
 
@@ -219,19 +217,19 @@ class RCCDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
     def clean(self) -> None:
         super().clean()
 
-        url_set = bool(self.url)
-        page_set = bool(self.page)
-        document_set = bool(self.document)
+        is_url_set = bool(self.url)
+        is_page_set = bool(self.page)
+        is_document_set = bool(self.document)
 
         # Ensure that only one of the three fields is set
-        if sum([url_set, page_set, document_set]) > 1:
+        if sum([is_url_set, is_page_set, is_document_set]) > 1:
             error_message = "Please provide either a URL, a page or a document, not multiple."
             raise exceptions.ValidationError(
                 {"url": error_message, "page": error_message, "document": error_message},
                 code="invalid",
             )
         # Ensure that at least one of the three fields is set
-        if not any([url_set, page_set, document_set]):
+        if not any([is_url_set, is_page_set, is_document_set]):
             error_message = "Please provide a URL, a page or a document."
             raise exceptions.ValidationError(
                 {"url": error_message, "page": error_message, "document": error_message},
