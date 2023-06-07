@@ -83,7 +83,6 @@ class RCCAuthorsIndexPage(
         return {
             "author_profile": author_profile,
             "author_article_count": self.get_author_rcc_entries_count(author_profile=author_profile),
-            # On author detail pages to include the link to the authors index.
             "latest_articles": self.get_latest_author_rcc_entries(author_profile=author_profile),
             "library_page": library_page.RCCLibraryPage.objects.first(),
         }
