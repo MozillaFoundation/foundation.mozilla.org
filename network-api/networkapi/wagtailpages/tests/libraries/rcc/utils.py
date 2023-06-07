@@ -29,19 +29,19 @@ def translate_detail_page(detail_page, locale):
         rcc_author_trans.author_profile = author_profile_trans
         rcc_author_trans.save()
 
-    for related_ct_trans in trans_detail_page.related_content_types.all():
-        ct_orig = related_ct_trans.content_type
-        ct_trans = ct_orig.copy_for_translation(locale)
-        ct_trans.save()
-        related_ct_trans.content_type = ct_trans
-        related_ct_trans.save()
+    for related_content_type_trans in trans_detail_page.related_content_types.all():
+        content_type_orig = related_content_type_trans.content_type
+        content_type_trans = content_type_orig.copy_for_translation(locale)
+        content_type_trans.save()
+        related_content_type_trans.content_type = content_type_trans
+        related_content_type_trans.save()
 
-    for related_ca_trans in trans_detail_page.related_curricular_areas.all():
-        ca_orig = related_ca_trans.curricular_area
-        ca_trans = ca_orig.copy_for_translation(locale)
-        ca_trans.save()
-        related_ca_trans.content_type = ca_trans
-        related_ca_trans.save()
+    for related_curricular_area_trans in trans_detail_page.related_curricular_areas.all():
+        curricular_area_orig = related_curricular_area_trans.curricular_area
+        curricular_area_trans = curricular_area_orig.copy_for_translation(locale)
+        curricular_area_trans.save()
+        related_curricular_area_trans.content_type = curricular_area_trans
+        related_curricular_area_trans.save()
 
     for related_topic_trans in trans_detail_page.related_topics.all():
         topic_orig = related_topic_trans.rcc_topic
