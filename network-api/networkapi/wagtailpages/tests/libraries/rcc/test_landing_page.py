@@ -3,9 +3,6 @@ from networkapi.wagtailpages.tests.libraries.rcc import base
 
 class RCCLandingPageTestCase(base.RCCTestCase):
     def test_page_loads(self):
-        """
-        Ensure that the page loads
-        """
         response = self.client.get(self.landing_page.url)
         self.assertEqual(response.status_code, 200)
 
