@@ -10,6 +10,7 @@ from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
+    constants,
     detail_page,
     library_page,
 )
@@ -92,10 +93,9 @@ class ResearchAuthorsIndexPage(
         }
 
     def get_latest_author_research(self, author_profile):
-        LATEST_RESEARCH_COUNT_LIMIT = 3
         author_research = self.get_author_research(author_profile)
         author_research = author_research.order_by("-original_publication_date")
-        latest_research = author_research[:LATEST_RESEARCH_COUNT_LIMIT]
+        latest_research = author_research[: constants.LATEST_RESEARCH_COUNT_LIMIT]
         return latest_research
 
     def get_author_research_count(self, author_profile):
