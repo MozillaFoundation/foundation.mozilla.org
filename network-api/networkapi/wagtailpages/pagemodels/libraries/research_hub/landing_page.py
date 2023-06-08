@@ -1,8 +1,8 @@
 from django.apps import apps
 from django.db import models
 from wagtail import models as wagtail_models
-from wagtail.admin.panels import FieldPanel, InlinePanel
-from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail.admin import panels
+from wagtail_localize import fields as localize_fields
 
 from networkapi.wagtailpages.pagemodels.base import BasePage
 
@@ -30,22 +30,22 @@ class ResearchLandingPage(BasePage):
     )
 
     content_panels = wagtail_models.Page.content_panels + [
-        FieldPanel("intro"),
-        FieldPanel("banner_image"),
-        InlinePanel("featured_topics", heading="Featured Topics"),
+        panels.FieldPanel("intro"),
+        panels.FieldPanel("banner_image"),
+        panels.InlinePanel("featured_topics", heading="Featured Topics"),
     ]
 
     translatable_fields = [
-        TranslatableField("title"),
-        SynchronizedField("banner_image"),
-        TranslatableField("intro"),
-        TranslatableField("featured_topics"),
+        localize_fields.TranslatableField("title"),
+        localize_fields.SynchronizedField("banner_image"),
+        localize_fields.TranslatableField("intro"),
+        localize_fields.TranslatableField("featured_topics"),
         # Promote tab fields
-        SynchronizedField("slug"),
-        TranslatableField("seo_title"),
-        SynchronizedField("show_in_menus"),
-        TranslatableField("search_description"),
-        SynchronizedField("search_image"),
+        localize_fields.SynchronizedField("slug"),
+        localize_fields.TranslatableField("seo_title"),
+        localize_fields.SynchronizedField("show_in_menus"),
+        localize_fields.TranslatableField("search_description"),
+        localize_fields.SynchronizedField("search_image"),
     ]
 
     def get_context(self, request):

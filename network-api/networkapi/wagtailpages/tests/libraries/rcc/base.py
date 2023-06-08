@@ -14,7 +14,7 @@ from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages.tests.libraries.rcc import utils
 
 
-class RCCHubTestCase(test_base.WagtailpagesTestCase):
+class RCCTestCase(test_base.WagtailpagesTestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
@@ -24,6 +24,7 @@ class RCCHubTestCase(test_base.WagtailpagesTestCase):
     def _setup_rcc_structure(cls, homepage):
         cls.landing_page = landing_page_factory.RCCLandingPageFactory(
             parent=homepage,
+            title="RCC Playbook",
         )
         cls.library_page = library_page_factory.RCCLibraryPageFactory(
             parent=cls.landing_page,

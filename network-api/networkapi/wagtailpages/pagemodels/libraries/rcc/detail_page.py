@@ -1,10 +1,9 @@
 import logging
 
-# from django.core import exceptions
+from django.core import exceptions
 from django.db import models
-
-# from modelcluster import fields as cluster_fields
-# from wagtail import documents as wagtail_docs
+from modelcluster import fields as cluster_fields
+from wagtail import documents as wagtail_docs
 from wagtail import fields as wagtail_fields
 from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
@@ -13,14 +12,13 @@ from wagtail.images import edit_handlers as image_handlers
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
+from networkapi.wagtailpages import utils as wagtailpages_utils
+from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-
-# from networkapi.wagtailpages.pagemodels.libraries.rcc import authors_index
-# from networkapi.wagtailpages.pagemodels.profiles import Profile
-# from networkapi.wagtailpages.utils import localize_queryset
+from networkapi.wagtailpages.pagemodels.libraries.rcc import authors_index
 
 logger = logging.getLogger(__name__)
 
@@ -72,36 +70,30 @@ class RCCDetailPage(BasePage):
 
     content_panels = wagtail_models.Page.content_panels + [
         image_handlers.FieldPanel("cover_image"),
-        # TODO: Reactivate once links are implemented
-        # edit_handlers.InlinePanel("rcc_links", heading="Article links"),
+        edit_handlers.InlinePanel("rcc_links", heading="Article links"),
         edit_handlers.FieldPanel("original_publication_date"),
         edit_handlers.FieldPanel("introduction"),
         edit_handlers.FieldPanel("overview"),
-        # TODO: Reactivate once links are implemented
-        # edit_handlers.InlinePanel("rcc_authors", heading="Authors", min_num=1),
+        edit_handlers.InlinePanel("rcc_authors", heading="Authors", min_num=1),
         edit_handlers.FieldPanel("contributors"),
-        # TODO: Reactivate once links are implemented
-        # edit_handlers.InlinePanel("related_content_types", heading="Content types"),
-        # edit_handlers.InlinePanel("related_curricular_areas", heading="Curricular areas"),
-        # edit_handlers.InlinePanel("related_topics", heading="Topics"),
+        edit_handlers.InlinePanel("related_content_types", heading="Content types"),
+        edit_handlers.InlinePanel("related_curricular_areas", heading="Curricular areas"),
+        edit_handlers.InlinePanel("related_topics", heading="Topics"),
     ]
 
     translatable_fields = [
         localize_fields.TranslatableField("title"),
         localize_fields.SynchronizedField("cover_image"),
         localize_fields.SynchronizedField("original_publication_date", overridable=False),
-        # TODO: Reactivate once links are implemented
-        # localize_fields.TranslatableField("rcc_links"),
+        localize_fields.TranslatableField("rcc_links"),
         localize_fields.TranslatableField("introduction"),
         localize_fields.TranslatableField("overview"),
-        # TODO: Reactivate once links are implemented
-        # localize_fields.TranslatableField("rcc_authors"),
+        localize_fields.TranslatableField("rcc_authors"),
         # Contributors is translatable in case of connecting words like "and"
         localize_fields.TranslatableField("contributors"),
-        # TODO: Reactivate once links are implemented
-        # localize_fields.TranslatableField("related_content_types"),
-        # localize_fields.TranslatableField("related_curricular_areas"),
-        # localize_fields.TranslatableField("related_topics"),
+        localize_fields.TranslatableField("related_content_types"),
+        localize_fields.TranslatableField("related_curricular_areas"),
+        localize_fields.TranslatableField("related_topics"),
         # Promote tab fields
         localize_fields.SynchronizedField("slug"),
         localize_fields.TranslatableField("seo_title"),
@@ -115,64 +107,146 @@ class RCCDetailPage(BasePage):
         index.SearchField("overview"),
         index.SearchField("contributors"),
         index.FilterField("original_publication_date"),  # For sorting
-        # TODO: Reactivate once links are implemented
-        # index.RelatedFields(
-        #     "rcc_authors",
-        #     [
-        #         index.RelatedFields(
-        #             "author_profile",
-        #             [index.SearchField("name")],
-        #         )
-        #     ],
-        # ),
-        # index.RelatedFields(
-        #     "related_content_types",
-        #     [
-        #         index.RelatedFields(
-        #             "content_type",
-        #             [index.SearchField("name")],
-        #         )
-        #     ],
-        # ),
-        # index.RelatedFields(
-        #     "related_curricular_areas",
-        #     [
-        #         index.RelatedFields(
-        #             "curricular_area",
-        #             [index.SearchField("name")],
-        #         )
-        #     ],
-        # ),
-        # index.RelatedFields(
-        #     "related_topics",
-        #     [
-        #         index.RelatedFields(
-        #             "rcc_topic",
-        #             [index.SearchField("name")],
-        #         )
-        #     ],
-        # ),
+        index.RelatedFields(
+            "rcc_authors",
+            [
+                index.RelatedFields(
+                    "author_profile",
+                    [index.SearchField("name")],
+                )
+            ],
+        ),
+        index.RelatedFields(
+            "related_content_types",
+            [
+                index.RelatedFields(
+                    "content_type",
+                    [index.SearchField("name")],
+                )
+            ],
+        ),
+        index.RelatedFields(
+            "related_curricular_areas",
+            [
+                index.RelatedFields(
+                    "curricular_area",
+                    [index.SearchField("name")],
+                )
+            ],
+        ),
+        index.RelatedFields(
+            "related_topics",
+            [
+                index.RelatedFields(
+                    "rcc_topic",
+                    [index.SearchField("name")],
+                )
+            ],
+        ),
     ]
 
-    # def get_context(self, request):
-    #     context = super().get_context(request)
-    #     context["authors_index"] = authors_index.RCCAuthorsIndexPage.objects.first()
-    #     context["rcc_authors"] = self.get_rcc_authors()
-    #     context["rcc_author_names"] = self.get_rcc_author_names()
-    #     context["content_type_names"] = self.get_related_content_types_names()
-    #     return context
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["authors_index"] = authors_index.RCCAuthorsIndexPage.objects.first()
+        context["rcc_authors"] = self.get_rcc_authors()
+        context["rcc_author_names"] = self.get_rcc_author_names()
+        context["content_type_names"] = self.get_related_content_types_names()
+        return context
 
-    # def get_rcc_authors(self):
-    #     rcc_author_profiles = localize_queryset(
-    #         Profile.objects.prefetch_related("authored_rcc_entries").filter(authored_rcc_entries__rcc_detail_page=self)
-    #     )
-    #     return rcc_author_profiles
+    def get_rcc_authors(self):
+        rcc_author_profiles = wagtailpages_utils.localize_queryset(
+            profiles.Profile.objects.filter(authored_rcc_articles__rcc_detail_page=self)
+        )
+        return rcc_author_profiles
 
-    # def get_rcc_author_names(self):
-    #     return [ra.author_profile.name for ra in self.rcc_authors.all()]
+    def get_rcc_author_names(self):
+        return [ra.author_profile.name for ra in self.rcc_authors.all()]
 
-    # def get_related_content_types_names(self):
-    #     return [ct.content_type.name for ct in self.related_content_types.all()]
+    def get_related_content_types_names(self):
+        return [ct.content_type.name for ct in self.related_content_types.all()]
 
     def get_banner(self):
         return self.get_parent().specific.get_banner()
+
+
+class RCCDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
+    rcc_detail_page = cluster_fields.ParentalKey(
+        "RCCDetailPage",
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name="rcc_links",
+    )
+
+    label = models.CharField(null=False, blank=False, max_length=50)
+
+    url = models.URLField(null=False, blank=True)
+    page = models.ForeignKey(
+        "wagtailcore.Page",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+    )
+    document = models.ForeignKey(
+        wagtail_docs.get_document_model_string(),
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        edit_handlers.HelpPanel(
+            content=(
+                "Please provide a link to the original resource. "
+                "You can link to an internal page, an external URL or upload a document. "
+                'If you wish to provide multiple, please create two separate "article links"'
+            )
+        ),
+        edit_handlers.FieldPanel("label"),
+        edit_handlers.FieldPanel("url"),
+        edit_handlers.FieldPanel("page"),
+        edit_handlers.FieldPanel("document"),
+    ]
+
+    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
+        ordering = ["sort_order"]
+
+    def __str__(self) -> str:
+        return self.label
+
+    def clean(self) -> None:
+        super().clean()
+
+        is_url_set = bool(self.url)
+        is_page_set = bool(self.page)
+        is_document_set = bool(self.document)
+
+        # Ensure that only one of the three fields is set
+        if sum([is_url_set, is_page_set, is_document_set]) > 1:
+            error_message = "Please provide either a URL, a page or a document, not multiple."
+            raise exceptions.ValidationError(
+                {"url": error_message, "page": error_message, "document": error_message},
+                code="invalid",
+            )
+        # Ensure that at least one of the three fields is set
+        if not any([is_url_set, is_page_set, is_document_set]):
+            error_message = "Please provide a URL, a page or a document."
+            raise exceptions.ValidationError(
+                {"url": error_message, "page": error_message, "document": error_message},
+                code="required",
+            )
+
+    def get_url(self) -> str:
+        if self.url:
+            return self.url
+        if self.page:
+            if not self.page.live:
+                logger.warning(
+                    f"Detail link to unpublished page defined: { self } -> { self.page }. "
+                    "This link will not be shown in the frontend."
+                )
+                return ""
+            return self.page.get_url()
+        if self.document:
+            return self.document.url
+        raise ValueError("No URL defined for this detail link. This should not happen.")
