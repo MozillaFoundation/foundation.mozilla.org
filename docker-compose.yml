@@ -1,26 +1,56 @@
 version: '3'
 
 services:
-
-  watch-static-files:
+  backend:
+    platform: linux/amd64 # Fix issues for M1 Macs
     build:
+      target: dev
       context: .
-      dockerfile: ./dockerfiles/Dockerfile.node
-    env_file:
-      - .env
     environment:
       # Need to specify the SHELL env var for chokidar
       - SHELL=/bin/sh
       # Force polling because inotify doesn't work on Docker Windows
       - CHOKIDAR_USEPOLLING=1
       - CHOKIDAR_INTERVAL=2000
-    command: npm run watch
+    env_file:
+      - ".env"
+    command: /app/dockerpythonvenv/bin/python network-api/manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+      - "8001:8001" # ptvsd port for debugging
     volumes:
-      - .:/app
-      - node_modules:/app/node_modules/
-      - dockerpythonvenv:/app/dockerpythonvenv/
+      # The container already has a copy of the application code from build time, but we are also
+      # mounting some files here so the container can see changes to them or write to them. 
+      # This is useful for development.
+      - ./.git:/app/.git:rw
+      - ./network-api:/app/network-api:rw
+      - ./.env:/app/.env:rw
+      - ./tests:/app/tests:rw
+      - ./pyproject.toml:/app/pyproject.toml:rw
+      - ./release-steps.sh:/app/release-steps.sh:rw
+      - ./requirements.txt:/app/requirements.txt:rw
+      - ./dev-requirements.txt:/app/dev-requirements.txt:rw
+
+      # Frontend config
+      - ./source:/app/source:rw
+      - ./.editorconfig:/app/.editorconfig:rw
+      - ./.eslintignore:/app/.eslintignore:rw
+      - ./.eslintrc.a11y.json:/app/.eslintrc.a11y.json:rw
+      - ./.eslintrc.json:/app/.eslintrc.json:rw
+      - ./.prettierignore:/app/.prettierignore:rw
+      - ./.prettierrc:/app/.prettierrc:rw
+      - ./.stylelintrc:/app/.stylelintrc:rw
+      - ./.stylelintrc-colors.js:/app/.stylelintrc-colors.js:rw
+      - ./esbuild.config.js:/app/esbuild.config.js:rw
+      - ./pyrightconfig.json:/app/pyrightconfig.json:rw
+      - ./playwright.config.js:/app/playwright.config.js:rw
+      - ./postcss.config.js:/app/postcss.config.js:rw
+      - ./tailwind-plugins:/app/tailwind-plugins:rw
+      - ./tailwind.config.js:/app/tailwind.config.js:rw
+      - ./package-lock.json:/app/package-lock.json:rw
+      - ./package.json:/app/package.json:rw
     depends_on:
-      - backend
+      - postgres
 
   postgres:
     image: postgres:13.2
@@ -33,24 +63,6 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-
-  backend:
-    build:
-      context: .
-      dockerfile: ./dockerfiles/Dockerfile.python
-    env_file:
-      - ".env"
-    command: dockerpythonvenv/bin/python network-api/manage.py runserver 0.0.0.0:8000
-    ports:
-      - "8000:8000"
-      - "8001:8001" # ptvsd port for debugging
-    volumes:
-      - .:/app
-      - dockerpythonvenv:/app/dockerpythonvenv/
-    depends_on:
-      - postgres
-
+      
 volumes:
   postgres_data:
-  node_modules:
-  dockerpythonvenv:
