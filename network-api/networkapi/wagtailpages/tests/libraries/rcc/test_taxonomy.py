@@ -6,7 +6,7 @@ from networkapi.wagtailpages.factory.libraries.rcc import (
 from networkapi.wagtailpages.tests.libraries.rcc import base
 
 
-class RCCTaxonomyTestCase(base.RCCHubTestCase):
+class RCCTaxonomyTestCase(base.RCCTestCase):
     """
     Test case for the RCCTaxonomy model.
     Since the BaseTaxonomy model is abstract, this test case focuses on

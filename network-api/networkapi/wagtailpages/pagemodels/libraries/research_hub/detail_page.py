@@ -12,13 +12,13 @@ from wagtail.images import edit_handlers as image_handlers
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
+from networkapi.wagtailpages import utils as wagtailpages_utils
+from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
 from networkapi.wagtailpages.pagemodels.libraries.research_hub import authors_index
-from networkapi.wagtailpages.pagemodels.profiles import Profile
-from networkapi.wagtailpages.utils import localize_queryset
 
 logger = logging.getLogger(__name__)
 
@@ -141,8 +141,10 @@ class ResearchDetailPage(BasePage):
         return context
 
     def get_research_authors(self):
-        research_author_profiles = localize_queryset(
-            Profile.objects.prefetch_related("authored_research").filter(authored_research__research_detail_page=self)
+        research_author_profiles = wagtailpages_utils.localize_queryset(
+            profiles.Profile.objects.prefetch_related("authored_research").filter(
+                authored_research__research_detail_page=self
+            )
         )
         return research_author_profiles
 
@@ -204,15 +206,19 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     def clean(self) -> None:
         super().clean()
 
+        url_set = bool(self.url)
+        page_set = bool(self.page)
+        document_set = bool(self.document)
+
         # Ensure that only one of the three fields is set
-        if sum([bool(self.url), bool(self.page), bool(self.document)]) > 1:
+        if sum([url_set, page_set, document_set]) > 1:
             error_message = "Please provide either a URL, a page or a document, not multiple."
             raise exceptions.ValidationError(
                 {"url": error_message, "page": error_message, "document": error_message},
                 code="invalid",
             )
         # Ensure that at least one of the three fields is set
-        elif not any([self.url, self.page, self.document]):
+        if not any([url_set, page_set, document_set]):
             error_message = "Please provide a URL, a page or a document."
             raise exceptions.ValidationError(
                 {"url": error_message, "page": error_message, "document": error_message},
@@ -222,7 +228,7 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
     def get_url(self) -> str:
         if self.url:
             return self.url
-        elif self.page:
+        if self.page:
             if not self.page.live:
                 logger.warning(
                     f"Detail link to unpublished page defined: { self } -> { self.page }. "
@@ -230,6 +236,6 @@ class ResearchDetailLink(wagtail_models.TranslatableMixin, wagtail_models.Ordera
                 )
                 return ""
             return self.page.get_url()
-        elif self.document:
+        if self.document:
             return self.document.url
         raise ValueError("No URL defined for this detail link. This should not happen.")

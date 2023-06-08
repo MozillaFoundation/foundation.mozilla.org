@@ -20,7 +20,7 @@
                 class="medium:tw-col-start-2"
             {% endif %}
         >
-            {% research_breadcrumbs include_self=True %}
+            {% rcc_breadcrumbs include_self=True %}
         </div>
         {% if author_profile.image %}
             <div id="image-container" class="tw-place-self-center medium:tw-place-self-start">
@@ -39,7 +39,7 @@
             </p>
         </div>
         <div
-            id="latest-research"
+            id="latest-articles"
             class="
                 tw-border-t
                 tw-min-w-0
@@ -52,16 +52,16 @@
                 {% endif %}
             "
         >
-            <h2>{% translate "Latest research" %}</h2>
+            <h2>{% translate "Latest articles" %}</h2>
             <ul class="tw-list-none px-0">
-                {% for research_detail_page in latest_research %}
+                {% for rcc_detail_page in latest_articles %}
                     <li class="tw-border-t tw-border-t-gray-20 tw-mt-12 tw-pt-12">
-                        {% include "fragments/research_hub/detail_card.html" with research_detail_page=research_detail_page hide_author_names=True hide_image_on_mobile=True %}
+                        {% include "fragments/research_hub/detail_card.html" with research_detail_page=rcc_detail_page hide_author_names=True hide_image_on_mobile=True %}
                     </li>
                 {% endfor %}
             </ul>
-            {% if author_research_count > 3 %}
-                <a href="{% pageurl library_page %}?author={{ author_profile.id|unlocalize }}" class="tw-btn-secondary tw-mt-12 small:tw-mt-16 tw-w-full small:tw-w-auto">{% translate "Browse all projects" context "Button to see more than the latest three elements of research from an author" %} ({{ author_research_count }})</a>
+            {% if author_article_count > 3 %}
+                <a href="{% pageurl library_page %}?author={{ author_profile.id|unlocalize }}" class="tw-btn-secondary tw-mt-12 small:tw-mt-16 tw-w-full small:tw-w-auto">{% translate "Browse all projects" context "Button to see more than the latest three RCC articles from an author" %} ({{ author_article_count }})</a>
             {% endif %}
         </div>
     </div>

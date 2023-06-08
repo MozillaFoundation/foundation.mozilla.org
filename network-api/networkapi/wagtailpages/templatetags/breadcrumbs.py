@@ -9,7 +9,7 @@ register = template.Library()
 
 
 @register.inclusion_tag("fragments/breadcrumbs.html", takes_context=True)
-def get_research_breadcrumbs(context, include_self=False):
+def research_breadcrumbs(context, include_self=False):
     page = context["page"]
     research_landing_page = ResearchLandingPage.objects.filter(locale=page.locale).first()
     page_ancestors = page.get_ancestors(include_self).descendant_of(research_landing_page, True)
@@ -19,7 +19,7 @@ def get_research_breadcrumbs(context, include_self=False):
 
 
 @register.inclusion_tag("fragments/breadcrumbs.html", takes_context=True)
-def get_rcc_breadcrumbs(context, include_self=False):
+def rcc_breadcrumbs(context, include_self=False):
     page = context["page"]
     rcc_landing_page = RCCLandingPage.objects.filter(locale=page.locale).first()
     page_ancestors = page.get_ancestors(include_self).descendant_of(rcc_landing_page, True)
