@@ -144,9 +144,6 @@ test.describe("FormAssembly petition form", () => {
       expect(page.url()).toContain(utility.THANK_YOU_PAGE_QUERY);
     });
 
-    // Commenting this out for now, signing up with the same email breaks this test.
-
-    /*
     test(`(${locale}) Signing petition using the same email`, async ({
       page,
     }) => {
@@ -155,6 +152,5 @@ test.describe("FormAssembly petition form", () => {
       // This means signing the petition using the same email address should still send users to the thank you page
       expect(page.url()).toContain(utility.THANK_YOU_PAGE_QUERY);
     });
-    */
   }
 });
