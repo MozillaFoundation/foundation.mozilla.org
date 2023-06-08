@@ -44,9 +44,7 @@ class RCCDetailPageFactory(wagtail_factories.PageFactory):
     )
 
     related_content_types = factory.RelatedFactoryList(
-        factory=(
-            "networkapi.wagtailpages.factory.libraries.rcc" ".relations.RCCDetailPageRCCContentTypeRelationFactory"
-        ),
+        factory="networkapi.wagtailpages.factory.libraries.rcc.relations.RCCDetailPageRCCContentTypeRelationFactory",
         factory_related_name="rcc_detail_page",
         size=1,
     )
