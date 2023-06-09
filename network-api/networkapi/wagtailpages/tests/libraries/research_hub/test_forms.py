@@ -1,7 +1,5 @@
 import datetime
-import os
 
-from django.core import management
 from django.utils import timezone, translation
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
@@ -27,10 +25,6 @@ from networkapi.wagtailpages.tests.libraries.research_hub import (
 
 
 class TestFormUtilitiesFunctions(research_test_base.ResearchHubTestCase):
-    def update_index(self):
-        with open(os.devnull, "w") as f:
-            management.call_command("update_index", verbosity=0, stdout=f)
-
     def test_research_author_profile_obtained_by_get_author_options(self):
         detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,

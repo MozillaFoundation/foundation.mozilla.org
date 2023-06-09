@@ -1,6 +1,3 @@
-import os
-
-from django.core import management
 from django.utils import translation
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
@@ -20,10 +17,6 @@ from networkapi.wagtailpages.tests.libraries.rcc import utils as rcc_test_utils
 
 
 class TestFormUtilitiesFunctions(rcc_test_base.RCCTestCase):
-    def update_index(self):
-        with open(os.devnull, "w") as f:
-            management.call_command("update_index", verbosity=0, stdout=f)
-
     def test_rcc_author_profile_obtained_by_get_author_options(self):
         detail_page = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
