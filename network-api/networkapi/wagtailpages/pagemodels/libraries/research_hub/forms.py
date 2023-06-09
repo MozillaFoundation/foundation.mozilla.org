@@ -41,7 +41,7 @@ def _get_year_options():
     return [empty_option] + year_options
 
 
-class LibraryPageFilterForm(forms.Form):
+class ResearchLibraryPageFilterForm(forms.Form):
     topic = forms.MultipleChoiceField(
         required=False,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),

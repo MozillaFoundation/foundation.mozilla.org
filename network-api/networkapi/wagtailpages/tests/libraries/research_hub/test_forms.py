@@ -1,7 +1,5 @@
 import datetime
-import os
 
-from django.core import management
 from django.utils import timezone, translation
 
 from networkapi.wagtailpages.factory import profiles as profiles_factory
@@ -9,9 +7,15 @@ from networkapi.wagtailpages.factory.libraries.research_hub import (
     detail_page as detail_page_factory,
 )
 from networkapi.wagtailpages.factory.libraries.research_hub import (
+    relations as relations_factory,
+)
+from networkapi.wagtailpages.factory.libraries.research_hub import (
     taxonomies as taxonomies_factory,
 )
 from networkapi.wagtailpages.pagemodels.libraries.research_hub import forms
+from networkapi.wagtailpages.pagemodels.libraries.research_hub.forms import (
+    ResearchLibraryPageFilterForm,
+)
 from networkapi.wagtailpages.tests.libraries.research_hub import (
     base as research_test_base,
 )
@@ -21,10 +25,6 @@ from networkapi.wagtailpages.tests.libraries.research_hub import (
 
 
 class TestFormUtilitiesFunctions(research_test_base.ResearchHubTestCase):
-    def update_index(self):
-        with open(os.devnull, "w") as f:
-            management.call_command("update_index", verbosity=0, stdout=f)
-
     def test_research_author_profile_obtained_by_get_author_options(self):
         detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
@@ -206,3 +206,49 @@ class TestFormUtilitiesFunctions(research_test_base.ResearchHubTestCase):
         self.assertEqual(len(year_option_values), 3)
         self.assertIn(year_1, year_option_values)
         self.assertIn(year_2, year_option_values)
+
+
+class ResearchLibraryPageFilterFormTestCase(research_test_base.ResearchHubTestCase):
+    def test_form_topics(self):
+        """Test that the form topics field is populated with the correct choices."""
+        topics = taxonomies_factory.ResearchTopicFactory.create_batch(size=3)
+        form = ResearchLibraryPageFilterForm()
+        self.assertCountEqual(form.fields["topic"].choices, [(t.id, t.name) for t in topics])
+
+    def test_form_years(self):
+        """Test that the form years field is populated with the correct choices."""
+        years = [timezone.now().year, timezone.now().year - 1]
+        detail_page_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=datetime.date(year=years[0], month=1, day=1),
+        )
+        detail_page_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            original_publication_date=datetime.date(year=years[1], month=1, day=1),
+        )
+
+        form = ResearchLibraryPageFilterForm()
+        self.assertCountEqual(form.fields["year"].choices, [("", "Any")] + [(y, y) for y in years])
+
+    def test_form_regions(self):
+        """Test that the form regions field is populated with the correct choices."""
+        regions = taxonomies_factory.ResearchRegionFactory.create_batch(size=3)
+        form = ResearchLibraryPageFilterForm()
+        self.assertCountEqual(form.fields["region"].choices, [(r.id, r.name) for r in regions])
+
+    def test_form_authors(self):
+        """Test that the form authors field is populated with the correct choices."""
+        authors = profiles_factory.ProfileFactory.create_batch(size=3)
+        detail_page = detail_page_factory.ResearchDetailPageFactory(
+            parent=self.library_page,
+            research_authors=[],
+        )
+
+        for author in authors:
+            relations_factory.ResearchAuthorRelationFactory(
+                research_detail_page=detail_page,
+                author_profile=author,
+            )
+
+        form = ResearchLibraryPageFilterForm()
+        self.assertCountEqual(form.fields["author"].choices, [(a.id, a.name) for a in authors])

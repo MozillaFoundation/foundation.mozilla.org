@@ -40,7 +40,7 @@ def translate_detail_page(detail_page, locale):
         curricular_area_orig = related_curricular_area_trans.curricular_area
         curricular_area_trans = curricular_area_orig.copy_for_translation(locale)
         curricular_area_trans.save()
-        related_curricular_area_trans.content_type = curricular_area_trans
+        related_curricular_area_trans.curricular_area = curricular_area_trans
         related_curricular_area_trans.save()
 
     for related_topic_trans in trans_detail_page.related_topics.all():
