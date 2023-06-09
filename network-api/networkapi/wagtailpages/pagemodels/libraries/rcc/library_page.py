@@ -72,18 +72,19 @@ class RCCLibraryPage(BasePage):
         sort: constants.SortOption = constants.SORT_CHOICES.get(sort_value, constants.SORT_NEWEST_FIRST)
 
         filter_form = RCCLibraryPageFilterForm(request.GET, label_suffix="")
-        if not filter_form.is_valid():
+
+        if filter_form.is_valid():
+            filtered_author_ids = filter_form.cleaned_data["contributors"]
+            filtered_content_type_ids = filter_form.cleaned_data["content_types"]
+            filtered_curricular_area_ids = filter_form.cleaned_data["curricular_areas"]
+            filtered_topic_ids = filter_form.cleaned_data["topics"]
+        else:
             # If the form is not valid, we will not filter by any of the values.
             # This will result in all articles being displayed.
             filtered_author_ids: list[int] = []
             filtered_content_type_ids: list[int] = []
             filtered_curricular_area_ids: list[int] = []
             filtered_topic_ids: list[int] = []
-
-        filtered_author_ids = filter_form.cleaned_data["contributors"]
-        filtered_content_type_ids = filter_form.cleaned_data["content_types"]
-        filtered_curricular_area_ids = filter_form.cleaned_data["curricular_areas"]
-        filtered_topic_ids = filter_form.cleaned_data["topics"]
 
         searched_and_filtered_rcc_detail_pages = self._get_rcc_detail_pages(
             search=search_query,

@@ -18,7 +18,7 @@ from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
     taxonomies,
 )
 from networkapi.wagtailpages.pagemodels.libraries.research_hub.forms import (
-    LibraryPageFilterForm,
+    ResearchLibraryPageFilterForm,
 )
 
 if typing.TYPE_CHECKING:
@@ -71,19 +71,19 @@ class ResearchLibraryPage(BasePage):
         sort_value: str = request.GET.get("sort", "")
         sort: constants.SortOption = constants.SORT_CHOICES.get(sort_value, constants.SORT_NEWEST_FIRST)
 
-        filter_form = LibraryPageFilterForm(request.GET, label_suffix="")
-        if not filter_form.is_valid():
+        filter_form = ResearchLibraryPageFilterForm(request.GET, label_suffix="")
+        if filter_form.is_valid():
+            filtered_author_ids = filter_form.cleaned_data["author"]
+            filtered_topic_ids = filter_form.cleaned_data["topic"]
+            filtered_region_ids = filter_form.cleaned_data["region"]
+            filtered_year = filter_form.cleaned_data["year"]
+        else:
             # If the form is not valid, we will not filter by any of the values.
             # This will result in all research being displayed.
             filtered_author_ids: list[int] = []
             filtered_topic_ids: list[int] = []
             filtered_region_ids: list[int] = []
             filtered_year: Optional[int] = None
-
-        filtered_author_ids = filter_form.cleaned_data["author"]
-        filtered_topic_ids = filter_form.cleaned_data["topic"]
-        filtered_region_ids = filter_form.cleaned_data["region"]
-        filtered_year = filter_form.cleaned_data["year"]
 
         searched_and_filtered_research_detail_pages = self._get_research_detail_pages(
             search=search_query,
