@@ -72,7 +72,7 @@ django==3.2.19
     #   wagtailmedia
 django-admin-sortable==2.3
     # via -r requirements.in
-django-cors-headers==3.14.0
+django-cors-headers==4.0.0
     # via -r requirements.in
 django-csp==3.7
     # via -r requirements.in
