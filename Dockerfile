@@ -24,8 +24,9 @@ RUN npm run build
 # all useful packages required for image manipulation out of the box. They
 # however weight a lot, approx. up to 1.5GiB per built image.
 #
-# Note: Presently we are not using this on production, but use it as part of dev build 
-FROM python:3.9.9-slim as production
+# Note: This stage builds the base image for production. Presently we are not
+# using this on the production site, but only use it as base for the dev build.
+FROM python:3.9.9-slim as base
 
 # Install dependencies in a virtualenv
 ENV VIRTUAL_ENV=/app/dockerpythonvenv
@@ -101,7 +102,7 @@ RUN SECRET_KEY=none python ./network-api/manage.py collectstatic --noinput --cle
 CMD gunicorn networkapi.wsgi:application
 
 # Below is used for local dev builds only
-FROM production as dev
+FROM base as dev
 
 # Swap user, so the following tasks can be run as root
 USER root
@@ -123,4 +124,4 @@ RUN pip install -r dev-requirements.txt
 COPY --chown=mozilla --from=frontend /app/node_modules ./node_modules
 
 # do nothing forever - exec commands elsewhere
-CMD tail -f /dev/null
+# CMD tail -f /dev/null

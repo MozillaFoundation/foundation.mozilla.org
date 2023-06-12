@@ -149,7 +149,7 @@ def catch_up(ctx):
     migrate(ctx)
     print("* Updating block information.")
     l10n_block_inventory(ctx)
-    print("\n* Start your dev server with:\n docker-compose up")
+    print("\n* Start your dev server with:\n inv start or docker-compose up")
 
 
 @task(aliases=["new-env", "docker-new-env"])
@@ -172,7 +172,7 @@ def setup(ctx):
 
 
 @task(aliases=["start", "docker-start"])
-def startdev(ctx):
+def start_dev(ctx):
     """Start the dev server"""
     with ctx.cd(ROOT):
         ctx.run("docker-compose up")

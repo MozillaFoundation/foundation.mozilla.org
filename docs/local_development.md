@@ -206,17 +206,18 @@ I would recommend watching [An Intro to Docker for Djangonauts](https://www.yout
 
 All our containers run on Linux.
 
-For local development, we have two Dockerfiles that define our images:
+For local development, we have use a multi stage Dockerfile to define our image:
 
-- `Dockerfile.node`: use a node8 Debian Stretch slim base image from the Docker Hub and install node dependencies,
-- `Dockerfile.python`: use a python3.9 Debian Stretch slim base image, install required build dependencies before installing pipenv and the project dependencies.
+- The `frontend` stage use a node8 Debian Stretch slim base image from the Docker Hub and install node dependencies,
+- The `base` and `dev`: use a python3.9 Debian Stretch slim base image, install required build dependencies before installing pipenv and the project dependencies.
   We don't have a custom image for running postgres and use one from the Docker Hub.
 
-The `docker-compose.yml` file describes the 3 services that the project needs to run:
+The `docker-compose.yml` file describes the 2 services that the project needs to run:
 
-- `watch-static-files`: rebuilds static files when they're modified,
 - `postgres`: contains a postgres database,
-- `backend`: runs Django. Starting this one automatically starts the two other ones.
+- `backend`: runs Django. Starting this one automatically starts the postgres service.
+
+Within the `backend` container, [Honcho](https://honcho.readthedocs.io/en/latest/index.html#) is used with `Procfile.dev` to run the `web` process (for the webserver), and the `frontend-watch` process to watch the frontend assets and rebuild static files when they're modified.
 
 ### Resources about Docker
 
@@ -226,8 +227,8 @@ The `docker-compose.yml` file describes the 3 services that the project needs to
 
 #### Useful commands using Django with Docker
 
-To open a terminal session inside the docker container (`docker container ls` to see active docker container ids):
-`docker exec -it {docker-container-id} bash`
+To open a terminal session inside the docker container:
+`docker exec backend bash`
 Activate the python environment:
 `source dockerpythonvenv/bin/activate`
 
@@ -241,7 +242,7 @@ or run Django shell, etc.
 
 ### Do I need to build the static files before doing a `docker-compose up`?
 
-Static files are automatically built when starting the `watch-static-files` container.
+Static files are automatically built when starting the `backend` container.
 
 ### Where is Docker fitting in all the tools we're already using?
 
