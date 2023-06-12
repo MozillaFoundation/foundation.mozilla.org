@@ -61,7 +61,7 @@
                 {% endfor %}
             </ul>
             {% if author_article_count > 3 %}
-                <a href="{% pageurl library_page %}?author={{ author_profile.id|unlocalize }}" class="tw-btn-secondary tw-mt-12 small:tw-mt-16 tw-w-full small:tw-w-auto">{% translate "Browse all projects" context "Button to see more than the latest three RCC articles from an author" %} ({{ author_article_count }})</a>
+                <a href="{% pageurl library_page %}?contributors={{ author_profile.id|unlocalize }}" class="tw-btn-secondary tw-mt-12 small:tw-mt-16 tw-w-full small:tw-w-auto">{% translate "Browse all projects" context "Button to see more than the latest three RCC articles from an author" %} ({{ author_article_count }})</a>
             {% endif %}
         </div>
     </div>
