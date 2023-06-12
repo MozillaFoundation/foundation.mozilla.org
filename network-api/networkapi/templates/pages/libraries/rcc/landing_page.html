@@ -57,7 +57,7 @@
                     {% for content_type in page.featured_content_types.all %}
                         <li class="tw-py-2 tw-col-span-12 medium:tw-col-span-4 large:tw-col-span-12">
                             <h2 class="tw-h5-heading tw-text-blue-80 tw-mb-2">
-                                <a href="{% pageurl library_page %}?topic={{ content_type.content_type.id|unlocalize }}">{{ content_type.content_type.name }}</a>
+                                <a href="{% pageurl library_page %}?content_types={{ content_type.content_type.id|unlocalize }}">{{ content_type.content_type.name }}</a>
                             </h2>
                         </li>
                     {% endfor %}
