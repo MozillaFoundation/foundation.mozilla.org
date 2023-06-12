@@ -53,7 +53,7 @@ def generate(seed):
             related_topics=None,
         )
 
-        for profile in faker_helpers.get_random_objects(source=wagtailpage_models.Profile, max_count=3):
+        for profile in faker_helpers.get_random_objects(source=wagtailpage_models.Profile, max_count=6):
             relations_factory.RCCAuthorRelationFactory.create(
                 rcc_detail_page=rcc_detail_page,
                 author_profile=profile,
