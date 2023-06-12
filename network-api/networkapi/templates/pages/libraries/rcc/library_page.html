@@ -56,7 +56,7 @@
                 </div>
                 <div class="tw-h4-heading tw-mb-0">
                     {# RESULTS COUNT #}
-                    {% comment %} {% if search_query %}
+                    {% if search_query %}
                         {% blocktranslate count counter=rcc_detail_pages_count trimmed %}
                             <strong>{{ rcc_detail_pages_count }}</strong> result for <q>{{ search_query }}</q>
                         {% plural %}
@@ -68,7 +68,7 @@
                         {% plural %}
                             <strong>{{ rcc_detail_pages_count }}</strong> results
                         {% endblocktranslate %}
-                    {% endif %} {% endcomment %}
+                    {% endif %}
                 </div>
             </div>
             <ul class="tw-list-none tw-mt-16 large:tw-mt-12 tw-mb-12 tw-px-0 tw-border-t tw-border-b tw-border-gray-20 tw-divide-y tw-divide-gray-05">
