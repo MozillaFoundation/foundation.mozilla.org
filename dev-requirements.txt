@@ -117,7 +117,7 @@ pyopenssl==23.0.0
     #   urllib3
 pyparsing==3.0.7
     # via packaging
-pytest==7.3.1
+pytest==7.3.2
     # via
     #   -r dev-requirements.in
     #   pytest-cov
