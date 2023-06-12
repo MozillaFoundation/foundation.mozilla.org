@@ -1,0 +1,2 @@
+web: /app/dockerpythonvenv/bin/python network-api/manage.py runserver 0.0.0.0:8000
+frontend: npm run watch

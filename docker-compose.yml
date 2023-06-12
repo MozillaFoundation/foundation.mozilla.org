@@ -14,7 +14,9 @@ services:
       - CHOKIDAR_INTERVAL=2000
     env_file:
       - ".env"
-    command: /app/dockerpythonvenv/bin/python network-api/manage.py runserver 0.0.0.0:8000
+    # The honcho command is defined in the Procfile.dev file
+    # This command starts the Django server and the frontend build process
+    command: honcho -f Procfile.dev start
     ports:
       - "8000:8000"
       - "8001:8001" # ptvsd port for debugging
@@ -26,10 +28,12 @@ services:
       - ./network-api:/app/network-api:rw
       - ./.env:/app/.env:rw
       - ./tests:/app/tests:rw
+      - ./Procfile.dev:/app/Procfile.dev:rw
       - ./pyproject.toml:/app/pyproject.toml:rw
-      - ./release-steps.sh:/app/release-steps.sh:rw
       - ./requirements.txt:/app/requirements.txt:rw
+      - ./requirements.in:/app/requirements.in:rw
       - ./dev-requirements.txt:/app/dev-requirements.txt:rw
+      - ./dev-requirements.in:/app/dev-requirements.in:rw
 
       # Frontend config
       - ./source:/app/source:rw

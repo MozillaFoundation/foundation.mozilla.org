@@ -168,7 +168,14 @@ def setup(ctx):
         print("* Building Docker images")
         ctx.run("docker-compose build")
         initialize_database(ctx)
-        print("\n* Start your dev server with:\n docker-compose up")
+        print("\n* Start your dev server with:\n inv start or docker-compose up")
+
+
+@task(aliases=["start", "docker-start"])
+def startdev(ctx):
+    """Start the dev server"""
+    with ctx.cd(ROOT):
+        ctx.run("docker-compose up")
 
 
 # Javascript shorthands
@@ -176,14 +183,14 @@ def setup(ctx):
 def npm(ctx, command):
     """Shorthand to npm. inv docker-npm \"[COMMAND] [ARG]\" """
     with ctx.cd(ROOT):
-        ctx.run(f"docker-compose run --rm watch-static-files npm {command}")
+        ctx.run(f"docker-compose run --rm backend npm {command}")
 
 
 @task(aliases=["docker-npm-install"])
 def npm_install(ctx):
     """Install Node dependencies"""
     with ctx.cd(ROOT):
-        ctx.run("docker-compose run --rm watch-static-files npm ci")
+        ctx.run("docker-compose run --rm backend npm ci")
 
 
 @task(aliases=["copy-stage-db"])
