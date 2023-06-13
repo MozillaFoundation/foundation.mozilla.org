@@ -54,11 +54,7 @@
         >
             <h2>{% block latest_articles_label %}{% endblock latest_articles_label %}</h2>
             <ul class="tw-list-none px-0">
-                {% for article in latest_articles %}
-                    <li class="tw-border-t tw-border-t-gray-20 tw-mt-12 tw-pt-12">
-                        {% include "fragments/libraries/detail_card.html" with detail_page=article hide_author_names=True hide_image_on_mobile=True %}
-                    </li>
-                {% endfor %}
+                {% block detail_cards %}{% endblock detail_cards %}
             </ul>
             {% if author_article_count > 3 %}
                 <a href="{% pageurl library_page %}?authors={{ author_profile.id|unlocalize }}" class="tw-btn-secondary tw-mt-12 small:tw-mt-16 tw-w-full small:tw-w-auto">{% translate "Browse all projects" context "Button to see more than the latest three articles from an author" %} ({{ author_article_count }})</a>
