@@ -18,7 +18,7 @@
             method="get"
             accept-charset="utf-8"
             id="search-form">
-            {% include "fragments/research_hub/search_bar.html" %}
+            {% include "fragments/libraries/research_hub/search_bar.html" %}
         </form>
     </div>
     <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-gap-16">
@@ -30,8 +30,8 @@
                 <div class="tw-flex tw-flex-row tw-gap-6">
                     {# FILTER BUTTON #}
                     <div class="large:tw-hidden tw-basis-1/2">
-                        {% include "fragments/research_hub/filter_button.html" with button=False %}
-                        {% include "fragments/research_hub/filter_button.html" with button=True %}
+                        {% include "fragments/libraries/filter_button.html" with button=False %}
+                        {% include "fragments/libraries/filter_button.html" with button=True %}
                     </div>
                     <div class="tw-flex tw-flex-row tw-items-baseline tw-basis-1/2 large:tw-basis-full">
                         {# SORT SELECT #}
@@ -74,7 +74,7 @@
                 {# RESULTS LIST #}
                 {% for research_detail_page in research_detail_pages %}
                     <li class="tw-m-0 tw-pt-12 tw-pb-12">
-                        {% include "fragments/research_hub/detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_related_topics_on_mobile=True %}
+                        {% include "fragments/libraries/research_hub/detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_related_topics_on_mobile=True %}
                     </li>
                 {% endfor %}
             </ul>
