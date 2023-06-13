@@ -104,8 +104,8 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             profile_slug=self.research_profile.slug,
         )
 
-        self.assertIn(self.detail_page, context["latest_research"])
-        self.assertNotIn(self.fr_detail_page, context["latest_research"])
+        self.assertIn(self.detail_page, context["latest_articles"])
+        self.assertNotIn(self.fr_detail_page, context["latest_articles"])
 
     def test_get_author_detail_context_fr_locale(self):
         translation.activate(self.fr_locale.language_code)
@@ -120,8 +120,8 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         )
 
         # The displayed detail pages should be the aliased pages not the original ones.
-        self.assertNotIn(self.detail_page, context["latest_research"])
-        self.assertIn(self.fr_detail_page, context["latest_research"])
+        self.assertNotIn(self.detail_page, context["latest_articles"])
+        self.assertIn(self.fr_detail_page, context["latest_articles"])
 
     def test_get_author_detail_context_alias_and_translation(self):
         # There can be mixed situations, where only some research associated with
@@ -145,10 +145,10 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
 
         # We need to make sure that the displayed works are picked based on the active
         # locale, rather than the locale of the profile we are looking at
-        self.assertIn(self.detail_page, context["latest_research"])
-        self.assertIn(extra_detail_page, context["latest_research"])
-        self.assertNotIn(fr_detail_page, context["latest_research"])
-        self.assertNotIn(fr_extra_detail_page, context["latest_research"])
+        self.assertIn(self.detail_page, context["latest_articles"])
+        self.assertIn(extra_detail_page, context["latest_articles"])
+        self.assertNotIn(fr_detail_page, context["latest_articles"])
+        self.assertNotIn(fr_extra_detail_page, context["latest_articles"])
 
     def test_get_author_detail_context_fr_locale_alias_and_translation(self):
         # There can be mixed situations, where only some research associated with
@@ -173,10 +173,10 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
 
         # We need to make sure that the displayed works are picked based on the active
         # locale, rather than the locale of the profile we are looking at
-        self.assertNotIn(self.detail_page, context["latest_research"])
-        self.assertNotIn(extra_detail_page, context["latest_research"])
-        self.assertIn(fr_detail_page, context["latest_research"])
-        self.assertIn(fr_extra_detail_page, context["latest_research"])
+        self.assertNotIn(self.detail_page, context["latest_articles"])
+        self.assertNotIn(extra_detail_page, context["latest_articles"])
+        self.assertIn(fr_detail_page, context["latest_articles"])
+        self.assertIn(fr_extra_detail_page, context["latest_articles"])
 
     def test_get_latest_research_contains_latest_three_detail_pages(self):
         detail_page_1 = self.detail_page

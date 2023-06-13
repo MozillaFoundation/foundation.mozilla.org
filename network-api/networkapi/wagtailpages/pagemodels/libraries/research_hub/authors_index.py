@@ -86,9 +86,9 @@ class ResearchAuthorsIndexPage(
 
         return {
             "author_profile": author_profile,
-            "author_research_count": self.get_author_research_count(author_profile=author_profile),
+            "author_article_count": self.get_author_research_count(author_profile=author_profile),
             # On author detail pages to include the link to the authors index.
-            "latest_research": self.get_latest_author_research(author_profile=author_profile),
+            "latest_articles": self.get_latest_author_research(author_profile=author_profile),
             "library_page": library_page.ResearchLibraryPage.objects.first(),
         }
 

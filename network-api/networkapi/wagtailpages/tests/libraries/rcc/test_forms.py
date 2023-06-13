@@ -277,8 +277,8 @@ class RCCLibraryPageFilterFormTestCase(rcc_test_base.RCCTestCase):
         form = RCCLibraryPageFilterForm()
         self.assertCountEqual(form.fields["topics"].choices, [(t.id, t.name) for t in topics])
 
-    def test_form_contributors(self):
-        """Test that the form contributors field is populated with the correct choices."""
+    def test_form_authors(self):
+        """Test that the form authors field is populated with the correct choices."""
         contributors = profiles_factory.ProfileFactory.create_batch(size=3)
         detail_page = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
@@ -292,4 +292,4 @@ class RCCLibraryPageFilterFormTestCase(rcc_test_base.RCCTestCase):
             )
 
         form = RCCLibraryPageFilterForm()
-        self.assertCountEqual(form.fields["contributors"].choices, [(c.id, c.name) for c in contributors])
+        self.assertCountEqual(form.fields["authors"].choices, [(c.id, c.name) for c in contributors])

@@ -74,7 +74,7 @@ class RCCLibraryPage(BasePage):
         filter_form = RCCLibraryPageFilterForm(request.GET, label_suffix="")
 
         if filter_form.is_valid():
-            filtered_author_ids: list[int] = filter_form.cleaned_data["contributors"]
+            filtered_author_ids: list[int] = filter_form.cleaned_data["authors"]
             filtered_content_type_ids: list[int] = filter_form.cleaned_data["content_types"]
             filtered_curricular_area_ids: list[int] = filter_form.cleaned_data["curricular_areas"]
             filtered_topic_ids: list[int] = filter_form.cleaned_data["topics"]

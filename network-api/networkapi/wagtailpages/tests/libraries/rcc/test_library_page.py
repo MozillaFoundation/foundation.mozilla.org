@@ -437,7 +437,7 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
 
         response = self.client.get(
             self.library_page.url,
-            data={"contributors": [profile_a.id, profile_b.id]},
+            data={"authors": [profile_a.id, profile_b.id]},
         )
 
         # Only show the page where both profiles are authors
