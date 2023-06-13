@@ -1,2 +1,5 @@
-web: /app/dockerpythonvenv/bin/python network-api/manage.py runserver 0.0.0.0:8000
+# This starts up 2 processes, one for webserver and one for frontend that 
+# watches frontend files and compiles them when they change.
+
 frontend-watch: npm run watch
+web: /app/dockerpythonvenv/bin/python network-api/manage.py runserver 0.0.0.0:8000

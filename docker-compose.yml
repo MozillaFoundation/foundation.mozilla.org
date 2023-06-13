@@ -14,8 +14,7 @@ services:
       - CHOKIDAR_INTERVAL=2000
     env_file:
       - ".env"
-    # The honcho command is defined in the Procfile.dev file
-    # This command starts the Django server and the frontend build process
+    # This command starts the Django server and the frontend build.
     command: honcho -f Procfile.dev start
     ports:
       - "8000:8000"
@@ -29,6 +28,7 @@ services:
       - ./.env:/app/.env:rw
       - ./tests:/app/tests:rw
       - ./Procfile.dev:/app/Procfile.dev:rw
+      - ./Procfile.dev-lean:/app/Procfile.dev-lean:rw
       - ./pyproject.toml:/app/pyproject.toml:rw
       - ./requirements.txt:/app/requirements.txt:rw
       - ./requirements.in:/app/requirements.in:rw

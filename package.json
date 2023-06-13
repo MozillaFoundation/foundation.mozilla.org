@@ -64,7 +64,7 @@
     "tailwind": "run-p tailwind:watch sync",
     "tailwind:watch": "npm run build:tailwind -- -w",
     "test": "npm run lint",
-    "watch": "wait-on http://backend:8000/cms && run-s build:clean && run-p build:js:dev build:common watch:**",
+    "watch": "run-s build:clean && run-p build:js:dev build:common watch:**",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
     "watch:sass": "chokidar \"source/**/*.scss\" \"network-api/**/*.html\" -c \"npm run build:sass\""
   },

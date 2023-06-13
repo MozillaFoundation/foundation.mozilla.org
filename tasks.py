@@ -168,7 +168,7 @@ def setup(ctx):
         print("* Building Docker images")
         ctx.run("docker-compose build")
         initialize_database(ctx)
-        print("\n* Start your dev server with:\n inv start or docker-compose up")
+        print("\n* Start your dev server with:\n inv start or docker-compose up.")
 
 
 @task(aliases=["start", "docker-start"])
@@ -176,6 +176,12 @@ def start_dev(ctx):
     """Start the dev server"""
     with ctx.cd(ROOT):
         ctx.run("docker-compose up")
+
+
+@task(aliases=["start-lean", "docker-start-lean"])
+def start_lean_dev(ctx):
+    """Start the dev server without rebuilding frontend assets for a faster start up. \nWarning: this may use outdated frontend assets."""
+    ctx.run("docker-compose -f docker-compose.yml -f docker-compose-lean.yml up")
 
 
 # Javascript shorthands

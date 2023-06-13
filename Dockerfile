@@ -124,4 +124,4 @@ RUN pip install -r dev-requirements.txt
 COPY --chown=mozilla --from=frontend /app/node_modules ./node_modules
 
 # do nothing forever - exec commands elsewhere
-# CMD tail -f /dev/null
+CMD tail -f /dev/null

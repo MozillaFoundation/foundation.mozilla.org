@@ -100,8 +100,6 @@ When it's done, run `inv pip-sync`.
 
 #### JS
 
-Dependencies live on your filesystem: you don't need to rebuild the `watch-static-files` image when installing or updating dependencies.
-
 **Install packages:**
 
 Use `invoke npm "install [PACKAGE]"`.
