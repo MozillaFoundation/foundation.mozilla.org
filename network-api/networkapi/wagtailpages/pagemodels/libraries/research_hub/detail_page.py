@@ -1,28 +1,15 @@
-import logging
 from functools import cached_property
 
-from django.core import exceptions
 from django.db import models
 from modelcluster import fields as cluster_fields
-from wagtail import documents as wagtail_docs
-from wagtail import fields as wagtail_fields
-from wagtail import images as wagtail_images
-from wagtail import models as wagtail_models
 from wagtail.admin import panels as edit_handlers
-from wagtail.images import edit_handlers as image_handlers
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
 from networkapi.wagtailpages import utils as wagtailpages_utils
 from networkapi.wagtailpages.pagemodels import profiles
-from networkapi.wagtailpages.pagemodels.base import BasePage
-from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
-    base_rich_text_options,
-)
 from networkapi.wagtailpages.pagemodels.libraries import detail_page as base_detail_page
 from networkapi.wagtailpages.pagemodels.libraries.research_hub import authors_index
-
-logger = logging.getLogger(__name__)
 
 
 class ResearchDetailPage(base_detail_page.LibraryDetailPage):
