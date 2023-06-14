@@ -89,6 +89,8 @@ RUN pip install -U pip==20.0.2 && pip install pip-tools
 RUN pip install -r requirements.txt -r dev-requirements.txt
 
 # Copy application code.
+# Any change in this directory is likely to invalidate build cache, and the lines below.
+# Utilise .dockerignore to minimise cache invalidation.
 COPY --chown=mozilla . .
 
 # Copy compiled assets from the frontend build stage for collectstatic to work.
