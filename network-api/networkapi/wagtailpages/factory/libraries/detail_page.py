@@ -11,7 +11,7 @@ from networkapi.wagtailpages.factory import image_factory
 
 class LibraryDetailPageAbstractFactory(wagtail_factories.PageFactory):
     class Meta:
-        model = wagtailpage_models.LibraryDetailPage
+        model = wagtailpage_models.LibraryDetailLinkBase
         abstract = True
 
     title = factory.Faker("text", max_nb_chars=50)
