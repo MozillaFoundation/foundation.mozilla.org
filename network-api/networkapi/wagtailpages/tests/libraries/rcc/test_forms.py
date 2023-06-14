@@ -26,7 +26,7 @@ class TestFormUtilitiesFunctions(rcc_test_base.RCCTestCase):
         author_option_values = [i for i, _ in author_options]
 
         self.assertIn(
-            detail_page.rcc_authors.first().author_profile.id,
+            detail_page.authors.first().author_profile.id,
             author_option_values,
         )
 
@@ -50,7 +50,7 @@ class TestFormUtilitiesFunctions(rcc_test_base.RCCTestCase):
         detail_page_en = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
         )
-        profile_en = detail_page_en.rcc_authors.first().author_profile
+        profile_en = detail_page_en.authors.first().author_profile
         self.synchronize_tree()
         translation.activate(self.fr_locale.language_code)
 
@@ -71,10 +71,10 @@ class TestFormUtilitiesFunctions(rcc_test_base.RCCTestCase):
         detail_page_en = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
         )
-        profile_en = detail_page_en.rcc_authors.first().author_profile
+        profile_en = detail_page_en.authors.first().author_profile
         self.synchronize_tree()
         detail_page_fr = rcc_test_utils.translate_detail_page(detail_page_en, self.fr_locale)
-        profile_fr = detail_page_fr.rcc_authors.first().author_profile
+        profile_fr = detail_page_fr.authors.first().author_profile
         translation.activate(self.fr_locale.language_code)
 
         author_options = forms._get_author_options()
@@ -282,12 +282,12 @@ class RCCLibraryPageFilterFormTestCase(rcc_test_base.RCCTestCase):
         contributors = profiles_factory.ProfileFactory.create_batch(size=3)
         detail_page = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
-            rcc_authors=[],
+            authors=[],
         )
 
         for contributor in contributors:
             relations_factory.RCCAuthorRelationFactory(
-                rcc_detail_page=detail_page,
+                detail_page=detail_page,
                 author_profile=contributor,
             )
 

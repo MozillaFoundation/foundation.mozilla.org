@@ -18,7 +18,7 @@ class TestRCCAuthorIndexPage(rcc_test_base.RCCTestCase):
         cls.rcc_profile = profiles_factory.ProfileFactory()
         cls.rcc_profile.refresh_from_db()
         relations_factory.RCCAuthorRelationFactory(
-            rcc_detail_page=cls.detail_page,
+            detail_page=cls.detail_page,
             author_profile=cls.rcc_profile,
         )
 
@@ -38,7 +38,7 @@ class TestRCCAuthorIndexPage(rcc_test_base.RCCTestCase):
     def create_rcc_detail_page_with_author(self, author_profile, days_ago=0):
         detail_page = self.create_rcc_detail_page(days_ago=days_ago)
         relations_factory.RCCAuthorRelationFactory(
-            rcc_detail_page=detail_page,
+            detail_page=detail_page,
             author_profile=author_profile,
         )
         return detail_page
@@ -66,7 +66,7 @@ class TestRCCAuthorIndexPage(rcc_test_base.RCCTestCase):
             self.detail_page,
             self.fr_locale,
         )
-        fr_profile = fr_detail_page.rcc_authors.first().author_profile
+        fr_profile = fr_detail_page.authors.first().author_profile
         translation.activate(self.fr_locale.language_code)
 
         # Get context when fr is active

@@ -24,7 +24,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         cls.research_profile = profiles_factory.ProfileFactory()
         cls.research_profile.refresh_from_db()
         relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=cls.detail_page,
+            detail_page=cls.detail_page,
             author_profile=cls.research_profile,
         )
 
@@ -44,7 +44,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
     def create_research_detail_page_with_author(self, author_profile, days_ago=0):
         detail_page = self.create_research_detail_page(days_ago=days_ago)
         relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page,
+            detail_page=detail_page,
             author_profile=author_profile,
         )
         return detail_page
@@ -72,7 +72,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
             self.detail_page,
             self.fr_locale,
         )
-        fr_profile = fr_detail_page.research_authors.first().author_profile
+        fr_profile = fr_detail_page.authors.first().author_profile
         translation.activate(self.fr_locale.language_code)
 
         # Get context when fr is active

@@ -32,7 +32,7 @@ class TestGetResearchBreadcrumb(ResearchHubTestCase):
         research_profile = profiles_factory.ProfileFactory()
         research_profile.refresh_from_db()
         rh_relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page,
+            detail_page=detail_page,
             author_profile=research_profile,
         )
 
@@ -90,7 +90,7 @@ class TestGetRCCBreadcrumb(RCCTestCase):
         research_profile = profiles_factory.ProfileFactory()
         research_profile.refresh_from_db()
         rcc_relations_factory.RCCAuthorRelationFactory(
-            rcc_detail_page=detail_page,
+            detail_page=detail_page,
             author_profile=research_profile,
         )
 
