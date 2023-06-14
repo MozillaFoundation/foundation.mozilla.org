@@ -20,39 +20,53 @@ services:
       - "8000:8000"
       - "8001:8001" # ptvsd port for debugging
     volumes:
-      # The container already has a copy of the application code from build time, but we are also
-      # mounting some files here so the container can see changes to them or write to them. 
-      # This is useful for development.
-      - ./.git:/app/.git:rw
-      - ./network-api:/app/network-api:rw
-      - ./.env:/app/.env:rw
-      - ./tests:/app/tests:rw
-      - ./Procfile.dev:/app/Procfile.dev:rw
-      - ./Procfile.dev-lean:/app/Procfile.dev-lean:rw
-      - ./pyproject.toml:/app/pyproject.toml:rw
-      - ./requirements.txt:/app/requirements.txt:rw
-      - ./requirements.in:/app/requirements.in:rw
-      - ./dev-requirements.txt:/app/dev-requirements.txt:rw
-      - ./dev-requirements.in:/app/dev-requirements.in:rw
+      # The container already has a static copy of the application code from build time, but we are
+      # also mounting some files here so the container can see changes to them or write to them.
+      # Using rw (default) for these so linters can format them in the container.
+      - ./.git:/app/.git
+      - ./.gitignore:/app/.gitignore
+      - ./network-api/networkapi:/app/network-api/networkapi
+      - ./network-api/manage.py:/app/network-api/manage.py
+      - ./.env:/app/.env
+      - ./.coveragerc:/app/.coveragerc
+      - ./copy-db.sh:/app/copy-db.sh
+      - ./test:/app/test
+      - ./tests:/app/tests
+      - ./Procfile.dev:/app/Procfile.dev
+      - ./Procfile.dev-lean:/app/Procfile.dev-lean
+      - ./pyproject.toml:/app/pyproject.toml
+      - ./requirements.txt:/app/requirements.txt
+      - ./requirements.in:/app/requirements.in
+      - ./dev-requirements.txt:/app/dev-requirements.txt
+      - ./dev-requirements.in:/app/dev-requirements.in
+      # Files that we may want to include in linting (other files may require inv catchup before linting)
+      - ./.github:/app/.github
+      - ./.vscode:/app/.vscode
+      - ./docs:/app/docs
+      - ./maintenance:/app/maintenance
+      - ./tasks.py:/app/tasks.py
+      - ./README.md:/app/README.md
+      - ./release-steps.sh:/app/release-steps.sh
+      - ./translation-management.sh:/app/translation-management.sh
 
       # Frontend config
-      - ./source:/app/source:rw
-      - ./.editorconfig:/app/.editorconfig:rw
-      - ./.eslintignore:/app/.eslintignore:rw
-      - ./.eslintrc.a11y.json:/app/.eslintrc.a11y.json:rw
-      - ./.eslintrc.json:/app/.eslintrc.json:rw
-      - ./.prettierignore:/app/.prettierignore:rw
-      - ./.prettierrc:/app/.prettierrc:rw
-      - ./.stylelintrc:/app/.stylelintrc:rw
-      - ./.stylelintrc-colors.js:/app/.stylelintrc-colors.js:rw
-      - ./esbuild.config.js:/app/esbuild.config.js:rw
-      - ./pyrightconfig.json:/app/pyrightconfig.json:rw
-      - ./playwright.config.js:/app/playwright.config.js:rw
-      - ./postcss.config.js:/app/postcss.config.js:rw
-      - ./tailwind-plugins:/app/tailwind-plugins:rw
-      - ./tailwind.config.js:/app/tailwind.config.js:rw
-      - ./package-lock.json:/app/package-lock.json:rw
-      - ./package.json:/app/package.json:rw
+      - ./source:/app/source
+      - ./.editorconfig:/app/.editorconfig
+      - ./.eslintignore:/app/.eslintignore
+      - ./.eslintrc.a11y.json:/app/.eslintrc.a11y.json
+      - ./.eslintrc.json:/app/.eslintrc.json
+      - ./.prettierignore:/app/.prettierignore
+      - ./.prettierrc:/app/.prettierrc
+      - ./.stylelintrc:/app/.stylelintrc
+      - ./.stylelintrc-colors.js:/app/.stylelintrc-colors.js
+      - ./esbuild.config.js:/app/esbuild.config.js
+      - ./pyrightconfig.json:/app/pyrightconfig.json
+      - ./playwright.config.js:/app/playwright.config.js
+      - ./postcss.config.js:/app/postcss.config.js
+      - ./tailwind-plugins:/app/tailwind-plugins
+      - ./tailwind.config.js:/app/tailwind.config.js
+      - ./package-lock.json:/app/package-lock.json
+      - ./package.json:/app/package.json
     depends_on:
       - postgres
 

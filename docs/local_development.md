@@ -217,6 +217,13 @@ The `docker-compose.yml` file describes the 2 services that the project needs to
 
 Within the `backend` container, [Honcho](https://honcho.readthedocs.io/en/latest/index.html#) is used with `Procfile.dev` to run the `web` process (for the webserver), and the `frontend-watch` process to watch the frontend assets and rebuild static files when they're modified.
 
+#### Starting dev container without rebuilding frontend
+
+There is also a `docker-compose-lean.yml` file which starts the container with just the `backend` service without running the frontend watch process. This is to provide an option for a faster start up, as the frontend watch process can take a while to rebuild the static assets. Note that a side effect of this is that this could be using outdated frontend assets, e.g. stylesheets are not reflecting the latest changes.
+
+To start up the dev container normally, use `inv start` or `docker-compose up`. To start it as a lean container without frontend build, use `inv start-lean` or `docker-compose -f docker-compose.yml -f docker-compose-lean.yml up`.
+
+
 ### Resources about Docker
 
 - [Docker](https://docs.docker.com/) and [Docker-compose](https://docs.docker.com/compose/overview/) documentations,
@@ -240,7 +247,7 @@ or run Django shell, etc.
 
 ### Do I need to build the static files before doing a `docker-compose up`?
 
-Static files are automatically built when starting the `backend` container.
+Static files are automatically built when starting the `backend` container, except when using `inv start-lean` (see "Starting dev container without rebuilding frontend" above). 
 
 ### Where is Docker fitting in all the tools we're already using?
 

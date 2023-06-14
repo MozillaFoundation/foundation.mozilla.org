@@ -13,6 +13,8 @@
 node_modules/
 /npm-debug.log
 network-api/networkapi/frontend/
+network-api/media/
+network-api/staticfiles/
 
 # Distribution / packaging
 .Python

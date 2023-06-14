@@ -180,7 +180,9 @@ def start_dev(ctx):
 
 @task(aliases=["start-lean", "docker-start-lean"])
 def start_lean_dev(ctx):
-    """Start the dev server without rebuilding frontend assets for a faster start up. \nWarning: this may use outdated frontend assets."""
+    """Start the dev server without rebuilding frontend assets for a faster start up."""
+    print("Starting the dev server without rebuilding frontend assets...")
+    print("WARNING: this may use outdated frontend assets.")
     ctx.run("docker-compose -f docker-compose.yml -f docker-compose-lean.yml up")
 
 
@@ -189,7 +191,12 @@ def start_lean_dev(ctx):
 def npm(ctx, command):
     """Shorthand to npm. inv docker-npm \"[COMMAND] [ARG]\" """
     with ctx.cd(ROOT):
-        ctx.run(f"docker-compose run --rm backend npm {command}")
+        try:
+            # Using 'exec' instead of 'run' to ensure this runs in the running container.
+            ctx.run(f"docker-compose exec backend npm {command}")
+        except Exception:
+            print("This command requires a running container.\n")
+            print("Please run 'inv start' or 'inv start-lean' in a separate terminal window first.")
 
 
 @task(aliases=["docker-npm-install"])

@@ -1,4 +1,5 @@
 {
+  "name": "foundation.mozilla.org",
   "repository": "https://github.com/mozilla/foundation.mozilla.org",
   "issues": "https://github.com/mozilla/foundation.mozilla.org/issues",
   "description": "Mozilla Foundation site",
