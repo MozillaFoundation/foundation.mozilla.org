@@ -46,10 +46,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "rcc_detail_page",
+                    "detail_page",
                     modelcluster.fields.ParentalKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="rcc_links",
+                        related_name="links",
                         to="wagtailpages.rccdetailpage",
                     ),
                 ),

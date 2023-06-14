@@ -47,7 +47,7 @@ def generate(seed):
     for _ in range(13):
         rcc_detail_page = detail_page_factory.RCCDetailPageFactory.create(
             parent=rcc_library_page,
-            rcc_authors=None,
+            authors=None,
             related_curricular_areas=None,
             related_content_types=None,
             related_topics=None,
@@ -55,13 +55,13 @@ def generate(seed):
 
         for profile in faker_helpers.get_random_objects(source=wagtailpage_models.Profile, max_count=6):
             relations_factory.RCCAuthorRelationFactory.create(
-                rcc_detail_page=rcc_detail_page,
+                detail_page=rcc_detail_page,
                 author_profile=profile,
             )
 
         for content_type in faker_helpers.get_random_objects(source=wagtailpage_models.RCCContentType, max_count=2):
             relations_factory.RCCDetailPageRCCContentTypeRelationFactory.create(
-                rcc_detail_page=rcc_detail_page,
+                detail_page=rcc_detail_page,
                 content_type=content_type,
             )
 
@@ -69,19 +69,19 @@ def generate(seed):
             source=wagtailpage_models.RCCCurricularArea, max_count=2
         ):
             relations_factory.RCCDetailPageRCCCurricularAreaRelationFactory.create(
-                rcc_detail_page=rcc_detail_page,
+                detail_page=rcc_detail_page,
                 curricular_area=curricular_area,
             )
 
         for topic in faker_helpers.get_random_objects(source=wagtailpage_models.RCCTopic, max_count=2):
             relations_factory.RCCDetailPageRCCTopicRelationFactory.create(
-                rcc_detail_page=rcc_detail_page,
-                rcc_topic=topic,
+                detail_page=rcc_detail_page,
+                topic=topic,
             )
 
     # Populating research landing page with featured content types
     for content_type in faker_helpers.get_random_objects(source=wagtailpage_models.RCCContentType, max_count=3):
         relations_factory.RCCLandingPageFeaturedRCCContentTypeRelationFactory.create(
-            rcc_landing_page=rcc_landing_page,
+            landing_page=rcc_landing_page,
             content_type=content_type,
         )
