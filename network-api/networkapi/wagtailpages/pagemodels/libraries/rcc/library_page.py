@@ -138,7 +138,7 @@ class RCCLibraryPage(BasePage):
             # for the localized author profile. We use the fact that the localized and
             # default locale's author profile have the same `translation_key`.
             rcc_detail_pages = rcc_detail_pages.filter(
-                rcc_authors__author_profile__translation_key=(author_profile.translation_key)
+                authors__author_profile__translation_key=(author_profile.translation_key)
             )
 
         content_types = taxonomies.RCCContentType.objects.filter(id__in=content_type_ids)
@@ -155,9 +155,7 @@ class RCCLibraryPage(BasePage):
 
         topics = taxonomies.RCCTopic.objects.filter(id__in=topic_ids)
         for topic in topics:
-            rcc_detail_pages = rcc_detail_pages.filter(
-                related_topics__rcc_topic__translation_key=topic.translation_key
-            )
+            rcc_detail_pages = rcc_detail_pages.filter(related_topics__topic__translation_key=topic.translation_key)
 
         rcc_detail_pages = rcc_detail_pages.order_by(sort.order_by_value)
 

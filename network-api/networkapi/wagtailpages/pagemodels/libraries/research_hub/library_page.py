@@ -135,19 +135,19 @@ class ResearchLibraryPage(BasePage):
             # for the localized author profile. We use the fact that the localized and
             # default locale's author profile have the same `translation_key`.
             research_detail_pages = research_detail_pages.filter(
-                research_authors__author_profile__translation_key=(author_profile.translation_key)
+                authors__author_profile__translation_key=(author_profile.translation_key)
             )
 
         topics = taxonomies.ResearchTopic.objects.filter(id__in=topic_ids)
         for topic in topics:
             research_detail_pages = research_detail_pages.filter(
-                related_topics__research_topic__translation_key=topic.translation_key
+                related_topics__topic__translation_key=topic.translation_key
             )
 
         regions = taxonomies.ResearchRegion.objects.filter(id__in=region_ids)
         for region in regions:
             research_detail_pages = research_detail_pages.filter(
-                related_regions__research_region__translation_key=region.translation_key
+                related_regions__region__translation_key=region.translation_key
             )
 
         if year:

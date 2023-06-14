@@ -113,7 +113,7 @@ class ResearchAuthorsIndexPage(
         # `translation_key` as the current locale's author. So, instead of filtering
         # for the author `id`, we filter by `translation_key`.
         author_research = author_research.filter(
-            research_authors__author_profile__translation_key=author_profile.translation_key
+            authors__author_profile__translation_key=author_profile.translation_key
         )
         # And then we fitler for the active locale.
         author_research = author_research.filter(locale=wagtail_models.Locale.get_active())
