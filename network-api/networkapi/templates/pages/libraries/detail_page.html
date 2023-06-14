@@ -16,7 +16,8 @@
         </div>
 
         <div id="cover-image-container" class="medium:tw-col-start-1 medium:tw-row-start-2 medium:tw-row-end-4">
-            {% image page.cover_image fill-259x344 class="tw-w-full tw-h-auto" %}
+            {% image page.cover_image fill-259x344 as img %}
+            <img src="{{ img.url }}" alt="{{ img.title }}" class="tw-w-full tw-h-auto">
         </div>
 
         <div id="intro-and-links" class="medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3">
