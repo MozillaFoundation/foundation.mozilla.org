@@ -2,9 +2,11 @@
 
 /docker-compose*.yml
 Dockerfile
+.dockerignore
 
 .git
 .gitignore
+**/*.md
 docs/
 **/__pycache__
 *.pyc
@@ -21,7 +23,7 @@ network-api/staticfiles/
 .coverage
 .coverage.*
 .cache
-
+tasks.py
 
 # Distribution / packaging
 .Python

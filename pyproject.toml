@@ -235,7 +235,7 @@ ignore="H017"
 
 [tool.isort]
 profile = "black"
-extend_skip = ["network-api/media", "network-api/staticfiles"]
+extend_skip = ["network-api/media", "network-api/staticfiles", "dockerpythonvenv"]
 skip_gitignore = true
 known_first_party = ["networkapi"]
 

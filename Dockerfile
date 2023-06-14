@@ -82,18 +82,20 @@ USER mozilla
 
 # Install your app's Python requirements.
 RUN python -m venv $VIRTUAL_ENV
-COPY --chown=mozilla ./requirements.txt ./dev-requirements.txt ./
 RUN pip install -U pip==20.0.2 && pip install pip-tools
 # Normally we won't install dev dependencies in production, but we do it here to optimise 
 # docker build cache for local build
+COPY --chown=mozilla ./requirements.txt ./dev-requirements.txt ./
 RUN pip install -r requirements.txt -r dev-requirements.txt
 
 # Copy application code.
-# Any change in this directory is likely to invalidate build cache, and the lines below.
+# Any change in this directory is likely to invalidate build cache for all lines below.
 # Utilise .dockerignore to minimise cache invalidation.
 COPY --chown=mozilla . .
 
 # Copy compiled assets from the frontend build stage for collectstatic to work.
+# This will later be obscured by the `network-api` bind mount in docker-compose.yml, and 
+# will need to be recreated by `npm run build`.
 COPY --chown=mozilla --from=frontend /app/network-api/networkapi/frontend ./network-api/networkapi/frontend
 
 # Collect static. This command will move static files from application
@@ -123,6 +125,9 @@ USER mozilla
 # Pull in the node modules from the frontend build stage so we don't have to run npm ci again.
 # This is just a copy in the container, and is not visible to the host machine.
 COPY --chown=mozilla --from=frontend /app/node_modules ./node_modules
+
+# To avoid isort `fatal: detected dubious ownership in repository at '/app'` error
+RUN git config --global --add safe.directory /app
 
 # do nothing forever - exec commands elsewhere
 CMD tail -f /dev/null
