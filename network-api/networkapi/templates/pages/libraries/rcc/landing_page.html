@@ -40,7 +40,7 @@
                     <ul class="tw-list-none px-0 ">
                         {% for rcc_detail_page in latest_rcc_detail_pages %}
                             <li class="tw-py-8 small:tw-my-8 small:tw-bg-gray-05 small:tw-p-16">
-                                {% include "fragments/rcc/detail_card.html" with rcc_detail_page=rcc_detail_page hide_related_topics=True landing_page=True %}
+                                {% include "fragments/libraries/rcc/detail_card.html" with rcc_detail_page=rcc_detail_page hide_related_topics=True landing_page=True %}
                             </li>
                         {% endfor %}
                     </ul>
