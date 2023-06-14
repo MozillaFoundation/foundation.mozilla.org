@@ -182,7 +182,7 @@ def start_dev(ctx):
 def start_lean_dev(ctx):
     """Start the dev server without rebuilding frontend assets for a faster start up."""
     print("Starting the dev server without rebuilding frontend assets...")
-    print("WARNING: this may use outdated frontend assets.")
+    print("WARNING: Frontend assets may be outdated or missing if they haven't been built yet.")
     ctx.run("docker-compose -f docker-compose.yml -f docker-compose-lean.yml up")
 
 

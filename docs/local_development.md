@@ -219,7 +219,7 @@ Within the `backend` container, [Honcho](https://honcho.readthedocs.io/en/latest
 
 #### Starting dev container without rebuilding frontend
 
-There is also a `docker-compose-lean.yml` file which starts the container with just the `backend` service without running the frontend watch process. This is to provide an option for a faster start up, as the frontend watch process can take a while to rebuild the static assets. Note that a side effect of this is that this could be using outdated frontend assets, e.g. stylesheets are not reflecting the latest changes.
+There is also a `docker-compose-lean.yml` file which starts the container with just the `backend` service without running the frontend watch process. This is to provide an option for a faster start up, as the frontend watch process can take a while to rebuild the static assets. Note that a side effect of this is that this could be using outdated frontend assets, e.g. stylesheets are not reflecting the latest changes, or the frontend assets can be missing if the container is new.
 
 To start up the dev container normally, use `inv start` or `docker-compose up`. To start it as a lean container without frontend build, use `inv start-lean` or `docker-compose -f docker-compose.yml -f docker-compose-lean.yml up`.
 

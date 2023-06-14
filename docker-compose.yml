@@ -25,11 +25,11 @@ services:
       # Using rw (default) for these so linters can format them in the container.
       - ./.git:/app/.git
       - ./.gitignore:/app/.gitignore
-      - ./network-api/networkapi:/app/network-api/networkapi
-      - ./network-api/manage.py:/app/network-api/manage.py
       - ./.env:/app/.env
       - ./.coveragerc:/app/.coveragerc
-      - ./copy-db.sh:/app/copy-db.sh
+      - ./.flake8:/app/.flake8
+      - ./network-api:/app/network-api
+      - ./copy-db.js:/app/copy-db.js
       - ./test:/app/test
       - ./tests:/app/tests
       - ./Procfile.dev:/app/Procfile.dev

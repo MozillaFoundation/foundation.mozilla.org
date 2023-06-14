@@ -1,20 +1,27 @@
 **/*.db.archive
 
-/dockerfiles
 /docker-compose*.yml
+Dockerfile
 
 .git
+.gitignore
+docs/
 **/__pycache__
 *.pyc
 .DS_Store
 *.swp
 /venv/
 /tmp/
-node_modules/
 /npm-debug.log
 network-api/networkapi/frontend/
 network-api/media/
 network-api/staticfiles/
+**/node_modules/
+**/dist
+.coverage
+.coverage.*
+.cache
+
 
 # Distribution / packaging
 .Python

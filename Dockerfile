@@ -84,7 +84,9 @@ USER mozilla
 RUN python -m venv $VIRTUAL_ENV
 COPY --chown=mozilla ./requirements.txt ./dev-requirements.txt ./
 RUN pip install -U pip==20.0.2 && pip install pip-tools
-RUN pip install -r requirements.txt
+# Normally we won't install dev dependencies in production, but we do it here to optimise 
+# docker build cache for local build
+RUN pip install -r requirements.txt -r dev-requirements.txt
 
 # Copy application code.
 COPY --chown=mozilla . .
@@ -116,10 +118,7 @@ RUN apt-get install -y postgresql-client
 # Restore user
 USER mozilla
 
-# Install dev dependencies
-RUN pip install -r dev-requirements.txt
-
-# Pull in the node modules from the frontend build stage so we don't have to run install again.
+# Pull in the node modules from the frontend build stage so we don't have to run npm ci again.
 # This is just a copy in the container, and is not visible to the host machine.
 COPY --chown=mozilla --from=frontend /app/node_modules ./node_modules
 
