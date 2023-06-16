@@ -8,7 +8,7 @@ This is a customized version of https://github.com/wagtail/wagtail/blob/22fa7e2f
 
 {% block extra_js %}
     {{ block.super }}
-    <script nonce="{{ request.csp_nonce }}">
+    <script>
         window.headerSearch = {
             url: "{% url 'wagtailredirects:index' %}",
             termInput: "#id_q",
