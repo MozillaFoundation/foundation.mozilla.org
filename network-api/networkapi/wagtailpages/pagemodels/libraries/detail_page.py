@@ -106,17 +106,17 @@ class LibraryDetailPage(BasePage):
     @property
     def localized_authors(self):
         """Return the authors of this article in the current language."""
-        raise NotImplementedError
+        raise NotImplementedError("Please implement this property in your subclass.")
 
     @property
     def authors_index_page(self):
         """Return the authors index page."""
-        raise NotImplementedError
+        raise NotImplementedError("Please implement this property in your subclass.")
 
     @property
     def authors_detail_url_name(self):
         """Return the name of the URL pattern for the authors detail page."""
-        raise NotImplementedError
+        raise NotImplementedError("Please implement this property in your subclass.")
 
     @cached_property
     def author_names(self):
