@@ -6,17 +6,6 @@ This is a customized version of https://github.com/wagtail/wagtail/blob/22fa7e2f
 
 {% block titletag %}{% trans "Redirects" %}{% endblock %}
 
-{% block extra_js %}
-    {{ block.super }}
-    <script>
-        window.headerSearch = {
-            url: "{% url 'wagtailredirects:index' %}",
-            termInput: "#id_q",
-            targetOutput: "#redirects-results"
-        }
-    </script>
-{% endblock %}
-
 {% block content %}
     {% trans "Redirects" as redirects_str %}
     {% if user_can_add %}
