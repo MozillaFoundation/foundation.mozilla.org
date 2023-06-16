@@ -23,6 +23,7 @@ This is a customized version of https://github.com/wagtail/wagtail/blob/v2.11.3/
     {% trans "Redirects" as redirects_str %}
     {% if user_can_add %}
         {% url "wagtailredirects:add" as add_link %}
+        
         {% trans "Add redirect" as add_str %}
         {% url "wagtailredirects:start_import" as import_link %}
         {% trans "Import redirects" as import_str %}
