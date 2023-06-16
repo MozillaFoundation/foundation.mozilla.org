@@ -21,6 +21,24 @@ logger = logging.getLogger(__name__)
 
 
 class LibraryDetailPage(BasePage):
+    """An abstract template for a library detail page.
+
+    To define a concrete detail page, subclass it and implement the following properties:
+
+    - `localized_authors`: Return the authors of this article in the current language.
+    - `authors_index_page`: Return the authors index page.
+    - `authors_detail_url_name`: Return the name of the URL pattern for the authors detail page.
+
+    Authors need to be defined as a many2many relation to the `Profile` model.
+
+    Taxonomies can also be included as many2many relations.
+
+    Links to the original publication can be added as relationships to the
+    `LibraryDetailLinkBase` model.
+
+    Concrete implementation examples can be found in the RCC and Research_Hub apps.
+    """
+
     subpage_types = ["ArticlePage", "PublicationPage"]
 
     cover_image = models.ForeignKey(
@@ -131,6 +149,14 @@ class LibraryDetailPage(BasePage):
 
 
 class LibraryDetailLinkBase(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
+    """An abstract template for a link to the original publication.
+
+    To define a concrete detail link, subclass it and define a ParentalKey to the
+    concrete detail page model.
+
+    Concrete implementation examples can be found in the RCC and Research_Hub apps.
+    """
+
     label = models.CharField(null=False, blank=False, max_length=50)
 
     url = models.URLField(null=False, blank=True)
