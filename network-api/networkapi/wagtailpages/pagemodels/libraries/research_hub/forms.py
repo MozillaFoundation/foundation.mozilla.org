@@ -48,7 +48,7 @@ class ResearchLibraryPageFilterForm(forms.Form):
         choices=_get_topic_options,
         label=pgettext_lazy("Filter form field label", "Topics"),
     )
-    years = forms.ChoiceField(
+    year = forms.ChoiceField(
         required=False,
         choices=_get_year_options,
         widget=forms.RadioSelect(attrs={"class": "rh-radio"}),

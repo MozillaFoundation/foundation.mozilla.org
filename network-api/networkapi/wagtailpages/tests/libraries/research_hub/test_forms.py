@@ -216,7 +216,7 @@ class ResearchLibraryPageFilterFormTestCase(research_test_base.ResearchHubTestCa
         self.assertCountEqual(form.fields["topics"].choices, [(t.id, t.name) for t in topics])
 
     def test_form_years(self):
-        """Test that the form years field is populated with the correct choices."""
+        """Test that the form year field is populated with the correct choices."""
         years = [timezone.now().year, timezone.now().year - 1]
         detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
@@ -228,7 +228,7 @@ class ResearchLibraryPageFilterFormTestCase(research_test_base.ResearchHubTestCa
         )
 
         form = ResearchLibraryPageFilterForm()
-        self.assertCountEqual(form.fields["years"].choices, [("", "Any")] + [(y, y) for y in years])
+        self.assertCountEqual(form.fields["year"].choices, [("", "Any")] + [(y, y) for y in years])
 
     def test_form_regions(self):
         """Test that the form regions field is populated with the correct choices."""
