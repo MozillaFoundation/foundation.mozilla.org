@@ -20,7 +20,7 @@ RUN npm run build
 
 
 # We use Debian images because they are considered more stable than the alpine
-# ones becase they use a different C compiler. Debian images also come with
+# ones because they use a different C compiler. Debian images also come with
 # all useful packages required for image manipulation out of the box. They
 # however weight a lot, approx. up to 1.5GiB per built image.
 #
@@ -36,15 +36,14 @@ RUN useradd mozilla --create-home && mkdir /app $VIRTUAL_ENV && chown -R mozilla
 WORKDIR /app
 
 # Set default environment variables. They are used at build time and runtime.
-# If you specify your own environment variables on Heroku or Dokku, they will
+# If you specify your own environment variables on Heroku, they will
 # override the ones set here. The ones below serve as sane defaults only.
-#  * PATH - Make sure that Poetry is on the PATH, along with our venv
 #  * PYTHONUNBUFFERED - This is useful so Python does not hold any messages
 #    from being output.
 #    https://docs.python.org/3.11/using/cmdline.html#envvar-PYTHONUNBUFFERED
 #    https://docs.python.org/3.11/using/cmdline.html#cmdoption-u
 #  * DJANGO_SETTINGS_MODULE - default settings used in the container.
-#  * PORT - default port used. Please match with EXPOSE so it works on Dokku.
+#  * PORT - default port used. 
 #    Heroku will ignore EXPOSE and only set PORT variable. PORT variable is
 #    read/used by Gunicorn.
 #  * WEB_CONCURRENCY - number of workers used by Gunicorn. The variable is
@@ -64,7 +63,7 @@ ARG BUILD_ENV
 ENV BUILD_ENV=${BUILD_ENV}
 
 # Port exposed by this container. Should default to the port used by your WSGI
-# server (Gunicorn). This is read by Dokku only. Heroku will ignore this.
+# server (Gunicorn). Heroku will ignore this.
 EXPOSE 8000
 
 # Install operating system dependencies.
