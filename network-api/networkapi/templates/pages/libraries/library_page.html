@@ -32,7 +32,7 @@
                     </div>
                     <div class="tw-flex tw-flex-row tw-items-baseline tw-basis-1/2 large:tw-basis-full">
                         {# SORT SELECT #}
-                        <select id="sort-select"
+                        <select id='sort-select'
                             name="sort"
                             class="tw-form-control tw-border-gray-40"
                             form="search-form">
@@ -45,7 +45,7 @@
                         <noscript>
                             {# The sort button is only needed for the no JS case. With JS, the form can be submitted on change of the select #}
                             <button type="submit" class="tw-btn-primary tw-text-base" form="search-form">
-                                {% translate "Sort" context "Button" %}
+                                {% translate 'Sort' context 'Button' %}
                             </button>
                         </noscript>
                     </div>
@@ -85,10 +85,10 @@
                     class="tw-hidden large:tw-hidden tw-h-24 tw-w-24 -tw-mt-4 -tw-mr-4 -tw-mb-8 tw-text-3xl tw-font-normal tw-text-blue-80 hover:tw-text-blue-20 tw-bg-transparent"
                     aria-label="{% translate "Close" %}"
                     tabIndex="0">
-                    <span aria-hidden="true">×</span>
+                    <span aria-hidden="true" class="">×</span>
                 </button>
             </div>
-            <h2 class="large:tw-hidden tw-h1-heading">{% translate "Filter" %}</h2>
+            <h2 class="large:tw-hidden tw-h1-heading">{% translate 'Filter' %}</h2>
             <form action="{% pageurl page %}"
                 method="get"
                 accept-charset="utf-8"
@@ -97,7 +97,7 @@
                 <div class=" tw-bg-gray-05 tw-bottom-0 -tw-mx-8 small:-tw-mx-12 medium:-tw-mx-16 large:-tw-mx-12 tw-pb-16 large:tw-pb-12 tw-px-8 small:tw-px-12 medium:tw-px-16 large:tw-px-12 tw-sticky ">
                     <div class="tw-pt-12 large:tw-pt-8 tw-border-t tw-border-t-gray-20">
                         <button type="submit" class="tw-w-full tw-btn-primary" form="filter-form">
-                            {% translate "Apply filters" context "Button" %}
+                            {% translate 'Apply filters' context 'Button' %}
                         </button>
                     </div>
                 </div>

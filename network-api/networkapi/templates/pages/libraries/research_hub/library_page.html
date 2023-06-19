@@ -15,4 +15,10 @@
             {% include "fragments/libraries/rcc/detail_card.html" with rcc_detail_page=detail_page hide_authors=False hide_image_on_mobile=True hide_related_content_types_on_mobile=True %}
         </li>
     {% endfor %}
+
+    {% for detail_page in detail_pages %}
+        <li class="tw-m-0 tw-pt-12 tw-pb-12">
+            {% include "fragments/libraries/research_hub/detail_card.html" with research_detail_page=detail_page hide_image_on_mobile=True hide_related_topics_on_mobile=True %}
+        </li>
+    {% endfor %}
 {% endblock detail_pages %}
