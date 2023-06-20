@@ -151,7 +151,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "contributors",
+                    "collaborators",
                     models.TextField(
                         blank=True, help_text="List all contributors that are not the project leading authors."
                     ),

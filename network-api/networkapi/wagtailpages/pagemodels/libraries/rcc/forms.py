@@ -37,7 +37,7 @@ class RCCLibraryPageFilterForm(forms.Form):
         choices=_get_content_type_options,
         label=pgettext_lazy("Filter form field label", "Content Type"),
     )
-    contributors = forms.MultipleChoiceField(
+    authors = forms.MultipleChoiceField(
         required=False,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
         choices=_get_author_options,

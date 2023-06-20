@@ -20,7 +20,7 @@ def translate_detail_page(detail_page, locale):
     # Requires previous tree synchronization
     trans_detail_page = detail_page.get_translation(locale)
 
-    for rcc_author_trans in trans_detail_page.rcc_authors.all():
+    for rcc_author_trans in trans_detail_page.authors.all():
         # The through model is already for the new locale after the tree sync,
         # but the related model is not.
         author_profile_orig = rcc_author_trans.author_profile
@@ -44,10 +44,10 @@ def translate_detail_page(detail_page, locale):
         related_curricular_area_trans.save()
 
     for related_topic_trans in trans_detail_page.related_topics.all():
-        topic_orig = related_topic_trans.rcc_topic
+        topic_orig = related_topic_trans.topic
         topic_trans = topic_orig.copy_for_translation(locale)
         topic_trans.save()
-        related_topic_trans.rcc_topic = topic_trans
+        related_topic_trans.topic = topic_trans
         related_topic_trans.save()
 
     trans_detail_page.alias_of = None

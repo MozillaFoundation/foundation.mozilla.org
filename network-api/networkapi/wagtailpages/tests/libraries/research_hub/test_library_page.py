@@ -285,7 +285,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
             tagline="",
             introduction="",
         )
-        relations_factory.ResearchAuthorRelationFactory(research_detail_page=apple_page, author_profile=apple_profile)
+        relations_factory.ResearchAuthorRelationFactory(detail_page=apple_page, author_profile=apple_profile)
         banana_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
@@ -298,9 +298,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
             tagline="",
             introduction="",
         )
-        relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=banana_page, author_profile=banana_profile
-        )
+        relations_factory.ResearchAuthorRelationFactory(detail_page=banana_page, author_profile=banana_profile)
         self.update_index()
 
         research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
@@ -322,9 +320,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
             name="Apple",
             description="",
         )
-        relations_factory.ResearchDetailPageResearchTopicRelationFactory(
-            research_detail_page=apple_page, research_topic=apple_topic
-        )
+        relations_factory.ResearchDetailPageResearchTopicRelationFactory(detail_page=apple_page, topic=apple_topic)
         banana_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
@@ -336,9 +332,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
             name="banana",
             description="",
         )
-        relations_factory.ResearchDetailPageResearchTopicRelationFactory(
-            research_detail_page=banana_page, research_topic=banana_topic
-        )
+        relations_factory.ResearchDetailPageResearchTopicRelationFactory(detail_page=banana_page, topic=banana_topic)
         self.update_index()
 
         research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
@@ -357,9 +351,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
             collaborators="",
         )
         apple_region = taxonomies_factory.ResearchRegionFactory(name="Apple")
-        relations_factory.ResearchDetailPageResearchRegionRelationFactory(
-            research_detail_page=apple_page, research_region=apple_region
-        )
+        relations_factory.ResearchDetailPageResearchRegionRelationFactory(detail_page=apple_page, region=apple_region)
         banana_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
@@ -369,7 +361,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
         )
         banana_region = taxonomies_factory.ResearchRegionFactory(name="banana")
         relations_factory.ResearchDetailPageResearchRegionRelationFactory(
-            research_detail_page=banana_page, research_region=banana_region
+            detail_page=banana_page, region=banana_region
         )
         self.update_index()
 
@@ -388,10 +380,10 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
         detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
-        author_profile = detail_page_1.research_authors.first().author_profile
+        author_profile = detail_page_1.authors.first().author_profile
         self.assertNotEqual(
             author_profile,
-            detail_page_2.research_authors.first().author_profile,
+            detail_page_2.authors.first().author_profile,
         )
 
         research_detail_pages = self.library_page._get_research_detail_pages(author_profile_ids=[author_profile.id])
@@ -403,20 +395,20 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
-        profile_a = detail_page_1.research_authors.first().author_profile
+        profile_a = detail_page_1.authors.first().author_profile
         detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
-        profile_b = detail_page_2.research_authors.first().author_profile
+        profile_b = detail_page_2.authors.first().author_profile
         # Make author of first page also an author of the second page
         relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_2,
+            detail_page=detail_page_2,
             author_profile=profile_a,
         )
 
         response = self.client.get(
             self.library_page.url,
-            data={"author": [profile_a.id, profile_b.id]},
+            data={"authors": [profile_a.id, profile_b.id]},
         )
 
         # Only show the page where both profiles are authors
@@ -438,17 +430,17 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
         profile = profiles_factory.ProfileFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            research_authors__author_profile=profile,
+            authors__author_profile=profile,
         )
         detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            research_authors__author_profile=profile,
+            authors__author_profile=profile,
         )
         self.synchronize_tree()
         detail_page_1_fr = detail_page_1.get_translation(self.fr_locale)
-        self.assertEqual(profile, detail_page_1_fr.research_authors.first().author_profile)
+        self.assertEqual(profile, detail_page_1_fr.authors.first().author_profile)
         detail_page_2_fr = research_test_utils.translate_detail_page(detail_page_2, self.fr_locale)
-        profile_fr = detail_page_2_fr.research_authors.first().author_profile
+        profile_fr = detail_page_2_fr.authors.first().author_profile
         self.assertNotEqual(profile, profile_fr)
         self.assertEqual(profile.translation_key, profile_fr.translation_key)
         translation.activate(self.fr_locale.language_code)
@@ -466,12 +458,12 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
         topic_A = taxonomies_factory.ResearchTopicFactory()
         detail_page_A = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            related_topics__research_topic=topic_A,
+            related_topics__topic=topic_A,
         )
         topic_B = taxonomies_factory.ResearchTopicFactory()
         detail_page_B = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            related_topics__research_topic=topic_B,
+            related_topics__topic=topic_B,
         )
 
         research_detail_pages = self.library_page._get_research_detail_pages(topic_ids=[topic_A.id])
@@ -484,14 +476,12 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
         topic_B = taxonomies_factory.ResearchTopicFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            related_topics__research_topic=topic_A,
+            related_topics__topic=topic_A,
         )
-        relations_factory.ResearchDetailPageResearchTopicRelationFactory(
-            research_detail_page=detail_page_1, research_topic=topic_B
-        )
+        relations_factory.ResearchDetailPageResearchTopicRelationFactory(detail_page=detail_page_1, topic=topic_B)
         detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            related_topics__research_topic=topic_A,
+            related_topics__topic=topic_A,
         )
 
         research_detail_pages = self.library_page._get_research_detail_pages(topic_ids=[topic_A.id, topic_B.id])
@@ -513,17 +503,17 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
         topic = taxonomies_factory.ResearchTopicFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            related_topics__research_topic=topic,
+            related_topics__topic=topic,
         )
         detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            related_topics__research_topic=topic,
+            related_topics__topic=topic,
         )
         self.synchronize_tree()
         detail_page_1_fr = detail_page_1.get_translation(self.fr_locale)
-        self.assertEqual(topic, detail_page_1_fr.related_topics.first().research_topic)
+        self.assertEqual(topic, detail_page_1_fr.related_topics.first().topic)
         detail_page_2_fr = research_test_utils.translate_detail_page(detail_page_2, self.fr_locale)
-        topic_fr = detail_page_2_fr.related_topics.first().research_topic
+        topic_fr = detail_page_2_fr.related_topics.first().topic
         self.assertNotEqual(topic, topic_fr)
         self.assertEqual(topic.translation_key, topic_fr.translation_key)
         translation.activate(self.fr_locale.language_code)
@@ -540,12 +530,12 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
         region_A = taxonomies_factory.ResearchRegionFactory()
         detail_page_A = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            related_regions__research_region=region_A,
+            related_regions__region=region_A,
         )
         region_B = taxonomies_factory.ResearchRegionFactory()
         detail_page_B = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            related_regions__research_region=region_B,
+            related_regions__region=region_B,
         )
 
         research_detail_pages = self.library_page._get_research_detail_pages(region_ids=[region_A.id])
@@ -558,14 +548,12 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
         region_B = taxonomies_factory.ResearchRegionFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            related_regions__research_region=region_A,
+            related_regions__region=region_A,
         )
-        relations_factory.ResearchDetailPageResearchRegionRelationFactory(
-            research_detail_page=detail_page_1, research_region=region_B
-        )
+        relations_factory.ResearchDetailPageResearchRegionRelationFactory(detail_page=detail_page_1, region=region_B)
         detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            related_regions__research_region=region_A,
+            related_regions__region=region_A,
         )
 
         research_detail_pages = self.library_page._get_research_detail_pages(region_ids=[region_A.id, region_B.id])
@@ -587,17 +575,17 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
         region = taxonomies_factory.ResearchRegionFactory()
         detail_page_1 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            related_regions__research_region=region,
+            related_regions__region=region,
         )
         detail_page_2 = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            related_regions__research_region=region,
+            related_regions__region=region,
         )
         self.synchronize_tree()
         detail_page_1_fr = detail_page_1.get_translation(self.fr_locale)
-        self.assertEqual(region, detail_page_1_fr.related_regions.first().research_region)
+        self.assertEqual(region, detail_page_1_fr.related_regions.first().region)
         detail_page_2_fr = research_test_utils.translate_detail_page(detail_page_2, self.fr_locale)
-        region_fr = detail_page_2_fr.related_regions.first().research_region
+        region_fr = detail_page_2_fr.related_regions.first().region
         self.assertNotEqual(region, region_fr)
         self.assertEqual(region.translation_key, region_fr.translation_key)
         translation.activate(self.fr_locale.language_code)

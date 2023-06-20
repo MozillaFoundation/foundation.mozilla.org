@@ -179,14 +179,14 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             title="Apple",
             introduction="",
             overview="",
-            contributors="",
+            collaborators="",
         )
         banana_page = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
             title="Banana",
             introduction="",
             overview="",
-            contributors="",
+            collaborators="",
         )
 
         rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
@@ -200,14 +200,14 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             title="Cherry",
             introduction="Apple",
             overview="",
-            contributors="",
+            collaborators="",
         )
         banana_page = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
             introduction="Banana",
             overview="",
-            contributors="",
+            collaborators="",
         )
 
         rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
@@ -222,14 +222,14 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             title="Cherry",
             introduction="",
             overview="Apple",
-            contributors="",
+            collaborators="",
         )
         banana_page = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
             introduction="",
             overview="Banana",
-            contributors="",
+            collaborators="",
         )
 
         rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
@@ -238,20 +238,20 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
         self.assertIn(apple_page, rcc_detail_pages)
         self.assertNotIn(banana_page, rcc_detail_pages)
 
-    def test_search_by_detail_page_contributors(self):
+    def test_search_by_detail_page_collaborators(self):
         apple_page = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
             title="Cherry",
             introduction="",
             overview="",
-            contributors="Apple",
+            collaborators="Apple",
         )
         banana_page = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
             introduction="",
             overview="",
-            contributors="Banana",
+            collaborators="Banana",
         )
 
         rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
@@ -267,27 +267,27 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             title="Cherry",
             introduction="",
             overview="",
-            contributors="",
+            collaborators="",
         )
         apple_profile = profiles_factory.ProfileFactory(
             name="Apple",
             tagline="",
             introduction="",
         )
-        relations_factory.RCCAuthorRelationFactory(rcc_detail_page=apple_page, author_profile=apple_profile)
+        relations_factory.RCCAuthorRelationFactory(detail_page=apple_page, author_profile=apple_profile)
         banana_page = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
             introduction="",
             overview="",
-            contributors="",
+            collaborators="",
         )
         banana_profile = profiles_factory.ProfileFactory(
             name="Banana",
             tagline="",
             introduction="",
         )
-        relations_factory.RCCAuthorRelationFactory(rcc_detail_page=banana_page, author_profile=banana_profile)
+        relations_factory.RCCAuthorRelationFactory(detail_page=banana_page, author_profile=banana_profile)
         self.update_index()
 
         rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
@@ -303,26 +303,26 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             title="Cherry",
             introduction="",
             overview="",
-            contributors="",
+            collaborators="",
         )
         apple_content_type = taxonomies_factory.RCCContentTypeFactory(
             name="Apple",
         )
         relations_factory.RCCDetailPageRCCContentTypeRelationFactory(
-            rcc_detail_page=apple_page, content_type=apple_content_type
+            detail_page=apple_page, content_type=apple_content_type
         )
         banana_page = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
             introduction="",
             overview="",
-            contributors="",
+            collaborators="",
         )
         banana_content_type = taxonomies_factory.RCCContentTypeFactory(
             name="banana",
         )
         relations_factory.RCCDetailPageRCCContentTypeRelationFactory(
-            rcc_detail_page=banana_page, content_type=banana_content_type
+            detail_page=banana_page, content_type=banana_content_type
         )
         self.update_index()
 
@@ -339,26 +339,26 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             title="Cherry",
             introduction="",
             overview="",
-            contributors="",
+            collaborators="",
         )
         apple_curricular_area = taxonomies_factory.RCCCurricularAreaFactory(
             name="Apple",
         )
         relations_factory.RCCDetailPageRCCCurricularAreaRelationFactory(
-            rcc_detail_page=apple_page, curricular_area=apple_curricular_area
+            detail_page=apple_page, curricular_area=apple_curricular_area
         )
         banana_page = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
             introduction="",
             overview="",
-            contributors="",
+            collaborators="",
         )
         banana_curricular_area = taxonomies_factory.RCCCurricularAreaFactory(
             name="banana",
         )
         relations_factory.RCCDetailPageRCCCurricularAreaRelationFactory(
-            rcc_detail_page=banana_page, curricular_area=banana_curricular_area
+            detail_page=banana_page, curricular_area=banana_curricular_area
         )
         self.update_index()
 
@@ -375,23 +375,23 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             title="Cherry",
             introduction="",
             overview="",
-            contributors="",
+            collaborators="",
         )
         apple_topic = taxonomies_factory.RCCTopicFactory(
             name="Apple",
         )
-        relations_factory.RCCDetailPageRCCTopicRelationFactory(rcc_detail_page=apple_page, rcc_topic=apple_topic)
+        relations_factory.RCCDetailPageRCCTopicRelationFactory(detail_page=apple_page, topic=apple_topic)
         banana_page = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
             title="Also cherry",
             introduction="",
             overview="",
-            contributors="",
+            collaborators="",
         )
         banana_topic = taxonomies_factory.RCCTopicFactory(
             name="banana",
         )
-        relations_factory.RCCDetailPageRCCTopicRelationFactory(rcc_detail_page=banana_page, rcc_topic=banana_topic)
+        relations_factory.RCCDetailPageRCCTopicRelationFactory(detail_page=banana_page, topic=banana_topic)
         self.update_index()
 
         rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
@@ -409,10 +409,10 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
         detail_page_2 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
         )
-        author_profile = detail_page_1.rcc_authors.first().author_profile
+        author_profile = detail_page_1.authors.first().author_profile
         self.assertNotEqual(
             author_profile,
-            detail_page_2.rcc_authors.first().author_profile,
+            detail_page_2.authors.first().author_profile,
         )
 
         rcc_detail_pages = self.library_page._get_rcc_detail_pages(author_profile_ids=[author_profile.id])
@@ -424,20 +424,20 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
         detail_page_1 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
         )
-        profile_a = detail_page_1.rcc_authors.first().author_profile
+        profile_a = detail_page_1.authors.first().author_profile
         detail_page_2 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
         )
-        profile_b = detail_page_2.rcc_authors.first().author_profile
+        profile_b = detail_page_2.authors.first().author_profile
         # Make author of first page also an author of the second page
         relations_factory.RCCAuthorRelationFactory(
-            rcc_detail_page=detail_page_2,
+            detail_page=detail_page_2,
             author_profile=profile_a,
         )
 
         response = self.client.get(
             self.library_page.url,
-            data={"contributors": [profile_a.id, profile_b.id]},
+            data={"authors": [profile_a.id, profile_b.id]},
         )
 
         # Only show the page where both profiles are authors
@@ -459,17 +459,17 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
         profile = profiles_factory.ProfileFactory()
         detail_page_1 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
-            rcc_authors__author_profile=profile,
+            authors__author_profile=profile,
         )
         detail_page_2 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
-            rcc_authors__author_profile=profile,
+            authors__author_profile=profile,
         )
         self.synchronize_tree()
         detail_page_1_fr = detail_page_1.get_translation(self.fr_locale)
-        self.assertEqual(profile, detail_page_1_fr.rcc_authors.first().author_profile)
+        self.assertEqual(profile, detail_page_1_fr.authors.first().author_profile)
         detail_page_2_fr = rcc_test_utils.translate_detail_page(detail_page_2, self.fr_locale)
-        profile_fr = detail_page_2_fr.rcc_authors.first().author_profile
+        profile_fr = detail_page_2_fr.authors.first().author_profile
         self.assertNotEqual(profile, profile_fr)
         self.assertEqual(profile.translation_key, profile_fr.translation_key)
         translation.activate(self.fr_locale.language_code)
@@ -519,12 +519,12 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
         topic_A = taxonomies_factory.RCCTopicFactory()
         detail_page_A = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
-            related_topics__rcc_topic=topic_A,
+            related_topics__topic=topic_A,
         )
         topic_B = taxonomies_factory.RCCTopicFactory()
         detail_page_B = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
-            related_topics__rcc_topic=topic_B,
+            related_topics__topic=topic_B,
         )
 
         rcc_detail_pages = self.library_page._get_rcc_detail_pages(topic_ids=[topic_A.id])
@@ -540,7 +540,7 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
             related_content_types__content_type=content_type_A,
         )
         relations_factory.RCCDetailPageRCCContentTypeRelationFactory(
-            rcc_detail_page=detail_page_1, content_type=content_type_B
+            detail_page=detail_page_1, content_type=content_type_B
         )
         detail_page_2 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
@@ -562,7 +562,7 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
             related_curricular_areas__curricular_area=curricular_area_A,
         )
         relations_factory.RCCDetailPageRCCCurricularAreaRelationFactory(
-            rcc_detail_page=detail_page_1, curricular_area=curricular_area_B
+            detail_page=detail_page_1, curricular_area=curricular_area_B
         )
         detail_page_2 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
@@ -581,12 +581,12 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
         topic_B = taxonomies_factory.RCCTopicFactory()
         detail_page_1 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
-            related_topics__rcc_topic=topic_A,
+            related_topics__topic=topic_A,
         )
-        relations_factory.RCCDetailPageRCCTopicRelationFactory(rcc_detail_page=detail_page_1, rcc_topic=topic_B)
+        relations_factory.RCCDetailPageRCCTopicRelationFactory(detail_page=detail_page_1, topic=topic_B)
         detail_page_2 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
-            related_topics__rcc_topic=topic_A,
+            related_topics__topic=topic_A,
         )
 
         rcc_detail_pages = self.library_page._get_rcc_detail_pages(topic_ids=[topic_A.id, topic_B.id])
@@ -704,17 +704,17 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
         topic = taxonomies_factory.RCCTopicFactory()
         detail_page_1 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
-            related_topics__rcc_topic=topic,
+            related_topics__topic=topic,
         )
         detail_page_2 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
-            related_topics__rcc_topic=topic,
+            related_topics__topic=topic,
         )
         self.synchronize_tree()
         detail_page_1_fr = detail_page_1.get_translation(self.fr_locale)
-        self.assertEqual(topic, detail_page_1_fr.related_topics.first().rcc_topic)
+        self.assertEqual(topic, detail_page_1_fr.related_topics.first().topic)
         detail_page_2_fr = rcc_test_utils.translate_detail_page(detail_page_2, self.fr_locale)
-        topic_fr = detail_page_2_fr.related_topics.first().rcc_topic
+        topic_fr = detail_page_2_fr.related_topics.first().topic
         self.assertNotEqual(topic, topic_fr)
         self.assertEqual(topic.translation_key, topic_fr.translation_key)
         translation.activate(self.fr_locale.language_code)

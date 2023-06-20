@@ -5,12 +5,12 @@ from wagtail.admin.panels import FieldPanel
 
 
 class RCCAuthorRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
-    rcc_detail_page = cluster_fields.ParentalKey(
+    detail_page = cluster_fields.ParentalKey(
         "wagtailpages.RCCDetailPage",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
-        related_name="rcc_authors",
+        related_name="authors",
     )
     author_profile = models.ForeignKey(
         "wagtailpages.Profile",
@@ -26,7 +26,7 @@ class RCCAuthorRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderab
 
 
 class RCCLandingPageFeaturedRCCContentTypeRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
-    rcc_landing_page = cluster_fields.ParentalKey(
+    landing_page = cluster_fields.ParentalKey(
         "wagtailpages.RCCLandingPage",
         null=False,
         blank=False,
@@ -46,7 +46,7 @@ class RCCLandingPageFeaturedRCCContentTypeRelation(wagtail_models.TranslatableMi
 
 
 class RCCDetailPageRCCContentTypeRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
-    rcc_detail_page = cluster_fields.ParentalKey(
+    detail_page = cluster_fields.ParentalKey(
         "wagtailpages.RCCDetailPage",
         null=False,
         blank=False,
@@ -67,14 +67,14 @@ class RCCDetailPageRCCContentTypeRelation(wagtail_models.TranslatableMixin, wagt
 
 
 class RCCDetailPageRCCTopicRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
-    rcc_detail_page = cluster_fields.ParentalKey(
+    detail_page = cluster_fields.ParentalKey(
         "wagtailpages.RCCDetailPage",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
         related_name="related_topics",
     )
-    rcc_topic = models.ForeignKey(
+    topic = models.ForeignKey(
         "wagtailpages.RCCTopic",
         null=False,
         blank=False,
@@ -83,12 +83,12 @@ class RCCDetailPageRCCTopicRelation(wagtail_models.TranslatableMixin, wagtail_mo
     )
 
     panels = [
-        FieldPanel("rcc_topic"),
+        FieldPanel("topic"),
     ]
 
 
 class RCCDetailPageRCCCurricularAreaRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
-    rcc_detail_page = cluster_fields.ParentalKey(
+    detail_page = cluster_fields.ParentalKey(
         "wagtailpages.RCCDetailPage",
         null=False,
         blank=False,

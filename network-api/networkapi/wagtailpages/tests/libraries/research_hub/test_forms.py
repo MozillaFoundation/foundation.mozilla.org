@@ -34,7 +34,7 @@ class TestFormUtilitiesFunctions(research_test_base.ResearchHubTestCase):
         author_option_values = [i for i, _ in author_options]
 
         self.assertIn(
-            detail_page.research_authors.first().author_profile.id,
+            detail_page.authors.first().author_profile.id,
             author_option_values,
         )
 
@@ -58,7 +58,7 @@ class TestFormUtilitiesFunctions(research_test_base.ResearchHubTestCase):
         detail_page_en = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
-        profile_en = detail_page_en.research_authors.first().author_profile
+        profile_en = detail_page_en.authors.first().author_profile
         self.synchronize_tree()
         translation.activate(self.fr_locale.language_code)
 
@@ -79,10 +79,10 @@ class TestFormUtilitiesFunctions(research_test_base.ResearchHubTestCase):
         detail_page_en = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
-        profile_en = detail_page_en.research_authors.first().author_profile
+        profile_en = detail_page_en.authors.first().author_profile
         self.synchronize_tree()
         detail_page_fr = research_test_utils.translate_detail_page(detail_page_en, self.fr_locale)
-        profile_fr = detail_page_fr.research_authors.first().author_profile
+        profile_fr = detail_page_fr.authors.first().author_profile
         translation.activate(self.fr_locale.language_code)
 
         author_options = forms._get_author_options()
@@ -213,7 +213,7 @@ class ResearchLibraryPageFilterFormTestCase(research_test_base.ResearchHubTestCa
         """Test that the form topics field is populated with the correct choices."""
         topics = taxonomies_factory.ResearchTopicFactory.create_batch(size=3)
         form = ResearchLibraryPageFilterForm()
-        self.assertCountEqual(form.fields["topic"].choices, [(t.id, t.name) for t in topics])
+        self.assertCountEqual(form.fields["topics"].choices, [(t.id, t.name) for t in topics])
 
     def test_form_years(self):
         """Test that the form years field is populated with the correct choices."""
@@ -228,27 +228,27 @@ class ResearchLibraryPageFilterFormTestCase(research_test_base.ResearchHubTestCa
         )
 
         form = ResearchLibraryPageFilterForm()
-        self.assertCountEqual(form.fields["year"].choices, [("", "Any")] + [(y, y) for y in years])
+        self.assertCountEqual(form.fields["years"].choices, [("", "Any")] + [(y, y) for y in years])
 
     def test_form_regions(self):
         """Test that the form regions field is populated with the correct choices."""
         regions = taxonomies_factory.ResearchRegionFactory.create_batch(size=3)
         form = ResearchLibraryPageFilterForm()
-        self.assertCountEqual(form.fields["region"].choices, [(r.id, r.name) for r in regions])
+        self.assertCountEqual(form.fields["regions"].choices, [(r.id, r.name) for r in regions])
 
     def test_form_authors(self):
         """Test that the form authors field is populated with the correct choices."""
         authors = profiles_factory.ProfileFactory.create_batch(size=3)
         detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
-            research_authors=[],
+            authors=[],
         )
 
         for author in authors:
             relations_factory.ResearchAuthorRelationFactory(
-                research_detail_page=detail_page,
+                detail_page=detail_page,
                 author_profile=author,
             )
 
         form = ResearchLibraryPageFilterForm()
-        self.assertCountEqual(form.fields["author"].choices, [(a.id, a.name) for a in authors])
+        self.assertCountEqual(form.fields["authors"].choices, [(a.id, a.name) for a in authors])

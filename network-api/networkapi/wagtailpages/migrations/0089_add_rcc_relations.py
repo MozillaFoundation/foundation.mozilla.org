@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "rcc_landing_page",
+                    "landing_page",
                     modelcluster.fields.ParentalKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="featured_content_types",
@@ -64,7 +64,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "rcc_detail_page",
+                    "detail_page",
                     modelcluster.fields.ParentalKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="related_topics",
@@ -72,7 +72,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "rcc_topic",
+                    "topic",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="related_rcc_articles",
@@ -109,7 +109,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "rcc_detail_page",
+                    "detail_page",
                     modelcluster.fields.ParentalKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="related_curricular_areas",
@@ -146,7 +146,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "rcc_detail_page",
+                    "detail_page",
                     modelcluster.fields.ParentalKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="related_content_types",
@@ -183,10 +183,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "rcc_detail_page",
+                    "detail_page",
                     modelcluster.fields.ParentalKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="rcc_authors",
+                        related_name="authors",
                         to="wagtailpages.rccdetailpage",
                     ),
                 ),
