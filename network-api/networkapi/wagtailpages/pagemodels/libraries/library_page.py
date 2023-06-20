@@ -82,7 +82,7 @@ class BaseLibraryPage(BasePage):
         raise NotImplementedError("Please implement this property in your subclass.")
 
     @staticmethod
-    def filter_detail_pages(pages: QuerySet, filter_form: "forms.Form") -> QuerySet:
+    def filter_detail_pages(pages: "QuerySet", filter_form: "forms.Form") -> "QuerySet":
         """Return the article detail pages that match the given filters in the `filter_form`."""
         raise NotImplementedError("Please implement this method in your subclass.")
 
@@ -92,7 +92,7 @@ class BaseLibraryPage(BasePage):
         filter_form: Optional["forms.Form"] = None,
         sort: constants.SortOption = constants.SORT_NEWEST_FIRST,
         search_query: Optional[str] = None,
-    ) -> QuerySet:
+    ) -> "QuerySet":
         """Get sorted article detail pages filtered by the form options and search parameters."""
         detail_pages = self.detail_pages
 
