@@ -40,9 +40,9 @@
                                 {{ total_entries }} results
                             {% endblocktrans %}
                             {% if total_entries > 0 %} {% trans "for" context "Following “xx results” and followed by searched terms. Full string example: “12 results for Advocacy”" %}
-                                <ul class="term-list">
+                                <ul class="tw-inline-block tw-list-none tw-p-0 tw-m-0">
                                     {% for term in terms %}
-                                        <li class="term tw-body-small">{{ term }}</li>
+                                        <li class="tw-body-small tw-inline-block tw-rounded-[10px] tw-ml-[0.25em] tw-px-[0.5em] tw-text-black tw-border tw-border-[1px] tw-capitalize">{{ term }}</li>
                                     {% endfor %}
                                 </ul>
                             {% endif %}
