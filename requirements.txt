@@ -48,7 +48,7 @@ defusedxml==0.7.1
     #   social-auth-core
 dj-database-url==1.2.0
     # via -r requirements.in
-django==3.2.18
+django==3.2.19
     # via
     #   -r requirements.in
     #   dj-database-url
@@ -110,7 +110,7 @@ factory-boy==3.2.1
     # via
     #   -r requirements.in
     #   wagtail-factories
-faker==13.12.0
+faker==18.10.1
     # via
     #   -r requirements.in
     #   factory-boy
