@@ -14,7 +14,6 @@ from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
     detail_page,
     library_page,
 )
-from networkapi.wagtailpages.pagemodels.libraries import constants as base_constants
 
 
 class ResearchAuthorsIndexPage(
