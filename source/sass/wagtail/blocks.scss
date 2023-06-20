@@ -13,43 +13,42 @@
 .primary-page-content {
   &.wide {
     .streamfield-content {
-      @extend .col-12;
+      @apply tw-w-full tw-px-8 tw-relative;
     }
   }
 
   &.narrow {
     .streamfield-content {
-      @extend .col-md-8;
+      @apply tw-w-full medium:tw-w-2/3 tw-px-8 tw-relative;
     }
   }
 }
 
 .article-page-content {
   .streamfield-content {
-    @extend .col-md-10;
+    @apply tw-w-full medium:tw-w-5/6 tw-px-8 tw-relative;
     &.wide {
-      @extend .col-12;
+      @apply tw-w-full tw-px-8 tw-relative;
     }
   }
 }
 
 .blog-body {
   .streamfield-content {
-    @extend .col-lg-8;
+    @apply tw-w-full large:tw-w-2/3 tw-px-8 tw-relative;
     &.wide {
-      @extend .col-12;
+      @apply tw-w-full tw-px-8 tw-relative;
     }
     &.full-width {
-      @extend .col-12;
       @extend .full-width;
+      @apply tw-w-full tw-relative;
     }
   }
 }
 
 .opportunity-page-content {
   .streamfield-content {
-    @extend .col-lg-12;
-    @extend .px-0;
+    @apply tw-w-full tw-px-0 tw-relative;
   }
 }
 
