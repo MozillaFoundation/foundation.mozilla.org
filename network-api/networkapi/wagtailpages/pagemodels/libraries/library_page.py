@@ -1,4 +1,5 @@
 import typing
+from functools import cached_property
 from typing import Optional
 
 from django.core import paginator
@@ -12,9 +13,9 @@ from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.libraries import constants
 
 if typing.TYPE_CHECKING:
-    from django import http
+    from django import forms, http
     from django import template as django_template
-    from django import forms
+    from django.db.models.query import QuerySet
 
 
 class BaseLibraryPage(BasePage):
@@ -75,22 +76,38 @@ class BaseLibraryPage(BasePage):
         """Form class used to filter detail pages for this page."""
         raise NotImplementedError("Please implement this property in your subclass.")
 
-    def search_detail_pages(self, pages, search_query):
-        """Return the pages that match the search query."""
+    @cached_property
+    def detail_pages(self):
+        """Return the article detail pages that are children of this page."""
+        raise NotImplementedError("Please implement this property in your subclass.")
+
+    @staticmethod
+    def filter_detail_pages(pages: QuerySet, filter_form: "forms.Form") -> QuerySet:
+        """Return the article detail pages that match the given filters in the `filter_form`."""
+        raise NotImplementedError("Please implement this method in your subclass.")
+
+    def get_sorted_filtered_detail_pages(
+        self,
+        *,
+        filter_form: Optional["forms.Form"] = None,
+        sort: constants.SortOption = constants.SORT_NEWEST_FIRST,
+        search_query: Optional[str] = None,
+    ) -> QuerySet:
+        """Get sorted article detail pages filtered by the form options and search parameters."""
+        detail_pages = self.detail_pages
+
+        if filter_form:
+            detail_pages = self.filter_detail_pages(detail_pages, filter_form)
+
+        detail_pages = detail_pages.order_by(sort.order_by_value)
+
         if search_query:
-            pages = pages.search(
+            detail_pages = detail_pages.search(
                 search_query,
                 order_by_relevance=False,  # To preserve original ordering
             )
-        return pages
 
-    def sort_detail_pages(self, pages, sort):
-        """Order the pages by the given sort option."""
-        return pages.order_by(sort.order_by_value)
-
-    def get_filtered_detail_pages(self, filter_form: "forms.Form"):
-        """Return the article detail pages that match the given filters in the `filter_form`."""
-        raise NotImplementedError("Please implement this method in your subclass.")
+        return detail_pages
 
     def get_context(self, request: "http.HttpRequest") -> "django_template.Context":
         search_query: str = request.GET.get("search", "")
@@ -100,12 +117,8 @@ class BaseLibraryPage(BasePage):
         Form = self.filter_form
         filter_form = Form(request.GET, label_suffix="")
 
-        filtered_detail_pages = self.get_filtered_detail_pages(filter_form=filter_form)
-
-        sorted_and_filtered_detail_pages = self.sort_detail_pages(filtered_detail_pages, sort)
-
-        sorted_and_searched_and_filtered_detail_pages = self.search_detail_pages(
-            sorted_and_filtered_detail_pages, search_query
+        sorted_and_searched_and_filtered_detail_pages = self.get_sorted_filtered_detail_pages(
+            filter_form=filter_form, search_query=search_query, sort=sort
         )
 
         detail_pages_paginator = paginator.Paginator(

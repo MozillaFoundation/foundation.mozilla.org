@@ -1,10 +1,14 @@
 import typing
+from functools import cached_property
 from typing import Optional
 
 from wagtail import models as wagtail_models
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles as profile_models
+from networkapi.wagtailpages.pagemodels.libraries import (
+    library_page as base_library_page,
+)
 from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
     detail_page,
     taxonomies,
@@ -12,10 +16,10 @@ from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
 from networkapi.wagtailpages.pagemodels.libraries.research_hub.forms import (
     ResearchLibraryPageFilterForm,
 )
-from networkapi.wagtailpages.pagemodels.libraries import library_page as base_library_page
 
 if typing.TYPE_CHECKING:
     from django import forms
+    from django.db.models.query import QuerySet
 
 
 class ResearchLibraryPage(base_library_page.BaseLibraryPage):
@@ -26,11 +30,19 @@ class ResearchLibraryPage(base_library_page.BaseLibraryPage):
     template = "pages/libraries/research_hub/library_page.html"
 
     @property
-    def filter_form(self):
+    def filter_form(self) -> "forms.Form":
         """Form class used to filter detail pages for this page."""
         return ResearchLibraryPageFilterForm
 
-    def get_filtered_detail_pages(self, filter_form: "forms.Form"):
+    @cached_property
+    def detail_pages(self) -> "QuerySet[detail_page.ResearchDetailPage]":
+        """Return the article detail pages that are children of this page."""
+        return detail_page.ResearchDetailPage.objects.live().public().filter(locale=wagtail_models.Locale.get_active())
+
+    @staticmethod
+    def filter_detail_pages(
+        pages: "QuerySet[detail_page.ResearchDetailPage]", filter_form: "forms.Form"
+    ) -> "QuerySet[detail_page.ResearchDetailPage]":
         """Return the article detail pages that match the given filters in the form."""
         if filter_form.is_valid():
             author_profile_ids: list[int] = filter_form.cleaned_data["authors"]
@@ -45,8 +57,7 @@ class ResearchLibraryPage(base_library_page.BaseLibraryPage):
             region_ids = []
             year = None
 
-        research_detail_pages = detail_page.ResearchDetailPage.objects.live().public()
-        research_detail_pages = research_detail_pages.filter(locale=wagtail_models.Locale.get_active())
+        research_detail_pages = pages
 
         author_profiles = utils.get_research_authors(profile_models.Profile.objects.all())
         author_profiles = author_profiles.filter(id__in=author_profile_ids)
