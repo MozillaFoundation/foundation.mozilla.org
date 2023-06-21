@@ -14,7 +14,10 @@ from networkapi.wagtailpages.factory.libraries.research_hub import (
 from networkapi.wagtailpages.factory.libraries.research_hub import (
     taxonomies as taxonomies_factory,
 )
-from networkapi.wagtailpages.pagemodels.libraries.research_hub import constants
+from networkapi.wagtailpages.pagemodels.libraries import constants
+from networkapi.wagtailpages.pagemodels.libraries.research_hub.forms import (
+    ResearchLibraryPageFilterForm,
+)
 from networkapi.wagtailpages.tests.libraries.research_hub import (
     base as research_test_base,
 )
@@ -36,7 +39,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             parent=self.library_page,
         )
 
-        research_detail_pages = self.library_page._get_research_detail_pages()
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages()
 
         self.assertEqual(len(research_detail_pages), 2)
         self.assertIn(detail_page_1, research_detail_pages)
@@ -53,7 +56,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         fr_detail_page_1 = detail_page_1.get_translation(self.fr_locale)
         fr_detail_page_2 = detail_page_2.get_translation(self.fr_locale)
 
-        research_detail_pages = self.library_page._get_research_detail_pages()
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages()
 
         self.assertEqual(len(research_detail_pages), 2)
         self.assertIn(detail_page_1, research_detail_pages)
@@ -70,7 +73,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
         self.make_page_private(private_detail_page)
 
-        research_detail_pages = self.library_page._get_research_detail_pages()
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages()
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(public_detail_page, research_detail_pages)
         self.assertNotIn(private_detail_page, research_detail_pages)
@@ -85,7 +88,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             original_publication_date=research_test_utils.days_ago(1),
         )
 
-        research_detail_pages = list(self.library_page._get_research_detail_pages(sort=constants.SORT_NEWEST_FIRST))
+        research_detail_pages = list(
+            self.library_page.get_sorted_filtered_detail_pages(sort=constants.SORT_NEWEST_FIRST)
+        )
 
         newest_page_index = research_detail_pages.index(newest_page)
         oldest_page_index = research_detail_pages.index(oldest_page)
@@ -101,7 +106,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             original_publication_date=research_test_utils.days_ago(1),
         )
 
-        research_detail_pages = list(self.library_page._get_research_detail_pages(sort=constants.SORT_OLDEST_FIRST))
+        research_detail_pages = list(
+            self.library_page.get_sorted_filtered_detail_pages(sort=constants.SORT_OLDEST_FIRST)
+        )
 
         newest_page_index = research_detail_pages.index(newest_page)
         oldest_page_index = research_detail_pages.index(oldest_page)
@@ -117,7 +124,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             title="Banana",
         )
 
-        research_detail_pages = list(self.library_page._get_research_detail_pages(sort=constants.SORT_ALPHABETICAL))
+        research_detail_pages = list(
+            self.library_page.get_sorted_filtered_detail_pages(sort=constants.SORT_ALPHABETICAL)
+        )
 
         apple_page_index = research_detail_pages.index(apple_page)
         banana_page_index = research_detail_pages.index(banana_page)
@@ -135,7 +144,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         )
 
         research_detail_pages = list(
-            self.library_page._get_research_detail_pages(sort=constants.SORT_ALPHABETICAL_REVERSED)
+            self.library_page.get_sorted_filtered_detail_pages(sort=constants.SORT_ALPHABETICAL_REVERSED)
         )
 
         apple_page_index = research_detail_pages.index(apple_page)
@@ -153,9 +162,9 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
             original_publication_date=research_test_utils.days_ago(1),
         )
 
-        default_sort_detail_pages = list(self.library_page._get_research_detail_pages())
+        default_sort_detail_pages = list(self.library_page.get_sorted_filtered_detail_pages())
         newest_first_detail_pages = list(
-            self.library_page._get_research_detail_pages(sort=constants.SORT_NEWEST_FIRST)
+            self.library_page.get_sorted_filtered_detail_pages(sort=constants.SORT_NEWEST_FIRST)
         )
 
         self.assertEqual(default_sort_detail_pages, newest_first_detail_pages)
@@ -166,7 +175,7 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         for _ in range(6):
             detail_page_factory.ResearchDetailPageFactory(parent=self.library_page)
 
-        research_detail_pages = self.library_page._get_research_detail_pages()
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages()
 
         research_detail_pages_paginator = paginator.Paginator(
             object_list=research_detail_pages,
@@ -200,7 +209,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
             collaborators="",
         )
 
-        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
         self.assertNotIn(banana_page, research_detail_pages)
@@ -221,7 +230,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
             collaborators="",
         )
 
-        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
@@ -243,7 +252,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
             collaborators="",
         )
 
-        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
@@ -265,7 +274,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
             collaborators="Banana",
         )
 
-        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
@@ -301,7 +310,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
         relations_factory.ResearchAuthorRelationFactory(detail_page=banana_page, author_profile=banana_profile)
         self.update_index()
 
-        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
@@ -335,7 +344,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
         relations_factory.ResearchDetailPageResearchTopicRelationFactory(detail_page=banana_page, topic=banana_topic)
         self.update_index()
 
-        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
@@ -365,7 +374,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
         )
         self.update_index()
 
-        research_detail_pages = self.library_page._get_research_detail_pages(search="Apple")
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
@@ -386,7 +395,8 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
             detail_page_2.authors.first().author_profile,
         )
 
-        research_detail_pages = self.library_page._get_research_detail_pages(author_profile_ids=[author_profile.id])
+        filter_form = ResearchLibraryPageFilterForm(data={"authors": [author_profile.id]})
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
@@ -412,7 +422,7 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
         )
 
         # Only show the page where both profiles are authors
-        research_detail_pages = response.context["research_detail_pages"]
+        research_detail_pages = response.context["detail_pages"]
         self.assertNotIn(detail_page_1, research_detail_pages)
         self.assertIn(detail_page_2, research_detail_pages)
 
@@ -445,9 +455,8 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
         self.assertEqual(profile.translation_key, profile_fr.translation_key)
         translation.activate(self.fr_locale.language_code)
 
-        research_detail_pages = self.library_page.localized._get_research_detail_pages(
-            author_profile_ids=[profile_fr.id]
-        )
+        filter_form = ResearchLibraryPageFilterForm(data={"authors": [profile_fr.id]})
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_1_fr, research_detail_pages)
         self.assertIn(detail_page_2_fr, research_detail_pages)
@@ -466,7 +475,8 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
             related_topics__topic=topic_B,
         )
 
-        research_detail_pages = self.library_page._get_research_detail_pages(topic_ids=[topic_A.id])
+        filter_form = ResearchLibraryPageFilterForm(data={"topics": [topic_A.id]})
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_A, research_detail_pages)
         self.assertNotIn(detail_page_B, research_detail_pages)
@@ -484,7 +494,8 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
             related_topics__topic=topic_A,
         )
 
-        research_detail_pages = self.library_page._get_research_detail_pages(topic_ids=[topic_A.id, topic_B.id])
+        filter_form = ResearchLibraryPageFilterForm(data={"topics": [topic_A.id, topic_B.id]})
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
@@ -518,7 +529,8 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
         self.assertEqual(topic.translation_key, topic_fr.translation_key)
         translation.activate(self.fr_locale.language_code)
 
-        research_detail_pages = self.library_page.localized._get_research_detail_pages(topic_ids=[topic_fr.id])
+        filter_form = ResearchLibraryPageFilterForm(data={"topics": [topic_fr.id]})
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertEqual(len(research_detail_pages), 2)
         self.assertIn(detail_page_1_fr, research_detail_pages)
@@ -538,7 +550,8 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
             related_regions__region=region_B,
         )
 
-        research_detail_pages = self.library_page._get_research_detail_pages(region_ids=[region_A.id])
+        filter_form = ResearchLibraryPageFilterForm(data={"regions": [region_A.id]})
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_A, research_detail_pages)
         self.assertNotIn(detail_page_B, research_detail_pages)
@@ -556,7 +569,8 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
             related_regions__region=region_A,
         )
 
-        research_detail_pages = self.library_page._get_research_detail_pages(region_ids=[region_A.id, region_B.id])
+        filter_form = ResearchLibraryPageFilterForm(data={"regions": [region_A.id, region_B.id]})
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)
@@ -590,7 +604,8 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
         self.assertEqual(region.translation_key, region_fr.translation_key)
         translation.activate(self.fr_locale.language_code)
 
-        research_detail_pages = self.library_page.localized._get_research_detail_pages(region_ids=[region_fr.id])
+        filter_form = ResearchLibraryPageFilterForm(data={"regions": [region_fr.id]})
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertEqual(len(research_detail_pages), 2)
         self.assertIn(detail_page_1_fr, research_detail_pages)
@@ -608,7 +623,8 @@ class TestResearchLibraryPageFilters(TestResearchLibraryPage):
             original_publication_date=datetime.date(year_1 + 1, 6, 1),
         )
 
-        research_detail_pages = self.library_page._get_research_detail_pages(year=year_1)
+        filter_form = ResearchLibraryPageFilterForm(data={"year": year_1})
+        research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_1, research_detail_pages)
         self.assertNotIn(detail_page_2, research_detail_pages)

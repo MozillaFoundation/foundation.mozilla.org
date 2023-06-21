@@ -11,7 +11,10 @@ from networkapi.wagtailpages.factory.libraries.rcc import relations as relations
 from networkapi.wagtailpages.factory.libraries.rcc import (
     taxonomies as taxonomies_factory,
 )
-from networkapi.wagtailpages.pagemodels.libraries.rcc import constants
+from networkapi.wagtailpages.pagemodels.libraries import constants
+from networkapi.wagtailpages.pagemodels.libraries.rcc.forms import (
+    RCCLibraryPageFilterForm,
+)
 from networkapi.wagtailpages.tests.libraries.rcc import base as rcc_test_base
 from networkapi.wagtailpages.tests.libraries.rcc import utils as rcc_test_utils
 
@@ -21,7 +24,7 @@ class TestRCCLibraryPage(rcc_test_base.RCCTestCase):
         with open(os.devnull, "w") as f:
             management.call_command("update_index", verbosity=0, stdout=f)
 
-    def test_get_rcc_detail_pages(self):
+    def testget_sorted_filtered_detail_pages(self):
         detail_page_1 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
         )
@@ -29,13 +32,13 @@ class TestRCCLibraryPage(rcc_test_base.RCCTestCase):
             parent=self.library_page,
         )
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages()
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages()
 
         self.assertEqual(len(rcc_detail_pages), 2)
         self.assertIn(detail_page_1, rcc_detail_pages)
         self.assertIn(detail_page_2, rcc_detail_pages)
 
-    def test_get_rcc_detail_pages_with_translation_aliases(self):
+    def testget_sorted_filtered_detail_pages_with_translation_aliases(self):
         detail_page_1 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
         )
@@ -46,7 +49,7 @@ class TestRCCLibraryPage(rcc_test_base.RCCTestCase):
         fr_detail_page_1 = detail_page_1.get_translation(self.fr_locale)
         fr_detail_page_2 = detail_page_2.get_translation(self.fr_locale)
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages()
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages()
 
         self.assertEqual(len(rcc_detail_pages), 2)
         self.assertIn(detail_page_1, rcc_detail_pages)
@@ -63,7 +66,7 @@ class TestRCCLibraryPage(rcc_test_base.RCCTestCase):
         )
         self.make_page_private(private_detail_page)
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages()
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages()
         self.assertEqual(len(rcc_detail_pages), 1)
         self.assertIn(public_detail_page, rcc_detail_pages)
         self.assertNotIn(private_detail_page, rcc_detail_pages)
@@ -78,7 +81,7 @@ class TestRCCLibraryPage(rcc_test_base.RCCTestCase):
             original_publication_date=rcc_test_utils.days_ago(1),
         )
 
-        rcc_detail_pages = list(self.library_page._get_rcc_detail_pages(sort=constants.SORT_NEWEST_FIRST))
+        rcc_detail_pages = list(self.library_page.get_sorted_filtered_detail_pages(sort=constants.SORT_NEWEST_FIRST))
 
         newest_page_index = rcc_detail_pages.index(newest_page)
         oldest_page_index = rcc_detail_pages.index(oldest_page)
@@ -94,7 +97,7 @@ class TestRCCLibraryPage(rcc_test_base.RCCTestCase):
             original_publication_date=rcc_test_utils.days_ago(1),
         )
 
-        rcc_detail_pages = list(self.library_page._get_rcc_detail_pages(sort=constants.SORT_OLDEST_FIRST))
+        rcc_detail_pages = list(self.library_page.get_sorted_filtered_detail_pages(sort=constants.SORT_OLDEST_FIRST))
 
         newest_page_index = rcc_detail_pages.index(newest_page)
         oldest_page_index = rcc_detail_pages.index(oldest_page)
@@ -110,7 +113,7 @@ class TestRCCLibraryPage(rcc_test_base.RCCTestCase):
             title="Banana",
         )
 
-        rcc_detail_pages = list(self.library_page._get_rcc_detail_pages(sort=constants.SORT_ALPHABETICAL))
+        rcc_detail_pages = list(self.library_page.get_sorted_filtered_detail_pages(sort=constants.SORT_ALPHABETICAL))
 
         apple_page_index = rcc_detail_pages.index(apple_page)
         banana_page_index = rcc_detail_pages.index(banana_page)
@@ -127,13 +130,15 @@ class TestRCCLibraryPage(rcc_test_base.RCCTestCase):
             title="Banana",
         )
 
-        rcc_detail_pages = list(self.library_page._get_rcc_detail_pages(sort=constants.SORT_ALPHABETICAL_REVERSED))
+        rcc_detail_pages = list(
+            self.library_page.get_sorted_filtered_detail_pages(sort=constants.SORT_ALPHABETICAL_REVERSED)
+        )
 
         apple_page_index = rcc_detail_pages.index(apple_page)
         banana_page_index = rcc_detail_pages.index(banana_page)
         self.assertLess(banana_page_index, apple_page_index)
 
-    def test_get_rcc_detail_pages_sort_default(self):
+    def testget_sorted_filtered_detail_pages_sort_default(self):
 
         detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
@@ -144,8 +149,10 @@ class TestRCCLibraryPage(rcc_test_base.RCCTestCase):
             original_publication_date=rcc_test_utils.days_ago(1),
         )
 
-        default_sort_detail_pages = list(self.library_page._get_rcc_detail_pages())
-        newest_first_detail_pages = list(self.library_page._get_rcc_detail_pages(sort=constants.SORT_NEWEST_FIRST))
+        default_sort_detail_pages = list(self.library_page.get_sorted_filtered_detail_pages())
+        newest_first_detail_pages = list(
+            self.library_page.get_sorted_filtered_detail_pages(sort=constants.SORT_NEWEST_FIRST)
+        )
 
         self.assertEqual(default_sort_detail_pages, newest_first_detail_pages)
 
@@ -155,7 +162,7 @@ class TestRCCLibraryPage(rcc_test_base.RCCTestCase):
         for _ in range(6):
             detail_page_factory.RCCDetailPageFactory(parent=self.library_page)
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages()
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages()
 
         rcc_detail_pages_paginator = paginator.Paginator(
             object_list=rcc_detail_pages,
@@ -189,7 +196,7 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             collaborators="",
         )
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
         self.assertEqual(len(rcc_detail_pages), 1)
         self.assertIn(apple_page, rcc_detail_pages)
         self.assertNotIn(banana_page, rcc_detail_pages)
@@ -210,7 +217,7 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             collaborators="",
         )
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(rcc_detail_pages), 1)
         self.assertIn(apple_page, rcc_detail_pages)
@@ -232,7 +239,7 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             collaborators="",
         )
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(rcc_detail_pages), 1)
         self.assertIn(apple_page, rcc_detail_pages)
@@ -254,7 +261,7 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             collaborators="Banana",
         )
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(rcc_detail_pages), 1)
         self.assertIn(apple_page, rcc_detail_pages)
@@ -290,7 +297,7 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
         relations_factory.RCCAuthorRelationFactory(detail_page=banana_page, author_profile=banana_profile)
         self.update_index()
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(rcc_detail_pages), 1)
         self.assertIn(apple_page, rcc_detail_pages)
@@ -326,7 +333,7 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
         )
         self.update_index()
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(rcc_detail_pages), 1)
         self.assertIn(apple_page, rcc_detail_pages)
@@ -362,7 +369,7 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
         )
         self.update_index()
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(rcc_detail_pages), 1)
         self.assertIn(apple_page, rcc_detail_pages)
@@ -394,7 +401,7 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
         relations_factory.RCCDetailPageRCCTopicRelationFactory(detail_page=banana_page, topic=banana_topic)
         self.update_index()
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(search="Apple")
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(rcc_detail_pages), 1)
         self.assertIn(apple_page, rcc_detail_pages)
@@ -415,7 +422,8 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
             detail_page_2.authors.first().author_profile,
         )
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(author_profile_ids=[author_profile.id])
+        filter_form = RCCLibraryPageFilterForm(data={"authors": [author_profile.id]})
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_1, rcc_detail_pages)
         self.assertNotIn(detail_page_2, rcc_detail_pages)
@@ -441,7 +449,7 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
         )
 
         # Only show the page where both profiles are authors
-        rcc_detail_pages = response.context["rcc_detail_pages"]
+        rcc_detail_pages = response.context["detail_pages"]
         self.assertNotIn(detail_page_1, rcc_detail_pages)
         self.assertIn(detail_page_2, rcc_detail_pages)
 
@@ -474,7 +482,8 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
         self.assertEqual(profile.translation_key, profile_fr.translation_key)
         translation.activate(self.fr_locale.language_code)
 
-        rcc_detail_pages = self.library_page.localized._get_rcc_detail_pages(author_profile_ids=[profile_fr.id])
+        filter_form = RCCLibraryPageFilterForm(data={"authors": [profile_fr.id]})
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_1_fr, rcc_detail_pages)
         self.assertIn(detail_page_2_fr, rcc_detail_pages)
@@ -493,7 +502,8 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
             related_content_types__content_type=content_type_B,
         )
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(content_type_ids=[content_type_A.id])
+        filter_form = RCCLibraryPageFilterForm(data={"content_types": [content_type_A.id]})
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_A, rcc_detail_pages)
         self.assertNotIn(detail_page_B, rcc_detail_pages)
@@ -510,7 +520,8 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
             related_curricular_areas__curricular_area=curricular_area_B,
         )
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(curricular_area_ids=[curricular_area_A.id])
+        filter_form = RCCLibraryPageFilterForm(data={"curricular_areas": [curricular_area_A.id]})
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_A, rcc_detail_pages)
         self.assertNotIn(detail_page_B, rcc_detail_pages)
@@ -527,7 +538,8 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
             related_topics__topic=topic_B,
         )
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(topic_ids=[topic_A.id])
+        filter_form = RCCLibraryPageFilterForm(data={"topics": [topic_A.id]})
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_A, rcc_detail_pages)
         self.assertNotIn(detail_page_B, rcc_detail_pages)
@@ -547,9 +559,8 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
             related_content_types__content_type=content_type_A,
         )
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(
-            content_type_ids=[content_type_A.id, content_type_B.id]
-        )
+        filter_form = RCCLibraryPageFilterForm(data={"content_types": [content_type_A.id, content_type_B.id]})
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_1, rcc_detail_pages)
         self.assertNotIn(detail_page_2, rcc_detail_pages)
@@ -569,9 +580,8 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
             related_curricular_areas__curricular_area=curricular_area_A,
         )
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(
-            curricular_area_ids=[curricular_area_A.id, curricular_area_B.id]
-        )
+        filter_form = RCCLibraryPageFilterForm(data={"curricular_areas": [curricular_area_A.id, curricular_area_B.id]})
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_1, rcc_detail_pages)
         self.assertNotIn(detail_page_2, rcc_detail_pages)
@@ -589,7 +599,8 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
             related_topics__topic=topic_A,
         )
 
-        rcc_detail_pages = self.library_page._get_rcc_detail_pages(topic_ids=[topic_A.id, topic_B.id])
+        filter_form = RCCLibraryPageFilterForm(data={"topics": [topic_A.id, topic_B.id]})
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertIn(detail_page_1, rcc_detail_pages)
         self.assertNotIn(detail_page_2, rcc_detail_pages)
@@ -631,7 +642,8 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
         translation.activate(self.fr_locale.language_code)
 
         # Filter for the translated content type
-        rcc_detail_pages = self.library_page.localized._get_rcc_detail_pages(content_type_ids=[content_type_fr.id])
+        filter_form = RCCLibraryPageFilterForm(data={"content_types": [content_type_fr.id]})
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         # We should see both pages, even though the first one is not associated with the
         # translated content type
@@ -678,9 +690,8 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
         translation.activate(self.fr_locale.language_code)
 
         # Filter for the translated curricular area
-        rcc_detail_pages = self.library_page.localized._get_rcc_detail_pages(
-            curricular_area_ids=[curricular_area_fr.id]
-        )
+        filter_form = RCCLibraryPageFilterForm(data={"curricular_area": [curricular_area_fr.id]})
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         # We should see both pages, even though the first one is not associated with the
         # translated curricular area
@@ -719,7 +730,8 @@ class TestRCCLibraryPageFilters(TestRCCLibraryPage):
         self.assertEqual(topic.translation_key, topic_fr.translation_key)
         translation.activate(self.fr_locale.language_code)
 
-        rcc_detail_pages = self.library_page.localized._get_rcc_detail_pages(topic_ids=[topic_fr.id])
+        filter_form = RCCLibraryPageFilterForm(data={"topics": [topic_fr.id]})
+        rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(filter_form=filter_form)
 
         self.assertEqual(len(rcc_detail_pages), 2)
         self.assertIn(detail_page_1_fr, rcc_detail_pages)

@@ -9,11 +9,8 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.base import BasePage
-from networkapi.wagtailpages.pagemodels.libraries.rcc import (
-    constants,
-    detail_page,
-    library_page,
-)
+from networkapi.wagtailpages.pagemodels.libraries import constants as base_constants
+from networkapi.wagtailpages.pagemodels.libraries.rcc import detail_page, library_page
 
 
 class RCCAuthorsIndexPage(
@@ -94,7 +91,7 @@ class RCCAuthorsIndexPage(
     def get_latest_author_rcc_entries(self, author_profile):
         author_articles = self.get_author_rcc_entries(author_profile)
         author_articles = author_articles.order_by("-original_publication_date")
-        latest_articles = author_articles[: constants.LATEST_ARTICLES_COUNT]
+        latest_articles = author_articles[: base_constants.LATEST_ARTICLES_COUNT]
         return latest_articles
 
     def get_author_rcc_entries_count(self, author_profile):
