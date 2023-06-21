@@ -13,42 +13,42 @@
 .primary-page-content {
   &.wide {
     .streamfield-content {
-      @apply tw-w-full tw-px-8 tw-relative;
+      @apply tw-relative tw-w-full tw-px-8 tw-flex-grow-0 tw-flex-shrink-0 tw-flex-basis-full tw-max-w-full;
     }
   }
 
   &.narrow {
     .streamfield-content {
-      @apply tw-w-full medium:tw-w-2/3 tw-px-8 tw-relative;
+      @apply tw-relative tw-w-full tw-px-8 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 medium:tw-flex-basis-8/12 medium:tw-max-w-8/12;
     }
   }
 }
 
 .article-page-content {
   .streamfield-content {
-    @apply tw-w-full medium:tw-w-5/6 tw-px-8 tw-relative;
+    @apply tw-relative tw-w-full tw-px-8 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 medium:tw-flex-basis-10/12 medium:tw-max-w-10/12;
     &.wide {
-      @apply tw-w-full tw-px-8 tw-relative;
+      @apply tw-relative tw-w-full tw-px-8 tw-flex-grow-0 tw-flex-shrink-0 tw-flex-basis-full tw-max-w-full;
     }
   }
 }
 
 .blog-body {
   .streamfield-content {
-    @apply tw-w-full large:tw-w-2/3 tw-px-8 tw-relative;
+    @extend .col-lg-8;
     &.wide {
-      @apply tw-w-full tw-px-8 tw-relative;
+      @apply tw-relative tw-w-full tw-px-8 tw-flex-grow-0 tw-flex-shrink-0 tw-flex-basis-full tw-max-w-full;
     }
     &.full-width {
+      @apply tw-relative tw-flex-grow-0 tw-flex-shrink-0 tw-flex-basis-full;
       @extend .full-width;
-      @apply tw-w-full tw-relative;
     }
   }
 }
 
 .opportunity-page-content {
   .streamfield-content {
-    @apply tw-w-full tw-px-0 tw-relative;
+    @apply tw-relative tw-w-full tw-px-0 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 large:tw-flex-basis-full large:tw-max-w-full;
   }
 }
 
