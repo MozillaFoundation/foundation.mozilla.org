@@ -13,22 +13,22 @@
 .primary-page-content {
   &.wide {
     .streamfield-content {
-      @apply tw-relative tw-w-full tw-px-8 tw-flex-grow-0 tw-flex-shrink-0 tw-flex-basis-full tw-max-w-full;
+      @apply tw-relative tw-w-full tw-px-8 tw-flex-grow-0 tw-flex-shrink-0 tw-basis-full tw-max-w-full;
     }
   }
 
   &.narrow {
     .streamfield-content {
-      @apply tw-relative tw-w-full tw-px-8 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 medium:tw-flex-basis-8/12 medium:tw-max-w-8/12;
+      @apply tw-relative tw-w-full tw-px-8 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 medium:tw-basis-8/12 medium:tw-max-w-8/12;
     }
   }
 }
 
 .article-page-content {
   .streamfield-content {
-    @apply tw-relative tw-w-full tw-px-8 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 medium:tw-flex-basis-10/12 medium:tw-max-w-10/12;
+    @apply tw-relative tw-w-full tw-px-8 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 medium:tw-basis-10/12 medium:tw-max-w-10/12;
     &.wide {
-      @apply tw-relative tw-w-full tw-px-8 tw-flex-grow-0 tw-flex-shrink-0 tw-flex-basis-full tw-max-w-full;
+      @apply tw-relative tw-w-full tw-px-8 tw-flex-grow-0 tw-flex-shrink-0 tw-basis-full tw-max-w-full;
     }
   }
 }
@@ -37,10 +37,10 @@
   .streamfield-content {
     @extend .col-lg-8;
     &.wide {
-      @apply tw-relative tw-w-full tw-px-8 tw-flex-grow-0 tw-flex-shrink-0 tw-flex-basis-full tw-max-w-full;
+      @apply tw-relative tw-w-full tw-px-8 tw-flex-grow-0 tw-flex-shrink-0 tw-basis-full tw-max-w-full;
     }
     &.full-width {
-      @apply tw-relative tw-flex-grow-0 tw-flex-shrink-0 tw-flex-basis-full;
+      @apply tw-relative tw-flex-grow-0 tw-flex-shrink-0 tw-basis-full;
       @extend .full-width;
     }
   }
@@ -48,7 +48,7 @@
 
 .opportunity-page-content {
   .streamfield-content {
-    @apply tw-relative tw-w-full tw-px-0 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 large:tw-flex-basis-full large:tw-max-w-full;
+    @apply tw-relative tw-w-full tw-px-0 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 large:tw-basis-full large:tw-max-w-full;
   }
 }
 
