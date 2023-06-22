@@ -10,6 +10,8 @@ from networkapi.wagtailpages.pagemodels.libraries import constants
 class BaseLandingPage(BasePage):
     max_count = 1
 
+    parent_page_types = ["Homepage"]
+
     template = "pages/libraries/landing_page.html"
 
     intro = models.CharField(
