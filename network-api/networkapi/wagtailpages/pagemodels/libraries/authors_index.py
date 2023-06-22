@@ -19,6 +19,8 @@ class BaseAuthorsIndexPage(
 ):
     max_count = 1
 
+    subpage_types = []
+
     template = "pages/libraries/authors_index_page.html"
 
     banner_image = models.ForeignKey(
