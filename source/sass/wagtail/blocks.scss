@@ -19,14 +19,14 @@
 
   &.narrow {
     .streamfield-content {
-      @apply tw-relative tw-w-full tw-px-8 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 medium:tw-basis-8/12 medium:tw-max-w-8/12;
+      @apply tw-relative tw-w-full tw-px-8 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 medium:tw-basis-8/12 medium:tw-max-w-[8/12];
     }
   }
 }
 
 .article-page-content {
   .streamfield-content {
-    @apply tw-relative tw-w-full tw-px-8 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 medium:tw-basis-10/12 medium:tw-max-w-10/12;
+    @apply tw-relative tw-w-full tw-px-8 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 medium:tw-basis-10/12 medium:tw-max-w-[10/12];
     &.wide {
       @apply tw-relative tw-w-full tw-px-8 tw-flex-grow-0 tw-flex-shrink-0 tw-basis-full tw-max-w-full;
     }
