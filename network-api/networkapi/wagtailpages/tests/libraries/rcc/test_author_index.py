@@ -43,25 +43,25 @@ class TestRCCAuthorIndexPage(rcc_test_base.RCCTestCase):
         )
         return detail_page
 
-    def test_get_context(self):
-        context = self.author_index.get_context(request=None)
+    def test_author_profiles_prop(self):
+        author_profiles = self.author_index.author_profiles
         self.translate_rcc_profile()
 
-        self.assertIn(self.rcc_profile, context["author_profiles"])
+        self.assertIn(self.rcc_profile, author_profiles)
         # Non-rcc profile should not show up
-        self.assertNotIn(self.non_rcc_profile, context["author_profiles"])
+        self.assertNotIn(self.non_rcc_profile, author_profiles)
         # Translated profile should not show up
-        self.assertNotIn(self.fr_profile, context["author_profiles"])
+        self.assertNotIn(self.fr_profile, author_profiles)
 
-    def test_get_context_fr_locale_detail_alias(self):
+    def test_author_profiles_fr_locale_detail_alias(self):
         translation.activate(self.fr_locale.language_code)
 
-        fr_context = self.author_index.localized.get_context(request=None)
+        fr_author_profiles = self.author_index.localized.author_profiles
 
         # When the profile is not translated, the default locales profile should show
-        self.assertIn(self.rcc_profile, fr_context["author_profiles"])
+        self.assertIn(self.rcc_profile, fr_author_profiles)
 
-    def test_get_context_fr_locale_detail_translated(self):
+    def test_author_profiles_fr_locale_detail_translated(self):
         fr_detail_page = rcc_test_utils.translate_detail_page(
             self.detail_page,
             self.fr_locale,
@@ -69,11 +69,11 @@ class TestRCCAuthorIndexPage(rcc_test_base.RCCTestCase):
         fr_profile = fr_detail_page.authors.first().author_profile
         translation.activate(self.fr_locale.language_code)
 
-        # Get context when fr is active
-        fr_context = self.author_index.localized.get_context(request=None)
+        # Get author_profiles when fr is active
+        fr_author_profiles = self.author_index.localized.author_profiles
 
-        self.assertNotIn(self.rcc_profile, fr_context["author_profiles"])
-        self.assertIn(fr_profile, fr_context["author_profiles"])
+        self.assertNotIn(self.rcc_profile, fr_author_profiles)
+        self.assertIn(fr_profile, fr_author_profiles)
 
     def test_profile_route(self):
         url = f"{ self.author_index.url }{ self.rcc_profile.slug }"
@@ -178,7 +178,7 @@ class TestRCCAuthorIndexPage(rcc_test_base.RCCTestCase):
         detail_page_3 = self.create_rcc_detail_page_with_author(author_profile=self.rcc_profile, days_ago=2)
         detail_page_4 = self.create_rcc_detail_page_with_author(author_profile=self.rcc_profile, days_ago=1)
 
-        latest_articles = self.author_index.get_latest_author_rcc_entries(
+        latest_articles = self.author_index.get_latest_author_articles(
             author_profile=self.rcc_profile,
         )
 
@@ -192,7 +192,7 @@ class TestRCCAuthorIndexPage(rcc_test_base.RCCTestCase):
         # One page already exists, creating one more
         self.create_rcc_detail_page_with_author(author_profile=self.rcc_profile)
 
-        count = self.author_index.get_author_rcc_entries_count(author_profile=self.rcc_profile)
+        count = self.author_index.get_author_articles_count(author_profile=self.rcc_profile)
 
         self.assertEqual(count, 2)
 
@@ -204,7 +204,7 @@ class TestRCCAuthorIndexPage(rcc_test_base.RCCTestCase):
 
         # 3 queries = 1 for the detail pages, 1 for the locale, 1 for the page  view restrictions
         with self.assertNumQueries(3):
-            author_rcc = self.author_index.get_author_rcc_entries(
+            author_rcc = self.author_index.get_author_articles(
                 author_profile=self.rcc_profile,
             )
 
@@ -222,7 +222,7 @@ class TestRCCAuthorIndexPage(rcc_test_base.RCCTestCase):
         detail_page_unpublished.unpublish()
         detail_page_unpublished.save()
 
-        latest_articles = self.author_index.get_author_rcc_entries(
+        latest_articles = self.author_index.get_author_articles(
             author_profile=self.rcc_profile,
         )
 
@@ -238,7 +238,7 @@ class TestRCCAuthorIndexPage(rcc_test_base.RCCTestCase):
         )
         self.make_page_private(detail_page_private)
 
-        latest_articles = self.author_index.get_author_rcc_entries(
+        latest_articles = self.author_index.get_author_articles(
             author_profile=self.rcc_profile,
         )
 
