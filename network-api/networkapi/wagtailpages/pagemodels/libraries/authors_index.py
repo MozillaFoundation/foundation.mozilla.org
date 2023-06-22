@@ -1,3 +1,4 @@
+import typing
 from functools import cached_property
 
 from django import shortcuts
@@ -12,6 +13,11 @@ from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.libraries import constants as base_constants
 
+if typing.TYPE_CHECKING:
+    from typing import List
+
+    from wagtail.core.models import Page
+
 
 class BaseAuthorsIndexPage(
     routable_models.RoutablePageMixin,
@@ -19,7 +25,7 @@ class BaseAuthorsIndexPage(
 ):
     max_count = 1
 
-    subpage_types = []
+    subpage_types: "List[Page]" = []
 
     template = "pages/libraries/authors_index_page.html"
 
