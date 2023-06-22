@@ -49,25 +49,25 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         )
         return detail_page
 
-    def test_get_context(self):
-        context = self.author_index.get_context(request=None)
+    def test_author_profiles(self):
+        author_profiles = self.author_index.author_profiles
         self.translate_research_profile()
 
-        self.assertIn(self.research_profile, context["author_profiles"])
+        self.assertIn(self.research_profile, author_profiles)
         # Non-research profile should not show up
-        self.assertNotIn(self.non_research_profile, context["author_profiles"])
+        self.assertNotIn(self.non_research_profile, author_profiles)
         # Translated profile should not show up
-        self.assertNotIn(self.fr_profile, context["author_profiles"])
+        self.assertNotIn(self.fr_profile, author_profiles)
 
-    def test_get_context_fr_locale_detail_alias(self):
+    def test_author_profiles_fr_locale_detail_alias(self):
         translation.activate(self.fr_locale.language_code)
 
-        fr_context = self.author_index.localized.get_context(request=None)
+        fr_author_profiles = self.author_index.localized.author_profiles
 
         # When the profile is not translated, the default locales profile should show
-        self.assertIn(self.research_profile, fr_context["author_profiles"])
+        self.assertIn(self.research_profile, fr_author_profiles)
 
-    def test_get_context_fr_locale_detail_translated(self):
+    def test_author_profiles_fr_locale_detail_translated(self):
         fr_detail_page = research_test_utils.translate_detail_page(
             self.detail_page,
             self.fr_locale,
@@ -75,11 +75,11 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         fr_profile = fr_detail_page.authors.first().author_profile
         translation.activate(self.fr_locale.language_code)
 
-        # Get context when fr is active
-        fr_context = self.author_index.localized.get_context(request=None)
+        # Get author_profiles when fr is active
+        fr_author_profiles = self.author_index.localized.author_profiles
 
-        self.assertNotIn(self.research_profile, fr_context["author_profiles"])
-        self.assertIn(fr_profile, fr_context["author_profiles"])
+        self.assertNotIn(self.research_profile, fr_author_profiles)
+        self.assertIn(fr_profile, fr_author_profiles)
 
     def test_profile_route(self):
         url = f"{ self.author_index.url }{ self.research_profile.slug }"
@@ -178,13 +178,13 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         self.assertIn(fr_detail_page, context["latest_articles"])
         self.assertIn(fr_extra_detail_page, context["latest_articles"])
 
-    def test_get_latest_research_contains_latest_three_detail_pages(self):
+    def test_get_latest_author_articles_contains_latest_three_detail_pages(self):
         detail_page_1 = self.detail_page
         detail_page_2 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=3)
         detail_page_3 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=2)
         detail_page_4 = self.create_research_detail_page_with_author(author_profile=self.research_profile, days_ago=1)
 
-        latest_research = self.author_index.get_latest_author_research(
+        latest_research = self.author_index.get_latest_author_articles(
             author_profile=self.research_profile,
         )
 
@@ -198,7 +198,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         # One page already exists, creating one more
         self.create_research_detail_page_with_author(author_profile=self.research_profile)
 
-        count = self.author_index.get_author_research_count(author_profile=self.research_profile)
+        count = self.author_index.get_author_articles_count(author_profile=self.research_profile)
 
         self.assertEqual(count, 2)
 
@@ -210,7 +210,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
 
         # 3 queries = 1 for the detail pages, 1 for the locale, 1 for the page  view restrictions
         with self.assertNumQueries(3):
-            author_research = self.author_index.get_author_research(
+            author_research = self.author_index.get_author_articles(
                 author_profile=self.research_profile,
             )
 
@@ -228,7 +228,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         detail_page_unpublished.unpublish()
         detail_page_unpublished.save()
 
-        latest_research = self.author_index.get_author_research(
+        latest_research = self.author_index.get_author_articles(
             author_profile=self.research_profile,
         )
 
@@ -244,7 +244,7 @@ class TestResearchAuthorIndexPage(research_test_base.ResearchHubTestCase):
         )
         self.make_page_private(detail_page_private)
 
-        latest_research = self.author_index.get_author_research(
+        latest_research = self.author_index.get_author_articles(
             author_profile=self.research_profile,
         )
 
