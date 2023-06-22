@@ -14,10 +14,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterModelOptions(
-            name="rccdetailpage",
-            options={"verbose_name": "RCC detail page", "verbose_name_plural": "RCC detail pages"},
-        ),
         migrations.RenameField(
             model_name="researchdetailpageresearchregionrelation",
             old_name="research_detail_page",
