@@ -489,12 +489,31 @@ def mypy(ctx, args=None):
 
 
 # Pip-tools
-@task(aliases=["docker-pip-compile"])
-def pip_compile(ctx, command):
-    """Shorthand to pip-tools. inv pip-compile \"[COMMAND] [ARG]\" """
+def _pip_compile_workaround(requirement_file, additional_commands=""):
+    """
+    A workaround to fix 'Device or resource busy' error when running
+    pip-compile in docker container where the output file is a mounted volume.
+
+    This is because pip-compile tries to replace the output file, and you can't replace
+    mount points. However, you can write to them. So we work around this by using an
+    unmounted .tmp file as intermediary, and then write the changes to the mounted file.
+    """
+    output_file = requirement_file.replace(".in", ".txt")
+    temp_file = output_file + ".tmp"
+    return (
+        f"cp {output_file} {temp_file}&&pip-compile {requirement_file}"
+        + " "
+        + additional_commands
+        + f" --output-file={temp_file}&&cp {temp_file} {output_file}&&rm {temp_file}"
+    )
+
+
+@task(aliases=["docker-pip-compile"], optional=["command"])
+def pip_compile(ctx, filename="requirements.in", command=""):
+    """Shorthand to pip-tools. inv pip-compile \"[filename]\" \"[COMMAND] [ARG]\" """
     with ctx.cd(ROOT):
         ctx.run(
-            f"docker-compose run --rm backend ./dockerpythonvenv/bin/pip-compile {command}",
+            f"""docker-compose run --rm backend bash -c '{_pip_compile_workaround(filename, command)}'""",
             **PLATFORM_ARG,
         )
 
@@ -503,12 +522,11 @@ def pip_compile(ctx, command):
 def pip_compile_lock(ctx):
     """Lock prod and dev dependencies"""
     with ctx.cd(ROOT):
+        # Running in separate steps as the dev-requirements.in needs to read requirements.txt
+        command = _pip_compile_workaround("requirements.in") + "&&"
+        command = command + _pip_compile_workaround("dev-requirements.in")
         ctx.run(
-            "docker-compose run --rm backend ./dockerpythonvenv/bin/pip-compile",
-            **PLATFORM_ARG,
-        )
-        ctx.run(
-            "docker-compose run --rm backend ./dockerpythonvenv/bin/pip-compile dev-requirements.in",
+            f"""docker-compose run --rm backend bash -c '{command}'""",
             **PLATFORM_ARG,
         )
 
