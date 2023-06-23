@@ -1,5 +1,5 @@
 {% extends "pages/libraries/base.html" %}
-{% load i18n l10n wagtailcore_tags wagtailimages_tags breadcrumbs %}
+{% load i18n l10n static wagtailcore_tags wagtailimages_tags breadcrumbs %}
 
 {% block library_content %}
     <div
@@ -8,27 +8,25 @@
             tw-gap-8
             tw-grid
             tw-grid-cols-1
-            {% if author_profile.image %}
-                medium:tw-gap-x-24
-                medium:tw-grid-cols-[13rem_1fr]
-                large:tw-grid-cols-[16rem_1fr]
-            {% endif %}
+            medium:tw-gap-x-24
+            medium:tw-grid-cols-[13rem_1fr]
+            large:tw-grid-cols-[16rem_1fr]
         "
     >
-        <div
-            {% if author_profile.image %}
-                class="medium:tw-col-start-2"
-            {% endif %}
-        >
+        <div class="medium:tw-col-start-2">
             {% block breadcrumbs %}{% endblock breadcrumbs %}
         </div>
-        {% if author_profile.image %}
-            <div id="image-container" class="tw-place-self-center medium:tw-place-self-start">
-                {% image author_profile.image fill-256x256 as img_1x %}
-                {% image author_profile.image fill-512x512 as img_2x %}
-                <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x" src="{{ img_2x.url }}" width="{{ img_2x.width|unlocalize }}" height="{{ img_2x.height|unlocalize }}"  alt="{{ img_2x.alt }}" class="tw-rounded-full tw-w-104 large:tw-w-128" />
-            </div>
-        {% endif %}
+        <div id="image-container" class="tw-place-self-center medium:tw-place-self-start">
+            {% with profile_image_classes="tw-rounded-full tw-w-104 large:tw-w-128" %}
+                {% if author_profile.image %}
+                    {% image author_profile.image fill-256x256 as img_1x %}
+                    {% image author_profile.image fill-512x512 as img_2x %}
+                    <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x" src="{{ img_2x.url }}" width="{{ img_2x.width|unlocalize }}" height="{{ img_2x.height|unlocalize }}"  alt="{{ img_2x.alt }}" class="{{ profile_image_classes }}" />
+                {% else %}
+                    <img src="{% static '_images/author-placeholder.svg' %}" width="100" height="100" alt="{{ author_profile.name }}" class="{{ profile_image_classes }}" />
+                {% endif %}
+            {% endwith %}
+        </div>
         <div id="bio">
             <h1 class="tw-mb-8">{{ author_profile.name }}</h1>
             <div class="tw-mb-8 tw-text-lg tw-text-gray-60">
@@ -45,11 +43,9 @@
                 tw-min-w-0
                 tw-mt-16
                 tw-pt-12
-                {% if author_profile.image %}
-                    medium:tw-col-span-2
-                    large:tw-col-span-1
-                    large:tw-col-start-2
-                {% endif %}
+                medium:tw-col-span-2
+                large:tw-col-span-1
+                large:tw-col-start-2
             "
         >
             <h2>{% block latest_articles_label %}{% endblock latest_articles_label %}</h2>
