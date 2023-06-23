@@ -8,7 +8,7 @@
 {% block detail_page_cards %}
     {% for research_detail_page in page.latest_detail_pages %}
         <li class="tw-py-8 small:tw-my-8 small:tw-bg-gray-05 small:tw-p-16">
-            {% include "fragments/libraries/research_hub/detail_card.html" with research_detail_page=research_detail_page hide_related_topics=True landing_page=True %}
+            {% include "fragments/libraries/research_hub/detail_card.html" with detail_page=research_detail_page hide_related_topics=True landing_page=True %}
         </li>
     {% endfor %}
 {% endblock detail_page_cards %}
