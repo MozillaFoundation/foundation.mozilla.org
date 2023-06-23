@@ -2,7 +2,7 @@ import os
 import re
 from sys import platform
 
-from invoke import task
+from invoke import exceptions, task
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
 LOCALE_DIR = os.path.realpath(os.path.abspath("network-api/locale"))
@@ -140,11 +140,8 @@ def catch_up(ctx):
     print("* Stopping services first")
     ctx.run("docker-compose down")
     print("* Rebuilding images and install dependencies")
+    # The docker image build will install node and python dependencies.
     ctx.run("docker-compose build")
-    print("* Install Node dependencies")
-    npm_install(ctx)
-    print("* Sync Python dependencies")
-    pip_sync(ctx)
     print("* Applying database migrations.")
     migrate(ctx)
     print("* Updating block information.")
@@ -192,9 +189,10 @@ def npm(ctx, command):
     """Shorthand to npm. inv docker-npm \"[COMMAND] [ARG]\" """
     with ctx.cd(ROOT):
         try:
-            # Using 'exec' instead of 'run' to ensure this runs in the running container.
+            # Using 'exec' instead of 'run --rm' as /node_modules is not mounted.
+            # To make this persistent, use 'exec' to run in the running container.
             ctx.run(f"docker-compose exec backend npm {command}")
-        except Exception:
+        except exceptions.UnexpectedExit:
             print("This command requires a running container.\n")
             print("Please run 'inv start' or 'inv start-lean' in a separate terminal window first.")
 
@@ -203,7 +201,13 @@ def npm(ctx, command):
 def npm_install(ctx):
     """Install Node dependencies"""
     with ctx.cd(ROOT):
-        ctx.run("docker-compose run --rm backend npm ci")
+        # Using 'exec' instead of 'run --rm' as /node_modules is not mounted.
+        # To make this persistent, use 'exec' to run in the running container.
+        try:
+            ctx.run("docker-compose exec backend npm ci")
+        except exceptions.UnexpectedExit:
+            print("This command requires a running container.\n")
+            print("Please run 'inv start' or 'inv start-lean' in a separate terminal window first.")
 
 
 @task(aliases=["copy-stage-db"])
@@ -400,6 +404,9 @@ def format_js(ctx):
 @task
 def format_python(ctx):
     """Run python formatting."""
+    # TODO: isort has problem correcting files which are mount points.
+    # It gets the same 'Device or resource busy' error as pip-compile does.
+    # This will need a workaround.
     isort(ctx)
     black(ctx)
 
@@ -535,10 +542,16 @@ def pip_compile_lock(ctx):
 def pip_sync(ctx):
     """Sync your python virtualenv"""
     with ctx.cd(ROOT):
-        ctx.run(
-            "docker-compose run --rm backend ./dockerpythonvenv/bin/pip-sync requirements.txt dev-requirements.txt",
-            **PLATFORM_ARG,
-        )
+        try:
+            ctx.run(
+                # Using 'exec' instead of 'run --rm' as /dockerpythonvenv is not mounted.
+                # To make this persistent, use 'exec' to run in the running container.
+                "docker-compose exec backend ./dockerpythonvenv/bin/pip-sync requirements.txt dev-requirements.txt",
+                **PLATFORM_ARG,
+            )
+        except exceptions.UnexpectedExit:
+            print("This command requires a running container.\n")
+            print("Please run 'inv start' or 'inv start-lean' in a separate terminal window first.")
 
 
 # Translation

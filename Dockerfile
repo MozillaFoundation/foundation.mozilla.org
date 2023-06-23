@@ -85,7 +85,9 @@ RUN pip install -U pip==20.0.2 && pip install pip-tools
 # Normally we won't install dev dependencies in production, but we do it here to optimise 
 # docker build cache for local build
 COPY --chown=mozilla ./requirements.txt ./dev-requirements.txt ./
-RUN pip install -r requirements.txt -r dev-requirements.txt
+# We use pip-tools instead of pip install. This will installing, upgrading, or uninstalling 
+# all dependencies necessary to match the contents of the requirements files. 
+RUN pip-sync requirements.txt dev-requirements.txt
 
 # Copy application code.
 # Any change in this directory is likely to invalidate build cache for all lines below.
@@ -97,13 +99,18 @@ COPY --chown=mozilla . .
 # will need to be recreated by `npm run build`.
 COPY --chown=mozilla --from=frontend /app/network-api/networkapi/frontend ./network-api/networkapi/frontend
 
-# Collect static. This command will move static files from application
-# directories and "network-api/networkapi/frontend" folder to the main static directory that
-# will be served by the WSGI server.
+# Run collectstatic to move static files from application directories and 
+# compiled static directory (network-api/networkapi/frontend) to the site's static 
+# directory in /app/network-api/staticfiles that will be served by the WSGI server.
+# 
+# Note: this is only used where DEBUG=False, and so is not needed on dev builds.
+# The network-api/staticfiles will not be visible after mounting the 
+# network-api directory.
 RUN SECRET_KEY=none python ./network-api/manage.py collectstatic --noinput --clear
 
 # Run the WSGI server. It reads GUNICORN_CMD_ARGS, PORT and WEB_CONCURRENCY
 # environment variable hence we don't specify a lot options below.
+# Note: this will be overridden by other commands below for dev builds.
 CMD gunicorn networkapi.wsgi:application
 
 # Below is used for local dev builds only
@@ -123,6 +130,8 @@ USER mozilla
 
 # Pull in the node modules from the frontend build stage so we don't have to run npm ci again.
 # This is just a copy in the container, and is not visible to the host machine.
+# We can't mount this as the empty directory in the host will obscure our the installed content.
+# See https://docs.docker.com/storage/bind-mounts/#mount-into-a-non-empty-directory-on-the-container
 COPY --chown=mozilla --from=frontend /app/node_modules ./node_modules
 
 # To avoid isort `fatal: detected dubious ownership in repository at '/app'` error
