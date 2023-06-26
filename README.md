@@ -77,11 +77,23 @@ When relevant, we encourage you to write tests.
 
 You can run the tests using `inv test`.
 This will the full test suite.
+
 To run only a subset or a specific Python test, you can use following command:
 
 ```console
-inv manage "test <dotted-path-to-your-test>"
+inv test-python --file path/to/file.py
 ```
+
+The `test-python` command also support flags for turning increased verbosity on/off (`-v`) and
+for running tests in parallel (the `-n` option). To run tests with 4 parallel processes and increased
+verbosity, use:
+
+```console
+inv test-python -v -n 4
+```
+
+The `-n` flag also supports the `auto` value, which will run tests with as many parallel cores as possible.
+For more info, consult the [pytest-xdist docs](https://pytest-xdist.readthedocs.io/en/stable/distribution.html).
 
 See also [the Django docs on running tests](https://docs.djangoproject.com/en/4.1/topics/testing/overview/#running-tests).
 
@@ -89,13 +101,17 @@ There is currently no unit test framework for JavaScript tests set up.
 
 ### Integration tests
 
+**(Note that this is still a work in progress.)**
+
 Integration testing is done using [Playwright](https://playwright.dev/), with the integration tests found in `./tests/integration`.
 
 You can run these tests locally by running a one-time `npm install` and `npm run playwright:install` after which you should be able to run `npm run playwright` to run the visual tests, with `docker-compose up` running in a secondary terminal.
 
 In order to run the same tests as will run during CI testing, make sure that `RANDOM_SEED=530910203` is set in your `.env` file, and that your local database is a new db based on that seed (`inv new-db`).
 
-Note that this is still a work in progress.
+#### URL checker
+
+URL checker can be initiated by running `docker-compose up` in one terminal and running `npm run playwright:urls` in a secondary terminal. It checks to see if visiting the URLs listed in [`tests/foundation-urls.js`](https://github.com/MozillaFoundation/foundation.mozilla.org/blob/main/tests/foundation-urls.js) and [`tests/mozfest-urls.js`](https://github.com/MozillaFoundation/foundation.mozilla.org/blob/main/tests/mozfest-urls.js) returns an OK response (i.e., status 200). Note that the URL lists in these two files are not complete and will require updates. We will also need to expand the lists to include PNI and Donate URLs.
 
 ### Visual regression tests
 

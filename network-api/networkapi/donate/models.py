@@ -13,7 +13,7 @@ class BaseDonationPage(FoundationMetadataPageMixin, Page):
 
 
 class DonateLandingPage(BaseDonationPage):
-    template = "pages/landing_page.html"
+    template = "donate/pages/landing_page.html"
 
     # Only allow creating landing pages at the root level
     parent_page_types = ["wagtailcore.Page"]
