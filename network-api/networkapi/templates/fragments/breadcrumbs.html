@@ -1,10 +1,12 @@
 
-<div id="breadcrumb-container">
-    <div class="tw-flex">
+<div id="breadcrumb-container" class="tw-pr-8">
+    <div class="tw-flex tw-flex-wrap">
         {% for breadcrumb in breadcrumb_list %}
-            {% with breadcrumb_classes="tw-h4-heading tw-px-2 tw-mb-0 tw-text-lg" %}
-                <h4 class="{{ breadcrumb_classes }}"><a href="{{ breadcrumb.url }}">{{ breadcrumb.title }}</a></h4>
-                <span class="{{ breadcrumb_classes }}"> / </span>
+            {% with breadcrumb_classes="tw-h4-heading tw-px-2 tw-mb-0 tw-text-base large:tw-text-lg" %}
+                <h4 class="{{ breadcrumb_classes }}">
+                    <a href="{{ breadcrumb.url }}">{{ breadcrumb.title }}</a>
+                    <span class="tw-pl-2"> / </span>
+                </h4>
             {% endwith %}
         {% endfor %}
     </div>
