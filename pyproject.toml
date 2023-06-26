@@ -238,6 +238,10 @@ profile = "black"
 extend_skip = ["network-api/media", "network-api/staticfiles", "dockerpythonvenv"]
 skip_gitignore = true
 known_first_party = ["networkapi"]
+# Though overwrite_in_place comes at a performance and memory usage penalty, 
+# it avoids the 'Device or resource busy' error if isort needs 
+# to correct a mount point (e.g. tasks.py)
+overwrite_in_place = true
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "networkapi.settings"

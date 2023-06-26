@@ -108,7 +108,7 @@ Use `invoke npm "install [PACKAGE]"`.
 
 **Update packages:**
 
-Use `invoke npm update`.
+Use `invoke npm update` or `invoke npm "update [PACKAGE](==x.x.x)"`.
 
 ### Using a copy of the staging database for critical testing
 

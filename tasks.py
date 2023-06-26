@@ -188,10 +188,22 @@ def start_lean_dev(ctx):
 def npm(ctx, command):
     """Shorthand to npm. inv docker-npm \"[COMMAND] [ARG]\" """
     with ctx.cd(ROOT):
+        # Tell user to use npm_install instead if command includes 'install' or 'ci'
+        if "install" in command or "ci" in command:
+            print("Please use 'inv npm-install' instead.")
+            return
+
+        ctx.run(f"docker-compose run --rm backend npm {command}")
+
+
+@task(aliases=["docker-npm-exec"])
+def npm_exec(ctx, command):
+    """Run npm in running container, e.g for npm install."""
+    with ctx.cd(ROOT):
+        # Using 'exec' instead of 'run --rm' as /node_modules is not mounted.
+        # To make this persistent, use 'exec' to run in the running container.
         try:
-            # Using 'exec' instead of 'run --rm' as /node_modules is not mounted.
-            # To make this persistent, use 'exec' to run in the running container.
-            ctx.run(f"docker-compose exec backend npm {command}")
+            ctx.run(f"docker-compose exec --user=root backend npm {command}")
         except exceptions.UnexpectedExit:
             print("This command requires a running container.\n")
             print("Please run 'inv start' or 'inv start-lean' in a separate terminal window first.")
@@ -201,13 +213,7 @@ def npm(ctx, command):
 def npm_install(ctx):
     """Install Node dependencies"""
     with ctx.cd(ROOT):
-        # Using 'exec' instead of 'run --rm' as /node_modules is not mounted.
-        # To make this persistent, use 'exec' to run in the running container.
-        try:
-            ctx.run("docker-compose exec backend npm ci")
-        except exceptions.UnexpectedExit:
-            print("This command requires a running container.\n")
-            print("Please run 'inv start' or 'inv start-lean' in a separate terminal window first.")
+        npm_exec(ctx, "ci")
 
 
 @task(aliases=["copy-stage-db"])
@@ -404,9 +410,6 @@ def format_js(ctx):
 @task
 def format_python(ctx):
     """Run python formatting."""
-    # TODO: isort has problem correcting files which are mount points.
-    # It gets the same 'Device or resource busy' error as pip-compile does.
-    # This will need a workaround.
     isort(ctx)
     black(ctx)
 
