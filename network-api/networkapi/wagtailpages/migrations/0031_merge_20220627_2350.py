@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0029_featuredvideopost"),
         ("wagtailpages", "0030_populate_profile_slug"),

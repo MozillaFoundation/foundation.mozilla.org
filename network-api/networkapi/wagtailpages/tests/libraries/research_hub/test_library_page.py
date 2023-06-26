@@ -321,7 +321,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertLess(apple_page_index, banana_page_index)
 
     def test_sort_alphabetical_reversed(self):
-
         apple_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             title="Apple",
@@ -340,7 +339,6 @@ class TestResearchLibraryPage(research_test_base.ResearchHubTestCase):
         self.assertLess(banana_page_index, apple_page_index)
 
     def test_get_research_detail_pages_sort_default(self):
-
         detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
             original_publication_date=research_test_utils.days_ago(2),

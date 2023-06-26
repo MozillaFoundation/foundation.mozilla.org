@@ -225,7 +225,6 @@ def petition_submission(request, petition):
     )
 
     if request.data["newsletterSignup"] is True:
-
         # Use basket-clients subscribe method, then send the petition information to SQS
         # with "newsletterSignup" set to false, to avoid subscribing them twice.
         # https://basket-client.readthedocs.io/en/latest/usage.html

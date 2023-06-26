@@ -21,10 +21,8 @@ class AccordionItem(blocks.StructBlock):
 
 
 class AccordionBlock(blocks.StructBlock):
-
     accordion_items = blocks.ListBlock(AccordionItem())
 
     class Meta:
-
         icon = "placeholder"
         template = "wagtailpages/blocks/accordion_block.html"

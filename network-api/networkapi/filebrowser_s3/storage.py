@@ -21,7 +21,6 @@ class S3MediaStorage(S3Boto3Storage):
         return False
 
     def move(self, old_file_name, new_file_name, allow_overwrite=False):
-
         format_string = """
             The destination file '%s' exists and allow_overwrite is False
         """

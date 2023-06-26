@@ -12,7 +12,6 @@ class ArticleRichText(RichTextBlockWithFootnotes):
 
 
 class ArticleDoubleImageBlock(blocks.StructBlock):
-
     image_1 = ImageChooserBlock()
     image_1_caption = blocks.RichTextBlock(
         label="Image caption",
@@ -32,7 +31,6 @@ class ArticleDoubleImageBlock(blocks.StructBlock):
 
 
 class ArticleFullWidthImageBlock(blocks.StructBlock):
-
     image = ImageChooserBlock()
     image_height = blocks.IntegerBlock(
         default=410,
@@ -53,7 +51,6 @@ class ArticleFullWidthImageBlock(blocks.StructBlock):
 
 
 class ArticleImageBlock(blocks.StructBlock):
-
     image = ImageChooserBlock()
     caption = blocks.RichTextBlock(
         label="Image caption",

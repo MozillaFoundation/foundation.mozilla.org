@@ -15,7 +15,6 @@ import networkapi.wagtailpages.pagemodels.customblocks.articles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0022_researchlibrarypage_results_count"),
     ]

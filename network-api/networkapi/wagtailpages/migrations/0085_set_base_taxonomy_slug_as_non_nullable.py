@@ -9,7 +9,6 @@ as non-nullable since it has been populated with data.
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0084_set_slugs_for_existing_taxonomy"),
     ]

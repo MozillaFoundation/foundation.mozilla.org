@@ -6,7 +6,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     replaces = [
         ("campaign", "0001_initial"),
         ("campaign", "0002_auto_20180206_2044"),

@@ -11,7 +11,6 @@ from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
 
 class CustomCsrfViewMiddleware(CsrfViewMiddleware):
     def process_view(self, request, callback, callback_args, callback_kwargs):
-
         if callback == serve and request.method == "POST":
             # We are visiting a wagtail page. Check if this is a ProductPage
             # and if so, do not perform any CSRF validation
