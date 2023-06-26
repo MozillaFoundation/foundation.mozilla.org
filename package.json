@@ -108,7 +108,7 @@
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
-    "@percy/cli": "^1.26.0",
+    "@percy/cli": "^1.26.1",
     "@percy/playwright": "^1.0.4",
     "@playwright/test": "^1.35.1",
     "browser-sync": "^2.29.3",
