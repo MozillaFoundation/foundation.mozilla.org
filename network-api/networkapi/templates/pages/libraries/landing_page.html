@@ -66,6 +66,11 @@
                     {% endblock featured_taxonomies %}
                 </ul>
             </div>
+            <div id="landng-page-body" class="tw-col-span-12 medium:tw-px-8 ">
+                {% for block in page.body %}
+                    {% include_block block with parent_page=page %}
+                {% endfor %}
+            </div>
         </div>
 
         <div id="right-spacer" class="tw-flex-auto"></div>
