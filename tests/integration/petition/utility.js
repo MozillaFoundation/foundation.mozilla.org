@@ -1,6 +1,5 @@
 module.exports = {
   TEST_CAMPAIGN_ID: "7017i000000bIgTAAU",
-  FA_PAGE_QUERY: "show_formassembly=true",
   THANK_YOU_PAGE_QUERY: "thank_you=true",
   FA_FIELDS: {
     firstName: `input[name="tfa_28"]`,
