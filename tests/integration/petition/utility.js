@@ -1,5 +1,5 @@
 module.exports = {
-  TEST_CAMPAIGN_ID: "7017i000000bIgTAAU", // test campaign id used for Salesforce Sandbox
+  TEST_CAMPAIGN_ID: "7014x0000001RPRAA2", // test campaign id used for Salesforce Production
   THANK_YOU_PAGE_QUERY: "thank_you=true",
   FA_FIELDS: {
     firstName: `input[name="tfa_28"]`,
