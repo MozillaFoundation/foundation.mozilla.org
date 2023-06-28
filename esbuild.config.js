@@ -52,8 +52,8 @@ const sources = {
     source: `buyers-guide/editorial-content-index.js`,
     bundle: true,
   },
-  "research-hub-library": {
-    source: `foundation/pages/research-hub-library.js`,
+  "libraries-library-page": {
+    source: `foundation/pages/libraries-library-page.js`,
     bundle: true,
   },
   polyfills: {
