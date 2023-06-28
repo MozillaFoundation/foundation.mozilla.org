@@ -11,15 +11,9 @@ module.exports = {
   "Fixed blog post": "/blog/initial-test-blog-post-with-fixed-title",
   "Campaign index": "/campaigns",
   "Single-page campaign": "/campaigns/single-page",
-  "Single-page campaign with FormAssembly form":
-    "/campaigns/single-page/?show_formassembly=true",
   "Multi-page campaign": "/campaigns/multi-page",
-  "Multi-page campaign with FormAssembly form":
-    "/campaigns/multi-page/?show_formassembly=true",
   "Bannered campaign":
     "/campaigns/initial-test-bannered-campaign-with-fixed-title",
-  "Bannered campaign with FormAssembly form":
-    "/campaigns/initial-test-bannered-campaign-with-fixed-title/?show_formassembly=true",
   "Publication page with child article":
     "/publication-page-with-child-article-pages",
   "Publication page with child chapter": "/publication-page-with-chapter-pages",
@@ -34,7 +28,8 @@ module.exports = {
   "YouTube regrets  reporter": "/campaigns/regrets-reporter",
   "Research hub landing page": "/research",
   "Research hub library page": "/research/library",
-  "Research hub detail page": "/research/library/fixed-title-research-detail-page",
+  "Research hub detail page":
+    "/research/library/fixed-title-research-detail-page",
   "Research hub author index page": "/research/authors",
   "Research hub author detail page": "/research/authors/percy-profile-1",
   // Disabled Dear Internet for now as Percy been giving false positive visual diffs
