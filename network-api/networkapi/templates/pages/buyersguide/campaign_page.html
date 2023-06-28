@@ -4,6 +4,10 @@
 
 {% block body_id %}campaign{% endblock %}
 
+{% block extended_head %}
+    {% include "../../wagtailpages/fragments/formassembly_head.html" %}
+{% endblock %}
+
 {% block guts %}
     <div class="tw-container">
         <div class="tw-row">
