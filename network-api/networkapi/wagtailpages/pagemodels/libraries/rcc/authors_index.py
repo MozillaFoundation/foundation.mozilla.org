@@ -19,6 +19,10 @@ class RCCAuthorsIndexPage(base_authors_index_page.BaseAuthorsIndexPage):
 
     template = "pages/libraries/rcc/authors_index_page.html"
 
+    class Meta(base_authors_index_page.BaseAuthorsIndexPage.Meta):
+        verbose_name = "RCC authors index page"
+        verbose_name_plural = "RCC authors index pages"
+
     @cached_property
     def author_profiles(self):
         """Return the author profiles associated with this library.
