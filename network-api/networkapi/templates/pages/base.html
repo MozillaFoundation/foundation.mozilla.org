@@ -111,7 +111,10 @@
 
                 {% block content_wrapped %}
                     <main role="main">
-                        {% block content %}{% endblock %}
+                        {% block content %}
+                            {# This is only used when viewing pattern library via /pattern-library. #}
+                            {{ pattern_library_rendered_pattern }}
+                        {% endblock %}
                     </main>
                 {% endblock content_wrapped %}
 

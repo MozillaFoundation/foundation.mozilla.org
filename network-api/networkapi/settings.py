@@ -260,7 +260,7 @@ INSTALLED_APPS = list(
             "networkapi.donate",
             # TODO: only enable on dev
             "pattern_library",
-            "networkapi.project_styleguide.apps.ProjectStyleguideConfig",
+            "networkapi.project_styleguide",
         ],
     )
 )
@@ -731,21 +731,25 @@ if DEBUG:
 # Styleguide
 # Pattern library isn’t intended for production usage, and hasn’t received
 # extensive security scrutiny. Don't enable it on production.
-PATTERN_LIBRARY_ENABLED = env("PATTERN_LIBRARY_ENABLED", default="false").lower() == "true"
+# To enable on local, set PATTERN_LIBRARY_ENABLED=True in your .env file
+PATTERN_LIBRARY_ENABLED = env("PATTERN_LIBRARY_ENABLED", default=False)
 PATTERN_LIBRARY = {
     # Groups of templates for the pattern library navigation. The keys
     # are the group titles and the values are lists of template name prefixes that will
     # be searched to populate the groups.
     "SECTIONS": (
-        ("components", ["patterns/components"]),
-        ("pages", ["patterns/pages"]),
+        # Add additional sections here. This will appear as the left-hand nav in /pattern-library/
+        # e.g. ("component_name", ["path_to/component_name"]),
+        ("pages", ["pages"]),
     ),
     # Configure which files to detect as templates.
     "TEMPLATE_SUFFIX": ".html",
     # Set which template components should be rendered inside of,
     # so they may use page-level component dependencies like CSS.
-    "PATTERN_BASE_TEMPLATE_NAME": "patterns/base.html",
+    "PATTERN_BASE_TEMPLATE_NAME": "base.html",
     # Any template in BASE_TEMPLATE_NAMES or any template that extends a template in
     # BASE_TEMPLATE_NAMES is a "page" and will be rendered as-is without being wrapped.
-    "BASE_TEMPLATE_NAMES": ["patterns/base_page.html"],
+    # TODO: Split out base.html to a separate base_page.html
+    # and use this as BASE_TEMPLATE_NAMES instead of using base.html directly.
+    "BASE_TEMPLATE_NAMES": ["base.html"],
 }
