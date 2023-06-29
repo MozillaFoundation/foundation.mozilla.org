@@ -1,68 +1,41 @@
-from django.apps import apps
-from django.db import models
-from wagtail import models as wagtail_models
-from wagtail.admin.panels import FieldPanel, InlinePanel
-from wagtail_localize.fields import SynchronizedField, TranslatableField
+from functools import cached_property
 
-from networkapi.wagtailpages.pagemodels.base import BasePage
+from wagtail.admin import panels
+from wagtail_localize import fields as localize_fields
+
+from networkapi.wagtailpages.pagemodels.libraries import (
+    landing_page as base_landing_page,
+)
+from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
+    detail_page as rcc_detail_page,
+)
+from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
+    library_page as rcc_library_page,
+)
 
 
-class ResearchLandingPage(BasePage):
-    max_count = 1
-
+class ResearchLandingPage(base_landing_page.BaseLandingPage):
     subpage_types = [
         "ResearchLibraryPage",
         "ResearchAuthorsIndexPage",
     ]
 
-    template = "pages/research_hub/landing_page.html"
+    template = "pages/libraries/research_hub/landing_page.html"
 
-    intro = models.CharField(
-        blank=True,
-        max_length=250,
-    )
-    banner_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        help_text="Image that will render at the top of the page.",
-    )
-
-    content_panels = wagtail_models.Page.content_panels + [
-        FieldPanel("intro"),
-        FieldPanel("banner_image"),
-        InlinePanel("featured_topics", heading="Featured Topics"),
+    content_panels = base_landing_page.BaseLandingPage.content_panels + [
+        panels.InlinePanel("featured_topics", heading="Featured Topics"),
     ]
 
-    translatable_fields = [
-        TranslatableField("title"),
-        SynchronizedField("banner_image"),
-        TranslatableField("intro"),
-        TranslatableField("featured_topics"),
-        # Promote tab fields
-        SynchronizedField("slug"),
-        TranslatableField("seo_title"),
-        SynchronizedField("show_in_menus"),
-        TranslatableField("search_description"),
-        SynchronizedField("search_image"),
+    translatable_fields = base_landing_page.BaseLandingPage.translatable_fields + [
+        localize_fields.TranslatableField("featured_topics"),
     ]
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        context["library_page"] = self.get_library_page()
-        context["latest_research_detail_pages"] = self.get_latest_research_pages()
-        return context
+    @cached_property
+    def library_page(self):
+        """Return the library page that this landing page is for."""
+        return rcc_library_page.ResearchLibraryPage.objects.filter(locale=self.locale).first()
 
-    def get_latest_research_pages(self):
-        ResearchDetailPage = apps.get_model("wagtailpages", "ResearchDetailPage")
-        research_detail_pages = ResearchDetailPage.objects.live().public()
-        research_detail_pages = research_detail_pages.filter(locale=self.locale)
-        research_detail_pages = research_detail_pages.order_by("-original_publication_date")
-        research_detail_pages = research_detail_pages[:3]
-
-        return research_detail_pages
-
-    def get_library_page(self):
-        ResearchLibraryPage = apps.get_model("wagtailpages", "ResearchLibraryPage")
-        return ResearchLibraryPage.objects.filter(locale=self.locale).first()
+    @cached_property
+    def detail_pages(self):
+        """Return the detail pages that are children of this page."""
+        return rcc_detail_page.ResearchDetailPage.objects.filter(locale=self.locale).live().public()

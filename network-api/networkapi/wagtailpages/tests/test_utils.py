@@ -253,7 +253,7 @@ class TestGetResearchAuthors(TestCase):
     def test_get_research_authors(self):
         research_author_profile = ProfileFactory()
         relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
+            detail_page=detail_page_factory.ResearchDetailPageFactory(),
             author_profile=research_author_profile,
         )
         not_research_author_profile = ProfileFactory()
@@ -268,11 +268,11 @@ class TestGetResearchAuthors(TestCase):
 
         research_author_profile = ProfileFactory()
         relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
+            detail_page=detail_page_factory.ResearchDetailPageFactory(),
             author_profile=research_author_profile,
         )
         relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
+            detail_page=detail_page_factory.ResearchDetailPageFactory(),
             author_profile=research_author_profile,
         )
 

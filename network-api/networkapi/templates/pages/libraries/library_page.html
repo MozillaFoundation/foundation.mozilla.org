@@ -1,8 +1,8 @@
-{% extends "./base.html" %}
-{% load i18n static wagtailcore_tags wagtailimages_tags breadcrumbs %}
-{% block research_hub_content %}
+{% extends "pages/libraries/base.html" %}
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
+{% block library_content %}
     <div>
-        {% get_research_breadcrumbs %}
+        {% block breadcrumbs %}{% endblock breadcrumbs %}
         <h1>{{ page.title }}</h1>
     </div>
     <div class="large:tw-w-160 large:tw-h-64 tw-mt-12 tw-mb-8 large:tw-mb-0 large:-tw-ml-12 large:tw-p-12 large:tw-bg-gray-05">
@@ -14,11 +14,8 @@
       explicit URL would carry the anchor link forward. That would mean the view is scrolled to the
       filter section again upon page reload. This seems undesireable.
         {% endcomment %}
-        <form action="{% pageurl page %}"
-            method="get"
-            accept-charset="utf-8"
-            id="search-form">
-            {% include "fragments/research_hub/search_bar.html" %}
+        <form action="{% pageurl page %}" method="get" accept-charset="utf-8" id="search-form">
+            {% block search_bar %}{% endblock search_bar %}
         </form>
     </div>
     <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-gap-16">
@@ -30,12 +27,12 @@
                 <div class="tw-flex tw-flex-row tw-gap-6">
                     {# FILTER BUTTON #}
                     <div class="large:tw-hidden tw-basis-1/2">
-                        {% include "fragments/research_hub/filter_button.html" with button=False %}
-                        {% include "fragments/research_hub/filter_button.html" with button=True %}
+                        {% include "fragments/libraries/filter_button.html" with button=False %}
+                        {% include "fragments/libraries/filter_button.html" with button=True %}
                     </div>
                     <div class="tw-flex tw-flex-row tw-items-baseline tw-basis-1/2 large:tw-basis-full">
                         {# SORT SELECT #}
-                        <select id='sort-select'
+                        <select id="sort-select"
                             name="sort"
                             class="tw-form-control tw-border-gray-40"
                             form="search-form">
@@ -48,7 +45,7 @@
                         <noscript>
                             {# The sort button is only needed for the no JS case. With JS, the form can be submitted on change of the select #}
                             <button type="submit" class="tw-btn-primary tw-text-base" form="search-form">
-                                {% translate 'Sort' context 'Button' %}
+                                {% translate "Sort" context "Button" %}
                             </button>
                         </noscript>
                     </div>
@@ -56,31 +53,28 @@
                 <div class="tw-h4-heading tw-mb-0">
                     {# RESULTS COUNT #}
                     {% if search_query %}
-                        {% blocktranslate count counter=research_detail_pages_count trimmed %}
-                            <strong>{{ research_detail_pages_count }}</strong> result for <q>{{ search_query }}</q>
+                        {% blocktranslate count counter=detail_pages_count trimmed %}
+                            <strong>{{ detail_pages_count }}</strong> result for <q>{{ search_query }}</q>
                         {% plural %}
-                            <strong>{{ research_detail_pages_count }}</strong> results for <q>{{ search_query }}</q>
+                            <strong>{{ detail_pages_count }}</strong> results for <q>{{ search_query }}</q>
                         {% endblocktranslate %}
                     {% else %}
-                        {% blocktranslate count counter=research_detail_pages_count trimmed %}
-                            <strong>{{ research_detail_pages_count }}</strong> result
+                        {% blocktranslate count counter=detail_pages_count trimmed %}
+                            <strong>{{ detail_pages_count }}</strong> result
                         {% plural %}
-                            <strong>{{ research_detail_pages_count }}</strong> results
+                            <strong>{{ detail_pages_count }}</strong> results
                         {% endblocktranslate %}
                     {% endif %}
                 </div>
             </div>
             <ul class="tw-list-none tw-mt-16 large:tw-mt-12 tw-mb-12 tw-px-0 tw-border-t tw-border-b tw-border-gray-20 tw-divide-y tw-divide-gray-05">
                 {# RESULTS LIST #}
-                {% for research_detail_page in research_detail_pages %}
-                    <li class="tw-m-0 tw-pt-12 tw-pb-12">
-                        {% include "fragments/research_hub/detail_card.html" with research_detail_page=research_detail_page hide_image_on_mobile=True hide_related_topics_on_mobile=True %}
-                    </li>
-                {% endfor %}
+                {% block detail_pages %}
+                {% endblock detail_pages %}
             </ul>
             <div>
                 {# PAGINATION #}
-                {% include "fragments/pagination.html" with page=research_detail_pages %}
+                {% include "fragments/pagination.html" with page=detail_pages %}
             </div>
         </div>
         <div id="filter"
@@ -91,27 +85,27 @@
                     class="tw-hidden large:tw-hidden tw-h-24 tw-w-24 -tw-mt-4 -tw-mr-4 -tw-mb-8 tw-text-3xl tw-font-normal tw-text-blue-80 hover:tw-text-blue-20 tw-bg-transparent"
                     aria-label="{% translate "Close" %}"
                     tabIndex="0">
-                    <span aria-hidden="true" class="">&times;</span>
+                    <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <h2 class="large:tw-hidden tw-h1-heading">{% translate 'Filter' %}</h2>
+            <h2 class="large:tw-hidden tw-h1-heading">{% translate "Filter" %}</h2>
             <form action="{% pageurl page %}"
                 method="get"
                 accept-charset="utf-8"
                 id="filter-form">
-                {% include "fragments/research_library_form.html" with form=form %}
+                {% include "fragments/libraries/filter_form.html" with form=form %}
                 <div class=" tw-bg-gray-05 tw-bottom-0 -tw-mx-8 small:-tw-mx-12 medium:-tw-mx-16 large:-tw-mx-12 tw-pb-16 large:tw-pb-12 tw-px-8 small:tw-px-12 medium:tw-px-16 large:tw-px-12 tw-sticky ">
                     <div class="tw-pt-12 large:tw-pt-8 tw-border-t tw-border-t-gray-20">
                         <button type="submit" class="tw-w-full tw-btn-primary" form="filter-form">
-                            {% translate 'Apply filters' context 'Button' %}
+                            {% translate "Apply filters" context "Button" %}
                         </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-{% endblock research_hub_content %}
+{% endblock library_content %}
 {% block extra_scripts %}
     {{ block.super }}
-    <script src="{% static "_js/research-hub-library.compiled.js" %}" async defer></script>
+    <script type="text/javascript" src="{% static "_js/libraries-library-page.compiled.js" %}" async defer></script>
 {% endblock extra_scripts %}

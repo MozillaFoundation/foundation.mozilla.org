@@ -2,20 +2,6 @@ const { test, expect } = require("@playwright/test");
 const waitForImagesToLoad = require("../../wait-for-images.js");
 const utility = require("./utility.js");
 
-test.describe("React form", () => {
-  test("Visibility", async ({ page }) => {
-    await page.goto(utility.generateUrl("en"));
-    await page.locator("body.react-loaded");
-    await waitForImagesToLoad(page);
-
-    // test if the React form is visible
-    const reactForm = page.locator("#petition-form");
-    // wait for the form to be attached to the DOM
-    await reactForm.waitFor({ state: "visible" });
-    expect(await reactForm.count()).toBe(1);
-  });
-});
-
 test.describe("FormAssembly petition form", () => {
   const TIMESTAMP = Date.now();
   // locales we support on foundation.mozilla.org
@@ -33,7 +19,10 @@ test.describe("FormAssembly petition form", () => {
   let localeToTest = supportedLocales[0];
 
   test.beforeEach(async ({ page }, testInfo) => {
-    await page.goto(utility.generateUrl(localeToTest, utility.FA_PAGE_QUERY));
+    const response = await page.goto(utility.generateUrl(localeToTest));
+    const status = await response.status();
+    expect(status).not.toBe(404);
+
     await page.locator("body.react-loaded");
     await waitForImagesToLoad(page);
 

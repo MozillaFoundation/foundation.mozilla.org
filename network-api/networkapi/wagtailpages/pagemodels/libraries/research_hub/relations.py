@@ -5,12 +5,12 @@ from wagtail.admin.panels import FieldPanel
 
 
 class ResearchAuthorRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
-    research_detail_page = cluster_fields.ParentalKey(
+    detail_page = cluster_fields.ParentalKey(
         "wagtailpages.ResearchDetailPage",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
-        related_name="research_authors",
+        related_name="authors",
     )
     author_profile = models.ForeignKey(
         "wagtailpages.Profile",
@@ -26,14 +26,14 @@ class ResearchAuthorRelation(wagtail_models.TranslatableMixin, wagtail_models.Or
 
 
 class ResearchDetailPageResearchRegionRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
-    research_detail_page = cluster_fields.ParentalKey(
+    detail_page = cluster_fields.ParentalKey(
         "wagtailpages.ResearchDetailPage",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
         related_name="related_regions",
     )
-    research_region = models.ForeignKey(
+    region = models.ForeignKey(
         "wagtailpages.ResearchRegion",
         null=False,
         blank=False,
@@ -42,19 +42,19 @@ class ResearchDetailPageResearchRegionRelation(wagtail_models.TranslatableMixin,
     )
 
     panels = [
-        FieldPanel("research_region"),
+        FieldPanel("region"),
     ]
 
 
 class ResearchDetailPageResearchTopicRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
-    research_detail_page = cluster_fields.ParentalKey(
+    detail_page = cluster_fields.ParentalKey(
         "wagtailpages.ResearchDetailPage",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
         related_name="related_topics",
     )
-    research_topic = models.ForeignKey(
+    topic = models.ForeignKey(
         "wagtailpages.ResearchTopic",
         null=False,
         blank=False,
@@ -63,19 +63,19 @@ class ResearchDetailPageResearchTopicRelation(wagtail_models.TranslatableMixin, 
     )
 
     panels = [
-        FieldPanel("research_topic"),
+        FieldPanel("topic"),
     ]
 
 
 class ResearchLandingPageFeaturedResearchTopicRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
-    research_landing_page = cluster_fields.ParentalKey(
+    landing_page = cluster_fields.ParentalKey(
         "wagtailpages.ResearchLandingPage",
         null=False,
         blank=False,
         on_delete=models.CASCADE,
         related_name="featured_topics",
     )
-    research_topic = models.ForeignKey(
+    topic = models.ForeignKey(
         "wagtailpages.ResearchTopic",
         null=False,
         blank=False,
@@ -83,5 +83,5 @@ class ResearchLandingPageFeaturedResearchTopicRelation(wagtail_models.Translatab
     )
 
     panels = [
-        FieldPanel("research_topic"),
+        FieldPanel("topic"),
     ]

@@ -41,8 +41,8 @@ def _get_year_options():
     return [empty_option] + year_options
 
 
-class LibraryPageFilterForm(forms.Form):
-    topic = forms.MultipleChoiceField(
+class ResearchLibraryPageFilterForm(forms.Form):
+    topics = forms.MultipleChoiceField(
         required=False,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
         choices=_get_topic_options,
@@ -54,13 +54,13 @@ class LibraryPageFilterForm(forms.Form):
         widget=forms.RadioSelect(attrs={"class": "rh-radio"}),
         label=pgettext_lazy("Filter form field label", "Publication Date"),
     )
-    author = forms.MultipleChoiceField(
+    authors = forms.MultipleChoiceField(
         required=False,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
         choices=_get_author_options,
         label=pgettext_lazy("Filter form field label", "Authors"),
     )
-    region = forms.MultipleChoiceField(
+    regions = forms.MultipleChoiceField(
         required=False,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
         choices=_get_region_options,
