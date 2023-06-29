@@ -30,6 +30,10 @@ class RCCLandingPage(base_landing_page.BaseLandingPage):
         localize_fields.TranslatableField("featured_content_types"),
     ]
 
+    class Meta(base_landing_page.BaseLandingPage.Meta):
+        verbose_name = "RCC landing page"
+        verbose_name_plural = "RCC landing pages"
+
     @cached_property
     def library_page(self):
         """Return the library page that this landing page is for."""
