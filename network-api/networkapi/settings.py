@@ -749,7 +749,5 @@ PATTERN_LIBRARY = {
     "PATTERN_BASE_TEMPLATE_NAME": "base.html",
     # Any template in BASE_TEMPLATE_NAMES or any template that extends a template in
     # BASE_TEMPLATE_NAMES is a "page" and will be rendered as-is without being wrapped.
-    # TODO: Split out base.html to a separate base_page.html
-    # and use this as BASE_TEMPLATE_NAMES instead of using base.html directly.
-    "BASE_TEMPLATE_NAMES": ["base.html"],
+    "BASE_TEMPLATE_NAMES": ["pages/base.html"],
 }
