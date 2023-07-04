@@ -19,7 +19,8 @@ import classNames from "classnames";
  */
 
 const MODAL_OVERLAY_CLASS = "tw-fixed tw-inset-0 tw-bg-white/90 tw-z-[1050]";
-const MODAL_CLASS = "tw-block tw-overflow-scroll [@media(min-width:50rem)]:tw-top-40";
+const MODAL_CLASS =
+  "tw-block tw-overflow-scroll [@media(min-width:50rem)]:tw-top-40";
 const MODAL_CONTENT_CLASS =
   "tw-border-2 tw-border-black tw-bg-white tw-rounded-none tw-shadow-[4px_4px_0_0_black] tw-px-16 tw-pb-16";
 const MODAL_BODY_CLASS = "tw-mt-0 tw-pt-8";
