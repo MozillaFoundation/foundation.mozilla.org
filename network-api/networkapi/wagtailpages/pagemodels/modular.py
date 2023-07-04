@@ -4,12 +4,12 @@ from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from ..utils import get_page_tree_information, set_main_site_nav_information
+from ..utils import get_page_tree_information
+from .base import BasePage
 from .customblocks.base_fields import base_fields
-from .mixin.foundation_metadata import FoundationMetadataPageMixin
 
 
-class ModularPage(FoundationMetadataPageMixin, Page):
+class ModularPage(BasePage):
     """
     This base class offers universal component picking.
     Note: this is a legacy class, see
@@ -64,10 +64,6 @@ class ModularPage(FoundationMetadataPageMixin, Page):
     ]
 
     show_in_menus_default = True
-
-    def get_context(self, request):
-        context = super().get_context(request)
-        return set_main_site_nav_information(self, context, "Homepage")
 
 
 class MiniSiteNameSpace(ModularPage):

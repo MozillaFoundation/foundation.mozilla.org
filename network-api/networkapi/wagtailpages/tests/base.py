@@ -32,6 +32,7 @@ class WagtailpagesTestCase(wagtail_test.WagtailPageTestCase):
     def _setup_locales(cls):
         cls.default_locale = wagtail_models.Locale.get_default()
         cls.fr_locale, _ = wagtail_models.Locale.objects.get_or_create(language_code="fr")
+        cls.de_locale, _ = wagtail_models.Locale.objects.get_or_create(language_code="de")
         assert cls.fr_locale != cls.default_locale
 
     def setUp(self):

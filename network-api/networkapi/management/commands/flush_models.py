@@ -38,4 +38,10 @@ class Command(BaseCommand):
         except WagtailSite.DoesNotExist:
             pass
 
+        try:
+            print("Dropping Donate Site...")
+            WagtailSite.objects.get(site_name="Donate Now").delete()
+        except WagtailSite.DoesNotExist:
+            pass
+
         self.stdout.write(self.style.SUCCESS("Done!"))

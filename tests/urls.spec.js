@@ -1,11 +1,19 @@
-const { test } = require("@playwright/test");
+const { test, expect } = require("@playwright/test");
 const FoundationURLs = require("./foundation-urls.js");
 const MozfestURLs = require("./mozfest-urls.js");
 
-function testURL(domain, path) {
+/**
+ * Test to see if the given URL can be loaded
+ * and visiting it returns a successful response (status 200)
+ * @param {String} baseUrl domain with locale
+ * @param {String} path path may or may not contain query string
+ */
+function testURL(baseUrl, path) {
   return async ({ page }) => {
-    const url = `${domain}${path}/`;
-    await page.goto(url);
+    // append trailing slash to URL only if it doesn't contain query string
+    const url = `${baseUrl}${path}${path.includes("?") ? "" : "/"}`;
+    const response = await page.goto(url);
+    expect(response.status()).toBe(200);
   };
 }
 
