@@ -2,11 +2,11 @@
 #   See https://docs.wagtail.io/en/v2.7/advanced_topics/customisation/extending_draftail.html
 #   And https://medium.com/@timlwhite/custom-in-line-styles-with-draftail-939201c2bbda
 
-from django.core.cache import cache
-
 # The real code runs "instance.sync_trees()" here, but we want this to do nothing instead,
 # so that locale creation creates the locale entry but does not try to sync 1300+ pages as
 # part of the same web request.
+from django.conf import settings
+from django.core.cache import cache
 from django.db.models.signals import post_save
 from django.templatetags.static import static
 from django.urls import reverse
@@ -80,11 +80,17 @@ def register_large_feature(features):
 # Updating external links in rich text blocks to open in a new tab
 class RichTextExternalLinkNewTabHandler(LinkHandler):
     identifier = "external"
+    whitelisted_links = settings.WHITELISTED_LINKS
 
     @classmethod
     def expand_db_attributes(cls, attrs):
         href = attrs["href"]
-        return '<a href="%s" target="_blank">' % escape(href)
+
+        # Skip rel="nofollow" for links matching our whitelist
+        if cls.whitelisted_links == ["*"] or any(substring in href for substring in cls.whitelisted_links):
+            return '<a href="%s" target="_blank">' % escape(href)
+        else:
+            return '<a href="%s" target="_blank" rel="nofollow">' % escape(href)
 
 
 @hooks.register("register_rich_text_features")
