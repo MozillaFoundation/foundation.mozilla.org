@@ -322,7 +322,7 @@ def get_language_from_request(request, check_path=True):
         return settings.LANGUAGE_CODE
 
 
-def localize_queryset(queryset):
+def localize_queryset(queryset, order_by=""):
     """
     Localize the given queryset.
 
@@ -356,6 +356,9 @@ def localize_queryset(queryset):
                 )
             ),
         )
+
+    if order_by:
+        queryset = queryset.order_by(order_by)
 
     return queryset
 
