@@ -21,9 +21,9 @@ test.describe("Donation modal", () => {
     page,
   }) => {
     // test if donation modal can be closed using the "x" button
-    const closeButton = page.locator(
-      `.modal-content button[data-dismiss="modal"].close`
-    );
+    const closeButton = page
+      .locator(".modal-content")
+      .getByRole("button", { name: "Close" });
     expect(await closeButton.count()).toBe(1);
     await closeButton.click();
     expect(await page.locator(`.modal-content`).isVisible()).toBe(false);
@@ -33,9 +33,9 @@ test.describe("Donation modal", () => {
     page,
   }) => {
     // test if donation modal can be closed using the "No thanks" button
-    const noThanksButton = page.locator(
-      `.modal-content button.text.dismiss[data-dismiss="modal"]`
-    );
+    const noThanksButton = page
+      .locator(".modal-content")
+      .getByRole("button", { name: "No thanks" });
     expect(await noThanksButton.count()).toBe(1);
     await noThanksButton.click();
     expect(await page.locator(`.modal-content`).isVisible()).toBe(false);
@@ -77,9 +77,9 @@ test.describe("Share buttons", () => {
     await modalContent.waitFor({ state: "visible" });
 
     // test if donation modal can be closed using the "x" button
-    const closeButton = page.locator(
-      `.modal-content button[data-dismiss="modal"].close`
-    );
+    const closeButton = page
+      .locator(".modal-content")
+      .getByRole("button", { name: "Close" });
     expect(await closeButton.count()).toBe(1);
     await closeButton.click();
     expect(await page.locator(`.modal-content`).isVisible()).toBe(false);
