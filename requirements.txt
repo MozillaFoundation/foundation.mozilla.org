@@ -65,6 +65,7 @@ django==3.2.19
     #   django-taggit
     #   django-treebeard
     #   djangorestframework
+    #   social-auth-app-django
     #   wagtail
     #   wagtail-footnotes
     #   wagtail-localize
@@ -203,9 +204,9 @@ six==1.16.0
     #   python-dateutil
 smmap==5.0.0
     # via gitdb
-social-auth-app-django==5.0.0
+social-auth-app-django==5.2.0
     # via -r requirements.in
-social-auth-core==4.2.0
+social-auth-core==4.4.1
     # via social-auth-app-django
 soupsieve==2.3.1
     # via beautifulsoup4
