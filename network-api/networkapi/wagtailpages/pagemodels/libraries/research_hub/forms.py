@@ -11,7 +11,7 @@ from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
 
 def _get_author_options():
     author_profiles = utils.get_research_authors(profile_models.Profile.objects.all())
-    author_profiles = utils.localize_queryset(author_profiles)
+    author_profiles = utils.localize_queryset(author_profiles, order_by="name")
     return [(author_profile.id, author_profile.name) for author_profile in author_profiles]
 
 
