@@ -60,7 +60,7 @@
     "test": "npm run lint",
     "watch": "wait-on http://backend:8000/cms && run-s build:clean && run-p build:common && run-p build:js:dev postcss:watch watch:**",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
-    "watch:sass": "chokidar \"source/**/*.scss\" -c \"npm run build:css\""
+    "watch:scss": "chokidar \"source/**/*.scss\" -c \"npm run build:css\""
   },
   "browserslist": [
     "> 1%",
