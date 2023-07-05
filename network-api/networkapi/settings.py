@@ -741,13 +741,17 @@ PATTERN_LIBRARY = {
         # Add additional sections here. This will appear as the left-hand nav in /pattern-library/
         # e.g. ("component_name", ["path_to/component_name"]),
         ("pages", ["pages"]),
+        ("fragments", ["fragments"]),
     ),
     # Configure which files to detect as templates.
     "TEMPLATE_SUFFIX": ".html",
     # Set which template components should be rendered inside of,
     # so they may use page-level component dependencies like CSS.
-    "PATTERN_BASE_TEMPLATE_NAME": "base.html",
+    "PATTERN_BASE_TEMPLATE_NAME": "pattern_library_base.html",
     # Any template in BASE_TEMPLATE_NAMES or any template that extends a template in
     # BASE_TEMPLATE_NAMES is a "page" and will be rendered as-is without being wrapped.
     "BASE_TEMPLATE_NAMES": ["pages/base.html"],
 }
+# For pattern library. Don't enable for production.
+if DEBUG:
+    X_FRAME_OPTIONS = "SAMEORIGIN"
