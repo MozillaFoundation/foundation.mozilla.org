@@ -80,14 +80,14 @@ def register_large_feature(features):
 # Updating external links in rich text blocks to open in a new tab
 class RichTextExternalLinkNewTabHandler(LinkHandler):
     identifier = "external"
-    whitelisted_links = settings.WHITELISTED_LINKS
+    whitelisted_external_links = settings.WHITELISTED_EXTERNAL_LINKS
 
     @classmethod
     def expand_db_attributes(cls, attrs):
         href = attrs["href"]
 
         # Skip rel="nofollow" for links matching our whitelist
-        if cls.whitelisted_links == ["*"] or any(substring in href for substring in cls.whitelisted_links):
+        if cls.whitelisted_external_links == ["*"] or any(substring in href for substring in cls.whitelisted_external_links):
             return '<a href="%s" target="_blank">' % escape(href)
         else:
             return '<a href="%s" target="_blank" rel="nofollow">' % escape(href)
