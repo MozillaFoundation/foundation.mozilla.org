@@ -33,25 +33,25 @@ def _get_topic_options():
 class RCCLibraryPageFilterForm(forms.Form):
     topics = forms.MultipleChoiceField(
         required=False,
-        widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
+        widget=forms.CheckboxSelectMultiple(),
         choices=_get_topic_options,
         label=pgettext_lazy("Filter form field label", "Topics"),
     )
     curricular_areas = forms.MultipleChoiceField(
         required=False,
-        widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
+        widget=forms.CheckboxSelectMultiple(),
         choices=_get_curricular_area_options,
         label=pgettext_lazy("Filter form field label", "Curricular Area"),
     )
     content_types = forms.MultipleChoiceField(
         required=False,
-        widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
+        widget=forms.CheckboxSelectMultiple(),
         choices=_get_content_type_options,
         label=pgettext_lazy("Filter form field label", "Content Type"),
     )
     authors = forms.MultipleChoiceField(
         required=False,
-        widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
+        widget=forms.CheckboxSelectMultiple(),
         choices=_get_author_options,
         label=pgettext_lazy("Filter form field label - Authors of RCC articles", "Contributors"),
     )
