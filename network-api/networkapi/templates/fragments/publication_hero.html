@@ -1,6 +1,9 @@
 {% load i18n homepage_tags %}
 
-{% get_page_authors page as authors %}
+{# Pattern library has problems with this tag, so we exclude it from pattern library rendering. #}
+{% if not is_pattern_library %}
+    {% get_page_authors page as authors %}
+{% endif %}
 
 <div
     class="publication-hero-container tw-relative tw-bg-gradient-to-b tw-from-gray-60 tw-to-gray-80 {% if size == "small" %} small tw-pt-56 tw-pb-72 {% else %} tw-pt-72 tw-pb-96 {% endif %}"

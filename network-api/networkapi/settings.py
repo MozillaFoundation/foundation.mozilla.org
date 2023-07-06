@@ -739,9 +739,10 @@ PATTERN_LIBRARY = {
     # be searched to populate the groups.
     "SECTIONS": (
         # Add additional sections here. This will appear as the left-hand nav in /pattern-library/
-        # e.g. ("component_name", ["path_to/component_name"]),
-        ("pages", ["pages"]),
-        ("fragments", ["fragments"]),
+        # e.g. ("Component name", ["path_to/component_name"]),
+        ("Pages", ["pages"]),
+        ("Fragments", ["fragments"]),
+        ("Wagtailpages", ["wagtailpages"]),
     ),
     # Configure which files to detect as templates.
     "TEMPLATE_SUFFIX": ".html",
