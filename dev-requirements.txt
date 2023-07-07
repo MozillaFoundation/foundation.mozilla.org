@@ -140,7 +140,7 @@ pyyaml==6.0
     # via djlint
 regex==2022.10.31
     # via djlint
-requests==2.28.2
+requests==2.31.0
     # via
     #   -c requirements.txt
     #   coveralls
