@@ -1,8 +1,10 @@
 from django.db import models
+from wagtail import fields
 from wagtail import models as wagtail_models
 from wagtail.admin import panels
 from wagtail_localize import fields as localize_fields
 
+from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.libraries import constants
 
@@ -25,16 +27,24 @@ class BaseLandingPage(BasePage):
         on_delete=models.SET_NULL,
         help_text="Image that will render at the top of the page.",
     )
+    body = fields.StreamField(
+        block_types=(("about", customblocks.AboutBlock()),),
+        null=True,
+        blank=True,
+        use_json_field=True,
+    )
 
     content_panels = wagtail_models.Page.content_panels + [
         panels.FieldPanel("intro"),
         panels.FieldPanel("banner_image"),
+        panels.FieldPanel("body"),
     ]
 
     translatable_fields = [
         localize_fields.TranslatableField("title"),
         localize_fields.SynchronizedField("banner_image"),
         localize_fields.TranslatableField("intro"),
+        localize_fields.TranslatableField("body"),
         # Promote tab fields
         localize_fields.SynchronizedField("slug"),
         localize_fields.TranslatableField("seo_title"),
