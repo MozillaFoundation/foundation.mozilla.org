@@ -114,7 +114,7 @@ def petition_submission_view(request, pk):
     return petition_submission(request, petition)
 
 
-# handle Salesforce petition data
+# handle Salesforce newsletter signup data
 def signup_submission(request, signup):
     rq = request.data
 
@@ -152,7 +152,13 @@ def signup_submission(request, signup):
         data["campaign_id"] = cid
 
     # Subscribing to newsletter using basket.
-    response = basket.subscribe(data["email"], data["newsletters"], lang=data["lang"])
+    # https://basket-client.readthedocs.io/en/latest/usage.html
+    basket_additional = {"lang": data["lang"], "source_url": data["source_url"]}
+
+    if data["country"] != "":
+        basket_additional["country"] = data["country"]
+
+    response = basket.subscribe(data["email"], data["newsletters"], **basket_additional)
     if response["status"] == "ok":
         return JsonResponse(data, status=status.HTTP_201_CREATED)
 
@@ -209,7 +215,7 @@ def petition_submission(request, petition):
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
-    # Formatting the payload for Basket
+    # Formatting the payload for SQS/Cinchy
     message = json.dumps(
         {
             "app": settings.HEROKU_APP_NAME,
@@ -222,7 +228,13 @@ def petition_submission(request, petition):
 
         # Use basket-clients subscribe method, then send the petition information to SQS
         # with "newsletterSignup" set to false, to avoid subscribing them twice.
-        basket.subscribe(data["email"], "mozilla-foundation", lang=data["lang"])
+        # https://basket-client.readthedocs.io/en/latest/usage.html
+        basket_additional = {"lang": data["lang"], "source_url": data["source_url"]}
+
+        if "country" in data:
+            basket_additional["country"] = data["country"]
+
+        basket.subscribe(data["email"], "mozilla-foundation", **basket_additional)
         data["newsletterSignup"] = False
 
     return send_to_sqs(crm_sqs["client"], crm_queue_url, message, type="petition")

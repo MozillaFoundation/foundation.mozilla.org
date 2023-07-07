@@ -18,7 +18,7 @@ export default () => {
       // New comments are appended in the form of: <div><div class='commento-card'/></div>
       // If comment tracking ever breaks, this logic would be a good place to check first.
       // For more context, see: https://github.com/mozilla/foundation.mozilla.org/pull/9414
-      if (mutation.addedNodes[0]?.firstChild.matches(".commento-card")) {
+      if (mutation.addedNodes[0]?.firstChild?.matches(".commento-card")) {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "form_submission",
