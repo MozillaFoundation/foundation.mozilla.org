@@ -23,7 +23,15 @@ def mini_site_horizontal_nav(context, page):
 # Render a page's CTA (petition, signup, etc.)
 @register.inclusion_tag("wagtailpages/tags/cta.html", takes_context=True)
 def cta(context, page):
-    cta = {"page": page, "cta": None, "cta_type": None}
+    cta = {
+        "page": page,
+        "cta": None,
+        "cta_type": None,
+        "lang": context["request"].LANGUAGE_CODE,
+        "source_url": context["request"].build_absolute_uri(),
+        "thank_you_url": context["request"].build_absolute_uri(context["request"].path + "?thank_you=true"),
+        "show_formassembly_thank_you": context["request"].GET.get("thank_you") == "true",
+    }
 
     if page.cta:
         for (Subclass, subclass_name) in [

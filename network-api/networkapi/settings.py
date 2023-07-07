@@ -187,7 +187,7 @@ SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and SOCIAL_AUTH_GOOGLE
 USE_S3 = env("USE_S3")
 
 # Detect if Django is running normally, or in test mode through "manage.py test"
-TESTING = "test" in sys.argv
+TESTING = "test" in sys.argv or "pytest" in sys.argv
 
 INSTALLED_APPS = list(
     filter(
@@ -260,6 +260,7 @@ INSTALLED_APPS = list(
             # wagtail-specific app prefixed so that it can be localised
             "networkapi.wagtailpages",
             "networkapi.mozfest",
+            "networkapi.donate",
         ],
     )
 )
@@ -352,6 +353,7 @@ TEMPLATES = [
                 "card_tags": "networkapi.wagtailpages.templatetags.card_tags",
                 "class_tags": "networkapi.wagtailpages.templatetags.class_tags",
                 "debug_tags": "networkapi.wagtailpages.templatetags.debug_tags",
+                "formassembly_helper": "networkapi.utility.templatetags.formassembly_helper",
                 "mofo_common": "networkapi.utility.templatetags.mofo_common",
                 "homepage_tags": "networkapi.wagtailpages.templatetags.homepage_tags",
                 "localization": "networkapi.wagtailpages.templatetags.localization",

@@ -828,6 +828,7 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
         self.assertEqual(response.render().status_code, 200)
 
     def test_authors_detail(self):
+        self.profile_1.refresh_from_db()
         blog_author_url = self.blog_index.get_url() + self.blog_index.reverse_subpage(
             "blog-author-detail", args=(self.profile_1.slug,)
         )

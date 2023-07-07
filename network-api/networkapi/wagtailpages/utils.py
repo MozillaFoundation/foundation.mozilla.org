@@ -11,7 +11,7 @@ from django import forms
 from django.apps import apps
 from django.conf import settings
 from django.core.files.images import ImageFile
-from django.db.models import Case, Count, Q, When
+from django.db.models import Case, Count, Q, QuerySet, Value, When
 from django.urls import LocalePrefixPattern, URLResolver
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
@@ -28,6 +28,8 @@ from PIL import Image as PILImage
 from sentry_sdk import capture_exception
 from wagtail.images.models import Image
 from wagtail.models import Collection, Locale
+
+from networkapi.wagtailpages.pagemodels.profiles import Profile
 
 
 def titlecase(s):
@@ -336,6 +338,24 @@ def localize_queryset(queryset):
     default_locale = Locale.get_default()
     active_locale = Locale.get_active()
 
+    model = queryset.model
+    queryset_keys = queryset.values_list("translation_key", flat=True)
+
+    # Search for translated instances from model that were not included in the provided queryset
+    # (we need the same annotations/order_bt as the original queryset to be able to do the union later)
+    translated_instances = (
+        model._default_manager.filter(translation_key__in=queryset_keys, locale=active_locale)
+        .annotate(locale_is_default=Value(False))
+        .order_by(
+            "translation_key",
+            "locale_is_default",
+        )
+        .distinct("translation_key")
+    )
+
+    # Exclude the translated instances we found from the original queryset
+    queryset = queryset.exclude(translation_key__in=translated_instances.values_list("translation_key", flat=True))
+
     queryset = queryset.filter(Q(locale=default_locale) | Q(locale=active_locale))
     queryset = queryset.annotate(
         locale_is_default=Case(
@@ -346,8 +366,9 @@ def localize_queryset(queryset):
     queryset = queryset.order_by(
         "translation_key",
         "locale_is_default",
-    )
-    queryset = queryset.distinct("translation_key")
+    ).distinct("translation_key")
+
+    queryset = queryset | translated_instances
     return queryset
 
 
@@ -467,3 +488,18 @@ def get_default_locale():
 def get_original_by_slug(Model, slug):
     (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
     return Model.objects.get(slug=slug, locale=DEFAULT_LOCALE_ID)
+
+
+def get_research_authors(profiles: "QuerySet[Profile]") -> "QuerySet[Profile]":
+    """Filter a queryset of profiles to only those who are research authors."""
+    return profiles.filter(authored_research__isnull=False).distinct()
+
+
+def get_rcc_authors(profiles: "QuerySet[Profile]") -> "QuerySet[Profile]":
+    """Filter a queryset of profiles to only those who are authors of RCC articles."""
+    return profiles.filter(authored_rcc_articles__isnull=False).distinct()
+
+
+def get_blog_authors(profiles: "QuerySet[Profile]") -> "QuerySet[Profile]":
+    """Filter a queryset of profiles to only those who are blog authors."""
+    return profiles.filter(blogauthors__isnull=False).distinct()
