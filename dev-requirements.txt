@@ -42,7 +42,7 @@ cryptography==39.0.1
     #   urllib3
 cssbeautifier==1.14.7
     # via djlint
-django==3.2.19
+django==3.2.20
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
@@ -170,7 +170,7 @@ tqdm==4.63.0
     # via
     #   -c requirements.txt
     #   djlint
-types-python-slugify==6.1.0
+types-python-slugify==8.0.0.2
     # via -r dev-requirements.in
 types-requests==2.28.3
     # via -r dev-requirements.in
