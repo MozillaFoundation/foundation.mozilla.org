@@ -51,7 +51,7 @@ class ResearchLibraryPageFilterForm(forms.Form):
     year = forms.ChoiceField(
         required=False,
         choices=_get_year_options,
-        widget=forms.RadioSelect(),
+        widget=forms.RadioSelect(attrs={"class": "libraries-radio"}),
         label=pgettext_lazy("Filter form field label", "Publication Date"),
     )
     authors = forms.MultipleChoiceField(
