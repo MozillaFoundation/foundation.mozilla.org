@@ -4,11 +4,11 @@ from functools import cached_property
 from wagtail.contrib.routable_page import models as routable_models
 
 from networkapi.wagtailpages import utils
-from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.libraries import (
     authors_index as base_authors_index_page,
 )
 from networkapi.wagtailpages.pagemodels.libraries.rcc import library_page
+from networkapi.wagtailpages.pagemodels.libraries.rcc import utils as rcc_utils
 
 if typing.TYPE_CHECKING:
     from django import http
@@ -33,7 +33,7 @@ class RCCAuthorsIndexPage(base_authors_index_page.BaseAuthorsIndexPage):
         exist in all locales. We prefer showing the profile for the locale, but fall
         back to the profile on the default locale.
         """
-        return utils.localize_queryset(utils.get_rcc_authors(profiles.Profile.objects.all()), order_by="name")
+        return utils.localize_queryset(rcc_utils.get_rcc_authors(), order_by="name")
 
     @cached_property
     def library_page(self):
