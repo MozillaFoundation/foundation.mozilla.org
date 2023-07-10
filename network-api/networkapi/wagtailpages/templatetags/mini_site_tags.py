@@ -30,7 +30,6 @@ def cta(context, page):
         "lang": context["request"].LANGUAGE_CODE,
         "source_url": context["request"].build_absolute_uri(),
         "thank_you_url": context["request"].build_absolute_uri(context["request"].path + "?thank_you=true"),
-        "show_formassembly": context["request"].GET.get("show_formassembly") == "true",
         "show_formassembly_thank_you": context["request"].GET.get("thank_you") == "true",
     }
 

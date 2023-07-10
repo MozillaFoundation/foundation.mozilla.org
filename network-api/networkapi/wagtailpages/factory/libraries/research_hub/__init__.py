@@ -31,7 +31,7 @@ def create_detail_page_for_visual_regression_tests(seed, research_library_page):
     )
 
     relations_factory.ResearchAuthorRelationFactory.create(
-        research_detail_page=percy_research_detail_page,
+        detail_page=percy_research_detail_page,
         author_profile=percy_author_profile,
     )
 
@@ -43,20 +43,20 @@ def generate(seed):
     print("Generating research hub")
 
     # Only one landing page can exist
-    research_landing_page = wagtailpage_models.ResearchLandingPage.objects.first()
-    if not research_landing_page:
-        research_landing_page = landing_page_factory.ResearchLandingPageFactory.create(parent=home_page)
+    rcc_landing_page = wagtailpage_models.ResearchLandingPage.objects.first()
+    if not rcc_landing_page:
+        rcc_landing_page = landing_page_factory.ResearchLandingPageFactory.create(parent=home_page)
 
     # Only one library page can exist
     research_library_page = wagtailpage_models.ResearchLibraryPage.objects.first()
     if not research_library_page:
-        research_library_page = library_page_factory.ResearchLibraryPageFactory.create(parent=research_landing_page)
+        research_library_page = library_page_factory.ResearchLibraryPageFactory.create(parent=rcc_landing_page)
 
     # Only one authors index page can exist
     research_authors_index_page = wagtailpage_models.ResearchAuthorsIndexPage.objects.first()
     if not research_authors_index_page:
         research_authors_index_page = author_index_factory.ResearchAuthorsIndexPageFactory.create(
-            parent=research_landing_page
+            parent=rcc_landing_page
         )
 
     create_detail_page_for_visual_regression_tests(seed, research_library_page)
@@ -68,32 +68,32 @@ def generate(seed):
     for _ in range(13):
         research_detail_page = detail_page_factory.ResearchDetailPageFactory.create(
             parent=research_library_page,
-            research_authors=None,
+            authors=None,
             related_topics=None,
             related_regions=None,
         )
 
         for profile in faker_helpers.get_random_objects(source=wagtailpage_models.Profile, max_count=3):
             relations_factory.ResearchAuthorRelationFactory.create(
-                research_detail_page=research_detail_page,
+                detail_page=research_detail_page,
                 author_profile=profile,
             )
 
         for region in faker_helpers.get_random_objects(source=wagtailpage_models.ResearchRegion, max_count=2):
             relations_factory.ResearchDetailPageResearchRegionRelationFactory.create(
-                research_detail_page=research_detail_page,
-                research_region=region,
+                detail_page=research_detail_page,
+                region=region,
             )
 
         for topic in faker_helpers.get_random_objects(source=wagtailpage_models.ResearchTopic, max_count=2):
             relations_factory.ResearchDetailPageResearchTopicRelationFactory.create(
-                research_detail_page=research_detail_page,
-                research_topic=topic,
+                detail_page=research_detail_page,
+                topic=topic,
             )
 
     # Populating research landing page with featured research topics
     for topic in faker_helpers.get_random_objects(source=wagtailpage_models.ResearchTopic, max_count=3):
         relations_factory.ResearchLandingPageResearchTopicRelationFactory.create(
-            research_landing_page=research_landing_page,
-            research_topic=topic,
+            landing_page=rcc_landing_page,
+            topic=topic,
         )

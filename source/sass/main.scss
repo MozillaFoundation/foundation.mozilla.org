@@ -36,6 +36,7 @@
 // Wagtail Stream Blocks
 
 @import "./wagtail/blocks/airtable";
+@import "./wagtail/blocks/about-block";
 @import "./wagtail/blocks/audio-block";
 @import "./wagtail/blocks/dear-internet-letter";
 @import "./wagtail/blocks/feature-quote";
@@ -55,13 +56,12 @@
 @import "./global";
 @import "./cms";
 @import "./wagtail";
-@import "./research-hub";
+@import "./libraries";
 
 // View specific
 
 @import "./views/home";
 @import "./views/participate";
-@import "./views/indexpage";
 @import "./views/blog";
 @import "./views/youtube-regrets-intro";
 @import "./views/youtube-regrets";

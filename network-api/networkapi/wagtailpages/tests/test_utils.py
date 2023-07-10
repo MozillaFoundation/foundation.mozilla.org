@@ -248,12 +248,30 @@ class TestLocalizeQueryset(TestCase):
         # Assert that an empty queryset is returned
         self.assertEqual(len(result), 0)
 
+    def test_localize_queryset_ordering(self):
+        """Tests that the function can order the queryset. tags: [edge case]"""
+        # Create items only in default locale
+        banana = ProfileFactory(name="Banana", locale=self.default_locale)
+        apple = ProfileFactory(name="Apple", locale=self.default_locale)
+
+        # Override the current language to be the active locale
+        translation.activate(self.default_locale.language_code)
+
+        # Call the function
+        result = localize_queryset(Profile.objects.all().order_by("translation_key"), order_by="name")
+
+        # Assert that only one version of each item is returned
+        self.assertEqual(len(result), 2)
+        # Assert that the items are ordered by the name in the active locale
+        self.assertEqual(result[0], apple)
+        self.assertEqual(result[1], banana)
+
 
 class TestGetResearchAuthors(TestCase):
     def test_get_research_authors(self):
         research_author_profile = ProfileFactory()
         relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
+            detail_page=detail_page_factory.ResearchDetailPageFactory(),
             author_profile=research_author_profile,
         )
         not_research_author_profile = ProfileFactory()
@@ -268,11 +286,11 @@ class TestGetResearchAuthors(TestCase):
 
         research_author_profile = ProfileFactory()
         relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
+            detail_page=detail_page_factory.ResearchDetailPageFactory(),
             author_profile=research_author_profile,
         )
         relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
+            detail_page=detail_page_factory.ResearchDetailPageFactory(),
             author_profile=research_author_profile,
         )
 

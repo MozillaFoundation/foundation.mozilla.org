@@ -1,4 +1,5 @@
 # flake8: noqa
+from .about_block import AboutBlock
 from .accordion_block import AccordionBlock, AccordionItem
 from .advanced_table_block import AdvancedTableBlock
 from .airtable_block import AirTableBlock

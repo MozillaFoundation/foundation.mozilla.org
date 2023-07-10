@@ -11,7 +11,7 @@ from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
 
 def _get_author_options():
     author_profiles = utils.get_research_authors(profile_models.Profile.objects.all())
-    author_profiles = utils.localize_queryset(author_profiles)
+    author_profiles = utils.localize_queryset(author_profiles, order_by="name")
     return [(author_profile.id, author_profile.name) for author_profile in author_profiles]
 
 
@@ -41,28 +41,28 @@ def _get_year_options():
     return [empty_option] + year_options
 
 
-class LibraryPageFilterForm(forms.Form):
-    topic = forms.MultipleChoiceField(
+class ResearchLibraryPageFilterForm(forms.Form):
+    topics = forms.MultipleChoiceField(
         required=False,
-        widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
+        widget=forms.CheckboxSelectMultiple(),
         choices=_get_topic_options,
         label=pgettext_lazy("Filter form field label", "Topics"),
     )
     year = forms.ChoiceField(
         required=False,
         choices=_get_year_options,
-        widget=forms.RadioSelect(attrs={"class": "rh-radio"}),
+        widget=forms.RadioSelect(attrs={"class": "libraries-radio"}),
         label=pgettext_lazy("Filter form field label", "Publication Date"),
     )
-    author = forms.MultipleChoiceField(
+    authors = forms.MultipleChoiceField(
         required=False,
-        widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
+        widget=forms.CheckboxSelectMultiple(),
         choices=_get_author_options,
         label=pgettext_lazy("Filter form field label", "Authors"),
     )
-    region = forms.MultipleChoiceField(
+    regions = forms.MultipleChoiceField(
         required=False,
-        widget=forms.CheckboxSelectMultiple(attrs={"class": "rh-checkbox"}),
+        widget=forms.CheckboxSelectMultiple(),
         choices=_get_region_options,
         label=pgettext_lazy("Filter form field label", "Regions"),
     )

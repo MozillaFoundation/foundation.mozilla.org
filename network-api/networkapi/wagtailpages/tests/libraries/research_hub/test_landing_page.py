@@ -18,7 +18,7 @@ class ResearchLandingPageTestCase(base.ResearchHubTestCase):
         detail_page_3 = self.create_research_detail_page(days_ago=2)
         detail_page_4 = self.create_research_detail_page(days_ago=1)
 
-        latest_research_pages = self.landing_page.get_latest_research_pages()
+        latest_research_pages = self.landing_page.latest_detail_pages
 
         self.assertEqual(len(latest_research_pages), 3)
         self.assertIn(detail_page_4, latest_research_pages)
@@ -34,7 +34,7 @@ class ResearchLandingPageTestCase(base.ResearchHubTestCase):
         detail_page_private = self.create_research_detail_page()
         self.make_page_private(detail_page_private)
 
-        latest_research_pages = self.landing_page.get_latest_research_pages()
+        latest_research_pages = self.landing_page.latest_detail_pages
 
         self.assertEqual(len(latest_research_pages), 1)
         self.assertIn(detail_page_public, latest_research_pages)
@@ -50,7 +50,7 @@ class ResearchLandingPageTestCase(base.ResearchHubTestCase):
         self.synchronize_tree()
         fr_landing_page = self.landing_page.get_translation(locale=self.fr_locale)
 
-        latest_research_pages = fr_landing_page.get_latest_research_pages()
+        latest_research_pages = fr_landing_page.latest_detail_pages
 
         self.assertEqual(len(latest_research_pages), 1)
         self.assertEqual(latest_research_pages[0].locale, self.fr_locale)
@@ -60,7 +60,7 @@ class ResearchLandingPageTestCase(base.ResearchHubTestCase):
         """
         Ensure that the library page is returned.
         """
-        library_page = self.landing_page.get_library_page()
+        library_page = self.landing_page.library_page
         self.assertEqual(library_page, self.library_page)
 
     def test_get_library_page_returns_library_page_of_same_locale(self):
@@ -69,7 +69,7 @@ class ResearchLandingPageTestCase(base.ResearchHubTestCase):
         """
         fr_landing_page = self.landing_page.get_translation(locale=self.fr_locale)
 
-        fr_library_page = fr_landing_page.get_library_page()
+        fr_library_page = fr_landing_page.library_page
 
         self.assertEqual(fr_library_page.locale, self.fr_locale)
         self.assertEqual(fr_library_page.locale, fr_landing_page.locale)

@@ -37,7 +37,7 @@ cffi==1.15.0
     #   pygit2
 charset-normalizer==2.0.12
     # via requests
-cryptography==39.0.1
+cryptography==41.0.0
     # via
     #   pyopenssl
     #   social-auth-core
@@ -48,7 +48,7 @@ defusedxml==0.7.1
     #   social-auth-core
 dj-database-url==1.2.0
     # via -r requirements.in
-django==3.2.19
+django==3.2.20
     # via
     #   -r requirements.in
     #   dj-database-url
@@ -65,6 +65,7 @@ django==3.2.19
     #   django-taggit
     #   django-treebeard
     #   djangorestframework
+    #   social-auth-app-django
     #   wagtail
     #   wagtail-footnotes
     #   wagtail-localize
@@ -82,7 +83,7 @@ django-filter==22.1
     # via
     #   -r requirements.in
     #   wagtail
-django-htmx==1.14.0
+django-htmx==1.15.0
     # via -r requirements.in
 django-modelcluster==6.0
     # via wagtail
@@ -110,7 +111,7 @@ factory-boy==3.2.1
     # via
     #   -r requirements.in
     #   wagtail-factories
-faker==18.10.1
+faker==18.11.2
     # via
     #   -r requirements.in
     #   factory-boy
@@ -124,7 +125,7 @@ gitpython==3.1.30
     # via wagtail-localize-git
 gunicorn==20.1.0
     # via -r requirements.in
-heroku3==5.2.0
+heroku3==5.2.1
     # via -r requirements.in
 html5lib==1.1
     # via wagtail
@@ -150,7 +151,7 @@ polib==1.1.1
     # via wagtail-localize
 psutil==5.9.0
     # via scout-apm
-psycopg2-binary==2.9.5
+psycopg2-binary==2.9.6
     # via -r requirements.in
 pycparser==2.21
     # via cffi
@@ -160,14 +161,14 @@ pygit2==1.11.1
     #   wagtail-localize-git
 pyjwt==2.4.0
     # via social-auth-core
-pyopenssl==23.0.0
+pyopenssl==23.2.0
     # via urllib3
 python-dateutil==2.8.2
     # via
     #   botocore
     #   faker
     #   heroku3
-python-slugify==6.1.1
+python-slugify==8.0.1
     # via -r requirements.in
 python3-openid==3.2.0
     # via social-auth-core
@@ -179,7 +180,7 @@ pytz==2021.3
     #   l18n
 redis==4.5.4
     # via django-redis
-requests==2.28.2
+requests==2.31.0
     # via
     #   -r requirements.in
     #   basket-client
@@ -203,9 +204,9 @@ six==1.16.0
     #   python-dateutil
 smmap==5.0.0
     # via gitdb
-social-auth-app-django==5.0.0
+social-auth-app-django==5.2.0
     # via -r requirements.in
-social-auth-core==4.2.0
+social-auth-core==4.4.1
     # via social-auth-app-django
 soupsieve==2.3.1
     # via beautifulsoup4
@@ -229,7 +230,7 @@ urllib3[secure]==1.26.15
     #   sentry-sdk
 urllib3-secure-extra==0.1.0
     # via urllib3
-wagtail==4.1.5
+wagtail==4.1.6
     # via
     #   -r requirements.in
     #   wagtail-color-panel
@@ -242,7 +243,7 @@ wagtail==4.1.5
     #   wagtailmedia
 wagtail-color-panel==1.4.1
     # via -r requirements.in
-wagtail-factories==4.0.0
+wagtail-factories==4.1.0
     # via -r requirements.in
 wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
     # via -r requirements.in
@@ -256,11 +257,11 @@ wagtail-localize-git==0.13.0
     # via -r requirements.in
 wagtail-metadata==4.0.3
     # via -r requirements.in
-wagtailmedia==0.12.0
+wagtailmedia==0.14.2
     # via -r requirements.in
 webencodings==0.5.1
     # via html5lib
-whitenoise==6.4.0
+whitenoise==6.5.0
     # via -r requirements.in
 willow==1.4.1
     # via wagtail
