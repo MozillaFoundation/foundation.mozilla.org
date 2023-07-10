@@ -16,6 +16,22 @@ from networkapi.wagtailpages.factory.libraries.rcc import relations as relations
 from networkapi.wagtailpages.factory.libraries.rcc import (
     taxonomies as taxonomies_factory,
 )
+from networkapi.wagtailpages.pagemodels.profiles import Profile
+
+
+def create_detail_page_for_visual_regression_tests(seed, rcc_library_page):
+    faker_helpers.reseed(seed)
+
+    percy_author_profile = Profile.objects.get(name="Percy Profile")
+
+    percy_rcc_detail_page = detail_page_factory.RCCDetailPageFactory.create(
+        parent=rcc_library_page, title="Fixed Title RCC Detail Page"
+    )
+
+    relations_factory.RCCAuthorRelationFactory.create(
+        detail_page=percy_rcc_detail_page,
+        author_profile=percy_author_profile,
+    )
 
 
 def generate(seed):
@@ -38,6 +54,8 @@ def generate(seed):
     rcc_authors_index_page = wagtailpage_models.RCCAuthorsIndexPage.objects.first()
     if not rcc_authors_index_page:
         rcc_authors_index_page = author_index_factory.RCCAuthorsIndexPageFactory.create(parent=rcc_landing_page)
+
+    create_detail_page_for_visual_regression_tests(seed, rcc_library_page)
 
     for _ in range(4):
         taxonomies_factory.RCCContentTypeFactory.create()
