@@ -6,7 +6,7 @@ function initializeJS() {
   // Hide the filter section and apply the mobile modal styles
   const filterSection = document.getElementById("filter");
   filterSection.classList.add("tw-hidden");
-  filterSection.classList.add("rh-filter-modal");
+  filterSection.classList.add("libraries-filter-modal");
   filterSection.classList.remove("tw-pt-24");
 
   // Replace jump link with open button
