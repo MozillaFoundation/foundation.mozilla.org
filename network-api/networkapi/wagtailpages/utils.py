@@ -481,16 +481,6 @@ def get_original_by_slug(Model, slug):
     return Model.objects.get(slug=slug, locale=DEFAULT_LOCALE_ID)
 
 
-def get_research_authors(profiles: "QuerySet[Profile]") -> "QuerySet[Profile]":
-    """Filter a queryset of profiles to only those who are research authors."""
-    return profiles.filter(authored_research__isnull=False).distinct()
-
-
-def get_rcc_authors(profiles: "QuerySet[Profile]") -> "QuerySet[Profile]":
-    """Filter a queryset of profiles to only those who are authors of RCC articles."""
-    return profiles.filter(authored_rcc_articles__isnull=False).distinct()
-
-
 def get_blog_authors(profiles: "QuerySet[Profile]") -> "QuerySet[Profile]":
     """Filter a queryset of profiles to only those who are blog authors."""
     return profiles.filter(blogauthors__isnull=False).distinct()
