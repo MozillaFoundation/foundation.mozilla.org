@@ -29,7 +29,7 @@ class ResearchAuthorsIndexPage(base_authors_index_page.BaseAuthorsIndexPage):
         exist in all locales. We prefer showing the profile for the locale, but fall
         back to the profile on the default locale.
         """
-        return utils.localize_queryset(utils.get_research_authors(profiles.Profile.objects.all()))
+        return utils.localize_queryset(utils.get_research_authors(profiles.Profile.objects.all()), order_by="name")
 
     @cached_property
     def library_page(self):
