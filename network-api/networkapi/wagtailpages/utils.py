@@ -397,7 +397,9 @@ def get_plaintext_titles(request, stream_data, stream_block_name):
     return tuple(data.items())
 
 
-def create_wagtail_image(img_src: str, image_name: str = None, collection_name: str = None) -> Optional[Image]:
+def create_wagtail_image(
+    img_src: str, image_name: Optional[str] = None, collection_name: Optional[str] = None
+) -> Optional[Image]:
     """
     Create a Wagtail Image from a given source. It takes an optional file name
     and collection name.
