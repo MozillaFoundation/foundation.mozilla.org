@@ -26,7 +26,9 @@ Please follow the steps below every time after you paste a new version of FormAs
 
 6. Get localization working again.
     - Localize form fields. e.g., {% trans "text to be translated" %} or {% blocktrans %} ... {% endblocktrans %}
-      - first name, last name, email, country, postal code, comments, privacy notice, email subscription
+    - Localize "title" attribute and label text for the following fields:
+        - first name, last name, email, country, postal code, comments, privacy notice, email subscription
+    - Localize "value" attribute for <input type="submit" ...>
     - Go to formassembly_head.html and make sure everything has been updated according to the instructions
 
 7. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
@@ -55,7 +57,7 @@ The code snippet below is based on FormAssembly form revision #32
             </div>
             {% if show_country_field %}
                 <div class="oneField field-container-D    " id="tfa_254-D">
-                    <label id="tfa_254-L" class="label preField " for="tfa_254">{% trans "Country" %}</label><br><div class="inputWrapper"><select id="tfa_254" name="tfa_254" title="Country" class=""><option value="">{% trans "Please select..." %}</option>
+                    <label id="tfa_254-L" class="label preField " for="tfa_254">{% trans "Country" %}</label><br><div class="inputWrapper"><select id="tfa_254" name="tfa_254" title="{% trans "Country" %}" class=""><option value="">{% trans "Please select..." %}</option>
                         <option value="tfa_255" id="tfa_255" class="">Afghanistan</option>
                         <option value="tfa_256" id="tfa_256" class="">Albania</option>
                         <option value="tfa_257" id="tfa_257" class="">Algeria</option>
@@ -306,7 +308,7 @@ The code snippet below is based on FormAssembly form revision #32
                 </div>
             {% endif %}
             <div class="oneField field-container-D  labelsAbove  " id="tfa_492-D" role="group" aria-labelledby="tfa_492-L" data-tfa-labelledby="-L tfa_492-L" aria-required="true">
-                <label id="tfa_492-L" class="label preField reqMark" aria-label="Privacy Agreement   required">Privacy Agreement</label><br><div class="inputWrapper"><span id="tfa_492" class="choices vertical required" aria-required="true"><span class="oneChoice"><input type="checkbox" value="tfa_493" class="calc-DefaultName" id="tfa_493" name="tfa_493" aria-labelledby="tfa_493-L" data-tfa-labelledby="tfa_492-L tfa_493-L"><label class="label postField" id="tfa_493-L" for="tfa_493"><span class="input-checkbox-faux"></span>{% blocktrans with link=' href="https://www.mozilla.org/privacy/websites/" target="_blank"' %}I’m okay with Mozilla handling my info as explained in this <a {{ link }}>Privacy Notice</a>.{% endblocktrans %}</label></span></span></div>
+                <label id="tfa_492-L" class="label preField reqMark" aria-label="Privacy Agreement   required">Privacy Agreement</label><br><div class="inputWrapper"><span id="tfa_492" class="choices vertical required" aria-required="true"><span class="oneChoice"><input type="checkbox" value="tfa_493" class="calc-DefaultName" id="tfa_493" name="tfa_493" aria-labelledby="tfa_493-L" data-tfa-labelledby="tfa_492-L tfa_493-L"><label class="label postField" id="tfa_493-L" for="tfa_493"><span class="input-checkbox-faux"></span>{% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}I’m okay with Mozilla handling my info as explained in this <a href="{{ link }}" target="_blank">Privacy Notice</a>.{% endblocktrans %}</label></span></span></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_494-D" role="group" aria-labelledby="tfa_494-L" data-tfa-labelledby="-L tfa_494-L">
                 <label id="tfa_494-L" class="label preField ">Email Subscription</label><br><div class="inputWrapper"><span id="tfa_494" class="choices vertical "><span class="oneChoice"><input type="checkbox" value="tfa_495" class="" id="tfa_495" name="tfa_495" aria-labelledby="tfa_495-L" data-tfa-labelledby="tfa_494-L tfa_495-L"><label class="label postField" id="tfa_495-L" for="tfa_495"><span class="input-checkbox-faux"></span>{% trans "Yes, I want to receive email updates about Mozilla’s campaigns." %}</label></span></span></div>
