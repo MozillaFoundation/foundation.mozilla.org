@@ -27,7 +27,7 @@ social-auth-app-django
 wagtail==4.1.6
 wagtail-color-panel
 wagtail-factories
-wagtail-localize==1.3.3
+wagtail-localize==1.5.1
 wagtail-localize-git
 wagtail-inventory
 wagtailmedia
