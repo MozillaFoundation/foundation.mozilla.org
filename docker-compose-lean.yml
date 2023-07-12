@@ -1,0 +1,6 @@
+version: '3'
+
+services:
+  backend:
+    # This will start the web server and skip the frontend build step.
+    command: honcho -f Procfile.dev-lean start

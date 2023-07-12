@@ -1,4 +1,5 @@
 {
+  "name": "foundation.mozilla.org",
   "repository": "https://github.com/mozilla/foundation.mozilla.org",
   "issues": "https://github.com/mozilla/foundation.mozilla.org/issues",
   "description": "Mozilla Foundation site",
@@ -58,7 +59,7 @@
     "start": "docker-compose up",
     "sync": "browser-sync start --proxy \"localhost:8000\" --reload-debounce 50 --files \"./network-api/networkapi/**/*.html\" \"./network-api/networkapi/frontend/_css/*.css\" \"./network-api/networkapi/frontend/_js/*.js\"",
     "test": "npm run lint",
-    "watch": "wait-on http://backend:8000/cms && run-s build:clean && run-p build:common && run-p build:js:dev postcss:watch watch:**",
+    "watch": "run-s build:clean && run-p build:common && run-p build:js:dev postcss:watch watch:**",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
     "watch:scss": "chokidar \"source/**/*.scss\" -c \"npm run build:css\""
   },

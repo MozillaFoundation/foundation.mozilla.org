@@ -3,6 +3,7 @@
 TODO.txt
 node_modules/
 dest/
+dockerpythonvenv/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

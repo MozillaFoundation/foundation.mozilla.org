@@ -25,24 +25,26 @@ The general workflow is:
 To get a list of invoke commands available, run `invoke -l`:
 
 ```
-  catch-up (catchup, docker-catchup)           Rebuild images, install dependencies, and apply migrations
-  compilemessages (docker-compilemessages)     Compile the latest translations
-  makemessages (docker-makemessages)           Extract all template messages in .po files for localization
-  makemigrations (docker-makemigrations)       Creates new migration(s) for apps
-  manage (docker-manage)                       Shorthand to manage.py. inv docker-manage "[COMMAND] [ARG]"
-  migrate (docker-migrate)                     Updates database schema
-  new-db (docker-new-db)                       Delete your database and create a new one with fake data
-  copy-stage-db                                Overwrite your local docker postgres DB with a copy of the staging database
-  copy-prod-db                                 Overwrite your local docker postgres DB with a copy of the production database
-  new-env (docker-new-env)                     Get a new dev environment and a new database with fake data
-  npm (docker-npm)                             Shorthand to npm. inv docker-npm "[COMMAND] [ARG]"
-  npm-install (docker-npm-install)             Install Node dependencies
-  pip-compile (docker-pip-compile)             Shorthand to pip-tools. inv pip-compile "[COMMAND] [ARG]"
-  pip-compile-lock (docker-pip-compile-lock)   Lock prod and dev dependencies
-  pip-sync (docker-pip-sync)                   Sync your python virtualenv
-  test (docker-test)                           Run both Node and Python tests
-  test-node (docker-test-node)                 Run node tests
-  test-python (docker-test-python)             Run python tests
+  catch-up (catchup, docker-catchup)              Rebuild images, install dependencies, and apply migrations
+  compilemessages (docker-compilemessages)        Compile the latest translations
+  makemessages (docker-makemessages)              Extract all template messages in .po files for localization
+  makemigrations (docker-makemigrations)          Creates new migration(s) for apps
+  manage (docker-manage)                          Shorthand to manage.py. inv docker-manage "[COMMAND] [ARG]"
+  migrate (docker-migrate)                        Updates database schema
+  new-db (docker-new-db)                          Delete your database and create a new one with fake data
+  copy-stage-db                                   Overwrite your local docker postgres DB with a copy of the staging database
+  copy-prod-db                                    Overwrite your local docker postgres DB with a copy of the production database
+  new-env (docker-new-env)                        Get a new dev environment and a new database with fake data
+  npm (docker-npm)                                Shorthand to npm. inv docker-npm "[COMMAND] [ARG]"
+  npm-install (docker-npm-install)                Install Node dependencies
+  pip-compile (docker-pip-compile)                Shorthand to pip-tools. inv pip-compile "[filename]" "[COMMAND] [ARG]"
+  pip-compile-lock (docker-pip-compile-lock)      Lock prod and dev dependencies
+  pip-sync (docker-pip-sync)                      Sync your python virtualenv
+  start-dev (docker-start, start)                 Start the dev server
+  start-lean-dev (docker-start-lean, start-lean)  Start the dev server without rebuilding
+  test (docker-test)                              Run both Node and Python tests
+  test-node (docker-test-node)                    Run node tests
+  test-python (docker-test-python)                Run python tests
 ```
 
 Note the above commands carefully, as they should cover the majority of what you'd need for local development.
@@ -93,14 +95,12 @@ Dependencies live on your filesystem: you don't need to rebuild the `backend` im
 
 **Update packages:**
 
-- `invoke pip-compile "-upgrade (dev-)requirements.in"`: update all (the dev) dependencies.
-- `invoke pip-compile "--upgrade-package [PACKAGE](==x.x.x)"`: update the specified dependency. To update multiple dependencies, you always need to add the `-P` flag.
+- `invoke pip-compile --filename=requirements.in --command="--upgrade"`: update all dependencies in requirements.in.
+- `invoke pip-compile --filename=dev-requirements.in --command="--upgrade-package [PACKAGE](==x.x.x)"`: update the specified dependency in dev-requirements.txt. To update multiple dependencies, you always need to add the `-P` flag. E.g. `invoke pip-compile --filename=dev-requirements.in --command="-P black==23.3.0 -P isort"`
 
 When it's done, run `inv pip-sync`.
 
 #### JS
-
-Dependencies live on your filesystem: you don't need to rebuild the `watch-static-files` image when installing or updating dependencies.
 
 **Install packages:**
 
@@ -108,7 +108,7 @@ Use `invoke npm "install [PACKAGE]"`.
 
 **Update packages:**
 
-Use `invoke npm update`.
+Use `invoke npm update` or `invoke npm "update [PACKAGE](==x.x.x)"`.
 
 ### Using a copy of the staging database for critical testing
 
@@ -206,17 +206,27 @@ I would recommend watching [An Intro to Docker for Djangonauts](https://www.yout
 
 All our containers run on Linux.
 
-For local development, we have two Dockerfiles that define our images:
+For local development, we have use a multi stage Dockerfile to define our image:
 
-- `Dockerfile.node`: use a node8 Debian Stretch slim base image from the Docker Hub and install node dependencies,
-- `Dockerfile.python`: use a python3.9 Debian Stretch slim base image, install required build dependencies before installing pipenv and the project dependencies.
+- The `frontend` stage use a node8 Debian Stretch slim base image from the Docker Hub and install node dependencies,
+- The `base` and `dev`: use a python3.9 Debian Stretch slim base image, install required build dependencies before installing pipenv and the project dependencies.
   We don't have a custom image for running postgres and use one from the Docker Hub.
 
-The `docker-compose.yml` file describes the 3 services that the project needs to run:
+The `docker-compose.yml` file describes the 2 services that the project needs to run:
 
-- `watch-static-files`: rebuilds static files when they're modified,
 - `postgres`: contains a postgres database,
-- `backend`: runs Django. Starting this one automatically starts the two other ones.
+- `backend`: runs Django. Starting this one automatically starts the postgres service.
+
+Within the `backend` container, [Honcho](https://honcho.readthedocs.io/en/latest/index.html#) is used with `Procfile.dev` to run the `web` process (for the webserver), and the `frontend-watch` process to watch the frontend assets and rebuild static files when they're modified.
+
+#### Starting dev container without rebuilding frontend
+
+There is also a `docker-compose-lean.yml` file which starts the container with just the `backend` service without running the frontend watch process. This is to provide an option for a faster start up, as the frontend watch process can take a while to rebuild the static assets. 
+
+Note that a side effect of this is that this could be using outdated frontend assets, e.g. stylesheets are not reflecting the latest changes, or the frontend assets can be missing if the container is new and `npm run build` has not been run to create `network-api/networkapi/frontend` yet.
+
+To start up the dev container normally, use `inv start` or `docker-compose up`. To start it as a lean container without frontend build, use `inv start-lean` or `docker-compose -f docker-compose.yml -f docker-compose-lean.yml up`.
+
 
 ### Resources about Docker
 
@@ -226,8 +236,8 @@ The `docker-compose.yml` file describes the 3 services that the project needs to
 
 #### Useful commands using Django with Docker
 
-To open a terminal session inside the docker container (`docker container ls` to see active docker container ids):
-`docker exec -it {docker-container-id} bash`
+To open a terminal session inside the docker container:
+`docker exec backend bash`
 Activate the python environment:
 `source dockerpythonvenv/bin/activate`
 
@@ -241,7 +251,7 @@ or run Django shell, etc.
 
 ### Do I need to build the static files before doing a `docker-compose up`?
 
-Static files are automatically built when starting the `watch-static-files` container.
+Static files are automatically built when starting the `backend` container, except when using `inv start-lean` (see "Starting dev container without rebuilding frontend" above). 
 
 ### Where is Docker fitting in all the tools we're already using?
 

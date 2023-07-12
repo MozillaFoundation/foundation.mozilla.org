@@ -11,7 +11,7 @@ from django import forms
 from django.apps import apps
 from django.conf import settings
 from django.core.files.images import ImageFile
-from django.db.models import Case, Count, Q, QuerySet, Value, When
+from django.db.models import Count, Q, QuerySet, Subquery
 from django.urls import LocalePrefixPattern, URLResolver
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
@@ -322,7 +322,7 @@ def get_language_from_request(request, check_path=True):
         return settings.LANGUAGE_CODE
 
 
-def localize_queryset(queryset):
+def localize_queryset(queryset, order_by=""):
     """
     Localize the given queryset.
 
@@ -341,34 +341,25 @@ def localize_queryset(queryset):
     model = queryset.model
     queryset_keys = queryset.values_list("translation_key", flat=True)
 
-    # Search for translated instances from model that were not included in the provided queryset
-    # (we need the same annotations/order_bt as the original queryset to be able to do the union later)
-    translated_instances = (
-        model._default_manager.filter(translation_key__in=queryset_keys, locale=active_locale)
-        .annotate(locale_is_default=Value(False))
-        .order_by(
-            "translation_key",
-            "locale_is_default",
-        )
-        .distinct("translation_key")
+    queryset = model._default_manager.filter(
+        Q(locale=active_locale) | Q(locale=default_locale),
+        translation_key__in=queryset_keys,
     )
 
-    # Exclude the translated instances we found from the original queryset
-    queryset = queryset.exclude(translation_key__in=translated_instances.values_list("translation_key", flat=True))
-
-    queryset = queryset.filter(Q(locale=default_locale) | Q(locale=active_locale))
-    queryset = queryset.annotate(
-        locale_is_default=Case(
-            When(locale=default_locale, then=True),
-            default=False,
+    if default_locale != active_locale:
+        # Exclude items that we already have in the active locale
+        queryset = queryset.exclude(
+            locale=default_locale,
+            translation_key__in=Subquery(
+                model._default_manager.filter(translation_key__in=queryset_keys, locale=active_locale).values_list(
+                    "translation_key", flat=True
+                )
+            ),
         )
-    )
-    queryset = queryset.order_by(
-        "translation_key",
-        "locale_is_default",
-    ).distinct("translation_key")
 
-    queryset = queryset | translated_instances
+    if order_by:
+        queryset = queryset.order_by(order_by)
+
     return queryset
 
 
@@ -406,7 +397,9 @@ def get_plaintext_titles(request, stream_data, stream_block_name):
     return tuple(data.items())
 
 
-def create_wagtail_image(img_src: str, image_name: str = None, collection_name: str = None) -> Optional[Image]:
+def create_wagtail_image(
+    img_src: str, image_name: Optional[str] = None, collection_name: Optional[str] = None
+) -> Optional[Image]:
     """
     Create a Wagtail Image from a given source. It takes an optional file name
     and collection name.

@@ -1,0 +1,3 @@
+# This starts the webserver for dev and skips frontend watching to shorten start up time.
+
+web: /app/dockerpythonvenv/bin/python network-api/manage.py runserver 0.0.0.0:8000
