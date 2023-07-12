@@ -117,14 +117,14 @@ pyopenssl==23.2.0
     #   urllib3
 pyparsing==3.0.7
     # via packaging
-pytest==7.3.1
+pytest==7.4.0
     # via
     #   -r dev-requirements.in
     #   pytest-cov
     #   pytest-django
     #   pytest-sugar
     #   pytest-xdist
-pytest-cov==4.0.0
+pytest-cov==4.1.0
     # via -r dev-requirements.in
 pytest-django==4.5.2
     # via -r dev-requirements.in
