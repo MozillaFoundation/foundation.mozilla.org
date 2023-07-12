@@ -130,7 +130,7 @@ pytest-django==4.5.2
     # via -r dev-requirements.in
 pytest-sugar==0.9.7
     # via -r dev-requirements.in
-pytest-xdist==3.2.1
+pytest-xdist==3.3.1
     # via -r dev-requirements.in
 pytz==2021.3
     # via
