@@ -35,14 +35,14 @@ coverage[toml]==5.5
     #   pytest-cov
 coveralls==3.3.1
     # via -r dev-requirements.in
-cryptography==39.0.1
+cryptography==41.0.0
     # via
     #   -c requirements.txt
     #   pyopenssl
     #   urllib3
 cssbeautifier==1.14.7
     # via djlint
-django==3.2.19
+django==3.2.20
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
@@ -85,9 +85,9 @@ jsbeautifier==1.14.7
     #   djlint
 mccabe==0.6.1
     # via flake8
-mypy==0.971
+mypy==1.4.1
     # via -r dev-requirements.in
-mypy-extensions==0.4.3
+mypy-extensions==1.0.0
     # via
     #   black
     #   mypy
@@ -113,7 +113,7 @@ pycparser==2.21
     #   cffi
 pyflakes==2.3.1
     # via flake8
-pyopenssl==23.0.0
+pyopenssl==23.2.0
     # via
     #   -c requirements.txt
     #   urllib3
@@ -142,7 +142,7 @@ pyyaml==6.0
     # via djlint
 regex==2022.10.31
     # via djlint
-requests==2.28.2
+requests==2.31.0
     # via
     #   -c requirements.txt
     #   coveralls
@@ -172,7 +172,7 @@ tqdm==4.63.0
     # via
     #   -c requirements.txt
     #   djlint
-types-python-slugify==6.1.0
+types-python-slugify==8.0.0.2
     # via -r dev-requirements.in
 types-requests==2.28.3
     # via -r dev-requirements.in
