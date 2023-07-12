@@ -83,9 +83,9 @@ jsbeautifier==1.14.7
     #   djlint
 mccabe==0.6.1
     # via flake8
-mypy==0.971
+mypy==1.4.1
     # via -r dev-requirements.in
-mypy-extensions==0.4.3
+mypy-extensions==1.0.0
     # via
     #   black
     #   mypy
@@ -117,20 +117,20 @@ pyopenssl==23.2.0
     #   urllib3
 pyparsing==3.0.7
     # via packaging
-pytest==7.3.1
+pytest==7.4.0
     # via
     #   -r dev-requirements.in
     #   pytest-cov
     #   pytest-django
     #   pytest-sugar
     #   pytest-xdist
-pytest-cov==4.0.0
+pytest-cov==4.1.0
     # via -r dev-requirements.in
 pytest-django==4.5.2
     # via -r dev-requirements.in
 pytest-sugar==0.9.7
     # via -r dev-requirements.in
-pytest-xdist==3.2.1
+pytest-xdist==3.3.1
     # via -r dev-requirements.in
 pytz==2021.3
     # via
