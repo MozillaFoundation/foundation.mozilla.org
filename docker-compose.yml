@@ -1,26 +1,74 @@
 version: '3'
 
 services:
-
-  watch-static-files:
+  backend:
+    platform: linux/amd64 # Fix issues for M1 Macs
     build:
+      target: dev
       context: .
-      dockerfile: ./dockerfiles/Dockerfile.node
-    env_file:
-      - .env
     environment:
       # Need to specify the SHELL env var for chokidar
       - SHELL=/bin/sh
       # Force polling because inotify doesn't work on Docker Windows
       - CHOKIDAR_USEPOLLING=1
       - CHOKIDAR_INTERVAL=2000
-    command: npm run watch
+    env_file:
+      - ".env"
+    # This command starts the Django server and the frontend build.
+    command: honcho -f Procfile.dev start
+    ports:
+      - "8000:8000"
+      - "8001:8001" # ptvsd port for debugging
     volumes:
-      - .:/app
-      - node_modules:/app/node_modules/
-      - dockerpythonvenv:/app/dockerpythonvenv/
+      # The container already has a static copy of the application code from build time, but we are
+      # also mounting some files here so the container can see changes to them or write to them.
+      # Using rw (default) for these so linters can format them in the container.
+      - ./.git:/app/.git
+      - ./.gitignore:/app/.gitignore
+      - ./.env:/app/.env
+      - ./.coveragerc:/app/.coveragerc
+      - ./.flake8:/app/.flake8
+      - ./network-api:/app/network-api
+      - ./copy-db.js:/app/copy-db.js
+      - ./test:/app/test
+      - ./tests:/app/tests
+      - ./Procfile.dev:/app/Procfile.dev
+      - ./Procfile.dev-lean:/app/Procfile.dev-lean
+      - ./pyproject.toml:/app/pyproject.toml
+      - ./requirements.txt:/app/requirements.txt
+      - ./requirements.in:/app/requirements.in
+      - ./dev-requirements.txt:/app/dev-requirements.txt
+      - ./dev-requirements.in:/app/dev-requirements.in
+      # Files that we may want to include in linting (other files may require inv catchup before linting)
+      - ./.github:/app/.github
+      - ./.vscode:/app/.vscode
+      - ./docs:/app/docs
+      - ./maintenance:/app/maintenance
+      - ./tasks.py:/app/tasks.py
+      - ./README.md:/app/README.md
+      - ./release-steps.sh:/app/release-steps.sh
+      - ./translation-management.sh:/app/translation-management.sh
+
+      # Frontend config
+      - ./source:/app/source
+      - ./.editorconfig:/app/.editorconfig
+      - ./.eslintignore:/app/.eslintignore
+      - ./.eslintrc.a11y.json:/app/.eslintrc.a11y.json
+      - ./.eslintrc.json:/app/.eslintrc.json
+      - ./.prettierignore:/app/.prettierignore
+      - ./.prettierrc:/app/.prettierrc
+      - ./.stylelintrc:/app/.stylelintrc
+      - ./.stylelintrc-colors.js:/app/.stylelintrc-colors.js
+      - ./esbuild.config.js:/app/esbuild.config.js
+      - ./pyrightconfig.json:/app/pyrightconfig.json
+      - ./playwright.config.js:/app/playwright.config.js
+      - ./postcss.config.js:/app/postcss.config.js
+      - ./tailwind-plugins:/app/tailwind-plugins
+      - ./tailwind.config.js:/app/tailwind.config.js
+      - ./package-lock.json:/app/package-lock.json
+      - ./package.json:/app/package.json
     depends_on:
-      - backend
+      - postgres
 
   postgres:
     image: postgres:13.2
@@ -33,24 +81,6 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-
-  backend:
-    build:
-      context: .
-      dockerfile: ./dockerfiles/Dockerfile.python
-    env_file:
-      - ".env"
-    command: dockerpythonvenv/bin/python network-api/manage.py runserver 0.0.0.0:8000
-    ports:
-      - "8000:8000"
-      - "8001:8001" # ptvsd port for debugging
-    volumes:
-      - .:/app
-      - dockerpythonvenv:/app/dockerpythonvenv/
-    depends_on:
-      - postgres
-
+      
 volumes:
   postgres_data:
-  node_modules:
-  dockerpythonvenv:
