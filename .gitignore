@@ -116,6 +116,7 @@ network-api/media/
 
 # Compiled Frontend
 network-api/networkapi/frontend/
+network-api/networkapi/temp/frontend/
 
 # PyCharm
 .idea/
