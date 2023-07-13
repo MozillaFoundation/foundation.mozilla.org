@@ -35,10 +35,6 @@ env = environ.Env(
     CONTENT_TYPE_NO_SNIFF=bool,
     CORS_ALLOWED_ORIGIN_REGEXES=(tuple, ()),
     CORS_ALLOWED_ORIGINS=(tuple, ()),
-    CRM_AWS_SQS_ACCESS_KEY_ID=(str, None),
-    CRM_AWS_SQS_REGION=(str, None),
-    CRM_AWS_SQS_SECRET_ACCESS_KEY=(str, None),
-    CRM_PETITION_SQS_QUEUE_URL=(str, None),
     CSP_INCLUDE_NONCE_IN=(list, []),
     DATA_UPLOAD_MAX_NUMBER_FIELDS=(int, 2500),
     DATABASE_URL=(str, None),
@@ -547,17 +543,10 @@ REST_FRAMEWORK = {
     ]
 }
 
-# SQS information (if any) for CRM petition data
-CRM_AWS_SQS_ACCESS_KEY_ID = env("CRM_AWS_SQS_ACCESS_KEY_ID")
-CRM_AWS_SQS_SECRET_ACCESS_KEY = env("CRM_AWS_SQS_SECRET_ACCESS_KEY")
-CRM_AWS_SQS_REGION = env("CRM_AWS_SQS_REGION")
-CRM_PETITION_SQS_QUEUE_URL = env("CRM_PETITION_SQS_QUEUE_URL")
-
 # Storage for user generated files
 if USE_S3:
     # Use S3 to store user files if the corresponding environment var is set
     DEFAULT_FILE_STORAGE = "networkapi.filebrowser_s3.storage.S3MediaStorage"
-    AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
     AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
     AWS_S3_CUSTOM_DOMAIN = env("AWS_S3_CUSTOM_DOMAIN")

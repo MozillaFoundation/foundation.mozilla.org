@@ -3,6 +3,7 @@
 TODO.txt
 node_modules/
 dest/
+dockerpythonvenv/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -115,6 +116,7 @@ network-api/media/
 
 # Compiled Frontend
 network-api/networkapi/frontend/
+network-api/networkapi/temp/frontend/
 
 # PyCharm
 .idea/
