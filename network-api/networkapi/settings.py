@@ -186,6 +186,10 @@ USE_S3 = env("USE_S3")
 # Detect if Django is running normally, or in test mode through "manage.py test"
 TESTING = "test" in sys.argv or "pytest" in sys.argv
 
+# Django Pattern Library
+# Do not enable for production!
+PATTERN_LIBRARY_ENABLED = env("PATTERN_LIBRARY_ENABLED")
+
 INSTALLED_APPS = list(
     filter(
         None,
@@ -258,8 +262,7 @@ INSTALLED_APPS = list(
             "networkapi.wagtailpages",
             "networkapi.mozfest",
             "networkapi.donate",
-            # TODO: only enable on dev
-            "pattern_library",
+            "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
             "networkapi.project_styleguide",
         ],
     )
@@ -728,10 +731,17 @@ if DEBUG:
         "10.0.2.2",
     ]
 
-# Styleguide
+# Django Pattern Library
+# https://torchbox.github.io/django-pattern-library/
+#
 # Pattern library isn’t intended for production usage, and hasn’t received
 # extensive security scrutiny. Don't enable it on production.
-# To enable on local, set PATTERN_LIBRARY_ENABLED=True in your .env file
+#
+# PATTERN_LIBRARY_ENABLED is set to True in docker-compose.yml for local development.
+# For pattern library to work with CSP, you also need to add the following to your .env file:
+#    PATTERN_LIBRARY_ENABLED=1
+#    X_FRAME_OPTIONS=SAMEORIGIN
+#    CSP_FRAME_ANCESTORS="'self'"
 PATTERN_LIBRARY_ENABLED = env("PATTERN_LIBRARY_ENABLED", default=False)
 PATTERN_LIBRARY = {
     # Groups of templates for the pattern library navigation. The keys
@@ -753,6 +763,3 @@ PATTERN_LIBRARY = {
     # BASE_TEMPLATE_NAMES is a "page" and will be rendered as-is without being wrapped.
     "BASE_TEMPLATE_NAMES": ["pages/base.html"],
 }
-# For pattern library. Don't enable for production.
-if DEBUG:
-    X_FRAME_OPTIONS = "SAMEORIGIN"
