@@ -10,6 +10,7 @@ mypy
 ptvsd
 types-python-slugify
 types-requests
+honcho
 
 pytest
 pytest-django
