@@ -46,7 +46,7 @@ django==3.2.20
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
-django-debug-toolbar==3.5.0
+django-debug-toolbar==4.1.0
     # via -r dev-requirements.in
 djhtml==1.5.2
     # via -r dev-requirements.in
