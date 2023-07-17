@@ -20,6 +20,7 @@
     {% if not show_formassembly_thank_you %}
         <h5 class="tw-h5-heading">{{ cta.header | escape }}</h5>
         {{ cta.description | richtext }}
+        <label class="label tw-body-small tw-italic tw-mt-2">{% blocktrans %} * indicates a required field {% endblocktrans %}</label>
         {% comment %}
             tfa_* refers to the name of the FormAssembly field.
             We are inncluding tfa_* in the variable name to make it clear where the value should be plugged in.

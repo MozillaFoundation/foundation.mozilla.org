@@ -24,14 +24,18 @@ Please follow the steps below every time after you paste a new version of FormAs
     - for postal code field: {% if show_postal_code_field %}  ... {% endif %}
     - for comment field:     {% if not show_comment_field == "none" %} ... {% endif %}
 
-6. Get localization working again.
+6. If using a required checkbox field, add the classname 'reqMark' to the label wrapping the 
+   span element with the classname of `input-checkbox-faux`. This will ensure that the 
+   "required" asterisk renders to the right of the checkbox text. 
+    
+7. Get localization working again.
     - Localize form fields. e.g., {% trans "text to be translated" %} or {% blocktrans %} ... {% endblocktrans %}
     - Localize "title" attribute and label text for the following fields:
         - first name, last name, email, country, postal code, comments, privacy notice, email subscription
     - Localize "value" attribute for <input type="submit" ...>
     - Go to formassembly_head.html and make sure everything has been updated according to the instructions
 
-7. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
+8. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
 
 The code snippet below is based on FormAssembly form revision #32
 
@@ -50,7 +54,6 @@ Please remember to take this into account when designing/implementing new forms.
             wFORMS.behaviors.condition.isConditionalSubmitAllowed = true;
         </script></div>
         <form method="post" action="https://mozillafoundation.tfaforms.net/api_v2/workflow/processor" class=" labelsAbove" id="9" role="form">
-            <label class="label tw-body-small tw-italic tw-mt-2">{% blocktrans %} * indicates a required field {% endblocktrans %}</label>
 
             <input type="hidden" id="tfa_500" name="tfa_500" value="{{ thank_you_url_tfa_500 }}" class=""><input type="hidden" id="tfa_1" name="tfa_1" value="{{ campaign_id_tfa_1 }}" class=""><input type="hidden" id="tfa_498" name="tfa_498" value="{{ source_url_tfa_498 }}" class=""><input type="hidden" id="tfa_499" name="tfa_499" value="{{ lang_tfa_499 }}" class=""><input type="hidden" id="tfa_501" name="tfa_501" value="mozilla-foundation" class=""><div class="oneField field-container-D    " id="tfa_28-D">
                 <label id="tfa_28-L" class="label preField reqMark" for="tfa_28">{% trans "First Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_28" name="tfa_28" value="" title="{% trans "First Name" %}" class="required"></div>
