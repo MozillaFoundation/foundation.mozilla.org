@@ -40,6 +40,8 @@
                     <img class="thumb-border tw-mx-auto"
                          width="250"
                          {% image product.image width-250 as img %}
+                         height="{{ img.height }}"
+                         widht="{{ img.width }}"
                          src="{{ img.url }}"
                          alt="{{ product.title }}">
                 </div>
