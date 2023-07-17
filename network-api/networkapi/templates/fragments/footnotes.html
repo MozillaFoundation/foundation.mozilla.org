@@ -9,13 +9,12 @@
             <h3 class="footnotes-title">{% trans "Footnotes" %}</h3>
             <ol class="footnotes-list pl-0">
                 {% for footnote in page.footnotes_list %}
-                    <li class="footnote-row d-flex" id="footnote-{{ forloop.counter|unlocalize }}">
-                        <a href="#footnote-source-{{ forloop.counter|unlocalize }}" class="footnote-number mr-3" aria-label="{% trans 'Back to content' %}">
-                            [{{ forloop.counter }}]
-                        </a>
-                        <div class="footnote-text">
-                            {{ footnote.text|richtext }}
-                        </div>
+                    <li class="footnote-row d-flex"
+                        id="footnote-{{ forloop.counter|unlocalize }}">
+                        <a href="#footnote-source-{{ forloop.counter|unlocalize }}"
+                           class="footnote-number mr-3"
+                           aria-label="{% trans 'Back to content' %}">[{{ forloop.counter }}]</a>
+                        <div class="footnote-text">{{ footnote.text|richtext }}</div>
                     </li>
                 {% endfor %}
             </ol>

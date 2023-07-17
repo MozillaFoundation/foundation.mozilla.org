@@ -1,7 +1,9 @@
 {% extends "pages/base.html" %}
+
 {% load i18n mofo_common %}
 
 {% block page_title %}
+
     {% environment_prefix %}
     {% trans "Page Not Found" %}
 {% endblock %}
@@ -13,9 +15,13 @@
 {% block body_id %}404{% endblock %}
 
 {% block content %}
+
     {% include "partials/404.html" %}
+
 {% endblock %}
 
 {% block footer_block %}
+
     {% include "partials/footer.html" with exclude_language_switcher=True %}
+
 {% endblock %}

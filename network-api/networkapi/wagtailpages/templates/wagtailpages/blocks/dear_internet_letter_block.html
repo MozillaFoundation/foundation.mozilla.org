@@ -1,4 +1,3 @@
-
 {% load wagtailcore_tags wagtailimages_tags i18n %}
 
 {# Placeholder. Template to be updated in follow-up PRs. #}
@@ -7,20 +6,19 @@
     <div class="dear-internet-letter">
         {% if value.video_url and "https://www.youtube.com/embed" in value.video_url %}
             <div class="embed-responsive embed-responsive-16by9 mb-2">
-                <iframe src="{{ value.video_url }}" class="embed-responsive-item" allowfullscreen></iframe>
+                <iframe src="{{ value.video_url }}"
+                        class="embed-responsive-item"
+                        allowfullscreen></iframe>
             </div>
         {% elif value.image %}
             {% image value.image original alt="" loading="lazy" class="mb-4 d-block mx-auto" %}
         {% endif %}
-
         {% if value.video_url %}
-            <p class="tw-body-small"><a href="{{ value.video_url }}" target="_blank">{{ value.video_url }}</a></p>
+            <p class="tw-body-small">
+                <a href="{{ value.video_url }}" target="_blank">{{ value.video_url }}</a>
+            </p>
         {% endif %}
-
-        <div class="letter-body pt-3 pt-md-0">
-            {{ value.letter }}
-        </div>
-
+        <div class="letter-body pt-3 pt-md-0">{{ value.letter }}</div>
         <div>
             <div class="d-flex align-items-center mb-4">
                 {% if value.author_photo %}

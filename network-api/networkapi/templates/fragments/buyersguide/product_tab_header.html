@@ -5,12 +5,10 @@
         class="tw-list-none tw-bg-white tw-px-8 medium:tw-px-16 tw-flex tw-border-b-4 tw-justify-center tw-mb-24 tw-no-scrollbar tw-overflow-auto tw-sticky medium:tw-static tw-top-0 tw-z-[1000] tw--mx-8 medium:tw--mx-16"
         role="tablist">
         <!-- Need this span for x-scrolling on smaller devices so the first tab doesn't get cut off -->
-        <li class="tw-py-4 tw-px-24 tw-shrink-0 tw-relative tw-opacity-0 min-[330px]:tw-w-[50px] min-[400px]:tw-hidden">mobile</li>
-        <li
-            data-product-label="0"
-            class="{{ li_class }}"
-            role="presentation"
-        >
+        <li class="tw-py-4 tw-px-24 tw-shrink-0 tw-relative tw-opacity-0 min-[330px]:tw-w-[50px] min-[400px]:tw-hidden">
+            mobile
+        </li>
+        <li data-product-label="0" class="{{ li_class }}" role="presentation">
             <button role="tab" class="{{ button_class }}">
                 {% trans "Privacy" %}
                 {% if product.data_collection_policy_is_bad or product.data_control_policy_is_bad or product.track_record_is_bad %}
@@ -18,11 +16,7 @@
                 {% endif %}
             </button>
         </li>
-        <li
-            data-product-label="1"
-            class="{{ li_class }}"
-            role="presentation"
-        >
+        <li data-product-label="1" class="{{ li_class }}" role="presentation">
             <button role="tab" class="{{ button_class }}">
                 {% trans "Security" %}
                 {% if product.show_ding_for_minimum_security_standards %}
@@ -30,11 +24,7 @@
                 {% endif %}
             </button>
         </li>
-        <li
-            data-product-label="2"
-            class="{{ li_class }}"
-            role="presentation"
-        >
+        <li data-product-label="2" class="{{ li_class }}" role="presentation">
             <button role="tab" class="{{ button_class }}">
                 {% trans "A.I." %}
                 {% if product.ai_is_untrustworthy_ding %}
