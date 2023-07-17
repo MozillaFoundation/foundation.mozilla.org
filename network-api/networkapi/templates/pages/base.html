@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="{{ lang_code }}" class=" 
     {% block html_class %}{% endblock %}
-    ">
+     ">
     <head>
         <meta charset="utf-8">
         <title>
@@ -92,9 +92,8 @@
     </head>
     <body class=" 
         {% block bodyclass %}{% endblock %}
-        " id="view- 
-        {% block body_id %}{% endblock %}
-        ">
+         " id="view- 
+        {% block body_id %}{% endblock %} ">
         {% if user.is_authenticated %}
             {% wagtailuserbar 'bottom-left' %}
         {% endif %}
