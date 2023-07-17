@@ -3,12 +3,11 @@
 {% load i18n static breadcrumbs %}
 
 {% block library_content %}
-
     <div>
 
         {% block breadcrumbs %}
-
         {% endblock breadcrumbs %}
+
         <h1>{{ page.title }}</h1>
     </div>
     <hr class="tw-border-black tw-my-12 medium:tw-my-16 large:tw-my-24">
@@ -18,8 +17,8 @@
                 <li class="tw-flex tw-m-0">
 
                     {% block author_card %}
-
                     {% endblock author_card %}
+
                 </li>
             {% endfor %}
         </ul>

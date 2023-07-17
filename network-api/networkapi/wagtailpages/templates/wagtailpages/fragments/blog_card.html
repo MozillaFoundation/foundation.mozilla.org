@@ -3,6 +3,7 @@
 {% load wagtailcore_tags wagtailroutablepage_tags class_tags blog_tags i18n localization %}
 
 {% block card_type %}blog-card{% endblock %}
+
 The following block needs to know where the blog IndexPage is,
 so it checks whether "we" are the index page, and if not, it
 crawls up the ancestor tree until it has found it.
@@ -16,12 +17,10 @@ each blog page's dominant tag)
 {% endblock %}
 
 {% block published_date %}
-
     <span class="tw-h6-heading tw-text-gray-40 tw-py-2 tw-mb-0">{{ page.first_published_at|date:"DATE_FORMAT" }}</span>
 {% endblock %}
 
 {% block description %}
-
     <p class="tw-body tw-line-clamp-3">{{ page.specific.localized.get_meta_description }}</p>
 {% endblock %}
 

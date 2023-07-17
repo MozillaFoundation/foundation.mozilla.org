@@ -5,11 +5,9 @@
 {% block body_id %}blog-index{% endblock %}
 
 {% block content %}
-
     <div class="container">
 
         {% block index_header %}
-
             <div class="row">
                 <div class="col-12 col-md-8 pt-4">
                     <h1 class="tw-h1-heading mb-0 mt-1 pt-2">
@@ -38,6 +36,7 @@
         {% endblock %}
 
         {% block featured %}{% endblock %}
+
         {% if filtered and no_filter_ui != True %}
             {# Start of IF for filtered page content. Note that this injects an entire row. #}
             <div class="row mb-4">
@@ -70,13 +69,13 @@
         {# End of IF for filtered page content #}
 
         {% block subcontent %}
-
             <div class="row {% if not filtered and no_filter_ui == True %}tw-mb-12{% endif %}">
 
                 {% include "./fragments/entry_cards.html" %}
 
             </div>
         {% endblock %}
+
         <div class="row">
             <div class="col-12 text-center mb-5">
                 {% if has_more %}
@@ -91,5 +90,6 @@
         </div>
 
         {% block newsletter-callout-box %}{% endblock %}
+
     </div>
 {% endblock %}

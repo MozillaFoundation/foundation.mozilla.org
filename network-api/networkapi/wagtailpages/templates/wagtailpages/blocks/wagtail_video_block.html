@@ -7,7 +7,6 @@
 {% block main_block_class %}streamfield-content{% endblock %}
 
 {% block block_content %}
-
     <video controls>
         {% for source in value.sources %}
             <source {% for attr_key, attr_value in source.items %}{{ attr_key }}="{{ attr_value }}"{% endfor %}>

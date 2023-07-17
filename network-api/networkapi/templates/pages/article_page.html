@@ -5,7 +5,6 @@
 {% block body_id %}article{% endblock %}
 
 {% block primary_nav %}
-
     {{ block.super }}
 
     {% include "fragments/article_subnav.html" %}
@@ -13,7 +12,6 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="tw-bg-white tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-screen tw-z-[1999] tw-grid tw-place-items-center page-enter-transition">
     </div>
     <noscript>
@@ -94,7 +92,6 @@
 {% endblock %}
 
 {% block footer_block %}
-
     {% if page.next_page == None or page.is_publication_article == False %}
 
         {% include "partials/footer.html" %}

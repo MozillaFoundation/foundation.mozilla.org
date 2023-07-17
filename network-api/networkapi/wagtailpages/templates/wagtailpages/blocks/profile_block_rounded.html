@@ -3,7 +3,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
-
     <div class="tw-row tw-py-8">
         {% for block in self.profiles %}
             {% with card=block.profile count=self.cards|length %}

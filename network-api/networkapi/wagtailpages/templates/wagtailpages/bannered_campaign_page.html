@@ -3,7 +3,6 @@
 {% load wagtailcore_tags mini_site_tags i18n l10n %}
 
 {% block body_id %}
-
     {% if root.slug %}
         {{ root.slug }}
     {% else %}
@@ -22,10 +21,10 @@
 {% block campaign_page_header %}{% endblock %}
 
 {% block campaign_page_menu %}{% endblock %}
+
 Note: Wrapper HTML elements are copied from primary_page_menu.html as we want menu on BanneredCampaignPage to look exactly the same as PrimaryPage's.
 
 {% block minisite_title %}
-
     <div id="multipage-horizontal-nav-wrapper"
          class="d-none d-md-block full-width">
         <div class="container">
@@ -41,6 +40,7 @@ Note: Wrapper HTML elements are copied from primary_page_menu.html as we want me
     {% include "partials/intro_and_content_divider.html" with wrapper_class="d-none d-md-block" %}
 
 {% endblock %}
+
 The following block has been borrowed from the templates/tags/cta/petition.html file,
 rather than using the `cta` tag from our mini_site_tags collection, because the cta
 tag was written in the assumption that models would only ever have a single CTA field
@@ -50,7 +50,6 @@ work should not be done at the same time as adding signup CTAs to the b.c. pages
 An extra check has been added so as to not show the fixed "Take action" button on mobile pages for email signups.
 
 {% block cta %}
-
     {% if page.cta != None or page.signup != None %}
         <div class="cta {% if page.specific.narrowed_page_content == False %} col-lg-4 offset-lg-1 {% else %} col-lg-12 {% endif %}">
             {% if page.cta != None %}

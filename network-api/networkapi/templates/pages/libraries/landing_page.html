@@ -3,7 +3,6 @@
 {% load i18n l10n wagtailcore_tags wagtailimages_tags static %}
 
 {% block hero_guts %}
-
     {% with hero_image_classes="tw-bg-no-repeat tw-bg-left-top tw-bg-cover tw-min-h-[260px]" %}
         {% if page.banner_image %}
             {% image page.banner_image original as hero_img %}
@@ -17,7 +16,6 @@
 {% endblock hero_guts %}
 
 {% block subcontent %}
-
     <div id="landing-page-content" class="tw-flex tw-w-full">
         <div id="left-spacer-and-cutout"
              class="tw-bg-white tw-flex-auto -tw-mt-[125px] tw-pl-8 small:tw-pl-0"></div>
@@ -36,15 +34,15 @@
                         <div class="tw-w-full medium:tw-w-3/4">
 
                             {% block search_bar %}
-
                             {% endblock search_bar %}
+
                         </div>
                         <a href="{% pageurl page.library_page %}" class="tw-block tw-font-bold">
 
                             {% block browse_all_button_label %}
-
                                 {% trans "Browse all" context "Button" %}
                             {% endblock browse_all_button_label %}
+
                         </a>
                     </form>
                 </div>
@@ -52,23 +50,23 @@
                     <h2 class="tw-h3-heading large:tw-pb-4">
 
                         {% block latest_articles_title %}
-
                             {% trans "Latest Research" %}
                         {% endblock latest_articles_title %}
+
                     </h2>
                     <ul class="tw-list-none px-0 ">
 
                         {% block detail_page_cards %}
-
                         {% endblock detail_page_cards %}
+
                     </ul>
                     <a class="tw-btn-secondary tw-w-full medium:tw-w-auto large:tw-mt-8 large:tw-mb-24"
                        href="{% pageurl page.library_page %}">
 
                         {% block browse_all_projects_button_label %}
-
                             {% trans "Browse all projects" context "Button" %}
                         {% endblock browse_all_projects_button_label %}
+
                     </a>
                 </div>
             </div>
@@ -78,15 +76,15 @@
                 <h2 class="tw-h4-heading tw-pb-8">
 
                     {% block featured_taxonomies_label %}
-
                         {% trans "Browse by topic" context "Topic list heading" %}
                     {% endblock featured_taxonomies_label %}
+
                 </h2>
                 <ul class="tw-list-none tw-px-0 tw-grid tw-grid-cols-12 tw-gap-0 medium:tw-gap-12 large:tw-gap-0">
 
                     {% block featured_taxonomies %}
-
                     {% endblock featured_taxonomies %}
+
                 </ul>
             </div>
             <div id="landing-page-body" class="tw-col-span-12 medium:tw-px-8 ">

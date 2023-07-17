@@ -3,7 +3,6 @@
 {% load i18n %}
 
 {% block index_header %}
-
     <div>
         <h1>{% trans "Search blog" context "Title of the blog search results page" %}</h1>
         <form action="" method="get" class="my-4">
@@ -18,7 +17,6 @@
 {% block featured %}{% endblock %}
 
 {% block subcontent %}
-
     {% if entries %}
         <ul id="index-entries"
             class="tw-divide-y tw-divide-gray-20 tw-flex tw-flex-col tw-gap-12 tw-list-none tw-px-[15px]">
@@ -36,5 +34,4 @@
 {% endblock subcontent %}
 
 {% block newsletter-callout-box %}
-
 {% endblock newsletter-callout-box %}

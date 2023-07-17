@@ -7,7 +7,6 @@
 {% block main_content_class %}{% endblock %}
 
 {% block hero %}
-
     <input type="hidden"
            class="category-title"
            value="{% if current_category %}{{ current_category.localized.name }}{% else %}None{% endif %}">
@@ -26,7 +25,6 @@
 {% endblock %}
 
 {% block category_header %}
-
     <div class="tw-container tw-mb-12">
         <div class="tw-row">
             <div class="large:tw-w-1/3 tw-w-full tw-px-8">
@@ -56,7 +54,6 @@
 {% endblock %}
 
 {% block guts %}
-
     <div class="tw-container">
         <div class="tw-row">
             <div class="tw-w-full">
@@ -138,8 +135,8 @@
                 {% endif %}
 
                 {% block extra_product_box_list_items %}
-
                 {% endblock extra_product_box_list_items %}
+
                 {% if request.user.is_anonymous %}
                     {# User is not logged in. Return cached results. 24 hour caching applied. #}
                     {% cache 86400 pni_home_page template_cache_key_fragment %}
@@ -168,6 +165,7 @@
                 {% include "fragments/buyersguide/no_search_results.html" %}
 
             {% endblock %}
+
         </div>
     </div>
 </div>

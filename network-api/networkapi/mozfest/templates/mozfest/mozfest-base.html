@@ -5,7 +5,6 @@
 {% block web_monetization %}<meta name="monetization" content="$ilp.uphold.com/aKpM9kwnGBy4">{% endblock %}
 
 {% block ga_identifier %}
-
     <meta name="google-site-verification"
           content="xuTYNuCtTC9SLIkAUtmUY9Wce5RDJofc4z4fMprPYUk" />
     <meta name="ga-identifier" content="UA-87658599-15">
@@ -21,7 +20,6 @@
 {% block bodyclass %}mozfest{% endblock %}
 
 {% block page_title %}
-
     {% environment_prefix %}
     {% blocktrans %}Mozilla Festival{% endblocktrans %}
     {% if page.specifics.seo_title %}
@@ -32,12 +30,10 @@
 {% endblock %}
 
 {% block org_schema %}
-
     {% if page.structured_data %}<script type="application/ld+json">{{ page.structured_data|safe }}</script>{% endif %}
 {% endblock %}
 
 {% block body_id %}
-
     mozfest-
 
     {% block mozfest_body_id %}home{% endblock %}
@@ -58,7 +54,9 @@
 {% endblock %}
 
 {% block content %}
+
     {% block secondary_nav %}{% endblock %}
+
     {% if page.signup != None %}
         {# Use a two-column layout #}
         <div class="container">
@@ -93,7 +91,6 @@
 {% endblock %}
 
 {% block script_bundle %}
-
     <script src="{% url "javascript-catalog" %}"></script>
     {# This uses the mofo main.js for now, to make sure "things work" until we (maybe never?) create a separate bundle #}
     <script src="{% static "_js/main.compiled.js" %}"></script>

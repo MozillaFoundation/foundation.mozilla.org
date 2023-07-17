@@ -5,14 +5,12 @@
 {% block body_id %}dear-internet{% endblock %}
 
 {% block extended_head %}
-
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap"
           rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-
     {% with main_content_col="col-12 col-md-8" %}
         {% blocktrans with title=page.title asvar share_text_translated %}{{ title }} by @mozilla{% endblocktrans %}
         <div class="clouds-wrapper full-size-absolute-wrapper">

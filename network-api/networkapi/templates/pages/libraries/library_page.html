@@ -3,12 +3,11 @@
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
 
 {% block library_content %}
-
     <div>
 
         {% block breadcrumbs %}
-
         {% endblock breadcrumbs %}
+
         <h1>{{ page.title }}</h1>
     </div>
     <div class="large:tw-w-160 large:tw-h-64 tw-mt-12 tw-mb-8 large:tw-mb-0 large:-tw-ml-12 large:tw-p-12 large:tw-bg-gray-05">
@@ -26,8 +25,8 @@
               id="search-form">
 
             {% block search_bar %}
-
             {% endblock search_bar %}
+
         </form>
     </div>
     <div class="tw-flex tw-flex-col large:tw-flex-row-reverse large:tw-gap-16">
@@ -83,8 +82,8 @@
                 {# RESULTS LIST #}
 
                 {% block detail_pages %}
-
                 {% endblock detail_pages %}
+
             </ul>
             <div>
                 {# PAGINATION #}
@@ -125,7 +124,6 @@
 {% endblock library_content %}
 
 {% block extra_scripts %}
-
     {{ block.super }}
     <script type="text/javascript" src="{% static "_js/libraries-library-page.compiled.js" %}" async defer></script>
 {% endblock extra_scripts %}

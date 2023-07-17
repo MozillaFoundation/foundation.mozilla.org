@@ -3,14 +3,12 @@
 {% load wagtailcore_tags wagtailimages_tags i18n localization blog_tags static wagtailroutablepage_tags %}
 
 {% block rss_metadata %}
-
     <link rel="alternate"
           type="application/rss+xml"
           href="{% url 'rss-feed' %}" />
 {% endblock %}
 
 {% block index_header %}
-
     <div class="tw-grid tw-grid-cols-12">
         <div class="tw-col-span-12 large:tw-col-span-8 tw-mt-8">
             <h1 class="tw-h1-heading tw-mb-0 tw-mt-2 tw-pt-4">
@@ -42,7 +40,6 @@
 {% endblock %}
 
 {% block featured %}
-
     {% if not filtered %}
         <div class="tw-grid tw-grid-cols-12 tw-gap-12 tw-mb-2 medium:tw-mb-24">
             {% with divider_classes="tw-border-b tw-pb-12 tw-border-gray-20 medium:tw-border-b-0" %}
@@ -85,7 +82,6 @@
 {% endblock %}
 
 {% block subcontent %}
-
     {% if not filtered %}
         <h2 class="tw-hidden tw-uppercase tw-text-3xl tw-mb-0 tw-font-bold tw-font-sans tw-text-gray-80 medium:tw-block">
             {% trans "Latest Blog Posts" %}
@@ -109,7 +105,6 @@
 {% endblock %}
 
 {% block newsletter-callout-box %}
-
     {% if not filtered %}
 
         {% include "./fragments/newsletter-signup-box.html" with show_socials=True %}

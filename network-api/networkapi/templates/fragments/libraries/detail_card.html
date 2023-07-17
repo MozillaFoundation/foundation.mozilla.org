@@ -19,13 +19,13 @@
         <div class="tw-flex tw-flex-row tw-text-xs tw-text-gray-80 tw-mb-4 tw-uppercase tw-divide-x tw-divide-gray-20">
 
             {% block detail_card_metadata %}
-
                 {% if detail_page.original_publication_date %}
                     <div class="tw-px-4 first:tw-pl-0 tw-whitespace-nowrap ">
                         {{ detail_page.original_publication_date|date:"DATE_FORMAT" }}
                     </div>
                 {% endif %}
             {% endblock detail_card_metadata %}
+
         </div>
         {% if detail_page.introduction %}
             <p class="tw-mb-0 tw-text-gray-60 tw-text-base">{{ detail_page.introduction }}</p>

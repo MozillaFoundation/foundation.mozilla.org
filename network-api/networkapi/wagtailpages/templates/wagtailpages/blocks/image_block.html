@@ -3,7 +3,6 @@
 {% load l10n wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
-
     {% image value.image original as img %}
     <img src="{{ img.url }}"
          alt="{{ value.altText }}"

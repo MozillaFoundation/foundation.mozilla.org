@@ -10,6 +10,7 @@
             {% block tags %}{% endblock %}
 
             {% block published_date %}{% endblock %}
+
         </div>
         <a href="{% relocalized_url page.localized.url %}"
            class="tw-group tw-block hover:tw-no-underline">
@@ -17,9 +18,11 @@
             <p class="tw-body-small my-0">
 
                 {% block description %}{% endblock %}
+
             </p>
         </a>
 
         {% block byline %}{% endblock %}
+
     </div>
 </div>

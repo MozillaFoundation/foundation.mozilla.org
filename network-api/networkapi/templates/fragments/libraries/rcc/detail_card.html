@@ -1,7 +1,6 @@
 {% extends "fragments/libraries/detail_card.html" %}
 
 {% block detail_card_metadata %}
-
     {% if detail_page.original_publication_date %}
         <div class="tw-px-4 first:tw-pl-0 tw-whitespace-nowrap ">
             {{ detail_page.original_publication_date|date:"DATE_FORMAT" }}

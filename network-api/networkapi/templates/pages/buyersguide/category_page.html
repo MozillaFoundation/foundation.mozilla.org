@@ -5,7 +5,6 @@
 {% block body_id %}{{ category.slug }}{% endblock %}
 
 {% block extra_product_box_list_items %}
-
     {% for category in categories %}
         {% comment %}
       Each category has it's own set of related articles.
@@ -26,7 +25,6 @@
 {% endblock extra_product_box_list_items %}
 
 {% block guts %}
-
     {{ block.super }}
     {% for category in categories %}
         {% with secondary_related_articles=category.get_secondary_related_articles %}

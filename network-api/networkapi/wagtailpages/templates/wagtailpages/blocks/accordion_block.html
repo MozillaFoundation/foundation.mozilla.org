@@ -3,7 +3,6 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block block_content %}
-
     {% for block in self.accordion_items %}
         <details class="{% if width == "4/5" %} large:tw-w-4/5 tw-mx-auto {% endif %} tw-w-full tw-font-sans tw-font-light">
             <summary class="tw-list-none [&::-webkit-details-marker]:tw-hidden tw-w-full tw-text-lg tw-leading-7 tw-min-h-40 py-3 d-flex align-items-center tw-border-t-gray-20 tw-border-t">

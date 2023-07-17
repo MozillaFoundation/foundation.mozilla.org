@@ -3,10 +3,10 @@
 {% load wagtailcore_tags mini_site_tags %}
 
 {% block minisite_title_mb %}
-
     {% if uses_menu %}
 
         {% block minisite_title %}{% endblock %}
+
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -17,5 +17,6 @@
     {% else %}
 
         {% block minisite_no_menu %}{% endblock %}
+
     {% endif %}
 {% endblock %}

@@ -6,16 +6,16 @@
         <div class="primary-nav-container">
         {% endif %}
         <div class="wrapper-burger 
-            {% block wrapper_classes %}{% endblock %}">
+            {% block wrapper_classes %}{% endblock %}
+            ">
             <div class="menu-container 
-                {% block menu_container_classes %}{% endblock %}">
+                {% block menu_container_classes %}{% endblock %}
+                ">
 
                 {% block menu_content %}
-
                     <div class="narrow-screen-menu hidden d-lg-none">
 
                         {% block narrow_screen_menu %}
-
                             <div class="narrow-screen-menu-background tw-dark">
                                 <div class="narrow-screen-menu-container">
                                     <div class="container" role="navigation">
@@ -24,7 +24,6 @@
                                                 <div class="nav-links pt-3">
 
                                                     {% block narrow_screen_nav_links %}
-
                                                         <div>
                                                             <a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}"
                                                                href="{{ menu_root.url }}">{% trans "Home" %}</a>
@@ -33,6 +32,7 @@
                                                         {% include "fragments/nav_links.html" with pre="<div>" post="</div>" %}
 
                                                     {% endblock %}
+
                                                     {% if page.signup == None %}
                                                         <div class="mt-2">
                                                             <button class="tw-btn-secondary btn-newsletter">{% trans "Newsletter" %}</button>
@@ -45,8 +45,10 @@
                                 </div>
                             </div>
                         {% endblock %}
+
                     </div>
                 {% endblock %}
+
                 <nav class="container wide-screen-menu-container"
                      title="{% trans "main site navigation" context "Tooltip on menu items" %}">
                     <div class="row">
@@ -62,11 +64,11 @@
                                         </button>
 
                                         {% block nav_logo %}
-
                                             <a class="logo text-hide"
                                                href="/"
                                                aria-label="{% trans "Mozilla Foundation Homepage" %}">{% trans "Mozilla Foundation" %}</a>
                                         {% endblock %}
+
                                         {% if page.zen_nav == True %}
                                             <div class="wide-screen-menu hidden">
                                             {% else %}
@@ -74,19 +76,18 @@
                                                 {% endif %}
 
                                                 {% block wide_screen_menu %}
-
                                                     <div class="nav-links d-none d-lg-block">
 
                                                         {% include "fragments/nav_links.html" %}
 
                                                     </div>
                                                 {% endblock %}
+
                                             </div>
                                         </div>
                                     </div>
 
                                     {% block donate_and_newsletter %}
-
                                         <div class="d-flex align-items-center">
                                             <a id="donate-header-btn"
                                                class="primary-nav-special-link tw-heart-glyph tw-flex"
@@ -96,6 +97,7 @@
                                             {% endif %}
                                         </div>
                                     {% endblock %}
+
                                 </div>
                             </div>
                         </div>

@@ -3,7 +3,6 @@
 {% load i18n %}
 
 {% block submit_buttons %}
-
     {{ block.super }}
     <span>Or</span>
     <a href="{% url "social:begin" "google-oauth2" %}?next=/cms">

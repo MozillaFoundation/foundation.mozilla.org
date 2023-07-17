@@ -3,13 +3,13 @@
 {% get_current_language as lang_code %}
 <!DOCTYPE html>
 <html lang="{{ lang_code }}" class=" 
-    {% block html_class %}{% endblock %}">
+    {% block html_class %}{% endblock %}
+    ">
     <head>
         <meta charset="utf-8">
         <title>
 
             {% block page_title %}
-
                 {% environment_prefix %}
                 {% trans "Mozilla Foundation" %} -
                 {% if page.specifics.seo_title %}
@@ -18,13 +18,13 @@
                     {{ page.title }}
                 {% endif %}
             {% endblock %}
+
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         {% block web_monetization %}<meta name="monetization" content="$ilp.uphold.com/aKpM9kwnGBy4">{% endblock %}
 
         {% block social_metadata %}
-
             <meta property='og:type' content='website'>
             <meta property='og:locale' content='{{ lang_code|to_opengraph_locale }}'>
             <meta property='wagtail:language' content='{{ lang_code }}'>
@@ -33,12 +33,10 @@
         {% block rss_metadata %}{% endblock %}
 
         {% block wagtail_metadata %}
-
             {% meta_tags %}
         {% endblock %}
 
         {% block ga_identifier %}
-
             <meta name="google-site-verification"
                   content="D7k-r3fHm-XfJ9E7T1uZ5aqHJG2mx-0uUZFeBUDN2lY">
             <meta name="ga-identifier" content="UA-87658599-6">
@@ -52,7 +50,6 @@
         {% endblock %}
 
         {% block fundraiseup_script %}
-
             <script nonce="{{ request.csp_nonce }}">(function(w,d,s,n,a){if(!w[n]){var l='call,catch,on,once,set,then,track'
                     .split(','),i,o=function(n){return'function'==typeof n?o.l.push([arguments])&&o
                     :function(){return o.l.push([n,arguments])&&o}},t=d.getElementsByTagName(s)[0],
@@ -66,7 +63,6 @@
         {% block commento_meta %}{% endblock %}
 
         {% block stylesheets %}
-
             <link rel="stylesheet" href="{% static "_css/main.compiled.css" %}">
             <link rel="stylesheet"
                   href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,800,900,400i">
@@ -91,11 +87,14 @@
         {% block org_schema %}{% endblock %}
 
         {% block additional_head_elements %}{% endblock %}
+
         {% if request.in_preview_panel %}<base target="_blank">{% endif %}
     </head>
     <body class=" 
-        {% block bodyclass %}{% endblock %}" id="view- 
-        {% block body_id %}{% endblock %}">
+        {% block bodyclass %}{% endblock %}
+        " id="view- 
+        {% block body_id %}{% endblock %}
+        ">
         {% if user.is_authenticated %}
             {% wagtailuserbar 'bottom-left' %}
         {% endif %}
@@ -106,7 +105,6 @@
         {% endif %}
 
         {% block donate_banner %}
-
             {% if settings.wagtailpages.FeatureFlags.activate_donate_banner %}
 
                 {% include "partials/banner.html" %}
@@ -115,50 +113,51 @@
         {% endblock %}
 
         {% block body_wrapped %}
-
             <div class="wrapper">
                 <div class=" 
-                    {% block sticky_top_class %}sticky-top{% endblock %} d-print-none">
+                    {% block sticky_top_class %}sticky-top{% endblock %}
+                     d-print-none">
 
-                        {% block primary_nav %}
+                    {% block primary_nav %}
 
-                            {% include "partials/primary_nav.html" with background="simple-background" %}
-
-                        {% endblock %}
-                    </div>
-
-                    {% block header_wrapped %}
-
-                        <header role="banner">
-
-                            {% block hero_guts %}{% endblock %}
-                        </header>
-                    {% endblock header_wrapped %}
-
-                    {% block content_wrapped %}
-
-                        <main role="main">
-
-                            {% block content %}{% endblock %}
-                        </main>
-                    {% endblock content_wrapped %}
-
-                    {% block prefooter %}{% endblock %}
-
-                    {% block footer_block %}
-
-                        {% include "partials/footer.html" %}
+                        {% include "partials/primary_nav.html" with background="simple-background" %}
 
                     {% endblock %}
+
                 </div>
-            {% endblock %}
 
-            {% block script_bundle %}
+                {% block header_wrapped %}
+                    <header role="banner">
 
-                <script src="{% url "javascript-catalog" %}"></script>
-                <script src="{% static "_js/main.compiled.js" %}"></script>
-            {% endblock %}
+                        {% block hero_guts %}{% endblock %}
 
-            {% block extra_scripts %}{% endblock %}
-        </body>
-    </html>
+                    </header>
+                {% endblock header_wrapped %}
+
+                {% block content_wrapped %}
+                    <main role="main">
+
+                        {% block content %}{% endblock %}
+
+                    </main>
+                {% endblock content_wrapped %}
+
+                {% block prefooter %}{% endblock %}
+
+                {% block footer_block %}
+
+                    {% include "partials/footer.html" %}
+
+                {% endblock %}
+            </div>
+        {% endblock %}
+
+        {% block script_bundle %}
+            <script src="{% url "javascript-catalog" %}"></script>
+            <script src="{% static "_js/main.compiled.js" %}"></script>
+        {% endblock %}
+
+        {% block extra_scripts %}{% endblock %}
+
+    </body>
+</html>

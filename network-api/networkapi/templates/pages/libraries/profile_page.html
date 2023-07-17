@@ -3,14 +3,13 @@
 {% load i18n l10n static wagtailcore_tags wagtailimages_tags breadcrumbs %}
 
 {% block library_content %}
-
     <div id="info"
          class=" tw-gap-8 tw-grid tw-grid-cols-1 medium:tw-gap-x-24 medium:tw-grid-cols-[13rem_1fr] large:tw-grid-cols-[16rem_1fr] ">
         <div class="medium:tw-col-start-2">
 
             {% block breadcrumbs %}
-
             {% endblock breadcrumbs %}
+
         </div>
         <div id="image-container"
              class="tw-place-self-center medium:tw-place-self-start">
@@ -43,14 +42,14 @@
             <h2>
 
                 {% block latest_articles_label %}
-
                 {% endblock latest_articles_label %}
+
             </h2>
             <ul class="tw-list-none px-0">
 
                 {% block detail_cards %}
-
                 {% endblock detail_cards %}
+
             </ul>
             {% if author_article_count > 3 %}
                 <a href="{% pageurl library_page %}?authors={{ author_profile.id|unlocalize }}"

@@ -1,7 +1,6 @@
 {% extends "wagtailmetadata/parts/tags.html" %}
 
 {% block meta %}
-
     <meta itemprop="url" content="{{ object.get_meta_url }}" />
     <meta itemprop="name" content="{{ object.get_meta_title }}">
     <meta itemprop="description" content="{{ object.get_meta_description }}" />

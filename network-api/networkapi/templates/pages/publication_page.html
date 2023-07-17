@@ -3,7 +3,6 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-
     {% if page.hero_layout != "static" %}
 
         {% include "fragments/custom_hero.html" with page=page download_file=page.publication_file is_publication_page=page.is_publication_page %}

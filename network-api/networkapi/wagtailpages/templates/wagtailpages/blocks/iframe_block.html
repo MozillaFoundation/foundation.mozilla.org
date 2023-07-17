@@ -7,14 +7,12 @@ The iframe_block.html is used on Article pages and Blog pages.
 {% endcomment %}
 
 {% block block_container_classes %}
-
     {% if value.iframe_width == "full_width" %}full-width{% endif %}
 {% endblock %}
 
 {% block block_row_classes %}tw-mx-0{% endblock %}
 
 {% block main_block_class %}
-
     streamfield-content
     {% if value.iframe_width == "full_width" %}
         full-width
@@ -24,7 +22,6 @@ The iframe_block.html is used on Article pages and Blog pages.
 {% endblock %}
 
 {% block block_content %}
-
     <div class="tw-my-4">
         <div class="embed-responsive embed-responsive-16by9"
              {% if value.height %}style="height: {{ value.height|unlocalize }}px;"{% endif %}>

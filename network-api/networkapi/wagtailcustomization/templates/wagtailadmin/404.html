@@ -3,12 +3,10 @@
 {% load wagtailadmin_tags wagtailcore_tags static i18n %}
 
 {% block titletag %}
-
     {% trans "Error 404: Page not found" %}
 {% endblock %}
 
 {% block extra_css %}
-
     {{ block.super }}
     <!-- wagtail's own CSS -->
     <link rel="stylesheet"
@@ -24,7 +22,6 @@
 {% endblock %}
 
 {% block furniture %}
-
     <div class="page404__bg">
         <div class="page404__wrapper d-md-flex align-items-center">
             <div class="wagtail-logo-container__desktop">

@@ -3,7 +3,6 @@
 {% load i18n static wagtailcore_tags wagtailimages_tags bg_nav_tags mini_site_tags %}
 
 {% block hero %}
-
     {% if page.hero_image %}
         {% image page.hero_image original as img %}
         <div id="page-hero">
@@ -24,7 +23,6 @@
 {% block body_id %}article{% endblock %}
 
 {% block guts %}
-
     {% blocktrans with title=page.title asvar share_text_translated %}{{ title }} by @mozilla{% endblocktrans %}
     <div class="cms blog-body">
         <div class="container share-button-blog-title-container">

@@ -3,14 +3,12 @@
 {% load wagtailcore_tags %}
 
 {% block block_container_classes %}
-
     {% if value.video_width == "full_width" %}full-width{% endif %}
 {% endblock %}
 
 {% block block_row_classes %}tw-mx-0{% endblock %}
 
 {% block main_block_class %}
-
     streamfield-content
     {% if value.video_width == "full_width" %}
         full-width
@@ -18,10 +16,10 @@
         wide
     {% endif %}
 {% endblock %}
+
 <!-- TODO replace bootstrap embed-responsive classes with one created by tailwind component -->
 
 {% block block_content %}
-
     <div class="tw-my-4">
         <div class="embed-responsive embed-responsive-16by9 print:tw-hidden"
              {% if 'player.vimeo.com' in value.url and value.video_width == "full_width" %}style="padding: 56.25% 0 0 0;"{% endif %}>

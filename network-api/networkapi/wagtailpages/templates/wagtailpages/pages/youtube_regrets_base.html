@@ -3,26 +3,23 @@
 {% load wagtailcore_tags wagtailimages_tags homepage_tags wagtailmetadata_tags custom_image_tags i18n static %}
 
 {% block body_id %}
-
     youtube-regrets-reporter
 {% endblock body_id %}
 
 {% block bodyclass %}
-
     has-regrets-intro
 {% endblock bodyclass %}
 
 {% block extended_head %}
-
     <link href="https://fonts.googleapis.com/css?family=Changa&Zilla+Slab"
           rel="stylesheet">
 {% endblock %}
+
 {# Empty header; Do not add <header role="banner"> to the page #}
 
 {% block header_wrapped %}{% endblock %}
 
 {% block content_wrapped %}
-
     <div class="youtube-regrets-intro-viewport">
         <div class="scene-container">
             <div class="scene">
@@ -45,6 +42,7 @@
             <div class="intro-stationary-wrapper">
 
                 {% block intro_stationary_wrapper %}{% endblock %}
+
             </div>
         </div>
         <figure class="scroll-hint text-center d-none">
@@ -57,6 +55,7 @@
     <main role="main">
 
         {% block main %}{% endblock %}
+
     </main>
 {% endblock %}
 
