@@ -98,7 +98,8 @@ jobs:
           black . --check
           djlint . --lint
           djlint . --check
-          djhtml -c maintenance/ network-api/
+          # Disable djhtml formatting until it's updated to work with djlint
+          # djhtml -c maintenance/ network-api/
       - name: Run type checks
         run: mypy network-api
       - name: Run Tests

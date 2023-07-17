@@ -343,7 +343,8 @@ def lint(ctx):
 @task
 def lint_html(ctx):
     """Run HTML linting."""
-    djhtml_check(ctx)
+    # Disable djhtml formatting until it's updated to work with djlint
+    # djhtml_check(ctx)
     djlint_check(ctx)
 
 
@@ -381,7 +382,8 @@ def format(ctx):
 def format_html(ctx):
     """Run HTML formatting."""
     djlint_format(ctx)
-    djhtml_format(ctx)
+    # Disable djhtml formatting until it's updated to work with djlint
+    # djhtml_format(ctx)
 
 
 @task
