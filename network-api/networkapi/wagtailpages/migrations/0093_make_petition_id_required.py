@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0092_add_about_block_to_libraries_landing_page'),
+        ("wagtailpages", "0092_add_about_block_to_libraries_landing_page"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='petition',
-            name='campaign_id',
-            field=models.CharField(help_text='Which campaign identifier should this petition be tied to?', max_length=20, null=True),
+            model_name="petition",
+            name="campaign_id",
+            field=models.CharField(
+                help_text="Which campaign identifier should this petition be tied to?", max_length=20, null=True
+            ),
         ),
     ]
