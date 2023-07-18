@@ -99,7 +99,6 @@ class PetitionThankYou extends Component {
    * @returns {JSX} the donation modal component to render
    */
   renderDonationModal() {
-    console.log(this.props);
     // This is where can do client-side A/B testing
     let modals = this.modals;
 
