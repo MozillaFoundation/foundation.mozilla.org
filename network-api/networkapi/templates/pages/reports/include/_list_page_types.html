@@ -1,7 +1,11 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin_tags wagtailcore_tags %}
+
 <table class="listing {% block table_classname %}{% endblock %}">
-    <col width="60%" />
     <col width="20%" />
+    <col width="15%" />
+    <col width="12%" />
+    <col width="12%" />
+    <col width="25%" />
     <col />
     <thead>
         {% block post_parent_page_headers %}
@@ -14,6 +18,18 @@
                 </th>
                 <th class="count">
                     {% trans 'Count' %}
+                </th>
+                <th class="default-locale-count">
+                    {% trans 'Count in default locale' %}
+                </th>
+                <th class="last-edited-page">
+                    {% trans 'Last edited page' %}
+                </th>
+                <th class="last-edited-at">
+                    {% trans 'Last edited' %}
+                </th>
+                <th class="last-edited-by">
+                    {% trans 'Last edited by' %}
                 </th>
                 {% block extra_columns %}
                 {% endblock %}
@@ -33,6 +49,29 @@
                         {{ page_type.app_label }}
                     </td>
                     <td class="count" valign="top">{{ page_type.count }}</td>
+                    <td class="default-locale-count" valign="top">{{ page_type.default_locale_count }}</td>
+                    {% with last_page=page_type.last_edited_pages|first %}
+                        <td class="last-edited-page" valign="top">
+                            <a href="{{ last_page.get_url }}">
+                                {{ last_page.specific_deferred.get_admin_display_title }}
+                            </a>
+                            {% i18n_enabled as show_locale_labels %}
+                            {% if show_locale_labels %}
+                                {% locale_label_from_id page.locale_id as locale_label %}
+                                <span class="status-tag status-tag--label">{{ locale_label }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="last-edited-at" valign="top">
+                            {% if last_page.latest_revision_created_at %}
+                                {% human_readable_date last_page.latest_revision_created_at %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td class="last-edited-by" valign="top">
+                            {{ last_page.revisions.last.user.username }}
+                        </td>
+                    {% endwith %}
                     {% block extra_page_data %}
                     {% endblock %}
                 </tr>
