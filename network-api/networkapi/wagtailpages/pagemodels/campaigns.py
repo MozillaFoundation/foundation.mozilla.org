@@ -171,7 +171,6 @@ class Petition(TranslatableMixin, CTA):
         max_length=20,
         help_text="Which campaign identifier should this petition be tied to?",
         null=True,
-        blank=True,
     )
 
     requires_country_code = models.BooleanField(

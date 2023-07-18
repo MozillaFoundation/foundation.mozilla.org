@@ -11,6 +11,7 @@ import classNames from "classnames";
  * Supported plain props:
  *
  *   - slug, the petition slug on foundation.mozilla.org
+ *   - campaignId, the petition's salesforce campaign ID.
  *   - name, the donate modal id
  *   - heading, the modal header
  *   - bodyText, the main text
@@ -85,6 +86,8 @@ class DonationModal extends Component {
     if (!this.donateURL) {
       this.donateURL = `?form=donate`;
     }
+    // Appending campaign ID to donate URL for tracking purposes
+    this.donateURL = `${this.donateURL}&campaign_id=${this.props.campaignId}`
     return (
       <div
         className={classNames(`modal-content`, MODAL_CONTENT_CLASS)}
