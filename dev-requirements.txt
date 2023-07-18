@@ -47,7 +47,7 @@ django==3.2.20
     #   -c requirements.txt
     #   django-debug-toolbar
     #   django-pattern-library
-django-debug-toolbar==3.5.0
+django-debug-toolbar==4.1.0
     # via -r dev-requirements.in
 django-pattern-library==1.0.0
     # via -r dev-requirements.in
