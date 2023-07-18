@@ -8,7 +8,7 @@ from .views import PageTypesReportView
 @hooks.register("register_reports_menu_item")
 def register_page_types_report_menu_item():
     return AdminOnlyMenuItem(
-        "Pages Types", reverse("page_types_report"), icon_name=PageTypesReportView.header_icon, order=700
+        "Page Types", reverse("page_types_report"), icon_name=PageTypesReportView.header_icon, order=700
     )
 
 
