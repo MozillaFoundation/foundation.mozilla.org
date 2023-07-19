@@ -87,7 +87,7 @@ class DonationModal extends Component {
       this.donateURL = `?form=donate`;
     }
     // Appending campaign ID to donate URL for tracking purposes
-    this.donateURL = `${this.donateURL}&campaign_id=${this.props.campaignId}`;
+    this.donateURL = `${this.donateURL}&c_id=${this.props.campaignId}`;
     return (
       <div
         className={classNames(`modal-content`, MODAL_CONTENT_CLASS)}
