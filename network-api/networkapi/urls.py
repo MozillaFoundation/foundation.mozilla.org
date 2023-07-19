@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
@@ -154,6 +155,12 @@ if settings.DEBUG:
 
 if settings.DEBUG_TOOLBAR_ENABLED:
     urlpatterns += (path("__debug__/", include("debug_toolbar.urls")),)
+
+# Styleguide
+if settings.PATTERN_LIBRARY_ENABLED and apps.is_installed("pattern_library"):
+    urlpatterns += [
+        path("pattern-library/", include("pattern_library.urls")),
+    ]
 
 urlpatterns += [path("sitemap.xml", sitemap_index)]
 
