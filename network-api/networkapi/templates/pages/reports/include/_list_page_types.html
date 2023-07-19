@@ -3,9 +3,10 @@
 <table class="listing {% block table_classname %}{% endblock %}">
     <col width="20%" />
     <col width="15%" />
-    <col width="12%" />
-    <col width="12%" />
+    <col width="10%" />
+    <col width="10%" />
     <col width="25%" />
+    <col />
     <col />
     <thead>
         {% block post_parent_page_headers %}
@@ -17,16 +18,16 @@
                     {% trans 'App Model' %}
                 </th>
                 <th class="count">
-                    {% trans 'Count' %}
+                    {% trans 'Pages' %}
                 </th>
                 <th class="default-locale-count">
-                    {% trans 'Count in default locale' %}
+                    {% trans 'Pages in English' %}
                 </th>
                 <th class="last-edited-page">
                     {% trans 'Last edited page' %}
                 </th>
                 <th class="last-edited-at">
-                    {% trans 'Last edited' %}
+                    {% trans 'Last edit' %}
                 </th>
                 <th class="last-edited-by">
                     {% trans 'Last edited by' %}
@@ -49,29 +50,35 @@
                         {{ page_type.app_label }}
                     </td>
                     <td class="count" valign="top">{{ page_type.count }}</td>
-                    <td class="default-locale-count" valign="top">{{ page_type.default_locale_count }}</td>
-                    {% with last_page=page_type.last_edited_pages|first %}
-                        <td class="last-edited-page" valign="top">
-                            <a href="{{ last_page.get_url }}">
-                                {{ last_page.specific_deferred.get_admin_display_title }}
+                    <td class="active-locale-count" valign="top">{{ page_type.active_locale_count }}</td>
+                    <td class="last-edited-page" valign="top">
+                        {% if page_type.last_edited_page %}
+                            <a href="{{ page_type.last_edited_page.get_url }}">
+                                {{ page_type.last_edited_page.specific_deferred.get_admin_display_title }}
                             </a>
                             {% i18n_enabled as show_locale_labels %}
                             {% if show_locale_labels %}
-                                {% locale_label_from_id page.locale_id as locale_label %}
+                                {% locale_label_from_id page_type.last_edited_page.locale_id as locale_label %}
                                 <span class="status-tag status-tag--label">{{ locale_label }}</span>
                             {% endif %}
-                        </td>
-                        <td class="last-edited-at" valign="top">
-                            {% if last_page.latest_revision_created_at %}
-                                {% human_readable_date last_page.latest_revision_created_at %}
-                            {% else %}
-                                -
-                            {% endif %}
-                        </td>
-                        <td class="last-edited-by" valign="top">
-                            {{ last_page.revisions.last.user.username }}
-                        </td>
-                    {% endwith %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td class="last-edited-at" valign="top">
+                        {% if page_type.last_edited_page.latest_revision_created_at %}
+                            {% human_readable_date page_type.last_edited_page.latest_revision_created_at %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td class="last-edited-by" valign="top">
+                        {% if page_type.last_edited_by_user %}
+                            {% include "wagtailadmin/shared/user_avatar.html" with user=page_type.last_edited_by username=page_type.last_edited_by_user %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
                     {% block extra_page_data %}
                     {% endblock %}
                 </tr>
