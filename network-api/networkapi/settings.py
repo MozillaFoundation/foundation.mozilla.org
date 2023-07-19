@@ -87,6 +87,7 @@ env = environ.Env(
     XSS_PROTECTION=bool,
     SCOUT_KEY=(str, ""),
     WAGTAILADMIN_BASE_URL=(str, ""),
+    WHITELISTED_EXTERNAL_LINKS=(list, []),
 )
 
 # Read in the environment
@@ -722,3 +723,8 @@ if DEBUG:
         "127.0.0.1",
         "10.0.2.2",
     ]
+
+# List of domains to be exempted from the rel="nofollow" attribute.
+# e.g. 'mozilla.org' will match 'anything.mozilla.org/path'
+# Or alternatively set WHITELISTED_EXTERNAL_LINKS="*" to exempt all links.
+WHITELISTED_EXTERNAL_LINKS = env("WHITELISTED_EXTERNAL_LINKS", default=["mozilla.org", "mozilla.design"])
