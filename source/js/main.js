@@ -184,3 +184,13 @@ let main = {
 };
 
 main.init();
+
+// [TO FIX]
+// hot fix for source url bug on petition form
+// see GitHub ticket: https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10901
+document.addEventListener("DOMContentLoaded", () => {
+  let sourceUrlField = document.querySelector(".wFormContainer #tfa_498");
+  if (sourceUrlField) {
+    sourceUrlField.value = decodeURIComponent(document.URL);
+  }
+});
