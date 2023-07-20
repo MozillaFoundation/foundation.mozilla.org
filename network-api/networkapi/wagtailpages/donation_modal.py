@@ -1,9 +1,12 @@
+from django.core.validators import RegexValidator
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel
 from wagtail.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import TranslatableField
+
+from networkapi.wagtailpages.constants import url_or_query_regex
 
 
 @register_snippet
@@ -33,6 +36,20 @@ class DonationModal(TranslatableMixin, models.Model):
         max_length=150,
         help_text="Donate button label",
         default="Yes, I'll chip in",
+    )
+
+    donate_url = models.CharField(
+        max_length=255,
+        blank=True,
+        validators=[
+            RegexValidator(
+                regex=url_or_query_regex,
+                message=(
+                    "Please enter a valid URL (starting with http:// or https://), "
+                    "or a valid query string starting with ? (Ex: ?form=donate)."
+                ),
+            ),
+        ],
     )
 
     dismiss_text = models.CharField(

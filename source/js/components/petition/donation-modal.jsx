@@ -16,6 +16,7 @@ import classNames from "classnames";
  *   - heading, the modal header
  *   - bodyText, the main text
  *   - donateText, the "donate" button label
+ *   - donateUrl, the URL the button should link to
  *   - shareText, the "no donate, just share" button label
  */
 
@@ -83,11 +84,14 @@ class DonationModal extends Component {
   }
 
   getModalContent() {
-    if (!this.donateURL) {
-      this.donateURL = `?form=donate`;
+    if (this.props.donateUrl) {
+      this.donateButtonUrl = this.props.donateUrl;
+    } else {
+      this.donateButtonUrl = "?form=donate";
     }
-    // Appending campaign ID to donate URL for tracking purposes
-    this.donateURL = `${this.donateURL}&c_id=${this.props.campaignId}`;
+
+    // Appending campaign ID to donate button URL for tracking purposes
+    this.donateButtonUrl += `&c_id=${this.props.campaignId}`;
     return (
       <div
         className={classNames(`modal-content`, MODAL_CONTENT_CLASS)}
@@ -116,7 +120,7 @@ class DonationModal extends Component {
           <a
             ref={(e) => (this.userElectedToDonateLink = e)}
             className="tw-btn-primary"
-            href={this.donateURL}
+            href={this.donateButtonUrl}
             tabIndex="0"
           >
             {this.props.donateText}
