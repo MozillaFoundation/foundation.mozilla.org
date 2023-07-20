@@ -17,6 +17,8 @@ Please follow the steps below every time after you paste a new version of FormAs
 
 4. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
 
+5. Until we find a better solution, remember to include hot fix for source url field like what we did in https://github.com/MozillaFoundation/foundation.mozilla.org/pull/10902
+
 The code snippet below is based on FormAssembly form revision #32
 
 {% endcomment %}
@@ -71,3 +73,15 @@ The code snippet below is based on FormAssembly form revision #32
     wFORMS.behaviors.prefill.skip = false;
 </script>
 <script type="text/javascript" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=127d5d34f78f067204f2463a3699a1688fbf2ca7"></script>
+
+<script type="text/javascript">
+    // [TO FIX]
+    // hot fix for source url bug on petition form
+    // see GitHub ticket: https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10901
+    document.addEventListener("DOMContentLoaded", () => {
+        let sourceUrlField = document.querySelector(".wFormContainer #tfa_498");
+        if (sourceUrlField) {
+            sourceUrlField.value = decodeURIComponent(document.URL);
+        }
+    });
+</script>
