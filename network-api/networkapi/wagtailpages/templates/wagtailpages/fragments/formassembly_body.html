@@ -24,10 +24,10 @@ Please follow the steps below every time after you paste a new version of FormAs
     - for postal code field: {% if show_postal_code_field %}  ... {% endif %}
     - for comment field:     {% if not show_comment_field == "none" %} ... {% endif %}
 
-6. If using a required checkbox field, add the classname 'reqMark' to the label wrapping the 
-   span element with the classname of `input-checkbox-faux`. This will ensure that the 
-   "required" asterisk renders to the right of the checkbox text. 
-    
+6. If using a required checkbox field, add the classname 'reqMark' to the label wrapping the
+   span element with the classname of `input-checkbox-faux`. This will ensure that the
+   "required" asterisk renders to the right of the checkbox text.
+
 7. Get localization working again.
     - Localize form fields. e.g., {% trans "text to be translated" %} or {% blocktrans %} ... {% endblocktrans %}
     - Localize "title" attribute and label text for the following fields:
@@ -35,12 +35,14 @@ Please follow the steps below every time after you paste a new version of FormAs
     - Localize "value" attribute for <input type="submit" ...>
     - Go to formassembly_head.html and make sure everything has been updated according to the instructions
 
-8. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
+8. Add nonce="{{ request.csp_nonce }}" to all <script> tags in this file
+
+9. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
 
 The code snippet below is based on FormAssembly form revision #32
 
-*** NOTE *** 
-We have added a custom label that states "* indicates a required field" to the template (i.e., in `petition.html`). 
+*** NOTE ***
+We have added a custom label that states "* indicates a required field" to the template (i.e., in `petition.html`).
 Please remember to take this into account when designing/implementing new forms.
 
 {% endcomment %}
@@ -49,7 +51,7 @@ Please remember to take this into account when designing/implementing new forms.
 <div class="wFormContainer" style="max-width: 100%; width:auto;">
     <div class="wFormHeader"></div>
     <style type="text/css"></style><div class=""><div class="wForm" id="9-WRPR" dir="ltr">
-        <div class="codesection" id="code-9"><script>
+        <div class="codesection" id="code-9"><script nonce="{{ request.csp_nonce }}">
             wFORMS.behaviors.paging.isConditionalSubmitAllowed = true;
             wFORMS.behaviors.condition.isConditionalSubmitAllowed = true;
         </script></div>
