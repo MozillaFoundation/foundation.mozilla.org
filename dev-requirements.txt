@@ -46,10 +46,7 @@ django==3.2.20
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
-    #   django-pattern-library
 django-debug-toolbar==4.1.0
-    # via -r dev-requirements.in
-django-pattern-library==1.0.0
     # via -r dev-requirements.in
 djhtml==1.5.2
     # via -r dev-requirements.in
@@ -78,8 +75,6 @@ idna==3.3
     #   -c requirements.txt
     #   requests
     #   urllib3
-importlib-metadata==6.7.0
-    # via markdown
 iniconfig==2.0.0
     # via pytest
 isort==5.12.0
@@ -144,9 +139,7 @@ pytz==2021.3
     #   -c requirements.txt
     #   django
 pyyaml==6.0
-    # via
-    #   django-pattern-library
-    #   djlint
+    # via djlint
 regex==2022.10.31
     # via djlint
 requests==2.31.0
@@ -198,5 +191,3 @@ urllib3-secure-extra==0.1.0
     # via
     #   -c requirements.txt
     #   urllib3
-zipp==3.15.0
-    # via importlib-metadata
