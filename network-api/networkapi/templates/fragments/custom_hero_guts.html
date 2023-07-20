@@ -1,5 +1,8 @@
 {% load static i18n wagtailimages_tags homepage_tags %}
-{% get_page_authors page as authors %}
+{# Pattern library has problems with this tag, so we exclude it from pattern library rendering. #}
+{% if not is_pattern_library %}
+    {% get_page_authors page as authors %}
+{% endif %}
 
 
 
