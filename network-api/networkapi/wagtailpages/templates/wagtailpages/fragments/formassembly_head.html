@@ -15,9 +15,11 @@ Please follow the steps below every time after you paste a new version of FormAs
         e.g., https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=...
     - Go to formassembly_body.html and make sure everything has been updated according to the instructions
 
-4. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
+4. Until we find a better solution, remember to include hot fix for source url field like what we did in https://github.com/MozillaFoundation/foundation.mozilla.org/pull/10902
 
-5. Until we find a better solution, remember to include hot fix for source url field like what we did in https://github.com/MozillaFoundation/foundation.mozilla.org/pull/10902
+5. Add nonce="{{ request.csp_nonce }}" to all <script> tags in this file
+
+6. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
 
 The code snippet below is based on FormAssembly form revision #32
 
