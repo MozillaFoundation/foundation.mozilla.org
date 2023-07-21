@@ -53,7 +53,7 @@ class DonationModal(TranslatableMixin, models.Model):
         help_text=(
             "If you would like this modal to link to a custom URL, "  
             "please enter a valid URL (starting with http:// or https://), "
-            "or a valid query string starting with ? (Ex: ?form=donate)"
+            "or a valid query string starting with ? (Ex: ?form=donate)."
         ),
     )
 
