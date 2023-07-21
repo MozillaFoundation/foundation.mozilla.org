@@ -7,13 +7,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0093_make_petition_id_required'),
+        ("wagtailpages", "0093_make_petition_id_required"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='donationmodal',
-            name='donate_url',
-            field=models.CharField(blank=True, help_text='If you would like this modal to link to a custom URL, please enter a valid URL (starting with http:// or https://), or a valid query string starting with ? (Ex: ?form=donate).', max_length=255, validators=[django.core.validators.RegexValidator(message='Please enter a valid URL (starting with http:// or https://), or a valid query string starting with ? (Ex: ?form=donate).', regex='^(https?://[\\w.-]+(/\\S*)?)?(\\?[\\w-]+(=[\\w-]*)?(&[\\w-]+(=[\\w-]*)?)*)?$')]),
+            model_name="donationmodal",
+            name="donate_url",
+            field=models.CharField(
+                blank=True,
+                help_text="If you would like this modal to link to a custom URL, please enter a valid URL (starting with http:// or https://), or a valid query string starting with ? (Ex: ?form=donate).",
+                max_length=255,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        message="Please enter a valid URL (starting with http:// or https://), or a valid query string starting with ? (Ex: ?form=donate).",
+                        regex="^(https?://[\\w.-]+(/\\S*)?)?(\\?[\\w-]+(=[\\w-]*)?(&[\\w-]+(=[\\w-]*)?)*)?$",
+                    )
+                ],
+            ),
         ),
     ]
