@@ -4,7 +4,7 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel
 from wagtail.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
-from wagtail_localize.fields import TranslatableField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.constants import url_or_query_regex
 
@@ -50,6 +50,11 @@ class DonationModal(TranslatableMixin, models.Model):
                 ),
             ),
         ],
+        help_text=(
+            "If you would like this modal to link to a custom URL, "  
+            "please enter a valid URL (starting with http:// or https://), "
+            "or a valid query string starting with ? (Ex: ?form=donate)"
+        ),
     )
 
     dismiss_text = models.CharField(
@@ -62,11 +67,12 @@ class DonationModal(TranslatableMixin, models.Model):
         TranslatableField("header"),
         TranslatableField("body"),
         TranslatableField("donate_text"),
+        SynchronizedField("donate_url"),
         TranslatableField("dismiss_text"),
     ]
 
     def to_simple_dict(self):
-        keys = ["name", "header", "body", "donate_text", "dismiss_text"]
+        keys = ["name", "header", "body", "donate_text", "donate_url", "dismiss_text"]
         values = map(lambda k: getattr(self, k), keys)
         return dict(zip(keys, values))
 
