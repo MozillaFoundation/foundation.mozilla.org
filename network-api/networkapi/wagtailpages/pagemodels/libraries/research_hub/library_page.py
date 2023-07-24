@@ -4,14 +4,15 @@ from typing import Optional
 
 from wagtail import models as wagtail_models
 
-from networkapi.wagtailpages import utils
-from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.libraries import (
     library_page as base_library_page,
 )
 from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
     detail_page,
     taxonomies,
+)
+from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
+    utils as research_utils,
 )
 from networkapi.wagtailpages.pagemodels.libraries.research_hub.forms import (
     ResearchLibraryPageFilterForm,
@@ -59,7 +60,7 @@ class ResearchLibraryPage(base_library_page.BaseLibraryPage):
 
         research_detail_pages = pages
 
-        author_profiles = utils.get_research_authors(profile_models.Profile.objects.all())
+        author_profiles = research_utils.get_research_authors()
         author_profiles = author_profiles.filter(id__in=author_profile_ids)
         for author_profile in author_profiles:
             # Synced but not translated pages are still associated with the default

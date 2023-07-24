@@ -46,7 +46,10 @@ django==3.2.20
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
-django-debug-toolbar==3.5.0
+    #   django-pattern-library
+django-debug-toolbar==4.1.0
+    # via -r dev-requirements.in
+django-pattern-library==1.0.0
     # via -r dev-requirements.in
 djhtml==1.5.2
     # via -r dev-requirements.in
@@ -62,7 +65,9 @@ exceptiongroup==1.1.1
     # via pytest
 execnet==1.9.0
     # via pytest-xdist
-flake8==3.9.2
+flake8==6.0.0
+    # via -r dev-requirements.in
+honcho==1.1.0
     # via -r dev-requirements.in
 html-tag-names==0.1.2
     # via djlint
@@ -73,6 +78,8 @@ idna==3.3
     #   -c requirements.txt
     #   requests
     #   urllib3
+importlib-metadata==6.7.0
+    # via markdown
 iniconfig==2.0.0
     # via pytest
 isort==5.12.0
@@ -81,7 +88,7 @@ jsbeautifier==1.14.7
     # via
     #   cssbeautifier
     #   djlint
-mccabe==0.6.1
+mccabe==0.7.0
     # via flake8
 mypy==1.4.1
     # via -r dev-requirements.in
@@ -103,13 +110,13 @@ pluggy==1.0.0
     # via pytest
 ptvsd==4.3.2
     # via -r dev-requirements.in
-pycodestyle==2.7.0
+pycodestyle==2.10.0
     # via flake8
 pycparser==2.21
     # via
     #   -c requirements.txt
     #   cffi
-pyflakes==2.3.1
+pyflakes==3.0.1
     # via flake8
 pyopenssl==23.2.0
     # via
@@ -117,27 +124,29 @@ pyopenssl==23.2.0
     #   urllib3
 pyparsing==3.0.7
     # via packaging
-pytest==7.3.1
+pytest==7.4.0
     # via
     #   -r dev-requirements.in
     #   pytest-cov
     #   pytest-django
     #   pytest-sugar
     #   pytest-xdist
-pytest-cov==4.0.0
+pytest-cov==4.1.0
     # via -r dev-requirements.in
 pytest-django==4.5.2
     # via -r dev-requirements.in
 pytest-sugar==0.9.7
     # via -r dev-requirements.in
-pytest-xdist==3.2.1
+pytest-xdist==3.3.1
     # via -r dev-requirements.in
 pytz==2021.3
     # via
     #   -c requirements.txt
     #   django
 pyyaml==6.0
-    # via djlint
+    # via
+    #   django-pattern-library
+    #   djlint
 regex==2022.10.31
     # via djlint
 requests==2.31.0
@@ -189,3 +198,5 @@ urllib3-secure-extra==0.1.0
     # via
     #   -c requirements.txt
     #   urllib3
+zipp==3.15.0
+    # via importlib-metadata

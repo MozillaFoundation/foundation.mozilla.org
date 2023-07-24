@@ -24,14 +24,24 @@ Please follow the steps below every time after you paste a new version of FormAs
     - for postal code field: {% if show_postal_code_field %}  ... {% endif %}
     - for comment field:     {% if not show_comment_field == "none" %} ... {% endif %}
 
-6. Get localization working again.
+6. If using a required checkbox field, add the classname 'reqMark' to the label wrapping the 
+   span element with the classname of `input-checkbox-faux`. This will ensure that the 
+   "required" asterisk renders to the right of the checkbox text. 
+    
+7. Get localization working again.
     - Localize form fields. e.g., {% trans "text to be translated" %} or {% blocktrans %} ... {% endblocktrans %}
-      - first name, last name, email, country, postal code, comments, privacy notice, email subscription
+    - Localize "title" attribute and label text for the following fields:
+        - first name, last name, email, country, postal code, comments, privacy notice, email subscription
+    - Localize "value" attribute for <input type="submit" ...>
     - Go to formassembly_head.html and make sure everything has been updated according to the instructions
 
-7. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
+8. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
 
 The code snippet below is based on FormAssembly form revision #32
+
+*** NOTE *** 
+We have added a custom label that states "* indicates a required field" to the template (i.e., in `petition.html`). 
+Please remember to take this into account when designing/implementing new forms.
 
 {% endcomment %}
 
@@ -45,17 +55,17 @@ The code snippet below is based on FormAssembly form revision #32
         </script></div>
         <form method="post" action="https://mozillafoundation.tfaforms.net/api_v2/workflow/processor" class=" labelsAbove" id="9" role="form">
             <input type="hidden" id="tfa_500" name="tfa_500" value="{{ thank_you_url_tfa_500 }}" class=""><input type="hidden" id="tfa_1" name="tfa_1" value="{{ campaign_id_tfa_1 }}" class=""><input type="hidden" id="tfa_498" name="tfa_498" value="{{ source_url_tfa_498 }}" class=""><input type="hidden" id="tfa_499" name="tfa_499" value="{{ lang_tfa_499 }}" class=""><input type="hidden" id="tfa_501" name="tfa_501" value="mozilla-foundation" class=""><div class="oneField field-container-D    " id="tfa_28-D">
-                <label id="tfa_28-L" class="label preField reqMark" for="tfa_28">{% trans "First Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_28" name="tfa_28" value="" title="First Name" class="required"></div>
+                <label id="tfa_28-L" class="label preField reqMark" for="tfa_28">{% trans "First Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_28" name="tfa_28" value="" title="{% trans "First Name" %}" class="required"></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_30-D">
-                <label id="tfa_30-L" class="label preField reqMark" for="tfa_30">{% trans "Last Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_30" name="tfa_30" value="" title="Last Name" class="required"></div>
+                <label id="tfa_30-L" class="label preField reqMark" for="tfa_30">{% trans "Last Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_30" name="tfa_30" value="" title="{% trans "Last Name" %}" class="required"></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_31-D">
-                <label id="tfa_31-L" class="label preField reqMark" for="tfa_31">{% trans "Email" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_31" name="tfa_31" value="" title="Email" class="validate-email required"></div>
+                <label id="tfa_31-L" class="label preField reqMark" for="tfa_31">{% trans "Email" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_31" name="tfa_31" value="" title="{% trans "Email" %}" class="validate-email required"></div>
             </div>
             {% if show_country_field %}
                 <div class="oneField field-container-D    " id="tfa_254-D">
-                    <label id="tfa_254-L" class="label preField " for="tfa_254">{% trans "Country" %}</label><br><div class="inputWrapper"><select id="tfa_254" name="tfa_254" title="Country" class=""><option value="">Please select...</option>
+                    <label id="tfa_254-L" class="label preField " for="tfa_254">{% trans "Country" %}</label><br><div class="inputWrapper"><select id="tfa_254" name="tfa_254" title="{% trans "Country" %}" class=""><option value="">{% trans "Please select..." %}</option>
                         <option value="tfa_255" id="tfa_255" class="">Afghanistan</option>
                         <option value="tfa_256" id="tfa_256" class="">Albania</option>
                         <option value="tfa_257" id="tfa_257" class="">Algeria</option>
@@ -297,19 +307,19 @@ The code snippet below is based on FormAssembly form revision #32
             {% endif %}
             {% if show_postal_code_field %}
                 <div class="oneField field-container-D    " id="tfa_496-D">
-                    <label id="tfa_496-L" class="label preField " for="tfa_496">{% trans "Postal Code" %}</label><br><div class="inputWrapper"><input type="text" id="tfa_496" name="tfa_496" value="" title="Postal Code" class=""></div>
+                    <label id="tfa_496-L" class="label preField " for="tfa_496">{% trans "Postal Code" %}</label><br><div class="inputWrapper"><input type="text" id="tfa_496" name="tfa_496" value="" title="{% trans "Postal Code" %}" class=""></div>
                 </div>
             {% endif %}
             {% if not show_comment_field == "none" %}
                 <div class="oneField field-container-D    " id="tfa_497-D">
-                    <label id="tfa_497-L" class="label preField " for="tfa_497">{% trans "Comments" %}</label><br><div class="inputWrapper"><textarea maxlength="500" id="tfa_497" name="tfa_497" title="Comments" class=""></textarea></div>
+                    <label id="tfa_497-L" class="label preField " for="tfa_497">{% trans "Comments" %}</label><br><div class="inputWrapper"><textarea maxlength="500" id="tfa_497" name="tfa_497" title="{% trans "Comments" %}" class=""></textarea></div>
                 </div>
             {% endif %}
             <div class="oneField field-container-D  labelsAbove  " id="tfa_492-D" role="group" aria-labelledby="tfa_492-L" data-tfa-labelledby="-L tfa_492-L" aria-required="true">
-                <label id="tfa_492-L" class="label preField reqMark" aria-label="Privacy Agreement   required">Privacy Agreement</label><br><div class="inputWrapper"><span id="tfa_492" class="choices vertical required" aria-required="true"><span class="oneChoice"><input type="checkbox" value="tfa_493" class="calc-DefaultName" id="tfa_493" name="tfa_493" aria-labelledby="tfa_493-L" data-tfa-labelledby="tfa_492-L tfa_493-L"><label class="label postField" id="tfa_493-L" for="tfa_493"><span class="input-checkbox-faux"></span>I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/" target="_blank">Privacy Notice</a>.</label></span></span></div>
+                <label id="tfa_492-L" class="label preField" aria-label="Privacy Agreement  required">Privacy Agreement</label><br><div class="inputWrapper"><span id="tfa_492" class="choices vertical required" aria-required="true"><span class="oneChoice"><input type="checkbox" value="tfa_493" class="calc-DefaultName" id="tfa_493" name="tfa_493" aria-labelledby="tfa_493-L" data-tfa-labelledby="tfa_492-L tfa_493-L"><label class="label reqMark postField" id="tfa_493-L" for="tfa_493"><span class="input-checkbox-faux"></span>{% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}I’m okay with Mozilla handling my info as explained in this <a href="{{ link }}" target="_blank">Privacy Notice</a>.{% endblocktrans %}</label></span></span></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_494-D" role="group" aria-labelledby="tfa_494-L" data-tfa-labelledby="-L tfa_494-L">
-                <label id="tfa_494-L" class="label preField ">Email Subscription</label><br><div class="inputWrapper"><span id="tfa_494" class="choices vertical "><span class="oneChoice"><input type="checkbox" value="tfa_495" class="" id="tfa_495" name="tfa_495" aria-labelledby="tfa_495-L" data-tfa-labelledby="tfa_494-L tfa_495-L"><label class="label postField" id="tfa_495-L" for="tfa_495"><span class="input-checkbox-faux"></span>Yes, I want to receive email updates about Mozilla’s campaigns.</label></span></span></div>
+                <label id="tfa_494-L" class="label preField ">Email Subscription</label><br><div class="inputWrapper"><span id="tfa_494" class="choices vertical "><span class="oneChoice"><input type="checkbox" value="tfa_495" class="" id="tfa_495" name="tfa_495" aria-labelledby="tfa_495-L" data-tfa-labelledby="tfa_494-L tfa_495-L"><label class="label postField" id="tfa_495-L" for="tfa_495"><span class="input-checkbox-faux"></span>{% trans "Yes, I want to receive email updates about Mozilla’s campaigns." %}</label></span></span></div>
             </div>
             <div class="actions" id="9-A" data-contentid="submit_button"><input type="submit" data-label="Add my name" class="primaryAction" id="submit_button" value="{% trans "Add my name" %}"></div>
             <div style="clear:both"></div>
