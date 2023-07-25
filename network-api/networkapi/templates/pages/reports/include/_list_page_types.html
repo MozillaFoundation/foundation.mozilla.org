@@ -1,6 +1,6 @@
 {% load i18n wagtailadmin_tags wagtailcore_tags %}
 
-<table class="listing {% block table_classname %}{% endblock %}">
+<table class="listing {% block table_classname %}{% endblock table_classname %}">
     <col width="20%" />
     <col width="15%" />
     <col width="10%" />
@@ -12,39 +12,39 @@
         {% block post_parent_page_headers %}
             <tr class="table-headers">
                 <th class="title">
-                    {% trans 'Page Type' %}
+                    {% trans "Page Type" %}
                 </th>
                 <th class="app-label">
-                    {% trans 'App Model' %}
+                    {% trans "App Model" %}
                 </th>
                 <th class="count">
-                    {% trans 'Pages' %}
+                    {% trans "Pages" %}
                 </th>
                 <th class="default-locale-count">
-                    {% trans 'Pages in' %} {{ active_locale_name}}
+                    {% trans "Pages in" %} {{ active_locale_name }}
                 </th>
                 <th class="last-edited-page">
-                    {% trans 'Last edited page' %}
+                    {% trans "Last edited page" %}
                 </th>
                 <th class="last-edited-at">
-                    {% trans 'Last edit' %}
+                    {% trans "Last edit" %}
                 </th>
                 <th class="last-edited-by">
-                    {% trans 'Last edited by' %}
+                    {% trans "Last edited by" %}
                 </th>
                 {% block extra_columns %}
-                {% endblock %}
+                {% endblock extra_columns %}
             </tr>
-        {% endblock %}
+        {% endblock post_parent_page_headers %}
     </thead>
     <tbody>
         {% if page_types %}
             {% for page_type in page_types %}
-                <tr class="{% block page_row_classname %}{% endblock %}">
+                <tr class="{% block page_row_classname %}{% endblock page_row_classname %}">
                     <td class="page-type" valign="top" data-listing-page-type>
                         {% block page_type %}
                             {{ page_type.name|title }}
-                        {% endblock %}
+                        {% endblock page_type %}
                     </td>
                     <td class="app-label" valign="top">
                         {{ page_type.app_label }}
@@ -80,13 +80,13 @@
                         {% endif %}
                     </td>
                     {% block extra_page_data %}
-                    {% endblock %}
+                    {% endblock extra_page_data %}
                 </tr>
             {% endfor %}
         {% else %}
             {% block no_results %}
                 <p>{% trans "No pages found." %}</p>
-            {% endblock %}
+            {% endblock no_results %}
         {% endif %}
     </tbody>
 </table>
