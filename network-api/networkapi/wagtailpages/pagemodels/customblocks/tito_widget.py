@@ -37,7 +37,7 @@ class TitoWidgetBlock(blocks.StructBlock):
         If not, default to English, to prevent the Tito widget from crashing due to an unsupported language.
         For more info see: https://github.com/mozilla/foundation.mozilla.org/issues/9790
         """
-        tito_supported_language_codes = ["en", "de", "es", "fr", "nl", "pl"]
+        tito_supported_language_codes = ["en", "de", "es", "fr", "nl", "pl", "sw"]
         default_language_code = settings.LANGUAGE_CODE
 
         if request_language_code in tito_supported_language_codes:
