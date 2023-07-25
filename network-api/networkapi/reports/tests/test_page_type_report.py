@@ -1,10 +1,10 @@
 from wagtail.models import ContentType
-from wagtailpages.tests.base import WagtailpagesTestCase
 
 from networkapi.reports.views import PageTypesReportView
 from networkapi.wagtailpages.factory.buyersguide import ProductPageFactory
 from networkapi.wagtailpages.factory.profiles import ProfileFactory
 from networkapi.wagtailpages.models import Homepage, ProductPage, Profile
+from networkapi.wagtailpages.tests.base import WagtailpagesTestCase
 
 
 class PageTypesReportViewTest(WagtailpagesTestCase):
