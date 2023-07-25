@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db.models import Count, OuterRef, Q, Subquery
+from django.utils import translation
 from wagtail.admin.views.reports import ReportView
 from wagtail.models import ContentType, Locale, Page, PageLogEntry, get_page_models
 from wagtail.users.utils import get_deleted_user_display_name
@@ -15,6 +16,7 @@ class PageTypesReportView(ReportView):
         self.user_model = get_user_model()
         self.default_locale = Locale.get_default()
         self.active_locale = Locale.get_active()
+        self.active_locale_name = translation.get_language_info(self.active_locale.language_code)["name_local"]
 
     def add_last_edited_name_to_page_type(self, username_mapping, page_type):
         if page_type.last_edited_by:
@@ -57,3 +59,10 @@ class PageTypesReportView(ReportView):
             )
             .order_by("-count")
         )
+
+    def get_context_data(self, *args, object_list=None, **kwargs):
+        queryset = object_list if object_list is not None else self.object_list
+
+        context = super().get_context_data(*args, object_list=queryset, **kwargs)
+        context["active_locale_name"] = self.active_locale_name
+        return context
