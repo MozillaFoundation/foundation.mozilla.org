@@ -99,13 +99,13 @@ class PageTypesReportViewTest(WagtailpagesTestCase):
         ProductPageFactory(parent=self.homepage)
         ProductPageFactory(parent=self.homepage)
         # Create some users:
-        user_a = self.create_superuser(username="user_a")
-        user_b = self.create_superuser(username="user_b")
+        user_a = self.create_superuser(username="user_a", first_name="John", last_name="Doe")
+        user_b = self.create_superuser(username="user_b", first_name="Jane", last_name="Doe")
         # Edit the first product page with user_a
-        revision = product_page_a.save_revision()
+        revision = product_page_a.save_revision(user=user_a)
         revision.publish(user=user_a)
         # Re-edit the first product page with user_b
-        revision = product_page_a.save_revision()
+        revision = product_page_a.save_revision(user=user_b)
         revision.publish(user=user_b)
         # Get the queryset:
         queryset = self.view.decorate_paginated_queryset(self.view.get_queryset())
