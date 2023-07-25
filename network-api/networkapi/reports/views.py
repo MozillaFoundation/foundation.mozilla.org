@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.db.models import Count, OuterRef, Q, Subquery
-from wagtail.admin.auth import permission_denied
 from wagtail.admin.views.reports import ReportView
 from wagtail.models import ContentType, Locale, Page, PageLogEntry, get_page_models
 from wagtail.users.utils import get_deleted_user_display_name
@@ -58,8 +57,3 @@ class PageTypesReportView(ReportView):
             )
             .order_by("-count")
         )
-
-    def dispatch(self, request, *args, **kwargs):
-        if not self.request.user.is_superuser:
-            return permission_denied(request)
-        return super().dispatch(request, *args, **kwargs)
