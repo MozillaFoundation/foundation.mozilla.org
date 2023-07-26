@@ -128,13 +128,21 @@ $input-font-size: 1.25rem !important;
 }
 
 // Hide labels and extra line breaks:
-//   Privacy agreenment #tfa_492-L
-//   Email subscription #tfa_494-L
+//   Privacy agreenment #tfa_492-L #tfa_492-D
+//   Email subscription #tfa_494-L #tfa_494-D
 #tfa_492-L,
 #tfa_492-L br,
+#tfa_492-D br,
 #tfa_494-L,
-#tfa_494-L br {
+#tfa_494-L br,
+#tfa_494-D br {
   display: none;
+}
+
+// Increase margin above privacy agreement checkbox
+//   Privacy agreenment #tfa_492-D
+#tfa_492-D {
+  margin-top: 1.5rem;
 }
 
 // Reduce margin above email subscription checkbox
