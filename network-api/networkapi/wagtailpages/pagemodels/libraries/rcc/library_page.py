@@ -3,12 +3,11 @@ from functools import cached_property
 
 from wagtail import models as wagtail_models
 
-from networkapi.wagtailpages import utils
-from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.libraries import (
     library_page as base_library_page,
 )
 from networkapi.wagtailpages.pagemodels.libraries.rcc import detail_page, taxonomies
+from networkapi.wagtailpages.pagemodels.libraries.rcc import utils as rcc_utils
 from networkapi.wagtailpages.pagemodels.libraries.rcc.forms import (
     RCCLibraryPageFilterForm,
 )
@@ -59,7 +58,7 @@ class RCCLibraryPage(base_library_page.BaseLibraryPage):
 
         rcc_detail_pages = pages
 
-        author_profiles = utils.get_rcc_authors(profile_models.Profile.objects.all())
+        author_profiles = rcc_utils.get_rcc_authors()
         author_profiles = author_profiles.filter(id__in=author_profile_ids)
         for author_profile in author_profiles:
             # Synced but not translated pages are still associated with the default

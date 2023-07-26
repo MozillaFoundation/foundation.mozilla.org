@@ -2,12 +2,12 @@ from django import forms
 from django.utils.translation import pgettext_lazy
 
 from networkapi.wagtailpages import utils
-from networkapi.wagtailpages.pagemodels import profiles as profile_models
 from networkapi.wagtailpages.pagemodels.libraries.rcc import taxonomies
+from networkapi.wagtailpages.pagemodels.libraries.rcc import utils as rcc_utils
 
 
 def _get_author_options():
-    author_profiles = utils.get_rcc_authors(profile_models.Profile.objects.all())
+    author_profiles = rcc_utils.get_rcc_authors()
     author_profiles = utils.localize_queryset(author_profiles, order_by="name")
     return [(author_profile.id, author_profile.name) for author_profile in author_profiles]
 
