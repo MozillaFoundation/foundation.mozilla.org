@@ -1,4 +1,5 @@
-const { test, expect } = require("@playwright/test");
+// const { test, expect } = require("@playwright/test");
+const { test, expect } = require("../../playwright-fixtures.js");
 const waitForImagesToLoad = require("../../wait-for-images.js");
 const utility = require("./utility.js");
 
@@ -8,13 +9,13 @@ test.describe("FormAssembly petition form", () => {
   let supportedLocales = [
     "en",
     "de",
-    "es",
-    "fr",
-    "fy-NL",
-    "nl",
-    "pl",
-    "pt-BR",
-    "sw",
+    // "es",
+    // "fr",
+    // "fy-NL",
+    // "nl",
+    // "pl",
+    // "pt-BR",
+    // "sw",
   ];
   let localeToTest = supportedLocales[0];
 

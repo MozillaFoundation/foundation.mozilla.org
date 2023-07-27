@@ -179,3 +179,13 @@ jobs:
           python network-api/manage.py load_fake_data
       - name: Integration Tests
         run: npm run playwright:ci
+
+  test_accessibility:
+    name: Accessibility testing
+    runs-on: ubuntu-20.04
+    needs: test_integration
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dequelabs/axe-devhub-action@v1
+        with:
+          api_key: ${{ secrets.AXE_DEV_HUB_API_KEY }}
