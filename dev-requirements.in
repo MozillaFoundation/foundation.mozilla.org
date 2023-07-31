@@ -1,5 +1,4 @@
 -c requirements.txt
-django-pattern-library
 black
 coveralls
 django-debug-toolbar

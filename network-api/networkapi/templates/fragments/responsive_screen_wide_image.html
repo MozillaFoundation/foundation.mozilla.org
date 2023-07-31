@@ -10,19 +10,17 @@
     xlarge: "1200px",
     "2xl": "1400px",
   {% endcomment %}
-    {% if not is_pattern_library %}
-        {% image image_object width-576 as img_576 %}
-        {% image image_object width-1152 as img_576_2x %}
-        {% image image_object width-768 as img_768 %}
-        {% image image_object width-1536 as img_768_2x %}
-        {% image image_object width-992 as img_992 %}
-        {% image image_object width-1984 as img_992_2x %}
-        {% image image_object width-1200 as img_1200 %}
-        {% image image_object width-2400 as img_1200_2x %}
-        {% image image_object width-1400 as img_1400 %}
-        {% image image_object width-2800 as img_1400_2x %}
-        {% image image_object original as img_original %}
-    {% endif %}
+    {% image image_object width-576 as img_576 %}
+    {% image image_object width-1152 as img_576_2x %}
+    {% image image_object width-768 as img_768 %}
+    {% image image_object width-1536 as img_768_2x %}
+    {% image image_object width-992 as img_992 %}
+    {% image image_object width-1984 as img_992_2x %}
+    {% image image_object width-1200 as img_1200 %}
+    {% image image_object width-2400 as img_1200_2x %}
+    {% image image_object width-1400 as img_1400 %}
+    {% image image_object width-2800 as img_1400_2x %}
+    {% image image_object original as img_original %}
     <source
         media="(max-width: 576px)"
         srcset="{{ img_576.url }}, {{ img_576_2x.url }} 2x"
