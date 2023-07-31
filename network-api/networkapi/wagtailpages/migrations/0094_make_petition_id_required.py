@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0092_add_about_block_to_libraries_landing_page"),
+        ("wagtailpages", "0093_auto_20230726_2248"),
     ]
 
     operations = [
