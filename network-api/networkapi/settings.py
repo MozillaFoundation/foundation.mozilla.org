@@ -263,7 +263,7 @@ INSTALLED_APPS = list(
             "networkapi.mozfest",
             "networkapi.donate",
             "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
-            "networkapi.project_styleguide" if PATTERN_LIBRARY_ENABLED else None,
+            "networkapi.project_styleguide",
         ],
     )
 )
