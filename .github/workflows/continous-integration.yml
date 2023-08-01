@@ -189,3 +189,4 @@ jobs:
       - uses: dequelabs/axe-devhub-action@v1
         with:
           api_key: ${{ secrets.AXE_DEV_HUB_API_KEY }}
+          server_url: https://axe.dequelabs.com
