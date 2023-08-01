@@ -7,7 +7,10 @@
             {% for entry in menu_pages %}
                 {% pageurl entry.page as entry_page_url %}
                 <div class="multipage-link-wrapper">
-                    <a class="multipage-link {% if current_page_url == entry_page_url %}active{% endif %} {% if entry.restriction != None %}multipage-{{ entry.restriction }}-restricted{% endif %} {% if not entry.page.live %}multipage-draft{% endif %}" href="{% pageurl entry.page %}">{% if entry.depth == 2 %}→ {% endif %}{{ entry.menu_title }}
+                    <a class="multipage-link {% if current_page_url == entry_page_url %}active{% endif %} {% if entry.restriction != None %}multipage-{{ entry.restriction }}-restricted{% endif %} {% if not entry.page.live %}multipage-draft{% endif %}"
+                       href="{% pageurl entry.page %}">
+                        {% if entry.depth == 2 %}→{% endif %}
+                        {{ entry.menu_title }}
                     </a>
                 </div>
             {% endfor %}

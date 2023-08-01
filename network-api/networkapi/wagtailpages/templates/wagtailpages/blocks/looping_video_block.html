@@ -1,18 +1,15 @@
 {% extends "./base_streamfield_block.html" %}
-{% load wagtailcore_tags wagtailimages_tags i18n static %}
-{% image page.hero_image original as img %}
 
+{% load wagtailcore_tags wagtailimages_tags i18n static %}
+
+{% image page.hero_image original as img %}
 {% comment %}
 The looping_video_block.html is used on Blog pages to house looping, muted, fullwidth videos.
 {% endcomment %}
 
-{% block block_container_classes %}
-    full-width
-{% endblock %}
+{% block block_container_classes %}full-width{% endblock %}
 
-{% block block_row_classes %}
-    tw-mx-0
-{% endblock %}
+{% block block_row_classes %}tw-mx-0{% endblock %}
 
 {% block main_block_class %}
     streamfield-content
@@ -24,17 +21,12 @@ The looping_video_block.html is used on Blog pages to house looping, muted, full
         <div class="banner tw-my-8">
             <div class="background-wrapper">
                 <video class="banner-video" playsinline muted loop preload>
-                    <source
-                        src="{{ value.video_url }}"
-                        type="video/mp4">
+                    <source src="{{ value.video_url }}" type="video/mp4">
                 </video>
-
                 <div class="video-control-wrapper tw-dark">
                     <div class="tw-row tw-mr-8">
-                        <button class="btn-video-control btn-pause tw-btn-secondary tw-hidden tw-ml-auto">
-                        </button>
-                        <button class="btn-video-control btn-play tw-btn-secondary tw-hidden tw-ml-auto">
-                        </button>
+                        <button class="btn-video-control btn-pause tw-btn-secondary tw-hidden tw-ml-auto"></button>
+                        <button class="btn-video-control btn-play tw-btn-secondary tw-hidden tw-ml-auto"></button>
                     </div>
                 </div>
             </div>

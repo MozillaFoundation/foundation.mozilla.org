@@ -1,8 +1,11 @@
 {% extends "pages/libraries/landing_page.html" %}
+
 {% load i18n l10n wagtailcore_tags %}
 
 {% block search_bar %}
+
     {% include "fragments/libraries/rcc/search_bar.html" %}
+
 {% endblock search_bar %}
 
 {% block browse_all_button_label %}
@@ -16,7 +19,9 @@
 {% block detail_page_cards %}
     {% for rcc_detail_page in page.latest_detail_pages %}
         <li class="tw-py-8 small:tw-my-8 small:tw-bg-gray-05 small:tw-p-16">
+
             {% include "fragments/libraries/rcc/detail_card.html" with detail_page=rcc_detail_page hide_related_topics=True landing_page=True %}
+
         </li>
     {% endfor %}
 {% endblock detail_page_cards %}

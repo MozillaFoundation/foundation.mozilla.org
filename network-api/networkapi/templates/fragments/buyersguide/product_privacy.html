@@ -2,6 +2,7 @@
 
 {% if value != hide_value %}
     <section class="criterion value-{{ value|lower }}">
+
         {% include "fragments/buyersguide/product_criterion_primary_info.html"  with  label=label  value=value %}
 
         {% if links|length > 0 %}
@@ -9,14 +10,17 @@
                 {% for link in links %}
                     <li class="pni-product-helptext">
                         {% if link.url != "" %}
-                            <a class="privacy-policy-link" href="{{ link.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ link.label }} {% trans "(opens in a new tab)" %}">{{ link.label }}</a>
+                            <a class="privacy-policy-link"
+                               href="{{ link.url }}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="{{ link.label }} {% trans "(opens in a new tab)" %}">{{ link.label }}</a>
                         {% else %}
                             <span>{{ link.label }}</span>
                         {% endif %}
                     </li>
                 {% endfor %}
             </ul>
-
         {% endif %}
     </section>
 {% endif %}

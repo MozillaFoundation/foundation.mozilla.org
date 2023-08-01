@@ -1,4 +1,5 @@
 {% extends "pages/libraries/library_page.html" %}
+
 {% load static breadcrumbs %}
 
 {% block breadcrumbs %}
@@ -6,13 +7,17 @@
 {% endblock breadcrumbs %}
 
 {% block search_bar %}
+
     {% include "fragments/libraries/research_hub/search_bar.html" %}
+
 {% endblock search_bar %}
 
 {% block detail_pages %}
     {% for detail_page in detail_pages %}
         <li class="tw-m-0 tw-pt-12 tw-pb-12">
+
             {% include "fragments/libraries/research_hub/detail_card.html" with detail_page=detail_page hide_authors=False hide_image_on_mobile=True hide_related_content_types_on_mobile=True %}
+
         </li>
     {% endfor %}
 {% endblock detail_pages %}

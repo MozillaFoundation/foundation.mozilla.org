@@ -1,14 +1,19 @@
 {% extends "pages/libraries/landing_page.html" %}
+
 {% load i18n l10n wagtailcore_tags %}
 
 {% block search_bar %}
+
     {% include "fragments/libraries/research_hub/search_bar.html" %}
+
 {% endblock search_bar %}
 
 {% block detail_page_cards %}
     {% for research_detail_page in page.latest_detail_pages %}
         <li class="tw-py-8 small:tw-my-8 small:tw-bg-gray-05 small:tw-p-16">
+
             {% include "fragments/libraries/research_hub/detail_card.html" with detail_page=research_detail_page hide_related_topics=True landing_page=True %}
+
         </li>
     {% endfor %}
 {% endblock detail_page_cards %}
@@ -19,7 +24,9 @@
             <h2 class="tw-h5-heading tw-text-blue-80 tw-mb-2">
                 <a href="{% pageurl page.library_page %}?topic={{ featured_topic.topic.id|unlocalize }}">{{ featured_topic.topic.name }}</a>
             </h2>
-            <p class="tw-body tw-text-gray-80 tw-text-base medium:tw-text-xs large:tw-text-base tw-pt-2"> {{ featured_topic.topic.description }}</p>
+            <p class="tw-body tw-text-gray-80 tw-text-base medium:tw-text-xs large:tw-text-base tw-pt-2">
+                {{ featured_topic.topic.description }}
+            </p>
         </li>
     {% endfor %}
 {% endblock featured_taxonomies %}

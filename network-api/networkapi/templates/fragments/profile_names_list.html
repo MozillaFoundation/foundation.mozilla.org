@@ -2,7 +2,13 @@
 
 {% spaceless %}
     {% for profile in profiles %}
-        {% if not forloop.first %}{% if not forloop.last %}<span class="tw-font-extrabold">, </span>{% else %}<span> {% trans "and" %} </span>{% endif %}{% endif %}
+        {% if not forloop.first %}
+            {% if not forloop.last %}
+                <span class="tw-font-extrabold">,</span>
+            {% else %}
+                <span>{% trans "and" %}</span>
+            {% endif %}
+        {% endif %}
         <span class="tw-font-extrabold">{{ profile.name }}</span>
     {% endfor %}
 {% endspaceless %}

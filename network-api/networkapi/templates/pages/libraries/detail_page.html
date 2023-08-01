@@ -1,35 +1,42 @@
 {% extends "pages/libraries/base.html" %}
+
 {% load i18n wagtailcore_tags wagtailimages_tags %}
 
 {% block library_content %}
     <div class="tw-grid tw-grid-cols-1 tw-grid-rows-[auto_auto_1fr] medium:tw-grid-cols-[12rem_1fr_14rem] large:tw-grid-cols-[14rem_1fr_16rem] xlarge:tw-grid-cols-[14rem_1fr_16rem] tw-gap-12">
+        <div id="breadcrumbs-container"
+             class="medium:tw-col-start-2 medium:tw-col-end-4">
 
-        <div id="breadcrumbs-container" class="medium:tw-col-start-2 medium:tw-col-end-4">
-            {% block breadcrumbs %}{% endblock breadcrumbs %}
+            {% block breadcrumbs %}
+            {% endblock breadcrumbs %}
+
         </div>
-
-        <div id="title-and-meta" class="medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3 tw-min-w-0">
+        <div id="title-and-meta"
+             class="medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3 tw-min-w-0">
             <h1>{{ page.title }}</h1>
             <div class="tw-flex tw-flex-row tw-text-xs large:tw-text-base tw-text-gray-80 tw-uppercase tw-divide-x tw-divide-gray-20">
-                {% block detail_page_metadata %}{% endblock detail_page_metadata %}
+
+                {% block detail_page_metadata %}
+                {% endblock detail_page_metadata %}
+
             </div>
         </div>
-
-        <div id="cover-image-container" class="medium:tw-col-start-1 medium:tw-row-start-2 medium:tw-row-end-4">
+        <div id="cover-image-container"
+             class="medium:tw-col-start-1 medium:tw-row-start-2 medium:tw-row-end-4">
             {% image page.cover_image fill-259x344 class="tw-w-full tw-h-auto" %}
         </div>
-
-        <div id="intro-and-links" class="medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3">
+        <div id="intro-and-links"
+             class="medium:tw-col-start-2 medium:tw-col-end-4 xlarge:tw-col-end-3">
             {% if page.introduction %}
                 <p class="tw-font-light tw-text-lg large:tw-text-xl tw-mb-12">{{ page.introduction }}</p>
             {% endif %}
-
             {% if page.links %}
                 <div class="tw-flex tw-flex-col medium:tw-flex-row tw-gap-6">
                     {% for link in page.links.all %}
                         {% with label=link.label url=link.get_url %}
                             {% if label and url %}
-                                <a href="{{ url }}" class="tw-justify-center {% if forloop.first %} tw-btn-primary {% else %} tw-btn-secondary {% endif %}">
+                                <a href="{{ url }}"
+                                   class="tw-justify-center {% if forloop.first %} tw-btn-primary {% else %} tw-btn-secondary {% endif %}">
                                     {{ label }}
                                 </a>
                             {% endif %}
@@ -38,37 +45,44 @@
                 </div>
             {% endif %}
         </div>
-
-        <div id="overview" class="medium:tw-col-start-1 xlarge:tw-col-start-2 medium:tw-col-end-3 tw-mt-12 medium:tw-mt-24">
+        <div id="overview"
+             class="medium:tw-col-start-1 xlarge:tw-col-start-2 medium:tw-col-end-3 tw-mt-12 medium:tw-mt-24">
             {% if page.overview %}
                 <div class="tw-border-t tw-border-black">
                     <h2 class="tw-h3-heading tw-my-12">{% trans "Overview" context "Library detail page section heading" %}</h2>
-                    <div class="tw-text-lg">
-                        {{ page.overview|richtext }}
-                    </div>
+                    <div class="tw-text-lg">{{ page.overview|richtext }}</div>
                 </div>
             {% endif %}
         </div>
-
-        <div id="authors-and-collaborators" class="medium:tw-col-start-3 medium:tw-col-end-4 tw-mt-12 medium:tw-mt-24">
+        <div id="authors-and-collaborators"
+             class="medium:tw-col-start-3 medium:tw-col-end-4 tw-mt-12 medium:tw-mt-24">
             {% if page.localized_authors %}
                 <div class="tw-border-t tw-border-black">
                     <h2 class="tw-h4-heading tw-my-12">{% trans "Project leads" %}</h2>
                     <ul class="tw-p-0 tw-list-none">
+
                         {% block project_leads %}
                             {% for author in page.localized_authors %}
                                 <li class="tw-mb-12">
+
                                     {% include "fragments/libraries/author_card.html" with url_name=page.authors_detail_url_name authors_index=page.authors_index_page author_profile=author tight=True %}
+
                                 </li>
                             {% endfor %}
                         {% endblock project_leads %}
+
                     </ul>
                 </div>
             {% endif %}
-
             {% if page.collaborators %}
                 <div class="tw-border-t tw-border-black tw-mt-24">
-                    <h2 class="tw-h4-heading tw-my-12">{% block collaborators_label %}{% trans "Collaborators" %}{% endblock collaborators_label %}</h2>
+                    <h2 class="tw-h4-heading tw-my-12">
+
+                        {% block collaborators_label %}
+                            {% trans "Collaborators" %}
+                        {% endblock collaborators_label %}
+
+                    </h2>
                     <p class="tw-text-sm large:tw-text-base">{{ page.collaborators }}</p>
                 </div>
             {% endif %}

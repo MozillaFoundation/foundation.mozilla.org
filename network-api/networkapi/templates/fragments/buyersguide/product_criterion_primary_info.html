@@ -5,17 +5,15 @@
         {{ label }}
         {% if info != None and info != "" %}
             <a href="{{ info }}">
-                <img src="{% static "_images/buyers-guide/icon-info-circle.svg" %}" alt="{% trans "information" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-ml-4 tw-mb-2">
+                <img src="{% static "_images/buyers-guide/icon-info-circle.svg" %}"
+                     alt="{% trans "information" context "icon description for screen readers" %}"
+                     class="tw-h-8 tw-w-8 tw-ml-4 tw-mb-2">
             </a>
         {% endif %}
     </h3>
     {% if rich_text_value %}
-        <div class="criterion-richtext-value mb-0 rating">
-            {{ value|richtext }}
-        </div>
+        <div class="criterion-richtext-value mb-0 rating">{{ value|richtext }}</div>
     {% else %}
-        <p class="rating pni-product-smaller-body mb-0">
-            {% trans value|extended_yes_no context value|extended_yes_no %}
-        </p>
+        <p class="rating pni-product-smaller-body mb-0">{% trans value|extended_yes_no context value|extended_yes_no %}</p>
     {% endif %}
 </div>
