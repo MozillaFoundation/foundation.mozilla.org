@@ -416,25 +416,6 @@ def black_check(ctx):
     black(ctx, ". --check")
 
 
-@task(help={"args": "Override the arguments passed to djhtml."})
-def djhtml(ctx, args=None):
-    """Run djhtml code indenter."""
-    args = args or "-h"
-    pyrun(ctx, command=f"djhtml {args}")
-
-
-@task
-def djhtml_check(ctx):
-    """Run djhtml code indenter in check mode."""
-    djhtml(ctx, args="-c maintenance/ network-api/")
-
-
-@task
-def djhtml_format(ctx):
-    """Run djhtml code indenter in formatting mode."""
-    djhtml(ctx, args="-i maintenance/ network-api/")
-
-
 @task(help={"args": "Override the arguments passed to djlint."})
 def djlint(ctx, args=None):
     """Run djlint code formatter and linter."""
