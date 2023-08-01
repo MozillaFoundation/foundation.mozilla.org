@@ -138,8 +138,10 @@ pytz==2021.3
     # via
     #   -c requirements.txt
     #   django
-pyyaml==6.0
-    # via djlint
+pyyaml==6.0.1
+    # via
+    #   -c requirements.txt
+    #   djlint
 regex==2022.10.31
     # via djlint
 requests==2.31.0
