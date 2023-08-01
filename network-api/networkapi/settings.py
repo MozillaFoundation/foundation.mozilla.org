@@ -257,6 +257,7 @@ INSTALLED_APPS = list(
             "networkapi.wagtailpages",
             "networkapi.mozfest",
             "networkapi.donate",
+            "networkapi.reports",
         ],
     )
 )
