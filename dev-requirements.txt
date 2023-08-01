@@ -48,8 +48,6 @@ django==3.2.20
     #   django-debug-toolbar
 django-debug-toolbar==4.1.0
     # via -r dev-requirements.in
-djhtml==1.5.2
-    # via -r dev-requirements.in
 djlint==1.32.1
     # via -r dev-requirements.in
 docopt==0.6.2
