@@ -7,7 +7,9 @@
                 <h1 class="tw-h1-heading">{% trans "Uh oh!" %}</h1>
             </div>
             <p class="h5-black">{% trans "Sorry, the page does not exist" %}</p>
-            <p>{% blocktrans with email=email|default:'network@mozillafoundation.org' %}<a href="mailto:{{ email }}">Contact us</a> or ...{% endblocktrans %}</p>
+            <p>
+                {% blocktrans with email=email|default:'network@mozillafoundation.org' %}<a href="mailto:{{ email }}">Contact us</a> or ...{% endblocktrans %}
+            </p>
             <a href="/" class="tw-btn-secondary">{% trans "Go to home page" %}</a>
         </div>
         <div class="col-md-5 pt-5 p-md-5 flex-first flex-md-last">

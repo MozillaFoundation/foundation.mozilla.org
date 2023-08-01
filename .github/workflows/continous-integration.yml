@@ -97,13 +97,9 @@ jobs:
           isort . --check-only
           black . --check
           djlint . --lint
-          # Skipping djlint format checking because it has consistency issues and issues with blocktrans.
-          # This should change when formatting is moved to a version using and AST.
-          # See also: https://github.com/Riverside-Healthcare/djLint/issues/493
-          # djlint . --check
-          #
-          # Using djhtml indent check in the meantime.
-          djhtml -c maintenance/ network-api/
+          djlint . --check
+          # Disable djhtml formatting until it's updated to work with djlint
+          # djhtml -c maintenance/ network-api/
       - name: Run type checks
         run: mypy network-api
       - name: Run Tests

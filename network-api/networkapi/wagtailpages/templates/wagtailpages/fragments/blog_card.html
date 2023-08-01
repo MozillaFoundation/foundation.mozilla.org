@@ -7,12 +7,13 @@
 The following block needs to know where the blog IndexPage is,
 so it checks whether "we" are the index page, and if not, it
 crawls up the ancestor tree until it has found it.
-
 (Without it, we cannot generate the links to /blob/tag/... for
 each blog page's dominant tag)
 
 {% block tags %}
+
     {% include "./blog_topics.html" with topics=page.specific.topics.all %}
+
 {% endblock %}
 
 {% block published_date %}
@@ -24,5 +25,7 @@ each blog page's dominant tag)
 {% endblock %}
 
 {% block byline %}
+
     {% include "./blog_authors.html" with blog_page=page.specific blog_index=page.get_parent.specific %}
+
 {% endblock %}

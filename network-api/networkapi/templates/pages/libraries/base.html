@@ -1,21 +1,25 @@
 {% extends "wagtailpages/modular_page.html" %}
 
 {% block hero_guts %}
+
     {% include "fragments/libraries/hero_guts.html" with banner_image=page.get_banner %}
+
 {% endblock hero_guts %}
 
 {% block subcontent %}
     <div class="tw-container small:tw-px-0">
         <div class="tw-bg-white -tw-ml-8 small:tw-ml-0 -tw-mt-16 tw-pb-12 medium:tw-pb-16 large:tw-pb-24 tw-pl-8 small:tw-pr-8 tw-pt-8 medium:tw-pt-12 large:tw-pt-24 large:tw-px-12 tw-w-auto">
+
             {% block library_content %}
-                <h1>
-                    {{ page.title }}
-                </h1>
+                <h1>{{ page.title }}</h1>
             {% endblock library_content %}
+
         </div>
     </div>
 {% endblock subcontent %}
 
 {% block footer_block %}
+
     {% include "partials/footer.html" with skip_donate=False %}
+
 {% endblock footer_block %}

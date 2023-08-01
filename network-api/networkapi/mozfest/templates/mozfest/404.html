@@ -22,7 +22,9 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="nav-links pt-3">
-                                            <div><a class="" href="https://www.mozillafestival.org/">{% trans "Home" %}</a></div>
+                                            <div>
+                                                <a class="" href="https://www.mozillafestival.org/">{% trans "Home" %}</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -58,10 +60,14 @@
 
 {% block content %}
     <div class="py-4 my-4">
+
         {% include "partials/404.html" with email="info@mozillafestival.org" %}
+
     </div>
 {% endblock %}
 
 {% block footer_block %}
+
     {% include "partials/footer.html" with exclude_language_switcher=True %}
+
 {% endblock %}

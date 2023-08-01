@@ -8,15 +8,13 @@
         <div id="cta-anchor">
             <div class="mt-5 mt-md-0">
                 {% with localized_signup=page.signup.localized %}
-                    <div
-                        class="join-us mb-5"
-                        data-form-position="newsletter_signup_sidebar"
-                        data-signup-id="{{ localized_signup.id }}"
-                        data-cta-header="{{ localized_signup.header | escape }}"
-                        data-cta-description="{{ localized_signup.description | escape }}"
-                        data-newsletter="{{ localized_signup.newsletter }}"
-                        data-ask-name="{{ localized_signup.ask_name }}">
-                    </div>
+                    <div class="join-us mb-5"
+                         data-form-position="newsletter_signup_sidebar"
+                         data-signup-id="{{ localized_signup.id }}"
+                         data-cta-header="{{ localized_signup.header | escape }}"
+                         data-cta-description="{{ localized_signup.description | escape }}"
+                         data-newsletter="{{ localized_signup.newsletter }}"
+                         data-ask-name="{{ localized_signup.ask_name }}"></div>
                 {% endwith %}
             </div>
         </div>

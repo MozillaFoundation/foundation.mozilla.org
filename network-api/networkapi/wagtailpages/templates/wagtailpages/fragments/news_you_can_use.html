@@ -1,20 +1,20 @@
 {% load wagtailimages_tags i18n localization class_tags blog_tags wagtailroutablepage_tags %}
 
 {% get_current_language as lang_code %}
-
 <div class="row section-news-you-can-use section-padding">
     <div class="col-12 d-flex flex-row justify-content-between">
-        <h2 class="tw-text-[22px] tw-leading-[30px] medium:tw-text-2xl medium:tw-leading-[30px] tw-font-bold tw-font-sans tw-text-black tw-tracking-normal tw-mb-5">{% trans "News you can use" %}</h2>
+        <h2 class="tw-text-[22px] tw-leading-[30px] medium:tw-text-2xl medium:tw-leading-[30px] tw-font-bold tw-font-sans tw-text-black tw-tracking-normal tw-mb-5">
+            {% trans "News you can use" %}
+        </h2>
         {# this should not be a hardcoded route... #}
-        <a href="/{{ lang_code }}/blog" class="tw-cta-link d-none d-md-inline-block" id="news-you-can-use-cta">{% trans "Read more news" %}</a>
+        <a href="/{{ lang_code }}/blog"
+           class="tw-cta-link d-none d-md-inline-block"
+           id="news-you-can-use-cta">{% trans "Read more news" %}</a>
     </div>
-
     <div class="col-12">
         <div class="row d-flex flex-row mb-4">
             {% with items=page.news_you_can_use.all %}
-
                 {% comment %}
-
     Note that the "feature" element is ONLY visible at xl sizes, because it is too different
     from the standard layout. Instead, this is basically a duplicated "card", with display:
 
@@ -23,67 +23,75 @@
         custom|  none  none  none  none block
         normal| block block block block  none
 
-  {% endcomment %}
-
+                {% endcomment %}
                 {% with first=items.first.blog.localized %}
                     <div class="d-none d-xl-block col-xl-12 feature mb-md-5">
                         <div class="position-relative h-100 d-flex justify-content-end">
                             <div class="feature-image">
-                                <img src="{% image_url first.get_meta_image "fill-1000x500" %}" alt="{{ first.title }}">
+                                <img src="{% image_url first.get_meta_image "fill-1000x500" %}"
+                                     alt="{{ first.title }}">
                             </div>
                             <div class="feature-content align-self-center">
                                 {% if first.topics.count %}
                                     {% with topic=first.topics.first %}
                                         {% localized_version topic as localized_topic %}
-                                        <a class="tw-h6-heading d-block mb-2" href="/{{ lang_code }}/blog/topic/{{ topic.slug }}">{{ localized_topic }}</a>
+                                        <a class="tw-h6-heading d-block mb-2"
+                                           href="/{{ lang_code }}/blog/topic/{{ topic.slug }}">{{ localized_topic }}</a>
                                     {% endwith %}
                                 {% else %}
                                     <div class="tw-h6-heading d-md-block d-none mb-2">&nbsp;</div>
                                 {% endif %}
-                                <h3 class="mb-2 pb-1"><a href="{{ first.url }}">{{ first.title }}</a></h3>
+                                <h3 class="mb-2 pb-1">
+                                    <a href="{{ first.url }}">{{ first.title }}</a>
+                                </h3>
                                 <p class="d-none d-xl-block">{{ first.search_description|truncatechars:156 }}</p>
                                 {% if items.first %}
+
                                     {% include "./blog_authors.html" with blog_page=items.first.blog %}
+
                                 {% endif %}
                             </div>
                         </div>
                     </div>
                 {% endwith %}
-
                 {% comment %}
-
     Again, note that the following loop generates cards for _all_ items, including the featured
     item. It will simply hide that first card on sizes that show the feature layout instead.
 
-  {% endcomment %}
-
+                {% endcomment %}
                 {% with item_1_class="d-xl-none mb-5 mb-xl-0" item_2_class="mb-5 mb-xl-0" item_3_class="mb-5 mb-md-0" %}
                     {% for item in items %}
                         {% with localized=item.blog.localized %}
-                            <div class="col-12 col-md-6 col-xl-4 d-flex {% if forloop.counter == 1 %} {{ item_1_class }}{% endif %} {% if forloop.counter == 2 %} {{ item_2_class }}{% endif %} {% if forloop.counter == 3 %} {{ item_3_class }}{% endif %}">
+                            <div class="col-12 col-md-6 col-xl-4 d-flex {% if forloop.counter == 1 %}{{ item_1_class }}{% endif %} {% if forloop.counter == 2 %}{{ item_2_class }}{% endif %} {% if forloop.counter == 3 %}{{ item_3_class }}{% endif %}">
                                 <div class="bg-white">
-                                    <img src="{% image_url localized.get_meta_image "fill-700x394" %}" alt="" class="embed-responsive-item">
+                                    <img src="{% image_url localized.get_meta_image "fill-700x394" %}"
+                                         alt=""
+                                         class="embed-responsive-item">
                                     <div class="p-4">
                                         {% if localized.topics.count %}
                                             {% with topic=localized.topics.first %}
                                                 {% localized_version topic as localized_topic %}
-                                                <a class="tw-h6-heading d-block mb-1" href="/{{ lang_code }}/blog/topic/{{ topic.slug }}">{{ localized_topic }}</a>
+                                                <a class="tw-h6-heading d-block mb-1"
+                                                   href="/{{ lang_code }}/blog/topic/{{ topic.slug }}">{{ localized_topic }}</a>
                                             {% endwith %}
                                         {% else %}
                                             <div class="tw-h6-heading d-md-block d-none mb-1">&nbsp;</div>
                                         {% endif %}
-                                        <h3 class="tw-h4-heading"><a href="{{ localized.url }}">{{ localized.title }}</a></h3>
+                                        <h3 class="tw-h4-heading">
+                                            <a href="{{ localized.url }}">{{ localized.title }}</a>
+                                        </h3>
+
                                         {% include "./blog_authors.html" with blog_page=item.blog %}
+
                                     </div>
                                 </div>
                             </div>
                         {% endwith %}
                     {% endfor %}
                 {% endwith %}
-
             {% endwith %}
         </div>
-        <a href="/{{ lang_code }}/blog" class="tw-cta-link d-block d-md-none text-right">{% trans "Read more news" %}</a>
+        <a href="/{{ lang_code }}/blog"
+           class="tw-cta-link d-block d-md-none text-right">{% trans "Read more news" %}</a>
     </div>
-
 </div>

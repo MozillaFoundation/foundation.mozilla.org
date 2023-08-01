@@ -1,4 +1,5 @@
 {% extends "./base_streamfield_block.html" %}
+
 {% load wagtailcore_tags %}
 
 {% block block_content %}
@@ -6,9 +7,7 @@
         <div class="feature-quote">
             <div class="quote-content">{{ value.quote | richtext }}</div>
             <p class="tw-h6-heading tw-text-lg tw-max-w-4xl">{{ value.attribution }}</p>
-            <div class="feature-quote-attribution-info tw-max-w-4xl tw-italic">
-                {{ value.attribution_info | richtext }}
-            </div>
+            <div class="feature-quote-attribution-info tw-max-w-4xl tw-italic">{{ value.attribution_info | richtext }}</div>
         </div>
     </div>
 {% endblock %}

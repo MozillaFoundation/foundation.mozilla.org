@@ -1,34 +1,35 @@
 {% extends "./base_streamfield_block.html" %}
+
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_container_classes %}
-    tw-px-0 {% if value.image_width == "full_width" %} full-width {% endif %}
+    tw-px-0
+    {% if value.image_width == "full_width" %}full-width{% endif %}
 {% endblock %}
 
-{% block block_row_classes %}
-    tw-mx-0
-{% endblock %}
+{% block block_row_classes %}tw-mx-0{% endblock %}
 
 {% block main_block_class %}
     streamfield-content
-    {% if value.image_width == "full_width" %} full-width
-    {% elif value.image_width == "wide" %} wide
+    {% if value.image_width == "full_width" %}
+        full-width
+    {% elif value.image_width == "wide" %}
+        wide
     {% endif %}
 {% endblock %}
 
 {% block block_content %}
     {% image value.image original as img %}
-
     <figure class="tw-my-2 annotated-image">
-        <img src="{{ img.url }}" alt="{{ value.altText }}" class="tw-w-full {% if value.image_width == "full_width" %} tw-object-cover tw-object-center tw-max-h-[400px] large:tw-max-h-[550px] xlarge:tw-max-h-[650px] {% endif %}" />
+        <img src="{{ img.url }}"
+             alt="{{ value.altText }}"
+             class="tw-w-full {% if value.image_width == "full_width" %} tw-object-cover tw-object-center tw-max-h-[400px] large:tw-max-h-[550px] xlarge:tw-max-h-[650px] {% endif %}" />
         {% if value.caption %}
-            <figcaption class="tw-body-small tw-mt-4 tw-block {% if value.image_width == "full_width" %} tw-pl-6 {% endif %}">
+            <figcaption class="tw-body-small tw-mt-4 tw-block {% if value.image_width == "full_width" %}tw-pl-6{% endif %}">
                 {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
-                {{ value.caption }}
-                {% if value.captionURL %}</a>{% endif %}
+                    {{ value.caption }}
+                    {% if value.captionURL %}</a>{% endif %}
             </figcaption>
         {% endif %}
     </figure>
 {% endblock %}
-
-

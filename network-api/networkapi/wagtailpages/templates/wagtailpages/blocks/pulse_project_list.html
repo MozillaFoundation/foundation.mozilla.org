@@ -1,15 +1,14 @@
 {% extends "./base_streamfield_block.html" %}
+
 {% load wagtailcore_tags l10n %}
 
 {% block block_content %}
-    <div
-        class="pulse-project-list tw-my-4"
-        data-featured="{{ value.only_featured_entries }}"
-        data-help="{{ value.help }}"
-        data-issues="{{ value.issues }}"
-        data-max="{{ value.size|unlocalize }}"
-        data-query="{{ value.search_terms }}"
-        data-reversed="{{ value.newest_first }}"
-        data-direct-link="{{ value.direct_link }}">
-    </div>
+    <div class="pulse-project-list tw-my-4"
+         data-featured="{{ value.only_featured_entries }}"
+         data-help="{{ value.help }}"
+         data-issues="{{ value.issues }}"
+         data-max="{{ value.size|unlocalize }}"
+         data-query="{{ value.search_terms }}"
+         data-reversed="{{ value.newest_first }}"
+         data-direct-link="{{ value.direct_link }}"></div>
 {% endblock %}

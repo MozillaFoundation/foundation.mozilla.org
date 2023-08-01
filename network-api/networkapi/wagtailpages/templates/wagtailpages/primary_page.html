@@ -1,21 +1,32 @@
 {% extends "./modular_page.html" %}
+
 {% load wagtailcore_tags wagtailimages_tags primary_page_tags %}
 
-{% block body_id %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock %}
+{% block body_id %}
+    {% if root.slug %}
+        {{ root.slug }}
+    {% else %}
+        primary
+    {% endif %}
+{% endblock %}
 
 {% block primary_nav %}
+
     {% include "partials/primary_nav.html" %}
+
 {% endblock %}
 
 {% block hero_guts %}
+
     {% include "./fragments/primary_heroguts.html" with root=root page=page %}
+
 {% endblock %}
 
 {% block content %}
+
     {% include "partials/multipage_nav_mobile.html" %}
 
     {% primary_page_menu page %}
-
     <div class="cms primary-page-content mb-5 pb-3 {% if page.specific.narrowed_page_content %} narrow {% else %} wide {% endif %}">
         {% for block in page.body %}
             {% include_block block with parent_page=page %}

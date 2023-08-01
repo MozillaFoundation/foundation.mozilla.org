@@ -1,14 +1,21 @@
 {% extends "pages/libraries/profile_page.html" %}
+
 {% load i18n l10n wagtailcore_tags wagtailimages_tags breadcrumbs %}
 
-{% block breadcrumbs %}{% rcc_breadcrumbs include_self=True %}{% endblock breadcrumbs %}
+{% block breadcrumbs %}
+    {% rcc_breadcrumbs include_self=True %}
+{% endblock breadcrumbs %}
 
-{% block latest_articles_label %}{% translate "Latest articles" %}{% endblock latest_articles_label %}
+{% block latest_articles_label %}
+    {% translate "Latest articles" %}
+{% endblock latest_articles_label %}
 
 {% block detail_cards %}
     {% for article in latest_articles %}
         <li class="tw-border-t tw-border-t-gray-20 tw-mt-12 tw-pt-12">
+
             {% include "fragments/libraries/rcc/detail_card.html" with detail_page=article hide_author_names=True hide_image_on_mobile=True %}
+
         </li>
     {% endfor %}
 {% endblock detail_cards %}
