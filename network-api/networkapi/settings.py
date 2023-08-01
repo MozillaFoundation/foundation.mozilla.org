@@ -262,6 +262,7 @@ INSTALLED_APPS = list(
             "networkapi.wagtailpages",
             "networkapi.mozfest",
             "networkapi.donate",
+            "networkapi.reports",
             "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
             "networkapi.project_styleguide",
         ],
