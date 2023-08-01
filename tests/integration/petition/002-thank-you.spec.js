@@ -44,7 +44,7 @@ test.describe("Donation modal", () => {
   test("Donation modal can trigger FRU widget", async ({ page }) => {
     // test if FRU iframe pops up after clicking the Yes button
     const yesDonateButton = page.locator(
-      `.modal-content .tw-btn-primary[href="?form=donate"]`
+      `.modal-content .tw-btn-primary[href*="?form=donate&c_id="]`
     );
     expect(await yesDonateButton.count()).toBe(1);
 
