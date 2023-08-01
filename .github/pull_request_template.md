@@ -20,3 +20,6 @@ Related PRs/issues: #
 **Documentation:**
 - [ ] Is my code documented?
 - [ ] Did I update the READMEs or wagtail documentation?
+
+**Merge Method**
+**💡❗Remember to use squash merge when merging non-feature branches into `main`**
