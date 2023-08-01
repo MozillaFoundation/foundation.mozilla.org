@@ -64,7 +64,9 @@ class RSSFeed(Feed):
         return item.full_url
 
     def item_description(self, item):
-        return item.specific.get_meta_description()
+        page = item.specific
+        html = str(page.body)
+        return html
 
     def item_pubdate(self, item):
         return item.first_published_at
