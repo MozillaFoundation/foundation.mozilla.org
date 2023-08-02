@@ -84,7 +84,6 @@ class DonationModal extends Component {
   }
 
   getModalContent() {
-
     this.donateButtonUrl = this.generateDonateButtonUrl();
 
     return (
@@ -137,17 +136,17 @@ class DonationModal extends Component {
   }
 
   generateDonateButtonUrl() {
-  let buttonUrl = this.props.donateUrl || "?form=donate";
+    let buttonUrl = this.props.donateUrl || "?form=donate";
 
-  const url = new URL(buttonUrl, window.location.href);
+    const url = new URL(buttonUrl, window.location.href);
 
-  // Appending campaign ID as URL param for tracking purposes
-  const params = new URLSearchParams(url.search);
-  params.append("c_id", this.props.campaignId);
-  url.search = params.toString();
+    // Appending campaign ID as URL param for tracking purposes
+    const params = new URLSearchParams(url.search);
+    params.append("c_id", this.props.campaignId);
+    url.search = params.toString();
 
-  return url.toString();
-}
+    return url.toString();
+  }
 
   userElectedCloseModal() {
     this.props.onClose();
