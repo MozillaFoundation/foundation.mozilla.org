@@ -84,14 +84,9 @@ class DonationModal extends Component {
   }
 
   getModalContent() {
-    if (this.props.donateUrl) {
-      this.donateButtonUrl = this.props.donateUrl;
-    } else {
-      this.donateButtonUrl = "?form=donate";
-    }
 
-    // Appending campaign ID to donate button URL for tracking purposes
-    this.donateButtonUrl += `&c_id=${this.props.campaignId}`;
+    this.donateButtonUrl = this.generateDonateButtonUrl();
+
     return (
       <div
         className={classNames(`modal-content`, MODAL_CONTENT_CLASS)}
@@ -139,6 +134,17 @@ class DonationModal extends Component {
         </div>
       </div>
     );
+  }
+
+  generateDonateButtonUrl() {
+    if (this.props.donateUrl) {
+      buttonUrl = this.props.donateUrl;
+    } else {
+      buttonUrl = "?form=donate";
+    }
+    // Appending campaign ID to donate button URL for tracking purposes
+    buttonUrl += `&c_id=${this.props.campaignId}`;
+    return buttonUrl
   }
 
   userElectedCloseModal() {
