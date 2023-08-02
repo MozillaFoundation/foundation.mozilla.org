@@ -19,7 +19,6 @@ import networkapi.wagtailpages.pagemodels.customblocks.articles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0016_research_landing_featured_topics_and_intro"),
     ]

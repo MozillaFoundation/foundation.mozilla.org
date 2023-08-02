@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtaildocs", "0012_uploadeddocument"),
         ("wagtailpages", "0024_researchauthorsindexpage_banner_image"),

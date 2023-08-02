@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailimages", "0022_uploadedimage"),
         ("highlights", "0002_auto_20200930_2019"),

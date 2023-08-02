@@ -13,7 +13,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0092_add_about_block_to_libraries_landing_page"),
     ]

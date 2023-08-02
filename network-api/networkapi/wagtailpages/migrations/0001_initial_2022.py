@@ -28,7 +28,6 @@ import networkapi.wagtailpages.pagemodels.mixin.snippets
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [

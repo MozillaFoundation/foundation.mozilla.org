@@ -139,7 +139,6 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     def test_serve_paginated_items_page_1(self):
         with self.setup_content_index_with_pages_of_children() as articles:
-
             response = self.client.get(self.content_index.url)
 
             self.assertQuerysetEqual(
@@ -149,7 +148,6 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     def test_serve_paginated_items_page_2(self):
         with self.setup_content_index_with_pages_of_children() as articles:
-
             response = self.client.get(self.content_index.url, data={"page": 2})
 
             self.assertQuerysetEqual(
@@ -167,7 +165,6 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         """
         page = 2
         with self.setup_content_index_with_pages_of_children(pages=page + 1) as articles:
-
             response = self.client.get(
                 self.content_index.url,
                 data={"page": page, "expanded": "true"},
@@ -185,7 +182,6 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         """There should be no other pages because they are all included."""
         page = 2
         with self.setup_content_index_with_pages_of_children(pages=page):
-
             response = self.client.get(
                 self.content_index.url,
                 data={"page": page, "expanded": "true"},
@@ -215,7 +211,6 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     def test_hx_request_show_load_more_button_immediately(self):
         with self.setup_content_index_with_pages_of_children():
-
             response = self.client.get(self.content_index.url, HTTP_HX_REQUEST="true")
 
             self.assertTrue(response.context["show_load_more_button_immediately"])
@@ -241,7 +236,6 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     def test_hx_request_paginated_items_page_1(self):
         with self.setup_content_index_with_pages_of_children() as articles:
-
             response = self.client.get(self.content_index.url, HTTP_HX_REQUEST="true")
 
             self.assertQuerysetEqual(
@@ -254,7 +248,6 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     def test_hx_request_paginated_items_page_2(self):
         with self.setup_content_index_with_pages_of_children() as articles:
-
             response = self.client.get(
                 self.content_index.url,
                 data={"page": 2},
@@ -288,7 +281,6 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     def test_get_context_paginated_items_page_1(self):
         with self.setup_content_index_with_pages_of_children() as articles:
-
             context = self.content_index.get_context(request=self.create_request())
 
             self.assertQuerysetEqual(context["items"], articles[: self.items_per_page])

@@ -35,7 +35,6 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-
         if datetime.today().weekday() == 6:
             delete_non_staff()
         elif options["now"]:

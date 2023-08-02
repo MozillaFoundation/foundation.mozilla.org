@@ -17,7 +17,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mozfest", "0004_rename_video_url_to_embed_url"),
     ]

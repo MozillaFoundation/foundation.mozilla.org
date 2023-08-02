@@ -136,7 +136,6 @@ class Signup(TranslatableMixin, CTA):
 
 
 class OpportunityPage(MiniSiteNameSpace):
-
     content_panels = Page.content_panels + [
         FieldPanel("header"),
         FieldPanel("body"),

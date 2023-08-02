@@ -5,7 +5,6 @@ from wagtail.models import BootstrapTranslatableModel
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("news", "0005_auto_20210531_1735"),
     ]
