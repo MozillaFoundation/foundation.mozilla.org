@@ -62,7 +62,7 @@ exceptiongroup==1.1.1
     # via pytest
 execnet==1.9.0
     # via pytest-xdist
-flake8==6.0.0
+flake8==6.1.0
     # via -r dev-requirements.in
 honcho==1.1.0
     # via -r dev-requirements.in
@@ -105,13 +105,13 @@ pluggy==1.0.0
     # via pytest
 ptvsd==4.3.2
     # via -r dev-requirements.in
-pycodestyle==2.10.0
+pycodestyle==2.11.0
     # via flake8
 pycparser==2.21
     # via
     #   -c requirements.txt
     #   cffi
-pyflakes==3.0.1
+pyflakes==3.1.0
     # via flake8
 pyopenssl==23.2.0
     # via
