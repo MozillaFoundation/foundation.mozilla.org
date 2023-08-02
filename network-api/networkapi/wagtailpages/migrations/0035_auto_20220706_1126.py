@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailcore", "0066_collection_management_permissions"),
         ("wagtailpages", "0034_blogindexpage_related_topics"),

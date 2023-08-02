@@ -34,6 +34,5 @@ class ListingBlock(blocks.StructBlock):
     cards = blocks.ListBlock(ListingCard(), help_text="Please use a minimum of 2 cards.", min_num=2)
 
     class Meta:
-
         icon = "placeholder"
         template = "wagtailpages/blocks/listing_block.html"

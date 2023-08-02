@@ -10,7 +10,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0011_research_detail_page_main_fields"),
     ]

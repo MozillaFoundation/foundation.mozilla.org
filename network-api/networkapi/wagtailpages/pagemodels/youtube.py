@@ -118,7 +118,6 @@ class YoutubeRegretsReporterPage(BasePage):
 
 
 class YoutubeRegrets2021Page(BasePage):
-
     template = "wagtailpages/pages/youtube-regrets-2021/youtube_regrets_2021.html"
     max_count = 1
     zen_nav = True
@@ -140,7 +139,6 @@ class YoutubeRegrets2021Page(BasePage):
 
 
 class YoutubeRegrets2022Page(BasePage):
-
     template = "wagtailpages/pages/youtube-regrets-2022/youtube_regrets_2022.html"
     max_count = 1
     zen_nav = True
@@ -162,7 +160,6 @@ class YoutubeRegrets2022Page(BasePage):
 
 
 class YoutubeRegretsReporterExtensionPage(BasePage):
-
     template = "wagtailpages/pages/regrets-reporter-landing-page/youtube_regrets_reporter_extension.html"
     max_count = 1
     zen_nav = True

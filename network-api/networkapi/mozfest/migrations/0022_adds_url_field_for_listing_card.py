@@ -15,7 +15,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mozfest", "0021_adds_url_field_for_text_teaser"),
     ]

@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailimages", "0023_add_choose_permissions"),
         ("mozfest", "0008_adds_profile_block"),

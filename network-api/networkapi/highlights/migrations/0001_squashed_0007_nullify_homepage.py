@@ -9,7 +9,6 @@ import networkapi.highlights.models
 
 
 class Migration(migrations.Migration):
-
     replaces = [
         ("highlights", "0001_initial"),
         ("highlights", "0002_auto_20170616_2032"),

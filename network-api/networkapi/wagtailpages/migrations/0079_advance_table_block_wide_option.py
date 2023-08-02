@@ -13,7 +13,6 @@ import networkapi.wagtailpages.pagemodels.customblocks.articles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0078_update_hero_featured_article_to_hero_featured_page"),
     ]

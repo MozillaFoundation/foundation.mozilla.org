@@ -13,7 +13,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0069_adds_url_field_for_text_teaser"),
     ]

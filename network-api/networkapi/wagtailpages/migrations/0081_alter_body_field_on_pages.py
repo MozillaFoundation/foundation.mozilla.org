@@ -18,7 +18,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0080_researchdetaillink_page"),
     ]

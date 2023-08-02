@@ -14,7 +14,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mozfest", "0012_adds_artice_teaser_block"),
     ]

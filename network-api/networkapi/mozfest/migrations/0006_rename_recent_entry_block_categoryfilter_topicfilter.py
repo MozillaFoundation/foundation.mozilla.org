@@ -12,7 +12,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mozfest", "0005_undo_0004_and_update_labels_instead"),
     ]

@@ -14,7 +14,6 @@ import networkapi.wagtailpages.pagemodels.customblocks.articles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0019_researchlibrarypage_banner_image"),
     ]

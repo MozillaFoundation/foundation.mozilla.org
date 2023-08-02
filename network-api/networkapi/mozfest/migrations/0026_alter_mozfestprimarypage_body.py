@@ -15,7 +15,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mozfest", "0025_wagtail_4_upgrade"),
     ]

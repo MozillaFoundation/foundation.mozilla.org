@@ -8,7 +8,7 @@ asgiref==3.5.0
     # via
     #   -c requirements.txt
     #   django
-black==22.12.0
+black==23.7.0
     # via -r dev-requirements.in
 certifi==2022.12.7
     # via
@@ -91,8 +91,9 @@ mypy-extensions==1.0.0
     # via
     #   black
     #   mypy
-packaging==21.3
+packaging==23.1
     # via
+    #   black
     #   pytest
     #   pytest-sugar
 pathspec==0.11.1
@@ -117,8 +118,6 @@ pyopenssl==23.2.0
     # via
     #   -c requirements.txt
     #   urllib3
-pyparsing==3.0.7
-    # via packaging
 pytest==7.4.0
     # via
     #   -r dev-requirements.in

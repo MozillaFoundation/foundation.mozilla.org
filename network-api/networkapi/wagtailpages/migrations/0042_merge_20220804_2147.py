@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0040_alter_blogpage_topics"),
         ("wagtailpages", "0041_merge_20220803_2127"),

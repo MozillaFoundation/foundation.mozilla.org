@@ -10,7 +10,6 @@ import networkapi.wagtailpages.pagemodels.mixin.foundation_navigation
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailcore", "0078_referenceindex"),
         ("wagtailimages", "0024_index_image_file_hash"),
