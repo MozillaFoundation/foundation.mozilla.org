@@ -39,7 +39,7 @@ class ExtendedYesNoSerializer(serializers.RelatedField):
 
 class DateSerializer(serializers.DateTimeField):
     def to_internal_value(self, date):
-        if type(date) == str and len(date):
+        if isinstance(date, str) and len(date):
             date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
         return date
 
