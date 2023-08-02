@@ -13,7 +13,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0068_allow_blank_profile_intro"),
     ]

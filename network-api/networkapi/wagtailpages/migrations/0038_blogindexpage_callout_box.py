@@ -10,7 +10,6 @@ import networkapi.wagtailpages.pagemodels.blog.blog_topic
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0037_auto_20220706_1136"),
     ]

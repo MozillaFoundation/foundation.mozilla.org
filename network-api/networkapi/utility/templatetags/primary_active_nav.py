@@ -5,7 +5,6 @@ register = template.Library()
 
 @register.simple_tag(name="primary_active_nav")
 def primary_active_nav(request, root_url, target_url):
-
     if not request:
         return ""
 
