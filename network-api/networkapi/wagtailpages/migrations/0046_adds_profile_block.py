@@ -12,7 +12,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0045_alter_banneredcampaignpage_aside"),
     ]

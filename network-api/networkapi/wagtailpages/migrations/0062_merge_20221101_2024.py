@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0053_add_streamfield_blocks"),
         ("wagtailpages", "0061_not_translatable_related_articles_orderable"),

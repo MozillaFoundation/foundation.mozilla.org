@@ -248,7 +248,6 @@ class BlogIndexPage(IndexPage):
         # We can't use .filter for @property fields,
         # so we have to run through all topics =(
         for blog_page_topic in english_topics:
-
             if blog_page_topic.slug == topic_slug:
                 topic_object = blog_page_topic
                 break
@@ -259,7 +258,6 @@ class BlogIndexPage(IndexPage):
 
     # helper function for /topic/... subroutes
     def extract_topic_information(self, topic_slug):
-
         topic_object = self.get_topic_object_for_slug(topic_slug)
 
         if topic_object is None:

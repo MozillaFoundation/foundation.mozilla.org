@@ -7,7 +7,6 @@ from django.utils.text import slugify
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0029_adds_slug_field"),
     ]

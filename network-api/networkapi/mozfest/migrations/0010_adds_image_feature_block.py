@@ -14,7 +14,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mozfest", "0009_update_searchimage_label_and_help_text"),
     ]

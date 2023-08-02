@@ -37,7 +37,6 @@ def cardCTA(
     email_subject=None,
     email_body=None,
 ):
-
     return {
         "image": image,
         "title": title,

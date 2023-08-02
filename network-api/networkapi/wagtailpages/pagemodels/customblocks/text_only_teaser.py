@@ -4,7 +4,6 @@ from wagtail.blocks.struct_block import StructBlockValidationError
 
 
 class TextOnlyTeaserCard(blocks.StructBlock):
-
     heading = blocks.CharBlock(help_text="Heading for the card.")
     link_page = blocks.PageChooserBlock(required=False, help_text="Page that the header should link out to.")
     link_url = blocks.CharBlock(

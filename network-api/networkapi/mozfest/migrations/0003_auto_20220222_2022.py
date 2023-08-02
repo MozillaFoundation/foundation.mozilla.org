@@ -12,7 +12,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mozfest", "0002_initial_2022_data"),
     ]

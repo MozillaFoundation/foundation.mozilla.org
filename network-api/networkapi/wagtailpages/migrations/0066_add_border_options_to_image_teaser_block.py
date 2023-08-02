@@ -13,7 +13,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0065_update_recentblogentries_topic_filter_choices"),
     ]

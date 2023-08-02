@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0043_add_buyersguidearticlepage_details_and_relations"),
     ]

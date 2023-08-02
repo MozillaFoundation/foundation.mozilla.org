@@ -9,7 +9,6 @@ from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options impo
 
 
 class BlogIndexCalloutBoxBlock(blocks.StructBlock):
-
     title = blocks.CharBlock(
         help_text="Heading for the callout box.",
     )

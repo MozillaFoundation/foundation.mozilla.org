@@ -12,7 +12,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mozfest", "0006_rename_recent_entry_block_categoryfilter_topicfilter"),
     ]

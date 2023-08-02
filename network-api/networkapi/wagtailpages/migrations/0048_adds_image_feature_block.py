@@ -12,7 +12,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0047_update_searchimage_label_and_help_text"),
     ]
