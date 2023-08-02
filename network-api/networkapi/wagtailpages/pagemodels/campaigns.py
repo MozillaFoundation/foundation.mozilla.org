@@ -169,9 +169,8 @@ class OpportunityPage(MiniSiteNameSpace):
 class Petition(TranslatableMixin, CTA):
     campaign_id = models.CharField(
         max_length=20,
-        help_text="Which campaign identifier should this petition be tied to?",
+        help_text="Which Salesforce Campaign ID should this petition be tied to?",
         null=True,
-        blank=True,
     )
 
     requires_country_code = models.BooleanField(
