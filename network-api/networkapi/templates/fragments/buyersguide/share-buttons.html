@@ -2,7 +2,7 @@
 
 {% with page.full_url as current_url %}
     <div class="share-button-group-wrapper"
-        data-link="{{ current_url }}">
+         data-link="{{ current_url }}">
         <div class="share-button-group {% if version == 'mini' %} circle {% else %} rectangle {% endif %} {% if layout == 'stacked' %} stacked {% endif %}">
             <div class="subgroup">
                 <a class="tw-btn tw-btn-secondary btn-share  after:tw-hidden facebook-share" href="https://www.facebook.com/sharer/sharer.php?u={{ current_url|urlencode }}">

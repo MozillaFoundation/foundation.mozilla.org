@@ -39,21 +39,21 @@
                     <div class='download-share-btn-wrapper'>
                         <div class="btn-container tw-mt-2 tw-flex tw-flex-wrap tw-gap-8">
                             <a class="tw-btn {{ download_button_classes }} download-link-button download-link-button--firefox  before:tw-w-[23px] before:tw-h-[25px] before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/firefox-logo.svg')]"
-                                href="https://addons.mozilla.org/en-us/firefox/addon/regretsreporter/"
-                                target="_blank">
+                               href="https://addons.mozilla.org/en-us/firefox/addon/regretsreporter/"
+                               target="_blank">
                                 {% trans "Add to Firefox" %}
                             </a>
                             <a class="tw-btn {{ download_button_classes }} download-link-button download-link-button--chrome  before:tw-w-12 before:tw-h-12 before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/chrome.svg')]"
-                                href="https://chrome.google.com/webstore/detail/regretsreporter/obpoeflheeknapimliioeoefbfaakefn"
-                                target="_blank">
+                               href="https://chrome.google.com/webstore/detail/regretsreporter/obpoeflheeknapimliioeoefbfaakefn"
+                               target="_blank">
                                 {% trans "Add to Chrome" %}
                             </a>
                             {% trans "Reminder to download RegretsReporter" as translated_subject %}
                             {% trans "Mozilla built RegretsReporter to help you take back control of your YouTube recommendations and make YouTube better for everyone else." as translated_body %}
                             {% with subject=translated_subject body=translated_body %}
                                 <a class="tw-btn {{ download_button_classes }} download-link-button download-link-button--email tw-hidden before:tw-w-[25px] before:tw-h-12 before:tw-bg-[url('../_images/youtube-regrets/regrets-reporter/landing-page/mail.svg')]"
-                                    href="mailto:?subject={{ subject|urlencode }}&body={{ body|urlencode }}"
-                                    target="_blank">
+                                   href="mailto:?subject={{ subject|urlencode }}&body={{ body|urlencode }}"
+                                   target="_blank">
                                     {% trans "Send Reminder" %}
                                 </a>
                             {% endwith %}
