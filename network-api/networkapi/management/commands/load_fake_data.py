@@ -38,7 +38,6 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-
         if options["delete"]:
             call_command("flush_models")
 

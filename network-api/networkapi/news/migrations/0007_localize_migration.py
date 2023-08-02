@@ -7,7 +7,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailcore", "0062_comment_models_and_pagesubscription"),
         ("news", "0006_bootstrap_migration"),

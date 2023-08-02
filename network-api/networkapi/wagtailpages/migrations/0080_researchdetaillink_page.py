@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailcore", "0069_log_entry_jsonfield"),
         ("wagtailpages", "0079_advance_table_block_wide_option"),

@@ -35,7 +35,7 @@ def cta(context, page):
     }
 
     if page.cta:
-        for (Subclass, subclass_name) in [
+        for Subclass, subclass_name in [
             (
                 sub,
                 sub.__name__.lower(),

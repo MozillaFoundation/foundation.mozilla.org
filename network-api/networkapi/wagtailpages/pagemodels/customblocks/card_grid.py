@@ -26,6 +26,5 @@ class CardGridBlock(blocks.StructBlock):
     cards = blocks.ListBlock(CardGrid(), help_text="Please use a minimum of 2 cards.")
 
     class Meta:
-
         icon = "placeholder"
         template = "fragments/blocks/card_grid_block.html"

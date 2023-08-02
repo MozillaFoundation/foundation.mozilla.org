@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailcore", "0062_comment_models_and_pagesubscription"),
         ("highlights", "0004_remove_highlight_image"),

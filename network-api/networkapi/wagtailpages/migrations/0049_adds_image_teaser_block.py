@@ -12,7 +12,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0048_adds_text_only_teaser_block"),
     ]

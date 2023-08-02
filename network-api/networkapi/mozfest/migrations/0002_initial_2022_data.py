@@ -23,7 +23,6 @@ def ensure_mozfest_signup(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mozfest", "0001_initial_2022"),
     ]

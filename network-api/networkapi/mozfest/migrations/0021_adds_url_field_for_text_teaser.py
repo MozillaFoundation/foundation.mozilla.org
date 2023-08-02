@@ -15,7 +15,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mozfest", "0020_add_newsletter_block_to_streamfield"),
     ]

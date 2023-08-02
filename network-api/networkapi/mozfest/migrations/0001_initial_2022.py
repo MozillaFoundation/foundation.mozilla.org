@@ -17,7 +17,6 @@ import networkapi.wagtailpages.pagemodels.mixin.foundation_banner_inheritance
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [

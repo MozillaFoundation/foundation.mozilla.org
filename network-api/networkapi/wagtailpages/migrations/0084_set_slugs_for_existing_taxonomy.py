@@ -32,7 +32,6 @@ def set_default_slug(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailcore", "0078_referenceindex"),
         ("wagtailpages", "0083_add_slug_to_base_taxonomy"),
