@@ -137,15 +137,17 @@ class DonationModal extends Component {
   }
 
   generateDonateButtonUrl() {
-    if (this.props.donateUrl) {
-      buttonUrl = this.props.donateUrl;
-    } else {
-      buttonUrl = "?form=donate";
-    }
-    // Appending campaign ID to donate button URL for tracking purposes
-    buttonUrl += `&c_id=${this.props.campaignId}`;
-    return buttonUrl
-  }
+  let buttonUrl = this.props.donateUrl || "?form=donate";
+
+  const url = new URL(buttonUrl, window.location.href);
+
+  // Appending campaign ID as URL param for tracking purposes
+  const params = new URLSearchParams(url.search);
+  params.append("c_id", this.props.campaignId);
+  url.search = params.toString();
+
+  return url.toString();
+}
 
   userElectedCloseModal() {
     this.props.onClose();
