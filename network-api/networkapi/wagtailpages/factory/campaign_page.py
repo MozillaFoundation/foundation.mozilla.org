@@ -24,7 +24,10 @@ class CampaignPageFactory(CMSPageFactory):
         no_cta = Trait(cta=None)
         cta_show_all_fields = Trait(
             cta=SubFactory(
-                PetitionFactory, requires_country_code=True, requires_postal_code=True, comment_requirements="required"
+                PetitionFactory,
+                show_country_dropdown=True,
+                show_postal_code_field=True,
+                show_comment_field=True,
             )
         )
 
