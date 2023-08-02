@@ -90,9 +90,9 @@
                                     {% if original.published_product_page_count > 0 %}
                                         {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
                                         <a class="{% if current_category.name != cat.parent.name and current_category.parent.name != cat.parent.name %} tw-hidden {% endif %} subcategories {{ tailwind_classes }} {% if current_category.name == cat.name %}{{ selected_classes }}{% else %}{{ default_classes }}{% endif %}"
-                                            href="{{ cat_url }}"
-                                            data-parent="{{ cat.parent.localized.name }}"
-                                            data-name="{{ cat.name }}">
+                                           href="{{ cat_url }}"
+                                           data-parent="{{ cat.parent.localized.name }}"
+                                           data-name="{{ cat.name }}">
                                             {{ cat.name }}
                                         </a>
                                     {% endif %}
@@ -110,13 +110,13 @@
 
         <div class="product-box-list-wrapper">
             <div class="
-                product-box-list
-                tw-overflow-hidden
-                tw-grid
-                tw-grid-cols-2 medium:tw-grid-cols-3 large:tw-grid-cols-4
-                tw-gap-1
-                tw-grid-flow-row-dense
-            ">
+                        product-box-list
+                        tw-overflow-hidden
+                        tw-grid
+                        tw-grid-cols-2 medium:tw-grid-cols-3 large:tw-grid-cols-4
+                        tw-gap-1
+                        tw-grid-flow-row-dense
+                       ">
                 {% if featured_cta %}
                     {% comment %}
                         We render the featured CTA only once into the markup if one exists.

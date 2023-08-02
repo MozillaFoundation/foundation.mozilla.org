@@ -48,7 +48,7 @@ django==3.2.20
     #   django-debug-toolbar
 django-debug-toolbar==4.1.0
     # via -r dev-requirements.in
-djhtml==1.5.2
+djhtml==3.0.6
     # via -r dev-requirements.in
 djlint==1.19.16
     # via -r dev-requirements.in

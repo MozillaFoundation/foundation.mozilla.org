@@ -19,12 +19,12 @@
                             <div class="row publication-row tw-min-h-40 pt-3 pb-3 d-flex align-items-center">
                                 <div class="tw-px-8">
                                     <div class="publication-chapter-number tw-w-24 tw-h-24"
-                                        {% with toc_image=child.specific.toc_thumbnail_image %}
-                                            {% if toc_image %}
-                                                {% image toc_image fill-256x256 as thumbnail %}
-                                                style='background-image: url("{{ thumbnail.url }}")'
-                                            {% endif %}
-                                        {% endwith %}
+                                         {% with toc_image=child.specific.toc_thumbnail_image %}
+                                             {% if toc_image %}
+                                                 {% image toc_image fill-256x256 as thumbnail %}
+                                                 style='background-image: url("{{ thumbnail.url }}")'
+                                             {% endif %}
+                                         {% endwith %}
                                     >
                                     </div>
                                 </div>
@@ -37,17 +37,17 @@
                                 </div>
                                 {% if child.get_page_titles %}
                                     <button data-expand="{{ child.title }}"
-                                        class="article-header-button
-                                            tw-ml-auto
-                                            tw-shrink-0
-                                            tw-w-12
-                                            tw-h-12
-                                            tw-grid
-                                            tw-place-items-center
-                                            tw-bg-white
-                                            tw-outline-none
-                                            tw-p-0
-                                            tw-mr-8">
+                                            class="article-header-button
+                                                   tw-ml-auto
+                                                   tw-shrink-0
+                                                   tw-w-12
+                                                   tw-h-12
+                                                   tw-grid
+                                                   tw-place-items-center
+                                                   tw-bg-white
+                                                   tw-outline-none
+                                                   tw-p-0
+                                                   tw-mr-8">
                                         <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="" />
                                         <img src="{% static "_images/minus-circle.svg" %}" alt="" data-state="close" class="tw-hidden" />
                                     </button>
@@ -55,17 +55,17 @@
 
                                 {% if child.get_children %}
                                     <button data-expand="{{ child.title }}"
-                                        class="article-child-button
-                                            tw-ml-auto
-                                            tw-w-12
-                                            tw-h-12
-                                            tw-shrink-0
-                                            tw-bg-white
-                                            tw-grid
-                                            tw-place-items-center
-                                            tw-outline-none
-                                            tw-p-0
-                                            tw-mr-8">
+                                            class="article-child-button
+                                                   tw-ml-auto
+                                                   tw-w-12
+                                                   tw-h-12
+                                                   tw-shrink-0
+                                                   tw-bg-white
+                                                   tw-grid
+                                                   tw-place-items-center
+                                                   tw-outline-none
+                                                   tw-p-0
+                                                   tw-mr-8">
                                         <img src="{% static "_images/arrow-circle.svg" %}" alt="" />
                                     </button>
                                 {% endif %}

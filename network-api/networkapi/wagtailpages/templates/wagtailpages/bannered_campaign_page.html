@@ -44,11 +44,11 @@ An extra check has been added so as to not show the fixed "Take action" button o
 {% block cta %}
     {% if page.cta != None or page.signup != None %}
         <div class="cta
-            {% if page.specific.narrowed_page_content == False %}
-                col-lg-4 offset-lg-1
-            {% else %}
-                col-lg-12
-            {% endif %}"
+                    {% if page.specific.narrowed_page_content == False %}
+                        col-lg-4 offset-lg-1
+                    {% else %}
+                        col-lg-12
+                    {% endif %}"
         >
             {% if page.cta != None %}
                 <div class="narrow-sticky-button-container hidden">

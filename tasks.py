@@ -444,7 +444,7 @@ def djhtml_check(ctx):
 @task
 def djhtml_format(ctx):
     """Run djhtml code indenter in formatting mode."""
-    djhtml(ctx, args="-i maintenance/ network-api/")
+    djhtml(ctx, args="maintenance/ network-api/")
 
 
 @task(help={"args": "Override the arguments passed to djlint."})
