@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0096_map_petition_comment_values'),
+        ("wagtailpages", "0096_map_petition_comment_values"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='petition',
-            name='comment_requirements',
+            model_name="petition",
+            name="comment_requirements",
         ),
     ]
