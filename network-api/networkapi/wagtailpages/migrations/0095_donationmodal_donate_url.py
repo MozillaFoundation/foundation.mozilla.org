@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0093_make_petition_id_required"),
+        ("wagtailpages", "0094_alter_petition_campaign_id"),
     ]
 
     operations = [
