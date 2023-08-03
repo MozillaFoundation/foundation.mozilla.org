@@ -15,17 +15,17 @@
                     <ul
                         id="items-list"
                         class="
-                            tw-flex
-                            tw-flex-col
-                            tw-list-none
-                            tw-p-0
-                            tw-divide-y
-                            tw-divide-gray-20
-                            [&>li]:tw-m-0
-                            [&>li]:tw-py-12
+                               tw-flex
+                               tw-flex-col
+                               tw-list-none
+                               tw-p-0
+                               tw-divide-y
+                               tw-divide-gray-20
+                               [&>li]:tw-m-0
+                               [&>li]:tw-py-12
                             {# Starting with the 4th li child that is not the mobile aside, set order #}
-                            [&>li:not(#mobile-aside):nth-child(n+4)]:tw-order-1
-                        "
+                               [&>li:not(#mobile-aside):nth-child(n+4)]:tw-order-1
+                              "
                     >
                         {% include "fragments/buyersguide/editorial_content_index_items.html" with index_page=page items=items %}
 

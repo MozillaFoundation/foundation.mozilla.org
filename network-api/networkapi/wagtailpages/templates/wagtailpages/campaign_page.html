@@ -16,22 +16,22 @@
         <div class="tw-row">
 
             <div class="
-                {% block content_wrapper_class %}tw-py-12 medium:tw-py-24 {% endblock %}
-                {% if page.specific.narrowed_page_content %}
-                    tw-w-3/4 tw-mx-auto tw-px-8
-                {% else %}
-                    tw-w-full tw-px-8
-                {% endif %}"
-            >
-                <div class="tw-row">
-                    <div class="cms tw-pb-8
-                        {% if page.cta and page.specific.narrowed_page_content == False %}
-                            large:tw-w-7/12 tw-px-8 tw-group tw-has-sidebar
-                        {% elif page.signup and page.specific.narrowed_page_content == False %}
-                            large:tw-w-7/12 tw-px-8 tw-group tw-has-sidebar
+                        {% block content_wrapper_class %}tw-py-12 medium:tw-py-24 {% endblock %}
+                        {% if page.specific.narrowed_page_content %}
+                            tw-w-3/4 tw-mx-auto tw-px-8
                         {% else %}
                             tw-w-full tw-px-8
                         {% endif %}"
+            >
+                <div class="tw-row">
+                    <div class="cms tw-pb-8
+                                {% if page.cta and page.specific.narrowed_page_content == False %}
+                                    large:tw-w-7/12 tw-px-8 tw-group tw-has-sidebar
+                                {% elif page.signup and page.specific.narrowed_page_content == False %}
+                                    large:tw-w-7/12 tw-px-8 tw-group tw-has-sidebar
+                                {% else %}
+                                    tw-w-full tw-px-8
+                                {% endif %}"
                     >
                         {% block campaign_page_header %}
                             <h1 class="tw-h1-heading {% if uses_menu %}tw-hidden medium:tw-block{% endif %}">
@@ -61,11 +61,11 @@
                     {% block cta %}
                         {% if page.cta != None %}
                             <div class="cta tw-pb-4
-                                {% if page.specific.narrowed_page_content == False %}
-                                    large:tw-w-4/12 large:tw-ml-[8.3%] tw-px-8
-                                {% else %}
-                                    tw-w-full
-                                {% endif %}"
+                                        {% if page.specific.narrowed_page_content == False %}
+                                            large:tw-w-4/12 large:tw-ml-[8.3%] tw-px-8
+                                        {% else %}
+                                            tw-w-full
+                                        {% endif %}"
                             >
                                 <div class="narrow-sticky-button-container hidden">
                                     <a href="#cta-anchor" class="tw-btn-primary tw-block">{% trans "TAKE ACTION" context "Sticky button in mobile view on campaign pages" %}</a>
@@ -81,13 +81,13 @@
                     {% endblock %}
 
                     <div class="
-                        {% if page.cta and page.specific.narrowed_page_content == False %}
-                            tw-w-7/12 tw-px-8
-                        {% elif page.signup and page.specific.narrowed_page_content == False %}
-                            tw-w-7/12 tw-px-8
-                        {% else %}
-                            tw-w-full tw-px-8
-                        {% endif %}"
+                                {% if page.cta and page.specific.narrowed_page_content == False %}
+                                    tw-w-7/12 tw-px-8
+                                {% elif page.signup and page.specific.narrowed_page_content == False %}
+                                    tw-w-7/12 tw-px-8
+                                {% else %}
+                                    tw-w-full tw-px-8
+                                {% endif %}"
                     >
                     </div>
                 </div>

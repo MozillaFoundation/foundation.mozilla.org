@@ -14,15 +14,15 @@
             {% if primary_related_articles %}
                 <div
                     class="
-                        tw-col-span-2
-                        tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3
-                        tw-row-start-3 large:tw-row-start-2
-                        tw-flex
-                        tw-flex-row
-                        tw-w-full
-                        tw-p-16
-                        {% if category != current_category %} tw-hidden {% endif %}
-                    "
+                           tw-col-span-2
+                           tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3
+                           tw-row-start-3 large:tw-row-start-2
+                           tw-flex
+                           tw-flex-row
+                           tw-w-full
+                           tw-p-16
+                           {% if category != current_category %} tw-hidden {% endif %}
+                          "
                     data-show-for-category="{{ category.name }}"
                 >
                     {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles index_page=page.get_editorial_content_index %}
@@ -43,13 +43,13 @@
                     id="category-secondary-related-articles"
                     data-show-for-category="{{ category.name }}"
                     class="
-                        {% if category != current_category %}
-                            tw-hidden
-                        {% endif %}
-                        tw-container
-                        tw-mt-32
-                        tw-mb-[120px]
-                    "
+                           {% if category != current_category %}
+                               tw-hidden
+                           {% endif %}
+                           tw-container
+                           tw-mt-32
+                           tw-mb-[120px]
+                          "
                 >
                     {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=page.get_editorial_content_index use_wide_above="medium" %}
                 </div>

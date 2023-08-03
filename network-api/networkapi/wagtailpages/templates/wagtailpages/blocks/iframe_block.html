@@ -23,7 +23,7 @@ The iframe_block.html is used on Article pages and Blog pages.
 {% block block_content %}
     <div class="tw-my-4">
         <div class="embed-responsive embed-responsive-16by9" {% if value.height %}style="height: {{ value.height|unlocalize }}px;"
-        {% endif %}>
+             {% endif %}>
             <iframe src="{{ value.url }}" class="embed-responsive-item" {% if value.disable_scroll %}scrolling="no" style="overflow: hidden;"{% endif %}></iframe>
         </div>
         {% if value.caption %}
