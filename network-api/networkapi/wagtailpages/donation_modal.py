@@ -40,7 +40,7 @@ class DonationModal(TranslatableMixin, models.Model):
 
     donate_url = models.CharField(
         max_length=255,
-        blank=True,
+        default="?form=donate",
         validators=[
             RegexValidator(
                 regex=url_or_query_regex,
