@@ -136,9 +136,7 @@ class DonationModal extends Component {
   }
 
   generateDonateButtonUrl() {
-    let buttonUrl = this.props.donateUrl || "?form=donate";
-
-    const url = new URL(buttonUrl, window.location.href);
+    const url = new URL(this.props.donateUrl, window.location.href);
 
     // Appending campaign ID as URL param for tracking purposes
     const params = new URLSearchParams(url.search);
