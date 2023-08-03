@@ -312,7 +312,7 @@ Please remember to take this into account when designing/implementing new forms.
                     <label id="tfa_496-L" class="label preField " for="tfa_496">{% trans "Postal Code" %}</label><br><div class="inputWrapper"><input type="text" id="tfa_496" name="tfa_496" value="" title="{% trans "Postal Code" %}" class=""></div>
                 </div>
             {% endif %}
-            {% if not show_comment_field == "none" %}
+            {% if show_comment_field %}
                 <div class="oneField field-container-D    " id="tfa_497-D">
                     <label id="tfa_497-L" class="label preField " for="tfa_497">{% trans "Comments" %}</label><br><div class="inputWrapper"><textarea maxlength="500" id="tfa_497" name="tfa_497" title="{% trans "Comments" %}" class=""></textarea></div>
                 </div>
