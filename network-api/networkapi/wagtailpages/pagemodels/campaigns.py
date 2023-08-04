@@ -258,6 +258,7 @@ class Petition(TranslatableMixin, CTA):
         SynchronizedField("show_country_field"),
         SynchronizedField("show_postal_code_field"),
         TranslatableField("show_comment_field"),
+        TranslatableField("comment_requirements"),
         TranslatableField("checkbox_1"),
         TranslatableField("checkbox_2"),
         SynchronizedField("share_twitter"),
