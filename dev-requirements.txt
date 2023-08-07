@@ -173,7 +173,7 @@ tqdm==4.63.0
     # via
     #   -c requirements.txt
     #   djlint
-types-python-slugify==8.0.0.2
+types-python-slugify==8.0.0.3
     # via -r dev-requirements.in
 types-requests==2.31.0.2
     # via -r dev-requirements.in
