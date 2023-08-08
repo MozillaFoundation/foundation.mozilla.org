@@ -94,7 +94,6 @@ def bootstrap_data(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0001_initial_2022"),
     ]

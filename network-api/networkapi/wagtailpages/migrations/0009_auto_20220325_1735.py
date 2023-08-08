@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtaildocs", "0012_uploadeddocument"),
         ("wagtailpages", "0008_research_hub_site_structure"),

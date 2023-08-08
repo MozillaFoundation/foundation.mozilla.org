@@ -31,10 +31,11 @@ def cta(context, page):
         "source_url": context["request"].build_absolute_uri(),
         "thank_you_url": context["request"].build_absolute_uri(context["request"].path + "?thank_you=true"),
         "show_formassembly_thank_you": context["request"].GET.get("thank_you") == "true",
+        "csp_nonce": context["request"].csp_nonce,
     }
 
     if page.cta:
-        for (Subclass, subclass_name) in [
+        for Subclass, subclass_name in [
             (
                 sub,
                 sub.__name__.lower(),

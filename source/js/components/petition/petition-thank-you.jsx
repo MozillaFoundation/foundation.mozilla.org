@@ -111,6 +111,7 @@ class PetitionThankYou extends Component {
     return (
       <DonationModal
         slug={this.props.ctaSlug}
+        campaignId={this.props.campaignId}
         name={modal.name}
         heading={modal.header}
         bodyText={modal.body}

@@ -1,15 +1,15 @@
 {% load static wagtailcore_tags wagtailimages_tags i18n %}
 <div data-gtm="featured-pages" class="tw-row">
     <div class="
-        tw-px-8
-        tw-w-full
-        tw-grid
-        tw-grid-cols-12
-        tw-grid-rows-[(auto,auto,auto)] medium:tw-grid-rows-[(auto,auto)]
+                tw-px-8
+                tw-w-full
+                tw-grid
+                tw-grid-cols-12
+                tw-grid-rows-[(auto,auto,auto)] medium:tw-grid-rows-[(auto,auto)]
         {# Only adding the x gap above medium screens because otherwise the gaps would define a min width for the grid. #}
-        medium:tw-gap-x-16
-        tw-gap-y-16
-    ">
+                medium:tw-gap-x-16
+                tw-gap-y-16
+               ">
 
         {% with search_image=featured_page.search_image %}
             {% image search_image width-650 as img1x %}
@@ -19,10 +19,10 @@
             <a
                 href="{{ featured_page_url }}"
                 class="
-                    tw-col-span-full large:tw-col-span-7
-                    large:tw-row-span-2
-                    [&_~_a>h2]:hover:tw-underline
-                "
+                       tw-col-span-full large:tw-col-span-7
+                       large:tw-row-span-2
+                       [&_~_a>h2]:hover:tw-underline
+                      "
             >
                 <span class="tw-sr-only">{{ featured_page.title }}</span>
                 <img
@@ -36,10 +36,10 @@
             <a
                 href="{{ featured_page_url }}"
                 class="
-                    tw-col-span-full medium:tw-col-span-6 large:tw-col-span-5
-                    tw-no-underline
-                    tw-group
-                "
+                       tw-col-span-full medium:tw-col-span-6 large:tw-col-span-5
+                       tw-no-underline
+                       tw-group
+                      "
             >
                 <h2 class="tw-h3-heading group-hover:tw-underline">
                     {{ featured_page.title }}

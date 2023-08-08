@@ -6,7 +6,6 @@ import networkapi.highlights.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("highlights", "0001_squashed_0007_nullify_homepage"),
     ]

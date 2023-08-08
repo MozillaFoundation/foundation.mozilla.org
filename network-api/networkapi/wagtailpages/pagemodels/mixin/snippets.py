@@ -2,7 +2,6 @@ from networkapi.wagtailpages.utils import get_default_locale
 
 
 class LocalizedSnippet:
-
     DEFAULT_LOCALE = None
 
     def __init__(self, *args, **kwargs):
