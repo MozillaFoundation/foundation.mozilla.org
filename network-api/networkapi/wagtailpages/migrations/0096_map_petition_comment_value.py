@@ -10,12 +10,11 @@ def map_old_to_new(apps, schema_editor):
     # Map value from the old comment_requirements field to the new show_comment_field
     # the current "none" value is mapped to False
     # the current "optional" value and "required" value are mapped to True
-
     Petition.objects.update(
         show_comment_field=Case(
             When(comment_requirements__isnull=True, then=Value(False)),
             When(comment_requirements__in=["optional", "required"], then=Value(True)),
-            default=Value(False)
+            default=Value(False),
         )
     )
 
