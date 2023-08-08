@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0066_add_border_options_to_image_teaser_block"),
     ]

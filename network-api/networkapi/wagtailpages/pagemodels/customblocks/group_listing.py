@@ -11,7 +11,7 @@ class GroupListingCard(blocks.StructBlock):
 
     title = blocks.CharBlock(help_text="Heading for the card.")
 
-    body = blocks.RichTextBlock(features=["bold"], help_text="Body text of the card.")
+    body = blocks.RichTextBlock(features=["bold", "link"], help_text="Body text of the card.")
     url = blocks.CharBlock(required=False, help_text="The URL this card should link to.")
 
 

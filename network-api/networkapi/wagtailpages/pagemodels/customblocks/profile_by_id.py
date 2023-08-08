@@ -6,7 +6,6 @@ from wagtail import blocks
 
 
 class ProfileById(blocks.StructBlock):
-
     ids = blocks.CharBlock(
         label="Profile by ID",
         help_text="Show profiles for pulse users with specific profile ids"

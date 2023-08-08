@@ -16,19 +16,12 @@ from networkapi.wagtailpages import (
     to_language,
 )
 from networkapi.wagtailpages.factory import blog as blog_factories
-from networkapi.wagtailpages.factory.libraries.research_hub import (
-    detail_page as detail_page_factory,
-)
-from networkapi.wagtailpages.factory.libraries.research_hub import (
-    relations as relations_factory,
-)
 from networkapi.wagtailpages.factory.profiles import ProfileFactory
 from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.utils import (
     create_wagtail_image,
     get_blog_authors,
-    get_research_authors,
     localize_queryset,
 )
 
@@ -248,40 +241,23 @@ class TestLocalizeQueryset(TestCase):
         # Assert that an empty queryset is returned
         self.assertEqual(len(result), 0)
 
+    def test_localize_queryset_ordering(self):
+        """Tests that the function can order the queryset. tags: [edge case]"""
+        # Create items only in default locale
+        banana = ProfileFactory(name="Banana", locale=self.default_locale)
+        apple = ProfileFactory(name="Apple", locale=self.default_locale)
 
-class TestGetResearchAuthors(TestCase):
-    def test_get_research_authors(self):
-        research_author_profile = ProfileFactory()
-        relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
-            author_profile=research_author_profile,
-        )
-        not_research_author_profile = ProfileFactory()
+        # Override the current language to be the active locale
+        translation.activate(self.default_locale.language_code)
 
-        research_author_profiles = get_research_authors(Profile.objects.all())
+        # Call the function
+        result = localize_queryset(Profile.objects.all().order_by("translation_key"), order_by="name")
 
-        self.assertIn(research_author_profile, research_author_profiles)
-        self.assertNotIn(not_research_author_profile, research_author_profiles)
-
-    def test_get_research_authors_distinct(self):
-        """Return research author profile only once"""
-
-        research_author_profile = ProfileFactory()
-        relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
-            author_profile=research_author_profile,
-        )
-        relations_factory.ResearchAuthorRelationFactory(
-            research_detail_page=detail_page_factory.ResearchDetailPageFactory(),
-            author_profile=research_author_profile,
-        )
-
-        profiles = Profile.objects.all()
-        profiles = get_research_authors(profiles)
-        profiles = profiles.filter(id=research_author_profile.id)
-        count = profiles.count()
-
-        self.assertEqual(count, 1)
+        # Assert that only one version of each item is returned
+        self.assertEqual(len(result), 2)
+        # Assert that the items are ordered by the name in the active locale
+        self.assertEqual(result[0], apple)
+        self.assertEqual(result[1], banana)
 
 
 class TestGetBlogAuthors(TestCase):

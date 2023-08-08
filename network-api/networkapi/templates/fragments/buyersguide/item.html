@@ -2,16 +2,16 @@
 
 <figure
     class="
-        product-box
-        {% if matched == False %}d-none{% else %}d-flex{% endif %}
-        tw-flex-col
-        tw-justify-between
-        tw-m-0
+           product-box
+           {% if matched == False %}d-none{% else %}d-flex{% endif %}
+           tw-flex-col
+           tw-justify-between
+           tw-m-0
 
-        {% if product.draft %}draft-product{% endif %}
-        {% if product.adult_content %}adult-content{% endif %}
-        {% if product.privacy_ding %}privacy-ding{% endif %}
-    "
+           {% if product.draft %}draft-product{% endif %}
+           {% if product.adult_content %}adult-content{% endif %}
+           {% if product.privacy_ding %}privacy-ding{% endif %}
+          "
     data-creepiness="{{ product.creepiness|unlocalize }}"
 >
     <div class="top-left-badge-container">

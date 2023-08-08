@@ -5,7 +5,6 @@ from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 
 @register_setting(icon="tick")
 class FeatureFlags(BaseSiteSetting):
-
     activate_donate_banner = models.BooleanField(
         default=False,
         verbose_name="Activate the donation banner",

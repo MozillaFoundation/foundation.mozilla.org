@@ -13,22 +13,22 @@
 .primary-page-content {
   &.wide {
     .streamfield-content {
-      @extend .col-12;
+      @apply tw-relative tw-w-full tw-px-8 tw-flex-grow-0 tw-flex-shrink-0 tw-basis-full tw-max-w-full;
     }
   }
 
   &.narrow {
     .streamfield-content {
-      @extend .col-md-8;
+      @apply tw-relative tw-w-full tw-px-8 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 medium:tw-basis-8/12 medium:tw-max-w-[8/12];
     }
   }
 }
 
 .article-page-content {
   .streamfield-content {
-    @extend .col-md-10;
+    @apply tw-relative tw-w-full tw-px-8 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 medium:tw-basis-10/12 medium:tw-max-w-[10/12];
     &.wide {
-      @extend .col-12;
+      @apply tw-relative tw-w-full tw-px-8 tw-flex-grow-0 tw-flex-shrink-0 tw-basis-full tw-max-w-full;
     }
   }
 }
@@ -37,10 +37,10 @@
   .streamfield-content {
     @extend .col-lg-8;
     &.wide {
-      @extend .col-12;
+      @apply tw-relative tw-w-full tw-px-8 tw-flex-grow-0 tw-flex-shrink-0 tw-basis-full tw-max-w-full;
     }
     &.full-width {
-      @extend .col-12;
+      @apply tw-relative tw-flex-grow-0 tw-flex-shrink-0 tw-basis-full;
       @extend .full-width;
     }
   }
@@ -48,8 +48,7 @@
 
 .opportunity-page-content {
   .streamfield-content {
-    @extend .col-lg-12;
-    @extend .px-0;
+    @apply tw-relative tw-w-full tw-px-0 medium:tw-flex-grow-0 medium:tw-flex-shrink-0 large:tw-basis-full large:tw-max-w-full;
   }
 }
 

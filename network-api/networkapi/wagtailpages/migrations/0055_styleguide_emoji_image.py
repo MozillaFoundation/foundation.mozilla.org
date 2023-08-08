@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailimages", "0023_add_choose_permissions"),
         ("wagtailpages", "0054_merge_20220906_1800"),

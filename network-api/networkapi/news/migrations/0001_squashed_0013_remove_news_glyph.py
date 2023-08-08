@@ -8,7 +8,6 @@ import networkapi.news.models
 
 
 class Migration(migrations.Migration):
-
     replaces = [
         ("news", "0001_initial"),
         ("news", "0002_auto_20170322_1724"),

@@ -18,7 +18,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0076_update_article_callout_fields"),
     ]

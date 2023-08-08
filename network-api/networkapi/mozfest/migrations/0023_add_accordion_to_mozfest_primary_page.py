@@ -15,7 +15,6 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mozfest", "0022_adds_url_field_for_listing_card"),
     ]

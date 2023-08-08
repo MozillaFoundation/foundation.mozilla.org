@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0060_buyersguidecampaignpage_donationmodal_relation"),
     ]

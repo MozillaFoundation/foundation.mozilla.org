@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0055_buyersguidepage_featured_advice_article"),
         ("wagtailpages", "0055_styleguide_emoji_image"),

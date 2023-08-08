@@ -9,7 +9,6 @@ import networkapi.wagtailpages.pagemodels.customblocks.video_block
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mozfest", "0024_wagtail_3_upgrade"),
     ]

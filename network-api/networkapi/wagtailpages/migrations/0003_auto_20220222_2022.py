@@ -14,7 +14,6 @@ import networkapi.wagtailpages.pagemodels.customblocks.articles
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailpages", "0002_initial_2022_data"),
     ]

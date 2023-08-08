@@ -2,7 +2,7 @@ import os
 import re
 from sys import platform
 
-from invoke import task
+from invoke import exceptions, task
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
 LOCALE_DIR = os.path.realpath(os.path.abspath("network-api/locale"))
@@ -140,16 +140,13 @@ def catch_up(ctx):
     print("* Stopping services first")
     ctx.run("docker-compose down")
     print("* Rebuilding images and install dependencies")
+    # The docker image build will install node and python dependencies.
     ctx.run("docker-compose build")
-    print("* Install Node dependencies")
-    npm_install(ctx)
-    print("* Sync Python dependencies")
-    pip_sync(ctx)
     print("* Applying database migrations.")
     migrate(ctx)
     print("* Updating block information.")
     l10n_block_inventory(ctx)
-    print("\n* Start your dev server with:\n docker-compose up")
+    print("\n* Start your dev server with:\n inv start or docker-compose up")
 
 
 @task(aliases=["new-env", "docker-new-env"])
@@ -167,28 +164,23 @@ def setup(ctx):
         ctx.run("docker-compose down --volumes")
         print("* Building Docker images")
         ctx.run("docker-compose build")
-        print("* Creating a Python virtualenv")
-        ctx.run(
-            "docker-compose run --rm backend python -m venv dockerpythonvenv",
-            **PLATFORM_ARG,
-        )
-        print("* Install Node dependencies")
-        npm_install(ctx)
-        print("Done!")
-        print("* Updating pip")
-        ctx.run(
-            "docker-compose run --rm backend ./dockerpythonvenv/bin/pip install -U pip==20.0.2",
-            **PLATFORM_ARG,
-        )
-        print("* Installing pip-tools")
-        ctx.run(
-            "docker-compose run --rm backend ./dockerpythonvenv/bin/pip install pip-tools",
-            **PLATFORM_ARG,
-        )
-        print("* Sync Python dependencies")
-        pip_sync(ctx)
         initialize_database(ctx)
-        print("\n* Start your dev server with:\n docker-compose up")
+        print("\n* Start your dev server with:\n inv start or docker-compose up.")
+
+
+@task(aliases=["start", "docker-start"])
+def start_dev(ctx):
+    """Start the dev server"""
+    with ctx.cd(ROOT):
+        ctx.run("docker-compose up")
+
+
+@task(aliases=["start-lean", "docker-start-lean"])
+def start_lean_dev(ctx):
+    """Start the dev server without rebuilding frontend assets for a faster start up."""
+    print("Starting the dev server without rebuilding frontend assets...")
+    print("WARNING: Frontend assets may be outdated or missing if they haven't been built yet.")
+    ctx.run("docker-compose -f docker-compose.yml -f docker-compose-lean.yml up")
 
 
 # Javascript shorthands
@@ -196,14 +188,32 @@ def setup(ctx):
 def npm(ctx, command):
     """Shorthand to npm. inv docker-npm \"[COMMAND] [ARG]\" """
     with ctx.cd(ROOT):
-        ctx.run(f"docker-compose run --rm watch-static-files npm {command}")
+        # Tell user to use npm_install instead if command includes 'install' or 'ci'
+        if "install" in command or "ci" in command:
+            print("Please use 'inv npm-install' instead.")
+            return
+
+        ctx.run(f"docker-compose run --rm backend npm {command}")
+
+
+@task(aliases=["docker-npm-exec"])
+def npm_exec(ctx, command):
+    """Run npm in running container, e.g for npm install."""
+    with ctx.cd(ROOT):
+        # Using 'exec' instead of 'run --rm' as /node_modules is not mounted.
+        # To make this persistent, use 'exec' to run in the running container.
+        try:
+            ctx.run(f"docker-compose exec --user=root backend npm {command}")
+        except exceptions.UnexpectedExit:
+            print("This command requires a running container.\n")
+            print("Please run 'inv start' or 'inv start-lean' in a separate terminal window first.")
 
 
 @task(aliases=["docker-npm-install"])
 def npm_install(ctx):
     """Install Node dependencies"""
     with ctx.cd(ROOT):
-        ctx.run("docker-compose run --rm watch-static-files npm ci")
+        npm_exec(ctx, "ci")
 
 
 @task(aliases=["copy-stage-db"])
@@ -434,7 +444,7 @@ def djhtml_check(ctx):
 @task
 def djhtml_format(ctx):
     """Run djhtml code indenter in formatting mode."""
-    djhtml(ctx, args="-i maintenance/ network-api/")
+    djhtml(ctx, args="maintenance/ network-api/")
 
 
 @task(help={"args": "Override the arguments passed to djlint."})
@@ -489,12 +499,31 @@ def mypy(ctx, args=None):
 
 
 # Pip-tools
-@task(aliases=["docker-pip-compile"])
-def pip_compile(ctx, command):
-    """Shorthand to pip-tools. inv pip-compile \"[COMMAND] [ARG]\" """
+def _pip_compile_workaround(requirement_file, additional_commands=""):
+    """
+    A workaround to fix 'Device or resource busy' error when running
+    pip-compile in docker container where the output file is a mounted volume.
+
+    This is because pip-compile tries to replace the output file, and you can't replace
+    mount points. However, you can write to them. So we work around this by using an
+    unmounted .tmp file as intermediary, and then write the changes to the mounted file.
+    """
+    output_file = requirement_file.replace(".in", ".txt")
+    temp_file = output_file + ".tmp"
+    return (
+        f"cp {output_file} {temp_file}&&pip-compile {requirement_file}"
+        + " "
+        + additional_commands
+        + f" --output-file={temp_file}&&cp {temp_file} {output_file}&&rm {temp_file}"
+    )
+
+
+@task(aliases=["docker-pip-compile"], optional=["command"])
+def pip_compile(ctx, filename="requirements.in", command=""):
+    """Shorthand to pip-tools. inv pip-compile \"[filename]\" \"[COMMAND] [ARG]\" """
     with ctx.cd(ROOT):
         ctx.run(
-            f"docker-compose run --rm backend ./dockerpythonvenv/bin/pip-compile {command}",
+            f"""docker-compose run --rm backend bash -c '{_pip_compile_workaround(filename, command)}'""",
             **PLATFORM_ARG,
         )
 
@@ -503,12 +532,11 @@ def pip_compile(ctx, command):
 def pip_compile_lock(ctx):
     """Lock prod and dev dependencies"""
     with ctx.cd(ROOT):
+        # Running in separate steps as the dev-requirements.in needs to read requirements.txt
+        command = _pip_compile_workaround("requirements.in") + "&&"
+        command = command + _pip_compile_workaround("dev-requirements.in")
         ctx.run(
-            "docker-compose run --rm backend ./dockerpythonvenv/bin/pip-compile",
-            **PLATFORM_ARG,
-        )
-        ctx.run(
-            "docker-compose run --rm backend ./dockerpythonvenv/bin/pip-compile dev-requirements.in",
+            f"""docker-compose run --rm backend bash -c '{command}'""",
             **PLATFORM_ARG,
         )
 
@@ -517,10 +545,16 @@ def pip_compile_lock(ctx):
 def pip_sync(ctx):
     """Sync your python virtualenv"""
     with ctx.cd(ROOT):
-        ctx.run(
-            "docker-compose run --rm backend ./dockerpythonvenv/bin/pip-sync requirements.txt dev-requirements.txt",
-            **PLATFORM_ARG,
-        )
+        try:
+            ctx.run(
+                # Using 'exec' instead of 'run --rm' as /dockerpythonvenv is not mounted.
+                # To make this persistent, use 'exec' to run in the running container.
+                "docker-compose exec backend ./dockerpythonvenv/bin/pip-sync requirements.txt dev-requirements.txt",
+                **PLATFORM_ARG,
+            )
+        except exceptions.UnexpectedExit:
+            print("This command requires a running container.\n")
+            print("Please run 'inv start' or 'inv start-lean' in a separate terminal window first.")
 
 
 # Translation
