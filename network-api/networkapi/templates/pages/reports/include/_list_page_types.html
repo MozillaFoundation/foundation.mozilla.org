@@ -1,4 +1,4 @@
-{% load i18n wagtailadmin_tags wagtailcore_tags %}
+{% load wagtailadmin_tags wagtailcore_tags %}
 
 <table class="listing {% block table_classname %}{% endblock table_classname %}">
     <col width="20%" />
@@ -12,25 +12,25 @@
         {% block post_parent_page_headers %}
             <tr class="table-headers">
                 <th class="title">
-                    {% trans "Page Type" %}
+                    Page Type
                 </th>
                 <th class="app-label">
-                    {% trans "App Model" %}
+                    App Model
                 </th>
                 <th class="count">
-                    {% trans "Pages" %}
+                    Pages
                 </th>
                 <th class="default-locale-count">
-                    {% trans "Pages in" %} {{ active_locale_name }}
+                    Pages in {{ active_locale_name }}
                 </th>
                 <th class="last-edited-page">
-                    {% trans "Last edited page" %}
+                    Last edited page
                 </th>
                 <th class="last-edited-at">
-                    {% trans "Last edit" %}
+                    Last edit
                 </th>
                 <th class="last-edited-by">
-                    {% trans "Last edited by" %}
+                    Last edited by
                 </th>
                 {% block extra_columns %}
                 {% endblock extra_columns %}
@@ -85,7 +85,7 @@
             {% endfor %}
         {% else %}
             {% block no_results %}
-                <p>{% trans "No pages found." %}</p>
+                <p>No pages found.</p>
             {% endblock no_results %}
         {% endif %}
     </tbody>
