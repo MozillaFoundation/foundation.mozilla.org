@@ -143,7 +143,10 @@ class DonationModal extends Component {
     params.append("c_id", this.props.campaignId);
     url.search = params.toString();
 
-    return url.toString();
+    const current = new URL(window.location.href);
+    const baseUrl = current.origin + current.pathname;
+
+    return url.toString().replace(baseUrl, "");
   }
 
   userElectedCloseModal() {
