@@ -116,6 +116,7 @@ class PetitionThankYou extends Component {
         heading={modal.header}
         bodyText={modal.body}
         donateText={modal.donate_text}
+        donateUrl={modal.donate_url}
         shareText={modal.dismiss_text}
         onDonate={() => this.userElectedToDonate()}
         onShare={() => this.userElectedToShare()}

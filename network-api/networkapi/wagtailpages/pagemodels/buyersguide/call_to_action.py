@@ -9,13 +9,11 @@ from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from networkapi.wagtailpages.constants import url_or_query_regex
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
 from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
-
-# Validates whether a string is either a valid URL, a query string (?param=test), or both.
-url_or_query_regex = r"^(https?://[\w.-]+(/\S*)?)?(\?[\w-]+(=[\w-]*)?(&[\w-]+(=[\w-]*)?)*)?$"
 
 
 @register_snippet
