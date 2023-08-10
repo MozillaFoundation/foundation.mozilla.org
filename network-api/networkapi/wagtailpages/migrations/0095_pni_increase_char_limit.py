@@ -7,28 +7,28 @@ import wagtail.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0094_alter_petition_campaign_id'),
+        ("wagtailpages", "0094_alter_petition_campaign_id"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='generalproductpage',
-            name='child_safety_blurb',
-            field=wagtail.fields.RichTextField(blank=True, help_text='Child safety information, if applicable.', max_length=10000),
+            model_name="generalproductpage",
+            name="child_safety_blurb",
+            field=wagtail.fields.RichTextField(blank=True, help_text="Child safety information, if applicable.", max_length=10000),
         ),
         migrations.AlterField(
-            model_name='generalproductpage',
-            name='how_can_you_control_your_data',
-            field=wagtail.fields.RichTextField(blank=True, help_text='How does this product let you control your data?', max_length=10000),
+            model_name="generalproductpage",
+            name="how_can_you_control_your_data",
+            field=wagtail.fields.RichTextField(blank=True, help_text="How does this product let you control your data?", max_length=10000),
         ),
         migrations.AlterField(
-            model_name='productpage',
-            name='how_does_it_use_data_collected',
-            field=wagtail.fields.RichTextField(blank=True, help_text='How does this product use the data collected?', max_length=20000),
+            model_name="productpage",
+            name="how_does_it_use_data_collected",
+            field=wagtail.fields.RichTextField(blank=True, help_text="How does this product use the data collected?", max_length=20000),
         ),
         migrations.AlterField(
-            model_name='productpage',
-            name='worst_case',
-            field=wagtail.fields.RichTextField(blank=True, max_length=10000, verbose_name='what could happen if something goes wrong?'),
+            model_name="productpage",
+            name="worst_case",
+            field=wagtail.fields.RichTextField(blank=True, max_length=10000, verbose_name="what could happen if something goes wrong?"),
         ),
     ]
