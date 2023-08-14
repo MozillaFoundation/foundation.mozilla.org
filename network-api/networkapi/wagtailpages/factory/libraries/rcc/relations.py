@@ -21,6 +21,14 @@ class RCCAuthorRelationFactory(factory.django.DjangoModelFactory):
     author_profile = factory.SubFactory(profiles_factory.ProfileFactory)
 
 
+class RCCLandingPageFeaturedAuthorsRelationFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = wagtailpage_models.RCCLandingPageFeaturedAuthorsRelation
+
+    landing_page = factory.SubFactory(landing_page_factory.RCCLandingPageFactory)
+    author = factory.SubFactory(profiles_factory.ProfileFactory)
+
+
 class RCCLandingPageFeaturedRCCContentTypeRelationFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.RCCLandingPageFeaturedRCCContentTypeRelation
