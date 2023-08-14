@@ -21,7 +21,7 @@ def map_old_to_new(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("wagtailpages", "0095_add_show_country_field_and_remove_old_fields"),
+        ("wagtailpages", "0096_add_show_country_field_and_remove_old_fields"),
     ]
 
     operations = [
