@@ -18,6 +18,9 @@ from networkapi.wagtailpages.factory.libraries.research_hub import (
 from networkapi.wagtailpages.factory.libraries.research_hub import (
     taxonomies as taxonomies_factory,
 )
+from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
+    utils as research_hub_utils,
+)
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 
 
@@ -96,4 +99,12 @@ def generate(seed):
         relations_factory.ResearchLandingPageResearchTopicRelationFactory.create(
             landing_page=rcc_landing_page,
             topic=topic,
+        )
+
+    # Populating research landing page with featured authors
+    research_authors = research_hub_utils.get_research_authors()
+    for profile in faker_helpers.get_random_objects(source=research_authors, max_count=4):
+        relations_factory.ResearchLandingPageFeaturedAuthorsRelationFactory.create(
+            landing_page=rcc_landing_page,
+            author=profile,
         )
