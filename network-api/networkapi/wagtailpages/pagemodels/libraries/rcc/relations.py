@@ -25,6 +25,27 @@ class RCCAuthorRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderab
     ]
 
 
+class RCCLandingPageFeaturedAuthorsRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
+    landing_page = cluster_fields.ParentalKey(
+        "wagtailpages.RCCLandingPage",
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name="featured_authors",
+    )
+    author = models.ForeignKey(
+        "wagtailpages.Profile",
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name="+",
+    )
+
+    panels = [
+        FieldPanel("author"),
+    ]
+
+
 class RCCLandingPageFeaturedRCCContentTypeRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
     landing_page = cluster_fields.ParentalKey(
         "wagtailpages.RCCLandingPage",

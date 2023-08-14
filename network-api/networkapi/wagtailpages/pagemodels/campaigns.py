@@ -172,14 +172,19 @@ class Petition(TranslatableMixin, CTA):
         null=True,
     )
 
-    requires_country_code = models.BooleanField(
+    show_country_field = models.BooleanField(
         default=False,
-        help_text="Will this petition require users to specify their country?",
+        help_text="This toggles the visibility of the optional country dropdown field.",
     )
 
-    requires_postal_code = models.BooleanField(
+    show_postal_code_field = models.BooleanField(
         default=False,
-        help_text="Will this petition require users to specify their postal code?",
+        help_text="This toggles the visibility of the optional postal code field.",
+    )
+
+    show_comment_field = models.BooleanField(
+        default=False,
+        help_text="This toggles the visibility of the optional comment field.",
     )
 
     COMMENT_CHOICES = (
@@ -248,10 +253,28 @@ class Petition(TranslatableMixin, CTA):
         default="Thank you for signing too!",
     )
 
+    panels = [
+        # from CTA model
+        FieldPanel("name"),
+        FieldPanel("header"),
+        FieldPanel("description"),
+        FieldPanel("newsletter"),
+        # from this model
+        FieldPanel("campaign_id"),
+        FieldPanel("show_country_field"),
+        FieldPanel("show_postal_code_field"),
+        FieldPanel("show_comment_field"),
+        FieldPanel("share_twitter"),
+        FieldPanel("share_facebook"),
+        FieldPanel("share_email"),
+        FieldPanel("thank_you"),
+    ]
+
     translatable_fields = [
         # This models fields
-        SynchronizedField("requires_country_code"),
-        SynchronizedField("requires_postal_code"),
+        SynchronizedField("show_country_field"),
+        SynchronizedField("show_postal_code_field"),
+        TranslatableField("show_comment_field"),
         TranslatableField("comment_requirements"),
         TranslatableField("checkbox_1"),
         TranslatableField("checkbox_2"),
