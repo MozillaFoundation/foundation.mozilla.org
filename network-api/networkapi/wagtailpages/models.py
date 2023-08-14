@@ -74,6 +74,7 @@ from .pagemodels.libraries.rcc.relations import (
     RCCDetailPageRCCContentTypeRelation,
     RCCDetailPageRCCCurricularAreaRelation,
     RCCDetailPageRCCTopicRelation,
+    RCCLandingPageFeaturedAuthorsRelation,
     RCCLandingPageFeaturedRCCContentTypeRelation,
 )
 from .pagemodels.libraries.rcc.taxonomies import (
@@ -92,6 +93,7 @@ from .pagemodels.libraries.research_hub.relations import (
     ResearchAuthorRelation,
     ResearchDetailPageResearchRegionRelation,
     ResearchDetailPageResearchTopicRelation,
+    ResearchLandingPageFeaturedAuthorsRelation,
     ResearchLandingPageFeaturedResearchTopicRelation,
 )
 from .pagemodels.libraries.research_hub.taxonomies import ResearchRegion, ResearchTopic
