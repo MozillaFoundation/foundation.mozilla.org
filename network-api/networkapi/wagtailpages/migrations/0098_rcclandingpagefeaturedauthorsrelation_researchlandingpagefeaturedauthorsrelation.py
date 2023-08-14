@@ -10,7 +10,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
     dependencies = [
         ("wagtailcore", "0078_referenceindex"),
-        ("wagtailpages", "0094_alter_petition_campaign_id"),
+        ("wagtailpages", "0097_map_petition_comment_value"),
     ]
 
     operations = [
