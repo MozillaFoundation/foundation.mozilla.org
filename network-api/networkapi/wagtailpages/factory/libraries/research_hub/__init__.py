@@ -107,6 +107,6 @@ def generate(seed):
     research_authors = research_hub_utils.get_research_authors()
     for profile in faker_helpers.get_random_objects(source=research_authors, max_count=4):
         relations_factory.ResearchLandingPageFeaturedAuthorsRelationFactory.create(
-            landing_page=rcc_landing_page,
+            landing_page=research_landing_page,
             author=profile,
         )
