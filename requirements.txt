@@ -129,7 +129,7 @@ gitdb==4.0.9
     # via gitpython
 gitpython==3.1.32
     # via wagtail-localize-git
-gunicorn==20.1.0
+gunicorn==21.2.0
     # via -r requirements.in
 heroku3==5.2.1
     # via -r requirements.in
@@ -155,6 +155,8 @@ oauthlib==3.2.2
     #   social-auth-core
 openpyxl==3.1.0
     # via wagtail
+packaging==23.1
+    # via gunicorn
 pillow==9.5.0
     # via wagtail
 polib==1.1.1
@@ -282,6 +284,3 @@ wrapt==1.13.3
     # via scout-apm
 zipp==3.16.2
     # via importlib-metadata
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
