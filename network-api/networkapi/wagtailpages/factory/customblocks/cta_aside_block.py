@@ -12,5 +12,5 @@ class CTAAsideBlockFactory(wagtail_factories.StructBlockFactory):
     body = factory.Faker("sentence", nb_words=10)
     button = factory.SubFactory(
         "networkapi.wagtailpages.factory.customblocks.link_button_block.LinkButtonBlockFactory",
-        styling="btn-secondary"
+        styling="btn-secondary",
     )
