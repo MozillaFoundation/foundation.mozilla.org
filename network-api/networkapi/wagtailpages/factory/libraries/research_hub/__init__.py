@@ -43,20 +43,22 @@ def generate(seed):
     print("Generating research hub")
 
     # Only one landing page can exist
-    rcc_landing_page = wagtailpage_models.ResearchLandingPage.objects.first()
-    if not rcc_landing_page:
-        rcc_landing_page = landing_page_factory.ResearchLandingPageFactory.create(parent=home_page)
+    research_landing_page = wagtailpage_models.ResearchLandingPage.objects.first()
+    if not research_landing_page:
+        research_landing_page = landing_page_factory.ResearchLandingPageFactory.create(
+            parent=home_page, aside_cta__0="cta", aside_cta__1="cta"
+        )
 
     # Only one library page can exist
     research_library_page = wagtailpage_models.ResearchLibraryPage.objects.first()
     if not research_library_page:
-        research_library_page = library_page_factory.ResearchLibraryPageFactory.create(parent=rcc_landing_page)
+        research_library_page = library_page_factory.ResearchLibraryPageFactory.create(parent=research_landing_page)
 
     # Only one authors index page can exist
     research_authors_index_page = wagtailpage_models.ResearchAuthorsIndexPage.objects.first()
     if not research_authors_index_page:
         research_authors_index_page = author_index_factory.ResearchAuthorsIndexPageFactory.create(
-            parent=rcc_landing_page
+            parent=research_landing_page
         )
 
     create_detail_page_for_visual_regression_tests(seed, research_library_page)
@@ -94,6 +96,6 @@ def generate(seed):
     # Populating research landing page with featured research topics
     for topic in faker_helpers.get_random_objects(source=wagtailpage_models.ResearchTopic, max_count=3):
         relations_factory.ResearchLandingPageResearchTopicRelationFactory.create(
-            landing_page=rcc_landing_page,
+            landing_page=research_landing_page,
             topic=topic,
         )
