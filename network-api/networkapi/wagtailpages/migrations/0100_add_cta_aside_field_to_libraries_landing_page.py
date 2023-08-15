@@ -7,7 +7,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("wagtailpages", "0094_alter_petition_campaign_id"),
+        ("wagtailpages", "0099_pni_increase_char_limit"),
     ]
 
     operations = [
