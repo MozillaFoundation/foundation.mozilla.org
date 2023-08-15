@@ -21,6 +21,14 @@ class ResearchAuthorRelationFactory(factory.django.DjangoModelFactory):
     author_profile = factory.SubFactory(profiles_factory.ProfileFactory)
 
 
+class ResearchLandingPageFeaturedAuthorsRelationFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = wagtailpage_models.ResearchLandingPageFeaturedAuthorsRelation
+
+    landing_page = factory.SubFactory(landing_page_factory.ResearchLandingPageFactory)
+    author = factory.SubFactory(profiles_factory.ProfileFactory)
+
+
 class ResearchDetailPageResearchRegionRelationFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = wagtailpage_models.ResearchDetailPageResearchRegionRelation

@@ -76,6 +76,30 @@
                 {% endif %}
             </div>
 
+            {% with featured_authors=page.featured_authors.all %}
+                {% if featured_authors %}
+                    <div id="featured-authors" class="tw-bg-gray-05 tw-col-span-12 tw-px-12 tw-py-12 tw-my-24">
+                        <div class="large:tw-mx-24">
+                            <h2 class="tw-py-12 large:tw-pb-24">
+                                {% block browse_all_featured_authors_title %}
+                                    {% trans "Featured authors" context "Section title" %}
+                                {% endblock browse_all_featured_authors_title %}
+                            </h2>
+                            <div class="tw-flex tw-flex-col medium:tw-flex-row tw-justify-start tw-gap-12">
+                                {% for featured_author in featured_authors %}
+                                    {% include "fragments/libraries/featured_author_profile.html" with authors_index=page.authors_index_page author_profile=featured_author.author url_name=page.authors_detail_url_name %}
+                                {% endfor %}
+                            </div>
+                            <a href="{% pageurl page.library_page %}" class="tw-btn-secondary tw-w-full tw-my-10 medium:tw-w-auto large:tw-my-24">
+                                {% block browse_all_featured_authors_button_label %}
+                                    {% trans "Browse all authors" context "Featured authors button label" %}
+                                {% endblock browse_all_featured_authors_button_label %}
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endwith %}
+
             <div id="landing-page-body" class="tw-col-span-12 medium:tw-px-8 ">
                 {% for block in page.body %}
                     {% include_block block with parent_page=page %}

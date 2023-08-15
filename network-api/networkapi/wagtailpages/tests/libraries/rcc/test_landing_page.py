@@ -1,3 +1,4 @@
+from networkapi.wagtailpages.factory.libraries.rcc import relations as relations_factory
 from networkapi.wagtailpages.tests.libraries.rcc import base
 
 
@@ -77,3 +78,15 @@ class RCCLandingPageTestCase(base.RCCTestCase):
         """
         self.assertEqual(self.landing_page.aside_cta[0].block_type, "cta")
         self.assertEqual(self.landing_page.aside_cta[1].block_type, "cta")
+
+    def test_landing_page_featured_authors(self):
+        featured_authors = self.landing_page.featured_authors.all()
+        self.assertEqual(len(featured_authors), 0)
+
+        featured_author = relations_factory.RCCLandingPageFeaturedAuthorsRelationFactory.create(
+            landing_page=self.landing_page
+        )
+
+        featured_authors = self.landing_page.featured_authors.all()
+        self.assertEqual(len(featured_authors), 1)
+        self.assertEqual(featured_authors[0], featured_author)

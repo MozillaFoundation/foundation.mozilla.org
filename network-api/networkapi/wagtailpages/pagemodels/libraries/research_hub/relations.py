@@ -25,6 +25,27 @@ class ResearchAuthorRelation(wagtail_models.TranslatableMixin, wagtail_models.Or
     ]
 
 
+class ResearchLandingPageFeaturedAuthorsRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
+    landing_page = cluster_fields.ParentalKey(
+        "wagtailpages.ResearchLandingPage",
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name="featured_authors",
+    )
+    author = models.ForeignKey(
+        "wagtailpages.Profile",
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name="+",
+    )
+
+    panels = [
+        FieldPanel("author"),
+    ]
+
+
 class ResearchDetailPageResearchRegionRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
     detail_page = cluster_fields.ParentalKey(
         "wagtailpages.ResearchDetailPage",

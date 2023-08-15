@@ -16,6 +16,7 @@ from networkapi.wagtailpages.factory.libraries.rcc import relations as relations
 from networkapi.wagtailpages.factory.libraries.rcc import (
     taxonomies as taxonomies_factory,
 )
+from networkapi.wagtailpages.pagemodels.libraries.rcc import utils as rcc_utils
 
 
 def generate(seed):
@@ -81,9 +82,17 @@ def generate(seed):
                 topic=topic,
             )
 
-    # Populating research landing page with featured content types
+    # Populating rcc landing page with featured content types
     for content_type in faker_helpers.get_random_objects(source=wagtailpage_models.RCCContentType, max_count=3):
         relations_factory.RCCLandingPageFeaturedRCCContentTypeRelationFactory.create(
             landing_page=rcc_landing_page,
             content_type=content_type,
+        )
+
+    # Populating rcc landing page with featured authors
+    rcc_authors = rcc_utils.get_rcc_authors()
+    for profile in faker_helpers.get_random_objects(source=rcc_authors, max_count=4):
+        relations_factory.RCCLandingPageFeaturedAuthorsRelationFactory.create(
+            landing_page=rcc_landing_page,
+            author=profile,
         )

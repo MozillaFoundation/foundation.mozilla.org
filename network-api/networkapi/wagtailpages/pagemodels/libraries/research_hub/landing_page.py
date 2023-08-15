@@ -6,6 +6,7 @@ from wagtail_localize import fields as localize_fields
 from networkapi.wagtailpages.pagemodels.libraries import (
     landing_page as base_landing_page,
 )
+from networkapi.wagtailpages.pagemodels.libraries.research_hub import authors_index
 from networkapi.wagtailpages.pagemodels.libraries.research_hub import (
     detail_page as rcc_detail_page,
 )
@@ -23,11 +24,13 @@ class ResearchLandingPage(base_landing_page.BaseLandingPage):
     template = "pages/libraries/research_hub/landing_page.html"
 
     content_panels = base_landing_page.BaseLandingPage.content_panels + [
-        panels.InlinePanel("featured_topics", heading="Featured Topics"),
+        panels.InlinePanel("featured_topics", heading="Featured topics"),
+        panels.InlinePanel("featured_authors", heading="Featured authors", max_num=4),
     ]
 
     translatable_fields = base_landing_page.BaseLandingPage.translatable_fields + [
         localize_fields.TranslatableField("featured_topics"),
+        localize_fields.TranslatableField("featured_authors"),
     ]
 
     @cached_property
@@ -39,3 +42,11 @@ class ResearchLandingPage(base_landing_page.BaseLandingPage):
     def detail_pages(self):
         """Return the detail pages that are children of this page."""
         return rcc_detail_page.ResearchDetailPage.objects.filter(locale=self.locale).live().public()
+
+    @cached_property
+    def authors_detail_url_name(self):
+        return "research-author-detail"
+
+    @cached_property
+    def authors_index_page(self):
+        return authors_index.ResearchAuthorsIndexPage.objects.first()

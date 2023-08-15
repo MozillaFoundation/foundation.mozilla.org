@@ -1,3 +1,6 @@
+from networkapi.wagtailpages.factory.libraries.research_hub import (
+    relations as relations_factory,
+)
 from networkapi.wagtailpages.tests.libraries.research_hub import base
 
 
@@ -80,3 +83,15 @@ class ResearchLandingPageTestCase(base.ResearchHubTestCase):
         """
         self.assertEqual(self.landing_page.aside_cta[0].block_type, "cta")
         self.assertEqual(self.landing_page.aside_cta[1].block_type, "cta")
+
+    def test_landing_page_featured_authors(self):
+        featured_authors = self.landing_page.featured_authors.all()
+        self.assertEqual(len(featured_authors), 0)
+
+        featured_author = relations_factory.ResearchLandingPageFeaturedAuthorsRelationFactory.create(
+            landing_page=self.landing_page
+        )
+
+        featured_authors = self.landing_page.featured_authors.all()
+        self.assertEqual(len(featured_authors), 1)
+        self.assertEqual(featured_authors[0], featured_author)
