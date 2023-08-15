@@ -25,6 +25,8 @@ class RCCTestCase(test_base.WagtailpagesTestCase):
         cls.landing_page = landing_page_factory.RCCLandingPageFactory(
             parent=homepage,
             title="RCC Playbook",
+            aside_cta__0="cta",
+            aside_cta__1="cta",
         )
         cls.library_page = library_page_factory.RCCLibraryPageFactory(
             parent=cls.landing_page,
