@@ -100,7 +100,7 @@
     "swiper": "^6.8.4",
     "tailwindcss": "^3.3.3",
     "uuid": "^8.3.2",
-    "whatwg-fetch": "^3.6.2"
+    "whatwg-fetch": "^3.6.17"
   },
   "devDependencies": {
     "@percy/cli": "^1.26.2",
