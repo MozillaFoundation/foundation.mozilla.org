@@ -9,13 +9,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
+        migrations.RenameField(
             model_name="petition",
-            name="requires_country_code",
+            old_name="requires_country_code",
+            new_name="show_country_field",
         ),
-        migrations.RemoveField(
+        migrations.RenameField(
             model_name="petition",
-            name="requires_postal_code",
+            old_name="requires_postal_code",
+            new_name="show_postal_code_field",
         ),
         migrations.AddField(
             model_name="petition",
@@ -24,14 +26,14 @@ class Migration(migrations.Migration):
                 default=False, help_text="This toggles the visibility of the optional comment field."
             ),
         ),
-        migrations.AddField(
+        migrations.AlterField(
             model_name="petition",
             name="show_country_field",
             field=models.BooleanField(
                 default=False, help_text="This toggles the visibility of the optional country dropdown field."
             ),
         ),
-        migrations.AddField(
+        migrations.AlterField(
             model_name="petition",
             name="show_postal_code_field",
             field=models.BooleanField(
