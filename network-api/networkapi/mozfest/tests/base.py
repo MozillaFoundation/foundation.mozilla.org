@@ -4,6 +4,7 @@ from wagtail.test import utils as wagtail_test
 from wagtail_localize import synctree
 
 from networkapi.mozfest.factory import MozfestHomepageFactory
+from networkapi.wagtailpages.models import Signup
 
 
 class MozfestBaseTests(wagtail_test.WagtailPageTestCase):
@@ -11,6 +12,9 @@ class MozfestBaseTests(wagtail_test.WagtailPageTestCase):
     def setUpTestData(cls):
         cls._setup_homepage()
         cls._setup_locales()
+        # Mozfest migration 0002 creates a default mozfest signup
+        # Delete all Signups to avoid conflicts
+        Signup.objects.all().delete()
 
     @classmethod
     def _setup_homepage(cls):
