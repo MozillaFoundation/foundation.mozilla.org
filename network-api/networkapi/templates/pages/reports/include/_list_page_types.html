@@ -20,9 +20,6 @@
                 <th class="count">
                     Pages
                 </th>
-                <th class="default-locale-count">
-                    Pages in {{ active_locale_name }}
-                </th>
                 <th class="last-edited-page">
                     Last edited page
                 </th>
@@ -50,7 +47,6 @@
                         {{ page_type.app_label }}
                     </td>
                     <td class="count" valign="top">{{ page_type.count }}</td>
-                    <td class="active-locale-count" valign="top">{{ page_type.active_locale_count }}</td>
                     <td class="last-edited-page" valign="top">
                         {% if page_type.last_edited_page %}
                             <a href="{% url 'wagtailadmin_pages:edit' page_type.last_edited_page.id %}">

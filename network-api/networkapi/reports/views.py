@@ -59,10 +59,3 @@ class PageTypesReportView(ReportView):
             )
             .order_by("-count")
         )
-
-    def get_context_data(self, *args, object_list=None, **kwargs):
-        queryset = object_list if object_list is not None else self.object_list
-
-        context = super().get_context_data(*args, object_list=queryset, **kwargs)
-        context["active_locale_name"] = self.active_locale_name
-        return context
