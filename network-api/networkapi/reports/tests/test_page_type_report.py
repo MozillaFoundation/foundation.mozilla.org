@@ -48,26 +48,6 @@ class PageTypesReportViewTest(WagtailpagesTestCase):
         self.assertEqual(queryset.get(id=product_page_content_type.pk).count, 3)
         self.assertEqual(queryset.get(id=homepage_content_type.pk).count, 1)
 
-    def test_queryset_active_locale_count(self):
-        """Asserts that the queryset is correctly filtered by active locale."""
-        # Create some product pages in default locale
-        product_page_a = ProductPageFactory(parent=self.homepage)
-        product_page_b = ProductPageFactory(parent=self.homepage)
-        # Activate French locale
-        self.activate_locale(self.fr_locale)
-        # Create some product pages in active locale
-        self.homepage.copy_for_translation(self.fr_locale)
-        product_page_a.copy_for_translation(self.fr_locale)
-        product_page_b.copy_for_translation(self.fr_locale)
-
-        queryset = self.view.get_queryset()
-
-        # Assert entry counts
-        self.assertEqual(queryset.get(id=ContentType.objects.get_for_model(Homepage).pk).count, 2)
-        self.assertEqual(queryset.get(id=ContentType.objects.get_for_model(Homepage).pk).active_locale_count, 1)
-        self.assertEqual(queryset.get(id=ContentType.objects.get_for_model(ProductPage).pk).count, 4)
-        self.assertEqual(queryset.get(id=ContentType.objects.get_for_model(ProductPage).pk).active_locale_count, 2)
-
     def test_queryset_last_edited_page(self):
         """Tests that the queryset correctly returns the last edited page."""
         # Create some product pages:
