@@ -1,8 +1,41 @@
+import django_filters
 from django.contrib.auth import get_user_model
-from django.db.models import Count, OuterRef, Subquery
+from django.db.models import Count, OuterRef, Q, Subquery
+from django_filters.constants import EMPTY_VALUES
+from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
 from wagtail.models import ContentType, Page, PageLogEntry, get_page_models
 from wagtail.users.utils import get_deleted_user_display_name
+
+
+class LocaleFilter(django_filters.CharFilter):
+    def filter(self, qs, value):
+        if value in EMPTY_VALUES:
+            latest_edit_log = PageLogEntry.objects.filter(content_type=OuterRef("pk"))
+            count_qs = Count("pages")
+        else:
+            latest_edit_log = PageLogEntry.objects.filter(
+                content_type=OuterRef("pk"), page__locale__language_code=value
+            )
+            count_qs = Count("pages", filter=Q(pages__locale__language_code=value))
+
+        latest_edit_log = latest_edit_log.order_by("-timestamp", "-pk")
+
+        qs = qs.annotate(
+            count=count_qs,
+            last_edited_page=Subquery(latest_edit_log.values("page")[:1]),
+            last_edited_by=Subquery(latest_edit_log.values("user")[:1]),
+        )
+
+        return qs
+
+
+class PageTypesReportFilterSet(WagtailFilterSet):
+    page_locale = LocaleFilter(label="Locale")
+
+    class Meta:
+        model = ContentType
+        fields = ["page_locale"]
 
 
 class PageTypesReportView(ReportView):
@@ -10,9 +43,12 @@ class PageTypesReportView(ReportView):
     template_name = "pages/reports/page_types_report.html"
     header_icon = "doc-empty-inverse"
 
+    filterset_class = PageTypesReportFilterSet
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.user_model = get_user_model()
+        self.page_models = [model.__name__.lower() for model in get_page_models()]
 
     def add_last_edited_name_to_page_type(self, username_mapping, page_type):
         if page_type.last_edited_by:
@@ -39,18 +75,14 @@ class PageTypesReportView(ReportView):
         return page_types
 
     def get_queryset(self):
-        page_models = [model.__name__.lower() for model in get_page_models()]
+        queryset = ContentType.objects.filter(model__in=self.page_models)
+        self.queryset = queryset
 
-        latest_edit_log = PageLogEntry.objects.filter(
-            content_type=OuterRef("pk")
-        ).order_by("-timestamp")
+        self.filters, queryset = self.filter_queryset(queryset)
 
-        return (
-            ContentType.objects.filter(model__in=page_models)
-            .annotate(
-                count=Count("pages"),
-                last_edited_page=Subquery(latest_edit_log.values("page")[:1]),
-                last_edited_by=Subquery(latest_edit_log.values("user")[:1]),
-            )
-            .order_by("-count")
-        )
+        # 'updated_at' is handled at the filter level, since ContentType itself does not
+        # have a locale to filter on
+
+        queryset = queryset.order_by("-count", "app_label", "model")
+
+        return queryset
