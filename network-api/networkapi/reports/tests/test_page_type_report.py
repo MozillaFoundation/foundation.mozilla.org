@@ -1,3 +1,6 @@
+from django.test import RequestFactory
+from django.urls import reverse
+
 from wagtail.models import ContentType
 
 from networkapi.reports.views import PageTypesReportView
@@ -11,6 +14,8 @@ class PageTypesReportViewTest(WagtailpagesTestCase):
     def setUp(self):
         super().setUp()
         self.view = PageTypesReportView()
+        rf = RequestFactory()
+        self.view.request = rf.get(reverse("page_types_report"))
 
     def test_queryset_filtering(self):
         """Asserts that the correct models are included in the queryset."""
