@@ -189,7 +189,7 @@ class PageTypesReportFiltersTests(WagtailpagesTestCase):
         homepage_row = page_types.get(ContentType.objects.get_for_model(Homepage).pk)
         productpage_row = page_types.get(ContentType.objects.get_for_model(ProductPage).pk)
 
-        # There should be 1 of each page (one for each locale)
+        # There should be 1 of each page (only the French locale ones)
         self.assertEqual(homepage_row.count, 1)
         self.assertEqual(productpage_row.count, 1)
         # The last edited page should be the French version (even though product page was later edited in English)
