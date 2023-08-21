@@ -14,11 +14,6 @@ certifi==2022.12.7
     # via
     #   -c requirements.txt
     #   requests
-    #   urllib3
-cffi==1.15.0
-    # via
-    #   -c requirements.txt
-    #   cryptography
 charset-normalizer==2.0.12
     # via
     #   -c requirements.txt
@@ -35,11 +30,6 @@ coverage[toml]==5.5
     #   pytest-cov
 coveralls==3.3.1
     # via -r dev-requirements.in
-cryptography==41.0.0
-    # via
-    #   -c requirements.txt
-    #   pyopenssl
-    #   urllib3
 cssbeautifier==1.14.7
     # via djlint
 django==3.2.20
@@ -74,7 +64,6 @@ idna==3.3
     # via
     #   -c requirements.txt
     #   requests
-    #   urllib3
 iniconfig==2.0.0
     # via pytest
 isort==5.12.0
@@ -85,7 +74,7 @@ jsbeautifier==1.14.7
     #   djlint
 mccabe==0.7.0
     # via flake8
-mypy==1.5.0
+mypy==1.5.1
     # via -r dev-requirements.in
 mypy-extensions==1.0.0
     # via
@@ -93,6 +82,7 @@ mypy-extensions==1.0.0
     #   mypy
 packaging==23.1
     # via
+    #   -c requirements.txt
     #   black
     #   pytest
     #   pytest-sugar
@@ -108,16 +98,8 @@ ptvsd==4.3.2
     # via -r dev-requirements.in
 pycodestyle==2.11.0
     # via flake8
-pycparser==2.21
-    # via
-    #   -c requirements.txt
-    #   cffi
 pyflakes==3.1.0
     # via flake8
-pyopenssl==23.2.0
-    # via
-    #   -c requirements.txt
-    #   urllib3
 pytest==7.4.0
     # via
     #   -r dev-requirements.in
@@ -184,11 +166,7 @@ typing-extensions==4.4.0
     #   -c requirements.txt
     #   black
     #   mypy
-urllib3[secure]==1.26.15
+urllib3==1.26.15
     # via
     #   -c requirements.txt
     #   requests
-urllib3-secure-extra==0.1.0
-    # via
-    #   -c requirements.txt
-    #   urllib3
