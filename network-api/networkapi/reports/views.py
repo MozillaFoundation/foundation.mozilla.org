@@ -1,23 +1,31 @@
 import django_filters
 from django.contrib.auth import get_user_model
 from django.db.models import Count, OuterRef, Q, Subquery
-from django_filters.constants import EMPTY_VALUES
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
-from wagtail.models import ContentType, Page, PageLogEntry, get_page_models
+from wagtail.models import ContentType, Locale, Page, PageLogEntry, get_page_models
 from wagtail.users.utils import get_deleted_user_display_name
 
 
-class LocaleFilter(django_filters.CharFilter):
+def _get_locale_choices():
+    # Get language codes that are already used
+    used_locales = Locale.objects.distinct().order_by("language_code")
+
+    choices = [(locale.language_code, locale.get_display_name()) for locale in used_locales]
+
+    return choices
+
+
+class LocaleFilter(django_filters.ChoiceFilter):
     def filter(self, qs, value):
-        if value in EMPTY_VALUES:
-            latest_edit_log = PageLogEntry.objects.filter(content_type=OuterRef("pk"))
-            count_qs = Count("pages")
-        else:
+        if value and value != self.null_value:
             latest_edit_log = PageLogEntry.objects.filter(
                 content_type=OuterRef("pk"), page__locale__language_code=value
             )
             count_qs = Count("pages", filter=Q(pages__locale__language_code=value))
+        else:
+            latest_edit_log = PageLogEntry.objects.filter(content_type=OuterRef("pk"))
+            count_qs = Count("pages")
 
         latest_edit_log = latest_edit_log.order_by("-timestamp", "-pk")
 
@@ -31,7 +39,9 @@ class LocaleFilter(django_filters.CharFilter):
 
 
 class PageTypesReportFilterSet(WagtailFilterSet):
-    page_locale = LocaleFilter(label="Locale")
+    page_locale = LocaleFilter(
+        label="Locale", choices=_get_locale_choices(), empty_label=None, null_label="All", null_value="all"
+    )
 
     class Meta:
         model = ContentType

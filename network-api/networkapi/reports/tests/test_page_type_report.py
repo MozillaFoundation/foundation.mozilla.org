@@ -3,10 +3,9 @@ import random
 from django.contrib.auth import get_user_model
 from django.test import RequestFactory
 from django.urls import reverse
-from django_filters.constants import EMPTY_VALUES
 from wagtail.models import ContentType
 
-from networkapi.reports.views import PageTypesReportView
+from networkapi.reports.views import PageTypesReportView, _get_locale_choices
 from networkapi.wagtailpages.factory.buyersguide import ProductPageFactory
 from networkapi.wagtailpages.factory.profiles import ProfileFactory
 from networkapi.wagtailpages.models import Homepage, ProductPage, Profile
@@ -138,8 +137,8 @@ class PageTypesReportFiltersTests(WagtailpagesTestCase):
         self.assertEqual(homepage_row.last_edited_page.locale, self.fr_locale)
         self.assertEqual(productpage_row.last_edited_page.locale, self.default_locale)
 
-    def test_all_locales_shown_if_empty_filter(self):
-        """Tests that all locales are shown if an empty filter is applied."""
+    def test_all_locales_shown_if_show_all(self):
+        """Tests that all locales are shown if the null/show all filter is applied."""
         # Create a product page in default locale
         product_page = ProductPageFactory(parent=self.homepage)
         # Activate French locale
@@ -153,7 +152,7 @@ class PageTypesReportFiltersTests(WagtailpagesTestCase):
         revision = product_page.save_revision()
         product_page.publish(revision)
 
-        empty_value = random.choice(EMPTY_VALUES)
+        empty_value = random.choice(("", "all"))
 
         response = self.client.get(reverse("page_types_report"), data={"page_locale": empty_value})
         page_types = {content_type.id: content_type for content_type in response.context["object_list"]}
@@ -195,3 +194,15 @@ class PageTypesReportFiltersTests(WagtailpagesTestCase):
         # The last edited page should be the French version (even though product page was later edited in English)
         self.assertEqual(homepage_row.last_edited_page.locale, self.fr_locale)
         self.assertEqual(productpage_row.last_edited_page.locale, self.fr_locale)
+
+    def test_get_locale_choices(self):
+        # `WagtailpagesTestCase` creates a default locale, French locale and German locale
+        choices = _get_locale_choices()
+
+        expected_choices = [
+            ("en", "English"),
+            ("fr", "French"),
+            ("de", "German"),
+        ]
+
+        self.assertCountEqual(choices, expected_choices)
