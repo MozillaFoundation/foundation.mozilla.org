@@ -37,7 +37,7 @@ class LocaleFilter(django_filters.ChoiceFilter):
 
 class PageTypesReportFilterSet(WagtailFilterSet):
     page_locale = LocaleFilter(
-        label="Locale", choices=_get_locale_choices(), empty_label=None, null_label="All", null_value="all"
+        label="Locale", choices=_get_locale_choices, empty_label=None, null_label="All", null_value="all"
     )
 
     class Meta:
