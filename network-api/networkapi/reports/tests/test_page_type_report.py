@@ -1,7 +1,7 @@
 import random
 
 from django.contrib.auth import get_user_model
-from django.test import RequestFactory
+from django.test import RequestFactory, override_settings
 from django.urls import reverse
 from wagtail.models import ContentType
 
@@ -195,14 +195,16 @@ class PageTypesReportFiltersTests(WagtailpagesTestCase):
         self.assertEqual(homepage_row.last_edited_page.locale, self.fr_locale)
         self.assertEqual(productpage_row.last_edited_page.locale, self.fr_locale)
 
+    @override_settings(
+        LANGUAGE_CODE="en", WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("de", "German"), ("fr", "French")]
+    )
     def test_get_locale_choices(self):
-        # `WagtailpagesTestCase` creates a default locale, French locale and German locale
         choices = _get_locale_choices()
 
         expected_choices = [
             ("en", "English"),
-            ("fr", "French"),
             ("de", "German"),
+            ("fr", "French"),
         ]
 
         self.assertCountEqual(choices, expected_choices)

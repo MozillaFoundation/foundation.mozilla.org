@@ -3,16 +3,13 @@ from django.contrib.auth import get_user_model
 from django.db.models import Count, OuterRef, Q, Subquery
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
-from wagtail.models import ContentType, Locale, Page, PageLogEntry, get_page_models
+from wagtail.coreutils import get_content_languages
+from wagtail.models import ContentType, Page, PageLogEntry, get_page_models
 from wagtail.users.utils import get_deleted_user_display_name
 
 
 def _get_locale_choices():
-    # Get language codes that are already used
-    used_locales = Locale.objects.distinct().order_by("language_code")
-
-    choices = [(locale.language_code, locale.get_display_name()) for locale in used_locales]
-
+    choices = [(language_code, display_name) for language_code, display_name in get_content_languages().items()]
     return choices
 
 
