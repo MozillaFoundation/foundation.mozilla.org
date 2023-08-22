@@ -253,23 +253,6 @@ class Petition(TranslatableMixin, CTA):
         default="Thank you for signing too!",
     )
 
-    panels = [
-        # from CTA model
-        FieldPanel("name"),
-        FieldPanel("header"),
-        FieldPanel("description"),
-        FieldPanel("newsletter"),
-        # from this model
-        FieldPanel("campaign_id"),
-        FieldPanel("show_country_field"),
-        FieldPanel("show_postal_code_field"),
-        FieldPanel("show_comment_field"),
-        FieldPanel("share_twitter"),
-        FieldPanel("share_facebook"),
-        FieldPanel("share_email"),
-        FieldPanel("thank_you"),
-    ]
-
     translatable_fields = [
         # This models fields
         SynchronizedField("show_country_field"),
