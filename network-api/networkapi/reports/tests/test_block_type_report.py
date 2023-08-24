@@ -57,6 +57,10 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         self.assertEqual(block["block"], "wagtail.blocks.field_block.RichTextBlock")
         self.assertEqual(block["count"], 3)
         self.assertFalse(block["is_custom_block"])
+        self.assertListEqual(
+            [primary_page.content_type, campaign_page.content_type, opportunity_page.content_type],
+            block["content_types"],
+        )
 
         # Two pages have crated ImageBlocks
         # Each ImageBlock has a ImageChooserBlock and a CharBlock
@@ -67,6 +71,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         )
         self.assertEqual(block["count"], 2)
         self.assertTrue(block["is_custom_block"])
+        self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
 
         block = object_list[2]
         self.assertEqual(
@@ -74,16 +79,19 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         )
         self.assertEqual(block["count"], 2)
         self.assertTrue(block["is_custom_block"])
+        self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
 
         block = object_list[3]
         self.assertEqual(block["block"], "wagtail.blocks.field_block.CharBlock")
         self.assertEqual(block["count"], 2)
         self.assertFalse(block["is_custom_block"])
+        self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
 
         block = object_list[4]
         self.assertEqual(block["block"], "wagtail.images.blocks.ImageChooserBlock")
         self.assertEqual(block["count"], 2)
         self.assertFalse(block["is_custom_block"])
+        self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
 
         # FInally, we have the AirTableBlock, use only in one page
         # This one is made of a URLBlock and a IntegerBlock
@@ -93,13 +101,16 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         )
         self.assertEqual(block["count"], 1)
         self.assertTrue(block["is_custom_block"])
+        self.assertListEqual([primary_page.content_type], block["content_types"])
 
         block = object_list[6]
         self.assertEqual(block["block"], "wagtail.blocks.field_block.IntegerBlock")
         self.assertEqual(block["count"], 1)
         self.assertFalse(block["is_custom_block"])
+        self.assertListEqual([primary_page.content_type], block["content_types"])
 
         block = object_list[7]
         self.assertEqual(block["block"], "wagtail.blocks.field_block.URLBlock")
         self.assertEqual(block["count"], 1)
         self.assertFalse(block["is_custom_block"])
+        self.assertListEqual([primary_page.content_type], block["content_types"])
