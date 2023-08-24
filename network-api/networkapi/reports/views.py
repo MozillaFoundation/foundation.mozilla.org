@@ -1,5 +1,6 @@
 import django_filters
 from django.contrib.auth import get_user_model
+from django.contrib.postgres.aggregates import ArrayAgg
 from django.db.models import BooleanField, Case, Count, OuterRef, Q, Subquery, When
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
