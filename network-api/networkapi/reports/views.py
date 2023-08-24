@@ -1,11 +1,12 @@
 import django_filters
 from django.contrib.auth import get_user_model
-from django.db.models import Count, OuterRef, Q, Subquery
+from django.db.models import BooleanField, Case, Count, OuterRef, Q, Subquery, When
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
 from wagtail.coreutils import get_content_languages
 from wagtail.models import ContentType, Page, PageLogEntry, get_page_models
 from wagtail.users.utils import get_deleted_user_display_name
+from wagtailinventory.models import PageBlock
 
 
 def _get_locale_choices():
@@ -46,7 +47,7 @@ class PageTypesReportFilterSet(WagtailFilterSet):
 
 
 class PageTypesReportView(ReportView):
-    title = "Page Types Report"
+    title = "Page types report"
     template_name = "pages/reports/page_types_report.html"
     header_icon = "doc-empty-inverse"
 
@@ -91,5 +92,28 @@ class PageTypesReportView(ReportView):
         # have a locale to filter on
 
         queryset = queryset.order_by("-count", "app_label", "model")
+
+        return queryset
+
+
+class BlockTypesReportView(ReportView):
+    title = "Block types report"
+    template_name = "pages/reports/block_types_report.html"
+    header_icon = "placeholder"
+
+    def get_queryset(self):
+        queryset = (
+            PageBlock.objects.all()
+            .values("block")
+            .annotate(
+                count=Count("page"),
+                is_custom_block=Case(
+                    When(block__startswith="wagtail.", then=False), default=True, output_field=BooleanField()
+                ),
+            )
+        )
+        self.queryset = queryset
+
+        queryset = queryset.order_by("-count", "block")
 
         return queryset

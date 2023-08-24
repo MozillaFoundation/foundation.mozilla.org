@@ -1,0 +1,96 @@
+{% load wagtailadmin_tags wagtailcore_tags %}
+
+<table class="listing {% block table_classname %}{% endblock table_classname %}">
+    <col width="12%" />
+    <col width="12%" />
+    <col width="10%" />
+    <col width="20%" />
+    <col width="10%" />
+    <col />
+    <thead>
+        {% block post_parent_page_headers %}
+            <tr class="table-headers">
+                <th class="title">
+                    Block
+                </th>
+                <th class="app-label">
+                    Count
+                </th>
+                <th class="app-label">
+                    Custom block?
+                </th>
+                {% comment %} <th class="count">
+                    Pages
+                </th>
+                <th class="last-edited-page">
+                    Last edited page
+                </th>
+                <th class="last-edited-at">
+                    Last edit
+                </th>
+                <th class="last-edited-by">
+                    Last edited by
+                </th> {% endcomment %}
+                {% block extra_columns %}
+                {% endblock extra_columns %}
+            </tr>
+        {% endblock post_parent_page_headers %}
+    </thead>
+    <tbody>
+        {% if page_blocks %}
+            {% for page_block in page_blocks %}
+                <tr class="{% block page_row_classname %}{% endblock page_row_classname %}">
+                    {% comment %} <td class="block-type" valign="top" data-listing-block-type>
+                        {% block block_type %}
+                            {{ block_type.block }}
+                        {% endblock block_type %}
+                    </td> {% endcomment %}
+                    <td class="app-label" valign="top">
+                        {{ page_block.block }}
+                    </td>
+                    <td class="app-label" valign="top">
+                        {{ page_block.count }}
+                    </td>
+                    <td class="app-label" valign="top">
+                        {{ page_block.is_custom_block }}
+                    </td>
+                    {% comment %} <td class="count" valign="top">{{ block_type.count }}</td>
+                    <td class="last-edited-page" valign="top">
+                        {% if block_type.last_edited_page %}
+                            <a href="{% url 'wagtailadmin_pages:edit' block_type.last_edited_page.id %}">
+                                {{ block_type.last_edited_page.get_admin_display_title }}
+                            </a>
+                            {% i18n_enabled as show_locale_labels %}
+                            {% if show_locale_labels %}
+                                {% locale_label_from_id block_type.last_edited_page.locale_id as locale_label %}
+                                <span class="status-tag status-tag--label">{{ locale_label }}</span>
+                            {% endif %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td class="last-edited-at" valign="top">
+                        {% if block_type.last_edited_page.latest_revision_created_at %}
+                            {% human_readable_date block_type.last_edited_page.latest_revision_created_at %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td class="last-edited-by" valign="top">
+                        {% if block_type.last_edited_by_user %}
+                            {% include "wagtailadmin/shared/user_avatar.html" with user=block_type.last_edited_by username=block_type.last_edited_by_user %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td> {% endcomment %}
+                    {% block extra_page_data %}
+                    {% endblock extra_page_data %}
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% block no_results %}
+                <p>No blocks found.</p>
+            {% endblock no_results %}
+        {% endif %}
+    </tbody>
+</table>
