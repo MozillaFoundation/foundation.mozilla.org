@@ -1,0 +1,6 @@
+{% load report_tags %}
+
+{% render_content_types content_types_truncated %}
+{% if content_types_remaining %}
+    and {{ count_remaining }} more
+{% endif %}
