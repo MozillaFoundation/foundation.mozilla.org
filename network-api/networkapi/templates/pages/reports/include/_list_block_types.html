@@ -1,4 +1,4 @@
-{% load wagtailadmin_tags wagtailcore_tags %}
+{% load wagtailadmin_tags wagtailcore_tags report_tags %}
 
 <table class="listing {% block table_classname %}{% endblock table_classname %}">
     <col width="12%" />
@@ -18,6 +18,9 @@
                 </th>
                 <th class="app-label">
                     Custom block?
+                </th>
+                <th class="app-label">
+                    Used on
                 </th>
                 {% comment %} <th class="count">
                     Pages
@@ -53,6 +56,9 @@
                     </td>
                     <td class="app-label" valign="top">
                         {{ page_block.is_custom_block }}
+                    </td>
+                    <td class="app-label" valign="top">
+                        {% page_types_block page_block.content_types %}
                     </td>
                     {% comment %} <td class="count" valign="top">{{ block_type.count }}</td>
                     <td class="last-edited-page" valign="top">

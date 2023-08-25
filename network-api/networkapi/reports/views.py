@@ -1,7 +1,7 @@
 import django_filters
 from django.contrib.auth import get_user_model
-from django.contrib.postgres.aggregates import ArrayAgg
 from django.db.models import BooleanField, Case, Count, OuterRef, Q, Subquery, When
+from django.urls import reverse
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
 from wagtail.coreutils import get_content_languages
@@ -107,7 +107,8 @@ class BlockTypesReportView(ReportView):
         page_blocks = PageBlock.objects.all().prefetch_related("page__content_type")
         page_blocks_to_content_types = {pb.block: [] for pb in page_blocks}
         for page_block in page_blocks:
-            page_blocks_to_content_types[page_block.block].append(page_block.page.content_type)
+            if page_block.page.content_type not in page_blocks_to_content_types[page_block.block]:
+                page_blocks_to_content_types[page_block.block].append(page_block.page.content_type)
 
         # Get the content_types for each block name
         for page_block in object_list:
