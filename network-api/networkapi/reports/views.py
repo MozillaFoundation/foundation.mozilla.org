@@ -114,6 +114,7 @@ class BlockTypesReportView(ReportView):
         for page_block in object_list:
             content_types = page_blocks_to_content_types.get(page_block["block"], [])
             page_block["content_types"] = content_types
+            page_block["type_label"] = "Custom" if page_block["is_custom_block"] else "Core"
 
         return object_list
 

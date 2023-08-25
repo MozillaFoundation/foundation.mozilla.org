@@ -40,3 +40,13 @@ def page_types_block(content_types):
         "content_types_remaining": truncated,
         "count_remaining": count_remaining,
     }
+
+
+@register.inclusion_tag("tags/reports/block_name.html")
+def block_name(page_block):
+    full_name = page_block["block"]
+    short_name = full_name.split(".")[-1]
+    return {
+        "full_name": full_name,
+        "short_name": short_name,
+    }
