@@ -3,9 +3,13 @@
 {% render_content_types content_types_truncated %}
 {% if content_types_remaining %}
     and
-    <div class="">
-        <button type="button" class="w-human-readable-date" data-tippy-content="{% render_content_types content_types_remaining %}" data-tippy-allowHTML="true" data-tippy-interactive="true">
-            {{ count_remaining }} more
-        </button>
-    </div>
+    <button type="button"
+            class="w-block-report-tippy"
+            data-tippy-content="{% render_content_types content_types_remaining %}"
+            data-tippy-allowHTML="true"
+            data-tippy-interactive="true"
+            data-tippy-trigger="click"
+    >
+        {{ count_remaining }} more
+    </button>
 {% endif %}

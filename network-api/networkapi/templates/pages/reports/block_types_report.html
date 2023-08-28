@@ -1,5 +1,9 @@
 {% extends "wagtailadmin/reports/base_report.html" %}
-{% load wagtailadmin_tags %}
+{% load wagtailadmin_tags static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/reports.css' %}">
+{% endblock extra_css %}
 
 {% block results %}
     {% with object_list as page_blocks %}
