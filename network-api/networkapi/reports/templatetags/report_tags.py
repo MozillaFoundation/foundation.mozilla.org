@@ -27,7 +27,7 @@ def render_content_types(content_types):
     return mark_safe(", ".join([render_content_type(content_type) for content_type in content_types]))
 
 
-@register.inclusion_tag("tags/reports/render_block_content_types.html")
+@register.inclusion_tag("tags/reports/page_types_block.html")
 def page_types_block(content_types):
     truncated = []
     count_remaining = 0
