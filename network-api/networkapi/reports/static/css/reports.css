@@ -23,7 +23,7 @@
 }
 
 .tippy-content a{
-    color: var(--w-color-white) !important;
+    color: var(--w-color-white);
     text-decoration: dotted;
     text-decoration: underline;
     text-decoration-style: dotted;
