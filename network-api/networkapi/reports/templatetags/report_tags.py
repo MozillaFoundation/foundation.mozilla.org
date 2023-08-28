@@ -9,7 +9,7 @@ register = template.Library()
 def render_content_type(content_type):
     """Render a Content Type with a link to the content type's admin page"""
     return format_html(
-        "<a href='{}''>{}</a>",
+        "<a href='{}'>{}</a>",
         reverse(
             "wagtailadmin_pages:type_use",
             kwargs={
