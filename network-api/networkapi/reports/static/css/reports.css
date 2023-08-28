@@ -22,7 +22,7 @@
   text-underline-offset: 1px;
 }
 
-.tippy-content a{
+.tippy-content a {
   color: var(--w-color-white);
   text-decoration: dotted;
   text-decoration: underline;
