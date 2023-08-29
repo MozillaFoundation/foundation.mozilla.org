@@ -6,7 +6,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("wagtailpages", "0098_rcclandingpagefeaturedauthorsrelation_researchlandingpagefeaturedauthorsrelation"),
+        ("wagtailpages", "0096_rcclandingpagefeaturedauthorsrelation_researchlandingpagefeaturedauthorsrelation"),
     ]
 
     operations = [
