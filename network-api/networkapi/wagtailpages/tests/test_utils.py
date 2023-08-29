@@ -17,11 +17,12 @@ from networkapi.wagtailpages import (
 )
 from networkapi.wagtailpages.factory import blog as blog_factories
 from networkapi.wagtailpages.factory.profiles import ProfileFactory
-from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors
+from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors, BlogIndexPage
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.utils import (
     create_wagtail_image,
     get_blog_authors,
+    get_original_by_slug,
     localize_queryset,
 )
 
@@ -271,3 +272,50 @@ class TestGetBlogAuthors(TestCase):
 
         self.assertIn(author_profile, blog_author_profiles)
         self.assertNotIn(not_blog_author_profile, blog_author_profiles)
+
+
+class TestGetOriginalBySlug(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        (cls.default_locale, _) = Locale.objects.get_or_create(language_code="en")
+        (cls.active_locale, _) = Locale.objects.get_or_create(language_code="fr")
+
+    def test_get_original_by_slug(self):
+        """Tests that the function returns the original item when the input item is a translation"""
+        # Create an item in default locale
+        default = blog_factories.BlogIndexPageFactory(locale=self.default_locale, slug="my-blog")
+        # Create a translation of the item in active locale
+        active = blog_factories.BlogIndexPageFactory(
+            locale=self.active_locale, slug="my-blog", translation_key=default.translation_key
+        )
+
+        # Call the function with the translation
+        result = get_original_by_slug(BlogIndexPage, active.slug)
+
+        # Assert that the original item is returned
+        self.assertEqual(result, default)
+
+    def test_original_deleted(self):
+        """Tests that the function returns None when the original item was deleted"""
+        # Create an item in default locale
+        default = blog_factories.BlogIndexPageFactory(locale=self.default_locale, slug="my-blog")
+        # Create an item in the active locale
+        active = blog_factories.BlogIndexPageFactory(
+            locale=self.active_locale, slug="my-blog", translation_key=default.translation_key
+        )
+        # Delete the original item
+        default.delete()
+
+        # Call the function with the translation
+        with self.assertRaises(BlogIndexPage.DoesNotExist):
+            get_original_by_slug(BlogIndexPage, active.slug)
+
+    def test_original_not_found(self):
+        """Tests that the function returns None when the original item is not found"""
+        # Create an item in the active locale
+        active = blog_factories.BlogIndexPageFactory(locale=self.active_locale)
+
+        # Call the function with the translation
+        with self.assertRaises(BlogIndexPage.DoesNotExist):
+            get_original_by_slug(BlogIndexPage, active.slug)

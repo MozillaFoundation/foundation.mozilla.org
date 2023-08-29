@@ -480,7 +480,12 @@ def get_default_locale():
 
 def get_original_by_slug(Model, slug):
     (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
-    return Model.objects.get(slug=slug, locale=DEFAULT_LOCALE_ID)
+    try:
+        return Model.objects.get(slug=slug, locale=DEFAULT_LOCALE_ID)
+    except Model.DoesNotExist:
+        raise Model.DoesNotExist(
+            f"Could not find original for {Model.__name__} with slug {slug} at locale {DEFAULT_LOCALE}"
+        )
 
 
 def get_blog_authors(profiles: "QuerySet[Profile]") -> "QuerySet[Profile]":
