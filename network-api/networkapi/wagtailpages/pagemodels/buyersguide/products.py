@@ -474,7 +474,7 @@ class ProductPage(BasePage):
         related_name="+",
     )
     worst_case = RichTextField(
-        max_length=10000,
+        max_length=20 * 1000,
         verbose_name="what could happen if something goes wrong?",
         features=base_rich_text_options,
         blank=True,
@@ -506,7 +506,7 @@ class ProductPage(BasePage):
 
     # How does it use this data?
     how_does_it_use_data_collected = RichTextField(
-        max_length=20000,
+        max_length=40 * 1000,
         features=base_rich_text_options,
         help_text="How does this product use the data collected?",
         blank=True,
@@ -1026,7 +1026,7 @@ class GeneralProductPage(ProductPage):
     # How can you control your data
 
     how_can_you_control_your_data = RichTextField(
-        max_length=10000,
+        max_length=20 * 1000,
         features=base_rich_text_options,
         help_text="How does this product let you control your data?",
         blank=True,

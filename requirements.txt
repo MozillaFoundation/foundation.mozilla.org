@@ -18,9 +18,9 @@ beautifulsoup4==4.9.3
     # via
     #   -r requirements.in
     #   wagtail
-boto3==1.28.26
+boto3==1.28.34
     # via -r requirements.in
-botocore==1.31.26
+botocore==1.31.34
     # via
     #   boto3
     #   s3transfer
@@ -91,13 +91,13 @@ django-htmx==1.15.0
     # via -r requirements.in
 django-modelcluster==6.0
     # via wagtail
-django-pattern-library==1.0.0
+django-pattern-library==1.0.1
     # via -r requirements.in
 django-permissionedforms==0.1
     # via wagtail
 django-querystring-tag==1.0.3
     # via -r requirements.in
-django-redis==5.2.0
+django-redis==5.3.0
     # via -r requirements.in
 django-storages==1.13.2
     # via -r requirements.in
@@ -117,7 +117,7 @@ factory-boy==3.3.0
     # via
     #   -r requirements.in
     #   wagtail-factories
-faker==19.3.0
+faker==19.3.1
     # via
     #   -r requirements.in
     #   factory-boy

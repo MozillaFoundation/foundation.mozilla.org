@@ -45,7 +45,13 @@
                     <td class="app-label" valign="top">
                         {{ page_type.app_label }}
                     </td>
-                    <td class="count" valign="top">{{ page_type.count }}</td>
+                    <td class="count" valign="top">
+                        {% if page_type.count > 0 %}
+                            <a href="{% url 'wagtailadmin_pages:type_use' content_type_app_name=page_type.app_label content_type_model_name=page_type.model %}">{{ page_type.count }}</a>
+                        {% else %}
+                            {{ page_type.count }}
+                        {% endif %}
+                    </td>
                     <td class="last-edited-page" valign="top">
                         {% if page_type.last_edited_page %}
                             <a href="{% url 'wagtailadmin_pages:edit' page_type.last_edited_page.id %}">
