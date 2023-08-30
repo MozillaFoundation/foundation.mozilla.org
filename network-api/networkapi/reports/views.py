@@ -1,9 +1,48 @@
+import django_filters
 from django.contrib.auth import get_user_model
 from django.db.models import Count, OuterRef, Q, Subquery
-from django.utils import translation
+from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
-from wagtail.models import ContentType, Locale, Page, PageLogEntry, get_page_models
+from wagtail.coreutils import get_content_languages
+from wagtail.models import ContentType, Page, PageLogEntry, get_page_models
 from wagtail.users.utils import get_deleted_user_display_name
+
+
+def _get_locale_choices():
+    choices = [(language_code, display_name) for language_code, display_name in get_content_languages().items()]
+    return choices
+
+
+class LocaleFilter(django_filters.ChoiceFilter):
+    def filter(self, qs, value):
+        if value and value != self.null_value:
+            latest_edit_log = PageLogEntry.objects.filter(
+                content_type=OuterRef("pk"), page__locale__language_code=value
+            )
+            count_qs = Count("pages", filter=Q(pages__locale__language_code=value))
+        else:
+            latest_edit_log = PageLogEntry.objects.filter(content_type=OuterRef("pk"))
+            count_qs = Count("pages")
+
+        latest_edit_log = latest_edit_log.order_by("-timestamp", "-pk")
+
+        qs = qs.annotate(
+            count=count_qs,
+            last_edited_page=Subquery(latest_edit_log.values("page")[:1]),
+            last_edited_by=Subquery(latest_edit_log.values("user")[:1]),
+        )
+
+        return qs
+
+
+class PageTypesReportFilterSet(WagtailFilterSet):
+    page_locale = LocaleFilter(
+        label="Locale", choices=_get_locale_choices, empty_label=None, null_label="All", null_value="all"
+    )
+
+    class Meta:
+        model = ContentType
+        fields = ["page_locale"]
 
 
 class PageTypesReportView(ReportView):
@@ -11,12 +50,12 @@ class PageTypesReportView(ReportView):
     template_name = "pages/reports/page_types_report.html"
     header_icon = "doc-empty-inverse"
 
+    filterset_class = PageTypesReportFilterSet
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.user_model = get_user_model()
-        self.default_locale = Locale.get_default()
-        self.active_locale = Locale.get_active()
-        self.active_locale_name = translation.get_language_info(self.active_locale.language_code)["name_local"]
+        self.page_models = [model.__name__.lower() for model in get_page_models()]
 
     def add_last_edited_name_to_page_type(self, username_mapping, page_type):
         if page_type.last_edited_by:
@@ -43,26 +82,14 @@ class PageTypesReportView(ReportView):
         return page_types
 
     def get_queryset(self):
-        page_models = [model.__name__.lower() for model in get_page_models()]
+        queryset = ContentType.objects.filter(model__in=self.page_models)
+        self.queryset = queryset
 
-        latest_edit_log = PageLogEntry.objects.filter(
-            content_type=OuterRef("pk"), page__locale=self.active_locale
-        ).order_by("-timestamp")
+        self.filters, queryset = self.filter_queryset(queryset)
 
-        return (
-            ContentType.objects.filter(model__in=page_models)
-            .annotate(
-                count=Count("pages"),
-                active_locale_count=Count("pages", filter=Q(pages__locale=self.active_locale)),
-                last_edited_page=Subquery(latest_edit_log.values("page")[:1]),
-                last_edited_by=Subquery(latest_edit_log.values("user")[:1]),
-            )
-            .order_by("-count")
-        )
+        # 'updated_at' is handled at the filter level, since ContentType itself does not
+        # have a locale to filter on
 
-    def get_context_data(self, *args, object_list=None, **kwargs):
-        queryset = object_list if object_list is not None else self.object_list
+        queryset = queryset.order_by("-count", "app_label", "model")
 
-        context = super().get_context_data(*args, object_list=queryset, **kwargs)
-        context["active_locale_name"] = self.active_locale_name
-        return context
+        return queryset
