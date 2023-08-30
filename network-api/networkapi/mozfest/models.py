@@ -2,7 +2,7 @@ from django import forms
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
-from wagtail.models import Page
+from wagtail.models import Locale, Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.models import (
@@ -114,6 +114,29 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
 
         return "mozfest/mozfest_primary_page.html"
 
+    @staticmethod
+    def _get_signup(name: str, locale: Locale) -> Signup:
+        try:
+            return Signup.objects.get(name__iexact=name, locale=locale)
+        except Signup.DoesNotExist:
+            raise Signup.DoesNotExist(
+                f"Could not find a 'Signup' object with name '{name}' on locale '{locale.language_code}'"
+            )
+        except Signup.MultipleObjectsReturned:
+            raise Signup.MultipleObjectsReturned(
+                f"Found multiple 'Signup' objects with name '{name}' on locale '{locale.language_code}'"
+            )
+
+    def get_mozfest_footer(self) -> Signup:
+        """Get the Signup object associated with Mozfest for the footer."""
+        active_locale = Locale.get_active()
+        default_locale = Locale.get_default()
+        try:
+            mozfest_footer = self._get_signup("mozfest", active_locale)
+        except Signup.DoesNotExist:
+            mozfest_footer = self._get_signup("mozfest", default_locale)
+        return mozfest_footer
+
     def get_context(self, request, bypass_menu_buildstep=False):
         context = super().get_context(request)
         context = set_main_site_nav_information(self, context, "MozfestHomepage")
@@ -124,8 +147,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         context["menu_items"] = self.get_children().live().in_menu()
 
         # Also make sure that these pages always tap into the mozfest newsletter for the footer!
-        mozfest_footer = Signup.objects.filter(name__iexact="mozfest").first()
-        context["mozfest_footer"] = mozfest_footer
+        context["mozfest_footer"] = self.get_mozfest_footer()
 
         if not bypass_menu_buildstep:
             context = set_main_site_nav_information(self, context, "MozfestHomepage")
