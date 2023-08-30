@@ -1,6 +1,11 @@
+import random
+
+from django.contrib.auth import get_user_model
+from django.test import RequestFactory, override_settings
+from django.urls import reverse
 from wagtail.models import ContentType
 
-from networkapi.reports.views import PageTypesReportView
+from networkapi.reports.views import PageTypesReportView, _get_locale_choices
 from networkapi.wagtailpages.factory.buyersguide import ProductPageFactory
 from networkapi.wagtailpages.factory.profiles import ProfileFactory
 from networkapi.wagtailpages.models import Homepage, ProductPage, Profile
@@ -11,6 +16,7 @@ class PageTypesReportViewTest(WagtailpagesTestCase):
     def setUp(self):
         super().setUp()
         self.view = PageTypesReportView()
+        self.view.request = RequestFactory().get(reverse("page_types_report"))
 
     def test_queryset_filtering(self):
         """Asserts that the correct models are included in the queryset."""
@@ -47,26 +53,6 @@ class PageTypesReportViewTest(WagtailpagesTestCase):
         # Assert entry counts
         self.assertEqual(queryset.get(id=product_page_content_type.pk).count, 3)
         self.assertEqual(queryset.get(id=homepage_content_type.pk).count, 1)
-
-    def test_queryset_active_locale_count(self):
-        """Asserts that the queryset is correctly filtered by active locale."""
-        # Create some product pages in default locale
-        product_page_a = ProductPageFactory(parent=self.homepage)
-        product_page_b = ProductPageFactory(parent=self.homepage)
-        # Activate French locale
-        self.activate_locale(self.fr_locale)
-        # Create some product pages in active locale
-        self.homepage.copy_for_translation(self.fr_locale)
-        product_page_a.copy_for_translation(self.fr_locale)
-        product_page_b.copy_for_translation(self.fr_locale)
-
-        queryset = self.view.get_queryset()
-
-        # Assert entry counts
-        self.assertEqual(queryset.get(id=ContentType.objects.get_for_model(Homepage).pk).count, 2)
-        self.assertEqual(queryset.get(id=ContentType.objects.get_for_model(Homepage).pk).active_locale_count, 1)
-        self.assertEqual(queryset.get(id=ContentType.objects.get_for_model(ProductPage).pk).count, 4)
-        self.assertEqual(queryset.get(id=ContentType.objects.get_for_model(ProductPage).pk).active_locale_count, 2)
 
     def test_queryset_last_edited_page(self):
         """Tests that the queryset correctly returns the last edited page."""
@@ -115,3 +101,110 @@ class PageTypesReportViewTest(WagtailpagesTestCase):
         # Assert that the first product page was last edited by user b
         self.assertEqual(queryset[0].last_edited_by, user_b.id)
         self.assertEqual(queryset[0].last_edited_by_user, user_b.get_username())
+
+
+class PageTypesReportFiltersTests(WagtailpagesTestCase):
+    def setUp(self):
+        User = get_user_model()
+        self.user = User.objects.create_superuser("admin-user", "admin@example.com", "password")
+        self.client.force_login(self.user)
+
+    def test_all_locales_shown_if_no_filter(self):
+        """Tests that all locales are shown if no filter is applied."""
+        # Create a product page in default locale
+        product_page = ProductPageFactory(parent=self.homepage)
+        # Activate French locale
+        self.activate_locale(self.fr_locale)
+        # Translate pages to French
+        self.homepage.copy_for_translation(self.fr_locale)
+        product_page.copy_for_translation(self.fr_locale)
+
+        # Edit the product page in English to make sure that it's the latest
+        product_page.title = "Updated English title"
+        revision = product_page.save_revision()
+        product_page.publish(revision)
+
+        response = self.client.get(reverse("page_types_report"))
+        page_types = {content_type.id: content_type for content_type in response.context["object_list"]}
+
+        homepage_row = page_types.get(ContentType.objects.get_for_model(Homepage).pk)
+        productpage_row = page_types.get(ContentType.objects.get_for_model(ProductPage).pk)
+
+        # There should be 2 of each page (one for each locale)
+        self.assertEqual(homepage_row.count, 2)
+        self.assertEqual(productpage_row.count, 2)
+        # The last edited page should be the French version
+        self.assertEqual(homepage_row.last_edited_page.locale, self.fr_locale)
+        self.assertEqual(productpage_row.last_edited_page.locale, self.default_locale)
+
+    def test_all_locales_shown_if_show_all(self):
+        """Tests that all locales are shown if the null/show all filter is applied."""
+        # Create a product page in default locale
+        product_page = ProductPageFactory(parent=self.homepage)
+        # Activate French locale
+        self.activate_locale(self.fr_locale)
+        # Translate pages to French
+        self.homepage.copy_for_translation(self.fr_locale)
+        product_page.copy_for_translation(self.fr_locale)
+
+        # Edit the product page in English to make sure that it's the latest
+        product_page.title = "Updated English title"
+        revision = product_page.save_revision()
+        product_page.publish(revision)
+
+        empty_value = random.choice(("", "all"))
+
+        response = self.client.get(reverse("page_types_report"), data={"page_locale": empty_value})
+        page_types = {content_type.id: content_type for content_type in response.context["object_list"]}
+
+        homepage_row = page_types.get(ContentType.objects.get_for_model(Homepage).pk)
+        productpage_row = page_types.get(ContentType.objects.get_for_model(ProductPage).pk)
+
+        # There should be 2 of each page (one for each locale)
+        self.assertEqual(homepage_row.count, 2)
+        self.assertEqual(productpage_row.count, 2)
+        # The last edited page should be the French version
+        self.assertEqual(homepage_row.last_edited_page.locale, self.fr_locale)
+        self.assertEqual(productpage_row.last_edited_page.locale, self.default_locale)
+
+    def test_filter_by_locale(self):
+        """Tests that the queryset is filtered by locale."""
+        # Create a product page in default locale
+        product_page = ProductPageFactory(parent=self.homepage)
+        # Activate French locale
+        self.activate_locale(self.fr_locale)
+        # Translate pages to French
+        self.homepage.copy_for_translation(self.fr_locale)
+        product_page.copy_for_translation(self.fr_locale)
+
+        # Edit the product page in English to make sure that it's the latest
+        product_page.title = "Updated English title"
+        revision = product_page.save_revision()
+        product_page.publish(revision)
+
+        response = self.client.get(reverse("page_types_report"), data={"page_locale": self.fr_locale.language_code})
+        page_types = {content_type.id: content_type for content_type in response.context["object_list"]}
+
+        homepage_row = page_types.get(ContentType.objects.get_for_model(Homepage).pk)
+        productpage_row = page_types.get(ContentType.objects.get_for_model(ProductPage).pk)
+
+        # There should be 1 of each page (only the French locale ones)
+        self.assertEqual(homepage_row.count, 1)
+        self.assertEqual(productpage_row.count, 1)
+        # The last edited page should be the French version (even though product page was later edited in English)
+        self.assertEqual(homepage_row.last_edited_page.locale, self.fr_locale)
+        self.assertEqual(productpage_row.last_edited_page.locale, self.fr_locale)
+
+    @override_settings(
+        LANGUAGE_CODE="en", WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("de", "German"), ("fr", "French")]
+    )
+    def test_get_locale_choices(self):
+        choices = _get_locale_choices()
+
+        expected_choices = [
+            ("en", "English"),
+            ("de", "German"),
+            ("fr", "French"),
+        ]
+
+        self.assertCountEqual(choices, expected_choices)
