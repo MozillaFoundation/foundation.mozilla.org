@@ -1,12 +1,11 @@
 {% load wagtailadmin_tags wagtailcore_tags %}
 
 <table class="listing {% block table_classname %}{% endblock table_classname %}">
+    <col width="12%" />
+    <col width="12%" />
+    <col width="10%" />
     <col width="20%" />
-    <col width="15%" />
     <col width="10%" />
-    <col width="10%" />
-    <col width="25%" />
-    <col />
     <col />
     <thead>
         {% block post_parent_page_headers %}
@@ -19,9 +18,6 @@
                 </th>
                 <th class="count">
                     Pages
-                </th>
-                <th class="default-locale-count">
-                    Pages in {{ active_locale_name }}
                 </th>
                 <th class="last-edited-page">
                     Last edited page
@@ -49,8 +45,13 @@
                     <td class="app-label" valign="top">
                         {{ page_type.app_label }}
                     </td>
-                    <td class="count" valign="top">{{ page_type.count }}</td>
-                    <td class="active-locale-count" valign="top">{{ page_type.active_locale_count }}</td>
+                    <td class="count" valign="top">
+                        {% if page_type.count > 0 %}
+                            <a href="{% url 'wagtailadmin_pages:type_use' content_type_app_name=page_type.app_label content_type_model_name=page_type.model %}">{{ page_type.count }}</a>
+                        {% else %}
+                            {{ page_type.count }}
+                        {% endif %}
+                    </td>
                     <td class="last-edited-page" valign="top">
                         {% if page_type.last_edited_page %}
                             <a href="{% url 'wagtailadmin_pages:edit' page_type.last_edited_page.id %}">
