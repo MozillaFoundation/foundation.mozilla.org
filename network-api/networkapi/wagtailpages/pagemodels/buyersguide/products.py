@@ -246,7 +246,7 @@ class ProductPageVotes(models.Model):
         votes = [int(x) for x in self.vote_bins.split(",")]
         return votes
 
-    def get_most_voted(self):
+    def get_vote_average(self):
         votes = self.get_votes()
         vote_breakdown = {k: v for (k, v) in enumerate(votes)}
         highest = max(vote_breakdown, key=vote_breakdown.get)
