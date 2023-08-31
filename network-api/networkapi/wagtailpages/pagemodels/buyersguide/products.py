@@ -228,6 +228,7 @@ class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable
 class ProductPageVotes(models.Model):
     """
     PNI product voting bins. This does not need translating.
+    All of this needs to be refactored heavily.
     """
 
     vote_bins = models.CharField(default="0,0,0,0,0", max_length=50, validators=[int_list_validator])
@@ -250,9 +251,18 @@ class ProductPageVotes(models.Model):
         votes = self.get_votes()
         vote_breakdown = {k: v for (k, v) in enumerate(votes)}
         total_votes = sum(vote_breakdown.values())
+        """If there's no votes, let the user know (also protects from division by zero errors)"""
+        if total_votes == 0:
+            label = self.get_vote_labels()[5]
+            return {
+                "bin": 0,
+                "value": 0,
+                "label": label[0],
+                "localized": label[1]
+            }
         weighted_votes = 0
         for i in range(len(vote_breakdown)):
-            weighted_votes += vote_breakdown[i] * (i)
+            weighted_votes += vote_breakdown[i] * i
         average_vote = round(weighted_votes / total_votes)
         label = self.get_vote_labels()[average_vote]
 
@@ -270,6 +280,7 @@ class ProductPageVotes(models.Model):
             ("Somewhat creepy", gettext("Somewhat creepy")),
             ("Very creepy", gettext("Very creepy")),
             ("Super creepy", gettext("Super creepy")),
+            ("No votes", gettext("No votes")),
         ]
 
 
