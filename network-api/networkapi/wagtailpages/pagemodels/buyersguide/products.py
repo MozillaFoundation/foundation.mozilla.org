@@ -249,12 +249,12 @@ class ProductPageVotes(models.Model):
     def get_vote_average(self):
         votes = self.get_votes()
         vote_breakdown = {k: v for (k, v) in enumerate(votes)}
-        highest = max(vote_breakdown, key=vote_breakdown.get)
-        label = self.get_vote_labels()[highest]
+        average_vote = max(vote_breakdown, key=vote_breakdown.get)
+        label = self.get_vote_labels()[average_vote]
 
         return {
-            "bin": highest,
-            "value": votes[highest],
+            "bin": average_vote,
+            "value": votes[average_vote],
             "label": label[0],
             "localized": label[1],
         }
