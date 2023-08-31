@@ -249,7 +249,11 @@ class ProductPageVotes(models.Model):
     def get_vote_average(self):
         votes = self.get_votes()
         vote_breakdown = {k: v for (k, v) in enumerate(votes)}
-        average_vote = max(vote_breakdown, key=vote_breakdown.get)
+        total_votes = sum(vote_breakdown.values())
+        weighted_votes = 0
+        for i in range(len(vote_breakdown)):
+            weighted_votes += vote_breakdown[i] * (i)
+        average_vote = round(weighted_votes / total_votes)
         label = self.get_vote_labels()[average_vote]
 
         return {
