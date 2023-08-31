@@ -200,9 +200,8 @@ class CreepVote extends Component {
                 Vote & see results
               </button>
               <p className="tw-h6-heading mb-0">
-                {this.state.totalVotes} 
-                {this.state.totalVotes > 1 ||
-                  this.state.totalVotes === 0 ? " votes" : " vote"}
+                {this.state.totalVotes}
+                {this.state.totalVotes > 1 || this.state.totalVotes === 0 ? " votes" : " vote"}
               </p>
             </div>
           </div>
