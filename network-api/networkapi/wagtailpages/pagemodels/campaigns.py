@@ -172,27 +172,19 @@ class Petition(TranslatableMixin, CTA):
         null=True,
     )
 
-    requires_country_code = models.BooleanField(
+    show_country_field = models.BooleanField(
         default=False,
-        help_text="Will this petition require users to specify their country?",
+        help_text="This toggles the visibility of the optional country dropdown field.",
     )
 
-    requires_postal_code = models.BooleanField(
+    show_postal_code_field = models.BooleanField(
         default=False,
-        help_text="Will this petition require users to specify their postal code?",
+        help_text="This toggles the visibility of the optional postal code field.",
     )
 
-    COMMENT_CHOICES = (
-        ("none", "No comments"),
-        ("optional", "Optional comments"),
-        ("required", "Required comments"),
-    )
-
-    comment_requirements = models.CharField(
-        choices=COMMENT_CHOICES,
-        default="none",
-        help_text="What is the comments policy for this petition?",
-        max_length=8,
+    show_comment_field = models.BooleanField(
+        default=False,
+        help_text="This toggles the visibility of the optional comment field.",
     )
 
     checkbox_1 = models.CharField(
