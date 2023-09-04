@@ -172,6 +172,21 @@ class Petition(TranslatableMixin, CTA):
         null=True,
     )
 
+    show_country_field = models.BooleanField(
+        default=False,
+        help_text="This toggles the visibility of the optional country dropdown field.",
+    )
+
+    show_postal_code_field = models.BooleanField(
+        default=False,
+        help_text="This toggles the visibility of the optional postal code field.",
+    )
+
+    show_comment_field = models.BooleanField(
+        default=False,
+        help_text="This toggles the visibility of the optional comment field.",
+    )
+
     requires_country_code = models.BooleanField(
         default=False,
         help_text="Will this petition require users to specify their country?",
@@ -250,6 +265,9 @@ class Petition(TranslatableMixin, CTA):
 
     translatable_fields = [
         # This models fields
+        SynchronizedField("show_country_field"),
+        SynchronizedField("show_postal_code_field"),
+        SynchronizedField("show_comment_field"),
         SynchronizedField("requires_country_code"),
         SynchronizedField("requires_postal_code"),
         TranslatableField("comment_requirements"),
