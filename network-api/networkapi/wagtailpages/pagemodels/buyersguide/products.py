@@ -15,14 +15,14 @@ from django.http import (
     HttpResponseServerError,
 )
 from django.templatetags.static import static
-from django.utils import timezone
+from django.utils import timezone, translation
 from django.utils.text import slugify
 from django.utils.translation import gettext
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
-from wagtail.models import Orderable, Page, TranslatableMixin
+from wagtail.models import Locale, Orderable, Page, TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -44,7 +44,6 @@ from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
 from networkapi.wagtailpages.utils import (
     TitleWidget,
     get_language_from_request,
-    get_original_by_slug,
     insert_panels_after,
 )
 
@@ -605,33 +604,9 @@ class ProductPage(BasePage):
 
     @property
     def original_product(self):
-        try:
-            original = get_original_by_slug(ProductPage, self.slug)
-
-        except ProductPage.DoesNotExist:
-            """
-            This may happen when a product was created, got localized,
-            then the original product was deleted a new product with the
-            same title (and thus, slug) gets created.
-
-            The old localizations are still around, so `sync_locale_trees`
-            will see a new page to set up aliases for, but their slug ends
-            up conflicting with the slugs for the original localized pages,
-            and so they get `-1` appended, meaning we can't find their
-            "original" equivalent using their slug: we need to rewrite
-            the slug to remove the number suffix first.
-
-            See: https://github.com/wagtail/wagtail/issues/7592
-
-            TODO: Remove this patch code once #7592 is addressed.
-            """
-            slug = re.sub("(-\\d+)+$", "", self.slug)
-            original = get_original_by_slug(ProductPage, slug)
-
-        if original is None:
-            return self
-
-        return original
+        default_locale = Locale.get_default()
+        with translation.override(default_locale.language_code):
+            return self.localized
 
     def get_or_create_votes(self):
         """
