@@ -87,11 +87,12 @@ class TestProductPage(BuyersGuideTestCase):
         self.homepage.copy_for_translation(self.fr_locale)
         self.bg.copy_for_translation(self.fr_locale)
         fr_product_page = product_page.copy_for_translation(self.fr_locale)
+        # Slugs don't match (CMS data entry error, for instance)
+        fr_product_page.slug = "another-product-page"
+        fr_product_page.save()
         self.synchronize_tree()
 
         self.assertEqual(fr_product_page.original_product, product_page)
-        # Currently relies on slugs matching
-        self.assertEqual(fr_product_page.slug, product_page.slug)
 
         creepiness = fr_product_page.creepiness
         self.assertEqual(creepiness, 4)
