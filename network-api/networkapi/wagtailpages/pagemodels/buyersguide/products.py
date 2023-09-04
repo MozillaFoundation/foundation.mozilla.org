@@ -1,5 +1,4 @@
 import json
-import re
 import typing
 
 from bs4 import BeautifulSoup
