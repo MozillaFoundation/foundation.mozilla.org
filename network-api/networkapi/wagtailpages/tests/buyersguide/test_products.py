@@ -74,6 +74,28 @@ class TestProductPage(BuyersGuideTestCase):
         creepiness = product_page.creepiness
         self.assertEqual(creepiness, 50)
 
+    def test_creepiness_with_translated_page(self):
+        product_page = self.product_page
+        product_page.creepiness_value = 100
+        product_page.slug = "product-page"
+        product_page.save()
+        self.assertEqual(product_page.creepiness_value, 100)
+
+        product_page.votes.set_votes([5, 5, 5, 5, 5])
+        self.assertEqual(product_page.total_vote_count, 25)
+
+        self.homepage.copy_for_translation(self.fr_locale)
+        self.bg.copy_for_translation(self.fr_locale)
+        fr_product_page = product_page.copy_for_translation(self.fr_locale)
+        self.synchronize_tree()
+
+        self.assertEqual(fr_product_page.original_product, product_page)
+        # Currently relies on slugs matching
+        self.assertEqual(fr_product_page.slug, product_page.slug)
+
+        creepiness = fr_product_page.creepiness
+        self.assertEqual(creepiness, 4)
+
     def test_get_voting_json(self):
         product_page = self.product_page
 
