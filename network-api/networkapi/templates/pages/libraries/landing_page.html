@@ -54,8 +54,8 @@
                 </div>
             </div>
 
-            <div id="aside-content" class="tw-col-span-12 medium:tw-px-8 large:tw-col-span-4">
-                <div id="browse-featured-taxonomies">
+            <div class="tw-col-span-12 medium:tw-px-8 large:tw-col-span-4">
+                <div>
                     <hr class="tw-border-black tw-mt-24" />
                     <h2 class="tw-h4-heading tw-pb-8">
                         {% block featured_taxonomies_label %}
@@ -68,7 +68,7 @@
                     </ul>
                 </div>
                 {% if page.aside_cta %}
-                    <div id="aside-ctas">
+                    <div>
                         {% for aside_cta in page.aside_cta %}
                             {% include_block aside_cta %}
                         {% endfor %}
