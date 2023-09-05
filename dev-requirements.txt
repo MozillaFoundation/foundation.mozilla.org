@@ -32,7 +32,7 @@ coveralls==3.3.1
     # via -r dev-requirements.in
 cssbeautifier==1.14.7
     # via djlint
-django==3.2.20
+django==3.2.21
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
@@ -100,7 +100,7 @@ pycodestyle==2.11.0
     # via flake8
 pyflakes==3.1.0
     # via flake8
-pytest==7.4.0
+pytest==7.4.1
     # via
     #   -r dev-requirements.in
     #   pytest-cov
