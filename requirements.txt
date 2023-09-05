@@ -37,7 +37,7 @@ cffi==1.15.0
     #   pygit2
 charset-normalizer==2.0.12
     # via requests
-cryptography==41.0.0
+cryptography==41.0.3
     # via
     #   pyopenssl
     #   social-auth-core
@@ -81,7 +81,7 @@ django-cors-headers==3.14.0
     # via -r requirements.in
 django-csp==3.7
     # via -r requirements.in
-django-environ==0.10.0
+django-environ==0.11.2
     # via -r requirements.in
 django-filter==22.1
     # via
