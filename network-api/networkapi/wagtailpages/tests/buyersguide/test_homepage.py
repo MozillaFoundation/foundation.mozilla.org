@@ -179,7 +179,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
     def test_serve_page_one_product(self):
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), 1)
-        query_number = 189
+        query_number = 188
 
         with self.assertNumQueries(query_number):
             response = self.client.get(self.bg.url)
@@ -193,7 +193,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
             buyersguide_factories.ProductPageFactory(parent=self.bg)
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), additional_products_count + 1)
-        query_number = 958
+        query_number = 917
 
         with self.assertNumQueries(query_number):
             response = self.client.get(self.bg.url)
@@ -207,7 +207,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
             buyersguide_factories.ProductPageFactory(parent=self.bg)
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), additional_products_count + 1)
-        query_number = 964
+        query_number = 923
         self.client.force_login(user=self.create_test_user())
 
         with self.assertNumQueries(query_number):
