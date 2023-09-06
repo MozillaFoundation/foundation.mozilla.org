@@ -18,9 +18,9 @@ beautifulsoup4==4.9.3
     # via
     #   -r requirements.in
     #   wagtail
-boto3==1.28.34
+boto3==1.28.40
     # via -r requirements.in
-botocore==1.31.34
+botocore==1.31.40
     # via
     #   boto3
     #   s3transfer
@@ -37,7 +37,7 @@ cffi==1.15.0
     #   pygit2
 charset-normalizer==2.0.12
     # via requests
-cryptography==41.0.0
+cryptography==41.0.3
     # via
     #   pyopenssl
     #   social-auth-core
@@ -46,9 +46,9 @@ defusedxml==0.7.1
     # via
     #   python3-openid
     #   social-auth-core
-dj-database-url==1.2.0
+dj-database-url==2.1.0
     # via -r requirements.in
-django==3.2.20
+django==3.2.21
     # via
     #   -r requirements.in
     #   dj-database-url
@@ -77,17 +77,17 @@ django-admin-sortable==2.3
     # via -r requirements.in
 django-autocomplete-light==3.9.7
     # via wagtail-inventory
-django-cors-headers==3.14.0
+django-cors-headers==4.2.0
     # via -r requirements.in
 django-csp==3.7
     # via -r requirements.in
-django-environ==0.10.0
+django-environ==0.11.2
     # via -r requirements.in
 django-filter==22.1
     # via
     #   -r requirements.in
     #   wagtail
-django-htmx==1.15.0
+django-htmx==1.16.0
     # via -r requirements.in
 django-modelcluster==6.0
     # via wagtail
@@ -167,7 +167,7 @@ psycopg2-binary==2.9.7
     # via -r requirements.in
 pycparser==2.21
     # via cffi
-pygit2==1.11.1
+pygit2==1.12.2
     # via
     #   -r requirements.in
     #   wagtail-localize-git
@@ -208,7 +208,7 @@ s3transfer==0.6.1
     # via boto3
 scout-apm==2.26.1
     # via -r requirements.in
-sentry-sdk==1.29.2
+sentry-sdk==1.30.0
     # via -r requirements.in
 six==1.16.0
     # via
@@ -219,7 +219,7 @@ six==1.16.0
     #   python-dateutil
 smmap==5.0.0
     # via gitdb
-social-auth-app-django==5.2.0
+social-auth-app-django==5.3.0
     # via -r requirements.in
 social-auth-core==4.4.1
     # via social-auth-app-django
@@ -236,7 +236,9 @@ toml==0.10.2
 tqdm==4.63.0
     # via wagtail-inventory
 typing-extensions==4.4.0
-    # via wagtail-localize
+    # via
+    #   dj-database-url
+    #   wagtail-localize
 urllib3[secure]==1.26.15
     # via
     #   botocore
