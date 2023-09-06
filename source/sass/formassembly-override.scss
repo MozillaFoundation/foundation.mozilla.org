@@ -7,7 +7,9 @@ $input-font-size: 1.25rem !important;
 .wFormContainer {
   font-family: $font-family-sans-serif;
 
-  .wFormHeader {
+  .wFormHeader,
+  .wFormFooter,
+  .supportInfo {
     display: none;
   }
 
