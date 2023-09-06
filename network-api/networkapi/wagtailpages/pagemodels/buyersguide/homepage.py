@@ -33,7 +33,7 @@ from networkapi.wagtailpages.utils import (
     get_default_locale,
     get_language_from_request,
     get_locale_from_request,
-    localize_queryset
+    localize_queryset,
 )
 
 if TYPE_CHECKING:
