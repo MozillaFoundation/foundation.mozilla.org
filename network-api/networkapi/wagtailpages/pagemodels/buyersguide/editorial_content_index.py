@@ -32,6 +32,7 @@ class BuyersGuideEditorialContentIndexPage(
     subpage_types = [
         "wagtailpages.BuyersGuideArticlePage",
         "wagtailpages.BuyersGuideCampaignPage",
+        "wagtailpages.ConsumerCreepometerPage",
     ]
     template = "pages/buyersguide/editorial_content_index_page.html"
 
