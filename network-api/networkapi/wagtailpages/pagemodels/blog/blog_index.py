@@ -411,7 +411,7 @@ class BlogIndexPage(IndexPage):
             request,
             context_overrides={
                 "author": author_profile,
-                "page": self,
+                "blog_index_page": self,
             },
             template="wagtailpages/blog_author_detail_page.html",
         )

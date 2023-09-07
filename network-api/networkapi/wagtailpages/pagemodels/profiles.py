@@ -7,8 +7,7 @@ from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-
-
+from django.db.models import Count
 @register_snippet
 class Profile(index.Indexed, TranslatableMixin, models.Model):
     name = models.CharField(max_length=70, blank=False)
@@ -59,5 +58,23 @@ class Profile(index.Indexed, TranslatableMixin, models.Model):
         super(Profile, self).save(*args, **kwargs)
         self._meta.model.objects.filter(id=self.id).update(slug=Concat(F("slug"), Value("-"), F("id")))
 
+    def get_frequent_topics(self):
+        """
+        Return the top 3 used topics for this author profile.
+        """
+        from networkapi.wagtailpages.models import BlogPage, BlogPageTopic
+        from networkapi.wagtailpages.utils import localize_queryset
+
+        # Retrieve all BlogPages authored by this profile.
+        authored_blog_pages = localize_queryset(BlogPage.objects.filter(authors__author=self))
+
+        # From the previous QS, get a count of each topic used.
+        topic_counts = BlogPageTopic.objects.filter(blogpage__in=authored_blog_pages).values('name').annotate(count=Count('name'))
+
+        # Order the topics in descending order by count, and limit to top 3.
+        frequent_topics = topic_counts.order_by('-count')[:3]
+
+        return frequent_topics
+    
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
