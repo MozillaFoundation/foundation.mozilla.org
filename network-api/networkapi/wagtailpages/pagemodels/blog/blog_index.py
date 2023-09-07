@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING, Optional, Union
-
+from collections import Counter
 from django import http
 from django.apps import apps
 from django.core import paginator
@@ -421,20 +421,20 @@ class BlogIndexPage(IndexPage):
 
     def get_authors_frequent_topics(self, author_profile):
         BlogPage = apps.get_model("wagtailpages.BlogPage")
+        
         # Retrieve all BlogPages authored by this profile.
         authored_blog_pages = localize_queryset(BlogPage.objects.filter(authors__author=author_profile))
-
-        # From the previous QS, get a count of each topic used.
-        topic_counts = (
-            BlogPageTopic.objects.filter(blogpage__in=authored_blog_pages)
-            .values("name")
-            .annotate(count=models.Count("name"))
-        )
-
-        # Order the topics in descending order by count, and limit to top 3.
-        frequent_topics = topic_counts.order_by("-count")[:3]
-
-        return frequent_topics
+        
+        # From the previous QS, get the related BlogPageTopic objects.
+        frequent_topics = BlogPageTopic.objects.filter(blogpage__in=authored_blog_pages)
+        
+        # Calculate the count of each topic using Counter.
+        topic_counts = Counter(frequent_topics)
+        
+        # Extract the top 3 topics based on their counts.
+        top_topics = [topic for topic, count in topic_counts.most_common(3)]
+        
+        return top_topics
 
     @route(r"^search/$")
     def search(self, request: "HttpRequest") -> "HttpResponse":
