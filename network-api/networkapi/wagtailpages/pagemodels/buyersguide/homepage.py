@@ -24,10 +24,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.base import BasePage
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
-    get_categories_for_locale,
-    sort_average,
-)
+from networkapi.wagtailpages.pagemodels.buyersguide.utils import sort_average
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import (
     get_default_locale,
