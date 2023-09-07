@@ -835,10 +835,8 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
         response = self.client.get(path=blog_author_url)
         self.assertTemplateUsed(response, "wagtailpages/blog_author_detail_page.html")
         self.assertContains(response, self.profile_1.name)
-        self.assertContains(response, self.profile_1.tagline)
         self.assertContains(response, self.profile_1.introduction)
         self.assertNotContains(response, self.profile_2.name)
-        self.assertNotContains(response, self.profile_2.tagline)
         self.assertNotContains(response, self.profile_2.introduction)
 
     def test_authors_detail_non_existent_id_argument(self):

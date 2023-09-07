@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING, Optional, Union
 
 from django import http
+from django.apps import apps
 from django.core import paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -407,14 +408,33 @@ class BlogIndexPage(IndexPage):
             the profile_slug queried.
         """
         author_profile = get_object_or_404(Profile, slug=profile_slug)
+        authors_frequent_topics = self.get_authors_frequent_topics(author_profile=author_profile)
         return self.render(
             request,
             context_overrides={
                 "author": author_profile,
+                "frequent_topics": authors_frequent_topics,
                 "blog_index_page": self,
             },
             template="wagtailpages/blog_author_detail_page.html",
         )
+
+    def get_authors_frequent_topics(self, author_profile):
+        BlogPage = apps.get_model("wagtailpages.BlogPage")
+        # Retrieve all BlogPages authored by this profile.
+        authored_blog_pages = localize_queryset(BlogPage.objects.filter(authors__author=author_profile))
+
+        # From the previous QS, get a count of each topic used.
+        topic_counts = (
+            BlogPageTopic.objects.filter(blogpage__in=authored_blog_pages)
+            .values("name")
+            .annotate(count=models.Count("name"))
+        )
+
+        # Order the topics in descending order by count, and limit to top 3.
+        frequent_topics = topic_counts.order_by("-count")[:3]
+
+        return frequent_topics
 
     @route(r"^search/$")
     def search(self, request: "HttpRequest") -> "HttpResponse":
