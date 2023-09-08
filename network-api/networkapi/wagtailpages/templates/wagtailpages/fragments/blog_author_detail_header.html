@@ -1,10 +1,11 @@
-{% load l10n i18n localization static blog_tags wagtailimages_tags wagtailroutablepage_tags wagtailcore_tags  %}
+{% load l10n i18n localization static blog_tags wagtailimages_tags wagtailroutablepage_tags wagtailcore_tags %}
+
+{% get_root_or_page as blog_index_page %}
 
 <div class="tw-grid tw-grid-cols-12 large:tw-gap-40">
     <div class="tw-col-span-12 large:tw-col-span-8">
         <div class="tw-text-sm tw-text-gray-40">
-            {% get_root_or_page as parent_page %}
-            <a class="tw-text-gray-40" href="{% pageurl parent_page %}">Blog</a>
+            <a class="tw-text-gray-40" href="{% pageurl blog_index_page %}">Blog</a>
             <span> › </span>
         </div>
         <div class="tw-gap-8 tw-pt-10 medium:tw-inline-flex medium:tw-pt-7">
@@ -29,19 +30,14 @@
         {% if frequent_topics %}
             <p class="tw-text-lg tw-text-gray-40 tw-uppercase">{% trans "Frequent Topics" %}</p>
             <div class="tw-inline-flex tw-gap-6 tw-flex-wrap">
-                <!-- {% for topic in frequent_topics %}
-                    <p class="tw-border tw-shadow-[4px_4px_rgb(0,0,0)] tw-px-9">{{ topic.name }}</p>
-                {% endfor %} -->
-                {% for topic in frequent_topics %}
-                {% localized_version topic as localized_topic %}
-                {% get_root_or_page as parent_page %}
-                {# If we have a "root" context variable, we know this template is generated on an index page (or index page subroute) #}
-                {% with link_classes="tw-text-black tw-px-8 tw-border-black tw-my-4 tw-border tw-rounded-full  tw-text-lg tw-font-normal tw-whitespace-nowrap tw-block tw-transition-colors" link_hover_classes="hover:tw-bg-black hover:tw-text-white hover:tw-no-underline hover:tw-border-white" %}
-                    <a href="{% localizedroutablepageurl parent_page "entries_by_topic" topic.slug %}" class="{{ link_classes }} {{ link_hover_classes }}">
-                        {{ localized_topic.name }}
-                    </a>
+                {% with link_classes="tw-text-black tw-px-8 tw-border-black tw-border tw-rounded-full tw-text-lg tw-font-normal tw-whitespace-nowrap tw-block tw-transition-colors" link_hover_classes="hover:tw-bg-black hover:tw-text-white hover:tw-no-underline hover:tw-border-white" %}
+                    {% for topic in frequent_topics %}
+                        {% localized_version topic as localized_topic %}
+                        <a href="{% localizedroutablepageurl blog_index_page "entries_by_topic" topic.slug %}" class="{{ link_classes }} {{ link_hover_classes }}">
+                            {{ localized_topic.name }}
+                        </a>
+                    {% endfor %}
                 {% endwith %}
-            {% endfor %}
             </div>
         {% endif %}
     </div>
@@ -50,3 +46,4 @@
             {% include "./blog_search_bar.html" with name="q" search_query=query %}
         </form>
     </div>
+</div>
