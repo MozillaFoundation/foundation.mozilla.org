@@ -28,7 +28,9 @@ def generate(seed):
     # Only one landing page can exist
     rcc_landing_page = wagtailpage_models.RCCLandingPage.objects.first()
     if not rcc_landing_page:
-        rcc_landing_page = landing_page_factory.RCCLandingPageFactory.create(parent=home_page)
+        rcc_landing_page = landing_page_factory.RCCLandingPageFactory.create(
+            parent=home_page, aside_cta__0="cta", aside_cta__1="cta"
+        )
 
     # Only one library page can exist
     rcc_library_page = wagtailpage_models.RCCLibraryPage.objects.first()
