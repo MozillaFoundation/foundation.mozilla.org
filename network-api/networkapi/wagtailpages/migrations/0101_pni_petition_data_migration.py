@@ -40,7 +40,7 @@ def backwards(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("wagtailpages", "0099_pni_petition_add_show_fields"),
+        ("wagtailpages", "0100_pni_petition_add_show_fields"),
     ]
 
     operations = [

@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("wagtailpages", "0098_pni_increase_char_limits_again"),
+        ("wagtailpages", "0099_add_cta_aside_field_to_libraries_landing_page"),
     ]
 
     operations = [
