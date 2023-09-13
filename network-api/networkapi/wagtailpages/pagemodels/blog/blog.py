@@ -269,8 +269,8 @@ class BlogPage(BasePage):
         context["related_posts"] = list(filter(None, related_posts))
 
         # Pull this object specifically using the English page title
-        default_locale = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
-        blog_page = BlogIndexPage.objects.get(title__iexact="Blog", locale=default_locale)
+        default_locale = Locale.get_default()
+        blog_page = BlogIndexPage.objects.filter(locale=default_locale).live().first()
 
         if blog_page:
             context["blog_index"] = blog_page
