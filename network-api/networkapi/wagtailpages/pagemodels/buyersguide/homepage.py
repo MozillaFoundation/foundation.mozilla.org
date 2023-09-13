@@ -24,15 +24,13 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.base import BasePage
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
-    get_categories_for_locale,
-    sort_average,
-)
+from networkapi.wagtailpages.pagemodels.buyersguide.utils import sort_average
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import (
     get_default_locale,
     get_language_from_request,
     get_locale_from_request,
+    localize_queryset,
 )
 
 if TYPE_CHECKING:
@@ -379,7 +377,15 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
                 language_code=language_code,
             )
 
-        context["categories"] = get_categories_for_locale(language_code)
+        BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
+        category_cache_key = f"pni_home_categories_{language_code}"
+        categories = cache.get(category_cache_key)
+        if not categories:
+            categories = BuyersGuideProductCategory.objects.filter(hidden=False)
+            categories = localize_queryset(categories)
+            categories = cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
+
+        context["categories"] = categories
         context["current_category"] = None
         context["featured_cta"] = self.call_to_action
         context["products"] = products
@@ -539,4 +545,4 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
         products = products.live()
 
     products = sort_average(products)
-    return cache.get_or_set(key, products, 86400)
+    return cache.get_or_set(key, products, 24 * 60 * 60)  # Set cache for 24h
