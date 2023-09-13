@@ -242,9 +242,9 @@ class Petition(TranslatableMixin, CTA):
 
     translatable_fields = [
         # This models fields
-        SynchronizedField("requires_country_code"),
-        SynchronizedField("requires_postal_code"),
-        TranslatableField("comment_requirements"),
+        SynchronizedField("show_country_field"),
+        SynchronizedField("show_postal_code_field"),
+        SynchronizedField("show_comment_field"),
         TranslatableField("checkbox_1"),
         TranslatableField("checkbox_2"),
         SynchronizedField("share_twitter"),
