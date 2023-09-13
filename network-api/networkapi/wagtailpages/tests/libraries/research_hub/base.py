@@ -24,6 +24,8 @@ class ResearchHubTestCase(test_base.WagtailpagesTestCase):
     def _setup_research_hub_structure(cls, homepage):
         cls.landing_page = landing_page_factory.ResearchLandingPageFactory(
             parent=homepage,
+            aside_cta__0="cta",
+            aside_cta__1="cta",
         )
         cls.library_page = library_page_factory.ResearchLibraryPageFactory(
             parent=cls.landing_page,

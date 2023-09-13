@@ -77,7 +77,7 @@ class IndexPage(RoutablePageMixin, BasePage):
         context = super().get_context(request)
         context = get_page_tree_information(self, context)
 
-        # perform entry pagination and (optional) filterin
+        # perform entry pagination and (optional) filtering
         entries = self.get_entries(context)
         context["has_more"] = self.page_size < len(entries)
         context["entries"] = entries[0 : self.page_size]
