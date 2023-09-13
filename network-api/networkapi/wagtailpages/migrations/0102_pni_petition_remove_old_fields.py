@@ -5,7 +5,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("wagtailpages", "0100_pni_petition_data_migration"),
+        ("wagtailpages", "0101_pni_petition_data_migration"),
     ]
 
     operations = [
