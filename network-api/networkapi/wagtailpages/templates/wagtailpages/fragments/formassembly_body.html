@@ -22,7 +22,7 @@ Please follow the steps below every time after you paste a new version of FormAs
 5. Wrap country field, postal code field, and comment field in {% if %} tag
     - for country field:     {% if show_country_field %} ... {% endif %}
     - for postal code field: {% if show_postal_code_field %}  ... {% endif %}
-    - for comment field:     {% if not show_comment_field == "none" %} ... {% endif %}
+    - for comment field:     {% if show_comment_field %} ... {% endif %}
 
 6. If using a required checkbox field, add the classname 'reqMark' to the label wrapping the
    span element with the classname of `input-checkbox-faux`. This will ensure that the
@@ -312,7 +312,7 @@ Please remember to take this into account when designing/implementing new forms.
                     <label id="tfa_496-L" class="label preField " for="tfa_496">{% trans "Postal Code" %}</label><br><div class="inputWrapper"><input type="text" id="tfa_496" name="tfa_496" value="" title="{% trans "Postal Code" %}" class=""></div>
                 </div>
             {% endif %}
-            {% if not show_comment_field == "none" %}
+            {% if show_comment_field %}
                 <div class="oneField field-container-D    " id="tfa_497-D">
                     <label id="tfa_497-L" class="label preField " for="tfa_497">{% trans "Comments" %}</label><br><div class="inputWrapper"><textarea maxlength="500" id="tfa_497" name="tfa_497" title="{% trans "Comments" %}" class=""></textarea></div>
                 </div>
