@@ -33,11 +33,19 @@ class BaseLandingPage(BasePage):
         blank=True,
         use_json_field=True,
     )
+    aside_cta = fields.StreamField(
+        block_types=(("cta", customblocks.CTAAsideBlock()),),
+        null=True,
+        blank=True,
+        use_json_field=True,
+        max_num=2,
+    )
 
     content_panels = wagtail_models.Page.content_panels + [
         panels.FieldPanel("intro"),
         panels.FieldPanel("banner_image"),
         panels.FieldPanel("body"),
+        panels.FieldPanel("aside_cta"),
     ]
 
     translatable_fields = [
@@ -45,6 +53,7 @@ class BaseLandingPage(BasePage):
         localize_fields.SynchronizedField("banner_image"),
         localize_fields.TranslatableField("intro"),
         localize_fields.TranslatableField("body"),
+        localize_fields.TranslatableField("aside_cta"),
         # Promote tab fields
         localize_fields.SynchronizedField("slug"),
         localize_fields.TranslatableField("seo_title"),
