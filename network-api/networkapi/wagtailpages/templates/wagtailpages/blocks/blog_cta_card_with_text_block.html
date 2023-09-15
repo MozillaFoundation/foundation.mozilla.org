@@ -1,0 +1,15 @@
+{% extends "./base_streamfield_block.html" %}
+{% load l10n wagtailcore_tags wagtailimages_tags %}
+
+
+{% block block_content %}
+    <div class="blog-cta-card-with-text--{{ value.alignment }}">
+        <div class="blog-cta-card-with-text__card-container--{{ value.alignment }}">
+            {% include_block value.card %}
+        </div>
+        <div class="tw-w-full">
+            {% include_block value.paragraph %}
+        </div>
+    </div>
+{% endblock %}
+

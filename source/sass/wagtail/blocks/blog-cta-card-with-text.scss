@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.blog-cta-card-with-text {
+  &--right {
+    @apply tw-block tw-overflow-auto;
+  }
+
+  &--left {
+    @apply tw-block tw-overflow-auto;
+  }
+
+  &--full-width {
+    @apply tw-flex tw-flex-col tw-items-center;
+  }
+
+  &__card-container--right {
+    @apply tw-m-8 tw-w-192 medium:tw-float-right;
+  }
+
+  &__card-container--left {
+    @apply tw-m-8 tw-w-192 medium:tw-float-left;
+  }
+
+  &__card-container--full-width {
+    @apply tw-w-full;
+  }
+}
