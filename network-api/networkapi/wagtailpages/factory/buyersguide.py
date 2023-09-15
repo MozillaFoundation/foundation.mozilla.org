@@ -243,6 +243,7 @@ class BuyersGuideCampaignPageFactory(PageFactory):
     header = Faker("sentence")
     title = Faker("sentence")
     cta = SubFactory(PetitionFactory)
+    first_published_at = Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
     narrowed_page_content = Faker("boolean", chance_of_getting_true=50)
     body = Faker(
         provider="streamfield",
@@ -255,6 +256,22 @@ class BuyersGuideCampaignPageFactory(PageFactory):
             "quote",
         ),
     )
+
+
+class ConsumerCreepometerPageFactory(PageFactory):
+    class Meta:
+        model = pagemodels.ConsumerCreepometerPage
+
+    first_published_at = Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
+    search_image = SubFactory(ImageFactory)
+    search_description = Faker("paragraph", nb_sentences=5, variable_nb_sentences=True)
+
+    def __call__(self, year):
+        page = pagemodels.ConsumerCreepometerPage(
+            title=f"Annual Consumer Creepometer {year}",
+            year=year,
+        )
+        return page
 
 
 class BuyersGuideContentCategoryFactory(DjangoModelFactory):
@@ -449,6 +466,9 @@ def generate(seed):
     for _ in range(5):
         campaign_page = BuyersGuideCampaignPageFactory(parent=editorial_content_index)
         BuyersGuideCampaignPageDonationModalRelationFactory(page=campaign_page)
+
+    print("Generating PNI Annual Consumer Creep-O-Meter Page for Year 2023")
+    ConsumerCreepometerPageFactory(parent=editorial_content_index, title="Annual Consumer Creep-O-Meter", year=2023)
 
     # Buyerguide homepage hero page
     pni_homepage.hero_featured_page = pagemodels.BuyersGuideArticlePage.objects.first()

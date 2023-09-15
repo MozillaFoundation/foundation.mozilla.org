@@ -149,7 +149,7 @@ class BuyersGuideEditorialContentIndexPage(
         """Get items to list in the index."""
         return self.get_descendants().order_by("-first_published_at").public().live().specific()
 
-    def get_related_articles(self) -> list["pagemodels.BuyersGuideArticlePage"]:
+    def get_related_articles(self) -> list["pagemodels.BuyersGuideArticlePage", "pagemodels.ConsumerCreepometerPage"]:
         return orderables.get_related_items(
             self.related_article_relations.all(),
             "article",

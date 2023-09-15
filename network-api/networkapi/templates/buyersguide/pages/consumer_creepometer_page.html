@@ -8,8 +8,10 @@
 
 {% block category_nav %}{% endblock %}
 
+{% block main_content_class %}{% endblock %}
+
 {% block guts %}
     {% if page.year == "2023" %}
-    {% include "../pages/consumer_creepometer_page_2023.html" %}
+        {% include "../pages/consumer_creepometer_page_2023.html" %}
     {% endif %}
 {% endblock guts %}
