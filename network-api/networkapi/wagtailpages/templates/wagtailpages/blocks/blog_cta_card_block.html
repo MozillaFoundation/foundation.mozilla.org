@@ -1,0 +1,21 @@
+{% extends "./base_streamfield_block.html" %}
+{% load l10n wagtailcore_tags wagtailimages_tags %}
+
+{% block block_content %}
+    <div class="tw-m-8 blog-cta-card__{{ value.style }}">
+        {% if value.image %}
+            {% image value.image.image width-450 as img %}
+            <img src="{{ img.url }}" alt="{{ value.image.altText }}" class="tw-object-cover tw-w-full tw-aspect-video" width="{{ img.width|unlocalize }}" height="{{ img.height|unlocalize }}">
+        {% endif %}
+        <div class="tw-p-8">
+            {% if value.title %}
+                <h2>{{ value.title }}</h2>
+            {% endif %}
+            {% include_block value.body %}
+            {% if value.button %}
+                <a class="tw-{{ value.button.styling }} link-button tw-my-8" href="{{ value.button.URL }}">{{ value.button.label }}</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
