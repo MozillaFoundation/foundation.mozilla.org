@@ -249,8 +249,7 @@ class ProductPageVotes(models.Model):
 
     def get_vote_average(self):
         votes = self.get_votes()
-        vote_breakdown = {k: v for (k, v) in enumerate(votes)}
-        total_votes = sum(vote_breakdown.values())
+        total_votes = sum(votes)
         """If there's no votes, let the user know (also protects from division by zero errors)"""
         if total_votes == 0:
             label = self.get_vote_labels()[5]
@@ -260,6 +259,7 @@ class ProductPageVotes(models.Model):
                 "label": label[0],
                 "localized": label[1]
             }
+        vote_breakdown = {k: v for (k, v) in enumerate(votes)}
         weighted_votes = 0
         for i in range(len(vote_breakdown)):
             weighted_votes += vote_breakdown[i] * i
