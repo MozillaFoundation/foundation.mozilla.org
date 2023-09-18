@@ -15,6 +15,8 @@ from .aside import AsideContentBlock
 from .audio_block import AudioBlock
 from .banner_carousel import BannerCarouselSlideBlock
 from .block_with_aside import BlockWithAside
+from .blog_cta_card_block import BlogCTACardBlock
+from .blog_cta_card_with_text_block import BlogCTACardWithTextBlock
 from .blog_index_callout_box_block import BlogIndexCalloutBoxBlock
 from .blog_set_block import BlogSetBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
