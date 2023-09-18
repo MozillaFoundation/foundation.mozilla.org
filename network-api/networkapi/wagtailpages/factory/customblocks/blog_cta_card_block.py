@@ -14,10 +14,11 @@ class BlogCTACardBlockFactory(wagtail_factories.StructBlockFactory):
 
     class Params:
         no_title = factory.Trait(title=None)
-        no_image = factory.Trait(image=None)
-        no_button = factory.Trait(button=None)
+        no_image = factory.Trait(image=[])
+        no_button = factory.Trait(button=[])
 
     body = factory.Faker("sentence", nb_words=10)
     title = factory.Faker("sentence", nb_words=4)
-    image = factory.SubFactory(ImageBlockFactory)
-    button = factory.SubFactory(LinkButtonBlockFactory, styling="btn-secondary")
+    style = factory.Faker("random_element", elements=["pop", "outline", "filled"])
+    image = wagtail_factories.ListBlockFactory(ImageBlockFactory)
+    button = wagtail_factories.ListBlockFactory(LinkButtonBlockFactory)
