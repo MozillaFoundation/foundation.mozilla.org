@@ -252,12 +252,11 @@ class ProductPageVotes(models.Model):
         total_votes = sum(votes)
         """If there's no votes, let the user know (also protects from division by zero errors)"""
         if total_votes == 0:
-            label = self.get_vote_labels()[5]
             return {
                 "bin": 0,
                 "value": 0,
-                "label": label[0],
-                "localized": label[1]
+                "label": "No votes",
+                "localized": gettext("No votes"),
             }
         vote_breakdown = {k: v for (k, v) in enumerate(votes)}
         weighted_votes = 0
@@ -280,7 +279,6 @@ class ProductPageVotes(models.Model):
             ("Somewhat creepy", gettext("Somewhat creepy")),
             ("Very creepy", gettext("Very creepy")),
             ("Super creepy", gettext("Super creepy")),
-            ("No votes", gettext("No votes")),
         ]
 
 
