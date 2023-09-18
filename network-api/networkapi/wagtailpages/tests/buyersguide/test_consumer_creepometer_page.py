@@ -37,7 +37,7 @@ class ConsumerCreepometerPageTests(test_base.WagtailpagesTestCase):
         )  # it will use a random year
         choices = page._meta.get_field("year").choices
         self.assertEqual(choices, (("2023", "2023"),))
-        self.assertIn((page.year, page.year), choices)>>>>>>> add python test
+        self.assertIn((page.year, page.year), choices)
 
     def test_template(self):
         consumer_creepometer_page = buyersguide_factories.ConsumerCreepometerPageFactory(
