@@ -1,4 +1,3 @@
-from django.core.exceptions import ValidationError
 from wagtail import blocks
 
 from .blog_cta_card_block import BlogCTACardBlock
@@ -22,12 +21,4 @@ class BlogCTACardWithTextBlock(blocks.StructBlock):
 
     class Meta:
         template = "wagtailpages/blocks/blog_cta_card_with_text_block.html"
-
-    def clean(self, value):
-        result = super().clean(value)
-        if result["alignment"] == "full-width" and result["paragraph"]:
-            raise ValidationError(
-                "Paragraph text should not be used for full width cards."
-                "Please use a regular Blog CTA Card block with a separate paragraph instead."
-            )
-        return result
+        icon = "form"

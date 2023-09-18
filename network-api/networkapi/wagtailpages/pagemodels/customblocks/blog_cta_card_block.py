@@ -22,3 +22,4 @@ class BlogCTACardBlock(blocks.StructBlock):
 
     class Meta:
         template = "wagtailpages/blocks/blog_cta_card_block.html"
+        icon = "link-external"
