@@ -187,29 +187,6 @@ class Petition(TranslatableMixin, CTA):
         help_text="This toggles the visibility of the optional comment field.",
     )
 
-    requires_country_code = models.BooleanField(
-        default=False,
-        help_text="Will this petition require users to specify their country?",
-    )
-
-    requires_postal_code = models.BooleanField(
-        default=False,
-        help_text="Will this petition require users to specify their postal code?",
-    )
-
-    COMMENT_CHOICES = (
-        ("none", "No comments"),
-        ("optional", "Optional comments"),
-        ("required", "Required comments"),
-    )
-
-    comment_requirements = models.CharField(
-        choices=COMMENT_CHOICES,
-        default="none",
-        help_text="What is the comments policy for this petition?",
-        max_length=8,
-    )
-
     checkbox_1 = models.CharField(
         editable=False,
         max_length=1024,
@@ -268,9 +245,6 @@ class Petition(TranslatableMixin, CTA):
         SynchronizedField("show_country_field"),
         SynchronizedField("show_postal_code_field"),
         SynchronizedField("show_comment_field"),
-        SynchronizedField("requires_country_code"),
-        SynchronizedField("requires_postal_code"),
-        TranslatableField("comment_requirements"),
         TranslatableField("checkbox_1"),
         TranslatableField("checkbox_2"),
         SynchronizedField("share_twitter"),
