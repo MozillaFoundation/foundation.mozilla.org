@@ -12,7 +12,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("wagtailpages", "0101_pni_petition_data_migration"),
+        ("wagtailpages", "0102_pni_petition_remove_old_fields"),
     ]
 
     operations = [
