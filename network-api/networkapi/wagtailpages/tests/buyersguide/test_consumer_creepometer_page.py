@@ -1,6 +1,6 @@
 from networkapi.wagtailpages import models as pagemodels
-from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
+from networkapi.wagtailpages.tests import base as test_base
 
 
 class ConsumerCreepometerPageFactoryTests(test_base.WagtailpagesTestCase):
@@ -33,7 +33,8 @@ class ConsumerCreepometerPageTests(test_base.WagtailpagesTestCase):
 
     def test_year_choices(self):
         page = buyersguide_factories.ConsumerCreepometerPageFactory(
-            parent=self.content_index, title="Test Consumer Creepometer Page", year="2023")
+            parent=self.content_index, title="Test Consumer Creepometer Page", year="2023"
+        )
         choices = page._meta.get_field("year").choices
         self.assertEqual(choices, (("2023", "2023"),))
 
