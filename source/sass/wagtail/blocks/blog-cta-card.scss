@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 .blog-cta-card {
+  .rich-text {
+    a {
+      @apply tw-underline tw-text-black;
+    }
+  }
+
   &__pop {
     box-shadow: 10px 10px rgb(0, 0, 0);
     @apply tw-border;

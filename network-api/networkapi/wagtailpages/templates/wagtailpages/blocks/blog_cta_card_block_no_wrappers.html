@@ -1,18 +1,23 @@
 {% load l10n wagtailcore_tags wagtailimages_tags %}
 
-
-<div class="tw-m-8 blog-cta-card__{{ value.style }}">
-    {% if value.image %}
-        {% image value.image.image width-450 as img %}
-        <img src="{{ img.url }}" alt="{{ value.image.altText }}" class="tw-object-cover tw-w-full tw-aspect-video" width="{{ img.width|unlocalize }}" height="{{ img.height|unlocalize }}">
-    {% endif %}
+<div class="tw-m-8 blog-cta-card blog-cta-card__{{ value.style }}">
+    {% with image_block=value.image|first %}
+        {% if image_block %}
+            {% block blog_cta_card_image %}
+                {% image image_block.image width-450 as img %}
+                <img src="{{ img.url }}" alt="{{ image_block.altText }}" class="tw-object-cover tw-w-full tw-aspect-video" width="{{ img.width|unlocalize }}" height="{{ img.height|unlocalize }}">
+            {% endblock blog_cta_card_image %}
+        {% endif %}
+    {% endwith %}
     <div class="tw-p-8">
         {% if value.title %}
-            <h2>{{ value.title }}</h2>
+            <h2 class="tw-font-medium">{{ value.title }}</h2>
         {% endif %}
         {% include_block value.body %}
-        {% if value.button %}
-            <a class="tw-{{ value.button.styling }} link-button tw-my-8" href="{{ value.button.URL }}">{{ value.button.label }}</a>
-        {% endif %}
+        {% with button_block=value.button|first %}
+            {% if button_block %}
+                <a class="tw-{{ button_block.styling }} link-button tw-my-8" href="{{ button_block.URL }}">{{ button_block.label }}</a>
+            {% endif %}
+        {% endwith %}
     </div>
 </div>
