@@ -9,8 +9,9 @@ class BlogCTACardWithTextBlock(blocks.StructBlock):
     card = BlogCTACardBlock(required=True, template="wagtailpages/blocks/blog_cta_card_block_no_wrappers.html")
 
     alignment = blocks.ChoiceBlock(
-        choices=[("right", "Right"), ("left", "Left"), ("full-width", "Full width")],
+        choices=[("right", "Right"), ("left", "Left")],
         default="right",
+        help_text="For full-width cards, please use a regular Blog CTA Card block with a separate paragraph.",
     )
 
     paragraph = blocks.RichTextBlock(
