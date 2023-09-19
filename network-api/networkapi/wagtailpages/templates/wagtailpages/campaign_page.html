@@ -49,12 +49,8 @@
                                 {% mini_site_horizontal_nav page %}
                             </div>
                         {% endblock %}
-                        {% block html_content %}
-                            <div class="cms campaign-page-content wide">
-                                {% for block in page.body %}
-                                    {% include_block block with parent_page=page %}
-                                {% endfor %}
-                            </div>
+                        {% block html_content_desktop %}
+                            {% include "./fragments/campaign_main_body.html" with page=page class="tw-hidden medium:tw-block" %}
                         {% endblock %}
                     </div>
 
@@ -78,6 +74,10 @@
                                 <script src="https://c.shpg.org/352/sp.js"></script>
                             </div>
                         {% endif %}
+                    {% endblock %}
+
+                    {% block html_content_mobile %}
+                        {% include "./fragments/campaign_main_body.html" with page=page class="tw-pt-8 tw-w-full tw-px-8 tw-block medium:tw-hidden" %}
                     {% endblock %}
 
                     <div class="
