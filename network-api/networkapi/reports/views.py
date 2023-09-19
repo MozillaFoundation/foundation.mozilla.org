@@ -108,7 +108,9 @@ class BlockTypesReportView(ReportView):
         page_blocks = PageBlock.objects.all().prefetch_related("page__content_type")
         blocks_to_content_types = defaultdict(list)
         for page_block in page_blocks:
-            if page_block.page.content_type not in blocks_to_content_types[page_block.block]:
+            if page_block.page.live and (
+                page_block.page.content_type not in blocks_to_content_types[page_block.block]
+            ):
                 blocks_to_content_types[page_block.block].append(page_block.page.content_type)
 
         # Get the content_types for each block name
@@ -124,7 +126,7 @@ class BlockTypesReportView(ReportView):
             PageBlock.objects.all()
             .values("block")
             .annotate(
-                count=Count("page"),
+                count=Count("page", filter=Q(page__live=True)),
                 is_custom_block=Case(
                     When(block__startswith="wagtail.", then=False), default=True, output_field=BooleanField()
                 ),
