@@ -18,7 +18,7 @@ class Command(BaseCommand):
         try:
             User.objects.get(username="admin")
             print("super user already exists")
-        except User.DoesNotExist:
+        except self.model.DoesNotExist:
             password = faker.password(
                 length=16,
                 special_chars=True,
