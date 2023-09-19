@@ -77,6 +77,13 @@ class ResearchLandingPageTestCase(base.ResearchHubTestCase):
         self.assertEqual(fr_library_page.locale, self.fr_locale)
         self.assertEqual(fr_library_page.locale, fr_landing_page.locale)
 
+    def test_landing_page_aside_cta_field(self):
+        """
+        Asserts that two CTA blocks were created in the aside_cta field
+        """
+        self.assertEqual(self.landing_page.aside_cta[0].block_type, "cta")
+        self.assertEqual(self.landing_page.aside_cta[1].block_type, "cta")
+
     def test_landing_page_featured_authors(self):
         featured_authors = self.landing_page.featured_authors.all()
         self.assertEqual(len(featured_authors), 0)

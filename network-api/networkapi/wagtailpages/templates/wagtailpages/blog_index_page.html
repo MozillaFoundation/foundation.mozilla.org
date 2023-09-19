@@ -10,6 +10,9 @@
 {% block index_header %}
     <div class="tw-grid tw-grid-cols-12">
         <div class="tw-col-span-12 large:tw-col-span-8 tw-mt-8">
+            {% if index_title %}
+                {% include "./fragments/blog_breadcrumbs.html" %}
+            {% endif %}
             <h1 class="tw-h1-heading tw-mb-0 tw-mt-2 tw-pt-4">
                 {% if index_title %}{{ index_title }}{% elif root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
             </h1>
