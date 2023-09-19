@@ -11,6 +11,9 @@ class RedirectingPage(Page):
         FieldPanel("URL"),
     ]
 
+    # This page is deprecated. While we keep the existing pages around,
+    # we don't want to create new ones.
+    is_creatable = False
     show_in_menus_default = True
 
     def serve(self, request):
