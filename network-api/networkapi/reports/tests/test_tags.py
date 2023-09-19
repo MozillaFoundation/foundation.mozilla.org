@@ -84,12 +84,12 @@ class PageTypesBlockTagTests(SimpleTestCase):
         result = report_tags.page_types_block(content_types)
 
         self.assertIsInstance(result, dict)
-        self.assertIn("content_types_truncated", result)
-        self.assertIn("content_types_remaining", result)
-        self.assertIn("count_remaining", result)
-        self.assertEqual(result["content_types_truncated"], content_types[:3])
-        self.assertEqual(result["content_types_remaining"], content_types[3:])
-        self.assertEqual(result["count_remaining"], 1)
+        self.assertIn("content_types_shown", result)
+        self.assertIn("content_types_hidden", result)
+        self.assertIn("count_hidden", result)
+        self.assertEqual(result["content_types_shown"], content_types[:3])
+        self.assertEqual(result["content_types_hidden"], content_types[3:])
+        self.assertEqual(result["count_hidden"], 1)
 
 
 class BlockNameTagTests(SimpleTestCase):

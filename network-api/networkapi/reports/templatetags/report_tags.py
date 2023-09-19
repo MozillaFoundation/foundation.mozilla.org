@@ -29,16 +29,16 @@ def render_content_types(content_types):
 
 @register.inclusion_tag("tags/reports/page_types_block.html")
 def page_types_block(content_types):
-    truncated = []
-    count_remaining = 0
+    content_types_hidden = []
+    count_hidden = 0
     if len(content_types) > 3:
-        truncated = content_types[3:]
+        content_types_hidden = content_types[3:]
         content_types = content_types[:3]
-        count_remaining = len(truncated)
+        count_hidden = len(content_types_hidden)
     return {
-        "content_types_truncated": content_types,
-        "content_types_remaining": truncated,
-        "count_remaining": count_remaining,
+        "content_types_shown": content_types,
+        "content_types_hidden": content_types_hidden,
+        "count_hidden": count_hidden,
     }
 
 
