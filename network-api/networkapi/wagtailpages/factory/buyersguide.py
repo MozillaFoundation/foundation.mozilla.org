@@ -3,7 +3,7 @@ from itertools import chain
 from random import choice, randint, random, randrange, shuffle
 
 from django.utils import text as text_utils
-from factory import Faker, LazyFunction, SubFactory, post_generation
+from factory import Faker, LazyAttribute, LazyFunction, SubFactory, post_generation
 from factory.django import DjangoModelFactory
 from wagtail.images.models import Image
 from wagtail.models import Locale
@@ -262,16 +262,11 @@ class ConsumerCreepometerPageFactory(PageFactory):
     class Meta:
         model = pagemodels.ConsumerCreepometerPage
 
+    year = Faker("random_element", elements=(("2023", "2023")))  # Add extra years here once available
+    title = LazyAttribute(lambda o: f"Annual Consumer Creepometer {o.year}")
     first_published_at = Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
     search_image = SubFactory(ImageFactory)
     search_description = Faker("paragraph", nb_sentences=5, variable_nb_sentences=True)
-
-    def __call__(self, year):
-        page = pagemodels.ConsumerCreepometerPage(
-            title=f"Annual Consumer Creepometer {year}",
-            year=year,
-        )
-        return page
 
 
 class BuyersGuideContentCategoryFactory(DjangoModelFactory):

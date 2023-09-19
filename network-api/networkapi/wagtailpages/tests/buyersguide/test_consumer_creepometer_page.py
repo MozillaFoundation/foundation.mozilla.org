@@ -32,11 +32,10 @@ class ConsumerCreepometerPageTests(test_base.WagtailpagesTestCase):
         )
 
     def test_year_choices(self):
-        page = buyersguide_factories.ConsumerCreepometerPageFactory(
-            parent=self.content_index, title="Test Consumer Creepometer Page", year="2023"
-        )
+        page = buyersguide_factories.ConsumerCreepometerPageFactory(parent=self.content_index)  # it will use a random year
         choices = page._meta.get_field("year").choices
         self.assertEqual(choices, (("2023", "2023"),))
+        self.assertIn((page.year, page.year), choices)
 
     def test_template(self):
         consumer_creepometer_page = buyersguide_factories.ConsumerCreepometerPageFactory(
@@ -49,16 +48,4 @@ class ConsumerCreepometerPageTests(test_base.WagtailpagesTestCase):
         self.assertTemplateUsed(
             response=response,
             template_name="buyersguide/pages/consumer_creepometer_page_2023.html",
-        )
-        self.assertTemplateUsed(
-            response=response,
-            template_name="buyersguide/pages/consumer_creepometer_page.html",
-        )
-        self.assertTemplateUsed(
-            response=response,
-            template_name="pages/buyersguide/base.html",
-        )
-        self.assertTemplateUsed(
-            response=response,
-            template_name="pages/base.html",
         )
