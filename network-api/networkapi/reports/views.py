@@ -104,16 +104,16 @@ class BlockTypesReportView(ReportView):
     def decorate_paginated_queryset(self, object_list):
         # Build a cache map of PageBlock's block name to content types
         page_blocks = PageBlock.objects.all().prefetch_related("page__content_type")
-        page_blocks_to_content_types = {pb.block: [] for pb in page_blocks}
+        blocks_to_content_types = {pb.block: [] for pb in page_blocks}
         for page_block in page_blocks:
-            if page_block.page.content_type not in page_blocks_to_content_types[page_block.block]:
-                page_blocks_to_content_types[page_block.block].append(page_block.page.content_type)
+            if page_block.page.content_type not in blocks_to_content_types[page_block.block]:
+                blocks_to_content_types[page_block.block].append(page_block.page.content_type)
 
         # Get the content_types for each block name
-        for page_block in object_list:
-            content_types = page_blocks_to_content_types.get(page_block["block"], [])
-            page_block["content_types"] = content_types
-            page_block["type_label"] = "Custom" if page_block["is_custom_block"] else "Core"
+        for block_report_item in object_list:
+            content_types = blocks_to_content_types.get(block_report_item["block"], [])
+            block_report_item["content_types"] = content_types
+            block_report_item["type_label"] = "Custom" if block_report_item["is_custom_block"] else "Core"
 
         return object_list
 

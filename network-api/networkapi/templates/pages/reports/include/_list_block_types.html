@@ -26,20 +26,20 @@
         {% endblock post_parent_page_headers %}
     </thead>
     <tbody>
-        {% if page_blocks %}
-            {% for page_block in page_blocks %}
+        {% if block_report_items %}
+            {% for block_report_item in block_report_items %}
                 <tr class="{% block page_row_classname %}{% endblock page_row_classname %}">
                     <td class="app-label" valign="top">
-                        {% block_name page_block %}
+                        {% block_name block_report_item %}
                     </td>
                     <td class="app-label" valign="top">
-                        {{ page_block.count }}
+                        {{ block_report_item.count }}
                     </td>
                     <td class="app-label" valign="top">
-                        <span class="status-tag status-tag--label">{{ page_block.type_label }}</span>
+                        <span class="status-tag status-tag--label">{{ block_report_item.type_label }}</span>
                     </td>
                     <td class="app-label" valign="top">
-                        {% page_types_block page_block.content_types %}
+                        {% page_types_block block_report_item.content_types %}
                     </td>
                     {% block extra_page_data %}
                     {% endblock extra_page_data %}

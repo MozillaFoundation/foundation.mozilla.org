@@ -6,9 +6,9 @@
 {% endblock extra_css %}
 
 {% block results %}
-    {% with object_list as page_blocks %}
+    {% with object_list as block_report_items %}
         <div id="page-results">
-            {% if page_blocks %}
+            {% if block_report_items %}
                 {% block listing %}
                     {% include "pages/reports/include/_list_block_types.html" %}
                 {% endblock listing %}
