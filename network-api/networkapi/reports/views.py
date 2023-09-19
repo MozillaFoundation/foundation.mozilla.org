@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import django_filters
 from django.contrib.auth import get_user_model
 from django.db.models import BooleanField, Case, Count, OuterRef, Q, Subquery, When
@@ -104,7 +106,7 @@ class BlockTypesReportView(ReportView):
     def decorate_paginated_queryset(self, object_list):
         # Build a cache map of PageBlock's block name to content types
         page_blocks = PageBlock.objects.all().prefetch_related("page__content_type")
-        blocks_to_content_types = {pb.block: [] for pb in page_blocks}
+        blocks_to_content_types = defaultdict(list)
         for page_block in page_blocks:
             if page_block.page.content_type not in blocks_to_content_types[page_block.block]:
                 blocks_to_content_types[page_block.block].append(page_block.page.content_type)
