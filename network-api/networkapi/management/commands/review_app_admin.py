@@ -36,7 +36,7 @@ class Command(BaseCommand):
             if pr_number:
                 # Get PR's title from Github
                 token = settings.GITHUB_TOKEN
-                org = "mozilla"
+                org = "MozillaFoundation"
                 repo = "foundation.mozilla.org"
                 headers = {"Authorization": f"token {token}"}
                 r = requests.get(
