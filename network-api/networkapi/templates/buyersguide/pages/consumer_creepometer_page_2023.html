@@ -1,6 +1,6 @@
 {% load wagtailroutablepage_tags %}
 
-{% with wrapper_class="tw-py-[120px]" h1_class="w-text-[48px] tw-leading-[56px] tw-font-semibold tw-font-zilla" h2_class="tw-font-light tw-font-zilla tw-text-[40px] tw-leading-[48px]" fixme_class="tw-text-red-80 tw-bg-red-10" body_large_class="tw-text-[20px] tw-leading-[30px]" %}
+{% with wrapper_class="tw-py-[120px]" h1_class="w-text-[48px] tw-leading-[56px] tw-font-semibold tw-font-zilla" h2_class="tw-font-light tw-font-zilla tw-text-[40px] tw-leading-[48px]" fixme_class="tw-text-red-80 tw-bg-red-10" body_large_class="tw-text-[20px] tw-leading-[30px]" h3_class="tw-text-[28px] tw-leading-[36px]" %}
 
   <div class="tw-pb-[120px]">
     <div class="tw-container tw-mt-[15px] medium:tw-mt-[60px]">
@@ -26,6 +26,7 @@
     </div>
   </div>
 
+  {% comment %} Quiz Section {% endcomment %}
   <div class="{{ wrapper_class }} tw-bg-[#F4F4F4]">
     <div class="tw-container">
       <div class="tw-row tw-px-8">
@@ -40,6 +41,7 @@
     </div>
   </div>
 
+  {% comment %} Sub Nav Section {% endcomment %}
   <div class="{{ wrapper_class }} tw-container">
     <div class="tw-row tw-px-8 tw-justify-center tw-text-center">
       <h2 class="{{ h2_class }} tw-w-5/6 tw-mb-24">Mozilla’s Annual Consumer Creep-O-Meter distills what’s good, what’s bad, and what’s just plain creepy in the world of consumer tech.</h2>
@@ -50,12 +52,13 @@
     </div>
   </div>
 
+  {% comment %} Big Picture Trends Section {% endcomment %}
   <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-yellow-05 tw-to-white">
     <div class="tw-container">
       <div class="tw-row tw-px-8">
         <div class="tw-w-4/5 tw-mx-auto tw-text-center">
           <h6 class="tw-font-sans tw-text-xs tw-font-normal tw-uppercase tw-text-gray-60 tw-mb-8">Big Picture Trends Section</h6>
-          <h2 class="{{ h2_class }} tw-mb-24">What’s the state of consumer privacy in 2023? Here’s the big picture:</h2>
+          <h2 class="{{ h1_class }} tw-mb-24">What’s the state of consumer privacy in 2023? Here’s the big picture:</h2>
         </div>
       </div>
       <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-x-32 tw-gap-6 medium:tw-gap-y-0 tw-mb-8 tw-p-14 medium:tw-px-20 medium:tw-py-24 tw-bg-white tw-rounded-2xl tw-border-pni-yellow tw-border-2">
@@ -65,11 +68,11 @@
           <p class="tw-mb-9">But at the same time, companies are collecting and sharing users’ personal data like never before. And that’s bad news. Many companies now view their hardware or software as a means to an end: collecting that coveted personal data for targeted advertising and training AI.</p>
           <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
         </div>
-        <div class="tw-col-span-1 tw-flex tw-flex-col tw-justify-between">
+        <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col tw-justify-between">
           <p class="{{ body_large_class }} tw-font-light">The mental health app BetterHelp shares your data with advertisers, social media platforms, and sister companies.</p>
           <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px]">[add logo]</div>
         </div>
-        <div class="tw-col-span-1 tw-flex tw-flex-col tw-justify-between">
+        <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col tw-justify-between">
           <p class="{{ body_large_class }} tw-font-light">The Japanese car manufacturer Nissan collects a wide range of information, including sexual activity, health diagnosis data, and genetic information — but doesn’t specify how. </p>
           <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px]">[add logo]</div>
         </div>
@@ -78,11 +81,11 @@
         <div class="tw-col-span-2">
           <h3 class="{{ h2_class }} tw-mb-9">An increasing number of products can’t be used offline.</h3>
         </div>
-        <div class="tw-col-span-1 tw-flex tw-flex-col">
+        <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col">
           <p class="tw-mb-9">In the past, the privacy conscious could always buy a connected device but turn off connectivity, making it “dumb.” That’s no longer an option in many cases. The number of connected devices that require apps and can’t be used offline are increasing. This trend, coupled with the first, means it’s harder and harder to keep your data private. </p>
           <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px] tw-mt-9">[add logo]</div>
         </div>
-        <div class="tw-col-span-1 tw-flex tw-flex-col">
+        <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col">
           <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
           <p class="{{ body_large_class }} tw-font-light">The Verizon GizmoWatch is a product for kids, but all of its features — even simple to-do lists — require an internet connection.</p>
           <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px] tw-mt-9">[add logo]</div>
@@ -92,28 +95,49 @@
         <div class="tw-col-span-2">
           <h3 class="{{ h2_class }} tw-mb-9">Privacy policies are getting ridiculous.</h3>
         </div>
-        <div class="tw-col-span-1 tw-flex tw-flex-col">
+        <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col">
           <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
           <p class="{{ body_large_class }} tw-font-light">Car manufacturer Toyota has more than 10 different privacy policy documents — an unreasonable number for consumers to engage with.</p>
           <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px] tw-mt-9">[add logo]</div>
         </div>
-        <div class="tw-col-span-1 tw-flex tw-flex-col tw-justify-end tw-items-end">
+        <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col tw-justify-end tw-items-end">
           <div class="{{ fixme_class }} tw-h-[200px] tw-w-[200px] tw-mt-9">[add image]</div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="tw-h-[1000px] {{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-red-05 tw-to-white">
+  {% comment %} Best & Worst Products Section {% endcomment %}
+  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-red-05 tw-to-white">
     <div class="tw-container">
       <div class="tw-row tw-px-8">
-        <div class="tw-w-full">
-          <h2>Best & Worst Products Section</h2>
+        <div class="tw-w-4/5 tw-mx-auto tw-text-center">
+          <h6 class="tw-font-sans tw-text-xs tw-font-normal tw-uppercase tw-text-gray-60 tw-mb-8">Best & Worst Products</h6>
+          <h2 class="{{ h1_class }} tw-mb-20">We researched 172 products in 2023 and late 2022. These are our winners and losers.</h2>
         </div>
       </div>
+      {% with item_class="tw-rounded-lg tw-bg-white tw-h-[230px]" %}
+      <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-5 tw-gap-x-6 tw-gap-6 medium:tw-gap-y-0 tw-mb-28" aria-labelledby="winners-grid-title">
+        <h3 class="{{ h3_class }} tw-col-span-2 medium:tw-col-span-5 tw-text-center tw-mb-8" id="winners-grid-title">The Winners</h3>
+        <div class="{{ item_class }} tw-col-span-2 medium:tw-col-span-1">Item</div>
+        <div class="{{ item_class }} tw-col-span-1">Item</div>
+        <div class="{{ item_class }} tw-col-span-1">Item</div>
+        <div class="{{ item_class }} tw-col-span-1">Item</div>
+        <div class="{{ item_class }} tw-col-span-1">Item</div>
+      </div>
+      <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-5 tw-gap-x-6 tw-gap-6 medium:tw-gap-y-0 tw-mb-28" aria-labelledby="losers-grid-title">
+        <h3 class="{{ h3_class }} tw-col-span-2 medium:tw-col-span-5 tw-text-center tw-mb-8" id="losers-grid-title">The Losers</h3>
+        <div class="{{ item_class }} tw-col-span-2 medium:tw-col-span-1">Item</div>
+        <div class="{{ item_class }} tw-col-span-1">Item</div>
+        <div class="{{ item_class }} tw-col-span-1">Item</div>
+        <div class="{{ item_class }} tw-col-span-1">Item</div>
+        <div class="{{ item_class }} tw-col-span-1">Item</div>
+      </div>
+      {% endwith %}
     </div>
   </div>
 
+  {% comment %} By The Numbers Section {% endcomment %}
   <div class="tw-h-[1000px] {{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-blue-10 tw-to-white">
     <div class="tw-container">
       <div class="tw-row tw-px-8">
@@ -124,6 +148,7 @@
     </div>
   </div>
 
+  {% comment %} Stay in Control Section {% endcomment %}
   <div class="tw-h-[1000px] {{ wrapper_class }} tw-container">
     <div class="tw-row tw-px-8">
       <div class="tw-w-full">
@@ -132,6 +157,7 @@
     </div>
   </div>
 
+  {% comment %} Outro Section {% endcomment %}
   <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-to-blue-10">
     <div class="tw-container">
       <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-3 tw-gap-x-6 tw-gap-6 medium:tw-gap-y-0 tw-mb-[120px]">
