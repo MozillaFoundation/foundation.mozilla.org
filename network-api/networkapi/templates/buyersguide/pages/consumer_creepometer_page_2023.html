@@ -1,12 +1,32 @@
-{% load wagtailroutablepage_tags %}
+{% load static %}
 
-{% with wrapper_class="tw-py-[120px] tw-h-[1000px]" h1_class="w-text-[48px] tw-leading-[56px] tw-font-semibold tw-font-zilla" h2_class="tw-font-light tw-font-zilla tw-text-[40px] tw-leading-[48px]" h3_class="tw-text-[28px] tw-leading-[36px]" fixme_class="tw-text-red-80 tw-bg-red-10" body_large_class="tw-text-[20px] tw-leading-[30px]" %}
+{% with wrapper_class="tw-py-[120px] tw-h-[1000px]" h1_class="tw-text-[48px] tw-leading-[56px] tw-font-semibold tw-font-zilla" h2_class="tw-font-light tw-font-zilla tw-text-[40px] tw-leading-[48px]" h3_class="tw-text-[24px] tw-leading-[28px] medium:tw-text-[28px] medium:tw-leading-[36px]" fixme_class="tw-text-red-80 tw-bg-red-10" body_large_class="tw-text-[20px] tw-leading-[30px]" %}
   {% comment %} Hero Section {% endcomment %}
-  <div class="{{ wrapper_class }}">
-    <div class="tw-container">
-      <div class="tw-row tw-px-8">
-        <div class="tw-w-full">
-          <h2>Hero Section</h2>
+  <div class="tw-relative">
+    <div class="tw-container tw-relative tw-pt-40 medium:tw-pt-0 tw-mt-[15px] medium:tw-mt-[60px]">
+      <div class="tw-absolute tw-top-0 medium:tw-bottom-0 medium:tw-left-0 medium:tw-right-0 tw-right-4 tw-w-[83px] tw-h-[79px] medium:tw-w-auto medium:tw-h-auto">
+        <div class="tw-relative medium:tw-left-[83%]">
+          <img width="383" height="367" src="{% static "_images/buyers-guide/consumer-creepometer/hero-face-1.svg" %}" />
+        </div>
+      </div>
+      <div class="tw-row tw-px-8 tw-mt-10 medium:tw-mt-0">
+        <div class="tw-w-full medium:tw-w-[83%]">
+          <h1 class="tw-font-normal tw-font-zilla tw-text-[48px] tw-leading-[44px] medium:tw-text-[80px] medium:tw-leading-none tw-mb-12 medium:tw-mb-24">Welcome to <span class="tw-font-semibold">Mozilla’s</span> first-ever <strong class="tw-font-semibold">Annual Consumer Creep-O-Meter</strong></h1>
+          <p class="tw-font-light tw-font-zilla tw-text-[24px] tw-leading-[28px] medium:tw-text-[40px] medium:tw-leading-[48px]">
+            In 2023, the state of our digital privacy is <strong class="tw-relative after:tw-bottom-10 after:tw-right--29 after:tw-absolute after:tw-border-0 after:tw-block after:tw-w-38 after:tw-h-26 after:tw-bg-transparent after:tw-rounded-bl-[50%] after:tw-rounded-br-[50%] after:tw-shadow-lg after:tw--ml-21 after:tw-mt-9 after:tw-content-[''] tw-block tw-text-center tw-font-sans tw-font-[28px] tw-leading-[32px] medium:tw-text-[80px] medium:tw-leading-none tw-font-extrabold tw-max-w-[75%] tw-my-12 medium:tw-my-24 tw-px-12 medium:tw-px-[100px] tw-py-6 medium:tw-py-12 tw-bg-blue-05 tw-rounded-3xl">very creepy!</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="tw-relative -tw-top-[20px] tw-py-18 medium:tw-py-[120px] after:tw-content-[''] after:tw-block after:tw-left-0 after:tw-right-0 after:tw-h-12 after:tw-bg-gradient-to-r after:tw-from-[#0000FF] after:tw-to-[#FF506E] tw-bg-gradient-to-b tw-from-white tw-via-purple-05 tw-to-white">
+      <div class="tw-absolute tw-top-1/2 tw-right-0 medium:tw-right-[30%] tw-transform tw--translate-y-1/2 tw-w-[125px] tw-h-[120px] medium:tw-w-auto medium:tw-h-auto">
+        <img width="315" height="315" src="{% static "_images/buyers-guide/consumer-creepometer/hero-face-2.svg" %}" />
+      </div>
+    </div>
+    <div class="tw-container tw-pt-12 medium:tw-pt-[60px] tw-pb-[60px] medium:tw-pb-[120px]">
+      <div class="tw-row tw-justify-end tw-px-8">
+        <div class="tw-w-full medium:tw-w-2/3">
+          <p class="tw-text-[18px] tw-leading-[27px] medium:tw-text-[28px] medium:tw-leading-[36px] tw-mb-0">In numbers, that translates to xx/100, with 100 being the most creepy. Our annual benchmark measures the current state of digital privacy — and what direction it’s trending.</p>
         </div>
       </div>
     </div>
