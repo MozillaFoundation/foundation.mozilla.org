@@ -143,7 +143,6 @@ class OpportunityPage(MiniSiteNameSpace):
 
     subpage_types = [
         "OpportunityPage",
-        "RedirectingPage",
         "PublicationPage",
         "ArticlePage",
     ]
@@ -311,7 +310,6 @@ class CampaignPage(MiniSiteNameSpace):
 
     subpage_types = [
         "CampaignPage",
-        "RedirectingPage",
         "PublicationPage",
         "ArticlePage",
     ]
@@ -390,7 +388,6 @@ class BanneredCampaignPage(PrimaryPage):
 
     subpage_types = [
         "BanneredCampaignPage",
-        "RedirectingPage",
         "PublicationPage",
         "OpportunityPage",
         "ArticlePage",
