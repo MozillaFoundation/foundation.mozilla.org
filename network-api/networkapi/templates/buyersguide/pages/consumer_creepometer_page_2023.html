@@ -1,9 +1,9 @@
 {% load wagtailroutablepage_tags %}
 
-{% with wrapper_class="tw-py-[120px]" h1_class="w-text-[48px] tw-leading-[56px] tw-font-semibold tw-font-zilla" h2_class="tw-font-light tw-font-zilla tw-text-[40px] tw-leading-[48px]" fixme_class="tw-text-red-80 tw-bg-red-10" %}
+{% with wrapper_class="tw-py-[120px]" h1_class="w-text-[48px] tw-leading-[56px] tw-font-semibold tw-font-zilla" h2_class="tw-font-light tw-font-zilla tw-text-[40px] tw-leading-[48px]" fixme_class="tw-text-red-80 tw-bg-red-10" body_large_class="tw-text-[20px] tw-leading-[30px]" %}
 
-  <div class="{{ wrapper_clas }}">
-    <div class="tw-container">
+  <div class="tw-pb-[120px]">
+    <div class="tw-container tw-mt-[15px] medium:tw-mt-[60px]">
       <div class="tw-row tw-px-8">
         <div class="tw-w-5/6 tw-px-8">
           <h1 class="tw-font-normal tw-font-zilla tw-text-[80px] tw-leading-none tw-mb-24">Welcome to Mozilla’s first-ever <strong class="tw-font-semibold">Annual Consumer Creep-O-Meter</strong></h1>
@@ -44,17 +44,61 @@
     <div class="tw-row tw-px-8 tw-justify-center tw-text-center">
       <h2 class="{{ h2_class }} tw-w-5/6 tw-mb-24">Mozilla’s Annual Consumer Creep-O-Meter distills what’s good, what’s bad, and what’s just plain creepy in the world of consumer tech.</h2>
       <div class="tw-w-4/6">
-        <p class="tw-text-[20px] tw-leading-[30px] tw-font-light tw-mb-16">Since 2017, Mozilla has published xx editions of *Privacy Not Included, our consumer tech buyers guide. We’ve reviewed over 500 gadgets, apps, cars, and more, assessing their security features, what data they collect, and who they share that data with.</p>
-        <p class="tw-text-[20px] tw-leading-[30px] tw-font-light">In 2023, we compared our most recent findings with those of the past five years. It quickly became clear that products and companies are collecting more personal data than ever before — and then using that information in shady ways.</p>
+        <p class="{{ body_large_class }} tw-font-light tw-mb-16">Since 2017, Mozilla has published xx editions of *Privacy Not Included, our consumer tech buyers guide. We’ve reviewed over 500 gadgets, apps, cars, and more, assessing their security features, what data they collect, and who they share that data with.</p>
+        <p class="{{ body_large_class }} tw-font-light">In 2023, we compared our most recent findings with those of the past five years. It quickly became clear that products and companies are collecting more personal data than ever before — and then using that information in shady ways.</p>
       </div>
     </div>
   </div>
 
-  <div class="tw-h-[1000px] {{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-yellow-05 tw-to-white">
+  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-yellow-05 tw-to-white">
     <div class="tw-container">
       <div class="tw-row tw-px-8">
-        <div class="tw-w-full">
-          <h2>Big Picture Trends Section</h2>
+        <div class="tw-w-4/5 tw-mx-auto tw-text-center">
+          <h6 class="tw-font-sans tw-text-xs tw-font-normal tw-uppercase tw-text-gray-60 tw-mb-8">Big Picture Trends Section</h6>
+          <h2 class="{{ h2_class }} tw-mb-24">What’s the state of consumer privacy in 2023? Here’s the big picture:</h2>
+        </div>
+      </div>
+      <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-x-32 tw-gap-6 medium:tw-gap-y-0 tw-mb-8 tw-p-14 medium:tw-px-20 medium:tw-py-24 tw-bg-white tw-rounded-2xl tw-border-pni-yellow tw-border-2">
+        <div class="tw-col-span-2">
+          <h3 class="{{ h2_class }} tw-mb-9">Products are getting more secure, but also a lot less private.</h3>
+          <p class="tw-mb-9">More companies are meeting Mozilla’s Minimum Security Standards like using encryption and providing automatic software updates. That’s good news.</p>
+          <p class="tw-mb-9">But at the same time, companies are collecting and sharing users’ personal data like never before. And that’s bad news. Many companies now view their hardware or software as a means to an end: collecting that coveted personal data for targeted advertising and training AI.</p>
+          <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
+        </div>
+        <div class="tw-col-span-1 tw-flex tw-flex-col tw-justify-between">
+          <p class="{{ body_large_class }} tw-font-light">The mental health app BetterHelp shares your data with advertisers, social media platforms, and sister companies.</p>
+          <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px]">[add logo]</div>
+        </div>
+        <div class="tw-col-span-1 tw-flex tw-flex-col tw-justify-between">
+          <p class="{{ body_large_class }} tw-font-light">The Japanese car manufacturer Nissan collects a wide range of information, including sexual activity, health diagnosis data, and genetic information — but doesn’t specify how. </p>
+          <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px]">[add logo]</div>
+        </div>
+      </div>
+      <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-x-32 tw-gap-6 medium:tw-gap-y-0 tw-mb-8 tw-p-14 medium:tw-px-20 medium:tw-py-24 tw-bg-white tw-rounded-2xl tw-border-pni-yellow tw-border-2">
+        <div class="tw-col-span-2">
+          <h3 class="{{ h2_class }} tw-mb-9">An increasing number of products can’t be used offline.</h3>
+        </div>
+        <div class="tw-col-span-1 tw-flex tw-flex-col">
+          <p class="tw-mb-9">In the past, the privacy conscious could always buy a connected device but turn off connectivity, making it “dumb.” That’s no longer an option in many cases. The number of connected devices that require apps and can’t be used offline are increasing. This trend, coupled with the first, means it’s harder and harder to keep your data private. </p>
+          <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px] tw-mt-9">[add logo]</div>
+        </div>
+        <div class="tw-col-span-1 tw-flex tw-flex-col">
+          <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
+          <p class="{{ body_large_class }} tw-font-light">The Verizon GizmoWatch is a product for kids, but all of its features — even simple to-do lists — require an internet connection.</p>
+          <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px] tw-mt-9">[add logo]</div>
+        </div>
+      </div>
+      <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-x-32 tw-gap-6 medium:tw-gap-y-0 tw-mb-8 tw-p-14 medium:tw-px-20 medium:tw-py-24 tw-bg-white tw-rounded-2xl tw-border-pni-yellow tw-border-2">
+        <div class="tw-col-span-2">
+          <h3 class="{{ h2_class }} tw-mb-9">Privacy policies are getting ridiculous.</h3>
+        </div>
+        <div class="tw-col-span-1 tw-flex tw-flex-col">
+          <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
+          <p class="{{ body_large_class }} tw-font-light">Car manufacturer Toyota has more than 10 different privacy policy documents — an unreasonable number for consumers to engage with.</p>
+          <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px] tw-mt-9">[add logo]</div>
+        </div>
+        <div class="tw-col-span-1 tw-flex tw-flex-col tw-justify-end tw-items-end">
+          <div class="{{ fixme_class }} tw-h-[200px] tw-w-[200px] tw-mt-9">[add image]</div>
         </div>
       </div>
     </div>
