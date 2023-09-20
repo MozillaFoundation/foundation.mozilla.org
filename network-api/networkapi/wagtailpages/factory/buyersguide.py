@@ -3,7 +3,7 @@ from itertools import chain
 from random import choice, randint, random, randrange, shuffle
 
 from django.utils import text as text_utils
-from factory import Faker, LazyFunction, SubFactory, post_generation
+from factory import Faker, LazyAttribute, LazyFunction, SubFactory, post_generation
 from factory.django import DjangoModelFactory
 from wagtail.images.models import Image
 from wagtail.models import Locale
@@ -243,6 +243,7 @@ class BuyersGuideCampaignPageFactory(PageFactory):
     header = Faker("sentence")
     title = Faker("sentence")
     cta = SubFactory(PetitionFactory)
+    first_published_at = Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
     narrowed_page_content = Faker("boolean", chance_of_getting_true=50)
     body = Faker(
         provider="streamfield",
@@ -255,6 +256,17 @@ class BuyersGuideCampaignPageFactory(PageFactory):
             "quote",
         ),
     )
+
+
+class ConsumerCreepometerPageFactory(PageFactory):
+    class Meta:
+        model = pagemodels.ConsumerCreepometerPage
+
+    year = Faker("random_element", elements=(("2023", "2023")))  # Add extra years here once available
+    title = LazyAttribute(lambda o: f"Annual Consumer Creepometer {o.year}")
+    first_published_at = Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
+    search_image = SubFactory(ImageFactory)
+    search_description = Faker("paragraph", nb_sentences=5, variable_nb_sentences=True)
 
 
 class BuyersGuideContentCategoryFactory(DjangoModelFactory):
@@ -449,6 +461,9 @@ def generate(seed):
     for _ in range(5):
         campaign_page = BuyersGuideCampaignPageFactory(parent=editorial_content_index)
         BuyersGuideCampaignPageDonationModalRelationFactory(page=campaign_page)
+
+    print("Generating PNI Annual Consumer Creep-O-Meter Page for Year 2023")
+    ConsumerCreepometerPageFactory(parent=editorial_content_index, title="Annual Consumer Creep-O-Meter", year=2023)
 
     # Buyerguide homepage hero page
     pni_homepage.hero_featured_page = pagemodels.BuyersGuideArticlePage.objects.first()
