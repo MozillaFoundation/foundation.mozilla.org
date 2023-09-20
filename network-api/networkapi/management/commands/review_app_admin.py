@@ -5,7 +5,6 @@ Creates an admin user and prints the password to the build logs.
 import requests
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
 
@@ -19,7 +18,7 @@ class Command(BaseCommand):
         try:
             User.objects.get(username="admin")
             print("super user already exists")
-        except ObjectDoesNotExist:
+        except User.DoesNotExist:
             password = faker.password(
                 length=16,
                 special_chars=True,
@@ -37,7 +36,7 @@ class Command(BaseCommand):
             if pr_number:
                 # Get PR's title from Github
                 token = settings.GITHUB_TOKEN
-                org = "mozilla"
+                org = "MozillaFoundation"
                 repo = "foundation.mozilla.org"
                 headers = {"Authorization": f"token {token}"}
                 r = requests.get(
