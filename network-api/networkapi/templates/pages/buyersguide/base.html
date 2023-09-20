@@ -82,10 +82,10 @@
     </div>
 
     {% block nav_search_wrapper %}
-    <div id="pni-mobile-nav-search-wrapper" class="tw-border-b tw-border-blue-10 medium:tw-border-b-0">
-        {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
-        {% include 'fragments/buyersguide/pni_mobile_search.html' %}
-    </div>
+        <div id="pni-mobile-nav-search-wrapper" class="tw-border-b tw-border-blue-10 medium:tw-border-b-0">
+            {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
+            {% include 'fragments/buyersguide/pni_mobile_search.html' %}
+        </div>
     {% endblock %}
 
     {% block category_nav %}

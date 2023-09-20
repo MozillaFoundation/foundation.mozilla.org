@@ -1,122 +1,121 @@
 {% load wagtailroutablepage_tags %}
 
-{% with wrapper_class="tw-py-[120px]" h1_class="w-text-[48px] tw-leading-[56px] tw-font-semibold tw-font-zilla" h2_class="tw-font-light tw-font-zilla tw-text-[40px] tw-leading-[48px]" fixme_class="tw-text-red-80 tw-bg-red-10" body_large_class="tw-text-[20px] tw-leading-[30px]" h3_class="tw-text-[28px] tw-leading-[36px]" %}
-
-  <div class="tw-pb-[120px]">
-    <div class="tw-container tw-mt-[15px] medium:tw-mt-[60px]">
-      <div class="tw-row tw-px-8">
-        <div class="tw-w-5/6 tw-px-8">
-          <h1 class="tw-font-normal tw-font-zilla tw-text-[80px] tw-leading-none tw-mb-24">Welcome to Mozilla’s first-ever <strong class="tw-font-semibold">Annual Consumer Creep-O-Meter</strong></h1>
-          <p class="tw-font-light tw-font-zilla tw-text-[40px] tw-leading-[48px]">
-            In 2023, the state of our digital privacy is <strong class="tw-relative after:tw-bottom-10 after:tw-right--29 after:tw-absolute after:tw-border-0 after:tw-block after:tw-w-38 after:tw-h-26 after:tw-bg-transparent after:tw-rounded-bl-[50%] after:tw-rounded-br-[50%] after:tw-shadow-lg after:tw--ml-21 after:tw-mt-9 after:tw-content-[''] tw-block tw-text-center tw-font-sans tw-text-[80px] tw-leading-none tw-font-extrabold tw-max-w-[75%] tw-my-24 tw-px-[100px] tw-py-12 tw-bg-blue-05 tw-rounded-3xl">very creepy!</strong>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="tw-relative -tw-top-[100px] tw-h-[250px] tw-py-[120px] after:tw-content-[''] after:tw-block after:tw-left-0 after:tw-right-0 after:tw-h-12 after:tw-bg-gradient-to-r after:tw-from-[#0000FF] after:tw-to-[#FF506E]">
-      <div class="tw-absolute tw-top-1/2 tw-right-[30%] tw-transform tw--translate-y-1/2 tw-w-[250px] tw-h-[250px] tw-bg-[#fab01b] tw-rounded-full"></div>
-    </div>
-  </div>
-
-  <div class="tw-container tw-mb-[120px]">
-    <div class="tw-row tw-justify-end tw-px-8">
-      <div class="tw-w-2/3">
-        <p class="tw-text-[28px] tw-leading-[36px] tw-mb-0">In numbers, that translates to xx/100, with 100 being the most creepy. Our annual benchmark measures the current state of digital privacy — and what direction it’s trending.</p>
+{% with wrapper_class="tw-py-[120px]" h1_class="w-text-[48px] tw-leading-[56px] tw-font-semibold tw-font-zilla" h2_class="tw-font-light tw-font-zilla tw-text-[40px] tw-leading-[48px]" h3_class="tw-text-[28px] tw-leading-[36px]" fixme_class="tw-text-red-80 tw-bg-red-10" body_large_class="tw-text-[20px] tw-leading-[30px]" %}
+<div class="tw-pb-[120px]">
+  <div class="tw-container tw-mt-[15px] medium:tw-mt-[60px]">
+    <div class="tw-row tw-px-8">
+      <div class="tw-w-5/6 tw-px-8">
+        <h1 class="tw-font-normal tw-font-zilla tw-text-[80px] tw-leading-none tw-mb-24">Welcome to Mozilla’s first-ever <strong class="tw-font-semibold">Annual Consumer Creep-O-Meter</strong></h1>
+        <p class="tw-font-light tw-font-zilla tw-text-[40px] tw-leading-[48px]">
+          In 2023, the state of our digital privacy is <strong class="tw-relative after:tw-bottom-10 after:tw-right--29 after:tw-absolute after:tw-border-0 after:tw-block after:tw-w-38 after:tw-h-26 after:tw-bg-transparent after:tw-rounded-bl-[50%] after:tw-rounded-br-[50%] after:tw-shadow-lg after:tw--ml-21 after:tw-mt-9 after:tw-content-[''] tw-block tw-text-center tw-font-sans tw-text-[80px] tw-leading-none tw-font-extrabold tw-max-w-[75%] tw-my-24 tw-px-[100px] tw-py-12 tw-bg-blue-05 tw-rounded-3xl">very creepy!</strong>
+        </p>
       </div>
     </div>
   </div>
+  <div class="tw-relative -tw-top-[100px] tw-h-[250px] tw-py-[120px] after:tw-content-[''] after:tw-block after:tw-left-0 after:tw-right-0 after:tw-h-12 after:tw-bg-gradient-to-r after:tw-from-[#0000FF] after:tw-to-[#FF506E]">
+    <div class="tw-absolute tw-top-1/2 tw-right-[30%] tw-transform tw--translate-y-1/2 tw-w-[250px] tw-h-[250px] tw-bg-[#fab01b] tw-rounded-full"></div>
+  </div>
+</div>
+
+<div class="tw-container tw-mb-[120px]">
+  <div class="tw-row tw-justify-end tw-px-8">
+    <div class="tw-w-2/3">
+      <p class="tw-text-[28px] tw-leading-[36px] tw-mb-0">In numbers, that translates to xx/100, with 100 being the most creepy. Our annual benchmark measures the current state of digital privacy — and what direction it’s trending.</p>
+    </div>
+  </div>
+</div>
 
   {% comment %} Quiz Section {% endcomment %}
-  <div class="{{ wrapper_class }} tw-bg-[#F4F4F4]">
-    <div class="tw-container">
-      <div class="tw-row tw-px-8">
-        <div class="tw-w-1/2 tw-px-8">
-          <h2 class="{{ h1_class }}">Determine your Digital Privacy Footprint</h2>
-        </div>
-        <div class="tw-w-1/2 tw-px-8">
-          <p>In addition to the Annual Consumer Creep-O-Meter score, you can also take a quiz to determine your own privacy footprint.</p>
-          <p>Below, select which popular products you own. We’ll weigh their privacy features and flaws, then show how well or poorly your devices and apps protect your personal information.</p>
-        </div>
+<div class="{{ wrapper_class }} tw-bg-[#F4F4F4]">
+  <div class="tw-container">
+    <div class="tw-row tw-px-8">
+      <div class="tw-w-1/2 tw-px-8">
+        <h2 class="{{ h1_class }}">Determine your Digital Privacy Footprint</h2>
+      </div>
+      <div class="tw-w-1/2 tw-px-8">
+        <p>In addition to the Annual Consumer Creep-O-Meter score, you can also take a quiz to determine your own privacy footprint.</p>
+        <p>Below, select which popular products you own. We’ll weigh their privacy features and flaws, then show how well or poorly your devices and apps protect your personal information.</p>
       </div>
     </div>
   </div>
+</div>
 
   {% comment %} Sub Nav Section {% endcomment %}
-  <div class="{{ wrapper_class }} tw-container">
-    <div class="tw-row tw-px-8 tw-justify-center tw-text-center">
-      <h2 class="{{ h2_class }} tw-w-5/6 tw-mb-24">Mozilla’s Annual Consumer Creep-O-Meter distills what’s good, what’s bad, and what’s just plain creepy in the world of consumer tech.</h2>
-      <div class="tw-w-4/6">
-        <p class="{{ body_large_class }} tw-font-light tw-mb-16">Since 2017, Mozilla has published xx editions of *Privacy Not Included, our consumer tech buyers guide. We’ve reviewed over 500 gadgets, apps, cars, and more, assessing their security features, what data they collect, and who they share that data with.</p>
-        <p class="{{ body_large_class }} tw-font-light">In 2023, we compared our most recent findings with those of the past five years. It quickly became clear that products and companies are collecting more personal data than ever before — and then using that information in shady ways.</p>
-      </div>
+<div class="{{ wrapper_class }} tw-container">
+  <div class="tw-row tw-px-8 tw-justify-center tw-text-center">
+    <h2 class="{{ h2_class }} tw-w-5/6 tw-mb-24">Mozilla’s Annual Consumer Creep-O-Meter distills what’s good, what’s bad, and what’s just plain creepy in the world of consumer tech.</h2>
+    <div class="tw-w-4/6">
+      <p class="{{ body_large_class }} tw-font-light tw-mb-16">Since 2017, Mozilla has published xx editions of *Privacy Not Included, our consumer tech buyers guide. We’ve reviewed over 500 gadgets, apps, cars, and more, assessing their security features, what data they collect, and who they share that data with.</p>
+      <p class="{{ body_large_class }} tw-font-light">In 2023, we compared our most recent findings with those of the past five years. It quickly became clear that products and companies are collecting more personal data than ever before — and then using that information in shady ways.</p>
     </div>
   </div>
+</div>
 
   {% comment %} Big Picture Trends Section {% endcomment %}
-  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-yellow-05 tw-to-white">
-    <div class="tw-container">
-      <div class="tw-row tw-px-8">
-        <div class="tw-w-4/5 tw-mx-auto tw-text-center">
-          <h6 class="tw-font-sans tw-text-xs tw-font-normal tw-uppercase tw-text-gray-60 tw-mb-8">Big Picture Trends Section</h6>
-          <h2 class="{{ h1_class }} tw-mb-24">What’s the state of consumer privacy in 2023? Here’s the big picture:</h2>
-        </div>
+<div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-yellow-05 tw-to-white">
+  <div class="tw-container">
+    <div class="tw-row tw-px-8">
+      <div class="tw-w-4/5 tw-mx-auto tw-text-center">
+        <h6 class="tw-font-sans tw-text-xs tw-font-normal tw-uppercase tw-text-gray-60 tw-mb-8">Big Picture Trends Section</h6>
+        <h2 class="{{ h1_class }} tw-mb-24">What’s the state of consumer privacy in 2023? Here’s the big picture:</h2>
       </div>
-      <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-x-32 tw-gap-6 medium:tw-gap-y-0 tw-mb-8 tw-p-14 medium:tw-px-20 medium:tw-py-24 tw-bg-white tw-rounded-2xl tw-border-pni-yellow tw-border-2">
-        <div class="tw-col-span-2">
-          <h3 class="{{ h2_class }} tw-mb-9">Products are getting more secure, but also a lot less private.</h3>
-          <p class="tw-mb-9">More companies are meeting Mozilla’s Minimum Security Standards like using encryption and providing automatic software updates. That’s good news.</p>
-          <p class="tw-mb-9">But at the same time, companies are collecting and sharing users’ personal data like never before. And that’s bad news. Many companies now view their hardware or software as a means to an end: collecting that coveted personal data for targeted advertising and training AI.</p>
-          <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
-        </div>
-        <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col tw-justify-between">
-          <p class="{{ body_large_class }} tw-font-light">The mental health app BetterHelp shares your data with advertisers, social media platforms, and sister companies.</p>
-          <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px]">[add logo]</div>
-        </div>
-        <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col tw-justify-between">
-          <p class="{{ body_large_class }} tw-font-light">The Japanese car manufacturer Nissan collects a wide range of information, including sexual activity, health diagnosis data, and genetic information — but doesn’t specify how. </p>
-          <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px]">[add logo]</div>
-        </div>
+    </div>
+    <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-x-32 tw-gap-6 medium:tw-gap-y-0 tw-mb-8 tw-p-14 medium:tw-px-20 medium:tw-py-24 tw-bg-white tw-rounded-2xl tw-border-pni-yellow tw-border-2">
+      <div class="tw-col-span-2">
+        <h3 class="{{ h2_class }} tw-mb-9">Products are getting more secure, but also a lot less private.</h3>
+        <p class="tw-mb-9">More companies are meeting Mozilla’s Minimum Security Standards like using encryption and providing automatic software updates. That’s good news.</p>
+        <p class="tw-mb-9">But at the same time, companies are collecting and sharing users’ personal data like never before. And that’s bad news. Many companies now view their hardware or software as a means to an end: collecting that coveted personal data for targeted advertising and training AI.</p>
+        <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
       </div>
-      <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-x-32 tw-gap-6 medium:tw-gap-y-0 tw-mb-8 tw-p-14 medium:tw-px-20 medium:tw-py-24 tw-bg-white tw-rounded-2xl tw-border-pni-yellow tw-border-2">
-        <div class="tw-col-span-2">
-          <h3 class="{{ h2_class }} tw-mb-9">An increasing number of products can’t be used offline.</h3>
-        </div>
-        <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col">
-          <p class="tw-mb-9">In the past, the privacy conscious could always buy a connected device but turn off connectivity, making it “dumb.” That’s no longer an option in many cases. The number of connected devices that require apps and can’t be used offline are increasing. This trend, coupled with the first, means it’s harder and harder to keep your data private. </p>
-          <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px] tw-mt-9">[add logo]</div>
-        </div>
-        <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col">
-          <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
-          <p class="{{ body_large_class }} tw-font-light">The Verizon GizmoWatch is a product for kids, but all of its features — even simple to-do lists — require an internet connection.</p>
-          <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px] tw-mt-9">[add logo]</div>
-        </div>
+      <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col tw-justify-between">
+        <p class="{{ body_large_class }} tw-font-light">The mental health app BetterHelp shares your data with advertisers, social media platforms, and sister companies.</p>
+        <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px]">[add logo]</div>
       </div>
-      <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-x-32 tw-gap-6 medium:tw-gap-y-0 tw-mb-8 tw-p-14 medium:tw-px-20 medium:tw-py-24 tw-bg-white tw-rounded-2xl tw-border-pni-yellow tw-border-2">
-        <div class="tw-col-span-2">
-          <h3 class="{{ h2_class }} tw-mb-9">Privacy policies are getting ridiculous.</h3>
-        </div>
-        <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col">
-          <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
-          <p class="{{ body_large_class }} tw-font-light">Car manufacturer Toyota has more than 10 different privacy policy documents — an unreasonable number for consumers to engage with.</p>
-          <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px] tw-mt-9">[add logo]</div>
-        </div>
-        <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col tw-justify-end tw-items-end">
-          <div class="{{ fixme_class }} tw-h-[200px] tw-w-[200px] tw-mt-9">[add image]</div>
-        </div>
+      <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col tw-justify-between">
+        <p class="{{ body_large_class }} tw-font-light">The Japanese car manufacturer Nissan collects a wide range of information, including sexual activity, health diagnosis data, and genetic information — but doesn’t specify how. </p>
+        <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px]">[add logo]</div>
+      </div>
+    </div>
+    <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-x-32 tw-gap-6 medium:tw-gap-y-0 tw-mb-8 tw-p-14 medium:tw-px-20 medium:tw-py-24 tw-bg-white tw-rounded-2xl tw-border-pni-yellow tw-border-2">
+      <div class="tw-col-span-2">
+        <h3 class="{{ h2_class }} tw-mb-9">An increasing number of products can’t be used offline.</h3>
+      </div>
+      <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col">
+        <p class="tw-mb-9">In the past, the privacy conscious could always buy a connected device but turn off connectivity, making it “dumb.” That’s no longer an option in many cases. The number of connected devices that require apps and can’t be used offline are increasing. This trend, coupled with the first, means it’s harder and harder to keep your data private. </p>
+        <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px] tw-mt-9">[add logo]</div>
+      </div>
+      <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col">
+        <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
+        <p class="{{ body_large_class }} tw-font-light">The Verizon GizmoWatch is a product for kids, but all of its features — even simple to-do lists — require an internet connection.</p>
+        <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px] tw-mt-9">[add logo]</div>
+      </div>
+    </div>
+    <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-x-32 tw-gap-6 medium:tw-gap-y-0 tw-mb-8 tw-p-14 medium:tw-px-20 medium:tw-py-24 tw-bg-white tw-rounded-2xl tw-border-pni-yellow tw-border-2">
+      <div class="tw-col-span-2">
+        <h3 class="{{ h2_class }} tw-mb-9">Privacy policies are getting ridiculous.</h3>
+      </div>
+      <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col">
+        <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
+        <p class="{{ body_large_class }} tw-font-light">Car manufacturer Toyota has more than 10 different privacy policy documents — an unreasonable number for consumers to engage with.</p>
+        <div class="{{ fixme_class }} tw-h-[100px] tw-w-[100px] tw-mt-9">[add logo]</div>
+      </div>
+      <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col tw-justify-end tw-items-end">
+        <div class="{{ fixme_class }} tw-h-[200px] tw-w-[200px] tw-mt-9">[add image]</div>
       </div>
     </div>
   </div>
+</div>
 
   {% comment %} Best & Worst Products Section {% endcomment %}
-  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-red-05 tw-to-white">
-    <div class="tw-container">
-      <div class="tw-row tw-px-8">
-        <div class="tw-w-4/5 tw-mx-auto tw-text-center">
-          <h6 class="tw-font-sans tw-text-xs tw-font-normal tw-uppercase tw-text-gray-60 tw-mb-8">Best & Worst Products</h6>
-          <h2 class="{{ h1_class }} tw-mb-20">We researched 172 products in 2023 and late 2022. These are our winners and losers.</h2>
-        </div>
+<div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-red-05 tw-to-white">
+  <div class="tw-container">
+    <div class="tw-row tw-px-8">
+      <div class="tw-w-4/5 tw-mx-auto tw-text-center">
+        <h6 class="tw-font-sans tw-text-xs tw-font-normal tw-uppercase tw-text-gray-60 tw-mb-8">Best & Worst Products</h6>
+        <h2 class="{{ h1_class }} tw-mb-20">We researched 172 products in 2023 and late 2022. These are our winners and losers.</h2>
       </div>
-      {% with item_class="tw-rounded-lg tw-bg-white tw-h-[230px]" %}
+    </div>
+    {% with item_class="tw-rounded-lg tw-bg-white tw-h-[230px]" %}
       <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-5 tw-gap-x-6 tw-gap-6 medium:tw-gap-y-0 tw-mb-28" aria-labelledby="winners-grid-title">
         <h3 class="{{ h3_class }} tw-col-span-2 medium:tw-col-span-5 tw-text-center tw-mb-8" id="winners-grid-title">The Winners</h3>
         <div class="{{ item_class }} tw-col-span-2 medium:tw-col-span-1">Item</div>
@@ -133,56 +132,56 @@
         <div class="{{ item_class }} tw-col-span-1">Item</div>
         <div class="{{ item_class }} tw-col-span-1">Item</div>
       </div>
-      {% endwith %}
-    </div>
+    {% endwith %}
   </div>
+</div>
 
   {% comment %} By The Numbers Section {% endcomment %}
-  <div class="tw-h-[1000px] {{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-blue-10 tw-to-white">
-    <div class="tw-container">
-      <div class="tw-row tw-px-8">
-        <div class="tw-w-full">
-          <h2>By The Numbers Section</h2>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {% comment %} Stay in Control Section {% endcomment %}
-  <div class="tw-h-[1000px] {{ wrapper_class }} tw-container">
+<div class="tw-h-[1000px] {{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-blue-10 tw-to-white">
+  <div class="tw-container">
     <div class="tw-row tw-px-8">
       <div class="tw-w-full">
-        <h2>Stay in Control Section</h2>
+        <h2>By The Numbers Section</h2>
       </div>
     </div>
   </div>
+</div>
+
+  {% comment %} Stay in Control Section {% endcomment %}
+<div class="tw-h-[1000px] {{ wrapper_class }} tw-container">
+  <div class="tw-row tw-px-8">
+    <div class="tw-w-full">
+      <h2>Stay in Control Section</h2>
+    </div>
+  </div>
+</div>
 
   {% comment %} Outro Section {% endcomment %}
-  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-to-blue-10">
-    <div class="tw-container">
-      <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-3 tw-gap-x-6 tw-gap-6 medium:tw-gap-y-0 tw-mb-[120px]">
-        <div class="tw-col-span-1 tw-rounded-2xl tw-bg-white">
-          <div class="{{ fixme_class }} tw-h-full tw-rounded-2xl tw-text-center">[fixme] add image here</div>
-        </div>
-        <div class="tw-col-span-2 tw-p-14 medium:tw-p-24 tw-bg-white tw-rounded-2xl">
-          <h2 class="{{ h2_class }}">Our Approach</h2>
-          <p>The Annual Consumer Creep-O-Meter is calculated using both quantitative and qualitative measures. Our researchers average together findings from our 2023 and late 2022 *Privacy Not Included editions, each of which entails hundreds of hours of research. In 2023 and late 2022, we published three editions and one research report covering 172 different products, from cars and mental health apps to fitness trackers and kids toys.</p>
-          <p>Our researchers also assess broader industry trends and developments, like privacy legislation and enforcement, factoring them into the score.</p>
-          <p>Learn more about our methodology <a href="" class="{{ fixme_class }}">[fixme] here</a>.</p>
-        </div>
+<div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-to-blue-10">
+  <div class="tw-container">
+    <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-3 tw-gap-x-6 tw-gap-6 medium:tw-gap-y-0 tw-mb-[120px]">
+      <div class="tw-col-span-1 tw-rounded-2xl tw-bg-white">
+        <div class="{{ fixme_class }} tw-h-full tw-rounded-2xl tw-text-center">[fixme] add image here</div>
       </div>
-      <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-x-8 tw-gap-y-8 medium:tw-gap-y-24 tw-p-14 medium:tw-p-24 tw-bg-white tw-rounded-2xl">
-        <div class="tw-col-span-1">
-          <h2 class="{{ h2_class }}">Thanks for visiting Mozilla’s first-ever annual Consumer Creep-O-Meter</h2>
-        </div>
-        <div class="tw-col-span-1">
-          <p>We’ll publish this each year going forward, providing a long-term look at how the consumer privacy landscape is changing. In the meantime, stay tuned for the next edition of *Privacy Not Included this November, covering the most popular connected gifts.</p>
-        </div>
-        <div class="tw-col-span-1 medium:tw-col-span-2">
-          {% include "fragments/buyersguide/pni_newsletter_box.html" with cta_header="Protect your privacy!" cta_description="We publish several editions of *Privacy Not Included each year, helping consumers evaluate privacy alongside price and performance. <strong>Sign up to stay informed</strong>." %}
-        </div>
+      <div class="tw-col-span-2 tw-p-14 medium:tw-p-24 tw-bg-white tw-rounded-2xl">
+        <h2 class="{{ h2_class }}">Our Approach</h2>
+        <p>The Annual Consumer Creep-O-Meter is calculated using both quantitative and qualitative measures. Our researchers average together findings from our 2023 and late 2022 *Privacy Not Included editions, each of which entails hundreds of hours of research. In 2023 and late 2022, we published three editions and one research report covering 172 different products, from cars and mental health apps to fitness trackers and kids toys.</p>
+        <p>Our researchers also assess broader industry trends and developments, like privacy legislation and enforcement, factoring them into the score.</p>
+        <p>Learn more about our methodology <a href="" class="{{ fixme_class }}">[fixme] here</a>.</p>
+      </div>
+    </div>
+    <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-x-8 tw-gap-y-8 medium:tw-gap-y-24 tw-p-14 medium:tw-p-24 tw-bg-white tw-rounded-2xl">
+      <div class="tw-col-span-1">
+        <h2 class="{{ h2_class }}">Thanks for visiting Mozilla’s first-ever annual Consumer Creep-O-Meter</h2>
+      </div>
+      <div class="tw-col-span-1">
+        <p>We’ll publish this each year going forward, providing a long-term look at how the consumer privacy landscape is changing. In the meantime, stay tuned for the next edition of *Privacy Not Included this November, covering the most popular connected gifts.</p>
+      </div>
+      <div class="tw-col-span-1 medium:tw-col-span-2">
+        {% include "fragments/buyersguide/pni_newsletter_box.html" with cta_header="Protect your privacy!" cta_description="We publish several editions of *Privacy Not Included each year, helping consumers evaluate privacy alongside price and performance. <strong>Sign up to stay informed</strong>." %}
       </div>
     </div>
   </div>
+</div>
 
 {% endwith %}
