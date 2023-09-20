@@ -1,8 +1,90 @@
-<div class="tw-container tw-mt-24">
-    <div class="tw-row tw-px-8">
+{% load wagtailroutablepage_tags %}
+
+{% with wrapper_class="tw-py-[120px] tw-h-[1000px]" h1_class="w-text-[48px] tw-leading-[56px] tw-font-semibold tw-font-zilla" h2_class="tw-font-light tw-font-zilla tw-text-[40px] tw-leading-[48px]" h3_class="tw-text-[28px] tw-leading-[36px]" fixme_class="tw-text-red-80 tw-bg-red-10" body_large_class="tw-text-[20px] tw-leading-[30px]" %}
+  {% comment %} Hero Section {% endcomment %}
+  <div class="{{ wrapper_class }}">
+    <div class="tw-container">
+      <div class="tw-row tw-px-8">
         <div class="tw-w-full">
-            <h1>Page Title: {{ page.title }}</h1>
-            <h2>Year: {{ page.year }}</h2>
+          <h2>Hero Section</h2>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+
+  {% comment %} Quiz Section {% endcomment %}
+  <div class="{{ wrapper_class }} tw-bg-[#F4F4F4]">
+    <div class="tw-container">
+      <div class="tw-row tw-px-8">
+        <div class="tw-w-full">
+          <h2>Quiz Section</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Sub Nav Section {% endcomment %}
+  <div class="{{ wrapper_class }}">
+    <div class="tw-container">
+      <div class="tw-row tw-px-8">
+        <div class="tw-w-full">
+          <h2>Sub Nav Section</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Big Picture Trends Section {% endcomment %}
+  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-yellow-05 tw-to-white">
+    <div class="tw-container">
+      <div class="tw-row tw-px-8">
+        <div class="tw-w-full">
+          <h2>Big Picture Trends Section</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Best & Worst Products Section {% endcomment %}
+  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-red-05 tw-to-white">
+    <div class="tw-container">
+      <div class="tw-row tw-px-8">
+        <div class="tw-w-full">
+          <h2>Best & Worst Products Section</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} By The Numbers Section {% endcomment %}
+  <div class="tw-h-[1000px] {{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-blue-10 tw-to-white">
+    <div class="tw-container">
+      <div class="tw-row tw-px-8">
+        <div class="tw-w-full">
+          <h2>By The Numbers Section</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Stay in Control Section {% endcomment %}
+  <div class="tw-h-[1000px] {{ wrapper_class }} tw-container">
+    <div class="tw-row tw-px-8">
+      <div class="tw-w-full">
+        <h2>Stay in Control Section</h2>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Outro Section {% endcomment %}
+  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-to-blue-10">
+    <div class="tw-container">
+      <div class="tw-row tw-px-8">
+        <div class="tw-w-full">
+          <h2>Outro Section</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endwith %}
