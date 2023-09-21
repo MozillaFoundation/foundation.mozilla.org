@@ -1,4 +1,3 @@
-from collections import Counter
 from typing import TYPE_CHECKING, Optional, Union
 
 from django import http
@@ -421,19 +420,10 @@ class BlogIndexPage(IndexPage):
         )
 
     def get_authors_frequent_topics(self, author_profile):
-        BlogPage = apps.get_model("wagtailpages.BlogPage")
 
-        # Retrieve all BlogPages authored by this profile.
-        authored_blog_pages = localize_queryset(BlogPage.objects.filter(authors__author=author_profile))
-
-        # From the previous QS, get the related BlogPageTopic objects.
-        frequent_topics = BlogPageTopic.objects.filter(blogpage__in=authored_blog_pages)
-
-        # Calculate the count of each topic using Counter.
-        topic_counts = Counter(frequent_topics)
-
-        # Extract the top 3 topics based on their counts.
-        top_topics = [topic for topic, count in topic_counts.most_common(3)]
+        top_topics = BlogPageTopic.objects.filter(blogpage__authors__author=author_profile).annotate(count=models.Count("name")).order_by("count")[:3]
+       
+        top_topics = localize_queryset(top_topics, order_by="name")
 
         return top_topics
 

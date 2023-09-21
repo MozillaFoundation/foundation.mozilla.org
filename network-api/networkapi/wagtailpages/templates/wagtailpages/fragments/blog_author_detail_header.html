@@ -1,13 +1,8 @@
-{% load l10n i18n localization static blog_tags wagtailimages_tags wagtailroutablepage_tags wagtailcore_tags %}
-
-{% get_root_or_page as blog_index_page %}
+{% load l10n i18n localization static wagtailimages_tags wagtailroutablepage_tags wagtailcore_tags %}
 
 <div class="tw-grid tw-grid-cols-12 large:tw-gap-40">
     <div class="tw-col-span-12 large:tw-col-span-8">
-        <div class="tw-text-sm tw-text-gray-40">
-            <a class="tw-text-gray-40" href="{% pageurl blog_index_page %}">Blog</a>
-            <span> › </span>
-        </div>
+            {% include "./blog_breadcrumbs.html" %}   
         <div class="tw-gap-8 tw-pt-10 medium:tw-inline-flex medium:tw-pt-7">
             <div id="image-container" class="medium:tw-order-last">
                 <div class="tw-flex-shrink-0">
@@ -25,16 +20,15 @@
             <h1 class="tw-mb-8">{{ author.name }}</h1>
         </div>
         <p class="tw-text-xl tw-pb-16">
-            {{ author.localized.introduction }}
+            {{ author.introduction }}
         </p>
         {% if frequent_topics %}
             <p class="tw-text-lg tw-text-gray-40 tw-uppercase">{% trans "Frequent Topics" %}</p>
             <div class="tw-inline-flex tw-gap-6 tw-flex-wrap">
                 {% with link_classes="tw-text-black tw-px-8 tw-border-black tw-border tw-rounded-full tw-text-lg tw-font-normal tw-whitespace-nowrap tw-block tw-transition-colors" link_hover_classes="hover:tw-bg-black hover:tw-text-white hover:tw-no-underline hover:tw-border-white" %}
                     {% for topic in frequent_topics %}
-                        {% localized_version topic as localized_topic %}
-                        <a href="{% localizedroutablepageurl blog_index_page "entries_by_topic" topic.slug %}" class="{{ link_classes }} {{ link_hover_classes }}">
-                            {{ localized_topic.name }}
+                        <a href="{% localizedroutablepageurl page "entries_by_topic" topic.slug %}" class="{{ link_classes }} {{ link_hover_classes }}">
+                            {{ topic.name }}
                         </a>
                     {% endfor %}
                 {% endwith %}
@@ -42,7 +36,7 @@
         {% endif %}
     </div>
     <div class="tw-col-span-12 large:tw-col-span-4 tw-pt-20 large:tw-pt-0">
-        <form action="{% routablepageurl blog_index_page "search" %}" method="get">
+        <form action="{% routablepageurl page "search" %}" method="get">
             {% include "./blog_search_bar.html" with name="q" search_query=query %}
         </form>
     </div>
