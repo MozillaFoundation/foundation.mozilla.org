@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING, Optional, Union
 
 from django import http
-from django.apps import apps
 from django.core import paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
