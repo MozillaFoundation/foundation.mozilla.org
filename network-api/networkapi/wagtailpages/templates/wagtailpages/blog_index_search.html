@@ -3,7 +3,8 @@
 {% load i18n %}
 
 {% block index_header %}
-    <div>
+    <div class="tw-col-span-12 large:tw-col-span-8 tw-mt-8">
+        {% include "./fragments/blog_breadcrumbs.html" %}
         <h1>{% trans "Search blog" context "Title of the blog search results page" %}</h1>
         <form action="" method="get" class="my-4">
             {% trans "Search all blog" context "Blog search bar" as placeholder_text %}

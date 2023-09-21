@@ -127,7 +127,7 @@ future==0.18.3
     # via -r requirements.in
 gitdb==4.0.9
     # via gitpython
-gitpython==3.1.32
+gitpython==3.1.35
     # via wagtail-localize-git
 gunicorn==21.2.0
     # via -r requirements.in
@@ -167,7 +167,7 @@ psycopg2-binary==2.9.7
     # via -r requirements.in
 pycparser==2.21
     # via cffi
-pygit2==1.11.1
+pygit2==1.12.2
     # via
     #   -r requirements.in
     #   wagtail-localize-git
@@ -266,7 +266,7 @@ wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.g
     # via -r requirements.in
 wagtail-inventory==2.2
     # via -r requirements.in
-wagtail-localize==1.5.1
+wagtail-localize==1.5.2
     # via
     #   -r requirements.in
     #   wagtail-localize-git

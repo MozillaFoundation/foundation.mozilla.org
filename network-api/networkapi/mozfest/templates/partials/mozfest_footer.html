@@ -32,13 +32,15 @@
 {% endblock %}
 
 {% block general_links %}
-    <li><a id="donate-footer-btn" href="?form=donate" class="tw-dark">{% trans "Donate" %}</a></li>
-    <!-- the rest of the links should be listed alphabetically -->
-    <li><a href="https://www.mozillafestival.org/sponsor" class="tw-dark">{% trans "Support MozFest" %}</a></li>
-    <li><a href="https://careers.mozilla.org/listings/?team=Mozilla%20Foundation" class="tw-dark">{% trans "Careers" %}</a></li>
-    <li><a href="https://www.mozilla.org/privacy/websites/#cookies" class="tw-dark">{% trans "Cookies" %}</a></li>
-    <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="tw-dark">{% trans "Legal" %}</a></li>
-    <li><a href="/guidelines" class="tw-dark">{% trans "Participation Guidelines" %}</a></li>
-    <li><a href="/media" class="tw-dark">{% trans "Press Center" %}</a></li>
-    <li><a href="https://mozilla.org/privacy/websites/" class="tw-dark">{% trans "Privacy" %}</a></li>
+    {% with footer_link_classes="tw-dark tw-text-white hover:tw-underline" %}
+        <li><a id="donate-footer-btn" href="?form=donate" class="{{ footer_link_classes }}">{% trans "Donate" %}</a></li>
+        <!-- the rest of the links should be listed alphabetically -->
+        <li><a href="https://www.mozillafestival.org/sponsor" class="{{ footer_link_classes }}">{% trans "Support MozFest" %}</a></li>
+        <li><a href="https://careers.mozilla.org/listings/?team=Mozilla%20Foundation" class="{{ footer_link_classes }}">{% trans "Careers" %}</a></li>
+        <li><a href="https://www.mozilla.org/privacy/websites/#cookies" class="{{ footer_link_classes }}">{% trans "Cookies" %}</a></li>
+        <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="{{ footer_link_classes }}">{% trans "Legal" %}</a></li>
+        <li><a href="/guidelines" class="{{ footer_link_classes }}">{% trans "Participation Guidelines" %}</a></li>
+        <li><a href="/media" class="{{ footer_link_classes }}">{% trans "Press Center" %}</a></li>
+        <li><a href="https://mozilla.org/privacy/websites/" class="{{ footer_link_classes }}">{% trans "Privacy" %}</a></li>
+    {% endwith %}
 {% endblock %}

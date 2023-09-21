@@ -8,7 +8,7 @@ asgiref==3.5.0
     # via
     #   -c requirements.txt
     #   django
-black==23.7.0
+black==23.9.1
     # via -r dev-requirements.in
 certifi==2022.12.7
     # via
@@ -100,7 +100,7 @@ pycodestyle==2.11.0
     # via flake8
 pyflakes==3.1.0
     # via flake8
-pytest==7.4.1
+pytest==7.4.2
     # via
     #   -r dev-requirements.in
     #   pytest-cov

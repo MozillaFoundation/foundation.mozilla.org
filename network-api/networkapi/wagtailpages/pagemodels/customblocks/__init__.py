@@ -19,6 +19,7 @@ from .blog_index_callout_box_block import BlogIndexCalloutBoxBlock
 from .blog_set_block import BlogSetBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
 from .card_grid import CardGrid, CardGridBlock
+from .cta_aside_block import CTAAsideBlock
 from .current_events_slider_block import CurrentEventsSliderBlock
 from .datawrapper_block import DatawrapperBlock
 from .dear_internet_letter_block import DearInternetLetterBlock
