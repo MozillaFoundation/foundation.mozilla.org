@@ -6,22 +6,29 @@
     <div class="tw-container tw-relative tw-pt-40 medium:tw-pt-0 tw-mt-[15px] medium:tw-mt-[60px]">
       <div class="tw-absolute tw-top-0 medium:tw-bottom-0 medium:tw-left-0 medium:tw-right-0 tw-right-4 tw-w-[83px] tw-h-[79px] medium:tw-w-auto medium:tw-h-auto">
         <div class="tw-relative medium:tw-left-[83%]">
-          <img width="383" height="367" src="{% static "_images/buyers-guide/consumer-creepometer/hero-face-1.svg" %}" />
+          <img width="383" height="367" alt="" src="{% static "_images/buyers-guide/consumer-creepometer/hero-face-1.svg" %}" />
         </div>
       </div>
       <div class="tw-row tw-px-8 tw-mt-10 medium:tw-mt-0">
         <div class="tw-w-full medium:tw-w-[83%]">
           <h1 class="tw-font-normal tw-font-zilla tw-text-[48px] tw-leading-[44px] medium:tw-text-[80px] medium:tw-leading-none tw-mb-12 medium:tw-mb-24">Welcome to <span class="tw-font-semibold">Mozilla’s</span> first-ever <strong class="tw-font-semibold">Annual Consumer Creep-O-Meter</strong></h1>
           <p class="tw-font-light tw-font-zilla tw-text-[24px] tw-leading-[28px] medium:tw-text-[40px] medium:tw-leading-[48px]">
-            In 2023, the state of our digital privacy is <strong class="tw-relative after:tw-bottom-10 after:tw-right--29 after:tw-absolute after:tw-border-0 after:tw-block after:tw-w-38 after:tw-h-26 after:tw-bg-transparent after:tw-rounded-bl-[50%] after:tw-rounded-br-[50%] after:tw-shadow-lg after:tw--ml-21 after:tw-mt-9 after:tw-content-[''] tw-block tw-text-center tw-font-sans tw-font-[28px] tw-leading-[32px] medium:tw-text-[80px] medium:tw-leading-none tw-font-extrabold tw-max-w-[75%] tw-my-12 medium:tw-my-24 tw-px-12 medium:tw-px-[100px] tw-py-6 medium:tw-py-12 tw-bg-blue-05 tw-rounded-3xl">very creepy!</strong>
+            In 2023, the state of our digital privacy is <strong class="tw-relative after:tw-bottom-10 after:tw-right--29 after:tw-absolute after:tw-border-0 after:tw-block after:tw-w-38 after:tw-h-26 after:tw-bg-transparent after:tw-rounded-bl-[50%] after:tw-rounded-br-[50%] after:tw-shadow-lg after:tw--ml-21 after:tw-mt-9 after:tw-content-[''] tw-block tw-text-center tw-font-sans tw-font-[28px] tw-leading-[32px] medium:tw-text-[80px] medium:tw-leading-none tw-font-extrabold tw-max-w-[75%] tw-my-12 medium:tw-my-24 tw-px-12 medium:tw-px-[100px] tw-py-6 medium:tw-py-12 tw-bg-blue-05 tw-rounded-3xl">Very creepy</strong>
           </p>
         </div>
       </div>
     </div>
-    <div class="tw-relative -tw-top-[20px] tw-py-18 medium:tw-py-[120px] after:tw-content-[''] after:tw-block after:tw-left-0 after:tw-right-0 after:tw-h-12 after:tw-bg-gradient-to-r after:tw-from-[#0000FF] after:tw-to-[#FF506E] tw-bg-gradient-to-b tw-from-white tw-via-purple-05 tw-to-white">
-      <div class="tw-absolute tw-top-1/2 tw-right-0 medium:tw-right-[30%] tw-transform tw--translate-y-1/2 tw-w-[125px] tw-h-[120px] medium:tw-w-auto medium:tw-h-auto">
-        <img width="315" height="315" src="{% static "_images/buyers-guide/consumer-creepometer/hero-face-2.svg" %}" />
-      </div>
+    <div class="tw-relative tw-flex tw-justify-center" aria-hidden="true">
+      {% with face_container_class="tw-h-[120px] tw-w-[125px] medium:tw-h-[270px] medium:tw-w-[270px] tw-ml-auto tw-mr-[10%]" %}
+        <div class="tw-absolute tw-transform tw-top-1/2 -tw-translate-y-1/2 tw-h-8 medium:tw-h-12 tw-w-full tw-bg-gradient-to-r tw-from-[#0000FF] tw-to-[#FF506E] tw-bg-gradient-to-b tw-shadow-[0_0_80px_30px_theme('colors.purple.05')]">
+        </div>
+        <div class="tw-container tw-border-red-10 tw-border-solid">
+          <div class="{{ face_container_class }}">
+            <img class="tw-relative tw-z-[2] tw-w-full tw-h-full" alt="" src="{% static "_images/buyers-guide/consumer-creepometer/hero-face-2.svg" %}" />
+            <div class="tw-z-[-1] {{ face_container_class }} tw-absolute tw-transform tw-top-1/2 tw-translate-x-[5px] -tw-translate-y-[calc(50%-8px)] tw-scale-[85%] tw-rounded-full tw-bg-gray-20"></div>
+          </div>
+        </div>
+      {% endwith %}
     </div>
     <div class="tw-container tw-pt-12 medium:tw-pt-[60px] tw-pb-[60px] medium:tw-pb-[120px]">
       <div class="tw-row tw-justify-end tw-px-8">
