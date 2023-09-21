@@ -420,9 +420,12 @@ class BlogIndexPage(IndexPage):
         )
 
     def get_authors_frequent_topics(self, author_profile):
+        top_topics = (
+            BlogPageTopic.objects.filter(blogpage__authors__author=author_profile)
+            .annotate(count=models.Count("name"))
+            .order_by("count")[:3]
+        )
 
-        top_topics = BlogPageTopic.objects.filter(blogpage__authors__author=author_profile).annotate(count=models.Count("name")).order_by("count")[:3]
-       
         top_topics = localize_queryset(top_topics, order_by="name")
 
         return top_topics
