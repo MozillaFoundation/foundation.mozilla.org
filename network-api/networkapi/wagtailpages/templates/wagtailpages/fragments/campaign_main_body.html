@@ -1,7 +1,0 @@
-{% load wagtailcore_tags %}
-
-<div class="cms campaign-page-content wide {{ class }}">
-    {% for block in page.body %}
-        {% include_block block with parent_page=page %}
-    {% endfor %}
-</div>
