@@ -1,6 +1,8 @@
+from collections import Counter
 from typing import TYPE_CHECKING, Optional, Union
 
 from django import http
+from django.apps import apps
 from django.core import paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -422,10 +424,10 @@ class BlogIndexPage(IndexPage):
         top_topics = (
             BlogPageTopic.objects.filter(blogpage__authors__author=author_profile)
             .annotate(count=models.Count("name"))
-            .order_by("count")[:3]
+            .order_by("-count")[:3]
         )
 
-        top_topics = localize_queryset(top_topics, order_by="name")
+        top_topics = localize_queryset(top_topics)
 
         return top_topics
 
