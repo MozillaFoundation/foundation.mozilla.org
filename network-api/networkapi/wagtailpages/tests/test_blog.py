@@ -884,7 +884,10 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
         self.assertQuerysetEqual(frequent_topics, blog_models.BlogPageTopic.objects.none())
 
     def test_get_authors_frequent_topics_less_than_three(self):
-        """Check if the function returns all topics available in descending order if a author has used less than 3 topics"""
+        """
+        Check if the function returns all available topics in descending order,
+        if 3 topics have not been used by the author.
+        """
 
         # Associate two blog page topics with an author
         author_profile = profile_factories.ProfileFactory(name="Test Author")
