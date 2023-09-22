@@ -1,11 +1,14 @@
+from collections import defaultdict
+
 import django_filters
 from django.contrib.auth import get_user_model
-from django.db.models import Count, OuterRef, Q, Subquery
+from django.db.models import BooleanField, Case, Count, OuterRef, Q, Subquery, When
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
 from wagtail.coreutils import get_content_languages
 from wagtail.models import ContentType, Page, PageLogEntry, get_page_models
 from wagtail.users.utils import get_deleted_user_display_name
+from wagtailinventory.models import PageBlock
 
 
 def _get_locale_choices():
@@ -46,7 +49,7 @@ class PageTypesReportFilterSet(WagtailFilterSet):
 
 
 class PageTypesReportView(ReportView):
-    title = "Page Types Report"
+    title = "Page types report"
     template_name = "pages/reports/page_types_report.html"
     header_icon = "doc-empty-inverse"
 
@@ -91,5 +94,46 @@ class PageTypesReportView(ReportView):
         # have a locale to filter on
 
         queryset = queryset.order_by("-count", "app_label", "model")
+
+        return queryset
+
+
+class BlockTypesReportView(ReportView):
+    title = "Block types report"
+    template_name = "pages/reports/block_types_report.html"
+    header_icon = "placeholder"
+
+    def decorate_paginated_queryset(self, object_list):
+        # Build a cache map of PageBlock's block name to content types
+        page_blocks = PageBlock.objects.all().prefetch_related("page__content_type")
+        blocks_to_content_types = defaultdict(list)
+        for page_block in page_blocks:
+            if page_block.page.live and (
+                page_block.page.content_type not in blocks_to_content_types[page_block.block]
+            ):
+                blocks_to_content_types[page_block.block].append(page_block.page.content_type)
+
+        # Get the content_types for each block name
+        for block_report_item in object_list:
+            content_types = blocks_to_content_types.get(block_report_item["block"], [])
+            block_report_item["content_types"] = content_types
+            block_report_item["type_label"] = "Custom" if block_report_item["is_custom_block"] else "Core"
+
+        return object_list
+
+    def get_queryset(self):
+        queryset = (
+            PageBlock.objects.all()
+            .values("block")
+            .annotate(
+                count=Count("page", filter=Q(page__live=True)),
+                is_custom_block=Case(
+                    When(block__startswith="wagtail.", then=False), default=True, output_field=BooleanField()
+                ),
+            )
+        )
+        self.queryset = queryset
+
+        queryset = queryset.order_by("-count", "block")
 
         return queryset
