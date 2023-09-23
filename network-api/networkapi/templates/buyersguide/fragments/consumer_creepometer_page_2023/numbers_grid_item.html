@@ -1,5 +1,3 @@
-{% load static %}
-
 <div class="{{ item_class }} tw-w-full tw-flex tw-flex-col tw-justify-center tw-rounded-lg tw-border tw-p-8 medium:tw-p-12 {{ background }}">
   <p class="tw-font-zilla tw-text-[22px] tw-leading-[28px] medium:tw-text-[24px] medium:tw-leading-[30px] tw-font-normal tw-mb-0">
     {% if starting_text %}{{ starting_text }} {% endif %}{% if number %}<strong class="tw-block tw-font-sans tw-text-[64px] medium:tw-text-[100px] tw-font-extrabold tw-leading-none -tw-tracking-[4px]">{{ number }} </strong>{% endif %}{{ text }}
