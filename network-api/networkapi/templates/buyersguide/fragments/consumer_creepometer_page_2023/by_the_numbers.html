@@ -1,7 +1,12 @@
+{% load static %}
+
 {% with grid_item_template="../consumer_creepometer_page_2023/numbers_grid_item.html" %}
-  <div id="by-the-numbers" class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-blue-10 tw-to-white">
-    <div class="tw-container">
-      <div class="tw-row tw-px-8">
+  <div id="by-the-numbers" class="tw-bg-gradient-to-b tw-from-white tw-via-blue-10 tw-to-white">
+    <div class="tw-container tw-relative {{ wrapper_class }}">
+      <div class="tw-absolute tw-left-1/2 -tw-translate-x-1/2 -tw-translate-y-[140px] tw-w-[130px] tw-h-[130px] medium:tw-w-[280px] medium:tw-h-[280px] medium:-tw-top-[160px] medium:tw-left-[85%] medium:tw-translate-x-0 medium:tw-translate-y-0">
+        <img width="100%" height="100%" alt="" src="{% static "_images/buyers-guide/consumer-creepometer/face-5.svg" %}" />
+      </div>
+      <div class="tw-row tw-px-8 tw-mt-8 medium:tw-mt-0">
         {% include "../consumer_creepometer_page_2023/sub_section_header.html" with svg_class="tw-stroke-blue-20" description_class="medium:tw-w-[70%]" header="By The Number" description="Consumer privacy, by the numbers. In 2023 and late 2022:" %}
         <div class="tw-w-full tw-grid tw-grid-cols-3 medium:tw-grid-cols-12 tw-gap-6" aria-labelledby="">
           {% include grid_item_template with item_class="medium:tw-order-1 tw-col-span-1 medium:tw-col-span-3 tw-border-blue-40 tw-bg-blue-10 tw-items-center tw-w-full tw-h-full" background="tw-bg-no-repeat tw-bg-center tw-bg-[80%_auto] tw-bg-[url('../_images/buyers-guide/consumer-creepometer/car.png')]" %}
