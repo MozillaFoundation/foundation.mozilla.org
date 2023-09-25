@@ -1,6 +1,6 @@
 {% load static %}
 
-<a class="tw-flex tw-flex-col tw-items-center tw-justify-start tw-text-center tw-rounded-lg tw-bg-white tw-px-6 tw-no-underline hover:tw-no-underline hover:tw-shadow-[1px_1px_3px_0_theme('colors.red.10')] {{ item_class }}" href="{{ link }}" target="_blank" >
+<a class="tw-flex tw-flex-col tw-items-center tw-justify-start tw-text-center tw-rounded-lg tw-bg-white tw-px-6 tw-no-underline hover:tw-no-underline hover:tw-shadow-[1px_1px_3px_0_theme('colors.red.10')] {{ item_class }}" href="{{ link }}" target="_blank" aria-label="read more about {{ product }}" >
   <div class="tw-flex tw-items-center tw-justify-center tw-my-12 medium:tw-my-14 tw-w-[72px] tw-h-[72px] medium:tw-w-[120px] medium:tw-h-[120px]">
     <img width="auto" height="auto" src="{% static img_url %}" alt="product thumbnail of {{ product }}" class="tw-mx-auto tw-max-w-none tw-w-full tw-h-full tw-object-contain">
   </div>
