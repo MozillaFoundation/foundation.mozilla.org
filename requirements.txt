@@ -18,9 +18,9 @@ beautifulsoup4==4.9.3
     # via
     #   -r requirements.in
     #   wagtail
-boto3==1.28.40
+boto3==1.28.53
     # via -r requirements.in
-botocore==1.31.40
+botocore==1.31.53
     # via
     #   boto3
     #   s3transfer
