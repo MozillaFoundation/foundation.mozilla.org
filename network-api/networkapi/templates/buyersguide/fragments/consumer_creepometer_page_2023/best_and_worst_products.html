@@ -1,11 +1,8 @@
 {% with grid_item_template="../consumer_creepometer_page_2023/product_grid_item.html" %}
-  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-red-05 tw-to-white">
+  <div id="best-and-worst-products" class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-red-05 tw-to-white">
     <div class="tw-container">
       <div class="tw-row tw-px-8">
-        <div class="tw-w-full tw-mx-auto tw-text-center">
-          <h2 class="{{ h6_class }}">Best & Worst Products</h2>
-          <p class="{{ h1_class }} tw-mb-20">We researched 172 products in 2023 and late 2022. These are our winners and losers.</p>
-        </div>
+        {% include "../consumer_creepometer_page_2023/sub_section_header.html" with svg_class="tw-stroke-red-10" header="Best & Worst Products" description="We researched 172 products in 2023 and late 2022. These are our winners and losers." %}
       </div>
       {% with product_name_class="tw-font-sans tw-text-[18px] tw-leading-normal" %}
         <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-5 tw-gap-x-6 tw-gap-6 medium:tw-gap-y-0 tw-mb-28" aria-labelledby="winners-grid-title">

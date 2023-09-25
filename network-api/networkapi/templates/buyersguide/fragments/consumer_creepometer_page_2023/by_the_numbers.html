@@ -1,11 +1,8 @@
 {% with grid_item_template="../consumer_creepometer_page_2023/numbers_grid_item.html" %}
-  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-blue-10 tw-to-white">
+  <div id="by-the-numbers" class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-blue-10 tw-to-white">
     <div class="tw-container">
       <div class="tw-row tw-px-8">
-        <div class="tw-w-full tw-mx-auto tw-text-center">
-          <h2 class="{{ h6_class }}">By The Numbers Section</h2>
-          <p class="{{ h1_class }} tw-mb-20 tw-w-full medium:tw-w-[70%] tw-mx-auto">Consumer privacy, by the numbers. In 2023 and late 2022:</p>
-        </div>
+        {% include "../consumer_creepometer_page_2023/sub_section_header.html" with svg_class="tw-stroke-blue-20" description_class="medium:tw-w-[70%]" header="By The Number" description="Consumer privacy, by the numbers. In 2023 and late 2022:" %}
         <div class="tw-w-full tw-grid tw-grid-cols-3 medium:tw-grid-cols-12 tw-gap-6" aria-labelledby="">
           {% include grid_item_template with item_class="medium:tw-order-1 tw-col-span-1 medium:tw-col-span-3 tw-border-blue-40 tw-bg-blue-10 tw-items-center tw-w-full tw-h-full" background="tw-bg-no-repeat tw-bg-center tw-bg-[80%_auto] tw-bg-[url('../_images/buyers-guide/consumer-creepometer/car.png')]" %}
           {% include grid_item_template with item_class="medium:tw-order-2 tw-col-span-2 medium:tw-col-span-4 tw-border-blue-10 tw-bg-white" number="100%" text="of cars reviewed by Mozilla failed to meet our privacy and security standards" %}

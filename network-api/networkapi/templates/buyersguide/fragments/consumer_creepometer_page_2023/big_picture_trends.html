@@ -2,12 +2,11 @@
 
 {% with box_class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-x-32 tw-gap-y-0 tw-mb-8 tw-bg-white tw-rounded-2xl tw-border-pni-yellow tw-border-2" logo_class="tw-flex tw-items-center tw-h-[87px] tw-w-[87px] tw-bg-[#F4F4F4] tw-rounded-lg tw-px-4" %}
 
-  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-yellow-05 tw-to-white">
+  <div id="big-picture-trends" class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-yellow-05 tw-to-white">
     <div class="tw-container">
       <div class="tw-row tw-px-8">
         <div class="tw-w-4/5 tw-mx-auto tw-text-center">
-          <h6 class="tw-font-sans tw-text-xs tw-font-normal tw-uppercase tw-text-gray-60 tw-mb-8">Big Picture Trends Section</h6>
-          <h2 class="{{ h1_class }} tw-mb-24">What’s the state of consumer privacy in 2023? Here’s the big picture:</h2>
+          {% include "../consumer_creepometer_page_2023/sub_section_header.html" with svg_class="tw-stroke-pni-yellow" header="Big Picture Trends" description="What’s the state of consumer privacy in 2023? Here’s the big picture:" %}
         </div>
       </div>
       <div class="{{ box_class }} tw-p-14 medium:tw-px-20 medium:tw-py-24">
