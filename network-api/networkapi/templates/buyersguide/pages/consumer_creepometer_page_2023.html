@@ -1,8 +1,117 @@
-<div class="tw-container tw-mt-24">
-    <div class="tw-row tw-px-8">
-        <div class="tw-w-full">
-            <h1>Page Title: {{ page.title }}</h1>
-            <h2>Year: {{ page.year }}</h2>
+{% load static %}
+
+{% with wrapper_class="tw-py-[120px] tw-h-[1000px]" h1_class="tw-text-[48px] tw-leading-[56px] tw-font-semibold tw-font-zilla" h2_class="tw-font-light tw-font-zilla tw-text-[40px] tw-leading-[48px]" h3_class="tw-text-[24px] tw-leading-[28px] medium:tw-text-[28px] medium:tw-leading-[36px]" fixme_class="tw-text-red-80 tw-bg-red-10" body_large_class="tw-text-[20px] tw-leading-[30px]" %}
+  {% comment %} Hero Section {% endcomment %}
+  <div class="tw-relative">
+    <div class="tw-container tw-relative tw-pt-40 medium:tw-pt-0 tw-mt-[15px] medium:tw-mt-[60px]">
+      <div class="tw-absolute tw-top-0 medium:tw-bottom-0 medium:tw-left-0 medium:tw-right-0 tw-right-4 tw-w-[83px] tw-h-[79px] medium:tw-w-auto medium:tw-h-auto">
+        <div class="tw-relative medium:tw-left-[calc(82.5%+16px)]">
+          <img width="383" height="367" alt="" src="{% static "_images/buyers-guide/consumer-creepometer/hero-face-1.svg" %}" />
         </div>
+      </div>
+      <div class="tw-row tw-px-8 tw-mt-4 medium:tw-mt-0">
+        <div class="tw-w-full medium:tw-w-[82.5%]">
+          <h1 class="tw-font-normal tw-font-zilla tw-text-[48px] tw-leading-[44px] medium:tw-text-[80px] medium:tw-leading-none tw-mb-12 medium:tw-mb-24">Welcome to <span class="tw-font-semibold">Mozilla’s</span> first-ever <strong class="tw-font-semibold">Annual Consumer Creep-O-Meter</strong></h1>
+          <p class="tw-font-light tw-font-zilla tw-text-[24px] tw-leading-[28px] medium:tw-text-[40px] medium:tw-leading-[48px]">
+            In 2023, the state of our digital privacy is <strong class="tw-relative tw-block tw-text-center tw-font-sans tw-font-[28px] tw-leading-[32px] medium:tw-text-[80px] medium:tw-leading-none tw-font-extrabold tw-max-w-[75%] tw-my-12 medium:tw-my-24 tw-px-12 medium:tw-px-[100px] tw-py-6 medium:tw-py-12 tw-bg-blue-05 tw-rounded-lg medium:tw-rounded-3xl after:tw-content-[''] after:tw-w-[calc(94px/2)] after:tw-h-[calc(57px/2)] medium:after:tw-w-[94px] medium:after:tw-h-[57px] after:tw-absolute after:tw-top-[calc(100%-2px)] after:tw-right-0 after:tw-bg-center after:tw-bg-no-repeat after:tw-bg-cover after:tw-bg-[url('../_images/buyers-guide/consumer-creepometer/bubble-stem.svg')]">Very creepy</strong>
+          </p>
+        </div>
+      </div>
     </div>
-</div>
+    <div class="tw-relative tw-flex tw-justify-center -tw-mt-2 medium:-tw-mt-10 large:-tw-mt-28" aria-hidden="true">
+      {% with face_container_class="tw-h-[120px] tw-w-[125px] medium:tw-h-[270px] medium:tw-w-[270px] tw-ml-auto tw-mr-[5%] medium:tw-mr-[10%]" %}
+        <div class="tw-absolute tw-transform tw-top-1/2 -tw-translate-y-1/2 tw-h-8 medium:tw-h-12 tw-w-full tw-bg-gradient-to-r tw-from-[#0000FF] tw-to-[#FF506E] tw-bg-gradient-to-b tw-shadow-[0_0_80px_30px_theme('colors.purple.05')]">
+        </div>
+        <div class="tw-container">
+          <div class="{{ face_container_class }}">
+            <img class="tw-relative tw-z-[2]" width="100%" height="100%" alt="" src="{% static "_images/buyers-guide/consumer-creepometer/hero-face-2.svg" %}" />
+            <div class="tw-z-[-1] {{ face_container_class }} tw-absolute tw-transform tw-top-1/2 tw-translate-x-[5px] -tw-translate-y-[calc(50%-8px)] tw-scale-[85%] tw-rounded-full tw-bg-gray-20"></div>
+          </div>
+        </div>
+      {% endwith %}
+    </div>
+    <div class="tw-container tw-pt-12 medium:tw-pt-[60px] tw-pb-[60px] medium:tw-pb-[120px]">
+      <div class="tw-row tw-justify-end tw-px-8">
+        <div class="tw-w-full medium:tw-w-2/3">
+          <p class="tw-text-[18px] tw-leading-[27px] medium:tw-text-[28px] medium:tw-leading-[36px] tw-mb-0">In numbers, that translates to 75.6/100, with 100 being the most creepy. Our annual benchmark measures the current state of digital privacy — and what direction it’s trending.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Quiz Section {% endcomment %}
+  <div class="{{ wrapper_class }} tw-bg-[#F4F4F4]">
+    <div class="tw-container">
+      <div class="tw-row tw-px-8">
+        <div class="tw-w-full">
+          <h2>Quiz Section</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Sub Nav Section {% endcomment %}
+  <div class="{{ wrapper_class }}">
+    <div class="tw-container">
+      <div class="tw-row tw-px-8">
+        <div class="tw-w-full">
+          <h2>Sub Nav Section</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Big Picture Trends Section {% endcomment %}
+  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-yellow-05 tw-to-white">
+    <div class="tw-container">
+      <div class="tw-row tw-px-8">
+        <div class="tw-w-full">
+          <h2>Big Picture Trends Section</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Best & Worst Products Section {% endcomment %}
+  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-red-05 tw-to-white">
+    <div class="tw-container">
+      <div class="tw-row tw-px-8">
+        <div class="tw-w-full">
+          <h2>Best & Worst Products Section</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} By The Numbers Section {% endcomment %}
+  <div class="tw-h-[1000px] {{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-blue-10 tw-to-white">
+    <div class="tw-container">
+      <div class="tw-row tw-px-8">
+        <div class="tw-w-full">
+          <h2>By The Numbers Section</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Stay in Control Section {% endcomment %}
+  <div class="tw-h-[1000px] {{ wrapper_class }} tw-container">
+    <div class="tw-row tw-px-8">
+      <div class="tw-w-full">
+        <h2>Stay in Control Section</h2>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Outro Section {% endcomment %}
+  <div class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-to-blue-10">
+    <div class="tw-container">
+      <div class="tw-row tw-px-8">
+        <div class="tw-w-full">
+          <h2>Outro Section</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endwith %}
