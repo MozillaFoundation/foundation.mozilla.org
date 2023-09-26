@@ -5,11 +5,11 @@
   <div id="big-picture-trends" class="{{ wrapper_class }} tw-bg-gradient-to-b tw-from-white tw-via-yellow-05 tw-to-white">
     <div class="tw-container">
       <div class="tw-row tw-px-8">
-        <div class="tw-w-4/5 tw-mx-auto tw-text-center">
-          {% include "../consumer_creepometer_page_2023/sub_section_header.html" with svg_class="tw-stroke-pni-yellow" header="Big Picture Trends" description="What’s the state of consumer privacy in 2023? Here’s the big picture:" %}
+        <div class="tw-mx-auto tw-text-center">
+          {% include "../consumer_creepometer_page_2023/sub_section_header.html" with svg_class="tw-stroke-pni-yellow" description_class="medium:tw-w-[90%]" header="Big Picture Trends" description="What’s the state of consumer privacy in 2023? Here’s the big picture:" %}
         </div>
       </div>
-      <div class="{{ box_class }} tw-p-14 medium:tw-px-20 medium:tw-py-24">
+      <div class="{{ box_class }} tw-p-14 medium:tw-px-20 medium:tw-py-24 tw-bg-[url('../_images/buyers-guide/consumer-creepometer/car-flipped.png')] tw-bg-no-repeat tw-bg-[40vw_calc(100%+2px)] small:tw-bg-[25vw_calc(100%+2px)] medium:tw-bg-[175%_calc(100%+2px)] large:tw-bg-[120%_calc(100%+2px)] xlarge:tw-bg-[105%_calc(100%+2px)] tw-bg-[length:412px_135px]">
         <div class="tw-col-span-2">
           <h3 class="{{ h2_class }} tw-mb-9">Products are getting more secure, but also a lot less private.</h3>
           <p class="tw-mb-9">More companies are meeting Mozilla’s Minimum Security Standards like using encryption and providing automatic software updates. That’s good news.</p>
@@ -19,7 +19,7 @@
         <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col tw-justify-between">
           <p class="{{ body_large_class }} tw-font-light">The mental health app BetterHelp shares your data with advertisers, social media platforms, and sister companies.</p>
           <a class="{{ logo_class }} tw-mb-9 medium:tw-mb-0" href="https://foundation.mozilla.org/privacynotincluded/betterhelp/" target="_blank" aria-label="read more about BetterHelp">
-            <img src="{% static '_images/buyers-guide/consumer-creepometer/products/BetterHelp.png' %}" alt="BetterHelp logo" />
+            <img width="100%" height="100%" src="{% static '_images/buyers-guide/consumer-creepometer/products/BetterHelp.png' %}" alt="BetterHelp logo" />
           </a>
         </div>
         <div class="tw-col-span-2 medium:tw-col-span-1 tw-flex tw-flex-col tw-justify-between">
@@ -40,7 +40,7 @@
           <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
           <p class="{{ body_large_class }} tw-font-light">The Verizon GizmoWatch is a product for kids, but all of its features — even simple to-do lists — require an internet connection.</p>
           <a class="{{ logo_class }} tw-mb-9 medium:tw-mb-0" href="https://foundation.mozilla.org/privacynotincluded/verizon-gizmowatch/" target="_blank" >
-            <img src="{% static '_images/buyers-guide/consumer-creepometer/products/Verizon_Gizmowatch.png' %}" alt="Verizon Gizmowatch" />
+            <img width="100%" height="100%" src="{% static '_images/buyers-guide/consumer-creepometer/products/Verizon_Gizmowatch.png' %}" alt="Verizon Gizmowatch" />
           </a>
         </div>
       </div>
@@ -53,7 +53,7 @@
           <p class="{{ body_large_class }} tw-font-bold tw-mb-9">For example:</p>
           <p class="{{ body_large_class }} tw-font-light">Car manufacturer Toyota has more than 10 different privacy policy documents — an unreasonable number for consumers to engage with.</p>
           <a class="{{ logo_class }} medium:tw-mb-0" href="https://foundation.mozilla.org/privacynotincluded/toyota/" target="_blank" aria-label="read more about Toyota" >
-            <img src="{% static '_images/buyers-guide/consumer-creepometer/products/Toyota.png' %}" alt="Toyota logo" />
+            <img width="100%" height="100%" src="{% static '_images/buyers-guide/consumer-creepometer/products/Toyota.png' %}" alt="Toyota logo" />
           </a>
         </div>
       </div>
