@@ -109,7 +109,6 @@ class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
 
     subpage_types = [
         "PrimaryPage",
-        "RedirectingPage",
         "BanneredCampaignPage",
         "OpportunityPage",
         "ArticlePage",
@@ -188,7 +187,6 @@ class InitiativesPage(PrimaryPage):
         "BanneredCampaignPage",
         "MiniSiteNameSpace",
         "OpportunityPage",
-        "RedirectingPage",
         # The following additional types are here to ensure
         # that the /initiatives route can house all the pages
         # that originally lived under /opportunity
@@ -970,7 +968,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "ParticipatePage2",
         "PrimaryPage",
         "PublicationPage",
-        "RedirectingPage",
         "ResearchLandingPage",
         "RCCLandingPage",
         "Styleguide",
