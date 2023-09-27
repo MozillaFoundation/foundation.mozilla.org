@@ -835,10 +835,8 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
         response = self.client.get(path=blog_author_url)
         self.assertTemplateUsed(response, "wagtailpages/blog_author_detail_page.html")
         self.assertContains(response, self.profile_1.name)
-        self.assertContains(response, self.profile_1.tagline)
         self.assertContains(response, self.profile_1.introduction)
         self.assertNotContains(response, self.profile_2.name)
-        self.assertNotContains(response, self.profile_2.tagline)
         self.assertNotContains(response, self.profile_2.introduction)
 
     def test_authors_detail_non_existent_id_argument(self):
@@ -848,6 +846,96 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
         )
         response = self.client.get(path=blog_author_url)
         self.assertEqual(response.status_code, 404)
+
+    def test_get_authors_frequent_topics(self):
+        """Return an author's top 3 used blog topics in descending order."""
+
+        author_profile = profile_factories.ProfileFactory(name="Test Author")
+
+        # Create blog pages and topics associated with the author
+        frequent_topics_data = [
+            {"topic_name": "Topic 1", "page_count": 4},
+            {"topic_name": "Topic 2", "page_count": 3},
+            {"topic_name": "Topic 3", "page_count": 2},
+            {"topic_name": "Topic 4", "page_count": 1},
+            {"topic_name": "Topic 5", "page_count": 1},
+        ]
+
+        for data in frequent_topics_data:
+            topic = blog_models.BlogPageTopic.objects.create(name=data["topic_name"])
+            for _ in range(data["page_count"]):
+                blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
+                blog_page.topics.add(topic)
+                blog_page.save()
+                blog_models.BlogAuthors.objects.create(page=blog_page, author=author_profile)
+
+        frequent_topics = self.blog_index.get_authors_frequent_topics(author_profile)
+
+        # Check if the frequent topics match what we expect (should be ordered by use count)
+        self.assertEqual([topic.name for topic in frequent_topics], ["Topic 1", "Topic 2", "Topic 3"])
+
+    def test_get_authors_frequent_topics_no_associations(self):
+        """Check if the function returns an empty QS when an author has used no blog topics"""
+
+        author_profile = profile_factories.ProfileFactory(name="Test Author")
+
+        frequent_topics = self.blog_index.get_authors_frequent_topics(author_profile)
+
+        self.assertQuerysetEqual(frequent_topics, blog_models.BlogPageTopic.objects.none())
+
+    def test_get_authors_frequent_topics_less_than_three(self):
+        """
+        Check if the function returns all available topics in descending order,
+        if 3 topics have not been used by the author.
+        """
+
+        # Associate two blog page topics with an author
+        author_profile = profile_factories.ProfileFactory(name="Test Author")
+        blog_page_1 = blog_factories.BlogPageFactory(parent=self.blog_index)
+        blog_page_2 = blog_factories.BlogPageFactory(parent=self.blog_index)
+        topic_1 = blog_models.BlogPageTopic.objects.create(name="Topic 1")
+        topic_2 = blog_models.BlogPageTopic.objects.create(name="Topic 2")
+        blog_page_1.topics.add(topic_1)
+        blog_page_2.topics.add(topic_1, topic_2)
+        blog_models.BlogAuthors.objects.create(page=blog_page_1, author=author_profile)
+        blog_models.BlogAuthors.objects.create(page=blog_page_2, author=author_profile)
+        blog_page_1.save()
+        blog_page_2.save()
+
+        # Call the get_authors_frequent_topics method and get the result
+        frequent_topics = self.blog_index.get_authors_frequent_topics(author_profile)
+
+        self.assertListEqual(list(frequent_topics), [topic_1, topic_2])
+        self.assertEqual(len(frequent_topics), 2)
+
+    def test_get_authors_frequent_topics_with_localization(self):
+        """Check if the function returns localized versions of topics when applicable"""
+
+        author_profile = profile_factories.ProfileFactory(name="Test Author")
+        blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
+        blog_models.BlogAuthors.objects.create(page=blog_page, author=author_profile)
+
+        # Create 2 English topics and relate them to the author's blog page
+        topic_1_en = blog_models.BlogPageTopic.objects.create(name="Topic 1")
+        topic_2_en = blog_models.BlogPageTopic.objects.create(name="Topic 2")
+        blog_page.topics.add(topic_1_en, topic_2_en)
+        blog_page.save()
+
+        # Translate Topic 1 to French
+        topic_1_fr = topic_1_en.copy_for_translation(self.fr_locale)
+        topic_1_fr.save()
+
+        # Call the get_authors_frequent_topics method for both locales
+        frequent_topics_en = self.blog_index.get_authors_frequent_topics(author_profile)
+        self.activate_locale(self.fr_locale)
+        frequent_topics_fr = self.blog_index.get_authors_frequent_topics(author_profile)
+
+        # Check if the English page returns English topics
+        self.assertIn(topic_1_en, frequent_topics_en)
+        self.assertIn(topic_2_en, frequent_topics_en)
+        # Check if the French page returns French topics (when available)
+        self.assertIn(topic_1_fr, frequent_topics_fr)
+        self.assertIn(topic_2_en, frequent_topics_fr)
 
 
 class TestBlogPageTopics(test.TestCase):
