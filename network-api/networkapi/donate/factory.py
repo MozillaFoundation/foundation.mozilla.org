@@ -4,7 +4,7 @@ from wagtail.models import Page as WagtailPage
 from wagtail.models import Site as WagtailSite
 from wagtail_factories import PageFactory
 
-from networkapi.donate.models import DonateLandingPage
+from networkapi.donate.models import DonateLandingPage, DonateHelpPage
 from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
@@ -16,6 +16,12 @@ class DonateLandingPageFactory(PageFactory):
     title = Faker("text", max_nb_chars=140)
     intro = Faker("paragraph", nb_sentences=5, variable_nb_sentences=True)
     featured_image = SubFactory(ImageFactory)
+
+class DonateHelpPageFactory(PageFactory):
+    class Meta:
+        model = DonateHelpPage
+
+    title = Faker("text", max_nb_chars=140)
 
 
 def generate(seed):
@@ -30,6 +36,9 @@ def generate(seed):
         site_root = WagtailPage.objects.get(depth=1)
 
         home_page = DonateLandingPageFactory.create(parent=site_root, title="Donate Now", slug=None)
+
+        print("Generating a Help page")
+        help_page = DonateHelpPageFactory.create(parent=home_page, title="Donate Help", slug="help")
 
     reseed(seed)
 

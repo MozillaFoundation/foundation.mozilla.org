@@ -38,7 +38,7 @@ class DonateLandingPageTest(test_base.WagtailpagesTestCase):
         """
         self.assertAllowedSubpageTypes(
             parent_model=pagemodels.DonateLandingPage,
-            child_models={},
+            child_models={pagemodels.DonateHelpPage},
         )
 
     def test_page_success(self):
