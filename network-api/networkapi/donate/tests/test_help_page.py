@@ -1,7 +1,5 @@
 from http import HTTPStatus
 
-from wagtail.models import Page as WagtailPage
-
 from networkapi.donate import factory as donate_factories
 from networkapi.donate import models as pagemodels
 from networkapi.wagtailpages.tests import base as test_base
