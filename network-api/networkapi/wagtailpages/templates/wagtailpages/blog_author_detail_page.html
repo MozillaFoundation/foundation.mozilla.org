@@ -1,45 +1,9 @@
 {% extends "./modular_page.html" %}
-{% load l10n wagtailimages_tags %}
 
 {% block subcontent %}
-    <div class="tw-bg-white -tw-ml-8 small:tw-ml-0 -tw-mt-16 tw-pb-12 medium:tw-pb-16 large:tw-pb-24 tw-pl-8 small:tw-pr-8 tw-pt-8 medium:tw-pt-12 large:tw-pt-24 large:tw-px-12 tw-w-auto">
-        <div
-            id="info"
-            class="
-                   tw-gap-8
-                   tw-grid
-                   tw-grid-cols-1
-                   {% if author.image %}
-                       medium:tw-gap-x-24
-                       medium:tw-grid-cols-[13rem_1fr]
-                       large:tw-grid-cols-[16rem_1fr]
-                   {% endif %}
-                  "
-        >
-            <div
-                {% if author.image %}
-                    class="medium:tw-col-start-2"
-                {% endif %}
-            >
-                {% include 'fragments/breadcrumbs.html' with breadcrumb_list=breadcrumbs %}
-            </div>
-            {% if author.image %}
-                <div id="image-container" class="tw-place-self-center medium:tw-place-self-start">
-                    {% image author.image fill-256x256 as img_1x %}
-                    {% image author.image fill-512x512 as img_2x %}
-                    <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x" src="{{ img_2x.url }}" width="{{ img_2x.width|unlocalize }}" height="{{ img_2x.height|unlocalize }}"  alt="{{ img_2x.alt }}" class="tw-rounded-full tw-w-104 large:tw-w-128" />
-                </div>
-            {% endif %}
-            <div id="bio">
-                <h1 class="tw-mb-8">{{ author.name }}</h1>
-                <div class="tw-mb-8 tw-text-lg tw-text-gray-60">
-                    {{ author.localized.tagline }}
-                </div>
-                <p class="tw-text-lg">
-                    {{ author.localized.introduction }}
-                </p>
-            </div>
-        </div>
+    <div class="tw-container tw-py-16">
+        {% include "./fragments/blog_author_detail_header.html" %}
+    </div>
 {% endblock subcontent %}
 
 {% block footer_block %}
