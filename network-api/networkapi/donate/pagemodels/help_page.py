@@ -1,3 +1,4 @@
+from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Page
@@ -16,9 +17,12 @@ class DonateHelpPage(BaseDonationPage):
 
     max_count = 1
 
+    show_notice = models.BooleanField(default=False, help_text="Show delayed response notice")
+
     body = StreamField(base_fields, blank=True, use_json_field=True)
 
     content_panels = Page.content_panels + [
+        FieldPanel("show_notice"),
         FieldPanel("body"),
     ]
 
@@ -30,5 +34,6 @@ class DonateHelpPage(BaseDonationPage):
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
         # Content tab fields
+        SynchronizedField("show_notice"),
         SynchronizedField("body"),
     ]
