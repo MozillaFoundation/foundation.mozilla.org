@@ -3,10 +3,10 @@
 {% block body_id %}help{% endblock body_id %}
 
 {% block content %}
-    <div class="tw-container">
-        <h2> {{ page.title }} </h2>
-        <p> Intro </p>
-        <p> Form </p>
-        <p> Body </p>
+    <div class="tw-container tw-py-10">
+        <h1 class="tw-h1-heading"> {{ page.title }} </h1>
+            {% include "../fragments/help_page_notice.html" %}
+            <p> Form </p>
+            <p> Body </p>
     </div>
 {% endblock content %}
