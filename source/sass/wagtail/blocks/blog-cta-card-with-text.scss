@@ -11,19 +11,11 @@
     @apply tw-block tw-overflow-auto;
   }
 
-  &--full-width {
-    @apply tw-flex tw-flex-col tw-items-center;
-  }
-
   &__card-container--right {
     @apply tw-m-8 tw-w-192 medium:tw-float-right large:-tw-mr-96;
   }
 
   &__card-container--left {
-    @apply tw-m-8 tw-ml-0 tw-w-192 medium:tw-float-left;
-  }
-
-  &__card-container--full-width {
-    @apply tw-w-full;
+    @apply tw-my-8 tw-ml-0 tw-mr-12 tw-w-192 medium:tw-float-left;
   }
 }
