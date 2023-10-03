@@ -1,14 +1,22 @@
 {% extends "../pages/base.html" %}
+{% load wagtailcore_tags %}
 
 {% block body_id %}help{% endblock body_id %}
 
 {% block content %}
-    <div class="tw-container tw-py-10">
+<div class="cms campaign-page-content wide">
+
+    <div class="tw-container  tw-py-10">
+
         <h1 class="tw-h1-heading"> {{ page.title }} </h1>
         {% if page.show_notice %}
             {% include "../fragments/help_page_notice.html" %}
         {% endif %}
         <p> Form </p>
-        <p> Body </p>
-    </div>
+        {% for block in page.body %}
+            {% include_block block with parent_page=page %}
+        {% endfor %}    
+</div>
+</div>
 {% endblock content %}
+
