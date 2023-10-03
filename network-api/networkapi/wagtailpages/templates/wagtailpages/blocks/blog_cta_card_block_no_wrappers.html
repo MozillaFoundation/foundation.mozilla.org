@@ -1,6 +1,6 @@
 {% load l10n wagtailcore_tags wagtailimages_tags %}
 
-<div class="tw-m-8 blog-cta-card blog-cta-card__{{ value.style }}">
+<div class="blog-cta-card blog-cta-card__{{ value.style }}">
     {% with image_block=value.image|first %}
         {% if image_block %}
             {% block blog_cta_card_image %}

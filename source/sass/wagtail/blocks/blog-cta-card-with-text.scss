@@ -20,7 +20,7 @@
   }
 
   &__card-container--left {
-    @apply tw-m-8 tw-w-192 medium:tw-float-left;
+    @apply tw-m-8 tw-ml-0 tw-w-192 medium:tw-float-left;
   }
 
   &__card-container--full-width {
