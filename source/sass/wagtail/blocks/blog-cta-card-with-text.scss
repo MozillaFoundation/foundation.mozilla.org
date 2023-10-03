@@ -4,7 +4,7 @@
 
 .blog-cta-card-with-text {
   &--right {
-    @apply tw-block tw-overflow-auto;
+    @apply tw-block tw-overflow-auto medium:tw-overflow-visible;
   }
 
   &--left {
@@ -16,7 +16,7 @@
   }
 
   &__card-container--right {
-    @apply tw-m-8 tw-w-192 medium:tw-float-right;
+    @apply tw-m-8 tw-w-192 medium:tw-float-right large:-tw-mr-96;
   }
 
   &__card-container--left {
