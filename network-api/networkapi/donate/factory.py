@@ -25,7 +25,6 @@ class DonateHelpPageFactory(PageFactory):
     title = Faker("sentence", nb_words=2)
 
 
-
 def generate(seed):
     reseed(seed)
 
