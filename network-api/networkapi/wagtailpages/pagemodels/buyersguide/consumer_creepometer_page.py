@@ -28,3 +28,5 @@ class ConsumerCreepometerPage(BasePage):
     translatable_fields = [
         SynchronizedField("year"),
     ]
+
+
