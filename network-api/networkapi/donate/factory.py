@@ -22,7 +22,8 @@ class DonateHelpPageFactory(PageFactory):
     class Meta:
         model = DonateHelpPage
 
-    title = Faker("text", max_nb_chars=140)
+    title = Faker("sentence", nb_words=2)
+
 
 
 def generate(seed):
