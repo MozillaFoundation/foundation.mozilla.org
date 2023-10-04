@@ -119,6 +119,19 @@ class ProductPageVotesFactory(DjangoModelFactory):
     vote_bins = LazyFunction(lambda: ",".join([str(randint(1, 50)) for x in range(0, 5)]))
 
 
+class ProductPageEvaluationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.ProductPageEvaluation
+
+
+class ProductVoteFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.ProductVote
+
+    evaluation = SubFactory("networkapi.wagtailpages.factory.buyersguide.ProductPageEvaluationFactory")
+    value = Faker("random_int", min=0, max=100)
+
+
 class ProductPageFactory(PageFactory):
     class Meta:
         model = pagemodels.ProductPage
@@ -135,6 +148,7 @@ class ProductPageFactory(PageFactory):
     worst_case = Faker("sentence")
     first_published_at = Faker("past_datetime", start_date="-2d", tzinfo=timezone.utc)
     last_published_at = Faker("past_datetime", start_date="-1d", tzinfo=timezone.utc)
+    evaluation = SubFactory("networkapi.wagtailpages.factory.buyersguide.ProductPageEvaluationFactory")
 
     @post_generation
     def assign_random_categories(self, create, extracted, **kwargs):
@@ -163,13 +177,13 @@ class ProductPageFactory(PageFactory):
             random_number_of_days = randrange(days_between_dates)
             self.review_date = start_date + timedelta(days=random_number_of_days)
 
-    @post_generation
-    def set_random_creepiness(self, create, extracted, **kwargs):
-        self.get_or_create_votes()
-        single_vote = [0, 0, 1, 0, 0]
-        shuffle(single_vote)
-        self.votes.set_votes(single_vote)
-        self.creepiness_value = randint(0, 100)
+    # @post_generation
+    # def set_random_creepiness(self, create, extracted, **kwargs):
+    #     self.get_or_create_votes()
+    #     single_vote = [0, 0, 1, 0, 0]
+    #     shuffle(single_vote)
+    #     self.votes.set_votes(single_vote)
+    #     self.creepiness_value = randint(0, 100)
 
 
 class GeneralProductPageFactory(ProductPageFactory):

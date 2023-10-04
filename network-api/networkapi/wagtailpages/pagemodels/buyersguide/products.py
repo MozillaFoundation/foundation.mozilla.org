@@ -4,9 +4,9 @@ import typing
 from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.validators import int_list_validator
+from django.core.validators import MaxValueValidator, int_list_validator
 from django.db import Error, models
-from django.db.models import F
+from django.db.models import F, Q
 from django.http import (
     HttpResponse,
     HttpResponseNotAllowed,
@@ -221,6 +221,90 @@ class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
+
+
+class ProductVote(models.Model):
+    """Holds a single creepiness vote for a product."""
+
+    # votes go from 0 to 99 (100 possible values in total)
+    value = models.PositiveSmallIntegerField(
+        default=0, validators=[MaxValueValidator(99, message="Creepiness vote must be smaller than 99")]
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    evaluation = models.ForeignKey("ProductPageEvaluation", on_delete=models.CASCADE, related_name="votes")
+
+
+class ProductPageEvaluationQuerySet(models.QuerySet):
+    def with_total_votes(self):
+        return self.annotate(_total_votes=models.Count("votes__id", distinct=True))
+
+    def with_total_creepiness(self):
+        return self.annotate(_total_creepiness=models.Sum("votes__value"))
+
+    def with_average_creepiness(self):
+        return self.annotate(_average_creepiness=models.Avg("votes__value"))
+
+    def with_bin_data(self):
+        """Annotate the queryset with the number of votes in each bin.
+
+        There are 5 "bins" for votes: <20%, <40%, <60%, <80%, <100%.
+        """
+        return self.annotate(
+            bin_0=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=0, votes__value__lt=20)),
+            bin_1=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=20, votes__value__lt=40)),
+            bin_2=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=40, votes__value__lt=60)),
+            bin_3=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=60, votes__value__lt=80)),
+            bin_4=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=80, votes__value__lt=100)),
+        )
+
+
+class ProductPageEvaluation(models.Model):
+    """Holds creepiness data for a product and performs appropriate calculations.
+
+    The product page is defined in the ProductPage model to make it possible to
+    synchronize the field using `wagtail_localize` and avoid having to create
+    multiple evaluations for each localized product page.
+    """
+
+    BIN_LABELS = {
+        "bin_0": {"key": "Not creepy", "label": gettext("Not creepy")},
+        "bin_1": {"key": "A little creepy", "label": gettext("A little creepy")},
+        "bin_2": {"key": "Somewhat creepy", "label": gettext("Somewhat creepy")},
+        "bin_3": {"key": "Very creepy", "label": gettext("Very creepy")},
+        "bin_4": {"key": "Super creepy", "label": gettext("Super creepy")},
+    }
+
+    objects = ProductPageEvaluationQuerySet.as_manager()
+
+    @property
+    def total_votes(self):
+        return self.votes.count()
+
+    @property
+    def total_creepiness(self):
+        return sum([vote.value for vote in self.votes.all()])
+
+    @property
+    def average_creepiness(self):
+        if self.total_votes == 0:
+            return 0
+        return self.total_creepiness / self.total_votes
+
+    @property
+    def creepiness_per_bin(self):
+        bin_0 = self.votes.filter(value__gte=0, value__lt=20).count()
+        bin_1 = self.votes.filter(value__gte=20, value__lt=40).count()
+        bin_2 = self.votes.filter(value__gte=40, value__lt=60).count()
+        bin_3 = self.votes.filter(value__gte=60, value__lt=80).count()
+        bin_4 = self.votes.filter(value__gte=80, value__lt=100).count()
+        bins = [bin_0, bin_1, bin_2, bin_3, bin_4]
+        creepiness_per_bin = {}
+        for i in range(5):
+            creepiness_per_bin[self.BIN_LABELS[f"bin_{i}"]["key"]] = {
+                "count": bins[i],
+                "label": self.BIN_LABELS[f"bin_{i}"]["label"],
+            }
+        return creepiness_per_bin
 
 
 class ProductPageVotes(models.Model):
@@ -574,6 +658,14 @@ class ProductPage(BasePage):
         related_name="votes",
     )
 
+    evaluation = models.ForeignKey(
+        ProductPageEvaluation,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="product_pages",
+    )
+
     @classmethod
     def map_import_fields(cls):
         mappings = {
@@ -826,6 +918,7 @@ class ProductPage(BasePage):
         SynchronizedField("time_researched"),
         SynchronizedField("updates"),
         TranslatableField("tips_to_protect_yourself"),
+        SynchronizedField("evaluation"),
     ]
 
     @property
