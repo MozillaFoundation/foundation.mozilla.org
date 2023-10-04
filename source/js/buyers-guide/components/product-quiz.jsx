@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 const IMG_DIR = "/static/_images/buyers-guide/consumer-creepometer";
@@ -132,119 +132,171 @@ const RESULTS = {
   },
 };
 
-function ProductQuiz(props) {
-  console.log("propsss", props);
+class ProductQuiz extends Component {
+  constructor(props) {
+    super(props);
 
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const [numBad, setNumBad] = useState(0);
-  const [score, setScore] = useState(0);
-  const [showResults, setShowResults] = useState(true);
-  const smallTextClass = "text-font-sans tw-text-xs";
+    this.state = {
+      selectedChoices: [],
+      numBad: 0,
+      score: 0,
+      showResults: true,
+    };
 
-  function handleOptionChange(product, checked) {
-    if (checked) {
-      setSelectedOptions([...selectedOptions, product]);
-    } else {
-      setSelectedOptions(selectedOptions.filter((o) => o !== product));
+    this.smallTextClass = "text-font-sans tw-text-xs";
+  }
+
+  componentDidMount() {
+    this.setState({
+      numBad: this.state.selectedChoices.filter(
+        (choice) => choice.points === POINTS.bad
+      ).length,
+      score: this.state.selectedChoices.reduce((acc, choice) => {
+        return acc + choice.points;
+      }, 0),
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.selectedChoices !== this.state.selectedChoices) {
+      this.setState({
+        // find out how many "bad" products are selected
+        numBad: this.state.selectedChoices.filter(
+          (choice) => choice.points === POINTS.bad
+        ).length,
+        // calculate the score
+        score: this.state.selectedChoices.reduce((acc, choice) => {
+          return acc + choice.points;
+        }, 0),
+      });
     }
   }
 
-  console.log(`selectedOptions`, selectedOptions);
-  selectedOptions.forEach((product) => console.log(`selected:`, product));
+  // Handles a product choice being selected or unselected
+  handleOptionChange(product, checked) {
+    const { selectedChoices } = this.state;
 
-  useEffect(() => {
-    setNumBad(
-      selectedOptions.filter((option) => option.points === POINTS.bad).length
-    );
-    let finalScore = selectedOptions.reduce((acc, option) => {
-      return acc + option.points;
-    }, 0);
+    if (checked) {
+      this.setState({ selectedChoices: [...selectedChoices, product] });
+    } else {
+      this.setState({
+        selectedChoices: selectedChoices.filter((o) => o !== product),
+      });
+    }
+  }
 
-    console.log(`>>>>`, finalScore);
-    setScore(finalScore);
-  }, [selectedOptions]);
-
-  function handleSubmit(event) {
+  // Handles the form submission
+  handleSubmit(event) {
     event.preventDefault();
-    setShowResults(true);
+    this.setState({ showResults: true });
   }
 
-  function resetQuiz() {
-    setNumBad(0);
-    setSelectedOptions([]);
-    setShowResults(false);
-  }
-
-  function renderChoices() {
-    let choices = props.quizChoices.split(",").map((choice) => choice.trim());
-    console.log(choices);
-
-    let listItems = choices.map((name, index) => {
-      const id = `product-choice-${index}`;
-      const product = PRODUCTS[name];
-
-      if (!product) {
-        return null;
-      }
-
-      return (
-        <li key={id} className="tw-relative tw-block">
-          <div className="tw-flex tw-items-center tw-mb-0 tw-h-full">
-            <input
-              type="checkbox"
-              name="choice"
-              value={name}
-              onChange={(event) =>
-                handleOptionChange(product, event.target.checked)
-              }
-              className="tw-hidden tw-peer"
-              id={id}
-              checked={selectedOptions.includes(product)}
-            />
-            <label
-              htmlFor={id}
-              className="
-                tw-cursor-pointer tw-flex tw-items-center tw-mb-0 tw-h-full tw-w-full tw-rounded-lg tw-bg-[#F4F4F4] tw-box-border tw-border-2 tw-border-transparent hover:tw-border-blue-20
-                peer-checked:tw-border-blue-40 peer-checked:after:tw-text-white peer-checked:after:tw-text-center peer-checked:after:tw-bg-[url('/static/_images/buyers-guide/consumer-creepometer/checkmark.svg')] peer-checked:after:tw-bg-center peer-checked:after:tw-bg-no-repeat peer-checked:after:tw-content-[''] peer-checked:after:tw-absolute peer-checked:after:tw-bg-blue-40 peer-checked:after:tw-rounded-bl-lg peer-checked:after:tw-rounded-tr-lg peer-checked:after:tw-w-[30px] peer-checked:after:tw-h-[25px] peer-checked:after:tw-top-0 peer-checked:after:tw-right-0"
-            >
-              <div className="tw-w-[48px] tw-h-[48px] tw-m-6">
-                <img
-                  width="100%"
-                  height="100%"
-                  src={product.imgSrc}
-                  alt={product.value}
-                  className="tw-max-w-full tw-max-h-full tw-object-contain"
-                />
-              </div>
-              <div className="tw-my-6 tw-mr-6">
-                <p className={`${smallTextClass} tw-text-gray-60 tw-mb-0`}>
-                  {product.company}
-                </p>
-                <p className="text-font-sans tw-mb-0 tw-font-light">{name}</p>
-              </div>
-            </label>
-          </div>
-        </li>
-      );
+  // Resets the quiz to the initial state
+  resetQuiz() {
+    this.setState({
+      numBad: 0,
+      selectedChoices: [],
+      showResults: false,
     });
+  }
 
-    if (listItems.length === 0) {
+  // Renders a single product choice
+  renderChoice(productName, id) {
+    const { selectedChoices } = this.state;
+    const product = PRODUCTS[productName];
+
+    if (!product) {
       return null;
     }
 
     return (
-      <ul className="tw-grid tw-grid-cols-4 tw-gap-6 medium:tw-gap-8 tw-pl-0">
-        {listItems}
-      </ul>
+      <li key={id} className="tw-relative tw-block">
+        <div className="tw-flex tw-items-center tw-mb-0 tw-h-full">
+          <input
+            type="checkbox"
+            name="choice"
+            value={productName}
+            onChange={(event) =>
+              this.handleOptionChange(product, event.target.checked)
+            }
+            className="tw-hidden tw-peer"
+            id={id}
+            checked={selectedChoices.includes(product)}
+          />
+          <label
+            htmlFor={id}
+            className="
+              tw-cursor-pointer tw-flex tw-items-center tw-mb-0 tw-h-full tw-w-full tw-rounded-lg tw-bg-[#F4F4F4] tw-box-border tw-border-2 tw-border-transparent hover:tw-border-blue-20
+              peer-checked:tw-border-blue-40 peer-checked:after:tw-text-white peer-checked:after:tw-text-center peer-checked:after:tw-bg-[url('/static/_images/buyers-guide/consumer-creepometer/checkmark.svg')] peer-checked:after:tw-bg-center peer-checked:after:tw-bg-no-repeat peer-checked:after:tw-content-[''] peer-checked:after:tw-absolute peer-checked:after:tw-bg-blue-40 peer-checked:after:tw-rounded-bl-lg peer-checked:after:tw-rounded-tr-lg peer-checked:after:tw-w-[30px] peer-checked:after:tw-h-[25px] peer-checked:after:tw-top-0 peer-checked:after:tw-right-0"
+          >
+            <div className="tw-w-[48px] tw-h-[48px] tw-m-6">
+              <img
+                width="100%"
+                height="100%"
+                src={product.imgSrc}
+                alt={product.value}
+                className="tw-max-w-full tw-max-h-full tw-object-contain"
+              />
+            </div>
+            <div className="tw-my-6 tw-mr-6">
+              <p className={`${this.smallTextClass} tw-text-gray-60 tw-mb-0`}>
+                {product.company}
+              </p>
+              <p className="text-font-sans tw-mb-0 tw-font-light">
+                {productName}
+              </p>
+            </div>
+          </label>
+        </div>
+      </li>
     );
   }
 
-  function renderResults() {
+  // Renders the list of product choices
+  renderChoices() {
+    const { quizChoices } = this.props;
+
+    if (quizChoices === "") {
+      return null;
+    }
+
+    const choices = quizChoices.split(",").map((productName, index) => {
+      productName = productName.trim();
+
+      return this.renderChoice(productName, `product-choice-${index}`);
+    });
+
+    if (choices.length === 0) {
+      return null;
+    }
+
+    return (
+      <fieldset>
+        <legend className="tw-text-center tw-text-base tw-mb-[40px]">
+          <div className="tw-font-zilla tw-text-[28px] tw-leading-[36px] tw-font-semibold">
+            Which products do you own?
+          </div>
+          <small className={`${this.smallTextClass} tw-blcok tw-text-gray-60`}>
+            (You can select more than one)
+          </small>
+        </legend>
+        <ul className="tw-grid tw-grid-cols-4 tw-gap-6 medium:tw-gap-8 tw-pl-0">
+          {choices}
+        </ul>
+      </fieldset>
+    );
+  }
+
+  // Renders the results screen
+  renderResults() {
+    const { selectedChoices, score } = this.state;
+
     let resultType = null;
 
     if (
       score >= RESULTS["open book"].minPoints ||
-      (selectedOptions.length > 0 && selectedOptions.length === numBad)
+      (selectedChoices.length > 0 &&
+        selectedChoices.length === this.state.numBad)
     ) {
       resultType = RESULTS["open book"];
     } else if (score >= RESULTS["soso"].minPoints) {
@@ -253,7 +305,6 @@ function ProductQuiz(props) {
       resultType = RESULTS["off the grid"];
     }
 
-    // console.log(score, `resultType = `, resultType);
     return (
       <div className="tw-text-center tw-bg-blue-40 tw-p-24">
         <h1 className="tw-text-white">Your Score: {score}</h1>
@@ -266,50 +317,57 @@ function ProductQuiz(props) {
     );
   }
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        {renderChoices()}
-        <div className="tw-mx-auto tw-mt-20 tw-text-center">
-          <p className={`${smallTextClass} tw-mb-4`}>
-            <span>{selectedOptions.length}</span>{" "}
-            {selectedOptions.length > 1 ? "Products" : "Product"} Selected
-          </p>
-          <button
-            className="tw-btn tw-btn-primary tw-mb-8"
-            type="submit"
-            onSubmit={handleSubmit}
-          >
-            See Results
-          </button>
-          <p className={`${smallTextClass} tw-text-gray-60 tw-mb-0`}>
-            Your score will not be recorded in our system and no personal data
-            will be collected.
-          </p>
-        </div>
-      </form>
-      {showResults && renderResults()}
-      {showResults && (
-        <div>
-          <p>
-            {numBad} of {selectedOptions.length} products selected were bad
-            products.
-          </p>
-          <p>Selected:</p>
-          <ul>
-            {selectedOptions.map((product, i) => (
-              <li key={i}>
-                {product.name} {product.points === POINTS.bad && "(bad)"}
-              </li>
-            ))}
-          </ul>
-          <button className="tw-btn tw-btn-primary" onClick={resetQuiz}>
-            Retake Quiz
-          </button>
-        </div>
-      )}
-    </div>
-  );
+  render() {
+    const { showResults, selectedChoices } = this.state;
+
+    return (
+      <div>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
+          {this.renderChoices()}
+          <div className="tw-mx-auto tw-mt-20 tw-text-center">
+            <p className={`${this.smallTextClass} tw-mb-4`}>
+              <span>{selectedChoices.length}</span>{" "}
+              {selectedChoices.length > 1 ? "Products" : "Product"} Selected
+            </p>
+            <button
+              className="tw-btn tw-btn-primary tw-mb-8"
+              type="submit"
+              onSubmit={(e) => this.handleSubmit(e)}
+            >
+              See Results
+            </button>
+            <p className={`${this.smallTextClass} tw-text-gray-60 tw-mb-0`}>
+              Your score will not be recorded in our system and no personal data
+              will be collected.
+            </p>
+          </div>
+        </form>
+        {showResults && this.renderResults()}
+        {showResults && (
+          <div>
+            <p>
+              {this.state.numBad} of {selectedChoices.length} products selected
+              were bad products.
+            </p>
+            <p>Selected:</p>
+            <ul>
+              {selectedChoices.map((product, i) => (
+                <li key={i}>
+                  {product.name} {product.points === POINTS.bad && "(bad)"}
+                </li>
+              ))}
+            </ul>
+            <button
+              className="tw-btn tw-btn-primary"
+              onClick={(e) => this.resetQuiz(e)}
+            >
+              Retake Quiz
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
 }
 
 ProductQuiz.propTypes = {
