@@ -271,9 +271,9 @@ class ProductQuiz extends Component {
     }
 
     return (
-      <fieldset>
-        <legend className="tw-text-center tw-text-base tw-mb-8 medium:tw-mb-[40px]">
-          <div className="tw-font-zilla tw-text-[20px] tw-leadin-[24px] medium:tw-text-[28px] mdeium:tw-leading-[36px] tw-font-semibold">
+      <fieldset className="tw-h-[60vh] medium:tw-h-auto tw-overflow-y-scroll medium:tw-overflow-y-visible">
+        <legend className="tw-sticky medium:tw-static tw-text-center tw-text-base tw-mb-8 medium:tw-mb-[40px]">
+          <div className="tw-font-zilla tw-text-[20px] tw-leading-[24px] medium:tw-text-[28px] mdeium:tw-leading-[36px] tw-font-semibold tw-mb-2">
             Which products do you own?
           </div>
           <small className={`${this.smallTextClass} tw-blcok tw-text-gray-60`}>
@@ -292,7 +292,7 @@ class ProductQuiz extends Component {
     return (
       <form onSubmit={(e) => this.handleSubmit(e)}>
         {this.renderChoices()}
-        <div className="tw-mx-auto medium:tw-mt-20 tw-text-center">
+        <div className="tw-sticky medium:tw-static tw-mx-auto medium:tw-mt-20 tw-py-8 medium:tw-py-0 tw-text-center">
           <p className={`${this.smallTextClass} tw-mb-4`}>
             <span>{selectedChoices.length}</span>{" "}
             {selectedChoices.length > 1 ? "Products" : "Product"} Selected
@@ -332,20 +332,27 @@ class ProductQuiz extends Component {
     }
 
     return (
-      <div className="tw-text-center tw-dark">
-        <div className="tw-text-right">
+      <div className="tw-flex tw-flex-col medium:tw-flex-col-reverse tw-dark">
+        <div className="tw-text-center">
+          <div className="tw-mx-auto tw-w-[80px] tw-h-[80px] medium:tw-w-[180px] medium:tw-h-[180px]">
+            <img src={resultType.imgSrc} alt="" width="100%" height="100%" />
+          </div>
+          <h3 className="tw-font-zilla tw-font-semibold tw-text-[28px] tw-leading-[36px] medium:tw-text-[48px] medium:tw-leading-[56px] tw-text-white tw-my-12 medium:tw-mt-16">
+            {resultType.heading}
+          </h3>
+          <p className="tw-text-white">{resultType.description}</p>
+          <div className="tw-mt-[84px] medium:mt-[100px] tw-text-red-60">
+            [FIXME] will add social share buttons in follow-up PR
+          </div>
+        </div>
+        <div className="tw-text-center medium:tw-text-right tw-mt-12 medium:tw-mt-0">
           <button
-            className="tw-btn tw-btn-secondary"
+            className="tw-btn tw-btn-secondary tw-w-full medium:tw-w-auto"
             onClick={(e) => this.resetQuiz(e)}
           >
             Retake Quiz
           </button>
         </div>
-        <img src={resultType.imgSrc} alt="" className="tw-mx-auto" />
-        <h3 className="tw-font-zilla tw-font-semibold tw-text-[48px] tw-leading-[56px] tw-text-white tw-mt-16 tw-mb-12">
-          {resultType.heading}
-        </h3>
-        <p className="tw-text-white">{resultType.description}</p>
       </div>
     );
   }
@@ -353,18 +360,17 @@ class ProductQuiz extends Component {
   render() {
     const { showResults, selectedChoices, score } = this.state;
     const outerClass = showResults
-      ? "tw-bg-blue-40 medium:tw-p-24"
+      ? "tw-bg-blue-40 tw-px-14 tw-py-16 medium:tw-p-24"
       : "tw-bg-white tw-my-24 tw-px-[15px] tw-py-16 medium:tw-px-[45px] medium:tw-py-24";
 
     return (
-      <div
-        className={`${outerClass} tw-rounded-3xl tw-my-24 tw-px-[15px] tw-py-16`}
-      >
-        {!showResults && this.renderForm()}
-        {showResults && this.renderResults()}
+      <div className={`${outerClass} tw-rounded-3xl tw-my-24`}>
+        {showResults ? this.renderResults() : this.renderForm()}
 
         <div className="tw-border-4 tw-border-red-60 tw-mt-24 tw-p-10">
-          <p className="tw-text-red-60 tw-font-bold">This box is for QA purposes. Will remove before merging the PR.</p>
+          <p className="tw-text-red-60 tw-font-bold">
+            This box is for QA purposes. Will remove before merging the PR.
+          </p>
           <p className="tw-font-bold tw-mb-0">Score: {score}</p>
           <p className="tw-font-bold">
             {this.state.numBad} of {selectedChoices.length} products selected
@@ -379,7 +385,6 @@ class ProductQuiz extends Component {
             ))}
           </ul>
         </div>
-
       </div>
     );
   }
