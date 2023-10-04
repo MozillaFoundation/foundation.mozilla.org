@@ -14,6 +14,7 @@ class ProductQuiz extends Component {
     };
 
     this.smallTextClass = "text-font-sans tw-text-xs";
+    this.scrollBreakpoint = "large";
   }
 
   componentDidMount() {
@@ -43,6 +44,7 @@ class ProductQuiz extends Component {
   }
 
   // Handles a product choice being selected or unselected
+  // and updates the selectedChoices state accordingly
   handleOptionChange(product, checked) {
     const { selectedChoices } = this.state;
 
@@ -96,7 +98,7 @@ class ProductQuiz extends Component {
           <label
             htmlFor={id}
             className="
-              tw-cursor-pointer tw-flex tw-items-center tw-mb-0 tw-h-full tw-w-full tw-rounded-lg tw-bg-[#F4F4F4] tw-box-border tw-border-2 tw-border-transparent hover:tw-border-blue-20
+              tw-cursor-pointer tw-flex tw-items-center tw-mb-0 tw-h-full tw-w-full tw-rounded-lg tw-bg-[#F4F4F4] tw-box-border tw-border-2 tw-border-transparent tw-transition-all tw-duration-300 hover:tw-ease-in-out hover:tw-border-blue-20
               peer-checked:tw-border-blue-40 peer-checked:after:tw-text-white peer-checked:after:tw-text-center peer-checked:after:tw-bg-[url('/static/_images/buyers-guide/consumer-creepometer/checkmark.svg')] peer-checked:after:tw-bg-center peer-checked:after:tw-bg-no-repeat peer-checked:after:tw-content-[''] peer-checked:after:tw-absolute peer-checked:after:tw-bg-blue-40 peer-checked:after:tw-rounded-bl-lg peer-checked:after:tw-rounded-tr-lg peer-checked:after:tw-w-[30px] peer-checked:after:tw-h-[25px] peer-checked:after:tw-top-0 peer-checked:after:tw-right-0"
           >
             <div className="tw-w-[48px] tw-h-[48px] tw-m-6">
@@ -141,8 +143,10 @@ class ProductQuiz extends Component {
     }
 
     return (
-      <fieldset className="tw-h-[60vh] medium:tw-h-auto tw-overflow-y-scroll medium:tw-overflow-y-visible">
-        <legend className="tw-sticky medium:tw-static tw-text-center tw-text-base tw-mb-8 medium:tw-mb-[40px]">
+      <fieldset className="tw-relative">
+        <legend
+          className={`tw-sticky ${this.scrollBreakpoint}:tw-static tw-text-center tw-text-base tw-mb-8 medium:tw-mb-[40px]`}
+        >
           <div className="tw-font-zilla tw-text-[20px] tw-leading-[24px] medium:tw-text-[28px] mdeium:tw-leading-[36px] tw-font-semibold tw-mb-2">
             Which products do you own?
           </div>
@@ -150,7 +154,9 @@ class ProductQuiz extends Component {
             (You can select more than one)
           </small>
         </legend>
-        <ul className="tw-pl-0 tw-grid tw-grid-cols-1 large:tw-grid-cols-4 tw-gap-6 large:tw-gap-8">
+        <ul
+          className={`tw-h-[60vh] ${this.scrollBreakpoint}:tw-h-auto tw-overflow-y-scroll ${this.scrollBreakpoint}:tw-overflow-y-visible tw-pl-0 tw-pr-10 ${this.scrollBreakpoint}:tw-pr-0 tw-grid tw-grid-cols-1 ${this.scrollBreakpoint}:tw-grid-cols-4 tw-gap-4 ${this.scrollBreakpoint}:tw-gap-8`}
+        >
           {choices}
         </ul>
       </fieldset>
@@ -163,7 +169,9 @@ class ProductQuiz extends Component {
     return (
       <form onSubmit={(e) => this.handleSubmit(e)}>
         {this.renderChoices()}
-        <div className="tw-sticky medium:tw-static tw-mx-auto medium:tw-mt-20 tw-py-8 medium:tw-py-0 tw-text-center">
+        <div
+          className={`tw-sticky ${this.scrollBreakpoint}:tw-static tw-mx-auto medium:tw-mt-20 tw-py-8 medium:tw-py-0 tw-text-center`}
+        >
           <p className={`${this.smallTextClass} tw-mb-4`}>
             <span>{selectedChoices.length}</span>{" "}
             {selectedChoices.length > 1 ? "Products" : "Product"} Selected
