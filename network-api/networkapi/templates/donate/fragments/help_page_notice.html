@@ -1,18 +1,17 @@
 {% load static i18n l10n wagtailcore_tags wagtailimages_tags %}
 
 <div>
-    <div class="tw-p-4 medium:tw-p-8 tw-my-24 tw-w-full tw-flex tw-flex-col small:tw-flex-row tw-items-center tw-border-t tw-border-b tw-border-black">
-        <div class="tw-flex-shrink-0 tw-grow-0 tw-basis-[50px] tw-mr-4 medium:tw-mr-8">
-
-            <img src="{% static "_images/donate/megaphone.png" %}" alt="icon" class="tw-w-full tw-h-full" width="100" height="100">
+    <div class="tw-py-4 tw-px-0 large:tw-p-8 tw-my-24 tw-w-full tw-flex tw-flex-col large:tw-flex-row tw-items-start large:tw-items-center tw-border-t tw-border-b tw-border-black">
+        <div class="tw-flex-shrink-0 tw-grow-0 tw-basis-[50px] tw-mr-4 large:tw-mr-8">
+            <img src="{% static "_images/donate/megaphone.png" %}" alt="icon" class="tw-w-40 medium:tw-w-48 tw-h-auto" height="100" width="100">
         </div>
         <div>
-            <p class="tw-font-bold tw-my-6 medium:tw-my-2">
+            <p class="tw-font-bold tw-my-6 large:tw-my-2">
                 {% blocktrans trimmed %}
                     Our team is experiencing a backlog in donor inquiries. Please expect a delay of up to 5 business days to respond to your inquiry.
                 {% endblocktrans %}
             </p>
-            <p class="tw-my-6 medium:tw-my-2">
+            <p class="tw-my-6 large:tw-my-2">
                 {% blocktrans trimmed %}
                     If you are a current donor, you can use the self-service option to log into your donor portal. You can see receipts and make changes to your monthly gift. To access your log in page, refer to your link in a recent donation email.
                 {% endblocktrans %}
