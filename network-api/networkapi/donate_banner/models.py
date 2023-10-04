@@ -102,6 +102,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         return "No"
 
 
+# Customise DonateBanner Snippet admin listing to show extra columns.
 class DonateBannerViewSet(SnippetViewSet):
     model = DonateBanner
     description = "Donate Banner"
@@ -114,16 +115,13 @@ register_snippet(DonateBanner, viewset=DonateBannerViewSet)
 # Customise chooser to only show the default language banners as options.
 # We do not want editors to select the translations as
 # localisation will be handled on the template instead.
-donate_banner_chooser_viewset = NoLocaleSnippetChooserViewSet(
-    "donatebanner_chooser",
-    model=DonateBanner,
-    url_prefix="donate_banner/chooser",
-)
-
-
 @hooks.register("register_admin_viewset")
 def register_donate_banner_chooser_viewset():
-    return donate_banner_chooser_viewset
+    return NoLocaleSnippetChooserViewSet(
+        "wagtailsnippetchoosers_custom_donatebanner",
+        model=DonateBanner,
+        url_prefix="donate_banner/chooser",
+    )
 
 
 @register_setting(icon="pick")
