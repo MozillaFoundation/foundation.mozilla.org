@@ -140,7 +140,7 @@ class ProductQuiz extends Component {
       selectedChoices: [],
       numBad: 0,
       score: 0,
-      showResults: true,
+      showResults: false,
     };
 
     this.smallTextClass = "text-font-sans tw-text-xs";
@@ -272,18 +272,44 @@ class ProductQuiz extends Component {
 
     return (
       <fieldset>
-        <legend className="tw-text-center tw-text-base tw-mb-[40px]">
-          <div className="tw-font-zilla tw-text-[28px] tw-leading-[36px] tw-font-semibold">
+        <legend className="tw-text-center tw-text-base tw-mb-8 medium:tw-mb-[40px]">
+          <div className="tw-font-zilla tw-text-[20px] tw-leadin-[24px] medium:tw-text-[28px] mdeium:tw-leading-[36px] tw-font-semibold">
             Which products do you own?
           </div>
           <small className={`${this.smallTextClass} tw-blcok tw-text-gray-60`}>
             (You can select more than one)
           </small>
         </legend>
-        <ul className="tw-grid tw-grid-cols-4 tw-gap-6 medium:tw-gap-8 tw-pl-0">
+        <ul className="tw-pl-0 tw-grid tw-grid-cols-1 large:tw-grid-cols-4 tw-gap-6 large:tw-gap-8">
           {choices}
         </ul>
       </fieldset>
+    );
+  }
+
+  renderForm() {
+    const { selectedChoices } = this.state;
+    return (
+      <form onSubmit={(e) => this.handleSubmit(e)}>
+        {this.renderChoices()}
+        <div className="tw-mx-auto medium:tw-mt-20 tw-text-center">
+          <p className={`${this.smallTextClass} tw-mb-4`}>
+            <span>{selectedChoices.length}</span>{" "}
+            {selectedChoices.length > 1 ? "Products" : "Product"} Selected
+          </p>
+          <button
+            className="tw-btn tw-btn-primary tw-mb-8 tw-w-full large:tw-w-auto"
+            type="submit"
+            onSubmit={(e) => this.handleSubmit(e)}
+          >
+            See Results
+          </button>
+          <p className={`${this.smallTextClass} tw-text-gray-60 tw-mb-0`}>
+            Your score will not be recorded in our system and no personal data
+            will be collected.
+          </p>
+        </div>
+      </form>
     );
   }
 
@@ -306,8 +332,15 @@ class ProductQuiz extends Component {
     }
 
     return (
-      <div className="tw-text-center tw-bg-blue-40 tw-p-24">
-        <h1 className="tw-text-white">Your Score: {score}</h1>
+      <div className="tw-text-center tw-dark">
+        <div className="tw-text-right">
+          <button
+            className="tw-btn tw-btn-secondary"
+            onClick={(e) => this.resetQuiz(e)}
+          >
+            Retake Quiz
+          </button>
+        </div>
         <img src={resultType.imgSrc} alt="" className="tw-mx-auto" />
         <h3 className="tw-font-zilla tw-font-semibold tw-text-[48px] tw-leading-[56px] tw-text-white tw-mt-16 tw-mb-12">
           {resultType.heading}
@@ -318,53 +351,35 @@ class ProductQuiz extends Component {
   }
 
   render() {
-    const { showResults, selectedChoices } = this.state;
+    const { showResults, selectedChoices, score } = this.state;
+    const outerClass = showResults
+      ? "tw-bg-blue-40 medium:tw-p-24"
+      : "tw-bg-white tw-my-24 tw-px-[15px] tw-py-16 medium:tw-px-[45px] medium:tw-py-24";
 
     return (
-      <div>
-        <form onSubmit={(e) => this.handleSubmit(e)}>
-          {this.renderChoices()}
-          <div className="tw-mx-auto tw-mt-20 tw-text-center">
-            <p className={`${this.smallTextClass} tw-mb-4`}>
-              <span>{selectedChoices.length}</span>{" "}
-              {selectedChoices.length > 1 ? "Products" : "Product"} Selected
-            </p>
-            <button
-              className="tw-btn tw-btn-primary tw-mb-8"
-              type="submit"
-              onSubmit={(e) => this.handleSubmit(e)}
-            >
-              See Results
-            </button>
-            <p className={`${this.smallTextClass} tw-text-gray-60 tw-mb-0`}>
-              Your score will not be recorded in our system and no personal data
-              will be collected.
-            </p>
-          </div>
-        </form>
+      <div
+        className={`${outerClass} tw-rounded-3xl tw-my-24 tw-px-[15px] tw-py-16`}
+      >
+        {!showResults && this.renderForm()}
         {showResults && this.renderResults()}
-        {showResults && (
-          <div>
-            <p>
-              {this.state.numBad} of {selectedChoices.length} products selected
-              were bad products.
-            </p>
-            <p>Selected:</p>
-            <ul>
-              {selectedChoices.map((product, i) => (
-                <li key={i}>
-                  {product.name} {product.points === POINTS.bad && "(bad)"}
-                </li>
-              ))}
-            </ul>
-            <button
-              className="tw-btn tw-btn-primary"
-              onClick={(e) => this.resetQuiz(e)}
-            >
-              Retake Quiz
-            </button>
-          </div>
-        )}
+
+        <div className="tw-border-4 tw-border-red-60 tw-mt-24 tw-p-10">
+          <p className="tw-text-red-60 tw-font-bold">This box is for QA purposes. Will remove before merging the PR.</p>
+          <p className="tw-font-bold tw-mb-0">Score: {score}</p>
+          <p className="tw-font-bold">
+            {this.state.numBad} of {selectedChoices.length} products selected
+            were bad products.
+          </p>
+          <p>Selected:</p>
+          <ul>
+            {selectedChoices.map((product, i) => (
+              <li key={i}>
+                {product.name} {product.points === POINTS.bad && "(bad)"}
+              </li>
+            ))}
+          </ul>
+        </div>
+
       </div>
     );
   }
