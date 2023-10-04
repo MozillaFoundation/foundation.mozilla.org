@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import ProductQuiz from "../components/product-quiz.jsx";
+import ProductQuiz from "../components/product-quiz/product-quiz.jsx";
 
 /**
  * Inject product quiz React component
