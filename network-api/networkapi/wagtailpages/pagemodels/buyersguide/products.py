@@ -291,13 +291,17 @@ class ProductPageEvaluation(models.Model):
         return self.total_creepiness / self.total_votes
 
     @property
-    def creepiness_per_bin(self):
+    def votes_per_bin(self):
         bin_0 = self.votes.filter(value__gte=0, value__lt=20).count()
         bin_1 = self.votes.filter(value__gte=20, value__lt=40).count()
         bin_2 = self.votes.filter(value__gte=40, value__lt=60).count()
         bin_3 = self.votes.filter(value__gte=60, value__lt=80).count()
         bin_4 = self.votes.filter(value__gte=80, value__lt=100).count()
-        bins = [bin_0, bin_1, bin_2, bin_3, bin_4]
+        return [bin_0, bin_1, bin_2, bin_3, bin_4]
+
+    @property
+    def labelled_creepiness_per_bin(self):
+        bins = self.votes_per_bin
         creepiness_per_bin = {}
         for i in range(5):
             creepiness_per_bin[self.BIN_LABELS[f"bin_{i}"]["key"]] = {
@@ -707,52 +711,25 @@ class ProductPage(BasePage):
         return mappings
 
     @property
-    def original_product(self):
-        default_locale = Locale.get_default()
-        with translation.override(default_locale.language_code):
-            return self.localized
-
-    def get_or_create_votes(self):
-        """
-        If a page doesn't have a ProductPageVotes objects, create it.
-        Regardless of whether or not its created, return the parsed votes.
-        """
-        if not self.votes:
-            votes = ProductPageVotes()
-            votes.save()
-            self.votes = votes
-            self.save()
-        return self.votes.get_votes()
-
-    @property
     def total_vote_count(self):
-        # Voting only happens on the original product, not "self"
-        product = self.original_product
-        return sum(product.get_or_create_votes())
+        return self.evaluation.total_votes
 
     @property
     def creepiness(self):
-        # Creepiness is tied to the votes on the original product, not "self"
-        product = self.original_product
-        try:
-            average = product.creepiness_value / product.total_vote_count
-        except ZeroDivisionError:
-            average = 50
-        return average
+        return self.evaluation.average_creepiness
 
     @property
     def get_voting_json(self):
         """
         Return a dictionary as a string with the relevant data needed for the frontend:
         """
-        product = self.original_product
-        votes = product.votes.get_votes()
+        votes_per_bin = self.evaluation.votes_per_bin
         data = {
             "creepiness": {
-                "vote_breakdown": {k: v for (k, v) in enumerate(votes)},
-                "average": product.creepiness,
+                "vote_breakdown": {k: v for (k, v) in enumerate(votes_per_bin)},
+                "average": self.creepiness,
             },
-            "total": product.total_vote_count,
+            "total": self.total_vote_count,
         }
         return json.dumps(data)
 
@@ -979,38 +956,23 @@ class ProductPage(BasePage):
                 except ValueError:
                     return HttpResponseNotAllowed("Product ID or value is invalid")
 
-                if value < 0 or value > 100:
+                if value < 0 or value > 99:
                     return HttpResponseNotAllowed("Cannot save vote")
 
                 try:
-                    # Get the english version of this product, as votes should only be recorded
-                    # for the "authoritative" product instance, not specific locale versions.
-                    product = self.original_product
+                    product = self
+
+                    if not product.evaluation:
+                        product.evaluation = ProductPageEvaluation.objects.create()
+                        ProductPage.objects.filter(pk=product.pk).update(evaluation=product.evaluation)
 
                     # 404 if the product exists but isn't live and the user isn't logged in.
                     if (not product.live and not request.user.is_authenticated) or not product:
                         return HttpResponseNotFound("Product does not exist")
 
-                    # Save the new voting totals
-                    product.creepiness_value = product.creepiness_value + value
+                    # Save the new vote
+                    ProductVote.objects.create(value=value, evaluation=product.evaluation)
 
-                    # Add the vote to the vote bin
-                    if not product.votes:
-                        # If there is no vote bin attached to this product yet, create one now.
-                        votes = ProductPageVotes()
-                        votes.save()
-                        product.votes = votes
-
-                    # Add the vote to the proper "vote bin"
-                    votes = product.votes.get_votes()
-                    index = int((value - 1) / 20)
-                    votes[index] += 1
-                    product.votes.set_votes(votes)
-
-                    # Don't save this as a revision with .save_revision() as to not spam the Audit log
-                    # And don't make this live with .publish(). The Page model will have the proper
-                    # data stored on it already, and the revision history won't be spammed by votes.
-                    product.save()
                     return HttpResponse("Vote recorded", content_type="text/plain")
                 except ProductPage.DoesNotExist:
                     return HttpResponseNotFound("Missing page")
@@ -1020,16 +982,7 @@ class ProductPage(BasePage):
                     print(f"Internal Server Error (500) for ProductPage: {ex.message} ({type(ex)})")
                     return HttpResponseServerError()
 
-        self.get_or_create_votes()
-
         return super().serve(request, *args, **kwargs)
-
-    def save(self, *args, **kwargs):
-        # When a new ProductPage is created, ensure a vote bin always exists.
-        # We can use save() or a post-save Wagtail hook.
-        save = super().save(*args, **kwargs)
-        self.get_or_create_votes()
-        return save
 
     class Meta:
         verbose_name = "Product Page"
