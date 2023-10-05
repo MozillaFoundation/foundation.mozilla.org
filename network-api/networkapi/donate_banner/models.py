@@ -11,7 +11,7 @@ from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailcustomization.views.snippet_chooser import (
-    NoLocaleSnippetChooserViewSet,
+    DefaultLocaleSnippetChooserViewSet,
 )
 from networkapi.wagtailpages.constants import url_or_query_regex
 
@@ -117,7 +117,7 @@ register_snippet(DonateBanner, viewset=DonateBannerViewSet)
 # localisation will be handled on the template instead.
 @hooks.register("register_admin_viewset")
 def register_donate_banner_chooser_viewset():
-    return NoLocaleSnippetChooserViewSet(
+    return DefaultLocaleSnippetChooserViewSet(
         "wagtailsnippetchoosers_custom_donatebanner",
         model=DonateBanner,
         url_prefix="donate_banner/chooser",

@@ -14,7 +14,7 @@ from wagtail.search.index import class_is_indexed
 from wagtail.snippets.views.chooser import BaseSnippetChooseView
 
 
-class NoLocaleSnippetChooseView(ChooseViewMixin, CreationFormMixin, BaseSnippetChooseView):
+class DefaultLocaleSnippetChooseView(ChooseViewMixin, CreationFormMixin, BaseSnippetChooseView):
     """
     BaseChooseView with LocaleFilterMixin excluded as we don't want to show language
     filter in the snippet chooser.
@@ -48,10 +48,10 @@ class NoLocaleSnippetChooseView(ChooseViewMixin, CreationFormMixin, BaseSnippetC
             )
 
 
-class NoLocaleSnippetChooseResultsView(ChooseResultsViewMixin, CreationFormMixin, BaseSnippetChooseView):
+class DefaultLocaleSnippetChooseResultsView(ChooseResultsViewMixin, CreationFormMixin, BaseSnippetChooseView):
     pass
 
 
-class NoLocaleSnippetChooserViewSet(ChooserViewSet):
-    choose_view_class = NoLocaleSnippetChooseView
-    choose_results_view_class = NoLocaleSnippetChooseResultsView
+class DefaultLocaleSnippetChooserViewSet(ChooserViewSet):
+    choose_view_class = DefaultLocaleSnippetChooseView
+    choose_results_view_class = DefaultLocaleSnippetChooseResultsView
