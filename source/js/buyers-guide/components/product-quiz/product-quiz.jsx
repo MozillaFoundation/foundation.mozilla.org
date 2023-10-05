@@ -241,25 +241,6 @@ class ProductQuiz extends Component {
     return (
       <div className={`${outerClass} tw-rounded-3xl tw-my-24`}>
         {showResults ? this.renderResults() : this.renderForm()}
-
-        <div className="tw-border-4 tw-border-red-60 tw-mt-24 tw-p-10">
-          <p className="tw-text-red-60 tw-font-bold">
-            This box is for QA purposes. Will remove before merging the PR.
-          </p>
-          <p className="tw-font-bold tw-mb-0">Score: {score}</p>
-          <p className="tw-font-bold">
-            {this.state.numBad} of {selectedChoices.length} products selected
-            were bad products.
-          </p>
-          <p>Selected:</p>
-          <ul>
-            {selectedChoices.map((product, i) => (
-              <li key={i}>
-                {product.name} {product.points === POINTS.bad && "(bad)"}
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     );
   }
