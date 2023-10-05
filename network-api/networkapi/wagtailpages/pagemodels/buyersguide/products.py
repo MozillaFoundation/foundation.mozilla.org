@@ -311,63 +311,6 @@ class ProductPageEvaluation(models.Model):
         return creepiness_per_bin
 
 
-class ProductPageVotes(models.Model):
-    """
-    PNI product voting bins. This does not need translating.
-    All of this needs to be refactored heavily.
-    """
-
-    vote_bins = models.CharField(default="0,0,0,0,0", max_length=50, validators=[int_list_validator])
-
-    def set_votes(self, bin_list):
-        """
-        There are 5 "bins" for votes: <20%, <40%, <60%, <80%, <100%.
-        When setting votes, ensure there are only 5 bins (max)
-        """
-        bin_list = [str(x) for x in bin_list]
-        self.vote_bins = ",".join(bin_list[0:5])
-        self.save()
-
-    def get_votes(self):
-        """Pull the votes out of the database and split them. Convert to ints."""
-        votes = [int(x) for x in self.vote_bins.split(",")]
-        return votes
-
-    def get_vote_average(self):
-        votes = self.get_votes()
-        total_votes = sum(votes)
-        """If there's no votes, let the user know (also protects from division by zero errors)"""
-        if total_votes == 0:
-            return {
-                "bin": 0,
-                "value": 0,
-                "label": "No votes",
-                "localized": gettext("No votes"),
-            }
-        vote_breakdown = {k: v for (k, v) in enumerate(votes)}
-        weighted_votes = 0
-        for i in range(len(vote_breakdown)):
-            weighted_votes += vote_breakdown[i] * i
-        average_vote = round(weighted_votes / total_votes)
-        label = self.get_vote_labels()[average_vote]
-
-        return {
-            "bin": average_vote,
-            "value": votes[average_vote],
-            "label": label[0],
-            "localized": label[1],
-        }
-
-    def get_vote_labels(self):
-        return [
-            ("Not creepy", gettext("Not creepy")),
-            ("A little creepy", gettext("A little creepy")),
-            ("Somewhat creepy", gettext("Somewhat creepy")),
-            ("Very creepy", gettext("Very creepy")),
-            ("Super creepy", gettext("Super creepy")),
-        ]
-
-
 class ProductPageCategory(TranslatableMixin, Orderable):
     product = ParentalKey(
         "wagtailpages.ProductPage",
@@ -650,16 +593,6 @@ class ProductPage(BasePage):
     privacy_policy = ExtendedYesNoField()
     privacy_policy_helptext = models.TextField(  # REPURPOSED: WILL REQUIRE A 'clear' MIGRATION
         verbose_name="description", max_length=5000, blank=True
-    )
-
-    # Un-editable voting fields. Don't add these to the content_panels.
-    creepiness_value = models.IntegerField(default=0)  # The total points for creepiness
-    votes = models.ForeignKey(
-        ProductPageVotes,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="votes",
     )
 
     evaluation = models.ForeignKey(

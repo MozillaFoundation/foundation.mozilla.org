@@ -47,7 +47,6 @@ from .pagemodels.buyersguide.products import (
     ProductPageCategory,
     ProductPageEvaluation,
     ProductPagePrivacyPolicyLink,
-    ProductPageVotes,
     ProductUpdates,
     ProductVote,
     RelatedProducts,
