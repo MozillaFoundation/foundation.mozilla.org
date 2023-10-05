@@ -119,6 +119,11 @@ class ProductPageVotesFactory(DjangoModelFactory):
     vote_bins = LazyFunction(lambda: ",".join([str(randint(1, 50)) for x in range(0, 5)]))
 
 
+class ProductIndexPageFactory(PageFactory):
+    class Meta:
+        model = pagemodels.ProductIndexPage
+
+
 class ProductPageFactory(PageFactory):
     class Meta:
         model = pagemodels.ProductPage
@@ -301,14 +306,14 @@ class BuyersGuideCampaignPageDonationModalRelationFactory(DjangoModelFactory):
     donation_modal = SubFactory(DonationModalFactory)
 
 
-def create_general_product_visual_regression_product(seed, pni_homepage):
+def create_general_product_visual_regression_product(seed, parent):
     # There are no random fields here: *everything* is prespecified
     GeneralProductPageFactory.create(
         # page fields
         title="General Percy Product",
         first_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
         last_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
-        parent=pni_homepage,
+        parent=parent,
         # product fields
         privacy_ding=True,
         adult_content=True,
@@ -352,14 +357,20 @@ def generate(seed):
         slug="privacynotincluded",
     )
 
+    print("Generating product index page")
+    product_index_page = ProductIndexPageFactory.create(
+        parent=pni_homepage,
+        title="Product reviews",
+    )
+
     print("Generating visual regression test products")
-    create_general_product_visual_regression_product(seed, pni_homepage)
+    create_general_product_visual_regression_product(seed, parent=product_index_page)
 
     print("Generating 52 ProductPages")
-    for i in range(52):
+    for _ in range(52):
         # General products
         general_page = GeneralProductPageFactory.create(
-            parent=pni_homepage,
+            parent=product_index_page,
         )
         general_page.save_revision().publish()
 
@@ -369,7 +380,7 @@ def generate(seed):
     for product_page in product_pages:
         # Create a new orderable 3 times.
         # Each page will be randomly selected from an existing factory page.
-        for i in range(3):
+        for _ in range(3):
             random_number = randint(1, total_product_pages) - 1
             random_page = product_pages[random_number]
             related_product = pagemodels.RelatedProducts(
