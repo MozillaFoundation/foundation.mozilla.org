@@ -50,6 +50,8 @@ class TestDonateBannerSnippetChooser(WagtailTestUtils, TestCase):
         # Chooser does not include every banner, but only the default langauge oness
         self.assertNotEquals(len(results), all_banners.count())
         self.assertEquals(len(results), default_banners.count())
+        self.assertNotIn(translated_banner, results)
+        self.assertIn(self.banners[0], results)
 
         # Banner chooser should not contain locale filter
         self.assertNotContains(response, "id_locale")
