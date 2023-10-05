@@ -126,7 +126,7 @@ class ProductQuiz extends Component {
   // Renders the list of product choices
   renderChoices() {
     const { quizChoices } = this.props;
-    const listClass = `tw-max-h-[60vh] large:tw-max-h-auto tw-overflow-y-scroll large:tw-overflow-y-auto tw-pl-0 tw-pr-10 large:tw-pr-0 tw-grid tw-grid-cols-1 large:tw-grid-cols-4 tw-auto-rows-1fr tw-gap-4 large:tw-gap-8`;
+    const listClass = `tw-max-h-[45vh] large:tw-max-h-auto tw-overflow-y-scroll large:tw-overflow-y-auto tw-pl-0 tw-pr-10 large:tw-pr-0 tw-grid tw-grid-cols-1 large:tw-grid-cols-4 tw-auto-rows-1fr tw-gap-4 large:tw-gap-8`;
 
     if (quizChoices === "") {
       return null;
