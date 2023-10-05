@@ -76,7 +76,7 @@ class TestProductPage(BuyersGuideTestCase):
 
         # There should be no votes initially.
         self.assertDictEqual(
-            evaluation.creepiness_per_bin,
+            evaluation.labelled_creepiness_per_bin,
             {
                 "Not creepy": {"count": 0, "label": gettext("Not creepy")},
                 "A little creepy": {"count": 0, "label": gettext("A little creepy")},
@@ -96,7 +96,7 @@ class TestProductPage(BuyersGuideTestCase):
         # Make sure properties are correct
         evaluation.refresh_from_db()
         self.assertDictEqual(
-            evaluation.creepiness_per_bin,
+            evaluation.labelled_creepiness_per_bin,
             {
                 "Not creepy": {"count": 1, "label": gettext("Not creepy")},
                 "A little creepy": {"count": 1, "label": gettext("A little creepy")},
@@ -128,7 +128,7 @@ class TestProductPage(BuyersGuideTestCase):
         # Make sure properties are correct
         evaluation.refresh_from_db()
         self.assertDictEqual(
-            evaluation.creepiness_per_bin,
+            evaluation.labelled_creepiness_per_bin,
             {
                 "Not creepy": {"count": 2, "label": gettext("Not creepy")},
                 "A little creepy": {"count": 2, "label": gettext("A little creepy")},
