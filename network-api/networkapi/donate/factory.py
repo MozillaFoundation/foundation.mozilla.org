@@ -5,8 +5,13 @@ from wagtail.models import Site as WagtailSite
 from wagtail_factories import PageFactory
 
 from networkapi.donate.models import DonateHelpPage, DonateLandingPage
+from networkapi.utility.faker import StreamfieldProvider
 from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
+
+Faker.add_provider(StreamfieldProvider)
+
+streamfield_fields = ["paragraph", "spacer", "image", "image_text", "quote"]
 
 
 class DonateLandingPageFactory(PageFactory):
@@ -23,6 +28,7 @@ class DonateHelpPageFactory(PageFactory):
         model = DonateHelpPage
 
     title = Faker("sentence", nb_words=2)
+    body = Faker("streamfield", fields=streamfield_fields)
 
 
 def generate(seed):
