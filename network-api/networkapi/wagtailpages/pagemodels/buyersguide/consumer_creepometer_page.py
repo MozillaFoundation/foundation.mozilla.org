@@ -1,13 +1,13 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel
-from wagtail_localize.fields import SynchronizedField
 from wagtail.models import Locale
+from wagtail_localize.fields import SynchronizedField
 
 from networkapi.wagtailpages.pagemodels.base import BasePage
-from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideArticlePageForm,
 )
+from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 
 
 class ConsumerCreepometerPage(BasePage):
