@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                         default=0,
                         validators=[
                             django.core.validators.MaxValueValidator(
-                                99, message="Creepiness vote must be smaller than 99"
+                                100, message="Creepiness vote must be smaller than 100"
                             )
                         ],
                     ),

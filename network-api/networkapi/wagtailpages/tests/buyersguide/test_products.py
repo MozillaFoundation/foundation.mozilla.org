@@ -624,7 +624,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         response = self.client.post(
             self.product_page.url,
             {
-                "value": 100,
+                "value": 101,
             },
             format="json",
         )

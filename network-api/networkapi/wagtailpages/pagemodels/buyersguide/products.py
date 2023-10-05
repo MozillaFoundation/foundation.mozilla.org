@@ -4,7 +4,7 @@ import typing
 from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.validators import MaxValueValidator, int_list_validator
+from django.core.validators import MaxValueValidator
 from django.db import Error, models
 from django.db.models import F, Q
 from django.http import (
@@ -14,14 +14,14 @@ from django.http import (
     HttpResponseServerError,
 )
 from django.templatetags.static import static
-from django.utils import timezone, translation
+from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
-from wagtail.models import Locale, Orderable, Page, TranslatableMixin
+from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -226,9 +226,8 @@ class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable
 class ProductVote(models.Model):
     """Holds a single creepiness vote for a product."""
 
-    # votes go from 0 to 99 (100 possible values in total)
     value = models.PositiveSmallIntegerField(
-        default=0, validators=[MaxValueValidator(99, message="Creepiness vote must be smaller than 99")]
+        default=0, validators=[MaxValueValidator(100, message="Creepiness vote must be smaller than 100")]
     )
     created_at = models.DateTimeField(auto_now_add=True)
     evaluation = models.ForeignKey("ProductPageEvaluation", on_delete=models.CASCADE, related_name="votes")
@@ -889,7 +888,7 @@ class ProductPage(BasePage):
                 except ValueError:
                     return HttpResponseNotAllowed("Product ID or value is invalid")
 
-                if value < 0 or value > 99:
+                if value < 0 or value > 100:
                     return HttpResponseNotAllowed("Cannot save vote")
 
                 try:
