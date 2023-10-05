@@ -14,7 +14,6 @@ class ProductQuiz extends Component {
     };
 
     this.smallTextClass = "text-font-sans tw-text-xs";
-    this.scrollBreakpoint = "large";
   }
 
   componentDidMount() {
@@ -127,7 +126,7 @@ class ProductQuiz extends Component {
   // Renders the list of product choices
   renderChoices() {
     const { quizChoices } = this.props;
-    const listClass = `tw-max-h-[60vh] ${this.scrollBreakpoint}:tw-max-h-auto tw-overflow-y-scroll ${this.scrollBreakpoint}:tw-overflow-y-auto tw-pl-0 tw-pr-10 ${this.scrollBreakpoint}:tw-pr-0 tw-grid tw-grid-cols-1 ${this.scrollBreakpoint}:tw-grid-cols-4 tw-auto-rows-1fr tw-gap-4 ${this.scrollBreakpoint}:tw-gap-8`;
+    const listClass = `tw-max-h-[60vh] large:tw-max-h-auto tw-overflow-y-scroll large:tw-overflow-y-auto tw-pl-0 tw-pr-10 large:tw-pr-0 tw-grid tw-grid-cols-1 large:tw-grid-cols-4 tw-auto-rows-1fr tw-gap-4 large:tw-gap-8`;
 
     if (quizChoices === "") {
       return null;
@@ -146,7 +145,7 @@ class ProductQuiz extends Component {
     return (
       <fieldset className="tw-relative">
         <legend
-          className={`tw-sticky ${this.scrollBreakpoint}:tw-static tw-text-center tw-text-base tw-mb-8 medium:tw-mb-[40px]`}
+          className={`tw-sticky large:tw-static tw-text-center tw-text-base tw-mb-8 medium:tw-mb-[40px]`}
         >
           <div className="tw-font-zilla tw-text-[20px] tw-leading-[24px] medium:tw-text-[28px] mdeium:tw-leading-[36px] tw-font-semibold tw-mb-2">
             Which products do you own?
@@ -167,7 +166,7 @@ class ProductQuiz extends Component {
       <form onSubmit={(e) => this.handleSubmit(e)}>
         {this.renderChoices()}
         <div
-          className={`tw-sticky ${this.scrollBreakpoint}:tw-static tw-mx-auto medium:tw-mt-20 tw-py-8 medium:tw-py-0 tw-text-center`}
+          className={`tw-sticky large:tw-static tw-mx-auto medium:tw-mt-20 tw-py-8 medium:tw-py-0 tw-text-center`}
         >
           <p className={`${this.smallTextClass} tw-mb-4`}>
             <span>{selectedChoices.length}</span>{" "}
