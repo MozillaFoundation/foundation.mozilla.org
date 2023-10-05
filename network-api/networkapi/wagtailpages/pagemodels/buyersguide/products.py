@@ -894,10 +894,6 @@ class ProductPage(BasePage):
                 try:
                     product = self
 
-                    if not product.evaluation:
-                        product.evaluation = ProductPageEvaluation.objects.create()
-                        ProductPage.objects.filter(pk=product.pk).update(evaluation=product.evaluation)
-
                     # 404 if the product exists but isn't live and the user isn't logged in.
                     if (not product.live and not request.user.is_authenticated) or not product:
                         return HttpResponseNotFound("Product does not exist")
