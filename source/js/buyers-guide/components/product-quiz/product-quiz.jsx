@@ -82,7 +82,7 @@ class ProductQuiz extends Component {
     }
 
     return (
-      <li key={id} className="tw-relative tw-block">
+      <li key={id} className="tw-relative tw-block tw-mb-0">
         <div className="tw-flex tw-items-center tw-mb-0 tw-h-full">
           <input
             type="checkbox"
@@ -155,7 +155,7 @@ class ProductQuiz extends Component {
           </small>
         </legend>
         <ul
-          className={`tw-h-[60vh] ${this.scrollBreakpoint}:tw-h-auto tw-overflow-y-scroll ${this.scrollBreakpoint}:tw-overflow-y-visible tw-pl-0 tw-pr-10 ${this.scrollBreakpoint}:tw-pr-0 tw-grid tw-grid-cols-1 ${this.scrollBreakpoint}:tw-grid-cols-4 tw-gap-4 ${this.scrollBreakpoint}:tw-gap-8`}
+          className={`tw-max-h-[60vh] ${this.scrollBreakpoint}:tw-max-h-auto tw-overflow-y-scroll ${this.scrollBreakpoint}:tw-overflow-y-auto tw-pl-0 tw-pr-10 ${this.scrollBreakpoint}:tw-pr-0 tw-grid tw-grid-cols-1 ${this.scrollBreakpoint}:tw-grid-cols-4 tw-gap-4 ${this.scrollBreakpoint}:tw-gap-8`}
         >
           {choices}
         </ul>
