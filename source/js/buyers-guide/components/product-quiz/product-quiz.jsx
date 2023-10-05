@@ -127,6 +127,7 @@ class ProductQuiz extends Component {
   // Renders the list of product choices
   renderChoices() {
     const { quizChoices } = this.props;
+    const listClass = `tw-max-h-[60vh] ${this.scrollBreakpoint}:tw-max-h-auto tw-overflow-y-scroll ${this.scrollBreakpoint}:tw-overflow-y-auto tw-pl-0 tw-pr-10 ${this.scrollBreakpoint}:tw-pr-0 tw-grid tw-grid-cols-1 ${this.scrollBreakpoint}:tw-grid-cols-4 tw-auto-rows-1fr tw-gap-4 ${this.scrollBreakpoint}:tw-gap-8`;
 
     if (quizChoices === "") {
       return null;
@@ -154,11 +155,7 @@ class ProductQuiz extends Component {
             (You can select more than one)
           </small>
         </legend>
-        <ul
-          className={`tw-max-h-[60vh] ${this.scrollBreakpoint}:tw-max-h-auto tw-overflow-y-scroll ${this.scrollBreakpoint}:tw-overflow-y-auto tw-pl-0 tw-pr-10 ${this.scrollBreakpoint}:tw-pr-0 tw-grid tw-grid-cols-1 ${this.scrollBreakpoint}:tw-grid-cols-4 tw-gap-4 ${this.scrollBreakpoint}:tw-gap-8`}
-        >
-          {choices}
-        </ul>
+        <ul className={listClass}>{choices}</ul>
       </fieldset>
     );
   }
