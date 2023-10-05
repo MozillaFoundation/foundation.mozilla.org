@@ -1,8 +1,10 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail_localize.fields import SynchronizedField
+from wagtail.models import Locale
 
 from networkapi.wagtailpages.pagemodels.base import BasePage
+from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideArticlePageForm,
 )
@@ -28,3 +30,13 @@ class ConsumerCreepometerPage(BasePage):
     translatable_fields = [
         SynchronizedField("year"),
     ]
+
+    @property
+    def bg_page(self):
+        active_locale = Locale.get_active()
+        return BuyersGuidePage.objects.get(locale=active_locale)
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context["methodology_url"] = self.bg_page.url + self.bg_page.reverse_subpage("methodology-view")
+        return context
