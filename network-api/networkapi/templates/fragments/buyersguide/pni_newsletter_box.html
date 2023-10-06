@@ -11,8 +11,8 @@
         class="join-us tw-bg-none"
         data-form-position="callout-box"
         data-form-style="pni"
-        data-cta-header="{% trans cta_header|default:"Help shape the future of the web for the public good." %}"
-        data-cta-description="<p class='tw-mb-12'>{% trans cta_description|default:"Join our Mozilla News email list to get action alerts & internet tips right to your inbox." %}</p>"
+        data-cta-header="{{ cta_header|default:_("Help shape the future of the web for the public good.") }}"
+        data-cta-description="<p class='tw-mb-12'>{{ cta_description|default:_("Join our Mozilla News email list to get action alerts & internet tips right to your inbox.") }}</p>"
     >
     </div>
 </div>
