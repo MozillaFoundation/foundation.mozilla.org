@@ -6,7 +6,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.donate.models import BaseDonationPage
 from networkapi.wagtailpages.pagemodels.customblocks.base_fields import base_fields
-from networkapi.wagtailpages.pagemodels.customblocks.image_text_mini import ImageTextMini
+from networkapi.donate.pagemodels.customblocks.notice_block import NoticeBlock
 
 
 class DonateHelpPage(BaseDonationPage):
@@ -19,7 +19,7 @@ class DonateHelpPage(BaseDonationPage):
     max_count = 1
 
     notice = StreamField(
-        [("notice", ImageTextMini())],
+        [("notice", NoticeBlock())],
         help_text="Optional notice that will render at the top of the page.",
         blank=True,
         max_num=1,
