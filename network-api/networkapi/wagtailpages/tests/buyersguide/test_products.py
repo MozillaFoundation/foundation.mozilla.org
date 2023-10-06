@@ -10,7 +10,6 @@ from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
     ProductPageCategory,
-    ProductPageVotes,
 )
 from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
@@ -18,100 +17,40 @@ from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 class TestProductPage(BuyersGuideTestCase):
     def setUp(self):
         super().setUp()
-        if not hasattr(self.product_page.votes, "get_votes"):
-            votes = ProductPageVotes()
-            votes.save()
-            self.product_page.votes = votes
-            self.product_page.save()
+        self.product_page.evaluation = buyersguide_factories.ProductPageEvaluationFactory()
+        self.product_page.save()
 
     def test_get_votes(self):
         product_page = self.product_page
 
         # Votes should be empty at this point.
-        votes = product_page.votes.get_votes()
-        self.assertEqual(votes, [0, 0, 0, 0, 0])
-        self.assertEqual(len(votes), 5)
-
-    def test_set_votes(self):
-        product_page = self.product_page
-
-        # Make sure votes are set and saved.
-        product_page.votes.set_votes([1, 2, 3, 4, 5])
-        votes = product_page.votes.get_votes()
-        self.assertEqual(votes, [1, 2, 3, 4, 5])
-
-        # Ensure there's always 5 value set.
-        product_page.votes.set_votes([1, 2, 3, 4, 5, 6, 7])
-        self.assertEqual(votes, [1, 2, 3, 4, 5])
-        self.assertEqual(len(votes), 5)
-
-    def test_total_vote_count(self):
-        product_page = self.product_page
-
-        product_page.votes.set_votes([5, 4, 3, 2, 1])
-        total_vote_count = product_page.total_vote_count
-        self.assertEqual(total_vote_count, 15)
-
-        product_page.votes.set_votes([5, 5, 5, 5, 5])
-        total_vote_count = product_page.total_vote_count
-        self.assertEqual(total_vote_count, 25)
-
-    def test_creepiness(self):
-        product_page = self.product_page
-
-        product_page.creepiness_value = 100
-        product_page.save()
-        self.assertEqual(product_page.creepiness_value, 100)
-
-        product_page.votes.set_votes([5, 5, 5, 5, 5])
-        self.assertEqual(product_page.total_vote_count, 25)
-
-        creepiness = product_page.creepiness
-        self.assertEqual(creepiness, 4)
-
-        product_page.creepiness_value = 0
-        product_page.votes.set_votes([0, 0, 0, 0, 0])
-        creepiness = product_page.creepiness
-        self.assertEqual(creepiness, 50)
-
-    def test_creepiness_with_translated_page(self):
-        product_page = self.product_page
-        product_page.creepiness_value = 100
-        product_page.slug = "product-page"
-        product_page.save()
-        self.assertEqual(product_page.creepiness_value, 100)
-
-        product_page.votes.set_votes([5, 5, 5, 5, 5])
-        self.assertEqual(product_page.total_vote_count, 25)
-
-        self.homepage.copy_for_translation(self.fr_locale)
-        self.bg.copy_for_translation(self.fr_locale)
-        fr_product_page = product_page.copy_for_translation(self.fr_locale)
-        # Slugs don't match (CMS data entry error, for instance)
-        fr_product_page.slug = "another-product-page"
-        fr_product_page.save()
-        self.synchronize_tree()
-
-        self.assertEqual(fr_product_page.original_product, product_page)
-
-        creepiness = fr_product_page.creepiness
-        self.assertEqual(creepiness, 4)
+        self.assertEqual(list(product_page.evaluation.votes.all()), [])
 
     def test_get_voting_json(self):
         product_page = self.product_page
 
-        product_page.creepiness_value = 60
-        product_page.save()
-        self.assertEqual(product_page.creepiness_value, 60)
+        # Create votes:
+        buyersguide_factories.ProductVoteFactory(value=10, evaluation=product_page.evaluation)
 
-        product_page.votes.set_votes([1, 2, 3, 4, 5])
+        for _ in range(2):
+            buyersguide_factories.ProductVoteFactory(value=30, evaluation=product_page.evaluation)
+
+        for _ in range(3):
+            buyersguide_factories.ProductVoteFactory(value=50, evaluation=product_page.evaluation)
+
+        for _ in range(4):
+            buyersguide_factories.ProductVoteFactory(value=70, evaluation=product_page.evaluation)
+
+        for _ in range(5):
+            buyersguide_factories.ProductVoteFactory(value=90, evaluation=product_page.evaluation)
+
+        evaluation = product_page.evaluation
+        evaluation.refresh_from_db()
+        product_page.refresh_from_db()
+
+        self.assertEqual(evaluation.total_creepiness, 950)
         self.assertEqual(product_page.total_vote_count, 15)
-
-        creepiness = product_page.creepiness
-        self.assertEqual(creepiness, 4)
-
-        total_vote_count = product_page.total_vote_count
-        self.assertEqual(total_vote_count, 15)
+        self.assertAlmostEqual(product_page.creepiness, 950 / 15)
 
         # votes = product_page.votes.get_votes()
         data = json.loads(product_page.get_voting_json)
@@ -124,25 +63,11 @@ class TestProductPage(BuyersGuideTestCase):
                     "3": 4,
                     "4": 5,
                 },
-                "average": 4.0,
+                "average": 950 / 15,
             },
             "total": 15,
         }
         self.assertDictEqual(data, comparable_data)
-
-    def test_get_or_create_votes(self):
-        product_page = self.product_page
-
-        # Delete potential votes
-        product_page.votes.delete()
-        product_page.votes = None
-        self.assertEqual(product_page.votes, None)
-
-        product_page.save()
-        votes = product_page.get_or_create_votes()
-        self.assertEqual(votes, [0, 0, 0, 0, 0])
-
-        self.assertTrue(hasattr(product_page.votes, "set_votes"))
 
     def test_get_related_articles(self):
         """
@@ -570,12 +495,16 @@ class TestProductPage(BuyersGuideTestCase):
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
+    def setUp(self) -> None:
+        super().setUp()
+        self.admin_user = self.create_superuser(username="admin", password="password")
+        self.login(self.admin_user)
+
     def test_successful_vote(self):
         product_page = self.product_page
-
         # Reset votes
-        product_page.get_or_create_votes()
-        product_page.votes.set_votes([0, 0, 0, 0, 0])
+        product_page.evaluation = buyersguide_factories.ProductPageEvaluationFactory()
+        product_page.save()
 
         response = self.client.post(
             product_page.url,
@@ -587,27 +516,99 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         self.assertEqual(response.status_code, 200)
 
         product_page.refresh_from_db()
+        evaluation = product_page.evaluation
 
-        votes = product_page.votes.get_votes()
-        self.assertListEqual(votes, [0, 1, 0, 0, 0])
+        self.assertEqual(evaluation.total_votes, 1)
+        self.assertEqual(evaluation.total_creepiness, 25)
+        self.assertEqual(evaluation.average_creepiness, 25)
         self.assertEqual(product_page.total_vote_count, 1)
-        self.assertEqual(product_page.creepiness_value, 25)
+        self.assertEqual(product_page.creepiness, 25)
 
         response = self.client.post(
             product_page.url,
             {
-                "value": 100,
+                "value": 99,
             },
             format="json",
         )
         self.assertEqual(response.status_code, 200)
 
         product_page.refresh_from_db()
+        evaluation = product_page.evaluation
 
-        votes = product_page.votes.get_votes()
-        self.assertListEqual(votes, [0, 1, 0, 0, 1])
+        self.assertEqual(evaluation.total_votes, 2)
+        self.assertEqual(evaluation.total_creepiness, 124)
+        self.assertEqual(evaluation.average_creepiness, 62)
         self.assertEqual(product_page.total_vote_count, 2)
-        self.assertEqual(product_page.creepiness_value, 125)
+        self.assertEqual(product_page.creepiness, 62)
+
+    def test_successful_vote_on_translated_page(self):
+        product_page = self.product_page
+        # Reset votes
+        product_page.evaluation = buyersguide_factories.ProductPageEvaluationFactory()
+        product_page.save()
+
+        self.translate_page(self.homepage, self.fr_locale)
+        self.translate_page(self.bg, self.fr_locale)
+        self.translate_page(product_page, self.fr_locale)
+        fr_product_page = product_page.get_translation(self.fr_locale)
+
+        response = self.client.post(
+            fr_product_page.url,
+            {
+                "value": 25,
+            },
+            format="json",
+        )
+        self.assertEqual(response.status_code, 200)
+
+        fr_product_page.refresh_from_db()
+        fr_evaluation = fr_product_page.evaluation
+
+        self.assertEqual(fr_evaluation.total_votes, 1)
+        self.assertEqual(fr_evaluation.total_creepiness, 25)
+        self.assertEqual(fr_evaluation.average_creepiness, 25)
+        self.assertEqual(fr_product_page.total_vote_count, 1)
+        self.assertEqual(fr_product_page.creepiness, 25)
+
+        # Although the vote was in the French locale, the pages share the same evaluation
+        # so the data should be the same:
+
+        product_page.refresh_from_db()
+        evaluation = product_page.evaluation
+
+        self.assertEqual(evaluation.total_votes, 1)
+        self.assertEqual(evaluation.total_creepiness, 25)
+        self.assertEqual(evaluation.average_creepiness, 25)
+        self.assertEqual(product_page.total_vote_count, 1)
+        self.assertEqual(product_page.creepiness, 25)
+
+        response = self.client.post(
+            product_page.url,
+            {
+                "value": 99,
+            },
+            format="json",
+        )
+        self.assertEqual(response.status_code, 200)
+
+        product_page.refresh_from_db()
+        evaluation = product_page.evaluation
+
+        self.assertEqual(evaluation.total_votes, 2)
+        self.assertEqual(evaluation.total_creepiness, 124)
+        self.assertEqual(evaluation.average_creepiness, 62)
+        self.assertEqual(product_page.total_vote_count, 2)
+        self.assertEqual(product_page.creepiness, 62)
+
+        fr_product_page.refresh_from_db()
+        fr_evaluation = fr_product_page.evaluation
+
+        self.assertEqual(fr_evaluation.total_votes, 2)
+        self.assertEqual(fr_evaluation.total_creepiness, 124)
+        self.assertEqual(fr_evaluation.average_creepiness, 62)
+        self.assertEqual(fr_product_page.total_vote_count, 2)
+        self.assertEqual(fr_product_page.creepiness, 62)
 
     def test_bad_vote_value(self):
         # vote = 500
