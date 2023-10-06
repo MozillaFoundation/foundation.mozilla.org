@@ -215,14 +215,16 @@ class ProductQuiz extends Component {
   }
   renderNewsletterSignup() {
     const containerClass =
-      "tw-flex tw-flex-col tw-items-center tw-gap-y-[40px] tw-w-full";
+      "tw-flex tw-flex-col tw-items-center tw-gap-y-[40px] tw-w-full tw-px-12 tw-py-16 medium:tw-px-[45px] medium:tw-py-24";
     const headingClass =
-      "tw-font-zilla tw-font-semibold tw-text-[28px] tw-leading-[36px] medium:tw-text-[48px] medium:tw-leading-[56px] tw-mb-8 medium:tw-mt-16";
+      "tw-font-zilla tw-font-semibold tw-text-[28px] tw-leading-[36px] medium:tw-text-[48px] medium:tw-leading-[56px] tw-mb-8 tw-mt-6 medium:tw-mt-16";
+    const thumbUpUnicode = String.fromCodePoint(0x0001F44D); // [FIXME] use an image instead
 
     if (this.state.showThankYou) {
       return (
         <div className={containerClass}>
           <div className="tw-text-center tw-w-full">
+            <div className="tw-mx-auto tw-text-[118px]">{thumbUpUnicode}</div>
             <h3 className={headingClass}>Thank you!</h3>
             <p className="tw-w-4/5 tw-mx-auto tw-mb-0">
               We'll keep you in the loop.
@@ -235,6 +237,15 @@ class ProductQuiz extends Component {
     return (
       <div className={containerClass}>
         <div className="tw-text-center tw-w-full">
+          <div className="tw-w-[80px] tw-h-[80px] medium:tw-w-[120px] medium:tw-h-[120px] tw-mx-auto">
+            <img
+              width="100%"
+              height="100%"
+              className="tw-max-w-full tw-max-h-full tw-object-contain"
+              src="/static/_images/buyers-guide/consumer-creepometer/confetti-flipped.png"
+              alt=""
+            />
+          </div>
           <h3 className={headingClass}>Calculating your results...</h3>
           <p className="tw-w-4/5 tw-mx-auto tw-mb-0">
             Now that you’re on a roll, why not join Mozilla? We’re not creepy
