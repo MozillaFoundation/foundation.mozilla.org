@@ -224,9 +224,9 @@ class ProductQuiz extends Component {
       return (
         <div className={containerClass}>
           <div className="tw-text-center tw-w-full">
-            <div className="tw-mx-auto tw-text-[118px]">{thumbUpUnicode}</div>
+            <div className="tw-mx-auto tw-text-[118px] tw-leading-none">{thumbUpUnicode}</div>
             <h3 className={headingClass}>Thank you!</h3>
-            <p className="tw-w-4/5 tw-mx-auto tw-mb-0">
+            <p className="tw-w-4/5 tw-mx-auto tw-mb-8 medium:tw-mb-16">
               We'll keep you in the loop.
             </p>
           </div>
