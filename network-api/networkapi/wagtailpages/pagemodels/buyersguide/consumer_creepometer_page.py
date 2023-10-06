@@ -38,6 +38,6 @@ class ConsumerCreepometerPage(BasePage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        bg_page = self.get_parent().get_parent().specific()
+        bg_page = self.get_parent().get_parent().specific
         context["methodology_url"] = bg_page.url + bg_page.reverse_subpage("methodology-view")
         return context
