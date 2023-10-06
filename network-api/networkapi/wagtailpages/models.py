@@ -46,9 +46,10 @@ from .pagemodels.buyersguide.products import (
     GeneralProductPage,
     ProductPage,
     ProductPageCategory,
+    ProductPageEvaluation,
     ProductPagePrivacyPolicyLink,
-    ProductPageVotes,
     ProductUpdates,
+    ProductVote,
     RelatedProducts,
     Update,
 )
