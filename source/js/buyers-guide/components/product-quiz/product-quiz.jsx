@@ -9,6 +9,7 @@ class ProductQuiz extends Component {
 
     this.state = this.getInitialState();
     this.smallTextClass = "text-font-sans tw-text-xs";
+    this.finalScreenDelay = 3000; // in milliseconds
     // Three steps in total: Select products -> Newsletter signup -> See results
     this.totalSteps = 3;
   }
@@ -35,10 +36,6 @@ class ProductQuiz extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.showThankYou && !prevState.showThankYou) {
-      console.log("showThankYou has changed:", this.state.showThankYou);
-    }
-
     if (prevState.selectedChoices !== this.state.selectedChoices) {
       this.setState({
         // find out how many "bad" products are selected
@@ -210,7 +207,7 @@ class ProductQuiz extends Component {
     this.setState({ showThankYou: successState }, () => {
       setTimeout(() => {
         this.moveToNextStep();
-      }, 3000);
+      }, this.finalScreenDelay);
     });
   }
   renderNewsletterSignup() {
@@ -218,13 +215,15 @@ class ProductQuiz extends Component {
       "tw-flex tw-flex-col tw-items-center tw-gap-y-[40px] tw-w-full tw-px-12 tw-py-16 medium:tw-px-[45px] medium:tw-py-24";
     const headingClass =
       "tw-font-zilla tw-font-semibold tw-text-[28px] tw-leading-[36px] medium:tw-text-[48px] medium:tw-leading-[56px] tw-mb-8 tw-mt-6 medium:tw-mt-16";
-    const thumbUpUnicode = String.fromCodePoint(0x0001F44D); // [FIXME] use an image instead
+    const thumbUpUnicode = String.fromCodePoint(0x0001f44d); // [FIXME] use an image instead
 
     if (this.state.showThankYou) {
       return (
         <div className={containerClass}>
           <div className="tw-text-center tw-w-full">
-            <div className="tw-mx-auto tw-text-[118px] tw-leading-none">{thumbUpUnicode}</div>
+            <div className="tw-mx-auto tw-text-[118px] tw-leading-none">
+              {thumbUpUnicode}
+            </div>
             <h3 className={headingClass}>Thank you!</h3>
             <p className="tw-w-4/5 tw-mx-auto tw-mb-8 medium:tw-mb-16">
               We'll keep you in the loop.
@@ -321,7 +320,7 @@ class ProductQuiz extends Component {
   }
 
   render() {
-    const { selectedChoices, score, currentStep } = this.state;
+    const { currentStep } = this.state;
     let outerClass;
     let content;
 
