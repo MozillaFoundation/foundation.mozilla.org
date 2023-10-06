@@ -19,6 +19,7 @@ class ProductQuiz extends Component {
       numBad: 0,
       score: 0,
       currentStep: 1,
+      showThankYou: false,
     };
   }
 
@@ -34,6 +35,10 @@ class ProductQuiz extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    if (this.state.showThankYou && !prevState.showThankYou) {
+      console.log("showThankYou has changed:", this.state.showThankYou);
+    }
+
     if (prevState.selectedChoices !== this.state.selectedChoices) {
       this.setState({
         // find out how many "bad" products are selected
@@ -201,11 +206,31 @@ class ProductQuiz extends Component {
     );
   }
 
+  handleSignUp(successState) {
+    this.setState({ showThankYou: successState }, () => {
+      setTimeout(() => {
+        this.moveToNextStep();
+      }, 3000);
+    });
+  }
   renderNewsletterSignup() {
     const containerClass =
       "tw-flex tw-flex-col tw-items-center tw-gap-y-[40px] tw-w-full";
     const headingClass =
       "tw-font-zilla tw-font-semibold tw-text-[28px] tw-leading-[36px] medium:tw-text-[48px] medium:tw-leading-[56px] tw-mb-8 medium:tw-mt-16";
+
+    if (this.state.showThankYou) {
+      return (
+        <div className={containerClass}>
+          <div className="tw-text-center tw-w-full">
+            <h3 className={headingClass}>Thank you!</h3>
+            <p className="tw-w-4/5 tw-mx-auto tw-mb-0">
+              We'll keep you in the loop.
+            </p>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className={containerClass}>
@@ -224,6 +249,8 @@ class ProductQuiz extends Component {
             ctaHeader=""
             ctaDescription=""
             apiUrl={this.props.joinUsApiUrl}
+            disableSubmitButton={true}
+            handleSignUp={(successState) => this.handleSignUp(successState)}
           />
         </div>
         <div className="tw-text-center">
