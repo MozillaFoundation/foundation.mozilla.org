@@ -120,14 +120,19 @@ FROM base as dev
 # Swap user, so the following tasks can be run as root
 USER root
 
-# Install node (Keep the version in sync with the node container above)
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs
-
 # Install `psql`, useful for `manage.py dbshell`
-RUN apt-get install -y postgresql-client
+RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+    postgresql-client \
+    && apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
 # Restore user
 USER mozilla
+
+# Install nvm and node/npm (will install node version defined in .nvmrc)
+# (Keep the version in sync with the node install above)
+COPY --chown=mozilla .nvmrc ./
+RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash && \
+    bash --login -c "nvm install --no-progress && nvm alias default $(nvm run --silent --version)"
 
 # Pull in the node modules from the frontend build stage so we don't have to run npm ci again.
 # This is just a copy in the container, and is not visible to the host machine.
