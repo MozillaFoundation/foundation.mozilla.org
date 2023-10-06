@@ -1,19 +1,27 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { POINTS, PRODUCTS, RESULTS } from "./data";
+import JoinUs from "../../../components/join/join.jsx";
 
 class ProductQuiz extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    this.state = this.getInitialState();
+    this.smallTextClass = "text-font-sans tw-text-xs";
+    this.finalScreenDelay = 3000; // in milliseconds
+    // Three steps in total: Select products -> Newsletter signup -> See results
+    this.totalSteps = 3;
+  }
+
+  getInitialState() {
+    return {
       selectedChoices: [],
       numBad: 0,
       score: 0,
-      showResults: false,
+      currentStep: 1,
+      showThankYou: false,
     };
-
-    this.smallTextClass = "text-font-sans tw-text-xs";
   }
 
   componentDidMount() {
@@ -42,6 +50,17 @@ class ProductQuiz extends Component {
     }
   }
 
+  moveToNextStep() {
+    let stepToMoveTo = (this.state.currentStep % this.totalSteps) + 1;
+    if (stepToMoveTo === 1) {
+      this.setState(this.getInitialState());
+    } else {
+      this.setState({
+        currentStep: stepToMoveTo,
+      });
+    }
+  }
+
   // Handles a product choice being selected or unselected
   // and updates the selectedChoices state accordingly
   handleOptionChange(product, checked) {
@@ -59,16 +78,12 @@ class ProductQuiz extends Component {
   // Handles the form submission
   handleSubmit(event) {
     event.preventDefault();
-    this.setState({ showResults: true });
+    this.moveToNextStep();
   }
 
   // Resets the quiz to the initial state
   resetQuiz() {
-    this.setState({
-      numBad: 0,
-      selectedChoices: [],
-      showResults: false,
-    });
+    this.setState(this.getInitialState());
   }
 
   // Renders a single product choice
@@ -188,6 +203,78 @@ class ProductQuiz extends Component {
     );
   }
 
+  handleSignUp(successState) {
+    this.setState({ showThankYou: successState }, () => {
+      setTimeout(() => {
+        this.moveToNextStep();
+      }, this.finalScreenDelay);
+    });
+  }
+  renderNewsletterSignup() {
+    const containerClass =
+      "tw-flex tw-flex-col tw-items-center tw-gap-y-[40px] tw-w-full tw-px-12 tw-py-16 medium:tw-px-[45px] medium:tw-py-24";
+    const headingClass =
+      "tw-font-zilla tw-font-semibold tw-text-[28px] tw-leading-[36px] medium:tw-text-[48px] medium:tw-leading-[56px] tw-mb-8 tw-mt-6 medium:tw-mt-16";
+    const thumbUpUnicode = String.fromCodePoint(0x0001f44d); // [FIXME] use an image instead
+
+    if (this.state.showThankYou) {
+      return (
+        <div className={containerClass}>
+          <div className="tw-text-center tw-w-full">
+            <div className="tw-mx-auto tw-text-[118px] tw-leading-none">
+              {thumbUpUnicode}
+            </div>
+            <h3 className={headingClass}>Thank you!</h3>
+            <p className="tw-w-4/5 tw-mx-auto tw-mb-8 medium:tw-mb-16">
+              We'll keep you in the loop.
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className={containerClass}>
+        <div className="tw-text-center tw-w-full">
+          <div className="tw-w-[80px] tw-h-[80px] medium:tw-w-[120px] medium:tw-h-[120px] tw-mx-auto">
+            <img
+              width="100%"
+              height="100%"
+              className="tw-max-w-full tw-max-h-full tw-object-contain"
+              src="/static/_images/buyers-guide/consumer-creepometer/confetti-flipped.png"
+              alt=""
+            />
+          </div>
+          <h3 className={headingClass}>Calculating your results...</h3>
+          <p className="tw-w-4/5 tw-mx-auto tw-mb-0">
+            Now that you’re on a roll, why not join Mozilla? We’re not creepy
+            (we promise). We actually fight back against creepy. And we need
+            more people like you.
+          </p>
+        </div>
+        <div className="join-us react-rendered">
+          <JoinUs
+            formPosition="pni-product-quiz"
+            formStyle="pni"
+            ctaHeader=""
+            ctaDescription=""
+            apiUrl={this.props.joinUsApiUrl}
+            disableSubmitButton={true}
+            handleSignUp={(successState) => this.handleSignUp(successState)}
+          />
+        </div>
+        <div className="tw-text-center">
+          <button
+            className="tw-btn tw-btn-primary tw-mb-8 tw-w-full large:tw-w-auto"
+            onClick={(e) => this.moveToNextStep(e)}
+          >
+            Skip to Results
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   // Renders the results screen
   renderResults() {
     const { selectedChoices, score } = this.state;
@@ -233,15 +320,32 @@ class ProductQuiz extends Component {
   }
 
   render() {
-    const { showResults, selectedChoices, score } = this.state;
-    const outerClass = showResults
-      ? "tw-bg-blue-40 tw-px-14 tw-py-16 medium:tw-p-24"
-      : "tw-bg-white tw-my-24 tw-px-[15px] tw-py-16 medium:tw-px-[45px] medium:tw-py-24";
+    const { currentStep } = this.state;
+    let outerClass;
+    let content;
+
+    switch (currentStep) {
+      case 1:
+        outerClass =
+          "tw-bg-white tw-my-24 tw-px-[15px] tw-py-16 medium:tw-px-[45px] medium:tw-py-24";
+        content = this.renderForm();
+        break;
+      case 2:
+        outerClass =
+          "tw-bg-white tw-my-24 tw-px-[15px] tw-py-16 medium:tw-px-[45px] medium:tw-py-24";
+        content = this.renderNewsletterSignup();
+        break;
+      case 3:
+        outerClass = "tw-bg-blue-40 tw-px-14 tw-py-16 medium:tw-p-24";
+        content = this.renderResults();
+        break;
+      default:
+        outerClass = "";
+        break;
+    }
 
     return (
-      <div className={`${outerClass} tw-rounded-3xl tw-my-24`}>
-        {showResults ? this.renderResults() : this.renderForm()}
-      </div>
+      <div className={`${outerClass} tw-rounded-3xl tw-my-24`}>{content}</div>
     );
   }
 }
