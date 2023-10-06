@@ -5,9 +5,9 @@ from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options impo
 
 
 class NoticeBlock(blocks.StructBlock):
-    notice_image = ImageChooserBlock()
-    notice_image_altText = blocks.CharBlock(required=True, help_text="Image description (for screen readers).")
-    notice_text = blocks.RichTextBlock(features=base_rich_text_options)
+    image = ImageChooserBlock()
+    image_altText = blocks.CharBlock(required=True, help_text="Image description (for screen readers).")
+    text = blocks.RichTextBlock(features=base_rich_text_options)
 
     class Meta:
         icon = "doc-full"
