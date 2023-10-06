@@ -8,5 +8,5 @@ import injectProductQuiz from "./product-quiz.js";
  */
 export const injectReactComponents = (apps, siteUrl) => {
   injectCreepVote(apps, siteUrl);
-  injectProductQuiz(apps);
+  injectProductQuiz(apps, siteUrl);
 };
