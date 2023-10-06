@@ -6,6 +6,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.donate.models import BaseDonationPage
 from networkapi.wagtailpages.pagemodels.customblocks.base_fields import base_fields
+from networkapi.wagtailpages.pagemodels.customblocks.image_text_mini import ImageTextMini
 
 
 class DonateHelpPage(BaseDonationPage):
@@ -17,12 +18,19 @@ class DonateHelpPage(BaseDonationPage):
 
     max_count = 1
 
-    show_notice = models.BooleanField(default=False, help_text="Show delayed response notice")
+    notice = StreamField(
+        [("notice", ImageTextMini())],
+        help_text="Optional notice that will render at the top of the page.",
+        blank=True,
+        max_num=1,
+        use_json_field=True,
+    )
 
     body = StreamField(base_fields, blank=True, use_json_field=True)
 
+
     content_panels = Page.content_panels + [
-        FieldPanel("show_notice"),
+        FieldPanel("notice"),
         FieldPanel("body"),
     ]
 
@@ -34,6 +42,6 @@ class DonateHelpPage(BaseDonationPage):
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
         # Content tab fields
-        SynchronizedField("show_notice"),
+        TranslatableField("notice"),
         TranslatableField("body"),
     ]
