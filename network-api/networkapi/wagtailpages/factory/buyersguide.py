@@ -343,6 +343,7 @@ def create_general_product_visual_regression_product(seed, pni_homepage):
         uses_ai="NA",
         ai_is_transparent="No",
         ai_helptext="The AI is a black box and no one knows how it works",
+        with_votes=1,
     )
 
 
@@ -364,7 +365,7 @@ def generate(seed):
         # General products
         general_page = GeneralProductPageFactory.create(
             parent=pni_homepage,
-            with_votes=10,
+            with_votes=1,
         )
         general_page.save_revision().publish()
 
