@@ -15,11 +15,11 @@ class ProductQuizShareButtons extends Component {
     window.addEventListener("resize", this.handleResize);
   }
 
-  handleResize = () => {
+  handleResize() {
     this.setState({
       isMobileOrTablet: window.innerWidth < tabletBreakpoint,
     });
-  };
+  }
 
   shareButtonClicked(event, shareProgressButtonId) {
     if (shareProgressButtonId) {

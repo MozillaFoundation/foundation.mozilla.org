@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { POINTS, PRODUCTS, RESULTS } from "./data";
 import JoinUs from "../../../components/join/join.jsx";
-import ProductQuizShareButtons from "../social-share/product-quiz-share-buttons.jsx"
+import ProductQuizShareButtons from "../social-share/product-quiz-share-buttons.jsx";
 
 class ProductQuiz extends Component {
   constructor(props) {
