@@ -27,7 +27,7 @@ RUN npm run build
 # Note: This stage builds the base image for production. Presently we are not
 # using this on the production site, but only use it as base for the dev build.
 # Pin "bullseye" as it matches Ubuntu 20.04 -- Heroku 20 stack currently used in production.
-FROM python:3.9-slim-bullseye as base
+FROM python:3.9.9-slim-bullseye as base
 
 # Install dependencies in a virtualenv
 ENV VIRTUAL_ENV=/app/dockerpythonvenv
