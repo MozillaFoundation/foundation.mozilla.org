@@ -26,7 +26,8 @@ RUN npm run build
 #
 # Note: This stage builds the base image for production. Presently we are not
 # using this on the production site, but only use it as base for the dev build.
-FROM python:3.9.9-slim as base
+# Pin "bullseye" as it matches Ubuntu 20.04 -- Heroku 20 stack currently used in production.
+FROM python:3.9-slim-bullseye as base
 
 # Install dependencies in a virtualenv
 ENV VIRTUAL_ENV=/app/dockerpythonvenv
@@ -68,10 +69,12 @@ EXPOSE 8000
 
 # Install operating system dependencies.
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+    ca-certificates \
     build-essential \
     libpq-dev \
     curl \
     git \
+    gnupg \
     gettext \
     && apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
@@ -120,6 +123,18 @@ FROM base as dev
 # Swap user, so the following tasks can be run as root
 USER root
 
+# Install node (Keep the version in sync with the node container above)
+# Download and import the Nodesource GPG key
+# This step is necessary as the previous method of using setup_18.x is now deprecated.
+RUN mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+
+# Create deb repository for Node.js v18.x
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" > /etc/apt/sources.list.d/nodesource.list
+
+# Update and install Node.js
+RUN apt-get update && apt-get install nodejs -y
+
 # Install `psql`, useful for `manage.py dbshell`
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
     postgresql-client \
@@ -127,12 +142,6 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 
 # Restore user
 USER mozilla
-
-# Install nvm and node/npm (will install node version defined in .nvmrc)
-# (Keep the version in sync with the node install above)
-COPY --chown=mozilla .nvmrc ./
-RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash && \
-    bash --login -c "nvm install --no-progress && nvm alias default $(nvm run --silent --version)"
 
 # Pull in the node modules from the frontend build stage so we don't have to run npm ci again.
 # This is just a copy in the container, and is not visible to the host machine.
