@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import copyToClipboard from "../../../copy-to-clipboard";
 
+const tabletBreakpoint = 768;
+
 class ProductQuizShareButtons extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isMobileOrTablet: window.innerWidth < 768,
+      isMobileOrTablet: window.innerWidth < tabletBreakpoint,
     };
   }
 
@@ -15,7 +17,7 @@ class ProductQuizShareButtons extends Component {
 
   handleResize = () => {
     this.setState({
-      isMobileOrTablet: window.innerWidth < 768,
+      isMobileOrTablet: window.innerWidth < tabletBreakpoint,
     });
   };
 
