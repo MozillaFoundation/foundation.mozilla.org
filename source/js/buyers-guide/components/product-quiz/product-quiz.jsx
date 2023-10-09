@@ -19,7 +19,7 @@ class ProductQuiz extends Component {
       selectedChoices: [],
       numBad: 0,
       score: 0,
-      currentStep: 1,
+      currentStep: 3,
       showThankYou: false,
     };
   }
@@ -281,6 +281,41 @@ class ProductQuiz extends Component {
 
     let resultType = null;
 
+
+    let facebookBtn = (
+      <button
+        className="tw-btn tw-btn-secondary btn-share after:tw-hidden facebook-share"
+        onClick={(e) => this.shareButtonClicked(e, `share-progress-fb`)}
+      >
+        Facebook
+      </button>
+    );
+    let twitterBtn = (
+      <button
+        className="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share"
+        onClick={(e) => this.shareButtonClicked(e, `share-progress-tw`)}
+      >
+        Twitter
+      </button>
+    );
+    let emailBtn = (
+      <button
+        className="tw-btn tw-btn-secondary btn-share after:tw-hidden email-share"
+        onClick={(e) => this.shareButtonClicked(e, `share-progress-em`)}
+      >
+        Email
+      </button>
+    );
+    let linkBtn = (
+      <button
+        className="tw-btn tw-btn-secondary btn-share after:tw-hidden link-share"
+        onClick={(e) => this.shareButtonClicked(e)}
+        data-success-text="Copied"
+      >
+        Copy
+      </button>
+    );
+
     if (
       score >= RESULTS["open book"].minPoints ||
       (selectedChoices.length > 0 &&
@@ -304,8 +339,17 @@ class ProductQuiz extends Component {
           </h3>
           <p className="tw-text-white">{resultType.description}</p>
           <div className="tw-mt-[84px] medium:mt-[100px] tw-text-red-60">
-            [FIXME] will add social share buttons in follow-up PR
+          <div className="share-button-group small:circle medium:rectangle ">
+            <div className="subgroup">
+              {facebookBtn}
+              {twitterBtn}
+            </div>
+            <div className="subgroup">
+              {emailBtn}
+              {linkBtn}
+            </div>
           </div>
+                    </div>
         </div>
         <div className="tw-text-center medium:tw-text-right tw-mt-12 medium:tw-mt-0">
           <button
