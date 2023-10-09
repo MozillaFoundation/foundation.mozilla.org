@@ -9,17 +9,18 @@ class ProductQuizShareButtons extends Component {
     this.state = {
       isMobileOrTablet: window.innerWidth < tabletBreakpoint,
     };
+    this.handleResize = this.handleResize.bind(this);
   }
 
   componentDidMount() {
     window.addEventListener("resize", this.handleResize);
   }
 
-  handleResize() {
+  handleResize(){
     this.setState({
       isMobileOrTablet: window.innerWidth < tabletBreakpoint,
     });
-  }
+  };
 
   shareButtonClicked(event, shareProgressButtonId) {
     if (shareProgressButtonId) {
