@@ -1,6 +1,8 @@
 const EYE_SELECTOR = ".creepy-eye";
 
 export default () => {
+  // Animate creepy eyes so they follow the cursor or taps (on touch screen devices)
+  // This script is to be paired with buyersguide/fragments/consumer_creepometer_page_2023/animated-eyes.html
   (function () {
     if (!document.querySelector(EYE_SELECTOR)) {
       return;
