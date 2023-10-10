@@ -534,15 +534,13 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
     to the system or not (authenticated users get to
     see all products, including draft products)
     """
-    try:
-        locale = Locale.objects.get(language_code=language_code)
-    except Locale.DoesNotExist:
-        locale = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
-
-    products = products.filter(review_date__gte=cutoff_date, locale=locale)
+    products = products.filter(review_date__gte=cutoff_date, locale__language_code=language_code)
 
     if not authenticated:
         products = products.live()
 
+    products = products.prefetch_related("evaluation__votes")
+
     products = sort_average(products)
-    return cache.get_or_set(key, products, 24 * 60 * 60)  # Set cache for 24h
+    cache.get_or_set(key, products, 24 * 60 * 60)  # Set cache for 24h
+    return products
