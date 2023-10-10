@@ -1,30 +1,10 @@
 import React, { Component } from "react";
 import copyToClipboard from "../../../copy-to-clipboard";
 
-const tabletBreakpoint = 768;
-
 class ProductQuizShareButtons extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isMobileOrTablet: window.innerWidth < tabletBreakpoint,
-    };
-    this.handleResize = this.handleResize.bind(this);
-  }
-
-  componentDidMount() {
-    window.addEventListener("resize", this.handleResize);
-  }
-
-  handleResize() {
-    this.setState({
-      isMobileOrTablet: window.innerWidth < tabletBreakpoint,
-    });
-  }
-
   shareButtonClicked(event, shareProgressButtonId) {
     if (shareProgressButtonId) {
-      let shareProgressButton = document.querySelector(
+      const shareProgressButton = document.querySelector(
         `#${shareProgressButtonId} a`
       );
 
@@ -32,87 +12,94 @@ class ProductQuizShareButtons extends Component {
         shareProgressButton.click();
       }
     } else {
-      const linkButton = event.target;
+      // Updating all "copy" buttons (mobile and desktop) to the updated "copied" state.
+      const linkButtons = document.querySelectorAll(".link-share");
 
-      linkButton.classList.add("copied");
-      linkButton.title = window.gettext("Copied");
-      const spanElements = linkButton.querySelectorAll("span");
-
-      // Iterate through each <span> element and update its inner text
-      spanElements.forEach((span) => {
-        span.innerText = window.gettext("Copied");
+      linkButtons.forEach((linkButton) => {
+        linkButton.classList.add("copied");
+        linkButton.title = window.gettext("Copied");
+        const spanElement = linkButton.querySelector("span");
+        spanElement.innerText = window.gettext("Copied");
       });
+
       copyToClipboard(event.target, window.location.href);
     }
   }
 
   render() {
-    const { isMobileOrTablet } = this.state;
-    const shareButtonClasses = `tw-btn tw-bg-white tw-h-22 tw-w-22 tw-border-black hover:tw-bg-black hover:tw-text-white btn-share after:tw-hidden`;
+    const shareButtonClasses =
+      "tw-btn tw-bg-white tw-h-22 tw-w-22 tw-border-black hover:tw-bg-black hover:tw-text-white btn-share after:tw-hidden";
 
-    let facebookBtn = (
-      <button
-        className={`${shareButtonClasses} facebook-share`}
-        onClick={(e) => this.shareButtonClicked(e, `share-progress-fb`)}
-      >
-        {isMobileOrTablet ? (
-          <span className="sr-only">Share on Facebook</span>
-        ) : (
-          <span>Facebook</span>
-        )}
-      </button>
+    const mobileShareButtons = (
+      <div className="circle share-button-group tw-justify-center tw-flex medium:tw-hidden">
+        <div className="subgroup">
+          <button
+            className={`${shareButtonClasses} facebook-share`}
+            onClick={(e) => this.shareButtonClicked(e, "share-progress-fb")}
+          >
+            <span className="sr-only">Share on Facebook</span>
+          </button>
+          <button
+            className={`${shareButtonClasses} twitter-share`}
+            onClick={(e) => this.shareButtonClicked(e, "share-progress-tw")}
+          >
+            <span className="sr-only">Share on Twitter</span>
+          </button>
+        </div>
+        <div className="subgroup tw-mr-0">
+          <button
+            className={`${shareButtonClasses} email-share`}
+            onClick={(e) => this.shareButtonClicked(e, "share-progress-em")}
+          >
+            <span className="sr-only">Share by Email</span>
+          </button>
+          <button
+            className={`${shareButtonClasses} link-share`}
+            onClick={(e) => this.shareButtonClicked(e)}
+          >
+            <span className="sr-only">Copy to clipboard</span>
+          </button>
+        </div>
+      </div>
     );
 
-    let twitterBtn = (
-      <button
-        className={`${shareButtonClasses} twitter-share`}
-        onClick={(e) => this.shareButtonClicked(e, `share-progress-tw`)}
-      >
-        {isMobileOrTablet ? (
-          <span className="sr-only">Share on Twitter</span>
-        ) : (
-          <span>Twitter</span>
-        )}
-      </button>
-    );
-
-    let emailBtn = (
-      <button
-        className={`${shareButtonClasses} email-share`}
-        onClick={(e) => this.shareButtonClicked(e, `share-progress-em`)}
-      >
-        {isMobileOrTablet ? (
-          <span className="sr-only">Share by Email</span>
-        ) : (
-          <span>Email</span>
-        )}
-      </button>
-    );
-
-    let linkBtn = (
-      <button
-        className={`${shareButtonClasses} link-share`}
-        onClick={(e) => this.shareButtonClicked(e)}
-      >
-        <span className="sr-only medium:tw-hidden">Copy to clipboard</span>
-        <span className="tw-hidden medium:tw-block">Copy</span>
-      </button>
+    const desktopShareButtons = (
+      <div className="rectangle share-button-group tw-hidden medium:tw-flex">
+        <div className="subgroup">
+          <button
+            className={`${shareButtonClasses} facebook-share`}
+            onClick={(e) => this.shareButtonClicked(e, "share-progress-fb")}
+          >
+            <span>Facebook</span>
+          </button>
+          <button
+            className={`${shareButtonClasses} twitter-share`}
+            onClick={(e) => this.shareButtonClicked(e, "share-progress-tw")}
+          >
+            <span>Twitter</span>
+          </button>
+        </div>
+        <div className="subgroup">
+          <button
+            className={`${shareButtonClasses} email-share`}
+            onClick={(e) => this.shareButtonClicked(e, "share-progress-em")}
+          >
+            <span>Email</span>
+          </button>
+          <button
+            className={`${shareButtonClasses} link-share`}
+            onClick={(e) => this.shareButtonClicked(e)}
+          >
+            <span>Copy</span>
+          </button>
+        </div>
+      </div>
     );
 
     return (
-      <div
-        className={`${
-          isMobileOrTablet ? "circle" : "rectangle"
-        } share-button-group tw-justify-center`}
-      >
-        <div className="subgroup">
-          {facebookBtn}
-          {twitterBtn}
-        </div>
-        <div className="subgroup tw-mr-0">
-          {emailBtn}
-          {linkBtn}
-        </div>
+      <div className="share-button-container">
+        {mobileShareButtons}
+        {desktopShareButtons}
       </div>
     );
   }
