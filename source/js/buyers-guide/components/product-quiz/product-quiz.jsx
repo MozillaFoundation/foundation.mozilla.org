@@ -120,7 +120,7 @@ class ProductQuiz extends Component {
                 width="100%"
                 height="100%"
                 src={product.imgSrc}
-                alt={product.value}
+                alt={`thumbnail of ${productName}`}
                 className="tw-max-w-full tw-max-h-full tw-object-contain"
               />
             </div>
@@ -210,11 +210,12 @@ class ProductQuiz extends Component {
       }, this.finalScreenDelay);
     });
   }
+
   renderNewsletterSignup() {
     const containerClass =
-      "tw-flex tw-flex-col tw-items-center tw-gap-y-[40px] tw-w-full tw-px-12 tw-py-16 medium:tw-px-[45px] medium:tw-py-24";
+      "tw-flex tw-flex-col tw-items-center tw-gap-y-[40px] tw-w-full medium:tw-px-[45px] medium:tw-py-24";
     const headingClass =
-      "tw-font-zilla tw-font-semibold tw-text-[28px] tw-leading-[36px] medium:tw-text-[48px] medium:tw-leading-[56px] tw-mb-8 tw-mt-6 medium:tw-mt-16";
+      "tw-font-zilla tw-font-semibold medium:tw-text-[48px] medium:tw-leading-[56px] tw-mb-8 tw-mt-6 medium:tw-mt-16";
     const thumbUpUnicode = String.fromCodePoint(0x0001f44d); // [FIXME] use an image instead
 
     if (this.state.showThankYou) {
@@ -224,7 +225,9 @@ class ProductQuiz extends Component {
             <div className="tw-mx-auto tw-text-[118px] tw-leading-none">
               {thumbUpUnicode}
             </div>
-            <h3 className={headingClass}>Thank you!</h3>
+            <h3 className={`${headingClass} tw-text-[28px] tw-leading-[36px]`}>
+              Thank you!
+            </h3>
             <p className="tw-w-4/5 tw-mx-auto tw-mb-8 medium:tw-mb-16">
               We'll keep you in the loop.
             </p>
@@ -245,8 +248,10 @@ class ProductQuiz extends Component {
               alt=""
             />
           </div>
-          <h3 className={headingClass}>Calculating your results...</h3>
-          <p className="tw-w-4/5 tw-mx-auto tw-mb-0">
+          <h3 className={`${headingClass} tw-text-[20px] tw-leading-[24px]`}>
+            Calculating your results...
+          </h3>
+          <p className="medium:tw-w-4/5 tw-mx-auto tw-mb-0 tw-text-xs">
             Now that you’re on a roll, why not join Mozilla? We’re not creepy
             (we promise). We actually fight back against creepy. And we need
             more people like you.
@@ -321,26 +326,25 @@ class ProductQuiz extends Component {
 
   render() {
     const { currentStep } = this.state;
-    let outerClass;
+    let outerClass = "tw-min-h-[530px] ";
     let content;
 
     switch (currentStep) {
       case 1:
-        outerClass =
+        outerClass +=
           "tw-bg-white tw-my-24 tw-px-[15px] tw-py-16 medium:tw-px-[45px] medium:tw-py-24";
         content = this.renderForm();
         break;
       case 2:
-        outerClass =
-          "tw-bg-white tw-my-24 tw-px-[15px] tw-py-16 medium:tw-px-[45px] medium:tw-py-24";
+        outerClass +=
+          "tw-bg-white tw-my-24 tw-px-[15px] tw-py-16 medium:tw-px-[45px] medium:tw-py-24 tw-flex tw-items-center";
         content = this.renderNewsletterSignup();
         break;
       case 3:
-        outerClass = "tw-bg-blue-40 tw-px-14 tw-py-16 medium:tw-p-24";
+        outerClass += "tw-bg-blue-40 tw-px-14 tw-py-16 medium:tw-p-24";
         content = this.renderResults();
         break;
       default:
-        outerClass = "";
         break;
     }
 
