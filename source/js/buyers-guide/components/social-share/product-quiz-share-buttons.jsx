@@ -48,7 +48,7 @@ class ProductQuizShareButtons extends Component {
 
   render() {
     const { isMobileOrTablet } = this.state;
-    const shareButtonClasses = `tw-btn tw-bg-white tw-border-black hover:tw-bg-black hover:tw-text-white btn-share after:tw-hidden`;
+    const shareButtonClasses = `tw-btn tw-bg-white tw-h-22 tw-w-22 tw-border-black hover:tw-bg-black hover:tw-text-white btn-share after:tw-hidden`;
 
     let facebookBtn = (
       <button
@@ -109,7 +109,7 @@ class ProductQuizShareButtons extends Component {
           {facebookBtn}
           {twitterBtn}
         </div>
-        <div className="subgroup">
+        <div className="subgroup tw-mr-0">
           {emailBtn}
           {linkBtn}
         </div>
