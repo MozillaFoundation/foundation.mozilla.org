@@ -125,8 +125,7 @@ USER root
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
     postgresql-client \
     ca-certificates \
-    gnupg \
-    && apt-get autoremove && rm -rf /var/lib/apt/lists/*
+    gnupg
 
 # Install node (Keep the version in sync with the node container above)
 # Download and import the Nodesource GPG key
@@ -137,7 +136,8 @@ RUN mkdir -p /etc/apt/keyrings && \
 RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" > /etc/apt/sources.list.d/nodesource.list
 
 # Update and install Node.js
-RUN apt-get update && apt-get install nodejs -y
+RUN apt-get update && apt-get install nodejs -y \
+    && apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
 # Restore user
 USER mozilla
