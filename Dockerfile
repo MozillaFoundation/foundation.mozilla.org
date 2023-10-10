@@ -69,12 +69,10 @@ EXPOSE 8000
 
 # Install operating system dependencies.
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
-    ca-certificates \
     build-essential \
     libpq-dev \
     curl \
     git \
-    gnupg \
     gettext \
     && apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
@@ -123,9 +121,15 @@ FROM base as dev
 # Swap user, so the following tasks can be run as root
 USER root
 
+# Install `psql`, useful for `manage.py dbshell`, and dependencies for installing nodejs
+RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+    postgresql-client \
+    ca-certificates \
+    gnupg \
+    && apt-get autoremove && rm -rf /var/lib/apt/lists/*
+
 # Install node (Keep the version in sync with the node container above)
 # Download and import the Nodesource GPG key
-# This step is necessary as the previous method of using setup_18.x is now deprecated.
 RUN mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 
@@ -134,11 +138,6 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesourc
 
 # Update and install Node.js
 RUN apt-get update && apt-get install nodejs -y
-
-# Install `psql`, useful for `manage.py dbshell`
-RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
-    postgresql-client \
-    && apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
 # Restore user
 USER mozilla
