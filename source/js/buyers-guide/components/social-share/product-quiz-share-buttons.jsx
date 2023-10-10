@@ -2,6 +2,53 @@ import React, { Component } from "react";
 import copyToClipboard from "../../../copy-to-clipboard";
 
 class ProductQuizShareButtons extends Component {
+
+   shareButtonClasses = "tw-btn tw-bg-white tw-h-22 tw-w-22 tw-border-black hover:tw-bg-black hover:tw-text-white btn-share after:tw-hidden";
+
+  renderFacebookButton(child) {
+    return (
+      <button
+        className={`${this.shareButtonClasses} facebook-share`}
+        onClick={(e) => this.shareButtonClicked(e, "share-progress-fb")}
+      >
+        {child}
+      </button>
+    );
+  }
+
+  renderTwitterButton(child) {
+    return (
+      <button
+        className={`${this.shareButtonClasses} twitter-share`}
+        onClick={(e) => this.shareButtonClicked(e, "share-progress-fb")}
+      >
+        {child}
+      </button>
+    );
+  }
+
+  renderEmailButton(child) {
+    return (
+      <button
+        className={`${this.shareButtonClasses} email-share`}
+        onClick={(e) => this.shareButtonClicked(e, "share-progress-em")}
+      >
+        {child}
+      </button>
+    );
+  }
+
+  renderCopyLinkButton(child) {
+    return (
+      <button
+        className={`${this.shareButtonClasses} link-share`}
+        onClick={(e) => this.shareButtonClicked(e)}
+      >
+        {child}
+      </button>
+    );
+  }
+
   shareButtonClicked(event, shareProgressButtonId) {
     if (shareProgressButtonId) {
       const shareProgressButton = document.querySelector(
@@ -27,38 +74,24 @@ class ProductQuizShareButtons extends Component {
   }
 
   render() {
-    const shareButtonClasses =
-      "tw-btn tw-bg-white tw-h-22 tw-w-22 tw-border-black hover:tw-bg-black hover:tw-text-white btn-share after:tw-hidden";
 
     const mobileShareButtons = (
       <div className="circle share-button-group tw-justify-center tw-flex medium:tw-hidden">
         <div className="subgroup">
-          <button
-            className={`${shareButtonClasses} facebook-share`}
-            onClick={(e) => this.shareButtonClicked(e, "share-progress-fb")}
-          >
+          {this.renderFacebookButton(
             <span className="sr-only">Share on Facebook</span>
-          </button>
-          <button
-            className={`${shareButtonClasses} twitter-share`}
-            onClick={(e) => this.shareButtonClicked(e, "share-progress-tw")}
-          >
+          )}
+          {this.renderTwitterButton(
             <span className="sr-only">Share on Twitter</span>
-          </button>
+          )}
         </div>
         <div className="subgroup tw-mr-0">
-          <button
-            className={`${shareButtonClasses} email-share`}
-            onClick={(e) => this.shareButtonClicked(e, "share-progress-em")}
-          >
+          {this.renderEmailButton(
             <span className="sr-only">Share by Email</span>
-          </button>
-          <button
-            className={`${shareButtonClasses} link-share`}
-            onClick={(e) => this.shareButtonClicked(e)}
-          >
+          )}
+          {this.renderCopyLinkButton(
             <span className="sr-only">Copy to clipboard</span>
-          </button>
+          )}
         </div>
       </div>
     );
@@ -66,32 +99,12 @@ class ProductQuizShareButtons extends Component {
     const desktopShareButtons = (
       <div className="rectangle share-button-group tw-hidden medium:tw-flex">
         <div className="subgroup">
-          <button
-            className={`${shareButtonClasses} facebook-share`}
-            onClick={(e) => this.shareButtonClicked(e, "share-progress-fb")}
-          >
-            <span>Facebook</span>
-          </button>
-          <button
-            className={`${shareButtonClasses} twitter-share`}
-            onClick={(e) => this.shareButtonClicked(e, "share-progress-tw")}
-          >
-            <span>Twitter</span>
-          </button>
+          {this.renderFacebookButton(<span>Facebook</span>)}
+          {this.renderTwitterButton(<span>Twitter</span>)}
         </div>
         <div className="subgroup">
-          <button
-            className={`${shareButtonClasses} email-share`}
-            onClick={(e) => this.shareButtonClicked(e, "share-progress-em")}
-          >
-            <span>Email</span>
-          </button>
-          <button
-            className={`${shareButtonClasses} link-share`}
-            onClick={(e) => this.shareButtonClicked(e)}
-          >
-            <span>Copy</span>
-          </button>
+          {this.renderEmailButton(<span>Email</span>)}
+          {this.renderCopyLinkButton(<span>Copy</span>)}
         </div>
       </div>
     );
