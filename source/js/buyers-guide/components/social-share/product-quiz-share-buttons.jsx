@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import copyToClipboard from "../../../copy-to-clipboard";
 
 class ProductQuizShareButtons extends Component {
-
-   shareButtonClasses = "tw-btn tw-bg-white tw-h-22 tw-w-22 tw-border-black hover:tw-bg-black hover:tw-text-white btn-share after:tw-hidden";
+  constructor(props) {
+    super(props);
+    this.shareButtonClasses =
+      "tw-btn tw-bg-white tw-h-22 tw-w-22 tw-border-black hover:tw-bg-black hover:tw-text-white btn-share after:tw-hidden";
+  }
 
   renderFacebookButton(child) {
     return (
@@ -74,7 +77,6 @@ class ProductQuizShareButtons extends Component {
   }
 
   render() {
-
     const mobileShareButtons = (
       <div className="circle share-button-group tw-justify-center tw-flex medium:tw-hidden">
         <div className="subgroup">
