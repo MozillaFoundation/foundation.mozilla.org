@@ -110,21 +110,21 @@ export const RESULTS = {
     minPoints: 9,
     heading: "You’re an open book.",
     description:
-      "You’re an open book. The products and apps you use collect a lot of your personal information. Data brokers send their thanks! But don’t worry — you’re not alone. Even the privacy researchers at Mozilla use some of the same products and apps. If you’re uncomfortable with your quiz results, try opting out of data sharing whenever possible. And choose alternative tech that is more privacy conscious: privacynotincluded.org",
+      " The products and apps you use collect a lot of your personal information. Data brokers send their thanks! But don’t worry — you’re not alone. Even the privacy researchers at Mozilla use some of the same products and apps. If you’re uncomfortable with your quiz results, try opting out of data sharing whenever possible. And choose alternative tech that is more privacy conscious: privacynotincluded.org",
     imgSrc: `${IMG_DIR}/emoji-open-book.png`,
   },
   soso: {
     minPoints: 5,
     heading: "Your privacy is so-so.",
     description:
-      "Your privacy is so-so. Your online privacy could be worse — but it could be better, too. While some of the products and apps you use value privacy, others are collecting and sharing a good amount of personal data. If you’re okay with that balance, no problem. If you’d like a little more privacy, find alternatives: privacynotincluded.org",
+      "Your online privacy could be worse — but it could be better, too. While some of the products and apps you use value privacy, others are collecting and sharing a good amount of personal data. If you’re okay with that balance, no problem. If you’d like a little more privacy, find alternatives: privacynotincluded.org",
     imgSrc: `${IMG_DIR}/emoji-soso.png`,
   },
   "off the grid": {
     minPoints: 0,
     heading: "You’re off the grid.",
     description:
-      "You’re off the grid. Woah — you take your online privacy and security seriously. That’s no easy feat these days, when everything from connected litterboxes to smart water bottles are after your data. When you get a break from scouring privacy policies and encrypting all the things, why not share some privacy tips with your friends and family? privacynotincluded.org",
+      "Woah — you take your online privacy and security seriously. That’s no easy feat these days, when everything from connected litterboxes to smart water bottles are after your data. When you get a break from scouring privacy policies and encrypting all the things, why not share some privacy tips with your friends and family? privacynotincluded.org",
     imgSrc: `${IMG_DIR}/emoji-off-the-grid.png`,
   },
 };
