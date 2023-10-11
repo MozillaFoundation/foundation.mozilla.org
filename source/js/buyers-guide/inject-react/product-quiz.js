@@ -16,6 +16,7 @@ export default (apps, siteUrl) => {
             {...element.dataset}
             whenLoaded={() => resolve()}
             joinUsApiUrl={`${siteUrl}/api/campaign/signups/0/`}
+            pniHomeUrl={`${siteUrl}/privacynotincluded/`}
           />
         );
       })
