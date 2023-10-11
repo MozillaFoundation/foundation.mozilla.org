@@ -123,6 +123,7 @@ class ProductQuiz extends Component {
                 src={product.imgSrc}
                 alt={`thumbnail of ${productName}`}
                 className="tw-max-w-full tw-max-h-full tw-object-contain"
+                loading="lazy"
               />
             </div>
             <div className="tw-my-6 tw-mr-6">
