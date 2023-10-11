@@ -110,7 +110,7 @@ export const RESULTS = {
     minPoints: 9,
     heading: "You’re an open book.",
     description:
-      " The products and apps you use collect a lot of your personal information. Data brokers send their thanks! But don’t worry — you’re not alone. Even the privacy researchers at Mozilla use some of the same products and apps. If you’re uncomfortable with your quiz results, try opting out of data sharing whenever possible. And choose alternative tech that is more privacy conscious: privacynotincluded.org",
+      "The products and apps you use collect a lot of your personal information. Data brokers send their thanks! But don’t worry — you’re not alone. Even the privacy researchers at Mozilla use some of the same products and apps. If you’re uncomfortable with your quiz results, try opting out of data sharing whenever possible. And choose alternative tech that is more privacy conscious:",
     imgSrc: `${IMG_DIR}/emoji-open-book.png`,
   },
   soso: {
@@ -124,7 +124,7 @@ export const RESULTS = {
     minPoints: 0,
     heading: "You’re off the grid.",
     description:
-      "Woah — you take your online privacy and security seriously. That’s no easy feat these days, when everything from connected litterboxes to smart water bottles are after your data. When you get a break from scouring privacy policies and encrypting all the things, why not share some privacy tips with your friends and family? privacynotincluded.org",
+      "Woah — you take your online privacy and security seriously. That’s no easy feat these days, when everything from connected litterboxes to smart water bottles are after your data. When you get a break from scouring privacy policies and encrypting all the things, why not share some privacy tips with your friends and family?",
     imgSrc: `${IMG_DIR}/emoji-off-the-grid.png`,
   },
 };

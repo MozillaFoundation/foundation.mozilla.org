@@ -308,14 +308,22 @@ class ProductQuiz extends Component {
           <h3 className="tw-font-zilla tw-font-semibold tw-text-[28px] tw-leading-[36px] medium:tw-text-[48px] medium:tw-leading-[56px] tw-text-white tw-my-12 medium:tw-mt-16">
             {resultType.heading}
           </h3>
-          <p className="tw-text-white">{resultType.description}</p>
+          <p className="tw-text-white">
+            {resultType.description}{" "}
+            <a
+              className="tw-underline tw-text-white"
+              href={this.props.pniHomeUrl}
+            >
+              privacynotincluded.org
+            </a>
+          </p>
           <div className="tw-mt-[84px] medium:mt-[100px] tw-text-red-60">
             <ProductQuizShareButtons />
           </div>
         </div>
         <div className="tw-text-center medium:tw-text-right tw-mt-12 medium:tw-mt-0">
           <button
-            className="tw-btn tw-btn-secondary tw-w-full medium:tw-w-auto"
+            className="tw-btn tw-btn-secondary tw-w-full medium:tw-w-auto before:tw-content-[''] before:tw-inline-block before:tw-relative before:tw-w-8 before:tw-h-8 before:tw-mr-4 before:tw-top-[2px] before:tw-bg-no-repeat before:tw-bg-contain before:tw-bg-center before:tw-bg-[url('../_images/buyers-guide/consumer-creepometer/rotate-ccw.svg')] before:tw-brightness-100 hover:before:tw-brightness-0 before:tw-transition before:tw-duration-200 before:tw-ease-in-out"
             onClick={(e) => this.resetQuiz(e)}
           >
             Retake Quiz
