@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { POINTS, PRODUCTS, RESULTS } from "./data";
 import JoinUs from "../../../components/join/join.jsx";
+import ProductQuizShareButtons from "../social-share/product-quiz-share-buttons.jsx";
 
 class ProductQuiz extends Component {
   constructor(props) {
@@ -309,7 +310,7 @@ class ProductQuiz extends Component {
           </h3>
           <p className="tw-text-white">{resultType.description}</p>
           <div className="tw-mt-[84px] medium:mt-[100px] tw-text-red-60">
-            [FIXME] will add social share buttons in follow-up PR
+            <ProductQuizShareButtons />
           </div>
         </div>
         <div className="tw-text-center medium:tw-text-right tw-mt-12 medium:tw-mt-0">
