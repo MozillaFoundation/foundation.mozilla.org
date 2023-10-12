@@ -1,4 +1,5 @@
 import injectCreepVote from "./creep-vote.js";
+import injectProductQuiz from "./product-quiz.js";
 
 /**
  * Inject React components
@@ -7,4 +8,5 @@ import injectCreepVote from "./creep-vote.js";
  */
 export const injectReactComponents = (apps, siteUrl) => {
   injectCreepVote(apps, siteUrl);
+  injectProductQuiz(apps, siteUrl);
 };

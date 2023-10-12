@@ -9,18 +9,20 @@ import JoinUs from "../../components/join/join.jsx";
  */
 export default (apps, siteUrl) => {
   // excluding `.join-us.on-nav` because it's taken care of by nav-newsletter.js
-  document.querySelectorAll(`.join-us:not(.on-nav)`).forEach((element) => {
-    const props = element.dataset;
-    const sid = props.signupId || 0;
+  document
+    .querySelectorAll(`.join-us:not(.on-nav):not(.react-rendered)`)
+    .forEach((element) => {
+      const props = element.dataset;
+      const sid = props.signupId || 0;
 
-    props.apiUrl = `${siteUrl}/api/campaign/signups/${sid}/`;
-    props.isHidden = false;
+      props.apiUrl = `${siteUrl}/api/campaign/signups/${sid}/`;
+      props.isHidden = false;
 
-    apps.push(
-      new Promise((resolve) => {
-        const root = createRoot(element);
-        root.render(<JoinUs {...props} whenLoaded={() => resolve()} />);
-      })
-    );
-  });
+      apps.push(
+        new Promise((resolve) => {
+          const root = createRoot(element);
+          root.render(<JoinUs {...props} whenLoaded={() => resolve()} />);
+        })
+      );
+    });
 };
