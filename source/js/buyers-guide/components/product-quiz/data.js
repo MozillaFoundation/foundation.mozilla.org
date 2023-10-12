@@ -117,7 +117,7 @@ export const RESULTS = {
     minPoints: 5,
     heading: "Your privacy is so-so.",
     description:
-      "Your online privacy could be worse — but it could be better, too. While some of the products and apps you use value privacy, others are collecting and sharing a good amount of personal data. If you’re okay with that balance, no problem. If you’d like a little more privacy, find alternatives: privacynotincluded.org",
+      "Your online privacy could be worse — but it could be better, too. While some of the products and apps you use value privacy, others are collecting and sharing a good amount of personal data. If you’re okay with that balance, no problem. If you’d like a little more privacy, find alternatives:",
     imgSrc: `${IMG_DIR}/emoji-soso.png`,
   },
   "off the grid": {
