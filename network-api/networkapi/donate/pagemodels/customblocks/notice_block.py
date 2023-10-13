@@ -9,7 +9,7 @@ from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options impo
 
 class NoticeBlock(blocks.StructBlock):
     image = ImageChooserBlock(required=False)
-    image_altText = blocks.CharBlock(required=False, help_text="Image description (for screen readers).")
+    image_alt_text = blocks.CharBlock(required=False, help_text="Image description (for screen readers).")
     text = blocks.RichTextBlock(features=base_rich_text_options)
 
     class Meta:
@@ -19,17 +19,17 @@ class NoticeBlock(blocks.StructBlock):
     def clean(self, value):
         cleaned_data = super().clean(value)
         image = cleaned_data.get("image")
-        image_altText = cleaned_data.get("image_altText")
+        image_alt_text = cleaned_data.get("image_alt_text")
 
-        if image and not image_altText:
+        if image and not image_alt_text:
             error_msg = "Image must include alt text."
             raise ValidationError(
                 {
-                    "image_altText": ValidationError(error_msg),
+                    "image_alt_text": ValidationError(error_msg),
                 }
             )
 
-        if image_altText and not image:
+        if image_alt_text and not image:
             error_msg = "Alt text must have an associated image."
             raise ValidationError(
                 {

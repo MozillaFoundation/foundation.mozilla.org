@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                             [
                                 ("image", wagtail.images.blocks.ImageChooserBlock(required=False)),
                                 (
-                                    "image_altText",
+                                    "image_alt_text",
                                     wagtail.blocks.CharBlock(
                                         help_text="Image description (for screen readers).", required=False
                                     ),
