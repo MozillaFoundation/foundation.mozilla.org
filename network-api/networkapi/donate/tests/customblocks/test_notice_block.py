@@ -1,6 +1,6 @@
-from django.core.exceptions import ValidationError
 from django.test import TestCase
 from wagtail import rich_text
+from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.images.tests.utils import Image, get_test_image_file
 
 from networkapi.donate.pagemodels.customblocks.notice_block import NoticeBlock
@@ -25,8 +25,12 @@ class NoticeBlockTest(TestCase):
             "image_alt_text": "",
             "text": rich_text.RichText("<p>Some content</p>"),
         }
-        with self.assertRaisesMessage(ValidationError, "Image must include alt text."):
+
+        with self.assertRaises(StructBlockValidationError) as ValidationError:
             self.notice_block.clean(value)
+        exception = ValidationError.exception
+        self.assertIn("image", exception.params)
+        self.assertEqual(exception.params["image"], ["Image must include alt text."])
 
     def test_alt_text_without_image_raises_error(self):
         value = {
@@ -34,8 +38,12 @@ class NoticeBlockTest(TestCase):
             "image_alt_text": "Alt text",
             "text": rich_text.RichText("<p>Some content</p>"),
         }
-        with self.assertRaisesMessage(ValidationError, "Alt text must have an associated image."):
+
+        with self.assertRaises(StructBlockValidationError) as ValidationError:
             self.notice_block.clean(value)
+        exception = ValidationError.exception
+        self.assertIn("image_alt_text", exception.params)
+        self.assertEqual(exception.params["image_alt_text"], ["Alt text must have an associated image."])
 
     def test_valid_block_without_image_and_alt_text(self):
         value = {
