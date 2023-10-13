@@ -1,4 +1,5 @@
-from django.core.exceptions import ValidationError
+from django.forms.utils import ErrorList
+from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
@@ -18,23 +19,13 @@ class NoticeBlock(blocks.StructBlock):
 
     def clean(self, value):
         cleaned_data = super().clean(value)
-        image = cleaned_data.get("image")
-        image_alt_text = cleaned_data.get("image_alt_text")
+        errors = {}
 
-        if image and not image_alt_text:
-            error_msg = "Image must include alt text."
-            raise ValidationError(
-                {
-                    "image_alt_text": ValidationError(error_msg),
-                }
-            )
-
-        if image_alt_text and not image:
-            error_msg = "Alt text must have an associated image."
-            raise ValidationError(
-                {
-                    "image": ValidationError(error_msg),
-                }
-            )
+        if value["image"] and not value["image_alt_text"]:
+            errors["image"] = ErrorList(["Image must include alt text."])
+        if value["image_alt_text"] and not value["image"]:
+            errors["image_alt_text"] = ErrorList(["Alt text must have an associated image."])
+        if errors:
+            raise StructBlockValidationError(errors)
 
         return cleaned_data
