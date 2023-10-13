@@ -1,0 +1,12 @@
+.notice-block-text {
+    .rich-text {
+      p {
+        margin-bottom: 0;
+  
+        &:not(:first-child) {
+          margin-top: 0.25rem;
+        }
+      }
+    }
+  }
+  
