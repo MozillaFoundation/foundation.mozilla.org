@@ -5,8 +5,8 @@ from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.donate.models import BaseDonationPage
-from networkapi.wagtailpages.pagemodels.customblocks.base_fields import base_fields
 from networkapi.donate.pagemodels.customblocks.notice_block import NoticeBlock
+from networkapi.wagtailpages.pagemodels.customblocks.base_fields import base_fields
 
 
 class DonateHelpPage(BaseDonationPage):
@@ -27,7 +27,6 @@ class DonateHelpPage(BaseDonationPage):
     )
 
     body = StreamField(base_fields, blank=True, use_json_field=True)
-
 
     content_panels = Page.content_panels + [
         FieldPanel("notice"),
