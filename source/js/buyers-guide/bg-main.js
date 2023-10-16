@@ -75,6 +75,7 @@ let main = {
 
       this.injectReactComponents();
       this.bindHandlers();
+      NewsletterBox.toggleVisibilityClasses();
       initializePrimaryNav(networkSiteURL, primaryNav);
       injectMultipageNav();
 
@@ -132,7 +133,6 @@ let main = {
     if (document.querySelector(`body.pni.catalog`)) {
       HomepageSlider.init();
     }
-    NewsletterBox.toggleVisibilityClasses();
   },
 };
 

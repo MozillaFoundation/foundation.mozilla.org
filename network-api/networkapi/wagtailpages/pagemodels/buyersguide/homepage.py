@@ -37,6 +37,7 @@ if TYPE_CHECKING:
     from networkapi.wagtailpages.models import (
         BuyersGuideArticlePage,
         BuyersGuideCampaignPage,
+        ConsumerCreepometerPage,
         Update,
     )
 
@@ -101,7 +102,11 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
                 HelpPanel(content="<h2>Main Featured Page</h2>"),
                 PageChooserPanel(
                     "hero_featured_page",
-                    page_type=["wagtailpages.BuyersGuideArticlePage", "wagtailpages.BuyersGuideCampaignPage"],
+                    page_type=[
+                        "wagtailpages.BuyersGuideArticlePage",
+                        "wagtailpages.BuyersGuideCampaignPage",
+                        "wagtailpages.ConsumerCreepometerPage",
+                    ],
                 ),
                 HelpPanel(content="<h2>Supporting Featured Pages</h2>"),
                 FieldPanel("hero_supporting_pages_heading", heading="Heading"),
@@ -401,7 +406,9 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         indexes = BuyersGuideEditorialContentIndexPage.objects.descendant_of(self)
         return indexes.first()
 
-    def get_hero_featured_page(self) -> Optional[Union["BuyersGuideArticlePage", "BuyersGuideCampaignPage"]]:
+    def get_hero_featured_page(
+        self,
+    ) -> Optional[Union["BuyersGuideArticlePage", "BuyersGuideCampaignPage", "ConsumerCreepometerPage"]]:
         try:
             return self.hero_featured_page.specific.localized
         except AttributeError:
@@ -409,7 +416,9 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             # attribute)
             return None
 
-    def get_hero_supporting_pages(self) -> list[Union["BuyersGuideArticlePage", "BuyersGuideCampaignPage"]]:
+    def get_hero_supporting_pages(
+        self,
+    ) -> list[Union["BuyersGuideArticlePage", "BuyersGuideCampaignPage", "ConsumerCreepometerPage"]]:
         supporting_pages = orderables.get_related_items(
             self.hero_supporting_page_relations.all(),
             "supporting_page",
@@ -467,7 +476,11 @@ class BuyersGuidePageHeroSupportingPageRelation(TranslatableMixin, Orderable):
     panels = [
         PageChooserPanel(
             "supporting_page",
-            page_type=["wagtailpages.BuyersGuideArticlePage", "wagtailpages.BuyersGuideCampaignPage"],
+            page_type=[
+                "wagtailpages.BuyersGuideArticlePage",
+                "wagtailpages.BuyersGuideCampaignPage",
+                "wagtailpages.ConsumerCreepometerPage",
+            ],
         )
     ]
 

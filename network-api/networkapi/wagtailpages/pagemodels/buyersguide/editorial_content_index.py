@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Optional, Union
 
 from django import shortcuts
 from django.core import paginator
@@ -32,6 +32,7 @@ class BuyersGuideEditorialContentIndexPage(
     subpage_types = [
         "wagtailpages.BuyersGuideArticlePage",
         "wagtailpages.BuyersGuideCampaignPage",
+        "wagtailpages.ConsumerCreepometerPage",
     ]
     template = "pages/buyersguide/editorial_content_index_page.html"
 
@@ -148,7 +149,9 @@ class BuyersGuideEditorialContentIndexPage(
         """Get items to list in the index."""
         return self.get_descendants().order_by("-first_published_at").public().live().specific()
 
-    def get_related_articles(self) -> list["pagemodels.BuyersGuideArticlePage"]:
+    def get_related_articles(
+        self,
+    ) -> list[Union["pagemodels.BuyersGuideArticlePage", "pagemodels.ConsumerCreepometerPage"]]:
         return orderables.get_related_items(
             self.related_article_relations.all(),
             "article",
