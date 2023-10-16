@@ -1,4 +1,9 @@
+from html import unescape
+
+from django.forms.utils import ErrorList
+from django.utils.html import strip_tags
 from wagtail import blocks
+from wagtail.blocks.struct_block import StructBlockValidationError
 
 from .blog_cta_card_block import BlogCTACardBlock
 from .full_content_rich_text_options import full_content_rich_text_options
@@ -14,7 +19,7 @@ class BlogCTACardWithTextBlock(blocks.StructBlock):
     paragraph = blocks.RichTextBlock(
         features=full_content_rich_text_options,
         template="wagtailpages/blocks/rich_text_block.html",
-        help_text="Optional paragraph text to be displayed next to the card.",
+        help_text="Text to be displayed next to the card.",
     )
 
     card = BlogCTACardBlock(required=True, template="wagtailpages/blocks/blog_cta_card_block_no_wrappers.html")
@@ -22,3 +27,20 @@ class BlogCTACardWithTextBlock(blocks.StructBlock):
     class Meta:
         template = "wagtailpages/blocks/blog_cta_card_with_text_block.html"
         icon = "form"
+
+    def clean(self, value):
+        result = super().clean(value)
+        errors = {}
+
+        card_body = result["card"]["body"].source
+        paragraph_body = result["paragraph"].source
+
+        paragraph_length = len(strip_tags(unescape(paragraph_body)))
+        card_length = len(strip_tags(unescape(card_body))) + len(result["card"]["title"])
+
+        if card_length > paragraph_length:
+            errors["paragraph"] = ErrorList(["Paragraph content cannot be shorter than card's content."])
+        if errors:
+            raise StructBlockValidationError(errors)
+
+        return result
