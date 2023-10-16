@@ -5,8 +5,6 @@ from .full_content_rich_text_options import full_content_rich_text_options
 
 
 class BlogCTACardWithTextBlock(blocks.StructBlock):
-    card = BlogCTACardBlock(required=True, template="wagtailpages/blocks/blog_cta_card_block_no_wrappers.html")
-
     alignment = blocks.ChoiceBlock(
         choices=[("right", "Right"), ("left", "Left")],
         default="right",
@@ -18,6 +16,8 @@ class BlogCTACardWithTextBlock(blocks.StructBlock):
         template="wagtailpages/blocks/rich_text_block.html",
         help_text="Optional paragraph text to be displayed next to the card.",
     )
+
+    card = BlogCTACardBlock(required=True, template="wagtailpages/blocks/blog_cta_card_block_no_wrappers.html")
 
     class Meta:
         template = "wagtailpages/blocks/blog_cta_card_with_text_block.html"
