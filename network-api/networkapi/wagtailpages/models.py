@@ -28,6 +28,7 @@ from .pagemodels.buyersguide.campaign_page import (
     BuyersGuideCampaignPage,
     BuyersGuideCampaignPageDonationModalRelation,
 )
+from .pagemodels.buyersguide.consumer_creepometer_page import ConsumerCreepometerPage
 from .pagemodels.buyersguide.editorial_content_index import (
     BuyersGuideEditorialContentIndexPage,
     BuyersGuideEditorialContentIndexPageArticlePageRelation,
@@ -45,9 +46,10 @@ from .pagemodels.buyersguide.products import (
     GeneralProductPage,
     ProductPage,
     ProductPageCategory,
+    ProductPageEvaluation,
     ProductPagePrivacyPolicyLink,
-    ProductPageVotes,
     ProductUpdates,
+    ProductVote,
     RelatedProducts,
     Update,
 )

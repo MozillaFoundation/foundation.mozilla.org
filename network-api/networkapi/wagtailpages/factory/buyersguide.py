@@ -1,9 +1,9 @@
 from datetime import date, datetime, timedelta, timezone
 from itertools import chain
-from random import choice, randint, random, randrange, shuffle
+from random import choice, randint, random, randrange
 
 from django.utils import text as text_utils
-from factory import Faker, LazyFunction, SubFactory, post_generation
+from factory import Faker, LazyAttribute, LazyFunction, SubFactory, post_generation
 from factory.django import DjangoModelFactory
 from wagtail.images.models import Image
 from wagtail.models import Locale
@@ -112,11 +112,17 @@ class BuyersGuidePageFeaturedUpdateRelationFactory(DjangoModelFactory):
     )
 
 
-class ProductPageVotesFactory(DjangoModelFactory):
+class ProductPageEvaluationFactory(DjangoModelFactory):
     class Meta:
-        model = pagemodels.ProductPageVotes
+        model = pagemodels.ProductPageEvaluation
 
-    vote_bins = LazyFunction(lambda: ",".join([str(randint(1, 50)) for x in range(0, 5)]))
+
+class ProductVoteFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.ProductVote
+
+    evaluation = SubFactory("networkapi.wagtailpages.factory.buyersguide.ProductPageEvaluationFactory")
+    value = Faker("random_int", min=0, max=100)
 
 
 class ProductPageFactory(PageFactory):
@@ -135,6 +141,7 @@ class ProductPageFactory(PageFactory):
     worst_case = Faker("sentence")
     first_published_at = Faker("past_datetime", start_date="-2d", tzinfo=timezone.utc)
     last_published_at = Faker("past_datetime", start_date="-1d", tzinfo=timezone.utc)
+    evaluation = SubFactory("networkapi.wagtailpages.factory.buyersguide.ProductPageEvaluationFactory")
 
     @post_generation
     def assign_random_categories(self, create, extracted, **kwargs):
@@ -164,12 +171,9 @@ class ProductPageFactory(PageFactory):
             self.review_date = start_date + timedelta(days=random_number_of_days)
 
     @post_generation
-    def set_random_creepiness(self, create, extracted, **kwargs):
-        self.get_or_create_votes()
-        single_vote = [0, 0, 1, 0, 0]
-        shuffle(single_vote)
-        self.votes.set_votes(single_vote)
-        self.creepiness_value = randint(0, 100)
+    def with_votes(self, create, extracted, **kwargs):
+        if extracted:
+            ProductVoteFactory.create_batch(extracted, evaluation=self.evaluation)
 
 
 class GeneralProductPageFactory(ProductPageFactory):
@@ -243,6 +247,7 @@ class BuyersGuideCampaignPageFactory(PageFactory):
     header = Faker("sentence")
     title = Faker("sentence")
     cta = SubFactory(PetitionFactory)
+    first_published_at = Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
     narrowed_page_content = Faker("boolean", chance_of_getting_true=50)
     body = Faker(
         provider="streamfield",
@@ -255,6 +260,17 @@ class BuyersGuideCampaignPageFactory(PageFactory):
             "quote",
         ),
     )
+
+
+class ConsumerCreepometerPageFactory(PageFactory):
+    class Meta:
+        model = pagemodels.ConsumerCreepometerPage
+
+    year = Faker("random_element", elements=(("2023", "2023")))  # Add extra years here once available
+    title = LazyAttribute(lambda o: f"Annual Consumer Creepometer {o.year}")
+    first_published_at = Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
+    search_image = SubFactory(ImageFactory)
+    search_description = Faker("paragraph", nb_sentences=5, variable_nb_sentences=True)
 
 
 class BuyersGuideContentCategoryFactory(DjangoModelFactory):
@@ -339,6 +355,7 @@ def create_general_product_visual_regression_product(seed, pni_homepage):
         uses_ai="NA",
         ai_is_transparent="No",
         ai_helptext="The AI is a black box and no one knows how it works",
+        with_votes=1,
     )
 
 
@@ -356,10 +373,11 @@ def generate(seed):
     create_general_product_visual_regression_product(seed, pni_homepage)
 
     print("Generating 52 ProductPages")
-    for i in range(52):
+    for _ in range(52):
         # General products
         general_page = GeneralProductPageFactory.create(
             parent=pni_homepage,
+            with_votes=1,
         )
         general_page.save_revision().publish()
 
@@ -369,7 +387,7 @@ def generate(seed):
     for product_page in product_pages:
         # Create a new orderable 3 times.
         # Each page will be randomly selected from an existing factory page.
-        for i in range(3):
+        for _ in range(3):
             random_number = randint(1, total_product_pages) - 1
             random_page = product_pages[random_number]
             related_product = pagemodels.RelatedProducts(
@@ -449,6 +467,9 @@ def generate(seed):
     for _ in range(5):
         campaign_page = BuyersGuideCampaignPageFactory(parent=editorial_content_index)
         BuyersGuideCampaignPageDonationModalRelationFactory(page=campaign_page)
+
+    print("Generating PNI Annual Consumer Creep-O-Meter Page for Year 2023")
+    ConsumerCreepometerPageFactory(parent=editorial_content_index, title="Annual Consumer Creep-O-Meter", year=2023)
 
     # Buyerguide homepage hero page
     pni_homepage.hero_featured_page = pagemodels.BuyersGuideArticlePage.objects.first()

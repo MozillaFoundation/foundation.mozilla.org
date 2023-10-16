@@ -4,9 +4,9 @@ import typing
 from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.validators import int_list_validator
+from django.core.validators import MaxValueValidator
 from django.db import Error, models
-from django.db.models import F
+from django.db.models import F, Q
 from django.http import (
     HttpResponse,
     HttpResponseNotAllowed,
@@ -14,14 +14,14 @@ from django.http import (
     HttpResponseServerError,
 )
 from django.templatetags.static import static
-from django.utils import timezone, translation
+from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
-from wagtail.models import Locale, Orderable, Page, TranslatableMixin
+from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -223,61 +223,91 @@ class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable
         pass
 
 
-class ProductPageVotes(models.Model):
-    """
-    PNI product voting bins. This does not need translating.
-    All of this needs to be refactored heavily.
-    """
+class ProductVote(models.Model):
+    """Holds a single creepiness vote for a product."""
 
-    vote_bins = models.CharField(default="0,0,0,0,0", max_length=50, validators=[int_list_validator])
+    value = models.PositiveSmallIntegerField(
+        default=0, validators=[MaxValueValidator(100, message="Creepiness vote must be smaller than 100")]
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    evaluation = models.ForeignKey("ProductPageEvaluation", on_delete=models.CASCADE, related_name="votes")
 
-    def set_votes(self, bin_list):
-        """
+
+class ProductPageEvaluationQuerySet(models.QuerySet):
+    def with_total_votes(self):
+        return self.annotate(_total_votes=models.Count("votes__id", distinct=True))
+
+    def with_total_creepiness(self):
+        return self.annotate(_total_creepiness=models.Sum("votes__value"))
+
+    def with_average_creepiness(self):
+        return self.annotate(_average_creepiness=models.Avg("votes__value"))
+
+    def with_bin_data(self):
+        """Annotate the queryset with the number of votes in each bin.
+
         There are 5 "bins" for votes: <20%, <40%, <60%, <80%, <100%.
-        When setting votes, ensure there are only 5 bins (max)
         """
-        bin_list = [str(x) for x in bin_list]
-        self.vote_bins = ",".join(bin_list[0:5])
-        self.save()
+        return self.annotate(
+            bin_0=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=0, votes__value__lt=20)),
+            bin_1=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=20, votes__value__lt=40)),
+            bin_2=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=40, votes__value__lt=60)),
+            bin_3=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=60, votes__value__lt=80)),
+            bin_4=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=80, votes__value__lt=100)),
+        )
 
-    def get_votes(self):
-        """Pull the votes out of the database and split them. Convert to ints."""
-        votes = [int(x) for x in self.vote_bins.split(",")]
-        return votes
 
-    def get_vote_average(self):
-        votes = self.get_votes()
-        total_votes = sum(votes)
-        """If there's no votes, let the user know (also protects from division by zero errors)"""
-        if total_votes == 0:
-            return {
-                "bin": 0,
-                "value": 0,
-                "label": "No votes",
-                "localized": gettext("No votes"),
+class ProductPageEvaluation(models.Model):
+    """Holds creepiness data for a product and performs appropriate calculations.
+
+    The product page is defined in the ProductPage model to make it possible to
+    synchronize the field using `wagtail_localize` and avoid having to create
+    multiple evaluations for each localized product page.
+    """
+
+    BIN_LABELS = {
+        "bin_0": {"key": "Not creepy", "label": gettext("Not creepy")},
+        "bin_1": {"key": "A little creepy", "label": gettext("A little creepy")},
+        "bin_2": {"key": "Somewhat creepy", "label": gettext("Somewhat creepy")},
+        "bin_3": {"key": "Very creepy", "label": gettext("Very creepy")},
+        "bin_4": {"key": "Super creepy", "label": gettext("Super creepy")},
+    }
+
+    objects = ProductPageEvaluationQuerySet.as_manager()
+
+    @property
+    def total_votes(self):
+        return self.votes.count()
+
+    @property
+    def total_creepiness(self):
+        return sum([vote.value for vote in self.votes.all()])
+
+    @property
+    def average_creepiness(self):
+        if self.total_votes == 0:
+            return 0
+        return self.total_creepiness / self.total_votes
+
+    @property
+    def votes_per_bin(self):
+        bin_0 = self.votes.filter(value__gte=0, value__lt=20).count()
+        bin_1 = self.votes.filter(value__gte=20, value__lt=40).count()
+        bin_2 = self.votes.filter(value__gte=40, value__lt=60).count()
+        bin_3 = self.votes.filter(value__gte=60, value__lt=80).count()
+        bin_4 = self.votes.filter(value__gte=80, value__lt=100).count()
+        return [bin_0, bin_1, bin_2, bin_3, bin_4]
+
+    @property
+    def labelled_creepiness_per_bin(self):
+        bins = self.votes_per_bin
+        creepiness_per_bin = {}
+        for i in range(5):
+            creepiness_per_bin[self.BIN_LABELS[f"bin_{i}"]["key"]] = {
+                "count": bins[i],
+                "label": self.BIN_LABELS[f"bin_{i}"]["label"],
             }
-        vote_breakdown = {k: v for (k, v) in enumerate(votes)}
-        weighted_votes = 0
-        for i in range(len(vote_breakdown)):
-            weighted_votes += vote_breakdown[i] * i
-        average_vote = round(weighted_votes / total_votes)
-        label = self.get_vote_labels()[average_vote]
-
-        return {
-            "bin": average_vote,
-            "value": votes[average_vote],
-            "label": label[0],
-            "localized": label[1],
-        }
-
-    def get_vote_labels(self):
-        return [
-            ("Not creepy", gettext("Not creepy")),
-            ("A little creepy", gettext("A little creepy")),
-            ("Somewhat creepy", gettext("Somewhat creepy")),
-            ("Very creepy", gettext("Very creepy")),
-            ("Super creepy", gettext("Super creepy")),
-        ]
+        return creepiness_per_bin
 
 
 class ProductPageCategory(TranslatableMixin, Orderable):
@@ -564,14 +594,12 @@ class ProductPage(BasePage):
         verbose_name="description", max_length=5000, blank=True
     )
 
-    # Un-editable voting fields. Don't add these to the content_panels.
-    creepiness_value = models.IntegerField(default=0)  # The total points for creepiness
-    votes = models.ForeignKey(
-        ProductPageVotes,
-        on_delete=models.SET_NULL,
+    evaluation = models.ForeignKey(
+        ProductPageEvaluation,
+        on_delete=models.PROTECT,
         null=True,
         blank=True,
-        related_name="votes",
+        related_name="product_pages",
     )
 
     @classmethod
@@ -615,52 +643,25 @@ class ProductPage(BasePage):
         return mappings
 
     @property
-    def original_product(self):
-        default_locale = Locale.get_default()
-        with translation.override(default_locale.language_code):
-            return self.localized
-
-    def get_or_create_votes(self):
-        """
-        If a page doesn't have a ProductPageVotes objects, create it.
-        Regardless of whether or not its created, return the parsed votes.
-        """
-        if not self.votes:
-            votes = ProductPageVotes()
-            votes.save()
-            self.votes = votes
-            self.save()
-        return self.votes.get_votes()
-
-    @property
     def total_vote_count(self):
-        # Voting only happens on the original product, not "self"
-        product = self.original_product
-        return sum(product.get_or_create_votes())
+        return self.evaluation.total_votes
 
     @property
     def creepiness(self):
-        # Creepiness is tied to the votes on the original product, not "self"
-        product = self.original_product
-        try:
-            average = product.creepiness_value / product.total_vote_count
-        except ZeroDivisionError:
-            average = 50
-        return average
+        return self.evaluation.average_creepiness
 
     @property
     def get_voting_json(self):
         """
         Return a dictionary as a string with the relevant data needed for the frontend:
         """
-        product = self.original_product
-        votes = product.votes.get_votes()
+        votes_per_bin = self.evaluation.votes_per_bin
         data = {
             "creepiness": {
-                "vote_breakdown": {k: v for (k, v) in enumerate(votes)},
-                "average": product.creepiness,
+                "vote_breakdown": {k: v for (k, v) in enumerate(votes_per_bin)},
+                "average": self.creepiness,
             },
-            "total": product.total_vote_count,
+            "total": self.total_vote_count,
         }
         return json.dumps(data)
 
@@ -826,6 +827,7 @@ class ProductPage(BasePage):
         SynchronizedField("time_researched"),
         SynchronizedField("updates"),
         TranslatableField("tips_to_protect_yourself"),
+        SynchronizedField("evaluation"),
     ]
 
     @property
@@ -890,34 +892,15 @@ class ProductPage(BasePage):
                     return HttpResponseNotAllowed("Cannot save vote")
 
                 try:
-                    # Get the english version of this product, as votes should only be recorded
-                    # for the "authoritative" product instance, not specific locale versions.
-                    product = self.original_product
+                    product = self
 
                     # 404 if the product exists but isn't live and the user isn't logged in.
                     if (not product.live and not request.user.is_authenticated) or not product:
                         return HttpResponseNotFound("Product does not exist")
 
-                    # Save the new voting totals
-                    product.creepiness_value = product.creepiness_value + value
+                    # Save the new vote
+                    ProductVote.objects.create(value=value, evaluation=product.evaluation)
 
-                    # Add the vote to the vote bin
-                    if not product.votes:
-                        # If there is no vote bin attached to this product yet, create one now.
-                        votes = ProductPageVotes()
-                        votes.save()
-                        product.votes = votes
-
-                    # Add the vote to the proper "vote bin"
-                    votes = product.votes.get_votes()
-                    index = int((value - 1) / 20)
-                    votes[index] += 1
-                    product.votes.set_votes(votes)
-
-                    # Don't save this as a revision with .save_revision() as to not spam the Audit log
-                    # And don't make this live with .publish(). The Page model will have the proper
-                    # data stored on it already, and the revision history won't be spammed by votes.
-                    product.save()
                     return HttpResponse("Vote recorded", content_type="text/plain")
                 except ProductPage.DoesNotExist:
                     return HttpResponseNotFound("Missing page")
@@ -927,16 +910,7 @@ class ProductPage(BasePage):
                     print(f"Internal Server Error (500) for ProductPage: {ex.message} ({type(ex)})")
                     return HttpResponseServerError()
 
-        self.get_or_create_votes()
-
         return super().serve(request, *args, **kwargs)
-
-    def save(self, *args, **kwargs):
-        # When a new ProductPage is created, ensure a vote bin always exists.
-        # We can use save() or a post-save Wagtail hook.
-        save = super().save(*args, **kwargs)
-        self.get_or_create_votes()
-        return save
 
     class Meta:
         verbose_name = "Product Page"

@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.utils import translation
 from wagtail import models as wagtail_models
 from wagtail.test import utils as wagtail_test
@@ -43,3 +44,12 @@ class WagtailpagesTestCase(wagtail_test.WagtailPageTestCase):
 
     def activate_locale(self, locale):
         translation.activate(locale.language_code)
+
+    def translate_page(self, page, locale):
+        return self.client.post(
+            reverse(
+                "wagtail_localize:submit_page_translation",
+                args=[page.id],
+            ),
+            {"locales": [locale.id]},
+        )
