@@ -3,19 +3,18 @@
 @tailwind utilities;
 
 .blog-cta-card-with-text {
-  &--right {
-    @apply tw-flex tw-flex-col-reverse tw-overflow-auto medium:tw-block medium:tw-overflow-visible;
-  }
 
-  &--left {
-    @apply tw-flex tw-flex-col-reverse tw-overflow-auto medium:tw-block medium:tw-overflow-visible;
-  }
+  @apply tw-flex tw-flex-col-reverse tw-overflow-auto medium:tw-block medium:tw-overflow-visible;
 
-  &__card-container--right {
-    @apply tw-m-8 tw-w-192 medium:tw-float-right large:-tw-mr-96;
-  }
+  &__card-container {
+    @apply tw-m-8 tw-w-192;
 
-  &__card-container--left {
-    @apply tw-m-8 tw-w-192 medium:tw-float-left large:-tw-ml-96;
+    &--right {
+      @apply medium:tw-float-right large:-tw-mr-96;
+    }
+
+    &--left {
+      @apply medium:tw-float-left large:-tw-ml-96;
+    }
   }
 }
