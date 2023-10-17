@@ -4,7 +4,7 @@ from .base_rich_text_options import base_rich_text_options
 from .image_block import ImageBlock
 from .link_button_block import LinkButtonBlock
 
-BLOG_CARD_CTA_RICH_TEXT_OPTIONS = base_rich_text_options + ["hr", "h3", "h4", "ul", "ol"]
+BLOG_CARD_CTA_RICH_TEXT_OPTIONS = base_rich_text_options + ["hr", "h4", "h5", "ul", "ol"]
 
 
 class BlogCTACardBlock(blocks.StructBlock):
