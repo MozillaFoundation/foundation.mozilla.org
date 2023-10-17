@@ -22,7 +22,7 @@ class BlogCTACardWithTextBlock(blocks.StructBlock):
         help_text="Text to be displayed next to the card.",
     )
 
-    card = BlogCTACardBlock(required=True, template="wagtailpages/blocks/blog_cta_card_block_no_wrappers.html")
+    card = BlogCTACardBlock(required=True, template="wagtailpages/blocks/blog_cta_card_block_regular.html")
 
     class Meta:
         template = "wagtailpages/blocks/blog_cta_card_with_text_block.html"
