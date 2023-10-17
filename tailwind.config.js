@@ -75,6 +75,9 @@ module.exports = {
         contain: "contain",
         ...theme("spacing"),
       }),
+      gridAutoRows: {
+        "1fr": "1fr",
+      },
     },
     // Overriding default spacing
     spacing: {

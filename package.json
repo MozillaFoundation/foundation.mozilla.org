@@ -71,7 +71,7 @@
   "license": "MPL-2.0",
   "dependencies": {
     "@sentry/browser": "^6.2.1",
-    "@tailwindcss/forms": "^0.5.4",
+    "@tailwindcss/forms": "^0.5.6",
     "autoprefixer": "^10.4.15",
     "axe-core": "^4.7.2",
     "bootstrap": "^4.6.0",
@@ -86,7 +86,7 @@
     "locomotive-scroll": "^4.1.4",
     "moment": "^2.29.4",
     "npm-run-all": "^4.1.3",
-    "postcss": "^8.4.29",
+    "postcss": "^8.4.30",
     "postcss-cli": "^10.1.0",
     "postcss-import": "^15.1.0",
     "postcss-scss": "^4.0.6",
@@ -103,13 +103,13 @@
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
-    "@percy/cli": "^1.26.2",
+    "@percy/cli": "^1.27.1",
     "@percy/playwright": "^1.0.4",
     "@playwright/test": "^1.36.1",
     "browser-sync": "^2.29.3",
     "browserslist": "^4.21.9",
     "chokidar-cli": "^3.0.0",
-    "eslint": "^8.47.0",
+    "eslint": "^8.49.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",

@@ -407,14 +407,27 @@ class BlogIndexPage(IndexPage):
             the profile_slug queried.
         """
         author_profile = get_object_or_404(Profile, slug=profile_slug)
+        authors_frequent_topics = self.get_authors_frequent_topics(author_profile=author_profile)
         return self.render(
             request,
             context_overrides={
                 "author": author_profile,
                 "page": self,
+                "frequent_topics": authors_frequent_topics,
             },
             template="wagtailpages/blog_author_detail_page.html",
         )
+
+    def get_authors_frequent_topics(self, author_profile):
+        top_topics = (
+            BlogPageTopic.objects.filter(blogpage__authors__author=author_profile)
+            .annotate(count=models.Count("name"))
+            .order_by("-count")[:3]
+        )
+
+        top_topics = localize_queryset(top_topics)
+
+        return top_topics
 
     @route(r"^search/$")
     def search(self, request: "HttpRequest") -> "HttpResponse":
