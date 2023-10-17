@@ -1,17 +1,35 @@
+import wagtail_factories
 from django.conf import settings
-from factory import Faker, SubFactory
+from factory import Faker, LazyAttribute, SubFactory
 from wagtail.models import Page as WagtailPage
 from wagtail.models import Site as WagtailSite
 from wagtail_factories import PageFactory
 
 from networkapi.donate.models import DonateHelpPage, DonateLandingPage
+from networkapi.donate.pagemodels.customblocks.notice_block import NoticeBlock
 from networkapi.utility.faker import StreamfieldProvider
 from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
+description_faker: Faker = Faker("paragraphs", nb=2)
+
+
 Faker.add_provider(StreamfieldProvider)
 
 streamfield_fields = ["paragraph", "spacer", "image", "image_text", "quote"]
+
+
+class NoticeBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = NoticeBlock
+        exclude = ("description_text",)
+
+    image = SubFactory(wagtail_factories.ImageChooserBlockFactory)
+    image_alt_text = Faker("sentence", nb_words=4)
+    text = LazyAttribute(lambda o: "".join([f"<p>{p}</p>" for p in o.description_text]))
+
+    # Lazy Values
+    description_text = description_faker
 
 
 class DonateLandingPageFactory(PageFactory):
@@ -29,6 +47,7 @@ class DonateHelpPageFactory(PageFactory):
 
     title = Faker("sentence", nb_words=2)
     body = Faker("streamfield", fields=streamfield_fields)
+    notice = wagtail_factories.StreamFieldFactory({"notice": SubFactory(NoticeBlockFactory)})
 
 
 def generate(seed):
@@ -45,7 +64,7 @@ def generate(seed):
         home_page = DonateLandingPageFactory.create(parent=site_root, title="Donate Now", slug=None)
 
         print("Generating a Help page")
-        DonateHelpPageFactory.create(parent=home_page, title="Donate Help", slug="help")
+        DonateHelpPageFactory(parent=home_page, title="Donate Help", slug="help", notice__0="notice")
 
     reseed(seed)
 
