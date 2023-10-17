@@ -4,17 +4,17 @@
 
 .blog-cta-card-with-text {
 
-  @apply tw-flex tw-flex-col-reverse tw-overflow-auto medium:tw-block medium:tw-overflow-visible;
+  @apply tw-flex tw-flex-col-reverse medium:tw-block medium:tw-overflow-visible;
 
   &__card-container {
-    @apply tw-m-8 tw-w-192;
+    @apply tw-my-8 tw-mx-2 tw-w-full medium:tw-m-8 medium:tw-max-w-xs large:tw-w-192;
 
     &--right {
-      @apply medium:tw-float-right large:-tw-mr-96;
+      @apply medium:tw-float-right large:-tw-mr-80;
     }
 
     &--left {
-      @apply medium:tw-float-left large:-tw-ml-96;
+      @apply medium:tw-float-left large:-tw-ml-80;
     }
   }
 }
