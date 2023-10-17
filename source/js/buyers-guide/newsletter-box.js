@@ -5,12 +5,14 @@
  */
 const NewsletterBox = {
   toggleVisibilityClasses: () => {
-    const buyersGuideNewsletterBox = document.querySelector(
-      "#buyersguide-newsletter-box"
+    const buyersGuideNewsletterBox = document.querySelectorAll(
+      ".buyersguide-newsletter-box"
     );
     // Used for toggle visibility for buyersguide newsletter container
-    if (buyersGuideNewsletterBox) {
-      buyersGuideNewsletterBox.classList.remove("tw-hidden");
+    if (buyersGuideNewsletterBox.length > 0) {
+      buyersGuideNewsletterBox.forEach((box) =>
+        box.classList.remove("tw-hidden")
+      );
     }
 
     // Used for buyersguide product review grid toggle visibility
