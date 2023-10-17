@@ -23,7 +23,7 @@ class ProductQuizShareButtons extends Component {
     return (
       <button
         className={`${this.shareButtonClasses} twitter-share`}
-        onClick={(e) => this.shareButtonClicked(e, "share-progress-fb")}
+        onClick={(e) => this.shareButtonClicked(e, "share-progress-tw")}
       >
         {child}
       </button>
