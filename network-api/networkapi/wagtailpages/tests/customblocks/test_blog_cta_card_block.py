@@ -6,7 +6,6 @@ from networkapi.wagtailpages.factory import customblocks as customblock_factorie
 class TestBlogCTACardBlock(TestCase):
     def test_blog_cta_card_all_optionals(self):
         full_card = customblock_factories.BlogCTACardBlockFactory()
-        print(full_card)
         self.assertIsNotNone(full_card["title"])
         self.assertIsNotNone(full_card["image"])
         self.assertIsNotNone(full_card["button"])
