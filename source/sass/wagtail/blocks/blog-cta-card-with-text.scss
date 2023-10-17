@@ -16,6 +16,6 @@
   }
 
   &__card-container--left {
-    @apply tw-m-8 tw-w-192 medium:tw-float-left large:tw-ml-96;
+    @apply tw-m-8 tw-w-192 medium:tw-float-left large:-tw-ml-96;
   }
 }
