@@ -4,11 +4,11 @@
 
 .blog-cta-card-with-text {
   &--right {
-    @apply tw-block tw-overflow-auto medium:tw-overflow-visible;
+    @apply tw-flex tw-flex-col-reverse tw-overflow-auto medium:tw-block medium:tw-overflow-visible;
   }
 
   &--left {
-    @apply tw-block tw-overflow-auto medium:tw-overflow-visible;
+    @apply tw-flex tw-flex-col-reverse tw-overflow-auto medium:tw-block medium:tw-overflow-visible;
   }
 
   &__card-container--right {
