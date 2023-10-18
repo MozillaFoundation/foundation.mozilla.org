@@ -13,7 +13,7 @@
     }
 
     &--left {
-      @apply medium:tw-float-left large:-tw-ml-80;
+      @apply medium:tw-float-left large:-tw-ml-80 large:tw-mr-14;
     }
   }
 }
