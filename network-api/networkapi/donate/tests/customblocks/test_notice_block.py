@@ -3,7 +3,7 @@ from wagtail import rich_text
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.images.tests.utils import Image, get_test_image_file
 
-from networkapi.donate.factory import NoticeBlockFactory
+from networkapi.donate.factory.customblocks.notice_block import NoticeBlockFactory
 from networkapi.donate.pagemodels.customblocks.notice_block import NoticeBlock
 
 
