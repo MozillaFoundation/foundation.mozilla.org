@@ -4,10 +4,13 @@ from wagtail.models import Page as WagtailPage
 from wagtail.models import Site as WagtailSite
 from wagtail_factories import PageFactory
 
-from networkapi.donate.models import DonateHelpPage, DonateLandingPage
+from networkapi.donate.models import DonateLandingPage
 from networkapi.utility.faker import StreamfieldProvider
 from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
+
+description_faker = Faker("paragraphs", nb=2)
+
 
 Faker.add_provider(StreamfieldProvider)
 
@@ -23,14 +26,6 @@ class DonateLandingPageFactory(PageFactory):
     featured_image = SubFactory(ImageFactory)
 
 
-class DonateHelpPageFactory(PageFactory):
-    class Meta:
-        model = DonateHelpPage
-
-    title = Faker("sentence", nb_words=2)
-    body = Faker("streamfield", fields=streamfield_fields)
-
-
 def generate(seed):
     reseed(seed)
 
@@ -43,11 +38,6 @@ def generate(seed):
         site_root = WagtailPage.objects.get(depth=1)
 
         home_page = DonateLandingPageFactory.create(parent=site_root, title="Donate Now", slug=None)
-
-        print("Generating a Help page")
-        DonateHelpPageFactory.create(parent=home_page, title="Donate Help", slug="help")
-
-    reseed(seed)
 
     print("Creating Donate Site record in Wagtail")
     tds = settings.TARGET_DOMAINS

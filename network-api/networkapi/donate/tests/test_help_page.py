@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
-from networkapi.donate import factory as donate_factories
 from networkapi.donate import models as pagemodels
+from networkapi.donate.factory import help_page as help_page_factories
 from networkapi.wagtailpages.tests import base as test_base
 
 
@@ -10,18 +10,19 @@ class FactoriesTest(test_base.WagtailpagesTestCase):
         """
         Testing the factory can successfully create a DonateHelpPage.
         """
-        donate_factories.DonateHelpPageFactory()
+        help_page_factories.DonateHelpPageFactory()
 
 
 class DonateHelpPageTest(test_base.WagtailpagesTestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.donate_landing_page = donate_factories.DonateHelpPageFactory(
+        cls.donate_landing_page = help_page_factories.DonateHelpPageFactory(
             parent=cls.homepage,
         )
-        cls.donate_help_page = donate_factories.DonateHelpPageFactory(
+        cls.donate_help_page = help_page_factories.DonateHelpPageFactory(
             parent=cls.donate_landing_page,
+            notice__0="notice",
         )
 
     def test_parent_page_types(self):
@@ -64,3 +65,9 @@ class DonateHelpPageTest(test_base.WagtailpagesTestCase):
             response=response,
             template_name="donate/pages/help_page.html",
         )
+
+    def test_help_page_notice_field(self):
+        """
+        Asserts that a 'notice' block was created in the 'notice' field by the factory.
+        """
+        self.assertEqual(self.donate_help_page.notice[0].block_type, "notice")
