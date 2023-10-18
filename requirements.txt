@@ -167,7 +167,7 @@ psycopg2-binary==2.9.7
     # via -r requirements.in
 pycparser==2.21
     # via cffi
-pygit2==1.12.2
+pygit2==1.13.1
     # via
     #   -r requirements.in
     #   wagtail-localize-git
