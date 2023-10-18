@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
-from networkapi.donate.factory import help_page as help_page_factories
 from networkapi.donate import models as pagemodels
+from networkapi.donate.factory import help_page as help_page_factories
 from networkapi.wagtailpages.tests import base as test_base
 
 

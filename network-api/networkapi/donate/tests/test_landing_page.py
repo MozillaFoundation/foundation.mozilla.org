@@ -2,8 +2,8 @@ from http import HTTPStatus
 
 from wagtail.models import Page as WagtailPage
 
-from networkapi.donate.factory import landing_page as landing_page_factories
 from networkapi.donate import models as pagemodels
+from networkapi.donate.factory import landing_page as landing_page_factories
 from networkapi.wagtailpages.tests import base as test_base
 
 
