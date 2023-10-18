@@ -16,13 +16,13 @@ class BlogCTACardWithTextBlock(blocks.StructBlock):
         help_text="For full-width cards, please use a regular Blog CTA Card block with a separate paragraph.",
     )
 
+    card = BlogCTACardBlock(required=True, template="wagtailpages/blocks/blog_cta_card_block_regular.html")
+
     paragraph = blocks.RichTextBlock(
         features=full_content_rich_text_options,
         template="wagtailpages/blocks/rich_text_block.html",
         help_text="Text to be displayed next to the card.",
     )
-
-    card = BlogCTACardBlock(required=True, template="wagtailpages/blocks/blog_cta_card_block_regular.html")
 
     class Meta:
         template = "wagtailpages/blocks/blog_cta_card_with_text_block.html"
