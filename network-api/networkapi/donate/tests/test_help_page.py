@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from networkapi.donate import factory as donate_factories
+from networkapi.donate.factory import help_page as help_page_factories
 from networkapi.donate import models as pagemodels
 from networkapi.wagtailpages.tests import base as test_base
 
@@ -10,17 +10,17 @@ class FactoriesTest(test_base.WagtailpagesTestCase):
         """
         Testing the factory can successfully create a DonateHelpPage.
         """
-        donate_factories.DonateHelpPageFactory()
+        help_page_factories.DonateHelpPageFactory()
 
 
 class DonateHelpPageTest(test_base.WagtailpagesTestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.donate_landing_page = donate_factories.DonateHelpPageFactory(
+        cls.donate_landing_page = help_page_factories.DonateHelpPageFactory(
             parent=cls.homepage,
         )
-        cls.donate_help_page = donate_factories.DonateHelpPageFactory(
+        cls.donate_help_page = help_page_factories.DonateHelpPageFactory(
             parent=cls.donate_landing_page,
             notice__0="notice",
         )
