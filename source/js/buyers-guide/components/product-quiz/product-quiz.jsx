@@ -304,7 +304,13 @@ class ProductQuiz extends Component {
       <div className="tw-flex tw-flex-col medium:tw-flex-col-reverse tw-dark">
         <div className="tw-text-center">
           <div className="tw-mx-auto tw-w-[80px] tw-h-[80px] medium:tw-w-[180px] medium:tw-h-[180px]">
-            <img src={resultType.imgSrc} alt="" width="100%" height="100%" />
+            <img
+              src={resultType.imgSrc}
+              alt=""
+              width="100%"
+              height="100%"
+              loading="eager"
+            />
           </div>
           <h3 className="tw-font-zilla tw-font-semibold tw-text-[28px] tw-leading-[36px] medium:tw-text-[48px] medium:tw-leading-[56px] tw-text-white tw-my-12 medium:tw-mt-16">
             {resultType.heading}
@@ -314,6 +320,7 @@ class ProductQuiz extends Component {
             <a
               className="tw-underline tw-text-white"
               href={this.props.pniHomeUrl}
+              target="_blank"
             >
               privacynotincluded.org
             </a>
