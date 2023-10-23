@@ -156,11 +156,11 @@ class BuyersGuideProductCategory(
 
     @cached_property
     def published_product_pages(self):
-        return self.product_pages.filter(product__live=True)
+        return [relation.product for relation in self.product_pages.filter(product__live=True)]
 
     @cached_property
     def published_product_page_count(self):
-        return self.published_product_pages.count()
+        return len(self.published_product_pages)
 
     def get_parent(self):
         return self.parent

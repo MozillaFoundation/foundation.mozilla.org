@@ -20,7 +20,7 @@ class TestBuyersGuideProductCategory(BuyersGuideTestCase):
 
         self.assertFalse(product_page_not_live.live)
 
-        products = ProductPage.objects.filter(product_categories__category=category).live()
+        products = category.published_product_pages
 
         self.assertIn(product_page_a, products)
         self.assertIn(product_page_b, products)
