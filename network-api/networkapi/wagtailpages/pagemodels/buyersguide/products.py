@@ -1,5 +1,6 @@
 import json
 import typing
+from functools import cached_property
 
 from bs4 import BeautifulSoup
 from django.conf import settings
@@ -153,9 +154,13 @@ class BuyersGuideProductCategory(
         SynchronizedField("parent"),
     ]
 
-    @property
+    @cached_property
+    def published_product_pages(self):
+        return self.product_pages.filter(product__live=True)
+
+    @cached_property
     def published_product_page_count(self):
-        return ProductPage.objects.filter(product_categories__category=self).live().count()
+        return self.published_product_pages.count()
 
     def get_parent(self):
         return self.parent
@@ -319,7 +324,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
 
     category = models.ForeignKey(
         "wagtailpages.BuyersGuideProductCategory",
-        related_name="+",
+        related_name="product_pages",
         blank=False,
         null=True,
         on_delete=models.CASCADE,
