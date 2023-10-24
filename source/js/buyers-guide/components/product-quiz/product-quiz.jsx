@@ -132,7 +132,6 @@ class ProductQuiz extends Component {
               </p>
               <p className="text-font-sans tw-mb-0 tw-font-light">
                 {productName}
-                <span className="tw-block tw-text-red-40">(points: {product.points})</span>
               </p>
             </div>
           </label>
