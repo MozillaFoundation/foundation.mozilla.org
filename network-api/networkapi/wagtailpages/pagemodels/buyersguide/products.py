@@ -39,7 +39,6 @@ from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
 from networkapi.wagtailpages.utils import (
     TitleWidget,
     get_language_from_request,
@@ -62,7 +61,6 @@ TRACK_RECORD_CHOICES = [
 class BuyersGuideProductCategory(
     index.Indexed,
     TranslatableMixin,
-    LocalizedSnippet,
     # models.Model
     cluster_models.ClusterableModel,
 ):
@@ -179,10 +177,6 @@ class BuyersGuideProductCategory(
         if self.parent is None:
             return f"{self.name} (sort order: {self.sort_order})"
         return f"{self.parent.name}: {self.name} (sort order: {self.sort_order})"
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
 
     base_form_class = BuyersGuideProductCategoryForm
 

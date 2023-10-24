@@ -13,11 +13,10 @@ from networkapi.wagtailpages.constants import url_or_query_regex
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
 
 
 @register_snippet
-class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, LocalizedSnippet, models.Model):
+class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
     """
     Reusable call to action for the buyers guide,
     features a title and rich text content, with optional image and link.
