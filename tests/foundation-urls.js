@@ -1,5 +1,7 @@
 // Our list of foundation site URLS to check
 module.exports = {
+  Donate: "/donate",
+  "Donate help page": "/donate/help",
   homepage: "",
   "What you can do": "/what-you-can-do",
   "Who we are": "/who-we-are",
