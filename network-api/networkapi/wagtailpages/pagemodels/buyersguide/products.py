@@ -47,8 +47,6 @@ from networkapi.wagtailpages.utils import (
     insert_panels_after,
 )
 
-# from silk.profiling.profiler import silk_profile
-
 
 if typing.TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideArticlePage
@@ -75,7 +73,7 @@ class BuyersGuideProductCategoryQuerySet(models.QuerySet):
 class BuyersGuideProductCategory(
     index.Indexed,
     TranslatableMixin,
-    # LocalizedSnippet,
+    LocalizedSnippet,
     # models.Model
     cluster_models.ClusterableModel,
 ):
