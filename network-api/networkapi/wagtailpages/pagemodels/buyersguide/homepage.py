@@ -388,8 +388,8 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         if not categories:
             categories = BuyersGuideProductCategory.objects.filter(hidden=False)
             categories = localize_queryset(categories)
-            categories = categories.select_related("parent")
-            categories = cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
+            categories = categories.select_related("parent").with_published_product_pages()
+            cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
 
         context["categories"] = categories
         context["current_category"] = None
