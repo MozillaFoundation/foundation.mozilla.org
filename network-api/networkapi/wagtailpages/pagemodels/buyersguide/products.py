@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.db import Error, models
-from django.db.models import F, Q
+from django.db.models import F, Prefetch, Q
 from django.http import (
     HttpResponse,
     HttpResponseNotAllowed,
@@ -47,6 +47,9 @@ from networkapi.wagtailpages.utils import (
     insert_panels_after,
 )
 
+# from silk.profiling.profiler import silk_profile
+
+
 if typing.TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideArticlePage
 
@@ -59,11 +62,20 @@ TRACK_RECORD_CHOICES = [
 ]
 
 
+class BuyersGuideProductCategoryQuerySet(models.QuerySet):
+    def with_published_product_pages(self):
+        return self.prefetch_related(
+            Prefetch(
+                "product_pages__product", queryset=ProductPage.objects.filter(live=True), to_attr="_product_pages"
+            ),
+        )
+
+
 @register_snippet
 class BuyersGuideProductCategory(
     index.Indexed,
     TranslatableMixin,
-    LocalizedSnippet,
+    # LocalizedSnippet,
     # models.Model
     cluster_models.ClusterableModel,
 ):
@@ -125,6 +137,8 @@ class BuyersGuideProductCategory(
         help_text="Do we want the Buyers Guide featured CTA to be displayed on this category's page?",
     )
 
+    objects = BuyersGuideProductCategoryQuerySet.as_manager()
+
     panels = [
         FieldPanel(
             "name",
@@ -156,7 +170,13 @@ class BuyersGuideProductCategory(
 
     @cached_property
     def published_product_pages(self):
-        return [relation.product for relation in self.product_pages.filter(product__live=True)]
+        try:
+            # Try to get pre-filtered/pre-fetched annotated value
+            return self._product_pages
+        except AttributeError:
+            # It failed, let's query it ourselves
+            product_category_relationships = self.product_pages.filter(product__live=True).select_related("product")
+            return [relation.product for relation in product_category_relationships]
 
     @cached_property
     def published_product_page_count(self):
@@ -335,7 +355,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
     ]
 
     def __str__(self):
-        return self.category.name
+        return f"{self.category.name} -> {self.product.title}"
 
     class Meta(TranslatableMixin.Meta):
         verbose_name = "Product Category"
