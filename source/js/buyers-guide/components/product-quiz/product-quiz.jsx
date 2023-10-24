@@ -287,12 +287,13 @@ class ProductQuiz extends Component {
     const { selectedChoices, score } = this.state;
 
     let resultType = null;
+    // Result type is based on the total score.
+    // There is only one exception - when at least half of the selected products are bad.
+    let specialCase =
+      selectedChoices.length > 0 &&
+      this.state.numBad >= selectedChoices.length / 2;
 
-    if (
-      score >= RESULTS["open book"].minPoints ||
-      (selectedChoices.length > 0 &&
-        selectedChoices.length === this.state.numBad)
-    ) {
+    if (score >= RESULTS["open book"].minPoints || specialCase) {
       resultType = RESULTS["open book"];
     } else if (score >= RESULTS["soso"].minPoints) {
       resultType = RESULTS["soso"];
