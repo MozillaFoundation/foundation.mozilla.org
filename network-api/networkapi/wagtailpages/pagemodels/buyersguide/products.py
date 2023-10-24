@@ -1,12 +1,13 @@
 import json
 import typing
+from functools import cached_property
 
 from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.db import Error, models
-from django.db.models import F, Q
+from django.db.models import F, Prefetch, Q
 from django.http import (
     HttpResponse,
     HttpResponseNotAllowed,
@@ -45,6 +46,7 @@ from networkapi.wagtailpages.utils import (
     insert_panels_after,
 )
 
+
 if typing.TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideArticlePage
 
@@ -55,6 +57,15 @@ TRACK_RECORD_CHOICES = [
     ("Needs Improvement", "Needs Improvement"),
     ("Bad", "Bad"),
 ]
+
+
+class BuyersGuideProductCategoryQuerySet(models.QuerySet):
+    def with_published_product_pages(self):
+        return self.prefetch_related(
+            Prefetch(
+                "product_pages__product", queryset=ProductPage.objects.filter(live=True), to_attr="_product_pages"
+            ),
+        )
 
 
 @register_snippet
@@ -122,6 +133,8 @@ class BuyersGuideProductCategory(
         help_text="Do we want the Buyers Guide featured CTA to be displayed on this category's page?",
     )
 
+    objects = BuyersGuideProductCategoryQuerySet.as_manager()
+
     panels = [
         FieldPanel(
             "name",
@@ -151,9 +164,19 @@ class BuyersGuideProductCategory(
         SynchronizedField("parent"),
     ]
 
-    @property
+    @cached_property
+    def published_product_pages(self):
+        try:
+            # Try to get pre-filtered/pre-fetched annotated value
+            return self._product_pages
+        except AttributeError:
+            # It failed, let's query it ourselves
+            product_category_relationships = self.product_pages.filter(product__live=True).select_related("product")
+            return [relation.product for relation in product_category_relationships]
+
+    @cached_property
     def published_product_page_count(self):
-        return ProductPage.objects.filter(product_categories__category=self).live().count()
+        return len(self.published_product_pages)
 
     def get_parent(self):
         return self.parent
@@ -313,7 +336,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
 
     category = models.ForeignKey(
         "wagtailpages.BuyersGuideProductCategory",
-        related_name="+",
+        related_name="product_pages",
         blank=False,
         null=True,
         on_delete=models.CASCADE,
@@ -324,7 +347,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
     ]
 
     def __str__(self):
-        return self.category.name
+        return f"{self.category.name} -> {self.product.title}"
 
     class Meta(TranslatableMixin.Meta):
         verbose_name = "Product Category"
