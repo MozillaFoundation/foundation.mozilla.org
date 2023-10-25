@@ -12,6 +12,7 @@ class LocalizedSnippet:
 
     Can't be deleted due to base definition in old migrations.
     """
+
     DEFAULT_LOCALE = None
 
     def __init__(self, *args, **kwargs):
