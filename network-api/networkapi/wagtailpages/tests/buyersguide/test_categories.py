@@ -1,5 +1,3 @@
-import unittest
-
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
