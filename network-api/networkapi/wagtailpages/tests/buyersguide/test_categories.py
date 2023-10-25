@@ -38,11 +38,8 @@ class TestIsBeingUsedProperty(BuyersGuideTestCase):
         category = buyersguide_factories.BuyersGuideProductCategoryFactory()
         # Create product pages
         product_page_live = buyersguide_factories.ProductPageFactory(live=True, parent=self.bg)
-        product_page_not_live = buyersguide_factories.ProductPageFactory(live=False, parent=self.bg)
-        product_page_not_linked = buyersguide_factories.ProductPageFactory(parent=self.bg)
         # Link product pages to category
         buyersguide_factories.ProductPageCategoryFactory(product=product_page_live, category=category)
-        buyersguide_factories.ProductPageCategoryFactory(product=product_page_not_live, category=category)
 
         self.assertTrue(category.is_being_used)
 
@@ -62,8 +59,6 @@ class TestIsBeingUsedProperty(BuyersGuideTestCase):
         valid_product_pages = []
         for _ in range(20):
             valid_product_pages.append(buyersguide_factories.ProductPageFactory(live=True, parent=self.bg))
-        product_page_not_live = buyersguide_factories.ProductPageFactory(live=False, parent=self.bg)
-        product_page_not_linked = buyersguide_factories.ProductPageFactory(parent=self.bg)
 
         for _ in range(5):
             # Create category
@@ -71,11 +66,9 @@ class TestIsBeingUsedProperty(BuyersGuideTestCase):
             # Link product pages to category
             for product_page in valid_product_pages:
                 buyersguide_factories.ProductPageCategoryFactory(product=product_page, category=category)
-            buyersguide_factories.ProductPageCategoryFactory(product=product_page_not_live, category=category)
 
-        query_number = 5 + 3  # 1 query for each category, 3 general queries
-
+        query_number = 1
         with self.assertNumQueries(query_number):
-            categories = BuyersGuideProductCategory.objects.all().with_published_product_pages()
+            categories = BuyersGuideProductCategory.objects.all().with_usage_annotation()
             for category in categories:
                 self.assertTrue(category.is_being_used)
