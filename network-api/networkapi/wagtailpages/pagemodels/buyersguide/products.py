@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.db import Error, models
-from django.db.models import F, Prefetch, Q
+from django.db.models import F, OuterRef, Prefetch, Q
 from django.http import (
     HttpResponse,
     HttpResponseNotAllowed,
@@ -16,7 +16,6 @@ from django.http import (
 )
 from django.templatetags.static import static
 from django.utils import timezone
-from django.utils.text import slugify
 from django.utils.translation import gettext
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
@@ -46,7 +45,6 @@ from networkapi.wagtailpages.utils import (
     insert_panels_after,
 )
 
-
 if typing.TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideArticlePage
 
@@ -65,6 +63,15 @@ class BuyersGuideProductCategoryQuerySet(models.QuerySet):
             Prefetch(
                 "product_pages__product", queryset=ProductPage.objects.filter(live=True), to_attr="_product_pages"
             ),
+        )
+
+    def with_usage_annotation(self):
+        return self.annotate(
+            _is_being_used=models.Exists(
+                ProductPage.objects.filter(
+                    live=True, product_categories__category__translation_key=OuterRef("translation_key")
+                )
+            )
         )
 
 
@@ -177,6 +184,18 @@ class BuyersGuideProductCategory(
     @cached_property
     def published_product_page_count(self):
         return len(self.published_product_pages)
+
+    @cached_property
+    def is_being_used(self):
+        try:
+            # Try to get pre-filtered/pre-fetched annotated value
+            return self._is_being_used
+        except AttributeError:
+            # It failed, let's query it ourselves
+            print("Querying ourselves")
+            return ProductPage.objects.filter(
+                live=True, product_categories__category__translation_key=self.translation_key
+            ).exists()
 
     def get_parent(self):
         return self.parent
