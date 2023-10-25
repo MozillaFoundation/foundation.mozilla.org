@@ -266,10 +266,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
     def categories_page(self, request, slug):
         context = self.get_context(request, bypass_products=True)
         language_code = get_language_from_request(request)
-        locale_id = Locale.objects.get(language_code=language_code).id
         slug = slugify(slug)
-
-        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
 
         # because we may be working with localized content, and the slug
         # will always be our english slug, we need to find the english
@@ -279,20 +276,9 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             model_name="BuyersGuideProductCategory",
         )
         try:
-            original_category = BuyersGuideProductCategory.objects.get(slug=slug, locale_id=DEFAULT_LOCALE_ID)
+            category = BuyersGuideProductCategory.objects.get(slug=slug, locale__language_code=language_code)
         except BuyersGuideProductCategory.DoesNotExist:
-            original_category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
-
-        if locale_id != DEFAULT_LOCALE_ID:
-            try:
-                category = BuyersGuideProductCategory.objects.get(
-                    translation_key=original_category.translation_key,
-                    locale_id=DEFAULT_LOCALE_ID,
-                )
-            except BuyersGuideProductCategory.DoesNotExist:
-                category = original_category
-        else:
-            category = original_category
+            category = get_object_or_404(BuyersGuideProductCategory, slug=slug, locale__language_code=settings.LANGUAGE_CODE)
 
         authenticated = request.user.is_authenticated
         key = f"cat_product_dicts_{slug}_auth" if authenticated else f"cat_product_dicts_{slug}_live"
@@ -314,15 +300,15 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         context["current_category"] = category
         context["products"] = products
         context["pageTitle"] = (
-            f'{category.localized.name} | {gettext("Privacy & security guide")}' f" | Mozilla Foundation"
+            f'{category.name} | {gettext("Privacy & security guide")}' f" | Mozilla Foundation"
         )
         context["template_cache_key_fragment"] = f"{category.slug}_{request.LANGUAGE_CODE}"
 
         # Checking if category has custom metadata, if so, update the share image and description.
         if category.share_image:
-            setattr(self, "search_image_id", category.localized.share_image_id)
+            setattr(self, "search_image_id", category.share_image_id)
         if category.description:
-            setattr(self, "search_description", category.localized.description)
+            setattr(self, "search_description", category.description)
 
         return render(request, "pages/buyersguide/category_page.html", context)
 
@@ -388,7 +374,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         if not categories:
             categories = BuyersGuideProductCategory.objects.filter(hidden=False)
             categories = localize_queryset(categories)
-            categories = categories.select_related("parent").with_published_product_pages()
+            categories = categories.select_related("parent").with_published_product_pages().with_usage_annotation()
             cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
 
         context["categories"] = categories
