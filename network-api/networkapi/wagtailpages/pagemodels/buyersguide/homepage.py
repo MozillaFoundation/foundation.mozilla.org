@@ -523,7 +523,10 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
     if not authenticated:
         products = products.live()
 
-    products = products.prefetch_related("evaluation__votes")
+    products = products.prefetch_related(
+        "evaluation__votes",
+        "image__renditions",
+    )
 
     products = sort_average(products)
     cache.get_or_set(key, products, 24 * 60 * 60)  # Set cache for 24h
