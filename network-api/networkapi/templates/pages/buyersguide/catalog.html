@@ -7,8 +7,8 @@
 {% block main_content_class %}{% endblock %}
 
 {% block hero %}
-    <input type="hidden" class="category-title" value="{% if current_category %}{{ current_category.localized.name }}{% else %}None{% endif %}">
-    <input type="hidden" class="parent-title" value="{{ current_category.parent.localized.name }}">
+    <input type="hidden" class="category-title" value="{% if current_category %}{{ current_category.name }}{% else %}None{% endif %}">
+    <input type="hidden" class="parent-title" value="{{ current_category.parent.name }}">
     <div class="tw-container">
         <div class="tw-row">
             <div class="tw-px-8 tw-py-12 large:tw-py-24 tw-w-full">
@@ -36,9 +36,9 @@
                         class="tw-text-2xl tw-font-zilla category-header tw-text-black hover:tw-text-pni-blue tw-no-underline tw-cursor-pointer tw-block"
                     >
                         {% if current_category.parent %}
-                            {{ current_category.parent.localized.name }}
+                            {{ current_category.parent.name }}
                         {% elif current_category %}
-                            {{ current_category.localized.name }}
+                            {{ current_category.name }}
                         {% else %}
                             {% trans "Product Reviews" %}
                         {% endif %}
@@ -91,7 +91,7 @@
                                         {% routablepageurl home_page 'category-view' cat.slug as cat_url %}
                                         <a class="{% if current_category.name != cat.parent.name and current_category.parent.name != cat.parent.name %} tw-hidden {% endif %} subcategories {{ tailwind_classes }} {% if current_category.name == cat.name %}{{ selected_classes }}{% else %}{{ default_classes }}{% endif %}"
                                            href="{{ cat_url }}"
-                                           data-parent="{{ cat.parent.localized.name }}"
+                                           data-parent="{{ cat.parent.name }}"
                                            data-name="{{ cat.name }}">
                                             {{ cat.name }}
                                         </a>
@@ -142,14 +142,14 @@
                     {% cache 86400 pni_home_page template_cache_key_fragment %}
                         {% for product in products %}
                             {% product_in_category product category as matched %}
-                            {% include "fragments/buyersguide/item.html" with product=product.localized matched=matched %}
+                            {% include "fragments/buyersguide/item.html" with product=product matched=matched %}
                         {% endfor %}
                     {% endcache %}
                 {% else %}
                     {# User is logged in. Don't cache their results so they can see live and draft products here. #}
                     {% for product in products %}
                         {% product_in_category product category as matched %}
-                        {% include "fragments/buyersguide/item.html" with product=product.localized matched=matched %}
+                        {% include "fragments/buyersguide/item.html" with product=product matched=matched %}
                     {% endfor %}
                 {% endif %}
             </div>
