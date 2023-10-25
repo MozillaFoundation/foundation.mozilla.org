@@ -71,21 +71,6 @@ def relocalize_url(url, locale_code):
     return url.replace(f"/{DEFAULT_LOCALE_CODE}/", f"/{locale_code}/")
 
 
-# Force-relocalize a URL
-@register.simple_tag(takes_context=True)
-def relocalized_url(context, url):
-    request = context["request"]
-    locale_code = get_language_from_request(request)
-    return relocalize_url(url, locale_code)
-
-
-# Overcome a limitation of the routablepageurl tag
-@register.simple_tag(takes_context=True)
-def localizedroutablepageurl(context, page, url_name, *args, **kwargs):
-    url = relocalized_url(context, routablepageurl(context, page, url_name, *args, **kwargs))
-    return url
-
-
 # Get the "current locale" version of some content object from Wagtail
 @register.simple_tag(takes_context=True)
 def localized_version(context, thing):
