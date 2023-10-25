@@ -33,10 +33,12 @@ def get_extended_yes_no_value():
 
 
 def get_lowest_content_page_category():
-    return sorted(
-        [(cat.published_product_page_count, cat) for cat in pagemodels.BuyersGuideProductCategory.objects.all()],
-        key=lambda t: t[0],
-    )[0][1]
+    categories = pagemodels.BuyersGuideProductCategory.objects.all()
+    published_product_page_count = []
+    for category in categories:
+        category_published_product_page_count = category.product_pages.filter(product__live=True).count()
+        published_product_page_count.append((category_published_product_page_count, category))
+    return sorted(published_product_page_count, key=lambda t: t[0])[0][1]
 
 
 class BuyersGuideProductCategoryFactory(DjangoModelFactory):

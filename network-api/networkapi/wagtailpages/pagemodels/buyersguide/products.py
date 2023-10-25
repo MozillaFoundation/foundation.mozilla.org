@@ -58,13 +58,6 @@ TRACK_RECORD_CHOICES = [
 
 
 class BuyersGuideProductCategoryQuerySet(models.QuerySet):
-    def with_published_product_pages(self):
-        return self.prefetch_related(
-            Prefetch(
-                "product_pages__product", queryset=ProductPage.objects.filter(live=True), to_attr="_product_pages"
-            ),
-        )
-
     def with_usage_annotation(self):
         return self.annotate(
             _is_being_used=models.Exists(
@@ -170,20 +163,6 @@ class BuyersGuideProductCategory(
         SynchronizedField("share_image"),
         SynchronizedField("parent"),
     ]
-
-    @cached_property
-    def published_product_pages(self):
-        try:
-            # Try to get pre-filtered/pre-fetched annotated value
-            return self._product_pages
-        except AttributeError:
-            # It failed, let's query it ourselves
-            product_category_relationships = self.product_pages.filter(product__live=True).select_related("product")
-            return [relation.product for relation in product_category_relationships]
-
-    @cached_property
-    def published_product_page_count(self):
-        return len(self.published_product_pages)
 
     @cached_property
     def is_being_used(self):
