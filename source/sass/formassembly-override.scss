@@ -20,15 +20,37 @@ $input-font-size: 1.25rem !important;
     form {
       padding: 0;
 
-      label {
+      label,
+      .htmlContent {
         font-family: $font-family-sans-serif;
         margin-bottom: 0;
+        color: black !important;
+        font-size: 18px;
+      }
+      :link {
+        color: #0d10bf !important;
       }
     }
+
+    .inline {
+      display: inline-flex !important;
+      flex-wrap: wrap !important;
+      justify-content: space-between !important;
+
+      .oneField {
+        min-width: 48.5% !important;
+        @media (max-width: 768px) {
+          min-width: 100% !important;
+        }
+      }
+    }
+
+    
 
     .oneField {
       padding: 0;
       border: 0;
+      margin-top: 32px;
 
       &.errFld {
         .inputWrapper input[type="text"],
@@ -62,13 +84,18 @@ $input-font-size: 1.25rem !important;
         -webkit-box-shadow 0.15s ease-in-out;
       color: $white;
       background-color: $blue;
-      width: 100%;
+      // width: 100%;
       margin-top: 1rem;
 
       &:focus,
       &:hover {
         color: $white;
         background-color: $dark-blue;
+        border-color: transparent;
+        text-decoration: none;
+      }
+      &:disabled {
+        background-color: $light-blue;
         border-color: transparent;
         text-decoration: none;
       }
@@ -87,6 +114,10 @@ $input-font-size: 1.25rem !important;
     .inputWrapper {
       width: 100% !important;
 
+      input, textarea, select{
+        border-radius: 0px !important;
+
+      }
       input[type="text"],
       input[type="text"].validate-email,
       input[type="password"],
@@ -98,6 +129,28 @@ $input-font-size: 1.25rem !important;
         padding: 1rem 0.75rem;
         height: auto !important;
         font-size: $input-font-size;
+        border: 1px solid black !important;
+      }
+      input[type="file"] {
+        padding: 0px !important;
+        height: auto !important;
+      }
+
+      input[type="file"]::file-selector-button {
+        /* custom CSS */
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+        font-family: $font-family-sans-serif;
+
+        background: #dbdcff !important;
+        width: 144px;
+        font-size: 16px;
+        border: none !important;
+        height: 38px;
+
+        &:hover {
+          background: $blue !important;
+          cursor: pointer !important;
+        }
       }
 
       textarea:focus,
@@ -121,6 +174,42 @@ $input-font-size: 1.25rem !important;
       .required:not(.choices):not(select):not(.wfAutosuggest) {
         font-size: $input-font-size;
       }
+    }
+
+    .htmlSection {
+      padding: 0px !important;
+      font-size: 12px;
+      width: 100%;
+
+      span {
+        color: black !important;
+        font-family: $font-family-sans-serif;
+      }
+    }
+
+    select{
+
+      &::after{
+        color:rebeccapurple !important
+      }
+      background-size: 40px !important  ; /* Adjust the size as needed */
+    }
+
+    .captcha {
+      .oneField{
+        margin: 0px !important;
+      }
+    }
+    .captchaHelp {
+      display: inline-flex !important;
+      padding: 0px !important;
+      margin-top: 4px !important;
+      color: black !important;
+    }
+    .hint {
+      color: black !important;
+      margin-top: px;
+      display: block;
     }
   }
 }
