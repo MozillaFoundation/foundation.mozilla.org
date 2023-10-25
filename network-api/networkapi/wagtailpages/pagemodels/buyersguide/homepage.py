@@ -19,7 +19,7 @@ from wagtail.admin.panels import (
     PageChooserPanel,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.models import Locale, Orderable, Page, TranslatableMixin
+from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
@@ -27,7 +27,6 @@ from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import sort_average
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import (
-    get_default_locale,
     get_language_from_request,
     get_locale_from_request,
     localize_queryset,

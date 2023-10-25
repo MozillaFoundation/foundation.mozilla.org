@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.db import Error, models
-from django.db.models import F, OuterRef, Prefetch, Q
+from django.db.models import F, OuterRef, Q
 from django.http import (
     HttpResponse,
     HttpResponseNotAllowed,
