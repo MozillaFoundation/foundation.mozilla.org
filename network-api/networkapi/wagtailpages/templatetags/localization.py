@@ -5,12 +5,8 @@ from django import template
 from django.conf import settings
 from django.db.models.base import ObjectDoesNotExist
 from django.utils.translation import get_language_info
-from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import (
-    routablepageurl,
-)
 
 from networkapi.wagtailpages.utils import (
-    get_language_from_request,
     get_locale_from_request,
 )
 
