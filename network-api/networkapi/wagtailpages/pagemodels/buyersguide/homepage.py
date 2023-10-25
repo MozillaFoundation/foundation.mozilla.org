@@ -278,7 +278,9 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         try:
             category = BuyersGuideProductCategory.objects.get(slug=slug, locale__language_code=language_code)
         except BuyersGuideProductCategory.DoesNotExist:
-            category = get_object_or_404(BuyersGuideProductCategory, slug=slug, locale__language_code=settings.LANGUAGE_CODE)
+            category = get_object_or_404(
+                BuyersGuideProductCategory, slug=slug, locale__language_code=settings.LANGUAGE_CODE
+            )
 
         authenticated = request.user.is_authenticated
         key = f"cat_product_dicts_{slug}_auth" if authenticated else f"cat_product_dicts_{slug}_live"
@@ -299,9 +301,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         context["category"] = slug
         context["current_category"] = category
         context["products"] = products
-        context["pageTitle"] = (
-            f'{category.name} | {gettext("Privacy & security guide")}' f" | Mozilla Foundation"
-        )
+        context["pageTitle"] = f'{category.name} | {gettext("Privacy & security guide")}' f" | Mozilla Foundation"
         context["template_cache_key_fragment"] = f"{category.slug}_{request.LANGUAGE_CODE}"
 
         # Checking if category has custom metadata, if so, update the share image and description.
@@ -374,7 +374,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         if not categories:
             categories = BuyersGuideProductCategory.objects.filter(hidden=False)
             categories = localize_queryset(categories)
-            categories = categories.select_related("parent").with_published_product_pages().with_usage_annotation()
+            categories = categories.select_related("parent").with_usage_annotation()
             cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
 
         context["categories"] = categories

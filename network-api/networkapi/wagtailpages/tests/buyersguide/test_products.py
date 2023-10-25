@@ -336,7 +336,7 @@ class TestProductPage(BuyersGuideTestCase):
         product_page = self.product_page
 
         cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1", show_cta=True)
-        cat2 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 2",show_cta=False)
+        cat2 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 2", show_cta=False)
         category_orderable_1 = ProductPageCategory(
             product=product_page,
             category=cat1,
