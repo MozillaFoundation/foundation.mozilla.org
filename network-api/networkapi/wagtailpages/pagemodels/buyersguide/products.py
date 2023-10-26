@@ -1,12 +1,13 @@
 import json
 import typing
+from functools import cached_property
 
 from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.db import Error, models
-from django.db.models import F, Q
+from django.db.models import F, OuterRef, Q
 from django.http import (
     HttpResponse,
     HttpResponseNotAllowed,
@@ -15,7 +16,6 @@ from django.http import (
 )
 from django.templatetags.static import static
 from django.utils import timezone
-from django.utils.text import slugify
 from django.utils.translation import gettext
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
@@ -39,7 +39,6 @@ from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
 from networkapi.wagtailpages.utils import (
     TitleWidget,
     get_language_from_request,
@@ -58,11 +57,21 @@ TRACK_RECORD_CHOICES = [
 ]
 
 
+class BuyersGuideProductCategoryQuerySet(models.QuerySet):
+    def with_usage_annotation(self):
+        return self.annotate(
+            _is_being_used=models.Exists(
+                ProductPage.objects.filter(
+                    live=True, product_categories__category__translation_key=OuterRef("translation_key")
+                )
+            )
+        )
+
+
 @register_snippet
 class BuyersGuideProductCategory(
     index.Indexed,
     TranslatableMixin,
-    LocalizedSnippet,
     # models.Model
     cluster_models.ClusterableModel,
 ):
@@ -124,6 +133,8 @@ class BuyersGuideProductCategory(
         help_text="Do we want the Buyers Guide featured CTA to be displayed on this category's page?",
     )
 
+    objects = BuyersGuideProductCategoryQuerySet.as_manager()
+
     panels = [
         FieldPanel(
             "name",
@@ -153,9 +164,17 @@ class BuyersGuideProductCategory(
         SynchronizedField("parent"),
     ]
 
-    @property
-    def published_product_page_count(self):
-        return ProductPage.objects.filter(product_categories__category=self).live().count()
+    @cached_property
+    def is_being_used(self):
+        try:
+            # Try to get pre-filtered/pre-fetched annotated value
+            return self._is_being_used
+        except AttributeError:
+            # It failed, let's query it ourselves
+            print("Querying ourselves")
+            return ProductPage.objects.filter(
+                live=True, product_categories__category__translation_key=self.translation_key
+            ).exists()
 
     def get_parent(self):
         return self.parent
@@ -179,10 +198,6 @@ class BuyersGuideProductCategory(
         if self.parent is None:
             return f"{self.name} (sort order: {self.sort_order})"
         return f"{self.parent.name}: {self.name} (sort order: {self.sort_order})"
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
 
     base_form_class = BuyersGuideProductCategoryForm
 
@@ -319,7 +334,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
 
     category = models.ForeignKey(
         "wagtailpages.BuyersGuideProductCategory",
-        related_name="+",
+        related_name="product_pages",
         blank=False,
         null=True,
         on_delete=models.CASCADE,
@@ -330,7 +345,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
     ]
 
     def __str__(self):
-        return self.category.name
+        return f"{self.category.name} -> {self.product.title}"
 
     class Meta(TranslatableMixin.Meta):
         verbose_name = "Product Category"
