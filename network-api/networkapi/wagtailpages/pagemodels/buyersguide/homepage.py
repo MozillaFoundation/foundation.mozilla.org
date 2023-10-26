@@ -526,6 +526,7 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
     products = products.prefetch_related(
         "evaluation__votes",
         "image__renditions",
+        "product_categories__category",
     )
 
     products = sort_average(products)
