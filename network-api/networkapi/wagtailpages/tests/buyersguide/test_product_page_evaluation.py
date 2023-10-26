@@ -1,10 +1,13 @@
 from django.utils.translation import gettext
 
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
+from networkapi.wagtailpages.pagemodels.buyersguide.products import (
+    ProductPageEvaluation,
+)
 from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
 
-class TestProductPage(BuyersGuideTestCase):
+class TestProductPageEvaluation(BuyersGuideTestCase):
     def setUp(self):
         super().setUp()
         self.admin_user = self.create_superuser(username="admin", password="password")
@@ -140,3 +143,69 @@ class TestProductPage(BuyersGuideTestCase):
         self.assertEqual(evaluation.average_creepiness, 49.5)
         self.assertEqual(evaluation.total_creepiness, 495)
         self.assertEqual(evaluation.total_votes, 10)
+
+
+class TestProductPageEvaluationPrefetching(BuyersGuideTestCase):
+    def setUp(self):
+        super().setUp()
+        self.admin_user = self.create_superuser(username="admin", password="password")
+        self.login(self.admin_user)
+        self.product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        self.evaluation = self.product_page.evaluation
+        self.vote_1 = buyersguide_factories.ProductVoteFactory(evaluation=self.evaluation, value=1)
+        self.vote_2 = buyersguide_factories.ProductVoteFactory(evaluation=self.evaluation, value=2)
+        self.vote_3 = buyersguide_factories.ProductVoteFactory(evaluation=self.evaluation, value=3)
+
+    def test_votes(self):
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_total_votes().get(pk=self.evaluation.pk)
+            self.assertEqual(evaluation.total_votes, 3)
+
+    def test_empty_votes(self):
+        self.evaluation.votes.all().delete()
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_total_votes().get(pk=self.evaluation.pk)
+            self.assertEqual(evaluation.total_votes, 0)
+
+    def test_total_creepiness(self):
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_total_creepiness().get(pk=self.evaluation.pk)
+            self.assertEqual(evaluation.total_creepiness, 6)
+
+    def test_total_creepiness_with_no_votes(self):
+        self.evaluation.votes.all().delete()
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_total_creepiness().get(pk=self.evaluation.pk)
+            self.assertEqual(evaluation.total_creepiness, 0)
+
+    def test_average_creepiness(self):
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_average_creepiness().get(pk=self.evaluation.pk)
+            self.assertEqual(evaluation.average_creepiness, 2)
+
+    def test_average_creepiness_with_no_votes(self):
+        self.evaluation.votes.all().delete()
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_average_creepiness().get(pk=self.evaluation.pk)
+            self.assertEqual(evaluation.average_creepiness, 0)
+
+    def test_bin_data(self):
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_bin_data().get(pk=self.evaluation.pk)
+            self.assertDictEqual(
+                evaluation.labelled_creepiness_per_bin,
+                {
+                    "Not creepy": {"count": 3, "label": gettext("Not creepy")},
+                    "A little creepy": {"count": 0, "label": gettext("A little creepy")},
+                    "Somewhat creepy": {"count": 0, "label": gettext("Somewhat creepy")},
+                    "Very creepy": {"count": 0, "label": gettext("Very creepy")},
+                    "Super creepy": {"count": 0, "label": gettext("Super creepy")},
+                },
+            )

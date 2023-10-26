@@ -8,6 +8,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.db import Error, models
 from django.db.models import F, OuterRef, Q
+from django.db.models.functions import Coalesce
 from django.http import (
     HttpResponse,
     HttpResponseNotAllowed,
@@ -253,10 +254,10 @@ class ProductPageEvaluationQuerySet(models.QuerySet):
         return self.annotate(_total_votes=models.Count("votes__id", distinct=True))
 
     def with_total_creepiness(self):
-        return self.annotate(_total_creepiness=models.Sum("votes__value"))
+        return self.annotate(_total_creepiness=Coalesce(models.Sum("votes__value"), 0))
 
     def with_average_creepiness(self):
-        return self.annotate(_average_creepiness=models.Avg("votes__value"))
+        return self.annotate(_average_creepiness=Coalesce(models.Avg("votes__value"), float(0)))
 
     def with_bin_data(self):
         """Annotate the queryset with the number of votes in each bin.
@@ -264,11 +265,11 @@ class ProductPageEvaluationQuerySet(models.QuerySet):
         There are 5 "bins" for votes: <20%, <40%, <60%, <80%, <100%.
         """
         return self.annotate(
-            bin_0=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=0, votes__value__lt=20)),
-            bin_1=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=20, votes__value__lt=40)),
-            bin_2=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=40, votes__value__lt=60)),
-            bin_3=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=60, votes__value__lt=80)),
-            bin_4=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=80, votes__value__lt=100)),
+            _bin_0=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=0, votes__value__lt=20)),
+            _bin_1=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=20, votes__value__lt=40)),
+            _bin_2=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=40, votes__value__lt=60)),
+            _bin_3=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=60, votes__value__lt=80)),
+            _bin_4=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=80, votes__value__lt=100)),
         )
 
 
@@ -292,26 +293,44 @@ class ProductPageEvaluation(models.Model):
 
     @property
     def total_votes(self):
-        return self.votes.count()
+        try:
+            return self._total_votes
+        except AttributeError:
+            return self.votes.count()
 
     @property
     def total_creepiness(self):
-        return sum([vote.value for vote in self.votes.all()])
+        try:
+            return self._total_creepiness
+        except AttributeError:
+            return sum([vote.value for vote in self.votes.all()])
 
     @property
     def average_creepiness(self):
-        if self.total_votes == 0:
-            return 0
-        return self.total_creepiness / self.total_votes
+        try:
+            return self._average_creepiness
+        except AttributeError:
+            if self.total_votes == 0:
+                return 0
+            return self.total_creepiness / self.total_votes
 
     @property
     def votes_per_bin(self):
-        bin_0 = self.votes.filter(value__gte=0, value__lt=20).count()
-        bin_1 = self.votes.filter(value__gte=20, value__lt=40).count()
-        bin_2 = self.votes.filter(value__gte=40, value__lt=60).count()
-        bin_3 = self.votes.filter(value__gte=60, value__lt=80).count()
-        bin_4 = self.votes.filter(value__gte=80, value__lt=100).count()
-        return [bin_0, bin_1, bin_2, bin_3, bin_4]
+        try:
+            return [
+                self._bin_0,
+                self._bin_1,
+                self._bin_2,
+                self._bin_3,
+                self._bin_4,
+            ]
+        except AttributeError:
+            bin_0 = self.votes.filter(value__gte=0, value__lt=20).count()
+            bin_1 = self.votes.filter(value__gte=20, value__lt=40).count()
+            bin_2 = self.votes.filter(value__gte=40, value__lt=60).count()
+            bin_3 = self.votes.filter(value__gte=60, value__lt=80).count()
+            bin_4 = self.votes.filter(value__gte=80, value__lt=100).count()
+            return [bin_0, bin_1, bin_2, bin_3, bin_4]
 
     @property
     def labelled_creepiness_per_bin(self):
@@ -663,7 +682,16 @@ class ProductPage(BasePage):
 
     @property
     def creepiness(self):
-        return self.evaluation.average_creepiness
+        try:
+            # Try an annotation made above the ProductPage level
+            return self._average_creepiness
+        except AttributeError:
+            try:
+                # It failed, let's try an annotation made at the ProductPageEvaluation level
+                return self.evaluation._average_creepiness
+            except AttributeError:
+                # We don't have an annotation, let's calculate it ourselves
+                return self.evaluation.average_creepiness
 
     @property
     def get_voting_json(self):
