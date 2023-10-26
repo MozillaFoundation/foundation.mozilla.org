@@ -169,7 +169,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         products = ProductPage.objects.descendant_of(self.bg)
         products.delete()
         self.assertEqual(products.count(), 0)
-        query_number = 161
+        query_number = 58
 
         with self.assertNumQueries(query_number):
             response = self.client.get(self.bg.url)
@@ -179,7 +179,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
     def test_serve_page_one_product(self):
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), 1)
-        query_number = 183
+        query_number = 80
 
         with self.assertNumQueries(query_number):
             response = self.client.get(self.bg.url)
@@ -190,10 +190,10 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         reseed(12345)
         additional_products_count = 49
         for _ in range(additional_products_count):
-            buyersguide_factories.ProductPageFactory(parent=self.bg)
+            buyersguide_factories.ProductPageFactory(parent=self.bg, with_random_categories=True)
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), additional_products_count + 1)
-        query_number = 543
+        query_number = 346
 
         with self.assertNumQueries(query_number):
             response = self.client.get(self.bg.url)
@@ -204,10 +204,10 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         reseed(12345)
         additional_products_count = 49
         for _ in range(additional_products_count):
-            buyersguide_factories.ProductPageFactory(parent=self.bg)
+            buyersguide_factories.ProductPageFactory(parent=self.bg, with_random_categories=True)
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), additional_products_count + 1)
-        query_number = 549
+        query_number = 352
         self.client.force_login(user=self.create_test_user())
 
         with self.assertNumQueries(query_number):
@@ -238,11 +238,41 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
 
+    def test_get_context_one_product_one_category(self):
+        products = ProductPage.objects.descendant_of(self.bg)
+        product = products.first()
+        BuyersGuideProductCategory.objects.all().delete()
+
+        buyersguide_factories.ProductPageCategoryFactory(product=product)
+
+        request = self.request_factory.get(self.bg.url)
+        request.user = AnonymousUser()
+        request.LANGUAGE_CODE = "en"
+        query_number = 9
+
+        with self.assertNumQueries(query_number):
+            self.bg.get_context(request=request)
+
     def test_get_context_many_products(self):
         reseed(12345)
         additional_products_count = 49
         for _ in range(additional_products_count):
             buyersguide_factories.ProductPageFactory(parent=self.bg)
+        products = ProductPage.objects.descendant_of(self.bg)
+        self.assertEqual(products.count(), additional_products_count + 1)
+        request = self.request_factory.get(self.bg.url)
+        request.user = AnonymousUser()
+        request.LANGUAGE_CODE = "en"
+        query_number = 9
+
+        with self.assertNumQueries(query_number):
+            self.bg.get_context(request=request)
+
+    def test_get_context_many_products_many_categories(self):
+        reseed(12345)
+        additional_products_count = 49
+        for _ in range(additional_products_count):
+            buyersguide_factories.ProductPageFactory(parent=self.bg, with_random_categories=True)
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), additional_products_count + 1)
         request = self.request_factory.get(self.bg.url)
