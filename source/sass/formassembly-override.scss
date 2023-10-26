@@ -192,7 +192,10 @@ $input-font-size: 1.25rem !important;
       &::after{
         color:rebeccapurple !important
       }
-      background-size: 40px !important  ; /* Adjust the size as needed */
+      background: url("../_images/glyphs/down-chevron.svg") no-repeat 99% center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      appearance: none;
     }
 
     .captcha {
