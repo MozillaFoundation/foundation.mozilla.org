@@ -1,5 +1,24 @@
 {% load i18n %}
 
+{% comment %}
+*** IMPORTANT ***
+
+The code below has been copied directly over from FormAssembly. 
+
+Please follow the steps below every time after you paste a new version of FormAssembly code.
+
+1. Replace everything starting from <!-- FORM: BODY SECTION -->
+
+2. Run `inv format-html` in terminal
+
+3. Add nonce="{{ csp_nonce }}" to all script tags in this file
+
+4. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/12
+
+The code snippet below is based on FormAssembly form revision #40
+
+{% endcomment %}
+
 <!-- FORM: BODY SECTION -->
 <div class="wFormContainer" style="max-width: 100%; width:auto;">
     <div class="wFormHeader"></div>
