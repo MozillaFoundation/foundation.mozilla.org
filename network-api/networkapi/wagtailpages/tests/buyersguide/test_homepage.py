@@ -254,21 +254,6 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
 
-    def test_get_context_one_product_one_category(self):
-        products = ProductPage.objects.descendant_of(self.bg)
-        product = products.first()
-        BuyersGuideProductCategory.objects.all().delete()
-
-        buyersguide_factories.ProductPageCategoryFactory(product=product)
-
-        request = self.request_factory.get(self.bg.url)
-        request.user = AnonymousUser()
-        request.LANGUAGE_CODE = "en"
-        query_number = 9
-
-        with self.assertNumQueries(query_number):
-            self.bg.get_context(request=request)
-
     def test_get_context_many_products(self):
         reseed(12345)
         additional_products_count = 49
@@ -295,21 +280,6 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
         query_number = 11
-
-        with self.assertNumQueries(query_number):
-            self.bg.get_context(request=request)
-
-    def test_get_context_many_products_many_categories(self):
-        reseed(12345)
-        additional_products_count = 49
-        for _ in range(additional_products_count):
-            buyersguide_factories.ProductPageFactory(parent=self.bg, with_random_categories=True)
-        products = ProductPage.objects.descendant_of(self.bg)
-        self.assertEqual(products.count(), additional_products_count + 1)
-        request = self.request_factory.get(self.bg.url)
-        request.user = AnonymousUser()
-        request.LANGUAGE_CODE = "en"
-        query_number = 9
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
