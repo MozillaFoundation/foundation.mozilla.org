@@ -5,6 +5,7 @@ from django.apps import apps
 from django.conf import settings
 from django.core.cache import cache
 from django.db import models
+from django.db.models.functions import Coalesce
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.text import slugify
 from django.utils.translation import gettext
@@ -24,7 +25,6 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.base import BasePage
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import sort_average
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import (
     get_language_from_request,
@@ -523,8 +523,9 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
     if not authenticated:
         products = products.live()
 
-    products = products.prefetch_related("evaluation__votes")
+    products = products.annotate(
+        _average_creepiness=Coalesce(models.Avg("evaluation__votes__value"), float(0))
+    ).order_by("_average_creepiness")
 
-    products = sort_average(products)
     cache.get_or_set(key, products, 24 * 60 * 60)  # Set cache for 24h
     return products
