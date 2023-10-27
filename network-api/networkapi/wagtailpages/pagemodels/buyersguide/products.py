@@ -293,6 +293,17 @@ class ProductPageEvaluation(models.Model):
 
     @property
     def total_votes(self):
+        """Total number of votes for this product evaluation.
+
+        To populate the prefetched `_total_votes` annotation, call
+
+        ```
+        ProductPageEvaluation.objects.with_total_votes()
+        ```
+
+        Returns:
+            int: Total number of votes for this product evaluation.
+        """
         try:
             return self._total_votes
         except AttributeError:
@@ -300,6 +311,20 @@ class ProductPageEvaluation(models.Model):
 
     @property
     def total_creepiness(self):
+        """Aggregate of vote values for this product evaluation.
+
+        To use this property, make sure to first populate the prefetched `_total_creepiness`
+        annotation, i.e.:
+
+        ```
+        evaluations = ProductPageEvaluation.objects.with_total_creepiness()
+        my_evaluation = evaluations.get(pk=1)
+        my_evaluation.total_creepiness
+        ```
+
+        Returns:
+            int: Sum of creepiness value for all votes for this product evaluation.
+        """
         try:
             return self._total_creepiness
         except AttributeError:
@@ -307,6 +332,20 @@ class ProductPageEvaluation(models.Model):
 
     @property
     def average_creepiness(self):
+        """Average of vote values for this product evaluation.
+
+        To use this property, make sure to first populate the prefetched `_average_creepiness`
+        annotation, i.e.:
+
+        ```
+        evaluations = ProductPageEvaluation.objects.with_average_creepiness()
+        my_evaluation = evaluations.get(pk=1)
+        my_evaluation.average_creepiness
+        ```
+
+        Returns:
+            int: Average of creepiness value for all votes for this product evaluation.
+        """
         try:
             return self._average_creepiness
         except AttributeError:
