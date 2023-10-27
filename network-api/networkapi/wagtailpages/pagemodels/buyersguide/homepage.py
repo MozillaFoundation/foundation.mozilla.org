@@ -523,12 +523,14 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
     if not authenticated:
         products = products.live()
 
-    products = products.prefetch_related(
-        "image__renditions",
-        "product_categories__category",
-    ).annotate(
-        _average_creepiness=Coalesce(models.Avg("evaluation__votes__value"), float(0))
-    ).order_by("_average_creepiness")
+    products = (
+        products.prefetch_related(
+            "image__renditions",
+            "product_categories__category",
+        )
+        .annotate(_average_creepiness=Coalesce(models.Avg("evaluation__votes__value"), float(0)))
+        .order_by("_average_creepiness")
+    )
 
     cache.get_or_set(key, products, 24 * 60 * 60)  # Set cache for 24h
     return products
