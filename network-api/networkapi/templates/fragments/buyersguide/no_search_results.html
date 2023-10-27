@@ -1,4 +1,4 @@
-{% load bg_nav_tags i18n static localization %}
+{% load bg_nav_tags wagtailcore_tags i18n static %}
 {% get_bg_home_page as home_page %}
 
 <div class="container">
@@ -9,7 +9,7 @@
     </h3>
 
     <p class="mb-0">
-        {% relocalized_url home_page.localized.url as home_url %}
+        {% pageurl home_page as home_url %}
         {% blocktrans trimmed with home_url=home_url %}
             Try going back to <a href="{{ home_url }}" class="go-back-to-all-link">All</a>. You might find it there.
         {% endblocktrans %}
