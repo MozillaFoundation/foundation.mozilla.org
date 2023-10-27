@@ -327,12 +327,12 @@ class ProductPageEvaluation(models.Model):
         """
         try:
             return self._total_creepiness
-        except AttributeError:
-            raise ValueError(
+        except AttributeError as e:
+            raise AttributeError(
                 "Can't calculate total creepiness without `_total_creepiness` annotation. "
                 "Make sure to annotate the evaluation queryset by calling `.with_total_creepiness()` "
                 "method before accessing this property."
-            )
+            ) from e
 
     @property
     def average_creepiness(self):
@@ -352,12 +352,12 @@ class ProductPageEvaluation(models.Model):
         """
         try:
             return self._average_creepiness
-        except AttributeError:
-            raise ValueError(
+        except AttributeError as e:
+            raise AttributeError(
                 "Can't calculate average creepiness without `_average_creepiness` annotation. "
                 "Make sure to annotate the evaluation queryset by calling `.with_average_creepiness()` "
                 "method before accessing this property."
-            )
+            ) from e
 
     @property
     def votes_per_bin(self):

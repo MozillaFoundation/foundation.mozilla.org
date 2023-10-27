@@ -217,7 +217,7 @@ class TestProductPageEvaluationPrefetching(BuyersGuideTestCase):
 
     def test_cant_get_total_creepiness_without_prefetching(self):
         evaluation = self.evaluation
-        with self.assertRaises(ValueError):
+        with self.assertRaises(AttributeError):
             evaluation.total_creepiness
 
     def test_total_creepiness_with_no_votes(self):
@@ -235,7 +235,7 @@ class TestProductPageEvaluationPrefetching(BuyersGuideTestCase):
 
     def test_cant_get_average_creepiness_without_prefetching(self):
         evaluation = self.evaluation
-        with self.assertRaises(ValueError):
+        with self.assertRaises(AttributeError):
             evaluation.average_creepiness
 
     def test_average_creepiness_with_no_votes(self):
