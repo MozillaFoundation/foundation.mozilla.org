@@ -16,7 +16,12 @@ class TestProductPageEvaluation(BuyersGuideTestCase):
     def test_votes(self):
         product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
 
-        evaluation = product_page.evaluation
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
 
         # There should be no votes initially.
         self.assertCountEqual(list(evaluation.votes.all()), [])
@@ -30,7 +35,12 @@ class TestProductPageEvaluation(BuyersGuideTestCase):
         vote_3 = buyersguide_factories.ProductVoteFactory(evaluation=evaluation, value=3)
 
         # Make sure properties are correct
-        evaluation.refresh_from_db()
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
         self.assertIn(vote_1, evaluation.votes.all())
         self.assertIn(vote_2, evaluation.votes.all())
         self.assertIn(vote_3, evaluation.votes.all())
@@ -56,7 +66,12 @@ class TestProductPageEvaluation(BuyersGuideTestCase):
         product_page.save_revision().publish()
 
         # Make sure properties are correct
-        evaluation.refresh_from_db()
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
         self.assertEqual(evaluation.total_votes, 3)
         self.assertEqual(evaluation.total_creepiness, 6)
         self.assertEqual(evaluation.average_creepiness, 2)
@@ -64,7 +79,12 @@ class TestProductPageEvaluation(BuyersGuideTestCase):
         self.translate_page(product_page, self.fr_locale)
 
         # Make sure properties are correct
-        fr_evaluation = fr_product_page.evaluation
+        fr_evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=fr_product_page.evaluation.pk)
+        )
         self.assertEqual(fr_evaluation, evaluation)
         self.assertIn(vote_1, fr_evaluation.votes.all())
         self.assertIn(vote_2, fr_evaluation.votes.all())
@@ -75,7 +95,12 @@ class TestProductPageEvaluation(BuyersGuideTestCase):
 
     def test_creepiness_per_bin(self):
         product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
-        evaluation = product_page.evaluation
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
 
         # There should be no votes initially.
         self.assertDictEqual(
@@ -97,7 +122,12 @@ class TestProductPageEvaluation(BuyersGuideTestCase):
         buyersguide_factories.ProductVoteFactory(evaluation=evaluation, value=90)
 
         # Make sure properties are correct
-        evaluation.refresh_from_db()
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
         self.assertDictEqual(
             evaluation.labelled_creepiness_per_bin,
             {
@@ -114,7 +144,12 @@ class TestProductPageEvaluation(BuyersGuideTestCase):
 
     def test_creepiness_per_bin_limits(self):
         product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
-        evaluation = product_page.evaluation
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
 
         # Create some votes
         buyersguide_factories.ProductVoteFactory(evaluation=evaluation, value=0)
@@ -129,7 +164,12 @@ class TestProductPageEvaluation(BuyersGuideTestCase):
         buyersguide_factories.ProductVoteFactory(evaluation=evaluation, value=99)
 
         # Make sure properties are correct
-        evaluation.refresh_from_db()
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
         self.assertDictEqual(
             evaluation.labelled_creepiness_per_bin,
             {
@@ -175,6 +215,11 @@ class TestProductPageEvaluationPrefetching(BuyersGuideTestCase):
             evaluation = ProductPageEvaluation.objects.with_total_creepiness().get(pk=self.evaluation.pk)
             self.assertEqual(evaluation.total_creepiness, 6)
 
+    def test_cant_get_total_creepiness_without_prefetching(self):
+        evaluation = self.evaluation
+        with self.assertRaises(ValueError):
+            evaluation.total_creepiness
+
     def test_total_creepiness_with_no_votes(self):
         self.evaluation.votes.all().delete()
         query_number = 1
@@ -187,6 +232,11 @@ class TestProductPageEvaluationPrefetching(BuyersGuideTestCase):
         with self.assertNumQueries(query_number):
             evaluation = ProductPageEvaluation.objects.with_average_creepiness().get(pk=self.evaluation.pk)
             self.assertEqual(evaluation.average_creepiness, 2)
+
+    def test_cant_get_average_creepiness_without_prefetching(self):
+        evaluation = self.evaluation
+        with self.assertRaises(ValueError):
+            evaluation.average_creepiness
 
     def test_average_creepiness_with_no_votes(self):
         self.evaluation.votes.all().delete()
