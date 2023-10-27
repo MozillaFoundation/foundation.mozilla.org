@@ -203,6 +203,13 @@ $input-font-size: 1.25rem !important;
       background: url("../_images/glyphs/down-chevron.svg") no-repeat 99% center;
       padding-right:30px !important;
       white-space: normal;
+      text-overflow: ellipsis;
+      option{
+        @media (max-width: 575.98px) { 
+          font-size: 12px !important;
+
+        }
+      }
 
     }
 
