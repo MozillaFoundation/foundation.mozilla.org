@@ -24,7 +24,6 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.base import BasePage
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import sort_average
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import (
     get_language_from_request,
@@ -523,12 +522,14 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
     if not authenticated:
         products = products.live()
 
-    products = products.prefetch_related(
-        "evaluation__votes",
-        "image__renditions",
-        "product_categories__category",
+    products = (
+        products.prefetch_related(
+            "image__renditions",
+            "product_categories__category",
+        )
+        .with_average_creepiness()
+        .order_by("_average_creepiness")
     )
 
-    products = sort_average(products)
     cache.get_or_set(key, products, 24 * 60 * 60)  # Set cache for 24h
     return products

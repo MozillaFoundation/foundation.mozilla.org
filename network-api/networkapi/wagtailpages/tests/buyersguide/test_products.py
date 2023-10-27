@@ -44,9 +44,8 @@ class TestProductPage(BuyersGuideTestCase):
         for _ in range(5):
             buyersguide_factories.ProductVoteFactory(value=90, evaluation=product_page.evaluation)
 
-        evaluation = product_page.evaluation
-        evaluation.refresh_from_db()
         product_page.refresh_from_db()
+        evaluation = product_page.annotated_evaluation
 
         self.assertEqual(evaluation.total_creepiness, 950)
         self.assertEqual(product_page.total_vote_count, 15)
@@ -516,7 +515,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         self.assertEqual(response.status_code, 200)
 
         product_page.refresh_from_db()
-        evaluation = product_page.evaluation
+        evaluation = product_page.annotated_evaluation
 
         self.assertEqual(evaluation.total_votes, 1)
         self.assertEqual(evaluation.total_creepiness, 25)
@@ -534,7 +533,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         self.assertEqual(response.status_code, 200)
 
         product_page.refresh_from_db()
-        evaluation = product_page.evaluation
+        evaluation = product_page.annotated_evaluation
 
         self.assertEqual(evaluation.total_votes, 2)
         self.assertEqual(evaluation.total_creepiness, 124)
@@ -563,7 +562,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         self.assertEqual(response.status_code, 200)
 
         fr_product_page.refresh_from_db()
-        fr_evaluation = fr_product_page.evaluation
+        fr_evaluation = fr_product_page.annotated_evaluation
 
         self.assertEqual(fr_evaluation.total_votes, 1)
         self.assertEqual(fr_evaluation.total_creepiness, 25)
@@ -575,7 +574,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         # so the data should be the same:
 
         product_page.refresh_from_db()
-        evaluation = product_page.evaluation
+        evaluation = product_page.annotated_evaluation
 
         self.assertEqual(evaluation.total_votes, 1)
         self.assertEqual(evaluation.total_creepiness, 25)
@@ -593,7 +592,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         self.assertEqual(response.status_code, 200)
 
         product_page.refresh_from_db()
-        evaluation = product_page.evaluation
+        evaluation = product_page.annotated_evaluation
 
         self.assertEqual(evaluation.total_votes, 2)
         self.assertEqual(evaluation.total_creepiness, 124)
@@ -602,7 +601,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         self.assertEqual(product_page.creepiness, 62)
 
         fr_product_page.refresh_from_db()
-        fr_evaluation = fr_product_page.evaluation
+        fr_evaluation = fr_product_page.annotated_evaluation
 
         self.assertEqual(fr_evaluation.total_votes, 2)
         self.assertEqual(fr_evaluation.total_creepiness, 124)
