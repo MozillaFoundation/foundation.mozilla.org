@@ -20,37 +20,15 @@ $input-font-size: 1.25rem !important;
     form {
       padding: 0;
 
-      label,
-      .htmlContent {
+      label {
         font-family: $font-family-sans-serif;
         margin-bottom: 0;
-        color: black !important;
-        font-size: 18px;
-      }
-      :link {
-        color: #0d10bf !important;
       }
     }
-
-    .inline {
-      display: inline-flex !important;
-      flex-wrap: wrap !important;
-      justify-content: space-between !important;
-
-      .oneField {
-        min-width: 48.5% !important;
-        @media (max-width: 768px) {
-          min-width: 100% !important;
-        }
-      }
-    }
-
-    
 
     .oneField {
       padding: 0;
       border: 0;
-      margin-top: 32px;
 
       &.errFld {
         .inputWrapper input[type="text"],
@@ -84,7 +62,7 @@ $input-font-size: 1.25rem !important;
         -webkit-box-shadow 0.15s ease-in-out;
       color: $white;
       background-color: $blue;
-      // width: 100%;
+      width: 100%;
       margin-top: 1rem;
 
       &:focus,
@@ -114,54 +92,21 @@ $input-font-size: 1.25rem !important;
     .inputWrapper {
       width: 100% !important;
 
-
-
-      input, textarea, select{
-        border-radius: 0px !important;
-
-      }
       input[type="text"],
       input[type="text"].validate-email,
       input[type="password"],
       select,
-      select:not([multiple])
-       {
-        font-family: $font-family-sans-serif;
-        width: 100%;
-        padding: 1rem 0.75rem;
-        height: auto !important;
-        font-size: $input-font-size;
-        border: 1px solid black !important;
-      }
-
+      select:not([multiple]),
       textarea {
         font-family: $font-family-sans-serif;
         width: 100%;
         padding: 1rem 0.75rem;
-        height: 10em;
+        height: auto;
         font-size: $input-font-size;
-        border: 1px solid black !important;
       }
-      input[type="file"] {
-        padding: 0px !important;
+
+      input[type="text"].validate-email {
         height: auto !important;
-      }
-
-      input[type="file"]::file-selector-button {
-        /* custom CSS */
-        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
-        font-family: $font-family-sans-serif;
-
-        background: #dbdcff !important;
-        width: 144px;
-        font-size: 16px;
-        border: none !important;
-        height: 38px;
-
-        &:hover {
-          background: $blue !important;
-          cursor: pointer !important;
-        }
       }
 
       textarea:focus,
@@ -185,49 +130,6 @@ $input-font-size: 1.25rem !important;
       .required:not(.choices):not(select):not(.wfAutosuggest) {
         font-size: $input-font-size;
       }
-    }
-
-    .htmlSection {
-      padding: 0px !important;
-      font-size: 12px;
-      width: 100%;
-
-      span {
-        color: black !important;
-        font-family: $font-family-sans-serif;
-      }
-    }
-
-    select{
-      appearance: none;
-      background: url("../_images/glyphs/down-chevron.svg") no-repeat 99% center;
-      padding-right:30px !important;
-      white-space: normal;
-      text-overflow: ellipsis;
-      option{
-        @media (max-width: 575.98px) { 
-          font-size: 12px !important;
-
-        }
-      }
-
-    }
-
-    .captcha {
-      .oneField{
-        margin: 0px !important;
-      }
-    }
-    .captchaHelp {
-      display: inline-flex !important;
-      padding: 0px !important;
-      margin-top: 4px !important;
-      color: black !important;
-    }
-    .hint {
-      color: black !important;
-      margin-top: px;
-      display: block;
     }
   }
 }
@@ -259,6 +161,115 @@ $input-font-size: 1.25rem !important;
 #tfa_494-D {
   margin-top: 0;
 }
-textarea{
-  height: 10em !important;
+
+
+// DonateHelpPage form specific overrides
+.donate-help-page-content {
+  .wForm {
+    label {
+      font-family: $font-family-sans-serif;
+      color: $black !important;
+      font-size: 1.125rem;
+      margin-bottom: 0;
+    }
+
+    input[type="text"],
+    input[type="text"].validate-email,
+    textarea,
+    select {
+      border-radius: 0 !important;
+      border: 1px solid black !important;
+    }
+
+    input[type="file"] {
+      padding: 0 !important;
+      height: auto !important;
+
+      &::file-selector-button {
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+        font-family: $font-family-sans-serif;
+        background: $light-blue;
+        width: auto;
+        padding: 0rem 1.5rem;
+        font-size: 1rem;
+        border: none;
+        height: 2.25rem;
+
+        &:hover {
+          background: $blue;
+          cursor: pointer;
+        }
+      }
+    }
+
+    textarea {
+      height: 10em !important;
+    }
+
+    select {
+      appearance: none;
+      background: url("../_images/glyphs/down-chevron.svg") no-repeat 99% center;
+      padding-right: 30px !important;
+      white-space: normal;
+      text-overflow: ellipsis;
+
+      option {
+        @media (max-width: 576px) {
+          font-size: 0.75rem;
+        }
+      }
+    }
+
+    .oneField {
+      margin-top: 2rem;
+    }
+
+    .htmlSection {
+      padding: 0;
+      font-size: 0.75rem;
+      width: 100%;
+
+      span {
+        color: $black !important;
+        font-family: $font-family-sans-serif;
+      }
+    }
+
+    .htmlContent {
+      font-family: $font-family-sans-serif;
+      color: $black !important;
+      a {
+        color: $dark-blue;
+      }
+    }
+
+    .inline {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      .oneField {
+        width: 48.5%;
+        @media (max-width: 768px) {
+          width: 100%;
+        }
+      }
+    }
+
+    .captcha {
+      .oneField {
+        margin: 0;
+      }
+      .captchaHelp {
+        display: inline-flex !important;
+        padding: 0;
+        margin-top: 0.25rem;
+        color: $black;
+      }
+    }
+
+    .actions .primaryAction#submit_button {
+      width: auto !important;
+    }
+  }
 }
