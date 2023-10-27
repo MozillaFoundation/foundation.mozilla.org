@@ -5,7 +5,6 @@ from django.apps import apps
 from django.conf import settings
 from django.core.cache import cache
 from django.db import models
-from django.db.models.functions import Coalesce
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.text import slugify
 from django.utils.translation import gettext
@@ -528,7 +527,7 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
             "image__renditions",
             "product_categories__category",
         )
-        .annotate(_average_creepiness=Coalesce(models.Avg("evaluation__votes__value"), float(0)))
+        .with_average_creepiness()
         .order_by("_average_creepiness")
     )
 

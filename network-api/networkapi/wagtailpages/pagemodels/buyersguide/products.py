@@ -22,7 +22,7 @@ from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
-from wagtail.models import Orderable, Page, TranslatableMixin
+from wagtail.models import Orderable, Page, PageManager, PageQuerySet, TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -543,6 +543,15 @@ class ProductUpdates(TranslatableMixin, Orderable):
         ordering = ["sort_order"]
 
 
+class ProductPageQuerySet(PageQuerySet):
+    def with_average_creepiness(self):
+        """Annotates the queryset with the average creepiness for each product page."""
+        return self.annotate(_average_creepiness=Coalesce(models.Avg("evaluation__votes__value"), float(0)))
+
+
+ProductPageManager = PageManager.from_queryset(ProductPageQuerySet)
+
+
 class ProductPage(BasePage):
     """
     ProductPage is the superclass that GeneralProductPages inherits from.
@@ -681,6 +690,8 @@ class ProductPage(BasePage):
         related_name="product_pages",
     )
 
+    objects = ProductPageManager()
+
     @classmethod
     def map_import_fields(cls):
         mappings = {
@@ -722,8 +733,17 @@ class ProductPage(BasePage):
         return mappings
 
     @property
+    def annotated_evaluation(self):
+        """Evaluation object annotated with total and average creepiness."""
+        if not self.evaluation:
+            return None
+        return (
+            ProductPageEvaluation.objects.with_total_creepiness().with_average_creepiness().get(pk=self.evaluation.pk)
+        )
+
+    @property
     def total_vote_count(self):
-        return self.evaluation.total_votes
+        return self.annotated_evaluation.total_votes
 
     @property
     def creepiness(self):
@@ -731,12 +751,7 @@ class ProductPage(BasePage):
             # Try an annotation made above the ProductPage level
             return self._average_creepiness
         except AttributeError:
-            try:
-                # It failed, let's try an annotation made at the ProductPageEvaluation level
-                return self.evaluation._average_creepiness
-            except AttributeError:
-                # We don't have an annotation, let's calculate it ourselves
-                return self.evaluation.average_creepiness
+            return self.annotated_evaluation.average_creepiness
 
     @property
     def get_voting_json(self):
