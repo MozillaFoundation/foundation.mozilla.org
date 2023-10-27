@@ -49,7 +49,6 @@ class ArticlePageFactory(PageFactory):
     title = Faker("text", max_nb_chars=60)
     hero_image = SubFactory(ImageFactory)
     subtitle = Faker("text", max_nb_chars=250)
-
     secondary_subtitle = Faker("text", max_nb_chars=250)
     publication_date = Faker("date_object")
     article_file = SubFactory(DocumentFactory)
