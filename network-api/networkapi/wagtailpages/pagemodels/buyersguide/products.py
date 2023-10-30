@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.db import Error, models
 from django.db.models import F, OuterRef, Q
 from django.db.models.functions import Coalesce
@@ -25,6 +27,7 @@ from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page, PageManager, PageQuerySet, TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
+from wagtail import hooks
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
@@ -1017,6 +1020,26 @@ class ProductPage(BasePage):
 
     class Meta:
         verbose_name = "Product Page"
+
+
+@receiver(post_save, sender=ProductPage)
+def create_evaluation(sender, instance, created, **kwargs):
+    if created:
+        if instance.locale.language_code == settings.LANGUAGE_CODE and not instance.evaluation:
+            evaluation = ProductPageEvaluation.objects.create()
+            instance.evaluation = evaluation
+            instance.save()
+            ProductPage.objects.filter(translation_key=instance.translation_key).update(evaluation=evaluation)
+    return instance
+
+
+@hooks.register("after_copy_page")
+def reset_product_page_votes(request, page):
+    if page.specific_class == ProductPage or page.specific_class == GeneralProductPage:
+        evaluation = ProductPageEvaluation.objects.create()
+        products = Page.objects.filter(translation_key=page.translation_key).specific()
+        print(products)
+        products.update(evaluation=evaluation)
 
 
 class BuyersGuideProductPageArticlePageRelation(TranslatableMixin, Orderable):

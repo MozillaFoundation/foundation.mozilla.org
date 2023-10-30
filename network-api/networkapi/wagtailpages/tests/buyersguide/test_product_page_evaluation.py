@@ -1,8 +1,12 @@
 from django.utils.translation import gettext
+from django.urls import reverse
+
+from wagtail.actions.copy_page import CopyPageAction
 
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     ProductPageEvaluation,
+    ProductPage
 )
 from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
@@ -259,3 +263,54 @@ class TestProductPageEvaluationPrefetching(BuyersGuideTestCase):
                     "Super creepy": {"count": 0, "label": gettext("Super creepy")},
                 },
             )
+
+
+class CreateEvaluationPostSaveSignalTests(BuyersGuideTestCase):
+    def setUp(self):
+        super().setUp()
+        self.admin_user = self.create_superuser(username="admin", password="password")
+        self.login(self.admin_user)
+
+    def test_that_created_product_page_in_default_language_has_evaluation(self):
+        product_page = buyersguide_factories.ProductPageFactory.build(locale=self.default_locale, evaluation=None)
+        self.bg.add_child(instance=product_page)
+        self.assertIsNotNone(product_page.evaluation)
+        self.assertIsInstance(product_page.evaluation, ProductPageEvaluation)
+
+    def test_that_created_product_page_in_translated_language_syncs_evaluation(self):
+        product_page = buyersguide_factories.ProductPageFactory.build(locale=self.default_locale, evaluation=None)
+        self.bg.add_child(instance=product_page)
+
+        self.translate_page(product_page, self.fr_locale)
+        fr_product_page = product_page.get_translation(self.fr_locale)
+
+        self.assertIsNotNone(fr_product_page.evaluation)
+        self.assertIsInstance(fr_product_page.evaluation, ProductPageEvaluation)
+        self.assertEqual(fr_product_page.evaluation, product_page.evaluation)
+
+    def test_that_updated_page_is_not_changed(self):
+        product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        evaluation = product_page.evaluation
+        self.assertIsNotNone(evaluation)
+        self.assertIsInstance(evaluation, ProductPageEvaluation)
+
+        product_page.title = "New title"
+        product_page.save()
+
+        self.assertEqual(product_page.evaluation, evaluation)
+
+    def test_that_copied_page_gets_evaluation(self):
+        product_page = buyersguide_factories.ProductPageFactory(parent=self.bg, title="My Product", slug="my-product")
+        self.assertIsNotNone(product_page.evaluation)
+        self.assertIsInstance(product_page.evaluation, ProductPageEvaluation)
+
+        action = CopyPageAction(page=product_page, to=self.bg, update_attrs={
+            "title": "My Product 2",
+            "slug": "my-product-2",
+        })
+        product_page_copy = action.execute()
+
+        self.assertIsNotNone(product_page_copy.evaluation)
+        self.assertIsInstance(product_page_copy.evaluation, ProductPageEvaluation)
+        self.assertNotEqual(product_page_copy.evaluation, product_page.evaluation)
+        self.assertEqual(product_page_copy.total_creepiness, 0)  # Votes were reset
