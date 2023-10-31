@@ -160,6 +160,7 @@ class ProductPageFactory(PageFactory):
     first_published_at = Faker("past_datetime", start_date="-2d", tzinfo=timezone.utc)
     last_published_at = Faker("past_datetime", start_date="-1d", tzinfo=timezone.utc)
     evaluation = SubFactory("networkapi.wagtailpages.factory.buyersguide.ProductPageEvaluationFactory")
+    locale = LazyFunction(lambda: Locale.get_default())
 
     @post_generation
     def with_random_categories(self, create, extracted, **kwargs):

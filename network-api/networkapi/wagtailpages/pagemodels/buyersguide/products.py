@@ -6,11 +6,11 @@ from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.db import Error, models
 from django.db.models import F, OuterRef, Q
 from django.db.models.functions import Coalesce
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.http import (
     HttpResponse,
     HttpResponseNotAllowed,
@@ -22,12 +22,12 @@ from django.utils import timezone
 from django.utils.translation import gettext
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
+from wagtail import hooks
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page, PageManager, PageQuerySet, TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
-from wagtail import hooks
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
@@ -566,6 +566,7 @@ class ProductPage(BasePage):
     """
 
     template = "pages/buyersguide/product_page.html"
+    parent_page_types = ["wagtailpages.BuyersGuidePage"]
 
     privacy_ding = models.BooleanField(
         verbose_name="*privacy not included ding",
@@ -1034,12 +1035,11 @@ def create_evaluation(sender, instance, created, **kwargs):
 
 
 @hooks.register("after_copy_page")
-def reset_product_page_votes(request, page):
-    if page.specific_class == ProductPage or page.specific_class == GeneralProductPage:
+def reset_product_page_votes(request, page, new_page):
+    if new_page.specific_class == ProductPage or new_page.specific_class == GeneralProductPage:
         evaluation = ProductPageEvaluation.objects.create()
-        products = Page.objects.filter(translation_key=page.translation_key).specific()
-        print(products)
-        products.update(evaluation=evaluation)
+        new_products = ProductPage.objects.filter(translation_key=new_page.translation_key)
+        new_products.update(evaluation=evaluation)
 
 
 class BuyersGuideProductPageArticlePageRelation(TranslatableMixin, Orderable):
