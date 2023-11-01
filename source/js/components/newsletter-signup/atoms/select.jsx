@@ -11,28 +11,11 @@ const BASE_CLASSES = `
   focus:tw-shadow-none
 `;
 
-const Select = ({
-  id,
-  name,
-  value,
-  options,
-  onChange,
-  required,
-  outerMarginClasses,
-}) => {
+const Select = ({ options, outerMarginClasses, ...props }) => {
   let classes = classNames(BASE_CLASSES, outerMarginClasses);
 
   return (
-    <select
-      id={id}
-      // FIXME: is "name" attribute not needed?
-      name={name}
-      value={value}
-      onBlur={onChange}
-      onChange={onChange}
-      required={required}
-      className={classes}
-    >
+    <select {...props} className={classes}>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}

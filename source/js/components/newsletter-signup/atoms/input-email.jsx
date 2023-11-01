@@ -19,6 +19,10 @@ const BASE_CLASSES = `
 `;
 
 const InputEmail = ({ ariaLabel, outerMarginClasses, ...props }) => {
+  // [TODO]
+  // Ideally styling for this "atom" component should be pre-defined in a Tailwind config file.
+  // Because our design system still needs to be finalized,
+  // we are using hardcoded Tailwind classes directly here for now.
   let classes = classNames(BASE_CLASSES, outerMarginClasses);
 
   return (
