@@ -6,6 +6,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.db import models
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import translation
 from django.utils.text import slugify
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
@@ -280,6 +281,11 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
                 BuyersGuideProductCategory, slug=slug, locale__language_code=settings.LANGUAGE_CODE
             )
 
+        with translation.override(settings.LANGUAGE_CODE):
+            default_name = category.localized.name
+            print(f"Default name inside categories page: {default_name}")
+            category.default_name = default_name
+
         authenticated = request.user.is_authenticated
         key = f"cat_product_dicts_{slug}_auth" if authenticated else f"cat_product_dicts_{slug}_live"
         key = f"{language_code}_{key}"
@@ -373,6 +379,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             categories = BuyersGuideProductCategory.objects.filter(hidden=False)
             categories = localize_queryset(categories)
             categories = categories.select_related("parent").with_usage_annotation()
+            categories = annotate_category_default_name(categories)
             cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
 
         context["categories"] = categories
@@ -533,3 +540,21 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
 
     cache.get_or_set(key, products, 24 * 60 * 60)  # Set cache for 24h
     return products
+
+
+def annotate_category_default_name(categories):
+    BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
+
+    category_ids = list(set([category.translation_key for category in categories]))
+    default_categories = BuyersGuideProductCategory.objects.filter(
+        locale__language_code=settings.LANGUAGE_CODE, translation_key__in=category_ids
+    )
+    translation_keys_category_mapping = {category.translation_key: category for category in default_categories}
+
+    for category in categories:
+        default_category = translation_keys_category_mapping[category.translation_key]
+        default_name = default_category.name
+        print(default_name)
+        category.default_name = default_name
+
+    return categories
