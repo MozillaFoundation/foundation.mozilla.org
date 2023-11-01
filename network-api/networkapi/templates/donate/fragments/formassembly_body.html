@@ -31,7 +31,6 @@ The code snippet below is based on FormAssembly form revision #40
         <div class="codesection" id="code-12"><script nonce="{{ request.csp_nonce }}">
 // From Mel A at Thunderbird. 06.09.2023. Edited by Mia to change adding en- locales to map and defaulting to 'Other'. Approved by Mel.
 // localeMap updated by Daniel at Mozilla 10.31.2023, to reflect languages that are currently supported on the foundation site.
-
             window.addEventListener('DOMContentLoaded', function () {
     // Retrieve the Language alias (locale field) on the form.
                 const varLocale = document.getElementById('tfa_72');
@@ -52,14 +51,14 @@ The code snippet below is based on FormAssembly form revision #40
 
     // Match up locale codes with the locale dropdown entries
                 const localeMap = {
-        'nl': 'tfa_221',
-        'fy-NL': 'tfa_221',
-        'en': 'tfa_222',
-        'fr': 'tfa_223',
-        'de': 'tfa_224',
-        'pl': 'tfa_228',
-        'pt-BR': 'tfa_229',
-        'es': 'tfa_231',
+                    'nl': 'tfa_221',
+                    'fy-NL': 'tfa_221',
+                    'en': 'tfa_222',
+                    'fr': 'tfa_223',
+                    'de': 'tfa_224',
+                    'pl': 'tfa_228',
+                    'pt-BR': 'tfa_229',
+                    'es': 'tfa_231',
                 }
 
     // Assign the locale, or default to 'Other' if the locale isn't supported.
@@ -97,7 +96,7 @@ The code snippet below is based on FormAssembly form revision #40
                     change the amount, frequency, payment method and charge date. You can
                     also cancel your recurring donation plan.
                 {% endblocktrans %}
-               </span><br><br><i>{% trans "Still have questions? Contact us by submitting a case." %}</i></div></div></div>
+            </span><br><br><i>{% trans "Still have questions? Contact us by submitting a case." %}</i></div></div></div>
             <div class="oneField field-container-D  labelsAbove  " id="tfa_163-D">
                 <label id="tfa_163-L" class="label preField " for="tfa_163">{% trans "Any other details that might help" %}</label><br><div class="inputWrapper"><textarea id="tfa_163" name="tfa_163" data-condition="`#tfa_190` OR `#tfa_191` OR `#tfa_192` OR `#tfa_193` OR `#tfa_194` OR `#tfa_195` OR `#tfa_196` OR `#tfa_197` OR `#tfa_198` OR `#tfa_199` OR `#tfa_200`" title="{% trans "Any other details that might help" %}" class=""></textarea></div>
             </div>
