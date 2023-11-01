@@ -16,6 +16,7 @@ Please follow the steps below every time after you paste a new version of FormAs
 4. Get localization working again.
     - Localize "title" attribute and label text for all fields using {% trans %} or {% blocktrans %}.
     - If applicable, localize any other text on the form. For example, text within htmlContent divs.
+    - Localize "value" attribute for <input type="submit" ...>
     - Go to formassembly_head.html and make sure everything has been updated according to the instructions.
 
 5. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/12
@@ -139,7 +140,7 @@ The code snippet below is based on FormAssembly form revision #40
                         <div id="disabled-explanation" class="captchaHelp" style="display: none">{% trans "The submit button will be disabled until you complete the CAPTCHA." %}</div>
                     </div>
                 </div>
-                <input type="submit" data-label="Submit" class="primaryAction" id="submit_button" value="Submit" data-condition="`#tfa_190` OR `#tfa_191` OR `#tfa_192` OR `#tfa_193` OR `#tfa_194` OR `#tfa_195` OR `#tfa_196` OR `#tfa_197` OR `#tfa_198` OR `#tfa_199` OR `#tfa_200`" data-conditional-mode="hidden">
+                <input type="submit" data-label="Submit" class="primaryAction" id="submit_button" value="{% trans "Submit" %}" data-condition="`#tfa_190` OR `#tfa_191` OR `#tfa_192` OR `#tfa_193` OR `#tfa_194` OR `#tfa_195` OR `#tfa_196` OR `#tfa_197` OR `#tfa_198` OR `#tfa_199` OR `#tfa_200`" data-conditional-mode="hidden">
             </div>
             <div style="clear:both"></div>
             <input type="hidden" value="12" name="tfa_dbFormId" id="tfa_dbFormId"><input type="hidden" value="" name="tfa_dbResponseId" id="tfa_dbResponseId"><input type="hidden" value="248931fbbdeec7bc8eff2364638bb781" name="tfa_dbControl" id="tfa_dbControl"><input type="hidden" value="" name="tfa_dbWorkflowSessionUuid" id="tfa_dbWorkflowSessionUuid"><input type="hidden" value="40" name="tfa_dbVersionId" id="tfa_dbVersionId"><input type="hidden" value="" name="tfa_switchedoff" id="tfa_switchedoff">
