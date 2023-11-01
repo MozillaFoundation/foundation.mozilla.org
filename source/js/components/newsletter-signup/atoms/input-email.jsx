@@ -18,40 +18,29 @@ const BASE_CLASSES = `
   focus-visible:tw-drop-shadow-none
 `;
 
-let InputEmail = ({
-  id,
-  name,
-  value,
-  placeholder,
-  onFocus,
-  onInput,
-  onChange,
-  required,
-  label,
-  outerMarginClasses,
-}) => {
+const InputEmail = ({ ariaLabel, outerMarginClasses, ...props }) => {
   let classes = classNames(BASE_CLASSES, outerMarginClasses);
 
-  // FIXME: should i just do ...props here?
   return (
     <input
       type="email"
-      id={id}
-      name={name}
-      value={value}
-      placeholder={placeholder}
-      onFocus={onFocus}
-      onInput={onInput}
-      onChange={onChange}
-      required={required}
       className={classes}
-      aria-label={label}
+      {...props}
+      {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
     />
   );
 };
 
 InputEmail.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  onFocus: PropTypes.func.isRequired,
+  onInput: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  required: PropTypes.bool,
+  ariaLabel: PropTypes.string,
 };
 
 InputEmail.defaultProps = {};

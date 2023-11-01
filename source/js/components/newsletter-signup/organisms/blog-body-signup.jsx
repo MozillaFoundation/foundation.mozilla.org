@@ -17,15 +17,14 @@ const FIELD_ID_PREFIX = `blog-body-newsletter`;
 class BlogBodySignForm extends Component {
   constructor(props) {
     super(props);
+
     this.state = this.getInitialState();
-    // generate unique IDs for form fields
-    this.ids = ["email", "country", "language", "privacy"].reduce(
-      (obj, field) => {
-        obj[field] = utility.generateUniqueId(`${FIELD_ID_PREFIX}-${field}`);
-        return obj;
-      },
-      {}
-    );
+    this.ids = this.generateFieldIds([
+      "email",
+      "country",
+      "language",
+      "privacy",
+    ]);
   }
 
   getInitialState() {
@@ -35,6 +34,14 @@ class BlogBodySignForm extends Component {
       languageValue: getCurrentLanguage(),
       privacyValue: false,
     };
+  }
+
+  // generate unique IDs for form fields
+  generateFieldIds(fieldNames = []) {
+    return fieldNames.reduce((obj, field) => {
+      obj[field] = utility.generateUniqueId(`${FIELD_ID_PREFIX}-${field}`);
+      return obj;
+    }, {});
   }
 
   handleSubmit(event) {

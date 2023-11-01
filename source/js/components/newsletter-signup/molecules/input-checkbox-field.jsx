@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Label from "../atoms/label.jsx";
 import InputCheckbox from "../atoms/input-checkbox.jsx";
 
@@ -16,7 +17,6 @@ const InputCheckboxField = ({
     >
       <InputCheckbox
         id={id}
-        name={id}
         checked={checked}
         onChange={onChange}
         required={required}
@@ -30,5 +30,16 @@ const InputCheckboxField = ({
     </div>
   );
 };
+
+InputCheckboxField.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  required: PropTypes.bool,
+  outerMarginClasses: PropTypes.string,
+};
+
+InputCheckboxField.defaultProps = {};
 
 export default InputCheckboxField;
