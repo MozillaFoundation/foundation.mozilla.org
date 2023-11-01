@@ -30,6 +30,8 @@ The code snippet below is based on FormAssembly form revision #40
     <div class=""><div class="wForm" id="12-WRPR" dir="ltr">
         <div class="codesection" id="code-12"><script nonce="{{ request.csp_nonce }}">
 // From Mel A at Thunderbird. 06.09.2023. Edited by Mia to change adding en- locales to map and defaulting to 'Other'. Approved by Mel.
+// localeMap updated by Daniel at Mozilla 10.31.2023, to reflect languages that are currently supported on the foundation site.
+
             window.addEventListener('DOMContentLoaded', function () {
     // Retrieve the Language alias (locale field) on the form.
                 const varLocale = document.getElementById('tfa_72');
@@ -50,14 +52,14 @@ The code snippet below is based on FormAssembly form revision #40
 
     // Match up locale codes with the locale dropdown entries
                 const localeMap = {
-                    'nl': 'tfa_221',
-                    'fy-NL': 'tfa_221',
-                    'en': 'tfa_222',
-                    'fr': 'tfa_223',
-                    'de': 'tfa_224',
-                    'pl': 'tfa_228',
-                    'pt-BR': 'tfa_229',
-                    'es': 'tfa_231',
+        'nl': 'tfa_221',
+        'fy-NL': 'tfa_221',
+        'en': 'tfa_222',
+        'fr': 'tfa_223',
+        'de': 'tfa_224',
+        'pl': 'tfa_228',
+        'pt-BR': 'tfa_229',
+        'es': 'tfa_231',
                 }
 
     // Assign the locale, or default to 'Other' if the locale isn't supported.
