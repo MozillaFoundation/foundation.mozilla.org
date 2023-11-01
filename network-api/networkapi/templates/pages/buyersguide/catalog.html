@@ -7,7 +7,7 @@
 {% block main_content_class %}{% endblock %}
 
 {% block hero %}
-    <input type="hidden" class="category-title" value="{% if current_category %}{{ current_category.name }}{% else %}None{% endif %}">
+    <input type="hidden" class="category-title" value="{% if current_category %}{{ current_category.default_name }}{% else %}None{% endif %}">
     <input type="hidden" class="parent-title" value="{{ current_category.parent.name }}">
     <div class="tw-container">
         <div class="tw-row">
@@ -32,7 +32,7 @@
                 <div class="tw-flex tw-items-end">
                     <a
                         href="{% if current_category.parent %}{% routablepageurl home_page 'category-view' current_category.parent.slug %}{% elif current_category %}{% routablepageurl home_page 'category-view' current_category.slug %}{% else %}{% pageurl home_page %}{% endif %}"
-                        data-name="{% if current_category.parent %}{{ current_category.parent.name }}{% elif current_category %}{{ current_category.name }}{% else %}None{% endif %}"
+                        data-name="{% if current_category.parent %}{{ current_category.parent.name }}{% elif current_category %}{{ current_category.default_name }}{% else %}None{% endif %}-data-name"
                         class="tw-text-2xl tw-font-zilla category-header tw-text-black hover:tw-text-pni-blue tw-no-underline tw-cursor-pointer tw-block"
                     >
                         {% if current_category.parent %}
@@ -89,10 +89,10 @@
                                 {% if not cat.parent %}
                                     {% if cat.is_being_used %}
                                         {% routablepageurl home_page 'category-view' cat.slug as cat_url %}
-                                        <a class="{% if current_category.name != cat.parent.name and current_category.parent.name != cat.parent.name %} tw-hidden {% endif %} subcategories {{ tailwind_classes }} {% if current_category.name == cat.name %}{{ selected_classes }}{% else %}{{ default_classes }}{% endif %}"
+                                        <a class="{% if current_category.default_name != cat.parent.name and current_category.parent.name != cat.parent.name %} tw-hidden {% endif %} subcategories {{ tailwind_classes }} {% if current_category.default_name == cat.name %}{{ selected_classes }}{% else %}{{ default_classes }}{% endif %}"
                                            href="{{ cat_url }}"
                                            data-parent="{{ cat.parent.name }}"
-                                           data-name="{{ cat.name }}">
+                                           data-name="{{ cat.default_name }}">
                                             {{ cat.name }}
                                         </a>
                                     {% endif %}
