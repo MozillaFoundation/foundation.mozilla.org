@@ -45,6 +45,25 @@
         {% for block in page.body %}
             {% include_block block with parent_page=page page_type="blog" %}
         {% endfor %}
+
+        {% comment %}
+        [FIXME]
+        This is to be transformed into a streamfield block and will be moved to its own template file
+        {% endcomment %}
+        <div class="tw-container tw-my-18">
+            <div class="tw-row tw-justify-center">
+                <div class="streamfield-content">
+                    <div class="newsletter-signup-module"
+                         data-module-type="blog-body"
+                         data-signup-id="value_coming_from_cms"
+                         data-cta-header="Reclaim the Internet"
+                         data-cta-description="Mozilla is fighting for a free and open web for everyone. But there’s only one way we can do it - together. Sign up now to join the Mozilla community."
+                         data-newsletter="{{ value_coming_from_cms }}"
+                    ></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="container">
