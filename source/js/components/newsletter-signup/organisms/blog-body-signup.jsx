@@ -33,6 +33,7 @@ class BlogBodySignForm extends Component {
       countryValue: "",
       languageValue: getCurrentLanguage(),
       privacyValue: false,
+      showAllFields: false,
     };
   }
 
@@ -49,8 +50,12 @@ class BlogBodySignForm extends Component {
     console.log(`this.state: ${this.state}`);
   }
 
+  showAllFields() {
+    this.setState({ showAllFields: true });
+  }
+
   handleEmailChange(event) {
-    this.setState({ emailValue: evt.target.value });
+    this.setState({ emailValue: event.target.value });
   }
 
   handleCountryChange(event) {
@@ -65,7 +70,7 @@ class BlogBodySignForm extends Component {
     this.setState({ privacyValue: event.target.checked });
   }
 
-  render() {
+  renderDescription() {
     const description = this.props.ctaHeader ? (
       <>
         <strong>{this.props.ctaHeader}</strong> // {this.props.ctaDescription}
@@ -74,54 +79,78 @@ class BlogBodySignForm extends Component {
       this.props.ctaDescription
     );
 
+    return <Description>{description}</Description>;
+  }
+
+  renderEmailField() {
+    return (
+      <InputEmail
+        id={this.ids.email}
+        label={getText(`Email address`)}
+        value={this.state.emailValue}
+        placeholder={getText(`Please enter your email`)}
+        onFocus={() => this.showAllFields()}
+        onInput={() => this.showAllFields()}
+        onChange={(event) => this.handleEmailChange(event)}
+        required={true}
+        outerMarginClasses={FIELD_MARGIN_CLASSES}
+      />
+    );
+  }
+
+  renderAdditionalFields() {
+    return (
+      <>
+        <Select
+          id={this.ids.country}
+          name="country"
+          value={this.state.countryValue}
+          options={COUNTRY_OPTIONS}
+          onChange={(event) => this.handleCountryChange(event)}
+          required={false}
+          outerMarginClasses={FIELD_MARGIN_CLASSES}
+        />
+        <Select
+          id={this.ids.language}
+          name="language"
+          value={this.state.languageValue}
+          options={LANGUAGE_OPTIONS}
+          onChange={(event) => this.handleLanguageChange(event)}
+          required={false}
+          outerMarginClasses={FIELD_MARGIN_CLASSES}
+        />
+      </>
+    );
+  }
+
+  renderPrivacyCheckbox() {
+    return (
+      <InputCheckboxField
+        id={this.ids.privacy}
+        label={getText(
+          `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
+        )}
+        checked={this.state.privacyValue}
+        onChange={(event) => this.handlePrivacyChange(event)}
+        required={true}
+      />
+    );
+  }
+
+  render() {
     return (
       <form
         onSubmit={(event) => this.handleSubmit(event)}
         className="tw-relative tw-border tw-px-8 tw-pt-14 tw-pb-12 medium:tw-p-16 before:tw-absolute before:tw-top-0 before:tw-left-1/2 before:-tw-translate-x-1/2 before:-tw-translate-y-1/2 before:tw-content-[''] before:tw-inline-block before:tw-w-[72px] before:tw-h-14 before:tw-bg-[url('../_images/glyphs/letter.svg')] before:tw-bg-white before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-[length:24px_auto]"
       >
-        <Description>{description}</Description>
+        {this.renderDescription()}
         <div className="d-flex flex-column flex-md-row medium:tw-gap-8">
           <div className="tw-flex-grow">
             <fieldset className={FIELD_MARGIN_CLASSES}>
-              <InputEmail
-                id={this.ids.email}
-                label="Email"
-                value={this.state.emailValue}
-                placeholder={getText(`Please enter your email`)}
-                onChange={(event) => this.handleEmailChange(event)}
-                required={true}
-                outerMarginClasses={FIELD_MARGIN_CLASSES}
-              />
-              <Select
-                id={this.ids.country}
-                name="country"
-                value={this.state.countryValue}
-                options={COUNTRY_OPTIONS}
-                onChange={(event) => this.handleCountryChange(event)}
-                required={false}
-                outerMarginClasses={FIELD_MARGIN_CLASSES}
-              />
-              <Select
-                id={this.ids.language}
-                name="language"
-                value={this.state.languageValue}
-                options={LANGUAGE_OPTIONS}
-                onChange={(event) => this.handleLanguageChange(event)}
-                required={false}
-                outerMarginClasses={FIELD_MARGIN_CLASSES}
-              />
+              {this.renderEmailField()}
+              {this.state.showAllFields && this.renderAdditionalFields()}
             </fieldset>
-            <fieldset>
-              <InputCheckboxField
-                id={this.ids.privacy}
-                label={getText(
-                  `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
-                )}
-                checked={this.state.privacyValue}
-                onChange={(event) => this.handlePrivacyChange(event)}
-                required={true}
-              />
-            </fieldset>
+            <fieldset>{this.renderPrivacyCheckbox()}</fieldset>
           </div>
           <div className="tw-mt-8 medium:tw-mt-0">
             <ButtonSubmit widthClasses="tw-w-full">Join Now</ButtonSubmit>

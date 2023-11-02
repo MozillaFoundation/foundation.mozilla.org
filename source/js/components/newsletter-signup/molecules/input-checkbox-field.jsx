@@ -33,7 +33,7 @@ const InputCheckboxField = ({
 
 InputCheckboxField.propTypes = {
   id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   checked: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
