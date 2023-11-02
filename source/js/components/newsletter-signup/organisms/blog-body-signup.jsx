@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Description from "../atoms/description.jsx";
 import InputEmail from "../atoms/input-email.jsx";
 import Select from "../atoms/select.jsx";
-import InputCheckboxField from "../molecules/input-checkbox-field.jsx";
+import InputCheckboxWithLabel from "../molecules/input-checkbox-with-label.jsx";
 import ButtonSubmit from "../atoms/button-submit.jsx";
 import utility from "../../../utility.js";
 import { getText } from "../../petition/locales";
@@ -125,7 +125,7 @@ class BlogBodySignForm extends Component {
 
   renderPrivacyCheckbox() {
     return (
-      <InputCheckboxField
+      <InputCheckboxWithLabel
         id={this.ids.privacy}
         label={getText(
           `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
