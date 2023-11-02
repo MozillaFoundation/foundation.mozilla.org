@@ -17,6 +17,4 @@ InputCheckbox.propTypes = {
   required: PropTypes.bool,
 };
 
-InputCheckbox.defaultProps = {};
-
 export default InputCheckbox;

@@ -9,6 +9,4 @@ Description.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-Description.defaultProps = {};
-
 export default Description;

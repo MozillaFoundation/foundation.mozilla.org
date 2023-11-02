@@ -15,6 +15,4 @@ Label.propTypes = {
   classes: PropTypes.string,
 };
 
-Label.defaultProps = {};
-
 export default Label;

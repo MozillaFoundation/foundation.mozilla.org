@@ -21,6 +21,4 @@ ButtonSubmit.propTypes = {
   widthClasses: PropTypes.string,
 };
 
-ButtonSubmit.defaultProps = {};
-
 export default ButtonSubmit;

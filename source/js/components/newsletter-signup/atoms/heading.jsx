@@ -11,6 +11,4 @@ Heading.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-Heading.defaultProps = {};
-
 export default Heading;

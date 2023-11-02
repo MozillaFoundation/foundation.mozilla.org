@@ -40,6 +40,4 @@ Select.propTypes = {
   outerMarginClasses: PropTypes.string,
 };
 
-Select.defaultProps = {};
-
 export default Select;

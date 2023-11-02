@@ -162,11 +162,8 @@ class BlogBodySignForm extends Component {
 }
 
 BlogBodySignForm.propTypes = {
-  somePropName: PropTypes.string,
-};
-
-BlogBodySignForm.defaultProps = {
-  somePropName: "",
+  ctaHeader: PropTypes.string,
+  ctaDescription: PropTypes.string.isRequired,
 };
 
 export default BlogBodySignForm;

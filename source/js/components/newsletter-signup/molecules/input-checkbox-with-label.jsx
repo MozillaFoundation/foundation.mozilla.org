@@ -40,6 +40,4 @@ InputCheckboxField.propTypes = {
   outerMarginClasses: PropTypes.string,
 };
 
-InputCheckboxField.defaultProps = {};
-
 export default InputCheckboxField;

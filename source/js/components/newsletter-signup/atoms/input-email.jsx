@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-// FIXME: probably worth moving this into Tailwind config?
+// [TODO] probably worth moving this into Tailwind config?
 const BASE_CLASSES = `
   tw-form-control
   has-error:tw-border
@@ -46,7 +46,5 @@ InputEmail.propTypes = {
   required: PropTypes.bool,
   ariaLabel: PropTypes.string,
 };
-
-InputEmail.defaultProps = {};
 
 export default InputEmail;
