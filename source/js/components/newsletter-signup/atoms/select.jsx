@@ -11,11 +11,11 @@ const BASE_CLASSES = `
   focus:tw-shadow-none
 `;
 
-const Select = ({ options, outerMarginClasses, ...props }) => {
+const Select = ({ options, outerMarginClasses, ...otherProps }) => {
   let classes = classNames(BASE_CLASSES, outerMarginClasses);
 
   return (
-    <select {...props} className={classes}>
+    <select {...otherProps} className={classes}>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}

@@ -18,7 +18,7 @@ const BASE_CLASSES = `
   focus-visible:tw-drop-shadow-none
 `;
 
-const InputEmail = ({ ariaLabel, outerMarginClasses, ...props }) => {
+const InputEmail = ({ ariaLabel, outerMarginClasses, ...otherProps }) => {
   // [TODO]
   // Ideally styling for this "atom" component should be pre-defined in a Tailwind config file.
   // Because our design system still needs to be finalized,
@@ -29,7 +29,7 @@ const InputEmail = ({ ariaLabel, outerMarginClasses, ...props }) => {
     <input
       type="email"
       className={classes}
-      {...props}
+      {...otherProps}
       {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
     />
   );
