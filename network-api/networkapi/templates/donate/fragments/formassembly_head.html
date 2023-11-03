@@ -1,4 +1,5 @@
 {% load i18n formassembly_helper %}
+{% get_current_language as LANGUAGE_CODE %}
 
 {% comment %}
 *** IMPORTANT ***
@@ -13,9 +14,15 @@ Please follow the steps below every time after you paste a new version of FormAs
 
 3. Add nonce="{{ csp_nonce }}" to all script tags in this file
 
-4. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/12
+4. Get localization working again.
+    - Update script file name https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-en_US.js?v=...
+        with {% fa_locale_code %}
+        e.g., https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=...
+    - Go to formassembly_body.html and make sure everything has been updated according to the instructions
 
-The code snippet below is based on FormAssembly form revision #40
+5. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/12
+
+The code snippet below is based on FormAssembly form revision #43
 
 {% endcomment %}
 
@@ -214,5 +221,4 @@ The code snippet below is based on FormAssembly form revision #40
 <script type="text/javascript" nonce="{{ request.csp_nonce }}">
     wFORMS.behaviors.prefill.skip = false;
 </script>
-<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-en_US.js?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98"></script>
-
+<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98"></script>
