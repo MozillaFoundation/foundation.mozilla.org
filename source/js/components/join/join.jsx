@@ -47,8 +47,10 @@ class JoinUs extends Component {
         `body`,
         `callout-box`,
         `footer`,
+        `pni-product-quiz`,
         `youtube-regrets-reporter`,
       ].includes(props.formPosition),
+      submitButtonDisabled: props.disableSubmitButton,
     };
   }
 
@@ -80,9 +82,16 @@ class JoinUs extends Component {
 
   // state update function
   apiSubmissionSuccessful() {
-    this.setState({
-      apiSuccess: true,
-    });
+    this.setState(
+      {
+        apiSuccess: true,
+      },
+      () => {
+        if (this.props.formPosition === "pni-product-quiz") {
+          this.props.handleSignUp(true);
+        }
+      }
+    );
   }
 
   // state update function
@@ -198,7 +207,9 @@ class JoinUs extends Component {
         .then(() => {
           this.apiSubmissionSuccessful();
         })
-        .catch((e) => this.apiSubmissionFailure(e));
+        .catch((e) => {
+          this.apiSubmissionFailure(e);
+        });
 
       ReactGA.event({
         category: `signup`,
@@ -234,6 +245,28 @@ class JoinUs extends Component {
     if (this.state.hideLocaleFields) {
       this.setState({
         hideLocaleFields: false,
+      });
+    }
+  }
+
+  /**
+   * Enable submit button according to each scenario
+   */
+  toggleSubmitButton(event) {
+    // Submit button is never set to be disabled. Return early.
+    if (!this.props.disableSubmitButton) return;
+
+    // If the email input is empty, disable the submit button if it's currently enabled.
+    if (event.target.value === "" && !this.state.submitButtonDisabled) {
+      this.setState({
+        submitButtonDisabled: true,
+      });
+    }
+
+    // If the email input is not empty, enable the submit button if it's currently disabled.
+    if (event.target.value !== "" && this.state.submitButtonDisabled) {
+      this.setState({
+        submitButtonDisabled: false,
       });
     }
   }
@@ -390,6 +423,7 @@ class JoinUs extends Component {
             placeholder={getText(`Please enter your email`)}
             ref={(el) => (this.email = el)}
             onFocus={(evt) => this.onInputFocus(evt)}
+            onInput={(evt) => this.toggleSubmitButton(evt)}
             aria-label={!this.isFlowForm() ? "Email" : ""}
             id={this.id.userEmail}
           />
@@ -516,7 +550,7 @@ class JoinUs extends Component {
             !this.state.apiSubmitted &&
             !this.privacy.checked &&
             !this.isFlowForm() && (
-              <span className="tw-form-error-glyph privacy-error d-flex" />
+              <span className="tw-form-error-glyph privacy-error d-flex tw-ml-2" />
             )}
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (
@@ -556,7 +590,11 @@ class JoinUs extends Component {
       buttonText = getText("Sign up");
     }
 
-    return <button className={classnames}>{buttonText}</button>;
+    return (
+      <button className={classnames} disabled={this.state.submitButtonDisabled}>
+        {buttonText}
+      </button>
+    );
   }
 
   /**

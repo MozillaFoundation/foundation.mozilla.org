@@ -98,6 +98,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             child_models={
                 pagemodels.BuyersGuideArticlePage,
                 pagemodels.BuyersGuideCampaignPage,
+                pagemodels.ConsumerCreepometerPage,
             },
         )
 

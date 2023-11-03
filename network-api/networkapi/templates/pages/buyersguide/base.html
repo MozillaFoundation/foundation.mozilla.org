@@ -31,7 +31,7 @@
 {% block stylesheets %}
     {% if debug %}<link rel="stylesheet" href="{% static "_css/tailwind.compiled.css" %}">{% endif %}
     <link rel="stylesheet" href="{% static "_css/buyers-guide.compiled.css" %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,400i">
+    <link rel="stylesheet" href="{% block sans_stylesheet_url %}https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,400i{% endblock %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i,400i,600i">
 {% endblock %}
 
@@ -81,10 +81,12 @@
         {% include "fragments/buyersguide/primary_nav.html" %}
     </div>
 
-    <div id="pni-mobile-nav-search-wrapper" class="tw-border-b tw-border-blue-10 medium:tw-border-b-0">
-        {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
-        {% include 'fragments/buyersguide/pni_mobile_search.html' %}
-    </div>
+    {% block nav_search_wrapper %}
+        <div id="pni-mobile-nav-search-wrapper" class="tw-border-b tw-border-blue-10 medium:tw-border-b-0">
+            {% include "fragments/buyersguide/pni_mobile_nav.html" with pagetype=pagetype categories=categories current_category=current_category %}
+            {% include 'fragments/buyersguide/pni_mobile_search.html' %}
+        </div>
+    {% endblock %}
 
     {% block category_nav %}
         {% include "fragments/buyersguide/pni_category_nav.html" with show_all_reviews_as_active_category=False categories=categories current_category=current_category %}

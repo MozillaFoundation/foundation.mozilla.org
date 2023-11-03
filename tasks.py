@@ -1,5 +1,6 @@
 import os
 import re
+import subprocess
 from sys import platform
 
 from invoke import exceptions, task
@@ -181,6 +182,14 @@ def start_lean_dev(ctx):
     print("Starting the dev server without rebuilding frontend assets...")
     print("WARNING: Frontend assets may be outdated or missing if they haven't been built yet.")
     ctx.run("docker-compose -f docker-compose.yml -f docker-compose-lean.yml up")
+
+
+@task
+def sh(c, service="backend"):
+    """
+    Run bash in a local container
+    """
+    subprocess.run(["docker-compose", "exec", service, "bash"])
 
 
 # Javascript shorthands

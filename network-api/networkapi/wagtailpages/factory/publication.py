@@ -18,6 +18,8 @@ article_body_streamfield_fields = [
     "callout",
     "content",
     "full_width_image",
+    "image_grid",
+    "image_text",
 ]
 
 
