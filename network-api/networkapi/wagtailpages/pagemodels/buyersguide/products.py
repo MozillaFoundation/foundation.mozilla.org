@@ -172,7 +172,6 @@ class BuyersGuideProductCategory(
             return self._is_being_used
         except AttributeError:
             # It failed, let's query it ourselves
-            print("Querying ourselves")
             return ProductPage.objects.filter(
                 live=True, product_categories__category__translation_key=self.translation_key
             ).exists()
