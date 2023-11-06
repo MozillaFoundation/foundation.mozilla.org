@@ -275,16 +275,16 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             model_name="BuyersGuideProductCategory",
         )
         try:
-            category = BuyersGuideProductCategory.objects.get(slug=slug, locale__language_code=language_code)
+            category = BuyersGuideProductCategory.objects.select_related("parent").get(
+                slug=slug, locale__language_code=language_code
+            )
         except BuyersGuideProductCategory.DoesNotExist:
             category = get_object_or_404(
                 BuyersGuideProductCategory, slug=slug, locale__language_code=settings.LANGUAGE_CODE
             )
 
-        with translation.override(settings.LANGUAGE_CODE):
-            default_name = category.localized.name
-            print(f"Default name inside categories page: {default_name}")
-            category.default_name = default_name
+        if category.parent:
+            category.parent = category.parent.localized
 
         authenticated = request.user.is_authenticated
         key = f"cat_product_dicts_{slug}_auth" if authenticated else f"cat_product_dicts_{slug}_live"
@@ -379,7 +379,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             categories = BuyersGuideProductCategory.objects.filter(hidden=False)
             categories = localize_queryset(categories)
             categories = categories.select_related("parent").with_usage_annotation()
-            categories = annotate_category_default_name(categories)
+            categories = localize_category_parent(categories)
             cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
 
         context["categories"] = categories
@@ -538,23 +538,70 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
         .order_by("_average_creepiness")
     )
 
+    products = annotate_product_categories_local_names(products, language_code)
+
     cache.get_or_set(key, products, 24 * 60 * 60)  # Set cache for 24h
     return products
 
 
-def annotate_category_default_name(categories):
+def localize_category_parent(categories):
+    """Localize the parent of each category.
+
+    Go through a BuyersGuideCategory queryset and localize the parent object.
+
+    Args:
+        categories (QuerySet): A categories queryset. It is important to have `parent`
+            prefetched/pre-selected to avoid N+1 queries.
+
+    Returns:
+        QuerySet: The categories queryset where each category has a localized parent.
+    """
     BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
 
-    category_ids = list(set([category.translation_key for category in categories]))
-    default_categories = BuyersGuideProductCategory.objects.filter(
-        locale__language_code=settings.LANGUAGE_CODE, translation_key__in=category_ids
-    )
-    translation_keys_category_mapping = {category.translation_key: category for category in default_categories}
+    parents_ids = list(set([category.parent.pk for category in categories if category.parent]))
+    parents = BuyersGuideProductCategory.objects.filter(id__in=parents_ids)
+    parents = localize_queryset(parents)
+    parents_cache = {parent.translation_key: parent for parent in parents}
 
     for category in categories:
-        default_category = translation_keys_category_mapping[category.translation_key]
-        default_name = default_category.name
-        print(default_name)
-        category.default_name = default_name
+        if category.parent:
+            local_parent = parents_cache.get(category.parent.translation_key)
+            category.parent = local_parent
 
     return categories
+
+
+def annotate_product_categories_local_names(products, active_language_code):
+    """Annotate products with localized category names.
+
+    For each product, get the `product_categories`, find the localized version of those
+    categories and then return a list of those localized categories names.
+
+    Args:
+        products (QuerySet): The products to annotate. The `product_categories__categories`
+            property must be prefetched to avoid N+1 queries.
+        active_language_code (str): The language code for the current request, e.g. "en".
+
+    Returns:
+        QuerySet: The products queryset where each product has a `local_category_names`,
+            which is a list of localized category names.
+    """
+    BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
+
+    local_categories = BuyersGuideProductCategory.objects.filter(locale__language_code=active_language_code)
+    local_categories_cache = {category.translation_key: category for category in local_categories}
+
+    for product in products:
+        product_category_relationships = product.product_categories.all()
+        default_categories = [relationship.category for relationship in product_category_relationships]
+        local_category_names = []
+        for category in default_categories:
+            if local_category := local_categories_cache.get(category.translation_key):
+                # Found a category in the local language, use that
+                local_category_names.append(local_category.name)
+            else:
+                # Fall back to default category
+                local_category_names.append(category.name)
+        product.local_category_names = local_category_names
+
+    return products
