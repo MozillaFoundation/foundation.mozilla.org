@@ -74,26 +74,18 @@ class BlogBodySignForm extends Component {
   }
 
   handleEmailChange(event) {
-    this.props.onFieldChange("email", event.target.value);
-    // this.setState({ emailValue: event.target.value });
     this.updateFormFieldValue("email", event.target.value);
   }
 
   handleCountryChange(event) {
-    this.props.onFieldChange("country", event.target.value);
-    // this.setState({ countryValue: event.target.value });
     this.updateFormFieldValue("country", event.target.value);
   }
 
   handleLanguageChange(event) {
-    this.props.onFieldChange("language", event.target.value);
-    // this.setState({ languageValue: event.target.value });
     this.updateFormFieldValue("language", event.target.value);
   }
 
   handlePrivacyChange(event) {
-    this.props.onFieldChange("privacy", event.target.checked.toString());
-    // this.setState({ privacyValue: event.target.checked });
     this.updateFormFieldValue("privacy", event.target.checked.toString());
   }
 

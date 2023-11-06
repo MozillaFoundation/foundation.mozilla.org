@@ -100,24 +100,6 @@ function withSubmissionLogic(WrappedComponent) {
     }
 
     /**
-     * Form field change handler.
-     * Validate field of choice and update state with the new error.
-     *
-     * @param {string} name - name of the field
-     * @param {string} value - value of the field
-     * @returns {void}
-     */
-    handleFieldChange(name, value) {
-      const fieldError = this.validateField(name, value);
-      const newErrors = [fieldError].reduce((acc, curr) => {
-        return { ...acc, ...curr };
-      }, this.state.errors);
-
-      console.log(`[hoc handleFieldChange] newErrors`, newErrors);
-      this.setState({ errors: newErrors });
-    }
-
-    /**
      * Render the wrapped component with additional props
      */
     render() {
@@ -127,7 +109,6 @@ function withSubmissionLogic(WrappedComponent) {
           noBrowserValidation={true}
           errors={this.state.errors}
           onSubmit={(event, formData) => this.handleSubmit(event, formData)}
-          onFieldChange={(name, value) => this.handleFieldChange(name, value)}
         />
       );
     }
