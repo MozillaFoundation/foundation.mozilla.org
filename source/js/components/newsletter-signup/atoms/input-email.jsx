@@ -29,19 +29,39 @@ const InputEmail = ({
   errorMessage,
   ...otherProps
 }) => {
-  return (
-    <div className={outerMarginClasses}>
-      <input
-        type="email"
-        className={FIELD_CLASSES}
-        {...otherProps}
-        {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
-      />
-      {errorMessage && (
+  let inputField = (
+    <input
+      type="email"
+      className={FIELD_CLASSES}
+      {...otherProps}
+      {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
+    />
+  );
+  let errorNotice = null;
+
+  if (errorMessage) {
+    inputField = (
+      <div className="tw-relative">
+        {inputField}
+        <div className="tw-absolute tw-top-0 tw-bottom-0 tw-right-0 tw-flex tw-items-center tw-justify-end">
+          <span className="tw-form-error-glyph" />
+        </div>
+      </div>
+    );
+
+    errorNotice = (
+      <>
         <p className="tw-body-small tw-mt-4 tw-text-[#c01] dark:tw-text-red-40">
           {errorMessage}
         </p>
-      )}
+      </>
+    );
+  }
+
+  return (
+    <div className={outerMarginClasses}>
+      {inputField}
+      {errorNotice}
     </div>
   );
 };

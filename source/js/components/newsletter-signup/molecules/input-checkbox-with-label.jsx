@@ -8,14 +8,19 @@ const InputCheckboxField = ({ id, label, errorMessage, ...otherProps }) => {
     <div className="tw-flex tw-items-start tw-relative tw-pl-10">
       <InputCheckbox id={id} {...otherProps} />
       <div>
-        <Label
-          htmlFor={id}
-          classes="tw-block form-check-label tw-body-small tw-text-black"
-        >
-          {label}
-        </Label>
+        <div className="tw-flex">
+          <Label
+            htmlFor={id}
+            classes="tw-block form-check-label tw-body-small tw-text-black"
+          >
+            {label}
+          </Label>
+          {errorMessage && (
+            <span className="tw-form-error-glyph tw-flex tw-items-center tw-ml-2" />
+          )}
+        </div>
         {errorMessage && (
-          <p className="tw-body-small tw-text-[#c01] dark:tw-text-red-40">
+          <p className="tw-body-small tw-mt-0 tw-text-[#c01] dark:tw-text-red-40">
             {errorMessage}
           </p>
         )}

@@ -197,7 +197,7 @@ class BlogBodySignForm extends Component {
             <fieldset>{this.renderPrivacyCheckbox()}</fieldset>
           </div>
           <div className="tw-mt-8 medium:tw-mt-0">
-            <ButtonSubmit widthClasses="tw-w-full">Joinnnnnnn Now</ButtonSubmit>
+            <ButtonSubmit widthClasses="tw-w-full">Join Now</ButtonSubmit>
           </div>
         </div>
       </form>
