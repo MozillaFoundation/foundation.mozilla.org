@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 // [TODO] probably worth moving this into Tailwind config?
-const BASE_CLASSES = `
+// [TODO]
+// Ideally styling for this "atom" component should be pre-defined in a Tailwind config file.
+// Because our design system still needs to be finalized,
+// we are using hardcoded Tailwind classes directly here for now.
+const FIELD_CLASSES = `
   tw-form-control
   has-error:tw-border
   has-error:tw-border-solid
@@ -16,28 +20,35 @@ const BASE_CLASSES = `
   focus:tw-border-blue-40
   focus:tw-shadow-none
   focus-visible:tw-drop-shadow-none
+  tw-pr-18
 `;
 
-const InputEmail = ({ ariaLabel, outerMarginClasses, ...otherProps }) => {
-  // [TODO]
-  // Ideally styling for this "atom" component should be pre-defined in a Tailwind config file.
-  // Because our design system still needs to be finalized,
-  // we are using hardcoded Tailwind classes directly here for now.
-  let classes = classNames(BASE_CLASSES, outerMarginClasses);
-
+const InputEmail = ({
+  ariaLabel,
+  outerMarginClasses = "",
+  errorMessage,
+  ...otherProps
+}) => {
   return (
-    <input
-      type="email"
-      className={classes}
-      {...otherProps}
-      {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
-    />
+    <div className={outerMarginClasses}>
+      <input
+        type="email"
+        className={FIELD_CLASSES}
+        {...otherProps}
+        {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
+      />
+      {errorMessage && (
+        <p className="tw-body-small tw-mt-4 tw-text-[#c01] dark:tw-text-red-40">
+          {errorMessage}
+        </p>
+      )}
+    </div>
   );
 };
 
 InputEmail.propTypes = {
   id: PropTypes.string.isRequired,
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   value: PropTypes.string,
   placeholder: PropTypes.string,
   onFocus: PropTypes.func.isRequired,
@@ -45,6 +56,7 @@ InputEmail.propTypes = {
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
   ariaLabel: PropTypes.string,
+  errorMessage: PropTypes.string,
 };
 
 export default InputEmail;

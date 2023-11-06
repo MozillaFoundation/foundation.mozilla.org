@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import Description from "../atoms/description.jsx";
 import InputEmail from "../atoms/input-email.jsx";
 import Select from "../atoms/select.jsx";
 import InputCheckboxWithLabel from "../molecules/input-checkbox-with-label.jsx";
 import ButtonSubmit from "../atoms/button-submit.jsx";
+import withSubmissionLogic from "./form-with-submission-logic.jsx";
 import utility from "../../../utility.js";
 import { getText } from "../../petition/locales";
 import { getCurrentLanguage } from "../../petition/locales";
@@ -17,7 +19,6 @@ const FIELD_ID_PREFIX = `blog-body-newsletter`;
 class BlogBodySignForm extends Component {
   constructor(props) {
     super(props);
-
     this.state = this.getInitialState();
     this.ids = this.generateFieldIds([
       "email",
@@ -29,10 +30,12 @@ class BlogBodySignForm extends Component {
 
   getInitialState() {
     return {
-      emailValue: "",
-      countryValue: "",
-      languageValue: getCurrentLanguage(),
-      privacyValue: false,
+      formData: {
+        email: "",
+        country: "",
+        language: getCurrentLanguage(),
+        privacy: "",
+      },
       showAllFields: false,
     };
   }
@@ -45,29 +48,53 @@ class BlogBodySignForm extends Component {
     }, {});
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    console.log(`this.state: ${this.state}`);
-  }
-
   showAllFields() {
     this.setState({ showAllFields: true });
   }
 
+  updateFormFieldValue(name, value) {
+    this.setState(
+      (prevState) => ({
+        formData: {
+          ...prevState.formData,
+          [name]: value,
+        },
+      }),
+      () => {
+        console.log(
+          `[updateFormFieldValue] this.state.formData`,
+          this.state.formData
+        );
+      }
+    );
+  }
+
+  getFormFieldValue(name) {
+    return this.state.formData[name];
+  }
+
   handleEmailChange(event) {
-    this.setState({ emailValue: event.target.value });
+    this.props.onFieldChange("email", event.target.value);
+    // this.setState({ emailValue: event.target.value });
+    this.updateFormFieldValue("email", event.target.value);
   }
 
   handleCountryChange(event) {
-    this.setState({ countryValue: event.target.value });
+    this.props.onFieldChange("country", event.target.value);
+    // this.setState({ countryValue: event.target.value });
+    this.updateFormFieldValue("country", event.target.value);
   }
 
   handleLanguageChange(event) {
-    this.setState({ languageValue: event.target.value });
+    this.props.onFieldChange("language", event.target.value);
+    // this.setState({ languageValue: event.target.value });
+    this.updateFormFieldValue("language", event.target.value);
   }
 
   handlePrivacyChange(event) {
-    this.setState({ privacyValue: event.target.checked });
+    this.props.onFieldChange("privacy", event.target.checked.toString());
+    // this.setState({ privacyValue: event.target.checked });
+    this.updateFormFieldValue("privacy", event.target.checked.toString());
   }
 
   renderDescription() {
@@ -83,28 +110,39 @@ class BlogBodySignForm extends Component {
   }
 
   renderEmailField() {
+    const name = "email";
+    const outerMarginClasses = classNames({
+      [FIELD_MARGIN_CLASSES]: true,
+      "tw-has-error": !!this.props.errors[name],
+    });
+
     return (
       <InputEmail
         id={this.ids.email}
+        name={name}
         label={getText(`Email address`)}
-        value={this.state.emailValue}
+        value={this.getFormFieldValue(name)}
         placeholder={getText(`Please enter your email`)}
         onFocus={() => this.showAllFields()}
         onInput={() => this.showAllFields()}
         onChange={(event) => this.handleEmailChange(event)}
         required={true}
-        outerMarginClasses={FIELD_MARGIN_CLASSES}
+        outerMarginClasses={outerMarginClasses}
+        errorMessage={this.props.errors[name]}
       />
     );
   }
 
   renderAdditionalFields() {
+    const nameCountry = "country";
+    const nameLanguage = "language";
+
     return (
       <>
         <Select
           id={this.ids.country}
-          name="country"
-          value={this.state.countryValue}
+          name={nameCountry}
+          value={this.getFormFieldValue(nameCountry)}
           options={COUNTRY_OPTIONS}
           onChange={(event) => this.handleCountryChange(event)}
           required={false}
@@ -112,8 +150,8 @@ class BlogBodySignForm extends Component {
         />
         <Select
           id={this.ids.language}
-          name="language"
-          value={this.state.languageValue}
+          name={nameLanguage}
+          value={this.getFormFieldValue(nameLanguage)}
           options={LANGUAGE_OPTIONS}
           onChange={(event) => this.handleLanguageChange(event)}
           required={false}
@@ -124,15 +162,20 @@ class BlogBodySignForm extends Component {
   }
 
   renderPrivacyCheckbox() {
+    const name = "privacy";
+
     return (
       <InputCheckboxWithLabel
         id={this.ids.privacy}
+        name={name}
         label={getText(
           `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
         )}
-        checked={this.state.privacyValue}
+        value={this.getFormFieldValue(name)}
+        checked={this.getFormFieldValue(name) === "true"}
         onChange={(event) => this.handlePrivacyChange(event)}
         required={true}
+        errorMessage={this.props.errors[name]}
       />
     );
   }
@@ -140,7 +183,8 @@ class BlogBodySignForm extends Component {
   render() {
     return (
       <form
-        onSubmit={(event) => this.handleSubmit(event)}
+        noValidate={this.props.noBrowserValidation}
+        onSubmit={(event) => this.props.onSubmit(event, this.state.formData)}
         className="tw-relative tw-border tw-px-8 tw-pt-14 tw-pb-12 medium:tw-p-16 before:tw-absolute before:tw-top-0 before:tw-left-1/2 before:-tw-translate-x-1/2 before:-tw-translate-y-1/2 before:tw-content-[''] before:tw-inline-block before:tw-w-[72px] before:tw-h-14 before:tw-bg-[url('../_images/glyphs/letter.svg')] before:tw-bg-white before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-[length:24px_auto]"
       >
         {this.renderDescription()}
@@ -153,7 +197,7 @@ class BlogBodySignForm extends Component {
             <fieldset>{this.renderPrivacyCheckbox()}</fieldset>
           </div>
           <div className="tw-mt-8 medium:tw-mt-0">
-            <ButtonSubmit widthClasses="tw-w-full">Join Now</ButtonSubmit>
+            <ButtonSubmit widthClasses="tw-w-full">Joinnnnnnn Now</ButtonSubmit>
           </div>
         </div>
       </form>
@@ -166,4 +210,4 @@ BlogBodySignForm.propTypes = {
   ctaDescription: PropTypes.string.isRequired,
 };
 
-export default BlogBodySignForm;
+export default withSubmissionLogic(BlogBodySignForm);

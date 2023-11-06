@@ -11,7 +11,8 @@ const InputCheckbox = (props) => {
 
 InputCheckbox.propTypes = {
   id: PropTypes.string.isRequired,
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   checked: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
