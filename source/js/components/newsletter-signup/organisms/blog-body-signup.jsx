@@ -6,7 +6,7 @@ import InputEmail from "../atoms/input-email.jsx";
 import Select from "../atoms/select.jsx";
 import InputCheckboxWithLabel from "../molecules/input-checkbox-with-label.jsx";
 import ButtonSubmit from "../atoms/button-submit.jsx";
-import withSubmissionLogic from "./form-with-submission-logic.jsx";
+import withSubmissionLogic from "./with-submission-logic.jsx";
 import utility from "../../../utility.js";
 import { getText } from "../../petition/locales";
 import { getCurrentLanguage } from "../../petition/locales";
