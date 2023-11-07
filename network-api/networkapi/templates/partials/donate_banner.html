@@ -4,10 +4,8 @@
 {% with btn_class="tw-btn-pop tw-w-full small:tw-w-auto tw-py-7 tw-px-20 tw-text-white tw-border-black tw-bg-blue-40 hover:tw-bg-blue-80 tw-shadow-black tw-shadow-[4px_4px]" %}
 <div class="donate-banner tw-bg-[#FF4F5E] tw-py-20 tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden">
 
-    <a href="#" class="tw-p-8 tw-box-content banner-close tw-cursor-pointer tw-absolute tw-right-0 tw-top-0 tw-group"
-        aria-label="{% trans " Close Banner" %}">
-        <img src="{% static " _images/x.svg" %}" width="24" height="23" alt="{% trans " Close Banner" %}"
-            class="tw-w-8 tw-h-8 tw-transition-transform tw-duration-100 tw-ease-in-out tw-transform group-hover:tw-scale-110 tw-filter">
+    <a href="#" class="tw-p-8 tw-box-content banner-close tw-cursor-pointer tw-absolute tw-right-0 tw-top-0 tw-group" aria-label="{% trans " Close Banner" %}">
+        <img src="{% static "_images/x.svg" %}" width="24" height="23" alt="{% trans " Close Banner" %}" class="tw-w-8 tw-h-8 tw-transition-transform tw-duration-100 tw-ease-in-out tw-transform group-hover:tw-scale-110 tw-filter">
     </a>
 
     <div class="tw-container">
@@ -15,7 +13,7 @@
 
             {% block left_banner_column %}
             <div class="tw-w-8/12 tw-m-auto large:tw-w-6/12 large:tw-order-2">
-                <img src="{{ background_image.url }}" alt="Banner Image" class="">
+                <img src="{{ background_image.url }}" alt="Banner Image" class="tw-w-10/12 medium:tw-w-6/12 large:tw-w-auto tw-h-auto tw-m-auto">
             </div>
             {% endblock left_banner_column %}
 
