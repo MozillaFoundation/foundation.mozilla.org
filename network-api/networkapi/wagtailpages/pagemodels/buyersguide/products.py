@@ -1025,6 +1025,10 @@ class ProductPage(BasePage):
 
 @receiver(post_save, sender=ProductPage)
 def create_evaluation(sender, instance, created, **kwargs):
+    """Post-save hook to create a ProductPageEvaluation for a ProductPage.
+
+    Creates an evaluation for newly created products and syncs this with all translations.
+    """
     if created:
         if instance.locale.language_code == settings.LANGUAGE_CODE and not instance.evaluation:
             evaluation = ProductPageEvaluation.objects.create()
@@ -1036,6 +1040,12 @@ def create_evaluation(sender, instance, created, **kwargs):
 
 @hooks.register("after_copy_page")
 def reset_product_page_votes(request, page, new_page):
+    """Resets the votes on copied product pages.
+
+    When copying a ProductPage (or GeneralProductPage), the votes are copied as well since
+    the evaluation object is copied over. This hook resets the evaluation object on the
+    product page and its translations so that the votes are also reset.
+    """
     if new_page.specific_class == ProductPage or new_page.specific_class == GeneralProductPage:
         evaluation = ProductPageEvaluation.objects.create()
         new_products = ProductPage.objects.filter(translation_key=new_page.translation_key)
