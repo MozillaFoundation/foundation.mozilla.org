@@ -20,6 +20,7 @@ function withSubmissionLogic(WrappedComponent) {
             return getText(`This is a required section.`);
           }
 
+          // Regex copied from join.jsx
           const emailRegex = new RegExp(/[^@]+@[^.@]+(\.[^.@]+)+$/);
           if (!emailRegex.test(value)) {
             return getText(`Please enter a valid email address.`);
