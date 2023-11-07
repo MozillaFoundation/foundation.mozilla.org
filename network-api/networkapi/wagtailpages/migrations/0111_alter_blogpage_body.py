@@ -12,7 +12,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("wagtailpages", "0109_delete_featureflags"),
+        ("wagtailpages", "0110_alter_articlepage_body"),
     ]
 
     operations = [
