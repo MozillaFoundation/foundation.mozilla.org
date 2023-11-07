@@ -69,7 +69,7 @@ const InputEmail = ({
 InputEmail.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   onFocus: PropTypes.func.isRequired,
   onInput: PropTypes.func.isRequired,
