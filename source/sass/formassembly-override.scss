@@ -72,6 +72,11 @@ $input-font-size: 1.25rem !important;
         border-color: transparent;
         text-decoration: none;
       }
+      &:disabled {
+        background-color: $light-blue;
+        border-color: transparent;
+        text-decoration: none;
+      }
 
       &:hover {
         cursor: pointer;
@@ -96,8 +101,12 @@ $input-font-size: 1.25rem !important;
         font-family: $font-family-sans-serif;
         width: 100%;
         padding: 1rem 0.75rem;
-        height: auto !important;
+        height: auto;
         font-size: $input-font-size;
+      }
+
+      input[type="text"].validate-email {
+        height: auto !important;
       }
 
       textarea:focus,
@@ -151,4 +160,115 @@ $input-font-size: 1.25rem !important;
 //   Email subscription #tfa_494-D
 #tfa_494-D {
   margin-top: 0;
+}
+
+// DonateHelpPage form specific overrides
+.donate-help-page-content {
+  .wForm {
+    label {
+      font-family: $font-family-sans-serif;
+      color: $black !important;
+      font-size: 1.125rem;
+      margin-bottom: 0;
+    }
+
+    input[type="text"],
+    input[type="text"].validate-email,
+    textarea,
+    select {
+      border-radius: 0 !important;
+      border: 1px solid black !important;
+    }
+
+    input[type="file"] {
+      padding: 0 !important;
+      height: auto !important;
+
+      &::file-selector-button {
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+        font-family: $font-family-sans-serif;
+        background: $light-blue;
+        width: auto;
+        padding: 0rem 1.5rem;
+        font-size: 1rem;
+        border: none;
+        height: 2.25rem;
+
+        &:hover {
+          background: $blue;
+          cursor: pointer;
+        }
+      }
+    }
+
+    textarea {
+      min-height: 10em !important;
+    }
+
+    select {
+      appearance: none;
+      background: url("../_images/glyphs/down-chevron.svg") no-repeat 99% center;
+      padding-right: 30px !important;
+      white-space: normal;
+      text-overflow: ellipsis;
+
+      option {
+        @media (max-width: 576px) {
+          font-size: 0.75rem;
+        }
+      }
+    }
+
+    .oneField {
+      margin-top: 2rem;
+    }
+
+    .htmlSection {
+      padding: 0;
+      font-size: 0.75rem;
+      width: 100%;
+
+      span {
+        color: $black !important;
+        font-family: $font-family-sans-serif;
+      }
+    }
+
+    .htmlContent {
+      font-family: $font-family-sans-serif;
+      color: $black !important;
+      a {
+        color: $dark-blue;
+      }
+    }
+
+    .inline {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      .oneField {
+        width: 48.5%;
+        @media (max-width: 768px) {
+          width: 100%;
+        }
+      }
+    }
+
+    .captcha {
+      .oneField {
+        margin: 0;
+      }
+      .captchaHelp {
+        display: inline-flex !important;
+        padding: 0;
+        margin-top: 0.25rem;
+        color: $black;
+      }
+    }
+
+    .actions .primaryAction#submit_button {
+      width: auto !important;
+    }
+  }
 }
