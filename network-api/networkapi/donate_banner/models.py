@@ -22,21 +22,17 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         help_text="Identify this component for editors. This will not be displayed on the banner.",
     )
     title = models.CharField(
-        max_length=500,
+        max_length=60,
         help_text="Banner title",
         default="Help Mozilla fight for a better internet this holiday season",
     )
     subtitle = models.CharField(
-        max_length=500,
+        max_length=200,
         help_text="Banner subtitle",
         default=(
             "We're proudly nonprofit, working to keep the web healthy. "
             "Your contributions help build a safe and open internet."
         ),
-    )
-    cta_text = models.TextField(
-        help_text="CTA text",
-        default="Your contributions help build a safe and open internet. Can you donate today?",
     )
     cta_button_text = models.CharField(
         max_length=500,
@@ -72,7 +68,6 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         FieldPanel("name"),
         FieldPanel("title"),
         FieldPanel("subtitle"),
-        FieldPanel("cta_text"),
         FieldPanel("cta_button_text"),
         FieldPanel("cta_link"),
         FieldPanel("background_image"),
@@ -81,7 +76,6 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     translatable_fields = [
         TranslatableField("title"),
         TranslatableField("subtitle"),
-        TranslatableField("cta_text"),
         TranslatableField("cta_button_text"),
         SynchronizedField("cta_link"),
         SynchronizedField("background_image"),
