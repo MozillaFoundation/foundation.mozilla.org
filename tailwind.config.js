@@ -244,6 +244,10 @@ module.exports = {
         purple: "#353552",
       },
     },
+    boxShadow: {
+      "pop": "4px 4px rgb(0, 0, 0)",
+      "outline": "0px -4px rgb(0, 0, 0)",
+    }
   },
   // TODO remove after removing SASS/Bootstrap
   prefix: "tw-",

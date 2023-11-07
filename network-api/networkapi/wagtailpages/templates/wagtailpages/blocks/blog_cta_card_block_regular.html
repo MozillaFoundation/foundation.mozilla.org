@@ -1,6 +1,15 @@
 {% load l10n wagtailcore_tags wagtailimages_tags %}
 
-<div class="blog-cta-card blog-cta-card__{{ value.style }}">
+<div class="[&_.rich-text_a]:tw-underline [&_.rich-text_a]:tw-text-black
+            {% if value.style == "filled" %}
+                tw-bg-gray-05
+            {% elif value.style == "pop" %}
+                tw-shadow-pop
+                tw-border
+            {% elif value.style == "outline" %}
+                tw-shadow-outline
+                tw-border
+            {% endif %}">
     {% with image_block=value.image|first %}
         {% if image_block %}
             {% block blog_cta_card_image %}
