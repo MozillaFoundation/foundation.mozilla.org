@@ -31,7 +31,7 @@ certifi==2022.12.7
     #   requests
     #   sentry-sdk
     #   urllib3
-cffi==1.15.0
+cffi==1.16.0
     # via
     #   cryptography
     #   pygit2
@@ -167,7 +167,7 @@ psycopg2-binary==2.9.7
     # via -r requirements.in
 pycparser==2.21
     # via cffi
-pygit2==1.12.2
+pygit2==1.13.2
     # via
     #   -r requirements.in
     #   wagtail-localize-git
