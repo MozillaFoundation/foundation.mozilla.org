@@ -6,7 +6,6 @@ from django.conf import settings
 from django.core.cache import cache
 from django.db import models
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import translation
 from django.utils.text import slugify
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
@@ -25,6 +24,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.base import BasePage
+from networkapi.wagtailpages.pagemodels.buyersguide import utils as bg_utils
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import (
     get_language_from_request,
@@ -294,7 +294,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
 
         ProductPage = apps.get_model(app_label="wagtailpages", model_name="ProductPage")
         if products is None:
-            products = get_product_subset(
+            products = bg_utils.get_product_subset(
                 self.cutoff_date,
                 authenticated,
                 key,
@@ -364,7 +364,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
 
         ProductPage = apps.get_model(app_label="wagtailpages", model_name="ProductPage")
         if not bypass_products and products is None:
-            products = get_product_subset(
+            products = bg_utils.get_product_subset(
                 self.cutoff_date,
                 authenticated,
                 key,
@@ -379,7 +379,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             categories = BuyersGuideProductCategory.objects.filter(hidden=False)
             categories = localize_queryset(categories)
             categories = categories.select_related("parent").with_usage_annotation()
-            categories = localize_category_parent(categories)
+            categories = bg_utils.localize_category_parent(categories)
             cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
 
         context["categories"] = categories
@@ -515,93 +515,3 @@ def get_pni_home_page():
     Used in AIRTABLE settings for nesting child pages under a new parent page.
     """
     return BuyersGuidePage.objects.first().id
-
-
-def get_product_subset(cutoff_date, authenticated, key, products, language_code="en"):
-    """
-    filter a queryset based on our current cutoff date,
-    as well as based on whether a user is authenticated
-    to the system or not (authenticated users get to
-    see all products, including draft products)
-    """
-    products = products.filter(review_date__gte=cutoff_date, locale__language_code=language_code)
-
-    if not authenticated:
-        products = products.live()
-
-    products = (
-        products.prefetch_related(
-            "image__renditions",
-            "product_categories__category",
-        )
-        .with_average_creepiness()
-        .order_by("_average_creepiness")
-    )
-
-    products = annotate_product_categories_local_names(products, language_code)
-
-    cache.get_or_set(key, products, 24 * 60 * 60)  # Set cache for 24h
-    return products
-
-
-def localize_category_parent(categories):
-    """Localize the parent of each category.
-
-    Go through a BuyersGuideCategory queryset and localize the parent object.
-
-    Args:
-        categories (QuerySet): A categories queryset. It is important to have `parent`
-            prefetched/pre-selected to avoid N+1 queries.
-
-    Returns:
-        QuerySet: The categories queryset where each category has a localized parent.
-    """
-    BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
-
-    parents_ids = list(set([category.parent.pk for category in categories if category.parent]))
-    parents = BuyersGuideProductCategory.objects.filter(id__in=parents_ids)
-    parents = localize_queryset(parents)
-    parents_cache = {parent.translation_key: parent for parent in parents}
-
-    for category in categories:
-        if category.parent:
-            local_parent = parents_cache.get(category.parent.translation_key)
-            category.parent = local_parent
-
-    return categories
-
-
-def annotate_product_categories_local_names(products, active_language_code):
-    """Annotate products with localized category names.
-
-    For each product, get the `product_categories`, find the localized version of those
-    categories and then return a list of those localized categories names.
-
-    Args:
-        products (QuerySet): The products to annotate. The `product_categories__categories`
-            property must be prefetched to avoid N+1 queries.
-        active_language_code (str): The language code for the current request, e.g. "en".
-
-    Returns:
-        QuerySet: The products queryset where each product has a `local_category_names`,
-            which is a list of localized category names.
-    """
-    BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
-
-    local_categories = BuyersGuideProductCategory.objects.filter(locale__language_code=active_language_code)
-    local_categories_cache = {category.translation_key: category for category in local_categories}
-
-    for product in products:
-        product_category_relationships = product.product_categories.all()
-        default_categories = [relationship.category for relationship in product_category_relationships]
-        local_category_names = []
-        for category in default_categories:
-            if local_category := local_categories_cache.get(category.translation_key):
-                # Found a category in the local language, use that
-                local_category_names.append(local_category.name)
-            else:
-                # Fall back to default category
-                local_category_names.append(category.name)
-        product.local_category_names = local_category_names
-
-    return products
