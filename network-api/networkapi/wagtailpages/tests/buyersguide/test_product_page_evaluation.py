@@ -1,8 +1,14 @@
+from unittest import expectedFailure
+
+from django.urls import reverse
 from django.utils.translation import gettext
+from wagtail import hooks
 
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
+from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     ProductPageEvaluation,
+    reset_product_page_votes,
 )
 from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
@@ -259,3 +265,73 @@ class TestProductPageEvaluationPrefetching(BuyersGuideTestCase):
                     "Super creepy": {"count": 0, "label": gettext("Super creepy")},
                 },
             )
+
+
+class CreateEvaluationPostSaveSignalTests(BuyersGuideTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # Override BuyersGuidePage.subpage_types to include ProductPage
+        # If we don't, the copy page action will fail with a Permission Error
+        # since we can't add a ProductPage as a child of BuyersGuidePage
+        BuyersGuidePage.subpage_types += ["wagtailpages.ProductPage"]
+        super().setUpTestData()
+
+    def setUp(self):
+        super().setUp()
+        self.user = self.login()
+
+    def test_that_created_product_page_in_default_language_has_evaluation(self):
+        product_page = buyersguide_factories.ProductPageFactory.build(locale=self.default_locale, evaluation=None)
+        self.bg.add_child(instance=product_page)
+        self.assertIsNotNone(product_page.evaluation)
+        self.assertIsInstance(product_page.evaluation, ProductPageEvaluation)
+
+    def test_that_created_product_page_in_translated_language_syncs_evaluation(self):
+        product_page = buyersguide_factories.ProductPageFactory.build(locale=self.default_locale, evaluation=None)
+        self.bg.add_child(instance=product_page)
+
+        self.translate_page(product_page, self.fr_locale)
+        fr_product_page = product_page.get_translation(self.fr_locale)
+
+        self.assertIsNotNone(fr_product_page.evaluation)
+        self.assertIsInstance(fr_product_page.evaluation, ProductPageEvaluation)
+        self.assertEqual(fr_product_page.evaluation, product_page.evaluation)
+
+    def test_that_updated_page_is_not_changed(self):
+        product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        evaluation = product_page.evaluation
+        self.assertIsNotNone(evaluation)
+        self.assertIsInstance(evaluation, ProductPageEvaluation)
+
+        product_page.title = "New title"
+        product_page.save()
+
+        self.assertEqual(product_page.evaluation, evaluation)
+
+    @expectedFailure
+    @hooks.register_temporarily("after_copy_page", reset_product_page_votes)
+    def test_that_copied_page_gets_evaluation(self):
+        product_page = buyersguide_factories.GeneralProductPageFactory(
+            parent=self.bg, title="My Product", slug="my-product"
+        )
+        self.assertIsNotNone(product_page.evaluation)
+        self.assertIsInstance(product_page.evaluation, ProductPageEvaluation)
+
+        # Add some votes to product page
+        buyersguide_factories.ProductVoteFactory.create_batch(10, evaluation=product_page.evaluation)
+        self.assertTrue(product_page.creepiness > 0)
+
+        post_data = {
+            "new_title": "My Product 2",
+            "new_slug": "my-product-2",
+            "new_parent_page": str(self.bg.pk),
+        }
+
+        # Copy page
+        self.client.post(reverse("wagtailadmin_pages:copy", args=(self.product_page.id,)), post_data)
+        product_page_copy = self.bg.get_children().get(slug="my-product-2").specific
+
+        self.assertIsNotNone(product_page_copy.evaluation)
+        self.assertIsInstance(product_page_copy.evaluation, ProductPageEvaluation)
+        self.assertNotEqual(product_page_copy.evaluation, product_page.evaluation)
+        self.assertEqual(product_page_copy.creepiness, 0)
