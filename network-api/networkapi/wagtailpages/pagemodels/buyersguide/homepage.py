@@ -24,6 +24,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.base import BasePage
+from networkapi.wagtailpages.pagemodels.buyersguide import utils as bg_utils
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import (
     get_language_from_request,
@@ -274,11 +275,16 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             model_name="BuyersGuideProductCategory",
         )
         try:
-            category = BuyersGuideProductCategory.objects.get(slug=slug, locale__language_code=language_code)
+            category = BuyersGuideProductCategory.objects.select_related("parent").get(
+                slug=slug, locale__language_code=language_code
+            )
         except BuyersGuideProductCategory.DoesNotExist:
             category = get_object_or_404(
                 BuyersGuideProductCategory, slug=slug, locale__language_code=settings.LANGUAGE_CODE
             )
+
+        if category.parent:
+            category.parent = category.parent.localized
 
         authenticated = request.user.is_authenticated
         key = f"cat_product_dicts_{slug}_auth" if authenticated else f"cat_product_dicts_{slug}_live"
@@ -288,7 +294,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
 
         ProductPage = apps.get_model(app_label="wagtailpages", model_name="ProductPage")
         if products is None:
-            products = get_product_subset(
+            products = bg_utils.get_product_subset(
                 self.cutoff_date,
                 authenticated,
                 key,
@@ -358,7 +364,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
 
         ProductPage = apps.get_model(app_label="wagtailpages", model_name="ProductPage")
         if not bypass_products and products is None:
-            products = get_product_subset(
+            products = bg_utils.get_product_subset(
                 self.cutoff_date,
                 authenticated,
                 key,
@@ -373,6 +379,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             categories = BuyersGuideProductCategory.objects.filter(hidden=False)
             categories = localize_queryset(categories)
             categories = categories.select_related("parent").with_usage_annotation()
+            categories = bg_utils.localize_category_parent(categories)
             cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
 
         context["categories"] = categories
@@ -508,28 +515,3 @@ def get_pni_home_page():
     Used in AIRTABLE settings for nesting child pages under a new parent page.
     """
     return BuyersGuidePage.objects.first().id
-
-
-def get_product_subset(cutoff_date, authenticated, key, products, language_code="en"):
-    """
-    filter a queryset based on our current cutoff date,
-    as well as based on whether a user is authenticated
-    to the system or not (authenticated users get to
-    see all products, including draft products)
-    """
-    products = products.filter(review_date__gte=cutoff_date, locale__language_code=language_code)
-
-    if not authenticated:
-        products = products.live()
-
-    products = (
-        products.prefetch_related(
-            "image__renditions",
-            "product_categories__category",
-        )
-        .with_average_creepiness()
-        .order_by("_average_creepiness")
-    )
-
-    cache.get_or_set(key, products, 24 * 60 * 60)  # Set cache for 24h
-    return products
