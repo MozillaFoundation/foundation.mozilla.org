@@ -2,8 +2,8 @@ from http import HTTPStatus
 
 from wagtail.models import Page as WagtailPage
 
+from networkapi.donate import factory as donate_factories
 from networkapi.donate import models as pagemodels
-from networkapi.donate.factory import landing_page as landing_page_factories
 from networkapi.wagtailpages.tests import base as test_base
 
 
@@ -12,14 +12,14 @@ class FactoriesTest(test_base.WagtailpagesTestCase):
         """
         Testing the factory can successfully create a DonateLandingPage.
         """
-        landing_page_factories.DonateLandingPageFactory()
+        donate_factories.DonateLandingPageFactory()
 
 
 class DonateLandingPageTest(test_base.WagtailpagesTestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.donate_landing_page = landing_page_factories.DonateLandingPageFactory(
+        cls.donate_landing_page = donate_factories.DonateLandingPageFactory(
             parent=cls.homepage,
         )
 
@@ -38,7 +38,7 @@ class DonateLandingPageTest(test_base.WagtailpagesTestCase):
         """
         self.assertAllowedSubpageTypes(
             parent_model=pagemodels.DonateLandingPage,
-            child_models={pagemodels.DonateHelpPage},
+            child_models={},
         )
 
     def test_page_success(self):

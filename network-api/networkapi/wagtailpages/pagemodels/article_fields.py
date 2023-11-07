@@ -27,8 +27,6 @@ article_fields = [
         ),
     ),
     ("image", customblocks.ArticleImageBlock()),
-    ("image_grid", customblocks.ImageGridBlock()),
-    ("image_text", customblocks.ImageTextBlock()),
     ("double_image", customblocks.ArticleDoubleImageBlock()),
     ("full_width_image", customblocks.ArticleFullWidthImageBlock()),
     ("iframe", customblocks.iFrameBlock()),

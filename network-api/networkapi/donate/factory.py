@@ -5,16 +5,8 @@ from wagtail.models import Site as WagtailSite
 from wagtail_factories import PageFactory
 
 from networkapi.donate.models import DonateLandingPage
-from networkapi.utility.faker import StreamfieldProvider
 from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
-
-description_faker = Faker("paragraphs", nb=2)
-
-
-Faker.add_provider(StreamfieldProvider)
-
-streamfield_fields = ["paragraph", "spacer", "image", "image_text", "quote"]
 
 
 class DonateLandingPageFactory(PageFactory):
@@ -38,6 +30,8 @@ def generate(seed):
         site_root = WagtailPage.objects.get(depth=1)
 
         home_page = DonateLandingPageFactory.create(parent=site_root, title="Donate Now", slug=None)
+
+    reseed(seed)
 
     print("Creating Donate Site record in Wagtail")
     tds = settings.TARGET_DOMAINS
