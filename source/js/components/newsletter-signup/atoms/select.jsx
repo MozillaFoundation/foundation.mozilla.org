@@ -27,8 +27,8 @@ const Select = ({ options, outerMarginClasses, ...otherProps }) => {
 
 Select.propTypes = {
   id: PropTypes.string.isRequired,
-  name: PropTypes.string,
-  value: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,

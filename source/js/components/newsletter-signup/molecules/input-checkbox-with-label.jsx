@@ -3,30 +3,28 @@ import PropTypes from "prop-types";
 import Label from "../atoms/label.jsx";
 import InputCheckbox from "../atoms/input-checkbox.jsx";
 
-const InputCheckboxField = ({
-  id,
-  label,
-  checked,
-  onChange,
-  required,
-  outerMarginClasses,
-}) => {
+const InputCheckboxField = ({ id, label, errorMessage, ...otherProps }) => {
   return (
-    <div
-      className={`tw-flex tw-items-start tw-relative tw-pl-10 ${outerMarginClasses}`}
-    >
-      <InputCheckbox
-        id={id}
-        checked={checked}
-        onChange={onChange}
-        required={required}
-      />
-      <Label
-        htmlFor={id}
-        classes="form-check-label tw-body-small tw-text-black"
-      >
-        {label}
-      </Label>
+    <div className="tw-flex tw-items-start tw-relative tw-pl-10">
+      <InputCheckbox id={id} {...otherProps} />
+      <div>
+        <div className="tw-flex">
+          <Label
+            htmlFor={id}
+            classes="tw-block form-check-label tw-body-small tw-text-black"
+          >
+            {label}
+          </Label>
+          {errorMessage && (
+            <span className="tw-form-error-glyph tw-flex tw-items-center tw-ml-2" />
+          )}
+        </div>
+        {errorMessage && (
+          <p className="tw-body-small tw-mt-0 tw-text-[#c01] dark:tw-text-red-40">
+            {errorMessage}
+          </p>
+        )}
+      </div>
     </div>
   );
 };
@@ -34,10 +32,10 @@ const InputCheckboxField = ({
 InputCheckboxField.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
+  value: PropTypes.string.isRequired,
   checked: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
-  outerMarginClasses: PropTypes.string,
 };
 
 export default InputCheckboxField;
