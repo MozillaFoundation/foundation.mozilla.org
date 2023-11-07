@@ -52,6 +52,7 @@ module.exports = {
       addVariant("has-error", ".has-error &");
       addVariant("summary-open", ["details[open] > summary > &"]);
       addVariant("details-open", ["details[open] > &"]);
+      addVariant("rich-text-links", "& [class~='rich-text'] a");
       addBase(newBase);
     }),
     ...componentPlugins,
