@@ -23,12 +23,12 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     )
     title = models.CharField(
         max_length=60,
-        help_text="Banner title",
+        help_text="Banner title - Recommended max character count of 30",
         default="Help Mozilla fight for a better internet this holiday season",
     )
     subtitle = models.CharField(
         max_length=200,
-        help_text="Banner subtitle",
+        help_text="Banner subtitle - Recommended max character count of 60",
         default=(
             "We're proudly nonprofit, working to keep the web healthy. "
             "Your contributions help build a safe and open internet."
