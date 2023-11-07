@@ -59,8 +59,6 @@ function withSubmissionLogic(WrappedComponent) {
      * @returns {void}
      */
     validateForm(formData, done) {
-      console.log("formData", formData);
-
       // validate all fields
       // and combine { [name] : errorMessage } pairs into a single object
       const newErrors = Object.entries(formData)
@@ -88,8 +86,6 @@ function withSubmissionLogic(WrappedComponent) {
       event.preventDefault();
 
       this.validateForm(formData, () => {
-        console.log(`[hoc handleSubmit] this.state.errors`, this.state.errors);
-
         // Check if there's any error messages in this.state.errors object
         // if there's none, we can submit the form
         if (Object.values(this.state.errors).every((error) => !error)) {

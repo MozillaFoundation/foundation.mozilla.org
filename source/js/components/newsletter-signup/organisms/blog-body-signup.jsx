@@ -53,20 +53,12 @@ class BlogBodySignForm extends Component {
   }
 
   updateFormFieldValue(name, value) {
-    this.setState(
-      (prevState) => ({
-        formData: {
-          ...prevState.formData,
-          [name]: value,
-        },
-      }),
-      () => {
-        console.log(
-          `[updateFormFieldValue] this.state.formData`,
-          this.state.formData
-        );
-      }
-    );
+    this.setState((prevState) => ({
+      formData: {
+        ...prevState.formData,
+        [name]: value,
+      },
+    }));
   }
 
   getFormFieldValue(name) {
@@ -92,7 +84,9 @@ class BlogBodySignForm extends Component {
   renderDescription() {
     const description = this.props.ctaHeader ? (
       <>
-        <strong>{this.props.ctaHeader}</strong> // {this.props.ctaDescription}
+        <strong>{this.props.ctaHeader}</strong>
+        <span aria-hidden> // </span>
+        {this.props.ctaDescription}
       </>
     ) : (
       this.props.ctaDescription
