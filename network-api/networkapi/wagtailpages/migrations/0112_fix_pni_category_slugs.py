@@ -18,7 +18,7 @@ def fix_pni_category_slugs(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("wagtailpages", "0109_alter_productpagecategory_category"),
+        ("wagtailpages", "0111_alter_productpagecategory_category"),
     ]
 
     operations = [
