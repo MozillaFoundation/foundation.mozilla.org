@@ -239,7 +239,7 @@ typing-extensions==4.4.0
     # via
     #   dj-database-url
     #   wagtail-localize
-urllib3[secure]==1.26.15
+urllib3[secure]==1.26.18
     # via
     #   botocore
     #   requests
