@@ -11,7 +11,7 @@ class DonateLandingPage(BaseDonationPage):
     template = "donate/pages/landing_page.html"
 
     # Only allow creating landing pages at the root level
-    parent_page_types: list = ["wagtailcore.Page"]
+    parent_page_types: list = ["wagtailpages.Homepage"]
 
     subpage_types: list = ["DonateHelpPage"]
 
