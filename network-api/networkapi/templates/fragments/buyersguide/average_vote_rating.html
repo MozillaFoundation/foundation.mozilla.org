@@ -3,6 +3,6 @@
 <span class="tw-body-small">
     {% with vote_data=product.average_bin %}
         <a class="tw-body-small" href="#creepiness-vote">{% trans "People voted:" %}</a>
-        <span class="people-voted {{ vote_data.label|slugify }}">{{ vote_data.localized }}</span>
+        <span class="people-voted {{ vote_data.label|slugify }}">{{ vote_data }}</span>
     {% endwith %}
 </span>

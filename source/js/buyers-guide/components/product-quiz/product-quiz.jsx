@@ -287,13 +287,12 @@ class ProductQuiz extends Component {
     const { selectedChoices, score } = this.state;
 
     let resultType = null;
-    // Result type is based on the total score.
-    // There is only one exception - when at least half of the selected products are bad.
-    let specialCase =
-      selectedChoices.length > 0 &&
-      this.state.numBad >= selectedChoices.length / 2;
 
-    if (score >= RESULTS["open book"].minPoints || specialCase) {
+    if (
+      score >= RESULTS["open book"].minPoints ||
+      (selectedChoices.length > 0 &&
+        selectedChoices.length === this.state.numBad)
+    ) {
       resultType = RESULTS["open book"];
     } else if (score >= RESULTS["soso"].minPoints) {
       resultType = RESULTS["soso"];
@@ -305,13 +304,7 @@ class ProductQuiz extends Component {
       <div className="tw-flex tw-flex-col medium:tw-flex-col-reverse tw-dark">
         <div className="tw-text-center">
           <div className="tw-mx-auto tw-w-[80px] tw-h-[80px] medium:tw-w-[180px] medium:tw-h-[180px]">
-            <img
-              src={resultType.imgSrc}
-              alt=""
-              width="100%"
-              height="100%"
-              loading="eager"
-            />
+            <img src={resultType.imgSrc} alt="" width="100%" height="100%" />
           </div>
           <h3 className="tw-font-zilla tw-font-semibold tw-text-[28px] tw-leading-[36px] medium:tw-text-[48px] medium:tw-leading-[56px] tw-text-white tw-my-12 medium:tw-mt-16">
             {resultType.heading}
@@ -321,7 +314,6 @@ class ProductQuiz extends Component {
             <a
               className="tw-underline tw-text-white"
               href={this.props.pniHomeUrl}
-              target="_blank"
             >
               privacynotincluded.org
             </a>

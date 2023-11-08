@@ -779,6 +779,7 @@ class ProductPage(BasePage):
         except AttributeError:
             return self.annotated_evaluation.average_creepiness
 
+
     @property
     def average_bin(self):
         return self.annotated_evaluation.average_bin

@@ -5,7 +5,7 @@ class ProductQuizShareButtons extends Component {
   constructor(props) {
     super(props);
     this.shareButtonClasses =
-      "tw-btn tw-bg-white tw-h-22 tw-w-22 tw-border-black hover:tw-bg-black hover:tw-text-white active:tw-bg-black active:tw-text-white focus:tw-bg-black focus:tw-text-white btn-share after:tw-hidden";
+      "tw-btn tw-bg-white tw-h-22 tw-w-22 tw-border-black hover:tw-bg-black hover:tw-text-white btn-share after:tw-hidden";
   }
 
   renderFacebookButton(child) {
