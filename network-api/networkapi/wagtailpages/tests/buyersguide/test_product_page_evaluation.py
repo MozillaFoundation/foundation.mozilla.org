@@ -1,10 +1,19 @@
+from unittest import expectedFailure
+
+from django.urls import reverse
 from django.utils.translation import gettext
+from wagtail import hooks
 
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
+from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
+from networkapi.wagtailpages.pagemodels.buyersguide.products import (
+    ProductPageEvaluation,
+    reset_product_page_votes,
+)
 from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
 
-class TestProductPage(BuyersGuideTestCase):
+class TestProductPageEvaluation(BuyersGuideTestCase):
     def setUp(self):
         super().setUp()
         self.admin_user = self.create_superuser(username="admin", password="password")
@@ -13,7 +22,12 @@ class TestProductPage(BuyersGuideTestCase):
     def test_votes(self):
         product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
 
-        evaluation = product_page.evaluation
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
 
         # There should be no votes initially.
         self.assertCountEqual(list(evaluation.votes.all()), [])
@@ -27,7 +41,12 @@ class TestProductPage(BuyersGuideTestCase):
         vote_3 = buyersguide_factories.ProductVoteFactory(evaluation=evaluation, value=3)
 
         # Make sure properties are correct
-        evaluation.refresh_from_db()
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
         self.assertIn(vote_1, evaluation.votes.all())
         self.assertIn(vote_2, evaluation.votes.all())
         self.assertIn(vote_3, evaluation.votes.all())
@@ -53,7 +72,12 @@ class TestProductPage(BuyersGuideTestCase):
         product_page.save_revision().publish()
 
         # Make sure properties are correct
-        evaluation.refresh_from_db()
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
         self.assertEqual(evaluation.total_votes, 3)
         self.assertEqual(evaluation.total_creepiness, 6)
         self.assertEqual(evaluation.average_creepiness, 2)
@@ -61,7 +85,12 @@ class TestProductPage(BuyersGuideTestCase):
         self.translate_page(product_page, self.fr_locale)
 
         # Make sure properties are correct
-        fr_evaluation = fr_product_page.evaluation
+        fr_evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=fr_product_page.evaluation.pk)
+        )
         self.assertEqual(fr_evaluation, evaluation)
         self.assertIn(vote_1, fr_evaluation.votes.all())
         self.assertIn(vote_2, fr_evaluation.votes.all())
@@ -72,7 +101,12 @@ class TestProductPage(BuyersGuideTestCase):
 
     def test_creepiness_per_bin(self):
         product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
-        evaluation = product_page.evaluation
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
 
         # There should be no votes initially.
         self.assertDictEqual(
@@ -94,7 +128,12 @@ class TestProductPage(BuyersGuideTestCase):
         buyersguide_factories.ProductVoteFactory(evaluation=evaluation, value=90)
 
         # Make sure properties are correct
-        evaluation.refresh_from_db()
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
         self.assertDictEqual(
             evaluation.labelled_creepiness_per_bin,
             {
@@ -108,10 +147,18 @@ class TestProductPage(BuyersGuideTestCase):
         self.assertEqual(evaluation.average_creepiness, 50)
         self.assertEqual(evaluation.total_creepiness, 250)
         self.assertEqual(evaluation.total_votes, 5)
+        self.assertDictEqual(
+            evaluation.average_bin, {"label": "A little creepy", "localized": gettext("A little creepy")}
+        )
 
     def test_creepiness_per_bin_limits(self):
         product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
-        evaluation = product_page.evaluation
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
 
         # Create some votes
         buyersguide_factories.ProductVoteFactory(evaluation=evaluation, value=0)
@@ -126,7 +173,12 @@ class TestProductPage(BuyersGuideTestCase):
         buyersguide_factories.ProductVoteFactory(evaluation=evaluation, value=99)
 
         # Make sure properties are correct
-        evaluation.refresh_from_db()
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=product_page.evaluation.pk)
+        )
         self.assertDictEqual(
             evaluation.labelled_creepiness_per_bin,
             {
@@ -140,3 +192,152 @@ class TestProductPage(BuyersGuideTestCase):
         self.assertEqual(evaluation.average_creepiness, 49.5)
         self.assertEqual(evaluation.total_creepiness, 495)
         self.assertEqual(evaluation.total_votes, 10)
+        self.assertDictEqual(
+            evaluation.average_bin, {"label": "A little creepy", "localized": gettext("A little creepy")}
+        )
+
+
+class TestProductPageEvaluationPrefetching(BuyersGuideTestCase):
+    def setUp(self):
+        super().setUp()
+        self.admin_user = self.create_superuser(username="admin", password="password")
+        self.login(self.admin_user)
+        self.product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        self.evaluation = self.product_page.evaluation
+        self.vote_1 = buyersguide_factories.ProductVoteFactory(evaluation=self.evaluation, value=1)
+        self.vote_2 = buyersguide_factories.ProductVoteFactory(evaluation=self.evaluation, value=2)
+        self.vote_3 = buyersguide_factories.ProductVoteFactory(evaluation=self.evaluation, value=3)
+
+    def test_votes(self):
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_total_votes().get(pk=self.evaluation.pk)
+            self.assertEqual(evaluation.total_votes, 3)
+
+    def test_empty_votes(self):
+        self.evaluation.votes.all().delete()
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_total_votes().get(pk=self.evaluation.pk)
+            self.assertEqual(evaluation.total_votes, 0)
+
+    def test_total_creepiness(self):
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_total_creepiness().get(pk=self.evaluation.pk)
+            self.assertEqual(evaluation.total_creepiness, 6)
+
+    def test_cant_get_total_creepiness_without_prefetching(self):
+        evaluation = self.evaluation
+        with self.assertRaises(AttributeError):
+            evaluation.total_creepiness
+
+    def test_total_creepiness_with_no_votes(self):
+        self.evaluation.votes.all().delete()
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_total_creepiness().get(pk=self.evaluation.pk)
+            self.assertEqual(evaluation.total_creepiness, 0)
+
+    def test_average_creepiness(self):
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_average_creepiness().get(pk=self.evaluation.pk)
+            self.assertEqual(evaluation.average_creepiness, 2)
+
+    def test_cant_get_average_creepiness_without_prefetching(self):
+        evaluation = self.evaluation
+        with self.assertRaises(AttributeError):
+            evaluation.average_creepiness
+
+    def test_average_creepiness_with_no_votes(self):
+        self.evaluation.votes.all().delete()
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_average_creepiness().get(pk=self.evaluation.pk)
+            self.assertEqual(evaluation.average_creepiness, 0)
+
+    def test_bin_data(self):
+        query_number = 1
+        with self.assertNumQueries(query_number):
+            evaluation = ProductPageEvaluation.objects.with_bin_data().get(pk=self.evaluation.pk)
+            self.assertDictEqual(
+                evaluation.labelled_creepiness_per_bin,
+                {
+                    "Not creepy": {"count": 3, "label": gettext("Not creepy")},
+                    "A little creepy": {"count": 0, "label": gettext("A little creepy")},
+                    "Somewhat creepy": {"count": 0, "label": gettext("Somewhat creepy")},
+                    "Very creepy": {"count": 0, "label": gettext("Very creepy")},
+                    "Super creepy": {"count": 0, "label": gettext("Super creepy")},
+                },
+            )
+
+
+class CreateEvaluationPostSaveSignalTests(BuyersGuideTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # Override BuyersGuidePage.subpage_types to include ProductPage
+        # If we don't, the copy page action will fail with a Permission Error
+        # since we can't add a ProductPage as a child of BuyersGuidePage
+        BuyersGuidePage.subpage_types += ["wagtailpages.ProductPage"]
+        super().setUpTestData()
+
+    def setUp(self):
+        super().setUp()
+        self.user = self.login()
+
+    def test_that_created_product_page_in_default_language_has_evaluation(self):
+        product_page = buyersguide_factories.ProductPageFactory.build(locale=self.default_locale, evaluation=None)
+        self.bg.add_child(instance=product_page)
+        self.assertIsNotNone(product_page.evaluation)
+        self.assertIsInstance(product_page.evaluation, ProductPageEvaluation)
+
+    def test_that_created_product_page_in_translated_language_syncs_evaluation(self):
+        product_page = buyersguide_factories.ProductPageFactory.build(locale=self.default_locale, evaluation=None)
+        self.bg.add_child(instance=product_page)
+
+        self.translate_page(product_page, self.fr_locale)
+        fr_product_page = product_page.get_translation(self.fr_locale)
+
+        self.assertIsNotNone(fr_product_page.evaluation)
+        self.assertIsInstance(fr_product_page.evaluation, ProductPageEvaluation)
+        self.assertEqual(fr_product_page.evaluation, product_page.evaluation)
+
+    def test_that_updated_page_is_not_changed(self):
+        product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        evaluation = product_page.evaluation
+        self.assertIsNotNone(evaluation)
+        self.assertIsInstance(evaluation, ProductPageEvaluation)
+
+        product_page.title = "New title"
+        product_page.save()
+
+        self.assertEqual(product_page.evaluation, evaluation)
+
+    @expectedFailure
+    @hooks.register_temporarily("after_copy_page", reset_product_page_votes)
+    def test_that_copied_page_gets_evaluation(self):
+        product_page = buyersguide_factories.GeneralProductPageFactory(
+            parent=self.bg, title="My Product", slug="my-product"
+        )
+        self.assertIsNotNone(product_page.evaluation)
+        self.assertIsInstance(product_page.evaluation, ProductPageEvaluation)
+
+        # Add some votes to product page
+        buyersguide_factories.ProductVoteFactory.create_batch(10, evaluation=product_page.evaluation)
+        self.assertTrue(product_page.creepiness > 0)
+
+        post_data = {
+            "new_title": "My Product 2",
+            "new_slug": "my-product-2",
+            "new_parent_page": str(self.bg.pk),
+        }
+
+        # Copy page
+        self.client.post(reverse("wagtailadmin_pages:copy", args=(self.product_page.id,)), post_data)
+        product_page_copy = self.bg.get_children().get(slug="my-product-2").specific
+
+        self.assertIsNotNone(product_page_copy.evaluation)
+        self.assertIsInstance(product_page_copy.evaluation, ProductPageEvaluation)
+        self.assertNotEqual(product_page_copy.evaluation, product_page.evaluation)
+        self.assertEqual(product_page_copy.creepiness, 0)

@@ -1,6 +1,6 @@
 {% extends "partials/primary_nav.html" %}
 
-{% load bg_nav_tags i18n localization static %}
+{% load bg_nav_tags i18n wagtailcore_tags static %}
 
 {% block wrapper_classes %} tw-border-0 {% endblock %}
 
@@ -10,7 +10,7 @@
     {% get_bg_home_page as home_page %}
     <div class="tw-flex tw-flex-col logo-section tw-mx-auto large:tw-mx-0">
         <p class="mb-0 tw-h3-heading tw-max-w-none flex-wrap">
-            <a class="link-back tw-flex" href="{% relocalized_url home_page.url %}">
+            <a class="link-back tw-flex" href="{% pageurl home_page %}">
                 <img
                     class="tw-mr-2 tw-w-6 tw-h-6 large:tw-w-8 large:tw-h-8"
                     src="{% static "_images/buyers-guide/asterick-mini.svg" %}"
