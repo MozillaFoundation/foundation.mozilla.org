@@ -390,6 +390,26 @@ class ProductPageEvaluation(models.Model):
             }
         return creepiness_per_bin
 
+    @property
+    def average_bin(self):
+        """Name of the bin corresponding to the average vote"""
+        total_votes = self.total_votes
+        # If there's no votes, let the user know (also protects from division by zero errors)
+        if total_votes == 0:
+            return {
+                "label": "No votes",
+                "localized": gettext("No votes"),
+            }
+
+        average_vote = self.average_creepiness
+        mode_bin = round(average_vote / 20) - 1
+        label = self.BIN_LABELS[f"bin_{mode_bin}"]
+
+        return {
+            "label": label["key"],
+            "localized": label["label"],
+        }
+
 
 class ProductPageCategory(TranslatableMixin, Orderable):
     product = ParentalKey(
@@ -741,7 +761,10 @@ class ProductPage(BasePage):
         if not self.evaluation:
             return None
         return (
-            ProductPageEvaluation.objects.with_total_creepiness().with_average_creepiness().get(pk=self.evaluation.pk)
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=self.evaluation.pk)
         )
 
     @property
@@ -755,6 +778,10 @@ class ProductPage(BasePage):
             return self._average_creepiness
         except AttributeError:
             return self.annotated_evaluation.average_creepiness
+
+    @property
+    def average_bin(self):
+        return self.annotated_evaluation.average_bin
 
     @property
     def get_voting_json(self):
