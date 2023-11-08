@@ -974,6 +974,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "ProductPage",
         "BuyersGuidePage",
         "ArticlePage",
+        "donate.DonateLandingPage",
     ]
 
     def get_context(self, request):
