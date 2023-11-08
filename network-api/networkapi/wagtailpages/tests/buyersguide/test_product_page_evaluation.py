@@ -147,6 +147,9 @@ class TestProductPageEvaluation(BuyersGuideTestCase):
         self.assertEqual(evaluation.average_creepiness, 50)
         self.assertEqual(evaluation.total_creepiness, 250)
         self.assertEqual(evaluation.total_votes, 5)
+        self.assertDictEqual(
+            evaluation.average_bin, {"label": "A little creepy", "localized": gettext("A little creepy")}
+        )
 
     def test_creepiness_per_bin_limits(self):
         product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
@@ -189,6 +192,9 @@ class TestProductPageEvaluation(BuyersGuideTestCase):
         self.assertEqual(evaluation.average_creepiness, 49.5)
         self.assertEqual(evaluation.total_creepiness, 495)
         self.assertEqual(evaluation.total_votes, 10)
+        self.assertDictEqual(
+            evaluation.average_bin, {"label": "A little creepy", "localized": gettext("A little creepy")}
+        )
 
 
 class TestProductPageEvaluationPrefetching(BuyersGuideTestCase):
