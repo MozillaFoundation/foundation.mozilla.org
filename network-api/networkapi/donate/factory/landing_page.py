@@ -1,13 +1,12 @@
 from django.conf import settings
 from factory import Faker, SubFactory
-from wagtail.models import Page as WagtailPage
-from wagtail.models import Site as WagtailSite
 from wagtail_factories import PageFactory
 
 from networkapi.donate.models import DonateLandingPage
 from networkapi.utility.faker import StreamfieldProvider
 from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
+from networkapi.wagtailpages.models import Homepage
 
 description_faker = Faker("paragraphs", nb=2)
 
@@ -31,29 +30,9 @@ def generate(seed):
 
     print("Generating Donate Site Landing page")
     try:
-        home_page = DonateLandingPage.objects.get(title="Donate Now")
+        DonateLandingPage.objects.get(title="Donate Now")
         print("Landing page already exists")
     except DonateLandingPage.DoesNotExist:
         print("Generating a Landing page")
-        site_root = WagtailPage.objects.get(depth=1)
-
-        home_page = DonateLandingPageFactory.create(parent=site_root, title="Donate Now", slug=None)
-
-    print("Creating Donate Site record in Wagtail")
-    tds = settings.TARGET_DOMAINS
-    if tds and len(tds) > 2:
-        # Assume that tds[0] is the main mofo domain, and tds[1] is the Mozfest domain
-        hostname = tds[2]
-        port = 80
-    else:
-        # use a localhost domain (must be set in /etc/hosts)
-        hostname = "donate.localhost"
-        port = 8000
-
-    WagtailSite.objects.create(
-        hostname=hostname,
-        port=port,
-        root_page=home_page,
-        site_name="Donate",
-        is_default_site=False,
-    )
+        homepage = Homepage.objects.get(locale__language_code=settings.LANGUAGE_CODE)
+        DonateLandingPageFactory.create(parent=homepage, title="Donate Now", slug="donate")

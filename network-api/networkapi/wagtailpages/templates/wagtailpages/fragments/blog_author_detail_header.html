@@ -1,4 +1,4 @@
-{% load l10n i18n localization static wagtailimages_tags wagtailroutablepage_tags wagtailcore_tags %}
+{% load l10n i18n static wagtailimages_tags wagtailroutablepage_tags wagtailcore_tags %}
 
 <div class="tw-grid tw-grid-cols-12 large:tw-gap-40">
     <div class="tw-col-span-12 large:tw-col-span-8">
@@ -27,7 +27,7 @@
             <div class="tw-inline-flex tw-gap-6 tw-flex-wrap">
                 {% with link_classes="tw-text-black tw-px-8 tw-border-black tw-border tw-rounded-full tw-text-lg tw-font-normal tw-whitespace-nowrap tw-block tw-transition-colors" link_hover_classes="hover:tw-bg-black hover:tw-text-white hover:tw-no-underline hover:tw-border-white" %}
                     {% for topic in frequent_topics %}
-                        <a href="{% localizedroutablepageurl page "entries_by_topic" topic.slug %}" class="{{ link_classes }} {{ link_hover_classes }}">
+                        <a href="{% routablepageurl page "entries_by_topic" topic.slug %}" class="{{ link_classes }} {{ link_hover_classes }}">
                             {{ topic.name }}
                         </a>
                     {% endfor %}

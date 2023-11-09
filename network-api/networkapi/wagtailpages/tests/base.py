@@ -53,3 +53,13 @@ class WagtailpagesTestCase(wagtail_test.WagtailPageTestCase):
             ),
             {"locales": [locale.id]},
         )
+
+    def translate_snippet(self, snippet, locale):
+        return self.client.post(
+            reverse(
+                "wagtail_localize:submit_snippet_translation",
+                args=[snippet._meta.app_label, snippet._meta.model_name, snippet.pk],
+            ),
+            {"locales": [locale.id]},
+            follow=True,
+        )

@@ -1,9 +1,8 @@
 from http import HTTPStatus
 
-from wagtail.models import Page as WagtailPage
-
 from networkapi.donate import models as pagemodels
 from networkapi.donate.factory import landing_page as landing_page_factories
+from networkapi.wagtailpages.models import Homepage
 from networkapi.wagtailpages.tests import base as test_base
 
 
@@ -25,11 +24,11 @@ class DonateLandingPageTest(test_base.WagtailpagesTestCase):
 
     def test_parent_page_types(self):
         """
-        Testing that the DonateLandingPage model can only be created at the root level.
+        Testing that the DonateLandingPage model can only be created under the Homepage level.
         """
         self.assertAllowedParentPageTypes(
             child_model=pagemodels.DonateLandingPage,
-            parent_models={WagtailPage},
+            parent_models={Homepage},
         )
 
     def test_subpage_types(self):
