@@ -19,8 +19,6 @@ const DonateBanner = {
     closeButton?.addEventListener(`click`, (e) => {
       e.preventDefault();
 
-      localStorage.removeItem(this.DISMISS_KEY);
-
       banner.style.position = "absolute";
       banner.style.top = "0px";
 
