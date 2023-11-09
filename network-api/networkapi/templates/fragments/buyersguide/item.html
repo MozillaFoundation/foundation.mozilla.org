@@ -1,4 +1,4 @@
-{% load static i18n wagtailimages_tags l10n localization %}
+{% load static i18n wagtailcore_tags wagtailimages_tags l10n %}
 
 <figure
     class="
@@ -27,7 +27,7 @@
 
     {% include "fragments/buyersguide/adult_content_badge.html" with product=product %}
 
-    <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% relocalized_url product.url %}">
+    <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% pageurl product %}">
         <picture class="product-thumbnail">
             <source
                 {% image product.image fill-360x360 as img_1x %}
@@ -47,16 +47,14 @@
     </a>
 
     <figcaption class="d-block mt-md-2 text-left">
-        <a class="product-links" href="{% relocalized_url product.url %}">
+        <a class="product-links" href="{% pageurl product %}">
             <div class="product-company tw-body-small">{{ product.company }}</div>
             <div class="product-name tw-body">{{ product.title }}</div>
         </a>
         <input type="hidden" class="product-blurb" value="{{ product.blurb }}">
         <input type="hidden" class="product-worst-case" value="{{ product.worst_case }}">
-        {% for cat in product.product_categories.all %}
-            {% with category=cat.category %}
-                <input type="hidden" class="product-categories" value="{{ category.localized.name }}">
-            {% endwith %}
+        {% for category_name in product.local_category_names %}
+            <input type="hidden" class="product-categories" value="{{ category_name }}">
         {% endfor %}
     </figcaption>
 </figure>

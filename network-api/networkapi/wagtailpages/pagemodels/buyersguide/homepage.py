@@ -19,15 +19,14 @@ from wagtail.admin.panels import (
     PageChooserPanel,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.models import Locale, Orderable, TranslatableMixin
+from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.base import BasePage
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import sort_average
+from networkapi.wagtailpages.pagemodels.buyersguide import utils as bg_utils
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import (
-    get_default_locale,
     get_language_from_request,
     get_locale_from_request,
     localize_queryset,
@@ -266,10 +265,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
     def categories_page(self, request, slug):
         context = self.get_context(request, bypass_products=True)
         language_code = get_language_from_request(request)
-        locale_id = Locale.objects.get(language_code=language_code).id
         slug = slugify(slug)
-
-        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
 
         # because we may be working with localized content, and the slug
         # will always be our english slug, we need to find the english
@@ -279,20 +275,16 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             model_name="BuyersGuideProductCategory",
         )
         try:
-            original_category = BuyersGuideProductCategory.objects.get(slug=slug, locale_id=DEFAULT_LOCALE_ID)
+            category = BuyersGuideProductCategory.objects.select_related("parent").get(
+                slug=slug, locale__language_code=language_code
+            )
         except BuyersGuideProductCategory.DoesNotExist:
-            original_category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
+            category = get_object_or_404(
+                BuyersGuideProductCategory, slug=slug, locale__language_code=settings.LANGUAGE_CODE
+            )
 
-        if locale_id != DEFAULT_LOCALE_ID:
-            try:
-                category = BuyersGuideProductCategory.objects.get(
-                    translation_key=original_category.translation_key,
-                    locale_id=DEFAULT_LOCALE_ID,
-                )
-            except BuyersGuideProductCategory.DoesNotExist:
-                category = original_category
-        else:
-            category = original_category
+        if category.parent:
+            category.parent = category.parent.localized
 
         authenticated = request.user.is_authenticated
         key = f"cat_product_dicts_{slug}_auth" if authenticated else f"cat_product_dicts_{slug}_live"
@@ -302,7 +294,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
 
         ProductPage = apps.get_model(app_label="wagtailpages", model_name="ProductPage")
         if products is None:
-            products = get_product_subset(
+            products = bg_utils.get_product_subset(
                 self.cutoff_date,
                 authenticated,
                 key,
@@ -313,16 +305,14 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         context["category"] = slug
         context["current_category"] = category
         context["products"] = products
-        context["pageTitle"] = (
-            f'{category.localized.name} | {gettext("Privacy & security guide")}' f" | Mozilla Foundation"
-        )
+        context["pageTitle"] = f'{category.name} | {gettext("Privacy & security guide")}' f" | Mozilla Foundation"
         context["template_cache_key_fragment"] = f"{category.slug}_{request.LANGUAGE_CODE}"
 
         # Checking if category has custom metadata, if so, update the share image and description.
         if category.share_image:
-            setattr(self, "search_image_id", category.localized.share_image_id)
+            setattr(self, "search_image_id", category.share_image_id)
         if category.description:
-            setattr(self, "search_description", category.localized.description)
+            setattr(self, "search_description", category.description)
 
         return render(request, "pages/buyersguide/category_page.html", context)
 
@@ -374,7 +364,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
 
         ProductPage = apps.get_model(app_label="wagtailpages", model_name="ProductPage")
         if not bypass_products and products is None:
-            products = get_product_subset(
+            products = bg_utils.get_product_subset(
                 self.cutoff_date,
                 authenticated,
                 key,
@@ -388,7 +378,9 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         if not categories:
             categories = BuyersGuideProductCategory.objects.filter(hidden=False)
             categories = localize_queryset(categories)
-            categories = cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
+            categories = categories.select_related("parent").with_usage_annotation()
+            categories = bg_utils.localize_category_parent(categories)
+            cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
 
         context["categories"] = categories
         context["current_category"] = None
@@ -416,32 +408,17 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             # attribute)
             return None
 
-    def get_hero_supporting_pages(
-        self,
-    ) -> list[Union["BuyersGuideArticlePage", "BuyersGuideCampaignPage", "ConsumerCreepometerPage"]]:
-        supporting_pages = orderables.get_related_items(
-            self.hero_supporting_page_relations.all(),
-            "supporting_page",
-        )
-        # FIXME: This implementation returns the localized, subclassed version of each page.
-        #        But, it is inefficient. Both ".localized" and ".specific" are N+1 queries.
-        #        It would be better to pull all pages for the correct locale at once,
-        #        and applying ".specific()" at the end of the queryset.
-        #        This would require the above returns a queryset of the pages (rather than a list)
-        #        and that we have an efficient way of pulling all items for a given locale.
-        return [page.specific.localized for page in supporting_pages]
+    def get_hero_supporting_pages(self) -> list[Union["BuyersGuideArticlePage", "BuyersGuideCampaignPage"]]:
+        supporting_pages_pks = self.hero_supporting_page_relations.all().values("supporting_page__pk")
+        supporting_pages = Page.objects.filter(pk__in=supporting_pages_pks)
+        supporting_pages = localize_queryset(supporting_pages)
+        return supporting_pages.specific()
 
     def get_featured_articles(self) -> list["BuyersGuideArticlePage"]:
-        articles = orderables.get_related_items(
-            self.featured_article_relations.all(),
-            "article",
-        )
-        # FIXME: This implementation does return the localized version of each article.
-        #        But, it is inefficient. It would be better to pull all articles
-        #        for the correct locale at once. This would require the above returns
-        #        a queryset of the articles (rather than a list) and that we have an
-        #        efficient way of pulling all items for a given locale.
-        return [a.localized for a in articles]
+        BuyersGuideArticlePage = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideArticlePage")
+        articles_pks = self.featured_article_relations.all().values("article__pk")
+        articles = BuyersGuideArticlePage.objects.filter(pk__in=articles_pks)
+        return localize_queryset(articles)
 
     def get_featured_advice_article(self) -> Optional["BuyersGuideArticlePage"]:
         try:
@@ -538,24 +515,3 @@ def get_pni_home_page():
     Used in AIRTABLE settings for nesting child pages under a new parent page.
     """
     return BuyersGuidePage.objects.first().id
-
-
-def get_product_subset(cutoff_date, authenticated, key, products, language_code="en"):
-    """
-    filter a queryset based on our current cutoff date,
-    as well as based on whether a user is authenticated
-    to the system or not (authenticated users get to
-    see all products, including draft products)
-    """
-    try:
-        locale = Locale.objects.get(language_code=language_code)
-    except Locale.DoesNotExist:
-        locale = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
-
-    products = products.filter(review_date__gte=cutoff_date, locale=locale)
-
-    if not authenticated:
-        products = products.live()
-
-    products = sort_average(products)
-    return cache.get_or_set(key, products, 24 * 60 * 60)  # Set cache for 24h

@@ -83,7 +83,7 @@ The code snippet below is based on FormAssembly form revision #43
                     <option value="tfa_200" id="tfa_200" data-conditionals="#tfa_212,#tfa_214,#tfa_163" class="">{% trans "Help with something else" %}</option></select></div>
             </div>
             <div id="tfa_217" class="section group" data-condition="`#tfa_192`"><div class="htmlSection" id="tfa_216"><div class="htmlContent" id="tfa_216-HTML"><span style="font-size:13px;color:#000000;font-weight:normal;text-decoration:none;font-family:'Arial';font-style:normal;text-decoration-skip-ink:none;">
-                {% blocktrans %}
+                {% blocktrans trimmed %}
                     We truly appreciate your generous support and are happy to now offer an
                     easier way for you to give through online bank transfer. We can accept
                     donations via direct debit in Euros through Single European Payment Area
@@ -91,7 +91,7 @@ The code snippet below is based on FormAssembly form revision #43
                 {% endblocktrans %}
             </span><br><br><div><b><a target="_blank" href="https://foundation.mozilla.org/?form=donate&amp;utm_medium=web&amp;utm_source=faq-page&amp;utm_campaign=23-Donor-Care&amp;utm_term=en"><u>{% trans "Make your donation online now" %}<br><br></u></a></b><i>{% trans "Still have questions? Contact us by submitting a case." %}</i><br></div></div></div></div>
             <div id="tfa_234" class="section group" data-condition="`#tfa_195`"><div class="htmlSection" id="tfa_235"><div class="htmlContent" id="tfa_235-HTML"><span style="font-size:13px;color:#000000;font-weight:normal;text-decoration:none;font-family:'Arial';font-style:normal;text-decoration-skip-ink:none;">
-                {% blocktrans %}
+                {% blocktrans trimmed %}
                     Access your donation account settings using the '<b>Manage My Donation</b>'
                     button on your recent donation confirmation email. There you can
                     change the amount, frequency, payment method and charge date. You can
@@ -118,14 +118,14 @@ The code snippet below is based on FormAssembly form revision #43
             </div></div>
             <div class="oneField field-container-D  labelsLeftAligned   wf-acl-hidden" id="tfa_72-D">
                 <label id="tfa_72-L" class="label preField " for="tfa_72">{% trans "Language" %}</label><div class="inputWrapper"><select id="tfa_72" name="tfa_72" title="{% trans "Language" %}" class=""><option value="">{% trans "Please select..." %}</option>
-                    <option value="tfa_221" id="tfa_221" class="">Dutch</option>
-                    <option value="tfa_222" id="tfa_222" class="">English</option>
-                    <option value="tfa_223" id="tfa_223" class="">French</option>
-                    <option value="tfa_224" id="tfa_224" class="">German</option>
-                    <option value="tfa_227" id="tfa_227" class="">Other</option>
-                    <option value="tfa_228" id="tfa_228" class="">Polish</option>
-                    <option value="tfa_229" id="tfa_229" class="">Portuguese</option>
-                    <option value="tfa_231" id="tfa_231" class="">Spanish</option></select></div>
+                    <option value="tfa_221" id="tfa_221" class="">{% trans "Dutch" %}</option>
+                    <option value="tfa_222" id="tfa_222" class="">{% trans "English" %}</option>
+                    <option value="tfa_223" id="tfa_223" class="">{% trans "French" %}</option>
+                    <option value="tfa_224" id="tfa_224" class="">{% trans "German" %}</option>
+                    <option value="tfa_227" id="tfa_227" class="">{% trans "Other" %}</option>
+                    <option value="tfa_228" id="tfa_228" class="">{% trans "Polish" %}</option>
+                    <option value="tfa_229" id="tfa_229" class="">{% trans "Portuguese" %}</option>
+                    <option value="tfa_231" id="tfa_231" class="">{% trans "Spanish" %}</option></select></div>
             </div>
             <div class="actions" id="12-A" data-contentid="submit_button">
                 <div id="google-captcha" style="display: none">

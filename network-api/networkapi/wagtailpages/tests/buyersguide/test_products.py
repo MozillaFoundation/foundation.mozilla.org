@@ -44,9 +44,8 @@ class TestProductPage(BuyersGuideTestCase):
         for _ in range(5):
             buyersguide_factories.ProductVoteFactory(value=90, evaluation=product_page.evaluation)
 
-        evaluation = product_page.evaluation
-        evaluation.refresh_from_db()
         product_page.refresh_from_db()
+        evaluation = product_page.annotated_evaluation
 
         self.assertEqual(evaluation.total_creepiness, 950)
         self.assertEqual(product_page.total_vote_count, 15)
@@ -283,7 +282,7 @@ class TestProductPage(BuyersGuideTestCase):
 
         product_page = self.product_page
 
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=True)
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1", show_cta=True)
         category_orderable_1 = ProductPageCategory(
             product=product_page,
             category=cat1,
@@ -309,7 +308,7 @@ class TestProductPage(BuyersGuideTestCase):
 
         product_page = self.product_page
 
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=False)
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1", show_cta=False)
         category_orderable_1 = ProductPageCategory(
             product=product_page,
             category=cat1,
@@ -335,8 +334,8 @@ class TestProductPage(BuyersGuideTestCase):
 
         product_page = self.product_page
 
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=True)
-        cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", show_cta=False)
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1", show_cta=True)
+        cat2 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 2", show_cta=False)
         category_orderable_1 = ProductPageCategory(
             product=product_page,
             category=cat1,
@@ -364,8 +363,8 @@ class TestProductPage(BuyersGuideTestCase):
         """
         product_page = self.product_page
 
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=False)
-        cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", show_cta=False)
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1", show_cta=False)
+        cat2 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 2", show_cta=False)
         category_orderable_1 = ProductPageCategory(
             product=product_page,
             category=cat1,
@@ -398,7 +397,7 @@ class TestProductPage(BuyersGuideTestCase):
 
         product_page = self.product_page
 
-        cat_with_cta_enabled = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=True)
+        cat_with_cta_enabled = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1", show_cta=True)
         category_orderable_1 = ProductPageCategory(
             product=product_page,
             category=cat_with_cta_enabled,
@@ -421,7 +420,7 @@ class TestProductPage(BuyersGuideTestCase):
 
         product_page = self.product_page
 
-        cat_with_cta_disabled = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=False)
+        cat_with_cta_disabled = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1", show_cta=False)
         category_orderable_1 = ProductPageCategory(
             product=product_page,
             category=cat_with_cta_disabled,
@@ -444,8 +443,8 @@ class TestProductPage(BuyersGuideTestCase):
 
         product_page = self.product_page
 
-        cat_with_cta_enabled = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=True)
-        cat_with_cta_disabled = BuyersGuideProductCategory.objects.create(name="Cat 2", show_cta=False)
+        cat_with_cta_enabled = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1", show_cta=True)
+        cat_with_cta_disabled = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 2", show_cta=False)
         category_orderable_1 = ProductPageCategory(
             product=product_page,
             category=cat_with_cta_enabled,
@@ -474,8 +473,8 @@ class TestProductPage(BuyersGuideTestCase):
 
         product_page = self.product_page
 
-        cat_with_cta_disabled_1 = BuyersGuideProductCategory.objects.create(name="Cat 1", show_cta=False)
-        cat_with_cta_disabled_2 = BuyersGuideProductCategory.objects.create(name="Cat 2", show_cta=False)
+        cat_with_cta_disabled_1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1", show_cta=False)
+        cat_with_cta_disabled_2 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 2", show_cta=False)
         category_orderable_1 = ProductPageCategory(
             product=product_page,
             category=cat_with_cta_disabled_1,
@@ -516,7 +515,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         self.assertEqual(response.status_code, 200)
 
         product_page.refresh_from_db()
-        evaluation = product_page.evaluation
+        evaluation = product_page.annotated_evaluation
 
         self.assertEqual(evaluation.total_votes, 1)
         self.assertEqual(evaluation.total_creepiness, 25)
@@ -534,7 +533,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         self.assertEqual(response.status_code, 200)
 
         product_page.refresh_from_db()
-        evaluation = product_page.evaluation
+        evaluation = product_page.annotated_evaluation
 
         self.assertEqual(evaluation.total_votes, 2)
         self.assertEqual(evaluation.total_creepiness, 124)
@@ -563,7 +562,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         self.assertEqual(response.status_code, 200)
 
         fr_product_page.refresh_from_db()
-        fr_evaluation = fr_product_page.evaluation
+        fr_evaluation = fr_product_page.annotated_evaluation
 
         self.assertEqual(fr_evaluation.total_votes, 1)
         self.assertEqual(fr_evaluation.total_creepiness, 25)
@@ -575,7 +574,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         # so the data should be the same:
 
         product_page.refresh_from_db()
-        evaluation = product_page.evaluation
+        evaluation = product_page.annotated_evaluation
 
         self.assertEqual(evaluation.total_votes, 1)
         self.assertEqual(evaluation.total_creepiness, 25)
@@ -593,7 +592,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         self.assertEqual(response.status_code, 200)
 
         product_page.refresh_from_db()
-        evaluation = product_page.evaluation
+        evaluation = product_page.annotated_evaluation
 
         self.assertEqual(evaluation.total_votes, 2)
         self.assertEqual(evaluation.total_creepiness, 124)
@@ -602,7 +601,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestCase):
         self.assertEqual(product_page.creepiness, 62)
 
         fr_product_page.refresh_from_db()
-        fr_evaluation = fr_product_page.evaluation
+        fr_evaluation = fr_product_page.annotated_evaluation
 
         self.assertEqual(fr_evaluation.total_votes, 2)
         self.assertEqual(fr_evaluation.total_creepiness, 124)
@@ -666,7 +665,7 @@ class BuyersGuideProductCategoryTest(TestCase):
         return form_data.nested_form_data({**data, "related_article_relations": form_data.inline_formset([])})
 
     def test_cannot_have_duplicate_name(self):
-        BuyersGuideProductCategory.objects.create(name="Cat 1")
+        buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
 
         form = self.form_class(
             data=self.generate_form_data({"name": "Cat 1", "sort_order": 1}),
@@ -677,7 +676,7 @@ class BuyersGuideProductCategoryTest(TestCase):
         self.assertIn("name", form.errors)
 
     def test_cannot_have_duplicate_lowercase_name(self):
-        BuyersGuideProductCategory.objects.create(name="Cat 1")
+        buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
 
         form = self.form_class(
             data=self.generate_form_data({"name": "cat 1", "sort_order": 1}),
@@ -688,7 +687,7 @@ class BuyersGuideProductCategoryTest(TestCase):
         self.assertIn("name", form.errors)
 
     def test_parent_saves(self):
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
 
         form = self.form_class(
             data=self.generate_form_data(
@@ -705,7 +704,7 @@ class BuyersGuideProductCategoryTest(TestCase):
         self.assertEqual(cat1, cat2.parent)
 
     def test_cannot_be_direct_child_of_itself(self):
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
 
         form = self.form_class(
             instance=cat1,
@@ -718,8 +717,8 @@ class BuyersGuideProductCategoryTest(TestCase):
         self.assertIn("A category cannot be a parent of itself.", form.errors["parent"])
 
     def test_cannot_be_created_more_than_two_levels_deep(self):
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
-        cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2", parent=cat1)
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
+        cat2 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 2", parent=cat1)
 
         form = self.form_class(
             data=self.generate_form_data({"name": "Cat 3", "sort_order": 1, "parent": cat2}),
@@ -736,7 +735,7 @@ class BuyersGuideProductCategoryTest(TestCase):
 
         We don't want the through model, we really want the articles.
         """
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
 
         related_articles = []
         for _ in range(6):
@@ -753,14 +752,14 @@ class BuyersGuideProductCategoryTest(TestCase):
             self.assertIn(related_article, result)
 
     def test_get_related_articles_no_related_articles(self):
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
 
         result = cat1.get_related_articles()
 
         self.assertListEqual(result, [])
 
     def test_get_related_articles_order(self):
-        cat = BuyersGuideProductCategory.objects.create(name="Test category")
+        cat = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Test category")
         article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
         article2 = buyersguide_factories.BuyersGuideArticlePageFactory()
         article3 = buyersguide_factories.BuyersGuideArticlePageFactory()
@@ -790,7 +789,7 @@ class BuyersGuideProductCategoryTest(TestCase):
 
     def test_primary_related_articles(self):
         """First three related articles are primary."""
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
 
         related_articles = []
         for i in range(6):
@@ -810,7 +809,7 @@ class BuyersGuideProductCategoryTest(TestCase):
             self.assertNotIn(related_article, result)
 
     def test_primary_related_articles_no_related_articles(self):
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
 
         result = cat1.get_primary_related_articles()
 
@@ -818,7 +817,7 @@ class BuyersGuideProductCategoryTest(TestCase):
 
     def test_secondary_related_articles(self):
         """Second three related articles are secondary."""
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
 
         related_articles = []
         for i in range(6):
@@ -838,7 +837,7 @@ class BuyersGuideProductCategoryTest(TestCase):
             self.assertIn(related_article, result)
 
     def test_secondary_related_articles_no_related_articles(self):
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
 
         result = cat1.get_secondary_related_articles()
 
@@ -851,8 +850,8 @@ class BuyersGuideProductCategoryTest(TestCase):
         During development I was running into issue with the OrderableRelationQuerySet
         where the related items would contains items multiple times.
         """
-        cat1 = BuyersGuideProductCategory.objects.create(name="Cat 1")
-        cat2 = BuyersGuideProductCategory.objects.create(name="Cat 2")
+        cat1 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
+        cat2 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 2")
         article1 = buyersguide_factories.BuyersGuideArticlePageFactory()
         article2 = buyersguide_factories.BuyersGuideArticlePageFactory()
         article3 = buyersguide_factories.BuyersGuideArticlePageFactory()
