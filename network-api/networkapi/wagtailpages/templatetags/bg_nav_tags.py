@@ -21,10 +21,6 @@ def get_bg_home_page(context):
 # Determine if a category nav link should be marked active
 @register.simple_tag(name="check_active_category")
 def check_active_category(current_category, target_category):
-    # because we're working with potentially localized data,
-    # make sure to compare the linguistic originals.
-    current_category = getattr(current_category, "original", current_category)
-    target_category = getattr(target_category, "original", target_category)
     match = current_category == target_category
     if hasattr(current_category, "parent"):
         match = match or current_category.parent == target_category
