@@ -26,6 +26,8 @@
 {% block subcontent %}
     {% blocktrans with title=page.title asvar share_text_translated %}{{ title }} by @mozilla{% endblocktrans %}
     <div class="cms blog-body">
+
+        {% comment %}
         <div class="container share-button-blog-title-container">
             <div class="row">
                 <div class="blog-sticky-side-container offset-lg-1 col-lg-1 pt-4 pt-md-5 mt-2 text-center d-print-none">
@@ -45,6 +47,7 @@
         {% for block in page.body %}
             {% include_block block with parent_page=page page_type="blog" %}
         {% endfor %}
+        {% endcomment %}
 
         {% comment %}
         [FIXME]
@@ -55,10 +58,9 @@
                 <div class="streamfield-content">
                     <div class="newsletter-signup-module"
                          data-module-type="blog-body"
-                         data-signup-id="value_coming_from_cms"
-                         data-cta-header="Reclaim the Internet"
-                         data-cta-description="Mozilla is fighting for a free and open web for everyone. But there’s only one way we can do it - together. Sign up now to join the Mozilla community."
-                         data-newsletter="{{ value_coming_from_cms }}"
+                         data-signup-id="{{ localized_signup.id }}"
+                         data-cta-header=""
+                         data-cta-description="<p><strong>Reclaim the Internet</strong><span aria-hidden> // </span>Mozilla is fighting for a free and open web for everyone. But there’s only one way we can do it - together. Sign up now to join the Mozilla community.</p>"
                     ></div>
                 </div>
             </div>

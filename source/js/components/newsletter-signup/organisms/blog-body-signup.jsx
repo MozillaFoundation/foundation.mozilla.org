@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import Heading from "../atoms/heading.jsx";
 import Description from "../atoms/description.jsx";
 import InputEmail from "../atoms/input-email.jsx";
 import Select from "../atoms/select.jsx";
@@ -81,18 +82,16 @@ class BlogBodySignForm extends Component {
     this.updateFormFieldValue("privacy", event.target.checked.toString());
   }
 
-  renderDescription() {
-    const description = this.props.ctaHeader ? (
-      <>
-        <strong>{this.props.ctaHeader}</strong>
-        <span aria-hidden> // </span>
-        {this.props.ctaDescription}
-      </>
-    ) : (
-      this.props.ctaDescription
-    );
+  renderHeader() {
+    if (!this.props.ctaHeader) return null;
 
-    return <Description>{description}</Description>;
+    return <Heading level={2}>{this.props.ctaHeader}</Heading>;
+  }
+
+  renderDescription() {
+    if (!this.props.ctaDescription) return null;
+
+    return <Description content={this.props.ctaDescription} />;
   }
 
   renderEmailField() {
@@ -166,14 +165,14 @@ class BlogBodySignForm extends Component {
     );
   }
 
-  render() {
+  renderForm() {
+    if (this.props.hideForm) return null;
+
     return (
       <form
         noValidate={this.props.noBrowserValidation}
         onSubmit={(event) => this.props.onSubmit(event, this.state.formData)}
-        className="tw-relative tw-border tw-px-8 tw-pt-14 tw-pb-12 medium:tw-p-16 before:tw-absolute before:tw-top-0 before:tw-left-1/2 before:-tw-translate-x-1/2 before:-tw-translate-y-1/2 before:tw-content-[''] before:tw-inline-block before:tw-w-[72px] before:tw-h-14 before:tw-bg-[url('../_images/glyphs/letter.svg')] before:tw-bg-white before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-[length:24px_auto]"
       >
-        {this.renderDescription()}
         <div className="d-flex flex-column flex-md-row medium:tw-gap-8">
           <div className="tw-flex-grow">
             <fieldset className={FIELD_MARGIN_CLASSES}>
@@ -189,11 +188,29 @@ class BlogBodySignForm extends Component {
       </form>
     );
   }
+
+  render() {
+    return (
+      <div className="tw-relative tw-border tw-px-8 tw-pt-14 tw-pb-12 medium:tw-p-16 before:tw-absolute before:tw-top-0 before:tw-left-1/2 before:-tw-translate-x-1/2 before:-tw-translate-y-1/2 before:tw-content-[''] before:tw-inline-block before:tw-w-[72px] before:tw-h-14 before:tw-bg-[url('../_images/glyphs/letter.svg')] before:tw-bg-white before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-[length:24px_auto]">
+        {this.renderHeader()}
+        {this.renderDescription()}
+        {this.renderForm()}
+      </div>
+    );
+  }
 }
 
 BlogBodySignForm.propTypes = {
   ctaHeader: PropTypes.string,
-  ctaDescription: PropTypes.string.isRequired,
+  ctaDescription: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
+    .isRequired,
+  errors: PropTypes.shape({
+    fieldName: PropTypes.string,
+    errorMessage: PropTypes.string,
+  }),
+  onSubmit: PropTypes.func.isRequired,
+  noBrowserValidation: PropTypes.bool,
+  hideForm: PropTypes.bool,
 };
 
 export default withSubmissionLogic(BlogBodySignForm);

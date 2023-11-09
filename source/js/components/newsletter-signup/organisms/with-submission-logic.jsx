@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { getText } from "../../petition/locales";
 
 /**
@@ -6,11 +7,21 @@ import { getText } from "../../petition/locales";
  * for newsletter signup forms.
  */
 function withSubmissionLogic(WrappedComponent) {
-  return class extends React.Component {
+  class WithSubmissionLogicComponent extends React.Component {
     constructor(props) {
       super(props);
 
+      console.log(`props`, props);
+
+      this.API_SUBMISSION_STATUS = {
+        NONE: "none", // no submission has been made yet
+        PENDING: "pending", // a call has been initiated but response has not been received yet
+        SUCCESS: "success", // response has been received and status code is 201
+        ERROR: "error", // response has been received but status code is not 201
+      };
+
       this.state = {
+        apiSubmissionStatus: this.API_SUBMISSION_STATUS.NONE,
         errors: {},
       };
 
@@ -87,29 +98,140 @@ function withSubmissionLogic(WrappedComponent) {
       event.preventDefault();
 
       this.validateForm(formData, () => {
+        console.log(`formData`, formData);
         // Check if there's any error messages in this.state.errors object
         // if there's none, we can submit the form
         if (Object.values(this.state.errors).every((error) => !error)) {
           console.log("-[NO ERRORS. CAN SUBMIT FORM NOW]-");
-          // [TODO] form submission logic goes here (will be tackled in a separate PR)
+          this.submitDataToApi(formData)
+            .then(() => {
+              this.setState({
+                apiSubmissionStatus: this.API_SUBMISSION_STATUS.SUCCESS,
+              });
+            })
+            .catch(() => {
+              // [TODO][FIXME] We need to let the user know that something went wrong
+              this.setState({
+                apiSubmissionStatus: this.API_SUBMISSION_STATUS.ERROR,
+              });
+            });
         }
       });
+    }
+
+    /**
+     *  Submit data to API
+     *
+     * @param {*} formData  - { [name]: value } pairs
+     * @returns {Promise} - resolves if response status is 201, rejects otherwise
+     */
+    async submitDataToApi(formData) {
+      this.setState({
+        apiSubmissionStatus: this.API_SUBMISSION_STATUS.PENDING,
+      });
+
+      let payload = {
+        email: formData.email,
+        country: formData.country,
+        lang: formData.language,
+        /* keeping query params in source url for newsletter signups:
+           https://github.com/mozilla/foundation.mozilla.org/issues/4102#issuecomment-590973606
+        */
+        source: window.location.href,
+      };
+
+      try {
+        const res = await fetch(this.props.apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          body: JSON.stringify(payload),
+          timeout: 5000,
+        });
+
+        // if the response is not 201, throw an error
+        if (res.status !== 201) {
+          throw new Error(res.statusText);
+        }
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    /**
+     * Generate the CTA header message for different scenarios
+     *
+     * @param {string} ctaHeader - default CTA header message
+     * @returns {string} - CTA header message
+     */
+    generateCtaHeader(ctaHeader) {
+      let message = ctaHeader;
+
+      if (
+        this.state.apiSubmissionStatus === this.API_SUBMISSION_STATUS.SUCCESS
+      ) {
+        message = getText(`Thanks!`);
+      }
+
+      return message;
+    }
+
+    /**
+     * Generate the CTA description message for different scenarios
+     *
+     * @param {*} ctaDescription - default CTA description message
+     * @returns {string} - CTA description message
+     */
+    generateCtaDescription(ctaDescription) {
+      let message = ctaDescription;
+
+      if (
+        this.state.apiSubmissionStatus === this.API_SUBMISSION_STATUS.SUCCESS
+      ) {
+        message = (
+          <>
+            <p>{getText(`confirm your email opt-in`)}</p>
+            <p>{getText(`manage your subscriptions`)}</p>
+          </>
+        );
+      }
+
+      return message;
     }
 
     /**
      * Render the wrapped component with additional props
      */
     render() {
+      let { ctaHeader, ctaDescription, ...otherProps } = this.props;
+
       return (
         <WrappedComponent
-          {...this.props}
+          {...otherProps}
           noBrowserValidation={true}
           errors={this.state.errors}
           onSubmit={(event, formData) => this.handleSubmit(event, formData)}
+          ctaHeader={this.generateCtaHeader(ctaHeader)}
+          ctaDescription={this.generateCtaDescription(ctaDescription)}
+          hideForm={
+            this.state.apiSubmissionStatus ===
+            (this.API_SUBMISSION_STATUS.SUCCESS ||
+              this.API_SUBMISSION_STATUS.ERROR)
+          }
         />
       );
     }
+  }
+
+  WithSubmissionLogicComponent.propTypes = {
+    apiUrl: PropTypes.string.isRequired,
+    ctaHeader: PropTypes.string.isRequired,
+    ctaDescription: PropTypes.string.isRequired,
   };
+
+  return WithSubmissionLogicComponent;
 }
 
 export default withSubmissionLogic;
