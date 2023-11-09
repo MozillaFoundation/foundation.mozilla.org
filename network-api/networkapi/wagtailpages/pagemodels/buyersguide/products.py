@@ -398,7 +398,7 @@ class ProductPageEvaluation(models.Model):
         if total_votes == 0:
             return {
                 "label": "No votes",
-                "localized": gettext("No votes"),
+                "localized": gettext_lazy("No votes"),
             }
 
         average_vote = self.average_creepiness
