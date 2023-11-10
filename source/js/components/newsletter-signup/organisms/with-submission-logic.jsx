@@ -111,6 +111,7 @@ function withSubmissionLogic(WrappedComponent) {
             })
             .catch(() => {
               // [TODO][FIXME] We need to let the user know that something went wrong
+              // https://github.com/MozillaFoundation/foundation.mozilla.org/issues/11406
               this.setState({
                 apiSubmissionStatus: this.API_SUBMISSION_STATUS.ERROR,
               });
@@ -152,6 +153,8 @@ function withSubmissionLogic(WrappedComponent) {
         });
 
         // if the response is not 201, throw an error
+        // [TODO] We will need to update this logic depending on what comes out of
+        // https://github.com/MozillaFoundation/foundation.mozilla.org/issues/11406
         if (res.status !== 201) {
           throw new Error(res.statusText);
         }
