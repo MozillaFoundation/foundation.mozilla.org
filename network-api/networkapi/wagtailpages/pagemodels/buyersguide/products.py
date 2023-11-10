@@ -1045,6 +1045,15 @@ class ProductPage(BasePage):
 
         return super().serve(request, *args, **kwargs)
 
+    def with_content_json(self, content):
+        """
+        Adds the evaluation object to ``content`` to make sure that it is preserved
+        through revisions.
+        """
+        obj = super().with_content_json(content)
+        obj.evaluation = self.evaluation
+        return obj
+
     class Meta:
         verbose_name = "Product Page"
 
@@ -1059,7 +1068,7 @@ def create_evaluation(sender, instance, created, **kwargs):
         if instance.locale.language_code == settings.LANGUAGE_CODE and not instance.evaluation:
             evaluation = ProductPageEvaluation.objects.create()
             instance.evaluation = evaluation
-            instance.save()
+            instance.save_revision()
             ProductPage.objects.filter(translation_key=instance.translation_key).update(evaluation=evaluation)
     return instance
 
@@ -1074,6 +1083,8 @@ def reset_product_page_votes(request, page, new_page):
     """
     if new_page.specific_class == ProductPage or new_page.specific_class == GeneralProductPage:
         evaluation = ProductPageEvaluation.objects.create()
+        new_page.evaluation = evaluation
+        new_page.save_revision()
         new_products = ProductPage.objects.filter(translation_key=new_page.translation_key)
         new_products.update(evaluation=evaluation)
 

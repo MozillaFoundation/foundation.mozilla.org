@@ -314,7 +314,24 @@ class CreateEvaluationPostSaveSignalTests(BuyersGuideTestCase):
 
         self.assertEqual(product_page.evaluation, evaluation)
 
-    @expectedFailure
+    def test_that_latest_revision_includes_evaluation(self):
+        product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        evaluation = product_page.evaluation
+        self.assertIsNotNone(evaluation)
+        self.assertIsInstance(evaluation, ProductPageEvaluation)
+
+        product_page.title = "New title"
+        product_page.save_revision().publish()
+
+        self.assertEqual(product_page.evaluation, evaluation)
+        # Verify that the latest revision includes the evaluation
+        latest_revision_evaluation = product_page.latest_revision.as_page_object().evaluation
+        self.assertIsNotNone(evaluation)
+        self.assertEqual(latest_revision_evaluation, evaluation)
+        # The evaluation on the product page was not changed
+        product_page.refresh_from_db()
+        self.assertEqual(product_page.evaluation, evaluation)
+
     @hooks.register_temporarily("after_copy_page", reset_product_page_votes)
     def test_that_copied_page_gets_evaluation(self):
         product_page = buyersguide_factories.GeneralProductPageFactory(
