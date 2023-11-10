@@ -1,5 +1,3 @@
-from unittest import expectedFailure
-
 from django.urls import reverse
 from django.utils.translation import gettext
 from wagtail import hooks
