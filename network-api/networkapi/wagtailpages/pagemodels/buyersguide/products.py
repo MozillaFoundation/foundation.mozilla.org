@@ -1068,7 +1068,7 @@ def create_evaluation(sender, instance, created, **kwargs):
         if instance.locale.language_code == settings.LANGUAGE_CODE and not instance.evaluation:
             evaluation = ProductPageEvaluation.objects.create()
             instance.evaluation = evaluation
-            instance.save_revision()
+            instance.save(update_fields=["evaluation"])
             ProductPage.objects.filter(translation_key=instance.translation_key).update(evaluation=evaluation)
     return instance
 
@@ -1084,7 +1084,7 @@ def reset_product_page_votes(request, page, new_page):
     if new_page.specific_class == ProductPage or new_page.specific_class == GeneralProductPage:
         evaluation = ProductPageEvaluation.objects.create()
         new_page.evaluation = evaluation
-        new_page.save_revision()
+        new_page.save(update_fields=["evaluation"])
         new_products = ProductPage.objects.filter(translation_key=new_page.translation_key)
         new_products.update(evaluation=evaluation)
 
