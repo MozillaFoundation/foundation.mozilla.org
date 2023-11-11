@@ -26,8 +26,6 @@
 {% block subcontent %}
     {% blocktrans with title=page.title asvar share_text_translated %}{{ title }} by @mozilla{% endblocktrans %}
     <div class="cms blog-body">
-
-        {% comment %}
         <div class="container share-button-blog-title-container">
             <div class="row">
                 <div class="blog-sticky-side-container offset-lg-1 col-lg-1 pt-4 pt-md-5 mt-2 text-center d-print-none">
@@ -47,7 +45,6 @@
         {% for block in page.body %}
             {% include_block block with parent_page=page page_type="blog" %}
         {% endfor %}
-        {% endcomment %}
 
         {% comment %}
         [FIXME]

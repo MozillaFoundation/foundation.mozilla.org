@@ -11,8 +11,6 @@ function withSubmissionLogic(WrappedComponent) {
     constructor(props) {
       super(props);
 
-      console.log(`props`, props);
-
       this.API_SUBMISSION_STATUS = {
         NONE: "none", // no submission has been made yet
         PENDING: "pending", // a call has been initiated but response has not been received yet
@@ -98,7 +96,6 @@ function withSubmissionLogic(WrappedComponent) {
       event.preventDefault();
 
       this.validateForm(formData, () => {
-        console.log(`formData`, formData);
         // Check if there's any error messages in this.state.errors object
         // if there's none, we can submit the form
         if (Object.values(this.state.errors).every((error) => !error)) {
@@ -135,9 +132,8 @@ function withSubmissionLogic(WrappedComponent) {
         email: formData.email,
         country: formData.country,
         lang: formData.language,
-        /* keeping query params in source url for newsletter signups:
-           https://github.com/mozilla/foundation.mozilla.org/issues/4102#issuecomment-590973606
-        */
+        // keeping query params in source url for newsletter signups:
+        // https://github.com/mozilla/foundation.mozilla.org/issues/4102#issuecomment-590973606
         source: window.location.href,
       };
 
