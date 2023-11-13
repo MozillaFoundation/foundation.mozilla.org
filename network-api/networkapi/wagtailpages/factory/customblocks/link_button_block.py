@@ -13,3 +13,4 @@ class LinkButtonBlockFactory(wagtail_factories.StructBlockFactory):
 
     label = factory.Faker("sentence", nb_words=3)
     URL = factory.Maybe("is_relative", yes_declaration=factory.Faker("url"), no_declaration=factory.Faker("uri_path"))
+    styling = factory.Faker("random_element", elements=["btn-primary", "btn-secondary"])
