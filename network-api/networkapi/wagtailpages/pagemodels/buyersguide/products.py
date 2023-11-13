@@ -19,7 +19,7 @@ from django.http import (
 )
 from django.templatetags.static import static
 from django.utils import timezone
-from django.utils.translation import gettext
+from django.utils.translation import gettext, gettext_lazy
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
 from wagtail import hooks
@@ -284,11 +284,11 @@ class ProductPageEvaluation(models.Model):
     """
 
     BIN_LABELS = {
-        "bin_0": {"key": "Not creepy", "label": gettext("Not creepy")},
-        "bin_1": {"key": "A little creepy", "label": gettext("A little creepy")},
-        "bin_2": {"key": "Somewhat creepy", "label": gettext("Somewhat creepy")},
-        "bin_3": {"key": "Very creepy", "label": gettext("Very creepy")},
-        "bin_4": {"key": "Super creepy", "label": gettext("Super creepy")},
+        "bin_0": {"key": "Not creepy", "label": gettext_lazy("Not creepy")},
+        "bin_1": {"key": "A little creepy", "label": gettext_lazy("A little creepy")},
+        "bin_2": {"key": "Somewhat creepy", "label": gettext_lazy("Somewhat creepy")},
+        "bin_3": {"key": "Very creepy", "label": gettext_lazy("Very creepy")},
+        "bin_4": {"key": "Super creepy", "label": gettext_lazy("Super creepy")},
     }
 
     objects = ProductPageEvaluationQuerySet.as_manager()
@@ -398,7 +398,7 @@ class ProductPageEvaluation(models.Model):
         if total_votes == 0:
             return {
                 "label": "No votes",
-                "localized": gettext("No votes"),
+                "localized": gettext_lazy("No votes"),
             }
 
         average_vote = self.average_creepiness
