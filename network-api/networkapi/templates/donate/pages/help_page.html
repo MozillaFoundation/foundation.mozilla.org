@@ -8,7 +8,7 @@
 {% endblock extended_head %}
 
 {% block content %}
-    <div class="tw-container tw-py-10">
+    <div class="tw-container tw-py-12 medium:tw-py-24">
         <div class="cms donate-help-page-content">
             <h1 class="tw-h1-heading"> {{ page.title }} </h1>
             {% if page.notice %}
@@ -22,7 +22,7 @@
                 {% endblocktrans %}
             </p>
             <div class="tw-border-t tw-border-b tw-py-10 tw-mt-28 tw-mb-10 tw-border-gray-20">
-                <p class="tw-h3-heading">{% trans "Contact Us" %}</p>
+                <p id="contact-us" class="tw-h3-heading">{% trans "Contact Us" %}</p>
                 {% include "../fragments/formassembly_body.html" %}
                 <link rel="stylesheet" href="{% static "_css/formassembly-override.compiled.css" %}">
             </div>
