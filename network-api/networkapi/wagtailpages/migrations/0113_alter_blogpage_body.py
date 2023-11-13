@@ -12,7 +12,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("wagtailpages", "0110_alter_articlepage_body"),
+        ("wagtailpages", "0112_fix_pni_category_slugs"),
     ]
 
     operations = [
