@@ -968,7 +968,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "description",
-                    wagtail.fields.RichTextField(blank=True, help_text="Signup's body (richtext)", max_length=200),
+                    wagtail.fields.RichTextField(blank=True, help_text="Signup's body (richtext)", max_length=300),
                 ),
                 (
                     "locale",

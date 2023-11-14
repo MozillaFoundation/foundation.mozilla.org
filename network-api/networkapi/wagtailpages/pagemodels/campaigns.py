@@ -12,7 +12,6 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import get_content_related_by_tag, get_page_tree_information
 from .base import PrimaryPage
-from .customblocks.base_rich_text_options import base_rich_text_options
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .modular import MiniSiteNameSpace
 
@@ -144,7 +143,7 @@ class Signup(TranslatableMixin, CTA):
 @register_snippet
 class BlogSignup(TranslatableMixin, CTABase):
     description = RichTextField(
-        help_text="Signup's body (richtext)", features=base_rich_text_options, max_length=200, blank=True
+        help_text="Signup's body (richtext)", features=["bold", "italic"], max_length=300, blank=True
     )
 
     class Meta(TranslatableMixin.Meta):
