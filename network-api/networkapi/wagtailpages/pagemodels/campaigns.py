@@ -12,12 +12,12 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import get_content_related_by_tag, get_page_tree_information
 from .base import PrimaryPage
+from .customblocks.base_rich_text_options import base_rich_text_options
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .modular import MiniSiteNameSpace
 
 
-@register_snippet
-class CTA(models.Model):
+class CTABase(models.Model):
     name = models.CharField(
         default="",
         max_length=100,
@@ -34,7 +34,7 @@ class CTA(models.Model):
 
     newsletter = models.CharField(
         max_length=100,
-        help_text="The (pre-existing) SalesForce newsletter to sign up for",
+        help_text="The (pre-existing) newsletter to sign up for",
         default="mozilla-foundation",
     )
 
@@ -48,6 +48,12 @@ class CTA(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        abstract = True
+
+
+@register_snippet
+class CTA(CTABase):
     class Meta:
         ordering = ["-id"]
         verbose_name_plural = "CTA"
@@ -133,6 +139,18 @@ class Signup(TranslatableMixin, CTA):
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
         verbose_name = "Signup"
+
+
+@register_snippet
+class BlogSignup(TranslatableMixin, CTABase):
+    description = RichTextField(
+        help_text="Signup's body (richtext)", features=base_rich_text_options, max_length=200, blank=True
+    )
+
+    class Meta(TranslatableMixin.Meta):
+        ordering = ["name"]
+        verbose_name = "Blog Signup"
+        verbose_name_plural = "Blog Signups"
 
 
 class OpportunityPage(MiniSiteNameSpace):
