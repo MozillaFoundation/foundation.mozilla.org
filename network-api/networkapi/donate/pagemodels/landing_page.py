@@ -13,7 +13,7 @@ class DonateLandingPage(BaseDonationPage):
     # Only allow creating landing pages at the root level
     parent_page_types: list = ["wagtailpages.Homepage"]
 
-    subpage_types: list = ["DonateHelpPage"]
+    subpage_types: list = ["DonateHelpPage", "wagtailpages.OpportunityPage"]
 
     featured_image = models.ForeignKey(
         "wagtailimages.Image",
