@@ -227,9 +227,7 @@ def set_category_slug(sender, instance, created, **kwargs):
 
     Slugfies the name for newly created categories and syncs this with all translations.
     """
-    print("Signal triggered")
     if created:
-        print("Instance created")
         if instance.locale.language_code == settings.LANGUAGE_CODE and not instance.slug:
             slug = slugify(instance.name)
             instance.slug = slug
