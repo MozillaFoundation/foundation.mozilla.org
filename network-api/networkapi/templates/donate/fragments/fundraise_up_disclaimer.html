@@ -6,17 +6,17 @@
     {% endblocktrans %}
 </p>
 <p class="tw-text-xs">
-    {% blocktrans with check_url='/ways-to-give#check' trimmed %}
-        <b>Other ways to give: <a href="{{ check_url }}">Check</a></b>
+    {% blocktrans with ways_to_give_url='/donate/ways-to-give' trimmed %}
+        <b>Other ways to give:  <a href="{{ ways_to_give_url }}">Check, Bank Transfer, Stocks</a></b>
     {% endblocktrans %}
 </p>
 <p class="tw-text-xs">
-    {% blocktrans with faq_url='/faq' trimmed %}
+    {% blocktrans with faq_url='/donate/help/#frequently-asked-questions' trimmed %}
         <b>Question donating?</b> Visit our <a href="{{ faq_url }}">FAQ</a> for answers to most common questions.
     {% endblocktrans %}
 </p>
 <p class="tw-text-xs">
-    {% blocktrans with help_url='/help/' trimmed %}
+    {% blocktrans with help_url='/donate/help/' trimmed %}
         <b>Need to reach us about your donation?</b> <a href="{{ help_url }}">Contact us</a>.
     {% endblocktrans %}
 </p>
