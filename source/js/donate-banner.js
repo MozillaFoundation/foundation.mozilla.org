@@ -3,12 +3,10 @@
  */
 
 const DonateBanner = {
+  DISMISS_KEY: "donate banner dismiss day",
   init: function () {
-    const today = new Date();
-    const DISMISS_KEY = "donate banner dismiss day";
     const banner = document.querySelector(`.donate-banner`);
-    const hideBanner =
-      parseInt(localStorage.getItem(DISMISS_KEY)) === today.getDay();
+    const hideBanner = this.shouldHideBanner();
     const closeButton = hideBanner
       ? undefined
       : banner?.querySelector(`a.banner-close`);
@@ -20,8 +18,6 @@ const DonateBanner = {
 
     closeButton?.addEventListener(`click`, (e) => {
       e.preventDefault();
-
-      localStorage.removeItem(DISMISS_KEY);
 
       banner.style.position = "absolute";
       banner.style.top = "0px";
@@ -62,9 +58,21 @@ const DonateBanner = {
 
       closeAnimation.onfinish = () => {
         banner.classList.add(`tw-hidden`);
-        localStorage.setItem(DISMISS_KEY, today.getDay());
+        this.setDismissDate();
       };
     });
+  },
+  getDismissDate() {
+    return localStorage.getItem(this.DISMISS_KEY);
+  },
+  setDismissDate() {
+    const today = new Date();
+    localStorage.setItem(this.DISMISS_KEY, today.toDateString()); // e.g., Thu Nov 09 2023
+  },
+  shouldHideBanner() {
+    const today = new Date();
+
+    return this.getDismissDate() === today.toDateString();
   },
 };
 
