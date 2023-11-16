@@ -32,7 +32,7 @@
                         {% endif %}
                     </div>
                     {% for cat in categories %}
-                        {% if not cat.parent %}
+                        {% if cat.parent == None %}
                             {% if cat.is_being_used %}
                                 {% routablepageurl home_page 'category-view' cat.slug as cat_url %}
                                 <div>

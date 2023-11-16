@@ -72,3 +72,18 @@ class TestIsBeingUsedProperty(BuyersGuideTestCase):
             categories = BuyersGuideProductCategory.objects.all().with_usage_annotation()
             for category in categories:
                 self.assertTrue(category.is_being_used)
+
+    def test_created_categories_get_slug(self):
+        category = buyersguide_factories.BuyersGuideProductCategoryFactory()
+        self.assertTrue(category.slug)
+        category = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Test Category")
+        self.assertEqual(category.slug, "test-category")
+
+    def test_localized_categories_sync_slugs(self):
+        category = buyersguide_factories.BuyersGuideProductCategoryFactory()
+        self.assertTrue(category.slug)
+
+        self.translate_snippet(category, self.fr_locale)
+        fr_category = category.get_translation(self.fr_locale)
+
+        self.assertEqual(fr_category.slug, category.slug)

@@ -52,10 +52,6 @@ class BuyersGuideProductCategoryFactory(DjangoModelFactory):
     share_image = SubFactory(ImageFactory)
     show_cta = Faker("boolean")
 
-    @post_generation
-    def set_slug(obj, created, extracted, **kwargs):
-        obj.slug = text_utils.slugify(obj.name)
-
 
 class BuyersGuideProductCategoryArticlePageRelationFactory(DjangoModelFactory):
     class Meta:

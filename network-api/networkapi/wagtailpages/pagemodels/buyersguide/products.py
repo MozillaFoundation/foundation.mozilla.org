@@ -19,6 +19,7 @@ from django.http import (
 )
 from django.templatetags.static import static
 from django.utils import timezone
+from django.utils.text import slugify
 from django.utils.translation import gettext, gettext_lazy
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
@@ -218,6 +219,23 @@ class BuyersGuideProductCategory(
             "sort_order",
             "name",
         ]
+
+
+@receiver(post_save, sender=BuyersGuideProductCategory)
+def set_category_slug(sender, instance, created, **kwargs):
+    """Post-save hook to create a slug when creating a category.
+
+    Slugfies the name for newly created categories and syncs this with all translations.
+    """
+    if created:
+        if instance.locale.language_code == settings.LANGUAGE_CODE and not instance.slug:
+            slug = slugify(instance.name)
+            instance.slug = slug
+            instance.save(update_fields=["slug"])
+            BuyersGuideProductCategory.objects.filter(translation_key=instance.translation_key).exclude(
+                locale__language_code=settings.LANGUAGE_CODE
+            ).update(slug=slug)
+    return instance
 
 
 class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable):
