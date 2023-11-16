@@ -8,3 +8,11 @@ class NewsletterSignupBlock(blocks.StructBlock):
     class Meta:
         icon = "placeholder"
         template = "wagtailpages/blocks/newsletter_signup_block.html"
+
+
+class BlogNewsletterSignupBlock(blocks.StructBlock):
+    signup = SnippetChooserBlock("wagtailpages.BlogSignup")
+
+    class Meta:
+        icon = "placeholder"
+        template = "wagtailpages/blocks/blog_newsletter_signup_block.html"
