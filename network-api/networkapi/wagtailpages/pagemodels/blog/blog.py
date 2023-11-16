@@ -40,6 +40,8 @@ base_fields = [
         ),
     ),
     ("card_grid", customblocks.CardGridBlock()),
+    ("CTA_card", customblocks.BlogCTACardBlock()),
+    ("CTA_card_with_text", customblocks.BlogCTACardWithTextBlock()),
     ("image_grid", customblocks.ImageGridBlock()),
     ("iframe", customblocks.iFrameBlock()),
     ("image", customblocks.AnnotatedImageBlock()),

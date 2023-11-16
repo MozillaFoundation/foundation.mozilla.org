@@ -19,7 +19,8 @@ from django.http import (
 )
 from django.templatetags.static import static
 from django.utils import timezone
-from django.utils.translation import gettext
+from django.utils.text import slugify
+from django.utils.translation import gettext, gettext_lazy
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
 from wagtail import hooks
@@ -220,6 +221,23 @@ class BuyersGuideProductCategory(
         ]
 
 
+@receiver(post_save, sender=BuyersGuideProductCategory)
+def set_category_slug(sender, instance, created, **kwargs):
+    """Post-save hook to create a slug when creating a category.
+
+    Slugfies the name for newly created categories and syncs this with all translations.
+    """
+    if created:
+        if instance.locale.language_code == settings.LANGUAGE_CODE and not instance.slug:
+            slug = slugify(instance.name)
+            instance.slug = slug
+            instance.save(update_fields=["slug"])
+            BuyersGuideProductCategory.objects.filter(translation_key=instance.translation_key).exclude(
+                locale__language_code=settings.LANGUAGE_CODE
+            ).update(slug=slug)
+    return instance
+
+
 class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable):
     category = ParentalKey(
         "wagtailpages.BuyersGuideProductCategory",
@@ -284,11 +302,11 @@ class ProductPageEvaluation(models.Model):
     """
 
     BIN_LABELS = {
-        "bin_0": {"key": "Not creepy", "label": gettext("Not creepy")},
-        "bin_1": {"key": "A little creepy", "label": gettext("A little creepy")},
-        "bin_2": {"key": "Somewhat creepy", "label": gettext("Somewhat creepy")},
-        "bin_3": {"key": "Very creepy", "label": gettext("Very creepy")},
-        "bin_4": {"key": "Super creepy", "label": gettext("Super creepy")},
+        "bin_0": {"key": "Not creepy", "label": gettext_lazy("Not creepy")},
+        "bin_1": {"key": "A little creepy", "label": gettext_lazy("A little creepy")},
+        "bin_2": {"key": "Somewhat creepy", "label": gettext_lazy("Somewhat creepy")},
+        "bin_3": {"key": "Very creepy", "label": gettext_lazy("Very creepy")},
+        "bin_4": {"key": "Super creepy", "label": gettext_lazy("Super creepy")},
     }
 
     objects = ProductPageEvaluationQuerySet.as_manager()
@@ -398,7 +416,7 @@ class ProductPageEvaluation(models.Model):
         if total_votes == 0:
             return {
                 "label": "No votes",
-                "localized": gettext("No votes"),
+                "localized": gettext_lazy("No votes"),
             }
 
         average_vote = self.average_creepiness
@@ -1045,37 +1063,17 @@ class ProductPage(BasePage):
 
         return super().serve(request, *args, **kwargs)
 
+    def with_content_json(self, content):
+        """
+        Adds the evaluation object to ``content`` to make sure that it is preserved
+        through revisions.
+        """
+        obj = super().with_content_json(content)
+        obj.evaluation = self.evaluation
+        return obj
+
     class Meta:
         verbose_name = "Product Page"
-
-
-@receiver(post_save, sender=ProductPage)
-def create_evaluation(sender, instance, created, **kwargs):
-    """Post-save hook to create a ProductPageEvaluation for a ProductPage.
-
-    Creates an evaluation for newly created products and syncs this with all translations.
-    """
-    if created:
-        if instance.locale.language_code == settings.LANGUAGE_CODE and not instance.evaluation:
-            evaluation = ProductPageEvaluation.objects.create()
-            instance.evaluation = evaluation
-            instance.save()
-            ProductPage.objects.filter(translation_key=instance.translation_key).update(evaluation=evaluation)
-    return instance
-
-
-@hooks.register("after_copy_page")
-def reset_product_page_votes(request, page, new_page):
-    """Resets the votes on copied product pages.
-
-    When copying a ProductPage (or GeneralProductPage), the votes are copied as well since
-    the evaluation object is copied over. This hook resets the evaluation object on the
-    product page and its translations so that the votes are also reset.
-    """
-    if new_page.specific_class == ProductPage or new_page.specific_class == GeneralProductPage:
-        evaluation = ProductPageEvaluation.objects.create()
-        new_products = ProductPage.objects.filter(translation_key=new_page.translation_key)
-        new_products.update(evaluation=evaluation)
 
 
 class BuyersGuideProductPageArticlePageRelation(TranslatableMixin, Orderable):
@@ -1368,6 +1366,38 @@ class GeneralProductPage(ProductPage):
 
     class Meta:
         verbose_name = "General Product Page"
+
+
+@receiver(post_save, sender=GeneralProductPage)
+@receiver(post_save, sender=ProductPage)
+def create_evaluation(sender, instance, created, **kwargs):
+    """Post-save hook to create a ProductPageEvaluation for a ProductPage.
+
+    Creates an evaluation for newly created products and syncs this with all translations.
+    """
+    if created:
+        if instance.locale.language_code == settings.LANGUAGE_CODE and not instance.evaluation:
+            evaluation = ProductPageEvaluation.objects.create()
+            instance.evaluation = evaluation
+            instance.save(update_fields=["evaluation"])
+            ProductPage.objects.filter(translation_key=instance.translation_key).update(evaluation=evaluation)
+    return instance
+
+
+@hooks.register("after_copy_page")
+def reset_product_page_votes(request, page, new_page):
+    """Resets the votes on copied product pages.
+
+    When copying a ProductPage (or GeneralProductPage), the votes are copied as well since
+    the evaluation object is copied over. This hook resets the evaluation object on the
+    product page and its translations so that the votes are also reset.
+    """
+    if new_page.specific_class == ProductPage or new_page.specific_class == GeneralProductPage:
+        evaluation = ProductPageEvaluation.objects.create()
+        new_page.evaluation = evaluation
+        new_page.save(update_fields=["evaluation"])
+        new_products = ProductPage.objects.filter(translation_key=new_page.translation_key)
+        new_products.update(evaluation=evaluation)
 
 
 class ExcludedCategories(TranslatableMixin, Orderable):
