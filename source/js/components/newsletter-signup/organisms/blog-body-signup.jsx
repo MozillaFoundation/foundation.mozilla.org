@@ -50,6 +50,12 @@ class BlogBodySignForm extends Component {
   }
 
   showAllFields() {
+    ReactGA.event({
+      category: `signup`,
+      action: `form focus`,
+      label: `Signup form input focused`,
+    });
+
     this.setState({ showAllFields: true });
   }
 

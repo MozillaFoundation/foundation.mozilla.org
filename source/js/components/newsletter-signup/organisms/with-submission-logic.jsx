@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { ReactGA } from "../../../common";
 import { getText } from "../../petition/locales";
 
 /**
@@ -86,6 +87,31 @@ function withSubmissionLogic(WrappedComponent) {
     }
 
     /**
+     * Track form submission with GA and GTM
+     *
+     * @param {object} formData - { [name]: value } pairs
+     * @returns {void}
+     */
+    trackFormSubmit(formData) {
+      ReactGA.event({
+        category: `signup`,
+        action: `form submit tap`,
+        label: `Signup submitted from ${
+          this.props.formPosition ? this.props.formPosition : document.title
+        }`,
+      });
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "form_submission",
+        form_type: "newsletter_signup",
+        form_location: this.props.formPosition || null,
+        country: formData.country,
+        language: formData.language,
+      });
+    }
+
+    /**
      * Form submission handler
      *
      * @param {object} event - event object
@@ -94,6 +120,8 @@ function withSubmissionLogic(WrappedComponent) {
      */
     handleSubmit(event, formData) {
       event.preventDefault();
+
+      this.trackFormSubmit(formData);
 
       this.validateForm(formData, () => {
         // Check if there's any error messages in this.state.errors object
@@ -228,6 +256,7 @@ function withSubmissionLogic(WrappedComponent) {
     apiUrl: PropTypes.string.isRequired,
     ctaHeader: PropTypes.string.isRequired,
     ctaDescription: PropTypes.string.isRequired,
+    formPosition: PropTypes.string.isRequired,
   };
 
   return WithSubmissionLogicComponent;
