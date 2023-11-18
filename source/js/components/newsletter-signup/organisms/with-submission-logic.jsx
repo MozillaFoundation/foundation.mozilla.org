@@ -127,7 +127,6 @@ function withSubmissionLogic(WrappedComponent) {
         // Check if there's any error messages in this.state.errors object
         // if there's none, we can submit the form
         if (Object.values(this.state.errors).every((error) => !error)) {
-          console.log("-[NO ERRORS. CAN SUBMIT FORM NOW]-");
           this.submitDataToApi(formData)
             .then(() => {
               this.setState({
