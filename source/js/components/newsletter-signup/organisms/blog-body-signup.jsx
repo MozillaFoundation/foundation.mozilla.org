@@ -9,6 +9,7 @@ import InputCheckboxWithLabel from "../molecules/input-checkbox-with-label.jsx";
 import ButtonSubmit from "../atoms/button-submit.jsx";
 import withSubmissionLogic from "./with-submission-logic.jsx";
 import utility from "../../../utility.js";
+import { ReactGA } from "../../../common";
 import { getText } from "../../petition/locales";
 import { getCurrentLanguage } from "../../petition/locales";
 import { COUNTRY_OPTIONS } from "../data/country-options.js";
