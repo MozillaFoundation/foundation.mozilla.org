@@ -48,6 +48,7 @@ from networkapi.wagtailpages.utils import (
     TitleWidget,
     get_language_from_request,
     insert_panels_after,
+    localize_queryset,
 )
 
 if typing.TYPE_CHECKING:
@@ -984,6 +985,13 @@ class ProductPage(BasePage):
     @property
     def product_type(self):
         return "unknown"
+
+    @property
+    def localized_related_products(self):
+        related_product_relationships = RelatedProducts.objects.filter(page=self)
+        related_products = [relationship.related_product_id for relationship in related_product_relationships]
+        related_products = ProductPage.objects.filter(id__in=related_products)
+        return localize_queryset(related_products).order_by("title")
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)

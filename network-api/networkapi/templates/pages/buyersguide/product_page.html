@@ -170,7 +170,7 @@
                 {% endif %}
             {% endwith %}
 
-            {% with related_products=product.related_product_pages.all %}
+            {% with related_products=product.localized_related_products %}
                 {% if related_products %}
                     <div id="related-products" class="tw-col-span-full medium:tw-col-span-2 large:tw-col-start-2">
                         <div class="tw-flex tw-flex-col medium:tw-items-center large:tw-items-baseline medium:tw-flex-row-reverse medium:tw-gap-12">
@@ -179,7 +179,7 @@
                         </div>
                         <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-4 tw-gap-16">
                             {% for related_product_page in related_products %}
-                                {% include "fragments/buyersguide/related_product.html" with related_product=related_product_page.related_product %}
+                                {% include "fragments/buyersguide/related_product.html" with related_product=related_product_page %}
                             {% endfor %}
                         </div>
                     </div>
