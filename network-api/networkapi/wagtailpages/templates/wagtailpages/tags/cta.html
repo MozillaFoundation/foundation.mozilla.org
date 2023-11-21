@@ -1,6 +1,10 @@
 {{ cta.type }}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 
 {% if cta_type == 'petition' %}
+{{ LANGUAGE_CODE }} <br>
+{{ lang }}
     {% include './cta/petition.html' %}
 {% endif %}
 

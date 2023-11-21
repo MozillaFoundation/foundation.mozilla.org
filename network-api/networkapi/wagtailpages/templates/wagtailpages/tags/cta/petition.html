@@ -1,4 +1,5 @@
 {% load i18n l10n wagtailcore_tags static %}
+{% get_current_language as LANGUAGE_CODE %}
 
 <div>
     <!-- ShareProgress button embedding doc:
@@ -26,7 +27,7 @@
             We are inncluding tfa_* in the variable name to make it clear where the value should be plugged in.
             For field name reference, see https://mozillafoundation.tfaforms.net/forms/definition/9
         {% endcomment %}
-        {% include "../../fragments/formassembly_body.html" with csp_nonce=csp_nonce show_country_field=cta.show_country_field show_postal_code_field=cta.show_postal_code_field show_comment_field=cta.show_comment_field campaign_id_tfa_1=cta.campaign_id source_url_tfa_498=source_url lang_tfa_499=lang thank_you_url_tfa_500=thank_you_url %}
+        {% include "../../fragments/formassembly_body.html" with csp_nonce=csp_nonce show_country_field=cta.show_country_field show_postal_code_field=cta.show_postal_code_field show_comment_field=cta.show_comment_field campaign_id_tfa_1=cta.campaign_id source_url_tfa_498=source_url lang_tfa_499=LANGUAGE_CODE thank_you_url_tfa_500=thank_you_url %}
         <link rel="stylesheet" href="{% static "_css/formassembly-override.compiled.css" %}">
     {% else %}
         <div

@@ -1,6 +1,7 @@
+from urllib.parse import urlencode, urlparse, urlunparse
+
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
-from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
 
 from networkapi.wagtailpages.models import CTA
 
@@ -38,7 +39,7 @@ def cta(context, page):
 
         return thank_you_url
 
-    cta = { "page": page, "cta": None, "cta_type": None }
+    cta = {"page": page, "cta": None, "cta_type": None}
 
     if page.cta:
         for Subclass, subclass_name in [
@@ -58,7 +59,6 @@ def cta(context, page):
     if cta["cta_type"] == "petition":
         source_url = context["request"].build_absolute_uri()
 
-        cta["lang"] = context["request"].LANGUAGE_CODE
         cta["source_url"] = source_url
         cta["thank_you_url"] = generate_thank_you_url(source_url)
         cta["show_formassembly_thank_you"] = context["request"].GET.get("thank_you") == "true"
