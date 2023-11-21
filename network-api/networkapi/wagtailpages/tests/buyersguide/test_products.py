@@ -19,6 +19,7 @@ class TestProductPage(BuyersGuideTestCase):
         super().setUp()
         self.product_page.evaluation = buyersguide_factories.ProductPageEvaluationFactory()
         self.product_page.save()
+        self.login()
 
     def test_get_votes(self):
         product_page = self.product_page
@@ -67,6 +68,56 @@ class TestProductPage(BuyersGuideTestCase):
             "total": 15,
         }
         self.assertDictEqual(data, comparable_data)
+
+    def test_localized_related_products(self):
+        product_page = self.product_page
+
+        related_products = []
+        for _ in range(5):
+            related_product = buyersguide_factories.ProductPageFactory(parent=self.bg)
+            buyersguide_factories.RelatedProductsFactory(
+                page=product_page,
+                related_product=related_product,
+            )
+            related_products.append(related_product)
+
+        result = product_page.localized_related_products
+
+        for related_product in related_products:
+            self.assertIn(related_product, result)
+
+    def test_localized_related_products_non_default_locale(self):
+        product_page = self.product_page
+
+        first_product = buyersguide_factories.ProductPageFactory(parent=self.bg, title="First product")
+        second_product = buyersguide_factories.ProductPageFactory(parent=self.bg, title="Second product")
+
+        buyersguide_factories.RelatedProductsFactory(
+            page=product_page,
+            related_product=first_product,
+        )
+        buyersguide_factories.RelatedProductsFactory(
+            page=product_page,
+            related_product=second_product,
+        )
+
+        related_products_en = product_page.localized_related_products
+        self.assertIn(first_product, related_products_en)
+        self.assertIn(second_product, related_products_en)
+
+        self.translate_page(product_page, self.fr_locale)
+        fr_product_page = product_page.get_translation(self.fr_locale)
+
+        self.translate_page(first_product, self.fr_locale)
+        first_product_fr = first_product.get_translation(self.fr_locale)
+
+        self.activate_locale(self.fr_locale)
+
+        related_products_fr = fr_product_page.localized_related_products
+        # If there is a localized version, that should be returned:
+        self.assertIn(first_product_fr, related_products_fr)
+        # If there is no localized version, the default version should be returned:
+        self.assertIn(second_product, related_products_fr)
 
     def test_get_related_articles(self):
         """
