@@ -77,7 +77,7 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
     return products
 
 
-def localize_category_parent(categories):
+def _localize_category_parent(categories):
     """Localize the parent of each category.
 
     Go through a BuyersGuideCategory queryset and localize the parent object.
@@ -101,6 +101,25 @@ def localize_category_parent(categories):
             local_parent = parents_cache.get(category.parent.translation_key)
             category.parent = local_parent
 
+    return categories
+
+
+def localize_categories(categories):
+    """Localize a category.
+
+    Localizes a category queryset by finding the localized version of the category.
+    If the localized version doesn't exist, return the default category.
+    It also pre-selects and localizes the parent of the category.
+
+    Args:
+        category (BuyersGuideProductCategory): The category to localize.
+
+    Returns:
+        BuyersGuideProductCategory: The localized category.
+    """
+    categories = localize_queryset(categories)
+    categories = categories.select_related("parent").with_usage_annotation()
+    categories = _localize_category_parent(categories)
     return categories
 
 
