@@ -1,5 +1,6 @@
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
+from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
 
 from networkapi.wagtailpages.models import CTA
 
@@ -23,13 +24,28 @@ def mini_site_horizontal_nav(context, page):
 # Render a page's CTA (petition, signup, etc.)
 @register.inclusion_tag("wagtailpages/tags/cta.html", takes_context=True)
 def cta(context, page):
+
+    def generate_thank_you_url(url):
+        """
+        Generate a thank you page URL by grabbing the current url and appending thank_you=true
+        """
+
+        parsed_url = urlparse(url)
+        query_params = parsed_url.query
+        new_query_params = urlencode({"thank_you": "true"})
+        query_string = "&".join(filter(None, [query_params, new_query_params]))
+        thank_you_url = urlunparse(parsed_url._replace(query=query_string))
+
+        return thank_you_url
+
+    source_url = context["request"].build_absolute_uri()
     cta = {
         "page": page,
         "cta": None,
         "cta_type": None,
         "lang": context["request"].LANGUAGE_CODE,
-        "source_url": context["request"].build_absolute_uri(),
-        "thank_you_url": context["request"].build_absolute_uri(context["request"].path + "?thank_you=true"),
+        "source_url": source_url,
+        "thank_you_url": generate_thank_you_url(source_url),
         "show_formassembly_thank_you": context["request"].GET.get("thank_you") == "true",
         "csp_nonce": context["request"].csp_nonce,
     }
