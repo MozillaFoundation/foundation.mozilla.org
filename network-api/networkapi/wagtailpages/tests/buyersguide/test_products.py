@@ -73,7 +73,7 @@ class TestProductPage(BuyersGuideTestCase):
         product_page = self.product_page
 
         related_products = []
-        for _ in range(5):
+        for _ in range(10):
             related_product = buyersguide_factories.ProductPageFactory(parent=self.bg)
             buyersguide_factories.RelatedProductsFactory(
                 page=product_page,
@@ -81,10 +81,10 @@ class TestProductPage(BuyersGuideTestCase):
             )
             related_products.append(related_product)
 
-        result = product_page.localized_related_products
-
-        for related_product in related_products:
-            self.assertIn(related_product, result)
+        with self.assertNumQueries(4):
+            result = product_page.localized_related_products
+            for related_product in related_products:
+                self.assertIn(related_product, result)
 
     def test_localized_related_products_non_default_locale(self):
         product_page = self.product_page
