@@ -109,7 +109,7 @@ pytest==7.4.3
     #   pytest-xdist
 pytest-cov==4.1.0
     # via -r dev-requirements.in
-pytest-django==4.5.2
+pytest-django==4.7.0
     # via -r dev-requirements.in
 pytest-sugar==0.9.7
     # via -r dev-requirements.in
