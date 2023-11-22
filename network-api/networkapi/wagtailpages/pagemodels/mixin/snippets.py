@@ -2,6 +2,17 @@ from networkapi.wagtailpages.utils import get_default_locale
 
 
 class LocalizedSnippet:
+    """Mixin for localization
+
+    ***DEPRECATED***.
+
+    DO NOT USE! Causes hard to track N+1 query issues.
+
+    All functionality here can be done natively using Wagtail locale.
+
+    Can't be deleted due to base definition in old migrations.
+    """
+
     DEFAULT_LOCALE = None
 
     def __init__(self, *args, **kwargs):

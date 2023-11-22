@@ -10,5 +10,3 @@ from networkapi.wagtailpages.templatetags.localization import register
 # not affect appearance. Overriding them centrally here is a convenient way
 # to avoid having to override the tags in each individual YAML file.
 override_tag(register, name="get_unlocalized_url", default_html="/dummy")
-override_tag(register, name="relocalized_url", default_html="/en/dummy")
-override_tag(register, name="localizedroutablepageurl", default_html="/en/routed-dummy")

@@ -33,10 +33,24 @@ def get_extended_yes_no_value():
 
 
 def get_lowest_content_page_category():
-    return sorted(
-        [(cat.published_product_page_count, cat) for cat in pagemodels.BuyersGuideProductCategory.objects.all()],
-        key=lambda t: t[0],
-    )[0][1]
+    categories = pagemodels.BuyersGuideProductCategory.objects.all()
+    published_product_page_count = []
+    for category in categories:
+        category_published_product_page_count = category.product_pages.filter(product__live=True).count()
+        published_product_page_count.append((category_published_product_page_count, category))
+    return sorted(published_product_page_count, key=lambda t: t[0])[0][1]
+
+
+class BuyersGuideProductCategoryFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideProductCategory
+
+    name = Faker("word")
+    description = Faker("sentence")
+    featured = Faker("boolean")
+    hidden = Faker("boolean")
+    share_image = SubFactory(ImageFactory)
+    show_cta = Faker("boolean")
 
 
 class BuyersGuideProductCategoryArticlePageRelationFactory(DjangoModelFactory):
@@ -142,23 +156,25 @@ class ProductPageFactory(PageFactory):
     first_published_at = Faker("past_datetime", start_date="-2d", tzinfo=timezone.utc)
     last_published_at = Faker("past_datetime", start_date="-1d", tzinfo=timezone.utc)
     evaluation = SubFactory("networkapi.wagtailpages.factory.buyersguide.ProductPageEvaluationFactory")
+    locale = LazyFunction(lambda: Locale.get_default())
 
     @post_generation
-    def assign_random_categories(self, create, extracted, **kwargs):
-        # late import to prevent circular dependency
-        from networkapi.wagtailpages.models import ProductPageCategory
+    def with_random_categories(self, create, extracted, **kwargs):
+        if extracted:
+            # late import to prevent circular dependency
+            from networkapi.wagtailpages.models import ProductPageCategory
 
-        ceiling = 1.0
-        while True:
-            odds = random()
-            if odds < ceiling:
-                category = get_lowest_content_page_category()
-                ProductPageCategory.objects.get_or_create(product=self, category=category)
-                if category.parent:
-                    ProductPageCategory.objects.get_or_create(product=self, category=category.parent)
-                ceiling = ceiling / 5
-            else:
-                return
+            ceiling = 1.0
+            while True:
+                odds = random()
+                if odds < ceiling:
+                    category = get_lowest_content_page_category()
+                    ProductPageCategory.objects.get_or_create(product=self, category=category)
+                    if category.parent:
+                        ProductPageCategory.objects.get_or_create(product=self, category=category.parent)
+                    ceiling = ceiling / 5
+                else:
+                    return
 
     @post_generation
     def set_random_review_date(self, create, extracted, **kwargs):
@@ -199,6 +215,14 @@ class GeneralProductPageFactory(ProductPageFactory):
     uses_ai = LazyFunction(get_extended_yes_no_value)
     ai_is_transparent = LazyFunction(get_extended_yes_no_value)
     ai_helptext = Faker("sentence")
+
+
+class RelatedProductsFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.RelatedProducts
+
+    page = SubFactory(ProductPageFactory)
+    related_product = SubFactory(ProductPageFactory)
 
 
 class ProductPagePrivacyPolicyLinkFactory(DjangoModelFactory):
@@ -356,7 +380,16 @@ def create_general_product_visual_regression_product(seed, pni_homepage):
         ai_is_transparent="No",
         ai_helptext="The AI is a black box and no one knows how it works",
         with_votes=1,
+        with_random_categories=True,
     )
+
+
+class ProductPageCategoryFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.ProductPageCategory
+
+    product = SubFactory("networkapi.wagtailpages.factory.buyersguide.ProductPageFactory")
+    category = SubFactory("networkapi.wagtailpages.factory.buyersguide.BuyersGuideProductCategoryFactory")
 
 
 def generate(seed):
@@ -378,6 +411,7 @@ def generate(seed):
         general_page = GeneralProductPageFactory.create(
             parent=pni_homepage,
             with_votes=1,
+            with_random_categories=True,
         )
         general_page.save_revision().publish()
 

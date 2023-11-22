@@ -1,4 +1,4 @@
-{% load bg_nav_tags localization i18n static wagtailroutablepage_tags %}
+{% load bg_nav_tags i18n static wagtailcore_tags wagtailroutablepage_tags %}
 {% get_bg_home_page as home_page %}
 
 <div class="d-md-none mt-0 mb-0 tw-bg-white" id="pni-nav-mobile">
@@ -12,9 +12,9 @@
                                 <div>
                                     <div class="active-link-label d-inline-block multipage-link active">
                                         {% if current_category.parent %}
-                                            {{ current_category.parent.localized.name }}
+                                            {{ current_category.parent.name }}
                                         {% elif current_category %}
-                                            {{ current_category.localized.name }}
+                                            {{ current_category.name }}
                                         {% else %}
                                             {% trans "All Categories" %}
                                         {% endif %}
@@ -26,28 +26,26 @@
                     </div>
                     <div>
                         {% if pagetype == "product" or pagetype == "about" %}
-                            <a class="multipage-link active" data-name="None" href="{% relocalized_url home_page.localized.url %}">{% trans "All Categories" %}</a>
+                            <a class="multipage-link active" data-name="None" href="{% pageurl home_page %}">{% trans "All Categories" %}</a>
                         {% else %}
-                            <a class="multipage-link {% if not category %} active{% endif %}" data-name="None" href="{% relocalized_url home_page.localized.url %}">{% trans "All Categories" %}</a>
+                            <a class="multipage-link {% if not category %} active{% endif %}" data-name="None" href="{% pageurl home_page %}">{% trans "All Categories" %}</a>
                         {% endif %}
                     </div>
                     {% for cat in categories %}
-                        {% with original=cat.original %}
-                            {% if cat.parent == None %}
-                                {% if original.published_product_page_count > 0 %}
-                                    {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
-                                    <div>
-                                        <a
-                                            class="multipage-link {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}"
-                                            href="{{ cat_url }}"
-                                            data-name="{{ cat.name }}"
-                                        >
-                                            {{ cat.name }}
-                                        </a>
-                                    </div>
-                                {% endif %}
+                        {% if cat.parent == None %}
+                            {% if cat.is_being_used %}
+                                {% routablepageurl home_page 'category-view' cat.slug as cat_url %}
+                                <div>
+                                    <a
+                                        class="multipage-link {% check_active_category current_category cat %}{% if cat.featured is True %} featured{% endif %}"
+                                        href="{{ cat_url }}"
+                                        data-name="{{ cat.name }}"
+                                    >
+                                        {{ cat.name }}
+                                    </a>
+                                </div>
                             {% endif %}
-                        {% endwith %}
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

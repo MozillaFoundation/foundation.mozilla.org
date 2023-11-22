@@ -1,12 +1,16 @@
 import json
 import typing
+from functools import cached_property
 
 from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.db import Error, models
-from django.db.models import F, Q
+from django.db.models import F, OuterRef, Q
+from django.db.models.functions import Coalesce
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.http import (
     HttpResponse,
     HttpResponseNotAllowed,
@@ -16,12 +20,13 @@ from django.http import (
 from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.text import slugify
-from django.utils.translation import gettext
+from django.utils.translation import gettext, gettext_lazy
 from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
+from wagtail import hooks
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
-from wagtail.models import Orderable, Page, TranslatableMixin
+from wagtail.models import Orderable, Page, PageManager, PageQuerySet, TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -34,16 +39,16 @@ from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
 )
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_buyersguide_featured_cta,
-    get_categories_for_locale,
+    localize_categories,
 )
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-from networkapi.wagtailpages.pagemodels.mixin.snippets import LocalizedSnippet
 from networkapi.wagtailpages.utils import (
     TitleWidget,
     get_language_from_request,
     insert_panels_after,
+    localize_queryset,
 )
 
 if typing.TYPE_CHECKING:
@@ -58,11 +63,21 @@ TRACK_RECORD_CHOICES = [
 ]
 
 
+class BuyersGuideProductCategoryQuerySet(models.QuerySet):
+    def with_usage_annotation(self):
+        return self.annotate(
+            _is_being_used=models.Exists(
+                ProductPage.objects.filter(
+                    live=True, product_categories__category__translation_key=OuterRef("translation_key")
+                )
+            )
+        )
+
+
 @register_snippet
 class BuyersGuideProductCategory(
     index.Indexed,
     TranslatableMixin,
-    LocalizedSnippet,
     # models.Model
     cluster_models.ClusterableModel,
 ):
@@ -124,6 +139,8 @@ class BuyersGuideProductCategory(
         help_text="Do we want the Buyers Guide featured CTA to be displayed on this category's page?",
     )
 
+    objects = BuyersGuideProductCategoryQuerySet.as_manager()
+
     panels = [
         FieldPanel(
             "name",
@@ -153,9 +170,16 @@ class BuyersGuideProductCategory(
         SynchronizedField("parent"),
     ]
 
-    @property
-    def published_product_page_count(self):
-        return ProductPage.objects.filter(product_categories__category=self).live().count()
+    @cached_property
+    def is_being_used(self):
+        try:
+            # Try to get pre-filtered/pre-fetched annotated value
+            return self._is_being_used
+        except AttributeError:
+            # It failed, let's query it ourselves
+            return ProductPage.objects.filter(
+                live=True, product_categories__category__translation_key=self.translation_key
+            ).exists()
 
     def get_parent(self):
         return self.parent
@@ -180,10 +204,6 @@ class BuyersGuideProductCategory(
             return f"{self.name} (sort order: {self.sort_order})"
         return f"{self.parent.name}: {self.name} (sort order: {self.sort_order})"
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
-
     base_form_class = BuyersGuideProductCategoryForm
 
     search_fields = [
@@ -200,6 +220,23 @@ class BuyersGuideProductCategory(
             "sort_order",
             "name",
         ]
+
+
+@receiver(post_save, sender=BuyersGuideProductCategory)
+def set_category_slug(sender, instance, created, **kwargs):
+    """Post-save hook to create a slug when creating a category.
+
+    Slugfies the name for newly created categories and syncs this with all translations.
+    """
+    if created:
+        if instance.locale.language_code == settings.LANGUAGE_CODE and not instance.slug:
+            slug = slugify(instance.name)
+            instance.slug = slug
+            instance.save(update_fields=["slug"])
+            BuyersGuideProductCategory.objects.filter(translation_key=instance.translation_key).exclude(
+                locale__language_code=settings.LANGUAGE_CODE
+            ).update(slug=slug)
+    return instance
 
 
 class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable):
@@ -238,10 +275,10 @@ class ProductPageEvaluationQuerySet(models.QuerySet):
         return self.annotate(_total_votes=models.Count("votes__id", distinct=True))
 
     def with_total_creepiness(self):
-        return self.annotate(_total_creepiness=models.Sum("votes__value"))
+        return self.annotate(_total_creepiness=Coalesce(models.Sum("votes__value"), 0))
 
     def with_average_creepiness(self):
-        return self.annotate(_average_creepiness=models.Avg("votes__value"))
+        return self.annotate(_average_creepiness=Coalesce(models.Avg("votes__value"), float(0)))
 
     def with_bin_data(self):
         """Annotate the queryset with the number of votes in each bin.
@@ -249,11 +286,11 @@ class ProductPageEvaluationQuerySet(models.QuerySet):
         There are 5 "bins" for votes: <20%, <40%, <60%, <80%, <100%.
         """
         return self.annotate(
-            bin_0=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=0, votes__value__lt=20)),
-            bin_1=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=20, votes__value__lt=40)),
-            bin_2=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=40, votes__value__lt=60)),
-            bin_3=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=60, votes__value__lt=80)),
-            bin_4=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=80, votes__value__lt=100)),
+            _bin_0=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=0, votes__value__lt=20)),
+            _bin_1=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=20, votes__value__lt=40)),
+            _bin_2=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=40, votes__value__lt=60)),
+            _bin_3=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=60, votes__value__lt=80)),
+            _bin_4=models.Count("votes__id", distinct=True, filter=Q(votes__value__gte=80, votes__value__lt=100)),
         )
 
 
@@ -266,37 +303,100 @@ class ProductPageEvaluation(models.Model):
     """
 
     BIN_LABELS = {
-        "bin_0": {"key": "Not creepy", "label": gettext("Not creepy")},
-        "bin_1": {"key": "A little creepy", "label": gettext("A little creepy")},
-        "bin_2": {"key": "Somewhat creepy", "label": gettext("Somewhat creepy")},
-        "bin_3": {"key": "Very creepy", "label": gettext("Very creepy")},
-        "bin_4": {"key": "Super creepy", "label": gettext("Super creepy")},
+        "bin_0": {"key": "Not creepy", "label": gettext_lazy("Not creepy")},
+        "bin_1": {"key": "A little creepy", "label": gettext_lazy("A little creepy")},
+        "bin_2": {"key": "Somewhat creepy", "label": gettext_lazy("Somewhat creepy")},
+        "bin_3": {"key": "Very creepy", "label": gettext_lazy("Very creepy")},
+        "bin_4": {"key": "Super creepy", "label": gettext_lazy("Super creepy")},
     }
 
     objects = ProductPageEvaluationQuerySet.as_manager()
 
     @property
     def total_votes(self):
-        return self.votes.count()
+        """Total number of votes for this product evaluation.
+
+        To populate the prefetched `_total_votes` annotation, call
+
+        ```
+        ProductPageEvaluation.objects.with_total_votes()
+        ```
+
+        Returns:
+            int: Total number of votes for this product evaluation.
+        """
+        try:
+            return self._total_votes
+        except AttributeError:
+            return self.votes.count()
 
     @property
     def total_creepiness(self):
-        return sum([vote.value for vote in self.votes.all()])
+        """Aggregate of vote values for this product evaluation.
+
+        To use this property, make sure to first populate the prefetched `_total_creepiness`
+        annotation, i.e.:
+
+        ```
+        evaluations = ProductPageEvaluation.objects.with_total_creepiness()
+        my_evaluation = evaluations.get(pk=1)
+        my_evaluation.total_creepiness
+        ```
+
+        Returns:
+            int: Sum of creepiness value for all votes for this product evaluation.
+        """
+        try:
+            return self._total_creepiness
+        except AttributeError as e:
+            raise AttributeError(
+                "Can't calculate total creepiness without `_total_creepiness` annotation. "
+                "Make sure to annotate the evaluation queryset by calling `.with_total_creepiness()` "
+                "method before accessing this property."
+            ) from e
 
     @property
     def average_creepiness(self):
-        if self.total_votes == 0:
-            return 0
-        return self.total_creepiness / self.total_votes
+        """Average of vote values for this product evaluation.
+
+        To use this property, make sure to first populate the prefetched `_average_creepiness`
+        annotation, i.e.:
+
+        ```
+        evaluations = ProductPageEvaluation.objects.with_average_creepiness()
+        my_evaluation = evaluations.get(pk=1)
+        my_evaluation.average_creepiness
+        ```
+
+        Returns:
+            int: Average of creepiness value for all votes for this product evaluation.
+        """
+        try:
+            return self._average_creepiness
+        except AttributeError as e:
+            raise AttributeError(
+                "Can't calculate average creepiness without `_average_creepiness` annotation. "
+                "Make sure to annotate the evaluation queryset by calling `.with_average_creepiness()` "
+                "method before accessing this property."
+            ) from e
 
     @property
     def votes_per_bin(self):
-        bin_0 = self.votes.filter(value__gte=0, value__lt=20).count()
-        bin_1 = self.votes.filter(value__gte=20, value__lt=40).count()
-        bin_2 = self.votes.filter(value__gte=40, value__lt=60).count()
-        bin_3 = self.votes.filter(value__gte=60, value__lt=80).count()
-        bin_4 = self.votes.filter(value__gte=80, value__lt=100).count()
-        return [bin_0, bin_1, bin_2, bin_3, bin_4]
+        try:
+            return [
+                self._bin_0,
+                self._bin_1,
+                self._bin_2,
+                self._bin_3,
+                self._bin_4,
+            ]
+        except AttributeError:
+            bin_0 = self.votes.filter(value__gte=0, value__lt=20).count()
+            bin_1 = self.votes.filter(value__gte=20, value__lt=40).count()
+            bin_2 = self.votes.filter(value__gte=40, value__lt=60).count()
+            bin_3 = self.votes.filter(value__gte=60, value__lt=80).count()
+            bin_4 = self.votes.filter(value__gte=80, value__lt=100).count()
+            return [bin_0, bin_1, bin_2, bin_3, bin_4]
 
     @property
     def labelled_creepiness_per_bin(self):
@@ -309,6 +409,26 @@ class ProductPageEvaluation(models.Model):
             }
         return creepiness_per_bin
 
+    @property
+    def average_bin(self):
+        """Name of the bin corresponding to the average vote"""
+        total_votes = self.total_votes
+        # If there's no votes, let the user know (also protects from division by zero errors)
+        if total_votes == 0:
+            return {
+                "label": "No votes",
+                "localized": gettext_lazy("No votes"),
+            }
+
+        average_vote = self.average_creepiness
+        mode_bin = round(average_vote / 20) - 1
+        label = self.BIN_LABELS[f"bin_{mode_bin}"]
+
+        return {
+            "label": label["key"],
+            "localized": label["label"],
+        }
+
 
 class ProductPageCategory(TranslatableMixin, Orderable):
     product = ParentalKey(
@@ -319,7 +439,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
 
     category = models.ForeignKey(
         "wagtailpages.BuyersGuideProductCategory",
-        related_name="+",
+        related_name="product_pages",
         blank=False,
         null=True,
         on_delete=models.CASCADE,
@@ -330,7 +450,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
     ]
 
     def __str__(self):
-        return self.category.name
+        return f"{self.category.name} -> {self.product.title}"
 
     class Meta(TranslatableMixin.Meta):
         verbose_name = "Product Category"
@@ -464,6 +584,15 @@ class ProductUpdates(TranslatableMixin, Orderable):
         ordering = ["sort_order"]
 
 
+class ProductPageQuerySet(PageQuerySet):
+    def with_average_creepiness(self):
+        """Annotates the queryset with the average creepiness for each product page."""
+        return self.annotate(_average_creepiness=Coalesce(models.Avg("evaluation__votes__value"), float(0)))
+
+
+ProductPageManager = PageManager.from_queryset(ProductPageQuerySet)
+
+
 class ProductPage(BasePage):
     """
     ProductPage is the superclass that GeneralProductPages inherits from.
@@ -475,6 +604,7 @@ class ProductPage(BasePage):
     """
 
     template = "pages/buyersguide/product_page.html"
+    parent_page_types = ["wagtailpages.BuyersGuidePage"]
 
     privacy_ding = models.BooleanField(
         verbose_name="*privacy not included ding",
@@ -602,6 +732,8 @@ class ProductPage(BasePage):
         related_name="product_pages",
     )
 
+    objects = ProductPageManager()
+
     @classmethod
     def map_import_fields(cls):
         mappings = {
@@ -643,12 +775,32 @@ class ProductPage(BasePage):
         return mappings
 
     @property
+    def annotated_evaluation(self):
+        """Evaluation object annotated with total and average creepiness."""
+        if not self.evaluation:
+            return None
+        return (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=self.evaluation.pk)
+        )
+
+    @property
     def total_vote_count(self):
-        return self.evaluation.total_votes
+        return self.annotated_evaluation.total_votes
 
     @property
     def creepiness(self):
-        return self.evaluation.average_creepiness
+        try:
+            # Try an annotation made above the ProductPage level
+            return self._average_creepiness
+        except AttributeError:
+            return self.annotated_evaluation.average_creepiness
+
+    @property
+    def average_bin(self):
+        return self.annotated_evaluation.average_bin
 
     @property
     def get_voting_json(self):
@@ -834,11 +986,27 @@ class ProductPage(BasePage):
     def product_type(self):
         return "unknown"
 
+    @property
+    def localized_related_products(self):
+        related_product_relationships = RelatedProducts.objects.filter(page=self)
+        related_products = [relationship.related_product_id for relationship in related_product_relationships]
+        related_products = ProductPage.objects.filter(id__in=related_products)
+        return localize_queryset(related_products).order_by("title")
+
+    @property
+    def local_categories(self):
+        categories = BuyersGuideProductCategory.objects.filter(product_pages__product=self)
+        return localize_categories(categories)
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context["product"] = self
+
         language_code = get_language_from_request(request)
-        context["categories"] = get_categories_for_locale(language_code)
+        categories = BuyersGuideProductCategory.objects.filter(hidden=False, locale__language_code=language_code)
+        categories = localize_categories(categories)
+
+        context["product"] = self
+        context["categories"] = categories
         context["featured_cta"] = self.get_featured_cta()
         context["mediaUrl"] = settings.MEDIA_URL
         context["use_commento"] = settings.USE_COMMENTO
@@ -911,6 +1079,15 @@ class ProductPage(BasePage):
                     return HttpResponseServerError()
 
         return super().serve(request, *args, **kwargs)
+
+    def with_content_json(self, content):
+        """
+        Adds the evaluation object to ``content`` to make sure that it is preserved
+        through revisions.
+        """
+        obj = super().with_content_json(content)
+        obj.evaluation = self.evaluation
+        return obj
 
     class Meta:
         verbose_name = "Product Page"
@@ -1206,6 +1383,38 @@ class GeneralProductPage(ProductPage):
 
     class Meta:
         verbose_name = "General Product Page"
+
+
+@receiver(post_save, sender=GeneralProductPage)
+@receiver(post_save, sender=ProductPage)
+def create_evaluation(sender, instance, created, **kwargs):
+    """Post-save hook to create a ProductPageEvaluation for a ProductPage.
+
+    Creates an evaluation for newly created products and syncs this with all translations.
+    """
+    if created:
+        if instance.locale.language_code == settings.LANGUAGE_CODE and not instance.evaluation:
+            evaluation = ProductPageEvaluation.objects.create()
+            instance.evaluation = evaluation
+            instance.save(update_fields=["evaluation"])
+            ProductPage.objects.filter(translation_key=instance.translation_key).update(evaluation=evaluation)
+    return instance
+
+
+@hooks.register("after_copy_page")
+def reset_product_page_votes(request, page, new_page):
+    """Resets the votes on copied product pages.
+
+    When copying a ProductPage (or GeneralProductPage), the votes are copied as well since
+    the evaluation object is copied over. This hook resets the evaluation object on the
+    product page and its translations so that the votes are also reset.
+    """
+    if new_page.specific_class == ProductPage or new_page.specific_class == GeneralProductPage:
+        evaluation = ProductPageEvaluation.objects.create()
+        new_page.evaluation = evaluation
+        new_page.save(update_fields=["evaluation"])
+        new_products = ProductPage.objects.filter(translation_key=new_page.translation_key)
+        new_products.update(evaluation=evaluation)
 
 
 class ExcludedCategories(TranslatableMixin, Orderable):

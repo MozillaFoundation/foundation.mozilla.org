@@ -1,9 +1,8 @@
 from http import HTTPStatus
 
-from wagtail.models import Page as WagtailPage
-
-from networkapi.donate import factory as donate_factories
-from networkapi.donate import models as pagemodels
+from networkapi.donate.factory import landing_page as landing_page_factories
+from networkapi.donate.models import DonateHelpPage, DonateLandingPage
+from networkapi.wagtailpages.models import Homepage, OpportunityPage
 from networkapi.wagtailpages.tests import base as test_base
 
 
@@ -12,24 +11,24 @@ class FactoriesTest(test_base.WagtailpagesTestCase):
         """
         Testing the factory can successfully create a DonateLandingPage.
         """
-        donate_factories.DonateLandingPageFactory()
+        landing_page_factories.DonateLandingPageFactory()
 
 
 class DonateLandingPageTest(test_base.WagtailpagesTestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.donate_landing_page = donate_factories.DonateLandingPageFactory(
+        cls.donate_landing_page = landing_page_factories.DonateLandingPageFactory(
             parent=cls.homepage,
         )
 
     def test_parent_page_types(self):
         """
-        Testing that the DonateLandingPage model can only be created at the root level.
+        Testing that the DonateLandingPage model can only be created under the Homepage level.
         """
         self.assertAllowedParentPageTypes(
-            child_model=pagemodels.DonateLandingPage,
-            parent_models={WagtailPage},
+            child_model=DonateLandingPage,
+            parent_models={Homepage},
         )
 
     def test_subpage_types(self):
@@ -37,8 +36,8 @@ class DonateLandingPageTest(test_base.WagtailpagesTestCase):
         Testing the DonateLandingPage's allowed subpage types.
         """
         self.assertAllowedSubpageTypes(
-            parent_model=pagemodels.DonateLandingPage,
-            child_models={},
+            parent_model=DonateLandingPage,
+            child_models={DonateHelpPage, OpportunityPage},
         )
 
     def test_page_success(self):

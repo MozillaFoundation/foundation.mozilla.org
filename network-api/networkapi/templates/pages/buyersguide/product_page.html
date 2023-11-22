@@ -1,6 +1,6 @@
 {% extends "pages/buyersguide/base.html" %}
 
-{% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags bg_nav_tags %}
+{% load wagtailcore_tags bg_selector_tags env l10n i18n localization static wagtailimages_tags wagtailroutablepage_tags bg_nav_tags %}
 
 {% block social_metadata %}
     <meta property="og:type" content="website">
@@ -58,13 +58,11 @@
                 <div class="bg-white tw-pb-8 tw-pt-12 tw-px-8 medium:tw-px-16">
                     <div class="row intro">
                         <div class="tw-flex tw-gap-2 tw-flex-wrap tw-px-8 tw-mb-8">
-                            {% for cat in product.product_categories.all %}
-                                {% with category=cat.category %}
-                                    {% localizedroutablepageurl home_page 'category-view' category.slug as cat_url %}
-                                    <a href="{{ cat_url }}" class="category-tag {% if category.parent == None %}category{% else %}subcategory{% endif %} tw-no-underline tw-text-gray-60 border tw-border-gray-20 tw-px-4 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3]">
-                                        {{ category.localized.name }}
-                                    </a>
-                                {% endwith %}
+                            {% for category in product.local_categories %}
+                                {% routablepageurl home_page 'category-view' category.slug as cat_url %}
+                                <a href="{{ cat_url }}" class="category-tag {% if category.parent == None %}category{% else %}subcategory{% endif %} tw-no-underline tw-text-gray-60 border tw-border-gray-20 tw-px-4 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3]">
+                                    {{ category.name }}
+                                </a>
                             {% endfor %}
                         </div>
 
@@ -170,7 +168,7 @@
                 {% endif %}
             {% endwith %}
 
-            {% with related_products=product.related_product_pages.all %}
+            {% with related_products=product.localized_related_products %}
                 {% if related_products %}
                     <div id="related-products" class="tw-col-span-full medium:tw-col-span-2 large:tw-col-start-2">
                         <div class="tw-flex tw-flex-col medium:tw-items-center large:tw-items-baseline medium:tw-flex-row-reverse medium:tw-gap-12">
@@ -179,7 +177,7 @@
                         </div>
                         <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-4 tw-gap-16">
                             {% for related_product_page in related_products %}
-                                {% include "fragments/buyersguide/related_product.html" with related_product=related_product_page.related_product.localized %}
+                                {% include "fragments/buyersguide/related_product.html" with related_product=related_product_page %}
                             {% endfor %}
                         </div>
                     </div>
