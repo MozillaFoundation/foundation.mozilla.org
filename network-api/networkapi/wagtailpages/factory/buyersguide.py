@@ -217,6 +217,14 @@ class GeneralProductPageFactory(ProductPageFactory):
     ai_helptext = Faker("sentence")
 
 
+class RelatedProductsFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.RelatedProducts
+
+    page = SubFactory(ProductPageFactory)
+    related_product = SubFactory(ProductPageFactory)
+
+
 class ProductPagePrivacyPolicyLinkFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.ProductPagePrivacyPolicyLink
