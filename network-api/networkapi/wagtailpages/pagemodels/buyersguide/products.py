@@ -39,7 +39,7 @@ from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
 )
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_buyersguide_featured_cta,
-    get_categories_for_locale,
+    localize_categories,
 )
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
@@ -993,11 +993,20 @@ class ProductPage(BasePage):
         related_products = ProductPage.objects.filter(id__in=related_products)
         return localize_queryset(related_products).order_by("title")
 
+    @property
+    def local_categories(self):
+        categories = BuyersGuideProductCategory.objects.filter(product_pages__product=self)
+        return localize_categories(categories)
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context["product"] = self
+
         language_code = get_language_from_request(request)
-        context["categories"] = get_categories_for_locale(language_code)
+        categories = BuyersGuideProductCategory.objects.filter(hidden=False, locale__language_code=language_code)
+        categories = localize_categories(categories)
+
+        context["product"] = self
+        context["categories"] = categories
         context["featured_cta"] = self.get_featured_cta()
         context["mediaUrl"] = settings.MEDIA_URL
         context["use_commento"] = settings.USE_COMMENTO
