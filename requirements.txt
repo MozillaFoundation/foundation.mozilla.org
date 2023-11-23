@@ -255,7 +255,7 @@ wagtail-factories==4.1.0
     # via -r requirements.in
 wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
     # via -r requirements.in
-wagtail-inventory==2.2
+wagtail-inventory==2.5
     # via -r requirements.in
 wagtail-localize==1.5.2
     # via
