@@ -8,7 +8,7 @@ asgiref==3.5.0
     # via
     #   -c requirements.txt
     #   django
-black==23.9.1
+black==23.11.0
     # via -r dev-requirements.in
 certifi==2022.12.7
     # via
@@ -74,7 +74,7 @@ jsbeautifier==1.14.7
     #   djlint
 mccabe==0.7.0
     # via flake8
-mypy==1.6.1
+mypy==1.7.0
     # via -r dev-requirements.in
 mypy-extensions==1.0.0
     # via
@@ -100,7 +100,7 @@ pycodestyle==2.11.0
     # via flake8
 pyflakes==3.1.0
     # via flake8
-pytest==7.4.2
+pytest==7.4.3
     # via
     #   -r dev-requirements.in
     #   pytest-cov
@@ -109,11 +109,11 @@ pytest==7.4.2
     #   pytest-xdist
 pytest-cov==4.1.0
     # via -r dev-requirements.in
-pytest-django==4.5.2
+pytest-django==4.7.0
     # via -r dev-requirements.in
 pytest-sugar==0.9.7
     # via -r dev-requirements.in
-pytest-xdist==3.3.1
+pytest-xdist==3.5.0
     # via -r dev-requirements.in
 pytz==2021.3
     # via
@@ -157,7 +157,7 @@ tqdm==4.63.0
     #   djlint
 types-python-slugify==8.0.0.3
     # via -r dev-requirements.in
-types-requests==2.31.0.2
+types-requests==2.31.0.6
     # via -r dev-requirements.in
 types-urllib3==1.26.16
     # via types-requests
