@@ -4,9 +4,9 @@ from networkapi.wagtailpages.pagemodels.buyersguide.products import (
     ProductPage,
 )
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
+    _localize_category_parent,
     annotate_product_categories_local_names,
     get_buyersguide_featured_cta,
-    localize_category_parent,
 )
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages.tests.buyersguide import base as bg_test_base
@@ -116,7 +116,7 @@ class LocalizeCategoryParentTests(test_base.WagtailpagesTestCase):
 
         num_queries = 3 + 1  # 3 queries in the function + 1 to get the categories
         with self.assertNumQueries(num_queries):
-            categories = localize_category_parent(categories)
+            categories = _localize_category_parent(categories)
 
         categories_cache = {category.pk: category for category in categories}
         # Make sure parents are correct

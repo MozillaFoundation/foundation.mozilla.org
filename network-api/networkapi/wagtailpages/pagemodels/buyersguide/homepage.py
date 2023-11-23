@@ -377,9 +377,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         categories = cache.get(category_cache_key)
         if not categories:
             categories = BuyersGuideProductCategory.objects.filter(hidden=False, locale__language_code=language_code)
-            categories = localize_queryset(categories)
-            categories = categories.select_related("parent").with_usage_annotation()
-            categories = bg_utils.localize_category_parent(categories)
+            categories = bg_utils.localize_categories(categories)
             cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
 
         context["categories"] = categories
