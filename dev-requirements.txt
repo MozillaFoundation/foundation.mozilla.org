@@ -8,7 +8,7 @@ asgiref==3.5.0
     # via
     #   -c requirements.txt
     #   django
-black==23.9.1
+black==23.11.0
     # via -r dev-requirements.in
 certifi==2022.12.7
     # via
