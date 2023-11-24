@@ -133,6 +133,9 @@ test.describe("Blog body newsletter signup form", () => {
       // test if the form inside the newsletter module is hidden
       const form = moduleContainer.locator("form");
       expect(await form.count()).toBe(0);
+
+      // wait for a few seconds before moving on to avoid triggering the Basket's rate limit
+      await page.waitForTimeout(1000);
     });
   }
 });
