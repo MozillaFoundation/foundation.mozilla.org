@@ -20,7 +20,7 @@ const InputCheckboxField = ({ id, label, errorMessage, ...otherProps }) => {
           )}
         </div>
         {errorMessage && (
-          <p className="tw-body-small tw-mt-0 tw-text-[#c01] dark:tw-text-red-40">
+          <p className="error-message tw-body-small tw-mt-0 tw-text-[#c01] dark:tw-text-red-40">
             {errorMessage}
           </p>
         )}
