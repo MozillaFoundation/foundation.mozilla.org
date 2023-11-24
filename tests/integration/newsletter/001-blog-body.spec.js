@@ -12,10 +12,18 @@ function generateUrl(locale = "en") {
 
 test.describe("Blog body newsletter signup form", () => {
   let localeToTest = locales[0];
+  let pageUrl;
+  let formEmail;
+  let moduleContainer;
+  let innerWrapper;
+  let countryDropdown;
+  let languageDropdown;
+  let submitButton;
+  let errorMessages;
 
   test.beforeEach(async ({ page }) => {
-    const pageUrl = generateUrl(localeToTest);
-    const testEmail = `test-${localeToTest}@example.com`;
+    pageUrl = generateUrl(localeToTest);
+    formEmail = `test-${localeToTest}-${Date.now()}@example.com`; // adding a timestamp to make the email unique
 
     const response = await page.goto(pageUrl);
     const status = await response.status();
@@ -25,14 +33,14 @@ test.describe("Blog body newsletter signup form", () => {
     await waitForImagesToLoad(page);
 
     // test if the newsletter module is visible
-    const moduleContainer = page.locator(
+    moduleContainer = page.locator(
       ".newsletter-signup-module[data-module-type='blog-body']"
     );
     await moduleContainer.waitFor({ state: "visible" });
     expect(await moduleContainer.count()).toBe(1);
 
     // test if the inner wrapper is visible and data-submission-status attribute is set to "none"
-    const innerWrapper = moduleContainer.locator(".inner-wrapper");
+    innerWrapper = moduleContainer.locator(".inner-wrapper");
     await innerWrapper.waitFor({ state: "visible" });
     expect(await innerWrapper.count()).toBe(1);
     expect(await innerWrapper.getAttribute("data-submission-status")).toBe(
@@ -45,7 +53,7 @@ test.describe("Blog body newsletter signup form", () => {
     expect(await form.count()).toBe(1);
 
     // test if there's a submit button
-    const submitButton = form.locator(`button[type="submit"]`);
+    submitButton = form.locator(`button[type="submit"]`);
     expect(await submitButton.count()).toBe(1);
 
     const emailInput = form.locator(`input[type="email"]`);
@@ -57,16 +65,16 @@ test.describe("Blog body newsletter signup form", () => {
     expect(await privacyInput.isChecked()).toBe(false);
 
     // test if toggleable fields are hidden (not rendered on the page) by default
-    const countryDropdown = form.locator(`select[name="country"]`);
+    countryDropdown = form.locator(`select[name="country"]`);
     expect(await countryDropdown.count()).toBe(0);
 
-    const languageDropdown = form.locator(`select[name="language"]`);
+    languageDropdown = form.locator(`select[name="language"]`);
     expect(await languageDropdown.count()).toBe(0);
 
     // test if submitting the form without filling out the required fields creates validation errors
     // wait for submitButton's click event to be attached
     const requiredFields = await form.locator(`[required]`);
-    let errorMessages = form.locator(".error-message");
+    errorMessages = form.locator(".error-message");
     await submitButton.waitFor({ state: "attached" });
     await submitButton.click();
     expect(await errorMessages.count()).toBe(await requiredFields.count());
@@ -76,49 +84,21 @@ test.describe("Blog body newsletter signup form", () => {
     expect(await countryDropdown.count()).toBe(1);
     expect(await languageDropdown.count()).toBe(1);
 
-    // test if filling out the form and submitting it eliminates the validation errors
-    await emailInput.fill(testEmail);
+    // filling out all required fields on the form and submitting it eliminates the validation errors
+    await emailInput.fill(formEmail);
     await privacyInput.check();
-
-    // wait for the request before submitting the form
-    const apiUrl = await moduleContainer.getAttribute("data-api-url");
-    const fetchRequest = page.waitForRequest(apiUrl);
-
-    await submitButton.click();
-    expect(await errorMessages.count()).toBe(0);
-    expect(await innerWrapper.getAttribute("data-submission-status")).toBe(
-      "pending"
-    );
-
-    const postData = (await fetchRequest).postData();
-    let postDataObj = JSON.parse(postData);
-
-    expect(postDataObj.email).toBe(testEmail);
-    expect(postDataObj.country).toBe("");
-    expect(postDataObj.lang).toBe(localeToTest);
-    expect(postDataObj.source).toBe(pageUrl);
-
-    // wait for the fetch response to be received
-    const fetchResponse = await page.waitForResponse(apiUrl);
-    expect(fetchResponse.status()).toBe(201);
   });
 
+  // test all locales we support on the site
   for (const locale of locales) {
-    test(`(${locale}) Signing up newsletter`, async ({ page }) => {
-      localeToTest = locale;
+    localeToTest = locale;
 
+    async function testThankYouScreen() {
       // Form has been submitted successfully.
       //   - Thank you messages should be displayed.
-      //   - Form should not be displayed.
-      const moduleContainer = page.locator(
-        ".newsletter-signup-module[data-module-type='blog-body']"
-      );
-      await moduleContainer.waitFor({ state: "visible" });
-      expect(await moduleContainer.count()).toBe(1);
+      //   - Form should not be displayed
 
-      const innerWrapper = moduleContainer.locator(".inner-wrapper");
       await innerWrapper.waitFor({ state: "visible" });
-      expect(await innerWrapper.count()).toBe(1);
       expect(await innerWrapper.getAttribute("data-submission-status")).toBe(
         "success"
       );
@@ -133,9 +113,73 @@ test.describe("Blog body newsletter signup form", () => {
       // test if the form inside the newsletter module is hidden
       const form = moduleContainer.locator("form");
       expect(await form.count()).toBe(0);
+    }
 
-      // wait for a few seconds before moving on to avoid triggering the Basket's rate limit
-      await page.waitForTimeout(1000);
+    test(`(${locale}) Signing up by filling out only the required fields`, async ({
+      page,
+    }) => {
+      // wait for the request before submitting the form
+      const apiUrl = await moduleContainer.getAttribute("data-api-url");
+      const fetchRequest = page.waitForRequest(apiUrl);
+
+      await submitButton.click();
+      expect(await errorMessages.count()).toBe(0);
+      expect(await innerWrapper.getAttribute("data-submission-status")).toBe(
+        "pending"
+      );
+
+      // check if the data going to be sent to the API is correct
+      const postData = (await fetchRequest).postData();
+      let postDataObj = JSON.parse(postData);
+
+      expect(postDataObj.email).toBe(formEmail);
+      expect(postDataObj.country).toBe("");
+      // language by default is set to the page's locale
+      expect(postDataObj.lang).toBe(localeToTest);
+      expect(postDataObj.source).toBe(pageUrl);
+
+      // wait for the fetch response to be received and check if form has been submitted successfully
+      const fetchResponse = await page.waitForResponse(apiUrl);
+      expect(fetchResponse.status()).toBe(201);
+
+      // check if the thank you screen is correctly displayed
+      await testThankYouScreen();
+    });
+
+    test(`(${locale}) Signing up by filling out all fields`, async ({
+      page,
+    }) => {
+      const formCountry = "CA";
+      const formLang = "pt-BR";
+
+      await countryDropdown.selectOption(formCountry);
+      await languageDropdown.selectOption(formLang);
+
+      // wait for the request before submitting the form
+      const apiUrl = await moduleContainer.getAttribute("data-api-url");
+      const fetchRequest = page.waitForRequest(apiUrl);
+
+      await submitButton.click();
+      expect(await errorMessages.count()).toBe(0);
+      expect(await innerWrapper.getAttribute("data-submission-status")).toBe(
+        "pending"
+      );
+
+      // check if the data going to be sent to the API is correct
+      const postData = (await fetchRequest).postData();
+      let postDataObj = JSON.parse(postData);
+
+      expect(postDataObj.email).toBe(formEmail);
+      expect(postDataObj.country).toBe(formCountry);
+      expect(postDataObj.lang).toBe(formLang);
+      expect(postDataObj.source).toBe(pageUrl);
+
+      // wait for the fetch response to be received and check if form has been submitted successfully
+      const fetchResponse = await page.waitForResponse(apiUrl);
+      expect(fetchResponse.status()).toBe(201);
+
+      // check if the thank you screen is correctly displayed
+      await testThankYouScreen();
     });
   }
 });
