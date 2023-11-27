@@ -9,6 +9,7 @@ anyascii==0.3.0
 asgiref==3.7.2
     # via
     #   django
+    #   django-htmx
     #   scout-apm
 async-timeout==4.0.2
     # via redis
@@ -84,7 +85,7 @@ django-filter==22.1
     # via
     #   -r requirements.in
     #   wagtail
-django-htmx==1.16.0
+django-htmx==1.17.2
     # via -r requirements.in
 django-modelcluster==6.0
     # via wagtail
