@@ -4,6 +4,7 @@ const utility = require("./utility.js");
 
 test.describe("FormAssembly petition form", () => {
   const TIMESTAMP = Date.now();
+  let thankYouUrlInputValue = "";
   // locales we support on foundation.mozilla.org
   let supportedLocales = [
     "en",
@@ -64,18 +65,18 @@ test.describe("FormAssembly petition form", () => {
     );
     expect(await thankYouUrlInput.count()).toBe(1);
     expect(await thankYouUrlInput).toBeHidden();
-    expect(await thankYouUrlInput.inputValue()).toContain(
-      utility.THANK_YOU_PAGE_QUERY
-    );
+    thankYouUrlInputValue = await thankYouUrlInput.inputValue();
+    // test if the thank you url in the input field is correct
+    expect(
+      utility.isExpectedThankYouUrl(thankYouUrlInputValue, page.url(), false)
+    ).toBe(true);
 
     const sourceUrlInput = wFormContainer.locator(
       utility.FA_HIDDEN_FIELDS.sourceUrl
     );
     expect(await sourceUrlInput.count()).toBe(1);
     expect(await sourceUrlInput).toBeHidden();
-    expect((await sourceUrlInput.inputValue()).split("?")[0]).toContain(
-      utility.generateUrl(localeToTest)
-    );
+    expect(await sourceUrlInput.inputValue()).toBe(page.url());
 
     const langInput = wFormContainer.locator(utility.FA_HIDDEN_FIELDS.lang);
     expect(await langInput.count()).toBe(1);
@@ -130,7 +131,9 @@ test.describe("FormAssembly petition form", () => {
     test(`(${locale}) Signing petition`, async ({ page }) => {
       localeToTest = locale;
       // Form has been submitted successfully. Page should be redirected to thank you page
-      expect(page.url()).toContain(utility.THANK_YOU_PAGE_QUERY);
+      expect(
+        utility.isExpectedThankYouUrl(page.url(), thankYouUrlInputValue, true)
+      ).toBe(true);
     });
 
     test(`(${locale}) Signing petition using the same email`, async ({
@@ -139,7 +142,9 @@ test.describe("FormAssembly petition form", () => {
       localeToTest = locale;
       // We turned off a config so that Salesforce errors won't be visible to the user.
       // This means signing the petition using the same email address should still send users to the thank you page
-      expect(page.url()).toContain(utility.THANK_YOU_PAGE_QUERY);
+      expect(
+        utility.isExpectedThankYouUrl(page.url(), thankYouUrlInputValue, true)
+      ).toBe(true);
     });
   }
 });
