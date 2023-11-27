@@ -56,13 +56,16 @@ test.describe("Blog body newsletter signup form", () => {
     submitButton = form.locator(`button[type="submit"]`);
     expect(await submitButton.count()).toBe(1);
 
+    // test if the required fields (email and privacy checkbox) are rendered on the page
     const emailInput = form.locator(`input[type="email"]`);
     expect(await emailInput.count()).toBe(1);
     expect(await emailInput.inputValue()).toBe("");
+    expect(await emailInput.getAttribute("required")).toBe("");
 
     const privacyInput = form.locator(`input[type="checkbox"][name="privacy"]`);
     expect(await privacyInput.count()).toBe(1);
     expect(await privacyInput.isChecked()).toBe(false);
+    expect(await privacyInput.getAttribute("required")).toBe("");
 
     // test if toggleable fields are hidden (not rendered on the page) by default
     countryDropdown = form.locator(`select[name="country"]`);
