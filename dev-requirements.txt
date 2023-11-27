@@ -4,13 +4,13 @@
 #
 #    pip-compile dev-requirements.in
 #
-asgiref==3.5.0
+asgiref==3.7.2
     # via
     #   -c requirements.txt
     #   django
 black==23.11.0
     # via -r dev-requirements.in
-certifi==2022.12.7
+certifi==2023.7.22
     # via
     #   -c requirements.txt
     #   requests
@@ -32,7 +32,7 @@ coveralls==3.3.1
     # via -r dev-requirements.in
 cssbeautifier==1.14.7
     # via djlint
-django==3.2.21
+django==3.2.23
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
@@ -74,7 +74,7 @@ jsbeautifier==1.14.7
     #   djlint
 mccabe==0.7.0
     # via flake8
-mypy==1.7.0
+mypy==1.7.1
     # via -r dev-requirements.in
 mypy-extensions==1.0.0
     # via
@@ -164,6 +164,7 @@ types-urllib3==1.26.16
 typing-extensions==4.4.0
     # via
     #   -c requirements.txt
+    #   asgiref
     #   black
     #   mypy
 urllib3==1.26.15
