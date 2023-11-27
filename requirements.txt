@@ -203,7 +203,7 @@ s3transfer==0.7.0
     # via boto3
 scout-apm==3.0.2
     # via -r requirements.in
-sentry-sdk==1.36.0
+sentry-sdk==1.37.1
     # via -r requirements.in
 six==1.16.0
     # via
