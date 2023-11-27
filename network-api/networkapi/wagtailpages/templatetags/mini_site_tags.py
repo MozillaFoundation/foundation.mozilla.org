@@ -1,4 +1,4 @@
-from urllib.parse import urlparse, parse_qsl, urlencode, urlunparse
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
