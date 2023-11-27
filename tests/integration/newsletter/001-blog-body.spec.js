@@ -4,7 +4,7 @@ const {
   LANGUAGE_OPTIONS,
 } = require("../../../source/js/components/newsletter-signup/data/language-options.js");
 
-const locales = LANGUAGE_OPTIONS.map((language) => language.value).slice(0, 2);
+const locales = LANGUAGE_OPTIONS.map((language) => language.value);
 
 function generateUrl(locale = "en") {
   return `http://localhost:8000/${locale}/blog/initial-test-blog-post-with-fixed-title/?random=query`;
@@ -162,8 +162,6 @@ test.describe("Blog body newsletter signup form", () => {
       const apiUrl = await moduleContainer.getAttribute("data-api-url");
       const fetchRequest = page.waitForRequest(apiUrl);
 
-      console.log("\n\n ======== apiUrl: ", apiUrl, "\n\n");
-
       await submitButton.click();
       expect(await errorMessages.count()).toBe(0);
       expect(await innerWrapper.getAttribute("data-submission-status")).toBe(
@@ -173,8 +171,6 @@ test.describe("Blog body newsletter signup form", () => {
       // check if the data going to be sent to the API is correct
       const postData = (await fetchRequest).postData();
       let postDataObj = JSON.parse(postData);
-
-      console.log(fetchRequest, "\n\n ======== fetchRequest: ", fetchRequest);
 
       expect(postDataObj.email).toBe(formEmail);
       expect(postDataObj.country).toBe(formCountry);
