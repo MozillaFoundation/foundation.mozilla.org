@@ -1,4 +1,4 @@
-from urllib.parse import urlencode, urlparse, urlunparse
+from urllib.parse import urlparse, parse_qsl, urlencode, urlunparse
 
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
@@ -31,9 +31,9 @@ def cta(context, page):
         """
 
         parsed_url = urlparse(url)
-        query_params = parsed_url.query
-        new_query_params = urlencode({"thank_you": "true"})
-        query_string = "&".join(filter(None, [query_params, new_query_params]))
+        query_params = parse_qsl(parsed_url.query)
+        query_params.append(("thank_you", "true"))
+        query_string = urlencode(query_params)
         thank_you_url = urlunparse(parsed_url._replace(query=query_string))
 
         return thank_you_url
