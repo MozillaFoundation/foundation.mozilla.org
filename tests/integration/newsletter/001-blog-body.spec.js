@@ -12,14 +12,14 @@ function generateUrl(locale = "en") {
 
 test.describe("Blog body newsletter signup form", () => {
   let localeToTest = locales[0];
-  let pageUrl;
-  let formEmail;
-  let moduleContainer;
-  let innerWrapper;
-  let countryDropdown;
-  let languageDropdown;
-  let submitButton;
-  let errorMessages;
+  let pageUrl,
+    formEmail,
+    moduleContainer,
+    innerWrapper,
+    countryDropdown,
+    languageDropdown,
+    submitButton,
+    errorMessages;
 
   test.beforeEach(async ({ page }) => {
     pageUrl = generateUrl(localeToTest);
