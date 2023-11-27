@@ -4,7 +4,7 @@
 #
 #    pip-compile dev-requirements.in
 #
-asgiref==3.5.0
+asgiref==3.7.2
     # via
     #   -c requirements.txt
     #   django
@@ -164,6 +164,7 @@ types-urllib3==1.26.16
 typing-extensions==4.4.0
     # via
     #   -c requirements.txt
+    #   asgiref
     #   black
     #   mypy
 urllib3==1.26.15
