@@ -190,7 +190,7 @@ class BlogBodySignForm extends Component {
           </div>
           <div className="tw-mt-8 medium:tw-mt-0">
             <ButtonSubmit widthClasses="tw-w-full">
-              getText("Sign Up")
+              {getText("Sign Up")}
             </ButtonSubmit>
           </div>
         </div>
