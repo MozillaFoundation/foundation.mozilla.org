@@ -26,6 +26,7 @@ python-slugify
 requests
 social-auth-app-django
 wagtail==4.1.9
+wagtail-ab-testing
 wagtail-color-panel
 wagtail-factories
 wagtail-localize==1.7
