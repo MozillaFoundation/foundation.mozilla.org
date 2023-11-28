@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Heading = ({ level = 2, children }) => {
+const Heading = ({ level = 3, children }) => {
   const TagName = `h${level}`;
-  return <TagName className="tw-h1-heading">{children}</TagName>;
+  return <TagName className="tw-h3-heading">{children}</TagName>;
 };
 
 Heading.propTypes = {
