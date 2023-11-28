@@ -51,7 +51,7 @@ const InputEmail = ({
 
     errorNotice = (
       <>
-        <p className="tw-body-small tw-mt-4 tw-text-[#c01] dark:tw-text-red-40">
+        <p className="error-message tw-body-small tw-mt-4 tw-text-[#c01] dark:tw-text-red-40">
           {errorMessage}
         </p>
       </>

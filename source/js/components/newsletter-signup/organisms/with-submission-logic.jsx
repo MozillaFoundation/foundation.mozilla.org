@@ -236,6 +236,7 @@ function withSubmissionLogic(WrappedComponent) {
       return (
         <WrappedComponent
           {...otherProps}
+          innerWrapperClass="inner-wrapper"
           noBrowserValidation={true}
           errors={this.state.errors}
           onSubmit={(event, formData) => this.handleSubmit(event, formData)}
@@ -246,6 +247,7 @@ function withSubmissionLogic(WrappedComponent) {
             (this.API_SUBMISSION_STATUS.SUCCESS ||
               this.API_SUBMISSION_STATUS.ERROR)
           }
+          apiSubmissionStatus={this.state.apiSubmissionStatus}
         />
       );
     }
