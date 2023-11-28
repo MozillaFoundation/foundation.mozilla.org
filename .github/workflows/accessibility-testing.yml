@@ -32,7 +32,7 @@ jobs:
       DJANGO_SECRET_KEY: secret
       DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NETWORK_SITE_URL: https://foundation.mozilla.org
+      NETWORK_SITE_URL: http://localhost:8000
       PIPENV_VERBOSITY: -1
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
       PULSE_DOMAIN: https://www.mozillapulse.org
@@ -68,7 +68,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gettext libgconf-2-4
       - name: Install pa11y
-        run: npm install pa11y
+        run: npm install pa11y-ci
       - name: Preroll
         run: |
           npm run build
@@ -76,5 +76,5 @@ jobs:
           python network-api/manage.py migrate --no-input
           python network-api/manage.py block_inventory
           python network-api/manage.py load_fake_data
-      - name: Integration Tests
-        run: npm run pa11y
+      - name: Run pa11y tests
+        run: npm run pa11y:ci
