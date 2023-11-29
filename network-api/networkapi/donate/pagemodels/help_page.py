@@ -1,3 +1,4 @@
+from django.http import QueryDict
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Page
@@ -44,3 +45,15 @@ class DonateHelpPage(BaseDonationPage):
         TranslatableField("notice"),
         TranslatableField("body"),
     ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["thank_you_url"] = self.get_thank_you_url(request)
+        context["show_formassembly_thank_you"] = context["request"].GET.get("thank_you") == "true"
+        return context
+
+    def get_thank_you_url(self, request):
+        params = QueryDict(mutable=True)
+        params.update(request.GET)
+        params["thank_you"] = "true"
+        return request.build_absolute_uri(request.path + "?" + params.urlencode())
