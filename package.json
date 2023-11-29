@@ -43,7 +43,7 @@
     "optimize": "run-p optimize:**",
     "percy": "percy exec -t 750 -- npm run playwright:percy",
     "pa11y:ci": "run-p --race server pa11y:test",
-    "pa11y:test": "wait-on -i 3000 -t 120000 -v http://localhost:8000/en/sitemap.xml && pa11y-ci --sitemap http://localhost:8000/en/sitemap.xml",
+    "pa11y:test": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && pa11y-ci http://localhost:8000/en/",
     "playwright": "npm run playwright:wait:dev && playwright test ./tests/integration/",
     "playwright:install": "playwright install chromium firefox webkit",
     "playwright:wait:dev": "wait-on -i 3000 http://localhost:8000/static/_css/tailwind.compiled.css",
