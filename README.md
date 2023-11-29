@@ -1,6 +1,6 @@
 # foundation.mozilla.org
 
-## Getting started
+## Getting started - [FOO BAR]
 
 Before you start working on the project, be sure to read this README and the linked docs.
 
