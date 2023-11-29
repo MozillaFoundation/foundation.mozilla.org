@@ -7,7 +7,7 @@ on:
     types: [submitted]
   push:
     branches:
-      - 'main'
+      - "main"
 jobs:
   visual_regression_tests:
     name: Percy CI
@@ -32,7 +32,7 @@ jobs:
       DJANGO_SECRET_KEY: secret
       DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NETWORK_SITE_URL: https://foundation.mozilla.org
+      NETWORK_SITE_URL: http://localhost:8000
       PIPENV_VERBOSITY: -1
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
       PULSE_DOMAIN: https://www.mozillapulse.org

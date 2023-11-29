@@ -450,6 +450,18 @@ def generate_blog_index_callout_box_field():
     )
 
 
+def generate_blog_newsletter_signup_field():
+    from networkapi.wagtailpages.factory.customblocks.newsletter_signup_block import (
+        BlogNewsletterSignupBlockFactory,
+    )
+    from networkapi.wagtailpages.pagemodels.customblocks.newsletter_signup_block import (
+        BlogNewsletterSignupBlock,
+    )
+
+    block = BlogNewsletterSignupBlockFactory.create()
+    return generate_field("newsletter_signup", BlogNewsletterSignupBlock().get_api_representation(block))
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -498,6 +510,7 @@ class StreamfieldProvider(BaseProvider):
             "banner_video": generate_banner_video_field,
             "current_events_slider": generate_current_events_slider_field,
             "callout_box": generate_blog_index_callout_box_field,
+            "blog_newsletter_signup": generate_blog_newsletter_signup_field,
         }
 
         streamfield_data = []
