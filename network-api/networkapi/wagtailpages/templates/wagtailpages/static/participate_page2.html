@@ -44,7 +44,6 @@
             <div class="row">
                 {% for entry in page.ordered_featured_highlights2 %}
                     {% with highlight=entry.highlight %}
-                        <p>{{ highlight.title }}</p>
                         <div class="col-md-6 col-lg-4">
                             {% card highlight.image highlight.title highlight.description highlight.link_url highlight.link_label %}
                         </div>
