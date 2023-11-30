@@ -54,7 +54,7 @@ jobs:
       DJANGO_SECRET_KEY: secret
       DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NETWORK_SITE_URL: https://foundation.mozilla.org
+      NETWORK_SITE_URL: http://localhost:8000
       PIPENV_VERBOSITY: -1
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
       PULSE_DOMAIN: https://www.mozillapulse.org
@@ -127,6 +127,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       ALLOWED_HOSTS: 127.0.0.1,localhost,mozfest.localhost,default-site.com,secondary-site.com
+      BASKET_URL: https://basket-dev.allizom.org
       CONTENT_TYPE_NO_SNIFF: True
       CORS_ALLOWED_ORIGINS: "*"
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
@@ -134,7 +135,7 @@ jobs:
       DJANGO_SECRET_KEY: secret
       DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NETWORK_SITE_URL: https://foundation.mozilla.org
+      NETWORK_SITE_URL: http://localhost:8000
       PIPENV_VERBOSITY: -1
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
       PULSE_DOMAIN: https://www.mozillapulse.org
