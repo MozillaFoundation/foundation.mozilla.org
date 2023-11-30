@@ -84,7 +84,8 @@ class DonateHelpPageTest(test_base.WagtailpagesTestCase):
 
     def test_thank_you_url_with_existing_query_params(self):
         """
-        Testing that the "thank_you_url" is correctly added to the page context when there are existing query parameters.
+        Testing that the "thank_you_url" is correctly added to the page context when there
+        are existing query parameters.
         """
         url = self.donate_help_page.get_url() + "?existing_param=value"
         response = self.client.get(url)
