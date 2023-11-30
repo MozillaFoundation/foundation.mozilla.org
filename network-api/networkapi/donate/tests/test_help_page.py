@@ -76,9 +76,10 @@ class DonateHelpPageTest(test_base.WagtailpagesTestCase):
         """
         Testing that the "thank_you_url" is correctly added to the page context.
         """
-        url = self.donate_help_page.get_url()
-        response = self.client.get(url)
-        expected_thank_you_url = self.client.build_absolute_uri(url + "?thank_you=true")
+        page_url = self.donate_help_page.get_full_url()
+        response = self.client.get(page_url)
+
+        expected_thank_you_url = page_url + "?thank_you=true"
 
         self.assertEqual(response.context["thank_you_url"], expected_thank_you_url)
 
@@ -87,8 +88,9 @@ class DonateHelpPageTest(test_base.WagtailpagesTestCase):
         Testing that the "thank_you_url" is correctly added to the page context when there
         are existing query parameters.
         """
-        url = self.donate_help_page.get_url() + "?existing_param=value"
-        response = self.client.get(url)
-        expected_thank_you_url = self.client.build_absolute_uri(url + "&thank_you=true")
+        page_url = self.donate_help_page.get_full_url() + "?existing_param=value"
+        response = self.client.get(page_url)
+
+        expected_thank_you_url = page_url + "&thank_you=true"
 
         self.assertEqual(response.context["thank_you_url"], expected_thank_you_url)
