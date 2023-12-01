@@ -28,7 +28,7 @@
 
         <div class="my-2">
             <div class="row">
-                {% for entry in page.featured_highlights.all %}
+                {% for entry in page.ordered_featured_highlights %}
                     {% with highlight=entry.highlight %}
                         <div class="col-md-6 col-lg-4 {% if forloop.counter == 3 %}d-md-none d-lg-block{% endif %}">
                             {% card highlight.image highlight.title highlight.description highlight.link_url highlight.link_label %}
@@ -42,7 +42,7 @@
 
         <div class="my-5">
             <div class="row">
-                {% for entry in page.featured_highlights2.all %}
+                {% for entry in page.ordered_featured_highlights2 %}
                     {% with highlight=entry.highlight %}
                         <div class="col-md-6 col-lg-4">
                             {% card highlight.image highlight.title highlight.description highlight.link_url highlight.link_label %}
