@@ -55,3 +55,4 @@ class ResearchHubTestCase(test_base.WagtailpagesTestCase):
 
     def setUp(self):
         self.synchronize_tree()
+        self.activate_locale(self.default_locale)
