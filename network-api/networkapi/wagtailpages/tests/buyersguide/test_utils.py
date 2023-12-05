@@ -114,7 +114,7 @@ class LocalizeCategoryParentTests(test_base.WagtailpagesTestCase):
         categories = BuyersGuideProductCategory.objects.filter(id__in=category_ids).select_related("parent").all()
         self.activate_locale(self.fr_locale)
 
-        num_queries = 3 + 1  # 3 queries in the function + 1 to get the categories
+        num_queries = 2 + 1  # 2 queries in the function + 1 to get the categories
         with self.assertNumQueries(num_queries):
             categories = _localize_category_parent(categories)
 
