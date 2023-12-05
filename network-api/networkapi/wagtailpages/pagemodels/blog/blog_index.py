@@ -42,7 +42,9 @@ class FeaturedBlogPages(WagtailOrderable, models.Model):
         related_name="featured_pages",
     )
 
-    blog = models.ForeignKey("wagtailpages.BlogPage", on_delete=models.CASCADE, related_name="+")
+    blog = models.ForeignKey(
+        "wagtailpages.BlogPage", on_delete=models.CASCADE, related_name="featured_pages_relationship"
+    )
 
     panels = [
         PageChooserPanel("blog", "wagtailpages.BlogPage"),
@@ -421,11 +423,11 @@ class BlogIndexPage(IndexPage):
     def get_authors_frequent_topics(self, author_profile):
         top_topics = (
             BlogPageTopic.objects.filter(blogpage__authors__author=author_profile)
-            .annotate(count=models.Count("name"))
-            .order_by("-count")[:3]
+            .annotate(count=models.Count("pk"))
+            .order_by("-count")
         )
 
-        top_topics = localize_queryset(top_topics)
+        top_topics = localize_queryset(top_topics, preserve_order=True)[:3]
 
         return top_topics
 
@@ -503,3 +505,12 @@ class BlogIndexPage(IndexPage):
                 order_by_relevance=True,
             )
         return entries
+
+    @property
+    def localised_featured_pages(self):
+        from .blog import BlogPage
+
+        featured_blog_pages = BlogPage.objects.filter(featured_pages_relationship__page=self).order_by(
+            "featured_pages_relationship__sort_order"
+        )
+        return localize_queryset(featured_blog_pages, preserve_order=True)
