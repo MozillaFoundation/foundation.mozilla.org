@@ -50,9 +50,6 @@ class FeaturedBlogPages(WagtailOrderable, models.Model):
         PageChooserPanel("blog", "wagtailpages.BlogPage"),
     ]
 
-    class Meta:
-        ordering = ["sort_order"]  # not automatically inherited!
-
     def __str__(self):
         return self.page.title + "->" + self.blog.title
 

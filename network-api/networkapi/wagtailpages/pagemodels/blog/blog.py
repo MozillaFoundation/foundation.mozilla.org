@@ -82,6 +82,9 @@ class BlogAuthors(TranslatableMixin, Orderable):
     def __str__(self):
         return self.author.name
 
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
+
 
 class RelatedBlogPosts(Orderable):
     page = ParentalKey(
@@ -103,10 +106,9 @@ class RelatedBlogPosts(Orderable):
     def __str__(self):
         return self.related_post.title
 
-    class Meta:
+    class Meta(Orderable.Meta):
         verbose_name = "Related blog posts"
         verbose_name_plural = "Related blog posts"
-        ordering = ["sort_order"]
 
 
 class BlogPage(BasePage):
