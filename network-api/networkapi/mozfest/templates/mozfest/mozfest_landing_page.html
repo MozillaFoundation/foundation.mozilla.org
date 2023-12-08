@@ -1,0 +1,20 @@
+{% extends "./mozfest-base.html" %}
+{% load wagtailcore_tags mofo_common %}
+
+{% block page_title %}
+    {% environment_prefix %}
+    {{ page.title }}
+{% endblock %}
+
+{% block mozfest_body_id %}landing-page{% endblock %}
+{% block bodyclass %}mozfest{% endblock %}
+
+{% block hero_guts %}
+    {% include "partials/primary_heroguts.html" with root=root page=page landing_page=True %}
+{% endblock %}
+
+{% block bootstrap_width %}col-lg-12{% endblock %}
+
+{% block footer_block %}
+    {% include "partials/mozfest_footer.html" %}
+{% endblock %}
