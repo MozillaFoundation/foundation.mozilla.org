@@ -10,6 +10,8 @@ from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.factory.signup import SignupFactory
 
+from networkapi.mozfest import models as mozfest_models
+
 streamfield_fields = ["paragraph", "image", "spacer", "quote"]
 Faker.add_provider(StreamfieldProvider)
 
@@ -101,4 +103,7 @@ def generate(seed):
     ]
 
     print("Generating Mozfest landing-pages")
-    [MozfestLandingPageFactory.create(parent=home_page, title=title) for title in ["Landing page 1", "Landing page 2"]]
+    [
+        MozfestLandingPageFactory.create(parent=home_page, title=title)
+        for title in ["Landing page 1", "Landing page 2"]
+    ]
