@@ -230,6 +230,7 @@ module.exports = {
         },
         purple: {
           100: "#fa00ff",
+          200: "#8e769d"
         },
       },
       "dear-internet": {

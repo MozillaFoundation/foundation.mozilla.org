@@ -1,14 +1,23 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <div id="hero">
-    {% if homepage %}
-        {% if page.banner_carousel %}
-            {# Hero with carousel and featured video below #}
-            {% include "fragments/hero/carousel_hero.html" with page=page banner_video_type=banner_video_type %}
-        {% else %}
-            {# Hero with hardcoded video as background #}
-            {% include "fragments/hero/hardcoded_video_hero.html" with page=page banner_video_type=banner_video_type %}
-        {% endif %}
+    {% if homepage or landing_page %}
+        <div class="tw-relative tw-dark tw-w-full tw-h-[470px] large:tw-h-[620px] tw-bg-[url('../_images/donate-banner-giving.jpg')] tw-bg-center tw-bg-cover">
+            <div class="tw-bg-gradient-to-t tw-from-black tw-via-black tw-via-30% tw-to-festival-purple-200 tw-inset-0 tw-absolute tw-opacity-80"></div>
+            <div class="container">
+                <div class="tw-row">
+                    <div class="tw-px-8 tw-absolute tw-w-full tw-bottom-12 large:tw-w-6/12 large:tw-bottom-24">
+                        <p class="tw-bg-blue-05 tw-inline-block tw-text-black tw-text-sm tw-uppercase tw-py-3 tw-px-6 tw-rounded-3xl">
+                            <span>1st-3rd June 2024</span>
+                            <span>&#124; Maldives</span>
+                        </p>
+                        <h1 class="tw-h1-heading">MozFest House: 2024</h1>
+                        <p class="tw-body-large">Dedicated to creating a healthier and more inclusive internet.</p>
+                        <a class="tw-btn-secondary" href="#">Get your tickets</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% else %}
         <div class="banner">
             {% include "fragments/hero/normal.html" with page=page %}
