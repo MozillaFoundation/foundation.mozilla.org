@@ -4,12 +4,11 @@ from wagtail.models import Page as WagtailPage
 from wagtail.models import Site as WagtailSite
 from wagtail_factories import PageFactory
 
+from networkapi.mozfest import models as mozfest_models
 from networkapi.utility.faker import StreamfieldProvider
 from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.factory.signup import SignupFactory
-
-from .models import MozfestHomepage, MozfestPrimaryPage
 
 streamfield_fields = ["paragraph", "image", "spacer", "quote"]
 Faker.add_provider(StreamfieldProvider)
@@ -21,7 +20,7 @@ if settings.HEROKU_APP_NAME:
 
 class MozfestPrimaryPageFactory(PageFactory):
     class Meta:
-        model = MozfestPrimaryPage
+        model = mozfest_models.MozfestPrimaryPage
         exclude = "header_text"
 
     header = LazyAttribute(lambda o: o.header_text.rstrip("."))
@@ -33,7 +32,7 @@ class MozfestPrimaryPageFactory(PageFactory):
 
 class MozfestHomepageFactory(MozfestPrimaryPageFactory):
     class Meta:
-        model = MozfestHomepage
+        model = mozfest_models.MozfestHomepage
         exclude = ("header_text", "banner_heading_text")
 
     banner_heading = "Come with an idea, leave with a community."
@@ -54,14 +53,21 @@ class MozfestHomepageFactory(MozfestPrimaryPageFactory):
     signup = SubFactory(SignupFactory)
 
 
+class MozfestLandingPageFactory(PageFactory):
+    class Meta:
+        model = mozfest_models.MozfestLandingPage
+
+    body = Faker("streamfield", fields=streamfield_fields)
+
+
 def generate(seed):
     reseed(seed)
 
     print("Generating Mozfest Homepage")
     try:
-        home_page = MozfestHomepage.objects.get(title="Mozilla Festival")
+        home_page = mozfest_models.MozfestHomepage.objects.get(title="Mozilla Festival")
         print("Homepage already exists")
-    except MozfestHomepage.DoesNotExist:
+    except mozfest_models.MozfestHomepage.DoesNotExist:
         print("Generating a Homepage")
         site_root = WagtailPage.objects.get(depth=1)
 
@@ -93,3 +99,6 @@ def generate(seed):
         MozfestPrimaryPageFactory.create(parent=home_page, title=title)
         for title in ["Spaces", "Tickets", "Team", "Sponsors"]
     ]
+
+    print("Generating Mozfest landing-pages")
+    [MozfestLandingPageFactory.create(parent=home_page, title=title) for title in ["Landing page 1", "Landing page 2"]]

@@ -63,9 +63,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         FieldPanel("body"),
     ]
 
-    subpage_types = [
-        "MozfestPrimaryPage",
-    ]
+    subpage_types = ["MozfestPrimaryPage", "MozfestLandingPage"]
 
     show_in_menus_default = True
 
@@ -237,10 +235,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         use_json_field=True,
     )
 
-    subpage_types = [
-        "MozfestPrimaryPage",
-        "MozfestHomepage",
-    ]
+    subpage_types = ["MozfestPrimaryPage", "MozfestHomepage", "MozfestLandingPage"]
 
     # See https://github.com/mozilla/foundation.mozilla.org/issues/7883#issuecomment-996039763
     content_panels = Page.content_panels + [
@@ -293,3 +288,11 @@ class MozfestHomepage(MozfestPrimaryPage):
 
     def get_template(self, request):
         return "mozfest/mozfest_homepage.html"
+
+
+class MozfestLandingPage(MozfestPrimaryPage):
+    def get_template(self, request):
+        return "mozfest/mozfest_landing_page.html"
+
+    # Don't offer to use a wide tamplet
+    settings_panels = Page.settings_panels
