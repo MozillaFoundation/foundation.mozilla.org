@@ -265,7 +265,10 @@ class MozfestLandingPage(MozfestPrimaryPage):
     def get_template(self, request):
         return "mozfest/mozfest_landing_page.html"
 
-    # Don't offer to use a wide tamplate
+    # As this class inherits MozfestPrimaryPage, we need to make sure we don't
+    # offer the option to have a 'wide template' as it's not supported in the
+    # landing page template, so we override the settings_panels property to
+    # exclude 'use_wide_template'
     settings_panels = Page.settings_panels
 
     # Hero/Banner fields
