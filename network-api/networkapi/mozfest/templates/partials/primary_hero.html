@@ -6,12 +6,18 @@
     <div class="container">
         <div class="tw-row">
             <div class="tw-px-8 tw-absolute tw-w-full tw-bottom-12 large:tw-w-6/12 large:tw-bottom-24">
-                <p class="tw-bg-blue-05 tw-inline-block tw-text-black tw-text-sm tw-uppercase tw-py-3 tw-px-6 tw-rounded-3xl">
-                    <span>{{ page.banner_meta }}</span>
-                </p>
-                <h1 class="tw-h1-heading">{{ page.banner_heading }}</h1>
-                <p class="tw-body-large">{{ page.banner_text }}</p>
-                <a class="tw-btn-secondary" href="{{ page.banner_link_url }}">{{ page.banner_link_text }}</a>
+                {% if page.banner_meta %}
+                    <p class="tw-bg-blue-05 tw-inline-block tw-text-black tw-text-sm tw-uppercase tw-py-3 tw-px-6 tw-rounded-3xl">
+                        <span>{{ page.banner_meta }}</span>
+                    </p>
+                {% endif %}
+                <h1 class="tw-h1-heading">{% firstof page.banner_heading page.title %}</h1>
+                {% if page.banner_text %}
+                    <p class="tw-body-large">{{ page.banner_text }}</p>
+                {% endif %}
+                {% if page.banner_link_url and page.banner_link_text %}
+                    <a class="tw-btn-secondary" href="{{ page.banner_link_url }}">{{ page.banner_link_text }}</a>
+                {% endif %}
             </div>
         </div>
     </div>
