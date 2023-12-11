@@ -35,8 +35,6 @@ class MozfestHomepageFactory(MozfestPrimaryPageFactory):
         model = mozfest_models.MozfestHomepage
         exclude = ("header_text", "banner_heading_text")
 
-    banner = SubFactory(ImageFactory)
-    banner = SubFactory(ImageFactory)
     banner_heading = Faker("sentence", nb_words=6, variable_nb_words=True)
     banner_meta = "1st–3rd June 2024 | MALDIVES"
     banner_text = Faker("sentence", nb_words=12, variable_nb_words=True)
