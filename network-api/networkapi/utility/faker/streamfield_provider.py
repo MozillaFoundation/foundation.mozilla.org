@@ -280,6 +280,25 @@ def generate_card_grid_field():
     return generate_field("card_grid", {"cards": cards})
 
 
+def generate_mozfest_card_grid_field():
+    heading = fake.sentence(nb_words=4, variable_nb_words=True)
+
+    cards = []
+
+    for n in range(2):
+        cards.append(
+            {
+                "image": choice(Image.objects.all()).id,
+                "title": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
+                "body": fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
+                "link_label": " ".join(fake.words(nb=3)),
+                "link_url": fake.url(schemes=["https"]),
+            }
+        )
+
+    return generate_field("mozfest_card_grid", {"cards": cards, "heading": heading})
+
+
 def generate_pulse_listing_field():
     return generate_field(
         "pulse_listing",
@@ -511,6 +530,7 @@ class StreamfieldProvider(BaseProvider):
             "current_events_slider": generate_current_events_slider_field,
             "callout_box": generate_blog_index_callout_box_field,
             "blog_newsletter_signup": generate_blog_newsletter_signup_field,
+            "mozfest_card_grid": generate_mozfest_card_grid_field,
         }
 
         streamfield_data = []

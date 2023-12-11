@@ -5,6 +5,7 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Locale, Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from networkapi.mozfest import customblocks as mozfest_blocks
 from networkapi.wagtailpages.models import (
     FoundationBannerInheritanceMixin,
     FoundationMetadataPageMixin,
@@ -51,6 +52,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ("tito_widget", customblocks.TitoWidgetBlock()),
             ("tabbed_profile_directory", customblocks.TabbedProfileDirectory()),
             ("newsletter_signup", customblocks.NewsletterSignupBlock()),
+            ("mozfest_card_grid", mozfest_blocks.MozfestCardGridBlock()),
         ],
         use_json_field=True,
     )
