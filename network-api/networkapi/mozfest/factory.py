@@ -36,9 +36,10 @@ class MozfestHomepageFactory(MozfestPrimaryPageFactory):
         exclude = ("header_text", "banner_heading_text")
 
     banner = SubFactory(ImageFactory)
-    banner_heading = "Come with an idea, leave with a community."
+    banner = SubFactory(ImageFactory)
+    banner_heading = Faker("sentence", nb_words=6, variable_nb_words=True)
     banner_meta = "1st–3rd June 2024 | MALDIVES"
-    banner_text = Faker("sentence", nb_words=6, variable_nb_words=True)
+    banner_text = Faker("sentence", nb_words=12, variable_nb_words=True)
     banner_link_url = Faker("url")
     banner_link_text = Faker("sentence", nb_words=2, variable_nb_words=True)
 
@@ -53,9 +54,9 @@ class MozfestLandingPageFactory(PageFactory):
 
     body = Faker("streamfield", fields=streamfield_fields)
     banner = SubFactory(ImageFactory)
-    banner_heading = "Come with an idea, leave with a community."
+    banner_heading = Faker("sentence", nb_words=6, variable_nb_words=True)
     banner_meta = "1st–3rd June 2024 | MALDIVES"
-    banner_text = Faker("sentence", nb_words=6, variable_nb_words=True)
+    banner_text = Faker("sentence", nb_words=12, variable_nb_words=True)
     banner_link_url = Faker("url")
     banner_link_text = Faker("sentence", nb_words=2, variable_nb_words=True)
 
