@@ -2,7 +2,8 @@
 
 <div id="hero">
     {% if homepage or landing_page %}
-        <div class="tw-relative tw-dark tw-w-full tw-h-[470px] large:tw-h-[620px] tw-bg-[url('../_images/donate-banner-giving.jpg')] tw-bg-center tw-bg-cover">
+        {% image page.hero_image fill-1500x620 as hero_image %}
+        <div class="tw-relative tw-dark tw-w-full tw-h-[470px] large:tw-h-[620px] tw-bg-center tw-bg-cover" style="background-image:url('{{ hero_image.url }}')">
             <div class="tw-bg-gradient-to-t tw-from-black tw-via-black tw-via-30% tw-to-festival-purple-200 tw-inset-0 tw-absolute tw-opacity-80"></div>
             <div class="container">
                 <div class="tw-row">
