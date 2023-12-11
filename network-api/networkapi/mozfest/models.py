@@ -262,9 +262,6 @@ class MozfestHomepage(MozfestPrimaryPage):
 
 
 class MozfestLandingPage(MozfestPrimaryPage):
-    def get_template(self, request):
-        return "mozfest/mozfest_landing_page.html"
-
     # As this class inherits MozfestPrimaryPage, we need to make sure we don't
     # offer the option to have a 'wide template' as it's not supported in the
     # landing page template, so we override the settings_panels property to
@@ -334,3 +331,6 @@ class MozfestLandingPage(MozfestPrimaryPage):
         TranslatableField("banner_link_text"),
         TranslatableField("body"),
     ]
+
+    def get_template(self, request):
+        return "mozfest/mozfest_landing_page.html"
