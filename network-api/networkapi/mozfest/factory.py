@@ -35,18 +35,11 @@ class MozfestHomepageFactory(MozfestPrimaryPageFactory):
         model = mozfest_models.MozfestHomepage
         exclude = ("header_text", "banner_heading_text")
 
-    banner_heading = "Come with an idea, leave with a community."
-    banner_guide_text = (
-        "Now in its 10th year, the Mozilla Festival is a seven-day "
-        "gathering of educators, activists, technologists, artists, and "
-        "young people dedicated to creating a better, healthier open internet."
-    )
-    banner_video_url = Faker("url")
-    banner_cta_label = "Watch last year's recap video"
-    banner_heading_text = Faker("sentence", nb_words=6, variable_nb_words=True)
-
-    banner_carousel = Faker("streamfield", fields=["banner_carousel", "banner_carousel"])
-    banner_video = Faker("streamfield", fields=["banner_video"])
+    banner_heading = Faker("sentence", nb_words=6, variable_nb_words=True)
+    banner_meta = "1st–3rd June 2024 | MALDIVES"
+    banner_text = Faker("sentence", nb_words=12, variable_nb_words=True)
+    banner_link_url = Faker("url")
+    banner_link_text = Faker("sentence", nb_words=2, variable_nb_words=True)
 
     body = Faker("streamfield", fields=streamfield_fields + ["current_events_slider"])
 
@@ -58,6 +51,12 @@ class MozfestLandingPageFactory(PageFactory):
         model = mozfest_models.MozfestLandingPage
 
     body = Faker("streamfield", fields=streamfield_fields)
+    banner = SubFactory(ImageFactory)
+    banner_heading = Faker("sentence", nb_words=6, variable_nb_words=True)
+    banner_meta = "1st–3rd June 2024 | MALDIVES"
+    banner_text = Faker("sentence", nb_words=12, variable_nb_words=True)
+    banner_link_url = Faker("url")
+    banner_link_text = Faker("sentence", nb_words=2, variable_nb_words=True)
 
 
 def generate(seed):

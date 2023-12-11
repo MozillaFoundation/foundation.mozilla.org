@@ -1,18 +1,23 @@
 {% load wagtailimages_tags %}
 
-{% image page.hero_image fill-1500x620 as hero_image %}
+{% image page.banner fill-1500x620 as hero_image %}
 <div class="tw-relative tw-dark tw-w-full tw-h-[470px] large:tw-h-[620px] tw-bg-center tw-bg-cover" style="background-image:url('{{ hero_image.url }}')">
     <div class="tw-bg-gradient-to-t tw-from-black tw-via-black tw-via-30% tw-to-festival-purple-200 tw-inset-0 tw-absolute tw-opacity-80"></div>
     <div class="container">
         <div class="tw-row">
             <div class="tw-px-8 tw-absolute tw-w-full tw-bottom-12 large:tw-w-6/12 large:tw-bottom-24">
-                <p class="tw-bg-blue-05 tw-inline-block tw-text-black tw-text-sm tw-uppercase tw-py-3 tw-px-6 tw-rounded-3xl">
-                    <span>1st-3rd June 2024</span>
-                    <span>| Maldives</span>
-                </p>
-                <h1 class="tw-h1-heading">MozFest House: 2024</h1>
-                <p class="tw-body-large">Dedicated to creating a healthier and more inclusive internet.</p>
-                <a class="tw-btn-secondary" href="#">Get your tickets</a>
+                {% if page.banner_meta %}
+                    <p class="tw-bg-blue-05 tw-inline-block tw-text-black tw-text-sm tw-uppercase tw-py-3 tw-px-6 tw-rounded-3xl">
+                        <span>{{ page.banner_meta }}</span>
+                    </p>
+                {% endif %}
+                <h1 class="tw-h1-heading">{% firstof page.banner_heading page.title %}</h1>
+                {% if page.banner_text %}
+                    <p class="tw-body-large">{{ page.banner_text }}</p>
+                {% endif %}
+                {% if page.banner_link_url and page.banner_link_text %}
+                    <a class="tw-btn-secondary" href="{{ page.banner_link_url }}">{{ page.banner_link_text }}</a>
+                {% endif %}
             </div>
         </div>
     </div>
