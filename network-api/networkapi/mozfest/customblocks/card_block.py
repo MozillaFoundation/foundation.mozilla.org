@@ -14,17 +14,14 @@ class MozfestCardGrid(blocks.StructBlock):
     alt_text = blocks.CharBlock(required=False, help_text="Alt text for card's image.")
 
     title = blocks.CharBlock(help_text="Heading for the card.")
+    category = blocks.CharBlock(help_text="Category text for the card.", required=False)
+    date_meta = blocks.CharBlock(help_text="Date and time or other information.", required=False)
 
     body = blocks.TextBlock(help_text="Body text of the card.", required=False)
 
     link_url = blocks.CharBlock(
         required=False,
         help_text="Optional URL that this card should link out to. " "(Note: If left blank, link will not render.) ",
-    )
-
-    link_label = blocks.CharBlock(
-        required=False,
-        help_text="Optional Label for the URL link above. " "(Note: If left blank, link will not render.) ",
     )
 
 

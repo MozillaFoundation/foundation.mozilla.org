@@ -289,6 +289,8 @@ def generate_mozfest_card_grid_field():
         cards.append(
             {
                 "image": choice(Image.objects.all()).id,
+                "category": " ".join(fake.words(nb=2)),
+                "date_meta": " ".join(fake.words(nb=3)),
                 "title": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
                 "body": fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
                 "link_label": " ".join(fake.words(nb=3)),
