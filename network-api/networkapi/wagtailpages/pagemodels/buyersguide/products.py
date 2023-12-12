@@ -421,7 +421,7 @@ class ProductPageEvaluation(models.Model):
             }
 
         average_vote = self.average_creepiness
-        mode_bin = round(average_vote / 20) - 1
+        mode_bin = int(average_vote // 20)
         label = self.BIN_LABELS[f"bin_{mode_bin}"]
 
         return {
