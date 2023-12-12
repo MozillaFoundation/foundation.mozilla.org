@@ -230,7 +230,7 @@ class TestProductPageEvaluationAverageBin(BuyersGuideTestCase):
         self.assertEqual(evaluation.average_creepiness, 0)
         self.assertDictEqual(evaluation.average_bin, {"label": "Not creepy", "localized": gettext("Not creepy")})
 
-    def test_avg_bin_with_avg_vote_between_0_and_20(self):
+    def test_avg_bin_with_avg_vote_between_1_and_20(self):
         vote_value = self.fake.random_int(min=1, max=19)
         buyersguide_factories.ProductVoteFactory(evaluation=self.product_page.evaluation, value=vote_value)
         evaluation = (
