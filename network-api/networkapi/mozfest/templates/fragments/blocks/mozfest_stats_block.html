@@ -4,10 +4,10 @@
     <div class="tw-bg-black tw-dark tw-py-16">
         <div class="tw-container">
             <div class="tw-row">
-                {% for stat in self.stats %}
+                {% for stat in self.statistics %}
                     <div class="tw-mb-12 tw-px-8 tw-w-1/2 large:tw-w-1/4">
-                        <p class="tw-h1-heading tw-mb-0">{{ stat.number }}</p>
-                        <p class="tw-my-0">{{ stat.text }}</p>
+                        <p class="tw-h1-heading tw-mb-0">{{ stat.title }}</p>
+                        <p class="tw-my-0">{{ stat.description }}</p>
                     </div>
                 {% endfor %}
             </div>
