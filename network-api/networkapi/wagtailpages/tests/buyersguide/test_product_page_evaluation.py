@@ -225,8 +225,6 @@ class TestProductPageEvaluationAverageBin(BuyersGuideTestCase):
         )
 
         self.assertEqual(evaluation.average_creepiness, 0)
-        mode_bin = round(evaluation.average_creepiness // 20)
-        print(f"Mode bin: {mode_bin}")
         self.assertDictEqual(evaluation.average_bin, {"label": "Not creepy", "localized": gettext("Not creepy")})
 
     def test_avg_bin_with_avg_vote_between_0_and_20(self):
@@ -239,8 +237,6 @@ class TestProductPageEvaluationAverageBin(BuyersGuideTestCase):
         )
 
         self.assertEqual(evaluation.average_creepiness, 10)
-        mode_bin = round(evaluation.average_creepiness // 20)
-        print(f"Mode bin: {mode_bin}")
         self.assertDictEqual(evaluation.average_bin, {"label": "Not creepy", "localized": gettext("Not creepy")})
 
     def test_avg_bin_with_avg_vote_between_20_and_40(self):
@@ -253,8 +249,6 @@ class TestProductPageEvaluationAverageBin(BuyersGuideTestCase):
         )
 
         self.assertEqual(evaluation.average_creepiness, 30)
-        mode_bin = round(evaluation.average_creepiness // 20)
-        print(f"Mode bin: {mode_bin}")
         self.assertDictEqual(
             evaluation.average_bin, {"label": "A little creepy", "localized": gettext("A little creepy")}
         )
@@ -269,8 +263,6 @@ class TestProductPageEvaluationAverageBin(BuyersGuideTestCase):
         )
 
         self.assertEqual(evaluation.average_creepiness, 50)
-        mode_bin = round(evaluation.average_creepiness // 20)
-        print(f"Mode bin: {mode_bin}")
         self.assertDictEqual(
             evaluation.average_bin, {"label": "Somewhat creepy", "localized": gettext("Somewhat creepy")}
         )
@@ -285,8 +277,6 @@ class TestProductPageEvaluationAverageBin(BuyersGuideTestCase):
         )
 
         self.assertEqual(evaluation.average_creepiness, 70)
-        mode_bin = round(evaluation.average_creepiness // 20)
-        print(f"Mode bin: {mode_bin}")
         self.assertDictEqual(evaluation.average_bin, {"label": "Very creepy", "localized": gettext("Very creepy")})
 
     def test_avg_bin_with_avg_vote_between_80_and_100(self):
@@ -299,8 +289,6 @@ class TestProductPageEvaluationAverageBin(BuyersGuideTestCase):
         )
 
         self.assertEqual(evaluation.average_creepiness, 90)
-        mode_bin = round(evaluation.average_creepiness // 20)
-        print(f"Mode bin: {mode_bin}")
         self.assertDictEqual(evaluation.average_bin, {"label": "Super creepy", "localized": gettext("Super creepy")})
 
 
