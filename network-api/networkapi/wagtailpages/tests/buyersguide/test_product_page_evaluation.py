@@ -378,14 +378,6 @@ class TestProductPageEvaluationPrefetching(BuyersGuideTestCase):
 
 
 class CreateEvaluationPostSaveSignalTests(BuyersGuideTestCase):
-    @classmethod
-    def setUpTestData(cls):
-        # Override BuyersGuidePage.subpage_types to include ProductPage
-        # If we don't, the copy page action will fail with a Permission Error
-        # since we can't add a ProductPage as a child of BuyersGuidePage
-        BuyersGuidePage.subpage_types += ["wagtailpages.ProductPage"]
-        super().setUpTestData()
-
     def setUp(self):
         super().setUp()
         self.user = self.login()
