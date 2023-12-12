@@ -157,7 +157,7 @@ openpyxl==3.1.0
     # via wagtail
 packaging==23.1
     # via gunicorn
-pillow==9.5.0
+pillow==10.0.1
     # via wagtail
 polib==1.1.1
     # via wagtail-localize
