@@ -24,7 +24,7 @@ class TestRCCLibraryPage(rcc_test_base.RCCTestCase):
         with open(os.devnull, "w") as f:
             management.call_command("update_index", verbosity=0, stdout=f)
 
-    def testget_sorted_filtered_detail_pages(self):
+    def test_get_sorted_filtered_detail_pages(self):
         detail_page_1 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
         )
@@ -38,7 +38,7 @@ class TestRCCLibraryPage(rcc_test_base.RCCTestCase):
         self.assertIn(detail_page_1, rcc_detail_pages)
         self.assertIn(detail_page_2, rcc_detail_pages)
 
-    def testget_sorted_filtered_detail_pages_with_translation_aliases(self):
+    def test_get_sorted_filtered_detail_pages_with_translation_aliases(self):
         detail_page_1 = detail_page_factory.RCCDetailPageFactory(
             parent=self.library_page,
         )
