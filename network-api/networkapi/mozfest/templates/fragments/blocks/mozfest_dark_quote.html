@@ -1,0 +1,16 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_content %}
+    <div class="tw-py-16 tw-bg-black tw-dark">
+        <div class="tw-container">
+            <div class="tw-row tw-justify-center">
+                <blockquote class="feature-quote">
+                    <div class="tw-quote tw-px-2 [&_p]:tw-h2-heading">
+                        {{ self.quote|richtext }}
+                    </div>
+                    <cite class="tw-text-gray-40 tw-h6-heading tw-max-w-4xl">{{ self.cite }}</cite>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+{% endblock block_content %}

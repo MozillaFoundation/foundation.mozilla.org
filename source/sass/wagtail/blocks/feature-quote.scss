@@ -18,6 +18,10 @@
     content: "";
     display: block;
     margin: 0 auto 10px;
+
+    @at-root .tw-dark & {
+      opacity: 0.3;
+    }
   }
 
   .quote-content .rich-text {
