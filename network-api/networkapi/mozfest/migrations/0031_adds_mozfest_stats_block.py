@@ -16,7 +16,7 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("mozfest", "0031_adds_mozfest_card_grid_block"),
+        ("mozfest", "0030_adds_new_banner_fields"),
     ]
 
     operations = [

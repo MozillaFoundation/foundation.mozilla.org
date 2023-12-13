@@ -5,6 +5,7 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Locale, Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from networkapi.mozfest import customblocks as mozfest_blocks
 from networkapi.wagtailpages.models import (
     FoundationBannerInheritanceMixin,
     FoundationMetadataPageMixin,
