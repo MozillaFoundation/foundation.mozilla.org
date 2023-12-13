@@ -424,6 +424,11 @@ class ProductPageEvaluation(models.Model):
 
         average_vote = self.average_creepiness
         mode_bin = int(average_vote // self.BIN_SIZE)
+        if mode_bin == 5:
+            # Handle case where average is 100 (which should be in bin 4)
+            # Votes should go until 99 to avoid this, but they are allowed to go up to 100
+            # due to legacy implementation :facepalm:
+            mode_bin = 4
         label = self.BIN_LABELS[f"bin_{mode_bin}"]
 
         return {
