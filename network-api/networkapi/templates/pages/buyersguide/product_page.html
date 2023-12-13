@@ -34,10 +34,11 @@
             <div class="tw-col-start-3 tw-col-end-11 tw--mx-8 medium:tw--mx-16">
                 <div class="tw-w-full  product-header-content {% if product.privacy_ding %}show-privacy-ding{% endif %}">
                     <img class="thumb-border tw-mx-auto"
-                         width="250"
                          {% image product.image width-250 as img %}
                          src="{{ img.url }}"
-                         alt="{{ product.title }}">
+                         alt="{{ product.title }}"
+                         height="{{ img.height }}"
+                         width="{{ img.width }}">
                 </div>
             </div>
         </div>
