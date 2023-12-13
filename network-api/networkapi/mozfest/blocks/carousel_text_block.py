@@ -2,7 +2,6 @@ from wagtail import blocks
 
 from networkapi.wagtailpages.pagemodels import customblocks
 
-
 class CarouselTextBlock(blocks.StructBlock):
     heading = blocks.CharBlock(help_text="Heading for the block.", required=False)
     text = blocks.RichTextBlock(features=["bold", "italic", "link"])
