@@ -4,8 +4,9 @@
 
 {% block minisite_title_mb %}
     {% if uses_menu %}
-        {% block minisite_title %}
-        {% endblock %}
+
+        {% block minisite_title %}{% endblock %}
+
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -14,6 +15,8 @@
             </div>
         </div>
     {% else %}
+
         {% block minisite_no_menu %}{% endblock %}
+
     {% endif %}
 {% endblock %}

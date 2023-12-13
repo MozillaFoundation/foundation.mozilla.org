@@ -1,4 +1,5 @@
 {% extends "./base_streamfield_block.html" %}
+
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
@@ -11,25 +12,27 @@
                         <a href="{% pageurl card.link_page %}"
                            class="tw-group/listing hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black"
                            aria-label="{{ card.title }}">
-                    {% elif card.link_url %}
-                        <a href="{{ card.link_url }}" target="_blank" rel="noopener"
-                           class="tw-group/listing hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black"
-                           aria-label="{{ card.title }}">
-                    {% endif %}
-                    <div class="card-regular tw-h-full tw-flex tw-flex-col">
-                        <img src="{{ img.url }}" alt="{{ card.alt_text }}"/>
-                        <div class="tw-flex tw-flex-1">
-                            <div class="tw-relative tw-pt-8 tw-w-full tw-flex tw-flex-col">
-                                <h3 class="tw-h3-heading tw-mb-4 group-hover/listing:tw-underline group-focus/listing:tw-underline">{{ card.title }}</h3>
-                                <div class="[&_p,li,ul]:last:tw-mb-0">
-                                    {{ card.body|richtext }}
+                        {% elif card.link_url %}
+                            <a href="{{ card.link_url }}"
+                               target="_blank"
+                               rel="noopener"
+                               class="tw-group/listing hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black"
+                               aria-label="{{ card.title }}">
+                            {% endif %}
+                            <div class="card-regular tw-h-full tw-flex tw-flex-col">
+                                <img src="{{ img.url }}" alt="{{ card.alt_text }}" />
+                                <div class="tw-flex tw-flex-1">
+                                    <div class="tw-relative tw-pt-8 tw-w-full tw-flex tw-flex-col">
+                                        <h3 class="tw-h3-heading tw-mb-4 group-hover/listing:tw-underline group-focus/listing:tw-underline">
+                                            {{ card.title }}
+                                        </h3>
+                                        <div class="[&_p,li,ul]:last:tw-mb-0">{{ card.body|richtext }}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    {% if card.link_page or card.link_url %}</a>{% endif %}
-                </li>
-            {% endwith %}
-        {% endfor %}
-    </ul>
-{% endblock %}
+                            {% if card.link_page or card.link_url %}</a>{% endif %}
+                    </li>
+                {% endwith %}
+            {% endfor %}
+        </ul>
+    {% endblock %}

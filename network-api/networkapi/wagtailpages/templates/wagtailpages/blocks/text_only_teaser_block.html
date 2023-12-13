@@ -1,4 +1,5 @@
 {% extends "./base_streamfield_block.html" %}
+
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
@@ -9,18 +10,20 @@
                     <div class="tw-pt-8 tw-relative tw-w-full tw-flex tw-flex-col tw-border-t tw-border-black/10">
                         {% if card.link_page %}
                             <a class="hover:tw-text-inherit" href="{% pageurl card.link_page %}">
-                        {% elif card.link_url %}
-                            <a class="hover:tw-text-inherit" target="_blank" rel=”noopener” href="{{ card.link_url }}">
-                        {% endif %}
-                        <div class="tw-h5-heading tw-mb-4">{{ card.heading }}</div>
-                        {% if card.link_page or card.link_url %}</a>{% endif %}
-                        {% if card.meta_data %}
-                            <div class="tw-body-small tw-pb-4">{{ card.meta_data }}</div>
-                        {% endif %}
-                        <p class="tw-text-sm tw-text-gray-60 tw-my-0">{{ card.body }}</p>
-                    </div>
-                {% endwith %}
-            {% endfor %}
-        </div>
-    </section>
-{% endblock %}
+                            {% elif card.link_url %}
+                                <a class="hover:tw-text-inherit"
+                                   target="_blank"
+                                   rel
+                                   noopener
+                                   href="{{ card.link_url }}">
+                                {% endif %}
+                                <div class="tw-h5-heading tw-mb-4">{{ card.heading }}</div>
+                                {% if card.link_page or card.link_url %}</a>{% endif %}
+                            {% if card.meta_data %}<div class="tw-body-small tw-pb-4">{{ card.meta_data }}</div>{% endif %}
+                            <p class="tw-text-sm tw-text-gray-60 tw-my-0">{{ card.body }}</p>
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </section>
+    {% endblock %}

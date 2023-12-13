@@ -24,7 +24,6 @@ Please follow the steps below every time after you paste a new version of FormAs
 The code snippet below is based on FormAssembly form revision #32
 
 {% endcomment %}
-
 <!-- FORM: HEAD SECTION -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="referrer" content="no-referrer-when-downgrade">
@@ -65,17 +64,12 @@ The code snippet below is based on FormAssembly form revision #32
         }
     });
 </script>
-
 <link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-layout.css?v=127d5d34f78f067204f2463a3699a1688fbf2ca7" rel="stylesheet" type="text/css" />
-
 <link href="https://mozillafoundation.tfaforms.net/uploads/themes/theme-23.css" rel="stylesheet" type="text/css" />
 <link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-jsonly.css?v=127d5d34f78f067204f2463a3699a1688fbf2ca7" rel="alternate stylesheet" title="This stylesheet activated by javascript" type="text/css" />
 <script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/wforms.js?v=127d5d34f78f067204f2463a3699a1688fbf2ca7"></script>
-<script type="text/javascript" nonce="{{ request.csp_nonce }}">
-    wFORMS.behaviors.prefill.skip = false;
-</script>
+<script type="text/javascript" nonce="{{ request.csp_nonce }}">wFORMS.behaviors.prefill.skip = false;</script>
 <script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=127d5d34f78f067204f2463a3699a1688fbf2ca7"></script>
-
 <script type="text/javascript" nonce="{{ request.csp_nonce }}">
     // [TO FIX]
     // hot fix for source url bug on petition form

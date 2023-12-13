@@ -1,16 +1,15 @@
 {% load blog_tags localization wagtailroutablepage_tags i18n %}
 
 <div class="tw-border tw-px-12 tw-py-16 tw-popout">
-    <h2 class="tw-mb-8 tw-font-bold tw-text-lg tw-font-sans tw-uppercase">{% trans 'Related Topics' %} </h2>
+    <h2 class="tw-mb-8 tw-font-bold tw-text-lg tw-font-sans tw-uppercase">{% trans 'Related Topics' %}</h2>
     <div class="tw-flex tw-flex-wrap">
         {% for topic in topics %}
             {% localized_version topic as localized_topic %}
             {% get_root_or_page as parent_page %}
             {# If we have a "root" context variable, we know this template is generated on an index page (or index page subroute) #}
             {% with link_classes="tw-text-black tw-px-8 tw-border-black tw-my-4 tw-border tw-rounded-full tw-mr-6 tw-text-lg tw-font-normal tw-whitespace-nowrap tw-block tw-transition-colors" link_hover_classes="hover:tw-bg-black hover:tw-text-white hover:tw-no-underline hover:tw-border-white" %}
-                <a href="{% routablepageurl parent_page "entries_by_topic" topic.slug %}" class="{{ link_classes }} {{ link_hover_classes }}">
-                    {{ localized_topic }}
-                </a>
+                <a href="{% routablepageurl parent_page "entries_by_topic" topic.slug %}"
+                   class="{{ link_classes }} {{ link_hover_classes }}">{{ localized_topic }}</a>
             {% endwith %}
         {% endfor %}
     </div>

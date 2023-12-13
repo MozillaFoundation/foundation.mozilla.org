@@ -1,18 +1,20 @@
 {% load bg_nav_tags i18n wagtailroutablepage_tags wagtailcore_tags static %}
-{% get_bg_home_page as home_page %}
 
+{% get_bg_home_page as home_page %}
 {{ pre }}
 {% with home_page.get_editorial_content_index as editorial_content_index %}
-    <a class="{{ class }} product-review-link" href="{% pageurl home_page %}#product-review">{% trans "Product Reviews" %}</a>
-    <img
-        class="tw-mr-8 tw-hidden large:tw-block {{ class }}"
-        src="{% static "_images/buyers-guide/asterick-mini.svg" %}"
-    >
+    <a class="{{ class }} product-review-link"
+       href="{% pageurl home_page %}#product-review">{% trans "Product Reviews" %}</a>
+    <img class="tw-mr-8 tw-hidden large:tw-block {{ class }}" src="{% static "_images/buyers-guide/asterick-mini.svg" %}">
     {% if editorial_content_index %}
-        <a class="{{ class }} {% bg_active_nav request.get_full_path editorial_content_index.url %} " href="{% pageurl editorial_content_index %}">{{ editorial_content_index }}</a>
+        <a class="{{ class }} {% bg_active_nav request.get_full_path editorial_content_index.url %} "
+           href="{% pageurl editorial_content_index %}">{{ editorial_content_index }}</a>
     {% endif %}
 {% endwith %}
 {% routablepageurl home_page 'about-why-view' as about_why_url %}
-<a class="{{ class }} {% bg_active_nav request.get_full_path about_why_url %}" href="{{ about_why_url }}">{% trans "About" %}</a>
-<a id="donate-header-btn" class="{{ class }}" href="?form=donate&utm_medium=FMO&utm_source=PNI&utm_campaign=23-PNI&utm_content=header&c_id=7014x000000eQOD">{% trans "Donate" %}</a>
+<a class="{{ class }} {% bg_active_nav request.get_full_path about_why_url %}"
+   href="{{ about_why_url }}">{% trans "About" %}</a>
+<a id="donate-header-btn"
+   class="{{ class }}"
+   href="?form=donate&utm_medium=FMO&utm_source=PNI&utm_campaign=23-PNI&utm_content=header&c_id=7014x000000eQOD">{% trans "Donate" %}</a>
 {{ post }}

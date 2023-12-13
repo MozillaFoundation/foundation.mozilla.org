@@ -1,19 +1,15 @@
 {% load bg_nav_tags i18n static %}
 
-<div id="pni-mobile-search-container" class="tw-hidden large:tw-hidden tw-w-full tw-left-0 tw-bg-blue-05">
+<div id="pni-mobile-search-container"
+     class="tw-hidden large:tw-hidden tw-w-full tw-left-0 tw-bg-blue-05">
     <div class="tw-container">
         <div class="tw-row">
             <div class="tw-px-8 tw-flex tw-items-center tw-w-full">
-                <img
-                    class="tw-w-8 tw-h-8 tw-mr-4"
-                    src="{% static "_images/buyers-guide/pni-search.svg" %}"
-                >
-                <input
-                    id="pni-mobile-bar"
-                    type="text"
-                    class="tw-w-full tw-bg-blue-05 tw-outline-none tw-py-7 tw-text-base tw-text-blue-60 placeholder:tw-text-blue-60"
-                    placeholder="{% trans "Search All Products" %}"
-                >
+                <img class="tw-w-8 tw-h-8 tw-mr-4" src="{% static "_images/buyers-guide/pni-search.svg" %}">
+                <input id="pni-mobile-bar"
+                       type="text"
+                       class="tw-w-full tw-bg-blue-05 tw-outline-none tw-py-7 tw-text-base tw-text-blue-60 placeholder:tw-text-blue-60"
+                       placeholder="{% trans "Search All Products" %}">
                 <label for="pni-mobile-bar" class="clear-icon">&nbsp;</label>
             </div>
         </div>

@@ -2,29 +2,41 @@
 
 {% load wagtailcore_tags wagtailimages_tags i18n localization blog_tags static wagtailroutablepage_tags %}
 
-
 {% block rss_metadata %}
-    <link rel="alternate" type="application/rss+xml" href="{% url 'rss-feed' %}" />
+    <link rel="alternate"
+          type="application/rss+xml"
+          href="{% url 'rss-feed' %}" />
 {% endblock %}
 
 {% block index_header %}
     <div class="tw-grid tw-grid-cols-12">
         <div class="tw-col-span-12 large:tw-col-span-8 tw-mt-8">
             {% if index_title %}
+
                 {% include "./fragments/blog_breadcrumbs.html" %}
+
             {% endif %}
             <h1 class="tw-h1-heading tw-mb-0 tw-mt-2 tw-pt-4">
-                {% if index_title %}{{ index_title }}{% elif root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
+                {% if index_title %}
+                    {{ index_title }}
+                {% elif root.title %}
+                    {{ root.title }}
+                {% elif page.header %}
+                    {{ page.header }}
+                {% else %}
+                    {{ page.title }}
+                {% endif %}
             </h1>
             <p class="tw-body-large tw-mt-6 tw-mb-0 tw-pr-2 medium:tw-pr-6">{{ page.intro|safe }}</p>
         </div>
         <div class="tw-col-span-12 large:tw-col-span-4 tw-mt-8 large:tw-mt-16">
             <form action="{% routablepageurl page "search" %}" method="get">
+
                 {% include "./fragments/blog_search_bar.html" with name="q" search_query=query %}
+
             </form>
         </div>
     </div>
-
     <div class="row">
         <div class="col-12">
             <hr class="intro-and-content-divider">
@@ -57,13 +69,13 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-
                 {% for video_post in page.specific.featured_video_post.all %}
                     <div class="tw-col-span-12 tw-pt-12 {{ divider_classes }}">
+
                         {% include "./fragments/blog_index_feature.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
+
                     </div>
                 {% endfor %}
-
             {% endwith %}
         </div>
     {% endif %}
@@ -71,25 +83,31 @@
 
 {% block subcontent %}
     {% if not filtered %}
-        <h2 class="tw-hidden tw-uppercase tw-text-3xl tw-mb-0 tw-font-bold tw-font-sans tw-text-gray-80 medium:tw-block">{% trans "Latest Blog Posts" %}</h2>
+        <h2 class="tw-hidden tw-uppercase tw-text-3xl tw-mb-0 tw-font-bold tw-font-sans tw-text-gray-80 medium:tw-block">
+            {% trans "Latest Blog Posts" %}
+        </h2>
     {% endif %}
+    <div class="row {% if filtered %}-tw-mt-12{% endif %} ">
+        <ul id="index-entries"
+            class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-12 tw-gap-y-8 tw-list-none tw-divide-y tw-divide-gray-20 tw-px-[15px] medium:tw-divide-y-0">
 
-    <div class="row {% if filtered %} -tw-mt-12 {% endif %} ">
-        <ul id="index-entries" class="tw-grid medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-x-12 tw-gap-y-8 tw-list-none tw-divide-y tw-divide-gray-20 tw-px-[15px] medium:tw-divide-y-0">
             {% include "./fragments/entry_cards_item_loop.html" %}
 
             {% if not filtered and related_topics %}
                 <li class="tw-m-0 tw-pt-12 tw-border-none tw-pb-24 -tw-mb-16 tw-bg-white tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3 tw-row-start-3 medium:tw-row-start-2 large:tw-row-start-1">
+
                     {% include "./fragments/related_topics_cutout.html" with topics=related_topics %}
+
                 </li>
             {% endif %}
         </ul>
     </div>
-
 {% endblock %}
 
 {% block newsletter-callout-box %}
     {% if not filtered %}
+
         {% include "./fragments/newsletter-signup-box.html" with show_socials=True %}
+
     {% endif %}
 {% endblock %}

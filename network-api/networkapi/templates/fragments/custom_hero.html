@@ -1,19 +1,16 @@
 {% load static i18n wagtailimages_tags homepage_tags %}
 
 {% image page.hero_image fill-1400x675 as bg_img %}
-
 {% with control_btn_classes="ml-auto tw-opacity-80 hover:tw-opacity-100 tw-hidden" video_classes="hero-video tw-h-full tw-w-full tw-object-cover tw-object-center" %}
-
     {% comment %}
     We are using inline styling to update the hero sections background color as this is selected by the user on the cms,
     and tailwind would not pick it up in time to render correctly if we did it through a tw-class.
-  {% endcomment %}
-
+    {% endcomment %}
     {% if page.hero_layout != page.HERO_LAYOUT_FULL_SCREEN %}
-
-        <div id="custom-hero" class="tw-relative tw-flex tw-flex-col large:tw-flex-row tw-h-full tw-overflow-hidden {% if not get_titles and is_publication_article %} tw-mb-[0px] medium:tw-mb-[100px] {% endif %}" style="background: {{ page.hero_background_color }}">
-
-            <div class="tw-relative tw-w-full large:tw-w-1/2 tw-min-h-full {% if page.hero_layout == "image_right" %} tw-order-last {% endif %}">
+        <div id="custom-hero"
+             class="tw-relative tw-flex tw-flex-col large:tw-flex-row tw-h-full tw-overflow-hidden {% if not get_titles and is_publication_article %}tw-mb-[0px] medium:tw-mb-[100px]{% endif %}"
+             style="background: {{ page.hero_background_color }}">
+            <div class="tw-relative tw-w-full large:tw-w-1/2 tw-min-h-full {% if page.hero_layout == "image_right" %}tw-order-last{% endif %}">
                 <div class="tw-relative large:tw-absolute large:tw-inset-0">
                     {% if page.displayed_hero_content == page.HERO_CONTENT_VIDEO and page.hero_video %}
                         <video class="{{ video_classes }}" playsinline muted loop preload>
@@ -26,47 +23,49 @@
               I think it's ok to also use the full size images there.
               If we notice bad performance, we can add a custom comp to load half screen size images.
               Using the full size images should also ensure that the images have enough height for good resolution on larger screens.
-            {% endcomment %}
+                        {% endcomment %}
+
                         {% include "fragments/responsive_screen_wide_image.html" with image_object=page.hero_image %}
+
                     {% endif %}
                 </div>
             </div>
-
-            <div class="tw-w-full large:tw-w-1/2 tw-min-h-full tw-py-[65px] large:tw-pb-[184px] large:tw-pt-[137px] {% if page.hero_layout == "image_left" %} tw-order-last tw-pb-[100px] {% if not get_titles and is_publication_article %} tw-pb-[0px] {% endif %}{% endif %}">
+            <div class="tw-w-full large:tw-w-1/2 tw-min-h-full tw-py-[65px] large:tw-pb-[184px] large:tw-pt-[137px] {% if page.hero_layout == "image_left" %} tw-order-last tw-pb-[100px] {% if not get_titles and is_publication_article %}tw-pb-[0px]{% endif %}{% endif %}">
                 <div class="container">
                     <div class="row">
-                        <div class="tw-px-12 large:tw-px-[3.75rem] tw-max-w-[650px] {% if page.hero_layout == "image_right" %} large:tw-ml-auto {% endif %}">
+                        <div class="tw-px-12 large:tw-px-[3.75rem] tw-max-w-[650px] {% if page.hero_layout == "image_right" %}large:tw-ml-auto{% endif %}">
+
                             {% include "./custom_hero_guts.html" %}
+
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-
     {% else %}
-
-        <div id="custom-hero" class="tw-relative tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-overflow-hidden " style="background: {{ page.hero_background_color }}">
-
+        <div id="custom-hero"
+             class="tw-relative tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-overflow-hidden "
+             style="background: {{ page.hero_background_color }}">
             <div class="tw-absolute tw-inset-0">
                 {% if page.displayed_hero_content == page.HERO_CONTENT_VIDEO and page.hero_video %}
                     <video class="{{ video_classes }}" autoplay loop muted>
                         <source src="{{ page.hero_video }}" type="video/mp4">
                     </video>
                 {% elif page.displayed_hero_content == page.HERO_CONTENT_IMAGE and page.hero_image %}
+
                     {% include "fragments/responsive_screen_wide_image.html" with image_object=page.hero_image %}
+
                 {% endif %}
             </div>
-
             <div class="container tw-pt-[85px] tw-pb-[140px] large:tw-pb-[184px] large:tw-pt-[137px]">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
+
                         {% include "./custom_hero_guts.html" %}
+
                     </div>
                 </div>
             </div>
-
         </div>
-
     {% endif %}
 {% endwith %}

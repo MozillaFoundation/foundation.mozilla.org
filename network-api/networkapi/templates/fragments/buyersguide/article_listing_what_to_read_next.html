@@ -1,21 +1,15 @@
 {% load i18n %}
 
 {% trans "What to read next" as heading %}
-
 <div>
-    <div class="
-                tw-hidden
-                {% if use_wide_above == "medium" %} medium:tw-block {% endif %}
-                {% if use_wide_above == "large" %} large:tw-block {% endif %}
-               ">
-        {% include "fragments/buyersguide/article_listing_wide.html" with heading=heading articles=articles index_page=index_page columns_above_large=wide_columns_above_large|default:3 %}
-    </div>
+    <div class=" tw-hidden {% if use_wide_above == "medium" %}medium:tw-block{% endif %} {% if use_wide_above == "large" %}large:tw-block{% endif %} ">
 
-    <div class="
-                tw-block
-                {% if use_wide_above == "medium" %} medium:tw-hidden {% endif %}
-                {% if use_wide_above == "large" %} large:tw-hidden {% endif %}
-               ">
+        {% include "fragments/buyersguide/article_listing_wide.html" with heading=heading articles=articles index_page=index_page columns_above_large=wide_columns_above_large|default:3 %}
+
+    </div>
+    <div class=" tw-block {% if use_wide_above == "medium" %}medium:tw-hidden{% endif %} {% if use_wide_above == "large" %}large:tw-hidden{% endif %} ">
+
         {% include "fragments/buyersguide/article_listing_compact.html" with heading=heading articles=articles index_page=index_page show_images=True %}
+
     </div>
 </div>

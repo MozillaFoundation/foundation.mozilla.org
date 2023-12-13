@@ -1,4 +1,5 @@
 {% extends "../pages/base.html" %}
+
 {% load wagtailcore_tags wagtailimages_tags i18n %}
 
 {% block body_id %}landing{% endblock %}
@@ -14,27 +15,32 @@
                     {% image page.featured_image width-700 as imageTablet_2x %}
                     {% image page.featured_image width-690 as imageDesktop %}
                     {% image page.featured_image width-1380 as imageDesktop_2x %}
-                    <source media="(min-width: 1201px)" srcset="{{ imageDesktop.url }}, {{ imageDesktop_2x.url }} 2x">
-                    <source media="(min-width: 600px)" srcset="{{ imageTablet.url }}, {{ imageTablet_2x.url }} 2x">
+                    <source media="(min-width: 1201px)"
+                            srcset="{{ imageDesktop.url }}, {{ imageDesktop_2x.url }} 2x">
+                    <source media="(min-width: 600px)"
+                            srcset="{{ imageTablet.url }}, {{ imageTablet_2x.url }} 2x">
                     <source srcset="{{ imageMobile.url }}, {{ imageMobile_2x.url }} 2x">
-
-                    <img src="{{ imageMobile.url }}" class="tw-w-full tw-mb-8" alt="{% trans "featured image" %}">
+                    <img src="{{ imageMobile.url }}"
+                         class="tw-w-full tw-mb-8"
+                         alt="{% trans "featured image" %}">
                 </picture>
                 <h1 class="medium:tw-hidden">{{ page.title }}</h1>
-                <div class="intro">
-                    {{ page.intro|richtext }}
-                </div>
+                <div class="intro">{{ page.intro|richtext }}</div>
             </div>
             <div class="tw-col-span-12 medium:tw-col-span-6">
                 <div class="medium:tw-w-[330px] large:tw-w-[380px] tw-mx-auto">
                     <h1 class="tw-mt-0 tw-pl-[28px] tw-hidden medium:tw-inline-block">{{ page.title }}</h1>
+
                     {% include "../fragments/fundraise_up_form.html" %}
+
                 </div>
             </div>
         </div>
         <div class="tw-row tw-my-12">
             <div class="tw-w-full tw-px-8">
+
                 {% include "../fragments/fundraise_up_disclaimer.html" %}
+
             </div>
         </div>
     </div>

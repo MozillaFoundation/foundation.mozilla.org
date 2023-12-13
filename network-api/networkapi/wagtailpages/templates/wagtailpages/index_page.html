@@ -6,11 +6,20 @@
 
 {% block content %}
     <div class="container">
+
         {% block index_header %}
             <div class="row">
                 <div class="col-12 col-md-8 pt-4">
                     <h1 class="tw-h1-heading mb-0 mt-1 pt-2">
-                        {% if index_title %}{{ index_title }}{% elif root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
+                        {% if index_title %}
+                            {{ index_title }}
+                        {% elif root.title %}
+                            {{ root.title }}
+                        {% elif page.header %}
+                            {{ page.header }}
+                        {% else %}
+                            {{ page.title }}
+                        {% endif %}
                     </h1>
                     {% if index_intro %}
                         <div class="tw-body-large mt-3 mb-0">{{ index_intro|safe }}</div>
@@ -19,7 +28,6 @@
                     {% endif %}
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-12">
                     <hr class="intro-and-content-divider">
@@ -29,7 +37,8 @@
 
         {% block featured %}{% endblock %}
 
-        {% if filtered and no_filter_ui != True %}  {# Start of IF for filtered page content. Note that this injects an entire row. #}
+        {% if filtered and no_filter_ui != True %}
+            {# Start of IF for filtered page content. Note that this injects an entire row. #}
             <div class="row mb-4">
                 <div class="col-12 d-flex justify-content-between">
                     <div class="search-result">
@@ -39,37 +48,43 @@
                             {% plural %}
                                 {{ total_entries }} results
                             {% endblocktrans %}
-                            {% if total_entries > 0 %} {% trans "for" context "Following “xx results” and followed by searched terms. Full string example: “12 results for Advocacy”" %}
+                            {% if total_entries > 0 %}
+                                {% trans "for" context "Following “xx results” and followed by searched terms. Full string example: “12 results for Advocacy”" %}
                                 <ul class="tw-inline-block tw-list-none tw-p-0 tw-m-0">
                                     {% for term in terms %}
-                                        <li class="tw-body-small tw-inline-block tw-rounded-[10px] tw-ml-[0.25em] tw-px-[0.5em] tw-text-black tw-border tw-border-[1px] tw-capitalize">{{ term }}</li>
+                                        <li class="tw-body-small tw-inline-block tw-rounded-[10px] tw-ml-[0.25em] tw-px-[0.5em] tw-text-black tw-border tw-border-[1px] tw-capitalize">
+                                            {{ term }}
+                                        </li>
                                     {% endfor %}
                                 </ul>
                             {% endif %}
                         </h3>
                     </div>
-
                     <div class="clear-link">
                         <a href="{{ root.url }}">{% trans "clear filters" %}</a>
                     </div>
                 </div>
             </div>
-        {% endif %}  {# End of IF for filtered page content #}
+        {% endif %}
+        {# End of IF for filtered page content #}
 
         {% block subcontent %}
-            <div class="row {% if not filtered and no_filter_ui == True %} tw-mb-12 {% endif %}">
+            <div class="row {% if not filtered and no_filter_ui == True %}tw-mb-12{% endif %}">
+
                 {% include "./fragments/entry_cards.html" %}
+
             </div>
         {% endblock %}
 
         <div class="row">
             <div class="col-12 text-center mb-5">
                 {% if has_more %}
-                    <button class="tw-btn-primary load-more-index-entries" data-exclude="{{ exclude_pagetype }}" data-page-size="{{ page.specific.page_size|unlocalize }}">
+                    <button class="tw-btn-primary load-more-index-entries"
+                            data-exclude="{{ exclude_pagetype }}"
+                            data-page-size="{{ page.specific.page_size|unlocalize }}">
                         {% trans "Load more results" %}
                     </button>
                 {% endif %}
-
                 {# See main.js for the javascript that hooks into this button #}
             </div>
         </div>

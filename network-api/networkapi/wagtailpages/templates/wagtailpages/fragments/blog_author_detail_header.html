@@ -2,7 +2,9 @@
 
 <div class="tw-grid tw-grid-cols-12 large:tw-gap-40">
     <div class="tw-col-span-12 large:tw-col-span-8">
+
         {% include "./blog_breadcrumbs.html" %}
+
         <div class="tw-gap-8 tw-pt-10 medium:tw-inline-flex medium:tw-pt-7">
             <div id="image-container" class="medium:tw-order-last">
                 <div class="tw-flex-shrink-0">
@@ -10,26 +12,32 @@
                         {% if author.image %}
                             {% image author.image fill-120x120 as img_1x %}
                             {% image author.image fill-240x240 as img_2x %}
-                            <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x" src="{{ img_2x.url }}" width="{{ img_2x.width|unlocalize }}" height="{{ img_2x.height|unlocalize }}"  alt="{{ img_2x.alt }}" class="{{ profile_image_classes }}" />
+                            <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x"
+                                 src="{{ img_2x.url }}"
+                                 width="{{ img_2x.width|unlocalize }}"
+                                 height="{{ img_2x.height|unlocalize }}"
+                                 alt="{{ img_2x.alt }}"
+                                 class="{{ profile_image_classes }}" />
                         {% else %}
-                            <img src="{% static '_images/author-placeholder.jpg' %}" width="58px" height="58px" alt="{{ author.name }}" class="{{ profile_image_classes }}" />
+                            <img src="{% static '_images/author-placeholder.jpg' %}"
+                                 width="58px"
+                                 height="58px"
+                                 alt="{{ author.name }}"
+                                 class="{{ profile_image_classes }}" />
                         {% endif %}
                     {% endwith %}
                 </div>
             </div>
             <h1 class="tw-mb-8">{{ author.name }}</h1>
         </div>
-        <p class="tw-text-xl tw-pb-16">
-            {{ author.introduction }}
-        </p>
+        <p class="tw-text-xl tw-pb-16">{{ author.introduction }}</p>
         {% if frequent_topics %}
             <p class="tw-text-lg tw-text-gray-40 tw-uppercase">{% trans "Frequent Topics" %}</p>
             <div class="tw-inline-flex tw-gap-6 tw-flex-wrap">
                 {% with link_classes="tw-text-black tw-px-8 tw-border-black tw-border tw-rounded-full tw-text-lg tw-font-normal tw-whitespace-nowrap tw-block tw-transition-colors" link_hover_classes="hover:tw-bg-black hover:tw-text-white hover:tw-no-underline hover:tw-border-white" %}
                     {% for topic in frequent_topics %}
-                        <a href="{% routablepageurl page "entries_by_topic" topic.slug %}" class="{{ link_classes }} {{ link_hover_classes }}">
-                            {{ topic.name }}
-                        </a>
+                        <a href="{% routablepageurl page "entries_by_topic" topic.slug %}"
+                           class="{{ link_classes }} {{ link_hover_classes }}">{{ topic.name }}</a>
                     {% endfor %}
                 {% endwith %}
             </div>
@@ -37,7 +45,9 @@
     </div>
     <div class="tw-col-span-12 large:tw-col-span-4 tw-pt-20 large:tw-pt-0">
         <form action="{% routablepageurl page "search" %}" method="get">
+
             {% include "./blog_search_bar.html" with name="q" search_query=query %}
+
         </form>
     </div>
 </div>

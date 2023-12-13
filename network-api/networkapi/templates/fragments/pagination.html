@@ -6,24 +6,12 @@
 {% endcomment %}
 {% if page.has_other_pages %}
     <div class="tw-flex tw-flex-row tw-flex-wrap tw-gap-12">
-        <a
-            {% if page.has_previous %}
-                href="{{ request.path }}{% querystring discard 'expanded' 'page'=page.previous_page_number %}"
-            {% else %}
-                disabled
-            {% endif %}
-            class="tw-btn-secondary before:tw-content-['←'] before:tw-mr-2"
-        >
+        <a {% if page.has_previous %} href="{{ request.path }}{% querystring discard 'expanded' 'page'=page.previous_page_number %}" {% else %} disabled {% endif %}
+           class="tw-btn-secondary before:tw-content-['←'] before:tw-mr-2">
             {% translate 'Prev. page' context 'Pagination link' %}
         </a>
-        <a
-            {% if page.has_next %}
-                href="{{ request.path }}{% querystring discard 'expanded' 'page'=page.next_page_number %}"
-            {% else %}
-                disabled
-            {% endif %}
-            class="tw-btn-secondary after:tw-content-['→'] after:tw-ml-2"
-        >
+        <a {% if page.has_next %} href="{{ request.path }}{% querystring discard 'expanded' 'page'=page.next_page_number %}" {% else %} disabled {% endif %}
+           class="tw-btn-secondary after:tw-content-['→'] after:tw-ml-2">
             {% translate 'Next page' context 'Pagination link' %}
         </a>
     </div>

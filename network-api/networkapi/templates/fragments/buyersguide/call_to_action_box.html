@@ -1,44 +1,22 @@
 {% load static wagtailcore_tags wagtailimages_tags %}
 
-<div class="
-            tw-w-full
-            tw-bg-gradient-to-b tw-from-yellow-10 tw-to-purple-05
-            tw-rounded-2xl
-            tw-p-12 {% if not large %} medium:tw-p-16 {% else %} medium:tw-p-20 {% endif %}
-           ">
+<div class=" tw-w-full tw-bg-gradient-to-b tw-from-yellow-10 tw-to-purple-05 tw-rounded-2xl tw-p-12 {% if not large %} medium:tw-p-16 {% else %} medium:tw-p-20 {% endif %} ">
     {% if icon %}
         {# Use image size twice as large as actual rendering size for better image quality. #}
         {% image icon height-112 as img %}
-        <img
-            src="{{ img.url }}"
-            class="
-                   tw-mb-8
-                   {% if not large %}
-                       tw-max-h-24 medium:tw-max-h-28
-                       -tw-mt-22 medium:-tw-mt-28  {# Negative margin to pull the icon up to the top and bleed 20px and 24px on medium+ screens. On large variant we don't need that. #}
-                   {% else %}
-                       tw-max-h-18 medium:tw-max-h-24
-                   {% endif %}
-                  "
-        />
+        <img src="{{ img.url }}"
+             class=" tw-mb-8 {% if not large %} tw-max-h-24 medium:tw-max-h-28 -tw-mt-22 medium:-tw-mt-28  {# Negative margin to pull the icon up to the top and bleed 20px and 24px on medium+ screens. On large variant we don't need that. #} {% else %} tw-max-h-18 medium:tw-max-h-24 {% endif %} " />
     {% endif %}
-
-    {% if heading %}
-        <div class="tw-h3-heading tw-mb-4">
-            {{ heading }}
-        </div>
-    {% endif %}
-
+    {% if heading %}<div class="tw-h3-heading tw-mb-4">{{ heading }}</div>{% endif %}
     {% if body %}
         {# Arbitrary variant to override the global paragraph style. #}
-        <div class="[&_.rich-text_p]:tw-text-base">
-            {{ body|richtext }}
-        </div>
+        <div class="[&_.rich-text_p]:tw-text-base">{{ body|richtext }}</div>
     {% endif %}
-
     {% if link_text and link_href %}
         <div class="tw-mt-16">
+
             {% include "./arrow_link.html" with link_href=link_href link_text=link_text %}
+
         </div>
     {% endif %}
 </div>

@@ -1,7 +1,7 @@
 {% load primary_active_nav %}
 
 {% for item in menu_items %}
-    {{ pre }}<a class="{% primary_active_nav request menu_root.full_url item.full_url %}" href="{{ item.url }}">{{ item.title }}</a>{{ post }}
+    {{ pre }}<a class="{% primary_active_nav request menu_root.full_url item.full_url %}"
+   href="{{ item.url }}">{{ item.title }}</a>{{ post }}
 {% endfor %}
-
 {% if REVIEW_APP %}{{ pre }}<a href="/help/">DEV HELP</a>{{ post }}{% endif %}

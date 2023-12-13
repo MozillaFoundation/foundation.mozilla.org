@@ -1,4 +1,5 @@
 {% extends "./base_streamfield_block.html" %}
+
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block block_content %}
@@ -9,9 +10,7 @@
                 <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="summary-open:tw-hidden" />
                 <img src="{% static "_images/minus-circle.svg" %}" alt="" data-state="close" class="tw-hidden summary-open:tw-block" />
             </summary>
-            {% with item=block count=self.accordion_items|length %}
-                {{ item.content }}
-            {% endwith %}
+            {% with item=block count=self.accordion_items|length %}{{ item.content }}{% endwith %}
         </details>
     {% endfor %}
 {% endblock %}

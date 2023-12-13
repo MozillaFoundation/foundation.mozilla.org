@@ -1,29 +1,36 @@
 {% load wagtailcore_tags wagtailembeds_tags wagtailimages_tags i18n homepage_tags blog_tags static %}
 
-
 <div class="tw-grid tw-grid-cols-12 tw-gap-x-12 tw-gap-y-6">
     <div class="tw-h-full tw-flex tw-flex-col tw-col-span-12 tw-justify-between large:tw-col-span-4 large:tw-py-0 {% if content_left %} large:tw-pl-6 {% else %} large:tw-pr-6 {% endif %}">
         <div id="title-and-description">
             <div class="tw-flex tw-flex-wrap">
+
                 {% include "./blog_topics.html" with topics=blog_page.specific.topics.all video_post=True published_date=blog_page.first_published_at %}
+
                 {% if video_url %}
                     <img src="{% static "_images/video-icon.svg" %}" alt="{% trans "video" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-mr-4 tw-my-2">
                 {% endif %}
                 <span class="tw-h6-heading tw-text-gray-40 tw-py-2 tw-mb-0">{{ blog_page.first_published_at|date:"DATE_FORMAT" }}</span>
             </div>
-            <a href="{% pageurl blog_page %}" class="tw-group tw-block hover:tw-no-underline">
-                <h1 class="tw-h4-heading medium:tw-h1-heading medium:tw-text-[34px] tw-mt-2 tw-mb-4 group-hover:tw-underline">{{ blog_page.localized.title }}</h1>
+            <a href="{% pageurl blog_page %}"
+               class="tw-group tw-block hover:tw-no-underline">
+                <h1 class="tw-h4-heading medium:tw-h1-heading medium:tw-text-[34px] tw-mt-2 tw-mb-4 group-hover:tw-underline">
+                    {{ blog_page.localized.title }}
+                </h1>
                 <p class="tw-body tw-line-clamp-3 medium:tw-line-clamp-none">{{ blog_page.localized.get_meta_description }}</p>
             </a>
         </div>
         <div id="blog-authors">
+
             {% include "./blog_authors.html" with blog_page=blog_page %}
+
         </div>
     </div>
-    <div class="tw-order-first tw-col-span-12 large:tw-col-span-8 {% if not content_left %} large:tw-order-last {% endif %}">
+    <div class="tw-order-first tw-col-span-12 large:tw-col-span-8 {% if not content_left %}large:tw-order-last{% endif %}">
         {% if video_url %}
             {% if 'player.vimeo.com' in video_url %}
-                <div id="featured-video-container" class=" tw-relative tw-aspect-[16/9] tw-w-full tw-h-full hover:tw-cursor-pointer">
+                <div id="featured-video-container"
+                     class=" tw-relative tw-aspect-[16/9] tw-w-full tw-h-full hover:tw-cursor-pointer">
                     <video class="featured-video tw-h-full tw-w-full">
                         <source src="{{ video_url }}" type="video/mp4">
                     </video>
@@ -32,9 +39,7 @@
                     </div>
                 </div>
             {% else %}
-                <div class="tw-aspect-[16/9] embed-responsive tw-h-full tw-w-full">
-                    {% embed video_url %}
-                </div>
+                <div class="tw-aspect-[16/9] embed-responsive tw-h-full tw-w-full">{% embed video_url %}</div>
             {% endif %}
         {% else %}
             <div id="featured-image-container" class="tw-w-full tw-h-full">

@@ -1,18 +1,19 @@
 {% extends "pages/base.html" %}
+
 {% load wagtailcore_tags i18n %}
 
 {% block body_id %}article{% endblock %}
 
 {% block primary_nav %}
     {{ block.super }}
+
     {% include "fragments/article_subnav.html" %}
+
 {% endblock %}
 
-
 {% block content %}
-
-    <div class="tw-bg-white tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-screen tw-z-[1999] tw-grid tw-place-items-center page-enter-transition"></div>
-
+    <div class="tw-bg-white tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-screen tw-z-[1999] tw-grid tw-place-items-center page-enter-transition">
+    </div>
     <noscript>
         <style type="text/css">
             .page-enter-transition.tw-bg-white.tw-absolute {
@@ -20,30 +21,34 @@
             }
         </style>
     </noscript>
-
     {% if page.hero_layout != "static" %}
+
         {% include "fragments/custom_hero.html" with page=page download_file=page.article_file is_publication_article=page.is_publication_article %}
+
     {% else %}
+
         {% include "fragments/publication_hero.html" with size="small" download_file=page.article_file is_publication_article=page.is_publication_article %}
+
     {% endif %}
     {% blocktrans with title=page.title asvar share_text_translated %}{{ title }} by @mozilla{% endblocktrans %}
-
     <div class="container {% if get_titles %}{% if page.hero_layout == "image_left" or page.hero_layout == "image_right" %} medium:-tw-mt-8 large:-tw-mt-24 {% endif %} {% else %} mt-5 {% endif %}">
         <div class="row">
             <div class="offset-sm-1 col-sm-10 col-12">
                 {% if page.show_side_share_buttons %}
-                    <div class="article-summary-share-links d-lg-block d-none {% if page.hero_layout == "image_left" or page.hero_layout == "image_right" %} tw-mt-24 {% endif %} {% if get_titles %} with-top-offset {% endif %}">
+                    <div class="article-summary-share-links d-lg-block d-none {% if page.hero_layout == "image_left" or page.hero_layout == "image_right" %}tw-mt-24{% endif %} {% if get_titles %}with-top-offset{% endif %}">
+
                         {% include "wagtailpages/fragments/share-buttons.html" with page=page version="mini" layout="stacked" share_text=share_text_translated %}
+
                     </div>
                 {% endif %}
-
                 {% if get_titles %}
                     {# If there are h2s in the body of this page, show the article "table of contents" #}
                     <div class="tw-w-[calc(80%+60px)] mx-auto tw-mb-24 tw--mt-24 tw-border tw-border-gray-20">
                         <div class="tw-body-small tw-bg-blue-05 tw-px-16 large:tw-px-24 tw-py-8">{% trans "SUMMARY" %}</div>
-                        <div class="tw-bg-white tw-columns-1 article-column-rule tw-p-16 large:tw-px-24 {% if get_titles|length > 5 %} medium:tw-columns-2 {% endif %}">
+                        <div class="tw-bg-white tw-columns-1 article-column-rule tw-p-16 large:tw-px-24 {% if get_titles|length > 5 %}medium:tw-columns-2{% endif %}">
                             {% for slug, header in get_titles %}
-                                <a href="#{{ slug }}" class="tw-block tw-text-black tw-mb-8 hover:tw-text-blue-80 hover:tw-no-underline tw-break-inside-avoid-column" >{{ header }}</a>
+                                <a href="#{{ slug }}"
+                                   class="tw-block tw-text-black tw-mb-8 hover:tw-text-blue-80 hover:tw-no-underline tw-break-inside-avoid-column">{{ header }}</a>
                             {% endfor %}
                         </div>
                     </div>
@@ -51,7 +56,6 @@
             </div>
         </div>
     </div>
-
     <div class="cms article-page-content article-blocks">
         {% for block in page.body %}
             {% if block.block_type == "accordion" %}
@@ -61,31 +65,36 @@
             {% endif %}
         {% endfor %}
     </div>
-
     {% if page.footnotes_list %}
-        {% include "fragments/footnotes.html" %}
-    {% endif %}
 
+        {% include "fragments/footnotes.html" %}
+
+    {% endif %}
     {% if page.next_page == None or page.is_publication_article == False %}
         <div class="container my-5">
             <div class="row pt-5">
                 <div class="col-sm-8 offset-sm-2 pt-4">
                     <div class="pb-4">
+
                         {% include "wagtailpages/fragments/share-buttons.html" with page=page share_text=share_text_translated %}
+
                     </div>
                 </div>
             </div>
         </div>
     {% endif %}
-
     <!-- If this is a child of a publication, we want to render the next buttons -->
     {% if page.is_publication_article and page.next_page %}
+
         {% include "fragments/continuous_scrolling_next.html" with page=page.next_page %}
+
     {% endif %}
 {% endblock %}
 
 {% block footer_block %}
     {% if page.next_page == None or page.is_publication_article == False %}
+
         {% include "partials/footer.html" %}
+
     {% endif %}
 {% endblock %}

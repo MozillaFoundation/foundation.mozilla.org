@@ -1,6 +1,7 @@
 {% load i18n %}
 
 <div class="d-flex flex-wrap {% if show_full_info %}flex-column mb-4{% else %}align-items-center{% endif %}">
+
     {% include "fragments/profile_images_stack.html" with profiles=authors %}
 
     <p class="tw-text-sm my-2 tw-text-black">

@@ -1,25 +1,29 @@
 {% load i18n %}
+
 <section class="container-xl tw-mb-24 medium:tw-mb-40">
     <div class="tw-mb-24 tw-text-center">
         <h3 class="tw-font-bold tw-mb-4 tw-font-changa">{% trans "Which method was most effective?" %}</h3>
         <span class="tw-text-2xl medium:tw-text-[1.625rem] tw-font-light">{% trans "None of them really." %}</span>
     </div>
-
     {% trans "Don’t recommend channel" as dont_recommend %}
     {% trans "Not interested" as not_interested %}
     {% trans "Dislike" as dislike_text %}
     {% trans "Remove from watch history" as remove_from_watch_history %}
     {% trans "%" as localized_percentage_suffix context "Added after a number" %}
-
     <div class="tw-grid tw-gap-16 large:tw-gap-24 tw-grid-cols-2 xlarge:tw-grid-cols-4">
+
         {% include "../../youtube-regrets-shared/standout-stat.html" with number=43 label=dont_recommend id="dont-recommend-channel-count-up" prefix="~" suffix=localized_percentage_suffix %}
         {% include "../../youtube-regrets-shared/standout-stat.html" with number=11 label=not_interested id="not-interested-count-up" prefix="~" suffix=localized_percentage_suffix %}
         {% include "../../youtube-regrets-shared/standout-stat.html" with number=12 label=dislike_text id="dislike-count-up" prefix="~" suffix=localized_percentage_suffix %}
         {% include "../../youtube-regrets-shared/standout-stat.html" with number=29 label=remove_from_watch_history id="remove-from-watch-history-count-up" prefix="~" suffix=localized_percentage_suffix %}
-    </div>
-    <p class="tw-italic tw-text-center tw-mt-24 tw-font-light">{% trans "Percentage of bad recommendations prevented" %}</p>
 
+    </div>
+    <p class="tw-italic tw-text-center tw-mt-24 tw-font-light">
+        {% trans "Percentage of bad recommendations prevented" %}
+    </p>
     <div class="tw-text-center tw-max-w-3xl tw-mx-auto tw-my-24 large:tw-my-[120px]">
-        <h2 class="tw-text-4xl medium:tw-text-[3.25rem] tw-leading-none">{% trans "Bad recommendations resurfaced over time." %}</h2>
+        <h2 class="tw-text-4xl medium:tw-text-[3.25rem] tw-leading-none">
+            {% trans "Bad recommendations resurfaced over time." %}
+        </h2>
     </div>
 </section>

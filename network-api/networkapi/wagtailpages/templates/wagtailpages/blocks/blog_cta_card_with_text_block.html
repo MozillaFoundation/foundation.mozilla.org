@@ -1,14 +1,10 @@
 {% extends "./base_streamfield_block.html" %}
+
 {% load l10n wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
     <div class="tw-flex tw-flex-col-reverse medium:tw-block medium:tw-overflow-visible">
-        <div class="tw-my-8 tw-mx-2 tw-w-full medium:tw-m-8 medium:tw-max-w-xs large:tw-w-192
-                    {% if value.alignment == "right" %}
-                        medium:tw-float-right large:-tw-mr-80
-                    {% elif value.alignment == "left" %}
-                        medium:tw-float-left large:-tw-ml-80 large:tw-mr-14
-                    {% endif %}">
+        <div class="tw-my-8 tw-mx-2 tw-w-full medium:tw-m-8 medium:tw-max-w-xs large:tw-w-192 {% if value.alignment == "right" %} medium:tw-float-right large:-tw-mr-80 {% elif value.alignment == "left" %} medium:tw-float-left large:-tw-ml-80 large:tw-mr-14 {% endif %}">
             {% include_block value.card %}
         </div>
         <div class="tw-w-full">
@@ -16,4 +12,3 @@
         </div>
     </div>
 {% endblock block_content %}
-
