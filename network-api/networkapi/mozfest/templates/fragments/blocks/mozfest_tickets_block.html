@@ -1,0 +1,31 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_content %}
+    <div class="tw-bg-black tw-dark tw-py-16">
+        <div class="tw-container">
+            <h2 class="tw-mb-14">{{ title }}</h2>
+            <div class="tw-row">
+                {% for tier in self.tickets %}
+                    {% with count=self.tickets|length %}
+                        <div class="tw-mb-12 tw-w-full{% if count > 2 %} large:tw-w-1/3{% else %} large:tw-w-1/2{% endif %} tw-px-8{% if tier.sticker_text %} tw-relative{% endif %}">
+                            <div class="tw-bg-festival-black-100 tw-p-8 tw-h-full tw-flex tw-flex-col tw-items-start">
+                                <h3 class="tw-h2-heading">{{ tier.price }}</h3>
+                                <p class="tw-mt-0">{{ tier.group }}</p>
+                                <div class="[&>*]:tw-text-sm">
+                                    {{ tier.description|richtext }}}
+                                </div>
+                                <a class="tw-btn-primary mt-auto" href="{{ tier.link_url }}">{{ tier.link_text }}</a>
+                            </div>
+
+                            {% if tier.sticker_text %}
+                                <div class="tw-bg-festival-purple-300 tw-absolute tw-right-2 tw-w-40 tw-h-40 tw-rounded-full -tw-top-14 tw-flex tw-items-center tw-justify-center tw-text-center tw-p-4">
+                                    <p class="tw-body-small tw-text-black tw-m-0 tw-rotate-[15deg]"><b>{{ tier.sticker_text }}</b></p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock block_content %}

@@ -230,8 +230,12 @@ module.exports = {
         },
         purple: {
           100: "#fa00ff",
-          200: "#8e769d"
+          200: "#8e769d",
+          300: "#a0a2f8"
         },
+        black: {
+          100: "#202020",
+        }
       },
       "dear-internet": {
         lilac: "#d3d5fc",
