@@ -7,6 +7,8 @@ profile = "django"
 use_gitignore = true
 # H017: Ignored because opposite of W3C validator recommendation.
 ignore="H017"
+blank_line_after_tag="load,extends,include,endblock"
+blank_line_before_tag="load,extends,include,block"
 
 # Per file ignores
 # We use these to make it possible to introduce the linting for all files, but without the need to fix everything at once.
