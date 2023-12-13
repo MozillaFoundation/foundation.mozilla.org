@@ -484,7 +484,7 @@ def generate_listing_block_field():
         cards.append(
             {
                 "image": choice(Image.objects.all()).id,
-                "altText": " ".join(fake.words(nb=5)),
+                "alt_text": " ".join(fake.words(nb=5)),
                 "title": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
                 "highlighted_metadata": " ".join(fake.words(nb=2)),
                 "metadata": " ".join(fake.words(nb=3)),
@@ -508,19 +508,14 @@ def generate_carousel_text_block_field():
         carousel_images.append(
             {
                 "image": choice(Image.objects.all()).id,
-                "alt_text": " ".join(fake.words(nb=5)),
+                "altText": " ".join(fake.words(nb=5)),
             }
         )
 
-    data = {
-        "heading": heading,
-        "text": text,
-        "link_url": link_url,
-        "link_label": link_label,
-        "carousel_images": carousel_images,
-    }
+    data = {"heading": heading, "text": text, "link_url": link_url, "link_label": link_label, "carousel_images": carousel_images}
 
     return generate_field("carousel_text_block", data)
+
 
 
 class StreamfieldProvider(BaseProvider):
