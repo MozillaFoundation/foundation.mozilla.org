@@ -7,7 +7,7 @@ class StatisticCard(blocks.StructBlock):
 
 
 class MozfestStatisticsBlock(blocks.StructBlock):
-    statistics = blocks.ListBlock(StatisticCard(), help_text="Please use a minimum of 2 cards.")
+    statistics = blocks.ListBlock(StatisticCard(), help_text="Please use a minimum of 2 cards.", max_num=4)
 
     class Meta:
         icon = "placeholder"
