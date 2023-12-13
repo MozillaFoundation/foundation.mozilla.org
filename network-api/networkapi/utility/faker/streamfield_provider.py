@@ -476,6 +476,26 @@ def generate_blog_newsletter_signup_field():
     return generate_field("newsletter_signup", BlogNewsletterSignupBlock().get_api_representation(block))
 
 
+def generate_listing_block_field():
+    heading = fake.sentence(nb_words=10, variable_nb_words=True)
+    cards = []
+
+    for n in range(2):
+        cards.append(
+            {
+                "image": choice(Image.objects.all()).id,
+                "alt_text": " ".join(fake.words(nb=5)),
+                "title": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
+                "category": " ".join(fake.words(nb=2)),
+                "date_meta": " ".join(fake.words(nb=3)),
+                "body": fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
+                "link_url": fake.url(schemes=["https"]),
+            }
+        )
+
+    return generate_field("listing", {"cards": cards, "heading": heading})
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -526,6 +546,7 @@ class StreamfieldProvider(BaseProvider):
             "callout_box": generate_blog_index_callout_box_field,
             "blog_newsletter_signup": generate_blog_newsletter_signup_field,
             "stats_block": generate_stats_block_field,
+            "listing": generate_listing_block_field,
         }
 
         streamfield_data = []

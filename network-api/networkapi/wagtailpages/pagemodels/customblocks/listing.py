@@ -10,8 +10,10 @@ class ListingCard(blocks.StructBlock):
     alt_text = blocks.CharBlock(required=False, help_text="Alt text for card's image.")
 
     title = blocks.CharBlock(help_text="Heading for the card.")
+    category = blocks.CharBlock(help_text="Category text for the card.", required=False)
+    date_meta = blocks.CharBlock(help_text="Date and time or other information.", required=False)
 
-    body = blocks.RichTextBlock(features=["bold"], help_text="Body text of the card.")
+    body = blocks.RichTextBlock(features=["bold"], help_text="Body text of the card.", required=False)
 
     link_page = blocks.PageChooserBlock(required=False, help_text="Page that this should link out to.")
 
@@ -31,6 +33,8 @@ class ListingCard(blocks.StructBlock):
 
 
 class ListingBlock(blocks.StructBlock):
+    heading = blocks.CharBlock(help_text="Heading for the block.")
+
     cards = blocks.ListBlock(ListingCard(), help_text="Please use a minimum of 2 cards.", min_num=2)
 
     class Meta:
