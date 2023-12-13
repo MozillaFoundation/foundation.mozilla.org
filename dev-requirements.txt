@@ -40,7 +40,7 @@ django-debug-toolbar==4.2.0
     # via -r dev-requirements.in
 djhtml==3.0.6
     # via -r dev-requirements.in
-djlint==1.19.16
+djlint==1.34.0
     # via -r dev-requirements.in
 docopt==0.6.2
     # via coveralls
@@ -72,6 +72,8 @@ jsbeautifier==1.14.7
     # via
     #   cssbeautifier
     #   djlint
+json5==0.9.14
+    # via djlint
 mccabe==0.7.0
     # via flake8
 mypy==1.7.1
@@ -123,7 +125,7 @@ pyyaml==6.0.1
     # via
     #   -c requirements.txt
     #   djlint
-regex==2022.10.31
+regex==2023.10.3
     # via djlint
 requests==2.31.0
     # via
