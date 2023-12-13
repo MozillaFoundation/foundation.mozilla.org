@@ -484,7 +484,7 @@ def generate_listing_block_field():
         cards.append(
             {
                 "image": choice(Image.objects.all()).id,
-                "alt_text": " ".join(fake.words(nb=5)),
+                "altText": " ".join(fake.words(nb=5)),
                 "title": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
                 "highlighted_metadata": " ".join(fake.words(nb=2)),
                 "metadata": " ".join(fake.words(nb=3)),
@@ -494,6 +494,33 @@ def generate_listing_block_field():
         )
 
     return generate_field("listing", {"cards": cards, "heading": heading})
+
+
+def generate_carousel_text_block_field():
+    heading = fake.sentence(nb_words=10, variable_nb_words=True)
+    text = fake.paragraph(nb_sentences=10, variable_nb_sentences=True)
+    link_url = fake.url(schemes=["https"])
+    link_label = fake.sentence(nb_words=5, variable_nb_words=True)
+
+    carousel_images = []
+
+    for n in range(4):
+        carousel_images.append(
+            {
+                "image": choice(Image.objects.all()).id,
+                "alt_text": " ".join(fake.words(nb=5)),
+            }
+        )
+
+    data = {
+        "heading": heading,
+        "text": text,
+        "link_url": link_url,
+        "link_label": link_label,
+        "carousel_images": carousel_images,
+    }
+
+    return generate_field("carousel_text_block", data)
 
 
 class StreamfieldProvider(BaseProvider):
@@ -547,6 +574,7 @@ class StreamfieldProvider(BaseProvider):
             "blog_newsletter_signup": generate_blog_newsletter_signup_field,
             "statistics": generate_stats_block_field,
             "listing": generate_listing_block_field,
+            "carousel_text_block": generate_carousel_text_block_field,
         }
 
         streamfield_data = []
