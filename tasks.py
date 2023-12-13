@@ -351,14 +351,7 @@ def lint(ctx):
 @task
 def lint_html(ctx):
     """Run HTML linting."""
-    # Skipping djlint format checking because it has consistency issues and issues with blocktrans.
-    # This should change when formatting is moved to a version using and AST.
-    # See also: https://github.com/Riverside-Healthcare/djLint/issues/493
     djlint_check(ctx)
-    #
-    # Use djhtml indent checking until format checking with djlint becomes possible.
-    # djhtml_check(ctx)
-    # djlint_lint(ctx)
 
 
 @task
@@ -394,13 +387,7 @@ def format(ctx):
 @task
 def format_html(ctx):
     """Run HTML formatting."""
-    # Skipping djlint formatting because it has consistency issues and issues with blocktrans.
-    # This should change when formatting is moved to a version using and AST.
-    # See also: https://github.com/Riverside-Healthcare/djLint/issues/493
     djlint_format(ctx)
-    #
-    # Indent HTML until full formatting with djlint becomes possible
-    # djhtml_format(ctx)
 
 
 @task
