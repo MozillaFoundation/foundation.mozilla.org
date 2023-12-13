@@ -33,7 +33,7 @@ class ListingCard(blocks.StructBlock):
 
 
 class ListingBlock(blocks.StructBlock):
-    heading = blocks.CharBlock(help_text="Heading for the block.")
+    heading = blocks.CharBlock(help_text="Heading for the block.", required=False)
 
     cards = blocks.ListBlock(ListingCard(), help_text="Please use a minimum of 2 cards.", min_num=2)
 
