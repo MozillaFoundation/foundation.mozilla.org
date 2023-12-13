@@ -293,6 +293,7 @@ def generate_stats_block_field():
 
     return generate_field("stats_block", {"statistics": statistics})
 
+
 def generate_pulse_listing_field():
     return generate_field(
         "pulse_listing",

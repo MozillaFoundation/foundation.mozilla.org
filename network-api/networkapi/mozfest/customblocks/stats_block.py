@@ -12,4 +12,4 @@ class MozfestStatisticsBlock(blocks.StructBlock):
     class Meta:
         icon = "placeholder"
         template = "fragments/blocks/mozfest_stats_block.html"
-        label = "Mozfest Stats Block"
+        label = "Stats Block"
