@@ -28,8 +28,8 @@ class Ticket(TranslatableMixin):
         help_text="Identify this ticket for other editors",
     )
     cost = models.CharField(max_length=10, help_text="E.g. €100.00")
-    group = models.CharField(max_length=50, blank=True, help_text="E.g Mega Patrons")
-    description = RichTextField(blank=True, features=["bold", "italic", "ul", "ol"])
+    group = models.CharField(max_length=50, help_text="E.g Mega Patrons")
+    description = RichTextField(features=["bold", "italic", "ul", "ol"])
     link_text = models.CharField(max_length=25, blank=True, help_text="E.G. Get tickets")
     link_url = models.URLField(blank=True)
     sticker_text = models.CharField(max_length=25, blank=True, help_text="Max 25 characters")

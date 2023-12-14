@@ -78,7 +78,7 @@ class TicketSnippetFactory(DjangoModelFactory):
     name = Faker("word")
     cost = Faker("pyint", min_value=100, max_value=999)
     group = Faker("word")
-    description = Faker("paragraph", nb_sentences=3, variable_nb_sentences=True)
+    description = Faker("paragraph", nb_sentences=8, variable_nb_sentences=True)
     link_text = Faker("word")
     link_url = Faker("url")
     sticker_text = Faker("word")
