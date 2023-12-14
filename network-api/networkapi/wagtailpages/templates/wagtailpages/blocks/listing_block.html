@@ -3,9 +3,7 @@
 
 {% block block_content %}
     {% if self.heading %}
-        <div class="tw-px-2 tw-py-12 tw-w-full">
-            <h2 class="tw-h3-heading">{{ self.heading }}</h2>
-        </div>
+        <h2 class="tw-h3-heading tw-mb-0 tw-pb-8 medium:tw-pb-16">{{ self.heading }}</h2>
     {% endif %}
     <ul class="tw-mb-24 tw-list-none tw-pl-0 tw-grid tw-gap-8 medium:tw-grid-cols-2 medium:tw-gap-24">
         {% for block in self.cards %}
