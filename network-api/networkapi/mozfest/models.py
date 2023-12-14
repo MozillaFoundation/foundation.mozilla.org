@@ -1,8 +1,10 @@
 from django import forms
+from django.core import exceptions
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
-from wagtail.models import Locale, Page
+from wagtail.models import Locale, Page, TranslatableMixin
+from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.mozfest import blocks as mozfest_blocks
@@ -17,6 +19,44 @@ from networkapi.wagtailpages.utils import (
     get_page_tree_information,
     set_main_site_nav_information,
 )
+
+
+@register_snippet
+class Ticket(TranslatableMixin):
+    name = models.CharField(
+        max_length=100,
+        help_text="Identify this ticket for other editors",
+    )
+    cost = models.CharField(max_length=10, help_text="E.g. €100.00")
+    group = models.CharField(max_length=50, blank=True, help_text="E.g Mega Patrons")
+    description = RichTextField(blank=True, features=["bold", "italic", "ul", "ol"])
+    link_text = models.CharField(max_length=25, blank=True, help_text="E.G. Get tickets")
+    link_url = models.URLField(blank=True)
+    sticker_text = models.CharField(max_length=25, blank=True, help_text="Max 25 characters")
+
+    translatable_fields = [
+        TranslatableField("name"),
+        TranslatableField("cost"),
+        TranslatableField("group"),
+        TranslatableField("description"),
+        TranslatableField("link_text"),
+        SynchronizedField("link_url"),
+        TranslatableField("sticker_text"),
+    ]
+
+    def __str__(self):
+        return self.name
+
+    class Meta(TranslatableMixin.Meta):
+        ordering = ["name"]
+        verbose_name = "Ticket"
+
+    def clean(self):
+        super().clean()
+
+        # If link_url is provided, check if link_text is also provided
+        if self.link_url and not self.link_text or self.link_text and not self.link_url:
+            raise exceptions.ValidationError("Please provide both link URL and link text, or neither")
 
 
 class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):
@@ -54,6 +94,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ("newsletter_signup", customblocks.NewsletterSignupBlock()),
             ("statistics", mozfest_blocks.StatisticsBlock()),
             ("carousel_and_text", mozfest_blocks.CarouselTextBlock()),
+            ("tickets", mozfest_blocks.TicketsBlock()),
         ],
         use_json_field=True,
     )
