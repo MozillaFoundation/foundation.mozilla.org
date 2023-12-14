@@ -55,4 +55,5 @@ class RCCTestCase(test_base.WagtailpagesTestCase):
         )
 
     def setUp(self):
+        super().setUp()
         self.synchronize_tree()
