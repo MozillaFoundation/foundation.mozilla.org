@@ -1,9 +1,9 @@
 {% load settings_value i18n static %}
 
 {% with wrapper_class="tw-py-24" %}
-
     <footer role="contentinfo">
         {% if skip_donate != True %}
+
             {% block footer_donate %}
                 <div class="tw-bg-blue-40 tw-dark print:tw-hidden {{ wrapper_class }}">
                     <div class="tw-container tw-mt-12">
@@ -12,23 +12,33 @@
                                 <p class="tw-h3-heading tw-mb-0">{% trans "We all love the Web. Join Mozilla in defending it." %}</p>
                                 <p class="tw-h3-heading tw-mb-12">{% trans "Let’s protect the world’s largest resource for future generations." %}</p>
                                 <div>
-                                    <a href="?form=donate" class="tw-btn-secondary tw-dark" id="donate-banner-cta">{% trans "Donate now" %}</a>
+                                    <a href="?form=donate"
+                                       class="tw-btn-secondary tw-dark"
+                                       id="donate-banner-cta">{% trans "Donate now" %}</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             {% endblock %}
-        {% endif %}
 
+        {% endif %}
         <div class="site-footer tw-bg-black tw-dark {{ wrapper_class }} print:tw-hidden">
-            <div class="tw-container {% block footer_inner_container_class %} tw-mt-12 {% endblock %}">
+            <div class="tw-container 
+                {% block footer_inner_container_class %}tw-mt-12{% endblock %}
+                 ">
                 <div class="tw-row">
 
                     {% block left_footer_column %}
                         <div class="medium:tw-w-5/12 large:tw-w-6/12 tw-px-8 tw-flex tw-flex-col tw-justify-between">
-                            <div class="join-us" data-form-position="footer" data-button-position="side"></div>
-                            <a class="logo tw-block tw-my-24 medium:tw-my-0" href="https://foundation.mozilla.org" aria-label="{% trans 'Return to Homepage' %}"><img src="{% static "_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}" width="96"></a>
+                            <div class="join-us"
+                                 data-form-position="footer"
+                                 data-button-position="side"></div>
+                            <a class="logo tw-block tw-my-24 medium:tw-my-0"
+                               href="https://foundation.mozilla.org"
+                               aria-label="{% trans 'Return to Homepage' %}">
+                                <img src="{% static "_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}" width="96">
+                            </a>
                         </div>
                     {% endblock %}
 
@@ -38,28 +48,66 @@
                                 <div class="xlarge:tw-w-5/12 large:tw-w-6/12 tw-px-8">
                                     <p class="tw-h5-heading">{% trans "More about us" %}</p>
                                     <ul class="tw-p-0 tw-ml-0 tw-flex tw-list-none">
+
                                         {% block social_links %}
-                                            <li class="tw-mr-4"><a class="tw-twitter-glyph tw-inline-block" href="https://twitter.com/mozilla"><span class="sr-only">{% trans "Twitter" %}</span></a></li>
-                                            <li class="tw-mr-4"><a class="tw-instagram-glyph tw-inline-block" href="https://www.instagram.com/mozilla/"><span class="sr-only">{% trans "Instagram" %}</span></a></li>
-                                            <li class="tw-mr-4"><a class="tw-github-glyph tw-inline-block" href="https://www.github.com/mozilla/foundation.mozilla.org/"><span class="sr-only">{% trans "GitHub" %}</span></a></li>
-                                            <li class="tw-mr-4"><a class="tw-youtube-glyph tw-inline-block" href="https://www.youtube.com/user/Mozilla"><span class="sr-only">{% trans "Youtube" %}</span></a></li>
+                                            <li class="tw-mr-4">
+                                                <a class="tw-twitter-glyph tw-inline-block"
+                                                   href="https://twitter.com/mozilla"><span class="sr-only">{% trans "Twitter" %}</span></a>
+                                            </li>
+                                            <li class="tw-mr-4">
+                                                <a class="tw-instagram-glyph tw-inline-block"
+                                                   href="https://www.instagram.com/mozilla/"><span class="sr-only">{% trans "Instagram" %}</span></a>
+                                            </li>
+                                            <li class="tw-mr-4">
+                                                <a class="tw-github-glyph tw-inline-block"
+                                                   href="https://www.github.com/mozilla/foundation.mozilla.org/"><span class="sr-only">{% trans "GitHub" %}</span></a>
+                                            </li>
+                                            <li class="tw-mr-4">
+                                                <a class="tw-youtube-glyph tw-inline-block"
+                                                   href="https://www.youtube.com/user/Mozilla"><span class="sr-only">{% trans "Youtube" %}</span></a>
+                                            </li>
                                         {% endblock %}
+
                                     </ul>
                                 </div>
                                 <div class="large:tw-w-6/12 xlarge:tw-w-7/12 tw-px-8">
                                     <ul class="tw-p-0 tw-ml-0 tw-list-none tw-mb-0 link-list large:tw-columns-2">
+
                                         {% block general_links %}
                                             {% with footer_link_classes="tw-dark tw-text-white hover:tw-underline" %}
-                                                <li class="tw-mb-4"><a id="donate-footer-btn" href="?form=donate" class="{{ footer_link_classes }}">{% trans "Donate" %}</a></li>
+                                                <li class="tw-mb-4">
+                                                    <a id="donate-footer-btn"
+                                                       href="?form=donate"
+                                                       class="{{ footer_link_classes }}">{% trans "Donate" %}</a>
+                                                </li>
                                                 <!-- the rest of the links should be listed alphabetically -->
-                                                <li class="tw-mb-4"><a href="https://careers.mozilla.org/listings/?team=Mozilla%20Foundation" class="{{ footer_link_classes }}">{% trans "Careers" %}</a></li>
-                                                <li class="tw-mb-4"><a href="https://www.mozilla.org/privacy/websites/#cookies" class="{{ footer_link_classes }}">{% trans "Cookies" %}</a></li>
-                                                <li class="tw-mb-4"><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="{{ footer_link_classes }}">{% trans "Legal" %}</a></li>
-                                                <li class="tw-mb-4"><a href="https://www.mozilla.org/about/governance/policies/participation/" class="{{ footer_link_classes }}">{% trans "Participation Guidelines" %}</a></li>
-                                                <li class="tw-mb-4"><a href="https://foundation.mozilla.org/en/press-center/" class="{{ footer_link_classes }}">{% trans "Press Center" %}</a></li>
-                                                <li ><a href="https://mozilla.org/privacy/websites/" class="{{ footer_link_classes }}">{% trans "Privacy" %}</a></li>
+                                                <li class="tw-mb-4">
+                                                    <a href="https://careers.mozilla.org/listings/?team=Mozilla%20Foundation"
+                                                       class="{{ footer_link_classes }}">{% trans "Careers" %}</a>
+                                                </li>
+                                                <li class="tw-mb-4">
+                                                    <a href="https://www.mozilla.org/privacy/websites/#cookies"
+                                                       class="{{ footer_link_classes }}">{% trans "Cookies" %}</a>
+                                                </li>
+                                                <li class="tw-mb-4">
+                                                    <a href="https://www.mozilla.org/about/legal/terms/mozilla/"
+                                                       class="{{ footer_link_classes }}">{% trans "Legal" %}</a>
+                                                </li>
+                                                <li class="tw-mb-4">
+                                                    <a href="https://www.mozilla.org/about/governance/policies/participation/"
+                                                       class="{{ footer_link_classes }}">{% trans "Participation Guidelines" %}</a>
+                                                </li>
+                                                <li class="tw-mb-4">
+                                                    <a href="https://foundation.mozilla.org/en/press-center/"
+                                                       class="{{ footer_link_classes }}">{% trans "Press Center" %}</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://mozilla.org/privacy/websites/"
+                                                       class="{{ footer_link_classes }}">{% trans "Privacy" %}</a>
+                                                </li>
                                             {% endwith %}
                                         {% endblock %}
+
                                     </ul>
                                 </div>
                             </div>
@@ -72,13 +120,17 @@
                                 </p>
                             </div>
                             {% if exclude_language_switcher != True %}
+
                                 {% block language_switcher %}
                                     <div class="tw-row tw-mt-24">
                                         <div class="tw-w-full tw-px-8">
+
                                             {% include "../fragments/language_switcher.html" %}
+
                                         </div>
                                     </div>
                                 {% endblock %}
+
                             {% endif %}
                             <div class="tw-row">
                                 <div class="tw-w-full tw-px-8">
@@ -95,5 +147,4 @@
             </div>
         </div>
     </footer>
-
 {% endwith %}

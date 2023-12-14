@@ -1,14 +1,17 @@
 {% extends "./base_streamfield_block.html" %}
+
 {% load l10n wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
     <div class="tw-p-4 medium:tw-p-8 tw-my-24 tw-w-full tw-flex tw-items-center tw-border-t tw-border-b tw-border-black">
         <div class="tw-flex-shrink-0 tw-grow-0 tw-basis-[50px] tw-mr-4 medium:tw-mr-8">
             {% image value.image fill-100x100-c100 format-jpeg as img %}
-            <img src="{{ img.url }}" alt="{{ value.altText }}" class="tw-w-full" width="{{ img.width|unlocalize }}" height="{{ img.height|unlocalize }}">
+            <img src="{{ img.url }}"
+                 alt="{{ value.altText }}"
+                 class="tw-w-full"
+                 width="{{ img.width|unlocalize }}"
+                 height="{{ img.height|unlocalize }}">
         </div>
-        <div class="image-text-mini-text">
-            {{ value.text|richtext }}
-        </div>
+        <div class="image-text-mini-text">{{ value.text|richtext }}</div>
     </div>
 {% endblock %}

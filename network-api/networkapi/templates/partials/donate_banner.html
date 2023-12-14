@@ -1,34 +1,31 @@
 {% load settings_value i18n static wagtailimages_tags %}
-{% image banner.background_image fill-1305x720 as background_image %}
 
+{% image banner.background_image fill-1305x720 as background_image %}
 {% with btn_class="tw-btn-pop tw-py-7 tw-px-20 tw-text-white tw-border-black tw-bg-blue-40 tw-shadow-black tw-shadow-[4px_4px] tw-w-full small:tw-w-auto hover:tw-bg-blue-80" %}
     <div class="donate-banner tw-bg-red-40 tw-py-20 tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden">
-
-        <a href="#" class="tw-p-8 tw-box-content banner-close tw-cursor-pointer tw-absolute tw-right-0 tw-top-0 tw-group" aria-label="{% trans " Close Banner" %}">
+        <a href="#"
+           class="tw-p-8 tw-box-content banner-close tw-cursor-pointer tw-absolute tw-right-0 tw-top-0 tw-group"
+           aria-label="{% trans " Close Banner" %}">
             <img src="{% static "_images/x.svg" %}" width="24" height="23" alt="{% trans " Close Banner" %}" class="tw-w-8 tw-h-8 tw-transition-transform tw-duration-100 tw-ease-in-out tw-transform group-hover:tw-scale-110 tw-filter">
         </a>
-
         <div class="tw-container">
             <div class="tw-row tw-px-6">
 
                 {% block left_banner_column %}
                     <div class="tw-w-6/12 tw-m-auto large:tw-order-2">
-                        <img src="{{ background_image.url }}" alt="Banner Image" width="auto" height="auto">
+                        <img src="{{ background_image.url }}"
+                             alt="Banner Image"
+                             width="auto"
+                             height="auto">
                     </div>
                 {% endblock left_banner_column %}
 
                 {% block right_banner_column %}
                     <div class="large:tw-py-16 large:tw-w-6/12 large:tw-order-1">
-                        <p class="tw-h1-heading tw-mb-0 tw-text-white tw-font-semibold">
-                            {{ banner.title }}
-                        </p>
-                        <p class="tw-body-large tw-mt-8 tw-text-white tw-leading-normal">
-                            {{ banner.subtitle }}
-                        </p>
+                        <p class="tw-h1-heading tw-mb-0 tw-text-white tw-font-semibold">{{ banner.title }}</p>
+                        <p class="tw-body-large tw-mt-8 tw-text-white tw-leading-normal">{{ banner.subtitle }}</p>
                         <div class="tw-w-full tw-pt-6">
-                            <a class="{{ btn_class }}" href="{{ banner.cta_link }}">
-                                {{ banner.cta_button_text }}
-                            </a>
+                            <a class="{{ btn_class }}" href="{{ banner.cta_link }}">{{ banner.cta_button_text }}</a>
                         </div>
                     </div>
                 {% endblock right_banner_column %}

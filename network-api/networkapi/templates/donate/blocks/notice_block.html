@@ -1,14 +1,15 @@
-
 {% load l10n wagtailcore_tags wagtailimages_tags %}
 
 <div class="tw-py-4 tw-px-0 medium:tw-p-8 tw-my-24 tw-w-full tw-flex tw-flex-col large:tw-flex-row tw-items-start large:tw-items-center tw-border-t tw-border-b tw-border-black">
     {% if value.image %}
         <div class="tw-flex-shrink-0 tw-grow-0 tw-basis-24 tw-mr-4 medium:tw-mr-8">
             {% image value.image fill-100x100-c100 format-jpeg as img %}
-            <img src="{{ img.url }}" alt="{{ value.image_alt_text }}" class="tw-w-full" width="{{ img.width|unlocalize }}" height="{{ img.height|unlocalize }}">
+            <img src="{{ img.url }}"
+                 alt="{{ value.image_alt_text }}"
+                 class="tw-w-full"
+                 width="{{ img.width|unlocalize }}"
+                 height="{{ img.height|unlocalize }}">
         </div>
     {% endif %}
-    <div class="notice-block-text">
-        {{ value.text|richtext }}
-    </div>
+    <div class="notice-block-text">{{ value.text|richtext }}</div>
 </div>

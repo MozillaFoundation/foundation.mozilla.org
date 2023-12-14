@@ -5,9 +5,10 @@
         {% comment %}
       Using 16 / 9 aspect ratio for the image at double the display size.
       Only specifiying the image width with CSS to upscale small images (like the example image during development).
-    {% endcomment %}
+        {% endcomment %}
         {% image page.get_meta_image fill-768x432 class="tw-object-cover tw-w-192 tw-aspect-video" %}
     </a>
 
     {% include "./article_card_body.html" with page=page %}
+
 </div>

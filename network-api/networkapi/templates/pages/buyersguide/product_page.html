@@ -9,7 +9,8 @@
 {% endblock %}
 
 {% block head_extra %}
-    <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
+    <meta property="og:title"
+          content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
 {% endblock %}
 
 {% block social_image %}
@@ -27,20 +28,17 @@
 {% block body_id %}product-page{% endblock %}
 
 {% block guts %}
-
     {% get_bg_home_page as home_page %}
-
     <div class="text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">
         <div class="tw-container tw-block medium:tw-grid tw-grid-cols-12 tw-gap-x-16">
             <div class="tw-col-start-3 tw-col-end-11 tw--mx-8 medium:tw--mx-16">
                 <div class="tw-w-full  product-header-content {% if product.privacy_ding %}show-privacy-ding{% endif %}">
-                    <img
-                        class="thumb-border tw-mx-auto"
-                        width="250"
-                        {% image product.image width-250 as img %}
-                        src="{{ img.url }}"
-                        alt="{{ product.title }}"
-                    >
+                    <img class="thumb-border tw-mx-auto"
+                         {% image product.image width-250 as img %}
+                         src="{{ img.url }}"
+                         alt="{{ product.title }}"
+                         height="{{ img.height }}"
+                         width="{{ img.width }}">
                 </div>
             </div>
         </div>
@@ -48,28 +46,30 @@
     {% with section_class="tw-col-start-3 tw-col-end-11 tw--mx-8 medium:tw--mx-16" %}
         <div class="tw-container product-detail tw-block medium:tw-grid tw-grid-cols-12 tw-gap-x-16">
             <div class="{{ section_class }} tw-relative">
-
                 {% if product.privacy_ding %}
                     <div class="privacy-ding-band tw-px-8 medium:tw-px-16 ">
-                        <p class="pni-product-smaller-body mb-0 py-2">{% blocktrans %}<strong>Warning</strong>: *privacy not included with this product{% endblocktrans %}</p>
+                        <p class="pni-product-smaller-body mb-0 py-2">
+                            {% blocktrans %}<strong>Warning</strong>: *privacy not included with this product{% endblocktrans %}
+                        </p>
                     </div>
                 {% endif %}
-
                 <div class="bg-white tw-pb-8 tw-pt-12 tw-px-8 medium:tw-px-16">
                     <div class="row intro">
                         <div class="tw-flex tw-gap-2 tw-flex-wrap tw-px-8 tw-mb-8">
                             {% for category in product.local_categories %}
                                 {% routablepageurl home_page 'category-view' category.slug as cat_url %}
-                                <a href="{{ cat_url }}" class="category-tag {% if category.parent == None %}category{% else %}subcategory{% endif %} tw-no-underline tw-text-gray-60 border tw-border-gray-20 tw-px-4 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3]">
+                                <a href="{{ cat_url }}"
+                                   class="category-tag {% if category.parent == None %}category{% else %}subcategory{% endif %} tw-no-underline tw-text-gray-60 border tw-border-gray-20 tw-px-4 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3]">
                                     {{ category.name }}
                                 </a>
                             {% endfor %}
                         </div>
-
                         <h1 class="tw-h1-heading col-12">{{ product.title }}</h1>
-
                         <div class="col-12 d-flex flex-column flex-md-row justify-content-between">
-                            <a id="product-company-url" class="company-external-link pni-product-intro-large mb-2 mb-md-0" href="{{ product.product_url }}" target="_blank">{{ product.company }}</a>
+                            <a id="product-company-url"
+                               class="company-external-link pni-product-intro-large mb-2 mb-md-0"
+                               href="{{ product.product_url }}"
+                               target="_blank">{{ product.company }}</a>
                             {% if product.uses_wifi or product.uses_bluetooth %}
                                 <div>
                                     {% if product.uses_wifi %}
@@ -83,45 +83,35 @@
                         </div>
 
                         {% include "fragments/buyersguide/research_details.html" with review_date=product.review_date time_researched=product.time_researched mozilla_says=product.mozilla_says %}
-                    </div>
 
+                    </div>
                     <div class="row intro mb-4 tw-relative">
                         <div class="col-12 tw-body">{{ product.blurb | richtext }}</div>
-
-                        <aside class="
-                                      2xl:tw-absolute
-                                      tw-mt-16 2xl:tw-mt-0
-                                      tw-mb-4
-                                      tw-px-8
-                                      tw-w-full 2xl:tw-w-160
-                                      2xl:tw-left-full
-                                      tw-grid
-                                      tw-grid-cols-1 large:tw-grid-cols-2 2xl:tw-grid-cols-1
-                                      tw-gap-24 medium:tw-gap-12
-                                     ">
+                        <aside class=" 2xl:tw-absolute tw-mt-16 2xl:tw-mt-0 tw-mb-4 tw-px-8 tw-w-full 2xl:tw-w-160 2xl:tw-left-full tw-grid tw-grid-cols-1 large:tw-grid-cols-2 2xl:tw-grid-cols-1 tw-gap-24 medium:tw-gap-12 ">
                             {% with cta=featured_cta %}
                                 {% if cta %}
+
                                     {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
+
                                 {% endif %}
                             {% endwith %}
-
                             {% with primary_related_articles=product.get_primary_related_articles %}
                                 {% if primary_related_articles %}
                                     <div id="product-primary-related-articles">
+
                                         {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles %}
+
                                     </div>
                                 {% endif %}
                             {% endwith %}
                         </aside>
                     </div>
-
                     <div class="row mb-4">
                         <div class="col-12 worst-case">
                             <h2 class="tw-h3-heading">{% trans "What could happen if something goes wrong?" %}</h2>
                             <div class="tw-body">{{ product.worst_case | richtext }}</div>
                         </div>
                     </div>
-
                     {% if product.tips_to_protect_yourself %}
                         <div class="row tw-my-12 tips-to-protect-yourself">
                             <div class="col-12 tw-py-12 tips">
@@ -130,61 +120,72 @@
                             </div>
                         </div>
                     {% endif %}
-
                     <div id="product-research" data-is-wagtail-page="true">
                         <div id="creepiness-vote">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="creep-vote-target mb-5 mt-3 mt-md-4 p-5" data-product-name="{{ product.title }}" data-product-type="{{ product.product_type }}">
+                                    <div class="creep-vote-target mb-5 mt-3 mt-md-4 p-5"
+                                         data-product-name="{{ product.title }}"
+                                         data-product-type="{{ product.product_type }}">
                                         <input type="hidden" name="productID" value="{{ product.id }}">
-                                        <input type="hidden" name="votes" value='{{ product.get_voting_json | safe }}'>
+                                        <input type="hidden"
+                                               name="votes"
+                                               value='{{ product.get_voting_json | safe }}'>
                                     </div>
                                 </div>
                             </div>
 
                             {% include "fragments/buyersguide/product_tab.html" with  product=product %}
+
                         </div>
                     </div>
 
                     {% include "fragments/buyersguide/pni_newsletter_box.html" %}
+
                 </div>
             </div>
         </div>
-
         <div class="tw-container tw-mt-24 tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-auto-rows-min tw-gap-24">
             {% with product_updates=product.updates.all %}
                 {% if product_updates %}
                     <div class="tw-col-span-full medium:tw-col-span-1 tw-row-span-1 large:tw-row-span-3">
+
                         {% include "fragments/buyersguide/dive_deeper.html" with updates=product_updates %}
+
                     </div>
                 {% endif %}
             {% endwith %}
-
             {% with secondary_related_articles=product.get_secondary_related_articles %}
                 {% if secondary_related_articles %}
-                    <div id="product-secondary-related-articles" class="tw-col-span-full medium:tw-col-span-1 large:tw-col-span-2">
+                    <div id="product-secondary-related-articles"
+                         class="tw-col-span-full medium:tw-col-span-1 large:tw-col-span-2">
+
                         {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=home_page.get_editorial_content_index use_wide_above="large" wide_columns_above_large=2 %}
+
                     </div>
                 {% endif %}
             {% endwith %}
-
             {% with related_products=product.localized_related_products %}
                 {% if related_products %}
-                    <div id="related-products" class="tw-col-span-full medium:tw-col-span-2 large:tw-col-start-2">
+                    <div id="related-products"
+                         class="tw-col-span-full medium:tw-col-span-2 large:tw-col-start-2">
                         <div class="tw-flex tw-flex-col medium:tw-items-center large:tw-items-baseline medium:tw-flex-row-reverse medium:tw-gap-12">
+
                             {% include "fragments/buyersguide/wavy_line.html" %}
+
                             <h2 class="tw-h3-heading tw-mt-4 large:tw-mt-0 tw-shrink-0">{% trans "Related products" %}</h2>
                         </div>
                         <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-4 tw-gap-16">
                             {% for related_product_page in related_products %}
+
                                 {% include "fragments/buyersguide/related_product.html" with related_product=related_product_page %}
+
                             {% endfor %}
                         </div>
                     </div>
                 {% endif %}
             {% endwith %}
         </div>
-
         {% if use_commento %}
             <div class="container-fluid position-relative comment-section">
                 <div class="row dotted-section d-block d-sm-flex mx-0 mt-5">
@@ -200,12 +201,15 @@
                 </div>
             </div>
         {% endif %}
-
     {% endwith %}
 {% endblock %}
 
 {% block extra_scripts %}
     {% if use_commento %}
-        <script async defer data-hide-deleted="true" data-no-fonts="true" src="https://cdn.commento.io/js/commento.js"></script>
+        <script async
+                defer
+                data-hide-deleted="true"
+                data-no-fonts="true"
+                src="https://cdn.commento.io/js/commento.js"></script>
     {% endif %}
 {% endblock %}

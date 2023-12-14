@@ -29,12 +29,13 @@ Please follow the steps below every time after you paste a new version of FormAs
 The code snippet below is based on FormAssembly form revision #46
 
 {% endcomment %}
-
 <!-- FORM: BODY SECTION -->
 <div class="wFormContainer" style="max-width: 100%; width:auto;">
-    <div class="wFormHeader"></div>
-    <div class=""><div class="wForm" id="12-WRPR" dir="ltr">
-        <div class="codesection" id="code-12"><script nonce="{{ request.csp_nonce }}">
+<div class="wFormHeader"></div>
+<div class="">
+<div class="wForm" id="12-WRPR" dir="ltr">
+<div class="codesection" id="code-12">
+<script nonce="{{ request.csp_nonce }}">
 // From Mel A at Thunderbird. 06.09.2023. Edited by Mia to change adding en- locales to map and defaulting to 'Other'. Approved by Mel.
 // localeMap updated by Daniel at Mozilla 10.31.2023, to reflect languages that are currently supported on the foundation site.
             window.addEventListener('DOMContentLoaded', function () {
@@ -71,98 +72,236 @@ The code snippet below is based on FormAssembly form revision #46
                 varLocale.value = localeMap[locale] || 'tfa_227';
             });
 
-        </script></div>
-        <form method="post" action="https://mozillafoundation.tfaforms.net/api_v2/workflow/processor" class=" labelsAbove" id="12" role="form" enctype="multipart/form-data" style="padding:0;">
-            <div class="oneField field-container-D  labelsAbove  " id="tfa_95-D">
-                <label id="tfa_95-L" class="label preField" for="tfa_95">{% trans "I need" %}</label><br><div class="inputWrapper"><select aria-required="true" id="tfa_95" name="tfa_95" title="{% trans "I need" %}" class="required"><option value="">{% trans "Please select..." %}</option>
-                    <option value="tfa_194" id="tfa_194" data-conditionals="#tfa_212,#submit_button,#tfa_214,#tfa_163" class="">{% trans "Help with the donation form" %}</option>
-                    <option value="tfa_195" id="tfa_195" data-conditionals="#tfa_212,#submit_button,#tfa_163,#tfa_234" class="">{% trans "To change or cancel my monthly recurring donation" %}</option>
-                    <option value="tfa_193" id="tfa_193" data-conditionals="#tfa_212,#submit_button,#tfa_163" class="">{% trans "To update my email address or contact info" %}</option>
-                    <option value="tfa_192" id="tfa_192" data-conditionals="#tfa_212,#submit_button,#tfa_217,#tfa_163" class="">{% trans "Help donating by bank transfer (SEPA/IBAN)" %}</option>
-                    <option value="tfa_196" id="tfa_196" data-conditionals="#tfa_212,#submit_button,#tfa_163" class="">{% trans "Help donating with another currency or payment method" %}</option>
-                    <option value="tfa_197" id="tfa_197" data-conditionals="#tfa_212,#submit_button,#tfa_214,#tfa_163" class="">{% trans "Help with an unauthorized or fraudulent donation" %}</option>
-                    <option value="tfa_190" id="tfa_190" data-conditionals="#tfa_212,#submit_button,#tfa_163" class="">{% trans "A copy of my donation receipt" %}</option>
-                    <option value="tfa_191" id="tfa_191" data-conditionals="#tfa_212,#submit_button,#tfa_163" class="">{% trans "A year-end donation summary" %}</option>
-                    <option value="tfa_198" id="tfa_198" data-conditionals="#tfa_212,#submit_button,#tfa_163" class="">{% trans "My donation refunded" %}</option>
-                    <option value="tfa_199" id="tfa_199" data-conditionals="#tfa_212" class="">{% trans "To submit feedback" %}</option>
-                    <option value="tfa_200" id="tfa_200" data-conditionals="#tfa_212,#tfa_214,#tfa_163" class="">{% trans "Help with something else" %}</option></select></div>
-            </div>
-            <div id="tfa_217" class="section group" data-condition="`#tfa_192`"><div class="htmlSection" id="tfa_216"><div class="htmlContent" id="tfa_216-HTML"><span style="font-size:13px;color:#000000;font-weight:normal;text-decoration:none;font-family:'Arial';font-style:normal;text-decoration-skip-ink:none;">
-                {% blocktrans trimmed %}
-                    We truly appreciate your generous support and are happy to now offer an
-                    easier way for you to give through online bank transfer. We can accept
-                    donations via direct debit in Euros through Single European Payment Area
-                    (SEPA) transfer.
-                {% endblocktrans %}
-            </span><br><br><div><b><a href="?form=donate&amp;utm_medium=web&amp;utm_source=faq-page&amp;utm_campaign=23-Donor-Care"><u>{% trans "Make your donation online now" %}<br><br></u></a></b><i>{% trans "Still have questions? Contact us by submitting a case." %}</i><br></div></div></div></div>
-            <div id="tfa_234" class="section group" data-condition="`#tfa_195`"><div class="htmlSection" id="tfa_235"><div class="htmlContent" id="tfa_235-HTML"><span style="font-size:13px;color:#000000;font-weight:normal;text-decoration:none;font-family:'Arial';font-style:normal;text-decoration-skip-ink:none;">
+</script>
+</div>
+<form method="post" action="https://mozillafoundation.tfaforms.net/api_v2/workflow/processor" class=" labelsAbove" id="12" role="form" enctype="multipart/form-data" style="padding:0;">
+<div class="oneField field-container-D  labelsAbove  " id="tfa_95-D">
+<label id="tfa_95-L" class="label preField" for="tfa_95">{% trans "I need" %}</label>
+<br>
+<div class="inputWrapper">
+<select aria-required="true" id="tfa_95" name="tfa_95" title="{% trans "I need" %}" class="required">
+<option value="">{% trans "Please select..." %}</option>
+<option value="tfa_194" id="tfa_194" data-conditionals="#tfa_212,#submit_button,#tfa_214,#tfa_163" class="">
+{% trans "Help with the donation form" %}
+</option>
+<option value="tfa_195" id="tfa_195" data-conditionals="#tfa_212,#submit_button,#tfa_163,#tfa_234" class="">
+{% trans "To change or cancel my monthly recurring donation" %}
+</option>
+<option value="tfa_193" id="tfa_193" data-conditionals="#tfa_212,#submit_button,#tfa_163" class="">
+{% trans "To update my email address or contact info" %}
+</option>
+<option value="tfa_192" id="tfa_192" data-conditionals="#tfa_212,#submit_button,#tfa_217,#tfa_163" class="">
+{% trans "Help donating by bank transfer (SEPA/IBAN)" %}
+</option>
+<option value="tfa_196" id="tfa_196" data-conditionals="#tfa_212,#submit_button,#tfa_163" class="">
+{% trans "Help donating with another currency or payment method" %}
+</option>
+<option value="tfa_197" id="tfa_197" data-conditionals="#tfa_212,#submit_button,#tfa_214,#tfa_163" class="">
+{% trans "Help with an unauthorized or fraudulent donation" %}
+</option>
+<option value="tfa_190" id="tfa_190" data-conditionals="#tfa_212,#submit_button,#tfa_163" class="">
+{% trans "A copy of my donation receipt" %}
+</option>
+<option value="tfa_191" id="tfa_191" data-conditionals="#tfa_212,#submit_button,#tfa_163" class="">
+{% trans "A year-end donation summary" %}
+</option>
+<option value="tfa_198" id="tfa_198" data-conditionals="#tfa_212,#submit_button,#tfa_163" class="">
+{% trans "My donation refunded" %}
+</option>
+<option value="tfa_199" id="tfa_199" data-conditionals="#tfa_212" class="">{% trans "To submit feedback" %}</option>
+<option value="tfa_200" id="tfa_200" data-conditionals="#tfa_212,#tfa_214,#tfa_163" class="">
+{% trans "Help with something else" %}
+</option>
+</select>
+</div>
+</div>
+<div id="tfa_217" class="section group" data-condition="`#tfa_192`">
+<div class="htmlSection" id="tfa_216">
+<div class="htmlContent" id="tfa_216-HTML">
+<span style="font-size:13px;color:#000000;font-weight:normal;text-decoration:none;font-family:'Arial';font-style:normal;text-decoration-skip-ink:none;">
+{% blocktrans trimmed %}
+We truly appreciate your generous support and are happy to now offer an
+easier way for you to give through online bank transfer. We can accept
+donations via direct debit in Euros through Single European Payment Area
+(SEPA) transfer.
+{% endblocktrans %}
+</span>
+<br>
+<br>
+<div>
+    <b><a href="?form=donate&amp;utm_medium=web&amp;utm_source=faq-page&amp;utm_campaign=23-Donor-Care"><u>{% trans "Make your donation online now" %}
+        <br>
+        <br>
+        </u></a></b><i>{% trans "Still have questions? Contact us by submitting a case." %}</i>
+        <br>
+    </div>
+</div>
+</div>
+</div>
+<div id="tfa_234" class="section group" data-condition="`#tfa_195`">
+    <div class="htmlSection" id="tfa_235">
+        <div class="htmlContent" id="tfa_235-HTML">
+            <span style="font-size:13px;
+                         color:#000000;
+                         font-weight:normal;
+                         text-decoration:none;
+                         font-family:'Arial';
+                         font-style:normal;
+                         text-decoration-skip-ink:none">
                 {% blocktrans trimmed %}
                     Access your donation account settings using the '<b>Manage My Donation</b>'
                     button on your recent donation confirmation email. There you can
                     change the amount, frequency, payment method and charge date. You can
                     also cancel your recurring donation plan.
                 {% endblocktrans %}
-            </span><br><br><i>{% trans "Still have questions? Contact us by submitting a case." %}</i></div></div></div>
-            <div class="oneField field-container-D  labelsAbove  " id="tfa_163-D">
-                <label id="tfa_163-L" class="label preField " for="tfa_163">{% trans "Any other details that might help" %}</label><br><div class="inputWrapper"><textarea id="tfa_163" name="tfa_163" data-condition="`#tfa_190` OR `#tfa_191` OR `#tfa_192` OR `#tfa_193` OR `#tfa_194` OR `#tfa_195` OR `#tfa_196` OR `#tfa_197` OR `#tfa_198` OR `#tfa_199` OR `#tfa_200`" title="{% trans "Any other details that might help" %}" class=""></textarea></div>
+            </span>
+            <br>
+            <br>
+            <i>{% trans "Still have questions? Contact us by submitting a case." %}</i>
+        </div>
+    </div>
+</div>
+<div class="oneField field-container-D  labelsAbove  " id="tfa_163-D">
+    <label id="tfa_163-L" class="label preField " for="tfa_163">{% trans "Any other details that might help" %}</label>
+    <br>
+    <div class="inputWrapper">
+        <textarea id="tfa_163"
+                  name="tfa_163"
+                  data-condition="`#tfa_190` OR `#tfa_191` OR `#tfa_192` OR `#tfa_193` OR `#tfa_194` OR `#tfa_195` OR `#tfa_196` OR `#tfa_197` OR `#tfa_198` OR `#tfa_199` OR `#tfa_200`"
+                  title="{% trans "Any other details that might help" %}"
+                  class=""></textarea>
+    </div>
+</div>
+<div class="oneField field-container-D   hintsBelow " id="tfa_214-D">
+    <label id="tfa_214-L" class="label preField " for="tfa_214">
+        {% trans "Add a screenshot to help us with your request (optional)" %}
+    </label>
+    <br>
+    <div class="inputWrapper">
+        <input type="file"
+               id="tfa_214"
+               name="tfa_214"
+               size=""
+               data-condition="`#tfa_194` OR `#tfa_197` OR `#tfa_200`"
+               title="{% trans "Add a screenshot to help us with your request (optional)" %}"
+               class="">
+        <span class="field-hint-inactive" id="tfa_214-H"><span id="tfa_214-HH" class="hint">{% trans "JPG, PNG and BMP files only" %}</span></span>
+    </div>
+</div>
+<div id="tfa_212"
+     class="section group"
+     data-condition="`#tfa_190` OR `#tfa_191` OR `#tfa_192` OR `#tfa_193` OR `#tfa_194` OR `#tfa_195` OR `#tfa_196` OR `#tfa_197` OR `#tfa_198` OR `#tfa_199` OR `#tfa_200`">
+    <div id="tfa_213" class="section inline group">
+        <div class="oneField field-container-D    " id="tfa_1-D">
+            <label id="tfa_1-L" class="label preField reqMark" for="tfa_1">{% trans "Name" %}</label>
+            <br>
+            <div class="inputWrapper">
+                <input aria-required="true"
+                       type="text"
+                       id="tfa_1"
+                       name="tfa_1"
+                       value=""
+                       title="{% trans "Name" %}"
+                       class="required">
             </div>
-            <div class="oneField field-container-D   hintsBelow " id="tfa_214-D">
-                <label id="tfa_214-L" class="label preField " for="tfa_214">{% trans "Add a screenshot to help us with your request (optional)" %}</label><br><div class="inputWrapper">
-                    <input type="file" id="tfa_214" name="tfa_214" size="" data-condition="`#tfa_194` OR `#tfa_197` OR `#tfa_200`" title="{% trans "Add a screenshot to help us with your request (optional)" %}" class=""><span class="field-hint-inactive" id="tfa_214-H"><span id="tfa_214-HH" class="hint">{% trans "JPG, PNG and BMP files only" %}</span></span>
-                </div>
+        </div>
+        <div class="oneField field-container-D    " id="tfa_10-D">
+            <label id="tfa_10-L" class="label preField reqMark" for="tfa_10">{% trans "Email" %}</label>
+            <br>
+            <div class="inputWrapper">
+                <input aria-required="true"
+                       type="text"
+                       id="tfa_10"
+                       name="tfa_10"
+                       value=""
+                       title="{% trans "Email" %}"
+                       class="validate-email required">
             </div>
-            <div id="tfa_212" class="section group" data-condition="`#tfa_190` OR `#tfa_191` OR `#tfa_192` OR `#tfa_193` OR `#tfa_194` OR `#tfa_195` OR `#tfa_196` OR `#tfa_197` OR `#tfa_198` OR `#tfa_199` OR `#tfa_200`"><div id="tfa_213" class="section inline group">
-                <div class="oneField field-container-D    " id="tfa_1-D">
-                    <label id="tfa_1-L" class="label preField reqMark" for="tfa_1">{% trans "Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_1" name="tfa_1" value="" title="{% trans "Name" %}" class="required"></div>
-                </div>
-                <div class="oneField field-container-D    " id="tfa_10-D">
-                    <label id="tfa_10-L" class="label preField reqMark" for="tfa_10">{% trans "Email" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_10" name="tfa_10" value="" title="{% trans "Email" %}" class="validate-email required"></div>
-                </div>
-                <div class="htmlSection" id="tfa_182"><div class="htmlContent" id="tfa_182-HTML">{% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}Mozilla will only use your submitted information for purposes of communicating with you about your request. See our <a href="{{ link }}" target="_blank">privacy policy</a> for further information.{% endblocktrans %}
-                </div></div>
-            </div></div>
-            <div class="oneField field-container-D  labelsLeftAligned   wf-acl-hidden" id="tfa_72-D">
-                <label id="tfa_72-L" class="label preField " for="tfa_72">{% trans "Language" %}</label><div class="inputWrapper"><select id="tfa_72" name="tfa_72" title="{% trans "Language" %}" class=""><option value="">{% trans "Please select..." %}</option>
-                    <option value="tfa_221" id="tfa_221" class="">{% trans "Dutch" %}</option>
-                    <option value="tfa_222" id="tfa_222" class="">{% trans "English" %}</option>
-                    <option value="tfa_223" id="tfa_223" class="">{% trans "French" %}</option>
-                    <option value="tfa_224" id="tfa_224" class="">{% trans "German" %}</option>
-                    <option value="tfa_227" id="tfa_227" class="">{% trans "Other" %}</option>
-                    <option value="tfa_228" id="tfa_228" class="">{% trans "Polish" %}</option>
-                    <option value="tfa_229" id="tfa_229" class="">{% trans "Portuguese" %}</option>
-                    <option value="tfa_231" id="tfa_231" class="">{% trans "Spanish" %}</option></select></div>
+        </div>
+        <div class="htmlSection" id="tfa_182">
+            <div class="htmlContent" id="tfa_182-HTML">
+                {% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}Mozilla will only use your submitted information for purposes of communicating with you about your request. See our <a href="{{ link }}" target="_blank">privacy policy</a> for further information.{% endblocktrans %}
             </div>
-            <input type="hidden" id="tfa_236" name="tfa_236" value="{{ thank_you_url }}" class="">
-            <div class="actions" id="12-A" data-contentid="submit_button">
-                <div id="google-captcha" style="display: none">
-                    <br><div class="captcha">
-                        <div class="oneField">
-                            <div class="g-recaptcha" id="g-recaptcha-render-div"></div>
-                            <div class="g-captcha-error"></div>
-                            <br>
-                        </div>
-                        <div class="captchaHelp">{% trans "reCAPTCHA helps prevent automated form spam." %}<br>
-                        </div>
-                        <div id="disabled-explanation" class="captchaHelp" style="display: none">{% trans "The submit button will be disabled until you complete the CAPTCHA." %}</div>
-                    </div>
-                </div>
-                <input type="submit" data-label="Submit" class="primaryAction" id="submit_button" value="{% trans "Submit" %}" data-condition="`#tfa_190` OR `#tfa_191` OR `#tfa_192` OR `#tfa_193` OR `#tfa_194` OR `#tfa_195` OR `#tfa_196` OR `#tfa_197` OR `#tfa_198` OR `#tfa_199` OR `#tfa_200`" data-conditional-mode="hidden">
+        </div>
+    </div>
+</div>
+<div class="oneField field-container-D  labelsLeftAligned   wf-acl-hidden"
+     id="tfa_72-D">
+    <label id="tfa_72-L" class="label preField " for="tfa_72">{% trans "Language" %}</label>
+    <div class="inputWrapper">
+        <select id="tfa_72" name="tfa_72" title="{% trans "Language" %}" class="">
+            <option value="">{% trans "Please select..." %}</option>
+            <option value="tfa_221" id="tfa_221" class="">{% trans "Dutch" %}</option>
+            <option value="tfa_222" id="tfa_222" class="">{% trans "English" %}</option>
+            <option value="tfa_223" id="tfa_223" class="">{% trans "French" %}</option>
+            <option value="tfa_224" id="tfa_224" class="">{% trans "German" %}</option>
+            <option value="tfa_227" id="tfa_227" class="">{% trans "Other" %}</option>
+            <option value="tfa_228" id="tfa_228" class="">{% trans "Polish" %}</option>
+            <option value="tfa_229" id="tfa_229" class="">{% trans "Portuguese" %}</option>
+            <option value="tfa_231" id="tfa_231" class="">{% trans "Spanish" %}</option>
+        </select>
+    </div>
+</div>
+<input type="hidden"
+       id="tfa_236"
+       name="tfa_236"
+       value="{{ thank_you_url }}"
+       class="">
+<div class="actions" id="12-A" data-contentid="submit_button">
+    <div id="google-captcha" style="display: none">
+        <br>
+        <div class="captcha">
+            <div class="oneField">
+                <div class="g-recaptcha" id="g-recaptcha-render-div"></div>
+                <div class="g-captcha-error"></div>
+                <br>
             </div>
-            <div style="clear:both"></div>
-            <input type="hidden" value="12" name="tfa_dbFormId" id="tfa_dbFormId"><input type="hidden" value="" name="tfa_dbResponseId" id="tfa_dbResponseId"><input type="hidden" value="248931fbbdeec7bc8eff2364638bb781" name="tfa_dbControl" id="tfa_dbControl"><input type="hidden" value="" name="tfa_dbWorkflowSessionUuid" id="tfa_dbWorkflowSessionUuid"><input type="hidden" value="40" name="tfa_dbVersionId" id="tfa_dbVersionId"><input type="hidden" value="" name="tfa_switchedoff" id="tfa_switchedoff">
-        </form>
-    </div></div><div class="wFormFooter"><p class="supportInfo"><br></p></div>
-    <p class="supportInfo" >
+            <div class="captchaHelp">
+                {% trans "reCAPTCHA helps prevent automated form spam." %}
+                <br>
+            </div>
+            <div id="disabled-explanation" class="captchaHelp" style="display: none">
+                {% trans "The submit button will be disabled until you complete the CAPTCHA." %}
+            </div>
+        </div>
+    </div>
+    <input type="submit"
+           data-label="Submit"
+           class="primaryAction"
+           id="submit_button"
+           value="{% trans "Submit" %}"
+           data-condition="`#tfa_190` OR `#tfa_191` OR `#tfa_192` OR `#tfa_193` OR `#tfa_194` OR `#tfa_195` OR `#tfa_196` OR `#tfa_197` OR `#tfa_198` OR `#tfa_199` OR `#tfa_200`"
+           data-conditional-mode="hidden">
+</div>
+<div style="clear:both"></div>
+<input type="hidden" value="12" name="tfa_dbFormId" id="tfa_dbFormId">
+<input type="hidden" value="" name="tfa_dbResponseId" id="tfa_dbResponseId">
+<input type="hidden"
+       value="248931fbbdeec7bc8eff2364638bb781"
+       name="tfa_dbControl"
+       id="tfa_dbControl">
+<input type="hidden"
+       value=""
+       name="tfa_dbWorkflowSessionUuid"
+       id="tfa_dbWorkflowSessionUuid">
+<input type="hidden" value="40" name="tfa_dbVersionId" id="tfa_dbVersionId">
+<input type="hidden" value="" name="tfa_switchedoff" id="tfa_switchedoff">
+</form>
+</div>
+</div>
+<div class="wFormFooter">
+    <p class="supportInfo">
+        <br>
     </p>
 </div>
-
-<script
-    nonce="{{ request.csp_nonce }}"
-    id="open-telemetry-script"
-    type="text/javascript"
-    src="https://mozillafoundation.tfaforms.net/dist/open-telemetry/open-telemetry.3e6c1bedaa7fb4452dd0.js"
-    data-customer-id="170610"
-    data-exporter-url="https://us-east-1-otel.formassembly.com/v1/traces"
-    data-exporter-console="0"
-></script>
-<script src="https://mozillafoundation.tfaforms.net/api_v2/sst/copy-and-paste" nonce="{{ request.csp_nonce }}"></script>
+<p class="supportInfo"></p>
+</div>
+<script nonce="{{ request.csp_nonce }}"
+        id="open-telemetry-script"
+        type="text/javascript"
+        src="https://mozillafoundation.tfaforms.net/dist/open-telemetry/open-telemetry.3e6c1bedaa7fb4452dd0.js"
+        data-customer-id="170610"
+        data-exporter-url="https://us-east-1-otel.formassembly.com/v1/traces"
+        data-exporter-console="0"></script>
+<script src="https://mozillafoundation.tfaforms.net/api_v2/sst/copy-and-paste"
+        nonce="{{ request.csp_nonce }}"></script>

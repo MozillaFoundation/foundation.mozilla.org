@@ -1,15 +1,19 @@
 {% extends "./youtube_regrets_base.html" %}
+
 {% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags custom_image_tags i18n l10n static %}
 
 {% block body_id %}youtube-regrets{% endblock %}
 
 {% block extended_head %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Changa" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Changa">
 {% endblock %}
 
 {% block intro_stationary_wrapper %}
-    <a href="/youtube/regretsreporter/" class="tw-btn-primary btn-newsletter mx-auto for-mobile tw-w-max">{% trans "Download RegretsReporter" %}</a>
-    <a href="/youtube/regretsreporter/" class="tw-btn-primary btn-newsletter mx-auto for-desktop tw-w-max">{% trans "Download RegretsReporter" %}</a>
+    <a href="/youtube/regretsreporter/"
+       class="tw-btn-primary btn-newsletter mx-auto for-mobile tw-w-max">{% trans "Download RegretsReporter" %}</a>
+    <a href="/youtube/regretsreporter/"
+       class="tw-btn-primary btn-newsletter mx-auto for-desktop tw-w-max">{% trans "Download RegretsReporter" %}</a>
 {% endblock %}
 
 {% block main %}
@@ -17,42 +21,43 @@
     <div class="container">
         <div class="row d-md-none my-3">
             <div class="col-12">
+
                 {% include "../fragments/share-buttons.html" with page=page version="mini" share_text=share_text %}
+
             </div>
         </div>
-
         {% if page.faq != None %}
             <div class="row my-3 my-md-5 faq">
-                <div class="offset-md-2 col-md-8">
-                    {{ page.faq }}
-                </div>
+                <div class="offset-md-2 col-md-8">{{ page.faq }}</div>
             </div>
         {% endif %}
-
         <div class="row">
             <div class="offset-md-1 col-md-1 text-center pb-md-5 d-none d-md-block">
                 <div class="sticky-side">
+
                     {% include "../fragments/share-buttons.html" with page=page version="mini" layout="stacked" share_text=share_text %}
+
                 </div>
             </div>
-
             <style>
                 .regret-stories.show-1 .youtube-regret:nth-of-type(n+{% if page.specific.batch_size %}{{ page.specific.batch_size|add:"1"|unlocalize }}{% else %}11{% endif %}) {
                     display: none;
                 }
             </style>
-
             <div class="regret-stories show-1 col-md-8">
                 {% for block in page.regret_stories %}
                     {% include_block block with index=forloop.counter %}
                 {% endfor %}
 
                 {% include "./load-more-regrets.html" %}
+
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block footer_block %}
+
     {% include "partials/footer.html" %}
+
 {% endblock %}

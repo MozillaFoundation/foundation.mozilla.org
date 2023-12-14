@@ -1,7 +1,10 @@
 {% extends "./base_streamfield_block.html" %}
+
 {% load wagtailimages_tags wagtailcore_tags l10n %}
 
-{% block main_block_class %} tw-w-full {% endblock main_block_class %}
+{% block main_block_class %}
+    tw-w-full
+{% endblock main_block_class %}
 
 {% block block_content %}
     <div class="tw-flex tw-flex-col large:tw-flex-row medium:tw-space-x-6 tw-gap-10 medium:tw-gap-20 tw-py-32">
@@ -9,13 +12,13 @@
             {% image self.image width-540 as img_1x %}
             {% image self.image width-1080 as img_2x %}
             {% image self.image width-1950 as img_3x %}
-            <img
-                srcset="{{ img_1x.url }} 1x, {{ img_2x.url }} 2x, {{ img_3x.url }} 3x"
-                width="{{ img_2x.width|unlocalize }}"
-                height="{{ img_2x.height|unlocalize }}"
-                alt="{{ self.image_alt_text }}"
-                class="tw-w-full"
-            />
+            <img srcset="{{ img_1x.url }} 1x,
+                         {{ img_2x.url }} 2x,
+                         {{ img_3x.url }} 3x"
+                 width="{{ img_2x.width|unlocalize }}"
+                 height="{{ img_2x.height|unlocalize }}"
+                 alt="{{ self.image_alt_text }}"
+                 class="tw-w-full" />
         </div>
         <div class="tw-w-full large:tw-w-1/2">
             <h2 class="tw-h2-heading">{{ self.heading }}</h2>

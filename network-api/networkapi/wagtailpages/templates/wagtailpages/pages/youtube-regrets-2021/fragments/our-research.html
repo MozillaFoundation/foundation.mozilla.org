@@ -15,34 +15,30 @@
                 <h2 class="heading-4 mb-4">{% trans "For this report, We gathered from" %}</h2>
             </div>
         </div>
-
         {% with reports_count=3362 volunteers_count=1662 countries_count=91 %}
             <div class="row align-items-center mb-5">
                 <div class="col-md-4 col-xs-12 stat">
-                    <p class="stat__number" id="reports-count-up" data-stat="{{ reports_count|unlocalize }}">{{ reports_count|intcomma }}</p>
+                    <p class="stat__number"
+                       id="reports-count-up"
+                       data-stat="{{ reports_count|unlocalize }}">{{ reports_count|intcomma }}</p>
                     <p class="stat__label">{% trans "Reports" %}</p>
                 </div>
                 <div class="col-md-4 col-xs-12 stat">
                     <p class="stat__number"
                        id="volunteers-count-up"
                        data-stat="{{ volunteers_count|unlocalize }}"
-                       data-stat-delay="250">
-                        {{ volunteers_count|intcomma }}
-                    </p>
+                       data-stat-delay="250">{{ volunteers_count|intcomma }}</p>
                     <p class="stat__label">{% trans "Volunteers" %}</p>
                 </div>
                 <div class="col-md-4 col-xs-12 stat">
                     <p class="stat__number"
                        id="countries-count-up"
                        data-stat="{{ countries_count|unlocalize }}"
-                       data-stat-delay="500">
-                        {{ countries_count|intcomma }}
-                    </p>
+                       data-stat-delay="500">{{ countries_count|intcomma }}</p>
                     <p class="stat__label">{% trans "Countries" %}</p>
                 </div>
             </div>
         {% endwith %}
-
         <div class="row justify-content-center mb-5">
             <div class="col-12 col-md-8 text-center">
                 <p>
@@ -57,7 +53,6 @@
                         geographic disparities. And our <a href="{{ research_link }}">past research</a> shows that these problems can inflict lasting harm on people.
                     {% endblocktrans %}
                 </p>
-
                 <h2 class="mb-1">{% trans "Here’s what we found" %}</h2>
                 <p class="our-research__teaser mb-1 text-uppercase tw-italic">{% trans "(Click to read more)" %}</p>
                 <img class="mx-auto d-block" src="{% static "_images/youtube-regrets/regrets-reporter/arrow.svg" %}" alt="">

@@ -1,4 +1,5 @@
 {% extends "./base_streamfield_block.html" %}
+
 {% load l10n wagtailcore_tags wagtailimages_tags %}
 
 {% block streamfield_content_classes %}
@@ -6,6 +7,7 @@
 {% endblock streamfield_content_classes %}
 
 {% block block_content %}
-    {% include "wagtailpages/blocks/blog_cta_card_block_short_image.html" %}
-{% endblock block_content %}
 
+    {% include "wagtailpages/blocks/blog_cta_card_block_short_image.html" %}
+
+{% endblock block_content %}

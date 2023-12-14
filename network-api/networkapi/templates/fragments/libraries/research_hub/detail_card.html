@@ -2,12 +2,16 @@
 
 {% block detail_card_metadata %}
     {% if detail_page.original_publication_date %}
-        <div class="tw-px-4 first:tw-pl-0 tw-whitespace-nowrap ">{{ detail_page.original_publication_date|date:"DATE_FORMAT" }}</div>
+        <div class="tw-px-4 first:tw-pl-0 tw-whitespace-nowrap ">
+            {{ detail_page.original_publication_date|date:"DATE_FORMAT" }}
+        </div>
     {% endif %}
     {% if detail_page.author_names and not hide_author_names %}
-        <div class="tw-px-4 first:tw-pl-0 tw-min-w-0 tw-truncate" >{{ detail_page.author_names|join:', ' }}</div>
+        <div class="tw-px-4 first:tw-pl-0 tw-min-w-0 tw-truncate">{{ detail_page.author_names|join:', ' }}</div>
     {% endif %}
     {% if detail_page.related_topic_names and not hide_related_topics %}
-        <div class="tw-px-4 first:tw-pl-0 tw-min-w-0 tw-truncate {% if hide_related_topics_on_mobile %} tw-hidden small:tw-block {% endif %}">{{ detail_page.related_topic_names|join:' / ' }}</div>
+        <div class="tw-px-4 first:tw-pl-0 tw-min-w-0 tw-truncate {% if hide_related_topics_on_mobile %}tw-hidden small:tw-block{% endif %}">
+            {{ detail_page.related_topic_names|join:' / ' }}
+        </div>
     {% endif %}
 {% endblock detail_card_metadata %}

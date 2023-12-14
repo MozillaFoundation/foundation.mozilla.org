@@ -1,53 +1,36 @@
 {% load static i18n wagtailimages_tags homepage_tags %}
+
 {# Pattern library has problems with this tag, so we exclude it from pattern library rendering. #}
 {% if not is_pattern_library %}
     {% get_page_authors page as authors %}
 {% endif %}
-
-
-
-<div class="article-hero-content {% if page.hero_text_color == page.HERO_TEXT_COLOR_LIGHT %} tw-dark {% endif %}">
+<div class="article-hero-content {% if page.hero_text_color == page.HERO_TEXT_COLOR_LIGHT %}tw-dark{% endif %}">
     {% if is_publication_article or is_publication_page %}
         <div class="mb-2 body-small publication-breadcrumb">
             {% for entry in self.breadcrumb_list %}
                 {% with parent_page=entry.localized %}
-                    <a href="{{ parent_page.url }}" class="body-small {% if page.hero_text_color == page.HERO_TEXT_COLOR_DARK %} tw-text-black {% endif %}">{{ parent_page.title }}</a>
-                    <span class='body-small {% if page.hero_text_color == page.HERO_TEXT_COLOR_LIGHT %} tw-text-gray-20 {% endif %}' > › </span>
+                    <a href="{{ parent_page.url }}"
+                       class="body-small {% if page.hero_text_color == page.HERO_TEXT_COLOR_DARK %}tw-text-black{% endif %}">{{ parent_page.title }}</a>
+                    <span class='body-small {% if page.hero_text_color == page.HERO_TEXT_COLOR_LIGHT %}tw-text-gray-20{% endif %}'>›</span>
                 {% endwith %}
             {% endfor %}
         </div>
     {% endif %}
-    <h1 class="publication-hero-title">
-        {{ page.title }}
-    </h1>
-
-    {% if page.subtitle %}
-        <h2 class="tw-mt-8 tw-body-large">
-            {{ page.subtitle }}
-        </h2>
-    {% endif %}
-
+    <h1 class="publication-hero-title">{{ page.title }}</h1>
+    {% if page.subtitle %}<h2 class="tw-mt-8 tw-body-large">{{ page.subtitle }}</h2>{% endif %}
     {% if page.secondary_subtitle or page.publication_date %}
         <div class="mt-2 mb-4 tw-body-small publication-secondary-subtitle {% if page.hero_text_color == page.HERO_TEXT_COLOR_DARK %} tw-text-gray-80 {% else %} tw-text-gray-20 {% endif %}">
-            {% if page.secondary_subtitle %}
-                {{ page.secondary_subtitle }}
-            {% endif %}
-            {% if page.secondary_subtitle and page.publication_date %}
-                &mdash;
-            {% endif %}
-            {% if page.publication_date %}
-                {{ page.publication_date }}
-            {% endif %}
+            {% if page.secondary_subtitle %}{{ page.secondary_subtitle }}{% endif %}
+            {% if page.secondary_subtitle and page.publication_date %}&mdash;{% endif %}
+            {% if page.publication_date %}{{ page.publication_date }}{% endif %}
         </div>
     {% endif %}
-
-
     {% if page.show_authors %}
-
         <div class="blog-authors d-flex flex-wrap align-items-center">
-            {% include "fragments/profile_images_stack.html" with profiles=authors %}
-        </div>
 
+            {% include "fragments/profile_images_stack.html" with profiles=authors %}
+
+        </div>
         {% if page.authors.count %}
             <div class="mt-2">
                 <p>
@@ -58,30 +41,23 @@
                                 {% if authors_length > 1 and forloop.last %}
                                     {% trans "and" %}
                                 {% endif %}
-                                {{ orderable.author.name }}{% if not forloop.last and forloop.counter != authors_length|add:-1 %},{% endif %}
+                                {{ orderable.author.name }}
+                                {% if not forloop.last and forloop.counter != authors_length|add:-1 %},{% endif %}
                             </span>
                         {% endfor %}
-                        {% if page.additional_author_copy %}
-                            {{ page.additional_author_copy }}
-                        {% endif %}
+                        {% if page.additional_author_copy %}{{ page.additional_author_copy }}{% endif %}
                     {% endwith %}
                 </p>
             </div>
         {% endif %}
-
     {% endif %}
-
-
-
     {% if download_file %}
-
         {% with btn_setting=page.download_button_style primary_icon_class="tw-invert dark:group-hover:tw-invert-0" secondary_icon_class="group-hover:tw-invert dark:tw-invert dark:group-hover:tw-invert-0" tertiary_btn_class="tw-text-black dark:tw-text-white tw-font-light tw-underline hover:tw-opacity-50" tertiary_icon_class="dark:tw-brightness-100 " %}
-
             <a class="tw-inline-flex tw-group {% if btn_setting == page.HERO_BTN_STYLE_PRIMARY %} tw-btn-primary  {% elif btn_setting == page.HERO_BTN_STYLE_SECONDARY %} tw-btn-secondary {% else %} {{ tertiary_btn_class }} {% endif %}"
-               href="{{ download_file.url }}" download>
-                <img
-                    src=" {% if page.download_button_icon %} {{ page.download_button_icon.url }} {% else %} {% static '_images/glyphs/download-file.svg' %} {% endif %}"
-                    class='tw-h-9 tw-w-9 tw-mr-6 tw-mt-[1px] tw-brightness-0 {% if btn_setting == page.HERO_BTN_STYLE_PRIMARY %} {{ primary_icon_class }} {% elif btn_setting == page.HERO_BTN_STYLE_SECONDARY %} {{ secondary_icon_class }} {% else %} {{ tertiary_icon_class }} {% endif %}'/>
+               href="{{ download_file.url }}"
+               download>
+                <img src=" {% if page.download_button_icon %} {{ page.download_button_icon.url }} {% else %} {% static '_images/glyphs/download-file.svg' %} {% endif %}"
+                     class='tw-h-9 tw-w-9 tw-mr-6 tw-mt-[1px] tw-brightness-0 {% if btn_setting == page.HERO_BTN_STYLE_PRIMARY %} {{ primary_icon_class }} {% elif btn_setting == page.HERO_BTN_STYLE_SECONDARY %} {{ secondary_icon_class }} {% else %} {{ tertiary_icon_class }} {% endif %}' />
                 {% trans "Download PDF" %}
                 {% if download_file.file_size %}
                     <span class="tw-font-thin tw-ml-2">({{ download_file.file_size|filesizeformat }})</span>
@@ -89,5 +65,4 @@
             </a>
         {% endwith %}
     {% endif %}
-
 </div>

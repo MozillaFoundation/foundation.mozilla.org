@@ -10,12 +10,8 @@
         {% endif %}
     </h3>
     {% if rich_text_value %}
-        <div class="criterion-richtext-value mb-0 rating">
-            {{ value|richtext }}
-        </div>
+        <div class="criterion-richtext-value mb-0 rating">{{ value|richtext }}</div>
     {% else %}
-        <p class="rating pni-product-smaller-body mb-0">
-            {% trans value|extended_yes_no context value|extended_yes_no %}
-        </p>
+        <p class="rating pni-product-smaller-body mb-0">{% trans value|extended_yes_no context value|extended_yes_no %}</p>
     {% endif %}
 </div>

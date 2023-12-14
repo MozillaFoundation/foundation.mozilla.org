@@ -1,27 +1,29 @@
 {% extends "./base_streamfield_block.html" %}
+
 {% load wagtailimages_tags wagtailcore_tags remove_richtext_wrapping %}
 
 {% block block_container_classes %}
-    {% if value.wide_image %} tw-relative tw-w-full tw-max-w-full tw-px-0 tw-mx-0{% endif %}
+    {% if value.wide_image %}tw-relative tw-w-full tw-max-w-full tw-px-0 tw-mx-0{% endif %}
 {% endblock %}
 
-{% block block_row_classes %}
-    tw-mx-0
-{% endblock %}
+{% block block_row_classes %}tw-mx-0{% endblock %}
 
 {% block main_block_class %}
-    {% if value.wide_image %} tw-relative tw-w-full tw-px-8 {% else %} streamfield-content {% endif %}
+    {% if value.wide_image %}
+        tw-relative tw-w-full tw-px-8
+    {% else %}
+        streamfield-content
+    {% endif %}
 {% endblock %}
 
 {% block block_content %}
     {% image self.image width-1840 as img %}
     <figure class="tw-my-4">
-        <img src="{{ img.url }}" alt="{% if self.alt_text %}{{ self.alt_text }}{% else %}{{ img.alt }}{% endif %}"
+        <img src="{{ img.url }}"
+             alt="{% if self.alt_text %}{{ self.alt_text }}{% else %}{{ img.alt }}{% endif %}"
              class="tw-w-full" />
         {% if self.caption %}
-            <figcaption class="tw-body-small">
-                {{ self.caption|richtext|remove_wrapping|safe }}
-            </figcaption>
+            <figcaption class="tw-body-small">{{ self.caption|richtext|remove_wrapping|safe }}</figcaption>
         {% endif %}
     </figure>
 {% endblock %}

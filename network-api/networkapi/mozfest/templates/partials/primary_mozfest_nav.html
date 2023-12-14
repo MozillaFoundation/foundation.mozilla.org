@@ -12,8 +12,13 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="nav-links pt-3">
-                                            <div><a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}" href="{{ menu_root.url }}">{{ root_name }}</a></div>
+                                            <div>
+                                                <a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}"
+                                                   href="{{ menu_root.url }}">{{ root_name }}</a>
+                                            </div>
+
                                             {% include "fragments/nav_links.html" with pre="<div>" post="</div>" %}
+
                                         </div>
                                     </div>
                                 </div>
@@ -35,12 +40,16 @@
                                         <a class="logo text-hide" href="{{ menu_root.url }}">{{ root_name }}</a>
                                         <div class="wide-screen-menu">
                                             <div class="nav-links d-none d-lg-block">
+
                                                 {% include "fragments/nav_links.html" %}
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 {% include "fragments/primary_cta.html" with root=menu_root.specific %}
+
                             </div>
                         </div>
                     </div>

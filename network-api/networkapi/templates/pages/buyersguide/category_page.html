@@ -1,4 +1,5 @@
 {% extends "pages/buyersguide/catalog.html" %}
+
 {% load static i18n wagtailcore_tags %}
 
 {% block body_id %}{{ category.slug }}{% endblock %}
@@ -9,23 +10,14 @@
       Each category has it's own set of related articles.
       So, for each category we render the full element into the markup.
       If the category is also the "current_category" (the one that is active when the page is first loaded) we display the related articles immediately, otherwise the element is initially hidden.
-    {% endcomment %}
+        {% endcomment %}
         {% with primary_related_articles=category.get_primary_related_articles %}
             {% if primary_related_articles %}
-                <div
-                    class="
-                           tw-col-span-2
-                           tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3
-                           tw-row-start-3 large:tw-row-start-2
-                           tw-flex
-                           tw-flex-row
-                           tw-w-full
-                           tw-p-16
-                           {% if category != current_category %} tw-hidden {% endif %}
-                          "
-                    data-show-for-category="{{ category.name }}"
-                >
+                <div class=" tw-col-span-2 tw-col-start-1 medium:tw-col-start-2 large:tw-col-start-3 tw-row-start-3 large:tw-row-start-2 tw-flex tw-flex-row tw-w-full tw-p-16 {% if category != current_category %}tw-hidden{% endif %} "
+                     data-show-for-category="{{ category.name }}">
+
                     {% include "fragments/buyersguide/related_reading.html" with articles=primary_related_articles index_page=page.get_editorial_content_index %}
+
                 </div>
             {% endif %}
         {% endwith %}
@@ -33,28 +25,18 @@
 {% endblock extra_product_box_list_items %}
 
 {% block guts %}
-
     {{ block.super }}
-
     {% for category in categories %}
         {% with secondary_related_articles=category.get_secondary_related_articles %}
             {% if secondary_related_articles %}
-                <div
-                    id="category-secondary-related-articles"
-                    data-show-for-category="{{ category.name }}"
-                    class="
-                           {% if category != current_category %}
-                               tw-hidden
-                           {% endif %}
-                           tw-container
-                           tw-mt-32
-                           tw-mb-[120px]
-                          "
-                >
+                <div id="category-secondary-related-articles"
+                     data-show-for-category="{{ category.name }}"
+                     class=" {% if category != current_category %}tw-hidden{% endif %} tw-container tw-mt-32 tw-mb-[120px] ">
+
                     {% include "fragments/buyersguide/article_listing_what_to_read_next.html" with articles=secondary_related_articles index_page=page.get_editorial_content_index use_wide_above="medium" %}
+
                 </div>
             {% endif %}
         {% endwith %}
     {% endfor %}
 {% endblock guts %}
-

@@ -1,12 +1,18 @@
 {# This template is only used for snippet preview. #}
+
 {% extends "pages/base.html" %}
 
-{% block wagtail_metadata %}{% endblock wagtail_metadata %}
+{% block wagtail_metadata %}
+{% endblock wagtail_metadata %}
 
 {% block donate_banner %}
+
     {% include "partials/donate_banner.html" with banner=object %}
+
 {% endblock donate_banner %}
 
 {% block footer_block %}
+
     {% include "partials/footer.html" with exclude_language_switcher=True %}
+
 {% endblock footer_block %}

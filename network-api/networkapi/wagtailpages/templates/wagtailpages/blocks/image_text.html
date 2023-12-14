@@ -1,4 +1,5 @@
 {% extends "./base_streamfield_block.html" %}
+
 {% load l10n wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
@@ -7,26 +8,29 @@
             <div class="tw-w-full tw-px-8 tw-flex tw-flex-nowrap">
                 <div class="tw-mr-6 tw-shrink-0 tw-w-24">
                     {% if value.url %}<a href="{{ value.url }}">{% endif %}
-                    {% image value.image fill-100x100-c100 format-jpeg as img %}
-                    <img src="{{ img.url }}" alt="{{ value.altText }}" class="tw-w-full" width="{{ img.width|unlocalize }}" height="{{ img.height|unlocalize }}">
-                    {% if value.url %}</a>{% endif %}
+                        {% image value.image fill-100x100-c100 format-jpeg as img %}
+                        <img src="{{ img.url }}"
+                             alt="{{ value.altText }}"
+                             class="tw-w-full"
+                             width="{{ img.width|unlocalize }}"
+                             height="{{ img.height|unlocalize }}">
+                        {% if value.url %}</a>{% endif %}
                 </div>
-                <div>
-                    {{ value.text|richtext }}
-                </div>
+                <div>{{ value.text|richtext }}</div>
             </div>
         {% else %}
             <div class="tw-w-full image-text-img tw-px-8">
                 <div class="tw-w-full tw-px-0 medium:tw-flex medium:tw-items-center {{ divider_styles }}">
                     <div class="tw-w-full medium:tw-w-1/4 tw-px-8 tw-mb-6 medium:tw-mb-0 tw-pl-0">
                         {% if value.url %}<a href="{{ value.url }}">{% endif %}
-                        {% image value.image fill-760x760-c100 format-jpeg as img %}
-                        <img src="{{ img.url }}" alt="{{ value.altText }}" width="{{ img.width|unlocalize }}" height="{{ img.height|unlocalize }}">
-                        {% if value.url %}</a>{% endif %}
+                            {% image value.image fill-760x760-c100 format-jpeg as img %}
+                            <img src="{{ img.url }}"
+                                 alt="{{ value.altText }}"
+                                 width="{{ img.width|unlocalize }}"
+                                 height="{{ img.height|unlocalize }}">
+                            {% if value.url %}</a>{% endif %}
                     </div>
-                    <div class="tw-w-full medium:tw-w-3/4 tw-px-8 tw-pl-0">
-                        {{ value.text|richtext }}
-                    </div>
+                    <div class="tw-w-full medium:tw-w-3/4 tw-px-8 tw-pl-0">{{ value.text|richtext }}</div>
                 </div>
             </div>
         {% endif %}

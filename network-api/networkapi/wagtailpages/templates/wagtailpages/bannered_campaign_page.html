@@ -1,10 +1,19 @@
 {% extends "./campaign_page.html" %}
+
 {% load wagtailcore_tags mini_site_tags i18n l10n %}
 
-{% block body_id %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock %}
+{% block body_id %}
+    {% if root.slug %}
+        {{ root.slug }}
+    {% else %}
+        primary
+    {% endif %}
+{% endblock %}
 
 {% block hero_guts %}
+
     {% include "./fragments/primary_heroguts.html" with root=root page=page %}
+
 {% endblock %}
 
 {% block content_wrapper_class %}{% endblock %}
@@ -16,40 +25,33 @@
 Note: Wrapper HTML elements are copied from primary_page_menu.html as we want menu on BanneredCampaignPage to look exactly the same as PrimaryPage's.
 
 {% block minisite_title %}
-    <div id="multipage-horizontal-nav-wrapper" class="d-none d-md-block full-width">
+    <div id="multipage-horizontal-nav-wrapper"
+         class="d-none d-md-block full-width">
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    {% mini_site_horizontal_nav page %}
-                </div>
+                <div class="col-12">{% mini_site_horizontal_nav page %}</div>
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block minisite_no_menu %}
+
     {% include "partials/intro_and_content_divider.html" with wrapper_class="d-none d-md-block" %}
+
 {% endblock %}
 
 The following block has been borrowed from the templates/tags/cta/petition.html file,
 rather than using the `cta` tag from our mini_site_tags collection, because the cta
 tag was written in the assumption that models would only ever have a single CTA field
 named "cta", which is an assumption that the bannered campaign page squarely violates.
-
 As such, the CTA tag needs to be refactored to take this into account, however this
 work should not be done at the same time as adding signup CTAs to the b.c. pages.
-
 An extra check has been added so as to not show the fixed "Take action" button on mobile pages for email signups.
 
 {% block cta %}
     {% if page.cta != None or page.signup != None %}
-        <div class="cta
-                    {% if page.specific.narrowed_page_content == False %}
-                        col-lg-4 offset-lg-1
-                    {% else %}
-                        col-lg-12
-                    {% endif %}"
-        >
+        <div class="cta {% if page.specific.narrowed_page_content == False %} col-lg-4 offset-lg-1 {% else %} col-lg-12 {% endif %}">
             {% if page.cta != None %}
                 <div class="narrow-sticky-button-container hidden">
                     <a href="#cta-anchor" class="tw-btn-primary d-block">{% trans "TAKE ACTION" context "Sticky button in mobile view on campaign pages" %}</a>
@@ -59,17 +61,14 @@ An extra check has been added so as to not show the fixed "Take action" button o
                 <div id="cta-anchor">
                     <div class="mt-5 mt-md-0">
                         {% cta page %}
-
                         {% if page.signup %}
                             {% with localized_signup=page.signup.localized %}
-                                <div
-                                    class="join-us mb-5"
-                                    data-signup-id="{{ localized_signup.id }}"
-                                    data-cta-header="{{ localized_signup.header | escape }}"
-                                    data-cta-description="{{ localized_signup.description | escape }}"
-                                    data-newsletter="{{ localized_signup.newsletter }}"
-                                    data-ask-name="{{ localized_signup.ask_name }}">
-                                </div>
+                                <div class="join-us mb-5"
+                                     data-signup-id="{{ localized_signup.id }}"
+                                     data-cta-header="{{ localized_signup.header | escape }}"
+                                     data-cta-description="{{ localized_signup.description | escape }}"
+                                     data-newsletter="{{ localized_signup.newsletter }}"
+                                     data-ask-name="{{ localized_signup.ask_name }}"></div>
                             {% endwith %}
                         {% endif %}
                     </div>

@@ -1,45 +1,40 @@
 {% extends "./modular_page.html" %}
+
 {% load wagtailroutablepage_tags i18n static wagtailimages_tags %}
 
 {% block subcontent %}
     <div class="tw-container small:tw-px-0">
         <div class="tw-bg-white -tw-ml-8 small:tw-ml-0 -tw-mt-16 tw-pb-12 medium:tw-pb-16 large:tw-pb-24 tw-pl-8 small:tw-pr-8 tw-pt-8 medium:tw-pt-12 large:tw-pt-24 large:tw-px-12 tw-w-auto">
+
             {% include "./fragments/blog_breadcrumbs.html" %}
-            <h1>
-                {% trans "Blog authors" %}
-            </h1>
+
+            <h1>{% trans "Blog authors" %}</h1>
         </div>
         <hr class="tw-border-black tw-my-12 medium:tw-my-16 large:tw-my-24">
         {% if author_profiles %}
             <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-16 tw-gap-12 tw-gap-y-24 tw-list-none tw-p-0">
                 {% for author_profile in author_profiles %}
                     <li class="tw-flex tw-m-0">
-                        <a
-                            href="{% routablepageurl page 'blog-author-detail' profile_slug=author_profile.slug %}"
-                            class="tw-flex {% if not tight %} tw-gap-8 medium:tw-gap-12 large:tw-gap-16 {% else %} tw-gap-6 {% endif %} tw-group tw-items-center hover:tw-no-underline"
-                        >
-                            <div class="tw-shrink-0 tw-w-32 {% if not tight %} medium:tw-w-40 large:tw-w-48 {% endif %}">
+                        <a href="{% routablepageurl page 'blog-author-detail' profile_slug=author_profile.slug %}"
+                           class="tw-flex {% if not tight %} tw-gap-8 medium:tw-gap-12 large:tw-gap-16 {% else %} tw-gap-6 {% endif %} tw-group tw-items-center hover:tw-no-underline">
+                            <div class="tw-shrink-0 tw-w-32 {% if not tight %}medium:tw-w-40 large:tw-w-48{% endif %}">
                                 {% if author_profile.image %}
                                     {% image author_profile.image fill-182x182 as profile_img %}
-                                    <img src="{{ profile_img.url }}" alt="{{ author_profile.name }}" class="tw-w-full tw-h-auto tw-rounded-full">
+                                    <img src="{{ profile_img.url }}"
+                                         alt="{{ author_profile.name }}"
+                                         class="tw-w-full tw-h-auto tw-rounded-full">
                                 {% endif %}
                             </div>
                             <div>
-                                <div class="tw-h5-heading tw-mb-2 tw-text-blue-80 group-hover:tw-underline">
-                                    {{ author_profile.name }}
-                                </div>
-                                <div class="tw-text-xs medium:tw-text-sm large:tw-text-base tw-text-gray-60">
-                                    {{ author_profile.tagline }}
-                                </div>
+                                <div class="tw-h5-heading tw-mb-2 tw-text-blue-80 group-hover:tw-underline">{{ author_profile.name }}</div>
+                                <div class="tw-text-xs medium:tw-text-sm large:tw-text-base tw-text-gray-60">{{ author_profile.tagline }}</div>
                             </div>
                         </a>
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
-            <p>
-                {% trans "No authors found." %}
-            </p>
+            <p>{% trans "No authors found." %}</p>
         {% endif %}
     </div>
 {% endblock %}

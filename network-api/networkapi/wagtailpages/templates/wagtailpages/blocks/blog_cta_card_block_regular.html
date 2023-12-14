@@ -1,31 +1,27 @@
 {% load l10n wagtailcore_tags wagtailimages_tags %}
 
-<div class="rich-text-links:tw-underline rich-text-links:tw-text-black
-            {% if value.style == "filled" %}
-                tw-bg-gray-05
-            {% elif value.style == "pop" %}
-                tw-shadow-pop
-                tw-border
-            {% elif value.style == "outline" %}
-                tw-shadow-outline
-                tw-border
-            {% endif %}">
+<div class="rich-text-links:tw-underline rich-text-links:tw-text-black {% if value.style == "filled" %} tw-bg-gray-05 {% elif value.style == "pop" %} tw-shadow-pop tw-border {% elif value.style == "outline" %} tw-shadow-outline tw-border {% endif %}">
     {% with image_block=value.image|first %}
         {% if image_block %}
+
             {% block blog_cta_card_image %}
                 {% image image_block.image width-350 as img %}
-                <img src="{{ img.url }}" alt="{{ image_block.altText }}" class="tw-object-cover tw-w-full tw-aspect-video" width="{{ img.width|unlocalize }}" height="{{ img.height|unlocalize }}">
+                <img src="{{ img.url }}"
+                     alt="{{ image_block.altText }}"
+                     class="tw-object-cover tw-w-full tw-aspect-video"
+                     width="{{ img.width|unlocalize }}"
+                     height="{{ img.height|unlocalize }}">
             {% endblock blog_cta_card_image %}
+
         {% endif %}
     {% endwith %}
     <div class="tw-p-12">
-        {% if value.title %}
-            <h3 class="tw-font-medium">{{ value.title }}</h3>
-        {% endif %}
+        {% if value.title %}<h3 class="tw-font-medium">{{ value.title }}</h3>{% endif %}
         {% include_block value.body %}
         {% with button_block=value.button|first %}
             {% if button_block %}
-                <a class="tw-{{ button_block.styling }} link-button tw-my-8" href="{{ button_block.URL }}">{{ button_block.label }}</a>
+                <a class="tw-{{ button_block.styling }} link-button tw-my-8"
+                   href="{{ button_block.URL }}">{{ button_block.label }}</a>
             {% endif %}
         {% endwith %}
     </div>

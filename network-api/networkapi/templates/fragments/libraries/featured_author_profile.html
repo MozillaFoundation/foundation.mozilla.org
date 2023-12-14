@@ -1,22 +1,20 @@
 {% load static wagtailroutablepage_tags wagtailimages_tags %}
 
-<a
-    href="{% routablepageurl page=authors_index.localized profile_slug=author_profile.slug url_name=url_name %}"
-    class="tw-flex-col tw-basis-3/12 tw-flex-initial tw-gap-8 medium:tw-gap-12 large:tw-gap-16 tw-group tw-items-center hover:tw-no-underline"
->
+<a href="{% routablepageurl page=authors_index.localized profile_slug=author_profile.slug url_name=url_name %}"
+   class="tw-flex-col tw-basis-3/12 tw-flex-initial tw-gap-8 medium:tw-gap-12 large:tw-gap-16 tw-group tw-items-center hover:tw-no-underline">
     <div class="tw-shrink-0 tw-w-48 medium:tw-w-60 large:tw-w-64 tw-mb-12">
         {% with profile_image_classes="tw-w-full tw-h-auto tw-rounded-full" %}
             {% if author_profile.image %}
                 {% image author_profile.image fill-182x182 class=profile_image_classes alt=author_profile.name %}
             {% else %}
-                <img src="{% static '_images/author_profile-placeholder.jpg' %}" width="100" height="100" alt="Bemidji State University" class="{{ profile_image_classes }}">
+                <img src="{% static '_images/author_profile-placeholder.jpg' %}"
+                     width="100"
+                     height="100"
+                     alt="Bemidji State University"
+                     class="{{ profile_image_classes }}">
             {% endif %}
         {% endwith %}
     </div>
-    <h5 class="tw-font-semibold tw-mb-2 tw-text-blue-80 group-hover:tw-underline">
-        {{ author_profile.name }}
-    </h5>
-    <p class="tw-text-gray-60">
-        {{ author_profile.tagline }}
-    </p>
+    <h5 class="tw-font-semibold tw-mb-2 tw-text-blue-80 group-hover:tw-underline">{{ author_profile.name }}</h5>
+    <p class="tw-text-gray-60">{{ author_profile.tagline }}</p>
 </a>

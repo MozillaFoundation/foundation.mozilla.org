@@ -1,14 +1,17 @@
 {% load i18n wagtailcore_tags %}
+
 <div class="banner">
     <div class="background-wrapper">
         <div class="overlay"></div>
-        <video class="banner-video" playsinline muted loop preload
+        <video class="banner-video"
+               playsinline
+               muted
+               loop
+               preload
                poster="https://s3.amazonaws.com/mofo-assets/foundation/video/mozfest-banner-video-poster.jpg">
-            <source
-                src="https://s3.amazonaws.com/mofo-assets/foundation/video/mozfest-banner-video.mp4"
-                type="video/mp4">
+            <source src="https://s3.amazonaws.com/mofo-assets/foundation/video/mozfest-banner-video.mp4"
+                    type="video/mp4">
         </video>
-
         <div class="video-control-wrapper tw-dark">
             <div class="container">
                 <div class="row">
@@ -24,7 +27,6 @@
             </div>
         </div>
     </div>
-
     <div class="homepage-banner-content container">
         <div class="row">
             <div class="col-10 col-lg-8 tw-dark">
@@ -33,11 +35,9 @@
         </div>
     </div>
 </div>
-
 {# Bottom overlaping spacing bar #}
 <div class="container">
     <div class="row cutout-wrapper-row">
-        <div class="cutout col-12 pt-4">
-        </div>
+        <div class="cutout col-12 pt-4"></div>
     </div>
 </div>

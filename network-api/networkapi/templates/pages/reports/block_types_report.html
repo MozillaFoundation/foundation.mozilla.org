@@ -1,4 +1,5 @@
 {% extends "wagtailadmin/reports/base_report.html" %}
+
 {% load wagtailadmin_tags static %}
 
 {% block extra_css %}
@@ -9,13 +10,19 @@
     {% with object_list as block_report_items %}
         <div id="page-results">
             {% if block_report_items %}
+
                 {% block listing %}
+
                     {% include "pages/reports/include/_list_block_types.html" %}
+
                 {% endblock listing %}
+
             {% else %}
+
                 {% block no_results %}
                     <p>No block types match this report's criteria.</p>
                 {% endblock no_results %}
+
             {% endif %}
         </div>
     {% endwith %}

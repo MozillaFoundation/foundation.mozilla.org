@@ -1,4 +1,5 @@
 {% extends "./blog_cta_card_block_regular.html" %}
+
 {% load l10n wagtailcore_tags wagtailimages_tags %}
 
 {% comment %}
@@ -7,5 +8,9 @@
 
 {% block blog_cta_card_image %}
     {% image image_block.image height-100 as img %}
-    <img src="{{ img.url }}" alt="{{ image_block.altText }}" class="tw-object-cover tw-w-full tw-h-56" width="{{ img.width|unlocalize }}" height="{{ img.height|unlocalize }}">
+    <img src="{{ img.url }}"
+         alt="{{ image_block.altText }}"
+         class="tw-object-cover tw-w-full tw-h-56"
+         width="{{ img.width|unlocalize }}"
+         height="{{ img.height|unlocalize }}">
 {% endblock blog_cta_card_image %}

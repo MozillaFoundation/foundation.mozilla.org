@@ -1,26 +1,28 @@
 {% extends "pages/libraries/base.html" %}
+
 {% load i18n static breadcrumbs %}
 
 {% block library_content %}
     <div>
-        {% block breadcrumbs %}{% endblock breadcrumbs %}
+
+        {% block breadcrumbs %}
+        {% endblock breadcrumbs %}
+
         <h1>{{ page.title }}</h1>
     </div>
-
     <hr class="tw-border-black tw-my-12 medium:tw-my-16 large:tw-my-24">
-
     {% if page.author_profiles %}
         <ul class="tw-grid medium:tw-grid-cols-2 medium:tw-gap-16 tw-gap-12 tw-gap-y-24 tw-list-none tw-p-0">
             {% for author_profile in page.author_profiles %}
                 <li class="tw-flex tw-m-0">
-                    {% block author_card %}{% endblock author_card %}
+
+                    {% block author_card %}
+                    {% endblock author_card %}
+
                 </li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>
-            {% trans "No authors found." %}
-        </p>
+        <p>{% trans "No authors found." %}</p>
     {% endif %}
-
 {% endblock library_content %}

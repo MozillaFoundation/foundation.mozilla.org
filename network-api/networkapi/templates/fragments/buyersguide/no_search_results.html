@@ -1,13 +1,11 @@
 {% load bg_nav_tags wagtailcore_tags i18n static %}
+
 {% get_bg_home_page as home_page %}
-
 <div class="container">
-    <img class="mb-3 oh-no-face" src="{% static '_images/buyers-guide/faces/oh-no.svg' %}" alt="{% trans "Sad face. No products were found." %}">
-
-    <h3 class="tw-h3-heading">
-        {% trans 'Oh no! We didn’t find that here.' %}
-    </h3>
-
+    <img class="mb-3 oh-no-face"
+         src="{% static '_images/buyers-guide/faces/oh-no.svg' %}"
+         alt="{% trans "Sad face. No products were found." %}">
+    <h3 class="tw-h3-heading">{% trans 'Oh no! We didn’t find that here.' %}</h3>
     <p class="mb-0">
         {% pageurl home_page as home_url %}
         {% blocktrans trimmed with home_url=home_url %}

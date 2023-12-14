@@ -2,21 +2,26 @@
 
 {% with alt_text=unoptimized_image.alt %}
     <picture class="cms-image {{ class_names }}">
-
         {% image unoptimized_image fill-540x304-c0 as image_large %}
         {% image unoptimized_image fill-1080x608-c0 as image_large_2x %}
-        <source media="(min-width: 992px)" srcset="{{ image_large.url }}, {{ image_large_2x.url }} 2x"  alt="{{ alt_text }}">
-
+        <source media="(min-width: 992px)"
+                srcset="{{ image_large.url }}, {{ image_large_2x.url }} 2x"
+                alt="{{ alt_text }}">
         {% image unoptimized_image fill-480x270-c0 as image_medium %}
         {% image unoptimized_image fill-960x520-c0 as image_medium_2x %}
-        <source media="(min-width: 576px)" srcset="{{ image_medium.url }}, {{ image_medium_2x.url }} 2x" alt="{{ alt_text }}">
-
+        <source media="(min-width: 576px)"
+                srcset="{{ image_medium.url }}, {{ image_medium_2x.url }} 2x"
+                alt="{{ alt_text }}">
         {% image unoptimized_image fill-320x180-c0 as image_small %}
         {% image unoptimized_image fill-640x360-c0 as image_small_2x %}
-        <source srcset="{{ image_small.url }}, {{ image_small_2x.url }} 2x" alt="{{ alt_text }}">
-
+        <source srcset="{{ image_small.url }}, {{ image_small_2x.url }} 2x"
+                alt="{{ alt_text }}">
         {# Fallback/Default Image #}
-        <img src="{{ image_large.url }}" class="full-bleed-xs wagtail-image" srcset="{{ image_small.url }} 320w, {{ image_medium.url }} 480w, {{ image_large.url }} 540w" alt="{{ alt_text }}"/>
-
+        <img src="{{ image_large.url }}"
+             class="full-bleed-xs wagtail-image"
+             srcset="{{ image_small.url }} 320w,
+                     {{ image_medium.url }} 480w,
+                     {{ image_large.url }} 540w"
+             alt="{{ alt_text }}" />
     </picture>
 {% endwith %}

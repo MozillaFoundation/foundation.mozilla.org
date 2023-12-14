@@ -1,6 +1,6 @@
 {% load i18n formassembly_helper %}
-{% get_current_language as LANGUAGE_CODE %}
 
+{% get_current_language as LANGUAGE_CODE %}
 {% comment %}
 *** IMPORTANT ***
 
@@ -28,12 +28,15 @@ Please follow the steps below every time after you paste a new version of FormAs
 The code snippet below is based on FormAssembly form revision #46
 
 {% endcomment %}
-
 <!-- FORM: HEAD SECTION -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="referrer" content="no-referrer-when-downgrade">
 <!-- THIS SCRIPT NEEDS TO BE LOADED FIRST BEFORE wforms.js -->
-<script nonce="{{ request.csp_nonce }}" type="text/javascript" data-for="FA__DOMContentLoadedEventDispatch" src="https://mozillafoundation.tfaforms.net/js/FA__DOMContentLoadedEventDispatcher.js" defer></script>
+<script nonce="{{ request.csp_nonce }}"
+        type="text/javascript"
+        data-for="FA__DOMContentLoadedEventDispatch"
+        src="https://mozillafoundation.tfaforms.net/js/FA__DOMContentLoadedEventDispatcher.js"
+        defer></script>
 <style>
     .captcha {
         padding-bottom: 1em !important;
@@ -159,7 +162,9 @@ The code snippet below is based on FormAssembly form revision #46
         }
     }
 </script>
-<script src='https://www.google.com/recaptcha/enterprise.js?onload=gCaptchaReadyCallback&render=explicit&hl={{ LANGUAGE_CODE }}' nonce="{{ request.csp_nonce }}" async
+<script src='https://www.google.com/recaptcha/enterprise.js?onload=gCaptchaReadyCallback&render=explicit&hl={{ LANGUAGE_CODE }}'
+        nonce="{{ request.csp_nonce }}"
+        async
         defer></script>
 <script type="text/javascript" nonce="{{ request.csp_nonce }}">
     document.addEventListener("DOMContentLoaded", function() {
@@ -215,13 +220,20 @@ The code snippet below is based on FormAssembly form revision #46
         }
     });
 </script>
-
-<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-layout.css?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98" rel="stylesheet" type="text/css" />
-
-<link href="https://mozillafoundation.tfaforms.net/uploads/themes/theme-27.css" rel="stylesheet" type="text/css" />
-<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-jsonly.css?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98" rel="alternate stylesheet" title="This stylesheet activated by javascript" type="text/css" />
-<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/wforms.js?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98"></script>
-<script type="text/javascript" nonce="{{ request.csp_nonce }}">
-    wFORMS.behaviors.prefill.skip = false;
-</script>
-<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98"></script>
+<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-layout.css?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98"
+      rel="stylesheet"
+      type="text/css" />
+<link href="https://mozillafoundation.tfaforms.net/uploads/themes/theme-27.css"
+      rel="stylesheet"
+      type="text/css" />
+<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-jsonly.css?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98"
+      rel="alternate stylesheet"
+      title="This stylesheet activated by javascript"
+      type="text/css" />
+<script type="text/javascript"
+        nonce="{{ request.csp_nonce }}"
+        src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/wforms.js?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98"></script>
+<script type="text/javascript" nonce="{{ request.csp_nonce }}">wFORMS.behaviors.prefill.skip = false;</script>
+<script type="text/javascript"
+        nonce="{{ request.csp_nonce }}"
+        src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98"></script>

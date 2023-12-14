@@ -1,84 +1,94 @@
 {% extends "pages/base.html" %}
+
 {% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags custom_image_tags i18n static mofo_common %}
 
-
-{% block web_monetization %}
-    <meta name="monetization" content="$ilp.uphold.com/aKpM9kwnGBy4">
-{% endblock %}
-
+{% block web_monetization %}<meta name="monetization" content="$ilp.uphold.com/aKpM9kwnGBy4">{% endblock %}
 
 {% block ga_identifier %}
-    <meta name="google-site-verification" content="xuTYNuCtTC9SLIkAUtmUY9Wce5RDJofc4z4fMprPYUk" />
+    <meta name="google-site-verification"
+          content="xuTYNuCtTC9SLIkAUtmUY9Wce5RDJofc4z4fMprPYUk" />
     <meta name="ga-identifier" content="UA-87658599-15">
     <meta name="gtm-identifier" content="GTM-5TFTDCX">
     <script nonce="{{ request.csp_nonce }}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                                                   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-5TFTDCX');</script>
+    })(window,document,'script','dataLayer','GTM-5TFTDCX');
+    </script>
 {% endblock %}
-
 
 {% block bodyclass %}mozfest{% endblock %}
 
-
 {% block page_title %}
     {% environment_prefix %}
-    {% blocktrans %}Mozilla Festival{% endblocktrans %}{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
-{% endblock %}
-
-{% block org_schema %}
-    {% if page.structured_data %}
-        <script type="application/ld+json">
-            {{ page.structured_data|safe }}
-        </script>
+    {% blocktrans %}Mozilla Festival{% endblocktrans %}
+    {% if page.specifics.seo_title %}
+        - {{ page.specifics.seo_title }}
+    {% else %}
+        - {{ page.title }}
     {% endif %}
 {% endblock %}
 
-{% block body_id %}mozfest-{% block mozfest_body_id %}home{% endblock %}{% endblock %}
+{% block org_schema %}
+    {% if page.structured_data %}<script type="application/ld+json">{{ page.structured_data|safe }}</script>{% endif %}
+{% endblock %}
+
+{% block body_id %}
+    mozfest-
+
+    {% block mozfest_body_id %}home{% endblock %}
+{% endblock %}
 
 {% block donate_banner %}{% endblock %}
 
 {% block primary_nav %}
-    {% include "partials/primary_mozfest_nav.html" with background="simple-background" %}
-{% endblock %}
 
+    {% include "partials/primary_mozfest_nav.html" with background="simple-background" %}
+
+{% endblock %}
 
 {% block hero_guts %}
+
     {% include "partials/primary_heroguts.html" with root=root page=page %}
+
 {% endblock %}
 
-
 {% block content %}
+
     {% block secondary_nav %}{% endblock %}
 
     {% if page.signup != None %}
-
         {# Use a two-column layout #}
         <div class="container">
             <div class="row">
                 <div class="cms mozfest-content two-col mb-5">
+
                     {% include "partials/streamfield.html" with twocolumn=True %}
+
                 </div>
-                {% block cta %}{% include "partials/signup.html" %}{% endblock %}
+
+                {% block cta %}
+
+                    {% include "partials/signup.html" %}
+
+                {% endblock %}
             </div>
         </div>
     {% else %}
-
         {# Single column layout #}
-        <div class="cms mozfest-content mb-3 {% if page.use_wide_template %} wide {% endif %}">
+        <div class="cms mozfest-content mb-3 {% if page.use_wide_template %}wide{% endif %}">
+
             {% include "partials/streamfield.html" %}
+
         </div>
-
     {% endif %}
-
 {% endblock %}
-
 
 {% block footer_block %}
-    {% include "../partials/mozfest_footer.html" %}
-{% endblock %}
 
+    {% include "../partials/mozfest_footer.html" %}
+
+{% endblock %}
 
 {% block script_bundle %}
     <script src="{% url "javascript-catalog" %}"></script>

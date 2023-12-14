@@ -1,16 +1,21 @@
 {% extends "../pages/base.html" %}
+
 {% load static i18n l10n wagtailcore_tags wagtailimages_tags %}
 
-{% block body_id %}help{% endblock body_id %}
+{% block body_id %}
+    help
+{% endblock body_id %}
 
 {% block extended_head %}
+
     {% include "../fragments/formassembly_head.html" %}
+
 {% endblock extended_head %}
 
 {% block content %}
     <div class="tw-container tw-py-12 medium:tw-py-24">
         <div class="cms donate-help-page-content">
-            <h1 class="tw-h1-heading"> {{ page.title }} </h1>
+            <h1 class="tw-h1-heading">{{ page.title }}</h1>
             {% if page.notice %}
                 {% for block in page.notice %}
                     {% include_block block %}
@@ -29,7 +34,9 @@
                         <p class="tw-body-large">{% trans "A case has been created for your issue and we will be in touch shortly." %}</p>
                     </div>
                 {% else %}
+
                     {% include "../fragments/formassembly_body.html" %}
+
                     <link rel="stylesheet" href="{% static "_css/formassembly-override.compiled.css" %}">
                 {% endif %}
             </div>
@@ -39,4 +46,3 @@
         </div>
     </div>
 {% endblock content %}
-

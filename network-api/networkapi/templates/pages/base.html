@@ -1,23 +1,28 @@
 {% load wagtailmetadata_tags i18n localization settings_value wagtailuserbar static mofo_common %}
 
 {% get_current_language as lang_code %}
-
 <!DOCTYPE html>
-<html lang="{{ lang_code }}" class="{% block html_class %}{% endblock %}">
+<html lang="{{ lang_code }}" class=" 
+    {% block html_class %}{% endblock %}
+     ">
     <head>
         <meta charset="utf-8">
         <title>
+
             {% block page_title %}
                 {% environment_prefix %}
-                {% trans "Mozilla Foundation" %} - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}
+                {% trans "Mozilla Foundation" %} -
+                {% if page.specifics.seo_title %}
+                    {{ page.specifics.seo_title }}
+                {% else %}
+                    {{ page.title }}
+                {% endif %}
             {% endblock %}
-        </title>
 
+        </title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {% block web_monetization %}
-            <meta name="monetization" content="$ilp.uphold.com/aKpM9kwnGBy4">
-        {% endblock %}
+        {% block web_monetization %}<meta name="monetization" content="$ilp.uphold.com/aKpM9kwnGBy4">{% endblock %}
 
         {% block social_metadata %}
             <meta property='og:type' content='website'>
@@ -32,14 +37,16 @@
         {% endblock %}
 
         {% block ga_identifier %}
-            <meta name="google-site-verification" content="D7k-r3fHm-XfJ9E7T1uZ5aqHJG2mx-0uUZFeBUDN2lY">
+            <meta name="google-site-verification"
+                  content="D7k-r3fHm-XfJ9E7T1uZ5aqHJG2mx-0uUZFeBUDN2lY">
             <meta name="ga-identifier" content="UA-87658599-6">
             <meta name="gtm-identifier" content="GTM-MD3XGZ4">
             <script nonce="{{ request.csp_nonce }}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                                                           j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-MD3XGZ4');</script>
+            })(window,document,'script','dataLayer','GTM-MD3XGZ4');
+            </script>
         {% endblock %}
 
         {% block fundraiseup_script %}
@@ -49,40 +56,47 @@
                 j=d.createElement(s);j.async=!0;j.src='https://cdn.fundraiseup.com/widget/'+a;
                 t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=4;o.h=w.location.href;o.l=[];
                 for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
-            })(window,document,'script','FundraiseUp','ADCYPWMX');</script>
+            })(window,document,'script','FundraiseUp','ADCYPWMX');
+            </script>
         {% endblock %}
 
         {% block commento_meta %}{% endblock %}
 
         {% block stylesheets %}
             <link rel="stylesheet" href="{% static "_css/main.compiled.css" %}">
-
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,800,900,400i">
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,500,600,700,300i,400i,600i">
+            <link rel="stylesheet"
+                  href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,800,900,400i">
+            <link rel="stylesheet"
+                  href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,500,600,700,300i,400i,600i">
         {% endblock %}
 
         {% block extended_head %}{% endblock %}
 
         {% block icons %}
+
             {% include "fragments/favicons.html" %}
+
         {% endblock %}
 
         {% block hreflang %}
+
             {% include "fragments/canonical_url.html" %}
+
         {% endblock %}
 
         {% block org_schema %}{% endblock %}
 
         {% block additional_head_elements %}{% endblock %}
-        {% if request.in_preview_panel %}
-            <base target="_blank">
-        {% endif %}
+
+        {% if request.in_preview_panel %}<base target="_blank">{% endif %}
     </head>
-    <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
+    <body class=" 
+        {% block bodyclass %}{% endblock %}
+         " id="view- 
+        {% block body_id %}{% endblock %} ">
         {% if user.is_authenticated %}
             {% wagtailuserbar 'bottom-left' %}
         {% endif %}
-
         {% if page.live == False %}
             <div id="wagtail-draft-warning">
                 This is a draft page, and is only visible to users who are logged in to the CMS admin.
@@ -91,34 +105,48 @@
 
         {% block donate_banner %}
             {% if settings.donate_banner.SiteDonateBanner.active_donate_banner %}
+
                 {% include "partials/donate_banner.html" with banner=settings.donate_banner.SiteDonateBanner.active_donate_banner.localized %}
+
             {% endif %}
         {% endblock %}
 
         {% block body_wrapped %}
             <div class="wrapper">
-                <div class="{% block sticky_top_class %} sticky-top {% endblock %} d-print-none">
+                <div class=" 
+                    {% block sticky_top_class %}sticky-top{% endblock %}
+                     d-print-none">
+
                     {% block primary_nav %}
+
                         {% include "partials/primary_nav.html" with background="simple-background" %}
+
                     {% endblock %}
+
                 </div>
 
                 {% block header_wrapped %}
                     <header role="banner">
+
                         {% block hero_guts %}{% endblock %}
+
                     </header>
                 {% endblock header_wrapped %}
 
                 {% block content_wrapped %}
                     <main role="main">
+
                         {% block content %}{% endblock %}
+
                     </main>
                 {% endblock content_wrapped %}
 
                 {% block prefooter %}{% endblock %}
 
                 {% block footer_block %}
+
                     {% include "partials/footer.html" %}
+
                 {% endblock %}
             </div>
         {% endblock %}
@@ -129,5 +157,6 @@
         {% endblock %}
 
         {% block extra_scripts %}{% endblock %}
+
     </body>
 </html>

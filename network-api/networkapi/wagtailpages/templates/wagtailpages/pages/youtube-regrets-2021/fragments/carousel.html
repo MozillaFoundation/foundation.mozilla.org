@@ -1,14 +1,18 @@
 {% load static i18n %}
 
-<div class="carousel swiper-container d-flex flex-column" data-carousel id="youtube-regrets-accordion-carousel">
+<div class="carousel swiper-container d-flex flex-column"
+     data-carousel
+     id="youtube-regrets-accordion-carousel">
     <!-- Slider main container -->
+
     {% include './carousel_controls.html' %}
-    <div class="carousel__slides swiper-wrapper order-3 order-lg-4" aria-live="polite">
+
+    <div class="carousel__slides swiper-wrapper order-3 order-lg-4"
+         aria-live="polite">
         <div class="carousel__item swiper-slide">
             <div class="carousel__image d-flex flex-column justify-content-start">
                 <img src="{% static "_images/youtube-regrets/carousel/quote-1.png" %}" alt="">
-                <div class="carousel__count-inner d-none d-lg-flex  align-items-baseline justify-content-end">
-                </div>
+                <div class="carousel__count-inner d-none d-lg-flex  align-items-baseline justify-content-end"></div>
             </div>
             <div class="carousel__item-content">
                 <img class="carousel__speech-bubble-desktop mb-4" src="{% static "_images/youtube-regrets/speech-bubble-sad.png" %}" alt="">
@@ -32,8 +36,7 @@
         <div class="carousel__item swiper-slide">
             <div class="carousel__image">
                 <img src="{% static "_images/youtube-regrets/carousel/quote-2.png" %}" alt="">
-                <div class="carousel__count-inner d-none d-lg-flex align-items-baseline justify-content-end">
-                </div>
+                <div class="carousel__count-inner d-none d-lg-flex align-items-baseline justify-content-end"></div>
             </div>
             <div class="carousel__item-content">
                 <img class="carousel__speech-bubble-desktop mb-4" src="{% static "_images/youtube-regrets/speech-bubble-sad.png" %}" alt="">
@@ -48,8 +51,7 @@
         <div class="carousel__item swiper-slide">
             <div class="carousel__image">
                 <img src="{% static "_images/youtube-regrets/carousel/quote-3.png" %}" alt="">
-                <div class="carousel__count-inner d-none d-lg-flex  align-items-baseline justify-content-end">
-                </div>
+                <div class="carousel__count-inner d-none d-lg-flex  align-items-baseline justify-content-end"></div>
             </div>
             <div class="carousel__item-content">
                 <img class="carousel__speech-bubble-desktop mb-4" src="{% static "_images/youtube-regrets/speech-bubble-sad.png" %}" alt="">
@@ -65,14 +67,12 @@
                         <span>began showing horrifying, raw footage of rotting skins and disfiguration.</span> Now we are working with her to understand cancer and to not fear eating food or drinking water.”
                     {% endblocktrans %}
                 </p>
-
             </div>
         </div>
         <div class="carousel__item swiper-slide">
             <div class="carousel__image">
                 <img src="{% static "_images/youtube-regrets/carousel/quote-4.png" %}" alt="">
-                <div class="carousel__count-inner d-none d-lg-flex align-items-baseline justify-content-end">
-                </div>
+                <div class="carousel__count-inner d-none d-lg-flex align-items-baseline justify-content-end"></div>
             </div>
             <div class="carousel__item-content">
                 <img class="carousel__speech-bubble-desktop mb-4" src="{% static "_images/youtube-regrets/speech-bubble-sad.png" %}" alt="">
@@ -110,7 +110,6 @@
         </div>
     </div>
     {#  {% include './carousel_controls.html' with mobile=True %}#}
-
     <div class="carousel__count carousel__count--mobile">
         <img class="carousel__speech-bubble-mobile mb-4" src="{% static "_images/youtube-regrets/speech-bubble-sad.png" %}" alt="">
         <div class="carousel__count-inner d-flex align-items-baseline justify-content-end"></div>

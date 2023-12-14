@@ -1,21 +1,22 @@
 {% load i18n wagtailcore_tags %}
 
-<div class="tw-grid tw-grid-cols-2 {% if columns_above_large == 3 %} large:tw-grid-cols-3 {% endif %} tw-gap-16">
+<div class="tw-grid tw-grid-cols-2 {% if columns_above_large == 3 %}large:tw-grid-cols-3{% endif %} tw-gap-16">
     <div class="tw-col-span-full tw-flex tw-flex-row tw-justify-between tw-items-center tw-gap-12">
-        <div class="tw-h3-heading tw-m-0 tw-whitespace-nowrap">
-            {{ heading }}
-        </div>
+        <div class="tw-h3-heading tw-m-0 tw-whitespace-nowrap">{{ heading }}</div>
 
         {% include "fragments/buyersguide/wavy_line.html" %}
 
         <div class="tw-whitespace-nowrap">
             {% pageurl index_page as link_href %}
             {% trans "All articles" as link_text %}
+
             {% include "fragments/buyersguide/arrow_link.html" with link_href=link_href link_text=link_text %}
+
         </div>
     </div>
-
     {% for article in articles %}
+
         {% include "fragments/buyersguide/article_card_vertical.html" with page=article show_byline=True %}
+
     {% endfor %}
 </div>
