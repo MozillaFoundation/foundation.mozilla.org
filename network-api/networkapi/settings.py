@@ -44,8 +44,6 @@ env = environ.Env(
     FEED_CACHE_TIMEOUT=(int, 60 * 60 * 24),
     DOMAIN_REDIRECT_MIDDLEWARE_ENABLED=(bool, False),
     FEED_LIMIT=(int, 10),
-    FILEBROWSER_DEBUG=(bool, False),
-    FILEBROWSER_DIRECTORY=(str, ""),
     FORCE_500_STACK_TRACES=(bool, False),
     FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN=(str, ""),
     FRONTEND_CACHE_CLOUDFLARE_ZONEID=(str, ""),
@@ -142,7 +140,7 @@ APP_DIR = app()
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = FILEBROWSER_DEBUG = env("DEBUG")
+DEBUG = env("DEBUG")
 DEBUG_TOOLBAR_ENABLED = env("DEBUG_TOOLBAR_ENABLED")
 
 # SECURITY WARNING: same as above!
@@ -157,9 +155,6 @@ TARGET_DOMAINS = env("TARGET_DOMAINS")
 
 # Temporary Redirect for Mozilla Festival domain
 MOZFEST_DOMAIN_REDIRECT_ENABLED = env("MOZFEST_DOMAIN_REDIRECT_ENABLED")
-
-if env("FILEBROWSER_DEBUG") or DEBUG != env("FILEBROWSER_DEBUG"):
-    FILEBROWSER_DEBUG = env("FILEBROWSER_DEBUG")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
@@ -196,7 +191,7 @@ INSTALLED_APPS = list(
         [
             "scout_apm.django",
             "whitenoise.runserver_nostatic",
-            "networkapi.filebrowser_s3" if USE_S3 else None,
+            "networkapi.s3_file_storage" if USE_S3 else None,
             "social_django" if SOCIAL_SIGNIN else None,
             "django.contrib.admin",
             "django.contrib.auth",
@@ -563,7 +558,7 @@ REST_FRAMEWORK = {
 # Storage for user generated files
 if USE_S3:
     # Use S3 to store user files if the corresponding environment var is set
-    DEFAULT_FILE_STORAGE = "networkapi.filebrowser_s3.storage.S3MediaStorage"
+    DEFAULT_FILE_STORAGE = "networkapi.s3_file_storage.storage.S3MediaStorage"
     AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
     AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
     AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
@@ -574,8 +569,6 @@ if USE_S3:
     MEDIA_ROOT = ""
     # This is a workaround for https://github.com/wagtail/wagtail/issues/3206
     AWS_S3_FILE_OVERWRITE = False
-
-    FILEBROWSER_DIRECTORY = env("FILEBROWSER_DIRECTORY")
 
 else:
     # Otherwise use the default filesystem storage
