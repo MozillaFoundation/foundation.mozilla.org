@@ -1,2 +1,2 @@
 # flake8: noqa
-from .stats_block import MozfestStatisticsBlock
+from .stats_block import StatisticsBlock

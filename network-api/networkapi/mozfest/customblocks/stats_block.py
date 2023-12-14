@@ -6,10 +6,10 @@ class StatisticCard(blocks.StructBlock):
     description = blocks.CharBlock(help_text="Context or description for the statistic")
 
 
-class MozfestStatisticsBlock(blocks.StructBlock):
-    statistics = blocks.ListBlock(StatisticCard(), help_text="Please use a minimum of 2 cards.", max_num=4)
+class StatisticsBlock(blocks.StructBlock):
+    statistics = blocks.ListBlock(StatisticCard(), help_text="Please use a minimum of 2 cards.", max_num=4, min_num=2)
 
     class Meta:
         icon = "placeholder"
-        template = "fragments/blocks/mozfest_stats_block.html"
+        template = "fragments/blocks/stats_block.html"
         label = "Stats Block"

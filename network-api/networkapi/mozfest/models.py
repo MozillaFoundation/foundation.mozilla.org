@@ -52,7 +52,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ("tito_widget", customblocks.TitoWidgetBlock()),
             ("tabbed_profile_directory", customblocks.TabbedProfileDirectory()),
             ("newsletter_signup", customblocks.NewsletterSignupBlock()),
-            ("mozfest_stats_block", mozfest_blocks.MozfestStatisticsBlock()),
+            ("stats_block", mozfest_blocks.StatisticsBlock()),
         ],
         use_json_field=True,
     )
