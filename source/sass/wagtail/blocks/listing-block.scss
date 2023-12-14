@@ -1,12 +1,12 @@
 .listing-block {
-    .mozfest & {
-        .streamfield-content {
-            @extend .col-lg-12;
-            @apply tw-pt-14;
+  .mozfest & {
+    .streamfield-content {
+      @extend .col-lg-12;
+      @apply tw-pt-14;
 
-            @media (min-width: $bp-md) {
-                @apply tw-pt-24;
-            }
-        }
+      @media (min-width: $bp-md) {
+        @apply tw-pt-24;
+      }
     }
+  }
 }
