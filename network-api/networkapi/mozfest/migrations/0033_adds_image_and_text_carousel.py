@@ -16,7 +16,7 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("mozfest", "0032_alter_mozfestprimarypage_body"),
+        ("mozfest", "0032_adds_meta_fields_to_listing_block"),
     ]
 
     operations = [
