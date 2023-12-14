@@ -1648,11 +1648,7 @@ class Migration(migrations.Migration):
                         ),
                     ),
                     (
-<<<<<<< HEAD
                         "statistics",
-=======
-                        "mozfest_stats_block",
->>>>>>> c47dfb545 (Rebase fixes)
                         wagtail.blocks.StructBlock(
                             [
                                 (
