@@ -4,16 +4,16 @@
     <div class="tw-bg-black tw-dark tw-py-16">
         <div class="tw-container">
             <div class="tw-row tw-body">
-                <div>
+                <div class="tw-px-8 xlarge:tw-w-6/12">
                     {% if self.heading %}
-                        <h2>{{ self.heading }}</h2>
+                        <h2 class="tw-h2-heading tw-mb-12">{{ self.heading }}</h2>
                     {% endif %}
                     {{ self.text|richtext }}
                     {% if self.link_url and self.link_label %}
-                        <a href="{{ self.link_url }}">{{ self.link_label }}</a>
+                        <a class="tw-cta-link tw-text-white" href="{{ self.link_url }}"><b>{{ self.link_label }}</b></a>
                     {% endif %}
                 </div>
-                <div>
+                <div class="tw-px-8 xlarge:tw-w-6/12">
                     <ul>
                         {% for slide in self.carousel_images %}
                             <li><img width="auto" height="auto" src="{{ slide.image.file.url }}" alt="{{ slide.altText }}"></li>
