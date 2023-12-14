@@ -469,7 +469,7 @@ class RelatedProducts(TranslatableMixin, Orderable):
         "wagtailpages.ProductPage",
         on_delete=models.SET_NULL,
         null=True,
-        related_name="+",
+        related_name="related_product_relationships",
     )
 
     panels = [FieldPanel("related_product")]
@@ -990,9 +990,7 @@ class ProductPage(BasePage):
 
     @property
     def localized_related_products(self):
-        related_product_relationships = RelatedProducts.objects.filter(page=self)
-        related_products = [relationship.related_product_id for relationship in related_product_relationships]
-        related_products = ProductPage.objects.filter(id__in=related_products)
+        related_products = ProductPage.objects.filter(related_product_relationships__page=self)
         return localize_queryset(related_products).order_by("title")
 
     @property
