@@ -10,8 +10,8 @@ class ListingCard(blocks.StructBlock):
     alt_text = blocks.CharBlock(required=False, help_text="Alt text for card's image.")
 
     title = blocks.CharBlock(help_text="Heading for the card.")
-    category = blocks.CharBlock(help_text="Category text for the card.", required=False)
-    date_meta = blocks.CharBlock(help_text="Date and time or other information.", required=False)
+    highlighted_metadata = blocks.CharBlock(help_text="Metadata to highlight on the card.", required=False)
+    metadata = blocks.CharBlock(help_text="Generic metadata.", required=False)
 
     body = blocks.RichTextBlock(features=["bold"], help_text="Body text of the card.", required=False)
 

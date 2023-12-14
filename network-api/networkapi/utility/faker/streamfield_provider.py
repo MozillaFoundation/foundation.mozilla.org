@@ -486,8 +486,8 @@ def generate_listing_block_field():
                 "image": choice(Image.objects.all()).id,
                 "alt_text": " ".join(fake.words(nb=5)),
                 "title": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
-                "category": " ".join(fake.words(nb=2)),
-                "date_meta": " ".join(fake.words(nb=3)),
+                "highlighted_metadata": " ".join(fake.words(nb=2)),
+                "metadata": " ".join(fake.words(nb=3)),
                 "body": fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
                 "link_url": fake.url(schemes=["https"]),
             }
