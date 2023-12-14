@@ -2,6 +2,11 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
+    {% if self.heading %}
+        <div class="tw-px-2 tw-py-12 tw-w-full">
+            <h2 class="tw-h3-heading">{{ self.heading }}</h2>
+        </div>
+    {% endif %}
     <ul class="tw-mb-24 tw-list-none tw-pl-0 tw-grid tw-gap-8 medium:tw-grid-cols-2 medium:tw-gap-24">
         {% for block in self.cards %}
             {% with card=block %}
@@ -20,6 +25,16 @@
                         <img src="{{ img.url }}" alt="{{ card.alt_text }}"/>
                         <div class="tw-flex tw-flex-1">
                             <div class="tw-relative tw-pt-8 tw-w-full tw-flex tw-flex-col">
+                                {% if card.highlighted_metadata or card.metadata %}
+                                    <div class="tw-row tw-px-8 tw-py-2">
+                                        {% if card.highlighted_metadata %}
+                                            <div class="tw-px-0"><p class="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-py-2 tw-mb-0">{{ card.highlighted_metadata }}</p></div>
+                                        {% endif %}
+                                        {% if card.metadata %}
+                                            <div class="tw-px-2"><p class="tw-h6-heading tw-text-gray-40 tw-py-2 tw-mb-0">{{ card.metadata }}</p></div>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
                                 <h3 class="tw-h3-heading tw-mb-4 group-hover/listing:tw-underline group-focus/listing:tw-underline">{{ card.title }}</h3>
                                 <div class="[&_p,li,ul]:last:tw-mb-0">
                                     {{ card.body|richtext }}
