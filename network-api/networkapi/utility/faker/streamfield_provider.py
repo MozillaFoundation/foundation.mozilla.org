@@ -280,6 +280,20 @@ def generate_card_grid_field():
     return generate_field("card_grid", {"cards": cards})
 
 
+def generate_stats_block_field():
+    statistics = []
+
+    for n in range(4):
+        statistics.append(
+            {
+                "title": str(fake.pyint()),
+                "description": " ".join(fake.words(nb=8)),
+            }
+        )
+
+    return generate_field("stats_block", {"statistics": statistics})
+
+
 def generate_pulse_listing_field():
     return generate_field(
         "pulse_listing",
@@ -511,6 +525,7 @@ class StreamfieldProvider(BaseProvider):
             "current_events_slider": generate_current_events_slider_field,
             "callout_box": generate_blog_index_callout_box_field,
             "blog_newsletter_signup": generate_blog_newsletter_signup_field,
+            "stats_block": generate_stats_block_field,
         }
 
         streamfield_data = []

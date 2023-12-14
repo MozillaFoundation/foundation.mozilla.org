@@ -10,7 +10,8 @@ from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.factory.signup import SignupFactory
 
-streamfield_fields = ["paragraph", "image", "spacer", "quote"]
+streamfield_fields = ["paragraph", "image", "spacer", "quote", "stats_block"]
+
 Faker.add_provider(StreamfieldProvider)
 
 is_review_app = False
