@@ -1,3 +1,5 @@
+import random
+
 from django.conf import settings
 from factory import Faker, LazyAttribute, SubFactory
 from factory.django import DjangoModelFactory
@@ -75,13 +77,13 @@ class TicketSnippetFactory(DjangoModelFactory):
     class Meta:
         model = mozfest_models.Ticket
 
-    name = Faker("word")
-    cost = Faker("pyint", min_value=100, max_value=999)
-    group = Faker("word")
-    description = Faker("paragraph", nb_sentences=8, variable_nb_sentences=True)
-    link_text = Faker("word")
+    name = Faker("sentence", nb_words=2)
+    cost = f"€{random.choice(['100', '200', '300'])}"
+    group = Faker("text", max_nb_chars=50)
+    description = Faker("text", max_nb_chars=250)
+    link_text = Faker("text", max_nb_chars=25)
     link_url = Faker("url")
-    sticker_text = Faker("word")
+    sticker_text = Faker("text", max_nb_chars=25)
 
 
 def generate(seed):
