@@ -1,10 +1,6 @@
 from wagtail import blocks
 
 from networkapi.wagtailpages.pagemodels import customblocks
-from networkapi.wagtailpages.pagemodels.customblocks import (
-    base_rich_text_options,
-    common,
-)
 
 
 class CarouselTextBlock(blocks.StructBlock):
