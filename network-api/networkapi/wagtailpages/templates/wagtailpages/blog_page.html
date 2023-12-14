@@ -8,7 +8,7 @@
           content="{{ page.first_published_at|date:"DATE_FORMAT" }}">
     {% if page.last_published_at %}
         <meta property="article:modified"
-              content="{{ page.last_published_at|date:"DATE_FORMAT" }}" />
+              content="{{ page.last_published_at|date:"DATE_FORMAT" }}"/>
     {% endif %}
     {% with topic=page.specific.topics.first %}
         {% if topic %}<meta property="article:section" content="{{ topic }}" />{% endif %}

@@ -14,17 +14,15 @@
                         {% image card.image fill-690x388 as img %}
                         <div class="tw-px-8 tw-grid tw-grid-cols-1 large:tw-grid-cols-3 tw-gap-8 large:tw-gap-16">
                             <div class="tw-col-span-1">
-                                {% if card.url %}
-                                    <a href="{{ card.url }}"
-                                       class="tw-block tw-group"
-                                       aria-label="{{ card.title }}">
-                                    {% endif %}
-                                    <img class="tw-w-full xlarge:tw-max-w-[345px]"
-                                         src="{{ img.url }}"
-                                         alt="{{ card.alt_text }}"
-                                         width="{{ img.width }}"
-                                         height="{{ img.height }}" />
-                                    {% if card.url %}</a>{% endif %}
+                                {% if card.url %}<a href="{{ card.url }}"
+   class="tw-block tw-group"
+   aria-label="{{ card.title }}">{% endif %}
+                                <img class="tw-w-full xlarge:tw-max-w-[345px]"
+                                     src="{{ img.url }}"
+                                     alt="{{ card.alt_text }}"
+                                     width="{{ img.width }}"
+                                     height="{{ img.height }}"/>
+                                {% if card.url %}</a>{% endif %}
                             </div>
                             <div class="tw-col-span-1 large:tw-col-span-2 large:tw-items-center large:tw-flex">
                                 <div class="tw-bg-white tw-relative tw-w-full tw-flex tw-flex-col">
@@ -38,14 +36,14 @@
                                             {{ card.title }}
                                         </h3>
                                         {% if card.url %}</a>{% endif %}
-                                    {# Adjust font sizes of rich text elements using [&_p,li,ul] to select them #}
-                                    <div class="[&_p,li,ul]:tw-text-sm [&_p,li,ul]:tw-text-gray-80">{{ card.body|richtext }}</div>
+                                        {# Adjust font sizes of rich text elements using [&_p,li,ul] to select them #}
+                                        <div class="[&_p,li,ul]:tw-text-sm [&_p,li,ul]:tw-text-gray-80">{{ card.body|richtext }}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                {% endwith %}
-            {% endfor %}
-        </ul>
-    </div>
-{% endblock %}
+                        </li>
+                    {% endwith %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endblock %}

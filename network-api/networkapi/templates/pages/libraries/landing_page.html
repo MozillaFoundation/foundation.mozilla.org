@@ -9,7 +9,8 @@
             <div class="{{ hero_image_classes }}"
                  style="background-image: url('{{ hero_img.url }}')"></div>
         {% else %}
-            <div class="{{ hero_image_classes }}" style="background-image: url('{% static "_images/banner-black-white-marble.jpg" %}')">
+            <div class="{{ hero_image_classes }}"
+                 style="background-image: url('{% static "_images/banner-black-white-marble.jpg" %}')">
             </div>
         {% endif %}
     {% endwith %}

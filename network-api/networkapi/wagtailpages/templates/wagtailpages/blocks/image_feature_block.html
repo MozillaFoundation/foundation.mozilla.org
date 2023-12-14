@@ -24,12 +24,12 @@
                                     {% endif %}
                                     {{ value.title }}
                                     {% if value.title_link %}</a>{% endif %}
-                            </h2>
-                            {% if value.body %}<p class="xlarge:tw-block xlarge:tw-mb-0">{{ value.body|truncatechars:400 }}</p>{% endif %}
+                                </h2>
+                                {% if value.body %}<p class="xlarge:tw-block xlarge:tw-mb-0">{{ value.body|truncatechars:400 }}</p>{% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-{% endblock %}
+        </section>
+    {% endblock %}

@@ -4,7 +4,10 @@
         data-creepiness="{{ product.creepiness|unlocalize }}">
     <div class="top-left-badge-container">
         {% if product.privacy_ding %}
-            <img src="{% static "_images/buyers-guide/icon-privacy-ding-mini.svg" %}" title="{% trans "*privacy not included with this product" %}" alt="{% trans "*privacy not included with this product" %}" width="24">
+            <img src="{% static "_images/buyers-guide/icon-privacy-ding-mini.svg" %}"
+                 title="{% trans "*privacy not included with this product" %}"
+                 alt="{% trans "*privacy not included with this product" %}"
+                 width="24">
         {% endif %}
     </div>
 

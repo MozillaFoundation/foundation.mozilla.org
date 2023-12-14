@@ -23,15 +23,20 @@
         {% image image_object original as img_original %}
     {% endif %}
     <source media="(max-width: 576px)"
-            srcset="{{ img_576.url }}, {{ img_576_2x.url }} 2x" />
+            srcset="{{ img_576.url }},
+                    {{ img_576_2x.url }} 2x"/>
     <source media="(max-width: 768px)"
-            srcset="{{ img_768.url }}, {{ img_768_2x.url }} 2x" />
+            srcset="{{ img_768.url }},
+                    {{ img_768_2x.url }} 2x"/>
     <source media="(max-width: 992px)"
-            srcset="{{ img_992.url }}, {{ img_992_2x.url }} 2x" />
+            srcset="{{ img_992.url }},
+                    {{ img_992_2x.url }} 2x"/>
     <source media="(max-width: 1200px)"
-            srcset="{{ img_1200.url }}, {{ img_1200_2x.url }} 2x" />
+            srcset="{{ img_1200.url }},
+                    {{ img_1200_2x.url }} 2x"/>
     <source media="(max-width: 1400px)"
-            srcset="{{ img_1400.url }}, {{ img_1400_2x.url }} 2x" />
+            srcset="{{ img_1400.url }},
+                    {{ img_1400_2x.url }} 2x"/>
     <source media="(min-width: 1401px)" srcset="{{ img_original.url }}" />
     <img
         class="tw-h-full tw-w-full tw-object-cover"

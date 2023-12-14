@@ -31,24 +31,24 @@
                      ">
                     <td class="app-label" valign="top">
                         {% block_name block_report_item %}
-                    </td>
-                    <td class="app-label" valign="top">{{ block_report_item.count }}</td>
-                    <td class="app-label" valign="top">
-                        <span class="status-tag status-tag--label">{{ block_report_item.type_label }}</span>
-                    </td>
-                    <td class="app-label" valign="top">{% page_types_block block_report_item.content_types %}</td>
+                        </td>
+                        <td class="app-label" valign="top">{{ block_report_item.count }}</td>
+                        <td class="app-label" valign="top">
+                            <span class="status-tag status-tag--label">{{ block_report_item.type_label }}</span>
+                        </td>
+                        <td class="app-label" valign="top">{% page_types_block block_report_item.content_types %}</td>
 
-                    {% block extra_page_data %}
-                    {% endblock extra_page_data %}
+                        {% block extra_page_data %}
+                        {% endblock extra_page_data %}
 
-                </tr>
-            {% endfor %}
-        {% else %}
+                    </tr>
+                {% endfor %}
+            {% else %}
 
-            {% block no_results %}
-                <p>No blocks found.</p>
-            {% endblock no_results %}
+                {% block no_results %}
+                    <p>No blocks found.</p>
+                {% endblock no_results %}
 
-        {% endif %}
-    </tbody>
-</table>
+            {% endif %}
+        </tbody>
+    </table>

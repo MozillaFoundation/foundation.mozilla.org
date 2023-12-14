@@ -18,7 +18,7 @@
                                        type="{{ field.field.widget.input_type }}"
                                        value="{{ pk }}"
                                        class="libraries-{{ field.field.widget.input_type }}"
-                                       {% if pk|stringformat:"i" in field.value %}checked=""{% endif %} />
+                                       {% if pk|stringformat:"i" in field.value %}checked=""{% endif %}/>
                                 <label for="id_{{ field.name }}_{{ forloop.counter0 }}"
                                        class="tw-pr-6 tw-overflow-hidden tw-break-words tw-hyphens-auto">
                                     {{ choice }}

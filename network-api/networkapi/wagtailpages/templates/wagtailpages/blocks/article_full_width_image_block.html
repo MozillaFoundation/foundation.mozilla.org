@@ -17,7 +17,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
-                            <figcaption>{{ self.caption|richtext|remove_wrapping|safe }}</figcaption>
+                            <figcaption>
+                                {{ self.caption|richtext|remove_wrapping|safe }}
+                            </figcaption>
                         </div>
                     </div>
                 </div>

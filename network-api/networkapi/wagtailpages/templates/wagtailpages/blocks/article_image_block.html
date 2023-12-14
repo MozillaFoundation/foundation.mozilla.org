@@ -21,9 +21,11 @@
     <figure class="tw-my-4">
         <img src="{{ img.url }}"
              alt="{% if self.alt_text %}{{ self.alt_text }}{% else %}{{ img.alt }}{% endif %}"
-             class="tw-w-full" />
+             class="tw-w-full"/>
         {% if self.caption %}
-            <figcaption class="tw-body-small">{{ self.caption|richtext|remove_wrapping|safe }}</figcaption>
+            <figcaption class="tw-body-small">
+                {{ self.caption|richtext|remove_wrapping|safe }}
+            </figcaption>
         {% endif %}
     </figure>
 {% endblock %}

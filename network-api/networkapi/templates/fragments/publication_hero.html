@@ -52,7 +52,9 @@
                                             {% trans "and" %}
                                         {% endif %}
                                         {{ orderable.author.name }}
-                                        {% if not forloop.last and forloop.counter != authors_length|add:-1 %},{% endif %}
+                                        {% if not forloop.last and forloop.counter != authors_length|add:-1 %}
+                                            ,
+                                        {% endif %}
                                     </span>
                                 {% endfor %}
                                 {% if page.additional_author_copy %}{{ page.additional_author_copy }}{% endif %}

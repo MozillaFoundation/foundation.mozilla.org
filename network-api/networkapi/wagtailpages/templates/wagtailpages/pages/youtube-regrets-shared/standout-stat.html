@@ -7,7 +7,9 @@
            {% if id %}id="{{ id }}"{% endif %}
            data-stat="{{ number|unlocalize }}"
            data-stat-suffix="{{ suffix }}"
-           data-stat-prefix="{{ prefix }}">{{ number|intcomma }}</p>
+           data-stat-prefix="{{ prefix }}">
+            {{ number|intcomma }}
+        </p>
         <p class="standout-stat__label mb-0 text-uppercase">{{ label }}</p>
     </div>
 </div>

@@ -50,7 +50,9 @@
                                 class="tw-form-control tw-border-gray-40"
                                 form="search-form">
                             {% for choice in page.SORT_CHOICES.values %}
-                                <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>{{ choice.label }}</option>
+                                <option value="{{ choice.value }}" {% if choice == sort %}selected{% endif %}>
+                                    {{ choice.label }}
+                                </option>
                             {% endfor %}
                         </select>
                         <noscript>
@@ -125,5 +127,8 @@
 
 {% block extra_scripts %}
     {{ block.super }}
-    <script type="text/javascript" src="{% static "_js/libraries-library-page.compiled.js" %}" async defer></script>
+    <script type="text/javascript"
+            src="{% static "_js/libraries-library-page.compiled.js" %}"
+            async
+            defer></script>
 {% endblock extra_scripts %}
