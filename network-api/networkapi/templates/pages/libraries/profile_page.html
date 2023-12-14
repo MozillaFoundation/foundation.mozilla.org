@@ -17,19 +17,18 @@
                 {% if author_profile.image %}
                     {% image author_profile.image fill-256x256 as img_1x %}
                     {% image author_profile.image fill-512x512 as img_2x %}
-                    <img srcset="{{ img_1x.url }},
-                                 {{ img_2x.url }} 2x"
+                    <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x"
                          src="{{ img_2x.url }}"
                          width="{{ img_2x.width|unlocalize }}"
                          height="{{ img_2x.height|unlocalize }}"
                          alt="{{ img_2x.alt }}"
-                         class="{{ profile_image_classes }}"/>
+                         class="{{ profile_image_classes }}" />
                 {% else %}
                     <img src="{% static '_images/author-placeholder.svg' %}"
                          width="100"
                          height="100"
                          alt="{{ author_profile.name }}"
-                         class="{{ profile_image_classes }}"/>
+                         class="{{ profile_image_classes }}" />
                 {% endif %}
             {% endwith %}
         </div>

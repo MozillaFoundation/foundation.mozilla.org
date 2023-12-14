@@ -29,9 +29,7 @@
                 data-hx-push-url="{{ request.path }}{% querystring 'page'=items.next_page_number expanded='true' %}" {# The expanded parameter is only important to regenerate the items page, but not for the AJAX request itself (that only loads a single page at a time).  #}
                 data-hx-target="#index-navigation"
                 data-hx-swap="outerHTML"
-                >
-                {% trans "Load more results" %}
-            </button>
+                >{% trans "Load more results" %}</button>
         </nav>
     {% endif %}
 </li>

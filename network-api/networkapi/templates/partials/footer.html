@@ -37,9 +37,7 @@
                             <a class="logo tw-block tw-my-24 medium:tw-my-0"
                                href="https://foundation.mozilla.org"
                                aria-label="{% trans 'Return to Homepage' %}">
-                                <img src="{% static "_images/mozilla-block-white.svg" %}"
-                                     alt="{% trans 'Mozilla Foundation' %}"
-                                     width="96">
+                                <img src="{% static "_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}" width="96">
                             </a>
                         </div>
                     {% endblock %}
@@ -117,36 +115,36 @@
                                 <p class="tw-h5-heading tw-mt-12 tw-mb-0">{% trans "This website supports Web Monetization." %}</p>
                                 <p class="tw-body tw-mb-0">
                                     {% blocktrans with url="https://foundation.mozilla.org/campaigns/web-monetization/" trimmed %}
-                                    <a href="{{ url }}">Read more</a> about our implementation
-                                {% endblocktrans %}
-                            </p>
-                        </div>
-                        {% if exclude_language_switcher != True %}
-
-                            {% block language_switcher %}
-                                <div class="tw-row tw-mt-24">
-                                    <div class="tw-w-full tw-px-8">
-
-                                        {% include "../fragments/language_switcher.html" %}
-
-                                    </div>
-                                </div>
-                            {% endblock %}
-
-                        {% endif %}
-                        <div class="tw-row">
-                            <div class="tw-w-full tw-px-8">
-                                <hr class="tw-mt-24 tw-mb-8" />
-                                <p class="tw-dark tw-body-small tw-mb-0">
-                                    {% blocktrans with foundation_website_url='https://foundation.mozilla.org' foundation_website='foundation.mozilla.org' cc_website_url='https://foundation.mozilla.org/about/website-licensing/' %}Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="{{ foundation_website_url }}">{{ foundation_website }}</a>. Most content available under a <a href="{{ cc_website_url }}">Creative Commons license</a>.{% endblocktrans %}
+                                        <a href="{{ url }}">Read more</a> about our implementation
+                                    {% endblocktrans %}
                                 </p>
                             </div>
-                        </div>
-                    </div>
-                {% endblock %}
+                            {% if exclude_language_switcher != True %}
 
+                                {% block language_switcher %}
+                                    <div class="tw-row tw-mt-24">
+                                        <div class="tw-w-full tw-px-8">
+
+                                            {% include "../fragments/language_switcher.html" %}
+
+                                        </div>
+                                    </div>
+                                {% endblock %}
+
+                            {% endif %}
+                            <div class="tw-row">
+                                <div class="tw-w-full tw-px-8">
+                                    <hr class="tw-mt-24 tw-mb-8" />
+                                    <p class="tw-dark tw-body-small tw-mb-0">
+                                        {% blocktrans with foundation_website_url='https://foundation.mozilla.org' foundation_website='foundation.mozilla.org' cc_website_url='https://foundation.mozilla.org/about/website-licensing/' %}Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="{{ foundation_website_url }}">{{ foundation_website }}</a>. Most content available under a <a href="{{ cc_website_url }}">Creative Commons license</a>.{% endblocktrans %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endblock %}
+
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 {% endwith %}

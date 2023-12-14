@@ -6,35 +6,27 @@
             <div class="stat tw-text-white">
                 <p class="stat__number"
                    id="participants-count"
-                   data-stat="{{ participants|unlocalize }}">
-                    {{ participants|intcomma }}
-                </p>
+                   data-stat="{{ participants|unlocalize }}">{{ participants|intcomma }}</p>
                 <p class="stat__label">{% trans "Participants" %}</p>
             </div>
             <div class="stat tw-text-white">
                 <p class="stat__number"
                    id="videos-analyzed-count"
                    data-stat="{{ videos_analyzed|unlocalize }}"
-                   data-stat-delay="250">
-                    {{ videos_analyzed|intcomma }}
-                </p>
+                   data-stat-delay="250">{{ videos_analyzed|intcomma }}</p>
                 <p class="stat__label">{% trans "Videos Analyzed" %}</p>
             </div>
             <div class="stat tw-text-white">
                 <p class="stat__number"
                    id="people-surveyed-count"
                    data-stat="{{ people_surveyed|unlocalize }}"
-                   data-stat-delay="500">
-                    {{ people_surveyed|intcomma }}
-                </p>
+                   data-stat-delay="500">{{ people_surveyed|intcomma }}</p>
                 <p class="stat__label">{% trans "People Surveyed" %}</p>
             </div>
         </div>
     {% endwith %}
     {# mobile only image #}
     <div class="w-full large:tw-hidden">
-        <img class="tw-pt-8 tw-pb-[115px]"
-             src="{% static "_images/youtube-regrets/regrets-reporter/2022/our-research-mobile-bottom.png" %}"
-             alt="">
+        <img class="tw-pt-8 tw-pb-[115px]" src="{% static "_images/youtube-regrets/regrets-reporter/2022/our-research-mobile-bottom.png" %}" alt="">
     </div>
 </div>

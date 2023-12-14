@@ -6,9 +6,7 @@
              data-child="{{ child_page.title }}">
             <div class="tw-flex tw-items-center tw-px-8 tw-py-6">
                 <button class="article-child-button tw-h-12 tw-shrink-0 tw-flex tw-bg-white tw-items-center tw-outline-none group tw-p-0">
-                    <img class="tw-scale-x-[-1] tw-mr-4"
-                         src="{% static "_images/arrow-circle.svg" %}"
-                         alt=""/>
+                    <img class="tw-scale-x-[-1] tw-mr-4" src="{% static "_images/arrow-circle.svg" %}" alt="" />
                     <span class="group-hover:tw-text-blue-80 tw-text-xs tw-leading-5 tw-font-normal tw-font-sans tw-uppercase tw-truncate tw-max-w-sm">{{ child_page.title }}</span>
                 </button>
             </div>
@@ -19,8 +17,7 @@
                             <div class="publication-chapter-number tw-w-24 tw-h-24"
                                  {% with toc_image=grandchild_page.toc_thumbnail_image %}
                                  {% if toc_image %} {% image toc_image fill-256x256 as thumbnail %} style='background-image: url("{{ thumbnail.url }}")' {% endif %}
-                                 {% endwith %}>
-                            </div>
+                                 {% endwith %}></div>
                         </div>
                         <div class="d-flex align-items-center">
                             <h3 class="tw-font-sans tw-text-base tw-leading-5 tw-font-normal my-0">
@@ -34,14 +31,8 @@
                         {% if grandchild_page.get_page_titles %}
                             <button data-expand="{{ grandchild_page.title }}"
                                     class="article-header-button tw-ml-auto tw-shrink-0 tw-w-12 tw-h-12 tw-grid tw-place-items-center tw-bg-white tw-outline-none tw-p-0 tw-mr-8">
-                                <img src="{% static "_images/plus-circle.svg" %}"
-                                     alt=""
-                                     data-state="open"
-                                     class=""/>
-                                <img src="{% static "_images/minus-circle.svg" %}"
-                                     alt=""
-                                     data-state="close"
-                                     class="tw-hidden"/>
+                                <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="" />
+                                <img src="{% static "_images/minus-circle.svg" %}" alt="" data-state="close" class="tw-hidden" />
                             </button>
                         {% endif %}
                     </div>

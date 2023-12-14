@@ -32,8 +32,8 @@ The iframe_block.html is used on Article pages and Blog pages.
         {% if value.caption %}
             <p class="tw-body-small tw-mt-4">
                 {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
-                {{ value.caption }}
-                {% if value.captionURL %}</a>{% endif %}
+                    {{ value.caption }}
+                    {% if value.captionURL %}</a>{% endif %}
             </p>
         {% endif %}
     </div>

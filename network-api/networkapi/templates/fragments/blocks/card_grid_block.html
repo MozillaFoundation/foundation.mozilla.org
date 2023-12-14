@@ -34,20 +34,16 @@
                                 {% image card.image fill-592x333 as img_xlarge %}
                                 {% image card.image fill-1184x666 as img_xlarge_2x %}
                                 <source media="(min-width: 1200px)"
-                                        srcset="{{ img_xlarge.url }},
-                                                {{ img_xlarge_2x.url }} 2x"/>
+                                        srcset="{{ img_xlarge.url }}, {{ img_xlarge_2x.url }} 2x" />
                                 <source media="(min-width: 992px)"
-                                        srcset="{{ img_large.url }},
-                                                {{ img_large_2x.url }} 2x"/>
+                                        srcset="{{ img_large.url }}, {{ img_large_2x.url }} 2x" />
                                 <source media="(min-width: 768px)"
-                                        srcset="{{ img_medium.url }},
-                                                {{ img_medium_2x.url }} 2x"/>
+                                        srcset="{{ img_medium.url }}, {{ img_medium_2x.url }} 2x" />
                                 <source media="(max-width: 767px)"
-                                        srcset="{{ img_small.url }},
-                                                {{ img_small_2x.url }} 2x"/>
+                                        srcset="{{ img_small.url }}, {{ img_small_2x.url }} 2x" />
                                 <img class="tw-w-full tw-h-full tw-object-cover"
                                      src="{{ img_small.url }}"
-                                     alt="{{ img_small.alt_text }}"/>
+                                     alt="{{ img_small.alt_text }}" />
                             </picture>
                         </div>
                         <div class="tw-flex tw-flex-1">

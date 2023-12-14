@@ -1,7 +1,7 @@
 {% load i18n wagtailimages_tags %}
 
 <div data-mozfest-hero-carousel>
-    <div class="tw-relative tw-pt-[120px] tw-flex tw-flex-col tw-justify-end{% if not page.banner_video %} tw-pb-16 medium:tw-pb-[120px]{% endif %}">
+    <div class="tw-relative tw-pt-[120px] tw-flex tw-flex-col tw-justify-end{% if not page.banner_video %} tw-pb-16 medium:tw-pb-[120px] {% endif %}">
         {# Background images slider #}
         <div class="tw-absolute tw-inset-0">
             <div class="tw-absolute tw-inset-0 tw-bg-black tw-z-20 tw-opacity-40"></div>
@@ -16,8 +16,7 @@
                         {% with slide=slide_block.value %}
                             {% image slide.image fill-1600x900 as img %}
                             <div class="swiper-slide tw-bg-cover tw-bg-center tw-bg-no-repeat tw-filter tw-grayscale"
-                                 style="background-image: url({{ img.url }})">
-                            </div>
+                                 style="background-image: url({{ img.url }})"></div>
                         {% endwith %}
                     {% endfor %}
                 </div>

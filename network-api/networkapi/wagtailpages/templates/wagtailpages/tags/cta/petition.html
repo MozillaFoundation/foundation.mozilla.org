@@ -31,8 +31,7 @@
 
         {% include "../../fragments/formassembly_body.html" with csp_nonce=csp_nonce show_country_field=cta.show_country_field show_postal_code_field=cta.show_postal_code_field show_comment_field=cta.show_comment_field campaign_id_tfa_1=cta.campaign_id source_url_tfa_498=source_url lang_tfa_499=LANGUAGE_CODE thank_you_url_tfa_500=thank_you_url %}
 
-        <link rel="stylesheet"
-              href="{% static "_css/formassembly-override.compiled.css" %}">
+        <link rel="stylesheet" href="{% static "_css/formassembly-override.compiled.css" %}">
     {% else %}
         <div class="formassembly-petition-thank-you"
              data-cta-slug="{{ page.slug }}"
@@ -43,8 +42,7 @@
              data-share-link="{{ cta.share_link }}"
              data-share-text="{{ cta.share_link_text }}"
              data-thank-you="{{ cta.thank_you }}"
-             data-modals="{{ modals_json }}">
-        </div>
+             data-modals="{{ modals_json }}"></div>
     {% endif %}
     <script src="https://c.shpg.org/352/sp.js"></script>
 </div>

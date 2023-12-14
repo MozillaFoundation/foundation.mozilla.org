@@ -16,11 +16,9 @@
                     {% image page.featured_image width-690 as imageDesktop %}
                     {% image page.featured_image width-1380 as imageDesktop_2x %}
                     <source media="(min-width: 1201px)"
-                            srcset="{{ imageDesktop.url }},
-                                    {{ imageDesktop_2x.url }} 2x">
+                            srcset="{{ imageDesktop.url }}, {{ imageDesktop_2x.url }} 2x">
                     <source media="(min-width: 600px)"
-                            srcset="{{ imageTablet.url }},
-                                    {{ imageTablet_2x.url }} 2x">
+                            srcset="{{ imageTablet.url }}, {{ imageTablet_2x.url }} 2x">
                     <source srcset="{{ imageMobile.url }}, {{ imageMobile_2x.url }} 2x">
                     <img src="{{ imageMobile.url }}"
                          class="tw-w-full tw-mb-8"

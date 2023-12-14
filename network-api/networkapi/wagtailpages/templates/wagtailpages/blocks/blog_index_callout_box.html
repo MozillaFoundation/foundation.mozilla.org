@@ -8,9 +8,7 @@
                 {% include '../fragments/blog_topics.html' with topics=value.related_topics %}
 
                 {% if value.show_icon %}
-                    <img src="{% static "_images/headphones-icon.svg" %}"
-                         alt="{% trans "audio" context "icon description for screen readers" %}"
-                         class="tw-h-8 tw-w-8 tw-mr-4 tw-my-2">
+                    <img src="{% static "_images/headphones-icon.svg" %}" alt="{% trans "audio" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-mr-4 tw-my-2">
                 {% endif %}
             </div>
         {% endif %}

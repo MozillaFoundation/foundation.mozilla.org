@@ -5,7 +5,7 @@
         {# Use image size twice as large as actual rendering size for better image quality. #}
         {% image icon height-112 as img %}
         <img src="{{ img.url }}"
-             class=" tw-mb-8 {% if not large %} tw-max-h-24 medium:tw-max-h-28 -tw-mt-22 medium:-tw-mt-28  {# Negative margin to pull the icon up to the top and bleed 20px and 24px on medium+ screens. On large variant we don't need that. #} {% else %} tw-max-h-18 medium:tw-max-h-24 {% endif %} "/>
+             class=" tw-mb-8 {% if not large %} tw-max-h-24 medium:tw-max-h-28 -tw-mt-22 medium:-tw-mt-28  {# Negative margin to pull the icon up to the top and bleed 20px and 24px on medium+ screens. On large variant we don't need that. #} {% else %} tw-max-h-18 medium:tw-max-h-24 {% endif %} " />
     {% endif %}
     {% if heading %}<div class="tw-h3-heading tw-mb-4">{{ heading }}</div>{% endif %}
     {% if body %}

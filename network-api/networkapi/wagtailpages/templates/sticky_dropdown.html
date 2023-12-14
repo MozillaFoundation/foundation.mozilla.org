@@ -16,20 +16,14 @@
                             <img class="tw-w-24 tw-h-24 tw-bg-cover tw-mr-8 tw-shrink-0"
                                  {% with toc_image=child_page.toc_thumbnail_image %}
                                  {% if toc_image %} {% image toc_image fill-320x320 as thumbnail %} src='{{ thumbnail.url }}' {% endif %}
-                                 {% endwith %}/>
+                                 {% endwith %} />
                             {{ child_page }}
                         </a>
                         {% if child_page.get_page_titles %}
                             <button data-expand="{{ child_page.title }}"
                                     class="article-header-button tw-ml-auto tw-shrink-0 tw-w-12 tw-h-12 tw-grid tw-place-items-center tw-bg-white tw-outline-none tw-p-0">
-                                <img src="{% static "_images/plus-circle.svg" %}"
-                                     alt=""
-                                     data-state="open"
-                                     class=""/>
-                                <img src="{% static "_images/minus-circle.svg" %}"
-                                     alt=""
-                                     data-state="close"
-                                     class="tw-hidden"/>
+                                <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="" />
+                                <img src="{% static "_images/minus-circle.svg" %}" alt="" data-state="close" class="tw-hidden" />
                             </button>
                         {% endif %}
                         {% if child_page.get_children %}

@@ -80,9 +80,7 @@ The code snippet below is based on FormAssembly form revision #46
 <br>
 <div class="inputWrapper">
 <select aria-required="true" id="tfa_95" name="tfa_95" title="{% trans "I need" %}" class="required">
-<option value="">
-{% trans "Please select..." %}
-</option>
+<option value="">{% trans "Please select..." %}</option>
 <option value="tfa_194" id="tfa_194" data-conditionals="#tfa_212,#submit_button,#tfa_214,#tfa_163" class="">
 {% trans "Help with the donation form" %}
 </option>
@@ -110,9 +108,7 @@ The code snippet below is based on FormAssembly form revision #46
 <option value="tfa_198" id="tfa_198" data-conditionals="#tfa_212,#submit_button,#tfa_163" class="">
 {% trans "My donation refunded" %}
 </option>
-<option value="tfa_199" id="tfa_199" data-conditionals="#tfa_212" class="">
-{% trans "To submit feedback" %}
-</option>
+<option value="tfa_199" id="tfa_199" data-conditionals="#tfa_212" class="">{% trans "To submit feedback" %}</option>
 <option value="tfa_200" id="tfa_200" data-conditionals="#tfa_212,#tfa_214,#tfa_163" class="">
 {% trans "Help with something else" %}
 </option>
@@ -133,38 +129,48 @@ donations via direct debit in Euros through Single European Payment Area
 <br>
 <br>
 <div>
-<b><a href="?form=donate&amp;utm_medium=web&amp;utm_source=faq-page&amp;utm_campaign=23-Donor-Care"><u>{% trans "Make your donation online now" %}
-<br>
-<br>
-</u></a></b><i>{% trans "Still have questions? Contact us by submitting a case." %}</i>
-<br>
-</div>
+    <b><a href="?form=donate&amp;utm_medium=web&amp;utm_source=faq-page&amp;utm_campaign=23-Donor-Care"><u>{% trans "Make your donation online now" %}
+        <br>
+        <br>
+        </u></a></b><i>{% trans "Still have questions? Contact us by submitting a case." %}</i>
+        <br>
+    </div>
 </div>
 </div>
 </div>
 <div id="tfa_234" class="section group" data-condition="`#tfa_195`">
-<div class="htmlSection" id="tfa_235">
-<div class="htmlContent" id="tfa_235-HTML">
-<span style="font-size:13px; color:#000000; font-weight:normal; text-decoration:none; font-family:'Arial'; font-style:normal; text-decoration-skip-ink:none">
-{% blocktrans trimmed %}
+    <div class="htmlSection" id="tfa_235">
+        <div class="htmlContent" id="tfa_235-HTML">
+            <span style="font-size:13px;
+                         color:#000000;
+                         font-weight:normal;
+                         text-decoration:none;
+                         font-family:'Arial';
+                         font-style:normal;
+                         text-decoration-skip-ink:none">
+                {% blocktrans trimmed %}
                     Access your donation account settings using the '<b>Manage My Donation</b>'
                     button on your recent donation confirmation email. There you can
                     change the amount, frequency, payment method and charge date. You can
                     also cancel your recurring donation plan.
                 {% endblocktrans %}
-</span>
-<br>
-<br>
-<i>{% trans "Still have questions? Contact us by submitting a case." %}</i>
-</div>
-</div>
+            </span>
+            <br>
+            <br>
+            <i>{% trans "Still have questions? Contact us by submitting a case." %}</i>
+        </div>
+    </div>
 </div>
 <div class="oneField field-container-D  labelsAbove  " id="tfa_163-D">
-<label id="tfa_163-L" class="label preField " for="tfa_163">{% trans "Any other details that might help" %}</label>
-<br>
-<div class="inputWrapper">
-<textarea id="tfa_163" name="tfa_163" data-condition="`#tfa_190` OR `#tfa_191` OR `#tfa_192` OR `#tfa_193` OR `#tfa_194` OR `#tfa_195` OR `#tfa_196` OR `#tfa_197` OR `#tfa_198` OR `#tfa_199` OR `#tfa_200`" title="{% trans "Any other details that might help" %}" class=""></textarea>
-</div>
+    <label id="tfa_163-L" class="label preField " for="tfa_163">{% trans "Any other details that might help" %}</label>
+    <br>
+    <div class="inputWrapper">
+        <textarea id="tfa_163"
+                  name="tfa_163"
+                  data-condition="`#tfa_190` OR `#tfa_191` OR `#tfa_192` OR `#tfa_193` OR `#tfa_194` OR `#tfa_195` OR `#tfa_196` OR `#tfa_197` OR `#tfa_198` OR `#tfa_199` OR `#tfa_200`"
+                  title="{% trans "Any other details that might help" %}"
+                  class=""></textarea>
+    </div>
 </div>
 <div class="oneField field-container-D   hintsBelow " id="tfa_214-D">
     <label id="tfa_214-L" class="label preField " for="tfa_214">
@@ -224,33 +230,15 @@ donations via direct debit in Euros through Single European Payment Area
     <label id="tfa_72-L" class="label preField " for="tfa_72">{% trans "Language" %}</label>
     <div class="inputWrapper">
         <select id="tfa_72" name="tfa_72" title="{% trans "Language" %}" class="">
-            <option value="">
-                {% trans "Please select..." %}
-            </option>
-            <option value="tfa_221" id="tfa_221" class="">
-                {% trans "Dutch" %}
-            </option>
-            <option value="tfa_222" id="tfa_222" class="">
-                {% trans "English" %}
-            </option>
-            <option value="tfa_223" id="tfa_223" class="">
-                {% trans "French" %}
-            </option>
-            <option value="tfa_224" id="tfa_224" class="">
-                {% trans "German" %}
-            </option>
-            <option value="tfa_227" id="tfa_227" class="">
-                {% trans "Other" %}
-            </option>
-            <option value="tfa_228" id="tfa_228" class="">
-                {% trans "Polish" %}
-            </option>
-            <option value="tfa_229" id="tfa_229" class="">
-                {% trans "Portuguese" %}
-            </option>
-            <option value="tfa_231" id="tfa_231" class="">
-                {% trans "Spanish" %}
-            </option>
+            <option value="">{% trans "Please select..." %}</option>
+            <option value="tfa_221" id="tfa_221" class="">{% trans "Dutch" %}</option>
+            <option value="tfa_222" id="tfa_222" class="">{% trans "English" %}</option>
+            <option value="tfa_223" id="tfa_223" class="">{% trans "French" %}</option>
+            <option value="tfa_224" id="tfa_224" class="">{% trans "German" %}</option>
+            <option value="tfa_227" id="tfa_227" class="">{% trans "Other" %}</option>
+            <option value="tfa_228" id="tfa_228" class="">{% trans "Polish" %}</option>
+            <option value="tfa_229" id="tfa_229" class="">{% trans "Portuguese" %}</option>
+            <option value="tfa_231" id="tfa_231" class="">{% trans "Spanish" %}</option>
         </select>
     </div>
 </div>

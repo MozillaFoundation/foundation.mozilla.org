@@ -5,10 +5,7 @@
          class="tw-bg-gradient-to-b tw-from-white tw-via-red-05 tw-to-white">
         <div class="tw-container tw-relative {{ wrapper_class }}">
             <div class="tw-absolute tw-left-1/2 -tw-translate-x-1/2 -tw-translate-y-[120px] tw-w-[120px] tw-h-[120px] medium:tw-w-[330px] medium:tw-h-[330px] medium:-tw-top-[190px] medium:-tw-left-10 medium:tw-translate-x-0 medium:tw-translate-y-0">
-                <img width="100%"
-                     height="100%"
-                     alt=""
-                     src="{% static "_images/buyers-guide/consumer-creepometer/face-4.svg" %}"/>
+                <img width="100%" height="100%" alt="" src="{% static "_images/buyers-guide/consumer-creepometer/face-4.svg" %}" />
 
                 {% include "../consumer_creepometer_page_2023/animated-eyes.html" with eye_base_class="tw-w-[15%] tw-h-[15%]" left_eye_class="tw-top-[54%] tw-left-[30%]" right_eye_class="tw-top-[53%] tw-left-[53%]" %}
 
@@ -22,9 +19,7 @@
                 <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-5 tw-gap-x-6 tw-gap-6 medium:tw-gap-y-0 tw-mb-28"
                      aria-labelledby="winners-grid-title">
                     <h3 class="{{ h3_class }} tw-col-span-2 medium:tw-col-span-5 tw-text-center tw-mb-8"
-                        id="winners-grid-title">
-                        The Winners
-                    </h3>
+                        id="winners-grid-title">The Winners</h3>
 
                     {% include grid_item_template with body_small_class=body_small_class product_name_class=product_name_class item_class="tw-col-span-2 medium:tw-col-span-1" company="Technology Foundation" product="Signal" img_url="_images/buyers-guide/consumer-creepometer/products/Signal.png" link="https://foundation.mozilla.org/privacynotincluded/signal/" %}
                     {% include grid_item_template with body_small_class=body_small_class product_name_class=product_name_class item_class="tw-col-span-1" company="Sonos" product="SL Speakers" img_url="_images/buyers-guide/consumer-creepometer/products/Sonos_SL_Speakers.png" link="https://foundation.mozilla.org/privacynotincluded/sonos-sl-speakers/" %}
@@ -36,9 +31,7 @@
                 <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-5 tw-gap-6 medium:tw-gap-y-0 tw-mb-28"
                      aria-labelledby="losers-grid-title">
                     <h3 class="{{ h3_class }} tw-col-span-2 medium:tw-col-span-5 tw-text-center tw-mb-8"
-                        id="losers-grid-title">
-                        The Losers
-                    </h3>
+                        id="losers-grid-title">The Losers</h3>
 
                     {% include grid_item_template with body_small_class=body_small_class item_class="tw-col-span-2 medium:tw-col-span-1" company="Verizon" product="Gizmo Watch" img_url="_images/buyers-guide/consumer-creepometer/products/Verizon_Gizmowatch.png" link="https://foundation.mozilla.org/privacynotincluded/verizon-gizmowatch/" %}
                     {% include grid_item_template with body_small_class=body_small_class item_class="tw-col-span-1" company="BetterHelp" product="BetterHelp" img_url="_images/buyers-guide/consumer-creepometer/products/BetterHelp.png" link="https://foundation.mozilla.org/privacynotincluded/betterhelp/" %}
