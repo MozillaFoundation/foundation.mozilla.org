@@ -4,42 +4,41 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('wagtailpages', '0115_setup_related_names_on_blog_featured_pages_and_related_products'),
+        ("wagtailpages", "0115_setup_related_names_on_blog_featured_pages_and_related_products"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='blogauthors',
-            options={'ordering': ['sort_order']},
+            name="blogauthors",
+            options={"ordering": ["sort_order"]},
         ),
         migrations.AlterModelOptions(
-            name='excludedcategories',
-            options={'ordering': ['sort_order'], 'verbose_name': 'Excluded Category'},
+            name="excludedcategories",
+            options={"ordering": ["sort_order"], "verbose_name": "Excluded Category"},
         ),
         migrations.AlterModelOptions(
-            name='homepagefocusareas',
-            options={'ordering': ['sort_order'], 'verbose_name': 'Homepage Focus Area'},
+            name="homepagefocusareas",
+            options={"ordering": ["sort_order"], "verbose_name": "Homepage Focus Area"},
         ),
         migrations.AlterModelOptions(
-            name='participatehighlights',
-            options={'ordering': ['sort_order'], 'verbose_name': 'highlight', 'verbose_name_plural': 'highlights'},
+            name="participatehighlights",
+            options={"ordering": ["sort_order"], "verbose_name": "highlight", "verbose_name_plural": "highlights"},
         ),
         migrations.AlterModelOptions(
-            name='participatehighlights2',
-            options={'ordering': ['sort_order'], 'verbose_name': 'highlight', 'verbose_name_plural': 'highlights'},
+            name="participatehighlights2",
+            options={"ordering": ["sort_order"], "verbose_name": "highlight", "verbose_name_plural": "highlights"},
         ),
         migrations.AlterModelOptions(
-            name='productpagecategory',
-            options={'ordering': ['sort_order'], 'verbose_name': 'Product Category'},
+            name="productpagecategory",
+            options={"ordering": ["sort_order"], "verbose_name": "Product Category"},
         ),
         migrations.AlterModelOptions(
-            name='productpageprivacypolicylink',
-            options={'ordering': ['sort_order'], 'verbose_name': 'Privacy Link'},
+            name="productpageprivacypolicylink",
+            options={"ordering": ["sort_order"], "verbose_name": "Privacy Link"},
         ),
         migrations.AlterModelOptions(
-            name='relatedproducts',
-            options={'ordering': ['sort_order'], 'verbose_name': 'Related Product'},
+            name="relatedproducts",
+            options={"ordering": ["sort_order"], "verbose_name": "Related Product"},
         ),
     ]
