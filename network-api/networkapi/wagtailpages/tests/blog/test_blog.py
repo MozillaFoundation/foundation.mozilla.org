@@ -27,9 +27,25 @@ class TestBlogPage(test.TestCase):
 
         self.assertEqual(response.status_code, http.HTTPStatus.OK)
 
-    def test_clean_when_both_hero_image_and_video_are_set(self):
+    def test_clean_when_hero_image_and_hero_video_set(self):
         self.blog_page.hero_image = wagtail_factories.ImageFactory()
         self.blog_page.hero_video = "https://example.com/video.mp4"
 
         with self.assertRaises(exceptions.ValidationError):
             self.blog_page.clean()
+
+    def test_clean_when_hero_image_but_not_hero_video_set(self):
+        self.blog_page.hero_image = wagtail_factories.ImageFactory()
+        self.blog_page.hero_video = ""
+
+        result = self.blog_page.clean()
+
+        self.assertIsNone(result)
+
+    def test_clean_when_not_hero_image_but_hero_video_set(self):
+        self.blog_page.hero_image = None
+        self.blog_page.hero_video = "https://example.com/video.mp4"
+
+        result = self.blog_page.clean()
+
+        self.assertIsNone(result)
