@@ -512,10 +512,15 @@ def generate_carousel_text_block_field():
             }
         )
 
-    data = {"heading": heading, "text": text, "link_url": link_url, "link_label": link_label, "carousel_images": carousel_images}
+    data = {
+        "heading": heading,
+        "text": text,
+        "link_url": link_url,
+        "link_label": link_label,
+        "carousel_images": carousel_images,
+    }
 
     return generate_field("carousel_and_text", data)
-
 
 class StreamfieldProvider(BaseProvider):
     """
