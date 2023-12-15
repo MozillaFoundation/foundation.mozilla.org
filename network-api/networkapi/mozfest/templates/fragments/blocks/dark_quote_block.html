@@ -8,7 +8,14 @@
                     <div class="quote-content [&_p]:tw-text-white">
                         {{ self.quote|richtext }}
                     </div>
-                    <p class="tw-text-gray-40 tw-h6-heading tw-text-lg tw-max-w-4xl">{{ self.cite }}</p>
+                    {% if self.attribution %}
+                        <p class="tw-text-gray-40 tw-h6-heading tw-text-lg tw-max-w-4xl">{{ self.attribution }}</p>
+                    {% endif %}
+                    {% if self.attribution_info %}
+                        <div class="feature-quote-attribution-info tw-max-w-4xl tw-italic">
+                            {{ self.attribution_info | richtext }}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

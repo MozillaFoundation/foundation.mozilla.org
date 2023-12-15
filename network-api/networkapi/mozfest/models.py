@@ -95,6 +95,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ("statistics", mozfest_blocks.StatisticsBlock()),
             ("carousel_and_text", mozfest_blocks.CarouselTextBlock()),
             ("tickets", mozfest_blocks.TicketsBlock()),
+            ("dark_quote", mozfest_blocks.DarkSingleQuoteBlock()),
         ],
         use_json_field=True,
     )

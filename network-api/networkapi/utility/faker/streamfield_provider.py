@@ -154,19 +154,36 @@ def generate_spacer_field():
     return generate_field("spacer", {"size": size})
 
 
-def generate_quote_field():
+def generate_common_quote_field(dark=False):
+    """
+    Generate common quote fields used by both generate_quote_field and generate_dark_quote_field.
+
+    Args:
+        dark (bool): Whether to generate fields for a dark quote.
+        Defaults to False for a single quote.
+    """
     quote = f"<p>{fake.sentence()}</p>"
     attribution = fake.name()
     attribution_info = f'<p>{fake.sentence()} <a href="{fake.url(schemes=["https"])}">{fake.sentence()}</a></p>'
 
+    field_name = "dark_quote" if dark else "single_quote"
+
     return generate_field(
-        "single_quote",
+        field_name,
         {
             "quote": quote,
             "attribution": attribution,
             "attribution_info": attribution_info,
         },
     )
+
+
+def generate_quote_field():
+    return generate_common_quote_field()
+
+
+def generate_dark_quote_field():
+    return generate_common_quote_field(dark=True)
 
 
 def generate_video_field():
@@ -588,6 +605,7 @@ class StreamfieldProvider(BaseProvider):
             "listing": generate_listing_block_field,
             "carousel_and_text": generate_carousel_text_block_field,
             "tickets": generate_tickets_block_field,
+            "dark_quote": generate_dark_quote_field,
         }
 
         streamfield_data = []
