@@ -16,9 +16,9 @@ import { COUNTRY_OPTIONS } from "../data/country-options.js";
 import { LANGUAGE_OPTIONS } from "../data/language-options.js";
 
 const FIELD_MARGIN_CLASSES = `tw-mb-4`;
-const FIELD_ID_PREFIX = `blog-body-newsletter`;
+const FIELD_ID_PREFIX = `default-layout-newsletter`;
 
-class BlogBodySignForm extends Component {
+class DefaultSignupForm extends Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
@@ -216,7 +216,7 @@ class BlogBodySignForm extends Component {
   }
 }
 
-BlogBodySignForm.propTypes = {
+DefaultSignupForm.propTypes = {
   ctaHeader: PropTypes.string,
   ctaDescription: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
     .isRequired,
@@ -229,4 +229,4 @@ BlogBodySignForm.propTypes = {
   hideForm: PropTypes.bool,
 };
 
-export default withSubmissionLogic(BlogBodySignForm);
+export default withSubmissionLogic(DefaultSignupForm);
