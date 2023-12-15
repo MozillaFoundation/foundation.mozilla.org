@@ -303,17 +303,16 @@ class BlogPage(BasePage):
 
         related_posts = get_content_related_by_tag(self)
 
-        if len(related_posts) > 0:
-            # Add as many posts as there are missing, or until
-            # we run out of related posts, whichever comes first.
-            for post in related_posts:
-                if missing_count == 0:
-                    break
-                if self.related_posts.filter(related_post=post).count() > 0:
-                    # Make sure to skip over duplicates
-                    continue
-                additional_posts.append(post)
-                missing_count = missing_count - 1
+        # Add as many posts as there are missing, or until
+        # we run out of related posts, whichever comes first.
+        for post in related_posts:
+            if missing_count == 0:
+                break
+            if self.related_posts.filter(related_post=post).count() > 0:
+                # Make sure to skip over duplicates
+                continue
+            additional_posts.append(post)
+            missing_count = missing_count - 1
 
         return additional_posts
 
