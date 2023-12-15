@@ -23,6 +23,8 @@ class TestBlogPage(test.TestCase):
         cls.blog_index = blog_factory.BlogIndexPageFactory(parent=cls.homepage)
         cls.blog_page = blog_factory.BlogPageFactory(parent=cls.blog_index)
 
+        cls.tag = tag_models.Tag.objects.create(name="test")
+
     def test_page_loads(self):
         response = self.client.get(self.blog_page.url)
 
@@ -51,17 +53,35 @@ class TestBlogPage(test.TestCase):
 
         self.assertIsNone(result)
 
-    def test_get_missing_related_posts(self):
+    def add_tag_to_blog_page(self):
+        self.blog_page.tags.add(self.tag)
+        self.blog_page.save()
+
+    def test_get_missing_related_posts_no_directly_related_posts_no_tag_related_posts(self):
+        self.assertEqual(self.blog_page.related_posts.count(), 0)
+
+        result = self.blog_page.get_missing_related_posts()
+
+        self.assertListEqual(result, [])
+
+    def test_get_missing_related_posts_one_directly_related_posts_no_tag_related_posts(self):
+        directly_related_post = blog_factory.BlogPageFactory(parent=self.blog_index)
+        blog_factory.RelatedBlogPostsFactory(page=self.blog_page, related_post=directly_related_post)
+        self.assertEqual(self.blog_page.related_posts.count(), 1)
+
+        result = self.blog_page.get_missing_related_posts()
+
+        self.assertListEqual(result, [])
+
+    def test_get_missing_related_posts_no_directly_related_posts_one_tag_related_post(self):
         self.assertEqual(self.blog_page.related_posts.count(), 0)
         self.assertEqual(self.blog_page.related_post_count, 3)
-        tag = tag_models.Tag.objects.create(name="test")
-        self.blog_page.tags.add(tag)
-        self.blog_page.save()
-        other_post = blog_factory.BlogPageFactory(parent=self.blog_index)
-        other_post.tags.add(tag)
-        other_post.save()
+        self.add_tag_to_blog_page()
+        tag_related_post = blog_factory.BlogPageFactory(parent=self.blog_index)
+        tag_related_post.tags.add(self.tag)
+        tag_related_post.save()
 
         result = self.blog_page.get_missing_related_posts()
 
         self.assertEqual(len(result), 1)
-        self.assertListEqual(result, [other_post])
+        self.assertListEqual(result, [tag_related_post])
