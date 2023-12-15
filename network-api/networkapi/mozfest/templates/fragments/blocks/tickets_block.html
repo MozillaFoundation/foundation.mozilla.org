@@ -3,7 +3,7 @@
 {% block block_content %}
     <div class="tw-bg-black tw-dark tw-py-16">
         <div class="tw-container">
-            <h2 class="tw-mb-14">{{ self.heading }}</h2>
+            <h2 class="tw-mb-20">{{ self.heading }}</h2>
             <div class="tw-row">
                 {% for tier in self.tickets %}
                     {% with count=self.tickets|length %}
@@ -11,11 +11,13 @@
                             <div class="tw-bg-festival-black-100 tw-p-8 tw-h-full tw-flex tw-flex-col tw-items-start">
                                 <h3 class="tw-h2-heading">{{ tier.cost }}</h3>
                                 <p class="tw-mt-0">{{ tier.group }}</p>
-                                <div class="[&_*]:tw-text-sm tw-body">
+                                <div class="[&_*]:tw-text-sm tw-body tw-mb-8">
                                     {{ tier.description|richtext }}
                                 </div>
                                 {% if tier.link_url and tier.link_text %}
-                                    <a class="tw-mt-12 tw-btn-primary" href="{{ tier.link_url }}">{{ tier.link_text }}</a>
+                                    <a class="tw-mt-auto tw-btn-primary" href="{{ tier.link_url }}">
+                                        {{ tier.link_text }}
+                                    </a>
                                 {% endif %}
                             </div>
 
