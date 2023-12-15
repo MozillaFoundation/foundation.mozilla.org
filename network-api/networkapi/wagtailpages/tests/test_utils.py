@@ -47,7 +47,6 @@ class TestGetContentRelatedByTag(TestCase):
         other_page.tags.add(tag)
         other_page.save()
 
-        breakpoint()
         result = get_content_related_by_tag(page)
 
         self.assertEqual(len(result), 1)
