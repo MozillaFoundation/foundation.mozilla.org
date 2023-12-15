@@ -1719,7 +1719,7 @@ class Migration(migrations.Migration):
                         ),
                     ),
                     (
-                        "tickets_block",
+                        "tickets",
                         wagtail.blocks.StructBlock(
                             [
                                 (
