@@ -271,7 +271,6 @@ class BlogPage(BasePage):
             related_posts = related_posts + self.get_missing_related_posts()
         context["related_posts"] = related_posts
 
-        # Pull this object specifically using the English page title
         default_locale = Locale.get_default()
         blog_page = BlogIndexPage.objects.filter(locale=default_locale).live().first()
 
