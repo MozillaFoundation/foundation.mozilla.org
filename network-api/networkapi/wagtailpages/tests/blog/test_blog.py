@@ -206,3 +206,14 @@ class TestBlogPage(test.TestCase):
         self.assertEqual(len(result), 153)
         expected = "This is the body content in a paragraph block. This is the body content in a paragraph block. This is the body content in a paragraph block. This is the…"  # noqa: E501
         self.assertEqual(result, expected)
+
+    def test_get_meta_description_no_search_description_but_body_with_mutiple_paragraph_blocks(self):
+        self.blog_page.search_description = ""
+        self.blog_page.body = [
+            ("paragraph", "<p>This is the body content in the first paragraph block.</p>"),
+            ("paragraph", "<p>This is the body content in the second paragraph block.</p>"), ]
+
+        result = self.blog_page.get_meta_description()
+
+        # Only the first paragraph block is used.
+        self.assertEqual(result, "This is the body content in the first paragraph block.")
