@@ -1,4 +1,5 @@
 import http
+from unittest import mock
 
 import wagtail_factories
 from django import test
@@ -133,3 +134,34 @@ class TestBlogPage(test.TestCase):
 
         # We have more directly related posts than the limit, so we don't get any tag related posts.
         self.assertEqual(len(result), 0)
+
+    @mock.patch("networkapi.wagtailpages.pagemodels.blog.blog.BlogPage.get_missing_related_posts")
+    def test_ensure_related_posts_calls_get_missing_related_posts(self, mock_get_missing_related_posts):
+        self.assertEqual(self.blog_page.related_posts.count(), 0)
+
+        self.blog_page.ensure_related_posts()
+
+        self.assertEqual(mock_get_missing_related_posts.call_count, 1)
+
+    def test_ensure_related_posts_no_directly_related_posts_no_tag_related_posts(self):
+        self.assertEqual(self.blog_page.related_posts.count(), 0)
+
+        self.blog_page.ensure_related_posts()
+
+        self.assertEqual(self.blog_page.related_posts.count(), 0)
+
+    def test_ensure_related_posts_one_directly_related_posts_one_tag_related_posts(self):
+        self.create_directly_related_post()
+        self.create_tag_related_post()
+        self.assertEqual(self.blog_page.related_posts.count(), 1)
+
+        self.blog_page.ensure_related_posts()
+
+        self.assertEqual(self.blog_page.related_posts.count(), 2)
+
+    @mock.patch("networkapi.wagtailpages.pagemodels.blog.blog.BlogPage.ensure_related_posts")
+    def test_clean_calls_ensure_related_posts(self, mock_ensure_related_posts):
+        self.blog_page.clean()
+
+        self.assertEqual(mock_ensure_related_posts.call_count, 1)
+
