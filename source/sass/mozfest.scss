@@ -361,5 +361,8 @@ body.mozfest {
       @apply tw-bg-white;
     }
 
+    .swiper-button-disabled {
+      @apply tw-opacity-50;
+    }
   }
 }
