@@ -44,6 +44,12 @@ class TestBlogPage(test.TestCase):
         tag_related_post.save()
         return tag_related_post
 
+    def create_get_request(self, url):
+        request = self.request_factory.get(url)
+        # This is typically set by the Wagtail middleware, but we don't have that when using the request factory.
+        request.is_preview = False
+        return request
+
     def test_page_loads(self):
         response = self.client.get(self.blog_page.url)
 
@@ -51,8 +57,7 @@ class TestBlogPage(test.TestCase):
 
     @mock.patch("networkapi.wagtailpages.pagemodels.blog.blog.BlogPage.get_missing_related_posts")
     def test_get_context_with_no_related_posts_no_tag_related_posts_not_preview(self, mock_get_missing_related_posts):
-        request = self.request_factory.get(self.blog_page.url)
-        request.is_preview = False
+        request = self.create_get_request(self.blog_page.url)
 
         result = self.blog_page.get_context(request)
 
@@ -61,7 +66,7 @@ class TestBlogPage(test.TestCase):
 
     @mock.patch("networkapi.wagtailpages.pagemodels.blog.blog.BlogPage.get_missing_related_posts")
     def test_get_context_with_no_related_posts_no_tag_related_posts_not_preview(self, mock_get_missing_related_posts):
-        request = self.request_factory.get(self.blog_page.url)
+        request = self.create_get_request(self.blog_page.url)
         request.is_preview = True
         # We test the method specifically below to see that it will actually return an empty list when there are no
         # tag related posts.
@@ -71,6 +76,25 @@ class TestBlogPage(test.TestCase):
 
         self.assertListEqual(result["related_posts"], [])
         self.assertEqual(mock_get_missing_related_posts.call_count, 1)
+
+    def test_get_context_when_index_page_is_live(self):
+        self.assertEqual(self.blog_index.live, True)
+        request = self.create_get_request(self.blog_page.url)
+
+        result = self.blog_page.get_context(request)
+
+        self.assertIn("blog_index", result.keys())
+        self.assertEqual(result["blog_index"], self.blog_index)
+        self.assertEqual(result["blog_index"].locale.language_code, "en")
+
+    def test_get_context_when_index_page_is_not_live(self):
+        self.blog_index.live = False
+        self.blog_index.save()
+        request = self.create_get_request(self.blog_page.url)
+
+        result = self.blog_page.get_context(request)
+
+        self.assertNotIn("blog_index", result.keys())
 
     def test_get_missing_related_posts_no_directly_related_posts_no_tag_related_posts(self):
         self.assertEqual(self.blog_page.related_posts.count(), 0)
