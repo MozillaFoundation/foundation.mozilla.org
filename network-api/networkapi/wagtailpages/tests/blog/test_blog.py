@@ -29,10 +29,14 @@ class TestBlogPage(test.TestCase):
 
     def create_directly_related_post(self):
         # The relation factory creates the related post.
-        blog_factory.RelatedBlogPostsFactory(page=self.blog_page, related_post__parent=self.blog_index)
+        relation = blog_factory.RelatedBlogPostsFactory(page=self.blog_page, related_post__parent=self.blog_index)
+        return relation.related_post
 
-    def create_tag_related_post(self):
-        tag_related_post = blog_factory.BlogPageFactory(parent=self.blog_index)
+    def create_tag_related_post(self, post_to_tag=None):
+        if post_to_tag is None:
+            tag_related_post = blog_factory.BlogPageFactory(parent=self.blog_index)
+        else:
+            tag_related_post = post_to_tag
         tag_related_post.tags.add(self.tag)
         tag_related_post.save()
         return tag_related_post
@@ -108,3 +112,12 @@ class TestBlogPage(test.TestCase):
 
         # Because we already have 1 directly related post, we only get 2 tag related posts.
         self.assertEqual(len(result), 2)
+
+    def test_get_missing_related_posts_same_post_is_directly_and_tag_related(self):
+        related_post = self.create_directly_related_post()
+        self.create_tag_related_post(post_to_tag=related_post)
+
+        result = self.blog_page.get_missing_related_posts()
+
+        # We don't want to see the directly related post being returned as a tag related post.
+        self.assertEqual(len(result), 0)
