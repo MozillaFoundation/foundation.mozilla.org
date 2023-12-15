@@ -16,4 +16,4 @@ class CarouselTextBlock(blocks.StructBlock):
     class Meta:
         icon = "placeholder"
         template = "fragments/blocks/carousel_text_block.html"
-        label = "Carousel Text Block"
+        label = "Carousel and Text Block"

@@ -1688,6 +1688,16 @@ class Migration(migrations.Migration):
                                 ),
                                 ("text", wagtail.blocks.RichTextBlock(features=["bold", "italic", "link"])),
                                 (
+                                    "link_url",
+                                    wagtail.blocks.URLBlock(
+                                        help_text="A CTA URL for a link displayed", required=False
+                                    ),
+                                ),
+                                (
+                                    "link_label",
+                                    wagtail.blocks.CharBlock(help_text="Label for the CTA link.", required=False),
+                                ),
+                                (
                                     "carousel_images",
                                     wagtail.blocks.ListBlock(
                                         wagtail.blocks.StructBlock(
@@ -1704,16 +1714,6 @@ class Migration(migrations.Migration):
                                         ),
                                         max_num=4,
                                     ),
-                                ),
-                                (
-                                    "link_url",
-                                    wagtail.blocks.URLBlock(
-                                        help_text="A CTA URL for a link displayed", required=False
-                                    ),
-                                ),
-                                (
-                                    "link_label",
-                                    wagtail.blocks.CharBlock(help_text="Label for the CTA link.", required=False),
                                 ),
                             ]
                         ),
