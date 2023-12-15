@@ -520,7 +520,7 @@ def generate_carousel_text_block_field():
         "carousel_images": carousel_images,
     }
 
-    return generate_field("carousel_text_block", data)
+    return generate_field("carousel_and_text", data)
 
 
 class StreamfieldProvider(BaseProvider):
@@ -574,7 +574,7 @@ class StreamfieldProvider(BaseProvider):
             "blog_newsletter_signup": generate_blog_newsletter_signup_field,
             "statistics": generate_stats_block_field,
             "listing": generate_listing_block_field,
-            "carousel_text_block": generate_carousel_text_block_field,
+            "carousel_and_text": generate_carousel_text_block_field,
         }
 
         streamfield_data = []

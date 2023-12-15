@@ -1648,7 +1648,7 @@ class Migration(migrations.Migration):
                         ),
                     ),
                     (
-                        "stats_block",
+                        "statistics",
                         wagtail.blocks.StructBlock(
                             [
                                 (
@@ -1679,7 +1679,7 @@ class Migration(migrations.Migration):
                         ),
                     ),
                     (
-                        "carousel_text_block",
+                        "carousel_and_text",
                         wagtail.blocks.StructBlock(
                             [
                                 (
