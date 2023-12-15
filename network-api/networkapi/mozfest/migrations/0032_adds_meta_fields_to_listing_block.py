@@ -1648,7 +1648,7 @@ class Migration(migrations.Migration):
                         ),
                     ),
                     (
-                        "stats_block",
+                        "statistics",
                         wagtail.blocks.StructBlock(
                             [
                                 (

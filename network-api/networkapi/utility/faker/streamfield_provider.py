@@ -291,7 +291,7 @@ def generate_stats_block_field():
             }
         )
 
-    return generate_field("stats_block", {"statistics": statistics})
+    return generate_field("statistics", {"statistics": statistics})
 
 
 def generate_pulse_listing_field():
@@ -545,7 +545,7 @@ class StreamfieldProvider(BaseProvider):
             "current_events_slider": generate_current_events_slider_field,
             "callout_box": generate_blog_index_callout_box_field,
             "blog_newsletter_signup": generate_blog_newsletter_signup_field,
-            "stats_block": generate_stats_block_field,
+            "statistics": generate_stats_block_field,
             "listing": generate_listing_block_field,
         }
 
