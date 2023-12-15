@@ -13,8 +13,8 @@ from networkapi.wagtailpages.models import (
     BlogIndexPage,
     BlogPage,
     BlogPageTopic,
-    RelatedBlogPosts,
     Profile,
+    RelatedBlogPosts,
 )
 from networkapi.wagtailpages.pagemodels.blog import blog_index
 

@@ -7,8 +7,8 @@ from django.core import exceptions
 from taggit import models as tag_models
 from wagtail import models as wagtail_models
 
-from networkapi.wagtailpages.factory import homepage as home_factory
 from networkapi.wagtailpages.factory import blog as blog_factory
+from networkapi.wagtailpages.factory import homepage as home_factory
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 
 
@@ -65,7 +65,7 @@ class TestBlogPage(test.TestCase):
         self.assertEqual(mock_get_missing_related_posts.call_count, 0)
 
     @mock.patch("networkapi.wagtailpages.pagemodels.blog.blog.BlogPage.get_missing_related_posts")
-    def test_get_context_with_no_related_posts_no_tag_related_posts_not_preview(self, mock_get_missing_related_posts):
+    def test_get_context_with_no_related_posts_no_tag_related_posts_when_preview(self, mock_get_missing_related_posts):
         request = self.create_get_request(self.blog_page.url)
         request.is_preview = True
         # We test the method specifically below to see that it will actually return an empty list when there are no
@@ -260,7 +260,8 @@ class TestBlogPage(test.TestCase):
         self.blog_page.search_description = ""
         self.blog_page.body = [
             ("paragraph", "<p>This is the body content in the first paragraph block.</p>"),
-            ("paragraph", "<p>This is the body content in the second paragraph block.</p>"), ]
+            ("paragraph", "<p>This is the body content in the second paragraph block.</p>"),
+        ]
 
         result = self.blog_page.get_meta_description()
 

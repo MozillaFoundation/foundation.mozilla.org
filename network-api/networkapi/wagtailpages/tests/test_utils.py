@@ -9,7 +9,7 @@ from django.utils.translation.trans_real import to_language as django_to_languag
 from taggit import models as tag_models
 from wagtail.core.models import Locale
 from wagtail.images.models import Image
-from wagtail.models import Collection, Page, Site
+from wagtail.models import Collection
 
 from networkapi.wagtailpages import (
     language_code_to_iso_3166,
@@ -27,9 +27,9 @@ from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors, BlogPage
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.tests.base import WagtailpagesTestCase
 from networkapi.wagtailpages.utils import (
-    get_content_related_by_tag,
     create_wagtail_image,
     get_blog_authors,
+    get_content_related_by_tag,
     localize_queryset,
 )
 
