@@ -9,7 +9,7 @@ from wagtail import models as wagtail_models
 
 from networkapi.wagtailpages.factory import homepage as home_factory
 from networkapi.wagtailpages.factory import blog as blog_factory
-
+from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 
 
 class TestBlogPage(test.TestCase):
@@ -227,4 +227,11 @@ class TestBlogPage(test.TestCase):
 
         self.assertEqual(result, "Search description on the parent.")
 
+    def test_get_meta_description_no_search_description_no_body_no_search_description_on_parent(self):
+        self.blog_page.search_description = ""
+        self.blog_page.body = None
+        self.blog_index.search_description = ""
 
+        result = self.blog_page.get_meta_description()
+
+        self.assertEqual(result, foundation_metadata.FoundationMetadataPageMixin.default_description)
