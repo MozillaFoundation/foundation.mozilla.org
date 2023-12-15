@@ -217,3 +217,14 @@ class TestBlogPage(test.TestCase):
 
         # Only the first paragraph block is used.
         self.assertEqual(result, "This is the body content in the first paragraph block.")
+
+    def test_get_meta_description_no_search_description_no_body_but_search_description_on_parent(self):
+        self.blog_page.search_description = ""
+        self.blog_page.body = None
+        self.blog_index.search_description = "Search description on the parent."
+
+        result = self.blog_page.get_meta_description()
+
+        self.assertEqual(result, "Search description on the parent.")
+
+
