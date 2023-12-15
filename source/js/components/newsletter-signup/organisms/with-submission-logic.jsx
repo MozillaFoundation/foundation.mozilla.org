@@ -236,7 +236,6 @@ function withSubmissionLogic(WrappedComponent) {
       return (
         <WrappedComponent
           {...otherProps}
-          innerWrapperClass="inner-wrapper"
           noBrowserValidation={true}
           errors={this.state.errors}
           onSubmit={(event, formData) => this.handleSubmit(event, formData)}

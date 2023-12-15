@@ -429,7 +429,7 @@ class JoinUs extends Component {
           />
           {this.state.userTriedSubmitting && !emailValidation.valid && (
             <div className={errorWrapperClasses}>
-              <span className="tw-form-error-glyph" />
+              <span className="tw-form-error-glyph tw-inline-block" />
             </div>
           )}
         </div>
@@ -550,7 +550,7 @@ class JoinUs extends Component {
             !this.state.apiSubmitted &&
             !this.privacy.checked &&
             !this.isFlowForm() && (
-              <span className="tw-form-error-glyph privacy-error d-flex tw-ml-2" />
+              <span className="tw-form-error-glyph tw-flex tw-ml-2" />
             )}
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (

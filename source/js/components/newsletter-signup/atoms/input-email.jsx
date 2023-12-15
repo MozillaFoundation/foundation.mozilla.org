@@ -16,6 +16,7 @@ const FIELD_CLASSES = `
   dark:has-error:tw-border-red-40
   tw-border-1
   tw-border-black
+  dark:tw-border-white
   placeholder:tw-text-gray-40
   focus:tw-border-blue-40
   focus:tw-shadow-none
