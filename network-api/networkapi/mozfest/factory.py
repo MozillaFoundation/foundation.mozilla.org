@@ -24,6 +24,7 @@ streamfield_fields = [
     "carousel_and_text",
     "statistics",
     "dark_quote",
+    "cta",
     "listing",
     "tickets",
 ]
