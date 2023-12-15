@@ -3,6 +3,7 @@ import http
 import wagtail_factories
 from django import test
 from django.core import exceptions
+from taggit import models as tag_models
 from wagtail import models as wagtail_models
 
 from networkapi.wagtailpages.factory import homepage as home_factory
@@ -49,3 +50,18 @@ class TestBlogPage(test.TestCase):
         result = self.blog_page.clean()
 
         self.assertIsNone(result)
+
+    def test_get_missing_related_posts(self):
+        self.assertEqual(self.blog_page.related_posts.count(), 0)
+        self.assertEqual(self.blog_page.related_post_count, 3)
+        tag = tag_models.Tag.objects.create(name="test")
+        self.blog_page.tags.add(tag)
+        self.blog_page.save()
+        other_post = blog_factory.BlogPageFactory(parent=self.blog_index)
+        other_post.tags.add(tag)
+        other_post.save()
+
+        result = self.blog_page.get_missing_related_posts()
+
+        self.assertEqual(len(result), 1)
+        self.assertListEqual(result, [other_post])
