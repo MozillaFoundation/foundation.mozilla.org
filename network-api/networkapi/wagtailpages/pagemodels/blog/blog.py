@@ -265,15 +265,12 @@ class BlogPage(BasePage):
 
         related_posts = [post.related_post for post in self.related_posts.all()]
         if request.is_preview:
-            # While we automatically pad out the related posts during save, we want to
-            # see that same padded list during preview, but *without* actually updating
-            # the model, so we control this property at render context retrieval time:
+            # While we automatically pad out the related posts during `clean`, we want to
+            # see that same padded list during preview. However, `clean` is not called,
+            # when previewing. Therefore, we manually extend the related posts.
             related_posts = related_posts + self.get_missing_related_posts()
 
-        # Make sure to filter out any None entries, which may happen if the
-        # self.ensure_related_posts() function was unable to find any related
-        # posts to pad the related posts set with.
-        context["related_posts"] = list(filter(None, related_posts))
+        context["related_posts"] = related_posts
 
         # Pull this object specifically using the English page title
         default_locale = Locale.get_default()
