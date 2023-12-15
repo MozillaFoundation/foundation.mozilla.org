@@ -182,3 +182,27 @@ class TestBlogPage(test.TestCase):
 
         self.assertEqual(result, "This is the body content in a paragraph block.")
 
+    def test_get_meta_description_no_search_description_but_body_has_other_block_and_paragraph(self):
+        self.blog_page.search_description = ""
+        self.blog_page.body = [
+            ("image_text", {"text": "Text in a different block than paragraph."}),
+            ("paragraph", "<p>This is the body content in a paragraph block.</p>"),
+        ]
+
+        result = self.blog_page.get_meta_description()
+
+        # Other body blocks until the first paragraph block are ignored.
+        self.assertEqual(result, "This is the body content in a paragraph block.")
+
+    def test_get_meta_description_no_search_description_but_long_body(self):
+        self.blog_page.search_description = ""
+        content = "<p>This is the body content in a paragraph block.</p><p>This is the body content in a paragraph block.</p><p>This is the body content in a paragraph block.</p><p>This is the body content in a paragraph block.</p>"  # noqa: E501
+        self.blog_page.body = [
+            ("paragraph", content),
+        ]
+
+        result = self.blog_page.get_meta_description()
+
+        self.assertEqual(len(result), 153)
+        expected = "This is the body content in a paragraph block. This is the body content in a paragraph block. This is the body content in a paragraph block. This is the…"  # noqa: E501
+        self.assertEqual(result, expected)
