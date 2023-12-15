@@ -235,6 +235,9 @@ module.exports = {
         },
         black: {
           100: "#202020",
+        },
+        gray: {
+          100: "#4c4c4c",
         }
       },
       "dear-internet": {

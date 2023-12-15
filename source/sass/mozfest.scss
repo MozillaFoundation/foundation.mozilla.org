@@ -351,4 +351,15 @@ body.mozfest {
       }
     }
   }
+
+  .tw-dark {
+    .swiper-pagination-bullet {
+      @apply tw-bg-festival-gray-100 tw-opacity-100;
+    }
+
+    .swiper-pagination-bullet-active {
+      @apply tw-bg-white;
+    }
+
+  }
 }
