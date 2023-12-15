@@ -53,6 +53,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ("tabbed_profile_directory", customblocks.TabbedProfileDirectory()),
             ("newsletter_signup", customblocks.NewsletterSignupBlock()),
             ("statistics", mozfest_blocks.StatisticsBlock()),
+            ("carousel_and_text", mozfest_blocks.CarouselTextBlock()),
         ],
         use_json_field=True,
     )

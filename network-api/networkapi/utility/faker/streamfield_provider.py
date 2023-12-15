@@ -496,6 +496,33 @@ def generate_listing_block_field():
     return generate_field("listing", {"cards": cards, "heading": heading})
 
 
+def generate_carousel_text_block_field():
+    heading = fake.sentence(nb_words=10, variable_nb_words=True)
+    text = fake.paragraph(nb_sentences=10, variable_nb_sentences=True)
+    link_url = fake.url(schemes=["https"])
+    link_label = fake.sentence(nb_words=5, variable_nb_words=True)
+
+    carousel_images = []
+
+    for n in range(4):
+        carousel_images.append(
+            {
+                "image": choice(Image.objects.all()).id,
+                "altText": " ".join(fake.words(nb=5)),
+            }
+        )
+
+    data = {
+        "heading": heading,
+        "text": text,
+        "link_url": link_url,
+        "link_label": link_label,
+        "carousel_images": carousel_images,
+    }
+
+    return generate_field("carousel_and_text", data)
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -547,6 +574,7 @@ class StreamfieldProvider(BaseProvider):
             "blog_newsletter_signup": generate_blog_newsletter_signup_field,
             "statistics": generate_stats_block_field,
             "listing": generate_listing_block_field,
+            "carousel_and_text": generate_carousel_text_block_field,
         }
 
         streamfield_data = []
