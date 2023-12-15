@@ -12,4 +12,4 @@ class StatisticsBlock(blocks.StructBlock):
     class Meta:
         icon = "placeholder"
         template = "fragments/blocks/stats_block.html"
-        label = "Stats Block"
+        label = "Statistics"
