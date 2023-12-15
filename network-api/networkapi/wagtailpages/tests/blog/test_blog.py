@@ -86,8 +86,8 @@ class TestBlogPage(test.TestCase):
 
         # Because we already have 3 directly related posts, we don't get the tag related post
         self.assertListEqual(result, [])
-        # The limit is defined by the BlotPage.related_post_count property
-        self.assertEqual(self.blog_page.related_post_count, 3)
+        # The limit is defined by the BlotPage.RELATED_POSTS_MAX property
+        self.assertEqual(self.blog_page.RELATED_POSTS_MAX, 3)
 
     def test_get_missing_related_posts_no_directly_related_posts_four_tag_related_posts(self):
         self.create_tag_related_post()
@@ -100,7 +100,7 @@ class TestBlogPage(test.TestCase):
         # Because we don't have any directly related posts, we get three tag related posts.
         self.assertEqual(len(result), 3)
         # We don't get the fourth tag related post because the limit is 3.
-        self.assertEqual(self.blog_page.related_post_count, 3)
+        self.assertEqual(self.blog_page.RELATED_POSTS_MAX, 3)
 
     def test_get_missing_related_posts_one_directly_related_posts_three_tag_related_post(self):
         self.create_directly_related_post()
@@ -123,7 +123,7 @@ class TestBlogPage(test.TestCase):
         self.assertEqual(len(result), 0)
 
     def test_get_missing_related_posts_limit_smaller_than_directly_related(self):
-        self.blog_page.related_post_count = 1
+        self.blog_page.RELATED_POSTS_MAX = 1
         self.blog_page.save()
         self.create_directly_related_post()
         self.create_directly_related_post()

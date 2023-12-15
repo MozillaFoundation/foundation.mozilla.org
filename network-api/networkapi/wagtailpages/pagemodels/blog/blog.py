@@ -160,7 +160,7 @@ class BlogPage(BasePage):
         help_text="Check this box to add a comment section for this blog post.",
     )
 
-    related_post_count = 3
+    RELATED_POSTS_MAX = 3
 
     content_panels = [
         FieldPanel(
@@ -187,7 +187,7 @@ class BlogPage(BasePage):
             "If you pick fewer than three (or none), saving will "
             "automatically bind some related posts based on tag matching.",
             min_num=0,
-            max_num=related_post_count,
+            max_num=RELATED_POSTS_MAX,
         ),
     ]
 
@@ -295,7 +295,7 @@ class BlogPage(BasePage):
         """
         additional_posts = list()
         post_count = self.related_posts.all().count()
-        missing_count = self.related_post_count - post_count
+        missing_count = self.RELATED_POSTS_MAX - post_count
 
         if missing_count <= 0:
             # We have enough related posts already, so return an empty list
