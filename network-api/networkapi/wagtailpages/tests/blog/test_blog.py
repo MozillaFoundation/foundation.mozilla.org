@@ -165,3 +165,20 @@ class TestBlogPage(test.TestCase):
 
         self.assertEqual(mock_ensure_related_posts.call_count, 1)
 
+    def test_get_meta_description_with_search_description(self):
+        self.blog_page.search_description = "test description"
+
+        result = self.blog_page.get_meta_description()
+
+        self.assertEqual(result, "test description")
+
+    def test_get_meta_description_no_search_description_but_body_has_paragraph(self):
+        self.blog_page.search_description = ""
+        self.blog_page.body = [
+            ("paragraph", "<p>This is the body content in a paragraph block.</p>"),
+        ]
+
+        result = self.blog_page.get_meta_description()
+
+        self.assertEqual(result, "This is the body content in a paragraph block.")
+
