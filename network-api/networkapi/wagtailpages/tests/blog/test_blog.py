@@ -24,6 +24,18 @@ class TestBlogPage(test.TestCase):
         cls.blog_page = blog_factory.BlogPageFactory(parent=cls.blog_index)
 
         cls.tag = tag_models.Tag.objects.create(name="test")
+        cls.blog_page.tags.add(cls.tag)
+        cls.blog_page.save()
+
+    def create_directly_related_post(self):
+        # The relation factory creates the related post.
+        blog_factory.RelatedBlogPostsFactory(page=self.blog_page, related_post__parent=self.blog_index)
+
+    def create_tag_related_post(self):
+        tag_related_post = blog_factory.BlogPageFactory(parent=self.blog_index)
+        tag_related_post.tags.add(self.tag)
+        tag_related_post.save()
+        return tag_related_post
 
     def test_page_loads(self):
         response = self.client.get(self.blog_page.url)
@@ -53,10 +65,6 @@ class TestBlogPage(test.TestCase):
 
         self.assertIsNone(result)
 
-    def add_tag_to_blog_page(self):
-        self.blog_page.tags.add(self.tag)
-        self.blog_page.save()
-
     def test_get_missing_related_posts_no_directly_related_posts_no_tag_related_posts(self):
         self.assertEqual(self.blog_page.related_posts.count(), 0)
 
@@ -64,24 +72,39 @@ class TestBlogPage(test.TestCase):
 
         self.assertListEqual(result, [])
 
-    def test_get_missing_related_posts_one_directly_related_posts_no_tag_related_posts(self):
-        directly_related_post = blog_factory.BlogPageFactory(parent=self.blog_index)
-        blog_factory.RelatedBlogPostsFactory(page=self.blog_page, related_post=directly_related_post)
-        self.assertEqual(self.blog_page.related_posts.count(), 1)
+    def test_get_missing_related_posts_three_directly_related_posts_one_tag_related_posts(self):
+        self.create_directly_related_post()
+        self.create_directly_related_post()
+        self.create_directly_related_post()
+        self.create_tag_related_post()
 
         result = self.blog_page.get_missing_related_posts()
 
+        # Because we already have 3 directly related posts, we don't get the tag related post
         self.assertListEqual(result, [])
-
-    def test_get_missing_related_posts_no_directly_related_posts_one_tag_related_post(self):
-        self.assertEqual(self.blog_page.related_posts.count(), 0)
+        # The limit is defined by the BlotPage.related_post_count property
         self.assertEqual(self.blog_page.related_post_count, 3)
-        self.add_tag_to_blog_page()
-        tag_related_post = blog_factory.BlogPageFactory(parent=self.blog_index)
-        tag_related_post.tags.add(self.tag)
-        tag_related_post.save()
+
+    def test_get_missing_related_posts_no_directly_related_posts_four_tag_related_posts(self):
+        self.create_tag_related_post()
+        self.create_tag_related_post()
+        self.create_tag_related_post()
+        self.create_tag_related_post()
 
         result = self.blog_page.get_missing_related_posts()
 
-        self.assertEqual(len(result), 1)
-        self.assertListEqual(result, [tag_related_post])
+        # Because we don't have any directly related posts, we get three tag related posts.
+        self.assertEqual(len(result), 3)
+        # We don't get the fourth tag related post because the limit is 3.
+        self.assertEqual(self.blog_page.related_post_count, 3)
+
+    def test_get_missing_related_posts_one_directly_related_posts_three_tag_related_post(self):
+        self.create_directly_related_post()
+        self.create_tag_related_post()
+        self.create_tag_related_post()
+        self.create_tag_related_post()
+
+        result = self.blog_page.get_missing_related_posts()
+
+        # Because we already have 1 directly related post, we only get 2 tag related posts.
+        self.assertEqual(len(result), 2)
