@@ -18,8 +18,6 @@ streamfield_fields = [
     "image",
     "spacer",
     "quote",
-    "carousel_and_text",
-    "statistics",
     "listing",
     "carousel_and_text",
     "statistics",

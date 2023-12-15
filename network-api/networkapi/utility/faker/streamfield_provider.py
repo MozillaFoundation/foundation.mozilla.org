@@ -518,7 +518,6 @@ def generate_carousel_text_block_field():
     text = fake.paragraph(nb_sentences=10, variable_nb_sentences=True)
     link_url = fake.url(schemes=["https"])
     link_label = fake.sentence(nb_words=5, variable_nb_words=True)
-
     carousel_images = []
 
     for n in range(4):
@@ -545,12 +544,14 @@ def generate_cta_field():
     text = fake.paragraph(nb_sentences=2, variable_nb_sentences=True)
     link_url = fake.url(schemes=["https"])
     link_text = fake.sentence(nb_words=2, variable_nb_words=True)
+    dark_background = True
 
     cta = {
         "heading": heading,
         "text": text,
         "link_url": link_url,
         "link_text": link_text,
+        "dark_background": dark_background,
     }
 
     return generate_field("cta", cta)

@@ -8,6 +8,7 @@ class CTABlock(blocks.StructBlock):
     text = blocks.CharBlock(required=False)
     link_url = blocks.URLBlock(required=False)
     link_text = blocks.CharBlock(required=False, max_length=50)
+    dark_background = blocks.BooleanBlock(required=False)
 
     class Meta:
         template = "fragments/blocks/cta_block.html"
