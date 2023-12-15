@@ -1648,7 +1648,7 @@ class Migration(migrations.Migration):
                         ),
                     ),
                     (
-                        "stats_block",
+                        "statistics",
                         wagtail.blocks.StructBlock(
                             [
                                 (
@@ -1679,7 +1679,7 @@ class Migration(migrations.Migration):
                         ),
                     ),
                     (
-                        "carousel_text_block",
+                        "carousel_and_text",
                         wagtail.blocks.StructBlock(
                             [
                                 (
@@ -1687,6 +1687,16 @@ class Migration(migrations.Migration):
                                     wagtail.blocks.CharBlock(help_text="Heading for the block.", required=False),
                                 ),
                                 ("text", wagtail.blocks.RichTextBlock(features=["bold", "italic", "link"])),
+                                (
+                                    "link_url",
+                                    wagtail.blocks.URLBlock(
+                                        help_text="A CTA URL for a link displayed", required=False
+                                    ),
+                                ),
+                                (
+                                    "link_label",
+                                    wagtail.blocks.CharBlock(help_text="Label for the CTA link.", required=False),
+                                ),
                                 (
                                     "carousel_images",
                                     wagtail.blocks.ListBlock(
@@ -1704,16 +1714,6 @@ class Migration(migrations.Migration):
                                         ),
                                         max_num=4,
                                     ),
-                                ),
-                                (
-                                    "link_url",
-                                    wagtail.blocks.URLBlock(
-                                        help_text="A CTA URL for a link displayed", required=False
-                                    ),
-                                ),
-                                (
-                                    "link_label",
-                                    wagtail.blocks.CharBlock(help_text="Label for the CTA link.", required=False),
                                 ),
                             ]
                         ),
