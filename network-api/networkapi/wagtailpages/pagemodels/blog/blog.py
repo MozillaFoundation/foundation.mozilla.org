@@ -272,10 +272,9 @@ class BlogPage(BasePage):
         context["related_posts"] = related_posts
 
         default_locale = Locale.get_default()
-        blog_page = BlogIndexPage.objects.filter(locale=default_locale).live().first()
-
-        if blog_page:
-            context["blog_index"] = blog_page
+        blog_index = BlogIndexPage.objects.filter(locale=default_locale).live().first()
+        if blog_index:
+            context["blog_index"] = blog_index
 
         return context
 
