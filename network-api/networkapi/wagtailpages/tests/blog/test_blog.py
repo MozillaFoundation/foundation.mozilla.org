@@ -15,6 +15,8 @@ from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 class TestBlogPage(test.TestCase):
     @classmethod
     def setUpTestData(cls):
+        cls.request_factory = test.RequestFactory()
+
         root_node = wagtail_models.Page.get_first_root_node()
         site = wagtail_models.Site.objects.get(is_default_site=True)
         cls.homepage = home_factory.WagtailHomepageFactory(parent=root_node)
@@ -46,6 +48,29 @@ class TestBlogPage(test.TestCase):
         response = self.client.get(self.blog_page.url)
 
         self.assertEqual(response.status_code, http.HTTPStatus.OK)
+
+    @mock.patch("networkapi.wagtailpages.pagemodels.blog.blog.BlogPage.get_missing_related_posts")
+    def test_get_context_with_no_related_posts_no_tag_related_posts_not_preview(self, mock_get_missing_related_posts):
+        request = self.request_factory.get(self.blog_page.url)
+        request.is_preview = False
+
+        result = self.blog_page.get_context(request)
+
+        self.assertListEqual(result["related_posts"], [])
+        self.assertEqual(mock_get_missing_related_posts.call_count, 0)
+
+    @mock.patch("networkapi.wagtailpages.pagemodels.blog.blog.BlogPage.get_missing_related_posts")
+    def test_get_context_with_no_related_posts_no_tag_related_posts_not_preview(self, mock_get_missing_related_posts):
+        request = self.request_factory.get(self.blog_page.url)
+        request.is_preview = True
+        # We test the method specifically below to see that it will actually return an empty list when there are no
+        # tag related posts.
+        mock_get_missing_related_posts.return_value = []
+
+        result = self.blog_page.get_context(request)
+
+        self.assertListEqual(result["related_posts"], [])
+        self.assertEqual(mock_get_missing_related_posts.call_count, 1)
 
     def test_get_missing_related_posts_no_directly_related_posts_no_tag_related_posts(self):
         self.assertEqual(self.blog_page.related_posts.count(), 0)
