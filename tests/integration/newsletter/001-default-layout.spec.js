@@ -34,7 +34,7 @@ test.describe("Blog body newsletter signup form", () => {
 
     // test if the newsletter module is visible
     moduleContainer = page.locator(
-      ".newsletter-signup-module[data-module-type='blog-body']"
+      ".newsletter-signup-module[data-module-type='default']"
     );
     await moduleContainer.waitFor({ state: "visible" });
     expect(await moduleContainer.count()).toBe(1);
