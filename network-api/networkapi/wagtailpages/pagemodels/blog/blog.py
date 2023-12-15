@@ -269,7 +269,6 @@ class BlogPage(BasePage):
             # see that same padded list during preview. However, `clean` is not called,
             # when previewing. Therefore, we manually extend the related posts.
             related_posts = related_posts + self.get_missing_related_posts()
-
         context["related_posts"] = related_posts
 
         # Pull this object specifically using the English page title
