@@ -297,7 +297,8 @@ class BlogPage(BasePage):
         post_count = self.related_posts.all().count()
         missing_count = self.related_post_count - post_count
 
-        if missing_count == 0:
+        if missing_count <= 0:
+            # We have enough related posts already, so return an empty list
             return additional_posts
 
         related_posts = get_content_related_by_tag(self)

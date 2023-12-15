@@ -121,3 +121,15 @@ class TestBlogPage(test.TestCase):
 
         # We don't want to see the directly related post being returned as a tag related post.
         self.assertEqual(len(result), 0)
+
+    def test_get_missing_related_posts_limit_smaller_than_directly_related(self):
+        self.blog_page.related_post_count = 1
+        self.blog_page.save()
+        self.create_directly_related_post()
+        self.create_directly_related_post()
+        self.create_tag_related_post()
+
+        result = self.blog_page.get_missing_related_posts()
+
+        # We have more directly related posts than the limit, so we don't get any tag related posts.
+        self.assertEqual(len(result), 0)
