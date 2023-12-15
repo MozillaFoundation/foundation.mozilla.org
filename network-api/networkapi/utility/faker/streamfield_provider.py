@@ -522,6 +522,7 @@ def generate_carousel_text_block_field():
 
     return generate_field("carousel_and_text", data)
 
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
