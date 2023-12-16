@@ -3,6 +3,9 @@
  * Each key in the STYLES object corresponds to a "data-form-position attribute value on <div class="newsletter-signup-module" ..> (like "blog-body" or "footer")
  *
  * @module form-specific-style
+ * @property {number} STYLES.x.headingLevel - The heading level for heading element.
+ * @property {string} STYLES.x.headingClass - CSS classes for the heading element.
+ * @property {string} STYLES.x.innerWrapperClass - CSS classes for the inner wrapper of the form.
  */
 
 export const FORM_STYLE = {
