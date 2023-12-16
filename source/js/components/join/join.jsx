@@ -46,7 +46,6 @@ class JoinUs extends Component {
         `header`,
         `body`,
         `callout-box`,
-        `footer`,
         `pni-product-quiz`,
         `youtube-regrets-reporter`,
       ].includes(props.formPosition),
@@ -233,7 +232,7 @@ class JoinUs extends Component {
   /**
    * On focus, we want to do two things:
    * 1.Fire a GA event when users interact with the signup form
-   * 2.Reveal localization fields for header and footer signup forms
+   * 2.Reveal localization fields
    */
   onInputFocus() {
     ReactGA.event({
