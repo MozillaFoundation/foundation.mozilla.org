@@ -24,12 +24,12 @@
                         <div class="tw-flex tw-flex-1">
                             <div class="tw-relative tw-pt-8 tw-w-full tw-flex tw-flex-col">
                                 {% if card.highlighted_metadata or card.metadata %}
-                                    <div class="tw-row tw-px-8 tw-py-2">
+                                    <div class="tw-flex tw-gap-4 tw-mb-4">
                                         {% if card.highlighted_metadata %}
-                                            <div class="tw-px-0"><p class="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-py-2 tw-mb-0">{{ card.highlighted_metadata }}</p></div>
+                                            <p class="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-m-0">{{ card.highlighted_metadata }}</p>
                                         {% endif %}
                                         {% if card.metadata %}
-                                            <div class="tw-px-2"><p class="tw-h6-heading tw-text-gray-40 tw-py-2 tw-mb-0">{{ card.metadata }}</p></div>
+                                            <p class="tw-h6-heading tw-text-gray-40 tw-m-0">{{ card.metadata }}</p>
                                         {% endif %}
                                     </div>
                                 {% endif %}
