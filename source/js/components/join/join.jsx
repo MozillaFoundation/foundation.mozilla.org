@@ -403,7 +403,8 @@ class JoinUs extends Component {
     let inputClasses = classNames(`${FORM_CONTROL_CLASS} tw-pr-18`, {
       "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-8":
         this.props.formStyle == `pop`,
-      "tw-h-24": this.props.formStyle == `pni` || this.props.formStyle == `mozfest`,
+      "tw-h-24":
+        this.props.formStyle == `pni` || this.props.formStyle == `mozfest`,
     });
 
     let errorWrapperClasses = classNames("glyph-container", {
@@ -576,7 +577,10 @@ class JoinUs extends Component {
         "tw-border-1 tw-btn-secondary tw-mt-24 medium:-tw-mb-16 medium:tw-mt-12"
       );
       buttonText = getText("Subscribe");
-    } else if (this.props.formStyle == "pni" || this.props.formStyle == "mozfest") {
+    } else if (
+      this.props.formStyle == "pni" ||
+      this.props.formStyle == "mozfest"
+    ) {
       classnames = classNames(
         "tw-btn",
         "tw-btn-primary",
