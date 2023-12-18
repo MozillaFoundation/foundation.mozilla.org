@@ -27,6 +27,8 @@ jobs:
       ALLOWED_HOSTS: 127.0.0.1,localhost,mozfest.localhost,default-site.com,secondary-site.com
       CONTENT_TYPE_NO_SNIFF: True
       CORS_ALLOWED_ORIGINS: "*"
+      CSP_FRAME_SRC: " 'self' https://www.youtube.com https://comments.mozillafoundation.org/ https://airtable.com https://docs.google.com/ https://platform.twitter.com https://public.zenkit.com https://calendar.google.com https://www.youtube-nocookie.com https://form.typeform.com https://js.tito.io https://datawrapper.dwcdn.net https://www.google.com/recaptcha/"
+      CSP_SCRIPT_SRC: " 'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdn.syndication.twimg.com https://embed.typeform.com https://js.tito.io https://js-plugins.tito.io/gtm.js https://tagmanager.google.com *.googletagmanager.com https://*.fundraiseup.com https://mozillafoundation.tfaforms.net https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ 'unsafe-eval' *****TEST******"
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
       DEBUG: True
       DJANGO_SECRET_KEY: secret
