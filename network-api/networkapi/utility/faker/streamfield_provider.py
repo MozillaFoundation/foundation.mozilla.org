@@ -523,6 +523,18 @@ def generate_carousel_text_block_field():
     return generate_field("carousel_and_text", data)
 
 
+def generate_tickets_block_field():
+    heading = fake.sentence(nb_words=10, variable_nb_words=True)
+    tickets = []
+    from networkapi.mozfest.factory import TicketSnippetFactory
+
+    for n in range(3):
+        ticket_snippet = TicketSnippetFactory.create()
+        tickets.append(ticket_snippet.id)
+
+    return generate_field("tickets", {"heading": heading, "tickets": tickets})
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -575,6 +587,7 @@ class StreamfieldProvider(BaseProvider):
             "statistics": generate_stats_block_field,
             "listing": generate_listing_block_field,
             "carousel_and_text": generate_carousel_text_block_field,
+            "tickets": generate_tickets_block_field,
         }
 
         streamfield_data = []

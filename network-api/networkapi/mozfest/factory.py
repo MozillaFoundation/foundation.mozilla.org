@@ -1,5 +1,8 @@
+import random
+
 from django.conf import settings
 from factory import Faker, LazyAttribute, SubFactory
+from factory.django import DjangoModelFactory
 from wagtail.models import Page as WagtailPage
 from wagtail.models import Site as WagtailSite
 from wagtail_factories import PageFactory
@@ -10,7 +13,17 @@ from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.factory.signup import SignupFactory
 
-streamfield_fields = ["paragraph", "image", "spacer", "quote", "carousel_and_text", "statistics", "listing"]
+streamfield_fields = [
+    "paragraph",
+    "image",
+    "spacer",
+    "quote",
+    "carousel_and_text",
+    "statistics",
+    "listing",
+    "tickets",
+]
+
 
 Faker.add_provider(StreamfieldProvider)
 
@@ -58,6 +71,19 @@ class MozfestLandingPageFactory(PageFactory):
     banner_text = Faker("sentence", nb_words=12, variable_nb_words=True)
     banner_link_url = Faker("url")
     banner_link_text = Faker("sentence", nb_words=2, variable_nb_words=True)
+
+
+class TicketSnippetFactory(DjangoModelFactory):
+    class Meta:
+        model = mozfest_models.Ticket
+
+    name = Faker("sentence", nb_words=2)
+    cost = f"€{random.choice(['100', '200', '300'])}"
+    group = Faker("text", max_nb_chars=50)
+    description = Faker("text", max_nb_chars=250)
+    link_text = Faker("text", max_nb_chars=25)
+    link_url = Faker("url")
+    sticker_text = Faker("text", max_nb_chars=25)
 
 
 def generate(seed):
