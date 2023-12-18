@@ -553,6 +553,17 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
+# Wagtail redirects
+#
+# We need to use the cache backend to store the uploaded redirects file because we run multiple dynos in parallel.
+# The default (temporary) file storage is not shared between dynos, which means that the import processing could fail
+# after a successful file upload, if the actual import process is run on a different dyno.
+# See also:
+# https://github.com/MozillaFoundation/foundation.mozilla.org/issues/11559
+# https://docs.wagtail.org/en/stable/reference/settings.html#redirects
+
+WAGTAIL_REDIRECTS_FILE_STORAGE = 'cache'
+
 # Rest Framework Settings
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
