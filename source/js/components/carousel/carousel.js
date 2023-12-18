@@ -37,8 +37,8 @@ class Carousel {
       // Responsive breakpoints
       breakpoints: {
         992: {
-          slidesPerView: 2,
-          spaceBetween: 30,
+          slidesPerView: this.node.dataset.desktopSlidesPerView || 2,
+          spaceBetween: this.node.dataset.desktopSpaceBetween || 30,
         },
       },
     });
