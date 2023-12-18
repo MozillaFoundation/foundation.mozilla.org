@@ -2,6 +2,7 @@ from unittest import expectedFailure
 
 from django.urls import reverse
 from django.utils.translation import gettext
+from faker import Faker
 from wagtail import hooks
 
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
@@ -148,7 +149,7 @@ class TestProductPageEvaluation(BuyersGuideTestCase):
         self.assertEqual(evaluation.total_creepiness, 250)
         self.assertEqual(evaluation.total_votes, 5)
         self.assertDictEqual(
-            evaluation.average_bin, {"label": "A little creepy", "localized": gettext("A little creepy")}
+            evaluation.average_bin, {"label": "Somewhat creepy", "localized": gettext("Somewhat creepy")}
         )
 
     def test_creepiness_per_bin_limits(self):
@@ -193,8 +194,110 @@ class TestProductPageEvaluation(BuyersGuideTestCase):
         self.assertEqual(evaluation.total_creepiness, 495)
         self.assertEqual(evaluation.total_votes, 10)
         self.assertDictEqual(
+            evaluation.average_bin, {"label": "Somewhat creepy", "localized": gettext("Somewhat creepy")}
+        )
+
+
+class TestProductPageEvaluationAverageBin(BuyersGuideTestCase):
+    def setUp(self):
+        super().setUp()
+        self.admin_user = self.create_superuser(username="admin", password="password")
+        self.login(self.admin_user)
+        self.product_page = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        self.fake = Faker()
+        Faker.seed(0)
+
+    def test_avg_bin_with_no_votes(self):
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=self.product_page.evaluation.pk)
+        )
+
+        self.assertEqual(evaluation.total_votes, 0)
+        self.assertDictEqual(evaluation.average_bin, {"label": "No votes", "localized": gettext("No votes")})
+
+    def test_avg_bin_with_avg_vote_equal_0(self):
+        buyersguide_factories.ProductVoteFactory(evaluation=self.product_page.evaluation, value=0)
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=self.product_page.evaluation.pk)
+        )
+
+        self.assertEqual(evaluation.average_creepiness, 0)
+        self.assertDictEqual(evaluation.average_bin, {"label": "Not creepy", "localized": gettext("Not creepy")})
+
+    def test_avg_bin_with_avg_vote_between_1_and_20(self):
+        vote_value = self.fake.random_int(min=1, max=19)
+        buyersguide_factories.ProductVoteFactory(evaluation=self.product_page.evaluation, value=vote_value)
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=self.product_page.evaluation.pk)
+        )
+
+        self.assertEqual(evaluation.average_creepiness, vote_value)
+        self.assertDictEqual(evaluation.average_bin, {"label": "Not creepy", "localized": gettext("Not creepy")})
+
+    def test_avg_bin_with_avg_vote_between_20_and_40(self):
+        vote_value = self.fake.random_int(min=20, max=39)
+        buyersguide_factories.ProductVoteFactory(evaluation=self.product_page.evaluation, value=vote_value)
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=self.product_page.evaluation.pk)
+        )
+
+        self.assertEqual(evaluation.average_creepiness, vote_value)
+        self.assertDictEqual(
             evaluation.average_bin, {"label": "A little creepy", "localized": gettext("A little creepy")}
         )
+
+    def test_avg_bin_with_avg_vote_between_40_and_60(self):
+        vote_value = self.fake.random_int(min=40, max=59)
+        buyersguide_factories.ProductVoteFactory(evaluation=self.product_page.evaluation, value=vote_value)
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=self.product_page.evaluation.pk)
+        )
+
+        self.assertEqual(evaluation.average_creepiness, vote_value)
+        self.assertDictEqual(
+            evaluation.average_bin, {"label": "Somewhat creepy", "localized": gettext("Somewhat creepy")}
+        )
+
+    def test_avg_bin_with_avg_vote_between_60_and_80(self):
+        vote_value = self.fake.random_int(min=60, max=79)
+        buyersguide_factories.ProductVoteFactory(evaluation=self.product_page.evaluation, value=vote_value)
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=self.product_page.evaluation.pk)
+        )
+
+        self.assertEqual(evaluation.average_creepiness, vote_value)
+        self.assertDictEqual(evaluation.average_bin, {"label": "Very creepy", "localized": gettext("Very creepy")})
+
+    def test_avg_bin_with_avg_vote_between_80_and_100(self):
+        vote_value = self.fake.random_int(min=80, max=100)
+        buyersguide_factories.ProductVoteFactory(evaluation=self.product_page.evaluation, value=vote_value)
+        evaluation = (
+            ProductPageEvaluation.objects.with_total_votes()
+            .with_total_creepiness()
+            .with_average_creepiness()
+            .get(pk=self.product_page.evaluation.pk)
+        )
+
+        self.assertEqual(evaluation.average_creepiness, vote_value)
+        self.assertDictEqual(evaluation.average_bin, {"label": "Super creepy", "localized": gettext("Super creepy")})
 
 
 class TestProductPageEvaluationPrefetching(BuyersGuideTestCase):
