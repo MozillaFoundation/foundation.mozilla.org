@@ -29,6 +29,7 @@ streamfield_fields = [
     "profiles",
     "image_grid",
     "newsletter_signup",
+    "mixed_content",
 ]
 
 
