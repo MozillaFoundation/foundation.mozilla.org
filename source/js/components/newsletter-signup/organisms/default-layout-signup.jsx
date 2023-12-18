@@ -188,7 +188,7 @@ class DefaultSignupForm extends Component {
         noValidate={this.props.noBrowserValidation}
         onSubmit={(event) => this.props.onSubmit(event, this.state.formData)}
       >
-        <div className="d-flex flex-column flex-md-row medium:tw-gap-8">
+        <div className="d-flex flex-column flex-lg-row medium:tw-gap-8">
           <div className="tw-flex-grow">
             <fieldset className={FIELD_MARGIN_CLASSES}>
               {this.renderEmailField()}
@@ -196,7 +196,7 @@ class DefaultSignupForm extends Component {
             </fieldset>
             <fieldset>{this.renderPrivacyCheckbox()}</fieldset>
           </div>
-          <div className="tw-mt-8 medium:tw-mt-0">
+          <div className="tw-flex-shrink-0 tw-mt-8 medium:tw-mt-0">
             <ButtonSubmit widthClasses="tw-w-full">
               {getText("Sign Up")}
             </ButtonSubmit>
