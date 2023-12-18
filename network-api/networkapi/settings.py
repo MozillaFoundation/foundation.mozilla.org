@@ -562,7 +562,7 @@ WAGTAILSEARCH_BACKENDS = {
 # https://github.com/MozillaFoundation/foundation.mozilla.org/issues/11559
 # https://docs.wagtail.org/en/stable/reference/settings.html#redirects
 
-WAGTAIL_REDIRECTS_FILE_STORAGE = 'cache'
+WAGTAIL_REDIRECTS_FILE_STORAGE = "cache"
 
 # Rest Framework Settings
 REST_FRAMEWORK = {
