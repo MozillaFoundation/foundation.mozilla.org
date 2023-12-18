@@ -1,0 +1,44 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_content %}
+    <div class="tw-py-16">
+        <div class="tw-container">
+            <div class="tw-row tw-justify-center">
+                {{ self.video }}
+                <h2 class="tw-h3-heading">{{ self.video.title }}</h2>
+                <div class="[&_p,li,ul]:last:tw-mb-0">
+                    {{ self.video.text }}
+                </div>
+                <ul class="tw-mb-24 tw-list-none tw-pl-0 tw-grid tw-gap-8 medium:tw-grid-cols-2 medium:tw-gap-24">
+                    {% for item in self.cards %}
+                        {% image item.image fill-350x197 as img %}
+                        <li>
+                            {% if item.link_page %}
+                                <a href="{% pageurl item.link_page %}"
+                                   class="tw-group/listing hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black"
+                                   aria-label="{{ item.title }}">
+                            {% elif item.link_url %}
+                                <a href="{{ item.link_url }}" target="_blank" rel="noopener"
+                                   class="tw-group/listing hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black"
+                                   aria-label="{{ item.title }}">
+                            {% endif %}
+                            <img width="auto" height="auto" src="{{ img.url }}" alt="{{ item.alt_text }}"/>
+                            {{ item.title }}
+                            {{ item.highlighted_metadata }}
+                            {{ item.metadata }}
+                            {{ item.body }}
+                            {{ item.link_page }}
+                            {{ item.link_url }}
+                            {% if card.link_page or card.link_url %}</a>{% endif %}
+
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if self.link_text and self.link_url %}
+                    <a href="{{ self.link_url }}" class="tw-btn tw-btn--primary tw-btn--lg">{{ self.link_text }}</a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock block_content %}

@@ -5,6 +5,9 @@ from wagtail.images.blocks import ImageChooserBlock
 
 
 class ListingCard(blocks.StructBlock):
+    # Be mindful when extending or editing this class.
+    # It is used in other places, like the MozFest Mixed Content block.
+    # mozfest/blocks/mixd_content_block.py
     image = ImageChooserBlock()
 
     alt_text = blocks.CharBlock(required=False, help_text="Alt text for card's image.")
