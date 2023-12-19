@@ -36,7 +36,7 @@ class VideoBlock(blocks.StructBlock):
 
 
 class MixedContentBlock(blocks.StructBlock):
-    video = blocks.ListBlock(VideoBlock(), max_num=1, required=False)
+    video = VideoBlock(max_num=1)
     cards = blocks.ListBlock(listing_blocks.ListingCard(), min_num=1, max_num=4)
     link_url = blocks.URLBlock(required=False)
     link_text = blocks.CharBlock(required=False, max_length=50)

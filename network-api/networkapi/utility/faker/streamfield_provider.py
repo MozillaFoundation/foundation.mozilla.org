@@ -638,15 +638,13 @@ def generate_mixed_content_field():
             }
         )
 
-    video = [
-        {
-            "url": "https://www.youtube.com/embed/83fk3RT8318",
-            "caption": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
-            "thumbnail": choice(Image.objects.all()).id,
-            "title": fake.sentence(nb_words=4, variable_nb_words=True),
-            "text": fake.paragraph(nb_sentences=3, variable_nb_sentences=True),
-        }
-    ]
+    video = {
+        "url": "https://www.youtube.com/embed/83fk3RT8318",
+        "caption": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
+        "thumbnail": choice(Image.objects.all()).id,
+        "title": fake.sentence(nb_words=4, variable_nb_words=True),
+        "text": fake.paragraph(nb_sentences=3, variable_nb_sentences=True),
+    }
 
     return generate_field(
         "mixed_content", {"cards": cards, "video": video, "link_url": link_url, "link_text": link_text}
