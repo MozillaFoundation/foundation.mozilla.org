@@ -6,6 +6,7 @@
             <div class="col-md-4 col-lg-6 mb-5 mb-md-0">
                 <picture class="cms-image {{ class_names }}">
                     <source media="(min-width: 992px)" srcset="{% image_url quote_image "width-540" %}, {% image_url quote_image "width-1080" %} 2x">
+                    {# At the medium breakpoint, we switch to a side-by-side layout. Therefore, we use a smaller image. #}
                     <source media="(min-width: 768px)" srcset="{% image_url quote_image "width-210" %}, {% image_url quote_image "width-420" %} 2x">
                     <source srcset="{% image_url quote_image "width-510" %}, {% image_url quote_image "width-1020" %} 2x">
                     <img
