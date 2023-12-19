@@ -25,6 +25,7 @@ streamfield_fields = [
     "cta",
     "listing",
     "tickets",
+    "session_slider",
 ]
 
 
@@ -58,7 +59,7 @@ class MozfestHomepageFactory(MozfestPrimaryPageFactory):
     banner_link_url = Faker("url")
     banner_link_text = Faker("sentence", nb_words=2, variable_nb_words=True)
 
-    body = Faker("streamfield", fields=streamfield_fields + ["current_events_slider"])
+    body = Faker("streamfield", fields=streamfield_fields)
 
     signup = SubFactory(SignupFactory)
 
