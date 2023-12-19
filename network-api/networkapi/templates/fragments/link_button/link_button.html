@@ -1,0 +1,19 @@
+{% comment %}
+	Simple button styled link component.
+
+    This is mostly used to bundle provide the "disabled" state for link buttons.
+    Do not use the `disabled` attribute on a link, it is not valid HTML.
+{% endcomment %}
+<a
+    href="{{ href }}"
+    class="
+    {% if class %}
+        {{ class }}
+    {% else %}
+        tw-btn-primary
+        {{ extra_class }}
+    {% endif %}
+    "
+>
+    {{ text }}
+</a>

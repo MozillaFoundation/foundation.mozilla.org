@@ -1,0 +1,14 @@
+{% comment %}
+	Do not use this template directly!
+
+    This template is for development purposes only.
+    E.g. visit it in the pattern library: http://localhost:8000/pattern-library/pattern/fragments/link_button/_link_button_variations.html
+{% endcomment %}
+
+<div class="tw-p-8 tw-flex tw-flex-col tw-gap-4 tw-items-start">
+    {% include "./link_button.html" %}
+
+    {% include "./link_button.html" with extra_class="tw-btn-secondary" %}
+
+    {% include "./link_button.html" with extra_class="tw-btn-pop" %}
+</div>
