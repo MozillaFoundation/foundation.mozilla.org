@@ -198,7 +198,7 @@ class DefaultSignupForm extends Component {
           </div>
           <div className="tw-flex-shrink-0 tw-mt-8 medium:tw-mt-0">
             <ButtonSubmit widthClasses="tw-w-full">
-              {getText("Sign Up")}
+              {getText("Sign up")}
             </ButtonSubmit>
           </div>
         </div>
