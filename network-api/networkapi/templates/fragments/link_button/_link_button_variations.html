@@ -8,7 +8,13 @@
 <div class="tw-p-8 tw-flex tw-flex-col tw-gap-4 tw-items-start">
     {% include "./link_button.html" %}
 
+    {% include "./link_button.html" with disabled=True %}
+
     {% include "./link_button.html" with extra_class="tw-btn-secondary" %}
 
+    {% include "./link_button.html" with extra_class="tw-btn-secondary" disabled=True %}
+
     {% include "./link_button.html" with extra_class="tw-btn-pop" %}
+
+    {% include "./link_button.html" with extra_class="tw-btn-pop" disabled=True %}
 </div>

@@ -14,6 +14,10 @@
         {{ extra_class }}
     {% endif %}
     "
+    {% if disabled %}
+        aria-disabled="true"
+        tabindex="-1"
+    {% endif %}
 >
     {{ text }}
 </a>

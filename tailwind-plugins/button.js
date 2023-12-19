@@ -31,7 +31,7 @@ const btnDefault = {
     outline: "0",
     boxShadow: "0 0 0 0.2rem rgb(0 123 255 / 25%)",
   },
-  "&.disabled, &:disabled, &[disabled]": {
+  "&.disabled, &:disabled, &[disabled], &[aria-disabled='true']": {
     opacity: "0.3",
     cursor: "not-allowed",
     pointerEvents: "none",
@@ -39,7 +39,7 @@ const btnDefault = {
   "&:active, &.active": {
     backgroundImage: "none",
   },
-  "&:not(:disabled):not(.disabled)": {
+  "&:not(:disabled):not(.disabled):not([aria-disabled='true'])": {
     cursor: "pointer",
   },
 };
