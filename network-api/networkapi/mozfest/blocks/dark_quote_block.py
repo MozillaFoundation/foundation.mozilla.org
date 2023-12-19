@@ -1,15 +1,10 @@
 from wagtail import blocks
+from networkapi.wagtailpages.pagemodels.customblocks import single_quote_block
 
-
-class DarkSingleQuoteBlock(blocks.StructBlock):
-    # This is a copy of the SingleQuoteBlock from
+class DarkSingleQuoteBlock(single_quote_block.SingleQuoteBlock):
+    # This inherits SingleQuoteBlock from
     # wagtailpages.pagemodels.customblocks.single_quote_block.py
-    # There is obviously code duplication here, but it's necessary due to the
-    # styling changes and the different template.
-    # And explicit is better than implicit.
-    quote = blocks.RichTextBlock(features=["bold"])
-    attribution = blocks.CharBlock(required=False)
-    attribution_info = blocks.RichTextBlock(required=False, features=["bold", "link", "large"])
+    # so we can override the template to have a dark background.
 
     class Meta:
         template = "fragments/blocks/dark_quote_block.html"
