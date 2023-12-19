@@ -1,6 +1,8 @@
 {% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
+{% block streamfield_content_classes %}[body.mozfest_&]:tw-pt-14 [body.mozfest_&]:medium:tw-pt-24{% endblock %}
+
 {% block block_content %}
     {% if self.heading %}
         <h2 class="tw-h3-heading tw-mb-0 tw-pb-8 medium:tw-pb-16">{{ self.heading }}</h2>
