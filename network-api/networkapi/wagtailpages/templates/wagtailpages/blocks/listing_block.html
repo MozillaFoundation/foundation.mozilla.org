@@ -1,11 +1,11 @@
 {% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
+{% block streamfield_content_classes %}[body.mozfest_&]:tw-pt-14 [body.mozfest_&]:medium:tw-pt-24 [body.mozfest_&]:large:tw-w-full{% endblock %}
+
 {% block block_content %}
     {% if self.heading %}
-        <div class="tw-px-2 tw-py-12 tw-w-full">
-            <h2 class="tw-h3-heading">{{ self.heading }}</h2>
-        </div>
+        <h2 class="tw-h3-heading tw-mb-0 tw-pb-8 medium:tw-pb-16">{{ self.heading }}</h2>
     {% endif %}
     <ul class="tw-mb-24 tw-list-none tw-pl-0 tw-grid tw-gap-8 medium:tw-grid-cols-2 medium:tw-gap-24">
         {% for block in self.cards %}
@@ -26,12 +26,12 @@
                         <div class="tw-flex tw-flex-1">
                             <div class="tw-relative tw-pt-8 tw-w-full tw-flex tw-flex-col">
                                 {% if card.highlighted_metadata or card.metadata %}
-                                    <div class="tw-row tw-px-8 tw-py-2">
+                                    <div class="tw-flex tw-gap-4 tw-mb-4">
                                         {% if card.highlighted_metadata %}
-                                            <div class="tw-px-0"><p class="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-py-2 tw-mb-0">{{ card.highlighted_metadata }}</p></div>
+                                            <p class="tw-h6-heading tw-text-blue-80 tw-mr-2 tw-m-0">{{ card.highlighted_metadata }}</p>
                                         {% endif %}
                                         {% if card.metadata %}
-                                            <div class="tw-px-2"><p class="tw-h6-heading tw-text-gray-40 tw-py-2 tw-mb-0">{{ card.metadata }}</p></div>
+                                            <p class="tw-h6-heading tw-text-gray-40 tw-m-0">{{ card.metadata }}</p>
                                         {% endif %}
                                     </div>
                                 {% endif %}
