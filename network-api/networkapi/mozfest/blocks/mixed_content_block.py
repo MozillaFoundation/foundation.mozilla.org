@@ -7,7 +7,7 @@ from networkapi.wagtailpages.pagemodels.customblocks import listing as listing_b
 
 
 class VideoBlock(blocks.StructBlock):
-    url = blocks.CharBlock(
+    url = blocks.URLBlock(
         label="Embed URL",
         help_text="For YouTube: go to your YouTube video and click “Share,” "
         "then “Embed,” and then copy and paste the provided URL only. "
@@ -27,7 +27,7 @@ class VideoBlock(blocks.StructBlock):
     )
     text = blocks.CharBlock(
         required=False,
-        help_text="Text content to display withe video title.",
+        help_text="Text content to display with the video title.",
     )
     thumbnail = image_blocks.ImageChooserBlock(help_text="The image to show before the video is played.")
 
@@ -36,7 +36,7 @@ class VideoBlock(blocks.StructBlock):
 
 
 class MixedContentBlock(blocks.StructBlock):
-    video = VideoBlock(max_num=1)
+    video = VideoBlock()
     cards = blocks.ListBlock(listing_blocks.ListingCard(), min_num=1, max_num=4)
     link_url = blocks.URLBlock(required=False)
     link_text = blocks.CharBlock(required=False, max_length=50)
