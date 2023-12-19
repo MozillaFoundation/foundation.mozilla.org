@@ -1,5 +1,5 @@
-from wagtail import blocks
 from networkapi.wagtailpages.pagemodels.customblocks import single_quote_block
+
 
 class DarkSingleQuoteBlock(single_quote_block.SingleQuoteBlock):
     # This inherits SingleQuoteBlock from
