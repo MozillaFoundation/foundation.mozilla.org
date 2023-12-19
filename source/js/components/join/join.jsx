@@ -327,6 +327,8 @@ class JoinUs extends Component {
           ? "tw-h1-heading large:tw-pr-24"
           : this.props.formStyle == "pni"
           ? "tw-text-3xl tw-font-zilla tw-mb-4 medium:tw-w-4/5"
+          : this.props.formStyle == "mozfest"
+          ? "tw-h3-heading"
           : "tw-h5-heading"
       }`
     );
@@ -401,7 +403,8 @@ class JoinUs extends Component {
     let inputClasses = classNames(`${FORM_CONTROL_CLASS} tw-pr-18`, {
       "tw-border-1 tw-border-black placeholder:tw-text-gray-40 focus:tw-border-blue-40 focus:tw-shadow-none focus-visible:tw-drop-shadow-none tw-mt-8":
         this.props.formStyle == `pop`,
-      "tw-h-24": this.props.formStyle == `pni`,
+      "tw-h-24":
+        this.props.formStyle == `pni` || this.props.formStyle == `mozfest`,
     });
 
     let errorWrapperClasses = classNames("glyph-container", {
@@ -574,7 +577,10 @@ class JoinUs extends Component {
         "tw-border-1 tw-btn-secondary tw-mt-24 medium:-tw-mb-16 medium:tw-mt-12"
       );
       buttonText = getText("Subscribe");
-    } else if (this.props.formStyle == "pni") {
+    } else if (
+      this.props.formStyle == "pni" ||
+      this.props.formStyle == "mozfest"
+    ) {
       classnames = classNames(
         "tw-btn",
         "tw-btn-primary",
@@ -626,7 +632,7 @@ class JoinUs extends Component {
       buttonsWrapperClass = `w-auto tw-text-right`;
     }
 
-    if (this.props.formStyle === "pni") {
+    if (this.props.formStyle === "pni" || this.props.formStyle === "mozfest") {
       formClass = `tw-w-full tw-flex tw-flex-row`;
       buttonsWrapperClass = `w-auto`;
     }
