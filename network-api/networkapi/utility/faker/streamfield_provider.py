@@ -569,6 +569,38 @@ def generate_tickets_block_field():
     return generate_field("tickets", {"heading": heading, "tickets": tickets})
 
 
+def generate_session_slider_item():
+    title = fake.sentence(nb_words=4, variable_nb_words=True)
+    author_subheading = fake.sentence(nb_words=3, variable_nb_words=True)
+
+    image = choice(Image.objects.all()).id
+    body = fake.paragraph(nb_sentences=3, variable_nb_sentences=True)
+    return generate_field(
+        "session_item",
+        {
+            "title": title,
+            "author_subheading": author_subheading,
+            "image": image,
+            "body": body,
+            "link": [generate_labelled_external_link_field()],
+        },
+    )
+
+
+def generate_session_slider_field():
+    title = fake.sentence(nb_words=3, variable_nb_words=True)
+    button = [generate_labelled_external_link_field()]
+    session_items = [
+        generate_session_slider_item(),
+        generate_session_slider_item(),
+        generate_session_slider_item(),
+        generate_session_slider_item(),
+        generate_session_slider_item(),
+    ]
+
+    return generate_field("session_slider", {"title": title, "session_items": session_items, "button": button})
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -624,6 +656,7 @@ class StreamfieldProvider(BaseProvider):
             "tickets": generate_tickets_block_field,
             "dark_quote": generate_dark_quote_field,
             "cta": generate_cta_field,
+            "session_slider": generate_session_slider_field,
         }
 
         streamfield_data = []
