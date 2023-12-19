@@ -365,11 +365,4 @@ body.mozfest {
       @apply tw-opacity-50;
     }
   }
-
-  // Make the listing block full width
-  .listing-block {
-    .streamfield-content {
-      @extend .col-lg-12;
-    }
-  }
 }
