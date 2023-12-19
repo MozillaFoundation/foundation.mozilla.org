@@ -1,115 +1,37 @@
-{% load wagtailcore_tags wagtailimages_tags i18n static %}
+{% load wagtailcore_tags %}
 
 {% block block_content %}
     <div class="tw-py-16">
         <div class="tw-container">
             <div class="tw-row">
                 <div class="tw-grid large:tw-grid-cols-3 tw-gap-x-14 large:tw-mb-20 tw-px-8">
+
+                    {# Video #}
                     <div class="tw-mb-14 large:tw-mb-0 large:tw-col-span-2">
-
-                        <div style="padding-bottom: 56.25%;" class="embed-responsive tw-bg-black tw-text-black tw-relative" id="mozfest-hero-video">
-                            {# Thumbnail and overlay #}
-                            {% image self.video.thumbnail fill-1200x600 as img %}
-                            <button
-                                id="mozfest-home-watch-featured-video-button"
-                                aria-label="{% trans "Watch Video" %}"
-                                class="tw-bg-black tw-w-full tw-h-full tw-absolute tw-inset-0 tw-group tw-z-10 tw-bg-cover tw-bg-center tw-transition tw-duration-500 tw-p-0"
-                                data-video-url="{{ self.video.url }}?&autoplay=1"
-                                style="background-image: url({{ img.url }});"
-                            >
-                                <span class="tw-relative tw-w-full tw-h-full tw-flex tw-justify-center tw-items-center">
-                                    {# Opacity layer #}
-                                    <div class="tw-absolute tw-bg-black tw-opacity-25 tw-inset-0 tw-w-full tw-h-full"></div>
-                                    {# Play Icon #}
-                                    <img src="{% static "_images/mozfest/play-circle-grey.svg" %}"
-                                        class="group-hover:tw--translate-y-2 tw-relative tw-z-10 tw-transition tw-w-[75px] tw-h-[75px] medium:tw-w-[108px] medium:tw-h-[108px]" alt=""/>
-                                </span>
-                                <div class="tw-absolute tw-bottom-0 tw-z-10 tw-bg-white tw-py-4 tw-px-6 tw-flex tw-gap-4 tw-items-center tw-body-large tw-font-zilla">
-                                    <img src="{% static "_images/mozfest/play-circle-black.svg" %}" class="tw-w-[24px] tw-h-[24px]" alt=""/>
-                                    <b>{{ self.video.caption }}</b>
-                                </div>
-                            </button>
-
-                            {# Video #}
-                            <iframe src="" frameborder="0" class="embed-responsive-item" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                        </div>
-
-                        <h2 class="tw-h3-heading tw-mt-8">{{ self.video.title }}</h2>
-                        <div class="[&_p,li,ul]:last:tw-mb-0">
-                            {{ self.video.text }}
-                        </div>
+                        {% include "partials/video.html" with video=self.video %}
                     </div>
+
                     {# First card in the loop #}
                     {% for item in self.cards %}
                         {% if forloop.first %}
-                            {% image item.image fill-720x405 as img %}
-                            <div class="tw-m-0 tw-p-0">
-                                <div class="tw-flex tw-flex-col tw-gap-6 tw-w-full">
-                                    {% if item.link_page or item.link_url %}
-                                        <a href="{% if item.link_page %}{% pageurl item.link_page %}{% elif item.link_url %}{{ item.link_url }}{% endif %}" aria-label="{{ item.title }}">
-                                    {% endif %}
-                                        <img width="720" height="405" src="{{ img.url }}" alt="{{ item.alt_text }}"/>
-                                    {% if item.link_page or item.link_url %}
-                                        </a>
-                                    {% endif %}
-
-                                    <div class="tw-flex tw-flex-wrap">
-                                        <span class="tw-h6-heading tw-text-blue-80 tw-mr-4 tw-py-2 tw-mb-0">{{ item.highlighted_metadata }}</span>
-                                        <span class="tw-h6-heading tw-text-gray-40 tw-py-2 tw-mb-0">{{ item.metadata }}</span>
-                                    </div>
-
-                                    {% if item.link_page or item.link_url %}
-                                        <a href="{% if item.link_page %}{% pageurl item.link_page %}{% elif item.link_url %}{{ item.link_url }}{% endif %}" aria-label="{{ item.title }}" class="tw-group tw-block hover:tw-no-underline">
-                                    {% endif %}
-
-                                        <p class="tw-h4-heading d-inline-block mt-1 mb-2 group-hover:tw-underline">{{ item.title }}</p>
-                                        <div class="tw-body tw-line-clamp-3">{{ item.body }}</div>
-
-                                    {% if item.link_page or item.link_url %}
-                                        </a>
-                                    {% endif %}
-                                </div>
-                            </div>
+                            {% include "partials/mixed_content_card.html" with item=item %}
                         {% endif %}
                     {% endfor %}
                 </div>
             </div>
 
-            <div class="tw-row">
-                <ul class="tw-grid tw-grid-cols-1 large:tw-grid-cols-3 tw-gap-x-12 tw-gap-y-14 tw-list-none tw-mt-16 large:tw-mt-0 tw-px-8">
-                    {# All cards except the first #}
-                    {% for item in self.cards %}
-                        {% if not forloop.first %}
-                            {% image item.image fill-720x405 as img %}
-                            <li class="tw-flex tw-flex-col tw-gap-6 tw-w-full">
-                                {% if item.link_page or item.link_url %}
-                                    <a href="{% if item.link_page %}{% pageurl item.link_page %}{% elif item.link_url %}{{ item.link_url }}{% endif %}" aria-label="{{ item.title }}">
-                                {% endif %}
-                                    <img width="720" height="405" src="{{ img.url }}" alt="{{ item.alt_text }}"/>
-                                {% if item.link_page or item.link_url %}
-                                    </a>
-                                {% endif %}
-
-                                <div class="tw-flex tw-flex-wrap">
-                                    <span class="tw-h6-heading tw-text-blue-80 tw-mr-4 tw-py-2 tw-mb-0">{{ item.highlighted_metadata }}</span>
-                                    <span class="tw-h6-heading tw-text-gray-40 tw-py-2 tw-mb-0">{{ item.metadata }}</span>
-                                </div>
-
-                                {% if item.link_page or item.link_url %}
-                                    <a href="{% if item.link_page %}{% pageurl item.link_page %}{% elif item.link_url %}{{ item.link_url }}{% endif %}" aria-label="{{ item.title }}" class="tw-group tw-block hover:tw-no-underline">
-                                {% endif %}
-
-                                    <p class="tw-h4-heading d-inline-block mt-1 mb-2 group-hover:tw-underline">{{ item.title }}</p>
-                                    <div class="tw-body tw-line-clamp-3">{{ item.body }}</div>
-
-                                {% if item.link_page or item.link_url %}
-                                    </a>
-                                {% endif %}
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
+            {% if self.cards|length > 1 %}
+                <div class="tw-row">
+                    <ul class="tw-grid tw-grid-cols-1 large:tw-grid-cols-3 tw-gap-x-12 tw-gap-y-14 tw-list-none tw-mt-16 large:tw-mt-0 tw-px-8">
+                        {# All cards except the first #}
+                        {% for item in self.cards %}
+                            {% if not forloop.first %}
+                                {% include "partials/mixed_content_card.html" with item=item %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
 
             {% if self.link_text and self.link_url %}
                 <div class="tw-row tw-justify-center tw-mt-16">

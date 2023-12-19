@@ -1,0 +1,40 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% image item.image fill-720x405 as img %}
+<div class="tw-m-0 tw-p-0">
+    <div class="tw-flex tw-flex-col tw-gap-6 tw-w-full">
+        {% if item.link_page or item.link_url %}
+            <a href="{% if item.link_page %}{% pageurl item.link_page %}{% elif item.link_url %}{{ item.link_url }}{% endif %}" aria-label="{{ item.title }}">
+        {% endif %}
+            <img width="720" height="405" src="{{ img.url }}" alt="{{ item.alt_text }}"/>
+        {% if item.link_page or item.link_url %}
+            </a>
+        {% endif %}
+
+        {% if item.highlighted_metadata or item.metadata %}
+            <div class="tw-flex tw-flex-wrap">
+                {% if item.highlighted_metadata %}
+                    <span class="tw-h6-heading tw-text-blue-80 tw-mr-4 tw-py-2 tw-mb-0">{{ item.highlighted_metadata }}</span>
+                {% endif %}
+
+                {% if item.metadata %}
+                    <span class="tw-h6-heading tw-text-gray-40 tw-py-2 tw-mb-0">{{ item.metadata }}</span>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if item.link_page or item.link_url %}
+            <a href="{% if item.link_page %}{% pageurl item.link_page %}{% elif item.link_url %}{{ item.link_url }}{% endif %}" aria-label="{{ item.title }}" class="tw-group tw-block hover:tw-no-underline">
+        {% endif %}
+
+        <p class="tw-h4-heading d-inline-block mt-1 mb-2 group-hover:tw-underline">{{ item.title }}</p>
+
+        {% if item.body %}
+            <div class="tw-body tw-line-clamp-3">{{ item.body }}</div>
+        {% endif %}
+
+        {% if item.link_page or item.link_url %}
+            </a>
+        {% endif %}
+    </div>
+</div>
