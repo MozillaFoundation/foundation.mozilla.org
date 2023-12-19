@@ -5,10 +5,10 @@
         {% if quote_image %}
             <div class="col-md-4 col-lg-6 mb-5 mb-md-0">
                 {% comment %}
-      To-do:
-      1) Update picture_ratios.html so image sizes are passed as arguments instead of hard-corded.
-      2) Replace the following "picture" code with {% optimize_images page.quote_image %}
-    {% endcomment %}
+                    To-do:
+                    1) Update picture_ratios.html so image sizes are passed as arguments instead of hard-corded.
+                    2) Replace the following "picture" code with {% optimize_images page.quote_image %}
+                {% endcomment %}
                 {% with alt_text=quote_image.alt %}
                     <picture class="cms-image {{ class_names }}">
                         <source media="(min-width: 992px)" srcset="{% image_url quote_image "width-540" %}, {% image_url quote_image "width-1080" %} 2x">
