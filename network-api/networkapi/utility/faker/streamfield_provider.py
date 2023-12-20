@@ -601,6 +601,17 @@ def generate_session_slider_field():
     return generate_field("session_slider", {"title": title, "session_items": session_items, "button": button})
 
 
+def generate_profiles_field():
+    profiles = []
+    from networkapi.wagtailpages.factory.profiles import ProfileFactory
+
+    for n in range(9):
+        profile_snippet = ProfileFactory.create()
+        profiles.append({"profile": profile_snippet.id})
+
+    return generate_field("profiles", {"profiles": profiles})
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -657,6 +668,7 @@ class StreamfieldProvider(BaseProvider):
             "dark_quote": generate_dark_quote_field,
             "cta": generate_cta_field,
             "session_slider": generate_session_slider_field,
+            "profiles": generate_profiles_field,
         }
 
         streamfield_data = []
