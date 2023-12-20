@@ -20,9 +20,9 @@ beautifulsoup4==4.9.3
     # via
     #   -r requirements.in
     #   wagtail
-boto3==1.33.6
+boto3==1.33.12
     # via -r requirements.in
-botocore==1.33.6
+botocore==1.33.12
     # via
     #   boto3
     #   s3transfer
@@ -45,6 +45,7 @@ defusedxml==0.7.1
     # via
     #   python3-openid
     #   social-auth-core
+    #   willow
 dj-database-url==2.1.0
     # via -r requirements.in
 django==3.2.23
@@ -122,6 +123,8 @@ faker==20.1.0
     #   factory-boy
 filebrowser-safe==1.1.1
     # via -r requirements.in
+filetype==1.2.0
+    # via willow
 future==0.18.3
     # via -r requirements.in
 gitdb==4.0.9
@@ -154,7 +157,7 @@ openpyxl==3.1.0
     # via wagtail
 packaging==23.1
     # via gunicorn
-pillow==9.5.0
+pillow==10.0.1
     # via wagtail
 polib==1.1.1
     # via wagtail-localize
@@ -274,7 +277,7 @@ webencodings==0.5.1
     # via html5lib
 whitenoise==6.6.0
     # via -r requirements.in
-willow==1.4.1
+willow==1.6.3
     # via wagtail
 wrapt==1.13.3
     # via scout-apm
