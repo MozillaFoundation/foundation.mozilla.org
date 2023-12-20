@@ -100,8 +100,8 @@ ignore="H017"
 "network-api/networkapi/templates/pages/publication_page.html" = "T003,T032"
 "network-api/networkapi/templates/pages/styleguide.html" = "H006,H013,H014,H026,T003,T032"
 "network-api/networkapi/templates/partials/404.html" = "D018,H006"
-"network-api/networkapi/templates/partials/footer.html" = "H006,H008,T002,T003"
-"network-api/networkapi/templates/partials/primary_nav.html" = "D018,H014,H025,T002,T003"
+"network-api/networkapi/templates/fragments/footer.html" = "H006,H008,T002,T003"
+"network-api/networkapi/templates/fragments/primary_nav.html" = "D018,H014,H025,T002,T003"
 "network-api/networkapi/templates/pattern_library_base.html" = "H030,H031,T003"
 "network-api/networkapi/templates/reviewapp-help.html" = "D018,T003"
 "network-api/networkapi/wagtailcustomization/templates/wagtailadmin/404.html" = "D018,H014,T003"
@@ -179,7 +179,7 @@ ignore="H017"
 "network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/newsletter-signup-box.html" = "H008"
 "network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/partner.html" = "H006,H008,H014"
 "network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/primary_heroguts.html" = "H006"
-"network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/quote.html" = "H006"
+"network-api/networkapi/templates/fragments/quote.html" = "H006"
 "network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/related_posts.html" = "T003"
 "network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/related_topics_cutout.html" = "T002"
 "network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/search_bar.html" = "T002"
@@ -239,8 +239,8 @@ profile = "black"
 extend_skip = ["network-api/media", "network-api/staticfiles", "dockerpythonvenv"]
 skip_gitignore = true
 known_first_party = ["networkapi"]
-# Though overwrite_in_place comes at a performance and memory usage penalty, 
-# it avoids the 'Device or resource busy' error if isort needs 
+# Though overwrite_in_place comes at a performance and memory usage penalty,
+# it avoids the 'Device or resource busy' error if isort needs
 # to correct a mount point (e.g. tasks.py)
 overwrite_in_place = true
 

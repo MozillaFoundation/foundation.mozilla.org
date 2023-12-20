@@ -1,8 +1,7 @@
 {% load settings_value i18n static %}
 
 {% with wrapper_class="tw-py-24" %}
-
-    <footer role="contentinfo">
+    <footer>
         {% if skip_donate != True %}
             {% block footer_donate %}
                 <div class="tw-bg-blue-40 tw-dark print:tw-hidden {{ wrapper_class }}">
