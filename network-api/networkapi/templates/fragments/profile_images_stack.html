@@ -3,7 +3,7 @@
 {% with image_classes="-tw-ml-[0.7rem] tw-overflow-hidden tw-rounded-full tw-border-2 tw-border-white tw-inline-block tw-w-20 tw-h-20 tw-border-r d-flex align-items-center justify-content-center last:tw-mr-4" no_image_classes="tw-bg-[url('../_images/author-placeholder.jpg')] tw-bg-cover " %}
     <div class="profile-images d-flex flex-wrap tw-pl-[0.7rem] tw-z-10">
         {% for profile in profiles %}
-            <div class="profile-image {{ image_classes }} {% if not profile.image %} {{ no_image_classes }} {% endif %}" aria-label="{{ profile.name }}" style="z-index:-{{ forloop.counter }};">
+            <div class="profile-image {{ image_classes }} {% if not profile.image %} {{ no_image_classes }} {% endif %}" style="z-index:-{{ forloop.counter }};">
                 {% if profile.image %}
                     <img src="{% image_url profile.image "fill-100x100" %}" alt="{{ profile.name }}" title="{{ profile.name }}" />
                 {% endif %}
