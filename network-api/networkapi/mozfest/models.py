@@ -59,6 +59,61 @@ class Ticket(TranslatableMixin):
             raise exceptions.ValidationError("Please provide both link URL and link text, or neither")
 
 
+@register_snippet
+class NewsletterSignupWithBackground(TranslatableMixin):
+    name = models.CharField(
+        default="",
+        max_length=100,
+        help_text="Identify this component for other editors",
+    )
+    heading = models.CharField(
+        max_length=100,
+    )
+    text = models.CharField(blank=True, max_length=250)
+    background_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="mozfest_newsletter_signup_background",
+        verbose_name="Background Image",
+        help_text="Optional background image for the rendered signup snippet.",
+    )
+    newsletter = models.CharField(
+        max_length=100,
+        help_text="The (pre-existing) newsletter to sign up for",
+        default="mozilla-foundation",
+    )
+    campaign_id = models.CharField(
+        max_length=20,
+        help_text="Which campaign identifier should this petition be tied to?",
+        null=True,
+        blank=True,
+    )
+
+    ask_name = models.BooleanField(
+        help_text="Check this box to show (optional) name fields",
+        default=False,
+    )
+
+    translatable_fields = [
+        TranslatableField("name"),
+        TranslatableField("heading"),
+        TranslatableField("text"),
+        SynchronizedField("background_image"),
+        SynchronizedField("campaign_id"),
+        SynchronizedField("ask_name"),
+        SynchronizedField("newsletter"),
+    ]
+
+    class Meta(TranslatableMixin.Meta):
+        ordering = ["heading"]
+        verbose_name = "Newsletter Signup With Background"
+
+    def __str__(self):
+        return self.heading
+
+
 class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):
     header = models.CharField(max_length=250, blank=True)
 
@@ -97,6 +152,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ("tickets", mozfest_blocks.TicketsBlock()),
             ("dark_quote", mozfest_blocks.DarkSingleQuoteBlock()),
             ("cta", mozfest_blocks.CTABlock()),
+            ("newsletter_signup", mozfest_blocks.NewsletterSignupWithBackgroundBlock()),
         ],
         use_json_field=True,
     )

@@ -612,6 +612,14 @@ def generate_profiles_field():
     return generate_field("profiles", {"profiles": profiles})
 
 
+def generate_newsletter_signup_with_background_field():
+    from networkapi.mozfest.factory import NewsletterSignupWithBackgroundSnippetFactory
+
+    newsletter_snippet = NewsletterSignupWithBackgroundSnippetFactory.create()
+
+    return generate_field("newsletter_signup", {"snippet": newsletter_snippet.id})
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -669,6 +677,7 @@ class StreamfieldProvider(BaseProvider):
             "cta": generate_cta_field,
             "session_slider": generate_session_slider_field,
             "profiles": generate_profiles_field,
+            "newsletter_signup": generate_newsletter_signup_with_background_field,
         }
 
         streamfield_data = []
