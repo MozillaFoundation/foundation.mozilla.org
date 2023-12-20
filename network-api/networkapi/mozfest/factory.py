@@ -27,6 +27,7 @@ streamfield_fields = [
     "tickets",
     "session_slider",
     "profiles",
+    "image_grid",
 ]
 
 
