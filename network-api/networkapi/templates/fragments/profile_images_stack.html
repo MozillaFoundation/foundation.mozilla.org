@@ -5,7 +5,7 @@
         {% for profile in profiles %}
             <div class="profile-image {{ image_classes }} {% if not profile.image %} {{ no_image_classes }} {% endif %}" style="z-index:-{{ forloop.counter }};">
                 {% if profile.image %}
-                    <img src="{% image_url profile.image "fill-100x100" %}" alt="{{ profile.name }}" title="{{ profile.name }}" />
+                    <img src="{% image_url profile.image "fill-100x100" %}" alt="{{ profile.name }}" title="{{ profile.name }}">
                 {% endif %}
             </div>
         {% endfor %}
