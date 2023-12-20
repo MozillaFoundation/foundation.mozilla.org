@@ -11,7 +11,7 @@ const watchVideoHandler = () => {
 
   videoContainers.forEach((videoContainer) => {
     const watchVideoButton = videoContainer.querySelector(
-      '[data-mozfest-video-button]'
+      "[data-mozfest-video-button]"
     );
 
     const externalVideo = videoContainer.querySelector(`iframe`);
@@ -23,13 +23,12 @@ const watchVideoHandler = () => {
 
     if (watchVideoButton) {
       watchVideoButton.addEventListener(`click`, () => {
+        // Get video url from button
+        const videoUrl = watchVideoButton.dataset.videoUrl;
 
-      // Get video url from button
-      const videoUrl = watchVideoButton.dataset.videoUrl;
-
-      // Add Src to video to play it
-      externalVideo.setAttribute("src", videoUrl);
-      fadeOutOverlay(watchVideoButton);
+        // Add Src to video to play it
+        externalVideo.setAttribute("src", videoUrl);
+        fadeOutOverlay(watchVideoButton);
       });
     }
   });
