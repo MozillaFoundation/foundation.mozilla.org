@@ -37,6 +37,7 @@ class WagtailpagesTestCase(wagtail_test.WagtailPageTestCase):
         assert cls.fr_locale != cls.default_locale
 
     def setUp(self):
+        super().setUp()
         self.activate_locale(self.default_locale)
 
     def synchronize_tree(self):

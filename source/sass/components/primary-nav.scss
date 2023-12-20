@@ -135,6 +135,7 @@
     }
 
     .burger {
+      @apply tw-flex tw-flex-col;
       margin-left: -52px;
       border: 0;
       background: transparent;
