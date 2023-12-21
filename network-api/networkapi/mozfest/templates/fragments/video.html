@@ -20,10 +20,10 @@
                 class="group-hover:tw--translate-y-2 tw-relative tw-z-10 tw-transition tw-w-[75px] tw-h-[75px] medium:tw-w-[108px] medium:tw-h-[108px]" alt=""/>
         </span>
         {% if video.caption %}
-            <div class="tw-absolute tw-bottom-0 tw-z-10 tw-bg-white tw-py-4 tw-px-6 tw-flex tw-gap-4 tw-items-center tw-body-large tw-font-zilla">
+            <span class="tw-absolute tw-bottom-0 tw-z-10 tw-bg-white tw-py-4 tw-px-6 tw-flex tw-gap-4 tw-items-center tw-body-large tw-font-zilla">
                 <img src="{% static "_images/mozfest/play-circle-black.svg" %}" class="tw-w-[24px] tw-h-[24px]" alt=""/>
                 <b>{{ video.caption }}</b>
-            </div>
+            </span>
         {% endif %}
     </button>
 
