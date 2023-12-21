@@ -13,6 +13,7 @@ from networkapi.wagtailpages.models import (
     FoundationMetadataPageMixin,
     Signup,
 )
+from networkapi.wagtailpages.pagemodels import campaigns as campaign_models
 from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.pagemodels.customblocks.base_fields import base_fields
 from networkapi.wagtailpages.utils import (
@@ -60,16 +61,7 @@ class Ticket(TranslatableMixin):
 
 
 @register_snippet
-class NewsletterSignupWithBackground(TranslatableMixin):
-    name = models.CharField(
-        default="",
-        max_length=100,
-        help_text="Identify this component for other editors",
-    )
-    heading = models.CharField(
-        max_length=100,
-    )
-    text = models.CharField(blank=True, max_length=250)
+class NewsletterSignupWithBackground(TranslatableMixin, campaign_models.CTA):
     background_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -79,35 +71,13 @@ class NewsletterSignupWithBackground(TranslatableMixin):
         verbose_name="Background Image",
         help_text="Optional background image for the rendered signup snippet.",
     )
-    newsletter = models.CharField(
-        max_length=100,
-        help_text="The (pre-existing) newsletter to sign up for",
-        default="mozilla-foundation",
-    )
-    campaign_id = models.CharField(
-        max_length=20,
-        help_text="Which campaign identifier should this petition be tied to?",
-        null=True,
-        blank=True,
-    )
 
-    ask_name = models.BooleanField(
-        help_text="Check this box to show (optional) name fields",
-        default=False,
-    )
-
-    translatable_fields = [
-        TranslatableField("name"),
-        TranslatableField("heading"),
-        TranslatableField("text"),
+    translatable_fields = campaign_models.CTA.translatable_fields + [
         SynchronizedField("background_image"),
-        SynchronizedField("campaign_id"),
-        SynchronizedField("ask_name"),
-        SynchronizedField("newsletter"),
     ]
 
     class Meta(TranslatableMixin.Meta):
-        ordering = ["heading"]
+        ordering = ["name"]
         verbose_name = "Newsletter Signup With Background"
 
     def __str__(self):

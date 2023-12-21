@@ -98,8 +98,8 @@ class NewsletterSignupWithBackgroundSnippetFactory(DjangoModelFactory):
         model = mozfest_models.NewsletterSignupWithBackground
 
     name = Faker("sentence", nb_words=2)
-    heading = Faker("text", max_nb_chars=100)
-    text = Faker("text", max_nb_chars=250)
+    header = Faker("text", max_nb_chars=100)
+    description = Faker("text", max_nb_chars=250)
     background_image = SubFactory(ImageFactory)
 
 
