@@ -571,6 +571,11 @@ class JoinUs extends Component {
   renderSubmitButton() {
     let classnames;
     let buttonText;
+    let dataAttributes = {};
+
+    if (this.props.formStyle == "mozfest") {
+      dataAttributes["data-cta-event"] = "newsletter-signup";
+    }
 
     if (this.props.formStyle == "pop") {
       classnames = classNames(
@@ -597,7 +602,11 @@ class JoinUs extends Component {
     }
 
     return (
-      <button className={classnames} disabled={this.state.submitButtonDisabled}>
+      <button
+        className={classnames}
+        disabled={this.state.submitButtonDisabled}
+        {...dataAttributes}
+      >
         {buttonText}
       </button>
     );

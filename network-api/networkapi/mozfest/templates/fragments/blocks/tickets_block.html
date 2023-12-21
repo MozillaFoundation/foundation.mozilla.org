@@ -15,7 +15,7 @@
                                     {{ tier.description|richtext }}
                                 </div>
                                 {% if tier.link_url and tier.link_text %}
-                                    <a class="tw-mt-auto tw-btn-primary" href="{{ tier.link_url }}">
+                                    <a class="tw-mt-auto tw-btn-primary" href="{{ tier.link_url }}" data-cta-event="ticket">
                                         {{ tier.link_text }}
                                     </a>
                                 {% endif %}
