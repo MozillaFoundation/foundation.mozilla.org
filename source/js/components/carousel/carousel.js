@@ -21,7 +21,7 @@ class Carousel {
       watchOverflow: true,
       centeredSlides: false,
       simulateTouch: true,
-      slidesPerView: 1,
+      slidesPerView: this.node.dataset.slidesPerView || 1,
       autoHeight: false,
       keyboard: {
         enabled: true,
