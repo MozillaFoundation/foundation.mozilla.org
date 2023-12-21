@@ -41,7 +41,7 @@ function testURL(baseUrl, path) {
         { visible: true }
       );
       await iframeHandle.scrollIntoViewIfNeeded();
-      await page.waitForTimeout(2000);
+      await page.waitForTimeout(3000);
     }
 
     // we don't want to screenshot before images are done.
