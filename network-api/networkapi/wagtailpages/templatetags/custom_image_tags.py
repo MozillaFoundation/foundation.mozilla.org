@@ -3,11 +3,6 @@ from django import template
 register = template.Library()
 
 
-@register.inclusion_tag("wagtailpages/tags/picture_ratios.html")
-def optimize_images(image):
-    return {"unoptimized_image": image}
-
-
 @register.simple_tag(name="custom_image_height")
 def custom_image_height(image, height=410):
     """

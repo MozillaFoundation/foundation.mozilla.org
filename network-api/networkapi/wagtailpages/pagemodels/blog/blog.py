@@ -160,7 +160,7 @@ class BlogPage(BasePage):
         help_text="Check this box to add a comment section for this blog post.",
     )
 
-    related_post_count = 3
+    RELATED_POSTS_MAX = 3
 
     content_panels = [
         FieldPanel(
@@ -187,7 +187,7 @@ class BlogPage(BasePage):
             "If you pick fewer than three (or none), saving will "
             "automatically bind some related posts based on tag matching.",
             min_num=0,
-            max_num=related_post_count,
+            max_num=RELATED_POSTS_MAX,
         ),
     ]
 
@@ -265,22 +265,16 @@ class BlogPage(BasePage):
 
         related_posts = [post.related_post for post in self.related_posts.all()]
         if request.is_preview:
-            # While we automatically pad out the related posts during save, we want to
-            # see that same padded list during preview, but *without* actually updating
-            # the model, so we control this property at render context retrieval time:
+            # While we automatically pad out the related posts during `clean`, we want to
+            # see that same padded list during preview. However, `clean` is not called,
+            # when previewing. Therefore, we manually extend the related posts.
             related_posts = related_posts + self.get_missing_related_posts()
+        context["related_posts"] = related_posts
 
-        # Make sure to filter out any None entries, which may happen if the
-        # self.ensure_related_posts() function was unable to find any related
-        # posts to pad the related posts set with.
-        context["related_posts"] = list(filter(None, related_posts))
-
-        # Pull this object specifically using the English page title
         default_locale = Locale.get_default()
-        blog_page = BlogIndexPage.objects.filter(locale=default_locale).live().first()
-
-        if blog_page:
-            context["blog_index"] = blog_page
+        blog_index = BlogIndexPage.objects.filter(locale=default_locale).live().first()
+        if blog_index:
+            context["blog_index"] = blog_index
 
         return context
 
@@ -295,24 +289,24 @@ class BlogPage(BasePage):
         """
         additional_posts = list()
         post_count = self.related_posts.all().count()
-        missing_count = self.related_post_count - post_count
+        missing_count = self.RELATED_POSTS_MAX - post_count
 
-        if missing_count == 0:
+        if missing_count <= 0:
+            # We have enough related posts already, so return an empty list
             return additional_posts
 
         related_posts = get_content_related_by_tag(self)
 
-        if len(related_posts) > 0:
-            # Add as many posts as there are missing, or until
-            # we run out of related posts, whichever comes first.
-            for post in related_posts:
-                if missing_count == 0:
-                    break
-                if self.related_posts.filter(related_post=post).count() > 0:
-                    # Make sure to skip over duplicates
-                    continue
-                additional_posts.append(post)
-                missing_count = missing_count - 1
+        # Add as many posts as there are missing, or until
+        # we run out of related posts, whichever comes first.
+        for post in related_posts:
+            if missing_count == 0:
+                break
+            if self.related_posts.filter(related_post=post).count() > 0:
+                # Make sure to skip over duplicates
+                continue
+            additional_posts.append(post)
+            missing_count = missing_count - 1
 
         return additional_posts
 
