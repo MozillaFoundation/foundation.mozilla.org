@@ -80,9 +80,6 @@ class NewsletterSignupWithBackground(TranslatableMixin, campaign_models.CTA):
         ordering = ["name"]
         verbose_name = "Newsletter Signup With Background"
 
-    def __str__(self):
-        return self.heading
-
 
 class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):
     header = models.CharField(max_length=250, blank=True)
