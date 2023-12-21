@@ -70,6 +70,7 @@ module.exports = [
         },
         ".form-error-glyph": {
           ...glyph("form-error"),
+          display: "flex",
           "&:before": {
             width: "13px",
             height: "13px",

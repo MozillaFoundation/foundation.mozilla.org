@@ -5,7 +5,6 @@ const {
 } = require("../../../source/js/components/newsletter-signup/data/language-options.js");
 
 const locales = LANGUAGE_OPTIONS.map((language) => language.value);
-
 function generateUrl(locale = "en") {
   return `http://localhost:8000/${locale}/blog/initial-test-blog-post-with-fixed-title/?random=query`;
 }
@@ -34,13 +33,13 @@ test.describe("Blog body newsletter signup form", () => {
 
     // test if the newsletter module is visible
     moduleContainer = page.locator(
-      ".newsletter-signup-module[data-module-type='blog-body']"
+      "main .newsletter-signup-module[data-module-type='default']"
     );
     await moduleContainer.waitFor({ state: "visible" });
     expect(await moduleContainer.count()).toBe(1);
 
     // test if the inner wrapper is visible and data-submission-status attribute is set to "none"
-    innerWrapper = moduleContainer.locator(".inner-wrapper");
+    innerWrapper = moduleContainer.locator("[data-submission-status]");
     await innerWrapper.waitFor({ state: "visible" });
     expect(await innerWrapper.count()).toBe(1);
     expect(await innerWrapper.getAttribute("data-submission-status")).toBe(
