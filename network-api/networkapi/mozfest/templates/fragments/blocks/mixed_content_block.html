@@ -12,9 +12,9 @@
                     </div>
 
                     {# First card in the loop #}
-                    {% for item in self.cards %}
+                    {% for card in self.cards %}
                         {% if forloop.first %}
-                            {% include "fragments/mixed_content_card.html" with item=item %}
+                            {% include "fragments/mixed_content_card.html" with card=card %}
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -24,9 +24,9 @@
                 <div class="tw-row">
                     <ul class="tw-grid tw-grid-cols-1 large:tw-grid-cols-3 tw-gap-x-12 tw-gap-y-14 tw-list-none tw-mt-16 large:tw-mt-0 tw-px-8">
                         {# All cards except the first #}
-                        {% for item in self.cards %}
+                        {% for card in self.cards %}
                             {% if not forloop.first %}
-                                {% include "fragments/mixed_content_card.html" with item=item %}
+                                {% include "fragments/mixed_content_card.html" with card=card %}
                             {% endif %}
                         {% endfor %}
                     </ul>
