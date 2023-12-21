@@ -5,7 +5,7 @@
     <div class="tw-h-full tw-flex tw-flex-col tw-col-span-12 tw-justify-between large:tw-col-span-4 large:tw-py-0 {% if content_left %} large:tw-pl-6 {% else %} large:tw-pr-6 {% endif %}">
         <div>
             <div class="tw-flex tw-flex-wrap">
-                {% include "./blog_topics.html" with topics=blog_page.specific.topics.all video_post=True published_date=blog_page.first_published_at %}
+                {% include "wagtailpages/fragments/blog_topics.html" with topics=blog_page.specific.topics.all video_post=True published_date=blog_page.first_published_at %}
                 {% if video_url %}
                     <img src="{% static "_images/video-icon.svg" %}" alt="{% trans "video" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-mr-4 tw-my-2">
                 {% endif %}
@@ -17,7 +17,7 @@
             </a>
         </div>
         <div>
-            {% include "./blog_authors.html" with blog_page=blog_page %}
+            {% include "wagtailpages/fragments/blog_authors.html" with blog_page=blog_page %}
         </div>
     </div>
     <div class="tw-order-first tw-col-span-12 large:tw-col-span-8 {% if not content_left %} large:tw-order-last {% endif %}">
