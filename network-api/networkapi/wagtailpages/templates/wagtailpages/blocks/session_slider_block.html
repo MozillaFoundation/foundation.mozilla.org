@@ -23,10 +23,10 @@
                     {% block slides %}
                         <div class="swiper-wrapper tw-items-stretch">
                             {% for item in self.session_items %}
-                            {% image item.value.image fill-420x290 as img %}
-                            <div class="swiper-slide tw-h-auto">
-                                {% include 'fragments/session_card.html' with title=item.value.title author_subheading=item.value.author_subheading url=item.value.link.0.value.link_url image=img.url text=item.value.body animated_thumbnail=item.value.video.url %}
-                            </div>
+                                {% image item.value.image fill-420x290 as img %}
+                                <div class="swiper-slide tw-h-auto">
+                                    {% include 'fragments/session_card.html' with title=item.value.title author_subheading=item.value.author_subheading url=item.value.link.0.value.link_url image=img.url text=item.value.body animated_thumbnail=item.value.video.url %}
+                                </div>
                             {% endfor %}
                         </div>
                     {% endblock %}
