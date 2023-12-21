@@ -33,6 +33,17 @@ function testURL(baseUrl, path) {
       await page.waitForTimeout(2000);
     }
 
+    // For the Donate Help page, we need to scroll the reCAPTCHA box into view so it can be rendered in the screenshot
+    if (path == "/donate/help") {
+      // Wait for the reCAPTCHA iframe to be visible
+      const iframeHandle = await page.waitForSelector(
+        'iframe[title="reCAPTCHA"]',
+        { visible: true }
+      );
+      await iframeHandle.scrollIntoViewIfNeeded();
+      await page.waitForTimeout(2000);
+    }
+
     // we don't want to screenshot before images are done.
     await waitForImagesToLoad(page);
 
