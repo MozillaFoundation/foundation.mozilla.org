@@ -256,7 +256,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         blank=True,
         help_text="Text displayed below the banner heading.",
     )
-    banner_link_url = models.URLField(
+    banner_link_url = models.CharField(
         max_length=2048,
         blank=True,
         help_text="Link presented to the user as a CTA in the banner.",
@@ -353,7 +353,7 @@ class MozfestLandingPage(MozfestPrimaryPage):
         blank=True,
         help_text="Text displayed below the banner heading.",
     )
-    banner_link_url = models.URLField(
+    banner_link_url = models.CharField(
         max_length=2048,
         blank=True,
         help_text="Link presented to the user as a CTA in the banner.",
