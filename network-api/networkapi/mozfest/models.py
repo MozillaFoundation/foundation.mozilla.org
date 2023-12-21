@@ -13,6 +13,7 @@ from networkapi.wagtailpages.models import (
     FoundationMetadataPageMixin,
     Signup,
 )
+from networkapi.wagtailpages.pagemodels import campaigns as campaign_models
 from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.pagemodels.customblocks.base_fields import base_fields
 from networkapi.wagtailpages.utils import (
@@ -59,6 +60,30 @@ class Ticket(TranslatableMixin):
             raise exceptions.ValidationError("Please provide both link URL and link text, or neither")
 
 
+@register_snippet
+class NewsletterSignupWithBackground(TranslatableMixin, campaign_models.CTA):
+    background_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="mozfest_newsletter_signup_background",
+        verbose_name="Background Image",
+        help_text="Optional background image for the rendered signup snippet.",
+    )
+
+    translatable_fields = campaign_models.CTA.translatable_fields + [
+        SynchronizedField("background_image"),
+    ]
+
+    class Meta(TranslatableMixin.Meta):
+        ordering = ["name"]
+        verbose_name = "Newsletter Signup With Background"
+
+    def __str__(self):
+        return self.heading
+
+
 class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):
     header = models.CharField(max_length=250, blank=True)
 
@@ -97,6 +122,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ("tickets", mozfest_blocks.TicketsBlock()),
             ("dark_quote", mozfest_blocks.DarkSingleQuoteBlock()),
             ("cta", mozfest_blocks.CTABlock()),
+            ("newsletter_signup", mozfest_blocks.NewsletterSignupWithBackgroundBlock()),
         ],
         use_json_field=True,
     )

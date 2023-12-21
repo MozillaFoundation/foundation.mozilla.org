@@ -28,6 +28,7 @@ streamfield_fields = [
     "session_slider",
     "profiles",
     "image_grid",
+    "newsletter_signup",
 ]
 
 
@@ -90,6 +91,16 @@ class TicketSnippetFactory(DjangoModelFactory):
     link_text = Faker("text", max_nb_chars=25)
     link_url = Faker("url")
     sticker_text = Faker("text", max_nb_chars=25)
+
+
+class NewsletterSignupWithBackgroundSnippetFactory(DjangoModelFactory):
+    class Meta:
+        model = mozfest_models.NewsletterSignupWithBackground
+
+    name = Faker("sentence", nb_words=2)
+    header = Faker("text", max_nb_chars=100)
+    description = Faker("text", max_nb_chars=250)
+    background_image = SubFactory(ImageFactory)
 
 
 def generate(seed):
