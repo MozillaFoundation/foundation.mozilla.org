@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags i18n static %}
 
-<div style="padding-bottom: 56.25%;" class="embed-responsive tw-bg-black tw-text-black tw-relative" data-mozfest-video>
+<div class="embed-responsive tw-bg-black tw-text-black tw-relative tw-aspect-video" data-mozfest-video>
     {# Thumbnail and overlay #}
     {% if video.thumbnail %}
         {% image video.thumbnail fill-1200x600 as img %}
