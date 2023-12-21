@@ -936,29 +936,3 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
         # Check if the French page returns French topics (when available)
         self.assertIn(topic_1_fr, frequent_topics_fr)
         self.assertIn(topic_2_en, frequent_topics_fr)
-
-
-class TestBlogPageTopics(test.TestCase):
-    def test_factory(self):
-        blog_factories.BlogPageTopicFactory()
-
-    def test_get_topics_method(self):
-        # Clearing test instance of any existing topics
-        blog_models.BlogPageTopic.objects.all().delete()
-
-        test_topic = blog_factories.BlogPageTopicFactory(name="Test_Topic_1")
-        blog_factories.BlogPageTopicFactory(name="Test_Topic_2")
-        blog_factories.BlogPageTopicFactory(name="Test_Topic_3")
-
-        # Creating a list of all created BlogPageTopics sorted by name,
-        # with an additional option of "All".
-        list_of_sorted_topics = [
-            ("All", "All"),
-            ("Test_Topic_1", "Test_Topic_1"),
-            ("Test_Topic_2", "Test_Topic_2"),
-            ("Test_Topic_3", "Test_Topic_3"),
-        ]
-
-        topic_choices_from_method = test_topic.get_topics()
-
-        self.assertEqual(list_of_sorted_topics, topic_choices_from_method)

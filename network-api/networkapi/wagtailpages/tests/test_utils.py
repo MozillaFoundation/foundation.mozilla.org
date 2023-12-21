@@ -6,6 +6,7 @@ from django.utils.translation.trans_real import (
     parse_accept_lang_header as django_parse_accept_lang_header,
 )
 from django.utils.translation.trans_real import to_language as django_to_language
+from taggit import models as tag_models
 from wagtail.core.models import Locale
 from wagtail.images.models import Image
 from wagtail.models import Collection
@@ -28,8 +29,28 @@ from networkapi.wagtailpages.tests.base import WagtailpagesTestCase
 from networkapi.wagtailpages.utils import (
     create_wagtail_image,
     get_blog_authors,
+    get_content_related_by_tag,
     localize_queryset,
 )
+
+
+class TestGetContentRelatedByTag(TestCase):
+    def test_single_page_has_same_tag(self):
+        # Not using the factories here because that was throwing errors due to missing images for some reason.
+        # It is unclear why this was happening, but it was not the focus of this test, so we just create the
+        # objects manually.
+        page = BlogPage.objects.create(title="The page", path="00010002", depth=2)
+        other_page = BlogPage.objects.create(title="The other page", path="00010003", depth=2)
+        tag = tag_models.Tag.objects.create(name="Test tag")
+        page.tags.add(tag)
+        page.save()
+        other_page.tags.add(tag)
+        other_page.save()
+
+        result = get_content_related_by_tag(page)
+
+        self.assertEqual(len(result), 1)
+        self.assertListEqual(result, [other_page])
 
 
 class TestCreateWagtailImageUtility(TestCase):

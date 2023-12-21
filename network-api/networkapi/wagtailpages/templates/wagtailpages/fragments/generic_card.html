@@ -30,9 +30,9 @@
 
         <a href="{% pageurl page %}" class="tw-group tw-block hover:tw-no-underline">
             <p class="tw-h4-heading d-inline-block mt-1 mb-2 group-hover:tw-underline">{{ page.localized.title }}</p>
-            <p class="tw-body-small my-0">
+            <div class="tw-body-small my-0">
                 {% block description %}{% endblock %}
-            </p>
+            </div>
         </a>
         {% block byline %}{% endblock %}
     </div>
