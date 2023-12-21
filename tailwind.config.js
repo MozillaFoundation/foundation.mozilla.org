@@ -230,7 +230,7 @@ module.exports = {
         },
         purple: {
           100: "#fa00ff",
-          200: "#8e769d",
+          200: "#b855f6",
           300: "#a0a2f8"
         },
         black: {
