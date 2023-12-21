@@ -8,13 +8,13 @@
 
                     {# Video #}
                     <div class="tw-mb-14 large:tw-mb-0 large:tw-col-span-2">
-                        {% include "partials/video.html" with video=self.video %}
+                        {% include "fragments/video.html" with video=self.video %}
                     </div>
 
                     {# First card in the loop #}
                     {% for item in self.cards %}
                         {% if forloop.first %}
-                            {% include "partials/mixed_content_card.html" with item=item %}
+                            {% include "fragments/mixed_content_card.html" with item=item %}
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -26,7 +26,7 @@
                         {# All cards except the first #}
                         {% for item in self.cards %}
                             {% if not forloop.first %}
-                                {% include "partials/mixed_content_card.html" with item=item %}
+                                {% include "fragments/mixed_content_card.html" with item=item %}
                             {% endif %}
                         {% endfor %}
                     </ul>
