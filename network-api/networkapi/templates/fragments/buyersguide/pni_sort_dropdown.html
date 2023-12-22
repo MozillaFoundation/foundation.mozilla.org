@@ -12,6 +12,13 @@
           "
 >
     <li
+        {% comment %}
+            TODO: Refactor this whole component.
+
+            Using `role="button"` on `li` is invalid. See:  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#technical_summary
+            This should be a button. The accessibility is also poor.
+            Ideally we would also make this progressively enhances and start with a list of links.
+        {% endcomment %}
         role="button"
         id="pni-creepiness__selected"
         class="tw-w-full tw-flex tw-items-center tw-m-0 tw-pl-0 medium:tw-pl-6 tw-p-6"
