@@ -8,8 +8,8 @@
                 <div class="dropdown-nav">
                     <div>
                         <button class="expander d-flex justify-content-between">
-                            <div>
-                                <div class="active-link-label d-inline-block multipage-link active">
+                            <span>
+                                <span class="active-link-label d-inline-block multipage-link active">
                                     {% if current_category.parent %}
                                         {{ current_category.parent.name }}
                                     {% elif current_category %}
@@ -17,9 +17,9 @@
                                     {% else %}
                                         {% trans "All Categories" %}
                                     {% endif %}
-                                </div>
-                            </div>
-                            <div class="d-inline-block align-self-center control"></div>
+                                </span>
+                            </span>
+                            <span class="d-inline-block align-self-center control"></span>
                         </button>
                     </div>
                     <div>
