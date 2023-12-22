@@ -2,6 +2,16 @@
 
 {% load static env i18n static wagtailimages_tags wagtailroutablepage_tags wagtailcore_tags cache bg_nav_tags localization %}
 
+{% block extended_head %}
+    <noscript>
+        <style>
+            body.catalog figure.product-box {
+                opacity: 1 !important;
+            }
+        </style>
+    </noscript>
+{% endblock %}
+
 {% block bodyclass %}pni catalog{% endblock %}
 
 {% block main_content_class %}{% endblock %}
@@ -173,14 +183,6 @@
             {% include "fragments/buyersguide/submit_a_product.html" %}
         </div>
     </div>
-
-    <noscript>
-        <style>
-            body.catalog figure.product-box {
-                opacity: 1 !important;
-            }
-        </style>
-    </noscript>
 
     <script src="{% static "_js/bg-search.compiled.js" %}" async type="module"></script>
 {% endblock %}
