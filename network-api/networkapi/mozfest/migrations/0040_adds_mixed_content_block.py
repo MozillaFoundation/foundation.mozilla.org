@@ -16,7 +16,7 @@ import networkapi.wagtailpages.pagemodels.profiles
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("mozfest", "0038_adds_signup_with_background_block"),
+        ("mozfest", "0039_swap_banner_url_for_char"),
     ]
 
     operations = [
