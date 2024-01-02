@@ -620,6 +620,37 @@ def generate_newsletter_signup_with_background_field():
     return generate_field("newsletter_signup", {"snippet": newsletter_snippet.id})
 
 
+def generate_mixed_content_field():
+    cards = []
+    link_url = fake.url(schemes=["https"])
+    link_text = fake.sentence(nb_words=2, variable_nb_words=True)
+
+    for n in range(4):
+        cards.append(
+            {
+                "image": choice(Image.objects.all()).id,
+                "alt_text": " ".join(fake.words(nb=5)),
+                "title": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
+                "highlighted_metadata": " ".join(fake.words(nb=2)),
+                "metadata": " ".join(fake.words(nb=3)),
+                "body": fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
+                "link_url": fake.url(schemes=["https"]),
+            }
+        )
+
+    video = {
+        "url": "https://www.youtube.com/embed/83fk3RT8318",
+        "caption": fake.sentence(nb_words=2, variable_nb_words=True),
+        "thumbnail": choice(Image.objects.all()).id,
+        "title": fake.sentence(nb_words=4, variable_nb_words=True),
+        "text": fake.paragraph(nb_sentences=3, variable_nb_sentences=True),
+    }
+
+    return generate_field(
+        "mixed_content", {"cards": cards, "video": video, "link_url": link_url, "link_text": link_text}
+    )
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -678,6 +709,7 @@ class StreamfieldProvider(BaseProvider):
             "session_slider": generate_session_slider_field,
             "profiles": generate_profiles_field,
             "newsletter_signup": generate_newsletter_signup_with_background_field,
+            "mixed_content": generate_mixed_content_field,
         }
 
         streamfield_data = []

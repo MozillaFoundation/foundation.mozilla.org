@@ -120,6 +120,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ("dark_quote", mozfest_blocks.DarkSingleQuoteBlock()),
             ("cta", mozfest_blocks.CTABlock()),
             ("newsletter_signup", mozfest_blocks.NewsletterSignupWithBackgroundBlock()),
+            ("mixed_content", mozfest_blocks.MixedContentBlock()),
         ],
         use_json_field=True,
     )
