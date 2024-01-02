@@ -1,6 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content %}
+    <script src='https://js.tito.io/v2' async></script>
     <div class="tw-bg-black tw-dark tw-py-16">
         <div class="tw-container">
             <h2 class="tw-mb-20">{{ self.heading }}</h2>
@@ -14,11 +15,14 @@
                                 <div class="[&_*]:tw-text-sm tw-body tw-mb-8">
                                     {{ tier.description|richtext }}
                                 </div>
-                                {% if tier.link_url and tier.link_text %}
-                                    <a class="tw-mt-auto tw-btn-primary" href="{{ tier.link_url }}" data-cta-event="ticket">
-                                        {{ tier.link_text }}
-                                    </a>
-                                {% endif %}
+                                <tito-button
+                                    event="{{ tier.event.event_id }}"
+                                    locale="{{ tito_widget_lang_code }}"
+                                    {% if tier.releases %} releases="{{ tier.releases }}"{% endif %}
+                                    class="tw-btn-primary tw-mt-auto"
+                                >
+                                    {{ tier.button_text }}
+                                </tito-button>
                             </div>
 
                             {% if tier.sticker_text %}
