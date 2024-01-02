@@ -483,16 +483,19 @@ def get_blog_authors(profiles: "QuerySet[Profile]") -> "QuerySet[Profile]":
     return profiles.filter(blogauthors__isnull=False).distinct()
 
 
-def get_widget_language_code(request_language_code):
+def map_language_code_to_tito_supported_language_code(language_code: str) -> str:
     """
-    Checking if the user's requested language is currently supported by Tito.
-    If not, default to English, to prevent the Tito widget from crashing due to an unsupported language.
+    Return the Tito supported language code for the given language code.
+
+    Checks if the supplied language code is currently supported by Tito. If not, default to English, to prevent the
+    Tito widget from crashing due to an unsupported language.
+
     For more info see: https://github.com/mozilla/foundation.mozilla.org/issues/9790
     """
     tito_supported_language_codes = ["en", "de", "es", "fr", "nl", "pl", "sw"]
     default_language_code = settings.LANGUAGE_CODE
 
-    if request_language_code in tito_supported_language_codes:
-        return request_language_code
+    if language_code in tito_supported_language_codes:
+        return language_code
     else:
         return default_language_code

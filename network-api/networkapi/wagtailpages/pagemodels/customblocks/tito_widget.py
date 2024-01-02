@@ -1,7 +1,7 @@
 from wagtail import blocks
 from wagtail.snippets.blocks import SnippetChooserBlock
 
-from networkapi.wagtailpages.utils import get_language_from_request, get_widget_language_code
+from networkapi.wagtailpages.utils import get_language_from_request, map_language_code_to_tito_supported_language_code
 
 
 class TitoWidgetBlock(blocks.StructBlock):
@@ -26,6 +26,6 @@ class TitoWidgetBlock(blocks.StructBlock):
     def get_context(self, request, parent_context=None):
         context = super().get_context(request, parent_context=parent_context)
         request_language_code = get_language_from_request(context["request"])
-        context["tito_widget_lang_code"] = get_widget_language_code(request_language_code)
+        context["tito_widget_lang_code"] = map_language_code_to_tito_supported_language_code(request_language_code)
 
         return context
