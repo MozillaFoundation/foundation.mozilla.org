@@ -27,5 +27,4 @@ class TitoWidgetBlock(blocks.StructBlock):
         context = super().get_context(request, parent_context=parent_context)
         request_language_code = get_language_from_request(context["request"])
         context["tito_widget_lang_code"] = map_language_code_to_tito_supported_language_code(request_language_code)
-
         return context
