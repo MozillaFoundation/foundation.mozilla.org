@@ -6,7 +6,7 @@
         {% if card.link_page or card.link_url %}
             <a href="{% if card.link_page %}{% pageurl card.link_page %}{% elif card.link_url %}{{ card.link_url }}{% endif %}" aria-label="{{ card.title }}">
         {% endif %}
-            <img width="720" height="405" src="{{ img.url }}" alt="{{ card.alt_text }}"/>
+        <img width="720" height="405" src="{{ img.url }}" alt="{{ card.alt_text }}"/>
         {% if card.link_page or card.link_url %}
             </a>
         {% endif %}
