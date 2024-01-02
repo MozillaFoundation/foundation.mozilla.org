@@ -31,8 +31,8 @@ class Ticket(TranslatableMixin):
     cost = models.CharField(max_length=10, help_text="E.g. €100.00")
     group = models.CharField(max_length=50, help_text="E.g Mega Patrons")
     description = RichTextField(features=["bold", "italic", "ul", "ol"])
-    link_text = models.CharField(max_length=25, blank=True, help_text="E.G. Get tickets")
-    link_url = models.URLField(blank=True)
+    event = models.ForeignKey("events.TitoEvent", null=True, blank=False, on_delete=models.CASCADE)
+    button_text = models.CharField(max_length=25, blank=False, default="Get tickets", help_text="E.G. Get tickets")
     sticker_text = models.CharField(max_length=25, blank=True, help_text="Max 25 characters")
 
     translatable_fields = [
@@ -40,8 +40,8 @@ class Ticket(TranslatableMixin):
         TranslatableField("cost"),
         TranslatableField("group"),
         TranslatableField("description"),
-        TranslatableField("link_text"),
-        SynchronizedField("link_url"),
+        SynchronizedField("event"),
+        TranslatableField("button_text"),
         TranslatableField("sticker_text"),
     ]
 
@@ -51,13 +51,6 @@ class Ticket(TranslatableMixin):
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
         verbose_name = "Ticket"
-
-    def clean(self):
-        super().clean()
-
-        # If link_url is provided, check if link_text is also provided
-        if self.link_url and not self.link_text or self.link_text and not self.link_url:
-            raise exceptions.ValidationError("Please provide both link URL and link text, or neither")
 
 
 @register_snippet

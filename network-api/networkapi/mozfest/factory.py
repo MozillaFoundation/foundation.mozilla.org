@@ -7,6 +7,7 @@ from wagtail.models import Page as WagtailPage
 from wagtail.models import Site as WagtailSite
 from wagtail_factories import PageFactory
 
+from networkapi.events import factory as events_factory
 from networkapi.mozfest import models as mozfest_models
 from networkapi.utility.faker import StreamfieldProvider
 from networkapi.utility.faker.helpers import reseed
@@ -89,8 +90,8 @@ class TicketSnippetFactory(DjangoModelFactory):
     cost = f"€{random.choice(['100', '200', '300'])}"
     group = Faker("text", max_nb_chars=50)
     description = Faker("text", max_nb_chars=250)
-    link_text = Faker("text", max_nb_chars=25)
-    link_url = Faker("url")
+    event = SubFactory(events_factory.TitoEventFactory)
+    button_text = Faker("text", max_nb_chars=25)
     sticker_text = Faker("text", max_nb_chars=25)
 
 
