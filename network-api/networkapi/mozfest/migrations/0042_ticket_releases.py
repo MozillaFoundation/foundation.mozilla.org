@@ -4,15 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('mozfest', '0041_use_event_object_on_ticket'),
+        ("mozfest", "0041_use_event_object_on_ticket"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='ticket',
-            name='releases',
-            field=models.CharField(blank=True, help_text='Comma-separated list of Tito ticket/release IDs to limit to, e.g. "3elajg6qcxu,6qiiw4socs4"', max_length=250),
+            model_name="ticket",
+            name="releases",
+            field=models.CharField(
+                blank=True,
+                help_text='Comma-separated list of Tito ticket/release IDs to limit to, e.g. "3elajg6qcxu,6qiiw4socs4"',
+                max_length=250,
+            ),
         ),
     ]

@@ -1,7 +1,10 @@
 from wagtail import blocks
 from wagtail.snippets.blocks import SnippetChooserBlock
 
-from networkapi.wagtailpages.utils import get_language_from_request, map_language_code_to_tito_supported_language_code
+from networkapi.wagtailpages.utils import (
+    get_language_from_request,
+    map_language_code_to_tito_supported_language_code,
+)
 
 
 class TitoWidgetBlock(blocks.StructBlock):
