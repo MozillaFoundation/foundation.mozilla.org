@@ -1,5 +1,4 @@
 from django import forms
-from django.core import exceptions
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
