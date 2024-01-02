@@ -31,18 +31,25 @@ class Ticket(TranslatableMixin):
     cost = models.CharField(max_length=10, help_text="E.g. €100.00")
     group = models.CharField(max_length=50, help_text="E.g Mega Patrons")
     description = RichTextField(features=["bold", "italic", "ul", "ol"])
-    event = models.ForeignKey("events.TitoEvent", null=True, blank=False, on_delete=models.CASCADE)
-    button_text = models.CharField(max_length=25, blank=False, default="Get tickets", help_text="E.G. Get tickets")
     sticker_text = models.CharField(max_length=25, blank=True, help_text="Max 25 characters")
+
+    button_text = models.CharField(max_length=25, blank=False, default="Get tickets", help_text="E.G. Get tickets")
+    event = models.ForeignKey("events.TitoEvent", null=True, blank=False, on_delete=models.CASCADE)
+    releases = models.CharField(
+        blank=True,
+        help_text='Comma-separated list of Tito ticket/release IDs to limit to, e.g. "3elajg6qcxu,6qiiw4socs4"',
+        max_length=250,
+    )
 
     translatable_fields = [
         TranslatableField("name"),
         TranslatableField("cost"),
         TranslatableField("group"),
         TranslatableField("description"),
-        SynchronizedField("event"),
-        TranslatableField("button_text"),
         TranslatableField("sticker_text"),
+        TranslatableField("button_text"),
+        SynchronizedField("event"),
+        SynchronizedField("releases"),
     ]
 
     def __str__(self):
