@@ -33,6 +33,7 @@ class VideoBlock(blocks.StructBlock):
 
     class Meta:
         icon = "media"
+        template = "fragments/blocks/video_block.html"
 
 
 class MixedContentBlock(blocks.StructBlock):
