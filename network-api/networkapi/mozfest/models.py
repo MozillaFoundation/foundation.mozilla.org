@@ -1,6 +1,7 @@
 from django import forms
 from django.core import exceptions
 from django.db import models
+from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Locale, Page, TranslatableMixin
@@ -15,7 +16,9 @@ from networkapi.wagtailpages.models import (
 )
 from networkapi.wagtailpages.pagemodels import campaigns as campaign_models
 from networkapi.wagtailpages.pagemodels import customblocks
-from networkapi.wagtailpages.pagemodels.customblocks.base_fields import base_fields
+from networkapi.wagtailpages.pagemodels.customblocks.full_content_rich_text_options import (
+    full_content_rich_text_options,
+)
 from networkapi.wagtailpages.utils import (
     get_page_tree_information,
     set_main_site_nav_information,
@@ -106,13 +109,41 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
     )
 
     body = StreamField(
-        base_fields
-        + [
+        [
+            (
+                "paragraph",
+                blocks.RichTextBlock(
+                    features=full_content_rich_text_options + ["large"],
+                    template="wagtailpages/blocks/rich_text_block.html",
+                ),
+            ),
+            ("card_grid", customblocks.CardGridBlock()),
+            ("image", customblocks.AnnotatedImageBlock()),
+            ("image_text", customblocks.ImageTextBlock()),
+            ("image_text_mini", customblocks.ImageTextMini()),
+            ("image_grid", customblocks.ImageGridBlock()),
+            ("video", customblocks.VideoBlock()),
+            ("iframe", customblocks.iFrameBlock()),
+            ("linkbutton", customblocks.LinkButtonBlock()),
+            ("spacer", customblocks.BootstrapSpacerBlock()),
+            ("single_quote", customblocks.SingleQuoteBlock()),
+            ("profile_by_id", customblocks.ProfileById()),
+            ("profile_directory", customblocks.ProfileDirectory()),
+            ("recent_blog_entries", customblocks.RecentBlogEntries()),
+            ("blog_set", customblocks.BlogSetBlock()),
+            ("datawrapper", customblocks.DatawrapperBlock()),
+            ("listing", customblocks.ListingBlock()),
+            ("profiles", customblocks.ProfileBlock()),
+            ("group_listing_block", customblocks.GroupListingBlock()),
+            ("image_feature", customblocks.ImageFeatureBlock()),
+            ("image_teaser_block", customblocks.ImageTeaserBlock()),
+            ("text_only_teaser", customblocks.TextOnlyTeaserBlock()),
+            ("block_with_aside", customblocks.BlockWithAside()),
+            ("accordion", customblocks.AccordionBlock()),
             ("session_slider", customblocks.SessionSliderBlock()),
             ("current_events_slider", customblocks.CurrentEventsSliderBlock()),
             ("spaces", customblocks.SpacesBlock()),
             ("tito_widget", customblocks.TitoWidgetBlock()),
-            ("tabbed_profile_directory", customblocks.TabbedProfileDirectory()),
             ("newsletter_signup", customblocks.NewsletterSignupBlock()),
             ("statistics", mozfest_blocks.StatisticsBlock()),
             ("carousel_and_text", mozfest_blocks.CarouselTextBlock()),
