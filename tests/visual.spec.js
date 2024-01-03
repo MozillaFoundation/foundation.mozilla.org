@@ -33,7 +33,8 @@ function testURL(baseUrl, path) {
       await page.waitForTimeout(2000);
     }
 
-    // For the Donate Help page, we need to scroll the reCAPTCHA box into view so it can be rendered in the screenshot
+    // For the Donate Help page, we need to scroll the reCAPTCHA box into view so it can be rendered in Percy screenshots.
+    // Note: The recaptcha box only appears in Chrome screenshots. For more info, see: https://github.com/MozillaFoundation/foundation.mozilla.org/pull/11598
     if (path == "/donate/help") {
       // Wait for the reCAPTCHA iframe to be visible
       const iframeHandle = await page.waitForSelector(
