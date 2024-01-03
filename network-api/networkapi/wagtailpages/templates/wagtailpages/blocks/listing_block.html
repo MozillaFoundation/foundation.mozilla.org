@@ -7,7 +7,19 @@
     {% if self.heading %}
         <h2 class="tw-h3-heading tw-mb-0 tw-pb-8 medium:tw-pb-16">{{ self.heading }}</h2>
     {% endif %}
-    <ul class="tw-mb-24 tw-list-none tw-pl-0 tw-grid tw-gap-8 medium:tw-grid-cols-2 medium:tw-gap-24">
+    <ul class="
+        tw-grid
+        tw-mb-24
+        tw-pl-0
+        tw-list-none
+        tw-gap-8
+        medium:tw-gap-24
+        medium:tw-grid-cols-2
+        {% if value.cards_per_row == "3" %}
+            large:tw-grid-cols-3
+        {% endif %}
+        "
+    >
         {% for block in self.cards %}
             {% with card=block %}
                 {% image card.image fill-350x197 as img %}

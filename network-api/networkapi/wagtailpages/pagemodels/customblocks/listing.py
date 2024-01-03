@@ -1,5 +1,6 @@
 from django.forms.utils import ErrorList
 from wagtail import blocks
+from wagtail.admin import panels
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.images.blocks import ImageChooserBlock
 
@@ -39,6 +40,13 @@ class ListingBlock(blocks.StructBlock):
     heading = blocks.CharBlock(help_text="Heading for the block.", required=False)
 
     cards = blocks.ListBlock(ListingCard(), help_text="Please use a minimum of 2 cards.", min_num=2)
+
+    cards_per_row = blocks.ChoiceBlock(
+        choices=[(2, "2"), (3, "3")],
+        default=2,
+        required=False,
+        help_text="Number of cards per row. Note: this is a max and fewer might be used if is less space is available.",
+    )
 
     class Meta:
         icon = "placeholder"
