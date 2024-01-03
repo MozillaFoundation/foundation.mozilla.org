@@ -22,7 +22,6 @@
     >
         {% for block in self.cards %}
             {% with card=block %}
-                {% image card.image fill-350x197 as img %}
                 <li>
                     {% if card.link_page %}
                         <a href="{% pageurl card.link_page %}"
@@ -34,7 +33,16 @@
                            aria-label="{{ card.title }}">
                     {% endif %}
                     <div class="card-regular tw-h-full tw-flex tw-flex-col">
-                        <img src="{{ img.url }}" alt="{{ card.alt_text }}"/>
+                        <picture>
+                            {% image card.image fill-350x197 as img_small %}
+                            {% image card.image fill-700x394 as img_small_2x %}
+                            {% image card.image fill-510x287 as img_large %}
+                            {% image card.image fill-1020x574 as img_large_2x %}
+                            {# Larger screens use smaller image because multiple images are displayed per row, making each image smaller. #}
+                            <source media="(min-width: 768px)" srcset="{{ img_small.url }}, {{ img_small_2x.url }} 2x">
+                            <source srcset="{{ img_large.url }}, {{ img_large_2x.url }} 2x">
+                            <img src="{{ img_large.url }}" alt="{{ card.alt_text }}" width="{{ img_large.width }}" height="{{ img_large.height }}">
+                        </picture>
                         <div class="tw-flex tw-flex-1">
                             <div class="tw-relative tw-pt-8 tw-w-full tw-flex tw-flex-col">
                                 {% if card.highlighted_metadata or card.metadata %}
