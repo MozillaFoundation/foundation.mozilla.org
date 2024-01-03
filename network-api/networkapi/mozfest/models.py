@@ -1,5 +1,4 @@
 from django import forms
-from django.core import exceptions
 from django.db import models
 from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
@@ -34,18 +33,25 @@ class Ticket(TranslatableMixin):
     cost = models.CharField(max_length=10, help_text="E.g. €100.00")
     group = models.CharField(max_length=50, help_text="E.g Mega Patrons")
     description = RichTextField(features=["bold", "italic", "ul", "ol"])
-    link_text = models.CharField(max_length=25, blank=True, help_text="E.G. Get tickets")
-    link_url = models.URLField(blank=True)
     sticker_text = models.CharField(max_length=25, blank=True, help_text="Max 25 characters")
+
+    button_text = models.CharField(max_length=25, blank=False, default="Get tickets", help_text="E.G. Get tickets")
+    event = models.ForeignKey("events.TitoEvent", null=True, blank=False, on_delete=models.CASCADE)
+    releases = models.CharField(
+        blank=True,
+        help_text='Comma-separated list of Tito ticket/release IDs to limit to, e.g. "3elajg6qcxu,6qiiw4socs4"',
+        max_length=250,
+    )
 
     translatable_fields = [
         TranslatableField("name"),
         TranslatableField("cost"),
         TranslatableField("group"),
         TranslatableField("description"),
-        TranslatableField("link_text"),
-        SynchronizedField("link_url"),
         TranslatableField("sticker_text"),
+        TranslatableField("button_text"),
+        SynchronizedField("event"),
+        SynchronizedField("releases"),
     ]
 
     def __str__(self):
@@ -54,13 +60,6 @@ class Ticket(TranslatableMixin):
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
         verbose_name = "Ticket"
-
-    def clean(self):
-        super().clean()
-
-        # If link_url is provided, check if link_text is also provided
-        if self.link_url and not self.link_text or self.link_text and not self.link_url:
-            raise exceptions.ValidationError("Please provide both link URL and link text, or neither")
 
 
 @register_snippet
