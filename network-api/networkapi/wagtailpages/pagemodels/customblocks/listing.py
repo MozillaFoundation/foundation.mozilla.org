@@ -44,7 +44,9 @@ class ListingBlock(blocks.StructBlock):
         choices=[(2, "2"), (3, "3")],
         default=2,
         required=False,
-        help_text="Number of cards per row. Note: this is a max and fewer might be used if is less space is available.",
+        help_text=(
+            "Number of cards per row. Note: this is a max and fewer might be used if is less space is available."
+        ),
     )
 
     class Meta:
