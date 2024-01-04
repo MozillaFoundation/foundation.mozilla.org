@@ -12,7 +12,7 @@
                         <span>{% trans "Facebook" %}</span>
                     {% endif %}
                 </a>
-                <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share" href="https://twitter.com/intent/tweet?text={{ share_text|urlencode }} {{ current_url|urlencode }} ">
+                <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden twitter-share" href="https://twitter.com/intent/tweet?text={{ share_text|urlencode }}%20{{ current_url|urlencode }}">
                     {% if version == "mini" %}
                         <span class="sr-only">{% trans "Share on Twitter" %}</span>
                     {% else %}
@@ -21,7 +21,7 @@
                 </a>
             </div>
             <div class="subgroup">
-                <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden email-share" href="mailto:?&body={{ share_text|urlencode }} {{ current_url|urlencode }}">
+                <a class="tw-btn tw-btn-secondary btn-share after:tw-hidden email-share" href="mailto:?&body={{ share_text|urlencode }}%20{{ current_url|urlencode }}">
                     {% if version == "mini" %}
                         <span class="sr-only">{% trans "Share by Email" %}</span>
                     {% else %}

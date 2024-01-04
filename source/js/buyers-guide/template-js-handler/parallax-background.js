@@ -10,7 +10,7 @@ export default () => {
     rotate: 45,
   });
 
-  gsap.set(".pni-asterick", {
+  gsap.set(".pni-asterisk", {
     rotate: 15,
   });
 
@@ -33,7 +33,7 @@ export default () => {
       });
     });
 
-    gsap.to(".pni-asterick", {
+    gsap.to(".pni-asterisk", {
       rotate: 540,
       ease: "none",
       scrollTrigger: {

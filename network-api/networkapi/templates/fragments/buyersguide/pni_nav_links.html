@@ -6,7 +6,10 @@
     <a class="{{ class }} product-review-link" href="{% pageurl home_page %}#product-review">{% trans "Product Reviews" %}</a>
     <img
         class="tw-mr-8 tw-hidden large:tw-block {{ class }}"
-        src="{% static "_images/buyers-guide/asterick-mini.svg" %}"
+        src="{% static "_images/buyers-guide/asterisk-mini.svg" %}"
+        alt=""
+        width="11"
+        height="10"
     >
     {% if editorial_content_index %}
         <a class="{{ class }} {% bg_active_nav request.get_full_path editorial_content_index.url %} " href="{% pageurl editorial_content_index %}">{{ editorial_content_index }}</a>

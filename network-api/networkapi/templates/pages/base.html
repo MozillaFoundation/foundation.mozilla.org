@@ -97,7 +97,7 @@
 
         {% block donate_banner %}
             {% if settings.donate_banner.SiteDonateBanner.active_donate_banner %}
-                {% include "partials/donate_banner.html" with banner=settings.donate_banner.SiteDonateBanner.active_donate_banner.localized %}
+                {% include "fragments/donate_banner.html" with banner=settings.donate_banner.SiteDonateBanner.active_donate_banner.localized %}
             {% endif %}
         {% endblock %}
 
