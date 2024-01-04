@@ -115,10 +115,14 @@ class Command(BaseCommand):
         """Find the relevant sites in Wagtail and update their hostnames to the new domains"""
         domain_site_mapping = self.get_domain_site_mapping()
         for site_name, domain in domain_site_mapping.items():
-            site = Site.objects.get(site_name=site_name)
-            site.hostname = domain
-            site.port = 80
-            site.save()
+            try:
+                site = Site.objects.get(site_name=site_name)
+                site.hostname = domain
+                site.port = 80
+                site.save()
+            except Site.DoesNotExist:
+                # If the site doesn't exist (wasn't created yet), we don't need to update it
+                pass
 
     def add_arguments(self, parser):
         parser.add_argument("action", type=str)

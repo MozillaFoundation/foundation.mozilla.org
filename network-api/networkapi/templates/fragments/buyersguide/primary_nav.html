@@ -13,7 +13,10 @@
             <a class="link-back tw-flex" href="{% pageurl home_page %}">
                 <img
                     class="tw-mr-2 tw-w-6 tw-h-6 large:tw-w-8 large:tw-h-8"
-                    src="{% static "_images/buyers-guide/asterick-mini.svg" %}"
+                    src="{% static "_images/buyers-guide/asterisk-mini.svg" %}"
+                    alt=""
+                    width="11"
+                    height="10"
                 >
                 <span class="tw-font-semibold tw-text-base tw-leading-4 large:tw-text-[32px] large:tw-leading-[28px]">{% trans "Privacy Not Included" context 'Buyer’s guide name. This can be localized. This is a reference to the “*batteries not included” mention on toys.' %}</span>
             </a>
@@ -46,7 +49,7 @@
                           tw-bg-no-repeat
                           tw-bg-center
                          "
-                   aria-label="Search input"
+                   aria-label="Search input toggle"
             >
         </label>
     </div>

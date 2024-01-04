@@ -7,6 +7,7 @@ const BASE_CLASSES = `
   tw-w-full
   tw-border-1
   tw-border-black
+  dark:tw-border-white
   focus:tw-border-blue-40
   focus:tw-shadow-none
 `;
