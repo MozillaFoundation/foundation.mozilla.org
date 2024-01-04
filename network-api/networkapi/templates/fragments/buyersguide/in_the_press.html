@@ -1,5 +1,5 @@
 {% load static wagtailcore_tags wagtailimages_tags i18n %}
-<div>
+<section>
     {% include "./wavy_line.html" %}
     <h2 class="tw-font-zilla tw-font-normal tw-text-2xl tw-text-black tw-mt-4 tw-mb-10">{% trans "In the press" %}</h2>
 
@@ -22,4 +22,4 @@
             {% include "./arrow_link.html" with link_href=link_href link_text=link_text %}
         {% endif %}
     {% endwith %}
-</div>
+</section>
