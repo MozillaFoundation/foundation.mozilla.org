@@ -260,7 +260,6 @@ class ProductQuiz extends Component {
           </p>
         </div>
         <div className="join-us react-rendered">
-          {/* [FIXME] replace me */}
           <JoinUs
             formPosition="pni-product-quiz"
             formStyle="pni"
