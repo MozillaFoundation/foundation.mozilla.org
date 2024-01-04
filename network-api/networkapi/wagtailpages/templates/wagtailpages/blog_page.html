@@ -13,15 +13,15 @@
             <meta property="article:section" content="{{ topic }}" />
         {% endif %}
     {% endwith %}
-{% endblock %}
+{% endblock commento_meta %}
 
 {% block hero_guts %}
     {% if page.hero_image != None or page.hero_video != "" %}
         {% include "./fragments/blog_page_heroguts.html" with page=page %}
     {% endif %}
-{% endblock %}
+{% endblock hero_guts %}
 
-{% block body_id %}blog{% endblock %}
+{% block body_id %}blog{% endblock body_id %}
 
 {% block subcontent %}
     {% blocktrans with title=page.title asvar share_text_translated %}{{ title }} by @mozilla{% endblocktrans %}
@@ -61,17 +61,17 @@
             </div>
         </div>
     </div>
-{% endblock %}
+{% endblock subcontent %}
 
 {% block prefooter %}
     <div class="tw-container">
         {% include "./fragments/newsletter-signup-box.html" %}
     </div>
     {% include "./fragments/related_posts.html" %}
-{% endblock %}
+{% endblock prefooter %}
 
 {% block extra_scripts %}
     {% if show_comments %}
         <script async defer src="https://cdn.commento.io/js/commento.js"></script>
     {% endif %}
-{% endblock %}
+{% endblock extra_scripts %}
