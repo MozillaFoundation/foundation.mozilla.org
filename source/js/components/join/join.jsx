@@ -625,6 +625,7 @@ class JoinUs extends Component {
       buttonsWrapperClass = `w-auto tw-text-right`;
     }
 
+    // [FIXME]
     if (this.props.formStyle === "pni") {
       formClass = `tw-w-full tw-flex tw-flex-row`;
       buttonsWrapperClass = `w-auto`;

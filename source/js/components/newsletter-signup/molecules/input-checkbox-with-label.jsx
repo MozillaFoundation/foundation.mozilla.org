@@ -34,6 +34,7 @@ InputCheckboxField.propTypes = {
   checked: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
+  designSystemStyle: PropTypes.oneOf(["outlined", "filled"]),
 };
 
 export default InputCheckboxField;
