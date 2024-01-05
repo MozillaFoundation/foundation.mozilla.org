@@ -19,7 +19,9 @@
     {% endif %}
 
     {% if not show_formassembly_thank_you %}
-        <h5 class="tw-h5-heading">{{ cta.header | escape }}</h5>
+        {% if cta.header %}
+            <h5 class="tw-h5-heading">{{ cta.header | escape }}</h5>
+        {% endif %}
         {{ cta.description | richtext }}
         <p class="label tw-body-small tw-italic tw-my-4">{% blocktrans %} * indicates a required field {% endblocktrans %}</p>
         {% comment %}
