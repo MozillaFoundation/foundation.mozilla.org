@@ -76,6 +76,9 @@ module.exports = {
         contain: "contain",
         ...theme("spacing"),
       }),
+      backgroundImage: {
+        "custom-property": "var(--background-image)",
+      },
       gridAutoRows: {
         "1fr": "1fr",
       },
