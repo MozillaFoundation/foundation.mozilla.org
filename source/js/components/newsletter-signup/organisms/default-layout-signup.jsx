@@ -27,7 +27,7 @@ class DefaultSignupForm extends Component {
       "language",
       "privacy",
     ]);
-    this.style = FORM_STYLE[props.formPosition];
+    this.style = FORM_STYLE[props.formStyle];
   }
 
   getInitialState() {

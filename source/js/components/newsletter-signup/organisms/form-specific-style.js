@@ -1,6 +1,7 @@
 /**
  * This module defines styles for different newsletter forms. It should contain solely style definitions and not any logic.
- * Each key in the STYLES object corresponds to a "data-form-position attribute value on <div class="newsletter-signup-module" ..> (like "blog-body" or "footer")
+ * Each key in the STYLES object corresponds to a "data-form-style" attribute value on <div class="newsletter-signup-module" ..>
+ * (like "blog-body" or "footer")
  *
  * @module form-specific-style
  * @property {number} STYLES.x.headingLevel - The heading level for heading element.
