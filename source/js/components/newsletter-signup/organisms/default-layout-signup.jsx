@@ -129,7 +129,7 @@ class DefaultSignupForm extends Component {
         required={true}
         outerMarginClasses={FIELD_MARGIN_CLASSES}
         errorMessage={this.props.errors[name]}
-        designSystemStyle={this.style.designSystemStyle}
+        fieldStyle={this.style.fieldStyle}
       />
     );
   }
@@ -148,7 +148,7 @@ class DefaultSignupForm extends Component {
           onChange={(event) => this.handleCountryChange(event)}
           required={false}
           outerMarginClasses={FIELD_MARGIN_CLASSES}
-          designSystemStyle={this.style.designSystemStyle}
+          fieldStyle={this.style.fieldStyle}
         />
         <Select
           id={this.ids.language}
@@ -158,7 +158,7 @@ class DefaultSignupForm extends Component {
           onChange={(event) => this.handleLanguageChange(event)}
           required={false}
           outerMarginClasses={FIELD_MARGIN_CLASSES}
-          designSystemStyle={this.style.designSystemStyle}
+          fieldStyle={this.style.fieldStyle}
         />
       </>
     );

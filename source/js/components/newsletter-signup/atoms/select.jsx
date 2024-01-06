@@ -14,11 +14,11 @@ const BASE_CLASSES = `
 const Select = ({
   options,
   outerMarginClasses,
-  designSystemStyle,
+  fieldStyle,
   ...otherProps
 }) => {
   let classes = classNames(BASE_CLASSES, outerMarginClasses, {
-    "tw-border-black": designSystemStyle === "outlined",
+    "tw-border-black": fieldStyle === "outlined",
   });
 
   return (
@@ -45,7 +45,7 @@ Select.propTypes = {
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
   outerMarginClasses: PropTypes.string,
-  designSystemStyle: PropTypes.oneOf(["outlined", "filled"]),
+  fieldStyle: PropTypes.oneOf(["outlined", "filled"]),
 };
 
 export default Select;
