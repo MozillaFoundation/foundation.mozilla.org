@@ -3,15 +3,22 @@
  * Each key in the STYLES object corresponds to a "data-form-style" attribute value on <div class="newsletter-signup-module" ..> (like "blog-body" or "footer")
  *
  * @module form-specific-style
+ * @property {buttonText} STYLES.x.buttonText - The button text (in English).
+ * @property {buttonWidthClasses} STYLES.x.buttonWidthClasses - CSS classes for the button width. e.g., tw-w-full, tw-w-auto
+ * @property {buttonPosition} STYLES.x.buttonPosition - The button position for the form based on style guide. Possible values are "side" and "bottom".
+ * @property {buttonStyle} STYLES.x.buttonStyle - The button style for the form based on style guide. Possible values are "primary" and "secondary".
+ * @property {string} STYLES.x.formContainerClass - CSS classes for the <div> that wraps around the actual <form> element.
  * @property {number} STYLES.x.headingLevel - The heading level for heading element.
  * @property {string} STYLES.x.headingClass - CSS classes for the heading element.
  * @property {string} STYLES.x.descriptionClass - CSS classes for the description element.
  * @property {string} STYLES.x.innerWrapperClass - CSS classes for the inner wrapper of the form.
+ * @property {string} STYLES.x.introContainerClass - CSS classes for the <div> that wraps around the intro text.
  * @property {string} STYLES.x.fieldStyle - The style type for the form field based on Figma's design system. Possible values are "filled" and "outlined".
  */
 
 export const FORM_STYLE = {
   "blog-body": {
+    buttonText: "Sign up",
     headingLevel: 2,
     headingClass: `tw-h3-heading`,
     innerWrapperClass: `
@@ -21,12 +28,26 @@ export const FORM_STYLE = {
     fieldStyle: "outlined",
   },
   "callout-box": {
+    buttonText: "Sign up",
     headingLevel: 3,
     headingClass: `tw-h3-heading medium:tw-w-4/5`,
     descriptionClass: `medium:tw-w-4/5`,
     fieldStyle: "filled",
   },
+  "callout-box:2-col": {
+    buttonPosition: "bottom",
+    buttonStyle: "secondary",
+    buttonText: "Subscribe",
+    buttonWidthClasses: "tw-w-auto",
+    formContainerClass: "tw-flex-col tw-w-1/2 large:tw-pl-24 tw-mt-8",
+    headingLevel: 3,
+    headingClass: "tw-h1-heading",
+    fieldStyle: "outlined",
+    innerWrapperClass: "tw-flex tw-gap-8",
+    introContainerClass: "tw-flex-col tw-w-1/2 large:tw-pr-24",
+  },
   footer: {
+    buttonText: "Sign up",
     headingLevel: 4,
     headingClass: `tw-h5-heading`,
     fieldStyle: "outlined",

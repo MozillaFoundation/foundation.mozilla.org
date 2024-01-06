@@ -1,15 +1,13 @@
 {% load wagtailcore_tags i18n %}
 
 <div class="-tw-ml-2 tw-mt-6 tw-mb-24 tw-py-12 tw-px-12 tw-rounded-lg tw-popout medium:tw-ml-0 medium:tw-px-24 medium:tw-pb-24">
-    <div
-        class="join-us"
+    <div class="newsletter-signup-module"
+        data-module-type="default"
+        data-form-style="callout-box:2-col"
         data-form-position="callout-box"
-        data-form-style="pop"
-        data-layout="2-column"
         data-cta-header="{% trans "Subscribe to our newsletter" %}"
         data-cta-description="<p class='tw-mb-12'>{% trans "Help shape the future of the web for the public good. Join our Mozilla News email list to get action alerts & internet tips right to your inbox." %}</p>"
-    >
-    </div>
+    ></div>
     {% if show_socials %}
         <div class="tw-hidden medium:tw-block">
             {% include "./mozilla-social-buttons.html" %}
