@@ -3,17 +3,29 @@
  * Each key in the STYLES object corresponds to a "data-form-style" attribute value on <div class="newsletter-signup-module" ..> (like "blog-body" or "footer")
  *
  * @module form-specific-style
- * @property {buttonPosition} STYLES.x.buttonPosition - The button position for the form based on style guide. Possible values are "side" and "bottom".
- * @property {buttonStyle} STYLES.x.buttonStyle - The button style for the form based on style guide. Possible values are "primary" and "secondary".
- * @property {buttonText} STYLES.x.buttonText - The button text (in English).
- * @property {buttonWidthClasses} STYLES.x.buttonWidthClasses - CSS classes for the button width. e.g., tw-w-full, tw-w-auto
- * @property {string} STYLES.x.fieldStyle - The style type for the form field based on Figma's design system. Possible values are "filled" and "outlined".
- * @property {string} STYLES.x.formContainerClass - CSS classes for the <div> that wraps around the actual <form> element.
- * @property {number} STYLES.x.headingLevel - The heading level for heading element.
- * @property {string} STYLES.x.headingClass - CSS classes for the heading element.
- * @property {string} STYLES.x.descriptionClass - CSS classes for the description element.
- * @property {string} STYLES.x.innerWrapperClass - CSS classes for the inner wrapper of the form.
- * @property {string} STYLES.x.introContainerClass - CSS classes for the <div> that wraps around the intro text.
+ *
+ * @property {buttonPosition} STYLES.x.buttonPosition
+ *    - The button position for the form based on style guide. Possible values are "side" and "bottom".
+ * @property {buttonStyle} STYLES.x.buttonStyle
+ *    - The button style for the form based on style guide. Possible values are "primary" and "secondary".
+ * @property {buttonText} STYLES.x.buttonText
+ *    - The button text (in English).
+ * @property {buttonWidthClasses} STYLES.x.buttonWidthClasses
+ *    - CSS classes for the button width. e.g., tw-w-full, tw-w-auto
+ * @property {string} STYLES.x.fieldStyle
+ *    - The style type for the form field based on Figma's design system. Possible values are "filled" and "outlined".
+ * @property {string} STYLES.x.formContainerClass
+ *    - CSS classes for the <div> that wraps around the actual <form> element.
+ * @property {number} STYLES.x.headingLevel
+ *    - The heading level for heading element.
+ * @property {string} STYLES.x.headingClass
+ *    - CSS classes for the heading element.
+ * @property {string} STYLES.x.descriptionClass
+ *    - CSS classes for the description element.
+ * @property {string} STYLES.x.innerWrapperClass
+ *    - CSS classes for the inner wrapper of the form.
+ * @property {string} STYLES.x.introContainerClass
+ *    - CSS classes for the <div> that wraps around the intro text.
  */
 
 export const FORM_STYLE = {

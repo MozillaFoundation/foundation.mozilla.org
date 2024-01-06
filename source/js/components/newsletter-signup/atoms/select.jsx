@@ -11,12 +11,7 @@ const BASE_CLASSES = `
   focus:tw-shadow-none
 `;
 
-const Select = ({
-  options,
-  outerMarginClasses,
-  fieldStyle,
-  ...otherProps
-}) => {
+const Select = ({ options, outerMarginClasses, fieldStyle, ...otherProps }) => {
   let classes = classNames(BASE_CLASSES, outerMarginClasses, {
     "tw-border-black": fieldStyle === "outlined",
   });
