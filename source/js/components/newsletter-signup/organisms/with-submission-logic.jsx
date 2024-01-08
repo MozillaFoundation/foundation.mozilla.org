@@ -48,6 +48,17 @@ function withSubmissionLogic(WrappedComponent) {
     }
 
     /**
+     * Ensure that the parent component is informed
+     * about this component being mounted (primarily
+     * used in the context of automated testing)
+     */
+    componentDidMount() {
+      if (this.props.whenLoaded) {
+        this.props.whenLoaded();
+      }
+    }
+
+    /**
      * Validate a single field
      *
      * @param {string} name - name of the field
@@ -257,6 +268,7 @@ function withSubmissionLogic(WrappedComponent) {
     ctaHeader: PropTypes.string.isRequired,
     ctaDescription: PropTypes.string.isRequired,
     formPosition: PropTypes.string.isRequired,
+    whenLoaded: PropTypes.func,
   };
 
   return WithSubmissionLogicComponent;
