@@ -15,9 +15,7 @@ const FIELD_CLASSES = `
   dark:has-error:tw-border-2
   dark:has-error:tw-border-red-40
   tw-border-1
-  tw-border-black
   dark:tw-border-white
-  placeholder:tw-text-gray-40
   focus:tw-border-blue-40
   focus:tw-shadow-none
   focus-visible:tw-drop-shadow-none
@@ -28,12 +26,15 @@ const InputEmail = ({
   ariaLabel,
   outerMarginClasses = "",
   errorMessage,
+  designSystemStyle,
   ...otherProps
 }) => {
   let inputField = (
     <input
       type="email"
-      className={FIELD_CLASSES}
+      className={classNames(FIELD_CLASSES, {
+        "tw-border-black": designSystemStyle === "outlined",
+      })}
       {...otherProps}
       {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
     />
@@ -60,7 +61,11 @@ const InputEmail = ({
   }
 
   return (
-    <div className={outerMarginClasses}>
+    <div
+      className={classNames(outerMarginClasses, {
+        "tw-has-error": errorMessage,
+      })}
+    >
       {inputField}
       {errorNotice}
     </div>
@@ -78,6 +83,7 @@ InputEmail.propTypes = {
   required: PropTypes.bool,
   ariaLabel: PropTypes.string,
   errorMessage: PropTypes.string,
+  designSystemStyle: PropTypes.oneOf(["outlined", "filled"]),
 };
 
 export default InputEmail;
