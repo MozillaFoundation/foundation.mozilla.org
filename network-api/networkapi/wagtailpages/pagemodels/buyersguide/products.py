@@ -454,7 +454,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
     def __str__(self):
         return f"{self.category.name} -> {self.product.title}"
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
         verbose_name = "Product Category"
 
 
@@ -474,7 +474,7 @@ class RelatedProducts(TranslatableMixin, Orderable):
 
     panels = [FieldPanel("related_product")]
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
         verbose_name = "Related Product"
 
 
@@ -502,7 +502,7 @@ class ProductPagePrivacyPolicyLink(TranslatableMixin, Orderable):
     def __str__(self):
         return f"{self.page.title}: {self.label} ({self.url})"
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
         verbose_name = "Privacy Link"
 
 
@@ -583,7 +583,6 @@ class ProductUpdates(TranslatableMixin, Orderable):
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         verbose_name = "Product Update"
-        ordering = ["sort_order"]
 
 
 class ProductPageQuerySet(PageQuerySet):
@@ -1435,5 +1434,5 @@ class ExcludedCategories(TranslatableMixin, Orderable):
     def __str__(self):
         return self.category.name
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
         verbose_name = "Excluded Category"
