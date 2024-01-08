@@ -8,7 +8,9 @@
 {% endcomment %}
 
 {% block extended_head %}
-    {% include "./fragments/formassembly_head.html" %}
+    {% if page.cta %}
+        {% include "./fragments/formassembly_head.html" %}
+    {% endif %}
 {% endblock %}
 
 {% block subcontent %}
