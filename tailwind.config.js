@@ -128,6 +128,8 @@ module.exports = {
       large: "992px",
       xlarge: "1200px",
       "2xl": "1400px",
+      // High density screens (retina)
+      "2xdpi": {raw: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)"},
     },
     fontFamily: {
       sans: ["Nunito Sans", "Helvetica", "Arial", "sans-serif"],
