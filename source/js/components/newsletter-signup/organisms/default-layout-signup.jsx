@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import Heading from "../atoms/heading.jsx";
 import Description from "../atoms/description.jsx";
 import InputEmail from "../atoms/input-email.jsx";
@@ -106,15 +105,16 @@ class DefaultSignupForm extends Component {
   renderDescription() {
     if (!this.props.ctaDescription) return null;
 
-    return <Description content={this.props.ctaDescription} />;
+    return (
+      <Description
+        content={this.props.ctaDescription}
+        classes={this.style.descriptionClass}
+      />
+    );
   }
 
   renderEmailField() {
     const name = "email";
-    const outerMarginClasses = classNames({
-      [FIELD_MARGIN_CLASSES]: true,
-      "tw-has-error": !!this.props.errors[name],
-    });
 
     return (
       <InputEmail
@@ -127,8 +127,9 @@ class DefaultSignupForm extends Component {
         onInput={() => this.showAllFields()}
         onChange={(event) => this.handleEmailChange(event)}
         required={true}
-        outerMarginClasses={outerMarginClasses}
+        outerMarginClasses={FIELD_MARGIN_CLASSES}
         errorMessage={this.props.errors[name]}
+        designSystemStyle={this.style.designSystemStyle}
       />
     );
   }
@@ -147,6 +148,7 @@ class DefaultSignupForm extends Component {
           onChange={(event) => this.handleCountryChange(event)}
           required={false}
           outerMarginClasses={FIELD_MARGIN_CLASSES}
+          designSystemStyle={this.style.designSystemStyle}
         />
         <Select
           id={this.ids.language}
@@ -156,6 +158,7 @@ class DefaultSignupForm extends Component {
           onChange={(event) => this.handleLanguageChange(event)}
           required={false}
           outerMarginClasses={FIELD_MARGIN_CLASSES}
+          designSystemStyle={this.style.designSystemStyle}
         />
       </>
     );
@@ -233,4 +236,11 @@ DefaultSignupForm.propTypes = {
   hideForm: PropTypes.bool,
 };
 
+/**
+ * This renders a signup form which includes the following fields
+ *   - email input field, (required)
+ *   - country dropdown, (optional, field is hidden until email field is focused)
+ *   - language dropdown, (optional, field is hidden until email field is focused)
+ *   - privacy agreement checkbox (required)
+ */
 export default withSubmissionLogic(DefaultSignupForm);

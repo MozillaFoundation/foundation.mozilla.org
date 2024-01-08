@@ -129,7 +129,7 @@
 
             <div class="tw-w-full tw-shrink-0 medium:tw-px-24" data-product-label="2">
                 {% if product.product_type == 'general' %}
-                    <section class="criterion-group">
+                    <div class="criterion-group">
                         {% trans "Does the product use AI?" as uses_ai_label %}
                         {% include "fragments/buyersguide/product_criterion.html"  with  label=uses_ai_label  value=product.uses_ai info="/privacynotincluded/about/methodology" help=product.ai_helptext rich_help_text=True %}
 
@@ -140,9 +140,9 @@
                             <section class="criterion">
                                 <div class="primary-info">
                                     <h3 class="tw-mb-8 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What kind of decisions does the AI make about you or for you?" %}</h3>
-                                    <p class="rating pni-product-smaller-body mb-0">
+                                    <div class="rating pni-product-smaller-body mb-0">
                                         {{ product.ai_what_can_it_do|richtext }}
-                                    </p>
+                                    </div>
                                 </div>
                             </section>
 
@@ -153,7 +153,7 @@
                             {% include "fragments/buyersguide/product_criterion.html"  with  label=ai_can_user_control  value=product.ai_can_user_control help=product.ai_can_user_control_helptext rich_help_text=True %}
 
                         {% endif %}
-                    </section>
+                    </div>
                 {% endif %}
             </div>
         </div>
