@@ -3,9 +3,9 @@
 
 <div class="tw-grid tw-grid-cols-12 tw-gap-x-12 tw-gap-y-6">
     <div class="tw-h-full tw-flex tw-flex-col tw-col-span-12 tw-justify-between large:tw-col-span-4 large:tw-py-0 {% if content_left %} large:tw-pl-6 {% else %} large:tw-pr-6 {% endif %}">
-        <div id="title-and-description">
+        <div>
             <div class="tw-flex tw-flex-wrap">
-                {% include "./blog_topics.html" with topics=blog_page.specific.topics.all video_post=True published_date=blog_page.first_published_at %}
+                {% include "wagtailpages/fragments/blog_topics.html" with topics=blog_page.specific.topics.all video_post=True published_date=blog_page.first_published_at %}
                 {% if video_url %}
                     <img src="{% static "_images/video-icon.svg" %}" alt="{% trans "video" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-mr-4 tw-my-2">
                 {% endif %}
@@ -16,8 +16,8 @@
                 <p class="tw-body tw-line-clamp-3 medium:tw-line-clamp-none">{{ blog_page.localized.get_meta_description }}</p>
             </a>
         </div>
-        <div id="blog-authors">
-            {% include "./blog_authors.html" with blog_page=blog_page %}
+        <div>
+            {% include "wagtailpages/fragments/blog_authors.html" with blog_page=blog_page %}
         </div>
     </div>
     <div class="tw-order-first tw-col-span-12 large:tw-col-span-8 {% if not content_left %} large:tw-order-last {% endif %}">
@@ -37,7 +37,7 @@
                 </div>
             {% endif %}
         {% else %}
-            <div id="featured-image-container" class="tw-w-full tw-h-full">
+            <div class="tw-w-full tw-h-full">
                 <a href="{% pageurl blog_page %}">
                     {% image blog_page.localized.specific.get_meta_image fill-1200x628 class='tw-h-full tw-w-full tw-object-contain tw-object-top' %}
                 </a>
