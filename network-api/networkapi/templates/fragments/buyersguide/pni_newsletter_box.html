@@ -7,12 +7,10 @@
         title="{% trans "*privacy not included" %}"
         alt="{% trans "*privacy not included" %}"
     >
-    <div
-        class="join-us tw-bg-none"
-        data-form-position="callout-box"
-        data-form-style="pni"
-        data-cta-header="{{ cta_header|default:_("Help shape the future of the web for the public good.") }}"
-        data-cta-description="<p class='tw-mb-12'>{{ cta_description|default:_("Join our Mozilla News email list to get action alerts & internet tips right to your inbox.") }}</p>"
-    >
-    </div>
+    <div class="newsletter-signup-module"
+         data-module-type="callout-box"
+         data-form-position="callout-box"
+         data-cta-header="{{ cta_header|default:_("Help shape the future of the web for the public good.") }}"
+         data-cta-description="<p class='tw-mb-12'>{{ cta_description|default:_("Join our Mozilla News email list to get action alerts & internet tips right to your inbox.") }}</p>"
+    ></div>
 </div>
