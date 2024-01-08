@@ -18,8 +18,8 @@ test.describe("Donate Help Form", () => {
     "sw",
   ];
 
-  // Locales supported by FRU and their corresponding IDs,
-  // unsupported languages default to `tfa_227`.
+  // Locales supported by FormAssembly and their corresponding IDs.
+  // (Unsupported languages default to `tfa_227`)
   const localeMap = {
     "nl": "tfa_221",
     "fy-NL": "tfa_221",
@@ -35,28 +35,29 @@ test.describe("Donate Help Form", () => {
   let localeToTest = supportedLocales[0];
 
   for (const locale of supportedLocales) {
-    test(`(${locale})`, async ({ page }) => {
+    test(`(${locale}) Testing Form`, async ({ page }) => {
       localeToTest = locale;
-      // Navigate to the URL for the current locale
+
+      // Navigate to the URL for the current locale.
       const response = await page.goto(utility.generateUrl(localeToTest));
       const status = await response.status();
       expect(status).not.toBe(404);
 
-      // Wait for the body to load and images to finish loading
+      // Wait for the body to load and images to finish loading.
       await page.locator("body.react-loaded");
       await waitForImagesToLoad(page);
 
-      // Get the form container and wait for it to be visible
+      // Get the form container and wait for it to be visible.
       const wFormContainer = page.locator(".wFormContainer");
       await wFormContainer.waitFor({ state: "visible" });
       expect(await wFormContainer.count()).toBe(1);
 
       // Test the "I Need..." dropdown menu exists, and is visible to the user.
-      const iNeedDropDown = wFormContainer.locator(
+      const iNeedDropDownMenu = wFormContainer.locator(
         utility.FA_FIELDS.iNeedDropDown
       );
-      expect(await iNeedDropDown.count()).toBe(1);
-      expect(await iNeedDropDown.isVisible()).toBe(true);
+      expect(await iNeedDropDownMenu.count()).toBe(1);
+      expect(await iNeedDropDownMenu.isVisible()).toBe(true);
 
       // Test that the "Name" input exists, is empty, and is not visible until the user
       // selects an option from the dropdown menu.
@@ -72,25 +73,25 @@ test.describe("Donate Help Form", () => {
       expect(await emailInput.inputValue()).toBe("");
       expect(await emailInput.isVisible()).toBe(false);
 
-      // Test that the "Other Details" text box field exists, and is not visible until the user
+      // Test that the "Other Details" text field exists, and is not visible until the user
       // selects an option from the dropdown menu.
-      const otherDetailsTextBox = wFormContainer.locator(
-        utility.FA_FIELDS.otherDetailsTextBox
+      const otherDetailsTextArea = wFormContainer.locator(
+        utility.FA_FIELDS.otherDetails
       );
-      expect(await otherDetailsTextBox.count()).toBe(1);
-      expect(await otherDetailsTextBox.inputValue()).toBe("");
-      expect(await otherDetailsTextBox.isVisible()).toBe(false);
+      expect(await otherDetailsTextArea.count()).toBe(1);
+      expect(await otherDetailsTextArea.inputValue()).toBe("");
+      expect(await otherDetailsTextArea.isVisible()).toBe(false);
 
       // Test that the optional "Screenshot" input field exists, and is not visible until the user
       // selects a supported option from the dropdown menu.
       const screenshotInput = wFormContainer.locator(
-        utility.FA_FIELDS.screenshotField
+        utility.FA_FIELDS.screenshot
       );
       expect(await screenshotInput.count()).toBe(1);
       expect(await screenshotInput.getAttribute("type")).toBe("file");
       expect(await screenshotInput.isVisible()).toBe(false);
 
-      // Test that the "Lang" input exists, is hidden, and is being appropriately mapped the correct FRU language code.
+      // Test that the "Lang" input exists, is hidden, and is being appropriately mapped the correct FA language code.
       const langInput = wFormContainer.locator(utility.FA_HIDDEN_FIELDS.lang);
       expect(await langInput.count()).toBe(1);
       expect(await langInput.isHidden()).toBe(true);
@@ -120,16 +121,16 @@ test.describe("Donate Help Form", () => {
       await submitButton.evaluate((el) => el.removeAttribute("disabled"));
 
       // Loop through each option of the "I Need..." dropdown element, and make sure that the appropriate input fields render.
-      for (const option of utility.DROP_DOWN_OPTIONS) {
-        await iNeedDropDown.selectOption({ value: option.value });
+      for (const option of utility.DROP_DOWN_MENU_OPTIONS) {
+        await iNeedDropDownMenu.selectOption({ value: option.value });
 
         expect(await nameInput.isVisible()).toBe(true);
         expect(await emailInput.isVisible()).toBe(true);
-        expect(await otherDetailsTextBox.isVisible()).toBe(true);
+        expect(await otherDetailsTextArea.isVisible()).toBe(true);
         expect(await submitButton.isVisible()).toBe(true);
 
-        // If this option is set to include the optional screenshot field, make sure that it renders.
-        if (option.has_image_field) {
+        // If this option is set to include the optional screenshot field, make sure that it renders too.
+        if (option.has_screenshot_field) {
           expect(await screenshotInput.isVisible()).toBe(true);
         } else {
           expect(await screenshotInput.isVisible()).toBe(false);
@@ -141,9 +142,8 @@ test.describe("Donate Help Form", () => {
       expect(await page.locator(".errFld").count()).toBe(2);
       expect(await page.locator(".errMsg").count()).toBe(2);
 
-      // Navigate to the form's "thank you" URL without submitting,
-      // to avoid flooding FormAssembly with test submissions.
-      // The FRU form is set to redirect to this URL upon successful submission.
+      // Navigate to the form's "thank you" URL without submitting, to avoid flooding FormAssembly with test submissions.
+      // (This FA form is set to redirect to this URL after a successful submission)
       await page.goto(thankYouUrlInputValue);
 
       // Double check that new page URL is formatted correctly, and includes any existing params.
@@ -151,7 +151,7 @@ test.describe("Donate Help Form", () => {
         utility.isExpectedThankYouUrl(page.url(), thankYouUrlInputValue, true)
       ).toBe(true);
 
-      // Verify that the FRU form's container div is no longer being rendered,
+      // Verify that the FA form's container div is no longer being rendered,
       // and that the "thank you" message is rendering in its place.
       const thankYouDiv = page.locator("#thank-you");
       expect(await thankYouDiv.isVisible()).toBe(true);
