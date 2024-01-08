@@ -11,13 +11,11 @@ const InputCheckboxField = ({ id, label, errorMessage, ...otherProps }) => {
         <div className="tw-flex">
           <Label
             htmlFor={id}
-            classes="tw-block form-check-label tw-body-small tw-text-black"
+            classes="tw-block form-check-label tw-body-small tw-text-black dark:tw-text-gray-40"
           >
             {label}
           </Label>
-          {errorMessage && (
-            <span className="tw-form-error-glyph tw-flex tw-items-center tw-ml-2" />
-          )}
+          {errorMessage && <span className="tw-form-error-glyph tw-ml-2" />}
         </div>
         {errorMessage && (
           <p className="error-message tw-body-small tw-mt-0 tw-text-[#c01] dark:tw-text-red-40">
@@ -36,6 +34,7 @@ InputCheckboxField.propTypes = {
   checked: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
+  designSystemStyle: PropTypes.oneOf(["outlined", "filled"]),
 };
 
 export default InputCheckboxField;

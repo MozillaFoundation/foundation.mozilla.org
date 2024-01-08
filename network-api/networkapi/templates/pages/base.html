@@ -3,7 +3,13 @@
 {% get_current_language as lang_code %}
 
 <!DOCTYPE html>
-<html lang="{{ lang_code }}" class="{% block html_class %}{% endblock %}">
+<html
+    lang="{{ lang_code }}"
+    class="{% block html_class %}{% endblock %}"
+    {# Item scope and type are needed to make to make <meta itemprop=...> tags valid #}
+    itemscope
+    itemtype="https://schema.org/WebPage"
+>
     <head>
         <meta charset="utf-8">
         <title>
@@ -91,7 +97,7 @@
 
         {% block donate_banner %}
             {% if settings.donate_banner.SiteDonateBanner.active_donate_banner %}
-                {% include "partials/donate_banner.html" with banner=settings.donate_banner.SiteDonateBanner.active_donate_banner.localized %}
+                {% include "fragments/donate_banner.html" with banner=settings.donate_banner.SiteDonateBanner.active_donate_banner.localized %}
             {% endif %}
         {% endblock %}
 
@@ -99,18 +105,18 @@
             <div class="wrapper">
                 <div class="{% block sticky_top_class %} sticky-top {% endblock %} d-print-none">
                     {% block primary_nav %}
-                        {% include "partials/primary_nav.html" with background="simple-background" %}
+                        {% include "fragments/primary_nav.html" with background="simple-background" %}
                     {% endblock %}
                 </div>
 
                 {% block header_wrapped %}
-                    <header role="banner">
+                    <header>
                         {% block hero_guts %}{% endblock %}
                     </header>
                 {% endblock header_wrapped %}
 
                 {% block content_wrapped %}
-                    <main role="main">
+                    <main>
                         {% block content %}{% endblock %}
                     </main>
                 {% endblock content_wrapped %}
@@ -118,7 +124,7 @@
                 {% block prefooter %}{% endblock %}
 
                 {% block footer_block %}
-                    {% include "partials/footer.html" %}
+                    {% include "fragments/footer.html" %}
                 {% endblock %}
             </div>
         {% endblock %}

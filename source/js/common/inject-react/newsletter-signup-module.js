@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import BlogBodySignupForm from "../../components/newsletter-signup/organisms/blog-body-signup.jsx";
+import DefaultSignupForm from "../../components/newsletter-signup/organisms/default-layout-signup.jsx";
 
 /**
  * Inject newsletter signup forms
@@ -8,22 +8,26 @@ import BlogBodySignupForm from "../../components/newsletter-signup/organisms/blo
  * @param {String} siteUrl Foundation site base URL
  */
 export default (apps, siteUrl) => {
-  document
-    .querySelectorAll(`.newsletter-signup-module[data-module-type="blog-body"]`)
-    .forEach((element) => {
-      const props = element.dataset;
-      const sid = props.signupId || 0;
+  document.querySelectorAll(`.newsletter-signup-module`).forEach((element) => {
+    const props = element.dataset;
+    const sid = props.signupId || 0;
+    const moduleType = props.moduleType;
+    let Form;
 
-      props.apiUrl = `${siteUrl}/api/campaign/signups/${sid}/`;
-      props.isHidden = false;
+    props.apiUrl = `${siteUrl}/api/campaign/signups/${sid}/`;
+    props.isHidden = false;
 
+    if (moduleType === "default" || moduleType === "callout-box") {
+      Form = DefaultSignupForm;
+    }
+
+    if (Form) {
       apps.push(
         new Promise((resolve) => {
           const root = createRoot(element);
-          root.render(
-            <BlogBodySignupForm {...props} whenLoaded={() => resolve()} />
-          );
+          root.render(<Form {...props} whenLoaded={() => resolve()} />);
         })
       );
-    });
+    }
+  });
 };
