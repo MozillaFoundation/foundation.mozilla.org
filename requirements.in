@@ -17,7 +17,6 @@ django-storages
 django-querystring-tag
 factory_boy
 Faker
-filebrowser-safe
 future
 gunicorn
 heroku3
