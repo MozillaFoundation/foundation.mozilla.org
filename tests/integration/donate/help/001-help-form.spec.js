@@ -6,7 +6,7 @@ test.describe("Donate Help Form", () => {
   let thankYouUrlInputValue = "";
 
   // locales we support on foundation.mozilla.org
-  let supportedLocales = [
+  let foundationSupportedLocales = [
     "en",
     "de",
     "es",
@@ -19,8 +19,8 @@ test.describe("Donate Help Form", () => {
   ];
 
   // Locales supported by FormAssembly and their corresponding IDs.
-  // (Unsupported languages default to `tfa_227`)
-  const localeMap = {
+  // (Locales unsupported by FA, such as SW, default to `tfa_227`)
+  const formAssemblySupportedLocaleMap = {
     "nl": "tfa_221",
     "fy-NL": "tfa_221",
     "en": "tfa_222",
@@ -32,9 +32,9 @@ test.describe("Donate Help Form", () => {
     "other": "tfa_227",
   };
 
-  let localeToTest = supportedLocales[0];
+  let localeToTest = foundationSupportedLocales[0];
 
-  for (const locale of supportedLocales) {
+  for (const locale of foundationSupportedLocales) {
     test(`(${locale}) Testing Form`, async ({ page }) => {
       localeToTest = locale;
 
@@ -91,13 +91,18 @@ test.describe("Donate Help Form", () => {
       expect(await screenshotInput.getAttribute("type")).toBe("file");
       expect(await screenshotInput.isVisible()).toBe(false);
 
-      // Test that the "Lang" input exists, is hidden, and is being appropriately mapped the correct FA language code.
+      // Test that the "Lang" input exists, and is hidden.
       const langInput = wFormContainer.locator(utility.FA_HIDDEN_FIELDS.lang);
       expect(await langInput.count()).toBe(1);
       expect(await langInput.isHidden()).toBe(true);
-      expect(await langInput.inputValue()).toBe(
-        localeMap[localeToTest] || localeMap["other"]
-      );
+
+      // Test that the "Lang" input value is being prepopulated with the correct FA language code.
+      if (localeToTest in formAssemblySupportedLocaleMap) {
+        expect(await langInput.inputValue()).toBe(formAssemblySupportedLocaleMap[localeToTest]);
+      } else {
+        // If current page locale is not supported by FA, the input should default to the value of "Other".
+        expect(await langInput.inputValue()).toBe(formAssemblySupportedLocaleMap["other"]);
+      }
 
       // Test that the "Thank You Url" input exists, is hidden, and is prepopulated with the appropriate "thank you" URL.
       const thankYouUrlInput = wFormContainer.locator(
