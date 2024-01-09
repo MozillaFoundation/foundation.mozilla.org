@@ -3,9 +3,9 @@ const waitForImagesToLoad = require("../../wait-for-images.js");
 
 const MOBILE_VIEWPORT = { width: 360, height: 800 };
 
-test.describe("Main site primary nav", () => {
+test.describe("PNI navs", () => {
   test(`Primary nav (mobile)`, async ({ page }) => {
-    const PAGE_URL = `http://localhost:8000/en/`;
+    const PAGE_URL = `http://localhost:8000/en/privacynotincluded`;
 
     await page.setViewportSize(MOBILE_VIEWPORT);
     await page.goto(PAGE_URL);
@@ -25,10 +25,9 @@ test.describe("Main site primary nav", () => {
     await navToggleButton.click();
     await expect(nav).toBeInViewport();
 
-    // check if the active link is the current page
+    // check if no nav links is marked as active
     const activeLink = nav.locator(".nav-links a.active");
-    expect(await activeLink.count()).toBe(1);
-    expect(await activeLink.getAttribute("href")).toBe(PAGE_URL);
+    expect(await activeLink.count()).toBe(0);
 
     // check if clicking the nav button again hides the nav
     await navToggleButton.click();
