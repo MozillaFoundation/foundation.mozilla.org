@@ -23,7 +23,7 @@ test.describe("Main site primary nav", () => {
     // check if clicking the nav button shows the nav
     const navToggleButton = primaryNavContainer.locator(".burger");
     await navToggleButton.click();
-    await page.waitForTimeout(500); // Wait for 0.5 second for animation to finish
+    await page.waitForTimeout(1000); // Wait for 1 second for animation to finish
     expect(await nav).toBeInViewport();
 
     // check if the active link is the current page
@@ -33,7 +33,7 @@ test.describe("Main site primary nav", () => {
 
     // check if clicking the nav button again hides the nav
     await navToggleButton.click();
-    await page.waitForTimeout(500); // Wait for 0.5 second for animation to finish
+    await page.waitForTimeout(1000); // Wait for 1 second for animation to finish
     expect(await nav).not.toBeInViewport();
   });
 });
@@ -58,7 +58,7 @@ test.describe("MozFest site primary nav", () => {
     // check if clicking the nav button shows the nav
     const navToggleButton = primaryNavContainer.locator(".burger");
     await navToggleButton.click();
-    await page.waitForTimeout(500); // Wait for 0.5 second for animation to finish
+    await page.waitForTimeout(1000); // Wait for 1 second for animation to finish
     expect(await nav).toBeInViewport();
 
     // check if the active link is the current page
@@ -68,7 +68,7 @@ test.describe("MozFest site primary nav", () => {
 
     // check if clicking the nav button again hides the nav
     await navToggleButton.click();
-    await page.waitForTimeout(500); // Wait for 0.5 second for animation to finish
+    await page.waitForTimeout(1000); // Wait for 1 second for animation to finish
     expect(await nav).not.toBeInViewport();
   });
 });
@@ -93,7 +93,7 @@ test.describe("PNI primary nav", () => {
     // check if clicking the nav button shows the nav
     const navToggleButton = primaryNavContainer.locator(".burger");
     await navToggleButton.click();
-    await page.waitForTimeout(500); // Wait for 0.5 second for animation to finish
+    await page.waitForTimeout(1000); // Wait for 1 second for animation to finish
     expect(await nav).toBeInViewport();
 
     // check if no nav links is marked as active
@@ -102,7 +102,7 @@ test.describe("PNI primary nav", () => {
 
     // check if clicking the nav button again hides the nav
     await navToggleButton.click();
-    await page.waitForTimeout(500); // Wait for 0.5 second for animation to finish
+    await page.waitForTimeout(1000); // Wait for 1 second for animation to finish
     expect(await nav).not.toBeInViewport();
   });
 });
