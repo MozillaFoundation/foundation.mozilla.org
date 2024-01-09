@@ -8,8 +8,6 @@
  *    - The button position for the form based on style guide. Possible values are "side" and "bottom".
  * @property {buttonStyle} STYLES.x.buttonStyle
  *    - The button style for the form based on style guide. Possible values are "primary" and "secondary".
- * @property {buttonText} STYLES.x.buttonText
- *    - The button text (in English).
  * @property {buttonWidthClasses} STYLES.x.buttonWidthClasses
  *    - CSS classes for the button width. e.g., tw-w-full, tw-w-auto
  * @property {string} STYLES.x.fieldStyle
@@ -30,7 +28,6 @@
 
 export const FORM_STYLE = {
   "blog-body": {
-    buttonText: "Sign up",
     fieldStyle: "outlined",
     headingLevel: 2,
     headingClass: `tw-h3-heading`,
@@ -40,7 +37,6 @@ export const FORM_STYLE = {
     `,
   },
   "callout-box": {
-    buttonText: "Sign up",
     fieldStyle: "filled",
     headingLevel: 3,
     headingClass: `tw-h3-heading medium:tw-w-4/5`,
@@ -49,7 +45,6 @@ export const FORM_STYLE = {
   "callout-box:2-col": {
     buttonPosition: "bottom",
     buttonStyle: "secondary",
-    buttonText: "Subscribe",
     buttonWidthClasses: "tw-w-auto",
     fieldStyle: "outlined",
     formContainerClass: "tw-flex-col tw-w-1/2 large:tw-pl-24 tw-mt-8",
@@ -59,7 +54,6 @@ export const FORM_STYLE = {
     introContainerClass: "tw-flex-col tw-w-1/2 large:tw-pr-24",
   },
   footer: {
-    buttonText: "Sign up",
     fieldStyle: "outlined",
     headingLevel: 4,
     headingClass: `tw-h5-heading`,

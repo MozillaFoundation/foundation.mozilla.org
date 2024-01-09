@@ -9,6 +9,7 @@
          data-form-style="blog-body"
          data-form-position="blog-body"
          data-signup-id="{{ self.signup.id | unlocalize }}"
+         data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
          data-cta-header="{{ self.signup.header | escape }}"
          data-cta-description="{{ self.signup.description | escape }}"
          data-newsletter="{{ self.signup.newsletter }}"

@@ -29,6 +29,7 @@ class DefaultSignupForm extends Component {
       "privacy",
     ]);
     this.style = FORM_STYLE[props.formStyle];
+    this.buttonText = props.buttonText || getText("Sign up");
   }
 
   getInitialState() {
@@ -217,7 +218,7 @@ class DefaultSignupForm extends Component {
               buttonStyle={this.style.buttonStyle}
               widthClasses={this.style.buttonWidthClasses}
             >
-              {getText(this.style.buttonText)}
+              {this.buttonText}
             </ButtonSubmit>
           </div>
         </div>
