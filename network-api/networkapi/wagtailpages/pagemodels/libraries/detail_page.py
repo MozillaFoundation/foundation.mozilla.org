@@ -188,7 +188,6 @@ class LibraryDetailLinkBase(wagtail_models.TranslatableMixin, wagtail_models.Ord
     ]
 
     class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
-        ordering = ["sort_order"]
         abstract = True
 
     def __str__(self) -> str:
