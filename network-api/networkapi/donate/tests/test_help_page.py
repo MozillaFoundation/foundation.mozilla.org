@@ -71,3 +71,26 @@ class DonateHelpPageTest(test_base.WagtailpagesTestCase):
         Asserts that a 'notice' block was created in the 'notice' field by the factory.
         """
         self.assertEqual(self.donate_help_page.notice[0].block_type, "notice")
+
+    def test_thank_you_url(self):
+        """
+        Testing that the "thank_you_url" is correctly added to the page context.
+        """
+        page_url = self.donate_help_page.get_full_url()
+        response = self.client.get(page_url)
+
+        expected_thank_you_url = page_url + "?thank_you=true"
+
+        self.assertEqual(response.context["thank_you_url"], expected_thank_you_url)
+
+    def test_thank_you_url_with_existing_query_params(self):
+        """
+        Testing that the "thank_you_url" is correctly added to the page context when there
+        are existing query parameters.
+        """
+        page_url = self.donate_help_page.get_full_url() + "?existing_param=value"
+        response = self.client.get(page_url)
+
+        expected_thank_you_url = page_url + "&thank_you=true"
+
+        self.assertEqual(response.context["thank_you_url"], expected_thank_you_url)

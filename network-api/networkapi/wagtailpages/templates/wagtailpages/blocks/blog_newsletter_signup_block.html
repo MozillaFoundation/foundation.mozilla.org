@@ -1,0 +1,15 @@
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags wagtailimages_tags static i18n l10n %}
+
+{% block block_container_classes %}tw-my-18{% endblock block_container_classes %}
+
+{% block block_content %}
+    <div class="newsletter-signup-module"
+         data-module-type="blog-body"
+         data-form-position="blog-body"
+         data-signup-id="{{ self.signup.id | unlocalize }}"
+         data-cta-header="{{ self.signup.header | escape }}"
+         data-cta-description="{{ self.signup.description | escape }}"
+         data-newsletter="{{ self.signup.newsletter }}"
+    ></div>
+{% endblock block_content %}

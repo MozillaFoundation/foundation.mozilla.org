@@ -310,6 +310,8 @@ class ProductPageEvaluation(models.Model):
         "bin_4": {"key": "Super creepy", "label": gettext_lazy("Super creepy")},
     }
 
+    BIN_SIZE = 20
+
     objects = ProductPageEvaluationQuerySet.as_manager()
 
     @property
@@ -421,7 +423,7 @@ class ProductPageEvaluation(models.Model):
             }
 
         average_vote = self.average_creepiness
-        mode_bin = round(average_vote / 20) - 1
+        mode_bin = int(average_vote // self.BIN_SIZE)
         label = self.BIN_LABELS[f"bin_{mode_bin}"]
 
         return {

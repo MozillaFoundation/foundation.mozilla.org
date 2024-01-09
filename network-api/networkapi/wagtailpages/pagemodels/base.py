@@ -245,6 +245,10 @@ class InitiativesPage(PrimaryPage):
         TranslatableField("initiative_sections"),
     ]
 
+    @property
+    def ordered_featured_highlights(self):
+        return InitiativesHighlights.objects.filter(page=self).select_related("highlight").order_by("sort_order")
+
 
 class ParticipatePage2(PrimaryPage):
     template = "wagtailpages/static/participate_page2.html"
@@ -425,6 +429,14 @@ class ParticipatePage2(PrimaryPage):
         ),
         InlinePanel("cta4", label="CTA Group 4", max_num=3),
     ]
+
+    @property
+    def ordered_featured_highlights(self):
+        return ParticipateHighlights.objects.filter(page=self).select_related("highlight").order_by("sort_order")
+
+    @property
+    def ordered_featured_highlights2(self):
+        return ParticipateHighlights2.objects.filter(page=self).select_related("highlight").order_by("sort_order")
 
 
 class Styleguide(PrimaryPage):

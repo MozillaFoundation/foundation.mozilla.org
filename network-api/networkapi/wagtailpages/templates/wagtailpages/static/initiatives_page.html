@@ -78,7 +78,7 @@
 
         <div class="highlights mb-5">
             <div class="row">
-                {% for entry in page.featured_highlights.all %}
+                {% for entry in page.ordered_featured_highlights %}
                     {% with highlight=entry.highlight %}
                         <div class="col-md-6 col-lg-4">
                             {% card highlight.image highlight.title highlight.description highlight.link_url highlight.link_label %}

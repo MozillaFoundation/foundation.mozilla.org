@@ -58,6 +58,7 @@ base_fields = [
     ("airtable", customblocks.AirTableBlock()),
     ("datawrapper", customblocks.DatawrapperBlock()),
     ("typeform", customblocks.TypeformBlock()),
+    ("newsletter_signup", customblocks.BlogNewsletterSignupBlock()),
 ]
 
 
@@ -112,7 +113,11 @@ class BlogPage(BasePage):
     # Custom base form for additional validation
     base_form_class = BlogPageForm
 
-    body = StreamField(base_fields, block_counts={"typeform": {"max_num": 1}}, use_json_field=True)
+    body = StreamField(
+        base_fields,
+        block_counts={"typeform": {"max_num": 1}, "newsletter_signup": {"max_num": 1}},
+        use_json_field=True,
+    )
 
     topics = ParentalManyToManyField(
         BlogPageTopic,

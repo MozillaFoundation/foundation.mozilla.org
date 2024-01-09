@@ -11,17 +11,22 @@ Please follow the steps below every time after you paste a new version of FormAs
 
 2. Run `inv format-html` in terminal
 
-3. Add nonce="{{ csp_nonce }}" to all script tags in this file
+3. Update value for "Thank You Page URL" field
+    - In the FormAssembly form builder, this field currently has the ID of "tfa_236".
+    - If this field ID changes after making changes to the form, please update the line above.
+    - Find the element with the same ID in the code below, and update the value to: value="{{ thank_you_url }}".
 
-4. Get localization working again.
+4 Add nonce="{{ csp_nonce }}" to all script tags in this file
+
+5. Get localization working again.
     - Localize "title" attribute and label text for all fields using {% trans %} or {% blocktrans %}.
     - If applicable, localize any other text on the form. For example, text within htmlContent divs.
     - Localize "value" attribute for <input type="submit" ...>
     - Go to formassembly_head.html and make sure everything has been updated according to the instructions.
 
-5. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/12
+6. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/12
 
-The code snippet below is based on FormAssembly form revision #45
+The code snippet below is based on FormAssembly form revision #46
 
 {% endcomment %}
 
@@ -127,6 +132,7 @@ The code snippet below is based on FormAssembly form revision #45
                     <option value="tfa_229" id="tfa_229" class="">{% trans "Portuguese" %}</option>
                     <option value="tfa_231" id="tfa_231" class="">{% trans "Spanish" %}</option></select></div>
             </div>
+            <input type="hidden" id="tfa_236" name="tfa_236" value="{{ thank_you_url }}" class="">
             <div class="actions" id="12-A" data-contentid="submit_button">
                 <div id="google-captcha" style="display: none">
                     <br><div class="captcha">

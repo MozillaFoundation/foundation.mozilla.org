@@ -39,7 +39,7 @@ from .latest_profile_list import LatestProfileList
 from .link_button_block import LinkButtonBlock
 from .listing import ListingBlock
 from .looping_video_block import LoopingVideoBlock
-from .newsletter_signup_block import NewsletterSignupBlock
+from .newsletter_signup_block import BlogNewsletterSignupBlock, NewsletterSignupBlock
 from .profile import ProfileBlock
 from .profile_by_id import ProfileById
 from .profile_directory import ProfileDirectory, TabbedProfileDirectory

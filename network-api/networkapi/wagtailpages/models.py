@@ -58,6 +58,7 @@ from .pagemodels.campaign_index import CampaignIndexPage
 from .pagemodels.campaigns import (
     CTA,
     BanneredCampaignPage,
+    BlogSignup,
     CampaignPage,
     OpportunityPage,
     Petition,

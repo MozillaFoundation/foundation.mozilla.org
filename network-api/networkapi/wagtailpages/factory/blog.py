@@ -24,6 +24,8 @@ RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
 blog_body_streamfield_fields = [
     "paragraph",
+    "blog_newsletter_signup",
+    "paragraph",
     "image",
     "image_text",
     "image_text_mini",

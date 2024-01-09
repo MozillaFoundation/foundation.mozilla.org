@@ -1,4 +1,5 @@
 import injectJoinUs from "./join-us.js";
+import injectNewsletterSignup from "./newsletter-signup-module.js";
 import injectPetitionThankYou from "./petition-thank-you.js";
 
 /**
@@ -8,6 +9,7 @@ import injectPetitionThankYou from "./petition-thank-you.js";
  */
 export const injectCommonReactComponents = (apps, siteUrl) => {
   injectJoinUs(apps, siteUrl);
+  injectNewsletterSignup(apps, siteUrl);
   // FormAssembly petition thank you screen
   injectPetitionThankYou(apps);
 };
