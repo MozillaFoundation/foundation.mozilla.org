@@ -13,6 +13,7 @@ from django.views.generic.base import RedirectView
 from django.views.i18n import JavaScriptCatalog, set_language
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
+from wagtail_ab_testing import urls as ab_testing_urls
 from wagtail_footnotes import urls as footnotes_urls
 
 from networkapi.redirects import foundation_redirects
@@ -119,6 +120,8 @@ urlpatterns = list(
             path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
             # Wagtail Footnotes package
             path("footnotes/", include(footnotes_urls)),
+            # Wagtail A/B Testing package
+            path("abtesting/", include(ab_testing_urls)),
             # redirect /pt to /pt-BR. See https://github.com/mozilla/foundation.mozilla.org/issues/5993
             re_path(
                 r"^pt/(?P<rest>.*)",

@@ -74,7 +74,7 @@ See also: https://docs.djangoproject.com/en/4.1/topics/i18n/formatting/#controll
 
 ### A/B testing
 
-We currently don't have any A/B testing going on. We used to use [wagtail-experiments](https://github.com/torchbox/wagtail-experiments) but we're going to switch over to [wagtail-ab-testing](https://github.com/torchbox/wagtail-ab-testing)
+The project has [wagtail-ab-testing](https://github.com/torchbox/wagtail-ab-testing) setup. Out-of-the box we only get a "Visit page" goal event type which we can use to track when users visit a goal page. [Custom goal types](https://github.com/wagtail-nest/wagtail-ab-testing#implementing-custom-goal-event-types) need to be setup to track other events such as making a donation, submitting a form, or clicking a link.
 
 ## S3
 
