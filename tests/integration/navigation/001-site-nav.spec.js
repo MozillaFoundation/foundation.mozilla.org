@@ -18,7 +18,7 @@ test.describe("Main site primary nav", () => {
     // check if mobile nav is not visible by default
     const nav = primaryNavContainer.locator(".narrow-screen-menu-container");
     expect(await nav.count()).toBe(1);
-    expect(await nav).not.toBeInViewport();
+    await expect(nav).not.toBeInViewport();
 
     // check if clicking the nav button shows the nav
     const navToggleButton = primaryNavContainer.locator(".burger");
@@ -53,13 +53,13 @@ test.describe("MozFest site primary nav", () => {
     // check if mobile nav is not visible by default
     const nav = primaryNavContainer.locator(".narrow-screen-menu-container");
     expect(await nav.count()).toBe(1);
-    expect(await nav).not.toBeInViewport();
+    await expect(nav).not.toBeInViewport();
 
     // check if clicking the nav button shows the nav
     const navToggleButton = primaryNavContainer.locator(".burger");
     await navToggleButton.click();
     await page.waitForTimeout(1000); // Wait for 1 second for animation to finish
-    expect(await nav).toBeInViewport();
+    await expect(nav).toBeInViewport();
 
     // check if the active link is the current page
     const activeLink = nav.locator(".nav-links a.active");
@@ -69,7 +69,7 @@ test.describe("MozFest site primary nav", () => {
     // check if clicking the nav button again hides the nav
     await navToggleButton.click();
     await page.waitForTimeout(1000); // Wait for 1 second for animation to finish
-    expect(await nav).not.toBeInViewport();
+    await expect(nav).not.toBeInViewport();
   });
 });
 
@@ -88,13 +88,13 @@ test.describe("PNI primary nav", () => {
     // check if mobile nav is not visible by default
     const nav = primaryNavContainer.locator(".narrow-screen-menu-container");
     expect(await nav.count()).toBe(1);
-    expect(await nav).not.toBeInViewport();
+    await expect(nav).not.toBeInViewport();
 
     // check if clicking the nav button shows the nav
     const navToggleButton = primaryNavContainer.locator(".burger");
     await navToggleButton.click();
     await page.waitForTimeout(1000); // Wait for 1 second for animation to finish
-    expect(await nav).toBeInViewport();
+    await expect(nav).toBeInViewport();
 
     // check if no nav links is marked as active
     const activeLink = nav.locator(".nav-links a.active");
@@ -103,6 +103,6 @@ test.describe("PNI primary nav", () => {
     // check if clicking the nav button again hides the nav
     await navToggleButton.click();
     await page.waitForTimeout(1000); // Wait for 1 second for animation to finish
-    expect(await nav).not.toBeInViewport();
+    await expect(nav).not.toBeInViewport();
   });
 });
