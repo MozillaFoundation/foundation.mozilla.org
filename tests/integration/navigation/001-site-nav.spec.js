@@ -24,7 +24,7 @@ test.describe("Main site primary nav", () => {
     const navToggleButton = primaryNavContainer.locator(".burger");
     await navToggleButton.click();
     await page.waitForTimeout(1000); // Wait for 1 second for animation to finish
-    expect(await nav).toBeInViewport();
+    await expect(nav).toBeInViewport();
 
     // check if the active link is the current page
     const activeLink = nav.locator(".nav-links a.active");
@@ -34,7 +34,7 @@ test.describe("Main site primary nav", () => {
     // check if clicking the nav button again hides the nav
     await navToggleButton.click();
     await page.waitForTimeout(1000); // Wait for 1 second for animation to finish
-    expect(await nav).not.toBeInViewport();
+    await expect(nav).not.toBeInViewport();
   });
 });
 
