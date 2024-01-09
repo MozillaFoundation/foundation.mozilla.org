@@ -7,21 +7,17 @@
             <div class="col-12 tw-border-0">
                 <div class="dropdown-nav">
                     <div>
-                        <button class="expander">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <div class="active-link-label d-inline-block multipage-link active">
-                                        {% if current_category.parent %}
-                                            {{ current_category.parent.name }}
-                                        {% elif current_category %}
-                                            {{ current_category.name }}
-                                        {% else %}
-                                            {% trans "All Categories" %}
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <div class="d-inline-block align-self-center control"></div>
-                            </div>
+                        <button class="expander d-flex justify-content-between">
+                            <span class="active-link-label d-inline-block multipage-link active">
+                                {% if current_category.parent %}
+                                    {{ current_category.parent.name }}
+                                {% elif current_category %}
+                                    {{ current_category.name }}
+                                {% else %}
+                                    {% trans "All Categories" %}
+                                {% endif %}
+                            </span>
+                            <span class="d-inline-block align-self-center control"></span>
                         </button>
                     </div>
                     <div>
