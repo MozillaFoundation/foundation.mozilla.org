@@ -149,6 +149,10 @@ l18n==2021.3
     # via wagtail
 markdown==3.4.4
     # via django-pattern-library
+numpy==1.24.4
+    # via
+    #   scipy
+    #   wagtail-ab-testing
 oauthlib==3.2.2
     # via
     #   requests-oauthlib
@@ -204,6 +208,8 @@ requests-oauthlib==1.3.1
     # via social-auth-core
 s3transfer==0.8.2
     # via boto3
+scipy==1.9.3
+    # via wagtail-ab-testing
 scout-apm==3.0.2
     # via -r requirements.in
 sentry-sdk==1.38.0
@@ -238,15 +244,20 @@ typing-extensions==4.4.0
     #   asgiref
     #   dj-database-url
     #   wagtail-localize
+ua-parser==0.18.0
+    # via user-agents
 urllib3==1.26.15
     # via
     #   botocore
     #   requests
     #   scout-apm
     #   sentry-sdk
+user-agents==2.2.0
+    # via wagtail-ab-testing
 wagtail==4.1.9
     # via
     #   -r requirements.in
+    #   wagtail-ab-testing
     #   wagtail-color-panel
     #   wagtail-factories
     #   wagtail-footnotes
@@ -255,6 +266,8 @@ wagtail==4.1.9
     #   wagtail-localize-git
     #   wagtail-metadata
     #   wagtailmedia
+wagtail-ab-testing==0.9
+    # via -r requirements.in
 wagtail-color-panel==1.4.1
     # via -r requirements.in
 wagtail-factories==4.1.0

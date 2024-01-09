@@ -236,6 +236,7 @@ INSTALLED_APPS = list(
             "wagtail_footnotes",
             "modelcluster",
             "taggit",
+            "wagtail_ab_testing",
             # Base wagtail localization
             "wagtail_localize",
             "wagtail_localize.locales",
