@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import Heading from "../atoms/heading.jsx";
 import Description from "../atoms/description.jsx";
 import InputEmail from "../atoms/input-email.jsx";
@@ -10,15 +9,15 @@ import ButtonSubmit from "../atoms/button-submit.jsx";
 import withSubmissionLogic from "./with-submission-logic.jsx";
 import utility from "../../../utility.js";
 import { ReactGA } from "../../../common";
-import { getText } from "../../petition/locales";
-import { getCurrentLanguage } from "../../petition/locales";
+import { getText, getCurrentLanguage } from "../../petition/locales";
 import { COUNTRY_OPTIONS } from "../data/country-options.js";
 import { LANGUAGE_OPTIONS } from "../data/language-options.js";
+import { FORM_STYLE } from "./form-specific-style.js";
 
 const FIELD_MARGIN_CLASSES = `tw-mb-4`;
-const FIELD_ID_PREFIX = `blog-body-newsletter`;
+const FIELD_ID_PREFIX = `default-layout-newsletter`;
 
-class BlogBodySignForm extends Component {
+class DefaultSignupForm extends Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
@@ -28,6 +27,7 @@ class BlogBodySignForm extends Component {
       "language",
       "privacy",
     ]);
+    this.style = FORM_STYLE[props.formPosition];
   }
 
   getInitialState() {
@@ -92,21 +92,29 @@ class BlogBodySignForm extends Component {
   renderHeader() {
     if (!this.props.ctaHeader) return null;
 
-    return <Heading level={2}>{this.props.ctaHeader}</Heading>;
+    return (
+      <Heading
+        level={this.style.headingLevel}
+        classes={this.style.headingClass}
+      >
+        {this.props.ctaHeader}
+      </Heading>
+    );
   }
 
   renderDescription() {
     if (!this.props.ctaDescription) return null;
 
-    return <Description content={this.props.ctaDescription} />;
+    return (
+      <Description
+        content={this.props.ctaDescription}
+        classes={this.style.descriptionClass}
+      />
+    );
   }
 
   renderEmailField() {
     const name = "email";
-    const outerMarginClasses = classNames({
-      [FIELD_MARGIN_CLASSES]: true,
-      "tw-has-error": !!this.props.errors[name],
-    });
 
     return (
       <InputEmail
@@ -119,8 +127,9 @@ class BlogBodySignForm extends Component {
         onInput={() => this.showAllFields()}
         onChange={(event) => this.handleEmailChange(event)}
         required={true}
-        outerMarginClasses={outerMarginClasses}
+        outerMarginClasses={FIELD_MARGIN_CLASSES}
         errorMessage={this.props.errors[name]}
+        designSystemStyle={this.style.designSystemStyle}
       />
     );
   }
@@ -139,6 +148,7 @@ class BlogBodySignForm extends Component {
           onChange={(event) => this.handleCountryChange(event)}
           required={false}
           outerMarginClasses={FIELD_MARGIN_CLASSES}
+          designSystemStyle={this.style.designSystemStyle}
         />
         <Select
           id={this.ids.language}
@@ -148,6 +158,7 @@ class BlogBodySignForm extends Component {
           onChange={(event) => this.handleLanguageChange(event)}
           required={false}
           outerMarginClasses={FIELD_MARGIN_CLASSES}
+          designSystemStyle={this.style.designSystemStyle}
         />
       </>
     );
@@ -180,7 +191,7 @@ class BlogBodySignForm extends Component {
         noValidate={this.props.noBrowserValidation}
         onSubmit={(event) => this.props.onSubmit(event, this.state.formData)}
       >
-        <div className="d-flex flex-column flex-md-row medium:tw-gap-8">
+        <div className="d-flex flex-column flex-lg-row medium:tw-gap-8">
           <div className="tw-flex-grow">
             <fieldset className={FIELD_MARGIN_CLASSES}>
               {this.renderEmailField()}
@@ -188,9 +199,9 @@ class BlogBodySignForm extends Component {
             </fieldset>
             <fieldset>{this.renderPrivacyCheckbox()}</fieldset>
           </div>
-          <div className="tw-mt-8 medium:tw-mt-0">
+          <div className="tw-flex-shrink-0 tw-mt-8 medium:tw-mt-0">
             <ButtonSubmit widthClasses="tw-w-full">
-              {getText("Sign Up")}
+              {getText("Sign up")}
             </ButtonSubmit>
           </div>
         </div>
@@ -201,11 +212,7 @@ class BlogBodySignForm extends Component {
   render() {
     return (
       <div
-        className={`
-          ${this.props.innerWrapperClass}
-          tw-relative tw-border tw-px-8 tw-pt-14 tw-pb-12 medium:tw-p-16
-          before:tw-absolute before:tw-top-0 before:tw-left-1/2 before:-tw-translate-x-1/2 before:-tw-translate-y-1/2 before:tw-content-[''] before:tw-inline-block before:tw-w-[72px] before:tw-h-14 before:tw-bg-[url('../_images/glyphs/letter.svg')] before:tw-bg-white before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-[length:24px_auto]
-          `}
+        className={this.style.innerWrapperClass}
         data-submission-status={this.props.apiSubmissionStatus}
       >
         {this.renderHeader()}
@@ -216,7 +223,7 @@ class BlogBodySignForm extends Component {
   }
 }
 
-BlogBodySignForm.propTypes = {
+DefaultSignupForm.propTypes = {
   ctaHeader: PropTypes.string,
   ctaDescription: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
     .isRequired,
@@ -229,4 +236,11 @@ BlogBodySignForm.propTypes = {
   hideForm: PropTypes.bool,
 };
 
-export default withSubmissionLogic(BlogBodySignForm);
+/**
+ * This renders a signup form which includes the following fields
+ *   - email input field, (required)
+ *   - country dropdown, (optional, field is hidden until email field is focused)
+ *   - language dropdown, (optional, field is hidden until email field is focused)
+ *   - privacy agreement checkbox (required)
+ */
+export default withSubmissionLogic(DefaultSignupForm);

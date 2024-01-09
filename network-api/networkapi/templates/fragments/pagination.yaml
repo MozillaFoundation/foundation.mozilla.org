@@ -1,0 +1,5 @@
+context:
+  page:
+    has_other_pages: true
+    has_next: true
+    has_previous: false

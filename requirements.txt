@@ -121,8 +121,6 @@ faker==20.1.0
     # via
     #   -r requirements.in
     #   factory-boy
-filebrowser-safe==1.1.1
-    # via -r requirements.in
 filetype==1.2.0
     # via willow
 future==0.18.3

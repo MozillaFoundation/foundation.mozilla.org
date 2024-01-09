@@ -18,12 +18,12 @@ function formControl(theme) {
   return {
     display: "block",
     width: "100%",
-    height: "calc(1.5em + .75rem + 2px)",
-    padding: ".375rem .75rem",
+    height: "calc( 2.5rem + 2px)", // 42px if 1rem = 16px
+    padding: "0 0.75rem", // 12px if 1rem = 16px
     fontFamily: theme("fontFamily.sans"),
-    fontSize: "1rem",
+    fontSize: "1.125rem", // 18px if 1rem = 16px
     fontWeight: theme("fontWeight.normal"),
-    lineHeight: "1.25",
+    lineHeight: "1.5",
     color: theme("colors.black"),
     backgroundColor: theme("colors.white"),
     backgroundClip: "padding-box",
@@ -50,7 +50,7 @@ function formControl(theme) {
       boxShadow: "0 0 0 0.2rem rgba(0, 123, 255, 0.25)",
     },
     "&::placeholder": {
-      color: theme("colors.gray.60"),
+      color: theme("colors.gray.40"),
       // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
       opacity: 1,
     },

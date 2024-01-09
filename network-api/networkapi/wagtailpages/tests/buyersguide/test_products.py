@@ -81,7 +81,7 @@ class TestProductPage(BuyersGuideTestCase):
             )
             related_products.append(related_product)
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(2):
             result = product_page.localized_related_products
             for related_product in related_products:
                 self.assertIn(related_product, result)
@@ -110,6 +110,8 @@ class TestProductPage(BuyersGuideTestCase):
 
         self.translate_page(first_product, self.fr_locale)
         first_product_fr = first_product.get_translation(self.fr_locale)
+        first_product_fr.title = "Premier produit"
+        first_product_fr.save_revision().publish()
 
         self.activate_locale(self.fr_locale)
 

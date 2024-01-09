@@ -107,7 +107,7 @@ jobs:
       - name: Run type checks
         run: mypy network-api
       - name: Run Tests
-        run: cd network-api && pytest  --ds=networkapi.settings -cov=network-api/networkapi --cov-report=term-missing
+        run: cd network-api && pytest -n auto -v --ds=networkapi.settings -cov=network-api/networkapi --cov-report=term-missing
       - name: Coveralls
         run: coveralls
         continue-on-error: true
