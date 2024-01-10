@@ -308,11 +308,13 @@ def makemigrations_dryrun(ctx, args=""):
 @task(aliases=["docker-test"])
 def test(ctx):
     """Run tests."""
+    djcheck(ctx)
+    makemigrations_dryrun(ctx, args="--check")
     test_python(ctx)
 
 
 @task(aliases=["docker-test-python"])
-def test_python(ctx, file="", n="1", verbose=False):
+def test_python(ctx, file="", n="auto", verbose=False):
     """
     Run python tests.
 
@@ -328,9 +330,6 @@ def test_python(ctx, file="", n="1", verbose=False):
     Default is 'auto' which allows pytest to automatically determine the optimal number.
     - verbose: Optional boolean flag indicating whether to print verbose output during testing. Default is False.
     """
-
-    djcheck(ctx)
-    makemigrations_dryrun(ctx, args="--check")
     parallel = f"-n {n}" if n != "1" else ""
     v = "-v" if verbose else ""
     # Don't run coverage if a file is specified

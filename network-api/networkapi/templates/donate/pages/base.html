@@ -32,14 +32,14 @@
 
 {% block donate_banner %}
     {% if settings.donate_banner.SiteDonateBanner.active_donate_banner %}
-        {% include "partials/donate_banner.html" with banner=settings.donate_banner.SiteDonateBanner.active_donate_banner.localized %}
+        {% include "fragments/donate_banner.html" with banner=settings.donate_banner.SiteDonateBanner.active_donate_banner.localized %}
     {% endif %}
 {% endblock %}
 
 {% block sticky_top_class %} tw-sticky tw-z-[1020] tw-top-0 {% endblock %}
 
 {% block primary_nav %}
-    {% include "partials/primary_nav.html" %}
+    {% include "fragments/primary_nav.html" %}
 {% endblock %}
 
 {% block header_wrapped %}

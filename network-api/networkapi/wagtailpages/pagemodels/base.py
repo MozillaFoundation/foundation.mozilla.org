@@ -465,10 +465,9 @@ class HomepageSpotlightPosts(TranslatableMixin, WagtailOrderable):
         FieldPanel("blog"),
     ]
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, WagtailOrderable.Meta):
         verbose_name = "blog"
         verbose_name_plural = "blogs"
-        ordering = ["sort_order"]  # not automatically inherited!
 
     def __str__(self):
         return self.page.title + "->" + self.blog.title
@@ -484,10 +483,9 @@ class HomepageNewsYouCanUse(TranslatableMixin, WagtailOrderable):
         FieldPanel("blog"),
     ]
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, WagtailOrderable.Meta):
         verbose_name = "blog"
         verbose_name_plural = "blogs"
-        ordering = ["sort_order"]  # not automatically inherited!
 
     def __str__(self):
         return self.page.title + "->" + self.blog.title
@@ -503,10 +501,9 @@ class InitiativesHighlights(TranslatableMixin, WagtailOrderable, models.Model):
         FieldPanel("highlight"),
     ]
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, WagtailOrderable.Meta):
         verbose_name = "highlight"
         verbose_name_plural = "highlights"
-        ordering = ["sort_order"]  # not automatically inherited!
 
     def __str__(self):
         return self.page.title + "->" + self.highlight.title
@@ -550,11 +547,10 @@ class CTABase(WagtailOrderable, models.Model):
         FieldPanel("buttonURL"),
     ]
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(WagtailOrderable.Meta):
         abstract = True
         verbose_name = "cta"
         verbose_name_plural = "ctas"
-        ordering = ["sort_order"]  # not automatically inherited!
 
     def __str__(self):
         return self.page.title + "->" + self.highlight.title
@@ -565,9 +561,6 @@ class CTA4(TranslatableMixin, CTABase):
         "wagtailpages.ParticipatePage2",
         related_name="cta4",
     )
-
-    class Meta(TranslatableMixin.Meta):
-        pass
 
 
 class ParticipateHighlightsBase(TranslatableMixin, WagtailOrderable, models.Model):
@@ -580,11 +573,10 @@ class ParticipateHighlightsBase(TranslatableMixin, WagtailOrderable, models.Mode
         FieldPanel("highlight"),
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta, WagtailOrderable.Meta):
         abstract = True
         verbose_name = "highlight"
         verbose_name_plural = "highlights"
-        ordering = ["sort_order"]  # not automatically inherited!
 
     def __str__(self):
         return self.page.title + "->" + self.highlight.title
@@ -596,18 +588,12 @@ class ParticipateHighlights(ParticipateHighlightsBase):
         related_name="featured_highlights",
     )
 
-    class Meta(TranslatableMixin.Meta):
-        pass
-
 
 class ParticipateHighlights2(ParticipateHighlightsBase):
     page = ParentalKey(
         "wagtailpages.ParticipatePage2",
         related_name="featured_highlights2",
     )
-
-    class Meta(TranslatableMixin.Meta):
-        pass
 
 
 @register_snippet
@@ -671,7 +657,7 @@ class HomepageFocusAreas(TranslatableMixin, WagtailOrderable):
         FieldPanel("area"),
     ]
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, WagtailOrderable.Meta):
         verbose_name = "Homepage Focus Area"
 
 
@@ -709,9 +695,8 @@ class HomepageTakeActionCards(TranslatableMixin, WagtailOrderable):
     def __str__(self):
         return self.name
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, WagtailOrderable.Meta):
         verbose_name = "Take Action Card"
-        ordering = ["sort_order"]  # not automatically inherited!
 
 
 class PartnerLogos(TranslatableMixin, WagtailOrderable):
@@ -755,9 +740,8 @@ class PartnerLogos(TranslatableMixin, WagtailOrderable):
         width = self.width * 2
         return self.logo.get_rendition(f"width-{width}")
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, WagtailOrderable.Meta):
         verbose_name = "Partner Logo"
-        ordering = ["sort_order"]  # not automatically inherited!
 
 
 class Homepage(FoundationMetadataPageMixin, Page):

@@ -46,7 +46,6 @@ class JoinUs extends Component {
         `header`,
         `body`,
         `callout-box`,
-        `footer`,
         `pni-product-quiz`,
         `youtube-regrets-reporter`,
       ].includes(props.formPosition),
@@ -233,7 +232,7 @@ class JoinUs extends Component {
   /**
    * On focus, we want to do two things:
    * 1.Fire a GA event when users interact with the signup form
-   * 2.Reveal localization fields for header and footer signup forms
+   * 2.Reveal localization fields
    */
   onInputFocus() {
     ReactGA.event({
@@ -432,7 +431,7 @@ class JoinUs extends Component {
           />
           {this.state.userTriedSubmitting && !emailValidation.valid && (
             <div className={errorWrapperClasses}>
-              <span className="tw-form-error-glyph" />
+              <span className="tw-form-error-glyph tw-inline-block" />
             </div>
           )}
         </div>
@@ -553,7 +552,7 @@ class JoinUs extends Component {
             !this.state.apiSubmitted &&
             !this.privacy.checked &&
             !this.isFlowForm() && (
-              <span className="tw-form-error-glyph privacy-error d-flex tw-ml-2" />
+              <span className="tw-form-error-glyph tw-flex tw-ml-2" />
             )}
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (
