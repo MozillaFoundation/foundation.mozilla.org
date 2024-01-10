@@ -47,11 +47,11 @@ export const FORM_STYLE = {
     buttonStyle: "secondary",
     buttonWidthClasses: "tw-w-auto",
     fieldStyle: "outlined",
-    formContainerClass: "tw-flex-col tw-w-1/2 large:tw-pl-24 tw-mt-8",
+    formContainerClass: "tw-w-1/2 large:tw-pl-24 tw-mt-8",
     headingLevel: 3,
     headingClass: "tw-h1-heading",
     innerWrapperClass: "tw-flex tw-gap-8",
-    introContainerClass: "tw-flex-col tw-w-1/2 large:tw-pr-24",
+    introContainerClass: "tw-w-1/2 large:tw-pr-24",
   },
   footer: {
     fieldStyle: "outlined",
