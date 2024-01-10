@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
     dependencies = [
         ("wagtailcore", "0078_referenceindex"),
-        ("wagtailpages", "0115_setup_related_names_on_blog_featured_pages_and_related_products"),
+        ("wagtailpages", "0116_fix_meta_ordering"),
     ]
 
     operations = [
