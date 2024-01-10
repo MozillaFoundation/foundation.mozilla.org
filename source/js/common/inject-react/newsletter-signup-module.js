@@ -17,7 +17,7 @@ export default (apps, siteUrl) => {
     props.apiUrl = `${siteUrl}/api/campaign/signups/${sid}/`;
     props.isHidden = false;
 
-    if (moduleType === "default" || moduleType === "callout-box") {
+    if (moduleType === "default") {
       Form = DefaultSignupForm;
     }
 
