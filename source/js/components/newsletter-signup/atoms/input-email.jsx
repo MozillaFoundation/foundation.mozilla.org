@@ -26,14 +26,14 @@ const InputEmail = ({
   ariaLabel,
   outerMarginClasses = "",
   errorMessage,
-  designSystemStyle,
+  fieldStyle,
   ...otherProps
 }) => {
   let inputField = (
     <input
       type="email"
       className={classNames(FIELD_CLASSES, {
-        "tw-border-black": designSystemStyle === "outlined",
+        "tw-border-black": fieldStyle === "outlined",
       })}
       {...otherProps}
       {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
@@ -83,7 +83,7 @@ InputEmail.propTypes = {
   required: PropTypes.bool,
   ariaLabel: PropTypes.string,
   errorMessage: PropTypes.string,
-  designSystemStyle: PropTypes.oneOf(["outlined", "filled"]),
+  fieldStyle: PropTypes.oneOf(["outlined", "filled"]),
 };
 
 export default InputEmail;
