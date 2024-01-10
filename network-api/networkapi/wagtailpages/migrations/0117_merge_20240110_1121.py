@@ -4,11 +4,9 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('wagtailpages', '0116_configure_cards_per_row_on_listing_block'),
-        ('wagtailpages', '0116_fix_meta_ordering'),
+        ("wagtailpages", "0116_configure_cards_per_row_on_listing_block"),
+        ("wagtailpages", "0116_fix_meta_ordering"),
     ]
 
-    operations = [
-    ]
+    operations = []
