@@ -154,19 +154,36 @@ def generate_spacer_field():
     return generate_field("spacer", {"size": size})
 
 
-def generate_quote_field():
+def generate_common_quote_field(dark=False):
+    """
+    Generate common quote fields used by both generate_quote_field and generate_dark_quote_field.
+
+    Args:
+        dark (bool): Whether to generate fields for a dark quote.
+        Defaults to False for a single quote.
+    """
     quote = f"<p>{fake.sentence()}</p>"
     attribution = fake.name()
     attribution_info = f'<p>{fake.sentence()} <a href="{fake.url(schemes=["https"])}">{fake.sentence()}</a></p>'
 
+    field_name = "dark_quote" if dark else "single_quote"
+
     return generate_field(
-        "single_quote",
+        field_name,
         {
             "quote": quote,
             "attribution": attribution,
             "attribution_info": attribution_info,
         },
     )
+
+
+def generate_quote_field():
+    return generate_common_quote_field()
+
+
+def generate_dark_quote_field():
+    return generate_common_quote_field(dark=True)
 
 
 def generate_video_field():
@@ -278,6 +295,20 @@ def generate_card_grid_field():
         )
 
     return generate_field("card_grid", {"cards": cards})
+
+
+def generate_stats_block_field():
+    statistics = []
+
+    for n in range(4):
+        statistics.append(
+            {
+                "title": str(fake.pyint()),
+                "description": " ".join(fake.words(nb=8)),
+            }
+        )
+
+    return generate_field("statistics", {"statistics": statistics})
 
 
 def generate_pulse_listing_field():
@@ -462,6 +493,164 @@ def generate_blog_newsletter_signup_field():
     return generate_field("newsletter_signup", BlogNewsletterSignupBlock().get_api_representation(block))
 
 
+def generate_listing_block_field():
+    heading = fake.sentence(nb_words=10, variable_nb_words=True)
+    cards = []
+
+    for n in range(2):
+        cards.append(
+            {
+                "image": choice(Image.objects.all()).id,
+                "alt_text": " ".join(fake.words(nb=5)),
+                "title": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
+                "highlighted_metadata": " ".join(fake.words(nb=2)),
+                "metadata": " ".join(fake.words(nb=3)),
+                "body": fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
+                "link_url": fake.url(schemes=["https"]),
+            }
+        )
+
+    return generate_field("listing", {"cards": cards, "heading": heading})
+
+
+def generate_carousel_text_block_field():
+    heading = fake.sentence(nb_words=10, variable_nb_words=True)
+    text = fake.paragraph(nb_sentences=10, variable_nb_sentences=True)
+    link_url = fake.url(schemes=["https"])
+    link_label = fake.sentence(nb_words=5, variable_nb_words=True)
+    carousel_images = []
+
+    for n in range(4):
+        carousel_images.append(
+            {
+                "image": choice(Image.objects.all()).id,
+                "altText": " ".join(fake.words(nb=5)),
+            }
+        )
+
+    data = {
+        "heading": heading,
+        "text": text,
+        "link_url": link_url,
+        "link_label": link_label,
+        "carousel_images": carousel_images,
+    }
+
+    return generate_field("carousel_and_text", data)
+
+
+def generate_cta_field():
+    heading = fake.sentence(nb_words=3, variable_nb_words=True)
+    text = fake.paragraph(nb_sentences=2, variable_nb_sentences=True)
+    link_url = fake.url(schemes=["https"])
+    link_text = fake.sentence(nb_words=2, variable_nb_words=True)
+    dark_background = True
+
+    cta = {
+        "heading": heading,
+        "text": text,
+        "link_url": link_url,
+        "link_text": link_text,
+        "dark_background": dark_background,
+    }
+
+    return generate_field("cta", cta)
+
+
+def generate_tickets_block_field():
+    heading = fake.sentence(nb_words=10, variable_nb_words=True)
+    tickets = []
+    from networkapi.mozfest.factory import TicketSnippetFactory
+
+    for n in range(3):
+        ticket_snippet = TicketSnippetFactory.create()
+        tickets.append(ticket_snippet.id)
+
+    return generate_field("tickets", {"heading": heading, "tickets": tickets})
+
+
+def generate_session_slider_item():
+    title = fake.sentence(nb_words=4, variable_nb_words=True)
+    author_subheading = fake.sentence(nb_words=3, variable_nb_words=True)
+
+    image = choice(Image.objects.all()).id
+    body = fake.paragraph(nb_sentences=3, variable_nb_sentences=True)
+    return generate_field(
+        "session_item",
+        {
+            "title": title,
+            "author_subheading": author_subheading,
+            "image": image,
+            "body": body,
+            "link": [generate_labelled_external_link_field()],
+        },
+    )
+
+
+def generate_session_slider_field():
+    title = fake.sentence(nb_words=3, variable_nb_words=True)
+    button = [generate_labelled_external_link_field()]
+    session_items = [
+        generate_session_slider_item(),
+        generate_session_slider_item(),
+        generate_session_slider_item(),
+        generate_session_slider_item(),
+        generate_session_slider_item(),
+    ]
+
+    return generate_field("session_slider", {"title": title, "session_items": session_items, "button": button})
+
+
+def generate_profiles_field():
+    profiles = []
+    from networkapi.wagtailpages.factory.profiles import ProfileFactory
+
+    for n in range(9):
+        profile_snippet = ProfileFactory.create()
+        profiles.append({"profile": profile_snippet.id})
+
+    return generate_field("profiles", {"profiles": profiles})
+
+
+def generate_newsletter_signup_with_background_field():
+    from networkapi.mozfest.factory import NewsletterSignupWithBackgroundSnippetFactory
+
+    newsletter_snippet = NewsletterSignupWithBackgroundSnippetFactory.create()
+
+    return generate_field("newsletter_signup", {"snippet": newsletter_snippet.id})
+
+
+def generate_mixed_content_field():
+    cards = []
+    link_url = fake.url(schemes=["https"])
+    link_text = fake.sentence(nb_words=2, variable_nb_words=True)
+
+    for n in range(4):
+        cards.append(
+            {
+                "image": choice(Image.objects.all()).id,
+                "alt_text": " ".join(fake.words(nb=5)),
+                "title": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
+                "highlighted_metadata": " ".join(fake.words(nb=2)),
+                "metadata": " ".join(fake.words(nb=3)),
+                "body": fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
+                "link_url": fake.url(schemes=["https"]),
+            }
+        )
+
+    video = {
+        "url": "https://www.youtube.com/embed/83fk3RT8318",
+        "caption": fake.sentence(nb_words=2, variable_nb_words=True),
+        "thumbnail": choice(Image.objects.all()).id,
+        "title": fake.sentence(nb_words=4, variable_nb_words=True),
+        "text": fake.paragraph(nb_sentences=3, variable_nb_sentences=True),
+    }
+
+    return generate_field(
+        "mixed_content", {"cards": cards, "video": video, "link_url": link_url, "link_text": link_text}
+    )
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -511,6 +700,16 @@ class StreamfieldProvider(BaseProvider):
             "current_events_slider": generate_current_events_slider_field,
             "callout_box": generate_blog_index_callout_box_field,
             "blog_newsletter_signup": generate_blog_newsletter_signup_field,
+            "statistics": generate_stats_block_field,
+            "listing": generate_listing_block_field,
+            "carousel_and_text": generate_carousel_text_block_field,
+            "tickets": generate_tickets_block_field,
+            "dark_quote": generate_dark_quote_field,
+            "cta": generate_cta_field,
+            "session_slider": generate_session_slider_field,
+            "profiles": generate_profiles_field,
+            "newsletter_signup": generate_newsletter_signup_with_background_field,
+            "mixed_content": generate_mixed_content_field,
         }
 
         streamfield_data = []

@@ -1,21 +1,86 @@
 from django import forms
 from django.db import models
+from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
-from wagtail.models import Locale, Page
+from wagtail.models import Locale, Page, TranslatableMixin
+from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from networkapi.mozfest import blocks as mozfest_blocks
 from networkapi.wagtailpages.models import (
     FoundationBannerInheritanceMixin,
     FoundationMetadataPageMixin,
     Signup,
 )
+from networkapi.wagtailpages.pagemodels import campaigns as campaign_models
 from networkapi.wagtailpages.pagemodels import customblocks
-from networkapi.wagtailpages.pagemodels.customblocks.base_fields import base_fields
+from networkapi.wagtailpages.pagemodels.customblocks.full_content_rich_text_options import (
+    full_content_rich_text_options,
+)
 from networkapi.wagtailpages.utils import (
     get_page_tree_information,
     set_main_site_nav_information,
 )
+
+
+@register_snippet
+class Ticket(TranslatableMixin):
+    name = models.CharField(
+        max_length=100,
+        help_text="Identify this ticket for other editors",
+    )
+    cost = models.CharField(max_length=10, help_text="E.g. €100.00")
+    group = models.CharField(max_length=50, help_text="E.g Mega Patrons")
+    description = RichTextField(features=["bold", "italic", "ul", "ol"])
+    sticker_text = models.CharField(max_length=25, blank=True, help_text="Max 25 characters")
+
+    button_text = models.CharField(max_length=25, blank=False, default="Get tickets", help_text="E.G. Get tickets")
+    event = models.ForeignKey("events.TitoEvent", null=True, blank=False, on_delete=models.CASCADE)
+    releases = models.CharField(
+        blank=True,
+        help_text='Comma-separated list of Tito ticket/release IDs to limit to, e.g. "3elajg6qcxu,6qiiw4socs4"',
+        max_length=250,
+    )
+
+    translatable_fields = [
+        TranslatableField("name"),
+        TranslatableField("cost"),
+        TranslatableField("group"),
+        TranslatableField("description"),
+        TranslatableField("sticker_text"),
+        TranslatableField("button_text"),
+        SynchronizedField("event"),
+        SynchronizedField("releases"),
+    ]
+
+    def __str__(self):
+        return self.name
+
+    class Meta(TranslatableMixin.Meta):
+        ordering = ["name"]
+        verbose_name = "Ticket"
+
+
+@register_snippet
+class NewsletterSignupWithBackground(TranslatableMixin, campaign_models.CTA):
+    background_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="mozfest_newsletter_signup_background",
+        verbose_name="Background Image",
+        help_text="Optional background image for the rendered signup snippet.",
+    )
+
+    translatable_fields = campaign_models.CTA.translatable_fields + [
+        SynchronizedField("background_image"),
+    ]
+
+    class Meta(TranslatableMixin.Meta):
+        ordering = ["name"]
+        verbose_name = "Newsletter Signup With Background"
 
 
 class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):
@@ -43,14 +108,49 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
     )
 
     body = StreamField(
-        base_fields
-        + [
+        [
+            (
+                "paragraph",
+                blocks.RichTextBlock(
+                    features=full_content_rich_text_options + ["large"],
+                    template="wagtailpages/blocks/rich_text_block.html",
+                ),
+            ),
+            ("card_grid", customblocks.CardGridBlock()),
+            ("image", customblocks.AnnotatedImageBlock()),
+            ("image_text", customblocks.ImageTextBlock()),
+            ("image_text_mini", customblocks.ImageTextMini()),
+            ("image_grid", customblocks.ImageGridBlock()),
+            ("video", customblocks.VideoBlock()),
+            ("iframe", customblocks.iFrameBlock()),
+            ("linkbutton", customblocks.LinkButtonBlock()),
+            ("spacer", customblocks.BootstrapSpacerBlock()),
+            ("single_quote", customblocks.SingleQuoteBlock()),
+            ("profile_by_id", customblocks.ProfileById()),
+            ("profile_directory", customblocks.ProfileDirectory()),
+            ("recent_blog_entries", customblocks.RecentBlogEntries()),
+            ("blog_set", customblocks.BlogSetBlock()),
+            ("datawrapper", customblocks.DatawrapperBlock()),
+            ("listing", customblocks.ListingBlock()),
+            ("profiles", customblocks.ProfileBlock()),
+            ("group_listing_block", customblocks.GroupListingBlock()),
+            ("image_feature", customblocks.ImageFeatureBlock()),
+            ("image_teaser_block", customblocks.ImageTeaserBlock()),
+            ("text_only_teaser", customblocks.TextOnlyTeaserBlock()),
+            ("block_with_aside", customblocks.BlockWithAside()),
+            ("accordion", customblocks.AccordionBlock()),
             ("session_slider", customblocks.SessionSliderBlock()),
             ("current_events_slider", customblocks.CurrentEventsSliderBlock()),
             ("spaces", customblocks.SpacesBlock()),
             ("tito_widget", customblocks.TitoWidgetBlock()),
-            ("tabbed_profile_directory", customblocks.TabbedProfileDirectory()),
             ("newsletter_signup", customblocks.NewsletterSignupBlock()),
+            ("statistics", mozfest_blocks.StatisticsBlock()),
+            ("carousel_and_text", mozfest_blocks.CarouselTextBlock()),
+            ("tickets", mozfest_blocks.TicketsBlock()),
+            ("dark_quote", mozfest_blocks.DarkSingleQuoteBlock()),
+            ("cta", mozfest_blocks.CTABlock()),
+            ("newsletter_signup", mozfest_blocks.NewsletterSignupWithBackgroundBlock()),
+            ("mixed_content", mozfest_blocks.MixedContentBlock()),
         ],
         use_json_field=True,
     )
@@ -63,9 +163,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         FieldPanel("body"),
     ]
 
-    subpage_types = [
-        "MozfestPrimaryPage",
-    ]
+    subpage_types = ["MozfestPrimaryPage", "MozfestLandingPage"]
 
     show_in_menus_default = True
 
@@ -158,18 +256,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
 class MozfestHomepage(MozfestPrimaryPage):
     """
     MozFest Homepage
-
-    'banner_video_type' determines what version of banner design the page should load
-
-    If the value of `banner_video_type` is `hardcoded`, it displays a hardcoded,
-    predefined video in the banner background.
-
-    If the value of `banner_video_type` is `featured`, it displays a carousel of
-    cards with their associated headings and body content (`banner_carousel`),
-    and an embedded user-defined video (`banner_video`).
     """
-
-    banner_video_type = "featured"
 
     cta_button_label = models.CharField(
         max_length=250,
@@ -184,63 +271,34 @@ class MozfestHomepage(MozfestPrimaryPage):
         "E.g., /proposals, https://example.com/external-link",
     )
 
+    # Hero/Banner fields
     banner_heading = models.CharField(
         max_length=250,
         blank=True,
         help_text="A banner heading specific to the homepage",
     )
-
-    banner_cta_label = models.CharField(
-        max_length=250,
-        null=False,
+    banner_meta = models.CharField(
+        max_length=50,
         blank=True,
-        help_text="The label for the CTA that scrolls down to the banner video when clicked",
+        help_text="Small area above the the banner heading used for dates and meta information.",
     )
-
-    banner_guide_text = models.CharField(
-        max_length=1000,
+    banner_text = models.CharField(
+        max_length=150,
         blank=True,
-        help_text="A banner paragraph specific to the homepage",
+        help_text="Text displayed below the banner heading.",
     )
-
-    # For banner_video_type == 'hardcoded'
-    banner_video_url = models.URLField(
+    banner_link_url = models.CharField(
         max_length=2048,
         blank=True,
-        help_text='The video to play when users click "watch video"',
+        help_text="Link presented to the user as a CTA in the banner.",
     )
-
-    # For banner_video_type == 'featured'
-    banner_carousel = StreamField(
-        [
-            ("slide", customblocks.BannerCarouselSlideBlock()),
-        ],
-        max_num=3,
-        help_text="The slides shown on the new Hero. Please ensure that there "
-        "are exactly 3 slides. The old Hero will be shown if there "
-        "are no slides present.",
+    banner_link_text = models.CharField(
+        max_length=150,
         blank=True,
-        null=True,
-        use_json_field=True,
+        help_text="Text displayed for the banner link.",
     )
 
-    # For banner_video_type == 'featured'
-    banner_video = StreamField(
-        [
-            ("CMS_video", customblocks.WagtailVideoChooserBlock()),
-            ("external_video", customblocks.ExternalVideoBlock()),
-        ],
-        max_num=1,
-        help_text='The video to play when users click "Watch Video". This is ' "only shown on the new Hero.",
-        blank=True,
-        null=True,
-        use_json_field=True,
-    )
-
-    subpage_types = [
-        "MozfestPrimaryPage",
-        "MozfestHomepage",
-    ]
+    subpage_types = ["MozfestPrimaryPage", "MozfestHomepage", "MozfestLandingPage"]
 
     # See https://github.com/mozilla/foundation.mozilla.org/issues/7883#issuecomment-996039763
     content_panels = Page.content_panels + [
@@ -252,10 +310,17 @@ class MozfestHomepage(MozfestPrimaryPage):
             ],
             heading="CTA Button",
         ),
-        FieldPanel("banner_heading"),
-        FieldPanel("banner_cta_label"),
-        FieldPanel("banner_carousel"),
-        FieldPanel("banner_video"),
+        MultiFieldPanel(
+            [
+                FieldPanel("banner_heading"),
+                FieldPanel("banner"),
+                FieldPanel("banner_meta"),
+                FieldPanel("banner_text"),
+                FieldPanel("banner_link_url"),
+                FieldPanel("banner_link_text"),
+            ],
+            heading="Hero banner",
+        ),
         FieldPanel("body"),
     ]
 
@@ -275,9 +340,11 @@ class MozfestHomepage(MozfestPrimaryPage):
         TranslatableField("cta_button_label"),
         SynchronizedField("cta_button_destination"),
         TranslatableField("banner_heading"),
-        TranslatableField("banner_cta_label"),
-        TranslatableField("banner_carousel"),
-        SynchronizedField("banner_video"),
+        SynchronizedField("banner"),
+        TranslatableField("banner_meta"),
+        TranslatableField("banner_text"),
+        SynchronizedField("banner_link_url"),
+        TranslatableField("banner_link_text"),
         # Signup field should be translatable, but is having issues
         # remaining synced across locales. Using sync field as workaround.
         # See also: https://github.com/wagtail/wagtail-localize/issues/648
@@ -287,9 +354,83 @@ class MozfestHomepage(MozfestPrimaryPage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["banner_video_type"] = self.specific.banner_video_type
 
         return context
 
     def get_template(self, request):
         return "mozfest/mozfest_homepage.html"
+
+
+class MozfestLandingPage(MozfestPrimaryPage):
+    # As this class inherits MozfestPrimaryPage, we need to make sure we don't
+    # offer the option to have a 'wide template' as it's not supported in the
+    # landing page template, so we override the settings_panels property to
+    # exclude 'use_wide_template'
+    settings_panels = Page.settings_panels
+
+    # Hero/Banner fields
+    banner_heading = models.CharField(
+        max_length=250,
+        blank=True,
+        help_text="A banner heading specific to the homepage",
+    )
+    banner_meta = models.CharField(
+        max_length=50,
+        blank=True,
+        help_text="Small area above the the banner heading used for dates and meta information.",
+    )
+    banner_text = models.CharField(
+        max_length=150,
+        blank=True,
+        help_text="Text displayed below the banner heading.",
+    )
+    banner_link_url = models.CharField(
+        max_length=2048,
+        blank=True,
+        help_text="Link presented to the user as a CTA in the banner.",
+    )
+    banner_link_text = models.CharField(
+        max_length=150,
+        blank=True,
+        help_text="Text displayed for the banner link.",
+    )
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel("banner_heading"),
+                FieldPanel("banner"),
+                FieldPanel("banner_meta"),
+                FieldPanel("banner_text"),
+                FieldPanel("banner_link_url"),
+                FieldPanel("banner_link_text"),
+            ],
+            heading="Hero banner",
+        ),
+        FieldPanel("body"),
+    ]
+
+    # Because we inherit from PrimaryPage, but the "use_wide_template" property does nothing
+    # we should hide it and make sure we use the right template
+    settings_panels = Page.settings_panels
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField("slug"),
+        TranslatableField("seo_title"),
+        SynchronizedField("show_in_menus"),
+        TranslatableField("search_description"),
+        SynchronizedField("search_image"),
+        # Content tab fields
+        TranslatableField("title"),
+        TranslatableField("banner_heading"),
+        SynchronizedField("banner_image"),
+        TranslatableField("banner_meta"),
+        TranslatableField("banner_text"),
+        SynchronizedField("banner_link_url"),
+        TranslatableField("banner_link_text"),
+        TranslatableField("body"),
+    ]
+
+    def get_template(self, request):
+        return "mozfest/mozfest_landing_page.html"

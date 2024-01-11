@@ -1,20 +1,10 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <div id="hero">
-    {% if homepage %}
-        {% if page.banner_carousel %}
-            {# Hero with carousel and featured video below #}
-            {% include "fragments/hero/carousel_hero.html" with page=page banner_video_type=banner_video_type %}
-        {% else %}
-            {# Hero with hardcoded video as background #}
-            {% include "fragments/hero/hardcoded_video_hero.html" with page=page banner_video_type=banner_video_type %}
-        {% endif %}
-    {% else %}
-        <div class="banner">
-            {% include "fragments/hero/normal.html" with page=page %}
-        </div>
-        {% include "partials/intro_section.html" %}
-    {% endif %}
+    <div class="banner">
+        {% include "fragments/hero/normal.html" with page=page %}
+    </div>
+    {% include "partials/intro_section.html" %}
 
     {% if singleton_page == True %}
         {% include "partials/intro_and_content_divider.html" with wrapper_class="d-md-none" %}

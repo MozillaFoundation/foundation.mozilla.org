@@ -11,6 +11,8 @@ body.mozfest {
   .tito-widget-button {
     background: unset;
     color: unset;
+    font-weight: unset;
+    padding: unset;
   }
   .primary-nav-container {
     // The following overrides are to make sure
@@ -349,6 +351,20 @@ body.mozfest {
           animation: slide-progress-bar 10s ease-in-out forwards;
         }
       }
+    }
+  }
+
+  .tw-dark {
+    .swiper-pagination-bullet {
+      @apply tw-bg-festival-gray-100 tw-opacity-100;
+    }
+
+    .swiper-pagination-bullet-active {
+      @apply tw-bg-white;
+    }
+
+    .swiper-button-disabled {
+      @apply tw-opacity-50;
     }
   }
 }
