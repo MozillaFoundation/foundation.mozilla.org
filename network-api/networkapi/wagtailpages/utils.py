@@ -426,6 +426,24 @@ def localize_queryset(
             return localized_queryset
 
 
+def map_language_code_to_tito_supported_language_code(language_code: str) -> str:
+    """
+    Return the Tito supported language code for the given language code.
+
+    Checks if the supplied language code is currently supported by Tito. If not, default to English, to prevent the
+    Tito widget from crashing due to an unsupported language.
+
+    For more info see: https://github.com/mozilla/foundation.mozilla.org/issues/9790
+    """
+    tito_supported_language_codes = ["en", "de", "es", "fr", "nl", "pl", "sw"]
+    default_language_code = settings.LANGUAGE_CODE
+
+    if language_code in tito_supported_language_codes:
+        return language_code
+    else:
+        return default_language_code
+
+
 def get_plaintext_titles(request, stream_data, stream_block_name):
     """
     Accepts a StreamField and the name of a streamblock to look for,

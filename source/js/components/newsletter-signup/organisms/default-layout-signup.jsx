@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import Heading from "../atoms/heading.jsx";
 import Description from "../atoms/description.jsx";
 import InputEmail from "../atoms/input-email.jsx";
@@ -27,7 +28,8 @@ class DefaultSignupForm extends Component {
       "language",
       "privacy",
     ]);
-    this.style = FORM_STYLE[props.formPosition];
+    this.style = FORM_STYLE[props.formStyle];
+    this.buttonText = props.buttonText || getText("Sign up");
   }
 
   getInitialState() {
@@ -40,6 +42,11 @@ class DefaultSignupForm extends Component {
       },
       showAllFields: false,
     };
+  }
+
+  // reset state to initial values
+  reset() {
+    this.setState(this.getInitialState());
   }
 
   // generate unique IDs for form fields
@@ -129,7 +136,7 @@ class DefaultSignupForm extends Component {
         required={true}
         outerMarginClasses={FIELD_MARGIN_CLASSES}
         errorMessage={this.props.errors[name]}
-        designSystemStyle={this.style.designSystemStyle}
+        fieldStyle={this.style.fieldStyle}
       />
     );
   }
@@ -148,7 +155,7 @@ class DefaultSignupForm extends Component {
           onChange={(event) => this.handleCountryChange(event)}
           required={false}
           outerMarginClasses={FIELD_MARGIN_CLASSES}
-          designSystemStyle={this.style.designSystemStyle}
+          fieldStyle={this.style.fieldStyle}
         />
         <Select
           id={this.ids.language}
@@ -158,7 +165,7 @@ class DefaultSignupForm extends Component {
           onChange={(event) => this.handleLanguageChange(event)}
           required={false}
           outerMarginClasses={FIELD_MARGIN_CLASSES}
-          designSystemStyle={this.style.designSystemStyle}
+          fieldStyle={this.style.fieldStyle}
         />
       </>
     );
@@ -186,12 +193,24 @@ class DefaultSignupForm extends Component {
   renderForm() {
     if (this.props.hideForm) return null;
 
+    let containerClasses = classNames({
+      "d-flex flex-column flex-lg-row medium:tw-gap-8":
+        this.style.buttonPosition !== "bottom",
+    });
+
+    let buttonWrapperClasses = classNames({
+      "tw-flex-shrink-0 tw-mt-8 medium:tw-mt-0":
+        this.style.buttonPosition !== "bottom",
+      "tw-mt-24 medium:-tw-mb-16 medium:tw-mt-12 tw-text-right":
+        this.style.buttonPosition === "bottom",
+    });
+
     return (
       <form
         noValidate={this.props.noBrowserValidation}
         onSubmit={(event) => this.props.onSubmit(event, this.state.formData)}
       >
-        <div className="d-flex flex-column flex-lg-row medium:tw-gap-8">
+        <div className={containerClasses}>
           <div className="tw-flex-grow">
             <fieldset className={FIELD_MARGIN_CLASSES}>
               {this.renderEmailField()}
@@ -199,9 +218,12 @@ class DefaultSignupForm extends Component {
             </fieldset>
             <fieldset>{this.renderPrivacyCheckbox()}</fieldset>
           </div>
-          <div className="tw-flex-shrink-0 tw-mt-8 medium:tw-mt-0">
-            <ButtonSubmit widthClasses="tw-w-full">
-              {getText("Sign up")}
+          <div className={buttonWrapperClasses}>
+            <ButtonSubmit
+              buttonStyle={this.style.buttonStyle}
+              widthClasses={this.style.buttonWidthClasses}
+            >
+              {this.buttonText}
             </ButtonSubmit>
           </div>
         </div>
@@ -215,9 +237,11 @@ class DefaultSignupForm extends Component {
         className={this.style.innerWrapperClass}
         data-submission-status={this.props.apiSubmissionStatus}
       >
-        {this.renderHeader()}
-        {this.renderDescription()}
-        {this.renderForm()}
+        <div className={this.style.introContainerClass}>
+          {this.renderHeader()}
+          {this.renderDescription()}
+        </div>
+        <div className={this.style.formContainerClass}>{this.renderForm()}</div>
       </div>
     );
   }

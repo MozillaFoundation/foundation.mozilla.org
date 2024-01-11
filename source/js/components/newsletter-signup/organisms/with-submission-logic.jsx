@@ -242,11 +242,13 @@ function withSubmissionLogic(WrappedComponent) {
      * Render the wrapped component with additional props
      */
     render() {
-      let { ctaHeader, ctaDescription, ...otherProps } = this.props;
+      let { forwardedRef, ctaHeader, ctaDescription, ...otherProps } =
+        this.props;
 
       return (
         <WrappedComponent
           {...otherProps}
+          ref={forwardedRef}
           noBrowserValidation={true}
           errors={this.state.errors}
           onSubmit={(event, formData) => this.handleSubmit(event, formData)}
@@ -271,7 +273,9 @@ function withSubmissionLogic(WrappedComponent) {
     whenLoaded: PropTypes.func,
   };
 
-  return WithSubmissionLogicComponent;
+  return React.forwardRef((props, ref) => {
+    return <WithSubmissionLogicComponent {...props} forwardedRef={ref} />;
+  });
 }
 
 export default withSubmissionLogic;

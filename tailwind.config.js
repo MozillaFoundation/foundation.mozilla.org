@@ -53,6 +53,7 @@ module.exports = {
       addVariant("summary-open", ["details[open] > summary > &"]);
       addVariant("details-open", ["details[open] > &"]);
       addVariant("rich-text-links", "& [class~='rich-text'] a");
+      addVariant("2xdpi", "@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)");  // high density screens (retina)
       addBase(newBase);
     }),
     ...componentPlugins,
@@ -230,7 +231,15 @@ module.exports = {
         },
         purple: {
           100: "#fa00ff",
+          200: "#b855f6",
+          300: "#a0a2f8"
         },
+        black: {
+          100: "#202020",
+        },
+        gray: {
+          100: "#4c4c4c",
+        }
       },
       "dear-internet": {
         lilac: "#d3d5fc",

@@ -1,0 +1,23 @@
+{% load i18n l10n static %}
+
+{% block block_content %}
+    <div class="tw-mx-8 large:tw-mx-0 tw-my-14">
+        <div class="tw-container">
+            <div class="tw-row tw-bg-black tw-dark">
+                <div class="tw-relative tw-p-10 large:tw-py-14 large:tw-px-20 tw-w-full large:tw-w-7/12 after:tw-content-[''] after:tw-bg-gradient-to-r after:tw-from-black after:tw-to-transparent after:tw-h-full after:tw-w-[100px] after:tw-top-0 after:tw-absolute after:tw-right-[-100px] after:tw-to-90% after:tw-hidden large:after:tw-block">
+                    <div
+                        class="join-us"
+                        data-form-position="callout-box"
+                        data-form-style="mozfest"
+                        data-signup-id="{{ self.signup.id | unlocalize }}"
+                        data-cta-header="{{ self.signup.header | escape }}"
+                        data-cta-description="{{ self.signup.description | escape }}"
+                        data-newsletter="{{ self.signup.newsletter }}"
+                    >
+                    </div>
+                </div>
+                <div class="tw-hidden large:tw-block after:tw-h-full after:tw-block after:tw-w-full after:tw-bg-gradient-to-tl after:tw-from-black after:tw-via-10% after:tw-via-transparent after:tw-to-black after:tw-content-[''] large:tw-w-5/12 tw-bg-cover tw-bg-no-repeat" style="background-image: url('{% static "_images/banner-black-white-marble.jpg" %}')"></div>
+            </div>
+        </div>
+    </div>
+{% endblock block_content %}

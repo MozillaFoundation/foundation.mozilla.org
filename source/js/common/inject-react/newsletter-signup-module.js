@@ -8,26 +8,29 @@ import DefaultSignupForm from "../../components/newsletter-signup/organisms/defa
  * @param {String} siteUrl Foundation site base URL
  */
 export default (apps, siteUrl) => {
-  document.querySelectorAll(`.newsletter-signup-module`).forEach((element) => {
-    const props = element.dataset;
-    const sid = props.signupId || 0;
-    const moduleType = props.moduleType;
-    let Form;
+  // excluding `.newsletter-signup-module.on-nav` because it's taken care of by nav-newsletter.js
+  document
+    .querySelectorAll(`.newsletter-signup-module:not(.on-nav)`)
+    .forEach((element) => {
+      const props = element.dataset;
+      const sid = props.signupId || 0;
+      const moduleType = props.moduleType;
+      let Form;
 
-    props.apiUrl = `${siteUrl}/api/campaign/signups/${sid}/`;
-    props.isHidden = false;
+      props.apiUrl = `${siteUrl}/api/campaign/signups/${sid}/`;
+      props.isHidden = false;
 
-    if (moduleType === "default" || moduleType === "callout-box") {
-      Form = DefaultSignupForm;
-    }
+      if (moduleType === "default") {
+        Form = DefaultSignupForm;
+      }
 
-    if (Form) {
-      apps.push(
-        new Promise((resolve) => {
-          const root = createRoot(element);
-          root.render(<Form {...props} whenLoaded={() => resolve()} />);
-        })
-      );
-    }
-  });
+      if (Form) {
+        apps.push(
+          new Promise((resolve) => {
+            const root = createRoot(element);
+            root.render(<Form {...props} whenLoaded={() => resolve()} />);
+          })
+        );
+      }
+    });
 };
