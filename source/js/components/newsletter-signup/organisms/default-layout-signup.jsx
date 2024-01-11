@@ -44,6 +44,11 @@ class DefaultSignupForm extends Component {
     };
   }
 
+  // reset state to initial values
+  reset() {
+    this.setState(this.getInitialState());
+  }
+
   // generate unique IDs for form fields
   generateFieldIds(fieldNames = []) {
     return fieldNames.reduce((obj, field) => {
