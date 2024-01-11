@@ -53,6 +53,7 @@ module.exports = {
       addVariant("summary-open", ["details[open] > summary > &"]);
       addVariant("details-open", ["details[open] > &"]);
       addVariant("rich-text-links", "& [class~='rich-text'] a");
+      addVariant("2xdpi", "@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)");  // high density screens (retina)
       addBase(newBase);
     }),
     ...componentPlugins,
@@ -128,8 +129,6 @@ module.exports = {
       large: "992px",
       xlarge: "1200px",
       "2xl": "1400px",
-      // High density screens (retina)
-      "2xdpi": {raw: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)"},
     },
     fontFamily: {
       sans: ["Nunito Sans", "Helvetica", "Arial", "sans-serif"],
