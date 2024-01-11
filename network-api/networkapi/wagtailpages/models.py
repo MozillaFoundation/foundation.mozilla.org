@@ -14,7 +14,7 @@ from .pagemodels.base import (
     PrimaryPage,
     Styleguide,
 )
-from .pagemodels.blog.blog import BlogAuthors, BlogPage
+from .pagemodels.blog.blog import BlogAuthors, BlogPage, RelatedBlogPosts
 from .pagemodels.blog.blog_index import BlogIndexPage
 from .pagemodels.blog.blog_topic import BlogPageTopic
 from .pagemodels.buyersguide.article_page import (

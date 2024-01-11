@@ -33,7 +33,7 @@ class RCCAuthorsIndexPage(base_authors_index_page.BaseAuthorsIndexPage):
         exist in all locales. We prefer showing the profile for the locale, but fall
         back to the profile on the default locale.
         """
-        return utils.localize_queryset(rcc_utils.get_rcc_authors(), order_by="name")
+        return utils.localize_queryset(rcc_utils.get_rcc_authors()).order_by("name")
 
     @cached_property
     def library_page(self):

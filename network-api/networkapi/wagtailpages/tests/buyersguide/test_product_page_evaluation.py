@@ -1,4 +1,4 @@
-from unittest import expectedFailure
+from unittest.mock import MagicMock, patch
 
 from django.urls import reverse
 from django.utils.translation import gettext
@@ -8,6 +8,7 @@ from wagtail import hooks
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import (
+    ProductPage,
     ProductPageEvaluation,
     reset_product_page_votes,
 )
@@ -389,14 +390,6 @@ class TestProductPageEvaluationPrefetching(BuyersGuideTestCase):
 
 
 class CreateEvaluationPostSaveSignalTests(BuyersGuideTestCase):
-    @classmethod
-    def setUpTestData(cls):
-        # Override BuyersGuidePage.subpage_types to include ProductPage
-        # If we don't, the copy page action will fail with a Permission Error
-        # since we can't add a ProductPage as a child of BuyersGuidePage
-        BuyersGuidePage.subpage_types += ["wagtailpages.ProductPage"]
-        super().setUpTestData()
-
     def setUp(self):
         super().setUp()
         self.user = self.login()
@@ -447,8 +440,29 @@ class CreateEvaluationPostSaveSignalTests(BuyersGuideTestCase):
         product_page.refresh_from_db()
         self.assertEqual(product_page.evaluation, evaluation)
 
-    @expectedFailure
+
+# This is a bit weird, but somewhere along the copy page action
+# the GeneralProductPage.specific_class is being resolved
+# to ProductPage, which is not allowed as a child of BuyersGuidePage.
+# Thus, we need to mock the subpage_types and allowed_subpage_models to allow for
+# ProductPage to be added as a child of BuyersGuidePage. If we don't, the
+# copy page action will fail with a Permission Error since we can't add a
+# ProductPage as a child of BuyersGuidePage.
+MOCK_BG_SUBPAGE_TYPES = BuyersGuidePage.subpage_types + ["wagtailpages.ProductPage"]
+MOCK_BG_ALLOWED_SUBPAGE_MODELS = BuyersGuidePage.allowed_subpage_models() + [ProductPage]
+
+
+class AfterCopyProductPageHookTests(BuyersGuideTestCase):
+    def setUp(self):
+        super().setUp()
+        self.user = self.login()
+
     @hooks.register_temporarily("after_copy_page", reset_product_page_votes)
+    @patch.multiple(
+        BuyersGuidePage,
+        subpage_types=MagicMock(return_value=MOCK_BG_SUBPAGE_TYPES),
+        allowed_subpage_models=MagicMock(return_value=MOCK_BG_ALLOWED_SUBPAGE_MODELS),
+    )
     def test_that_copied_page_gets_evaluation(self):
         product_page = buyersguide_factories.GeneralProductPageFactory(
             parent=self.bg, title="My Product", slug="my-product"

@@ -43,7 +43,7 @@ def get_page_authors(page):
     if page is None:
         return []
     else:
-        all_authors = page.authors.all()
+        all_authors = page.authors.all().prefetch_related("author")
         return [
             {
                 "image": author.author.image,

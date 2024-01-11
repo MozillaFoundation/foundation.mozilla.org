@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Heading = ({ level = 3, children }) => {
+const Heading = ({ level = 3, classes = "", children }) => {
   const TagName = `h${level}`;
-  return <TagName className="tw-h3-heading">{children}</TagName>;
+  return <TagName className={classes}>{children}</TagName>;
 };
 
 Heading.propTypes = {
   level: PropTypes.number,
+  classes: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 

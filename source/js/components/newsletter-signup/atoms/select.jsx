@@ -6,13 +6,15 @@ const BASE_CLASSES = `
   tw-form-control
   tw-w-full
   tw-border-1
-  tw-border-black
+  dark:tw-border-white
   focus:tw-border-blue-40
   focus:tw-shadow-none
 `;
 
-const Select = ({ options, outerMarginClasses, ...otherProps }) => {
-  let classes = classNames(BASE_CLASSES, outerMarginClasses);
+const Select = ({ options, outerMarginClasses, fieldStyle, ...otherProps }) => {
+  let classes = classNames(BASE_CLASSES, outerMarginClasses, {
+    "tw-border-black": fieldStyle === "outlined",
+  });
 
   return (
     <select {...otherProps} className={classes}>
@@ -38,6 +40,7 @@ Select.propTypes = {
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
   outerMarginClasses: PropTypes.string,
+  fieldStyle: PropTypes.oneOf(["outlined", "filled"]),
 };
 
 export default Select;

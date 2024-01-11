@@ -10,7 +10,7 @@
             {% if page.has_previous %}
                 href="{{ request.path }}{% querystring discard 'expanded' 'page'=page.previous_page_number %}"
             {% else %}
-                disabled
+                aria-disabled="true"
             {% endif %}
             class="tw-btn-secondary before:tw-content-['←'] before:tw-mr-2"
         >
@@ -20,7 +20,7 @@
             {% if page.has_next %}
                 href="{{ request.path }}{% querystring discard 'expanded' 'page'=page.next_page_number %}"
             {% else %}
-                disabled
+                aria-disabled="true"
             {% endif %}
             class="tw-btn-secondary after:tw-content-['→'] after:tw-ml-2"
         >

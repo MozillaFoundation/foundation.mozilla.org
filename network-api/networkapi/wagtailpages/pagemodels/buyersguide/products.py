@@ -459,7 +459,7 @@ class ProductPageCategory(TranslatableMixin, Orderable):
     def __str__(self):
         return f"{self.category.name} -> {self.product.title}"
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
         verbose_name = "Product Category"
 
 
@@ -474,12 +474,12 @@ class RelatedProducts(TranslatableMixin, Orderable):
         "wagtailpages.ProductPage",
         on_delete=models.SET_NULL,
         null=True,
-        related_name="+",
+        related_name="related_product_relationships",
     )
 
     panels = [FieldPanel("related_product")]
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
         verbose_name = "Related Product"
 
 
@@ -507,7 +507,7 @@ class ProductPagePrivacyPolicyLink(TranslatableMixin, Orderable):
     def __str__(self):
         return f"{self.page.title}: {self.label} ({self.url})"
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
         verbose_name = "Privacy Link"
 
 
@@ -588,7 +588,6 @@ class ProductUpdates(TranslatableMixin, Orderable):
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         verbose_name = "Product Update"
-        ordering = ["sort_order"]
 
 
 class ProductPageQuerySet(PageQuerySet):
@@ -995,9 +994,7 @@ class ProductPage(BasePage):
 
     @property
     def localized_related_products(self):
-        related_product_relationships = RelatedProducts.objects.filter(page=self)
-        related_products = [relationship.related_product_id for relationship in related_product_relationships]
-        related_products = ProductPage.objects.filter(id__in=related_products)
+        related_products = ProductPage.objects.filter(related_product_relationships__page=self)
         return localize_queryset(related_products).order_by("title")
 
     @property
@@ -1442,5 +1439,5 @@ class ExcludedCategories(TranslatableMixin, Orderable):
     def __str__(self):
         return self.category.name
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
         verbose_name = "Excluded Category"

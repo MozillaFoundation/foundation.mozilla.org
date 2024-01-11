@@ -2,7 +2,7 @@ from datetime import timezone
 from random import choice
 
 from django.conf import settings
-from factory import Faker, LazyAttribute
+from factory import Faker, LazyAttribute, SubFactory
 from factory.django import DjangoModelFactory
 from wagtail.models import Page as WagtailPage
 from wagtail_factories import PageFactory
@@ -14,6 +14,7 @@ from networkapi.wagtailpages.models import (
     BlogPage,
     BlogPageTopic,
     Profile,
+    RelatedBlogPosts,
 )
 from networkapi.wagtailpages.pagemodels.blog import blog_index
 
@@ -70,6 +71,14 @@ class BlogIndexPageFactory(IndexPageFactory):
         model = BlogIndexPage
 
     callout_box = Faker("streamfield", fields=["callout_box"])
+
+
+class RelatedBlogPostsFactory(DjangoModelFactory):
+    class Meta:
+        model = RelatedBlogPosts
+
+    page = SubFactory("networkapi.wagtailpages.factory.blog.BlogPageFactory")
+    related_post = SubFactory("networkapi.wagtailpages.factory.blog.BlogPageFactory")
 
 
 class BlogPageFactory(PageFactory):

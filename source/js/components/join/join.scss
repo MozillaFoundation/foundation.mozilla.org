@@ -17,16 +17,6 @@
       width: map-get($glyph-container, "width");
       margin: auto;
     }
-
-    .privacy-error {
-      @media (min-width: $bp-sm) {
-        margin-left: 30px;
-      }
-
-      @media (min-width: $bp-md) {
-        margin-left: 0;
-      }
-    }
   }
 
   .fields-wrapper {

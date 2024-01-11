@@ -169,7 +169,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         products = ProductPage.objects.descendant_of(self.bg)
         products.delete()
         self.assertEqual(products.count(), 0)
-        query_number = 47
+        query_number = 45
 
         with self.assertNumQueries(query_number):
             response = self.client.get(self.bg.url)
@@ -179,7 +179,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
     def test_serve_page_one_product(self):
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), 1)
-        query_number = 62
+        query_number = 60
 
         with self.assertNumQueries(query_number):
             response = self.client.get(self.bg.url)
@@ -193,7 +193,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
             buyersguide_factories.ProductPageFactory(parent=self.bg, with_random_categories=True)
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), additional_products_count + 1)
-        query_number = 63
+        query_number = 61
 
         with self.assertNumQueries(query_number):
             response = self.client.get(self.bg.url)
@@ -207,7 +207,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
             buyersguide_factories.ProductPageFactory(parent=self.bg, with_random_categories=True)
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), additional_products_count + 1)
-        query_number = 69
+        query_number = 67
         self.client.force_login(user=self.create_test_user())
 
         with self.assertNumQueries(query_number):
@@ -222,7 +222,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 12
+        query_number = 10
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -233,7 +233,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 15
+        query_number = 13
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -248,7 +248,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 15
+        query_number = 13
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -263,7 +263,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 15
+        query_number = 13
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -278,7 +278,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 16
+        query_number = 14
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -295,7 +295,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = user
         request.LANGUAGE_CODE = "en"
-        query_number = 15
+        query_number = 13
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)

@@ -1,4 +1,4 @@
-{% extends "partials/footer.html" %}
+{% extends "fragments/footer.html" %}
 
 {% load i18n l10n static %}
 
@@ -10,10 +10,12 @@
     <div class="col-md-5 col-lg-6 d-flex flex-column justify-content-between">
         {% with localized_footer_signup=mozfest_footer.localized %}
             <div
-                class="join-us"
+                class="newsletter-signup-module"
+                data-module-type="default"
+                data-form-style="footer"
                 data-form-position="footer"
-                data-button-position="side"
                 data-signup-id="{{ localized_footer_signup.id }}"
+                data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
                 data-cta-header="{{ localized_footer_signup.header | escape }}"
                 data-cta-description="{{ localized_footer_signup.description | escape }}"
                 data-newsletter="{{ localized_footer_signup.newsletter }}">

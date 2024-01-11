@@ -1,8 +1,7 @@
 {% load settings_value i18n static %}
 
 {% with wrapper_class="tw-py-24" %}
-
-    <footer role="contentinfo">
+    <footer>
         {% if skip_donate != True %}
             {% block footer_donate %}
                 <div class="tw-bg-blue-40 tw-dark print:tw-hidden {{ wrapper_class }}">
@@ -27,7 +26,15 @@
 
                     {% block left_footer_column %}
                         <div class="medium:tw-w-5/12 large:tw-w-6/12 tw-px-8 tw-flex tw-flex-col tw-justify-between">
-                            <div class="join-us" data-form-position="footer" data-button-position="side"></div>
+                            <div class="newsletter-signup-module"
+                                 data-module-type="default"
+                                 data-form-style="footer"
+                                 data-form-position="footer"
+                                 data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
+                                 data-cta-header="{% trans "Help shape the future of the web for the public good." %}"
+                                 data-cta-description="{% trans "<p>Join our <b>Mozilla News</b> email list to get action alerts & internet tips right to your inbox.</p>" %}"
+                            >
+                            </div>
                             <a class="logo tw-block tw-my-24 medium:tw-my-0" href="https://foundation.mozilla.org" aria-label="{% trans 'Return to Homepage' %}"><img src="{% static "_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}" width="96"></a>
                         </div>
                     {% endblock %}

@@ -1,5 +1,5 @@
 {% load static wagtailcore_tags wagtailimages_tags i18n %}
-<div>
+<section>
     {% include "./wavy_line.html" %}
     <h2 class="tw-font-zilla tw-font-normal tw-text-2xl tw-text-black tw-mt-4 tw-mb-10">{% trans "In the press" %}</h2>
 
@@ -9,7 +9,7 @@
                 <div class="tw-font-sans tw-font-bold tw-text-lg">{{ update.title }}</div>
                 <a href="{{ update.source }}" target="_blank" class= "tw-font-sans tw-font-bold tw-text-blue-40 tw-items-center tw-text-sm tw-no-underline tw-flex tw-uppercase">
                     <span class="tw-line-clamp-1">{{ update.author }}</span>
-                    <img src="{% static "_images/buyers-guide/external-link-blue.svg" %}" class="tw-ml-4" />
+                    {% include "fragments/buyersguide/external_link_icon.html" %}
                 </a>
             </li>
         {% endfor %}
@@ -22,4 +22,4 @@
             {% include "./arrow_link.html" with link_href=link_href link_text=link_text %}
         {% endif %}
     {% endwith %}
-</div>
+</section>
