@@ -27,14 +27,6 @@ class JoinUs extends Component {
     this.state = this.getInitialState(props);
   }
 
-  reset() {
-    if (!this.state.apiSuccess) {
-      this.email.value = "";
-      this.privacy.checked = false;
-    }
-    this.setState(this.getInitialState(this.props));
-  }
-
   getInitialState(props) {
     return {
       apiSubmitted: false,
@@ -43,7 +35,6 @@ class JoinUs extends Component {
       userTriedSubmitting: false,
       lang: getCurrentLanguage(),
       hideLocaleFields: [
-        `header`,
         `body`,
         `callout-box`,
         `pni-product-quiz`,
