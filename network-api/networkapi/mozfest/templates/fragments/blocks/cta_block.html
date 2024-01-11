@@ -1,0 +1,17 @@
+{% load wagtailcore_tags %}
+
+{% block block_content %}
+    <div class="tw-py-16 tw-dark{% if self.dark_background %} tw-bg-black {% endif %}">
+        <div class="tw-container">
+            <div class="tw-row">
+                <div class="tw-bg-blue-40 tw-w-full tw-p-8 tw-mx-8 medium:tw-flex medium:tw-items-center medium:tw-justify-between medium:tw-py-12 medium:tw-px-24">
+                    <div class="medium:tw-max-w-[50%]">
+                        <h2 class="tw-h3-heading">{{ self.heading }}</h2>
+                        <p class="tw-mt-0 medium:tw-m-0">{{ self.text }}</p>
+                    </div>
+                    <a class="tw-btn-secondary" href="{{ self.link_url }}" data-cta-event="cta-streamfield">{{ self.link_text }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock block_content %}

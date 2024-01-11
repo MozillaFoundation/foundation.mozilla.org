@@ -1,0 +1,43 @@
+{% load wagtailcore_tags %}
+
+{% block block_content %}
+    <div class="tw-py-16">
+        <div class="tw-container">
+            <div class="tw-row">
+                <div class="tw-grid large:tw-grid-cols-3 tw-gap-x-14 large:tw-mb-20 tw-px-8">
+
+                    {# Video #}
+                    <div class="tw-mb-14 large:tw-mb-0 large:tw-col-span-2">
+                        {% include_block self.video %}
+                    </div>
+
+                    {# First card in the loop #}
+                    {% for card in self.cards %}
+                        {% if forloop.first %}
+                            {% include "fragments/mixed_content_card.html" with card=card %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% if self.cards|length > 1 %}
+                <div class="tw-row">
+                    <ul class="tw-grid tw-grid-cols-1 large:tw-grid-cols-3 tw-gap-x-12 tw-gap-y-14 tw-list-none tw-mt-16 large:tw-mt-0 tw-px-8">
+                        {# All cards except the first #}
+                        {% for card in self.cards %}
+                            {% if not forloop.first %}
+                                {% include "fragments/mixed_content_card.html" with card=card %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if self.link_text and self.link_url %}
+                <div class="tw-row tw-justify-center tw-mt-16">
+                    <a href="{{ self.link_url }}" class="tw-btn-secondary">{{ self.link_text }}</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock block_content %}
