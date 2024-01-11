@@ -57,7 +57,7 @@
                 t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=4;o.h=w.location.href;o.l=[];
                 for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
             })(window,document,'script','FundraiseUp','ADCYPWMX');</script>
-            {% if fru_live_mode_enabled == false %}
+            {% if fru_live_mode_enabled == False %}
                 <script nonce="{{ request.csp_nonce }}">
                     window.fundraiseup_livemode = false;    
                 </script>            
