@@ -82,7 +82,14 @@
     <div class="container tw-dark">
         <div class="row">
             <div class="col-12">
-                <div class="join-us pt-5 on-nav" data-layout="2-column" data-form-position="header" data-button-position="side"></div>
+                <div class="newsletter-signup-module on-nav tw-pt-24"
+                     data-module-type="default"
+                     data-form-style="header:2-col"
+                     data-form-position="header"
+                     data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
+                     data-cta-header="{% trans "Help shape the future of the web for the public good." %}"
+                     data-cta-description="{% trans "<p>Join our <b>Mozilla News</b> email list to get action alerts & internet tips right to your inbox.</p>" %}"
+                ></div>
                 <div class="text-center mt-3 d-lg-none">
                     <button class="tw-btn form-dismiss">{% trans "No thanks" %}</button>
                 </div>
