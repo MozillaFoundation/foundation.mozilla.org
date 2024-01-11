@@ -68,4 +68,12 @@ export const FORM_STYLE = {
     innerWrapperClass: "tw-flex tw-flex-col large:tw-gap-16 large:tw-flex-row",
     introContainerClass: "tw-w-full large:tw-w-1/2",
   },
+  "home-body": {
+    buttonPosition: "bottom",
+    buttonStyle: "primary",
+    buttonWidthClasses: "tw-w-full",
+    fieldStyle: "outlined",
+    headingLevel: 3,
+    headingClass: "tw-h5-heading",
+  },
 };
