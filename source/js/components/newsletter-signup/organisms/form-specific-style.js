@@ -58,4 +58,12 @@ export const FORM_STYLE = {
     headingLevel: 4,
     headingClass: `tw-h5-heading`,
   },
+  "home-body": {
+    buttonPosition: "bottom",
+    buttonStyle: "primary",
+    buttonWidthClasses: "tw-w-full",
+    fieldStyle: "outlined",
+    headingLevel: 3,
+    headingClass: "tw-h5-heading",
+  },
 };
