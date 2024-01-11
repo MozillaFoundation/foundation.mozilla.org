@@ -47,6 +47,7 @@ env = environ.Env(
     FORCE_500_STACK_TRACES=(bool, False),
     FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN=(str, ""),
     FRONTEND_CACHE_CLOUDFLARE_ZONEID=(str, ""),
+    FRU_ENABLE_LIVE_MODE=(bool, False),
     GITHUB_TOKEN=(str, ""),
     HEROKU_APP_NAME=(str, ""),
     HEROKU_BRANCH=(str, ""),
@@ -142,6 +143,8 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 DEBUG_TOOLBAR_ENABLED = env("DEBUG_TOOLBAR_ENABLED")
+
+FRU_ENABLE_LIVE_MODE = env("FRU_ENABLE_LIVE_MODE")
 
 # SECURITY WARNING: same as above!
 FORCE_500_STACK_TRACES = env("FORCE_500_STACK_TRACES")
