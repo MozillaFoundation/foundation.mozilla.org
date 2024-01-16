@@ -32,7 +32,7 @@ coveralls==3.3.1
     # via -r dev-requirements.in
 cssbeautifier==1.14.7
     # via djlint
-django==3.2.23
+django==4.0
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
@@ -115,10 +115,6 @@ pytest-sugar==0.9.7
     # via -r dev-requirements.in
 pytest-xdist==3.5.0
     # via -r dev-requirements.in
-pytz==2021.3
-    # via
-    #   -c requirements.txt
-    #   django
 pyyaml==6.0.1
     # via
     #   -c requirements.txt
