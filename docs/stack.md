@@ -111,7 +111,7 @@ This site uses [Fundraise Up](https://fundraiseup.com/) as a payment processor.
 
 ### Enabling Test Mode
 
-Developers can enable Fundraise Up "test mode" by appending the parameter `fundraiseUpLiveMode=no` to the end of the current URL.
+Developers can enable Fundraise Up "test mode" by appending the query parameter `?fundraiseUpLiveMode=no` to the end of the current URL.
 
 With live mode disabled, you can test functionality without the need of a real credit card.
 Test card information will be given to you when completing the checkout process.
