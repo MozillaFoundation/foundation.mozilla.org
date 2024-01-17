@@ -45,7 +45,6 @@ defusedxml==0.7.1
     # via
     #   python3-openid
     #   social-auth-core
-    #   willow
 dj-database-url==2.1.0
     # via -r requirements.in
 django==4.1.13
@@ -121,8 +120,6 @@ faker==20.1.0
     # via
     #   -r requirements.in
     #   factory-boy
-filetype==1.2.0
-    # via willow
 future==0.18.3
     # via -r requirements.in
 gitdb==4.0.9
@@ -159,7 +156,7 @@ openpyxl==3.1.0
     # via wagtail
 packaging==23.1
     # via gunicorn
-pillow==10.0.1
+pillow==9.5.0
     # via wagtail
 polib==1.1.1
     # via wagtail-localize
@@ -251,7 +248,7 @@ urllib3==1.26.15
     #   sentry-sdk
 user-agents==2.2.0
     # via wagtail-ab-testing
-wagtail==4.1.9
+wagtail==4.2.4
     # via
     #   -r requirements.in
     #   wagtail-ab-testing
@@ -287,7 +284,7 @@ webencodings==0.5.1
     # via html5lib
 whitenoise==6.6.0
     # via -r requirements.in
-willow==1.6.3
+willow==1.4.1
     # via wagtail
 wrapt==1.13.3
     # via scout-apm
