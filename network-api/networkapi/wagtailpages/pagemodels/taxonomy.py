@@ -57,7 +57,7 @@ class BaseTaxonomy(TranslatableMixin):
         ]
 
     search_fields = [
-        index.SearchField("name", partial_match=True),
+        index.AutocompleteField("name"),
         index.FilterField("locale_id"),
     ]
 
