@@ -3,6 +3,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 
 const ButtonSubmit = ({
+  disabled = false,
   children,
   buttonStyle = "primary",
   widthClasses = `tw-w-full`,
@@ -14,7 +15,7 @@ const ButtonSubmit = ({
   let classes = classNames(`tw-btn tw-btn-${buttonStyle}`, widthClasses);
 
   return (
-    <button type="submit" className={classes}>
+    <button type="submit" className={classes} disabled={disabled}>
       {children}
     </button>
   );

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { POINTS, PRODUCTS, RESULTS } from "./data";
 import JoinUs from "../../../components/join/join.jsx";
+import DefaultLayoutSignup from "../../../components/newsletter-signup/organisms/default-layout-signup.jsx";
 import ProductQuizShareButtons from "../social-share/product-quiz-share-buttons.jsx";
 
 class ProductQuiz extends Component {
@@ -259,14 +260,14 @@ class ProductQuiz extends Component {
             more people like you.
           </p>
         </div>
-        <div className="join-us react-rendered">
-          <JoinUs
+        <div className="newsletter-signup-module react-rendered">
+          <DefaultLayoutSignup
             formPosition="pni-product-quiz"
-            formStyle="pni"
+            formStyle="pni-product-quiz"
             ctaHeader=""
             ctaDescription=""
             apiUrl={this.props.joinUsApiUrl}
-            disableSubmitButton={true}
+            disableSubmitButtonByDefault={true}
             handleSignUp={(successState) => this.handleSignUp(successState)}
           />
         </div>

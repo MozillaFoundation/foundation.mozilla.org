@@ -76,4 +76,9 @@ export const FORM_STYLE = {
     headingLevel: 3,
     headingClass: "tw-h5-heading",
   },
+  "pni-product-quiz": {
+    fieldStyle: "filled",
+    headingLevel: 4,
+    headingClass: `tw-h5-heading`,
+  },
 };

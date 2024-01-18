@@ -41,6 +41,7 @@ class DefaultSignupForm extends Component {
         privacy: "",
       },
       showAllFields: false,
+      submitButtonDisabled: this.props.disableSubmitButtonByDefault,
     };
   }
 
@@ -80,8 +81,18 @@ class DefaultSignupForm extends Component {
     return this.state.formData[name];
   }
 
+  // Toggle the submit button disabled state if the button is disabled by default
+  toggleSubmitButton(setToDisabled) {
+    if (this.props.disableSubmitButtonByDefault) {
+      this.setState({
+        submitButtonDisabled: setToDisabled,
+      });
+    }
+  }
+
   handleEmailChange(event) {
     this.updateFormFieldValue("email", event.target.value);
+    this.toggleSubmitButton(event.target.value === "");
   }
 
   handleCountryChange(event) {
@@ -222,6 +233,7 @@ class DefaultSignupForm extends Component {
             <ButtonSubmit
               buttonStyle={this.style.buttonStyle}
               widthClasses={this.style.buttonWidthClasses}
+              disabled={this.state.submitButtonDisabled}
             >
               {this.buttonText}
             </ButtonSubmit>
