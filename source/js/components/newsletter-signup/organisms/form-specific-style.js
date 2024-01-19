@@ -80,6 +80,7 @@ export const FORM_STYLE = {
     fieldStyle: "filled",
     headingLevel: 4,
     headingClass: `tw-h5-heading`,
+  },
   "youtube-regrets-reporter:2-col": {
     buttonStyle: "primary",
     buttonWidthClasses: "tw-w-full",
