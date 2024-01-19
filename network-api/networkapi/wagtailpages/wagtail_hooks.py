@@ -184,7 +184,7 @@ def register_howto_menu_item():
         "How Do I Wagtail",
         reverse("how-do-i-wagtail"),
         name="howdoIwagtail",
-        classnames="icon icon-help",
+        classname="icon icon-help",
         order=900,
     )
 
