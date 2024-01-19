@@ -34,12 +34,9 @@ class JoinUs extends Component {
       apiFailed: false,
       userTriedSubmitting: false,
       lang: getCurrentLanguage(),
-      hideLocaleFields: [
-        `body`,
-        `callout-box`,
-        `pni-product-quiz`,
-        `youtube-regrets-reporter`,
-      ].includes(props.formPosition),
+      hideLocaleFields: [`body`, `callout-box`, `pni-product-quiz`].includes(
+        props.formPosition
+      ),
       submitButtonDisabled: props.disableSubmitButton,
     };
   }
