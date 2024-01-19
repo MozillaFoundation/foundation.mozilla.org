@@ -10,7 +10,9 @@ import DefaultSignupForm from "../../components/newsletter-signup/organisms/defa
 export default (apps, siteUrl) => {
   // excluding `.newsletter-signup-module.on-nav` because it's taken care of by nav-newsletter.js
   document
-    .querySelectorAll(`.newsletter-signup-module:not(.on-nav)`)
+    .querySelectorAll(
+      `.newsletter-signup-module:not(.on-nav):not(.react-rendered)`
+    )
     .forEach((element) => {
       const props = element.dataset;
       const sid = props.signupId || 0;
