@@ -164,8 +164,7 @@ def global_admin_js():
 @hooks.register("insert_global_admin_css")
 def global_admin_css():
     max_length_css = static("wagtailadmin/css/max-length-field.css")
-    custom_fix_css = static("wagtailadmin/css/custom-fix.css")
-    return f'<link rel="stylesheet" href="{max_length_css}">' f'<link rel="stylesheet" href="{custom_fix_css}">'
+    return f'<link rel="stylesheet" href="{max_length_css}">'
 
 
 @hooks.register("register_icons")
