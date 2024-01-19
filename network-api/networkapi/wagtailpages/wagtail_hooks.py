@@ -168,6 +168,11 @@ def global_admin_css():
     return f'<link rel="stylesheet" href="{max_length_css}">' f'<link rel="stylesheet" href="{custom_fix_css}">'
 
 
+@hooks.register("register_icons")
+def register_icons(icons):
+    return icons + ["icons/arrows-up-down.svg"]
+
+
 class HowToWagtailMenuItem(MenuItem):
     def is_shown(self, request):
         return True
