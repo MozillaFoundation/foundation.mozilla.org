@@ -32,7 +32,7 @@ coveralls==3.3.1
     # via -r dev-requirements.in
 cssbeautifier==1.14.7
     # via djlint
-django==4.1.13
+django==4.2.9
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
