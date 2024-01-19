@@ -40,7 +40,7 @@ class RedirectDefaultSiteDecoratorTests(TestCase):
         """
         Test that users gets redirected to PNI on the foundation site when they visit it from a non-default CMS site
         """
-        response = self.client.get("/en/privacynotincluded/", HTTP_HOST="secondary-site.com")
+        response = self.client.get("/en/privacynotincluded/", headers={"host": "secondary-site.com"})
         self.assertRedirects(
             response,
             "https://default-site.com/en/privacynotincluded/",
