@@ -118,7 +118,7 @@ class TabbedProfileDirectory(blocks.StructBlock):
                 )
 
         if errors:
-            raise StructBlockValidationError(errors)
+            raise StructBlockValidationError(block_errors=errors)
 
         return result
 

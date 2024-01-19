@@ -40,7 +40,8 @@ class BlogCTACardWithTextBlock(blocks.StructBlock):
 
         if card_length > paragraph_length:
             errors["paragraph"] = ErrorList(["Paragraph content cannot be shorter than card's content."])
+
         if errors:
-            raise StructBlockValidationError(errors)
+            raise StructBlockValidationError(block_errors=errors)
 
         return result

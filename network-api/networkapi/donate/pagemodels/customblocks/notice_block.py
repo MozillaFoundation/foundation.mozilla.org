@@ -26,6 +26,6 @@ class NoticeBlock(blocks.StructBlock):
         if cleaned_data["image_alt_text"] and not cleaned_data["image"]:
             errors["image_alt_text"] = ErrorList(["Alt text must have an associated image."])
         if errors:
-            raise StructBlockValidationError(errors)
+            raise StructBlockValidationError(block_errors=errors)
 
         return cleaned_data
