@@ -160,7 +160,11 @@ openpyxl==3.1.0
 packaging==23.1
     # via gunicorn
 pillow==10.0.1
-    # via wagtail
+    # via
+    #   pillow-heif
+    #   wagtail
+pillow-heif==0.14.0
+    # via willow
 polib==1.1.1
     # via wagtail-localize
 psutil==5.9.0
@@ -251,7 +255,7 @@ urllib3==1.26.15
     #   sentry-sdk
 user-agents==2.2.0
     # via wagtail-ab-testing
-wagtail==5.0.5
+wagtail==5.1.3
     # via
     #   -r requirements.in
     #   wagtail-ab-testing
@@ -287,7 +291,7 @@ webencodings==0.5.1
     # via html5lib
 whitenoise==6.6.0
     # via -r requirements.in
-willow==1.6.3
+willow[heif]==1.6.3
     # via wagtail
 wrapt==1.13.3
     # via scout-apm
