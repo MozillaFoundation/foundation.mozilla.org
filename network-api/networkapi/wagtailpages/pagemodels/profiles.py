@@ -46,6 +46,7 @@ class Profile(index.Indexed, TranslatableMixin, models.Model):
     ]
 
     search_fields = [
+        index.SearchField("name"),
         index.AutocompleteField("name"),
         # Needed for locale filtering in the Wagtail admin. A helpful error message pointed this out.
         index.FilterField("locale_id"),
