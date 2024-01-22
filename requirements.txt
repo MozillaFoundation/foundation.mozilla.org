@@ -48,7 +48,7 @@ defusedxml==0.7.1
     #   willow
 dj-database-url==2.1.0
     # via -r requirements.in
-django==3.2.23
+django==4.1.13
     # via
     #   -r requirements.in
     #   dj-database-url
@@ -186,7 +186,6 @@ python3-openid==3.2.0
     # via social-auth-core
 pytz==2021.3
     # via
-    #   django
     #   django-modelcluster
     #   djangorestframework
     #   l18n
