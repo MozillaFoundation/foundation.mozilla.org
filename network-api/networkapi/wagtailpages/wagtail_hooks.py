@@ -186,11 +186,3 @@ def register_howto_menu_item():
         classname="icon icon-help",
         order=900,
     )
-
-
-@hooks.register("construct_main_menu")
-@hooks.register("construct_settings_menu")
-def construct_settings_menu(request, menu_items):
-    menu_items.sort(key=lambda x: x.name)
-    for order, item in enumerate(menu_items):
-        item.order = order
