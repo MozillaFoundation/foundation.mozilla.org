@@ -19,17 +19,17 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail.coreutils import find_available_slug
 from wagtail.rich_text import LinkHandler
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 from wagtail_localize.models import (
     LocaleSynchronization,
     sync_trees_on_locale_sync_save,
 )
-from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
-from wagtail.snippets.models import register_snippet
 
+from networkapi.wagtailpages import models as wagtailpages_models
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
 from networkapi.wagtailpages.utils import get_locale_from_request
-from networkapi.wagtailpages import models as wagtailpages_models
 
 post_save.disconnect(sync_trees_on_locale_sync_save, sender=LocaleSynchronization)
 
@@ -178,6 +178,7 @@ def register_icons(icons):
         "icons/ticket.svg",
         "icons/newspaper.svg",
         "icons/mozfest.svg",
+        "icons/pni.svg",
     ]
 
 
@@ -229,3 +230,84 @@ class BlogViewSetGroup(SnippetViewSetGroup):
 
 
 register_snippet(BlogViewSetGroup)
+
+
+class BuyersGuideProductCategorySnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.BuyersGuideProductCategory
+    icon = "list-ul"
+    menu_order = 000
+    menu_label = "Product Categories"
+    menu_name = "Product Categories"
+    list_display = ("name", "parent", "featured", "hidden", "slug", "sort_order", "is_being_used")
+    search_fields = (
+        "name",
+        "description",
+        "parent",
+    )
+
+
+class BuyersGuideContentCategorySnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.BuyersGuideContentCategory
+    icon = "tag"
+    menu_order = 100
+    menu_label = "Content Categories"
+    menu_name = "Content Categories"
+    list_display = (
+        "title",
+        "slug",
+    )
+    search_fields = (
+        "title",
+        "slug",
+    )
+
+
+class UpdateSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.Update
+    icon = "history"
+    menu_order = 200
+    menu_label = "Product Updates"
+    menu_name = "Product Updates"
+    list_display = (
+        "title",
+        "author",
+        "featured",
+        "created_date",
+    )
+    search_fields = (
+        "title",
+        "source",
+        "author",
+        "snippet",
+        "created_date",
+    )
+
+
+class BuyersGuideCTASnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.BuyersGuideCallToAction
+    icon = "link-external"
+    menu_order = 300
+    menu_label = "CTAs"
+    menu_name = "CTAs"
+    list_display = (
+        "title",
+        "link_label",
+        "link_target_url",
+    )
+    search_fields = ("title", "content", "link_label", "link_target_url", "link_target_page")
+
+
+class BuyersGuideViewSetGroup(SnippetViewSetGroup):
+    items = (
+        BuyersGuideProductCategorySnippetViewSet,
+        BuyersGuideContentCategorySnippetViewSet,
+        UpdateSnippetViewSet,
+        BuyersGuideCTASnippetViewSet,
+    )
+    menu_icon = "pni"
+    menu_label = "*PNI"
+    menu_name = "*PNI"
+    menu_order = 1500
+
+
+register_snippet(BuyersGuideViewSetGroup)
