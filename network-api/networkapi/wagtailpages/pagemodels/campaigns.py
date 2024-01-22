@@ -140,7 +140,6 @@ class Signup(TranslatableMixin, CTA):
         verbose_name = "Signup"
 
 
-@register_snippet
 class BlogSignup(TranslatableMixin, CTABase):
     description = RichTextField(
         help_text="Signup's body (richtext)", features=["bold", "italic"], max_length=300, blank=True

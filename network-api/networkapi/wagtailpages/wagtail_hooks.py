@@ -23,10 +23,13 @@ from wagtail_localize.models import (
     LocaleSynchronization,
     sync_trees_on_locale_sync_save,
 )
+from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
+from wagtail.snippets.models import register_snippet
 
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
 from networkapi.wagtailpages.utils import get_locale_from_request
+from networkapi.wagtailpages import models as wagtailpages_models
 
 post_save.disconnect(sync_trees_on_locale_sync_save, sender=LocaleSynchronization)
 
@@ -192,3 +195,37 @@ def register_howto_menu_item():
         classname="icon icon-help",
         order=1000,
     )
+
+
+class BlogPageTopicSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.BlogPageTopic
+    icon = "tag"
+    menu_order = 000
+    menu_label = "Topics"
+    menu_name = "Topics"
+    list_display = ("name",)
+    search_fields = ("name", "title", "intro", "share_description")
+
+
+class BlogSignupSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.BlogSignup
+    icon = "newspaper"
+    menu_order = 100
+    menu_label = "Newsletter Signups"
+    menu_name = "Newsletter Signups"
+    list_display = (
+        "name",
+        "newsletter",
+    )
+    search_fields = ("name", "header", "description", "newsletter")
+
+
+class BlogViewSetGroup(SnippetViewSetGroup):
+    items = (BlogPageTopicSnippetViewSet, BlogSignupSnippetViewSet)
+    menu_icon = "bold"
+    menu_label = "Blog"
+    menu_name = "Blog"
+    menu_order = 1400
+
+
+register_snippet(BlogViewSetGroup)
