@@ -1,6 +1,7 @@
 from adminsortable.admin import SortableAdmin
 from django.contrib import admin
-from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 
 from networkapi.highlights.forms import HighlightAdminForm
 from networkapi.highlights.models import Highlight
@@ -14,11 +15,12 @@ class HighlightAdmin(SortableAdmin):
 
 
 # Wagtail admin
-class WagtailHighlightAdmin(ModelAdmin):
+class WagtailHighlightSnippetViewSet(SnippetViewSet):
     model = Highlight
-    menu_icon = "date"  # change as required
+    icon = "date"  # change as required
     menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)
     add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
+    add_to_admin_menu = True  # or True to hide it from the Wagtail side menu
     exclude_from_explorer = False  # or True to exclude pages of this type from Wagtail's explorer view
     list_display = (
         "title",
@@ -28,4 +30,4 @@ class WagtailHighlightAdmin(ModelAdmin):
     search_fields = ("title", "description")
 
 
-modeladmin_register(WagtailHighlightAdmin)
+register_snippet(WagtailHighlightSnippetViewSet)

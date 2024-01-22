@@ -1,5 +1,6 @@
 from django.contrib import admin
-from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 
 from networkapi.news.forms import NewsAdminForm
 from networkapi.news.models import News
@@ -10,11 +11,12 @@ class NewsAdmin(admin.ModelAdmin):
     form = NewsAdminForm
 
 
-class WagtailNewsAdmin(ModelAdmin):
+class WagtailNewsSnippetViewSet(SnippetViewSet):
     model = News
-    menu_icon = "doc-full-inverse"  # change as required
-    menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)
+    icon = "doc-full-inverse"  # change as required
+    menu_order = 201  # will put in 3rd place (000 being 1st, 100 2nd)
     add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
+    add_to_admin_menu = True  # or True to hide it from the Wagtail side menu
     exclude_from_explorer = False  # or True to exclude pages of this type from Wagtail's explorer view
     list_display = (
         "headline",
@@ -25,4 +27,4 @@ class WagtailNewsAdmin(ModelAdmin):
     search_fields = ("headline",)
 
 
-modeladmin_register(WagtailNewsAdmin)
+register_snippet(WagtailNewsSnippetViewSet)
