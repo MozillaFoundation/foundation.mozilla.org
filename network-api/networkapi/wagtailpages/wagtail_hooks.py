@@ -169,7 +169,13 @@ def global_admin_css():
 
 @hooks.register("register_icons")
 def register_icons(icons):
-    return icons + ["icons/arrows-up-down.svg"]
+    return icons + [
+        "icons/arrows-up-down.svg",
+        "icons/tito.svg",
+        "icons/ticket.svg",
+        "icons/newspaper.svg",
+        "icons/mozfest.svg",
+    ]
 
 
 class HowToWagtailMenuItem(MenuItem):
@@ -184,5 +190,5 @@ def register_howto_menu_item():
         reverse("how-do-i-wagtail"),
         name="howdoIwagtail",
         classname="icon icon-help",
-        order=900,
+        order=1000,
     )
