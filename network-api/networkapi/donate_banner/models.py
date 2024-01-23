@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.core.validators import RegexValidator
 from django.db import models
 from wagtail.admin.panels import FieldPanel, HelpPanel
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.models import PreviewableMixin, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -86,3 +87,23 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         if self.site_donate_banner.exists():
             return "Yes"
         return "No"
+
+
+@register_setting(icon="pick")
+class SiteDonateBanner(BaseSiteSetting):
+    select_related = ["active_donate_banner"]
+
+    active_donate_banner = models.ForeignKey(
+        "donate_banner.DonateBanner",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="site_donate_banner",
+    )
+
+    content_panels = [
+        FieldPanel("active_donate_banner"),
+    ]
+
+    class Meta:
+        verbose_name = "Donate Banner"

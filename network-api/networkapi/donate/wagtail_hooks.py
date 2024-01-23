@@ -1,31 +1,23 @@
-from django.db import models
 from wagtail import hooks
-from wagtail.admin.panels import FieldPanel
 from wagtail.admin.ui.tables import UpdatedAtColumn
-from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.snippets.models import register_snippet
-from wagtail.snippets.views.snippets import SnippetViewSet
+from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 
 from networkapi.donate_banner.models import DonateBanner
 from networkapi.wagtailcustomization.views.snippet_chooser import (
     DefaultLocaleSnippetChooserViewSet,
 )
+from networkapi.wagtailpages.donation_modal import DonationModal
 
 
 # Customise DonateBanner Snippet admin listing to show extra columns.
 class DonateBannerViewSet(SnippetViewSet):
     model = DonateBanner
     icon = "form"  # change as required
-    menu_order = 1100
-    add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
-    add_to_admin_menu = True
-    exclude_from_explorer = False
+    menu_order = 100
     description = "Donation Banner"
     menu_label = "Donation Banners"
     list_display = ["name", "cta_link", "is_active", UpdatedAtColumn()]
-
-
-register_snippet(DonateBanner, viewset=DonateBannerViewSet)
 
 
 # Customise chooser to only show the default language banners as options.
@@ -40,21 +32,30 @@ def register_donate_banner_chooser_viewset():
     )
 
 
-@register_setting(icon="pick")
-class SiteDonateBanner(BaseSiteSetting):
-    select_related = ["active_donate_banner"]
-
-    active_donate_banner = models.ForeignKey(
-        "donate_banner.DonateBanner",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="site_donate_banner",
+class DonationModalSnippetViewSet(SnippetViewSet):
+    model = DonationModal
+    icon = "newspaper"
+    menu_order = 200
+    menu_label = "Newsletter Signups"
+    menu_name = "Newsletter Signups"
+    list_display = (
+        "name",
+        "donate_text",
+        "donate_url",
+        "dismiss_text",
     )
+    search_fields = ("name", "header", "body", "donate_text", "donate_url", "dismiss_text")
 
-    content_panels = [
-        FieldPanel("active_donate_banner"),
-    ]
 
-    class Meta:
-        verbose_name = "Donate Banner"
+class DonateViewSetGroup(SnippetViewSetGroup):
+    items = (
+        DonateBannerViewSet,
+        DonationModalSnippetViewSet,
+    )
+    menu_icon = "heart"
+    menu_label = "Donate"
+    menu_name = "Donate"
+    menu_order = 1000
+
+
+register_snippet(DonateViewSetGroup)

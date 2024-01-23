@@ -180,6 +180,7 @@ def register_icons(icons):
         "icons/mozfest.svg",
         "icons/pni.svg",
         "icons/flask.svg",
+        "icons/heart.svg",
     ]
 
 
