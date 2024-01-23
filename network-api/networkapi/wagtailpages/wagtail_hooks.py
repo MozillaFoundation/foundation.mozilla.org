@@ -415,3 +415,22 @@ class PetitionsSnippetViewSet(SnippetViewSet):
 
 
 register_snippet(PetitionsSnippetViewSet)
+
+
+class ProfilesSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.Profile
+    icon = "user"
+    menu_order = 1800
+    menu_label = "Profiles"
+    menu_name = "Profiles"
+    add_to_admin_menu = True
+    list_display = ("name", "tagline", "slug")
+    search_fields = (
+        "name",
+        "tagline",
+        "introduction",
+        "slug",
+    )
+
+
+register_snippet(ProfilesSnippetViewSet)
