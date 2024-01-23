@@ -179,7 +179,6 @@ class OpportunityPage(MiniSiteNameSpace):
         verbose_name_plural = "Default pages"
 
 
-@register_snippet
 class Petition(TranslatableMixin, CTA):
     campaign_id = models.CharField(
         max_length=20,
@@ -273,7 +272,7 @@ class Petition(TranslatableMixin, CTA):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["-id"]
-        verbose_name = "petition snippet"
+        verbose_name = "Petition"
 
 
 class CampaignPage(MiniSiteNameSpace):

@@ -392,3 +392,26 @@ class RCCSetGroup(SnippetViewSetGroup):
 
 
 register_snippet(RCCSetGroup)
+
+
+class PetitionsSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.Petition
+    icon = "comment"
+    menu_order = 1700
+    menu_label = "Petitions"
+    menu_name = "Petitions"
+    add_to_admin_menu = True
+    list_display = ("name", "newsletter", "campaign_id")
+    search_fields = (
+        "name",
+        "header",
+        "description",
+        "newsletter",
+        "campaign_id",
+        "share_link",
+        "share_link_text",
+        "thank_you",
+    )
+
+
+register_snippet(PetitionsSnippetViewSet)
