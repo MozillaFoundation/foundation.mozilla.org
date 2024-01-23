@@ -179,6 +179,7 @@ def register_icons(icons):
         "icons/newspaper.svg",
         "icons/mozfest.svg",
         "icons/pni.svg",
+        "icons/flask.svg",
     ]
 
 
@@ -311,3 +312,38 @@ class BuyersGuideViewSetGroup(SnippetViewSetGroup):
 
 
 register_snippet(BuyersGuideViewSetGroup)
+
+
+class ResearchTopicsSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.ResearchTopic
+    icon = "tag"
+    menu_order = 000
+    menu_label = "Topics"
+    menu_name = "Topics"
+    list_display = ("name", "slug")
+    search_fields = (
+        "name",
+        "slug",
+        "description",
+    )
+
+
+class ResearchRegionsSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.ResearchRegion
+    icon = "globe"
+    menu_order = 100
+    menu_label = "Regions"
+    menu_name = "Regions"
+    list_display = ("name", "slug")
+    search_fields = ("name", "slug")
+
+
+class ResearchSetGroup(SnippetViewSetGroup):
+    items = (ResearchTopicsSnippetViewSet, ResearchRegionsSnippetViewSet)
+    menu_icon = "flask"
+    menu_label = "Research Hub"
+    menu_name = "Research Hub"
+    menu_order = 1500
+
+
+register_snippet(ResearchSetGroup)
