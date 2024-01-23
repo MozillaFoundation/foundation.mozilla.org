@@ -51,7 +51,6 @@ class CTABase(models.Model):
         abstract = True
 
 
-@register_snippet
 class CTA(CTABase):
     class Meta:
         ordering = ["-id"]
@@ -116,7 +115,6 @@ class Callpower(TranslatableMixin, CTA):
         verbose_name = "Callpower"
 
 
-@register_snippet
 class Signup(TranslatableMixin, CTA):
     campaign_id = models.CharField(
         max_length=20,

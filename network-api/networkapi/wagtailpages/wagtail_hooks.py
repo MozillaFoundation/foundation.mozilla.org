@@ -434,3 +434,42 @@ class ProfilesSnippetViewSet(SnippetViewSet):
 
 
 register_snippet(ProfilesSnippetViewSet)
+
+
+class CTASnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.CTA
+    icon = "link-external"
+    menu_order = 1900
+    menu_label = "CTAs"
+    menu_name = "CTAs"
+    add_to_admin_menu = True
+    list_display = ("name", "header", "newsletter")
+    search_fields = (
+        "name",
+        "header",
+        "description",
+        "newsletter",
+    )
+
+
+register_snippet(CTASnippetViewSet)
+
+
+class SignupSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.Signup
+    icon = "newspaper"
+    menu_order = 2000
+    menu_label = "Signups"
+    menu_name = "Signups"
+    add_to_admin_menu = True
+    list_display = ("name", "header", "newsletter", "campaign_id")
+    search_fields = (
+        "name",
+        "header",
+        "description",
+        "newsletter",
+        "campaign_id",
+    )
+
+
+register_snippet(SignupSnippetViewSet)
