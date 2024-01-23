@@ -347,3 +347,47 @@ class ResearchSetGroup(SnippetViewSetGroup):
 
 
 register_snippet(ResearchSetGroup)
+
+
+class RCCContentTypeSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.RCCContentType
+    icon = "clipboard-list"
+    menu_order = 000
+    menu_label = "Content Types"
+    menu_name = "Content Types"
+    list_display = ("name", "slug")
+    search_fields = ("name", "slug")
+
+
+class RCCCurricularAreaSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.RCCCurricularArea
+    icon = "doc-full"
+    menu_order = 100
+    menu_label = "Curricular Areas"
+    menu_name = "Curricular Areas"
+    list_display = ("name", "slug")
+    search_fields = ("name", "slug")
+
+
+class RCCTopicsSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.RCCTopic
+    icon = "tag"
+    menu_order = 200
+    menu_label = "Topics"
+    menu_name = "Topics"
+    list_display = ("name", "slug")
+    search_fields = (
+        "name",
+        "slug",
+    )
+
+
+class RCCSetGroup(SnippetViewSetGroup):
+    items = (RCCContentTypeSnippetViewSet, RCCCurricularAreaSnippetViewSet, RCCTopicsSnippetViewSet)
+    menu_icon = "desktop"
+    menu_label = "RCC"
+    menu_name = "RCC"
+    menu_order = 1600
+
+
+register_snippet(RCCSetGroup)
