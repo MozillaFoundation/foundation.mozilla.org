@@ -59,11 +59,7 @@ class DefaultSignupForm extends Component {
   }
 
   showAllFields() {
-    ReactGA.event({
-      category: `signup`,
-      action: `form focus`,
-      label: `Signup form input focused`,
-    });
+    this.handleInputFocus();
 
     this.setState({ showAllFields: true });
   }
@@ -90,21 +86,32 @@ class DefaultSignupForm extends Component {
     }
   }
 
+  handleInputFocus() {
+    ReactGA.event({
+      category: `signup`,
+      action: `form focus`,
+      label: `Signup form input focused`,
+    });
+  }
+
   handleEmailChange(event) {
-    this.updateFormFieldValue("email", event.target.value);
+    this.updateFormFieldValue(event.target.name, event.target.value);
     this.toggleSubmitButton(event.target.value === "");
   }
 
   handleCountryChange(event) {
-    this.updateFormFieldValue("country", event.target.value);
+    this.updateFormFieldValue(event.target.name, event.target.value);
   }
 
   handleLanguageChange(event) {
-    this.updateFormFieldValue("language", event.target.value);
+    this.updateFormFieldValue(event.target.name, event.target.value);
   }
 
   handlePrivacyChange(event) {
-    this.updateFormFieldValue("privacy", event.target.checked.toString());
+    this.updateFormFieldValue(
+      event.target.name,
+      event.target.checked.toString()
+    );
   }
 
   renderHeader() {
@@ -136,7 +143,7 @@ class DefaultSignupForm extends Component {
 
     return (
       <InputEmail
-        id={this.ids.email}
+        id={this.ids[name]}
         name={name}
         label={getText(`Email address`)}
         value={this.getFormFieldValue(name)}
@@ -159,7 +166,7 @@ class DefaultSignupForm extends Component {
     return (
       <>
         <Select
-          id={this.ids.country}
+          id={this.ids[nameCountry]}
           name={nameCountry}
           value={this.getFormFieldValue(nameCountry)}
           options={COUNTRY_OPTIONS}
@@ -169,7 +176,7 @@ class DefaultSignupForm extends Component {
           fieldStyle={this.style.fieldStyle}
         />
         <Select
-          id={this.ids.language}
+          id={this.ids[nameLanguage]}
           name={nameLanguage}
           value={this.getFormFieldValue(nameLanguage)}
           options={LANGUAGE_OPTIONS}
@@ -187,7 +194,7 @@ class DefaultSignupForm extends Component {
 
     return (
       <InputCheckboxWithLabel
-        id={this.ids.privacy}
+        id={this.ids[name]}
         name={name}
         label={getText(
           `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
