@@ -63,7 +63,10 @@ An extra check has been added so as to not show the fixed "Take action" button o
                         {% if page.signup %}
                             {% with localized_signup=page.signup.localized %}
                                 <div
-                                    class="join-us mb-5"
+                                    class="newsletter-signup-module tw-mb-24"
+                                    data-module-type="default"
+                                    data-form-style="bannered-campaign-body"
+                                    data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
                                     data-signup-id="{{ localized_signup.id }}"
                                     data-cta-header="{{ localized_signup.header | escape }}"
                                     data-cta-description="{{ localized_signup.description | escape }}"

@@ -23,6 +23,8 @@ class DefaultSignupForm extends Component {
     super(props);
     this.state = this.getInitialState();
     this.ids = this.generateFieldIds([
+      "firstName",
+      "lastName",
       "email",
       "country",
       "language",
@@ -35,12 +37,14 @@ class DefaultSignupForm extends Component {
   getInitialState() {
     return {
       formData: {
+        firstName: "",
+        lastName: "",
         email: "",
         country: "",
         language: getCurrentLanguage(),
         privacy: "",
       },
-      showAllFields: false,
+      showAllFields: this.props.askName === "True",
       submitButtonDisabled: this.props.disableSubmitButtonByDefault,
     };
   }
@@ -94,6 +98,14 @@ class DefaultSignupForm extends Component {
     });
   }
 
+  handleFirstNameChange(event) {
+    this.updateFormFieldValue(event.target.name, event.target.value);
+  }
+
+  handleLastNameChange(event) {
+    this.updateFormFieldValue(event.target.name, event.target.value);
+  }
+
   handleEmailChange(event) {
     this.updateFormFieldValue(event.target.name, event.target.value);
     this.toggleSubmitButton(event.target.value === "");
@@ -134,6 +146,46 @@ class DefaultSignupForm extends Component {
       <Description
         content={this.props.ctaDescription}
         classes={this.style.descriptionClass}
+      />
+    );
+  }
+
+  renderFirstNameField() {
+    const name = "firstName";
+
+    return (
+      <InputText
+        id={this.ids[name]}
+        name={name}
+        label={getText(`First name`)}
+        value={this.getFormFieldValue(name)}
+        placeholder={getText(`First name`)}
+        onFocus={() => this.handleInputFocus()}
+        onChange={(event) => this.handleFirstNameChange(event)}
+        required={false}
+        outerMarginClasses={FIELD_MARGIN_CLASSES}
+        errorMessage={this.props.errors[name]}
+        fieldStyle={this.style.fieldStyle}
+      />
+    );
+  }
+
+  renderLastNameField() {
+    const name = "lastName";
+
+    return (
+      <InputText
+        id={this.ids[name]}
+        name={name}
+        label={getText(`Last name`)}
+        value={this.getFormFieldValue(name)}
+        placeholder={getText(`Last name`)}
+        onFocus={() => this.handleInputFocus()}
+        onChange={(event) => this.handleLastNameChange(event)}
+        required={false}
+        outerMarginClasses={FIELD_MARGIN_CLASSES}
+        errorMessage={this.props.errors[name]}
+        fieldStyle={this.style.fieldStyle}
       />
     );
   }
@@ -232,6 +284,8 @@ class DefaultSignupForm extends Component {
         <div className={containerClasses}>
           <div className="tw-flex-grow">
             <fieldset className={FIELD_MARGIN_CLASSES}>
+              {this.props.askName === "True" && this.renderFirstNameField()}
+              {this.props.askName === "True" && this.renderLastNameField()}
               {this.renderEmailField()}
               {this.state.showAllFields && this.renderAdditionalFields()}
             </fieldset>

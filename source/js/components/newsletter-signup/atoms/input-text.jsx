@@ -80,7 +80,7 @@ InputText.propTypes = {
   value: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   onFocus: PropTypes.func.isRequired,
-  onInput: PropTypes.func.isRequired,
+  onInput: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
   ariaLabel: PropTypes.string,
