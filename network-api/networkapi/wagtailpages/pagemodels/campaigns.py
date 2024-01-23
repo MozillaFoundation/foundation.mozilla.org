@@ -7,7 +7,6 @@ from taggit.models import TaggedItemBase
 from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page, TranslatableMixin
-from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import get_content_related_by_tag, get_page_tree_information
@@ -57,7 +56,6 @@ class CTA(CTABase):
         verbose_name_plural = "CTA"
 
 
-@register_snippet
 class Callpower(TranslatableMixin, CTA):
     campaign_id = models.CharField(
         max_length=20,

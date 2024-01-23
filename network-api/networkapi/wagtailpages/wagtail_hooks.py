@@ -26,9 +26,12 @@ from wagtail_localize.models import (
     sync_trees_on_locale_sync_save,
 )
 
+from networkapi.highlights.models import Highlight
+from networkapi.news.models import News
 from networkapi.wagtailpages import models as wagtailpages_models
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
+from networkapi.wagtailpages.pagemodels.campaigns import Callpower
 from networkapi.wagtailpages.utils import get_locale_from_request
 
 post_save.disconnect(sync_trees_on_locale_sync_save, sender=LocaleSynchronization)
@@ -473,3 +476,83 @@ class SignupSnippetViewSet(SnippetViewSet):
 
 
 register_snippet(SignupSnippetViewSet)
+
+
+class AreasOfFocusViewSet(SnippetViewSet):
+    model = wagtailpages_models.FocusArea
+    icon = "view"
+    menu_order = 000
+    menu_label = "Areas of Focus"
+    menu_name = "Areas of Focus"
+    list_display = ("name", "interest_icon", "page")
+    search_fields = ("name", "description", "interest_icon", "page")
+
+
+class CallpowersViewSet(SnippetViewSet):
+    model = Callpower
+    icon = "chain-broken"
+    menu_order = 100
+    menu_label = "Callpowers"
+    menu_name = "Callpowers"
+    list_display = ("name", "header", "newsletter", "campaign_id", "call_button_label")
+    search_fields = (
+        "name",
+        "header",
+        "description",
+        "newsletter",
+        "campaign_id",
+        "call_button_label" "success_heading",
+        "success_text",
+        "share_facebook",
+        "share_email",
+    )
+
+
+class HighlightSnippetViewSet(SnippetViewSet):
+    model = Highlight
+    icon = "date"
+    menu_order = 200
+    list_display = (
+        "title",
+        "description",
+        "link_url",
+    )
+    search_fields = ("title", "description")
+
+
+class NewsSnippetViewSet(SnippetViewSet):
+    model = News
+    icon = "doc-full-inverse"
+    menu_order = 300
+    list_display = (
+        "headline",
+        "thumbnail",
+        "date",
+        "link",
+    )
+    search_fields = ("headline",)
+
+
+class PulseFiltersViewSet(SnippetViewSet):
+    model = wagtailpages_models.PulseFilter
+    icon = "cross"
+    menu_order = 400
+    menu_label = "Pulse Filters"
+    menu_name = "Pulse Filters"
+    list_display = ("name", "filter_key", "filter_key_label")
+    search_fields = (
+        "name",
+        "filter_key",
+        "filter_key_label",
+    )
+
+
+class ArchiveSetGroup(SnippetViewSetGroup):
+    items = (AreasOfFocusViewSet, CallpowersViewSet, HighlightSnippetViewSet, NewsSnippetViewSet, PulseFiltersViewSet)
+    menu_icon = "folder-open-1"
+    menu_label = "Archived"
+    menu_name = "Archived"
+    menu_order = 2100
+
+
+register_snippet(ArchiveSetGroup)
