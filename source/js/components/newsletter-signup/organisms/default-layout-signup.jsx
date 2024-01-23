@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import Heading from "../atoms/heading.jsx";
 import Description from "../atoms/description.jsx";
-import InputEmail from "../atoms/input-email.jsx";
+import InputText from "../atoms/input-text.jsx";
 import Select from "../atoms/select.jsx";
 import InputCheckboxWithLabel from "../molecules/input-checkbox-with-label.jsx";
 import ButtonSubmit from "../atoms/button-submit.jsx";
@@ -142,8 +142,9 @@ class DefaultSignupForm extends Component {
     const name = "email";
 
     return (
-      <InputEmail
+      <InputText
         id={this.ids[name]}
+        type="email"
         name={name}
         label={getText(`Email address`)}
         value={this.getFormFieldValue(name)}
