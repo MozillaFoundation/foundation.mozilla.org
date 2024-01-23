@@ -212,7 +212,7 @@ class DefaultSignupForm extends Component {
     let buttonWrapperClasses = classNames({
       "tw-flex-shrink-0 tw-mt-8 medium:tw-mt-0":
         this.style.buttonPosition !== "bottom",
-      "tw-mt-24 medium:-tw-mb-16 medium:tw-mt-12 tw-text-right":
+      "tw-mt-24 medium:tw-mt-12 tw-text-right":
         this.style.buttonPosition === "bottom",
     });
 
