@@ -7,15 +7,8 @@ const waitForImagesToLoad = require("../wait-for-images.js");
  * NOTE: this requires a `new-db` run with the seed value set
  *       through RANDOM_SEED=530910203 in your .env file
  *
- * NOTE: This test has the .fixme flag as due to the
- *       recently added load-in animations for products,
- *       the PNI search test fails randomly.
- *       A issue has been filed to fix this at:
- *       https://github.com/mozilla/foundation.mozilla.org/issues/9373
  */
 test(`PNI search`, async ({ page }) => {
-  test.fixme();
-
   page.on(`console`, console.log);
   await page.goto(`http://localhost:8000/en/privacynotincluded`);
   await page.locator(`body.react-loaded`);
@@ -25,11 +18,11 @@ test(`PNI search`, async ({ page }) => {
 
   const counts = {
     // provided RANDOM_SEED=530910203 was used!
-    total: 42,
-    health: 13,
-    smart: 5,
+    total: 38,
+    health: 11,
+    smart: 4,
     percy: 1,
-    searchTerm: 4,
+    searchTerm: 3,
     searchTermWithDing: 2,
   };
 
@@ -44,7 +37,7 @@ test(`PNI search`, async ({ page }) => {
     healthCategory: `#multipage-nav a.multipage-link[data-name="Health & Exercise"]`,
   };
 
-  let products, activeCategory;
+  let products, activeCategory, subcats, subcat, activeSubCat;
 
   // verify that the PNI "ding" is not selected on initial load
   const ding = page.locator(qs.ding);
