@@ -2,7 +2,7 @@
   "name": "Mozilla Foundation site",
   "description": "Mozilla Foundation site",
   "addons": [
-    "heroku-postgresql:mini --version=15"
+    "heroku-postgresql:basic --version=15"
   ],
   "formation": {
     "web": {
