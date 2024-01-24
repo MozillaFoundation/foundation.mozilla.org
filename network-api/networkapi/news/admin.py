@@ -5,11 +5,9 @@ from networkapi.news.forms import NewsAdminForm
 from networkapi.news.models import News
 
 
+@admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
     form = NewsAdminForm
-
-
-admin.site.register(News, NewsAdmin)
 
 
 class WagtailNewsAdmin(ModelAdmin):

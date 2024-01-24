@@ -6,13 +6,11 @@ from networkapi.highlights.forms import HighlightAdminForm
 from networkapi.highlights.models import Highlight
 
 
+@admin.register(Highlight)
 class HighlightAdmin(SortableAdmin):
     form = HighlightAdminForm
 
     sortable_change_list_template = ("shared/adminsortable_change_list_custom.html",)
-
-
-admin.site.register(Highlight, HighlightAdmin)
 
 
 # Wagtail admin

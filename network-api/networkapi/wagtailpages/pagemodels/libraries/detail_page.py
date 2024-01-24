@@ -7,8 +7,7 @@ from wagtail import documents as wagtail_docs
 from wagtail import fields as wagtail_fields
 from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
-from wagtail.admin import panels as edit_handlers
-from wagtail.images import edit_handlers as image_handlers
+from wagtail.admin import panels as wagtail_panels
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
@@ -80,13 +79,13 @@ class LibraryDetailPage(BasePage):
     )
 
     content_panels = wagtail_models.Page.content_panels + [
-        image_handlers.FieldPanel("cover_image"),
-        edit_handlers.InlinePanel("links", heading="Article links"),
-        edit_handlers.FieldPanel("original_publication_date"),
-        edit_handlers.FieldPanel("introduction"),
-        edit_handlers.FieldPanel("overview"),
-        edit_handlers.InlinePanel("authors", heading="Authors", min_num=1),
-        edit_handlers.FieldPanel("collaborators"),
+        wagtail_panels.FieldPanel("cover_image"),
+        wagtail_panels.InlinePanel("links", heading="Article links"),
+        wagtail_panels.FieldPanel("original_publication_date"),
+        wagtail_panels.FieldPanel("introduction"),
+        wagtail_panels.FieldPanel("overview"),
+        wagtail_panels.InlinePanel("authors", heading="Authors", min_num=1),
+        wagtail_panels.FieldPanel("collaborators"),
     ]
 
     translatable_fields = [
@@ -174,17 +173,17 @@ class LibraryDetailLinkBase(wagtail_models.TranslatableMixin, wagtail_models.Ord
     )
 
     panels = [
-        edit_handlers.HelpPanel(
+        wagtail_panels.HelpPanel(
             content=(
                 "Please provide a link to the original resource. "
                 "You can link to an internal page, an external URL or upload a document. "
                 'If you wish to provide multiple, please create two separate "links"'
             )
         ),
-        edit_handlers.FieldPanel("label"),
-        edit_handlers.FieldPanel("url"),
-        edit_handlers.FieldPanel("page"),
-        edit_handlers.FieldPanel("document"),
+        wagtail_panels.FieldPanel("label"),
+        wagtail_panels.FieldPanel("url"),
+        wagtail_panels.FieldPanel("page"),
+        wagtail_panels.FieldPanel("document"),
     ]
 
     class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):

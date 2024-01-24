@@ -207,7 +207,8 @@ class BuyersGuideProductCategory(
     base_form_class = BuyersGuideProductCategoryForm
 
     search_fields = [
-        index.SearchField("name", partial_match=True),
+        index.SearchField("name"),
+        index.AutocompleteField("name"),
         index.FilterField("locale_id"),
     ]
 
@@ -548,7 +549,8 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
     ]
 
     search_fields = [
-        index.SearchField("title", partial_match=True),
+        index.SearchField("title"),
+        index.AutocompleteField("title"),
         index.FilterField("locale_id"),
     ]
 

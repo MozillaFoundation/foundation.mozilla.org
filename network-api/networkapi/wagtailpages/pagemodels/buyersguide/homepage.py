@@ -17,6 +17,7 @@ from wagtail.admin.panels import (
     InlinePanel,
     MultiFieldPanel,
     PageChooserPanel,
+    TitleFieldPanel,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.models import Orderable, Page, TranslatableMixin
@@ -95,7 +96,9 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
     )
 
     content_panels = [
-        FieldPanel("title"),
+        TitleFieldPanel(
+            "title"
+        ),  # https://docs.wagtail.org/en/stable/releases/5.0.html#changes-to-title-slug-field-synchronisation
         MultiFieldPanel(
             children=[
                 HelpPanel(content="<h2>Main Featured Page</h2>"),
