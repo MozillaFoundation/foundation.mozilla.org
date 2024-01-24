@@ -44,7 +44,10 @@ class DefaultSignupForm extends Component {
         language: getCurrentLanguage(),
         privacy: "",
       },
-      showAllFields: this.props.askName === "True",
+      showCountryField:
+        this.props.showCountryFieldByDefault?.toLowerCase() === "true",
+      showLanguageField:
+        this.props.showCountryFieldByDefault?.toLowerCase() === "true",
       submitButtonDisabled: this.props.disableSubmitButtonByDefault,
     };
   }
@@ -60,12 +63,6 @@ class DefaultSignupForm extends Component {
       obj[field] = utility.generateUniqueId(`${FIELD_ID_PREFIX}-${field}`);
       return obj;
     }, {});
-  }
-
-  showAllFields() {
-    this.handleInputFocus();
-
-    this.setState({ showAllFields: true });
   }
 
   updateFormFieldValue(name, value) {
@@ -104,6 +101,12 @@ class DefaultSignupForm extends Component {
 
   handleLastNameChange(event) {
     this.updateFormFieldValue(event.target.name, event.target.value);
+  }
+
+  handleEmailFocusAndInput() {
+    this.handleInputFocus();
+
+    this.setState({ showCountryField: true, showLanguageField: true });
   }
 
   handleEmailChange(event) {
@@ -201,8 +204,8 @@ class DefaultSignupForm extends Component {
         label={getText(`Email address`)}
         value={this.getFormFieldValue(name)}
         placeholder={getText(`Please enter your email`)}
-        onFocus={() => this.showAllFields()}
-        onInput={() => this.showAllFields()}
+        onFocus={() => this.handleEmailFocusAndInput()}
+        onInput={() => this.handleEmailFocusAndInput()}
         onChange={(event) => this.handleEmailChange(event)}
         required={true}
         outerMarginClasses={FIELD_MARGIN_CLASSES}
@@ -212,33 +215,37 @@ class DefaultSignupForm extends Component {
     );
   }
 
-  renderAdditionalFields() {
-    const nameCountry = "country";
-    const nameLanguage = "language";
+  renderCountryField() {
+    const name = "country";
 
     return (
-      <>
-        <Select
-          id={this.ids[nameCountry]}
-          name={nameCountry}
-          value={this.getFormFieldValue(nameCountry)}
-          options={COUNTRY_OPTIONS}
-          onChange={(event) => this.handleCountryChange(event)}
-          required={false}
-          outerMarginClasses={FIELD_MARGIN_CLASSES}
-          fieldStyle={this.style.fieldStyle}
-        />
-        <Select
-          id={this.ids[nameLanguage]}
-          name={nameLanguage}
-          value={this.getFormFieldValue(nameLanguage)}
-          options={LANGUAGE_OPTIONS}
-          onChange={(event) => this.handleLanguageChange(event)}
-          required={false}
-          outerMarginClasses={FIELD_MARGIN_CLASSES}
-          fieldStyle={this.style.fieldStyle}
-        />
-      </>
+      <Select
+        id={this.ids[name]}
+        name={name}
+        value={this.getFormFieldValue(name)}
+        options={COUNTRY_OPTIONS}
+        onChange={(event) => this.handleCountryChange(event)}
+        required={false}
+        outerMarginClasses={FIELD_MARGIN_CLASSES}
+        fieldStyle={this.style.fieldStyle}
+      />
+    );
+  }
+
+  renderLanguageField() {
+    const name = "language";
+
+    return (
+      <Select
+        id={this.ids[name]}
+        name={name}
+        value={this.getFormFieldValue(name)}
+        options={LANGUAGE_OPTIONS}
+        onChange={(event) => this.handleLanguageChange(event)}
+        required={false}
+        outerMarginClasses={FIELD_MARGIN_CLASSES}
+        fieldStyle={this.style.fieldStyle}
+      />
     );
   }
 
@@ -287,7 +294,8 @@ class DefaultSignupForm extends Component {
               {this.props.askName === "True" && this.renderFirstNameField()}
               {this.props.askName === "True" && this.renderLastNameField()}
               {this.renderEmailField()}
-              {this.state.showAllFields && this.renderAdditionalFields()}
+              {this.state.showCountryField && this.renderCountryField()}
+              {this.state.showLanguageField && this.renderLanguageField()}
             </fieldset>
             <fieldset>{this.renderPrivacyCheckbox()}</fieldset>
           </div>
