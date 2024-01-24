@@ -1,5 +1,5 @@
 const { test, expect } = require("@playwright/test");
-const waitForImagesToLoad = require("../wait-for-images.js");
+const waitForImagesToLoad = require("../../wait-for-images.js");
 
 /**
  * Perform several PNI tests related to searching/filtering
