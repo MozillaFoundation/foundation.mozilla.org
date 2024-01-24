@@ -89,7 +89,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         return "No"
 
 
-@register_setting(icon="pick")
+@register_setting(icon="heart")
 class SiteDonateBanner(BaseSiteSetting):
     select_related = ["active_donate_banner"]
 
