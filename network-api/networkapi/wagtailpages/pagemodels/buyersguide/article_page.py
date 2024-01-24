@@ -6,7 +6,6 @@ from modelcluster import fields as cluster_fields
 from wagtail import blocks, fields, images
 from wagtail import models as wagtail_models
 from wagtail.admin import panels as panels
-from wagtail.images import edit_handlers as image_panels
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
@@ -73,7 +72,7 @@ class BuyersGuideArticlePage(BasePage):
     )
 
     content_panels = wagtail_models.Page.content_panels + [
-        image_panels.FieldPanel("hero_image"),
+        panels.FieldPanel("hero_image"),
         panels.InlinePanel("author_profile_relations", heading="Authors", label="Author"),
         panels.InlinePanel(
             "content_category_relations",

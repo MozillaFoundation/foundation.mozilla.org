@@ -433,7 +433,7 @@ class CreateEvaluationPostSaveSignalTests(BuyersGuideTestCase):
 
         self.assertEqual(product_page.evaluation, evaluation)
         # Verify that the latest revision includes the evaluation
-        latest_revision_evaluation = product_page.latest_revision.as_page_object().evaluation
+        latest_revision_evaluation = product_page.get_latest_revision_as_object().evaluation
         self.assertIsNotNone(evaluation)
         self.assertEqual(latest_revision_evaluation, evaluation)
         # The evaluation on the product page was not changed

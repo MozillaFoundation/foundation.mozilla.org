@@ -45,11 +45,10 @@ class NoticeBlockTest(TestCase):
             "text": rich_text.RichText("<p>Some content</p>"),
         }
 
-        with self.assertRaises(StructBlockValidationError) as ValidationError:
+        with self.assertRaises(StructBlockValidationError) as catcher:
             self.notice_block.clean(value)
-        exception = ValidationError.exception
-        self.assertIn("image", exception.params)
-        self.assertEqual(exception.params["image"], ["Image must include alt text."])
+        exceptions = catcher.exception.as_json_data()["blockErrors"]
+        self.assertCountEqual(exceptions["image"]["messages"], ["Image must include alt text."])
 
     def test_alt_text_without_image_raises_error(self):
         """
@@ -61,11 +60,10 @@ class NoticeBlockTest(TestCase):
             "text": rich_text.RichText("<p>Some content</p>"),
         }
 
-        with self.assertRaises(StructBlockValidationError) as ValidationError:
+        with self.assertRaises(StructBlockValidationError) as catcher:
             self.notice_block.clean(value)
-        exception = ValidationError.exception
-        self.assertIn("image_alt_text", exception.params)
-        self.assertEqual(exception.params["image_alt_text"], ["Alt text must have an associated image."])
+        exceptions = catcher.exception.as_json_data()["blockErrors"]
+        self.assertCountEqual(exceptions["image_alt_text"]["messages"], ["Alt text must have an associated image."])
 
     def test_notice_text_field_is_required(self):
         """
@@ -77,11 +75,10 @@ class NoticeBlockTest(TestCase):
             "text": rich_text.RichText(""),
         }
 
-        with self.assertRaises(StructBlockValidationError) as ValidationError:
+        with self.assertRaises(StructBlockValidationError) as catcher:
             self.notice_block.clean(value)
-        exception = ValidationError.exception
-        self.assertIn("text", exception.params)
-        self.assertEqual(exception.params["text"], ["This field is required."])
+        exceptions = catcher.exception.as_json_data()["blockErrors"]
+        self.assertCountEqual(exceptions["text"]["messages"], ["This field is required."])
 
     def test_valid_block_without_image_and_alt_text(self):
         """

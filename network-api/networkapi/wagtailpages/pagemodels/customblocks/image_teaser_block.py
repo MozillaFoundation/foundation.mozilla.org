@@ -60,7 +60,7 @@ class ImageTeaserBlock(blocks.StructBlock):
         if value["url_label"] and not value["url"]:
             errors["url"] = ErrorList(["Please add a URL value for the link."])
         if errors:
-            raise StructBlockValidationError(errors)
+            raise StructBlockValidationError(block_errors=errors)
 
         return result
 

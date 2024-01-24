@@ -44,19 +44,19 @@ class MixedContentBlock(blocks.StructBlock):
 
     def clean(self, value):
         result = super().clean(value)
+        errors = {}
 
         link_url = value.get("link_url")
         link_text = value.get("link_text")
 
         if link_url and not link_text:
-            raise struct_block.StructBlockValidationError(
-                {"link_text": ErrorList(["Please add a text value for the link."])}
-            )
+            errors["link_text"] = ErrorList(["Please add a text value for the link."])
 
         if link_text and not link_url:
-            raise struct_block.StructBlockValidationError(
-                {"link_url": ErrorList(["Please add a URL value for the link."])}
-            )
+            errors["link_url"] = ErrorList(["Please add a URL value for the link."])
+
+        if errors:
+            raise struct_block.StructBlockValidationError(block_errors=errors)
 
         return result
 

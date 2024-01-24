@@ -881,7 +881,7 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
 
         frequent_topics = self.blog_index.get_authors_frequent_topics(author_profile)
 
-        self.assertQuerysetEqual(frequent_topics, blog_models.BlogPageTopic.objects.none())
+        self.assertQuerySetEqual(frequent_topics, blog_models.BlogPageTopic.objects.none())
 
     def test_get_authors_frequent_topics_less_than_three(self):
         """
