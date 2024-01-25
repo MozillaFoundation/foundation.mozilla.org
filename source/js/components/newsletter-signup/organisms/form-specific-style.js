@@ -27,6 +27,14 @@
  */
 
 export const FORM_STYLE = {
+  "bannered-campaign-body": {
+    buttonPosition: "bottom",
+    buttonStyle: "primary",
+    buttonWidthClasses: "tw-w-full",
+    fieldStyle: "filled",
+    headingLevel: 3,
+    headingClass: "tw-h5-heading",
+  },
   "blog-body": {
     fieldStyle: "outlined",
     headingLevel: 2,

@@ -28,7 +28,6 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page, PageManager, PageQuerySet, TranslatableMixin
 from wagtail.search import index
-from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
@@ -74,7 +73,6 @@ class BuyersGuideProductCategoryQuerySet(models.QuerySet):
         )
 
 
-@register_snippet
 class BuyersGuideProductCategory(
     index.Indexed,
     TranslatableMixin,
@@ -512,7 +510,6 @@ class ProductPagePrivacyPolicyLink(TranslatableMixin, Orderable):
         verbose_name = "Privacy Link"
 
 
-@register_snippet
 class Update(TranslatableMixin, index.Indexed, models.Model):
     source = models.URLField(
         max_length=2048,
