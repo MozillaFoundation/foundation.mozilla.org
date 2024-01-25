@@ -3,13 +3,11 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel
 from wagtail.models import TranslatableMixin
-from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.constants import url_or_query_regex
 
 
-@register_snippet
 class DonationModal(TranslatableMixin, models.Model):
     name = models.CharField(
         default="",

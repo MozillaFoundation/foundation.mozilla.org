@@ -1,8 +1,6 @@
 from django.db import models
-from wagtail.snippets.models import register_snippet
 
 
-@register_snippet
 class TitoEvent(models.Model):
     """
     Details of an event managed in Tito.
