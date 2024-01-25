@@ -1,6 +1,6 @@
-from datetime import timezone
+from datetime import datetime, timezone
 
-from factory import Faker, LazyAttribute, Trait, post_generation
+from factory import Faker, LazyAttribute, post_generation
 from factory.django import DjangoModelFactory
 from wagtail_factories import ImageFactory
 
@@ -18,17 +18,12 @@ class HighlightFactory(DjangoModelFactory):
             "footer_sentence",
         )
 
-    class Params:
-        unpublished = Trait(publish_after=Faker("future_datetime", end_date="+30d", tzinfo=timezone.utc))
-        has_expiry = Trait(expires=Faker("future_datetime", end_date="+30d", tzinfo=timezone.utc))
-        expired = Trait(expires=Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc))
-
     title = LazyAttribute(lambda o: o.title_sentence.rstrip("."))
     description = Faker("paragraph", nb_sentences=5, variable_nb_sentences=True)
     link_label = LazyAttribute(lambda o: " ".join(o.link_label_words))
     footer = LazyAttribute(lambda o: o.footer_sentence.rstrip("."))
     link_url = Faker("uri")
-    publish_after = Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
+    publish_after = Faker("past_datetime", start_date=datetime(2020, 1, 1), tzinfo=timezone.utc)
     expires = None
     order = 0
 

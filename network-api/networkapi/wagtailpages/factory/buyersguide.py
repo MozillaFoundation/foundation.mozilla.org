@@ -153,8 +153,10 @@ class ProductPageFactory(PageFactory):
     blurb = Faker("sentence")
     product_url = Faker("url")
     worst_case = Faker("sentence")
-    first_published_at = Faker("past_datetime", start_date="-2d", tzinfo=timezone.utc)
-    last_published_at = Faker("past_datetime", start_date="-1d", tzinfo=timezone.utc)
+    first_published_at = Faker("past_datetime", start_date=datetime(2020, 1, 1), tzinfo=timezone.utc)
+    last_published_at = Faker(
+        "date_time_between", start_date=first_published_at, tzinfo=timezone.utc
+    )
     evaluation = SubFactory("networkapi.wagtailpages.factory.buyersguide.ProductPageEvaluationFactory")
     locale = LazyFunction(lambda: Locale.get_default())
 
@@ -246,7 +248,7 @@ class BuyersGuideArticlePageFactory(PageFactory):
 
     title = Faker("sentence")
     hero_image = SubFactory(ImageFactory)
-    first_published_at = Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
+    first_published_at = Faker("past_datetime", start_date=datetime(2020, 1, 1), tzinfo=timezone.utc)
     search_image = SubFactory(ImageFactory)
     search_description = Faker("paragraph", nb_sentences=5, variable_nb_sentences=True)
     body = Faker(
@@ -271,7 +273,7 @@ class BuyersGuideCampaignPageFactory(PageFactory):
     header = Faker("sentence")
     title = Faker("sentence")
     cta = SubFactory(PetitionFactory)
-    first_published_at = Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
+    first_published_at = Faker("past_datetime", start_date=datetime(2020, 1, 1), tzinfo=timezone.utc)
     narrowed_page_content = Faker("boolean", chance_of_getting_true=50)
     body = Faker(
         provider="streamfield",
@@ -292,7 +294,7 @@ class ConsumerCreepometerPageFactory(PageFactory):
 
     year = Faker("random_element", elements=(("2023", "2023")))  # Add extra years here once available
     title = LazyAttribute(lambda o: f"Annual Consumer Creepometer {o.year}")
-    first_published_at = Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
+    first_published_at = Faker("past_datetime", start_date=datetime(2020, 1, 1), tzinfo=timezone.utc)
     search_image = SubFactory(ImageFactory)
     search_description = Faker("paragraph", nb_sentences=5, variable_nb_sentences=True)
 

@@ -1,4 +1,4 @@
-from datetime import timezone
+from datetime import datetime, timezone
 from random import choice
 
 from django.conf import settings
@@ -88,11 +88,7 @@ class BlogPageFactory(PageFactory):
 
     title = LazyAttribute(lambda o: o.title_text.rstrip("."))
     body = Faker("streamfield", fields=blog_body_streamfield_fields)
-    first_published_at = (
-        Faker("date_time", tzinfo=timezone.utc)
-        if RANDOM_SEED and not TESTING
-        else Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
-    )
+    first_published_at = Faker("past_datetime", start_date=datetime(2020, 1, 1), tzinfo=timezone.utc)
     search_description = Faker("paragraph", nb_sentences=5, variable_nb_sentences=True)
     live = True
 
