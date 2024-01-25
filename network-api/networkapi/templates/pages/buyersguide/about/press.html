@@ -24,7 +24,7 @@
         </summary>
         <p class="tw-body">
             {% blocktrans with pni_url="https://foundation.mozilla.org/privacynotincluded/" typeform_url="https://mozillafoundation.typeform.com/to/oWfci8Ee" trimmed %}
-                <em>*Privacy Not Included</em> can help inform your research. Let the <a href="{{pni_url}}">product guide</a> assist you
+                <em>*Privacy Not Included</em> can help inform your research. Let the <a href="{{ pni_url }}">product guide</a> assist you
                 in incorporating privacy—and not just price and performance—into your consumer technology coverage. If you don’t find
                 the product you’re looking for, you can submit your suggestion <a href="{{ typeform_url }}">here</a>.
             {% endblocktrans %}
@@ -41,10 +41,10 @@
     <section aria-labelledby="warning-label">
 
         <p id="warning-label"><strong>{% trans "Recognition" %}</strong></p>
-        
+
         <p class="tw-body">
             {% blocktrans with url="https://winners.webbyawards.com/2020/websites/general-websites/activism/120635/privacy-not-included" trimmed %}
-                <b>The people have spoken!</b> Mozilla’s <em>*Privacy Not Included</em> <a href="{{url}}">won two Webby</a> awards in 2023: the “Responsible Information”
+                <b>The people have spoken!</b> Mozilla’s <em>*Privacy Not Included</em> <a href="{{ url }}">won two Webby</a> awards in 2023: the “Responsible Information”
                 award in the Inaugural Responsible Technology category and the “People’s Voice” award. This win marks their second
                 “People’s Voice” win since 2020.
             {% endblocktrans %}
@@ -80,9 +80,9 @@
             </h3>
             <div class="attribution-with-link tw-inline-flex tw-gap-2">
                 {% blocktrans with url="https://www.npr.org/2023/09/16/1200012617/experts-say-modern-cars-can-violate-consumer-privacy" trimmed %}
-                    <p class="tw-h6-heading "> 
-                        — Scott Detrow, 
-                    </p> 
+                    <p class="tw-h6-heading ">
+                        — Scott Detrow,
+                    </p>
                     <a class="tw-blue-80 tw-text-xs" href="{{ url }}">
                         NPR
                     </a>
