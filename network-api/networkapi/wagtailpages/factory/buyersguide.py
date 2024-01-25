@@ -154,9 +154,7 @@ class ProductPageFactory(PageFactory):
     product_url = Faker("url")
     worst_case = Faker("sentence")
     first_published_at = Faker("past_datetime", start_date=datetime(2020, 1, 1), tzinfo=timezone.utc)
-    last_published_at = Faker(
-        "date_time_between", start_date=first_published_at, tzinfo=timezone.utc
-    )
+    last_published_at = Faker("date_time_between", start_date=first_published_at, tzinfo=timezone.utc)
     evaluation = SubFactory("networkapi.wagtailpages.factory.buyersguide.ProductPageEvaluationFactory")
     locale = LazyFunction(lambda: Locale.get_default())
 
