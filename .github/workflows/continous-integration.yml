@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-20.04
     services:
       postgres:
-        image: postgres:13.2
+        image: postgres:15
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -117,7 +117,7 @@ jobs:
     runs-on: ubuntu-20.04
     services:
       postgres:
-        image: postgres:13.2
+        image: postgres:15
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
