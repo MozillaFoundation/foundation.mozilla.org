@@ -1,5 +1,3 @@
-import random
-
 from django.conf import settings
 from factory import Faker, LazyAttribute, SubFactory
 from factory.django import DjangoModelFactory
