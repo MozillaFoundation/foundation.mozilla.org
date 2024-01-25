@@ -71,7 +71,7 @@ services:
       - postgres
 
   postgres:
-    image: postgres:13.2
+    image: postgres:15
     ports:
       - "5678:5432"
     environment:
