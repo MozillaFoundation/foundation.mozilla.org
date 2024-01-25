@@ -4,7 +4,6 @@ from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Locale, Page, TranslatableMixin
-from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.mozfest import blocks as mozfest_blocks
@@ -24,7 +23,6 @@ from networkapi.wagtailpages.utils import (
 )
 
 
-@register_snippet
 class Ticket(TranslatableMixin):
     name = models.CharField(
         max_length=100,
@@ -62,7 +60,6 @@ class Ticket(TranslatableMixin):
         verbose_name = "Ticket"
 
 
-@register_snippet
 class NewsletterSignupWithBackground(TranslatableMixin, campaign_models.CTA):
     background_image = models.ForeignKey(
         "wagtailimages.Image",
@@ -80,7 +77,7 @@ class NewsletterSignupWithBackground(TranslatableMixin, campaign_models.CTA):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
-        verbose_name = "Newsletter Signup With Background"
+        verbose_name = "Mozfest Newsletter Signup"
 
 
 class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):

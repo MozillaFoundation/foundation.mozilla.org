@@ -1,10 +1,12 @@
 from taggit.models import Tag
-from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 
 
 # Wagtail admin
-class WagtailTagAdmin(ModelAdmin):
+class WagtailTagSnippetViewSet(SnippetViewSet):
     model = Tag
+    icon = "tag"
     menu_label = "Tags"
     menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)
     add_to_settings_menu = True
@@ -13,4 +15,4 @@ class WagtailTagAdmin(ModelAdmin):
     search_fields = ("name",)
 
 
-modeladmin_register(WagtailTagAdmin)
+register_snippet(WagtailTagSnippetViewSet)
