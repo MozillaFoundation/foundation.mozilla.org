@@ -305,6 +305,39 @@ class TestBlogIndexTopic(BlogIndexTestCase):
         self.assertIn(topic_blog_page, response.context["entries"])
         self.assertNotIn(other_blog_page, response.context["entries"])
 
+    def test_index_intro_updated_with_topic_intro(self):
+        topic_intro_text = "This is a test topic intro."
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic", intro=topic_intro_text)
+
+        url = self.get_topic_route(topic=topic.slug)
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(response.context["index_intro"], topic_intro_text)
+
+    def test_index_title_updated_with_topic_title(self):
+        topic_title_text = "Test Topic Title"
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic", title=topic_title_text)
+
+        url = self.get_topic_route(topic=topic.slug)
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(response.context["index_title"], topic_title_text)
+
+    def test_index_title_defaults_to__name_if_no_title(self):
+        topic_name_text = "Test Topic Name"
+        topic = blog_factories.BlogPageTopicFactory(name=topic_name_text, title="")
+
+        url = self.get_topic_route(topic=topic.slug)
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(response.context["index_title"], topic_name_text)
+
 
 class TestBlogIndexSearch(BlogIndexTestCase):
     @classmethod
