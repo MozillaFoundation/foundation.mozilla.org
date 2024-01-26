@@ -328,8 +328,9 @@ class TestBlogIndexTopic(BlogIndexTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(response.context["index_title"], topic_title)
 
-    def test_index_title_defaults_to_name_if_no_title(self):
+    def test_index_title_defaults_to_topic_name_if_no_title(self):
         topic_name = "Test Topic Name"
+        # Expecting the name of the topic -> the name of the index page
         expected_index_title = "Test Topic Name Blog"
         topic = blog_factories.BlogPageTopicFactory(name=topic_name, title="")
 
