@@ -40,8 +40,6 @@
 
     <section aria-labelledby="warning-label">
 
-        <p id="warning-label"><strong>{% trans "Recognition" %}</strong></p>
-
         <p class="tw-body">
             {% blocktrans with url="https://winners.webbyawards.com/2020/websites/general-websites/activism/120635/privacy-not-included" trimmed %}
                 <b>The people have spoken!</b> Mozilla’s <em>*Privacy Not Included</em> <a href="{{ url }}">won two Webby</a> awards in 2023: the “Responsible Information”
@@ -188,9 +186,16 @@
                     point of a shopping guide put out by the Mozilla Foundation.
                 {% endblocktrans %}
             </h3>
-            <p class="tw-h6-heading">
-                {% trans "— Steve Inskeep, NPR" %}
-            </p>
+            <div class="attribution-with-link tw-inline-flex tw-gap-2">
+                {% blocktrans with url="https://www.npr.org/2019/12/02/784063267/mozillas-latest-privacy-not-included-buyers-guide" trimmed %}
+                    <p class="tw-h6-heading ">
+                        — Steve Inskeep,
+                    </p>
+                    <a class="tw-blue-80 tw-text-xs" href="{{ url }}">
+                        NPR
+                    </a>
+                {% endblocktrans %}
+            </div>
         </div>
         <p class="tw-body">
             {% blocktrans with url="https://www.usatoday.com/story/tech/2019/11/23/before-buying-ring-wemo-roku-consider-privacy-issues/4260851002/" trimmed %}
