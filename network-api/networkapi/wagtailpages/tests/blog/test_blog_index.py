@@ -23,6 +23,7 @@ class BlogIndexTestCase(test_base.WagtailpagesTestCase):
         super().setUpTestData()
         cls.page_size = blog_index.BlogIndexPage.PAGE_SIZES[0][0]
         blog_factories.BlogIndexPageFactory(
+            title="Blog",
             parent=cls.homepage,
             page_size=cls.page_size,
         )
@@ -317,26 +318,27 @@ class TestBlogIndexTopic(BlogIndexTestCase):
         self.assertEqual(response.context["index_intro"], topic_intro_text)
 
     def test_index_title_updated_with_topic_title(self):
-        topic_title_text = "Test Topic Title"
-        topic = blog_factories.BlogPageTopicFactory(name="Test topic", title=topic_title_text)
+        topic_title = "Test Topic Title"
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic", title=topic_title)
 
         url = self.get_topic_route(topic=topic.slug)
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertEqual(response.context["index_title"], topic_title_text)
+        self.assertEqual(response.context["index_title"], topic_title)
 
-    def test_index_title_defaults_to__name_if_no_title(self):
-        topic_name_text = "Test Topic Name"
-        topic = blog_factories.BlogPageTopicFactory(name=topic_name_text, title="")
+    def test_index_title_defaults_to_name_if_no_title(self):
+        topic_name = "Test Topic Name"
+        expected_index_title = "Test Topic Name Blog"
+        topic = blog_factories.BlogPageTopicFactory(name=topic_name, title="")
 
         url = self.get_topic_route(topic=topic.slug)
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertEqual(response.context["index_title"], topic_name_text)
+        self.assertEqual(response.context["index_title"], expected_index_title)
 
 
 class TestBlogIndexSearch(BlogIndexTestCase):
