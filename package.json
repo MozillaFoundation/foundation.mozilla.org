@@ -4,7 +4,7 @@
   "issues": "https://github.com/mozilla/foundation.mozilla.org/issues",
   "description": "Mozilla Foundation site",
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "scripts": {
     "build": "run-s build:clean && run-p build:common build:js:prod && npm run postcss:build",
