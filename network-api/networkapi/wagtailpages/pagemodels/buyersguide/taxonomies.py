@@ -1,11 +1,9 @@
 from django.db import models
 from wagtail import models as wagtail_models
 from wagtail.admin import panels as admin_panels
-from wagtail.snippets import models as snippet_models
 from wagtail_localize import fields as localize_fields
 
 
-@snippet_models.register_snippet
 class BuyersGuideContentCategory(wagtail_models.TranslatableMixin, models.Model):
     title = models.CharField(max_length=100, null=False, blank=False)
     slug = models.SlugField(

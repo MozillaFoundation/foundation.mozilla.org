@@ -19,13 +19,19 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail.coreutils import find_available_slug
 from wagtail.rich_text import LinkHandler
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 from wagtail_localize.models import (
     LocaleSynchronization,
     sync_trees_on_locale_sync_save,
 )
 
+from networkapi.highlights.models import Highlight
+from networkapi.news.models import News
+from networkapi.wagtailpages import models as wagtailpages_models
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
+from networkapi.wagtailpages.pagemodels.campaigns import Callpower
 from networkapi.wagtailpages.utils import get_locale_from_request
 
 post_save.disconnect(sync_trees_on_locale_sync_save, sender=LocaleSynchronization)
@@ -169,7 +175,16 @@ def global_admin_css():
 
 @hooks.register("register_icons")
 def register_icons(icons):
-    return icons + ["icons/arrows-up-down.svg"]
+    return icons + [
+        "icons/arrows-up-down.svg",
+        "icons/tito.svg",
+        "icons/ticket.svg",
+        "icons/newspaper.svg",
+        "icons/mozfest.svg",
+        "icons/pni.svg",
+        "icons/flask.svg",
+        "icons/heart.svg",
+    ]
 
 
 class HowToWagtailMenuItem(MenuItem):
@@ -184,13 +199,360 @@ def register_howto_menu_item():
         reverse("how-do-i-wagtail"),
         name="howdoIwagtail",
         classname="icon icon-help",
-        order=900,
+        order=1000,
     )
 
 
-@hooks.register("construct_main_menu")
-@hooks.register("construct_settings_menu")
-def construct_settings_menu(request, menu_items):
-    menu_items.sort(key=lambda x: x.name)
-    for order, item in enumerate(menu_items):
-        item.order = order
+class BlogPageTopicSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.BlogPageTopic
+    icon = "tag"
+    menu_order = 000
+    menu_label = "Topics"
+    menu_name = "Topics"
+    list_display = ("name",)
+    search_fields = ("name", "title", "intro", "share_description")
+
+
+class BlogSignupSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.BlogSignup
+    icon = "newspaper"
+    menu_order = 100
+    menu_label = "Newsletter Signups"
+    menu_name = "Newsletter Signups"
+    list_display = (
+        "name",
+        "newsletter",
+    )
+    search_fields = ("name", "header", "description", "newsletter")
+
+
+class BlogViewSetGroup(SnippetViewSetGroup):
+    items = (BlogPageTopicSnippetViewSet, BlogSignupSnippetViewSet)
+    menu_icon = "bold"
+    menu_label = "Blog"
+    menu_name = "Blog"
+    menu_order = 1400
+
+
+register_snippet(BlogViewSetGroup)
+
+
+class BuyersGuideProductCategorySnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.BuyersGuideProductCategory
+    icon = "list-ul"
+    menu_order = 000
+    menu_label = "Product Categories"
+    menu_name = "Product Categories"
+    list_display = ("name", "parent", "featured", "hidden", "slug", "sort_order", "is_being_used")
+    search_fields = (
+        "name",
+        "description",
+        "parent",
+    )
+
+
+class BuyersGuideContentCategorySnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.BuyersGuideContentCategory
+    icon = "tag"
+    menu_order = 100
+    menu_label = "Content Categories"
+    menu_name = "Content Categories"
+    list_display = (
+        "title",
+        "slug",
+    )
+    search_fields = (
+        "title",
+        "slug",
+    )
+
+
+class UpdateSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.Update
+    icon = "history"
+    menu_order = 200
+    menu_label = "Product Updates"
+    menu_name = "Product Updates"
+    list_display = (
+        "title",
+        "author",
+        "featured",
+        "created_date",
+    )
+    search_fields = (
+        "title",
+        "source",
+        "author",
+        "snippet",
+        "created_date",
+    )
+
+
+class BuyersGuideCTASnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.BuyersGuideCallToAction
+    icon = "link-external"
+    menu_order = 300
+    menu_label = "CTAs"
+    menu_name = "CTAs"
+    list_display = (
+        "title",
+        "link_label",
+        "link_target_url",
+    )
+    search_fields = ("title", "content", "link_label", "link_target_url", "link_target_page")
+
+
+class BuyersGuideViewSetGroup(SnippetViewSetGroup):
+    items = (
+        BuyersGuideProductCategorySnippetViewSet,
+        BuyersGuideContentCategorySnippetViewSet,
+        UpdateSnippetViewSet,
+        BuyersGuideCTASnippetViewSet,
+    )
+    menu_icon = "pni"
+    menu_label = "*PNI"
+    menu_name = "*PNI"
+    menu_order = 1500
+
+
+register_snippet(BuyersGuideViewSetGroup)
+
+
+class ResearchTopicsSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.ResearchTopic
+    icon = "tag"
+    menu_order = 000
+    menu_label = "Topics"
+    menu_name = "Topics"
+    list_display = ("name", "slug")
+    search_fields = (
+        "name",
+        "slug",
+        "description",
+    )
+
+
+class ResearchRegionsSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.ResearchRegion
+    icon = "globe"
+    menu_order = 100
+    menu_label = "Regions"
+    menu_name = "Regions"
+    list_display = ("name", "slug")
+    search_fields = ("name", "slug")
+
+
+class ResearchSetGroup(SnippetViewSetGroup):
+    items = (ResearchTopicsSnippetViewSet, ResearchRegionsSnippetViewSet)
+    menu_icon = "flask"
+    menu_label = "Research Hub"
+    menu_name = "Research Hub"
+    menu_order = 1500
+
+
+register_snippet(ResearchSetGroup)
+
+
+class RCCContentTypeSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.RCCContentType
+    icon = "clipboard-list"
+    menu_order = 000
+    menu_label = "Content Types"
+    menu_name = "Content Types"
+    list_display = ("name", "slug")
+    search_fields = ("name", "slug")
+
+
+class RCCCurricularAreaSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.RCCCurricularArea
+    icon = "doc-full"
+    menu_order = 100
+    menu_label = "Curricular Areas"
+    menu_name = "Curricular Areas"
+    list_display = ("name", "slug")
+    search_fields = ("name", "slug")
+
+
+class RCCTopicsSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.RCCTopic
+    icon = "tag"
+    menu_order = 200
+    menu_label = "Topics"
+    menu_name = "Topics"
+    list_display = ("name", "slug")
+    search_fields = (
+        "name",
+        "slug",
+    )
+
+
+class RCCSetGroup(SnippetViewSetGroup):
+    items = (RCCContentTypeSnippetViewSet, RCCCurricularAreaSnippetViewSet, RCCTopicsSnippetViewSet)
+    menu_icon = "desktop"
+    menu_label = "RCC"
+    menu_name = "RCC"
+    menu_order = 1600
+
+
+register_snippet(RCCSetGroup)
+
+
+class PetitionsSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.Petition
+    icon = "comment"
+    menu_order = 1700
+    menu_label = "Petitions"
+    menu_name = "Petitions"
+    add_to_admin_menu = True
+    list_display = ("name", "newsletter", "campaign_id")
+    search_fields = (
+        "name",
+        "header",
+        "description",
+        "newsletter",
+        "campaign_id",
+        "share_link",
+        "share_link_text",
+        "thank_you",
+    )
+
+
+register_snippet(PetitionsSnippetViewSet)
+
+
+class ProfilesSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.Profile
+    icon = "user"
+    menu_order = 1800
+    menu_label = "Profiles"
+    menu_name = "Profiles"
+    add_to_admin_menu = True
+    list_display = ("name", "tagline", "slug")
+    search_fields = (
+        "name",
+        "tagline",
+        "introduction",
+        "slug",
+    )
+
+
+register_snippet(ProfilesSnippetViewSet)
+
+
+class CTASnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.CTA
+    icon = "link-external"
+    menu_order = 1900
+    menu_label = "CTAs"
+    menu_name = "CTAs"
+    add_to_admin_menu = True
+    list_display = ("name", "header", "newsletter")
+    search_fields = (
+        "name",
+        "header",
+        "description",
+        "newsletter",
+    )
+
+
+register_snippet(CTASnippetViewSet)
+
+
+class SignupSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.Signup
+    icon = "newspaper"
+    menu_order = 2000
+    menu_label = "Signups"
+    menu_name = "Signups"
+    add_to_admin_menu = True
+    list_display = ("name", "header", "newsletter", "campaign_id")
+    search_fields = (
+        "name",
+        "header",
+        "description",
+        "newsletter",
+        "campaign_id",
+    )
+
+
+register_snippet(SignupSnippetViewSet)
+
+
+class AreasOfFocusViewSet(SnippetViewSet):
+    model = wagtailpages_models.FocusArea
+    icon = "view"
+    menu_order = 000
+    menu_label = "Areas of Focus"
+    menu_name = "Areas of Focus"
+    list_display = ("name", "interest_icon", "page")
+    search_fields = ("name", "description", "interest_icon", "page")
+
+
+class CallpowersViewSet(SnippetViewSet):
+    model = Callpower
+    icon = "chain-broken"
+    menu_order = 100
+    menu_label = "Callpowers"
+    menu_name = "Callpowers"
+    list_display = ("name", "header", "newsletter", "campaign_id", "call_button_label")
+    search_fields = (
+        "name",
+        "header",
+        "description",
+        "newsletter",
+        "campaign_id",
+        "call_button_label" "success_heading",
+        "success_text",
+        "share_facebook",
+        "share_email",
+    )
+
+
+class HighlightSnippetViewSet(SnippetViewSet):
+    model = Highlight
+    icon = "date"
+    menu_order = 200
+    list_display = (
+        "title",
+        "description",
+        "link_url",
+    )
+    search_fields = ("title", "description")
+
+
+class NewsSnippetViewSet(SnippetViewSet):
+    model = News
+    icon = "doc-full-inverse"
+    menu_order = 300
+    list_display = (
+        "headline",
+        "thumbnail",
+        "date",
+        "link",
+    )
+    search_fields = ("headline",)
+
+
+class PulseFiltersViewSet(SnippetViewSet):
+    model = wagtailpages_models.PulseFilter
+    icon = "cross"
+    menu_order = 400
+    menu_label = "Pulse Filters"
+    menu_name = "Pulse Filters"
+    list_display = ("name", "filter_key", "filter_key_label")
+    search_fields = (
+        "name",
+        "filter_key",
+        "filter_key_label",
+    )
+
+
+class ArchiveSetGroup(SnippetViewSetGroup):
+    items = (AreasOfFocusViewSet, CallpowersViewSet, HighlightSnippetViewSet, NewsSnippetViewSet, PulseFiltersViewSet)
+    menu_icon = "folder-open-1"
+    menu_label = "Archived"
+    menu_name = "Archived"
+    menu_order = 2100
+
+
+register_snippet(ArchiveSetGroup)

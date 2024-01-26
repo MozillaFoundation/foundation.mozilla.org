@@ -221,7 +221,6 @@ INSTALLED_APPS = list(
             "wagtail.contrib.routable_page",
             "wagtail.contrib.styleguide" if DEBUG else None,
             "wagtail.contrib.table_block",
-            "wagtail.contrib.modeladmin",
             "wagtail.contrib.frontend_cache",
             "wagtail.contrib.settings",
             "wagtail_color_panel",

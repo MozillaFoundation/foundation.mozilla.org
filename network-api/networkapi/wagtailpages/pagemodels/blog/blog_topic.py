@@ -3,7 +3,6 @@ from django.template.defaultfilters import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import TranslatableMixin
-from wagtail.snippets.models import register_snippet
 
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
@@ -11,7 +10,6 @@ from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options impo
 from networkapi.wagtailpages.utils import get_default_locale
 
 
-@register_snippet
 class BlogPageTopic(TranslatableMixin, models.Model):
     name = models.CharField(max_length=50)
 
