@@ -117,7 +117,7 @@ factory-boy==3.3.0
     # via
     #   -r requirements.in
     #   wagtail-factories
-faker==20.1.0
+faker==22.5.1
     # via
     #   -r requirements.in
     #   factory-boy
@@ -292,7 +292,9 @@ webencodings==0.5.1
 whitenoise==6.6.0
     # via -r requirements.in
 willow[heif]==1.6.3
-    # via wagtail
+    # via
+    #   wagtail
+    #   willow
 wrapt==1.13.3
     # via scout-apm
 zipp==3.16.2
