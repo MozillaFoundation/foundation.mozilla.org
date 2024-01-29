@@ -8,9 +8,11 @@
                 <div class="tw-row tw-bg-black tw-dark">
                     <div class="tw-relative tw-body tw-p-10 large:tw-py-14 large:tw-px-20 tw-w-full large:tw-w-7/12 after:tw-content-[''] after:tw-bg-gradient-to-r after:tw-from-black after:tw-to-transparent after:tw-h-full after:tw-w-[100px] after:tw-top-0 after:tw-absolute after:tw-right-[-100px] after:tw-to-90% after:tw-hidden large:after:tw-block">
                         <div
-                            class="join-us"
+                            class="newsletter-signup-module"
+                            data-module-type="default"
+                            data-form-style="mozfest-callout-box"
                             data-form-position="callout-box"
-                            data-form-style="mozfest"
+                            data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
                             data-signup-id="{{ snippet_localized.id }}"
                             data-cta-header="{{ snippet_localized.header | escape }}"
                             data-cta-description="{{ snippet_localized.description | escape }}"
