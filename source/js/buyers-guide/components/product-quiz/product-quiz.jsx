@@ -206,8 +206,8 @@ class ProductQuiz extends Component {
     );
   }
 
-  handleSignUp(successState) {
-    this.setState({ showThankYou: successState }, () => {
+  handleSubmissionSuccess(isSuccess) {
+    this.setState({ showThankYou: isSuccess }, () => {
       setTimeout(() => {
         this.moveToNextStep();
       }, this.finalScreenDelay);
@@ -268,7 +268,9 @@ class ProductQuiz extends Component {
             ctaDescription=""
             apiUrl={this.props.joinUsApiUrl}
             disableSubmitButtonByDefault={true}
-            handleSignUp={(successState) => this.handleSignUp(successState)}
+            handleSubmissionSuccess={(isSuccess) =>
+              this.handleSubmissionSuccess(isSuccess)
+            }
           />
         </div>
         <div className="tw-text-center">
