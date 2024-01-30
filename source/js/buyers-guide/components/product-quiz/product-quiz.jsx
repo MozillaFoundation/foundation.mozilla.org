@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { POINTS, PRODUCTS, RESULTS } from "./data";
-import JoinUs from "../../../components/join/join.jsx";
 import DefaultLayoutSignup from "../../../components/newsletter-signup/organisms/default-layout-signup.jsx";
 import ProductQuizShareButtons from "../social-share/product-quiz-share-buttons.jsx";
 
