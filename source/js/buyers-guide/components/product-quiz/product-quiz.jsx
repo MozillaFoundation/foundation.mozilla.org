@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { POINTS, PRODUCTS, RESULTS } from "./data";
-import JoinUs from "../../../components/join/join.jsx";
 import DefaultLayoutSignup from "../../../components/newsletter-signup/organisms/default-layout-signup.jsx";
 import ProductQuizShareButtons from "../social-share/product-quiz-share-buttons.jsx";
 
@@ -206,8 +205,8 @@ class ProductQuiz extends Component {
     );
   }
 
-  handleSignUp(successState) {
-    this.setState({ showThankYou: successState }, () => {
+  handleSubmissionSuccess(isSuccess) {
+    this.setState({ showThankYou: isSuccess }, () => {
       setTimeout(() => {
         this.moveToNextStep();
       }, this.finalScreenDelay);
@@ -268,7 +267,9 @@ class ProductQuiz extends Component {
             ctaDescription=""
             apiUrl={this.props.joinUsApiUrl}
             disableSubmitButtonByDefault={true}
-            handleSignUp={(successState) => this.handleSignUp(successState)}
+            handleSubmissionSuccess={(isSuccess) =>
+              this.handleSubmissionSuccess(isSuccess)
+            }
           />
         </div>
         <div className="tw-text-center">
