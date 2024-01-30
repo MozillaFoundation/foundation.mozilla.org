@@ -241,10 +241,13 @@ class CreepVote extends Component {
               </p>
             }
             apiUrl={this.props.joinUsApiUrl}
+            showQuitButton="true"
             handleQuitButtonClick={(successState) =>
               this.handleSignUp(successState)
             }
-            showQuitButton="true"
+            handleSubmissionSuccess={(successState) =>
+              this.handleSignUp(successState)
+            }
           />
         </div>
       </Fragment>
