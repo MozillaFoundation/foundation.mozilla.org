@@ -244,7 +244,7 @@ class CreepVote extends Component {
             handleQuitButtonClick={(successState) =>
               this.handleSignUp(successState)
             }
-            showQuitButton={true}
+            showQuitButton="true"
           />
         </div>
       </Fragment>

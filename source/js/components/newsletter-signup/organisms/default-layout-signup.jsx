@@ -49,6 +49,7 @@ class DefaultSignupForm extends Component {
         this.props.showCountryFieldByDefault?.toLowerCase() === "true",
       showLanguageField:
         this.props.showLanguageFieldByDefault?.toLowerCase() === "true",
+      showQuitButton: this.props.showQuitButton?.toLowerCase() === "true",
       submitButtonDisabled: this.props.disableSubmitButtonByDefault,
     };
   }
@@ -277,28 +278,30 @@ class DefaultSignupForm extends Component {
         this.style.buttonPosition === "bottom",
     });
 
-    let buttons = (
-      <>
-        <ButtonSubmit
-          buttonStyle={this.style.buttonStyle}
-          widthClasses={this.style.buttonWidthClasses}
-          disabled={this.state.submitButtonDisabled}
-        >
-          {this.buttonText}
-        </ButtonSubmit>
-        {this.props.showQuitButton && (
+    let submitButton = (
+      <ButtonSubmit
+        buttonStyle={this.style.buttonStyle}
+        widthClasses={this.style.buttonWidthClasses}
+        disabled={this.state.submitButtonDisabled}
+      >
+        {this.buttonText}
+      </ButtonSubmit>
+    );
+
+    let buttons = submitButton;
+
+    if (this.state.showQuitButton) {
+      buttons = (
+        <div className="tw-flex tw-gap-x-4">
+          {submitButton}
           <ButtonQuit
             widthClasses={this.style.buttonWidthClasses}
             handleQuitButtonClick={this.props.handleQuitButtonClick}
           >
             {getText(`No thanks`)}
           </ButtonQuit>
-        )}
-      </>
-    );
-
-    if (this.props.showQuitButton) {
-      buttons = <div className="tw-flex tw-gap-x-4">{buttons}</div>;
+        </div>
+      );
     }
 
     return <div className={wrapperClasses}>{buttons}</div>;
@@ -361,6 +364,9 @@ DefaultSignupForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   noBrowserValidation: PropTypes.bool,
   hideForm: PropTypes.bool,
+  showCountryFieldByDefault: PropTypes.string,
+  showLanguageFieldByDefault: PropTypes.string,
+  showQuitButton: PropTypes.string,
 };
 
 /**
