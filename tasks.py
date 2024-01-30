@@ -47,12 +47,12 @@ locale_abstraction_instructions_js = " ".join(
 
 def create_env_file(env_file):
     """Create or update an .env to work with a docker environment"""
-    with open(env_file, "r") as f:
+    with open(env_file) as f:
         env_vars = f.read()
 
     # We also need to make sure to use the correct db values based on our docker settings.
     username = dbname = "postgres"
-    with open("docker-compose.yml", "r") as d:
+    with open("docker-compose.yml") as d:
         docker_compose = d.read()
         username = re.search("POSTGRES_USER=(.*)", docker_compose).group(1) or username
         dbname = re.search("POSTGRES_DB=(.*)", docker_compose).group(1) or dbname
