@@ -108,9 +108,6 @@ jobs:
         run: mypy network-api
       - name: Run Tests
         run: cd network-api && pytest -n auto -v --ds=networkapi.settings -cov=network-api/networkapi --cov-report=term-missing
-      - name: Coveralls
-        run: coveralls
-        continue-on-error: true
 
   test_integration:
     name: Integration testing
