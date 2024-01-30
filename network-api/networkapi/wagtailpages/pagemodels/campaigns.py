@@ -7,7 +7,6 @@ from taggit.models import TaggedItemBase
 from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page, TranslatableMixin
-from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import get_content_related_by_tag, get_page_tree_information
@@ -51,14 +50,12 @@ class CTABase(models.Model):
         abstract = True
 
 
-@register_snippet
 class CTA(CTABase):
     class Meta:
         ordering = ["-id"]
         verbose_name_plural = "CTA"
 
 
-@register_snippet
 class Callpower(TranslatableMixin, CTA):
     campaign_id = models.CharField(
         max_length=20,
@@ -116,7 +113,6 @@ class Callpower(TranslatableMixin, CTA):
         verbose_name = "Callpower"
 
 
-@register_snippet
 class Signup(TranslatableMixin, CTA):
     campaign_id = models.CharField(
         max_length=20,
@@ -140,7 +136,6 @@ class Signup(TranslatableMixin, CTA):
         verbose_name = "Signup"
 
 
-@register_snippet
 class BlogSignup(TranslatableMixin, CTABase):
     description = RichTextField(
         help_text="Signup's body (richtext)", features=["bold", "italic"], max_length=300, blank=True
@@ -180,7 +175,6 @@ class OpportunityPage(MiniSiteNameSpace):
         verbose_name_plural = "Default pages"
 
 
-@register_snippet
 class Petition(TranslatableMixin, CTA):
     campaign_id = models.CharField(
         max_length=20,
@@ -274,7 +268,7 @@ class Petition(TranslatableMixin, CTA):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["-id"]
-        verbose_name = "petition snippet"
+        verbose_name = "Petition"
 
 
 class CampaignPage(MiniSiteNameSpace):

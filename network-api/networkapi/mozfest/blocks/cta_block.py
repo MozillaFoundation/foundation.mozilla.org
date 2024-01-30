@@ -16,14 +16,18 @@ class CTABlock(blocks.StructBlock):
 
     def clean(self, value):
         result = super().clean(value)
+        errors = {}
 
         link_url = value.get("link_url")
         link_text = value.get("link_text")
 
         if link_url and not link_text:
-            raise StructBlockValidationError({"link_text": ErrorList(["Please add a text value for the link."])})
+            errors["link_text"] = ErrorList(["Please add a text value for the link."])
 
         if link_text and not link_url:
-            raise StructBlockValidationError({"link_url": ErrorList(["Please add a URL value for the link."])})
+            errors["link_url"] = ErrorList(["Please add a URL value for the link."])
+
+        if errors:
+            raise StructBlockValidationError(block_errors=errors)
 
         return result

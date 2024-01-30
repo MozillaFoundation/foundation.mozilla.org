@@ -36,6 +36,7 @@ env = environ.Env(
     CORS_ALLOWED_ORIGIN_REGEXES=(tuple, ()),
     CORS_ALLOWED_ORIGINS=(tuple, ()),
     CSP_INCLUDE_NONCE_IN=(list, []),
+    CSRF_TRUSTED_ORIGINS=(list, []),
     DATA_UPLOAD_MAX_NUMBER_FIELDS=(int, 2500),
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
@@ -157,7 +158,7 @@ TARGET_DOMAINS = env("TARGET_DOMAINS")
 MOZFEST_DOMAIN_REDIRECT_ENABLED = env("MOZFEST_DOMAIN_REDIRECT_ENABLED")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
-CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
+CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
 ALLOWED_REDIRECT_HOSTS = ALLOWED_HOSTS
 USE_X_FORWARDED_HOST = env("USE_X_FORWARDED_HOST")
 
@@ -220,7 +221,6 @@ INSTALLED_APPS = list(
             "wagtail.contrib.routable_page",
             "wagtail.contrib.styleguide" if DEBUG else None,
             "wagtail.contrib.table_block",
-            "wagtail.contrib.modeladmin",
             "wagtail.contrib.frontend_cache",
             "wagtail.contrib.settings",
             "wagtail_color_panel",
@@ -474,7 +474,6 @@ WAGTAIL_LOCALIZE_PRIVATE_KEY = env("WAGTAIL_LOCALIZE_PRIVATE_KEY")
 
 TIME_ZONE = "UTC"
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
 LOCALE_PATHS = (

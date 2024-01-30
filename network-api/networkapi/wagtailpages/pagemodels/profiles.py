@@ -5,11 +5,9 @@ from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
-from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 
-@register_snippet
 class Profile(index.Indexed, TranslatableMixin, models.Model):
     name = models.CharField(max_length=70, blank=False)
 
@@ -46,7 +44,8 @@ class Profile(index.Indexed, TranslatableMixin, models.Model):
     ]
 
     search_fields = [
-        index.SearchField("name", partial_match=True),
+        index.SearchField("name"),
+        index.AutocompleteField("name"),
         # Needed for locale filtering in the Wagtail admin. A helpful error message pointed this out.
         index.FilterField("locale_id"),
     ]

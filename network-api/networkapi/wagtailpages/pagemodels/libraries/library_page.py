@@ -6,7 +6,6 @@ from django.core import paginator
 from django.db import models
 from wagtail import images as wagtail_images
 from wagtail.admin import panels
-from wagtail.images import edit_handlers as image_panels
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.base import BasePage
@@ -52,7 +51,7 @@ class BaseLibraryPage(BasePage):
     )
 
     content_panels = BasePage.content_panels + [
-        image_panels.FieldPanel("banner_image"),
+        panels.FieldPanel("banner_image"),
     ]
 
     settings_panels = BasePage.settings_panels + [panels.FieldPanel("results_count")]
