@@ -143,6 +143,7 @@ function withSubmissionLogic(WrappedComponent) {
               this.setState({
                 apiSubmissionStatus: this.API_SUBMISSION_STATUS.SUCCESS,
               });
+              this.props.handleSubmissionSuccess?.(true);
             })
             .catch(() => {
               // [TODO][FIXME] We need to let the user know that something went wrong

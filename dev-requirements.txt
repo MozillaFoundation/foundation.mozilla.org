@@ -38,7 +38,7 @@ editorconfig==0.12.3
     #   jsbeautifier
 execnet==1.9.0
     # via pytest-xdist
-flake8==6.1.0
+flake8==7.0.0
     # via -r dev-requirements.in
 honcho==1.1.0
     # via -r dev-requirements.in
@@ -48,7 +48,7 @@ html-void-elements==0.1.0
     # via djlint
 iniconfig==2.0.0
     # via pytest
-isort==5.13.1
+isort==5.13.2
     # via -r dev-requirements.in
 jsbeautifier==1.14.7
     # via
@@ -56,7 +56,7 @@ jsbeautifier==1.14.7
     #   djlint
 mccabe==0.7.0
     # via flake8
-mypy==1.7.1
+mypy==1.8.0
     # via -r dev-requirements.in
 mypy-extensions==1.0.0
     # via
@@ -80,7 +80,7 @@ ptvsd==4.3.2
     # via -r dev-requirements.in
 pycodestyle==2.11.0
     # via flake8
-pyflakes==3.1.0
+pyflakes==3.2.0
     # via flake8
 pytest==7.4.3
     # via
@@ -129,3 +129,7 @@ typing-extensions==4.4.0
     # via
     #   -c requirements.txt
     #   mypy
+urllib3==1.26.18
+    # via
+    #   -c requirements.txt
+    #   requests
