@@ -84,6 +84,13 @@ export const FORM_STYLE = {
     headingLevel: 3,
     headingClass: "tw-h5-heading",
   },
+  "mozfest-callout-box": {
+    fieldStyle: "filled",
+    headingLevel: 3,
+    headingClass: `tw-h3-heading medium:tw-w-4/5`,
+    descriptionClass: `medium:tw-w-4/5`,
+    headingClass: "tw-h3-heading",
+  },
   "pni-product-quiz": {
     fieldStyle: "filled",
     headingLevel: 4,
