@@ -34,9 +34,7 @@ class JoinUs extends Component {
       apiFailed: false,
       userTriedSubmitting: false,
       lang: getCurrentLanguage(),
-      hideLocaleFields: [`body`, `callout-box`, `pni-product-quiz`].includes(
-        props.formPosition
-      ),
+      hideLocaleFields: [`body`, `callout-box`].includes(props.formPosition),
       submitButtonDisabled: props.disableSubmitButton,
     };
   }
@@ -69,16 +67,9 @@ class JoinUs extends Component {
 
   // state update function
   apiSubmissionSuccessful() {
-    this.setState(
-      {
-        apiSuccess: true,
-      },
-      () => {
-        if (this.props.formPosition === "pni-product-quiz") {
-          this.props.handleSignUp(true);
-        }
-      }
-    );
+    this.setState({
+      apiSuccess: true,
+    });
   }
 
   // state update function
