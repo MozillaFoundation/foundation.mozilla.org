@@ -37,7 +37,7 @@ class S3MediaStorage(S3Boto3Storage):
         k = self.bucket.copy_key(new_key_name, self.bucket.name, old_key_name)
 
         if not k:
-            raise "Couldn't copy '%s' to '%s'" % (old_file_name, new_file_name)
+            raise "Couldn't copy '{}' to '{}'".format(old_file_name, new_file_name)
 
         self.delete(old_file_name)
 

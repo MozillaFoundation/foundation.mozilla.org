@@ -27,7 +27,7 @@ RUN npm run build
 # Note: This stage builds the base image for production. Presently we are not
 # using this on the production site, but only use it as base for the dev build.
 # Pin "bullseye" as it matches Ubuntu 20.04 -- Heroku 20 stack currently used in production.
-FROM python:3.9.9-slim-bullseye as base
+FROM python:3.11-slim-bullseye as base
 
 # Install dependencies in a virtualenv
 ENV VIRTUAL_ENV=/app/dockerpythonvenv
@@ -83,7 +83,7 @@ USER mozilla
 
 # Install your app's Python requirements.
 RUN python -m venv $VIRTUAL_ENV
-RUN pip install -U pip==20.0.2 && pip install pip-tools
+RUN pip install -U pip==23.3.2 && pip install pip-tools
 # Normally we won't install dev dependencies in production, but we do it here to optimise 
 # docker build cache for local build
 COPY --chown=mozilla ./requirements.txt ./dev-requirements.txt ./
