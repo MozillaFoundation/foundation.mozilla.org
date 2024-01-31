@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
           cache: "npm"
       - name: Install Node Dependencies
         run: npm ci
@@ -73,7 +73,7 @@ jobs:
           cache: "pip"
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
       - name: Install Node Dependencies
@@ -157,7 +157,7 @@ jobs:
           cache: "pip"
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
           cache: "npm"
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
