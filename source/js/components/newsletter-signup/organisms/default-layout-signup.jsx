@@ -304,6 +304,7 @@ class DefaultSignupForm extends Component {
               buttonStyle={this.style.buttonStyle}
               widthClasses={this.style.buttonWidthClasses}
               disabled={this.state.submitButtonDisabled}
+              buttonCtaEvent={this.props.buttonCtaEvent}
             >
               {this.buttonText}
             </ButtonSubmit>
