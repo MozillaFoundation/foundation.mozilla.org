@@ -285,6 +285,7 @@ class UpdateSnippetViewSet(SnippetViewSet):
         "author",
         "snippet",
         "created_date",
+        "product_page__page__title",
     )
 
 
