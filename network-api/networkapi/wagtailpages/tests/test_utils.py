@@ -7,9 +7,8 @@ from django.utils.translation.trans_real import (
 )
 from django.utils.translation.trans_real import to_language as django_to_language
 from taggit import models as tag_models
-from wagtail.core.models import Locale
 from wagtail.images.models import Image
-from wagtail.models import Collection
+from wagtail.models import Collection, Locale
 
 from networkapi.wagtailpages import (
     language_code_to_iso_3166,

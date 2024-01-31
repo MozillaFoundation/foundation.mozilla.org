@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import JoinUs from "./components/join/join.jsx";
+import DefaultLayoutSignup from "./components/newsletter-signup/organisms/default-layout-signup.jsx";
 import { ReactGA } from "../js/common";
 
 /**
@@ -16,7 +16,7 @@ const elements = {
   buttonMobile: `.primary-nav-container .narrow-screen-menu-container .btn-newsletter`,
   buttonDesktop: `.primary-nav-container .wide-screen-menu-container .btn-newsletter`,
   container: `#nav-newsletter-form-wrapper`,
-  joinUs: `#nav-newsletter-form-wrapper .join-us.on-nav`,
+  newsletterSignup: `#nav-newsletter-form-wrapper .newsletter-signup-module.on-nav`,
   buttonDismiss: `#nav-newsletter-form-wrapper .form-dismiss`,
 };
 
@@ -160,13 +160,13 @@ class NavNewsletter {
     // some DOM nodes do not exist, return
     if (!this.checkDomNodes()) return;
 
-    var props = elements.joinUs.dataset;
+    var props = elements.newsletterSignup.dataset;
     props.apiUrl = `${foundationSiteURL}/api/campaign/signups/${
       props.signupId || 0
     }/`;
     props.isHidden = false;
-    this.root = createRoot(elements.joinUs);
-    this.root.render(<JoinUs {...props} ref={this.form} />);
+    this.root = createRoot(elements.newsletterSignup);
+    this.root.render(<DefaultLayoutSignup {...props} ref={this.form} />);
 
     // For desktop+ version:
     // make 'buttonDesktop' the trigger to open newsletter section

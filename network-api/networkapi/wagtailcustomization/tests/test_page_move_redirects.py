@@ -3,7 +3,7 @@ import http
 from django.contrib.auth.models import User
 from django.urls import reverse
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.core.models import Locale
+from wagtail.models import Locale
 
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
 from networkapi.wagtailpages.factory import publication as publication_factory

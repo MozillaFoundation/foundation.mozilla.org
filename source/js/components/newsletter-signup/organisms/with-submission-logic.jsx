@@ -143,6 +143,7 @@ function withSubmissionLogic(WrappedComponent) {
               this.setState({
                 apiSubmissionStatus: this.API_SUBMISSION_STATUS.SUCCESS,
               });
+              this.props.handleSubmissionSuccess?.(true);
             })
             .catch(() => {
               // [TODO][FIXME] We need to let the user know that something went wrong
@@ -167,6 +168,8 @@ function withSubmissionLogic(WrappedComponent) {
       });
 
       let payload = {
+        givenNames: formData.firstName,
+        surname: formData.lastName,
         email: formData.email,
         country: formData.country,
         lang: formData.language,
@@ -242,11 +245,13 @@ function withSubmissionLogic(WrappedComponent) {
      * Render the wrapped component with additional props
      */
     render() {
-      let { ctaHeader, ctaDescription, ...otherProps } = this.props;
+      let { forwardedRef, ctaHeader, ctaDescription, ...otherProps } =
+        this.props;
 
       return (
         <WrappedComponent
           {...otherProps}
+          ref={forwardedRef}
           noBrowserValidation={true}
           errors={this.state.errors}
           onSubmit={(event, formData) => this.handleSubmit(event, formData)}
@@ -267,11 +272,13 @@ function withSubmissionLogic(WrappedComponent) {
     apiUrl: PropTypes.string.isRequired,
     ctaHeader: PropTypes.string.isRequired,
     ctaDescription: PropTypes.string.isRequired,
-    formPosition: PropTypes.string.isRequired,
+    formPosition: PropTypes.string,
     whenLoaded: PropTypes.func,
   };
 
-  return WithSubmissionLogicComponent;
+  return React.forwardRef((props, ref) => {
+    return <WithSubmissionLogicComponent {...props} forwardedRef={ref} />;
+  });
 }
 
 export default withSubmissionLogic;

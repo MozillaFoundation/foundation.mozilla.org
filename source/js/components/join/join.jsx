@@ -27,14 +27,6 @@ class JoinUs extends Component {
     this.state = this.getInitialState(props);
   }
 
-  reset() {
-    if (!this.state.apiSuccess) {
-      this.email.value = "";
-      this.privacy.checked = false;
-    }
-    this.setState(this.getInitialState(this.props));
-  }
-
   getInitialState(props) {
     return {
       apiSubmitted: false,
@@ -42,13 +34,7 @@ class JoinUs extends Component {
       apiFailed: false,
       userTriedSubmitting: false,
       lang: getCurrentLanguage(),
-      hideLocaleFields: [
-        `header`,
-        `body`,
-        `callout-box`,
-        `pni-product-quiz`,
-        `youtube-regrets-reporter`,
-      ].includes(props.formPosition),
+      hideLocaleFields: [`body`, `callout-box`].includes(props.formPosition),
       submitButtonDisabled: props.disableSubmitButton,
     };
   }
@@ -81,16 +67,9 @@ class JoinUs extends Component {
 
   // state update function
   apiSubmissionSuccessful() {
-    this.setState(
-      {
-        apiSuccess: true,
-      },
-      () => {
-        if (this.props.formPosition === "pni-product-quiz") {
-          this.props.handleSignUp(true);
-        }
-      }
-    );
+    this.setState({
+      apiSuccess: true,
+    });
   }
 
   // state update function

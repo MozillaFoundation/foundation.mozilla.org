@@ -1,0 +1,16 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_content %}
+    <div class="tw-bg-black tw-dark tw-py-16">
+        <div class="tw-container">
+            <div class="tw-row">
+                {% for stat in self.statistics %}
+                    <div class="tw-mb-12 tw-px-8 tw-w-1/2 large:tw-w-1/4">
+                        <p class="tw-h1-heading tw-mb-0">{{ stat.title }}</p>
+                        <p class="tw-my-0">{{ stat.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock block_content %}

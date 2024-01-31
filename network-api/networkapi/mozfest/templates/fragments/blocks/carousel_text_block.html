@@ -1,0 +1,34 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_content %}
+    <div class="tw-bg-black tw-dark tw-pb-16 tw-pt-20 large:tw-pt-40">
+        <div class="tw-container">
+            <div class="tw-row tw-body">
+                <div class="tw-px-16 tw-w-full xlarge:tw-w-6/12">
+                    {% if self.heading %}
+                        <h2 class="tw-h2-heading tw-mb-12">{{ self.heading }}</h2>
+                    {% endif %}
+                    {{ self.text|richtext }}
+                    {% if self.link_url and self.link_label %}
+                        <a class="tw-cta-link tw-text-white" href="{{ self.link_url }}"><b>{{ self.link_label }}</b></a>
+                    {% endif %}
+                </div>
+                <div class="tw-px-8 tw-w-full xlarge:tw-w-6/12">
+                    <div class="swiper tw-overflow-hidden tw-relative tw-mt-16 xlarge:tw-mt-32" data-carousel id="mozfest-carousel-text-block" data-desktop-space-between="0" data-desktop-slides-per-view="1">
+                        <div class="swiper-wrapper tw-pb-24">
+                            {% for slide in self.carousel_images %}
+                                <div class="swiper-slide">
+                                    {% image slide.image fill-430x320 class="tw-my-0 tw-mx-auto" %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        {% if self.carousel_images|length > 1 %}
+                            {% include "fragments/carousel/carousel_navigation_secondary.html" %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock block_content %}

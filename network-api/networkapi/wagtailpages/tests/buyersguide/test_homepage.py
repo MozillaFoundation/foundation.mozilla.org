@@ -85,7 +85,7 @@ class BuyersGuideViewTest(TestCase):
         """
         Test that the homepage redirects properly under different locale configurations.
         """
-        response = self.client.get("/privacynotincluded", follow=True, HTTP_ACCEPT_LANGUAGE="fr")
+        response = self.client.get("/privacynotincluded", follow=True, headers={"accept-language": "fr"})
         self.assertEqual(
             response.redirect_chain[0][0],
             "/fr/privacynotincluded/",
@@ -93,7 +93,7 @@ class BuyersGuideViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.get("/privacynotincluded", follow=True, HTTP_ACCEPT_LANGUAGE="sw")
+        response = self.client.get("/privacynotincluded", follow=True, headers={"accept-language": "sw"})
         self.assertEqual(
             response.redirect_chain[0][0],
             "/sw/privacynotincluded/",
@@ -101,7 +101,7 @@ class BuyersGuideViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.get("/privacynotincluded", follow=True, HTTP_ACCEPT_LANGUAGE="foo")
+        response = self.client.get("/privacynotincluded", follow=True, headers={"accept-language": "foo"})
         self.assertEqual(
             response.redirect_chain[0][0],
             "/en/privacynotincluded/",
@@ -109,7 +109,7 @@ class BuyersGuideViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.get("/de/privacynotincluded", follow=True, HTTP_ACCEPT_LANGUAGE="it")
+        response = self.client.get("/de/privacynotincluded", follow=True, headers={"accept-language": "it"})
         self.assertEqual(
             response.redirect_chain[0][0],
             "/de/privacynotincluded/",
@@ -545,7 +545,7 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
 
         result = self.bg.get_hero_supporting_pages()
 
-        self.assertQuerysetEqual(qs=result, values=articles)
+        self.assertQuerySetEqual(qs=result, values=articles)
 
     def test_get_hero_supporting_pages_with_campaign_pages(self):
         campaign_pages = []
@@ -562,7 +562,7 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
 
         result = self.bg.get_hero_supporting_pages()
 
-        self.assertQuerysetEqual(qs=result, values=campaign_pages)
+        self.assertQuerySetEqual(qs=result, values=campaign_pages)
 
     def test_get_hero_supporting_pages_with_mixed_page_types(self):
         supporting_pages = []
@@ -585,14 +585,14 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
 
         result = self.bg.get_hero_supporting_pages()
 
-        self.assertQuerysetEqual(qs=result, values=supporting_pages)
+        self.assertQuerySetEqual(qs=result, values=supporting_pages)
 
     def test_get_hero_supporting_pages_not_set(self):
         articles = []
 
         result = self.bg.get_hero_supporting_pages()
 
-        self.assertQuerysetEqual(qs=result, values=articles)
+        self.assertQuerySetEqual(qs=result, values=articles)
 
     def test_get_hero_supporting_pages_with_articles_non_default_locale(self):
         articles = []
@@ -613,7 +613,7 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
 
         result = buyersguide_homepage_fr.get_hero_supporting_pages()
 
-        self.assertQuerysetEqual(qs=result, values=articles_fr)
+        self.assertQuerySetEqual(qs=result, values=articles_fr)
 
     def test_get_hero_supporting_pages_with_campaigns_non_default_locale(self):
         campaign_pages = []
@@ -634,7 +634,7 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
 
         result = buyersguide_homepage_fr.get_hero_supporting_pages()
 
-        self.assertQuerysetEqual(qs=result, values=campaigns_fr)
+        self.assertQuerySetEqual(qs=result, values=campaigns_fr)
 
     def test_get_hero_supporting_pages_with_mixed_page_type_non_default_locale(self):
         supporting_pages = []
@@ -661,7 +661,7 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
 
         result = buyersguide_homepage_fr.get_hero_supporting_pages()
 
-        self.assertQuerysetEqual(qs=result, values=supporting_pages_fr)
+        self.assertQuerySetEqual(qs=result, values=supporting_pages_fr)
 
     def test_get_featured_articles(self):
         articles = []
@@ -678,14 +678,14 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
 
         result = self.bg.get_featured_articles()
 
-        self.assertQuerysetEqual(qs=result, values=articles)
+        self.assertQuerySetEqual(qs=result, values=articles)
 
     def test_get_featured_articles_not_set(self):
         articles = []
 
         result = self.bg.get_featured_articles()
 
-        self.assertQuerysetEqual(qs=result, values=articles)
+        self.assertQuerySetEqual(qs=result, values=articles)
 
     def test_get_featured_articles_non_default_locale(self):
         articles = []
@@ -706,7 +706,7 @@ class TestBuyersGuidePageRelatedArticles(BuyersGuideTestCase):
 
         result = buyersguide_homepage_fr.get_featured_articles()
 
-        self.assertQuerysetEqual(qs=result, values=articles_fr)
+        self.assertQuerySetEqual(qs=result, values=articles_fr)
 
     def test_get_featured_advice_article(self):
         article_page = buyersguide_factories.BuyersGuideArticlePageFactory.create(

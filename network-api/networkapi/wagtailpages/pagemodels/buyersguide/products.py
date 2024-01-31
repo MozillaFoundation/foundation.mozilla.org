@@ -28,7 +28,6 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page, PageManager, PageQuerySet, TranslatableMixin
 from wagtail.search import index
-from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
@@ -74,7 +73,6 @@ class BuyersGuideProductCategoryQuerySet(models.QuerySet):
         )
 
 
-@register_snippet
 class BuyersGuideProductCategory(
     index.Indexed,
     TranslatableMixin,
@@ -207,7 +205,8 @@ class BuyersGuideProductCategory(
     base_form_class = BuyersGuideProductCategoryForm
 
     search_fields = [
-        index.SearchField("name", partial_match=True),
+        index.SearchField("name"),
+        index.AutocompleteField("name"),
         index.FilterField("locale_id"),
     ]
 
@@ -424,6 +423,11 @@ class ProductPageEvaluation(models.Model):
 
         average_vote = self.average_creepiness
         mode_bin = int(average_vote // self.BIN_SIZE)
+        if mode_bin == 5:
+            # Handle case where average is 100 (which should be in bin 4)
+            # Votes should go until 99 to avoid this, but they are allowed to go up to 100
+            # due to legacy implementation :facepalm:
+            mode_bin = 4
         label = self.BIN_LABELS[f"bin_{mode_bin}"]
 
         return {
@@ -506,7 +510,6 @@ class ProductPagePrivacyPolicyLink(TranslatableMixin, Orderable):
         verbose_name = "Privacy Link"
 
 
-@register_snippet
 class Update(TranslatableMixin, index.Indexed, models.Model):
     source = models.URLField(
         max_length=2048,
@@ -543,7 +546,8 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
     ]
 
     search_fields = [
-        index.SearchField("title", partial_match=True),
+        index.SearchField("title"),
+        index.AutocompleteField("title"),
         index.FilterField("locale_id"),
     ]
 

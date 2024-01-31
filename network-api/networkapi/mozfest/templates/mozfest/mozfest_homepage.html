@@ -1,20 +1,22 @@
 {% extends "./mozfest-base.html" %}
 {% load wagtailcore_tags mofo_common %}
 
+{% block mozfest_content_classes %}wide{% endblock mozfest_content_classes %}
+
 {% block page_title %}
     {% environment_prefix %}
     {{ page.title }}
-{% endblock %}
+{% endblock page_title %}
 
-{% block mozfest_body_id %}home{% endblock %}
-{% block bodyclass %}mozfest {% if banner_video_type %}banner-type-{{ banner_video_type }}{% endif %}{% endblock %}
+{% block mozfest_body_id %}home{% endblock mozfest_body_id %}
+{% block bodyclass %}mozfest {% if banner_video_type %}banner-type-{{ banner_video_type }}{% endif %}{% endblock bodyclass %}
 
 {% block hero_guts %}
-    {% include "partials/primary_heroguts.html" with root=root page=page homepage=True banner_video_type=banner_video_type %}
+    {% include "partials/primary_hero.html" with page=page %}
 {% endblock %}
 
-{% block bootstrap_width %}col-lg-12{% endblock %}
+{% block bootstrap_width %}col-lg-12{% endblock bootstrap_width %}
 
 {% block footer_block %}
     {% include "partials/mozfest_footer.html" %}
-{% endblock %}
+{% endblock footer_block %}

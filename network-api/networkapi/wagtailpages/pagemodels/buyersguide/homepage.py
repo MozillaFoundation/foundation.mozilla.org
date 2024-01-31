@@ -17,6 +17,7 @@ from wagtail.admin.panels import (
     InlinePanel,
     MultiFieldPanel,
     PageChooserPanel,
+    TitleFieldPanel,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.models import Orderable, Page, TranslatableMixin
@@ -95,7 +96,9 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
     )
 
     content_panels = [
-        FieldPanel("title"),
+        TitleFieldPanel(
+            "title"
+        ),  # https://docs.wagtail.org/en/stable/releases/5.0.html#changes-to-title-slug-field-synchronisation
         MultiFieldPanel(
             children=[
                 HelpPanel(content="<h2>Main Featured Page</h2>"),
@@ -407,9 +410,10 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             return None
 
     def get_hero_supporting_pages(self) -> list[Union["BuyersGuideArticlePage", "BuyersGuideCampaignPage"]]:
-        supporting_pages_pks = self.hero_supporting_page_relations.all().values("supporting_page__pk")
-        supporting_pages = Page.objects.filter(pk__in=supporting_pages_pks)
-        supporting_pages = localize_queryset(supporting_pages)
+        supporting_pages = Page.objects.filter(bg_homepage_supporting_page_relation__page=self).order_by(
+            "bg_homepage_supporting_page_relation__sort_order"
+        )
+        supporting_pages = localize_queryset(supporting_pages, preserve_order=True)
         return supporting_pages.specific()
 
     def get_featured_articles(self) -> list["BuyersGuideArticlePage"]:
@@ -446,6 +450,7 @@ class BuyersGuidePageHeroSupportingPageRelation(TranslatableMixin, Orderable):
         on_delete=models.CASCADE,
         null=False,
         blank=False,
+        related_name="bg_homepage_supporting_page_relation",
     )
 
     panels = [

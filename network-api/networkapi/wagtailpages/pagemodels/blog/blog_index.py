@@ -498,7 +498,6 @@ class BlogIndexPage(IndexPage):
         if query:
             entries = entries.search(
                 query,
-                partial_match=False,
                 order_by_relevance=True,
             )
         return entries

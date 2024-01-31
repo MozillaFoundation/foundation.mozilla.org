@@ -22,18 +22,19 @@ const FIELD_CLASSES = `
   tw-pr-18
 `;
 
-const InputEmail = ({
+const InputText = ({
+  type,
   ariaLabel,
   outerMarginClasses = "",
   errorMessage,
-  designSystemStyle,
+  fieldStyle,
   ...otherProps
 }) => {
   let inputField = (
     <input
-      type="email"
+      type={type}
       className={classNames(FIELD_CLASSES, {
-        "tw-border-black": designSystemStyle === "outlined",
+        "tw-border-black": fieldStyle === "outlined",
       })}
       {...otherProps}
       {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
@@ -72,18 +73,19 @@ const InputEmail = ({
   );
 };
 
-InputEmail.propTypes = {
+InputText.propTypes = {
   id: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(["text", "email"]),
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   onFocus: PropTypes.func.isRequired,
-  onInput: PropTypes.func.isRequired,
+  onInput: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
   ariaLabel: PropTypes.string,
   errorMessage: PropTypes.string,
-  designSystemStyle: PropTypes.oneOf(["outlined", "filled"]),
+  fieldStyle: PropTypes.oneOf(["outlined", "filled"]),
 };
 
-export default InputEmail;
+export default InputText;

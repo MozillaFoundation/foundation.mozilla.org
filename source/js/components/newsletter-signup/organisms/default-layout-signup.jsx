@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import Heading from "../atoms/heading.jsx";
 import Description from "../atoms/description.jsx";
-import InputEmail from "../atoms/input-email.jsx";
+import InputText from "../atoms/input-text.jsx";
 import Select from "../atoms/select.jsx";
 import InputCheckboxWithLabel from "../molecules/input-checkbox-with-label.jsx";
 import ButtonSubmit from "../atoms/button-submit.jsx";
@@ -22,24 +23,38 @@ class DefaultSignupForm extends Component {
     super(props);
     this.state = this.getInitialState();
     this.ids = this.generateFieldIds([
+      "firstName",
+      "lastName",
       "email",
       "country",
       "language",
       "privacy",
     ]);
-    this.style = FORM_STYLE[props.formPosition];
+    this.style = FORM_STYLE[props.formStyle];
+    this.buttonText = props.buttonText || getText("Sign up");
   }
 
   getInitialState() {
     return {
       formData: {
+        firstName: "",
+        lastName: "",
         email: "",
         country: "",
         language: getCurrentLanguage(),
         privacy: "",
       },
-      showAllFields: false,
+      showCountryField:
+        this.props.showCountryFieldByDefault?.toLowerCase() === "true",
+      showLanguageField:
+        this.props.showCountryFieldByDefault?.toLowerCase() === "true",
+      submitButtonDisabled: this.props.disableSubmitButtonByDefault,
     };
+  }
+
+  // reset state to initial values
+  reset() {
+    this.setState(this.getInitialState());
   }
 
   // generate unique IDs for form fields
@@ -48,16 +63,6 @@ class DefaultSignupForm extends Component {
       obj[field] = utility.generateUniqueId(`${FIELD_ID_PREFIX}-${field}`);
       return obj;
     }, {});
-  }
-
-  showAllFields() {
-    ReactGA.event({
-      category: `signup`,
-      action: `form focus`,
-      label: `Signup form input focused`,
-    });
-
-    this.setState({ showAllFields: true });
   }
 
   updateFormFieldValue(name, value) {
@@ -73,20 +78,55 @@ class DefaultSignupForm extends Component {
     return this.state.formData[name];
   }
 
+  // Toggle the submit button disabled state if the button is disabled by default
+  toggleSubmitButton(setToDisabled) {
+    if (this.props.disableSubmitButtonByDefault) {
+      this.setState({
+        submitButtonDisabled: setToDisabled,
+      });
+    }
+  }
+
+  handleInputFocus() {
+    ReactGA.event({
+      category: `signup`,
+      action: `form focus`,
+      label: `Signup form input focused`,
+    });
+  }
+
+  handleFirstNameChange(event) {
+    this.updateFormFieldValue(event.target.name, event.target.value);
+  }
+
+  handleLastNameChange(event) {
+    this.updateFormFieldValue(event.target.name, event.target.value);
+  }
+
+  handleEmailFocusAndInput() {
+    this.handleInputFocus();
+
+    this.setState({ showCountryField: true, showLanguageField: true });
+  }
+
   handleEmailChange(event) {
-    this.updateFormFieldValue("email", event.target.value);
+    this.updateFormFieldValue(event.target.name, event.target.value);
+    this.toggleSubmitButton(event.target.value === "");
   }
 
   handleCountryChange(event) {
-    this.updateFormFieldValue("country", event.target.value);
+    this.updateFormFieldValue(event.target.name, event.target.value);
   }
 
   handleLanguageChange(event) {
-    this.updateFormFieldValue("language", event.target.value);
+    this.updateFormFieldValue(event.target.name, event.target.value);
   }
 
   handlePrivacyChange(event) {
-    this.updateFormFieldValue("privacy", event.target.checked.toString());
+    this.updateFormFieldValue(
+      event.target.name,
+      event.target.checked.toString()
+    );
   }
 
   renderHeader() {
@@ -113,54 +153,99 @@ class DefaultSignupForm extends Component {
     );
   }
 
-  renderEmailField() {
-    const name = "email";
+  renderFirstNameField() {
+    const name = "firstName";
 
     return (
-      <InputEmail
-        id={this.ids.email}
+      <InputText
+        id={this.ids[name]}
         name={name}
-        label={getText(`Email address`)}
+        label={getText(`First name`)}
         value={this.getFormFieldValue(name)}
-        placeholder={getText(`Please enter your email`)}
-        onFocus={() => this.showAllFields()}
-        onInput={() => this.showAllFields()}
-        onChange={(event) => this.handleEmailChange(event)}
-        required={true}
+        placeholder={getText(`First name`)}
+        onFocus={() => this.handleInputFocus()}
+        onChange={(event) => this.handleFirstNameChange(event)}
+        required={false}
         outerMarginClasses={FIELD_MARGIN_CLASSES}
         errorMessage={this.props.errors[name]}
-        designSystemStyle={this.style.designSystemStyle}
+        fieldStyle={this.style.fieldStyle}
       />
     );
   }
 
-  renderAdditionalFields() {
-    const nameCountry = "country";
-    const nameLanguage = "language";
+  renderLastNameField() {
+    const name = "lastName";
 
     return (
-      <>
-        <Select
-          id={this.ids.country}
-          name={nameCountry}
-          value={this.getFormFieldValue(nameCountry)}
-          options={COUNTRY_OPTIONS}
-          onChange={(event) => this.handleCountryChange(event)}
-          required={false}
-          outerMarginClasses={FIELD_MARGIN_CLASSES}
-          designSystemStyle={this.style.designSystemStyle}
-        />
-        <Select
-          id={this.ids.language}
-          name={nameLanguage}
-          value={this.getFormFieldValue(nameLanguage)}
-          options={LANGUAGE_OPTIONS}
-          onChange={(event) => this.handleLanguageChange(event)}
-          required={false}
-          outerMarginClasses={FIELD_MARGIN_CLASSES}
-          designSystemStyle={this.style.designSystemStyle}
-        />
-      </>
+      <InputText
+        id={this.ids[name]}
+        name={name}
+        label={getText(`Last name`)}
+        value={this.getFormFieldValue(name)}
+        placeholder={getText(`Last name`)}
+        onFocus={() => this.handleInputFocus()}
+        onChange={(event) => this.handleLastNameChange(event)}
+        required={false}
+        outerMarginClasses={FIELD_MARGIN_CLASSES}
+        errorMessage={this.props.errors[name]}
+        fieldStyle={this.style.fieldStyle}
+      />
+    );
+  }
+
+  renderEmailField() {
+    const name = "email";
+
+    return (
+      <InputText
+        id={this.ids[name]}
+        type="email"
+        name={name}
+        label={getText(`Email address`)}
+        value={this.getFormFieldValue(name)}
+        placeholder={getText(`Please enter your email`)}
+        onFocus={() => this.handleEmailFocusAndInput()}
+        onInput={() => this.handleEmailFocusAndInput()}
+        onChange={(event) => this.handleEmailChange(event)}
+        required={true}
+        outerMarginClasses={FIELD_MARGIN_CLASSES}
+        errorMessage={this.props.errors[name]}
+        fieldStyle={this.style.fieldStyle}
+      />
+    );
+  }
+
+  renderCountryField() {
+    const name = "country";
+
+    return (
+      <Select
+        id={this.ids[name]}
+        name={name}
+        value={this.getFormFieldValue(name)}
+        options={COUNTRY_OPTIONS}
+        onChange={(event) => this.handleCountryChange(event)}
+        required={false}
+        outerMarginClasses={FIELD_MARGIN_CLASSES}
+        fieldStyle={this.style.fieldStyle}
+      />
+    );
+  }
+
+  renderLanguageField() {
+    const name = "language";
+
+    return (
+      <Select
+        id={this.ids[name]}
+        name={name}
+        value={this.getFormFieldValue(name)}
+        options={LANGUAGE_OPTIONS}
+        onChange={(event) => this.handleLanguageChange(event)}
+        required={false}
+        outerMarginClasses={FIELD_MARGIN_CLASSES}
+        fieldStyle={this.style.fieldStyle}
+      />
     );
   }
 
@@ -169,7 +254,7 @@ class DefaultSignupForm extends Component {
 
     return (
       <InputCheckboxWithLabel
-        id={this.ids.privacy}
+        id={this.ids[name]}
         name={name}
         label={getText(
           `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
@@ -186,22 +271,42 @@ class DefaultSignupForm extends Component {
   renderForm() {
     if (this.props.hideForm) return null;
 
+    let containerClasses = classNames({
+      "d-flex flex-column flex-lg-row medium:tw-gap-8":
+        this.style.buttonPosition !== "bottom",
+    });
+
+    let buttonWrapperClasses = classNames({
+      "tw-flex-shrink-0 tw-mt-8 medium:tw-mt-0":
+        this.style.buttonPosition !== "bottom",
+      "tw-mt-24 medium:tw-mt-12 tw-text-right":
+        this.style.buttonPosition === "bottom",
+    });
+
     return (
       <form
         noValidate={this.props.noBrowserValidation}
         onSubmit={(event) => this.props.onSubmit(event, this.state.formData)}
       >
-        <div className="d-flex flex-column flex-lg-row medium:tw-gap-8">
+        <div className={containerClasses}>
           <div className="tw-flex-grow">
             <fieldset className={FIELD_MARGIN_CLASSES}>
+              {this.props.askName === "True" && this.renderFirstNameField()}
+              {this.props.askName === "True" && this.renderLastNameField()}
               {this.renderEmailField()}
-              {this.state.showAllFields && this.renderAdditionalFields()}
+              {this.state.showCountryField && this.renderCountryField()}
+              {this.state.showLanguageField && this.renderLanguageField()}
             </fieldset>
             <fieldset>{this.renderPrivacyCheckbox()}</fieldset>
           </div>
-          <div className="tw-flex-shrink-0 tw-mt-8 medium:tw-mt-0">
-            <ButtonSubmit widthClasses="tw-w-full">
-              {getText("Sign up")}
+          <div className={buttonWrapperClasses}>
+            <ButtonSubmit
+              buttonStyle={this.style.buttonStyle}
+              widthClasses={this.style.buttonWidthClasses}
+              disabled={this.state.submitButtonDisabled}
+              buttonCtaEvent={this.props.buttonCtaEvent}
+            >
+              {this.buttonText}
             </ButtonSubmit>
           </div>
         </div>
@@ -215,9 +320,11 @@ class DefaultSignupForm extends Component {
         className={this.style.innerWrapperClass}
         data-submission-status={this.props.apiSubmissionStatus}
       >
-        {this.renderHeader()}
-        {this.renderDescription()}
-        {this.renderForm()}
+        <div className={this.style.introContainerClass}>
+          {this.renderHeader()}
+          {this.renderDescription()}
+        </div>
+        <div className={this.style.formContainerClass}>{this.renderForm()}</div>
       </div>
     );
   }

@@ -49,7 +49,11 @@ class DefaultLocaleSnippetChooseView(ChooseViewMixin, CreationFormMixin, BaseSni
 
 
 class DefaultLocaleSnippetChooseResultsView(ChooseResultsViewMixin, CreationFormMixin, BaseSnippetChooseView):
-    pass
+    def get_object_list(self):
+        if not issubclass(self.model_class, TranslatableMixin):
+            return super().get_object_list()
+
+        return super().get_object_list().filter(locale__id=Locale.get_default().id)
 
 
 class DefaultLocaleSnippetChooserViewSet(ChooserViewSet):
