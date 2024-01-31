@@ -1,6 +1,5 @@
 -c requirements.txt
 black
-coveralls
 django-debug-toolbar
 djhtml
 djlint

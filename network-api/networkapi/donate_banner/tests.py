@@ -48,8 +48,8 @@ class TestDonateBannerSnippetChooser(WagtailTestUtils, TestCase):
         results = response.context["results"]
 
         # Chooser does not include every banner, but only the default langauge oness
-        self.assertNotEquals(len(results), all_banners.count())
-        self.assertEquals(len(results), default_banners.count())
+        self.assertNotEqual(len(results), all_banners.count())
+        self.assertEqual(len(results), default_banners.count())
         self.assertNotIn(translated_banner, results)
         self.assertIn(self.banners[0], results)
 

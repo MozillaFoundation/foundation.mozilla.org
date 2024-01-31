@@ -7,6 +7,7 @@ const ButtonSubmit = ({
   children,
   buttonStyle = "primary",
   widthClasses = `tw-w-full`,
+  buttonCtaEvent,
 }) => {
   // [TODO]
   // Ideally styling for this "atom" component should be pre-defined in a Tailwind config file.
@@ -15,7 +16,12 @@ const ButtonSubmit = ({
   let classes = classNames(`tw-btn tw-btn-${buttonStyle}`, widthClasses);
 
   return (
-    <button type="submit" className={classes} disabled={disabled}>
+    <button
+      type="submit"
+      className={classes}
+      disabled={disabled}
+      data-cta-event={buttonCtaEvent}
+    >
       {children}
     </button>
   );
