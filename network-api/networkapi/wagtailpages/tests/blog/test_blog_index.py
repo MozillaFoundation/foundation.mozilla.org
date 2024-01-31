@@ -23,7 +23,6 @@ class BlogIndexTestCase(test_base.WagtailpagesTestCase):
         super().setUpTestData()
         cls.page_size = blog_index.BlogIndexPage.PAGE_SIZES[0][0]
         blog_factories.BlogIndexPageFactory(
-            title="Blog",
             parent=cls.homepage,
             page_size=cls.page_size,
         )
@@ -328,18 +327,19 @@ class TestBlogIndexTopic(BlogIndexTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(response.context["index_title"], topic_title)
 
-    def test_index_title_defaults_to_topic_name_if_no_title(self):
-        topic_name = "Test Topic Name"
-        # Expecting the name of the topic -> the name of the index page
-        expected_index_title = "Test Topic Name Blog"
-        topic = blog_factories.BlogPageTopicFactory(name=topic_name, title="")
+    def test_index_title_default_works_with_no_title(self):
+        topic = blog_factories.BlogPageTopicFactory(name="Test Topic", title="")
+
+        # If a topic has no title set, the blog index page will set the context's
+        # "index_title" field to the default value of "<topic_name> <blog_index_page_title>"
+        expected_index_title_value = f"{topic.name} {self.blog_index.title}"
 
         url = self.get_topic_route(topic=topic.slug)
 
         response = self.client.get(path=url)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertEqual(response.context["index_title"], expected_index_title)
+        self.assertEqual(response.context["index_title"], expected_index_title_value)
 
 
 class TestBlogIndexSearch(BlogIndexTestCase):
