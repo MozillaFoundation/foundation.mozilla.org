@@ -55,7 +55,7 @@ class Profile(index.Indexed, TranslatableMixin, models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        super(Profile, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
         self._meta.model.objects.filter(id=self.id).update(slug=Concat(F("slug"), Value("-"), F("id")))
 
     class Meta(TranslatableMixin.Meta):
