@@ -142,7 +142,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         with self.setup_content_index_with_pages_of_children() as articles:
             response = self.client.get(self.content_index.url)
 
-            self.assertQuerysetEqual(
+            self.assertQuerySetEqual(
                 response.context["items"],
                 articles[: self.items_per_page],
             )
@@ -151,7 +151,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         with self.setup_content_index_with_pages_of_children() as articles:
             response = self.client.get(self.content_index.url, data={"page": 2})
 
-            self.assertQuerysetEqual(
+            self.assertQuerySetEqual(
                 response.context["items"],
                 articles[self.items_per_page :],
             )
@@ -172,7 +172,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
             )
 
             index_of_first_not_expected_article = page * self.items_per_page
-            self.assertQuerysetEqual(
+            self.assertQuerySetEqual(
                 response.context["items"],
                 articles[:index_of_first_not_expected_article],
             )
@@ -199,7 +199,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         Using this information, we don't need a separate route to return the fragment
         for the index. This can simplify the logic and make it more reusable.
         """
-        response = self.client.get(self.content_index.url, HTTP_HX_REQUEST="true")
+        response = self.client.get(self.content_index.url, headers={"hx-request": "true"})
 
         self.assertTemplateUsed(
             response=response,
@@ -212,7 +212,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     def test_hx_request_show_load_more_button_immediately(self):
         with self.setup_content_index_with_pages_of_children():
-            response = self.client.get(self.content_index.url, HTTP_HX_REQUEST="true")
+            response = self.client.get(self.content_index.url, headers={"hx-request": "true"})
 
             self.assertTrue(response.context["show_load_more_button_immediately"])
             soup = bs4.BeautifulSoup(response.content, "html.parser")
@@ -230,16 +230,16 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
                 )
             )
 
-            response = self.client.get(self.content_index.url, HTTP_HX_REQUEST="true")
+            response = self.client.get(self.content_index.url, headers={"hx-request": "true"})
 
         for child in children:
             self.assertContains(response=response, text=child.title, count=1)
 
     def test_hx_request_paginated_items_page_1(self):
         with self.setup_content_index_with_pages_of_children() as articles:
-            response = self.client.get(self.content_index.url, HTTP_HX_REQUEST="true")
+            response = self.client.get(self.content_index.url, headers={"hx-request": "true"})
 
-            self.assertQuerysetEqual(
+            self.assertQuerySetEqual(
                 response.context["items"],
                 articles[: self.items_per_page],
             )
@@ -249,13 +249,9 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
     def test_hx_request_paginated_items_page_2(self):
         with self.setup_content_index_with_pages_of_children() as articles:
-            response = self.client.get(
-                self.content_index.url,
-                data={"page": 2},
-                HTTP_HX_REQUEST="true",
-            )
+            response = self.client.get(self.content_index.url, data={"page": 2}, headers={"hx-request": "true"})
 
-            self.assertQuerysetEqual(
+            self.assertQuerySetEqual(
                 response.context["items"],
                 articles[self.items_per_page :],
             )
@@ -284,7 +280,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         with self.setup_content_index_with_pages_of_children() as articles:
             context = self.content_index.get_context(request=self.create_request())
 
-            self.assertQuerysetEqual(context["items"], articles[: self.items_per_page])
+            self.assertQuerySetEqual(context["items"], articles[: self.items_per_page])
 
     def test_get_context_paginated_items_page_2(self):
         with self.setup_content_index_with_pages_of_children() as articles:
@@ -292,7 +288,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
             context = self.content_index.get_context(request=request)
 
-            self.assertQuerysetEqual(context["items"], articles[self.items_per_page :])
+            self.assertQuerySetEqual(context["items"], articles[self.items_per_page :])
 
     def test_get_items_ordered_by_publication_date(self):
         article_middle = self.create_days_old_article(days=10)
@@ -301,7 +297,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
 
         result = self.content_index.get_items()
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             qs=result,
             values=[
                 article_newest,

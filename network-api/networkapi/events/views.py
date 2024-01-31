@@ -19,11 +19,11 @@ logger = logging.getLogger(__name__)
 def tito_ticket_completed(request):
     # is it the correct webhook trigger?
     # https://ti.to/docs/api/admin#webhooks-triggers
-    if not request.META.get("HTTP_X_WEBHOOK_NAME", "") == "ticket.completed":
+    if not request.headers.get("x-webhook-name", "") == "ticket.completed":
         return HttpResponseBadRequest("Not a ticket completed request")
 
     # does the payload hash signature match
-    tito_signature = request.META.get("HTTP_TITO_SIGNATURE", "")
+    tito_signature = request.headers.get("tito-signature", "")
     if not is_valid_tito_request(tito_signature, request.body):
         return HttpResponseBadRequest("Payload verification failed")
 
