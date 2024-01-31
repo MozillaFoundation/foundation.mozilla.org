@@ -12,6 +12,8 @@ from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.pagemodels.blog import blog as blog_models
 from networkapi.wagtailpages.pagemodels.blog import blog_index, blog_topic
 from networkapi.wagtailpages.tests import base as test_base
+from networkapi.wagtailpages.utils import titlecase
+
 
 
 # To make sure we can control the data setup for each test, we need to deactivate the
@@ -331,8 +333,8 @@ class TestBlogIndexTopic(BlogIndexTestCase):
         topic = blog_factories.BlogPageTopicFactory(name="Test Topic", title="")
 
         # If a topic has no title set, the blog index page will set the context's
-        # "index_title" field to the default value of "<topic_name> <blog_index_page_title>"
-        expected_index_title_value = f"{topic.name} {self.blog_index.title}"
+        # "index_title" field to the default value of "<topic_name> <blog_index_page_title>" in titlecase.
+        expected_index_title_value = titlecase(f"{topic.name} {self.blog_index.title}")
 
         url = self.get_topic_route(topic=topic.slug)
 
