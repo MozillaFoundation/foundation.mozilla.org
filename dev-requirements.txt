@@ -163,7 +163,7 @@ typing-extensions==4.4.0
     #   asgiref
     #   black
     #   mypy
-urllib3==1.26.15
+urllib3==1.26.18
     # via
     #   -c requirements.txt
     #   requests
