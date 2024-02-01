@@ -998,8 +998,11 @@ class ProductPage(BasePage):
 
     @property
     def localized_related_products(self):
-        related_products = ProductPage.objects.filter(related_product_relationships__page=self)
-        return localize_queryset(related_products).order_by("title")
+        related_products = ProductPage.objects.filter(related_product_relationships__page=self).order_by(
+            "related_product_relationships__sort_order"
+        )
+        related_products = localize_queryset(related_products, preserve_order=True)
+        return related_products.specific()
 
     @property
     def local_categories(self):
