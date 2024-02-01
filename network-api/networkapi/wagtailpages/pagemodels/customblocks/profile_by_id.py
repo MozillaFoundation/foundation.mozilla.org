@@ -36,7 +36,7 @@ class ProfileById(blocks.StructBlock):
 
             profiles = [as_dict[id] for id in ids.split(",") if id in as_dict]
 
-        except (IOError, ValueError) as exception:
+        except (OSError, ValueError) as exception:
             print(str(exception))
             pass
 
