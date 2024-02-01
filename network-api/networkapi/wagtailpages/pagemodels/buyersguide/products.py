@@ -549,6 +549,11 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
         index.SearchField("title"),
         index.AutocompleteField("title"),
         index.FilterField("locale_id"),
+        index.SearchField("source"),
+        index.SearchField("author"),
+        index.SearchField("snippet"),
+        index.SearchField("created_date"),
+        index.SearchField("product_page__page__title"),
     ]
 
     translatable_fields = [
@@ -575,7 +580,7 @@ class ProductUpdates(TranslatableMixin, Orderable):
     )
 
     # This is the new update FK to wagtailpages.Update
-    update = models.ForeignKey(Update, on_delete=models.SET_NULL, related_name="+", null=True)
+    update = models.ForeignKey(Update, on_delete=models.SET_NULL, related_name="product_page", null=True)
 
     translatable_fields = [
         TranslatableField("update"),

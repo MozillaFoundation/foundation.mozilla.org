@@ -16,7 +16,13 @@
             <h1 class="tw-h1-heading tw-mb-0 tw-mt-2 tw-pt-4">
                 {% if index_title %}{{ index_title }}{% elif root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
             </h1>
-            <p class="tw-body-large tw-mt-6 tw-mb-0 tw-pr-2 medium:tw-pr-6">{{ page.intro|safe }}</p>
+            <div class="tw-body-large tw-mt-6 tw-mb-0 tw-pr-2 medium:tw-pr-6">
+                {% if index_intro %}
+                    {{ index_intro|safe }}
+                {% else %}
+                    <p>{{ page.intro|safe }}</p>
+                {% endif %}
+            </div>
         </div>
         <div class="tw-col-span-12 large:tw-col-span-4 tw-mt-8 large:tw-mt-16">
             <form action="{% routablepageurl page "search" %}" method="get">
