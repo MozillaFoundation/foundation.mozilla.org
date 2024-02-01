@@ -281,7 +281,7 @@ class UpdateSnippetIndexView(IndexView):
             updates__update__isnull=False,
         )
         return wagtailpages_models.Update.objects.all().prefetch_related(
-            Prefetch("product_page__pages", queryset=pages_in_request_locale)
+            Prefetch("product_pages__page", queryset=pages_in_request_locale)
         )
 
     def get_base_queryset(self):
