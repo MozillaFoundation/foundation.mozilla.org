@@ -26,7 +26,7 @@ class TitoTicketCompletedTest(TestCase):
 
     def test_incorrect_webhook_name(self):
         response = self.client.post(
-            self.url, data=self._webhook_data(), content_type="application/json", HTTP_X_WEBHOOK_NAME="invalid"
+            self.url, data=self._webhook_data(), content_type="application/json", headers={"x-webhook-name": "invalid"}
         )
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.content.decode(), "Not a ticket completed request")
@@ -36,7 +36,7 @@ class TitoTicketCompletedTest(TestCase):
             self.url,
             data=self._webhook_data(),
             content_type="application/json",
-            HTTP_X_WEBHOOK_NAME="ticket.completed",
+            headers={"x-webhook-name": "ticket.completed"},
         )
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.content.decode(), "Payload verification failed")
@@ -46,8 +46,7 @@ class TitoTicketCompletedTest(TestCase):
             self.url,
             data=self._webhook_data(),
             content_type="application/json",
-            HTTP_X_WEBHOOK_NAME="ticket.completed",
-            HTTP_TITO_SIGNATURE="invalid",
+            headers={"x-webhook-name": "ticket.completed", "tito-signature": "invalid"},
         )
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.content.decode(), "Payload verification failed")

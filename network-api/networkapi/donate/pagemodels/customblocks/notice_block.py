@@ -1,6 +1,6 @@
 from django.forms.utils import ErrorList
+from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
-from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
@@ -26,6 +26,6 @@ class NoticeBlock(blocks.StructBlock):
         if cleaned_data["image_alt_text"] and not cleaned_data["image"]:
             errors["image_alt_text"] = ErrorList(["Alt text must have an associated image."])
         if errors:
-            raise StructBlockValidationError(errors)
+            raise StructBlockValidationError(block_errors=errors)
 
         return cleaned_data

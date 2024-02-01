@@ -44,7 +44,7 @@ class TargetDomainRedirectMiddleware:
 
     def __call__(self, request):
         if settings.DOMAIN_REDIRECT_MIDDLEWARE_ENABLED:
-            request_host = request.META["HTTP_HOST"]
+            request_host = request.headers["host"]
             protocol = "https" if request.is_secure() else "http"
 
             # Temporary Redirect prior to Mozilla Festival 2019 site launch

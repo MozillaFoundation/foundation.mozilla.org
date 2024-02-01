@@ -12,6 +12,7 @@ from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.pagemodels.blog import blog as blog_models
 from networkapi.wagtailpages.pagemodels.blog import blog_index, blog_topic
 from networkapi.wagtailpages.tests import base as test_base
+from networkapi.wagtailpages.utils import titlecase
 
 
 # To make sure we can control the data setup for each test, we need to deactivate the
@@ -304,6 +305,42 @@ class TestBlogIndexTopic(BlogIndexTestCase):
 
         self.assertIn(topic_blog_page, response.context["entries"])
         self.assertNotIn(other_blog_page, response.context["entries"])
+
+    def test_index_intro_updated_with_topic_intro(self):
+        topic_intro_text = "This is a test topic intro."
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic", intro=topic_intro_text)
+
+        url = self.get_topic_route(topic=topic.slug)
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(response.context["index_intro"], topic_intro_text)
+
+    def test_index_title_updated_with_topic_title(self):
+        topic_title = "Test Topic Title"
+        topic = blog_factories.BlogPageTopicFactory(name="Test topic", title=topic_title)
+
+        url = self.get_topic_route(topic=topic.slug)
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(response.context["index_title"], topic_title)
+
+    def test_index_title_default_works_with_no_title(self):
+        topic = blog_factories.BlogPageTopicFactory(name="Test Topic", title="")
+
+        # If a topic has no title set, the blog index page will set the context's
+        # "index_title" field to the default value of "<topic_name> <blog_index_page_title>" in titlecase.
+        expected_index_title_value = titlecase(f"{topic.name} {self.blog_index.title}")
+
+        url = self.get_topic_route(topic=topic.slug)
+
+        response = self.client.get(path=url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(response.context["index_title"], expected_index_title_value)
 
 
 class TestBlogIndexSearch(BlogIndexTestCase):
@@ -881,7 +918,7 @@ class TestBlogIndexAuthors(test_base.WagtailpagesTestCase):
 
         frequent_topics = self.blog_index.get_authors_frequent_topics(author_profile)
 
-        self.assertQuerysetEqual(frequent_topics, blog_models.BlogPageTopic.objects.none())
+        self.assertQuerySetEqual(frequent_topics, blog_models.BlogPageTopic.objects.none())
 
     def test_get_authors_frequent_topics_less_than_three(self):
         """

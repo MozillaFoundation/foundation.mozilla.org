@@ -16,7 +16,7 @@ from networkapi.wagtailpages.pagemodels.libraries import constants as base_const
 if typing.TYPE_CHECKING:
     from typing import List
 
-    from wagtail.core.models import Page
+    from wagtail.models import Page
 
 
 class BaseAuthorsIndexPage(

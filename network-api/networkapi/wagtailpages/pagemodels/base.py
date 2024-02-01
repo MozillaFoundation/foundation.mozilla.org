@@ -6,7 +6,6 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Orderable as WagtailOrderable
 from wagtail.models import Page, TranslatableMixin
-from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
@@ -596,7 +595,6 @@ class ParticipateHighlights2(ParticipateHighlightsBase):
     )
 
 
-@register_snippet
 class FocusArea(TranslatableMixin, models.Model):
     interest_icon = models.ForeignKey(
         "wagtailimages.Image",

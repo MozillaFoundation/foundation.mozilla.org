@@ -2,7 +2,7 @@ from functools import cached_property
 
 from django.db import models
 from modelcluster import fields as cluster_fields
-from wagtail.admin import panels as edit_handlers
+from wagtail.admin import panels as wagtail_panels
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
@@ -18,9 +18,9 @@ class RCCDetailPage(base_detail_page.LibraryDetailPage):
     template = "pages/libraries/rcc/detail_page.html"
 
     content_panels = base_detail_page.LibraryDetailPage.content_panels + [
-        edit_handlers.InlinePanel("related_content_types", heading="Content types"),
-        edit_handlers.InlinePanel("related_curricular_areas", heading="Curricular areas"),
-        edit_handlers.InlinePanel("related_topics", heading="Topics"),
+        wagtail_panels.InlinePanel("related_content_types", heading="Content types"),
+        wagtail_panels.InlinePanel("related_curricular_areas", heading="Curricular areas"),
+        wagtail_panels.InlinePanel("related_topics", heading="Topics"),
     ]
 
     translatable_fields = base_detail_page.LibraryDetailPage.translatable_fields + [

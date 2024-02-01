@@ -143,6 +143,7 @@ function withSubmissionLogic(WrappedComponent) {
               this.setState({
                 apiSubmissionStatus: this.API_SUBMISSION_STATUS.SUCCESS,
               });
+              this.props.handleSubmissionSuccess?.(true);
             })
             .catch(() => {
               // [TODO][FIXME] We need to let the user know that something went wrong
@@ -167,6 +168,8 @@ function withSubmissionLogic(WrappedComponent) {
       });
 
       let payload = {
+        givenNames: formData.firstName,
+        surname: formData.lastName,
         email: formData.email,
         country: formData.country,
         lang: formData.language,
@@ -269,7 +272,7 @@ function withSubmissionLogic(WrappedComponent) {
     apiUrl: PropTypes.string.isRequired,
     ctaHeader: PropTypes.string.isRequired,
     ctaDescription: PropTypes.string.isRequired,
-    formPosition: PropTypes.string.isRequired,
+    formPosition: PropTypes.string,
     whenLoaded: PropTypes.func,
   };
 

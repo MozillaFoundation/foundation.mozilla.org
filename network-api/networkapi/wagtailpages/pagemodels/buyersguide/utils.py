@@ -91,7 +91,7 @@ def _localize_category_parent(categories):
     """
     BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
 
-    parents_ids = list(set([category.parent.pk for category in categories if category.parent]))
+    parents_ids = list({category.parent.pk for category in categories if category.parent})
     parents = BuyersGuideProductCategory.objects.filter(id__in=parents_ids)
     parents = localize_queryset(parents)
     parents_cache = {parent.translation_key: parent for parent in parents}

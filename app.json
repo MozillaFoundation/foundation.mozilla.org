@@ -1,8 +1,9 @@
 {
   "name": "Mozilla Foundation site",
   "description": "Mozilla Foundation site",
+  "stack": "heroku-22",
   "addons": [
-    "heroku-postgresql:mini"
+    "heroku-postgresql:basic --version=15"
   ],
   "formation": {
     "web": {

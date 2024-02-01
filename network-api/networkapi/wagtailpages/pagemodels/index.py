@@ -161,7 +161,7 @@ class IndexPage(RoutablePageMixin, BasePage):
             if hasattr(entry, "tags") and not
             # Determine whether there is any overlap between 'all tags' and
             # the tags specified. This effects ANY matching (rather than ALL).
-            set([tag.slug for tag in entry.tags.all()]).isdisjoint(terms)
+            {tag.slug for tag in entry.tags.all()}.isdisjoint(terms)
         ]
 
         return entries

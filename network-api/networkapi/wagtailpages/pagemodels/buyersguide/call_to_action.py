@@ -6,7 +6,6 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page, TranslatableMixin
 from wagtail.search import index
-from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.constants import url_or_query_regex
@@ -15,7 +14,6 @@ from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options impo
 )
 
 
-@register_snippet
 class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
     """
     Reusable call to action for the buyers guide,
