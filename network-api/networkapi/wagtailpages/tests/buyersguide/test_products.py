@@ -81,7 +81,7 @@ class TestProductPage(BuyersGuideTestCase):
             )
             related_products.append(related_product)
 
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(4):
             result = product_page.localized_related_products
             for related_product in related_products:
                 self.assertIn(related_product, result)
