@@ -10,8 +10,7 @@
     </h1>
 
     <p>
-        {% routablepageurl page 'category-view' slug='best-of' as best_of_url %}
-        {% blocktrans trimmed %}
+        {% blocktrans with best_of_url="/privacynotincluded/categories/best-of/" trimmed %}
             <em>*Privacy Not Included</em> helps consumers shop for trustworthy connected products while shining a light on products
             with poor privacy and security practices. We also uplift companies who get it right. If you’re looking for inspiration
             for your company’s own privacy policy, <a href="{{ best_of_url }}">start here</a>.
