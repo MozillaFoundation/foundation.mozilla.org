@@ -280,7 +280,7 @@ wagtail-localize==1.7
     #   wagtail-localize-git
 wagtail-localize-git==0.14.1
     # via -r requirements.in
-wagtail-metadata==4.0.3
+wagtail-metadata==5.0.0
     # via -r requirements.in
 wagtailmedia==0.14.5
     # via -r requirements.in
