@@ -13,7 +13,9 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
     PageChooserPanel,
     PublishingPanel,
+    TitleFieldPanel,
 )
+from wagtail.admin.widgets.slug import SlugInput
 from wagtail.fields import StreamField
 from wagtail.models import Locale, Orderable, Page, TranslatableMixin
 from wagtail.rich_text import get_text_for_indexing
@@ -22,6 +24,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.forms import BlogPageForm
 from networkapi.wagtailpages.pagemodels.profiles import Profile
+from networkapi.wagtailpages.pagemodels.base import BasePage
 
 from ...utils import TitleWidget, get_content_related_by_tag
 from .. import customblocks
@@ -165,7 +168,7 @@ class BlogPage(BasePage):
     RELATED_POSTS_MAX = 3
 
     content_panels = [
-        FieldPanel(
+        TitleFieldPanel(
             "title",
             classname="full title",
             widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
@@ -193,16 +196,7 @@ class BlogPage(BasePage):
         ),
     ]
 
-    promote_panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel("slug"),
-                FieldPanel("seo_title"),
-                FieldPanel("search_description"),
-                FieldPanel("search_image"),
-            ],
-            heading="Common page configuration",
-        ),
+    promote_panels = BasePage.promote_panels + [
         FieldPanel("tags"),
     ]
 
