@@ -23,8 +23,8 @@ from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.forms import BlogPageForm
-from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.pagemodels.base import BasePage
+from networkapi.wagtailpages.pagemodels.profiles import Profile
 
 from ...utils import TitleWidget, get_content_related_by_tag
 from .. import customblocks

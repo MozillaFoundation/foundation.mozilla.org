@@ -1,7 +1,7 @@
 from django.db import models
 from wagtail import models as wagtail_models
-from wagtail.admin.widgets.slug import SlugInput
 from wagtail.admin import panels as admin_panels
+from wagtail.admin.widgets.slug import SlugInput
 from wagtail_localize import fields as localize_fields
 
 

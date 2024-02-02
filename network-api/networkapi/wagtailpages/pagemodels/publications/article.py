@@ -1,7 +1,12 @@
 from django import forms
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, TitleFieldPanel
+from wagtail.admin.panels import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    TitleFieldPanel,
+)
 from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page
 from wagtail_color_panel.edit_handlers import NativeColorPanel
