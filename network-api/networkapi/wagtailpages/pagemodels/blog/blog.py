@@ -15,7 +15,6 @@ from wagtail.admin.panels import (
     PublishingPanel,
     TitleFieldPanel,
 )
-from wagtail.admin.widgets.slug import SlugInput
 from wagtail.fields import StreamField
 from wagtail.models import Locale, Orderable, Page, TranslatableMixin
 from wagtail.rich_text import get_text_for_indexing
@@ -23,7 +22,6 @@ from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.forms import BlogPageForm
-from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 
 from ...utils import TitleWidget, get_content_related_by_tag
