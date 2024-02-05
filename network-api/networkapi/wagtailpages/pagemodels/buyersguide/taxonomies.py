@@ -1,6 +1,7 @@
 from django.db import models
 from wagtail import models as wagtail_models
 from wagtail.admin import panels as admin_panels
+from wagtail.admin.widgets.slug import SlugInput
 from wagtail_localize import fields as localize_fields
 
 
@@ -17,8 +18,8 @@ class BuyersGuideContentCategory(wagtail_models.TranslatableMixin, models.Model)
     )
 
     panels = [
-        admin_panels.FieldPanel("title"),
-        admin_panels.FieldPanel("slug"),
+        admin_panels.TitleFieldPanel("title"),
+        admin_panels.FieldPanel("slug", widget=SlugInput),
     ]
 
     translatable_fields = [
