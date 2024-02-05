@@ -272,23 +272,6 @@ class BuyersGuideContentCategorySnippetViewSet(SnippetViewSet):
     )
 
 
-class UpdateSnippetIndexView(IndexView):
-    def construct_queryset(self, request):
-        """Return all updates with their related product pages pre-filtered by the request's locale."""
-        language_code = request.GET.get("locale", "en")
-        pages_in_request_locale = wagtailpages_models.ProductPage.objects.filter(
-            locale__language_code=language_code,
-            updates__update__isnull=False,
-        )
-        return wagtailpages_models.Update.objects.all().prefetch_related(
-            Prefetch("product_pages__page", queryset=pages_in_request_locale)
-        )
-
-    def get_base_queryset(self):
-        self.queryset = self.construct_queryset(self.request)
-        return super().get_base_queryset()
-
-
 class UpdateSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.Update
     icon = "history"
@@ -305,7 +288,17 @@ class UpdateSnippetViewSet(SnippetViewSet):
     search_fields = ("title",)
     list_filter = ("featured",)
     ordering = ["-created_date", "title"]
-    index_view_class = UpdateSnippetIndexView
+
+    def get_queryset(self, request):
+        """Return all updates with their related product pages pre-filtered by the request's locale."""
+        language_code = request.GET.get("locale", "en")
+        pages_in_request_locale = wagtailpages_models.ProductPage.objects.filter(
+            locale__language_code=language_code,
+            updates__update__isnull=False,
+        )
+        return wagtailpages_models.Update.objects.all().prefetch_related(
+            Prefetch("product_pages__page", queryset=pages_in_request_locale)
+        )
 
 
 class BuyersGuideCTASnippetViewSet(SnippetViewSet):
