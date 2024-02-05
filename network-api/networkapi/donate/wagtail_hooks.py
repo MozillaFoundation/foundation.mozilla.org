@@ -1,5 +1,5 @@
 from wagtail import hooks
-from wagtail.admin.ui.tables import UpdatedAtColumn
+from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 
@@ -17,7 +17,17 @@ class DonateBannerViewSet(SnippetViewSet):
     menu_order = 100
     description = "Donation Banner"
     menu_label = "Donation Banners"
-    list_display = ["name", "cta_link", "is_active", UpdatedAtColumn()]
+    list_display = (
+        "name",
+        "title",
+        BooleanColumn("is_active"),
+        UpdatedAtColumn(),
+    )
+    search_fields = (
+        "name",
+        "title",
+    )
+    ordering = ("name",)
 
 
 # Customise chooser to only show the default language banners as options.
@@ -44,7 +54,11 @@ class DonationModalSnippetViewSet(SnippetViewSet):
         "donate_url",
         "dismiss_text",
     )
-    search_fields = ("name", "header", "body", "donate_text", "donate_url", "dismiss_text")
+    search_fields = (
+        "name",
+        "donate_text",
+    )
+    ordering = ("name",)
 
 
 class DonateViewSetGroup(SnippetViewSetGroup):
