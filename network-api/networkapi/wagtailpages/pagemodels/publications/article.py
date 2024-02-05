@@ -1,7 +1,12 @@
 from django import forms
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    TitleFieldPanel,
+)
 from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page
 from wagtail_color_panel.edit_handlers import NativeColorPanel
@@ -174,7 +179,7 @@ class ArticlePage(BasePage):
     show_authors = models.BooleanField(default=True, help_text="Display authors in the hero section")
 
     content_panels = [
-        FieldPanel(
+        TitleFieldPanel(
             "title",
             classname="full title",
             widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
