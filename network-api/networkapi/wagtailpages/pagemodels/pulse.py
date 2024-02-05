@@ -2,6 +2,7 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.search import index
 
 
 class PulseFilter(ClusterableModel):
@@ -29,6 +30,11 @@ class PulseFilter(ClusterableModel):
         FieldPanel("filter_key"),
         FieldPanel("filter_key_label"),
         InlinePanel("options", label="Options", min_num=1),
+    ]
+
+    search_fields = [
+        index.SearchField("name"),
+        index.FilterField("filter_key"),
     ]
 
     def __str__(self):

@@ -3,6 +3,7 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel
 from wagtail.models import TranslatableMixin
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.constants import url_or_query_regex
@@ -67,6 +68,12 @@ class DonationModal(TranslatableMixin, models.Model):
         TranslatableField("donate_text"),
         SynchronizedField("donate_url"),
         TranslatableField("dismiss_text"),
+    ]
+
+    search_fields = [
+        index.SearchField("name", boost=10),
+        index.SearchField("donate_text"),
+        index.FilterField("locale_id"),
     ]
 
     def to_simple_dict(self):

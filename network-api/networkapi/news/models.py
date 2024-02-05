@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from wagtail.models import TranslatableMixin
+from wagtail.search import index
 
 from networkapi.utility.images import get_image_upload_path
 
@@ -73,6 +74,7 @@ class News(TranslatableMixin, models.Model):
     )
     is_video = models.BooleanField(
         help_text="Is this news piece a video?",
+        verbose_name="Is it video?",
         default=False,
         null=False,
         blank=False,
@@ -87,6 +89,14 @@ class News(TranslatableMixin, models.Model):
     )
 
     objects = NewsQuerySet.as_manager()
+
+    search_fields = [
+        index.SearchField("headline", boost=10),
+        index.SearchField("outlet"),
+        index.SearchField("author"),
+        index.FilterField("locale_id"),
+        index.FilterField("is_video"),
+    ]
 
     class Meta(TranslatableMixin.Meta):
         """Meta settings for news model"""
