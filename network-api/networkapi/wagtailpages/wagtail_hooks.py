@@ -21,10 +21,7 @@ from wagtail.admin.rich_text.editors.draftail import features as draftail_featur
 from wagtail.coreutils import find_available_slug
 from wagtail.rich_text import LinkHandler
 from wagtail.snippets.models import register_snippet
-from wagtail.snippets.views.snippets import (
-    SnippetViewSet,
-    SnippetViewSetGroup,
-)
+from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 from wagtail_localize.models import (
     LocaleSynchronization,
     sync_trees_on_locale_sync_save,
