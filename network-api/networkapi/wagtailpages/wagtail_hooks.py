@@ -22,7 +22,6 @@ from wagtail.coreutils import find_available_slug
 from wagtail.rich_text import LinkHandler
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import (
-    IndexView,
     SnippetViewSet,
     SnippetViewSetGroup,
 )
