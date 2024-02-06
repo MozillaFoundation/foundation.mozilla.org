@@ -2,6 +2,7 @@
 Management command called during the Heroku Review App post-deployment phase.
 Creates an admin user and prints the password to the build logs.
 """
+
 import requests
 from django.conf import settings
 from django.contrib.auth.models import User
