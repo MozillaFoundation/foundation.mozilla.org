@@ -4,7 +4,6 @@ from networkapi.news.models import News
 
 
 class NewsSerializer(serializers.ModelSerializer):
-
     """
     Serializes a News object
     """

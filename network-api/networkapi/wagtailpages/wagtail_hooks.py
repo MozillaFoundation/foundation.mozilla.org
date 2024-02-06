@@ -3,6 +3,7 @@
 #   And https://medium.com/@timlwhite/custom-in-line-styles-with-draftail-939201c2bbda
 
 from django.core.cache import cache
+from django.db.models import Prefetch
 
 # The real code runs "instance.sync_trees()" here, but we want this to do nothing instead,
 # so that locale creation creates the locale entry but does not try to sync 1300+ pages as
@@ -17,6 +18,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineStyleElementHandler,
 )
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
+from wagtail.admin.ui.tables import BooleanColumn
 from wagtail.coreutils import find_available_slug
 from wagtail.rich_text import LinkHandler
 from wagtail.snippets.models import register_snippet
@@ -210,7 +212,11 @@ class BlogPageTopicSnippetViewSet(SnippetViewSet):
     menu_label = "Topics"
     menu_name = "Topics"
     list_display = ("name",)
-    search_fields = ("name", "title", "intro", "share_description")
+    search_fields = (
+        "name",
+        "title",
+    )
+    ordering = ("name",)
 
 
 class BlogSignupSnippetViewSet(SnippetViewSet):
@@ -223,7 +229,8 @@ class BlogSignupSnippetViewSet(SnippetViewSet):
         "name",
         "newsletter",
     )
-    search_fields = ("name", "header", "description", "newsletter")
+    search_fields = ("name", "newsletter")
+    ordering = ("name",)
 
 
 class BlogViewSetGroup(SnippetViewSetGroup):
@@ -243,12 +250,21 @@ class BuyersGuideProductCategorySnippetViewSet(SnippetViewSet):
     menu_order = 000
     menu_label = "Product Categories"
     menu_name = "Product Categories"
-    list_display = ("name", "parent", "featured", "hidden", "slug", "sort_order", "is_being_used")
-    search_fields = (
+    list_display = (
         "name",
-        "description",
         "parent",
+        "slug",
+        "sort_order",
+        BooleanColumn("featured"),
+        BooleanColumn("hidden"),
+        BooleanColumn("is_being_used"),
     )
+    search_fields = ("name",)
+    list_filter = (
+        "featured",
+        "hidden",
+    )
+    ordering = ("name", "parent", "sort_order")
 
 
 class BuyersGuideContentCategorySnippetViewSet(SnippetViewSet):
@@ -261,10 +277,8 @@ class BuyersGuideContentCategorySnippetViewSet(SnippetViewSet):
         "title",
         "slug",
     )
-    search_fields = (
-        "title",
-        "slug",
-    )
+    search_fields = ("title",)
+    ordering = ("title",)
 
 
 class UpdateSnippetViewSet(SnippetViewSet):
@@ -276,17 +290,24 @@ class UpdateSnippetViewSet(SnippetViewSet):
     list_display = (
         "title",
         "author",
-        "featured",
+        "linked_products",
+        BooleanColumn("featured", label="Featured?"),
         "created_date",
     )
-    search_fields = (
-        "title",
-        "source",
-        "author",
-        "snippet",
-        "created_date",
-        "product_page__page__title",
-    )
+    search_fields = ("title",)
+    list_filter = ("featured",)
+    ordering = ("-created_date", "title", "source", "author")
+
+    def get_queryset(self, request):
+        """Return all updates with their related product pages pre-filtered by the request's locale."""
+        language_code = request.GET.get("locale", "en")
+        pages_in_request_locale = wagtailpages_models.ProductPage.objects.filter(
+            locale__language_code=language_code,
+            updates__update__isnull=False,
+        )
+        return wagtailpages_models.Update.objects.all().prefetch_related(
+            Prefetch("product_pages__page", queryset=pages_in_request_locale)
+        )
 
 
 class BuyersGuideCTASnippetViewSet(SnippetViewSet):
@@ -300,7 +321,11 @@ class BuyersGuideCTASnippetViewSet(SnippetViewSet):
         "link_label",
         "link_target_url",
     )
-    search_fields = ("title", "content", "link_label", "link_target_url", "link_target_page")
+    search_fields = (
+        "title",
+        "link_label",
+    )
+    ordering = ("title",)
 
 
 class BuyersGuideViewSetGroup(SnippetViewSetGroup):
@@ -326,11 +351,8 @@ class ResearchTopicsSnippetViewSet(SnippetViewSet):
     menu_label = "Topics"
     menu_name = "Topics"
     list_display = ("name", "slug")
-    search_fields = (
-        "name",
-        "slug",
-        "description",
-    )
+    search_fields = ("name",)
+    ordering = ("name",)
 
 
 class ResearchRegionsSnippetViewSet(SnippetViewSet):
@@ -340,7 +362,8 @@ class ResearchRegionsSnippetViewSet(SnippetViewSet):
     menu_label = "Regions"
     menu_name = "Regions"
     list_display = ("name", "slug")
-    search_fields = ("name", "slug")
+    search_fields = ("name",)
+    ordering = ("name",)
 
 
 class ResearchSetGroup(SnippetViewSetGroup):
@@ -361,7 +384,8 @@ class RCCContentTypeSnippetViewSet(SnippetViewSet):
     menu_label = "Content Types"
     menu_name = "Content Types"
     list_display = ("name", "slug")
-    search_fields = ("name", "slug")
+    search_fields = ("name",)
+    ordering = ("name",)
 
 
 class RCCCurricularAreaSnippetViewSet(SnippetViewSet):
@@ -371,7 +395,8 @@ class RCCCurricularAreaSnippetViewSet(SnippetViewSet):
     menu_label = "Curricular Areas"
     menu_name = "Curricular Areas"
     list_display = ("name", "slug")
-    search_fields = ("name", "slug")
+    search_fields = ("name",)
+    ordering = ("name",)
 
 
 class RCCTopicsSnippetViewSet(SnippetViewSet):
@@ -381,10 +406,8 @@ class RCCTopicsSnippetViewSet(SnippetViewSet):
     menu_label = "Topics"
     menu_name = "Topics"
     list_display = ("name", "slug")
-    search_fields = (
-        "name",
-        "slug",
-    )
+    search_fields = ("name",)
+    ordering = ("name",)
 
 
 class RCCSetGroup(SnippetViewSetGroup):
@@ -405,16 +428,28 @@ class PetitionsSnippetViewSet(SnippetViewSet):
     menu_label = "Petitions"
     menu_name = "Petitions"
     add_to_admin_menu = True
-    list_display = ("name", "newsletter", "campaign_id")
-    search_fields = (
+    list_display = (
         "name",
-        "header",
-        "description",
         "newsletter",
         "campaign_id",
-        "share_link",
-        "share_link_text",
-        "thank_you",
+        BooleanColumn("show_country_field", label="Show country field?"),
+        BooleanColumn("show_postal_code_field", label="Show postal code field?"),
+        BooleanColumn("show_comment_field", label="Show comment field?"),
+    )
+    search_fields = (
+        "name",
+        "newsletter",
+        "campaign_id",
+    )
+    list_filter = (
+        "show_country_field",
+        "show_postal_code_field",
+        "show_comment_field",
+    )
+    ordering = (
+        "name",
+        "newsletter",
+        "campaign_id",
     )
 
 
@@ -429,12 +464,8 @@ class ProfilesSnippetViewSet(SnippetViewSet):
     menu_name = "Profiles"
     add_to_admin_menu = True
     list_display = ("name", "tagline", "slug")
-    search_fields = (
-        "name",
-        "tagline",
-        "introduction",
-        "slug",
-    )
+    search_fields = ("name",)
+    ordering = ("name",)
 
 
 register_snippet(ProfilesSnippetViewSet)
@@ -450,10 +481,9 @@ class CTASnippetViewSet(SnippetViewSet):
     list_display = ("name", "header", "newsletter")
     search_fields = (
         "name",
-        "header",
-        "description",
         "newsletter",
     )
+    ordering = ("name",)
 
 
 register_snippet(CTASnippetViewSet)
@@ -466,14 +496,20 @@ class SignupSnippetViewSet(SnippetViewSet):
     menu_label = "Signups"
     menu_name = "Signups"
     add_to_admin_menu = True
-    list_display = ("name", "header", "newsletter", "campaign_id")
-    search_fields = (
+    list_display = (
         "name",
         "header",
-        "description",
+        "newsletter",
+        "campaign_id",
+        BooleanColumn("ask_name", label="Ask for name?"),
+    )
+    search_fields = (
+        "name",
         "newsletter",
         "campaign_id",
     )
+    list_filter = ("ask_name",)
+    ordering = ("name",)
 
 
 register_snippet(SignupSnippetViewSet)
@@ -486,7 +522,8 @@ class AreasOfFocusViewSet(SnippetViewSet):
     menu_label = "Areas of Focus"
     menu_name = "Areas of Focus"
     list_display = ("name", "interest_icon", "page")
-    search_fields = ("name", "description", "interest_icon", "page")
+    search_fields = ("name",)
+    ordering = ("name",)
 
 
 class CallpowersViewSet(SnippetViewSet):
@@ -498,15 +535,10 @@ class CallpowersViewSet(SnippetViewSet):
     list_display = ("name", "header", "newsletter", "campaign_id", "call_button_label")
     search_fields = (
         "name",
-        "header",
-        "description",
         "newsletter",
         "campaign_id",
-        "call_button_label" "success_heading",
-        "success_text",
-        "share_facebook",
-        "share_email",
     )
+    ordering = ("name",)
 
 
 class HighlightSnippetViewSet(SnippetViewSet):
@@ -515,10 +547,11 @@ class HighlightSnippetViewSet(SnippetViewSet):
     menu_order = 200
     list_display = (
         "title",
-        "description",
+        "link_label",
         "link_url",
     )
-    search_fields = ("title", "description")
+    search_fields = ("title", "link_label")
+    ordering = ("title",)
 
 
 class NewsSnippetViewSet(SnippetViewSet):
@@ -527,11 +560,18 @@ class NewsSnippetViewSet(SnippetViewSet):
     menu_order = 300
     list_display = (
         "headline",
-        "thumbnail",
+        "outlet",
+        "author",
         "date",
-        "link",
+        BooleanColumn("is_video", label="Is it video?"),
     )
-    search_fields = ("headline",)
+    search_fields = (
+        "headline",
+        "outlet",
+        "author",
+    )
+    list_filter = ("is_video",)
+    ordering = ("-date", "outlet", "headline")
 
 
 class PulseFiltersViewSet(SnippetViewSet):
@@ -541,11 +581,9 @@ class PulseFiltersViewSet(SnippetViewSet):
     menu_label = "Pulse Filters"
     menu_name = "Pulse Filters"
     list_display = ("name", "filter_key", "filter_key_label")
-    search_fields = (
-        "name",
-        "filter_key",
-        "filter_key_label",
-    )
+    search_fields = ("name",)
+    list_filter = ("filter_key",)
+    ordering = ("name",)
 
 
 class ArchiveSetGroup(SnippetViewSetGroup):

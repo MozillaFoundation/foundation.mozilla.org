@@ -168,6 +168,14 @@ class BuyersGuideProductCategory(
         SynchronizedField("parent"),
     ]
 
+    search_fields = [
+        index.SearchField("name", boost=10),
+        index.AutocompleteField("name", boost=10),
+        index.FilterField("locale_id"),
+        index.FilterField("featured"),
+        index.FilterField("hidden"),
+    ]
+
     @cached_property
     def is_being_used(self):
         try:
@@ -199,8 +207,8 @@ class BuyersGuideProductCategory(
 
     def __str__(self):
         if self.parent is None:
-            return f"{self.name} (sort order: {self.sort_order})"
-        return f"{self.parent.name}: {self.name} (sort order: {self.sort_order})"
+            return f"{self.name}"
+        return f"{self.parent.name}: {self.name}"
 
     base_form_class = BuyersGuideProductCategoryForm
 
@@ -525,7 +533,9 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
         blank=True,
     )
 
-    featured = models.BooleanField(default=False, help_text="feature this update at the top of the list?")
+    featured = models.BooleanField(
+        default=False, help_text="feature this update at the top of the list?", verbose_name="Featured?"
+    )
 
     snippet = models.TextField(
         max_length=5000,
@@ -534,7 +544,8 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
 
     created_date = models.DateField(
         auto_now_add=True,
-        help_text="The date this product was created",
+        verbose_name="Created at",
+        help_text="The date this update was created",
     )
 
     panels = [
@@ -549,11 +560,7 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
         index.SearchField("title"),
         index.AutocompleteField("title"),
         index.FilterField("locale_id"),
-        index.SearchField("source"),
-        index.SearchField("author"),
-        index.SearchField("snippet"),
-        index.SearchField("created_date"),
-        index.SearchField("product_page__page__title"),
+        index.FilterField("featured"),
     ]
 
     translatable_fields = [
@@ -565,6 +572,22 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def linked_products(self):
+        """Title of the product pages linked to this update."""
+        # Used on the snippet viewset for this model
+        product_updates = self.product_pages.all()
+        try:
+            titles = []
+            for product_update in product_updates:
+                if hasattr(product_update, "page"):
+                    titles.append(product_update.page.title)
+            if not titles:
+                return "-"
+            return " | ".join(set(titles))
+        except AttributeError:
+            return "-"
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["title"]
@@ -580,7 +603,7 @@ class ProductUpdates(TranslatableMixin, Orderable):
     )
 
     # This is the new update FK to wagtailpages.Update
-    update = models.ForeignKey(Update, on_delete=models.SET_NULL, related_name="product_page", null=True)
+    update = models.ForeignKey(Update, on_delete=models.SET_NULL, related_name="product_pages", null=True)
 
     translatable_fields = [
         TranslatableField("update"),
@@ -998,8 +1021,11 @@ class ProductPage(BasePage):
 
     @property
     def localized_related_products(self):
-        related_products = ProductPage.objects.filter(related_product_relationships__page=self)
-        return localize_queryset(related_products).order_by("title")
+        related_products = ProductPage.objects.filter(related_product_relationships__page=self).order_by(
+            "related_product_relationships__sort_order"
+        )
+        related_products = localize_queryset(related_products, preserve_order=True)
+        return related_products.specific()
 
     @property
     def local_categories(self):

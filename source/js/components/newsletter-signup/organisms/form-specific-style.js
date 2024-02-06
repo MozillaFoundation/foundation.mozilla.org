@@ -61,6 +61,14 @@ export const FORM_STYLE = {
     innerWrapperClass: "tw-flex tw-gap-8",
     introContainerClass: "tw-w-1/2 large:tw-pr-24",
   },
+  "campaign-body": {
+    buttonPosition: "bottom",
+    buttonStyle: "primary",
+    buttonWidthClasses: "tw-w-full",
+    fieldStyle: "filled",
+    headingLevel: 3,
+    headingClass: "tw-h5-heading",
+  },
   footer: {
     fieldStyle: "outlined",
     headingLevel: 4,

@@ -1,6 +1,6 @@
 {% extends "pages/buyersguide/about.html" %}
 
-{% load static i18n %}
+{% load static i18n wagtailroutablepage_tags %}
 
 {% block main_about_class %}short-content{% endblock %}
 
@@ -10,57 +10,152 @@
     </h1>
 
     <p>
-        {% blocktrans trimmed %}
-            <em>*Privacy Not Included</em> helps consumers shop for trustworthy connected products. But it also helps journalists
-            cover connected products. Our research assists reporters in incorporating product privacy—and not just price
-            and performance—into their consumer technology coverage.
+        {% blocktrans with best_of_url="/privacynotincluded/categories/best-of/" trimmed %}
+            <em>*Privacy Not Included</em> helps consumers shop for trustworthy connected products while shining a light on products
+            with poor privacy and security practices. We also uplift companies who get it right. If you’re looking for inspiration
+            for your company’s own privacy policy, <a href="{{ best_of_url }}">start here</a>.
         {% endblocktrans %}
     </p>
-    <p>
-        {% blocktrans with name="Kevin Zawacki" email="kevin@mozillafoundation.org" trimmed %}
-            If you’re a member of the press interested in speaking with Mozilla’s <em>*Privacy Not Included</em> team, please email
-            {{ name}} at <a href="mailto:{{ email }}">{{email }}</a>. Our researchers can answer questions about
-            specific products, or speak to broader trends in the realm of privacy, security, and trustworthy AI.
-            We can also provide high-resolution graphics and gifs from our guide.
-        {% endblocktrans %}
-    </p>
-
-    <section aria-labelledby="warning-label">
-        <p id="warning-label"><strong>{% trans "Recognition" %}</strong></p>
+    <details class="tw-w-full tw-font-sans tw-font-light tw-border-b tw-border-gray-20 tw-my-14">
+        <summary class="tw-list-none [&::-webkit-details-marker]:tw-hidden tw-w-full tw-text-lg tw-leading-7 tw-min-h-40 py-3 d-flex align-items-center tw-border-gray-20 tw-border-t">
+            <span class="tw-mr-auto">{% trans "Are you a journalist researching connected products or a member of the press covering privacy?" %}</span>
+            <img src="{% static "_images/plus-circle.svg" %}" alt="" data-state="open" class="summary-open:tw-hidden" />
+            <img src="{% static "_images/minus-circle.svg" %}" alt="" data-state="close" class="tw-hidden summary-open:tw-block" />
+        </summary>
         <p class="tw-body">
-            {% blocktrans with url="https://winners.webbyawards.com/2020/websites/general-websites/activism/120635/privacy-not-included" trimmed %}
-                Mozilla’s <em>*Privacy Not Included</em> <a href="{{ url }}">won a 2020 Webby</a> in the
-                “People’s Voice Award for Activism” category. Our five word acceptance speech?
-                “Privacy is power. Demand it.”
+            {% blocktrans with pni_url="https://foundation.mozilla.org/privacynotincluded/" trimmed %}
+                <em>*Privacy Not Included</em> can help inform your research. Let the <a href="{{ pni_url }}">product guide</a> assist
+                you in incorporating privacy—and not just price and performance—into your consumer technology coverage.
             {% endblocktrans %}
         </p>
-        <p class="text-center my-5">
-            <img class="webby-award-badge" src="{% static '_images/buyers-guide/webby-award-badge.svg' %}" alt="{% trans "2020 Webby Award Winner Badge" %}" width="160">
+        <p class="tw-body">
+            {% blocktrans with name="Kevin Zawacki" email="kevin@mozillafoundation.org" trimmed %}
+                Have questions for the <em>*Privacy Not Included</em> team? Email <b>{{ email }}</b> at <a href="mailto:{{ email }}">{{ email }}</a>.
+                Our researchers can answer questions about specific products, or speak to broader trends in the realm of privacy,
+                security, and trustworthy AI. We can also provide high-resolution graphics and gifs from our guide.
+            {% endblocktrans %}
+        </p>
+    </details>
+
+    <section aria-labelledby="warning-label">
+
+        <p class="tw-body">
+            {% blocktrans with url="https://winners.webbyawards.com/2020/websites/general-websites/activism/120635/privacy-not-included" trimmed %}
+                <b>The people have spoken!</b> Mozilla’s <em>*Privacy Not Included</em> <a href="{{ url }}">won two Webby</a> awards in 2023: the “Responsible Information”
+                award in the Inaugural Responsible Technology category and the “People’s Voice” award. This win marks their second
+                “People’s Voice” win since 2020.
+            {% endblocktrans %}
         </p>
         <p class="tw-body">
-            {% trans "Since launching 2017, *Privacy Not Included has garnered hundreds of stories. Highlights include:" %}
+            {% blocktrans trimmed %}
+                Since launching 2017, <em>*Privacy Not Included</em> has reached millions and garnered hundreds of stories around the world. The
+                guide’s groundbreaking product reviews scrutinize the privacy features and flaws of <b>connected gifts, sex toys, dating
+                    apps, reproductive health apps, mental health apps,</b> and <b>cars</b>.
+            {% endblocktrans %}
+        </p>
+        <div class="tw-my-14">
+            <iframe class="tw-mx-auto" width="560" height="315" src="https://www.youtube.com/embed/XKQ-uxTw11g?si=XuG0CsQdaM3_dsxm" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <p class="tw-body">
+            {% blocktrans with url="https://www.topgear.com/car-news/tech/modern-cars-branded-privacy-nightmare-mozilla" trimmed %}
+                <strong>BBC Top Gear:</strong> <a href="{{ url }}">Modern cars branded a ‘privacy nightmare’ by Mozilla</a>
+            {% endblocktrans %}
+            <br>
+            {% blocktrans trimmed %}
+                Published September 2023. “First up, Mozilla says every car brand collects “too much personal data”... Secondly, the
+                survey concluded that 84 per cent of motor manufacturers share your data and a worrying 76 per cent sell drivers’
+                personal data.”
+            {% endblocktrans %}
+        </p>
+        <div class="feature-quote my-4 py-2">
+            <h3>
+                {% blocktrans trimmed %}
+                    For generations, the car in America has come to symbolize freedom… And for many, freedom and privacy go hand in hand.
+                    It's hard to have one without the other. But according to a new report, your car could be worse than your phone when it
+                    comes to privacy.
+                {% endblocktrans %}
+            </h3>
+            <div class="attribution-with-link tw-inline-flex tw-gap-2">
+                {% with url="https://www.npr.org/2023/09/16/1200012617/experts-say-modern-cars-can-violate-consumer-privacy" %}
+                    <p class="tw-h6-heading">
+                        — Scott Detrow,
+                    </p>
+                    <a class="tw-blue-80 tw-text-xs" href="{{ url }}">
+                        NPR
+                    </a>
+                {% endwith %}
+            </div>
+        </div>
+        <p class="tw-body">
+            {% blocktrans with url="https://www.washingtonpost.com/business/2023/09/06/data-privacy-cars-data-collection-mozilla-foundation/1e9397d8-4c6a-11ee-bfca-04e0ac43f9e4_story.html" trimmed %}
+                <strong>The Washington Post:</strong> <a href="{{ url }}">Carmakers fail privacy test, give owners little or no control on personal data they collect</a>
+            {% endblocktrans %}
+            <br>
+            {% blocktrans trimmed %}
+                Published September 2023. “Cars are getting an “F” in data privacy. Most major manufacturers admit they may be selling
+                your personal information, a new study finds, with half also saying they would share it with the government or law
+                enforcement without a court order.”
+            {% endblocktrans %}
+        </p>
+        <p class="tw-body">
+            {% blocktrans with url="https://gizmodo.com/mozilla-new-cars-data-privacy-report-1850805416" trimmed %}
+                <strong>Gizmodo:</strong> <a href="{{ url }}">If You've Got a New Car, It's a Data Privacy Nightmare </a>
+            {% endblocktrans %}
+            <br>
+            {% blocktrans trimmed %}
+                Published September 2023. “Mozilla found brands including BMW, Ford, Toyota, Tesla, and Subaru collect data about
+                drivers including race, facial expressions, weight, health information, and where you drive.”
+            {% endblocktrans %}
+        </p>
+        <p class="tw-body">
+            {% blocktrans with url="https://www.latimes.com/business/technology/story/2023-05-02/mental-health-apps-privacy-risk-what-to-look-for" trimmed %}
+                <strong>Los Angeles Times:</strong> <a href="{{ url }}">Mental health apps may put your privacy at risk. Here's what to look for </a>
+            {% endblocktrans %}
+            <br>
+            {% blocktrans trimmed %}
+                Published May 2023. “Jen Caltrider, director of Mozilla’s Privacy Not Included work, said it’s important to read an
+                app’s privacy policy before downloading it because some of them start collecting data from users moments after they’re
+                activated.”
+            {% endblocktrans %}
+        </p>
+        <p class="tw-body">
+            {% blocktrans with url="https://www.theverge.com/2022/5/4/22985296/mental-health-app-privacy-policies-happify-cerebral-betterhealth-7cups" trimmed %}
+                <strong>The Verge:</strong> <a href="{{ url }}">Mental health app privacy language opens up holes for user data</a>
+            {% endblocktrans %}
+            <br>
+            {% blocktrans trimmed %}
+                Published May 2022. “Mozilla researchers said this week that mental health apps have some of the worst privacy
+                protections of any app category.”
+            {% endblocktrans %}
+        </p>
+        <p class="tw-body">
+            {% blocktrans with url="https://www.vice.com/en/article/88qxj4/period-tracking-apps-privacy-data" trimmed %}
+                <strong>VICE:</strong> <a href="{{ url }}">Period-Tracking Apps Won’t Say Whether They’ll Hand Your Data Over to Cops</a>
+            {% endblocktrans %}
+            <br>
+            {% blocktrans trimmed %}
+                Published August 2022. “In total, of the 25 apps and products Mozilla reviewed, 18 were slapped with its ‘Privacy Not
+                Included’ label, indicating that people should be cautious of using them.”
+            {% endblocktrans %}
+        </p>
+        <p class="tw-body">
+            {% blocktrans with url="https://amp.theguardian.com/world/2022/aug/17/pregnancy-period-tracking-apps-privacy" trimmed %}
+                <strong>The Guardian:</strong> <a href="{{ url }}">How private is your period-tracking app? Not very, study reveals</a>
+            {% endblocktrans %}
+            <br>
+            {% blocktrans trimmed %}
+                Published August 2022. “Experts at internet research non-profit Mozilla studied more than 20 pregnancy and period
+                tracking apps for privacy and security features and said the results were grim.”
+            {% endblocktrans %}
         </p>
         <p class="tw-body">
             {% blocktrans with url="https://www.dailydot.com/irl/mozilla-privacy-not-included-sex-toys-dating-apps/" trimmed %}
-                <strong>Daily Dot:</strong> <a href="{{ url }}">These sex toys and dating apps may jeopardize your privacy, Mozilla warns </a>
+                <strong>Daily Dot:</strong> <a href="{{ url }}">These sex toys and dating apps may jeopardize your privacy, Mozilla warns</a>
             {% endblocktrans %}
             <br>
             {% blocktrans trimmed %}
-                Published February 2021. Writes The Daily Dot: “Mozilla’s new Privacy Not Included report looks at 50 sex toys and
-                dating apps and ranks them based on how they respect users’ privacy. And the answers aren’t sexy.”
-
-            {% endblocktrans %}
-        </p>
-        <p class="tw-body">
-            {% blocktrans with url="https://www.cbsnews.com/news/creepy-gifts-toys-that-spy-on-kids-and-coffee-makers-that-track-caffeine-habits/" trimmed %}
-                <strong>CBS News:</strong> <a href="{{ url }}">Creepy gifts: Toys that spy on kids and coffee makers that track your habits</a>
-            {% endblocktrans %}
-            <br>
-            {% blocktrans trimmed %}
-                Published November 2020. Writes CBS: “Some holiday gifts are more festive than others, while those that snoop on their
-                users could be seen as decidedly less so. So says the Mozilla Foundation, which recently posted its annual Privacy Not
-                Included holiday gift guide.”
-
+                Published February 2021. “Mozilla’s new Privacy Not Included report looks at 50 sex toys and dating apps and ranks them
+                based on how they respect users’ privacy. And the answers aren’t sexy.”
             {% endblocktrans %}
         </p>
         <p class="tw-body">
@@ -69,9 +164,8 @@
             {% endblocktrans %}
             <br>
             {% blocktrans trimmed %}
-                Published April 2020. “[Mozilla] researchers combed through privacy policies, sifted through app
-                specifications, and looked at critical questions,” Mozilla told Mashable of our special video chat
-                app edition of <em>*Privacy Not Included</em>.
+                Published April 2020. “[Mozilla] researchers combed through privacy policies, sifted through app specifications, and
+                looked at critical questions.”
             {% endblocktrans %}
         </p>
         <p class="tw-body">
@@ -80,130 +174,57 @@
             {% endblocktrans %}
             <br>
             {% blocktrans trimmed %}
-                Published December 2019. Ashley Boyd, Mozilla’s VP of Advocacy and Engagement, spoke with host
-                Steve Inskeep about the surveillance features that are often built into consumer technology.
+                Published December 2019. Ashley Boyd, Mozilla’s VP of Advocacy and Engagement, spoke with host Steve Inskeep about the
+                surveillance features that are often built into consumer technology.
             {% endblocktrans %}
         </p>
-
         <div class="feature-quote my-4 py-2">
             <h3>
                 {% blocktrans trimmed %}
-                    Here’s a warning that should be on some of the items on your holiday shopping list—privacy not included.
-                    That’s the point of a shopping guide put out by the Mozilla Foundation.
+                    Here’s a warning that should be on some of the items on your holiday shopping list—privacy not included. That’s the
+                    point of a shopping guide put out by the Mozilla Foundation.
                 {% endblocktrans %}
             </h3>
-            <p class="tw-h6-heading">{% trans "— Steve Inskeep, NPR" %}</p>
+            <div class="attribution-with-link tw-inline-flex tw-gap-2">
+                {% with url="https://www.npr.org/2019/12/02/784063267/mozillas-latest-privacy-not-included-buyers-guide" %}
+                    <p class="tw-h6-heading">
+                        — Steve Inskeep,
+                    </p>
+                    <a class="tw-blue-80 tw-text-xs" href="{{ url }}">
+                        NPR
+                    </a>
+                {% endwith %}
+            </div>
         </div>
-
-        <p class="tw-body">
-            {% blocktrans with url="https://www.nbcnews.com/better/lifestyle/downside-connected-tech-are-smart-devices-your-home-spying-you-ncna1101906" trimmed %}
-                <strong>NBC News:</strong> <a href="{{ url }}">The downside of connected tech: Are the smart devices in your
-                    home spying on you?</a>
-            {% endblocktrans %}
-            <br>
-            {% blocktrans trimmed %}
-                Published December 2019. Ashley Boyd spoke with NBC about giving consumers more control over their personal data.
-            {% endblocktrans %}
-        </p>
-
         <p class="tw-body">
             {% blocktrans with url="https://www.usatoday.com/story/tech/2019/11/23/before-buying-ring-wemo-roku-consider-privacy-issues/4260851002/" trimmed %}
                 <strong>USA Today:</strong> <a href="{{ url }}">Before you buy, consider privacy, please</a>
             {% endblocktrans %}
             <br>
             {% blocktrans trimmed %}
-                Published November 2019. Mozilla researcher Becca Ricks spoke with technology columnist
-                Jefferson Graham about the privacy and security flaws of connected doorbells.
+                Published November 2019. Mozilla researcher Becca Ricks spoke with technology columnist Jefferson Graham about the
+                privacy and security flaws of connected doorbells.
             {% endblocktrans %}
         </p>
-
-        <div class="feature-quote my-4 py-2">
-            <h3>
-                {% blocktrans trimmed %}
-                    The folks at the Mozilla Foundation, which makes the Firefox browser, have consumers in
-                    mind with a new chart outlining the worst privacy offenders this holiday season.
-                {% endblocktrans %}
-            </h3>
-            <p class="tw-h6-heading">{% trans "— Jefferson Graham, USA Today" %}</p>
-        </div>
-
-        <p class="tw-body">
-            {% blocktrans with url="https://www.thestar.com/business/technology/2018/12/14/how-creepy-is-that-christmas-gift-a-guide-to-seasonal-tech.html" trimmed %}
-                <strong>Toronto Star:</strong> <a href="{{ url }}">How creepy is that Christmas gift?
-                    A guide to seasonal tech</a>
-            {% endblocktrans %}
-            <br>
-            {% blocktrans trimmed %}
-                Published December 2018. Jen Caltrider, Mozilla’s Content Strategy Lead, explains how
-                <em>*Privacy Not Included</em> can spur manufacturers to create more responsible tech.
-            {% endblocktrans %}
-        </p>
-
-        <p class="tw-body">
-            {% blocktrans with url="https://www.npr.org/2018/12/01/672511667/a-tech-foundation-discusses-security-and-privacy-when-it-comes-to-smart-devices" trimmed %}
-                <strong>NPR:</strong> <a href="{{ url }}">A Tech Foundation Discusses Security And Privacy
-                    When It Comes To Smart Devices</a>
-            {% endblocktrans %}
-            <br>
-            {% blocktrans trimmed %}
-                Published December 2018. Ashley Boyd speaks with NPR’s Scott Simon about the need to consider
-                privacy alongside price and performance when purchasing a connected gift.
-            {% endblocktrans %}
-        </p>
-
         <p class="tw-body">
             {% blocktrans with url="https://www.wired.com/story/mozilla-privacy-not-included-internet-connected-toys/" trimmed %}
                 <strong>WIRED:</strong> <a href="{{ url }}">Mozilla Makes a Naughty List of Gifts that Aren’t Secure</a>
             {% endblocktrans %}
             <br>
             {% blocktrans trimmed %}
-                Published November 2018. Writes WIRED: “In its second annual Privacy Not Included guide,
-                the nonprofit highlights internet-connected items that value your privacy—and the ones that may not.”
+                Published November 2018. “In its second annual Privacy Not Included guide, the nonprofit highlights internet-connected
+                items that value your privacy—and the ones that may not.”
             {% endblocktrans %}
         </p>
-
-        <p class="tw-body">
-            {% blocktrans with url="https://cheddar.com/media/mozilla-ranks-cyber-safety-of-your-holiday-shopping-list" trimmed %}
-                <strong>Cheddar:</strong> <a href="{{ url }}">Mozilla Ranks Cyber-Safety of Your Holiday Shopping List</a>
-            {% endblocktrans %}
-            <br>
-            {% blocktrans trimmed %}
-                Published November 2018. Mozilla visited Cheddar’s studio in Manhattan to talk through the
-                most and least creepy products in <em>*Privacy Not Included</em>.
-            {% endblocktrans %}
-        </p>
-
-        <figure class="my-4 pb-2">
-            <img src="{% static '_images/buyers-guide/cheddar-gift-guide.jpg' %}" alt="{% trans "Mozilla’s Gift Guide" %}" class="w-100" />
-            <figcaption class="tw-body-small d-block mt-2">
-                {% blocktrans with url="https://cheddar.com/media/mozilla-ranks-cyber-safety-of-your-holiday-shopping-list" trimmed %}
-                    Ashley Boyd, Mozilla’s VP of Advocacy, joined Cheddar on <a href="{{ url }}">Mozilla Ranks
-                        Cyber-Safety of Your Holiday Shopping List</a>
-                {% endblocktrans %}
-            </figcaption>
-        </figure>
-
         <p class="tw-body">
             {% blocktrans with url="https://www.nytimes.com/2017/12/08/opinion/holiday-gifts-toys-spying.html" trimmed %}
                 <strong>New York Times:</strong> <a href="{{ url }}">Don’t Give Kids Holiday Gifts That Can Spy on Them</a>
             {% endblocktrans %}
             <br>
             {% blocktrans trimmed %}
-                Published December 2017. Writes Ashley Boyd in this print and digital op-ed: “During the
-                holiday season, my husband and I tend to offer suggestions to those who are generous enough
-                to insist on buying presents for our kids. This year we’re adding a new rule to our list:
-                No toys that can spy.”
-            {% endblocktrans %}
-        </p>
-
-        <p class="tw-body">
-            {% blocktrans with url="https://abc7news.com/technology/your-privacy-may-be-at-risk-with-some-toys-gadgets/2827339/" trimmed %}
-                <strong>ABC San Francisco:</strong> <a href="{{ url }}">Your privacy may be at risk with some toys, gadgets</a>
-            {% endblocktrans %}
-            <br>
-            {% blocktrans trimmed %}
-                Published December 2017. Mozilla visited ABC 7’s studio in San Francisco to talk through
-                the most and least creepy products in <em>*Privacy Not Included</em>.
+                Published December 2017. Writes Ashley Boyd in this print and digital op-ed: “During the holiday season, my husband and
+                I tend to offer suggestions to those who are generous enough to insist on buying presents for our kids. This year we’re
+                adding a new rule to our list: No toys that can spy.”
             {% endblocktrans %}
         </p>
 

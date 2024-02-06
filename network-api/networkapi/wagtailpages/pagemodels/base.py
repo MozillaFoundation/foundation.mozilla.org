@@ -6,6 +6,7 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Orderable as WagtailOrderable
 from wagtail.models import Page, TranslatableMixin
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
@@ -632,6 +633,11 @@ class FocusArea(TranslatableMixin, models.Model):
         SynchronizedField("interest_icon"),
         TranslatableField("name"),
         TranslatableField("description"),
+    ]
+
+    search_fields = [
+        index.SearchField("name"),
+        index.FilterField("locale_id"),
     ]
 
     def __str__(self):
