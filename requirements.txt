@@ -266,7 +266,7 @@ wagtail==5.2.2
     #   wagtailmedia
 wagtail-ab-testing==0.9
     # via -r requirements.in
-wagtail-color-panel==1.4.1
+wagtail-color-panel==1.5.0
     # via -r requirements.in
 wagtail-factories==4.1.0
     # via -r requirements.in
