@@ -253,10 +253,6 @@ class JoinUs extends Component {
    * Render the signup CTA.
    */
   render() {
-    if (this.state.apiSuccess && this.state.apiSubmitted && this.isFlowForm()) {
-      this.props.handleSignUp(true);
-    }
-
     let signupState = classNames({
       "signup-success": this.state.apiSuccess && this.state.apiSubmitted,
       "signup-fail": !this.state.apiFailed && this.state.apiSubmitted,
@@ -266,7 +262,6 @@ class JoinUs extends Component {
       "col-md-6": this.props.layout === `2-column` && !this.state.apiSuccess,
       "col-sm-12 col-md-8":
         this.props.layout === `2-column` && this.state.apiSuccess,
-      "col-md-11 m-auto": this.isFlowForm(),
     });
 
     return (
@@ -275,24 +270,6 @@ class JoinUs extends Component {
         <div className={layoutClasses}>{this.renderFormContent()}</div>
       </div>
     );
-  }
-
-  isFlowForm() {
-    return this.props.formPosition === "flow";
-  }
-
-  /**
-   * Render the CTA heading.
-   */
-  renderFlowHeading() {
-    return [
-      <h2 className="tw-h3-heading text-center" key={`flowheading`}>
-        {this.props.flowHeading}
-      </h2>,
-      <p className="text-center" key={`flowheadingpara`}>
-        {this.props.flowText}
-      </p>,
-    ];
   }
 
   /**
@@ -346,9 +323,6 @@ class JoinUs extends Component {
    * Render the CTA heading.
    */
   renderFormHeading() {
-    if (this.isFlowForm()) {
-      return this.renderFlowHeading();
-    }
     return this.renderSnippetHeading();
   }
 
@@ -382,18 +356,11 @@ class JoinUs extends Component {
       "tw-h-24": this.props.formStyle == `pni`,
     });
 
-    let errorWrapperClasses = classNames("glyph-container", {
-      "d-none": this.isFlowForm(),
-    });
+    let errorWrapperClasses = "glyph-container";
 
     return (
       <div className={wrapperClasses}>
         <div className={classes}>
-          {this.isFlowForm() && (
-            <label className="font-weight-bold" htmlFor={this.id.userEmail}>
-              Email
-            </label>
-          )}
           <input
             name="userEmail"
             type="email"
@@ -402,7 +369,7 @@ class JoinUs extends Component {
             ref={(el) => (this.email = el)}
             onFocus={(evt) => this.onInputFocus(evt)}
             onInput={(evt) => this.toggleSubmitButton(evt)}
-            aria-label={!this.isFlowForm() ? "Email" : ""}
+            aria-label="Email"
             id={this.id.userEmail}
           />
           {this.state.userTriedSubmitting && !emailValidation.valid && (
@@ -526,8 +493,7 @@ class JoinUs extends Component {
           </label>
           {this.state.userTriedSubmitting &&
             !this.state.apiSubmitted &&
-            !this.privacy.checked &&
-            !this.isFlowForm() && (
+            !this.privacy.checked && (
               <span className="tw-form-error-glyph tw-flex tw-ml-2" />
             )}
         </div>
@@ -561,10 +527,7 @@ class JoinUs extends Component {
       );
       buttonText = getText("Sign up");
     } else {
-      classnames = classNames("tw-btn", "tw-btn-primary", {
-        "w-100": !this.isFlowForm(),
-        "tw-flex-1 tw-mr-8": this.isFlowForm(),
-      });
+      classnames = "tw-btn tw-btn-primary w-100";
       buttonText = getText("Sign up");
     }
 
@@ -596,10 +559,6 @@ class JoinUs extends Component {
       buttonsWrapperClass = `ml-md-3`;
     }
 
-    if (this.props.formPosition === `flow`) {
-      buttonsWrapperClass = `d-flex`;
-    }
-
     if (this.props.formStyle === `pop`) {
       buttonsWrapperClass = `w-auto tw-text-right`;
     }
@@ -622,18 +581,7 @@ class JoinUs extends Component {
           {this.renderLocaleFields()}
           {this.renderPrivacyField()}
         </div>
-        <div className={buttonsWrapperClass}>
-          {this.renderSubmitButton()}
-          {this.isFlowForm() && (
-            <button
-              className="tw-btn tw-btn-primary btn-dismiss tw-flex-1"
-              onClick={() => this.props.handleSignUp(false)}
-              type="button"
-            >
-              No thanks
-            </button>
-          )}
-        </div>
+        <div className={buttonsWrapperClass}>{this.renderSubmitButton()}</div>
       </form>
     );
   }

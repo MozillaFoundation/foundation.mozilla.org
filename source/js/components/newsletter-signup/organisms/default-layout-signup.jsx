@@ -7,6 +7,7 @@ import InputText from "../atoms/input-text.jsx";
 import Select from "../atoms/select.jsx";
 import InputCheckboxWithLabel from "../molecules/input-checkbox-with-label.jsx";
 import ButtonSubmit from "../atoms/button-submit.jsx";
+import ButtonQuit from "../atoms/button-quit.jsx";
 import withSubmissionLogic from "./with-submission-logic.jsx";
 import utility from "../../../utility.js";
 import { ReactGA } from "../../../common";
@@ -47,7 +48,8 @@ class DefaultSignupForm extends Component {
       showCountryField:
         this.props.showCountryFieldByDefault?.toLowerCase() === "true",
       showLanguageField:
-        this.props.showCountryFieldByDefault?.toLowerCase() === "true",
+        this.props.showLanguageFieldByDefault?.toLowerCase() === "true",
+      showQuitButton: this.props.showQuitButton?.toLowerCase() === "true",
       submitButtonDisabled: this.props.disableSubmitButtonByDefault,
     };
   }
@@ -268,19 +270,49 @@ class DefaultSignupForm extends Component {
     );
   }
 
+  renderButtons() {
+    let wrapperClasses = classNames({
+      "tw-flex-shrink-0 tw-mt-8 medium:tw-mt-0":
+        this.style.buttonPosition !== "bottom",
+      "tw-mt-24 medium:tw-mt-12 tw-text-right":
+        this.style.buttonPosition === "bottom",
+    });
+
+    let submitButton = (
+      <ButtonSubmit
+        buttonStyle={this.style.buttonStyle}
+        widthClasses={this.style.buttonWidthClasses}
+        disabled={this.state.submitButtonDisabled}
+      >
+        {this.buttonText}
+      </ButtonSubmit>
+    );
+
+    let buttons = submitButton;
+
+    if (this.state.showQuitButton) {
+      buttons = (
+        <div className="tw-flex tw-gap-x-4">
+          {submitButton}
+          <ButtonQuit
+            widthClasses={this.style.buttonWidthClasses}
+            handleQuitButtonClick={this.props.handleQuitButtonClick}
+          >
+            {getText(`No thanks`)}
+          </ButtonQuit>
+        </div>
+      );
+    }
+
+    return <div className={wrapperClasses}>{buttons}</div>;
+  }
+
   renderForm() {
     if (this.props.hideForm) return null;
 
     let containerClasses = classNames({
       "d-flex flex-column flex-lg-row medium:tw-gap-8":
         this.style.buttonPosition !== "bottom",
-    });
-
-    let buttonWrapperClasses = classNames({
-      "tw-flex-shrink-0 tw-mt-8 medium:tw-mt-0":
-        this.style.buttonPosition !== "bottom",
-      "tw-mt-24 medium:tw-mt-12 tw-text-right":
-        this.style.buttonPosition === "bottom",
     });
 
     return (
@@ -299,16 +331,7 @@ class DefaultSignupForm extends Component {
             </fieldset>
             <fieldset>{this.renderPrivacyCheckbox()}</fieldset>
           </div>
-          <div className={buttonWrapperClasses}>
-            <ButtonSubmit
-              buttonStyle={this.style.buttonStyle}
-              widthClasses={this.style.buttonWidthClasses}
-              disabled={this.state.submitButtonDisabled}
-              buttonCtaEvent={this.props.buttonCtaEvent}
-            >
-              {this.buttonText}
-            </ButtonSubmit>
-          </div>
+          {this.renderButtons()}
         </div>
       </form>
     );
@@ -341,6 +364,9 @@ DefaultSignupForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   noBrowserValidation: PropTypes.bool,
   hideForm: PropTypes.bool,
+  showCountryFieldByDefault: PropTypes.string,
+  showLanguageFieldByDefault: PropTypes.string,
+  showQuitButton: PropTypes.string,
 };
 
 /**

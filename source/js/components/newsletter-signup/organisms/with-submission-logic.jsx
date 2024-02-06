@@ -271,7 +271,8 @@ function withSubmissionLogic(WrappedComponent) {
   WithSubmissionLogicComponent.propTypes = {
     apiUrl: PropTypes.string.isRequired,
     ctaHeader: PropTypes.string.isRequired,
-    ctaDescription: PropTypes.string.isRequired,
+    ctaDescription: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
+      .isRequired,
     formPosition: PropTypes.string,
     whenLoaded: PropTypes.func,
   };
