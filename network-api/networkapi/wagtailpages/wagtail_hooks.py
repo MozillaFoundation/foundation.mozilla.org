@@ -18,7 +18,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineStyleElementHandler,
 )
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
-from wagtail.admin.ui.tables import BooleanColumn, DateColumn
+from wagtail.admin.ui.tables import BooleanColumn
 from wagtail.coreutils import find_available_slug
 from wagtail.rich_text import LinkHandler
 from wagtail.snippets.models import register_snippet
@@ -290,9 +290,9 @@ class UpdateSnippetViewSet(SnippetViewSet):
     list_display = (
         "title",
         "author",
-        BooleanColumn("featured", label="Featured?"),
         "linked_products",
-        DateColumn("created_date"),
+        BooleanColumn("featured", label="Featured?"),
+        "created_date",
     )
     search_fields = ("title",)
     list_filter = ("featured",)
