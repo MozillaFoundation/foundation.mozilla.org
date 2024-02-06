@@ -17,8 +17,8 @@ test.describe("PNI search", () => {
     health: 11,
     smart: 4,
     percy: 1,
-    searchTerm: 3,
-    searchTermWithDing: 2,
+    searchTerm: 5,
+    searchTermWithDing: 4,
   };
 
   const qs = {

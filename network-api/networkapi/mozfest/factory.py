@@ -1,5 +1,3 @@
-import random
-
 from django.conf import settings
 from factory import Faker, LazyAttribute, SubFactory
 from factory.django import DjangoModelFactory
@@ -87,7 +85,7 @@ class TicketSnippetFactory(DjangoModelFactory):
         model = mozfest_models.Ticket
 
     name = Faker("sentence", nb_words=2)
-    cost = f"€{random.choice(['100', '200', '300'])}"
+    cost = Faker("random_element", elements=(("€100", "€200", "€300")))
     group = Faker("text", max_nb_chars=50)
     description = Faker("text", max_nb_chars=250)
     event = SubFactory(events_factory.TitoEventFactory)
