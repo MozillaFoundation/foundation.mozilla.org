@@ -1,4 +1,5 @@
 from django.db import models
+from wagtail.search import index
 
 
 class TitoEvent(models.Model):
@@ -15,6 +16,12 @@ class TitoEvent(models.Model):
         max_length=255,
         help_text="ID of the question in the Tito form that asks whether a user has opted in to receive newsletters",
     )
+
+    search_fields = [
+        index.SearchField("title", boost=10),
+        index.SearchField("event_id"),
+        index.SearchField("newsletter_question_id"),
+    ]
 
     def __str__(self):
         return self.title

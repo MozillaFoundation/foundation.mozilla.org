@@ -4,6 +4,7 @@ from django.db import models
 from wagtail.admin.panels import FieldPanel, HelpPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.models import PreviewableMixin, TranslatableMixin
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.constants import url_or_query_regex
@@ -74,6 +75,12 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         SynchronizedField("background_image"),
     ]
 
+    search_fields = [
+        index.SearchField("name"),
+        index.SearchField("title"),
+        index.FilterField("locale_id"),
+    ]
+
     def __str__(self):
         return self.name
 
@@ -85,8 +92,8 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     )
     def is_active(self):
         if self.site_donate_banner.exists():
-            return "Yes"
-        return "No"
+            return True
+        return False
 
 
 @register_setting(icon="heart")

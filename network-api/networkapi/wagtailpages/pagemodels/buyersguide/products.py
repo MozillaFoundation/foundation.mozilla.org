@@ -168,6 +168,14 @@ class BuyersGuideProductCategory(
         SynchronizedField("parent"),
     ]
 
+    search_fields = [
+        index.SearchField("name", boost=10),
+        index.AutocompleteField("name", boost=10),
+        index.FilterField("locale_id"),
+        index.FilterField("featured"),
+        index.FilterField("hidden"),
+    ]
+
     @cached_property
     def is_being_used(self):
         try:
@@ -199,8 +207,8 @@ class BuyersGuideProductCategory(
 
     def __str__(self):
         if self.parent is None:
-            return f"{self.name} (sort order: {self.sort_order})"
-        return f"{self.parent.name}: {self.name} (sort order: {self.sort_order})"
+            return f"{self.name}"
+        return f"{self.parent.name}: {self.name}"
 
     base_form_class = BuyersGuideProductCategoryForm
 
@@ -525,7 +533,9 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
         blank=True,
     )
 
-    featured = models.BooleanField(default=False, help_text="feature this update at the top of the list?")
+    featured = models.BooleanField(
+        default=False, help_text="feature this update at the top of the list?", verbose_name="Featured?"
+    )
 
     snippet = models.TextField(
         max_length=5000,
@@ -534,7 +544,8 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
 
     created_date = models.DateField(
         auto_now_add=True,
-        help_text="The date this product was created",
+        verbose_name="Created at",
+        help_text="The date this update was created",
     )
 
     panels = [
@@ -549,6 +560,7 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
         index.SearchField("title"),
         index.AutocompleteField("title"),
         index.FilterField("locale_id"),
+        index.FilterField("featured"),
     ]
 
     translatable_fields = [

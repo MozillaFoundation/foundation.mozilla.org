@@ -75,6 +75,13 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
         TranslatableField("link_target_page"),
     ]
 
+    search_fields = [
+        index.SearchField("title", boost=10),
+        index.AutocompleteField("title", boost=10),
+        index.SearchField("link_label"),
+        index.FilterField("locale_id"),
+    ]
+
     class Meta(TranslatableMixin.Meta):
         ordering = ["title"]
         verbose_name = "Buyers Guide Call To Action"
