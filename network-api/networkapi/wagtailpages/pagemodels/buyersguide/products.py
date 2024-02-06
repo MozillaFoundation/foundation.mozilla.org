@@ -549,11 +549,6 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
         index.SearchField("title"),
         index.AutocompleteField("title"),
         index.FilterField("locale_id"),
-        index.SearchField("source"),
-        index.SearchField("author"),
-        index.SearchField("snippet"),
-        index.SearchField("created_date"),
-        index.SearchField("product_page__page__title"),
     ]
 
     translatable_fields = [
@@ -565,6 +560,22 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def linked_products(self):
+        """Title of the product pages linked to this update."""
+        # Used on the snippet viewset for this model
+        product_updates = self.product_pages.all()
+        try:
+            titles = []
+            for product_update in product_updates:
+                if hasattr(product_update, "page"):
+                    titles.append(product_update.page.title)
+            if not titles:
+                return "-"
+            return " | ".join(set(titles))
+        except AttributeError:
+            return "-"
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["title"]
@@ -580,7 +591,7 @@ class ProductUpdates(TranslatableMixin, Orderable):
     )
 
     # This is the new update FK to wagtailpages.Update
-    update = models.ForeignKey(Update, on_delete=models.SET_NULL, related_name="product_page", null=True)
+    update = models.ForeignKey(Update, on_delete=models.SET_NULL, related_name="product_pages", null=True)
 
     translatable_fields = [
         TranslatableField("update"),

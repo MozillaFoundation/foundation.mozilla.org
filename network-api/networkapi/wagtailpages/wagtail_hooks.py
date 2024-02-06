@@ -3,6 +3,7 @@
 #   And https://medium.com/@timlwhite/custom-in-line-styles-with-draftail-939201c2bbda
 
 from django.core.cache import cache
+from django.db.models import Prefetch
 
 # The real code runs "instance.sync_trees()" here, but we want this to do nothing instead,
 # so that locale creation creates the locale entry but does not try to sync 1300+ pages as
@@ -277,16 +278,23 @@ class UpdateSnippetViewSet(SnippetViewSet):
         "title",
         "author",
         "featured",
+        "linked_products",
         "created_date",
     )
-    search_fields = (
-        "title",
-        "source",
-        "author",
-        "snippet",
-        "created_date",
-        "product_page__page__title",
-    )
+    search_fields = ("title",)
+    list_filter = ("featured",)
+    ordering = ["-created_date", "title"]
+
+    def get_queryset(self, request):
+        """Return all updates with their related product pages pre-filtered by the request's locale."""
+        language_code = request.GET.get("locale", "en")
+        pages_in_request_locale = wagtailpages_models.ProductPage.objects.filter(
+            locale__language_code=language_code,
+            updates__update__isnull=False,
+        )
+        return wagtailpages_models.Update.objects.all().prefetch_related(
+            Prefetch("product_pages__page", queryset=pages_in_request_locale)
+        )
 
 
 class BuyersGuideCTASnippetViewSet(SnippetViewSet):
