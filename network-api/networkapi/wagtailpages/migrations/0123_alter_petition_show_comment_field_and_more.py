@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("wagtailpages", "0121_alter_productupdates_update"),
+        ("wagtailpages", "0122_alter_productupdates_update"),
     ]
 
     operations = [
