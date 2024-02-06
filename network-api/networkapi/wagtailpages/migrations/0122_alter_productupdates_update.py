@@ -6,7 +6,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("wagtailpages", "0122_alter_petition_show_comment_field_and_more"),
+        ("wagtailpages", "0121_alter_productupdates_update"),
     ]
 
     operations = [
