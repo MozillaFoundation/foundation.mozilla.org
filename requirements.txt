@@ -127,7 +127,7 @@ future==0.18.3
     # via -r requirements.in
 gitdb==4.0.9
     # via gitpython
-gitpython==3.1.37
+gitpython==3.1.41
     # via wagtail-localize-git
 gunicorn==21.2.0
     # via -r requirements.in
