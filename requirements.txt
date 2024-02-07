@@ -230,7 +230,7 @@ soupsieve==2.3.1
     # via beautifulsoup4
 sqlparse==0.4.4
     # via django
-telepath==0.2
+telepath==0.3.1
     # via wagtail
 text-unidecode==1.3
     # via python-slugify
@@ -252,7 +252,7 @@ urllib3==1.26.18
     #   sentry-sdk
 user-agents==2.2.0
     # via wagtail-ab-testing
-wagtail==5.2.2
+wagtail==5.2.3
     # via
     #   -r requirements.in
     #   wagtail-ab-testing
