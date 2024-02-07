@@ -88,6 +88,7 @@ env = environ.Env(
     SCOUT_KEY=(str, ""),
     WAGTAILADMIN_BASE_URL=(str, ""),
     PATTERN_LIBRARY_ENABLED=(bool, False),
+    WAGTAIL_AB_TESTING_WORKER_TOKEN=(str, ""),
 )
 
 # Read in the environment
@@ -186,6 +187,12 @@ TESTING = "test" in sys.argv or "pytest" in sys.argv
 # Django Pattern Library
 # Do not enable for production!
 PATTERN_LIBRARY_ENABLED = env("PATTERN_LIBRARY_ENABLED")
+
+# Wagtail AB Testing Cloudflare worker token
+# This is used to authenticate the worker that handles the caching for A/B testing
+# Not enabled on local development
+if not DEBUG:
+    WAGTAIL_AB_TESTING_WORKER_TOKEN = env("WAGTAIL_AB_TESTING_WORKER_TOKEN")
 
 INSTALLED_APPS = list(
     filter(
