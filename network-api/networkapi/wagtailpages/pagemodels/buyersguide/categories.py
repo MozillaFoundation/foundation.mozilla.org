@@ -237,6 +237,7 @@ class BuyersGuideCategoryNavRelation(Orderable):
         verbose_name = "Category Navigation Relation"
         verbose_name_plural = "Category Navigation Relations"
         ordering = ["sort_order"]
+        unique_together = [("nav", "category")]
 
 
 class BuyersGuideCategoryNav(BaseGenericSetting, ClusterableModel):
@@ -248,4 +249,8 @@ class BuyersGuideCategoryNav(BaseGenericSetting, ClusterableModel):
     ]
 
     def __str__(self):
-        return "*PNI Categories Sub Nav"
+        return "*PNI categories navbar"
+
+    class Meta:
+        verbose_name = "*PNI categories navbar"
+        verbose_name_plural = "*PNI categories navbar"
