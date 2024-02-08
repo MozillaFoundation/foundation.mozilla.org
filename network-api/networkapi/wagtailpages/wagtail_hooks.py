@@ -30,6 +30,9 @@ from wagtail_localize.models import (
 
 from networkapi.highlights.models import Highlight
 from networkapi.news.models import News
+from networkapi.wagtailcustomization.views.snippet_chooser import (
+    DefaultLocaleSnippetChooserViewSet,
+)
 from networkapi.wagtailpages import models as wagtailpages_models
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
@@ -604,3 +607,22 @@ class ArchiveSetGroup(SnippetViewSetGroup):
 
 
 register_snippet(ArchiveSetGroup)
+
+# --------------------------------------------------------------------------------------
+# Default language choosers:
+# --------------------------------------------------------------------------------------
+
+# Customise choosers to only show models in the default language as options.
+# We do not want editors to select the translations as localisation for these will be
+# handled on the template instead.
+# BE CAREFUL! Overriding the default chooser this way will take effect everywhere
+# that a model is chosen!
+
+
+@hooks.register("register_admin_viewset")
+def register_donate_banner_chooser_viewset():
+    return DefaultLocaleSnippetChooserViewSet(
+        "wagtailsnippetchoosers_default_locale_product_category",
+        model=wagtailpages_models.BuyersGuideProductCategory,
+        url_prefix="wagtailpages/buyersguideproductcategory",
+    )
