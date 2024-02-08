@@ -874,6 +874,9 @@ class ProductPage(BasePage):
         except Exception:
             return static("_images/buyers-guide/evergreen-social.png")
 
+    def get_preview_template(self, request, mode_name):
+        return "previews/product_page.html"
+
     content_panels = Page.content_panels + [
         FieldPanel("company"),
         MultiFieldPanel(
@@ -1026,7 +1029,24 @@ class ProductPage(BasePage):
         )
         related_products = localize_queryset(related_products, preserve_order=True)
         return related_products.specific()
-
+    
+    @property
+    def preview_related_products(self) -> list:
+        """
+        Fetches related product updates for CMS page previews.
+        """
+        related_products = orderables.get_related_items(
+            self.related_product_pages.all(),
+            "related_product",
+        )
+        # FIXME: This implementation does return the localized version of each product.
+        #        But, it is inefficient. It would be better to pull all products
+        #        for the correct locale at once. This would require the above returns
+        #        a queryset of the products (rather than a list) and that we have an
+        #        efficient way of pulling all items for a given locale.
+        #        See: https://github.com/MozillaFoundation/foundation.mozilla.org/issues/9509
+        return [product.localized for product in related_products]
+                
     @property
     def local_categories(self):
         categories = BuyersGuideProductCategory.objects.filter(product_pages__product=self)

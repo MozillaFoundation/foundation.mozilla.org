@@ -1,0 +1,11 @@
+{# This template is only used for CMS previews of ProductPages. #}
+
+{% extends "pages/buyersguide/product_page.html" %}
+
+{% block related_products %} 
+    {% with related_products=product.preview_related_products %}
+        {% if related_products %}
+            {% include "fragments/buyersguide/related_products_section.html" with related_products=related_products %}
+        {% endif %}
+    {% endwith %}
+{% endblock related_products %}
