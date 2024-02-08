@@ -171,7 +171,7 @@
             {% block related_products %}
                 {% with related_products=product.localized_related_products %}
                     {% if related_products %}
-                      {% include "fragments/buyersguide/related_products_section.html" with related_products=related_products %}
+                        {% include "fragments/buyersguide/related_products_section.html" with related_products=related_products %}
                     {% endif %}
                 {% endwith %}
             {% endblock related_products %}
