@@ -328,12 +328,21 @@ class BuyersGuideCTASnippetViewSet(SnippetViewSet):
     ordering = ("title",)
 
 
+class CategoryNavSnippetViewSet(SnippetViewSet):
+    model = wagtailpages_models.BuyersGuideCategoryNav
+    icon = "arrows-up-down"
+    menu_order = 400
+    menu_label = "Category Nav"
+    menu_name = "Category Nav"
+
+
 class BuyersGuideViewSetGroup(SnippetViewSetGroup):
     items = (
         BuyersGuideProductCategorySnippetViewSet,
         BuyersGuideContentCategorySnippetViewSet,
         UpdateSnippetViewSet,
         BuyersGuideCTASnippetViewSet,
+        CategoryNavSnippetViewSet,
     )
     menu_icon = "pni"
     menu_label = "*PNI"
