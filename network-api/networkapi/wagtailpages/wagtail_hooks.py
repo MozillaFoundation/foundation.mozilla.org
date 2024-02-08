@@ -19,6 +19,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
 )
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail.admin.ui.tables import BooleanColumn
+from wagtail.contrib.settings.models import register_setting
 from wagtail.coreutils import find_available_slug
 from wagtail.rich_text import LinkHandler
 from wagtail.snippets.models import register_snippet
@@ -284,7 +285,7 @@ class BuyersGuideContentCategorySnippetViewSet(SnippetViewSet):
     ordering = ("title",)
 
 
-class UpdateSnippetViewSet(SnippetViewSet):
+class BuyersGuideUpdateSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.Update
     icon = "history"
     menu_order = 200
@@ -331,21 +332,12 @@ class BuyersGuideCTASnippetViewSet(SnippetViewSet):
     ordering = ("title",)
 
 
-class CategoryNavSnippetViewSet(SnippetViewSet):
-    model = wagtailpages_models.BuyersGuideCategoryNav
-    icon = "arrows-up-down"
-    menu_order = 400
-    menu_label = "Category Nav"
-    menu_name = "Category Nav"
-
-
 class BuyersGuideViewSetGroup(SnippetViewSetGroup):
     items = (
         BuyersGuideProductCategorySnippetViewSet,
         BuyersGuideContentCategorySnippetViewSet,
-        UpdateSnippetViewSet,
+        BuyersGuideUpdateSnippetViewSet,
         BuyersGuideCTASnippetViewSet,
-        CategoryNavSnippetViewSet,
     )
     menu_icon = "pni"
     menu_label = "*PNI"
@@ -607,6 +599,13 @@ class ArchiveSetGroup(SnippetViewSetGroup):
 
 
 register_snippet(ArchiveSetGroup)
+
+# --------------------------------------------------------------------------------------
+# Register settings:
+# --------------------------------------------------------------------------------------
+
+register_setting(wagtailpages_models.BuyersGuideCategoryNav, icon="pni")
+
 
 # --------------------------------------------------------------------------------------
 # Default language choosers:
