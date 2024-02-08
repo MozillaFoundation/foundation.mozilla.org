@@ -168,21 +168,14 @@
                 {% endif %}
             {% endwith %}
 
-            {% with related_products=product.localized_related_products %}
-                {% if related_products %}
-                    <section id="related-products" class="tw-col-span-full medium:tw-col-span-2 large:tw-col-start-2">
-                        <div class="tw-flex tw-flex-col medium:tw-items-center large:tw-items-baseline medium:tw-flex-row-reverse medium:tw-gap-12">
-                            {% include "fragments/buyersguide/wavy_line.html" %}
-                            <h2 class="tw-h3-heading tw-mt-4 large:tw-mt-0 tw-shrink-0">{% trans "Related products" %}</h2>
-                        </div>
-                        <div class="tw-grid tw-grid-cols-2 medium:tw-grid-cols-4 tw-gap-16">
-                            {% for related_product_page in related_products %}
-                                {% include "fragments/buyersguide/related_product.html" with related_product=related_product_page %}
-                            {% endfor %}
-                        </div>
-                    </section>
-                {% endif %}
-            {% endwith %}
+            {% block related_products %}
+                {% with related_products=product.localized_related_products %}
+                    {% if related_products %}
+                      {% include "fragments/buyersguide/related_products_section.html" with related_products=related_products %}
+                    {% endif %}
+                {% endwith %}
+            {% endblock related_products %}
+
         </div>
 
         {% if use_commento %}
