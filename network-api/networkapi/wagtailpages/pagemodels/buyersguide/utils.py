@@ -104,7 +104,7 @@ def _localize_category_parent(categories):
     return categories
 
 
-def localize_categories(categories):
+def localize_categories(categories, preserve_order=True):
     """Localize a category.
 
     Localizes a category queryset by finding the localized version of the category.
@@ -117,7 +117,7 @@ def localize_categories(categories):
     Returns:
         BuyersGuideProductCategory: The localized category.
     """
-    categories = localize_queryset(categories)
+    categories = localize_queryset(categories, preserve_order=preserve_order)
     categories = categories.select_related("parent").with_usage_annotation()
     categories = _localize_category_parent(categories)
     return categories
