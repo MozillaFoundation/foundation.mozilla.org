@@ -259,15 +259,17 @@ class BuyersGuideProductCategorySnippetViewSet(SnippetViewSet):
         "name",
         "parent",
         "slug",
+        "sort_order",
         BooleanColumn("featured"),
+        BooleanColumn("hidden"),
         BooleanColumn("is_being_used"),
     )
     search_fields = ("name",)
-    list_filter = ("featured",)
-    ordering = (
-        "name",
-        "parent",
+    list_filter = (
+        "featured",
+        "hidden",
     )
+    ordering = ("name", "parent", "sort_order")
 
 
 class BuyersGuideContentCategorySnippetViewSet(SnippetViewSet):

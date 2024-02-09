@@ -48,6 +48,7 @@ class BuyersGuideProductCategoryFactory(DjangoModelFactory):
     name = Faker("word")
     description = Faker("sentence")
     featured = Faker("boolean")
+    hidden = Faker("boolean")
     share_image = SubFactory(ImageFactory)
     show_cta = Faker("boolean")
 
