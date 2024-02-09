@@ -1,9 +1,6 @@
 from wagtail.models import Locale
 
 from networkapi.wagtailpages.factory import buyersguide as buyersguide_factories
-from networkapi.wagtailpages.pagemodels.buyersguide.categories import (
-    BuyersGuideCategoryNav,
-)
 from networkapi.wagtailpages.templatetags.bg_nav_tags import bg_categories_in_subnav
 from networkapi.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 

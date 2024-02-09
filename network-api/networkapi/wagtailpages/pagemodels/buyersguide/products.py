@@ -40,11 +40,7 @@ from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-from networkapi.wagtailpages.utils import (
-    get_language_from_request,
-    insert_panels_after,
-    localize_queryset,
-)
+from networkapi.wagtailpages.utils import insert_panels_after, localize_queryset
 
 if typing.TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideArticlePage

@@ -12,6 +12,9 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.base import BasePage
+from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
+    get_buyersguide_featured_cta,
+)
 
 if TYPE_CHECKING:
     from django import http

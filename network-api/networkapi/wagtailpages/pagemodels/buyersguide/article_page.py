@@ -1,6 +1,5 @@
 import typing
 
-from django import http
 from django.db import models
 from modelcluster import fields as cluster_fields
 from wagtail import blocks, fields, images
