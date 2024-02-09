@@ -847,12 +847,7 @@ class ProductPage(BasePage):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        language_code = get_language_from_request(request)
-        categories = BuyersGuideProductCategory.objects.filter(hidden=False, locale__language_code=language_code)
-        categories = localize_categories(categories)
-
         context["product"] = self
-        context["categories"] = categories
         context["featured_cta"] = self.get_featured_cta()
         context["mediaUrl"] = settings.MEDIA_URL
         context["use_commento"] = settings.USE_COMMENTO

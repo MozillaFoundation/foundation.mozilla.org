@@ -12,11 +12,6 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.base import BasePage
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
-    get_buyersguide_featured_cta,
-    get_categories_for_locale,
-)
-from networkapi.wagtailpages.utils import get_language_from_request
 
 if TYPE_CHECKING:
     from django import http
@@ -100,9 +95,6 @@ class BuyersGuideEditorialContentIndexPage(
         context = super().get_context(request, *args, **kwargs)
         context["home_page"] = self.get_parent().specific
         context["featured_cta"] = get_buyersguide_featured_cta(self)
-
-        language_code = get_language_from_request(request)
-        context["categories"] = get_categories_for_locale(language_code)
 
         items = self.get_items()
         context["items"] = self.paginate_items(

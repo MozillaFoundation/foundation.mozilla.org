@@ -14,10 +14,6 @@ from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideArticlePageForm,
 )
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
-    get_categories_for_locale,
-)
-from networkapi.wagtailpages.utils import get_language_from_request
 
 if typing.TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideContentCategory, Profile
@@ -109,12 +105,6 @@ class BuyersGuideArticlePage(BasePage):
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
     ]
-
-    def get_context(self, request: http.HttpRequest, *args, **kwargs) -> dict:
-        context = super().get_context(request, *args, **kwargs)
-        language_code = get_language_from_request(request)
-        context["categories"] = get_categories_for_locale(language_code)
-        return context
 
     def get_author_profiles(self) -> list["Profile"]:
         author_profiles = orderables.get_related_items(
