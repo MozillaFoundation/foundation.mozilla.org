@@ -73,20 +73,10 @@ class BuyersGuideProductCategory(
         help_text="Featured category will appear first on Buyer's Guide site nav",
     )
 
-    hidden = models.BooleanField(
-        default=False,
-        help_text="Hidden categories will not appear in the Buyer's Guide site nav at all",
-    )
-
     slug = models.SlugField(
         blank=True,
         help_text="A URL-friendly version of the category name. This is an auto-generated field.",
         max_length=100,
-    )
-
-    sort_order = models.IntegerField(
-        default=1,
-        help_text="Sort ordering number. Same-numbered items sort alphabetically",
     )
 
     share_image = models.ForeignKey(
@@ -113,8 +103,6 @@ class BuyersGuideProductCategory(
         FieldPanel("description"),
         FieldPanel("parent"),
         FieldPanel("featured"),
-        FieldPanel("hidden"),
-        FieldPanel("sort_order"),
         FieldPanel("share_image"),
         FieldPanel("show_cta"),
         InlinePanel(
@@ -139,7 +127,6 @@ class BuyersGuideProductCategory(
         index.AutocompleteField("name", boost=10),
         index.FilterField("locale_id"),
         index.FilterField("featured"),
-        index.FilterField("hidden"),
     ]
 
     @cached_property
@@ -189,9 +176,7 @@ class BuyersGuideProductCategory(
         verbose_name = "Buyers Guide Product Category"
         verbose_name_plural = "Buyers Guide Product Categories"
         ordering = [
-            F("parent__sort_order").asc(nulls_first=True),
             F("parent__name").asc(nulls_first=True),
-            "sort_order",
             "name",
         ]
 
