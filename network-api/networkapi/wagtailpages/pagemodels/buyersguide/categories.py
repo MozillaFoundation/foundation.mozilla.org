@@ -175,7 +175,7 @@ class BuyersGuideProductCategory(
     def __str__(self):
         if self.parent is None:
             return f"{self.name}"
-        return f"{self.parent.name}: {self.name}"
+        return f"{self.parent.name} > {self.name}"
 
     base_form_class = BuyersGuideProductCategoryForm
 
