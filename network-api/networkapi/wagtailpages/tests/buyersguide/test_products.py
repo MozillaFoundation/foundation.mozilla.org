@@ -121,6 +121,189 @@ class TestProductPage(BuyersGuideTestCase):
         # If there is no localized version, the default version should be returned:
         self.assertIn(second_product, related_products_fr)
 
+    def test_preview_related_products(self):
+        """
+        Tests if `preview_related_products` accurately orders and includes related products for page previews.
+        """
+        product_page = self.product_page
+
+        related_product_1 = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        related_product_2 = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        related_product_3 = buyersguide_factories.ProductPageFactory(parent=self.bg)
+
+        buyersguide_factories.RelatedProductsFactory(
+            page=product_page,
+            related_product=related_product_1,
+            sort_order=2,
+        )
+        buyersguide_factories.RelatedProductsFactory(
+            page=product_page,
+            related_product=related_product_2,
+            sort_order=0,
+        )
+        buyersguide_factories.RelatedProductsFactory(
+            page=product_page,
+            related_product=related_product_3,
+            sort_order=1,
+        )
+
+        related_preview_products = product_page.preview_related_products
+
+        self.assertEqual(len(related_preview_products), 3)
+        # Order should be product 2, product 3, product 1.
+        self.assertListEqual(
+            related_preview_products,
+            [related_product_2, related_product_3, related_product_1],
+        )
+
+    def test_preview_related_products_after_deletion(self):
+        """
+        Tests if `preview_related_products` accurately orders and includes related products for page previews,
+        even after a product relation is deleted.
+        """
+        product_page = self.product_page
+
+        related_product_1 = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        related_product_2 = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        related_product_3 = buyersguide_factories.ProductPageFactory(parent=self.bg)
+
+        product_relation_1 = buyersguide_factories.RelatedProductsFactory(
+            page=product_page,
+            related_product=related_product_1,
+            sort_order=2,
+        )
+        buyersguide_factories.RelatedProductsFactory(
+            page=product_page,
+            related_product=related_product_2,
+            sort_order=0,
+        )
+        buyersguide_factories.RelatedProductsFactory(
+            page=product_page,
+            related_product=related_product_3,
+            sort_order=1,
+        )
+
+        related_preview_products = product_page.preview_related_products
+
+        self.assertEqual(len(related_preview_products), 3)
+        # Order should be product 2, product 3, product 1.
+        self.assertListEqual(
+            related_preview_products,
+            [related_product_2, related_product_3, related_product_1],
+        )
+
+        # Remove one product relation
+        product_relation_1.delete()
+
+        # Fetch the related products again after modification
+        updated_preview_products = product_page.preview_related_products
+
+        self.assertEqual(len(updated_preview_products), 2)
+        # Order should be product 2, product 3.
+        self.assertListEqual(
+            updated_preview_products,
+            [related_product_2, related_product_3],
+        )
+
+    def test_preview_related_products_after_reorder(self):
+        """
+        Tests if `preview_related_products` accurately orders and includes related products for page previews,
+        even after related products are reordered.
+        """
+        product_page = self.product_page
+
+        related_product_1 = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        related_product_2 = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        related_product_3 = buyersguide_factories.ProductPageFactory(parent=self.bg)
+
+        product_relation_1 = buyersguide_factories.RelatedProductsFactory(
+            page=product_page,
+            related_product=related_product_1,
+            sort_order=2,
+        )
+        product_relation_2 = buyersguide_factories.RelatedProductsFactory(
+            page=product_page,
+            related_product=related_product_2,
+            sort_order=0,
+        )
+        product_relation_3 = buyersguide_factories.RelatedProductsFactory(
+            page=product_page,
+            related_product=related_product_3,
+            sort_order=1,
+        )
+
+        related_preview_products = product_page.preview_related_products
+
+        # Order should be product 2, product 3, product 1.
+        self.assertListEqual(
+            related_preview_products,
+            [related_product_2, related_product_3, related_product_1],
+        )
+
+        product_relation_1.sort_order = 0
+        product_relation_1.save()
+        product_relation_2.sort_order = 1
+        product_relation_2.save()
+        product_relation_3.sort_order = 2
+        product_relation_3.save()
+
+        # Fetch the related products again after modification
+        updated_preview_products = product_page.preview_related_products
+
+        # Updated order should now be product 1, product 2, product 3.
+        self.assertListEqual(
+            updated_preview_products,
+            [related_product_1, related_product_2, related_product_3],
+        )
+
+    def test_preview_related_products_with_non_default_locale(self):
+        """
+        Verifies `preview_related_products` returns localized related products when applicable.
+        """
+        product_page = self.product_page
+
+        first_product = buyersguide_factories.ProductPageFactory(parent=self.bg, title="First product")
+        second_product = buyersguide_factories.ProductPageFactory(parent=self.bg, title="Second product")
+
+        buyersguide_factories.RelatedProductsFactory(
+            page=product_page,
+            related_product=first_product,
+        )
+        buyersguide_factories.RelatedProductsFactory(
+            page=product_page,
+            related_product=second_product,
+        )
+
+        related_preview_products_en = product_page.preview_related_products
+        self.assertIn(first_product, related_preview_products_en)
+        self.assertIn(second_product, related_preview_products_en)
+
+        self.translate_page(product_page, self.fr_locale)
+        fr_product_page = product_page.get_translation(self.fr_locale)
+
+        self.translate_page(first_product, self.fr_locale)
+        first_product_fr = first_product.get_translation(self.fr_locale)
+        first_product_fr.title = "Premier produit"
+        first_product_fr.save_revision().publish()
+
+        self.activate_locale(self.fr_locale)
+
+        related_preview_products_fr = fr_product_page.preview_related_products
+        # If there is a localized version, that should be returned:
+        self.assertIn(first_product_fr, related_preview_products_fr)
+        # If there is no localized version, the default version should be returned:
+        self.assertIn(second_product, related_preview_products_fr)
+
+    def test_preview_related_products_with_no_products(self):
+        """
+        Tests if `preview_related_products` returns an empty list if no related products are set.
+        """
+        product_page = self.product_page
+
+        related_preview_products = product_page.preview_related_products
+
+        self.assertEqual(related_preview_products, [])
+
     def test_get_related_articles(self):
         """
         Returns all related articles.
