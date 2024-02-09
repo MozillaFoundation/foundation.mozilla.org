@@ -259,7 +259,6 @@ class BuyersGuideProductCategorySnippetViewSet(SnippetViewSet):
         "name",
         "parent",
         "slug",
-        "sort_order",
         BooleanColumn("featured"),
         BooleanColumn("hidden"),
         BooleanColumn("is_being_used"),
@@ -269,7 +268,10 @@ class BuyersGuideProductCategorySnippetViewSet(SnippetViewSet):
         "featured",
         "hidden",
     )
-    ordering = ("name", "parent", "sort_order")
+    ordering = (
+        "name",
+        "parent",
+    )
 
 
 class BuyersGuideContentCategorySnippetViewSet(SnippetViewSet):

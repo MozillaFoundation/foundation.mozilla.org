@@ -59,3 +59,18 @@ def bg_categories_in_subnav():
     local_cats = localize_categories(default_categories, preserve_order=True)
 
     return local_cats
+
+
+@register.simple_tag(name="bg_non_hidden_categories")
+def bg_non_hidden_categories():
+    """Get localised categories that were selected to be in the PNI subnav."""
+    default_language = settings.LANGUAGE_CODE
+    BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
+
+    default_categories = BuyersGuideProductCategory.objects.filter(
+        hidden=False, locale__language_code=default_language
+    ).order_by("name")
+
+    all_cats = localize_categories(default_categories, preserve_order=True)
+
+    return all_cats

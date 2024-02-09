@@ -84,11 +84,6 @@ class BuyersGuideProductCategory(
         max_length=100,
     )
 
-    sort_order = models.IntegerField(
-        default=1,
-        help_text="Sort ordering number. Same-numbered items sort alphabetically",
-    )
-
     share_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -114,7 +109,6 @@ class BuyersGuideProductCategory(
         FieldPanel("parent"),
         FieldPanel("featured"),
         FieldPanel("hidden"),
-        FieldPanel("sort_order"),
         FieldPanel("share_image"),
         FieldPanel("show_cta"),
         InlinePanel(
@@ -189,9 +183,7 @@ class BuyersGuideProductCategory(
         verbose_name = "Buyers Guide Product Category"
         verbose_name_plural = "Buyers Guide Product Categories"
         ordering = [
-            F("parent__sort_order").asc(nulls_first=True),
             F("parent__name").asc(nulls_first=True),
-            "sort_order",
             "name",
         ]
 
