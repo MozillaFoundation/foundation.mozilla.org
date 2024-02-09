@@ -20,6 +20,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail.admin.ui.tables import BooleanColumn
 from wagtail.contrib.settings.models import register_setting
+from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.coreutils import find_available_slug
 from wagtail.rich_text import LinkHandler
 from wagtail.snippets.models import register_snippet
@@ -343,6 +344,11 @@ class BuyersGuideViewSetGroup(SnippetViewSetGroup):
     menu_label = "*PNI"
     menu_name = "*PNI"
     menu_order = 1500
+
+    def get_submenu_items(self):
+        menu_items = super().get_submenu_items()
+        menu_items.append(SettingMenuItem(wagtailpages_models.BuyersGuideCategoryNav))
+        return menu_items
 
 
 register_snippet(BuyersGuideViewSetGroup)
