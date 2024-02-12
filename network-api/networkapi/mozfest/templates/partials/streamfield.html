@@ -1,5 +1,8 @@
 {% load wagtailcore_tags %}
 
 {% for block in page.body %}
+    {% if forloop.first and block.block_type == 'paragraph' %}
+        {% block render_spacer %}{% endblock render_spacer %}
+    {% endif %}
     {% include_block block with parent_page=page %}
 {% endfor %}
