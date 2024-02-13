@@ -1038,9 +1038,8 @@ class ProductPage(BasePage):
         related_products = orderables.get_related_items(
             self.related_product_pages.all(), "related_product", order_by="sort_order"
         )
-        # This method, while inneficient, is neccesary as we are using it to render
-        # any related_product updates that are stored in memory, but not yet saved in the DB.
-        return [product.localized for product in related_products]
+
+        return related_products
 
     @property
     def local_categories(self):

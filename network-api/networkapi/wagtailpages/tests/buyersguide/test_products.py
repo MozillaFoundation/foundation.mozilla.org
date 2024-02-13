@@ -1,5 +1,6 @@
 import json
 
+import bs4
 from django.test import TestCase
 from django.test.utils import override_settings
 from rest_framework.test import APITestCase
@@ -123,7 +124,8 @@ class TestProductPage(BuyersGuideTestCase):
 
     def test_preview_related_products(self):
         """
-        Tests if `preview_related_products` accurately orders and includes related products for page previews.
+        Tests if `preview_related_products` returns related products according to sort order,
+        and renders them in the ProductPage CMS preview panel.
         """
         product_page = self.product_page
 
@@ -132,34 +134,41 @@ class TestProductPage(BuyersGuideTestCase):
         related_product_3 = buyersguide_factories.ProductPageFactory(parent=self.bg)
 
         buyersguide_factories.RelatedProductsFactory(
-            page=product_page,
-            related_product=related_product_1,
-            sort_order=2,
+            page=product_page, related_product=related_product_1, sort_order=2
         )
         buyersguide_factories.RelatedProductsFactory(
-            page=product_page,
-            related_product=related_product_2,
-            sort_order=0,
+            page=product_page, related_product=related_product_2, sort_order=1
         )
         buyersguide_factories.RelatedProductsFactory(
-            page=product_page,
-            related_product=related_product_3,
-            sort_order=1,
+            page=product_page, related_product=related_product_3, sort_order=3
         )
 
-        related_preview_products = product_page.preview_related_products
+        preview_methods_related_products = product_page.preview_related_products
 
-        self.assertEqual(len(related_preview_products), 3)
-        # Order should be product 2, product 3, product 1.
+        # Order should be product 2, product 1, product 3.
         self.assertListEqual(
-            related_preview_products,
-            [related_product_2, related_product_3, related_product_1],
+            preview_methods_related_products,
+            [related_product_2, related_product_1, related_product_3],
+        )
+
+        # Grab preview template response, find all related product titles in HTML.
+        preview_response = product_page.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+        related_product_titles_from_preview_template = [
+            p.get_text(strip=True) for p in soup.find_all("p", class_="product-title")
+        ]
+
+        # Check if template renders related products as expected.
+        # Order should be: product 2, product 1, product 3.
+        self.assertEqual(
+            related_product_titles_from_preview_template,
+            [related_product_2.title, related_product_1.title, related_product_3.title],
         )
 
     def test_preview_related_products_after_deletion(self):
         """
-        Tests if `preview_related_products` accurately orders and includes related products for page previews,
-        even after a product relation is deleted.
+        Tests if `preview_related_products` accurately returns related products for CMS page previews,
+        even after a related product relation is deleted.
         """
         product_page = self.product_page
 
@@ -170,44 +179,68 @@ class TestProductPage(BuyersGuideTestCase):
         product_relation_1 = buyersguide_factories.RelatedProductsFactory(
             page=product_page,
             related_product=related_product_1,
-            sort_order=2,
         )
         buyersguide_factories.RelatedProductsFactory(
             page=product_page,
             related_product=related_product_2,
-            sort_order=0,
         )
         buyersguide_factories.RelatedProductsFactory(
             page=product_page,
             related_product=related_product_3,
-            sort_order=1,
         )
 
-        related_preview_products = product_page.preview_related_products
+        preview_methods_related_products = product_page.preview_related_products
 
-        self.assertEqual(len(related_preview_products), 3)
-        # Order should be product 2, product 3, product 1.
+        # Check if method returns related products as expected.
+        # Order should be: product 1, product 2, product 3.
         self.assertListEqual(
-            related_preview_products,
-            [related_product_2, related_product_3, related_product_1],
+            preview_methods_related_products,
+            [related_product_1, related_product_2, related_product_3],
         )
 
-        # Remove one product relation
+        # Grab preview template response, find all related product titles in HTML.
+        preview_response = product_page.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+        related_product_titles_from_preview_template = [
+            p.get_text(strip=True) for p in soup.find_all("p", class_="product-title")
+        ]
+
+        # Check if template returns related products as expected.
+        # Order should be: product 1, product 2, product 3.
+        self.assertEqual(
+            related_product_titles_from_preview_template,
+            [related_product_1.title, related_product_2.title, related_product_3.title],
+        )
+
+        # Remove one product relation.
         product_relation_1.delete()
 
-        # Fetch the related products again after modification
-        updated_preview_products = product_page.preview_related_products
+        # Fetch the related products again after modification.
+        preview_methods_related_products_after_deletion = product_page.preview_related_products
 
-        self.assertEqual(len(updated_preview_products), 2)
+        # Make sure list returned reflects the deletion.
         # Order should be product 2, product 3.
         self.assertListEqual(
-            updated_preview_products,
+            preview_methods_related_products_after_deletion,
             [related_product_2, related_product_3],
+        )
+
+        # Double check that preview template reflects deletion as expected.
+        preview_response = product_page.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+        related_product_titles_from_preview_template = [
+            p.get_text(strip=True) for p in soup.find_all("p", class_="product-title")
+        ]
+
+        # Check if template reflects update.
+        # Order should be: product 2, product 3, product 1.
+        self.assertEqual(
+            related_product_titles_from_preview_template, [related_product_2.title, related_product_3.title]
         )
 
     def test_preview_related_products_after_reorder(self):
         """
-        Tests if `preview_related_products` accurately orders and includes related products for page previews,
+        Tests if `preview_related_products` accurately returns related products for CMS page previews,
         even after related products are reordered.
         """
         product_page = self.product_page
@@ -219,80 +252,64 @@ class TestProductPage(BuyersGuideTestCase):
         product_relation_1 = buyersguide_factories.RelatedProductsFactory(
             page=product_page,
             related_product=related_product_1,
-            sort_order=2,
         )
         product_relation_2 = buyersguide_factories.RelatedProductsFactory(
             page=product_page,
             related_product=related_product_2,
-            sort_order=0,
         )
         product_relation_3 = buyersguide_factories.RelatedProductsFactory(
             page=product_page,
             related_product=related_product_3,
-            sort_order=1,
         )
 
-        related_preview_products = product_page.preview_related_products
+        preview_methods_related_products = product_page.preview_related_products
 
-        # Order should be product 2, product 3, product 1.
+        # Order should be: product 1, product 2, product 3.
         self.assertListEqual(
-            related_preview_products,
-            [related_product_2, related_product_3, related_product_1],
-        )
-
-        product_relation_1.sort_order = 0
-        product_relation_1.save()
-        product_relation_2.sort_order = 1
-        product_relation_2.save()
-        product_relation_3.sort_order = 2
-        product_relation_3.save()
-
-        # Fetch the related products again after modification
-        updated_preview_products = product_page.preview_related_products
-
-        # Updated order should now be product 1, product 2, product 3.
-        self.assertListEqual(
-            updated_preview_products,
+            preview_methods_related_products,
             [related_product_1, related_product_2, related_product_3],
         )
 
-    def test_preview_related_products_with_non_default_locale(self):
-        """
-        Verifies `preview_related_products` returns localized related products when applicable.
-        """
-        product_page = self.product_page
+        # Grab preview template response, find all related product titles in HTML.
+        preview_response = product_page.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+        related_product_titles_from_preview_template = [
+            p.get_text(strip=True) for p in soup.find_all("p", class_="product-title")
+        ]
 
-        first_product = buyersguide_factories.ProductPageFactory(parent=self.bg, title="First product")
-        second_product = buyersguide_factories.ProductPageFactory(parent=self.bg, title="Second product")
-
-        buyersguide_factories.RelatedProductsFactory(
-            page=product_page,
-            related_product=first_product,
-        )
-        buyersguide_factories.RelatedProductsFactory(
-            page=product_page,
-            related_product=second_product,
+        # Check if template renders related products as expected.
+        # Order should be: product 1, product 2, product 3.
+        self.assertEqual(
+            related_product_titles_from_preview_template,
+            [related_product_1.title, related_product_2.title, related_product_3.title],
         )
 
-        related_preview_products_en = product_page.preview_related_products
-        self.assertIn(first_product, related_preview_products_en)
-        self.assertIn(second_product, related_preview_products_en)
+        # Update product order in memory
+        # New order is: product 2, product 1, product 3
+        product_page.related_product_pages = [product_relation_2, product_relation_1, product_relation_3]
 
-        self.translate_page(product_page, self.fr_locale)
-        fr_product_page = product_page.get_translation(self.fr_locale)
+        # Fetch the related products again after modification
+        preview_methods_related_products_after_reorder = product_page.preview_related_products
 
-        self.translate_page(first_product, self.fr_locale)
-        first_product_fr = first_product.get_translation(self.fr_locale)
-        first_product_fr.title = "Premier produit"
-        first_product_fr.save_revision().publish()
+        # Updated order should now be: product 2, product 1, product 3.
+        self.assertListEqual(
+            preview_methods_related_products_after_reorder,
+            [related_product_2, related_product_1, related_product_3],
+        )
 
-        self.activate_locale(self.fr_locale)
+        # Grab preview template response, find all related product titles in HTML.
+        preview_response = product_page.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+        related_product_titles_from_preview_template = [
+            p.get_text(strip=True) for p in soup.find_all("p", class_="product-title")
+        ]
 
-        related_preview_products_fr = fr_product_page.preview_related_products
-        # If there is a localized version, that should be returned:
-        self.assertIn(first_product_fr, related_preview_products_fr)
-        # If there is no localized version, the default version should be returned:
-        self.assertIn(second_product, related_preview_products_fr)
+        # Check if template reflects update.
+        # Order should be: product 2, product 1, product 3.
+        self.assertEqual(
+            related_product_titles_from_preview_template,
+            [related_product_2.title, related_product_1.title, related_product_3.title],
+        )
 
     def test_preview_related_products_with_no_products(self):
         """

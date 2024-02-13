@@ -1,11 +1,11 @@
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from django.db import models
 
 
 def get_related_items(
-    queryset: "models.QuerySet", related_item_field: str, order_by: Optional[str] = None
+    queryset: "models.QuerySet", related_item_field: str, order_by: str | None = None
 ) -> list["models.Model"]:
     """
     Return list of the related items from the queryset.
