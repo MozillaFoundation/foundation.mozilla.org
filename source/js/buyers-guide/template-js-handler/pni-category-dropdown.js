@@ -2,6 +2,7 @@
 
 export default () => {
   const dropdown = document.querySelector(".pni-category-dropdown");
+  const dropdownButton = dropdown.querySelector(".pni-category-dropdown-button");
 
   // Need this to keep track of the default text of the dropdown button when using different locales
   let defaultDropdownHeaderText;
@@ -74,7 +75,7 @@ export default () => {
     );
 
     const dropdownHeaderText = document.querySelector(
-      ".pni-category-dropdown > span"
+      ".pni-category-dropdown-button > span"
     );
 
     if (activeCategory) {
@@ -88,7 +89,7 @@ export default () => {
 
   if (dropdown) {
     // removing styling that are exclusive used when JS is disabled or before it is loaded
-    dropdown.classList.add("tw-inline-flex");
+    dropdown.classList.add("tw-block");
     dropdown.classList.remove("tw-hidden");
     categoryWrapper.classList.add("tw-w-max", "tw-min-w-full");
     document
@@ -101,7 +102,7 @@ export default () => {
       );
 
     defaultDropdownHeaderText = document.querySelector(
-      ".pni-category-dropdown > span"
+      ".pni-category-dropdown-button > span"
     ).innerText;
 
     // If there is an overflow of categories lets start moving them to the category dropdown
@@ -127,9 +128,9 @@ export default () => {
       }
     };
 
-    dropdown.addEventListener("click", function (event) {
+    dropdownButton.addEventListener("click", function (event) {
       event.stopPropagation();
-      dropdownSelect.classList.remove("tw-hidden");
+      dropdownSelect.classList.toggle("tw-hidden");
     });
 
     dropdownSelectItems.forEach((item) => {
@@ -140,3 +141,5 @@ export default () => {
     });
   }
 };
+
+
