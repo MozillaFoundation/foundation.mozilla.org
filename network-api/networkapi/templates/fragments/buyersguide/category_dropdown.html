@@ -1,51 +1,33 @@
 {% load static wagtailcore_tags localization bg_nav_tags wagtailimages_tags i18n %}
+<div class="pni-category-dropdown tw-hidden tw-relative">
+    <button
+        class="
+            tw-inline-flex
+            pni-category-dropdown-button
+            tw-bg-transparent
+            tw-items-center
+            tw-relative
+            tw-pr-10
+            tw-py-4
+            tw-mr-auto
+            tw-font-sans
+            tw-font-bold
+            tw-text-sm
+            tw-group
+            hover:tw-text-black
+            tw-text-gray-40
+            "
+        aria-controls="pni-category-dropdown-select"
+        aria-expanded="false"
+        aria-label="{% trans 'Open category dropdown' %}"
+        data-aria-close-label="{% trans 'Close category dropdown' %}"
+    >
+        <span>{% trans "More Categories" %}</span>
+        <svg aria-hidden="true" focusable="false" width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" class="tw-ml-4 tw-origin-center tw-stroke-gray-40 group-hover:tw-stroke-black">
+            <path d="M1 1L5.02504 5.02504L9.05007 1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    <ul id="pni-category-dropdown-select" class="tw-hidden tw-list-none tw-absolute tw-top-full tw-w-auto tw-right-0 tw-p-0 tw-z-50 tw-border-gray-20 tw-border tw-pb-4 tw-bg-white">
 
-<button
-    class="
-           pni-category-dropdown
-           tw-hidden
-           tw-bg-transparent
-           tw-items-center
-           tw-relative
-           tw-pr-10
-           tw-py-4
-           tw-mr-auto
-           tw-font-sans
-           tw-font-bold
-           tw-text-sm
-           tw-group
-           hover:tw-text-black
-           tw-text-gray-40
-          "
->
-    <span>{% trans "More Categories" %}</span>
-    <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" class="tw-ml-4 tw-origin-center tw-stroke-gray-40 group-hover:tw-stroke-black">
-        <title>{% trans "Open category drop down" %}</title>
-        <path d="M1 1L5.02504 5.02504L9.05007 1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <ul id="pni-category-dropdown-select" class="tw-hidden tw-list-none tw-absolute tw-right-0 tw-p-0 tw-top-0 tw-z-50 tw-border-gray-20 tw-border tw-pb-4 tw-bg-white">
-        <li class="
-                   tw-bg-white
-                   tw-w-full
-                   tw-mr-0
-                   tw-font-sans
-                   tw-font-bold
-                   tw-no-underline
-                   tw-px-8
-                   tw-py-4
-                   tw-mb-0
-                   tw-text-black
-                   tw-flex
-                   tw-items-center
-                   tw-justify-end
-                   tw-text-sm
-                  ">
-            <span>{% trans "More Categories" %}</span>
-            <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" class="tw-ml-4 tw-origin-center tw-stroke-black tw-rotate-180">
-                <title>{% trans "Close category drop down" %}</title>
-                <path d="M1 1L5.02504 5.02504L9.05007 1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </li>
     </ul>
-
-</button>
+</div>
