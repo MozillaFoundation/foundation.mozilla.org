@@ -1,8 +1,7 @@
 export default () => {
   const dropdown = document.querySelector(".pni-category-dropdown");
   const dropdownButton = dropdown.querySelector(".pni-category-dropdown-button");
-  const dropdownButtonAriaCloseText = dropdownButton.getAttribute("data-aria-close-label");
-  const dropdownButtonAriaOpenText = dropdownButton.getAttribute("data-aria-close-label");
+  const dropdownButtonContent = dropdownButton.querySelector("span");
   const dropdownButtonChevron = dropdownButton.querySelector("svg");
   const dropdownSelect = dropdown.querySelector("#pni-category-dropdown-select");
   let defaultDropdownHeaderText;  // Keep track of dropdown button's default text for different locales
@@ -69,16 +68,16 @@ export default () => {
     const activeCategory = document.querySelector(
       "#pni-category-dropdown-select .active"
     );
-    const dropdownHeaderText = document.querySelector(
-      ".pni-category-dropdown-button > span"
-    );
 
+    const dropdownHeaderText = dropdownButtonContent.querySelector("span");
     if (activeCategory) {
       dropdownHeaderText.innerText = activeCategory.innerText;
       dropdownHeaderText.classList.add("tw-text-black");
+      dropdownHeaderText.setAttribute("aria-current", "page"); 
     } else {
       dropdownHeaderText.innerText = defaultDropdownHeaderText;
       dropdownHeaderText.classList.remove("tw-text-black");
+      dropdownHeaderText.removeAttribute("aria-current");
     }
   };
 
@@ -87,7 +86,6 @@ export default () => {
     dropdownSelect.classList.remove("tw-hidden");
     dropdownButton.setAttribute('aria-expanded', 'true');
     dropdownButtonChevron.classList.add("tw-stroke-black", "tw-rotate-180");
-    dropdownButton.setAttribute('aria-label', dropdownButtonAriaCloseText);
 
     if (withFocus) {
       const firstOption = dropdownSelect.querySelector("li > a");
@@ -102,7 +100,6 @@ export default () => {
     dropdownSelect.classList.add("tw-hidden");
     dropdownButton.setAttribute('aria-expanded', 'false');
     dropdownButtonChevron.classList.remove("tw-stroke-black", "tw-rotate-180");
-    dropdownButton.setAttribute('aria-label', dropdownButtonAriaOpenText);
   };
 
   if (dropdown && dropdownButton && dropdownSelect) {
@@ -119,8 +116,8 @@ export default () => {
         "tw-mr-8"
       );
 
-    defaultDropdownHeaderText = document.querySelector(
-      ".pni-category-dropdown-button > span"
+    defaultDropdownHeaderText = dropdownButtonContent.querySelector(
+      "span"
     ).innerText;
 
     // If there is an overflow of categories lets start moving them to the category dropdown
@@ -151,7 +148,7 @@ export default () => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
         if (dropdownButton.getAttribute('aria-expanded') === 'false') {
-          openMenu(withFocus = true);
+          openMenu(true);
         } else {
           closeMenu();
         }
@@ -165,7 +162,7 @@ export default () => {
             firstOption.focus();
           }
         } else {
-          openMenu(withFocus = true);
+          openMenu(true);
         }
       }
     });
@@ -191,8 +188,7 @@ export default () => {
     // Event listener for keyboard and click events on dropdown options
     dropdownSelect.querySelectorAll("li").forEach(function (option) {
       // Event listener for click events on dropdown options
-      option.querySelector("a")?.addEventListener("click", function (event) {
-        event.stopPropagation();
+      option.querySelector("a")?.addEventListener("click", function () {
         closeMenu();
       });
 
