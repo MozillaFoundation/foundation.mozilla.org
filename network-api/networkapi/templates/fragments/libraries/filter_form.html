@@ -11,7 +11,7 @@
                     {% if field.field.widget.input_type == "checkbox" %}
                         {% for pk, choice in field.field.widget.choices %}
                             <li class="tw-flex tw-flex-row tw-items-baseline ">
-                                <input id="id_{{ field.name }}_{{ forloop.counter0 }}" name="{{ field.name }}" type="{{ field.field.widget.input_type }}" value="{{ pk }}" class="libraries-{{ field.field.widget.input_type }}" {% if pk|stringformat:"i" in field.value %}checked=""{% endif %}/>
+                                <input id="id_{{ field.name }}_{{ forloop.counter0 }}" name="{{ field.name }}" type="{{ field.field.widget.input_type }}" value="{{ pk }}" class="libraries-{{ field.field.widget.input_type }}" {% if pk|stringformat:"i" in field.value %}checked=""{% endif %}>
                                 <label for="id_{{ field.name }}_{{ forloop.counter0 }}" class="tw-pr-6 tw-overflow-hidden tw-break-words tw-hyphens-auto">
                                     {{ choice }}
                                 </label>
