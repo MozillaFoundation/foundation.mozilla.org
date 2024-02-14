@@ -2,6 +2,9 @@ from urllib.parse import urlparse
 
 from django import template
 from django.apps import apps
+from django.conf import settings
+
+from networkapi.wagtailpages.pagemodels.buyersguide.utils import localize_categories
 
 register = template.Library()
 
@@ -39,3 +42,35 @@ def product_in_category(productpage, categorySlug):
         return True
     categories = productpage.product_categories.all()
     return categorySlug in [cat.category.slug for cat in categories]
+
+
+@register.simple_tag(name="bg_categories_in_subnav")
+def bg_categories_in_subnav():
+    """Get localised categories that were selected to be in the PNI subnav."""
+    default_language = settings.LANGUAGE_CODE
+    BuyersGuideCategoryNav = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideCategoryNav")
+    BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
+
+    categories_nav = BuyersGuideCategoryNav.load()
+    default_categories = BuyersGuideProductCategory.objects.filter(
+        nav_relations__nav=categories_nav, locale__language_code=default_language
+    ).order_by("nav_relations__sort_order")
+
+    local_cats = localize_categories(default_categories, preserve_order=True)
+
+    return local_cats
+
+
+@register.simple_tag(name="bg_non_hidden_categories")
+def bg_non_hidden_categories():
+    """Get localised categories that were selected to be in the PNI subnav."""
+    default_language = settings.LANGUAGE_CODE
+    BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
+
+    default_categories = BuyersGuideProductCategory.objects.filter(
+        hidden=False, locale__language_code=default_language
+    ).order_by("name")
+
+    all_cats = localize_categories(default_categories, preserve_order=True)
+
+    return all_cats

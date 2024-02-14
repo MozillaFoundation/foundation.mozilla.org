@@ -77,6 +77,8 @@
 
     {% get_bg_home_page as home_page %}
 
+    {% bg_categories_in_subnav as categories %}
+
     <div class="primary-nav-container-wrapper">
         {% include "fragments/buyersguide/primary_nav.html" %}
     </div>
@@ -89,7 +91,7 @@
     {% endblock %}
 
     {% block category_nav %}
-        {% include "fragments/buyersguide/pni_category_nav.html" with show_all_reviews_as_active_category=False categories=categories current_category=current_category %}
+        {% include "fragments/buyersguide/pni_category_nav.html" with show_all_reviews_as_active_category=False current_category=current_category %}
     {% endblock %}
 
     <!-- Need to position relatives to deal with potential CSS transformations that change some stacking context of elements -->

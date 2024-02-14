@@ -26,6 +26,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide import utils as bg_utils
+from networkapi.wagtailpages.templatetags.bg_nav_tags import bg_categories_in_subnav
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import (
     get_language_from_request,
@@ -326,8 +327,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         sitemap = super().get_sitemap_urls(request)
         last_modified = self.last_published_at or self.latest_revision_created_at
         # Add all the available Buyers Guide categories to the sitemap
-        BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
-        categories = BuyersGuideProductCategory.objects.filter(hidden=False)
+        categories = bg_categories_in_subnav()
         for category in categories:
             sitemap.append(
                 {
@@ -375,15 +375,6 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
                 language_code=language_code,
             )
 
-        BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
-        category_cache_key = f"pni_home_categories_{language_code}"
-        categories = cache.get(category_cache_key)
-        if not categories:
-            categories = BuyersGuideProductCategory.objects.filter(hidden=False, locale__language_code=language_code)
-            categories = bg_utils.localize_categories(categories)
-            cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
-
-        context["categories"] = categories
         context["current_category"] = None
         context["featured_cta"] = self.call_to_action
         context["products"] = products
