@@ -1,17 +1,19 @@
 import { ReactGA } from "../../common";
 
 /**
- * Bind click handler to #donate-header-btn
+ * Bind click handler to data-donate-header-button
  * ("Donate" button on primary nav)
  */
 export default () => {
-  let donateHeaderBtn = document.getElementById(`donate-header-btn`);
-  if (donateHeaderBtn) {
-    donateHeaderBtn.addEventListener(`click`, () => {
-      ReactGA.event({
-        category: `donate`,
-        action: `donate button tap`,
-        label: `${document.title} header`,
+  const donateHeaderBtn = document.querySelectorAll('[data-donate-header-button]');
+  if (donateHeaderBtn.length > 0) {
+    donateHeaderBtn.forEach((element) => {
+      element.addEventListener(`click`, () => {
+        ReactGA.event({
+          category: `donate`,
+          action: `donate button tap`,
+          label: `${document.title} header`,
+        });
       });
     });
   }
