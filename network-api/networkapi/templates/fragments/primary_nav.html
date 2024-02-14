@@ -28,7 +28,7 @@
                 {% endblock %}
             </div>
         {% endblock %}
-        <nav class="container wide-screen-menu-container" title="{% trans "main site navigation" context "Tooltip on menu items" %}">
+        <nav class="container wide-screen-menu-container tw-relative" title="{% trans "main site navigation" context "Tooltip on menu items" %}">
             <div class="row">
                 <div class="col">
                     <div class="d-flex flex-row justify-content-between">
@@ -52,8 +52,8 @@
                                 {% endif %}
 
                                 {% block wide_screen_menu %}
-                                    <div class="nav-links d-none d-lg-block">
-                                        {% include "fragments/nav_links.html" %}
+                                    <div class="nav-links d-none d-lg-block" id="wide-screen-nav-links">
+                                        {% include "fragments/prototype_nav_links.html" with pre="<div class='tw-inline-block tw-group'>" post="</div>" %}
                                     </div>
                                 {% endblock %}
 
@@ -70,11 +70,9 @@
 
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-</div>
-</div>
+    </div>
 </div>
 
 

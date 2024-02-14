@@ -1,0 +1,67 @@
+
+<script type="text/template" id="prototype-nav-links-template">
+  <% _.each(navItems, function(navItem, index) { %>
+      {{ pre }}
+      <a class="" href="<%= navItem.link %>"><%= navItem.name %></a>
+
+      <div class="submenu tw-z-50 tw-container tw-invisible tw-opacity-0 group-hover:tw-visible group-focus-within:tw-visible group-hover:tw-opacity-100 group-focus-within:tw-opacity-100 tw-absolute tw-top-[100%] tw-left-0">
+        <div class="tw-row tw-mt-8 <% if (index >= 3) { %>tw-justify-end<% } %>">
+            <div class="tw-w-<%= navItem.totalDesktopColumnSpan %>/4 tw-grid tw-grid-cols-<%= navItem.totalDesktopColumnSpan %> tw-border tw-bg-white tw-border-gray-20 ">
+                {% with section_inner_wrapper_class="tw-h-[calc(100%-90px)] tw-my-[45px] tw-px-12" heading_class="tw-uppercase tw-font-sans tw-text-xs tw-tracking-[0.5px] tw-px-4 tw-mb-10" paragraph_class="tw-font-normal" list_class="tw-mb-0 tw-list-none tw-px-0 tw-flex tw-flex-col tw-gap-6" list_item_class="tw-p-4 tw-mb-0" link_class="tw-font-semibold tw-text-lg" %}
+                      <% _.each(navItem.dropdown, function(section) { %>
+                        <div class="{{ section_class }} tw-col-span-<%= section.desktopColSpan %> <% if (section.type == 'featured') { %>tw-bg-blue-03<% } %>">
+                            <% if (section.type == "intro") { %>
+                              <div class="{{ section_inner_wrapper_class }} tw-border-r tw-border-gray-20">
+                                <h2 class="tw-text-2xl tw-leading-6 tw-font-medium tw-italic tw-mb-10"><%= section.title %></h4>
+                                <p class="{{ paragraph_class }}"><%= section.content.description %></p>
+                                <a class="tw-btn-primary tw-text-white tw-w-full tw-py-4 tw-mt-8" href="<%= section.content.button.url %>"><%= section.content.button.text %></a>
+                              </div>
+                            <% } else if (section.type == "link" || section.type == "featured") { %>
+                              <div class="{{ section_inner_wrapper_class }}">
+                                <h2 class="{{ heading_class }}"><%= section.title %></h2>
+                                <ul class="{{ list_class }}">
+                                  <% _.each(section.links, function(link) { %>
+                                    <li class="{{ list_item_class }}">
+                                      <a class="{{ link_class }}" href="<%= link.url %>"><%= link.title %></a>
+                                      <% if (link.description) { %>
+                                        <p class="tw-text-gray-80 tw-text-sm"><%= link.description %></p>
+                                      <% } %>
+                                    </li>
+                                  <% }); %>
+                                </ul>
+                              </div>
+                              <% } else if (section.type == "posts") { %>
+                              <div class="{{ section_inner_wrapper_class }}">
+                                <h2 class="{{ heading_class }}"><%= section.title %></h2>
+                                <ul class="{{ list_class }}">
+                                  <% _.each(section.links, function(link) { %>
+                                    <li class="{{ list_item_class }}">
+                                      <p class="tw-uppercase tw-font-sans tw-text-xs tw-text-gray-40 tw-mb-2"><%= link.category %></p>
+                                      <a class="{{ link_class }}" href="<%= link.url %>"><%= link.title %></a>
+                                      <% if (link.description) { %>
+                                        <p class="tw-text-gray-80 tw-text-sm"><%= link.description %></p>
+                                      <% } %>
+                                    </li>
+                                  <% }); %>
+                                </ul>
+                              </div>
+                            <% } %>
+                        </div>
+                      <% }); %>
+
+                      <% if (navItem.bigCta) { %>
+                      <div class="tw-col-span-<%= navItem.totalDesktopColumnSpan %>">
+                        <a class="tw-btn-primary tw-text-white tw-w-full tw-py-4" href="<%= navItem.bigCta.link %>"><%= navItem.bigCta.text %></a>
+                      </div>
+                      <% } %>
+
+                {% endwith %}
+            </div>
+        </div>
+      </div>
+
+      {{ post }}
+  <% }); %>
+  </script>
+
+

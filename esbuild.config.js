@@ -59,6 +59,9 @@ const sources = {
   polyfills: {
     source: `polyfills.js`,
   },
+  "prototype-main-nav": {
+    source: `common/prototype-main-nav.js`,
+  },
 };
 
 const base = {

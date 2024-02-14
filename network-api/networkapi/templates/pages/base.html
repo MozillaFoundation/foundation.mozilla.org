@@ -132,6 +132,8 @@
         {% block script_bundle %}
             <script src="{% url "javascript-catalog" %}"></script>
             <script src="{% static "_js/main.compiled.js" %}"></script>
+            <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.6/underscore-umd-min.js"></script>
+            <script src="{% static '_js/prototype-main-nav.compiled.js' %}" async defer></script>
         {% endblock %}
 
         {% block extra_scripts %}{% endblock %}
