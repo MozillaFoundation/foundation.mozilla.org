@@ -1,0 +1,387 @@
+const template = _.template(
+  document.getElementById("prototype-nav-links-template").innerHTML
+);
+
+var data = {
+  navItems: [
+    {
+      name: "Who we are",
+      url: "/",
+      class: "",
+      dropdown: [
+        {
+          type: "intro",
+          title: "About Us",
+          content: {
+            description:
+              "Mozilla is a global nonprofit dedicated to keeping the Internet a public resource that is open and accessible to all.",
+            button: {
+              text: "Learn more →",
+              url: "/who-we-are",
+            },
+          },
+          class: "",
+        },
+        {
+          type: "link",
+          title: "Approach",
+          links: [
+            {
+              title: "Strategy",
+              url: "/en/who-we-are/strategy/",
+            },
+            {
+              title: "Leadership",
+              url: "/en/who-we-are/leadership/",
+            },
+          ],
+          class: "",
+        },
+        {
+          type: "link",
+          title: "Legal",
+          links: [
+            {
+              title: "Public Records",
+              url: "/en/who-we-are/public-records/",
+            },
+            {
+              title: "Licensing",
+              url: "/en/who-we-are/licensing/",
+            },
+          ],
+          class: "",
+        },
+      ],
+    },
+    {
+      name: "What we do",
+      url: "/",
+      class: "",
+      bigCta: {
+        text: "Learn more about what we do →",
+        link: "/",
+      },
+      dropdown: [
+        {
+          type: "link",
+          title: "Connect People",
+          links: [
+            {
+              title: "Fellowships & Awards",
+              url: "/",
+            },
+            {
+              title: "Data Futures Lab",
+              url: "/en/data-futures-lab/",
+              description: "Explore Approaches To Data Stewardship",
+            },
+            {
+              title: "Responsible Computing",
+              url: "/en/responsible-computing-challenge/",
+              description:
+                "A grant opportunity that empowers computing students",
+            },
+            {
+              title: "Mozilla Festival",
+              url: "",
+              description:
+                "Where passionate individuals unite to build a better internet.",
+            },
+          ],
+          class: "",
+        },
+        {
+          type: "link",
+          title: "Rally Communities",
+          links: [
+            {
+              title: "Campaigns",
+              url: "/en/campaigns/",
+            },
+            {
+              title: "Common Voice",
+              url: "/en/common-voice/",
+              description:
+                "An initiative to help teach machines how real people speak.",
+            },
+            {
+              title: "IRL Podcast",
+              url: "https://irlpodcast.org/",
+              external: true,
+              description:
+                "A podcast covering the intersection between online life and real life",
+            },
+          ],
+          class: "",
+        },
+        {
+          type: "link",
+          title: "Influence Policies",
+          links: [
+            {
+              title: "YouTube Regrets Reporter",
+              url: "/",
+              description: "Help monitor the harm of YouTube’s algorithm",
+            },
+            {
+              title: "*Privacy Not Included",
+              url: "",
+              external: true,
+              description:
+                "A buyers guide that helps you shop smart when it comes to privacy.",
+            },
+          ],
+        },
+        {
+          type: "link",
+          title: "Research & Analysis",
+          links: [
+            {
+              title: "Youtube Regrets Report",
+              url: "/en/youtube/",
+              description: "Investigating Youtube’s harmful recommendations",
+            },
+            {
+              title: "Trustworthy AI White Paper",
+              url: "/en/insights/trustworthy-ai-whitepaper/",
+              description:
+                "Challenges, opportunities, and accountability in the AI era",
+            },
+            {
+              title: "Internet Health Report",
+              url: "https://internethealthreport.org/",
+              external: true,
+              description:
+                "Research on issues impacting a healthy internet & possible solutions",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "What you can do",
+      url: "/",
+      class: "",
+      dropdown: [
+        {
+          type: "intro",
+          title: "Get Involved",
+          content: {
+            description:
+              "From donating funds or data, to signing a petition, to applying to become a volunteer or fellow there are many ways to get involved with the community.",
+            button: {
+              text: "Learn more →",
+              url: "/en/what-you-can-do/",
+            },
+          },
+          class: "",
+        },
+        {
+          type: "link",
+          title: "Act",
+          links: [
+            {
+              title: "Sign a Petition",
+              url: "/en/campaigns/",
+            },
+            {
+              title: "Download YouTube Regrets Reporter",
+              url: "/en/youtube/regretsreporter/",
+              description:
+                "Help monitor the harm of YouTube’s algorithm by reporting strange recommendation",
+            },
+            {
+              title: "Donate Your Voice to Common Voice",
+              url: "https://commonvoice.mozilla.org/",
+              description:
+                "Contribute to a growing voice dataset base that encompasses the underrepresented",
+              external: true,
+            },
+          ],
+          class: "",
+        },
+        {
+          type: "link",
+          title: "Learn",
+          links: [
+            {
+              title: "Our Research",
+              url: "/en/research/",
+            },
+            {
+              title: "Listen to the IRL Podcast",
+              url: "https://irlpodcast.org/",
+              description:
+                "A podcast covering the intersection between online life and real life",
+              external: true,
+            },
+            {
+              title: "Learn about the privacy of internet connected products",
+              url: "https://privacynotincluded.org/",
+              description: "Read About *Privacy Not Included",
+              external: true,
+            },
+            {
+              title: "Attend Mozilla Festival",
+              url: "https://www.mozillafestival.org/",
+              description:
+                "Volunteer or attend MozFest, where passionate individuals unite to build a better internet.",
+              external: true,
+            },
+          ],
+          class: "",
+        },
+        {
+          type: "featured",
+          title: "Donate",
+          links: [
+            {
+              title: "Make a Donation",
+              url: "/en/donate/",
+            },
+            {
+              title: "Ways to Give",
+              url: "/en/what-you-can-do/#ways-to-give",
+            },
+            {
+              title: "Leadership Circle",
+              url: "/en/campaigns/",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Funding",
+      url: "/",
+      class: "",
+      dropdown: [
+        {
+          type: "intro",
+          title: "Apply for Funding",
+          content: {
+            description:
+              "The Mozilla Foundation provides funding and resources to individuals, groups, and organizations aligned with creating a more human-centered internet.",
+            button: {
+              text: "Learn more →",
+              url: "/en/what-we-fund/",
+            },
+          },
+          class: "",
+        },
+        {
+          type: "link",
+          title: "Opportunities",
+          links: [
+            {
+              title: "Fellowships",
+              url: "/en/what-we-fund/fellowships/",
+              description:
+                "We provide funding and resources to driven individuals",
+            },
+            {
+              title: "Awards",
+              url: "/en/what-we-fund/awards/",
+            },
+          ],
+        },
+        {
+          type: "link",
+          title: "Legacy",
+          links: [
+            {
+              title: "Alumni",
+              url: "/en/what-we-fund/alumni/",
+              description:
+                "Program Alumni, community connections and opportunities",
+            },
+            {
+              title: "Collaborative Funds",
+              url: "/en/what-we-fund/funding-collaboratives/",
+              description:
+                "Funding partnerships and collaborative fund initiatives",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Blog",
+      url: "/",
+      class: "",
+      bigCta: {
+        text: "See all blog posts →",
+        link: "/",
+      },
+      dropdown: [
+        {
+          type: "posts",
+          title: "Featured Posts",
+          desktopColSpan: 2,
+          links: [
+            {
+              category: "Advocacy",
+              title: "Ring Rethinks Police Partnerships",
+              url: "/",
+              description:
+                "Amazon Ring will no longer allow law enforcement to request users’ doorbell footage through the associated Neighbors app. This is a positive development for millions of Ring users in the U.S. — and the tens of millions of others who appear in Ring record…",
+            },
+            {
+              category: "Mozilla Festival",
+              title:
+                "Be a part of creating MozFest House 2024 in the Netherlands",
+              url: "/",
+              description:
+                "We are looking for passionate individuals to help co-design the 2024 MozFest House in the Netherlands. This is your opportunity to share your ideas and make a real impact. Applications close Jan 31, 2024.",
+            },
+            {
+              category: "Advocacy",
+              title: "TikTok Quickly Goes From Funny Memes To Depressing Teens",
+              url: "/",
+              description:
+                "TikTok has users of all ages, including young users. How quickly does a young person on TikTok start to see depression-related content? The answer isn’t great.",
+            },
+          ],
+        },
+        {
+          type: "featured",
+          title: "Donate",
+          links: [
+            {
+              title: "Make a Donation",
+              url: "/en/donate/",
+            },
+            {
+              title: "Ways to Give",
+              url: "/en/what-you-can-do/#ways-to-give",
+            },
+            {
+              title: "Leadership Circle",
+              url: "/en/campaigns/",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+data.navItems.forEach((navItem) => {
+  console.log(navItem.name, navItem.dropdown.length);
+  let dropdown = navItem.dropdown;
+  if (dropdown.length > 0) {
+    let totalDesktopColumnSpan = 0;
+    dropdown.forEach((section) => {
+      if (!section.desktopColSpan) {
+        section.desktopColSpan = 1;
+      }
+      totalDesktopColumnSpan += section.desktopColSpan;
+    });
+    navItem.totalDesktopColumnSpan = totalDesktopColumnSpan;
+  }
+});
+console.log(data.navItems);
+
+const html = template(data);
+document.getElementById("wide-screen-nav-links").innerHTML = html;
