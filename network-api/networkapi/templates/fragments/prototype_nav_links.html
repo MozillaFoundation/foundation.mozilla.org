@@ -7,7 +7,7 @@
                 <div class="tw-w-<%= navItem.totalDesktopColumnSpan %>/4 tw-grid tw-grid-cols-<%= navItem.totalDesktopColumnSpan %> tw-border tw-bg-white tw-border-gray-20 ">
                 {% with section_inner_wrapper_class="tw-h-[calc(100%-90px)] tw-my-[45px] tw-px-12" heading_class="tw-uppercase tw-font-sans tw-text-xs tw-tracking-[0.5px] tw-px-4 tw-mb-10" paragraph_class="tw-font-normal" list_class="tw-mb-0 tw-list-none tw-px-0 tw-flex tw-flex-col tw-gap-6" list_item_class="tw-p-4 tw-mb-0" link_class="tw-secondary-nav-link tw-group/secondary-nav-link" %}
                 <% _.each(navItem.dropdown, function(section) { %>
-                    <div class="{{ section_class }} tw-col-span-<%= section.desktopColSpan %><% if (section.type == 'featured') { %>tw-bg-blue-03<% } %>">
+                    <div class="{{ section_class }} tw-col-span-<%= section.desktopColSpan %><% if (section.type == 'featured') { %> tw-bg-blue-03 <% } %>">
                     <% if (section.type == "intro") { %>
                         <div class="{{ section_inner_wrapper_class }} tw-border-r tw-border-gray-20">
                             <h2 class="tw-text-2xl tw-leading-6 tw-font-medium tw-italic tw-mb-10"><%= section.title %></h2>
