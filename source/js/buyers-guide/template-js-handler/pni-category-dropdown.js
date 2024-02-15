@@ -1,12 +1,16 @@
 export default () => {
   const dropdown = document.querySelector(".pni-category-dropdown");
-  const dropdownButton = dropdown.querySelector(".pni-category-dropdown-button");
+  const dropdownButton = dropdown.querySelector(
+    ".pni-category-dropdown-button"
+  );
   const dropdownButtonContent = dropdownButton.querySelector("span");
   const dropdownButtonChevron = dropdownButton.querySelector("svg");
-  const dropdownSelect = dropdown.querySelector("#pni-category-dropdown-select");
-  let defaultDropdownHeaderText;  // Keep track of dropdown button's default text for different locales
+  const dropdownSelect = dropdown.querySelector(
+    "#pni-category-dropdown-select"
+  );
+  let defaultDropdownHeaderText; // Keep track of dropdown button's default text for different locales
 
-  const navLinkMargin = 20;  // Calculate which items go into the dropdown
+  const navLinkMargin = 20; // Calculate which items go into the dropdown
   const categoryWrapper = document.querySelector("#pni-category-wrapper");
   const categoryNav = document.querySelector("#product-review");
 
@@ -73,7 +77,7 @@ export default () => {
     if (activeCategory) {
       dropdownHeaderText.innerText = activeCategory.innerText;
       dropdownHeaderText.classList.add("tw-text-black");
-      dropdownHeaderText.setAttribute("aria-current", "page"); 
+      dropdownHeaderText.setAttribute("aria-current", "page");
     } else {
       dropdownHeaderText.innerText = defaultDropdownHeaderText;
       dropdownHeaderText.classList.remove("tw-text-black");
@@ -84,7 +88,7 @@ export default () => {
   // Open menu
   const openMenu = (withFocus = false) => {
     dropdownSelect.classList.remove("tw-hidden");
-    dropdownButton.setAttribute('aria-expanded', 'true');
+    dropdownButton.setAttribute("aria-expanded", "true");
     dropdownButtonChevron.classList.add("tw-stroke-black", "tw-rotate-180");
 
     if (withFocus) {
@@ -98,7 +102,7 @@ export default () => {
   // Close menu
   const closeMenu = () => {
     dropdownSelect.classList.add("tw-hidden");
-    dropdownButton.setAttribute('aria-expanded', 'false');
+    dropdownButton.setAttribute("aria-expanded", "false");
     dropdownButtonChevron.classList.remove("tw-stroke-black", "tw-rotate-180");
   };
 
@@ -116,9 +120,8 @@ export default () => {
         "tw-mr-8"
       );
 
-    defaultDropdownHeaderText = dropdownButtonContent.querySelector(
-      "span"
-    ).innerText;
+    defaultDropdownHeaderText =
+      dropdownButtonContent.querySelector("span").innerText;
 
     // If there is an overflow of categories lets start moving them to the category dropdown
     if (categoryWrapper.clientWidth > categoryNav.clientWidth) {
@@ -145,17 +148,17 @@ export default () => {
 
     // Event listener for keyboard events on dropdown button
     dropdownButton.addEventListener("keydown", function (event) {
-      if (event.key === 'Enter' || event.key === ' ') {
+      if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        if (dropdownButton.getAttribute('aria-expanded') === 'false') {
+        if (dropdownButton.getAttribute("aria-expanded") === "false") {
           openMenu(true);
         } else {
           closeMenu();
         }
       }
 
-      if (event.key === 'ArrowDown') {
-        if (dropdownButton.getAttribute('aria-expanded') === 'true') {
+      if (event.key === "ArrowDown") {
+        if (dropdownButton.getAttribute("aria-expanded") === "true") {
           event.preventDefault();
           const firstOption = dropdownSelect.querySelector("li > a");
           if (firstOption) {
@@ -170,7 +173,7 @@ export default () => {
     // Event listener for click events on dropdown button
     dropdownButton.addEventListener("click", function (event) {
       event.stopPropagation();
-      if (dropdownButton.getAttribute('aria-expanded') === 'false') {
+      if (dropdownButton.getAttribute("aria-expanded") === "false") {
         openMenu();
       } else {
         closeMenu();
@@ -179,11 +182,10 @@ export default () => {
 
     // Event listener for keyboard events on dropdown container
     dropdownSelect.addEventListener("keydown", function (event) {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         closeMenu();
       }
     });
-
 
     // Event listener for keyboard and click events on dropdown options
     dropdownSelect.querySelectorAll("li").forEach(function (option) {
@@ -194,19 +196,19 @@ export default () => {
 
       // Event listener for keyboard events on dropdown options
       option.addEventListener("keydown", function (event) {
-        if (event.key === ' ' || event.key === 'Enter') {
+        if (event.key === " " || event.key === "Enter") {
           event.preventDefault();
           option.querySelector("a").click();
           closeMenu();
         }
 
-        if (event.key === 'ArrowDown') {
+        if (event.key === "ArrowDown") {
           event.preventDefault();
           const nextOption = option?.nextElementSibling?.querySelector("a");
           if (nextOption) {
             nextOption.focus();
           }
-        } else if (event.key === 'ArrowUp') {
+        } else if (event.key === "ArrowUp") {
           event.preventDefault();
           const prevOption = option?.previousElementSibling?.querySelector("a");
           if (prevOption) {
