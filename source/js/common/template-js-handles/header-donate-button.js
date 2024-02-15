@@ -5,7 +5,9 @@ import { ReactGA } from "../../common";
  * ("Donate" button on primary nav)
  */
 export default () => {
-  const donateHeaderBtn = document.querySelectorAll("[data-donate-header-button]");
+  const donateHeaderBtn = document.querySelectorAll(
+    "[data-donate-header-button]"
+  );
   if (donateHeaderBtn.length > 0) {
     donateHeaderBtn.forEach((element) => {
       element.addEventListener(`click`, () => {
