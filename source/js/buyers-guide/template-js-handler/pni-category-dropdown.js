@@ -2,7 +2,9 @@
 
 export default () => {
   const dropdown = document.querySelector(".pni-category-dropdown");
-  const dropdownButton = dropdown.querySelector(".pni-category-dropdown-button");
+  const dropdownButton = dropdown.querySelector(
+    ".pni-category-dropdown-button"
+  );
 
   // Need this to keep track of the default text of the dropdown button when using different locales
   let defaultDropdownHeaderText;
@@ -141,5 +143,3 @@ export default () => {
     });
   }
 };
-
-
