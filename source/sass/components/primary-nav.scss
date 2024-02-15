@@ -76,7 +76,7 @@
   }
 
   .nav-links {
-    a {
+    a:not(.tw-secondary-nav-link):not(.tw-btn-primary) {
       $border-thickness: 6px;
 
       border-bottom: 6px solid transparent;

@@ -2,7 +2,7 @@ const template = _.template(
   document.getElementById("prototype-nav-links-template").innerHTML
 );
 
-var data = {
+let data = {
   navItems: [
     {
       name: "Who we are",
@@ -381,7 +381,6 @@ data.navItems.forEach((navItem) => {
     navItem.totalDesktopColumnSpan = totalDesktopColumnSpan;
   }
 });
-console.log(data.navItems);
 
 const html = template(data);
 document.getElementById("wide-screen-nav-links").innerHTML = html;
