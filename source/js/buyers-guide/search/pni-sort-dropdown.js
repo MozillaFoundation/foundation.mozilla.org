@@ -8,13 +8,23 @@ export class PNISortDropdown {
   constructor(searchFilter) {
     this.searchFilter = searchFilter;
 
-    this.dropdown = document.querySelector('[data-pni-sort-dropdown]');
-    this.dropdownButton = document.querySelector("[data-pni-sort-dropdown-button]");
-    this.dropdownButtonContent = document.querySelector("[data-pni-sort-dropdown-button-content]");
-    this.dropdownButtonArrow = document.querySelector("[data-pni-sort-dropdown-button-arrow]");
+    this.dropdown = document.querySelector("[data-pni-sort-dropdown]");
+    this.dropdownButton = document.querySelector(
+      "[data-pni-sort-dropdown-button]"
+    );
+    this.dropdownButtonContent = document.querySelector(
+      "[data-pni-sort-dropdown-button-content]"
+    );
+    this.dropdownButtonArrow = document.querySelector(
+      "[data-pni-sort-dropdown-button-arrow]"
+    );
 
-    this.listContainer = document.querySelector("[data-pni-sort-dropdown-list-container]");
-    this.listItems = document.querySelectorAll("[data-pni-sort-dropdown-list-item]");
+    this.listContainer = document.querySelector(
+      "[data-pni-sort-dropdown-list-container]"
+    );
+    this.listItems = document.querySelectorAll(
+      "[data-pni-sort-dropdown-list-item]"
+    );
     this.listItemIds = [];
 
     if (!this.dropdown) {
@@ -24,13 +34,11 @@ export class PNISortDropdown {
     }
 
     this.dropdownButton.addEventListener("click", (e) => {
-      this.toggleListVisibility(e)
-    }
-    );
+      this.toggleListVisibility(e);
+    });
     this.dropdownButton.addEventListener("keydown", (e) => {
-      this.toggleListVisibility(e)
-    }
-    );
+      this.toggleListVisibility(e);
+    });
 
     this.listItems.forEach((item) => this.listItemIds.push(item.id));
 
@@ -41,20 +49,20 @@ export class PNISortDropdown {
       });
 
       item.addEventListener("keydown", (e) => {
-        if (SPACEBAR_KEY_CODE.includes(e.keyCode) || e.keyCode === ENTER_KEY_CODE) {
+        if (
+          SPACEBAR_KEY_CODE.includes(e.keyCode) ||
+          e.keyCode === ENTER_KEY_CODE
+        ) {
           e.preventDefault();
           this.setSelectedListItem(e);
           this.closeList();
-        }
-        else if (e.keyCode === DOWN_ARROW_KEY_CODE) {
+        } else if (e.keyCode === DOWN_ARROW_KEY_CODE) {
           e.preventDefault();
           this.focusNextListItem(DOWN_ARROW_KEY_CODE);
-        }
-        else if (e.keyCode === UP_ARROW_KEY_CODE) {
+        } else if (e.keyCode === UP_ARROW_KEY_CODE) {
           e.preventDefault();
           this.focusNextListItem(UP_ARROW_KEY_CODE);
-        }
-        else if (e.keyCode === ESCAPE_KEY_CODE) {
+        } else if (e.keyCode === ESCAPE_KEY_CODE) {
           this.closeList();
         }
       });
@@ -83,7 +91,7 @@ export class PNISortDropdown {
     targetContent.classList.add("tw-text-black");
     targetContent.classList.remove("tw-text-gray-40");
 
-    this.listContainer.setAttribute("aria-activedescendant", e.target.id)
+    this.listContainer.setAttribute("aria-activedescendant", e.target.id);
 
     this.dropdownButtonContent.innerHTML = targetContent.innerHTML;
     if (pushUpdate) {
@@ -120,7 +128,7 @@ export class PNISortDropdown {
 
     if (e.type === "click" || openDropDown) {
       e.preventDefault();
-      if (this.dropdownButton.getAttribute('aria-expanded') === 'false') {
+      if (this.dropdownButton.getAttribute("aria-expanded") === "false") {
         this.openList(true);
       } else {
         this.closeList();
@@ -140,22 +148,18 @@ export class PNISortDropdown {
 
   focusNextListItem(direction) {
     const activeElementId = document.activeElement.id;
-    const currentActiveElementIndex =
-      this.listItemIds.indexOf(activeElementId);
+    const currentActiveElementIndex = this.listItemIds.indexOf(activeElementId);
     if (direction === DOWN_ARROW_KEY_CODE) {
       const currentActiveElementIsNotLastItem =
         currentActiveElementIndex < this.listItemIds.length - 1;
       if (currentActiveElementIsNotLastItem) {
-        const nextListItemId =
-          this.listItemIds[currentActiveElementIndex + 1];
+        const nextListItemId = this.listItemIds[currentActiveElementIndex + 1];
         document.querySelector(`#${nextListItemId}`).focus();
       }
     } else if (direction === UP_ARROW_KEY_CODE) {
-      const currentActiveElementIsNotFirstItem =
-        currentActiveElementIndex > 0;
+      const currentActiveElementIsNotFirstItem = currentActiveElementIndex > 0;
       if (currentActiveElementIsNotFirstItem) {
-        const nextListItemId =
-          this.listItemIds[currentActiveElementIndex - 1];
+        const nextListItemId = this.listItemIds[currentActiveElementIndex - 1];
         document.querySelector(`#${nextListItemId}`).focus();
       } else {
         this.dropdownButton.focus();
