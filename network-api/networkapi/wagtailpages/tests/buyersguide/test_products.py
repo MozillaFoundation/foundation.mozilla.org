@@ -932,7 +932,7 @@ class BuyersGuideProductCategoryTest(TestCase):
         buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
 
         form = self.form_class(
-            data=self.generate_form_data({"name": "Cat 1", "sort_order": 1}),
+            data=self.generate_form_data({"name": "Cat 1"}),
         )
 
         self.assertFalse(form.is_valid())
@@ -943,7 +943,7 @@ class BuyersGuideProductCategoryTest(TestCase):
         buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 1")
 
         form = self.form_class(
-            data=self.generate_form_data({"name": "cat 1", "sort_order": 1}),
+            data=self.generate_form_data({"name": "cat 1"}),
         )
 
         self.assertFalse(form.is_valid())
@@ -957,7 +957,6 @@ class BuyersGuideProductCategoryTest(TestCase):
             data=self.generate_form_data(
                 {
                     "name": "Cat 2",
-                    "sort_order": 1,
                     "parent": cat1,
                 }
             ),
@@ -972,7 +971,7 @@ class BuyersGuideProductCategoryTest(TestCase):
 
         form = self.form_class(
             instance=cat1,
-            data=self.generate_form_data({"name": cat1.name, "sort_order": cat1.sort_order, "parent": cat1}),
+            data=self.generate_form_data({"name": cat1.name, "parent": cat1}),
         )
 
         self.assertFalse(form.is_valid())
@@ -985,7 +984,7 @@ class BuyersGuideProductCategoryTest(TestCase):
         cat2 = buyersguide_factories.BuyersGuideProductCategoryFactory(name="Cat 2", parent=cat1)
 
         form = self.form_class(
-            data=self.generate_form_data({"name": "Cat 3", "sort_order": 1, "parent": cat2}),
+            data=self.generate_form_data({"name": "Cat 3", "parent": cat2}),
         )
 
         self.assertFalse(form.is_valid())

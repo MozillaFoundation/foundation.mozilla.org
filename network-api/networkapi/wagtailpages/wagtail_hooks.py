@@ -19,6 +19,8 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
 )
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail.admin.ui.tables import BooleanColumn
+from wagtail.contrib.settings.models import register_setting
+from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.coreutils import find_available_slug
 from wagtail.rich_text import LinkHandler
 from wagtail.snippets.models import register_snippet
@@ -30,6 +32,9 @@ from wagtail_localize.models import (
 
 from networkapi.highlights.models import Highlight
 from networkapi.news.models import News
+from networkapi.wagtailcustomization.views.snippet_chooser import (
+    DefaultLocaleSnippetChooserViewSet,
+)
 from networkapi.wagtailpages import models as wagtailpages_models
 from networkapi.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 from networkapi.wagtailpages.pagemodels.buyersguide.products import ProductPage
@@ -254,7 +259,6 @@ class BuyersGuideProductCategorySnippetViewSet(SnippetViewSet):
         "name",
         "parent",
         "slug",
-        "sort_order",
         BooleanColumn("featured"),
         BooleanColumn("hidden"),
         BooleanColumn("is_being_used"),
@@ -264,7 +268,10 @@ class BuyersGuideProductCategorySnippetViewSet(SnippetViewSet):
         "featured",
         "hidden",
     )
-    ordering = ("name", "parent", "sort_order")
+    ordering = (
+        "name",
+        "parent",
+    )
 
 
 class BuyersGuideContentCategorySnippetViewSet(SnippetViewSet):
@@ -281,7 +288,7 @@ class BuyersGuideContentCategorySnippetViewSet(SnippetViewSet):
     ordering = ("title",)
 
 
-class UpdateSnippetViewSet(SnippetViewSet):
+class BuyersGuideUpdateSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.Update
     icon = "history"
     menu_order = 200
@@ -332,13 +339,18 @@ class BuyersGuideViewSetGroup(SnippetViewSetGroup):
     items = (
         BuyersGuideProductCategorySnippetViewSet,
         BuyersGuideContentCategorySnippetViewSet,
-        UpdateSnippetViewSet,
+        BuyersGuideUpdateSnippetViewSet,
         BuyersGuideCTASnippetViewSet,
     )
     menu_icon = "pni"
     menu_label = "*PNI"
     menu_name = "*PNI"
     menu_order = 1500
+
+    def get_submenu_items(self):
+        menu_items = super().get_submenu_items()
+        menu_items.append(SettingMenuItem(wagtailpages_models.BuyersGuideCategoryNav))
+        return menu_items
 
 
 register_snippet(BuyersGuideViewSetGroup)
@@ -595,3 +607,29 @@ class ArchiveSetGroup(SnippetViewSetGroup):
 
 
 register_snippet(ArchiveSetGroup)
+
+# --------------------------------------------------------------------------------------
+# Register settings:
+# --------------------------------------------------------------------------------------
+
+register_setting(wagtailpages_models.BuyersGuideCategoryNav, icon="pni")
+
+
+# --------------------------------------------------------------------------------------
+# Default language choosers:
+# --------------------------------------------------------------------------------------
+
+# Customise choosers to only show models in the default language as options.
+# We do not want editors to select the translations as localisation for these will be
+# handled on the template instead.
+# BE CAREFUL! Overriding the default chooser this way will take effect everywhere
+# that a model is chosen!
+
+
+@hooks.register("register_admin_viewset")
+def register_donate_banner_chooser_viewset():
+    return DefaultLocaleSnippetChooserViewSet(
+        "wagtailsnippetchoosers_default_locale_product_category",
+        model=wagtailpages_models.BuyersGuideProductCategory,
+        url_prefix="wagtailpages/buyersguideproductcategory",
+    )

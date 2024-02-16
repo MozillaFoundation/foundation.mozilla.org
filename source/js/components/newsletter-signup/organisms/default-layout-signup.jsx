@@ -162,7 +162,7 @@ class DefaultSignupForm extends Component {
       <InputText
         id={this.ids[name]}
         name={name}
-        label={getText(`First name`)}
+        ariaLabel={getText(`First name`)}
         value={this.getFormFieldValue(name)}
         placeholder={getText(`First name`)}
         onFocus={() => this.handleInputFocus()}
@@ -182,7 +182,7 @@ class DefaultSignupForm extends Component {
       <InputText
         id={this.ids[name]}
         name={name}
-        label={getText(`Last name`)}
+        ariaLabel={getText(`Last name`)}
         value={this.getFormFieldValue(name)}
         placeholder={getText(`Last name`)}
         onFocus={() => this.handleInputFocus()}
@@ -203,7 +203,7 @@ class DefaultSignupForm extends Component {
         id={this.ids[name]}
         type="email"
         name={name}
-        label={getText(`Email address`)}
+        ariaLabel={getText(`Email address`)}
         value={this.getFormFieldValue(name)}
         placeholder={getText(`Please enter your email`)}
         onFocus={() => this.handleEmailFocusAndInput()}
