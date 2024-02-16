@@ -10,10 +10,6 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.pagemodels.base import BasePage
-from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
-    get_categories_for_locale,
-)
-from networkapi.wagtailpages.utils import get_language_from_request
 
 from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
 
@@ -125,9 +121,3 @@ class BuyersGuideCampaignPage(BasePage):
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
     ]
-
-    def get_context(self, request, *args, **kwargs):
-        context = super().get_context(request, *args, **kwargs)
-        language_code = get_language_from_request(request)
-        context["categories"] = get_categories_for_locale(language_code)
-        return context

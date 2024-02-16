@@ -1,0 +1,8 @@
+{% extends "pages/buyersguide/catalog.html" %}
+{% load wagtailcore_tags %}
+
+{% block body_id %}home{% endblock body_id %}
+
+{% block category_nav %}
+    {% include "fragments/buyersguide/pni_category_nav.html" with show_all_reviews_as_active_category=True current_category=current_category %}
+{% endblock category_nav %}

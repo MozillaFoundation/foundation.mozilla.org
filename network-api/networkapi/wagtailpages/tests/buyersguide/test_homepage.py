@@ -169,7 +169,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         products = ProductPage.objects.descendant_of(self.bg)
         products.delete()
         self.assertEqual(products.count(), 0)
-        query_number = 45
+        query_number = 52
 
         with self.assertNumQueries(query_number):
             response = self.client.get(self.bg.url)
@@ -179,7 +179,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
     def test_serve_page_one_product(self):
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), 1)
-        query_number = 60
+        query_number = 67
 
         with self.assertNumQueries(query_number):
             response = self.client.get(self.bg.url)
@@ -193,7 +193,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
             buyersguide_factories.ProductPageFactory(parent=self.bg, with_random_categories=True)
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), additional_products_count + 1)
-        query_number = 61
+        query_number = 68
 
         with self.assertNumQueries(query_number):
             response = self.client.get(self.bg.url)
@@ -207,7 +207,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
             buyersguide_factories.ProductPageFactory(parent=self.bg, with_random_categories=True)
         products = ProductPage.objects.descendant_of(self.bg)
         self.assertEqual(products.count(), additional_products_count + 1)
-        query_number = 67
+        query_number = 74
         self.client.force_login(user=self.create_test_user())
 
         with self.assertNumQueries(query_number):
@@ -222,7 +222,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 10
+        query_number = 6
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -233,7 +233,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 13
+        query_number = 9
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -248,7 +248,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 13
+        query_number = 10
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -263,7 +263,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 13
+        query_number = 9
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -278,7 +278,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 14
+        query_number = 10
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -295,7 +295,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = user
         request.LANGUAGE_CODE = "en"
-        query_number = 13
+        query_number = 9
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -356,6 +356,14 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         self.assertEqual(response.redirect_chain[0][0], product.url)
 
     def test_sitemap_entries(self):
+        categories = []
+        for _ in range(3):
+            cat = buyersguide_factories.BuyersGuideProductCategoryFactory(locale=self.default_locale)
+            buyersguide_factories.BuyersGuideCategoryNavRelationFactory(category=cat)
+            categories.append(cat)
+
+        category_not_in_sitemap = buyersguide_factories.BuyersGuideProductCategoryFactory(locale=self.default_locale)
+
         response = self.client.get("/en/sitemap.xml")
         context = response.context
 
@@ -366,9 +374,11 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         self.assertContains(response, "about/contact/")
         self.assertContains(response, "about/methodology/")
 
-        categories = BuyersGuideProductCategory.objects.filter(hidden=False)
         for category in categories:
             self.assertContains(response, f"categories/{category.slug}/")
+
+        # Should not include categories that are not defined in the category nav
+        self.assertNotContains(response, f"categories/{category_not_in_sitemap.slug}/")
 
     def test_empty_products_url(self):
         products_page = self.bg.url + "products/"
