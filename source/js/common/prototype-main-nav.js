@@ -2,6 +2,15 @@ const template = _.template(
   document.getElementById("prototype-nav-links-template").innerHTML
 );
 
+const SVG_CLASS_ATTR = `class="tw-inline-block tw-mb-2 tw-mr-2"`;
+const SVG = {
+  award: `<svg ${SVG_CLASS_ATTR} width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#595CF3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.25A5.25 5.25 0 1 0 9 .75a5.25 5.25 0 0 0 0 10.5z"/><path d="M6.157 10.418L5.25 17.25 9 15l3.75 2.25-.908-6.84"/></g></svg>`,
+  "dollar-sign": `<svg ${SVG_CLASS_ATTR} width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#595CF3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 .75v16.5M12.75 3.75H7.125a2.625 2.625 0 0 0 0 5.25h3.75a2.625 2.625 0 0 1 0 5.25H4.5"/></g></svg>`,
+  headphones: `<svg ${SVG_CLASS_ATTR} width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#595CF3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 13.5V9a6.75 6.75 0 0 1 13.5 0v4.5"/><path d="M15.75 14.25a1.5 1.5 0 0 1-1.5 1.5h-.75a1.5 1.5 0 0 1-1.5-1.5V12a1.5 1.5 0 0 1 1.5-1.5h2.25v3.75zm-13.5 0a1.5 1.5 0 0 0 1.5 1.5h.75a1.5 1.5 0 0 0 1.5-1.5V12a1.5 1.5 0 0 0-1.5-1.5H2.25v3.75z"/></g></svg>`,
+  "refresh-ccw": `<svg ${SVG_CLASS_ATTR} width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#595CF3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M.75 3v4.5h4.5M17.25 15v-4.5h-4.5"/><path d="M15.367 6.752A6.75 6.75 0 0 0 4.23 4.232L.75 7.502m16.5 3l-3.48 3.27a6.75 6.75 0 0 1-11.137-2.52"/></g></svg>`,
+  users: `<svg ${SVG_CLASS_ATTR} width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#595CF3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.75 15.75v-1.5a3 3 0 0 0-3-3h-6a3 3 0 0 0-3 3v1.5M6.75 8.25a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM17.25 15.75v-1.5A3 3 0 0 0 15 11.348M12 2.348a3 3 0 0 1 0 5.812"/></g></svg>`,
+};
+
 let data = {
   navItems: [
     {
@@ -239,14 +248,17 @@ let data = {
             {
               title: "Make a Donation",
               url: "/en/donate/",
+              icon: SVG["dollar-sign"],
             },
             {
               title: "Ways to Give",
               url: "/en/what-you-can-do/#ways-to-give",
+              icon: SVG["users"],
             },
             {
               title: "Leadership Circle",
               url: "/en/campaigns/",
+              icon: SVG["refresh-ccw"],
             },
           ],
         },
@@ -346,19 +358,27 @@ let data = {
         },
         {
           type: "featured",
-          title: "Donate",
+          title: "Popular Topics",
           links: [
             {
-              title: "Make a Donation",
-              url: "/en/donate/",
+              title: "Advocacy",
+              url: "/en/blog/topic/advocacy/",
+              icon: SVG["users"],
             },
             {
-              title: "Ways to Give",
-              url: "/en/what-you-can-do/#ways-to-give",
+              title: "Fellowship & Awards",
+              url: "/en/blog/topic/fellowships-awards/",
+              icon: SVG["headphones"],
             },
             {
-              title: "Leadership Circle",
-              url: "/en/campaigns/",
+              title: "Common Voice",
+              url: "/en/blog/topic/common-voice/",
+              icon: SVG["award"],
+            },
+            {
+              title: "Insights",
+              url: "/en/blog/topic/insights/",
+              icon: SVG["refresh-ccw"],
             },
           ],
         },

@@ -23,10 +23,11 @@
                                     <% if (section.type == "posts") { %>
                                     <p class="tw-uppercase tw-font-sans tw-text-xs tw-text-gray-40 tw-mb-2"><%= link.category %></p>
                                     <% } %>
+                                    <%= link.icon %>
                                     <a class="{{ link_class }}" href="<%= link.url %>">
                                         <%= link.title %>
                                         <% if (link.external) { %>
-                                            {% include "fragments/svg/nav-external-link.html" %}
+                                            {% include "fragments/svg/nav_icons.html" with icon_type="external_link" %}
                                         <% } %>
                                     </a>
                                     <% if (link.description) { %>
