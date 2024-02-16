@@ -341,6 +341,27 @@ class BuyersGuideCampaignPageDonationModalRelationFactory(DjangoModelFactory):
     donation_modal = SubFactory(DonationModalFactory)
 
 
+class BuyersGuideCategoryNavFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideCategoryNav
+
+    @classmethod
+    def _get_or_create(cls, model_class, *args, **kwargs):
+        return pagemodels.BuyersGuideCategoryNav.load()
+
+    @classmethod
+    def _create(cls, model_class, *args, **kwargs):
+        return pagemodels.BuyersGuideCategoryNav.load()
+
+
+class BuyersGuideCategoryNavRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = pagemodels.BuyersGuideCategoryNavRelation
+
+    nav = SubFactory(BuyersGuideCategoryNavFactory)
+    category = SubFactory(BuyersGuideProductCategoryFactory)
+
+
 def create_general_product_visual_regression_product(seed, pni_homepage):
     # There are no random fields here: *everything* is prespecified
     GeneralProductPageFactory.create(
@@ -518,6 +539,15 @@ def generate(seed):
         BuyersGuidePageHeroSupportingPageRelationFactory(
             page=pni_homepage,
             supporting_page=page,
+            sort_order=index,
+        )
+
+    print("Generating PNI categories navigation bar")
+    # Alphabetically ordered by default
+    categories = pagemodels.BuyersGuideProductCategory.objects.all().order_by("name")
+    for index, category in enumerate(categories):
+        BuyersGuideCategoryNavRelationFactory(
+            category=category,
             sort_order=index,
         )
 
