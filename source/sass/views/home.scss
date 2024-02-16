@@ -93,20 +93,6 @@
       font-family: $font-family-sans-serif;
       font-weight: bold;
     }
-
-    .join-us .tw-btn {
-      display: block;
-      width: 100%;
-
-      @media screen and (max-width: $bp-lg) and (min-width: $bp-md) {
-        // TODO:
-        // See if we can avoid having !important by altering the existing join-us React/SCSS code.
-        // Do this after we've merged the homepage work as touching join-us code can
-        // easily affect existing sign up forms on the site.
-        display: inline;
-        width: auto !important;
-      }
-    }
   }
 
   .section-quote {
