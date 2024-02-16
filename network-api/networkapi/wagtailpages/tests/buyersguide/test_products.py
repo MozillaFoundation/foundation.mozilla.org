@@ -129,23 +129,27 @@ class TestProductPage(BuyersGuideTestCase):
         """
         product_page = self.product_page
 
-        related_product_1 = buyersguide_factories.ProductPageFactory(parent=self.bg)
-        related_product_2 = buyersguide_factories.ProductPageFactory(parent=self.bg)
-        related_product_3 = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        related_product_1 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+        related_product_2 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+        related_product_3 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
 
-        buyersguide_factories.RelatedProductsFactory(
-            page=product_page, related_product=related_product_1, sort_order=2
+        product_relation_1 = buyersguide_factories.RelatedProductsFactory.build(
+            page=product_page, related_product=related_product_1
         )
-        buyersguide_factories.RelatedProductsFactory(
-            page=product_page, related_product=related_product_2, sort_order=1
+        product_relation_2 = buyersguide_factories.RelatedProductsFactory.build(
+            page=product_page, related_product=related_product_2
         )
-        buyersguide_factories.RelatedProductsFactory(
-            page=product_page, related_product=related_product_3, sort_order=3
+        product_relation_3 = buyersguide_factories.RelatedProductsFactory.build(
+            page=product_page, related_product=related_product_3
         )
+
+        # Setting related products in memory, but not yet saving to DB.
+        product_page.related_product_pages = [product_relation_2, product_relation_1, product_relation_3]
 
         preview_methods_related_products = product_page.preview_related_products
 
-        # Order should be product 2, product 1, product 3.
+        # Check if method returns related products as expected.
+        # Order should be: product 2, product 1, product 3.
         self.assertListEqual(
             preview_methods_related_products,
             [related_product_2, related_product_1, related_product_3],
@@ -172,30 +176,33 @@ class TestProductPage(BuyersGuideTestCase):
         """
         product_page = self.product_page
 
-        related_product_1 = buyersguide_factories.ProductPageFactory(parent=self.bg)
-        related_product_2 = buyersguide_factories.ProductPageFactory(parent=self.bg)
-        related_product_3 = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        related_product_1 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+        related_product_2 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+        related_product_3 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
 
-        product_relation_1 = buyersguide_factories.RelatedProductsFactory(
+        product_relation_1 = buyersguide_factories.RelatedProductsFactory.build(
             page=product_page,
             related_product=related_product_1,
         )
-        buyersguide_factories.RelatedProductsFactory(
+        product_relation_2 = buyersguide_factories.RelatedProductsFactory.build(
             page=product_page,
             related_product=related_product_2,
         )
-        buyersguide_factories.RelatedProductsFactory(
+        product_relation_3 = buyersguide_factories.RelatedProductsFactory.build(
             page=product_page,
             related_product=related_product_3,
         )
 
+        # Setting related products in memory, but not yet saving to DB.
+        product_page.related_product_pages = [product_relation_2, product_relation_1, product_relation_3]
+
         preview_methods_related_products = product_page.preview_related_products
 
         # Check if method returns related products as expected.
-        # Order should be: product 1, product 2, product 3.
+        # Order should be: product 2, product 1, product 3.
         self.assertListEqual(
             preview_methods_related_products,
-            [related_product_1, related_product_2, related_product_3],
+            [related_product_2, related_product_1, related_product_3],
         )
 
         # Grab preview template response, find all related product titles in HTML.
@@ -206,14 +213,14 @@ class TestProductPage(BuyersGuideTestCase):
         ]
 
         # Check if template returns related products as expected.
-        # Order should be: product 1, product 2, product 3.
+        # Order should be: product 2, product 1, product 3.
         self.assertEqual(
             related_product_titles_from_preview_template,
-            [related_product_1.title, related_product_2.title, related_product_3.title],
+            [related_product_2.title, related_product_1.title, related_product_3.title],
         )
 
         # Remove one product relation.
-        product_relation_1.delete()
+        product_page.related_product_pages.remove(product_relation_1)
 
         # Fetch the related products again after modification.
         preview_methods_related_products_after_deletion = product_page.preview_related_products
@@ -233,7 +240,7 @@ class TestProductPage(BuyersGuideTestCase):
         ]
 
         # Check if template reflects update.
-        # Order should be: product 2, product 3, product 1.
+        # Order should be: product 2, product 3.
         self.assertEqual(
             related_product_titles_from_preview_template, [related_product_2.title, related_product_3.title]
         )
@@ -245,55 +252,32 @@ class TestProductPage(BuyersGuideTestCase):
         """
         product_page = self.product_page
 
-        related_product_1 = buyersguide_factories.ProductPageFactory(parent=self.bg)
-        related_product_2 = buyersguide_factories.ProductPageFactory(parent=self.bg)
-        related_product_3 = buyersguide_factories.ProductPageFactory(parent=self.bg)
+        related_product_1 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+        related_product_2 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+        related_product_3 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
 
-        product_relation_1 = buyersguide_factories.RelatedProductsFactory(
+        product_relation_1 = buyersguide_factories.RelatedProductsFactory.build(
             page=product_page,
             related_product=related_product_1,
         )
-        product_relation_2 = buyersguide_factories.RelatedProductsFactory(
+        product_relation_2 = buyersguide_factories.RelatedProductsFactory.build(
             page=product_page,
             related_product=related_product_2,
         )
-        product_relation_3 = buyersguide_factories.RelatedProductsFactory(
+        product_relation_3 = buyersguide_factories.RelatedProductsFactory.build(
             page=product_page,
             related_product=related_product_3,
         )
 
-        preview_methods_related_products = product_page.preview_related_products
-
-        # Order should be: product 1, product 2, product 3.
-        self.assertListEqual(
-            preview_methods_related_products,
-            [related_product_1, related_product_2, related_product_3],
-        )
-
-        # Grab preview template response, find all related product titles in HTML.
-        preview_response = product_page.make_preview_request()
-        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
-        related_product_titles_from_preview_template = [
-            p.get_text(strip=True) for p in soup.find_all("p", class_="product-title")
-        ]
-
-        # Check if template renders related products as expected.
-        # Order should be: product 1, product 2, product 3.
-        self.assertEqual(
-            related_product_titles_from_preview_template,
-            [related_product_1.title, related_product_2.title, related_product_3.title],
-        )
-
-        # Update product order in memory
-        # New order is: product 2, product 1, product 3
+        # Setting related products in memory, but not yet saving to DB.
         product_page.related_product_pages = [product_relation_2, product_relation_1, product_relation_3]
 
-        # Fetch the related products again after modification
-        preview_methods_related_products_after_reorder = product_page.preview_related_products
+        preview_methods_related_products = product_page.preview_related_products
 
-        # Updated order should now be: product 2, product 1, product 3.
+        # Check if method returns related products as expected.
+        # Order should be: product 2, product 1, product 3.
         self.assertListEqual(
-            preview_methods_related_products_after_reorder,
+            preview_methods_related_products,
             [related_product_2, related_product_1, related_product_3],
         )
 
@@ -304,11 +288,38 @@ class TestProductPage(BuyersGuideTestCase):
             p.get_text(strip=True) for p in soup.find_all("p", class_="product-title")
         ]
 
-        # Check if template reflects update.
+        # Check if template renders related products as expected.
         # Order should be: product 2, product 1, product 3.
         self.assertEqual(
             related_product_titles_from_preview_template,
             [related_product_2.title, related_product_1.title, related_product_3.title],
+        )
+
+        # Update product order in memory.
+        # New order is: product 3, product 2, product 1
+        product_page.related_product_pages = [product_relation_3, product_relation_2, product_relation_1]
+
+        # Fetch the related products again after modification.
+        preview_methods_related_products_after_reorder = product_page.preview_related_products
+
+        # Updated order should now be: product 3, product 2, product 1.
+        self.assertListEqual(
+            preview_methods_related_products_after_reorder,
+            [related_product_3, related_product_2, related_product_1],
+        )
+
+        # Grab preview template response, find all related product titles in HTML.
+        preview_response = product_page.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+        related_product_titles_from_preview_template = [
+            p.get_text(strip=True) for p in soup.find_all("p", class_="product-title")
+        ]
+
+        # Check if template reflects update.
+        # Order should be: product 3, product 2, product 1.
+        self.assertEqual(
+            related_product_titles_from_preview_template,
+            [related_product_3.title, related_product_2.title, related_product_1.title],
         )
 
     def test_preview_related_products_with_no_products(self):
