@@ -1,9 +1,9 @@
 {% load wagtailcore_tags %}
 
 {% for block in page.body %}
-    {# optionally render a spacer if the first block is a paragraph. Only for landing_page / homepage page types with the dark hero #}
-    {% if forloop.first and block.block_type == 'paragraph' %}
-        {% block body_spacer %}{% endblock body_spacer %}
+    {# optionally render a paragraph spacer for landing_page / homepage page types with the dark hero #}
+    {% if block.block_type == 'paragraph' %}
+        {% block paragraph_spacer %}{% endblock paragraph_spacer %}
     {% endif %}
     {% include_block block with parent_page=page %}
 {% endfor %}
