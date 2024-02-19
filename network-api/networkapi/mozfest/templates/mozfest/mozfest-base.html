@@ -53,8 +53,10 @@
     {% block secondary_nav %}{% endblock %}
 
     {# Single column layout #}
-    <div class="cms mozfest-content mb-3 {% if page.use_wide_template %} wide {% endif %}{% block mozfest_content_classes %}{% endblock mozfest_content_classes %}">
-        {% include "partials/streamfield.html" %}
+    <div class="cms mozfest-content {% if page.use_wide_template %} wide {% endif %}{% block mozfest_content_classes %}{% endblock mozfest_content_classes %}">
+        {% block streamfield %}
+            {% include "partials/streamfield.html" %}
+        {% endblock streamfield %}
     </div>
 
 {% endblock %}
