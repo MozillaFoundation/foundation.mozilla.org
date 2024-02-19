@@ -1,4 +1,4 @@
-{% load wagtailmetadata_tags i18n localization settings_value wagtailuserbar static mofo_common %}
+{% load wagtailmetadata_tags i18n localization settings_value wagtailuserbar static mofo_common wagtailcustom_tags %}
 
 {% get_current_language as lang_code %}
 
@@ -57,6 +57,8 @@
                 for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
             })(window,document,'script','FundraiseUp','ADCYPWMX');</script>
         {% endblock %}
+
+        {% wagtail_ab_testing_script %}
 
         {% block commento_meta %}{% endblock %}
 
