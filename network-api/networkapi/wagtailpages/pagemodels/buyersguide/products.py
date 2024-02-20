@@ -682,6 +682,9 @@ class ProductPage(BasePage):
         except Exception:
             return static("_images/buyers-guide/evergreen-social.png")
 
+    def get_preview_template(self, request, mode_name):
+        return "previews/buyersguide/product_page.html"
+
     content_panels = Page.content_panels + [
         FieldPanel("company"),
         MultiFieldPanel(
@@ -834,6 +837,17 @@ class ProductPage(BasePage):
         )
         related_products = localize_queryset(related_products, preserve_order=True)
         return related_products.specific()
+
+    @property
+    def preview_related_products(self) -> list:
+        """
+        Fetches related product updates for CMS page previews.
+        """
+        related_products = orderables.get_related_items(
+            self.related_product_pages.all(), "related_product", order_by="sort_order"
+        )
+
+        return related_products
 
     @property
     def local_categories(self):
