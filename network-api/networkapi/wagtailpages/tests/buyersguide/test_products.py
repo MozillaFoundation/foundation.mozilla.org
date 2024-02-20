@@ -1,5 +1,6 @@
 import json
 
+import bs4
 from django.test import TestCase
 from django.test.utils import override_settings
 from rest_framework.test import APITestCase
@@ -120,6 +121,216 @@ class TestProductPage(BuyersGuideTestCase):
         self.assertIn(first_product_fr, related_products_fr)
         # If there is no localized version, the default version should be returned:
         self.assertIn(second_product, related_products_fr)
+
+    def test_preview_related_products(self):
+        """
+        Tests if `preview_related_products` returns related products according to sort order,
+        and renders them in the ProductPage CMS preview panel.
+        """
+        product_page = self.product_page
+
+        related_product_1 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+        related_product_2 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+        related_product_3 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+
+        product_relation_1 = buyersguide_factories.RelatedProductsFactory.build(
+            page=product_page, related_product=related_product_1
+        )
+        product_relation_2 = buyersguide_factories.RelatedProductsFactory.build(
+            page=product_page, related_product=related_product_2
+        )
+        product_relation_3 = buyersguide_factories.RelatedProductsFactory.build(
+            page=product_page, related_product=related_product_3
+        )
+
+        # Setting related products in memory, but not yet saving to DB.
+        product_page.related_product_pages = [product_relation_2, product_relation_1, product_relation_3]
+
+        preview_methods_related_products = product_page.preview_related_products
+
+        # Check if method returns related products as expected.
+        # Order should be: product 2, product 1, product 3.
+        self.assertListEqual(
+            preview_methods_related_products,
+            [related_product_2, related_product_1, related_product_3],
+        )
+
+        # Grab preview template response, find all related product titles in HTML.
+        preview_response = product_page.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+        related_product_titles_from_preview_template = [
+            p.get_text(strip=True) for p in soup.find_all("p", class_="product-title")
+        ]
+
+        # Check if template renders related products as expected.
+        # Order should be: product 2, product 1, product 3.
+        self.assertEqual(
+            related_product_titles_from_preview_template,
+            [related_product_2.title, related_product_1.title, related_product_3.title],
+        )
+
+    def test_preview_related_products_after_deletion(self):
+        """
+        Tests if `preview_related_products` accurately returns related products for CMS page previews,
+        even after a related product relation is deleted.
+        """
+        product_page = self.product_page
+
+        related_product_1 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+        related_product_2 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+        related_product_3 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+
+        product_relation_1 = buyersguide_factories.RelatedProductsFactory.build(
+            page=product_page,
+            related_product=related_product_1,
+        )
+        product_relation_2 = buyersguide_factories.RelatedProductsFactory.build(
+            page=product_page,
+            related_product=related_product_2,
+        )
+        product_relation_3 = buyersguide_factories.RelatedProductsFactory.build(
+            page=product_page,
+            related_product=related_product_3,
+        )
+
+        # Setting related products in memory, but not yet saving to DB.
+        product_page.related_product_pages = [product_relation_2, product_relation_1, product_relation_3]
+
+        preview_methods_related_products = product_page.preview_related_products
+
+        # Check if method returns related products as expected.
+        # Order should be: product 2, product 1, product 3.
+        self.assertListEqual(
+            preview_methods_related_products,
+            [related_product_2, related_product_1, related_product_3],
+        )
+
+        # Grab preview template response, find all related product titles in HTML.
+        preview_response = product_page.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+        related_product_titles_from_preview_template = [
+            p.get_text(strip=True) for p in soup.find_all("p", class_="product-title")
+        ]
+
+        # Check if template returns related products as expected.
+        # Order should be: product 2, product 1, product 3.
+        self.assertEqual(
+            related_product_titles_from_preview_template,
+            [related_product_2.title, related_product_1.title, related_product_3.title],
+        )
+
+        # Remove one product relation.
+        product_page.related_product_pages.remove(product_relation_1)
+
+        # Fetch the related products again after modification.
+        preview_methods_related_products_after_deletion = product_page.preview_related_products
+
+        # Make sure list returned reflects the deletion.
+        # Order should be product 2, product 3.
+        self.assertListEqual(
+            preview_methods_related_products_after_deletion,
+            [related_product_2, related_product_3],
+        )
+
+        # Double check that preview template reflects deletion as expected.
+        preview_response = product_page.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+        related_product_titles_from_preview_template = [
+            p.get_text(strip=True) for p in soup.find_all("p", class_="product-title")
+        ]
+
+        # Check if template reflects update.
+        # Order should be: product 2, product 3.
+        self.assertEqual(
+            related_product_titles_from_preview_template, [related_product_2.title, related_product_3.title]
+        )
+
+    def test_preview_related_products_after_reorder(self):
+        """
+        Tests if `preview_related_products` accurately returns related products for CMS page previews,
+        even after related products are reordered.
+        """
+        product_page = self.product_page
+
+        related_product_1 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+        related_product_2 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+        related_product_3 = buyersguide_factories.ProductPageFactory.build(parent=self.bg)
+
+        product_relation_1 = buyersguide_factories.RelatedProductsFactory.build(
+            page=product_page,
+            related_product=related_product_1,
+        )
+        product_relation_2 = buyersguide_factories.RelatedProductsFactory.build(
+            page=product_page,
+            related_product=related_product_2,
+        )
+        product_relation_3 = buyersguide_factories.RelatedProductsFactory.build(
+            page=product_page,
+            related_product=related_product_3,
+        )
+
+        # Setting related products in memory, but not yet saving to DB.
+        product_page.related_product_pages = [product_relation_2, product_relation_1, product_relation_3]
+
+        preview_methods_related_products = product_page.preview_related_products
+
+        # Check if method returns related products as expected.
+        # Order should be: product 2, product 1, product 3.
+        self.assertListEqual(
+            preview_methods_related_products,
+            [related_product_2, related_product_1, related_product_3],
+        )
+
+        # Grab preview template response, find all related product titles in HTML.
+        preview_response = product_page.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+        related_product_titles_from_preview_template = [
+            p.get_text(strip=True) for p in soup.find_all("p", class_="product-title")
+        ]
+
+        # Check if template renders related products as expected.
+        # Order should be: product 2, product 1, product 3.
+        self.assertEqual(
+            related_product_titles_from_preview_template,
+            [related_product_2.title, related_product_1.title, related_product_3.title],
+        )
+
+        # Update product order in memory.
+        # New order is: product 3, product 2, product 1
+        product_page.related_product_pages = [product_relation_3, product_relation_2, product_relation_1]
+
+        # Fetch the related products again after modification.
+        preview_methods_related_products_after_reorder = product_page.preview_related_products
+
+        # Updated order should now be: product 3, product 2, product 1.
+        self.assertListEqual(
+            preview_methods_related_products_after_reorder,
+            [related_product_3, related_product_2, related_product_1],
+        )
+
+        # Grab preview template response, find all related product titles in HTML.
+        preview_response = product_page.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+        related_product_titles_from_preview_template = [
+            p.get_text(strip=True) for p in soup.find_all("p", class_="product-title")
+        ]
+
+        # Check if template reflects update.
+        # Order should be: product 3, product 2, product 1.
+        self.assertEqual(
+            related_product_titles_from_preview_template,
+            [related_product_3.title, related_product_2.title, related_product_1.title],
+        )
+
+    def test_preview_related_products_with_no_products(self):
+        """
+        Tests if `preview_related_products` returns an empty list if no related products are set.
+        """
+        product_page = self.product_page
+
+        related_preview_products = product_page.preview_related_products
+
+        self.assertEqual(related_preview_products, [])
 
     def test_get_related_articles(self):
         """
