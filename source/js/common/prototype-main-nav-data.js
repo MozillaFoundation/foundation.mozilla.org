@@ -384,7 +384,6 @@ let navData = {
 };
 
 navData.navItems.forEach((navItem) => {
-  console.log(navItem.name, navItem.dropdown.length);
   let dropdown = navItem.dropdown;
   if (dropdown.length > 0) {
     let totalDesktopColumnSpan = 0;
