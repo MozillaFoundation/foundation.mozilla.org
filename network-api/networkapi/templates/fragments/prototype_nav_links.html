@@ -1,8 +1,8 @@
 <script type="text/template" id="prototype-nav-links-template">
     <% _.each(navItems, function(navItem, index) { %>
     <div class="tw-inline-block tw-group">
-        <a class="" href="<%= navItem.link %>"><%= navItem.name %></a>
-        <div class="submenu tw-z-50 tw-container tw-invisible tw-opacity-0 tw-transition tw-duration-500 group-hover:tw-visible group-focus-within:tw-visible group-hover:tw-opacity-100 group-focus-within:tw-opacity-100 tw-absolute tw-top-[100%] tw-left-0">
+        <a class="primary" href="<%= navItem.url %>"><%= navItem.name %></a>
+        <div class="submenu tw-z-50 tw-container tw-invisible tw-opacity-0 tw-transition tw-duration-250 group-hover:tw-visible group-focus-within:tw-visible group-hover:tw-opacity-100 group-focus-within:tw-opacity-100 tw-absolute tw-top-[100%] tw-left-0">
             <div class="tw-row tw-mt-8 <% if (index >= 3) { %>tw-justify-end<% } %>">
                 <div class="tw-w-<%= navItem.totalDesktopColumnSpan %>/4 tw-grid tw-grid-cols-<%= navItem.totalDesktopColumnSpan %> tw-border tw-bg-white tw-border-gray-20 ">
                 {% with section_inner_wrapper_class="tw-h-[calc(100%-90px)] tw-my-[45px] tw-px-12" heading_class="tw-uppercase tw-font-sans tw-text-xs tw-tracking-[0.5px] tw-px-4 tw-mb-10" paragraph_class="tw-font-normal" list_class="tw-mb-0 tw-list-none tw-px-0 tw-flex tw-flex-col tw-gap-6" list_item_class="tw-p-4 tw-mb-0" link_class="tw-secondary-nav-link tw-group/secondary-nav-link" %}

@@ -117,6 +117,25 @@
     }
   }
 
+  .wide-screen-menu-container .nav-links {
+    a.primary {
+      &.active {
+        &.grayed-out {
+          border-bottom-color: $gray-40;
+        }
+      }
+
+      &.grayed-out {
+        color: $gray-40;
+
+        @include hover-focus-active {
+          color: $black;
+          border-bottom-color: $black;
+        }
+      }
+    }
+  }
+
   .wrapper-burger {
     transition: background 200ms ease-in-out;
     background: $white;
