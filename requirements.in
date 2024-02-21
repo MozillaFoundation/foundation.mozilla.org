@@ -28,7 +28,7 @@ wagtail==5.2.3
 wagtail-ab-testing
 wagtail-color-panel
 wagtail-factories
-wagtail-localize==1.7
+wagtail-localize==1.8
 wagtail-localize-git
 wagtail-inventory
 wagtailmedia
