@@ -106,11 +106,6 @@
       font-size: 17px;
       line-height: calc(23 / 17);
 
-      @include hover-focus-active {
-        text-decoration: none;
-        border-bottom-color: $black;
-      }
-
       &.active {
         border-color: $black;
       }
@@ -118,6 +113,24 @@
   }
 
   .wide-screen-menu-container .nav-links {
+    .nav-item-wrapper {
+      &:hover,
+      &:focus,
+      &:focus-visible,
+      &:focus-within,
+      &:active {
+        a:not(.tw-secondary-nav-link):not(.tw-btn-primary) {
+          border-bottom-color: $black;
+        }
+      }
+    }
+
+    a:not(.tw-secondary-nav-link):not(.tw-btn-primary) {
+      @include hover-focus-active {
+        text-decoration: none;
+      }
+    }
+
     a.primary {
       &.active {
         &.grayed-out {
@@ -128,7 +141,11 @@
       &.grayed-out {
         color: $gray-40;
 
-        @include hover-focus-active {
+        &:hover,
+        &:focus,
+        &:focus-visible,
+        &:focus-within,
+        &:active {
           color: $black;
           border-bottom-color: $black;
         }
@@ -292,6 +309,7 @@
           color: $white;
 
           @include hover-focus-active {
+            text-decoration: none;
             border-bottom-color: $white;
           }
 

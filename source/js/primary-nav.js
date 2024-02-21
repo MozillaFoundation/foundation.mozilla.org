@@ -23,8 +23,10 @@ let primaryNav = {
     function setNarrowMenuState(openMenu) {
       if (openMenu) {
         elNarrowMenu.classList.remove(`hidden`);
+        elNarrowMenu.classList.add(`tw-z-50`);
       } else {
         elNarrowMenu.classList.add(`hidden`);
+        elNarrowMenu.classList.remove(`tw-z-50`);
       }
     }
 
