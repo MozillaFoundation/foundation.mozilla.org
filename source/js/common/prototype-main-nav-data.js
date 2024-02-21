@@ -61,7 +61,7 @@ let navData = {
     },
     {
       name: "What we do",
-      url: "/",
+      url: "/en/what-we-do/",
       class: "",
       bigCta: {
         text: "Learn more about what we do →",

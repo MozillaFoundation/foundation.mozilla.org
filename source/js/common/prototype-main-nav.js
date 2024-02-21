@@ -22,6 +22,10 @@ function grayOutLink(navLink) {
 function setActiveNavLink() {
   const currentPath = window.location.pathname;
 
+  if (currentPath === "/" || currentPath === "/en/") {
+    return;
+  }
+
   WIDE_SCREEN_NAV_LINKS_WRAPPER.querySelectorAll("a.primary").forEach(
     (link) => {
       if (link.pathname === currentPath) {
