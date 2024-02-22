@@ -22,28 +22,9 @@ function setActiveNavLink() {
     return;
   }
 
-  WIDE_SCREEN_NAV_LINKS_WRAPPER.querySelectorAll("a.primary").forEach(
-    (link) => {
-      if (link.pathname === currentPath) {
-        link.classList.add(LINK_ACTIVE_CLASS);
-      }
-    }
-  );
-}
-
-function grayOutActiveLink(grayOut = false) {
-  const activeLink =
-    WIDE_SCREEN_NAV_LINKS_WRAPPER.querySelector("a.primary.active");
-
-  if (!activeLink) {
-    return;
-  }
-
-  if (grayOut) {
-    activeLink.classList.add(LINK_GRAYED_OUT_CLASS);
-  } else {
-    activeLink.classList.remove(LINK_GRAYED_OUT_CLASS);
-  }
+  WIDE_SCREEN_NAV_LINKS_WRAPPER.querySelector(
+    `a.primary[data-name="${navData.primaryNavLookUp[currentPath]}"]`
+  ).classList.add(LINK_ACTIVE_CLASS);
 }
 
 function grayOutAllLinks(grayOut = false, onHoverLink = null) {

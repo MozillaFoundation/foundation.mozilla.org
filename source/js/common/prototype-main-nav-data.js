@@ -74,7 +74,6 @@ let navData = {
           links: [
             {
               title: "Fellowships & Awards",
-              url: "/",
             },
             {
               title: "Data Futures Lab",
@@ -89,9 +88,10 @@ let navData = {
             },
             {
               title: "Mozilla Festival",
-              url: "",
+              url: "https://www.mozillafestival.org/",
               description:
                 "Where passionate individuals unite to build a better internet.",
+              external: true,
             },
           ],
           class: "",
@@ -126,12 +126,12 @@ let navData = {
           links: [
             {
               title: "YouTube Regrets Reporter",
-              url: "/",
+              url: "/en/youtube/regretsreporter/",
               description: "Help monitor the harm of YouTube’s algorithm",
             },
             {
               title: "*Privacy Not Included",
-              url: "",
+              url: "https://privacynotincluded.org/",
               external: true,
               description:
                 "A buyers guide that helps you shop smart when it comes to privacy.",
@@ -320,7 +320,7 @@ let navData = {
       class: "",
       bigCta: {
         text: "See all blog posts →",
-        link: "/",
+        link: "/en/blog/",
       },
       dropdown: [
         {
@@ -331,7 +331,6 @@ let navData = {
             {
               category: "Advocacy",
               title: "Ring Rethinks Police Partnerships",
-              url: "/",
               description:
                 "Amazon Ring will no longer allow law enforcement to request users’ doorbell footage through the associated Neighbors app. This is a positive development for millions of Ring users in the U.S. — and the tens of millions of others who appear in Ring record…",
             },
@@ -339,14 +338,14 @@ let navData = {
               category: "Mozilla Festival",
               title:
                 "Be a part of creating MozFest House 2024 in the Netherlands",
-              url: "/",
+              url: "https://www.mozillafestival.org/",
               description:
                 "We are looking for passionate individuals to help co-design the 2024 MozFest House in the Netherlands. This is your opportunity to share your ideas and make a real impact. Applications close Jan 31, 2024.",
+              external: true,
             },
             {
               category: "Advocacy",
               title: "TikTok Quickly Goes From Funny Memes To Depressing Teens",
-              url: "/",
               description:
                 "TikTok has users of all ages, including young users. How quickly does a young person on TikTok start to see depression-related content? The answer isn’t great.",
             },
@@ -383,18 +382,30 @@ let navData = {
   ],
 };
 
+navData.primaryNavLookUp = {};
+
 navData.navItems.forEach((navItem) => {
   let dropdown = navItem.dropdown;
-  if (dropdown.length > 0) {
-    let totalDesktopColumnSpan = 0;
-    dropdown.forEach((section) => {
-      if (!section.desktopColSpan) {
-        section.desktopColSpan = 1;
-      }
-      totalDesktopColumnSpan += section.desktopColSpan;
-    });
-    navItem.totalDesktopColumnSpan = totalDesktopColumnSpan;
+  let totalDesktopColumnSpan = 0;
+
+  navData.primaryNavLookUp[navItem.url] = navItem.name;
+
+  if (dropdown.length == 0) {
+    return;
   }
+
+  dropdown.forEach((section) => {
+    if (!section.desktopColSpan) {
+      section.desktopColSpan = 1;
+    }
+    totalDesktopColumnSpan += section.desktopColSpan;
+
+    section.links?.map((item) => {
+      navData.primaryNavLookUp[item.url] = navItem.name;
+    });
+  });
+
+  navItem.totalDesktopColumnSpan = totalDesktopColumnSpan;
 });
 
 export default navData;
