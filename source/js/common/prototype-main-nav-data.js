@@ -17,14 +17,8 @@ let navData = {
         {
           type: "intro",
           title: "About Us",
-          content: {
-            description:
-              "Mozilla is a global nonprofit dedicated to keeping the Internet a public resource that is open and accessible to all.",
-            button: {
-              text: "Learn more →",
-              url: "/who-we-are",
-            },
-          },
+          description:
+            "Mozilla is a global nonprofit dedicated to keeping the Internet a public resource that is open and accessible to all.",
           class: "",
         },
         {
@@ -172,14 +166,8 @@ let navData = {
         {
           type: "intro",
           title: "Get Involved",
-          content: {
-            description:
-              "From donating funds or data, to signing a petition, to applying to become a volunteer or fellow there are many ways to get involved with the community.",
-            button: {
-              text: "Learn more →",
-              url: "/en/what-you-can-do/",
-            },
-          },
+          description:
+            "From donating funds or data, to signing a petition, to applying to become a volunteer or fellow there are many ways to get involved with the community.",
           class: "",
         },
         {
