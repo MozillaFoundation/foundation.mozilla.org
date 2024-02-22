@@ -8,7 +8,7 @@
                 <div class="tw-flex tw-w-full tw-py-8 {% if not forloop.last and authors_length > 1 %} tw-border-b-[1px] tw-border-gray-20 {% endif %}">
                     <div class="author-image tw-flex-shrink-0 {{ author_image_classes }} {% if author.image is None %} {{ no_image_classes }} {% endif %}" aria-label="{{ author.name }}">
                         {% if author.image %}
-                            <img src="{% image_url author.image "fill-100x100" %}" alt="{{ author.name }}" title="{{ author.name }}" />
+                            <img src="{% image_url author.image "fill-100x100" %}" alt="{{ author.name }}" title="{{ author.name }}">
                         {% endif %}
                     </div>
                     <div class="tw-pl-12">
