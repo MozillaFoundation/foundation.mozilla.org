@@ -311,21 +311,22 @@ let navData = {
               title: "Ring Rethinks Police Partnerships",
               description:
                 "Amazon Ring will no longer allow law enforcement to request users’ doorbell footage through the associated Neighbors app. This is a positive development for millions of Ring users in the U.S. — and the tens of millions of others who appear in Ring record…",
+              url: "/en/blog/ring-rethinks-police-partnerships/",
             },
             {
               category: "Mozilla Festival",
               title:
                 "Be a part of creating MozFest House 2024 in the Netherlands",
-              url: "https://www.mozillafestival.org/",
+              url: "/en/blog/be-a-part-of-creating-mozfest-house-2024-in-the-netherlands/",
               description:
                 "We are looking for passionate individuals to help co-design the 2024 MozFest House in the Netherlands. This is your opportunity to share your ideas and make a real impact. Applications close Jan 31, 2024.",
-              external: true,
             },
             {
               category: "Advocacy",
               title: "TikTok Quickly Goes From Funny Memes To Depressing Teens",
               description:
                 "TikTok has users of all ages, including young users. How quickly does a young person on TikTok start to see depression-related content? The answer isn’t great.",
+              url: "/en/blog/tiktok-algorithm-explained-teens/",
             },
           ],
         },
