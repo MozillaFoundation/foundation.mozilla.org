@@ -119,9 +119,9 @@ let navData = {
           title: "Influence Policies",
           links: [
             {
-              title: "YouTube Regrets Reporter",
-              url: "/en/youtube/regretsreporter/",
-              description: "Help monitor the harm of YouTube’s algorithm",
+              title: "YouTube Regrets",
+              url: "/en/youtube/",
+              description: "Investigating Youtube’s harmful recommendations",
             },
             {
               title: "*Privacy Not Included",
@@ -137,12 +137,7 @@ let navData = {
           title: "Research & Analysis",
           links: [
             {
-              title: "Youtube Regrets Report",
-              url: "/en/youtube/",
-              description: "Investigating Youtube’s harmful recommendations",
-            },
-            {
-              title: "Trustworthy AI White Paper",
+              title: "Trustworthy AI Research",
               url: "/en/insights/trustworthy-ai-whitepaper/",
               description:
                 "Challenges, opportunities, and accountability in the AI era",
@@ -182,7 +177,7 @@ let navData = {
               title: "Download YouTube Regrets Reporter",
               url: "/en/youtube/regretsreporter/",
               description:
-                "Help monitor the harm of YouTube’s algorithm by reporting strange recommendation",
+                "Help monitor the harm of YouTube’s algorithm by reporting strange recommendations",
             },
             {
               title: "Donate Your Voice to Common Voice",
@@ -199,14 +194,14 @@ let navData = {
           title: "Learn",
           links: [
             {
-              title: "Our Research",
+              title: "Explore our Research Hub",
               url: "/en/research/",
             },
             {
-              title: "Listen to the IRL Podcast",
+              title: "Listen to our IRL Podcast",
               url: "https://irlpodcast.org/",
               description:
-                "A podcast covering the intersection between online life and real life",
+                "IRL is a podcast covering the intersection between online life and real life",
               external: true,
             },
             {
@@ -216,10 +211,10 @@ let navData = {
               external: true,
             },
             {
-              title: "Attend Mozilla Festival",
+              title: "Explore Mozilla Festival",
               url: "https://www.mozillafestival.org/",
               description:
-                "Volunteer or attend MozFest, where passionate individuals unite to build a better internet.",
+                "MozFest is a gathering where passionate individuals unite to build a better internet.",
               external: true,
             },
           ],
@@ -238,11 +233,6 @@ let navData = {
               title: "Ways to Give",
               url: "/en/what-you-can-do/#ways-to-give",
               icon: SVG["users"],
-            },
-            {
-              title: "Leadership Circle",
-              url: "/en/campaigns/",
-              icon: SVG["refresh-ccw"],
             },
           ],
         },
@@ -274,7 +264,7 @@ let navData = {
               title: "Fellowships",
               url: "/en/what-we-fund/fellowships/",
               description:
-                "We provide funding and resources to driven individuals",
+                "A program empowering leaders to carry out work that ensures the internet remains a force for good.",
             },
             {
               title: "Awards",
@@ -284,7 +274,7 @@ let navData = {
         },
         {
           type: "link",
-          title: "Legacy",
+          title: "Community Impact",
           links: [
             {
               title: "Alumni",
@@ -296,7 +286,7 @@ let navData = {
               title: "Collaborative Funds",
               url: "/en/what-we-fund/funding-collaboratives/",
               description:
-                "Funding partnerships and collaborative fund initiatives",
+                "An ecosystem of donors working together to have a broader and more meaningful impact.",
             },
           ],
         },
@@ -351,12 +341,12 @@ let navData = {
             {
               title: "Fellowship & Awards",
               url: "/en/blog/topic/fellowships-awards/",
-              icon: SVG["headphones"],
+              icon: SVG["award"],
             },
             {
               title: "Common Voice",
               url: "/en/blog/topic/common-voice/",
-              icon: SVG["award"],
+              icon: SVG["headphones"],
             },
             {
               title: "Insights",
