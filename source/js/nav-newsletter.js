@@ -12,6 +12,7 @@ import { ReactGA } from "../js/common";
 const elements = {
   primaryNav: `.primary-nav-container`,
   narrowMenuContainer: `.primary-nav-container .narrow-screen-menu-container`,
+  narrowMenu: `.primary-nav-container .narrow-screen-menu`,
   wideMenuContainer: `.primary-nav-container .wide-screen-menu-container`,
   buttonMobile: `.primary-nav-container .narrow-screen-menu-container .btn-newsletter`,
   buttonDesktop: `.primary-nav-container .wide-screen-menu-container .btn-newsletter`,
@@ -88,6 +89,7 @@ class NavNewsletter {
   closeMobileNewsletter() {
     const wrapper = elements.container;
     elements.narrowMenuContainer.classList.remove("d-none");
+    elements.narrowMenu.classList.add("tw-z-50");
     wrapper.classList.remove("faded-in");
     // Schedule a "display:none" to happen after the `expanded` animation finishes.
     // See `#nav-newsletter-form-wrapper` transition in ./source/sass/components/primary-nav.scss
@@ -104,6 +106,7 @@ class NavNewsletter {
   expandMobileNewsletter() {
     const wrapper = elements.container;
     elements.narrowMenuContainer.classList.add(`d-none`);
+    elements.narrowMenu.classList.remove("tw-z-50");
     wrapper.classList.remove("d-none");
     wrapper.classList.add("faded-in");
     this.visible = true;
