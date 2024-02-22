@@ -67,12 +67,9 @@ let navData = {
           title: "Connect People",
           links: [
             {
-              title: "Fellowships & Awards",
-            },
-            {
               title: "Data Futures Lab",
               url: "/en/data-futures-lab/",
-              description: "Explore Approaches To Data Stewardship",
+              description: "Explore approaches to data stewardship",
             },
             {
               title: "Responsible Computing",
@@ -102,7 +99,7 @@ let navData = {
               title: "Common Voice",
               url: "/en/common-voice/",
               description:
-                "An initiative to help teach machines how real people speak.",
+                "Mobilizing people to share their voice to create a diverse open voice dataset. ",
             },
             {
               title: "IRL Podcast",
@@ -269,6 +266,8 @@ let navData = {
             {
               title: "Awards",
               url: "/en/what-we-fund/awards/",
+              description:
+                "We recognize, support, and amplify leaders who work on issues impacting the health of the internet.",
             },
           ],
         },
