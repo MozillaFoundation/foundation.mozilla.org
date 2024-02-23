@@ -25,6 +25,7 @@ from .cta_aside_block import CTAAsideBlock
 from .current_events_slider_block import CurrentEventsSliderBlock
 from .datawrapper_block import DatawrapperBlock
 from .dear_internet_letter_block import DearInternetLetterBlock
+from .extended_url_block import ExtendedURLBlock
 from .foundation_slider_block import FoundationSliderBlock
 from .full_content_rich_text_options import full_content_rich_text_options
 from .group_listing import GroupListingBlock
