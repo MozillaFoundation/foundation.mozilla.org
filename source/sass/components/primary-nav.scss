@@ -1,10 +1,12 @@
 // Primary Nav (Site Nav)
 
 .primary-nav-container {
+
   $logo-height: 28px;
 
   $menu-container-padding: (
-    md: 16px,
+    sm: 16px,
+    zen-sm: 52px
   );
 
   $primary-nav-link-padding: (
@@ -15,9 +17,9 @@
 
   &.zen-mode {
     .menu-container {
-      @media (min-width: $bp-md) {
-        padding-left: 52px;
-        padding-right: 52px;
+      @media (min-width: $bp-sm) {
+        padding-left:  map-get($menu-container-padding, zen-sm);
+        padding-right: map-get($menu-container-padding, zen-sm);
       }
     }
   }
@@ -25,8 +27,8 @@
   .menu-container {
     padding: 0 0 0 52px;
 
-    @media (min-width: $bp-md) {
-      padding: map-get($menu-container-padding, md) 0;
+    @media (min-width: $bp-sm) {
+      padding: map-get($menu-container-padding, sm) 0;
     }
   }
 
@@ -78,11 +80,6 @@
   .nav-links {
     a:not(.tw-secondary-nav-link):not(.tw-btn-primary) {
       $border-thickness: 6px;
-
-      border-bottom: 6px solid transparent;
-      color: $black;
-      font-weight: 700;
-      @apply tw-mr-9;
       transition: border-color 0.25s ease;
 
       // Mixin for setting bottom padding on primary nav link
@@ -102,13 +99,6 @@
       @media (min-width: $bp-md) {
         @include padding-bottom(md);
       }
-
-      font-size: 17px;
-      line-height: calc(23 / 17);
-
-      &.active {
-        border-color: $black;
-      }
     }
   }
 
@@ -125,14 +115,26 @@
       }
     }
 
-    a:not(.tw-secondary-nav-link):not(.tw-btn-primary) {
+    // a:not(.tw-secondary-nav-link):not(.tw-btn-primary) {
+    //   @include hover-focus-active {
+    //     text-decoration: none;
+    //   }
+    // }
+
+    a.primary {
+      font-size: 17px;
+      line-height: calc(23 / 17);
+      border-bottom: 6px solid transparent;
+      color: $black;
+      font-weight: 700;
+      @apply tw-mr-9;
+
       @include hover-focus-active {
         text-decoration: none;
       }
-    }
 
-    a.primary {
       &.active {
+        border-color: $black;
         &.grayed-out {
           border-bottom-color: $gray-40;
         }
@@ -268,10 +270,11 @@
         padding-top: 72px;
       }
 
-      height: 100vh;
       top: 0;
+      bottom: 0;
       left: 0;
-      width: 100%;
+      right: 0;
+      background: $white;
       transition: opacity 0.2s, height 0s;
 
       &.hidden {
@@ -287,36 +290,8 @@
         }
       }
 
-      .narrow-screen-menu-container {
-        padding: 0 52px;
-      }
-
-      .narrow-screen-menu-background {
-        background: $black;
-        height: 100%;
-      }
-
       .nav-links {
         height: 100%;
-
-        a {
-          font-weight: 500;
-          transition: transform 0.15s;
-          display: inline-block;
-          margin: 1.25rem 0;
-          padding-bottom: 0;
-          border-width: 0px 0px 3px 0px;
-          color: $white;
-
-          @include hover-focus-active {
-            text-decoration: none;
-            border-bottom-color: $white;
-          }
-
-          &.active {
-            border-bottom-color: $white;
-          }
-        }
       }
     }
   }
