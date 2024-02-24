@@ -132,10 +132,14 @@ let navData = {
         {
           type: "link",
           title: "Research & Analysis",
+          seeMore: {
+            text: "See more research →",
+            link: "/en/research/",
+          },
           links: [
             {
-              title: "Trustworthy AI Research",
-              url: "/en/insights/trustworthy-ai-whitepaper/",
+              title: "Trustworthy AI Paper",
+              url: "/en/research/library/accelerating-progress-toward-trustworthy-ai/whitepaper",
               description:
                 "Challenges, opportunities, and accountability in the AI era",
             },
@@ -195,14 +199,14 @@ let navData = {
               url: "/en/research/",
             },
             {
-              title: "Listen to our IRL Podcast",
+              title: "Listen to our Podcast",
               url: "https://irlpodcast.org/",
               description:
                 "IRL is a podcast covering the intersection between online life and real life",
               external: true,
             },
             {
-              title: "Learn about the privacy of internet connected products",
+              title: "Learn about the privacy of consumer products",
               url: "https://privacynotincluded.org/",
               description: "Read About *Privacy Not Included",
               external: true,
@@ -243,14 +247,8 @@ let navData = {
         {
           type: "intro",
           title: "Apply for Funding",
-          content: {
-            description:
-              "The Mozilla Foundation provides funding and resources to individuals, groups, and organizations aligned with creating a more human-centered internet.",
-            button: {
-              text: "Learn more →",
-              url: "/en/what-we-fund/",
-            },
-          },
+          description:
+            "The Mozilla Foundation provides funding and resources to individuals, groups, and organizations aligned with creating a more human-centered internet.",
           class: "",
         },
         {
