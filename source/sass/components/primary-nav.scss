@@ -1,12 +1,11 @@
 // Primary Nav (Site Nav)
 
 .primary-nav-container {
-
   $logo-height: 28px;
 
   $menu-container-padding: (
     sm: 16px,
-    zen-sm: 52px
+    zen-sm: 52px,
   );
 
   $primary-nav-link-padding: (
@@ -18,7 +17,7 @@
   &.zen-mode {
     .menu-container {
       @media (min-width: $bp-sm) {
-        padding-left:  map-get($menu-container-padding, zen-sm);
+        padding-left: map-get($menu-container-padding, zen-sm);
         padding-right: map-get($menu-container-padding, zen-sm);
       }
     }
