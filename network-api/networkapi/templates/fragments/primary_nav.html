@@ -30,7 +30,7 @@
         {% endblock %}
         <nav class="container wide-screen-menu-container tw-relative">
             <div class="row">
-                <div class="col">
+                <div class="col tw-flex tw-justify-between">
                     <div class="d-flex flex-row justify-content-between">
                         <div id="primary-nav-links" class="tw-w-full large:tw-w-auto">
                             <div class="d-flex align-items-center flex-wrap">
@@ -46,9 +46,9 @@
                                 {% endblock %}
 
                                 {% if page.zen_nav == True %}
-                                    <div class="wide-screen-menu hidden">
+                                <div class="wide-screen-menu hidden">
                                 {% else %}
-                                    <div class="wide-screen-menu">
+                                <div class="wide-screen-menu">
                                 {% endif %}
 
                                 {% block wide_screen_menu %}
@@ -57,6 +57,7 @@
                                     </div>
                                 {% endblock %}
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -73,6 +74,7 @@
         </nav>
 
     </div>
+</div>
 </div>
 
 
