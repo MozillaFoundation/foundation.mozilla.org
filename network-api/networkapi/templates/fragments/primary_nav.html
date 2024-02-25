@@ -28,7 +28,7 @@
         {% endblock %}
         <nav class="tw-container wide-screen-menu-container tw-relative">
             <div class="tw-row">
-                <div class="tw-flex-grow tw-max-w-full tw-flex-1 tw-px-8">
+                <div class="tw-flex-grow tw-max-w-full tw-flex-1 tw-flex tw-justify-between tw-px-8">
                     <div class="d-flex flex-row justify-content-between">
                         <div id="primary-nav-links" class="tw-w-full large:tw-w-auto">
                             <div class="d-flex align-items-center flex-wrap">
@@ -44,9 +44,9 @@
                                 {% endblock %}
 
                                 {% if page.zen_nav == True %}
-                                    <div class="wide-screen-menu hidden">
+                                <div class="wide-screen-menu hidden">
                                 {% else %}
-                                    <div class="wide-screen-menu">
+                                <div class="wide-screen-menu">
                                 {% endif %}
 
                                 {% block wide_screen_menu %}
@@ -55,6 +55,7 @@
                                     </div>
                                 {% endblock %}
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -71,6 +72,7 @@
         </nav>
 
     </div>
+</div>
 </div>
 
 
