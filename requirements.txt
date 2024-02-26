@@ -70,6 +70,7 @@ django==4.2.10
     #   social-auth-app-django
     #   wagtail
     #   wagtail-footnotes
+    #   wagtail-link-block
     #   wagtail-localize
     #   wagtail-localize-git
     #   wagtailmedia
@@ -260,6 +261,7 @@ wagtail==5.2.3
     #   wagtail-factories
     #   wagtail-footnotes
     #   wagtail-inventory
+    #   wagtail-link-block
     #   wagtail-localize
     #   wagtail-localize-git
     #   wagtail-metadata
@@ -273,6 +275,8 @@ wagtail-factories==4.1.0
 wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
     # via -r requirements.in
 wagtail-inventory==2.5
+    # via -r requirements.in
+wagtail-link-block==1.1.7
     # via -r requirements.in
 wagtail-localize==1.7
     # via
