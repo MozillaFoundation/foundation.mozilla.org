@@ -27,41 +27,52 @@ class WidePrimaryNav {
     }
 
     this.NAV_LINKS_WRAPPER.querySelector(
-      `a.primary[data-name="${navData.primaryNavLookUp[currentPath]}"]`
+      `.tw-primary-nav[data-name="${navData.primaryNavLookUp[currentPath]}"]`
     ).classList.add(this.LINK_ACTIVE_CLASS);
   }
 
   grayOutAllLinks(grayOut = false, onHoverLink = null) {
-    this.NAV_LINKS_WRAPPER.querySelectorAll("a.primary").forEach((link) => {
-      if (link === onHoverLink) {
-        return;
-      }
+    this.NAV_LINKS_WRAPPER.querySelectorAll("a.tw-primary-nav").forEach(
+      (link) => {
+        if (link === onHoverLink) {
+          return;
+        }
 
-      if (grayOut) {
-        link.classList.add(this.LINK_GRAYED_OUT_CLASS);
-      } else {
-        link.classList.remove(this.LINK_GRAYED_OUT_CLASS);
+        if (grayOut) {
+          link.classList.add(this.LINK_GRAYED_OUT_CLASS);
+        } else {
+          link.classList.remove(this.LINK_GRAYED_OUT_CLASS);
+        }
       }
-    });
+    );
   }
 
   setEventHandlers() {
     this.NAV_LINKS_WRAPPER.querySelectorAll(".nav-item-wrapper").forEach(
       (wrapper) => {
         wrapper.addEventListener("mouseenter", () => {
-          this.grayOutAllLinks(true, wrapper.querySelector("a.primary"));
+          this.grayOutAllLinks(true, wrapper.querySelector("a.tw-primary-nav"));
         });
 
         wrapper.addEventListener("focusin", () => {
-          this.grayOutAllLinks(true, wrapper.querySelector("a.primary"));
+          this.grayOutAllLinks(
+            true,
+            wrapper.querySelector("a.primatw-primary-navry")
+          );
         });
 
         wrapper.addEventListener("mouseleave", () => {
-          this.grayOutAllLinks(false, wrapper.querySelector("a.primary"));
+          this.grayOutAllLinks(
+            false,
+            wrapper.querySelector("a.tw-primary-nav")
+          );
         });
 
         wrapper.addEventListener("focusout", () => {
-          this.grayOutAllLinks(false, wrapper.querySelector("a.primary"));
+          this.grayOutAllLinks(
+            false,
+            wrapper.querySelector("a.tw-primary-nav")
+          );
         });
       }
     );
@@ -87,7 +98,30 @@ class NarrowPrimaryNav extends WidePrimaryNav {
     );
   }
 
-  setActiveNavLink() {}
+  setActiveNavLink() {
+    const currentPath = window.location.pathname;
+
+    if (currentPath === "/" || currentPath === "/en/") {
+      return;
+    }
+
+    let activeNavSection = this.NAV_LINKS_WRAPPER.querySelector(
+      `.nav-item-wrapper[data-name="${navData.primaryNavLookUp[currentPath]}"]`
+    );
+
+    if (!activeNavSection) {
+      return;
+    }
+
+    activeNavSection.classList.add(this.LINK_ACTIVE_CLASS);
+    activeNavSection
+      .querySelectorAll("a.tw-secondary-nav-link")
+      .forEach((link) => {
+        if (link.getAttribute("href") === window.location.pathname) {
+          link.classList.add(this.LINK_ACTIVE_CLASS);
+        }
+      });
+  }
 
   slide(element, direction = "down") {
     if (direction === "down") {
@@ -115,12 +149,17 @@ class NarrowPrimaryNav extends WidePrimaryNav {
     );
   }
 
-  init(data) {
-    this.renderCompiledTemplate(data);
-    this.setEventHandlers();
+  collapseAllSubmenus() {
     this.NAV_LINKS_WRAPPER.querySelectorAll(".submenu").forEach((submenu) => {
       this.slide(submenu, "up");
     });
+  }
+
+  init(data) {
+    this.renderCompiledTemplate(data);
+    this.setEventHandlers();
+    this.setActiveNavLink();
+    this.collapseAllSubmenus();
 
     console.log(data);
   }

@@ -118,7 +118,7 @@
       }
     }
 
-    a.primary {
+    .tw-primary-nav {
       font-size: 17px;
       line-height: calc(23 / 17);
       border-bottom: 6px solid transparent;
@@ -147,6 +147,20 @@
         &:active {
           color: $black;
           border-bottom-color: $black;
+        }
+      }
+    }
+  }
+
+  .narrow-screen-menu-container .nav-links {
+    .nav-item-wrapper {
+      &.active {
+        border-left: 4px $black solid;
+      }
+
+      .tw-secondary-nav-link {
+        &.active {
+          text-decoration: underline;
         }
       }
     }
@@ -261,7 +275,7 @@
 
     .narrow-screen-menu {
       position: fixed;
-      top: 64px;
+      top: 65px;
       bottom: 0;
       left: 0;
       right: 0;
@@ -274,16 +288,6 @@
         height: 0;
         overflow: hidden;
         transition: opacity 0.2s, height 0s linear 0.2s;
-
-        .nav-links {
-          a {
-            transform: translateY(8px);
-          }
-        }
-      }
-
-      .nav-links {
-        height: 100%;
       }
     }
   }
