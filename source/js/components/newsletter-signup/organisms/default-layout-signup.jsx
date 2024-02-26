@@ -8,6 +8,7 @@ import Select from "../atoms/select.jsx";
 import InputCheckboxWithLabel from "../molecules/input-checkbox-with-label.jsx";
 import ButtonSubmit from "../atoms/button-submit.jsx";
 import ButtonQuit from "../atoms/button-quit.jsx";
+import APIErrorMessage from "../atoms/api-error-message.jsx";
 import withSubmissionLogic from "./with-submission-logic.jsx";
 import utility from "../../../utility.js";
 import { ReactGA } from "../../../common";
@@ -154,6 +155,17 @@ class DefaultSignupForm extends Component {
       />
     );
   }
+
+  renderAPIErrorMessage() {
+    if (!this.props.apiError) return null;
+
+    return (
+      <APIErrorMessage
+        apiErrorMessage={this.props.apiError}
+      />
+    );
+  }
+
 
   renderFirstNameField() {
     const name = "firstName";
@@ -344,6 +356,7 @@ class DefaultSignupForm extends Component {
         data-submission-status={this.props.apiSubmissionStatus}
       >
         <div className={this.style.introContainerClass}>
+          {this.renderAPIErrorMessage()}
           {this.renderHeader()}
           {this.renderDescription()}
         </div>
