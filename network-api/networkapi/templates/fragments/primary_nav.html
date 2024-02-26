@@ -46,9 +46,9 @@
                                 {% endblock %}
 
                                 {% if page.zen_nav == True %}
-                                <div class="wide-screen-menu hidden">
+                                    <div class="wide-screen-menu hidden">
                                 {% else %}
-                                <div class="wide-screen-menu">
+                                    <div class="wide-screen-menu">
                                 {% endif %}
 
                                 {% block wide_screen_menu %}
@@ -57,23 +57,23 @@
                                     </div>
                                 {% endblock %}
 
-                                </div>
                             </div>
                         </div>
                     </div>
-
-                    {% block donate_and_newsletter %}
-                        <div class="d-flex align-items-center">
-                            <a id="donate-header-btn" class="primary-nav-special-link tw-heart-glyph tw-flex" href="?form=donate">{% trans "Donate" %}</a>
-                            {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
-                        </div>
-                    {% endblock %}
-
                 </div>
-            </div>
-        </nav>
 
-    </div>
+                {% block donate_and_newsletter %}
+                    <div class="d-flex align-items-center">
+                        <a id="donate-header-btn" class="primary-nav-special-link tw-heart-glyph tw-flex" href="?form=donate">{% trans "Donate" %}</a>
+                        {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
+                    </div>
+                {% endblock %}
+
+            </div>
+        </div>
+    </nav>
+
+</div>
 </div>
 </div>
 
