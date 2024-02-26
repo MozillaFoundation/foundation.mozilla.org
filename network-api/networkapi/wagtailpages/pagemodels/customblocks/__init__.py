@@ -37,6 +37,7 @@ from .image_teaser_block import ImageTeaserBlock
 from .image_text_block import ImageTextBlock
 from .image_text_mini import ImageTextMini
 from .latest_profile_list import LatestProfileList
+from .link_block import LinkBlock
 from .link_button_block import LinkButtonBlock
 from .listing import ListingBlock
 from .looping_video_block import LoopingVideoBlock
