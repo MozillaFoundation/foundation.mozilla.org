@@ -159,13 +159,8 @@ class DefaultSignupForm extends Component {
   renderAPIErrorMessage() {
     if (!this.props.apiError) return null;
 
-    return (
-      <APIErrorMessage
-        apiErrorMessage={this.props.apiError}
-      />
-    );
+    return <APIErrorMessage apiErrorMessage={this.props.apiError} />;
   }
-
 
   renderFirstNameField() {
     const name = "firstName";

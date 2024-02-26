@@ -193,11 +193,19 @@ function withSubmissionLogic(WrappedComponent) {
         // [TODO] We will need to update this logic depending on what comes out of
         // https://github.com/MozillaFoundation/foundation.mozilla.org/issues/11406
         if (res.status !== 201) {
-          this.setState({ apiError: getText(`Error: Signup was not created. Please try again later.`) });
+          this.setState({
+            apiError: getText(
+              `Error: Signup was not created. Please try again later.`
+            ),
+          });
           throw new Error(res.statusText);
         }
       } catch (error) {
-        this.setState({ apiError: getText(`Error: Unable to resolve signup. Please try again later.`) });
+        this.setState({
+          apiError: getText(
+            `Error: Unable to resolve signup. Please try again later.`
+          ),
+        });
         throw error;
       }
     }
