@@ -89,8 +89,39 @@ class NarrowPrimaryNav extends WidePrimaryNav {
 
   setActiveNavLink() {}
 
+  slide(element, direction = "down") {
+    if (direction === "down") {
+      element.style.height = `${element.scrollHeight}px`;
+    } else {
+      element.style.height = "0";
+    }
+  }
+
+  setEventHandlers() {
+    this.NAV_LINKS_WRAPPER.querySelectorAll("button.tw-primary-nav").forEach(
+      (btn) => {
+        btn.addEventListener("click", () => {
+          // flip the boolean value of aria-expanded
+          btn.attributes["aria-expanded"].value =
+            btn.attributes["aria-expanded"].value === "true" ? "false" : "true";
+
+          if (btn.attributes["aria-expanded"].value === "true") {
+            this.slide(btn.nextElementSibling, "down");
+          } else {
+            this.slide(btn.nextElementSibling, "up");
+          }
+        });
+      }
+    );
+  }
+
   init(data) {
     this.renderCompiledTemplate(data);
+    this.setEventHandlers();
+    this.NAV_LINKS_WRAPPER.querySelectorAll(".submenu").forEach((submenu) => {
+      this.slide(submenu, "up");
+    });
+
     console.log(data);
   }
 }

@@ -4,8 +4,8 @@
   $logo-height: 28px;
 
   $menu-container-padding: (
-    sm: 16px,
-    zen-sm: 52px,
+    md: 16px,
+    zen-md: 52px,
   );
 
   $primary-nav-link-padding: (
@@ -16,9 +16,9 @@
 
   &.zen-mode {
     .menu-container {
-      @media (min-width: $bp-sm) {
-        padding-left: map-get($menu-container-padding, zen-sm);
-        padding-right: map-get($menu-container-padding, zen-sm);
+      @media (min-width: $bp-md) {
+        padding-left: map-get($menu-container-padding, zen-md);
+        padding-right: map-get($menu-container-padding, zen-md);
       }
     }
   }
@@ -27,7 +27,11 @@
     padding: 0 0 0 52px;
 
     @media (min-width: $bp-sm) {
-      padding: map-get($menu-container-padding, sm) 0;
+      padding: 0;
+    }
+
+    @media (min-width: $bp-md) {
+      padding: map-get($menu-container-padding, md) 0;
     }
   }
 
@@ -113,12 +117,6 @@
         }
       }
     }
-
-    // a:not(.tw-secondary-nav-link):not(.tw-btn-primary) {
-    //   @include hover-focus-active {
-    //     text-decoration: none;
-    //   }
-    // }
 
     a.primary {
       font-size: 17px;
@@ -262,18 +260,13 @@
     }
 
     .narrow-screen-menu {
-      position: absolute;
-      @apply tw-pt-32;
-
-      @media (min-width: $nav-full-logo-breakpoint) {
-        padding-top: 72px;
-      }
-
-      top: 0;
+      position: fixed;
+      top: 64px;
       bottom: 0;
       left: 0;
       right: 0;
-      background: $white;
+      overflow-y: auto;
+      background: white;
       transition: opacity 0.2s, height 0s;
 
       &.hidden {

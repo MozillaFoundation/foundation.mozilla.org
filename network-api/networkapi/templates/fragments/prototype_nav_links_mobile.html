@@ -1,15 +1,15 @@
 <script type="text/template" id="prototype-nav-links-mobile-template">
     <% _.each(navItems, function(navItem, index) { %>
-    <div class="nav-item-wrapper tw-block tw-group">
-        <a class="tw-primary-nav tw-capitalize" href="<%= navItem.url %>" data-name="<%= navItem.name %>"><%= navItem.name %></a>
-        <div class="submenu tw-nav-submenu">
+    <div class="nav-item-wrapper tw-px-8 tw-block tw-group tw-border-b tw-border-gray-20">
+        <button class="tw-primary-nav tw-capitalize tw-text-[20px] tw-px-0 tw-py-12 tw-w-full tw-text-left tw-bg-transparent hover:tw-bg-transparent" aria-expanded="false" href="<%= navItem.url %>" data-name="<%= navItem.name %>"><%= navItem.name %></button>
+        <div class="submenu tw-nav-submenu tw-overflow-hidden tw-transition-all tw-duration-500">
             <div class="tw-row <% if (index >= 3) { %>tw-justify-end<% } %>">
-                <div class="tw-w-full tw-bg-white ">
-                    {% with section_class="tw-my-[45px] tw-mx-8" heading_class="tw-uppercase tw-font-sans tw-text-xs tw-tracking-[0.5px] tw-mb-10" list_class="tw-mb-0 tw-list-none tw-px-0 tw-flex tw-flex-col tw-gap-6" list_item_class="tw-mb-4" link_class="tw-secondary-nav-link tw-group/secondary-nav-link" %}
+                <div class="tw-w-full">
+                    {% with section_class="tw-mt-[25px] tw-mb-16 tw-mx-8" heading_class="tw-uppercase tw-font-sans tw-text-xs tw-tracking-[0.5px] tw-mb-10" list_class="tw-mb-0 tw-list-none tw-px-0 tw-flex tw-flex-col tw-gap-6" list_item_class="tw-mb-4" link_class="tw-secondary-nav-link tw-group/secondary-nav-link" %}
                         <% _.each(navItem.dropdown, function(section) { %>
-                        <div class="{{ section_class }} <% if (section.type == 'featured') { %> tw-bg-blue-03 <% } %>">
+                        <div class="{{ section_class }} <% if (section.type == 'featured') { %> tw-bg-blue-03 tw-px-8 tw-py-12 tw-rounded-2xl <% } %>">
                             <% if (section.type == "intro") { %>
-                            <div class="{{ section_inner_wrapper_class }} tw-border-b tw-border-gray-20">
+                            <div class="{{ section_inner_wrapper_class }} tw-border-b tw-border-gray-05">
                                 <h2 class="tw-overview-heading"><%= section.title %></h2>
                                 <p class="tw-overview-description"><%= section.description %></p>
                                 <a class="tw-btn-primary tw-mt-6 tw-mb-20" href="<%= navItem.url %>">Learn more →</a>
