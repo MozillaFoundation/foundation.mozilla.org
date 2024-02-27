@@ -1,6 +1,5 @@
 import factory
 import wagtail_factories
-
 from wagtail import models
 from wagtail_link_block.blocks import LinkBlock as WagtailLinkBlock
 from wagtail_link_block.blocks import URLValue
@@ -73,5 +72,14 @@ class LinkBlockFactory(wagtail_factories.StructBlockFactory):
     class Meta:
         model = customblocks.LinkBlock
 
+    class Params:
+        page_link = factory.Trait(link=factory.SubFactory(WagtailLinkBlockFactory, page_link=True))
+        document_link = factory.Trait(link=factory.SubFactory(WagtailLinkBlockFactory, document_link=True))
+        external_url_link = factory.Trait(link=factory.SubFactory(WagtailLinkBlockFactory, external_url_link=True))
+        anchor_link = factory.Trait(link=factory.SubFactory(WagtailLinkBlockFactory, anchor_link=True))
+        email_link = factory.Trait(link=factory.SubFactory(WagtailLinkBlockFactory, email_link=True))
+        phone_link = factory.Trait(link=factory.SubFactory(WagtailLinkBlockFactory, phone_link=True))
+
     label = factory.Faker("sentence", nb_words=3)
-    link = factory.SubFactory(WagtailLinkBlockFactory)
+    # Defaults to an external link:
+    link = factory.SubFactory(WagtailLinkBlockFactory, external_url_link=True)
