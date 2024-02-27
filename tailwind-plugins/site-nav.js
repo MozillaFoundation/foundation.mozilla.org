@@ -46,6 +46,7 @@ function narrowPrimaryNavComponents(theme) {
   return {
     ".narrow-screen-menu-container": {
       ".primary-nav": {
+        position: "relative",
         color: theme("colors.black"),
         fontFamily: theme("fontFamily.sans"),
         fontSize: theme("fontSize.lg"),
@@ -55,6 +56,20 @@ function narrowPrimaryNavComponents(theme) {
         textTransform: theme("textTransform.captilize"),
         "&:hover, &:focus, &:focus-visible, &:focus-within, &:active": {
           textDecoration: "none",
+        },
+        ".chevron": {
+          position: "absolute",
+          right: 0,
+          width: "20px",
+          height: "20px",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: `right 0 top 50%`,
+          backgroundImage: 'url("../_images/glyphs/down-chevron.svg")',
+          backgroundSize: `cover`,
+          transition: "transform 0.15s",
+        },
+        "&[aria-expanded='true'] .chevron": {
+          transform: "rotate(180deg)",
         },
       },
     },

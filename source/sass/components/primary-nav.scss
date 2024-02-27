@@ -154,6 +154,9 @@
 
   .narrow-screen-menu-container .nav-links {
     .nav-item-wrapper {
+      border-left-width: 4px;
+      border-left-color: transparent;
+
       &.active {
         border-left: 4px $black solid;
       }

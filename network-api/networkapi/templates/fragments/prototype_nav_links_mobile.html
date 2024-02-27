@@ -1,7 +1,10 @@
 <script type="text/template" id="prototype-nav-links-mobile-template">
     <% _.each(navItems, function(navItem, index) { %>
     <div class="nav-item-wrapper tw-px-8 tw-block tw-group tw-border-b tw-border-b-gray-20" data-name="<%= navItem.name %>">
-        <button class="tw-primary-nav tw-capitalize tw-text-[20px] tw-px-0 tw-py-12 tw-w-full tw-text-left tw-bg-transparent hover:tw-bg-transparent" aria-expanded="false" href="<%= navItem.url %>"><%= navItem.name %></button>
+        <button class="tw-primary-nav tw-primary-nav-select tw-capitalize tw-text-[20px] tw-px-0 tw-py-12 tw-w-full tw-text-left tw-bg-transparent hover:tw-bg-transparent" aria-expanded="false" href="<%= navItem.url %>">
+            <%= navItem.name %>
+            <span class="tw-chevron"></span>
+        </button>
         <div class="submenu tw-nav-submenu tw-overflow-hidden tw-transition-all tw-duration-500">
             <div class="tw-row <% if (index >= 3) { %>tw-justify-end<% } %>">
                 <div class="tw-w-full">
