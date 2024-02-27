@@ -1,6 +1,7 @@
 import factory
 import wagtail_factories
 
+from networkapi.wagtailpages.factory.customblocks.link_block import LinkBlockFactory
 from networkapi.wagtailpages.pagemodels import customblocks
 
 
@@ -9,8 +10,13 @@ class LinkButtonBlockFactory(wagtail_factories.StructBlockFactory):
         model = customblocks.LinkButtonBlock
 
     class Params:
-        is_relative = False  # Whether this is a relative link or not
+        page_link = factory.Trait(target=factory.SubFactory(LinkBlockFactory, page_link=True))
+        document_link = factory.Trait(target=factory.SubFactory(LinkBlockFactory, document_link=True))
+        external_url_link = factory.Trait(target=factory.SubFactory(LinkBlockFactory, external_url_link=True))
+        anchor_link = factory.Trait(target=factory.SubFactory(LinkBlockFactory, anchor_link=True))
+        email_link = factory.Trait(target=factory.SubFactory(LinkBlockFactory, email_link=True))
+        phone_link = factory.Trait(target=factory.SubFactory(LinkBlockFactory, phone_link=True))
 
-    label = factory.Faker("sentence", nb_words=3)
-    URL = factory.Maybe("is_relative", yes_declaration=factory.Faker("url"), no_declaration=factory.Faker("uri_path"))
+    # External URL link is the default
+    target = factory.SubFactory(LinkBlockFactory, external_url_link=True)
     styling = factory.Faker("random_element", elements=["btn-primary", "btn-secondary"])
