@@ -11,6 +11,7 @@ from networkapi.wagtailpages.factory import customblocks as customblock_factorie
 class TesWagtailLinkBlock(TestCase):
     def test_page_link(self):
         block = customblock_factories.WagtailLinkBlockFactory(page_link=True)
+        WagtailLinkBlock().clean(block)
 
         # Assert that choice is correct
         self.assertTrue(block["link_to"], ("page", _("Page")))
@@ -34,6 +35,7 @@ class TesWagtailLinkBlock(TestCase):
 
     def test_document_link(self):
         block = customblock_factories.WagtailLinkBlockFactory(document_link=True)
+        WagtailLinkBlock().clean(block)
 
         # Assert that choice is correct
         self.assertTrue(block["link_to"], ("document", _("Document")))
@@ -55,6 +57,7 @@ class TesWagtailLinkBlock(TestCase):
 
     def test_external_url_link(self):
         block = customblock_factories.WagtailLinkBlockFactory(external_url_link=True)
+        WagtailLinkBlock().clean(block)
 
         # Assert that choice is correct
         self.assertTrue(block["link_to"], ("custom_url", _("External URL")))
@@ -75,6 +78,7 @@ class TesWagtailLinkBlock(TestCase):
 
     def test_anchor_link(self):
         block = customblock_factories.WagtailLinkBlockFactory(anchor_link=True)
+        WagtailLinkBlock().clean(block)
 
         # Assert that choice is correct
         self.assertTrue(block["link_to"], ("anchor", _("Anchor")))
@@ -95,6 +99,7 @@ class TesWagtailLinkBlock(TestCase):
 
     def test_email_link(self):
         block = customblock_factories.WagtailLinkBlockFactory(email_link=True)
+        WagtailLinkBlock().clean(block)
 
         # Assert that choice is correct
         self.assertTrue(block["link_to"], ("email", _("Email")))
@@ -115,6 +120,7 @@ class TesWagtailLinkBlock(TestCase):
 
     def test_phone_link(self):
         block = customblock_factories.WagtailLinkBlockFactory(phone_link=True)
+        WagtailLinkBlock().clean(block)
 
         # Assert that choice is correct
         self.assertTrue(block["link_to"], ("phone", _("Phone")))
