@@ -8,7 +8,7 @@
         <div class="submenu tw-nav-submenu tw-overflow-hidden tw-transition-all tw-duration-500">
             <div class="tw-row <% if (index >= 3) { %>tw-justify-end<% } %>">
                 <div class="tw-w-full">
-                    {% with section_class="tw-mt-[25px] tw-mb-16 tw-mx-8" heading_class="tw-uppercase tw-font-sans tw-text-xs tw-tracking-[0.5px] tw-mb-10" list_class="tw-mb-0 tw-list-none tw-px-0 tw-flex tw-flex-col tw-gap-6" list_item_class="tw-mb-4" link_class="tw-secondary-nav-link tw-group/secondary-nav-link" %}
+                    {% with section_class="tw-border0 tw-py-8 tw-mb-4 tw-mx-8" heading_class="tw-uppercase tw-font-sans tw-text-xs tw-tracking-[0.5px] tw-mb-8" list_class="tw-mb-0 tw-list-none tw-px-0 tw-flex tw-flex-col tw-gap-6" list_item_class="tw-my-4" link_class="tw-secondary-nav-link tw-group/secondary-nav-link" %}
                         <% _.each(navItem.dropdown, function(section) { %>
                         <div class="{{ section_class }} <% if (section.type == 'featured') { %> tw-bg-blue-03 tw-px-8 tw-py-12 tw-rounded-2xl <% } %>">
                             <% if (section.type == "intro") { %>
