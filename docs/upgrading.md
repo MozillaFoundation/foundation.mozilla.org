@@ -19,3 +19,10 @@ A pages types usage report has been added on `networkapi.reports.views`, which w
 ### Localisation utility
 
 The `localize_queryset` utility function on `networkapi.wagtailpages.utils` has been incorporated [into core](https://github.com/wagtail/wagtail/pull/11274). Once that has been released, the implementation here should be removed in favour of the core one.
+
+
+## wagtail-ab-testing
+
+In order to make `wagtail-ab-testing` compatible with our CSP, the main script and template tag had to be overwritten. The script on `templates/wagtail_ab_testing/script.html` was modified to pass values through a `json_script` tag (as [Django recommends](https://docs.djangoproject.com/en/4.2/ref/templates/builtins/#json-script)) and a `nonce` was added to the scripts.
+
+The `wagtail_ab_testing_script` template tag was rewritten at `networkapi.wagtailcustomization.templatetags.wagtailcustom_tags` to pass the request to the script so that it can pick up the `nonce` value from `request` (`request.csp_nonce`).
