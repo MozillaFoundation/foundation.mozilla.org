@@ -91,8 +91,6 @@ let primaryNav = {
         setMenuState(menuOpen);
       }
     });
-
-    elBurger.click();
   },
 };
 
