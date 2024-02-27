@@ -6,7 +6,7 @@
 <div class="wrapper-burger {% block wrapper_classes %}{% endblock %}">
     <div class="menu-container {% block menu_container_classes %}{% endblock %}">
         {% block menu_content %}
-            <div class="narrow-screen-menu hidden d-lg-none">
+            <div class="narrow-screen-menu tw-bg-white hidden d-lg-none">
                 {% block narrow_screen_menu %}
                     <div class="tw-bg-white">
                         <div class="narrow-screen-menu-container tw-narrow-screen-menu-container">
@@ -18,8 +18,8 @@
                                                 <div><a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}" href="{{ menu_root.url }}">{% trans "Home" %}</a></div>
                                                 {% include "fragments/prototype_nav_links_mobile.html" %}
                                             {% endblock %}
-                                            {% if page.signup == None %}<div class="mt-2"><button class="tw-btn-secondary btn-newsletter">{% trans "Newsletter" %}</button></div>{% endif %}
                                         </div>
+                                        {% if page.signup == None %}<div class="tw-mt-12 tw-mx-8"><button class="tw-btn-secondary btn-newsletter tw-w-full">{% trans "Newsletter" %}</button></div>{% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -79,9 +79,9 @@
 
 
 <div id="nav-newsletter-form-wrapper" class="d-none">
-    <div class="container tw-dark">
-        <div class="row">
-            <div class="col-12">
+    <div class="tw-container tw-dark">
+        <div class="tw-row">
+            <div class="tw-relative tw-px-8 tw-w-full">
                 <div class="newsletter-signup-module on-nav tw-pt-24"
                      data-module-type="default"
                      data-form-style="header:2-col"

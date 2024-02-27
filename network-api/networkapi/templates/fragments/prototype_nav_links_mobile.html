@@ -38,6 +38,11 @@
                                         <% } %>
                                     </li>
                                     <% }); %>
+                                    <% if (section.seeMore) { %>
+                                        <li class="{{ list_item_class }}">
+                                            <a class="{{ link_class }} tw-text-blue-80" href="<%= section.seeMore.link %>"><%= section.seeMore.text %></a>
+                                        </li>
+                                        <% } %>
                                 </ul>
                             </div>
                             <% } %>
