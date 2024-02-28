@@ -29,7 +29,6 @@ def custom404_view(request, exception):
 def localized_redirect(request, subpath, destination_path):
     lang = request.LANGUAGE_CODE
     translation.activate(lang)
-    request.session[translation.LANGUAGE_SESSION_KEY] = lang
     query_string = ""
 
     if request.META["QUERY_STRING"]:

@@ -39,7 +39,7 @@ cffi==1.16.0
     #   pygit2
 charset-normalizer==2.0.12
     # via requests
-cryptography==42.0.0
+cryptography==42.0.2
     # via social-auth-core
 defusedxml==0.7.1
     # via
@@ -48,7 +48,7 @@ defusedxml==0.7.1
     #   willow
 dj-database-url==2.1.0
     # via -r requirements.in
-django==4.2.9
+django==4.2.10
     # via
     #   -r requirements.in
     #   dj-database-url
