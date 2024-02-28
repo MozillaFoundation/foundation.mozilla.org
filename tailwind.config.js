@@ -6,6 +6,7 @@ const buttonPlugins = require("./tailwind-plugins/button");
 const typePlugins = require("./tailwind-plugins/type");
 const glyphPlugins = require("./tailwind-plugins/glyph");
 const formControlPlugins = require("./tailwind-plugins/form-control");
+const siteNavPlugins = require("./tailwind-plugins/site-nav");
 
 module.exports = {
   content: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
@@ -53,7 +54,10 @@ module.exports = {
       addVariant("summary-open", ["details[open] > summary > &"]);
       addVariant("details-open", ["details[open] > &"]);
       addVariant("rich-text-links", "& [class~='rich-text'] a");
-      addVariant("2xdpi", "@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)");  // high density screens (retina)
+      addVariant(
+        "2xdpi",
+        "@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)"
+      ); // high density screens (retina)
       addBase(newBase);
     }),
     ...componentPlugins,
@@ -61,6 +65,7 @@ module.exports = {
     ...typePlugins,
     ...glyphPlugins,
     ...formControlPlugins,
+    ...siteNavPlugins,
     require("@tailwindcss/forms")({ strategy: "class" }),
   ],
   theme: {
@@ -159,6 +164,7 @@ module.exports = {
         100: "#9a000e",
       },
       blue: {
+        "03": "#f8f8fe",
         "05": "#e7e7fc",
         10: "#d3d5fc",
         20: "#b7b9fa",
@@ -232,14 +238,14 @@ module.exports = {
         purple: {
           100: "#fa00ff",
           200: "#b855f6",
-          300: "#a0a2f8"
+          300: "#a0a2f8",
         },
         black: {
           100: "#202020",
         },
         gray: {
           100: "#4c4c4c",
-        }
+        },
       },
       "dear-internet": {
         lilac: "#d3d5fc",
@@ -255,9 +261,9 @@ module.exports = {
       },
     },
     boxShadow: {
-      "pop": "4px 4px rgb(0, 0, 0)",
-      "outline": "0px -4px rgb(0, 0, 0)",
-    }
+      pop: "4px 4px rgb(0, 0, 0)",
+      outline: "0px -4px rgb(0, 0, 0)",
+    },
   },
   // TODO remove after removing SASS/Bootstrap
   prefix: "tw-",
