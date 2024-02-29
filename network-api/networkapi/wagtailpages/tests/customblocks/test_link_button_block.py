@@ -11,7 +11,7 @@ class TestLinkButtonBlock(TestCase):
         block = customblock_factories.LinkButtonBlockFactory()
 
         # Assert that the page link is custom URL and that it is correct
-        link = block["target"]["link"]
+        link = block["link"]
         url = link["custom_url"]
         self.assertEqual(link.get_url(), url)
 
@@ -19,7 +19,7 @@ class TestLinkButtonBlock(TestCase):
         """Create a LinkButtonBlockFactory with a page link."""
         block = customblock_factories.LinkButtonBlockFactory(page_link=True)
 
-        link = block["target"]["link"]
+        link = block["link"]
         page = link["page"]
         self.assertIsNotNone(page)
         self.assertTrue(isinstance(page, Page))
@@ -29,7 +29,7 @@ class TestLinkButtonBlock(TestCase):
         """Create a LinkButtonBlockFactory with a file link."""
         block = customblock_factories.LinkButtonBlockFactory(document_link=True)
 
-        link = block["target"]["link"]
+        link = block["link"]
         document = link["file"]
         self.assertIsNotNone(document)
         self.assertTrue(isinstance(document, Document))
@@ -39,7 +39,7 @@ class TestLinkButtonBlock(TestCase):
         """Create a LinkButtonBlockFactory with a custom/external URL."""
         block = customblock_factories.LinkButtonBlockFactory(external_url_link=True)
 
-        link = block["target"]["link"]
+        link = block["link"]
         url = link["custom_url"]
         self.assertIsNotNone(url)
         self.assertEqual(link.get_url(), url)
@@ -50,7 +50,7 @@ class TestLinkButtonBlock(TestCase):
 
         print(block)
 
-        link = block["target"]["link"]
+        link = block["link"]
         anchor = link["anchor"]
         self.assertNotEqual(anchor, "")
         self.assertEqual(link.get_url(), f"#{anchor}")
@@ -59,7 +59,7 @@ class TestLinkButtonBlock(TestCase):
         """Create a LinkButtonBlockFactory with an email link."""
         block = customblock_factories.LinkButtonBlockFactory(email_link=True)
 
-        link = block["target"]["link"]
+        link = block["link"]
         email = link["email"]
         self.assertNotEqual(email, "")
         self.assertEqual(link.get_url(), f"mailto:{email}")
@@ -68,7 +68,7 @@ class TestLinkButtonBlock(TestCase):
         """Create a LinkButtonBlockFactory with a phone link."""
         block = customblock_factories.LinkButtonBlockFactory(phone_link=True)
 
-        link = block["target"]["link"]
+        link = block["link"]
         phone = link["phone"]
         self.assertNotEqual(phone, "")
         self.assertEqual(link.get_url(), f"tel:{phone}")
@@ -77,8 +77,7 @@ class TestLinkButtonBlock(TestCase):
         """Create a LinkButtonBlockFactory with new_window set to True."""
         block = customblock_factories.LinkButtonBlockFactory(new_window=True)
 
-        link = block["target"]["link"]
-        self.assertTrue(link["new_window"])
+        self.assertTrue(block["new_window"])
 
     def test_styling(self):
         """Create a LinkButtonBlock with a styling."""
