@@ -3,6 +3,13 @@ from wagtail.blocks.migrations.operations import BaseBlockOperation
 
 class AlterStreamChildBlockDataOperation(BaseBlockOperation):
     def __init__(self, block, operation):
+        """Alter the data of a child block in a StreamField.
+
+        Args:
+            block (str): The key of the block type to alter.
+            operation (callable): A function that takes a block value and returns a
+                new block value.
+        """
         super().__init__()
         self.block = block
         self.operation = operation
