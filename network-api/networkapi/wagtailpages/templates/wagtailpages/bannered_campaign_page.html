@@ -42,9 +42,9 @@ work should not be done at the same time as adding signup CTAs to the b.c. pages
 An extra check has been added so as to not show the fixed "Take action" button on mobile pages for email signups.
 
 {% block cta_desktop %}
-    {% include "./fragments/bannered_campaign_cta.html" with page=page class="tw-hidden medium:tw-block" %}
+    {% include "./fragments/bannered_campaign_cta.html" with page=page class="tw-hidden medium:tw-block" display_mode="desktop" %}
 {% endblock %}
 
 {% block cta_mobile %}
-    {% include "./fragments/bannered_campaign_cta.html" with page=page class="medium:tw-hidden" %}
+    {% include "./fragments/bannered_campaign_cta.html" with page=page class="medium:tw-hidden" display_mode="mobile" %}
 {% endblock %}

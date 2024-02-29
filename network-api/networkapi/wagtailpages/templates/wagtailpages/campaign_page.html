@@ -53,7 +53,7 @@
                         {% endblock %}
 
                         {% block cta_mobile %}
-                            {% include "./fragments/campaign_cta.html" with page=page class="medium:tw-hidden" %}
+                            {% include "./fragments/campaign_cta.html" with page=page class="medium:tw-hidden" display_mode="mobile" %}
                         {% endblock %}
     
                         {% block html_content_desktop %}
@@ -62,7 +62,7 @@
                     </div>
 
                     {% block cta_desktop %}
-                        {% include "./fragments/campaign_cta.html" with page=page class="tw-hidden medium:tw-block" %}
+                        {% include "./fragments/campaign_cta.html" with page=page class="tw-hidden medium:tw-block" display_mode="desktop" %}
                     {% endblock %}
 
                 </div>
