@@ -119,30 +119,24 @@ export class PNISortDropdown {
   }
 
   toggleListVisibility(e) {
-    let openDropDown =
-      SPACEBAR_KEY_CODE.includes(e.keyCode) || e.keyCode === ENTER_KEY_CODE;
+    const isExpanded =
+      this.dropdownButton.getAttribute("aria-expanded") === "true";
 
-    if (e.keyCode === ESCAPE_KEY_CODE) {
-      this.closeList();
-    }
-
-    if (e.type === "click" || openDropDown) {
+    if (
+      e.keyCode === ESCAPE_KEY_CODE ||
+      e.keyCode === UP_ARROW_KEY_CODE ||
+      (e.type === "click" && isExpanded)
+    ) {
       e.preventDefault();
-      if (this.dropdownButton.getAttribute("aria-expanded") === "false") {
-        this.openList(true);
-      } else {
-        this.closeList();
-      }
-    }
-
-    if (e.keyCode === DOWN_ARROW_KEY_CODE) {
+      this.closeList();
+    } else if (
+      SPACEBAR_KEY_CODE.includes(e.keyCode) ||
+      e.keyCode === ENTER_KEY_CODE ||
+      e.keyCode === DOWN_ARROW_KEY_CODE ||
+      (e.type === "click" && !isExpanded)
+    ) {
       e.preventDefault();
       this.openList(true);
-    }
-
-    if (e.keyCode === UP_ARROW_KEY_CODE) {
-      e.preventDefault();
-      this.closeList();
     }
   }
 
