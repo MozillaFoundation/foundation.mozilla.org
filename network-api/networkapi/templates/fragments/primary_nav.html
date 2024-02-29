@@ -63,7 +63,7 @@
 
                     {% block donate_and_newsletter %}
                         <div class="d-flex align-items-center">
-                            <a id="donate-header-btn" class="primary-nav-special-link tw-heart-glyph tw-flex" href="?form=donate">{% trans "Donate" %}</a>
+                            <a data-donate-header-button class="primary-nav-special-link tw-heart-glyph tw-flex" href="?form=donate">{% trans "Donate" %}</a>
                             {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
                         </div>
                     {% endblock %}
