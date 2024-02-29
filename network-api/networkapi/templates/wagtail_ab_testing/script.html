@@ -1,0 +1,67 @@
+{% load static %}
+
+{% if track %}
+    {# Is this a Wagtail Page? #}
+    {% if page %}
+        {# This value is used to check if a goal has been reached #}
+        {{ page.id|json_script:"abtesting-page-id" }}
+    {% endif %}
+
+    {# Is there a test running on the current page? #}
+    {% if test and version %}
+        {{ test.id|json_script:"abtesting-test-id" }}
+        {{ version|json_script:"abtesting-version" }}
+        {{ test.goal_event|json_script:"abtesting-goal-event" }}
+        {% if test.goal_page %}
+            {{ test.goal_page.id|json_script:"abtesting-goal-page-id" }}
+        {% else %}
+            {{ None|json_script:"abtesting-goal-page-id" }}
+        {% endif %}
+    {% endif %}
+
+    {# URLs #}
+    {% url 'wagtail_ab_testing:register_participant' as register_participant_url %}
+    {{ register_participant_url|json_script:"abtesting-register-participant-url" }}
+    {% url 'wagtail_ab_testing:goal_reached' as goal_reached_url %}
+    {{ goal_reached_url|json_script:"abtesting-goal-reached-url" }}
+
+    <script nonce="{{ request.csp_nonce }}">
+        // Read values from the DOM
+        const registerParticipantUrl = JSON.parse(document.getElementById('abtesting-register-participant-url').textContent);
+        const goalReachedUrl = JSON.parse(document.getElementById('abtesting-goal-reached-url').textContent);
+
+        window.wagtailAbTesting = {
+            urls :{
+                registerParticipant: registerParticipantUrl,
+                goalReached: goalReachedUrl
+            }
+        };
+
+        if (document.getElementById('abtesting-page-id')) {
+            const pageId = JSON.parse(document.getElementById('abtesting-page-id').textContent);
+            window.wagtailAbTesting.pageId = pageId;
+        }
+
+        let testId = null;
+        let version = null;
+
+        if (document.getElementById('abtesting-test-id')) {
+            testId = JSON.parse(document.getElementById('abtesting-test-id').textContent);
+        }
+
+        if (document.getElementById('abtesting-version')) {
+            version = JSON.parse(document.getElementById('abtesting-version').textContent);
+        }
+
+        if (testId && version) {
+            const goalEvent = JSON.parse(document.getElementById('abtesting-goal-event').textContent);
+            const goalPageId = JSON.parse(document.getElementById('abtesting-goal-page-id').textContent);
+            window.wagtailAbTesting.testId = testId;
+            window.wagtailAbTesting.version = version;
+            window.wagtailAbTesting.goalEvent = goalEvent;
+            window.wagtailAbTesting.goalPageId = goalPageId;
+        }
+    </script>
+
+    <script nonce="{{ request.csp_nonce }}" src="{% static 'wagtail_ab_testing/js/tracker.js' %}" defer async></script>
+{% endif %}

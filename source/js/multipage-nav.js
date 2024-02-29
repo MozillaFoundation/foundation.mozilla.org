@@ -40,9 +40,9 @@ export default () => {
     let className = `multipage-link${isActive ? ` active` : ``}`;
 
     if (isActive) {
-      activeLinkLabel = `<div class="active-link-label d-inline-block ${className}">
+      activeLinkLabel = `<span class="active-link-label d-inline-block ${className}">
             ${label}
-          </div>`;
+          </span>`;
     }
 
     return `<div><a href="${href}" class="${className}">${label}</a></div>`;
@@ -51,10 +51,10 @@ export default () => {
   links.unshift(
     `<div>
         <button class="expander">
-          <div class="d-flex justify-content-between">
-            <div>${activeLinkLabel}</div>
-            <div class="d-inline-block align-self-center control" />
-          </div>
+          <span class="d-flex justify-content-between">
+            <span>${activeLinkLabel}</span>
+            <span class="align-self-center control" />
+          </span>
         </button>
       </div>`
   );
