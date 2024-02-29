@@ -49,12 +49,3 @@ class Migration(migrations.Migration):
             ],
         ),
     ]
-
-
-# class Migration(migrations.Migration):
-
-#     dependencies = [
-#         ("donate", "0006_add_linkblock_to_linkbuttonblock"),
-#     ]
-
-#     operations = []
