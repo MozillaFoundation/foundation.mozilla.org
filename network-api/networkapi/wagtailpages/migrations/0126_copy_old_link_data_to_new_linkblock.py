@@ -15,18 +15,15 @@ def migrate_linkbuttonblock(source_block):
             "label": source_block["value"]["label"],
             "URL": source_block["value"]["URL"],
             "styling": source_block["value"]["styling"],
-            "target": {
-                "link": {
-                    "file": None,
-                    "page": None,
-                    "email": "",
-                    "phone": "",
-                    "anchor": "",
-                    "link_to": "custom_url",
-                    "custom_url": source_block["value"]["URL"],
-                    "new_window": False,
-                },
-                "label": source_block["value"]["label"],
+            "link": {
+                "file": None,
+                "page": None,
+                "email": "",
+                "phone": "",
+                "anchor": "",
+                "link_to": "custom_url",
+                "custom_url": source_block["value"]["URL"],
+                "new_window": False,
             },
         },
     }

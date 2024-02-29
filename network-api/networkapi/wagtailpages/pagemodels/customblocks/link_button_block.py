@@ -3,9 +3,7 @@ from wagtail import blocks
 from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
 
 
-class LinkButtonBlock(blocks.StructBlock):
-    target = LinkBlock(label="")
-
+class LinkButtonBlock(LinkBlock):
     # Buttons can have different looks, so we
     # offer the choice to decide which styling
     # should be used.

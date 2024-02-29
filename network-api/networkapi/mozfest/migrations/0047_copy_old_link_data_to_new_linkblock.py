@@ -15,18 +15,15 @@ def migrate_linkbuttonblock(source_block):
             "label": source_block["value"]["label"],
             "URL": source_block["value"]["URL"],
             "styling": source_block["value"]["styling"],
-            "target": {
-                "link": {
-                    "file": None,
-                    "page": None,
-                    "email": "",
-                    "phone": "",
-                    "anchor": "",
-                    "link_to": "custom_url",
-                    "custom_url": source_block["value"]["URL"],
-                    "new_window": False,
-                },
-                "label": source_block["value"]["label"],
+            "link": {
+                "file": None,
+                "page": None,
+                "email": "",
+                "phone": "",
+                "anchor": "",
+                "link_to": "custom_url",
+                "custom_url": source_block["value"]["URL"],
+                "new_window": False,
             },
         },
     }
@@ -42,19 +39,17 @@ def migrate_ctablock(source_block):
             "link_url": source_block["value"]["link_url"],
             "link_text": source_block["value"]["link_text"],
             "dark_background": source_block["value"]["dark_background"],
-            "target": {
-                "link": {
-                    "file": None,
-                    "page": None,
-                    "email": "",
-                    "phone": "",
-                    "anchor": "",
-                    "link_to": "custom_url",
-                    "custom_url": source_block["value"]["link_url"],
-                    "new_window": False,
-                },
-                "label": source_block["value"]["link_text"],
+            "link": {
+                "file": None,
+                "page": None,
+                "email": "",
+                "phone": "",
+                "anchor": "",
+                "link_to": "custom_url",
+                "custom_url": source_block["value"]["link_url"],
+                "new_window": False,
             },
+            "label": source_block["value"]["link_text"],
         },
     }
 

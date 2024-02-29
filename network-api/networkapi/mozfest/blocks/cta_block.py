@@ -3,10 +3,9 @@ from wagtail import blocks
 from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
 
 
-class CTABlock(blocks.StructBlock):
+class CTABlock(LinkBlock):
     heading = blocks.CharBlock(required=False)
     text = blocks.CharBlock(required=False)
-    target = LinkBlock()
     dark_background = blocks.BooleanBlock(required=False)
 
     class Meta:
