@@ -542,16 +542,19 @@ def generate_carousel_text_block_field():
 def generate_cta_field():
     heading = fake.sentence(nb_words=3, variable_nb_words=True)
     text = fake.paragraph(nb_sentences=2, variable_nb_sentences=True)
-    link_url = fake.url(schemes=["https"])
-    link_text = fake.sentence(nb_words=2, variable_nb_words=True)
+    link = fake.url(schemes=["https"])
+    label = fake.sentence(nb_words=2, variable_nb_words=True)
     dark_background = True
 
     cta = {
         "heading": heading,
         "text": text,
-        "link_url": link_url,
-        "link_text": link_text,
+        "label": label,
         "dark_background": dark_background,
+        "link": {
+            "link_to": "custom_url",
+            "custom_url": link,
+        },
     }
 
     return generate_field("cta", cta)
