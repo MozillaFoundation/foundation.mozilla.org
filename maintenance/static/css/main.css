@@ -8258,12 +8258,12 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     #primary-nav-container .menu-container {
       padding: 16px 0; } }
 
-#primary-nav-container #donate-header-btn {
+#primary-nav-container [data-donate-header-button] {
   font-size: 17px;
   line-height: 1.35294;
   color: #000000;
   font-weight: 700; }
-  #primary-nav-container #donate-header-btn:hover {
+  #primary-nav-container [data-donate-header-button]:hover {
     color: #0d10bf;
     cursor: pointer; }
 
