@@ -51,46 +51,30 @@
                                 {% mini_site_horizontal_nav page %}
                             </div>
                         {% endblock %}
+
+                        {% block cta_mobile %}
+                            {% include "./fragments/campaign_cta.html" with page=page class="medium:tw-hidden" %}
+                        {% endblock %}
+    
                         {% block html_content_desktop %}
-                            {% include "./fragments/campaign_main_body.html" with page=page class="tw-hidden medium:tw-block" %}
+                            {% include "./fragments/campaign_main_body.html" with page=page %}
                         {% endblock %}
                     </div>
 
-                    {% block cta %}
-                        {% if page.cta != None %}
-                            <div class="cta tw-pb-4
-                                        {% if page.specific.narrowed_page_content == False %}
-                                            large:tw-w-4/12 large:tw-ml-[8.3%] tw-px-8
-                                        {% else %}
-                                            tw-w-full
-                                        {% endif %}"
-                            >
-                                <div class="narrow-sticky-button-container hidden">
-                                    <a href="#cta-anchor" class="tw-btn-primary tw-block">{% trans "TAKE ACTION" context "Sticky button in mobile view on campaign pages" %}</a>
-                                </div>
-                                <div class="tw-sticky tw-top-40 tw-overflow-hidden tw-z-[1018]">
-                                    <div id="cta-anchor" class="-tw-mt-40 tw-pt-40">
-                                        {% cta page %}
-                                    </div>
-                                </div>
-                                <script src="https://c.shpg.org/352/sp.js"></script>
-                            </div>
-                        {% endif %}
+                    {% block cta_desktop %}
+                        {% include "./fragments/campaign_cta.html" with page=page class="tw-hidden medium:tw-block" %}
                     {% endblock %}
 
-                    {% block html_content_mobile %}
-                        {% include "./fragments/campaign_main_body.html" with page=page class="tw-pt-8 tw-w-full tw-px-8 tw-block medium:tw-hidden" %}
-                    {% endblock %}
 
-                    <div class="
-                                {% if page.cta and page.specific.narrowed_page_content == False %}
-                                    tw-w-7/12 tw-px-8
-                                {% elif page.signup and page.specific.narrowed_page_content == False %}
-                                    tw-w-7/12 tw-px-8
-                                {% else %}
-                                    tw-w-full tw-px-8
-                                {% endif %}"
-                    >
+                        <div class="
+                                    {% if page.cta and page.specific.narrowed_page_content == False %}
+                                        tw-w-7/12 tw-px-8
+                                    {% elif page.signup and page.specific.narrowed_page_content == False %}
+                                        tw-w-7/12 tw-px-8
+                                    {% else %}
+                                        tw-w-full tw-px-8
+                                    {% endif %}"
+                        >
                     </div>
                 </div>
             </div>

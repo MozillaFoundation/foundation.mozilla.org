@@ -31,7 +31,7 @@ Note: Wrapper HTML elements are copied from primary_page_menu.html as we want me
     {% include "partials/intro_and_content_divider.html" with wrapper_class="d-none d-md-block" %}
 {% endblock %}
 
-The following block has been borrowed from the templates/tags/cta/petition.html file,
+The following block(s) has been borrowed from the templates/tags/cta/petition.html file,
 rather than using the `cta` tag from our mini_site_tags collection, because the cta
 tag was written in the assumption that models would only ever have a single CTA field
 named "cta", which is an assumption that the bannered campaign page squarely violates.
@@ -41,45 +41,10 @@ work should not be done at the same time as adding signup CTAs to the b.c. pages
 
 An extra check has been added so as to not show the fixed "Take action" button on mobile pages for email signups.
 
-{% block cta %}
-    {% if page.cta != None or page.signup != None %}
-        <div class="cta
-                    {% if page.specific.narrowed_page_content == False %}
-                        col-lg-4 offset-lg-1
-                    {% else %}
-                        col-lg-12
-                    {% endif %}"
-        >
-            {% if page.cta != None %}
-                <div class="narrow-sticky-button-container hidden">
-                    <a href="#cta-anchor" class="tw-btn-primary d-block">{% trans "TAKE ACTION" context "Sticky button in mobile view on campaign pages" %}</a>
-                </div>
-            {% endif %}
-            <div class="tw-sticky tw-top-40 tw-overflow-hidden tw-z-[1018]">
-                <div id="cta-anchor">
-                    <div class="mt-5 mt-md-0">
-                        {% cta page %}
+{% block cta_desktop %}
+    {% include "./fragments/bannered_campaign_cta.html" with page=page class="tw-hidden medium:tw-block" %}
+{% endblock %}
 
-                        {% if page.signup %}
-                            {% with localized_signup=page.signup.localized %}
-                                <div
-                                    class="newsletter-signup-module tw-mb-24"
-                                    data-module-type="default"
-                                    data-form-style="bannered-campaign-body"
-                                    data-show-country-field-by-default="true"
-                                    data-show-language-field-by-default="true"
-                                    data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
-                                    data-signup-id="{{ localized_signup.id }}"
-                                    data-cta-header="{{ localized_signup.header | escape }}"
-                                    data-cta-description="{{ localized_signup.description | escape }}"
-                                    data-ask-name="{{ localized_signup.ask_name }}">
-                                </div>
-                            {% endwith %}
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <script src="https://c.shpg.org/352/sp.js"></script>
-        </div>
-    {% endif %}
+{% block cta_mobile %}
+    {% include "./fragments/bannered_campaign_cta.html" with page=page class="medium:tw-hidden" %}
 {% endblock %}
