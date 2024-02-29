@@ -213,8 +213,16 @@ def generate_linkbutton_field():
         "linkbutton",
         {
             "label": label,
-            "URL": url,
             "styling": styling,
+            "link": {
+                "link_to": "custom_url",
+                "custom_url": url,
+                "page": None,
+                "file": None,
+                "anchor": "",
+                "email": "",
+                "phone": "",
+            },
         },
     )
 
@@ -554,6 +562,11 @@ def generate_cta_field():
         "link": {
             "link_to": "custom_url",
             "custom_url": link,
+            "page": None,
+            "file": None,
+            "anchor": "",
+            "email": "",
+            "phone": "",
         },
     }
 
