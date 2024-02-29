@@ -4,12 +4,6 @@ from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
 
 
 class LinkButtonBlock(blocks.StructBlock):
-    label = blocks.CharBlock()
-
-    # We use a char block because UrlBlock does not
-    # allow for relative linking.
-    URL = blocks.CharBlock()
-
     target = LinkBlock(label="")
 
     # Buttons can have different looks, so we
