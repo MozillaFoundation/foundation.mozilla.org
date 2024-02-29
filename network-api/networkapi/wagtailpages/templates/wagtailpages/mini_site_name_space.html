@@ -6,13 +6,15 @@
     {% if uses_menu %}
         {% block minisite_title %}
         {% endblock %}
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <p class="tw-h5-heading d-md-none mt-3">{{ mini_site_title }}</p>
+        {% if mini_site_title %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="tw-h5-heading d-md-none mt-3">{{ mini_site_title }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     {% else %}
         {% block minisite_no_menu %}{% endblock %}
     {% endif %}
