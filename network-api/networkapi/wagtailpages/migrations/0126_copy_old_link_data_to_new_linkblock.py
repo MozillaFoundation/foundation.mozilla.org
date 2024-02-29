@@ -2,9 +2,10 @@
 from django.db import migrations
 from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
 
-from networkapi.wagtailcustomization.migrationutils.operations import (
+from networkapi.utility.migrations.operations import (
     AlterStreamChildBlockDataOperation,
 )
+
 
 
 def migrate_linkbuttonblock(source_block):
