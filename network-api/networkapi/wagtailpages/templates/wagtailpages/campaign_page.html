@@ -53,7 +53,7 @@
                         {% endblock %}
 
                         {% block cta_mobile %}
-                            {% include "./fragments/campaign_cta.html" with page=page class="medium:tw-hidden" display_mode="mobile" %}
+                            {% include "./fragments/campaign_cta.html" with page=page class="medium:tw-hidden" cta_id="mobile" %}
                         {% endblock %}
 
                         {% block html_content_desktop %}
@@ -62,7 +62,11 @@
                     </div>
 
                     {% block cta_desktop %}
-                        {% include "./fragments/campaign_cta.html" with page=page class="tw-hidden medium:tw-block" display_mode="desktop" %}
+                        {% include "./fragments/campaign_cta.html" with page=page class="tw-hidden medium:tw-block" cta_id="desktop" %}
+                    {% endblock %}
+
+                    {% block cta_thank_you_modal %}
+                        {% include "./fragments/campaign_cta.html" with page=page cta_id="modal" modal_cta=True %}
                     {% endblock %}
 
                 </div>
