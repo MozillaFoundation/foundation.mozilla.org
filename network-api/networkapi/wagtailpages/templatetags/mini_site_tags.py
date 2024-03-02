@@ -24,7 +24,7 @@ def mini_site_horizontal_nav(context, page):
 
 # Render a page's CTA (petition, signup, etc.)
 @register.inclusion_tag("wagtailpages/tags/cta.html", takes_context=True)
-def cta(context, page):
+def cta(context, page, cta_classes="", cta_id=""):
     def generate_thank_you_url(url):
         """
         Generate a thank you page URL by grabbing the current url and appending thank_you=true
@@ -38,7 +38,10 @@ def cta(context, page):
 
         return thank_you_url
 
-    cta = {"page": page, "cta": None, "cta_type": None}
+    cta = {"page": page, "cta": None, "cta_type": None, "cta_classes": cta_classes, "cta_id": cta_id}
+
+    if cta_id == "modal":
+        cta["cta_modal"] = True
 
     if page.cta:
         for Subclass, subclass_name in [
