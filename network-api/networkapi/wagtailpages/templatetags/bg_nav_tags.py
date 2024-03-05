@@ -33,7 +33,7 @@ def check_active_category(current_category, target_category):
 # Determine if a nav link should be active.
 @register.simple_tag(name="bg_active_nav")
 def bg_active_nav(current, target):
-    return "active" if urlparse(current).path == urlparse(target).path else ""
+    return "active" if urlparse(target).path in urlparse(current).path else ""
 
 
 @register.simple_tag(name="product_in_category")
