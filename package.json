@@ -89,7 +89,7 @@
     "postcss": "^8.4.30",
     "postcss-cli": "^10.1.0",
     "postcss-import": "^16.0.1",
-    "postcss-scss": "^4.0.6",
+    "postcss-scss": "^4.0.9",
     "prop-types": "^15.7.2",
     "react": "^18.2.0",
     "react-axe": "^3.5.4",
