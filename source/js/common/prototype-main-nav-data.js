@@ -259,13 +259,13 @@ let navData = {
               title: "Fellowships",
               url: "/en/what-we-fund/fellowships/",
               description:
-                "A program empowering leaders to carry out work that ensures the internet remains a force for good.",
+                "A program empowering leaders to carry out work that ensures the internet remains a force for good",
             },
             {
               title: "Awards",
               url: "/en/what-we-fund/awards/",
               description:
-                "We recognize, support, and amplify leaders who work on issues impacting the health of the internet.",
+                "We recognize, support, and amplify leaders who work on issues impacting the health of the internet",
             },
           ],
         },
@@ -277,13 +277,13 @@ let navData = {
               title: "Alumni",
               url: "/en/what-we-fund/alumni/",
               description:
-                "Program Alumni, community connections and opportunities",
+                "A vibrant community of past fellows and awardees",
             },
             {
               title: "Collaborative Funds",
               url: "/en/what-we-fund/funding-collaboratives/",
               description:
-                "An ecosystem of donors working together to have a broader and more meaningful impact.",
+                "An ecosystem of donors working together to have a broader and more meaningful impact",
             },
           ],
         },
