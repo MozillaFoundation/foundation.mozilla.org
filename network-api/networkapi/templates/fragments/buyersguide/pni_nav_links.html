@@ -17,5 +17,5 @@
 {% endwith %}
 {% routablepageurl home_page 'about-why-view' as about_why_url %}
 <a class="{{ class }} {% bg_active_nav request.get_full_path about_why_url %}" href="{{ about_why_url }}">{% trans "About" %}</a>
-<a id="donate-header-btn" class="{{ class }}" href="?form=donate&utm_medium=FMO&utm_source=PNI&utm_campaign=23-PNI&utm_content=header&c_id=7014x000000eQOD">{% trans "Donate" %}</a>
+<a data-donate-header-button class="{{ class }}" href="?form=donate&utm_medium=FMO&utm_source=PNI&utm_campaign=23-PNI&utm_content=header&c_id=7014x000000eQOD">{% trans "Donate" %}</a>
 {{ post }}
