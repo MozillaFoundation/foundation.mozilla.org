@@ -276,8 +276,7 @@ let navData = {
             {
               title: "Alumni",
               url: "/en/what-we-fund/alumni/",
-              description:
-                "A vibrant community of past fellows and awardees",
+              description: "A vibrant community of past fellows and awardees",
             },
             {
               title: "Collaborative Funds",
