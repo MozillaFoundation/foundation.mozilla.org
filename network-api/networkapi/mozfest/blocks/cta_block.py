@@ -1,33 +1,13 @@
-from django.forms.utils import ErrorList
 from wagtail import blocks
-from wagtail.blocks.struct_block import StructBlockValidationError
+
+from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
 
 
-class CTABlock(blocks.StructBlock):
+class CTABlock(LinkBlock):
     heading = blocks.CharBlock(required=False)
     text = blocks.CharBlock(required=False)
-    link_url = blocks.URLBlock(required=False)
-    link_text = blocks.CharBlock(required=False, max_length=50)
     dark_background = blocks.BooleanBlock(required=False)
 
     class Meta:
         template = "fragments/blocks/cta_block.html"
         label = "Call to action"
-
-    def clean(self, value):
-        result = super().clean(value)
-        errors = {}
-
-        link_url = value.get("link_url")
-        link_text = value.get("link_text")
-
-        if link_url and not link_text:
-            errors["link_text"] = ErrorList(["Please add a text value for the link."])
-
-        if link_text and not link_url:
-            errors["link_url"] = ErrorList(["Please add a URL value for the link."])
-
-        if errors:
-            raise StructBlockValidationError(block_errors=errors)
-
-        return result
