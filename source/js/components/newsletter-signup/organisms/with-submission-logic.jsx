@@ -189,9 +189,6 @@ function withSubmissionLogic(WrappedComponent) {
           timeout: 5000,
         });
 
-        // if the response is not 201, throw an error
-        // [TODO] We will need to update this logic depending on what comes out of
-        // https://github.com/MozillaFoundation/foundation.mozilla.org/issues/11406
         if (res.status !== 201) {
           this.setState({
             apiError: getText(
