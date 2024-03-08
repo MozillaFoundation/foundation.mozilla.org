@@ -3,7 +3,6 @@ from wagtail.blocks import StreamBlockValidationError
 from wagtail.documents.models import Document
 from wagtail.models import Locale, Page
 
-
 from networkapi.wagtailpages.factory import customblocks as customblock_factories
 from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
 
