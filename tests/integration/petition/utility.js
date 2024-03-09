@@ -1,8 +1,3 @@
-const THANK_YOU_PAGE_QUERY_PARAM = {
-  key: `thank_you`,
-  value: `true`,
-};
-
 module.exports = {
   TEST_CAMPAIGN_ID: "7014x0000001RPRAA2", // test campaign id used for Salesforce Production
   FA_FIELDS: {
@@ -19,49 +14,91 @@ module.exports = {
     lang: `input[name="tfa_499"]`,
     newsletter: `input[name="tfa_501"]`,
   },
-  /**
-   * Generate an URL
-   *
-   * @param {string} locale locale to be used in the URL
-   * @param {boolean} addThankYouQueryParam whether to add the thank you query parameter to the URL
-   */
-  generateUrl: function (locale = "en", addThankYouQueryParam = false) {
-    let baseUrl = `http://localhost:8000/${locale}/campaigns/single-page/?existing=query`;
-
-    return addThankYouQueryParam
-      ? `${baseUrl}&${THANK_YOU_PAGE_QUERY_PARAM.key}=${THANK_YOU_PAGE_QUERY_PARAM.value}`
-      : baseUrl;
+  THANK_YOU_PAGE_QUERY_PARAM: {
+    thank_you: "true",
   },
   /**
-   * Check if the testUrl's query parameters are identical to the expectedUrl's query parameters
-   * This ensures that testUrl (e.g., a thank you page url) carries over the query parameters from the original url
+   * Generate a base URL
    *
-   * @param {string} testUrl url to be tested
-   * @param {string} expectedUrl url to be compared with
-   * @param {boolean} onThankYouPage whether we are currently on the thank you page
+   * @param {string} locale locale to be used in the URL
+   * @returns {string} base URL
    */
-  isExpectedThankYouUrl: function (
-    testUrl,
-    expectedUrl,
-    onThankYouPage = false
-  ) {
-    // extract query parameters from testUrl
-    const testUrlQp = new URLSearchParams(new URL(testUrl).search);
-    if (!onThankYouPage) {
-      testUrlQp.delete(THANK_YOU_PAGE_QUERY_PARAM.key);
+  generateBaseUrl: function (locale = "en") {
+    return `http://localhost:8000/${locale}/campaigns/single-page/?existing=query`;
+  },
+  /**
+   * Generate an URL with query parameters
+   *
+   * @param {string} url URL to be used as the base
+   * @param {object} queryParams query parameters to be appended to the URL
+   * @returns {string} URL with query parameters
+   * @example
+   *
+   * @example
+   * generateUrlWithQueryParams('http://localhost:8000/en/campaigns/single-page/?existing=query', { thank_you: 'true', test: 'true' })
+   * // returns 'http://localhost:8000/en/campaigns/single-page/?existing=query&thank_you=true&test=true'
+   */
+  generateUrlWithQueryParams: function (url, queryParams = {}) {
+    let newUrl = new URL(url);
+
+    for (let key in queryParams) {
+      newUrl.searchParams.append(key, queryParams[key]);
     }
 
-    // extract query parameters from expectedUrl
-    const expectedQp = new URLSearchParams(new URL(expectedUrl).search);
+    return newUrl.toString();
+  },
+  /**
+   * Check if the testUrl is identical to the expectedUrl
+   * This ensures that the testUrl carries over the query parameters from the original url
+   * @param {string} testUrl url to be tested
+   * @param {string} expectedUrl url to be compared with
+   * @returns {boolean} whether the testUrl is identical to the expectedUrl
+   * @example
+   * isExpectedUrl(
+   *  "http://localhost:8000/en/campaigns/single-page/?existing=query&thank_you=true",
+   *  "http://localhost:8000/en/campaigns/single-page/?existing=query&thank_you=true"
+   * )
+   * // returns true
+   * @example
+   * isExpectedUrl(
+   *  "http://localhost:8000/en/campaigns/single-page/?existing=query&thank_you=true",
+   *  "http://localhost:8000/en/campaigns/single-page/?existing=query&thank_you=false"
+   * )
+   * // returns false
+   * @example
+   * isExpectedUrl(
+   *   "http://localhost:8000/en/campaigns/single-page/?existing=query&thank_you=true",
+   *   "http://localhost:8000/en/campaigns/single-page/?existing=query"
+   *  )
+   * // returns false
+   * @example
+   * isExpectedUrl(
+   *  "http://localhost:8000/en/campaigns/single-page/?existing=query",
+   *  "http://localhost:8000/en/campaigns/not-single-page/?existing=query"
+   * )
+   * // returns false
+   */
+  isExpectedUrl: function (testUrl = "", expectedUrl = "") {
+    testUrl = new URL(testUrl);
+    expectedUrl = new URL(expectedUrl);
 
-    // convert query parameters to key-value pairs and sort them based on key
-    const testUrlQpArray = Array.from(testUrlQp.entries()).sort();
-    const expectedQpArray = Array.from(expectedQp.entries()).sort();
+    if (
+      testUrl.protocol === expectedUrl.protocol &&
+      testUrl.hostname === expectedUrl.hostname &&
+      testUrl.pathname === expectedUrl.pathname
+    ) {
+      // compare if the query params in the two URLs are identical
+      const testUrlQp = new URLSearchParams(testUrl.search);
+      const expectedQp = new URLSearchParams(expectedUrl.search);
 
-    // turn them into strings and compare if they are identical
-    const matchesExpected =
-      JSON.stringify(testUrlQpArray) === JSON.stringify(expectedQpArray);
+      // convert query parameters to key-value pairs and sort them based on key
+      const testUrlQpArray = Array.from(testUrlQp.entries()).sort();
+      const expectedQpArray = Array.from(expectedQp.entries()).sort();
 
-    return matchesExpected;
+      // turn them into strings and compare if they are identical
+      return JSON.stringify(testUrlQpArray) === JSON.stringify(expectedQpArray);
+    } else {
+      return false;
+    }
   },
 };

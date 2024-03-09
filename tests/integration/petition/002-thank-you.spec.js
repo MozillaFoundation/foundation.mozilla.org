@@ -4,7 +4,12 @@ const utility = require("./utility.js");
 
 test.describe("Donation modal", () => {
   test.beforeEach(async ({ page }) => {
-    const response = await page.goto(utility.generateUrl("en", true));
+    const response = await page.goto(
+      utility.generateUrlWithQueryParams(
+        utility.generateBaseUrl("en"),
+        utility.THANK_YOU_PAGE_QUERY_PARAM
+      )
+    );
     const status = await response.status();
     expect(status).not.toBe(404);
     await page.locator("body.react-loaded");
@@ -62,7 +67,12 @@ test.describe("Donation modal", () => {
 
 test.describe("Share buttons", () => {
   test.beforeEach(async ({ page }) => {
-    const response = await page.goto(utility.generateUrl("en", true));
+    const response = await page.goto(
+      utility.generateUrlWithQueryParams(
+        utility.generateBaseUrl("en"),
+        utility.THANK_YOU_PAGE_QUERY_PARAM
+      )
+    );
     const status = await response.status();
     expect(status).not.toBe(404);
     await page.locator("body.react-loaded");

@@ -20,7 +20,7 @@ test.describe("FormAssembly petition form", () => {
   let localeToTest = supportedLocales[0];
 
   test.beforeEach(async ({ page }, testInfo) => {
-    const response = await page.goto(utility.generateUrl(localeToTest));
+    const response = await page.goto(utility.generateBaseUrl(localeToTest));
     const status = await response.status();
     expect(status).not.toBe(404);
 
@@ -68,7 +68,13 @@ test.describe("FormAssembly petition form", () => {
     thankYouUrlInputValue = await thankYouUrlInput.inputValue();
     // test if the thank you url in the input field is correct
     expect(
-      utility.isExpectedThankYouUrl(thankYouUrlInputValue, page.url(), false)
+      utility.isExpectedUrl(
+        thankYouUrlInputValue,
+        utility.generateUrlWithQueryParams(
+          page.url(),
+          utility.THANK_YOU_PAGE_QUERY_PARAM
+        )
+      )
     ).toBe(true);
 
     const sourceUrlInput = wFormContainer.locator(
@@ -131,9 +137,9 @@ test.describe("FormAssembly petition form", () => {
     test(`(${locale}) Signing petition`, async ({ page }) => {
       localeToTest = locale;
       // Form has been submitted successfully. Page should be redirected to thank you page
-      expect(
-        utility.isExpectedThankYouUrl(page.url(), thankYouUrlInputValue, true)
-      ).toBe(true);
+      expect(utility.isExpectedUrl(thankYouUrlInputValue, page.url())).toBe(
+        true
+      );
     });
 
     test(`(${locale}) Signing petition using the same email`, async ({
@@ -142,9 +148,9 @@ test.describe("FormAssembly petition form", () => {
       localeToTest = locale;
       // We turned off a config so that Salesforce errors won't be visible to the user.
       // This means signing the petition using the same email address should still send users to the thank you page
-      expect(
-        utility.isExpectedThankYouUrl(page.url(), thankYouUrlInputValue, true)
-      ).toBe(true);
+      expect(utility.isExpectedUrl(thankYouUrlInputValue, page.url())).toBe(
+        true
+      );
     });
   }
 });
