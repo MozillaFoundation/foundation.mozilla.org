@@ -1,5 +1,6 @@
 module.exports = {
-  TEST_CAMPAIGN_ID: "7014x0000001RPRAA2", // test campaign id used for Salesforce Production
+  // TEST_CAMPAIGN_ID: "7014x0000001RPRAA2", // test campaign id used for Salesforce Production
+  TEST_CAMPAIGN_ID: "7017i000000bIgTAAU", // test campaign id used for Salesforce Sandbox
   FA_FIELDS: {
     firstName: `input[name="tfa_28"]`,
     lastName: `input[name="tfa_30"]`,
@@ -17,6 +18,13 @@ module.exports = {
   THANK_YOU_PAGE_QUERY_PARAM: {
     thank_you: "true",
   },
+  FAKE_UTM_QUERY_PARAMS: {
+    utm_medium: "integration_test_medium",
+    utm_source: "integration_test_source",
+    utm_campaign: "integration_test_campaign",
+    utm_content: "integration_test_content",
+    utm_term: "integration_test_term",
+  },
   /**
    * Generate a base URL
    *
@@ -24,7 +32,10 @@ module.exports = {
    * @returns {string} base URL
    */
   generateBaseUrl: function (locale = "en") {
-    return `http://localhost:8000/${locale}/campaigns/single-page/?existing=query`;
+    return this.generateUrlWithQueryParams(
+      `http://localhost:8000/${locale}/campaigns/single-page/?existing=query`,
+      this.FAKE_UTM_QUERY_PARAMS
+    );
   },
   /**
    * Generate an URL with query parameters
@@ -100,5 +111,28 @@ module.exports = {
     } else {
       return false;
     }
+  },
+  /**
+   * Check if the URL contains certain query parameters
+   * @param {string} url url to be tested
+   * @param {object} queryParams query parameters to be checked
+   * @returns {boolean} whether the URL contains certain query parameters
+   * @example
+   * urlContainsQueryParams(
+   *   "http://localhost:8000/en/campaigns/single-page/?existing=query",
+   *   { existing: "query" }
+   * )
+   * // returns true
+   */
+  urlContainsQueryParams: function (url = "", queryParams = {}) {
+    const urlSearchParams = new URLSearchParams(new URL(url).search);
+
+    for (let key in queryParams) {
+      if (urlSearchParams.get(key) !== queryParams[key]) {
+        return false;
+      }
+    }
+
+    return true;
   },
 };
