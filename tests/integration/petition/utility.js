@@ -33,8 +33,12 @@ module.exports = {
    */
   generateBaseUrl: function (locale = "en") {
     return this.generateUrlWithQueryParams(
-      `http://localhost:8000/${locale}/campaigns/single-page/?existing=query`,
-      this.FAKE_UTM_QUERY_PARAMS
+      `http://localhost:8000/${locale}/campaigns/single-page/`,
+      {
+        existing: "query",
+        c_id: this.TEST_CAMPAIGN_ID,
+        ...this.FAKE_UTM_QUERY_PARAMS,
+      }
     );
   },
   /**
@@ -61,6 +65,7 @@ module.exports = {
   /**
    * Check if the testUrl is identical to the expectedUrl
    * This ensures that the testUrl carries over the query parameters from the original url
+   *
    * @param {string} testUrl url to be tested
    * @param {string} expectedUrl url to be compared with
    * @returns {boolean} whether the testUrl is identical to the expectedUrl

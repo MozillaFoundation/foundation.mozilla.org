@@ -15,6 +15,14 @@ test.describe("Donation modal", () => {
     await page.locator("body.react-loaded");
     await waitForImagesToLoad(page);
 
+    // test if the page url contains certain query params
+    expect(
+      utility.urlContainsQueryParams(page.url(), {
+        c_id: utility.TEST_CAMPAIGN_ID,
+        ...utility.FAKE_UTM_QUERY_PARAMS,
+      })
+    ).toBe(true);
+
     // test if donation modal is visible
     let modalContent = page.locator(`.modal-content`);
     await modalContent.waitFor({ state: "visible" });
@@ -47,7 +55,7 @@ test.describe("Donation modal", () => {
   test("Donation modal can trigger FRU widget", async ({ page }) => {
     // test if FRU iframe pops up after clicking the Yes button
     const yesDonateButton = page.locator(
-      `.modal-content .tw-btn-primary[href*="?form=donate&c_id=${utility.TEST_CAMPAIGN_ID}"]`
+      `.modal-content .tw-btn-primary[href*="?form=donate"]`
     );
     expect(await yesDonateButton.count()).toBe(1);
 
@@ -59,7 +67,6 @@ test.describe("Donation modal", () => {
     expect(
       utility.urlContainsQueryParams(page.url(), {
         form: "donate",
-        c_id: utility.TEST_CAMPAIGN_ID,
         ...utility.FAKE_UTM_QUERY_PARAMS,
       })
     ).toBe(true);
