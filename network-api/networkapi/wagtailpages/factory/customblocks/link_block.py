@@ -14,7 +14,8 @@ class LinkBlockFactory(wagtail_factories.StructBlockFactory):
     Use traits to create instances based on the type of link needed:
     - page_link: link to a page
     - document_link: link to a file/document
-    - external_url_link: link to a custom URL
+    - external_url_link: link to a custom external URL
+    - relative_url_link: link to a relative URL
     - anchor_link: link to an anchor
     - email_link: link to an email
     - phone_link: link to a phone number
@@ -24,6 +25,7 @@ class LinkBlockFactory(wagtail_factories.StructBlockFactory):
     block = LinkBlockFactory(page_link=True)
     block = LinkBlockFactory(document_link=True)
     block = LinkBlockFactory(external_url_link=True)
+    block = LinkBlockFactory(relative_url_link=True)
     block = LinkBlockFactory(anchor_link=True)
     block = LinkBlockFactory(email_link=True)
     block = LinkBlockFactory(phone_link=True)
@@ -51,6 +53,7 @@ class LinkBlockFactory(wagtail_factories.StructBlockFactory):
             file=factory.SubFactory(wagtail_factories.DocumentFactory),
         )
         external_url_link = factory.Trait(link_to="external_url", external_url=factory.Faker("url"))
+        relative_url_link = factory.Trait(link_to="relative_url", relative_url=factory.Faker("uri_path"))
         anchor_link = factory.Trait(link_to="anchor", anchor=factory.Faker("uri_path"))
         email_link = factory.Trait(link_to="email", email=factory.Faker("email"))
         phone_link = factory.Trait(link_to="phone", phone=factory.Faker("phone_number"))
@@ -66,6 +69,7 @@ class LinkBlockFactory(wagtail_factories.StructBlockFactory):
     page = None
     file = None
     external_url = ""
+    relative_url = ""
     anchor = ""
     email = ""
     phone = ""

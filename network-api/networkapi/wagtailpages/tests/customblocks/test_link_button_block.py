@@ -40,6 +40,14 @@ class TestLinkButtonBlock(TestCase):
         self.assertIsNotNone(url)
         self.assertEqual(block.url, url)
 
+    def test_relative_url_link(self):
+        """Create a LinkButtonBlockFactory with a relative URL."""
+        block = customblock_factories.LinkButtonBlockFactory(relative_url_link=True)
+
+        url = block["relative_url"]
+        self.assertIsNotNone(url)
+        self.assertEqual(block.url, url)
+
     def test_anchor_link(self):
         """Create a LinkButtonBlockFactory with an anchor link."""
         block = customblock_factories.LinkButtonBlockFactory(anchor_link=True)

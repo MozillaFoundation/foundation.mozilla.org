@@ -25,6 +25,7 @@ class LinkBlock(BaseLinkBlock):
         choices=[
             ("page", "Page"),
             ("external_url", "External URL"),
+            ("relative_url", "Relative URL"),
             ("email", "Email"),
             ("anchor", "Anchor"),
             ("file", "File"),

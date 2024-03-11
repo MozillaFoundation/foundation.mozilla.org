@@ -2,8 +2,9 @@ from django import forms
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
 from wagtail import blocks
-from wagtail.admin.forms.choosers import URLOrAbsolutePathValidator
 from wagtail.blocks.struct_block import StructBlockAdapter
+
+from networkapi.wagtailpages.validators import RelativeURLValidator
 
 
 class BaseLinkValue(blocks.StructValue):
@@ -18,11 +19,14 @@ class BaseLinkValue(blocks.StructValue):
     def get_external_url_link(self):
         return self.get("external_url")
 
+    def get_relative_url_link(self):
+        return self.get("relative_url")
+
     def get_email_link(self):
-        return "mailto:{}".format(self.get("email"))
+        return f"mailto:{self.get('email')}"
 
     def get_anchor_link(self):
-        return "#" + self.get("anchor")
+        return f"#{self.get('anchor')}"
 
     @property
     def url(self):
@@ -43,6 +47,8 @@ class BaseLinkBlock(blocks.StructBlock):
         choices=[
             ("page", "Page"),
             ("external_url", "External URL"),
+            ("relative_url", "Relative URL"),
+            ("relative_url", "Relative URL"),
             ("email", "Email"),
             ("anchor", "Anchor"),
         ],
@@ -50,11 +56,18 @@ class BaseLinkBlock(blocks.StructBlock):
         label="Link to",
     )
     page = blocks.PageChooserBlock(required=False, label="Page")
-    external_url = blocks.CharBlock(
+    external_url = blocks.URLBlock(
         max_length=300,
         required=False,
-        validators=[URLOrAbsolutePathValidator()],
         label="External URL",
+        help_text="Enter a full URL including http:// or https://",
+    )
+    relative_url = blocks.CharBlock(
+        max_length=300,
+        required=False,
+        validators=[RelativeURLValidator()],
+        label="Relative URL",
+        help_text="A path relative to this domain. For example, /about",
     )
     anchor = blocks.CharBlock(
         max_length=300,
@@ -71,6 +84,7 @@ class BaseLinkBlock(blocks.StructBlock):
         return {
             "page": None,
             "external_url": "",
+            "relative_url": "",
             "anchor": "",
             "email": "",
         }

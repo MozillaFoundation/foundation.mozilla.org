@@ -29,6 +29,7 @@ class TestLinkBlock(TestCase):
         # Assert that other fields are empty
         self.assertIsNone(block["file"])
         self.assertEqual(block["external_url"], "")
+        self.assertEqual(block["relative_url"], "")
         self.assertEqual(block["anchor"], "")
         self.assertEqual(block["email"], "")
         self.assertEqual(block["phone"], "")
@@ -45,6 +46,7 @@ class TestLinkBlock(TestCase):
         # Assert that other fields are empty
         self.assertIsNone(block["page"])
         self.assertEqual(block["external_url"], "")
+        self.assertEqual(block["relative_url"], "")
         self.assertEqual(block["anchor"], "")
         self.assertEqual(block["email"], "")
         self.assertEqual(block["phone"], "")
@@ -60,6 +62,23 @@ class TestLinkBlock(TestCase):
         # Assert that other fields are empty
         self.assertIsNone(block["page"])
         self.assertIsNone(block["file"])
+        self.assertEqual(block["relative_url"], "")
+        self.assertEqual(block["anchor"], "")
+        self.assertEqual(block["email"], "")
+        self.assertEqual(block["phone"], "")
+
+    def test_relative_url_link(self):
+        """Create a LinkBlock with a relative URL."""
+        block = customblock_factories.LinkBlockFactory(relative_url_link=True)
+
+        # Assert that the URL is a URL
+        url = block["relative_url"]
+        self.assertIsNotNone(url)
+
+        # Assert that other fields are empty
+        self.assertIsNone(block["page"])
+        self.assertIsNone(block["file"])
+        self.assertEqual(block["external_url"], "")
         self.assertEqual(block["anchor"], "")
         self.assertEqual(block["email"], "")
         self.assertEqual(block["phone"], "")
@@ -76,6 +95,7 @@ class TestLinkBlock(TestCase):
         self.assertIsNone(block["page"])
         self.assertIsNone(block["file"])
         self.assertEqual(block["external_url"], "")
+        self.assertEqual(block["relative_url"], "")
         self.assertEqual(block["email"], "")
         self.assertEqual(block["phone"], "")
 
@@ -91,6 +111,7 @@ class TestLinkBlock(TestCase):
         self.assertIsNone(block["page"])
         self.assertIsNone(block["file"])
         self.assertEqual(block["external_url"], "")
+        self.assertEqual(block["relative_url"], "")
         self.assertEqual(block["anchor"], "")
         self.assertEqual(block["phone"], "")
 
@@ -106,6 +127,7 @@ class TestLinkBlock(TestCase):
         self.assertIsNone(block["page"])
         self.assertIsNone(block["file"])
         self.assertEqual(block["external_url"], "")
+        self.assertEqual(block["relative_url"], "")
         self.assertEqual(block["anchor"], "")
         self.assertEqual(block["email"], "")
 
