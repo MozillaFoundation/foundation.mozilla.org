@@ -107,7 +107,7 @@ class BaseLinkBlockAdapter(StructBlockAdapter):
 
     Simply register this adapter with your concrete class.
 
-    See: https://docs.wagtail.org/en/stable/advanced_topics/customisation/streamfield_blocks.html#additional-javascript-on-structblock-forms
+    See: https://docs.wagtail.org/en/stable/advanced_topics/customisation/streamfield_blocks.html#additional-javascript-on-structblock-forms  # noqa: E501
     """
 
     js_constructor = "networkapi.wagtailpages.customblocks.BaseLinkBlock"
