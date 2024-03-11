@@ -467,7 +467,7 @@ class Migration(migrations.Migration):
                                 (
                                     "relative_url",
                                     wagtail.blocks.CharBlock(
-                                        help_text='A path relative to this domain. For example, "#foo/bar"',
+                                        help_text='A path relative to this domain. For example, "/foo/bar"',
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
@@ -1014,7 +1014,7 @@ class Migration(migrations.Migration):
                                                 (
                                                     "relative_url",
                                                     wagtail.blocks.CharBlock(
-                                                        help_text='A path relative to this domain. For example, "#foo/bar"',
+                                                        help_text='A path relative to this domain. For example, "/foo/bar"',
                                                         label="Relative URL",
                                                         max_length=300,
                                                         required=False,
@@ -1173,7 +1173,7 @@ class Migration(migrations.Migration):
                                                             (
                                                                 "relative_url",
                                                                 wagtail.blocks.CharBlock(
-                                                                    help_text='A path relative to this domain. For example, "#foo/bar"',
+                                                                    help_text='A path relative to this domain. For example, "/foo/bar"',
                                                                     label="Relative URL",
                                                                     max_length=300,
                                                                     required=False,
@@ -1508,7 +1508,7 @@ class Migration(migrations.Migration):
                                 (
                                     "relative_url",
                                     wagtail.blocks.CharBlock(
-                                        help_text='A path relative to this domain. For example, "#foo/bar"',
+                                        help_text='A path relative to this domain. For example, "/foo/bar"',
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
@@ -2297,7 +2297,7 @@ class Migration(migrations.Migration):
                                 (
                                     "relative_url",
                                     wagtail.blocks.CharBlock(
-                                        help_text='A path relative to this domain. For example, "#foo/bar"',
+                                        help_text='A path relative to this domain. For example, "/foo/bar"',
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
@@ -3081,7 +3081,7 @@ class Migration(migrations.Migration):
                                 (
                                     "relative_url",
                                     wagtail.blocks.CharBlock(
-                                        help_text='A path relative to this domain. For example, "#foo/bar"',
+                                        help_text='A path relative to this domain. For example, "/foo/bar"',
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
@@ -3751,7 +3751,7 @@ class Migration(migrations.Migration):
                                 (
                                     "relative_url",
                                     wagtail.blocks.CharBlock(
-                                        help_text='A path relative to this domain. For example, "#foo/bar"',
+                                        help_text='A path relative to this domain. For example, "/foo/bar"',
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
@@ -4584,7 +4584,7 @@ class Migration(migrations.Migration):
                                                         (
                                                             "relative_url",
                                                             wagtail.blocks.CharBlock(
-                                                                help_text='A path relative to this domain. For example, "#foo/bar"',
+                                                                help_text='A path relative to this domain. For example, "/foo/bar"',
                                                                 label="Relative URL",
                                                                 max_length=300,
                                                                 required=False,
@@ -5080,7 +5080,7 @@ class Migration(migrations.Migration):
                                 (
                                     "relative_url",
                                     wagtail.blocks.CharBlock(
-                                        help_text='A path relative to this domain. For example, "#foo/bar"',
+                                        help_text='A path relative to this domain. For example, "/foo/bar"',
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
@@ -5913,7 +5913,7 @@ class Migration(migrations.Migration):
                                                         (
                                                             "relative_url",
                                                             wagtail.blocks.CharBlock(
-                                                                help_text='A path relative to this domain. For example, "#foo/bar"',
+                                                                help_text='A path relative to this domain. For example, "/foo/bar"',
                                                                 label="Relative URL",
                                                                 max_length=300,
                                                                 required=False,
@@ -6147,7 +6147,7 @@ class Migration(migrations.Migration):
                                             (
                                                 "relative_url",
                                                 wagtail.blocks.CharBlock(
-                                                    help_text='A path relative to this domain. For example, "#foo/bar"',
+                                                    help_text='A path relative to this domain. For example, "/foo/bar"',
                                                     label="Relative URL",
                                                     max_length=300,
                                                     required=False,
@@ -6251,7 +6251,7 @@ class Migration(migrations.Migration):
                                             (
                                                 "relative_url",
                                                 wagtail.blocks.CharBlock(
-                                                    help_text='A path relative to this domain. For example, "#foo/bar"',
+                                                    help_text='A path relative to this domain. For example, "/foo/bar"',
                                                     label="Relative URL",
                                                     max_length=300,
                                                     required=False,
