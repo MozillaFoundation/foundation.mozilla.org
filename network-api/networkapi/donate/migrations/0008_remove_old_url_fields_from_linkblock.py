@@ -344,6 +344,9 @@ class Migration(migrations.Migration):
                                         help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                         max_length=300,
                                         required=False,
+                                        validators=[
+                                            networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.AnchorLinkValidator()
+                                        ],
                                     ),
                                 ),
                                 ("email", wagtail.blocks.EmailBlock(required=False)),
@@ -1174,6 +1177,9 @@ class Migration(migrations.Migration):
                                                                 help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                                                 max_length=300,
                                                                 required=False,
+                                                                validators=[
+                                                                    networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.AnchorLinkValidator()
+                                                                ],
                                                             ),
                                                         ),
                                                         ("email", wagtail.blocks.EmailBlock(required=False)),

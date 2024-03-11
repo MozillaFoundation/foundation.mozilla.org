@@ -4,7 +4,7 @@ from django.utils.functional import cached_property
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockAdapter
 
-from networkapi.wagtailpages.validators import RelativeURLValidator
+from networkapi.wagtailpages.validators import AnchorLinkValidator, RelativeURLValidator
 
 
 class BaseLinkValue(blocks.StructValue):
@@ -72,6 +72,7 @@ class BaseLinkBlock(blocks.StructBlock):
     anchor = blocks.CharBlock(
         max_length=300,
         required=False,
+        validators=[AnchorLinkValidator()],
         label="#",
         help_text='An id attribute of an element on the current page. For example, "#section-1"',
     )
