@@ -467,7 +467,7 @@ class Migration(migrations.Migration):
                                 (
                                     "relative_url",
                                     wagtail.blocks.CharBlock(
-                                        help_text="A path relative to this domain. For example, 'foo/bar'",
+                                        help_text='A path relative to this domain. For example, "#foo/bar"',
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
@@ -480,7 +480,7 @@ class Migration(migrations.Migration):
                                     "anchor",
                                     wagtail.blocks.CharBlock(
                                         label="#",
-                                        help_text="An id attribute of an element on the current page. For example, 'section-1'",
+                                        help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                         max_length=300,
                                         required=False,
                                     ),
@@ -1012,7 +1012,7 @@ class Migration(migrations.Migration):
                                                 (
                                                     "relative_url",
                                                     wagtail.blocks.CharBlock(
-                                                        help_text="A path relative to this domain. For example, 'foo/bar'",
+                                                        help_text='A path relative to this domain. For example, "#foo/bar"',
                                                         label="Relative URL",
                                                         max_length=300,
                                                         required=False,
@@ -1025,7 +1025,7 @@ class Migration(migrations.Migration):
                                                     "anchor",
                                                     wagtail.blocks.CharBlock(
                                                         label="#",
-                                                        help_text="An id attribute of an element on the current page. For example, 'section-1'",
+                                                        help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                                         max_length=300,
                                                         required=False,
                                                     ),
@@ -1169,7 +1169,7 @@ class Migration(migrations.Migration):
                                                             (
                                                                 "relative_url",
                                                                 wagtail.blocks.CharBlock(
-                                                                    help_text="A path relative to this domain. For example, 'foo/bar'",
+                                                                    help_text='A path relative to this domain. For example, "#foo/bar"',
                                                                     label="Relative URL",
                                                                     max_length=300,
                                                                     required=False,
@@ -1182,7 +1182,7 @@ class Migration(migrations.Migration):
                                                                 "anchor",
                                                                 wagtail.blocks.CharBlock(
                                                                     label="#",
-                                                                    help_text="An id attribute of an element on the current page. For example, 'section-1'",
+                                                                    help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                                                     max_length=300,
                                                                     required=False,
                                                                 ),
@@ -1502,7 +1502,7 @@ class Migration(migrations.Migration):
                                 (
                                     "relative_url",
                                     wagtail.blocks.CharBlock(
-                                        help_text="A path relative to this domain. For example, 'foo/bar'",
+                                        help_text='A path relative to this domain. For example, "#foo/bar"',
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
@@ -1515,7 +1515,7 @@ class Migration(migrations.Migration):
                                     "anchor",
                                     wagtail.blocks.CharBlock(
                                         label="#",
-                                        help_text="An id attribute of an element on the current page. For example, 'section-1'",
+                                        help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                         max_length=300,
                                         required=False,
                                     ),
@@ -2289,7 +2289,7 @@ class Migration(migrations.Migration):
                                 (
                                     "relative_url",
                                     wagtail.blocks.CharBlock(
-                                        help_text="A path relative to this domain. For example, 'foo/bar'",
+                                        help_text='A path relative to this domain. For example, "#foo/bar"',
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
@@ -2302,7 +2302,7 @@ class Migration(migrations.Migration):
                                     "anchor",
                                     wagtail.blocks.CharBlock(
                                         label="#",
-                                        help_text="An id attribute of an element on the current page. For example, 'section-1'",
+                                        help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                         max_length=300,
                                         required=False,
                                     ),
@@ -3071,7 +3071,7 @@ class Migration(migrations.Migration):
                                 (
                                     "relative_url",
                                     wagtail.blocks.CharBlock(
-                                        help_text="A path relative to this domain. For example, 'foo/bar'",
+                                        help_text='A path relative to this domain. For example, "#foo/bar"',
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
@@ -3084,7 +3084,7 @@ class Migration(migrations.Migration):
                                     "anchor",
                                     wagtail.blocks.CharBlock(
                                         label="#",
-                                        help_text="An id attribute of an element on the current page. For example, 'section-1'",
+                                        help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                         max_length=300,
                                         required=False,
                                     ),
@@ -3739,7 +3739,7 @@ class Migration(migrations.Migration):
                                 (
                                     "relative_url",
                                     wagtail.blocks.CharBlock(
-                                        help_text="A path relative to this domain. For example, 'foo/bar'",
+                                        help_text='A path relative to this domain. For example, "#foo/bar"',
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
@@ -3752,7 +3752,7 @@ class Migration(migrations.Migration):
                                     "anchor",
                                     wagtail.blocks.CharBlock(
                                         label="#",
-                                        help_text="An id attribute of an element on the current page. For example, 'section-1'",
+                                        help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                         max_length=300,
                                         required=False,
                                     ),
@@ -4570,7 +4570,7 @@ class Migration(migrations.Migration):
                                                         (
                                                             "relative_url",
                                                             wagtail.blocks.CharBlock(
-                                                                help_text="A path relative to this domain. For example, 'foo/bar'",
+                                                                help_text='A path relative to this domain. For example, "#foo/bar"',
                                                                 label="Relative URL",
                                                                 max_length=300,
                                                                 required=False,
@@ -4583,7 +4583,7 @@ class Migration(migrations.Migration):
                                                             "anchor",
                                                             wagtail.blocks.CharBlock(
                                                                 label="#",
-                                                                help_text="An id attribute of an element on the current page. For example, 'section-1'",
+                                                                help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                                                 max_length=300,
                                                                 required=False,
                                                             ),
@@ -5064,7 +5064,7 @@ class Migration(migrations.Migration):
                                 (
                                     "relative_url",
                                     wagtail.blocks.CharBlock(
-                                        help_text="A path relative to this domain. For example, 'foo/bar'",
+                                        help_text='A path relative to this domain. For example, "#foo/bar"',
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
@@ -5077,7 +5077,7 @@ class Migration(migrations.Migration):
                                     "anchor",
                                     wagtail.blocks.CharBlock(
                                         label="#",
-                                        help_text="An id attribute of an element on the current page. For example, 'section-1'",
+                                        help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                         max_length=300,
                                         required=False,
                                     ),
@@ -5895,7 +5895,7 @@ class Migration(migrations.Migration):
                                                         (
                                                             "relative_url",
                                                             wagtail.blocks.CharBlock(
-                                                                help_text="A path relative to this domain. For example, 'foo/bar'",
+                                                                help_text='A path relative to this domain. For example, "#foo/bar"',
                                                                 label="Relative URL",
                                                                 max_length=300,
                                                                 required=False,
@@ -5908,7 +5908,7 @@ class Migration(migrations.Migration):
                                                             "anchor",
                                                             wagtail.blocks.CharBlock(
                                                                 label="#",
-                                                                help_text="An id attribute of an element on the current page. For example, 'section-1'",
+                                                                help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                                                 max_length=300,
                                                                 required=False,
                                                             ),
@@ -6127,7 +6127,7 @@ class Migration(migrations.Migration):
                                             (
                                                 "relative_url",
                                                 wagtail.blocks.CharBlock(
-                                                    help_text="A path relative to this domain. For example, 'foo/bar'",
+                                                    help_text='A path relative to this domain. For example, "#foo/bar"',
                                                     label="Relative URL",
                                                     max_length=300,
                                                     required=False,
@@ -6140,7 +6140,7 @@ class Migration(migrations.Migration):
                                                 "anchor",
                                                 wagtail.blocks.CharBlock(
                                                     label="#",
-                                                    help_text="An id attribute of an element on the current page. For example, 'section-1'",
+                                                    help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                                     max_length=300,
                                                     required=False,
                                                 ),
@@ -6229,7 +6229,7 @@ class Migration(migrations.Migration):
                                             (
                                                 "relative_url",
                                                 wagtail.blocks.CharBlock(
-                                                    help_text="A path relative to this domain. For example, 'foo/bar'",
+                                                    help_text='A path relative to this domain. For example, "#foo/bar"',
                                                     label="Relative URL",
                                                     max_length=300,
                                                     required=False,
@@ -6242,7 +6242,7 @@ class Migration(migrations.Migration):
                                                 "anchor",
                                                 wagtail.blocks.CharBlock(
                                                     label="#",
-                                                    help_text="An id attribute of an element on the current page. For example, 'section-1'",
+                                                    help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                                     max_length=300,
                                                     required=False,
                                                 ),
