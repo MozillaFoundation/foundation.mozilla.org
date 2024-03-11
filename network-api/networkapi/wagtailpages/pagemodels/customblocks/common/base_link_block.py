@@ -67,12 +67,13 @@ class BaseLinkBlock(blocks.StructBlock):
         required=False,
         validators=[RelativeURLValidator()],
         label="Relative URL",
-        help_text="A path relative to this domain. For example, /about",
+        help_text="A path relative to this domain. For example, 'foo/bar'",
     )
     anchor = blocks.CharBlock(
         max_length=300,
         required=False,
         label="#",
+        help_text="An id attribute of an element on the current page. For example, 'section-1'",
     )
     email = blocks.EmailBlock(required=False)
 
