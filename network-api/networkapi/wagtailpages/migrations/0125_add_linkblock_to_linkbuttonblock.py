@@ -444,6 +444,7 @@ class Migration(migrations.Migration):
                                         choices=[
                                             ("page", "Page"),
                                             ("external_url", "External URL"),
+                                            ("relative_url", "Relative URL"),
                                             ("email", "Email"),
                                             ("anchor", "Anchor"),
                                             ("file", "File"),
@@ -456,11 +457,23 @@ class Migration(migrations.Migration):
                                 ("page", wagtail.blocks.PageChooserBlock(label="Page", required=False)),
                                 (
                                     "external_url",
-                                    wagtail.blocks.CharBlock(
+                                    wagtail.blocks.URLBlock(
+                                        help_text="Enter a full URL including http:// or https://",
                                         label="External URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()],
+                                    ),
+                                ),
+                                (
+                                    "relative_url",
+                                    wagtail.blocks.CharBlock(
+                                        help_text="A path relative to this domain. For example, /about",
+                                        label="Relative URL",
+                                        max_length=300,
+                                        required=False,
+                                        validators=[
+                                            networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
+                                        ],
                                     ),
                                 ),
                                 ("anchor", wagtail.blocks.CharBlock(label="#", max_length=300, required=False)),
@@ -965,6 +978,7 @@ class Migration(migrations.Migration):
                                                         choices=[
                                                             ("page", "Page"),
                                                             ("external_url", "External URL"),
+                                                            ("relative_url", "Relative URL"),
                                                             ("email", "Email"),
                                                             ("anchor", "Anchor"),
                                                             ("file", "File"),
@@ -980,12 +994,22 @@ class Migration(migrations.Migration):
                                                 ),
                                                 (
                                                     "external_url",
-                                                    wagtail.blocks.CharBlock(
+                                                    wagtail.blocks.URLBlock(
+                                                        help_text="Enter a full URL including http:// or https://",
                                                         label="External URL",
                                                         max_length=300,
                                                         required=False,
+                                                    ),
+                                                ),
+                                                (
+                                                    "relative_url",
+                                                    wagtail.blocks.CharBlock(
+                                                        help_text="A path relative to this domain. For example, /about",
+                                                        label="Relative URL",
+                                                        max_length=300,
+                                                        required=False,
                                                         validators=[
-                                                            wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()
+                                                            networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
                                                         ],
                                                     ),
                                                 ),
@@ -1106,6 +1130,7 @@ class Migration(migrations.Migration):
                                                                     choices=[
                                                                         ("page", "Page"),
                                                                         ("external_url", "External URL"),
+                                                                        ("relative_url", "Relative URL"),
                                                                         ("email", "Email"),
                                                                         ("anchor", "Anchor"),
                                                                         ("file", "File"),
@@ -1123,12 +1148,22 @@ class Migration(migrations.Migration):
                                                             ),
                                                             (
                                                                 "external_url",
-                                                                wagtail.blocks.CharBlock(
+                                                                wagtail.blocks.URLBlock(
+                                                                    help_text="Enter a full URL including http:// or https://",
                                                                     label="External URL",
                                                                     max_length=300,
                                                                     required=False,
+                                                                ),
+                                                            ),
+                                                            (
+                                                                "relative_url",
+                                                                wagtail.blocks.CharBlock(
+                                                                    help_text="A path relative to this domain. For example, /about",
+                                                                    label="Relative URL",
+                                                                    max_length=300,
+                                                                    required=False,
                                                                     validators=[
-                                                                        wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()
+                                                                        networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
                                                                     ],
                                                                 ),
                                                             ),
@@ -1430,6 +1465,7 @@ class Migration(migrations.Migration):
                                         choices=[
                                             ("page", "Page"),
                                             ("external_url", "External URL"),
+                                            ("relative_url", "Relative URL"),
                                             ("email", "Email"),
                                             ("anchor", "Anchor"),
                                             ("file", "File"),
@@ -1442,11 +1478,23 @@ class Migration(migrations.Migration):
                                 ("page", wagtail.blocks.PageChooserBlock(label="Page", required=False)),
                                 (
                                     "external_url",
-                                    wagtail.blocks.CharBlock(
+                                    wagtail.blocks.URLBlock(
+                                        help_text="Enter a full URL including http:// or https://",
                                         label="External URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()],
+                                    ),
+                                ),
+                                (
+                                    "relative_url",
+                                    wagtail.blocks.CharBlock(
+                                        help_text="A path relative to this domain. For example, /about",
+                                        label="Relative URL",
+                                        max_length=300,
+                                        required=False,
+                                        validators=[
+                                            networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
+                                        ],
                                     ),
                                 ),
                                 ("anchor", wagtail.blocks.CharBlock(label="#", max_length=300, required=False)),
@@ -2196,6 +2244,7 @@ class Migration(migrations.Migration):
                                         choices=[
                                             ("page", "Page"),
                                             ("external_url", "External URL"),
+                                            ("relative_url", "Relative URL"),
                                             ("email", "Email"),
                                             ("anchor", "Anchor"),
                                             ("file", "File"),
@@ -2208,11 +2257,23 @@ class Migration(migrations.Migration):
                                 ("page", wagtail.blocks.PageChooserBlock(label="Page", required=False)),
                                 (
                                     "external_url",
-                                    wagtail.blocks.CharBlock(
+                                    wagtail.blocks.URLBlock(
+                                        help_text="Enter a full URL including http:// or https://",
                                         label="External URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()],
+                                    ),
+                                ),
+                                (
+                                    "relative_url",
+                                    wagtail.blocks.CharBlock(
+                                        help_text="A path relative to this domain. For example, /about",
+                                        label="Relative URL",
+                                        max_length=300,
+                                        required=False,
+                                        validators=[
+                                            networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
+                                        ],
                                     ),
                                 ),
                                 ("anchor", wagtail.blocks.CharBlock(label="#", max_length=300, required=False)),
@@ -2957,6 +3018,7 @@ class Migration(migrations.Migration):
                                         choices=[
                                             ("page", "Page"),
                                             ("external_url", "External URL"),
+                                            ("relative_url", "Relative URL"),
                                             ("email", "Email"),
                                             ("anchor", "Anchor"),
                                             ("file", "File"),
@@ -2969,11 +3031,23 @@ class Migration(migrations.Migration):
                                 ("page", wagtail.blocks.PageChooserBlock(label="Page", required=False)),
                                 (
                                     "external_url",
-                                    wagtail.blocks.CharBlock(
+                                    wagtail.blocks.URLBlock(
+                                        help_text="Enter a full URL including http:// or https://",
                                         label="External URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()],
+                                    ),
+                                ),
+                                (
+                                    "relative_url",
+                                    wagtail.blocks.CharBlock(
+                                        help_text="A path relative to this domain. For example, /about",
+                                        label="Relative URL",
+                                        max_length=300,
+                                        required=False,
+                                        validators=[
+                                            networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
+                                        ],
                                     ),
                                 ),
                                 ("anchor", wagtail.blocks.CharBlock(label="#", max_length=300, required=False)),
@@ -3604,6 +3678,7 @@ class Migration(migrations.Migration):
                                         choices=[
                                             ("page", "Page"),
                                             ("external_url", "External URL"),
+                                            ("relative_url", "Relative URL"),
                                             ("email", "Email"),
                                             ("anchor", "Anchor"),
                                             ("file", "File"),
@@ -3616,11 +3691,23 @@ class Migration(migrations.Migration):
                                 ("page", wagtail.blocks.PageChooserBlock(label="Page", required=False)),
                                 (
                                     "external_url",
-                                    wagtail.blocks.CharBlock(
+                                    wagtail.blocks.URLBlock(
+                                        help_text="Enter a full URL including http:// or https://",
                                         label="External URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()],
+                                    ),
+                                ),
+                                (
+                                    "relative_url",
+                                    wagtail.blocks.CharBlock(
+                                        help_text="A path relative to this domain. For example, /about",
+                                        label="Relative URL",
+                                        max_length=300,
+                                        required=False,
+                                        validators=[
+                                            networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
+                                        ],
                                     ),
                                 ),
                                 ("anchor", wagtail.blocks.CharBlock(label="#", max_length=300, required=False)),
@@ -4409,6 +4496,7 @@ class Migration(migrations.Migration):
                                                                 choices=[
                                                                     ("page", "Page"),
                                                                     ("external_url", "External URL"),
+                                                                    ("relative_url", "Relative URL"),
                                                                     ("email", "Email"),
                                                                     ("anchor", "Anchor"),
                                                                     ("file", "File"),
@@ -4426,12 +4514,22 @@ class Migration(migrations.Migration):
                                                         ),
                                                         (
                                                             "external_url",
-                                                            wagtail.blocks.CharBlock(
+                                                            wagtail.blocks.URLBlock(
+                                                                help_text="Enter a full URL including http:// or https://",
                                                                 label="External URL",
                                                                 max_length=300,
                                                                 required=False,
+                                                            ),
+                                                        ),
+                                                        (
+                                                            "relative_url",
+                                                            wagtail.blocks.CharBlock(
+                                                                help_text="A path relative to this domain. For example, /about",
+                                                                label="Relative URL",
+                                                                max_length=300,
+                                                                required=False,
                                                                 validators=[
-                                                                    wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()
+                                                                    networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
                                                                 ],
                                                             ),
                                                         ),
@@ -4894,6 +4992,7 @@ class Migration(migrations.Migration):
                                         choices=[
                                             ("page", "Page"),
                                             ("external_url", "External URL"),
+                                            ("relative_url", "Relative URL"),
                                             ("email", "Email"),
                                             ("anchor", "Anchor"),
                                             ("file", "File"),
@@ -4906,11 +5005,23 @@ class Migration(migrations.Migration):
                                 ("page", wagtail.blocks.PageChooserBlock(label="Page", required=False)),
                                 (
                                     "external_url",
-                                    wagtail.blocks.CharBlock(
+                                    wagtail.blocks.URLBlock(
+                                        help_text="Enter a full URL including http:// or https://",
                                         label="External URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()],
+                                    ),
+                                ),
+                                (
+                                    "relative_url",
+                                    wagtail.blocks.CharBlock(
+                                        help_text="A path relative to this domain. For example, /about",
+                                        label="Relative URL",
+                                        max_length=300,
+                                        required=False,
+                                        validators=[
+                                            networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
+                                        ],
                                     ),
                                 ),
                                 ("anchor", wagtail.blocks.CharBlock(label="#", max_length=300, required=False)),
@@ -5699,6 +5810,7 @@ class Migration(migrations.Migration):
                                                                 choices=[
                                                                     ("page", "Page"),
                                                                     ("external_url", "External URL"),
+                                                                    ("relative_url", "Relative URL"),
                                                                     ("email", "Email"),
                                                                     ("anchor", "Anchor"),
                                                                     ("file", "File"),
@@ -5716,12 +5828,22 @@ class Migration(migrations.Migration):
                                                         ),
                                                         (
                                                             "external_url",
-                                                            wagtail.blocks.CharBlock(
+                                                            wagtail.blocks.URLBlock(
+                                                                help_text="Enter a full URL including http:// or https://",
                                                                 label="External URL",
                                                                 max_length=300,
                                                                 required=False,
+                                                            ),
+                                                        ),
+                                                        (
+                                                            "relative_url",
+                                                            wagtail.blocks.CharBlock(
+                                                                help_text="A path relative to this domain. For example, /about",
+                                                                label="Relative URL",
+                                                                max_length=300,
+                                                                required=False,
                                                                 validators=[
-                                                                    wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()
+                                                                    networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
                                                                 ],
                                                             ),
                                                         ),
@@ -5922,6 +6044,7 @@ class Migration(migrations.Migration):
                                                     choices=[
                                                         ("page", "Page"),
                                                         ("external_url", "External URL"),
+                                                        ("relative_url", "Relative URL"),
                                                         ("email", "Email"),
                                                         ("anchor", "Anchor"),
                                                         ("file", "File"),
@@ -5934,12 +6057,22 @@ class Migration(migrations.Migration):
                                             ("page", wagtail.blocks.PageChooserBlock(label="Page", required=False)),
                                             (
                                                 "external_url",
-                                                wagtail.blocks.CharBlock(
+                                                wagtail.blocks.URLBlock(
+                                                    help_text="Enter a full URL including http:// or https://",
                                                     label="External URL",
                                                     max_length=300,
                                                     required=False,
+                                                ),
+                                            ),
+                                            (
+                                                "relative_url",
+                                                wagtail.blocks.CharBlock(
+                                                    help_text="A path relative to this domain. For example, /about",
+                                                    label="Relative URL",
+                                                    max_length=300,
+                                                    required=False,
                                                     validators=[
-                                                        wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()
+                                                        networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
                                                     ],
                                                 ),
                                             ),
@@ -6008,6 +6141,7 @@ class Migration(migrations.Migration):
                                                     choices=[
                                                         ("page", "Page"),
                                                         ("external_url", "External URL"),
+                                                        ("relative_url", "Relative URL"),
                                                         ("email", "Email"),
                                                         ("anchor", "Anchor"),
                                                         ("file", "File"),
@@ -6020,12 +6154,22 @@ class Migration(migrations.Migration):
                                             ("page", wagtail.blocks.PageChooserBlock(label="Page", required=False)),
                                             (
                                                 "external_url",
-                                                wagtail.blocks.CharBlock(
+                                                wagtail.blocks.URLBlock(
+                                                    help_text="Enter a full URL including http:// or https://",
                                                     label="External URL",
                                                     max_length=300,
                                                     required=False,
+                                                ),
+                                            ),
+                                            (
+                                                "relative_url",
+                                                wagtail.blocks.CharBlock(
+                                                    help_text="A path relative to this domain. For example, /about",
+                                                    label="Relative URL",
+                                                    max_length=300,
+                                                    required=False,
                                                     validators=[
-                                                        wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()
+                                                        networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
                                                     ],
                                                 ),
                                             ),
