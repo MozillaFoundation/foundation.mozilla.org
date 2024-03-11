@@ -45,7 +45,6 @@ class BaseLinkBlock(blocks.StructBlock):
             ("external_url", "External URL"),
             ("email", "Email"),
             ("anchor", "Anchor"),
-            ("phone", "Phone"),
         ],
         required=False,
         label="Link to",
