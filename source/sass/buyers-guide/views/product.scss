@@ -83,6 +83,16 @@
         }
       }
 
+      @at-root html[lang="pl"] & {
+        background-image: url(../_images/buyers-guide/icon-privacy-ding-pl.svg);
+        width: 55px;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          width: 70px;
+          height: 90px;
+        }
+      }
+
       @at-root html[lang="pt-BR"] & {
         background-image: url(../_images/buyers-guide/icon-privacy-ding-pt.svg);
         width: 53px;

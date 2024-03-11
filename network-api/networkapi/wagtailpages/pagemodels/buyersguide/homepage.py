@@ -184,8 +184,8 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         context = self.get_context(request)
         context["pagetype"] = "about"
         context["pageTitle"] = pgettext(
-            "*privacy not included can be localized.",
-            "How to use *privacy not included",
+            "*Privacy Not Included can be localized.",
+            "How to use *Privacy Not Included",
         )
         return render(request, "pages/buyersguide/about/how_to_use.html", context)
 
@@ -194,8 +194,8 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         context = self.get_context(request)
         context["pagetype"] = "about"
         context["pageTitle"] = pgettext(
-            "*privacy not included can be localized.",
-            "Why we made *privacy not included",
+            "*Privacy Not Included can be localized.",
+            "Why we made *Privacy Not Included",
         )
         return render(request, "pages/buyersguide/about/why_we_made.html", context)
 
@@ -208,7 +208,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             + " | "
             + pgettext(
                 "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
-                "*privacy not included",
+                "*Privacy Not Included",
             )
         )
         return render(request, "pages/buyersguide/about/press.html", context)
@@ -222,7 +222,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             + " | "
             + pgettext(
                 "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
-                "*privacy not included",
+                "*Privacy Not Included",
             )
         )
         return render(request, "pages/buyersguide/about/contact.html", context)
@@ -236,7 +236,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             + " | "
             + pgettext(
                 "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
-                "*privacy not included",
+                "*Privacy Not Included",
             )
         )
         return render(request, "pages/buyersguide/about/methodology.html", context)
@@ -250,7 +250,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             + " | "
             + pgettext(
                 "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
-                "*privacy not included",
+                "*Privacy Not Included",
             )
         )
         return render(request, "pages/buyersguide/contest.html", context)
