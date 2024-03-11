@@ -214,15 +214,13 @@ def generate_linkbutton_field():
         {
             "label": label,
             "styling": styling,
-            "link": {
-                "link_to": "custom_url",
-                "custom_url": url,
-                "page": None,
-                "file": None,
-                "anchor": "",
-                "email": "",
-                "phone": "",
-            },
+            "link_to": "external_url",
+            "external_url": url,
+            "page": None,
+            "file": None,
+            "anchor": "",
+            "email": "",
+            "phone": "",
         },
     )
 
