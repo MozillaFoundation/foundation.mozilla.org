@@ -53,7 +53,7 @@ class LinkBlockFactory(wagtail_factories.StructBlockFactory):
             file=factory.SubFactory(wagtail_factories.DocumentFactory),
         )
         external_url_link = factory.Trait(link_to="external_url", external_url=factory.Faker("url"))
-        relative_url_link = factory.Trait(link_to="relative_url", relative_url=factory.Faker("uri_path"))
+        relative_url_link = factory.Trait(link_to="relative_url", relative_url=f'/{factory.Faker("uri_path")}')
         anchor_link = factory.Trait(link_to="anchor", anchor=factory.Faker("uri_path"))
         email_link = factory.Trait(link_to="email", email=factory.Faker("email"))
         phone_link = factory.Trait(link_to="phone", phone=factory.Faker("phone_number"))

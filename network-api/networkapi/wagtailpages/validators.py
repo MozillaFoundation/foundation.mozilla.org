@@ -9,6 +9,9 @@ class RelativeURLValidator(validators.URLValidator):
         if not value:
             raise ValidationError("This field cannot be empty.")
 
+        if not value.startswith("/"):
+            raise ValidationError('This field must start with "/"')
+
         # No anchor links
         if value.startswith("#"):
             raise ValidationError("This field must be a relative URL.")
@@ -17,5 +20,5 @@ class RelativeURLValidator(validators.URLValidator):
         if parsed_url.scheme or parsed_url.netloc:
             raise ValidationError("This field must be a relative URL.")
 
-        value = "http://example.com/" + value
+        value = "http://example.com" + value
         super().__call__(value)

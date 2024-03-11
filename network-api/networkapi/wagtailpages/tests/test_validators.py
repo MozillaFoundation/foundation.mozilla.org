@@ -15,15 +15,15 @@ class RelativeURLValidatorTests(TestCase):
     def test_relative_url(self):
         """Assert that a relative URL is valid."""
         valid_examples = [
-            "test/",
-            "test/test/",
-            "test/123/",
-            "test?test=123",
-            "test?testa=123&testb=123",
-            "test#test",
-            "test#testa-testb",
-            "test/test?test=123&testa=123#test",
-            self.fake.uri_path(),
+            "/test/",
+            "/test/test/",
+            "/test/123/",
+            "/test?test=123",
+            "/test?testa=123&testb=123",
+            "/test#test",
+            "/test#testa-testb",
+            "/test/test?test=123&testa=123#test",
+            "/" + self.fake.uri_path(),
         ]
         for idx, url in enumerate(valid_examples):
             with self.subTest(i=idx):
@@ -41,6 +41,12 @@ class RelativeURLValidatorTests(TestCase):
     def test_anchor_url(self):
         """Assert that an anchor URL is invalid."""
         url = "#an-id"
+        with self.assertRaises(ValidationError):
+            self.validator(url)
+
+    def test_relative_url_does_not_start_with_forward_slash(self):
+        """Assert that relative URL must start with a forward slash."""
+        url = "test/"
         with self.assertRaises(ValidationError):
             self.validator(url)
 
