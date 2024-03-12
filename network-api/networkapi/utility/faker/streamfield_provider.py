@@ -214,15 +214,14 @@ def generate_linkbutton_field():
         {
             "label": label,
             "styling": styling,
-            "link": {
-                "link_to": "custom_url",
-                "custom_url": url,
-                "page": None,
-                "file": None,
-                "anchor": "",
-                "email": "",
-                "phone": "",
-            },
+            "link_to": "external_url",
+            "external_url": url,
+            "relative_url": "",
+            "page": None,
+            "file": None,
+            "anchor": "",
+            "email": "",
+            "phone": "",
         },
     )
 
@@ -559,15 +558,13 @@ def generate_cta_field():
         "text": text,
         "label": label,
         "dark_background": dark_background,
-        "link": {
-            "link_to": "custom_url",
-            "custom_url": link,
-            "page": None,
-            "file": None,
-            "anchor": "",
-            "email": "",
-            "phone": "",
-        },
+        "link_to": "external_url",
+        "external_url": link,
+        "page": None,
+        "file": None,
+        "anchor": "",
+        "email": "",
+        "phone": "",
     }
 
     return generate_field("cta", cta)

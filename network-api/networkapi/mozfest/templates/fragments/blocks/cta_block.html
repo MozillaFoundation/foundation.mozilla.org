@@ -9,7 +9,7 @@
                         <h2 class="tw-h3-heading">{{ self.heading }}</h2>
                         <p class="tw-mt-0 medium:tw-m-0">{{ self.text }}</p>
                     </div>
-                    <a class="tw-btn-secondary" href="{{ self.link.get_url }}" {% if self.new_window %}target="_blank"{% endif %} data-cta-event="cta-streamfield">{{ self.label }}</a>
+                    <a class="tw-btn-secondary" href="{{ self.url }}" {% if self.new_window %}target="_blank"{% endif %} data-cta-event="cta-streamfield">{{ self.label }}</a>
                 </div>
             </div>
         </div>
