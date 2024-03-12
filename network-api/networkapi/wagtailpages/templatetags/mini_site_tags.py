@@ -33,12 +33,12 @@ def _generate_thank_you_url(url):
     logger.debug(f'Generating "thank you URL" for {url}')
 
     parsed_url = urlparse(url)
-    logger.debug(f'parsed_url: {parsed_url}')
+    logger.debug(f"parsed_url: {parsed_url}")
     query_params = parse_qsl(parsed_url.query)
-    logger.debug(f'query_params: {query_params}')
+    logger.debug(f"query_params: {query_params}")
     query_params.append(("thank_you", "true"))
     query_string = urlencode(query_params)
-    logger.debug(f'query_string: {query_string}')
+    logger.debug(f"query_string: {query_string}")
     thank_you_url = urlunparse(parsed_url._replace(query=query_string))
 
     logger.debug(f'Generated "thank you URL": {thank_you_url}')
