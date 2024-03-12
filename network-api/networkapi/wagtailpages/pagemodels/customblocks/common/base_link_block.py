@@ -48,7 +48,6 @@ class BaseLinkBlock(blocks.StructBlock):
             ("page", "Page"),
             ("external_url", "External URL"),
             ("relative_url", "Relative URL"),
-            ("relative_url", "Relative URL"),
             ("email", "Email"),
             ("anchor", "Anchor"),
         ],

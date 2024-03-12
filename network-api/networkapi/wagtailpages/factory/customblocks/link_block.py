@@ -37,7 +37,7 @@ class LinkBlockFactory(wagtail_factories.StructBlockFactory):
 
     @classmethod
     def _construct_struct_value(cls, block_class, params):
-        """Use BaseLinkValue to create the StructValue instance."""
+        """Use LinkValue to create the StructValue instance."""
         return LinkValue(
             block_class(),
             [(name, value) for name, value in params.items()],
@@ -61,7 +61,7 @@ class LinkBlockFactory(wagtail_factories.StructBlockFactory):
     label = factory.Faker("sentence", nb_words=3)
     new_window = factory.Faker("boolean")
 
-    # Setup default link as anchor (it won't pass validation without a link type defined though
+    # Setup default link as external URL (it won't pass validation without a link type defined though
     # so it's still necessary to use the factory with traits)
     link_to = "external_url"
     # Set all link types to None by default. Only define the needed link type in the factory
