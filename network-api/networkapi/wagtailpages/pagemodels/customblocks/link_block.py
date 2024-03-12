@@ -1,5 +1,3 @@
-from collections import OrderedDict
-
 from wagtail import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.telepath import register
@@ -52,21 +50,7 @@ class LinkBlock(BaseLinkBlock):
     file = DocumentChooserBlock(required=False, label="File")
     phone = blocks.CharBlock(max_length=30, required=False, label="Phone")
 
-    label = blocks.CharBlock()
-
     new_window = blocks.BooleanBlock(label="Open in new window", required=False)
-
-    def __init__(self, local_blocks=None, **kwargs):
-        super().__init__(local_blocks, **kwargs)
-        # Reoder child_blocks so that label is first
-        self.child_blocks = self.base_blocks.copy()
-        child_blocks = OrderedDict(
-            {
-                "label": self.child_blocks.pop("label"),
-            }
-        )
-        child_blocks.update({k: v for k, v in self.child_blocks.items()})
-        self.child_blocks = child_blocks
 
     def get_default_values(self):
         default_values = super().get_default_values()

@@ -37,6 +37,8 @@ class BaseLinkValue(blocks.StructValue):
 
 
 class BaseLinkBlock(blocks.StructBlock):
+    label = blocks.CharBlock()
+
     link_to = blocks.ChoiceBlock(
         choices=[
             ("page", "Page"),
