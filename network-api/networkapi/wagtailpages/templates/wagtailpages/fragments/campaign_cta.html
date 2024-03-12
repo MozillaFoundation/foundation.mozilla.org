@@ -1,0 +1,5 @@
+{% load wagtailcore_tags mini_site_tags i18n %}
+
+{% if page.cta != None %}
+    {% cta page class cta_id %}
+{% endif %}

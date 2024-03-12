@@ -28,7 +28,7 @@ test.describe("FormAssembly petition form", () => {
     await waitForImagesToLoad(page);
 
     // test if the FormAssembly form is visible
-    const wFormContainer = page.locator(".wFormContainer");
+    const wFormContainer = page.locator("#cta-anchor-desktop .wFormContainer");
     await wFormContainer.waitFor({ state: "visible" });
     expect(await wFormContainer.count()).toBe(1);
 

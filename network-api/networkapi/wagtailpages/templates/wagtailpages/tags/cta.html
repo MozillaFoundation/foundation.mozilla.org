@@ -1,13 +1,33 @@
-{% if cta_type == 'petition' %}
-    {% include './cta/petition.html' %}
-{% endif %}
+{% load wagtailcore_tags mini_site_tags i18n %}
 
+<div class="cta tw-pb-4 {{ cta_classes }}
+            {% if page.specific.narrowed_page_content == False %}
+                large:tw-w-4/12 large:tw-ml-[8.3%] tw-px-8
+            {% else %}
+                tw-w-full
+            {% endif %}"
+>
+    <div class="narrow-sticky-button-container hidden">
+        <a href="#cta-anchor-{{ cta_id }}-{{ cta_modal }}" class="tw-btn-primary tw-block">{% trans "TAKE ACTION" context "Sticky button in mobile view on campaign pages" %}</a>
+    </div>
+    <div class="tw-sticky tw-top-40 tw-overflow-hidden tw-z-[1018]">
+        <div id="cta-anchor-{{ cta_id }}" class="-tw-mt-40 tw-pt-40 cta-anchor">
+            {% if cta_type == 'petition' and cta_modal and show_formassembly_thank_you %}
+                {% include './cta/thankyou_modal.html' %}
+            {% else %}
+                {% if cta_type == 'petition' %}
+                    {% include './cta/petition.html' with display_mode=display_mode %}
+                {% endif %}
 
-{% if cta_type == 'signup' %}
-    {% include './cta/signup.html' %}
-{% endif %}
+                {% if cta_type == 'signup' %}
+                    {% include './cta/signup.html' %}
+                {% endif %}
 
-
-{% if cta_type == 'callpower' %}
-    {% include './cta/callpower.html' %}
-{% endif %}
+                {% if cta_type == 'callpower' %}
+                    {% include './cta/callpower.html' %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <script src="https://c.shpg.org/352/sp.js"></script>
+</div>

@@ -21,8 +21,7 @@ import classNames from "classnames";
  */
 
 const MODAL_OVERLAY_CLASS = "tw-fixed tw-inset-0 tw-bg-white/90 tw-z-[1050]";
-const MODAL_CLASS =
-  "tw-block tw-overflow-scroll [@media(min-width:50rem)]:tw-top-40";
+const MODAL_CLASS = "tw-block tw-overflow-scroll tw-top-40";
 const MODAL_CONTENT_CLASS =
   "tw-border-2 tw-border-black tw-bg-white tw-rounded-none tw-shadow-[4px_4px_0_0_black] tw-px-16 tw-pb-16";
 const MODAL_BODY_CLASS = "tw-mt-0 tw-pt-8";
@@ -36,15 +35,6 @@ class DonationModal extends Component {
     // Thanks to Safari's poor support of the "sticky"
     // CSS position property, we need to relocate the DOM
     // node so that we get the full-viewport effect.
-    let body = document.body,
-      c1 = body.children[0],
-      n = this.fragment;
-
-    if (!c1) {
-      body.appendChild(n);
-    } else {
-      body.insertBefore(n, c1);
-    }
 
     // For some reason appendChild and inserBefore cause event handler binding problems.
     // We cannot use the typical <SomeReactNode onClick=...> to bind event handlers as
