@@ -65,4 +65,4 @@ class LinkBlock(BaseLinkBlock):
         template = "wagtailpages/blocks/link_block.html"
 
 
-register(BaseLinkBlockAdapter(), BaseLinkBlock)
+register(BaseLinkBlockAdapter(), LinkBlock)
