@@ -118,7 +118,7 @@ class BaseLinkBlock(blocks.StructBlock):
 class BaseLinkBlockAdapter(StructBlockAdapter):
     """Custom adapter to register JS for conditionally hiding/showing fields.
 
-    Can be used with any block that extends `BaseAbstractLinkBlock`.
+    Can be used with any block that extends `BaseLinkBlock`.
 
     Simply register this adapter with your concrete class.
 
