@@ -9,9 +9,16 @@ from networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block impo
     BaseLinkBlockAdapter,
     BaseLinkValue,
 )
+from networkapi.wagtailpages.validators import AnchorLinkValidator
 
 
 class LinkValue(BaseLinkValue):
+    def get_email_link(self):
+        return f"mailto:{self.get('email')}"
+
+    def get_anchor_link(self):
+        return f"#{self.get('anchor')}"
+
     def get_phone_link(self):
         return "tel:{}".format(self.get("phone"))
 
@@ -34,6 +41,14 @@ class LinkBlock(BaseLinkBlock):
         required=False,
         label="Link to",
     )
+    anchor = blocks.CharBlock(
+        max_length=300,
+        required=False,
+        validators=[AnchorLinkValidator()],
+        label="#",
+        help_text='An id attribute of an element on the current page. For example, "#section-1"',
+    )
+    email = blocks.EmailBlock(required=False)
     file = DocumentChooserBlock(required=False, label="File")
     phone = blocks.CharBlock(max_length=30, required=False, label="Phone")
 
@@ -55,6 +70,8 @@ class LinkBlock(BaseLinkBlock):
 
     def get_default_values(self):
         default_values = super().get_default_values()
+        default_values["anchor"] = ""
+        default_values["email"] = ""
         default_values["file"] = None
         default_values["phone"] = ""
         return default_values
