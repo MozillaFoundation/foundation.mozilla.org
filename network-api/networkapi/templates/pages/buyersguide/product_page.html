@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block head_extra %}
-    <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
+    <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}*Privacy Not Included - {{ product.title }}{% endblocktrans %}" />
 {% endblock %}
 
 {% block social_image %}
@@ -51,7 +51,7 @@
 
                 {% if product.privacy_ding %}
                     <div class="privacy-ding-band tw-px-8 medium:tw-px-16 ">
-                        <p class="pni-product-smaller-body mb-0 py-2">{% blocktrans %}<strong>Warning</strong>: *privacy not included with this product{% endblocktrans %}</p>
+                        <p class="pni-product-smaller-body mb-0 py-2">{% blocktrans %}<strong>Warning</strong>: *Privacy Not Included with this product{% endblocktrans %}</p>
                     </div>
                 {% endif %}
 

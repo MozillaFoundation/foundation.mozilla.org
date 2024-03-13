@@ -300,78 +300,61 @@ class Migration(migrations.Migration):
                             [
                                 ("label", wagtail.blocks.CharBlock()),
                                 (
-                                    "link",
-                                    wagtail.blocks.StructBlock(
-                                        [
-                                            (
-                                                "link_to",
-                                                wagtail.blocks.ChoiceBlock(
-                                                    choices=[
-                                                        ("page", "Page"),
-                                                        ("file", "File"),
-                                                        ("custom_url", "Custom URL"),
-                                                        ("email", "Email"),
-                                                        ("anchor", "Anchor"),
-                                                        ("phone", "Phone"),
-                                                    ],
-                                                    classname="link_choice_type_selector",
-                                                    label="Link to",
-                                                    required=False,
-                                                ),
-                                            ),
-                                            (
-                                                "page",
-                                                wagtail.blocks.PageChooserBlock(
-                                                    form_classname="page_link", label="Page", required=False
-                                                ),
-                                            ),
-                                            (
-                                                "file",
-                                                wagtail.documents.blocks.DocumentChooserBlock(
-                                                    form_classname="file_link", label="File", required=False
-                                                ),
-                                            ),
-                                            (
-                                                "custom_url",
-                                                wagtail.blocks.CharBlock(
-                                                    form_classname="custom_url_link url_field",
-                                                    label="Custom URL",
-                                                    max_length=300,
-                                                    required=False,
-                                                    validators=[
-                                                        wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()
-                                                    ],
-                                                ),
-                                            ),
-                                            (
-                                                "anchor",
-                                                wagtail.blocks.CharBlock(
-                                                    form_classname="anchor_link",
-                                                    label="#",
-                                                    max_length=300,
-                                                    required=False,
-                                                ),
-                                            ),
-                                            ("email", wagtail.blocks.EmailBlock(required=False)),
-                                            (
-                                                "phone",
-                                                wagtail.blocks.CharBlock(
-                                                    form_classname="phone_link",
-                                                    label="Phone",
-                                                    max_length=30,
-                                                    required=False,
-                                                ),
-                                            ),
-                                            (
-                                                "new_window",
-                                                wagtail.blocks.BooleanBlock(
-                                                    form_classname="new_window_toggle",
-                                                    label="Open in new window",
-                                                    required=False,
-                                                ),
-                                            ),
-                                        ]
+                                    "link_to",
+                                    wagtail.blocks.ChoiceBlock(
+                                        choices=[
+                                            ("page", "Page"),
+                                            ("external_url", "External URL"),
+                                            ("relative_url", "Relative URL"),
+                                            ("email", "Email"),
+                                            ("anchor", "Anchor"),
+                                            ("file", "File"),
+                                            ("phone", "Phone"),
+                                        ],
+                                        label="Link to",
+                                        required=False,
                                     ),
+                                ),
+                                ("page", wagtail.blocks.PageChooserBlock(label="Page", required=False)),
+                                (
+                                    "external_url",
+                                    wagtail.blocks.URLBlock(
+                                        help_text="Enter a full URL including http:// or https://",
+                                        label="External URL",
+                                        max_length=300,
+                                        required=False,
+                                    ),
+                                ),
+                                (
+                                    "relative_url",
+                                    wagtail.blocks.CharBlock(
+                                        help_text='A path relative to this domain. For example, "/foo/bar"',
+                                        label="Relative URL",
+                                        max_length=300,
+                                        required=False,
+                                        validators=[
+                                            networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
+                                        ],
+                                    ),
+                                ),
+                                (
+                                    "anchor",
+                                    wagtail.blocks.CharBlock(
+                                        label="#",
+                                        help_text='An id attribute of an element on the current page. For example, "#section-1"',
+                                        max_length=300,
+                                        required=False,
+                                        validators=[
+                                            networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.AnchorLinkValidator()
+                                        ],
+                                    ),
+                                ),
+                                ("email", wagtail.blocks.EmailBlock(required=False)),
+                                ("file", wagtail.documents.blocks.DocumentChooserBlock(label="File", required=False)),
+                                ("phone", wagtail.blocks.CharBlock(label="Phone", max_length=30, required=False)),
+                                (
+                                    "new_window",
+                                    wagtail.blocks.BooleanBlock(label="Open in new window", required=False),
                                 ),
                                 (
                                     "styling",
@@ -1145,84 +1128,77 @@ class Migration(migrations.Migration):
                                                     [
                                                         ("label", wagtail.blocks.CharBlock()),
                                                         (
-                                                            "link",
-                                                            wagtail.blocks.StructBlock(
-                                                                [
-                                                                    (
-                                                                        "link_to",
-                                                                        wagtail.blocks.ChoiceBlock(
-                                                                            choices=[
-                                                                                ("page", "Page"),
-                                                                                ("file", "File"),
-                                                                                ("custom_url", "Custom URL"),
-                                                                                ("email", "Email"),
-                                                                                ("anchor", "Anchor"),
-                                                                                ("phone", "Phone"),
-                                                                            ],
-                                                                            classname="link_choice_type_selector",
-                                                                            label="Link to",
-                                                                            required=False,
-                                                                        ),
-                                                                    ),
-                                                                    (
-                                                                        "page",
-                                                                        wagtail.blocks.PageChooserBlock(
-                                                                            form_classname="page_link",
-                                                                            label="Page",
-                                                                            required=False,
-                                                                        ),
-                                                                    ),
-                                                                    (
-                                                                        "file",
-                                                                        wagtail.documents.blocks.DocumentChooserBlock(
-                                                                            form_classname="file_link",
-                                                                            label="File",
-                                                                            required=False,
-                                                                        ),
-                                                                    ),
-                                                                    (
-                                                                        "custom_url",
-                                                                        wagtail.blocks.CharBlock(
-                                                                            form_classname="custom_url_link url_field",
-                                                                            label="Custom URL",
-                                                                            max_length=300,
-                                                                            required=False,
-                                                                            validators=[
-                                                                                wagtail.admin.forms.choosers.URLOrAbsolutePathValidator()
-                                                                            ],
-                                                                        ),
-                                                                    ),
-                                                                    (
-                                                                        "anchor",
-                                                                        wagtail.blocks.CharBlock(
-                                                                            form_classname="anchor_link",
-                                                                            label="#",
-                                                                            max_length=300,
-                                                                            required=False,
-                                                                        ),
-                                                                    ),
-                                                                    (
-                                                                        "email",
-                                                                        wagtail.blocks.EmailBlock(required=False),
-                                                                    ),
-                                                                    (
-                                                                        "phone",
-                                                                        wagtail.blocks.CharBlock(
-                                                                            form_classname="phone_link",
-                                                                            label="Phone",
-                                                                            max_length=30,
-                                                                            required=False,
-                                                                        ),
-                                                                    ),
-                                                                    (
-                                                                        "new_window",
-                                                                        wagtail.blocks.BooleanBlock(
-                                                                            form_classname="new_window_toggle",
-                                                                            label="Open in new window",
-                                                                            required=False,
-                                                                        ),
-                                                                    ),
-                                                                ]
+                                                            "link_to",
+                                                            wagtail.blocks.ChoiceBlock(
+                                                                choices=[
+                                                                    ("page", "Page"),
+                                                                    ("external_url", "External URL"),
+                                                                    ("relative_url", "Relative URL"),
+                                                                    ("email", "Email"),
+                                                                    ("anchor", "Anchor"),
+                                                                    ("file", "File"),
+                                                                    ("phone", "Phone"),
+                                                                ],
+                                                                label="Link to",
+                                                                required=False,
+                                                            ),
+                                                        ),
+                                                        (
+                                                            "page",
+                                                            wagtail.blocks.PageChooserBlock(
+                                                                label="Page", required=False
+                                                            ),
+                                                        ),
+                                                        (
+                                                            "external_url",
+                                                            wagtail.blocks.URLBlock(
+                                                                help_text="Enter a full URL including http:// or https://",
+                                                                label="External URL",
+                                                                max_length=300,
+                                                                required=False,
+                                                            ),
+                                                        ),
+                                                        (
+                                                            "relative_url",
+                                                            wagtail.blocks.CharBlock(
+                                                                help_text='A path relative to this domain. For example, "/foo/bar"',
+                                                                label="Relative URL",
+                                                                max_length=300,
+                                                                required=False,
+                                                                validators=[
+                                                                    networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
+                                                                ],
+                                                            ),
+                                                        ),
+                                                        (
+                                                            "anchor",
+                                                            wagtail.blocks.CharBlock(
+                                                                label="#",
+                                                                help_text='An id attribute of an element on the current page. For example, "#section-1"',
+                                                                max_length=300,
+                                                                required=False,
+                                                                validators=[
+                                                                    networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block.AnchorLinkValidator()
+                                                                ],
+                                                            ),
+                                                        ),
+                                                        ("email", wagtail.blocks.EmailBlock(required=False)),
+                                                        (
+                                                            "file",
+                                                            wagtail.documents.blocks.DocumentChooserBlock(
+                                                                label="File", required=False
+                                                            ),
+                                                        ),
+                                                        (
+                                                            "phone",
+                                                            wagtail.blocks.CharBlock(
+                                                                label="Phone", max_length=30, required=False
+                                                            ),
+                                                        ),
+                                                        (
+                                                            "new_window",
+                                                            wagtail.blocks.BooleanBlock(
+                                                                label="Open in new window", required=False
                                                             ),
                                                         ),
                                                         (
