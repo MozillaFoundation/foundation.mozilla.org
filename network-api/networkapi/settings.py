@@ -270,6 +270,7 @@ INSTALLED_APPS = list(
             "networkapi.donate",
             "networkapi.donate_banner",
             "networkapi.reports",
+            "networkapi.nav",
             "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
             "networkapi.project_styleguide",
         ],
