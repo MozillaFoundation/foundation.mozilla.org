@@ -1,3 +1,4 @@
+from wagtail import blocks
 from wagtail.telepath import register
 
 from networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block import (
@@ -17,6 +18,8 @@ class NavLinkValue(BaseLinkValue):
 
 
 class NavLinkBlock(BaseLinkBlock):
+    description = blocks.CharBlock(required=False)
+
     class Meta:
         value_class = NavLinkValue
         label = "Navigation Link"
