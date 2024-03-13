@@ -239,7 +239,6 @@ INSTALLED_APPS = list(
             "wagtail_footnotes",
             "modelcluster",
             "taggit",
-            "wagtail_link_block",
             "wagtail_ab_testing",
             # Base wagtail localization
             "wagtail_localize",
@@ -680,8 +679,8 @@ LOGGING = {
         "django.db.backends": {"handlers": ["debug-error"], "level": "ERROR"},
         "django.utils.autoreload": {"handlers": ["debug-error"], "level": "ERROR"},
         "networkapi": {
-            "handlers": ["info"],
-            "level": "INFO",
+            "handlers": ["debug"],
+            "level": "DEBUG",
         },
     },
 }

@@ -1,3 +1,4 @@
+import logging
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 from django import template
@@ -8,6 +9,8 @@ from networkapi.wagtailpages.models import CTA
 from ..utils import get_mini_side_nav_data
 
 register = template.Library()
+
+logger = logging.getLogger(__name__)
 
 
 # Instantiate a mini-site sidebar menu based on the current page's relation to other pages
@@ -22,22 +25,30 @@ def mini_site_horizontal_nav(context, page):
     return get_mini_side_nav_data(context, page)
 
 
+def _generate_thank_you_url(url):
+    """
+    Generate a thank you page URL by grabbing the current url and appending thank_you=true
+    """
+
+    logger.debug(f'Generating "thank you URL" for {url}')
+
+    parsed_url = urlparse(url)
+    logger.debug(f"parsed_url: {parsed_url}")
+    query_params = parse_qsl(parsed_url.query)
+    logger.debug(f"query_params: {query_params}")
+    query_params.append(("thank_you", "true"))
+    query_string = urlencode(query_params)
+    logger.debug(f"query_string: {query_string}")
+    thank_you_url = urlunparse(parsed_url._replace(query=query_string))
+
+    logger.debug(f'Generated "thank you URL": {thank_you_url}')
+
+    return thank_you_url
+
+
 # Render a page's CTA (petition, signup, etc.)
 @register.inclusion_tag("wagtailpages/tags/cta.html", takes_context=True)
 def cta(context, page):
-    def generate_thank_you_url(url):
-        """
-        Generate a thank you page URL by grabbing the current url and appending thank_you=true
-        """
-
-        parsed_url = urlparse(url)
-        query_params = parse_qsl(parsed_url.query)
-        query_params.append(("thank_you", "true"))
-        query_string = urlencode(query_params)
-        thank_you_url = urlunparse(parsed_url._replace(query=query_string))
-
-        return thank_you_url
-
     cta = {"page": page, "cta": None, "cta_type": None}
 
     if page.cta:
@@ -59,7 +70,7 @@ def cta(context, page):
         source_url = context["request"].build_absolute_uri()
 
         cta["source_url"] = source_url
-        cta["thank_you_url"] = generate_thank_you_url(source_url)
+        cta["thank_you_url"] = _generate_thank_you_url(source_url)
         cta["show_formassembly_thank_you"] = context["request"].GET.get("thank_you") == "true"
         cta["csp_nonce"] = context["request"].csp_nonce
 

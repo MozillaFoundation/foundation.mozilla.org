@@ -33,7 +33,6 @@ wagtail-localize-git
 wagtail-inventory
 wagtailmedia
 wagtail-metadata
-wagtail-link-block
 whitenoise
 psycopg2-binary
 sentry-sdk

@@ -22,7 +22,7 @@ test.describe("PNI search", () => {
   };
 
   const qs = {
-    ding: `#product-filter-pni-toggle`, // this is the "privacy not included" filter toggle
+    ding: `#product-filter-pni-toggle`, // this is the "*Privacy Not Included" filter toggle
     dingLabel: `label[for="product-filter-pni-toggle"]`,
     products: `.product-box.d-flex`,
     searchBar: `#product-filter-search-input`,
