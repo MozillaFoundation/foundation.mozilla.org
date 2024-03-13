@@ -18,7 +18,7 @@ class NavLinkValue(BaseLinkValue):
 
 
 class NavLinkBlock(BaseLinkBlock):
-    description = blocks.CharBlock(required=False, max_length=100)
+    description = blocks.CharBlock(required=False)
 
     class Meta:
         value_class = NavLinkValue
