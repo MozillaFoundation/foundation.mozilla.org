@@ -45,7 +45,6 @@ class BaseLinkBlock(blocks.StructBlock):
             ("external_url", "External URL"),
             ("relative_url", "Relative URL"),
         ],
-        required=False,
         label="Link to",
     )
     page = blocks.PageChooserBlock(required=False, label="Page")
@@ -80,9 +79,6 @@ class BaseLinkBlock(blocks.StructBlock):
 
         url_default_values = self.get_default_values()
         url_type = clean_values.get("link_to")
-
-        if not url_type:
-            errors["link_to"] = ErrorList(["Please select a link type"])
 
         # Check that a value has been uploaded for the chosen link type
         if url_type != "" and clean_values.get(url_type) in [None, ""]:

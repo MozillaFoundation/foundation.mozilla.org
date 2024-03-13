@@ -36,7 +36,6 @@ class LinkBlock(BaseLinkBlock):
             ("file", "File"),
             ("phone", "Phone"),
         ],
-        required=False,
         label="Link to",
     )
     anchor = blocks.CharBlock(
