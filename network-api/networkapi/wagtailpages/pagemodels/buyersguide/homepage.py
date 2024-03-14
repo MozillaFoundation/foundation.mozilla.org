@@ -309,7 +309,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         context["category"] = slug
         context["current_category"] = category
         context["products"] = products
-        context["pageTitle"] = f'{category.name} | {gettext("Privacy & security guide")}' f" | Mozilla Foundation"
+        context["pageTitle"] = f'{category.name} | {gettext("Privacy & Security Guide")}' f" | Mozilla Foundation"
         context["template_cache_key_fragment"] = f"{category.slug}_{request.LANGUAGE_CODE}"
 
         # Checking if category has custom metadata, if so, update the share image and description.
