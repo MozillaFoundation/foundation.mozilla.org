@@ -192,7 +192,7 @@ function withSubmissionLogic(WrappedComponent) {
         if (res.status !== 201) {
           this.setState({
             apiError: getText(
-              `Error: Signup was not created. Please try again later.`
+              `Something went wrong and your signup wasn't completed. Please try again later.`
             ),
           });
           throw new Error(res.statusText);
@@ -200,7 +200,7 @@ function withSubmissionLogic(WrappedComponent) {
       } catch (error) {
         this.setState({
           apiError: getText(
-            `Error: Unable to resolve signup. Please try again later.`
+            `Something went wrong and your signup wasn't completed. Please try again later.`
           ),
         });
         throw error;
