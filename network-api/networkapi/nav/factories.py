@@ -99,3 +99,14 @@ class NavButtonFactory(wagtail_factories.StructBlockFactory):
     external_url = ""
     relative_url = ""
 
+
+class NavColumnFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = nav_blocks.NavColumn
+
+    class Params:
+        with_button = False
+
+    title = factory.Faker("sentence", nb_words=3)
+    links = factory.List([factory.SubFactory(NavItemFactory) for _ in range(4)])
+    button = factory.LazyAttribute(lambda o: [NavButtonFactory()] if o.with_button else [])

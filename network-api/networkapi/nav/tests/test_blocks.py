@@ -1,5 +1,5 @@
 from django.test import TestCase
-from wagtail.blocks import StreamBlockValidationError
+from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError
 from wagtail.models import Locale, Page
 
 from networkapi.nav import blocks as nav_blocks
@@ -116,3 +116,37 @@ class TestNavButton(TestCase):
         with self.assertRaises(StreamBlockValidationError):
             block = nav_factories.NavItemFactory()
             nav_blocks.NavItem().clean(block)
+
+
+class TestNavColumnBlock(TestCase):
+    def test_default(self):
+        """Assert that default nav_blocks.NavColumn factory works and is an external URL."""
+        block = nav_factories.NavColumnFactory()
+
+        self.assertEqual(len(block["links"]), 4)
+        for link in block["links"]:
+            self.assertIsInstance(link.block, nav_blocks.NavItem)
+            self.assertIsInstance(link, nav_blocks.NavItemValue)
+        self.assertCountEqual(block["button"], [])
+
+    def test_with_button(self):
+        """Create a nav_blocks.NavColumn with a button."""
+        block = nav_factories.NavColumnFactory(with_button=True)
+
+        self.assertEqual(len(block["button"]), 1)
+        self.assertIsInstance(block["button"][0].block, nav_blocks.NavButton)
+
+    def test_needs_to_provide_at_least_one_link(self):
+        with self.assertRaises(StructBlockValidationError):
+            block = nav_factories.NavColumnFactory(links=[])
+            nav_blocks.NavColumn().clean(block)
+
+    def test_needs_to_provide_at_most_four_links(self):
+        with self.assertRaises(StructBlockValidationError):
+            block = nav_factories.NavColumnFactory(links=[nav_factories.NavItemFactory() for _ in range(5)])
+            nav_blocks.NavColumn().clean(block)
+
+    def test_cannot_have_more_than_one_button(self):
+        with self.assertRaises(StructBlockValidationError):
+            block = nav_factories.NavColumnFactory(button=[nav_factories.NavButtonFactory() for _ in range(2)])
+            nav_blocks.NavColumn().clean(block)

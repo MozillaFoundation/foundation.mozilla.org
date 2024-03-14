@@ -56,3 +56,13 @@ class NavButton(BaseLinkBlock):
 
 register(BaseLinkBlockAdapter(), NavButton)
 
+
+class NavColumn(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=100)
+    links = blocks.ListBlock(NavItem, min_num=1, max_num=4)
+    button = blocks.ListBlock(NavButton, required=False, min_num=0, max_num=1)
+
+    class Meta:
+        label = "Navigation Column"
+        icon = "list-ul"
+        template = "nav/blocks/nav_column_block.html"
