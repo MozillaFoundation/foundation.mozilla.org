@@ -2,10 +2,10 @@ import factory
 import wagtail_factories
 from wagtail import models as wagtail_models
 
-from networkapi.nav.blocks import NavLinkBlock, NavLinkValue
+from networkapi.nav import blocks as nav_blocks
 
 
-class NavLinkBlockFactory(wagtail_factories.StructBlockFactory):
+class NavItemFactory(wagtail_factories.StructBlockFactory):
     """Factory for NavLinkBlock.
 
     Use traits to create instances based on the type of link needed:
@@ -22,12 +22,12 @@ class NavLinkBlockFactory(wagtail_factories.StructBlockFactory):
     """
 
     class Meta:
-        model = NavLinkBlock
+        model = nav_blocks.NavItem
 
     @classmethod
     def _construct_struct_value(cls, block_class, params):
         """Use NavLinkValue to create the StructValue instance."""
-        return NavLinkValue(
+        return nav_blocks.NavItemValue(
             block_class(),
             [(name, value) for name, value in params.items()],
         )

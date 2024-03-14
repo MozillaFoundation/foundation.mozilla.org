@@ -2,22 +2,22 @@ from django.test import TestCase
 from wagtail.blocks import StreamBlockValidationError
 from wagtail.models import Locale, Page
 
-from networkapi.nav.blocks import NavLinkBlock
-from networkapi.nav.factories import NavLinkBlockFactory
+from networkapi.nav import blocks as nav_blocks
+from networkapi.nav import factories as nav_factories
 
 
 class TestLinkBlock(TestCase):
     def test_default(self):
-        """Assert that default NavLinkBlock factory works and is an external URL."""
-        block = NavLinkBlockFactory()
+        """Assert that default nav_blocks.NavItem factory works and is an external URL."""
+        block = nav_factories.NavItemFactory()
 
         # Assert that the page link is custom URL and that it is correct
         url = block["external_url"]
         self.assertEqual(block.url, url)
 
     def test_page_link(self):
-        """Create a NavLinkBlock with a page link."""
-        block = NavLinkBlockFactory(page_link=True)
+        """Create a nav_blocks.NavItem with a page link."""
+        block = nav_factories.NavItemFactory(page_link=True)
 
         page = block["page"]
         self.assertIsNotNone(page)
@@ -32,8 +32,8 @@ class TestLinkBlock(TestCase):
         self.assertEqual(block["relative_url"], "")
 
     def test_external_url_link(self):
-        """Create a NavLinkBlock with a custom/external URL."""
-        block = NavLinkBlockFactory(external_url_link=True)
+        """Create a nav_blocks.NavItem with a custom/external URL."""
+        block = nav_factories.NavItemFactory(external_url_link=True)
 
         # Assert that the URL is a URL
         url = block["external_url"]
@@ -46,8 +46,8 @@ class TestLinkBlock(TestCase):
         self.assertEqual(block["relative_url"], "")
 
     def test_relative_url_link(self):
-        """Create a NavLinkBlock with a relative URL."""
-        block = NavLinkBlockFactory(relative_url_link=True)
+        """Create a nav_blocks.NavItem with a relative URL."""
+        block = nav_factories.NavItemFactory(relative_url_link=True)
 
         # Assert that the URL is a URL
         url = block["relative_url"]
@@ -61,5 +61,5 @@ class TestLinkBlock(TestCase):
 
     def test_needs_to_provide_at_least_one_link(self):
         with self.assertRaises(StreamBlockValidationError):
-            block = NavLinkBlockFactory()
-            NavLinkBlock().clean(block)
+            block = nav_factories.NavItemFactory()
+            nav_blocks.NavItem().clean(block)
