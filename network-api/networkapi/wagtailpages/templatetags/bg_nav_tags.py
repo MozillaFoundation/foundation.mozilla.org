@@ -38,6 +38,7 @@ def bg_active_nav(current, target, nav="sidebar"):
     else:
         return "active" if urlparse(target).path == urlparse(current).path else ""
 
+
 @register.simple_tag(name="product_in_category")
 def product_in_category(productpage, categorySlug):
     if categorySlug == "":
