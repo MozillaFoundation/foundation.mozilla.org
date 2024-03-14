@@ -41,6 +41,7 @@ class NavLinkBlockFactory(wagtail_factories.StructBlockFactory):
         relative_url_link = factory.Trait(link_to="relative_url", relative_url=f'/{factory.Faker("uri_path")}')
 
     label = factory.Faker("sentence", nb_words=3)
+    description = factory.Faker("sentence", nb_words=6)
 
     # Setup default link as external URL (it won't pass validation without a link type defined though
     # so it's still necessary to use the factory with traits)
