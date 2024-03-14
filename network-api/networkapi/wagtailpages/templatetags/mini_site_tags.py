@@ -1,4 +1,3 @@
-import logging
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 from django import template
@@ -9,8 +8,6 @@ from networkapi.wagtailpages.models import CTA
 from ..utils import get_mini_side_nav_data
 
 register = template.Library()
-
-logger = logging.getLogger(__name__)
 
 
 # Instantiate a mini-site sidebar menu based on the current page's relation to other pages
@@ -30,18 +27,11 @@ def _generate_thank_you_url(url):
     Generate a thank you page URL by grabbing the current url and appending thank_you=true
     """
 
-    logger.debug(f'Generating "thank you URL" for {url}')
-
     parsed_url = urlparse(url)
-    logger.debug(f"parsed_url: {parsed_url}")
     query_params = parse_qsl(parsed_url.query)
-    logger.debug(f"query_params: {query_params}")
     query_params.append(("thank_you", "true"))
     query_string = urlencode(query_params)
-    logger.debug(f"query_string: {query_string}")
     thank_you_url = urlunparse(parsed_url._replace(query=query_string))
-
-    logger.debug(f'Generated "thank you URL": {thank_you_url}')
 
     return thank_you_url
 

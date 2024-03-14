@@ -679,8 +679,8 @@ LOGGING = {
         "django.db.backends": {"handlers": ["debug-error"], "level": "ERROR"},
         "django.utils.autoreload": {"handlers": ["debug-error"], "level": "ERROR"},
         "networkapi": {
-            "handlers": ["debug"],
-            "level": "DEBUG",
+            "handlers": ["info"],
+            "level": "INFO",
         },
     },
 }
