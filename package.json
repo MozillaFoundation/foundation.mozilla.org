@@ -106,7 +106,7 @@
     "@percy/cli": "^1.27.1",
     "@percy/playwright": "^1.0.4",
     "@playwright/test": "^1.42.1",
-    "browser-sync": "^2.29.3",
+    "browser-sync": "^3.0.2",
     "browserslist": "^4.23.0",
     "chokidar-cli": "^3.0.0",
     "eslint": "^8.57.0",
