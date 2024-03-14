@@ -6,7 +6,7 @@ from networkapi.nav import blocks as nav_blocks
 from networkapi.nav import factories as nav_factories
 
 
-class TestLinkBlock(TestCase):
+class TestNavItemBlock(TestCase):
     def test_default(self):
         """Assert that default nav_blocks.NavItem factory works and is an external URL."""
         block = nav_factories.NavItemFactory()
