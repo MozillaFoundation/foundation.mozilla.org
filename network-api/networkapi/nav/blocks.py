@@ -44,3 +44,15 @@ class NavItem(BaseLinkBlock):
 
 
 register(BaseLinkBlockAdapter(), NavItem)
+
+
+class NavButton(BaseLinkBlock):
+    class Meta:
+        value_class = NavItemValue
+        label = "Navigation Button"
+        icon = "link"
+        template = "nav/blocks/nav_button_block.html"
+
+
+register(BaseLinkBlockAdapter(), NavButton)
+
