@@ -9,6 +9,7 @@ updates:
     - "engineering"
     - "dependencies"  
     - "backend"
+    - "pip"
 - package-ecosystem: npm
   directory: "/"
   schedule:
@@ -16,4 +17,6 @@ updates:
   open-pull-requests-limit: 99
   labels:
     - "engineering"
-    - "dependencies"  
+    - "dependencies"
+    - "frontend"
+    - "npm"
