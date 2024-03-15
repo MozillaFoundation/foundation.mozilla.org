@@ -92,7 +92,6 @@
     "postcss-scss": "^4.0.9",
     "prop-types": "^15.7.2",
     "react": "^18.2.0",
-    "react-axe": "^3.5.4",
     "react-dom": "^18.2.0",
     "react-ga": "3.3.1",
     "sass": "^1.59.3",
@@ -103,6 +102,7 @@
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
+    "@axe-core/react": "^4.8.5",
     "@percy/cli": "^1.27.1",
     "@percy/playwright": "^1.0.4",
     "@playwright/test": "^1.42.1",
