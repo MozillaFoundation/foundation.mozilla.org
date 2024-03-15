@@ -1,4 +1,5 @@
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }] */
+import React from "react";
 import ReactDOM from "react-dom";
 import {
   bindCommonEventHandlers,
@@ -39,14 +40,8 @@ import { initYoutubeRegretsCarousel } from "./foundation/pages/youtube-regrets/c
 import { initYoutubeRegretsLocomotiveScroll } from "./foundation/pages/youtube-regrets/locomotive-scroll";
 
 // Initializing component a11y browser console logging
-// TODO React-axe is currently deprecated, we should replace it with @axe-core/react
-// https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10306
-if (
-  typeof process !== "undefined" &&
-  process.env &&
-  process.env.NODE_ENV === "development"
-) {
-  axe = require("react-axe");
+if (process.env.NODE_ENV === "development") {
+  const axe = require("@axe-core/react");
   axe(React, ReactDOM, 1000);
 }
 

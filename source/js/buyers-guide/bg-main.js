@@ -1,3 +1,4 @@
+import React from "react";
 import ReactDOM from "react-dom";
 import Storage from "../storage.js";
 import {
@@ -19,14 +20,8 @@ import initializeSentry from "../common/sentry-config.js";
 import PNIMobileNav from "./pni-mobile-nav.js";
 
 // Initializing component a11y browser console logging
-// TODO React-axe is currently deprecated, we should replace it with @axe-core/react
-// https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10306
-if (
-  typeof process !== "undefined" &&
-  process.env &&
-  process.env.NODE_ENV === "development"
-) {
-  axe = require("react-axe");
+if (process.env.NODE_ENV === "development") {
+  const axe = require("@axe-core/react");
   axe(React, ReactDOM, 1000);
 }
 
