@@ -99,7 +99,7 @@
     "swiper": "^6.8.4",
     "tailwindcss": "^3.4.1",
     "uuid": "^9.0.1",
-    "whatwg-fetch": "^3.6.2"
+    "whatwg-fetch": "^3.6.20"
   },
   "devDependencies": {
     "@axe-core/react": "^4.8.5",
