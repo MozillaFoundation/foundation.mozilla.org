@@ -12,8 +12,8 @@
     {# if custom seo_title for a wagtail page #}
     {% elif page.seo_title %}
         {{ page.seo_title }}
-    {% else %}
     {# default to page.title #}
+    {% else %}
         {{ page.title }} | {% blocktrans context "“*Privacy Not Included can be localized. This is a reference to the “*batteries not included” mention on toys." %}*Privacy Not Included{% endblocktrans %}
     {% endif %}
 {% endblock %}
