@@ -6,8 +6,16 @@
 
 {% block page_title %}
     {% environment_prefix %}
-    {% if pageTitle %}{{ pageTitle }}
-    {% else %}{% blocktrans context "“*Privacy Not Included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*Privacy Not Included | Shop smart and safe{% endblocktrans %} | Mozilla Foundation{% endif %}
+    {# if routable page #}
+    {% if pageTitle %}
+        {{ pageTitle }}
+    {# if custom seo_title for a wagtail page #}
+    {% elif page.seo_title %}
+        {{ page.seo_title }}
+    {# default to page.title #}
+    {% else %}
+        {{ page.title }} | {% blocktrans context "“*Privacy Not Included can be localized. This is a reference to the “*batteries not included” mention on toys." %}*Privacy Not Included{% endblocktrans %}
+    {% endif %}
 {% endblock %}
 
 {# TODO: consider using a different ga_identifier? #}
