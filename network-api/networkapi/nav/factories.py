@@ -1,5 +1,6 @@
 import factory
 import wagtail_factories
+from factory.django import DjangoModelFactory
 from wagtail import models as wagtail_models
 
 from networkapi.nav import blocks as nav_blocks
@@ -75,7 +76,6 @@ class NavButtonFactory(wagtail_factories.StructBlockFactory):
 
     @classmethod
     def _construct_struct_value(cls, block_class, params):
-        """Use NavLinkValue to create the StructValue instance."""
         """Use NavItemValue to create the StructValue instance."""
         return nav_blocks.NavItemValue(
             block_class(),
@@ -107,7 +107,6 @@ class NavColumnFactory(wagtail_factories.StructBlockFactory):
         model = nav_blocks.NavColumn
 
     class Params:
-        with_button = False
         no_button = factory.Trait(button=[])
 
     @classmethod
@@ -130,6 +129,16 @@ class NavColumnFactory(wagtail_factories.StructBlockFactory):
     )
     button = wagtail_factories.ListBlockFactory(NavButtonFactory, **{"0__external_url_link": True})
 
+
+class NavOverviewFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = nav_blocks.NavOverview
+
+    title = factory.Faker("sentence", nb_words=3)
+    description = factory.Faker("sentence", nb_words=6)
+
+
+        with_button = factory.Trait(button__0="nav_button")
     title = factory.Faker("sentence", nb_words=3)
     links = factory.List([factory.SubFactory(NavItemFactory) for _ in range(4)])
     button = factory.LazyAttribute(lambda o: [NavButtonFactory()] if o.with_button else [])

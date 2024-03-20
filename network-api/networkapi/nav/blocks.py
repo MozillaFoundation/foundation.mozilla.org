@@ -88,3 +88,12 @@ class NavColumn(blocks.StructBlock):
         template = "nav/blocks/nav_column_block.html"
         value_class = NavColumnValue
 
+
+class NavOverview(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=100)
+    description = blocks.RichTextBlock(max_length=200)
+
+    class Meta:
+        label = "Navigation Overview"
+        icon = "pilcrow"
+        template = "nav/blocks/overview_block.html"
