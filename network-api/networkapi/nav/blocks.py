@@ -57,12 +57,34 @@ class NavButton(BaseLinkBlock):
 register(BaseLinkBlockAdapter(), NavButton)
 
 
+class NavColumnValue(blocks.StructValue):
+    @property
+    def has_button(self) -> bool:
+        return bool(self.get("button"))
+
+    @property
+    def button(self) -> NavButton:
+        button = self.get("button")
+        if button:
+            return button[0]
+        return None
+
+
 class NavColumn(blocks.StructBlock):
     title = blocks.CharBlock(max_length=100)
-    links = blocks.ListBlock(NavItem, min_num=1, max_num=4)
-    button = blocks.ListBlock(NavButton, required=False, min_num=0, max_num=1)
+    nav_items = blocks.ListBlock(NavItem, min_num=1, max_num=4, label="Items")
+    button = blocks.ListBlock(
+        NavButton,
+        required=False,
+        min_num=0,
+        max_num=1,
+        default=[],
+        help_text="Adds a CTA button to the bottom of the nav column.",
+    )
 
     class Meta:
         label = "Navigation Column"
         icon = "list-ul"
         template = "nav/blocks/nav_column_block.html"
+        value_class = NavColumnValue
+
