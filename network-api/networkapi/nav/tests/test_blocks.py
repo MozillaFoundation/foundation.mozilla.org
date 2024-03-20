@@ -123,30 +123,62 @@ class TestNavColumnBlock(TestCase):
         """Assert that default nav_blocks.NavColumn factory works and is an external URL."""
         block = nav_factories.NavColumnFactory()
 
-        self.assertEqual(len(block["links"]), 4)
-        for link in block["links"]:
+        self.assertEqual(len(block["nav_items"]), 4)
+        for link in block["nav_items"]:
             self.assertIsInstance(link.block, nav_blocks.NavItem)
             self.assertIsInstance(link, nav_blocks.NavItemValue)
-        self.assertCountEqual(block["button"], [])
-
-    def test_with_button(self):
-        """Create a nav_blocks.NavColumn with a button."""
-        block = nav_factories.NavColumnFactory(with_button=True)
-
+        self.assertIsNotNone(block.button)
         self.assertEqual(len(block["button"]), 1)
-        self.assertIsInstance(block["button"][0].block, nav_blocks.NavButton)
+        self.assertEqual(block.button, block["button"][0])
+        self.assertTrue(block.has_button)
+
+    def test_without_button(self):
+        """Create a nav_blocks.NavColumn without a button."""
+        block = nav_factories.NavColumnFactory(no_button=True)
+
+        self.assertEqual(len(block["button"]), 0)
+        self.assertFalse(block.has_button)
+        self.assertIsNone(block.button)
+
+    def test_with_variable_number_of_links(self):
+        """Create a nav_blocks.NavColumn with links."""
+        block = nav_factories.NavColumnFactory(
+            **{
+                "nav_items__0__page_url_link": True,
+                "nav_items__1__relative_url_link": True,
+                "nav_items__2__external_url_link": True,
+            }
+        )
+
+        self.assertEqual(len(block["nav_items"]), 4)
+        for link in block["nav_items"]:
+            self.assertIsInstance(link.block, nav_blocks.NavItem)
+            self.assertIsInstance(link, nav_blocks.NavItemValue)
 
     def test_needs_to_provide_at_least_one_link(self):
         with self.assertRaises(StructBlockValidationError):
-            block = nav_factories.NavColumnFactory(links=[])
+            block = nav_factories.NavColumnFactory(nav_items=[])
             nav_blocks.NavColumn().clean(block)
 
     def test_needs_to_provide_at_most_four_links(self):
         with self.assertRaises(StructBlockValidationError):
-            block = nav_factories.NavColumnFactory(links=[nav_factories.NavItemFactory() for _ in range(5)])
+            block = nav_factories.NavColumnFactory(
+                **{
+                    "nav_items__0__external_url_link": True,
+                    "nav_items__1__external_url_link": True,
+                    "nav_items__2__external_url_link": True,
+                    "nav_items__3__external_url_link": True,
+                    "nav_items__4__external_url_link": True,
+                }
+            )
             nav_blocks.NavColumn().clean(block)
 
     def test_cannot_have_more_than_one_button(self):
         with self.assertRaises(StructBlockValidationError):
-            block = nav_factories.NavColumnFactory(button=[nav_factories.NavButtonFactory() for _ in range(2)])
+            block = nav_factories.NavColumnFactory(
+                **{
+                    "button__0__external_url_link": True,
+                    "button__1__external_url_link": True,
+                }
+            )
             nav_blocks.NavColumn().clean(block)
