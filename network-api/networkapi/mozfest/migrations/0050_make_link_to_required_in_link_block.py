@@ -18,7 +18,7 @@ import networkapi.wagtailpages.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("mozfest", "0048_remove_old_url_fields_from_linkblock"),
+        ("mozfest", "0049_set_relative_url_on_linkblock"),
     ]
 
     operations = [

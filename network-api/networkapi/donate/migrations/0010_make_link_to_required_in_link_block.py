@@ -17,7 +17,7 @@ import networkapi.wagtailpages.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("donate", "0008_remove_old_url_fields_from_linkblock"),
+        ("donate", "0009_set_relative_url_on_linkblock"),
     ]
 
     operations = [

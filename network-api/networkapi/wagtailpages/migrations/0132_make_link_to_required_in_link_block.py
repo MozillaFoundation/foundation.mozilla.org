@@ -21,7 +21,7 @@ import networkapi.wagtailpages.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0130_fix_urls_on_translation_context_model"),
+        ("wagtailpages", "0131_set_relative_url_on_linkblock"),
     ]
 
     operations = [
