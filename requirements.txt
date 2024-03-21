@@ -209,7 +209,7 @@ s3transfer==0.10.0
     # via boto3
 scipy==1.10.0
     # via wagtail-ab-testing
-scout-apm==3.0.2
+scout-apm==3.1.0
     # via -r requirements.in
 sentry-sdk==1.42.0
     # via -r requirements.in
