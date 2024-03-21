@@ -81,7 +81,7 @@
     "cssnano": "^6.1.0",
     "esbuild": "^0.20.2",
     "event-stream": "3.3.4",
-    "gsap": "^3.12.2",
+    "gsap": "^3.12.5",
     "htmx.org": "^1.9.11",
     "locomotive-scroll": "^4.1.4",
     "moment": "^2.29.4",
