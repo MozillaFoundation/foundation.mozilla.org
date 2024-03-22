@@ -36,7 +36,8 @@
     "CSP_STYLE_SRC": "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com  https://platform.twitter.com https://js.tito.io https://mozillafoundation.tfaforms.net https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",
     "NPM_CONFIG_PRODUCTION": "true",
     "REVIEW_APP": "True",
-    "XROBOTSTAG_ENABLED": "True"
+    "XROBOTSTAG_ENABLED": "True",
+    "SECURE_CROSS_ORIGIN_OPENER_POLICY": "'same-origin-allow-popups'"
   },
   "buildpacks": [
     {
