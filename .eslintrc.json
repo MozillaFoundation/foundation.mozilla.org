@@ -14,7 +14,7 @@
     "prettier/prettier": [
       "error",
       {
-        "comma-dangle": "never",
+        "trailingComma": "es5",
         "endOfLine": "auto"
       }
     ],
