@@ -91,7 +91,7 @@ class NavColumn(blocks.StructBlock):
 
 class NavOverview(blocks.StructBlock):
     title = blocks.CharBlock(max_length=100)
-    description = blocks.RichTextBlock(max_length=200)
+    description = blocks.RichTextBlock(features=["bold", "italic"], max_length=200)
 
     class Meta:
         label = "Navigation Overview"
