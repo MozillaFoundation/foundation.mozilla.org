@@ -328,7 +328,9 @@
       background-image: url(../_images/dear-internet/Envelope-Left-Group-Extended.svg),
         url(../_images/dear-internet/Envelope-Right-Group-Extended.svg);
       background-repeat: no-repeat;
-      background-position: 5% top, 95% top;
+      background-position:
+        5% top,
+        95% top;
     }
   }
 
@@ -358,13 +360,17 @@
       url(../_images/dear-internet/Envelope-Blue1.svg),
       url(../_images/dear-internet/Envelope-Red1.svg),
       url(../_images/dear-internet/Envelope-Blue2.svg);
-    background-position: center center,
+    background-position:
+      center center,
       calc(var(--envelope-width) / -2.5) var(--envelope-top-offset),
       center var(--envelope-top-offset),
       calc(100% + var(--envelope-width) / 2.5) var(--envelope-top-offset);
     background-repeat: no-repeat;
-    background-size: 205vw auto, var(--envelope-width) auto,
-      var(--envelope-width) auto, var(--envelope-width) auto;
+    background-size:
+      205vw auto,
+      var(--envelope-width) auto,
+      var(--envelope-width) auto,
+      var(--envelope-width) auto;
 
     @media (min-width: $breakpoint) {
       --padding-y: 90px;
