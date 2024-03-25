@@ -368,6 +368,6 @@ export default {
       </Fragment>
     ),
     "Something went wrong and your signup wasn't completed. Please try again later.":
-      "Algo deu errado e sua inscrição não foi concluída. Por favor, tente novamente mais tarde.",
+      "Algo deu errado e sua assinatura não foi concluída. Tente novamente mais tarde.",
   },
 };
