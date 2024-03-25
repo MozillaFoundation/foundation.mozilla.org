@@ -126,7 +126,7 @@ export default {
       </Fragment>
     ),
     "Something went wrong and your signup wasn't completed. Please try again later.":
-      "Es ist ein Fehler aufgetreten und Ihre Anmeldung wurde nicht abgeschlossen. Bitte versuchen Sie es später noch einmal.",
+      "Etwas ist schiefgelaufen und Ihre Anmeldung konnte nicht durchgeführt werden. Bitte versuchen Sie es erneut.",
   },
 
   // Spanish
