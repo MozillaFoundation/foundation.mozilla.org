@@ -308,7 +308,7 @@ export default {
       </Fragment>
     ),
     "Something went wrong and your signup wasn't completed. Please try again later.":
-      "Coś poszło nie tak i Twoja rejestracja nie została ukończona. Spróbuj ponownie później.",
+      "Coś poszło nie tak i rejestracja nie została ukończona. Spróbuj ponownie później.",
   },
 
   // Portuguese
