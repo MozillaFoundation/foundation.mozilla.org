@@ -448,7 +448,7 @@ class ProductPage(BasePage):
     parent_page_types = ["wagtailpages.BuyersGuidePage"]
 
     privacy_ding = models.BooleanField(
-        verbose_name="*privacy not included ding",
+        verbose_name="*Privacy Not Included ding",
         default=False,
     )
     adult_content = models.BooleanField(
