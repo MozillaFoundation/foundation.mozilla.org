@@ -4,8 +4,8 @@
  */
 
 export function setupTitoEventListener() {
-  globalThis.tito =
-    globalThis.tito ||
+  window.tito =
+    window.tito ||
     function () {
       (tito.q = tito.q || []).push(arguments);
     };
