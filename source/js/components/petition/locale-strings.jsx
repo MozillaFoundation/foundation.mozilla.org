@@ -249,7 +249,7 @@ export default {
       </Fragment>
     ),
     "Something went wrong and your signup wasn't completed. Please try again later.":
-      "Quelque chose s'est mal passé et votre inscription n'a pas été finalisée. Veuillez réessayer plus tard.",
+      "Quelque chose s’est mal passé et votre inscription n’a pas été finalisée. Veuillez réessayer plus tard.",
   },
 
   // Polish
