@@ -48,6 +48,7 @@ jobs:
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
       PULSE_DOMAIN: https://www.mozillapulse.org
       RANDOM_SEED: 530910203
+      SECURE_CROSS_ORIGIN_OPENER_POLICY: "'same-origin-allow-popups'"
       SET_HSTS: False
       SSL_REDIRECT: False
       TARGET_DOMAINS: foundation.mozilla.org
