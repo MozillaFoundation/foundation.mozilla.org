@@ -189,7 +189,7 @@ export default {
       </Fragment>
     ),
     "Something went wrong and your signup wasn't completed. Please try again later.":
-      "Algo salió mal y tu registro no se completó. Por favor, inténtelo de nuevo más tarde.",
+      "Algo salió mal y tu registro no se ha completado. Vuelve a intentarlo más tarde.",
   },
 
   // French
