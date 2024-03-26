@@ -4,8 +4,8 @@
  */
 
 export function setupTitoEventListener() {
-  globalThis.tito =
-    globalThis.tito ||
+  window.tito =
+    window.tito ||
     function () {
       (tito.q = tito.q || []).push(arguments);
     };
@@ -21,4 +21,16 @@ export function setupTitoEventListener() {
       // Do nothing
     }
   });
+}
+
+export function loadTitoLibrary() {
+  var script = document.createElement("script");
+
+  script.src = "https://js.tito.io/v2";
+
+  script.onload = function () {
+    console.log("Tito loaded");
+  };
+
+  document.body.appendChild(script);
 }
