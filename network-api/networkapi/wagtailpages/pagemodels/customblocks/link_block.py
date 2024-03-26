@@ -31,7 +31,6 @@ class LinkBlock(BaseLinkBlock):
             ("file", "File"),
             ("phone", "Phone"),
         ],
-        required=False,
         label="Link to",
     )
     file = DocumentChooserBlock(required=False, label="File")

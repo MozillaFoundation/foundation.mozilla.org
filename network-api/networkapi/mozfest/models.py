@@ -433,7 +433,7 @@ class MozfestLandingPage(MozfestPrimaryPage):
         # Content tab fields
         TranslatableField("title"),
         TranslatableField("banner_heading"),
-        SynchronizedField("banner_image"),
+        SynchronizedField("banner"),
         TranslatableField("banner_meta"),
         TranslatableField("banner_text"),
         SynchronizedField("banner_link_url"),

@@ -57,8 +57,11 @@ $input-font-size: 1.25rem !important;
       padding: 0.5rem 1rem;
       font-size: 18px;
       border-radius: 0;
-      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+      transition:
+        color 0.15s ease-in-out,
+        background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out,
+        box-shadow 0.15s ease-in-out,
         -webkit-box-shadow 0.15s ease-in-out;
       color: $white;
       background-color: $blue;
@@ -185,7 +188,9 @@ $input-font-size: 1.25rem !important;
       height: auto !important;
 
       &::file-selector-button {
-        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+        transition:
+          color 0.15s ease-in-out,
+          background-color 0.15s ease-in-out;
         font-family: $font-family-sans-serif;
         background: $light-blue;
         width: auto;
