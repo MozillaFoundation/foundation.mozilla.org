@@ -1,9 +1,7 @@
 {% extends "./base_streamfield_block.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 
 {% block block_content %}
-    <script src='https://js.tito.io/v2' defer></script>
-
     <tito-button event="{{ value.event.event_id }}" locale="{{ tito_widget_lang_code }}"{% if value.releases %} releases="{{ value.releases }}"{% endif %} class="tw-{{ value.styling }} link-button tw-my-8">{{ value.button_label }}</tito-button>
 {% endblock %}

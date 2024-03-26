@@ -22,3 +22,15 @@ export function setupTitoEventListener() {
     }
   });
 }
+
+export function loadTitoLibrary() {
+  var script = document.createElement("script");
+
+  script.src = "https://js.tito.io/v2";
+
+  script.onload = function () {
+    console.log("Tito loaded");
+  };
+
+  document.body.appendChild(script);
+}
