@@ -301,8 +301,8 @@ export class Utils {
           return propertyNameA < propertyNameB
             ? -1
             : propertyNameA > propertyNameB
-            ? 1
-            : 0;
+              ? 1
+              : 0;
         }
       }
     });

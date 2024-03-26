@@ -128,10 +128,16 @@
         opacity: 0;
         transform: translateY(8px);
         visibility: hidden;
-        transition: opacity 0.15s, transform 0.15s, visibility 0s linear 0.15s;
+        transition:
+          opacity 0.15s,
+          transform 0.15s,
+          visibility 0s linear 0.15s;
       }
 
-      transition: opacity 0.15s, transform 0.15s, visibility 0s;
+      transition:
+        opacity 0.15s,
+        transform 0.15s,
+        visibility 0s;
     }
 
     .burger {
@@ -164,7 +170,10 @@
           width: 23px;
         }
 
-        transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, transform 0.1s;
+        transition:
+          top 0.1s linear 0.1s,
+          width 0.1s linear 0.1s,
+          transform 0.1s;
       }
 
       &.menu-open {
@@ -185,7 +194,10 @@
             transform: rotate(45deg);
           }
 
-          transition: top 0.1s, width 0.1s, transform 0.1s linear 0.1s;
+          transition:
+            top 0.1s,
+            width 0.1s,
+            transform 0.1s linear 0.1s;
         }
       }
 
@@ -236,13 +248,17 @@
       top: 0;
       left: 0;
       width: 100%;
-      transition: opacity 0.2s, height 0s;
+      transition:
+        opacity 0.2s,
+        height 0s;
 
       &.hidden {
         opacity: 0;
         height: 0;
         overflow: hidden;
-        transition: opacity 0.2s, height 0s linear 0.2s;
+        transition:
+          opacity 0.2s,
+          height 0s linear 0.2s;
 
         .nav-links {
           a {
@@ -292,7 +308,9 @@
   opacity: 0;
   height: 0;
   overflow-y: hidden;
-  transition: height 0.3s ease-in-out, opacity 0.2s ease-in-out;
+  transition:
+    height 0.3s ease-in-out,
+    opacity 0.2s ease-in-out;
 
   @media (min-width: $bp-lg) {
     opacity: 1;
