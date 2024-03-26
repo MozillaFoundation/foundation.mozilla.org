@@ -189,13 +189,20 @@ function withSubmissionLogic(WrappedComponent) {
           timeout: 5000,
         });
 
-        // if the response is not 201, throw an error
-        // [TODO] We will need to update this logic depending on what comes out of
-        // https://github.com/MozillaFoundation/foundation.mozilla.org/issues/11406
         if (res.status !== 201) {
+          this.setState({
+            apiError: getText(
+              `Something went wrong and your signup wasn't completed. Please try again later.`
+            ),
+          });
           throw new Error(res.statusText);
         }
       } catch (error) {
+        this.setState({
+          apiError: getText(
+            `Something went wrong and your signup wasn't completed. Please try again later.`
+          ),
+        });
         throw error;
       }
     }
@@ -254,6 +261,7 @@ function withSubmissionLogic(WrappedComponent) {
           ref={forwardedRef}
           noBrowserValidation={true}
           errors={this.state.errors}
+          apiError={this.state.apiError}
           onSubmit={(event, formData) => this.handleSubmit(event, formData)}
           ctaHeader={this.generateCtaHeader(ctaHeader)}
           ctaDescription={this.generateCtaDescription(ctaDescription)}
