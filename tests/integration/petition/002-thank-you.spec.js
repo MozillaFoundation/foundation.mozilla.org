@@ -4,11 +4,24 @@ const utility = require("./utility.js");
 
 test.describe("Donation modal", () => {
   test.beforeEach(async ({ page }) => {
-    const response = await page.goto(utility.generateUrl("en", true));
+    const response = await page.goto(
+      utility.generateUrlWithQueryParams(
+        utility.generateBaseUrl("en"),
+        utility.THANK_YOU_PAGE_QUERY_PARAM
+      )
+    );
     const status = await response.status();
     expect(status).not.toBe(404);
     await page.locator("body.react-loaded");
     await waitForImagesToLoad(page);
+
+    // test if the page url contains certain query params
+    expect(
+      utility.urlContainsQueryParams(page.url(), {
+        c_id: utility.TEST_CAMPAIGN_ID,
+        ...utility.FAKE_UTM_QUERY_PARAMS,
+      })
+    ).toBe(true);
 
     // test if donation modal is visible
     let modalContent = page.locator(`.modal-content`);
@@ -42,7 +55,7 @@ test.describe("Donation modal", () => {
   test("Donation modal can trigger FRU widget", async ({ page }) => {
     // test if FRU iframe pops up after clicking the Yes button
     const yesDonateButton = page.locator(
-      `.modal-content .tw-btn-primary[href*="?form=donate&c_id="]`
+      `.modal-content .tw-btn-primary[href*="?form=donate"]`
     );
     expect(await yesDonateButton.count()).toBe(1);
 
@@ -50,8 +63,13 @@ test.describe("Donation modal", () => {
     await yesDonateButton.click();
     await navigationPromise;
 
-    // check if URL contains query parameter "form=donate"
-    expect(page.url()).toContain(`form=donate`);
+    // test if the page url contains certain query params
+    expect(
+      utility.urlContainsQueryParams(page.url(), {
+        form: "donate",
+        ...utility.FAKE_UTM_QUERY_PARAMS,
+      })
+    ).toBe(true);
 
     // test if FRU iframe is visible
     const widgetIframe = page.locator(`iframe[title="Donation Widget"]`);
@@ -62,7 +80,12 @@ test.describe("Donation modal", () => {
 
 test.describe("Share buttons", () => {
   test.beforeEach(async ({ page }) => {
-    const response = await page.goto(utility.generateUrl("en", true));
+    const response = await page.goto(
+      utility.generateUrlWithQueryParams(
+        utility.generateBaseUrl("en"),
+        utility.THANK_YOU_PAGE_QUERY_PARAM
+      )
+    );
     const status = await response.status();
     expect(status).not.toBe(404);
     await page.locator("body.react-loaded");
