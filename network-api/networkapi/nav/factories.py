@@ -1,13 +1,14 @@
 import factory
 import wagtail_factories
-from factory.django import DjangoModelFactory
 from wagtail import models as wagtail_models
+from wagtail.rich_text import RichText
 
 from networkapi.nav import blocks as nav_blocks
 from networkapi.nav import models as nav_models
+from networkapi.wagtailcustomization.factories.blocks import ExtendedStructBlockFactory
 
 
-class NavItemFactory(wagtail_factories.StructBlockFactory):
+class NavItemFactory(ExtendedStructBlockFactory):
     """Factory for NavLinkBlock.
 
     Use traits to create instances based on the type of link needed:
@@ -25,14 +26,6 @@ class NavItemFactory(wagtail_factories.StructBlockFactory):
 
     class Meta:
         model = nav_blocks.NavItem
-
-    @classmethod
-    def _construct_struct_value(cls, block_class, params):
-        """Use NavLinkValue to create the StructValue instance."""
-        return nav_blocks.NavItemValue(
-            block_class(),
-            [(name, value) for name, value in params.items()],
-        )
 
     class Params:
         page_link = factory.Trait(
@@ -55,7 +48,7 @@ class NavItemFactory(wagtail_factories.StructBlockFactory):
     relative_url = ""
 
 
-class NavButtonFactory(wagtail_factories.StructBlockFactory):
+class NavButtonFactory(ExtendedStructBlockFactory):
     """Factory for NavButtonBlock.
 
     Use traits to create instances based on the type of link needed:
@@ -73,14 +66,6 @@ class NavButtonFactory(wagtail_factories.StructBlockFactory):
 
     class Meta:
         model = nav_blocks.NavButton
-
-    @classmethod
-    def _construct_struct_value(cls, block_class, params):
-        """Use NavItemValue to create the StructValue instance."""
-        return nav_blocks.NavItemValue(
-            block_class(),
-            [(name, value) for name, value in params.items()],
-        )
 
     class Params:
         page_link = factory.Trait(
@@ -102,20 +87,12 @@ class NavButtonFactory(wagtail_factories.StructBlockFactory):
     relative_url = ""
 
 
-class NavColumnFactory(wagtail_factories.StructBlockFactory):
+class NavColumnFactory(ExtendedStructBlockFactory):
     class Meta:
         model = nav_blocks.NavColumn
 
     class Params:
         no_button = factory.Trait(button=[])
-
-    @classmethod
-    def _construct_struct_value(cls, block_class, params):
-        """Use NavColumnValue to create the StructValue instance."""
-        return nav_blocks.NavColumnValue(
-            block_class(),
-            [(name, value) for name, value in params.items()],
-        )
 
     title = factory.Faker("sentence", nb_words=3)
     nav_items = wagtail_factories.ListBlockFactory(
