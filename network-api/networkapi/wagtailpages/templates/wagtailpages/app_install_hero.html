@@ -14,14 +14,14 @@
                 {% with download_button_classes="tw-max-w-max tw-btn tw-bg-white" %}
                     <div class='download-share-btn-wrapper'>
                         <div class="btn-container tw-mt-2 tw-flex tw-flex-wrap tw-gap-8">
-                            {% if page.button1_text and page.button1_image %}
+                            {% if page.button1_text and page.button1_image and page.button1_download_link %}
                             {% image page.button1_image original as btn1_image %}
                             <a class="tw-btn {{ download_button_classes }} download-link-button" href="{{page.button1_download_link}}" target="_blank">
                                 <img src="{{ btn1_image.url }}" class="tw-mr-2 tw-inline" width="24" height="24">
                                 {{ page.button1_text }}
                             </a>
                             {% endif %}
-                            {% if page.button2_text and page.button2_image %}
+                            {% if page.button2_text and page.button2_image and page.button2_download_link %}
                             {% image page.button2_image original as btn2_image %}
                             <a class="tw-btn {{ download_button_classes }} download-link-button" href="{{page.button2_download_link}}" target="_blank">
                                     <img src="{{ btn2_image.url }}" class="tw-mr-2 tw-inline" width="24" height="24">
