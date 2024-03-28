@@ -6,6 +6,9 @@ from .campaigns import CampaignPage
 
 
 class AppInstallPage(CampaignPage):
+
+    zen_nav = False
+
     hero_heading = models.CharField(
         max_length=80,
         help_text="Hero story headline",
