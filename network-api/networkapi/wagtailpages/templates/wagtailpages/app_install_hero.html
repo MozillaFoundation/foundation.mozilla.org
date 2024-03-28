@@ -1,0 +1,46 @@
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% image page.hero_background original as hero_background %}
+
+<div class="extension-hero tw-py-0 tw-flex medium:tw-py-24 tw-flex-col tw-justify-center tw-h-auto tw-min-h-[25em] medium:tw-h-[65vh] large:tw-h-[75vh] tw-bg-center tw-bg-cover" style="background-image:url('{{ hero_background.url }}')">
+    <div class="tw-px-6 tw-py-24 small:tw-px-24 medium:tw-py-24 large:tw-container large:tw-px-0">
+        <div class="tw-grid tw-gap-x-24 tw-grid-cols-1 tw-px-8 medium:tw-grid-cols-2 medium:tw-py-24">
+            <div class="tw-flex tw-flex-col tw-justify-center">
+                <h2 class="tw-mb-8 tw-text-white tw-font-zilla tw-font-light tw-text-4xl large:tw-text-5xl">
+                    {{page.hero_heading}}
+                </h2>
+                <p class='tw-body tw-text-white tw-font-light tw-pb-4'>
+                    {{page.hero_subheading}}
+                </p>
+                {% with download_button_classes="tw-max-w-max tw-btn tw-bg-white" %}
+                    <div class='download-share-btn-wrapper'>
+                        <div class="btn-container tw-mt-2 tw-flex tw-flex-wrap tw-gap-8">
+                            {% if page.button1_text and page.button1_image %}
+                            {% image page.button1_image original as btn1_image %}
+                            <a class="tw-btn {{ download_button_classes }} download-link-button" href="{{page.button1_download_link}}" target="_blank">
+                                <img src="{{ btn1_image.url }}" class="tw-mr-2 tw-inline" width="24" height="24">
+                                {{ page.button1_text }}
+                            </a>
+                            {% endif %}
+                            {% if page.button2_text and page.button2_image %}
+                            {% image page.button2_image original as btn2_image %}
+                            <a class="tw-btn {{ download_button_classes }} download-link-button" href="{{page.button2_download_link}}" target="_blank">
+                                    <img src="{{ btn2_image.url }}" class="tw-mr-2 tw-inline" width="24" height="24">
+                                    {{ page.button2_text }}
+                                </a>
+                            {% endif %}
+                {% endwith %}
+
+            </div>
+        </div>
+    </div>
+    {% if page.hero_video %}
+        <div class="tw-flex tw-flex-col tw-justify-center tw-mt-12 medium:tw-mt-0 large:tw-mt-12">
+            <div class="video-container tw-overflow-hidden tw-relative tw-w-full after:tw-pt-[56.25%] after:tw-block after:tw-content-['']">
+                <iframe class="tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-full" src="{{page.hero_video}}" allowfullscreen></iframe>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+</div>
+</div>
