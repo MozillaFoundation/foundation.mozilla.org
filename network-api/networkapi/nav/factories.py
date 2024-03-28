@@ -1,11 +1,13 @@
 import factory
 import wagtail_factories
 from wagtail import models as wagtail_models
+from wagtail.rich_text import RichText
 
 from networkapi.nav import blocks as nav_blocks
+from networkapi.wagtailcustomization.factories.blocks import ExtendedStructBlockFactory
 
 
-class NavItemFactory(wagtail_factories.StructBlockFactory):
+class NavItemFactory(ExtendedStructBlockFactory):
     """Factory for NavLinkBlock.
 
     Use traits to create instances based on the type of link needed:
@@ -23,14 +25,6 @@ class NavItemFactory(wagtail_factories.StructBlockFactory):
 
     class Meta:
         model = nav_blocks.NavItem
-
-    @classmethod
-    def _construct_struct_value(cls, block_class, params):
-        """Use NavLinkValue to create the StructValue instance."""
-        return nav_blocks.NavItemValue(
-            block_class(),
-            [(name, value) for name, value in params.items()],
-        )
 
     class Params:
         page_link = factory.Trait(
@@ -53,7 +47,7 @@ class NavItemFactory(wagtail_factories.StructBlockFactory):
     relative_url = ""
 
 
-class NavButtonFactory(wagtail_factories.StructBlockFactory):
+class NavButtonFactory(ExtendedStructBlockFactory):
     """Factory for NavButtonBlock.
 
     Use traits to create instances based on the type of link needed:
@@ -71,14 +65,6 @@ class NavButtonFactory(wagtail_factories.StructBlockFactory):
 
     class Meta:
         model = nav_blocks.NavButton
-
-    @classmethod
-    def _construct_struct_value(cls, block_class, params):
-        """Use NavLinkValue to create the StructValue instance."""
-        return nav_blocks.NavItemValue(
-            block_class(),
-            [(name, value) for name, value in params.items()],
-        )
 
     class Params:
         page_link = factory.Trait(
@@ -100,13 +86,63 @@ class NavButtonFactory(wagtail_factories.StructBlockFactory):
     relative_url = ""
 
 
-class NavColumnFactory(wagtail_factories.StructBlockFactory):
+class NavColumnFactory(ExtendedStructBlockFactory):
     class Meta:
         model = nav_blocks.NavColumn
 
     class Params:
-        with_button = False
+        no_button = factory.Trait(button=[])
 
     title = factory.Faker("sentence", nb_words=3)
-    links = factory.List([factory.SubFactory(NavItemFactory) for _ in range(4)])
-    button = factory.LazyAttribute(lambda o: [NavButtonFactory()] if o.with_button else [])
+    nav_items = wagtail_factories.ListBlockFactory(
+        NavItemFactory,
+        **{
+            "0__external_url_link": True,
+            "1__external_url_link": True,
+            "2__external_url_link": True,
+            "3__external_url_link": True,
+        },
+    )
+    button = wagtail_factories.ListBlockFactory(NavButtonFactory, **{"0__external_url_link": True})
+
+
+class NavOverviewFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = nav_blocks.NavOverview
+
+    title = factory.Faker("sentence", nb_words=3)
+    description = RichText(str(factory.Faker("sentence", nb_words=6)))
+
+
+class NavDropdownFactory(ExtendedStructBlockFactory):
+    class Meta:
+        model = nav_blocks.NavDropdown
+
+    class Params:
+        no_overview = factory.Trait(overview=[])
+        all_columns = factory.Trait(
+            overview=[],
+            columns=wagtail_factories.ListBlockFactory(
+                NavColumnFactory,
+                **{
+                    "0__title": factory.Faker("sentence", nb_words=3),
+                    "1__title": factory.Faker("sentence", nb_words=3),
+                    "2__title": factory.Faker("sentence", nb_words=3),
+                    "3__title": factory.Faker("sentence", nb_words=3),
+                },
+            ),
+        )
+        no_button = factory.Trait(button=[])
+
+    overview = wagtail_factories.ListBlockFactory(
+        NavOverviewFactory, **{"0__title": factory.Faker("sentence", nb_words=3)}
+    )
+    columns = wagtail_factories.ListBlockFactory(
+        NavColumnFactory,
+        **{
+            "0__title": factory.Faker("sentence", nb_words=3),
+            "1__title": factory.Faker("sentence", nb_words=3),
+            "2__title": factory.Faker("sentence", nb_words=3),
+        },
+    )
+    button = wagtail_factories.ListBlockFactory(NavButtonFactory, **{"0__external_url_link": True})
