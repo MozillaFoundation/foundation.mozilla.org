@@ -1,6 +1,6 @@
 from django.db import models
 from wagtail.models import Page
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 
 from .campaigns import CampaignPage
 
@@ -67,17 +67,29 @@ class AppInstallPage(CampaignPage):
         blank=True,
     )
 
-    content_panels = CampaignPage.content_panels + [
-        FieldPanel('hero_heading'),
-        FieldPanel('hero_subheading'),
-        FieldPanel('hero_background'),
-        FieldPanel('hero_video'),
-        FieldPanel('button1_text'),
-        FieldPanel('button1_image'),
-        FieldPanel('button1_download_link'),
-        FieldPanel('button2_text'),
-        FieldPanel('button2_image'),
-        FieldPanel('button2_download_link'),
+    content_panels = [
+        FieldPanel('title'),
+        MultiFieldPanel([
+            FieldPanel('hero_heading'),
+            FieldPanel('hero_subheading'),
+            FieldPanel('hero_background'),
+            FieldPanel('hero_video'),
+            MultiFieldPanel([
+                FieldPanel('button1_image'),
+                FieldPanel('button1_text'),
+                FieldPanel('button1_download_link'),
+                FieldPanel('button2_image'),
+                FieldPanel('button2_text'),
+                FieldPanel('button2_download_link'),
+            ], heading="Download Link Buttons"),
+        ], heading='Hero Section'),
+        MultiFieldPanel([
+            FieldPanel('cta'),
+            InlinePanel("donation_modals", label="Donation Modal", max_num=4),
+            FieldPanel('header', heading="Content Header"),
+            FieldPanel('body'),
+
+        ], heading="Page Content"),
     ]
 
     subpage_types = [
