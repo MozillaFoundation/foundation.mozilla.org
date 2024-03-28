@@ -182,3 +182,90 @@ class TestNavColumnBlock(TestCase):
                 }
             )
             nav_blocks.NavColumn().clean(block)
+
+
+class TestNavDropdownBlock(TestCase):
+    def test_default_block_factory(self):
+        """Default factory creates a block with an overview and 3 columns."""
+        block = nav_factories.NavDropdownFactory()
+        nav_blocks.NavDropdown().clean(block)
+
+        self.assertEqual(len(block["overview"]), 1)
+        self.assertIsInstance(block["overview"][0].block, nav_blocks.NavOverview)
+        self.assertTrue(block.has_overview)
+        self.assertEqual(block.overview, block["overview"][0])
+
+        self.assertEqual(len(block["columns"]), 3)
+        for column in block["columns"]:
+            self.assertIsInstance(column.block, nav_blocks.NavColumn)
+            self.assertIsInstance(column, nav_blocks.NavColumnValue)
+
+        self.assertEqual(len(block["button"]), 1)
+        self.assertIsInstance(block["button"][0].block, nav_blocks.NavButton)
+        self.assertTrue(block.has_button)
+        self.assertEqual(block.button, block["button"][0])
+
+    def test_block_with_four_columns(self):
+        """Create a nav_blocks.NavDropdown with four columns."""
+        block = nav_factories.NavDropdownFactory(all_columns=True)
+        nav_blocks.NavDropdown().clean(block)
+
+        self.assertEqual(len(block["overview"]), 0)
+        self.assertFalse(block.has_overview)
+        self.assertIsNone(block.overview)
+
+        self.assertEqual(len(block["columns"]), 4)
+        for column in block["columns"]:
+            self.assertIsInstance(column.block, nav_blocks.NavColumn)
+            self.assertIsInstance(column, nav_blocks.NavColumnValue)
+
+    def test_block_without_overview(self):
+        """Create a nav_blocks.NavDropdown without an overview."""
+        block = nav_factories.NavDropdownFactory(no_overview=True)
+        nav_blocks.NavDropdown().clean(block)
+
+        self.assertEqual(len(block["overview"]), 0)
+        self.assertFalse(block.has_overview)
+        self.assertIsNone(block.overview)
+
+        self.assertEqual(len(block["columns"]), 3)
+
+    def test_block_without_button(self):
+        """Create a nav_blocks.NavDropdown without a button."""
+        block = nav_factories.NavDropdownFactory(no_button=True)
+        nav_blocks.NavDropdown().clean(block)
+
+        self.assertEqual(len(block["button"]), 0)
+        self.assertFalse(block.has_button)
+        self.assertIsNone(block.button)
+
+    def test_needs_at_least_one_column(self):
+        with self.assertRaises(StructBlockValidationError):
+            block = nav_factories.NavDropdownFactory(columns=[])
+            nav_blocks.NavDropdown().clean(block)
+
+    def test_cannot_have_more_than_four_columns(self):
+        with self.assertRaises(StructBlockValidationError):
+            block = nav_factories.NavDropdownFactory(
+                **{
+                    "columns__0__title": "Column 1",
+                    "columns__1__title": "Column 2",
+                    "columns__2__title": "Column 3",
+                    "columns__3__title": "Column 4",
+                    "columns__4__title": "Column 5",
+                }
+            )
+            nav_blocks.NavDropdown().clean(block)
+
+    def test_block_with_overview_cannot_have_more_than_three_columns(self):
+        with self.assertRaises(StructBlockValidationError):
+            block = nav_factories.NavDropdownFactory(
+                **{
+                    "overview__0__title": "Overview",
+                    "columns__0__title": "Column 1",
+                    "columns__1__title": "Column 2",
+                    "columns__2__title": "Column 3",
+                    "columns__3__title": "Column 4",
+                }
+            )
+            nav_blocks.NavDropdown().clean(block)

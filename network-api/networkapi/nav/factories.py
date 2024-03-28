@@ -112,10 +112,38 @@ class NavOverviewFactory(wagtail_factories.StructBlockFactory):
         model = nav_blocks.NavOverview
 
     title = factory.Faker("sentence", nb_words=3)
-    description = factory.Faker("sentence", nb_words=6)
+    description = RichText(str(factory.Faker("sentence", nb_words=6)))
 
 
-        with_button = factory.Trait(button__0="nav_button")
-    title = factory.Faker("sentence", nb_words=3)
-    links = factory.List([factory.SubFactory(NavItemFactory) for _ in range(4)])
-    button = factory.LazyAttribute(lambda o: [NavButtonFactory()] if o.with_button else [])
+class NavDropdownFactory(ExtendedStructBlockFactory):
+    class Meta:
+        model = nav_blocks.NavDropdown
+
+    class Params:
+        no_overview = factory.Trait(overview=[])
+        all_columns = factory.Trait(
+            overview=[],
+            columns=wagtail_factories.ListBlockFactory(
+                NavColumnFactory,
+                **{
+                    "0__title": factory.Faker("sentence", nb_words=3),
+                    "1__title": factory.Faker("sentence", nb_words=3),
+                    "2__title": factory.Faker("sentence", nb_words=3),
+                    "3__title": factory.Faker("sentence", nb_words=3),
+                },
+            ),
+        )
+        no_button = factory.Trait(button=[])
+
+    overview = wagtail_factories.ListBlockFactory(
+        NavOverviewFactory, **{"0__title": factory.Faker("sentence", nb_words=3)}
+    )
+    columns = wagtail_factories.ListBlockFactory(
+        NavColumnFactory,
+        **{
+            "0__title": factory.Faker("sentence", nb_words=3),
+            "1__title": factory.Faker("sentence", nb_words=3),
+            "2__title": factory.Faker("sentence", nb_words=3),
+        },
+    )
+    button = wagtail_factories.ListBlockFactory(NavButtonFactory, **{"0__external_url_link": True})

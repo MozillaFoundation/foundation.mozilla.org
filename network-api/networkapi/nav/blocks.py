@@ -1,5 +1,7 @@
 from collections import OrderedDict
 
+from django.core.exceptions import ValidationError
+from django.forms.utils import ErrorList
 from wagtail import blocks
 from wagtail.telepath import register
 
@@ -72,13 +74,15 @@ class NavColumnValue(blocks.StructValue):
 
 class NavColumn(blocks.StructBlock):
     title = blocks.CharBlock(max_length=100)
-    nav_items = blocks.ListBlock(NavItem, min_num=1, max_num=4, label="Items")
+    # Empty default so that it starts collapsed:
+    nav_items = blocks.ListBlock(NavItem, min_num=1, max_num=4, label="Items", default=[])
     button = blocks.ListBlock(
         NavButton,
         required=False,
         min_num=0,
         max_num=1,
         default=[],
+        label="Column Button",
         help_text="Adds a CTA button to the bottom of the nav column.",
     )
 
@@ -97,3 +101,92 @@ class NavOverview(blocks.StructBlock):
         label = "Navigation Overview"
         icon = "pilcrow"
         template = "nav/blocks/overview_block.html"
+
+
+class NavDropdownValue(blocks.StructValue):
+    @property
+    def has_overview(self) -> bool:
+        return bool(self.get("overview"))
+
+    @property
+    def overview(self) -> NavOverview:
+        overview = self.get("overview")
+        if overview:
+            return overview[0]
+        return None
+
+    @property
+    def has_button(self) -> bool:
+        return bool(self.get("button"))
+
+    @property
+    def button(self) -> NavButton:
+        button = self.get("button")
+        if button:
+            return button[0]
+        return None
+
+
+class NavDropdown(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=100, help_text="How the dropdown menu will be labelled in the nav bar")
+    overview = blocks.ListBlock(
+        NavOverview(label="Overview"),
+        min_num=0,
+        max_num=1,
+        label="Overview",
+        help_text="If added, the overview will take the place of the first column",
+        default=[],
+    )
+    columns = blocks.ListBlock(
+        NavColumn(label="Column"),
+        min_num=1,
+        max_num=4,
+        label="Columns",
+        help_text="Add up to 4 columns of navigation links",
+    )
+    button = blocks.ListBlock(
+        NavButton,
+        required=False,
+        min_num=0,
+        max_num=1,
+        default=[],
+        label="Dropdown Button",
+        help_text="Use it to add a CTA to link to the contents of the dropdown menu",
+    )
+
+    def clean(self, value):
+        result = super().clean(value)
+        errors = {}
+
+        if result["overview"] and len(result["columns"]) > 3:
+            errors["overview"] = ErrorList(
+                [
+                    blocks.ListBlockValidationError(
+                        block_errors={},
+                        non_block_errors=ErrorList(
+                            [ValidationError("Overview cannot be used with more than 3 nav columns.")]
+                        ),
+                    )
+                ]
+            )
+            errors["columns"] = ErrorList(
+                [
+                    blocks.ListBlockValidationError(
+                        block_errors={},
+                        non_block_errors=ErrorList(
+                            [ValidationError('A maximum of 3 columns can be added together with an "overview".')]
+                        ),
+                    )
+                ]
+            )
+
+        if errors:
+            raise blocks.StructBlockValidationError(block_errors=errors)
+
+        return result
+
+    class Meta:
+        label = "Navigation Dropdown"
+        icon = "bars"
+        template = "nav/blocks/nav_dropdown_block.html"
+        value_class = NavDropdownValue
