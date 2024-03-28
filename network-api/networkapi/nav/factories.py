@@ -4,7 +4,6 @@ from wagtail import models as wagtail_models
 from wagtail.rich_text import RichText
 
 from networkapi.nav import blocks as nav_blocks
-from networkapi.nav import models as nav_models
 from networkapi.wagtailcustomization.factories.blocks import ExtendedStructBlockFactory
 
 
