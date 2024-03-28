@@ -65,7 +65,7 @@ class NavColumnValue(blocks.StructValue):
         return bool(self.get("button"))
 
     @property
-    def button(self) -> NavButton:
+    def button(self) -> NavButton | None:
         button = self.get("button")
         if button:
             return button[0]
@@ -109,7 +109,7 @@ class NavDropdownValue(blocks.StructValue):
         return bool(self.get("overview"))
 
     @property
-    def overview(self) -> NavOverview:
+    def overview(self) -> NavOverview | None:
         overview = self.get("overview")
         if overview:
             return overview[0]
@@ -120,7 +120,7 @@ class NavDropdownValue(blocks.StructValue):
         return bool(self.get("button"))
 
     @property
-    def button(self) -> NavButton:
+    def button(self) -> NavButton | None:
         button = self.get("button")
         if button:
             return button[0]
