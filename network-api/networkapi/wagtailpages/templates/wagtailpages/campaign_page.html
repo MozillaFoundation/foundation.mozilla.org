@@ -58,7 +58,7 @@
 
                     {% block cta %}
                         {% if page.cta != None %}
-                            <div class="cta tw-pb-4
+                            <div class="cta tw-pb-4 tw-mx-auto
                                         {% if page.specific.narrowed_page_content == False %}
                                             large:tw-w-4/12 large:tw-ml-[8.3%] tw-px-8
                                         {% else %}
@@ -70,7 +70,7 @@
                                         <a href="#cta-anchor" class="tw-btn-primary tw-block">{% trans "TAKE ACTION" context "Sticky button in mobile view on campaign pages" %}</a>
                                     </div>
                                 {% endblock cta_sticky_button %}
-                                <div class="tw-sticky tw-mx-auto tw-top-40 tw-overflow-hidden tw-z-[1018]">
+                                <div class="tw-sticky tw-top-40 tw-overflow-hidden tw-z-[1018]">
                                     <div id="cta-anchor" class="-tw-mt-40 tw-pt-40">
                                         {% cta page %}
                                     </div>
