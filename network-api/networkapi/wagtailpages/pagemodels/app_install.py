@@ -1,6 +1,5 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.models import Page
 
 from .campaigns import CampaignPage
 
@@ -27,7 +26,8 @@ class AppInstallPage(CampaignPage):
     hero_video = models.URLField(
         null=True,
         blank=True,
-        help_text="To find embed link: go to your YouTube video and click “Share,” then “Embed,” and then copy and paste the provided URL only. EX: https://www.youtube.com/embed/3FIVXBawyQ",
+        help_text="To find embed link: go to your YouTube video and click “Share,” then “Embed,” "
+        "and then copy and paste the provided URL only. EX: https://www.youtube.com/embed/3FIVXBawyQ",
     )
     button1_text = models.CharField(
         max_length=50,
