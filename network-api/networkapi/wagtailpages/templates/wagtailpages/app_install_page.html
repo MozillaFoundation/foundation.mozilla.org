@@ -1,6 +1,16 @@
 {% extends "./campaign_page.html" %}
 
 {% block subcontent %}
-    {% include "./app_install_hero.html" %}
+    {% include "./fragments/app_install_hero.html" %}
     {{ block.super }}
-{% endblock %}
+{% endblock subcontent %}
+
+{% block html_content_desktop %}
+    {% include "./fragments/campaign_main_body.html" with page=page class="tw-block" %}
+{% endblock html_content_desktop %}
+
+{% block html_content_mobile %}
+{% endblock html_content_mobile %}
+
+{% block cta_sticky_button %}
+{% endblock cta_sticky_button %}
