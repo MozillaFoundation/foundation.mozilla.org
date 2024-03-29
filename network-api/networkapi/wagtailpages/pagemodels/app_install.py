@@ -96,7 +96,6 @@ class AppInstallPage(CampaignPage):
             [
                 FieldPanel("cta"),
                 InlinePanel("donation_modals", label="Donation Modal", max_num=4),
-                FieldPanel("header", heading="Content Header"),
                 FieldPanel("body"),
             ],
             heading="Page Content",
