@@ -1,4 +1,5 @@
 # flake8: noqa
+from .pagemodels.app_install import AppInstallPage
 from .pagemodels.base import (
     FocusArea,
     FoundationMetadataPageMixin,
@@ -14,7 +15,6 @@ from .pagemodels.base import (
     PrimaryPage,
     Styleguide,
 )
-from .pagemodels.app_install import AppInstallPage
 from .pagemodels.blog.blog import BlogAuthors, BlogPage, RelatedBlogPosts
 from .pagemodels.blog.blog_index import BlogIndexPage
 from .pagemodels.blog.blog_topic import BlogPageTopic

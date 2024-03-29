@@ -1,6 +1,6 @@
 from django.db import models
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.models import Page
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 
 from .campaigns import CampaignPage
 
@@ -18,16 +18,16 @@ class AppInstallPage(CampaignPage):
         blank=True,
         help_text="Hero story subheadline",
     )
-    hero_background =  models.ForeignKey(
-        'wagtailimages.Image',
+    hero_background = models.ForeignKey(
+        "wagtailimages.Image",
         on_delete=models.PROTECT,
-        related_name='+',
-        help_text="Background image for the hero section"
+        related_name="+",
+        help_text="Background image for the hero section",
     )
     hero_video = models.URLField(
         null=True,
         blank=True,
-        help_text="To find embed link: go to your YouTube video and click “Share,” then “Embed,” and then copy and paste the provided URL only. For example: https://www.youtube.com/embed/3FIVXBawyQw."
+        help_text="To find embed link: go to your YouTube video and click “Share,” then “Embed,” and then copy and paste the provided URL only. EX: https://www.youtube.com/embed/3FIVXBawyQ",
     )
     button1_text = models.CharField(
         max_length=50,
@@ -42,11 +42,11 @@ class AppInstallPage(CampaignPage):
         blank=True,
     )
     button1_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
         help_text="Image for Button 1",
     )
     button2_text = models.CharField(
@@ -56,11 +56,11 @@ class AppInstallPage(CampaignPage):
         blank=True,
     )
     button2_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
         help_text="Image for Button 2",
     )
     button2_download_link = models.URLField(
@@ -71,28 +71,36 @@ class AppInstallPage(CampaignPage):
     )
 
     content_panels = [
-        FieldPanel('title'),
-        MultiFieldPanel([
-            FieldPanel('hero_heading'),
-            FieldPanel('hero_subheading'),
-            FieldPanel('hero_background'),
-            FieldPanel('hero_video'),
-            MultiFieldPanel([
-                FieldPanel('button1_image'),
-                FieldPanel('button1_text'),
-                FieldPanel('button1_download_link'),
-                FieldPanel('button2_image'),
-                FieldPanel('button2_text'),
-                FieldPanel('button2_download_link'),
-            ], heading="Download Link Buttons"),
-        ], heading='Hero Section'),
-        MultiFieldPanel([
-            FieldPanel('cta'),
-            InlinePanel("donation_modals", label="Donation Modal", max_num=4),
-            FieldPanel('header', heading="Content Header"),
-            FieldPanel('body'),
-
-        ], heading="Page Content"),
+        FieldPanel("title"),
+        MultiFieldPanel(
+            [
+                FieldPanel("hero_heading"),
+                FieldPanel("hero_subheading"),
+                FieldPanel("hero_background"),
+                FieldPanel("hero_video"),
+                MultiFieldPanel(
+                    [
+                        FieldPanel("button1_image"),
+                        FieldPanel("button1_text"),
+                        FieldPanel("button1_download_link"),
+                        FieldPanel("button2_image"),
+                        FieldPanel("button2_text"),
+                        FieldPanel("button2_download_link"),
+                    ],
+                    heading="Download Link Buttons",
+                ),
+            ],
+            heading="Hero Section",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("cta"),
+                InlinePanel("donation_modals", label="Donation Modal", max_num=4),
+                FieldPanel("header", heading="Content Header"),
+                FieldPanel("body"),
+            ],
+            heading="Page Content",
+        ),
     ]
 
     subpage_types = [
@@ -100,7 +108,4 @@ class AppInstallPage(CampaignPage):
         "OpportunityPage",
     ]
 
-    parent_page_types = [
-        "BanneredCampaignPage",
-        "Homepage"
-    ]
+    parent_page_types = ["BanneredCampaignPage", "Homepage"]
