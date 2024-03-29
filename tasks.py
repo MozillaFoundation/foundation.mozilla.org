@@ -35,6 +35,7 @@ locale_abstraction_instructions_js = " ".join(
         "makemessages",
         "-d djangojs",
         "--all",
+        "--extension js,jsx",
         "--keep-pot",
         "--no-wrap",
         "--ignore=node_modules",
