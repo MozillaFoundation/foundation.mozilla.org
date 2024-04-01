@@ -1,9 +1,11 @@
 import factory
 import wagtail_factories
+from factory.django import DjangoModelFactory
 from wagtail import models as wagtail_models
 from wagtail.rich_text import RichText
 
 from networkapi.nav import blocks as nav_blocks
+from networkapi.nav import models as nav_models
 from networkapi.wagtailcustomization.factories.blocks import ExtendedStructBlockFactory
 
 
@@ -146,3 +148,19 @@ class NavDropdownFactory(ExtendedStructBlockFactory):
         },
     )
     button = wagtail_factories.ListBlockFactory(NavButtonFactory, **{"0__external_url_link": True})
+
+
+class NavMenuFactory(DjangoModelFactory):
+    class Meta:
+        model = nav_models.NavMenu
+
+    title = factory.Faker("sentence", nb_words=3)
+    dropdowns = wagtail_factories.StreamFieldFactory(
+        {"dropdown": factory.SubFactory(NavDropdownFactory)},
+        **{
+            "0": "dropdown",
+            "1": "dropdown",
+            "2": "dropdown",
+            "3": "dropdown",
+        },
+    )
