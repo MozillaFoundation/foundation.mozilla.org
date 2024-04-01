@@ -1,5 +1,6 @@
 const { test, expect } = require("@playwright/test");
 const waitForImagesToLoad = require("../../wait-for-images.js");
+const { pniBaseUrl } = require("../../base-urls.js");
 
 /**
  * Perform several PNI tests related to searching/filtering
@@ -50,7 +51,7 @@ test.describe("PNI search", () => {
 
   test.beforeEach(async ({ page }) => {
     page.on(`console`, console.log);
-    await page.goto(`http://localhost:8000/en/privacynotincluded`);
+    await page.goto(pniBaseUrl("en"));
     await page.locator(`body.react-loaded`);
     await waitForImagesToLoad(page);
   });
@@ -93,7 +94,7 @@ test.describe("PNI search", () => {
     activeCategory = page.locator(qs.activeCategory);
     await expect(activeCategory).toHaveAttribute(
       `data-name`,
-      `Health & Exercise`
+      `Health & Exercise`,
     );
     products = page.locator(qs.products);
     await expect(products).toHaveCount(counts.health);
@@ -121,7 +122,7 @@ test.describe("PNI search", () => {
     activeCategory = page.locator(qs.activeCategory);
     await expect(activeCategory).toHaveAttribute(
       `data-name`,
-      `Health & Exercise`
+      `Health & Exercise`,
     );
     activeSubCat = page.locator(qs.activeSubCategory);
     await expect(activeSubCat).toHaveText(`Smart Scales`);

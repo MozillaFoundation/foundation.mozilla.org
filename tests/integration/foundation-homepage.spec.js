@@ -1,9 +1,10 @@
 const { test, expect } = require("@playwright/test");
 const waitForImagesToLoad = require("../wait-for-images.js");
+const { foundationBaseUrl } = require("../base-urls.js");
 
 test(`Foundation homepage`, async ({ page }) => {
   page.on(`console`, console.log);
-  await page.goto(`http://localhost:8000/en/`);
+  await page.goto(`${foundationBaseUrl("en")} /`);
   await page.locator(`body.react-loaded`);
   await waitForImagesToLoad(page);
 
@@ -12,7 +13,7 @@ test(`Foundation homepage`, async ({ page }) => {
   expect(await newsLetterWrapper.isVisible()).toBe(false);
 
   const newsLetterButton = page.locator(
-    `.wide-screen-menu-container button.btn-newsletter`
+    `.wide-screen-menu-container button.btn-newsletter`,
   );
   await newsLetterButton.click();
   await page.waitForTimeout(500);
@@ -20,15 +21,15 @@ test(`Foundation homepage`, async ({ page }) => {
 
   // Does the country list show only after we focus on the signup email field?
   const countryPicker = await page.locator(
-    `#nav-newsletter-form-wrapper .newsletter-signup-module select[name='country']`
+    `#nav-newsletter-form-wrapper .newsletter-signup-module select[name='country']`,
   );
   const languagePicker = await page.locator(
-    `#nav-newsletter-form-wrapper .newsletter-signup-module select[name='language']`
+    `#nav-newsletter-form-wrapper .newsletter-signup-module select[name='language']`,
   );
   expect(await countryPicker.isVisible()).toBe(false);
   expect(await languagePicker.isVisible()).toBe(false);
   const input = await page.locator(
-    `#nav-newsletter-form-wrapper input[name="email"]`
+    `#nav-newsletter-form-wrapper input[name="email"]`,
   );
   await input.focus();
   expect(await countryPicker.isVisible()).toBe(true);

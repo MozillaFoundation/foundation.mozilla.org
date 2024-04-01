@@ -1,3 +1,5 @@
+const { foundationBaseUrl } = require("../../base-urls.js");
+
 const THANK_YOU_PAGE_QUERY_PARAM = {
   key: `thank_you`,
   value: `true`,
@@ -26,7 +28,7 @@ module.exports = {
    * @param {boolean} addThankYouQueryParam whether to add the thank you query parameter to the URL
    */
   generateUrl: function (locale = "en", addThankYouQueryParam = false) {
-    let baseUrl = `http://localhost:8000/${locale}/campaigns/single-page/?existing=query`;
+    let baseUrl = `${foundationBaseUrl(locale)}/campaigns/single-page/?existing=query`;
 
     return addThankYouQueryParam
       ? `${baseUrl}&${THANK_YOU_PAGE_QUERY_PARAM.key}=${THANK_YOU_PAGE_QUERY_PARAM.value}`
@@ -43,7 +45,7 @@ module.exports = {
   isExpectedThankYouUrl: function (
     testUrl,
     expectedUrl,
-    onThankYouPage = false
+    onThankYouPage = false,
   ) {
     // extract query parameters from testUrl
     const testUrlQp = new URLSearchParams(new URL(testUrl).search);
