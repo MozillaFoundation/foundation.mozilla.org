@@ -34,7 +34,7 @@ test.describe("Blog body newsletter signup form", () => {
 
     // test if the newsletter module is visible
     moduleContainer = page.locator(
-      "main .newsletter-signup-module[data-module-type='default']",
+      "main .newsletter-signup-module[data-module-type='default']"
     );
     await moduleContainer.waitFor({ state: "visible" });
     expect(await moduleContainer.count()).toBe(1);
@@ -44,7 +44,7 @@ test.describe("Blog body newsletter signup form", () => {
     await innerWrapper.waitFor({ state: "visible" });
     expect(await innerWrapper.count()).toBe(1);
     expect(await innerWrapper.getAttribute("data-submission-status")).toBe(
-      "none",
+      "none"
     );
 
     // test if the form inside the newsletter module is visible
@@ -103,7 +103,7 @@ test.describe("Blog body newsletter signup form", () => {
 
       await innerWrapper.waitFor({ state: "visible" });
       expect(await innerWrapper.getAttribute("data-submission-status")).toBe(
-        "success",
+        "success"
       );
 
       // test if the thank you message is displayed
@@ -128,7 +128,7 @@ test.describe("Blog body newsletter signup form", () => {
       await submitButton.click();
       expect(await errorMessages.count()).toBe(0);
       expect(await innerWrapper.getAttribute("data-submission-status")).toBe(
-        "pending",
+        "pending"
       );
 
       // check if the data going to be sent to the API is correct
@@ -165,7 +165,7 @@ test.describe("Blog body newsletter signup form", () => {
       await submitButton.click();
       expect(await errorMessages.count()).toBe(0);
       expect(await innerWrapper.getAttribute("data-submission-status")).toBe(
-        "pending",
+        "pending"
       );
 
       // check if the data going to be sent to the API is correct

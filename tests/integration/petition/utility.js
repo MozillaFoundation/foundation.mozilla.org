@@ -45,7 +45,7 @@ module.exports = {
   isExpectedThankYouUrl: function (
     testUrl,
     expectedUrl,
-    onThankYouPage = false,
+    onThankYouPage = false
   ) {
     // extract query parameters from testUrl
     const testUrlQp = new URLSearchParams(new URL(testUrl).search);

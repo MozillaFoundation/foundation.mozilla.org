@@ -40,7 +40,7 @@ function testURL(baseUrl, path) {
       // Wait for the reCAPTCHA iframe to be visible
       const iframeHandle = await page.waitForSelector(
         'iframe[title="reCAPTCHA"]',
-        { visible: true },
+        { visible: true }
       );
       await iframeHandle.scrollIntoViewIfNeeded();
       await page.waitForTimeout(3000);

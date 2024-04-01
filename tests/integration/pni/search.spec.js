@@ -94,7 +94,7 @@ test.describe("PNI search", () => {
     activeCategory = page.locator(qs.activeCategory);
     await expect(activeCategory).toHaveAttribute(
       `data-name`,
-      `Health & Exercise`,
+      `Health & Exercise`
     );
     products = page.locator(qs.products);
     await expect(products).toHaveCount(counts.health);
@@ -122,7 +122,7 @@ test.describe("PNI search", () => {
     activeCategory = page.locator(qs.activeCategory);
     await expect(activeCategory).toHaveAttribute(
       `data-name`,
-      `Health & Exercise`,
+      `Health & Exercise`
     );
     activeSubCat = page.locator(qs.activeSubCategory);
     await expect(activeSubCat).toHaveText(`Smart Scales`);
