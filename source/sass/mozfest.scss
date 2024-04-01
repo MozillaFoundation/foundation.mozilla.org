@@ -4,8 +4,8 @@
 // Mozfest Carousel Modules
 @import "../../node_modules/swiper/swiper-vars.scss";
 @import "../../node_modules/swiper/swiper.scss";
-@import "../../node_modules/swiper/components/pagination/pagination.scss";
-@import "../../node_modules/swiper/components/effect-fade/effect-fade.scss";
+@import "../../node_modules/swiper/modules/pagination.scss";
+@import "../../node_modules/swiper/modules/effect-fade.scss";
 
 body.mozfest {
   .tito-widget-button {
