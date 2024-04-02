@@ -120,6 +120,18 @@ class NavColumn(blocks.StructBlock):
         value_class = NavColumnValue
 
 
+class NavFeaturedColumn(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=100)
+    # Empty default so that it starts collapsed:
+    nav_items = blocks.ListBlock(NavFeaturedItem, min_num=1, max_num=4, label="Items", default=[])
+
+    class Meta:
+        label = "Featured Navigation Column"
+        icon = "list-ul"
+        template = "nav/blocks/featured_column_block.html"
+        value_class = NavColumnValue
+
+
 class NavOverview(blocks.StructBlock):
     title = blocks.CharBlock(max_length=100)
     description = blocks.RichTextBlock(features=["bold", "italic"], max_length=200)

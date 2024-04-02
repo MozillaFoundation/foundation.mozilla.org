@@ -133,6 +133,22 @@ class NavColumnFactory(ExtendedStructBlockFactory):
     button = wagtail_factories.ListBlockFactory(NavButtonFactory, **{"0__external_url_link": True})
 
 
+class NavFeaturedColumnFactory(ExtendedStructBlockFactory):
+    class Meta:
+        model = nav_blocks.NavFeaturedColumn
+
+    title = factory.Faker("sentence", nb_words=3)
+    nav_items = wagtail_factories.ListBlockFactory(
+        NavFeaturedItemFactory,
+        **{
+            "0__external_url_link": True,
+            "1__external_url_link": True,
+            "2__external_url_link": True,
+            "3__external_url_link": True,
+        },
+    )
+
+
 class NavOverviewFactory(wagtail_factories.StructBlockFactory):
     class Meta:
         model = nav_blocks.NavOverview

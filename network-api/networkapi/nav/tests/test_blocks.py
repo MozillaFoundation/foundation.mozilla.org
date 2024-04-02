@@ -195,6 +195,50 @@ class TestNavColumnBlock(TestCase):
             nav_blocks.NavColumn().clean(block)
 
 
+class TestNavFeaturedColumnBlock(TestCase):
+    def test_default(self):
+        """Assert that default nav_blocks.NavFeaturedColumn factory works and is an external URL."""
+        block = nav_factories.NavFeaturedColumnFactory()
+
+        self.assertEqual(len(block["nav_items"]), 4)
+        for link in block["nav_items"]:
+            self.assertIsInstance(link.block, nav_blocks.NavFeaturedItem)
+            self.assertIsInstance(link, nav_blocks.NavItemValue)
+
+    def test_with_variable_number_of_links(self):
+        """Create a nav_blocks.NavFeaturedColumn with links."""
+        block = nav_factories.NavFeaturedColumnFactory(
+            **{
+                "nav_items__0__page_url_link": True,
+                "nav_items__1__relative_url_link": True,
+                "nav_items__2__external_url_link": True,
+            }
+        )
+
+        self.assertEqual(len(block["nav_items"]), 4)
+        for link in block["nav_items"]:
+            self.assertIsInstance(link.block, nav_blocks.NavFeaturedItem)
+            self.assertIsInstance(link, nav_blocks.NavItemValue)
+
+    def test_needs_to_provide_at_least_one_link(self):
+        with self.assertRaises(StructBlockValidationError):
+            block = nav_factories.NavFeaturedColumnFactory(nav_items=[])
+            nav_blocks.NavFeaturedColumn().clean(block)
+
+    def test_needs_to_provide_at_most_four_links(self):
+        with self.assertRaises(StructBlockValidationError):
+            block = nav_factories.NavFeaturedColumnFactory(
+                **{
+                    "nav_items__0__external_url_link": True,
+                    "nav_items__1__external_url_link": True,
+                    "nav_items__2__external_url_link": True,
+                    "nav_items__3__external_url_link": True,
+                    "nav_items__4__external_url_link": True,
+                }
+            )
+            nav_blocks.NavFeaturedColumn().clean(block)
+
+
 class TestNavDropdownBlock(TestCase):
     def test_default_block_factory(self):
         """Default factory creates a block with an overview and 3 columns."""
