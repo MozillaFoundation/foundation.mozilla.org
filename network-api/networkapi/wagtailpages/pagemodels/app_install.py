@@ -1,6 +1,8 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.fields import StreamField
 
+from . import customblocks
 from .campaigns import CampaignPage
 
 
@@ -29,45 +31,12 @@ class AppInstallPage(CampaignPage):
         help_text="To find embed link: go to your YouTube video and click “Share,” then “Embed,” "
         "and then copy and paste the provided URL only. EX: https://www.youtube.com/embed/3FIVXBawyQ",
     )
-    button1_text = models.CharField(
-        max_length=50,
-        help_text="Text for Button 1",
-        null=True,
-        blank=True,
-    )
-    button1_download_link = models.URLField(
-        max_length=255,
-        help_text="Download link for Button 1",
-        null=True,
-        blank=True,
-    )
-    button1_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-        help_text="Image for Button 1",
-    )
-    button2_text = models.CharField(
-        max_length=50,
-        help_text="Text for Button 2",
-        null=True,
-        blank=True,
-    )
-    button2_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-        help_text="Image for Button 2",
-    )
-    button2_download_link = models.URLField(
-        max_length=255,
-        help_text="Download link for Button 2",
-        null=True,
-        blank=True,
+    download_buttons = StreamField(
+        [
+            ("button", customblocks.AppInstallDownloadButtonBlock()),
+        ],
+        use_json_field=True,
+        max_num=2,
     )
 
     content_panels = [
@@ -78,17 +47,7 @@ class AppInstallPage(CampaignPage):
                 FieldPanel("hero_subheading"),
                 FieldPanel("hero_background"),
                 FieldPanel("hero_video"),
-                MultiFieldPanel(
-                    [
-                        FieldPanel("button1_image"),
-                        FieldPanel("button1_text"),
-                        FieldPanel("button1_download_link"),
-                        FieldPanel("button2_image"),
-                        FieldPanel("button2_text"),
-                        FieldPanel("button2_download_link"),
-                    ],
-                    heading="Download Link Buttons",
-                ),
+                FieldPanel("download_buttons"),
             ],
             heading="Hero Section",
         ),
