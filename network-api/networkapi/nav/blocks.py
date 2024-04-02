@@ -48,6 +48,33 @@ class NavItem(BaseLinkBlock):
 register(BaseLinkBlockAdapter(), NavItem)
 
 
+class NavFeaturedItem(BaseLinkBlock):
+    icon = ImageChooserBlock()
+
+    def __init__(self, local_blocks=None, **kwargs):
+        # Use __init__ method to change the order of the blocks when constructing
+        # them through inheritance
+        super().__init__(local_blocks, **kwargs)
+        self.child_blocks = self.base_blocks.copy()
+        child_blocks = OrderedDict(
+            {
+                "label": self.child_blocks.pop("label"),
+                "icon": self.child_blocks.pop("icon"),
+            }
+        )
+        child_blocks.update({k: v for k, v in self.child_blocks.items()})
+        self.child_blocks = child_blocks
+
+    class Meta:
+        value_class = NavItemValue
+        label = "Featured Navigation Link"
+        icon = "link"
+        template = "nav/blocks/featured_item_block.html"
+
+
+register(BaseLinkBlockAdapter(), NavFeaturedItem)
+
+
 class NavButton(BaseLinkBlock):
     class Meta:
         value_class = NavItemValue

@@ -49,6 +49,31 @@ class NavItemFactory(ExtendedStructBlockFactory):
     relative_url = ""
 
 
+class NavFeaturedItemFactory(ExtendedStructBlockFactory):
+    class Meta:
+        model = nav_blocks.NavFeaturedItem
+
+    class Params:
+        page_link = factory.Trait(
+            link_to="page",
+            page=factory.Iterator(wagtail_models.Page.objects.filter(locale_id="1")),
+        )
+        external_url_link = factory.Trait(link_to="external_url", external_url=factory.Faker("url"))
+        relative_url_link = factory.Trait(link_to="relative_url", relative_url=f'/{factory.Faker("uri_path")}')
+
+    label = factory.Faker("sentence", nb_words=3)
+    icon = factory.SubFactory(wagtail_factories.ImageChooserBlockFactory)
+
+    # Setup default link as external URL (it won't pass validation without a link type defined though
+    # so it's still necessary to use the factory with traits)
+    link_to = "external_url"
+    # Set all link types to None by default. Only define the needed link type in the factory
+    # trait to avoid conflicts
+    page = None
+    external_url = ""
+    relative_url = ""
+
+
 class NavButtonFactory(ExtendedStructBlockFactory):
     """Factory for NavButtonBlock.
 

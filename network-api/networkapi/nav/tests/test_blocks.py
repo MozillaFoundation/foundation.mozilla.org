@@ -65,6 +65,17 @@ class TestNavItemBlock(TestCase):
             nav_blocks.NavItem().clean(block)
 
 
+class TestNavFeaturedItemBlock(TestCase):
+    def test_default(self):
+        """Assert that default nav_blocks.NavFeaturedItem factory works and is an external URL."""
+        block = nav_factories.NavFeaturedItemFactory()
+
+        # Assert that the page link is custom URL and that it is correct
+        url = block["external_url"]
+        self.assertEqual(block.url, url)
+        self.assertTrue(block.open_in_new_window)
+
+
 class TestNavButton(TestCase):
     def test_default(self):
         """Assert that default nav_blocks.NavButton factory works and is an external URL."""
