@@ -1,10 +1,10 @@
 
 {% load wagtailcore_tags wagtailimages_tags i18n %}
 
-<a class="tw-max-w-max tw-btn tw-bg-white hover:tw-bg-gray-20 tw-transition-colors tw-border-black tw-border-2" href="{{value.url}}" target="_blank">
+<a class="tw-btn-secondary tw-bg-white hover:tw-bg-black tw-transition-colors  tw-border-2 tw-group after:tw-hidden tw-flex tw-items-center tw-gap-x-4" href="{{value.url}}" target="_blank">
     {% if value.icon %}
         {% image value.icon original as btn_icon %}
-        <img src="{{ btn_icon.url }}" alt="{{ value.icon_alt_text }}" class="tw-mr-2 tw-inline tw-filter tw-grayscale tw-contrast-200 tw-brightness-75" width="24" height="24">
+        <img src="{{ btn_icon.url }}" alt="{{ value.icon_alt_text }}" class="tw-inline tw-brightness-0 group-hover:tw-invert tw-transition-all" width="24" height="24">
     {% endif %}
     <span>{{ value.label }}</span>
 </a>
