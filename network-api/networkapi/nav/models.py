@@ -2,6 +2,8 @@ from django.db import models
 from wagtail import models as wagtail_models
 from wagtail.admin import panels
 from wagtail.fields import StreamField
+from wagtail.search import index
+from wagtail_localize.fields import TranslatableField
 
 from networkapi.nav import blocks as nav_blocks
 
@@ -26,8 +28,18 @@ class NavMenu(
     )
 
     panels = [
+        panels.HelpPanel(content="To enable a navigation menu on a site, go to Settings > Navigation Menus."),
         panels.FieldPanel("title"),
         panels.FieldPanel("dropdowns"),
+    ]
+
+    translatable_fields = [
+        TranslatableField("title"),
+        TranslatableField("dropdowns"),
+    ]
+
+    search_fields = [
+        index.SearchField("title"),
     ]
 
     class Meta(wagtail_models.TranslatableMixin.Meta):
