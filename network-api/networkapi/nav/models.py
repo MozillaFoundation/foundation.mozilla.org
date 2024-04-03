@@ -1,6 +1,7 @@
 from django.db import models
 from wagtail import models as wagtail_models
 from wagtail.admin import panels
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import StreamField
 from wagtail.search import index
 from wagtail_localize.fields import TranslatableField
@@ -48,3 +49,23 @@ class NavMenu(
 
     def __str__(self) -> str:
         return self.title
+
+
+@register_setting
+class SiteNavMenu(BaseSiteSetting):
+    active_nav_menu = models.ForeignKey(
+        "nav.NavMenu",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="site_nav_menu",
+        verbose_name="Active Navigation Menu",
+    )
+
+    content_panels = [
+        panels.FieldPanel("active_nav_menu"),
+    ]
+
+    class Meta:
+        verbose_name = "Navigation Menu"
+        verbose_name_plural = "Navigation Menus"
