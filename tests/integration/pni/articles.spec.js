@@ -27,7 +27,6 @@ test.describe("PNI articles", () => {
     getUrl = `http://localhost:8000${getUrl}`;
     pushUrl = `http://localhost:8000${pushUrl}`;
 
-    page.on("request", (request) => console.log(request.url()));
     const requestPromise = page.waitForRequest(getUrl);
     // htmx uses History API to update the URL.
     // Using this function to wait for the URL to change instead of waitForNavigation or waitForUrl
