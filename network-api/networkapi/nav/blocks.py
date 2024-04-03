@@ -3,6 +3,7 @@ from collections import OrderedDict
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from wagtail import blocks
+from wagtail.images.blocks import ImageChooserBlock
 from wagtail.telepath import register
 
 from networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block import (
@@ -46,6 +47,33 @@ class NavItem(BaseLinkBlock):
 
 
 register(BaseLinkBlockAdapter(), NavItem)
+
+
+class NavFeaturedItem(BaseLinkBlock):
+    icon = ImageChooserBlock()
+
+    def __init__(self, local_blocks=None, **kwargs):
+        # Use __init__ method to change the order of the blocks when constructing
+        # them through inheritance
+        super().__init__(local_blocks, **kwargs)
+        self.child_blocks = self.base_blocks.copy()
+        child_blocks = OrderedDict(
+            {
+                "label": self.child_blocks.pop("label"),
+                "icon": self.child_blocks.pop("icon"),
+            }
+        )
+        child_blocks.update({k: v for k, v in self.child_blocks.items()})
+        self.child_blocks = child_blocks
+
+    class Meta:
+        value_class = NavItemValue
+        label = "Featured Navigation Link"
+        icon = "link"
+        template = "nav/blocks/featured_item_block.html"
+
+
+register(BaseLinkBlockAdapter(), NavFeaturedItem)
 
 
 class NavButton(BaseLinkBlock):
@@ -93,6 +121,18 @@ class NavColumn(blocks.StructBlock):
         value_class = NavColumnValue
 
 
+class NavFeaturedColumn(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=100)
+    # Empty default so that it starts collapsed:
+    nav_items = blocks.ListBlock(NavFeaturedItem, min_num=1, max_num=4, label="Items", default=[])
+
+    class Meta:
+        label = "Featured Navigation Column"
+        icon = "list-ul"
+        template = "nav/blocks/featured_column_block.html"
+        value_class = NavColumnValue
+
+
 class NavOverview(blocks.StructBlock):
     title = blocks.CharBlock(max_length=100)
     description = blocks.RichTextBlock(features=["bold", "italic"], max_length=200)
@@ -126,6 +166,17 @@ class NavDropdownValue(blocks.StructValue):
             return button[0]
         return None
 
+    @property
+    def has_featured_column(self) -> bool:
+        return bool(self.get("featured_column"))
+
+    @property
+    def featured_column(self) -> NavFeaturedColumn | None:
+        featured_column = self.get("featured_column")
+        if featured_column:
+            return featured_column[0]
+        return None
+
 
 class NavDropdown(blocks.StructBlock):
     title = blocks.CharBlock(max_length=100, help_text="How the dropdown menu will be labelled in the nav bar")
@@ -144,6 +195,14 @@ class NavDropdown(blocks.StructBlock):
         label="Columns",
         help_text="Add up to 4 columns of navigation links",
     )
+    featured_column = blocks.ListBlock(
+        NavFeaturedColumn(label="Featured Column"),
+        min_num=0,
+        max_num=1,
+        label="Featured Column",
+        help_text="A column made of items and icons. If added, it will take the place of the last column",
+        default=[],
+    )
     button = blocks.ListBlock(
         NavButton,
         required=False,
@@ -158,24 +217,62 @@ class NavDropdown(blocks.StructBlock):
         result = super().clean(value)
         errors = {}
 
-        if result["overview"] and len(result["columns"]) > 3:
-            errors["overview"] = ErrorList(
-                [
-                    blocks.ListBlockValidationError(
-                        block_errors={},
-                        non_block_errors=ErrorList(
-                            [ValidationError("Overview cannot be used with more than 3 nav columns.")]
-                        ),
-                    )
-                ]
-            )
+        has_overview = bool(result["overview"])
+        has_featured_column = bool(result["featured_column"])
+
+        allowed_number_of_columns = 4
+        if has_overview:
+            allowed_number_of_columns -= 1
+        if has_featured_column:
+            allowed_number_of_columns -= 1
+
+        current_number_of_columns = len(result["columns"])
+
+        if current_number_of_columns > allowed_number_of_columns:
+            if has_overview and not has_featured_column:
+                err_msg_overview = 'A maximum of 3 columns can be added together with an "overview".'
+                err_msg_columns = 'A maximum of 3 columns can be added together with an "overview".'
+                err_msg_featured_column = ""
+            elif has_featured_column and not has_overview:
+                err_msg_overview = ""
+                err_msg_columns = 'A maximum of 3 columns can be added together with a "featured column".'
+                err_msg_featured_column = "Featured column cannot be used with more than 3 nav columns."
+            elif has_overview and has_featured_column:
+                err_msg_overview = (
+                    'A maximum of 2 columns can be added together with an "overview" and a "featured column".'
+                )
+                err_msg_columns = (
+                    'A maximum of 2 columns can be added together with an "overview" and a "featured column".'
+                )
+                err_msg_featured_column = (
+                    'A maximum of 2 columns can be added together with an "overview" and a "featured column".'
+                )
+
+            if err_msg_overview:
+                errors["overview"] = ErrorList(
+                    [
+                        blocks.ListBlockValidationError(
+                            block_errors={},
+                            non_block_errors=ErrorList([ValidationError(err_msg_overview)]),
+                        )
+                    ]
+                )
+
+            if err_msg_featured_column:
+                errors["featured_column"] = ErrorList(
+                    [
+                        blocks.ListBlockValidationError(
+                            block_errors={},
+                            non_block_errors=ErrorList([ValidationError(err_msg_featured_column)]),
+                        )
+                    ]
+                )
+
             errors["columns"] = ErrorList(
                 [
                     blocks.ListBlockValidationError(
                         block_errors={},
-                        non_block_errors=ErrorList(
-                            [ValidationError('A maximum of 3 columns can be added together with an "overview".')]
-                        ),
+                        non_block_errors=ErrorList([ValidationError(err_msg_columns)]),
                     )
                 ]
             )
