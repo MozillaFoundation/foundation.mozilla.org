@@ -1,11 +1,12 @@
-import Swiper, {
+import Swiper from "swiper";
+import {
   A11y,
   Autoplay,
   Pagination,
   Navigation,
   Keyboard,
   EffectFade,
-} from "swiper";
+} from "swiper/modules";
 
 /**
  * Image Carousel on Mozfest Homepage Hero Section.
