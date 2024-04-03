@@ -37,17 +37,18 @@ class AppInstallPage(CampaignPage):
         ],
         use_json_field=True,
         max_num=2,
+        blank=True,
     )
 
     content_panels = [
         FieldPanel("title"),
         MultiFieldPanel(
             [
+                FieldPanel("hero_background"),
                 FieldPanel("hero_heading"),
                 FieldPanel("hero_subheading"),
-                FieldPanel("hero_background"),
-                FieldPanel("hero_video"),
                 FieldPanel("download_buttons"),
+                FieldPanel("hero_video"),
             ],
             heading="Hero Section",
         ),
