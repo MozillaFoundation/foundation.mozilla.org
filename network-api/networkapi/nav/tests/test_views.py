@@ -26,8 +26,6 @@ class TestNavMenuSnippetChooser(WagtailTestUtils, TestCase):
         # Would have been easier to get from model.snippet_viewset, but
         # that does not work somehow.
         chooser_viewset = self.get_chooser_viewset()
-        print(nav_models.NavMenu.snippet_viewset)
-        print(nav_models.NavMenu.snippet_viewset.chooser_viewset.get_url_name("choose"))
         self.chooser_url = reverse(f"{chooser_viewset.name}:choose")
 
         User = get_user_model()
