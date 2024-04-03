@@ -1,6 +1,7 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import StreamField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from .campaigns import CampaignPage
 from .customblocks.app_install_download_button_block import (
@@ -62,6 +63,14 @@ class AppInstallPage(CampaignPage):
             ],
             heading="Page Content",
         ),
+    ]
+
+    translatable_fields = CampaignPage.translatable_fields + [
+        SynchronizedField("hero_background"),
+        TranslatableField("hero_heading"),
+        TranslatableField("hero_subheading"),
+        TranslatableField("download_buttons"),
+        SynchronizedField("hero_video"),
     ]
 
     subpage_types = [
