@@ -2,8 +2,10 @@ from django.db import models
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import StreamField
 
-from . import customblocks
 from .campaigns import CampaignPage
+from .customblocks.app_install_download_button_block import (
+    AppInstallDownloadButtonBlock,
+)
 
 
 class AppInstallPage(CampaignPage):
@@ -33,7 +35,7 @@ class AppInstallPage(CampaignPage):
     )
     download_buttons = StreamField(
         [
-            ("button", customblocks.AppInstallDownloadButtonBlock()),
+            ("button", AppInstallDownloadButtonBlock()),
         ],
         use_json_field=True,
         max_num=2,
