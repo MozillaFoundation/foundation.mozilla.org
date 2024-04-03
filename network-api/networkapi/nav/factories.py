@@ -49,6 +49,31 @@ class NavItemFactory(ExtendedStructBlockFactory):
     relative_url = ""
 
 
+class NavFeaturedItemFactory(ExtendedStructBlockFactory):
+    class Meta:
+        model = nav_blocks.NavFeaturedItem
+
+    class Params:
+        page_link = factory.Trait(
+            link_to="page",
+            page=factory.Iterator(wagtail_models.Page.objects.filter(locale_id="1")),
+        )
+        external_url_link = factory.Trait(link_to="external_url", external_url=factory.Faker("url"))
+        relative_url_link = factory.Trait(link_to="relative_url", relative_url=f'/{factory.Faker("uri_path")}')
+
+    label = factory.Faker("sentence", nb_words=3)
+    icon = factory.SubFactory(wagtail_factories.ImageChooserBlockFactory)
+
+    # Setup default link as external URL (it won't pass validation without a link type defined though
+    # so it's still necessary to use the factory with traits)
+    link_to = "external_url"
+    # Set all link types to None by default. Only define the needed link type in the factory
+    # trait to avoid conflicts
+    page = None
+    external_url = ""
+    relative_url = ""
+
+
 class NavButtonFactory(ExtendedStructBlockFactory):
     """Factory for NavButtonBlock.
 
@@ -108,6 +133,22 @@ class NavColumnFactory(ExtendedStructBlockFactory):
     button = wagtail_factories.ListBlockFactory(NavButtonFactory, **{"0__external_url_link": True})
 
 
+class NavFeaturedColumnFactory(ExtendedStructBlockFactory):
+    class Meta:
+        model = nav_blocks.NavFeaturedColumn
+
+    title = factory.Faker("sentence", nb_words=3)
+    nav_items = wagtail_factories.ListBlockFactory(
+        NavFeaturedItemFactory,
+        **{
+            "0__external_url_link": True,
+            "1__external_url_link": True,
+            "2__external_url_link": True,
+            "3__external_url_link": True,
+        },
+    )
+
+
 class NavOverviewFactory(wagtail_factories.StructBlockFactory):
     class Meta:
         model = nav_blocks.NavOverview
@@ -121,8 +162,24 @@ class NavDropdownFactory(ExtendedStructBlockFactory):
         model = nav_blocks.NavDropdown
 
     class Params:
-        no_overview = factory.Trait(overview=[])
-        all_columns = factory.Trait(
+        with_overview = factory.Trait(
+            overview=wagtail_factories.ListBlockFactory(
+                NavOverviewFactory,
+                **{
+                    "0__title": factory.Faker("sentence", nb_words=3),
+                },
+            ),
+            columns=wagtail_factories.ListBlockFactory(
+                NavColumnFactory,
+                **{
+                    "0__title": factory.Faker("sentence", nb_words=3),
+                    "1__title": factory.Faker("sentence", nb_words=3),
+                    "2__title": factory.Faker("sentence", nb_words=3),
+                },
+            ),
+            featured_column=[],
+        )
+        with_featured_column = factory.Trait(
             overview=[],
             columns=wagtail_factories.ListBlockFactory(
                 NavColumnFactory,
@@ -130,23 +187,49 @@ class NavDropdownFactory(ExtendedStructBlockFactory):
                     "0__title": factory.Faker("sentence", nb_words=3),
                     "1__title": factory.Faker("sentence", nb_words=3),
                     "2__title": factory.Faker("sentence", nb_words=3),
-                    "3__title": factory.Faker("sentence", nb_words=3),
+                },
+            ),
+            featured_column=wagtail_factories.ListBlockFactory(
+                NavFeaturedColumnFactory,
+                **{
+                    "0__title": factory.Faker("sentence", nb_words=3),
+                },
+            ),
+        )
+        with_overview_and_featured_column = factory.Trait(
+            overview=wagtail_factories.ListBlockFactory(
+                NavOverviewFactory,
+                **{
+                    "0__title": factory.Faker("sentence", nb_words=3),
+                },
+            ),
+            columns=wagtail_factories.ListBlockFactory(
+                NavColumnFactory,
+                **{
+                    "0__title": factory.Faker("sentence", nb_words=3),
+                    "1__title": factory.Faker("sentence", nb_words=3),
+                },
+            ),
+            featured_column=wagtail_factories.ListBlockFactory(
+                NavFeaturedColumnFactory,
+                **{
+                    "0__title": factory.Faker("sentence", nb_words=3),
                 },
             ),
         )
         no_button = factory.Trait(button=[])
 
-    overview = wagtail_factories.ListBlockFactory(
-        NavOverviewFactory, **{"0__title": factory.Faker("sentence", nb_words=3)}
-    )
+    overview = wagtail_factories.ListBlockFactory(NavOverviewFactory)
     columns = wagtail_factories.ListBlockFactory(
         NavColumnFactory,
         **{
             "0__title": factory.Faker("sentence", nb_words=3),
             "1__title": factory.Faker("sentence", nb_words=3),
             "2__title": factory.Faker("sentence", nb_words=3),
+            "3__title": factory.Faker("sentence", nb_words=3),
         },
     )
+    featured_column = wagtail_factories.ListBlockFactory(NavFeaturedColumnFactory)
     button = wagtail_factories.ListBlockFactory(NavButtonFactory, **{"0__external_url_link": True})
 
 
