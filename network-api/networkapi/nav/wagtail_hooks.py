@@ -1,7 +1,23 @@
+from wagtail import hooks
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 
 from networkapi.nav.models import NavMenu
+from networkapi.wagtailcustomization.views.snippet_chooser import (
+    DefaultLocaleSnippetChooserViewSet,
+)
+
+
+# Customise chooser to only show the default language nav menus as options.
+# We do not want editors to select the translations as
+# localisation will be handled on the template instead.
+@hooks.register("register_admin_viewset")
+def register_nav_menu_chooser_viewset():
+    return DefaultLocaleSnippetChooserViewSet(
+        "wagtailsnippetchoosers_custom_navmenu",
+        model=NavMenu,
+        url_prefix="nav/chooser",
+    )
 
 
 class NavMenuViewSet(SnippetViewSet):

@@ -219,6 +219,7 @@ class NavDropdownFactory(ExtendedStructBlockFactory):
         )
         no_button = factory.Trait(button=[])
 
+    title = factory.Faker("sentence", nb_words=3)
     overview = wagtail_factories.ListBlockFactory(NavOverviewFactory)
     columns = wagtail_factories.ListBlockFactory(
         NavColumnFactory,
@@ -247,3 +248,4 @@ class NavMenuFactory(DjangoModelFactory):
             "3": "dropdown",
         },
     )
+    locale = factory.LazyFunction(lambda: wagtail_models.Locale.get_default())
