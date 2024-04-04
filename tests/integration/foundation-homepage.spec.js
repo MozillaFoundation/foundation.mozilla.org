@@ -1,9 +1,10 @@
 const { test, expect } = require("@playwright/test");
 const waitForImagesToLoad = require("../wait-for-images.js");
+const { foundationBaseUrl } = require("../base-urls.js");
 
 test(`Foundation homepage`, async ({ page }) => {
   page.on(`console`, console.log);
-  await page.goto(`http://localhost:8000/en/`);
+  await page.goto(`${foundationBaseUrl("en")}/`);
   await page.locator(`body.react-loaded`);
   await waitForImagesToLoad(page);
 
@@ -14,6 +15,7 @@ test(`Foundation homepage`, async ({ page }) => {
   const newsLetterButton = page.locator(
     `.wide-screen-menu-container button.btn-newsletter`
   );
+
   await newsLetterButton.click();
   await page.waitForTimeout(500);
   expect(await newsLetterWrapper.isVisible()).toBe(true);
