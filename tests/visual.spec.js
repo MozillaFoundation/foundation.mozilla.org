@@ -17,7 +17,7 @@ function testURL(baseUrl, path) {
   return async ({ page }, testInfo) => {
     // append trailing slash to URL only if it doesn't contain query string
     const url = `${baseUrl}${path}${path.includes("?") ? "" : "/"}`;
-    // console.log(url);
+    console.log(url);
     await page.goto(url);
 
     // Gets set once React has finished loading
