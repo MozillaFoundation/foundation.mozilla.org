@@ -3,6 +3,7 @@ const percySnapshot = require("@percy/playwright");
 const waitForImagesToLoad = require("./wait-for-images.js");
 const FoundationURLs = require("./foundation-urls.js");
 const MozfestURLs = require("./mozfest-urls.js");
+const { foundationBaseUrl, mozfestBaseUrl } = require("./base-urls.js");
 
 const runTime = Date.now();
 /**
@@ -58,12 +59,12 @@ function testURL(baseUrl, path) {
 
 // fall-through call for foundation URLs
 function testFoundationURL(path, locale = `en`) {
-  return testURL(`http://localhost:8000/${locale}`, path);
+  return testURL(foundationBaseUrl(locale), path);
 }
 
 // fall-through call for mozfest URLs
 function testMozfestURL(path, locale = `en`) {
-  return testURL(`http://mozfest.localhost:8000/${locale}`, path);
+  return testURL(mozfestBaseUrl(locale), path);
 }
 
 test.describe.parallel(`Foundation page tests`, () => {
