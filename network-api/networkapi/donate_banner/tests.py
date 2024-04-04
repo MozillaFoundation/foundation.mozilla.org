@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
-from wagtail.admin.viewsets import viewsets
+from wagtail.admin.viewsets import viewsets as wagtail_admin_viewsets
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.models import Locale
 from wagtail.test.utils import WagtailTestUtils
@@ -17,7 +17,8 @@ class TestDonateBannerSnippetChooser(WagtailTestUtils, TestCase):
     def get_chooser_viewset(self):
         # Get the last registered ChooserViewSet for the DonateBanner model.
         # Note: There can be multiple ChooserViewSets registered for a model.
-        model_viewsets = [x for x in viewsets.viewsets if self.is_donate_banner_chooser_viewset(x)]
+        wagtail_admin_viewsets.populate()
+        model_viewsets = [x for x in wagtail_admin_viewsets.viewsets if self.is_donate_banner_chooser_viewset(x)]
         return model_viewsets[-1]
 
     def setUp(self):
