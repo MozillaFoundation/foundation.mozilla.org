@@ -6,8 +6,6 @@ hostnames = settings.TARGET_DOMAINS
 if len(hostnames) == 0:
     print("Error: no TARGET_DOMAINS set, please ensure your environment variables are in order.")
 
-referrer_value = "strict-origin-when-cross-origin"
-
 if settings.REFERRER_HEADER_VALUE:
     referrer_value = settings.REFERRER_HEADER_VALUE
 
