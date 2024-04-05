@@ -143,6 +143,7 @@ module.exports = {
       white: colors.white,
       table: "#dee2e6",
       gray: {
+        "02": "#fafafa",
         "05": "#f2f2f2",
         20: "#cccccc",
         40: "#999999",
@@ -159,6 +160,7 @@ module.exports = {
         100: "#9a000e",
       },
       blue: {
+        "03": "#f5f5fd",
         "05": "#e7e7fc",
         10: "#d3d5fc",
         20: "#b7b9fa",
