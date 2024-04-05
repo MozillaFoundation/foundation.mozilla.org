@@ -638,7 +638,7 @@ if env("SSL_REDIRECT") is True:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 X_FRAME_OPTIONS = env("X_FRAME_OPTIONS")
-REFERRER_HEADER_VALUE = env("REFERRER_HEADER_VALUE", default="'strict-origin-when-cross-origin'")
+REFERRER_HEADER_VALUE = env("REFERRER_HEADER_VALUE", default="strict-origin-when-cross-origin")
 
 
 # Remove the default Django loggers and configure new ones
