@@ -1,7 +1,7 @@
 
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<a class="tw-btn-secondary tw-flex tw-items-center tw-justify-center tw-gap-x-4 tw-transition-colors tw-bg-white hover:tw-bg-black focus:tw-bg-black after:tw-hidden" href="{{ value.url }}" target="_blank">
+<a class="tw-group tw-btn-secondary tw-flex tw-items-center tw-justify-center tw-gap-x-4 tw-transition-colors tw-bg-white hover:tw-bg-black focus:tw-bg-black after:tw-hidden" href="{{ value.url }}" target="_blank">
     {% if value.icon %}
         {% image value.icon original as btn_icon %}
         <img src="{{ btn_icon.url }}" alt="{{ value.icon_alt_text }}" class="tw-inline tw-brightness-0 group-hover:tw-invert group-focus:tw-invert tw-transition-all" width="18" height="18">
