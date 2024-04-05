@@ -11,7 +11,8 @@ class IncludeSVGTests(TestCase):
     def setUp(self):
         self.valid_svg = (
             '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="#CCC">'
-            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m5.25 12.75 7.5-7.5M5.25 5.25h7.5v7.5"/>'
+            '<path stroke-linecap="round" stroke-linejoin="round" '
+            'stroke-width="1.5" d="m5.25 12.75 7.5-7.5M5.25 5.25h7.5v7.5"/>'
             "</svg>"
         )
         self.temp_svg = tempfile.NamedTemporaryFile(suffix=".svg", delete=False)
