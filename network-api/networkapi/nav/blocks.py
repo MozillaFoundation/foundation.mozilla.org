@@ -43,7 +43,7 @@ class NavItem(BaseLinkBlock):
         value_class = NavItemValue
         label = "Navigation Link"
         icon = "link"
-        template = "nav/blocks/nav_link_block.html"
+        template = "fragments/blocks/nav/nav_item.html"
 
 
 register(BaseLinkBlockAdapter(), NavItem)
