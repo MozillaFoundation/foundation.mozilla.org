@@ -1,10 +1,11 @@
 const { test, expect } = require("@playwright/test");
 const waitForImagesToLoad = require("../../wait-for-images.js");
+const { foundationDomain, pniBaseUrl } = require("../../base-urls.js");
 
 test.describe("PNI articles", () => {
   test(`"load more" button`, async ({ page }) => {
     page.on(`console`, console.log);
-    await page.goto(`http://localhost:8000/en/privacynotincluded/articles`);
+    await page.goto(`${pniBaseUrl("en")}/articles`);
     await page.locator(`body.react-loaded`);
     await waitForImagesToLoad(page);
 
@@ -16,7 +17,7 @@ test.describe("PNI articles", () => {
     expect(await numArticles).toBeGreaterThan(1);
 
     const loadMoreButton = page.locator(
-      `#load-more button[data-hx-get][data-hx-push-url]`,
+      `#load-more button[data-hx-get][data-hx-push-url]`
     );
     expect(await loadMoreButton.count()).toBe(1);
     expect(await loadMoreButton.isVisible()).toBe(true);
@@ -24,8 +25,8 @@ test.describe("PNI articles", () => {
     let getUrl = await loadMoreButton.getAttribute(`data-hx-get`);
     let pushUrl = await loadMoreButton.getAttribute(`data-hx-push-url`);
     // these need to be full URL for the following assertion to work
-    getUrl = `http://localhost:8000${getUrl}`;
-    pushUrl = `http://localhost:8000${pushUrl}`;
+    getUrl = `${foundationDomain}${getUrl}`;
+    pushUrl = `${foundationDomain}${pushUrl}`;
 
     const requestPromise = page.waitForRequest(getUrl);
     // htmx uses History API to update the URL.
@@ -33,16 +34,11 @@ test.describe("PNI articles", () => {
     // ensures our assertion below happens after the URL has been updated.
     const pushPromise = page.waitForFunction(
       (expectedUrl) => window.location.href === expectedUrl,
-      pushUrl,
+      pushUrl
     );
     await loadMoreButton.click();
-
-    // The URL of the request should be the same as the data-hx-get attribute of the button
-    expect((await requestPromise).url()).toBe(getUrl);
-
-    // The URL of the page should be the same as the data-hx-push-url attribute of the button
+    await requestPromise;
     await pushPromise;
-    expect(page.url()).toBe(pushUrl);
 
     // The number of articles should increase
     expect(await articles.count()).toBeGreaterThan(await numArticles);
