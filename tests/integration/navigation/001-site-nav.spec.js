@@ -1,11 +1,12 @@
 const { test, expect } = require("@playwright/test");
 const waitForImagesToLoad = require("../../wait-for-images.js");
+const { foundationBaseUrl } = require("../../base-urls.js");
 
 const MOBILE_VIEWPORT = { width: 360, height: 800 };
 
 test.describe("Main site primary nav", () => {
   test(`Primary nav (mobile)`, async ({ page }) => {
-    const PAGE_URL = `http://localhost:8000/en/`;
+    const PAGE_URL = `${foundationBaseUrl("en")}/`;
 
     await page.setViewportSize(MOBILE_VIEWPORT);
     await page.goto(PAGE_URL);

@@ -152,7 +152,6 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ("current_events_slider", customblocks.CurrentEventsSliderBlock()),
             ("spaces", customblocks.SpacesBlock()),
             ("tito_widget", customblocks.TitoWidgetBlock()),
-            ("newsletter_signup", customblocks.NewsletterSignupBlock()),
             ("statistics", mozfest_blocks.StatisticsBlock()),
             ("carousel_and_text", mozfest_blocks.CarouselTextBlock()),
             ("tickets", mozfest_blocks.TicketsBlock()),
