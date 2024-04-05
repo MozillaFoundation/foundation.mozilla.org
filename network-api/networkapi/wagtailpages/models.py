@@ -1,4 +1,5 @@
 # flake8: noqa
+from .pagemodels.app_install import AppInstallPage
 from .pagemodels.base import (
     FocusArea,
     FoundationMetadataPageMixin,
