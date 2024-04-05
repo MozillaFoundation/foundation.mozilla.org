@@ -1,14 +1,17 @@
+const FOUNDATION_DOMAIN = "http://localhost:8000";
+
 module.exports = {
   donateBaseUrl: function (locale = "en") {
-    return `http://localhost:8000/${locale}/donate`;
+    return `${FOUNDATION_DOMAIN}/${locale}/donate`;
   },
+  foundationDomain: FOUNDATION_DOMAIN,
   foundationBaseUrl: function (locale = "en") {
-    return `http://localhost:8000/${locale}`;
+    return `${FOUNDATION_DOMAIN}/${locale}`;
   },
   mozfestBaseUrl: function (locale = "en") {
     return `http://mozfest.localhost:8000/${locale}`;
   },
   pniBaseUrl: function (locale = "en") {
-    return `http://localhost:8000/${locale}/privacynotincluded`;
+    return `${FOUNDATION_DOMAIN}/${locale}/privacynotincluded`;
   },
 };
