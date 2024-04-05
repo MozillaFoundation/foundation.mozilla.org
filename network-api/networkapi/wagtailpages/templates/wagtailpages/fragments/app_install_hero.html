@@ -15,7 +15,7 @@
                 </p>
                 {% if page.download_buttons %}
                     <div class="download-btn-wrapper">
-                        <div class="tw-mt-2 tw-flex tw-flex-wrap tw-flex-col medium:tw-flex-row tw-gap-8">
+                        <div class="tw-mt-2 tw-grid tw-grid-flow-row tw-auto-cols-max tw-gap-8 medium:tw-grid-flow-col">
                             {% for block in page.download_buttons %}
                                 {% include_block block %}
                             {% endfor %}
