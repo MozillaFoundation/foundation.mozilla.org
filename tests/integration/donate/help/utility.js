@@ -1,3 +1,4 @@
+const { donateBaseUrl } = require("../../../base-urls.js");
 const THANK_YOU_PAGE_QUERY_PARAM = {
   key: `thank_you`,
   value: `true`,
@@ -35,7 +36,7 @@ module.exports = {
    * @param {boolean} addThankYouQueryParam whether to add the thank you query parameter to the URL
    */
   generateUrl: function (locale = "en", addThankYouQueryParam = false) {
-    let baseUrl = `http://localhost:8000/${locale}/donate/help/?existing=query`;
+    let baseUrl = `${donateBaseUrl(locale)}/help/?existing=query`;
 
     return addThankYouQueryParam
       ? `${baseUrl}&${THANK_YOU_PAGE_QUERY_PARAM.key}=${THANK_YOU_PAGE_QUERY_PARAM.value}`
