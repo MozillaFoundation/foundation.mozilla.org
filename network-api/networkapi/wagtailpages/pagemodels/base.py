@@ -959,6 +959,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
     ]
 
     subpage_types = [
+        "AppInstallPage",
         "BanneredCampaignPage",
         "BlogIndexPage",
         "CampaignIndexPage",
