@@ -17,7 +17,7 @@ class ReferrerMiddlewareTests(TestCase):
 
         referrer_middleware = ReferrerMiddleware(MagicMock())
         response = referrer_middleware(MagicMock())
-        response.__setitem__.assert_called_with("Referrer-Policy", "same-origin")
+        response.__setitem__.assert_called_with("Referrer-Policy", "strict-origin-when-cross-origin")
 
 
 class XRobotsTagMiddlewareTest(TestCase):
