@@ -15,7 +15,7 @@ from networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block impo
 
 class NavItemValue(BaseLinkValue):
     @property
-    def open_in_new_window(self) -> bool:
+    def is_external(self) -> bool:
         link_to = self.get("link_to")
         if link_to == "external_url":
             return True
@@ -43,7 +43,7 @@ class NavItem(BaseLinkBlock):
         value_class = NavItemValue
         label = "Navigation Link"
         icon = "link"
-        template = "nav/blocks/nav_link_block.html"
+        template = "fragments/blocks/nav/item.html"
 
 
 register(BaseLinkBlockAdapter(), NavItem)
