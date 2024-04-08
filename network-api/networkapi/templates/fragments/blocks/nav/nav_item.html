@@ -5,8 +5,8 @@
 {% fragment as after_arrow_styles %}after:tw-content-['_↗'] after:tw-font-['Nunito_Sans'] after:tw-text-gray-20 group-hover:after:tw-text-blue-80{% endfragment %}
 
 <div class="tw-group tw-flex tw-flex-col tw-gap-2 tw-p-2 hover:tw-bg-blue-03">
-    <a class="{{ font_styles }} {% if value.open_in_new_window %} {{ after_arrow_styles }} {% endif %} {{ hover_styles }}"
-       href="{{ value.url }}" {% if value.open_in_new_window %}target="_blank"{% endif %}>
+    <a class="{{ font_styles }} {% if value.is_external %} {{ after_arrow_styles }} {% endif %} {{ hover_styles }}"
+       href="{{ value.url }}" {% if value.is_external %}target="_blank"{% endif %}>
         {{ value.label }}
     </a>
     {% if value.description %}

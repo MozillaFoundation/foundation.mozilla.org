@@ -25,7 +25,7 @@ class TestNavItemBlock(TestCase):
         default_locale = Locale.get_default()
         self.assertEqual(page.locale, default_locale)
 
-        self.assertFalse(block.open_in_new_window)
+        self.assertFalse(block.is_external)
 
         # Assert that other fields are empty
         self.assertEqual(block["external_url"], "")
@@ -39,7 +39,7 @@ class TestNavItemBlock(TestCase):
         url = block["external_url"]
         self.assertIsNotNone(url)
 
-        self.assertTrue(block.open_in_new_window)
+        self.assertTrue(block.is_external)
 
         # Assert that other fields are empty
         self.assertIsNone(block["page"])
@@ -53,7 +53,7 @@ class TestNavItemBlock(TestCase):
         url = block["relative_url"]
         self.assertIsNotNone(url)
 
-        self.assertFalse(block.open_in_new_window)
+        self.assertFalse(block.is_external)
 
         # Assert that other fields are empty
         self.assertIsNone(block["page"])
@@ -73,7 +73,7 @@ class TestNavFeaturedItemBlock(TestCase):
         # Assert that the page link is custom URL and that it is correct
         url = block["external_url"]
         self.assertEqual(block.url, url)
-        self.assertTrue(block.open_in_new_window)
+        self.assertTrue(block.is_external)
 
 
 class TestNavButton(TestCase):
