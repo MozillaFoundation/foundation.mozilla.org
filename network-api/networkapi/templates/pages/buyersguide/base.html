@@ -6,8 +6,16 @@
 
 {% block page_title %}
     {% environment_prefix %}
-    {% if pageTitle %}{{ pageTitle }}
-    {% else %}{% blocktrans context "“*privacy not included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included | Shop smart and safe{% endblocktrans %} | Mozilla Foundation{% endif %}
+    {# if routable page #}
+    {% if pageTitle %}
+        {{ pageTitle }}
+    {# if custom seo_title for a wagtail page #}
+    {% elif page.seo_title %}
+        {{ page.seo_title }}
+    {# default to page.title #}
+    {% else %}
+        {% trans "*Privacy Not Included" context "*Privacy Not Included can be localized. This is a reference to the “*batteries not included” mention on toys." %} | {{ page.title }} | {% trans "Mozilla Foundation" %}
+    {% endif %}
 {% endblock %}
 
 {# TODO: consider using a different ga_identifier? #}
@@ -23,7 +31,7 @@
 
 {% block wagtail_metadata %}
     {% meta_tags %}
-    <meta name="pni-home-title" content="{% blocktrans context "“*privacy not included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included | Shop smart and safe | Mozilla Foundation{% endblocktrans %}">
+    <meta name="pni-home-title" content="{% blocktrans context "“*Privacy Not Included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*Privacy Not Included | Shop smart and safe | Mozilla Foundation{% endblocktrans %}">
     <meta name="pni-category-title" content="{% trans "Privacy & Security Guide | Mozilla Foundation" %}">
 {% endblock %}
 

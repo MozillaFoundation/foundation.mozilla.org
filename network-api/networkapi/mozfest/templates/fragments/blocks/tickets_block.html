@@ -18,6 +18,7 @@
                                 <tito-button
                                     event="{{ tier.event.event_id }}"
                                     locale="{{ tito_widget_lang_code }}"
+                                    save-metadata-parameters="utm_*"
                                     {% if tier.releases %} releases="{{ tier.releases }}"{% endif %}
                                     class="tw-btn-primary tw-mt-auto"
                                 >

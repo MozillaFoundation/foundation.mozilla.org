@@ -1,6 +1,7 @@
 const { test, expect } = require("@playwright/test");
 const FoundationURLs = require("./foundation-urls.js");
 const MozfestURLs = require("./mozfest-urls.js");
+const { foundationBaseUrl, mozfestBaseUrl } = require("./base-urls.js");
 
 /**
  * Test to see if the given URL can be loaded
@@ -18,11 +19,11 @@ function testURL(baseUrl, path) {
 }
 
 function testFoundationURL(path, locale = `en`) {
-  return testURL(`http://localhost:8000/${locale}`, path);
+  return testURL(foundationBaseUrl(locale), path);
 }
 
 function testMozfestURL(path, locale = `en`) {
-  return testURL(`http://mozfest.localhost:8000/${locale}`, path);
+  return testURL(mozfestBaseUrl(locale), path);
 }
 
 test.describe.parallel(`Foundation page tests`, () => {
