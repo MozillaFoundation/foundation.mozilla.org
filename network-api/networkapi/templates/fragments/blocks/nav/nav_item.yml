@@ -1,7 +1,0 @@
-name: Navigation Item
-context:
-    value:
-        label: "*Privacy not included"
-        description: Scrutinizing the privacy & security of consumer tech
-        url: /privacynotincluded
-        is_external: True
