@@ -427,6 +427,7 @@ class BanneredCampaignPage(PrimaryPage):
     ]
 
     subpage_types = [
+        "AppInstallPage",
         "BanneredCampaignPage",
         "PublicationPage",
         "OpportunityPage",

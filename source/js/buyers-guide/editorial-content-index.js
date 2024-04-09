@@ -6,7 +6,7 @@
  * and not included in `bg-main.compiled.js`
  */
 
-import "htmx.org";
+import htmx from "htmx.org";
 
 function main() {
   switchFromPaginationToLoadMore();

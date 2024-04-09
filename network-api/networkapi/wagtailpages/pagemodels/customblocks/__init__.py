@@ -4,6 +4,7 @@ from .accordion_block import AccordionBlock, AccordionItem
 from .advanced_table_block import AdvancedTableBlock
 from .airtable_block import AirTableBlock
 from .annotated_image_block import AnnotatedImageBlock
+from .app_install_download_button_block import AppInstallDownloadButtonBlock
 from .article_teaser_block import ArticleTeaserBlock
 from .articles import (
     ArticleDoubleImageBlock,
