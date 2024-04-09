@@ -10,17 +10,6 @@ if len(hostnames) == 0:
 class HttpResponseTemporaryRedirect(HttpResponseRedirectBase):
     status_code = 307
 
-
-class ReferrerMiddleware:
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-        response = self.get_response(request)
-        response["Referrer-Policy"] = settings.REFERRER_HEADER_VALUE
-        return response
-
-
 class XRobotsTagMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response

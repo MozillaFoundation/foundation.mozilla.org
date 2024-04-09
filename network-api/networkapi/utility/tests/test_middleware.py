@@ -2,23 +2,7 @@ from unittest.mock import MagicMock
 
 from django.test import TestCase
 
-from networkapi.utility.middleware import ReferrerMiddleware, XRobotsTagMiddleware
-
-
-class ReferrerMiddlewareTests(TestCase):
-    def setUp(self):
-        referrer_middleware = ReferrerMiddleware("response")
-        self.assertEqual(referrer_middleware.get_response, "response")
-
-    def test_requestProcessing(self):
-        """
-        Ensure that the middleware assigns a Referrer-Policy header to the response object
-        """
-
-        referrer_middleware = ReferrerMiddleware(MagicMock())
-        response = referrer_middleware(MagicMock())
-        response.__setitem__.assert_called_with("Referrer-Policy", "strict-origin-when-cross-origin")
-
+from networkapi.utility.middleware import XRobotsTagMiddleware
 
 class XRobotsTagMiddlewareTest(TestCase):
     def test_returns_response(self):
