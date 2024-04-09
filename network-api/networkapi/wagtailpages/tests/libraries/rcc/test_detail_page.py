@@ -1,4 +1,6 @@
 import wagtail_factories
+import bs4
+
 from django.core import exceptions
 from django.utils import translation
 
@@ -10,6 +12,7 @@ from networkapi.wagtailpages.models import ArticlePage, PublicationPage, RCCDeta
 from networkapi.wagtailpages.pagemodels.libraries.rcc import authors_index
 from networkapi.wagtailpages.tests.libraries.rcc import base as rcc_test_base
 from networkapi.wagtailpages.tests.libraries.rcc import utils as rcc_test_utils
+from networkapi.wagtailpages.factory import profiles as profiles_factory
 
 
 class TestRCCLibraryDetailPage(rcc_test_base.RCCTestCase):
@@ -105,6 +108,57 @@ class TestRCCLibraryDetailPage(rcc_test_base.RCCTestCase):
 
         self.assertEqual(len(rcc_authors_fr), 1)
         self.assertIn(profile_en, rcc_authors_fr)
+
+    def test_preview_related_authors(self):
+        """
+        Tests if `test_preview_related_authors` returns related authors according to sort order,
+        and renders them in the RCCDetailPage CMS preview panel.
+        """
+
+        page_a = detail_page_factory.RCCDetailPageFactory(parent=self.library_page, authors=[])
+
+        related_author_1 = profiles_factory.ProfileFactory.build()
+        related_author_2 = profiles_factory.ProfileFactory.build()
+        related_author_3 = profiles_factory.ProfileFactory.build()
+
+        author_relation_1 = relations_factory.RCCAuthorRelationFactory.build(
+            detail_page=page_a, author_profile=related_author_1
+        )
+        author_relation_2 = relations_factory.RCCAuthorRelationFactory.build(
+            detail_page=page_a, author_profile=related_author_2
+        )
+        author_relation_3 = relations_factory.RCCAuthorRelationFactory.build(
+            detail_page=page_a, author_profile=related_author_3
+        )
+
+        # Setting related products in memory, but not yet saving to DB.
+        page_a.authors = [author_relation_2, author_relation_1, author_relation_3]
+
+        preview_methods_related_products = page_a.preview_related_authors
+
+        # Check if method returns related authors as expected.
+        # Order should be: product 2, product 1, product 3.
+        self.assertListEqual(
+            preview_methods_related_products,
+            [related_author_2, related_author_1, related_author_3],
+        )
+
+        # Grab preview template response, find all related product titles in HTML.
+        preview_response = page_a.make_preview_request()
+        print("preview_response.content")
+        print(preview_response.content)
+        print("preview_response")
+        print(preview_response)
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+
+        author_names = [p.get_text(strip=True) for p in soup.find_all("p", class_="related-author-name")]
+
+        # Check if template renders related products as expected.
+        # Order should be: product 2, product 1, product 3.
+        self.assertEqual(
+            author_names,
+            [related_author_2.name, related_author_1.name, related_author_3.name],
+        )
 
 
 class TestRCCDetailLink(rcc_test_base.RCCTestCase):
