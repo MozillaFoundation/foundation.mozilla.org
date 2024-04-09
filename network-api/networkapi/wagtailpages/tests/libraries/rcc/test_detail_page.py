@@ -116,10 +116,11 @@ class TestRCCLibraryDetailPage(rcc_test_base.RCCTestCase):
 
         page_a = detail_page_factory.RCCDetailPageFactory(parent=self.library_page, authors=[])
 
-        related_author_1 = profiles_factory.ProfileFactory.build()
-        related_author_2 = profiles_factory.ProfileFactory.build()
-        related_author_3 = profiles_factory.ProfileFactory.build()
+        related_author_1 = profiles_factory.ProfileFactory()
+        related_author_2 = profiles_factory.ProfileFactory()
+        related_author_3 = profiles_factory.ProfileFactory()
 
+        # Using .build() to create these relations, but not save them to DB.
         author_relation_1 = relations_factory.RCCAuthorRelationFactory.build(
             detail_page=page_a, author_profile=related_author_1
         )
@@ -130,34 +131,193 @@ class TestRCCLibraryDetailPage(rcc_test_base.RCCTestCase):
             detail_page=page_a, author_profile=related_author_3
         )
 
-        # Setting related products in memory, but not yet saving to DB.
+        # Setting related authors in memory, but not yet saving to DB.
         page_a.authors = [author_relation_2, author_relation_1, author_relation_3]
 
-        preview_methods_related_products = page_a.preview_related_authors
+        preview_methods_related_authors = page_a.preview_related_authors
 
         # Check if method returns related authors as expected.
-        # Order should be: product 2, product 1, product 3.
+        # Order should be: author 2, author 1, autho 3.
         self.assertListEqual(
-            preview_methods_related_products,
+            preview_methods_related_authors,
             [related_author_2, related_author_1, related_author_3],
         )
 
-        # Grab preview template response, find all related product titles in HTML.
+        # Grab preview template response, find all related author names in HTML.
         preview_response = page_a.make_preview_request()
-        print("preview_response.content")
-        print(preview_response.content)
-        print("preview_response")
-        print(preview_response)
         soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
 
-        author_names = [p.get_text(strip=True) for p in soup.find_all("p", class_="related-author-name")]
+        author_names_in_preview_template = [
+            div.get_text(strip=True) for div in soup.find_all("div", class_="author-name")
+        ]
 
-        # Check if template renders related products as expected.
-        # Order should be: product 2, product 1, product 3.
+        # Check if template renders related authors as expected.
+        # Order should be: author 2, author 1, author 3.
         self.assertEqual(
-            author_names,
+            author_names_in_preview_template,
             [related_author_2.name, related_author_1.name, related_author_3.name],
         )
+
+    def test_preview_related_authors_after_deletion(self):
+        """
+        Tests if `preview_related_authors` accurately returns related authors for CMS page previews,
+        even after a related author relation is deleted.
+        """
+
+        page_a = detail_page_factory.RCCDetailPageFactory(parent=self.library_page, authors=[])
+
+        related_author_1 = profiles_factory.ProfileFactory()
+        related_author_2 = profiles_factory.ProfileFactory()
+        related_author_3 = profiles_factory.ProfileFactory()
+
+        # Using .build() to create these relations, but not save them to DB.
+        author_relation_1 = relations_factory.RCCAuthorRelationFactory.build(
+            detail_page=page_a, author_profile=related_author_1
+        )
+        author_relation_2 = relations_factory.RCCAuthorRelationFactory.build(
+            detail_page=page_a, author_profile=related_author_2
+        )
+        author_relation_3 = relations_factory.RCCAuthorRelationFactory.build(
+            detail_page=page_a, author_profile=related_author_3
+        )
+
+        # Setting related authors in memory, but not yet saving to DB.
+        page_a.authors = [author_relation_2, author_relation_1, author_relation_3]
+
+        preview_methods_related_authors = page_a.preview_related_authors
+
+        # Check if method returns related authors as expected.
+        # Order should be: author 2, author 1, autho 3.
+        self.assertListEqual(
+            preview_methods_related_authors,
+            [related_author_2, related_author_1, related_author_3],
+        )
+
+        # Grab preview template response, find all related author names in HTML.
+        preview_response = page_a.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+
+        author_names_in_preview_template = [
+            div.get_text(strip=True) for div in soup.find_all("div", class_="author-name")
+        ]
+        # Check if template renders related authors as expected.
+        # Order should be: author 2, author 1, author 3.
+        self.assertEqual(
+            author_names_in_preview_template,
+            [related_author_2.name, related_author_1.name, related_author_3.name],
+        )
+
+        # Remove one author relation.
+        page_a.authors.remove(author_relation_1)
+
+        # Fetch the related authors again after modification.
+        preview_methods_related_authors_after_deletion = page_a.preview_related_authors
+
+        # Make sure list returned reflects the deletion.
+        # Order should be author 2, author 3.
+        self.assertListEqual(
+            preview_methods_related_authors_after_deletion,
+            [related_author_2, related_author_3],
+        )
+
+        # Double check that preview template reflects deletion as expected.
+        preview_response = page_a.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+        author_names_in_preview_template = [
+            div.get_text(strip=True) for div in soup.find_all("div", class_="author-name")
+        ]
+
+        # Check if template reflects update.
+        # Order should be: author 2, author 3.
+        self.assertEqual(author_names_in_preview_template, [related_author_2.name, related_author_3.name])
+
+    def test_preview_related_authors_after_reorder(self):
+        """
+        Tests if `preview_related_authors` accurately returns related authors for CMS page previews,
+        even after related authors are reordered.
+        """
+
+        page_a = detail_page_factory.RCCDetailPageFactory(parent=self.library_page, authors=[])
+
+        related_author_1 = profiles_factory.ProfileFactory()
+        related_author_2 = profiles_factory.ProfileFactory()
+        related_author_3 = profiles_factory.ProfileFactory()
+
+        # Using .build() to create these relations, but not save them to DB.
+        author_relation_1 = relations_factory.RCCAuthorRelationFactory.build(
+            detail_page=page_a, author_profile=related_author_1
+        )
+        author_relation_2 = relations_factory.RCCAuthorRelationFactory.build(
+            detail_page=page_a, author_profile=related_author_2
+        )
+        author_relation_3 = relations_factory.RCCAuthorRelationFactory.build(
+            detail_page=page_a, author_profile=related_author_3
+        )
+
+        # Setting related authors in memory, but not yet saving to DB.
+        page_a.authors = [author_relation_2, author_relation_1, author_relation_3]
+
+        preview_methods_related_authors = page_a.preview_related_authors
+
+        # Check if method returns related authors as expected.
+        # Order should be: author 2, author 1, autho 3.
+        self.assertListEqual(
+            preview_methods_related_authors,
+            [related_author_2, related_author_1, related_author_3],
+        )
+
+        # Grab preview template response, find all related author names in HTML.
+        preview_response = page_a.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+
+        author_names_in_preview_template = [
+            div.get_text(strip=True) for div in soup.find_all("div", class_="author-name")
+        ]
+
+        # Check if template renders related authors as expected.
+        # Order should be: author 2, author 1, author 3.
+        self.assertEqual(
+            author_names_in_preview_template,
+            [related_author_2.name, related_author_1.name, related_author_3.name],
+        )
+
+        # Update related author order in memory.
+        # New order is: author 3, author 2, author 1
+        page_a.authors = [author_relation_3, author_relation_2, author_relation_1]
+
+        # Fetch the related authors again after modification.
+        preview_methods_related_authors_after_reorder = page_a.preview_related_authors
+
+        # Make sure list returned reflects the deletion.
+        # Order should be author 2, author 3.
+        self.assertListEqual(
+            preview_methods_related_authors_after_reorder,
+            [related_author_3, related_author_2, related_author_1],
+        )
+
+        # Double check that preview template reflects deletion as expected.
+        preview_response = page_a.make_preview_request()
+        soup = bs4.BeautifulSoup(preview_response.content, "html.parser")
+        author_names_in_preview_template = [
+            div.get_text(strip=True) for div in soup.find_all("div", class_="author-name")
+        ]
+
+        # Check if template reflects update.
+        # Order should be: author 2, author 3.
+        self.assertEqual(
+            author_names_in_preview_template,
+            [related_author_3.name, related_author_2.name, related_author_1.name],
+        )
+
+    def test_preview_related_authors_with_no_authors_set(self):
+        """
+        Tests if `preview_related_authors` returns an empty list if no related authors are set.
+        """
+        page_a = detail_page_factory.RCCDetailPageFactory(parent=self.library_page, authors=[])
+
+        related_preview_authors = page_a.preview_related_authors
+
+        self.assertEqual(related_preview_authors, [])
 
 
 class TestRCCDetailLink(rcc_test_base.RCCTestCase):
