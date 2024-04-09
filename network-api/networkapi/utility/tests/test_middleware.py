@@ -4,6 +4,7 @@ from django.test import TestCase
 
 from networkapi.utility.middleware import XRobotsTagMiddleware
 
+
 class XRobotsTagMiddlewareTest(TestCase):
     def test_returns_response(self):
         xrobotstag_middleware = XRobotsTagMiddleware("response")

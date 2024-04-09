@@ -10,6 +10,7 @@ if len(hostnames) == 0:
 class HttpResponseTemporaryRedirect(HttpResponseRedirectBase):
     status_code = 307
 
+
 class XRobotsTagMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
