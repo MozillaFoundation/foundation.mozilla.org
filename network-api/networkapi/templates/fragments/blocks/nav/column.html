@@ -1,0 +1,13 @@
+{% load wagtailcore_tags %}
+
+<div class="tw-flex tw-flex-col tw-items-start tw-gap-8 tw-py-8 large:tw-w-3/12">
+    <h6 class="tw-self-stretch">{{ value.title }}</h6>
+    <div class="tw-flex tw-flex-col tw-items-start tw-gap-8 tw-self-stretch">
+        {% for item in value.nav_items %}
+            <div class="tw-self-stretch">{% include_block item %}</div>
+        {% endfor %}
+    </div class="tw-self-stretch tw-ps-4">
+    {% if value.has_button %}
+        {% include_block value.button with style="cta" %}
+    {% endif %}
+</div>
