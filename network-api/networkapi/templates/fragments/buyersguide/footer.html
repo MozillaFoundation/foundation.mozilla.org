@@ -1,16 +1,5 @@
 {% extends "fragments/footer.html" %}
 
-{% load i18n l10n static %}
-
-{% block general_links %}
-    {% with footer_link_classes="tw-dark tw-text-white hover:tw-underline" %}
-        <li class="tw-mb-4"><a id="donate-footer-btn" href="?form=privacy-not-included" class="{{ footer_link_classes }}">{% trans "Donate" %}</a></li>
-        <!-- the rest of the links should be listed alphabetically -->
-        <li class="tw-mb-4"><a href="https://careers.mozilla.org/listings/?team=Mozilla%20Foundation" class="{{ footer_link_classes }}">{% trans "Careers" %}</a></li>
-        <li class="tw-mb-4"><a href="https://www.mozilla.org/privacy/websites/#cookies" class="{{ footer_link_classes }}">{% trans "Cookies" %}</a></li>
-        <li class="tw-mb-4"><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="{{ footer_link_classes }}">{% trans "Legal" %}</a></li>
-        <li class="tw-mb-4"><a href="https://www.mozilla.org/about/governance/policies/participation/" class="{{ footer_link_classes }}">{% trans "Participation Guidelines" %}</a></li>
-        <li class="tw-mb-4"><a href="https://foundation.mozilla.org/en/press-center/" class="{{ footer_link_classes }}">{% trans "Press Center" %}</a></li>
-        <li ><a href="https://mozilla.org/privacy/websites/" class="{{ footer_link_classes }}">{% trans "Privacy" %}</a></li>
-    {% endwith %}
-{% endblock general_links %}
+{% block footer_donate %}
+    {% include "fragments/footer_donate_banner.html" with donate_link="?form=pni-banner" %}
+{% endblock %}
