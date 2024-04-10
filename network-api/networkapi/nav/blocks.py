@@ -70,7 +70,7 @@ class NavFeaturedItem(BaseLinkBlock):
         value_class = NavItemValue
         label = "Featured Navigation Link"
         icon = "link"
-        template = "nav/blocks/featured_item_block.html"
+        template = "fragments/nav/featured_item.html"
 
 
 register(BaseLinkBlockAdapter(), NavFeaturedItem)
@@ -81,7 +81,7 @@ class NavButton(BaseLinkBlock):
         value_class = NavItemValue
         label = "Navigation Button"
         icon = "link"
-        template = "nav/blocks/nav_button_block.html"
+        template = "fragments/nav/button.html"
 
 
 register(BaseLinkBlockAdapter(), NavButton)
@@ -117,7 +117,7 @@ class NavColumn(blocks.StructBlock):
     class Meta:
         label = "Navigation Column"
         icon = "list-ul"
-        template = "nav/blocks/nav_column_block.html"
+        template = "fragments/nav/column.html"
         value_class = NavColumnValue
 
 
@@ -129,7 +129,7 @@ class NavFeaturedColumn(blocks.StructBlock):
     class Meta:
         label = "Featured Navigation Column"
         icon = "list-ul"
-        template = "nav/blocks/featured_column_block.html"
+        template = "fragments/nav/featured_column.html"
         value_class = NavColumnValue
 
 
@@ -140,7 +140,7 @@ class NavOverview(blocks.StructBlock):
     class Meta:
         label = "Navigation Overview"
         icon = "pilcrow"
-        template = "nav/blocks/overview_block.html"
+        template = "fragments/nav/overview.html"
 
 
 class NavDropdownValue(blocks.StructValue):
@@ -285,5 +285,5 @@ class NavDropdown(blocks.StructBlock):
     class Meta:
         label = "Navigation Dropdown"
         icon = "bars"
-        template = "nav/blocks/nav_dropdown_block.html"
+        template = "fragments/nav/dropdown.html"
         value_class = NavDropdownValue
