@@ -1,0 +1,24 @@
+name: Navigation Dropdown
+context:
+    value:
+        title: "Who We Are"
+        has_overview: False
+        overview:
+            title: About Us
+            description: "Mozilla is a global nonprofit dedicated to keeping the Internet a public resource that is open and accessible to all."
+        columns:
+          - column:
+          - column:
+          - column:
+        has_button: true
+        button:
+            - button:
+
+tags:
+    include_block:
+        'value.overview with button=value.button':
+            template_name: "fragments/blocks/nav/overview.html"
+        'column':
+            template_name: "fragments/blocks/nav/column.html"
+        'button with style="primary-full-width"':
+            template_name: "fragments/blocks/nav/variants/button--primary-full-width.html"

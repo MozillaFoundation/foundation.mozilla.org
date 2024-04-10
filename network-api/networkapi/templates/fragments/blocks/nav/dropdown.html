@@ -1,0 +1,28 @@
+{% load static wagtailcore_tags %}
+
+<div class="tw-flex tw-flex-col" data-mobile-accordion>
+    <div class="tw-flex tw-flex-row tw-items-center tw-justify-between tw-gap-4 tw-w-full tw-py-12 tw-px-8" data-accordion-title>
+        <h5 class="tw-font-sans tw-font-bold tw-text-xl tw-capitalize tw-text-black large:tw-border-black">{{ value.title }}</h5>
+        <img src="{% static "_images/chevron.svg" %}" class="tw-w-8 tw-h-auto large:tw-hidden">
+    </div>
+
+    <div class="tw-py-0 tw-px-8 tw-gap-8" data-accordion-content>
+        <div class="tw-flex tw-flex-col large:tw-flex-row tw-items-start" >
+            {% if value.has_overview %}
+                {% include_block value.overview with button=value.button %}
+            {% endif %}
+            {% for column in value.columns %}
+                {% include_block column %}
+            {% endfor %}
+        </div>
+        {% comment %}
+        If there is a button but no overview, we want to render the button at the bottom
+        of the dropdown. Otherwise it will be rendered together with the overview.
+        {% endcomment %}
+        {% if value.has_button and not value.has_overview %}
+            <div class="tw-w-full tw-pb-16">
+                {% include_block button with style="primary-full-width"%}
+            </div>
+        {% endif %}
+    </div>
+</div>
