@@ -7,44 +7,61 @@ class NavAccordion extends Accordion {
 
   constructor(node) {
     super(node);
-    this.siblings = this.getSiblings();
-  }
-
-  closeAccordion(accordion) {
-    const content = accordion.querySelector("[data-accordion-content]");
-    const chevron = accordion.querySelector("img");
-    const title = accordion.querySelector("[data-accordion-title]");
-    const titleText = title.querySelector("h5");
-    titleText.classList.remove("large:tw-border-b-4");
-    content.classList.add("tw-hidden");
-    chevron.classList.remove("tw-rotate-180");
-    title.setAttribute("aria-expanded", "false");
-    content.setAttribute("aria-hidden", "true");
   }
 
   getSiblings() {
-    let siblings = document.querySelectorAll("[data-nav-accordion]");
+    let siblings = document.querySelectorAll(NavAccordion.selector());
     return Array.from(siblings).filter((sibling) => sibling !== this.node);
   }
 
-  closeSiblings() {
-    this.siblings.forEach((sibling) => {
-      this.closeAccordion(sibling);
-    });
+  isDesktop() {
+    return window.matchMedia("(min-width: 992px)").matches;
+  }
+
+  bindEvents() {
+    if (this.isDesktop()) {
+      // Opens the accordion when the user interacts with the title
+      this.title.addEventListener("focus", () => {
+        this.open();
+      });
+      this.title.addEventListener("pointerenter", () => {
+        this.open();
+      });
+      // But only closes when you leave the content so that it stays open
+      // when you're interacting with it
+      this.content.addEventListener("blur", () => {
+        this.close();
+      });
+      this.content.addEventListener("pointerleave", () => {
+        this.close();
+      });
+      // Also close when you enter any of the siblings
+      this.siblings = this.getSiblings();
+      this.siblings.forEach((sibling) => {
+        sibling.addEventListener("pointerenter", () => {
+          this.close();
+        });
+        sibling.addEventListener("focus", () => {
+          this.close();
+        });
+      });
+    }
   }
 
   open() {
-    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
-    if (isDesktop) {
-      this.closeSiblings();
-    }
     super.open();
-    this.titleText.classList.add("large:tw-border-b-4");
+    this.titleText.classList.add("large:tw-text-black");
+    this.titleText.classList.add("large:tw-border-black");
+    this.titleText.classList.remove("large:tw-border-transparent");
+    this.title.setAttribute("aria-selected", "true");
   }
 
   close() {
     super.close();
-    this.titleText.classList.remove("large:tw-border-b-4");
+    this.titleText.classList.remove("large:tw-text-black");
+    this.titleText.classList.remove("large:tw-border-black");
+    this.titleText.classList.add("large:tw-border-transparent");
+    this.title.setAttribute("aria-selected", "false");
   }
 }
 

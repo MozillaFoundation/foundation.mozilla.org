@@ -38,7 +38,7 @@ import { initYoutubeRegretsAccordions } from "./foundation/pages/youtube-regrets
 import { initYouTubeRegretsRecommendationsPieChart } from "./foundation/pages/youtube-regrets/recommendations-pie-chart";
 import { initYoutubeRegretsCarousel } from "./foundation/pages/youtube-regrets/carousel";
 import { initYoutubeRegretsLocomotiveScroll } from "./foundation/pages/youtube-regrets/locomotive-scroll";
-// import Accordion from "./components/accordion/accordion.js";
+import Accordion from "./components/accordion/accordion.js";
 import NavAccordion from "./components/nav/nav-accordion.js";
 
 // Initializing component a11y browser console logging
@@ -69,7 +69,7 @@ let main = {
     Dropdowns.init();
     FoundationCarousels.init();
 
-    // initComponent(Accordion);
+    initComponent(Accordion);
     initComponent(NavAccordion);
 
     this.fetchEnv((envData) => {
