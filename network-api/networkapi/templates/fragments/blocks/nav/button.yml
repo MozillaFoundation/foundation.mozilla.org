@@ -4,4 +4,4 @@ context:
         label: "Learn more"
         url: https://google.com
         open_in_new_window: False
-    style: btn-primary # Either cta-link or btn-primary
+    style: primary

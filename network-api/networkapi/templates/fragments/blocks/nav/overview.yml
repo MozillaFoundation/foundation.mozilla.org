@@ -7,5 +7,5 @@ context:
 
 tags:
     include_block:
-        'button with style="btn-primary"':
+        'button with style="primary"':
             template_name: "fragments/blocks/nav/button.html"
