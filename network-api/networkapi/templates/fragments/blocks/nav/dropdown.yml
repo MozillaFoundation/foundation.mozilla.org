@@ -2,12 +2,11 @@ name: Navigation Dropdown
 context:
     value:
         title: "Who We Are"
-        has_overview: False
+        has_overview: True
         overview:
             title: About Us
             description: "Mozilla is a global nonprofit dedicated to keeping the Internet a public resource that is open and accessible to all."
         columns:
-          - column:
           - column:
           - column:
         has_button: true

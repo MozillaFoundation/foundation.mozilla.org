@@ -1,12 +1,24 @@
-{% load static wagtailcore_tags %}
+{% load static wagtailcore_tags wagtailadmin_tags %}
 
-<div class="tw-flex tw-flex-col" data-mobile-accordion>
-    <div class="tw-flex tw-flex-row tw-items-center tw-justify-between tw-gap-4 tw-w-full tw-py-12 tw-px-8" data-accordion-title>
-        <h5 class="tw-font-sans tw-font-bold tw-text-xl tw-capitalize tw-text-black large:tw-border-black">{{ value.title }}</h5>
+{% fragment as content_base_styles %}tw-py-0 tw-px-8 tw-gap-8 tw-bg-white{% endfragment %}
+{% fragment as content_desktop_positioning %}large:tw-fixed large:tw-top-[90px] large:tw-left-0 large:tw-right-0 large:tw-mx-auto {% endfragment %}
+{% fragment as content_desktop %}large:tw-border large:tw-border-gray-20 large:tw-container{% endfragment %}
+{% fragment as content_desktop_hover %}large:hover:tw-inline{% endfragment %}
+
+{% fragment as title_base_typography %}tw-font-sans tw-font-bold tw-text-xl tw-capitalize tw-text-black{% endfragment %}
+{% fragment as title_desktop_typography %}large:tw-text-lg large:tw-text-gray-40 large:tw-border-b-4 large:tw-border-transparent{% endfragment %}
+{% comment %} {% fragment as title_desktop_hover_typography %}large:hover:tw-text-black large:hover:tw-border-black{% endfragment %} {% endcomment %}
+{% fragment as title_desktop_hover_typography %}{% endfragment %}
+
+
+
+<div class="tw-flex tw-flex-col" data-nav-accordion>
+    <div class="tw-flex tw-flex-row tw-items-center tw-justify-between tw-gap-4 tw-w-full tw-py-12 large:tw-py-0 tw-px-8" data-accordion-title>
+        <h5 class="{{ title_base_typography }} {{ title_desktop_typography }} {{ title_desktop_hover_typography }} ">{{ value.title }}</h5>
         <img src="{% static "_images/chevron.svg" %}" class="tw-w-8 tw-h-auto large:tw-hidden">
     </div>
 
-    <div class="tw-py-0 tw-px-8 tw-gap-8" data-accordion-content>
+    <div class="{{ content_base_styles }} {{ content_desktop_positioning }} {{ content_desktop }} {{ content_desktop_hover }}" data-accordion-content>
         <div class="tw-flex tw-flex-col large:tw-flex-row tw-items-start" >
             {% if value.has_overview %}
                 {% include_block value.overview with button=value.button %}
