@@ -6,24 +6,9 @@ hostnames = settings.TARGET_DOMAINS
 if len(hostnames) == 0:
     print("Error: no TARGET_DOMAINS set, please ensure your environment variables are in order.")
 
-referrer_value = "same-origin"
-
-if settings.REFERRER_HEADER_VALUE:
-    referrer_value = settings.REFERRER_HEADER_VALUE
-
 
 class HttpResponseTemporaryRedirect(HttpResponseRedirectBase):
     status_code = 307
-
-
-class ReferrerMiddleware:
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-        response = self.get_response(request)
-        response["Referrer-Policy"] = referrer_value
-        return response
 
 
 class XRobotsTagMiddleware:
