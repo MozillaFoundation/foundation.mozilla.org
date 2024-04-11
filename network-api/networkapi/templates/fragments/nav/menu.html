@@ -1,0 +1,29 @@
+{% extends "fragments/primary_nav.html" %}
+
+{% load i18n wagtailcore_tags %}
+
+{% block menu_container_classes %}
+    {{ block.super }}
+    tw-bg-white
+{% endblock menu_container_classes %}
+
+{% block narrow_screen_menu %}
+    <div class="tw-bg-white tw-min-h-lvh">
+        <div class="tw-flex tw-flex-col tw-border-y-[1px] tw-border-gray-20 tw-divide-y-[1px] tw-divide-gray-20 tw-w-full" data-nav-accordion-menu>
+            {% for dropdown in menu.dropdowns %}
+                {% include_block dropdown %}
+            {% endfor %}
+        </div>
+        <div class="tw-flex tw-flex-col tw-items-center tw-p-8">
+            <button class="tw-btn-secondary btn-newsletter tw-w-full">{% trans "Newsletter" %}</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block wide_screen_menu %}
+    <div class="tw-hidden large:tw-flex large:tw-flex-row" data-nav-accordion-menu>
+        {% for dropdown in menu.dropdowns %}
+            {% include_block dropdown %}
+        {% endfor %}
+    </div>
+{% endblock %}
