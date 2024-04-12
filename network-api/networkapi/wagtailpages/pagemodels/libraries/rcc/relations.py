@@ -24,6 +24,9 @@ class RCCAuthorRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderab
         FieldPanel("author_profile"),
     ]
 
+    class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
+        pass
+
 
 class RCCLandingPageFeaturedAuthorsRelation(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
     landing_page = cluster_fields.ParentalKey(
