@@ -11,7 +11,7 @@ from .index import IndexPage
 
 class FeaturedCampaignPageRelation(TranslatableMixin, Orderable):
     index_page = cluster_fields.ParentalKey(
-        "CampaignIndexPage",
+        "wagtailpages.CampaignIndexPage",
         related_name="featured_campaign_pages",
     )
     featured_page = models.ForeignKey(
@@ -25,6 +25,9 @@ class FeaturedCampaignPageRelation(TranslatableMixin, Orderable):
 
     def __str__(self):
         return f"{self.index_page.title} -> {self.featured_page.title}"
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
 
 
 class CampaignIndexPage(IndexPage):
@@ -64,15 +67,20 @@ class CampaignIndexPage(IndexPage):
         InlinePanel("featured_campaign_pages", label="Featured Pages"),
     ]
 
-    def get_entries(self, context):
-        featured_pages = orderables.get_related_items(
-            self.featured_campaign_pages.all(), "featured_page", order_by="sort_order"
-        )
+    def get_entries(self, context=None):
+        """
+        Fetches the featured pages related to this index page, ordered by their 'sort_order',
+        and returns them as their specific page instances.
+        """
+        # Retrieve all FeaturedCampaignPageRelation for the current index page ordered by 'sort_order'.
+        relations = self.featured_campaign_pages.all().order_by("sort_order")
+        # Fetch specific instances of pages using list comprehension and the specific() method.
+        featured_pages = [relation.featured_page.specific for relation in relations]
         return featured_pages
 
     def get_context(self, request):
         # bootstrap the render context
         context = super().get_context(request)
-        entries = self.get_entries(context)
+        entries = self.get_entries()
         context["entries"] = entries[0 : self.page_size]
         return context

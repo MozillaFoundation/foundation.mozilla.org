@@ -1,9 +1,14 @@
 from factory import SubFactory, Trait
+from factory.django import DjangoModelFactory
 from wagtail.models import Page as WagtailPage
 
 from networkapi.utility.faker.helpers import get_homepage, reseed
 from networkapi.wagtailpages.donation_modal import DonationModals
-from networkapi.wagtailpages.models import CampaignIndexPage, CampaignPage
+from networkapi.wagtailpages.models import (
+    CampaignIndexPage,
+    CampaignPage,
+    FeaturedCampaignPageRelation,
+)
 
 from .abstract import CMSPageFactory
 from .donation import DonationModalsFactory
@@ -31,12 +36,20 @@ class CampaignPageFactory(CMSPageFactory):
     cta = SubFactory(PetitionFactory)
 
 
+class CampaignIndexFeaturedCampaignPageRelationFactory(DjangoModelFactory):
+    class Meta:
+        model = FeaturedCampaignPageRelation
+
+    index_page = SubFactory(CampaignIndexPageFactory)
+    featured_page = SubFactory(CampaignPageFactory)
+
+
 def generate(seed):
     home_page = get_homepage()
     reseed(seed)
 
     try:
-        campaign_index_page = WagtailPage.objects.get(title="campaigns")
+        campaign_index_page = CampaignIndexPage.objects.get(title="campaigns")
         print("campaign index page exists")
     except WagtailPage.DoesNotExist:
         print("Generating a campaign index page")
@@ -78,5 +91,14 @@ def generate(seed):
         print("Generating multi-page CampaignPage")
         multi_page_campaign = CampaignPageFactory(parent=campaign_index_page, title="multi-page")
         [CampaignPageFactory(parent=multi_page_campaign) for k in range(3)]
+
+    reseed(seed)
+
+    print("Featuring all campaign pages on Campaign Index Page")
+    for campaign in CampaignPage.objects.all():
+        CampaignIndexFeaturedCampaignPageRelationFactory.create(
+            index_page=campaign_index_page,
+            featured_page=campaign,
+        )
 
     reseed(seed)
