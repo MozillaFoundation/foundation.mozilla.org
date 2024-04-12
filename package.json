@@ -104,7 +104,7 @@
   "devDependencies": {
     "@axe-core/react": "^4.9.0",
     "@percy/cli": "^1.27.1",
-    "@percy/playwright": "^1.0.4",
+    "@percy/playwright": "^1.0.5",
     "@playwright/test": "^1.42.1",
     "browser-sync": "^3.0.2",
     "browserslist": "^4.23.0",
