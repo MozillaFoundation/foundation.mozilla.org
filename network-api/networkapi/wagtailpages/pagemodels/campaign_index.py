@@ -64,7 +64,7 @@ class CampaignIndexPage(IndexPage):
         InlinePanel("featured_campaign_pages", label="Featured Pages"),
     ]
 
-    def get_featured_pages(self):
+    def get_entries(self, context):
         featured_pages = orderables.get_related_items(
             self.featured_campaign_pages.all(), "featured_page", order_by="sort_order"
         )
@@ -73,6 +73,6 @@ class CampaignIndexPage(IndexPage):
     def get_context(self, request):
         # bootstrap the render context
         context = super().get_context(request)
-        entries = self.get_featured_pages()
+        entries = self.get_entries(context)
         context["entries"] = entries[0 : self.page_size]
         return context
