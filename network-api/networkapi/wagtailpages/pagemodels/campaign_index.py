@@ -4,8 +4,6 @@ from wagtail.admin.panels import InlinePanel, PageChooserPanel
 from wagtail.models import Orderable, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.utility import orderables
-
 from .index import IndexPage
 
 

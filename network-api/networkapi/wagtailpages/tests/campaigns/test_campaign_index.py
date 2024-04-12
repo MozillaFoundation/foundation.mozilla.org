@@ -1,5 +1,3 @@
-from django.test import TestCase
-from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory import campaign_page as campaign_factories
 from networkapi.wagtailpages.tests import base as test_base
 
