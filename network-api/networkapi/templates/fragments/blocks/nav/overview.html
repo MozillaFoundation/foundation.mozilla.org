@@ -2,11 +2,13 @@
 
 {% fragment as base_styles %}tw-flex tw-flex-col tw-items-start tw-gap-14 tw-pb-16 large:tw-w-3/12{% endfragment %}
 {% fragment as border_styles %}tw-border-gray-20 tw-border-b-[1px] large:tw-border-b-0 large:tw-border-r-[1px]{% endfragment %}
+{% fragment as desktop_layout %}large:tw-my-22 large:tw-pb-0 large:tw-ms-8 large:tw-ps-12 large:tw-pe-8 large:tw-border-r{% endfragment %}
 
-<div class="{{ base_styles }} {{ border_styles }}">
+
+<div class="{{ base_styles }} {{ border_styles }} {{ desktop_layout }}">
     <div class="tw-flex tw-flex-col tw-items-start tw-gap-10">
         <p class="tw-font-zilla tw-italic tw-font-medium tw-text-2xl tw-text-black tw-my-0 tw-py-0">{{ value.title }}</p>
-        <div class="tw-font-sans tw-font-normal tw-text-base tw-text-gray-80">{{ value.description|richtext }}</div>
+        <div class="[&_p]:tw-text-gray-80 [&_p]:tw-text-base [&_p]:tw-font-normal [&_p]:tw-font-sans">{{ value.description|richtext }}</div>
     </div>
     {% if button %}
         {% include_block button with style="primary" %}
