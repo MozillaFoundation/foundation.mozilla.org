@@ -51,10 +51,10 @@ def generate(seed):
     if participate_page is not None:
         featured_highlights = [HighlightFactory.create() for i in range(3)]
         participate_page.featured_highlights = [
-            ParticipatePage2FeaturedHighlightsFactory.build(highlight=featured_highlights[i]) for i in range(3)
+            ParticipatePage2FeaturedHighlightsFactory.build(highlight=featured_highlights[i], sort_order=i) for i in range(3)
         ]
         featured_highlights2 = [HighlightFactory.create() for i in range(6)]
         participate_page.featured_highlights2 = [
-            ParticipatePage2FeaturedHighlights2Factory.build(highlight=featured_highlights2[i]) for i in range(6)
+            ParticipatePage2FeaturedHighlights2Factory.build(highlight=featured_highlights2[i], sort_order=i) for i in range(6)
         ]
         participate_page.save()
