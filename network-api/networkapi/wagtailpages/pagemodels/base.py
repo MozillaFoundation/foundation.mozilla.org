@@ -438,6 +438,7 @@ class ParticipatePage2(PrimaryPage):
     def ordered_featured_highlights2(self):
         return self.featured_highlights2.select_related("highlight").order_by("sort_order")
 
+
 class Styleguide(PrimaryPage):
     template = "pages/styleguide.html"
 
