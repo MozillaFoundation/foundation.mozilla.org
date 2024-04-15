@@ -432,12 +432,11 @@ class ParticipatePage2(PrimaryPage):
 
     @property
     def ordered_featured_highlights(self):
-        return ParticipateHighlights.objects.filter(page=self).select_related("highlight").order_by("sort_order")
+        return self.featured_highlights.select_related("highlight").order_by("sort_order")
 
     @property
     def ordered_featured_highlights2(self):
-        return ParticipateHighlights2.objects.filter(page=self).select_related("highlight").order_by("sort_order")
-
+        return self.featured_highlights2.select_related("highlight").order_by("sort_order")
 
 class Styleguide(PrimaryPage):
     template = "pages/styleguide.html"
