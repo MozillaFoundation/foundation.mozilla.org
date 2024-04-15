@@ -4,19 +4,7 @@
     <footer>
         {% if skip_donate != True %}
             {% block footer_donate %}
-                <div class="tw-bg-blue-40 tw-dark print:tw-hidden {{ wrapper_class }}">
-                    <div class="tw-container tw-mt-12">
-                        <div class="tw-row">
-                            <div class="tw-w-full tw-px-8">
-                                <p class="tw-h3-heading tw-mb-0">{% trans "We all love the Web. Join Mozilla in defending it." %}</p>
-                                <p class="tw-h3-heading tw-mb-12">{% trans "Let’s protect the world’s largest resource for future generations." %}</p>
-                                <div>
-                                    <a href="?form=donate-footer" class="tw-btn-secondary tw-dark" id="donate-banner-cta">{% trans "Donate now" %}</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% include "./footer_donate_banner.html" with donate_link="?form=donate-footer" %}
             {% endblock %}
         {% endif %}
 

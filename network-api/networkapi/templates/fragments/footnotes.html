@@ -9,7 +9,7 @@
             <h3 class="footnotes-title">{% trans "Footnotes" %}</h3>
             <ol class="footnotes-list pl-0">
                 {% for footnote in page.footnotes_list %}
-                    <li class="footnote-row d-flex" id="footnote-{{ forloop.counter|unlocalize }}">
+                    <li class="footnote-row d-flex tw-scroll-mt-20 large:tw-scroll-mt-32 xlarge:tw-scroll-mt-20" id="footnote-{{ forloop.counter|unlocalize }}">
                         <a href="#footnote-source-{{ forloop.counter|unlocalize }}" class="footnote-number mr-3" aria-label="{% trans 'Back to content' %}">
                             [{{ forloop.counter }}]
                         </a>

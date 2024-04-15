@@ -284,7 +284,6 @@ MIDDLEWARE = list(
             "corsheaders.middleware.CorsMiddleware",
             "django.middleware.security.SecurityMiddleware",
             "django.middleware.clickjacking.XFrameOptionsMiddleware",
-            "networkapi.utility.middleware.ReferrerMiddleware",
             "networkapi.utility.middleware.XRobotsTagMiddleware" if XROBOTSTAG_ENABLED else None,
             "whitenoise.middleware.WhiteNoiseMiddleware",
             "django.middleware.gzip.GZipMiddleware",
@@ -628,9 +627,10 @@ CSP_INCLUDE_NONCE_IN = env("CSP_INCLUDE_NONCE_IN", default=[])
 # Security
 SECURE_BROWSER_XSS_FILTER = env("XSS_PROTECTION")
 SECURE_CONTENT_TYPE_NOSNIFF = env("CONTENT_TYPE_NO_SNIFF")
-SECURE_CROSS_ORIGIN_OPENER_POLICY = env("SECURE_CROSS_ORIGIN_OPENER_POLICY", default="'same-origin'")
+SECURE_CROSS_ORIGIN_OPENER_POLICY = env("SECURE_CROSS_ORIGIN_OPENER_POLICY", default="same-origin")
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env("SET_HSTS")
 SECURE_HSTS_SECONDS = 60 * 60 * 24 * 31 * 6
+SECURE_REFERRER_POLICY = env("SECURE_REFERRER_POLICY", default="same-origin")
 SECURE_SSL_REDIRECT = env("SSL_REDIRECT")
 # Heroku goes into an infinite redirect loop without this.
 # See https://docs.djangoproject.com/en/1.10/ref/settings/#secure-ssl-redirect
@@ -638,7 +638,6 @@ if env("SSL_REDIRECT") is True:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 X_FRAME_OPTIONS = env("X_FRAME_OPTIONS")
-REFERRER_HEADER_VALUE = env("REFERRER_HEADER_VALUE")
 
 
 # Remove the default Django loggers and configure new ones
