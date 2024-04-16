@@ -11,7 +11,7 @@
     <div class="tw-bg-white tw-min-h-lvh">
         <div class="tw-flex tw-flex-col tw-border-y-[1px] tw-border-gray-20 tw-divide-y-[1px] tw-divide-gray-20 tw-w-full" data-nav-accordion-menu>
             {% for dropdown in menu.dropdowns %}
-                {% include_block dropdown %}
+                {% include_block dropdown with style="mobile" %}
             {% endfor %}
         </div>
         <div class="tw-flex tw-flex-col tw-items-center tw-p-8">
