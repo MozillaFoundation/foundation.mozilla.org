@@ -9,6 +9,5 @@
 {% endif %}
 
 {% fragment as base_styles %}link-button tw-font-bold tw-text-lg{% endfragment %}
-{% fragment as after_arrow_styles %}after:tw-content-['_→'] after:tw-font-['Nunito_Sans']{% endfragment %}
 
-<a class="{{ nav_button_style }} {{ base_styles }} {{ after_arrow_styles }}" href="{{ value.url }}" {% if value.open_in_new_window %}target="_blank"{% endif %}>{{ value.label }}</a>
+<a class="{{ nav_button_style }} {{ base_styles }} after:tw-content-['_→'] after:tw-font-['Nunito_Sans']" href="{{ value.url }}" {% if value.open_in_new_window %}target="_blank"{% endif %}>{{ value.label }}</a>
