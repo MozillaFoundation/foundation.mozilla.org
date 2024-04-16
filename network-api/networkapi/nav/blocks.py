@@ -70,7 +70,7 @@ class NavFeaturedItem(BaseLinkBlock):
         value_class = NavItemValue
         label = "Featured Navigation Link"
         icon = "link"
-        template = "fragments/blocks/nav/featured_item.html"
+        template = "fragments/blocks/nav/featured-item.html"
 
 
 register(BaseLinkBlockAdapter(), NavFeaturedItem)
@@ -129,7 +129,7 @@ class NavFeaturedColumn(blocks.StructBlock):
     class Meta:
         label = "Featured Navigation Column"
         icon = "list-ul"
-        template = "fragments/blocks/nav/featured_column.html"
+        template = "fragments/blocks/nav/featured-column.html"
         value_class = NavColumnValue
 
 
