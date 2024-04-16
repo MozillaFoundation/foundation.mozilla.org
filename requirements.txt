@@ -228,7 +228,7 @@ social-auth-core==4.4.1
     # via social-auth-app-django
 soupsieve==2.3.1
     # via beautifulsoup4
-sqlparse==0.4.4
+sqlparse==0.5.0
     # via django
 telepath==0.3.1
     # via wagtail
