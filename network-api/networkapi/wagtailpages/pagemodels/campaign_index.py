@@ -67,12 +67,10 @@ class CampaignIndexPage(IndexPage):
 
     def get_entries(self, context=None):
         """
-        Fetches the featured pages related to this index page, ordered by their 'sort_order',
+        Fetches the featured pages related to this index page ordered by their 'sort_order',
         and returns them as their specific page instances.
         """
-        # Retrieve all FeaturedCampaignPageRelation for the current index page ordered by 'sort_order'.
         relations = self.featured_campaign_pages.all().order_by("sort_order")
-        # Fetch specific instances of pages using list comprehension and the specific() method.
         featured_pages = [relation.featured_page.specific for relation in relations]
         return featured_pages
 
