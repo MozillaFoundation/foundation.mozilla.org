@@ -28,11 +28,11 @@
                 {% endblock %}
             </div>
         {% endblock %}
-        <nav class="tw-container wide-screen-menu-container" title="{% trans "main site navigation" context "Tooltip on menu items" %}">
-            <div class="tw-row">
+        <nav class="tw-container wide-screen-menu-container large:tw-h-full" title="{% trans "main site navigation" context "Tooltip on menu items" %}">
+            <div class="tw-row tw-h-full tw-justify-between large:tw-items-center">
                 <div class="col">
-                    <div class="tw-flex tw-flex-row tw-justify-between">
-                        <div id="primary-nav-links" class="tw-w-full large:tw-w-auto large:tw-py-0 large:tw-self-center">
+                    <div class="tw-flex tw-flex-row tw-justify-between large:tw-items-center">
+                        <div id="primary-nav-links" class="tw-w-full large:tw-w-auto large:tw-py-0 large:tw-items-center">
                             <div class="tw-flex tw-items-center tw-flex-wrap large:tw-h-24">
 
                                 <button class="burger {% if page.zen_nav is not True %} d-lg-none ml-md-0 {% endif %}" aria-label="{% trans 'Open menu' %}">
@@ -48,7 +48,7 @@
                                 {% if page.zen_nav == True %}
                                     <div class="wide-screen-menu hidden">
                                 {% else %}
-                                    <div class="wide-screen-menu">
+                                    <div class="wide-screen-menu large:tw-h-full">
                                 {% endif %}
 
                                 {% block wide_screen_menu %}

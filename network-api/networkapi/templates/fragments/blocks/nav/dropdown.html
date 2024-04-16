@@ -4,26 +4,24 @@
 {% fragment as content_base_styles %}tw-py-0 tw-px-8 tw-gap-8 tw-overflow-y-auto{% endfragment %}
 
 
-
 {% fragment as content_desktop %} large:tw-container large:tw-hidden{% endfragment %}
 {% fragment as content_desktop_border %}large:tw-border large:tw-border-gray-20{% endfragment %}
 {% fragment as content_desktop_grid %}{% endfragment %}
-{% fragment as content_desktop_positioning %}large:tw-fixed large:tw-top-[90px] large:tw-left-0 large:tw-right-0 large:tw-mx-auto {% endfragment %}
+{% fragment as content_desktop_positioning %}large:tw-fixed large:tw-top-40 large:tw-left-0 large:tw-right-0 large:tw-mx-auto {% endfragment %}
+{% fragment as content_desktop_hover %}{% endfragment %}
 
-
-{% fragment as content_desktop_hover %}large:group-hover/navlink:tw-grid large:group-focus/navlink:tw-visible large:group-focus-visible/navlink:tw-visible large:group-focus-within/navlink:tw-visible large:group-hover/navlink:tw-opacity-100 large:group-focus/navlink:tw-opacity-100 large:group-focus-visible/navlink:tw-opacity-100 large:group-focus-within/navlink:tw-opacity-100{% endfragment %}
-{% fragment as title_desktop_typography %}large:tw-text-lg large:tw-text-gray-40 large:tw-border-b-3 large:tw-border-transparent{% endfragment %}
+{% fragment as title_desktop_typography %}large:tw-text-lg large:tw-text-gray-40{% endfragment %}
 {% fragment as title_desktop_hover_typography %}hover:tw-text-black hover:tw-border-black{% endfragment %}
 
 
-<div class="tw-flex tw-flex-col large:tw-inline-block tw-group/navlink" data-nav-accordion>
-    <div class="tw-flex tw-flex-row tw-items-center tw-justify-between tw-gap-4 tw-w-full tw-py-12 large:tw-py-0 tw-px-8" data-accordion-title>
-        <h5 class="{{ title_base_typography }} {{ title_desktop_typography }} {{ title_desktop_hover_typography }}">{{ value.title }}</h5>
+<div class="tw-flex tw-flex-col large:tw-border-b-6 large:tw-pt-[calc(2.5rem-14px)] large:tw-pb-[calc(2.5rem-14px-6px)] large:tw-border-black" data-nav-accordion>
+    <div class="tw-flex tw-flex-row tw-items-center tw-justify-between large:tw-items-center tw-gap-4 tw-w-full tw-py-12 large:tw-py-0 tw-px-8" data-accordion-title>
+        <h5 class="large:tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }} {{ title_desktop_hover_typography }}">{{ value.title }}</h5>
         <img src="{% static "_images/chevron.svg" %}" class="tw-w-8 tw-h-auto large:tw-hidden">
     </div>
 
     <div class="{{ content_base_styles }} {{ content_desktop_positioning }} {{ content_desktop }} {{ content_desktop_hover }}" data-accordion-content>
-        <div class="tw-flex tw-flex-col tw-p-0 tw-bg-white tw-gap-8 {{ content_desktop_grid }} {{ content_desktop_border }} large:tw-grid small:tw-w-{{ value.ncols }}/4 large:tw-grid-cols-{{ value.ncols }}" >
+        <div class="tw-flex tw-flex-col tw-p-0 tw-bg-white tw-gap-8 {{ content_desktop_grid }} {{ content_desktop_border }} large:tw-grid large:tw-w-{{ value.ncols }}/4 large:tw-grid-cols-{{ value.ncols }}" >
             {% if value.has_overview %}
                 {% include_block value.overview|first with button=value.button|first %}
             {% endif %}
