@@ -28,6 +28,9 @@
             {% for column in value.columns %}
                 {% include_block column %}
             {% endfor %}
+            {% if value.has_featured_column %}
+                {% include_block value.featured_column|first %}
+            {% endif %}
             {% comment %}
             If there is a button but no overview, we want to render the button at the bottom
             of the dropdown. Otherwise it will be rendered together with the overview.

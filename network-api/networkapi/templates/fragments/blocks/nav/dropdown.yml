@@ -9,6 +9,9 @@ context:
         columns:
           - column:
           - column:
+        has_featured_column: true
+        featured_column:
+            - featured_column:
         has_button: true
         button:
             - button:
@@ -22,3 +25,5 @@ tags:
             template_name: "fragments/blocks/nav/column.html"
         'value.button|first with style="primary-full-width"':
             template_name: "fragments/blocks/nav/variants/button--primary-full-width.html"
+        'value.featured_column|first':
+            template_name: "fragments/blocks/nav/featured-column.html"
