@@ -89,6 +89,9 @@ module.exports = {
       gridAutoRows: {
         "1fr": "1fr",
       },
+      borderWidth: {
+        '6': '6px',
+      }
     },
     // Overriding default spacing
     spacing: {
