@@ -8294,7 +8294,7 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
       padding-bottom: calc( + 22px - 6px / 2); } }
   @media (min-width: 768px) {
     #primary-nav-container .nav-links a {
-      padding-bottom: calc( 16px + 9px - 6px / 2); } }
+      padding-bottom: 1rem; } }
   #primary-nav-container .nav-links a:focus, #primary-nav-container .nav-links a:active, #primary-nav-container .nav-links a:hover {
     text-decoration: none;
     border-bottom-color: #cccccc; }
