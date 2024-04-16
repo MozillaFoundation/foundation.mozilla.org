@@ -70,7 +70,7 @@ class NavFeaturedItem(BaseLinkBlock):
         value_class = NavItemValue
         label = "Featured Navigation Link"
         icon = "link"
-        template = "fragments/nav/featured_item.html"
+        template = "fragments/blocks/nav/featured_item.html"
 
 
 register(BaseLinkBlockAdapter(), NavFeaturedItem)
@@ -81,7 +81,7 @@ class NavButton(BaseLinkBlock):
         value_class = NavItemValue
         label = "Navigation Button"
         icon = "link"
-        template = "fragments/nav/button.html"
+        template = "fragments/blocks/nav/button.html"
 
 
 register(BaseLinkBlockAdapter(), NavButton)
@@ -92,12 +92,12 @@ class NavColumnValue(blocks.StructValue):
     def has_button(self) -> bool:
         return bool(self.get("button"))
 
-    @property
-    def button(self) -> NavButton | None:
-        button = self.get("button")
-        if button:
-            return button[0]
-        return None
+    # @property
+    # def button(self) -> NavButton | None:
+    #     button = self.get("button")
+    #     if button:
+    #         return button[0]
+    #     return None
 
 
 class NavColumn(blocks.StructBlock):
@@ -117,7 +117,7 @@ class NavColumn(blocks.StructBlock):
     class Meta:
         label = "Navigation Column"
         icon = "list-ul"
-        template = "fragments/nav/column.html"
+        template = "fragments/blocks/nav/column.html"
         value_class = NavColumnValue
 
 
@@ -129,7 +129,7 @@ class NavFeaturedColumn(blocks.StructBlock):
     class Meta:
         label = "Featured Navigation Column"
         icon = "list-ul"
-        template = "fragments/nav/featured_column.html"
+        template = "fragments/blocks/nav/featured_column.html"
         value_class = NavColumnValue
 
 
@@ -140,7 +140,7 @@ class NavOverview(blocks.StructBlock):
     class Meta:
         label = "Navigation Overview"
         icon = "pilcrow"
-        template = "fragments/nav/overview.html"
+        template = "fragments/blocks/nav/overview.html"
 
 
 class NavDropdownValue(blocks.StructValue):
@@ -159,23 +159,32 @@ class NavDropdownValue(blocks.StructValue):
     def has_button(self) -> bool:
         return bool(self.get("button"))
 
-    @property
-    def button(self) -> NavButton | None:
-        button = self.get("button")
-        if button:
-            return button[0]
-        return None
+    # @property
+    # def button(self) -> NavButton | None:
+    #     button = self.get("button")
+    #     if button:
+    #         return button[0]
+    #     return None
 
     @property
     def has_featured_column(self) -> bool:
         return bool(self.get("featured_column"))
 
+    # @property
+    # def featured_column(self) -> NavFeaturedColumn | None:
+    #     featured_column = self.get("featured_column")
+    #     if featured_column:
+    #         return featured_column[0]
+    #     return None
+
     @property
-    def featured_column(self) -> NavFeaturedColumn | None:
-        featured_column = self.get("featured_column")
-        if featured_column:
-            return featured_column[0]
-        return None
+    def ncols(self) -> int:
+        ncols = len(self.get("columns"))
+        if self.has_overview:
+            ncols += 1
+        if self.has_featured_column:
+            ncols += 1
+        return ncols
 
 
 class NavDropdown(blocks.StructBlock):
@@ -285,5 +294,5 @@ class NavDropdown(blocks.StructBlock):
     class Meta:
         label = "Navigation Dropdown"
         icon = "bars"
-        template = "fragments/nav/dropdown.html"
+        template = "fragments/blocks/nav/dropdown.html"
         value_class = NavDropdownValue
