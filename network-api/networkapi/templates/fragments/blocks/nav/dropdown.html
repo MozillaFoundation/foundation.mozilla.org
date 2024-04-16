@@ -7,14 +7,14 @@
 {% fragment as content_desktop %} large:tw-container large:tw-hidden{% endfragment %}
 {% fragment as content_desktop_border %}large:tw-border large:tw-border-gray-20{% endfragment %}
 {% fragment as content_desktop_grid %}{% endfragment %}
-{% fragment as content_desktop_positioning %}large:tw-fixed large:tw-top-40 large:tw-left-0 large:tw-right-0 large:tw-mx-auto {% endfragment %}
+{% fragment as content_desktop_positioning %}large:tw-fixed large:tw-top-[calc(5rem+1px)] large:tw-left-0 large:tw-right-0 large:tw-mx-auto {% endfragment %}
 {% fragment as content_desktop_hover %}{% endfragment %}
 
 {% fragment as title_desktop_typography %}large:tw-text-lg large:tw-text-gray-40{% endfragment %}
 {% fragment as title_desktop_hover_typography %}hover:tw-text-black hover:tw-border-black{% endfragment %}
 
 
-<div class="tw-flex tw-flex-col large:tw-border-b-6 large:tw-pt-[calc(2.5rem-14px)] large:tw-pb-[calc(2.5rem-14px-6px)] large:tw-border-black" data-nav-accordion>
+<div class="tw-flex tw-flex-col large:tw-border-b-6 large:tw-pt-[calc(2.5rem-14px)] large:tw-pb-[calc(2.5rem-14px-6px+1px)] large:tw-border-black" data-nav-accordion>
     <div class="tw-flex tw-flex-row tw-items-center tw-justify-between large:tw-items-center tw-gap-4 tw-w-full tw-py-12 large:tw-py-0 tw-px-8" data-accordion-title>
         <h5 class="large:tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }} {{ title_desktop_hover_typography }}">{{ value.title }}</h5>
         <img src="{% static "_images/chevron.svg" %}" class="tw-w-8 tw-h-auto large:tw-hidden">
