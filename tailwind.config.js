@@ -6,7 +6,6 @@ const buttonPlugins = require("./tailwind-plugins/button");
 const typePlugins = require("./tailwind-plugins/type");
 const glyphPlugins = require("./tailwind-plugins/glyph");
 const formControlPlugins = require("./tailwind-plugins/form-control");
-const siteNavPlugins = require("./tailwind-plugins/site-nav");
 
 module.exports = {
   content: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
@@ -69,7 +68,6 @@ module.exports = {
     ...typePlugins,
     ...glyphPlugins,
     ...formControlPlugins,
-    ...siteNavPlugins,
     require("@tailwindcss/forms")({ strategy: "class" }),
   ],
   theme: {
