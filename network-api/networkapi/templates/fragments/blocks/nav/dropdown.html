@@ -13,7 +13,7 @@
 
 {% comment %} 2.5rem for half the navbar's height, 14px for half the title's line height, 6px for the title bottom border and 1 px for the dropdown border:{% endcomment %}
 <div class="tw-flex tw-flex-col large:tw-border-b-6 large:tw-pt-[calc(2.5rem-14px)] large:tw-pb-[calc(2.5rem-14px-6px+1px)] large:tw-border-invisible"
-    {% if style == "mobile" %}data-accordion{% elif style == "desktop" %}data-desktop-dropdown{% endif %}
+    data-{{ style }}-dropdown
     >
     <div class="tw-flex tw-flex-row tw-items-center tw-justify-between tw-w-full tw-py-12 tw-px-8 tw-gap-4 large:tw-items-center large:tw-py-0 " data-accordion-title>
         <h5 class="tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }}">{{ value.title }}</h5>

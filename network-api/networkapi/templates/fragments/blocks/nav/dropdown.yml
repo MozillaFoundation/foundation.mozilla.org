@@ -12,12 +12,13 @@ context:
         has_button: true
         button:
             - button:
+    style: mobile
 
 tags:
     include_block:
-        'value.overview with button=value.button':
+        'value.overview|first with button=value.button|first':
             template_name: "fragments/blocks/nav/overview.html"
         'column':
             template_name: "fragments/blocks/nav/column.html"
-        'button with style="primary-full-width"':
+        'value.button|first with style="primary-full-width"':
             template_name: "fragments/blocks/nav/variants/button--primary-full-width.html"

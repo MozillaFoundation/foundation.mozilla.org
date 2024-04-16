@@ -6,13 +6,13 @@
 <div class="wrapper-burger {% block wrapper_classes %}{% endblock %}">
     <div class="menu-container large:tw-h-40 {% block menu_container_classes %}{% endblock %}">
         {% block menu_content %}
-            <div class="narrow-screen-menu hidden d-lg-none">
+            <div class="narrow-screen-menu tw-bg-white hidden d-lg-none tw-overflow-y-auto">
                 {% block narrow_screen_menu %}
                     <div class="narrow-screen-menu-background tw-dark">
-                        <div class="narrow-screen-menu-container">
-                            <div class="container" role="navigation">
-                                <div class="row">
-                                    <div class="col">
+                        <div class="narrow-screen-menu-container ">
+                            <div class="tw-container" role="navigation">
+                                <div class="tw-row">
+                                    <div class="tw-flex-grow tw-max-w-full tw-flex-1">
                                         <div class="nav-links pt-3">
                                             {% block narrow_screen_nav_links %}
                                                 <div><a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}" href="{{ menu_root.url }}">{% trans "Home" %}</a></div>
@@ -28,21 +28,21 @@
                 {% endblock %}
             </div>
         {% endblock %}
-        <nav class="tw-container wide-screen-menu-container large:tw-h-full" title="{% trans "main site navigation" context "Tooltip on menu items" %}">
+        <nav class="tw-container wide-screen-menu-container tw-relative large:tw-h-full tw-bg-white" title="{% trans "main site navigation" context "Tooltip on menu items" %}">
             <div class="tw-row tw-h-full tw-justify-between large:tw-items-center">
                 <div class="col">
                     <div class="tw-flex tw-flex-row tw-justify-between large:tw-items-center">
                         <div id="primary-nav-links" class="tw-w-full large:tw-w-auto large:tw-py-0 large:tw-items-center">
                             <div class="tw-flex tw-items-center tw-flex-wrap large:tw-h-24">
 
-                                <button class="burger {% if page.zen_nav is not True %} d-lg-none ml-md-0 {% endif %}" aria-label="{% trans 'Open menu' %}">
+                                <button class="burger tw-z-50 tw-bg-white {% if page.zen_nav is not True %} large:tw-hidden small:tw-ml-0 {% endif %}" aria-label="{% trans 'Open menu' %}">
                                     <span class="burger-bar burger-bar-top"></span>
                                     <span class="burger-bar burger-bar-middle"></span>
                                     <span class="burger-bar burger-bar-bottom"></span>
                                 </button>
 
                                 {% block nav_logo %}
-                                    <a class="logo text-hide" href="/" aria-label="{% trans "Mozilla Foundation Homepage" %}">{% trans "Mozilla Foundation" %}</a>
+                                    <a class="logo text-hide tw-z-50" href="/" aria-label="{% trans "Mozilla Foundation Homepage" %}">{% trans "Mozilla Foundation" %}</a>
                                 {% endblock %}
 
                                 {% if page.zen_nav == True %}
@@ -79,9 +79,9 @@
 
 
 <div id="nav-newsletter-form-wrapper" class="d-none">
-    <div class="container tw-dark">
-        <div class="row">
-            <div class="col-12">
+    <div class="tw-container tw-dark">
+        <div class="tw-row">
+            <div class="tw-relative tw-px-8 tw-w-full">
                 <div class="newsletter-signup-module on-nav tw-pt-24"
                      data-module-type="default"
                      data-form-style="header:2-col"
