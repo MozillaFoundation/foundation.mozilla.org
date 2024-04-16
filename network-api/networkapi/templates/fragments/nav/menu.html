@@ -1,6 +1,6 @@
 {% extends "fragments/primary_nav.html" %}
 
-{% load i18n wagtailcore_tags %}
+{% load i18n wagtailcore_tags wagtailadmin_tags %}
 
 {% block menu_container_classes %}
     {{ block.super }}
@@ -23,7 +23,7 @@
 {% block wide_screen_menu %}
     <div class="tw-hidden large:tw-flex large:tw-flex-row" data-nav-accordion-menu>
         {% for dropdown in menu.dropdowns %}
-            {% include_block dropdown %}
+            {% include_block dropdown with style="desktop" %}
         {% endfor %}
     </div>
 {% endblock %}

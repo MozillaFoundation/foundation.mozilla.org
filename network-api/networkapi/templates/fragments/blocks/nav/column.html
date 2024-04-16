@@ -1,13 +1,17 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailadmin_tags %}
 
-<div class="tw-flex tw-flex-col tw-items-start tw-gap-8 tw-py-8 large:tw-w-3/12">
+{% fragment as base_styles %}tw-flex tw-flex-col tw-items-start tw-gap-8 tw-py-8{% endfragment %}
+{% fragment as desktop_layout %}large:tw-py-22 large:tw-px-8 large:tw-ms-9 large:tw-col-span-1{% endfragment %}
+
+
+<div class="{{ base_styles }} {{ desktop_layout }}">
     <h6 class="tw-self-stretch">{{ value.title }}</h6>
     <div class="tw-flex tw-flex-col tw-items-start tw-gap-8 tw-self-stretch">
         {% for item in value.nav_items %}
             <div class="tw-self-stretch">{% include_block item %}</div>
         {% endfor %}
-    </div class="tw-self-stretch tw-ps-4">
-    {% if value.has_button %}
-        {% include_block value.button with style="cta" %}
-    {% endif %}
+        {% if value.has_button %}
+            <div class="tw-self-stretch">{% include_block value.button|first with style="cta" %}</div>
+        {% endif %}
+    </div>
 </div>
