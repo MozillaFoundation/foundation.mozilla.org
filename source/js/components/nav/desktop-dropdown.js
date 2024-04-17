@@ -20,15 +20,12 @@ class NavDesktopDropdown extends Accordion {
 
   bindEvents() {
     if (this.isDesktop()) {
-      // Opens the accordion when the user interacts with the title
       this.accordion.addEventListener("focus", () => {
         this.open();
       });
       this.accordion.addEventListener("pointerenter", () => {
         this.open();
       });
-      // But only closes when you leave the content so that it stays open
-      // when you're interacting with it
       this.accordion.addEventListener("blur", () => {
         this.close();
       });
