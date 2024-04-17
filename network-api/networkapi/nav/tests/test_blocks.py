@@ -1,3 +1,4 @@
+import wagtail_factories
 from django.test import TestCase
 from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError
 from wagtail.models import Locale, Page
@@ -263,6 +264,8 @@ class TestNavDropdownBlock(TestCase):
         self.assertTrue(block.has_button)
         self.assertEqual(block.button_value, block["button"][0])
 
+        self.assertEqual(block.ncols, 4)
+
     def test_block_with_overview(self):
         """Create a nav_blocks.NavDropdown with an overview."""
         block = nav_factories.NavDropdownFactory(with_overview=True)
@@ -274,6 +277,8 @@ class TestNavDropdownBlock(TestCase):
 
         self.assertEqual(len(block["columns"]), 3)
 
+        self.assertEqual(block.ncols, 4)
+
     def test_block_with_featured_column(self):
         """Create a nav_blocks.NavDropdown with a featured column."""
         block = nav_factories.NavDropdownFactory(with_featured_column=True)
@@ -284,6 +289,8 @@ class TestNavDropdownBlock(TestCase):
         self.assertEqual(block.featured_column_value, block["featured_column"][0])
 
         self.assertEqual(len(block["columns"]), 3)
+
+        self.assertEqual(block.ncols, 4)
 
     def test_block_with_overview_and_featured_column(self):
         """Create a nav_blocks.NavDropdown with an overview and a featured column."""
@@ -299,6 +306,54 @@ class TestNavDropdownBlock(TestCase):
         self.assertEqual(block.featured_column_value, block["featured_column"][0])
 
         self.assertEqual(len(block["columns"]), 2)
+
+        self.assertEqual(block.ncols, 4)
+
+    def test_number_of_cols_prop(self):
+        """Test the number of columns property."""
+        block = nav_factories.NavDropdownFactory()
+        nav_blocks.NavDropdown().clean(block)
+
+        self.assertEqual(block.ncols, 4)
+
+        block = nav_factories.NavDropdownFactory(
+            columns=wagtail_factories.ListBlockFactory(
+                nav_factories.NavColumnFactory,
+                **{
+                    "0__title": "Column 1",
+                    "1__title": "Column 2",
+                },
+            ),
+        )
+        nav_blocks.NavDropdown().clean(block)
+        self.assertEqual(block.ncols, 2)
+
+        block = nav_factories.NavDropdownFactory(
+            columns=wagtail_factories.ListBlockFactory(
+                nav_factories.NavColumnFactory,
+                **{
+                    "0__title": "Column 1",
+                    "1__title": "Column 2",
+                    "2__title": "Column 3",
+                },
+            ),
+        )
+        nav_blocks.NavDropdown().clean(block)
+        self.assertEqual(block.ncols, 3)
+
+        block = nav_factories.NavDropdownFactory(
+            columns=wagtail_factories.ListBlockFactory(
+                nav_factories.NavColumnFactory,
+                **{
+                    "0__title": "Column 1",
+                    "1__title": "Column 2",
+                    "2__title": "Column 3",
+                    "3__title": "Column 4",
+                },
+            ),
+        )
+        nav_blocks.NavDropdown().clean(block)
+        self.assertEqual(block.ncols, 4)
 
     def test_block_without_button(self):
         """Create a nav_blocks.NavDropdown without a button."""
