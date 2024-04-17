@@ -11,7 +11,7 @@
             <div class="tw-self-stretch">{% include_block item %}</div>
         {% endfor %}
         {% if value.has_button %}
-            <div class="tw-self-stretch">{% include_block value.button|first with style="cta" %}</div>
+            <div class="tw-self-stretch">{% include_block value.button_value with style="cta" %}</div>
         {% endif %}
     </div>
 </div>

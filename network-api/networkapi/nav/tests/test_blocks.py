@@ -138,9 +138,9 @@ class TestNavColumnBlock(TestCase):
         for link in block["nav_items"]:
             self.assertIsInstance(link.block, nav_blocks.NavItem)
             self.assertIsInstance(link, nav_blocks.NavItemValue)
-        self.assertIsNotNone(block.button)
+        self.assertIsNotNone(block.button_value)
         self.assertEqual(len(block["button"]), 1)
-        self.assertEqual(block.button, block["button"][0])
+        self.assertEqual(block.button_value, block["button"][0])
         self.assertTrue(block.has_button)
 
     def test_without_button(self):
@@ -149,7 +149,7 @@ class TestNavColumnBlock(TestCase):
 
         self.assertEqual(len(block["button"]), 0)
         self.assertFalse(block.has_button)
-        self.assertIsNone(block.button)
+        self.assertIsNone(block.button_value)
 
     def test_with_variable_number_of_links(self):
         """Create a nav_blocks.NavColumn with links."""
@@ -247,7 +247,7 @@ class TestNavDropdownBlock(TestCase):
 
         self.assertEqual(len(block["overview"]), 0)
         self.assertFalse(block.has_overview)
-        self.assertIsNone(block.overview)
+        self.assertIsNone(block.overview_value)
 
         self.assertEqual(len(block["columns"]), 4)
         for column in block["columns"]:
@@ -256,12 +256,12 @@ class TestNavDropdownBlock(TestCase):
 
         self.assertEqual(len(block["featured_column"]), 0)
         self.assertFalse(block.has_featured_column)
-        self.assertIsNone(block.featured_column)
+        self.assertIsNone(block.featured_column_value)
 
         self.assertEqual(len(block["button"]), 1)
         self.assertIsInstance(block["button"][0].block, nav_blocks.NavButton)
         self.assertTrue(block.has_button)
-        self.assertEqual(block.button, block["button"][0])
+        self.assertEqual(block.button_value, block["button"][0])
 
     def test_block_with_overview(self):
         """Create a nav_blocks.NavDropdown with an overview."""
@@ -270,7 +270,7 @@ class TestNavDropdownBlock(TestCase):
 
         self.assertEqual(len(block["overview"]), 1)
         self.assertTrue(block.has_overview)
-        self.assertEqual(block.overview, block["overview"][0])
+        self.assertEqual(block.overview_value, block["overview"][0])
 
         self.assertEqual(len(block["columns"]), 3)
 
@@ -281,7 +281,7 @@ class TestNavDropdownBlock(TestCase):
 
         self.assertEqual(len(block["featured_column"]), 1)
         self.assertTrue(block.has_featured_column)
-        self.assertEqual(block.featured_column, block["featured_column"][0])
+        self.assertEqual(block.featured_column_value, block["featured_column"][0])
 
         self.assertEqual(len(block["columns"]), 3)
 
@@ -292,11 +292,11 @@ class TestNavDropdownBlock(TestCase):
 
         self.assertEqual(len(block["overview"]), 1)
         self.assertTrue(block.has_overview)
-        self.assertEqual(block.overview, block["overview"][0])
+        self.assertEqual(block.overview_value, block["overview"][0])
 
         self.assertEqual(len(block["featured_column"]), 1)
         self.assertTrue(block.has_featured_column)
-        self.assertEqual(block.featured_column, block["featured_column"][0])
+        self.assertEqual(block.featured_column_value, block["featured_column"][0])
 
         self.assertEqual(len(block["columns"]), 2)
 
@@ -307,7 +307,7 @@ class TestNavDropdownBlock(TestCase):
 
         self.assertEqual(len(block["button"]), 0)
         self.assertFalse(block.has_button)
-        self.assertIsNone(block.button)
+        self.assertIsNone(block.button_value)
 
     def test_needs_at_least_one_column(self):
         with self.assertRaises(StructBlockValidationError):

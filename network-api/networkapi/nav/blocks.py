@@ -92,12 +92,12 @@ class NavColumnValue(blocks.StructValue):
     def has_button(self) -> bool:
         return bool(self.get("button"))
 
-    # @property
-    # def button(self) -> NavButton | None:
-    #     button = self.get("button")
-    #     if button:
-    #         return button[0]
-    #     return None
+    @property
+    def button_value(self) -> NavButton | None:
+        button = self.get("button")
+        if button:
+            return button[0]
+        return None
 
 
 class NavColumn(blocks.StructBlock):
@@ -149,7 +149,7 @@ class NavDropdownValue(blocks.StructValue):
         return bool(self.get("overview"))
 
     @property
-    def overview(self) -> NavOverview | None:
+    def overview_value(self) -> NavOverview | None:
         overview = self.get("overview")
         if overview:
             return overview[0]
@@ -159,23 +159,23 @@ class NavDropdownValue(blocks.StructValue):
     def has_button(self) -> bool:
         return bool(self.get("button"))
 
-    # @property
-    # def button(self) -> NavButton | None:
-    #     button = self.get("button")
-    #     if button:
-    #         return button[0]
-    #     return None
+    @property
+    def button_value(self) -> NavButton | None:
+        button = self.get("button")
+        if button:
+            return button[0]
+        return None
 
     @property
     def has_featured_column(self) -> bool:
         return bool(self.get("featured_column"))
 
-    # @property
-    # def featured_column(self) -> NavFeaturedColumn | None:
-    #     featured_column = self.get("featured_column")
-    #     if featured_column:
-    #         return featured_column[0]
-    #     return None
+    @property
+    def featured_column_value(self) -> NavFeaturedColumn | None:
+        featured_column = self.get("featured_column")
+        if featured_column:
+            return featured_column[0]
+        return None
 
     @property
     def ncols(self) -> int:
