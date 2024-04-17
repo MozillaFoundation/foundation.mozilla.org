@@ -95,10 +95,11 @@ def generate(seed):
     reseed(seed)
 
     print("Featuring all campaign pages on Campaign Index Page")
-    for campaign in CampaignPage.objects.all():
+    for i, campaign in enumerate(CampaignPage.objects.all()):
         CampaignIndexFeaturedCampaignPageRelationFactory.create(
             index_page=campaign_index_page,
             featured_page=campaign,
+            sort_order=i,
         )
 
     reseed(seed)
