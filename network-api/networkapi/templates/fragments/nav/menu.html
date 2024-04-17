@@ -18,7 +18,7 @@
             <button class="tw-btn-secondary btn-newsletter tw-w-full">{% trans "Newsletter" %}</button>
         </div>
     </div>
-{% endblock %}
+{% endblock narrow_screen_menu %}
 
 {% block wide_screen_menu %}
     <div class="tw-hidden large:tw-flex large:tw-flex-row large:tw-items-center large:tw-h-full" data-nav-accordion-menu>
@@ -26,4 +26,4 @@
             {% include_block dropdown with style="desktop" %}
         {% endfor %}
     </div>
-{% endblock %}
+{% endblock wide_screen_menu %}
