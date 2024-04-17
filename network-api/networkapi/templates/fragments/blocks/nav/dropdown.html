@@ -14,8 +14,8 @@
 
 {% comment %} 2.5rem for half the navbar's height, 14px for half the title's line height, 6px for the title bottom border and 1 px for the dropdown border:{% endcomment %}
 <div class="tw-flex tw-flex-col large:tw-border-b-6 large:tw-pt-[calc(2.5rem-14px)] large:tw-pb-[calc(2.5rem-14px-6px+1px)] large:tw-border-invisible"
-    data-{{ style }}-dropdown
-    >
+     data-{{ style }}-dropdown
+>
     <div class="{{ dropdown_selector_base }} large:tw-items-center large:tw-py-0 " data-accordion-title>
         <h5 class="tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }}">{{ value.title }}</h5>
         <img src="{% static "_images/chevron.svg" %}" class="tw-w-8 tw-h-auto large:tw-hidden">

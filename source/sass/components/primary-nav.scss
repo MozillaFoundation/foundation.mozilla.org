@@ -243,7 +243,9 @@
       left: 0;
       right: 0;
       overflow-y: auto;
-      transition: opacity 0.2s, height 0s;
+      transition:
+        opacity 0.2s,
+        height 0s;
 
       &.hidden {
         opacity: 0;
