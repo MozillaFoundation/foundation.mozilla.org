@@ -39,7 +39,7 @@ import { initYouTubeRegretsRecommendationsPieChart } from "./foundation/pages/yo
 import { initYoutubeRegretsCarousel } from "./foundation/pages/youtube-regrets/carousel";
 import { initYoutubeRegretsLocomotiveScroll } from "./foundation/pages/youtube-regrets/locomotive-scroll";
 import Accordion from "./components/accordion/accordion.js";
-import NavDesktopDropdown from "./components/nav/nav-accordion.js";
+import NavDesktopDropdown from "./components/nav/desktop-dropdown.js";
 import NavMobileDropdown from "./components/nav/mobile-dropdown.js";
 
 // Initializing component a11y browser console logging
