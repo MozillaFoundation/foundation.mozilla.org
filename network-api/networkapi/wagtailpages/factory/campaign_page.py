@@ -17,6 +17,9 @@ from .petition import PetitionFactory
 
 
 class CampaignIndexPageFactory(IndexPageFactory):
+
+    page_size = CampaignIndexPage.PAGE_SIZES[1][0]
+
     class Meta:
         model = CampaignIndexPage
 
