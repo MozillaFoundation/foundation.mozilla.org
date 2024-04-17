@@ -59,7 +59,7 @@ from .pagemodels.buyersguide.products import (
     Update,
 )
 from .pagemodels.buyersguide.taxonomies import BuyersGuideContentCategory
-from .pagemodels.campaign_index import CampaignIndexPage
+from .pagemodels.campaign_index import CampaignIndexPage, FeaturedCampaignPageRelation
 from .pagemodels.campaigns import (
     CTA,
     BanneredCampaignPage,
