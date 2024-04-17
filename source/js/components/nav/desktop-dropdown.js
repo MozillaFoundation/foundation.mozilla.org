@@ -14,25 +14,19 @@ class NavDesktopDropdown extends Accordion {
     return Array.from(siblings).filter((sibling) => sibling !== this.accordion);
   }
 
-  isDesktop() {
-    return window.matchMedia("(min-width: 992px)").matches;
-  }
-
   bindEvents() {
-    if (this.isDesktop()) {
-      this.accordion.addEventListener("focus", () => {
-        this.open();
-      });
-      this.accordion.addEventListener("pointerenter", () => {
-        this.open();
-      });
-      this.accordion.addEventListener("blur", () => {
-        this.close();
-      });
-      this.accordion.addEventListener("pointerleave", () => {
-        this.close();
-      });
-    }
+    this.accordion.addEventListener("focus", () => {
+      this.open();
+    });
+    this.accordion.addEventListener("pointerenter", () => {
+      this.open();
+    });
+    this.accordion.addEventListener("blur", () => {
+      this.close();
+    });
+    this.accordion.addEventListener("pointerleave", () => {
+      this.close();
+    });
   }
 
   open() {
