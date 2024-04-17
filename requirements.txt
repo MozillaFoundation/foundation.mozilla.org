@@ -129,7 +129,7 @@ gitdb==4.0.9
     # via gitpython
 gitpython==3.1.41
     # via wagtail-localize-git
-gunicorn==21.2.0
+gunicorn==22.0.0
     # via -r requirements.in
 heroku3==5.2.1
     # via -r requirements.in
@@ -228,7 +228,7 @@ social-auth-core==4.4.1
     # via social-auth-app-django
 soupsieve==2.3.1
     # via beautifulsoup4
-sqlparse==0.4.4
+sqlparse==0.5.0
     # via django
 telepath==0.3.1
     # via wagtail
