@@ -2,6 +2,7 @@
 
 {% fragment as title_base_typography %}tw-font-sans tw-font-bold tw-text-xl tw-capitalize tw-text-black{% endfragment %}
 {% fragment as content_base_styles %}tw-py-0 tw-px-8 tw-gap-8 tw-overflow-y-auto{% endfragment %}
+{% fragment as dropdown_selector_base %}tw-flex tw-flex-row tw-items-center tw-justify-between tw-w-full tw-py-12 tw-px-8 tw-gap-4{% endfragment %}
 
 {% fragment as content_desktop %}large:tw-container large:tw-hidden{% endfragment %}
 {% fragment as content_desktop_border %}large:tw-border large:tw-border-gray-20{% endfragment %}
@@ -15,7 +16,7 @@
 <div class="tw-flex tw-flex-col large:tw-border-b-6 large:tw-pt-[calc(2.5rem-14px)] large:tw-pb-[calc(2.5rem-14px-6px+1px)] large:tw-border-invisible"
     data-{{ style }}-dropdown
     >
-    <div class="tw-flex tw-flex-row tw-items-center tw-justify-between tw-w-full tw-py-12 tw-px-8 tw-gap-4 large:tw-items-center large:tw-py-0 " data-accordion-title>
+    <div class="{{ dropdown_selector_base }} large:tw-items-center large:tw-py-0 " data-accordion-title>
         <h5 class="tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }}">{{ value.title }}</h5>
         <img src="{% static "_images/chevron.svg" %}" class="tw-w-8 tw-h-auto large:tw-hidden">
     </div>
