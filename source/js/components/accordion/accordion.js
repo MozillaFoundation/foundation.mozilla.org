@@ -38,14 +38,14 @@ class Accordion {
 
   open() {
     this.content.classList.remove("tw-hidden");
-    this.chevron.classList.add("tw-rotate-180");
+    this.chevron.classList.remove("tw-rotate-180");
     this.title.setAttribute("aria-expanded", "true");
     this.content.setAttribute("aria-hidden", "false");
   }
 
   close() {
     this.content.classList.add("tw-hidden");
-    this.chevron.classList.remove("tw-rotate-180");
+    this.chevron.classList.add("tw-rotate-180");
     this.title.setAttribute("aria-expanded", "false");
     this.content.setAttribute("aria-hidden", "true");
   }
