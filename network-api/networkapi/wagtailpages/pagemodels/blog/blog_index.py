@@ -134,6 +134,7 @@ class BlogIndexPage(IndexPage):
         SynchronizedField("featured_pages"),
         SynchronizedField("featured_video_post"),
         TranslatableField("callout_box"),
+        SynchronizedField("related_topics"),
     ]
 
     template = "wagtailpages/blog_index_page.html"
