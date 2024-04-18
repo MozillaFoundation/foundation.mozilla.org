@@ -17,6 +17,13 @@ module.exports = {
     // eventually we have to extract what bootstrap base/reset styles we need
     preflight: false,
   },
+  safelist: [
+    {
+      // Handle dynamic grid column sizing on templates (see fragments/blocks/nav/dropdown.html)
+      pattern: /w-(1|2|3|4)\/4/,
+      variants: ['large', 'hover', 'focus', 'large:hover', 'large:focus'],
+    },
+  ],
   plugins: [
     plugin(function ({ addUtilities }) {
       // Adding Column Count to Tailwind CSS
@@ -80,6 +87,9 @@ module.exports = {
       gridAutoRows: {
         "1fr": "1fr",
       },
+      borderWidth: {
+        '6': '6px',
+      }
     },
     // Overriding default spacing
     spacing: {

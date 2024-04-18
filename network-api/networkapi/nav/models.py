@@ -53,6 +53,8 @@ class NavMenu(
 
 @register_setting
 class SiteNavMenu(BaseSiteSetting):
+    select_related = ["active_nav_menu"]
+
     active_nav_menu = models.ForeignKey(
         "nav.NavMenu",
         null=True,

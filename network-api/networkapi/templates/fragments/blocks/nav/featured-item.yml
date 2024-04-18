@@ -1,0 +1,13 @@
+name: Navigation Featured Item
+context:
+    value:
+        label: "Make a Donation"
+        icon:
+        url: /donate
+        is_external: True
+
+tags:
+    image:
+        value.icon fill-18x18 preserve-svg:
+            raw:
+                '<img src="http://localhost:8000/images/AsaYTU0vcnQ3JEbiEoPxhIAbmKI=/9977/original/" width="18" height="18" alt=""/>'
