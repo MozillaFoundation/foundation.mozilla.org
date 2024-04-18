@@ -520,6 +520,8 @@ WAGTAILIMAGES_INDEX_PAGE_SIZE = env("WAGTAILIMAGES_INDEX_PAGE_SIZE")
 WAGTAIL_USAGE_COUNT_ENABLED = True
 WAGTAIL_I18N_ENABLED = True
 
+WAGTAILIMAGES_EXTENSIONS = ["avif", "gif", "jpg", "jpeg", "png", "webp", "svg"]
+
 # Wagtail Frontend Cache Invalidator Settings
 
 if env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"):
