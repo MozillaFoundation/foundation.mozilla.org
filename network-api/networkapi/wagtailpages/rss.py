@@ -83,5 +83,5 @@ class RSSFeed(Feed):
 class AtomFeed(RSSFeed):
     feed_type = Atom1Feed
     link = RSSFeed.link
-    feed_url = f"{RSSFeed.link}/atom/"
+    feed_url = f"{link}/atom/"
     subtitle = RSSFeed.description
