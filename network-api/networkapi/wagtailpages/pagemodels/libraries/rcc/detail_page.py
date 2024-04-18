@@ -6,6 +6,7 @@ from wagtail.admin import panels as wagtail_panels
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
+from networkapi.utility import orderables
 from networkapi.wagtailpages import utils as wagtailpages_utils
 from networkapi.wagtailpages.pagemodels import profiles
 from networkapi.wagtailpages.pagemodels.libraries import detail_page as base_detail_page
@@ -64,12 +65,25 @@ class RCCDetailPage(base_detail_page.LibraryDetailPage):
         context["content_type_names"] = self.related_content_types_names
         return context
 
+    def get_preview_template(self, request, mode_name):
+        return "previews/libraries/rcc/detail_page.html"
+
     @cached_property
     def localized_authors(self):
-        rcc_author_profiles = wagtailpages_utils.localize_queryset(
-            profiles.Profile.objects.filter(authored_rcc_articles__detail_page=self)
+        rcc_author_profiles = profiles.Profile.objects.filter(authored_rcc_articles__detail_page=self).order_by(
+            "authored_rcc_articles__sort_order"
         )
+        rcc_author_profiles = wagtailpages_utils.localize_queryset(rcc_author_profiles, preserve_order=True)
         return rcc_author_profiles
+
+    @property
+    def preview_related_authors(self):
+        """
+        Fetches related authors for CMS page previews.
+        """
+        related_authors = orderables.get_related_items(self.authors.all(), "author_profile", order_by="sort_order")
+
+        return related_authors
 
     @cached_property
     def authors_index_page(self):
