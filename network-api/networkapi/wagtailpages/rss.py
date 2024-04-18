@@ -48,7 +48,7 @@ class RSSFeed(Feed):
             try:
                 blog_index = self.get_blog_index_page()
 
-            except IndexPage.DoesNotExist:
+            except BlogIndexPage.DoesNotExist:
                 # If that doesn't yield the blog index page, there's not much we can do other than to pretend
                 # there are no posts to serialize to RSS/Atom format.
                 return []
