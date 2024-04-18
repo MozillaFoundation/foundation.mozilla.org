@@ -14,8 +14,8 @@ class RSSFeed(Feed):
     """
 
     title = "Mozilla Foundation Blog"
-    link = "https://foundation.mozilla.org/blog/"
-    feed_url = "https://foundation.mozilla.org/blog/rss/"
+    link = "/blog/"
+    feed_url = "/blog/rss/"
     description = "The Mozilla Foundation Blog"
 
     def __call__(self, request, *args, **kwargs):
