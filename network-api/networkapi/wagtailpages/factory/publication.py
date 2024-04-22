@@ -1,4 +1,4 @@
-from datetime import timezone
+from datetime import datetime, timezone
 from random import randint, random, shuffle
 
 from django.conf import settings
@@ -27,7 +27,7 @@ class PublicationPageFactory(PageFactory):
     title = Faker("text", max_nb_chars=120)
     subtitle = Faker("text", max_nb_chars=250)
     secondary_subtitle = Faker("text", max_nb_chars=250)
-    publication_date = Faker("date_object")
+    first_published_at = Faker("past_datetime", start_date=datetime(2020, 1, 1), tzinfo=timezone.utc)
     hero_image = SubFactory(ImageFactory)
     publication_file = SubFactory(DocumentFactory)
     intro_notes = Faker("sentence")
@@ -53,11 +53,7 @@ class ArticlePageFactory(PageFactory):
     publication_date = Faker("date_object")
     article_file = SubFactory(DocumentFactory)
     body = Faker("streamfield", fields=article_body_streamfield_fields)
-    first_published_at = (
-        Faker("date_time", tzinfo=timezone.utc)
-        if RANDOM_SEED and not TESTING
-        else Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
-    )
+    first_published_at = Faker("past_datetime", start_date=datetime(2020, 1, 1), tzinfo=timezone.utc)
     search_description = Faker("paragraph", nb_sentences=5, variable_nb_sentences=True)
     live = True
 

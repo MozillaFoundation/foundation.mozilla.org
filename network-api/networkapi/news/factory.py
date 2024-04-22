@@ -1,4 +1,4 @@
-from datetime import timezone
+from datetime import datetime, timezone
 from random import shuffle
 
 from django.conf import settings
@@ -57,15 +57,11 @@ class NewsFactory(DjangoModelFactory):
 
     headline = LazyAttribute(lambda o: o.headline_sentence.rstrip("."))
     outlet = Faker("company")
-    date = Faker("date") if RANDOM_SEED and not TESTING else Faker("past_date", start_date="-30d")
+    date = Faker("past_date", start_date=datetime(2020, 1, 1), tzinfo=timezone.utc)
     link = Faker("url")
     excerpt = Faker("paragraph", nb_sentences=3, variable_nb_sentences=True)
     author = Faker("name")
-    publish_after = (
-        Faker("date_time", tzinfo=timezone.utc)
-        if RANDOM_SEED and not TESTING
-        else Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
-    )
+    publish_after = Faker("past_datetime", start_date=datetime(2020, 1, 1), tzinfo=timezone.utc)
 
     # LazyAttribute helper value
     headline_sentence = Faker("sentence", nb_words=4)
