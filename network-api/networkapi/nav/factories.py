@@ -249,3 +249,13 @@ class NavMenuFactory(DjangoModelFactory):
         },
     )
     locale = factory.LazyFunction(lambda: wagtail_models.Locale.get_default())
+
+
+class NavMenuFeaturedBlogTopicRelationshipFactory(DjangoModelFactory):
+    class Meta:
+        model = nav_models.NavMenuFeaturedBlogTopicRelationship
+
+    icon = factory.SubFactory(wagtail_factories.ImageChooserBlockFactory)
+    locale = factory.LazyFunction(lambda: wagtail_models.Locale.get_default())
+    menu = factory.SubFactory("networkapi.nav.factories.NavMenuFactory")
+    topic = factory.SubFactory("networkapi.wagtailpages.factory.blog.BlogPageTopicFactory")
