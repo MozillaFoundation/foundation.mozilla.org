@@ -13,6 +13,7 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
     PageChooserPanel,
     PublishingPanel,
+    TitleFieldPanel,
 )
 from wagtail.fields import StreamField
 from wagtail.models import Locale, Orderable, Page, TranslatableMixin
@@ -165,7 +166,7 @@ class BlogPage(BasePage):
     RELATED_POSTS_MAX = 3
 
     content_panels = [
-        FieldPanel(
+        TitleFieldPanel(
             "title",
             classname="full title",
             widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
@@ -193,16 +194,7 @@ class BlogPage(BasePage):
         ),
     ]
 
-    promote_panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel("slug"),
-                FieldPanel("seo_title"),
-                FieldPanel("search_description"),
-                FieldPanel("search_image"),
-            ],
-            heading="Common page configuration",
-        ),
+    promote_panels = BasePage.promote_panels + [
         FieldPanel("tags"),
     ]
 

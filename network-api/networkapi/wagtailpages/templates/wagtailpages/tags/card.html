@@ -1,12 +1,14 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <div class="card-regular tw-h-full tw-flex tw-flex-col">
-
-    <img src={{ image }} class="full-bleed-xs" />
-
+    <a href="{{ link_url }}">
+        <img class="small:tw-w-full full-bleed-xs" src={{ image }}>
+    </a>
     <div class="full-bleed-xs tw-flex tw-flex-1">
         <div class="key-item tw-border-b-4 tw-border-gray-05 tw--mt-12 tw-bg-white tw-relative tw-mx-4 medium:tw-mx-8 tw-p-8 tw-w-full tw-flex tw-flex-col">
-            <h3 class="tw-h3-heading tw-mb-4">{{ title }}</h3>
+            <a class="tw-group tw-block hover:tw-no-underline" href="{{ link_url }}">
+                <h3 class="group-hover:tw-underline tw-h3-heading tw-mb-4">{{ title }}</h3>
+            </a>
             {% if description_is_rich_text %}
                 {{ description|richtext }}
             {% else %}
@@ -15,5 +17,4 @@
             <a class="tw-cta-link tw-mb-4" href="{{ link_url }}">{{ link_label }}</a>
         </div>
     </div>
-
 </div>

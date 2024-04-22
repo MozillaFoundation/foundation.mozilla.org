@@ -3,6 +3,7 @@ from django.template.defaultfilters import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import TranslatableMixin
+from wagtail.search import index
 
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
@@ -43,6 +44,11 @@ class BlogPageTopic(TranslatableMixin, models.Model):
         FieldPanel("intro"),
         FieldPanel("share_description"),
         FieldPanel("share_image"),
+    ]
+
+    search_fields = [
+        index.SearchField("name"),
+        index.SearchField("title"),
     ]
 
     @classmethod

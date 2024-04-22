@@ -1,13 +1,12 @@
 import json
 import typing
-from functools import cached_property
 
 from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.db import Error, models
-from django.db.models import F, OuterRef, Q
+from django.db.models import Q
 from django.db.models.functions import Coalesce
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -19,9 +18,7 @@ from django.http import (
 )
 from django.templatetags.static import static
 from django.utils import timezone
-from django.utils.text import slugify
 from django.utils.translation import gettext, gettext_lazy
-from modelcluster import models as cluster_models
 from modelcluster.fields import ParentalKey
 from wagtail import hooks
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -33,8 +30,8 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.utility import orderables
 from networkapi.wagtailpages.fields import ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.base import BasePage
-from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
-    BuyersGuideProductCategoryForm,
+from networkapi.wagtailpages.pagemodels.buyersguide.categories import (
+    BuyersGuideProductCategory,
 )
 from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
     get_buyersguide_featured_cta,
@@ -43,12 +40,7 @@ from networkapi.wagtailpages.pagemodels.buyersguide.utils import (
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-from networkapi.wagtailpages.utils import (
-    TitleWidget,
-    get_language_from_request,
-    insert_panels_after,
-    localize_queryset,
-)
+from networkapi.wagtailpages.utils import insert_panels_after, localize_queryset
 
 if typing.TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideArticlePage
@@ -60,182 +52,6 @@ TRACK_RECORD_CHOICES = [
     ("Needs Improvement", "Needs Improvement"),
     ("Bad", "Bad"),
 ]
-
-
-class BuyersGuideProductCategoryQuerySet(models.QuerySet):
-    def with_usage_annotation(self):
-        return self.annotate(
-            _is_being_used=models.Exists(
-                ProductPage.objects.filter(
-                    live=True, product_categories__category__translation_key=OuterRef("translation_key")
-                )
-            )
-        )
-
-
-class BuyersGuideProductCategory(
-    index.Indexed,
-    TranslatableMixin,
-    # models.Model
-    cluster_models.ClusterableModel,
-):
-    """
-    A simple category class for use with Buyers Guide products,
-    registered as snippet so that we can moderate them if and
-    when necessary.
-    """
-
-    name = models.CharField(max_length=100)
-
-    description = models.TextField(
-        max_length=300,
-        help_text="Description of the product category. Max. 300 characters.",
-        blank=True,
-    )
-
-    parent = models.ForeignKey(
-        "wagtailpages.BuyersGuideProductCategory",
-        related_name="+",
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        help_text="Leave this blank for a top-level category, or pick another category to nest this under",
-    )
-
-    featured = models.BooleanField(
-        default=False,
-        help_text="Featured category will appear first on Buyer's Guide site nav",
-    )
-
-    hidden = models.BooleanField(
-        default=False,
-        help_text="Hidden categories will not appear in the Buyer's Guide site nav at all",
-    )
-
-    slug = models.SlugField(
-        blank=True,
-        help_text="A URL-friendly version of the category name. This is an auto-generated field.",
-        max_length=100,
-    )
-
-    sort_order = models.IntegerField(
-        default=1,
-        help_text="Sort ordering number. Same-numbered items sort alphabetically",
-    )
-
-    share_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        verbose_name="Share Image",
-        help_text="Optional image that will apear when category page is shared.",
-    )
-
-    show_cta = models.BooleanField(
-        default=False,
-        help_text="Do we want the Buyers Guide featured CTA to be displayed on this category's page?",
-    )
-
-    objects = BuyersGuideProductCategoryQuerySet.as_manager()
-
-    panels = [
-        FieldPanel(
-            "name",
-            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 50}),
-        ),
-        FieldPanel("description"),
-        FieldPanel("parent"),
-        FieldPanel("featured"),
-        FieldPanel("hidden"),
-        FieldPanel("sort_order"),
-        FieldPanel("share_image"),
-        FieldPanel("show_cta"),
-        InlinePanel(
-            "related_article_relations",
-            heading="Related articles",
-            label="Article",
-            max_num=6,
-        ),
-    ]
-
-    translatable_fields = [
-        TranslatableField("name"),
-        TranslatableField("description"),
-        TranslatableField("related_article_relations"),
-        SynchronizedField("slug"),
-        SynchronizedField("share_image"),
-        SynchronizedField("parent"),
-    ]
-
-    @cached_property
-    def is_being_used(self):
-        try:
-            # Try to get pre-filtered/pre-fetched annotated value
-            return self._is_being_used
-        except AttributeError:
-            # It failed, let's query it ourselves
-            return ProductPage.objects.filter(
-                live=True, product_categories__category__translation_key=self.translation_key
-            ).exists()
-
-    def get_parent(self):
-        return self.parent
-
-    def get_children(self):
-        return BuyersGuideProductCategory.objects.filter(parent=self)
-
-    def get_related_articles(self) -> list["BuyersGuideArticlePage"]:
-        return orderables.get_related_items(
-            self.related_article_relations.all(),
-            "article",
-        )
-
-    def get_primary_related_articles(self) -> list["BuyersGuideArticlePage"]:
-        return self.get_related_articles()[:3]
-
-    def get_secondary_related_articles(self) -> list["BuyersGuideArticlePage"]:
-        return self.get_related_articles()[3:]
-
-    def __str__(self):
-        if self.parent is None:
-            return f"{self.name} (sort order: {self.sort_order})"
-        return f"{self.parent.name}: {self.name} (sort order: {self.sort_order})"
-
-    base_form_class = BuyersGuideProductCategoryForm
-
-    search_fields = [
-        index.SearchField("name"),
-        index.AutocompleteField("name"),
-        index.FilterField("locale_id"),
-    ]
-
-    class Meta(TranslatableMixin.Meta):
-        verbose_name = "Buyers Guide Product Category"
-        verbose_name_plural = "Buyers Guide Product Categories"
-        ordering = [
-            F("parent__sort_order").asc(nulls_first=True),
-            F("parent__name").asc(nulls_first=True),
-            "sort_order",
-            "name",
-        ]
-
-
-@receiver(post_save, sender=BuyersGuideProductCategory)
-def set_category_slug(sender, instance, created, **kwargs):
-    """Post-save hook to create a slug when creating a category.
-
-    Slugfies the name for newly created categories and syncs this with all translations.
-    """
-    if created:
-        if instance.locale.language_code == settings.LANGUAGE_CODE and not instance.slug:
-            slug = slugify(instance.name)
-            instance.slug = slug
-            instance.save(update_fields=["slug"])
-            BuyersGuideProductCategory.objects.filter(translation_key=instance.translation_key).exclude(
-                locale__language_code=settings.LANGUAGE_CODE
-            ).update(slug=slug)
-    return instance
 
 
 class BuyersGuideProductCategoryArticlePageRelation(TranslatableMixin, Orderable):
@@ -525,7 +341,9 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
         blank=True,
     )
 
-    featured = models.BooleanField(default=False, help_text="feature this update at the top of the list?")
+    featured = models.BooleanField(
+        default=False, help_text="feature this update at the top of the list?", verbose_name="Featured?"
+    )
 
     snippet = models.TextField(
         max_length=5000,
@@ -534,7 +352,8 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
 
     created_date = models.DateField(
         auto_now_add=True,
-        help_text="The date this product was created",
+        verbose_name="Created at",
+        help_text="The date this update was created",
     )
 
     panels = [
@@ -549,6 +368,7 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
         index.SearchField("title"),
         index.AutocompleteField("title"),
         index.FilterField("locale_id"),
+        index.FilterField("featured"),
     ]
 
     translatable_fields = [
@@ -560,6 +380,22 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def linked_products(self):
+        """Title of the product pages linked to this update."""
+        # Used on the snippet viewset for this model
+        product_updates = self.product_pages.all()
+        try:
+            titles = []
+            for product_update in product_updates:
+                if hasattr(product_update, "page"):
+                    titles.append(product_update.page.title)
+            if not titles:
+                return "-"
+            return " | ".join(set(titles))
+        except AttributeError:
+            return "-"
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["title"]
@@ -575,7 +411,7 @@ class ProductUpdates(TranslatableMixin, Orderable):
     )
 
     # This is the new update FK to wagtailpages.Update
-    update = models.ForeignKey(Update, on_delete=models.SET_NULL, related_name="+", null=True)
+    update = models.ForeignKey(Update, on_delete=models.SET_NULL, related_name="product_pages", null=True)
 
     translatable_fields = [
         TranslatableField("update"),
@@ -612,7 +448,7 @@ class ProductPage(BasePage):
     parent_page_types = ["wagtailpages.BuyersGuidePage"]
 
     privacy_ding = models.BooleanField(
-        verbose_name="*privacy not included ding",
+        verbose_name="*Privacy Not Included ding",
         default=False,
     )
     adult_content = models.BooleanField(
@@ -846,6 +682,9 @@ class ProductPage(BasePage):
         except Exception:
             return static("_images/buyers-guide/evergreen-social.png")
 
+    def get_preview_template(self, request, mode_name):
+        return "previews/buyersguide/product_page.html"
+
     content_panels = Page.content_panels + [
         FieldPanel("company"),
         MultiFieldPanel(
@@ -993,8 +832,22 @@ class ProductPage(BasePage):
 
     @property
     def localized_related_products(self):
-        related_products = ProductPage.objects.filter(related_product_relationships__page=self)
-        return localize_queryset(related_products).order_by("title")
+        related_products = ProductPage.objects.filter(related_product_relationships__page=self).order_by(
+            "related_product_relationships__sort_order"
+        )
+        related_products = localize_queryset(related_products, preserve_order=True)
+        return related_products.specific()
+
+    @property
+    def preview_related_products(self) -> list:
+        """
+        Fetches related product updates for CMS page previews.
+        """
+        related_products = orderables.get_related_items(
+            self.related_product_pages.all(), "related_product", order_by="sort_order"
+        )
+
+        return related_products
 
     @property
     def local_categories(self):
@@ -1004,12 +857,7 @@ class ProductPage(BasePage):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        language_code = get_language_from_request(request)
-        categories = BuyersGuideProductCategory.objects.filter(hidden=False, locale__language_code=language_code)
-        categories = localize_categories(categories)
-
         context["product"] = self
-        context["categories"] = categories
         context["featured_cta"] = self.get_featured_cta()
         context["mediaUrl"] = settings.MEDIA_URL
         context["use_commento"] = settings.USE_COMMENTO

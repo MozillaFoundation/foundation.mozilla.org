@@ -1,4 +1,4 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags i18n %}
 
 <picture
 >
@@ -55,6 +55,6 @@
       Assuming low probability for a high res screen (since it's an outdated browser).
     {% endcomment %}
         src="{{ img_1200.url }}"
-        alt=""
-    />
+        alt="{% trans "Hero Image" %}"
+    >
 </picture>

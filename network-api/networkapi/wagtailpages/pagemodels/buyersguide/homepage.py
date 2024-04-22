@@ -26,6 +26,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide import utils as bg_utils
+from networkapi.wagtailpages.templatetags.bg_nav_tags import bg_categories_in_subnav
 from networkapi.wagtailpages.templatetags.localization import relocalize_url
 from networkapi.wagtailpages.utils import (
     get_language_from_request,
@@ -183,8 +184,8 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         context = self.get_context(request)
         context["pagetype"] = "about"
         context["pageTitle"] = pgettext(
-            "*privacy not included can be localized.",
-            "How to use *privacy not included",
+            "*Privacy Not Included can be localized.",
+            "How to use *Privacy Not Included | Mozilla Foundation",
         )
         return render(request, "pages/buyersguide/about/how_to_use.html", context)
 
@@ -193,8 +194,8 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         context = self.get_context(request)
         context["pagetype"] = "about"
         context["pageTitle"] = pgettext(
-            "*privacy not included can be localized.",
-            "Why we made *privacy not included",
+            "*Privacy Not Included can be localized.",
+            "Why we made *Privacy Not Included | Mozilla Foundation",
         )
         return render(request, "pages/buyersguide/about/why_we_made.html", context)
 
@@ -207,7 +208,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             + " | "
             + pgettext(
                 "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
-                "*privacy not included",
+                "*Privacy Not Included | Mozilla Foundation",
             )
         )
         return render(request, "pages/buyersguide/about/press.html", context)
@@ -221,7 +222,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             + " | "
             + pgettext(
                 "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
-                "*privacy not included",
+                "*Privacy Not Included | Mozilla Foundation",
             )
         )
         return render(request, "pages/buyersguide/about/contact.html", context)
@@ -235,7 +236,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             + " | "
             + pgettext(
                 "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
-                "*privacy not included",
+                "*Privacy Not Included | Mozilla Foundation",
             )
         )
         return render(request, "pages/buyersguide/about/methodology.html", context)
@@ -249,7 +250,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             + " | "
             + pgettext(
                 "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
-                "*privacy not included",
+                "*Privacy Not Included | Mozilla Foundation",
             )
         )
         return render(request, "pages/buyersguide/contest.html", context)
@@ -308,7 +309,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         context["category"] = slug
         context["current_category"] = category
         context["products"] = products
-        context["pageTitle"] = f'{category.name} | {gettext("Privacy & security guide")}' f" | Mozilla Foundation"
+        context["pageTitle"] = f'{category.name} | {gettext("Privacy & Security Guide")}' f" | Mozilla Foundation"
         context["template_cache_key_fragment"] = f"{category.slug}_{request.LANGUAGE_CODE}"
 
         # Checking if category has custom metadata, if so, update the share image and description.
@@ -326,8 +327,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         sitemap = super().get_sitemap_urls(request)
         last_modified = self.last_published_at or self.latest_revision_created_at
         # Add all the available Buyers Guide categories to the sitemap
-        BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
-        categories = BuyersGuideProductCategory.objects.filter(hidden=False)
+        categories = bg_categories_in_subnav()
         for category in categories:
             sitemap.append(
                 {
@@ -375,15 +375,6 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
                 language_code=language_code,
             )
 
-        BuyersGuideProductCategory = apps.get_model(app_label="wagtailpages", model_name="BuyersGuideProductCategory")
-        category_cache_key = f"pni_home_categories_{language_code}"
-        categories = cache.get(category_cache_key)
-        if not categories:
-            categories = BuyersGuideProductCategory.objects.filter(hidden=False, locale__language_code=language_code)
-            categories = bg_utils.localize_categories(categories)
-            cache.get_or_set(category_cache_key, categories, 24 * 60 * 60)  # Set cache for 24h
-
-        context["categories"] = categories
         context["current_category"] = None
         context["featured_cta"] = self.call_to_action
         context["products"] = products

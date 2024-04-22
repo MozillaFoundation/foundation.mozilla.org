@@ -165,7 +165,7 @@ class TabbedProfileDirectory(blocks.StructBlock):
                 profile["entry_count"] = False
                 profile["user_bio_long"] = False
 
-        except (IOError, ValueError) as exception:
+        except (OSError, ValueError) as exception:
             print(str(exception))
             pass
 

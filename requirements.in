@@ -2,7 +2,7 @@ basket-client
 beautifulsoup4
 boto3
 cached_property==1.5.2
-Django==4.2.9
+Django==4.2.11
 dj-database-url
 djangorestframework
 django-admin-sortable==2.3
@@ -20,11 +20,11 @@ Faker
 future
 gunicorn
 heroku3
-pygit2==1.13.3
+pygit2==1.14.0
 python-slugify
 requests
 social-auth-app-django
-wagtail==5.2.2
+wagtail==5.2.3
 wagtail-ab-testing
 wagtail-color-panel
 wagtail-factories

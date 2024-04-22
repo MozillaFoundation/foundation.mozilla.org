@@ -1,6 +1,7 @@
 {
   "name": "Mozilla Foundation site",
   "description": "Mozilla Foundation site",
+  "stack": "heroku-22",
   "addons": [
     "heroku-postgresql:basic --version=15"
   ],
@@ -26,15 +27,16 @@
     "CSP_CHILD_SRC": "'self' https://www.youtube.com https://www.youtube-nocookie.com",
     "CSP_CONNECT_SRC": "*",
     "CSP_DEFAULT_SRC": "'none'",
-    "CSP_FRAME_ANCESTORS": "'none'",
-    "CSP_FRAME_SRC": "'self' https://js.tito.io https://www.google.com/recaptcha/",
-    "CSP_FONT_SRC": "'self' https://fonts.gstatic.com https://fonts.googleapis.com https://code.cdn.mozilla.net https://static.fundraiseup.com/fonts/ https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/",
-    "CSP_IMG_SRC": "* data:",
+    "CSP_FRAME_ANCESTORS": "'self'",
+    "CSP_FRAME_SRC": "'self' https://js.tito.io https://www.google.com/recaptcha/ https://*.stripe.com https://pay.google.com https://*.paypal.com https://*.fundraiseup.com",
+    "CSP_FONT_SRC": "'self' https://fonts.gstatic.com https://fonts.googleapis.com https://code.cdn.mozilla.net https://*.fundraiseup.com https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/",
+    "CSP_IMG_SRC": "* data: blob: https://*.fundraiseup.com https://ucarecdn.com https://pay.google.com https://*.paypalobjects.com",
     "CSP_MEDIA_SRC": "'self' https://s3.amazonaws.com/mofo-assets/foundation/video/",
-    "CSP_SCRIPT_SRC": "'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdn.syndication.twimg.com https://js.tito.io https://js-plugins.tito.io/gtm.js https://*.fundraiseup.com *.googletagmanager.com https://mozillafoundation.tfaforms.net https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ 'unsafe-eval'",
+    "CSP_SCRIPT_SRC": "'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdn.syndication.twimg.com https://js.tito.io https://js-plugins.tito.io/gtm.js https://*.fundraiseup.com https://*.googletagmanager.com https://mozillafoundation.tfaforms.net https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ 'unsafe-eval' https://*.stripe.com https://m.stripe.network https://*.paypal.com https://pay.google.com",
     "CSP_STYLE_SRC": "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com  https://platform.twitter.com https://js.tito.io https://mozillafoundation.tfaforms.net https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",
     "NPM_CONFIG_PRODUCTION": "true",
     "REVIEW_APP": "True",
+    "SECURE_CROSS_ORIGIN_OPENER_POLICY": "same-origin-allow-popups",
     "XROBOTSTAG_ENABLED": "True"
   },
   "buildpacks": [

@@ -4,6 +4,7 @@ from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Locale, Page, TranslatableMixin
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.mozfest import blocks as mozfest_blocks
@@ -52,6 +53,13 @@ class Ticket(TranslatableMixin):
         SynchronizedField("releases"),
     ]
 
+    search_fields = [
+        index.SearchField("name", boost=10),
+        index.SearchField("description"),
+        index.SearchField("group"),
+        index.FilterField("locale_id"),
+    ]
+
     def __str__(self):
         return self.name
 
@@ -73,6 +81,10 @@ class NewsletterSignupWithBackground(TranslatableMixin, campaign_models.CTA):
 
     translatable_fields = campaign_models.CTA.translatable_fields + [
         SynchronizedField("background_image"),
+    ]
+
+    search_fields = campaign_models.CTA.search_fields + [
+        index.FilterField("locale_id"),
     ]
 
     class Meta(TranslatableMixin.Meta):
@@ -140,7 +152,6 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ("current_events_slider", customblocks.CurrentEventsSliderBlock()),
             ("spaces", customblocks.SpacesBlock()),
             ("tito_widget", customblocks.TitoWidgetBlock()),
-            ("newsletter_signup", customblocks.NewsletterSignupBlock()),
             ("statistics", mozfest_blocks.StatisticsBlock()),
             ("carousel_and_text", mozfest_blocks.CarouselTextBlock()),
             ("tickets", mozfest_blocks.TicketsBlock()),
@@ -421,7 +432,7 @@ class MozfestLandingPage(MozfestPrimaryPage):
         # Content tab fields
         TranslatableField("title"),
         TranslatableField("banner_heading"),
-        SynchronizedField("banner_image"),
+        SynchronizedField("banner"),
         TranslatableField("banner_meta"),
         TranslatableField("banner_text"),
         SynchronizedField("banner_link_url"),

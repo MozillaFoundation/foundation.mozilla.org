@@ -1,4 +1,5 @@
 # flake8: noqa
+from .pagemodels.app_install import AppInstallPage
 from .pagemodels.base import (
     FocusArea,
     FoundationMetadataPageMixin,
@@ -28,6 +29,11 @@ from .pagemodels.buyersguide.campaign_page import (
     BuyersGuideCampaignPage,
     BuyersGuideCampaignPageDonationModalRelation,
 )
+from .pagemodels.buyersguide.categories import (
+    BuyersGuideCategoryNav,
+    BuyersGuideCategoryNavRelation,
+    BuyersGuideProductCategory,
+)
 from .pagemodels.buyersguide.consumer_creepometer_page import ConsumerCreepometerPage
 from .pagemodels.buyersguide.editorial_content_index import (
     BuyersGuideEditorialContentIndexPage,
@@ -40,7 +46,6 @@ from .pagemodels.buyersguide.homepage import (
     BuyersGuidePageHeroSupportingPageRelation,
 )
 from .pagemodels.buyersguide.products import (
-    BuyersGuideProductCategory,
     BuyersGuideProductCategoryArticlePageRelation,
     BuyersGuideProductPageArticlePageRelation,
     GeneralProductPage,
@@ -54,7 +59,7 @@ from .pagemodels.buyersguide.products import (
     Update,
 )
 from .pagemodels.buyersguide.taxonomies import BuyersGuideContentCategory
-from .pagemodels.campaign_index import CampaignIndexPage
+from .pagemodels.campaign_index import CampaignIndexPage, FeaturedCampaignPageRelation
 from .pagemodels.campaigns import (
     CTA,
     BanneredCampaignPage,

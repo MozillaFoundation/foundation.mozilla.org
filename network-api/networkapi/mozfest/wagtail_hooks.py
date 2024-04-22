@@ -14,8 +14,10 @@ class TitoEventSnippetViewSet(SnippetViewSet):
     list_display = (
         "title",
         "event_id",
+        "newsletter_question_id",
     )
     search_fields = ("title", "event_id", "newsletter_question_id")
+    ordering = ("title",)
 
 
 class TicketSnippetViewSet(SnippetViewSet):
@@ -28,9 +30,11 @@ class TicketSnippetViewSet(SnippetViewSet):
         "name",
         "cost",
         "event",
+        "group",
         "sticker_text",
     )
-    search_fields = ("name", "description", "cost", "button_text", "releases", "event", "sticker_text")
+    search_fields = ("name", "description", "group")
+    ordering = ("name", "event", "group", "cost")
 
 
 class NewsletterSignupWithBackgroundSnippetViewSet(SnippetViewSet):
@@ -43,7 +47,8 @@ class NewsletterSignupWithBackgroundSnippetViewSet(SnippetViewSet):
         "name",
         "newsletter",
     )
-    search_fields = ("name", "header", "description", "newsletter")
+    search_fields = ("name", "newsletter")
+    ordering = ("name",)
 
 
 class MozfestViewSetGroup(SnippetViewSetGroup):

@@ -4,6 +4,7 @@ from .accordion_block import AccordionBlock, AccordionItem
 from .advanced_table_block import AdvancedTableBlock
 from .airtable_block import AirTableBlock
 from .annotated_image_block import AnnotatedImageBlock
+from .app_install_download_button_block import AppInstallDownloadButtonBlock
 from .article_teaser_block import ArticleTeaserBlock
 from .articles import (
     ArticleDoubleImageBlock,
@@ -36,6 +37,7 @@ from .image_teaser_block import ImageTeaserBlock
 from .image_text_block import ImageTextBlock
 from .image_text_mini import ImageTextMini
 from .latest_profile_list import LatestProfileList
+from .link_block import LinkBlock
 from .link_button_block import LinkButtonBlock
 from .listing import ListingBlock
 from .looping_video_block import LoopingVideoBlock

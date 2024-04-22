@@ -1,11 +1,12 @@
 const { test, expect } = require("@playwright/test");
 const waitForImagesToLoad = require("../../wait-for-images.js");
+const { pniBaseUrl } = require("../../base-urls.js");
 
 const MOBILE_VIEWPORT = { width: 360, height: 800 };
 
 test.describe("PNI navs", () => {
   test(`Primary nav (mobile)`, async ({ page }) => {
-    const PAGE_URL = `http://localhost:8000/en/privacynotincluded`;
+    const PAGE_URL = pniBaseUrl("en");
 
     await page.setViewportSize(MOBILE_VIEWPORT);
     await page.goto(PAGE_URL);

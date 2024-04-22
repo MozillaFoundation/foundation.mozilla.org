@@ -6,6 +6,7 @@ Gnerated by 'django-admin startproject' using Django 1.10.3.
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
+
 import logging.config
 import os
 import sys
@@ -87,6 +88,7 @@ env = environ.Env(
     SCOUT_KEY=(str, ""),
     WAGTAILADMIN_BASE_URL=(str, ""),
     PATTERN_LIBRARY_ENABLED=(bool, False),
+    WAGTAIL_AB_TESTING_WORKER_TOKEN=(str, ""),
 )
 
 # Read in the environment
@@ -186,6 +188,12 @@ TESTING = "test" in sys.argv or "pytest" in sys.argv
 # Do not enable for production!
 PATTERN_LIBRARY_ENABLED = env("PATTERN_LIBRARY_ENABLED")
 
+# Wagtail AB Testing Cloudflare worker token
+# This is used to authenticate the worker that handles the caching for A/B testing
+# Not enabled on local development
+if not DEBUG:
+    WAGTAIL_AB_TESTING_WORKER_TOKEN = env("WAGTAIL_AB_TESTING_WORKER_TOKEN")
+
 INSTALLED_APPS = list(
     filter(
         None,
@@ -276,7 +284,6 @@ MIDDLEWARE = list(
             "corsheaders.middleware.CorsMiddleware",
             "django.middleware.security.SecurityMiddleware",
             "django.middleware.clickjacking.XFrameOptionsMiddleware",
-            "networkapi.utility.middleware.ReferrerMiddleware",
             "networkapi.utility.middleware.XRobotsTagMiddleware" if XROBOTSTAG_ENABLED else None,
             "whitenoise.middleware.WhiteNoiseMiddleware",
             "django.middleware.gzip.GZipMiddleware",
@@ -616,11 +623,14 @@ CSP_REPORT_URI = env("CSP_REPORT_URI", default=None)
 CSP_WORKER_SRC = env("CSP_WORKER_SRC", default=CSP_DEFAULT)
 CSP_INCLUDE_NONCE_IN = env("CSP_INCLUDE_NONCE_IN", default=[])
 
+
 # Security
 SECURE_BROWSER_XSS_FILTER = env("XSS_PROTECTION")
 SECURE_CONTENT_TYPE_NOSNIFF = env("CONTENT_TYPE_NO_SNIFF")
+SECURE_CROSS_ORIGIN_OPENER_POLICY = env("SECURE_CROSS_ORIGIN_OPENER_POLICY", default="same-origin")
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env("SET_HSTS")
 SECURE_HSTS_SECONDS = 60 * 60 * 24 * 31 * 6
+SECURE_REFERRER_POLICY = env("SECURE_REFERRER_POLICY", default="same-origin")
 SECURE_SSL_REDIRECT = env("SSL_REDIRECT")
 # Heroku goes into an infinite redirect loop without this.
 # See https://docs.djangoproject.com/en/1.10/ref/settings/#secure-ssl-redirect
@@ -628,7 +638,6 @@ if env("SSL_REDIRECT") is True:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 X_FRAME_OPTIONS = env("X_FRAME_OPTIONS")
-REFERRER_HEADER_VALUE = env("REFERRER_HEADER_VALUE")
 
 
 # Remove the default Django loggers and configure new ones

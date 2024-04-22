@@ -64,6 +64,8 @@ export default {
         and update your email preferences.
       </Fragment>
     ),
+    "Something went wrong and your signup wasn't completed. Please try again later.":
+      "Something went wrong and your signup wasn't completed. Please try again later.",
   },
 
   // German
@@ -123,6 +125,8 @@ export default {
         und Ihre E-Mail-Einstellungen aktualisieren.
       </Fragment>
     ),
+    "Something went wrong and your signup wasn't completed. Please try again later.":
+      "Etwas ist schiefgelaufen und Ihre Anmeldung konnte nicht durchgeführt werden. Bitte versuchen Sie es erneut.",
   },
 
   // Spanish
@@ -184,6 +188,8 @@ export default {
         y actualizar tus preferencias de correo electrónico.
       </Fragment>
     ),
+    "Something went wrong and your signup wasn't completed. Please try again later.":
+      "Algo salió mal y tu registro no se ha completado. Vuelve a intentarlo más tarde.",
   },
 
   // French
@@ -242,6 +248,8 @@ export default {
         et modifier vos préférences de messagerie.
       </Fragment>
     ),
+    "Something went wrong and your signup wasn't completed. Please try again later.":
+      "Quelque chose s’est mal passé et votre inscription n’a pas été finalisée. Veuillez réessayer plus tard.",
   },
 
   // Polish
@@ -299,6 +307,8 @@ export default {
         i zaktualizować preferencje.
       </Fragment>
     ),
+    "Something went wrong and your signup wasn't completed. Please try again later.":
+      "Coś poszło nie tak i rejestracja nie została ukończona. Spróbuj ponownie później.",
   },
 
   // Portuguese
@@ -357,5 +367,7 @@ export default {
         e atualizar suas preferências de e-mail.
       </Fragment>
     ),
+    "Something went wrong and your signup wasn't completed. Please try again later.":
+      "Algo deu errado e sua assinatura não foi concluída. Tente novamente mais tarde.",
   },
 };

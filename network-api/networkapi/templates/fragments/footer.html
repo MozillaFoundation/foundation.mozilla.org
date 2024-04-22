@@ -4,19 +4,7 @@
     <footer>
         {% if skip_donate != True %}
             {% block footer_donate %}
-                <div class="tw-bg-blue-40 tw-dark print:tw-hidden {{ wrapper_class }}">
-                    <div class="tw-container tw-mt-12">
-                        <div class="tw-row">
-                            <div class="tw-w-full tw-px-8">
-                                <p class="tw-h3-heading tw-mb-0">{% trans "We all love the Web. Join Mozilla in defending it." %}</p>
-                                <p class="tw-h3-heading tw-mb-12">{% trans "Let’s protect the world’s largest resource for future generations." %}</p>
-                                <div>
-                                    <a href="?form=donate" class="tw-btn-secondary tw-dark" id="donate-banner-cta">{% trans "Donate now" %}</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% include "./footer_donate_banner.html" with donate_link="?form=donate-footer" %}
             {% endblock %}
         {% endif %}
 
@@ -57,7 +45,7 @@
                                     <ul class="tw-p-0 tw-ml-0 tw-list-none tw-mb-0 link-list large:tw-columns-2">
                                         {% block general_links %}
                                             {% with footer_link_classes="tw-dark tw-text-white hover:tw-underline" %}
-                                                <li class="tw-mb-4"><a id="donate-footer-btn" href="?form=donate" class="{{ footer_link_classes }}">{% trans "Donate" %}</a></li>
+                                                <li class="tw-mb-4"><a id="donate-footer-btn" href="?form=donate-footer" class="{{ footer_link_classes }}">{% trans "Donate" %}</a></li>
                                                 <!-- the rest of the links should be listed alphabetically -->
                                                 <li class="tw-mb-4"><a href="https://careers.mozilla.org/listings/?team=Mozilla%20Foundation" class="{{ footer_link_classes }}">{% trans "Careers" %}</a></li>
                                                 <li class="tw-mb-4"><a href="https://www.mozilla.org/privacy/websites/#cookies" class="{{ footer_link_classes }}">{% trans "Cookies" %}</a></li>
@@ -89,7 +77,7 @@
                             {% endif %}
                             <div class="tw-row">
                                 <div class="tw-w-full tw-px-8">
-                                    <hr class="tw-mt-24 tw-mb-8" />
+                                    <hr class="tw-mt-24 tw-mb-8">
                                     <p class="tw-dark tw-body-small tw-mb-0">
                                         {% blocktrans with foundation_website_url='https://foundation.mozilla.org' foundation_website='foundation.mozilla.org' cc_website_url='https://foundation.mozilla.org/about/website-licensing/' %}Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="{{ foundation_website_url }}">{{ foundation_website }}</a>. Most content available under a <a href="{{ cc_website_url }}">Creative Commons license</a>.{% endblocktrans %}
                                     </p>

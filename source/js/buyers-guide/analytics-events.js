@@ -9,7 +9,7 @@ import { ReactGA, GoogleAnalytics } from "../common";
 function getQuerySelectorEvents(pageTitle, productName) {
   return {
     // "site-wide" events
-    "#donate-header-btn": {
+    "[data-donate-header-button]": {
       category: `buyersguide`,
       action: `donate tap`,
       label: `${pageTitle} donate header`,

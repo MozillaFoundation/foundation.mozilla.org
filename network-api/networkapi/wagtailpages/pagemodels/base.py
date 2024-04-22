@@ -6,6 +6,7 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Orderable as WagtailOrderable
 from wagtail.models import Page, TranslatableMixin
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
@@ -431,11 +432,11 @@ class ParticipatePage2(PrimaryPage):
 
     @property
     def ordered_featured_highlights(self):
-        return ParticipateHighlights.objects.filter(page=self).select_related("highlight").order_by("sort_order")
+        return self.featured_highlights.select_related("highlight").order_by("sort_order")
 
     @property
     def ordered_featured_highlights2(self):
-        return ParticipateHighlights2.objects.filter(page=self).select_related("highlight").order_by("sort_order")
+        return self.featured_highlights2.select_related("highlight").order_by("sort_order")
 
 
 class Styleguide(PrimaryPage):
@@ -632,6 +633,11 @@ class FocusArea(TranslatableMixin, models.Model):
         SynchronizedField("interest_icon"),
         TranslatableField("name"),
         TranslatableField("description"),
+    ]
+
+    search_fields = [
+        index.SearchField("name"),
+        index.FilterField("locale_id"),
     ]
 
     def __str__(self):
@@ -953,6 +959,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
     ]
 
     subpage_types = [
+        "AppInstallPage",
         "BanneredCampaignPage",
         "BlogIndexPage",
         "CampaignIndexPage",

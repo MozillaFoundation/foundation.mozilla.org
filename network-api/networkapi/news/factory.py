@@ -32,6 +32,27 @@ class NewsFactory(DjangoModelFactory):
         exclude = ("headline_sentence",)
 
     class Params:
+        unpublished = Trait(
+            publish_after=(
+                Faker("date_time", tzinfo=timezone.utc)
+                if RANDOM_SEED and not TESTING
+                else Faker("future_datetime", end_date="+30d", tzinfo=timezone.utc)
+            )
+        )
+        has_expiry = Trait(
+            expires=(
+                Faker("date_time", tzinfo=timezone.utc)
+                if RANDOM_SEED and not TESTING
+                else Faker("future_datetime", end_date="+30d", tzinfo=timezone.utc)
+            )
+        )
+        expired = Trait(
+            expires=(
+                Faker("date_time", tzinfo=timezone.utc)
+                if RANDOM_SEED and not TESTING
+                else Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
+            )
+        )
         video = Trait(is_video=True)
 
     headline = LazyAttribute(lambda o: o.headline_sentence.rstrip("."))

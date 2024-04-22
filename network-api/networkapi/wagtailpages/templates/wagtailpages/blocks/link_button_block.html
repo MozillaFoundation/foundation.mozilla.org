@@ -2,5 +2,5 @@
 {% load wagtailcore_tags %}
 
 {% block block_content %}
-    <a class="tw-{{ value.styling }} link-button tw-my-8" href="{{ value.URL }}">{{ value.label }}</a>
+    <a class="tw-{{ value.styling }} link-button tw-my-8" href="{{ value.url }}" {% if value.new_window %}target="_blank"{% endif %}>{{ value.label }}</a>
 {% endblock %}

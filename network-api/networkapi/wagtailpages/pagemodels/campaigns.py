@@ -7,6 +7,7 @@ from taggit.models import TaggedItemBase
 from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page, TranslatableMixin
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import get_content_related_by_tag, get_page_tree_information
@@ -41,6 +42,11 @@ class CTABase(models.Model):
         TranslatableField("header"),
         TranslatableField("description"),
         SynchronizedField("newsletter"),
+    ]
+
+    search_fields = [
+        index.SearchField("name", boost=10),
+        index.SearchField("newsletter"),
     ]
 
     def __str__(self):
@@ -108,6 +114,11 @@ class Callpower(TranslatableMixin, CTA):
         SynchronizedField("share_email"),
     ]
 
+    search_fields = CTA.search_fields + [
+        index.SearchField("campaign_id", boost=2),
+        index.FilterField("locale_id"),
+    ]
+
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
         verbose_name = "Callpower"
@@ -122,6 +133,7 @@ class Signup(TranslatableMixin, CTA):
     )
 
     ask_name = models.BooleanField(
+        verbose_name="Ask for name?",
         help_text="Check this box to show (optional) name fields",
         default=False,
     )
@@ -129,6 +141,12 @@ class Signup(TranslatableMixin, CTA):
     translatable_fields = CTA.translatable_fields + [
         SynchronizedField("campaign_id"),
         SynchronizedField("ask_name"),
+    ]
+
+    search_fields = CTA.search_fields + [
+        index.SearchField("campaign_id", boost=2),
+        index.FilterField("locale_id"),
+        index.FilterField("ask_name"),
     ]
 
     class Meta(TranslatableMixin.Meta):
@@ -184,16 +202,19 @@ class Petition(TranslatableMixin, CTA):
 
     show_country_field = models.BooleanField(
         default=False,
+        verbose_name="Show country field?",
         help_text="This toggles the visibility of the optional country dropdown field.",
     )
 
     show_postal_code_field = models.BooleanField(
         default=False,
+        verbose_name="Show postal code field?",
         help_text="This toggles the visibility of the optional postal code field.",
     )
 
     show_comment_field = models.BooleanField(
         default=False,
+        verbose_name="Show comment field?",
         help_text="This toggles the visibility of the optional comment field.",
     )
 
@@ -264,6 +285,14 @@ class Petition(TranslatableMixin, CTA):
         # Fields from the CTA model
         TranslatableField("header"),
         TranslatableField("description"),
+    ]
+
+    search_fields = CTA.search_fields + [
+        index.SearchField("campaign_id", boost=2),
+        index.FilterField("locale_id"),
+        index.FilterField("show_country_field"),
+        index.FilterField("show_postal_code_field"),
+        index.FilterField("show_comment_field"),
     ]
 
     class Meta(TranslatableMixin.Meta):
@@ -398,6 +427,7 @@ class BanneredCampaignPage(PrimaryPage):
     ]
 
     subpage_types = [
+        "AppInstallPage",
         "BanneredCampaignPage",
         "PublicationPage",
         "OpportunityPage",

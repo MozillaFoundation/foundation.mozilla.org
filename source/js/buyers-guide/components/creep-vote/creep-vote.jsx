@@ -2,7 +2,7 @@ import { Component, Fragment } from "react";
 import Creepometer from "../creepometer/creepometer.jsx";
 import CreepChart from "../creepiness-chart/creepiness-chart.jsx";
 import SocialShare from "../social-share/social-share.jsx";
-import JoinUs from "../../../components/join/join.jsx";
+import DefaultLayoutSignup from "../../../components/newsletter-signup/organisms/default-layout-signup.jsx";
 import { getText } from "../../../components/petition/locales";
 
 import CREEPINESS_LABELS from "../creepiness-labels.js";
@@ -226,15 +226,30 @@ class CreepVote extends Component {
         >
           Close
         </button>
-        <JoinUs
-          formPosition="flow"
-          flowHeading={getText(`You voted! You rock!`)}
-          flowText={getText(
-            `Now that you’re on a roll, why not join Mozilla? We’re not creepy (we promise). We actually fight back against creepy. And we need more people like you.`
-          )}
-          apiUrl={this.props.joinUsApiUrl}
-          handleSignUp={(successState) => this.handleSignUp(successState)}
-        />
+        <div className="medium:tw-mx-12">
+          <DefaultLayoutSignup
+            formPosition="pni-product-quiz"
+            formStyle="pni-creep-vote"
+            showCountryFieldByDefault="true"
+            showLanguageFieldByDefault="true"
+            ctaHeader={getText(`You voted! You rock!`)}
+            ctaDescription={
+              <p>
+                {getText(`Now that you’re on a roll, why not join Mozilla? We’re
+                not creepy (we promise). We actually fight back against creepy.
+                And we need more people like you.`)}
+              </p>
+            }
+            apiUrl={this.props.joinUsApiUrl}
+            showQuitButton="true"
+            handleQuitButtonClick={(successState) =>
+              this.handleSignUp(successState)
+            }
+            handleSubmissionSuccess={(successState) =>
+              this.handleSignUp(successState)
+            }
+          />
+        </div>
       </Fragment>
     );
   }

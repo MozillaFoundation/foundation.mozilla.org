@@ -6,8 +6,16 @@
 
 {% block page_title %}
     {% environment_prefix %}
-    {% if pageTitle %}{{ pageTitle }}
-    {% else %}{% blocktrans context "“*privacy not included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included | Shop smart and safe{% endblocktrans %} | Mozilla Foundation{% endif %}
+    {# if routable page #}
+    {% if pageTitle %}
+        {{ pageTitle }}
+    {# if custom seo_title for a wagtail page #}
+    {% elif page.seo_title %}
+        {{ page.seo_title }}
+    {# default to page.title #}
+    {% else %}
+        {% trans "*Privacy Not Included" context "*Privacy Not Included can be localized. This is a reference to the “*batteries not included” mention on toys." %} | {{ page.title }} | {% trans "Mozilla Foundation" %}
+    {% endif %}
 {% endblock %}
 
 {# TODO: consider using a different ga_identifier? #}
@@ -23,7 +31,7 @@
 
 {% block wagtail_metadata %}
     {% meta_tags %}
-    <meta name="pni-home-title" content="{% blocktrans context "“*privacy not included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included | Shop smart and safe | Mozilla Foundation{% endblocktrans %}">
+    <meta name="pni-home-title" content="{% blocktrans context "“*Privacy Not Included” can be localized. This is a reference to the “*batteries not included” mention on toys." %}*Privacy Not Included | Shop smart and safe | Mozilla Foundation{% endblocktrans %}">
     <meta name="pni-category-title" content="{% trans "Privacy & Security Guide | Mozilla Foundation" %}">
 {% endblock %}
 
@@ -77,6 +85,8 @@
 
     {% get_bg_home_page as home_page %}
 
+    {% bg_categories_in_subnav as categories %}
+
     <div class="primary-nav-container-wrapper">
         {% include "fragments/buyersguide/primary_nav.html" %}
     </div>
@@ -89,7 +99,7 @@
     {% endblock %}
 
     {% block category_nav %}
-        {% include "fragments/buyersguide/pni_category_nav.html" with show_all_reviews_as_active_category=False categories=categories current_category=current_category %}
+        {% include "fragments/buyersguide/pni_category_nav.html" with show_all_reviews_as_active_category=False current_category=current_category %}
     {% endblock %}
 
     <!-- Need to position relatives to deal with potential CSS transformations that change some stacking context of elements -->

@@ -21,15 +21,15 @@ test.describe("Donate Help Form", () => {
   // Locales supported by FormAssembly and their corresponding IDs.
   // (Locales unsupported by FA, such as SW, default to `tfa_227`)
   const formAssemblySupportedLocaleMap = {
-    "nl": "tfa_221",
+    nl: "tfa_221",
     "fy-NL": "tfa_221",
-    "en": "tfa_222",
-    "fr": "tfa_223",
-    "de": "tfa_224",
-    "pl": "tfa_228",
+    en: "tfa_222",
+    fr: "tfa_223",
+    de: "tfa_224",
+    pl: "tfa_228",
     "pt-BR": "tfa_229",
-    "es": "tfa_231",
-    "other": "tfa_227",
+    es: "tfa_231",
+    other: "tfa_227",
   };
 
   let localeToTest = foundationSupportedLocales[0];
@@ -98,10 +98,14 @@ test.describe("Donate Help Form", () => {
 
       // Test that the "Lang" input value is being prepopulated with the correct FA language code.
       if (localeToTest in formAssemblySupportedLocaleMap) {
-        expect(await langInput.inputValue()).toBe(formAssemblySupportedLocaleMap[localeToTest]);
+        expect(await langInput.inputValue()).toBe(
+          formAssemblySupportedLocaleMap[localeToTest]
+        );
       } else {
         // If current page locale is not supported by FA, the input should default to the value of "Other".
-        expect(await langInput.inputValue()).toBe(formAssemblySupportedLocaleMap["other"]);
+        expect(await langInput.inputValue()).toBe(
+          formAssemblySupportedLocaleMap["other"]
+        );
       }
 
       // Test that the "Thank You Url" input exists, is hidden, and is prepopulated with the appropriate "thank you" URL.
