@@ -248,6 +248,8 @@ class NavMenuFactory(DjangoModelFactory):
             "3": "dropdown",
         },
     )
+    enable_blog_dropdown = factory.Faker("boolean")
+    blog_button_label = factory.Faker("sentence", nb_words=3)
     locale = factory.LazyFunction(lambda: wagtail_models.Locale.get_default())
 
 
