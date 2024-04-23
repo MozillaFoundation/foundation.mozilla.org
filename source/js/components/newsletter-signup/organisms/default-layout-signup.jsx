@@ -266,7 +266,7 @@ class DefaultSignupForm extends Component {
         id={this.ids[name]}
         name={name}
         label={gettext(
-          "I'm okay with Mozilla handling my info as explained in this Privacy Notice"
+          "<span>I'm okay with Mozilla handling my info as explained in this <a target='_blank' href='https://www.mozilla.org/privacy/websites/'>Privacy Notice</a></span>"
         )}
         value={this.getFormFieldValue(name)}
         checked={this.getFormFieldValue(name) === "true"}
