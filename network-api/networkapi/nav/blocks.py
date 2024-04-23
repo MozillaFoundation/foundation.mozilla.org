@@ -294,6 +294,6 @@ class NavDropdown(blocks.StructBlock):
 
     class Meta:
         label = "Navigation Dropdown"
-        icon = "bars"
+        icon = "nav-dropdown"
         template = "fragments/blocks/nav/dropdown.html"
         value_class = NavDropdownValue
