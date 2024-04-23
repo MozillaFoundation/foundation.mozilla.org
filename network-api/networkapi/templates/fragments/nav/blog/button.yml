@@ -1,0 +1,4 @@
+name: Blog Dropdown CTA Button
+context:
+    url: "/en/blog/"
+    label: "See all blog posts"
