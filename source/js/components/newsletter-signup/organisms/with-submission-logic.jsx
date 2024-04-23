@@ -239,10 +239,14 @@ function withSubmissionLogic(WrappedComponent) {
         message = (
           <>
             <p>
-              {gettext("If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.")}
+              {gettext(
+                "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>."
+              )}
             </p>
             <p>
-              {gettext("If you have already confirmed your opt-in to receive Mozilla-related emails, you can now <a href='https://www.mozilla.org/newsletter/recovery/' target='_blank'>manage your subscriptions</a> and update your email preferences.")}
+              {gettext(
+                "If you have already confirmed your opt-in to receive Mozilla-related emails, you can now <a href='https://www.mozilla.org/newsletter/recovery/' target='_blank'>manage your subscriptions</a> and update your email preferences."
+              )}
             </p>
           </>
         );
