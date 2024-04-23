@@ -45,10 +45,6 @@
 {% block header_wrapped %}
 {% endblock %}
 
-{% block footer_block %}
-    {% include "../fragments/footer.html" %}
-{% endblock %}
-
 {% block script_bundle %}
     <script src="{% url "javascript-catalog" %}"></script>
     <script src="{% static "_js/main.compiled.js" %}"></script>
