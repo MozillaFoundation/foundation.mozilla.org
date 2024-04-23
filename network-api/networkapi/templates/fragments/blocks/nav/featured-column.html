@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailadmin_tags %}
 
 {% fragment as base_styles %}tw-flex tw-flex-col tw-items-start tw-gap-12 tw-py-8 tw-px-12 tw-bg-gray-02 tw-rounded-2xl{% endfragment %}
-{% fragment as desktop_layout %}large:tw-py-22 large:tw-px-8 large:tw-rounded-none large:tw-col-span-1{% endfragment %}
+{% fragment as desktop_layout %}large:tw-py-22 large:tw-px-12 large:tw-rounded-none large:tw-col-span-1{% endfragment %}
 
 <div class="{{ base_styles }} {{ desktop_layout }}">
     <h6 class="tw-self-stretch tw-px-4">{% block title %}{{ value.title }}{% endblock title %}</h6>
