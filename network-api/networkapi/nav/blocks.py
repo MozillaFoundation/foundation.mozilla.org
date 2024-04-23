@@ -220,7 +220,10 @@ class NavDropdown(blocks.StructBlock):
         max_num=1,
         default=[],
         label="Dropdown Button",
-        help_text="Use it to add a CTA to link to the contents of the dropdown menu",
+        help_text=(
+            "Use it to add a CTA to link to the contents of the dropdown menu. "
+            "If an overview is added, the button will be placed at the overview's column."
+        ),
     )
 
     def clean(self, value):
