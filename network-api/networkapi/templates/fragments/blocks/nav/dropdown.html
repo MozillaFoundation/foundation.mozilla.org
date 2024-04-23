@@ -4,7 +4,7 @@
 {% fragment as content_base_styles %}tw-py-0 tw-px-8 tw-gap-8 tw-overflow-y-auto{% endfragment %}
 {% fragment as dropdown_selector_base %}tw-flex tw-flex-row tw-items-center tw-justify-between tw-w-full tw-py-12 tw-px-8 tw-gap-4{% endfragment %}
 
-{% fragment as content_desktop %}large:tw-container large:tw-hidden{% endfragment %}
+{% fragment as content_desktop %}large:tw-max-w-[1250px] xlarge:tw-max-w-[1350px] 2xl:tw-max-w-[1600px] large:tw-w-full large:tw-px-24 large:tw-hidden{% endfragment %}
 {% fragment as content_desktop_border %}large:tw-border large:tw-border-gray-20{% endfragment %}
 {% comment %} 5rem is the height of the navbar and 1px is the size of the dropdown's border {% endcomment %}
 {% fragment as content_desktop_positioning %}large:tw-fixed large:tw-top-[calc(5rem+1px)] large:tw-left-0 large:tw-right-0 large:tw-mx-auto{% endfragment %}
