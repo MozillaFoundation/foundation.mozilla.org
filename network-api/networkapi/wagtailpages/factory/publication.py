@@ -1,11 +1,11 @@
-from datetime import timezone
+from datetime import timedelta
 from random import randint, random, shuffle
 
 from django.conf import settings
 from factory import Faker, SubFactory, post_generation
 from wagtail_factories import ImageFactory, PageFactory
 
-from networkapi.utility.faker.helpers import get_homepage, reseed
+from networkapi.utility.faker.helpers import get_homepage, reseed, get_random_date
 from networkapi.wagtailpages.factory.documents import DocumentFactory
 from networkapi.wagtailpages.models import ArticlePage, Profile, PublicationPage
 from networkapi.wagtailpages.pagemodels.publications.article import ArticleAuthors
@@ -27,7 +27,7 @@ class PublicationPageFactory(PageFactory):
     title = Faker("text", max_nb_chars=120)
     subtitle = Faker("text", max_nb_chars=250)
     secondary_subtitle = Faker("text", max_nb_chars=250)
-    publication_date = Faker("date_object")
+    publication_date = get_random_date()
     hero_image = SubFactory(ImageFactory)
     publication_file = SubFactory(DocumentFactory)
     intro_notes = Faker("sentence")
@@ -50,14 +50,10 @@ class ArticlePageFactory(PageFactory):
     hero_image = SubFactory(ImageFactory)
     subtitle = Faker("text", max_nb_chars=250)
     secondary_subtitle = Faker("text", max_nb_chars=250)
-    publication_date = Faker("date_object")
+    publication_date = get_random_date()
     article_file = SubFactory(DocumentFactory)
     body = Faker("streamfield", fields=article_body_streamfield_fields)
-    first_published_at = (
-        Faker("date_time", tzinfo=timezone.utc)
-        if RANDOM_SEED and not TESTING
-        else Faker("past_datetime", start_date="-30d", tzinfo=timezone.utc)
-    )
+    first_published_at = publication_date - timedelta(days=10)
     search_description = Faker("paragraph", nb_sentences=5, variable_nb_sentences=True)
     live = True
 
