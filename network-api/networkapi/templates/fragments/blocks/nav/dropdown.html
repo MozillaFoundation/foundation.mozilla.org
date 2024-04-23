@@ -14,33 +14,35 @@
 
 {% comment %} 2.5rem for half the navbar's height, 14px for half the title's line height, 6px for the title bottom border and 1 px for the dropdown border:{% endcomment %}
 <div class="tw-flex tw-flex-col large:tw-border-b-6 large:tw-pt-[calc(2.5rem-14px)] large:tw-pb-[calc(2.5rem-14px-6px+1px)] large:tw-border-invisible"
-     data-{{ style }}-dropdown
+     {% block data_class_attribute %}data-{{ style }}-dropdown{% endblock data_class_attribute %}
 >
     <div class="{{ dropdown_selector_base }} large:tw-items-center large:tw-py-0 " data-accordion-title>
-        <h5 class="tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }}">{{ value.title }}</h5>
+        <h5 class="tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }}">{% block title %}{{ value.title }}{% endblock title %}</h5>
         <img src="{% static "_images/chevron.svg" %}" height="18" width="18" alt="" class="tw-w-8 tw-h-auto tw-rotate-180 tw-transition-transform large:tw-hidden">
     </div>
 
     <div class="{{ content_base_styles }} {{ content_desktop_positioning }} {{ content_desktop }}" data-accordion-content>
-        <div class="tw-flex tw-flex-col tw-p-0 tw-bg-white tw-gap-8 {{ content_desktop_border }} large:tw-grid large:tw-w-{{ value.ncols }}/4 large:tw-grid-cols-{{ value.ncols }}" >
-            {% if value.has_overview %}
-                {% include_block value.overview_value with button=value.button_value %}
-            {% endif %}
-            {% for column in value.columns %}
-                {% include_block column %}
-            {% endfor %}
-            {% if value.has_featured_column %}
-                {% include_block value.featured_column_value %}
-            {% endif %}
-            {% comment %}
-            If there is a button but no overview, we want to render the button at the bottom
-            of the dropdown. Otherwise it will be rendered together with the overview.
-            {% endcomment %}
-            {% if value.has_button and not value.has_overview %}
-                <div class="tw-w-full tw-pb-16 large:tw-col-span-4 large:tw-py-0">
-                    {% include_block value.button_value with style="primary-full-width" %}
-                </div>
-            {% endif %}
+        <div class="tw-flex tw-flex-col tw-p-0 tw-bg-white tw-gap-8 {{ content_desktop_border }} large:tw-grid {% block grid_columns %}large:tw-w-{{ value.ncols }}/4 large:tw-grid-cols-{{ value.ncols }}{% endblock grid_columns %}">
+            {% block content %}
+                {% if value.has_overview %}
+                    {% include_block value.overview_value with button=value.button_value %}
+                {% endif %}
+                {% for column in value.columns %}
+                    {% include_block column %}
+                {% endfor %}
+                {% if value.has_featured_column %}
+                    {% include_block value.featured_column_value %}
+                {% endif %}
+                {% comment %}
+                If there is a button but no overview, we want to render the button at the bottom
+                of the dropdown. Otherwise it will be rendered together with the overview.
+                {% endcomment %}
+                {% if value.has_button and not value.has_overview %}
+                    <div class="tw-w-full tw-pb-16 large:tw-col-span-4 large:tw-py-0">
+                        {% include_block value.button_value with style="primary-full-width" %}
+                    </div>
+                {% endif %}
+            {% endblock content %}
         </div>
     </div>
 </div>

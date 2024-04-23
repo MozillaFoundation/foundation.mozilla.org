@@ -13,6 +13,9 @@
             {% for dropdown in menu.dropdowns %}
                 {% include_block dropdown with style="mobile" %}
             {% endfor %}
+            {% if menu.enable_blog_dropdown %}
+                {% include "fragments/nav/blog/blog-dropdown.html" with style="mobile" %}
+            {% endif %}
         </div>
         <div class="tw-flex tw-flex-col tw-items-center tw-p-8">
             <button class="tw-btn-secondary btn-newsletter tw-w-full">{% trans "Newsletter" %}</button>
@@ -25,5 +28,8 @@
         {% for dropdown in menu.dropdowns %}
             {% include_block dropdown with style="desktop" %}
         {% endfor %}
+        {% if menu.enable_blog_dropdown %}
+            {% include "fragments/nav/blog/blog-dropdown.html" with style="desktop" %}
+        {% endif %}
     </div>
 {% endblock wide_screen_menu %}

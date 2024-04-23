@@ -4,10 +4,12 @@
 {% fragment as desktop_layout %}large:tw-py-22 large:tw-px-8 large:tw-ms-9 large:tw-rounded-none large:tw-col-span-1{% endfragment %}
 
 <div class="{{ base_styles }} {{ desktop_layout }}">
-    <h6 class="tw-self-stretch">{{ value.title }}</h6>
+    <h6 class="tw-self-stretch">{% block title %}{{ value.title }}{% endblock title %}</h6>
     <div class="tw-flex tw-flex-col tw-items-start tw-gap-8 tw-self-stretch">
-        {% for item in value.nav_items %}
-            <div class="tw-self-stretch">{% include_block item %}</div>
-        {% endfor %}
+        {% block content %}
+            {% for item in value.nav_items %}
+                <div class="tw-self-stretch">{% include_block item %}</div>
+            {% endfor %}
+        {% endblock content %}
     </div>
 </div>
