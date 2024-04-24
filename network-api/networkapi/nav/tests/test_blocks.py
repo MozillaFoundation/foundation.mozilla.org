@@ -1,10 +1,12 @@
 import wagtail_factories
 from django.test import TestCase
 from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError
+from wagtail.images.tests import utils as wagtail_images_utils
 from wagtail.models import Locale, Page
 
 from networkapi.nav import blocks as nav_blocks
 from networkapi.nav import factories as nav_factories
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
 
 class TestNavItemBlock(TestCase):
@@ -75,6 +77,43 @@ class TestNavFeaturedItemBlock(TestCase):
         url = block["external_url"]
         self.assertEqual(block.url, url)
         self.assertTrue(block.is_external)
+
+    def test_valid_svg_upload(self):
+        """Test that an SVG file is accepted by the NavFeaturedItem model."""
+        # Create an SVG image file from the utility.
+        svg_file = wagtail_images_utils.get_test_image_file_svg()
+
+        # Create an image instance using the SVG file.
+        svg_image = ImageFactory(file=svg_file)
+
+        # Return a list of block data with the NavFeaturedItem factory, using the SVG image for "icon".
+        block_data = nav_factories.NavFeaturedItemFactory(icon=svg_image, external_url_link=True)
+
+        # Use the NavFeaturedItem model's clean() method to see if any validation errors are returned.
+        try:
+            nav_blocks.NavFeaturedItem().clean(block_data)
+        except StructBlockValidationError:
+            # We are expecting no errors. If one arrises, fail this test to let us know something is wrong.
+            self.fail("Clean method raised StructBlockValidationError unexpectedly")
+
+    def test_invalid_svg_upload(self):
+        """Test that a non-SVG file is not accepted by the NavFeaturedItem model."""
+        # Create a JPEG image file from the utility.
+        jpeg_file = wagtail_images_utils.get_test_image_file_jpeg()
+
+        # Create an image instance using the JPEG file.
+        jpeg_image = ImageFactory(file=jpeg_file)
+
+        # Return a list of block data with the NavFeaturedItem factory, using the JPEG image for "icon".
+        block_data = nav_factories.NavFeaturedItemFactory(icon=jpeg_image, external_url_link=True)
+
+        # Use the NavFeaturedItem model's clean() method to see if any validation errors are returned.
+        with self.assertRaises(StructBlockValidationError) as context:
+            nav_blocks.NavFeaturedItem().clean(block_data)
+
+        # Expecting 1 validation error, related to "icon".
+        self.assertIn("icon", context.exception.block_errors)
+        self.assertEqual(len(context.exception.block_errors), 1)
 
 
 class TestNavButton(TestCase):

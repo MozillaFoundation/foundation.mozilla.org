@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
 from django.core.exceptions import ValidationError
+from django.core.validators import FileExtensionValidator
 from django.forms.utils import ErrorList
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
@@ -49,8 +50,13 @@ class NavItem(BaseLinkBlock):
 register(BaseLinkBlockAdapter(), NavItem)
 
 
+def SVGImageFormatValidator(value):
+    validator = FileExtensionValidator(allowed_extensions=["svg"])
+    return validator(value.file)
+
+
 class NavFeaturedItem(BaseLinkBlock):
-    icon = ImageChooserBlock()
+    icon = ImageChooserBlock(validators=[SVGImageFormatValidator])
 
     def __init__(self, local_blocks=None, **kwargs):
         # Use __init__ method to change the order of the blocks when constructing
