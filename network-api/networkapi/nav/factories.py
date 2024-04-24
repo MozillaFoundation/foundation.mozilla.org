@@ -260,7 +260,9 @@ class NavMenuFeaturedBlogTopicRelationshipFactory(DjangoModelFactory):
     class Meta:
         model = nav_models.NavMenuFeaturedBlogTopicRelationship
 
-    icon = factory.SubFactory(wagtail_factories.ImageChooserBlockFactory)
+    icon = factory.SubFactory(
+        wagtail_factories.ImageChooserBlockFactory, image__file=wagtail_images_utils.get_test_image_file_svg()
+    )
     locale = factory.LazyFunction(lambda: wagtail_models.Locale.get_default())
     menu = factory.SubFactory("networkapi.nav.factories.NavMenuFactory")
     topic = factory.SubFactory("networkapi.wagtailpages.factory.blog.BlogPageTopicFactory")

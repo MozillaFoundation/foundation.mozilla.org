@@ -9,11 +9,13 @@ from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import StreamField
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
+from django.core.exceptions import ValidationError
 
 from networkapi.nav import blocks as nav_blocks
 from networkapi.nav.forms import NavMenuForm
 from networkapi.wagtailpages.models import BlogIndexPage, BlogPage, BlogPageTopic
 from networkapi.wagtailpages.utils import localize_queryset
+from networkapi.utility.images import SVGImageFormatValidator
 
 
 class NavMenuFeaturedBlogTopicRelationship(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
@@ -47,6 +49,14 @@ class NavMenuFeaturedBlogTopicRelationship(wagtail_models.TranslatableMixin, wag
 
     def __str__(self) -> str:
         return f"{self.menu} - {self.topic}"
+
+    def clean(self, value):
+        clean_values = super().clean(value)
+        icon = self.icon.file
+        if not SVGImageFormatValidator(icon):
+            raise ValidationError({'icon': 'Only SVG images are allowed for the icon field.'})
+
+        return clean_values
 
 
 class NavMenu(

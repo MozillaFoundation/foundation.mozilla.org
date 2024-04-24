@@ -1,7 +1,6 @@
 from collections import OrderedDict
 
 from django.core.exceptions import ValidationError
-from django.core.validators import FileExtensionValidator
 from django.forms.utils import ErrorList
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
@@ -12,6 +11,8 @@ from networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block impo
     BaseLinkBlockAdapter,
     BaseLinkValue,
 )
+
+from networkapi.utility.images import SVGImageFormatValidator
 
 
 class NavItemValue(BaseLinkValue):
@@ -48,11 +49,6 @@ class NavItem(BaseLinkBlock):
 
 
 register(BaseLinkBlockAdapter(), NavItem)
-
-
-def SVGImageFormatValidator(value):
-    validator = FileExtensionValidator(allowed_extensions=["svg"])
-    return validator(value.file)
 
 
 class NavFeaturedItem(BaseLinkBlock):

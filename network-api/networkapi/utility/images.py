@@ -1,5 +1,6 @@
 import os
 from datetime import datetime, timezone
+from django.core.validators import FileExtensionValidator
 
 from slugify import slugify
 
@@ -18,3 +19,8 @@ def get_image_upload_path(app_name, prop_name, instance, current_filename, suffi
         app_name=app_name,
         filename=filename,
     )
+
+
+def SVGImageFormatValidator(value):
+    validator = FileExtensionValidator(allowed_extensions=["svg"])
+    return validator(value.file)
