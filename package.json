@@ -9,9 +9,8 @@
   "scripts": {
     "build": "run-s build:clean && run-p build:common build:js:prod && npm run postcss:build && npm run postcss:font",
     "build:clean": "shx rm -rf network-api/networkapi/temp/frontend && shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js",
-    "build:common": "run-p build:images build:css build:font build:contribute",
+    "build:common": "run-p build:images build:css build:contribute",
     "build:contribute": "shx cp contribute.json network-api/networkapi/frontend/",
-    "build:font": "shx rm -rf network-api/networkapi/frontend/_font && shx cp -r source/font network-api/networkapi/frontend/_font",
     "build:images": "shx rm -rf network-api/networkapi/frontend/_images && shx cp -r source/images network-api/networkapi/frontend/_images",
     "build:js:dev": "node esbuild.config.js -- --node-env development",
     "build:js:prod": "node esbuild.config.js -- --node-env production",
