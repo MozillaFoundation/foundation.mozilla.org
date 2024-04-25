@@ -86,7 +86,7 @@ body {
     font-family: Zilla Slab;
     font-style: normal;
     font-weight: 600;
-    src: url(".https://mofo-assets-staging.s3.amazonaws.com/test-font/Semi-Slab/Normal/MozillaSemi-SlabNormalBETA03-Semibold.woff2")
+    src: url("https://mofo-assets-staging.s3.amazonaws.com/test-font/Semi-Slab/Normal/MozillaSemi-SlabNormalBETA03-Semibold.woff2")
         format("woff2");
 }
 
