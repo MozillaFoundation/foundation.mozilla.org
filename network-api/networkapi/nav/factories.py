@@ -2,6 +2,7 @@ import factory
 import wagtail_factories
 from factory.django import DjangoModelFactory
 from wagtail import models as wagtail_models
+from wagtail.images.tests import utils as wagtail_images_utils
 from wagtail.rich_text import RichText
 
 from networkapi.nav import blocks as nav_blocks
@@ -62,7 +63,9 @@ class NavFeaturedItemFactory(ExtendedStructBlockFactory):
         relative_url_link = factory.Trait(link_to="relative_url", relative_url=f'/{factory.Faker("uri_path")}')
 
     label = factory.Faker("sentence", nb_words=3)
-    icon = factory.SubFactory(wagtail_factories.ImageChooserBlockFactory)
+    icon = factory.SubFactory(
+        wagtail_factories.ImageChooserBlockFactory, image__file=wagtail_images_utils.get_test_image_file_svg()
+    )
 
     # Setup default link as external URL (it won't pass validation without a link type defined though
     # so it's still necessary to use the factory with traits)
@@ -257,7 +260,9 @@ class NavMenuFeaturedBlogTopicRelationshipFactory(DjangoModelFactory):
     class Meta:
         model = nav_models.NavMenuFeaturedBlogTopicRelationship
 
-    icon = factory.SubFactory(wagtail_factories.ImageChooserBlockFactory)
+    icon = factory.SubFactory(
+        wagtail_factories.ImageChooserBlockFactory, image__file=wagtail_images_utils.get_test_image_file_svg()
+    )
     locale = factory.LazyFunction(lambda: wagtail_models.Locale.get_default())
     menu = factory.SubFactory("networkapi.nav.factories.NavMenuFactory")
     topic = factory.SubFactory("networkapi.wagtailpages.factory.blog.BlogPageTopicFactory")
