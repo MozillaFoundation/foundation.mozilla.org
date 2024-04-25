@@ -9,7 +9,7 @@
   "scripts": {
     "copy-font-css": "shx cp source/sass/new-font.css network-api/networkapi/frontend/_font/new-font.css",
     "build": "run-s build:clean && run-p build:common build:js:prod && npm run postcss:build && npm run copy-font-css",
-    "build:clean": "shx rm -rf network-api/networkapi/temp/frontend && shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js",
+    "build:clean": "shx rm -rf network-api/networkapi/temp/frontend && shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js && mkdir -p network-api/networkapi/frontend/_font",
     "build:common": "run-p build:images build:css build:contribute",
     "build:contribute": "shx cp contribute.json network-api/networkapi/frontend/",
     "build:images": "shx rm -rf network-api/networkapi/frontend/_images && shx cp -r source/images network-api/networkapi/frontend/_images",
