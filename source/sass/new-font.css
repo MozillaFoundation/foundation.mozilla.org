@@ -10,7 +10,8 @@ body {
     font-family: Nunito Sans;
     font-style: normal;
     font-weight: 300;
-    src: var(--font-sans-300) format("woff2");
+    src: url("https://mofo-assets-staging.s3.amazonaws.com/test-font/Sans/Normal/MozillaSansNormalBETA03-Light.woff2")
+        format("woff2");
 }
 
 @font-face {
@@ -18,7 +19,8 @@ body {
     font-family: Nunito Sans;
     font-style: normal;
     font-weight: 400;
-    src: var(--font-sans-400) format("woff2");
+    src: url("https://mofo-assets-staging.s3.amazonaws.com/test-font/Sans/Normal/MozillaSansNormalBETA03-Regular.woff2")
+        format("woff2");
 }
 
 @font-face {
@@ -26,7 +28,8 @@ body {
     font-family: Nunito Sans;
     font-style: normal;
     font-weight: 700;
-    src: var(--font-sans-700) format("woff2");
+    src: url("https://mofo-assets-staging.s3.amazonaws.com/test-font/MozillaSansNormalBETA03-Bold.woff2")
+        format("woff2");
 }
 
 @font-face {
@@ -58,7 +61,8 @@ body {
     font-family: Zilla Slab;
     font-style: normal;
     font-weight: 300;
-    src: var(--font-semi-slab-300) format("woff2");
+    src: url("https://mofo-assets-staging.s3.amazonaws.com/test-font/Semi-Slab/Normal/MozillaSemi-SlabNormalBETA03-Light.woff2")
+        format("woff2");
 }
 
 @font-face {
@@ -66,7 +70,8 @@ body {
     font-family: Zilla Slab;
     font-style: normal;
     font-weight: 400;
-    src: var(--font-semi-slab-400) format("woff2");
+    src: url("https://mofo-assets-staging.s3.amazonaws.com/test-font/Semi-Slab/Normal/MozillaSemi-SlabNormalBETA03-Regular.woff2")
+        format("woff2");
 }
 
 /* @font-face {
@@ -81,7 +86,8 @@ body {
     font-family: Zilla Slab;
     font-style: normal;
     font-weight: 600;
-    src: var(--font-semi-slab-600) format("woff2");
+    src: url(".https://mofo-assets-staging.s3.amazonaws.com/test-font/Semi-Slab/Normal/MozillaSemi-SlabNormalBETA03-Semibold.woff2")
+        format("woff2");
 }
 
 @font-face {
@@ -89,5 +95,6 @@ body {
     font-family: Zilla Slab;
     font-style: normal;
     font-weight: 700;
-    src: var(--font-semi-slab-700) format("woff2");
+    src: url("https://mofo-assets-staging.s3.amazonaws.com/test-font/Semi-Slab/Normal/MozillaSemi-SlabNormalBETA03-Bold.woff2")
+        format("woff2");
 }
