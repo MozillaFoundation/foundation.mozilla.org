@@ -28,7 +28,7 @@ body {
     font-family: Nunito Sans;
     font-style: normal;
     font-weight: 700;
-    src: url("https://mofo-assets-staging.s3.amazonaws.com/test-font/MozillaSansNormalBETA03-Bold.woff2")
+    src: url("https://mofo-assets-staging.s3.amazonaws.com/test-font/Sans/Normal/MozillaSansNormalBETA03-Bold.woff2")
         format("woff2");
 }
 
