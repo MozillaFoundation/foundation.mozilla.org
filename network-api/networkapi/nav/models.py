@@ -50,13 +50,19 @@ class NavMenuFeaturedBlogTopicRelationship(wagtail_models.TranslatableMixin, wag
     def __str__(self) -> str:
         return f"{self.menu} - {self.topic}"
 
-    def clean(self, value):
-        clean_values = super().clean(value)
-        icon = self.icon.file
-        if not SVGImageFormatValidator(icon):
-            raise ValidationError({'icon': 'Only SVG images are allowed for the icon field.'})
+    def clean(self):
+        clean_data = super().clean()
 
-        return clean_values
+        # Using _id to check the database field directly, to avoid fetching the object.
+        # Fetching using "self.icon" will return a 500 error if a user does not upload an image.
+        if self.icon_id:
+            icon_image_file = self.icon.file
+            # Use SVGImageFormatValidator util to check if the uploaded image is an SVG.
+            try:
+                SVGImageFormatValidator(icon_image_file)
+            except ValidationError as error:
+                raise ValidationError({'icon': error})
+        return clean_data
 
 
 class NavMenu(

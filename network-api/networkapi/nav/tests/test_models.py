@@ -1,12 +1,15 @@
 from django.test import TestCase, override_settings
 from django.utils import translation
 from wagtail.blocks import StreamBlockValidationError
+from django.core.exceptions import ValidationError
 
 from networkapi.nav import factories as nav_factories
 from networkapi.nav import models as nav_models
 from networkapi.wagtailpages.factory import blog as blog_factories
 from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages.tests.blog.test_blog_index import BlogIndexTestCase
+
+from networkapi.wagtailpages.factory import image_factory as image_factories
 
 
 class NavMenuTests(TestCase):
@@ -221,6 +224,45 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
         # It keeps the order:
         self.assertEqual(topics[0], topic_b)
         self.assertEqual(topics[1], topic_a_fr)
+
+    def test_icon_validation_accepts_svg_files(self):
+        topic = blog_factories.BlogPageTopicFactory(locale=self.default_locale)
+        # Simulate uploading an SVG file
+        svg_icon = image_factories.ImageFactory(file__filename='icon.svg', file__extension='svg')
+
+        # Create the relationship instance but do not save it yet
+        topic_with_svg = nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
+            menu=self.menu,
+            topic=topic,
+            icon=svg_icon,
+        )
+
+        # Attempt to run the clean method, which should not raise any exceptions for valid SVG files.
+        try:
+            topic_with_svg.clean()
+        except ValidationError as e:
+            self.fail(f"Clean method raised ValidationError unexpectedly: {e}")
+
+        # Check that the icon used in the relationship is the same as the one we created
+        self.assertEqual(topic_with_svg.icon, svg_icon)
+
+    def test_featured_blog_topic_rejects_non_svg_files(self):
+        topic = blog_factories.BlogPageTopicFactory(locale=self.default_locale)
+
+        # Simulate uploading a non-SVG file
+        jpg_image = image_factories.ImageFactory(file__filename='image.jpg', file__extension='jpg')
+        topic_with_jpg = nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
+                menu=self.menu,
+                topic=topic,
+                icon=jpg_image,
+        )
+
+        with self.assertRaises(ValidationError) as cm:
+            topic_with_jpg.clean()
+
+        # Check that there's only one validation error and it's for the icon
+        self.assertEqual(len(cm.exception.error_dict), 1)
+        self.assertTrue('icon' in cm.exception.error_dict)
 
 
 @override_settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}})

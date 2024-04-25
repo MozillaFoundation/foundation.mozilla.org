@@ -80,11 +80,9 @@ class TestNavFeaturedItemBlock(TestCase):
 
     def test_valid_svg_upload(self):
         """Test that an SVG file is accepted by the NavFeaturedItem model."""
-        # Create an SVG image file from the utility.
-        svg_file = wagtail_images_utils.get_test_image_file_svg()
 
-        # Create an image instance using the SVG file.
-        svg_image = ImageFactory(file=svg_file)
+        # Create an image instance using the SVG format.
+        svg_image = ImageFactory(file__filename='icon.svg', file__extension='svg')
 
         # Return a list of block data with the NavFeaturedItem factory, using the SVG image for "icon".
         block_data = nav_factories.NavFeaturedItemFactory(icon=svg_image, external_url_link=True)
@@ -98,11 +96,9 @@ class TestNavFeaturedItemBlock(TestCase):
 
     def test_invalid_svg_upload(self):
         """Test that a non-SVG file is not accepted by the NavFeaturedItem model."""
-        # Create a JPEG image file from the utility.
-        jpeg_file = wagtail_images_utils.get_test_image_file_jpeg()
 
-        # Create an image instance using the JPEG file.
-        jpeg_image = ImageFactory(file=jpeg_file)
+        # Create an image instance using the JPEG format.
+        jpeg_image = ImageFactory(file__filename='icon.jpeg', file__extension='jpeg')
 
         # Return a list of block data with the NavFeaturedItem factory, using the JPEG image for "icon".
         block_data = nav_factories.NavFeaturedItemFactory(icon=jpeg_image, external_url_link=True)
