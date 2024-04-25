@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.functional import cached_property
 from modelcluster import fields as cluster_fields
@@ -12,6 +13,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.nav import blocks as nav_blocks
 from networkapi.nav.forms import NavMenuForm
+from networkapi.utility.images import SVGImageFormatValidator
 from networkapi.wagtailpages.models import BlogIndexPage, BlogPage, BlogPageTopic
 from networkapi.wagtailpages.utils import localize_queryset
 
@@ -34,6 +36,7 @@ class NavMenuFeaturedBlogTopicRelationship(wagtail_models.TranslatableMixin, wag
         related_name="+",
         on_delete=models.PROTECT,
         verbose_name="Icon",
+        help_text="Please use SVG format",
     )
 
     panels = [
@@ -47,6 +50,20 @@ class NavMenuFeaturedBlogTopicRelationship(wagtail_models.TranslatableMixin, wag
 
     def __str__(self) -> str:
         return f"{self.menu} - {self.topic}"
+
+    def clean(self):
+        clean_data = super().clean()
+
+        # Using _id to check the database field directly, to avoid fetching the object.
+        # Fetching using "self.icon" will return a 500 error if a user does not upload an image.
+        if self.icon_id:
+            icon_image_file = self.icon.file
+            # Use SVGImageFormatValidator util to check if the uploaded image is an SVG.
+            try:
+                SVGImageFormatValidator(icon_image_file)
+            except ValidationError as error:
+                raise ValidationError({"icon": error})
+        return clean_data
 
 
 class NavMenu(

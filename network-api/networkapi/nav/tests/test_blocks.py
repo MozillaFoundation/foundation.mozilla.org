@@ -5,6 +5,7 @@ from wagtail.models import Locale, Page
 
 from networkapi.nav import blocks as nav_blocks
 from networkapi.nav import factories as nav_factories
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
 
 class TestNavItemBlock(TestCase):
@@ -75,6 +76,39 @@ class TestNavFeaturedItemBlock(TestCase):
         url = block["external_url"]
         self.assertEqual(block.url, url)
         self.assertTrue(block.is_external)
+
+    def test_valid_svg_upload(self):
+        """Test that an SVG file is accepted by the NavFeaturedItem model."""
+
+        # Create an image instance using the SVG format.
+        svg_image = ImageFactory(file__filename="icon.svg", file__extension="svg")
+
+        # Return a list of block data with the NavFeaturedItem factory, using the SVG image for "icon".
+        block_data = nav_factories.NavFeaturedItemFactory(icon=svg_image, external_url_link=True)
+
+        # Use the NavFeaturedItem model's clean() method to see if any validation errors are returned.
+        try:
+            nav_blocks.NavFeaturedItem().clean(block_data)
+        except StructBlockValidationError:
+            # We are expecting no errors. If one arrises, fail this test to let us know something is wrong.
+            self.fail("Clean method raised StructBlockValidationError unexpectedly")
+
+    def test_invalid_svg_upload(self):
+        """Test that a non-SVG file is not accepted by the NavFeaturedItem model."""
+
+        # Create an image instance using the JPEG format.
+        jpeg_image = ImageFactory(file__filename="icon.jpeg", file__extension="jpeg")
+
+        # Return a list of block data with the NavFeaturedItem factory, using the JPEG image for "icon".
+        block_data = nav_factories.NavFeaturedItemFactory(icon=jpeg_image, external_url_link=True)
+
+        # Use the NavFeaturedItem model's clean() method to see if any validation errors are returned.
+        with self.assertRaises(StructBlockValidationError) as context:
+            nav_blocks.NavFeaturedItem().clean(block_data)
+
+        # Expecting 1 validation error, related to "icon".
+        self.assertIn("icon", context.exception.block_errors)
+        self.assertEqual(len(context.exception.block_errors), 1)
 
 
 class TestNavButton(TestCase):

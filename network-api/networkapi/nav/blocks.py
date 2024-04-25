@@ -6,6 +6,7 @@ from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.telepath import register
 
+from networkapi.utility.images import SVGImageFormatValidator
 from networkapi.wagtailpages.pagemodels.customblocks.common.base_link_block import (
     BaseLinkBlock,
     BaseLinkBlockAdapter,
@@ -50,7 +51,7 @@ register(BaseLinkBlockAdapter(), NavItem)
 
 
 class NavFeaturedItem(BaseLinkBlock):
-    icon = ImageChooserBlock()
+    icon = ImageChooserBlock(validators=[SVGImageFormatValidator], help_text="Please use SVG format")
 
     def __init__(self, local_blocks=None, **kwargs):
         # Use __init__ method to change the order of the blocks when constructing
