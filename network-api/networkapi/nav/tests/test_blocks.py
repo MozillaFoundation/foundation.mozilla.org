@@ -1,7 +1,6 @@
 import wagtail_factories
 from django.test import TestCase
 from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError
-from wagtail.images.tests import utils as wagtail_images_utils
 from wagtail.models import Locale, Page
 
 from networkapi.nav import blocks as nav_blocks
