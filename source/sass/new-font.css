@@ -1,0 +1,93 @@
+/* stylelint-disable prettier/prettier */
+body {
+    /* background: var(--test) !important; */
+}
+
+/* https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,800,900,400i */
+
+@font-face {
+    font-display: swap;
+    font-family: Nunito Sans;
+    font-style: normal;
+    font-weight: 300;
+    src: var(--font-sans-300) format("woff2");
+}
+
+@font-face {
+    font-display: swap;
+    font-family: Nunito Sans;
+    font-style: normal;
+    font-weight: 400;
+    src: var(--font-sans-400) format("woff2");
+}
+
+@font-face {
+    font-display: swap;
+    font-family: Nunito Sans;
+    font-style: normal;
+    font-weight: 700;
+    src: var(--font-sans-700) format("woff2");
+}
+
+@font-face {
+    font-display: swap;
+    font-family: Nunito Sans;
+    font-style: normal;
+    font-weight: 800;
+    /* src: url("../_font/Sans/Normal/MozillaSansNormalBETA03-Light.woff2")
+        format("woff2"); */
+}
+
+@font-face {
+    font-display: swap;
+    font-family: Nunito Sans;
+    font-style: normal;
+    font-weight: 900;
+    /* src: url("../_font/Sans/Normal/MozillaSansNormalBETA03-Light.woff2")
+        format("woff2"); */
+}
+
+
+
+
+
+/* https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,500,600,700,300i,400i,600i */
+
+@font-face {
+    font-display: swap;
+    font-family: Zilla Slab;
+    font-style: normal;
+    font-weight: 300;
+    src: var(--font-semi-slab-300) format("woff2");
+}
+
+@font-face {
+    font-display: swap;
+    font-family: Zilla Slab;
+    font-style: normal;
+    font-weight: 400;
+    src: var(--font-semi-slab-400) format("woff2");
+}
+
+/* @font-face {
+    font-display: swap;
+    font-family: Zilla Slab;
+    font-style: normal;
+    font-weight: 500;
+} */
+
+@font-face {
+    font-display: swap;
+    font-family: Zilla Slab;
+    font-style: normal;
+    font-weight: 600;
+    src: var(--font-semi-slab-600) format("woff2");
+}
+
+@font-face {
+    font-display: swap;
+    font-family: Zilla Slab;
+    font-style: normal;
+    font-weight: 700;
+    src: var(--font-semi-slab-700) format("woff2");
+}
