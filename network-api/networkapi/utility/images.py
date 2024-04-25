@@ -1,7 +1,7 @@
 import os
 from datetime import datetime, timezone
-from django.core.validators import FileExtensionValidator
 
+from django.core.validators import FileExtensionValidator
 from slugify import slugify
 
 

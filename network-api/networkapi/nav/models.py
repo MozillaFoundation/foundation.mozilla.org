@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.functional import cached_property
 from modelcluster import fields as cluster_fields
@@ -9,13 +10,12 @@ from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import StreamField
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-from django.core.exceptions import ValidationError
 
 from networkapi.nav import blocks as nav_blocks
 from networkapi.nav.forms import NavMenuForm
+from networkapi.utility.images import SVGImageFormatValidator
 from networkapi.wagtailpages.models import BlogIndexPage, BlogPage, BlogPageTopic
 from networkapi.wagtailpages.utils import localize_queryset
-from networkapi.utility.images import SVGImageFormatValidator
 
 
 class NavMenuFeaturedBlogTopicRelationship(wagtail_models.TranslatableMixin, wagtail_models.Orderable):
@@ -36,6 +36,7 @@ class NavMenuFeaturedBlogTopicRelationship(wagtail_models.TranslatableMixin, wag
         related_name="+",
         on_delete=models.PROTECT,
         verbose_name="Icon",
+        help_text="Please use SVG format",
     )
 
     panels = [
@@ -61,7 +62,7 @@ class NavMenuFeaturedBlogTopicRelationship(wagtail_models.TranslatableMixin, wag
             try:
                 SVGImageFormatValidator(icon_image_file)
             except ValidationError as error:
-                raise ValidationError({'icon': error})
+                raise ValidationError({"icon": error})
         return clean_data
 
 

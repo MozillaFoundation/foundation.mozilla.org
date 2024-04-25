@@ -82,7 +82,7 @@ class TestNavFeaturedItemBlock(TestCase):
         """Test that an SVG file is accepted by the NavFeaturedItem model."""
 
         # Create an image instance using the SVG format.
-        svg_image = ImageFactory(file__filename='icon.svg', file__extension='svg')
+        svg_image = ImageFactory(file__filename="icon.svg", file__extension="svg")
 
         # Return a list of block data with the NavFeaturedItem factory, using the SVG image for "icon".
         block_data = nav_factories.NavFeaturedItemFactory(icon=svg_image, external_url_link=True)
@@ -98,7 +98,7 @@ class TestNavFeaturedItemBlock(TestCase):
         """Test that a non-SVG file is not accepted by the NavFeaturedItem model."""
 
         # Create an image instance using the JPEG format.
-        jpeg_image = ImageFactory(file__filename='icon.jpeg', file__extension='jpeg')
+        jpeg_image = ImageFactory(file__filename="icon.jpeg", file__extension="jpeg")
 
         # Return a list of block data with the NavFeaturedItem factory, using the JPEG image for "icon".
         block_data = nav_factories.NavFeaturedItemFactory(icon=jpeg_image, external_url_link=True)
