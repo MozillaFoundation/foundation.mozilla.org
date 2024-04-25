@@ -32,24 +32,6 @@ body {
         format("woff2");
 }
 
-@font-face {
-    font-display: swap;
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: 800;
-    /* src: url("../_font/Sans/Normal/MozillaSansNormalBETA03-Light.woff2")
-        format("woff2"); */
-}
-
-@font-face {
-    font-display: swap;
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: 900;
-    /* src: url("../_font/Sans/Normal/MozillaSansNormalBETA03-Light.woff2")
-        format("woff2"); */
-}
-
 
 
 
@@ -73,13 +55,6 @@ body {
     src: url("https://mofo-assets-staging.s3.amazonaws.com/test-font/Semi-Slab/Normal/MozillaSemi-SlabNormalBETA03-Regular.woff2")
         format("woff2");
 }
-
-/* @font-face {
-    font-display: swap;
-    font-family: Zilla Slab;
-    font-style: normal;
-    font-weight: 500;
-} */
 
 @font-face {
     font-display: swap;
