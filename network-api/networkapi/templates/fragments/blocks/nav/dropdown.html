@@ -18,7 +18,6 @@
     {% check_if_dropdown_is_active dropdown_id as is_dropdown_active %}
 {% endif %}
 
-
 <div class="tw-flex tw-flex-col"
      {% block data_class_attribute %}data-{{ style }}-dropdown{% endblock data_class_attribute %}
      data-is-wayfinding-active="{% if is_dropdown_active %}true{% else %}false{% endif %}"
