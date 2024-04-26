@@ -293,10 +293,8 @@ class TestNavDropdownBlock(TestCase):
         self.assertFalse(block.has_featured_column)
         self.assertIsNone(block.featured_column_value)
 
-        self.assertEqual(len(block["button"]), 1)
-        self.assertIsInstance(block["button"][0].block, nav_blocks.NavButton)
-        self.assertTrue(block.has_button)
-        self.assertEqual(block.button_value, block["button"][0])
+        self.assertTrue(block["button"])
+        self.assertIsInstance(block["button"].block, nav_blocks.NavButton)
 
         self.assertEqual(block.ncols, 4)
 
@@ -389,14 +387,12 @@ class TestNavDropdownBlock(TestCase):
         nav_blocks.NavDropdown().clean(block)
         self.assertEqual(block.ncols, 4)
 
-    def test_block_without_button(self):
-        """Create a nav_blocks.NavDropdown without a button."""
-        block = nav_factories.NavDropdownFactory(no_button=True)
-        nav_blocks.NavDropdown().clean(block)
-
-        self.assertEqual(len(block["button"]), 0)
-        self.assertFalse(block.has_button)
-        self.assertIsNone(block.button_value)
+    def test_cannot_have_block_without_button(self):
+        """Cannot create a nav_blocks.NavDropdown without a button."""
+        # Here it raises an attribute error because it assumes that a button will be present
+        with self.assertRaises(AttributeError):
+            block = nav_factories.NavDropdownFactory(button=None)
+            nav_blocks.NavDropdown().clean(block)
 
     def test_needs_at_least_one_column(self):
         with self.assertRaises(StructBlockValidationError):

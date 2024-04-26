@@ -12,6 +12,7 @@ from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.nav import blocks as nav_blocks
+from networkapi.nav import utils as nav_utils
 from networkapi.nav.forms import NavMenuForm
 from networkapi.utility.images import SVGImageFormatValidator
 from networkapi.wagtailpages.models import BlogIndexPage, BlogPage, BlogPageTopic
@@ -187,6 +188,51 @@ class NavMenu(
     @cached_property
     def blog_button_url(self):
         return self.blog_index_page.url
+
+    @cached_property
+    def page_references_per_dropdown(self):
+        """Get CMS page objects per dropdown id."""
+        dropdown_page_links = {}
+        for dropdown in self.dropdowns.raw_data:
+            local_page_ids = list(nav_utils.find_key_values(dropdown, "page"))
+            local_page_ids = [id for id in local_page_ids if id]  # filter out empty values
+            dropdown_page_links[dropdown["id"]] = {"page_ids": local_page_ids, "self_page_id": None}
+            dropdown_button_page_link = dropdown["value"]["button"]["page"]
+            dropdown_button_link_to = dropdown["value"]["button"]["link_to"]
+            if dropdown_button_page_link and (dropdown_button_link_to == "page"):
+                dropdown_page_links[dropdown["id"]]["self_page_id"] = dropdown_button_page_link
+
+        # Get a flat list of ids:
+        page_ids = []
+        for dropdown in dropdown_page_links.values():
+            page_ids.extend(dropdown["page_ids"])
+
+        # Get all paths for the pages:
+        paths = wagtail_models.Page.objects.filter(id__in=page_ids).values("id", "path")
+        paths = {p["id"]: p["path"] for p in paths}
+
+        # Map the paths to the dropdowns:
+        for dropdown in dropdown_page_links.values():
+            for id in dropdown["page_ids"]:
+                dropdown[id] = paths[id]
+
+        return dropdown_page_links
+
+    @cached_property
+    def page_references(self):
+        """Get all the CMS page objects referenced in the dropdowns."""
+        page_ids = []
+        for dropdown in self.dropdowns.raw_data:
+            page_ids.extend(list(nav_utils.find_key_values(dropdown, "page")))
+
+        # Filter out empty values
+        page_ids = [id for id in page_ids if id]
+
+        # Get all paths for the pages:
+        paths = wagtail_models.Page.objects.filter(id__in=page_ids).values("id", "path")
+        paths = {p["id"]: p["path"] for p in paths}
+
+        return paths
 
 
 @register_setting(icon="nav-menu")

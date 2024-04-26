@@ -220,7 +220,6 @@ class NavDropdownFactory(ExtendedStructBlockFactory):
                 },
             ),
         )
-        no_button = factory.Trait(button=[])
 
     title = factory.Faker("sentence", nb_words=3)
     overview = wagtail_factories.ListBlockFactory(NavOverviewFactory)
@@ -234,7 +233,7 @@ class NavDropdownFactory(ExtendedStructBlockFactory):
         },
     )
     featured_column = wagtail_factories.ListBlockFactory(NavFeaturedColumnFactory)
-    button = wagtail_factories.ListBlockFactory(NavButtonFactory, **{"0__external_url_link": True})
+    button = factory.SubFactory(NavButtonFactory, external_url_link=True)
 
 
 class NavMenuFactory(DjangoModelFactory):
