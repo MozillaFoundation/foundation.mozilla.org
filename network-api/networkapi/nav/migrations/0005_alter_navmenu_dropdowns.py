@@ -10,7 +10,7 @@ import networkapi.nav.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("nav", "0003_add_blog_dropdown"),
+        ("nav", "0004_svg_icon_help_text"),
     ]
 
     operations = [
