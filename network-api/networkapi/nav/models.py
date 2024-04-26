@@ -189,7 +189,7 @@ class NavMenu(
         return self.blog_index_page.url
 
 
-@register_setting
+@register_setting(icon="nav-menu")
 class SiteNavMenu(BaseSiteSetting):
     select_related = ["active_nav_menu"]
 
