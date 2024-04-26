@@ -37,7 +37,9 @@ class NavDesktopDropdown extends Accordion {
     this.accordion.setAttribute("aria-selected", "true");
     this.content.classList.add("large:tw-grid");
     this.content.classList.remove("large:tw-hidden");
-    this.siblings = this.getSiblings();
+    if (!this.siblings) {
+      this.siblings = this.getSiblings();
+    }
     this.siblings.forEach((sibling) => {
       const titleText = sibling.querySelector("[data-accordion-title] h5");
       titleText.classList.remove("large:tw-text-black");
@@ -53,7 +55,9 @@ class NavDesktopDropdown extends Accordion {
     this.accordion.setAttribute("aria-selected", "false");
     this.content.classList.remove("large:tw-grid");
     this.content.classList.add("large:tw-hidden");
-    this.siblings = this.getSiblings();
+    if (!this.siblings) {
+      this.siblings = this.getSiblings();
+    }
     this.siblings.forEach((sibling) => {
       const titleText = sibling.querySelector("[data-accordion-title] h5");
       titleText.classList.add("large:tw-text-black");
