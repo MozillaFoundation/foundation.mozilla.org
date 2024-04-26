@@ -10,6 +10,8 @@
 
 {% fragment as title_base_typography %}tw-font-sans tw-font-bold tw-text-xl tw-capitalize tw-text-black{% endfragment %}
 {% fragment as title_desktop_typography %}large:tw-text-lg large:tw-text-black{% endfragment %}
+{% comment %} 2.5rem for half the navbar's height, 14px for half the title's line height, 6px for the title bottom border and 1 px for the dropdown border:{% endcomment %}
+{% fragment as title_underline %}large:tw-border-b-6 large:tw-h-full large:tw-pt-[calc(2.5rem-14px)] large:tw-pb-[calc(2.5rem-14px-6px+1px)]{% endfragment %}
 
 {% get_dropdown_id menu=menu idx=forloop.counter0 as dropdown_id %}
 {% if dropdown_id %}
@@ -17,13 +19,12 @@
 {% endif %}
 
 
-{% comment %} 2.5rem for half the navbar's height, 14px for half the title's line height, 6px for the title bottom border and 1 px for the dropdown border:{% endcomment %}
-<div class="tw-flex tw-flex-col large:tw-border-b-6 large:tw-pt-[calc(2.5rem-14px)] large:tw-pb-[calc(2.5rem-14px-6px+1px)] large:tw-border-invisible"
+<div class="tw-flex tw-flex-col"
      {% block data_class_attribute %}data-{{ style }}-dropdown{% endblock data_class_attribute %}
      data-is-wayfinding-active="{% if is_dropdown_active %}true{% else %}false{% endif %}"
 >
-    <div class="{{ dropdown_selector_base }} large:tw-items-center large:tw-py-0 " data-accordion-title>
-        <h5 class="tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }}">{% block title %}{{ value.title }}{% endblock title %}</h5>
+    <div class="{{ dropdown_selector_base }} large:tw-items-center large:tw-py-0 large:tw-h-full" data-accordion-title>
+        <h5 class="tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }} {{ title_underline }}">{% block title %}{{ value.title }}{% endblock title %}</h5>
         <img src="{% static "_images/chevron.svg" %}" height="18" width="18" alt="" class="tw-w-8 tw-h-auto tw-rotate-180 tw-transition-transform large:tw-hidden">
     </div>
 

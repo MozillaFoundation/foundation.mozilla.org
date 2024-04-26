@@ -23,18 +23,18 @@ class NavDesktopDropdown extends Accordion {
   */
 
   addBaseWayfindingStyles() {
-    this.accordion.classList.remove("large:tw-border-transparent");
-    this.accordion.classList.add("large:tw-border-black");
+    this.titleText.classList.remove("large:tw-border-transparent");
+    this.titleText.classList.add("large:tw-border-black");
   }
 
   handleWayfindingOpenStyles() {
-    this.accordion.classList.remove("large:tw-border-transparent");
-    this.accordion.classList.add("large:tw-border-black");
+    this.titleText.classList.remove("large:tw-border-transparent");
+    this.titleText.classList.add("large:tw-border-black");
   }
 
   handleWayfindingClosedStyles() {
-    this.accordion.classList.remove("large:tw-border-transparent");
-    this.accordion.classList.add("large:tw-border-black");
+    this.titleText.classList.remove("large:tw-border-transparent");
+    this.titleText.classList.add("large:tw-border-black");
   }
 
   getSiblings() {
@@ -60,8 +60,8 @@ class NavDesktopDropdown extends Accordion {
   open() {
     super.open();
     this.titleText.classList.add("large:tw-text-black");
-    this.accordion.classList.add("large:tw-border-black");
-    this.accordion.classList.remove("large:tw-border-transparent");
+    this.titleText.classList.add("large:tw-border-black");
+    this.titleText.classList.remove("large:tw-border-transparent");
     this.accordion.setAttribute("aria-selected", "true");
     this.content.classList.add("large:tw-grid");
     this.content.classList.remove("large:tw-hidden");
@@ -81,8 +81,8 @@ class NavDesktopDropdown extends Accordion {
   close() {
     super.close();
     this.titleText.classList.remove("large:tw-text-black");
-    this.accordion.classList.remove("large:tw-border-black");
-    this.accordion.classList.add("large:tw-border-transparent");
+    this.titleText.classList.remove("large:tw-border-black");
+    this.titleText.classList.add("large:tw-border-transparent");
     this.accordion.setAttribute("aria-selected", "false");
     this.content.classList.remove("large:tw-grid");
     this.content.classList.add("large:tw-hidden");
