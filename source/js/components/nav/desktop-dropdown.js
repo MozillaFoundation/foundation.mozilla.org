@@ -75,6 +75,15 @@ class NavDesktopDropdown extends Accordion {
       const titleText = sibling.querySelector("[data-accordion-title] h5");
       titleText.classList.remove("large:tw-text-black");
       titleText.classList.add("large:tw-text-gray-40");
+      const isSiblingDropdownWayfindingActive =
+        sibling.dataset.isWayfindingActive;
+      if (isSiblingDropdownWayfindingActive === "true") {
+        titleText.classList.remove(
+          "large:tw-border-transparent",
+          "large:tw-border-black"
+        );
+        titleText.classList.add("large:tw-border-gray-40");
+      }
     });
   }
 
@@ -96,6 +105,15 @@ class NavDesktopDropdown extends Accordion {
       const titleText = sibling.querySelector("[data-accordion-title] h5");
       titleText.classList.add("large:tw-text-black");
       titleText.classList.remove("large:tw-text-gray-40");
+      const isSiblingDropdownWayfindingActive =
+        sibling.dataset.isWayfindingActive;
+      if (isSiblingDropdownWayfindingActive === "true") {
+        titleText.classList.remove(
+          "large:tw-border-transparent",
+          "large:tw-border-gray-40"
+        );
+        titleText.classList.add("large:tw-border-black");
+      }
     });
   }
 }
