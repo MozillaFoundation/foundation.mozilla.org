@@ -49,9 +49,6 @@ class TestNavMenuSnippetChooser(WagtailTestUtils, TestCase):
         response = self.client.get(self.chooser_url)
         results = response.context["results"]
 
-        print(all_menus)
-        print(default_menus)
-
         # Chooser does not include every menu, but only the default language ones
         self.assertNotEqual(len(results), all_menus.count())
         self.assertEqual(len(results), default_menus.count())
