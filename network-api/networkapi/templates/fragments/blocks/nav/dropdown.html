@@ -31,7 +31,7 @@
         <div class="tw-px-8 tw-flex tw-flex-col tw-p-0 tw-bg-white tw-gap-8 tw-pt-4 large:tw-pt-0 large:tw-px-0 {{ content_desktop_border }} large:tw-grid {% block grid_columns %}large:tw-w-{{ value.ncols }}/4 large:tw-grid-cols-{{ value.ncols }}{% endblock grid_columns %}">
             {% block content %}
                 {% if value.has_overview %}
-                    {% include_block value.overview_value with button=value.button_value %}
+                    {% include_block value.overview_value with button=value.button %}
                 {% endif %}
                 {% for column in value.columns %}
                     {% include_block column %}
@@ -43,9 +43,9 @@
                 If there is a button but no overview, we want to render the button at the bottom
                 of the dropdown. Otherwise it will be rendered together with the overview.
                 {% endcomment %}
-                {% if value.has_button and not value.has_overview %}
+                {% if value.button and not value.has_overview %}
                     <div class="tw-w-full tw-pb-16 large:tw-col-span-4 large:tw-py-0">
-                        {% include_block value.button_value with style="primary-full-width" %}
+                        {% include_block value.button with style="primary-full-width" %}
                     </div>
                 {% endif %}
             {% endblock content %}

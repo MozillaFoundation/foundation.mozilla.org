@@ -318,9 +318,9 @@ class TestNavMenuPageReferencesPerDropdown(test_base.WagtailpagesTestCase):
             dropdowns__0__dropdown__columns__0__nav_items__0__page=page_a1,
             # First dropdown | First Column | Second link (external)
             dropdowns__0__dropdown__columns__0__nav_items__1__external_url_link=True,
-            dropdowns__0__dropdown__button__0__link_to="page",
             # First dropdown | CTA Button link (page A2)
-            dropdowns__0__dropdown__button__0__page=page_a2,
+            dropdowns__0__dropdown__button__link_to="page",
+            dropdowns__0__dropdown__button__page=page_a2,
             # Second dropdown | First Column | First link (page B1)
             dropdowns__1__dropdown__columns__0__nav_items__0__link_to="page",
             dropdowns__1__dropdown__columns__0__nav_items__0__page=page_b1,
@@ -332,8 +332,8 @@ class TestNavMenuPageReferencesPerDropdown(test_base.WagtailpagesTestCase):
             # Second dropdown | Second Column | Second link (external)
             dropdowns__1__dropdown__columns__1__nav_items__1__external_url_link=True,
             # Second dropdown | CTA Button link (page B3)
-            dropdowns__1__dropdown__button__0__link_to="page",
-            dropdowns__1__dropdown__button__0__page=page_b3,
+            dropdowns__1__dropdown__button__link_to="page",
+            dropdowns__1__dropdown__button__page=page_b3,
             # Third dropdown | First Column | First link (page C)
             dropdowns__2__dropdown__featured_column__0__nav_items__0__link_to="page",
             dropdowns__2__dropdown__featured_column__0__nav_items__0__page=page_c,
@@ -402,8 +402,8 @@ class TestNavMenuPageReferences(test_base.WagtailpagesTestCase):
             dropdowns__0__dropdown__columns__0__nav_items__0__link_to="page",
             dropdowns__0__dropdown__columns__0__nav_items__0__page=page_a,
             dropdowns__0__dropdown__columns__0__nav_items__1__external_url_link=True,
-            dropdowns__0__dropdown__button__0__link_to="page",
-            dropdowns__0__dropdown__button__0__page=page_b,
+            dropdowns__0__dropdown__button__link_to="page",
+            dropdowns__0__dropdown__button__page=page_b,
             dropdowns__1__dropdown__featured_column__0__nav_items__0__link_to="page",
             dropdowns__1__dropdown__featured_column__0__nav_items__0__page=page_c,
             dropdowns__1__dropdown__featured_column__0__nav_items__1__external_url_link=True,

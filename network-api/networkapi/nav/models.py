@@ -197,8 +197,10 @@ class NavMenu(
             local_page_ids = list(nav_utils.find_key_values(dropdown, "page"))
             local_page_ids = [id for id in local_page_ids if id]  # filter out empty values
             dropdown_page_links[dropdown["id"]] = {"page_ids": local_page_ids, "self_page_id": None}
-            if button_link := dropdown["value"]["button"][0]["value"]["page"]:
-                dropdown_page_links[dropdown["id"]]["self_page_id"] = button_link
+            dropdown_button_page_link = dropdown["value"]["button"]["page"]
+            dropdown_button_link_to = dropdown["value"]["button"]["link_to"]
+            if dropdown_button_page_link and (dropdown_button_link_to == "page"):
+                dropdown_page_links[dropdown["id"]]["self_page_id"] = dropdown_button_page_link
 
         # Get a flat list of ids:
         page_ids = []

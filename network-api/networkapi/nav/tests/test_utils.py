@@ -22,8 +22,6 @@ class TestUtils(TestCase):
         result = list(utils.find_key_values(d, 1))
         self.assertEqual(result, ["a"])
 
-        # The function handles cases where the input dictionary contains non-hashable values.
-
     def test_non_hashable_values(self):
         d = {"a": [1, 2, 3], "b": {"c": [4, 5, 6]}, "d": 7}
         result = list(utils.find_key_values(d, "c"))
@@ -46,5 +44,5 @@ class TestUtils(TestCase):
             local_result = list(utils.find_key_values(dictionary, "page"))
             pages.extend(local_result)
         pages = [page for page in pages if page]
-        expected = [586, 587, 588]
+        expected = [587, 586, 588]
         self.assertEqual(pages, expected)

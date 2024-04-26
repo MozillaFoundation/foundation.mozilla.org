@@ -66,9 +66,9 @@ class TestCheckIfDropdownIsActive(test_base.WagtailpagesTestCase):
             dropdowns__0__dropdown__columns__0__nav_items__0__page=page_a1,
             # First dropdown | First Column | Second link (external)
             dropdowns__0__dropdown__columns__0__nav_items__1__external_url_link=True,
-            dropdowns__0__dropdown__button__0__link_to="page",
             # First dropdown | CTA Button link (page A2)
-            dropdowns__0__dropdown__button__0__page=page_a2,
+            dropdowns__0__dropdown__button__link_to="page",
+            dropdowns__0__dropdown__button__page=page_a2,
             # Second dropdown | First Column | First link (page B1)
             dropdowns__1__dropdown__columns__0__nav_items__0__link_to="page",
             dropdowns__1__dropdown__columns__0__nav_items__0__page=page_b1,
@@ -80,8 +80,8 @@ class TestCheckIfDropdownIsActive(test_base.WagtailpagesTestCase):
             # Second dropdown | Second Column | Second link (external)
             dropdowns__1__dropdown__columns__1__nav_items__1__external_url_link=True,
             # Second dropdown | CTA Button link (page B3)
-            dropdowns__1__dropdown__button__0__link_to="page",
-            dropdowns__1__dropdown__button__0__page=page_b3,
+            dropdowns__1__dropdown__button__link_to="page",
+            dropdowns__1__dropdown__button__page=page_b3,
             # Third dropdown | First Column | First link (page C)
             dropdowns__2__dropdown__featured_column__0__nav_items__0__link_to="page",
             dropdowns__2__dropdown__featured_column__0__nav_items__0__page=page_c,
@@ -137,8 +137,8 @@ class TestCheckIfDropdownIsActive(test_base.WagtailpagesTestCase):
         """The homepage shouldn't receive 'active' markings."""
         # Create a menu with the first dropdown linking to the homepage:
         menu = nav_factories.NavMenuFactory(
-            dropdowns__0__dropdown__button__0__link_to="page",
-            dropdowns__0__dropdown__button__0__page=self.homepage,
+            dropdowns__0__dropdown__button__link_to="page",
+            dropdowns__0__dropdown__button__page=self.homepage,
         )
 
         dropdown_1_id = nav_tags.get_dropdown_id(menu=menu, idx=0)
@@ -161,8 +161,8 @@ class TestCheckIfLinkIsActive(test_base.WagtailpagesTestCase):
             dropdowns__0__dropdown__columns__0__nav_items__0__link_to="page",
             dropdowns__0__dropdown__columns__0__nav_items__0__page=page_a,
             dropdowns__0__dropdown__columns__0__nav_items__1__external_url_link=True,
-            dropdowns__0__dropdown__button__0__link_to="page",
-            dropdowns__0__dropdown__button__0__page=page_b,
+            dropdowns__0__dropdown__button__link_to="page",
+            dropdowns__0__dropdown__button__page=page_b,
             dropdowns__1__dropdown__featured_column__0__nav_items__0__link_to="page",
             dropdowns__1__dropdown__featured_column__0__nav_items__0__page=page_c,
             dropdowns__1__dropdown__featured_column__0__nav_items__1__external_url_link=True,
@@ -170,7 +170,7 @@ class TestCheckIfLinkIsActive(test_base.WagtailpagesTestCase):
 
         # Get NavItem (link) objects:
         page_a_link = menu.dropdowns[0].value["columns"][0]["nav_items"][0]
-        page_b_link = menu.dropdowns[0].value.button_value
+        page_b_link = menu.dropdowns[0].value["button"]
         page_c_link = menu.dropdowns[1].value.featured_column_value["nav_items"][0]
 
         # User is on page_a
@@ -206,11 +206,11 @@ class TestCheckIfLinkIsActive(test_base.WagtailpagesTestCase):
         """The homepage shouldn't receive 'active' markings."""
         # Create a menu with the first dropdown linking to the homepage:
         menu = nav_factories.NavMenuFactory(
-            dropdowns__0__dropdown__button__0__link_to="page",
-            dropdowns__0__dropdown__button__0__page=self.homepage,
+            dropdowns__0__dropdown__button__link_to="page",
+            dropdowns__0__dropdown__button__page=self.homepage,
         )
 
-        homepage_link = menu.dropdowns[0].value.button_value
+        homepage_link = menu.dropdowns[0].value["button"]
 
         # User is now on homepage
         context = {"page": self.homepage, "menu": menu}

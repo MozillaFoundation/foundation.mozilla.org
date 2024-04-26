@@ -34,6 +34,7 @@ class TestNavMenuSnippetChooser(WagtailTestUtils, TestCase):
 
         self.default_locale = Locale.get_default()
         self.fr_locale = Locale.objects.create(language_code="fr")
+        nav_models.NavMenu.objects.all().delete()
         self.menus = [
             nav_factories.NavMenuFactory.create(title="Generic"),
             nav_factories.NavMenuFactory.create(title="Foundation"),
@@ -47,6 +48,9 @@ class TestNavMenuSnippetChooser(WagtailTestUtils, TestCase):
         default_menus = nav_models.NavMenu.objects.filter(locale=self.default_locale)
         response = self.client.get(self.chooser_url)
         results = response.context["results"]
+
+        print(all_menus)
+        print(default_menus)
 
         # Chooser does not include every menu, but only the default language ones
         self.assertNotEqual(len(results), all_menus.count())

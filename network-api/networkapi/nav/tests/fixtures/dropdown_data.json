@@ -3,6 +3,13 @@
     "type": "dropdown",
     "value": {
       "title": "Girl pull.",
+      "button": {
+        "label": "Those.",
+        "link_to": "page",
+        "page": 587,
+        "external_url": "https://thomas.biz/",
+        "relative_url": ""
+      },
       "overview": [],
       "columns": [
         {
@@ -286,20 +293,7 @@
           "id": "a9005a93-0a44-47c8-966b-9d9f166e24d2"
         }
       ],
-      "featured_column": [],
-      "button": [
-        {
-          "type": "item",
-          "value": {
-            "label": "Those.",
-            "link_to": "page",
-            "page": 587,
-            "external_url": "https://thomas.biz/",
-            "relative_url": ""
-          },
-          "id": "84356020-8d30-48e8-92e3-e803d195c4f3"
-        }
-      ]
+      "featured_column": []
     },
     "id": "1a393e7f-4586-4802-816e-f17aa6af9bc6"
   },
@@ -307,6 +301,13 @@
     "type": "dropdown",
     "value": {
       "title": "Lawyer.",
+      "button": {
+        "label": "Task particularly.",
+        "link_to": "external_url",
+        "page": null,
+        "external_url": "http://hernandez-collins.com/",
+        "relative_url": ""
+      },
       "overview": [],
       "columns": [
         {
@@ -648,19 +649,6 @@
           },
           "id": "8f657565-a3ad-4766-80f8-a033f9d01d32"
         }
-      ],
-      "button": [
-        {
-          "type": "item",
-          "value": {
-            "label": "Task particularly.",
-            "link_to": "external_url",
-            "page": null,
-            "external_url": "http://hernandez-collins.com/",
-            "relative_url": ""
-          },
-          "id": "9f3a5406-35b1-42b1-95b2-815e9fc0cd83"
-        }
       ]
     },
     "id": "8f922ac3-77b7-49ea-9915-6078ea37ce6d"
@@ -669,6 +657,13 @@
     "type": "dropdown",
     "value": {
       "title": "Trouble sea involve.",
+      "button": {
+        "label": "National goal.",
+        "link_to": "external_url",
+        "page": null,
+        "external_url": "http://www.sims.com/",
+        "relative_url": ""
+      },
       "overview": [],
       "columns": [
         {
@@ -952,20 +947,7 @@
           "id": "0475afa0-0b22-475a-85b9-c25157c06f3a"
         }
       ],
-      "featured_column": [],
-      "button": [
-        {
-          "type": "item",
-          "value": {
-            "label": "National goal.",
-            "link_to": "external_url",
-            "page": null,
-            "external_url": "http://www.sims.com/",
-            "relative_url": ""
-          },
-          "id": "4dbe719c-0a5e-4d7f-853f-9d463013e16f"
-        }
-      ]
+      "featured_column": []
     },
     "id": "8f4860f3-6e89-4917-8d8e-5b81c72432d3"
   },
@@ -973,6 +955,13 @@
     "type": "dropdown",
     "value": {
       "title": "Police.",
+      "button": {
+        "label": "Back outside.",
+        "link_to": "external_url",
+        "page": null,
+        "external_url": "http://www.bush.info/",
+        "relative_url": ""
+      },
       "overview": [],
       "columns": [
         {
@@ -1256,20 +1245,7 @@
           "id": "27f71330-0208-496f-917c-89be08d9375d"
         }
       ],
-      "featured_column": [],
-      "button": [
-        {
-          "type": "item",
-          "value": {
-            "label": "Back outside.",
-            "link_to": "external_url",
-            "page": null,
-            "external_url": "http://www.bush.info/",
-            "relative_url": ""
-          },
-          "id": "b3483367-f488-4f8f-ac41-dabc918eec56"
-        }
-      ]
+      "featured_column": []
     },
     "id": "b8694785-345f-4b0d-beea-a19ff7283222"
   }
