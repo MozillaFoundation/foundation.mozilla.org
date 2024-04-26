@@ -13,11 +13,6 @@ class NavMobileDropdown extends Accordion {
     }
   }
 
-  getSiblings() {
-    let siblings = document.querySelectorAll(NavMobileDropdown.selector());
-    return Array.from(siblings).filter((sibling) => sibling !== this.accordion);
-  }
-
   addBaseWayfindingStyles() {
     this.title.classList.add("tw-border-s-4", "tw-border-gray-60");
   }
