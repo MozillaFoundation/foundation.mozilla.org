@@ -87,8 +87,11 @@ class NavDesktopDropdown extends Accordion {
     this.content.classList.remove("large:tw-grid");
     this.content.classList.add("large:tw-hidden");
     if (this.isDropdownWayfindingActive === "true") {
+      this.handleWayfindingClosedStyles();
+    }
     if (!this.siblings) {
       this.siblings = this.getSiblings();
+    }
     this.siblings.forEach((sibling) => {
       const titleText = sibling.querySelector("[data-accordion-title] h5");
       titleText.classList.add("large:tw-text-black");
