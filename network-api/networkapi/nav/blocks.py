@@ -157,17 +157,6 @@ class NavDropdownValue(blocks.StructValue):
         return None
 
     @property
-    def has_button(self) -> bool:
-        return bool(self.get("button"))
-
-    @property
-    def button_value(self) -> NavButton | None:
-        button = self.get("button")
-        if button:
-            return button[0]
-        return None
-
-    @property
     def has_featured_column(self) -> bool:
         return bool(self.get("featured_column"))
 
@@ -190,6 +179,14 @@ class NavDropdownValue(blocks.StructValue):
 
 class NavDropdown(blocks.StructBlock):
     title = blocks.CharBlock(max_length=100, help_text="How the dropdown menu will be labelled in the nav bar")
+    button = NavButton(
+        required=True,
+        label="Dropdown Button",
+        help_text=(
+            "Use it to add a CTA to link to the contents of the dropdown menu. "
+            "If an overview is added, the button will be placed at the overview's column."
+        ),
+    )
     overview = blocks.ListBlock(
         NavOverview(label="Overview"),
         min_num=0,
@@ -212,18 +209,6 @@ class NavDropdown(blocks.StructBlock):
         label="Featured Column",
         help_text="A column made of items and icons. If added, it will take the place of the last column",
         default=[],
-    )
-    button = blocks.ListBlock(
-        NavButton,
-        required=False,
-        min_num=0,
-        max_num=1,
-        default=[],
-        label="Dropdown Button",
-        help_text=(
-            "Use it to add a CTA to link to the contents of the dropdown menu. "
-            "If an overview is added, the button will be placed at the overview's column."
-        ),
     )
 
     def clean(self, value):

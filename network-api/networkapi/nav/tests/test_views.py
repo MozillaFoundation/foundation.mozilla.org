@@ -34,6 +34,7 @@ class TestNavMenuSnippetChooser(WagtailTestUtils, TestCase):
 
         self.default_locale = Locale.get_default()
         self.fr_locale = Locale.objects.create(language_code="fr")
+        nav_models.NavMenu.objects.all().delete()
         self.menus = [
             nav_factories.NavMenuFactory.create(title="Generic"),
             nav_factories.NavMenuFactory.create(title="Foundation"),

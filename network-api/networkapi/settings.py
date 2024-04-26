@@ -370,7 +370,7 @@ TEMPLATES = [
                 "localization": "networkapi.wagtailpages.templatetags.localization",
                 "mini_site_tags": "networkapi.wagtailpages.templatetags.mini_site_tags",
                 "custom_image_tags": "networkapi.wagtailpages.templatetags.custom_image_tags",
-                "nav_tags": "networkapi.utility.templatetags.nav_tags",
+                "nav_tags": "networkapi.nav.templatetags.nav_tags",
                 "primary_page_tags": "networkapi.wagtailpages.templatetags.primary_page_tags",
                 "settings_value": "networkapi.utility.templatetags.settings_value",
                 "wagtailcustom_tags": "networkapi.wagtailcustomization.templatetags.wagtailcustom_tags",

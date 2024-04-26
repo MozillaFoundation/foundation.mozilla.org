@@ -7,6 +7,29 @@ class NavMobileDropdown extends Accordion {
 
   constructor(node) {
     super(node);
+    this.isDropdownWayfindingActive = this.accordion.dataset.isWayfindingActive;
+    if (this.isDropdownWayfindingActive === "true") {
+      this.addBaseWayfindingStyles();
+    }
+  }
+
+  getSiblings() {
+    let siblings = document.querySelectorAll(NavMobileDropdown.selector());
+    return Array.from(siblings).filter((sibling) => sibling !== this.accordion);
+  }
+
+  addBaseWayfindingStyles() {
+    this.title.classList.add("tw-border-s-4", "tw-border-gray-60");
+  }
+
+  handleWayfindingOpenStyles() {
+    this.titleText.classList.add("tw-border-b-4", "tw-border-gray-60");
+    this.title.classList.remove("tw-border-s-4");
+  }
+
+  handleWayfindingClosedStyles() {
+    this.titleText.classList.remove("tw-border-b-4", "tw-border-gray-60");
+    this.title.classList.add("tw-border-s-4");
   }
 
   getSiblings() {
@@ -32,7 +55,11 @@ class NavMobileDropdown extends Accordion {
 
   addHoverEffects() {
     this.accordion.classList.add("tw-bg-blue-03");
-    this.titleText.classList.add("tw-underline");
+    // Only add the underline effect if the dropdown wayfinding is not active
+    // Otherwise, border styles will clash
+    if (this.isDropdownWayfindingActive === "false") {
+      this.titleText.classList.add("tw-underline");
+    }
   }
 
   removeHoverEffects() {
@@ -42,6 +69,9 @@ class NavMobileDropdown extends Accordion {
 
   open() {
     super.open();
+    if (this.isDropdownWayfindingActive === "true") {
+      this.handleWayfindingOpenStyles();
+    }
     if (!this.siblings) {
       this.siblings = this.getSiblings();
     }
@@ -55,6 +85,13 @@ class NavMobileDropdown extends Accordion {
       chevron.classList.add("tw-rotate-180");
     });
     this.title.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  close() {
+    super.close();
+    if (this.isDropdownWayfindingActive === "true") {
+      this.handleWayfindingClosedStyles();
+    }
   }
 }
 
