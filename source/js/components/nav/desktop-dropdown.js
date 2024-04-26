@@ -7,6 +7,34 @@ class NavDesktopDropdown extends Accordion {
 
   constructor(node) {
     super(node);
+    this.isDropdownWayfindingActive = this.accordion.dataset.isWayfindingActive;
+    if (this.isDropdownWayfindingActive === "true") {
+      this.addBaseWayfindingStyles();
+    }
+  }
+
+  /*
+  The three wayfinding state handlers here do the same thing:
+   - remove the transparent border colour and add a black one
+  This is because the behaviour of the active wayfinder state on desktop is simply to
+  always keep a black border on the bottom of the dropdown's title.
+
+  The three methods are kept separate for clarity and to allow for eventual independent changes.
+  */
+
+  addBaseWayfindingStyles() {
+    this.accordion.classList.remove("large:tw-border-transparent");
+    this.accordion.classList.add("large:tw-border-black");
+  }
+
+  handleWayfindingOpenStyles() {
+    this.accordion.classList.remove("large:tw-border-transparent");
+    this.accordion.classList.add("large:tw-border-black");
+  }
+
+  handleWayfindingClosedStyles() {
+    this.accordion.classList.remove("large:tw-border-transparent");
+    this.accordion.classList.add("large:tw-border-black");
   }
 
   getSiblings() {
@@ -37,6 +65,9 @@ class NavDesktopDropdown extends Accordion {
     this.accordion.setAttribute("aria-selected", "true");
     this.content.classList.add("large:tw-grid");
     this.content.classList.remove("large:tw-hidden");
+    if (this.isDropdownWayfindingActive === "true") {
+      this.handleWayfindingOpenStyles();
+    }
     if (!this.siblings) {
       this.siblings = this.getSiblings();
     }
@@ -55,9 +86,9 @@ class NavDesktopDropdown extends Accordion {
     this.accordion.setAttribute("aria-selected", "false");
     this.content.classList.remove("large:tw-grid");
     this.content.classList.add("large:tw-hidden");
+    if (this.isDropdownWayfindingActive === "true") {
     if (!this.siblings) {
       this.siblings = this.getSiblings();
-    }
     this.siblings.forEach((sibling) => {
       const titleText = sibling.querySelector("[data-accordion-title] h5");
       titleText.classList.add("large:tw-text-black");
