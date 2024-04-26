@@ -1,5 +1,5 @@
-from django.core.exceptions import ValidationError
 import wagtail_factories
+from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 from django.utils import translation
 from wagtail.blocks import StreamBlockValidationError
