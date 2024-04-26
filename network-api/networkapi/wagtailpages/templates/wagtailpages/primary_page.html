@@ -4,7 +4,13 @@
 {% block body_id %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock %}
 
 {% block primary_nav %}
-    {% include "fragments/primary_nav.html" %}
+    {% with nav_menu=settings.nav.SiteNavMenu.active_nav_menu %}
+        {% if nav_menu %}
+            {% include "fragments/nav/menu.html" with menu=nav_menu.localized %}
+        {% else %}
+            {% include "fragments/primary_nav.html" with background="simple-background" %}
+        {% endif %}
+    {% endwith %}
 {% endblock %}
 
 {% block hero_guts %}
