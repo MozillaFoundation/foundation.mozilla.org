@@ -1,0 +1,7 @@
+name: Navigation Button
+context:
+    value:
+        label: "Learn more"
+        url: https://google.com
+        open_in_new_window: False
+    style: primary

@@ -1,0 +1,15 @@
+{% extends "fragments/blocks/nav/dropdown.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Blog" %}{% endblock title %}
+
+{% block grid_columns %}large:tw-w-3/4 large:tw-grid-cols-3{% endblock grid_columns %}
+
+{% block content %}
+    {% include "./featured-posts.html" with posts=menu.localized_featured_blog_posts %}
+    {% include "./featured-topics.html" with relationships=menu.localized_featured_blog_topics %}
+    <div class="tw-w-full tw-pb-4 large:tw-col-span-3 large:tw-py-0">
+        {% include "./button.html" with url=menu.blog_button_url label=menu.blog_button_label %}
+    </div>
+{% endblock content %}
