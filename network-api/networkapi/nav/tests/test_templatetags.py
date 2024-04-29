@@ -1,3 +1,5 @@
+from typing import Any
+
 import wagtail_factories
 
 from networkapi.nav import factories as nav_factories
@@ -268,6 +270,6 @@ class TestCheckIfLinkIsActive(test_base.WagtailpagesTestCase):
         homepage_link = menu.dropdowns[0].value["button"]
 
         # No page is passed
-        context = {}
+        context: dict[Any, Any] = {}
         # Should return False
         self.assertFalse(nav_tags.check_if_link_is_active(context, homepage_link))
