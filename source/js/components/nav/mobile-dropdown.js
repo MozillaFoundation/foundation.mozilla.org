@@ -27,9 +27,10 @@ class NavMobileDropdown extends Accordion {
     this.title.classList.add("tw-border-s-4");
   }
 
-  getSiblings() {
-    let siblings = document.querySelectorAll(NavMobileDropdown.selector());
-    return Array.from(siblings).filter((sibling) => sibling !== this.accordion);
+  getOpenSibling() {
+    return document
+      .querySelector(`${NavMobileDropdown.selector()} [aria-expanded="true"]`)
+      ?.closest(NavMobileDropdown.selector());
   }
 
   bindEvents() {
@@ -63,23 +64,29 @@ class NavMobileDropdown extends Accordion {
   }
 
   open() {
-    super.open();
     if (this.isDropdownWayfindingActive === "true") {
       this.handleWayfindingOpenStyles();
     }
-    if (!this.siblings) {
-      this.siblings = this.getSiblings();
-    }
-    this.siblings.forEach((sibling) => {
-      const title = sibling.querySelector("[data-accordion-title]");
-      const chevron = sibling.querySelector("[data-accordion-title] img");
-      const content = sibling.querySelector("[data-accordion-content]");
+
+    let openAccordion = this.getOpenSibling();
+    if (openAccordion) {
+      const title = openAccordion.querySelector("[data-accordion-title]");
+      const chevron = openAccordion.querySelector("[data-accordion-title] img");
+      const content = openAccordion.querySelector("[data-accordion-content]");
       title.setAttribute("aria-expanded", "false");
       content.setAttribute("aria-hidden", "true");
-      content.classList.add("tw-hidden");
       chevron.classList.add("tw-rotate-180");
-    });
-    this.title.scrollIntoView({ behavior: "smooth", block: "start" });
+      content.style.height = "0";
+    }
+
+    super.open();
+    let transitionEndHandler = () => {
+      this.title.scrollIntoView({ behavior: "smooth", block: "start" });
+      this.content.removeEventListener("transitionend", transitionEndHandler);
+    };
+
+    this.content.addEventListener("transitionend", transitionEndHandler);
+    this.content.style.height = `${this.content.scrollHeight}px`;
   }
 
   close() {
@@ -87,6 +94,7 @@ class NavMobileDropdown extends Accordion {
     if (this.isDropdownWayfindingActive === "true") {
       this.handleWayfindingClosedStyles();
     }
+    this.content.style.height = "0";
   }
 }
 
