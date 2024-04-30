@@ -47,6 +47,8 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
         self.synchronize_tree()
 
     def test_localized_featured_topics(self) -> None:
+        self.blog_index_page.slug = "blog"
+        self.blog_index_page.save_revision().publish()
         # Create some topics:
         topic_a = blog_factories.BlogPageTopicFactory(locale=self.default_locale, name="Topic A")
         topic_b = blog_factories.BlogPageTopicFactory(locale=self.default_locale, name="Topic B")
@@ -80,6 +82,9 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
         # It keeps the order:
         self.assertEqual(topics[0], topic_b)
         self.assertEqual(topics[1], topic_a)
+        # It adds the proper URL to the topics:
+        self.assertEqual(topics[0].url, "/en/blog/topic/topic-b/")
+        self.assertEqual(topics[1].url, "/en/blog/topic/topic-a/")
 
     def test_number_of_queries_for_localized_featured_topics(self) -> None:
         # Create some topics:
