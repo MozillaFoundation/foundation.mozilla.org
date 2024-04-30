@@ -21,15 +21,21 @@ def get_dropdown_id(**kwargs):
         index = int(kwargs["idx"])
     except ValueError:
         return None
-    menu = kwargs["menu"]
+    menu = kwargs.get("menu", None)
+    if not menu:
+        return None
     return menu.dropdowns.get_prep_value()[index]["id"]
 
 
 @register.simple_tag(takes_context=True)
 def check_if_dropdown_is_active(context, dropdown_id):
     # The page that user is currently visiting/requesting:
-    page = context["page"]
-    menu = context["menu"]
+    page = context.get("page", None)
+    if not page:
+        return None
+    menu = context.get("menu", None)
+    if not menu:
+        return None
     dropdowns_page_links = menu.page_references_per_dropdown
 
     # Don't highlight the link if the page is the homepage
@@ -69,7 +75,9 @@ def check_if_link_is_active(context, link):
         return False
 
     # Page that the user is currently visiting/requesting:
-    page = context["page"]
+    page = context.get("page", None)
+    if not page:
+        return None
 
     # Don't highlight the link if the page is the homepage
     if isinstance(page, Homepage):

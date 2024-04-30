@@ -1,3 +1,5 @@
+from typing import Any
+
 import wagtail_factories
 
 from networkapi.nav import factories as nav_factories
@@ -28,6 +30,13 @@ class TestGetDropdownId(test_base.WagtailpagesTestCase):
 
         # Get the dropdown IDs with an invalid index:
         dropdown_id = nav_tags.get_dropdown_id(menu=menu, idx="invalid")
+
+        # Check if the ID is None:
+        self.assertIsNone(dropdown_id)
+
+    def test_get_dropdown_id_no_menu(self) -> None:
+        # Get the dropdown IDs without a menu:
+        dropdown_id = nav_tags.get_dropdown_id(menu=None, idx=0)
 
         # Check if the ID is None:
         self.assertIsNone(dropdown_id)
@@ -148,6 +157,38 @@ class TestCheckIfDropdownIsActive(test_base.WagtailpagesTestCase):
         # Even though the homepage is part of the dropdown, it should not be marked as active:
         self.assertFalse(nav_tags.check_if_dropdown_is_active(context, dropdown_1_id))
 
+    def test_returns_false_if_no_page(self) -> None:
+        """If no page is passed, the function should return False."""
+        # Create a menu with the first dropdown linking to a page:
+        page = wagtail_factories.PageFactory(parent=self.homepage, title="Test Page")
+        menu = nav_factories.NavMenuFactory(
+            dropdowns__0__dropdown__button__link_to="page",
+            dropdowns__0__dropdown__button__page=page,
+        )
+
+        dropdown_1_id = nav_tags.get_dropdown_id(menu=menu, idx=0)
+
+        # No page is passed
+        context = {"menu": menu}
+        # Should return False
+        self.assertFalse(nav_tags.check_if_dropdown_is_active(context, dropdown_1_id))
+
+    def test_returns_false_if_no_menu(self) -> None:
+        """If no page is passed, the function should return False."""
+        # Create a menu with the first dropdown linking to a page:
+        page = wagtail_factories.PageFactory(parent=self.homepage, title="Test Page")
+        menu = nav_factories.NavMenuFactory(
+            dropdowns__0__dropdown__button__link_to="page",
+            dropdowns__0__dropdown__button__page=page,
+        )
+
+        dropdown_1_id = nav_tags.get_dropdown_id(menu=menu, idx=0)
+
+        # No page is passed
+        context = {"page": page}
+        # Should return False
+        self.assertFalse(nav_tags.check_if_dropdown_is_active(context, dropdown_1_id))
+
 
 class TestCheckIfLinkIsActive(test_base.WagtailpagesTestCase):
     def test_active_link_check(self) -> None:
@@ -215,4 +256,20 @@ class TestCheckIfLinkIsActive(test_base.WagtailpagesTestCase):
         # User is now on homepage
         context = {"page": self.homepage, "menu": menu}
         # Even so, the homepage should not be marked as active:
+        self.assertFalse(nav_tags.check_if_link_is_active(context, homepage_link))
+
+    def test_no_page_returns_false(self) -> None:
+        """If no page is passed, the function should return False."""
+        # Create a menu with the first dropdown linking to a page:
+        page = wagtail_factories.PageFactory(parent=self.homepage, title="Test Page")
+        menu = nav_factories.NavMenuFactory(
+            dropdowns__0__dropdown__button__link_to="page",
+            dropdowns__0__dropdown__button__page=page,
+        )
+
+        homepage_link = menu.dropdowns[0].value["button"]
+
+        # No page is passed
+        context: dict[Any, Any] = {}
+        # Should return False
         self.assertFalse(nav_tags.check_if_link_is_active(context, homepage_link))
