@@ -170,7 +170,7 @@ class NavMenu(
         blog_index_page = self.blog_index_page
         for relationship in featured_topics_relationships:
             if relationship.topic:
-                relationship.topic.url = blog_index_page.reverse_subpage(
+                relationship.topic.url = blog_index_page.url + blog_index_page.reverse_subpage(
                     "entries_by_topic", args=[relationship.topic.slug]
                 )
 
