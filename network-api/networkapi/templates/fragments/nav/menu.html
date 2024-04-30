@@ -4,12 +4,12 @@
 
 {% block menu_container_classes %}
     {{ block.super }}
-    large:tw-py-0 tw-bg-white tw-relative
+    tw-relative tw-border-gray-20 tw-border-b-[1px]
 {% endblock menu_container_classes %}
 
 {% block narrow_screen_menu %}
     <div class="tw-bg-white tw-min-h-lvh">
-        <div class="tw-flex tw-flex-col tw-border-y-[1px] tw-border-gray-20 tw-divide-y-[1px] tw-divide-gray-20 tw-w-full" data-nav-accordion-menu>
+        <div class="tw-flex tw-flex-col tw-divide-y-[1px] tw-divide-gray-20 tw-w-full" data-nav-accordion-menu>
             {% for dropdown in menu.dropdowns %}
                 {% include_block dropdown with style="mobile" %}
             {% endfor %}

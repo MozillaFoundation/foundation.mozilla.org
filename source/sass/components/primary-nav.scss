@@ -13,15 +13,6 @@
     md: 9px,
   );
 
-  &.zen-mode {
-    .menu-container {
-      @media (min-width: $bp-md) {
-        padding-left: 52px;
-        padding-right: 52px;
-      }
-    }
-  }
-
   .menu-container {
     padding: 0 0 0 52px;
 
