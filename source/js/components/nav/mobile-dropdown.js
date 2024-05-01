@@ -27,12 +27,6 @@ class NavMobileDropdown extends Accordion {
     this.title.classList.add("tw-border-s-4");
   }
 
-  getOpenSibling() {
-    return document
-      .querySelector(`${NavMobileDropdown.selector()} [aria-expanded="true"]`)
-      ?.closest(NavMobileDropdown.selector());
-  }
-
   bindEvents() {
     super.bindEvents();
     this.accordion.addEventListener("focus", () => {
@@ -66,17 +60,6 @@ class NavMobileDropdown extends Accordion {
   open() {
     if (this.isDropdownWayfindingActive === "true") {
       this.handleWayfindingOpenStyles();
-    }
-
-    let openAccordion = this.getOpenSibling();
-    if (openAccordion) {
-      const title = openAccordion.querySelector("[data-accordion-title]");
-      const chevron = openAccordion.querySelector("[data-accordion-title] img");
-      const content = openAccordion.querySelector("[data-accordion-content]");
-      title.setAttribute("aria-expanded", "false");
-      content.setAttribute("aria-hidden", "true");
-      chevron.classList.add("tw-rotate-180");
-      content.style.height = "0";
     }
 
     super.open();
