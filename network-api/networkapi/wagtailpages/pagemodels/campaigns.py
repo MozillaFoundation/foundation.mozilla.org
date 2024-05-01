@@ -33,7 +33,8 @@ class CTABase(models.Model):
     description = RichTextField(help_text="Body (richtext) of component", blank=True)
 
     privacy_notice = RichTextField(
-        help_text="This optional privacy notice field will overwrite the default privacy notice text. If this field is left blank, the default privacy notice text is used.",
+        help_text="This optional privacy notice field will overwrite the default privacy notice text. "
+        "If this field is left blank, the default privacy notice text is used.",
         features=base_rich_text_options,
         blank=True,
     )
