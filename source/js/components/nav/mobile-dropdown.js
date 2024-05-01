@@ -80,12 +80,6 @@ class NavMobileDropdown extends Accordion {
     }
 
     super.open();
-    let transitionEndHandler = () => {
-      this.title.scrollIntoView({ behavior: "smooth", block: "start" });
-      this.content.removeEventListener("transitionend", transitionEndHandler);
-    };
-
-    this.content.addEventListener("transitionend", transitionEndHandler);
     this.content.style.height = `${this.content.scrollHeight}px`;
   }
 
