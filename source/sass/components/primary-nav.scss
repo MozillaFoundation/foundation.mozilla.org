@@ -13,6 +13,15 @@
     md: 9px,
   );
 
+  &.zen-mode {
+    .menu-container {
+      @media (min-width: $bp-md) {
+        padding-left: 52px;
+        padding-right: 52px;
+      }
+    }
+  }
+
   .menu-container {
     padding: 0 0 0 52px;
 
@@ -115,7 +124,9 @@
 
     .wide-screen-menu {
       line-height: $logo-height; //Tied to logo height so that the "active" page border shows up at the correct alignment consistently
+      height: auto;
       &.hidden {
+        height: 0;
         opacity: 0;
         transform: translateY(8px);
         visibility: hidden;
