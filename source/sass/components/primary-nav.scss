@@ -245,17 +245,12 @@
       left: 0;
       right: 0;
       overflow-y: auto;
-      transition:
-        opacity 0.2s,
-        height 0s;
+      height: 100vh;
+      transition: all 0.5s;
 
       &.hidden {
-        opacity: 0;
         height: 0;
         overflow: hidden;
-        transition:
-          opacity 0.2s,
-          height 0s linear 0.2s;
 
         .nav-links {
           a {
