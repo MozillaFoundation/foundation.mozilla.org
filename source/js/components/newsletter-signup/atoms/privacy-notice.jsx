@@ -1,23 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const PrivacyNotice = ({ content }) => {
+const PrivacyNotice = ({ content, classes }) => {
   if (typeof content === "string") {
     return (
       <span
         dangerouslySetInnerHTML={{
           __html: content,
         }}
-        className="[&_p]:tw-body-small"
+        className={classes}
       />
     );
   }
 
-  return <span className="[&_p]:tw-body-small">{content}</span>;
+  return <span className={classes}>{content}</span>;
 };
 
 PrivacyNotice.propTypes = {
   content: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
+  classes: PropTypes.string,
 };
 
 export default PrivacyNotice;
