@@ -23,6 +23,11 @@ $input-font-size: 1.25rem !important;
       label {
         font-family: $font-family-sans-serif;
         margin-bottom: 0;
+        .rich-text p {
+          //match styling for richtext fields like privacy_notice
+          color: #444;
+          font-size: 16px;
+        }
       }
     }
 
