@@ -166,7 +166,12 @@ class DefaultSignupForm extends Component {
     )
       return null;
 
-    return <PrivacyNotice content={this.props.ctaPrivacyNotice} classes="[&_p]:tw-body-small" />;
+    return (
+      <PrivacyNotice
+        content={this.props.ctaPrivacyNotice}
+        classes="[&_p]:tw-body-small"
+      />
+    );
   }
 
   renderAPIErrorMessage() {
