@@ -63,9 +63,8 @@ class NavDesktopDropdown extends Accordion {
     this.titleText.classList.add("large:tw-border-black");
     this.titleText.classList.remove("large:tw-border-transparent");
     this.accordion.setAttribute("aria-selected", "true");
-    this.content.classList.remove("large:tw-opacity-0", "large:tw-invisible");
-    this.content.classList.add("large:tw-opacity-100", "large:tw-visible");
-
+    this.content.classList.add("large:tw-grid");
+    this.content.classList.remove("large:tw-hidden");
     if (this.isDropdownWayfindingActive === "true") {
       this.handleWayfindingOpenStyles();
     }
@@ -94,8 +93,8 @@ class NavDesktopDropdown extends Accordion {
     this.titleText.classList.remove("large:tw-border-black");
     this.titleText.classList.add("large:tw-border-transparent");
     this.accordion.setAttribute("aria-selected", "false");
-    this.content.classList.remove("large:tw-opacity-100", "large:tw-visible");
-    this.content.classList.add("large:tw-opacity-0", "large:tw-invisible");
+    this.content.classList.remove("large:tw-grid");
+    this.content.classList.add("large:tw-hidden");
     if (this.isDropdownWayfindingActive === "true") {
       this.handleWayfindingClosedStyles();
     }
