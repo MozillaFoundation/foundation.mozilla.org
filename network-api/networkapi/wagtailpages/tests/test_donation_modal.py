@@ -1,6 +1,6 @@
 from django.test import TestCase
-from wagtail.admin.panels import get_edit_handler
 from wagtail import rich_text
+from wagtail.admin.panels import get_edit_handler
 
 from networkapi.wagtailpages.donation_modal import DonationModal
 
