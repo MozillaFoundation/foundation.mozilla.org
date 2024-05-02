@@ -16,7 +16,7 @@ class Accordion {
   bindEvents() {
     this.title.addEventListener("click", (e) => {
       e.preventDefault();
-      let open = !this.content.classList.contains("tw-hidden");
+      let open = this.title.getAttribute("aria-expanded") === "true";
 
       if (open) {
         this.close();
@@ -37,14 +37,12 @@ class Accordion {
   }
 
   open() {
-    this.content.classList.remove("tw-hidden");
     this.chevron.classList.remove("tw-rotate-180");
     this.title.setAttribute("aria-expanded", "true");
     this.content.setAttribute("aria-hidden", "false");
   }
 
   close() {
-    this.content.classList.add("tw-hidden");
     this.chevron.classList.add("tw-rotate-180");
     this.title.setAttribute("aria-expanded", "false");
     this.content.setAttribute("aria-hidden", "true");

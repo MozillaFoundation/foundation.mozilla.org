@@ -4,9 +4,9 @@
 {% else %}<div class="primary-nav-container">
 {% endif %}
 <div class="wrapper-burger {% block wrapper_classes %}{% endblock %}">
-    <div class="menu-container large:tw-h-40 {% block menu_container_classes %}{% endblock %}">
+    <div class="menu-container large:tw-h-40 tw-py-8 medium:tw-py-10 large:tw-py-0 {% block menu_container_classes %}{% endblock %}">
         {% block menu_content %}
-            <div class="narrow-screen-menu tw-bg-white hidden d-lg-none tw-overflow-y-auto">
+            <div class="narrow-screen-menu tw-top-[61px] medium:tw-top-[69px] tw-bg-white hidden d-lg-none tw-overflow-y-auto">
                 {% block narrow_screen_menu %}
                     <div class="narrow-screen-menu-background tw-dark">
                         <div class="narrow-screen-menu-container ">
@@ -32,9 +32,8 @@
             <div class="tw-row tw-h-full tw-justify-between large:tw-items-center">
                 <div class="col">
                     <div class="tw-flex tw-flex-row tw-justify-between large:tw-items-center">
-                        <div id="primary-nav-links" class="tw-w-full large:tw-w-auto large:tw-py-0 large:tw-items-center">
-                            <div class="tw-flex tw-items-center tw-flex-wrap ">
-
+                        <div id="primary-nav-links" class="tw-w-full tw-py-0 large:tw-w-auto large:tw-items-center">
+                            <div class="tw-flex tw-items-center tw-flex-wrap">
                                 <button class="burger tw-z-50 tw-bg-white {% if page.zen_nav is not True %} large:tw-hidden small:tw-ml-0 {% endif %}" aria-label="{% trans 'Open menu' %}">
                                     <span class="burger-bar burger-bar-top"></span>
                                     <span class="burger-bar burger-bar-middle"></span>
