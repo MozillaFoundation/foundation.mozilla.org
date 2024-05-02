@@ -1,5 +1,4 @@
 from django.test import TestCase
-from wagtail import rich_text
 from wagtail.admin.panels import get_edit_handler
 
 from networkapi.wagtailpages.donation_modal import DonationModal
@@ -40,7 +39,7 @@ class DonationModalTest(TestCase):
                 data = {
                     "name": "Test Name",
                     "header": "Test Header",
-                    "body": rich_text.RichText("Test Body"),
+                    "body": "<p>Test Body</p>",
                     "donate_text": "Test Donate Button Text",
                     "donate_url": url,
                     "dismiss_text": "Test Dismiss Text",
@@ -65,7 +64,7 @@ class DonationModalTest(TestCase):
                 data = {
                     "name": "Test Name",
                     "header": "Test Header",
-                    "body": rich_text.RichText("Test Body"),
+                    "body": "<p>Test Body</p>",
                     "donate_text": "Test Donate Button Text",
                     "donate_url": url,
                     "dismiss_text": "Test Dismiss Text",
