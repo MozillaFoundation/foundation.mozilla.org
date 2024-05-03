@@ -1,11 +1,10 @@
-import wagtail_factories
-from factory import Faker, SubFactory
+from factory import Faker
 from wagtail_factories import PageFactory
 
-from networkapi.donate.models import  DonateLandingPage
-from networkapi.wagtailpages.models import OpportunityPage
+from networkapi.donate.models import DonateLandingPage
 from networkapi.utility.faker import StreamfieldProvider
 from networkapi.utility.faker.helpers import reseed
+from networkapi.wagtailpages.models import OpportunityPage
 
 Faker.add_provider(StreamfieldProvider)
 
