@@ -36,10 +36,10 @@
                             {% include_block value.overview_value with button=value.button %}
                         {% endif %}
                         {% for column in value.columns %}
-                            {% include_block column %}
+                            {% include_block column with link_hover_padding=link_hover_padding %}
                         {% endfor %}
                         {% if value.has_featured_column %}
-                            {% include_block value.featured_column_value %}
+                            {% include_block value.featured_column_value with link_hover_padding=link_hover_padding %}
                         {% endif %}
                     {% endblock content %}
                 </div>

@@ -4,8 +4,8 @@
 
 {% block title %}{% trans "Blog" %}{% endblock title %}
 
-{% block content_width %} xlarge:tw-w-{{ncols}}/4 {% endblock content_width %}
-{% block grid_columns %}xlarge:tw-grid-cols-{{ncols}} tw-has-featured-column{% endblock grid_columns %}
+{% block content_width %} xlarge:tw-w-{{ ncols }}/4 {% endblock content_width %}
+{% block grid_columns %}xlarge:tw-grid-cols-{{ ncols }} tw-has-featured-column{% endblock grid_columns %}
 
 {% block content %}
     {% include "./featured-posts.html" with posts=menu.localized_featured_blog_posts %}
