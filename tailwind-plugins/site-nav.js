@@ -35,6 +35,7 @@ function shared(theme) {
       flexDirection: "column",
       alignItems: "start",
       flex: "1",
+      marginBottom: theme("margin.8"),
       [media(theme("screens.xlarge"))]: {
         marginTop: theme("margin.22"),
         marginBottom: theme("margin.22"),

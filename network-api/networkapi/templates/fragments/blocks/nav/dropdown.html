@@ -1,6 +1,6 @@
 {% load static wagtailcore_tags wagtailadmin_tags nav_tags %}
 
-{% fragment as content_base_styles %}tw-container tw-overflow-y-auto tw-transition-all tw-duration-500 xlarge:tw-max-w-[1200px]{% endfragment %}
+{% fragment as content_base_styles %}tw-overflow-y-auto tw-transition-all tw-duration-500 tw-bg-white xlarge:tw-bg-transparent xlarge:tw-max-w-[1200px]{% endfragment %}
 {% fragment as dropdown_selector_base %}tw-container tw-flex tw-flex-row tw-items-center tw-justify-between tw-w-full tw-py-12 tw-px-8 tw-gap-4{% endfragment %}
 
 {% fragment as content_desktop %}xlarge:tw-px-0 xlarge:tw-hidden{% endfragment %}
@@ -28,31 +28,33 @@
     </div>
 
     <div class="{{ content_base_styles }} {{ content_desktop_positioning }} {{ content_desktop }} {{ alignment_class }}" data-accordion-content>
-        <div class="{% block content_width %} xlarge:tw-w-{{ value.ncols }}/4 {% endblock content_width %} {{ content_desktop_border }}">
-            <div class="tw-nav-accordion-content-inner {% block grid_columns %} xlarge:tw-grid-cols-{{ value.ncols }} {% if value.has_featured_column %}tw-has-featured-column{% endif %}{% endblock grid_columns %}">
-                {% block content %}
-                    {% if value.has_overview %}
-                        {% include_block value.overview_value with button=value.button %}
+        <div class="tw-container xlarge:tw-max-w-[1200px] xlarge:tw-px-0">
+            <div class="{% block content_width %} xlarge:tw-w-{{ value.ncols }}/4 {% endblock content_width %} {{ content_desktop_border }}">
+                <div class="tw-nav-accordion-content-inner {% block grid_columns %} xlarge:tw-grid-cols-{{ value.ncols }} {% if value.has_featured_column %}tw-has-featured-column{% endif %}{% endblock grid_columns %}">
+                    {% block content %}
+                        {% if value.has_overview %}
+                            {% include_block value.overview_value with button=value.button %}
+                        {% endif %}
+                        {% for column in value.columns %}
+                            {% include_block column %}
+                        {% endfor %}
+                        {% if value.has_featured_column %}
+                            {% include_block value.featured_column_value %}
+                        {% endif %}
+                    {% endblock content %}
+                </div>
+                {% block full_span_button %}
+                    {% comment %}
+                    If there is a button but no overview, we want to render the button at the bottom
+                    of the dropdown. Otherwise it will be rendered together with the overview.
+                    {% endcomment %}
+                    {% if value.button and not value.has_overview %}
+                        <div class="tw-w-full">
+                            {% include_block value.button with style="primary-full-width" %}
+                        </div>
                     {% endif %}
-                    {% for column in value.columns %}
-                        {% include_block column %}
-                    {% endfor %}
-                    {% if value.has_featured_column %}
-                        {% include_block value.featured_column_value %}
-                    {% endif %}
-                {% endblock content %}
+                {% endblock full_span_button %}
             </div>
-            {% block full_span_button %}
-                {% comment %}
-                If there is a button but no overview, we want to render the button at the bottom
-                of the dropdown. Otherwise it will be rendered together with the overview.
-                {% endcomment %}
-                {% if value.button and not value.has_overview %}
-                    <div class="tw-w-full">
-                        {% include_block value.button with style="primary-full-width" %}
-                    </div>
-                {% endif %}
-            {% endblock full_span_button %}
         </div>
     </div>
 </div>

@@ -10,9 +10,10 @@
 {% block content %}
     {% include "./featured-posts.html" with posts=menu.localized_featured_blog_posts %}
     {% include "./featured-topics.html" with relationships=menu.localized_featured_blog_topics %}
-    <div class="tw-w-full tw-pb-4 large:tw-col-span-3 large:tw-py-0">
-        {% include "./button.html" with url=menu.blog_button_url label=menu.blog_button_label %}
-    </div>
 {% endblock content %}
 
-{% block full_span_button %}{% endblock full_span_button %}
+{% block full_span_button %}
+    <div class="tw-w-full">
+        {% include "./button.html" with url=menu.blog_button_url label=menu.blog_button_label %}
+    </div>
+{% endblock full_span_button %}
