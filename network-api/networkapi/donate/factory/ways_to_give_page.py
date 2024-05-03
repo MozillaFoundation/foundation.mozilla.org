@@ -13,7 +13,7 @@ streamfield_fields = ["paragraph", "linkbutton", "spacer", "quote"]
 
 class DonateWaysToGivePageFactory(PageFactory):
     class Meta:
-        # Using OppurtunityPage AKA "Default Page" model
+        # Using OpportunityPage AKA "Default Page" model
         model = OpportunityPage
 
     title = Faker("sentence", nb_words=2)
