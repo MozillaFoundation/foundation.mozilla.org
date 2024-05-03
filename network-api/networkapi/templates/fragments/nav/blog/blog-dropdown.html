@@ -4,7 +4,8 @@
 
 {% block title %}{% trans "Blog" %}{% endblock title %}
 
-{% block grid_columns %}xlarge:tw-w-3/4 xlarge:tw-grid-cols-3{% endblock grid_columns %}
+{% block content_width %} xlarge:tw-w-{{ncols}}/4 {% endblock content_width %}
+{% block grid_columns %}xlarge:tw-grid-cols-{{ncols}} tw-has-featured-column{% endblock grid_columns %}
 
 {% block content %}
     {% include "./featured-posts.html" with posts=menu.localized_featured_blog_posts %}
@@ -13,3 +14,5 @@
         {% include "./button.html" with url=menu.blog_button_url label=menu.blog_button_label %}
     </div>
 {% endblock content %}
+
+{% block full_span_button %}{% endblock full_span_button %}

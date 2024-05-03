@@ -29,7 +29,7 @@
             {% include_block dropdown with style="desktop" %}
         {% endfor %}
         {% if menu.enable_blog_dropdown %}
-            {% include "fragments/nav/blog/blog-dropdown.html" with style="desktop" %}
+            {% include "fragments/nav/blog/blog-dropdown.html" with style="desktop" ncols="3"  alignment_class="tw-justify-end" %}
         {% endif %}
     </div>
 {% endblock wide_screen_menu %}

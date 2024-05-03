@@ -1,9 +1,9 @@
 {% load wagtailcore_tags wagtailadmin_tags %}
 
-{% fragment as base_styles %}tw-flex tw-flex-col tw-items-start tw-gap-8 tw-py-8{% endfragment %}
-{% fragment as desktop_layout %}large:tw-py-22 large:tw-px-12{% endfragment %}
+{% fragment as base_styles %}tw-gap-y-8{% endfragment %}
+{% fragment as desktop_layout %}{% endfragment %}
 
-<div class="{{ base_styles }} {{ desktop_layout }} {% block column_size %}large:tw-col-span-1{% endblock column_size %}">
+<div class="tw-nav-dropdown-column {{ base_styles }} {{ desktop_layout }} {% block column_size %}xlarge:tw-col-span-1{% endblock column_size %}">
     <h6 class="tw-self-stretch tw-px-4">{% block title %}{{ value.title }}{% endblock title %}</h6>
     <div class="tw-flex tw-flex-col tw-items-start tw-gap-8 tw-self-stretch">
         {% block content %}
