@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailadmin_tags %}
 
-{% fragment as base_styles %}tw-gap-y-8{% endfragment %}
+{% fragment as base_styles %}tw-gap-y-8 xlarge:tw-gap-y-4{% endfragment %}
 {% fragment as desktop_layout %}{% endfragment %}
 
 <div class="tw-nav-dropdown-column {{ base_styles }} {{ desktop_layout }} {% block column_size %}xlarge:tw-col-span-1{% endblock column_size %}">
