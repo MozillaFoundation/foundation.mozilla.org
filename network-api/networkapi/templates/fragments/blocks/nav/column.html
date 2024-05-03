@@ -1,17 +1,18 @@
 {% load wagtailcore_tags wagtailadmin_tags %}
 
-{% fragment as base_styles %}tw-gap-y-8{% endfragment %}
+{% fragment as base_styles %}tw-gap-y-8 tw-mb-8 xlarge:tw-mb-0{% endfragment %}
 {% fragment as desktop_layout %}{% endfragment %}
+{% fragment as padding_for_hover %}xlarge:tw-p-4{% endfragment %}
 
 <div class="tw-nav-dropdown-column {{ base_styles }} {{ desktop_layout }} {% block column_size %}xlarge:tw-col-span-1{% endblock column_size %}">
-    <h6 class="tw-self-stretch tw-px-4">{% block title %}{{ value.title }}{% endblock title %}</h6>
-    <div class="tw-flex tw-flex-col tw-items-start tw-gap-8 tw-self-stretch">
+    <h6 class="tw-self-stretch {{ padding_for_hover }}">{% block title %}{{ value.title }}{% endblock title %}</h6>
+    <div class="tw-flex tw-flex-col tw-items-start tw-gap-y-14 xlarge:tw-gap-y-10 tw-self-stretch">
         {% block content %}
             {% for item in value.nav_items %}
-                <div class="tw-self-stretch">{% include_block item %}</div>
+                <div class="tw-self-stretch">{% include_block item with padding_for_hover=padding_for_hover %}</div>
             {% endfor %}
             {% if value.has_button %}
-                <div class="tw-self-stretch">{% include_block value.button_value with style="cta" %}</div>
+                <div class="tw-self-stretch">{% include_block value.button_value with style="cta" padding_for_hover=padding_for_hover %}</div>
             {% endif %}
         {% endblock content %}
     </div>

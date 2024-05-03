@@ -1,10 +1,10 @@
 {% load wagtailcore_tags wagtailadmin_tags %}
 
-{% fragment as base_styles %}tw-gap-14{% endfragment %}
-{% fragment as border_styles %}tw-border-gray-05 tw-border-b-[1px] xlarge:tw-border-b-0 xlarge:tw-border-r-[1px]{% endfragment %}
+{% fragment as base_styles %}tw-gap-14 tw-pb-16{% endfragment %}
+{% fragment as border_styles %}tw-border-b-gray-05 tw-border-b-[1px] xlarge:tw-pb-0 xlarge:tw-border-b-0 xlarge:tw-border-r-gray-05 xlarge:tw-border-r-[1px]{% endfragment %}
 {% fragment as desktop_layout %}xlarge:tw-border-r{% endfragment %}
 
-<div class="tw-nav-dropdown-column {{ base_styles }} {{ border_styles }} {{ desktop_layout }}">
+<div class="tw-nav-dropdown-column tw-gap {{ base_styles }} {{ border_styles }} {{ desktop_layout }}">
     <div class="tw-flex tw-flex-col tw-items-start tw-gap-10">
         <p class="tw-font-zilla tw-italic tw-font-medium tw-text-2xl tw-text-black tw-my-0 tw-py-0">{{ value.title }}</p>
         <div class="last:[&_p]:tw-mb-0 [&_p]:tw-text-gray-80 [&_p]:tw-text-base [&_p]:tw-font-normal [&_p]:tw-font-sans">{{ value.description|richtext }}</div>

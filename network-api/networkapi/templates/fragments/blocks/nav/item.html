@@ -7,7 +7,7 @@
 
 {% check_if_link_is_active value as link_active %}
 
-<div class="tw-group/item tw-flex tw-flex-col tw-gap-4 tw-p-4 hover:tw-bg-blue-03 hover:tw-rounded">
+<div class="tw-group/item tw-flex tw-flex-col tw-gap-2 hover:tw-bg-blue-03 hover:tw-rounded {{ padding_for_hover }}">
     <a class="
               {{ font_styles }}
               {% if value.is_external %}
