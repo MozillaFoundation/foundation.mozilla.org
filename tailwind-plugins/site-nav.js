@@ -8,7 +8,7 @@ function shared(theme) {
       display: "flex",
       flexDirection: "column",
       background: "white",
-      gap: theme("gap.24"),
+      gap: `${theme("gap.22")} ${theme("gap.16")}`,
       marginLeft: `-${theme("margin.8")}`,
       marginRight: `-${theme("margin.8")}`,
       paddingTop: theme("padding.12"),
