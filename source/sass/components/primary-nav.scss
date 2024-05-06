@@ -246,8 +246,8 @@
       right: 0;
       overflow-y: auto;
       transition:
-          opacity 0.2s,
-          height 0.5s;
+        opacity 0.2s,
+        height 0.5s;
 
       &.hidden {
         opacity: 0;
@@ -266,8 +266,7 @@
 
         @media screen and (min-width: $bp-md) {
           top: 69px;
-          height: calc(100vh - 69px);;
-
+          height: calc(100vh - 69px);
         }
 
         &.hidden {
