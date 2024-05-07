@@ -86,7 +86,7 @@
             <base target="_blank">
         {% endif %}
     </head>
-    <body class="{% block bodyclass %}{% endblock %} {% if settings.nav.SiteNavMenu.active_nav_menu %}new-nav-enabled{% endif %}" id="view-{% block body_id %}{% endblock %}">
+    <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
         {% if user.is_authenticated %}
             {% wagtailuserbar 'bottom-left' %}
         {% endif %}

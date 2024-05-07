@@ -245,6 +245,7 @@
       left: 0;
       right: 0;
       overflow-y: auto;
+      height: 100vh;
       transition:
         opacity 0.2s,
         height 0.5s;
@@ -257,20 +258,6 @@
           a {
             transform: translateY(8px);
           }
-        }
-      }
-
-      .new-nav-enabled & {
-        top: 61px;
-        height: calc(100vh - 61px);
-
-        @media screen and (min-width: $bp-md) {
-          top: 69px;
-          height: calc(100vh - 69px);
-        }
-
-        &.hidden {
-          height: 0;
         }
       }
 
