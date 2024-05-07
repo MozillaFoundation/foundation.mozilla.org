@@ -11,6 +11,8 @@ import { ReactGA } from "../js/common";
 
 const elements = {
   primaryNav: `.primary-nav-container`,
+  narrowMenu: `.primary-nav-container .narrow-screen-menu`,
+  narrowMenuBackground: `.primary-nav-container .narrow-screen-menu-background`,
   narrowMenuContainer: `.primary-nav-container .narrow-screen-menu-container`,
   wideMenuContainer: `.primary-nav-container .wide-screen-menu-container`,
   buttonMobile: `.primary-nav-container .narrow-screen-menu-container .btn-newsletter`,
@@ -87,6 +89,11 @@ class NavNewsletter {
   // and reset the form
   closeMobileNewsletter() {
     const wrapper = elements.container;
+
+    if (elements.narrowMenu.classList.contains("new-nav-enabled")) {
+      elements.narrowMenuBackground.classList.remove("tw-bg-black");
+      elements.narrowMenuBackground.classList.add("tw-bg-white");
+    }
     elements.narrowMenuContainer.classList.remove("d-none");
     wrapper.classList.remove("faded-in");
     // Schedule a "display:none" to happen after the `expanded` animation finishes.
@@ -103,6 +110,10 @@ class NavNewsletter {
   // transition section to its expanded state
   expandMobileNewsletter() {
     const wrapper = elements.container;
+    if (elements.narrowMenu.classList.contains("new-nav-enabled")) {
+      elements.narrowMenuBackground.classList.remove("tw-bg-white");
+      elements.narrowMenuBackground.classList.add("tw-bg-black");
+    }
     elements.narrowMenuContainer.classList.add(`d-none`);
     wrapper.classList.remove("d-none");
     wrapper.classList.add("faded-in");
