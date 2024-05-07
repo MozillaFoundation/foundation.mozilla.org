@@ -27,11 +27,6 @@ class NavMobileDropdown extends Accordion {
     this.title.classList.add("tw-border-s-4");
   }
 
-  getSiblings() {
-    let siblings = document.querySelectorAll(NavMobileDropdown.selector());
-    return Array.from(siblings).filter((sibling) => sibling !== this.accordion);
-  }
-
   bindEvents() {
     super.bindEvents();
     this.accordion.addEventListener("focus", () => {
@@ -63,23 +58,12 @@ class NavMobileDropdown extends Accordion {
   }
 
   open() {
-    super.open();
     if (this.isDropdownWayfindingActive === "true") {
       this.handleWayfindingOpenStyles();
     }
-    if (!this.siblings) {
-      this.siblings = this.getSiblings();
-    }
-    this.siblings.forEach((sibling) => {
-      const title = sibling.querySelector("[data-accordion-title]");
-      const chevron = sibling.querySelector("[data-accordion-title] img");
-      const content = sibling.querySelector("[data-accordion-content]");
-      title.setAttribute("aria-expanded", "false");
-      content.setAttribute("aria-hidden", "true");
-      content.classList.add("tw-hidden");
-      chevron.classList.add("tw-rotate-180");
-    });
-    this.title.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    super.open();
+    this.content.style.height = `${this.content.scrollHeight}px`;
   }
 
   close() {
@@ -87,6 +71,7 @@ class NavMobileDropdown extends Accordion {
     if (this.isDropdownWayfindingActive === "true") {
       this.handleWayfindingClosedStyles();
     }
+    this.content.style.height = "0";
   }
 }
 

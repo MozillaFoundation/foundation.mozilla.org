@@ -4,9 +4,9 @@
 {% else %}<div class="primary-nav-container">
 {% endif %}
 <div class="wrapper-burger {% block wrapper_classes %}{% endblock %}">
-    <div class="menu-container large:tw-h-40 {% block menu_container_classes %}{% endblock %}">
+    <div class="menu-container xlarge:tw-h-40 tw-py-8 small:tw-pl-0 medium:tw-py-10 xlarge:tw-py-0 {% block menu_container_classes %}{% endblock %}">
         {% block menu_content %}
-            <div class="narrow-screen-menu tw-bg-white hidden d-lg-none tw-overflow-y-auto">
+            <div class="narrow-screen-menu tw-bg-white hidden xlarge:tw-hidden tw-overflow-y-auto">
                 {% block narrow_screen_menu %}
                     <div class="narrow-screen-menu-background tw-dark">
                         <div class="narrow-screen-menu-container ">
@@ -28,14 +28,13 @@
                 {% endblock %}
             </div>
         {% endblock %}
-        <nav class="tw-container wide-screen-menu-container tw-relative large:tw-h-full tw-bg-white" title="{% trans "main site navigation" context "Tooltip on menu items" %}">
-            <div class="tw-row tw-h-full tw-justify-between large:tw-items-center">
+        <nav class="tw-container wide-screen-menu-container tw-relative xlarge:tw-h-full tw-bg-white" aria-label="{% trans "main site navigation" context "Tooltip on menu items" %}">
+            <div class="tw-row tw-h-full tw-justify-between xlarge:tw-items-center">
                 <div class="col">
-                    <div class="tw-flex tw-flex-row tw-justify-between large:tw-items-center">
-                        <div id="primary-nav-links" class="tw-w-full large:tw-w-auto large:tw-py-0 large:tw-items-center">
-                            <div class="tw-flex tw-items-center tw-flex-wrap ">
-
-                                <button class="burger tw-z-50 tw-bg-white {% if page.zen_nav is not True %} large:tw-hidden small:tw-ml-0 {% endif %}" aria-label="{% trans 'Open menu' %}">
+                    <div class="tw-flex tw-flex-row tw-justify-between xlarge:tw-items-center">
+                        <div id="primary-nav-links" class="tw-w-full tw-py-0 xlarge:tw-w-auto xlarge:tw-items-center">
+                            <div class="tw-flex tw-items-center tw-flex-wrap">
+                                <button class="burger tw-z-50 tw-bg-white {% if page.zen_nav is not True %} xlarge:tw-hidden small:tw-ml-0 {% endif %}" aria-label="{% trans 'Open menu' %}">
                                     <span class="burger-bar burger-bar-top"></span>
                                     <span class="burger-bar burger-bar-middle"></span>
                                     <span class="burger-bar burger-bar-bottom"></span>
@@ -48,11 +47,11 @@
                                 {% if page.zen_nav == True %}
                                     <div class="wide-screen-menu hidden">
                                 {% else %}
-                                    <div class="wide-screen-menu large:tw-h-full large:tw-flex large:tw-items-center">
+                                    <div class="wide-screen-menu xlarge:tw-h-full xlarge:tw-flex xlarge:tw-items-center">
                                 {% endif %}
 
                                 {% block wide_screen_menu %}
-                                    <div class="nav-links d-none d-lg-block">
+                                    <div class="nav-links d-none d-xl-block">
                                         {% include "fragments/nav_links.html" %}
                                     </div>
                                 {% endblock %}
@@ -64,7 +63,7 @@
                     {% block donate_and_newsletter %}
                         <div class="d-flex align-items-center">
                             <a data-donate-header-button class="primary-nav-special-link tw-heart-glyph tw-flex" href="?form=donate-header">{% trans "Donate" %}</a>
-                            {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
+                            {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-xl-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
                         </div>
                     {% endblock %}
 

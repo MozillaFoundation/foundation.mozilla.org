@@ -6,6 +6,7 @@ const buttonPlugins = require("./tailwind-plugins/button");
 const typePlugins = require("./tailwind-plugins/type");
 const glyphPlugins = require("./tailwind-plugins/glyph");
 const formControlPlugins = require("./tailwind-plugins/form-control");
+const siteNavPlugins = require("./tailwind-plugins/site-nav");
 
 module.exports = {
   content: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
@@ -21,7 +22,7 @@ module.exports = {
     {
       // Handle dynamic grid column sizing on templates (see fragments/blocks/nav/dropdown.html)
       pattern: /w-(1|2|3|4)\/4/,
-      variants: ['large', 'hover', 'focus', 'large:hover', 'large:focus'],
+      variants: ['xlarge', 'large', 'hover', 'focus', 'large:hover', 'large:focus'],
     },
   ],
   plugins: [
@@ -68,6 +69,7 @@ module.exports = {
     ...typePlugins,
     ...glyphPlugins,
     ...formControlPlugins,
+    ...siteNavPlugins,
     require("@tailwindcss/forms")({ strategy: "class" }),
   ],
   theme: {
