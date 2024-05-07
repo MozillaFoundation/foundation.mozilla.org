@@ -7,22 +7,26 @@
     tw-relative
 {% endblock menu_container_classes %}
 
-{% block narrow_screen_menu %}
-    {% fragment as link_hover_padding %}xlarge:tw-p-4{% endfragment %}
-    <div class="tw-bg-white tw-min-h-lvh">
-        <div class="tw-flex tw-flex-col tw-divide-y-[1px] tw-divide-gray-20 tw-border-b tw-border-b-gray-20 tw-w-full" data-nav-accordion-menu>
-            {% for dropdown in menu.dropdowns %}
-                {% include_block dropdown with style="mobile" link_hover_padding=link_hover_padding %}
-            {% endfor %}
-            {% if menu.enable_blog_dropdown %}
-                {% include "fragments/nav/blog/blog-dropdown.html" with style="mobile" link_hover_padding=link_hover_padding %}
-            {% endif %}
+{% block menu_content %}
+    <div class="narrow-screen-menu new-nav-enabled tw-bg-white hidden xlarge:tw-hidden tw-overflow-y-auto">
+    {% block narrow_screen_menu %}
+        {% fragment as link_hover_padding %}xlarge:tw-p-4{% endfragment %}
+        <div class="tw-bg-white tw-min-h-lvh">
+            <div class="tw-flex tw-flex-col tw-divide-y-[1px] tw-divide-gray-20 tw-border-b tw-border-b-gray-20 tw-w-full" data-nav-accordion-menu>
+                {% for dropdown in menu.dropdowns %}
+                    {% include_block dropdown with style="mobile" link_hover_padding=link_hover_padding %}
+                {% endfor %}
+                {% if menu.enable_blog_dropdown %}
+                    {% include "fragments/nav/blog/blog-dropdown.html" with style="mobile" link_hover_padding=link_hover_padding %}
+                {% endif %}
+            </div>
+            <div class="tw-flex tw-flex-col tw-items-center tw-p-8 tw-pt-20">
+                <button class="tw-btn-secondary btn-newsletter tw-w-full">{% trans "Newsletter" %}</button>
+            </div>
         </div>
-        <div class="tw-flex tw-flex-col tw-items-center tw-p-8 tw-pt-20">
-            <button class="tw-btn-secondary btn-newsletter tw-w-full">{% trans "Newsletter" %}</button>
-        </div>
+    {% endblock narrow_screen_menu %}
     </div>
-{% endblock narrow_screen_menu %}
+{% endblock menu_content %}
 
 {% block wide_screen_menu %}
     {% fragment as link_hover_padding %}xlarge:tw-p-4{% endfragment %}
