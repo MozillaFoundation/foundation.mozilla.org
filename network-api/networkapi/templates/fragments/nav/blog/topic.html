@@ -3,7 +3,7 @@
 {% fragment as font_styles %}tw-text-xl large:tw-text-lg tw-font-semibold tw-text-black{% endfragment %}
 {% fragment as hover_styles %}group-hover/item:tw-text-blue-80 group-hover/item:tw-underline{% endfragment %}
 
-<div class="tw-group/item tw-flex tw-flex-row tw-self-stretch tw-gap-6 tw-p-4 hover:tw-bg-blue-03">
+<div class="tw-group/item tw-flex tw-flex-row tw-self-stretch tw-gap-6 hover:tw-bg-blue-03 {{ link_hover_padding }}">
     {% image icon height-18 preserve-svg %}
     <a class="{{ font_styles }} {{ hover_styles }}"
        href="{{ topic.url }}">

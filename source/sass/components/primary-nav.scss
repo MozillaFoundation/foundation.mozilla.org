@@ -13,15 +13,6 @@
     md: 9px,
   );
 
-  &.zen-mode {
-    .menu-container {
-      @media (min-width: $bp-md) {
-        padding-left: 52px;
-        padding-right: 52px;
-      }
-    }
-  }
-
   .menu-container {
     padding: 0 0 0 52px;
 
@@ -246,10 +237,13 @@
       right: 0;
       overflow-y: auto;
       height: 100vh;
-      transition: all 0.5s;
+      transition:
+        opacity 0.2s,
+        height 0.5s;
 
       &.hidden {
         height: 0;
+        opacity: 0;
         overflow: hidden;
 
         .nav-links {
