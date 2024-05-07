@@ -135,7 +135,7 @@ heroku3==5.2.1
     # via -r requirements.in
 html5lib==1.1
     # via wagtail
-idna==3.3
+idna==3.7
     # via requests
 jmespath==0.10.0
     # via
