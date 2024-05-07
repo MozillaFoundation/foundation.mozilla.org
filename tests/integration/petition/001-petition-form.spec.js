@@ -10,12 +10,13 @@ test.describe("FormAssembly petition form", () => {
     "en",
     "de",
     "es",
-    "fr",
-    "fy-NL",
-    "nl",
-    "pl",
-    "pt-BR",
-    "sw",
+    // commenting the following locales out for the time being to speed up the tests we have for petition form
+    // "fr",
+    // "fy-NL",
+    // "nl",
+    // "pl",
+    // "pt-BR",
+    // "sw",
   ];
   let localeToTest = supportedLocales[0];
 

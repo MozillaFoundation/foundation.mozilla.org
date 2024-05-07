@@ -23,18 +23,18 @@ class NavDesktopDropdown extends Accordion {
   */
 
   addBaseWayfindingStyles() {
-    this.titleText.classList.remove("large:tw-border-transparent");
-    this.titleText.classList.add("large:tw-border-black");
+    this.titleText.classList.remove("xlarge:tw-border-transparent");
+    this.titleText.classList.add("xlarge:tw-border-black");
   }
 
   handleWayfindingOpenStyles() {
-    this.titleText.classList.remove("large:tw-border-transparent");
-    this.titleText.classList.add("large:tw-border-black");
+    this.titleText.classList.remove("xlarge:tw-border-transparent");
+    this.titleText.classList.add("xlarge:tw-border-black");
   }
 
   handleWayfindingClosedStyles() {
-    this.titleText.classList.remove("large:tw-border-transparent");
-    this.titleText.classList.add("large:tw-border-black");
+    this.titleText.classList.remove("xlarge:tw-border-transparent");
+    this.titleText.classList.add("xlarge:tw-border-black");
   }
 
   getSiblings() {
@@ -59,12 +59,12 @@ class NavDesktopDropdown extends Accordion {
 
   open() {
     super.open();
-    this.titleText.classList.add("large:tw-text-black");
-    this.titleText.classList.add("large:tw-border-black");
-    this.titleText.classList.remove("large:tw-border-transparent");
+    this.titleText.classList.add("xlarge:tw-text-black");
+    this.titleText.classList.add("xlarge:tw-border-black");
+    this.titleText.classList.remove("xlarge:tw-border-transparent");
     this.accordion.setAttribute("aria-selected", "true");
-    this.content.classList.add("large:tw-grid");
-    this.content.classList.remove("large:tw-hidden");
+    this.content.classList.add("xlarge:tw-flex");
+    this.content.classList.remove("xlarge:tw-hidden");
     if (this.isDropdownWayfindingActive === "true") {
       this.handleWayfindingOpenStyles();
     }
@@ -73,28 +73,28 @@ class NavDesktopDropdown extends Accordion {
     }
     this.siblings.forEach((sibling) => {
       const titleText = sibling.querySelector("[data-accordion-title] h5");
-      titleText.classList.remove("large:tw-text-black");
-      titleText.classList.add("large:tw-text-gray-40");
+      titleText.classList.remove("xlarge:tw-text-black");
+      titleText.classList.add("xlarge:tw-text-gray-40");
       const isSiblingDropdownWayfindingActive =
         sibling.dataset.isWayfindingActive;
       if (isSiblingDropdownWayfindingActive === "true") {
         titleText.classList.remove(
-          "large:tw-border-transparent",
-          "large:tw-border-black"
+          "xlarge:tw-border-transparent",
+          "xlarge:tw-border-black"
         );
-        titleText.classList.add("large:tw-border-gray-40");
+        titleText.classList.add("xlarge:tw-border-gray-40");
       }
     });
   }
 
   close() {
     super.close();
-    this.titleText.classList.remove("large:tw-text-black");
-    this.titleText.classList.remove("large:tw-border-black");
-    this.titleText.classList.add("large:tw-border-transparent");
+    this.titleText.classList.remove("xlarge:tw-text-black");
+    this.titleText.classList.remove("xlarge:tw-border-black");
+    this.titleText.classList.add("xlarge:tw-border-transparent");
     this.accordion.setAttribute("aria-selected", "false");
-    this.content.classList.remove("large:tw-grid");
-    this.content.classList.add("large:tw-hidden");
+    this.content.classList.remove("xlarge:tw-flex");
+    this.content.classList.add("xlarge:tw-hidden");
     if (this.isDropdownWayfindingActive === "true") {
       this.handleWayfindingClosedStyles();
     }
@@ -103,16 +103,16 @@ class NavDesktopDropdown extends Accordion {
     }
     this.siblings.forEach((sibling) => {
       const titleText = sibling.querySelector("[data-accordion-title] h5");
-      titleText.classList.add("large:tw-text-black");
-      titleText.classList.remove("large:tw-text-gray-40");
+      titleText.classList.add("xlarge:tw-text-black");
+      titleText.classList.remove("xlarge:tw-text-gray-40");
       const isSiblingDropdownWayfindingActive =
         sibling.dataset.isWayfindingActive;
       if (isSiblingDropdownWayfindingActive === "true") {
         titleText.classList.remove(
-          "large:tw-border-transparent",
-          "large:tw-border-gray-40"
+          "xlarge:tw-border-transparent",
+          "xlarge:tw-border-gray-40"
         );
-        titleText.classList.add("large:tw-border-black");
+        titleText.classList.add("xlarge:tw-border-black");
       }
     });
   }
