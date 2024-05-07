@@ -79,7 +79,7 @@ django-autocomplete-light==3.9.7
     # via wagtail-inventory
 django-cors-headers==4.3.1
     # via -r requirements.in
-django-csp==3.7
+django-csp==3.8
     # via -r requirements.in
 django-environ==0.11.2
     # via -r requirements.in
