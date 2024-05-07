@@ -79,7 +79,7 @@ django-autocomplete-light==3.9.7
     # via wagtail-inventory
 django-cors-headers==4.3.1
     # via -r requirements.in
-django-csp==3.7
+django-csp==3.8
     # via -r requirements.in
 django-environ==0.11.2
     # via -r requirements.in
@@ -135,7 +135,7 @@ heroku3==5.2.1
     # via -r requirements.in
 html5lib==1.1
     # via wagtail
-idna==3.3
+idna==3.7
     # via requests
 jmespath==0.10.0
     # via
@@ -222,7 +222,7 @@ six==1.16.0
     #   python-dateutil
 smmap==5.0.0
     # via gitdb
-social-auth-app-django==5.4.0
+social-auth-app-django==5.4.1
     # via -r requirements.in
 social-auth-core==4.4.1
     # via social-auth-app-django
