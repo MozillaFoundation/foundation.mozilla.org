@@ -1,0 +1,6 @@
+{% load static wagtailadmin_tags %}
+
+{% fragment as nav_button_style %}tw-btn-primary tw-min-w-full tw-py-4 tw-px-8 tw-mb-12 xlarge:tw-mb-0{% endfragment %}
+{% fragment as base_styles %}link-button tw-font-bold tw-text-lg{% endfragment %}
+
+<a class="{{ nav_button_style }} {{ base_styles }} after:tw-content-['_→'] after:tw-font-['Nunito_Sans']" href="{{ url }}">{{ label }}</a>

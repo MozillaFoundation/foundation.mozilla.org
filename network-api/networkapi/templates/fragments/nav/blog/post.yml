@@ -1,0 +1,19 @@
+name: Blog Dropdown Featured Post
+context:
+    post:
+      title: "Mozilla Research: Watermarking, Content Labeling Struggle to Effectively Distinguish AI-Generated Content"
+      get_meta_description: "Popular methods used for disclosing synthetic content only rate as ‘Low’ or ‘Fair’ in Mozilla analysis. Shortcomings persist amid 2024’s record-number of elections"
+      topics:
+        all:
+          - name: Advocacy
+            slug: advocacy
+          - name: AI
+            slug: ai
+          - name: Misinformation
+            slug: misinformation
+
+
+tags:
+  pageurl:
+    post:
+      raw: "/en/blog/mozilla-research-watermarking-content-labeling-struggle-to-effectively-distinguish-ai-generated-content/"
