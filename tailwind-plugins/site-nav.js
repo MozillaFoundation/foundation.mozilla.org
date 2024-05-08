@@ -4,6 +4,47 @@ function shared(theme) {
   const media = (breakpoint) => `@media (min-width: ${breakpoint})`;
 
   return {
+    ".nav-mobile-dropdown": {
+      background: "red",
+    },
+    ".nav-desktop-dropdown": {
+      "[data-accordion-button]": {
+        span: {
+          borderLeftWidth: 0,
+          borderRightWidth: 0,
+          borderTopWidth: 0,
+          borderBottomWidth: 0,
+          paddingTop: 0,
+          paddingBottom: 0,
+        },
+        [media(theme("screens.xlarge"))]: {
+          span: {
+            borderBottomWidth: theme("borderWidth.6"),
+            borderBottomColor: "transparent",
+            color: "black",
+            "[data-is-wayfinding-active='true']&": {
+              borderBottomColor: "black",
+            },
+            "[data-is-wayfinding-active='true'].highlighted&": {
+              borderBottomColor: "black !important",
+              color: "black !important",
+            },
+            "[data-is-wayfinding-active].grayed-out&": {
+              color: `${theme("colors.gray.40")} !important`,
+            },
+            "[data-is-wayfinding-active='true'].grayed-out&": {
+              borderBottomColor: `${theme("colors.gray.40")} !important`,
+            },
+          },
+          "&[aria-expanded='true']": {
+            span: {
+              borderBottomColor: "black",
+              color: "black",
+            },
+          },
+        },
+      },
+    },
     ".nav-accordion-content-inner": {
       display: "flex",
       flexDirection: "column",

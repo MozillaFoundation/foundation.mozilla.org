@@ -14,17 +14,17 @@ class NavMobileDropdown extends Accordion {
   }
 
   addBaseWayfindingStyles() {
-    this.title.classList.add("tw-border-s-4", "tw-border-gray-60");
+    this.titleButton.classList.add("tw-border-s-4", "tw-border-gray-60");
   }
 
   handleWayfindingOpenStyles() {
     this.titleText.classList.add("tw-border-b-4", "tw-border-gray-60");
-    this.title.classList.remove("tw-border-s-4");
+    this.titleButton.classList.remove("tw-border-s-4");
   }
 
   handleWayfindingClosedStyles() {
     this.titleText.classList.remove("tw-border-b-4", "tw-border-gray-60");
-    this.title.classList.add("tw-border-s-4");
+    this.titleButton.classList.add("tw-border-s-4");
   }
 
   bindEvents() {
