@@ -261,13 +261,30 @@ class DefaultSignupForm extends Component {
   renderPrivacyCheckbox() {
     const name = "privacy";
 
+    const label = (
+      <span>
+        {pgettext(
+          "Pre-link text of: I'm okay with Mozilla handling my info as explained in this <a href='https://www.mozilla.org/privacy/websites/'>Privacy Notice</a>.",
+          "I'm okay with Mozilla handling my info as explained in this "
+        )}
+        <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
+          {pgettext(
+            "Link text of: I'm okay with Mozilla handling my info as explained in this <a href='https://www.mozilla.org/privacy/websites/'>Privacy Notice</a>.",
+            "Privacy Notice"
+          )}
+        </a>
+        {pgettext(
+          "Post-link text of: I'm okay with Mozilla handling my info as explained in this <a href='https://www.mozilla.org/privacy/websites/'>Privacy Notice</a>.",
+          "."
+        )}
+      </span>
+    );
+
     return (
       <InputCheckboxWithLabel
         id={this.ids[name]}
         name={name}
-        label={gettext(
-          "<span>I'm okay with Mozilla handling my info as explained in this <a target='_blank' href='https://www.mozilla.org/privacy/websites/'>Privacy Notice</a></span>"
-        )}
+        label={label}
         value={this.getFormFieldValue(name)}
         checked={this.getFormFieldValue(name) === "true"}
         onChange={(event) => this.handlePrivacyChange(event)}
