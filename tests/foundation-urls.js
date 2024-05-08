@@ -23,6 +23,7 @@ module.exports = {
     "/publication-page-with-chapter-pages/fixed-title-chapter-page/fixed-title-article-page",
   Donate: "/donate",
   "Donate Help": "/donate/help",
+  "Donate Ways To Give": "/donate/ways-to-give",
   PNI: "/privacynotincluded",
   "PNI (filtered for category)": "/privacynotincluded/categories/toys-games",
   "PNI general product page": "/privacynotincluded/general-percy-product",
