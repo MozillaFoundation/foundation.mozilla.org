@@ -5,7 +5,36 @@ function shared(theme) {
 
   return {
     ".nav-mobile-dropdown": {
-      background: "red",
+      "&[data-is-wayfinding-active='true']": {
+        borderInlineStartWidth: theme("borderWidth.4"),
+        borderColor: theme("colors.gray.60"),
+        "[data-accordion-button]": {
+          "&[aria-expanded='true']": {
+            span: {
+              borderInlineStartWidth: 0,
+              borderColor: theme("colors.gray.60"),
+              borderBottomWidth: theme("borderWidth.4"),
+            },
+          },
+          "&:hover": {
+            span: {
+              textDecorationLine: "none",
+            },
+          },
+        },
+      },
+      "[data-accordion-button]": {
+        border: "none",
+        "&:focus": {
+          background: theme("colors.blue.03"),
+        },
+        "&:hover": {
+          background: theme("colors.blue.03"),
+          span: {
+            textDecorationLine: "underline",
+          },
+        },
+      },
     },
     ".nav-desktop-dropdown": {
       "[data-accordion-button]": {
@@ -18,6 +47,7 @@ function shared(theme) {
           paddingBottom: 0,
         },
         [media(theme("screens.xlarge"))]: {
+          border: "none",
           span: {
             borderBottomWidth: theme("borderWidth.6"),
             borderBottomColor: "transparent",

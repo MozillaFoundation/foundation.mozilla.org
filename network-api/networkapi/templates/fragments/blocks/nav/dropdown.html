@@ -22,8 +22,8 @@
      {% block data_class_attribute %}data-{{ style }}-dropdown{% endblock data_class_attribute %}
      data-is-wayfinding-active="{% if is_dropdown_active %}true{% else %}false{% endif %}"
 >
-    <button class="tw-btn {{ dropdown_selector_base }} xlarge:tw-items-center xlarge:tw-py-0 xlarge:tw-h-full" data-accordion-button>
-        <span class="tw-py-12 tw-h5-heading tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }} {{ title_underline }}">
+    <button class="tw-btn {{ dropdown_selector_base }} tw-py-12 xlarge:tw-py-0 xlarge:tw-items-center xlarge:tw-h-full" data-accordion-button>
+        <span class="xlarge:tw-py-12 tw-h5-heading tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }} {{ title_underline }}">
             {% block title %}{{ value.title }}{% endblock title %}
         </span>
         <img src="{% static "_images/chevron.svg" %}" height="18" width="18" alt="" class="tw-w-8 tw-h-auto tw-rotate-180 tw-transition-transform xlarge:tw-hidden">
