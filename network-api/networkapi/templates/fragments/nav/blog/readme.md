@@ -1,0 +1,1 @@
+Templates for the blog dropdown panel.

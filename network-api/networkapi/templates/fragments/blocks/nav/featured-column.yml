@@ -1,0 +1,18 @@
+name: Navigation Featured Column
+context:
+    value:
+        title: "Donate"
+        nav_items:
+          - value:
+              label: "Make a Donation"
+              url: /foo/bar
+              is_external: false
+          - value:
+              label: "Ways to Give"
+              url: /foo/bar
+              is_external: true
+
+tags:
+    include_block:
+        'item':
+            template_name: "fragments/blocks/nav/featured-item.html"

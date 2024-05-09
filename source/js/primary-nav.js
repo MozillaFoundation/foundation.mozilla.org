@@ -54,11 +54,23 @@ let primaryNav = {
       }
     }
 
+    function setBodyHeight(openMenu) {
+      // set body height and overflow to prevent scrolling on the body when mobile nav is open
+      if (openMenu) {
+        document.body.style.height = `100vh`;
+        document.body.style.overflow = `hidden`;
+      } else {
+        document.body.style.height = `auto`;
+        document.body.style.overflow = `auto`;
+      }
+    }
+
     function setMenuState(openMenu) {
       setWideMenuState(openMenu);
       setNarrowMenuState(openMenu);
       setBurgerState(openMenu);
       trackMenuState(openMenu);
+      setBodyHeight(openMenu);
     }
 
     document.addEventListener(`keyup`, (e) => {

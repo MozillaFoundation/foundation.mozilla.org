@@ -6,6 +6,7 @@ const buttonPlugins = require("./tailwind-plugins/button");
 const typePlugins = require("./tailwind-plugins/type");
 const glyphPlugins = require("./tailwind-plugins/glyph");
 const formControlPlugins = require("./tailwind-plugins/form-control");
+const siteNavPlugins = require("./tailwind-plugins/site-nav");
 
 module.exports = {
   content: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
@@ -17,6 +18,13 @@ module.exports = {
     // eventually we have to extract what bootstrap base/reset styles we need
     preflight: false,
   },
+  safelist: [
+    {
+      // Handle dynamic grid column sizing on templates (see fragments/blocks/nav/dropdown.html)
+      pattern: /w-(1|2|3|4)\/4/,
+      variants: ['xlarge', 'large', 'hover', 'focus', 'large:hover', 'large:focus'],
+    },
+  ],
   plugins: [
     plugin(function ({ addUtilities }) {
       // Adding Column Count to Tailwind CSS
@@ -61,6 +69,7 @@ module.exports = {
     ...typePlugins,
     ...glyphPlugins,
     ...formControlPlugins,
+    ...siteNavPlugins,
     require("@tailwindcss/forms")({ strategy: "class" }),
   ],
   theme: {
@@ -80,6 +89,9 @@ module.exports = {
       gridAutoRows: {
         "1fr": "1fr",
       },
+      borderWidth: {
+        '6': '6px',
+      }
     },
     // Overriding default spacing
     spacing: {
@@ -143,6 +155,7 @@ module.exports = {
       white: colors.white,
       table: "#dee2e6",
       gray: {
+        "02": "#fafafa",
         "05": "#f2f2f2",
         20: "#cccccc",
         40: "#999999",
@@ -159,6 +172,7 @@ module.exports = {
         100: "#9a000e",
       },
       blue: {
+        "03": "#f5f5fd",
         "05": "#e7e7fc",
         10: "#d3d5fc",
         20: "#b7b9fa",
