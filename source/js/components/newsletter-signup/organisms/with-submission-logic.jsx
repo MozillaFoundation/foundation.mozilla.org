@@ -236,27 +236,29 @@ function withSubmissionLogic(WrappedComponent) {
       if (
         this.state.apiSubmissionStatus === this.API_SUBMISSION_STATUS.SUCCESS
       ) {
+        const subscription_intro_text =
+          "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.";
+        const subscription_manage_text =
+          "If you have already confirmed your opt-in to receive Mozilla-related emails, you can now <a href='https://www.mozilla.org/newsletter/recovery/' target='_blank'>manage your subscriptions</a> and update your email preferences.";
+
         message = (
           <>
             <p>
               {pgettext(
-                "Pre-bold text of: If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.",
+                `Pre-bold text of: ${subscription_intro_text}`,
                 "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. "
               )}
               <strong>
                 {pgettext(
-                  "Bold text of: If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.",
+                  `Bold text of: ${subscription_intro_text}`,
                   "Please check your inbox or spam filter for an email from us to click and confirm your subscription"
                 )}
               </strong>
-              {pgettext(
-                "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.",
-                "."
-              )}
+              {pgettext(`Post-bold text of: ${subscription_intro_text}`, ".")}
             </p>
             <p>
               {pgettext(
-                "Pre-link text of: If you have already confirmed your opt-in to receive Mozilla-related emails, you can now <a href='https://www.mozilla.org/newsletter/recovery/' target='_blank'>manage your subscriptions</a> and update your email preferences.",
+                `Pre-link text of: ${subscription_manage_text}`,
                 "If you have already confirmed your opt-in to receive Mozilla-related emails, you can now "
               )}
               <a
@@ -264,12 +266,12 @@ function withSubmissionLogic(WrappedComponent) {
                 target="_blank"
               >
                 {pgettext(
-                  "Link text of: If you have already confirmed your opt-in to receive Mozilla-related emails, you can now <a href='https://www.mozilla.org/newsletter/recovery/' target='_blank'>manage your subscriptions</a> and update your email preferences.",
+                  `Link text of: ${subscription_manage_text}`,
                   "manage your subscriptions"
                 )}
               </a>
               {pgettext(
-                "Post-link text of: If you have already confirmed your opt-in to receive Mozilla-related emails, you can now <a href='https://www.mozilla.org/newsletter/recovery/' target='_blank'>manage your subscriptions</a> and update your email preferences.",
+                `Post-link text of: ${subscription_manage_text}`,
                 " and update your email preferences."
               )}
             </p>

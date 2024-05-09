@@ -260,23 +260,19 @@ class DefaultSignupForm extends Component {
 
   renderPrivacyCheckbox() {
     const name = "privacy";
+    const privacy_text =
+      "I'm okay with Mozilla handling my info as explained in this <a href='https://www.mozilla.org/privacy/websites/'>Privacy Notice</a>.";
 
     const label = (
       <span>
         {pgettext(
-          "Pre-link text of: I'm okay with Mozilla handling my info as explained in this <a href='https://www.mozilla.org/privacy/websites/'>Privacy Notice</a>.",
+          `Pre-link text of: ${privacy_text}`,
           "I'm okay with Mozilla handling my info as explained in this "
         )}
         <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
-          {pgettext(
-            "Link text of: I'm okay with Mozilla handling my info as explained in this <a href='https://www.mozilla.org/privacy/websites/'>Privacy Notice</a>.",
-            "Privacy Notice"
-          )}
+          {pgettext(`Link text of: ${privacy_text}`, "Privacy Notice")}
         </a>
-        {pgettext(
-          "Post-link text of: I'm okay with Mozilla handling my info as explained in this <a href='https://www.mozilla.org/privacy/websites/'>Privacy Notice</a>.",
-          "."
-        )}
+        {pgettext(`Post-link text of: ${privacy_text}`, ".")}
       </span>
     );
 
