@@ -239,13 +239,38 @@ function withSubmissionLogic(WrappedComponent) {
         message = (
           <>
             <p>
-              {gettext(
-                "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>."
+              {pgettext(
+                "Pre-bold text of: If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.",
+                "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. "
+              )}
+              <strong>
+                {pgettext(
+                  "Bold text of: If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.",
+                  "Please check your inbox or spam filter for an email from us to click and confirm your subscription"
+                )}
+              </strong>
+              {pgettext(
+                "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.",
+                "."
               )}
             </p>
             <p>
-              {gettext(
-                "If you have already confirmed your opt-in to receive Mozilla-related emails, you can now <a href='https://www.mozilla.org/newsletter/recovery/' target='_blank'>manage your subscriptions</a> and update your email preferences."
+              {pgettext(
+                "Pre-link text of: If you have already confirmed your opt-in to receive Mozilla-related emails, you can now <a href='https://www.mozilla.org/newsletter/recovery/' target='_blank'>manage your subscriptions</a> and update your email preferences.",
+                "If you have already confirmed your opt-in to receive Mozilla-related emails, you can now "
+              )}
+              <a
+                href="https://www.mozilla.org/newsletter/recovery/"
+                target="_blank"
+              >
+                {pgettext(
+                  "Link text of: If you have already confirmed your opt-in to receive Mozilla-related emails, you can now <a href='https://www.mozilla.org/newsletter/recovery/' target='_blank'>manage your subscriptions</a> and update your email preferences.",
+                  "manage your subscriptions"
+                )}
+              </a>
+              {pgettext(
+                "Post-link text of: If you have already confirmed your opt-in to receive Mozilla-related emails, you can now <a href='https://www.mozilla.org/newsletter/recovery/' target='_blank'>manage your subscriptions</a> and update your email preferences.",
+                " and update your email preferences."
               )}
             </p>
           </>
