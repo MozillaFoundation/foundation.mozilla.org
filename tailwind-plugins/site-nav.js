@@ -4,6 +4,77 @@ function shared(theme) {
   const media = (breakpoint) => `@media (min-width: ${breakpoint})`;
 
   return {
+    ".nav-mobile-dropdown": {
+      "&[data-is-wayfinding-active='true']": {
+        borderInlineStartWidth: theme("borderWidth.4"),
+        borderColor: theme("colors.gray.60"),
+        "[data-accordion-button]": {
+          "&[aria-expanded='true']": {
+            span: {
+              borderInlineStartWidth: 0,
+              borderColor: theme("colors.gray.60"),
+              borderBottomWidth: theme("borderWidth.4"),
+            },
+          },
+          "&:hover": {
+            span: {
+              textDecorationLine: "none",
+            },
+          },
+        },
+      },
+      "[data-accordion-button]": {
+        border: "none",
+        "&:focus": {
+          background: theme("colors.blue.03"),
+        },
+        "&:hover": {
+          background: theme("colors.blue.03"),
+          span: {
+            textDecorationLine: "underline",
+          },
+        },
+      },
+    },
+    ".nav-desktop-dropdown": {
+      "[data-accordion-button]": {
+        span: {
+          borderLeftWidth: 0,
+          borderRightWidth: 0,
+          borderTopWidth: 0,
+          borderBottomWidth: 0,
+          paddingTop: 0,
+          paddingBottom: 0,
+        },
+        [media(theme("screens.xlarge"))]: {
+          border: "none",
+          span: {
+            borderBottomWidth: theme("borderWidth.6"),
+            borderBottomColor: "transparent",
+            color: "black",
+            "[data-is-wayfinding-active='true']&": {
+              borderBottomColor: "black",
+            },
+            "[data-is-wayfinding-active='true'].highlighted&": {
+              borderBottomColor: "black !important",
+              color: "black !important",
+            },
+            "[data-is-wayfinding-active].grayed-out&": {
+              color: `${theme("colors.gray.40")} !important`,
+            },
+            "[data-is-wayfinding-active='true'].grayed-out&": {
+              borderBottomColor: `${theme("colors.gray.40")} !important`,
+            },
+          },
+          "&[aria-expanded='true']": {
+            span: {
+              borderBottomColor: "black",
+              color: "black",
+            },
+          },
+        },
+      },
+    },
     ".nav-accordion-content-inner": {
       display: "flex",
       flexDirection: "column",

@@ -5,18 +5,28 @@ class Accordion {
 
   constructor(node) {
     this.accordion = node;
-    this.title = this.accordion.querySelector("[data-accordion-title]");
+    this.titleButton = this.accordion.querySelector("[data-accordion-button]");
     this.content = this.accordion.querySelector("[data-accordion-content]");
-    this.chevron = this.title.querySelector("img");
-    this.titleText = this.title.querySelector("h5");
+    this.chevron = this.titleButton.querySelector("img");
+    this.titleText = this.titleButton.querySelector("span");
+    this.isDropdownWayfindingActive = this.accordion.dataset.isWayfindingActive;
+
+    if (this.isDropdownWayfindingActive === "true") {
+      this.addBaseWayfindingStyles();
+    }
+
     this.close();
     this.bindEvents();
   }
 
+  addBaseWayfindingStyles() {
+    this.accordion.classList.add("tw-highlighted");
+  }
+
   bindEvents() {
-    this.title.addEventListener("click", (e) => {
+    this.titleButton.addEventListener("click", (e) => {
       e.preventDefault();
-      let open = this.title.getAttribute("aria-expanded") === "true";
+      let open = this.titleButton.getAttribute("aria-expanded") === "true";
 
       if (open) {
         this.close();
@@ -27,25 +37,27 @@ class Accordion {
       }
     });
 
-    this.title.addEventListener("focus", () => {
-      this.title.setAttribute("aria-selected", "true");
+    this.titleButton.addEventListener("focus", () => {
+      this.titleButton.setAttribute("aria-selected", "true");
     });
 
-    this.title.addEventListener("blur", () => {
-      this.title.setAttribute("aria-selected", "false");
+    this.titleButton.addEventListener("blur", () => {
+      this.titleButton.setAttribute("aria-selected", "false");
     });
   }
 
   open() {
     this.chevron.classList.remove("tw-rotate-180");
-    this.title.setAttribute("aria-expanded", "true");
+    this.titleButton.setAttribute("aria-expanded", "true");
     this.content.setAttribute("aria-hidden", "false");
+    this.content.style.visibility = "visible";
   }
 
   close() {
     this.chevron.classList.add("tw-rotate-180");
-    this.title.setAttribute("aria-expanded", "false");
+    this.titleButton.setAttribute("aria-expanded", "false");
     this.content.setAttribute("aria-hidden", "true");
+    this.content.style.visibility = "hidden";
   }
 }
 
