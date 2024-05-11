@@ -105,9 +105,16 @@ class DonationModal extends Component {
           <h3 className={classNames(`tw-h2-heading`, `text-center`)}>
             {this.props.heading}
           </h3>
-          <p className={classNames(`tw-body-large`, `text-center`)}>
-            {this.props.bodyText}
-          </p>
+          <div
+            className={classNames(
+              `tw-rich-text-wrapper`,
+              `tw-body-large`,
+              `text-center`
+            )}
+            dangerouslySetInnerHTML={{
+              __html: this.props.bodyText,
+            }}
+          />
         </div>
 
         <div className="text-center">
