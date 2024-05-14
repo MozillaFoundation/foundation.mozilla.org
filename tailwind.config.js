@@ -24,6 +24,8 @@ module.exports = {
       pattern: /w-(1|2|3|4)\/4/,
       variants: ['xlarge', 'large', 'hover', 'focus', 'large:hover', 'large:focus'],
     },
+    "tw-nav-mobile-dropdown",
+    "tw-nav-desktop-dropdown",
   ],
   plugins: [
     plugin(function ({ addUtilities }) {
