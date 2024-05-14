@@ -266,13 +266,13 @@ class DefaultSignupForm extends Component {
     const label = (
       <span>
         {pgettext(
-          "Pre-link text of: "+privacy_text,
+          "Pre-link text of: " + privacy_text,
           "I'm okay with Mozilla handling my info as explained in this "
         )}
         <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
-          {pgettext("Link text of: "+privacy_text, "Privacy Notice")}
+          {pgettext("Link text of: " + privacy_text, "Privacy Notice")}
         </a>
-        {pgettext("Post-link text of: "+privacy_text, ".")}
+        {pgettext("Post-link text of: " + privacy_text, ".")}
       </span>
     );
 
