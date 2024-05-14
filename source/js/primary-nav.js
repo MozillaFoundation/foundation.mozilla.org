@@ -23,6 +23,15 @@ let primaryNav = {
     function setNarrowMenuState(openMenu) {
       if (openMenu) {
         elNarrowMenu.classList.remove(`hidden`);
+
+        function handleTransitionEnd() {
+          elNarrowMenu.focus();
+          elNarrowMenu.removeEventListener(
+            "transitionend",
+            handleTransitionEnd
+          );
+        }
+        elNarrowMenu.addEventListener("transitionend", handleTransitionEnd);
       } else {
         elNarrowMenu.classList.add(`hidden`);
       }
