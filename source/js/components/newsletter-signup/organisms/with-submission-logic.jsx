@@ -245,20 +245,20 @@ function withSubmissionLogic(WrappedComponent) {
           <>
             <p>
               {pgettext(
-                `Pre-bold text of: ${subscription_intro_text}`,
+                "Pre-bold text of: "+subscription_intro_text,
                 "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. "
               )}
               <strong>
                 {pgettext(
-                  `Bold text of: ${subscription_intro_text}`,
+                  "Bold text of: "+subscription_intro_text,
                   "Please check your inbox or spam filter for an email from us to click and confirm your subscription"
                 )}
               </strong>
-              {pgettext(`Post-bold text of: ${subscription_intro_text}`, ".")}
+              {pgettext("Post-bold text of: "+subscription_intro_text, ".")}
             </p>
             <p>
               {pgettext(
-                `Pre-link text of: ${subscription_manage_text}`,
+                "Pre-link text of: "+subscription_manage_text,
                 "If you have already confirmed your opt-in to receive Mozilla-related emails, you can now "
               )}
               <a
@@ -266,12 +266,12 @@ function withSubmissionLogic(WrappedComponent) {
                 target="_blank"
               >
                 {pgettext(
-                  `Link text of: ${subscription_manage_text}`,
+                  "Link text of: "+subscription_manage_text,
                   "manage your subscriptions"
                 )}
               </a>
               {pgettext(
-                `Post-link text of: ${subscription_manage_text}`,
+                "Post-link text of: "+subscription_manage_text,
                 " and update your email preferences."
               )}
             </p>
