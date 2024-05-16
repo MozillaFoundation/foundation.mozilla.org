@@ -14,7 +14,7 @@ class BaseLinkValue(blocks.StructValue):
 
     def get_page_link(self):
         page = self.get("page")
-        return page.url if page else None
+        return page.localized.url if page else None
 
     def get_external_url_link(self):
         return self.get("external_url")
