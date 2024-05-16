@@ -119,7 +119,7 @@ class NavMenu(
     base_form_class = NavMenuForm
 
     translatable_fields = [
-        TranslatableField("title"),
+        SynchronizedField("title"),
         TranslatableField("dropdowns"),
         SynchronizedField("enable_blog_dropdown"),
         TranslatableField("blog_button_label"),
