@@ -7,6 +7,7 @@ const typePlugins = require("./tailwind-plugins/type");
 const glyphPlugins = require("./tailwind-plugins/glyph");
 const formControlPlugins = require("./tailwind-plugins/form-control");
 const siteNavPlugins = require("./tailwind-plugins/site-nav");
+const wagtailPlugins = require("./tailwind-plugins/wagtail");
 
 module.exports = {
   content: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
@@ -26,6 +27,7 @@ module.exports = {
     },
     "tw-nav-mobile-dropdown",
     "tw-nav-desktop-dropdown",
+    "tw-rich-text-wrapper",
   ],
   plugins: [
     plugin(function ({ addUtilities }) {
@@ -72,6 +74,7 @@ module.exports = {
     ...glyphPlugins,
     ...formControlPlugins,
     ...siteNavPlugins,
+    ...wagtailPlugins,
     require("@tailwindcss/forms")({ strategy: "class" }),
   ],
   theme: {
