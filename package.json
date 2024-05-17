@@ -17,6 +17,8 @@
     "build:css": "run-p build:css:file:**",
     "build:css:file:main": "sass source/sass/main.scss network-api/networkapi/temp/frontend/_css/main.compiled.css",
     "build:css:file:fonts": "sass source/sass/fonts.scss network-api/networkapi/temp/frontend/_css/fonts.compiled.css",
+    "build:css:file:fonts:caveat": "sass source/sass/font-faces/caveat.scss network-api/networkapi/temp/frontend/_css/fonts.caveat.compiled.css",
+    "build:css:file:fonts:changa": "sass source/sass/font-faces/changa.scss network-api/networkapi/temp/frontend/_css/fonts.changa.compiled.css",
     "build:css:file:bg": "sass source/sass/buyers-guide/bg-main.scss network-api/networkapi/temp/frontend/_css/buyers-guide.compiled.css",
     "build:css:file:donate": "sass source/sass/donate/donate-main.scss network-api/networkapi/temp/frontend/_css/donate.compiled.css",
     "build:css:file:formassembly": "sass source/sass/formassembly-override.scss network-api/networkapi/temp/frontend/_css/formassembly-override.compiled.css",
