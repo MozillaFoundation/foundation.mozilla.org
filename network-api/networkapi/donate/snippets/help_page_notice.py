@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
@@ -14,6 +15,7 @@ class HelpPageNotice(TranslatableMixin, models.Model):
 
     text = RichTextField(
         features=base_rich_text_options,
+        blank=False,
     )
     notice_image = models.ForeignKey(
         "wagtailimages.Image",
@@ -42,3 +44,10 @@ class HelpPageNotice(TranslatableMixin, models.Model):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        super().clean()
+        if self.notice_image and not self.notice_image_alt_text:
+            raise ValidationError({"notice_image_alt_text": "Image must include alt text."})
+        if self.notice_image_alt_text and not self.notice_image:
+            raise ValidationError({"notice_image": "Alt text must have an associated image."})
