@@ -1,8 +1,6 @@
-import wagtail_factories
-from factory import Faker, SubFactory
+from factory import Faker
 from wagtail_factories import PageFactory
 
-from networkapi.donate.factory.customblocks.notice_block import NoticeBlockFactory
 from networkapi.donate.models import DonateHelpPage, DonateLandingPage
 from networkapi.utility.faker import StreamfieldProvider
 from networkapi.utility.faker.helpers import reseed
@@ -18,7 +16,6 @@ class DonateHelpPageFactory(PageFactory):
 
     title = Faker("sentence", nb_words=2)
     body = Faker("streamfield", fields=streamfield_fields)
-    notice = wagtail_factories.StreamFieldFactory({"notice": SubFactory(NoticeBlockFactory)})
 
 
 def generate(seed):
@@ -26,4 +23,4 @@ def generate(seed):
 
     print("Generating a Help page")
     home_page = DonateLandingPage.objects.get(title="Donate Now")
-    DonateHelpPageFactory(parent=home_page, title="Donate Help", slug="help", notice__0="notice")
+    DonateHelpPageFactory(parent=home_page, title="Donate Help", slug="help")

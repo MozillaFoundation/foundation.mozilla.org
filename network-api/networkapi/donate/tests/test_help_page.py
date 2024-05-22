@@ -22,7 +22,6 @@ class DonateHelpPageTest(test_base.WagtailpagesTestCase):
         )
         cls.donate_help_page = help_page_factories.DonateHelpPageFactory(
             parent=cls.donate_landing_page,
-            notice__0="notice",
         )
 
     def test_parent_page_types(self):
@@ -65,12 +64,6 @@ class DonateHelpPageTest(test_base.WagtailpagesTestCase):
             response=response,
             template_name="donate/pages/help_page.html",
         )
-
-    def test_help_page_notice_field(self):
-        """
-        Asserts that a 'notice' block was created in the 'notice' field by the factory.
-        """
-        self.assertEqual(self.donate_help_page.notice[0].block_type, "notice")
 
     def test_thank_you_url(self):
         """

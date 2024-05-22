@@ -11,11 +11,6 @@
     <div class="tw-container tw-py-12 medium:tw-py-24">
         <div class="cms donate-help-page-content">
             <h1 class="tw-h1-heading"> {{ page.title }} </h1>
-            {% if page.notice %}
-                {% for block in page.notice %}
-                    {% include_block block %}
-                {% endfor %}
-            {% endif %}
             <p>
                 {% blocktrans with link="?form=donor-care-intake" trimmed %}
                     If you need help with a <a href="{{ link }}">donation</a> to the Mozilla Foundation, please select the reason for your inquiry from the drop down and a donor care representative will get back to you as soon as possible.
