@@ -87,7 +87,7 @@
     "esbuild": "^0.20.2",
     "event-stream": "3.3.4",
     "gsap": "^3.12.5",
-    "htmx.org": "^1.9.11",
+    "htmx.org": "^1.9.12",
     "locomotive-scroll": "^4.1.4",
     "moment": "^2.29.4",
     "npm-run-all": "^4.1.3",
