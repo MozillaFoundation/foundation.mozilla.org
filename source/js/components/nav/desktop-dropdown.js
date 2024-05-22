@@ -66,7 +66,7 @@ class NavDesktopDropdown extends Accordion {
     }
     this.siblings.forEach((sibling) => {
       const isSiblingDropdownWayfindingActive =
-        sibling.dataset.isWayfindingActive;
+        sibling.dataset.shouldWayfindingBeActive;
 
       sibling.classList.add("tw-grayed-out");
       if (isSiblingDropdownWayfindingActive === "true") {
@@ -100,9 +100,9 @@ class NavDesktopDropdown extends Accordion {
   }
 
   close() {
-    if (this.isDropdownWayfindingActive === undefined) {
-      this.isDropdownWayfindingActive =
-        this.accordion.dataset.isWayfindingActive;
+    if (this.shouldWayfindingBeActive === undefined) {
+      this.shouldWayfindingBeActive =
+        this.accordion.dataset.shouldWayfindingBeActive;
     }
 
     super.close();

@@ -28,7 +28,7 @@ def get_dropdown_id(**kwargs):
 
 
 @register.simple_tag(takes_context=True)
-def check_if_dropdown_is_active(context, dropdown_id):
+def check_if_dropdown_can_be_active(context, dropdown_id):
     # The page that user is currently visiting/requesting:
     page = context.get("page", None)
     if not page:

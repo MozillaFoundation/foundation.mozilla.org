@@ -15,12 +15,14 @@
 
 {% get_dropdown_id menu=menu idx=forloop.counter0 as dropdown_id %}
 {% if dropdown_id %}
-    {% check_if_dropdown_is_active dropdown_id as is_dropdown_active %}
+    {% check_if_dropdown_can_be_active dropdown_id as can_dropdown_be_active %}
 {% endif %}
 
 <div class="tw-nav-{{ style }}-dropdown tw-flex tw-flex-col"
      {% block data_class_attribute %}data-{{ style }}-dropdown{% endblock data_class_attribute %}
-     data-is-wayfinding-active="{% if is_dropdown_active %}true{% else %}false{% endif %}"
+     data-dropdown-id="{{ dropdown_id }}"
+     data-can-wayfinding-be-active="{% if can_dropdown_be_active %}true{% else %}false{% endif %}"
+     data-should-wayfinding-be-active="false"
 >
     <button class="tw-btn {{ dropdown_selector_base }} tw-py-12 xlarge:tw-py-0 xlarge:tw-items-center xlarge:tw-h-full" data-accordion-button>
         <span class="xlarge:tw-py-12 tw-h5-heading tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }} {{ title_underline }}">
