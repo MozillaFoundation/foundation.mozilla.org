@@ -5,7 +5,7 @@ function shared(theme) {
 
   return {
     ".nav-mobile-dropdown": {
-      "&[data-should-wayfinding-be-actzive='true']": {
+      "&[data-should-wayfinding-be-active='true']": {
         borderInlineStartWidth: theme("borderWidth.4"),
         borderColor: theme("colors.gray.60"),
         "[data-accordion-button]": {

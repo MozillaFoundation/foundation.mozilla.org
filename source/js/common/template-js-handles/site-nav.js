@@ -8,6 +8,8 @@ function initComponent(ComponentClass) {
 }
 
 let SiteNav = {
+  SESSION_STORAGE_KEY_NAV_LINK: "navLinkClicked",
+  SESSION_STORAGE_KEY_DROPDOWN_ID: "navLinkDropdownId",
   init() {
     this.setupNavLinkEventHandlers();
     this.findNavLinkClicked();
@@ -19,15 +21,19 @@ let SiteNav = {
   setupNavLinkEventHandlers() {
     document
       .querySelectorAll(
-        `.primary-nav-container [data-desktop-dropdown] a[href]:not([href=""])`
+        `.primary-nav-container [data-mobile-dropdown] a[href]:not([href=""]),
+         .primary-nav-container [data-desktop-dropdown] a[href]:not([href=""])`
       )
       .forEach((link) => {
         link.addEventListener("click", (e) => {
           e.preventDefault();
 
-          sessionStorage.setItem("navLinkClicked", link.textContent);
           sessionStorage.setItem(
-            "navLinkDropdownId",
+            this.SESSION_STORAGE_KEY_NAV_LINK,
+            link.textContent
+          );
+          sessionStorage.setItem(
+            this.SESSION_STORAGE_KEY_DROPDOWN_ID,
             link.closest("[data-desktop-dropdown]").dataset.dropdownId
           );
 
@@ -37,8 +43,12 @@ let SiteNav = {
       });
   },
   findNavLinkClicked() {
-    const navLinkClicked = sessionStorage.getItem("navLinkClicked");
-    const navLinkDropdownId = sessionStorage.getItem("navLinkDropdownId");
+    const navLinkClicked = sessionStorage.getItem(
+      this.SESSION_STORAGE_KEY_NAV_LINK
+    );
+    const navLinkDropdownId = sessionStorage.getItem(
+      this.SESSION_STORAGE_KEY_DROPDOWN_ID
+    );
 
     if (navLinkClicked && navLinkDropdownId) {
       // if we know what nav link the user clicked to get to the current page,
@@ -72,8 +82,8 @@ let SiteNav = {
       }
     }
 
-    sessionStorage.removeItem("navLinkClicked");
-    sessionStorage.removeItem("navLinkDropdownId");
+    sessionStorage.removeItem(this.SESSION_STORAGE_KEY_NAV_LINK);
+    sessionStorage.removeItem(this.SESSION_STORAGE_KEY_DROPDOWN_ID);
   },
 };
 
