@@ -57,12 +57,6 @@ def check_if_dropdown_can_be_active(context, dropdown_id):
     if page.path.startswith(dropdown_link_page_path):
         return True
 
-    # Finally, let's check if the page is a child of any of the page links inside the dropdown
-    for id in dropdowns_page_links[dropdown_id]["page_ids"]:
-        link_path = dropdowns_page_links[dropdown_id][id]
-        if page.path.startswith(link_path):
-            return True
-
     return False
 
 
@@ -85,12 +79,9 @@ def check_if_link_is_active(context, link):
 
     link_page = link["page"]
 
-    # Check if the current page is the linked page
-    if page == link_page:
-        return True
 
-    # Check if the current page is a child of the linked page
-    if page.path.startswith(link_page.path):
+    # Check if the current page is the linked page
+    if page.id == link_page.id:
         return True
 
     return False
