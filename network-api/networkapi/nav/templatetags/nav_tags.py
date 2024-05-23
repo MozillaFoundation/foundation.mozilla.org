@@ -79,7 +79,6 @@ def check_if_link_is_active(context, link):
 
     link_page = link["page"]
 
-
     # Check if the current page is the linked page
     if page.id == link_page.id:
         return True
