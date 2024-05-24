@@ -104,12 +104,24 @@ class TestCheckIfDropdownIsActive(test_base.WagtailpagesTestCase):
         dropdown_4_id = nav_tags.get_dropdown_id(menu=menu, idx=3)
 
         # For pages a1 and a2:
-        for page in [page_a1, page_a2, page_a3, page_a4]:
+        for page in [page_a1, page_a2]:
             with self.subTest(msg="Test {page}"):
                 context = {"page": page, "menu": menu}
                 # First dropdown should be active
                 self.assertTrue(nav_tags.check_if_dropdown_can_be_active(context, dropdown_1_id))
                 # While other shouldn't be
+                self.assertFalse(nav_tags.check_if_dropdown_can_be_active(context, dropdown_2_id))
+                self.assertFalse(nav_tags.check_if_dropdown_can_be_active(context, dropdown_3_id))
+                self.assertFalse(nav_tags.check_if_dropdown_can_be_active(context, dropdown_4_id))
+
+        # For pages a3 and a4:
+        for page in [page_a3, page_a4]:
+            with self.subTest(msg="Test {page}"):
+                context = {"page": page, "menu": menu}
+                # First dropdown should not be active since page_a3 and page_a4 are not included in the dropdown
+                # (they are child pages of the links in the dropdown):
+                self.assertFalse(nav_tags.check_if_dropdown_can_be_active(context, dropdown_1_id))
+                # The rest of the dropdowns should not be active either
                 self.assertFalse(nav_tags.check_if_dropdown_can_be_active(context, dropdown_2_id))
                 self.assertFalse(nav_tags.check_if_dropdown_can_be_active(context, dropdown_3_id))
                 self.assertFalse(nav_tags.check_if_dropdown_can_be_active(context, dropdown_4_id))
@@ -226,8 +238,8 @@ class TestCheckIfLinkIsActive(test_base.WagtailpagesTestCase):
         page_a1 = wagtail_factories.PageFactory(parent=page_a, title="Page A1")
         # User is now on page_a1
         context = {"page": page_a1, "menu": menu}
-        # page_a should be active since it's the parent of page_a1:
-        self.assertTrue(nav_tags.check_if_link_is_active(context, page_a_link))
+        # page_a_link should not be active since page_a1 is not an exact match of page_a (it's a child):
+        self.assertFalse(nav_tags.check_if_link_is_active(context, page_a_link))
         # page_b and page_c and page_d should not be active (not related to page_a):
         self.assertFalse(nav_tags.check_if_link_is_active(context, page_b_link))
         self.assertFalse(nav_tags.check_if_link_is_active(context, page_c_link))
@@ -238,8 +250,8 @@ class TestCheckIfLinkIsActive(test_base.WagtailpagesTestCase):
         context = {"page": page_b1, "menu": menu}
         # page_a should not be active:
         self.assertFalse(nav_tags.check_if_link_is_active(context, page_a_link))
-        # page_b should be active since it's the parent of page_b1:
-        self.assertTrue(nav_tags.check_if_link_is_active(context, page_b_link))
+        # page_b_link should not be active since page_b1 is not an exact match of page_b (it's a child):
+        self.assertFalse(nav_tags.check_if_link_is_active(context, page_b_link))
         # page_c should not be active:
         self.assertFalse(nav_tags.check_if_link_is_active(context, page_c_link))
 
