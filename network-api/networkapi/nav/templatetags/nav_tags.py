@@ -52,11 +52,6 @@ def check_if_dropdown_can_be_active(context, dropdown_id):
     if page.id in dropdowns_page_links[dropdown_id]["page_ids"]:
         return True
 
-    # If that didn't work, let's check if the page is a child of the dropdown's CTA button page link
-    dropdown_link_page_path = dropdowns_page_links[dropdown_id][dropdown_link_page_id]
-    if page.path.startswith(dropdown_link_page_path):
-        return True
-
     return False
 
 
