@@ -1,6 +1,6 @@
 from django import template
 
-from networkapi.wagtailpages.models import Homepage
+from networkapi.wagtailpages.models import BlogIndexPage, BlogPage, Homepage
 
 register = template.Library()
 
@@ -50,6 +50,27 @@ def check_if_dropdown_can_be_active(context, dropdown_id):
 
     # Check if page is in the dropdown's links (even if it's not a direct child):
     if page.id in dropdowns_page_links[dropdown_id]["page_ids"]:
+        return True
+
+    return False
+
+
+@register.simple_tag(takes_context=True)
+def check_if_blog_dropdown_can_be_active(context):
+    # The page that user is currently visiting/requesting:
+    page = context.get("page", None)
+    if not page:
+        return None
+    menu = context.get("menu", None)
+    if not menu:
+        return None
+
+    # Highlight the link if the page is a blog index page (e.g., the main blog index or any blog topic page)
+    if isinstance(page, BlogIndexPage):
+        return True
+
+    # Highlight the link if the page is a blog page
+    if isinstance(page, BlogPage):
         return True
 
     return False

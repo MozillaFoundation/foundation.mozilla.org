@@ -21,7 +21,7 @@
 <div class="tw-nav-{{ style }}-dropdown tw-flex tw-flex-col"
      {% block data_class_attribute %}data-{{ style }}-dropdown{% endblock data_class_attribute %}
      data-dropdown-id="{{ dropdown_id }}"
-     data-can-wayfinding-be-active="{% if can_dropdown_be_active %}true{% else %}false{% endif %}"
+     data-can-wayfinding-be-active="{% block can_wayfinding_be_active %}{% if can_dropdown_be_active %}true{% else %}false{% endif %}{% endblock can_wayfinding_be_active %}"
      data-should-wayfinding-be-active="false"
 >
     <button class="tw-btn {{ dropdown_selector_base }} tw-py-12 xlarge:tw-py-0 xlarge:tw-items-center xlarge:tw-h-full" data-accordion-button>
