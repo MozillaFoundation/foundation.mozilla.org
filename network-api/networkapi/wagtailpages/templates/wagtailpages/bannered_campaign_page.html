@@ -72,7 +72,8 @@ An extra check has been added so as to not show the fixed "Take action" button o
                                     data-signup-id="{{ localized_signup.id }}"
                                     data-cta-header="{{ localized_signup.header | escape }}"
                                     data-cta-description="{{ localized_signup.description | escape }}"
-                                    data-ask-name="{{ localized_signup.ask_name }}">
+                                    data-ask-name="{{ localized_signup.ask_name }}"
+                                    data-cta-privacy-notice='{{ localized_signup.privacy_notice|richtext }}'>
                                 </div>
                             {% endwith %}
                         {% endif %}
