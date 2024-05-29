@@ -13,15 +13,6 @@
     md: 9px,
   );
 
-  &.zen-mode {
-    .menu-container {
-      @media (min-width: $bp-md) {
-        padding-left: 52px;
-        padding-right: 52px;
-      }
-    }
-  }
-
   .menu-container {
     padding: 0 0 0 52px;
 
@@ -124,7 +115,9 @@
 
     .wide-screen-menu {
       line-height: $logo-height; //Tied to logo height so that the "active" page border shows up at the correct alignment consistently
+      height: auto;
       &.hidden {
+        height: 0;
         opacity: 0;
         transform: translateY(8px);
         visibility: hidden;
@@ -245,20 +238,31 @@
       overflow-y: auto;
       transition:
         opacity 0.2s,
-        height 0s;
+        height 0.5s;
 
       &.hidden {
-        opacity: 0;
         height: 0;
+        opacity: 0;
         overflow: hidden;
-        transition:
-          opacity 0.2s,
-          height 0s linear 0.2s;
 
         .nav-links {
           a {
             transform: translateY(8px);
           }
+        }
+      }
+
+      &.new-nav-enabled {
+        top: 61px;
+        height: calc(100vh - 61px);
+
+        @media screen and (min-width: $bp-md) {
+          top: 69px;
+          height: calc(100vh - 69px);
+        }
+
+        &.hidden {
+          height: 0;
         }
       }
 

@@ -102,15 +102,22 @@ class DonationModal extends Component {
         </button>
 
         <div className={classNames(`modal-body`, MODAL_BODY_CLASS)}>
-          <h3 className={classNames(`tw-h2-heading`, `text-center`)}>
+          <h3 className={classNames(`tw-h2-heading`, `tw-text-center`)}>
             {this.props.heading}
           </h3>
-          <p className={classNames(`tw-body-large`, `text-center`)}>
-            {this.props.bodyText}
-          </p>
+          <div
+            className={classNames(
+              `tw-rich-text-wrapper`,
+              `tw-body-large`,
+              `tw-text-center`
+            )}
+            dangerouslySetInnerHTML={{
+              __html: this.props.bodyText,
+            }}
+          />
         </div>
 
-        <div className="text-center">
+        <div className="tw-text-center">
           <a
             ref={(e) => (this.userElectedToDonateLink = e)}
             className="tw-btn-primary"
@@ -121,7 +128,7 @@ class DonationModal extends Component {
           </a>
         </div>
 
-        <div className="text-center">
+        <div className="tw-text-center">
           <button
             ref={(e) => (this.userElectedToShareLink = e)}
             className={SKIP_DONATE_BUTTON_CLASS}

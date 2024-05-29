@@ -7,25 +7,23 @@
 
 {% check_if_link_is_active value as link_active %}
 
-<div class="tw-group/item tw-flex tw-flex-col tw-gap-4 tw-p-4 hover:tw-bg-blue-03 hover:tw-rounded">
+<div class="tw-group/item tw-flex tw-flex-col tw-gap-2 xlarge:hover:tw-bg-blue-03 xlarge:hover:tw-rounded {{ link_hover_padding }}">
     <a class="
+              tw-flex tw-items-center tw-items-start tw-gap-x-4
               {{ font_styles }}
-              {% if value.is_external %}
-                  after:tw-content-['_↗']
-                  after:tw-font-['Nunito_Sans']
-                  after:tw-text-gray-20
-                  group-hover/item:after:tw-text-blue-80
-              {% endif %}
               {{ hover_styles }}
               {% if link_active %}
                   {{ active_wayfinder_style }}
               {% endif %}
              "
        href="{{ value.url }}" {% if value.is_external %}target="_blank"{% endif %}>
-        {{ value.label }}
+        <span>{{ value.label }}</span>
+        {% if value.is_external %}
+            {% include "fragments/svg/nav_icons.html" with icon_type="external_link" %}
+        {% endif %}
     </a>
     {% if value.description %}
-        <p class="tw-font-light tw-text-sm tw-text-gray-80 tw-hidden medium:tw-block">
+        <p class="tw-font-light tw-text-sm tw-text-gray-80 tw-hidden tw-mb-0 medium:tw-block">
             {{ value.description }}
         </p>
     {% endif %}

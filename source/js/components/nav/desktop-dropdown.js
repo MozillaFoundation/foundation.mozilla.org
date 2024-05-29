@@ -7,34 +7,6 @@ class NavDesktopDropdown extends Accordion {
 
   constructor(node) {
     super(node);
-    this.isDropdownWayfindingActive = this.accordion.dataset.isWayfindingActive;
-    if (this.isDropdownWayfindingActive === "true") {
-      this.addBaseWayfindingStyles();
-    }
-  }
-
-  /*
-  The three wayfinding state handlers here do the same thing:
-   - remove the transparent border colour and add a black one
-  This is because the behaviour of the active wayfinder state on desktop is simply to
-  always keep a black border on the bottom of the dropdown's title.
-
-  The three methods are kept separate for clarity and to allow for eventual independent changes.
-  */
-
-  addBaseWayfindingStyles() {
-    this.titleText.classList.remove("large:tw-border-transparent");
-    this.titleText.classList.add("large:tw-border-black");
-  }
-
-  handleWayfindingOpenStyles() {
-    this.titleText.classList.remove("large:tw-border-transparent");
-    this.titleText.classList.add("large:tw-border-black");
-  }
-
-  handleWayfindingClosedStyles() {
-    this.titleText.classList.remove("large:tw-border-transparent");
-    this.titleText.classList.add("large:tw-border-black");
   }
 
   getSiblings() {
@@ -43,15 +15,39 @@ class NavDesktopDropdown extends Accordion {
   }
 
   bindEvents() {
-    this.accordion.addEventListener("focus", () => {
-      this.open();
+    // titleButton event handlers
+    this.titleButton.addEventListener("keydown", (event) => {
+      const isEnterKey = event.key === "Enter" || event.keyCode === 13;
+      const isSpaceKey = event.key === " " || event.keyCode === 32;
+
+      if (isEnterKey || isSpaceKey) {
+        if (this.titleButton.getAttribute("aria-expanded") === "true") {
+          this.close();
+        } else {
+          this.closeSiblings();
+          this.open();
+        }
+      }
     });
+
+    this.titleButton.addEventListener("blur", (event) => {
+      const accordionExpanded =
+        this.titleButton.getAttribute("aria-expanded") === "true";
+      const newFocusInNav = document
+        .querySelector(".wide-screen-menu")
+        .contains(event.relatedTarget);
+
+      if (accordionExpanded && !newFocusInNav) {
+        this.close();
+      }
+    });
+
+    // accordion event handlers
+
     this.accordion.addEventListener("pointerenter", () => {
       this.open();
     });
-    this.accordion.addEventListener("blur", () => {
-      this.close();
-    });
+
     this.accordion.addEventListener("pointerleave", () => {
       this.close();
     });
@@ -59,62 +55,60 @@ class NavDesktopDropdown extends Accordion {
 
   open() {
     super.open();
-    this.titleText.classList.add("large:tw-text-black");
-    this.titleText.classList.add("large:tw-border-black");
-    this.titleText.classList.remove("large:tw-border-transparent");
+
     this.accordion.setAttribute("aria-selected", "true");
-    this.content.classList.add("large:tw-grid");
-    this.content.classList.remove("large:tw-hidden");
-    if (this.isDropdownWayfindingActive === "true") {
-      this.handleWayfindingOpenStyles();
-    }
+    this.accordion.classList.remove("tw-grayed-out");
+    this.content.classList.add("xlarge:tw-flex");
+    this.content.classList.remove("xlarge:tw-hidden");
+
     if (!this.siblings) {
       this.siblings = this.getSiblings();
     }
     this.siblings.forEach((sibling) => {
-      const titleText = sibling.querySelector("[data-accordion-title] h5");
-      titleText.classList.remove("large:tw-text-black");
-      titleText.classList.add("large:tw-text-gray-40");
       const isSiblingDropdownWayfindingActive =
         sibling.dataset.isWayfindingActive;
+
+      sibling.classList.add("tw-grayed-out");
       if (isSiblingDropdownWayfindingActive === "true") {
-        titleText.classList.remove(
-          "large:tw-border-transparent",
-          "large:tw-border-black"
-        );
-        titleText.classList.add("large:tw-border-gray-40");
+        sibling.classList.remove("tw-highlighted");
       }
     });
   }
 
-  close() {
-    super.close();
-    this.titleText.classList.remove("large:tw-text-black");
-    this.titleText.classList.remove("large:tw-border-black");
-    this.titleText.classList.add("large:tw-border-transparent");
-    this.accordion.setAttribute("aria-selected", "false");
-    this.content.classList.remove("large:tw-grid");
-    this.content.classList.add("large:tw-hidden");
-    if (this.isDropdownWayfindingActive === "true") {
-      this.handleWayfindingClosedStyles();
-    }
+  closeSiblings() {
     if (!this.siblings) {
       this.siblings = this.getSiblings();
     }
     this.siblings.forEach((sibling) => {
-      const titleText = sibling.querySelector("[data-accordion-title] h5");
-      titleText.classList.add("large:tw-text-black");
-      titleText.classList.remove("large:tw-text-gray-40");
-      const isSiblingDropdownWayfindingActive =
-        sibling.dataset.isWayfindingActive;
-      if (isSiblingDropdownWayfindingActive === "true") {
-        titleText.classList.remove(
-          "large:tw-border-transparent",
-          "large:tw-border-gray-40"
-        );
-        titleText.classList.add("large:tw-border-black");
-      }
+      const titleButton = sibling.querySelector("[data-accordion-button]");
+
+      sibling.classList.remove("tw-grayed-out");
+
+      this.closeAccordion(
+        sibling,
+        titleButton,
+        sibling.querySelector("[data-accordion-content]")
+      );
     });
+  }
+
+  closeAccordion(accordion, titleButton, content) {
+    titleButton.setAttribute("aria-expanded", "false");
+    accordion.setAttribute("aria-selected", "false");
+    content.classList.remove("xlarge:tw-flex");
+    content.classList.add("xlarge:tw-hidden");
+  }
+
+  close() {
+    if (this.isDropdownWayfindingActive === undefined) {
+      this.isDropdownWayfindingActive =
+        this.accordion.dataset.isWayfindingActive;
+    }
+
+    super.close();
+
+    this.closeAccordion(this.accordion, this.titleButton, this.content);
+    this.closeSiblings();
   }
 }
 
