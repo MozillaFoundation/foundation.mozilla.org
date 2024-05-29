@@ -220,29 +220,27 @@ class TestCheckIfBlogDropdownCanBeActive(test_base.WagtailpagesTestCase):
         page_a2 = wagtail_factories.PageFactory(parent=page_a1, title="Page A2")
 
         with self.subTest(msg="Test {page_blog_index}"):
-            context = {"page": page_blog_index}
-            self.assertTrue(nav_tags.check_if_blog_dropdown_can_be_active(context))
+            self.assertTrue(nav_tags.check_if_blog_dropdown_can_be_active({"page": page_blog_index}))
 
         with self.subTest(msg="Test {page_blog_topic}"):
-            context = {"page": page_blog_topic, "index_title": "Topic name"}
-            self.assertTrue(nav_tags.check_if_blog_dropdown_can_be_active(context))
+            blog_factories.BlogPageTopicFactory(name="Test Topic")
+            self.assertTrue(
+                nav_tags.check_if_blog_dropdown_can_be_active({"page": page_blog_topic, "index_title": "Test Topic"})
+            )
 
         with self.subTest(msg="Test {page_blog_post}"):
-            context = {"page": page_blog_post}
-            self.assertTrue(nav_tags.check_if_blog_dropdown_can_be_active(context))
+            self.assertTrue(nav_tags.check_if_blog_dropdown_can_be_active({"page": page_blog_post}))
 
         # For non-blog pages:
         for page in [page_homepage, page_a1, page_a2]:
             with self.subTest(msg="Test {page}"):
-                context = {"page": page}
-                self.assertFalse(nav_tags.check_if_blog_dropdown_can_be_active(context))
+                self.assertFalse(nav_tags.check_if_blog_dropdown_can_be_active({"page": page}))
 
     def test_returns_false_if_no_page(self) -> None:
         """If no page is passed, the function should return False."""
         # No page is passed
-        context = {}
         # Should return False
-        self.assertFalse(nav_tags.check_if_blog_dropdown_can_be_active(context))
+        self.assertFalse(nav_tags.check_if_blog_dropdown_can_be_active({}))
 
 
 class TestCheckIfLinkIsActive(test_base.WagtailpagesTestCase):
