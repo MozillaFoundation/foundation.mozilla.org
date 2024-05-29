@@ -3,6 +3,7 @@ from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 
+from networkapi.donate.snippets.help_page_notice import HelpPageNotice
 from networkapi.donate_banner.models import DonateBanner
 from networkapi.wagtailcustomization.views.snippet_chooser import (
     DefaultLocaleSnippetChooserViewSet,
@@ -42,6 +43,21 @@ def register_donate_banner_chooser_viewset():
     )
 
 
+class HelpPageNoticeViewSet(SnippetViewSet):
+    model = HelpPageNotice
+    icon = "form"
+    menu_label = "Help Page Notices"
+    list_display = (
+        "name",
+        UpdatedAtColumn(),
+    )
+    search_fields = (
+        "name",
+        "text",
+    )
+    ordering = ("name",)
+
+
 class DonationModalSnippetViewSet(SnippetViewSet):
     model = DonationModal
     icon = "newspaper"
@@ -65,6 +81,7 @@ class DonateViewSetGroup(SnippetViewSetGroup):
     items = (
         DonateBannerViewSet,
         DonationModalSnippetViewSet,
+        HelpPageNoticeViewSet,
     )
     menu_icon = "heart"
     menu_label = "Donate"
