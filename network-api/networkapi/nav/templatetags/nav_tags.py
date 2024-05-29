@@ -57,19 +57,22 @@ def check_if_dropdown_can_be_active(context, dropdown_id):
 
 @register.simple_tag(takes_context=True)
 def check_if_blog_dropdown_can_be_active(context):
+    """
+    Check if the blog dropdown can be highlighted based on the current page.
+    Unlike other dropdowns, we don't need to check the current page against the dropdown's links.
+    For blog dropdown, all we need to check is if the current page is a blog index page or a blog page.
+    """
+
     # The page that user is currently visiting/requesting:
     page = context.get("page", None)
     if not page:
         return None
-    menu = context.get("menu", None)
-    if not menu:
-        return None
 
-    # Highlight the link if the page is a blog index page (e.g., the main blog index or any blog topic page)
+    # Highlight the dropdown if the page is a blog index page (e.g., the main blog index or any blog topic page)
     if isinstance(page, BlogIndexPage):
         return True
 
-    # Highlight the link if the page is a blog page
+    # Highlight the dropdown if the page is a blog page
     if isinstance(page, BlogPage):
         return True
 
