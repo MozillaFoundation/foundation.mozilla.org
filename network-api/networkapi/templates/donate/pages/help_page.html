@@ -12,9 +12,7 @@
         <div class="cms donate-help-page-content">
             <h1 class="tw-h1-heading"> {{ page.title }} </h1>
             {% if page.notice %}
-                {% for block in page.notice %}
-                    {% include_block block %}
-                {% endfor %}
+                {% include "../fragments/help_page_notice.html" with notice=page.notice %}
             {% endif %}
             <p>
                 {% blocktrans with link="?form=donor-care-intake" trimmed %}
