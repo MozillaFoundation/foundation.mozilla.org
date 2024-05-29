@@ -270,18 +270,12 @@ class DefaultSignupForm extends Component {
 
   renderPrivacyCheckbox() {
     const name = "privacy";
-    const label =
-      this.renderPrivacyNotice() !== null
-        ? this.renderPrivacyNotice()
-        : getText(
-            `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
-          );
 
     return (
       <InputCheckboxWithLabel
         id={this.ids[name]}
         name={name}
-        label={label}
+        label={this.renderPrivacyNotice()}
         value={this.getFormFieldValue(name)}
         checked={this.getFormFieldValue(name) === "true"}
         onChange={(event) => this.handlePrivacyChange(event)}
