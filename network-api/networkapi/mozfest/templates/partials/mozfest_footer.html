@@ -18,7 +18,7 @@
                 data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
                 data-cta-header="{{ localized_footer_signup.header | escape }}"
                 data-cta-description="{{ localized_footer_signup.description | escape }}"
-                data-cta-privacy-notice='{{ localized_footer_signup.privacy_notice|richtext }}'
+                data-cta-privacy-notice="{{ localized_footer_signup.privacy_notice | escape }}"
             >
             </div>
         {% endwith %}

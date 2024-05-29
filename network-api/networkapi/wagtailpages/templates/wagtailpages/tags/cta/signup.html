@@ -11,5 +11,5 @@
         data-cta-header="{{ cta.header | escape }}"
     {% endif %}
     data-cta-description="{{ cta.description | escape }}"
-    data-cta-privacy-notice='{{ cta.privacy_notice|richtext }}'>
+    data-cta-privacy-notice="{{ cta.privacy_notice | escape }}">
 </div>

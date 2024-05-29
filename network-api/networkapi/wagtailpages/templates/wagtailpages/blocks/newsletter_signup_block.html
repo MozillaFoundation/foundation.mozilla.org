@@ -14,7 +14,7 @@
             data-signup-id="{{ self.signup.id | unlocalize }}"
             data-cta-header="{{ self.signup.header | escape }}"
             data-cta-description="{{ self.signup.description | escape }}"
-            data-cta-privacy-notice='{{ self.signup.privacy_notice|richtext }}'
+            data-cta-privacy-notice="{{ self.signup.privacy_notice | escape }}"
             data-ask-name="{{ self.signup.ask_name }}"
             data-button-cta-event="newsletter-signup"
         ></div>
