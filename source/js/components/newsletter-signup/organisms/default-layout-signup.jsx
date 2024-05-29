@@ -158,14 +158,6 @@ class DefaultSignupForm extends Component {
   }
 
   renderPrivacyNotice() {
-    //[TODO] Investigate removing the legacy richtext template which renders an empty rich-text div wrapper
-    // Jira TP1-601 / Github Issue #12285 https://github.com/MozillaFoundation/foundation.mozilla.org/issues/12285
-    if (
-      !this.props.ctaPrivacyNotice ||
-      this.props.ctaPrivacyNotice == '<div class="rich-text"></div>'
-    )
-      return null;
-
     return (
       <PrivacyNotice
         content={this.props.ctaPrivacyNotice}
@@ -387,7 +379,6 @@ DefaultSignupForm.propTypes = {
   ctaHeader: PropTypes.string,
   ctaDescription: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
     .isRequired,
-  ctaHeader: PropTypes.string,
   errors: PropTypes.shape({
     fieldName: PropTypes.string,
     errorMessage: PropTypes.string,
