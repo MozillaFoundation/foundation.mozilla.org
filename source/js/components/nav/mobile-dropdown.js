@@ -17,7 +17,7 @@ class NavMobileDropdown extends Accordion {
     super.open();
     this.content.style.height = `${this.content.scrollHeight}px`;
 
-    if (this.isDropdownWayfindingActive === "true") {
+    if (this.shouldWayfindingBeActive === "true") {
       this.accordion.classList.add("tw-border-s-0");
     }
   }
@@ -26,7 +26,7 @@ class NavMobileDropdown extends Accordion {
     super.close();
     this.content.style.height = "0";
 
-    if (this.isDropdownWayfindingActive === "true") {
+    if (this.shouldWayfindingBeActive === "true") {
       this.accordion.classList.remove("tw-border-s-0");
     }
   }
