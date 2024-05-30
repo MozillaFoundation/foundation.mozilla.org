@@ -34,7 +34,7 @@ let SiteNav = {
           );
           sessionStorage.setItem(
             this.SESSION_STORAGE_KEY_DROPDOWN_ID,
-            link.closest("[data-desktop-dropdown]").dataset.dropdownId
+            link.closest("[data-dropdown-id]").dataset.dropdownId
           );
 
           // navigate to the clicked link
