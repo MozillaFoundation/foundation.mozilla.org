@@ -1,12 +1,13 @@
 from urllib.parse import urlencode
 
+from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.donate.models import BaseDonationPage
-from networkapi.donate.pagemodels.customblocks.notice_block import NoticeBlock
+from networkapi.donate.snippets.help_page_notice import HelpPageNotice
 from networkapi.wagtailpages.pagemodels.customblocks.base_fields import base_fields
 
 
@@ -19,12 +20,12 @@ class DonateHelpPage(BaseDonationPage):
 
     max_count = 1
 
-    notice = StreamField(
-        [("notice", NoticeBlock())],
-        help_text="Optional notice that will render at the top of the page.",
+    notice = models.ForeignKey(
+        HelpPageNotice,
+        null=True,
         blank=True,
-        max_num=1,
-        use_json_field=True,
+        on_delete=models.SET_NULL,
+        help_text="Optional notice that will render at the top of the page.",
     )
 
     body = StreamField(base_fields, blank=True, use_json_field=True)
