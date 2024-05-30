@@ -7,9 +7,21 @@ function initComponent(ComponentClass) {
   items.forEach((item) => new ComponentClass(item));
 }
 
+/**
+ * SiteNav object for handling site navigation related functionality.
+ */
 let SiteNav = {
+  /**
+   * The session storage key to store the nav link clicked.
+   */
   SESSION_STORAGE_KEY_NAV_LINK: "navLinkClicked",
+  /**
+   * The session storage key to store the dropdown id of the nav link clicked.
+   */
   SESSION_STORAGE_KEY_DROPDOWN_ID: "navLinkDropdownId",
+  /**
+   * Initializes the SiteNav object
+   */
   init() {
     this.setupNavLinkEventHandlers();
     this.findNavLinkClicked();
@@ -18,6 +30,9 @@ let SiteNav = {
     initComponent(NavDesktopDropdown);
     initComponent(NavMobileDropdown);
   },
+  /**
+   * Set up the event handlers for the nav links in the nav dropdowns.
+   */
   setupNavLinkEventHandlers() {
     document
       .querySelectorAll(
@@ -42,6 +57,10 @@ let SiteNav = {
         });
       });
   },
+  /**
+   * Find the nav link that was clicked to get to the current page and
+   *   highlight the dropdown that nav link belongs to.
+   */
   findNavLinkClicked() {
     const navLinkClicked = sessionStorage.getItem(
       this.SESSION_STORAGE_KEY_NAV_LINK
