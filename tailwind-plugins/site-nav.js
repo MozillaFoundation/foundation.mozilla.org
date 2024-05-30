@@ -5,7 +5,7 @@ function shared(theme) {
 
   return {
     ".nav-mobile-dropdown": {
-      "&[data-is-wayfinding-active='true']": {
+      "&[data-should-wayfinding-be-active='true']": {
         borderInlineStartWidth: theme("borderWidth.4"),
         borderColor: theme("colors.gray.60"),
         "[data-accordion-button]": {
@@ -52,17 +52,17 @@ function shared(theme) {
             borderBottomWidth: theme("borderWidth.6"),
             borderBottomColor: "transparent",
             color: "black",
-            "[data-is-wayfinding-active='true']&": {
+            "[data-should-wayfinding-be-active='true']&": {
               borderBottomColor: "black",
             },
-            "[data-is-wayfinding-active='true'].highlighted&": {
+            "[data-should-wayfinding-be-active='true'].highlighted&": {
               borderBottomColor: "black !important",
               color: "black !important",
             },
-            "[data-is-wayfinding-active].grayed-out&": {
+            "[data-should-wayfinding-be-active].grayed-out&": {
               color: `${theme("colors.gray.40")} !important`,
             },
-            "[data-is-wayfinding-active='true'].grayed-out&": {
+            "[data-should-wayfinding-be-active='true'].grayed-out&": {
               borderBottomColor: `${theme("colors.gray.40")} !important`,
             },
           },
