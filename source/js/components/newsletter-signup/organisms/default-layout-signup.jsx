@@ -12,7 +12,7 @@ import APIErrorMessage from "../atoms/api-error-message.jsx";
 import withSubmissionLogic from "./with-submission-logic.jsx";
 import utility from "../../../utility.js";
 import { ReactGA } from "../../../common";
-import { getText, getCurrentLanguage } from "../../petition/locales";
+import { getCurrentLanguage } from "../../petition/locales";
 import { COUNTRY_OPTIONS } from "../data/country-options.js";
 import { LANGUAGE_OPTIONS } from "../data/language-options.js";
 import { FORM_STYLE } from "./form-specific-style.js";
@@ -33,7 +33,7 @@ class DefaultSignupForm extends Component {
       "privacy",
     ]);
     this.style = FORM_STYLE[props.formStyle];
-    this.buttonText = props.buttonText || getText("Sign up");
+    this.buttonText = props.buttonText || gettext("Sign up");
   }
 
   getInitialState() {
@@ -169,9 +169,9 @@ class DefaultSignupForm extends Component {
       <InputText
         id={this.ids[name]}
         name={name}
-        ariaLabel={getText(`First name`)}
+        ariaLabel={gettext("First name")}
         value={this.getFormFieldValue(name)}
-        placeholder={getText(`First name`)}
+        placeholder={gettext("First name")}
         onFocus={() => this.handleInputFocus()}
         onChange={(event) => this.handleFirstNameChange(event)}
         required={false}
@@ -189,9 +189,9 @@ class DefaultSignupForm extends Component {
       <InputText
         id={this.ids[name]}
         name={name}
-        ariaLabel={getText(`Last name`)}
+        ariaLabel={gettext("Last name")}
         value={this.getFormFieldValue(name)}
-        placeholder={getText(`Last name`)}
+        placeholder={gettext("Last name")}
         onFocus={() => this.handleInputFocus()}
         onChange={(event) => this.handleLastNameChange(event)}
         required={false}
@@ -210,9 +210,9 @@ class DefaultSignupForm extends Component {
         id={this.ids[name]}
         type="email"
         name={name}
-        ariaLabel={getText(`Email address`)}
+        ariaLabel={gettext("Email address")}
         value={this.getFormFieldValue(name)}
-        placeholder={getText(`Please enter your email`)}
+        placeholder={gettext("Please enter your email")}
         onFocus={() => this.handleEmailFocusAndInput()}
         onInput={() => this.handleEmailFocusAndInput()}
         onChange={(event) => this.handleEmailChange(event)}
@@ -260,14 +260,27 @@ class DefaultSignupForm extends Component {
 
   renderPrivacyCheckbox() {
     const name = "privacy";
+    const privacy_text =
+      "I'm okay with Mozilla handling my info as explained in this <a href='https://www.mozilla.org/privacy/websites/'>Privacy Notice</a>.";
+
+    const label = (
+      <span>
+        {pgettext(
+          "Pre-link text of: " + privacy_text,
+          "I'm okay with Mozilla handling my info as explained in this "
+        )}
+        <a target="_blank" href="https://www.mozilla.org/privacy/websites/">
+          {pgettext("Link text of: " + privacy_text, "Privacy Notice")}
+        </a>
+        {pgettext("Post-link text of: " + privacy_text, ".")}
+      </span>
+    );
 
     return (
       <InputCheckboxWithLabel
         id={this.ids[name]}
         name={name}
-        label={getText(
-          `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
-        )}
+        label={label}
         value={this.getFormFieldValue(name)}
         checked={this.getFormFieldValue(name) === "true"}
         onChange={(event) => this.handlePrivacyChange(event)}
@@ -305,7 +318,7 @@ class DefaultSignupForm extends Component {
             widthClasses={this.style.buttonWidthClasses}
             handleQuitButtonClick={this.props.handleQuitButtonClick}
           >
-            {getText(`No thanks`)}
+            {gettext("No thanks")}
           </ButtonQuit>
         </div>
       );

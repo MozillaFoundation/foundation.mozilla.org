@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ReactGA } from "../../../common";
-import { getText } from "../../petition/locales";
 
 /**
  * Higher-order component that handles form submission logic and validation
@@ -27,20 +26,20 @@ function withSubmissionLogic(WrappedComponent) {
       this.validators = {
         email: (value) => {
           if (!value) {
-            return getText(`This is a required section.`);
+            return gettext("This is a required section.");
           }
 
           // Regex copied from join.jsx
           const emailRegex = new RegExp(/[^@]+@[^.@]+(\.[^.@]+)+$/);
           if (!emailRegex.test(value)) {
-            return getText(`Please enter a valid email address.`);
+            return gettext("Please enter a valid email address.");
           }
 
           return null;
         },
         privacy: (value) => {
           if (value !== "true") {
-            return getText(`Please check this box if you want to proceed.`);
+            return gettext("Please check this box if you want to proceed.");
           }
           return null;
         },
@@ -191,16 +190,16 @@ function withSubmissionLogic(WrappedComponent) {
 
         if (res.status !== 201) {
           this.setState({
-            apiError: getText(
-              `Something went wrong and your signup wasn't completed. Please try again later.`
+            apiError: gettext(
+              "Something went wrong and your signup wasn't completed. Please try again later."
             ),
           });
           throw new Error(res.statusText);
         }
       } catch (error) {
         this.setState({
-          apiError: getText(
-            `Something went wrong and your signup wasn't completed. Please try again later.`
+          apiError: gettext(
+            "Something went wrong and your signup wasn't completed. Please try again later."
           ),
         });
         throw error;
@@ -219,7 +218,7 @@ function withSubmissionLogic(WrappedComponent) {
       if (
         this.state.apiSubmissionStatus === this.API_SUBMISSION_STATUS.SUCCESS
       ) {
-        message = getText(`Thanks!`);
+        message = gettext("Thanks!");
       }
 
       return message;
@@ -237,10 +236,45 @@ function withSubmissionLogic(WrappedComponent) {
       if (
         this.state.apiSubmissionStatus === this.API_SUBMISSION_STATUS.SUCCESS
       ) {
+        const subscription_intro_text =
+          "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.";
+        const subscription_manage_text =
+          "If you have already confirmed your opt-in to receive Mozilla-related emails, you can now <a href='https://www.mozilla.org/newsletter/recovery/' target='_blank'>manage your subscriptions</a> and update your email preferences.";
+
         message = (
           <>
-            <p>{getText(`confirm your email opt-in`)}</p>
-            <p>{getText(`manage your subscriptions`)}</p>
+            <p>
+              {pgettext(
+                "Pre-bold text of: " + subscription_intro_text,
+                "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now. "
+              )}
+              <strong>
+                {pgettext(
+                  "Bold text of: " + subscription_intro_text,
+                  "Please check your inbox or spam filter for an email from us to click and confirm your subscription"
+                )}
+              </strong>
+              {pgettext("Post-bold text of: " + subscription_intro_text, ".")}
+            </p>
+            <p>
+              {pgettext(
+                "Pre-link text of: " + subscription_manage_text,
+                "If you have already confirmed your opt-in to receive Mozilla-related emails, you can now "
+              )}
+              <a
+                href="https://www.mozilla.org/newsletter/recovery/"
+                target="_blank"
+              >
+                {pgettext(
+                  "Link text of: " + subscription_manage_text,
+                  "manage your subscriptions"
+                )}
+              </a>
+              {pgettext(
+                "Post-link text of: " + subscription_manage_text,
+                " and update your email preferences."
+              )}
+            </p>
           </>
         );
       }

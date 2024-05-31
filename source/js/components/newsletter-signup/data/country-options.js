@@ -1,7 +1,6 @@
 import SALESFORCE_COUNTRY_LIST from "../../petition/salesforce-country-list.js";
-import { getText } from "../../petition/locales";
 
-let countryDefault = { value: "", label: getText(`Your country`) };
+let countryDefault = { value: "", label: gettext("Your country") };
 let countryOptions = Object.keys(SALESFORCE_COUNTRY_LIST).map((code) => {
   return {
     value: code,
