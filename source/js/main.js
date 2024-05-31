@@ -38,9 +38,7 @@ import { initYoutubeRegretsAccordions } from "./foundation/pages/youtube-regrets
 import { initYouTubeRegretsRecommendationsPieChart } from "./foundation/pages/youtube-regrets/recommendations-pie-chart";
 import { initYoutubeRegretsCarousel } from "./foundation/pages/youtube-regrets/carousel";
 import { initYoutubeRegretsLocomotiveScroll } from "./foundation/pages/youtube-regrets/locomotive-scroll";
-import Accordion from "./components/accordion/accordion.js";
-import NavDesktopDropdown from "./components/nav/desktop-dropdown.js";
-import NavMobileDropdown from "./components/nav/mobile-dropdown.js";
+import SiteNav from "./common/template-js-handles/site-nav.js";
 
 // Initializing component a11y browser console logging
 if (process.env.NODE_ENV === "development") {
@@ -56,11 +54,6 @@ let env, networkSiteURL;
 // until all the React stuff is _actually_ done.
 const apps = [];
 
-function initComponent(ComponentClass) {
-  const items = document.querySelectorAll(ComponentClass.selector());
-  items.forEach((item) => new ComponentClass(item));
-}
-
 let main = {
   init() {
     injectMultipageNav();
@@ -69,10 +62,7 @@ let main = {
     EmbedTypeform.init();
     Dropdowns.init();
     FoundationCarousels.init();
-
-    initComponent(Accordion);
-    initComponent(NavDesktopDropdown);
-    initComponent(NavMobileDropdown);
+    SiteNav.init();
 
     this.fetchEnv((envData) => {
       env = envData;
