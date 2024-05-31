@@ -67,7 +67,7 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
         )
 
         # Get the localised topics:
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(5):
             relationships = self.menu.localized_featured_blog_topics
             topics = [relationship.topic for relationship in relationships]
             icons = [relationship.icon for relationship in relationships]
@@ -101,7 +101,7 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
                 sort_order=idx,
             )
 
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(5):
             # Make sure that this property won't blow up to N+1 queries
             relationships = self.menu.localized_featured_blog_topics
             topics = [relationship.topic for relationship in relationships]
