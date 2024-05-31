@@ -39,6 +39,9 @@ Please follow the steps below every time after you paste a new version of FormAs
 
 9. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
 
+10. Update the privacy_notice value to include an {%if %} tag and default value
+    - {% if privacy_notice %}{% blocktrans with privacy_notice=privacy_notice|richtext %}{{ privacy_notice }}{% endblocktrans %}{% else %}{% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}I’m okay with Mozilla handling my info as explained in this <a href="{{ link }}" target="_blank">Privacy Notice</a>.{% endblocktrans %}{% endif %}
+
 The code snippet below is based on FormAssembly form revision #32
 
 *** NOTE ***
