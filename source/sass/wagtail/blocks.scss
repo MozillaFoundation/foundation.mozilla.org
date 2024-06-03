@@ -10,6 +10,14 @@
   @extend .full-width;
 }
 
+.tw-container.image_text-block {
+  .streamfield-content {
+    .tw-row {
+      margin-right: calc(-1rem + 1px);
+    }
+  }
+}
+
 .primary-page-content {
   &.wide {
     .streamfield-content {
