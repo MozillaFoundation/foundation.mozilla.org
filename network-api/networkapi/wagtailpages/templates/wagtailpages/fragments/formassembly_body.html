@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailcore_tags %}
 
 {% comment %}
 *** IMPORTANT ***
@@ -13,7 +13,7 @@ Please follow the steps below every time after you paste a new version of FormAs
     - Go to petition.html and look for this line {% include "../../fragments/formassembly_body.html"
     - Update the variable names to they match the new FormAssembly field names
     - Plug in those variables into corresponding form fields in formassembly_body.html
-
+    
 4. If form field names are changed:
     (Field ref: https://mozillafoundation.tfaforms.net/forms/builder/5.0.0/9 and click on "OUTLINE" tab)
     - Update the bottom section of formassembly_override.scss to reflect new field names
@@ -38,6 +38,9 @@ Please follow the steps below every time after you paste a new version of FormAs
 8. Add nonce="{{ csp_nonce }}" to all <script> tags in this file
 
 9. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
+
+10. Update the privacy_notice value to include an {%if %} tag and default value
+    - {% if privacy_notice %}{% blocktrans with privacy_notice=privacy_notice|richtext %}{{ privacy_notice }}{% endblocktrans %}{% else %}{% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}I’m okay with Mozilla handling my info as explained in this <a href="{{ link }}" target="_blank">Privacy Notice</a>.{% endblocktrans %}{% endif %}
 
 The code snippet below is based on FormAssembly form revision #32
 
@@ -318,7 +321,7 @@ Please remember to take this into account when designing/implementing new forms.
                 </div>
             {% endif %}
             <div class="oneField field-container-D  labelsAbove  " id="tfa_492-D" role="group" aria-labelledby="tfa_492-L" data-tfa-labelledby="-L tfa_492-L" aria-required="true">
-                <label id="tfa_492-L" class="label preField" aria-label="Privacy Agreement  required">Privacy Agreement</label><br><div class="inputWrapper"><span id="tfa_492" class="choices vertical required" aria-required="true"><span class="oneChoice"><input type="checkbox" value="tfa_493" class="calc-DefaultName" id="tfa_493" name="tfa_493" aria-labelledby="tfa_493-L" data-tfa-labelledby="tfa_492-L tfa_493-L"><label class="label reqMark postField" id="tfa_493-L" for="tfa_493"><span class="input-checkbox-faux"></span>{% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}I’m okay with Mozilla handling my info as explained in this <a href="{{ link }}" target="_blank">Privacy Notice</a>.{% endblocktrans %}</label></span></span></div>
+                <label id="tfa_492-L" class="label preField" aria-label="Privacy Agreement  required">Privacy Agreement</label><br><div class="inputWrapper"><span id="tfa_492" class="choices vertical required" aria-required="true"><span class="oneChoice"><input type="checkbox" value="tfa_493" class="calc-DefaultName" id="tfa_493" name="tfa_493" aria-labelledby="tfa_493-L" data-tfa-labelledby="tfa_492-L tfa_493-L"><label class="label reqMark postField" id="tfa_493-L" for="tfa_493"><span class="input-checkbox-faux"></span>{% if privacy_notice %}{% blocktrans with privacy_notice=privacy_notice|richtext %}{{ privacy_notice }}{% endblocktrans %}{% else %}{% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}I’m okay with Mozilla handling my info as explained in this <a href="{{ link }}" target="_blank">Privacy Notice</a>.{% endblocktrans %}{% endif %}</label></span></span></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_494-D" role="group" aria-labelledby="tfa_494-L" data-tfa-labelledby="-L tfa_494-L">
                 <label id="tfa_494-L" class="label preField ">Email Subscription</label><br><div class="inputWrapper"><span id="tfa_494" class="choices vertical "><span class="oneChoice"><input type="checkbox" value="tfa_495" class="" id="tfa_495" name="tfa_495" aria-labelledby="tfa_495-L" data-tfa-labelledby="tfa_494-L tfa_495-L"><label class="label postField" id="tfa_495-L" for="tfa_495"><span class="input-checkbox-faux"></span>{% trans "Yes, I want to receive email updates about Mozilla’s campaigns." %}</label></span></span></div>

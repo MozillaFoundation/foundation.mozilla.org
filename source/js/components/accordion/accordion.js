@@ -9,9 +9,10 @@ class Accordion {
     this.content = this.accordion.querySelector("[data-accordion-content]");
     this.chevron = this.titleButton.querySelector("img");
     this.titleText = this.titleButton.querySelector("span");
-    this.isDropdownWayfindingActive = this.accordion.dataset.isWayfindingActive;
+    this.shouldWayfindingBeActive =
+      this.accordion.dataset.shouldWayfindingBeActive;
 
-    if (this.isDropdownWayfindingActive === "true") {
+    if (this.shouldWayfindingBeActive === "true") {
       this.addBaseWayfindingStyles();
     }
 

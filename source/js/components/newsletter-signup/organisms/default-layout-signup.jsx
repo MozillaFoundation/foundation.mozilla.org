@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import Heading from "../atoms/heading.jsx";
 import Description from "../atoms/description.jsx";
+import PrivacyNotice from "../atoms/privacy-notice.jsx";
 import InputText from "../atoms/input-text.jsx";
 import Select from "../atoms/select.jsx";
 import InputCheckboxWithLabel from "../molecules/input-checkbox-with-label.jsx";
@@ -156,6 +157,15 @@ class DefaultSignupForm extends Component {
     );
   }
 
+  renderPrivacyNotice() {
+    return (
+      <PrivacyNotice
+        content={this.props.ctaPrivacyNotice}
+        classes="[&_p]:tw-body-small"
+      />
+    );
+  }
+
   renderAPIErrorMessage() {
     if (!this.props.apiError) return null;
 
@@ -265,9 +275,7 @@ class DefaultSignupForm extends Component {
       <InputCheckboxWithLabel
         id={this.ids[name]}
         name={name}
-        label={getText(
-          `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
-        )}
+        label={this.renderPrivacyNotice()}
         value={this.getFormFieldValue(name)}
         checked={this.getFormFieldValue(name) === "true"}
         onChange={(event) => this.handlePrivacyChange(event)}

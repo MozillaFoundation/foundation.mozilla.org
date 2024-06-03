@@ -1,8 +1,13 @@
 {% extends "fragments/blocks/nav/dropdown.html" %}
 
-{% load i18n %}
+{% load i18n nav_tags %}
 
 {% block title %}{% trans "Blog" %}{% endblock title %}
+
+{% block can_wayfinding_be_active %}{% spaceless %}
+    {% check_if_blog_dropdown_can_be_active as blog_dropdown_can_be_active %}
+    {% if blog_dropdown_can_be_active %}true{% else %}false{% endif %}
+{% endspaceless %}{% endblock can_wayfinding_be_active %}
 
 {% block content_width %} xlarge:tw-w-{{ ncols }}/4 {% endblock content_width %}
 {% block grid_columns %}xlarge:tw-grid-cols-{{ ncols }} tw-has-featured-column{% endblock grid_columns %}
