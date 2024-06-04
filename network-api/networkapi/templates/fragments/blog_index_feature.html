@@ -12,8 +12,8 @@
                 <span class="tw-h6-heading tw-text-gray-40 tw-py-2 tw-mb-0">{{ blog_page.first_published_at|date:"DATE_FORMAT" }}</span>
             </div>
             <a href="{% pageurl blog_page %}" class="tw-group tw-block hover:tw-no-underline">
-                <h1 class="tw-h4-heading medium:tw-h1-heading medium:tw-text-[34px] tw-mt-2 tw-mb-4 group-hover:tw-underline">{{ blog_page.localized.title }}</h1>
-                <p class="tw-body tw-line-clamp-3 medium:tw-line-clamp-none">{{ blog_page.localized.get_meta_description }}</p>
+                <h1 class="tw-h4-heading medium:tw-h1-heading medium:tw-text-[34px] tw-mt-2 tw-mb-4 group-hover:tw-underline">{{ blog_page.title }}</h1>
+                <p class="tw-body tw-line-clamp-3 medium:tw-line-clamp-none">{{ blog_page.get_meta_description }}</p>
             </a>
         </div>
         <div>
@@ -39,7 +39,7 @@
         {% else %}
             <div class="tw-w-full tw-h-full">
                 <a href="{% pageurl blog_page %}">
-                    {% image blog_page.localized.specific.get_meta_image fill-1200x628 class='tw-h-full tw-w-full tw-object-contain tw-object-top' %}
+                    {% image blog_page.specific.get_meta_image fill-1200x628 class='tw-h-full tw-w-full tw-object-contain tw-object-top' %}
                 </a>
             </div>
         {% endif %}
