@@ -64,11 +64,13 @@
                     {% endif %}
                 {% endfor %}
 
-                {% for video_post in page.specific.featured_video_post.all %}
-                    <div class="tw-col-span-12 tw-pt-12 {{ divider_classes }}">
-                        {% include "fragments/blog_index_feature.html" with blog_page=video_post.blog_page video_url=video_post.video_url %}
-                    </div>
-                {% endfor %}
+                {% if page.localised_featured_video_post %}
+                    {% with localized_post=page.localised_featured_video_post %}
+                        <div class="tw-col-span-12 tw-pt-12 {{ divider_classes }}">
+                            {% include "fragments/blog_index_feature.html" with blog_page=localized_post.blog_page video_url=localized_post.video_url %}
+                        </div>
+                    {% endwith %}
+                {% endif %}
 
             {% endwith %}
         </div>
