@@ -58,3 +58,34 @@ fieldset ul li div label {
 .required .field > label::after {
   display: inline-block !important;
 }
+
+/* Fix select2 dropdown autocomplete input field low contrast color scheme on dark mode */
+@media (prefers-color-scheme: dark) {
+  #wagtail .select2 .select2-selection {
+    color: var(--w-color-text-context);
+    background-color: var(--w-color-surface-field);
+    border-color: var(--w-color-border-field-default);
+    border-radius: 0.3125rem;
+  }
+  #wagtail .select2-container .select2-results .select2-results__options {
+    background-color: var(--w-color-surface-field);
+  }
+  /* Hover/Focus; Important for accesibility */
+  #wagtail .select2 .select2-selection:hover,
+  #wagtail .select2 .select2-selection:focus {
+    border-color: var(--w-color-border-field-hover);
+  }
+  /* Options */
+  #wagtail .select2-container .select2-results .select2-results__option {
+    color: var(--w-color-text-context);
+    background-color: var(--w-color-surface-field);
+  }
+  /* Selected/hover option */
+  #wagtail
+    .select2-container
+    .select2-results
+    .select2-results__option--highlighted {
+    color: var(--w-color-text-label-menus-active);
+    background-color: var(--w-color-surface-button-default);
+  }
+}
