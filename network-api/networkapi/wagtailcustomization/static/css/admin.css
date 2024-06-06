@@ -88,4 +88,11 @@ fieldset ul li div label {
     color: var(--w-color-text-label-menus-active);
     background-color: var(--w-color-surface-button-default);
   }
+  /* Input element */
+  #wagtail
+    .select2-container--default
+    .select2-search--inline
+    .select2-search__field {
+    color: var(--w-color-text-context);
+  }
 }
