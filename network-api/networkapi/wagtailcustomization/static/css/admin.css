@@ -95,4 +95,11 @@ fieldset ul li div label {
     .select2-search__field {
     color: var(--w-color-text-context);
   }
+  /* Focus input outline */
+  #wagtail
+    .select2-container--default
+    .select2-search--inline
+    .select2-search__field:focus-visible {
+    outline: none !important;
+  }
 }
