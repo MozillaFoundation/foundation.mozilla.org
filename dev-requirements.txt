@@ -72,7 +72,7 @@ pathspec==0.11.1
     #   djlint
 platformdirs==2.5.3
     # via black
-pluggy==1.4.0
+pluggy==1.5.0
     # via pytest
 ptvsd==4.3.2
     # via -r dev-requirements.in
@@ -80,7 +80,7 @@ pycodestyle==2.11.0
     # via flake8
 pyflakes==3.2.0
     # via flake8
-pytest==8.1.1
+pytest==8.2.2
     # via
     #   -r dev-requirements.in
     #   pytest-cov
