@@ -1,4 +1,5 @@
 from django.apps import apps
+from django.core import exceptions
 from django.template.defaultfilters import slugify
 from wagtail import blocks
 
@@ -35,9 +36,16 @@ class RecentBlogEntries(blocks.StructBlock):
         help_text="Optional divider below content block.",
     )
 
-    # TODO: add in validation so that if there are no tags or topic
-    #       filled in we don't allow the page to be saved, with a wagtail
-    #       error indication what's wrong.
+    def clean(self, value):
+        result = super().clean(value)
+
+        if result["tag_filter"] and result["topic_filter"]:
+            raise exceptions.ValidationError("Please provide either a Tag or a Topic, not both", code="invalid")
+
+        if not result["tag_filter"] and not result["topic_filter"]:
+            raise exceptions.ValidationError("Please provide a Tag or a Topic", code="required")
+
+        return result
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
@@ -50,25 +58,16 @@ class RecentBlogEntries(blocks.StructBlock):
         topic = value.get("topic_filter", False)
 
         # default filter and query
-        type = "tags"
+        query_type = "tags"
         query = "mozilla"
         entries = []
 
-        # If only tag_filter is chosen we want to load entries by tag and update the url accordingly
-        if tag and not topic:
+        if tag:
             tag = slugify(tag)
             query = tag
             blog_page.extract_tag_information(tag)
-            entries = blog_page.get_entries(context)
-
-        """
-        If topic_filter is chosen at all, we want to load entries by topic and
-        update the url accordingly. Once we add validation, we'll be able to remove
-        the prioritization of topic and instead notify the user that they must/can
-        only choose one filter option.
-        """
-        if topic and topic != "All":
-            type = "topic"
+        elif topic and topic != "All":
+            query_type = "topic"
             query = slugify(topic)
             try:
                 # verify this topic exists, and set up a filter for it
@@ -81,13 +80,13 @@ class RecentBlogEntries(blocks.StructBlock):
         # get the entries based on prefiltering
         entries = blog_page.get_entries(context)
 
-        # Updates the href for the 'More from our blog' button
+        # Update the href for the 'More from our blog' button
         blog_page_url = blog_page.get_url()
-        url = f"{blog_page_url}{type}/{query}"
+        url = f"{blog_page_url}{query_type}/{query}"
         context["more_entries_link"] = url
 
         # We only want to grab no more than the first 6 entries
-        context["entries"] = entries[0:6]
+        context["entries"] = entries[:6]
 
         # We only want to display the 'More from our blog' button if
         # there's more than 6 entries
