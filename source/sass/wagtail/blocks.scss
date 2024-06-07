@@ -97,12 +97,3 @@
 .share-button-blog-title-container {
   margin-bottom: -2em;
 }
-
-// Fixes horizontal overflow for Image Text blocks
-.tw-container.image_text-block {
-  .streamfield-content {
-    .tw-row {
-      margin-right: calc(-1rem + 1px);
-    }
-  }
-}
