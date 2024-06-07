@@ -1,6 +1,6 @@
 from django import template
 
-from networkapi.wagtailpages.models import Homepage
+from networkapi.wagtailpages.models import BlogIndexPage, BlogPage, Homepage
 
 register = template.Library()
 
@@ -28,7 +28,7 @@ def get_dropdown_id(**kwargs):
 
 
 @register.simple_tag(takes_context=True)
-def check_if_dropdown_is_active(context, dropdown_id):
+def check_if_dropdown_can_be_active(context, dropdown_id):
     # The page that user is currently visiting/requesting:
     page = context.get("page", None)
     if not page:
@@ -52,16 +52,29 @@ def check_if_dropdown_is_active(context, dropdown_id):
     if page.id in dropdowns_page_links[dropdown_id]["page_ids"]:
         return True
 
-    # If that didn't work, let's check if the page is a child of the dropdown's CTA button page link
-    dropdown_link_page_path = dropdowns_page_links[dropdown_id][dropdown_link_page_id]
-    if page.path.startswith(dropdown_link_page_path):
+    return False
+
+
+@register.simple_tag(takes_context=True)
+def check_if_blog_dropdown_can_be_active(context):
+    """
+    Check if the blog dropdown can be highlighted based on the current page.
+    Unlike other dropdowns, we don't need to check the current page against the dropdown's links.
+    For blog dropdown, all we need to check is if the current page is a blog index page or a blog page.
+    """
+
+    # The page that user is currently visiting/requesting:
+    page = context.get("page", None)
+    if not page:
+        return None
+
+    # Highlight the dropdown if the page is a blog index page (e.g., the main blog index or any blog topic page)
+    if isinstance(page, BlogIndexPage):
         return True
 
-    # Finally, let's check if the page is a child of any of the page links inside the dropdown
-    for id in dropdowns_page_links[dropdown_id]["page_ids"]:
-        link_path = dropdowns_page_links[dropdown_id][id]
-        if page.path.startswith(link_path):
-            return True
+    # Highlight the dropdown if the page is a blog page
+    if isinstance(page, BlogPage):
+        return True
 
     return False
 
@@ -86,11 +99,7 @@ def check_if_link_is_active(context, link):
     link_page = link["page"]
 
     # Check if the current page is the linked page
-    if page == link_page:
-        return True
-
-    # Check if the current page is a child of the linked page
-    if page.path.startswith(link_page.path):
+    if page.id == link_page.id:
         return True
 
     return False

@@ -117,7 +117,7 @@ factory-boy==3.3.0
     # via
     #   -r requirements.in
     #   wagtail-factories
-faker==25.0.1
+faker==25.6.0
     # via
     #   -r requirements.in
     #   factory-boy
@@ -195,7 +195,7 @@ pyyaml==6.0.1
     # via django-pattern-library
 redis==4.5.4
     # via django-redis
-requests==2.31.0
+requests==2.32.3
     # via
     #   -r requirements.in
     #   basket-client

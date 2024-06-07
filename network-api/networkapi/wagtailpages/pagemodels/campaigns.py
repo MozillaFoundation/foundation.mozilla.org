@@ -12,6 +12,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import get_content_related_by_tag, get_page_tree_information
 from .base import PrimaryPage
+from .customblocks.base_rich_text_options import base_rich_text_options
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .modular import MiniSiteNameSpace
 
@@ -31,6 +32,13 @@ class CTABase(models.Model):
 
     description = RichTextField(help_text="Body (richtext) of component", blank=True)
 
+    privacy_notice = RichTextField(
+        help_text="This optional privacy notice field will overwrite the default privacy notice text. "
+        "If this field is left blank, the default privacy notice text is used.",
+        features=base_rich_text_options,
+        blank=True,
+    )
+
     newsletter = models.CharField(
         max_length=100,
         help_text="The (pre-existing) newsletter to sign up for",
@@ -41,6 +49,7 @@ class CTABase(models.Model):
         TranslatableField("name"),
         TranslatableField("header"),
         TranslatableField("description"),
+        TranslatableField("privacy_notice"),
         SynchronizedField("newsletter"),
     ]
 
