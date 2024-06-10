@@ -145,7 +145,6 @@
 
                 {% block extra_product_box_list_items %}{% endblock extra_product_box_list_items %}
 
-                {# User is logged in. Don't cache their results so they can see live and draft products here. #}
                 {% for product in products %}
                     {% product_in_category product category as matched %}
                     {% include "fragments/buyersguide/item.html" with product=product matched=matched %}
