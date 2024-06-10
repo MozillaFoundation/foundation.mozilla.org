@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING, Optional, Union
 
 from django.apps import apps
 from django.conf import settings
-from django.core.cache import cache
 from django.db import models
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.text import slugify
