@@ -15,7 +15,7 @@ def get_buyersguide_featured_cta(page):
     return featured_cta
 
 
-def get_product_subset(cutoff_date, authenticated, key, products, language_code="en"):
+def get_product_subset(cutoff_date, authenticated, products, language_code="en"):
     """
     filter a queryset based on our current cutoff date,
     as well as based on whether a user is authenticated
@@ -38,7 +38,6 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
 
     products = annotate_product_categories_local_names(products, language_code)
 
-    cache.get_or_set(key, products, 24 * 60 * 60)  # Set cache for 24h
     return products
 
 
