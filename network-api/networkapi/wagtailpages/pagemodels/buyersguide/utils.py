@@ -1,5 +1,4 @@
 from django.apps import apps
-from django.core.cache import cache
 
 from networkapi.wagtailpages.utils import localize_queryset
 
