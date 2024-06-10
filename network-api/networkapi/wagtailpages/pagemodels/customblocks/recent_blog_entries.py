@@ -1,7 +1,8 @@
 from django.apps import apps
-from django.core import exceptions
+from django.core.exceptions import ValidationError
 from django.template.defaultfilters import slugify
 from wagtail import blocks
+from wagtail.blocks import StructBlockValidationError
 
 from networkapi.wagtailpages.utils import get_locale_from_request
 
@@ -37,15 +38,22 @@ class RecentBlogEntries(blocks.StructBlock):
     )
 
     def clean(self, value):
-        result = super().clean(value)
+        validation_errors = {}
+        both_filters_error = ValidationError("Please provide either a Tag or a Topic, not both", code="invalid")
+        no_filter_error = ValidationError("Please provide a Tag or a Topic", code="required")
 
-        if result["tag_filter"] and result["topic_filter"]:
-            raise exceptions.ValidationError("Please provide either a Tag or a Topic, not both", code="invalid")
+        if value["tag_filter"] and value["topic_filter"]:
+            validation_errors["tag_filter"] = both_filters_error
+            validation_errors["topic_filter"] = both_filters_error
 
-        if not result["tag_filter"] and not result["topic_filter"]:
-            raise exceptions.ValidationError("Please provide a Tag or a Topic", code="required")
+        if not value["tag_filter"] and not value["topic_filter"]:
+            validation_errors["tag_filter"] = no_filter_error
+            validation_errors["topic_filter"] = no_filter_error
 
-        return result
+        if validation_errors:
+            raise StructBlockValidationError(validation_errors)
+
+        return super().clean(value)
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
