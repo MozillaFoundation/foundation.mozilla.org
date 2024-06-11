@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load wagtailcore_tags i18n %}
 
 <div
     class="newsletter-signup-module mb-5"
@@ -10,5 +10,6 @@
     {% if cta.header %}
         data-cta-header="{{ cta.header | escape }}"
     {% endif %}
-    data-cta-description="{{ cta.description | escape }}">
+    data-cta-description="{{ cta.description | escape }}"
+    data-cta-privacy-notice="{{ cta.privacy_notice | escape }}">
 </div>
