@@ -84,7 +84,7 @@
     "chart.js": "4.4.3",
     "classnames": "2.5.1",
     "countup.js": "^2.8.0",
-    "cssnano": "^6.1.2",
+    "cssnano": "^7.0.2",
     "esbuild": "^0.20.2",
     "event-stream": "3.3.4",
     "gsap": "^3.12.5",
