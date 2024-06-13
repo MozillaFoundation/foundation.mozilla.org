@@ -1,8 +1,6 @@
 {% load primary_active_nav i18n %}
 
-{% if page.zen_nav == True %}<div data-nav-mode="zen" class="zen-mode primary-nav-container">
-{% else %}<div class="primary-nav-container">
-{% endif %}
+<div class="primary-nav-container">
 <div class="wrapper-burger {% block wrapper_classes %}{% endblock %}">
     <div class="menu-container xlarge:tw-h-40 tw-py-8 small:tw-pl-0 medium:tw-py-10 xlarge:tw-py-0 {% block menu_container_classes %}{% endblock %}">
         {% block menu_content %}
@@ -34,7 +32,7 @@
                     <div class="tw-flex tw-flex-row tw-justify-between xlarge:tw-items-center">
                         <div id="primary-nav-links" class="tw-w-full tw-py-0 xlarge:tw-w-auto xlarge:tw-items-center">
                             <div class="tw-flex tw-items-center tw-flex-wrap">
-                                <button class="burger tw-z-50 tw-bg-white {% if page.zen_nav is not True %} xlarge:tw-hidden small:tw-ml-0 {% endif %}" aria-label="{% trans 'Open menu' %}">
+                                <button class="burger tw-z-50 tw-bg-white xlarge:tw-hidden small:tw-ml-0" aria-label="{% trans 'Open menu' %}">
                                     <span class="burger-bar burger-bar-top"></span>
                                     <span class="burger-bar burger-bar-middle"></span>
                                     <span class="burger-bar burger-bar-bottom"></span>
@@ -44,11 +42,7 @@
                                     <a class="logo text-hide tw-z-50" href="/" aria-label="{% trans "Mozilla Foundation Homepage" %}">{% trans "Mozilla Foundation" %}</a>
                                 {% endblock %}
 
-                                {% if page.zen_nav == True %}
-                                    <div class="wide-screen-menu hidden">
-                                {% else %}
-                                    <div class="wide-screen-menu xlarge:tw-h-full xlarge:tw-flex xlarge:tw-items-center">
-                                {% endif %}
+                                <div class="wide-screen-menu xlarge:tw-h-full xlarge:tw-flex xlarge:tw-items-center">
 
                                 {% block wide_screen_menu %}
                                     <div class="nav-links d-none d-xl-block">

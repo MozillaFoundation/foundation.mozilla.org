@@ -10,16 +10,6 @@ let primaryNav = {
     let navMode = primaryNavContainer.dataset.navMode;
     let menuOpen = false;
 
-    function setWideMenuState(openMenu) {
-      if (navMode === `zen`) {
-        if (openMenu) {
-          elWideMenu.classList.remove(`hidden`);
-        } else {
-          elWideMenu.classList.add(`hidden`);
-        }
-      }
-    }
-
     function setNarrowMenuState(openMenu) {
       if (openMenu) {
         elNarrowMenu.classList.remove(`hidden`);
@@ -75,7 +65,6 @@ let primaryNav = {
     }
 
     function setMenuState(openMenu) {
-      setWideMenuState(openMenu);
       setNarrowMenuState(openMenu);
       setBurgerState(openMenu);
       trackMenuState(openMenu);
