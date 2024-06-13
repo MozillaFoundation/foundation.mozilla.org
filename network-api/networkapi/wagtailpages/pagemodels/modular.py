@@ -23,23 +23,12 @@ class ModularPage(BasePage):
         help_text="For text-heavy pages, turn this on to reduce the overall width of the content on the page.",
     )
 
-    zen_nav = models.BooleanField(
-        default=True,
-        help_text="For secondary nav pages, use this to collapse the primary nav under a toggle hamburger.",
-    )
-
     body = StreamField(base_fields, use_json_field=True)
 
     settings_panels = Page.settings_panels + [
         MultiFieldPanel(
             [
                 FieldPanel("narrowed_page_content"),
-            ],
-            classname="collapsible",
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel("zen_nav"),
             ],
             classname="collapsible",
         ),
@@ -60,7 +49,6 @@ class ModularPage(BasePage):
         # Content tab fields
         TranslatableField("header"),
         SynchronizedField("narrowed_page_content"),
-        SynchronizedField("zen_nav"),
     ]
 
     show_in_menus_default = True
