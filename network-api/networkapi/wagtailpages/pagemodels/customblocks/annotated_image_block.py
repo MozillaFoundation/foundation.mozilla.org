@@ -2,7 +2,7 @@ from django import forms
 from wagtail import blocks
 
 from .image_block import ImageBlock
-from .link_block import LinkBlockWithoutLabel
+from .link_block import LinkWithoutLabelBlock
 
 
 class RadioSelectBlock(blocks.ChoiceBlock):
@@ -14,7 +14,7 @@ class RadioSelectBlock(blocks.ChoiceBlock):
 class AnnotatedImageBlock(ImageBlock):
     caption = blocks.CharBlock(required=False)
     caption_url = blocks.ListBlock(
-        LinkBlockWithoutLabel(), min_num=0, max_num=1, help_text="Optional URL that this caption should link out to."
+        LinkWithoutLabelBlock(), min_num=0, max_num=1, help_text="Optional URL that this caption should link out to."
     )
     image_width = RadioSelectBlock(
         choices=(

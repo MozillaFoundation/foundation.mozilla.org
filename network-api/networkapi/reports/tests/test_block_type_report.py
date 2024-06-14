@@ -84,10 +84,12 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
 
         block = object_list[3]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.CharBlock")
+        self.assertEqual(
+            block["block"], "networkapi.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock"
+        )
         self.assertEqual(block["count"], 2)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
+        self.assertEqual(block["type_label"], "Custom")
+        self.assertTrue(block["is_custom_block"])
         self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
 
         block = object_list[4]
@@ -176,10 +178,12 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         self.assertListEqual([campaign_page.content_type], block["content_types"])
 
         block = object_list[3]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.CharBlock")
+        self.assertEqual(
+            block["block"], "networkapi.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock"
+        )
         self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
+        self.assertEqual(block["type_label"], "Custom")
+        self.assertTrue(block["is_custom_block"])
         self.assertListEqual([campaign_page.content_type], block["content_types"])
 
         block = object_list[4]
@@ -225,7 +229,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         )
 
         # Two pages have crated ImageBlocks
-        # Each ImageBlock has a ImageChooserBlock and a CharBlock
+        # Each ImageBlock has a ImageChooserBlock and a LinkWithoutLabelBlock
         # These should be in alphabetical order since they all have the same count
         block = object_list[1]
         self.assertEqual(
@@ -246,10 +250,12 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         self.assertListEqual([campaign_page.content_type], block["content_types"])
 
         block = object_list[3]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.CharBlock")
+        self.assertEqual(
+            block["block"], "networkapi.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock"
+        )
         self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
+        self.assertEqual(block["type_label"], "Custom")
+        self.assertTrue(block["is_custom_block"])
         self.assertListEqual([campaign_page.content_type], block["content_types"])
 
         block = object_list[4]
