@@ -94,12 +94,7 @@ def generate_image_field():
 
     return generate_field(
         "image",
-        {
-            "image": image_id,
-            "altText": alt_text,
-            "caption": caption,
-            "caption_url": caption_external_url
-        },
+        {"image": image_id, "altText": alt_text, "caption": caption, "caption_url": caption_external_url},
     )
 
 
