@@ -84,7 +84,13 @@ def generate_image_field():
     image_id = choice(Image.objects.all()).id
     alt_text = " ".join(fake.words(nb=5))
     caption = " ".join(fake.words(nb=5))
-    caption_url = fake.url(schemes=["https"])
+    caption_external_url = [
+        {
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
 
     return generate_field(
         "image",
@@ -92,7 +98,7 @@ def generate_image_field():
             "image": image_id,
             "altText": alt_text,
             "caption": caption,
-            "captionURL": caption_url,
+            "caption_url": caption_external_url
         },
     )
 
