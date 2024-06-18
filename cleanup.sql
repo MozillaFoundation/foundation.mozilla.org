@@ -20,15 +20,15 @@ BEGIN
 
 --     Update the site domain
     UPDATE django_site
-    SET domain = '{DOMAIN}.herokuapp.com'
+    SET domain = '{DOMAIN}.mofostaging.net'
     WHERE domain = 'foundation.mofostaging.net';
 
     UPDATE wagtailcore_site
-    SET hostname = '{HOSTNAME}.herokuapp.com'
+    SET hostname = '{HOSTNAME}.mofostaging.net'
     WHERE hostname = 'foundation.mofostaging.net';
 
     UPDATE wagtailcore_site
-    SET hostname = 'mozillafestival.mofostaging.net'
+    SET hostname = 'mozfest-{HOSTNAME}.mofostaging.net'
     WHERE hostname = 'mozillafestival.mofostaging.net';
 
 --     Iterate over each non-staff user and remove any PII
