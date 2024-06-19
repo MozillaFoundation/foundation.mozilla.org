@@ -1,10 +1,8 @@
 import tempfile
-from sys import platform
 from time import sleep
+from tasks import PLATFORM_ARG
 
-PLATFORM_ARG = {"env": {"PYTHONUNBUFFERED": "True"}} if platform == "win32" else {"pty": True}
 STAGING_APP = "foundation-mofostaging-net"
-
 
 def execute_command(ctx, command: str, custom_error: str = ""):
     try:
