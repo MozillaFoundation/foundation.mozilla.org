@@ -1,8 +1,10 @@
 import tempfile
 from time import sleep
+
 from tasks import PLATFORM_ARG
 
 STAGING_APP = "foundation-mofostaging-net"
+
 
 def execute_command(ctx, command: str, custom_error: str = ""):
     try:
