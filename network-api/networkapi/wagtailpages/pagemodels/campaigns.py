@@ -352,7 +352,6 @@ class CampaignPage(MiniSiteNameSpace):
         TranslatableField("title"),
         TranslatableField("header"),
         SynchronizedField("narrowed_page_content"),
-        SynchronizedField("zen_nav"),
         TranslatableField("body"),
         TranslatableField("donation_modals"),
     ]
@@ -429,7 +428,6 @@ class BanneredCampaignPage(PrimaryPage):
         TranslatableField("title"),
         SynchronizedField("banner"),
         SynchronizedField("narrowed_page_content"),
-        SynchronizedField("zen_nav"),
         # FIXME: Contingency fix while https://github.com/mozilla/foundation.mozilla.org/pull/7771 is sorted out
         # TranslatableField("cta"),
         TranslatableField("signup"),

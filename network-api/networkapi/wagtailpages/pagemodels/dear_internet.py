@@ -68,6 +68,4 @@ class DearInternetPage(BasePage):
         SynchronizedField("cta_button_link"),
     ]
 
-    zen_nav = True
-
     template = "wagtailpages/pages/dear_internet_page.html"
