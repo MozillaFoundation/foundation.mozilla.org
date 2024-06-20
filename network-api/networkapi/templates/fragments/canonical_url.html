@@ -4,7 +4,11 @@
 {% get_available_languages as LANGUAGES %}
 
 <link rel="canonical" href="{{ CANONICAL_SITE_URL }}/{{ LANGUAGE_CODE }}{{ CANONICAL_PATH }}">
-<link rel="alternate" hreflang="x-default" href="{{ CANONICAL_SITE_URL }}{{ CANONICAL_PATH }}">
+
+{% with "en" as ENGLISH_LANG_CODE %}
+    <link rel="alternate" hreflang="x-default" href="{{ CANONICAL_SITE_URL }}/{{ ENGLISH_LANG_CODE }}{{ CANONICAL_PATH }}">
+{% endwith %}
+
 {% for CODE, NAME in LANGUAGES %}
     {% get_language_info for CODE as lang %}
     {% if CODE == 'es' %}
