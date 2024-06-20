@@ -41,7 +41,7 @@ def migrate_image_block(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0137_blogsignup_privacy_notice_cta_privacy_notice"),
+        ("wagtailpages", "0138_remove_modularpage_zen_nav_and_more"),
     ]
 
     operations = [
