@@ -25,26 +25,27 @@ The general workflow is:
 To get a list of invoke commands available, run `invoke -l`:
 
 ```
-  catch-up (catchup, docker-catchup)              Rebuild images, install dependencies, and apply migrations
-  compilemessages (docker-compilemessages)        Compile the latest translations
-  makemessages (docker-makemessages)              Extract all template messages in .po files for localization
-  makemigrations (docker-makemigrations)          Creates new migration(s) for apps
-  manage (docker-manage)                          Shorthand to manage.py. inv docker-manage "[COMMAND] [ARG]"
-  migrate (docker-migrate)                        Updates database schema
-  new-db (docker-new-db)                          Delete your database and create a new one with fake data
-  copy-stage-db                                   Overwrite your local docker postgres DB with a copy of the staging database
-  copy-prod-db                                    Overwrite your local docker postgres DB with a copy of the production database
-  new-env (docker-new-env)                        Get a new dev environment and a new database with fake data
-  npm (docker-npm)                                Shorthand to npm. inv docker-npm "[COMMAND] [ARG]"
-  npm-install (docker-npm-install)                Install Node dependencies
-  pip-compile (docker-pip-compile)                Shorthand to pip-tools. inv pip-compile "[filename]" "[COMMAND] [ARG]"
-  pip-compile-lock (docker-pip-compile-lock)      Lock prod and dev dependencies
-  pip-sync (docker-pip-sync)                      Sync your python virtualenv
-  start-dev (docker-start, start)                 Start the dev server
-  start-lean-dev (docker-start-lean, start-lean)  Start the dev server without rebuilding
-  test (docker-test)                              Run both Node and Python tests
-  test-node (docker-test-node)                    Run node tests
-  test-python (docker-test-python)                Run python tests
+  catch-up (catchup, docker-catchup)                Rebuild images, install dependencies, and apply migrations
+  compilemessages (docker-compilemessages)          Compile the latest translations
+  makemessages (docker-makemessages)                Extract all template messages in .po files for localization
+  makemigrations (docker-makemigrations)            Creates new migration(s) for apps
+  manage (docker-manage)                            Shorthand to manage.py. inv docker-manage "[COMMAND] [ARG]"
+  migrate (docker-migrate)                          Updates database schema
+  new-db (docker-new-db)                            Delete your database and create a new one with fake data
+  copy-stage-db                                     Overwrite your local docker postgres DB with a copy of the staging database
+  copy-prod-db                                      Overwrite your local docker postgres DB with a copy of the production database
+  new-env (docker-new-env)                          Get a new dev environment and a new database with fake data
+  npm (docker-npm)                                  Shorthand to npm. inv docker-npm "[COMMAND] [ARG]"
+  npm-install (docker-npm-install)                  Install Node dependencies
+  pip-compile (docker-pip-compile)                  Shorthand to pip-tools. inv pip-compile "[filename]" "[COMMAND] [ARG]"
+  pip-compile-lock (docker-pip-compile-lock)        Lock prod and dev dependencies
+  pip-sync (docker-pip-sync)                        Sync your python virtualenv
+  staging-db-to-review-app (staging-to-review-app)  Copy Staging DB to a specific Review App. inv staging-to-review-app "[REVIEW_APP_NAME]"
+  start-dev (docker-start, start)                   Start the dev server
+  start-lean-dev (docker-start-lean, start-lean)    Start the dev server without rebuilding
+  test (docker-test)                                Run both Node and Python tests
+  test-node (docker-test-node)                      Run node tests
+  test-python (docker-test-python)                  Run python tests
 ```
 
 Note the above commands carefully, as they should cover the majority of what you'd need for local development.

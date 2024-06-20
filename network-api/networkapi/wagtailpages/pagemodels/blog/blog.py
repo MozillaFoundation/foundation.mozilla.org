@@ -134,8 +134,6 @@ class BlogPage(BasePage):
 
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
-    zen_nav = False
-
     hero_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
