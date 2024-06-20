@@ -308,10 +308,6 @@ class ArticlePage(BasePage):
         return Page.objects.ancestor_of(self).type(PublicationPage).live()
 
     @property
-    def zen_nav(self):
-        return True
-
-    @property
     def get_page_titles(self):
         return get_plaintext_titles(None, self.body, "content")
 
