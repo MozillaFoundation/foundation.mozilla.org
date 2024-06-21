@@ -5777,6 +5777,38 @@ class Migration(migrations.Migration):
                 (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
             ],
         ),
+        MigrateStreamData(
+            app_name="wagtailpages",
+            model_name="buyersguidearticlepage",
+            field_name="body",
+            operations_and_block_paths=[
+                (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
+            ],
+        ),
+        MigrateStreamData(
+            app_name="wagtailpages",
+            model_name="buyersguidecampaignpage",
+            field_name="body",
+            operations_and_block_paths=[
+                (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
+            ],
+        ),
+        MigrateStreamData(
+            app_name="wagtailpages",
+            model_name="modularpage",
+            field_name="body",
+            operations_and_block_paths=[
+                (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
+            ],
+        ),
+        MigrateStreamData(
+            app_name="wagtailpages",
+            model_name="primarypage",
+            field_name="body",
+            operations_and_block_paths=[
+                (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
+            ],
+        ),
         migrations.AlterField(
             model_name="blogpage",
             name="body",
