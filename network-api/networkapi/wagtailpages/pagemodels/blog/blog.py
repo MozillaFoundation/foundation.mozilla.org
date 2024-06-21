@@ -9,8 +9,8 @@ from taggit.models import TaggedItemBase
 from wagtail import blocks
 from wagtail.admin.panels import (
     FieldPanel,
-    InlinePanel,
     MultiFieldPanel,
+    MultipleChooserPanel,
     PageChooserPanel,
     PublishingPanel,
     TitleFieldPanel,
@@ -171,7 +171,10 @@ class BlogPage(BasePage):
             classname="full title",
             widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
         ),
-        MultiFieldPanel([InlinePanel("authors", label="Author", min_num=1)], heading="Author(s)"),
+        MultiFieldPanel(
+            [MultipleChooserPanel("authors", label="Author", chooser_field_name="author", min_num=1)],
+            heading="Author(s)",
+        ),
         FieldPanel("topics", widget=CheckboxSelectMultiple),
         MultiFieldPanel(
             [
@@ -183,9 +186,10 @@ class BlogPage(BasePage):
         FieldPanel("body"),
         FieldPanel("feature_author_details", heading="Feature Author Details Section"),
         FieldPanel("feature_comments"),
-        InlinePanel(
+        MultipleChooserPanel(
             "related_posts",
             label="Related Blog Posts",
+            chooser_field_name="related_post",
             help_text="Pick three other posts that are related to this post. "
             "If you pick fewer than three (or none), saving will "
             "automatically bind some related posts based on tag matching.",

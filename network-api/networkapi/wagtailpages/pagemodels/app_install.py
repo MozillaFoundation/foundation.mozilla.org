@@ -1,5 +1,5 @@
 from django.db import models
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, MultipleChooserPanel
 from wagtail.fields import StreamField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -58,7 +58,12 @@ class AppInstallPage(CampaignPage):
         MultiFieldPanel(
             [
                 FieldPanel("cta"),
-                InlinePanel("donation_modals", label="Donation Modal", max_num=4),
+                MultipleChooserPanel(
+                    "donation_modals",
+                    label="Donation Modal",
+                    chooser_field_name="donation_modal",
+                    max_num=4,
+                ),
                 FieldPanel("body"),
             ],
             heading="Page Content",

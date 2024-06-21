@@ -5,7 +5,7 @@ from django.core import paginator
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail import models as wagtail_models
-from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, MultipleChooserPanel
 from wagtail.contrib.routable_page import models as routable_models
 from wagtail.models import Orderable, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -35,10 +35,11 @@ class BuyersGuideEditorialContentIndexPage(
     template = "pages/buyersguide/editorial_content_index_page.html"
 
     content_panels = wagtail_models.Page.content_panels + [
-        InlinePanel(
+        MultipleChooserPanel(
             "related_article_relations",
             heading="Popular articles",
             label="Article",
+            chooser_field_name="article",
             max_num=3,
         ),
     ]

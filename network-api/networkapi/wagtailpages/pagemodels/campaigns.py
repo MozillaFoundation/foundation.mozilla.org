@@ -4,7 +4,7 @@ from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
-from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, MultipleChooserPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page, TranslatableMixin
 from wagtail.search import index
@@ -335,7 +335,12 @@ class CampaignPage(MiniSiteNameSpace):
     content_panels = Page.content_panels + [
         FieldPanel("header"),
         FieldPanel("cta"),
-        InlinePanel("donation_modals", label="Donation Modal", max_num=4),
+        MultipleChooserPanel(
+            "donation_modals",
+            label="Donation Modal",
+            chooser_field_name="donation_modal",
+            max_num=4,
+        ),
         FieldPanel("body"),
     ]
 

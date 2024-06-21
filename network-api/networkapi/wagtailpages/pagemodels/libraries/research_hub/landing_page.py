@@ -24,8 +24,10 @@ class ResearchLandingPage(base_landing_page.BaseLandingPage):
     template = "pages/libraries/research_hub/landing_page.html"
 
     content_panels = base_landing_page.BaseLandingPage.content_panels + [
-        panels.InlinePanel("featured_topics", heading="Featured topics"),
-        panels.InlinePanel("featured_authors", heading="Featured authors", max_num=4),
+        panels.MultipleChooserPanel("featured_topics", heading="Featured topics", chooser_field_name="topic"),
+        panels.MultipleChooserPanel(
+            "featured_authors", heading="Featured authors", chooser_field_name="author", max_num=4
+        ),
     ]
 
     translatable_fields = base_landing_page.BaseLandingPage.translatable_fields + [

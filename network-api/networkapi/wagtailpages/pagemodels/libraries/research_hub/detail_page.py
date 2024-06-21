@@ -18,8 +18,8 @@ class ResearchDetailPage(base_detail_page.LibraryDetailPage):
     template = "pages/libraries/research_hub/detail_page.html"
 
     content_panels = base_detail_page.LibraryDetailPage.content_panels + [
-        wagtail_panels.InlinePanel("related_topics", heading="Topics"),
-        wagtail_panels.InlinePanel("related_regions", heading="Regions"),
+        wagtail_panels.MultipleChooserPanel("related_topics", heading="Topics", chooser_field_name="topic"),
+        wagtail_panels.MultipleChooserPanel("related_regions", heading="Regions", chooser_field_name="region"),
     ]
 
     translatable_fields = base_detail_page.LibraryDetailPage.translatable_fields + [

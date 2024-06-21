@@ -68,18 +68,22 @@ class BuyersGuideArticlePage(BasePage):
 
     content_panels = wagtail_models.Page.content_panels + [
         panels.FieldPanel("hero_image"),
-        panels.InlinePanel("author_profile_relations", heading="Authors", label="Author"),
-        panels.InlinePanel(
+        panels.MultipleChooserPanel(
+            "author_profile_relations", heading="Authors", label="Author", chooser_field_name="author_profile"
+        ),
+        panels.MultipleChooserPanel(
             "content_category_relations",
             heading="Content categories",
             label="Content category",
+            chooser_field_name="content_category",
             max_num=2,
         ),
         panels.FieldPanel("body"),
-        panels.InlinePanel(
+        panels.MultipleChooserPanel(
             "related_article_relations",
             heading="What to read next (related articles)",
             label="Article",
+            chooser_field_name="article",
             max_num=3,
         ),
     ]

@@ -104,8 +104,9 @@ class NavMenu(
         panels.MultiFieldPanel(
             [
                 panels.FieldPanel("enable_blog_dropdown"),
-                panels.InlinePanel(
+                panels.MultipleChooserPanel(
                     "featured_blog_topics",
+                    chooser_field_name="topic",
                     label="Featured Blog Topics",
                     help_text="Choose up to 4 featured topics",
                     min_num=0,

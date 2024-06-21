@@ -9,7 +9,12 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import loader
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel
+from wagtail.admin.panels import (
+    FieldPanel,
+    InlinePanel,
+    MultipleChooserPanel,
+    PageChooserPanel,
+)
 from wagtail.contrib.routable_page.models import route
 from wagtail.fields import StreamField
 from wagtail.models import Locale
@@ -112,9 +117,10 @@ class BlogIndexPage(IndexPage):
     subpage_types = ["BlogPage"]
 
     content_panels = IndexPage.content_panels + [
-        InlinePanel(
+        MultipleChooserPanel(
             "featured_pages",
             label="Featured",
+            chooser_field_name="blog",
             help_text="Choose five blog pages to feature",
             min_num=5,
             max_num=5,

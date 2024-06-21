@@ -10,7 +10,7 @@ from django.dispatch import receiver
 from django.utils.text import slugify
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, MultipleChooserPanel
 from wagtail.contrib.settings.models import BaseGenericSetting
 from wagtail.models import Orderable, TranslatableMixin
 from wagtail.search import index
@@ -111,10 +111,11 @@ class BuyersGuideProductCategory(
         FieldPanel("hidden"),
         FieldPanel("share_image"),
         FieldPanel("show_cta"),
-        InlinePanel(
+        MultipleChooserPanel(
             "related_article_relations",
             heading="Related articles",
             label="Article",
+            chooser_field_name="article",
             max_num=6,
         ),
     ]
@@ -235,7 +236,7 @@ class BuyersGuideCategoryNavRelation(Orderable):
 class BuyersGuideCategoryNav(BaseGenericSetting, ClusterableModel):
     panels = [
         MultiFieldPanel(
-            [InlinePanel("category_relations")],
+            [MultipleChooserPanel("category_relations", chooser_field_name="category")],
             heading="Categories",
         ),
     ]

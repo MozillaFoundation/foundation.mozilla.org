@@ -19,9 +19,13 @@ class RCCDetailPage(base_detail_page.LibraryDetailPage):
     template = "pages/libraries/rcc/detail_page.html"
 
     content_panels = base_detail_page.LibraryDetailPage.content_panels + [
-        wagtail_panels.InlinePanel("related_content_types", heading="Content types"),
-        wagtail_panels.InlinePanel("related_curricular_areas", heading="Curricular areas"),
-        wagtail_panels.InlinePanel("related_topics", heading="Topics"),
+        wagtail_panels.MultipleChooserPanel(
+            "related_content_types", heading="Content types", chooser_field_name="content_type"
+        ),
+        wagtail_panels.MultipleChooserPanel(
+            "related_curricular_areas", heading="Curricular areas", chooser_field_name="curricular_area"
+        ),
+        wagtail_panels.MultipleChooserPanel("related_topics", heading="Topics", chooser_field_name="topic"),
     ]
 
     translatable_fields = base_detail_page.LibraryDetailPage.translatable_fields + [

@@ -1,7 +1,12 @@
 from django.conf import settings
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    MultipleChooserPanel,
+)
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Orderable as WagtailOrderable
@@ -224,7 +229,7 @@ class InitiativesPage(PrimaryPage):
         FieldPanel("h3"),
         FieldPanel("sub_h3"),
         InlinePanel("initiative_sections", label="Initiatives"),
-        InlinePanel("featured_highlights", label="Highlights", max_num=9),
+        MultipleChooserPanel("featured_highlights", label="Highlights", chooser_field_name="highlight", max_num=9),
     ]
 
     translatable_fields = [
@@ -401,7 +406,9 @@ class ParticipatePage2(PrimaryPage):
         ),
         FieldPanel("h2"),
         FieldPanel("h2Subheader"),
-        InlinePanel("featured_highlights", label="Highlights Group 1", max_num=3),
+        MultipleChooserPanel(
+            "featured_highlights", label="Highlights Group 1", chooser_field_name="highlight", max_num=3
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("ctaHero2"),
@@ -413,7 +420,9 @@ class ParticipatePage2(PrimaryPage):
             heading="CTA 2",
             classname="collapsible",
         ),
-        InlinePanel("featured_highlights2", label="Highlights Group 2", max_num=6),
+        MultipleChooserPanel(
+            "featured_highlights2", label="Highlights Group 2", chooser_field_name="highlight", max_num=6
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("ctaHero3"),
@@ -870,14 +879,14 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                InlinePanel("focus_areas", min_num=3, max_num=3),
+                MultipleChooserPanel("focus_areas", chooser_field_name="area", min_num=3, max_num=3),
             ],
             heading="Areas of focus",
             classname="collapsible collapsed",
         ),
         MultiFieldPanel(
             [
-                InlinePanel("news_you_can_use", min_num=4, max_num=4),
+                MultipleChooserPanel("news_you_can_use", chooser_field_name="blog", min_num=4, max_num=4),
             ],
             heading="News you can use",
             classname="collapsible",
@@ -886,7 +895,9 @@ class Homepage(FoundationMetadataPageMixin, Page):
             [
                 FieldPanel("spotlight_image"),
                 FieldPanel("spotlight_headline"),
-                InlinePanel("spotlight_posts", label="Posts", min_num=3, max_num=3),
+                MultipleChooserPanel(
+                    "spotlight_posts", chooser_field_name="blog", label="Posts", min_num=3, max_num=3
+                ),
             ],
             heading="spotlight",
             classname="collapsible",
@@ -916,7 +927,9 @@ class Homepage(FoundationMetadataPageMixin, Page):
                 FieldPanel("partner_page_text"),
                 FieldPanel("partner_page"),
                 FieldPanel("partner_background_image"),
-                InlinePanel("partner_logos", label="Partner Logo", max_num=7, min_num=1),
+                MultipleChooserPanel(
+                    "partner_logos", label="Partner Logo", chooser_field_name="logo", max_num=7, min_num=1
+                ),
             ],
             heading="Partner",
             classname="collapsible collapsed",

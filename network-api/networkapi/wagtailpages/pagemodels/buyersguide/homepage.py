@@ -13,8 +13,8 @@ from modelcluster import fields as cluster_fields
 from wagtail.admin.panels import (
     FieldPanel,
     HelpPanel,
-    InlinePanel,
     MultiFieldPanel,
+    MultipleChooserPanel,
     PageChooserPanel,
     TitleFieldPanel,
 )
@@ -112,10 +112,11 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
                 ),
                 HelpPanel(content="<h2>Supporting Featured Pages</h2>"),
                 FieldPanel("hero_supporting_pages_heading", heading="Heading"),
-                InlinePanel(
+                MultipleChooserPanel(
                     "hero_supporting_page_relations",
                     heading="Supporting Pages",
                     label="Page",
+                    chooser_field_name="supporting_page",
                 ),
             ],
             heading="Hero",
@@ -124,26 +125,29 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
             "featured_advice_article",
             page_type="wagtailpages.BuyersGuideArticlePage",
         ),
-        InlinePanel(
+        MultipleChooserPanel(
             "featured_article_relations",
             heading="Popular articles",
             label="Article",
+            chooser_field_name="article",
             max_num=3,
         ),
-        InlinePanel(
+        MultipleChooserPanel(
             "featured_update_relations",
             heading="In the press",
             label="Press update",
+            chooser_field_name="update",
             max_num=3,
         ),
         MultiFieldPanel(
             children=[
                 FieldPanel("cutoff_date"),
                 HelpPanel(content="<h2>Excluded categories</h2>"),
-                InlinePanel(
+                MultipleChooserPanel(
                     "excluded_categories",
                     heading="Excluded categories",
                     label="Category",
+                    chooser_field_name="category",
                     min_num=0,
                 ),
             ],

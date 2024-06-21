@@ -5,6 +5,7 @@ from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
+    MultipleChooserPanel,
     TitleFieldPanel,
 )
 from wagtail.fields import StreamField
@@ -184,7 +185,10 @@ class ArticlePage(BasePage):
             classname="full title",
             widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
         ),
-        MultiFieldPanel([InlinePanel("authors", label="Author", min_num=0)], heading="Author(s)"),
+        MultiFieldPanel(
+            [MultipleChooserPanel("authors", label="Author", chooser_field_name="author", min_num=0)],
+            heading="Author(s)",
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("toc_thumbnail_image"),
