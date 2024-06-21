@@ -66,13 +66,3 @@ class LinkBlock(BaseLinkBlock):
 
 
 register(BaseLinkBlockAdapter(), LinkBlock)
-
-
-class LinkWithoutLabelBlock(LinkBlock):
-    def __init__(self, local_blocks=None, **kwargs):
-        super().__init__(local_blocks, **kwargs)
-        self.child_blocks = self.base_blocks.copy()
-        self.child_blocks.pop("label")
-
-
-register(BaseLinkBlockAdapter(), LinkWithoutLabelBlock)

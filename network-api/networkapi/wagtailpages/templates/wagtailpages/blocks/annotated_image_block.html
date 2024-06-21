@@ -23,13 +23,9 @@
         <img src="{{ img.url }}" alt="{{ value.altText }}" class="tw-w-full {% if value.image_width == "full_width" %} tw-object-cover tw-object-center tw-max-h-[400px] large:tw-max-h-[550px] xlarge:tw-max-h-[650px] {% endif %}">
         {% if value.caption %}
             <figcaption class="tw-body-small tw-mt-4 tw-block {% if value.image_width == "full_width" %} tw-pl-6 {% endif %}">
-                {% if value.caption_url %}
-                    {% with link=value.caption_url.0 %}
-                        <a href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %}>{{ value.caption }}</a>
-                    {% endwith %}
-                {% else %}
-                    {{ value.caption }}
-                {% endif %}
+                {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
+                {{ value.caption }}
+                {% if value.captionURL %}</a>{% endif %}
             </figcaption>
         {% endif %}
     </figure>
