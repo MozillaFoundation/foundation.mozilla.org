@@ -62,7 +62,9 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
             block["content_types"],
         )
 
-        # Two pages have created AnnotatedImageBlocks
+        # Two pages have crated ImageBlocks
+        # Each ImageBlock has a ImageChooserBlock and a CharBlock
+        # These should be in alphabetical order since they all have the same count
         block = object_list[1]
         self.assertEqual(
             block["block"], "networkapi.wagtailpages.pagemodels.customblocks.annotated_image_block.AnnotatedImageBlock"
@@ -72,7 +74,6 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         self.assertTrue(block["is_custom_block"])
         self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
 
-        # RadioSelectBlock is used in AnnotatedImageBlock
         block = object_list[2]
         self.assertEqual(
             block["block"], "networkapi.wagtailpages.pagemodels.customblocks.annotated_image_block.RadioSelectBlock"
@@ -82,87 +83,44 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         self.assertTrue(block["is_custom_block"])
         self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
 
-        # LinkBlockWithoutLabel is used in AnnotatedImageBlock
         block = object_list[3]
-        self.assertEqual(
-            block["block"], "networkapi.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock"
-        )
-        self.assertEqual(block["count"], 2)
-        self.assertEqual(block["type_label"], "Custom")
-        self.assertTrue(block["is_custom_block"])
-        self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
-
-        # BooleanBlock is used in LinkBlockWithoutLabel
-        block = object_list[4]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.BooleanBlock")
-        self.assertEqual(block["count"], 2)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
-
-        # CharBlock is used in LinkBlockWithoutLabel
-        block = object_list[5]
         self.assertEqual(block["block"], "wagtail.blocks.field_block.CharBlock")
         self.assertEqual(block["count"], 2)
         self.assertEqual(block["type_label"], "Core")
         self.assertFalse(block["is_custom_block"])
         self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
 
-        # ChoiceBlock is used in LinkBlockWithoutLabel
-        block = object_list[6]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.ChoiceBlock")
-        self.assertEqual(block["count"], 2)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
-
-        # EmailBlock is used in LinkBlockWithoutLabel
-        block = object_list[7]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.EmailBlock")
-        self.assertEqual(block["count"], 2)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
-
-        # PageChooserBlock is used in LinkBlockWithoutLabel
-        block = object_list[8]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.PageChooserBlock")
-        self.assertEqual(block["count"], 2)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
-
-        # URLBlock is used in LinkBlockWithoutLabel
-        block = object_list[9]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.URLBlock")
-        self.assertEqual(block["count"], 2)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
-
-        # ListBlock is used to wrap LinkBlockWithoutLabel in AnnotatedImageBlock
-        block = object_list[10]
-        self.assertEqual(block["block"], "wagtail.blocks.list_block.ListBlock")
-        self.assertEqual(block["count"], 2)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
-
-        # DocumentChooserBlock is used in LinkBlockWithoutLabel
-        block = object_list[11]
-        self.assertEqual(block["block"], "wagtail.documents.blocks.DocumentChooserBlock")
-        self.assertEqual(block["count"], 2)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
-
-        # ImageChooserBlock is used in AnnotatedImageBlock
-        block = object_list[12]
+        block = object_list[4]
         self.assertEqual(block["block"], "wagtail.images.blocks.ImageChooserBlock")
         self.assertEqual(block["count"], 2)
         self.assertEqual(block["type_label"], "Core")
         self.assertFalse(block["is_custom_block"])
         self.assertListEqual([primary_page.content_type, campaign_page.content_type], block["content_types"])
+
+        # FInally, we have the AirTableBlock, use only in one page
+        # This one is made of a URLBlock and a IntegerBlock
+        block = object_list[5]
+        self.assertEqual(
+            block["block"], "networkapi.wagtailpages.pagemodels.customblocks.airtable_block.AirTableBlock"
+        )
+        self.assertEqual(block["count"], 1)
+        self.assertEqual(block["type_label"], "Custom")
+        self.assertTrue(block["is_custom_block"])
+        self.assertListEqual([primary_page.content_type], block["content_types"])
+
+        block = object_list[6]
+        self.assertEqual(block["block"], "wagtail.blocks.field_block.IntegerBlock")
+        self.assertEqual(block["count"], 1)
+        self.assertEqual(block["type_label"], "Core")
+        self.assertFalse(block["is_custom_block"])
+        self.assertListEqual([primary_page.content_type], block["content_types"])
+
+        block = object_list[7]
+        self.assertEqual(block["block"], "wagtail.blocks.field_block.URLBlock")
+        self.assertEqual(block["count"], 1)
+        self.assertEqual(block["type_label"], "Core")
+        self.assertFalse(block["is_custom_block"])
+        self.assertListEqual([primary_page.content_type], block["content_types"])
 
     def test_page_unpublished(self):
         """Tests that the queryset is updated when a page is unpublished"""
@@ -196,8 +154,9 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
             block["content_types"],
         )
 
-        # The remaining blocks should only appear on the campaign page
-        # The campaign page is using an AnnotatedImageBlock
+        # Two pages have crated ImageBlocks
+        # Each ImageBlock has a ImageChooserBlock and a CharBlock
+        # These should be in alphabetical order since they all have the same count
         block = object_list[1]
         self.assertEqual(
             block["block"], "networkapi.wagtailpages.pagemodels.customblocks.annotated_image_block.AnnotatedImageBlock"
@@ -207,7 +166,6 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         self.assertTrue(block["is_custom_block"])
         self.assertListEqual([campaign_page.content_type], block["content_types"])
 
-        # RadioSelectBlock is used in AnnotatedImageBlock
         block = object_list[2]
         self.assertEqual(
             block["block"], "networkapi.wagtailpages.pagemodels.customblocks.annotated_image_block.RadioSelectBlock"
@@ -217,82 +175,14 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         self.assertTrue(block["is_custom_block"])
         self.assertListEqual([campaign_page.content_type], block["content_types"])
 
-        # LinkBlockWithoutLabel is used in AnnotatedImageBlock
         block = object_list[3]
-        self.assertEqual(
-            block["block"], "networkapi.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock"
-        )
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Custom")
-        self.assertTrue(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # BooleanBlock is used in LinkBlockWithoutLabel
-        block = object_list[4]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.BooleanBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # CharBlock is used in LinkBlockWithoutLabel
-        block = object_list[5]
         self.assertEqual(block["block"], "wagtail.blocks.field_block.CharBlock")
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Core")
         self.assertFalse(block["is_custom_block"])
         self.assertListEqual([campaign_page.content_type], block["content_types"])
 
-        # ChoiceBlock is used in LinkBlockWithoutLabel
-        block = object_list[6]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.ChoiceBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # EmailBlock is used in LinkBlockWithoutLabel
-        block = object_list[7]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.EmailBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # PageChooserBlock is used in LinkBlockWithoutLabel
-        block = object_list[8]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.PageChooserBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # URLBlock is used in LinkBlockWithoutLabel
-        block = object_list[9]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.URLBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # ListBlock is used to wrap LinkBlockWithoutLabel in AnnotatedImageBlock
-        block = object_list[10]
-        self.assertEqual(block["block"], "wagtail.blocks.list_block.ListBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # DocumentChooserBlock is used in LinkBlockWithoutLabel
-        block = object_list[11]
-        self.assertEqual(block["block"], "wagtail.documents.blocks.DocumentChooserBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # ImageChooserBlock is used in AnnotatedImageBlock
-        block = object_list[12]
+        block = object_list[4]
         self.assertEqual(block["block"], "wagtail.images.blocks.ImageChooserBlock")
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Core")
@@ -334,8 +224,9 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
             block["content_types"],
         )
 
-        # The remaining blocks should only appear on the campaign page
-        # The campaign page is using an AnnotatedImageBlock
+        # Two pages have crated ImageBlocks
+        # Each ImageBlock has a ImageChooserBlock and a CharBlock
+        # These should be in alphabetical order since they all have the same count
         block = object_list[1]
         self.assertEqual(
             block["block"], "networkapi.wagtailpages.pagemodels.customblocks.annotated_image_block.AnnotatedImageBlock"
@@ -345,7 +236,6 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         self.assertTrue(block["is_custom_block"])
         self.assertListEqual([campaign_page.content_type], block["content_types"])
 
-        # RadioSelectBlock is used in AnnotatedImageBlock
         block = object_list[2]
         self.assertEqual(
             block["block"], "networkapi.wagtailpages.pagemodels.customblocks.annotated_image_block.RadioSelectBlock"
@@ -355,82 +245,14 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         self.assertTrue(block["is_custom_block"])
         self.assertListEqual([campaign_page.content_type], block["content_types"])
 
-        # LinkBlockWithoutLabel is used in AnnotatedImageBlock
         block = object_list[3]
-        self.assertEqual(
-            block["block"], "networkapi.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock"
-        )
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Custom")
-        self.assertTrue(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # BooleanBlock is used in LinkBlockWithoutLabel
-        block = object_list[4]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.BooleanBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # CharBlock is used in LinkBlockWithoutLabel
-        block = object_list[5]
         self.assertEqual(block["block"], "wagtail.blocks.field_block.CharBlock")
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Core")
         self.assertFalse(block["is_custom_block"])
         self.assertListEqual([campaign_page.content_type], block["content_types"])
 
-        # ChoiceBlock is used in LinkBlockWithoutLabel
-        block = object_list[6]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.ChoiceBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # EmailBlock is used in LinkBlockWithoutLabel
-        block = object_list[7]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.EmailBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # PageChooserBlock is used in LinkBlockWithoutLabel
-        block = object_list[8]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.PageChooserBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # URLBlock is used in LinkBlockWithoutLabel
-        block = object_list[9]
-        self.assertEqual(block["block"], "wagtail.blocks.field_block.URLBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # ListBlock is used to wrap LinkBlockWithoutLabel in AnnotatedImageBlock
-        block = object_list[10]
-        self.assertEqual(block["block"], "wagtail.blocks.list_block.ListBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # DocumentChooserBlock is used in LinkBlockWithoutLabel
-        block = object_list[11]
-        self.assertEqual(block["block"], "wagtail.documents.blocks.DocumentChooserBlock")
-        self.assertEqual(block["count"], 1)
-        self.assertEqual(block["type_label"], "Core")
-        self.assertFalse(block["is_custom_block"])
-        self.assertListEqual([campaign_page.content_type], block["content_types"])
-
-        # ImageChooserBlock is used in AnnotatedImageBlock
-        block = object_list[12]
+        block = object_list[4]
         self.assertEqual(block["block"], "wagtail.images.blocks.ImageChooserBlock")
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Core")
