@@ -5774,7 +5774,7 @@ class Migration(migrations.Migration):
             model_name="blogpage",
             field_name="body",
             operations_and_block_paths=[
-                (AlterStreamChildBlockDataOperation(block="image_text", operation=migrate_image_block), ""),
+                (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
             ],
         ),
         MigrateStreamData(
@@ -5782,7 +5782,7 @@ class Migration(migrations.Migration):
             model_name="buyersguidearticlepage",
             field_name="body",
             operations_and_block_paths=[
-                (AlterStreamChildBlockDataOperation(block="image_text", operation=migrate_image_block), ""),
+                (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
             ],
         ),
         MigrateStreamData(
@@ -5790,7 +5790,7 @@ class Migration(migrations.Migration):
             model_name="buyersguidecampaignpage",
             field_name="body",
             operations_and_block_paths=[
-                (AlterStreamChildBlockDataOperation(block="image_text", operation=migrate_image_block), ""),
+                (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
             ],
         ),
         MigrateStreamData(
@@ -5798,7 +5798,7 @@ class Migration(migrations.Migration):
             model_name="modularpage",
             field_name="body",
             operations_and_block_paths=[
-                (AlterStreamChildBlockDataOperation(block="image_text", operation=migrate_image_block), ""),
+                (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
             ],
         ),
         MigrateStreamData(
@@ -5806,7 +5806,7 @@ class Migration(migrations.Migration):
             model_name="primarypage",
             field_name="body",
             operations_and_block_paths=[
-                (AlterStreamChildBlockDataOperation(block="image_text", operation=migrate_image_block), ""),
+                (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
             ],
         ),
         migrations.AlterField(
