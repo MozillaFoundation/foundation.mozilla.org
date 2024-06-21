@@ -5,8 +5,8 @@
 
 {% localized_version post.topics.all|first as localized_topic %}
 
-<div class="tw-group/item tw-flex tw-flex-col tw-gap-2 xlarge:hover:tw-bg-blue-03 xlarge:hover:tw-rounded {{ link_hover_padding }}">        
-        <p class="tw-font-sans tw-font-normal tw-text-xs tw-text-gray-40 tw-uppercase tw-my-0">{{ localized_topic.name }}</p>
+<div class="tw-group/item tw-flex tw-flex-col tw-gap-2 xlarge:hover:tw-bg-blue-03 xlarge:hover:tw-rounded {{ link_hover_padding }}">
+    <p class="tw-font-sans tw-font-normal tw-text-xs tw-text-gray-40 tw-uppercase tw-my-0">{{ localized_topic.name }}</p>
     <a class="{{ font_styles }} {{ hover_styles }}" href="{% pageurl post %}">{{ post.title }}</a>
     <p class="tw-font-light tw-text-sm tw-text-gray-80 tw-line-clamp-3 tw-hidden medium:tw-block">
         {{ post.get_meta_description }}
