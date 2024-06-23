@@ -8,6 +8,30 @@ import wagtail.documents.blocks
 import wagtail.fields
 import wagtail.snippets.blocks
 import wagtailmedia.blocks
+from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
+from networkapi.utility.migration.operations import AlterStreamChildBlockDataOperation
+
+
+def migrate_old_link_data_to_new_link_block(source_block):
+    new_value = {
+        "title": source_block["value"]["title"],
+        "related_topics": source_block["value"]["related_topics"],
+        "show_icon": source_block["value"]["show_icon"],
+        "body": source_block["value"]["body"],
+        "audio": source_block["value"]["audio"],
+        "link_button": []
+    }
+    if "link_button_text" in source_block["value"] and source_block["value"]["link_button_text"]:
+        new_value["link_button"].append({
+            "label": source_block["value"]["link_button_text"],
+            "link_to": "external_url",
+            "external_url": source_block["value"]["link_button_url"],
+            "new_window": True,
+        })
+    return {
+        **source_block,
+        "value": new_value,
+    }
 
 
 class Migration(migrations.Migration):
@@ -164,5 +188,13 @@ class Migration(migrations.Migration):
                 help_text="Callout box that appears after the featured posts section",
                 use_json_field=True,
             ),
+        ),
+        MigrateStreamData(
+            app_name="wagtailpages",
+            model_name="blogindexpage",
+            field_name="callout_box",
+            operations_and_block_paths=[
+                (AlterStreamChildBlockDataOperation(block="callout_box", operation=migrate_old_link_data_to_new_link_block), ""),
+            ],
         ),
     ]
