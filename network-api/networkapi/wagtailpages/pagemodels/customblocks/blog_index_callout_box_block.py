@@ -6,6 +6,7 @@ from networkapi.wagtailpages.pagemodels.blog.blog_topic import BlogPageTopic
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
+from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
 
 
 class BlogIndexCalloutBoxBlock(blocks.StructBlock):
@@ -45,6 +46,10 @@ class BlogIndexCalloutBoxBlock(blocks.StructBlock):
     link_button_url = blocks.CharBlock(
         help_text="URL that the button should link out to.",
         required=False,
+    )
+
+    link_button = blocks.ListBlock(
+        LinkBlock(), min_num=0, max_num=1, help_text="Optional Link Button for the callout box."
     )
 
     class Meta:
