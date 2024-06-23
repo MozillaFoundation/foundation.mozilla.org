@@ -36,18 +36,6 @@ class BlogIndexCalloutBoxBlock(blocks.StructBlock):
         required=False,
     )
 
-    link_button_text = blocks.CharBlock(
-        help_text="Label text for the link button at the bottom of the box.",
-        required=False,
-    )
-
-    # We use a char block because UrlBlock does not
-    # allow for relative linking.
-    link_button_url = blocks.CharBlock(
-        help_text="URL that the button should link out to.",
-        required=False,
-    )
-
     link_button = blocks.ListBlock(
         LinkBlock(), min_num=0, max_num=1, help_text="Optional Link Button for the callout box."
     )
