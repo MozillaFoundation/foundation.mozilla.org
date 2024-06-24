@@ -19,7 +19,6 @@ class iFrameBlock(blocks.StructBlock):
         help_text="Optional integer pixel value for custom iFrame height",
     )
     caption = blocks.CharBlock(required=False)
-    captionURL = blocks.CharBlock(required=False, help_text="Optional URL that this caption should link out to.")
     caption_url = blocks.ListBlock(
         LinkWithoutLabelBlock(), min_num=0, max_num=1, help_text="Optional URL that this caption should link out to."
     )
