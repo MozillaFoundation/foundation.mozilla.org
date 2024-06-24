@@ -18,8 +18,8 @@
     </div>
     {% if value.link_button %}
         <div id="callout-box-button" class='tw-text-right tw-mt-16'>
-            {% with link=value.link_button.0 %}
-                <a class="tw-btn-secondary tw-border after:tw-content-[]" href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %}>{{ link.label }}</a>
+            {% with button=value.link_button.0 %}
+                <a class="tw-btn-secondary tw-border after:tw-content-[]" href="{{ button.url }}" {% if button.new_window %}target="_blank"{% endif %}>{{ button.label }}</a>
             {% endwith %}
         </div>
     {% endif %}
