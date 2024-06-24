@@ -1,6 +1,9 @@
 from django import forms
 from wagtail import blocks
-from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkWithoutLabelBlock
+
+from networkapi.wagtailpages.pagemodels.customblocks.link_block import (
+    LinkWithoutLabelBlock,
+)
 
 
 class RadioSelectBlock(blocks.ChoiceBlock):
