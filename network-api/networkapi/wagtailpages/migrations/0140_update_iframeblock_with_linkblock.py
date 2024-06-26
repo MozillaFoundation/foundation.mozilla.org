@@ -46,7 +46,7 @@ def migrate_iframe_block(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0140_alter_blogindexpage_callout_box"),
+        ("wagtailpages", "0139_update_annotatedimageblock_with_linkblock"),
     ]
 
     operations = [
