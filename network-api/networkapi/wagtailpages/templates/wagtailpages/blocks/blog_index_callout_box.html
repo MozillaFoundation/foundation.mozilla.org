@@ -16,10 +16,11 @@
             {% include 'fragments/audio_player.html' with audio=value.audio.url extra_css="tw-my-4" %}
         {% endif %}
     </div>
-    {% if value.link_button_text and value.link_button_url %}
+    {% if value.link_button %}
         <div id="callout-box-button" class='tw-text-right tw-mt-16'>
-            <a class="tw-btn-secondary tw-border after:tw-content-[]" href="{{ value.link_button_url }}">{{ value.link_button_text }}</a>
+            {% with button=value.link_button.0 %}
+                <a class="tw-btn-secondary tw-border after:tw-content-[]" href="{{ button.url }}" {% if button.new_window %}target="_blank"{% endif %}>{{ button.label }}</a>
+            {% endwith %}
         </div>
     {% endif %}
 </div>
-
