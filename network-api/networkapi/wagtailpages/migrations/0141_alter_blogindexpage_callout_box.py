@@ -13,21 +13,21 @@ import networkapi.wagtailpages.validators
 from networkapi.utility.migration.operations import AlterStreamChildBlockDataOperation
 
 
-def migrate_old_link_data_to_new_link_block(source_block):
+def migrate_blogindexpage_callout_box_block(source_block):
     new_value = {
-        "title": source_block["value"]["title"],
-        "related_topics": source_block["value"]["related_topics"],
-        "show_icon": source_block["value"]["show_icon"],
-        "body": source_block["value"]["body"],
-        "audio": source_block["value"]["audio"],
+        "title": source_block["value"].get("title"),
+        "related_topics": source_block["value"].get("related_topics"),
+        "show_icon": source_block["value"].get("show_icon"),
+        "body": source_block["value"].get("body"),
+        "audio": source_block["value"].get("audio"),
         "link_button": [],
     }
-    if "link_button_text" in source_block["value"] and source_block["value"]["link_button_text"]:
+    if source_block["value"].get("link_button_text") and source_block["value"].get("link_button_url"):
         new_value["link_button"].append(
             {
-                "label": source_block["value"]["link_button_text"],
+                "label": source_block["value"].get("link_button_text"),
                 "link_to": "external_url",
-                "external_url": source_block["value"]["link_button_url"],
+                "external_url": source_block["value"].get("link_button_url"),
                 "new_window": True,
             }
         )
@@ -40,7 +40,7 @@ def migrate_old_link_data_to_new_link_block(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0139_update_annotatedimageblock_with_linkblock"),
+        ("wagtailpages", "0140_update_iframeblock_with_linkblock"),
     ]
 
     operations = [
@@ -199,7 +199,7 @@ class Migration(migrations.Migration):
             operations_and_block_paths=[
                 (
                     AlterStreamChildBlockDataOperation(
-                        block="callout_box", operation=migrate_old_link_data_to_new_link_block
+                        block="callout_box", operation=migrate_blogindexpage_callout_box_block
                     ),
                     "",
                 ),
