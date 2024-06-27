@@ -61,7 +61,7 @@ def migrate_image_text_block(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("donate", "0012_update_annotatedimageblock_with_linkblock"),
+        ("donate", "0013_update_iframeblock_with_linkblock"),
     ]
 
     operations = [

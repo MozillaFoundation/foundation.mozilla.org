@@ -65,7 +65,7 @@ def migrate_image_text_block(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0139_update_annotatedimageblock_with_linkblock"),
+        ("wagtailpages", "0140_update_iframeblock_with_linkblock"),
     ]
 
     operations = [

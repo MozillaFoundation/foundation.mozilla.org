@@ -62,7 +62,7 @@ def migrate_image_text_block(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("mozfest", "0052_update_annotatedimageblock_with_linkblock"),
+        ("mozfest", "0053_update_iframeblock_with_linkblock"),
     ]
 
     operations = [
