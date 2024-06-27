@@ -25,6 +25,7 @@ from networkapi.utility.migration.operations import AlterStreamChildBlockDataOpe
 def migrate_image_text_block(source_block):
     new_value = {
         "image": source_block["value"].get("image"),
+        "altText": source_block["value"].get("altText"),
         "text": source_block["value"].get("text"),
         "url": [],
         "top_divider": source_block["value"].get("top_divider", False),
@@ -65,7 +66,7 @@ def migrate_image_text_block(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0141_update_imagetextblock_with_linkblock"),
+        ("wagtailpages", "0140_update_iframeblock_with_linkblock"),
     ]
 
     operations = [
