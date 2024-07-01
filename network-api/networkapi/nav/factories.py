@@ -272,7 +272,7 @@ class NavMenuFeaturedBlogTopicRelationshipFactory(DjangoModelFactory):
 # Build "Who We Are" dropdown
 def generate_first_dropdown(seed):
     reseed(seed)
-    # Create pre-requisite data
+    # Create prerequisite data
     # Set dropdown title
     title = "Who We Are"
     # Create a test page for linking purposes only
@@ -284,7 +284,10 @@ def generate_first_dropdown(seed):
         **{
             "0__title": "About Us",
             "0__description": RichText(
-                "Mozilla is a global nonprofit dedicated to keeping the Internet a public resource that is open and accessible to all."
+                (
+                    "Mozilla is a global nonprofit dedicated to keeping the Internet"
+                    " a public resource that is open and accessible to all."
+                )
             ),
         },
     )
@@ -345,7 +348,7 @@ def generate_first_dropdown(seed):
 # Build "What We Do" dropdown
 def generate_second_dropdown(seed):
     reseed(seed)
-    # Create pre-requisite data
+    # Create prerequisite data
     # Set dropdown title
     title = "What We Do"
 
@@ -433,19 +436,22 @@ def generate_second_dropdown(seed):
 # Build "What You Can Do" dropdown
 def generate_third_dropdown(seed):
     reseed(seed)
-    # Create pre-requisite data
+    # Create prerequisite data
     # Set dropdown title
     title = "What You Can Do"
     # Create a test page for linking purposes only
     page_a2 = wagtail_factories.PageFactory()
 
-    ## Create Overview section for dropdown
+    # Create Overview section for dropdown
     overview = wagtail_factories.ListBlockFactory(
         NavOverviewFactory,
         **{
             "0__title": "Get Involved",
             "0__description": RichText(
-                "From donating funds or data, to signing a petition, to applying to become a volunteer or fellow there are many ways to get involved with the community."
+                (
+                    "From donating funds or data, to signing a petition, to applying to become a "
+                    "volunteer or fellow there are many ways to get involved with the community."
+                )
             ),
         },
     )
@@ -533,7 +539,7 @@ def generate_third_dropdown(seed):
 # Build "What We Fund" dropdown
 def generate_fourth_dropdown(seed):
     reseed(seed)
-    # Create pre-requisite data
+    # Create prerequisite data
     # Set dropdown title
     title = "What We Fund"
     # Create a test page for linking purposes only
@@ -545,7 +551,10 @@ def generate_fourth_dropdown(seed):
         **{
             "0__title": "Apply for Funding",
             "0__description": RichText(
-                "The Mozilla Foundation provides funding and resources to individuals, groups, and organizations aligned with creating a more human-centered internet."
+                (
+                    "The Mozilla Foundation provides funding and resources to individuals,"
+                    " groups, and organizations aligned with creating a more human-centered internet."
+                )
             ),
         },
     )
