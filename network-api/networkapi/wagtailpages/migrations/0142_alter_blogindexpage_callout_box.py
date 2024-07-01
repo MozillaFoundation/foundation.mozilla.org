@@ -6,41 +6,49 @@ import wagtail.fields
 import wagtail.snippets.blocks
 import wagtailmedia.blocks
 from django.db import migrations
-from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
 
 import networkapi.wagtailpages.pagemodels.blog.blog_topic
 import networkapi.wagtailpages.validators
-from networkapi.utility.migration.operations import AlterStreamChildBlockDataOperation
 
 
-def migrate_blogindexpage_callout_box_block(source_block):
-    new_value = {
-        "title": source_block["value"].get("title"),
-        "related_topics": source_block["value"].get("related_topics"),
-        "show_icon": source_block["value"].get("show_icon"),
-        "body": source_block["value"].get("body"),
-        "audio": source_block["value"].get("audio"),
-        "link_button": [],
-    }
-    if source_block["value"].get("link_button_text") and source_block["value"].get("link_button_url"):
-        new_value["link_button"].append(
-            {
-                "label": source_block["value"].get("link_button_text"),
-                "link_to": "external_url",
-                "external_url": source_block["value"].get("link_button_url"),
-                "new_window": True,
-            }
-        )
-    return {
-        **source_block,
-        "value": new_value,
-    }
+def migrate_blogindexpage_callout_box(apps, schema_editor):
+    BlogIndexPage = apps.get_model("wagtailpages", "BlogIndexPage")
+
+    for page in BlogIndexPage.objects.all():
+        if not page.callout_box:
+            continue
+
+        new_callout_box_data = []
+
+        for block in page.callout_box:
+            if block.block_type == "callout_box":
+                new_value = {
+                    "title": block.value.get("title"),
+                    "related_topics": block.value.get("related_topics"),
+                    "show_icon": block.value.get("show_icon"),
+                    "body": block.value.get("body"),
+                    "audio": block.value.get("audio"),
+                    "link_button": [],
+                }
+                if block.value.get("link_button_text") and block.value.get("link_button_url"):
+                    new_value["link_button"].append(
+                        {
+                            "label": block.value.get("link_button_text"),
+                            "link_to": "external_url",
+                            "external_url": block.value.get("link_button_url"),
+                            "new_window": True,
+                        }
+                    )
+                new_callout_box_data.append(("callout_box", new_value))
+
+        page.callout_box = new_callout_box_data
+        page.save()
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0140_update_iframeblock_with_linkblock"),
+        ("wagtailpages", "0141_update_imagetextblock_with_linkblock"),
     ]
 
     operations = [
@@ -96,7 +104,8 @@ class Migration(migrations.Migration):
                                 (
                                     "link_button_url",
                                     wagtail.blocks.CharBlock(
-                                        help_text="URL that the button should link out to.", required=False
+                                        help_text="URL that the button should link out to.",
+                                        required=False,
                                     ),
                                 ),
                                 (
@@ -192,19 +201,7 @@ class Migration(migrations.Migration):
                 use_json_field=True,
             ),
         ),
-        MigrateStreamData(
-            app_name="wagtailpages",
-            model_name="blogindexpage",
-            field_name="callout_box",
-            operations_and_block_paths=[
-                (
-                    AlterStreamChildBlockDataOperation(
-                        block="callout_box", operation=migrate_blogindexpage_callout_box_block
-                    ),
-                    "",
-                ),
-            ],
-        ),
+        migrations.RunPython(migrate_blogindexpage_callout_box),
         migrations.AlterField(
             model_name="blogindexpage",
             name="callout_box",
