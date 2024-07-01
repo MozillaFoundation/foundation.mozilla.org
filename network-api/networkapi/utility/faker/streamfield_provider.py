@@ -101,7 +101,13 @@ def generate_image_field():
 def generate_image_text_field():
     image_id = choice(Image.objects.all()).id
     image_text = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
-    url = fake.url(schemes=["https"])
+    url = [
+        {
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
     alt_text = " ".join(fake.words(nb=5))
     top_divider = fake.boolean()
     bottom_divider = top_divider
