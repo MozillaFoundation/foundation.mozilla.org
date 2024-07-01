@@ -273,12 +273,12 @@ class NavMenuFeaturedBlogTopicRelationshipFactory(DjangoModelFactory):
 def generate_first_dropdown(seed):
     reseed(seed)
     # Create pre-requisite data
-    ## Set dropdown title
+    # Set dropdown title
     title = "Who We Are"
-    ## Create a test page for linking purposes only
+    # Create a test page for linking purposes only
     page_a1 = wagtail_factories.PageFactory(parent=get_homepage(), title="Test Page")
 
-    ## Create Overview section for dropdown
+    # Create Overview section for dropdown
     overview = wagtail_factories.ListBlockFactory(
         NavOverviewFactory,
         **{
@@ -289,8 +289,8 @@ def generate_first_dropdown(seed):
         },
     )
 
-    ## Build out nav items (columns)
-    ### Column 1 nav items
+    # Build out nav items (columns)
+    # Column 1 nav items
     nav_items_0 = wagtail_factories.ListBlockFactory(
         NavItemFactory,
         **{
@@ -302,7 +302,7 @@ def generate_first_dropdown(seed):
             "1__description": "",
         },
     )
-    ### Column 2 nav items
+    # Column 2 nav items
     nav_items_1 = wagtail_factories.ListBlockFactory(
         NavItemFactory,
         **{
@@ -314,7 +314,7 @@ def generate_first_dropdown(seed):
             "1__description": "",
         },
     )
-    ## Build out columns
+    # Build out columns
     columns = wagtail_factories.ListBlockFactory(
         NavColumnFactory,
         **{
@@ -326,7 +326,7 @@ def generate_first_dropdown(seed):
             "1__button": wagtail_factories.ListBlockFactory(NavButtonFactory, **{}),
         },
     )
-    ## Build button
+    # Build button
     button = factory.SubFactory(
         NavButtonFactory, link_to="relative_url", relative_url="/who-we-are/", label="Learn More"
     )
@@ -346,11 +346,11 @@ def generate_first_dropdown(seed):
 def generate_second_dropdown(seed):
     reseed(seed)
     # Create pre-requisite data
-    ## Set dropdown title
+    # Set dropdown title
     title = "What We Do"
 
-    ## Build out nav items (columns)
-    ### Column 1 nav items
+    # Build out nav items (columns)
+    # Column 1 nav items
     nav_items_0 = wagtail_factories.ListBlockFactory(
         NavItemFactory,
         **{
@@ -362,7 +362,7 @@ def generate_second_dropdown(seed):
             "2__relative_url": "/",
         },
     )
-    ### Column 2 nav items
+    # Column 2 nav items
     nav_items_1 = wagtail_factories.ListBlockFactory(
         NavItemFactory,
         **{
@@ -375,7 +375,7 @@ def generate_second_dropdown(seed):
             "2__relative_url": "/",
         },
     )
-    ### Column 3 nav items
+    # Column 3 nav items
     nav_items_2 = wagtail_factories.ListBlockFactory(
         NavItemFactory,
         **{
@@ -385,7 +385,7 @@ def generate_second_dropdown(seed):
             "1__relative_url": "/",
         },
     )
-    ### Column 4 nav items
+    # Column 4 nav items
     nav_items_3 = wagtail_factories.ListBlockFactory(
         NavItemFactory,
         **{
@@ -396,7 +396,7 @@ def generate_second_dropdown(seed):
         },
     )
 
-    ## Build out columns
+    # Build out columns
     columns = wagtail_factories.ListBlockFactory(
         NavColumnFactory,
         **{
@@ -415,7 +415,7 @@ def generate_second_dropdown(seed):
         },
     )
 
-    ## Build button
+    # Build button
     button = factory.SubFactory(
         NavButtonFactory, link_to="relative_url", relative_url="/", label="Learn more about what we do"
     )
@@ -434,9 +434,9 @@ def generate_second_dropdown(seed):
 def generate_third_dropdown(seed):
     reseed(seed)
     # Create pre-requisite data
-    ## Set dropdown title
+    # Set dropdown title
     title = "What You Can Do"
-    ## Create a test page for linking purposes only
+    # Create a test page for linking purposes only
     page_a2 = wagtail_factories.PageFactory()
 
     ## Create Overview section for dropdown
@@ -450,8 +450,8 @@ def generate_third_dropdown(seed):
         },
     )
 
-    ## Build out nav items (columns)
-    ### Column 1 nav items
+    # Build out nav items (columns)
+    # Column 1 nav items
     nav_items_0 = wagtail_factories.ListBlockFactory(
         NavItemFactory,
         **{
@@ -464,7 +464,7 @@ def generate_third_dropdown(seed):
             "2__relative_url": "/",
         },
     )
-    ### Column 2 nav items
+    # Column 2 nav items
     nav_items_1 = wagtail_factories.ListBlockFactory(
         NavItemFactory,
         **{
@@ -478,7 +478,7 @@ def generate_third_dropdown(seed):
         },
     )
 
-    ## Build out columns
+    # Build out columns
     columns = wagtail_factories.ListBlockFactory(
         NavColumnFactory,
         **{
@@ -491,7 +491,7 @@ def generate_third_dropdown(seed):
         },
     )
 
-    ## Build featured nav items
+    # Build featured nav items
     featured_nav_items = wagtail_factories.ListBlockFactory(
         NavItemFactory,
         **{
@@ -506,7 +506,7 @@ def generate_third_dropdown(seed):
         },
     )
 
-    ## Build featured column
+    # Build featured column
     featured_column = wagtail_factories.ListBlockFactory(
         NavFeaturedColumnFactory,
         **{
@@ -515,7 +515,7 @@ def generate_third_dropdown(seed):
         },
     )
 
-    ## Build button
+    # Build button
     button = factory.SubFactory(NavButtonFactory, link_to="page", page=page_a2, label="Learn More")
 
     # Generate dropdown
@@ -534,12 +534,12 @@ def generate_third_dropdown(seed):
 def generate_fourth_dropdown(seed):
     reseed(seed)
     # Create pre-requisite data
-    ## Set dropdown title
+    # Set dropdown title
     title = "What We Fund"
-    ## Create a test page for linking purposes only
+    # Create a test page for linking purposes only
     page_a2 = wagtail_factories.PageFactory()
 
-    ## Create Overview section for dropdown
+    # Create Overview section for dropdown
     overview = wagtail_factories.ListBlockFactory(
         NavOverviewFactory,
         **{
@@ -550,8 +550,8 @@ def generate_fourth_dropdown(seed):
         },
     )
 
-    ## Build out nav items (columns)
-    ### Column 1 nav items
+    # Build out nav items (columns)
+    # Column 1 nav items
     nav_items_0 = wagtail_factories.ListBlockFactory(
         NavItemFactory,
         **{
@@ -561,7 +561,7 @@ def generate_fourth_dropdown(seed):
             "1__relative_url": "/",
         },
     )
-    ### Column 2 nav items
+    # Column 2 nav items
     nav_items_1 = wagtail_factories.ListBlockFactory(
         NavItemFactory,
         **{
@@ -572,7 +572,7 @@ def generate_fourth_dropdown(seed):
         },
     )
 
-    ## Build out columns
+    # Build out columns
     columns = wagtail_factories.ListBlockFactory(
         NavColumnFactory,
         **{
@@ -585,7 +585,7 @@ def generate_fourth_dropdown(seed):
         },
     )
 
-    ## Build button
+    # Build button
     button = factory.SubFactory(NavButtonFactory, link_to="page", page=page_a2, label="Learn More")
 
     # Generate dropdown
