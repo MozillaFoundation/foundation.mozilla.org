@@ -16,7 +16,6 @@
                                                     <div><a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}" href="{{ menu_root.url }}">{% trans "Home" %}</a></div>
                                                     {% include "fragments/nav_links.html" with pre="<div>" post="</div>" %}
                                                 {% endblock %}
-                                                {% if page.signup == None %}<div class="mt-2"><button class="tw-btn-secondary btn-newsletter">{% trans "Newsletter" %}</button></div>{% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -56,8 +55,7 @@
 
                             {% block donate_and_newsletter %}
                                 <div class="d-flex align-items-center">
-                                    <a data-donate-header-button class="primary-nav-special-link tw-heart-glyph tw-flex" href="?form=donate-header">{% trans "Donate" %}</a>
-                                    {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-xl-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
+                                    <a data-donate-header-button class="tw-btn-secondary d-none d-xl-block ml-md-3 tw-heart-glyph" href="?form=donate-header">{% trans "Donate" %}</a>
                                 </div>
                             {% endblock %}
 
@@ -66,28 +64,6 @@
                 </div>
             </nav>
 
-        </div>
-    </div>
-</div>
-
-
-<div id="nav-newsletter-form-wrapper" class="d-none">
-    <div class="tw-container tw-dark">
-        <div class="tw-row">
-            <div class="tw-relative tw-px-8 tw-w-full">
-                <div class="newsletter-signup-module on-nav tw-pt-24"
-                     data-module-type="default"
-                     data-form-style="header:2-col"
-                     data-form-position="header"
-                     data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
-                     data-cta-header="{% trans "Help shape the future of the web for the public good." %}"
-                     data-cta-description="<p>{% trans "Join our <b>Mozilla News</b> email list to get action alerts & internet tips right to your inbox." %}</p>"
-                     data-cta-privacy-notice=""
-                ></div>
-                <div class="text-center mt-3 d-lg-none">
-                    <button class="tw-btn form-dismiss">{% trans "No thanks" %}</button>
-                </div>
-            </div>
         </div>
     </div>
 </div>
