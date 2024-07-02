@@ -3,6 +3,8 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from networkapi.wagtailpages.utils import TitleWidget
+
 from .campaigns import CampaignPage
 from .customblocks.app_install_download_button_block import (
     AppInstallDownloadButtonBlock,
@@ -12,11 +14,11 @@ from .customblocks.app_install_download_button_block import (
 class AppInstallPage(CampaignPage):
 
     hero_heading = models.CharField(
-        max_length=80,
+        max_length=250,
         help_text="Hero story headline",
     )
     hero_subheading = models.CharField(
-        max_length=80,
+        max_length=250,
         blank=True,
         help_text="Hero story subheadline",
     )
@@ -47,7 +49,11 @@ class AppInstallPage(CampaignPage):
             [
                 FieldPanel("hero_background"),
                 FieldPanel("hero_heading"),
-                FieldPanel("hero_subheading"),
+                FieldPanel(
+                    "hero_subheading",
+                    classname="full title",
+                    widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 80}),
+                ),
                 FieldPanel("download_buttons"),
                 FieldPanel("hero_video"),
             ],
