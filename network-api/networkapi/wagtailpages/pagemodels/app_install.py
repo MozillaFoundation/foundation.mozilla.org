@@ -3,7 +3,7 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.wagtailpages.utils import TitleWidget
+from networkapi.wagtailpages.utils import CharCountWidget
 
 from .campaigns import CampaignPage
 from .customblocks.app_install_download_button_block import (
@@ -52,7 +52,7 @@ class AppInstallPage(CampaignPage):
                 FieldPanel(
                     "hero_subheading",
                     classname="full title",
-                    widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 80}),
+                    widget=CharCountWidget(attrs={"class": "max-length-warning", "data-max-length": 80}),
                 ),
                 FieldPanel("download_buttons"),
                 FieldPanel("hero_video"),
