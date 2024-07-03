@@ -477,10 +477,15 @@ def generate_blog_index_callout_box_field():
     title = fake.sentence(nb_words=10, variable_nb_words=True)
     related_topics = [choice(BlogPageTopic.objects.all()).id]
     body = fake.paragraph(nb_sentences=6, variable_nb_sentences=False)
-
     show_icon = True
-    link_button_text = "Learn More"
-    link_button_url = fake.url(schemes=["https"])
+    link_button = [
+        {
+            "label": "Learn More",
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
 
     return generate_field(
         "callout_box",
@@ -489,8 +494,7 @@ def generate_blog_index_callout_box_field():
             "related_topics": related_topics,
             "show_icon": show_icon,
             "body": body,
-            "link_button_text": link_button_text,
-            "link_button_url": link_button_url,
+            "link_button": link_button,
         },
     )
 
