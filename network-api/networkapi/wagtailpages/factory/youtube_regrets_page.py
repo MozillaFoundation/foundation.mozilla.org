@@ -10,7 +10,6 @@ from networkapi.wagtailpages.models import (
     YoutubeRegretsReporterPage,
 )
 
-from .bannered_campaign_page import BanneredCampaignPageFactory
 from .campaign_page import CampaignIndexPageFactory
 
 
