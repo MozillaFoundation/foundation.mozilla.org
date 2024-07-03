@@ -26,6 +26,11 @@ test.describe("Main site primary nav", () => {
     await navToggleButton.click();
     await expect(nav).toBeInViewport();
 
+    // check if the active link is the current page
+    const activeLink = nav.locator(".nav-links a.active");
+    expect(await activeLink.count()).toBe(1);
+    expect(await activeLink.getAttribute("href")).toBe(PAGE_URL);
+
     // check if clicking the nav button again hides the nav
     await navToggleButton.click();
     await expect(nav).not.toBeInViewport();
