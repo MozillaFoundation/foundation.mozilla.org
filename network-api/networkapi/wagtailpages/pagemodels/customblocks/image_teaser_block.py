@@ -23,15 +23,6 @@ class ImageTeaserBlock(blocks.StructBlock):
 
     altText = blocks.CharBlock(required=True, help_text="Image description (for screen readers).")
 
-    url_label = blocks.CharBlock(required=False)
-    url = blocks.CharBlock(required=False)
-    styling = blocks.ChoiceBlock(
-        choices=[
-            ("btn-primary", "Primary button"),
-            ("btn-secondary", "Secondary button"),
-        ],
-        default="btn-primary",
-    )
     link_button = blocks.ListBlock(LinkButtonBlock(), min_num=0, max_num=1, help_text="Optional link button")
     top_divider = blocks.BooleanBlock(
         required=False,
@@ -55,19 +46,6 @@ class ImageTeaserBlock(blocks.StructBlock):
             divider_styles.append("tw-border-b tw-pb-24")
         context["divider_styles"] = " ".join(divider_styles)
         return context
-
-    def clean(self, value):
-        result = super().clean(value)
-        errors = {}
-
-        if value["url"] and not value["url_label"]:
-            errors["url_label"] = ErrorList(["Please add a label value for the URL."])
-        if value["url_label"] and not value["url"]:
-            errors["url"] = ErrorList(["Please add a URL value for the link."])
-        if errors:
-            raise StructBlockValidationError(block_errors=errors)
-
-        return result
 
     class Meta:
         label = "Image teaser"
