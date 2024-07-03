@@ -1,5 +1,3 @@
-import navNewsletter from "../nav-newsletter.js";
-
 /**
  * Initiate primary nav scripts
  * @param {String} siteUrl Foundation site base URL
@@ -9,5 +7,4 @@ export const initializePrimaryNav = (siteUrl, primaryNavModule) => {
   if (primaryNavModule) {
     primaryNavModule.init();
   }
-  navNewsletter.init(siteUrl);
 };

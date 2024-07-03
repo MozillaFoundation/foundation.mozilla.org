@@ -1,5 +1,4 @@
 import utility from "../../../utility.js";
-import navNewsletter from "../../../nav-newsletter.js";
 
 /**
  * Animating the intro tunnel on the Youtube Regrets page.
