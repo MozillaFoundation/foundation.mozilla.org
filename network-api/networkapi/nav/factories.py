@@ -276,7 +276,7 @@ def generate_first_dropdown(seed):
     # Set dropdown title
     title = "Who We Are"
     # Create a test page for linking purposes only
-    page_a1 = wagtail_factories.PageFactory(parent=get_homepage(), title="Test Page")
+    page_a1 = wagtail_factories.PageFactory(parent=get_homepage(), title="Test 1st dropdown page")
 
     # Create Overview section for dropdown
     overview = wagtail_factories.ListBlockFactory(
@@ -440,7 +440,7 @@ def generate_third_dropdown(seed):
     # Set dropdown title
     title = "What You Can Do"
     # Create a test page for linking purposes only
-    page_a2 = wagtail_factories.PageFactory()
+    page_a2 = wagtail_factories.PageFactory(parent=get_homepage(), title="Test 3rd dropdown page")
 
     # Create Overview section for dropdown
     overview = wagtail_factories.ListBlockFactory(
@@ -543,7 +543,7 @@ def generate_fourth_dropdown(seed):
     # Set dropdown title
     title = "What We Fund"
     # Create a test page for linking purposes only
-    page_a2 = wagtail_factories.PageFactory()
+    page_a2 = wagtail_factories.PageFactory(parent=get_homepage(), title="Test 4th dropdown page")
 
     # Create Overview section for dropdown
     overview = wagtail_factories.ListBlockFactory(
