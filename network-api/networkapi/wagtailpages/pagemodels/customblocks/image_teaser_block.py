@@ -4,7 +4,10 @@ from django.utils import text as text_utils
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.images.blocks import ImageChooserBlock
-from networkapi.wagtailpages.pagemodels.customblocks.link_button_block import LinkButtonBlock
+
+from networkapi.wagtailpages.pagemodels.customblocks.link_button_block import (
+    LinkButtonBlock,
+)
 
 
 class ImageTeaserValue(blocks.StructValue):
@@ -29,9 +32,7 @@ class ImageTeaserBlock(blocks.StructBlock):
         ],
         default="btn-primary",
     )
-    link_button = blocks.ListBlock(
-        LinkButtonBlock(), min_num=0, max_num=1, help_text="Optional link button"
-    )
+    link_button = blocks.ListBlock(LinkButtonBlock(), min_num=0, max_num=1, help_text="Optional link button")
     top_divider = blocks.BooleanBlock(
         required=False,
         help_text="Optional divider above content block.",
