@@ -195,8 +195,13 @@ def generate_dark_quote_field():
 
 def generate_video_field():
     caption = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
-    captionURL = fake.url(schemes=["https"])
-
+    caption_external_url = [
+        {
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
     return generate_field(
         "video",
         {
@@ -205,7 +210,7 @@ def generate_video_field():
             # See details: https://github.com/mozilla/foundation.mozilla.org/issues/3833#issuecomment-562240677
             "url": "https://www.youtube.com/embed/83fk3RT8318",
             "caption": caption,
-            "captionURL": captionURL,
+            "caption_url": caption_external_url,
             "video_width": "full_width",
         },
     )
