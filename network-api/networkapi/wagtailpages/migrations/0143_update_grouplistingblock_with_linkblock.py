@@ -37,7 +37,7 @@ def migrate_group_listing_block_cards(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0142_alter_blogindexpage_callout_box"),
+        ("wagtailpages", "0143_delete_youtuberegretsreporterextensionpage"),
     ]
 
     operations = [
