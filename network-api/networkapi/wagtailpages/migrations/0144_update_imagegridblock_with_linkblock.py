@@ -41,10 +41,11 @@ def migrate_image_grid_block(source_block):
                         }
                     ]
                 elif email_pattern.match(old_url):
+                    email_address = old_url.replace("mailto:", "")
                     item["value"]["link"] = [
                         {
                             "link_to": "email",
-                            "email": old_url,
+                            "email": email_address,
                             "new_window": False,
                         }
                     ]
@@ -56,7 +57,6 @@ def migrate_image_grid_block(source_block):
                             "new_window": False,
                         }
                     ]
-                item["value"]["url"] = ""  # Clear the old url field
 
     return source_block
 
