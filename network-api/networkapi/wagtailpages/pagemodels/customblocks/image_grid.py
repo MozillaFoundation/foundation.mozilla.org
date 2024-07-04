@@ -1,6 +1,10 @@
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
-from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkWithoutLabelBlock
+
+from networkapi.wagtailpages.pagemodels.customblocks.link_block import (
+    LinkWithoutLabelBlock,
+)
+
 
 class ImageGridAltText(blocks.StructValue):
     """Get alt_text or default to image title."""
