@@ -288,7 +288,7 @@ def generate_image_grid_field():
             {
                 "image": choice(Image.objects.all()).id,
                 "caption": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
-                "link": []
+                "link": [],
             }
         )
 
