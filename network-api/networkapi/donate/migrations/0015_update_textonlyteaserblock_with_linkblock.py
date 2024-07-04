@@ -52,12 +52,12 @@ def migrate_text_only_teaser_block(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0143_delete_youtuberegretsreporterextensionpage"),
+        ("donate", "0014_update_imagetextblock_with_linkblock"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name="modularpage",
+            model_name="donatehelppage",
             name="body",
             field=wagtail.fields.StreamField(
                 [
@@ -1692,11 +1692,25 @@ class Migration(migrations.Migration):
                         ),
                     ),
                 ],
+                blank=True,
                 use_json_field=True,
             ),
         ),
-        migrations.AlterField(
-            model_name="primarypage",
+        MigrateStreamData(
+            app_name="donate",
+            model_name="DonateHelpPage",
+            field_name="body",
+            operations_and_block_paths=[
+                (
+                    AlterStreamChildBlockDataOperation(
+                        block="text_only_teaser", operation=migrate_text_only_teaser_block
+                    ),
+                    "",
+                ),
+            ],
+        ),
+            migrations.AlterField(
+            model_name="donatehelppage",
             name="body",
             field=wagtail.fields.StreamField(
                 [
@@ -2851,20 +2865,6 @@ class Migration(migrations.Migration):
                                                     wagtail.blocks.CharBlock(help_text="Heading for the card."),
                                                 ),
                                                 (
-                                                    "link_page",
-                                                    wagtail.blocks.PageChooserBlock(
-                                                        help_text="Page that the header should link out to.",
-                                                        required=False,
-                                                    ),
-                                                ),
-                                                (
-                                                    "link_url",
-                                                    wagtail.blocks.CharBlock(
-                                                        help_text="Optional URL that the header should link out to.",
-                                                        required=False,
-                                                    ),
-                                                ),
-                                                (
                                                     "link",
                                                     wagtail.blocks.ListBlock(
                                                         wagtail.blocks.StructBlock(
@@ -3331,33 +3331,9 @@ class Migration(migrations.Migration):
                         ),
                     ),
                 ],
+                blank=True,
                 use_json_field=True,
             ),
         ),
-        MigrateStreamData(
-            app_name="wagtailpages",
-            model_name="modularpage",
-            field_name="body",
-            operations_and_block_paths=[
-                (
-                    AlterStreamChildBlockDataOperation(
-                        block="text_only_teaser", operation=migrate_text_only_teaser_block
-                    ),
-                    "",
-                ),
-            ],
-        ),
-        MigrateStreamData(
-            app_name="wagtailpages",
-            model_name="primarypage",
-            field_name="body",
-            operations_and_block_paths=[
-                (
-                    AlterStreamChildBlockDataOperation(
-                        block="text_only_teaser", operation=migrate_text_only_teaser_block
-                    ),
-                    "",
-                ),
-            ],
-        ),
+    
     ]
