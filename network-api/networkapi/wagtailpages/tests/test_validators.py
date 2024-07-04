@@ -55,9 +55,11 @@ class RelativeURLValidatorTests(TestCase):
 
     def test_relative_url_starts_with_question_mark(self):
         """Assert that relative URL can start with a question mark."""
-        url = "?test=param"
-        with self.assertRaises(ValidationError):
+        url = "?foo=bar"
+        try:
             self.validator(url)
+        except ValidationError:
+            self.fail(f"ValidationError was raised for a valid relative URL: {url}")
 
     def test_empty_url(self):
         """Assert that an empty URL is invalid."""
