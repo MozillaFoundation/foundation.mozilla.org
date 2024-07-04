@@ -30,10 +30,11 @@ email_pattern = re.compile(r"^mailto:")
 def migrate_image_grid_block(source_block):
     if "grid_items" in source_block["value"]:
         for item in source_block["value"]["grid_items"]:
-            old_url = item["value"].get("url")
+            item_value = item.get("value", item)
+            old_url = item_value.get("url")
             if old_url:
                 if url_pattern.match(old_url):
-                    item["value"]["link"] = [
+                    item_value["link"] = [
                         {
                             "link_to": "external_url",
                             "external_url": old_url,
@@ -42,7 +43,7 @@ def migrate_image_grid_block(source_block):
                     ]
                 elif email_pattern.match(old_url):
                     email_address = old_url.replace("mailto:", "")
-                    item["value"]["link"] = [
+                    item_value["link"] = [
                         {
                             "link_to": "email",
                             "email": email_address,
@@ -50,13 +51,14 @@ def migrate_image_grid_block(source_block):
                         }
                     ]
                 elif old_url.startswith("/"):
-                    item["value"]["link"] = [
+                    item_value["link"] = [
                         {
                             "link_to": "relative_url",
                             "relative_url": old_url,
                             "new_window": False,
                         }
                     ]
+                item = item_value
 
     return source_block
 
