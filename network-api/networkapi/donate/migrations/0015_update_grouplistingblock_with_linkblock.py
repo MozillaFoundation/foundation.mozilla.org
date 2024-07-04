@@ -37,12 +37,12 @@ def migrate_group_listing_block_cards(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0142_alter_blogindexpage_callout_box"),
+        ("donate", "0014_update_imagetextblock_with_linkblock"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name="modularpage",
+            model_name="donatehelppage",
             name="body",
             field=wagtail.fields.StreamField(
                 [
@@ -1677,11 +1677,25 @@ class Migration(migrations.Migration):
                         ),
                     ),
                 ],
+                blank=True,
                 use_json_field=True,
             ),
+        ),
+        MigrateStreamData(
+            app_name="donate",
+            model_name="DonateHelpPage",
+            field_name="body",
+            operations_and_block_paths=[
+                (
+                    AlterStreamChildBlockDataOperation(
+                        block="group_listing_block", operation=migrate_group_listing_block_cards
+                    ),
+                    "",
+                ),
+            ],
         ),
         migrations.AlterField(
-            model_name="primarypage",
+            model_name="donatehelppage",
             name="body",
             field=wagtail.fields.StreamField(
                 [
@@ -2750,12 +2764,6 @@ class Migration(migrations.Migration):
                                                     ),
                                                 ),
                                                 (
-                                                    "url",
-                                                    wagtail.blocks.CharBlock(
-                                                        help_text="The URL this card should link to.", required=False
-                                                    ),
-                                                ),
-                                                (
                                                     "link",
                                                     wagtail.blocks.ListBlock(
                                                         wagtail.blocks.StructBlock(
@@ -3316,33 +3324,8 @@ class Migration(migrations.Migration):
                         ),
                     ),
                 ],
+                blank=True,
                 use_json_field=True,
             ),
-        ),
-        MigrateStreamData(
-            app_name="wagtailpages",
-            model_name="modularpage",
-            field_name="body",
-            operations_and_block_paths=[
-                (
-                    AlterStreamChildBlockDataOperation(
-                        block="group_listing_block", operation=migrate_group_listing_block_cards
-                    ),
-                    "",
-                ),
-            ],
-        ),
-        MigrateStreamData(
-            app_name="wagtailpages",
-            model_name="primarypage",
-            field_name="body",
-            operations_and_block_paths=[
-                (
-                    AlterStreamChildBlockDataOperation(
-                        block="group_listing_block", operation=migrate_group_listing_block_cards
-                    ),
-                    "",
-                ),
-            ],
         ),
     ]
