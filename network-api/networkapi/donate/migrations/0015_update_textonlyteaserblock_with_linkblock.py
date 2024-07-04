@@ -1709,7 +1709,7 @@ class Migration(migrations.Migration):
                 ),
             ],
         ),
-            migrations.AlterField(
+        migrations.AlterField(
             model_name="donatehelppage",
             name="body",
             field=wagtail.fields.StreamField(
@@ -3335,5 +3335,4 @@ class Migration(migrations.Migration):
                 use_json_field=True,
             ),
         ),
-    
     ]
