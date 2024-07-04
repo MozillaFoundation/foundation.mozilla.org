@@ -1,6 +1,6 @@
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
-
+from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkWithoutLabelBlock
 
 class ImageGridAltText(blocks.StructValue):
     """Get alt_text or default to image title."""
@@ -23,6 +23,9 @@ class ImageGrid(blocks.StructBlock):
     url = blocks.CharBlock(
         required=False,
         help_text="Optional URL that this figure should link out to.",
+    )
+    link = blocks.ListBlock(
+        LinkWithoutLabelBlock(), min_num=0, max_num=1, help_text="Optional link that this figure should link out to."
     )
     square_image = blocks.BooleanBlock(
         default=True,
