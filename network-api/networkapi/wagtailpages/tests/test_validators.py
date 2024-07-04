@@ -23,6 +23,9 @@ class RelativeURLValidatorTests(TestCase):
             "/test#test",
             "/test#testa-testb",
             "/test/test?test=123&testa=123#test",
+            "?test=123",
+            "?testa=123&testb=123",
+            "?test_a=123&test_b=123",
             "/" + self.fake.uri_path(),
         ]
         for idx, url in enumerate(valid_examples):
@@ -45,8 +48,14 @@ class RelativeURLValidatorTests(TestCase):
             self.validator(url)
 
     def test_relative_url_does_not_start_with_forward_slash(self):
-        """Assert that relative URL must start with a forward slash."""
+        """Assert that relative URL must start with a forward slash or question mark."""
         url = "test/"
+        with self.assertRaises(ValidationError):
+            self.validator(url)
+
+    def test_relative_url_starts_with_question_mark(self):
+        """Assert that relative URL can start with a question mark."""
+        url = "?test=param"
         with self.assertRaises(ValidationError):
             self.validator(url)
 
