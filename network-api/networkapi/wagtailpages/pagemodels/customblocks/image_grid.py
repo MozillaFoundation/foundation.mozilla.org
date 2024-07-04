@@ -24,10 +24,6 @@ class ImageGrid(blocks.StructBlock):
         required=False,
         help_text="Please remember to properly attribute any images we use.",
     )
-    url = blocks.CharBlock(
-        required=False,
-        help_text="Optional URL that this figure should link out to.",
-    )
     link = blocks.ListBlock(
         LinkWithoutLabelBlock(), min_num=0, max_num=1, help_text="Optional link that this figure should link out to."
     )
