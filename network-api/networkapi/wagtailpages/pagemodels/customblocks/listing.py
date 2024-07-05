@@ -1,6 +1,4 @@
-from django.forms.utils import ErrorList
 from wagtail import blocks
-from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.images.blocks import ImageChooserBlock
 
 from networkapi.wagtailpages.pagemodels.customblocks.link_block import (
