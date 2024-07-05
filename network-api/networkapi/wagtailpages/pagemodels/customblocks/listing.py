@@ -3,6 +3,10 @@ from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.images.blocks import ImageChooserBlock
 
+from networkapi.wagtailpages.pagemodels.customblocks.link_block import (
+    LinkWithoutLabelBlock,
+)
+
 
 class ListingCard(blocks.StructBlock):
     # Be mindful when extending or editing this class.
@@ -23,6 +27,10 @@ class ListingCard(blocks.StructBlock):
     link_url = blocks.CharBlock(
         required=False,
         help_text="Optional URL that the header should link out to.",
+    )
+    
+    link = blocks.ListBlock(
+        LinkWithoutLabelBlock(), min_num=0, max_num=1, help_text="Optional link that this card should link out to."
     )
 
     def clean(self, value):
