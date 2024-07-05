@@ -28,7 +28,7 @@ class ListingCard(blocks.StructBlock):
         required=False,
         help_text="Optional URL that the header should link out to.",
     )
-    
+
     link = blocks.ListBlock(
         LinkWithoutLabelBlock(), min_num=0, max_num=1, help_text="Optional link that this card should link out to."
     )
