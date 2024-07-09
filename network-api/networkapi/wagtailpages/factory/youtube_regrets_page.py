@@ -48,7 +48,7 @@ class AppInstallPageFactory(PageFactory):
     hero_heading = Faker("text", max_nb_chars=50)
     hero_subheading = Faker("text", max_nb_chars=50)
     hero_background = SubFactory(image_factory.ImageFactory)
-    hero_video = Faker("url")
+    download_buttons = Faker("streamfield", fields=["app_install_download_button"] * 2)
     cta = SubFactory(PetitionFactory)
     body = Faker("streamfield", fields=["header", "paragraph", "image", "spacer", "image_text", "quote"])
 
