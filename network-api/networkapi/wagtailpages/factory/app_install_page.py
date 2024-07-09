@@ -1,6 +1,8 @@
 from factory import Faker, SubFactory
 from wagtail_factories import PageFactory
 
+from networkapi.utility.faker.helpers import reseed
+from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory import image_factory
 from networkapi.wagtailpages.models import AppInstallPage
 
@@ -24,3 +26,14 @@ class AppInstallPageFactory(PageFactory):
     download_buttons = Faker("streamfield", fields=["app_install_download_button"] * 2)
     cta = SubFactory(PetitionFactory)
     body = Faker("streamfield", fields=["header", "paragraph", "image", "spacer", "image_text", "quote"])
+
+
+def generate(seed):
+    reseed(seed)
+
+    print("Generating PNI Homepage")
+    AppInstallPageFactory.create(
+        parent=pagemodels.Homepage.objects.first(),
+        title="App Install Page",
+        slug="app-install-page",
+    )

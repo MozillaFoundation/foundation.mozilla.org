@@ -112,28 +112,3 @@ def generate(seed):
         YoutubeRegrets2021PageFactory.create(parent=youtube_regrets)
         YoutubeRegrets2022PageFactory.create(parent=youtube_regrets)
     reseed(seed)
-
-    # App Install Page
-    # Checking for a bannered campaign page titled "Youtube Regrets", and then creating the landing page if
-    # it does not exist.
-    try:
-        youtube_bannered_campaign_page = WagtailPage.objects.child_of(home_page).get(title=title)
-        print("Youtube Regrets Bannered Campaign Page exists")
-        # If extension landing page does not exist, create it.
-        if not WagtailPage.objects.child_of(youtube_bannered_campaign_page).type(AppInstallPage):
-            print("Generating App Install Page")
-            AppInstallPageFactory.create(parent=youtube_bannered_campaign_page)
-
-    # If bannered "YouTube Regrets" campaign page does not exist, create it and the extension landing page.
-    except WagtailPage.DoesNotExist:
-        print("Generating a Youtube Bannered Campaign Page and App Install Page")
-        youtube_bannered_campaign_page = BanneredCampaignPageFactory.create(
-            parent=home_page,
-            title="YouTube Regrets",
-            slug="youtube",
-            show_in_menus=False,
-            live=True,
-        )
-        AppInstallPageFactory.create(parent=youtube_bannered_campaign_page)
-
-    reseed(seed)
