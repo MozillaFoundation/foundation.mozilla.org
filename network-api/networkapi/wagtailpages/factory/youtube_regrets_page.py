@@ -4,15 +4,12 @@ from wagtail_factories import PageFactory
 
 from networkapi.utility.faker.helpers import get_homepage, reseed
 from networkapi.wagtailpages.models import (
-    AppInstallPage,
     YoutubeRegrets2021Page,
     YoutubeRegrets2022Page,
     YoutubeRegretsPage,
     YoutubeRegretsReporterPage,
 )
 
-from .app_install_page import AppInstallPageFactory
-from .bannered_campaign_page import BanneredCampaignPageFactory
 from .campaign_page import CampaignIndexPageFactory
 
 
