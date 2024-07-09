@@ -1,9 +1,8 @@
-from factory import Faker, SubFactory
+from factory import Faker
 from wagtail.models import Page as WagtailPage
 from wagtail_factories import PageFactory
 
 from networkapi.utility.faker.helpers import get_homepage, reseed
-from networkapi.wagtailpages.factory import image_factory
 from networkapi.wagtailpages.models import (
     AppInstallPage,
     YoutubeRegrets2021Page,
@@ -12,9 +11,9 @@ from networkapi.wagtailpages.models import (
     YoutubeRegretsReporterPage,
 )
 
+from .app_install_page import AppInstallPageFactory
 from .bannered_campaign_page import BanneredCampaignPageFactory
 from .campaign_page import CampaignIndexPageFactory
-from .petition import PetitionFactory
 
 
 class YoutubeRegretsPageFactory(PageFactory):
@@ -32,25 +31,6 @@ class YoutubeRegretsPageFactory(PageFactory):
     intro_images = Faker("streamfield", fields=["basic_image"] * 10)
     faq = Faker("streamfield", fields=["paragraph"])
     regret_stories = Faker("streamfield", fields=["regret_story"] * 28)
-
-
-class AppInstallPageFactory(PageFactory):
-    class Meta:
-        model = AppInstallPage
-        exclude = (
-            "title_text",
-            "header_text",
-            "header",
-        )
-
-    title = "Regrets Reporter Page"
-    slug = "regretsreporter"
-    hero_heading = Faker("text", max_nb_chars=50)
-    hero_subheading = Faker("text", max_nb_chars=50)
-    hero_background = SubFactory(image_factory.ImageFactory)
-    download_buttons = Faker("streamfield", fields=["app_install_download_button"] * 2)
-    cta = SubFactory(PetitionFactory)
-    body = Faker("streamfield", fields=["header", "paragraph", "image", "spacer", "image_text", "quote"])
 
 
 class YoutubeRegrets2021PageFactory(PageFactory):
