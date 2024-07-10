@@ -48,7 +48,11 @@ class AppInstallPage(CampaignPage):
         MultiFieldPanel(
             [
                 FieldPanel("hero_background"),
-                FieldPanel("hero_heading"),
+                FieldPanel(
+                    "hero_heading",
+                    classname="full title",
+                    widget=CharCountWidget(attrs={"class": "max-length-warning", "data-max-length": 80}),
+                ),
                 FieldPanel(
                     "hero_subheading",
                     classname="full title",

@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0141_update_imagetextblock_with_linkblock"),
+        ("wagtailpages", "0143_delete_youtuberegretsreporterextensionpage"),
     ]
 
     operations = [
