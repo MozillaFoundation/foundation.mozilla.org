@@ -24,7 +24,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.wagtailpages.forms import BlogPageForm
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 
-from ...utils import TitleWidget, get_content_related_by_tag
+from ...utils import CharCountWidget, get_content_related_by_tag
 from .. import customblocks
 from ..base import BasePage
 from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
@@ -167,7 +167,7 @@ class BlogPage(BasePage):
         TitleFieldPanel(
             "title",
             classname="full title",
-            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
+            widget=CharCountWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
         ),
         MultiFieldPanel([InlinePanel("authors", label="Author", min_num=1)], heading="Author(s)"),
         FieldPanel("topics", widget=CheckboxSelectMultiple),

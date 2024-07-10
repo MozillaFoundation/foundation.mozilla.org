@@ -151,21 +151,3 @@ class YoutubeRegrets2022Page(BasePage):
     class Meta:
         verbose_name = "YouTube Regrets 2022 Page"
         verbose_name_plural = "YouTube Regrets 2022 Pages"
-
-
-class YoutubeRegretsReporterExtensionPage(BasePage):
-    template = "wagtailpages/pages/regrets-reporter-landing-page/youtube_regrets_reporter_extension.html"
-    max_count = 1
-
-    translatable_fields = [
-        # Promote tab fields
-        SynchronizedField("slug"),
-        TranslatableField("seo_title"),
-        SynchronizedField("show_in_menus"),
-        TranslatableField("search_description"),
-        SynchronizedField("search_image"),
-        # Content tab fields
-        TranslatableField("title"),
-    ]
-
-    content_panels = Page.content_panels  # Needed for wagtail-modeltranslation to work
