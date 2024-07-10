@@ -10,38 +10,8 @@
     }
 
     > .container > .row > .col-12 {
-      overflow: auto;
+      // overflow: auto;
 
-      background:
-        /* Shadow Cover LEFT */
-        linear-gradient(to right, white 30%, rgba(255, 255, 255, 0)),
-        /* Shadow Cover RIGHT */
-          linear-gradient(to right, rgba(255, 255, 255, 0) 70%, white 100%),
-        /* Shadow LEFT */
-          radial-gradient(
-            farthest-side at 0 50%,
-            rgba(0, 0, 0, 0.2),
-            rgba(0, 0, 0, 0)
-          ),
-        /* Shadow RIGHT */
-          radial-gradient(
-            farthest-side at 100% 50%,
-            rgba(0, 0, 0, 0.2),
-            rgba(0, 0, 0, 0)
-          );
-
-      background-repeat: no-repeat;
-      background-size:
-        40px 100%,
-        calc(100% - 40px) 100%,
-        14px 100%,
-        14px 100%;
-      background-position:
-        left center,
-        right center,
-        left center,
-        right center;
-      background-attachment: local, local, scroll, scroll;
     }
   }
 }
