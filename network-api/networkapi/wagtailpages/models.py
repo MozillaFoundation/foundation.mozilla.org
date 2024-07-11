@@ -116,6 +116,5 @@ from .pagemodels.youtube import (
     YoutubeRegrets2021Page,
     YoutubeRegrets2022Page,
     YoutubeRegretsPage,
-    YoutubeRegretsReporterExtensionPage,
     YoutubeRegretsReporterPage,
 )
