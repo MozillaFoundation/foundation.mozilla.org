@@ -103,3 +103,10 @@ fieldset ul li div label {
     outline: none !important;
   }
 }
+
+#wagtail {
+  .c-sf-add-button {
+    margin-top: -0.5em;
+    margin-bottom: 1.5em;
+  }
+}
