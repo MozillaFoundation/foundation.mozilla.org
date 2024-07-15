@@ -44,7 +44,7 @@ def migrate_video_block(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0142_alter_blogindexpage_callout_box"),
+        ("wagtailpages", "0144_alter_appinstallpage_hero_heading_and_more"),
     ]
 
     operations = [
