@@ -16,6 +16,7 @@
     flex-direction: row;
     align-items: stretch;
     border-bottom: 1px $gray-20 solid;
+    flex-wrap: wrap;
 
     @at-root #multipage-horizontal-nav-wrapper.full-width #{&} {
       border: none;
@@ -26,6 +27,7 @@
       align-items: center;
       margin-right: 2rem;
       padding-bottom: 16px;
+      padding-top: 16px;
     }
   }
 
