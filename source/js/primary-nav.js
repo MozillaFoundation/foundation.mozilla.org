@@ -1,13 +1,9 @@
 import { ReactGA } from "./common";
-import navNewsletter from "./nav-newsletter.js";
 
 let primaryNav = {
   init: function () {
     let elBurger = document.querySelector(`.burger`);
-    let elWideMenu = document.querySelector(`.wide-screen-menu`);
     let elNarrowMenu = document.querySelector(`.narrow-screen-menu`);
-    let primaryNavContainer = document.querySelector(`.primary-nav-container`);
-    let navMode = primaryNavContainer.dataset.navMode;
     let menuOpen = false;
 
     function setNarrowMenuState(openMenu) {
@@ -78,14 +74,8 @@ let primaryNav = {
       }
     });
     elBurger.addEventListener(`click`, () => {
-      if (navNewsletter.isVisible()) {
-        // if newsletter section is open, close just that section
-        // instead of changing the menuOpen state
-        navNewsletter.closeMobileNewsletter();
-      } else {
-        menuOpen = !menuOpen;
-        setMenuState(menuOpen);
-      }
+      menuOpen = !menuOpen;
+      setMenuState(menuOpen);
     });
   },
 };
