@@ -47,7 +47,7 @@ def migrate_image_teaser_block(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("mozfest", "0054_update_imagetextblock_with_linkblock"),
+        ("mozfest", "0055_update_videoblock_with_linkblock"),
     ]
 
     operations = [

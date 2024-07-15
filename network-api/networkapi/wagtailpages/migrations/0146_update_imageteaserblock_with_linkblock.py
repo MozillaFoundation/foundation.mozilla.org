@@ -46,7 +46,7 @@ def migrate_image_teaser_block(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0142_alter_blogindexpage_callout_box"),
+        ("wagtailpages", "0145_update_videoblock_with_linkblock"),
     ]
 
     operations = [

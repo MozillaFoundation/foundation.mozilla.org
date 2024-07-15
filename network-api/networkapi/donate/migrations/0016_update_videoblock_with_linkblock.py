@@ -40,7 +40,7 @@ def migrate_video_block(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("donate", "0014_update_imagetextblock_with_linkblock"),
+        ("donate", "0015_update_imageteaserblock_with_linkblock"),
     ]
 
     operations = [
