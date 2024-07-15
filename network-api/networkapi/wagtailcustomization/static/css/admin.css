@@ -104,9 +104,10 @@ fieldset ul li div label {
   }
 }
 
+/* Better spacing for `Add item` buttons */
 #wagtail {
   .c-sf-add-button {
     margin-top: -0.5em;
-    margin-bottom: 1.5em;
+    margin-bottom: 2.5em;
   }
 }
