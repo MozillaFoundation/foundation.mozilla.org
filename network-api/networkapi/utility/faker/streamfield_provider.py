@@ -680,6 +680,18 @@ def generate_mixed_content_field():
     )
 
 
+def generate_app_install_download_button_field():
+    return generate_field(
+        "button",
+        {
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "label": " ".join(fake.words(nb=2)),
+            "new_window": True,
+        },
+    )
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -739,6 +751,7 @@ class StreamfieldProvider(BaseProvider):
             "profiles": generate_profiles_field,
             "newsletter_signup": generate_newsletter_signup_with_background_field,
             "mixed_content": generate_mixed_content_field,
+            "app_install_download_button": generate_app_install_download_button_field,
         }
 
         streamfield_data = []
