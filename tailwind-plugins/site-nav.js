@@ -74,6 +74,14 @@ function shared(theme) {
           },
         },
       },
+      '&[data-dropdown-id="None"]': {
+        "[data-accordion-content]": {
+          ".container": {
+            display: "flex",
+            justifyContent: "end",
+          },
+        },
+      },
     },
     ".nav-accordion-content-inner": {
       display: "flex",
