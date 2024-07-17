@@ -20,7 +20,7 @@ from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideProductCategoryForm,
 )
-from networkapi.wagtailpages.utils import TitleWidget
+from networkapi.wagtailpages.utils import CharCountWidget
 
 if typing.TYPE_CHECKING:
     from networkapi.wagtailpages.models import BuyersGuideArticlePage
@@ -103,7 +103,7 @@ class BuyersGuideProductCategory(
     panels = [
         FieldPanel(
             "name",
-            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 50}),
+            widget=CharCountWidget(attrs={"class": "max-length-warning", "data-max-length": 50}),
         ),
         FieldPanel("description"),
         FieldPanel("parent"),
