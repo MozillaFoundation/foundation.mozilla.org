@@ -1,21 +1,29 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% with url=value.url square=value.square_image %}
+{% with square=value.square_image %}
 
     <div class="tw-w-1/2 tw-px-8 {% if count > 3 %} small:tw-w-1/4 {% elif count == 3 %} small:tw-w-1/3 {% elif count == 2 %} small:tw-w-1/2 {% endif %} tw-mb-4 small:tw-mb-12">
-        {% if url %}<a href="{{ url }}">{% endif %}
+        {% if value.link %}
+            {% with link=value.link.0 %}
+                <a href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %}>
+            {% endwith %}
+        {% endif %}
         {% if square %}
             {% image value.image fill-890x890-c100 format-jpeg class="tw-w-full" alt=value.alt %}
         {% else %}
             {% image value.image format-jpeg class="tw-w-full" alt=value.alt %}
         {% endif %}
-        {% if url %}</a>{% endif %}
+        {% if value.link %}</a>{% endif %}
 
         {% if value.caption %}
             <p class="tw-my-4">
-                {% if url %}<a href="{{ url }}">{% endif %}
-                {{ value.caption }}
-                {% if url %}</a>{% endif %}
+                {% if value.link %}
+                    {% with link=value.link.0 %}
+                        <a href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %}>{{ value.caption }}</a>
+                    {% endwith %}
+                {% else %}
+                    {{ value.caption }}
+                {% endif %}
             </p>
         {% endif %}
     </div>
