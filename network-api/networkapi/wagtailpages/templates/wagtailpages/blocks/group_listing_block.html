@@ -14,24 +14,28 @@
                         {% image card.image fill-690x388 as img %}
                         <div class="tw-px-8 tw-grid tw-grid-cols-1 large:tw-grid-cols-3 tw-gap-8 large:tw-gap-16">
                             <div class="tw-col-span-1">
-                                {% if card.url %}
-                                    <a href="{{ card.url }}" class="tw-block tw-group" aria-label="{{ card.title }}">
+                                {% if card.link %}
+                                    {% with link=card.link.0 %}
+                                        <a href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %} class="tw-block tw-group" aria-label="{{ card.title }}">
+                                    {% endwith %}
                                 {% endif %}
                                 <img class="tw-w-full xlarge:tw-max-w-[345px]" src="{{ img.url }}" alt="{{ card.alt_text }}" width="{{ img.width }}" height="{{ img.height }}">
-                                {% if card.url %}
+                                {% if card.link %}
                                     </a>
                                 {% endif %}
                             </div>
                             <div class="tw-col-span-1 large:tw-col-span-2 large:tw-items-center large:tw-flex">
                                 <div class="tw-bg-white tw-relative tw-w-full tw-flex tw-flex-col">
                                     <span class="tw-h6-heading tw-text-gray-40 tw-py-2 tw-mb-0">{{ card.meta_data }}</span>
-                                    {% if card.url %}
-                                        <a href="{{ card.url }}" class="tw-block tw-group hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black" aria-label="{{ card.title }}">
+                                    {% if card.link %}
+                                        {% with link=card.link.0 %}
+                                            <a href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %} class="tw-block tw-group hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black" aria-label="{{ card.title }}">
+                                        {% endwith %}
                                     {% endif %}
                                     <h3 class="tw-h3-heading tw-mb-4 group-hover:tw-underline group-focus:tw-underline group-hover:tw-text-inherit group-focus:tw-text-inherit group-hover:tw-font-inherit">
                                         {{ card.title }}
                                     </h3>
-                                    {% if card.url %}
+                                    {% if card.link %}
                                         </a>
                                     {% endif %}
                                     {# Adjust font sizes of rich text elements using [&_p,li,ul] to select them #}
