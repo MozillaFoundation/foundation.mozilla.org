@@ -1,6 +1,7 @@
 from networkapi.wagtailpages.factory.libraries import rcc, research_hub
 
 from . import (
+    app_install_page,
     bannered_campaign_page,
     blog,
     buyersguide,
@@ -50,6 +51,7 @@ def generate(seed):
     rcc.generate(seed)
     # homepage_cause_statement_link requires child pages of homepage to exist
     homepage_cause_statement_link.generate(seed)
+    app_install_page.generate(seed)
 
 
 __all__ = [
