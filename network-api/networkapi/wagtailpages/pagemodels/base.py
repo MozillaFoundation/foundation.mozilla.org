@@ -11,7 +11,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
-from ..utils import TitleWidget, get_page_tree_information
+from ..utils import CharCountWidget, get_page_tree_information
 from .customblocks.base_fields import base_fields
 from .customblocks.base_rich_text_options import base_rich_text_options
 from .mixin.foundation_banner_inheritance import FoundationBannerInheritanceMixin
@@ -838,7 +838,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
             [
                 FieldPanel(
                     "hero_headline",
-                    widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
+                    widget=CharCountWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
                 ),
                 FieldPanel("hero_button_text"),
                 FieldPanel("hero_button_url"),
