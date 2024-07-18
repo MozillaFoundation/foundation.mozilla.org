@@ -11,6 +11,7 @@ class CarouselTextBlock(blocks.StructBlock):
     # required=False.
     link_url = blocks.URLBlock(help_text="A CTA URL for a link displayed", required=False)
     link_label = blocks.CharBlock(help_text="Label for the CTA link.", required=False)
+    link = blocks.ListBlock(customblocks.LinkBlock(), min_num=0, max_num=1, help_text="A CTA Link for the carousel")
     carousel_images = blocks.ListBlock(customblocks.ImageBlock(), max_num=4)
 
     class Meta:
