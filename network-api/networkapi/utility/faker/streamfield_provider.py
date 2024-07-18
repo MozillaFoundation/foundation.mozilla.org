@@ -540,9 +540,15 @@ def generate_listing_block_field():
 def generate_carousel_text_block_field():
     heading = fake.sentence(nb_words=10, variable_nb_words=True)
     text = fake.paragraph(nb_sentences=10, variable_nb_sentences=True)
-    link_url = fake.url(schemes=["https"])
-    link_label = fake.sentence(nb_words=5, variable_nb_words=True)
     carousel_images = []
+    link = [
+        {
+            "label": fake.sentence(nb_words=5, variable_nb_words=True),
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
 
     for n in range(4):
         carousel_images.append(
@@ -555,8 +561,7 @@ def generate_carousel_text_block_field():
     data = {
         "heading": heading,
         "text": text,
-        "link_url": link_url,
-        "link_label": link_label,
+        "link": link,
         "carousel_images": carousel_images,
     }
 
