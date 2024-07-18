@@ -31,27 +31,6 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
     )
     title = models.CharField(max_length=200)
     content = RichTextField(features=base_rich_text_options, blank=True)
-    link_label = models.CharField(max_length=2048, blank=True)
-    link_target_url = models.CharField(
-        max_length=255,
-        blank=True,
-        validators=[
-            RegexValidator(
-                regex=url_or_query_regex,
-                message=(
-                    "Please enter a valid URL (starting with http:// or https://), "
-                    "or a valid query string starting with ? (Ex: ?form=donate)."
-                ),
-            ),
-        ],
-    )
-    link_target_page = models.ForeignKey(
-        Page,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="cta_link_page",
-    )
     link = StreamField(
         [("link", LinkBlock())],
         use_json_field=True,
@@ -65,9 +44,6 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
         FieldPanel("content"),
         MultiFieldPanel(
             [
-                FieldPanel("link_label"),
-                FieldPanel("link_target_url"),
-                FieldPanel("link_target_page"),
                 FieldPanel("link"),
             ],
             heading="Call To Action Link",
@@ -78,9 +54,6 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
         SynchronizedField("sticker_image"),
         TranslatableField("title"),
         TranslatableField("content"),
-        TranslatableField("link_label"),
-        TranslatableField("link_target_url"),
-        TranslatableField("link_target_page"),
         TranslatableField("link"),
     ]
 
@@ -99,32 +72,8 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
     def __str__(self):
         return self.title
 
-    def get_target_url(self):
-        if self.link_target_url:
-            return self.link_target_url
-        else:
-            return self.link_target_page.url
-
-    def get_link_label(self):
+    def link_label(self):
         if self.link:
             link_block = self.link[0]
             return link_block.value["label"]
         return ""
-
-    def clean(self):
-        errors = {}
-        duplicate_link_target_error = ErrorList(["Please select a page OR enter a URL for the link (choose one)"])
-        # If user enters both link URL and link page:
-        if self.link_label and (self.link_target_url and self.link_target_page):
-            errors["link_target_url"] = duplicate_link_target_error
-            errors["link_target_page"] = duplicate_link_target_error
-        # If user enters link label but no page or URL to link to:
-        elif self.link_label and (not self.link_target_page and not self.link_target_url):
-            errors["link_target_url"] = duplicate_link_target_error
-            errors["link_target_page"] = duplicate_link_target_error
-        # If user does not enter a label but has set link URL or page.
-        elif not self.link_label and (self.link_target_page or self.link_target_url):
-            errors["link_label"] = ErrorList(["Please enter a label for the link"])
-
-        if errors:
-            raise ValidationError(errors)
