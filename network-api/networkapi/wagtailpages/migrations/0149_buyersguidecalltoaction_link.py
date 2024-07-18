@@ -8,6 +8,30 @@ from django.db import migrations
 import networkapi.wagtailpages.validators
 
 
+def migrate_link_field(apps, schema_editor):
+    BuyersGuideCallToAction = apps.get_model("wagtailpages", "BuyersGuideCallToAction")
+    for instance in BuyersGuideCallToAction.objects.all():
+        if instance.link_label and (instance.link_target_url or instance.link_target_page):
+            if instance.link_target_url:
+                link_value = {
+                    "link_to": "external_url",
+                    "external_url": instance.link_target_url,
+                    "label": instance.link_label,
+                    "new_window": True,
+                }
+            elif instance.link_target_page:
+                link_value = {
+                    "link_to": "page",
+                    "label": instance.link_label,
+                    "new_window": False,
+                    "page": instance.link_target_page,
+                }
+
+            stream_data = [("link", link_value)]
+            instance.link = stream_data
+            instance.save()
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -85,4 +109,5 @@ class Migration(migrations.Migration):
                 use_json_field=True,
             ),
         ),
+        migrations.RunPython(migrate_link_field),
     ]
