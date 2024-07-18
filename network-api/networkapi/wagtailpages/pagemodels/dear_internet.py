@@ -7,6 +7,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from . import customblocks
 from .base import BasePage
+from .customblocks import LinkBlock
 from .customblocks.base_rich_text_options import base_rich_text_options
 
 
@@ -37,6 +38,8 @@ class DearInternetPage(BasePage):
 
     cta_button_link = models.URLField()
 
+    cta_button = StreamField([("link", LinkBlock())], use_json_field=True, blank=True)
+
     content_panels = Page.content_panels + [
         FieldPanel("intro_texts"),
         FieldPanel("letters_section_heading"),
@@ -44,8 +47,7 @@ class DearInternetPage(BasePage):
         MultiFieldPanel(
             [
                 FieldPanel("cta"),
-                FieldPanel("cta_button_text"),
-                FieldPanel("cta_button_link"),
+                FieldPanel("cta_button"),
             ],
             heading="CTA",
         ),
@@ -64,8 +66,7 @@ class DearInternetPage(BasePage):
         TranslatableField("letters_section_heading"),
         TranslatableField("letters"),
         TranslatableField("cta"),
-        TranslatableField("cta_button_text"),
-        SynchronizedField("cta_button_link"),
+        TranslatableField("cta_button"),
     ]
 
     template = "wagtailpages/pages/dear_internet_page.html"
