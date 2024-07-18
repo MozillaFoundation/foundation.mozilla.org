@@ -7,6 +7,22 @@ from django.db import migrations
 
 import networkapi.wagtailpages.validators
 
+from networkapi.wagtailpages.pagemodels.customblocks import LinkBlock
+
+def migrate_cta_button(apps, schema_editor):
+    DearInternetPage = apps.get_model('wagtailpages', 'DearInternetPage')
+
+    for page in DearInternetPage.objects.all():
+        if page.cta_button_text and page.cta_button_link:
+            link_value = {
+                'link_to': 'external_url',
+                'external_url': page.cta_button_link,
+                'label': page.cta_button_text,
+                'new_window': True,
+            }
+            stream_data = [('link', link_value)]
+            page.cta_button = stream_data
+            page.save()
 
 class Migration(migrations.Migration):
 
@@ -85,4 +101,5 @@ class Migration(migrations.Migration):
                 use_json_field=True,
             ),
         ),
+        migrations.RunPython(migrate_cta_button),
     ]
