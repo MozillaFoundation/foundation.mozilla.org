@@ -64,6 +64,10 @@ def main(ctx, review_app_name):
         execute_command(ctx, f"heroku pg:backups:capture -a {review_app_name}")
         log_step_completed("Review App DB backup")
 
+        log_step("Reset Review App DB")
+        execute_command(ctx, f"heroku pg:reset -a '{review_app_name}' --confirm '{review_app_name}'")
+        log_step_completed("Review App DB has been reset")
+
         log_step("Restoring the latest Staging backup to Review App")
         backup_staging_url = execute_command(ctx, f"heroku pg:backups:url -a {STAGING_APP}")
         execute_command(
