@@ -102,4 +102,12 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.RunPython(migrate_cta_button),
+        migrations.RemoveField(
+            model_name="dearinternetpage",
+            name="cta_button_link",
+        ),
+        migrations.RemoveField(
+            model_name="dearinternetpage",
+            name="cta_button_text",
+        ),
     ]
