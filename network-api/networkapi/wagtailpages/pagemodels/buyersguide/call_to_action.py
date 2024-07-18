@@ -3,12 +3,13 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.forms.utils import ErrorList
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.fields import RichTextField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.constants import url_or_query_regex
+from networkapi.wagtailpages.pagemodels.customblocks import LinkBlock
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
@@ -51,6 +52,12 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
         on_delete=models.SET_NULL,
         related_name="cta_link_page",
     )
+    link = StreamField(
+        [("link", LinkBlock())],
+        use_json_field=True,
+        blank=True,
+        max_num=1,
+    )
 
     panels = [
         FieldPanel("sticker_image"),
@@ -61,6 +68,7 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
                 FieldPanel("link_label"),
                 FieldPanel("link_target_url"),
                 FieldPanel("link_target_page"),
+                FieldPanel("link"),
             ],
             heading="Call To Action Link",
         ),
@@ -73,6 +81,7 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
         TranslatableField("link_label"),
         TranslatableField("link_target_url"),
         TranslatableField("link_target_page"),
+        TranslatableField("link"),
     ]
 
     search_fields = [
@@ -95,6 +104,12 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
             return self.link_target_url
         else:
             return self.link_target_page.url
+
+    def get_link_label(self):
+        if self.link:
+            link_block = self.link[0]
+            return link_block.value["label"]
+        return ""
 
     def clean(self):
         errors = {}
