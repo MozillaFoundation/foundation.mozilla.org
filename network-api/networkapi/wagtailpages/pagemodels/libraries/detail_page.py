@@ -224,7 +224,7 @@ class LibraryDetailLinkBase(wagtail_models.TranslatableMixin, wagtail_models.Ord
                     "This link will not be shown in the frontend."
                 )
                 return ""
-            return self.page.get_url()
+            return self.page.localized.get_url()
         if self.document:
             return self.document.url
         raise ValueError("No URL defined for this detail link. This should not happen.")

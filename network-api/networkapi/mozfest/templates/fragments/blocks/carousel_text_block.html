@@ -9,8 +9,10 @@
                         <h2 class="tw-h2-heading tw-mb-12">{{ self.heading }}</h2>
                     {% endif %}
                     {{ self.text|richtext }}
-                    {% if self.link_url and self.link_label %}
-                        <a class="tw-cta-link tw-text-white" href="{{ self.link_url }}"><b>{{ self.link_label }}</b></a>
+                    {% if self.link %}
+                        {% with link=self.link.0 %}
+                            <a class="tw-cta-link tw-text-white" href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %}>{{ link.label }}</a>
+                        {% endwith %}
                     {% endif %}
                 </div>
                 <div class="tw-px-8 tw-w-full xlarge:tw-w-6/12">
