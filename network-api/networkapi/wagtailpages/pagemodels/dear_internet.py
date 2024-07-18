@@ -32,13 +32,12 @@ class DearInternetPage(BasePage):
         max_length=500,
     )
 
-    cta_button_text = models.CharField(
-        max_length=100,
+    cta_button = StreamField(
+        [("link", LinkBlock())],
+        use_json_field=True,
+        blank=True,
+        max_num=1,
     )
-
-    cta_button_link = models.URLField()
-
-    cta_button = StreamField([("link", LinkBlock())], use_json_field=True, blank=True, max_num=1,)
 
     content_panels = Page.content_panels + [
         FieldPanel("intro_texts"),
