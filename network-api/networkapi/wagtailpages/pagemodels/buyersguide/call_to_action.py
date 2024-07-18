@@ -1,14 +1,10 @@
-from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
 from django.db import models
-from django.forms.utils import ErrorList
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
-from wagtail.models import Page, TranslatableMixin
+from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.wagtailpages.constants import url_or_query_regex
 from networkapi.wagtailpages.pagemodels.customblocks import LinkBlock
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
@@ -76,4 +72,10 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
         if self.link:
             link_block = self.link[0]
             return link_block.value["label"]
+        return ""
+
+    def link_url(self):
+        if self.link:
+            link_block = self.link[0]
+            return link_block.value.url
         return ""
