@@ -42,32 +42,12 @@ class VideoBlock(blocks.StructBlock):
 class MixedContentBlock(blocks.StructBlock):
     video = VideoBlock()
     cards = blocks.ListBlock(listing_blocks.ListingCard(), min_num=1, max_num=4)
-    link_url = blocks.URLBlock(required=False)
-    link_text = blocks.CharBlock(required=False, max_length=50)
     link = blocks.ListBlock(
         LinkWithoutLabelBlock(),
         min_num=0,
         max_num=1,
         help_text="Optional link that this mixed content block should link out to.",
     )
-
-    def clean(self, value):
-        result = super().clean(value)
-        errors = {}
-
-        link_url = value.get("link_url")
-        link_text = value.get("link_text")
-
-        if link_url and not link_text:
-            errors["link_text"] = ErrorList(["Please add a text value for the link."])
-
-        if link_text and not link_url:
-            errors["link_url"] = ErrorList(["Please add a URL value for the link."])
-
-        if errors:
-            raise struct_block.StructBlockValidationError(block_errors=errors)
-
-        return result
 
     class Meta:
         template = "fragments/blocks/mixed_content_block.html"
