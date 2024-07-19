@@ -9,10 +9,69 @@ import wagtail.images.blocks
 import wagtail.snippets.blocks
 import wagtailmedia.blocks
 from django.db import migrations
+from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
 
 import networkapi.wagtailpages.pagemodels.blog.blog_topic
 import networkapi.wagtailpages.pagemodels.profiles
 import networkapi.wagtailpages.validators
+from networkapi.utility.migration.operations import AlterStreamChildBlockDataOperation
+
+
+def migrate_mixed_content_block(source_block):
+    new_value = {
+        "video": source_block["value"].get("video"),
+        "cards": source_block["value"].get("cards"),
+        "link_url": source_block["value"].get("link_url"),
+        "link_text": source_block["value"].get("link_text"),
+        "link": [],
+    }
+
+    link_url = source_block["value"].get("link_url")
+    link_text = source_block["value"].get("link_text")
+
+    if link_url and link_text:
+        new_value["link"] = [
+            {
+                "link_to": "external_url",
+                "external_url": link_url,
+                "relative_url": "",
+                "label": link_text,
+                "new_window": True,
+                "page": None,
+            }
+        ]
+
+    for card in new_value["cards"]:
+        card_value = card.get("value", card)
+        new_link = []
+
+        link_page = card_value.get("link_page")
+        if link_page:
+            new_link.append(
+                {
+                    "link_to": "page",
+                    "page": link_page,
+                    "new_window": False,
+                }
+            )
+
+        link_url = card_value.get("link_url")
+        if link_url:
+            new_link.append(
+                {
+                    "link_to": "external_url",
+                    "external_url": link_url,
+                    "new_window": False,
+                }
+            )
+
+        card_value["link"] = new_link
+        card = card_value
+
+    return {
+        **source_block,
+        "value": new_value,
+    }
 
 
 class Migration(migrations.Migration):
@@ -2916,5 +2975,16 @@ class Migration(migrations.Migration):
                 ],
                 use_json_field=True,
             ),
+        ),
+        MigrateStreamData(
+            app_name="mozfest",
+            model_name="mozfestprimarypage",
+            field_name="body",
+            operations_and_block_paths=[
+                (
+                    AlterStreamChildBlockDataOperation(block="mixed_content", operation=migrate_mixed_content_block),
+                    "",
+                ),
+            ],
         ),
     ]
