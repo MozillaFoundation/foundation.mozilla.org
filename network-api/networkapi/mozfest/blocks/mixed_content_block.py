@@ -2,9 +2,7 @@ from wagtail import blocks
 from wagtail.images import blocks as image_blocks
 
 from networkapi.wagtailpages.pagemodels.customblocks import listing as listing_blocks
-from networkapi.wagtailpages.pagemodels.customblocks.link_block import (
-    LinkWithoutLabelBlock,
-)
+from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
 
 
 class VideoBlock(blocks.StructBlock):
@@ -41,7 +39,7 @@ class MixedContentBlock(blocks.StructBlock):
     video = VideoBlock()
     cards = blocks.ListBlock(listing_blocks.ListingCard(), min_num=1, max_num=4)
     link = blocks.ListBlock(
-        LinkWithoutLabelBlock(),
+        LinkBlock(),
         min_num=0,
         max_num=1,
         help_text="Optional link that this mixed content block should link out to.",
