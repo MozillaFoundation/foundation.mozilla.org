@@ -17,7 +17,7 @@ def migrate_link_field(apps, schema_editor):
                     "link_to": "external_url",
                     "external_url": instance.link_target_url,
                     "label": instance.link_label,
-                    "new_window": True,
+                    "new_window": False,
                 }
             elif instance.link_target_page:
                 link_value = {
@@ -110,4 +110,16 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.RunPython(migrate_link_field),
+        migrations.RemoveField(
+            model_name="buyersguidecalltoaction",
+            name="link_label",
+        ),
+        migrations.RemoveField(
+            model_name="buyersguidecalltoaction",
+            name="link_target_page",
+        ),
+        migrations.RemoveField(
+            model_name="buyersguidecalltoaction",
+            name="link_target_url",
+        ),
     ]
