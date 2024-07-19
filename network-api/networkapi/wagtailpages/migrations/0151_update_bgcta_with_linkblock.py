@@ -35,7 +35,7 @@ def migrate_link_field(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0148_update_imagegridblock_with_linkblock"),
+        ("wagtailpages", "0150_update_textonlyteaserblock_with_linkblock"),
     ]
 
     operations = [
