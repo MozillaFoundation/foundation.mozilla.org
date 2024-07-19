@@ -195,8 +195,13 @@ def generate_dark_quote_field():
 
 def generate_video_field():
     caption = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
-    captionURL = fake.url(schemes=["https"])
-
+    caption_external_url = [
+        {
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
     return generate_field(
         "video",
         {
@@ -205,7 +210,7 @@ def generate_video_field():
             # See details: https://github.com/mozilla/foundation.mozilla.org/issues/3833#issuecomment-562240677
             "url": "https://www.youtube.com/embed/83fk3RT8318",
             "caption": caption,
-            "captionURL": captionURL,
+            "caption_url": caption_external_url,
             "video_width": "full_width",
         },
     )
@@ -288,6 +293,7 @@ def generate_image_grid_field():
             {
                 "image": choice(Image.objects.all()).id,
                 "caption": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
+                "link": [],
             }
         )
 
@@ -540,9 +546,15 @@ def generate_listing_block_field():
 def generate_carousel_text_block_field():
     heading = fake.sentence(nb_words=10, variable_nb_words=True)
     text = fake.paragraph(nb_sentences=10, variable_nb_sentences=True)
-    link_url = fake.url(schemes=["https"])
-    link_label = fake.sentence(nb_words=5, variable_nb_words=True)
     carousel_images = []
+    link = [
+        {
+            "label": fake.sentence(nb_words=5, variable_nb_words=True),
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
 
     for n in range(4):
         carousel_images.append(
@@ -555,8 +567,7 @@ def generate_carousel_text_block_field():
     data = {
         "heading": heading,
         "text": text,
-        "link_url": link_url,
-        "link_label": link_label,
+        "link": link,
         "carousel_images": carousel_images,
     }
 
@@ -687,6 +698,18 @@ def generate_mixed_content_field():
     )
 
 
+def generate_app_install_download_button_field():
+    return generate_field(
+        "button",
+        {
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "label": " ".join(fake.words(nb=2)),
+            "new_window": True,
+        },
+    )
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -746,6 +769,7 @@ class StreamfieldProvider(BaseProvider):
             "profiles": generate_profiles_field,
             "newsletter_signup": generate_newsletter_signup_with_background_field,
             "mixed_content": generate_mixed_content_field,
+            "app_install_download_button": generate_app_install_download_button_field,
         }
 
         streamfield_data = []
