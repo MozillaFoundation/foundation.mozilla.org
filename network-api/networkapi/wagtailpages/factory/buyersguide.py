@@ -74,8 +74,14 @@ class BuyersGuideCallToActionFactory(DjangoModelFactory):
 
     title = Faker("sentence", nb_words=7, variable_nb_words=True)
     content = Faker("paragraph", nb_sentences=3, variable_nb_sentences=True)
-    link_label = Faker("sentence", nb_words=2)
-    link_target_url = Faker("url")
+    link = [
+        {
+            "label": Faker("sentence", nb_words=5, variable_nb_words=True),
+            "link_to": "external_url",
+            "external_url": Faker("url"),
+            "new_window": True,
+        }
+    ]
 
 
 class ProductUpdateFactory(DjangoModelFactory):
