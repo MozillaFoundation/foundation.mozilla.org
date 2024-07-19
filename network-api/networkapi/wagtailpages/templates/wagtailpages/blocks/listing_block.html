@@ -24,14 +24,12 @@
         {% for block in self.cards %}
             {% with card=block %}
                 <li>
-                    {% if card.link_page %}
-                        <a href="{% pageurl card.link_page %}"
-                           class="tw-group/listing hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black"
-                           aria-label="{{ card.title }}">
-                    {% elif card.link_url %}
-                        <a href="{{ card.link_url }}" target="_blank" rel="noopener"
-                           class="tw-group/listing hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black"
-                           aria-label="{{ card.title }}">
+                    {% if card.link %}
+                        {% with link=card.link.0 %}
+                            <a href="{{ link.url }}" {% if link.new_window %} target="_blank" rel="noopener" {% endif %}
+                               class="tw-group/listing hover:tw-no-underline focus:tw-no-underline hover:tw-text-black focus:tw-text-black"
+                               aria-label="{{ card.title }}">
+                        {% endwith %}
                     {% endif %}
                     <div class="card-regular tw-h-full tw-flex tw-flex-col">
                         <picture>
@@ -63,7 +61,7 @@
                             </div>
                         </div>
                     </div>
-                    {% if card.link_page or card.link_url %}</a>{% endif %}
+                    {% if card.link %}</a>{% endif %}
                 </li>
             {% endwith %}
         {% endfor %}
