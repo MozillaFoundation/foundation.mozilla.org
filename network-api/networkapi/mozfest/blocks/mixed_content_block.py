@@ -1,6 +1,4 @@
-from django.forms.utils import ErrorList
 from wagtail import blocks
-from wagtail.blocks import struct_block
 from wagtail.images import blocks as image_blocks
 
 from networkapi.wagtailpages.pagemodels.customblocks import listing as listing_blocks
