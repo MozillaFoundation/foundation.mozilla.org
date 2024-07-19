@@ -663,8 +663,14 @@ def generate_newsletter_signup_with_background_field():
 
 def generate_mixed_content_field():
     cards = []
-    link_url = fake.url(schemes=["https"])
-    link_text = fake.sentence(nb_words=2, variable_nb_words=True)
+    link = [
+        {
+            "label": " ".join(fake.words(nb=3)),
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
 
     for n in range(4):
         cards.append(
@@ -693,9 +699,7 @@ def generate_mixed_content_field():
         "text": fake.paragraph(nb_sentences=3, variable_nb_sentences=True),
     }
 
-    return generate_field(
-        "mixed_content", {"cards": cards, "video": video, "link_url": link_url, "link_text": link_text}
-    )
+    return generate_field("mixed_content", {"cards": cards, "video": video, "link": link})
 
 
 def generate_app_install_download_button_field():
