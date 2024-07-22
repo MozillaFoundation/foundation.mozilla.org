@@ -285,6 +285,17 @@ def generate_dear_internet_intro_text_field():
     return generate_field("intro_text", text)
 
 
+def generate_dear_internet_cta_button():
+    link_value = {
+        "link_to": "external_url",
+        "external_url": "https://donate.mozilla.org",
+        "label": "Donate",
+        "new_window": True,
+    }
+
+    return generate_field("link", link_value)
+
+
 def generate_image_grid_field():
     imgs = []
 
@@ -745,6 +756,7 @@ class StreamfieldProvider(BaseProvider):
             "full_width_image": generate_full_width_image_field,
             "intro_text": generate_dear_internet_intro_text_field,
             "letter": generate_dear_internet_letter_field,
+            "dear_internet_cta_button": generate_dear_internet_cta_button,
             "card_grid": generate_card_grid_field,
             "image_grid": generate_image_grid_field,
             "pulse_listing": generate_pulse_listing_field,
