@@ -22,8 +22,7 @@ class DearInternetPageFactory(PageFactory):
     letters_section_heading = Faker("sentence")
     letters = Faker("streamfield", fields=["letter"] * 15)
     cta = Faker("paragraph", nb_sentences=6, variable_nb_sentences=True)
-    cta_button_text = "Donate"
-    cta_button_link = "https://donate.mozilla.org"
+    cta_button = Faker("streamfield", fields=["dear_internet_cta_button"])
 
 
 def generate(seed):
