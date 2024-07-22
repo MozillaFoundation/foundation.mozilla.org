@@ -21,7 +21,7 @@ def migrate_cta_button(apps, schema_editor):
             }
             stream_data = [("link", link_value)]
         else: 
-            stream_data = [("link", link_value)]
+            stream_data = []
         page.cta_button = stream_data
         page.save()
 
