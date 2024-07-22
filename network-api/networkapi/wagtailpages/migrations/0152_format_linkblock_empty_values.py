@@ -41,7 +41,7 @@ def format_group_listing_block_cards_empty_values(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0150_update_textonlyteaserblock_with_linkblock"),
+        ("wagtailpages", "0151_update_dearinternetpage_cta_with_linkblock"),
     ]
 
     operations = [
