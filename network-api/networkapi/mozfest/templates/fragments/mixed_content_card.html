@@ -5,7 +5,7 @@
     <div class="tw-flex tw-flex-col tw-gap-6 tw-w-full">
         {% if card.link %}
             {% with link=card.link.0 %}
-                <a href="link.url" {% if link.new_window %}target="_blank"{% endif %} aria-label="{{ card.title }}">
+                <a href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %} aria-label="{{ card.title }}">
             {% endwith %}
         {% endif %}
         <img width="720" height="405" src="{{ img.url }}" alt="{{ card.alt_text }}">
@@ -27,7 +27,7 @@
 
         {% if card.link %}
             {% with link=card.link.0 %}
-                <a href="link.url" {% if link.new_window %}target="_blank"{% endif %} aria-label="{{ card.title }}" class="tw-group tw-block hover:tw-no-underline">
+                <a href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %} aria-label="{{ card.title }}" class="tw-group tw-block hover:tw-no-underline">
             {% endwith %}
         {% endif %}
 
