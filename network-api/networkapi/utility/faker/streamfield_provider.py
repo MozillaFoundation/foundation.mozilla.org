@@ -530,7 +530,13 @@ def generate_listing_block_field():
                 "highlighted_metadata": " ".join(fake.words(nb=2)),
                 "metadata": " ".join(fake.words(nb=3)),
                 "body": fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
-                "link_url": fake.url(schemes=["https"]),
+                "link": [
+                    {
+                        "link_to": "external_url",
+                        "external_url": fake.url(schemes=["https"]),
+                        "new_window": True,
+                    }
+                ],
             }
         )
 
@@ -669,7 +675,13 @@ def generate_mixed_content_field():
                 "highlighted_metadata": " ".join(fake.words(nb=2)),
                 "metadata": " ".join(fake.words(nb=3)),
                 "body": fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
-                "link_url": fake.url(schemes=["https"]),
+                "link": [
+                    {
+                        "link_to": "external_url",
+                        "external_url": fake.url(schemes=["https"]),
+                        "new_window": True,
+                    }
+                ],
             }
         )
 
