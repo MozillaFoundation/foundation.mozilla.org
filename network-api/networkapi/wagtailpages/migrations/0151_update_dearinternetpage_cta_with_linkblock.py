@@ -20,7 +20,7 @@ def migrate_cta_button(apps, schema_editor):
                 "new_window": True,
             }
             stream_data = [("link", link_value)]
-        else: 
+        else:
             stream_data = []
         page.cta_button = stream_data
         page.save()
