@@ -75,7 +75,7 @@ def migrate_mixed_content_block(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("mozfest", "0061_update_textonlyteaserblock_with_linkblock"),
+        ("mozfest", "0062_format_linkblock_empty_values"),
     ]
 
     operations = [
