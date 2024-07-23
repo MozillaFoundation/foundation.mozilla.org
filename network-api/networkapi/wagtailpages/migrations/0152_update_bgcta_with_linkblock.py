@@ -11,6 +11,9 @@ import networkapi.wagtailpages.validators
 def migrate_link_field(apps, schema_editor):
     BuyersGuideCallToAction = apps.get_model("wagtailpages", "BuyersGuideCallToAction")
     for instance in BuyersGuideCallToAction.objects.all():
+
+        stream_data = []
+
         if instance.link_label and (instance.link_target_url or instance.link_target_page):
             if instance.link_target_url:
                 link_value = {
@@ -19,6 +22,8 @@ def migrate_link_field(apps, schema_editor):
                     "label": instance.link_label,
                     "new_window": False,
                 }
+                stream_data = [("link", link_value)]
+
             elif instance.link_target_page:
                 link_value = {
                     "link_to": "page",
@@ -26,8 +31,8 @@ def migrate_link_field(apps, schema_editor):
                     "new_window": False,
                     "page": instance.link_target_page,
                 }
+                stream_data = [("link", link_value)]
 
-            stream_data = [("link", link_value)]
             instance.link = stream_data
             instance.save()
 
@@ -35,7 +40,7 @@ def migrate_link_field(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0150_update_textonlyteaserblock_with_linkblock"),
+        ("wagtailpages", "0151_update_dearinternetpage_cta_with_linkblock"),
     ]
 
     operations = [
