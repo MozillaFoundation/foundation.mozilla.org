@@ -14,6 +14,46 @@ import wagtail.snippets.blocks
 import wagtailmedia.blocks
 
 
+
+import re
+from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
+from networkapi.utility.migration.operations import AlterStreamChildBlockDataOperation
+
+
+
+# Regex pattern for detecting URLs (including those without protocol)
+url_pattern = re.compile(r"^(http://|https://|www\.|[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+)")
+
+
+def migrate_card_grid_block_cards(source_block):
+
+    if "cards" in source_block["value"]:
+        for card in source_block["value"]["cards"]:
+            card["value"]["link"] = []
+            link_url = card["value"].get("link_url")
+            link_label = card["value"].get("link_label")
+            if link_url:
+                if url_pattern.match(link_url):
+                    card["value"]["link"] = [
+                        {
+                            "link_to": "external_url",
+                            "external_url": link_url,
+                            "new_window": True,
+                            "label": link_label,
+                        }
+                    ]
+                else:
+                    card["value"]["link"] = [
+                        {
+                            "link_to": "relative_url",
+                            "relative_url": link_url,
+                            "new_window": False,
+                            "label": link_label,
+                        }
+                    ]
+
+    return source_block
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -3000,5 +3040,13 @@ class Migration(migrations.Migration):
                 ],
                 use_json_field=True,
             ),
+        ),
+            MigrateStreamData(
+            app_name="mozfest",
+            model_name="mozfestprimarypage",
+            field_name="body",
+            operations_and_block_paths=[
+                (AlterStreamChildBlockDataOperation(block="card_grid", operation=migrate_card_grid_block_cards), ""),
+            ],
         ),
     ]
