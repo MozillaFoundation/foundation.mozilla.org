@@ -59,7 +59,7 @@ class BaseLinkBlock(blocks.StructBlock):
         required=False,
         validators=[RelativeURLValidator()],
         label="Relative URL",
-        help_text='A path relative to this domain. For example, "/foo/bar"',
+        help_text='A path relative to this domain. For example, "/foo/bar" or "?foo=bar".',
     )
 
     class Meta:
