@@ -1,6 +1,8 @@
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
+
 from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
+
 
 class CardGrid(blocks.StructBlock):
     image = ImageChooserBlock()
