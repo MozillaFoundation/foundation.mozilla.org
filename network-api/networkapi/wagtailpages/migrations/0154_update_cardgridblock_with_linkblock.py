@@ -29,28 +29,36 @@ def migrate_card_grid_block_cards(source_block):
 
     if "cards" in source_block["value"]:
         for card in source_block["value"]["cards"]:
-            card["value"]["link"] = []
-            link_url = card["value"].get("link_url")
-            link_label = card["value"].get("link_label")
-            if link_url:
+
+            card_value = card.get("value", card)
+            new_link = []
+
+            link_url = card_value.get("link_url")
+            link_label = card_value.get("link_label")
+
+            if link_url and link_label:
                 if url_pattern.match(link_url):
-                    card["value"]["link"] = [
+                    new_link.append(
                         {
                             "link_to": "external_url",
                             "external_url": link_url,
                             "new_window": True,
                             "label": link_label,
                         }
-                    ]
+                    )
                 else:
-                    card["value"]["link"] = [
+                    new_link.append(
                         {
                             "link_to": "relative_url",
                             "relative_url": link_url,
                             "new_window": False,
                             "label": link_label,
                         }
-                    ]
+                    )
+
+            # Update the card value with the new link
+            card_value["link"] = new_link
+            card = card_value
 
     return source_block
 
