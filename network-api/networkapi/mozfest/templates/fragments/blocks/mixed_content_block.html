@@ -33,10 +33,12 @@
                 </div>
             {% endif %}
 
-            {% if self.link_text and self.link_url %}
-                <div class="tw-row tw-justify-center tw-mt-16">
-                    <a href="{{ self.link_url }}" class="tw-btn-secondary">{{ self.link_text }}</a>
-                </div>
+            {% if self.link %}
+                {% with link=self.link.0 %}
+                    <div class="tw-row tw-justify-center tw-mt-16">
+                        <a href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %} class="tw-btn-secondary">{{ link.label }}</a>
+                    </div>
+                {% endwith %}
             {% endif %}
         </div>
     </div>
