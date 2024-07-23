@@ -67,9 +67,26 @@ function testMozfestURL(path, locale = `en`) {
   return testURL(mozfestBaseUrl(locale), path);
 }
 
+async function expandDropdown(page, dropdownSelector) {
+  await page.hover(dropdownSelector);
+  // Wait for any animations to complete
+  await page.waitForTimeout(500);
+}
+
 test.describe.parallel(`Foundation page tests`, () => {
   Object.entries(FoundationURLs).forEach(async ([testName, path]) => {
     test(`Foundation ${testName}`, testFoundationURL(path));
+  });
+
+  test(`Foundation main navigation with expanded dropdown`, async ({
+    page,
+  }) => {
+    await page.goto(foundationBaseUrl("en"));
+    await page.locator(`body.react-loaded`);
+    await waitForImagesToLoad(page);
+    // Expand the desired dropdown
+    await expandDropdown(page, "#nav-menu-item-initiatives");
+    await percySnapshot(page, "Main navigation with expanded dropdown");
   });
 });
 
