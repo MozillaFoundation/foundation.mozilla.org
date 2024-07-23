@@ -40,7 +40,7 @@ def migrate_link_field(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0151_update_dearinternetpage_cta_with_linkblock"),
+        ("wagtailpages", "0152_format_linkblock_empty_values"),
     ]
 
     operations = [
