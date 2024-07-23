@@ -36,7 +36,7 @@
                                     <aside class="tw-flex tw-flex-col medium:tw-flex-row tw-gap-16 tw-py-12">
                                         {% if cta %}
                                             <div class="tw-basis-1/2">
-                                                {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
+                                                {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link=cta.link %}
                                             </div>
                                         {% endif %}
 
@@ -62,7 +62,7 @@
                 {% if cta or related_articles %}
                     <aside class="tw-hidden large:tw-flex tw-col-span-4 tw-flex-col tw-gap-16">
                         {% if cta %}
-                            {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link_text=cta.link_label link_href=cta.get_target_url %}
+                            {% include "fragments/buyersguide/call_to_action_box.html" with icon=cta.sticker_image heading=cta.title body=cta.content link=cta.link %}
                         {% endif %}
 
                         {% if related_articles %}

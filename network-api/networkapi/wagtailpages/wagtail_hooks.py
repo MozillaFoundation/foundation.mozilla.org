@@ -326,7 +326,7 @@ class BuyersGuideCTASnippetViewSet(SnippetViewSet):
     list_display = (
         "title",
         "link_label",
-        "link_target_url",
+        "link_url",
     )
     search_fields = (
         "title",

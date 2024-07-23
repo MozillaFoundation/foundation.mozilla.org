@@ -38,9 +38,11 @@
         </div>
     {% endif %}
 
-    {% if link_text and link_href %}
-        <div class="tw-mt-16">
-            {% include "./arrow_link.html" with link_href=link_href link_text=link_text %}
-        </div>
+    {% if link %}
+        {% with link=link.0.value %}
+            <div class="tw-mt-16">
+                {% include "./arrow_link.html" with link=link %}
+            </div>
+        {% endwith %}
     {% endif %}
 </div>
