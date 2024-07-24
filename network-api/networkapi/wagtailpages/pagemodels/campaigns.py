@@ -54,11 +54,11 @@ class CTABase(models.Model):
     ]
 
     panels = [
-        FieldPanel('name'),
-        FieldPanel('newsletter'),
-        FieldPanel('header'),
-        FieldPanel('description'),
-        FieldPanel('privacy_notice'),
+        FieldPanel("name"),
+        FieldPanel("newsletter"),
+        FieldPanel("header"),
+        FieldPanel("description"),
+        FieldPanel("privacy_notice"),
     ]
 
     search_fields = [
