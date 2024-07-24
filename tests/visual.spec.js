@@ -85,7 +85,7 @@ test.describe.parallel(`Foundation page tests`, () => {
     await page.locator(`body.react-loaded`);
     await waitForImagesToLoad(page);
     // Expand the desired dropdown
-    await expandDropdown(page, "#nav-menu-item-initiatives");
+    await expandDropdown(page, ".tw-nav-desktop-dropdown:first-of-type");
     await percySnapshot(page, "Main navigation with expanded dropdown");
   });
 });
