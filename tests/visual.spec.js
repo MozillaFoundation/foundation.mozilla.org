@@ -70,7 +70,7 @@ function testMozfestURL(path, locale = `en`) {
 async function expandDropdown(page, dropdownSelector) {
   await page.hover(dropdownSelector);
   // Wait for any animations to complete
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(100);
 }
 
 test.describe.parallel(`Foundation page tests`, () => {
@@ -81,12 +81,23 @@ test.describe.parallel(`Foundation page tests`, () => {
   test(`Foundation main navigation with expanded dropdown`, async ({
     page,
   }) => {
-    await page.goto(foundationBaseUrl("en"));
-    await page.locator(`body.react-loaded`);
-    await waitForImagesToLoad(page);
-    // Expand the desired dropdown
-    await expandDropdown(page, ".tw-nav-desktop-dropdown:first-of-type");
-    await percySnapshot(page, "Main navigation with expanded dropdown");
+    const dropdownSelectors = [
+      ".tw-nav-desktop-dropdown:nth-of-type(1)",
+      ".tw-nav-desktop-dropdown:nth-of-type(2)",
+      ".tw-nav-desktop-dropdown:nth-of-type(3)",
+      ".tw-nav-desktop-dropdown:nth-of-type(4)",
+      ".tw-nav-desktop-dropdown:nth-of-type(5)",
+    ];
+    for (const [index, selector] of dropdownSelectors.entries()) {
+      await page.goto(foundationBaseUrl("en"));
+      await page.locator(`body.react-loaded`);
+      await waitForImagesToLoad(page);
+      await expandDropdown(page, selector);
+      await percySnapshot(
+        page,
+        `Main navigation with expanded dropdown ${index + 1}`
+      );
+    }
   });
 });
 
