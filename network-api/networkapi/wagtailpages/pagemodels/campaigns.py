@@ -32,17 +32,17 @@ class CTABase(models.Model):
 
     description = RichTextField(help_text="Body (richtext) of component", blank=True)
 
+    newsletter = models.CharField(
+        max_length=100,
+        help_text="The (pre-existing) newsletter to sign up for",
+        default="mozilla-foundation",
+    )
+
     privacy_notice = RichTextField(
         help_text="This optional privacy notice field will overwrite the default privacy notice text. "
         "If this field is left blank, the default privacy notice text is used.",
         features=base_rich_text_options,
         blank=True,
-    )
-
-    newsletter = models.CharField(
-        max_length=100,
-        help_text="The (pre-existing) newsletter to sign up for",
-        default="mozilla-foundation",
     )
 
     translatable_fields = [
@@ -51,6 +51,14 @@ class CTABase(models.Model):
         TranslatableField("description"),
         TranslatableField("privacy_notice"),
         SynchronizedField("newsletter"),
+    ]
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('newsletter'),
+        FieldPanel('header'),
+        FieldPanel('description'),
+        FieldPanel('privacy_notice'),
     ]
 
     search_fields = [
