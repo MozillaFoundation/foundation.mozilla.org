@@ -7,13 +7,13 @@
             {% for block in self.cards %}
                 {% with card=block %}
                     <div class="tw-pt-8 tw-relative tw-w-full tw-flex tw-flex-col tw-border-t tw-border-black/10">
-                        {% if card.link_page %}
-                            <a class="hover:tw-text-inherit" href="{% pageurl card.link_page %}">
-                        {% elif card.link_url %}
-                            <a class="hover:tw-text-inherit" target="_blank" rel=”noopener” href="{{ card.link_url }}">
+                        {% if card.link %}
+                            {% with link=card.link.0 %}
+                                <a class="hover:tw-text-inherit" href="{{ link.url }}" {% if link.new_window %}target="_blank" rel=”noopener” {% endif %}>
+                            {% endwith %}
                         {% endif %}
                         <div class="tw-h5-heading tw-mb-4">{{ card.heading }}</div>
-                        {% if card.link_page or card.link_url %}</a>{% endif %}
+                        {% if card.link %}</a>{% endif %}
                         {% if card.meta_data %}
                             <div class="tw-body-small tw-pb-4">{{ card.meta_data }}</div>
                         {% endif %}
