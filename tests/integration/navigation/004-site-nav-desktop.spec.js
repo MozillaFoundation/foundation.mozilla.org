@@ -10,19 +10,26 @@ test.describe("Main site primary nav (Desktop)", () => {
   });
 
   test("Dropdown menus expand on hover", async ({ page }) => {
-    const dropdowns = [
-      ".tw-nav-desktop-dropdown:nth-of-type(1)",
-      ".tw-nav-desktop-dropdown:nth-of-type(2)",
-      ".tw-nav-desktop-dropdown:nth-of-type(3)",
-      ".tw-nav-desktop-dropdown:nth-of-type(4)",
-      ".tw-nav-desktop-dropdown:nth-of-type(5)",
-    ];
+    const dropdownSelector = ".tw-nav-desktop-dropdown";
+    const dropdowns = await page.$$(dropdownSelector);
 
-    for (const dropdown of dropdowns) {
-      await page.hover(dropdown);
+    for (let i = 0; i < dropdowns.length; i++) {
+      await dropdowns[i].hover();
       await expect(
-        page.locator(`${dropdown} .tw-nav-accordion-content-inner`)
+        page.locator(
+          `${dropdownSelector}:nth-of-type(${i + 1}) .tw-nav-accordion-content-inner`
+        )
       ).toBeVisible();
+      // Check that other dropdowns are not visible
+      for (let j = 0; j < dropdowns.length; j++) {
+        if (i !== j) {
+          await expect(
+            page.locator(
+              `${dropdownSelector}:nth-of-type(${j + 1}) .tw-nav-accordion-content-inner`
+            )
+          ).not.toBeVisible();
+        }
+      }
     }
   });
 });

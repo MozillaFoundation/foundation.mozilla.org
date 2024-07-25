@@ -81,22 +81,27 @@ test.describe.parallel(`Foundation page tests`, () => {
   test(`Foundation main navigation with expanded dropdown`, async ({
     page,
   }) => {
-    const dropdownSelectors = [
-      ".tw-nav-desktop-dropdown:nth-of-type(1)",
-      ".tw-nav-desktop-dropdown:nth-of-type(2)",
-      ".tw-nav-desktop-dropdown:nth-of-type(3)",
-      ".tw-nav-desktop-dropdown:nth-of-type(4)",
-      ".tw-nav-desktop-dropdown:nth-of-type(5)",
-    ];
-    for (const [index, selector] of dropdownSelectors.entries()) {
-      await page.goto(foundationBaseUrl("en"));
-      await page.locator(`body.react-loaded`);
-      await waitForImagesToLoad(page);
-      await expandDropdown(page, selector);
+    await page.goto(foundationBaseUrl("en"));
+    await page.locator(`body.react-loaded`);
+    await waitForImagesToLoad(page);
+
+    const dropdowns = await page.$$(".tw-nav-desktop-dropdown");
+
+    for (let i = 0; i < dropdowns.length; i++) {
+      await expandDropdown(
+        page,
+        `.tw-nav-desktop-dropdown:nth-of-type(${i + 1})`
+      );
       await percySnapshot(
         page,
-        `Main navigation with expanded dropdown ${index + 1}`
+        `Main navigation with expanded dropdown ${i + 1}`
       );
+      // Reset the page state for the next dropdown
+      if (i < dropdowns.length - 1) {
+        await page.goto(foundationBaseUrl("en"));
+        await page.locator(`body.react-loaded`);
+        await waitForImagesToLoad(page);
+      }
     }
   });
 });
