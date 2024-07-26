@@ -2,8 +2,7 @@
 # TO ALLOW NON-SLUG URLS FROM MAKING IT INTO THE serve() FUNCTION
 
 from django.conf import settings
-from django.contrib.auth import views as auth_views
-from django.urls import path, re_path
+from django.urls import re_path
 from wagtail import views
 from wagtail.coreutils import WAGTAIL_APPEND_SLASH
 
