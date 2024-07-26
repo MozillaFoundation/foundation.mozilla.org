@@ -449,8 +449,10 @@ class HomepageSpotlightPosts(TranslatableMixin, WagtailOrderable):
         related_name="spotlight_posts",
     )
     blog = models.ForeignKey("BlogPage", on_delete=models.CASCADE, related_name="+")
+    cta = models.CharField(max_length=50, default="Read more")
     panels = [
         FieldPanel("blog"),
+        FieldPanel("cta", heading="CTA Link Text"),
     ]
 
     class Meta(TranslatableMixin.Meta, WagtailOrderable.Meta):
@@ -763,12 +765,13 @@ class Homepage(FoundationMetadataPageMixin, Page):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
+        help_text="Ideas image",
         related_name="spotlight_image",
     )
 
     spotlight_headline = models.CharField(
         max_length=140,
-        help_text="Spotlight headline",
+        help_text="Ideas headline",
         blank=True,
     )
 
@@ -876,7 +879,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
                 FieldPanel("spotlight_headline"),
                 InlinePanel("spotlight_posts", label="Posts", min_num=3, max_num=3),
             ],
-            heading="spotlight",
+            heading="Ideas",
             classname="collapsible",
         ),
         MultiFieldPanel(
