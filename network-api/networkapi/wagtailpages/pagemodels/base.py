@@ -673,11 +673,13 @@ class HomepageTakeActionCards(TranslatableMixin, WagtailOrderable):
         null=True,
         on_delete=models.SET_NULL,
     )
+    cta = models.CharField(max_length=50, default="Learn more")
 
     panels = [
         FieldPanel("image"),
         FieldPanel("text"),
         FieldPanel("internal_link"),
+        FieldPanel("cta", heading="CTA Link Text"),
     ]
 
     # translatable_fields = [
