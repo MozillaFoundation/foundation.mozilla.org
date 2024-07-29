@@ -77,7 +77,7 @@ django-admin-sortable==2.3
     # via -r requirements.in
 django-autocomplete-light==3.9.7
     # via wagtail-inventory
-django-cors-headers==4.3.1
+django-cors-headers==4.4.0
     # via -r requirements.in
 django-csp==3.8
     # via -r requirements.in
