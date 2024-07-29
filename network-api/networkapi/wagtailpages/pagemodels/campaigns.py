@@ -53,6 +53,14 @@ class CTABase(models.Model):
         SynchronizedField("newsletter"),
     ]
 
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("newsletter"),
+        FieldPanel("header"),
+        FieldPanel("description"),
+        FieldPanel("privacy_notice"),
+    ]
+
     search_fields = [
         index.SearchField("name", boost=10),
         index.SearchField("newsletter"),
