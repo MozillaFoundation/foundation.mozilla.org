@@ -40,7 +40,7 @@ module.exports = [
         class: ".h1-heading",
         styles: (componentType) => ({
           fontWeight: theme("fontWeight.normal"),
-          marginBottom: theme("spacing.4"),
+          marginBottom: theme("spacing.12"),
           color: theme("colors.black"),
           lineHeight: 1.2,
           fontFamily: theme("fontFamily.zilla"),
