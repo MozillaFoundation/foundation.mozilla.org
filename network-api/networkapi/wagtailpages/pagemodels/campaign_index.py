@@ -71,7 +71,9 @@ class CampaignIndexPage(IndexPage):
         and returns them as their specific page instances.
         """
         relations = self.featured_campaign_pages.all().order_by("sort_order")
-        featured_pages = [relation.featured_page.specific for relation in relations if hasattr(relation.featured_page, 'specific')]
+        featured_pages = [
+            relation.featured_page.specific for relation in relations if hasattr(relation.featured_page, "specific")
+        ]
         return featured_pages
 
     def get_context(self, request):
