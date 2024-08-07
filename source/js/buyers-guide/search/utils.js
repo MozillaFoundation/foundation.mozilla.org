@@ -45,8 +45,9 @@ export class Utils {
             `#multipage-nav a[data-name="${parent}"]`
           ).href;
       }
-      document.querySelector(`#pni-mobile-category-nav .active-link-label`).textContent =
-        parent;
+      document.querySelector(
+        `#pni-mobile-category-nav .active-link-label`
+      ).textContent = parent;
     } else {
       const header = category === "None" ? ALL_CATEGORY_LABEL : category;
       headerText.textContent = header;
@@ -57,7 +58,9 @@ export class Utils {
             `#multipage-nav a[data-name="${category}"]`
           ).href;
       }
-      document.querySelector(`#pni-mobile-category-nav .active-link-label`).textContent =
+      document.querySelector(
+        `#pni-mobile-category-nav .active-link-label`
+      ).textContent =
         category === "None"
           ? document.querySelector(`#multipage-nav a[data-name="None"]`)
               .textContent
@@ -70,7 +73,9 @@ export class Utils {
    */
   static deactivateActiveCatNav() {
     const linkForLarge = document.querySelector(`#multipage-nav a.active`);
-    const linkForMobile = document.querySelector(`#pni-mobile-category-nav a.active`);
+    const linkForMobile = document.querySelector(
+      `#pni-mobile-category-nav a.active`
+    );
 
     // for larger screens
     if (linkForLarge) {
