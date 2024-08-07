@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 
+
 def set_existing_records_to_true(apps, schema_editor):
     Homepage = apps.get_model('wagtailpages', 'Homepage')
     Homepage.objects.update(show_cause_statement=True)
