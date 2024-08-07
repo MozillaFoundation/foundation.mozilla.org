@@ -4,8 +4,9 @@ from django.db import migrations, models
 
 
 def set_existing_records_to_true(apps, schema_editor):
-    Homepage = apps.get_model('wagtailpages', 'Homepage')
+    Homepage = apps.get_model("wagtailpages", "Homepage")
     Homepage.objects.update(show_cause_statement=True)
+
 
 class Migration(migrations.Migration):
 
@@ -19,5 +20,5 @@ class Migration(migrations.Migration):
             name="show_cause_statement",
             field=models.BooleanField(default=False, help_text="Display cause statement"),
         ),
-        migrations.RunPython(set_existing_records_to_true, migrations.RunPython.noop)
+        migrations.RunPython(set_existing_records_to_true, migrations.RunPython.noop),
     ]
