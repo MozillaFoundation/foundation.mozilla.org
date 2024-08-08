@@ -15,9 +15,9 @@ import primaryNav from "../primary-nav.js";
 
 import HomepageSlider from "./template-js-handler/homepage-c-slider.js";
 import NewsletterBox from "./template-js-handler/newsletter-box.js";
+import PNIMobileCategoryNav from "./template-js-handler/mobile-category-nav.js";
 import AnalyticsEvents from "./analytics-events.js";
 import initializeSentry from "../common/sentry-config.js";
-import PNIMobileNav from "./pni-mobile-nav.js";
 
 // Initializing component a11y browser console logging
 if (process.env.NODE_ENV === "development") {
@@ -78,7 +78,7 @@ let main = {
       Promise.all(apps).then(() => {
         document.body.classList.add(`react-loaded`);
         this.initPageSpecificScript();
-        PNIMobileNav.init();
+        PNIMobileCategoryNav.init();
         // bind custom analytics only once everything's up and loaded
         // Analytics events does give errors quite often, do not add JS after this
         AnalyticsEvents.init();
