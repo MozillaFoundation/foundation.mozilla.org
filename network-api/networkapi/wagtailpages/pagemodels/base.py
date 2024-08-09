@@ -776,6 +776,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
         blank=True,
     )
 
+    show_cause_statement = models.BooleanField(default=False, help_text="Display cause statement")
+
     cause_statement = models.CharField(
         max_length=250,
         default="",
@@ -854,6 +856,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
+                FieldPanel("show_cause_statement"),
                 FieldPanel("cause_statement"),
                 FieldPanel("cause_statement_link_text"),
                 FieldPanel("cause_statement_link_page"),
