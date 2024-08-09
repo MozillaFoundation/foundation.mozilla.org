@@ -5,7 +5,7 @@ export default () => {
   const searchContainer = document.querySelector(
     "#pni-mobile-search-container"
   );
-  const mobileCatNav = document.querySelector("#pni-nav-mobile");
+  const mobileCatNav = document.querySelector("#pni-mobile-category-nav");
 
   if (!mobileSearch) return;
 
