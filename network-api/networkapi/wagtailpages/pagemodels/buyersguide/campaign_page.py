@@ -79,7 +79,6 @@ class BuyersGuideCampaignPage(BasePage):
             ("spacer", customblocks.BootstrapSpacerBlock()),
             ("airtable", customblocks.AirTableBlock()),
             ("datawrapper", customblocks.DatawrapperBlock()),
-            ("typeform", customblocks.TypeformBlock()),
         ),
         use_json_field=True,
     )
