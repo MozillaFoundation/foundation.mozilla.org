@@ -206,6 +206,10 @@
       font-size: 18px;
       font-weight: 700;
     }
+
+    &:first-child {
+      margin-top: 1.5rem;
+    }
   }
 }
 
