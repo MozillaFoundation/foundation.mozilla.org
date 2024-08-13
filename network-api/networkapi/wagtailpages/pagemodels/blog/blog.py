@@ -58,7 +58,6 @@ base_fields = [
     ("spacer", customblocks.BootstrapSpacerBlock()),
     ("airtable", customblocks.AirTableBlock()),
     ("datawrapper", customblocks.DatawrapperBlock()),
-    ("typeform", customblocks.TypeformBlock()),
     ("newsletter_signup", customblocks.BlogNewsletterSignupBlock()),
 ]
 
