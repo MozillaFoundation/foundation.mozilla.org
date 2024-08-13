@@ -7,15 +7,12 @@ import wagtail.embeds.blocks
 import wagtail.fields
 import wagtail.images.blocks
 import wagtail.snippets.blocks
-
 import wagtailmedia.blocks
+from django.db import migrations
 
 import networkapi.wagtailpages.pagemodels.blog.blog_topic
 import networkapi.wagtailpages.pagemodels.profiles
 import networkapi.wagtailpages.validators
-
-from django.db import migrations
-
 
 
 class Migration(migrations.Migration):
