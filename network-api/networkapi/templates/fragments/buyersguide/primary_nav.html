@@ -36,7 +36,6 @@
 {% block donate_and_newsletter %}
     <div class="d-flex align-items-center">
         {% include "fragments/buyersguide/pni_nav_links.html" with class="primary-nav-special-link pni-nav-link tw-hidden large:tw-block" %}
-        {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
         <label for="mobile-search" class="large:tw-hidden tw-cursor-pointer tw-mb-0">
             <input id="mobile-search" type="checkbox"
                    class="tw-appearance-none

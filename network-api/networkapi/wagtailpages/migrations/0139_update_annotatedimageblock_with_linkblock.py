@@ -19,9 +19,9 @@ from networkapi.utility.migration.operations import AlterStreamChildBlockDataOpe
 
 def migrate_image_block(source_block):
     new_value = {
-        "image": source_block["value"]["image"],
-        "altText": source_block["value"]["altText"],
-        "caption": source_block["value"]["caption"],
+        "image": source_block["value"].get("image"),
+        "altText": source_block["value"].get("altText", ""),
+        "caption": source_block["value"].get("caption", ""),
         "caption_url": [],
     }
     if "captionURL" in source_block["value"] and source_block["value"]["captionURL"]:
@@ -5772,6 +5772,38 @@ class Migration(migrations.Migration):
         MigrateStreamData(
             app_name="wagtailpages",
             model_name="blogpage",
+            field_name="body",
+            operations_and_block_paths=[
+                (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
+            ],
+        ),
+        MigrateStreamData(
+            app_name="wagtailpages",
+            model_name="buyersguidearticlepage",
+            field_name="body",
+            operations_and_block_paths=[
+                (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
+            ],
+        ),
+        MigrateStreamData(
+            app_name="wagtailpages",
+            model_name="buyersguidecampaignpage",
+            field_name="body",
+            operations_and_block_paths=[
+                (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
+            ],
+        ),
+        MigrateStreamData(
+            app_name="wagtailpages",
+            model_name="modularpage",
+            field_name="body",
+            operations_and_block_paths=[
+                (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
+            ],
+        ),
+        MigrateStreamData(
+            app_name="wagtailpages",
+            model_name="primarypage",
             field_name="body",
             operations_and_block_paths=[
                 (AlterStreamChildBlockDataOperation(block="image", operation=migrate_image_block), ""),
