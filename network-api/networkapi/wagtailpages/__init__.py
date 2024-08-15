@@ -1,5 +1,6 @@
 from django.utils.translation import trans_real
-from .override_utils import to_language, parse_accept_lang_header
+
+from .override_utils import parse_accept_lang_header, to_language
 
 # WARNING: this is not necessarily a good idea, but is the only way to override
 # Django's default behaviour of requiring language codes to be lowercased.

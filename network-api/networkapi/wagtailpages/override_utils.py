@@ -1,5 +1,7 @@
 import functools
+
 from django.utils.translation.trans_real import accept_language_re
+
 
 def language_code_to_iso_3166(language):
     """Turn a language name (en-us) into an ISO 3166 format (en-US)."""
@@ -36,4 +38,3 @@ def parse_accept_lang_header(lang_string):
         result.append((language_code_to_iso_3166(lang), priority))
     result.sort(key=lambda k: k[1], reverse=True)
     return tuple(result)
-
