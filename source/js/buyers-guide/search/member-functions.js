@@ -10,7 +10,7 @@ const subcategories = document.querySelectorAll(`.subcategories`);
  */
 export function setupNavLinks(instance) {
   const navLinks = document.querySelectorAll(
-    `#multipage-nav a,.category-header,#pni-nav-mobile a`
+    `#multipage-nav a,.category-header,#pni-mobile-category-nav a`
   );
 
   for (const nav of navLinks) {
@@ -26,7 +26,7 @@ export function setupNavLinks(instance) {
       Utils.deactivateActiveCatNav();
 
       document
-        .querySelector("#pni-nav-mobile .dropdown-nav")
+        .querySelector("#pni-mobile-category-nav .dropdown-nav")
         .classList.remove("dropdown-nav-open");
 
       const { name: categoryName } = evt.target.dataset ?? {};

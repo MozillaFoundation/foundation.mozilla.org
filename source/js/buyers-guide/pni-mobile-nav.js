@@ -5,7 +5,7 @@
 
 const PNIMobileNav = {
   init: () => {
-    const mobileNav = document.querySelector("#pni-nav-mobile");
+    const mobileNav = document.querySelector("#pni-mobile-category-nav");
 
     if (!mobileNav) return;
 
