@@ -30,7 +30,9 @@
 
 {% block content %}
     <div class="container">
-        {% include "./fragments/cause_statement.html" %}
+        {% if page.show_cause_statement %}
+            {% include "./fragments/cause_statement.html" %}
+        {% endif %}
         {% include "./fragments/focus_areas.html" %}
     </div>
 

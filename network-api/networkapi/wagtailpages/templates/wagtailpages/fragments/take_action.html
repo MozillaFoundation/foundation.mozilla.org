@@ -19,6 +19,7 @@
                                     <a href="{{ target.url }}" class="tw-h5-heading tw-inline-block tw-my-4">
                                         {{ item.text }}
                                     </a>
+                                    <a href="{{ target.url }}" class="tw-cta-link d-none d-md-inline-block">{{ item.cta }}</a>
                                 </div>
                             </div>
                         </div>
@@ -35,6 +36,7 @@
                      data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
                      data-cta-header="{% trans "Help shape the future of the web for the public good." %}"
                      data-cta-description="<p>{% trans "Join our <b>Mozilla News</b> email list to get action alerts & internet tips right to your inbox." %}</p>"
+                     data-cta-privacy-notice=""
                 >
                 </div>
             </div>

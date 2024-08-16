@@ -2,6 +2,9 @@ from http import HTTPStatus
 
 from networkapi.donate import models as pagemodels
 from networkapi.donate.factory import help_page as help_page_factories
+from networkapi.donate.factory.snippets import (
+    help_page_notice as help_page_notice_factories,
+)
 from networkapi.wagtailpages.tests import base as test_base
 
 
@@ -22,7 +25,6 @@ class DonateHelpPageTest(test_base.WagtailpagesTestCase):
         )
         cls.donate_help_page = help_page_factories.DonateHelpPageFactory(
             parent=cls.donate_landing_page,
-            notice__0="notice",
         )
 
     def test_parent_page_types(self):
@@ -66,12 +68,6 @@ class DonateHelpPageTest(test_base.WagtailpagesTestCase):
             template_name="donate/pages/help_page.html",
         )
 
-    def test_help_page_notice_field(self):
-        """
-        Asserts that a 'notice' block was created in the 'notice' field by the factory.
-        """
-        self.assertEqual(self.donate_help_page.notice[0].block_type, "notice")
-
     def test_thank_you_url(self):
         """
         Testing that the "thank_you_url" is correctly added to the page context.
@@ -94,3 +90,17 @@ class DonateHelpPageTest(test_base.WagtailpagesTestCase):
         expected_thank_you_url = page_url + "&thank_you=true"
 
         self.assertEqual(response.context["thank_you_url"], expected_thank_you_url)
+
+    def test_page_displays_help_page_notice(self):
+        """
+        Test that the DonateHelpPage correctly displays the HelpPageNotice.
+        """
+        notice_text_content = "<p>Test Notice Content</p>"
+        help_page_notice = help_page_notice_factories.HelpPageNoticeFactory(text=notice_text_content)
+        self.donate_help_page.notice = help_page_notice
+        self.donate_help_page.save()
+
+        url = self.donate_help_page.get_url()
+        response = self.client.get(url)
+
+        self.assertContains(response, notice_text_content)

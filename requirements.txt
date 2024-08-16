@@ -20,9 +20,9 @@ beautifulsoup4==4.9.3
     # via
     #   -r requirements.in
     #   wagtail
-boto3==1.34.98
+boto3==1.34.158
     # via -r requirements.in
-botocore==1.34.98
+botocore==1.34.158
     # via
     #   boto3
     #   s3transfer
@@ -46,9 +46,9 @@ defusedxml==0.7.1
     #   python3-openid
     #   social-auth-core
     #   willow
-dj-database-url==2.1.0
+dj-database-url==2.2.0
     # via -r requirements.in
-django==4.2.11
+django==4.2.15
     # via
     #   -r requirements.in
     #   dj-database-url
@@ -87,7 +87,7 @@ django-filter==23.5
     # via
     #   -r requirements.in
     #   wagtail
-django-htmx==1.17.3
+django-htmx==1.19.0
     # via -r requirements.in
 django-modelcluster==6.2.1
     # via wagtail
@@ -105,7 +105,7 @@ django-taggit==3.0.0
     # via wagtail
 django-treebeard==4.5.1
     # via wagtail
-djangorestframework==3.14.0
+djangorestframework==3.15.2
     # via
     #   -r requirements.in
     #   wagtail
@@ -117,7 +117,7 @@ factory-boy==3.3.0
     # via
     #   -r requirements.in
     #   wagtail-factories
-faker==25.0.1
+faker==26.3.0
     # via
     #   -r requirements.in
     #   factory-boy
@@ -189,13 +189,12 @@ python3-openid==3.2.0
 pytz==2023.3.post1
     # via
     #   django-modelcluster
-    #   djangorestframework
     #   l18n
 pyyaml==6.0.1
     # via django-pattern-library
 redis==4.5.4
     # via django-redis
-requests==2.31.0
+requests==2.32.3
     # via
     #   -r requirements.in
     #   basket-client
@@ -244,7 +243,7 @@ typing-extensions==4.4.0
     #   wagtail-localize
 ua-parser==0.18.0
     # via user-agents
-urllib3==1.26.18
+urllib3==1.26.19
     # via
     #   botocore
     #   requests
@@ -252,7 +251,7 @@ urllib3==1.26.18
     #   sentry-sdk
 user-agents==2.2.0
     # via wagtail-ab-testing
-wagtail==5.2.3
+wagtail==5.2.6
     # via
     #   -r requirements.in
     #   wagtail-ab-testing

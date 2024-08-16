@@ -1,12 +1,5 @@
 {% load wagtailcore_tags %}
 
 {% for block in page.body %}
-    {# optionally render a pre and post paragraph spacer for landing_page / homepage page types with dark sections #}
-    {% if block.block_type == 'paragraph' %}
-        {% block pre_paragraph_spacer %}{% endblock pre_paragraph_spacer %}
-    {% endif %}
     {% include_block block with parent_page=page %}
-    {% if block.block_type == 'paragraph' %}
-        {% block post_paragraph_spacer %}{% endblock post_paragraph_spacer %}
-    {% endif %}
 {% endfor %}
