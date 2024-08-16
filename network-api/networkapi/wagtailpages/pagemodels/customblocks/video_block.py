@@ -3,6 +3,10 @@ from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtailmedia import blocks as wagtailmedia_blocks
 
+from networkapi.wagtailpages.pagemodels.customblocks.link_block import (
+    LinkWithoutLabelBlock,
+)
+
 
 class RadioSelectBlock(blocks.ChoiceBlock):
     def __init__(self, *args, **kwargs):
@@ -25,7 +29,7 @@ class ExternalVideoBlock(blocks.StructBlock):
 
 
 class VideoBlock(blocks.StructBlock):
-    url = blocks.CharBlock(
+    url = blocks.URLBlock(
         label="Embed URL",
         help_text="For YouTube: go to your YouTube video and click “Share,” "
         "then “Embed,” and then copy and paste the provided URL only. "
@@ -36,7 +40,9 @@ class VideoBlock(blocks.StructBlock):
     caption = blocks.CharBlock(
         required=False,
     )
-    captionURL = blocks.CharBlock(required=False, help_text="Optional URL for caption to link to.")
+    caption_url = blocks.ListBlock(
+        LinkWithoutLabelBlock(), min_num=0, max_num=1, help_text="Optional URL that this caption should link out to."
+    )
     video_width = RadioSelectBlock(
         choices=(
             ("normal", "Normal"),

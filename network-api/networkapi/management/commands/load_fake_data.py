@@ -11,6 +11,7 @@ from taggit.models import Tag
 import networkapi.donate.factory as donate_factory
 import networkapi.highlights.factory as highlights_factory
 import networkapi.mozfest.factory as mozfest_factory
+import networkapi.nav.factories as nav_factory
 import networkapi.news.factory as news_factory
 import networkapi.wagtailpages.factory as wagtailpages_factory
 from networkapi.utility.faker.helpers import reseed
@@ -89,6 +90,7 @@ class Command(BaseCommand):
                 wagtailpages_factory,
                 mozfest_factory,
                 donate_factory,
+                nav_factory,
             ]
         ]
 

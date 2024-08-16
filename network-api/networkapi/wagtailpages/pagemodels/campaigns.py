@@ -53,6 +53,14 @@ class CTABase(models.Model):
         SynchronizedField("newsletter"),
     ]
 
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("newsletter"),
+        FieldPanel("header"),
+        FieldPanel("description"),
+        FieldPanel("privacy_notice"),
+    ]
+
     search_fields = [
         index.SearchField("name", boost=10),
         index.SearchField("newsletter"),
@@ -439,7 +447,6 @@ class BanneredCampaignPage(PrimaryPage):
         "PublicationPage",
         "OpportunityPage",
         "ArticlePage",
-        "YoutubeRegretsReporterExtensionPage",
         "YoutubeRegrets2021Page",
         "YoutubeRegrets2022Page",
         "YoutubeRegretsPage",
