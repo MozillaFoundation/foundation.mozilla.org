@@ -539,7 +539,7 @@ def create_wagtail_image(
     return wagtail_image
 
 
-class TitleWidget(forms.TextInput):
+class CharCountWidget(forms.TextInput):
     def render(self, name, value, attrs=None, renderer=None):
         html = super().render(name, value, attrs)
         inline_code = mark_safe("<h3 class='max-length-countdown'></h3>")

@@ -3,11 +3,13 @@
 {% image card.image fill-720x405 as img %}
 <div class="tw-m-0 tw-p-0">
     <div class="tw-flex tw-flex-col tw-gap-6 tw-w-full">
-        {% if card.link_page or card.link_url %}
-            <a href="{% if card.link_page %}{% pageurl card.link_page %}{% elif card.link_url %}{{ card.link_url }}{% endif %}" aria-label="{{ card.title }}">
+        {% if card.link %}
+            {% with link=card.link.0 %}
+                <a href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %} aria-label="{{ card.title }}">
+            {% endwith %}
         {% endif %}
         <img width="720" height="405" src="{{ img.url }}" alt="{{ card.alt_text }}">
-        {% if card.link_page or card.link_url %}
+        {% if card.link %}
             </a>
         {% endif %}
 
@@ -23,8 +25,10 @@
             </div>
         {% endif %}
 
-        {% if card.link_page or card.link_url %}
-            <a href="{% if card.link_page %}{% pageurl card.link_page %}{% elif card.link_url %}{{ card.link_url }}{% endif %}" aria-label="{{ card.title }}" class="tw-group tw-block hover:tw-no-underline">
+        {% if card.link %}
+            {% with link=card.link.0 %}
+                <a href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %} aria-label="{{ card.title }}" class="tw-group tw-block hover:tw-no-underline">
+            {% endwith %}
         {% endif %}
 
         <p class="tw-h4-heading d-inline-block mt-1 mb-2 group-hover:tw-underline">{{ card.title }}</p>
@@ -33,7 +37,7 @@
             <div class="tw-body tw-line-clamp-3">{{ card.body }}</div>
         {% endif %}
 
-        {% if card.link_page or card.link_url %}
+        {% if card.link %}
             </a>
         {% endif %}
     </div>

@@ -53,6 +53,5 @@ from .single_quote_block import SingleQuoteBlock
 from .spaces_block import SpacesBlock
 from .text_only_teaser import TextOnlyTeaserBlock
 from .tito_widget import TitoWidgetBlock
-from .typeform_block import TypeformBlock
 from .video_block import ExternalVideoBlock, VideoBlock, WagtailVideoChooserBlock
 from .youtube_regret_block import YoutubeRegretBlock

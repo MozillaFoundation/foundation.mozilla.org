@@ -13,8 +13,8 @@ class RelativeURLValidator(validators.URLValidator):
         if parsed_url.scheme or parsed_url.netloc:
             raise ValidationError('Please use "external URL" for absolute urls.')
 
-        if not value.startswith("/"):
-            raise ValidationError('Relative URLs must start with "/"')
+        if not (value.startswith("/") or value.startswith("?")):
+            raise ValidationError('Relative URLs must start with "/" or "?"')
 
         value = "http://example.com" + value
         super().__call__(value)

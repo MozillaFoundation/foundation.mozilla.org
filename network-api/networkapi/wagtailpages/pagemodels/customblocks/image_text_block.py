@@ -2,13 +2,13 @@ from wagtail import blocks
 
 from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
 from .image_block import ImageBlock
+from .link_block import LinkWithoutLabelBlock
 
 
 class ImageTextBlock(ImageBlock):
     text = blocks.RichTextBlock(features=full_content_rich_text_options)
-    url = blocks.CharBlock(
-        required=False,
-        help_text="Optional URL that this image should link out to.",
+    url = blocks.ListBlock(
+        LinkWithoutLabelBlock(), min_num=0, max_num=1, help_text="Optional URL that this image should link out to."
     )
     top_divider = blocks.BooleanBlock(
         required=False,

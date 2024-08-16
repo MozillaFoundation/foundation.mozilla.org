@@ -15,7 +15,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.pagemodels.publications.publication import PublicationPage
-from networkapi.wagtailpages.utils import TitleWidget, get_plaintext_titles
+from networkapi.wagtailpages.utils import CharCountWidget, get_plaintext_titles
 
 from ..article_fields import article_fields
 from ..base import BasePage
@@ -182,7 +182,7 @@ class ArticlePage(BasePage):
         TitleFieldPanel(
             "title",
             classname="full title",
-            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
+            widget=CharCountWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
         ),
         MultiFieldPanel([InlinePanel("authors", label="Author", min_num=0)], heading="Author(s)"),
         MultiFieldPanel(
@@ -306,10 +306,6 @@ class ArticlePage(BasePage):
         Get all the parent PublicationPages and return a QuerySet
         """
         return Page.objects.ancestor_of(self).type(PublicationPage).live()
-
-    @property
-    def zen_nav(self):
-        return True
 
     @property
     def get_page_titles(self):

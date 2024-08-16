@@ -53,6 +53,14 @@ class CTABase(models.Model):
         SynchronizedField("newsletter"),
     ]
 
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("newsletter"),
+        FieldPanel("header"),
+        FieldPanel("description"),
+        FieldPanel("privacy_notice"),
+    ]
+
     search_fields = [
         index.SearchField("name", boost=10),
         index.SearchField("newsletter"),
@@ -352,7 +360,6 @@ class CampaignPage(MiniSiteNameSpace):
         TranslatableField("title"),
         TranslatableField("header"),
         SynchronizedField("narrowed_page_content"),
-        SynchronizedField("zen_nav"),
         TranslatableField("body"),
         TranslatableField("donation_modals"),
     ]
@@ -429,7 +436,6 @@ class BanneredCampaignPage(PrimaryPage):
         TranslatableField("title"),
         SynchronizedField("banner"),
         SynchronizedField("narrowed_page_content"),
-        SynchronizedField("zen_nav"),
         # FIXME: Contingency fix while https://github.com/mozilla/foundation.mozilla.org/pull/7771 is sorted out
         # TranslatableField("cta"),
         TranslatableField("signup"),
@@ -441,7 +447,6 @@ class BanneredCampaignPage(PrimaryPage):
         "PublicationPage",
         "OpportunityPage",
         "ArticlePage",
-        "YoutubeRegretsReporterExtensionPage",
         "YoutubeRegrets2021Page",
         "YoutubeRegrets2022Page",
         "YoutubeRegretsPage",

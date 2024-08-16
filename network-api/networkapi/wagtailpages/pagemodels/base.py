@@ -11,7 +11,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
-from ..utils import TitleWidget, get_page_tree_information
+from ..utils import CharCountWidget, get_page_tree_information
 from .customblocks.base_fields import base_fields
 from .customblocks.base_rich_text_options import base_rich_text_options
 from .mixin.foundation_banner_inheritance import FoundationBannerInheritanceMixin
@@ -61,23 +61,12 @@ class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
         help_text="For text-heavy pages, turn this on to reduce the overall width of the content on the page.",
     )
 
-    zen_nav = models.BooleanField(
-        default=False,
-        help_text="For secondary nav pages, use this to collapse the primary nav under a toggle hamburger.",
-    )
-
     body = StreamField(base_fields, use_json_field=True)
 
     settings_panels = Page.settings_panels + [
         MultiFieldPanel(
             [
                 FieldPanel("narrowed_page_content"),
-            ],
-            classname="collapsible",
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel("zen_nav"),
             ],
             classname="collapsible",
         ),
@@ -104,7 +93,6 @@ class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
         TranslatableField("intro"),
         TranslatableField("body"),
         SynchronizedField("narrowed_page_content"),
-        SynchronizedField("zen_nav"),
     ]
 
     subpage_types = [
@@ -683,11 +671,13 @@ class HomepageTakeActionCards(TranslatableMixin, WagtailOrderable):
         null=True,
         on_delete=models.SET_NULL,
     )
+    cta = models.CharField(max_length=50, default="Learn more")
 
     panels = [
         FieldPanel("image"),
         FieldPanel("text"),
         FieldPanel("internal_link"),
+        FieldPanel("cta", heading="CTA Link Text"),
     ]
 
     # translatable_fields = [
@@ -750,7 +740,7 @@ class PartnerLogos(TranslatableMixin, WagtailOrderable):
 
 class Homepage(FoundationMetadataPageMixin, Page):
     hero_headline = models.CharField(
-        max_length=80,
+        max_length=120,
         help_text="Hero story headline",
         blank=True,
     )
@@ -765,6 +755,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     def get_banner(self):
         return self.hero_image
+
+    show_hero_button = models.BooleanField(default=True, help_text="Display hero button")
 
     hero_button_text = models.CharField(max_length=50, blank=True)
 
@@ -783,6 +775,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
         help_text="Spotlight headline",
         blank=True,
     )
+
+    show_cause_statement = models.BooleanField(default=False, help_text="Display cause statement")
 
     cause_statement = models.CharField(
         max_length=250,
@@ -850,8 +844,9 @@ class Homepage(FoundationMetadataPageMixin, Page):
             [
                 FieldPanel(
                     "hero_headline",
-                    widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
+                    widget=CharCountWidget(attrs={"class": "max-length-warning", "data-max-length": 120}),
                 ),
+                FieldPanel("show_hero_button"),
                 FieldPanel("hero_button_text"),
                 FieldPanel("hero_button_url"),
                 FieldPanel("hero_image"),
@@ -861,6 +856,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
+                FieldPanel("show_cause_statement"),
                 FieldPanel("cause_statement"),
                 FieldPanel("cause_statement_link_text"),
                 FieldPanel("cause_statement_link_page"),
