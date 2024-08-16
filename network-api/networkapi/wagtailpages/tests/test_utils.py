@@ -10,7 +10,7 @@ from taggit import models as tag_models
 from wagtail.images.models import Image
 from wagtail.models import Collection, Locale
 
-from networkapi.wagtailpages import (
+from networkapi.wagtailpages.override_utils import (
     language_code_to_iso_3166,
     parse_accept_lang_header,
     to_language,
