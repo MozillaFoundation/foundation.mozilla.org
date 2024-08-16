@@ -119,7 +119,7 @@ class NavMenu(
     base_form_class = NavMenuForm
 
     translatable_fields = [
-        TranslatableField("title"),
+        SynchronizedField("title"),
         TranslatableField("dropdowns"),
         SynchronizedField("enable_blog_dropdown"),
         TranslatableField("blog_button_label"),
@@ -151,27 +151,37 @@ class NavMenu(
 
     @property
     def localized_featured_blog_topics(self):
+        en_locale = wagtail_models.Locale.objects.get(language_code="en")
+        active_locale = wagtail_models.Locale.get_active()
+
+        # Get localized blog_topics
         featured_topics_relationships = self.featured_blog_topics.all().select_related("topic", "icon")
 
-        # Build a cache of the local topics:
-        topic_ids = list(featured_topics_relationships.values_list("topic_id", flat=True))
-        topics = BlogPageTopic.objects.filter(id__in=topic_ids).order_by("nav_menu_featured_topics__sort_order")
-        topics = localize_queryset(topics, preserve_order=True)
-        topics_cache = {topic.translation_key: topic for topic in topics}
+        # If not in the en locale, build a cache of en_topics to efficiently get the topics's en slug
+        # @TODO Localize Slugs TP1-690 / #12367
+        if active_locale != en_locale:
+            # Get topics from the en_menu
+            en_featured_topics_relationships = self.get_translation(en_locale).featured_blog_topics
 
-        # Replace topics with localized versions:
-        for relationship in featured_topics_relationships:
-            if relationship.topic:
-                local_topic = topics_cache.get(relationship.topic.translation_key)
-                if local_topic:
-                    relationship.topic = local_topic
+            # Build a cache of the en topics:
+            en_topic_ids = list(en_featured_topics_relationships.values_list("topic_id", flat=True))
+            en_topics = BlogPageTopic.objects.filter(id__in=en_topic_ids).order_by(
+                "nav_menu_featured_topics__sort_order"
+            )
+            en_topics_cache = {en_topic.translation_key: en_topic for en_topic in en_topics}
 
-        # Annotate with its url:
+        # Build featured topics slugs
         blog_index_page = self.blog_index_page
         for relationship in featured_topics_relationships:
             if relationship.topic:
+                # Use the en slug only until slugs are localized @TODO TP1-690 / #12367
+                if active_locale != en_locale:
+                    topic_slug = en_topics_cache.get(relationship.topic.translation_key).slug
+                else:
+                    topic_slug = relationship.topic.slug
+
                 relationship.topic.url = blog_index_page.url + blog_index_page.reverse_subpage(
-                    "entries_by_topic", args=[relationship.topic.slug]
+                    "entries_by_topic", args=[topic_slug]
                 )
 
         return featured_topics_relationships

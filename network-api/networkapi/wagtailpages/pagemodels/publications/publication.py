@@ -286,10 +286,6 @@ class PublicationPage(BasePage):
                 prev_page = sibling
         return prev_page
 
-    @property
-    def zen_nav(self):
-        return True
-
     def breadcrumb_list(self):
         """
         Get all the parent PublicationPages and return a QuerySet

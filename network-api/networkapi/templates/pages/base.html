@@ -15,7 +15,7 @@
         <title>
             {% block page_title %}
                 {% environment_prefix %}
-                {% trans "Mozilla Foundation" %} - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}
+                {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %} - {% trans "Mozilla Foundation" %}
             {% endblock %}
         </title>
 
@@ -64,7 +64,7 @@
 
         {% block stylesheets %}
             <link rel="stylesheet" href="{% static "_css/main.compiled.css" %}">
-            <link rel="stylesheet" href="{% static "_css/fonts.compiled.css" %}">
+            <link rel="stylesheet" href="{% static "_fonts/css/base.min.css" %}">
         {% endblock %}
 
         {% block extended_head %}{% endblock %}

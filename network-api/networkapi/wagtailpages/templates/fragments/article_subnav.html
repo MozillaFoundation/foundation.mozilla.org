@@ -1,10 +1,11 @@
 {% load i18n wagtailimages_tags wagtailcore_tags static %}
+{% get_current_language as LANGUAGE_CODE %}
 
 <div class="article-navbar-container position-relative" aria-hidden="true">
     <div class="article-navbar">
         <div class="tw-container">
             <div class="tw-row tw-items-end">
-                <div class="article-navbar-title tw-body-large tw-capitalize tw-pl-8 tw-hidden medium:tw-block tw-w-[280px] large:tw-w-auto tw-truncate">
+                <div class="article-navbar-title tw-body-large {% if LANGUAGE_CODE == 'en' %}tw-capitalize{% endif %} tw-pl-8 tw-hidden medium:tw-block tw-w-[280px] large:tw-w-auto tw-truncate">
                     {% if get_titles %}
                         {{ page.title|truncatechars:60 }}
                     {% else %}

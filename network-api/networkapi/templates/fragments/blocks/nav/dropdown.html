@@ -8,19 +8,21 @@
 {% comment %} 40 (5rem) is the height of the navbar {% endcomment %}
 {% fragment as content_desktop_positioning %}xlarge:tw-fixed xlarge:tw-top-40 xlarge:tw-left-0 xlarge:tw-right-0 xlarge:tw-mx-auto{% endfragment %}
 
-{% fragment as title_base_typography %}tw-font-sans tw-font-bold tw-text-xl tw-capitalize tw-text-black{% endfragment %}
+{% fragment as title_base_typography %}tw-font-sans tw-font-bold tw-text-xl tw-text-black{% endfragment %}
 {% fragment as title_desktop_typography %}xlarge:tw-text-lg{% endfragment %}
 {% comment %} 2.5rem for half the navbar's height, 14px for half the title's line height, 6px for the title bottom border and 1 px for the dropdown border:{% endcomment %}
 {% fragment as title_underline %}xlarge:tw-h-full xlarge:tw-pt-[calc(2.5rem-14px)] xlarge:tw-pb-[calc(2.5rem-14px-6px+1px)]{% endfragment %}
 
 {% get_dropdown_id menu=menu idx=forloop.counter0 as dropdown_id %}
 {% if dropdown_id %}
-    {% check_if_dropdown_is_active dropdown_id as is_dropdown_active %}
+    {% check_if_dropdown_can_be_active dropdown_id as can_dropdown_be_active %}
 {% endif %}
 
 <div class="tw-nav-{{ style }}-dropdown tw-flex tw-flex-col"
      {% block data_class_attribute %}data-{{ style }}-dropdown{% endblock data_class_attribute %}
-     data-is-wayfinding-active="{% if is_dropdown_active %}true{% else %}false{% endif %}"
+     data-dropdown-id="{{ dropdown_id }}"
+     data-can-wayfinding-be-active="{% block can_wayfinding_be_active %}{% if can_dropdown_be_active %}true{% else %}false{% endif %}{% endblock can_wayfinding_be_active %}"
+     data-should-wayfinding-be-active="false"
 >
     <button class="tw-btn {{ dropdown_selector_base }} tw-py-12 xlarge:tw-py-0 xlarge:tw-items-center xlarge:tw-h-full" data-accordion-button>
         <span class="xlarge:tw-py-12 tw-h5-heading tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }} {{ title_underline }}">
