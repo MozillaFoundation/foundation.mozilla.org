@@ -117,7 +117,7 @@ class BlogPage(BasePage):
 
     body = StreamField(
         base_fields,
-        block_counts={"typeform": {"max_num": 1}, "newsletter_signup": {"max_num": 1}},
+        block_counts={"newsletter_signup": {"max_num": 1}},
         use_json_field=True,
     )
 
