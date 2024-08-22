@@ -409,6 +409,7 @@ else:
 DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
 
 # network asset domain used in templates
+
 ASSET_DOMAIN = env("ASSET_DOMAIN")
 
 WSGI_APPLICATION = "networkapi.wsgi.application"
