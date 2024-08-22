@@ -42,7 +42,7 @@ let main = {
 
     this.fetchEnv((envData) => {
       env = envData;
-      networkSiteURL = env.NETWORK_SITE_URL;
+      networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       if (env.SENTRY_DSN) {
         // Initialize Sentry error reporting
         initializeSentry(
@@ -63,10 +63,6 @@ let main = {
         sessionStorage.setItem("subscribed", subscribed);
       }
 
-      // HEROKU_APP_DOMAIN is used by review apps
-      if (!networkSiteURL && env.HEROKU_APP_NAME) {
-        networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
-      }
 
       this.injectReactComponents();
       this.bindHandlers();
