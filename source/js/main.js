@@ -66,7 +66,7 @@ let main = {
 
     this.fetchEnv((envData) => {
       env = envData;
-      networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
+      networkSiteURL = window.location.origin;
 
       if (env.SENTRY_DSN) {
         // Initialize Sentry error reporting
@@ -75,6 +75,11 @@ let main = {
           env.RELEASE_VERSION,
           env.SENTRY_ENVIRONMENT
         );
+      }
+
+      // HEROKU_APP_DOMAIN is used by review apps
+      if (!networkSiteURL && env.HEROKU_APP_NAME) {
+        networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
       this.injectReactComponents();
