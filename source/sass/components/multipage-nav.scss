@@ -36,28 +36,4 @@
       @apply tw-mb-12;
     }
   }
-
-  .multipage-login-restricted::after,
-  .multipage-groups-restricted::after,
-  .multipage-password-restricted::after,
-  .multipage-draft::after {
-    color: $dark-red;
-    font-size: 0.8rem;
-  }
-
-  .multipage-login-restricted::after {
-    content: "(for login users only)";
-  }
-
-  .multipage-groups-restricted::after {
-    content: "(for specific usergroups only)";
-  }
-
-  .multipage-password-restricted::after {
-    content: "(password protected)";
-  }
-
-  .multipage-draft::after {
-    content: "(draft)";
-  }
 }

@@ -1,0 +1,16 @@
+{% with class="tw-text-red-80 tw-text-sm tw-ml-1" %}
+    {% comment %}These notes are internal facing only.{% endcomment %}
+
+    {% if menu_entry.restriction == "login" %}
+        <span class="{{ class }}">(logged in users only)</span>
+    {% elif menu_entry.restriction == "groups" %}
+        <span class="{{ class }}">(restricted to specific groups)</span>
+    {% elif menu_entry.restriction == "password" %}
+        <span class="{{ class }}">(password protected)</span>
+    {% endif %}
+
+    {% if not menu_entry.page.live %}
+        <span class="{{ class }}">(draft)</span>
+    {% endif %}
+
+{% endwith %}
