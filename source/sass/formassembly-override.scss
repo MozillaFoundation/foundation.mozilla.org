@@ -286,3 +286,10 @@ $input-font-size: 1.25rem !important;
     }
   }
 }
+
+
+
+#onetrust-consent-sdk #onetrust-accept-btn-handler, #onetrust-banner-sdk #onetrust-reject-all-handler {
+  font-family: $font-family-sans-serif;
+  color: black !important;
+}
