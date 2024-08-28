@@ -92,7 +92,8 @@ class DefaultSignupForm extends Component {
   }
 
   handleInputFocus() {
-    ReactGA.event({
+    window.dataLayer.push({
+      event: `signup_form_input_focused`,
       category: `signup`,
       action: `form focus`,
       label: `Signup form input focused`,

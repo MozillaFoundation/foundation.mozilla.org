@@ -104,21 +104,17 @@ function withSubmissionLogic(WrappedComponent) {
      * @returns {void}
      */
     trackFormSubmit(formData) {
-      ReactGA.event({
-        category: `signup`,
-        action: `form submit tap`,
-        label: `Signup submitted from ${
-          this.props.formPosition ? this.props.formPosition : document.title
-        }`,
-      });
-
-      window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
-        event: "form_submission",
+        event: "form_submission_newsletter_signup",
+        category: `signup_submitted_from`,
+        action: `form submit tap`,
         form_type: "newsletter_signup",
         form_location: this.props.formPosition || null,
         country: formData.country,
         language: formData.language,
+        label: `Signup submitted from ${
+          this.props.formPosition ? this.props.formPosition : document.title
+        }`,
       });
     }
 
