@@ -1,18 +1,18 @@
 {% load i18n %}
 
-{% with class="tw-text-red-80 tw-text-sm tw-ml-1" note_for_translators="This note is internal facing only and is only visible to our CMS logged in users." %}
+{% with class="tw-text-red-80 tw-text-sm tw-ml-1" %}
     {% comment %}These notes are internal facing only. Only logged in users can see them.{% endcomment %}
 
     {% if menu_entry.restriction == "login" %}
-        <span class="{{ class }}">{% trans "(logged in users only)" context note_for_translators %}</span>
+        <span class="{{ class }}">(logged in users only)</span>
     {% elif menu_entry.restriction == "groups" %}
-        <span class="{{ class }}">{% trans "(restricted to specific groups)" context note_for_translators %}</span>
+        <span class="{{ class }}">(restricted to specific groups)</span>
     {% elif menu_entry.restriction == "password" %}
-        <span class="{{ class }}">{% trans "(password protected)" context note_for_translators %}</span>
+        <span class="{{ class }}">(password protected)</span>
     {% endif %}
 
     {% if not menu_entry.page.live %}
-        <span class="{{ class }}">{% trans "(draft)" context note_for_translators %}</span>
+        <span class="{{ class }}">(draft)</span>
     {% endif %}
 
 {% endwith %}
