@@ -1,6 +1,8 @@
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
+from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
+
 
 class CardGrid(blocks.StructBlock):
     image = ImageChooserBlock()
@@ -11,14 +13,8 @@ class CardGrid(blocks.StructBlock):
 
     body = blocks.TextBlock(help_text="Body text of the card.")
 
-    link_url = blocks.CharBlock(
-        required=False,
-        help_text="Optional URL that this card should link out to. " "(Note: If left blank, link will not render.) ",
-    )
-
-    link_label = blocks.CharBlock(
-        required=False,
-        help_text="Optional Label for the URL link above. " "(Note: If left blank, link will not render.) ",
+    link = blocks.ListBlock(
+        LinkBlock(), min_num=0, max_num=1, help_text="Optional link that this card should link out to."
     )
 
 

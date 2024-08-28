@@ -1,4 +1,4 @@
-import CREEPINESS_LABELS from "./components/creepiness-labels.js";
+import CREEPINESS_LABELS from "../components/creepiness-labels.js";
 
 /**
  * Logic to render the "Creep-O-Meter" face at the bottom right of the PNI homepage.

@@ -320,8 +320,14 @@ def generate_card_grid_field():
                 "image": choice(Image.objects.all()).id,
                 "title": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
                 "body": fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
-                "link_label": " ".join(fake.words(nb=3)),
-                "link_url": fake.url(schemes=["https"]),
+                "link": [
+                    {
+                        "label": fake.sentence(nb_words=3, variable_nb_words=True),
+                        "link_to": "external_url",
+                        "external_url": fake.url(schemes=["https"]),
+                        "new_window": True,
+                    }
+                ],
             }
         )
 

@@ -26,6 +26,7 @@ def generate(seed):
             image=choice(all_images),
             text=faker.text(max_nb_chars=255),
             internal_link=choice(all_pages),
+            cta=faker.text(max_nb_chars=50),
         )
         home_page.take_action_cards.add(take_action_orderable)
 
