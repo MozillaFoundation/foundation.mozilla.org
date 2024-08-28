@@ -4,6 +4,9 @@ const DOWN_ARROW_KEY_CODE = 40;
 const UP_ARROW_KEY_CODE = 38;
 const ESCAPE_KEY_CODE = 27;
 
+/**
+ * Dropdown component for sorting products on PNI
+ */
 export class PNISortDropdown {
   constructor(searchFilter) {
     this.searchFilter = searchFilter;
@@ -81,6 +84,11 @@ export class PNISortDropdown {
     }
   }
 
+  /**
+   * Sets the selected list item and updates the dropdown button content.
+   * @param {Event} e - The event (e.g., click, keydown)
+   * @param {boolean} [pushUpdate=true] - Whether to push the update to the history state.
+   */
   setSelectedListItem(e, pushUpdate = true) {
     this.listItems.forEach((item) => {
       const itemDiv = item.querySelector("div");
@@ -99,12 +107,20 @@ export class PNISortDropdown {
     }
   }
 
+  /**
+   * Closes the dropdown list.
+   */
   closeList() {
     this.listContainer.classList.add("tw-hidden");
     this.dropdownButton.setAttribute("aria-expanded", false);
     this.dropdownButtonArrow.classList.remove("tw-rotate-180");
   }
 
+  /**
+   * Opens the dropdown list.
+   *
+   * @param {boolean} [withFocus=false] - Whether to focus on the first list item.
+   */
   openList(withFocus = false) {
     this.listContainer.classList.remove("tw-hidden");
     this.dropdownButton.setAttribute("aria-expanded", true);
@@ -118,6 +134,11 @@ export class PNISortDropdown {
     }
   }
 
+  /**
+   * Toggle the visibility of the dropdown list
+   *
+   * @param {Event} e The event (e.g., click, keydown)
+   */
   toggleListVisibility(e) {
     const isExpanded =
       this.dropdownButton.getAttribute("aria-expanded") === "true";
@@ -140,6 +161,13 @@ export class PNISortDropdown {
     }
   }
 
+  /**
+   * Focus on the next list item based on the given direction.
+   *
+   * @param {number} direction - They key code of the direction to move the focus (e.g., key code for up arrow / down arrow)
+   *
+   * @todo Consider refactoring this method to make it more readable and maintainable.
+   */
   focusNextListItem(direction) {
     const activeElementId = document.activeElement.id;
     const currentActiveElementIndex = this.listItemIds.indexOf(activeElementId);
