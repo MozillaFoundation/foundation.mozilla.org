@@ -46,7 +46,7 @@ export default () => {
   if (donateBannerCta) {
     donateBannerCta.addEventListener(`click`, () => {
       window.dataLayer.push({
-        event:`donate_button_tap_banner`,
+        event: `donate_button_tap_banner`,
         category: `donate`,
         action: `donate button tap banner`,
         label: `${DOC_TITLE} banner`,
