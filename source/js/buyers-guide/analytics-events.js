@@ -1,4 +1,4 @@
-import { ReactGA, GoogleAnalytics } from "../common";
+import {GoogleAnalytics } from "../common";
 
 /**
  * Based on given page title and product name, generate an object to use for GA events

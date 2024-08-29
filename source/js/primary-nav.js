@@ -1,5 +1,3 @@
-import { ReactGA } from "./common";
-
 let primaryNav = {
   init: function () {
     let elBurger = document.querySelector(`.burger`);
