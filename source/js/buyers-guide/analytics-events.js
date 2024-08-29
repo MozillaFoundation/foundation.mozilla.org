@@ -109,7 +109,11 @@ function getQuerySelectorEvents(pageTitle, productName) {
  * @param {Object} eventData data to send as GA event
  */
 function setupElementGA(element, eventData) {
-  element.addEventListener("click", () => window.dataLayer.push(eventData), true);
+  element.addEventListener(
+    "click",
+    () => window.dataLayer.push(eventData),
+    true
+  );
 }
 
 /**
