@@ -14,9 +14,10 @@ const PARENT_TITLE = document.querySelector(`.parent-title`);
 
 export class Utils {
   /**
-   *...
-   * @param {*} category
-   * @returns
+   * Return the title of the page based on the category passed in the argument
+   *
+   * @param {String} category name of the category
+   * @returns {String} title of the page
    */
   static getTitle(category) {
     if (category == "None")
@@ -29,9 +30,12 @@ export class Utils {
   }
 
   /**
-   * ...
+   * Update page header to the category passed in the argument
+   *
    * @param {*} category
    * @param {*} parent
+   *
+   * @todo Improve the implementation to increase code readibility
    */
   static updateHeader(category, parent) {
     const headerText = document.querySelector(".category-header");
@@ -90,6 +94,7 @@ export class Utils {
 
   /**
    * Activate a specific category nav link
+   *
    * @param {String} category category name
    */
   static activateCatNav(category = "None") {
@@ -113,6 +118,7 @@ export class Utils {
 
   /**
    * Set active category nav link
+   *
    * @param {String} category name of the category
    */
   static setActiveCatNavLink(category) {
@@ -128,8 +134,11 @@ export class Utils {
   }
 
   /**
-   * ...
-   * @param {*} text
+   * Toggle products' visibility based on search text
+   *
+   * @param {String} text search text
+   *
+   * @todo Rename to "filterProductsBySearchText"
    */
   static toggleProducts(text) {
     gsap.set(ALL_PRODUCTS, { opacity: 1, y: 0 });
@@ -147,7 +156,7 @@ export class Utils {
   }
 
   /**
-   * Scroll Animation used solely for the 'All Products' section
+   * Scroll animation used solely for the 'All Products' section
    */
   static toggleScrollAnimation() {
     gsap.set("figure.product-box.d-flex", { opacity: 0, y: 100 });
@@ -204,8 +213,11 @@ export class Utils {
   }
 
   /**
-   * ...
-   * @param {*} category
+   * Toggle products' visibility based on category
+   *
+   * @param {String} category category name
+   *
+   * @todo Rename to "filterProductsByCategory"
    */
   static showProductsForCategory(category) {
     gsap.set(ALL_PRODUCTS, { opacity: 1, y: 0 });
@@ -222,8 +234,9 @@ export class Utils {
   }
 
   /**
-   * ...
-   * @param {*} category
+   * Toggle CTA visibility based on category
+   *
+   * @param {String} category category name
    */
   static toggleCtaForCategory(category) {
     const categoryPageCta = document.getElementById("category-featured-cta");
@@ -239,10 +252,13 @@ export class Utils {
   }
 
   /**
-   * ...
-   * @param {*} product
-   * @param {*} text
-   * @returns
+   * Test if any of the product fields contains the search text
+   *
+   * @param {Element} product DOM element of the product
+   * @param {String} text search text
+   * @returns {Boolean} Whether the product contains the search text
+   *
+   * @todo Rename to "doesProductContainSearchText"
    */
   static test(product, text) {
     // Note that the following is absolutely not true for all
@@ -263,16 +279,18 @@ export class Utils {
   }
 
   /**
-   * ...
-   * @param {*} product
-   * @param {*} category
-   * @returns
+   * Check if the product belongs to the category
+   *
+   * @param {Element} product DOM element of the product
+   * @param {String} category category name
+   * @returns {Boolean} Whether the product belongs to the category
    */
   static testCategories(product, category) {
     if (category === "None") {
       return true;
     }
 
+    // all the categories this product belongs to
     const productCategories = Array.from(
       product.querySelectorAll(".product-categories")
     );
@@ -281,7 +299,7 @@ export class Utils {
   }
 
   /**
-   * ...
+   * Sort the products by the default sort order
    */
   static sortFilteredProducts() {
     const container = document.querySelector(`.product-box-list`);
@@ -316,7 +334,9 @@ export class Utils {
   }
 
   /**
+   * Toggle the visibility of "no results" notice
    *
+   * @todo Rename to "toggleNoResultsNotice"
    */
   static checkForEmptyNotice() {
     let qs = `figure.product-box:not(.d-none)`;
@@ -336,6 +356,11 @@ export class Utils {
     }
   }
 
+  /**
+   * Toggle the visibility of the creepy face and speech
+   *
+   * @todo Rename to "toggleCreepyFace"
+   */
   static moveCreepyFace() {
     const CREEPINESS_FACE = document.querySelector(
       ".creep-o-meter-information"
@@ -383,6 +408,7 @@ export class Utils {
 
   /**
    * Scroll to a specific subcategory nav link if it exists on the page
+   *
    * @param {string} category - The name of the category
    */
   static scrollToSubCategory(category) {
