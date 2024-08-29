@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ReactGA } from "../../../common";
 import { getText } from "../../petition/locales";
 
 /**
