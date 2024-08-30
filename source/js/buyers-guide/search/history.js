@@ -6,10 +6,13 @@ const parentTitle = document.querySelector(`.parent-title`);
 const toggle = document.querySelector(`#product-filter-pni-toggle`);
 
 /**
- * ...
+ * Set up history management
+ *
  * @param {*} instance
- * @param {*} searchBar
- * @param {*} searchInput
+ * @param {Element} searchBar - The search bar element
+ * @param {Element} searchInput - The search input element
+ * @param {Element} mobileSearchBar - The mobile search bar element
+ * @param {Element} mobileSearchInput - The mobile search input element
  */
 export function setupHistoryManagement(
   instance,
@@ -35,10 +38,18 @@ export function setupHistoryManagement(
 }
 
 /**
- * ...
+ * Update History state and update page UI accordingly
+ *
  * @param {*} instance
- * @param {*} searchBar
- * @param {*} searchInput
+ * @param {Element} searchBar - The search bar element
+ * @param {Element} searchInput - The search input element
+ * @param {Element} mobileSearchBar - The mobile search bar element
+ * @param {Element} mobileSearchInput - The mobile search input element
+ *
+ * @todo FIXME. We need to revisit and improve the implementation of this function.
+ *       It's unclear why history.replaceState needs to be called twice.
+ *       It's also unclear why there are repeated if-else statements especially for search parameters.
+ *       Further investigation is needed to understand the purpose of this function.
  */
 export function performInitialHistoryReplace(
   instance,
@@ -120,10 +131,13 @@ export function performInitialHistoryReplace(
 }
 
 /**
- * ...
+ *  Set up the window.popstate event listener
+ *
  * @param {*} instance
- * @param {*} searchBar
- * @param {*} searchInput
+ * @param {Element} searchBar - The search bar element
+ * @param {Element} searchInput - The search input element
+ * @param {Element} mobileSearchBar - The mobile search bar element
+ * @param {Element} mobileSearchInput - The mobile search input element
  */
 export function setupPopStateHandler(
   instance,
@@ -183,7 +197,8 @@ export function setupPopStateHandler(
 }
 
 /**
- * ...
+ * Apply data stored in the history state to the page
+ *
  * @param {*} instance
  */
 export function applyHistory(instance) {

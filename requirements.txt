@@ -99,7 +99,7 @@ django-querystring-tag==1.0.3
     # via -r requirements.in
 django-redis==5.4.0
     # via -r requirements.in
-django-storages==1.14.3
+django-storages==1.14.4
     # via -r requirements.in
 django-taggit==3.0.0
     # via wagtail
@@ -113,7 +113,7 @@ draftjs-exporter==2.1.7
     # via wagtail
 et-xmlfile==1.1.0
     # via openpyxl
-factory-boy==3.3.0
+factory-boy==3.3.1
     # via
     #   -r requirements.in
     #   wagtail-factories
@@ -182,7 +182,7 @@ python-dateutil==2.8.2
     #   botocore
     #   faker
     #   heroku3
-python-slugify==8.0.3
+python-slugify==8.0.4
     # via -r requirements.in
 python3-openid==3.2.0
     # via social-auth-core
@@ -221,7 +221,7 @@ six==1.16.0
     #   python-dateutil
 smmap==5.0.0
     # via gitdb
-social-auth-app-django==5.4.1
+social-auth-app-django==5.4.2
     # via -r requirements.in
 social-auth-core==4.4.1
     # via social-auth-app-django
@@ -263,7 +263,7 @@ wagtail==5.2.6
     #   wagtail-localize-git
     #   wagtail-metadata
     #   wagtailmedia
-wagtail-ab-testing==0.9
+wagtail-ab-testing==0.10
     # via -r requirements.in
 wagtail-color-panel==1.5.0
     # via -r requirements.in
