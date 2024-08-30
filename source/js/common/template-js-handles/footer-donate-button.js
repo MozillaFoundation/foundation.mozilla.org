@@ -1,3 +1,5 @@
+import { ReactGA } from "../react-ga-proxy.js";
+
 /**
  * Bind click handler to #donate-footer-btn
  * ("Donate" button on footer)

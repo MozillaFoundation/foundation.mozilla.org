@@ -12,7 +12,7 @@ export default () => {
     .forEach((filter) => {
       let year = filter.textContent.trim();
       filter.addEventListener(`click`, () => {
-         window.dataLayer.push({
+        window.dataLayer.push({
           event: `profiles_directory_filter`,
           category: `profiles`,
           action: `directory filter`,

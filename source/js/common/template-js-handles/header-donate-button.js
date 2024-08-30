@@ -1,3 +1,5 @@
+import { ReactGA } from "../react-ga-proxy.js";
+
 /**
  * Bind click handler to data-donate-header-button
  * ("Donate" button on primary nav)
