@@ -93,7 +93,6 @@ class LatestProfileList(blocks.StructBlock):
         context["profile_type"] = value["profile_type"]
         context["program_type"] = value["program_type"]
         context["program_year"] = value["year"]
-
         return context
 
     class Meta:

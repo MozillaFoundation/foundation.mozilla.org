@@ -10,11 +10,6 @@ from taggit import models as tag_models
 from wagtail.images.models import Image
 from wagtail.models import Collection, Locale
 
-from networkapi.wagtailpages import (
-    language_code_to_iso_3166,
-    parse_accept_lang_header,
-    to_language,
-)
 from networkapi.wagtailpages.factory import blog as blog_factories
 from networkapi.wagtailpages.factory.blog import (
     BlogIndexPageFactory,
@@ -22,6 +17,11 @@ from networkapi.wagtailpages.factory.blog import (
     FeaturedBlogPagesFactory,
 )
 from networkapi.wagtailpages.factory.profiles import ProfileFactory
+from networkapi.wagtailpages.override_utils import (
+    language_code_to_iso_3166,
+    parse_accept_lang_header,
+    to_language,
+)
 from networkapi.wagtailpages.pagemodels.blog.blog import BlogAuthors, BlogPage
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.tests.base import WagtailpagesTestCase

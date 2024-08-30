@@ -60,7 +60,7 @@ class RecentBlogEntries(blocks.StructBlock):
 
         BlogIndexPage = apps.get_model("wagtailpages.BlogIndexPage")
         locale = get_locale_from_request(context["request"])
-        blog_page = BlogIndexPage.objects.get(title__iexact="blog", locale=locale)
+        blog_page = BlogIndexPage.objects.filter(locale=locale).live().first()
 
         tag = value.get("tag_filter", False)
         topic = value.get("topic_filter", False)

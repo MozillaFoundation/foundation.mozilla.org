@@ -31,11 +31,13 @@
         {% if homepage %}
             <div class="container tw-dark banner-content">
                 <div class="row">
-                    <div class="col-12 col-md-9 col-xl-6 mt-3 d-flex flex-column justify-content-end">
+                    <div class="col-12 col-md-9 col-xl-8 mt-3 d-flex flex-column justify-content-end">
                         <h1 class="tw-h1-heading">{{ page.hero_headline }}</h1>
-                        <div>
-                            <a href="{{ page.hero_button_url }}" class="tw-btn-secondary text-wrap" id="homepage-hero-cta">{{ page.hero_button_text }}</a>
-                        </div>
+                        {% if page.show_hero_button and page.hero_button_text and page.hero_button_url %}
+                            <div>
+                                <a href="{{ page.hero_button_url }}" class="tw-btn-secondary text-wrap mt-3" id="homepage-hero-cta">{{ page.hero_button_text }}</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

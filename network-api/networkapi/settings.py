@@ -56,7 +56,6 @@ env = environ.Env(
     HEROKU_RELEASE_VERSION=(str, None),
     INDEX_PAGE_CACHE_TIMEOUT=(int, 60 * 60 * 24),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
-    NETWORK_SITE_URL=(str, ""),
     PETITION_TEST_CAMPAIGN_ID=(str, ""),
     PNI_STATS_DB_URL=(str, None),
     PULSE_API_DOMAIN=(str, ""),
@@ -695,7 +694,6 @@ logging.config.dictConfig(LOGGING)
 FRONTEND = {
     "PULSE_API_DOMAIN": env("PULSE_API_DOMAIN"),
     "PULSE_DOMAIN": env("PULSE_DOMAIN"),
-    "NETWORK_SITE_URL": env("NETWORK_SITE_URL"),
     "TARGET_DOMAINS": env("TARGET_DOMAINS"),
     "SENTRY_DSN": env("SENTRY_DSN"),
     "RELEASE_VERSION": env("HEROKU_RELEASE_VERSION"),
@@ -717,9 +715,6 @@ USE_COMMENTO = env("USE_COMMENTO")
 
 # privacynotincluded statistics DB
 PNI_STATS_DB_URL = env("PNI_STATS_DB_URL")
-
-# Use network_url to check if we're running prod or not
-NETWORK_SITE_URL = env("NETWORK_SITE_URL")
 
 # Blog/Campaign index cache setting
 INDEX_PAGE_CACHE_TIMEOUT = env("INDEX_PAGE_CACHE_TIMEOUT")

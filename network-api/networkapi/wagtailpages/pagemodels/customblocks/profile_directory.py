@@ -43,7 +43,7 @@ class ProfileDirectory(LatestProfileList):
         context = super().get_context(
             value,
             parent_context=parent_context,
-            no_limit=True,
+            no_limit=False,
             initial_year=initial_year,
             ordering="custom_name",
         )
