@@ -99,7 +99,7 @@ django-querystring-tag==1.0.3
     # via -r requirements.in
 django-redis==5.4.0
     # via -r requirements.in
-django-storages==1.14.3
+django-storages==1.14.4
     # via -r requirements.in
 django-taggit==3.0.0
     # via wagtail
@@ -113,7 +113,7 @@ draftjs-exporter==2.1.7
     # via wagtail
 et-xmlfile==1.1.0
     # via openpyxl
-factory-boy==3.3.0
+factory-boy==3.3.1
     # via
     #   -r requirements.in
     #   wagtail-factories
