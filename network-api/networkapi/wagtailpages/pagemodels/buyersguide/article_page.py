@@ -59,7 +59,6 @@ class BuyersGuideArticlePage(BasePage):
             ("airtable", customblocks.AirTableBlock()),
             ("datawrapper", customblocks.DatawrapperBlock()),
         ),
-        block_counts={"typeform": {"max_num": 1}},
         null=True,
         blank=False,
         use_json_field=True,

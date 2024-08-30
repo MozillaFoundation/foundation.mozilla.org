@@ -182,7 +182,7 @@ python-dateutil==2.8.2
     #   botocore
     #   faker
     #   heroku3
-python-slugify==8.0.3
+python-slugify==8.0.4
     # via -r requirements.in
 python3-openid==3.2.0
     # via social-auth-core
@@ -210,7 +210,7 @@ scipy==1.10.0
     # via wagtail-ab-testing
 scout-apm==3.0.2
     # via -r requirements.in
-sentry-sdk==1.45.0
+sentry-sdk==2.8.0
     # via -r requirements.in
 six==1.16.0
     # via
@@ -263,7 +263,7 @@ wagtail==5.2.6
     #   wagtail-localize-git
     #   wagtail-metadata
     #   wagtailmedia
-wagtail-ab-testing==0.9
+wagtail-ab-testing==0.10
     # via -r requirements.in
 wagtail-color-panel==1.5.0
     # via -r requirements.in
