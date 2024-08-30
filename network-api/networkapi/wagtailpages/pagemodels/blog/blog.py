@@ -24,7 +24,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.wagtailpages.forms import BlogPageForm
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 
-from ...utils import TitleWidget, get_content_related_by_tag
+from ...utils import CharCountWidget, get_content_related_by_tag
 from .. import customblocks
 from ..base import BasePage
 from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
@@ -58,7 +58,6 @@ base_fields = [
     ("spacer", customblocks.BootstrapSpacerBlock()),
     ("airtable", customblocks.AirTableBlock()),
     ("datawrapper", customblocks.DatawrapperBlock()),
-    ("typeform", customblocks.TypeformBlock()),
     ("newsletter_signup", customblocks.BlogNewsletterSignupBlock()),
 ]
 
@@ -118,7 +117,7 @@ class BlogPage(BasePage):
 
     body = StreamField(
         base_fields,
-        block_counts={"typeform": {"max_num": 1}, "newsletter_signup": {"max_num": 1}},
+        block_counts={"newsletter_signup": {"max_num": 1}},
         use_json_field=True,
     )
 
@@ -133,8 +132,6 @@ class BlogPage(BasePage):
     )
 
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
-
-    zen_nav = False
 
     hero_image = models.ForeignKey(
         "wagtailimages.Image",
@@ -169,7 +166,7 @@ class BlogPage(BasePage):
         TitleFieldPanel(
             "title",
             classname="full title",
-            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
+            widget=CharCountWidget(attrs={"class": "max-length-warning", "data-max-length": 60}),
         ),
         MultiFieldPanel([InlinePanel("authors", label="Author", min_num=1)], heading="Author(s)"),
         FieldPanel("topics", widget=CheckboxSelectMultiple),

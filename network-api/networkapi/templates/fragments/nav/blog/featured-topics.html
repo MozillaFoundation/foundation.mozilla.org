@@ -1,0 +1,11 @@
+{% extends "fragments/blocks/nav/featured-column.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Popular topics" %}{% endblock title %}
+
+{% block content %}
+    {% for relationship in relationships %}
+        <div class="tw-self-stretch">{% include "./topic.html" with topic=relationship.topic icon=relationship.icon %}</div>
+    {% endfor %}
+{% endblock content %}

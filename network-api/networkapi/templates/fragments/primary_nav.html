@@ -1,99 +1,69 @@
 {% load primary_active_nav i18n %}
 
-{% if page.zen_nav == True %}<div data-nav-mode="zen" class="zen-mode primary-nav-container">
-{% else %}<div class="primary-nav-container">
-{% endif %}
-<div class="wrapper-burger {% block wrapper_classes %}{% endblock %}">
-    <div class="menu-container {% block menu_container_classes %}{% endblock %}">
-        {% block menu_content %}
-            <div class="narrow-screen-menu hidden d-lg-none">
-                {% block narrow_screen_menu %}
-                    <div class="narrow-screen-menu-background tw-dark">
-                        <div class="narrow-screen-menu-container">
-                            <div class="container" role="navigation">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="nav-links pt-3">
-                                            {% block narrow_screen_nav_links %}
-                                                <div><a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}" href="{{ menu_root.url }}">{% trans "Home" %}</a></div>
-                                                {% include "fragments/nav_links.html" with pre="<div>" post="</div>" %}
-                                            {% endblock %}
-                                            {% if page.signup == None %}<div class="mt-2"><button class="tw-btn-secondary btn-newsletter">{% trans "Newsletter" %}</button></div>{% endif %}
+<div class="primary-nav-container">
+    <div class="wrapper-burger {% block wrapper_classes %}{% endblock %}">
+        <div class="menu-container xlarge:tw-h-40 tw-py-8 small:tw-pl-0 medium:tw-py-10 xlarge:tw-py-0 {% block menu_container_classes %}{% endblock %}">
+            {% block menu_content %}
+                <div class="narrow-screen-menu tw-bg-white hidden xlarge:tw-hidden tw-overflow-y-auto">
+                    {% block narrow_screen_menu %}
+                        <div class="narrow-screen-menu-background tw-dark">
+                            <div class="narrow-screen-menu-container ">
+                                <div class="tw-container" role="navigation">
+                                    <div class="tw-row">
+                                        <div class="tw-flex-grow tw-max-w-full tw-flex-1">
+                                            <div class="nav-links pt-3">
+                                                {% block narrow_screen_nav_links %}
+                                                    <div><a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}" href="{{ menu_root.url }}">{% trans "Home" %}</a></div>
+                                                    {% include "fragments/nav_links.html" with pre="<div>" post="</div>" %}
+                                                {% endblock %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endblock %}
-            </div>
-        {% endblock %}
-        <nav class="container wide-screen-menu-container" title="{% trans "main site navigation" context "Tooltip on menu items" %}">
-            <div class="row">
-                <div class="col">
-                    <div class="d-flex flex-row justify-content-between">
-                        <div id="primary-nav-links" class="tw-w-full large:tw-w-auto">
-                            <div class="d-flex align-items-center flex-wrap">
-
-                                <button class="burger {% if page.zen_nav is not True %} d-lg-none ml-md-0 {% endif %}" aria-label="{% trans 'Open menu' %}">
-                                    <span class="burger-bar burger-bar-top"></span>
-                                    <span class="burger-bar burger-bar-middle"></span>
-                                    <span class="burger-bar burger-bar-bottom"></span>
-                                </button>
-
-                                {% block nav_logo %}
-                                    <a class="logo text-hide" href="/" aria-label="{% trans "Mozilla Foundation Homepage" %}">{% trans "Mozilla Foundation" %}</a>
-                                {% endblock %}
-
-                                {% if page.zen_nav == True %}
-                                    <div class="wide-screen-menu hidden">
-                                {% else %}
-                                    <div class="wide-screen-menu">
-                                {% endif %}
-
-                                {% block wide_screen_menu %}
-                                    <div class="nav-links d-none d-lg-block">
-                                        {% include "fragments/nav_links.html" %}
-                                    </div>
-                                {% endblock %}
-
-                            </div>
-                        </div>
-                    </div>
-
-                    {% block donate_and_newsletter %}
-                        <div class="d-flex align-items-center">
-                            <a data-donate-header-button class="primary-nav-special-link tw-heart-glyph tw-flex" href="?form=donate-header">{% trans "Donate" %}</a>
-                            {% if page.signup == None %}<button class="tw-btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
-                        </div>
                     {% endblock %}
-
                 </div>
-            </div>
-        </div>
-    </nav>
+            {% endblock %}
+            <nav class="tw-container wide-screen-menu-container tw-relative xlarge:tw-h-full tw-bg-white" aria-label="{% trans "main site navigation" context "Tooltip on menu items" %}">
+                <div class="tw-row tw-h-full tw-justify-between xlarge:tw-items-center">
+                    <div class="col">
+                        <div class="tw-flex tw-flex-row tw-justify-between xlarge:tw-items-center">
+                            <div id="primary-nav-links" class="tw-w-full tw-py-0 xlarge:tw-w-auto xlarge:tw-items-center">
+                                <div class="tw-flex tw-items-center tw-flex-wrap">
+                                    <button class="burger tw-z-50 tw-bg-white xlarge:tw-hidden small:tw-ml-0" aria-label="{% trans 'Open menu' %}">
+                                        <span class="burger-bar burger-bar-top"></span>
+                                        <span class="burger-bar burger-bar-middle"></span>
+                                        <span class="burger-bar burger-bar-bottom"></span>
+                                    </button>
 
-</div>
-</div>
-</div>
+                                    {% block nav_logo %}
+                                        <a class="logo text-hide tw-z-50" href="/" aria-label="{% trans "Mozilla Foundation Homepage" %}">{% trans "Mozilla Foundation" %}</a>
+                                    {% endblock %}
 
+                                    <div class="wide-screen-menu xlarge:tw-h-full xlarge:tw-flex xlarge:tw-items-center">
 
-<div id="nav-newsletter-form-wrapper" class="d-none">
-    <div class="container tw-dark">
-        <div class="row">
-            <div class="col-12">
-                <div class="newsletter-signup-module on-nav tw-pt-24"
-                     data-module-type="default"
-                     data-form-style="header:2-col"
-                     data-form-position="header"
-                     data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
-                     data-cta-header="{% trans "Help shape the future of the web for the public good." %}"
-                     data-cta-description="<p>{% trans "Join our <b>Mozilla News</b> email list to get action alerts & internet tips right to your inbox." %}</p>"
-                ></div>
-                <div class="text-center mt-3 d-lg-none">
-                    <button class="tw-btn form-dismiss">{% trans "No thanks" %}</button>
+                                        {% block wide_screen_menu %}
+                                            <div class="nav-links d-none d-xl-block">
+                                                {% include "fragments/nav_links.html" %}
+                                            </div>
+                                        {% endblock %}
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% block donate_and_newsletter %}
+                                <div class="d-flex align-items-center">
+                                    <a data-donate-header-button class="tw-btn-secondary tw-flex tw-heart-glyph" href="?form=donate-header">{% trans "Donate" %}</a>
+                                </div>
+                            {% endblock %}
+
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </nav>
+
         </div>
     </div>
 </div>

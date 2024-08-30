@@ -1,0 +1,11 @@
+name: Navigation Overview
+context:
+    value:
+        title: About Us
+        description: Mozilla is a global nonprofit dedicated to keeping the Internet a public resource that is open and accessible to all.
+    button: True
+
+tags:
+    include_block:
+        'button with style="primary"':
+            template_name: "fragments/blocks/nav/button.html"

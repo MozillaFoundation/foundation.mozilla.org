@@ -1,0 +1,24 @@
+{% extends "fragments/blocks/nav/dropdown.html" %}
+
+{% load i18n nav_tags %}
+
+{% block title %}{% trans "Blog" %}{% endblock title %}
+
+{% block can_wayfinding_be_active %}{% spaceless %}
+    {% check_if_blog_dropdown_can_be_active as blog_dropdown_can_be_active %}
+    {% if blog_dropdown_can_be_active %}true{% else %}false{% endif %}
+{% endspaceless %}{% endblock can_wayfinding_be_active %}
+
+{% block content_width %} xlarge:tw-w-{{ ncols }}/4 {% endblock content_width %}
+{% block grid_columns %}xlarge:tw-grid-cols-{{ ncols }} tw-has-featured-column{% endblock grid_columns %}
+
+{% block content %}
+    {% include "./featured-posts.html" with posts=menu.localized_featured_blog_posts %}
+    {% include "./featured-topics.html" with relationships=menu.localized_featured_blog_topics %}
+{% endblock content %}
+
+{% block full_span_button %}
+    <div class="tw-w-full">
+        {% include "./button.html" with url=menu.blog_button_url label=menu.blog_button_label %}
+    </div>
+{% endblock full_span_button %}

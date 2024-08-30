@@ -1,0 +1,41 @@
+{% extends "fragments/primary_nav.html" %}
+
+{% load i18n wagtailcore_tags wagtailadmin_tags %}
+
+{% block menu_container_classes %}
+    {{ block.super }}
+    tw-relative
+{% endblock menu_container_classes %}
+
+{% block menu_content %}
+    <div class="narrow-screen-menu new-nav-enabled tw-bg-white hidden xlarge:tw-hidden tw-overflow-y-auto">
+        {% block narrow_screen_menu %}
+            {% fragment as link_hover_padding %}xlarge:tw-p-4{% endfragment %}
+            <div class="narrow-screen-menu-background tw-bg-white tw-min-h-lvh">
+                <div class="narrow-screen-menu-container tw-px-0">
+                    <div class="tw-flex tw-flex-col tw-divide-y-[1px] tw-divide-gray-20 tw-border-b tw-border-b-gray-20 tw-w-full" data-nav-accordion-menu>
+                        {% for dropdown in menu.dropdowns %}
+                            {% include_block dropdown with style="mobile" link_hover_padding=link_hover_padding %}
+                        {% endfor %}
+                        {% if menu.enable_blog_dropdown %}
+                            {% include "fragments/nav/blog/blog-dropdown.html" with style="mobile" link_hover_padding=link_hover_padding %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endblock narrow_screen_menu %}
+    </div>
+{% endblock menu_content %}
+
+{% block wide_screen_menu %}
+    {% fragment as link_hover_padding %}xlarge:tw-p-4{% endfragment %}
+
+    <div class="tw-hidden xlarge:tw-flex xlarge:tw-flex-row xlarge:tw-items-center xlarge:tw-h-full" data-nav-accordion-menu>
+        {% for dropdown in menu.dropdowns %}
+            {% include_block dropdown with style="desktop" link_hover_padding=link_hover_padding %}
+        {% endfor %}
+        {% if menu.enable_blog_dropdown %}
+            {% include "fragments/nav/blog/blog-dropdown.html" with style="desktop" ncols="3" alignment_class="tw-justify-end" link_hover_padding=link_hover_padding %}
+        {% endif %}
+    </div>
+{% endblock wide_screen_menu %}

@@ -1,0 +1,12 @@
+{# This template is only used for snippet preview. #}
+{% extends "pages/base.html" %}
+
+{% block wagtail_metadata %}{% endblock wagtail_metadata %}
+
+{% block primary_nav %}
+    {% include "fragments/nav/menu.html" with menu=object %}
+{% endblock primary_nav %}
+
+{% block footer_block %}
+    {% include "fragments/footer.html" with exclude_language_switcher=True %}
+{% endblock footer_block %}
