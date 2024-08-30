@@ -4,8 +4,7 @@
 {% block body_id %}dear-internet{% endblock %}
 
 {% block extended_head %}
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "_fonts/css/caveat.min.css" %}">
 {% endblock %}
 
 {% block content %}
@@ -83,8 +82,10 @@
                         {% if page.cta %}
                             <p>{{ page.cta }}</p>
                         {% endif %}
-                        {% if page.cta_button_text and page.cta_button_link %}
-                            <a class="tw-btn-secondary tw-heart-glyph my-3" href="{{ page.cta_button_link }}" target="_blank">{{ page.cta_button_text }}</a>
+                        {% if page.cta_button %}
+                            {% with cta_button=page.cta_button.0.value %}
+                                <a class="tw-btn-secondary tw-heart-glyph my-3" href="{{ cta_button.url }}" {% if cta_button.new_window %}target="_blank"{% endif %}>{{ cta_button.label }}</a>
+                            {% endwith %}
                         {% endif %}
                     </div>
                 </div>

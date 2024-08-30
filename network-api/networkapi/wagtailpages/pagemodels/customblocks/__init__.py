@@ -4,6 +4,7 @@ from .accordion_block import AccordionBlock, AccordionItem
 from .advanced_table_block import AdvancedTableBlock
 from .airtable_block import AirTableBlock
 from .annotated_image_block import AnnotatedImageBlock
+from .app_install_download_button_block import AppInstallDownloadButtonBlock
 from .article_teaser_block import ArticleTeaserBlock
 from .articles import (
     ArticleDoubleImageBlock,
@@ -52,6 +53,5 @@ from .single_quote_block import SingleQuoteBlock
 from .spaces_block import SpacesBlock
 from .text_only_teaser import TextOnlyTeaserBlock
 from .tito_widget import TitoWidgetBlock
-from .typeform_block import TypeformBlock
 from .video_block import ExternalVideoBlock, VideoBlock, WagtailVideoChooserBlock
 from .youtube_regret_block import YoutubeRegretBlock

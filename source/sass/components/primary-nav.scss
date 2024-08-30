@@ -13,15 +13,6 @@
     md: 9px,
   );
 
-  &.zen-mode {
-    .menu-container {
-      @media (min-width: $bp-md) {
-        padding-left: 52px;
-        padding-right: 52px;
-      }
-    }
-  }
-
   .menu-container {
     padding: 0 0 0 52px;
 
@@ -124,14 +115,22 @@
 
     .wide-screen-menu {
       line-height: $logo-height; //Tied to logo height so that the "active" page border shows up at the correct alignment consistently
+      height: auto;
       &.hidden {
+        height: 0;
         opacity: 0;
         transform: translateY(8px);
         visibility: hidden;
-        transition: opacity 0.15s, transform 0.15s, visibility 0s linear 0.15s;
+        transition:
+          opacity 0.15s,
+          transform 0.15s,
+          visibility 0s linear 0.15s;
       }
 
-      transition: opacity 0.15s, transform 0.15s, visibility 0s;
+      transition:
+        opacity 0.15s,
+        transform 0.15s,
+        visibility 0s;
     }
 
     .burger {
@@ -164,7 +163,10 @@
           width: 23px;
         }
 
-        transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, transform 0.1s;
+        transition:
+          top 0.1s linear 0.1s,
+          width 0.1s linear 0.1s,
+          transform 0.1s;
       }
 
       &.menu-open {
@@ -185,7 +187,10 @@
             transform: rotate(45deg);
           }
 
-          transition: top 0.1s, width 0.1s, transform 0.1s linear 0.1s;
+          transition:
+            top 0.1s,
+            width 0.1s,
+            transform 0.1s linear 0.1s;
         }
       }
 
@@ -225,29 +230,39 @@
     }
 
     .narrow-screen-menu {
-      position: absolute;
-      @apply tw-pt-32;
-
-      @media (min-width: $nav-full-logo-breakpoint) {
-        padding-top: 72px;
-      }
-
-      height: 100vh;
-      top: 0;
+      position: fixed;
+      top: 65px;
+      bottom: 0;
       left: 0;
-      width: 100%;
-      transition: opacity 0.2s, height 0s;
+      right: 0;
+      overflow-y: auto;
+      transition:
+        opacity 0.2s,
+        height 0.5s;
 
       &.hidden {
-        opacity: 0;
         height: 0;
+        opacity: 0;
         overflow: hidden;
-        transition: opacity 0.2s, height 0s linear 0.2s;
 
         .nav-links {
           a {
             transform: translateY(8px);
           }
+        }
+      }
+
+      &.new-nav-enabled {
+        top: 61px;
+        height: calc(100vh - 61px);
+
+        @media screen and (min-width: $bp-md) {
+          top: 69px;
+          height: calc(100vh - 69px);
+        }
+
+        &.hidden {
+          height: 0;
         }
       }
 
@@ -292,7 +307,9 @@
   opacity: 0;
   height: 0;
   overflow-y: hidden;
-  transition: height 0.3s ease-in-out, opacity 0.2s ease-in-out;
+  transition:
+    height 0.3s ease-in-out,
+    opacity 0.2s ease-in-out;
 
   @media (min-width: $bp-lg) {
     opacity: 1;

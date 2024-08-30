@@ -12,5 +12,6 @@
          data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
          data-cta-header="{{ self.signup.header | escape }}"
          data-cta-description="{{ self.signup.description | escape }}"
+         data-cta-privacy-notice="{{ self.signup.privacy_notice | escape }}"
     ></div>
 {% endblock block_content %}

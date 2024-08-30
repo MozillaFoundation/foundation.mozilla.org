@@ -20,7 +20,7 @@
                 {% if is_publication_article or is_publication_page %}
                     <div class="mb-2 tw-body-small publication-breadcrumb">
                         {% for entry in self.breadcrumb_list %}
-                            {% with parent_page=entry.localized %}
+                            {% with parent_page=entry %}
                                 <a href="{{ parent_page.url }}" class="tw-body-small">{{ parent_page.title }}</a>
                                 <span class='tw-body-small'> › </span>
                             {% endwith %}

@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% if page %}
     {% if not url %}
-        {% pageurl page as url %}
+        {% pageurl page.localized as url %}
     {% endif %}
 {% endif %}
 {% with title=title|default:page.localized.title image=image|default:page.localized.specific.get_meta_image %}

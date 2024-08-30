@@ -35,6 +35,7 @@ locale_abstraction_instructions_js = " ".join(
         "makemessages",
         "-d djangojs",
         "--all",
+        "--extension js,jsx",
         "--keep-pot",
         "--no-wrap",
         "--ignore=node_modules",
@@ -584,3 +585,13 @@ def compilemessages(ctx):
             "../dockerpythonvenv/bin/python manage.py compilemessages",
             **PLATFORM_ARG,
         )
+
+
+@task(aliases=["staging-to-review-app"])
+def staging_db_to_review_app(ctx, review_app_name):
+    """
+    Copy Staging DB to a specific Review App. inv staging-to-review-app \"[REVIEW_APP_NAME]\"
+    """
+    from copy_staging_db_to_review_app import main
+
+    main(ctx, review_app_name)

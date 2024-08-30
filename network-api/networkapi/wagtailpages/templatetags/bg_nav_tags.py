@@ -30,10 +30,13 @@ def check_active_category(current_category, target_category):
     return "active" if match else ""
 
 
-# Determine if a nav link should be active.
+# Determine if a nav (sidebar nav or primary nav) link should be active.
 @register.simple_tag(name="bg_active_nav")
-def bg_active_nav(current, target):
-    return "active" if urlparse(current).path == urlparse(target).path else ""
+def bg_active_nav(current, target, nav="sidebar"):
+    if nav == "primary_nav":
+        return "active" if urlparse(target).path in urlparse(current).path else ""
+    else:
+        return "active" if urlparse(target).path == urlparse(current).path else ""
 
 
 @register.simple_tag(name="product_in_category")

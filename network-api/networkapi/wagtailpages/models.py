@@ -1,4 +1,5 @@
 # flake8: noqa
+from .pagemodels.app_install import AppInstallPage
 from .pagemodels.base import (
     FocusArea,
     FoundationMetadataPageMixin,
@@ -58,7 +59,7 @@ from .pagemodels.buyersguide.products import (
     Update,
 )
 from .pagemodels.buyersguide.taxonomies import BuyersGuideContentCategory
-from .pagemodels.campaign_index import CampaignIndexPage
+from .pagemodels.campaign_index import CampaignIndexPage, FeaturedCampaignPageRelation
 from .pagemodels.campaigns import (
     CTA,
     BanneredCampaignPage,
@@ -115,6 +116,5 @@ from .pagemodels.youtube import (
     YoutubeRegrets2021Page,
     YoutubeRegrets2022Page,
     YoutubeRegretsPage,
-    YoutubeRegretsReporterExtensionPage,
     YoutubeRegretsReporterPage,
 )

@@ -1,4 +1,5 @@
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }] */
+import React from "react";
 import ReactDOM from "react-dom";
 import {
   bindCommonEventHandlers,
@@ -37,16 +38,11 @@ import { initYoutubeRegretsAccordions } from "./foundation/pages/youtube-regrets
 import { initYouTubeRegretsRecommendationsPieChart } from "./foundation/pages/youtube-regrets/recommendations-pie-chart";
 import { initYoutubeRegretsCarousel } from "./foundation/pages/youtube-regrets/carousel";
 import { initYoutubeRegretsLocomotiveScroll } from "./foundation/pages/youtube-regrets/locomotive-scroll";
+import SiteNav from "./common/template-js-handles/site-nav.js";
 
 // Initializing component a11y browser console logging
-// TODO React-axe is currently deprecated, we should replace it with @axe-core/react
-// https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10306
-if (
-  typeof process !== "undefined" &&
-  process.env &&
-  process.env.NODE_ENV === "development"
-) {
-  axe = require("react-axe");
+if (process.env.NODE_ENV === "development") {
+  const axe = require("@axe-core/react");
   axe(React, ReactDOM, 1000);
 }
 
@@ -66,10 +62,11 @@ let main = {
     EmbedTypeform.init();
     Dropdowns.init();
     FoundationCarousels.init();
+    SiteNav.init();
 
     this.fetchEnv((envData) => {
       env = envData;
-      networkSiteURL = env.NETWORK_SITE_URL;
+      networkSiteURL = window.location.origin;
 
       if (env.SENTRY_DSN) {
         // Initialize Sentry error reporting

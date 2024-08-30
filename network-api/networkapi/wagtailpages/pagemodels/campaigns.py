@@ -12,6 +12,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import get_content_related_by_tag, get_page_tree_information
 from .base import PrimaryPage
+from .customblocks.base_rich_text_options import base_rich_text_options
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .modular import MiniSiteNameSpace
 
@@ -31,6 +32,13 @@ class CTABase(models.Model):
 
     description = RichTextField(help_text="Body (richtext) of component", blank=True)
 
+    privacy_notice = RichTextField(
+        help_text="This optional privacy notice field will overwrite the default privacy notice text. "
+        "If this field is left blank, the default privacy notice text is used.",
+        features=base_rich_text_options,
+        blank=True,
+    )
+
     newsletter = models.CharField(
         max_length=100,
         help_text="The (pre-existing) newsletter to sign up for",
@@ -41,7 +49,16 @@ class CTABase(models.Model):
         TranslatableField("name"),
         TranslatableField("header"),
         TranslatableField("description"),
+        TranslatableField("privacy_notice"),
         SynchronizedField("newsletter"),
+    ]
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("newsletter"),
+        FieldPanel("header"),
+        FieldPanel("description"),
+        FieldPanel("privacy_notice"),
     ]
 
     search_fields = [
@@ -343,7 +360,6 @@ class CampaignPage(MiniSiteNameSpace):
         TranslatableField("title"),
         TranslatableField("header"),
         SynchronizedField("narrowed_page_content"),
-        SynchronizedField("zen_nav"),
         TranslatableField("body"),
         TranslatableField("donation_modals"),
     ]
@@ -420,18 +436,17 @@ class BanneredCampaignPage(PrimaryPage):
         TranslatableField("title"),
         SynchronizedField("banner"),
         SynchronizedField("narrowed_page_content"),
-        SynchronizedField("zen_nav"),
         # FIXME: Contingency fix while https://github.com/mozilla/foundation.mozilla.org/pull/7771 is sorted out
         # TranslatableField("cta"),
         TranslatableField("signup"),
     ]
 
     subpage_types = [
+        "AppInstallPage",
         "BanneredCampaignPage",
         "PublicationPage",
         "OpportunityPage",
         "ArticlePage",
-        "YoutubeRegretsReporterExtensionPage",
         "YoutubeRegrets2021Page",
         "YoutubeRegrets2022Page",
         "YoutubeRegretsPage",

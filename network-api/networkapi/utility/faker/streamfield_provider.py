@@ -84,23 +84,30 @@ def generate_image_field():
     image_id = choice(Image.objects.all()).id
     alt_text = " ".join(fake.words(nb=5))
     caption = " ".join(fake.words(nb=5))
-    caption_url = fake.url(schemes=["https"])
+    caption_external_url = [
+        {
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
 
     return generate_field(
         "image",
-        {
-            "image": image_id,
-            "altText": alt_text,
-            "caption": caption,
-            "captionURL": caption_url,
-        },
+        {"image": image_id, "altText": alt_text, "caption": caption, "caption_url": caption_external_url},
     )
 
 
 def generate_image_text_field():
     image_id = choice(Image.objects.all()).id
     image_text = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
-    url = fake.url(schemes=["https"])
+    url = [
+        {
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
     alt_text = " ".join(fake.words(nb=5))
     top_divider = fake.boolean()
     bottom_divider = top_divider
@@ -188,8 +195,13 @@ def generate_dark_quote_field():
 
 def generate_video_field():
     caption = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
-    captionURL = fake.url(schemes=["https"])
-
+    caption_external_url = [
+        {
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
     return generate_field(
         "video",
         {
@@ -198,7 +210,7 @@ def generate_video_field():
             # See details: https://github.com/mozilla/foundation.mozilla.org/issues/3833#issuecomment-562240677
             "url": "https://www.youtube.com/embed/83fk3RT8318",
             "caption": caption,
-            "captionURL": captionURL,
+            "caption_url": caption_external_url,
             "video_width": "full_width",
         },
     )
@@ -273,6 +285,17 @@ def generate_dear_internet_intro_text_field():
     return generate_field("intro_text", text)
 
 
+def generate_dear_internet_cta_button():
+    link_value = {
+        "link_to": "external_url",
+        "external_url": "https://donate.mozilla.org",
+        "label": "Donate",
+        "new_window": True,
+    }
+
+    return generate_field("link", link_value)
+
+
 def generate_image_grid_field():
     imgs = []
 
@@ -281,6 +304,7 @@ def generate_image_grid_field():
             {
                 "image": choice(Image.objects.all()).id,
                 "caption": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
+                "link": [],
             }
         )
 
@@ -296,8 +320,14 @@ def generate_card_grid_field():
                 "image": choice(Image.objects.all()).id,
                 "title": fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
                 "body": fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
-                "link_label": " ".join(fake.words(nb=3)),
-                "link_url": fake.url(schemes=["https"]),
+                "link": [
+                    {
+                        "label": fake.sentence(nb_words=3, variable_nb_words=True),
+                        "link_to": "external_url",
+                        "external_url": fake.url(schemes=["https"]),
+                        "new_window": True,
+                    }
+                ],
             }
         )
 
@@ -470,10 +500,15 @@ def generate_blog_index_callout_box_field():
     title = fake.sentence(nb_words=10, variable_nb_words=True)
     related_topics = [choice(BlogPageTopic.objects.all()).id]
     body = fake.paragraph(nb_sentences=6, variable_nb_sentences=False)
-
     show_icon = True
-    link_button_text = "Learn More"
-    link_button_url = fake.url(schemes=["https"])
+    link_button = [
+        {
+            "label": "Learn More",
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
 
     return generate_field(
         "callout_box",
@@ -482,8 +517,7 @@ def generate_blog_index_callout_box_field():
             "related_topics": related_topics,
             "show_icon": show_icon,
             "body": body,
-            "link_button_text": link_button_text,
-            "link_button_url": link_button_url,
+            "link_button": link_button,
         },
     )
 
@@ -513,7 +547,13 @@ def generate_listing_block_field():
                 "highlighted_metadata": " ".join(fake.words(nb=2)),
                 "metadata": " ".join(fake.words(nb=3)),
                 "body": fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
-                "link_url": fake.url(schemes=["https"]),
+                "link": [
+                    {
+                        "link_to": "external_url",
+                        "external_url": fake.url(schemes=["https"]),
+                        "new_window": True,
+                    }
+                ],
             }
         )
 
@@ -523,9 +563,15 @@ def generate_listing_block_field():
 def generate_carousel_text_block_field():
     heading = fake.sentence(nb_words=10, variable_nb_words=True)
     text = fake.paragraph(nb_sentences=10, variable_nb_sentences=True)
-    link_url = fake.url(schemes=["https"])
-    link_label = fake.sentence(nb_words=5, variable_nb_words=True)
     carousel_images = []
+    link = [
+        {
+            "label": fake.sentence(nb_words=5, variable_nb_words=True),
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
 
     for n in range(4):
         carousel_images.append(
@@ -538,8 +584,7 @@ def generate_carousel_text_block_field():
     data = {
         "heading": heading,
         "text": text,
-        "link_url": link_url,
-        "link_label": link_label,
+        "link": link,
         "carousel_images": carousel_images,
     }
 
@@ -635,8 +680,14 @@ def generate_newsletter_signup_with_background_field():
 
 def generate_mixed_content_field():
     cards = []
-    link_url = fake.url(schemes=["https"])
-    link_text = fake.sentence(nb_words=2, variable_nb_words=True)
+    link = [
+        {
+            "label": " ".join(fake.words(nb=3)),
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "new_window": True,
+        }
+    ]
 
     for n in range(4):
         cards.append(
@@ -647,7 +698,13 @@ def generate_mixed_content_field():
                 "highlighted_metadata": " ".join(fake.words(nb=2)),
                 "metadata": " ".join(fake.words(nb=3)),
                 "body": fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
-                "link_url": fake.url(schemes=["https"]),
+                "link": [
+                    {
+                        "link_to": "external_url",
+                        "external_url": fake.url(schemes=["https"]),
+                        "new_window": True,
+                    }
+                ],
             }
         )
 
@@ -659,8 +716,18 @@ def generate_mixed_content_field():
         "text": fake.paragraph(nb_sentences=3, variable_nb_sentences=True),
     }
 
+    return generate_field("mixed_content", {"cards": cards, "video": video, "link": link})
+
+
+def generate_app_install_download_button_field():
     return generate_field(
-        "mixed_content", {"cards": cards, "video": video, "link_url": link_url, "link_text": link_text}
+        "button",
+        {
+            "link_to": "external_url",
+            "external_url": fake.url(schemes=["https"]),
+            "label": " ".join(fake.words(nb=2)),
+            "new_window": True,
+        },
     )
 
 
@@ -699,6 +766,7 @@ class StreamfieldProvider(BaseProvider):
             "full_width_image": generate_full_width_image_field,
             "intro_text": generate_dear_internet_intro_text_field,
             "letter": generate_dear_internet_letter_field,
+            "dear_internet_cta_button": generate_dear_internet_cta_button,
             "card_grid": generate_card_grid_field,
             "image_grid": generate_image_grid_field,
             "pulse_listing": generate_pulse_listing_field,
@@ -723,6 +791,7 @@ class StreamfieldProvider(BaseProvider):
             "profiles": generate_profiles_field,
             "newsletter_signup": generate_newsletter_signup_with_background_field,
             "mixed_content": generate_mixed_content_field,
+            "app_install_download_button": generate_app_install_download_button_field,
         }
 
         streamfield_data = []

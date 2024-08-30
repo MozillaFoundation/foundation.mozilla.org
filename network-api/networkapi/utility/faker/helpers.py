@@ -1,4 +1,5 @@
 import random
+from datetime import datetime, timedelta, timezone
 from itertools import chain, combinations
 from typing import Union
 
@@ -97,3 +98,15 @@ def get_random_objects(
 
     primary_keys_slice = primary_keys[:return_max]
     return queryset.filter(pk__in=primary_keys_slice)
+
+
+def get_random_date():
+    base = datetime(2024, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc)
+    random_date = base - timedelta(
+        days=random.randint(0, 365 * 3),
+        hours=random.randint(0, 24),
+        minutes=random.randint(0, 60),
+        seconds=random.randint(0, 60),
+    )
+
+    return random_date

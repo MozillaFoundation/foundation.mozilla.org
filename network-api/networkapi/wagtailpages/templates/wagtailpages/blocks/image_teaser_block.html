@@ -7,10 +7,12 @@
             <div class="tw-row-start-2 large:tw-row-start-1">
                 <h2 class="tw-mb-8">{{ card.title }}<a href="#{{ card.slug }}"></a></h2>
                 {{ card.text|richtext }}
-                {% if card.url and card.url_label %}
-                    <a class="tw-{{ card.styling }} link-button tw-mt-8" href="{{ card.url }}">
-                        {{ card.url_label }}
-                    </a>
+                {% if card.link_button %}
+                    {% with link_button=card.link_button.0 %}
+                        <a class="tw-{{ link_button.styling }} link-button tw-mt-8" href="{{ link_button.url }}" {% if link_button.new_window %}target="_blank"{% endif %}>
+                            {{ link_button.label }}
+                        </a>
+                    {% endwith %}
                 {% endif %}
             </div>
             <div class="tw-flex tw-items-center">

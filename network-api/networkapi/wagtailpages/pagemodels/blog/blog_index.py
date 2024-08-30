@@ -134,6 +134,7 @@ class BlogIndexPage(IndexPage):
         SynchronizedField("featured_pages"),
         SynchronizedField("featured_video_post"),
         TranslatableField("callout_box"),
+        SynchronizedField("related_topics"),
     ]
 
     template = "wagtailpages/blog_index_page.html"
@@ -510,3 +511,14 @@ class BlogIndexPage(IndexPage):
             "featured_pages_relationship__sort_order"
         )
         return localize_queryset(featured_blog_pages, preserve_order=True)
+
+    @property
+    def localised_featured_video_post(self):
+        featured_post = self.featured_video_post.first()
+
+        if not featured_post:
+            return None
+
+        featured_post.blog_page = featured_post.blog_page.localized
+
+        return featured_post

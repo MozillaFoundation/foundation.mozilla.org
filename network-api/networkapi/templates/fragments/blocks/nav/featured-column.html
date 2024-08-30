@@ -1,0 +1,15 @@
+{% load wagtailcore_tags wagtailadmin_tags %}
+
+{% fragment as base_styles %}tw-gap-y-8 xlarge:tw-gap-y-4 tw-bg-gray-02 tw-rounded-2xl{% endfragment %}
+{% fragment as desktop_layout %}xlarge:tw-rounded-none xlarge:tw-col-span-1{% endfragment %}
+
+<div class="tw-nav-dropdown-column tw-featured-column {{ base_styles }} {{ desktop_layout }}">
+    <h6 class="tw-self-stretch {{ link_hover_padding }}">{% block title %}{{ value.title }}{% endblock title %}</h6>
+    <div class="tw-flex tw-flex-col tw-items-start tw-gap-y-14 xlarge:tw-gap-y-10 tw-self-stretch">
+        {% block content %}
+            {% for item in value.nav_items %}
+                <div class="tw-self-stretch">{% include_block item %}</div>
+            {% endfor %}
+        {% endblock content %}
+    </div>
+</div>

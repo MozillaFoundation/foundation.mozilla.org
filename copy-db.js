@@ -13,6 +13,13 @@ if (APP === STAGE_APP) {
   );
 }
 
+if (!isLoggedInToHeroku()) {
+  console.log(
+    "You are not logged into Heroku. Make sure you have the Heroku CLI installed. Run `heroku login` and try again."
+  );
+  process.exit(1);
+}
+
 const HEROKU_OUTPUT = run(`heroku config:get DATABASE_URL -a ${APP}`);
 const HEROKU_TEXT = HEROKU_OUTPUT.toString().replaceAll(`\n`, ` `);
 const URL_START = HEROKU_TEXT.indexOf(`postgres://`);
@@ -68,6 +75,15 @@ function stopContainers() {
   if (postgres) {
     console.log(`Stopping ${postgres}`);
     run(`docker stop ${postgres}`, true, silent);
+  }
+}
+
+function isLoggedInToHeroku() {
+  try {
+    execSync("heroku whoami");
+    return true;
+  } catch (error) {
+    return false;
   }
 }
 

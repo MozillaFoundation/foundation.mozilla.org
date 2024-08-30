@@ -3,10 +3,11 @@ const waitForImagesToLoad = require("../../wait-for-images.js");
 const {
   LANGUAGE_OPTIONS,
 } = require("../../../source/js/components/newsletter-signup/data/language-options.js");
+const { foundationBaseUrl } = require("../../base-urls.js");
 
 const locales = LANGUAGE_OPTIONS.map((language) => language.value);
 function generateUrl(locale = "en") {
-  return `http://localhost:8000/${locale}/blog/initial-test-blog-post-with-fixed-title/?random=query`;
+  return `${foundationBaseUrl(locale)}/blog/initial-test-blog-post-with-fixed-title/?random=query`;
 }
 
 test.describe("Blog body newsletter signup form", () => {

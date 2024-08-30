@@ -15,7 +15,7 @@
         <title>
             {% block page_title %}
                 {% environment_prefix %}
-                {% trans "Mozilla Foundation" %} - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}
+                {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %} - {% trans "Mozilla Foundation" %}
             {% endblock %}
         </title>
 
@@ -64,9 +64,7 @@
 
         {% block stylesheets %}
             <link rel="stylesheet" href="{% static "_css/main.compiled.css" %}">
-
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,800,900,400i">
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,500,600,700,300i,400i,600i">
+            <link rel="stylesheet" href="{% static "_fonts/css/base.min.css" %}">
         {% endblock %}
 
         {% block extended_head %}{% endblock %}
@@ -107,7 +105,13 @@
             <div class="wrapper">
                 <div class="{% block sticky_top_class %} sticky-top {% endblock %} d-print-none">
                     {% block primary_nav %}
-                        {% include "fragments/primary_nav.html" with background="simple-background" %}
+                        {% with nav_menu=settings.nav.SiteNavMenu.active_nav_menu %}
+                            {% if nav_menu %}
+                                {% include "fragments/nav/menu.html" with menu=nav_menu.localized %}
+                            {% else %}
+                                {% include "fragments/primary_nav.html" with background="simple-background" %}
+                            {% endif %}
+                        {% endwith %}
                     {% endblock %}
                 </div>
 

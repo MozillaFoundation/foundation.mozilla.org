@@ -137,7 +137,9 @@
     @media screen and (min-width: $bp-lg) {
       background-image: url(../_images/youtube-regrets/regrets-reporter/icon-eye-purple.svg),
         url(../_images/youtube-regrets/regrets-reporter/icon-play-purple.svg);
-      background-position: 102% top, 4% 60%;
+      background-position:
+        102% top,
+        4% 60%;
       background-repeat: no-repeat;
     }
 
@@ -151,7 +153,9 @@
     @media screen and (min-width: $bp-lg) {
       background-image: url(../_images/youtube-regrets/regrets-reporter/icon-ff-purple.svg),
         url(../_images/youtube-regrets/regrets-reporter/icon-sound-purple.svg);
-      background-position: 90% 19%, 1% 70%;
+      background-position:
+        90% 19%,
+        1% 70%;
       background-repeat: no-repeat;
     }
 

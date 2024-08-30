@@ -56,7 +56,6 @@ env = environ.Env(
     HEROKU_RELEASE_VERSION=(str, None),
     INDEX_PAGE_CACHE_TIMEOUT=(int, 60 * 60 * 24),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
-    NETWORK_SITE_URL=(str, ""),
     PETITION_TEST_CAMPAIGN_ID=(str, ""),
     PNI_STATS_DB_URL=(str, None),
     PULSE_API_DOMAIN=(str, ""),
@@ -270,6 +269,7 @@ INSTALLED_APPS = list(
             "networkapi.donate",
             "networkapi.donate_banner",
             "networkapi.reports",
+            "networkapi.nav",
             "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
             "networkapi.project_styleguide",
         ],
@@ -284,7 +284,6 @@ MIDDLEWARE = list(
             "corsheaders.middleware.CorsMiddleware",
             "django.middleware.security.SecurityMiddleware",
             "django.middleware.clickjacking.XFrameOptionsMiddleware",
-            "networkapi.utility.middleware.ReferrerMiddleware",
             "networkapi.utility.middleware.XRobotsTagMiddleware" if XROBOTSTAG_ENABLED else None,
             "whitenoise.middleware.WhiteNoiseMiddleware",
             "django.middleware.gzip.GZipMiddleware",
@@ -370,7 +369,7 @@ TEMPLATES = [
                 "localization": "networkapi.wagtailpages.templatetags.localization",
                 "mini_site_tags": "networkapi.wagtailpages.templatetags.mini_site_tags",
                 "custom_image_tags": "networkapi.wagtailpages.templatetags.custom_image_tags",
-                "nav_tags": "networkapi.utility.templatetags.nav_tags",
+                "nav_tags": "networkapi.nav.templatetags.nav_tags",
                 "primary_page_tags": "networkapi.wagtailpages.templatetags.primary_page_tags",
                 "settings_value": "networkapi.utility.templatetags.settings_value",
                 "wagtailcustom_tags": "networkapi.wagtailcustomization.templatetags.wagtailcustom_tags",
@@ -520,6 +519,8 @@ WAGTAILIMAGES_INDEX_PAGE_SIZE = env("WAGTAILIMAGES_INDEX_PAGE_SIZE")
 WAGTAIL_USAGE_COUNT_ENABLED = True
 WAGTAIL_I18N_ENABLED = True
 
+WAGTAILIMAGES_EXTENSIONS = ["avif", "gif", "jpg", "jpeg", "png", "webp", "svg"]
+
 # Wagtail Frontend Cache Invalidator Settings
 
 if env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"):
@@ -624,11 +625,14 @@ CSP_REPORT_URI = env("CSP_REPORT_URI", default=None)
 CSP_WORKER_SRC = env("CSP_WORKER_SRC", default=CSP_DEFAULT)
 CSP_INCLUDE_NONCE_IN = env("CSP_INCLUDE_NONCE_IN", default=[])
 
+
 # Security
 SECURE_BROWSER_XSS_FILTER = env("XSS_PROTECTION")
 SECURE_CONTENT_TYPE_NOSNIFF = env("CONTENT_TYPE_NO_SNIFF")
+SECURE_CROSS_ORIGIN_OPENER_POLICY = env("SECURE_CROSS_ORIGIN_OPENER_POLICY", default="same-origin")
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env("SET_HSTS")
 SECURE_HSTS_SECONDS = 60 * 60 * 24 * 31 * 6
+SECURE_REFERRER_POLICY = env("SECURE_REFERRER_POLICY", default="same-origin")
 SECURE_SSL_REDIRECT = env("SSL_REDIRECT")
 # Heroku goes into an infinite redirect loop without this.
 # See https://docs.djangoproject.com/en/1.10/ref/settings/#secure-ssl-redirect
@@ -636,7 +640,6 @@ if env("SSL_REDIRECT") is True:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 X_FRAME_OPTIONS = env("X_FRAME_OPTIONS")
-REFERRER_HEADER_VALUE = env("REFERRER_HEADER_VALUE")
 
 
 # Remove the default Django loggers and configure new ones
@@ -691,7 +694,6 @@ logging.config.dictConfig(LOGGING)
 FRONTEND = {
     "PULSE_API_DOMAIN": env("PULSE_API_DOMAIN"),
     "PULSE_DOMAIN": env("PULSE_DOMAIN"),
-    "NETWORK_SITE_URL": env("NETWORK_SITE_URL"),
     "TARGET_DOMAINS": env("TARGET_DOMAINS"),
     "SENTRY_DSN": env("SENTRY_DSN"),
     "RELEASE_VERSION": env("HEROKU_RELEASE_VERSION"),
@@ -713,9 +715,6 @@ USE_COMMENTO = env("USE_COMMENTO")
 
 # privacynotincluded statistics DB
 PNI_STATS_DB_URL = env("PNI_STATS_DB_URL")
-
-# Use network_url to check if we're running prod or not
-NETWORK_SITE_URL = env("NETWORK_SITE_URL")
 
 # Blog/Campaign index cache setting
 INDEX_PAGE_CACHE_TIMEOUT = env("INDEX_PAGE_CACHE_TIMEOUT")

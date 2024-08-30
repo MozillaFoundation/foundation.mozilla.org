@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import Heading from "../atoms/heading.jsx";
 import Description from "../atoms/description.jsx";
+import PrivacyNotice from "../atoms/privacy-notice.jsx";
 import InputText from "../atoms/input-text.jsx";
 import Select from "../atoms/select.jsx";
 import InputCheckboxWithLabel from "../molecules/input-checkbox-with-label.jsx";
 import ButtonSubmit from "../atoms/button-submit.jsx";
 import ButtonQuit from "../atoms/button-quit.jsx";
+import APIErrorMessage from "../atoms/api-error-message.jsx";
 import withSubmissionLogic from "./with-submission-logic.jsx";
 import utility from "../../../utility.js";
 import { ReactGA } from "../../../common";
@@ -155,6 +157,21 @@ class DefaultSignupForm extends Component {
     );
   }
 
+  renderPrivacyNotice() {
+    return (
+      <PrivacyNotice
+        content={this.props.ctaPrivacyNotice}
+        classes="[&_p]:tw-body-small"
+      />
+    );
+  }
+
+  renderAPIErrorMessage() {
+    if (!this.props.apiError) return null;
+
+    return <APIErrorMessage apiErrorMessage={this.props.apiError} />;
+  }
+
   renderFirstNameField() {
     const name = "firstName";
 
@@ -258,9 +275,7 @@ class DefaultSignupForm extends Component {
       <InputCheckboxWithLabel
         id={this.ids[name]}
         name={name}
-        label={getText(
-          `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
-        )}
+        label={this.renderPrivacyNotice()}
         value={this.getFormFieldValue(name)}
         checked={this.getFormFieldValue(name) === "true"}
         onChange={(event) => this.handlePrivacyChange(event)}
@@ -344,6 +359,7 @@ class DefaultSignupForm extends Component {
         data-submission-status={this.props.apiSubmissionStatus}
       >
         <div className={this.style.introContainerClass}>
+          {this.renderAPIErrorMessage()}
           {this.renderHeader()}
           {this.renderDescription()}
         </div>

@@ -4,7 +4,7 @@
 {% block body_id %}youtube-regrets-reporter{% endblock %}
 
 {% block extended_head %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Changa" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "_fonts/css/changa.min.css" %}">
 {% endblock %}
 
 {% block intro_stationary_wrapper %}
@@ -81,6 +81,7 @@
                      data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
                      data-cta-header="{% trans "To stay updated on this campaign and our other work, sign up for Mozilla’s newsletter." %}"
                      data-cta-description=""
+                     data-cta-privacy-notice=""
                 >
                 </div>
             </div>

@@ -5,10 +5,8 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static "_css/donate.compiled.css" %}">
+    <link rel="stylesheet" href="{% static "_fonts/css/base.min.css" %}">
     {% if debug %}<link rel="stylesheet" href="{% static "_css/tailwind.compiled.css" %}">{% endif %}
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,800,900,400i">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,500,600,700,300i,400i,600i">
 {% endblock %}
 
 {% block extended_head %}{% endblock %}
@@ -43,10 +41,6 @@
 {% endblock %}
 
 {% block header_wrapped %}
-{% endblock %}
-
-{% block footer_block %}
-    {% include "../fragments/footer.html" %}
 {% endblock %}
 
 {% block script_bundle %}
