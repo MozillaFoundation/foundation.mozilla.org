@@ -1,6 +1,9 @@
 import { Utils } from "./utils.js";
 import { gsap } from "gsap";
 
+/**
+ * The control that toggles the "Privacy Not Included" filter on the product list.
+ */
 export class PNIToggle {
   constructor(searchFilter) {
     this.searchFilter = searchFilter;
@@ -51,7 +54,13 @@ export class PNIToggle {
     });
   }
 
+  /**
+   * Toggle the "Privacy Not Included" filter on the product list.
+   *
+   * @param {boolean} doFilter - Whether to filter the list for "Privacy Not Included" products.
+   */
   togglePrivacyOnly(doFilter) {
+    console.log(doFilter);
     const { searchFilter, categoryTitle } = this;
 
     gsap.set("figure.product-box.privacy-ding", { opacity: 1, y: 0 });

@@ -17,6 +17,12 @@ export default () => {
     if (burger && burger.classList.contains("menu-open")) {
       document.querySelector(".burger").click();
     }
+
+    // if the search bar is open, clear the search bar
+    if (!searchContainer.classList.contains("tw-hidden")) {
+      searchContainer.querySelector(`.clear-icon`).click();
+    }
+
     searchContainer.classList.toggle("tw-hidden");
     mobileCatNav.classList.toggle("tw-hidden");
   });
