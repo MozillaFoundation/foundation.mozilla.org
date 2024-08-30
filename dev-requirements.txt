@@ -8,7 +8,7 @@ asgiref==3.7.2
     # via
     #   -c requirements.txt
     #   django
-black==24.3.0
+black==24.8.0
     # via -r dev-requirements.in
 click==8.1.3
     # via
@@ -36,7 +36,7 @@ editorconfig==0.12.3
     #   jsbeautifier
 execnet==1.9.0
     # via pytest-xdist
-flake8==7.0.0
+flake8==7.1.1
     # via -r dev-requirements.in
 honcho==1.1.0
     # via -r dev-requirements.in
@@ -76,7 +76,7 @@ pluggy==1.5.0
     # via pytest
 ptvsd==4.3.2
     # via -r dev-requirements.in
-pycodestyle==2.11.0
+pycodestyle==2.12.1
     # via flake8
 pyflakes==3.2.0
     # via flake8

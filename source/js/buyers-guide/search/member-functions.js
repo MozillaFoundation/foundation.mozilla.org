@@ -5,7 +5,8 @@ const parentTitle = document.querySelector(`.parent-title`);
 const subcategories = document.querySelectorAll(`.subcategories`);
 
 /**
- * ...
+ * Attach event listeners to the nav links and subcategory links
+ *
  * @param {*} instance
  */
 export function setupNavLinks(instance) {
@@ -116,7 +117,8 @@ export function setupNavLinks(instance) {
 }
 
 /**
- * ...
+ * Attach event listeners to "go back to all" link
+ *
  * @param {*} instance
  */
 export function setupGoBackToAll(instance) {
@@ -153,8 +155,11 @@ export function setupGoBackToAll(instance) {
 }
 
 /**
- * ...
+ * Attach event listeners to the Product Review nav links
+ *
  * @param {*} instance
+ *
+ * @todo See if we can make this DRYer by making use of the toggleProductReviewView function?
  */
 export function setupReviewLinks(instance) {
   const navLinks = document.querySelectorAll(`.product-review-link`);
@@ -179,6 +184,9 @@ export function setupReviewLinks(instance) {
   }
 }
 
+/**
+ * Toggle the Product Review view
+ */
 export function toggleProductReviewView() {
   const editorialContent = document.querySelector(".editorial-content");
   const navLinks = document.querySelectorAll(`.product-review-link`);
@@ -190,6 +198,9 @@ export function toggleProductReviewView() {
   }
 }
 
+/**
+ * Toggle the category related articles section
+ */
 export function toggleCategoryRelatedArticles(category) {
   const relatedArticles = document.querySelectorAll("[data-show-for-category]");
 
