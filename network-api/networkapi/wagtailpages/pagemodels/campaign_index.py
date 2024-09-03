@@ -1,6 +1,6 @@
 from django.db import models
 from modelcluster import fields as cluster_fields
-from wagtail.admin.panels import InlinePanel, PageChooserPanel
+from wagtail.admin.panels import MultipleChooserPanel, PageChooserPanel
 from wagtail.models import Orderable, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -62,7 +62,11 @@ class CampaignIndexPage(IndexPage):
     template = "wagtailpages/index_page.html"
 
     content_panels = IndexPage.content_panels + [
-        InlinePanel("featured_campaign_pages", label="Featured Pages"),
+        MultipleChooserPanel(
+            "featured_campaign_pages",
+            label="Featured Pages",
+            chooser_field_name="featured_page",
+        ),
     ]
 
     def get_entries(self, context=None):

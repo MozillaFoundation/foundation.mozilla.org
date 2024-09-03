@@ -1,7 +1,7 @@
 from django import forms
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, MultipleChooserPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page
 from wagtail_color_panel.edit_handlers import NativeColorPanel
@@ -190,7 +190,10 @@ class PublicationPage(BasePage):
     )
 
     content_panels = Page.content_panels + [
-        MultiFieldPanel([InlinePanel("authors", label="Author", min_num=0)], heading="Author(s)"),
+        MultiFieldPanel(
+            [MultipleChooserPanel("authors", label="Author", chooser_field_name="author", min_num=0)],
+            heading="Author(s)",
+        ),
         MultiFieldPanel(
             [FieldPanel("toc_thumbnail_image")],
             heading="Table of Content Thumbnail",

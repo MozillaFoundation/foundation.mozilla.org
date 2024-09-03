@@ -21,7 +21,12 @@ from django.utils import timezone
 from django.utils.translation import gettext, gettext_lazy
 from modelcluster.fields import ParentalKey
 from wagtail import hooks
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    MultipleChooserPanel,
+)
 from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page, PageManager, PageQuerySet, TranslatableMixin
 from wagtail.search import index
@@ -689,7 +694,7 @@ class ProductPage(BasePage):
         FieldPanel("company"),
         MultiFieldPanel(
             [
-                InlinePanel("product_categories", label="Category"),
+                MultipleChooserPanel("product_categories", label="Category", chooser_field_name="category"),
             ],
             heading="Product Category",
             classname="collapsible",
@@ -753,20 +758,21 @@ class ProductPage(BasePage):
             classname="collapsible",
         ),
         MultiFieldPanel(
-            [InlinePanel("updates", label="Update")],
+            [MultipleChooserPanel("updates", label="Update", chooser_field_name="update")],
             heading="News Links",
             classname="collapsible",
         ),
         MultiFieldPanel(
-            [InlinePanel("related_product_pages", label="Product")],
+            [MultipleChooserPanel("related_product_pages", label="Product", chooser_field_name="related_product")],
             heading="Related Products",
         ),
         MultiFieldPanel(
             [
-                InlinePanel(
+                MultipleChooserPanel(
                     "related_article_relations",
                     heading="Related articles",
                     label="Article",
+                    chooser_field_name="article",
                     max_num=5,
                 ),
             ],
