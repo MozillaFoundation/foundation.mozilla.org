@@ -74,8 +74,7 @@ class BuyersGuideCallToActionFactory(DjangoModelFactory):
 
     title = Faker("sentence", nb_words=7, variable_nb_words=True)
     content = Faker("paragraph", nb_sentences=3, variable_nb_sentences=True)
-    link_label = Faker("sentence", nb_words=2)
-    link_target_url = Faker("url")
+    link = Faker("streamfield", fields=["buyersguide_call_to_action_link"])
 
 
 class ProductUpdateFactory(DjangoModelFactory):
