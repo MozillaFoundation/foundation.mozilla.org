@@ -4,9 +4,9 @@ $font-family-serif: "Zilla Slab", serif;
 
 /* Background Gradient */
 #onetrust-consent-sdk #onetrust-banner-sdk {
-  background: linear-gradient(to right, #ACFFFF, #E7E7FC);
-  
-  @media only screen and (min-width: 575px) { 
+  background: linear-gradient(to right, #acffff, #e7e7fc);
+
+  @media only screen and (min-width: 575px) {
     padding: 0 20px;
   }
 }
@@ -20,7 +20,7 @@ $font-family-serif: "Zilla Slab", serif;
   font-weight: 300;
   display: inline-block;
 
-  @media only screen and (min-width: 1199px) { 
+  @media only screen and (min-width: 1199px) {
     font-size: 40px;
     line-height: 48px;
   }
@@ -35,7 +35,7 @@ $font-family-serif: "Zilla Slab", serif;
   line-height: 16px;
   margin-bottom: 5px;
 
-  @media only screen and (min-width: 576px) { 
+  @media only screen and (min-width: 576px) {
     font-size: 18px;
     line-height: 27px;
   }
@@ -53,16 +53,18 @@ $font-family-serif: "Zilla Slab", serif;
   padding: 5px 6px;
   width: 100%;
 
-  @media only screen and (min-width: 576px) { 
+  @media only screen and (min-width: 576px) {
     width: 250px;
   }
-  @media only screen and (min-width: 897px) { 
+  @media only screen and (min-width: 897px) {
     width: 270px;
   }
 }
 
 #onetrust-consent-sdk #onetrust-banner-sdk #onetrust-accept-btn-handler::before,
-#onetrust-consent-sdk #onetrust-banner-sdk #onetrust-reject-all-handler::before {
+#onetrust-consent-sdk
+  #onetrust-banner-sdk
+  #onetrust-reject-all-handler::before {
   display: inline-block;
   vertical-align: middle;
   margin-right: 5px;
@@ -70,12 +72,16 @@ $font-family-serif: "Zilla Slab", serif;
 }
 
 /* Consent Settings Link */
-#onetrust-consent-sdk #onetrust-banner-sdk #onetrust-button-group-parent #onetrust-button-group #onetrust-pc-btn-handler {
+#onetrust-consent-sdk
+  #onetrust-banner-sdk
+  #onetrust-button-group-parent
+  #onetrust-button-group
+  #onetrust-pc-btn-handler {
   font-family: $font-family-sans-serif;
   font-weight: 700;
   font-size: 18px;
   line-height: 27px;
-  color: #0D10BF;
+  color: #0d10bf;
   border: none;
   background: none;
   text-decoration: underline;
@@ -83,10 +89,10 @@ $font-family-serif: "Zilla Slab", serif;
   margin-top: 0;
   width: 100%;
 
-  @media only screen and (min-width: 576px) { 
+  @media only screen and (min-width: 576px) {
     max-width: fit-content;
   }
-  @media only screen and (min-width: 897px) { 
+  @media only screen and (min-width: 897px) {
     margin: 5px auto;
     width: 270px;
     max-width: 270px;
@@ -95,7 +101,7 @@ $font-family-serif: "Zilla Slab", serif;
 
 /* Title & Text Box Margin */
 #onetrust-consent-sdk #onetrust-banner-sdk #onetrust-policy {
-  @media only screen and (min-width: 1199px) { 
+  @media only screen and (min-width: 1199px) {
     max-width: 740px;
     margin: 1.2em auto;
   }
@@ -103,7 +109,7 @@ $font-family-serif: "Zilla Slab", serif;
 
 /* Close Button */
 #onetrust-consent-sdk #onetrust-banner-sdk #onetrust-close-btn-container {
-  @media only screen and (min-width: 1199px) { 
+  @media only screen and (min-width: 1199px) {
     right: 20px;
   }
 }
@@ -113,22 +119,26 @@ $font-family-serif: "Zilla Slab", serif;
 }
 
 /* Desktop Layout Changes */
-#onetrust-consent-sdk #onetrust-banner-sdk:not(.ot-iab-2) #onetrust-group-container {
-  @media only screen and (min-width: 1199px) { 
+#onetrust-consent-sdk
+  #onetrust-banner-sdk:not(.ot-iab-2)
+  #onetrust-group-container {
+  @media only screen and (min-width: 1199px) {
     width: 65%;
   }
 }
 
-#onetrust-consent-sdk #onetrust-banner-sdk:not(.ot-iab-2) #onetrust-button-group-parent {
+#onetrust-consent-sdk
+  #onetrust-banner-sdk:not(.ot-iab-2)
+  #onetrust-button-group-parent {
   position: inherit;
   float: none;
   display: inline-block;
   transform: none;
 
-  @media only screen and (min-width: 897px) { 
+  @media only screen and (min-width: 897px) {
     width: 32%;
   }
-  @media only screen and (min-width: 1199px) { 
+  @media only screen and (min-width: 1199px) {
     width: 29%;
   }
 }

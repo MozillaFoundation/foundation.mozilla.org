@@ -177,7 +177,6 @@ let main = {
       MozfestCarousels.init();
       MozfestHeroCarousels.init();
     }
-  
   },
 };
 
