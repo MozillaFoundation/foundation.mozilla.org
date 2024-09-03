@@ -9,11 +9,12 @@
   "scripts": {
     "build": "run-s build:clean && run-p build:common build:js:prod && npm run postcss:build",
     "build:clean": "shx rm -rf network-api/networkapi/temp/frontend && shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js",
-    "build:common": "run-p build:images build:fonts build:css build:contribute",
+    "build:common": "run-p build:images build:fonts build:css build:contribute build:js:onetrust",
     "build:contribute": "shx cp contribute.json network-api/networkapi/frontend/",
     "build:images": "shx rm -rf network-api/networkapi/frontend/_images && shx cp -r source/images network-api/networkapi/frontend/_images",
     "build:js:dev": "node esbuild.config.js -- --node-env development",
     "build:js:prod": "node esbuild.config.js -- --node-env production",
+    "build:js:onetrust": "cp -r source/js/oneTrust_test network-api/networkapi/frontend/_js/oneTrust_test",
     "build:fonts": "run-p build:fonts:fonts && run-p build:fonts:css",
     "build:fonts:fonts": "shx rm -rf network-api/networkapi/frontend/_fonts && cp -r source/fonts network-api/networkapi/frontend/_fonts",
     "build:fonts:css": "run-p build:fonts:css:**",

@@ -1,6 +1,134 @@
+/* Set Fonts */
 $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif !important;
+$font-family-serif: "Zilla Slab", serif;
 
-
-#onetrust-accept-btn-handler {
-    font-family: $font-family-sans-serif;
+/* Background Gradient */
+#onetrust-consent-sdk #onetrust-banner-sdk {
+  background: linear-gradient(to right, #ACFFFF, #E7E7FC);
+  
+  @media only screen and (min-width: 575px) { 
+    padding: 0 20px;
   }
+}
+
+/* Title */
+#onetrust-consent-sdk #onetrust-banner-sdk #onetrust-policy-title {
+  font-family: $font-family-serif;
+  color: #000;
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: 300;
+  display: inline-block;
+
+  @media only screen and (min-width: 1199px) { 
+    font-size: 40px;
+    line-height: 48px;
+  }
+}
+
+/* Body */
+#onetrust-consent-sdk #onetrust-banner-sdk #onetrust-policy-text {
+  font-family: $font-family-sans-serif;
+  color: #000;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  margin-bottom: 5px;
+
+  @media only screen and (min-width: 576px) { 
+    font-size: 18px;
+    line-height: 27px;
+  }
+}
+
+/* Accept / Reject Buttons */
+#onetrust-consent-sdk #onetrust-banner-sdk #onetrust-accept-btn-handler,
+#onetrust-consent-sdk #onetrust-banner-sdk #onetrust-reject-all-handler {
+  font-family: $font-family-sans-serif;
+  font-weight: 400;
+  border: 2px solid #fff;
+  background-color: #000;
+  font-size: 18px;
+  line-height: 27px;
+  padding: 5px 6px;
+  width: 100%;
+
+  @media only screen and (min-width: 576px) { 
+    width: 250px;
+  }
+  @media only screen and (min-width: 897px) { 
+    width: 270px;
+  }
+}
+
+#onetrust-consent-sdk #onetrust-banner-sdk #onetrust-accept-btn-handler::before,
+#onetrust-consent-sdk #onetrust-banner-sdk #onetrust-reject-all-handler::before {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  content: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAxNiAxNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgICAgICA8cGF0aCBkPSJNOCAwLjQ1NTJDNi40MTc3NSAwLjQ1NTIgNC44NzEwNCAwLjkyNDM5MiAzLjU1NTQ0IDEuODAzNDRDMi4yMzk4NSAyLjY4MjQ5IDEuMjE0NDcgMy45MzE5MiAwLjYwODk2NyA1LjM5MzczQzAuMDAzNDY2MjYgNi44NTU1NCAtMC4xNTQ5NiA4LjQ2NDA4IDAuMTUzNzIxIDEwLjAxNTlDMC40NjI0MDMgMTEuNTY3OCAxLjIyNDMzIDEyLjk5MzIgMi4zNDMxNSAxNC4xMTIxQzMuNDYxOTcgMTUuMjMwOSA0Ljg4NzQzIDE1Ljk5MjggNi40MzkyOCAxNi4zMDE1QzcuOTkxMTMgMTYuNjEwMiA5LjU5OTY2IDE2LjQ1MTcgMTEuMDYxNSAxNS44NDYyQzEyLjUyMzMgMTUuMjQwNyAxMy43NzI3IDE0LjIxNTQgMTQuNjUxOCAxMi44OTk4QzE1LjUzMDggMTEuNTg0MiAxNiAxMC4wMzc1IDE2IDguNDU1MkMxNiA2LjMzMzQ3IDE1LjE1NzEgNC4yOTg2NCAxMy42NTY5IDIuNzk4MzVDMTIuMTU2NiAxLjI5ODA1IDEwLjEyMTcgMC40NTUyIDggMC40NTUyWk0xMi42NDk2IDYuNTM1Mkw3LjE3NDQgMTIuMDJDNi45OTQ0IDEyLjE5OTggNi43NTA0IDEyLjMwMDggNi40OTYgMTIuMzAwOEM2LjI0MTYgMTIuMzAwOCA1Ljk5NzYgMTIuMTk5OCA1LjgxNzYgMTIuMDJMMy4zMjggOS41MjcyQzMuMTcxNTYgOS4zNDI4MSAzLjA5MDQ2IDkuMTA2MTggMy4xMDA5MiA4Ljg2NDU5QzMuMTExMzggOC42MjMgMy4yMTI2MiA4LjM5NDI2IDMuMzg0NDEgOC4yMjQwOUMzLjU1NjIxIDguMDUzOTEgMy43ODU5IDcuOTU0ODMgNC4wMjc1NyA3Ljk0NjY2QzQuMjY5MjUgNy45Mzg0OSA0LjUwNTEgOC4wMjE4MiA0LjY4OCA4LjE4TDYuNDk2IDkuOTkxMkwxMS4yOTYgNS4xOTEyQzExLjM4MzkgNS4wOTY4OCAxMS40ODk5IDUuMDIxMjMgMTEuNjA3NiA0Ljk2ODc2QzExLjcyNTQgNC45MTYyOSAxMS44NTI1IDQuODg4MDggMTEuOTgxNCA0Ljg4NThDMTIuMTEwMyA0Ljg4MzUzIDEyLjIzODQgNC45MDcyNCAxMi4zNTc5IDQuOTU1NTJDMTIuNDc3NCA1LjAwMzgxIDEyLjU4NiA1LjA3NTY3IDEyLjY3NzIgNS4xNjY4M0MxMi43NjgzIDUuMjU3OTkgMTIuODQwMiA1LjM2NjU4IDEyLjg4ODUgNS40ODYxMkMxMi45MzY4IDUuNjA1NjUgMTIuOTYwNSA1LjczMzY5IDEyLjk1ODIgNS44NjI1OUMxMi45NTU5IDUuOTkxNDkgMTIuOTI3NyA2LjExODYxIDEyLjg3NTIgNi4yMzYzN0MxMi44MjI4IDYuMzU0MTMgMTIuNzQ3MSA2LjQ2MDExIDEyLjY1MjggNi41NDhMMTIuNjQ5NiA2LjUzNTJaIiBmaWxsPSJ3aGl0ZSIvPgogICAgPC9zdmc+");
+}
+
+/* Consent Settings Link */
+#onetrust-consent-sdk #onetrust-banner-sdk #onetrust-button-group-parent #onetrust-button-group #onetrust-pc-btn-handler {
+  font-family: $font-family-sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+  color: #0D10BF;
+  border: none;
+  background: none;
+  text-decoration: underline;
+  padding-top: 0;
+  margin-top: 0;
+  width: 100%;
+
+  @media only screen and (min-width: 576px) { 
+    max-width: fit-content;
+  }
+  @media only screen and (min-width: 897px) { 
+    margin: 5px auto;
+    width: 270px;
+    max-width: 270px;
+  }
+}
+
+/* Title & Text Box Margin */
+#onetrust-consent-sdk #onetrust-banner-sdk #onetrust-policy {
+  @media only screen and (min-width: 1199px) { 
+    max-width: 740px;
+    margin: 1.2em auto;
+  }
+}
+
+/* Close Button */
+#onetrust-consent-sdk #onetrust-banner-sdk #onetrust-close-btn-container {
+  @media only screen and (min-width: 1199px) { 
+    right: 20px;
+  }
+}
+
+#onetrust-consent-sdk #onetrust-banner-sdk .onetrust-close-btn-handler {
+  background-size: 20px;
+}
+
+/* Desktop Layout Changes */
+#onetrust-consent-sdk #onetrust-banner-sdk:not(.ot-iab-2) #onetrust-group-container {
+  @media only screen and (min-width: 1199px) { 
+    width: 65%;
+  }
+}
+
+#onetrust-consent-sdk #onetrust-banner-sdk:not(.ot-iab-2) #onetrust-button-group-parent {
+  position: inherit;
+  float: none;
+  display: inline-block;
+  transform: none;
+
+  @media only screen and (min-width: 897px) { 
+    width: 32%;
+  }
+  @media only screen and (min-width: 1199px) { 
+    width: 29%;
+  }
+}
