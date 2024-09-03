@@ -42,7 +42,7 @@ let main = {
 
     this.fetchEnv((envData) => {
       env = envData;
-      networkSiteURL = env.NETWORK_SITE_URL;
+      networkSiteURL = window.location.origin;
       if (env.SENTRY_DSN) {
         // Initialize Sentry error reporting
         initializeSentry(
