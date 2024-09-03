@@ -19,12 +19,6 @@
             {% endblock %}
         </title>
 
-
-        <!-- OneTrust Cookies Consent Notice start for foundation.mofostaging.net -->
-
-        <script src="{% static "oneTrust_test/scripttemplates/otSDKStub.js" %}"  type="text/javascript" charset="UTF-8" data-domain-script="0190e65a-dbec-7548-89af-4b67155ee70a-test" ></script>
-        <script src="{% static "oneTrust_test/scripttemplates/callback.js" %}"  type="text/javascript"></script>
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         {% block web_monetization %}
@@ -63,6 +57,19 @@
                 t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=4;o.h=w.location.href;o.l=[];
                 for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
             })(window,document,'script','FundraiseUp','ADCYPWMX');</script>
+        {% endblock %}
+
+        {% block onetrust_script %}
+            <script src="{% static "oneTrust_test/scripttemplates/otSDKStub.js" %}"  type="text/javascript" charset="UTF-8" data-domain-script="0190e65a-dbec-7548-89af-4b67155ee70a-test" ></script>
+            <script nonce="{{ request.csp_nonce }}">function OptanonWrapper() {
+                if (document.getElementById('onetrust-banner-sdk')) {
+                    var acceptBtn = document.getElementById("onetrust-accept-btn-handler");
+                    var declineBtn = document.getElementById("onetrust-reject-all-handler");
+                    var cookieSettingsBtn = document.getElementById("onetrust-pc-btn-handler");
+                    var btnContainer = document.getElementById("onetrust-button-group");
+                    btnContainer.append(acceptBtn, declineBtn, cookieSettingsBtn);
+                }
+            };</script>
         {% endblock %}
 
         {% wagtail_ab_testing_script %}
