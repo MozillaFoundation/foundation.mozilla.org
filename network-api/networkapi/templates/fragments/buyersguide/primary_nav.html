@@ -7,7 +7,6 @@
 {% block menu_container_classes %} tw-pb-0 {% endblock %}
 
 {% block nav_logo %}
-    {% get_bg_home_page as home_page %}
     <div class="tw-flex tw-flex-col logo-section tw-mx-auto large:tw-mx-0">
         <p class="mb-0 tw-h3-heading tw-max-w-none flex-wrap">
             <a class="link-back tw-flex" href="{% pageurl home_page %}">
@@ -26,7 +25,6 @@
 {% endblock %}
 
 {% block narrow_screen_nav_links %}
-    {% get_bg_home_page as home_page %}
     {% include "fragments/buyersguide/pni_nav_links.html" with class="tw-block tw-w-fit" pre="<div>" post="</div>" %}
 {% endblock %}
 
