@@ -1,0 +1,36 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+<div id="hero">
+    <div class="banner tw-bg-black">
+        {% with banner=page.specific.get_banner %}
+            {% if banner %}
+                <picture>
+                    <source media="(min-width: 1200px)" srcset="{% image_url banner "fill-4032x480" %}">
+                    <source media="(min-width: 992px)" srcset="{% image_url banner "fill-2400x480" %}">
+                    <source media="(min-width: 768px)" srcset="{% image_url banner "fill-1984x480" %}">
+                    <source media="(min-width: 576px)" srcset="{% image_url banner "fill-1536x390" %}">
+                    {# Fallback Image #}
+                    <img src="{% image_url banner "fill-1536x390" %}" alt="">
+                </picture>
+            {% else %}
+                <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
+            {% endif %}
+        {% endwith %}
+
+        <div class="container tw-dark banner-content">
+            <div class="row">
+                <div class="col-12 col-md-9 col-xl-8 mt-3 d-flex flex-column justify-content-end">
+                    <h1 class="tw-h1-heading">{{ page.hero_headline }}</h1>
+                    {% if page.show_hero_button and page.hero_button_text and page.hero_button_url %}
+                        <div>
+                            <a href="{{ page.hero_button_url }}" class="tw-btn-secondary text-wrap mt-3" id="homepage-hero-cta">{{ page.hero_button_text }}</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if singleton_page == True %}
+        {% include "partials/intro_and_content_divider.html" with wrapper_class="d-md-none" %}
+    {% endif %}
+</div>
