@@ -44,7 +44,7 @@ class DonateHelpPage(BaseDonationPage):
         SynchronizedField("search_image"),
         # Content tab fields
         TranslatableField("title"),
-        TranslatableField("notice"),
+        SynchronizedField("notice"),
         TranslatableField("body"),
     ]
 
