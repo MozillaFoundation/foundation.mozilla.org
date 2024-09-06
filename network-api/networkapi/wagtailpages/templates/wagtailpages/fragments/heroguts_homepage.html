@@ -10,10 +10,10 @@
                     <source media="(min-width: 768px)" srcset="{% image_url banner "fill-1984x480" %}">
                     <source media="(min-width: 576px)" srcset="{% image_url banner "fill-1536x390" %}">
                     {# Fallback Image #}
-                    <img src="{% image_url banner "fill-1536x390" %}" alt="">
+                    <img src="{% image_url banner "fill-1536x390" %}" alt="" width="1536" height="390">
                 </picture>
             {% else %}
-                <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
+                <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="" width="" height="">
             {% endif %}
         {% endwith %}
 
