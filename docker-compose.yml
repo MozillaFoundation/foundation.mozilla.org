@@ -52,7 +52,6 @@ services:
       # Frontend config
       - ./source:/app/source
       - ./.editorconfig:/app/.editorconfig
-      - ./.eslintignore:/app/.eslintignore
       - ./.eslintrc.a11y.json:/app/.eslintrc.a11y.json
       - ./.eslintrc.json:/app/.eslintrc.json
       - ./.prettierignore:/app/.prettierignore
@@ -81,6 +80,6 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-      
+
 volumes:
   postgres_data:
