@@ -37,7 +37,7 @@ article_fields = [
     ("single_quote", customblocks.SingleQuoteBlock()),
     ("slider", customblocks.FoundationSliderBlock()),
     ("spacer", customblocks.BootstrapSpacerBlock()),
-    ("table", TableBlock(template="wagtailpages/blocks/article_table_block.html")),
+    ("table", customblocks.WideTableBlock()),
     ("video", customblocks.VideoBlock()),
     ("advanced_table", customblocks.AdvancedTableBlock()),
 ]
