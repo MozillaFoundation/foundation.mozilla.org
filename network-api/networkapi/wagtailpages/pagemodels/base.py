@@ -443,10 +443,10 @@ class Styleguide(PrimaryPage):
     ]
 
 
-class HomepageSpotlightPosts(TranslatableMixin, WagtailOrderable):
+class HomepageIdeasPosts(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         "wagtailpages.Homepage",
-        related_name="spotlight_posts",
+        related_name="ideas_posts",
     )
     blog = models.ForeignKey("BlogPage", on_delete=models.CASCADE, related_name="+")
     cta = models.CharField(max_length=50, default="Read more")
@@ -764,16 +764,16 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     hero_button_url = models.URLField(blank=True)
 
-    spotlight_image = models.ForeignKey(
+    ideas_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         help_text="Ideas image",
-        related_name="spotlight_image",
+        related_name="ideas_image",
     )
 
-    spotlight_headline = models.CharField(
+    ideas_headline = models.CharField(
         max_length=140,
         help_text="Ideas headline",
         blank=True,
@@ -883,9 +883,9 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                FieldPanel("spotlight_image"),
-                FieldPanel("spotlight_headline"),
-                InlinePanel("spotlight_posts", label="Posts", min_num=3, max_num=3),
+                FieldPanel("ideas_image"),
+                FieldPanel("ideas_headline"),
+                InlinePanel("ideas_posts", label="Posts", min_num=3, max_num=3),
             ],
             heading="Ideas",
             classname="collapsible",
@@ -935,8 +935,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
         SynchronizedField("hero_image"),
         TranslatableField("hero_button_text"),
         SynchronizedField("hero_button_url"),
-        SynchronizedField("spotlight_image"),
-        TranslatableField("spotlight_headline"),
+        SynchronizedField("ideas_image"),
+        TranslatableField("ideas_headline"),
         TranslatableField("cause_statement"),
         TranslatableField("cause_statement_link_text"),
         TranslatableField("cause_statement_link_page"),
@@ -953,7 +953,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         TranslatableField("focus_areas"),
         TranslatableField("take_action_cards"),
         TranslatableField("partner_logos"),
-        TranslatableField("spotlight_posts"),
+        TranslatableField("ideas_posts"),
         TranslatableField("news_you_can_use"),
     ]
 
