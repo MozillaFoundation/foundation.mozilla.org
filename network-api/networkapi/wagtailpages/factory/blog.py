@@ -7,11 +7,10 @@ from factory import Faker, LazyAttribute, SubFactory
 from factory.django import DjangoModelFactory
 from wagtail.models import Page as WagtailPage
 from wagtail_factories import PageFactory, StreamFieldFactory
-from networkapi.wagtailpages.factory.signup import BlogSignupFactory
-from networkapi.wagtailpages.factory.image_factory import ImageFactory
-
 
 from networkapi.utility.faker.helpers import get_homepage, get_random_objects, reseed
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
+from networkapi.wagtailpages.factory.signup import BlogSignupFactory
 from networkapi.wagtailpages.models import (
     BlogAuthors,
     BlogIndexPage,
@@ -79,17 +78,19 @@ class BlogPageFactory(PageFactory):
         exclude = ("title_text",)
 
     title = LazyAttribute(lambda o: o.title_text.rstrip("."))
-    body = StreamFieldFactory([
-        ("paragraph", Faker('sentence')),
-        ("blog_newsletter_signup", factory.SubFactory(BlogSignupFactory)),
-        ("image", factory.SubFactory(ImageFactory)),
-        ("image_text", factory.SubFactory(ImageFactory)),
-        ("image_text_mini", factory.SubFactory(ImageFactory)),
-        ("video", factory.Faker('url')),
-        ("linkbutton", factory.Faker('url')),
-        ("spacer", Faker('text')),
-        ("quote", Faker('sentence')),
-    ])
+    body = StreamFieldFactory(
+        {
+            "paragraph": Faker("sentence"),
+            "blog_newsletter_signup": factory.SubFactory(BlogSignupFactory),
+            "image": factory.SubFactory(ImageFactory),
+            "image_text": factory.SubFactory(ImageFactory),
+            "image_text_mini": factory.SubFactory(ImageFactory),
+            "video": factory.Faker("url"),
+            "linkbutton": factory.Faker("url"),
+            "spacer": Faker("text"),
+            "quote": Faker("sentence"),
+        }
+    )
 
     first_published_at = (
         Faker("date_time", tzinfo=timezone.utc)
