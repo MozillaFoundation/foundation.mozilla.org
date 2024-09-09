@@ -3,7 +3,6 @@ Article StreamBlocks
 """
 
 from wagtail import blocks
-from wagtail.contrib.table_block.blocks import TableBlock
 
 from . import customblocks
 from .customblocks.base_rich_text_options import base_rich_text_options
