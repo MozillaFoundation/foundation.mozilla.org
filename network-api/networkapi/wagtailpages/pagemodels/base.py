@@ -769,13 +769,11 @@ class Homepage(FoundationMetadataPageMixin, Page):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        help_text="Ideas image",
         related_name="ideas_image",
     )
 
     ideas_headline = models.CharField(
         max_length=140,
-        help_text="Ideas headline",
         blank=True,
     )
 
