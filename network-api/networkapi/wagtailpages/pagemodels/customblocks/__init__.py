@@ -51,8 +51,8 @@ from .recent_blog_entries import RecentBlogEntries
 from .session_slider_block import SessionSliderBlock
 from .single_quote_block import SingleQuoteBlock
 from .spaces_block import SpacesBlock
+from .table_block import WideTableBlock
 from .text_only_teaser import TextOnlyTeaserBlock
 from .tito_widget import TitoWidgetBlock
 from .video_block import ExternalVideoBlock, VideoBlock, WagtailVideoChooserBlock
-from .table_block import WideTableBlock
 from .youtube_regret_block import YoutubeRegretBlock
