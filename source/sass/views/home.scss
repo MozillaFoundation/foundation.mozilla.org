@@ -28,7 +28,7 @@
     }
   }
 
-  .section-spotlight {
+  .section-ideas {
     .capsule-label {
       font-size: 14px;
       line-height: calc(16 / 14);
@@ -45,7 +45,7 @@
       bottom: -50%;
     }
 
-    .spotlight-banner {
+    .ideas-banner {
       background-size: cover;
       background-position: center;
       @apply tw-h-120;
@@ -55,15 +55,15 @@
       }
 
       @media (min-width: $bp-lg) {
-        height: 400px;
+        height: 100%;
       }
     }
 
-    .spotlight-headline {
+    .ideas-headline {
       font-weight: 700;
     }
 
-    .spotlight-post {
+    .ideas-post {
       $vertical-spacing: 1.5rem;
 
       &:first-child {
