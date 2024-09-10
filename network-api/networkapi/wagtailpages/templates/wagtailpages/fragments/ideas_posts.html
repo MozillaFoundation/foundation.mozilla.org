@@ -19,7 +19,7 @@
                         <a href="{{ localized.url }}">{{ localized.title }}</a>
                     </h4>
                     {% include "./blog_authors.html" with blog_page=localized %}
-                    <a href="{{ localized.url }}" class="tw-cta-link d-none d-md-inline-block tw-mt-2">{{ post.cta }}</a>
+                    <a href="{{ localized.url }}" class="tw-cta-link d-inline-block tw-mt-2">{{ post.cta }}</a>
                 </div>
             {% endwith %}
         {% endfor %}
