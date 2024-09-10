@@ -74,6 +74,8 @@ class CTABase(models.Model):
 
 
 class CTA(CTABase):
+    panels = CTABase.panels
+
     class Meta:
         ordering = ["-id"]
         verbose_name_plural = "CTA"
@@ -136,6 +138,16 @@ class Callpower(TranslatableMixin, CTA):
         index.FilterField("locale_id"),
     ]
 
+    panels = CTA.panels + [
+        FieldPanel("campaign_id"),
+        FieldPanel("call_button_label"),
+        FieldPanel("success_heading"),
+        FieldPanel("success_text"),
+        FieldPanel("share_twitter"),
+        FieldPanel("share_facebook"),
+        FieldPanel("share_email"),
+    ]
+
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
         verbose_name = "Callpower"
@@ -164,6 +176,11 @@ class Signup(TranslatableMixin, CTA):
         index.SearchField("campaign_id", boost=2),
         index.FilterField("locale_id"),
         index.FilterField("ask_name"),
+    ]
+
+    panels = CTA.panels + [
+        FieldPanel("campaign_id"),
+        FieldPanel("ask_name"),
     ]
 
     class Meta(TranslatableMixin.Meta):
@@ -310,6 +327,17 @@ class Petition(TranslatableMixin, CTA):
         index.FilterField("show_country_field"),
         index.FilterField("show_postal_code_field"),
         index.FilterField("show_comment_field"),
+    ]
+
+    panels = CTA.panels + [
+        FieldPanel("campaign_id"),
+        FieldPanel("show_country_field"),
+        FieldPanel("show_postal_code_field"),
+        FieldPanel("show_comment_field"),
+        FieldPanel("share_twitter"),
+        FieldPanel("share_facebook"),
+        FieldPanel("share_email"),
+        FieldPanel("thank_you"),
     ]
 
     class Meta(TranslatableMixin.Meta):
