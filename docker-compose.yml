@@ -51,9 +51,9 @@ services:
 
       # Frontend config
       - ./source:/app/source
+      - ./eslint.config.a11y.js:/app/eslint.config.a11y.js
+      - ./eslint.config.js:/app/eslint.config.js
       - ./.editorconfig:/app/.editorconfig
-      - ./.eslintrc.a11y.json:/app/.eslintrc.a11y.json
-      - ./.eslintrc.json:/app/.eslintrc.json
       - ./.prettierignore:/app/.prettierignore
       - ./.prettierrc:/app/.prettierrc
       - ./.stylelintrc:/app/.stylelintrc
