@@ -12,7 +12,6 @@ import ButtonQuit from "../atoms/button-quit.jsx";
 import APIErrorMessage from "../atoms/api-error-message.jsx";
 import withSubmissionLogic from "./with-submission-logic.jsx";
 import utility from "../../../utility.js";
-import { ReactGA } from "../../../common";
 import { getText, getCurrentLanguage } from "../../petition/locales";
 import { COUNTRY_OPTIONS } from "../data/country-options.js";
 import { LANGUAGE_OPTIONS } from "../data/language-options.js";
@@ -92,7 +91,8 @@ class DefaultSignupForm extends Component {
   }
 
   handleInputFocus() {
-    ReactGA.event({
+    window.dataLayer.push({
+      event: `signup_form_input_focused`,
       category: `signup`,
       action: `form focus`,
       label: `Signup form input focused`,
