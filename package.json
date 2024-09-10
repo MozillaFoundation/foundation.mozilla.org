@@ -77,7 +77,7 @@
   "license": "MPL-2.0",
   "dependencies": {
     "@sentry/browser": "^7.113.0",
-    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/forms": "^0.5.9",
     "autoprefixer": "^10.4.20",
     "axe-core": "^4.10.0",
     "bootstrap": "^4.6.0",
@@ -115,7 +115,7 @@
     "browserslist": "^4.23.3",
     "chokidar-cli": "^3.0.0",
     "eslint": "^8.57.0",
-    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.35.0",
     "optipng-bin": "^9.0.0",
