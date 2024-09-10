@@ -1,5 +1,3 @@
-import { ReactGA } from "./common";
-
 let primaryNav = {
   init: function () {
     let elBurger = document.querySelector(`.burger`);
@@ -35,13 +33,15 @@ let primaryNav = {
 
     function trackMenuState(openMenu) {
       if (openMenu) {
-        ReactGA.event({
+        window.dataLayer.push({
+          event: `show_navigation_menu`,
           category: `navigation`,
           action: `show menu`,
           label: `Show navigation menu`,
         });
       } else {
-        ReactGA.event({
+        window.dataLayer.push({
+          event: `hide_navigation_menu`,
           category: `navigation`,
           action: `hide menu`,
           label: `Hide navigation menu`,

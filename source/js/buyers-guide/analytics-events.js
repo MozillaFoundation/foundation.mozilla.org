@@ -1,4 +1,4 @@
-import { ReactGA, GoogleAnalytics } from "../common";
+import { GoogleAnalytics } from "../common";
 
 /**
  * Based on given page title and product name, generate an object to use for GA events
@@ -10,6 +10,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
   return {
     // "site-wide" events
     "[data-donate-header-button]": {
+      event: `donate_header_button`,
       category: `buyersguide`,
       action: `donate tap`,
       label: `${pageTitle} donate header`,
@@ -17,6 +18,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
 
     // product events
     "#product-company-url": {
+      event: `product_company_link_tap`,
       category: `product`,
       action: `company link tap`,
       label: `company link for ${productName}`,
@@ -25,6 +27,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
       conditionalQuery: `#view-product-page`,
     },
     "#product-live-chat": {
+      event: `customer_support_link_tap`,
       category: `product`,
       action: `customer support link tap`,
       label: `support link for ${productName}`,
@@ -34,6 +37,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
       optional_element: true,
     },
     "#product-email": {
+      event: `email_link_tap`,
       category: `product`,
       action: `email link tap`,
       label: `email link for ${productName}`,
@@ -43,6 +47,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
       optional_element: true,
     },
     "#product-twitter": {
+      event: `twitter_link_tap`,
       category: `product`,
       action: `twitter link tap`,
       label: `twitter link for ${productName}`,
@@ -52,6 +57,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
       optional_element: true,
     },
     "#creep-vote-btn": {
+      event: `opinion_submitted`,
       category: `product`,
       action: `opinion submitted`,
       label: `opinion on ${productName}`,
@@ -59,6 +65,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
       conditionalQuery: `#view-product-page`,
     },
     "a.privacy-policy-link": {
+      event: `privacy_policy_link_tap`,
       category: `product`,
       action: `privacy policy link tap`,
       label: `policy link for ${productName}`,
@@ -67,6 +74,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
       conditionalQuery: `#view-product-page`,
     },
     ".product-update-link": {
+      event: `update_article_link_tap`,
       category: `product`,
       action: `update article link tap`,
       label: `update article link for ${productName}`,
@@ -77,6 +85,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
       optional_element: true,
     },
     "#mss-link": {
+      event: `minimum_security_standards_link_tap`,
       category: `product`,
       action: `minimum security standards link tap`,
       label: `mss link for ${productName}`,
@@ -84,6 +93,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
       conditionalQuery: `#view-product-page`,
     },
     ".btn-recommend": {
+      event: `submit_a_product_button_tap`,
       category: `buyersguide`,
       action: `submit a product button tap`,
       label: `submit a product button tap on ${pageTitle}`,
@@ -99,7 +109,11 @@ function getQuerySelectorEvents(pageTitle, productName) {
  * @param {Object} eventData data to send as GA event
  */
 function setupElementGA(element, eventData) {
-  element.addEventListener("click", () => ReactGA.event(eventData), true);
+  element.addEventListener(
+    "click",
+    () => window.dataLayer.push(eventData),
+    true
+  );
 }
 
 /**
@@ -120,7 +134,7 @@ function bindCheckboxCheckedGA(selector, eventData) {
     "change",
     () => {
       if (checkbox.checked) {
-        ReactGA.event(eventData);
+        window.dataLayer.push(eventData);
       }
     },
     true
@@ -147,7 +161,8 @@ function trackSearchBoxUsage() {
       let searchBoxUsed = sessionStorage.getItem(SESSION_KEY);
 
       if (!searchBoxUsed) {
-        ReactGA.event({
+        window.dataLayer.push({
+          event: `type_in_search_box`,
           category: `buyersguide`,
           action: `type in search box`,
           label: `search box used`,
@@ -177,7 +192,8 @@ function trackGoBackToAllProductsLink() {
   link.addEventListener(
     "click",
     () => {
-      ReactGA.event({
+      window.dataLayer.push({
+        event: `product_not_found_all_link_tap`,
         category: `buyersguide`,
         action: `product not found All link tap`,
         label: `All link tap for ${searchBox.value}`,
@@ -228,6 +244,7 @@ const ProductGA = {
 
       if (elements.length > 0) {
         const eventData = {
+          event: baseData.event,
           category: baseData.category,
           action: baseData.action,
           label: baseData.label,
@@ -248,6 +265,7 @@ const ProductGA = {
     // tracks when MSS accordion on product page is expanded
     if (document.querySelector(`#view-product-page`)) {
       bindCheckboxCheckedGA("#view-product-page #mss-accordion-toggle", {
+        event: `security_expand_accordion_tap`,
         category: `product`,
         action: `security expand accordion tap`,
         label: `detail view for MSS on for ${productName}`,
@@ -256,6 +274,7 @@ const ProductGA = {
 
     if (document.querySelector(`body.catalog`)) {
       bindCheckboxCheckedGA("body.catalog #product-filter-pni-toggle", {
+        event: `ding_checkbox_checked`,
         category: `buyersguide`,
         action: `ding checkbox checked`,
         label: `ding checkbox checked on ${pageTitle}`,
