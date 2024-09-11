@@ -27,7 +27,6 @@ class WagtailHomepageFactory(PageFactory):
     hero_bottom_heading = Faker("text", max_nb_chars=60)
     hero_bottom_body = Faker("text", max_nb_chars=250)
     hero_bottom_link_text = Faker("text", max_nb_chars=30)
-    # hero_bottom_link_page = SubFactory(PrimaryPageFactory)
     quote_image = SubFactory(ImageFactory)
     quote_text = Faker("text", max_nb_chars=300)
     quote_source_name = Faker("text", max_nb_chars=30)
@@ -103,6 +102,10 @@ def generate(seed):
     except WagtailPage.DoesNotExist:
         print('Generating "who we are" Page (PrimaryPage)')
         wwa_page = PrimaryPageFactory.create(parent=home_page, title="Who we are", show_in_menus=True)
+
+    # Set the hero_bottom_link_page
+    home_page.hero_bottom_link_page = wwa_page
+    home_page.save()
 
     reseed(seed)
 
