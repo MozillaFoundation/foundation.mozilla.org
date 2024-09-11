@@ -604,19 +604,10 @@ class FocusArea(TranslatableMixin, models.Model):
         help_text="Description of this area of focus. Max. 300 characters.",
     )
 
-    page = models.ForeignKey(
-        "wagtailcore.Page",
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
     panels = [
         FieldPanel("interest_icon"),
         FieldPanel("name"),
         FieldPanel("description"),
-        FieldPanel("page"),
     ]
 
     translatable_fields = [
@@ -788,26 +779,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         blank=True,
     )
 
-    show_cause_statement = models.BooleanField(default=False, help_text="Display cause statement")
-
-    cause_statement = models.CharField(
-        max_length=250,
-        default="",
-    )
-
-    cause_statement_link_text = models.CharField(
-        max_length=80,
-        blank=True,
-    )
-
-    cause_statement_link_page = models.ForeignKey(
-        Page,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="cause_statement_link",
-    )
-
     quote_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -865,16 +836,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
             ],
             heading="hero",
             classname="collapsible",
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel("show_cause_statement"),
-                FieldPanel("cause_statement"),
-                FieldPanel("cause_statement_link_text"),
-                FieldPanel("cause_statement_link_page"),
-            ],
-            heading="cause statement",
-            classname="collapsible collapsed",
         ),
         MultiFieldPanel(
             [
@@ -960,9 +921,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         SynchronizedField("hero_bottom_link_page"),
         SynchronizedField("ideas_image"),
         TranslatableField("ideas_headline"),
-        TranslatableField("cause_statement"),
-        TranslatableField("cause_statement_link_text"),
-        TranslatableField("cause_statement_link_page"),
         SynchronizedField("quote_image"),
         TranslatableField("quote_text"),
         TranslatableField("quote_source_name"),
