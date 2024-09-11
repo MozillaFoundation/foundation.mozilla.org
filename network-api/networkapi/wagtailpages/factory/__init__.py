@@ -8,7 +8,6 @@ from . import (
     campaign_page,
     dear_internet_page,
     homepage,
-    homepage_cause_statement_link,
     homepage_features,
     homepage_partner_logos,
     homepage_take_action,
@@ -49,8 +48,6 @@ def generate(seed):
     youtube_regrets_page.generate(seed)
     research_hub.generate(seed)
     rcc.generate(seed)
-    # homepage_cause_statement_link requires child pages of homepage to exist
-    homepage_cause_statement_link.generate(seed)
     app_install_page.generate(seed)
 
 
