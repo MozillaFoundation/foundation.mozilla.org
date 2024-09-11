@@ -15,6 +15,14 @@ test.describe("Donation modal", () => {
     await modalContent.waitFor({ state: "visible" });
   });
 
+  test("ShareProgress script is included in the DOM", async ({ page }) => {
+    const spScriptUrl = "https://c.shpg.org/352/sp.js";
+
+    // Check if the ShareProgress script is present in the DOM
+    const scriptElement = await page.$(`script[src="${spScriptUrl}"]`);
+    expect(scriptElement).not.toBeNull();
+  });
+
   test("Donation modal can be closed using the 'x' button", async ({
     page,
   }) => {
@@ -85,57 +93,25 @@ test.describe("Share buttons", () => {
     await shareSection.waitFor({ state: "visible" });
   });
 
-  test("Facebook share button", async ({ page }) => {
-    // test if Facebook button is visible
-    const facebookButton = page.locator(
-      ".formassembly-petition-thank-you button.facebook-share"
-    );
+  test("Facebook share button (linked with ShareProgress)", async ({ page }) => {
+    // Because it's mostly ShareProgress's script doing the magic,
+    // we can only test if an anchor element is injected by ShareProgress
+    const facebookButton = page.locator("#share-progress-fb a");
     expect(await facebookButton.count()).toBe(1);
-
-    // check if clicking the Facebook button opens up a new window
-    const [popup] = await Promise.all([
-      page.waitForEvent("popup"),
-      facebookButton.click(),
-    ]);
-
-    // check if popup's url contains facebook.com
-    expect(popup.url()).toContain("facebook.com");
   });
 
-  test("Twitter share button", async ({ page }) => {
-    // test if Twitter button is visible
-    const twitterButton = page.locator(
-      ".formassembly-petition-thank-you button.twitter-share"
-    );
+  test("Twitter share button (linked with ShareProgress)", async ({ page }) => {
+    // Because it's mostly ShareProgress's script doing the magic,
+    // we can only test if an anchor element is injected by ShareProgress
+    const twitterButton = page.locator("#share-progress-tw a");
     expect(await twitterButton.count()).toBe(1);
-
-    // check if clicking the Twitter button opens up a new window
-    const [popup] = await Promise.all([
-      page.waitForEvent("popup"),
-      twitterButton.click(),
-    ]);
-
-    // check if popup's url contains x.com
-    expect(popup.url()).toContain("x.com");
   });
 
-  test("Email share button", async ({ page }) => {
-    // test if Email button is visible
-    const emailButton = page.locator(
-      ".formassembly-petition-thank-you button.email-share"
-    );
-    expect(await emailButton.count()).toBe(1);
-
-    // intercept the navigation event
-    page.on("framenavigated", (frame) => {
-      const url = frame.url();
-      if (url.startsWith("mailto:")) {
-        expect(url).toContain("mailto:");
-      }
-    });
-
-    // click the email button
-    await emailButton.click();
+  test("Email share button (linked with ShareProgress)", async ({ page }) => {
+    // Because it's mostly ShareProgress's script doing the magic,
+    // we can only test if an anchor element is injected by ShareProgress
+    const twitterButton = page.locator("#share-progress-em a");
+    expect(await twitterButton.count()).toBe(1);
   });
 
   test("Copy button", async ({ page }) => {
