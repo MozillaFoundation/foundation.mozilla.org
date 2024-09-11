@@ -27,7 +27,7 @@ class WagtailHomepageFactory(PageFactory):
     hero_bottom_heading = Faker("text", max_nb_chars=60)
     hero_bottom_body = Faker("text", max_nb_chars=250)
     hero_bottom_link_text = Faker("text", max_nb_chars=30)
-    hero_bottom_link_page = SubFactory(PrimaryPageFactory)
+    # hero_bottom_link_page = SubFactory(PrimaryPageFactory)
     quote_image = SubFactory(ImageFactory)
     quote_text = Faker("text", max_nb_chars=300)
     quote_source_name = Faker("text", max_nb_chars=30)
