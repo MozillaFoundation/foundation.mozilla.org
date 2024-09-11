@@ -4,6 +4,34 @@ import django.db.models.deletion
 from django.db import migrations, models
 
 
+def update_focus_areas_and_add_hero_bottom(apps, schema_editor):
+    FocusArea = apps.get_model("wagtailpages", "FocusArea")
+    Homepage = apps.get_model("wagtailpages", "Homepage")
+    Page = apps.get_model("wagtailcore", "Page")
+
+    # Update FocusArea data
+    focus_areas = [
+        {"name": "$25.2 million", "description": "in grants given to support fellows"},
+        {"name": "150 fellows", "description": "shaping technology in the public interest"},
+        {"name": "100,000+ signatures", "description": "on petitions holding companies accountable"},
+    ]
+
+    FocusArea.objects.all().delete()
+    for area in focus_areas:
+        FocusArea.objects.create(**area)
+
+    # Add hero_bottom data to Homepage
+    homepage = Homepage.objects.first()
+    if homepage:
+        homepage.hero_bottom_heading = (
+            "A healthy internet is one in which privacy, openness, and inclusion are the norms. "
+        )
+        homepage.hero_bottom_body = "Mozilla empowers consumers to demand better online privacy, trustworthy AI, and safe online experiences from Big Tech and governments. We work across borders, disciplines, and technologies to uphold principles like privacy, inclusion and decentralization online."
+        homepage.hero_bottom_link_text = "More about our mission"
+        homepage.hero_bottom_link_page = Page.objects.filter(depth=2).first()
+        homepage.save()
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -58,4 +86,15 @@ class Migration(migrations.Migration):
             name="hero_bottom_link_text",
             field=models.CharField(blank=True, max_length=50),
         ),
+        migrations.AlterField(
+            model_name="focusarea",
+            name="name",
+            field=models.CharField(help_text="The name of this area of focus.", max_length=35),
+        ),
+        migrations.AlterField(
+            model_name="focusarea",
+            name="description",
+            field=models.TextField(help_text="Description of this area of focus.", max_length=80),
+        ),
+        migrations.RunPython(update_focus_areas_and_add_hero_bottom),
     ]

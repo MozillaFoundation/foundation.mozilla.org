@@ -18,11 +18,11 @@ def generate(seed):
 
     # These are "guaranteed" to exist as they are created as
     # part of the wagtailpages migrations:
-    HomepageFocusAreas.objects.create(page=home_page, area=FocusArea.objects.get(name="Rally Citizens"))
+    HomepageFocusAreas.objects.create(page=home_page, area=FocusArea.objects.get(name="$25.2 million"))
 
-    HomepageFocusAreas.objects.create(page=home_page, area=FocusArea.objects.get(name="Connect Leaders"))
+    HomepageFocusAreas.objects.create(page=home_page, area=FocusArea.objects.get(name="150 fellows"))
 
-    HomepageFocusAreas.objects.create(page=home_page, area=FocusArea.objects.get(name="Shape the Agenda"))
+    HomepageFocusAreas.objects.create(page=home_page, area=FocusArea.objects.get(name="100,000+ signatures"))
 
     NUM_IDEAS_POSTS = 3
 
