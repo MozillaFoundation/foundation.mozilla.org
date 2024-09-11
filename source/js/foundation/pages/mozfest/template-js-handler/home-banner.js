@@ -1,5 +1,3 @@
-import { ReactGA } from "../../../../common";
-
 /**
  * Mozfest hero banner video component.
  * Provides play/pause buttons functionality, as well as GA tracking of video plays.
@@ -100,7 +98,8 @@ const backgroundHardcodedVideoHandler = () => {
 
 // Track video watches in google analytics
 const trackWatchVideoClicks = () => {
-  ReactGA.event({
+  window.dataLayer.push({
+    event: `cta_watch_video_tap`,
     category: `CTA`,
     action: `watch video tap`,
     label: `watch video button tap`,

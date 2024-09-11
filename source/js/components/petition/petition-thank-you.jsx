@@ -1,5 +1,4 @@
 import { Component } from "react";
-import { ReactGA } from "../../common";
 import DonationModal from "./donation-modal.jsx";
 import copyToClipboard from "../../copy-to-clipboard";
 

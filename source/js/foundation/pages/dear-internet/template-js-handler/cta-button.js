@@ -1,5 +1,3 @@
-import { ReactGA } from "../../../../common";
-
 /**
  * Bind handler to CTA button on Dear Internet page
  */
@@ -9,7 +7,8 @@ export default () => {
   if (!ctaButton) return;
 
   ctaButton.addEventListener(`click`, () => {
-    ReactGA.event({
+    window.dataLayer.push({
+      event: `main_cta_donate_button_tap`,
       category: `donate`,
       action: `donate button tap`,
       label: `main CTA`,

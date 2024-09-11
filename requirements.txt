@@ -28,7 +28,7 @@ botocore==1.34.158
     #   s3transfer
 cached-property==1.5.2
     # via -r requirements.in
-certifi==2023.7.22
+certifi==2024.7.4
     # via
     #   requests
     #   scout-apm
@@ -285,7 +285,7 @@ wagtailmedia==0.14.5
     # via -r requirements.in
 webencodings==0.5.1
     # via html5lib
-whitenoise==6.6.0
+whitenoise==6.7.0
     # via -r requirements.in
 willow[heif]==1.6.3
     # via
