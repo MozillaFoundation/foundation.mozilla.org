@@ -26,9 +26,16 @@ def update_focus_areas_and_add_hero_bottom(apps, schema_editor):
         },
     ]
 
-    FocusArea.objects.all().delete()
-    for area in focus_areas:
-        FocusArea.objects.create(**area)
+    existing_focus_areas = list(FocusArea.objects.all())
+
+    for index, data in enumerate(focus_areas):
+        if index < len(existing_focus_areas):
+            focus_area = existing_focus_areas[index]
+            focus_area.name = data['name']
+            focus_area.description = data['description']
+            focus_area.save()
+        else:
+            FocusArea.objects.create(**data)
 
     # Add hero_bottom data to Homepage
     homepage = Homepage.objects.first()
