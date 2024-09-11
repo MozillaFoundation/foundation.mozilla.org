@@ -1,10 +1,10 @@
 {% load wagtailimages_tags i18n %}
 
-<div class="col-12 col-lg-4 mb-3 mb-lg-0 d-block d-sm-flex flex-sm-row flex-lg-column">
-    {% image area.interest_icon width-100 class="icon flex-shrink-0 mb-3 mb-sm-0 mb-lg-3 mr-sm-5 align-self-start" alt=area.interest_icon.title %}
+<div class="tw-flex tw-flex-col tw-items-center medium:tw-flex-row tw-gap-16 medium:tw-mx-auto medium:tw-w-[28rem] large:tw-w-full">
+    {% image area.interest_icon width-100 class="tw-max-w-[4em] tw-max-h-[4em]" alt=area.interest_icon.title %}
 
-    <div class="focus-content">
-        <h2 class="tw-h4-heading">{{ area.name }}</h2>
+    <div class="tw-text-center medium:tw-text-left">
+        <h2 class="tw-font-zilla tw-text-[40px]">{{ area.name }}</h2>
         <p>{{ area.description }}</p>
 
         {% if area.page %}<div class="mb-4 learn-more-link">
