@@ -1,7 +1,9 @@
-{% load wagtailimages_tags i18n %}
+{% load wagtailcore_tags %}
 
 <div class="tw-container tw-flex tw-flex-col tw-my-24 medium:!tw-px-0 medium:tw-my-40">
-    <h2 class="tw-leading-tight tw-mb-8 medium:tw-text-[28px]">A healthy internet is one in which privacy, openness, and inclusion are the norms.</h2>
-    <p class="">Mozilla empowers consumers to demand better online privacy, trustworthy AI, and safe online experiences from Big Tech and governments. We work across borders, disciplines, and technologies to uphold principles like privacy, inclusion and decentralization online.</p>
-    <a href="#" class="tw-cta-link d-inline-block tw-mt-2 tw-mb-5">More about our mission</a>
+    <h2 class="tw-leading-tight tw-mb-8 medium:tw-text-[28px]">{{ page.hero_bottom_heading }}</h2>
+    <p class="">{{ page.hero_bottom_body }}</p>
+    {% if page.hero_bottom_link_page %}
+        <a href="{% pageurl page.hero_bottom_link_page %}" class="tw-cta-link d-inline-block tw-mt-2 tw-mb-5">{{ page.hero_bottom_link_text }}</a>
+    {% endif %}
 </div>
