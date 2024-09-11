@@ -93,7 +93,9 @@ test.describe("Share buttons", () => {
     await shareSection.waitFor({ state: "visible" });
   });
 
-  test("Facebook share button (linked with ShareProgress)", async ({ page }) => {
+  test("Facebook share button (linked with ShareProgress)", async ({
+    page,
+  }) => {
     // Because it's mostly ShareProgress's script doing the magic,
     // we can only test if an anchor element is injected by ShareProgress
     const facebookButton = page.locator("#share-progress-fb a");
