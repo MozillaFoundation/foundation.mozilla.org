@@ -97,21 +97,21 @@ test.describe("Share buttons", () => {
     page,
   }) => {
     // Because it's mostly ShareProgress's script doing the magic,
-    // we can only test if an anchor element is injected by ShareProgress
+    // we can only test if an anchor element has been injected by ShareProgress
     const facebookButton = page.locator("#share-progress-fb a");
     expect(await facebookButton.count()).toBe(1);
   });
 
   test("Twitter share button (linked with ShareProgress)", async ({ page }) => {
     // Because it's mostly ShareProgress's script doing the magic,
-    // we can only test if an anchor element is injected by ShareProgress
+    // we can only test if an anchor element has been injected by ShareProgress
     const twitterButton = page.locator("#share-progress-tw a");
     expect(await twitterButton.count()).toBe(1);
   });
 
   test("Email share button (linked with ShareProgress)", async ({ page }) => {
     // Because it's mostly ShareProgress's script doing the magic,
-    // we can only test if an anchor element is injected by ShareProgress
+    // we can only test if an anchor element has been injected by ShareProgress
     const twitterButton = page.locator("#share-progress-em a");
     expect(await twitterButton.count()).toBe(1);
   });
