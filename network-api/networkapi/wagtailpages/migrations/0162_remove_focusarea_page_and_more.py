@@ -31,8 +31,8 @@ def update_focus_areas_and_add_hero_bottom(apps, schema_editor):
     for index, data in enumerate(focus_areas):
         if index < len(existing_focus_areas):
             focus_area = existing_focus_areas[index]
-            focus_area.name = data['name']
-            focus_area.description = data['description']
+            focus_area.name = data["name"]
+            focus_area.description = data["description"]
             focus_area.save()
         else:
             FocusArea.objects.create(**data)
