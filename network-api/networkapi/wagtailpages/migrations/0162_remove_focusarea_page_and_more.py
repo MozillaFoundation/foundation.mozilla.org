@@ -86,15 +86,5 @@ class Migration(migrations.Migration):
             name="hero_bottom_link_text",
             field=models.CharField(blank=True, max_length=50),
         ),
-        migrations.AlterField(
-            model_name="focusarea",
-            name="name",
-            field=models.CharField(help_text="The name of this area of focus.", max_length=35),
-        ),
-        migrations.AlterField(
-            model_name="focusarea",
-            name="description",
-            field=models.TextField(help_text="Description of this area of focus.", max_length=80),
-        ),
         migrations.RunPython(update_focus_areas_and_add_hero_bottom),
     ]
