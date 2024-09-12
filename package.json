@@ -35,7 +35,7 @@
     "lint": "run-s lint:*",
     "lint:procfile": "node test/test-procfile.js",
     "lint:js": "run-s lint:js:*",
-    "lint:js:eslint": "eslint --config ./eslint.config.js --debug \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" \"tests/**/*.js\" \"./*.js\"",
+    "lint:js:eslint": "eslint --config ./eslint.config.js \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" \"tests/**/*.js\" \"./*.js\"",
     "lint:js:a11y": "eslint --config ./eslint.config.a11y.js \"source/js/**/*.jsx\"",
     "lint:css": "run-s lint:css:*",
     "lint:css:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" --custom-syntax postcss-scss",

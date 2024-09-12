@@ -4,6 +4,7 @@ const eslintPluginReact = require("eslint-plugin-react");
 
 module.exports = [
   {
+    files: ["**/*.js", "**/*.jsx"],
     plugins: {
       prettier: eslintPluginPrettier,
       react: eslintPluginReact,
