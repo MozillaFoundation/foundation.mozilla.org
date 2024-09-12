@@ -2,22 +2,22 @@ from factory import SubFactory
 from factory.django import DjangoModelFactory
 
 from networkapi.utility.faker.helpers import get_homepage, reseed
-from networkapi.wagtailpages.models import BlogPage, HomepageHighlights
+from networkapi.wagtailpages.models import BlogPage, HomepageNewsYouCanUse
 
 from .blog import BlogPageFactory
 from .homepage import WagtailHomepageFactory
 
 
-class HightlightsFactory(DjangoModelFactory):
+class NewsYouCanUseFactory(DjangoModelFactory):
     class Meta:
         abstract = True
 
     page = SubFactory(WagtailHomepageFactory)
 
 
-class HomepageHightlightsFactory(HightlightsFactory):
+class HomepageNewsYouCanUseFactory(NewsYouCanUseFactory):
     class Meta:
-        model = HomepageHighlights
+        model = HomepageNewsYouCanUse
 
     blog = SubFactory(BlogPageFactory)
 
@@ -29,6 +29,6 @@ def generate(seed):
 
     reseed(seed)
 
-    home_page.highlights = [HomepageHightlightsFactory.build(blog=BlogPage.objects.all()[i]) for i in range(4)]
+    home_page.news_you_can_use = [HomepageNewsYouCanUseFactory.build(blog=BlogPage.objects.all()[i]) for i in range(4)]
 
     home_page.save()
