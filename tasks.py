@@ -391,6 +391,11 @@ def format(ctx):
     format_js(ctx)
     format_python(ctx)
 
+@task
+def format_frontend(ctx):
+    """Run only frontend formatters."""
+    npm(ctx, "run-s fix:*")
+
 
 @task
 def format_html(ctx):
@@ -595,3 +600,17 @@ def staging_db_to_review_app(ctx, review_app_name):
     from copy_staging_db_to_review_app import main
 
     main(ctx, review_app_name)
+
+@task
+def build_fonts(ctx):
+    """
+    - Removes the existing `_fonts` directory and copies the `source/fonts` directory to the destination.
+    - Compiles and compresses a CSS file, then removes the uncompressed source file."""
+    npm(ctx, "run-p build:fonts:fonts && run-p build:fonts:css")
+
+@task
+def build_css(ctx):
+    """Compiles main.scss, bg-main.scss, donate-main.scss, and formassembly-override.scss Sass file into a regular CSS file."""
+    npm(ctx, "run-p build:css:file:**")
+
+
