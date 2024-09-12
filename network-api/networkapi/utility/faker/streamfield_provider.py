@@ -731,6 +731,17 @@ def generate_app_install_download_button_field():
     )
 
 
+def generate_bg_cta_link_field():
+    link_value = {
+        "link_to": "external_url",
+        "external_url": fake.url(schemes=["https"]),
+        "label": " ".join(fake.words(nb=2)),
+        "new_window": True,
+    }
+
+    return generate_field("link", link_value)
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -792,6 +803,7 @@ class StreamfieldProvider(BaseProvider):
             "newsletter_signup": generate_newsletter_signup_with_background_field,
             "mixed_content": generate_mixed_content_field,
             "app_install_download_button": generate_app_install_download_button_field,
+            "buyersguide_call_to_action_link": generate_bg_cta_link_field,
         }
 
         streamfield_data = []

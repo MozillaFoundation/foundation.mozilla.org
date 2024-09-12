@@ -1,5 +1,4 @@
 import React from "react";
-import { ReactGA } from "../../../common";
 import copyToClipboard from "../../../../js/copy-to-clipboard.js";
 
 /**
@@ -15,6 +14,7 @@ const SocialShareLink = (props) => {
     props.productName
   } is ${props.creepType.toUpperCase()}. What do you think? Check out the Creep-O-Meter over on @mozilla’s ${link} buyer’s guide.`;
   let shareEvent = {
+    event: `share_vote_`,
     category: `product`,
     action: `share tap`,
     label: `share vote `,
@@ -25,6 +25,7 @@ const SocialShareLink = (props) => {
     classes += `facebook-share`;
     srLabel = `Facebook`;
     shareEvent.label += `to facebook`;
+    shareEvent.event += `to_facebook`;
     link = `https://www.facebook.com/sharer/sharer.php?u=https://${link}`;
   }
 
@@ -32,6 +33,7 @@ const SocialShareLink = (props) => {
     classes += `twitter-share`;
     srLabel = `Twitter`;
     shareEvent.label += `to twitter`;
+    shareEvent.event += `to_twitter`;
     link = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       shareText
     )}`;
@@ -41,6 +43,7 @@ const SocialShareLink = (props) => {
     classes += `email-share`;
     srLabel = `Email`;
     shareEvent.label += `via email`;
+    shareEvent.event += `via_email`;
     link = `mailto:?&body=${encodeURIComponent(shareText)}`;
   }
 
@@ -48,11 +51,12 @@ const SocialShareLink = (props) => {
     classes += `link-share`;
     srLabel = `Copy`;
     shareEvent.label += `using a link`;
+    shareEvent.event += `using_a_link`;
     link = `#`;
   }
 
   let trackShareAction = () => {
-    ReactGA.event(shareEvent);
+    window.dataLayer.push(shareEvent);
   };
 
   // We actually need slightly different behaviour

@@ -5,7 +5,7 @@ from networkapi.wagtailpages.models import (
     BlogPage,
     FocusArea,
     HomepageFocusAreas,
-    HomepageSpotlightPosts,
+    HomepageIdeasPosts,
 )
 
 
@@ -24,13 +24,12 @@ def generate(seed):
 
     HomepageFocusAreas.objects.create(page=home_page, area=FocusArea.objects.get(name="Shape the Agenda"))
 
-    NUM_SPOTLIGHT_POSTS = 3
+    NUM_IDEAS_POSTS = 3
 
     all_blogs = list(BlogPage.objects.all())
 
-    home_page.spotlight_posts = [
-        HomepageSpotlightPosts.objects.create(page=home_page, blog=choice(all_blogs))
-        for i in range(NUM_SPOTLIGHT_POSTS)
+    home_page.ideas_posts = [
+        HomepageIdeasPosts.objects.create(page=home_page, blog=choice(all_blogs)) for i in range(NUM_IDEAS_POSTS)
     ]
 
     home_page.save()
