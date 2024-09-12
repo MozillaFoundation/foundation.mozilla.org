@@ -36,7 +36,6 @@
     "lint:procfile": "node test/test-procfile.js",
     "lint:js": "run-s lint:js:*",
     "lint:js:eslint": "eslint --config ./eslint.config.js \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" \"tests/**/*.js\" \"./*.js\"",
-    "lint:js:a11y": "eslint --config ./eslint.config.a11y.js \"source/js/**/*.jsx\"",
     "lint:css": "run-s lint:css:*",
     "lint:css:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" --custom-syntax postcss-scss",
     "lint:css:scss:color": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" \"!source/sass/**/_colors.scss\" \"!source/sass/**/formassembly-override.scss\" --custom-syntax postcss-scss --config .stylelintrc-colors.js",
@@ -101,9 +100,9 @@
     "react-ga": "3.3.1",
     "sass": "^1.59.3",
     "shx": "^0.3.4",
-    "uuid": "^10.0.0",
     "swiper": "^11.1.12",
     "tailwindcss": "^3.4.10",
+    "uuid": "^10.0.0",
     "whatwg-fetch": "^3.6.20"
   },
   "devDependencies": {

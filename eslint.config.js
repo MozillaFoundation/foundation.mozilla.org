@@ -1,6 +1,7 @@
 const eslintPluginPrettier = require("eslint-plugin-prettier");
 const eslintPluginPrettierRecommended = require("eslint-plugin-prettier/recommended");
 const eslintPluginReact = require("eslint-plugin-react");
+const jsxA11y = require("eslint-plugin-jsx-a11y");
 
 module.exports = [
   {
@@ -8,6 +9,7 @@ module.exports = [
     plugins: {
       prettier: eslintPluginPrettier,
       react: eslintPluginReact,
+      "jsx-a11y": jsxA11y,
     },
     languageOptions: {
       globals: {
