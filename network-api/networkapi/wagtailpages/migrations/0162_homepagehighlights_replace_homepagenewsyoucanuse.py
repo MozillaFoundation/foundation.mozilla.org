@@ -1,3 +1,5 @@
+import django.db.models.deletion
+import modelcluster.fields
 from django.db import migrations, models
 
 
@@ -22,5 +24,12 @@ class Migration(migrations.Migration):
             model_name="homepage",
             name="highlights_title",
             field=models.CharField(default="The Highlights", max_length=50),
+        ),
+        migrations.AlterField(
+            model_name="homepagehighlights",
+            name="page",
+            field=modelcluster.fields.ParentalKey(
+                on_delete=django.db.models.deletion.CASCADE, related_name="highlights", to="wagtailpages.homepage"
+            ),
         ),
     ]
