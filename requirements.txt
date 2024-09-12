@@ -117,7 +117,7 @@ factory-boy==3.3.1
     # via
     #   -r requirements.in
     #   wagtail-factories
-faker==26.3.0
+faker==28.4.1
     # via
     #   -r requirements.in
     #   factory-boy
