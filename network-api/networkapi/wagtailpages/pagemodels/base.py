@@ -463,10 +463,10 @@ class HomepageIdeasPosts(TranslatableMixin, WagtailOrderable):
         return self.page.title + "->" + self.blog.title
 
 
-class HomepageHighlights(TranslatableMixin, WagtailOrderable):
+class HomepageNewsYouCanUse(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         "wagtailpages.Homepage",
-        related_name="highlights",
+        related_name="news_you_can_use",
     )
     blog = models.ForeignKey("BlogPage", on_delete=models.CASCADE, related_name="+")
     panels = [
@@ -764,8 +764,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     hero_button_url = models.URLField(blank=True)
 
-    ideas_title = models.CharField(default="Ideas", max_length=50)
-
     ideas_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -839,9 +837,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         null=True,
         on_delete=models.SET_NULL,
     )
-
-    highlights_title = models.CharField(default="The Highlights", max_length=50)
-
     # Take Action Section
     take_action_title = models.CharField(default="Take action", max_length=50)
 
@@ -879,15 +874,13 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                FieldPanel("highlights_title"),
-                InlinePanel("highlights", min_num=4, max_num=4),
+                InlinePanel("news_you_can_use", min_num=4, max_num=4),
             ],
-            heading="The Highlights",
+            heading="News you can use",
             classname="collapsible",
         ),
         MultiFieldPanel(
             [
-                FieldPanel("ideas_title"),
                 FieldPanel("ideas_image"),
                 FieldPanel("ideas_headline"),
                 InlinePanel("ideas_posts", label="Posts", min_num=3, max_num=3),
@@ -940,7 +933,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         SynchronizedField("hero_image"),
         TranslatableField("hero_button_text"),
         SynchronizedField("hero_button_url"),
-        TranslatableField("ideas_title"),
         SynchronizedField("ideas_image"),
         TranslatableField("ideas_headline"),
         TranslatableField("cause_statement"),
@@ -960,8 +952,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         TranslatableField("take_action_cards"),
         TranslatableField("partner_logos"),
         TranslatableField("ideas_posts"),
-        TranslatableField("highlights"),
-        TranslatableField("highlights_title"),
+        TranslatableField("news_you_can_use"),
     ]
 
     subpage_types = [
