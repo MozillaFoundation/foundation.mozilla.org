@@ -14,7 +14,7 @@
     "build:images": "shx rm -rf network-api/networkapi/frontend/_images && shx cp -r source/images network-api/networkapi/frontend/_images",
     "build:js:dev": "node esbuild.config.js -- --node-env development",
     "build:js:prod": "node esbuild.config.js -- --node-env production",
-    "build:js:onetrust": "cp -r source/oneTrust_test network-api/networkapi/frontend/oneTrust_test",
+    "build:js:onetrust": "cp -r source/vendor/oneTrust_test network-api/networkapi/frontend/oneTrust_test",
     "build:fonts": "run-p build:fonts:fonts && run-p build:fonts:css",
     "build:fonts:fonts": "shx rm -rf network-api/networkapi/frontend/_fonts && cp -r source/fonts network-api/networkapi/frontend/_fonts",
     "build:fonts:css": "run-p build:fonts:css:**",
