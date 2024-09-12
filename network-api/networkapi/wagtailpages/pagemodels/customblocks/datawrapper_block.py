@@ -1,5 +1,6 @@
-from wagtail.embeds import blocks as embeds_blocks
 from wagtail import blocks
+from wagtail.embeds import blocks as embeds_blocks
+
 
 class DatawrapperEmbedBlock(embeds_blocks.EmbedBlock):
     """
