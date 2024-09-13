@@ -62,8 +62,8 @@ class DonationModalSnippetViewSet(SnippetViewSet):
     model = DonationModal
     icon = "newspaper"
     menu_order = 200
-    menu_label = "Newsletter Signups"
-    menu_name = "Newsletter Signups"
+    menu_label = "Donate Modals"
+    menu_name = "Donate Modals"
     list_display = (
         "name",
         "donate_text",
