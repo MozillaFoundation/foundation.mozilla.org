@@ -365,13 +365,18 @@ def lint_html(ctx):
 @task
 def lint_css(ctx):
     """Run CSS linting."""
-    npm(ctx, "run lint:css")
+    npm(ctx, "run-s lint:css:*")
 
 
 @task
 def lint_js(ctx):
     """Run JavaScript linting."""
     npm(ctx, "run lint:js")
+
+@task
+def lint_frontend(ctx):
+    """Run frontend linting for all lint scripts."""
+    npm(ctx, "run-s lint:*")
 
 
 @task
@@ -393,7 +398,7 @@ def format(ctx):
 
 @task
 def format_frontend(ctx):
-    """Run only frontend formatters."""
+    """Run only frontend formatters: js and css."""
     npm(ctx, "run-s fix:*")
 
 
@@ -601,6 +606,7 @@ def staging_db_to_review_app(ctx, review_app_name):
 
     main(ctx, review_app_name)
 
+
 @task
 def build_fonts(ctx):
     """
@@ -608,9 +614,82 @@ def build_fonts(ctx):
     - Compiles and compresses a CSS file, then removes the uncompressed source file."""
     npm(ctx, "run-p build:fonts:fonts && run-p build:fonts:css")
 
+
 @task
 def build_css(ctx):
     """Compiles main.scss, bg-main.scss, donate-main.scss, and formassembly-override.scss Sass file into a regular CSS file."""
     npm(ctx, "run-p build:css:file:**")
 
 
+@task
+def optimize_images(ctx):
+    """ Optimizes SVG files using SVGO, compresses JPG files with Guetzli at 93% quality,
+    and optimizes PNG files using OptiPNG, all within the `source/images` directory."""
+    npm(ctx, "run-p optimize:**")
+
+
+@task
+def percy(ctx):
+    """Executes Percy visual tests with a 750ms timeout and runs the Playwright Percy script."""
+    ctx.run("percy exec -t 750 -- npm run playwright:percy")
+
+
+@task
+def playwright(ctx):
+    """Waits for the development server to be ready and then runs Playwright integration tests."""
+    ctx.run("npm run playwright:wait:dev && playwright test ./tests/integration/")
+
+
+@task
+def pyright(ctx):
+    """Runs Pyright, a static type checker for Python."""
+    ctx.run("pyright")
+
+
+@task
+def playwright_install(ctx):
+    """Installs the Chromium, Firefox, and WebKit browsers for Playwright testing."""
+    ctx.run("playwright install chromium firefox webkit")
+
+
+@task
+def playwright_urls(ctx):
+    """Waits for the server to be available and then runs Playwright tests for URL specifications."""
+    ctx.run("wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/urls.spec.js")
+
+
+@task
+def playwright_ci(ctx):
+    """Runs the server and Playwright integration tests concurrently for CI with a race condition."""
+    npm(ctx, "run-p --race server playwright:integration")
+
+
+@task
+def prettier_js(ctx):
+    """Runs Prettier to format JavaScript and JSX files."""
+    ctx.run('prettier "source/js/**/*.js" "source/js/**/*.jsx" "network-api/networkapi/wagtailcustomization/**/*.js" "tests/**/*.js" ./*.js')
+
+
+@task
+def prettier_scss(ctx):
+    """Runs Prettier to format SCSS and CSS files."""
+    ctx.run('prettier "source/sass/**/*.scss" "source/js/**/*.scss" "network-api/networkapi/{,!(frontend)/**/}*.css"')
+
+
+@task
+def server_silent(ctx):
+    """Starts the Django development server and logs output to `server.log`."""
+    ctx.run("python network-api/manage.py runserver 0.0.0.0:8000 >> server.log 2>&1")
+
+
+@task(help={"args": "Starts BrowserSync to proxy the Django server and watch for changes."})
+def browser_sync(ctx):
+    """Starts BrowserSync to proxy the Django server and watch for changes in HTML, CSS, and JS files."""
+    ctx.run('browser-sync start --proxy "localhost:8000" --reload-debounce 50 --files "./network-api/networkapi/**/*.html" "./network-api/networkapi/frontend/_css/*.css" "./network-api/networkapi/frontend/_js/*.js"')
+
+
+@task
+def watch(ctx):
+    """Cleans the build, runs the common build tasks, and concurrently
+    watches JavaScript, PostCSS, and other watch tasks(scss and images) for development."""
+    npm(ctx, "run-s build:clean && run-p build:common && run-p build:js:dev postcss:watch watch:**")
