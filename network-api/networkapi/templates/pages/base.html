@@ -60,10 +60,6 @@
         {% endblock %}
 
         {% block onetrust_script %}
-
-
-
- 
             <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="0190e65a-dbec-7548-89af-4b67155ee70a-test" ></script>
             <script nonce="{{ request.csp_nonce }}">function OptanonWrapper() {
                 if (document.getElementById('onetrust-banner-sdk')) {
