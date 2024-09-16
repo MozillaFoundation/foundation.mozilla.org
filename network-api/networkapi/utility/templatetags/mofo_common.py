@@ -12,8 +12,6 @@ def environment_prefix(context):
         env_prefix = "[S]"
     elif app_env == "Review":
         env_prefix = "[RA]"
-    elif app_env == "Local":
-        env_prefix = "[L]"
     return env_prefix
 
 
