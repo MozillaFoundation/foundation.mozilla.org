@@ -755,15 +755,15 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     hero_button_url = models.URLField(blank=True)
 
-    hero_bottom_heading = models.CharField(max_length=100, blank=True)
-    hero_bottom_body = models.TextField(max_length=300, blank=True)
-    hero_bottom_link_text = models.CharField(max_length=50, blank=True)
-    hero_bottom_link_page = models.ForeignKey(
+    hero_intro_heading = models.CharField(max_length=100, blank=True)
+    hero_intro_body = models.TextField(max_length=300, blank=True)
+    hero_intro_link_text = models.CharField(max_length=50, blank=True)
+    hero_intro_link_page = models.ForeignKey(
         Page,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name="hero_bottom_link",
+        related_name="hero_intro_link",
     )
 
     ideas_image = models.ForeignKey(
@@ -777,6 +777,26 @@ class Homepage(FoundationMetadataPageMixin, Page):
     ideas_headline = models.CharField(
         max_length=140,
         blank=True,
+    )
+
+    show_cause_statement = models.BooleanField(default=False, help_text="Display cause statement")
+
+    cause_statement = models.CharField(
+        max_length=250,
+        default="",
+    )
+
+    cause_statement_link_text = models.CharField(
+        max_length=80,
+        blank=True,
+    )
+
+    cause_statement_link_page = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="cause_statement_link",
     )
 
     quote_image = models.ForeignKey(
@@ -839,12 +859,22 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                FieldPanel("hero_bottom_heading"),
-                FieldPanel("hero_bottom_body"),
-                FieldPanel("hero_bottom_link_text"),
-                FieldPanel("hero_bottom_link_page"),
+                FieldPanel("show_cause_statement"),
+                FieldPanel("cause_statement"),
+                FieldPanel("cause_statement_link_text"),
+                FieldPanel("cause_statement_link_page"),
             ],
-            heading="Hero Bottom Box",
+            heading="cause statement",
+            classname="collapsible collapsed",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("hero_intro_heading"),
+                FieldPanel("hero_intro_body"),
+                FieldPanel("hero_intro_link_text"),
+                FieldPanel("hero_intro_link_page"),
+            ],
+            heading="Hero Intro Box",
             classname="collapsible",
         ),
         MultiFieldPanel(
@@ -915,12 +945,15 @@ class Homepage(FoundationMetadataPageMixin, Page):
         SynchronizedField("hero_image"),
         TranslatableField("hero_button_text"),
         SynchronizedField("hero_button_url"),
-        TranslatableField("hero_bottom_heading"),
-        TranslatableField("hero_bottom_body"),
-        TranslatableField("hero_bottom_link_text"),
-        SynchronizedField("hero_bottom_link_page"),
+        TranslatableField("hero_intro_heading"),
+        TranslatableField("hero_intro_body"),
+        TranslatableField("hero_intro_link_text"),
+        SynchronizedField("hero_intro_link_page"),
         SynchronizedField("ideas_image"),
         TranslatableField("ideas_headline"),
+        TranslatableField("cause_statement"),
+        TranslatableField("cause_statement_link_text"),
+        TranslatableField("cause_statement_link_page"),
         SynchronizedField("quote_image"),
         TranslatableField("quote_text"),
         TranslatableField("quote_source_name"),

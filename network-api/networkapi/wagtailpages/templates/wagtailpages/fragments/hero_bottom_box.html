@@ -1,9 +1,0 @@
-{% load wagtailcore_tags %}
-
-<div class="tw-container tw-flex tw-flex-col tw-my-24 medium:!tw-px-0 medium:tw-my-40">
-    <h2 class="tw-leading-tight tw-mb-8 medium:tw-text-[28px]">{{ page.hero_bottom_heading }}</h2>
-    <p>{{ page.hero_bottom_body }}</p>
-    {% if page.hero_bottom_link_page %}
-        <a href="{% pageurl page.hero_bottom_link_page %}" class="tw-cta-link d-inline-block tw-mt-2 tw-mb-5">{{ page.hero_bottom_link_text }}</a>
-    {% endif %}
-</div>
