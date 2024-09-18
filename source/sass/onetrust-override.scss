@@ -4,6 +4,7 @@ $font-family-serif: "Zilla Slab", serif;
 
 /* Main Banner */
 #onetrust-consent-sdk {
+  /* Banner Styles */
   #onetrust-banner-sdk {
     background: linear-gradient(to right, #acffff, #e7e7fc);
 
@@ -60,7 +61,7 @@ $font-family-serif: "Zilla Slab", serif;
         line-height: 20px;
       }
 
-      @media only screen and (min-width: 576px) {
+      @media only screen and (min-width: 650px) {
         width: 250px;
       }
 
@@ -130,6 +131,10 @@ $font-family-serif: "Zilla Slab", serif;
 
     /* Close Button */
     #onetrust-close-btn-container {
+      /* Swap close icon fill color, must set !important due to background-image set as an inline attribute */
+      button.ot-close-icon {
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNDguMzMzIiBoZWlnaHQ9IjM0OC4zMzMiIHZpZXdCb3g9IjAgMCAzNDguMzMzIDM0OC4zMzQiPgogIDxwYXRoIGZpbGw9IiM2NjY2NjYiIGQ9Ik0zMzYuNTU5IDY4LjYxMUwyMzEuMDE2IDE3NC4xNjVsMTA1LjU0MyAxMDUuNTQ5YzE1LjY5OSAxNS43MDUgMTUuNjk5IDQxLjE0NSAwIDU2Ljg1LTcuODQ0IDcuODQ0LTE4LjEyOCAxMS43NjktMjguNDA3IDExLjc2OS0xMC4yOTYgMC0yMC41ODEtMy45MTktMjguNDE5LTExLjc2OUwxNzQuMTY3IDIzMS4wMDMgNjguNjA5IDMzNi41NjNjLTcuODQzIDcuODQ0LTE4LjEyOCAxMS43NjktMjguNDE2IDExLjc2OS0xMC4yODUgMC0yMC41NjMtMy45MTktMjguNDEzLTExLjc2OS0xNS42OTktMTUuNjk4LTE1LjY5OS00MS4xMzkgMC01Ni44NWwxMDUuNTQtMTA1LjU0OUwxMS43NzQgNjguNjExYy0xNS42OTktMTUuNjk5LTE1LjY5OS00MS4xNDUgMC01Ni44NDQgMTUuNjk2LTE1LjY4NyA0MS4xMjctMTUuNjg3IDU2LjgyOSAwbDEwNS41NjMgMTA1LjU1NEwyNzkuNzIxIDExLjc2N2MxNS43MDUtMTUuNjg3IDQxLjEzOS0xNS42ODcgNTYuODMyIDAgMTUuNzA1IDE1LjY5OSAxNS43MDUgNDEuMTQ1LjAwNiA1Ni44NDR6Ii8+Cjwvc3ZnPg==") !important;
+      }
       @media only screen and (min-width: 1199px) {
         right: 20px;
       }
@@ -144,7 +149,6 @@ $font-family-serif: "Zilla Slab", serif;
   #ot-sdk-btn-floating {
     .ot-floating-button__back {
       background-color: #595cf3;
-
       svg {
         margin: 0 auto;
       }
@@ -157,6 +161,27 @@ $font-family-serif: "Zilla Slab", serif;
       @media only screen and (min-width: 1199px) {
         width: 65%;
       }
+    }
+  }
+
+  /* Preference Center Styles */
+  #onetrust-pc-sdk {
+    /* Scroll bar */
+    #ot-pc-content {
+      overflow-y: auto;
+    }
+    /* Preference switch */
+    .ot-tgl input:not(:checked) + .ot-switch .ot-switch-nob {
+      background-color: #666666;
+    }
+    /* Always Active Link */
+    .ot-cat-grp #ot-status-id-C0001 {
+      color: #0d10bf;
+    }
+    /* Close Button */
+    /* Swap close icon fill color, must set !important due to background-image set as an inline attribute */
+    #close-pc-btn-handler {
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNDguMzMzIiBoZWlnaHQ9IjM0OC4zMzMiIHZpZXdCb3g9IjAgMCAzNDguMzMzIDM0OC4zMzQiPgogIDxwYXRoIGZpbGw9IiM2NjY2NjYiIGQ9Ik0zMzYuNTU5IDY4LjYxMUwyMzEuMDE2IDE3NC4xNjVsMTA1LjU0MyAxMDUuNTQ5YzE1LjY5OSAxNS43MDUgMTUuNjk5IDQxLjE0NSAwIDU2Ljg1LTcuODQ0IDcuODQ0LTE4LjEyOCAxMS43NjktMjguNDA3IDExLjc2OS0xMC4yOTYgMC0yMC41ODEtMy45MTktMjguNDE5LTExLjc2OUwxNzQuMTY3IDIzMS4wMDMgNjguNjA5IDMzNi41NjNjLTcuODQzIDcuODQ0LTE4LjEyOCAxMS43NjktMjguNDE2IDExLjc2OS0xMC4yODUgMC0yMC41NjMtMy45MTktMjguNDEzLTExLjc2OS0xNS42OTktMTUuNjk4LTE1LjY5OS00MS4xMzkgMC01Ni44NWwxMDUuNTQtMTA1LjU0OUwxMS43NzQgNjguNjExYy0xNS42OTktMTUuNjk5LTE1LjY5OS00MS4xNDUgMC01Ni44NDQgMTUuNjk2LTE1LjY4NyA0MS4xMjctMTUuNjg3IDU2LjgyOSAwbDEwNS41NjMgMTA1LjU1NEwyNzkuNzIxIDExLjc2N2MxNS43MDUtMTUuNjg3IDQxLjEzOS0xNS42ODcgNTYuODMyIDAgMTUuNzA1IDE1LjY5OSAxNS43MDUgNDEuMTQ1LjAwNiA1Ni44NDR6Ii8+Cjwvc3ZnPg==") !important;
     }
   }
 }
