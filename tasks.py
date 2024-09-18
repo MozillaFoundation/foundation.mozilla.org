@@ -683,13 +683,14 @@ def server_silent(ctx):
 
 
 @task(help={"args": "Starts BrowserSync to proxy the Django server and watch for changes."})
-def browser_sync(ctx):
+def browser_sync(ctx, args=None):
     """Starts BrowserSync to proxy the Django server and watch for changes in HTML, CSS, and JS files."""
+    args = args or "."
     ctx.run('browser-sync start --proxy "localhost:8000" --reload-debounce 50 --files "./network-api/networkapi/**/*.html" "./network-api/networkapi/frontend/_css/*.css" "./network-api/networkapi/frontend/_js/*.js"')
 
 
 @task
 def watch(ctx):
-    """Cleans the build, runs the common build tasks, and concurrently
-    watches JavaScript, PostCSS, and other watch tasks(scss and images) for development."""
+    """Cleans the build, runs the common build tasks.
+    Watches JavaScript, PostCSS, and other watch tasks(scss and images) for development."""
     npm(ctx, "run-s build:clean && run-p build:common && run-p build:js:dev postcss:watch watch:**")
