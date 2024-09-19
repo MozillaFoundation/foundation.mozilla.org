@@ -7,7 +7,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("wagtailcore", "0089_log_entry_data_json_null_to_object"),
-        ("wagtailpages", "0161_alter_homepage_ideas_headline_and_more"),
+        ("wagtailpages", "0162_alter_articlepage_body"),
     ]
 
     operations = [
