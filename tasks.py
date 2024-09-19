@@ -365,13 +365,14 @@ def lint_html(ctx):
 @task
 def lint_css(ctx):
     """Run CSS linting."""
-    npm(ctx, "run-s lint:css:*")
+    npm(ctx, "run lint:css")
 
 
 @task
 def lint_js(ctx):
     """Run JavaScript linting."""
     npm(ctx, "run lint:js")
+
 
 @task
 def lint_frontend(ctx):
@@ -395,6 +396,7 @@ def format(ctx):
     format_css(ctx)
     format_js(ctx)
     format_python(ctx)
+
 
 @task
 def format_frontend(ctx):
@@ -617,13 +619,14 @@ def build_fonts(ctx):
 
 @task
 def build_css(ctx):
-    """Compiles main.scss, bg-main.scss, donate-main.scss, and formassembly-override.scss Sass file into a regular CSS file."""
+    """Compiles main.scss, bg-main.scss, donate-main.scss, and formassembly-override.scss
+    Sass file into a regular CSS file."""
     npm(ctx, "run-p build:css:file:**")
 
 
 @task
 def optimize_images(ctx):
-    """ Optimizes SVG files using SVGO, compresses JPG files with Guetzli at 93% quality,
+    """Optimizes SVG files using SVGO, compresses JPG files with Guetzli at 93% quality,
     and optimizes PNG files using OptiPNG, all within the `source/images` directory."""
     npm(ctx, "run-p optimize:**")
 
@@ -667,7 +670,10 @@ def playwright_ci(ctx):
 @task
 def prettier_js(ctx):
     """Runs Prettier to format JavaScript and JSX files."""
-    ctx.run('prettier "source/js/**/*.js" "source/js/**/*.jsx" "network-api/networkapi/wagtailcustomization/**/*.js" "tests/**/*.js" ./*.js')
+    ctx.run(
+        'prettier "source/js/**/*.js" "source/js/**/*.jsx" '
+        '"network-api/networkapi/wagtailcustomization/**/*.js" "tests/**/*.js" ./*.js'
+    )
 
 
 @task
@@ -686,7 +692,10 @@ def server_silent(ctx):
 def browser_sync(ctx, args=None):
     """Starts BrowserSync to proxy the Django server and watch for changes in HTML, CSS, and JS files."""
     args = args or "."
-    ctx.run('browser-sync start --proxy "localhost:8000" --reload-debounce 50 --files "./network-api/networkapi/**/*.html" "./network-api/networkapi/frontend/_css/*.css" "./network-api/networkapi/frontend/_js/*.js"')
+    ctx.run(
+        'browser-sync start --proxy "localhost:8000" --reload-debounce 50 --files "./network-api/networkapi/**/*.html"'
+        ' "./network-api/networkapi/frontend/_css/*.css" "./network-api/networkapi/frontend/_js/*.js"'
+    )
 
 
 @task

@@ -32,6 +32,7 @@
     "lint:js": "run-s lint:js:*",
     "lint:js:eslint": "eslint --config ./eslint.config.js \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" \"tests/**/*.js\" \"./*.js\"",
     "lint:css:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" --custom-syntax postcss-scss",
+    "lint:css": "run-s lint:css:*",
     "lint:css:scss:color": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" \"!source/sass/**/_colors.scss\" \"!source/sass/**/formassembly-override.scss\" --custom-syntax postcss-scss --config .stylelintrc-colors.js",
     "lint:css:network": "stylelint \"network-api/networkapi/{,!(frontend)/**/}*.css\" --custom-syntax postcss-scss",
     "postcss:build": "postcss network-api/networkapi/temp/frontend/_css/*.css --dir network-api/networkapi/frontend/_css --verbose",
@@ -44,6 +45,7 @@
     "playwright:wait:dev": "wait-on -i 3000 http://localhost:8000/static/_css/tailwind.compiled.css",
     "playwright:percy": "run-p --race server playwright:visual",
     "playwright:visual": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/visual.spec.js",
+    "playwright:ci": "run-p --race server playwright:integration",
     "playwright:integration": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/integration/",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
     "watch:scss": "chokidar \"source/**/*.scss\" -c \"npm run build:css\""
