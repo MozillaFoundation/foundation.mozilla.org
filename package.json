@@ -47,6 +47,7 @@
     "playwright:visual": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/visual.spec.js",
     "playwright:ci": "run-p --race server playwright:integration",
     "playwright:integration": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/integration/",
+    "server": "python network-api/manage.py runserver 0.0.0.0:8000",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
     "watch:scss": "chokidar \"source/**/*.scss\" -c \"npm run build:css\""
   },
