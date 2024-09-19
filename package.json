@@ -27,6 +27,7 @@
     "build:css:file:formassembly": "sass source/sass/formassembly-override.scss network-api/networkapi/temp/frontend/_css/formassembly-override.compiled.css",
     "fix:js": "npm run lint:js:eslint -- --fix",
     "fix:css": "npm run lint:css:scss -- --fix",
+    "heroku-postbuild": "npm run build",
     "lint": "run-s lint:*",
     "lint:procfile": "node test/test-procfile.js",
     "lint:js": "run-s lint:js:*",
