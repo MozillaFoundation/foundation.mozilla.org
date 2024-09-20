@@ -20,8 +20,13 @@ from .mixin.foundation_banner_inheritance import FoundationBannerInheritanceMixi
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .mixin.foundation_navigation import FoundationNavigationPageMixin
 
-hero_intro_heading_default_text = "A healthy internet is one in which privacy, openness, and inclusion are the norms. "
-hero_intro_body_default_text = "Mozilla empowers consumers to demand better online privacy, trustworthy AI, and safe online experiences from Big Tech and governments. We work across borders, disciplines, and technologies to uphold principles like privacy, inclusion and decentralization online."
+hero_intro_heading_default_text = "A healthy internet is one in which privacy, openness, and inclusion are the norms."
+hero_intro_body_default_text = (
+    "Mozilla empowers consumers to demand better online privacy, trustworthy AI, "
+    "and safe online experiences from Big Tech and governments. We work across "
+    "borders, disciplines, and technologies to uphold principles like privacy, "
+    "inclusion and decentralization online."
+)
 
 
 class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page):
