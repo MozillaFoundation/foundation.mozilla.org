@@ -68,7 +68,8 @@ class DatawrapperEmbedBlock(embeds_blocks.EmbedBlock):
 
 class DatawrapperContainerBlock(blocks.StructBlock):
     """
-    A custom block that contains the datawrapper embed URL and the option to render it wider than the page body content.
+    A custom block that contains the datawrapper embed URL
+    and the option to render it wider than the page body content.
     """
 
     datawrapper = DatawrapperEmbedBlock()
