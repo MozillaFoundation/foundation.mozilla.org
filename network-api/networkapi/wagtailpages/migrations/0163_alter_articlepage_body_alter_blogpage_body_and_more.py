@@ -34,7 +34,7 @@ def migrate_datawrapper(source_block):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0161_alter_homepage_ideas_headline_and_more"),
+        ("wagtailpages", "0162_alter_articlepage_body"),
     ]
 
     operations = [
