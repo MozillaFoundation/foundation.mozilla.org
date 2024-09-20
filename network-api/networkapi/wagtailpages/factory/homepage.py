@@ -28,7 +28,7 @@ class WagtailHomepageFactory(PageFactory):
     # cause_statement_link_text and cause_statement_link_page are created at a later state
     hero_intro_heading = Faker("text", max_nb_chars=60)
     hero_intro_body = Faker("text", max_nb_chars=250)
-    hero_intro_link_text = Faker("text", max_nb_chars=30)
+    hero_intro_link = Faker("streamfield", fields=["homepage_hero_intro_link"])
     quote_image = SubFactory(ImageFactory)
     quote_text = Faker("text", max_nb_chars=300)
     quote_source_name = Faker("text", max_nb_chars=30)
@@ -105,8 +105,6 @@ def generate(seed):
         print('Generating "who we are" Page (PrimaryPage)')
         wwa_page = PrimaryPageFactory.create(parent=home_page, title="Who we are", show_in_menus=True)
 
-    # Set the hero_intro_link_page
-    home_page.hero_intro_link_page = wwa_page
     home_page.save()
 
     reseed(seed)

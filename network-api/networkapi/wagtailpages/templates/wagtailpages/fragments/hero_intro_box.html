@@ -3,7 +3,9 @@
 <div class="tw-container tw-flex tw-flex-col tw-my-24 medium:!tw-px-0 medium:tw-my-40">
     <h2 class="tw-leading-tight tw-mb-8 medium:tw-text-[28px]">{{ page.hero_intro_heading }}</h2>
     <p>{{ page.hero_intro_body }}</p>
-    {% if page.hero_intro_link_page %}
-        <a href="{% pageurl page.hero_intro_link_page %}" class="tw-cta-link d-inline-block tw-mt-2 tw-mb-5">{{ page.hero_intro_link_text }}</a>
+    {% if page.hero_intro_link %}
+        {% with link=page.hero_intro_link.0.value %}
+            <a href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %} class="tw-cta-link d-inline-block tw-mt-2 tw-mb-5">{{ link.label }}</a>
+        {% endwith %}
     {% endif %}
 </div>

@@ -9,6 +9,8 @@ from wagtail.models import Page, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
+
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
 from ..utils import CharCountWidget, get_page_tree_information
@@ -17,6 +19,9 @@ from .customblocks.base_rich_text_options import base_rich_text_options
 from .mixin.foundation_banner_inheritance import FoundationBannerInheritanceMixin
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .mixin.foundation_navigation import FoundationNavigationPageMixin
+
+hero_intro_heading_default_text = "A healthy internet is one in which privacy, openness, and inclusion are the norms. "
+hero_intro_body_default_text = "Mozilla empowers consumers to demand better online privacy, trustworthy AI, and safe online experiences from Big Tech and governments. We work across borders, disciplines, and technologies to uphold principles like privacy, inclusion and decentralization online."
 
 
 class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page):
@@ -755,15 +760,13 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     hero_button_url = models.URLField(blank=True)
 
-    hero_intro_heading = models.CharField(max_length=100, blank=True)
-    hero_intro_body = models.TextField(max_length=300, blank=True)
-    hero_intro_link_text = models.CharField(max_length=50, blank=True)
-    hero_intro_link_page = models.ForeignKey(
-        Page,
-        null=True,
+    hero_intro_heading = models.CharField(max_length=100, blank=True, default=hero_intro_heading_default_text)
+    hero_intro_body = models.TextField(max_length=300, blank=True, default=hero_intro_body_default_text)
+    hero_intro_link = StreamField(
+        [("link", LinkBlock())],
+        use_json_field=True,
         blank=True,
-        on_delete=models.SET_NULL,
-        related_name="hero_intro_link",
+        max_num=1,
     )
 
     ideas_image = models.ForeignKey(
@@ -871,8 +874,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
             [
                 FieldPanel("hero_intro_heading"),
                 FieldPanel("hero_intro_body"),
-                FieldPanel("hero_intro_link_text"),
-                FieldPanel("hero_intro_link_page"),
+                FieldPanel("hero_intro_link"),
             ],
             heading="Hero Intro Box",
             classname="collapsible",
@@ -947,8 +949,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         SynchronizedField("hero_button_url"),
         TranslatableField("hero_intro_heading"),
         TranslatableField("hero_intro_body"),
-        TranslatableField("hero_intro_link_text"),
-        SynchronizedField("hero_intro_link_page"),
+        SynchronizedField("hero_intro_link"),
         SynchronizedField("ideas_image"),
         TranslatableField("ideas_headline"),
         TranslatableField("cause_statement"),
