@@ -24,7 +24,7 @@ def onetrust_data_domain():
     OneTrust's cookie script integration. While the test / production data
     domain id currently only differ by a suffix, this may change in the future
     """
-    data_domain = "0190e65a-dbec-7548-89af-4b67155ee70a"
+    data_domain = "0191beda-31c8-76ff-9093-4055176ccf8c"
     if get_app_environment() == "Production":
         return data_domain
     else:
