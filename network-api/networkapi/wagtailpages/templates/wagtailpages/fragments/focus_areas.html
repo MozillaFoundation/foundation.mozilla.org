@@ -1,12 +1,7 @@
 {% load wagtailimages_tags i18n %}
 
-<div class="row areas-of-focus">
-    <div class="col my-3 my-sm-5">
-        <h2 class="focus-heading text-center mb-4">{% trans "Our areas of focus" %}</h2>
-        <div class="row">
-            {% for focus in page.focus_areas.all %}
-                {% include "./focus_area.html" with area=focus.area %}
-            {% endfor %}
-        </div>
-    </div>
+<div class="areas-of-focus tw-bg-blue-03 large:tw-bg-transparent tw-py-24 tw-flex tw-flex-col tw-gap-8 large:tw-flex-shrink-0 large:tw-py-40">
+    {% for focus in page.focus_areas.all %}
+        {% include "./focus_area.html" with area=focus.area %}
+    {% endfor %}
 </div>
