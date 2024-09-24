@@ -533,7 +533,7 @@ class AreasOfFocusViewSet(SnippetViewSet):
     menu_order = 000
     menu_label = "Areas of Focus"
     menu_name = "Areas of Focus"
-    list_display = ("name", "interest_icon", "page")
+    list_display = ("name", "interest_icon")
     search_fields = ("name",)
     ordering = ("name",)
 

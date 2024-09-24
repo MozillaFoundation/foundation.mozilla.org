@@ -1,7 +1,7 @@
 from wagtail import blocks
 
 from ..customblocks.base_rich_text_options import base_rich_text_options
-from .datawrapper_block import DatawrapperBlock
+from .datawrapper_block import DatawrapperContainerBlock
 from .image_block import ImageBlock
 from .video_block import VideoBlock
 
@@ -13,7 +13,7 @@ class AccordionItem(blocks.StructBlock):
     content = blocks.StreamBlock(
         [
             ("rich_text", accordion_rich_text),
-            ("datawrapper", DatawrapperBlock()),
+            ("datawrapper", DatawrapperContainerBlock()),
             ("image", ImageBlock()),
             ("video", VideoBlock()),
         ]
