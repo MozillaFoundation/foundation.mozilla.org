@@ -6,7 +6,6 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailcore", "0089_log_entry_data_json_null_to_object"),
         ("wagtailpages", "0164_homepage_hero_intro_body_homepage_hero_intro_heading_and_more"),
     ]
 
