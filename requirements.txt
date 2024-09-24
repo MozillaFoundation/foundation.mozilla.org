@@ -39,7 +39,7 @@ cffi==1.16.0
     #   pygit2
 charset-normalizer==2.0.12
     # via requests
-cryptography==42.0.4
+cryptography==43.0.1
     # via social-auth-core
 defusedxml==0.7.1
     # via
