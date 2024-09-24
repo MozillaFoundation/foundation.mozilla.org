@@ -80,7 +80,7 @@ pycodestyle==2.12.1
     # via flake8
 pyflakes==3.2.0
     # via flake8
-pytest==8.2.2
+pytest==8.3.3
     # via
     #   -r dev-requirements.in
     #   pytest-cov
