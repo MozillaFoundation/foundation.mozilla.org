@@ -1,7 +1,8 @@
-from wagtail.embeds import blocks
+from wagtail import blocks
+from wagtail.embeds import blocks as embeds_blocks
 
 
-class DatawrapperBlock(blocks.EmbedBlock):
+class DatawrapperEmbedBlock(embeds_blocks.EmbedBlock):
     """
     Embed block for Datawrapper visualizations.
 
@@ -62,4 +63,24 @@ class DatawrapperBlock(blocks.EmbedBlock):
 
     class Meta:
         icon = "image"
-        template = "wagtailpages/blocks/datawrapper_block.html"
+        template = "wagtailpages/blocks/datawrapper_embed_block.html"
+
+
+class DatawrapperContainerBlock(blocks.StructBlock):
+    """
+    A custom block that contains the datawrapper embed URL
+    and the option to render it wider than the page body content.
+    """
+
+    datawrapper = DatawrapperEmbedBlock()
+
+    wide = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        help_text="If checked, the table will render wider than the other page body content.",
+    )
+
+    class Meta:
+        icon = "image"
+        label = "Datawrapper"
+        template = "wagtailpages/blocks/datawrapper_container_block.html"

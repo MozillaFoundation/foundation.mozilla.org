@@ -57,7 +57,7 @@ base_fields = [
     ("slider", customblocks.FoundationSliderBlock()),
     ("spacer", customblocks.BootstrapSpacerBlock()),
     ("airtable", customblocks.AirTableBlock()),
-    ("datawrapper", customblocks.DatawrapperBlock()),
+    ("datawrapper", customblocks.DatawrapperContainerBlock()),
     ("newsletter_signup", customblocks.BlogNewsletterSignupBlock()),
 ]
 
