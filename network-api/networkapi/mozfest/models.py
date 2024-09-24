@@ -139,7 +139,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             ("profile_directory", customblocks.ProfileDirectory()),
             ("recent_blog_entries", customblocks.RecentBlogEntries()),
             ("blog_set", customblocks.BlogSetBlock()),
-            ("datawrapper", customblocks.DatawrapperBlock()),
+            ("datawrapper", customblocks.DatawrapperContainerBlock()),
             ("listing", customblocks.ListingBlock()),
             ("profiles", customblocks.ProfileBlock()),
             ("group_listing_block", customblocks.GroupListingBlock()),

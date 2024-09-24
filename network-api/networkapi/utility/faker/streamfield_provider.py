@@ -393,7 +393,9 @@ def generate_typeform_field():
 
 
 def generate_datawrapper_field():
-    return generate_field("datawrapper", "https://datawrapper.dwcdn.net/0rmUn/3/")
+    return generate_field(
+        "datawrapper", {"datawrapper": "https://datawrapper.dwcdn.net/0rmUn/3/", "wide": fake.boolean()}
+    )
 
 
 def generate_dear_internet_letter_field():

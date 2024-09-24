@@ -57,7 +57,7 @@ class BuyersGuideArticlePage(BasePage):
             ("slider", customblocks.FoundationSliderBlock()),
             ("spacer", customblocks.BootstrapSpacerBlock()),
             ("airtable", customblocks.AirTableBlock()),
-            ("datawrapper", customblocks.DatawrapperBlock()),
+            ("datawrapper", customblocks.DatawrapperContainerBlock()),
         ),
         null=True,
         blank=False,
