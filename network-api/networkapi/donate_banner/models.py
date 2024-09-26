@@ -57,6 +57,33 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         related_name="+",
     )
 
+    TAILWIND_COLORS = [
+        ('bg-red-60', 'Red'),
+        ('bg-blue-60', 'Blue'),
+        ('bg-green-60', 'Green'),
+        # Add more color options based on your tailwind.config.js
+    ]
+
+    bgcolor = models.CharField(
+        max_length=20,
+        choices=TAILWIND_COLORS,
+        default='bg-blue-60',
+        help_text="Background color for the banner"
+    )
+
+    TEXT_COLORS = [
+        ('text-white', 'White'),
+        ('text-black', 'Black'),
+        # Add more text color options
+    ]
+
+    textcolor = models.CharField(
+        max_length=20,
+        choices=TEXT_COLORS,
+        default='text-white',
+        help_text="Text color for the banner"
+    )
+
     panels = [
         HelpPanel(content="To enable banner on site, go to Settings > Donate Banner."),
         FieldPanel("name"),
@@ -65,6 +92,8 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         FieldPanel("cta_button_text"),
         FieldPanel("cta_link"),
         FieldPanel("background_image"),
+        FieldPanel('bgcolor'),
+        FieldPanel('textcolor'),
     ]
 
     translatable_fields = [
