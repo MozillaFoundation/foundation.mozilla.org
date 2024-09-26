@@ -56,8 +56,14 @@ class NavDesktopDropdown extends Accordion {
   open() {
     super.open();
 
+    let topOffset = document
+      .querySelector(".wide-screen-menu-container")
+      .getBoundingClientRect().bottom;
+
     this.accordion.setAttribute("aria-selected", "true");
     this.accordion.classList.remove("tw-grayed-out");
+
+    this.content.style.top = `${topOffset}px`;
     this.content.classList.add("xlarge:tw-flex");
     this.content.classList.remove("xlarge:tw-hidden");
 

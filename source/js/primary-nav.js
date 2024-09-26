@@ -61,10 +61,26 @@ let primaryNav = {
     }
 
     function setMenuState(openMenu) {
+      toggleDonateBanner(openMenu);
       setNarrowMenuState(openMenu);
       setBurgerState(openMenu);
       trackMenuState(openMenu);
       setBodyHeight(openMenu);
+    }
+
+    // temporary hide the donate banner when the menu is open
+    function toggleDonateBanner(hideDonateBanner) {
+      const donateBanner = document.querySelector(`.donate-banner`);
+
+      if (!donateBanner) {
+        return;
+      }
+
+      if (hideDonateBanner) {
+        donateBanner.classList.add(`tw-hidden`);
+      } else {
+        donateBanner.classList.remove(`tw-hidden`);
+      }
     }
 
     document.addEventListener(`keyup`, (e) => {

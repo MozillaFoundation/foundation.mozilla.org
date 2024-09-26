@@ -12,6 +12,13 @@ const DonateBanner = {
       : banner?.querySelector(`a.banner-close`);
 
     // skip the banner if it got dismissed by the user today already
+    if (hideBanner) {
+      // remove the banner from the DOM to prevent it
+      // from creating unexpected behavior due to its absolute positioning.
+      banner.remove();
+      return;
+    }
+
     if (!hideBanner && banner) {
       banner.classList.remove(`tw-hidden`);
     }
@@ -57,8 +64,12 @@ const DonateBanner = {
       );
 
       closeAnimation.onfinish = () => {
-        banner.classList.add(`tw-hidden`);
         this.setDismissDate();
+
+        // The banner will not reappear after the user has dismissed it until the next day.
+        // We might as well remove it from the DOM to prevent it
+        // from creating unexpected behavior due to its absolute positioning.
+        banner.remove();
       };
     });
   },
