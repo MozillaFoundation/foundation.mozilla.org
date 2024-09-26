@@ -68,7 +68,7 @@ let primaryNav = {
       setBodyHeight(openMenu);
     }
 
-    // temporary hide the donate banner when the menu is open
+    // temporarily hide the donate banner when the menu is open
     function toggleDonateBanner(hideDonateBanner) {
       const donateBanner = document.querySelector(`.donate-banner`);
 
