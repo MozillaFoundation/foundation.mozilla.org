@@ -25,6 +25,7 @@ from wagtail.coreutils import find_available_slug
 from wagtail.rich_text import LinkHandler
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
+from wagtail_ab_testing.events import BaseEvent
 from wagtail_localize.models import (
     LocaleSynchronization,
     sync_trees_on_locale_sync_save,
@@ -633,3 +634,20 @@ def register_donate_banner_chooser_viewset():
         model=wagtailpages_models.BuyersGuideProductCategory,
         url_prefix="wagtailpages/buyersguideproductcategory",
     )
+
+
+# --------------------------------------------------------------------------------------
+# Custom Wagtail A/B Testing Events:
+# --------------------------------------------------------------------------------------
+
+
+class DonateBannerLinkClick(BaseEvent):
+    name = "Donate Banner Link Click"
+    requires_page = False  # Set to False to create a "Global" event type that could be reached on any page
+
+
+@hooks.register("register_ab_testing_event_types")
+def register_donate_banner_link_click_event_type():
+    return {
+        "donate-banner-link-click": DonateBannerLinkClick,
+    }
