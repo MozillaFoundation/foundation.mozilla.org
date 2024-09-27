@@ -9,6 +9,7 @@ from wagtail.models import Page, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from networkapi.donate_banner.models import DonateBanner
 from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
@@ -742,6 +743,15 @@ class PartnerLogos(TranslatableMixin, WagtailOrderable):
 
 
 class Homepage(FoundationMetadataPageMixin, Page):
+
+    donate_banner = models.ForeignKey(
+        DonateBanner,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="homepage_donate_banner",
+        help_text="Select the Donate Banner to display on the homepage",
+    )
     hero_headline = models.CharField(
         max_length=120,
         help_text="Hero story headline",
@@ -858,6 +868,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
+                FieldPanel("donate_banner"),
                 FieldPanel(
                     "hero_headline",
                     widget=CharCountWidget(attrs={"class": "max-length-warning", "data-max-length": 120}),
@@ -957,6 +968,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         TranslatableField("title"),
         TranslatableField("hero_headline"),
         SynchronizedField("hero_image"),
+        SynchronizedField("donate_banner"),
         TranslatableField("hero_button_text"),
         SynchronizedField("hero_button_url"),
         TranslatableField("hero_intro_heading"),
