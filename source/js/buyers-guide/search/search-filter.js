@@ -226,7 +226,7 @@ export class SearchFilter {
 
     Utils.sortFilteredProducts();
     Utils.toggleCreepyFace();
-    Utils.checkForEmptyNotice();
+    Utils.toggleNoResultsNotice();
   }
 
   clearCategories() {
@@ -247,7 +247,7 @@ export class SearchFilter {
     this.categoryTitle.value = category;
     Utils.sortProductCards();
     Utils.toggleCreepyFace();
-    Utils.checkForEmptyNotice();
+    Utils.toggleNoResultsNotice();
   }
 
   toggleSubcategory(clear = false) {

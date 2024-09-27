@@ -329,10 +329,9 @@ export class Utils {
 
   /**
    * Toggle the visibility of "no results" notice
-   *
-   * @todo Rename to "toggleNoResultsNotice"
+   * based on the number of products displayed
    */
-  static checkForEmptyNotice() {
+  static toggleNoResultsNotice() {
     let qs = `figure.product-box:not(.d-none)`;
 
     if (document.body.classList.contains(`show-ding-only`)) {
