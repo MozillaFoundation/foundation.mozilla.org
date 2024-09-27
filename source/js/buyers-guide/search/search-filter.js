@@ -242,7 +242,7 @@ export class SearchFilter {
       .classList.add("tw-hidden");
     toggleProductReviewView();
     toggleCategoryRelatedArticles(category);
-    Utils.showProductsForCategory(category);
+    Utils.filterProductsByCategory(category);
     Utils.toggleCtaForCategory(category);
     this.categoryTitle.value = category;
     Utils.sortProductCards();

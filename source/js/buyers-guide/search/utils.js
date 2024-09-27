@@ -214,10 +214,8 @@ export class Utils {
    * Toggle products' visibility based on category
    *
    * @param {String} category category name
-   *
-   * @todo Rename to "filterProductsByCategory"
    */
-  static showProductsForCategory(category) {
+  static filterProductsByCategory(category) {
     gsap.set(ALL_PRODUCTS, { opacity: 1, y: 0 });
     ALL_PRODUCTS.forEach((product) => {
       if (this.testCategories(product, category)) {
