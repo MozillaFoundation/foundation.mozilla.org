@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Utils } from "./utils.js";
-import { markScrollStart } from "./slider-area.js";
+import { markScrollStart } from "./subcategory-scroll.js";
 import { setupHistoryManagement, applyHistory } from "./history.js";
 import {
   setupNavLinks,
