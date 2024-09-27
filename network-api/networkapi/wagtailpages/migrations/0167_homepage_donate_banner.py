@@ -17,8 +17,11 @@ class Migration(migrations.Migration):
             name="donate_banner",
             field=models.ForeignKey(
                 blank=True,
-                help_text="Select the Donate Banner to display on the homepage",
                 null=True,
+                help_text=(
+                    "CTA Banner rendered at the top of the page site-wide. "
+                    "Note: A/B testing of this banner will also be site-wide."
+                ),
                 on_delete=django.db.models.deletion.SET_NULL,
                 related_name="homepage_donate_banner",
                 to="donate_banner.donatebanner",

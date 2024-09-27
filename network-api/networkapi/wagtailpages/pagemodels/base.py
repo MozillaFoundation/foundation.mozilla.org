@@ -783,7 +783,10 @@ class Homepage(FoundationMetadataPageMixin, Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name="homepage_donate_banner",
-        help_text="Select the Donate Banner to display on the homepage",
+        help_text=(
+            "CTA Banner rendered at the top of the page site-wide. "
+            "Note: A/B testing of this banner will also be site-wide."
+        ),
     )
     hero_headline = models.CharField(
         max_length=120,
@@ -899,6 +902,13 @@ class Homepage(FoundationMetadataPageMixin, Page):
     take_action_title = models.CharField(default="Take action", max_length=50)
 
     content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel("donate_banner"),
+            ],
+            heading="Donate Banner",
+            classname="collapsible",
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("donate_banner"),
