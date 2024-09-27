@@ -911,7 +911,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                FieldPanel("donate_banner"),
                 FieldPanel(
                     "hero_headline",
                     widget=CharCountWidget(attrs={"class": "max-length-warning", "data-max-length": 120}),
