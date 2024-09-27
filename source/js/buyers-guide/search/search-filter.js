@@ -198,7 +198,7 @@ export class SearchFilter {
     });
 
     Utils.sortProductCards();
-    Utils.moveCreepyFace();
+    Utils.toggleCreepyFace();
 
     const state = { ...history.state, search: "" };
     const title = Utils.getTitle(this.categoryTitle.value.trim());
@@ -225,7 +225,7 @@ export class SearchFilter {
     history.replaceState(state, title, this.getURL(text));
 
     Utils.sortFilteredProducts();
-    Utils.moveCreepyFace();
+    Utils.toggleCreepyFace();
     Utils.checkForEmptyNotice();
   }
 
@@ -246,7 +246,7 @@ export class SearchFilter {
     Utils.toggleCtaForCategory(category);
     this.categoryTitle.value = category;
     Utils.sortProductCards();
-    Utils.moveCreepyFace();
+    Utils.toggleCreepyFace();
     Utils.checkForEmptyNotice();
   }
 

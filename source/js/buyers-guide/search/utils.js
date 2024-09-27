@@ -357,11 +357,9 @@ export class Utils {
   }
 
   /**
-   * Toggle the visibility of the creepy face and speech
-   *
-   * @todo Rename to "toggleCreepyFace"
+   * Toggle the visibility of the creepy face and speech bubble
    */
-  static moveCreepyFace() {
+  static toggleCreepyFace() {
     const CREEPINESS_FACE = document.querySelector(
       ".creep-o-meter-information"
     );
