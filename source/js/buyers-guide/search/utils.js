@@ -137,10 +137,8 @@ export class Utils {
    * Toggle products' visibility based on search text
    *
    * @param {String} text search text
-   *
-   * @todo Rename to "filterProductsBySearchText"
    */
-  static toggleProducts(text) {
+  static filterProductsBySearchText(text) {
     gsap.set(ALL_PRODUCTS, { opacity: 1, y: 0 });
     ALL_PRODUCTS.forEach((product) => {
       if (this.test(product, text)) {

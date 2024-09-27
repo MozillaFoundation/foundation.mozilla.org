@@ -218,7 +218,7 @@ export class SearchFilter {
 
     Utils.updateHeader("None", null);
     Utils.setActiveCatNavLink("None");
-    Utils.toggleProducts(text);
+    Utils.filterProductsBySearchText(text);
 
     const state = { ...history.state, search: text };
     const title = Utils.getTitle(this.categoryTitle.value.trim());
