@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.http import HttpResponse
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
@@ -7,6 +8,7 @@ from wagtail.images import get_image_model_string
 from wagtail.models import Orderable as WagtailOrderable
 from wagtail.models import Page, TranslatableMixin
 from wagtail.search import index
+from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.donate_banner.models import DonateBanner
@@ -33,6 +35,37 @@ hero_intro_body_default_text = (
 class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page):
     class Meta:
         abstract = True
+
+    def get_donate_banner(self, request):
+        # Check if theres an active A/B test for the homepage.
+        homepage = self.get_ancestors().type(Homepage).specific().first()
+        active_ab_test = AbTest.objects.filter(page=homepage, status=AbTest.STATUS_RUNNING).first()
+
+        # If theres no A/B test found, return the donate_banner field as usual.
+        if not active_ab_test:
+            return homepage.donate_banner
+
+        # Check for the cookie specific to this A/B test.
+        test_cookie_name = f"wagtail-ab-testing_{active_ab_test.id}_version"
+        test_version = request.COOKIES.get(test_cookie_name)
+
+        # If no cookie is found, add user as a participant in test, and set a cookie for their assigned version.
+        if not test_version:
+            test_version = active_ab_test.add_participant()
+            response = HttpResponse()
+            response.set_cookie(test_cookie_name, test_version, max_age=3600 * 24 * 30)
+
+        if test_version == "variant":
+            donate_banner = active_ab_test.variant_revision.as_object().donate_banner
+        else:
+            donate_banner = homepage.donate_banner
+
+        return donate_banner
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["donate_banner"] = self.get_donate_banner(request)
+        return context
 
 
 class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
