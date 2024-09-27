@@ -141,7 +141,7 @@ export class Utils {
   static filterProductsBySearchText(text) {
     gsap.set(ALL_PRODUCTS, { opacity: 1, y: 0 });
     ALL_PRODUCTS.forEach((product) => {
-      if (this.test(product, text)) {
+      if (this.productContainsSearchText(product, text)) {
         product.classList.remove(`d-none`);
         product.classList.add(`d-flex`);
       } else {
@@ -253,10 +253,8 @@ export class Utils {
    * @param {Element} product DOM element of the product
    * @param {String} text search text
    * @returns {Boolean} Whether the product contains the search text
-   *
-   * @todo Rename to "doesProductContainSearchText"
    */
-  static test(product, text) {
+  static productContainsSearchText(product, text) {
     // Note that the following is absolutely not true for all
     // languages, but it's true for the ones we use.
     text = text.toLowerCase();
