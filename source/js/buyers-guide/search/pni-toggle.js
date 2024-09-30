@@ -73,7 +73,7 @@ export class PNIToggle {
 
     if (searchFilter.searchInput.value.trim()) {
       searchFilter.searchInput.focus();
-      Utils.checkForEmptyNotice();
+      Utils.toggleNoResultsNotice();
     }
   }
 }
