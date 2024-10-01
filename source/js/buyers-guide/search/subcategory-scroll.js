@@ -1,7 +1,5 @@
 /**
  * Mouse/touch scroll functionality for the sub category area on mobile
- *
- * @todo Rename this file to something more specific. Maybe something like subcategory-scroll.js
  */
 const subcategories = document.querySelectorAll(`.subcategories`);
 const subContainer = document.querySelector(`.subcategory-header`);
