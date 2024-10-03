@@ -42,8 +42,6 @@ class ExtendedYesNoField(models.CharField):
         ("AV", "Average"),
         ("NI", "Needs Improvement"),
         ("Bad", "Bad"),
-        ("Yes", "Yes"),
-        ("No", "No"),
         ("NA", "Not Applicable"),
         ("CD", "Can’t Determine"),
     ]
