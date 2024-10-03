@@ -38,6 +38,10 @@ class ExtendedYesNoField(models.CharField):
     description = "Yes, No, Not Applicable, or Can’t Determine"
 
     choice_list = [
+        ("Good", "Good"),
+        ("AV", "Average"),
+        ("NI", "Needs Improvement"),
+        ("Bad", "Bad"),
         ("Yes", "Yes"),
         ("No", "No"),
         ("NA", "Not Applicable"),
@@ -49,7 +53,7 @@ class ExtendedYesNoField(models.CharField):
     def __init__(self, *args, **kwargs):
         kwargs["choices"] = self.choice_list
         kwargs["default"] = self.default_choice
-        kwargs["max_length"] = 3
+        kwargs["max_length"] = 4
         super().__init__(*args, **kwargs)
 
     def deconstruct(self):
