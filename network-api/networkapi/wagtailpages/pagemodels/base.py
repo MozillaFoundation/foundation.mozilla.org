@@ -961,7 +961,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         SynchronizedField("hero_button_url"),
         TranslatableField("hero_intro_heading"),
         TranslatableField("hero_intro_body"),
-        SynchronizedField("hero_intro_link"),
+        TranslatableField("hero_intro_link"),
         TranslatableField("ideas_title"),
         SynchronizedField("ideas_image"),
         TranslatableField("ideas_headline"),
