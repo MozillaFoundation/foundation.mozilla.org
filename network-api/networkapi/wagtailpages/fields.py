@@ -39,7 +39,7 @@ class ExtendedYesNoField(models.CharField):
 
     choice_list = [
         ("Good", "Good"),
-        ("AV", "Average"),
+        ("AVG", "Average"),
         ("NI", "Needs Improvement"),
         ("Bad", "Bad"),
         ("NA", "Not Applicable"),
