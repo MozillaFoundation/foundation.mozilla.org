@@ -750,6 +750,12 @@ def generate_homepage_hero_intro_link():
         "external_url": fake.url(schemes=["https"]),
         "label": " ".join(fake.words(nb=3)),
         "new_window": True,
+        "page": None,
+        "relative_url": "",
+        "anchor": "",
+        "email": "",
+        "file": None,
+        "phone": "",
     }
 
     return generate_field("link", link_value)
