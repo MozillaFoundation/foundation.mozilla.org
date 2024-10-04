@@ -7,7 +7,7 @@ import {
   setupNavLinks,
   setupGoBackToAll,
   setupReviewLinks,
-  toggleProductReviewView,
+  showProductReviewView,
   toggleCategoryRelatedArticles,
 } from "./member-functions.js";
 
@@ -44,13 +44,13 @@ export class SearchFilter {
       mobileSearchBar,
       mobileSearchInput
     );
-    setupReviewLinks(this);
+    setupReviewLinks();
 
     if (
       (location.hash && location.hash === "#product-review") ||
       location.pathname.includes("categories")
     ) {
-      toggleProductReviewView();
+      showProductReviewView();
     }
 
     const subContainer = document.querySelector(`.subcategory-header`);
@@ -240,7 +240,7 @@ export class SearchFilter {
     document
       .querySelector("#pni-category-dropdown-select")
       .classList.add("tw-hidden");
-    toggleProductReviewView();
+    showProductReviewView();
     toggleCategoryRelatedArticles(category);
     Utils.filterProductsByCategory(category);
     Utils.toggleCtaForCategory(category);
