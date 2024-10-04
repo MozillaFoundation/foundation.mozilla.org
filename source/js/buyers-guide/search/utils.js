@@ -38,18 +38,21 @@ export class Utils {
   static updateHeader(category, parent) {
     const datasetName =
       parent || (category === "None" ? ALL_CATEGORY_LABEL : category);
-    const text = parent || category;
+    const headerText = parent || category;
 
-    this.setCategoryHeader(datasetName, text);
+    this.setCategoryHeader(datasetName, headerText);
   }
 
   /**
    * Set category header text in the DOM
+   *
+   * @param {String} datasetName The name to set in the header's data attribute
+   * @param {String} headerText The text content to show as the category header
    */
-  static setCategoryHeader(datasetName, text) {
+  static setCategoryHeader(datasetName, headerText) {
     const categoryHeader = document.querySelector(".category-header");
     const navLink = document.querySelector(
-      `#multipage-nav a[data-name="${text}"]`
+      `#multipage-nav a[data-name="${headerText}"]`
     );
     const mobileActiveLink = document.querySelector(
       `#pni-mobile-category-nav .active-link-label`
@@ -58,7 +61,7 @@ export class Utils {
     if (!categoryHeader) return;
 
     categoryHeader.dataset.name = datasetName;
-    categoryHeader.textContent = text;
+    categoryHeader.textContent = headerText;
 
     if (navLink) {
       categoryHeader.href = navLink.href;
