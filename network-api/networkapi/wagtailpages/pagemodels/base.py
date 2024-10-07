@@ -986,7 +986,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         TranslatableField("highlights_title"),
     ]
 
-
     subpage_types = [
         "AppInstallPage",
         "BanneredCampaignPage",
