@@ -945,7 +945,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
             classname="collapsible collapsed",
         ),
     ]
-
     translatable_fields = [
         # Promote tab fields
         SynchronizedField("slug"),
@@ -965,6 +964,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         TranslatableField("ideas_title"),
         SynchronizedField("ideas_image"),
         TranslatableField("ideas_headline"),
+        SynchronizedField("show_cause_statement"),
         TranslatableField("cause_statement"),
         TranslatableField("cause_statement_link_text"),
         TranslatableField("cause_statement_link_page"),
@@ -985,6 +985,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         TranslatableField("highlights"),
         TranslatableField("highlights_title"),
     ]
+
 
     subpage_types = [
         "AppInstallPage",
