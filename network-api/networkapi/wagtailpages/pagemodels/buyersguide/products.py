@@ -28,7 +28,7 @@ from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
-from networkapi.wagtailpages.fields import ExtendedYesNoField, ExtendedChoiceField
+from networkapi.wagtailpages.fields import ExtendedChoiceField, ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide.categories import (
     BuyersGuideProductCategory,
