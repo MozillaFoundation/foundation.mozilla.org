@@ -153,6 +153,9 @@ $font-family-serif: "Zilla Slab", serif;
         margin: 0 auto;
       }
     }
+    .ot-floating-button__front {
+      background-color: rgba(0, 0, 0, 0);
+    }
   }
 
   /* Desktop Layout Changes */
