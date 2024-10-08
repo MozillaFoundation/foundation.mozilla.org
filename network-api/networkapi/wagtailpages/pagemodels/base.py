@@ -1013,4 +1013,5 @@ class Homepage(FoundationMetadataPageMixin, Page):
         context["MEDIA_URL"] = settings.MEDIA_URL
         context["menu_root"] = self
         context["menu_items"] = self.get_children().live().in_menu()
+        context["localized_partner_page"] = self.partner_page.localized
         return context
