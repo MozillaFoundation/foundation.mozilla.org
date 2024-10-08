@@ -4,6 +4,7 @@ from django.db import migrations
 
 import networkapi.wagtailpages.fields
 
+
 def map_yes_no_to_cant_determine(apps, schema_editor):
     GeneralProductPage = apps.get_model("wagtailpages", "GeneralProductPage")
 
