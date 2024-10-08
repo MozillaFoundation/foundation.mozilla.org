@@ -15,8 +15,16 @@ def yes_no(value):
 
 
 @register.filter
-def extended_yes_no(value):
-    """Converts quad-state to human readable string"""
+def extended_choice(value):
+    """Converts key from ExtendedChoiceField/ExtendedYesNoField to human readable string"""
+    if value == "Good":
+        return gettext("Good")
+    if value == "AVG":
+        return gettext("Average")
+    if value == "NI":
+        return gettext("Needs Improvement")
+    if value == "Bad":
+        return gettext("Bad")
     if value == "CD":
         return gettext("Can’t Determine")
     if value == "NA":
