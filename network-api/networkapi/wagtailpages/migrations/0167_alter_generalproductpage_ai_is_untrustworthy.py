@@ -13,9 +13,6 @@ def map_yes_no_to_cant_determine(apps, schema_editor):
 
     # Iterate over the pages and update them
     for page in pages_to_update:
-        print(
-            f"Product '{page.title}' with ID {page.id} has 'ai_is_untrustworthy' set as '{page.ai_is_untrustworthy}'. Updating to 'CD'."
-        )
         page.ai_is_untrustworthy = "CD"
         page.save()
 
