@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="generalproductpage",
             name="ai_is_untrustworthy",
-            field=networkapi.wagtailpages.fields.ExtendedChoiceField(verbose_name="is this AI untrustworthy?"),
+            field=networkapi.wagtailpages.fields.ExtendedChoiceField(verbose_name="How trustworthy is the AI?"),
         ),
         migrations.RunPython(map_yes_no_to_cant_determine),
     ]

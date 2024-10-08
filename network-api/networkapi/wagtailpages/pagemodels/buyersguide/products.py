@@ -1075,7 +1075,7 @@ class GeneralProductPage(ProductPage):
         blank=True,
     )
     ai_is_untrustworthy = ExtendedChoiceField(
-        verbose_name="is this AI untrustworthy?",
+        verbose_name="How trustworthy is the AI?",
     )
     ai_is_untrustworthy_ding = models.BooleanField(
         verbose_name="mini-ding for bad AI",
