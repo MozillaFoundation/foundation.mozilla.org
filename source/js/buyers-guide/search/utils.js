@@ -32,43 +32,43 @@ export class Utils {
   /**
    * Update page header to the category passed in the argument
    *
-   * @param {*} category
-   * @param {*} parent
-   *
-   * @todo Improve the implementation to increase code readibility
+   * @param {String} category name of the category
+   * @param {String} parent name of the parent category
    */
   static updateHeader(category, parent) {
-    const headerText = document.querySelector(".category-header");
+    const datasetName =
+      parent || (category === "None" ? ALL_CATEGORY_LABEL : category);
+    const headerText = parent || category;
 
-    if (parent) {
-      document.querySelector(".category-header").dataset.name = parent;
-      headerText.textContent = parent;
-      if (document.querySelector(`#multipage-nav a[data-name="${parent}"]`)) {
-        document.querySelector(".category-header").href =
-          document.querySelector(
-            `#multipage-nav a[data-name="${parent}"]`
-          ).href;
-      }
-      document.querySelector(
-        `#pni-mobile-category-nav .active-link-label`
-      ).textContent = parent;
-    } else {
-      const header = category === "None" ? ALL_CATEGORY_LABEL : category;
-      headerText.textContent = header;
-      document.querySelector(".category-header").dataset.name = category;
-      if (document.querySelector(`#multipage-nav a[data-name="${category}"]`)) {
-        document.querySelector(".category-header").href =
-          document.querySelector(
-            `#multipage-nav a[data-name="${category}"]`
-          ).href;
-      }
-      document.querySelector(
-        `#pni-mobile-category-nav .active-link-label`
-      ).textContent =
-        category === "None"
-          ? document.querySelector(`#multipage-nav a[data-name="None"]`)
-              .textContent
-          : category;
+    this.setCategoryHeader(datasetName, headerText);
+  }
+
+  /**
+   * Set category header text in the DOM
+   *
+   * @param {String} datasetName The name to set in the header's data attribute
+   * @param {String} headerText The text content to show as the category header
+   */
+  static setCategoryHeader(datasetName, headerText) {
+    const categoryHeader = document.querySelector(".category-header");
+    const navLink = document.querySelector(
+      `#multipage-nav a[data-name="${headerText}"]`
+    );
+    const mobileActiveLink = document.querySelector(
+      `#pni-mobile-category-nav .active-link-label`
+    );
+
+    if (!categoryHeader) return;
+
+    categoryHeader.dataset.name = datasetName;
+    categoryHeader.textContent = headerText;
+
+    if (navLink) {
+      categoryHeader.href = navLink.href;
+    }
+
+    if (mobileActiveLink) {
+      mobileActiveLink.textContent = datasetName;
     }
   }
 
