@@ -39,6 +39,7 @@ import { initYouTubeRegretsRecommendationsPieChart } from "./foundation/pages/yo
 import { initYoutubeRegretsCarousel } from "./foundation/pages/youtube-regrets/carousel";
 import { initYoutubeRegretsLocomotiveScroll } from "./foundation/pages/youtube-regrets/locomotive-scroll";
 import SiteNav from "./common/template-js-handles/site-nav.js";
+import ExternalLinks from "./common/template-js-handles/external-links.js";
 
 // Initializing component a11y browser console logging
 if (process.env.NODE_ENV === "development") {
@@ -63,6 +64,7 @@ let main = {
     Dropdowns.init();
     FoundationCarousels.init();
     SiteNav.init();
+    ExternalLinks.init();
 
     this.fetchEnv((envData) => {
       env = envData;
