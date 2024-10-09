@@ -961,10 +961,11 @@ class Homepage(FoundationMetadataPageMixin, Page):
         SynchronizedField("hero_button_url"),
         TranslatableField("hero_intro_heading"),
         TranslatableField("hero_intro_body"),
-        SynchronizedField("hero_intro_link"),
+        TranslatableField("hero_intro_link"),
         TranslatableField("ideas_title"),
         SynchronizedField("ideas_image"),
         TranslatableField("ideas_headline"),
+        SynchronizedField("show_cause_statement"),
         TranslatableField("cause_statement"),
         TranslatableField("cause_statement_link_text"),
         TranslatableField("cause_statement_link_page"),
@@ -1013,4 +1014,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         context["MEDIA_URL"] = settings.MEDIA_URL
         context["menu_root"] = self
         context["menu_items"] = self.get_children().live().in_menu()
+        if self.partner_page:
+            context["localized_partner_page"] = self.partner_page.localized
         return context

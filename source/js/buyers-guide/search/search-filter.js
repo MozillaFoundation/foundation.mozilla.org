@@ -1,13 +1,13 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Utils } from "./utils.js";
-import { markScrollStart } from "./slider-area.js";
+import { markScrollStart } from "./subcategory-scroll.js";
 import { setupHistoryManagement, applyHistory } from "./history.js";
 import {
   setupNavLinks,
   setupGoBackToAll,
   setupReviewLinks,
-  toggleProductReviewView,
+  showProductReviewView,
   toggleCategoryRelatedArticles,
 } from "./member-functions.js";
 
@@ -44,13 +44,13 @@ export class SearchFilter {
       mobileSearchBar,
       mobileSearchInput
     );
-    setupReviewLinks(this);
+    setupReviewLinks();
 
     if (
       (location.hash && location.hash === "#product-review") ||
       location.pathname.includes("categories")
     ) {
-      toggleProductReviewView();
+      showProductReviewView();
     }
 
     const subContainer = document.querySelector(`.subcategory-header`);
@@ -198,7 +198,7 @@ export class SearchFilter {
     });
 
     Utils.sortProductCards();
-    Utils.moveCreepyFace();
+    Utils.toggleCreepyFace();
 
     const state = { ...history.state, search: "" };
     const title = Utils.getTitle(this.categoryTitle.value.trim());
@@ -218,15 +218,15 @@ export class SearchFilter {
 
     Utils.updateHeader("None", null);
     Utils.setActiveCatNavLink("None");
-    Utils.toggleProducts(text);
+    Utils.filterProductsBySearchText(text);
 
     const state = { ...history.state, search: text };
     const title = Utils.getTitle(this.categoryTitle.value.trim());
     history.replaceState(state, title, this.getURL(text));
 
     Utils.sortFilteredProducts();
-    Utils.moveCreepyFace();
-    Utils.checkForEmptyNotice();
+    Utils.toggleCreepyFace();
+    Utils.toggleNoResultsNotice();
   }
 
   clearCategories() {
@@ -240,14 +240,14 @@ export class SearchFilter {
     document
       .querySelector("#pni-category-dropdown-select")
       .classList.add("tw-hidden");
-    toggleProductReviewView();
+    showProductReviewView();
     toggleCategoryRelatedArticles(category);
-    Utils.showProductsForCategory(category);
+    Utils.filterProductsByCategory(category);
     Utils.toggleCtaForCategory(category);
     this.categoryTitle.value = category;
     Utils.sortProductCards();
-    Utils.moveCreepyFace();
-    Utils.checkForEmptyNotice();
+    Utils.toggleCreepyFace();
+    Utils.toggleNoResultsNotice();
   }
 
   toggleSubcategory(clear = false) {

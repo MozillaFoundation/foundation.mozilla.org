@@ -219,7 +219,7 @@ export function applyHistory(instance) {
   instance.filterSubcategory(parent || category);
   Utils.updateHeader(category, parent);
   Utils.sortProductCards();
-  Utils.moveCreepyFace();
+  Utils.toggleCreepyFace();
 
   if (history.state?.parent && history.state?.category) {
     Utils.scrollToSubCategory(history.state?.category);
