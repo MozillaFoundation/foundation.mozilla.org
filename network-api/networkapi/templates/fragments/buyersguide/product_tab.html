@@ -134,7 +134,7 @@
 
                         {% if product.uses_ai != "No" %}
                             {% trans "How trustworthy is the AI?" as ai_is_untrustworthy_label %}
-                            {% include "fragments/buyersguide/product_criterion.html"  with  label=ai_is_untrustworthy_label  value=product.ai_is_untrustworthy ding=product.ai_is_untrustworthy_ding %}
+                            {% include "fragments/buyersguide/product_criterion.html"  with  label=ai_is_untrustworthy_label  value=product.ai_is_untrustworthy ding=product.ai_is_untrustworthy_ding help=product.ai_is_untrustworthy_helptext %}
 
                             <section class="criterion">
                                 <div class="primary-info">
