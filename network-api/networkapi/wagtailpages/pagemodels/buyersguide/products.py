@@ -1077,6 +1077,11 @@ class GeneralProductPage(ProductPage):
     ai_is_untrustworthy = ExtendedChoiceField(
         verbose_name="How trustworthy is the AI?",
     )
+    ai_is_untrustworthy_helptext = models.TextField(
+        verbose_name="How trustworthy is the AI explanation",
+        max_length=5000,
+        blank=True,
+    )
     ai_is_untrustworthy_ding = models.BooleanField(
         verbose_name="mini-ding for bad AI",
         default=False,
@@ -1126,6 +1131,7 @@ class GeneralProductPage(ProductPage):
             "AI is transparent": "ai_is_transparent",
             "AI is transparent help text": "ai_is_transparent_helptext",
             "AI is untrustworthy": "ai_is_untrustworthy",
+            "AI is untrustworthy help text": "ai_is_untrustworthy_helptext",
             "AI is untrustworthy ding": "ai_is_untrustworthy_ding",
             "AI What can it do": "ai_what_can_it_do",
             "AI can user control": "ai_can_user_control",
@@ -1192,6 +1198,7 @@ class GeneralProductPage(ProductPage):
                     FieldPanel("uses_ai"),
                     FieldPanel("ai_helptext"),
                     FieldPanel("ai_is_untrustworthy"),
+                    FieldPanel("ai_is_untrustworthy_helptext"),
                     FieldPanel("ai_is_untrustworthy_ding"),
                     FieldPanel("ai_what_can_it_do"),
                     FieldPanel("ai_is_transparent"),
@@ -1222,6 +1229,7 @@ class GeneralProductPage(ProductPage):
         TranslatableField("ai_is_transparent_helptext"),
         TranslatableField("ai_helptext"),
         SynchronizedField("ai_is_untrustworthy"),
+        TranslatableField("ai_is_untrustworthy_helptext"),
         SynchronizedField("ai_is_untrustworthy_ding"),
         TranslatableField("ai_what_can_it_do"),
         SynchronizedField("ai_can_user_control"),
