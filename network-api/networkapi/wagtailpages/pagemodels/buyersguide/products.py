@@ -1199,8 +1199,6 @@ class GeneralProductPage(ProductPage):
                     FieldPanel("ai_helptext"),
                     FieldPanel("ai_is_untrustworthy"),
                     FieldPanel("ai_is_untrustworthy_helptext"),
-                    FieldPanel("ai_is_untrustworthy_ding"),
-                    FieldPanel("ai_what_can_it_do"),
                     FieldPanel("ai_is_transparent"),
                     FieldPanel("ai_is_transparent_helptext"),
                     FieldPanel("ai_can_user_control"),
