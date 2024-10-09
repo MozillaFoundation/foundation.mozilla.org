@@ -945,6 +945,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
             classname="collapsible collapsed",
         ),
     ]
+
     translatable_fields = [
         # Promote tab fields
         SynchronizedField("slug"),
