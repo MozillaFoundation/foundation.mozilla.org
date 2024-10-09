@@ -11,9 +11,11 @@
                         {{ page.partner_intro_text }}
                     </p>
                 {% endif %}
-                <a href="{{ page.partner_page.localized.url }}" class="text-white tw-cta-link font-weight-bold" id="partner-cta">
-                    {{ page.partner_page_text }}
-                </a>
+                {% if localized_partner_page %}
+                    <a href="{{ localized_partner_page.url }}" class="text-white tw-cta-link font-weight-bold" id="partner-cta">
+                        {{ page.partner_page_text }}
+                    </a>
+                {% endif %}
             </div>
             <div class="partner-section-logos d-sm-flex flex-wrap d-none container">
                 {% for orderable in page.partner_logos.all %}
