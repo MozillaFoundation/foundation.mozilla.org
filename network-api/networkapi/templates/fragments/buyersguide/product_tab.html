@@ -148,7 +148,7 @@
                             {% trans "How transparent is the company about how the AI works?" as ai_is_transparent %}
                             {% include "fragments/buyersguide/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent help=product.ai_is_transparent_helptext rich_help_text=True %}
 
-                            {% trans "Does the user have control over the AI features?" as ai_can_user_control %}
+                            {% trans "How much control do users have over the data the AI collects?" as ai_can_user_control %}
                             {% include "fragments/buyersguide/product_criterion.html"  with  label=ai_can_user_control  value=product.ai_can_user_control help=product.ai_can_user_control_helptext rich_help_text=True %}
 
                         {% endif %}

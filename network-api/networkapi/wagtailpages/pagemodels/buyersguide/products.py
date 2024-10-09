@@ -1098,11 +1098,11 @@ class GeneralProductPage(ProductPage):
         max_length=5000,
         blank=True,
     )
-    ai_can_user_control = ExtendedYesNoField(
-        verbose_name="does the user have control over the AI features?",
+    ai_can_user_control = ExtendedChoiceField(
+        verbose_name="How much control do users have over the data the AI collects?",
     )
     ai_can_user_control_helptext = models.TextField(
-        verbose_name="control of AI description",
+        verbose_name="AI Control Explanation",
         max_length=5000,
         blank=True,
     )
