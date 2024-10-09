@@ -965,6 +965,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         TranslatableField("ideas_title"),
         SynchronizedField("ideas_image"),
         TranslatableField("ideas_headline"),
+        SynchronizedField("show_cause_statement"),
         TranslatableField("cause_statement"),
         TranslatableField("cause_statement_link_text"),
         TranslatableField("cause_statement_link_page"),
