@@ -1090,11 +1090,11 @@ class GeneralProductPage(ProductPage):
         verbose_name="what kind of decisions does the AI make about you or for you?",
         blank=True,
     )
-    ai_is_transparent = ExtendedYesNoField(
-        verbose_name="is the company transparent about how the AI works?",
+    ai_is_transparent = ExtendedChoiceField(
+        verbose_name="How transparent is the company about how the AI works?",
     )
     ai_is_transparent_helptext = models.TextField(
-        verbose_name="aI transparency description",
+        verbose_name="AI Transparency Explanation",
         max_length=5000,
         blank=True,
     )

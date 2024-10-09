@@ -29,10 +29,10 @@ class Migration(migrations.Migration):
             name="ai_is_untrustworthy",
             field=networkapi.wagtailpages.fields.ExtendedChoiceField(verbose_name="How trustworthy is the AI?"),
         ),
-        migrations.RunPython(map_yes_no_to_cant_determine),
         migrations.AddField(
             model_name="generalproductpage",
             name="ai_is_untrustworthy_helptext",
             field=models.TextField(blank=True, max_length=5000, verbose_name="How trustworthy is the AI explanation"),
         ),
+        migrations.RunPython(map_yes_no_to_cant_determine),
     ]
