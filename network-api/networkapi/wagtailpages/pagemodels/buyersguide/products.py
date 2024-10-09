@@ -1106,6 +1106,14 @@ class GeneralProductPage(ProductPage):
         max_length=5000,
         blank=True,
     )
+    ai_how_ethical_is_data_collection = ExtendedChoiceField(
+        verbose_name="How ethical are the company’s training data collection practices?",
+    )
+    ai_how_ethical_is_data_collection_helptext = models.TextField(
+        verbose_name="AI Ethical Explanation",
+        max_length=5000,
+        blank=True,
+    )
 
     @classmethod
     def map_import_fields(cls):
@@ -1136,6 +1144,8 @@ class GeneralProductPage(ProductPage):
             "AI What can it do": "ai_what_can_it_do",
             "AI can user control": "ai_can_user_control",
             "AI can user control help text": "ai_can_user_control_helptext",
+            "AI how ethical is data collection": "ai_how_ethical_is_data_collection",
+            "AI how ethical is data collection help text": "ai_how_ethical_is_data_collection_helptext",
         }
         # Return the merged fields
         return {**generic_product_import_fields, **general_product_mappings}
@@ -1203,6 +1213,8 @@ class GeneralProductPage(ProductPage):
                     FieldPanel("ai_is_transparent_helptext"),
                     FieldPanel("ai_can_user_control"),
                     FieldPanel("ai_can_user_control_helptext"),
+                    FieldPanel("ai_how_ethical_is_data_collection"),
+                    FieldPanel("ai_how_ethical_is_data_collection_helptext"),
                 ],
                 heading="Artificial Intelligence",
                 classname="collapsible",
@@ -1232,6 +1244,8 @@ class GeneralProductPage(ProductPage):
         TranslatableField("ai_what_can_it_do"),
         SynchronizedField("ai_can_user_control"),
         TranslatableField("ai_can_user_control_helptext"),
+        SynchronizedField("ai_how_ethical_is_data_collection"),
+        TranslatableField("ai_how_ethical_is_data_collection_helptext"),
     ]
 
     @property
