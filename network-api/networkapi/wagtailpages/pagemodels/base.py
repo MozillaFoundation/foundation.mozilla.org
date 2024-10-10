@@ -40,12 +40,17 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
         # Check if the user has Do Not Track enabled by inspecting the DNT header.
         dnt_enabled = request.headers.get("DNT") == "1"
 
-        # Check if theres an active A/B test for the homepage.
+        # Check if there's an active A/B test for the homepage.
         homepage = self.get_ancestors().type(Homepage).specific().first()
         active_ab_test = AbTest.objects.filter(page=homepage, status=AbTest.STATUS_RUNNING).first()
 
         # If there's no A/B test found or DNT is enabled, return the donate_banner field as usual.
         if not active_ab_test or dnt_enabled:
+            return homepage.donate_banner
+
+        variant = active_ab_test.variant_revision.as_object()
+        # If the A/B test variant does not include the donate_banner field, return the donate_banner field as usual.
+        if not hasattr(variant, "donate_banner"):
             return homepage.donate_banner
 
         # Check for the cookie related to this A/B test.
@@ -63,7 +68,7 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
             response.set_cookie(test_cookie_name, test_version, max_age=3600 * 24 * 30, httponly=True, secure=True)
 
         if test_version == "variant":
-            donate_banner = active_ab_test.variant_revision.as_object().donate_banner
+            donate_banner = variant.donate_banner
         else:
             donate_banner = homepage.donate_banner
 
