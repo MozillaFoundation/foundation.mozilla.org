@@ -57,7 +57,7 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
         if not test_version:
             test_version = active_ab_test.add_participant()
             response = HttpResponse()
-            response.set_cookie(test_cookie_name, test_version, max_age=3600 * 24 * 30)
+            response.set_cookie(test_cookie_name, test_version, max_age=3600 * 24 * 30, httponly=True, secure=True)
 
         if test_version == "variant":
             donate_banner = active_ab_test.variant_revision.as_object().donate_banner
