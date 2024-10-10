@@ -79,7 +79,7 @@ test.describe("Blog body newsletter signup form", () => {
     const requiredFields = await form.locator(`[required]`);
     errorMessages = form.locator(".error-message");
     await submitButton.waitFor({ state: "attached" });
-    await submitButton.click({ force: true });
+    await submitButton.dispatchEvent("click");
     expect(await errorMessages.count()).toBe(await requiredFields.count());
 
     // test if putting focus on the email field triggers the toggleable fields
@@ -125,7 +125,7 @@ test.describe("Blog body newsletter signup form", () => {
       const apiUrl = await moduleContainer.getAttribute("data-api-url");
       const fetchRequest = page.waitForRequest(apiUrl);
 
-      await submitButton.click({ force: true });
+      await submitButton.dispatchEvent("click");
       expect(await errorMessages.count()).toBe(0);
       expect(await innerWrapper.getAttribute("data-submission-status")).toBe(
         "pending"
@@ -162,7 +162,7 @@ test.describe("Blog body newsletter signup form", () => {
       const apiUrl = await moduleContainer.getAttribute("data-api-url");
       const fetchRequest = page.waitForRequest(apiUrl);
 
-      await submitButton.click({ force: true });
+      await submitButton.dispatchEvent("click");
       expect(await errorMessages.count()).toBe(0);
       expect(await innerWrapper.getAttribute("data-submission-status")).toBe(
         "pending"
