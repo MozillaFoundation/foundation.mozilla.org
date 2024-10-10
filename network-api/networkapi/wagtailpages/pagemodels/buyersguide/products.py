@@ -28,7 +28,7 @@ from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
-from networkapi.wagtailpages.fields import ExtendedYesNoField
+from networkapi.wagtailpages.fields import ExtendedChoiceField, ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide.categories import (
     BuyersGuideProductCategory,
@@ -1074,8 +1074,13 @@ class GeneralProductPage(ProductPage):
         help_text="Helpful text around AI to show on the product page",
         blank=True,
     )
-    ai_is_untrustworthy = ExtendedYesNoField(
-        verbose_name="is this AI untrustworthy?",
+    ai_is_untrustworthy = ExtendedChoiceField(
+        verbose_name="How trustworthy is the AI?",
+    )
+    ai_is_untrustworthy_helptext = models.TextField(
+        verbose_name="How trustworthy is the AI explanation",
+        max_length=5000,
+        blank=True,
     )
     ai_is_untrustworthy_ding = models.BooleanField(
         verbose_name="mini-ding for bad AI",
@@ -1085,19 +1090,27 @@ class GeneralProductPage(ProductPage):
         verbose_name="what kind of decisions does the AI make about you or for you?",
         blank=True,
     )
-    ai_is_transparent = ExtendedYesNoField(
-        verbose_name="is the company transparent about how the AI works?",
+    ai_is_transparent = ExtendedChoiceField(
+        verbose_name="How transparent is the company about how the AI works?",
     )
     ai_is_transparent_helptext = models.TextField(
-        verbose_name="aI transparency description",
+        verbose_name="AI Transparency Explanation",
         max_length=5000,
         blank=True,
     )
-    ai_can_user_control = ExtendedYesNoField(
-        verbose_name="does the user have control over the AI features?",
+    ai_can_user_control = ExtendedChoiceField(
+        verbose_name="How much control do users have over the data the AI collects?",
     )
     ai_can_user_control_helptext = models.TextField(
-        verbose_name="control of AI description",
+        verbose_name="AI Control Explanation",
+        max_length=5000,
+        blank=True,
+    )
+    ai_how_ethical_is_data_collection = ExtendedChoiceField(
+        verbose_name="How ethical are the company’s training data collection practices?",
+    )
+    ai_how_ethical_is_data_collection_helptext = models.TextField(
+        verbose_name="AI Ethical Explanation",
         max_length=5000,
         blank=True,
     )
@@ -1126,10 +1139,13 @@ class GeneralProductPage(ProductPage):
             "AI is transparent": "ai_is_transparent",
             "AI is transparent help text": "ai_is_transparent_helptext",
             "AI is untrustworthy": "ai_is_untrustworthy",
+            "AI is untrustworthy help text": "ai_is_untrustworthy_helptext",
             "AI is untrustworthy ding": "ai_is_untrustworthy_ding",
             "AI What can it do": "ai_what_can_it_do",
             "AI can user control": "ai_can_user_control",
             "AI can user control help text": "ai_can_user_control_helptext",
+            "AI how ethical is data collection": "ai_how_ethical_is_data_collection",
+            "AI how ethical is data collection help text": "ai_how_ethical_is_data_collection_helptext",
         }
         # Return the merged fields
         return {**generic_product_import_fields, **general_product_mappings}
@@ -1192,12 +1208,13 @@ class GeneralProductPage(ProductPage):
                     FieldPanel("uses_ai"),
                     FieldPanel("ai_helptext"),
                     FieldPanel("ai_is_untrustworthy"),
-                    FieldPanel("ai_is_untrustworthy_ding"),
-                    FieldPanel("ai_what_can_it_do"),
+                    FieldPanel("ai_is_untrustworthy_helptext"),
                     FieldPanel("ai_is_transparent"),
                     FieldPanel("ai_is_transparent_helptext"),
                     FieldPanel("ai_can_user_control"),
                     FieldPanel("ai_can_user_control_helptext"),
+                    FieldPanel("ai_how_ethical_is_data_collection"),
+                    FieldPanel("ai_how_ethical_is_data_collection_helptext"),
                 ],
                 heading="Artificial Intelligence",
                 classname="collapsible",
@@ -1222,10 +1239,13 @@ class GeneralProductPage(ProductPage):
         TranslatableField("ai_is_transparent_helptext"),
         TranslatableField("ai_helptext"),
         SynchronizedField("ai_is_untrustworthy"),
+        TranslatableField("ai_is_untrustworthy_helptext"),
         SynchronizedField("ai_is_untrustworthy_ding"),
         TranslatableField("ai_what_can_it_do"),
         SynchronizedField("ai_can_user_control"),
         TranslatableField("ai_can_user_control_helptext"),
+        SynchronizedField("ai_how_ethical_is_data_collection"),
+        TranslatableField("ai_how_ethical_is_data_collection_helptext"),
     ]
 
     @property
