@@ -45,7 +45,11 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
         if not active_ab_test:
             return homepage.donate_banner
 
-        # Check for the cookie specific to this A/B test.
+        # Check for the cookie related to this A/B test.
+        # In wagtail-ab-testing, the cookie name follows the format:
+        # "wagtail-ab-testing_{ab_test.id}_version".
+        # For details, see the source code here:
+        # https://github.com/wagtail-nest/wagtail-ab-testing/blob/main/wagtail_ab_testing/wagtail_hooks.py#L196-L197
         test_cookie_name = f"wagtail-ab-testing_{active_ab_test.id}_version"
         test_version = request.COOKIES.get(test_cookie_name)
 
