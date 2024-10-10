@@ -100,7 +100,7 @@
     </head>
     <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
         {% if user.is_authenticated %}
-            {% wagtailuserbar 'bottom-left' %}
+            {% wagtailuserbar 'bottom-right' %}
         {% endif %}
 
         {% if page.live == False %}

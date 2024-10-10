@@ -156,43 +156,42 @@ export function setupGoBackToAll(instance) {
 
 /**
  * Attach event listeners to the Product Review nav links
- *
- * @param {*} instance
- *
- * @todo See if we can make this DRYer by making use of the toggleProductReviewView function?
  */
-export function setupReviewLinks(instance) {
+export function setupReviewLinks() {
   const navLinks = document.querySelectorAll(`.product-review-link`);
 
   if (!navLinks) return;
 
   for (const nav of navLinks) {
     nav.addEventListener("click", (evt) => {
-      const editorialContent = document.querySelector(".editorial-content");
+      evt.preventDefault();
+      evt.stopPropagation();
+
       const burger = document.querySelector(".burger");
-      if (editorialContent) {
-        evt.preventDefault();
-        evt.stopPropagation();
-        nav.classList.add("active");
-        location.hash = "product-review";
-        editorialContent.classList.add("tw-hidden");
-        if (burger && burger.classList.contains("menu-open")) {
-          document.querySelector(".burger").click();
-        }
+      const hash = nav.hash;
+
+      location.hash = hash;
+      showProductReviewView();
+
+      // on mobile, clicking the .product-review-link link should also close the menu screen
+      if (burger && burger.classList.contains("menu-open")) {
+        document.querySelector(".burger").click();
       }
     });
   }
 }
 
 /**
- * Toggle the Product Review view
+ * Show the Product Review view
  */
-export function toggleProductReviewView() {
+export function showProductReviewView() {
   const editorialContent = document.querySelector(".editorial-content");
   const navLinks = document.querySelectorAll(`.product-review-link`);
+
   if (editorialContent) {
     editorialContent.classList.add("tw-hidden");
   }
+
   for (const nav of navLinks) {
     nav.classList.add("active");
   }
