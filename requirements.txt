@@ -14,7 +14,7 @@ asgiref==3.7.2
     #   scout-apm
 async-timeout==4.0.2
     # via redis
-basket-client==1.0.0
+basket-client==1.1.0
     # via -r requirements.in
 beautifulsoup4==4.9.3
     # via
@@ -214,7 +214,6 @@ sentry-sdk==2.8.0
     # via -r requirements.in
 six==1.16.0
     # via
-    #   basket-client
     #   django-autocomplete-light
     #   html5lib
     #   l18n
