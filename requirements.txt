@@ -117,7 +117,7 @@ factory-boy==3.3.1
     # via
     #   -r requirements.in
     #   wagtail-factories
-faker==26.3.0
+faker==30.3.0
     # via
     #   -r requirements.in
     #   factory-boy
@@ -240,6 +240,7 @@ tqdm==4.63.0
 typing-extensions==4.4.0
     # via
     #   dj-database-url
+    #   faker
     #   wagtail-localize
 ua-parser==0.18.0
     # via user-agents
