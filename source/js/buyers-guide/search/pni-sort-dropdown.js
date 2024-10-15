@@ -164,28 +164,55 @@ export class PNISortDropdown {
   /**
    * Focus on the next list item based on the given direction.
    *
-   * @param {number} direction - They key code of the direction to move the focus (e.g., key code for up arrow / down arrow)
-   *
-   * @todo Consider refactoring this method to make it more readable and maintainable.
+   * @param {number} direction The key code of the direction to move the focus (e.g., key code for up arrow / down arrow)
    */
   focusNextListItem(direction) {
     const activeElementId = document.activeElement.id;
-    const currentActiveElementIndex = this.listItemIds.indexOf(activeElementId);
+    const currentIndex = this.listItemIds.indexOf(activeElementId);
+
+    // return early if active element is not in the list
+    if (currentIndex < 0) return;
+
+    // handle focus based on direction
     if (direction === DOWN_ARROW_KEY_CODE) {
-      const currentActiveElementIsNotLastItem =
-        currentActiveElementIndex < this.listItemIds.length - 1;
-      if (currentActiveElementIsNotLastItem) {
-        const nextListItemId = this.listItemIds[currentActiveElementIndex + 1];
-        document.querySelector(`#${nextListItemId}`).focus();
-      }
+      this.focusNextItem(currentIndex);
     } else if (direction === UP_ARROW_KEY_CODE) {
-      const currentActiveElementIsNotFirstItem = currentActiveElementIndex > 0;
-      if (currentActiveElementIsNotFirstItem) {
-        const nextListItemId = this.listItemIds[currentActiveElementIndex - 1];
-        document.querySelector(`#${nextListItemId}`).focus();
-      } else {
-        this.dropdownButton.focus();
-      }
+      this.focusPreviousItem(currentIndex);
     }
+  }
+
+  /**
+   * Focus the next list item if it's not the last one.
+   *
+   * @param {number} currentIndex The index of the current active element in the list
+   */
+  focusNextItem(currentIndex) {
+    const isNotLastItem = currentIndex < this.listItemIds.length - 1;
+    if (isNotLastItem) {
+      this.focusItem(currentIndex + 1);
+    }
+  }
+
+  /**
+   * Focus the previous list item if it's not the first, or focus the dropdown button.
+   *
+   * @param {number} currentIndex The index of the current active element in the list
+   */
+  focusPreviousItem(currentIndex) {
+    if (currentIndex > 0) {
+      this.focusItem(currentIndex - 1);
+    } else {
+      this.dropdownButton.focus();
+    }
+  }
+
+  /**
+   * Focus the list item at the specified index.
+   *
+   * @param {number} index The index of the item to focus
+   */
+  focusItem(index) {
+    const nextListItemId = this.listItemIds[index];
+    document.querySelector(`#${nextListItemId}`).focus();
   }
 }

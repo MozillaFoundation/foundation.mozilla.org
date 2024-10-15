@@ -11,7 +11,7 @@ from .customblocks.full_content_rich_text_options import full_content_rich_text_
 article_fields = [
     ("accordion", customblocks.AccordionBlock()),
     ("airtable", customblocks.AirTableBlock()),
-    ("datawrapper", customblocks.DatawrapperBlock()),
+    ("datawrapper", customblocks.DatawrapperContainerBlock()),
     (
         "callout",
         blocks.RichTextBlock(

@@ -9,6 +9,8 @@ from wagtail.models import Page, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
+
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
 from ..utils import CharCountWidget, get_page_tree_information
@@ -17,6 +19,14 @@ from .customblocks.base_rich_text_options import base_rich_text_options
 from .mixin.foundation_banner_inheritance import FoundationBannerInheritanceMixin
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .mixin.foundation_navigation import FoundationNavigationPageMixin
+
+hero_intro_heading_default_text = "A healthy internet is one in which privacy, openness, and inclusion are the norms."
+hero_intro_body_default_text = (
+    "Mozilla empowers consumers to demand better online privacy, trustworthy AI, "
+    "and safe online experiences from Big Tech and governments. We work across "
+    "borders, disciplines, and technologies to uphold principles like privacy, "
+    "inclusion and decentralization online."
+)
 
 
 class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page):
@@ -463,10 +473,10 @@ class HomepageIdeasPosts(TranslatableMixin, WagtailOrderable):
         return self.page.title + "->" + self.blog.title
 
 
-class HomepageNewsYouCanUse(TranslatableMixin, WagtailOrderable):
+class HomepageHighlights(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         "wagtailpages.Homepage",
-        related_name="news_you_can_use",
+        related_name="highlights",
     )
     blog = models.ForeignKey("BlogPage", on_delete=models.CASCADE, related_name="+")
     panels = [
@@ -604,19 +614,10 @@ class FocusArea(TranslatableMixin, models.Model):
         help_text="Description of this area of focus. Max. 300 characters.",
     )
 
-    page = models.ForeignKey(
-        "wagtailcore.Page",
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
     panels = [
         FieldPanel("interest_icon"),
         FieldPanel("name"),
         FieldPanel("description"),
-        FieldPanel("page"),
     ]
 
     translatable_fields = [
@@ -764,6 +765,17 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     hero_button_url = models.URLField(blank=True)
 
+    hero_intro_heading = models.CharField(max_length=100, blank=True, default=hero_intro_heading_default_text)
+    hero_intro_body = models.TextField(max_length=300, blank=True, default=hero_intro_body_default_text)
+    hero_intro_link = StreamField(
+        [("link", LinkBlock())],
+        use_json_field=True,
+        blank=True,
+        max_num=1,
+    )
+
+    ideas_title = models.CharField(default="Ideas", max_length=50)
+
     ideas_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -837,6 +849,9 @@ class Homepage(FoundationMetadataPageMixin, Page):
         null=True,
         on_delete=models.SET_NULL,
     )
+
+    highlights_title = models.CharField(default="The Highlights", max_length=50)
+
     # Take Action Section
     take_action_title = models.CharField(default="Take action", max_length=50)
 
@@ -867,6 +882,15 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
+                FieldPanel("hero_intro_heading"),
+                FieldPanel("hero_intro_body"),
+                FieldPanel("hero_intro_link"),
+            ],
+            heading="Hero Intro Box",
+            classname="collapsible",
+        ),
+        MultiFieldPanel(
+            [
                 InlinePanel("focus_areas", min_num=3, max_num=3),
             ],
             heading="Areas of focus",
@@ -874,13 +898,15 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                InlinePanel("news_you_can_use", min_num=4, max_num=4),
+                FieldPanel("highlights_title"),
+                InlinePanel("highlights", min_num=4, max_num=4),
             ],
-            heading="News you can use",
+            heading="The Highlights",
             classname="collapsible",
         ),
         MultiFieldPanel(
             [
+                FieldPanel("ideas_title"),
                 FieldPanel("ideas_image"),
                 FieldPanel("ideas_headline"),
                 InlinePanel("ideas_posts", label="Posts", min_num=3, max_num=3),
@@ -933,8 +959,13 @@ class Homepage(FoundationMetadataPageMixin, Page):
         SynchronizedField("hero_image"),
         TranslatableField("hero_button_text"),
         SynchronizedField("hero_button_url"),
+        TranslatableField("hero_intro_heading"),
+        TranslatableField("hero_intro_body"),
+        TranslatableField("hero_intro_link"),
+        TranslatableField("ideas_title"),
         SynchronizedField("ideas_image"),
         TranslatableField("ideas_headline"),
+        SynchronizedField("show_cause_statement"),
         TranslatableField("cause_statement"),
         TranslatableField("cause_statement_link_text"),
         TranslatableField("cause_statement_link_page"),
@@ -952,7 +983,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
         TranslatableField("take_action_cards"),
         TranslatableField("partner_logos"),
         TranslatableField("ideas_posts"),
-        TranslatableField("news_you_can_use"),
+        TranslatableField("highlights"),
+        TranslatableField("highlights_title"),
     ]
 
     subpage_types = [
@@ -982,4 +1014,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         context["MEDIA_URL"] = settings.MEDIA_URL
         context["menu_root"] = self
         context["menu_items"] = self.get_children().live().in_menu()
+        if self.partner_page:
+            context["localized_partner_page"] = self.partner_page.localized
         return context
