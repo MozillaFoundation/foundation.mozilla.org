@@ -58,3 +58,31 @@ class ExtendedYesNoField(models.CharField):
         del kwargs["default"]
         del kwargs["max_length"]
         return name, path, args, kwargs
+
+
+class ExtendedChoiceField(models.CharField):
+    description = "Good, Bad, Average, Needs Improvement, Not Applicable, or Can’t Determine"
+
+    choice_list = [
+        ("Good", "Good"),
+        ("Bad", "Bad"),
+        ("AVG", "Average"),
+        ("NI", "Needs Improvement"),
+        ("NA", "Not Applicable"),
+        ("CD", "Can’t Determine"),
+    ]
+
+    default_choice = "CD"
+
+    def __init__(self, *args, **kwargs):
+        kwargs["choices"] = self.choice_list
+        kwargs["default"] = self.default_choice
+        kwargs["max_length"] = 4
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        del kwargs["choices"]
+        del kwargs["default"]
+        del kwargs["max_length"]
+        return name, path, args, kwargs
