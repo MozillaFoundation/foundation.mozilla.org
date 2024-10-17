@@ -1011,8 +1011,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
         # Loop through take_action_cards and localize internal_link
         localized_cards = []
         for card in self.take_action_cards.all():
-            localized_link = card.internal_link.localized
-            localized_cards.append({"card": card, "internal_link": localized_link})
+            card.internal_link = card.internal_link.localized
+            localized_cards.append(card)
         return localized_cards
 
     def get_context(self, request):
