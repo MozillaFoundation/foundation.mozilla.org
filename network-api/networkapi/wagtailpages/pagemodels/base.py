@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.http import HttpResponse
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
@@ -7,8 +8,10 @@ from wagtail.images import get_image_model_string
 from wagtail.models import Orderable as WagtailOrderable
 from wagtail.models import Page, TranslatableMixin
 from wagtail.search import index
+from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from networkapi.donate_banner.models import DonateBanner
 from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
@@ -32,6 +35,49 @@ hero_intro_body_default_text = (
 class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page):
     class Meta:
         abstract = True
+
+    def get_donate_banner(self, request):
+        # Check if the user has Do Not Track enabled by inspecting the DNT header.
+        dnt_enabled = request.headers.get("DNT") == "1"
+
+        # Check if there's an active A/B test for the homepage.
+        homepage = self.get_ancestors().type(Homepage).specific().first()
+        active_ab_test = AbTest.objects.filter(page=homepage, status=AbTest.STATUS_RUNNING).first()
+
+        # If there's no A/B test found or DNT is enabled, return the donate_banner field as usual.
+        if not active_ab_test or dnt_enabled:
+            return homepage.donate_banner
+
+        variant = active_ab_test.variant_revision.as_object()
+        # If the A/B test variant does not include the donate_banner field, return the donate_banner field as usual.
+        if not hasattr(variant, "donate_banner"):
+            return homepage.donate_banner
+
+        # Check for the cookie related to this A/B test.
+        # In wagtail-ab-testing, the cookie name follows the format:
+        # "wagtail-ab-testing_{ab_test.id}_version".
+        # For details, see the source code here:
+        # https://github.com/wagtail-nest/wagtail-ab-testing/blob/main/wagtail_ab_testing/wagtail_hooks.py#L196-L197
+        test_cookie_name = f"wagtail-ab-testing_{active_ab_test.id}_version"
+        test_version = request.COOKIES.get(test_cookie_name)
+
+        # If no cookie is found, add user as a participant in test, and set a cookie for their assigned version.
+        if not test_version:
+            test_version = active_ab_test.add_participant()
+            response = HttpResponse()
+            response.set_cookie(test_cookie_name, test_version, max_age=3600 * 24 * 30, httponly=True, secure=True)
+
+        if test_version == "variant":
+            donate_banner = variant.donate_banner
+        else:
+            donate_banner = homepage.donate_banner
+
+        return donate_banner
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["donate_banner"] = self.get_donate_banner(request)
+        return context
 
 
 class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
@@ -742,6 +788,18 @@ class PartnerLogos(TranslatableMixin, WagtailOrderable):
 
 
 class Homepage(FoundationMetadataPageMixin, Page):
+
+    donate_banner = models.ForeignKey(
+        DonateBanner,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="homepage_donate_banner",
+        help_text=(
+            "CTA Banner rendered at the top of the page site-wide. "
+            "Note: A/B testing of this banner will also be site-wide."
+        ),
+    )
     hero_headline = models.CharField(
         max_length=120,
         help_text="Hero story headline",
@@ -858,6 +916,13 @@ class Homepage(FoundationMetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
+                FieldPanel("donate_banner"),
+            ],
+            heading="Donate Banner",
+            classname="collapsible",
+        ),
+        MultiFieldPanel(
+            [
                 FieldPanel(
                     "hero_headline",
                     widget=CharCountWidget(attrs={"class": "max-length-warning", "data-max-length": 120}),
@@ -957,6 +1022,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         TranslatableField("title"),
         TranslatableField("hero_headline"),
         SynchronizedField("hero_image"),
+        SynchronizedField("donate_banner"),
         TranslatableField("hero_button_text"),
         SynchronizedField("hero_button_url"),
         TranslatableField("hero_intro_heading"),
