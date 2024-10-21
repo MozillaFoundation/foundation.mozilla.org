@@ -267,7 +267,7 @@ wagtail-ab-testing==0.11.1
     # via -r requirements.in
 wagtail-color-panel==1.5.0
     # via -r requirements.in
-wagtail-factories==4.1.0
+wagtail-factories==4.2.1
     # via -r requirements.in
 wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
     # via -r requirements.in
