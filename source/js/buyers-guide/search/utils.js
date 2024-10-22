@@ -38,7 +38,8 @@ export class Utils {
   static updateHeader(category, parent) {
     const datasetName =
       parent || (category === "None" ? ALL_CATEGORY_LABEL : category);
-    const headerText = parent || category;
+    const headerText =
+      category === "None" ? ALL_CATEGORY_LABEL : parent || category;
 
     this.setCategoryHeader(datasetName, headerText);
   }
