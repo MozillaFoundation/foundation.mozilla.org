@@ -8,18 +8,18 @@
         </div>
         <div class="tw-w-full tw-px-8 large:tw-w-2/3 tw-relative">
             <div class="tw-row">
-                {% for item in page.take_action_cards.all %}
-                    {% with target=item.internal_link.localized %}
+                {% for card in localized_take_action_cards %}
+                    {% with target=card.internal_link.url %}
                         <div class="col-md-6 tw-flex">
                             <div class="card tw-flex-grow tw-mb-12">
-                                <a href="{{ target.url }}">
-                                    <img src="{% image_url item.image "fill-350x130" %}" class="card-img-top" alt="{{ img.alt }}" aria-label="{{ item.text }}">
+                                <a href="{{ target }}">
+                                    <img src="{% image_url card.image "fill-350x130" %}" class="card-img-top" alt="{{ img.alt }}" aria-label="{{ card.text }}">
                                 </a>
                                 <div class="card-body">
-                                    <a href="{{ target.url }}" class="tw-h5-heading tw-inline-block tw-my-4">
-                                        {{ item.text }}
+                                    <a href="{{ target }}" class="tw-h5-heading tw-inline-block tw-my-4">
+                                        {{ card.text }}
                                     </a>
-                                    <a href="{{ target.url }}" class="tw-cta-link d-none d-md-inline-block">{{ item.cta }}</a>
+                                    <a href="{{ target }}" class="tw-cta-link d-none d-md-inline-block">{{ card.cta }}</a>
                                 </div>
                             </div>
                         </div>
