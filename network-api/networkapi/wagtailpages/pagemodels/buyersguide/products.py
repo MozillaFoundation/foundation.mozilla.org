@@ -28,7 +28,7 @@ from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
-from networkapi.wagtailpages.fields import ExtendedYesNoField
+from networkapi.wagtailpages.fields import ExtendedChoiceField, ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.buyersguide.categories import (
     BuyersGuideProductCategory,
@@ -1074,8 +1074,8 @@ class GeneralProductPage(ProductPage):
         help_text="Helpful text around AI to show on the product page",
         blank=True,
     )
-    ai_is_untrustworthy = ExtendedYesNoField(
-        verbose_name="is this AI untrustworthy?",
+    ai_is_untrustworthy = ExtendedChoiceField(
+        verbose_name="How trustworthy is the AI?",
     )
     ai_is_untrustworthy_ding = models.BooleanField(
         verbose_name="mini-ding for bad AI",
