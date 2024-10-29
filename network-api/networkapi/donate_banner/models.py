@@ -51,10 +51,17 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
             "or a valid query string starting with ? (Ex: ?form=donate)."
         ),
     )
-    background_image = models.ForeignKey(
+    foreground_image = models.ForeignKey(
         "wagtailimages.Image",
         models.PROTECT,
         related_name="+",
+    )
+    bg_image = models.ForeignKey(
+        "wagtailimages.Image",
+        models.PROTECT,
+        related_name="+",
+        null=True,
+        blank=True,
     )
 
     TAILWIND_COLORS = [
@@ -68,7 +75,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         ("bg-pink-60", "Pink"),
     ]
 
-    bgcolor = models.CharField(
+    bg_color = models.CharField(
         max_length=20, choices=TAILWIND_COLORS, default="bg-blue-60", help_text="Background color for the banner"
     )
 
@@ -77,7 +84,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         ("text-black", "Black"),
     ]
 
-    textcolor = models.CharField(
+    text_color = models.CharField(
         max_length=20, choices=TEXT_COLORS, default="text-white", help_text="Text color for the banner"
     )
 
@@ -88,9 +95,10 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         FieldPanel("subtitle"),
         FieldPanel("cta_button_text"),
         FieldPanel("cta_link"),
-        FieldPanel("background_image"),
-        FieldPanel("bgcolor"),
-        FieldPanel("textcolor"),
+        FieldPanel("foreground_image"),
+        FieldPanel("bg_image"),
+        FieldPanel("bg_color"),
+        FieldPanel("text_color"),
     ]
 
     translatable_fields = [
@@ -98,7 +106,8 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         TranslatableField("subtitle"),
         TranslatableField("cta_button_text"),
         SynchronizedField("cta_link"),
-        SynchronizedField("background_image"),
+        SynchronizedField("foreground_image"),
+        SynchronizedField("bg_image"),
     ]
 
     search_fields = [
