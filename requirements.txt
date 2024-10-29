@@ -46,7 +46,7 @@ defusedxml==0.7.1
     #   python3-openid
     #   social-auth-core
     #   willow
-dj-database-url==2.2.0
+dj-database-url==2.3.0
     # via -r requirements.in
 django==4.2.15
     # via
