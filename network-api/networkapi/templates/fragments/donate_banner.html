@@ -1,8 +1,14 @@
 {% load settings_value i18n static wagtailimages_tags %}
 {% image banner.foreground_image fill-1305x720 as foreground_image %}
+{% if banner.bg_image %}
+    {% image banner.bg_image fill-1920x1080 as bg_image %}
+{% endif %}
 
 {% with btn_class="tw-btn-pop tw-py-7 tw-px-20 tw-text-white tw-border-black tw-bg-blue-40 tw-shadow-black tw-shadow-[4px_4px] tw-w-full small:tw-w-auto hover:tw-bg-blue-80" %}
-    <div class="donate-banner tw-{{ banner.bg_color }} tw-py-20 tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden">
+    <div class="donate-banner tw-{{ banner.bg_color }} tw-py-20 tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden"
+         {% if banner.bg_image %}
+             style="background-image: url('{{ bg_image.url }}'); background-size: cover; background-position: center;"
+         {% endif %}>
 
         <a href="#" class="tw-p-8 tw-box-content banner-close tw-cursor-pointer tw-absolute tw-right-0 tw-top-0 tw-group" aria-label="{% trans " Close Banner" %}">
             <img src="{% static "_images/x.svg" %}" width="24" height="23" alt="{% trans " Close Banner" %}" class="tw-w-8 tw-h-8 tw-transition-transform tw-duration-100 tw-ease-in-out tw-transform group-hover:tw-scale-110 tw-filter">
