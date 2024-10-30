@@ -65,18 +65,12 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     )
 
     TAILWIND_COLORS = [
-        ("tw-bg-gray-60", "Gray"),
-        ("tw-bg-red-60", "Red"),
-        ("tw-bg-blue-60", "Blue"),
-        ("tw-bg-cyan-60", "Cyan"),
-        ("tw-bg-green-60", "Green"),
-        ("tw-bg-yellow-60", "Yellow"),
-        ("tw-bg-purple-60", "Purple"),
-        ("tw-bg-pink-60", "Pink"),
+        ("tw-bg-red-40", "Red"),
+        ("tw-bg-blue-40", "Blue"),
     ]
 
     background_color = models.CharField(
-        max_length=20, choices=TAILWIND_COLORS, default="tw-bg-blue-60", help_text="Background color for the banner"
+        max_length=20, choices=TAILWIND_COLORS, default="tw-bg-blue-40", help_text="Background color for the banner"
     )
 
     TEXT_COLORS = [
