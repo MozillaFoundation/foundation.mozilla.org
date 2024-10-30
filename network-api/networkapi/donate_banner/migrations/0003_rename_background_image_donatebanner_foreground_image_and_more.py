@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 db_index=False,
                 null=True,
                 on_delete=django.db.models.deletion.SET_NULL,
-                to="donate_banner.donatebanner",
+                to="wagtailimages.image",
             ),
         ),
         migrations.RenameField(
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 db_index=True,
                 null=True,
                 on_delete=django.db.models.deletion.SET_NULL,
-                to="donate_banner.donatebanner",
+                to="wagtailimages.image",
             ),
         ),
     ]
