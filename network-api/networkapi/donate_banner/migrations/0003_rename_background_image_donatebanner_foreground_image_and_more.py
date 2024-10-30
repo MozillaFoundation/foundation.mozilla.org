@@ -10,51 +10,34 @@ class Migration(migrations.Migration):
         ("wagtailimages", "0025_alter_image_file_alter_rendition_file"),
         ("donate_banner", "0002_remove_cta_text_and_update_max_lengths"),
     ]
-
+    # @see https://code.djangoproject.com/ticket/23577
+    # Index should be dropped and recreated in order to add a field with the name of a previous indexed field
     operations = [
+        migrations.AlterField(
+            model_name="donatebanner",
+            name="background_image",
+            field=models.ForeignKey(
+                blank=True,
+                db_index=False,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="donate_banner.donatebanner",
+            ),
+        ),
         migrations.RenameField(
             model_name="donatebanner",
             old_name="background_image",
             new_name="foreground_image",
         ),
-        migrations.AddField(
+        migrations.AlterField(
             model_name="donatebanner",
-            name="bg_color",
-            field=models.CharField(
-                choices=[
-                    ("bg-gray-60", "Gray"),
-                    ("bg-red-60", "Red"),
-                    ("bg-blue-60", "Blue"),
-                    ("bg-cyan-60", "Cyan"),
-                    ("bg-green-60", "Green"),
-                    ("bg-yellow-60", "Yellow"),
-                    ("bg-purple-60", "Purple"),
-                    ("bg-pink-60", "Pink"),
-                ],
-                default="bg-blue-60",
-                help_text="Background color for the banner",
-                max_length=20,
-            ),
-        ),
-        migrations.AddField(
-            model_name="donatebanner",
-            name="bg_image",
+            name="foreground_image",
             field=models.ForeignKey(
                 blank=True,
+                db_index=True,
                 null=True,
-                on_delete=django.db.models.deletion.PROTECT,
-                related_name="+",
-                to="wagtailimages.image",
-            ),
-        ),
-        migrations.AddField(
-            model_name="donatebanner",
-            name="text_color",
-            field=models.CharField(
-                choices=[("text-white", "White"), ("text-black", "Black")],
-                default="text-white",
-                help_text="Text color for the banner",
-                max_length=20,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="donate_banner.donatebanner",
             ),
         ),
     ]

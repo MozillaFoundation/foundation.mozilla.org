@@ -5,9 +5,9 @@
 {% endif %}
 
 {% with btn_class="tw-btn-pop tw-py-7 tw-px-20 tw-text-white tw-border-black tw-bg-blue-40 tw-shadow-black tw-shadow-[4px_4px] tw-w-full small:tw-w-auto hover:tw-bg-blue-80" %}
-    <div class="donate-banner tw-{{ banner.bg_color }} tw-py-20 tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden"
-         {% if banner.bg_image %}
-             style="background-image: url('{{ bg_image.url }}'); background-size: cover; background-position: center;"
+    <div class="donate-banner {{ banner.background_color }} tw-py-20 tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden"
+         {% if banner.background_image %}
+             style="background-image: url('{{ background_image.url }}'); background-size: cover; background-position: center;"
          {% endif %}>
 
         <a href="#" class="tw-p-8 tw-box-content banner-close tw-cursor-pointer tw-absolute tw-right-0 tw-top-0 tw-group" aria-label="{% trans " Close Banner" %}">
@@ -25,10 +25,10 @@
 
                 {% block right_banner_column %}
                     <div class="large:tw-py-16 large:tw-w-6/12 large:tw-order-1">
-                        <p class="tw-h1-heading tw-mb-0 tw-{{ banner.text_color }} tw-font-semibold">
+                        <p class="tw-h1-heading tw-mb-0 {{ banner.text_color }} tw-font-semibold">
                             {{ banner.title }}
                         </p>
-                        <p class="tw-body-large tw-mt-8 tw-{{ banner.text_color }} tw-leading-normal">
+                        <p class="tw-body-large tw-mt-8 {{ banner.text_color }} tw-leading-normal">
                             {{ banner.subtitle }}
                         </p>
                         <div class="tw-w-full tw-pt-6">

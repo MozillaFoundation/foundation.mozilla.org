@@ -56,7 +56,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         models.PROTECT,
         related_name="+",
     )
-    bg_image = models.ForeignKey(
+    background_image = models.ForeignKey(
         "wagtailimages.Image",
         models.PROTECT,
         related_name="+",
@@ -75,7 +75,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         ("bg-pink-60", "Pink"),
     ]
 
-    bg_color = models.CharField(
+    background_color = models.CharField(
         max_length=20, choices=TAILWIND_COLORS, default="bg-blue-60", help_text="Background color for the banner"
     )
 
@@ -96,8 +96,8 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         FieldPanel("cta_button_text"),
         FieldPanel("cta_link"),
         FieldPanel("foreground_image"),
-        FieldPanel("bg_image"),
-        FieldPanel("bg_color"),
+        FieldPanel("background_image"),
+        FieldPanel("background_color"),
         FieldPanel("text_color"),
     ]
 
@@ -107,7 +107,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         TranslatableField("cta_button_text"),
         SynchronizedField("cta_link"),
         SynchronizedField("foreground_image"),
-        SynchronizedField("bg_image"),
+        SynchronizedField("background_image"),
     ]
 
     search_fields = [
