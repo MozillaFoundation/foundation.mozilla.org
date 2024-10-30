@@ -1,7 +1,7 @@
 {% load settings_value i18n static wagtailimages_tags %}
 {% image banner.foreground_image fill-1305x720 as foreground_image %}
-{% if banner.bg_image %}
-    {% image banner.bg_image fill-1920x1080 as bg_image %}
+{% if banner.background_image %}
+    {% image banner.background_image fill-1920x1080 as background_image %}
 {% endif %}
 
 {% with btn_class="tw-btn-pop tw-py-7 tw-px-20 tw-text-white tw-border-black tw-bg-blue-40 tw-shadow-black tw-shadow-[4px_4px] tw-w-full small:tw-w-auto hover:tw-bg-blue-80" %}
