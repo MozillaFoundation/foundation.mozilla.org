@@ -25,6 +25,8 @@ class Migration(migrations.Migration):
                 default="tw-bg-blue-40",
                 help_text="Background color for the banner",
                 max_length=20,
+                null=True,
+                blank=True,
             ),
         ),
         migrations.AddField(
