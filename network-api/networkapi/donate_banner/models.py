@@ -67,6 +67,8 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     TAILWIND_COLORS = [
         ("tw-bg-red-40", "Red"),
         ("tw-bg-blue-40", "Blue"),
+        ("tw-bg-white", "White"),
+        ("tw-bg-black", "Black"),
     ]
 
     background_color = models.CharField(

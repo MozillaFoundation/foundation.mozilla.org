@@ -19,6 +19,8 @@ class Migration(migrations.Migration):
                 choices=[
                     ("tw-bg-red-40", "Red"),
                     ("tw-bg-blue-40", "Blue"),
+                    ("tw-bg-white", "White"),
+                    ("tw-bg-black", "Black"),
                 ],
                 default="tw-bg-blue-40",
                 help_text="Background color for the banner",
