@@ -8,18 +8,18 @@
         </div>
         <div class="tw-w-full tw-px-8 large:tw-w-2/3 tw-relative">
             <div class="tw-row">
-                {% for item in page.take_action_cards.all %}
-                    {% with target=item.internal_link.localized %}
+                {% for card in localized_take_action_cards %}
+                    {% with target=card.internal_link.url %}
                         <div class="col-md-6 tw-flex">
                             <div class="card tw-flex-grow tw-mb-12">
-                                <a href="{{ target.url }}">
-                                    <img src="{% image_url item.image "fill-350x130" %}" class="card-img-top" alt="{{ img.alt }}" aria-label="{{ item.text }}">
+                                <a href="{{ target }}">
+                                    <img src="{% image_url card.image "fill-350x130" %}" class="card-img-top" alt="{{ img.alt }}" aria-label="{{ card.text }}">
                                 </a>
                                 <div class="card-body">
-                                    <a href="{{ target.url }}" class="tw-h5-heading tw-inline-block tw-my-4">
-                                        {{ item.text }}
+                                    <a href="{{ target }}" class="tw-h5-heading tw-inline-block tw-my-4">
+                                        {{ card.text }}
                                     </a>
-                                    <a href="{{ target.url }}" class="tw-cta-link d-none d-md-inline-block">{{ item.cta }}</a>
+                                    <a href="{{ target }}" class="tw-cta-link d-none d-md-inline-block">{{ card.cta }}</a>
                                 </div>
                             </div>
                         </div>
@@ -34,8 +34,8 @@
                      data-form-style="home-body"
                      data-form-position="body"
                      data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
-                     data-cta-header="{% trans "Help shape the future of the web for the public good." %}"
-                     data-cta-description="<p>{% trans "Join our <b>Mozilla News</b> email list to get action alerts & internet tips right to your inbox." %}</p>"
+                     data-cta-header="{% trans "Join our movement to reclaim the internet" %}"
+                     data-cta-description="<p>{% trans "Sign up for Mozilla's newsletter to get updates and take action for the internet." %}</p>"
                      data-cta-privacy-notice=""
                 >
                 </div>

@@ -1007,6 +1007,14 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "donate.DonateLandingPage",
     ]
 
+    def get_localized_take_action_cards(self):
+        # Loop through take_action_cards and localize internal_link
+        localized_cards = []
+        for card in self.take_action_cards.all():
+            card.internal_link = card.internal_link.localized
+            localized_cards.append(card)
+        return localized_cards
+
     def get_context(self, request):
         # We need to expose MEDIA_URL so that the s3 images will show up properly
         # due to our custom image upload approach pre-wagtail
@@ -1014,6 +1022,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         context["MEDIA_URL"] = settings.MEDIA_URL
         context["menu_root"] = self
         context["menu_items"] = self.get_children().live().in_menu()
+        context["localized_take_action_cards"] = self.get_localized_take_action_cards()
         if self.partner_page:
             context["localized_partner_page"] = self.partner_page.localized
         return context
