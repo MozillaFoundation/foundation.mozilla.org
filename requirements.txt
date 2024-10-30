@@ -46,7 +46,7 @@ defusedxml==0.7.1
     #   python3-openid
     #   social-auth-core
     #   willow
-dj-database-url==2.2.0
+dj-database-url==2.3.0
     # via -r requirements.in
 django==4.2.15
     # via
@@ -210,7 +210,7 @@ scipy==1.10.0
     # via wagtail-ab-testing
 scout-apm==3.0.2
     # via -r requirements.in
-sentry-sdk==2.8.0
+sentry-sdk==2.17.0
     # via -r requirements.in
 six==1.16.0
     # via
