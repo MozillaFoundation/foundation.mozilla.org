@@ -1,7 +1,8 @@
 from django.contrib import admin
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
-from wagtail.admin.panels import FieldPanel, HelpPanel
+from wagtail.admin.panels import FieldPanel, HelpPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.models import PreviewableMixin, TranslatableMixin
 from wagtail.search import index
@@ -51,10 +52,42 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
             "or a valid query string starting with ? (Ex: ?form=donate)."
         ),
     )
+    foreground_image = models.ForeignKey(
+        "wagtailimages.Image",
+        models.PROTECT,
+        related_name="+",
+    )
     background_image = models.ForeignKey(
         "wagtailimages.Image",
         models.PROTECT,
         related_name="+",
+        null=True,
+        blank=True,
+    )
+
+    TAILWIND_COLORS = [
+        ("tw-bg-red-40", "Red"),
+        ("tw-bg-blue-40", "Blue"),
+        ("tw-bg-white", "White"),
+        ("tw-bg-black", "Black"),
+    ]
+
+    background_color = models.CharField(
+        max_length=20,
+        choices=TAILWIND_COLORS,
+        default="tw-bg-blue-40",
+        help_text="Background color for the banner",
+        null=True,
+        blank=True,
+    )
+
+    TEXT_COLORS = [
+        ("tw-text-white", "White"),
+        ("tw-text-black", "Black"),
+    ]
+
+    text_color = models.CharField(
+        max_length=20, choices=TEXT_COLORS, default="tw-text-white", help_text="Text color for the banner"
     )
 
     panels = [
@@ -64,7 +97,16 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         FieldPanel("subtitle"),
         FieldPanel("cta_button_text"),
         FieldPanel("cta_link"),
-        FieldPanel("background_image"),
+        FieldPanel("foreground_image"),
+        MultiFieldPanel(
+            [
+                HelpPanel(content="Select either an image or a color to serve as the background for the banner."),
+                FieldPanel("background_image"),
+                FieldPanel("background_color"),
+            ],
+            heading="Background",
+        ),
+        FieldPanel("text_color"),
     ]
 
     translatable_fields = [
@@ -72,6 +114,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         TranslatableField("subtitle"),
         TranslatableField("cta_button_text"),
         SynchronizedField("cta_link"),
+        SynchronizedField("foreground_image"),
         SynchronizedField("background_image"),
     ]
 
@@ -94,6 +137,28 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         if self.site_donate_banner.exists():
             return True
         return False
+
+    def clean(self):
+        super().clean()
+
+        both_selected_error = "Please select either a background image or a background color for the banner."
+        none_selected_error = "Please select a background image or a background color for the banner."
+
+        # Validate that either background_image or background_color is set, not both.
+        if self.background_image and self.background_color:
+            raise ValidationError(
+                {
+                    "background_image": ValidationError(both_selected_error),
+                    "background_color": ValidationError(both_selected_error),
+                }
+            )
+        if not self.background_image and not self.background_color:
+            raise ValidationError(
+                {
+                    "background_image": ValidationError(none_selected_error),
+                    "background_color": ValidationError(none_selected_error),
+                }
+            )
 
 
 @register_setting(icon="heart")
