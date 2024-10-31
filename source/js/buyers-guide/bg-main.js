@@ -1,3 +1,7 @@
+// Importing Sentry first is key
+// See https://docs.sentry.io/platforms/javascript/guides/node/#use
+import initializeSentry from "../common/sentry-config.js";
+
 import React from "react";
 import ReactDOM from "react-dom";
 import Storage from "../storage.js";
@@ -17,7 +21,6 @@ import HomepageSlider from "./template-js-handler/homepage-c-slider.js";
 import NewsletterBox from "./template-js-handler/newsletter-box.js";
 import PNIMobileCategoryNav from "./template-js-handler/mobile-category-nav.js";
 import AnalyticsEvents from "./analytics-events.js";
-import initializeSentry from "../common/sentry-config.js";
 
 // Initializing component a11y browser console logging
 if (process.env.NODE_ENV === "development") {
