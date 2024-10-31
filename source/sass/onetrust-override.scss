@@ -6,7 +6,8 @@ $font-family-serif: "Zilla Slab", serif;
 #onetrust-consent-sdk {
   /* Banner Styles */
   #onetrust-banner-sdk {
-    background: linear-gradient(to right, #acffff, #e7e7fc);
+    background: var(--color-gray-05, #F2F2F2);
+    box-shadow: 0px -2px 8px 0px rgba(0, 0, 0, 0.25);
 
     @media only screen and (min-width: 575px) {
       padding: 0 20px;
@@ -37,8 +38,11 @@ $font-family-serif: "Zilla Slab", serif;
       margin-bottom: 5px;
 
       @media only screen and (min-width: 576px) {
-        font-size: 18px;
+        font-size: 16px;
         line-height: 27px;
+      }
+      @media only screen and (min-width: 897px) {
+        font-size: 18px;
       }
     }
 
@@ -53,6 +57,7 @@ $font-family-serif: "Zilla Slab", serif;
       line-height: 27px;
       padding: 5px 6px;
       width: 100%;
+      margin-bottom: 12px;
 
       &::before {
         display: inline-block;
@@ -63,6 +68,7 @@ $font-family-serif: "Zilla Slab", serif;
 
       @media only screen and (min-width: 650px) {
         width: 250px;
+        margin-bottom: 10px;
       }
 
       @media only screen and (min-width: 897px) {
@@ -98,18 +104,20 @@ $font-family-serif: "Zilla Slab", serif;
         #onetrust-pc-btn-handler {
           font-family: $font-family-sans-serif;
           font-weight: 700;
-          font-size: 18px;
+          font-size: 12px;
           line-height: 27px;
           color: #0d10bf;
           border: none;
           background: none;
           text-decoration: underline;
           padding-top: 0;
+          padding-bottom: 4px;
           margin-top: 0;
           width: 100%;
 
           @media only screen and (min-width: 576px) {
             max-width: fit-content;
+            padding-bottom: 12px;
           }
 
           @media only screen and (min-width: 897px) {
