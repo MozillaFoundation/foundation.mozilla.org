@@ -1,7 +1,8 @@
 from django.contrib import admin
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
-from wagtail.admin.panels import FieldPanel, HelpPanel
+from wagtail.admin.panels import FieldPanel, HelpPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.models import PreviewableMixin, TranslatableMixin
 from wagtail.search import index
@@ -97,8 +98,14 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         FieldPanel("cta_button_text"),
         FieldPanel("cta_link"),
         FieldPanel("foreground_image"),
-        FieldPanel("background_image"),
-        FieldPanel("background_color"),
+        MultiFieldPanel(
+            [
+                HelpPanel(content="Select either an image or a color to serve as the background for the banner."),
+                FieldPanel("background_image"),
+                FieldPanel("background_color"),
+            ],
+            heading="Background",
+        ),
         FieldPanel("text_color"),
     ]
 
@@ -130,6 +137,28 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         if self.site_donate_banner.exists():
             return True
         return False
+
+    def clean(self):
+        super().clean()
+
+        both_selected_error = "Please select either a background image or a background color for the banner."
+        none_selected_error = "Please select a background image or a background color for the banner."
+
+        # Validate that either background_image or background_color is set, not both.
+        if self.background_image and self.background_color:
+            raise ValidationError(
+                {
+                    "background_image": ValidationError(both_selected_error),
+                    "background_color": ValidationError(both_selected_error),
+                }
+            )
+        if not self.background_image and not self.background_color:
+            raise ValidationError(
+                {
+                    "background_image": ValidationError(none_selected_error),
+                    "background_color": ValidationError(none_selected_error),
+                }
+            )
 
 
 @register_setting(icon="heart")
