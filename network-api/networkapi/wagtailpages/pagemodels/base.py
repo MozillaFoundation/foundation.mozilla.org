@@ -789,17 +789,6 @@ class PartnerLogos(TranslatableMixin, WagtailOrderable):
 
 class Homepage(FoundationMetadataPageMixin, Page):
 
-    donate_banner = models.ForeignKey(
-        DonateBanner,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="homepage_donate_banner",
-        help_text=(
-            "CTA Banner rendered at the top of the page site-wide. "
-            "Note: A/B testing of this banner will also be site-wide."
-        ),
-    )
     hero_headline = models.CharField(
         max_length=120,
         help_text="Hero story headline",
@@ -916,13 +905,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel("donate_banner"),
-            ],
-            heading="Donate Banner",
-            classname="collapsible",
-        ),
-        MultiFieldPanel(
-            [
                 FieldPanel(
                     "hero_headline",
                     widget=CharCountWidget(attrs={"class": "max-length-warning", "data-max-length": 120}),
@@ -1022,7 +1004,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         TranslatableField("title"),
         TranslatableField("hero_headline"),
         SynchronizedField("hero_image"),
-        SynchronizedField("donate_banner"),
         TranslatableField("hero_button_text"),
         SynchronizedField("hero_button_url"),
         TranslatableField("hero_intro_heading"),
