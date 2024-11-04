@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("wagtailcore", "0089_log_entry_data_json_null_to_object"),
-        ("donate_banner", "0002_remove_cta_text_and_update_max_lengths"),
+        ("donate_banner", "0004_add_background_and_colors"),
     ]
 
     operations = [
