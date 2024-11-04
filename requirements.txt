@@ -208,7 +208,7 @@ s3transfer==0.10.0
     # via boto3
 scipy==1.10.0
     # via wagtail-ab-testing
-scout-apm==3.0.2
+scout-apm==3.2.1
     # via -r requirements.in
 sentry-sdk==2.17.0
     # via -r requirements.in
@@ -285,7 +285,7 @@ wagtailmedia==0.14.5
     # via -r requirements.in
 webencodings==0.5.1
     # via html5lib
-whitenoise==6.6.0
+whitenoise==6.8.2
     # via -r requirements.in
 willow[heif]==1.6.3
     # via
