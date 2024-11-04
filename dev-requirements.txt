@@ -24,7 +24,7 @@ django==4.2.15
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
-django-debug-toolbar==4.4.2
+django-debug-toolbar==4.4.6
     # via -r dev-requirements.in
 djhtml==3.0.7
     # via -r dev-requirements.in
@@ -54,7 +54,7 @@ jsbeautifier==1.14.7
     #   djlint
 mccabe==0.7.0
     # via flake8
-mypy==1.9.0
+mypy==1.10.1
     # via -r dev-requirements.in
 mypy-extensions==1.0.0
     # via
