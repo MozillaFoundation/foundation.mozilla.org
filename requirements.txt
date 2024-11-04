@@ -26,7 +26,7 @@ botocore==1.34.158
     # via
     #   boto3
     #   s3transfer
-cached-property==1.5.2
+cached-property==2.0.1
     # via -r requirements.in
 certifi==2024.7.4
     # via
