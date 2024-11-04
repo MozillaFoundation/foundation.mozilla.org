@@ -5,13 +5,14 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model_string
+from wagtail.models import Locale
 from wagtail.models import Orderable as WagtailOrderable
 from wagtail.models import Page, TranslatableMixin
 from wagtail.search import index
 from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from networkapi.donate_banner.models import DonateBanner
+from networkapi.donate_banner.models import DonateBannerPage
 from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
@@ -41,17 +42,17 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
         dnt_enabled = request.headers.get("DNT") == "1"
 
         # Check if there's an active A/B test for the homepage.
-        homepage = self.get_ancestors().type(Homepage).specific().first()
-        active_ab_test = AbTest.objects.filter(page=homepage, status=AbTest.STATUS_RUNNING).first()
+        default_locale = Locale.get_default()
+        donate_banner_page = DonateBannerPage.objects.filter(locale=default_locale).first()
+
+        if not donate_banner_page:
+            return None
+
+        active_ab_test = AbTest.objects.filter(page=donate_banner_page, status=AbTest.STATUS_RUNNING).first()
 
         # If there's no A/B test found or DNT is enabled, return the donate_banner field as usual.
         if not active_ab_test or dnt_enabled:
-            return homepage.donate_banner
-
-        variant = active_ab_test.variant_revision.as_object()
-        # If the A/B test variant does not include the donate_banner field, return the donate_banner field as usual.
-        if not hasattr(variant, "donate_banner"):
-            return homepage.donate_banner
+            return donate_banner_page.donate_banner
 
         # Check for the cookie related to this A/B test.
         # In wagtail-ab-testing, the cookie name follows the format:
@@ -68,11 +69,11 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
             response.set_cookie(test_cookie_name, test_version, max_age=3600 * 24 * 30, httponly=True, secure=True)
 
         if test_version == "variant":
-            donate_banner = variant.donate_banner
+            donate_banner = active_ab_test.variant_revision.as_object().donate_banner
         else:
-            donate_banner = homepage.donate_banner
+            donate_banner = donate_banner_page.donate_banner
 
-        return donate_banner
+        return donate_banner.localized
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -1052,6 +1053,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "BuyersGuidePage",
         "ArticlePage",
         "donate.DonateLandingPage",
+        "donate_banner.DonateBannerPage",
     ]
 
     def get_context(self, request):
@@ -1061,6 +1063,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         context["MEDIA_URL"] = settings.MEDIA_URL
         context["menu_root"] = self
         context["menu_items"] = self.get_children().live().in_menu()
+        context["donate_banner"] = BasePage.get_donate_banner(self, request)
         if self.partner_page:
             context["localized_partner_page"] = self.partner_page.localized
         return context
