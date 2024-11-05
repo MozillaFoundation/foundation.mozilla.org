@@ -204,9 +204,9 @@ class DonateBannerPage(Page):
         ),
     ]
 
-    promote_panels = []
+    promote_panels: list = []
 
-    subpage_types = []
+    subpage_types: list = []
 
     parent_page_types = ["wagtailpages.Homepage"]
 
