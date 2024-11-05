@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from wagtail import hooks
@@ -218,6 +220,16 @@ class DonateBannerPage(Page):
         return context
 
 
+@receiver(post_delete, sender=DonateBannerPage)
+def delete_all_donate_banner_page_translations(sender, instance, **kwargs):
+    """
+    Deletes all translated instances of the DonateBannerPage, as they don't auto-delete.
+    This prevents lingering aliases from blocking the creation of a new DonateBannerPage
+    due to the max_count=1 limit.
+    """
+    DonateBannerPage.objects.all().delete()
+
+
 # Register a link to the DonateBannerPage in the Settings menu
 @hooks.register("register_settings_menu_item")
 def register_donate_banner_menu_item():
@@ -231,6 +243,7 @@ def register_donate_banner_menu_item():
     # If the page exists, generate the edit URL
     if donate_banner_page:
         edit_url = reverse("wagtailadmin_pages:edit", args=[donate_banner_page.id])
+
     else:
         # If the page doesn't exist, link to the page creation view
         parent_page = Homepage.objects.filter(locale=default_locale).first()

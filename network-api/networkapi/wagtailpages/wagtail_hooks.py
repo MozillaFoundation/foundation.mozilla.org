@@ -9,10 +9,12 @@ from django.db.models import Prefetch
 # so that locale creation creates the locale entry but does not try to sync 1300+ pages as
 # part of the same web request.
 from django.db.models.signals import post_save
+from django.shortcuts import redirect
 from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.html import escape
 from wagtail import hooks
+from wagtail.admin import messages
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineStyleElementHandler,
@@ -26,6 +28,7 @@ from wagtail.rich_text import LinkHandler
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 from wagtail_ab_testing.events import BaseEvent
+from wagtail_ab_testing.models import AbTest
 from wagtail_localize.models import (
     LocaleSynchronization,
     sync_trees_on_locale_sync_save,
@@ -166,6 +169,26 @@ def manage_index_pages_cache(request, page):
 
     if hasattr(parent, "clear_index_page_cache"):
         parent.clear_index_page_cache(locale)
+
+
+@hooks.register("before_delete_page")
+def delete_historical_ab_tests_before_page_deletion(request, page):
+    """
+    Fixes a bug where historical A/B tests prevent page deletion by removing them beforehand.
+    Active A/B tests will still block deletion. For more info, see:
+    https://github.com/wagtail-nest/wagtail-ab-testing/issues/90
+    """
+    # First, check if there is an active A/B test; if so, block deletion with an error message.
+    if AbTest.objects.filter(page=page, status=AbTest.STATUS_RUNNING).exists():
+        # Redirect to the parent page and display an error message in the CMS
+        messages.error(request, "This page has an active A/B test and cannot be deleted.")
+        return redirect("wagtailadmin_explore", page.get_parent().id)
+
+    # If there are no active A/B tests, delete all historical A/B tests for the page
+    # to prevent them from blocking the page deletion.
+    historical_ab_tests = AbTest.objects.filter(page=page).exclude(status=AbTest.STATUS_RUNNING)
+    if historical_ab_tests.exists():
+        historical_ab_tests.delete()
 
 
 @hooks.register("insert_global_admin_js", order=100)
