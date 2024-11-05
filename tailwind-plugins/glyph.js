@@ -65,7 +65,7 @@ module.exports = [
           ...hoverGlyph("linkedin-hover"),
           "&:before": {
             width: "16px",
-            height: "16px",
+            height: "18px",
           },
         },
         ".tiktok-glyph": {
@@ -136,7 +136,7 @@ module.exports = [
             ...hoverGlyph("linkedin-dark-theme-hover"),
             "&:before": {
               width: "16px",
-              height: "16px",
+              height: "18px",
             },
           },
           "& .tiktok-glyph": {

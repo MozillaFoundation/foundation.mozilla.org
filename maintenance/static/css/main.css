@@ -7473,71 +7473,38 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 .twitter-glyph:hover::before, .twitter-glyph:focus::before {
   background: url(../_images/glyphs/twitter-hover.svg) no-repeat 0 0/contain; }
 
-.tiktok-glyph::before {
+.linkedIn-glyph::before {
   content: "";
   display: inline-block;
   width: 20px;
   height: 20px;
   margin-right: 20px;
-  background: url(../_images/glyphs/tiktok.svg) no-repeat 0 0/contain; }
+  background: url(../_images/glyphs/linkedin.svg) no-repeat 0 0/contain; }
   @media screen and (min-width: 992px) {
-    .tiktok-glyph::before {
+    .linkedIn-glyph::before {
       margin-right: 10px; } }
 
-.tiktok-glyph.gray::before {
+.linkedIn-glyph.gray::before {
   -webkit-filter: opacity(40%);
           filter: opacity(40%); }
 
-.tiktok-glyph.gray:hover::before {
+.linkedIn-glyph.gray:hover::before {
   -webkit-filter: opacity(60%);
           filter: opacity(60%); }
 
-.tiktok-glyph.small::before {
+.linkedIn-glyph.small::before {
   width: 16px;
   height: 16px; }
 
-.tiktok-glyph.heart-glyph::before {
+.linkedIn-glyph.heart-glyph::before {
   width: 19px;
   height: 16px;
   margin-right: 6px;
   position: relative;
   top: 2px; }
 
-.tiktok-glyph:hover::before, .tiktok-glyph:focus::before {
-  background: url(../_images/glyphs/tiktok-hover.svg) no-repeat 0 0/contain; }
-
-  .tiktok-glyph::before {
-    content: "";
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 20px;
-    background: url(../_images/glyphs/tiktok.svg) no-repeat 0 0/contain; }
-    @media screen and (min-width: 992px) {
-      .tiktok-glyph::before {
-        margin-right: 10px; } }
-
-  .tiktok-glyph.gray::before {
-    -webkit-filter: opacity(40%);
-            filter: opacity(40%); }
-
-  .tiktok-glyph.gray:hover::before {
-    -webkit-filter: opacity(60%);
-            filter: opacity(60%); }
-
-  .tiktok-glyph.small::before {
-    width: 16px;
-    height: 16px; }
-
-  .tiktok-glyph.heart-glyph::before {
-    width: 19px;
-    height: 16px;
-    margin-right: 6px;
-    position: relative;
-    top: 2px; }
-
-  .tiktok-glyph:hover::before, .tiktok-glyph:focus::before {
-    background: url(../_images/glyphs/tiktok-hover.svg) no-repeat 0 0/contain; }
+.linkedIn-glyph:hover::before, .linkedIn-glyph:focus::before {
+  background: url(../_images/glyphs/linkedin-hover.svg) no-repeat 0 0/contain; }
 
 .dark-theme .twitter-glyph::before {
   content: "";
@@ -7736,39 +7703,6 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 
 .dark-theme .github-glyph:hover::before, .dark-theme .github-glyph:focus::before {
   background: url(../images/github-dark-theme-hover.svg) no-repeat 0 0/contain; }
-
-.dark-theme .tiktok-glyph::before {
-  content: "";
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-right: 20px;
-  background: url(../images/tiktok-dark-theme.svg) no-repeat 0 0/contain; }
-  @media screen and (min-width: 992px) {
-    .dark-theme .tiktok-glyph::before {
-      margin-right: 10px; } }
-
-.dark-theme .tiktok-glyph.gray::before {
-  -webkit-filter: opacity(40%);
-          filter: opacity(40%); }
-
-.dark-theme .tiktok-glyph.gray:hover::before {
-  -webkit-filter: opacity(60%);
-          filter: opacity(60%); }
-
-.dark-theme .tiktok-glyph.small::before {
-  width: 16px;
-  height: 16px; }
-
-.dark-theme .tiktok-glyph.heart-glyph::before {
-  width: 19px;
-  height: 16px;
-  margin-right: 6px;
-  position: relative;
-  top: 2px; }
-
-.dark-theme .tiktok-glyph:hover::before, .dark-theme .tiktok-glyph:focus::before {
-  background: url(../images/tiktok-dark-theme-hover.svg) no-repeat 0 0/contain; }
 
 .join-us {
   background: inherit; }
