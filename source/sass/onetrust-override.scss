@@ -17,6 +17,10 @@ $font-family-serif: "Zilla Slab", serif;
     .ot-sdk-container {
       width: calc(100% - 40px);
       padding: 0;
+
+      @media only screen and (min-width: 810px) {
+        width: calc(100% - 82px);
+      }
     }
 
     /* Title */
@@ -79,8 +83,13 @@ $font-family-serif: "Zilla Slab", serif;
 
       @media only screen and (min-width: 810px) {
         width: 250px;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         margin-left: auto;
+        margin-right: 10px;
+      }
+
+      @media only screen and (min-width: 1080px) {
+        margin-bottom: 10px;
         margin-right: auto;
       }
     }
