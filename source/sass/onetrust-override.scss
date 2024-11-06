@@ -6,24 +6,39 @@ $font-family-serif: "Zilla Slab", serif;
 #onetrust-consent-sdk {
   /* Banner Styles */
   #onetrust-banner-sdk {
-    background: linear-gradient(to right, #acffff, #e7e7fc);
+    background: var(--color-gray-05, #fafafa) !important;
+    box-shadow: 0px -2px 8px 0px rgba(0, 0, 0, 0.25);
+    border: none;
 
-    @media only screen and (min-width: 575px) {
-      padding: 0 20px;
+    &:focus {
+      outline: none !important;
+    }
+
+    .ot-sdk-container {
+      width: calc(100% - 40px);
+      padding: 0;
+
+      @media only screen and (min-width: 810px) {
+        width: calc(100% - 82px);
+      }
     }
 
     /* Title */
     #onetrust-policy-title {
       font-family: $font-family-serif;
       color: #000;
-      font-size: 28px;
+      font-size: 22px;
       line-height: 32px;
       font-weight: 300;
       display: inline-block;
 
-      @media only screen and (min-width: 1199px) {
+      @media only screen and (min-width: 1080px) {
+        font-size: 28px;
+      }
+
+      @media only screen and (min-width: 1440px) {
         font-size: 40px;
-        line-height: 48px;
+        line-height: 1.2;
       }
     }
 
@@ -37,8 +52,11 @@ $font-family-serif: "Zilla Slab", serif;
       margin-bottom: 5px;
 
       @media only screen and (min-width: 576px) {
-        font-size: 18px;
+        font-size: 16px;
         line-height: 27px;
+      }
+      @media only screen and (min-width: 1080px) {
+        font-size: 18px;
       }
     }
 
@@ -53,6 +71,8 @@ $font-family-serif: "Zilla Slab", serif;
       line-height: 27px;
       padding: 5px 6px;
       width: 100%;
+      margin-bottom: 12px;
+      float: none;
 
       &::before {
         display: inline-block;
@@ -61,12 +81,16 @@ $font-family-serif: "Zilla Slab", serif;
         line-height: 20px;
       }
 
-      @media only screen and (min-width: 650px) {
+      @media only screen and (min-width: 810px) {
         width: 250px;
+        margin-bottom: 20px;
+        margin-left: auto;
+        margin-right: 10px;
       }
 
-      @media only screen and (min-width: 897px) {
-        width: 270px;
+      @media only screen and (min-width: 1080px) {
+        margin-bottom: 10px;
+        margin-right: auto;
       }
     }
 
@@ -86,44 +110,64 @@ $font-family-serif: "Zilla Slab", serif;
       float: none;
       display: inline-block;
       transform: none;
+      padding: 0;
 
-      @media only screen and (min-width: 897px) {
-        width: 32%;
+      @media only screen and (min-width: 1080px) {
+        width: 30%;
+        padding-top: 20px;
       }
 
-      @media only screen and (min-width: 1199px) {
-        width: 29%;
-      }
       #onetrust-button-group {
+        width: 100%;
+        text-align: left;
+        margin-top: 0;
+
+        @media only screen and (min-width: 1080px) {
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+        }
+
         #onetrust-pc-btn-handler {
           font-family: $font-family-sans-serif;
           font-weight: 700;
-          font-size: 18px;
+          font-size: 12px;
           line-height: 27px;
           color: #0d10bf;
           border: none;
           background: none;
           text-decoration: underline;
           padding-top: 0;
+          padding-bottom: 4px;
           margin-top: 0;
           width: 100%;
+          float: none;
 
-          @media only screen and (min-width: 576px) {
+          @media only screen and (min-width: 810px) {
+            margin: 5px auto;
             max-width: fit-content;
           }
-
-          @media only screen and (min-width: 897px) {
-            margin: 5px auto;
-            width: 270px;
-            max-width: 270px;
+          @media only screen and (min-width: 1080px) {
+            margin-top: 0;
+            margin-bottom: 10px;
+            max-width: 250px;
+            line-height: 1;
           }
+        }
+
+        button {
+          margin-top: 0px;
         }
       }
     }
 
     /* Title & Text Box Margin */
     #onetrust-policy {
-      @media only screen and (min-width: 1199px) {
+      margin-top: 20px;
+      margin-left: 0;
+      margin-right: 0;
+
+      @media only screen and (min-width: 1080px) {
         max-width: 740px;
         margin: 1.2em auto;
       }
@@ -131,17 +175,32 @@ $font-family-serif: "Zilla Slab", serif;
 
     /* Close Button */
     #onetrust-close-btn-container {
-      /* Swap close icon fill color, must set !important due to background-image set as an inline attribute */
+      right: 9px;
+      top: 9px;
+
       button.ot-close-icon {
-        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNDguMzMzIiBoZWlnaHQ9IjM0OC4zMzMiIHZpZXdCb3g9IjAgMCAzNDguMzMzIDM0OC4zMzQiPgogIDxwYXRoIGZpbGw9IiM2NjY2NjYiIGQ9Ik0zMzYuNTU5IDY4LjYxMUwyMzEuMDE2IDE3NC4xNjVsMTA1LjU0MyAxMDUuNTQ5YzE1LjY5OSAxNS43MDUgMTUuNjk5IDQxLjE0NSAwIDU2Ljg1LTcuODQ0IDcuODQ0LTE4LjEyOCAxMS43NjktMjguNDA3IDExLjc2OS0xMC4yOTYgMC0yMC41ODEtMy45MTktMjguNDE5LTExLjc2OUwxNzQuMTY3IDIzMS4wMDMgNjguNjA5IDMzNi41NjNjLTcuODQzIDcuODQ0LTE4LjEyOCAxMS43NjktMjguNDE2IDExLjc2OS0xMC4yODUgMC0yMC41NjMtMy45MTktMjguNDEzLTExLjc2OS0xNS42OTktMTUuNjk4LTE1LjY5OS00MS4xMzkgMC01Ni44NWwxMDUuNTQtMTA1LjU0OUwxMS43NzQgNjguNjExYy0xNS42OTktMTUuNjk5LTE1LjY5OS00MS4xNDUgMC01Ni44NDQgMTUuNjk2LTE1LjY4NyA0MS4xMjctMTUuNjg3IDU2LjgyOSAwbDEwNS41NjMgMTA1LjU1NEwyNzkuNzIxIDExLjc2N2MxNS43MDUtMTUuNjg3IDQxLjEzOS0xNS42ODcgNTYuODMyIDAgMTUuNzA1IDE1LjY5OSAxNS43MDUgNDEuMTQ1LjAwNiA1Ni44NDR6Ii8+Cjwvc3ZnPg==") !important;
+        right: auto;
+        top: auto;
+        /* Swap close icon fill color, must set !important due to background-image set as an inline attribute */
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8ZyBmaWxsPSIjNjY2IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxwYXRoIGQ9Ik0uMjMgMjAuOEwyMC45NTIuMDhsMi4xMiAyLjEyTDIuMzUgMjIuOTJ6Ii8+CiAgICAgICAgPHBhdGggZD0iTTIzLjA3IDIwLjhMMi4zNS4wOC4yMyAyLjJsMjAuNzIgMjAuNzJ6Ii8+CiAgICA8L2c+Cjwvc3ZnPg==") !important;
       }
-      @media only screen and (min-width: 1199px) {
-        right: 20px;
+      @media only screen and (min-width: 897px) {
+        right: -4px;
+        top: 24px;
       }
     }
 
     .onetrust-close-btn-handler {
-      background-size: 20px;
+      background-size: 15px;
+    }
+
+    .onetrust-close-btn-ui {
+      width: 30px;
+      height: 30px;
+    }
+
+    .ot-sdk-three.ot-sdk-columns {
+      width: 100%;
     }
   }
 
@@ -161,8 +220,10 @@ $font-family-serif: "Zilla Slab", serif;
   /* Desktop Layout Changes */
   #onetrust-banner-sdk:not(.ot-iab-2) {
     #onetrust-group-container {
-      @media only screen and (min-width: 1199px) {
+      width: 100%;
+      @media only screen and (min-width: 1080px) {
         width: 65%;
+        margin-right: 48px;
       }
     }
   }
@@ -184,7 +245,7 @@ $font-family-serif: "Zilla Slab", serif;
     /* Close Button */
     /* Swap close icon fill color, must set !important due to background-image set as an inline attribute */
     #close-pc-btn-handler {
-      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNDguMzMzIiBoZWlnaHQ9IjM0OC4zMzMiIHZpZXdCb3g9IjAgMCAzNDguMzMzIDM0OC4zMzQiPgogIDxwYXRoIGZpbGw9IiM2NjY2NjYiIGQ9Ik0zMzYuNTU5IDY4LjYxMUwyMzEuMDE2IDE3NC4xNjVsMTA1LjU0MyAxMDUuNTQ5YzE1LjY5OSAxNS43MDUgMTUuNjk5IDQxLjE0NSAwIDU2Ljg1LTcuODQ0IDcuODQ0LTE4LjEyOCAxMS43NjktMjguNDA3IDExLjc2OS0xMC4yOTYgMC0yMC41ODEtMy45MTktMjguNDE5LTExLjc2OUwxNzQuMTY3IDIzMS4wMDMgNjguNjA5IDMzNi41NjNjLTcuODQzIDcuODQ0LTE4LjEyOCAxMS43NjktMjguNDE2IDExLjc2OS0xMC4yODUgMC0yMC41NjMtMy45MTktMjguNDEzLTExLjc2OS0xNS42OTktMTUuNjk4LTE1LjY5OS00MS4xMzkgMC01Ni44NWwxMDUuNTQtMTA1LjU0OUwxMS43NzQgNjguNjExYy0xNS42OTktMTUuNjk5LTE1LjY5OS00MS4xNDUgMC01Ni44NDQgMTUuNjk2LTE1LjY4NyA0MS4xMjctMTUuNjg3IDU2LjgyOSAwbDEwNS41NjMgMTA1LjU1NEwyNzkuNzIxIDExLjc2N2MxNS43MDUtMTUuNjg3IDQxLjEzOS0xNS42ODcgNTYuODMyIDAgMTUuNzA1IDE1LjY5OSAxNS43MDUgNDEuMTQ1LjAwNiA1Ni44NDR6Ii8+Cjwvc3ZnPg==") !important;
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8ZyBmaWxsPSIjNjY2IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxwYXRoIGQ9Ik0uMjMgMjAuOEwyMC45NTIuMDhsMi4xMiAyLjEyTDIuMzUgMjIuOTJ6Ii8+CiAgICAgICAgPHBhdGggZD0iTTIzLjA3IDIwLjhMMi4zNS4wOC4yMyAyLjJsMjAuNzIgMjAuNzJ6Ii8+CiAgICA8L2c+Cjwvc3ZnPg==") !important;
     }
   }
 }
