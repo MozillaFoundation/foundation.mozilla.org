@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.db import models
-from django.http import HttpResponse
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
@@ -38,19 +37,20 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
         abstract = True
 
     def get_donate_banner(self, request):
-        # Check if the user has Do Not Track enabled by inspecting the DNT header.
-        dnt_enabled = request.headers.get("DNT") == "1"
-
-        # Check if there's an active A/B test for the homepage.
+        # Check if there's a DonateBannerPage.
         default_locale = Locale.get_default()
         donate_banner_page = DonateBannerPage.objects.filter(locale=default_locale).first()
 
         if not donate_banner_page:
             return None
 
+        # Check if the user has Do Not Track enabled by inspecting the DNT header.
+        dnt_enabled = request.headers.get("DNT") == "1"
+
+        # Check if there's an active A/B test for the DonateBannerPage.
         active_ab_test = AbTest.objects.filter(page=donate_banner_page, status=AbTest.STATUS_RUNNING).first()
 
-        # If there's no A/B test found or DNT is enabled, return the donate_banner field as usual.
+        # If there's no A/B test found or DNT is enabled, return the page's donate_banner field as usual.
         if not active_ab_test or dnt_enabled:
             return donate_banner_page.donate_banner
 
@@ -62,13 +62,22 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
         test_cookie_name = f"wagtail-ab-testing_{active_ab_test.id}_version"
         test_version = request.COOKIES.get(test_cookie_name)
 
-        # If no cookie is found, add user as a participant in test, and set a cookie for their assigned version.
+        # If no version cookie is found, grab a test version for the current user.
         if not test_version:
-            test_version = active_ab_test.add_participant()
-            response = HttpResponse()
-            response.set_cookie(test_cookie_name, test_version, max_age=3600 * 24 * 30, httponly=True, secure=True)
+            test_version = active_ab_test.get_new_participant_version()
 
         if test_version == "variant":
+            is_variant = True
+        else:
+            is_variant = False
+
+        # Attach active test and variant flag to request for {% wagtail_ab_testing_script %} template tag.
+        # This allows wagtail-ab-testing to track events for this test, and set the version cookie if needed.
+        request.wagtail_ab_testing_test = active_ab_test
+        request.wagtail_ab_testing_serving_variant = is_variant
+
+        # Return the appropriate donate banner
+        if is_variant:
             donate_banner = active_ab_test.variant_revision.as_object().donate_banner
         else:
             donate_banner = donate_banner_page.donate_banner

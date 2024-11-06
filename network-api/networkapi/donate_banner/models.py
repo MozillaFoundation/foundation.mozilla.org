@@ -4,12 +4,9 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
-from django.urls import reverse
 from django.utils.safestring import mark_safe
-from wagtail import hooks
-from wagtail.admin.menu import MenuItem
 from wagtail.admin.panels import FieldPanel, HelpPanel, MultiFieldPanel
-from wagtail.models import Locale, Page, PreviewableMixin, TranslatableMixin
+from wagtail.models import Page, PreviewableMixin, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -210,10 +207,9 @@ class DonateBannerPage(Page):
 
     parent_page_types = ["wagtailpages.Homepage"]
 
-    def get_preview_template(self, request, mode_name):
-        return "previews/donate_banner.html"
+    template = "previews/donate_banner.html"
 
-    # Override the context for preview template purposes
+    # Override the context for template purposes
     def get_context(self, request):
         context = super().get_context(request)
         context["object"] = self.donate_banner
@@ -228,30 +224,3 @@ def delete_all_donate_banner_page_translations(sender, instance, **kwargs):
     due to the max_count=1 limit.
     """
     DonateBannerPage.objects.all().delete()
-
-
-# Register a link to the DonateBannerPage in the Settings menu
-@hooks.register("register_settings_menu_item")
-def register_donate_banner_menu_item():
-    from networkapi.wagtailpages.pagemodels.base import Homepage
-
-    default_locale = Locale.get_default()
-
-    # Get the first (and only) DonateBannerPage
-    donate_banner_page = DonateBannerPage.objects.filter(locale=default_locale).first()
-
-    # If the page exists, generate the edit URL
-    if donate_banner_page:
-        edit_url = reverse("wagtailadmin_pages:edit", args=[donate_banner_page.id])
-
-    else:
-        # If the page doesn't exist, link to the page creation view
-        parent_page = Homepage.objects.filter(locale=default_locale).first()
-        edit_url = reverse("wagtailadmin_pages:add", args=("donate_banner", "donatebannerpage", parent_page.id))
-
-    # Create the menu item for the "Donate Banner"
-    return MenuItem(
-        "Donate Banner",
-        edit_url,
-        icon_name="heart",
-    )
