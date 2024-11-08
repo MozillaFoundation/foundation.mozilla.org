@@ -28,6 +28,8 @@ module.exports = {
     "tw-nav-mobile-dropdown",
     "tw-nav-desktop-dropdown",
     "tw-rich-text-wrapper",
+    "hover:tw-bg-blue-80",
+    "hover:tw-bg-green-110",
   ],
   plugins: [
     plugin(function ({ addUtilities }) {
@@ -203,6 +205,7 @@ module.exports = {
         60: "#2cc98e",
         80: "#109462",
         100: "#005e3a",
+        110: "#003420",
       },
       yellow: {
         "05": "#fffcd9",
