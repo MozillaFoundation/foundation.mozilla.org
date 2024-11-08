@@ -58,3 +58,8 @@ def apple_pay_domain_association_view(request):
         status_code = 400
 
     return HttpResponse(response_contents, status=status_code, content_type="text/plain; charset=utf-8")
+
+
+@require_GET
+def donation_test_view(request):
+    return render(request, "mozilla-donation-page.html")

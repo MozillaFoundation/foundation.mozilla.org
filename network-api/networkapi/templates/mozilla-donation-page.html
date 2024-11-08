@@ -1,0 +1,5540 @@
+{% load wagtailmetadata_tags i18n localization settings_value wagtailuserbar static mofo_common wagtailcustom_tags %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Mozilla Donation Page | Robotic Dogs</title>
+    <script nonce="{{ request.csp_nonce }}">startTime=new Date()</script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+    <meta property="og:title" content="Mozilla Donation Page" />
+    <meta property="og:description" content="Test: Mozilla petition text!" />
+
+    <meta property="og:url" content="http://localhost:8000/en/donate" />
+    <meta property="og:site_name" content="Robotic Dogs">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary">
+
+
+
+
+    <link nonce="{{ request.csp_nonce }}" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600,700" rel="stylesheet" type="text/css">
+    <link nonce="{{ request.csp_nonce }}" href="https://roboticdogs.actionkit.com/media/modern/actionkit.css?1=22" rel="stylesheet" type="text/css">
+
+
+    <!-- prefill skipped for embedded form -->
+
+    <script nonce="{{ request.csp_nonce }}" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script nonce="{{ request.csp_nonce }}" type="text/javascript" src="https://roboticdogs.actionkit.com/resources/actionkit.js"></script>
+
+    <style nonce="{{ request.csp_nonce }}">
+        /* ==========================================================================
+   ak-modern.css
+
+   Starts with recent version of normalize.css -- make no changes here --
+   then ActionKit styles follow.
+   ========================================================================== */
+
+/*! normalize.css v4.2.0 | MIT License | github.com/necolas/normalize.css */
+
+/**
+ * 1. Change the default font family in all browsers (opinionated).
+ * 2. Correct the line height in all browsers.
+ * 3. Prevent adjustments of font size after orientation changes in IE and iOS.
+ */
+
+html {
+  font-family: sans-serif; /* 1 */
+  -ms-text-size-adjust: 100%; /* 3 */
+  -webkit-text-size-adjust: 100%; /* 3 */
+}
+
+/**
+ * Remove the margin in all browsers (opinionated).
+ */
+
+body {
+  margin: 0;
+}
+
+/* HTML5 display definitions
+   ========================================================================== */
+
+/**
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in Edge, IE, and Firefox.
+ * 2. Add the correct display in IE.
+ */
+
+article,
+aside,
+details, /* 1 */
+figcaption,
+figure,
+footer,
+header,
+main, /* 2 */
+menu,
+nav,
+section,
+summary { /* 1 */
+  display: block;
+}
+
+/**
+ * Add the correct display in IE 9-.
+ */
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+}
+
+/**
+ * Add the correct display in iOS 4-7.
+ */
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+
+progress {
+  vertical-align: baseline;
+}
+
+/**
+ * Add the correct display in IE 10-.
+ * 1. Add the correct display in IE.
+ */
+
+template, /* 1 */
+[hidden] {
+  display: none;
+}
+
+/* Links
+   ========================================================================== */
+
+/**
+ * 1. Remove the gray background on active links in IE 10.
+ * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
+ */
+
+a {
+  color: #268ECD;
+  background-color: transparent; /* 1 */
+  -webkit-text-decoration-skip: objects; /* 2 */
+}
+
+/**
+ * Remove the outline on focused links when they are also active or hovered
+ * in all browsers (opinionated).
+ */
+
+a:active,
+a:hover {
+  outline-width: 0;
+  color: #31a8f0;
+}
+
+/* Text-level semantics
+   ========================================================================== */
+
+/**
+ * 1. Remove the bottom border in Firefox 39-.
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+
+abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  text-decoration: underline dotted; /* 2 */
+}
+
+/**
+ * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
+ */
+
+b,
+strong {
+  font-weight: inherit;
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+
+b,
+strong {
+  font-weight: 600;
+}
+
+/**
+ * Add the correct font style in Android 4.3-.
+ */
+
+dfn {
+  font-style: italic;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+  font-weight: 600;
+}
+
+/**
+ * Add the correct background and color in IE 9-.
+ */
+
+mark {
+  background-color: #ff0;
+  color: #000;
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+
+/**
+ * Remove the border on images inside links in IE 10-.
+ */
+
+img {
+  border-style: none;
+}
+
+/**
+ * Hide the overflow in IE.
+ */
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* Grouping content
+   ========================================================================== */
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/**
+ * Add the correct margin in IE 8.
+ */
+
+figure {
+  margin: 1em 40px;
+}
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+
+hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+}
+
+/* Forms
+   ========================================================================== */
+
+/**
+ * 1. Change font properties to `inherit` in all browsers (opinionated).
+ * 2. Remove the margin in Firefox and Safari.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font: inherit; /* 1 */
+  margin: 0; /* 2 */
+}
+
+/**
+ * Restore the font weight unset by the previous rule.
+ */
+
+optgroup {
+  font-weight: 600;
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+
+button,
+input { /* 1 */
+  overflow: visible;
+}
+
+address {
+    font-style: normal;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+
+button,
+select { /* 1 */
+  text-transform: none;
+}
+
+/**
+ * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
+ *    controls in Android 4.
+ * 2. Correct the inability to style clickable types in iOS and Safari.
+ */
+
+button,
+html [type="button"], /* 1 */
+[type="reset"] {
+  -webkit-appearance: button; /* 2 */
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
+ * Change the border, margin, and padding in all browsers (opinionated).
+ */
+
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+
+legend {
+  box-sizing: border-box; /* 1 */
+  color: inherit; /* 2 */
+  display: table; /* 1 */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 3 */
+  white-space: normal; /* 1 */
+}
+
+/**
+ * Remove the default vertical scrollbar in IE.
+ */
+
+textarea {
+  overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10-.
+ * 2. Remove the padding in IE 10-.
+ */
+
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+
+[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/**
+ * Remove the inner padding and cancel buttons in Chrome and Safari on OS X.
+ */
+
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * Correct the text style of placeholders in Chrome, Edge, and Safari.
+ */
+
+::-webkit-input-placeholder {
+  color: inherit;
+  opacity: 0.54;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+
+/* ==========================================================================
+   ActionKit specific styles start here
+   ========================================================================== */
+
+
+/* Box sizing: use border-box throughout
+   ========================================================================== */
+
+* {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+
+/* RTL: Set for RTL languages
+   ========================================================================== */
+
+.ak-rtl {
+    direction: rtl;
+}
+
+
+/* Page Structure
+   ========================================================================== */
+
+body {
+    background: #efefef;
+    color: #4b4b4b;
+}
+
+.ak-page-container,
+.ak-page-header-contents {
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+}
+.ak-page-header {
+    background: #668d24;
+    color: #fff;
+    padding: 0;
+    height: 60px;
+    line-height: 1;
+}
+.ak-page-header h1 {
+    font-size: 32px;
+    margin-left: 0;
+    height: 60px;
+    vertical-align: center;
+    padding-top: 12px;
+    margin-top: 0;
+}
+
+div.ak-page-container {
+    background: #fff;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.ak-page-footer {
+    text-align: right;
+    border-top: 1px solid #efefef;
+    margin-top: 10px;
+    width: 100%;
+    clear: both;
+}
+
+.ak-page-footer-contents {
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+.ak-page-footer-contents a {
+    text-decoration: none;
+}
+.ak-page-footer-contents a:hover {
+    text-decoration: underline;
+}
+
+@media (min-width: 750px) {
+   .ak-page-container,
+   .ak-page-header-contents {
+       padding-left: 60px;
+       padding-right: 60px;
+       width: 1000px;
+       max-width: 100%;
+    }
+}
+
+img.ak-featured-img {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+/* Grid system based on http://www.responsivegridsystem.com/calculator/
+   ========================================================================== */
+
+.ak-grid-row:before,
+.ak-grid-row:after {
+    content: "";
+    display: table;
+}
+.ak-grid-row:after {
+    clear: both;
+}
+.ak-grid-row {
+    zoom: 1; /* For IE 6/7 */
+    clear: both;
+    padding: 0;
+    margin: 0;
+}
+
+.ak-grid-col {
+    display: block;
+    float: left;
+    margin: 0;
+    min-height: 1px;
+}
+
+.ak-grid-col-12-of-12 {
+    width: 100%;
+}
+.ak-grid-col-11-of-12 {
+    width: 91.5%;
+}
+.ak-grid-col-10-of-12 {
+    width: 83%;
+}
+.ak-grid-col-9-of-12 {
+    width: 74.5%;
+}
+.ak-grid-col-8-of-12 {
+    width: 66%;
+}
+.ak-grid-col-7-of-12 {
+    width: 57.5%;
+}
+.ak-grid-col-6-of-12 {
+    width: 49%;
+}
+.ak-grid-col-5-of-12 {
+    width: 40.5%;
+}
+.ak-grid-col-4-of-12 {
+    width: 32%;
+}
+.ak-grid-col-3-of-12 {
+    width: 23.5%;
+}
+.ak-grid-col-2-of-12 {
+    width: 15%;
+}
+.ak-grid-col-1-of-12 {
+    width: 6.5%;
+}
+
+.ak-grid-col:first-child {
+    margin-left: 0;
+}
+.ak-grid-col:not(:first-child) {
+    margin-left: 2%;
+}
+
+.ak-grid-col.ak-grid-centered {
+    margin: 0 auto;
+    float: none;
+}
+
+/* Inverted grid rows have their cells in reverse order */
+.ak-grid-row-inverted .ak-grid-col {
+    float: right;
+}
+.ak-grid-row-inverted .ak-grid-col:last-child {
+    margin-left: 0;
+}
+.ak-grid-row-inverted .ak-grid-col:not(:last-child) {
+    margin-left: 2%;
+}
+
+/* On RTL pages, all of the above column order logic is switched */
+.ak-rtl .ak-grid-row .ak-grid-col {
+    float: right;
+}
+.ak-rtl .ak-grid-row .ak-grid-col:last-child {
+    margin-left: 0;
+}
+.ak-rtl .ak-grid-row .ak-grid-col:not(:last-child) {
+    margin-left: 2%;
+}
+
+.ak-rtl .ak-grid-row-inverted .ak-grid-col {
+    float: left;
+}
+.ak-rtl .ak-grid-row-inverted .ak-grid-col:first-child {
+    margin-left: 0;
+}
+.ak-rtl .ak-grid-row-inverted .ak-grid-col:not(:first-child) {
+    margin-left: 2%;
+}
+
+/* Switch to single-column full-width layout on screens narrower than 750 px */
+@media only screen and (max-width: 749px) {
+    .ak-grid-col {
+        width: 100%;
+        margin: 0;
+    }
+
+    .ak-grid-col:not(:first-child),
+    .ak-grid-row-inverted .ak-grid-col:not(:last-child),
+    .ak-rtl .ak-grid-row .ak-grid-col:not(:last-child),
+    .ak-rtl .ak-grid-row-inverted .ak-grid-col:not(:first-child) {
+        margin: 0;
+    }
+}
+
+
+/* Display Breakpoints
+   ========================================================================== */
+
+.ak-mobile {
+    display: block;
+}
+
+@media screen and (min-width: 480px) {
+    .ak-mobile {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .ak-hide-under-480 {
+        display: none !important;
+    }
+}
+@media screen and (min-width: 480px) {
+    .ak-hide-over-480 {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 749px) {
+    .ak-hide-under-750 {
+        display: none !important;
+    }
+}
+@media screen and (min-width: 750px) {
+    .ak-hide-over-750 {
+        display: none !important;
+    }
+}
+
+.ak-hide {
+    display: none;
+}
+
+/* Base Font
+   ========================================================================== */
+
+html {
+    font-family: "Open Sans", sans-serif;
+    font-size: 15.5px;
+    font-weight: 200;
+}
+
+/*
+    With HTML base font of 15.5px
+    font-size: 0.58rem  =   9px
+    font-size: 0.84rem  =  13px
+    font-size: 0.90rem  =  14px
+    font-size: 1.00rem  =  15.5px
+    font-size: 1.10rem  =  17px
+    font-size: 1.16rem  =  18px
+    font-size: 1.29rem  =  20px
+    font-size: 1.35rem  =  21px
+    font-size: 1.42rem  =  22px
+    font-size: 1.48rem  =  23px
+    font-size: 1.55rem  =  24px
+    font-size: 1.93rem  =  30px
+*/
+
+
+/* Typography
+   ========================================================================== */
+
+p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.ak-normal {
+    font-weight: 400;
+}
+
+.ak-p-before-textarea {
+    font-weight: 600;
+}
+.ak-p-before-textarea p {
+    margin-bottom: 2px;
+}
+
+b,
+strong {
+    font-weight: 600;
+}
+
+.ak-faded-text {
+    color: #909090;
+}
+
+.ak-small-header {
+    font-size: 0.84em;
+    font-size: 0.84rem;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+.ak-small {
+    font-size: 0.84em;
+    font-size: 0.84rem;
+    font-weight: 400;
+}
+
+.ak-instructions {
+    font-size: 0.84em;
+    font-size: 0.84rem;
+    line-height: 1.3;
+    margin-top: 4px;
+}
+
+p.ak-large-text {
+    font-size: 1.29em;
+    font-size: 1.29rem;
+    font-weight: 200;
+}
+
+.ak-full-address {
+    white-space: pre-line;
+}
+
+
+/* Links
+   ========================================================================== */
+
+/* Links that are only underlined on hover */
+a.ak-underline-on-hover {
+    text-decoration: none;
+}
+
+a.ak-underline-on-hover:hover {
+    text-decoration: underline;
+}
+
+/* Links that look like plain text until hover */
+a.ak-highlight-on-hover {
+    text-decoration: none;
+    color: #4b4b4b;
+}
+
+a.ak-highlight-on-hover:hover {
+    text-decoration: underline;
+    color: #31a8f0;
+}
+
+
+/* Headings
+   ========================================================================== */
+
+/* Used for site title */
+h1 {}
+
+/* Used for page title */
+h2 {
+    font-size: 1.55em;
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: #6e8d30;
+    margin: 6px 0 2px;
+}
+.event-search #ak-map-img {
+	width: 100%;
+	float: none;
+}
+@media screen and (min-width: 600px) {
+    h2 {
+        margin: 24px 0 10px;
+    }
+    .event-search #ak-map-img {
+		width: 48%;
+		float: right;
+	}
+}
+
+
+
+/* Used for page section headings */
+h3 {
+    font-size: 1.42em;
+    font-size: 1.42rem;
+    font-weight: 200;
+    /* margin: 10px 0 10px; */
+    margin: 18px 0 4px;
+    /* new margins for event create. double check it's ok elsewhere.
+       if not, add body.ak-pagetype-event_create to the 2nd margin line &
+       uncomment the 1st.... */
+}
+
+/* Used for subheadings on groups of related fields, eg donation form */
+h4 {
+    font-size: 1.00em;
+    font-size: 1.00rem;
+    font-weight: 600;
+    margin: 10px 0 4px;
+}
+
+/* Used for small headings */
+h5 {
+    font-weight: 200;
+    text-transform: uppercase;
+    margin: 10px 0;
+}
+
+
+/* Alignment
+   ========================================================================== */
+
+.ak-pull-right { float: right; }
+.ak-pull-left { float: left; }
+
+.ak-align-right { text-align: right; }
+.ak-align-left { text-align: left; }
+
+.ak-grid-col img { max-width: 100%; }
+
+
+/* Spacing
+   ========================================================================== */
+
+.ak-full-width { width: 100%; }
+
+.ak-margin-1 { margin: 10px 0; }
+.ak-margin-2 { margin: 20px 0; }
+.ak-margin-top-1 { margin-top: 10px; }
+.ak-margin-top-2 { margin-top: 20px; }
+.ak-margin-top-3 { margin-top: 30px; }
+.ak-margin-bottom-5 { margin-bottom: 5px; }
+.ak-margin-bottom-1 { margin-bottom: 10px; }
+.ak-margin-bottom-2 { margin-bottom: 20px; }
+.ak-margin-bottom-3 { margin-bottom: 30px; }
+.ak-margin-none { margin: 0; }
+
+.ak-display-inline-block { display: inline-block; }
+.ak-nodisplay { display: none; }
+.ak-overflow { overflow: auto; }
+.ak-inline { display: inline; }
+
+.ak-unstyled { list-style: none; }
+
+
+/* Clearfix
+   ========================================================================== */
+
+.ak-clearfix:before,
+.ak-clearfix:after {
+    content: "";
+    display: table;
+}
+.ak-clearfix:after {
+    clear: both;
+}
+.ak-clearfix {
+    zoom: 1; /* For IE 6/7 */
+    clear: both;
+}
+
+
+/* JavaScript CSS hooks for actionkit.js
+   ========================================================================== */
+
+body.js form.ak-form {
+    display: none
+}
+
+body.js .ak-nodisplay-if-js { display: none; }
+body.js .nojs { display: none; }
+.ifjs { display: none; }
+.if-js { display: none; }
+body.js .if-js { display: block; }
+body.js a.if-js,
+body.js span.if-js,
+body.js input.if-js { display: inline; }
+body.js .iblock-if-js { display: inline-block; }
+body.js li.if-js { display: list-item; }
+
+
+/* ==========================================================================
+   Form Styles
+   ========================================================================== */
+
+
+/* Forms
+   ========================================================================== */
+
+.ak-styled-fields input[type="text"],
+.ak-styled-fields input[type="email"],
+.ak-styled-fields input[type="password"],
+.ak-styled-fields input[type="number"],
+.ak-styled-fields input[type="tel"],
+.ak-styled-fields input[type="date"],
+.ak-styled-fields input[type="url"],
+.ak-styled-fields input[type="search"],
+.ak-styled-fields textarea,
+.ak-styled-fields select {
+    padding: 7px 7px;
+    border: 1px solid #ccc;
+    /* font-size: 1.0em; */
+    /* font-size: 1.0rem; */
+    background: #F7F7F7;
+    color: #4b4b4b;
+    font-weight: normal;
+    margin-bottom: 6px;
+    margin-top: 0;
+    font-weight: 400;
+    width: 100%;
+}
+
+.ak-styled-fields select {
+    min-height: 38px;
+}
+
+.ak-styled-fields select:not([multiple]) {
+    height: 38px;
+}
+
+.ak-styled-fields textarea {
+    display: block;
+    min-height: 7.5em;
+    resize: vertical;
+}
+
+.ak-styled-fields textarea.ak-large-message {
+    min-height: 10.5em;
+}
+
+.ak-styled-fields select[multiple] {
+    height: 100%;
+}
+
+.ak-styled-fields input[type="checkbox"],
+.ak-styled-fields input[type="radio"],
+.ak-styled-fields textarea,
+div.checkbox-item,
+div.radio-item {
+    /* font-size: 1.0em; */
+    /* font-size: 1.0rem; */
+    line-height: 1.5;
+}
+
+.ak-styled-fields label {
+    font-weight: 600;
+}
+
+.ak-styled-fields label p {
+    margin-top: 0;
+}
+
+.ak-radio-set .ak-radio-choice,
+.ak-checkbox-set .ak-checkbox-choice,
+.ak-survey-radio-choice,
+.ak-survey-checkbox-choice,
+.ak-userfield-radio-set .ak-userfield-radio-choice,
+.ak-userfield-checkbox-set .ak-userfield-checkbox-choice {
+    font-weight: 400;
+}
+
+.ak-styled-fields input[name="zip"],
+.ak-styled-fields input[name="event_zip"] {
+    width: 50%;
+}
+
+
+/* Labels above */
+
+.ak-labels-above {
+    position: relative
+}
+
+.ak-labels-above input,
+.ak-labels-above select,
+.ak-labels-above textarea,
+.ak-no-js .ak-labels-overlaid input,
+.ak-no-js .ak-labels-overlaid select,
+.ak-no-js .ak-labels-overlaid textarea {
+    margin-top: 0px;
+}
+
+.ak-labels-above label,
+.ak-labels-above .ak-checkbox-field,
+.ak-label-above,
+.ak-no-js .ak-labels-overlaid label {
+    display: block;
+    margin: 0.5em 0 2px;
+}
+
+.ak-labels-above .ak-radio-set .ak-radio-choice,
+.ak-labels-above .ak-checkbox-set .ak-checkbox-choice,
+.ak-labels-above .ak-userfield-radio-set .ak-userfield-radio-choice,
+.ak-labels-above .ak-userfield-checkbox-set .ak-userfield-checkbox-choice {
+    display: inline-block;
+    padding-left: 1.3em;
+    text-indent: -1.3em;
+}
+
+
+/* Labels before */
+
+.ak-labels-before {
+    overflow: auto;
+}
+
+.ak-labels-before label {
+    text-align: left;
+}
+
+.ak-styled-fields.ak-labels-before input[name="zip"],
+.ak-styled-fields.ak-labels-before input[name="event_zip"],
+.ak-styled-fields.ak-labels-before input[name="plus4"] {
+    width: 33%;
+}
+
+/* labels to left (right if RTL) */
+.ak-labels-before label {
+    width: 35%;
+    float: left;
+    display: inline-block;
+    text-align: right;
+    position: relative;
+    top: 11px;
+    padding-right: 12px;
+    font-size: 0.90em;
+    font-size: 0.90rem;
+    white-space: normal;
+    line-height: 1.3;
+}
+
+@media screen and (min-width: 480px ){
+    .ak-labels-before label {
+        font-size: 1.00em;
+        font-size: 1.00rem;
+        top: 9px;
+    }
+    .ak-labels-before label span {
+        white-space: normal;
+    }
+}
+
+.ak-labels-before input[type="text"],
+.ak-labels-before input[type="email"],
+.ak-labels-before input[type="password"],
+.ak-labels-before input[type="number"],
+.ak-labels-before input[type="tel"],
+.ak-labels-before input[type="date"],
+.ak-labels-before input[type="url"],
+.ak-labels-before input[type="search"],
+.ak-labels-before select,
+.ak-labels-before textarea,
+.ak-labels-before .ak-readonly-value,
+.ak-labels-before .ak-radio-set,
+.ak-labels-before .ak-checkbox-set,
+.ak-labels-before .ak-userfield-radio-set,
+.ak-labels-before .ak-userfield-checkbox-set,
+.ak-labels-before .ak-datetime,
+.ak-labels-before .ak-err {
+    width: 65%;
+    /* float: left; */
+}
+.ak-labels-before .ak-readonly-value {
+    padding: 8px 5px;
+    margin-bottom: 3px;
+    word-wrap: break-word;
+    display: inline-block;
+}
+
+.ak-labels-before .ak-radio-set,
+.ak-labels-before .ak-checkbox-set,
+.ak-labels-before .ak-userfield-radio-set,
+.ak-labels-before .ak-userfield-checkbox-set {
+    clear: none;
+    display: inline-block;
+    padding-top: 9px;
+}
+
+.ak-labels-before .ak-radio-set .ak-radio-choice,
+.ak-labels-before .ak-checkbox-set .ak-checkbox-choice,
+.ak-labels-before .ak-userfield-radio-set .ak-userfield-radio-choice,
+.ak-labels-before .ak-userfield-checkbox-set .ak-userfield-checkbox-choice {
+    display: inline-block;
+    position: static;
+    float: none;
+    text-align: left;
+    width: auto;
+    padding-left: 1.3em;
+    text-indent: -1.3em;
+    padding-bottom: 9px;
+}
+
+/* Ensure that long labels which wrap don't overflow onto other fields/labels */
+.ak-labels-before > * { clear: both; }
+/* .ak-labels-before .ak-err-below { clear: both; } */
+.ak-labels-before div { clear: left; }
+/* .ak-labels-before div { overflow: auto; overflow-y: hidden; } */
+
+/* Make this more selective to not match custom field checkboxes/radios */
+.ak-labels-before-colon label:after { content: ":"; }
+
+.ak-rtl .ak-labels-before label { /* mirror the styles if RTL */
+    float: right;
+    text-align: left;
+    padding-right: 0;
+    padding-left: 12px;
+}
+
+.ak-rtl .ak-labels-before .ak-radio-set .ak-radio-choice,
+.ak-rtl .ak-labels-before .ak-checkbox-set .ak-checkbox-choice,
+.ak-rtl .ak-labels-before .ak-userfield-radio-set .ak-userfield-radio-choice,
+.ak-rtl .ak-labels-before .ak-userfield-checkbox-set .ak-userfield-checkbox-choice {
+    text-align: right;
+}
+
+
+/* Labels overlaid */
+
+.ak-labels-overlaid,
+.ak-labels-overlaid > div {
+    position: relative;
+}
+
+.ak-labels-overlaid input[type="radio"],
+.ak-labels-overlaid input[type="checkbox"] {
+    width: auto;
+}
+
+.ak-labels-overlaid textarea {
+    vertical-align: top;
+}
+
+.ak-labels-overlaid label.ak-is-overlaid {
+    color: #4b4b4b;
+}
+
+.ak-labels-overlaid label.ak-is-overlaid:not(.has-content) + select.ak-has-overlay {
+    font-weight: 600;
+}
+
+.ak-labels-overlaid label.ak-is-overlaid,
+.js .ak-labels-overlaid select {
+    margin-top: 0;
+    margin-bottom: 6px;
+}
+
+.js .ak-labels-overlaid label.ak-is-overlaid {
+    position: absolute;
+    z-index: 1;
+    padding: 8px 8px;
+    line-height: 1.4;
+}
+
+.ak-labels-overlaid label.ak-is-overlaid.active {
+    color: #909090;
+}
+
+.js .ak-labels-overlaid label.has-content {
+    display: none;
+}
+
+
+/* Other common form elements
+   ========================================================================== */
+
+#known_user,
+.known_user {
+    display: none;
+}
+
+.ak-inline-taf-preview {
+    border: 1px solid #808080;
+    padding: 5px;
+}
+
+/* Used in labels for required fields */
+.ak-required-flag {}
+
+/* Custom user form field */
+.ak-userfield-radio-set,
+.ak-userfield-checkbox-set {
+    display: inline-block;
+}
+
+.ak-styled-fields label.ak-radio-choice,
+.ak-styled-fields label.ak-checkbox-choice,
+.js .ak-labels-overlaid label.ak-radio-choice,
+.js .ak-labels-overlaid label.ak-checkbox-choice
+.ak-styled-fields label.ak-userfield-radio-choice,
+.ak-styled-fields label.ak-userfield-checkbox-choice,
+.js .ak-labels-overlaid label.ak-userfield-radio-choice,
+.js .ak-labels-overlaid label.ak-userfield-checkbox-choice {
+    display: inline-block;
+    position: relative;
+    width: auto;
+    text-align: left;
+    padding: 0;
+    margin: 0 0.5em 0.2em 0;
+}
+
+/* Checkboxes */
+label.has-content.ak-checkbox-label {
+    margin-left: 10px;
+    padding-top: 2px;
+}
+
+/* Custom action fields */
+div[id^="ak-fieldbox"] label[for^="id_action_"] {
+    position: relative;
+    font-weight: 600;
+    display: block;
+    padding-bottom: 0px;
+}
+
+
+/* Subscription Consent -- Used in Canada
+   ========================================================================== */
+
+/* Explicit opt-in checkbox styles */
+#id_subscription_consent_box,
+#ak-fieldbox-subscription_consent {
+    display: none;
+}
+#id_subscription_consent {
+    display: inline;
+    width: auto;
+}
+#id_subscription_consent_box label {
+    display: inline;
+    position: static;
+    color: inherit;
+}
+#id_subscription_consent_more {
+    display: none;
+}
+#ak-fieldbox-subscription_consent label[for="id_subscription_consent"] {
+    padding: 1px 0px 0px 20px;
+}
+span#id_subscription_consent_more_lnk {
+    display: block;
+}
+
+
+/* Errors
+   ========================================================================== */
+
+/* Error and confirmation blocks */
+#ak-errors,
+#ak-confirmation,
+#ak-error-info,
+.ak-errors,
+.ak-confirmation,
+.ak-error-info {
+    display: none
+}
+
+form.contains-errors #ak-errors,
+form.contains-errors #ak-error-info,
+form.contains-errors .ak-errors,
+form.contains-errors .ak-error-info {
+    display: block;
+}
+
+#ak-errors,
+#ak-confirmation,
+.ak-errors,
+.ak-confirmation {
+    list-style-type: none;
+    font-weight: 200;
+    padding: 7px 12px;
+    margin: 7px 0;
+}
+
+ul#ak-errors li,
+ul.ak-errors li {
+    padding: 0;
+    margin: 0;
+}
+
+.ak-color-error {
+    color: #d00;
+}
+
+#ak-errors,
+.ak-errors {
+    background-color: #d00;
+    color: #fff;
+    font-weight: 200;
+}
+#ak-confirmation,
+.ak-confirmation {
+    background-color: #668d24;
+    color: #fff;
+    font-weight: 400;
+}
+
+/* Fields with error conditions */
+.ak-styled-fields input[type="text"].ak-error,
+.ak-styled-fields input[type="password"].ak-error,
+.ak-styled-fields input[type="number"].ak-error,
+.ak-styled-fields input[type="email"].ak-error,
+.ak-styled-fields textarea.ak-error,
+.ak-styled-fields select.ak-error,
+input.ak-error,
+select.ak-error,
+textarea.ak-error {
+    background-color: #FFC8C8;
+    border-color: #d00;
+}
+
+span.ak-error,
+label.ak-error,
+.ak-labels-overlaid input.ak-error,
+.ak-labels-overlaid label.ak-error,
+.ak-labels-before label.ak-error,
+.ak-styled-fields select.ak-error {
+    color: #d00;
+    font-weight: 600;
+}
+
+/* Inline errors */
+.ak-err {
+    color: #d00;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ak-err li {
+    line-height: 1.4;
+}
+
+.ak-err-above .ak-err {
+    margin-top: 0.25em;
+}
+.ak-err-below .ak-err {
+    margin-top: -4px;
+    margin-bottom: 12px;
+}
+
+/* Old-style Django server-generated errors */
+ul.errorlist.ak-errors,
+ul.errorlist li {
+    background: transparent;
+    color: #d00;
+    padding: 0;
+}
+.ak-labels-before ul.errorlist.ak-errors,
+.ak-labels-before ul.ak-err,
+.ak-skip-label-before {
+    margin-left: 35%;
+}
+
+
+/* ==========================================================================
+   Layout Components
+   ========================================================================== */
+
+
+/* Buttons
+   ========================================================================== */
+
+button,
+input[type="submit"],
+a.ak-button,
+.ak-button {
+    background: #007bc5;
+    color: #fff;
+    height: 38px;
+    font-size: 1.35em;
+    font-size: 1.35rem;
+    font-weight: 200;
+    margin: 10px auto;
+    border: none;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    padding: 0 20px;
+    cursor: pointer;
+    text-align: center;
+}
+button:hover,
+input[type="submit"]:hover,
+a.ak-button:hover,
+.ak-button:hover {
+    background-color: #31a8f0;
+}
+button,
+input[type="submit"] {
+    display: block;
+}
+a.ak-button,
+.ak-button {
+    display: inline-block;
+    text-decoration: none;
+    padding-top: 4px;
+}
+a.ak-button:hover,
+.ak-button:hover {
+    color: #fff;
+    /* text-decoration: none; -- Unnecessary? */
+}
+
+a.ak-button.ak-full-width {
+    display: block;
+    width: 100%;
+}
+
+button.ak-normal {
+    width: 280px;
+}
+
+.ak-submit-button {
+    display: block;
+    height: 42px;
+    width: 100%;
+    margin: 10px auto;
+    padding: 0;
+    font-size: 1.48em;
+    font-size: 1.48rem;
+    line-height: 1.3;
+}
+
+@media screen and (min-width: 480px) {
+   button.ak-submit-button,
+   a.ak-submit-button {
+       max-width: 280px;
+   }
+}
+
+.ak-btn-short,
+input[type="submit"].ak-btn-short {
+    height: 27px;
+    border-radius: 5px;
+    margin: 10px 10px 10px 0;
+    padding: 0 20px;
+    font-size: 1.00em;
+    font-size: 1.00rem;
+    font-weight: 400;
+    border: none;
+    width: auto;
+    display: inline-block;
+}
+
+.ak-btn-search,
+input[type="submit"].ak-btn-search {
+    display: inline-block;
+    position: relative;
+    top: 2px;
+}
+
+/* Used when previewing a page from within the admin */
+#actionkit-preview-toolbar input[type="submit"] {
+    display: inline-block;
+}
+
+
+/* Share Buttons -- Used on thanks page
+   ========================================================================== */
+
+a.ak-share-button {
+    width: 100%;
+    height: 60px;
+    display: block;
+    font-size: 1.42em;
+    font-size: 1.42rem;
+    font-weight: 200;
+    margin: 0 0 20px;
+    padding: 16px;
+    padding-left: 60px;
+    text-align: left;
+}
+.ak-share-button.ak-facebook {
+    background-color: #3B5998;
+    background-image: url("/media/modern/fb.svg");
+    background-repeat: no-repeat;
+    background-size: 30px;
+    background-position-x: 20px;
+    background-position-y: 15px;
+}
+.ak-share-button.ak-facebook:hover {
+    background-color: #0e3996;
+}
+.ak-share-button.ak-twitter {
+    background-color: #4299FF;
+    background-image: url("/media/modern/twitter.svg");
+    background-repeat: no-repeat;
+    background-size: 30px;
+    background-position-x: 20px;
+    background-position-y: 15px;
+}
+.ak-share-button.ak-twitter:hover {
+    background-color: #2589ff;
+}
+.ak-share-button.ak-email {
+    background-color: #007BC5;
+    background-image: url("/media/modern/envelope.svg");
+    background-repeat: no-repeat;
+    background-size: 30px;
+    background-position-x: 20px;
+    background-position-y: 22px;
+}
+.ak-share-button.ak-email:hover {
+    background-color: #0067bc;
+}
+a.ak-small-share-button {
+    font-size: 1.00rem;
+    line-height: 26px;
+    font-weight: 400;
+    padding: 0 20px 0 33px;
+    height: 27px;
+    border-radius: 5px;
+}
+a.ak-small-share-button.ak-share-button.ak-facebook {
+    background-size: 18px;
+    background-position-x: 8px;
+    background-position-y: 5px;
+}
+a.ak-small-share-button.ak-share-button.ak-twitter {
+    background-size: 18px;
+    background-position-x: 8px;
+    background-position-y: 5px;
+}
+
+
+/* Accent box around a group of fields
+   ========================================================================== */
+
+.ak-field-box {
+    background: #f3f6f7;
+    border: 1px solid #bdd5da;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+}
+
+.ak-field-box.ak-event-disabled {
+	background: rgba(119, 119, 119, 0.07);
+}
+
+.ak-event-completed, .ak-event-full {
+	color: #dd0000;
+}
+
+@media only screen and (max-width: 749px) {
+    .ak-field-box {
+        border: none;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        padding: 10px 15px;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+}
+
+.ak-field-box h3 {
+    font-size: 1.42em;
+    font-size: 1.42rem;
+    font-weight: 200;
+    margin: 0;
+}
+.ak-field-box ul {
+    list-style: none;
+    padding: 0;
+}
+.ak-field-box.ak-labels-overlaid label,
+.ak-labels-overlaid .ak-field-box {
+    padding: 8px 10px;
+}
+.ak-field-box input[type="text"],
+.ak-field-box input[type="password"],
+.ak-field-box input[type="number"],
+.ak-field-box textarea,
+.ak-field-box textarea,
+.ak-field-box select {
+    background: #fff;
+}
+
+/* Field box gets extra padding on survey pages */
+.ak-field-box-padded {
+    padding: 20px;
+}
+
+/* Some field boxes are square and borderless, eg petition, call/whip script */
+.ak-field-box-borderless {
+    border-radius: 0;
+    border: none;
+}
+
+/* If field box holds paragraphs, don't add their margin to its padding */
+.ak-field-box p:first-child {
+    margin-top: 0;
+}
+.ak-field-box p:last-child {
+    margin-bottom: 0;
+}
+
+#event-search-results .ak-field-box {
+	overflow: auto;
+}
+
+body.ak-pagetype-event_search .ak-info-column {
+	float: left;
+	margin-right: 20px;
+	width: 400px;
+}
+
+body.ak-pagetype-event_search .ak-description-column {
+	display: inline-block;
+	margin-top: 10px;
+	width: 100%;
+}
+
+@media only screen and (min-width: 400px) {
+   body.ak-pagetype-event_search .ak-description-column {
+   	width: 100%;
+   	margin-top: 10px;
+   }
+}
+
+@media only screen and (min-width: 660px) {
+   body.ak-pagetype-event_search .ak-description-column {
+   	width: 30%;
+   }
+}
+
+@media only screen and (min-width: 787px) {
+   body.ak-pagetype-event_search .ak-description-column {
+   	width: 35%;
+   }
+}
+
+@media only screen and (min-width: 1000px) {
+   body.ak-pagetype-event_search .ak-description-column {
+   	width: 48%;
+   }
+}
+
+@media only screen and (max-width: 400px) {
+	body.ak-pagetype-event_search .ak-info-column {
+    	float: none;
+    	margin-right:0;
+    	width:auto;
+	}
+}
+
+
+
+
+/* Text expander provides "read more" link for long text
+   ========================================================================== */
+
+a.ak-read-more {
+    text-align: center;
+    border-top: 1px solid #ccc;
+    background: #e3e3e3;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    padding: 3px;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+div.ak-text-expander {
+    max-height: none;
+    overflow: hidden;
+    margin-bottom: 0px;
+}
+
+div.ak-text-expander a.ak-read-more {
+    display: none;
+}
+
+div.ak-text-expander.ak-truncated {
+    overflow: hidden;
+    max-height: 4.5em;
+}
+
+div.ak-text-expander.ak-truncated a.ak-read-more {
+    display: block;
+}
+
+
+div.ak-text-expander p:first-child {
+    margin-top: 0px;
+}
+
+@media screen and (min-width: 480px) {
+    div.ak-text-expander.ak-truncated {
+        overflow: visible;
+        max-height: none;
+    }
+    div.ak-text-expander {
+        max-height: 100%;
+        overflow: visible;
+        margin-bottom: 10px;
+    }
+    div.ak-text-expander p:first-child {
+        margin-top: 10px;
+    }
+}
+
+
+/* Miscelaneous
+   ========================================================================== */
+
+.ak-unstyled {
+    list-style: none;
+}
+
+div.ak-text-expander p:first-child {
+    margin-top: 0px;
+}
+
+div.ak-text-expander + a.ak-read-more {
+    display: none;
+}
+
+div.ak-text-expander.ak-truncated + .ak-read-more {
+    display: block;
+}
+
+@media screen and (min-width: 480px) {
+    div.ak-text-expander {
+        max-height: 100%;
+        overflow: visible;
+        margin-bottom: 10px;
+    }
+    div.ak-text-expander p:first-child {
+        margin-top: 10px;
+    }
+    div.ak-text-expander + a.ak-read-more {
+        display: none;
+    }
+}
+
+
+/* Progress Thermometer
+   ========================================================================== */
+
+.ak-progress-meter {
+    width: 100%;
+    margin: 10px 0 10px;
+}
+
+.ak-progress-meter .ak-progress-holder {
+    margin: 0;
+    width: 100%;
+    background: #e7e7e7;
+    padding: 3px;
+}
+
+.ak-progress-meter .ak-progress-meter-border {
+    border: 3px solid #fff;
+    padding: 0;
+}
+
+.ak-progress-meter .ak-progress-bar {
+    background: #884974;
+    height: 30px;
+}
+
+.ak-progress-meter .ak-progress-percent {
+    display: inline-block;
+    font-size: 1.93em;
+    font-size: 1.93rem;
+    line-height: 1;
+    font-weight: 600;
+    margin: 3px 10px 0 6px;
+    color: #884974;
+}
+.ak-progress-meter .ak-progress-goals {
+    display: inline-block;
+    font-size: 0.84em;
+    font-size: 0.84rem;
+    line-height: 1.1;
+    font-weight: 200;
+    margin-top: 4px;
+}
+
+.ak-progress-meter .ak-progress-actions {
+    font-weight: 600;
+}
+
+body.ak-pagetype-donate .ak-progress-meter {
+    margin-top: 0;
+}
+
+
+/* Message form table used for TAF, LTE, Invite and similar "email-like" forms
+   ========================================================================== */
+
+table.ak-message-form {
+    width: 100%;
+}
+
+table.ak-message-form th,
+table.ak-message-form td {
+    vertical-align: top;
+}
+
+table.ak-message-form th {
+    white-space: nowrap;
+    text-align: right;
+    padding-right: 0.5em;
+    padding-top: 8px;
+}
+
+table.ak-message-form textarea {
+    margin: 0;
+}
+
+table.ak-message-form .ak-readonly-value {
+    padding: 8px 2px;
+}
+
+.ak-rtl table.ak-message-form th { /* mirror the styles if RTL */
+    text-align: left;
+    padding-right: 0;
+    padding-left: 0.5em;
+}
+
+/* Spinner
+   ========================================================================== */
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0; }
+  40% {
+    transform: scale(1);
+    opacity: 1; } }
+
+#ak-search-spinner {
+padding-top:10px;
+}
+.ak-spinner {
+    width: 100%;
+}
+
+.ak-spinner {
+    width: 100%;
+}
+
+.ak-spinner .ak-spinner-text {
+    text-align: center;
+}
+
+.ak-spinner-container {
+  margin: 0 auto 0;
+  width: 100px;
+  text-align: center;
+  height: 14px;
+}
+
+.ak-spinner-container > div {
+  width: 14%;
+  height: 100%;
+  background: #777777;
+  border-radius: 100%;
+  display: inline-block;
+  animation: sk-bouncedelay 1.7s infinite ease-in-out both;
+  margin-right: 5px; }
+
+.ak-spinner-container .ak-spinner__item1 {
+  animation-delay: -0.60s; }
+
+.ak-spinner-container .ak-spinner__item2 {
+  animation-delay: -0.40s; }
+
+.ak-spinner-container .ak-spinner__item3 {
+  animation-delay: -0.20s; }
+
+
+/* ==========================================================================
+   Non-Action-Page Screens
+   ========================================================================== */
+
+
+/* Password Reset Screen
+   ========================================================================== */
+
+body.ak-pagetype-reset ul.errorlist {
+    margin-top: 0;
+}
+
+
+/* Share / Thanks Screen
+   ========================================================================== */
+
+.ak-checkmark-icon {
+    position: relative;
+    top: 7px;
+}
+
+/* TAF */
+.ak-share-message {
+    background: #F7F7F7;
+    border: 1px solid #ccc;
+    padding: 8px;
+    width: 100%;
+    margin-top: 10px;
+    min-height: 200px;
+}
+
+#id_taf_emails {
+    min-height: 70px;
+}
+.ak-sharebox-tafsubject {
+    font-weight: 400;
+    padding: 0;
+}
+.ak-sendemail-opened {
+    color: #4b4b4b;
+    font-size: 1.42em;
+    font-size: 1.42rem;
+    position: relative;
+    top: -4px;
+    cursor: pointer;
+}
+
+.ak-sendemail-cancel {
+    float: right;
+}
+
+#ak-taf-form {
+    width: 100%;
+    margin: 0;
+    display: none;
+}
+
+#taf-preview {
+    width: 100%;
+}
+
+.taf-mailto {
+    clear: both;
+}
+
+#id_taf_body {
+    white-space: pre-wrap;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+
+.taf_body {
+    border: solid rgb(128,128,128) 1px;
+    padding: 5px;
+}
+
+/* Share URL */
+.ak-share-url {
+    width: 100%;
+    border: 1px solid #ccc;
+    margin-top: 43px;
+    background: #F7F7F7;
+}
+.ak-share-url input {
+    border: none;
+    margin: 0;
+    width: 70%;
+    padding: 10px;
+    background: #F7F7F7;
+}
+span.ak-share-url-text {
+    background: #808080;
+    color: #fff;
+    padding: 10px;
+}
+
+
+/* ==========================================================================
+   Page-type Specific Styles
+   ========================================================================== */
+
+
+/* Survey Page
+   ========================================================================== */
+
+label.ak-survey-question-label {
+    font-size: 1.29em;
+    font-size: 1.29rem;
+    font-weight: 200;
+    margin: 17px 0 3px;
+    line-height: 1.3;
+    display: block;
+}
+
+.ak-field-box div:first-child label.ak-survey-question-label {
+    margin-top: 0;
+}
+
+
+/* Accordion -- Used on LTE Page
+   ========================================================================== */
+
+.ak-accordion {}
+.ak-accordion ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+.ak-accordion ul li {
+    background: #f3f6f7;
+    padding: 13px 16px;
+    margin-bottom: 2px;
+}
+.ak-accordion ul li .ak-accordion-head {
+    cursor: pointer;
+}
+.ak-accordion .ak-accordion-head {
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1.16em;
+    font-size: 1.16rem;
+}
+.ak-accordion .ak-arrow {
+    position: relative;
+    top: 4px;
+}
+
+.ak-arrow,
+.ak-arrow-inline {
+    float: right;
+    font-size: 0.58em;
+    font-size: 0.58rem;
+    transition: 0.4s;
+}
+.ak-arrow-inline {
+    top: 6px;
+}
+
+.ak-pagetype-thanks .ak-arrow-inline {
+    padding-top: 5px;
+}
+
+.ak-pagetype-thanks p.active .ak-arrow-inline {
+    padding-top: 7px;
+    padding-left: 3px;
+    top: 6px;
+    left: 5px;
+}
+
+li.active .ak-arrow,
+p.active .ak-arrow-inline,
+h3.active .ak-arrow  {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    top: 12px;
+    left: 5px;
+}
+.ak-arrow:after,
+.ak-arrow-inline:after {
+    content: "\25B6 \FE0E";
+    color: #268ECD;
+}
+
+.ak-rtl .ak-arrow,
+.ak-rtl .ak-arrow-inline { /* mirror the styles if RTL */
+    float: left;
+}
+
+
+/* LTE Page
+   ========================================================================== */
+
+.ak-newspaper-row {
+    background: #EEEEEE;
+    margin-bottom: 5px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    padding: 8px;
+    font-weight: 200;
+    font-size: 0.90em;
+    font-size: 0.90rem;
+}
+.ak-newspaper-row:nth-of-type(2n) {
+    /* background-color: #e7e7e7; */
+}
+
+.ak-newspaper-row a {
+    font-weight: 600;
+    font-size: 1.16em;
+    font-size: 1.16rem;
+    padding-bottom: 5px;
+}
+.ak-newspaper-row .ak-newspaper-choice {
+    float: right;
+    margin: 0;
+    font-size: 1.16em;
+    font-size: 1.16rem;
+    padding-top: 6px;
+}
+
+.ak-newspaper-row .ak-newspaper-choice input {
+    display: none;
+}
+
+#ak-newspaper-change {
+    font-size: smaller;
+    margin-left: 1em;
+}
+
+.ak-rtl .ak-newspaper-row .ak-newspaper-choice { /* mirror the styles if RTL */
+    float: left;
+}
+
+/* Petition Page
+   ========================================================================== */
+
+p.ak-petition-leadin,
+div.ak-petition-leadin,
+p.ak-petition-leadin + p {
+    font-weight: 600;
+}
+
+body.ak-pagetype-petition button.ak-submit-button {
+    width: 100%;
+    max-width: 360px;
+}
+@media (min-width: 750px) {
+    body.ak-pagetype-petition button.ak-submit-button {
+        max-width: initial;
+    }
+}
+div[id^="id_action_"] {
+    margin-bottom: 10px;
+}
+
+
+/* Letter Page
+   ========================================================================== */
+
+.ak-letter-text {
+    width: 100%;
+    padding: 10px;
+    background: #F7F7F7;
+    border: 1px solid #f7f7f7;
+    height: 300px;
+    line-height: 1.5;
+    border: 1px solid #D5D5D5;
+}
+
+
+/* Update, Cancel Recurring
+   ========================================================================== */
+
+body.ak-pagetype-recurring_cancel p,
+body.ak-pagetype-recurring_update p {
+    font-weight: 400;
+}
+
+body.ak-pagetype-recurring_update input#amount {
+    width: 8em;
+}
+
+#ak-change-amount p {
+    margin: 0px;
+}
+
+
+/* Targets -- Used on call and whipcount pages
+   ========================================================================== */
+
+.ak-target-area label,
+.target label {
+    line-height: 1.5;
+}
+
+.ak-target-contact {
+    display: block;
+    font-weight: 200;
+    font-size: 1.35em;
+    font-size: 1.35rem;
+    line-height: 1.2;
+}
+
+.ak-target-toggle label,
+span.local_toggle_label {
+    font-size: 0.90em;
+    font-size: 0.90rem;
+    font-weight: 400;
+}
+
+.ak-target-office,
+div.office {
+    display: none;
+    font-weight: 400;
+}
+
+.ak-target-phone,
+span.office_phone {
+    font-size: 0.90em;
+    font-size: 0.90rem;
+    font-weight: 400;
+}
+
+/* Hide "tel:" and fax number */
+.ak-target-phone .ak-target-label,
+span.office_phone_label,
+span.ak-target-fax,
+span.ak-target-separator {
+    display: none;
+}
+
+
+/* Steps -- Used on call and whipcount pages
+   ========================================================================== */
+
+.ak-steps-area h3 {
+    padding: 3px 0 1px;
+    font-size: 1.29em;
+    font-size: 1.29rem;
+    color: #000;
+}
+.ak-steps-area label.ak-step-label {
+    font-weight: 200;
+}
+.ak-steps-area h3 div.ak-step-number {
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+    display: inline-block;
+    font-size: 1.10em;
+    font-size: 1.10rem;
+    line-height: 1.52;
+    width: 1.52em;
+    height: 1.52em;
+    text-align: center;
+    background: #fff;
+    color: #4b4b4b;
+    position: relative;
+    top: -1px;
+    margin: 2px;
+}
+
+.ak-steps-area h3.clickable {
+    margin: 5px -15px 0;
+    padding-left: 13px;
+}
+.ak-steps-area h3.clickable,
+.ak-steps-area h3.clickable label,
+.ak-steps-area h3.clickable span,
+.ak-steps-area h3.clickable span span,
+.ak-steps-area h3.clickable div.ak-step-number,
+.ak-steps-area h3.clickable label div {
+    cursor: pointer;
+}
+.ak-steps-area h3 .ak-arrow-holder {
+    display: block;
+    color: #fff;
+    float: right;
+    padding-right: 10px;
+    position: relative;
+    top: 9px;
+}
+.ak-steps-area h3 .ak-arrow:after {
+    color: #fff;
+}
+
+@media (max-width:479px) {
+    .ak-steps-area h3 {
+        background: #4b4b4b;
+        color: #fff;
+        padding: 8px 5px 6px;
+    }
+    .ak-steps-area h3 ~ div {
+        display: none;
+    }
+}
+@media (min-width:480px) {
+    .ak-steps-area h3 label.ak-step-label {
+        color: #4b4b4b;
+    }
+    .ak-steps-area h3 div.ak-step-number {
+        /* border: 2px solid #fff; */
+        background: #4b4b4b;
+        color: #fff;
+    }
+    .ak-steps-area h3 .ak-arrow-holder {
+        display: none;
+    }
+    .ak-steps-area .ak-fieldbox {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+.ak-steps-area .ak-fieldbox {
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 15px;
+    padding: 0 15px;
+}
+.ak-steps-area .ak-fieldbox p {
+    margin: 0;
+    padding: 10px 0;
+}
+
+body.ak-pagetype-call .ak-steps-area #ak-survey_question label p {
+    margin-top: 0;
+}
+h3#report-call label p {
+    margin: 10px 0 10px;
+}
+
+
+/* Call Page
+   ========================================================================== */
+
+#ak-need-contact-info {
+    margin-bottom: 10px;
+}
+
+#target_checkboxes .target {
+    margin-left: 1.25em;
+    text-indent: -1.25em;
+    line-height: 1.8;
+}
+
+.target input {
+    margin: 0;
+}
+
+body.ak-pagetype-call .ak-target-contact {
+    margin-left: 1.25em;
+}
+
+
+/* Whipcount Page
+   ========================================================================== */
+
+/* Whipcount result listing table  */
+#ak-whipcount-targets h3 {
+    /* border-bottom: 1px solid black; */
+    /* padding: 0 15px 10px 30px; */
+}
+
+#ak-whipcount-targets table {
+    width: 100%;
+    border-spacing: 0 5px;
+    overflow-x: auto;
+}
+#ak-whipcount-targets table th {
+    text-align: left;
+    font-weight: 200;
+    font-size: 1.00em;
+    font-size: 1.00rem;
+}
+#ak-whipcount-targets table th,
+#ak-whipcount-targets table td {
+    padding: 0 0 0 20px;
+}
+#ak-whipcount-targets table td:last-child {
+    padding-right: 20px;
+    text-align: right;
+}
+
+@media screen and (min-width:750px) {
+    #ak-whipcount-targets table th {
+        width: 20%;
+    }
+}
+
+@media screen and (max-width:749px) {
+    .ak-whipcount-listing {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+}
+
+/* mirror the styles if RTL */
+.ak-rtl #ak-whipcount-targets table th  {
+    text-align: right;
+}
+
+.ak-rtl #ak-whipcount-targets table th,
+.ak-rtl #ak-whipcount-targets table td {
+    padding: 0 20px 0 0;
+}
+.ak-rtl #ak-whipcount-targets table td:last-child {
+    padding-left: 20px;
+    text-align: left;
+}
+
+/* Contents of the table */
+#ak-whipcount-targets tbody tr {
+    background: #eeeeee;
+    height: 40px;
+}
+#ak-whipcount-targets tbody tr:nth-of-type(2n) {
+    /* background: #f0f0f0; */
+}
+#ak-whipcount-targets tbody tr .ak-target-name {
+    font-weight: 600;
+    font-size: 1.16em;
+    font-size: 1.16rem;
+}
+#ak-whipcount-targets tbody tr.ak-target-opposed {
+    background: #E3E3E3;
+}
+#ak-whipcount-targets tbody tr.ak-target-supportive {
+    background: #F7F7F7;
+}
+#ak-whipcount-targets tbody tr.ak-target-opposed span.ak-target-stance {
+    color: #CD2027;
+}
+#ak-whipcount-targets tbody tr.ak-target-supportive span.ak-target-stance {
+    color: #658F3D;
+}
+
+.ak-whipcount-icon {
+    display: inline-block;
+    top: 4px;
+    position: relative;
+}
+
+#ak-whipcount-targets tbody a.ak-button {
+    line-height: 1.3;
+    font-size: 1.16em;
+    font-size: 1.16rem;
+    padding: 5px 40px;
+    margin: 0;
+    height: auto;
+}
+
+@media screen and (max-width:749px) {
+   #ak-whipcount-targets tbody a.ak-button {
+           padding: 5px 15px;
+   }
+   .ak-whipcount-icon {
+       display: none;
+   }
+}
+
+/* Call form */
+.ak-whipcount-callbox {
+    margin-top: 10px;
+}
+body.ak-pagetype-whipcount #ak-report-call {
+    margin-top: 10px;
+}
+@media screen and (min-width:480px) {
+    .ak-whipcount-callbox {
+        margin-top: 0px;
+    }
+    body.ak-pagetype-whipcount #ak-report-call {
+        margin-top: 0px;
+    }
+}
+
+#who_to_call {
+    margin-left: 0;
+}
+
+.ak-whipcount-callbox {
+    border: 1px solid #CCC;
+    margin-bottom: 10px;
+}
+.ak-whipcount-callbox .ak-whipcount-boxhead {
+    background: #4B4B4B;
+    color: #fff;
+    padding: 10px;
+    height: auto;
+    font-weight: 600;
+}
+.ak-whipcount-callbox .ak-whipcount-boxhead .ak-target-phone {
+    font-size: 1.42em;
+    font-size: 1.42rem;
+    font-weight: 600;
+    margin: 0;
+}
+.ak-whipcount-callbox .ak-whipcount-boxbody {
+    padding: 10px;
+}
+
+
+/* Donation Page
+   ========================================================================== */
+
+/* Donation amount buttons */
+div#ak-amount-list {
+    overflow: auto;
+}
+div#ak-amount-list .ak-currency,
+div#ak-amount-list .ak-multi-currency,
+div#ak-amount-list .ak-amount-wrapper {
+    margin-top: 10px;
+}
+
+.ak-amount-wrapper {
+    text-align: center;
+    margin: 10px 0;
+}
+
+div#ak-amount-list .ak-amount-wrapper ul {
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+}
+
+#ak-amount-list li {
+    cursor: pointer;
+}
+
+div#ak-amount-list .ak-amount-wrapper li {
+    display: block;
+    font-size: 1em;
+    font-weight: 200;
+    text-align: center;
+    width: 20%;
+    margin-right: 1%;
+    margin-bottom: 8px;
+    padding: 0;
+}
+
+div#ak-amount-list .ak-amount-wrapper ul li:last-of-type {
+    margin-right: 0;
+}
+
+#ak-amount-list li label {
+    cursor: pointer;
+    display: block;
+    padding: 15.5px 0;
+    width: 80px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    line-height: 1;
+}
+
+div#ak-amount-list ul.ak-unstyled li label.ak-btn input[type="radio"] {
+    display: none;
+}
+
+@media screen and (min-width: 800px) {
+    div#ak-amount-list .ak-amount-wrapper li {
+        display: block;
+        font-size: 1.29em;
+        font-size: 1.29rem;
+        font-weight: 200;
+        text-align: center;
+        width: 23%;
+        margin-right: 1.5%;
+        margin-bottom: 8px;
+        padding: 0;
+    }
+}
+
+div#ak-amount-list #ak-other-amount-container {
+    height: 50px;
+}
+#ak-other-amount-container label {
+    height: 46px;
+}
+div#ak-amount-list #ak-other-amount-field {
+    height: 32px;
+    width: 62%;
+    position: relative;
+    top: -9px;
+    vertical-align: top;
+}
+
+@media screen and (min-width: 800px) {
+    #ak-other-amount-container label {
+        height: 47px;
+    }
+    div#ak-amount-list #ak-other-amount-field {
+        height: 38px;
+        width: 62%;
+    }
+}
+
+#ak-amount-list li label {
+    background: #d7d7d7;
+}
+
+#ak-amount-list li label:hover,
+#ak-amount-list li label.ak-radio-checked,
+div#ak-amount-list label[for="amount_other_field"].ak-radio-checked {
+    background: #FFC700;
+}
+
+div#ak-amount-list span.ak-currency {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+@media screen and (min-width:800px) {
+    #ak-amount-list li label {
+        width: 100px;
+    }
+    #ak-amount-list .ak-amount-wrapper li {
+        font-size: 1.42em;
+        font-size: 1.42rem;
+        margin-left: .1%;
+    }
+    #ak-amount-list .ak-amount-wrapper li label {
+        padding: 14px 0;
+    }
+}
+
+@media (min-width:800px) {
+    #ak-amount-list li {
+        margin-left: .2%;
+    }
+}
+
+#ak-amount-list .ak-err li {
+    width: auto;
+    background: none;
+}
+
+/* One-Time Or Recurring */
+div#ak-recurring-type {
+    text-align: center;
+}
+div#ak-recurring-type span {
+    display: inline-block;
+    margin: 15px 0 0 15px;
+}
+
+/* PayPal button */
+.ak-paypal-button {
+    background: none;
+    position: relative;
+    top: 6px;
+    display: inline-block;
+    padding: 8px;
+    border: 1px solid #f3f6f7;
+}
+.ak-paypal-button:hover {
+    background: none;
+    border: 1px solid #007bc5;
+}
+
+/* Payment fields */
+.ak-payment-options {
+    text-align: center;
+}
+#ak-exp_date_box,
+#ak-card_code_box {
+    display: inline-block;
+    vertical-align: top;
+    max-width: 49%;
+}
+#ak-exp_date_box {
+    padding-right: 1em;
+}
+#ak-exp_date_month,
+#ak-exp_date_year {
+    display: inline;
+    width: auto;
+}
+
+/* Products and Campaigns */
+.ak-product-subtotal {
+    font-weight: 600;
+}
+.ak-product-subtotal,
+#ak-product-quantity-header {
+    text-align: right;
+}
+td.ak-product-quantity {
+    text-align: center;
+}
+.ak-product-quantity input[type="number"] {
+    text-align: right;
+}
+.ak-product-quantity input[type="number"],
+.ak-candidate-amount input[type="text"] {
+    width: 49px;
+}
+.ak-candidate-amount span.ak-currency-sym {
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 5px;
+}
+.ak-product-description {
+    font-size: 0.90em;
+    font-size: 0.90rem;
+    font-weight: 400;
+}
+td.ak-product-amount {
+    font-weight: 600;
+}
+#ak-donation-total-div label {
+    font-weight: 600;
+    font-size: 0.84em;
+    font-size: 0.84rem;
+}
+#ak-donation-total-amount {
+    margin-right: 5px;
+    font-size: 1.16em;
+    font-size: 1.16rem;
+}
+
+#ak-donation-details {
+    overflow: auto;
+}
+#ak-donation-details table {
+    width: 100%;
+}
+#ak-donation-details table tr th,
+#ak-donation-details table tr td {
+    text-align: left;
+    vertical-align: top;
+}
+#ak-donation-details table img {
+    max-width: 85px;
+}
+#ak-donation-details table .ak-candidate-name {
+    font-weight: 600;
+    vertical-align: top;
+}
+#ak-donation-details table .ak-candidate-name p {
+    font-weight: 400;
+}
+.ak-candidate-amount {
+    vertical-align: top;
+}
+
+#ak-candidate-amount-header,
+#ak-candidate-details-header  {
+    font-weight: 200;
+    text-transform: uppercase;
+}
+#ak-candidate-amount-header {
+    text-align: right;
+}
+
+.ak-product-name,
+#ak-donation-subtotal-amount {
+    font-weight: 600;
+}
+.ak-donation-subtotal label {
+    margin-right: 22px;
+}
+
+/* mirror the styles if RTL */
+.ak-rtl #ak-donation-details table tr th,
+.ak-rtl #ak-donation-details table tr td {
+    text-align: right;
+}
+
+.ak-rtl .ak-candidate-amount span.ak-currency-sym {
+    margin-right: 0;
+    margin-left: 5px;
+}
+
+/* Donation Totals */
+.ak-donation-total {
+    text-align: right;
+    text-transform: uppercase;
+}
+.ak-donation-total span.ak-currency-sym {
+    font-size: 1.16em;
+    font-size: 1.16rem;
+    font-weight: 600;
+}
+.currency_sym,
+#ak-donation-total-amount {
+    font-weight: 600;
+}
+.product-name {
+    font-weight: 600;
+}
+
+/* Three Step navigation menu */
+.ak-donate-menu {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.ak-donate-menu label {
+    display: inline-block;
+    cursor: pointer;
+    width: 5.2em;
+}
+
+.ak-donate-step span { /* Step name */
+    display: block;
+    font-weight: 400;
+    margin-bottom: 1px;
+}
+
+.ak-donate-menu input { /* Radio button */
+    display: none;
+}
+
+.ak-donate-menu div.ak-step-number {
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+    display: inline-block;
+    font-size: 0.75em;
+    font-size: 0.75rem;
+    line-height: 1.725;
+    width: 1.725em;
+    height: 1.725em;
+    background: #909090;
+    color: #fff;
+    text-align: center;
+    font-weight: 500;
+    margin: 0;
+}
+
+.ak-donate-menu input:checked + div.ak-step-number {
+    background: #4b4b4b;
+}
+
+label.ak-donate-step:hover {
+    color: #31a8f0;
+}
+.ak-donate-menu input:checked + div.ak-step-number:hover,
+label.ak-donate-step:hover div.ak-step-number {
+    background: #31a8f0;
+}
+
+/* Currency selection */
+#ak-multi-currency {
+    text-align: center;
+    margin-bottom: 20px;
+}
+#ak-multi-currency label {
+    font-weight: 600;
+}
+
+
+
+/* donate: adding braintree ACH */
+
+.ak-pagetype-donate .ak-styled-fields input[type="radio"]{
+	margin-left:1px;
+}
+
+.ak-pagetype-donate h4{
+	font-size: 1.34em;
+	font-size: 1.34rem;
+	font-weight: 200;
+}
+
+.ak-pagetype-donate label[for="ak_payment_method_cc"],
+.ak-pagetype-donate label[for="ak_payment_method_ach"],
+.ak-pagetype-donate label[for="ak_ach_method_account_number"],
+.ak-pagetype-donate label[for="ak_ach_method_bank_login"]{
+	display: inline;
+	margin-left: 2px;
+}
+
+
+.ak-pagetype-donate .ach_payment_options{
+display: none;
+}
+
+.ak-pagetype-donate #ak-fieldbox-business_name{
+display: none;
+}
+
+/* donate: quickdonate */
+
+.ak-pagetype-donate .ak-qd-recaptcha-warning {
+    text-align:left;
+    padding: 0 29px 26px;
+}
+
+.ak-pagetype-donate .ak-qd-recaptcha-warning p {
+    line-height: 1;
+}
+
+/* Events Pages
+   ========================================================================== */
+
+button.ak-event-search {
+    display: inline;
+    position: relative;
+    top: 2px;
+}
+
+.ak-event-search select#id_country {
+	height: 38px;
+}
+
+p.ak-event-title a {
+    font-size: 1.42em;
+    font-size: 1.42rem;
+    font-weight: 200;
+    text-decoration: none;
+}
+.ak-event-title a:hover {
+    text-decoration: underline;
+}
+
+.ak-signoff-box {
+    background: #EEEEEE;
+    padding: 19px;
+    margin-bottom: 20px;
+}
+.ak-signoff-box blockquote {
+    padding-bottom: 19px;
+    border-bottom: 1px solid #fff;
+    margin: 0;
+    margin-bottom: 19px;
+}
+.ak-signoff-box blockquote p {
+    font-weight: 600;
+}
+.ak-signoff-box blockquote p:first-child {
+    margin-top: 0;
+}
+.ak-signoff-box blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+ul.ak-links-menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+}
+.ak-links-menu li {
+    display: inline-block;
+}
+.ak-links-menu li a {
+    text-decoration: none;
+}
+.ak-links-menu li a:hover {
+    text-decoration: underline;
+}
+
+/* Used to display list of attendees */
+table.ak-data-table {
+    border-collapse: collapse;
+}
+table.ak-data-table td,
+table.ak-data-table th {
+    padding: 5px 15px 5px 0;
+    border-bottom: 1px solid #ccc;
+}
+table.ak-data-table th {
+    text-align: left;
+}
+
+.ak-rtl table.ak-data-table th  { /* mirror the styles if RTL */
+    text-align: right;
+}
+
+/* Used to present event data like date and location */
+table.ak-event-table th {
+    text-align: right;
+    font-weight: 600;
+    white-space: nowrap;
+    vertical-align: top;
+    padding-right: 0.5em;
+}
+table.ak-event-table td {
+    vertical-align: top;
+}
+
+.ak-rtl table.ak-event-table th  { /* mirror the styles if RTL */
+    text-align: left;
+    padding-right: 0;
+    padding-left: 0.5em;
+}
+
+/* Map used to show events */
+#ak-map {
+    width: 100%;
+    padding: 0;
+}
+#ak-map img {
+    width: 100%;
+    height: auto;
+    padding: 0;
+}
+#ak-map iframe {
+    min-height: 300px;
+}
+#ak-map .caption {
+    color: #4b4b4b;
+}
+
+.ak-rtl #ak-map { /* mirror the styles if RTL */
+    float: left;
+}
+
+div.event-signup {
+    zoom: 1; /* work around IE 8 content-hiding bug */
+}
+label[for="id_event_is_private"] {
+    top: -5px;
+}
+body.ak-pagetype-event_host_tools input[value="Send invitations"] {
+    margin: 0;
+}
+label.ak-checkbox-label.has-content[for="id_event_signup_ground_rules"] {
+    display: inline-block;
+    pointer-events: auto;
+}
+
+/* Hide these on event attend page. They show up on the event search results. */
+body.ak-pagetype-event_attend h2.ak-results-heading,
+body.ak-pagetype-event_attend a.ak-event-create,
+body.ak-pagetype-event_attendee_tools a.ak-event-create {
+    display: none;
+}
+
+/* From event_attendee_details.html */
+body.ak-pagetype-event_attendee_tools .event-address label {
+    float: left;
+    white-space: pre;
+}
+body.ak-pagetype-event_attendee_tools .event-address-content {
+    float: left;
+}
+
+/* Events fixes */
+.ak-submit-button,
+button,
+input[type="submit"] {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* label positioning on create event page */
+body.ak-pagetype-event_create .ak-labels-before label[for="id_event_is_private"] {
+    top: -5px;
+}
+body.ak-pagetype-event_create .ak-styled-fields textarea {
+    padding-top: 7px;
+}
+
+body.ak-pagetype-event_create #id_event_public_description {
+    min-height: 160px;
+}
+body.ak-pagetype-event_create .ak-styled-fields input[type="text"].ak-error,
+body.ak-pagetype-event_create .ak-styled-fields input[type="password"].ak-error,
+body.ak-pagetype-event_create .ak-styled-fields input[type="number"].ak-error,
+body.ak-pagetype-event_create .ak-styled-fields input[type="email"].ak-error,
+body.ak-pagetype-event_create .ak-styled-fields textarea.ak-error,
+body.ak-pagetype-event_create .ak-styled-fields select.ak-error,
+body.ak-pagetype-event_create input.ak-error,
+body.ak-pagetype-event_create select.ak-error,
+body.ak-pagetype-event_create textarea.ak-error {
+    margin-bottom: 0;
+}
+body.ak-pagetype-event_create .ak-err-below .ak-err {
+    margin-bottom: 6px;
+    margin-top: 3px;
+}
+body.ak-pagetype-event_create .ak-styled-fields input[type="checkbox"] {
+    top: -5px;
+    left: -2px;
+    position: relative;
+    max-width: 30px;
+}
+
+body.ak-pagetype-event_search p {font-weight: 200;}
+body.ak-pagetype-event_search .ak-styled-fields input[type="text"] {
+    width: auto;
+    color: #4b4b4b;
+}
+body.ak-pagetype-event_search .ak-search-area select{
+    top: -1px;
+    position: relative;
+}
+body.ak-pagetype-event_search #ak-map {
+    width: 100%;
+}
+body.ak-pagetype-event_search div.ak-field-box {
+    clear: both;
+    width: 100%;
+    margin: 10px 0;
+}
+@media screen and (min-width:600px){
+    body.ak-pagetype-event_search div.ak-field-box {
+        width: 50%;
+        clear: none;
+    }
+    body.ak-pagetype-event_search #ak-map {
+        width: 48%;
+    }
+}
+
+.ak-search-area select {
+    top: -1px;
+}
+
+.ak-search-area select,
+.ak-search-area input[type="text"] {
+    width: 200px;
+}
+
+.ak-event-distance {
+    color: #a3a3a3;
+}
+
+/* Date/time picker */
+.ak-datetime {
+    display: inline;
+}
+
+.ak-datetime input,
+.ak-datetime select {
+    display: inline;
+    position: static;
+    float: none;
+}
+span.ak-datetime input[type="text"] {
+    width: 8em;
+}
+.ak-datetime select {
+    width: auto;
+}
+
+body.ak-pagetype-event_create #id_event_starts_at_ampm {
+    margin-bottom: 0;
+}
+body.ak-pagetype-event_create #id_event_starts_at_row {
+    min-height: 36px;
+}
+body.ak-pagetype-event_create #id_event_starts_at_row {
+    min-height: 48px;
+}
+body.ak-pagetype-event_create #id_event_starts_at_time {
+    width: 66px;
+    color: #4b4b4b;
+}
+
+#id_event_starts_at_ampm {
+    font-weight: 400;
+}
+#id_event_starts_at_ampm + ul.ak-err {
+    float: none;
+}
+body.ak-pagetype-event_create #id_event_starts_at_ampm + ul.ak-err {
+    margin-left: 0;
+}
+
+body.ak-pagetype-event_attendee_tools .ak-field-box label {
+    margin-bottom: 2px;
+}
+
+/* from event_attend.html */
+
+body.ak-pagetype-event_attend ul.events li.event {
+    list-style-type: none;
+}
+body.ak-pagetype-event_attend .event a,
+body.ak-pagetype-event_attend .event a:hover {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 400;
+    pointer-events: none;
+}
+body.ak-pagetype-event_attend div.event-signup,
+body.ak-pagetype-event_attend #event-attend-form {
+    position: relative; /* helps with map positioning */
+}
+body.ak-pagetype-event_attend input[disabled] {
+    background-color: #C8C8C8;
+}
+
+.ak-bar-holder {
+    width: 100%;
+}
+
+/* from event_attendee_tools.html */
+
+body.ak-pagetype-event_attendee_tools .ak-bar h3 {
+    margin-top: -3pt;
+    margin-bottom: 8pt;
+}
+body.ak-pagetype-event_attendee_tools .ak-bar,
+body.ak-pagetype-event_attendee_tools fieldset {
+    border: solid #ccc 1px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+body.ak-pagetype-event_attendee_tools .ak-bar ul {
+    margin-bottom: 0;
+}
+body.ak-pagetype-event_attendee_tools #contact {
+    margin-top: 10px;
+    margin-left: -11px;
+}
+body.ak-pagetype-event_attendee_tools .directions-form {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+body.ak-pagetype-event_attendee_tools .event-attendee-sidebar {
+    padding: 0;
+    margin-right: 0;
+}
+
+
+/* from event_create.html */
+
+.ak-checkbox-label {
+    float: none;
+}
+body.ak-pagetype-event_create input.checkbox {
+    position: static;
+}
+body.ak-pagetype-event_create div.legend {
+    font-weight: 600;
+    margin-top: 10pt
+}
+body.ak-pagetype-event_create #id_event_is_private_row {
+    clear: both;
+}
+body.ak-pagetype-event_create div.first div.legend {
+    margin-top: 0;
+}
+body.ak-pagetype-event_create .iblock {
+    display: inline-block;
+}
+body.ak-pagetype-event_create .inline {
+    display: inline;
+}
+body.ak-pagetype-event_create .clear {
+    clear: both;
+}
+
+/* from event_search_moderator.html */
+body.ak-pagetype-event_search_moderator .ak-location-filter input[type=text] { width: inherit; }
+body.ak-pagetype-event_search_moderator .ak-event div p { padding: 5px; }
+body.ak-pagetype-event_search_moderator span.ak-event-field.ak-status { text-transform: capitalize; }
+
+body.ak-pagetype-event_search_moderator .ak-advanced-toggle:hover,
+body.ak-pagetype-event_moderate_tools .ak-advanced-toggle:hover {color: black; cursor: pointer; color: #27bbdd;}
+body.ak-pagetype-event_search_moderator .ak-collapse span,
+ body.ak-pagetype-event_moderate_tools  .ak-collapse span {display: inline-block;}
+body.ak-pagetype-event_search_moderator .ak-collapse-toggle-icon,
+  body.ak-pagetype-event_moderate_tools .ak-collapse-toggle-icon {font-size: 0.75rem;}
+body.ak-pagetype-event_search_moderator .ak-collapse-toggle-inactive .ak-collapse-toggle-icon,
+  body.ak-pagetype-event_moderate_tools .ak-collapse-toggle-inactive .ak-collapse-toggle-icon  {
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg); }
+
+body.ak-pagetype-event_search_moderator .ak-pagification p {font-size: 90%; text-align: center; }
+body.ak-pagetype-event_search_moderator a.previous-link {
+  text-decoration: none;
+  display: inline-block;
+  background: url("/media/images/prev_icon.svg") right top;
+  background-size: 18px 38px;
+  background-position: left 2px;
+  background-repeat: no-repeat;
+ text-indent: 16px; }
+ a.next-link {
+  text-decoration: none;
+  display: inline-block;
+  background: url("/media/images/next_icon.svg") right top;
+  background-size: 18px 38px;
+  background-position: right 2px;
+  background-repeat: no-repeat;
+  padding-right: 16px; }
+
+ /* event_moderator_tools */
+ body.ak-pagetype-event_moderate_tools .instructions p {
+    padding:8px 0
+}
+
+ body.ak-pagetype-event_moderate_tools .ak-limit-by-mark {display:none}
+
+ body.ak-pagetype-event_moderate_tools .ak-form.ak-mark-deleted .ak-limit-by-mark.ak-deleted,
+ body.ak-pagetype-event_moderate_tools .ak-form.ak-mark-flagged .ak-limit-by-mark.ak-flagged,
+ body.ak-pagetype-event_moderate_tools .ak-form.ak-mark-approved .ak-limit-by-mark.ak-approved,
+ body.ak-pagetype-event_moderate_tools .ak-form.ak-mark-unset .ak-limit-by-mark.ak-unset {
+     display: inherit;
+}
+
+ body.ak-pagetype-event_moderate_tools .moderation-tbl th {min-width: 113px;}
+ body.ak-pagetype-event_moderate_tools .moderation-tbl th.change-col {min-width: inherit;}
+ body.ak-pagetype-event_moderate_tools .moderation-tbl .comments-col {width:58%}
+ body.ak-pagetype-event_moderate_tools p.ak-status-changed {font-size: small;}
+ body.ak-pagetype-event_moderate_tools .email-row {cursor: pointer;}
+ body.ak-pagetype-event_moderate_tools .email-row tr.meta td {border-bottom: 1px solid #ccc5;}
+ body.ak-pagetype-event_moderate_tools .email-row.ak-collapse-toggle-inactive tr.meta td {border-bottom: 1px solid #ccc;}
+ body.ak-pagetype-event_moderate_tools .email-row.ak-collapse-toggle-inactive tr.body {display:none}
+ body.ak-pagetype-event_moderate_tools .email-row .body b {font-weight:500;}
+ body.ak-pagetype-event_moderate_tools .moderator-comments {font-size:11px;}
+ body.ak-pagetype-event_moderate_tools .moderator-comments th {border: 1px solid lightblue}
+ body.ak-pagetype-event_moderate_tools .moderator-comments td {border: 1px solid black}
+
+ body.ak-pagetype-event_moderate_tools .ak-action-row.ak-collapse-toggle-inactive tr.ak-custom-fields {display: none}
+ body.ak-pagetype-event_moderate_tools .ak-action-row.ak-collapse {cursor: pointer}
+ body.ak-pagetype-event_moderate_tools .ak-action-row tr.ak-basics td {border-bottom: 1px solid #ccc5 }
+ body.ak-pagetype-event_moderate_tools .ak-action-row.ak-collapse-toggle-inactive tr.ak-basics td {border-bottom: 1px solid #ccc }
+
+ body.ak-pagetype-event_moderate_tools .ak-action-row .ak-collapse-toggle-wrapper { display:none; }
+ body.ak-pagetype-event_moderate_tools .ak-action-row.ak-collapse .ak-collapse-toggle-wrapper { display:inherit; }
+ body.ak-pagetype-event_moderate_tools .ak-action-row.ak-collapse .ak-toggle-cell { display: table-cell; }
+ body.ak-pagetype-event_moderate_tools .ak-action-row td.ak-toggle-cell {
+     max-width: 15px;
+     padding: 0px;
+ }
+ body.ak-pagetype-event_moderate_tools .ak-custom-fields ul {
+     columns: 2;
+     -webkit-columns: 2;
+     -moz-columns: 2;
+     width: 100%;
+ }
+ body.ak-pagetype-event_moderate_tools .ak-custom-fields ul li {
+     display: inline-block;
+     width: 100%;
+ }
+
+/* File attachments
+   ========================================================================== */
+
+.ak-attachment-frontend { border-style: dashed !important; }
+.ak-attachment-frontend.ak-has-overlay::placeholder { text-align: right; }
+
+.ak-attachment-frontend:placeholder-shown { cursor: pointer; }
+.ak-attachment-frontend::placeholder { color: #007bc5; text-decoration: underline; opacity: 1; }
+.ak-attachment-frontend:hover::placeholder { color: #31a8f0; }
+
+
+/* FastAction */
+.fastaction {
+    padding: 10px 3px;
+    margin: 0 auto;
+    max-width: 100%;
+    background: #FFF;
+    border-width: 1px 0;
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    color: #222;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1.5;
+    cursor: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.fastaction .clearfix:after {
+    clear: both;
+}
+
+.fastaction .clearfix:before, .fastaction .clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.fastaction p {
+    color: #495057;
+    float: none;
+    font-size: 11px;
+    padding-top: 0 !important;
+    margin: 1px 0;
+    line-height: 15px;
+    min-height: 31px;
+}
+
+.fastaction .fa-lead {
+    display: inline-block;
+}
+
+.fastaction .fa-cta {
+    line-height: 30px;
+    display: block;
+    white-space: nowrap;
+    float: right;
+}
+
+.fastaction .fa-profile-link  {
+    color: #fff;
+    font-weight: bold;
+    padding: 4px 4px 0 1px;
+    position: relative;
+    text-decoration: none;
+    height: 30px;
+    width: 110px;
+    display: inline-block;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    position: relative;
+    padding: 4px;
+    vertical-align: bottom;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.fastaction .fa-profile-link.fa-toggle-menu {
+    width: 125px;
+}
+
+.fastaction .fa-profile-link .fa-profile-link-image {
+    position: absolute;
+    width: 94px;
+    height: 15px;
+    top: 6px;
+    left: 8px;
+}
+
+#fa-cc-icon {
+    position: absolute;
+    right: 12px;
+    top: 76%;
+    transform: translateY(-50%);
+    display: block;
+    width: 31px;
+    background-color: transparent;
+    z-index: 1;
+}
+
+#fa-profile-menu {
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 25%);
+    display: none;
+    font-size: .8125rem;
+    list-style-type: none;
+    margin-bottom: 8px;
+    margin-left: 0px;
+    min-width: 150px;
+    padding: 8px 0;
+    position: absolute;
+    text-align: left;
+    top: 37px;
+    width: 150px;
+    z-index: 100;
+  }
+.fa-toggle-menu-triangle {
+    position: absolute;
+    width: 10px;
+    height: 8px;
+    top: 10px;
+    right: 5px;
+  }
+#fa-profile-menu li a {
+    color: #343a40;
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+  }
+#fa-profile-menu li a:hover {
+    background-color: #f1f3f5;
+  }
+
+.fa-circle {
+    display: inline-block;
+    background: #878787;
+    color: #fff;
+    font-size: 13px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 16px;
+    font-family: monospace;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 4px; }
+
+#fa-save-box {display: inherit}
+#fa-save-box label {font-weight: 400; }
+#fa-save-box label:after {
+    content: '\01F512'
+}
+
+
+/* Setting up initial state */
+
+/* FastAction Badges */
+#fa-badge {display: none}
+
+/* User logged in */
+#fa-badge.fa-recognized #fa-unrecognized-donor {display: none }
+#fa-badge.fa-recognized #fa-recognized-donor {display: inherit }
+
+/* User logged out */
+#fa-badge.fa-unrecognized #fa-unrecognized-donor {display: inherit }
+#fa-badge.fa-unrecognized #fa-recognized-donor {display: none }
+
+
+/* Save Box */
+#fa-save-box.disabled > * { display: none }
+
+/* User logged in: Show "Update" */
+#fa-save-box.fa-recognized   > label > span.fa-join   {display: none}
+#fa-save-box.fa-recognized   > label > span.fa-update {display: inherit}
+
+/* User logged out: Show "Join" */
+#fa-save-box.fa-unrecognized > label > span.fa-join   {display: inherit}
+#fa-save-box.fa-unrecognized > label > span.fa-update {display: none}
+
+
+
+        html {
+            font-family: "Open Sans", sans-serif;
+        }
+
+
+        html {
+            font-size: 15.5px;
+        }
+
+
+
+
+        .ak-page-header {
+            background-color: #000;
+        }
+
+
+
+        h2 {
+            color: #000;
+        }
+
+
+        body,
+        a.ak-highlight-on-hover {
+            color: #4b4b4b;
+        }
+        .ak-donate-menu input:checked + div.ak-step-number {
+            background: #4b4b4b;
+        }
+        .ak-whipcount-callbox .ak-whipcount-boxhead {
+            background-color: #4b4b4b;
+        }
+        @media (min-width:480px) {
+            .ak-steps-area h3 label.ak-step-label {
+                color: #4b4b4b;
+            }
+            .ak-steps-area h3 div.ak-step-number {
+                background-color: #4b4b4b;
+            }
+        }
+        @media (max-width:479px) {
+            .ak-steps-area h3 {
+                background: #4b4b4b;
+            }
+            .ak-steps-area h3 div.ak-step-number {
+                color: #4b4b4b;
+            }
+        }
+
+
+
+
+
+        button,
+        input[type="submit"],
+        a.ak-button,
+        .ak-button {
+            background-color: #3f37c5;
+        }
+        .ak-arrow:after,
+        .ak-arrow-inline:after {
+            color: #3f37c5;
+        }
+
+
+
+
+
+
+
+
+
+
+        .ak-progress-meter .ak-progress-bar {
+            background-color: #884974;
+        }
+        .ak-progress-meter .ak-progress-percent {
+            color: #884974;
+        }
+
+
+    .ak-target-phone .ak-target-label, span.office_phone_label,
+        span.ak-target-fax, span.ak-target-separator { display: none }
+    .ak-event-description, .ak-event-note-to-attendees, .ak-event-directions { white-space: pre-line; }
+    </style>
+
+
+<script nonce="{{ request.csp_nonce }}" language="javascript">
+//<!--
+    function clear_radio_buttons() {
+        $('input.ak-amount-radio-button').prop('checked', false);
+    }
+
+    function clear_other() {
+        $('#ak-other-amount-field').val("");
+    }
+
+    function product_info(id) {
+        var product_element = $("#product_" + id),
+            quantity = 0,
+            price = parseFloat($("#product_" + id + "_price").data("price"));
+
+        if (product_element.is(':checkbox')) {
+            if (product_element.is(':checked')) {
+                quantity = 1;
+            }
+        } else if (product_element.val() != "") {
+            quantity = parseInt(product_element.val());
+        }
+
+        return {
+            'id': id,
+            'price': price,
+            'quantity': quantity,
+            'subtotal': (price * quantity)
+        }
+    }
+
+    function update_total() {
+        var total = 0.0;
+
+        product_infos().forEach(function(info) {
+            total += info.subtotal;
+        });
+
+        $('.ak_candidate_inputs').each(function (i) {
+            // check that amount is a valid amount
+            var amount = this.value;
+            if (amount.length == 0 || ! /^[\d,]*(\.\d{1,2})?$/.test(amount)) {
+                return;
+            }
+
+            total += parseFloat(amount.replace(',', ''));
+        });
+
+        // look for checked off donation amounts
+        var amount_checked = $('input:radio[name=amount]:checked').val();
+        if (amount_checked) {
+            total += parseFloat(amount_checked);
+        } else {
+            // or other amounts
+            var other = $('#ak-other-amount-field').val();
+            if (typeof other !== "undefined" &&
+                other.length && /^[\d,]*(\.\d{1,2})?$/.test(other))
+                total += parseFloat(other.replace(',', ''));
+        }
+
+        var new_total = total == 0 ? "" : "" + total.toFixed(2);
+        $('.ak-donation-total-amount').html(new_total);
+        return total;
+    }
+
+    $(function() {
+        $('.ak_product_inputs').on('change blur', update_total);
+        $('.ak_candidate_inputs').on('change blur', update_total);
+        $('.ak-amount-radio-button').on('change blur', update_total)
+                                .on('click', clear_other)
+                                .on('click', update_total);
+        $('#ak-other-amount-field').on('change blur', update_total)
+                                .on('click keyup', clear_radio_buttons)
+                                .on('click', update_total);
+        $('input[type=radio][name=payment_method]').change(function() {
+            if (this.value == 'ach') {
+                $('.ach_payment_options').show();
+                $('.cc_payment_options').hide();
+            } else {
+                $('.ach_payment_options').hide();
+                $('.cc_payment_options').show();
+            }
+        });
+        $('input[type=radio][name=ach_method]').change(function() {
+            if (this.value == 'account_number') {
+                $('.account_number_options').show();
+            } else {
+                $('.account_number_options').hide();
+            }
+        });
+        $('#ak-ownership_type').change(function() {
+            if (this.value == 'business') {
+                $('#ak-fieldbox-business_name').show();
+            } else {
+                $('#ak-fieldbox-business_name').hide();
+            }
+        });
+    });
+
+    /* Amount buttons */
+    function highlight_selected_amount_button() {
+        $('label.ak-radio-checked').removeClass('ak-radio-checked');
+        $(this).closest('label').addClass('ak-radio-checked');
+    }
+    $(function() {
+        $('input[name="amount"]').on(
+            'click', highlight_selected_amount_button);
+        $('input[name="amount_other"]').on(
+            'click change', highlight_selected_amount_button);
+
+        // Make sure label is highlighted if an amount is pre-selected
+        highlight_selected_amount_button.call(
+            $('input[name="amount"]:checked').get(0) //||
+            //$('input[name="amount_other"]').get(0)
+        );
+    });
+
+    /* Currency symbols */
+    function redraw_currency_symbol() {
+        var id = $('input[id^=id_currency_]:checked, option[id^=id_currency_]:selected').attr('id');
+        var iso_code_match = /([A-Z][A-Z][A-Z])$/.exec(id);
+        if ( ! iso_code_match ) {
+            return
+        }
+        var iso_code = iso_code_match[1];
+        var currency_sym = actionkit.utils.currencySymbols[iso_code];
+        $('.ak-currency-sym').text( currency_sym || '' );
+    }
+
+    $(function() {
+        $('input[id^=id_currency_], select[name="currency"], select[name="payment_account"]').on('change', redraw_currency_symbol);
+        redraw_currency_symbol();
+    });
+
+
+    var address_fields = [
+        'address1', 'address2', 'city', 'state', 'zip'
+        , 'postal', 'region', 'country'
+    ];
+
+
+    function country_change() {
+        if ( $('#id_country').val() == 'United States' ) {
+            $('.ak-us-billing-fields').show();
+            $('.ak-intl-billing-fields').hide();
+        } else {
+            $('.ak-us-billing-fields').hide();
+            $('.ak-intl-billing-fields').show();
+        }
+        sync_to_shipping();
+    }
+    function shipping_country_change() {
+        if ( $('#id_shipping_country').val() == 'United States' ) {
+            $('.ak-us-shipping-fields').show();
+            $('.ak-intl-shipping-fields').hide();
+        } else {
+            $('.ak-us-shipping-fields').hide();
+            $('.ak-intl-shipping-fields').show();
+        }
+    }
+    $( function () {
+        $('#id_country').on('change blur', country_change);
+        $('#id_shipping_country').on('change blur', shipping_country_change);
+        country_change();
+        shipping_country_change();
+    } );
+
+
+
+    function toggle_shipping() {
+        if ( $('#ak-shipping-same').prop("checked") ) {
+            sync_to_shipping();
+            $('#ak-shipping-fields').slideUp();
+            if($('.ak-shipping-required').length)
+                $('.ak-shipping-required').remove();
+        } else {
+            clear_shipping();
+            $('#ak-shipping-fields').slideDown();
+            $('#ak-shipping-fields').append(
+                "<input type='hidden' name='required' value='shipping_address1' class='ak-shipping-required'>");
+            $('#ak-shipping-fields').append(
+                "<input type='hidden' name='required' value='shipping_city' class='ak-shipping-required'>");
+            $('#ak-shipping-fields').append(
+                "<input type='hidden' name='required' value='shipping_state' class='ak-shipping-required'>");
+            $('#ak-shipping-fields').append(
+                "<input type='hidden' name='required' value='shipping_zip' class='ak-shipping-required'>");
+        }
+    }
+
+    function clear_shipping(e) {
+        var i, field, ship_field;
+        for (i in address_fields) {
+            field = address_fields[i];
+            ship_field = $('#id_shipping_' + field);
+            ship_field.val("").change().prop("readonly", false);
+        }
+
+        shipping_country_change();
+
+    }
+
+    function sync_to_shipping(e) {
+        if ( ! $('#ak-shipping-same').prop("checked") ) {
+            return;
+        }
+        var i, field, ship_field, bill_value;
+        for (i in address_fields) {
+            field = address_fields[i];
+            ship_field = $('#id_shipping_' + field);
+            bill_value = $('#id_' + field).val();
+            ship_field.val(bill_value).change().prop("readonly", true);
+        }
+
+        shipping_country_change();
+
+    }
+
+    $( function () {
+        $('#ak-shipping-same').on('change', toggle_shipping);
+        toggle_shipping();
+
+        $('#id_address1, #id_address2, #id_city, #id_state, #id_zip, ' +
+            '#id_region, #id_postal').on('change blur', sync_to_shipping);
+    } );
+
+    var three_step_initialized = 0;
+    function three_step_reveal() {
+        var current_step = $('input[name="ak-donate-step"]:checked').val();
+        if ( current_step != "2" && current_step != "3" ) {
+            current_step = "1"
+        }
+        var speed = three_step_initialized ? 1 : 400;
+        if ( current_step == "1" ) {
+            $('.ak-donate-area-step-2, .ak-donate-area-step-3').hide();
+            $('.ak-donate-area-step-1, #ak-continue-button').fadeIn( speed );
+
+        } else if ( current_step == "2" ) {
+            $('.ak-donate-area-step-1, .ak-donate-area-step-3').hide();
+            $('.ak-donate-area-step-2, #ak-continue-button').fadeIn( speed,
+                focus_field_if_blank( $('#id_name') )
+            );
+        } else if ( current_step == "3" ) {
+            $('.ak-donate-area-step-1, .ak-donate-area-step-2, #ak-continue-button').hide();
+            $('.ak-donate-area-step-3').fadeIn( speed,
+                focus_field_if_blank( $('#ak-card_num') )
+            );
+        }
+    }
+
+    function focus_field_if_blank ( field_elt ) {
+        return ( function () {
+            if ( ! field_elt.val() ) {
+                field_elt.focus()
+            }
+        } )
+    }
+
+    var step_has_errors = false;
+    function three_step_advance() {
+        // trigger validation on the step we're leaving
+        var current_step = $('input[name="ak-donate-step"]:checked').val();
+	// hitting "back" after donating confuses our step navigation.
+	// User gets dropped on first step, then browser autocomplete sets our step tracker field without us knowing.
+	// So, check what step the UI's on, and if step tracker and UI disagree give precedence to the UI.
+	var currentStepUI = $('div.ak-donate-area-step-1,div.ak-donate-area-step-2,div.ak-donate-area-step-3').filter(':visible');
+	if(currentStepUI.length){
+	    var uiStepNum = currentStepUI.attr('class')
+		.match(/ak-donate-area-step-[0-9]/g)[0]
+		.slice(-1);
+	    if(uiStepNum != current_step){
+		$('input[name=ak-donate-step][value=' + uiStepNum + ']').prop('checked', true);
+		current_step = uiStepNum;
+	    }
+	}
+        validate_step(current_step);
+
+        if (!step_has_errors) {
+            $('input[name="ak-donate-step"]:checked').closest('label').
+                next('label').find('input[type="radio"]').prop('checked', true);
+            three_step_reveal();
+        }
+    }
+
+    function three_step_goto(next) {
+        // trigger validation on the step we're leaving
+        var current_step = $('input[name="ak-donate-step"]:checked').val();
+
+        // skip validation if we're going backwards
+        if (current_step < next) {
+            validate_step(current_step);
+        }
+
+        // can't skip over a step unless it's already been completed
+        if ( (! step_has_errors) && (current_step == 1) && (next == 3) ) {
+            validate_step(2);
+            if ( step_has_errors ) {
+                $('#ak-donate-step-2').prop('checked', true);
+                three_step_reveal();
+                return;
+            }
+        }
+
+        // allow the user to go back even if there are errors
+        if (current_step > next || !step_has_errors) {
+            $('#ak-donate-step-' + next).prop('checked', true);
+            three_step_reveal();
+        }
+    }
+
+    function validate_product_count ( field ) {
+        var product_count = field.value;
+        if (product_count == "" || product_count == "0") {
+            return true
+        }
+        product_count = parseInt( product_count );
+        var product_max = parseInt( $(field).attr('max') );
+        if ( product_max && product_count > product_max ) {
+            var err_msg = actionkit.forms.errorMessage('product:max');
+            err_msg = err_msg.replace("{0}", product_max);
+            return err_msg
+        }
+        return true
+    }
+
+    /* used to limit AK built-in validation to particular fields by step */
+    var doing_step_validation = false;
+    var validate_fields = [];
+    function validate_step(step) {
+        step_has_errors = false;
+        if (step == "1") {
+            validate_fields = ["amount"];
+        } else if (step == "2") {
+            validate_fields = ["email", "first_name", "last_name", "name",
+                               "address1", "address2", "city", "state", "zip",
+                               "country", "region", "postal",
+                               "shipping_address1", "shipping_address2",
+                               "shipping_city", "shipping_state",
+                               "shipping_zip", "shipping_country",
+                               "shipping_region", "shipping_postal",
+                               "privacy"
+                               ];
+        } else {
+            validate_fields = ["card_num", "card_code",
+                               "exp_date_year", "exp_date_month", "exp_date"];
+        }
+
+        doing_step_validation = true;
+        actionkit.forms.validate();
+        doing_step_validation = false;
+
+        if (step == "1") {
+            step_has_errors = step_1_validation();
+        }
+
+        if (step == "2" && !step_has_errors) {
+            step_has_errors = step_2_validation();
+        }
+
+
+        if (step == "3" && !step_has_errors) {
+            step_has_errors = step_3_validation();
+        }
+    }
+
+    function do_validate_credit_card() {
+        if (actionkit.donations && actionkit.donations.skip_cc_validation) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function step_3_validation() {
+        var step_has_errors = false;
+        if (!actionkit.errors) {
+            actionkit.errors = {};
+        }
+
+        var payment_method = actionkit.form["payment_method"] && actionkit.form["payment_method"].value;
+        if (payment_method == 'ach') {
+            if ($('#ak-ownership_type').val() == 'business') {
+                if (!$('#ak-business_name').val()) {
+                    actionkit.errors['business_name:missing'] = actionkit.forms.errorMessage('business_name:missing');
+                    step_has_errors = true;
+                }
+            }
+            var ach_method = actionkit.form["ach_method"] && actionkit.form["ach_method"].value;
+            if (ach_method != 'bank_login') {
+                var bank_account = $('#ak-bank_account').val();
+                if (!bank_account) {
+                    actionkit.errors['bank_account:missing'] = actionkit.forms.errorMessage('bank_account:missing');
+                    step_has_errors = true;
+                } else if (!valid_bank_account_number(bank_account)) {
+                    actionkit.errors['bank_account:invalid'] = actionkit.forms.errorMessage('bank_account:invalid');
+                    step_has_errors = true;
+                }
+                var routing_number = $('#ak-routing_number').val();
+                if (!routing_number) {
+                    actionkit.errors['routing_number:missing'] = actionkit.forms.errorMessage('routing_number:missing');
+                    step_has_errors = true;
+                } else if (!valid_bank_routing_number(routing_number)) {
+                    actionkit.errors['routing_number:invalid'] = actionkit.forms.errorMessage('routing_number:invalid');
+                    step_has_errors = true;
+                }
+            }
+	} else if (actionkit.donations && actionkit.donations.vgs){
+	    actionkit.donations.vgs.validateHostedForm().map(function(error){
+		actionkit.donations.vgs.handleError(error);
+		step_has_errors = true;
+	    });
+        } else {
+            if (!do_validate_credit_card()) {
+                return step_has_errors;
+            }
+
+            if (!valid_credit_card($('#ak-card_num').val())) {
+                actionkit.errors['card_num:invalid'] = actionkit.forms.errorMessage('card_num:invalid');
+                step_has_errors = true;
+            }
+
+            if (!valid_credit_card_code($('#ak-card_code').val())) {
+                actionkit.errors['card_code:invalid'] = actionkit.forms.errorMessage('card_code:invalid');
+                step_has_errors = true;
+            }
+        }
+
+        if (step_has_errors) {
+            actionkit.forms.onValidationErrors(actionkit.errors);
+        }
+
+        return step_has_errors;
+    }
+
+    function step_2_validation() {
+        var step_has_errors = false;
+        if (!valid_email($('#id_email').val())) {
+            if (!actionkit.errors)
+                actionkit.errors = {};
+            actionkit.errors['email:invalid'] = actionkit.forms.errorMessage('email:invalid');
+            actionkit.forms.onValidationErrors(actionkit.errors);
+            step_has_errors = true;
+        }
+        return step_has_errors;
+    }
+
+    function step_1_validation() {
+        var step_has_errors = false;
+
+        // look for product selections
+        var selected_products = false;
+        product_infos().forEach(function(info) {
+            if (info.quantity) {
+                selected_products = true;
+            }
+        });
+
+        // look for candidate selections
+        var selected_candidates = false;
+        $('.ak_candidate_inputs').each(
+            function(i) {
+                if ($(this).val() != "")
+                    selected_candidates = true;
+            });
+
+        // there's no built-in validation for amounts, so do it here
+        if (!selected_products && !selected_candidates &&
+            !$('.ak-amount-radio-button').is(':checked') &&
+            $('#ak-other-amount-field').val() == "") {
+            if (!actionkit.errors)
+                actionkit.errors = {};
+            actionkit.errors['amount:missing'] = actionkit.forms.errorMessage('amount:missing');
+            actionkit.forms.onValidationErrors(actionkit.errors);
+            step_has_errors = true;
+
+        } else if (($('#ak-other-amount-field').val() != "" &&
+                    $('#ak-other-amount-field').val() != undefined)  &&
+                   !/^[\d,]*(\.\d{1,2})?$/.test($('#ak-other-amount-field').val())) {
+            if (!actionkit.errors)
+                actionkit.errors = {};
+            actionkit.errors['amount:invalid'] = actionkit.forms.errorMessage('amount:invalid');
+            actionkit.forms.onValidationErrors(actionkit.errors);
+            step_has_errors = true;
+        }
+
+
+        var total = update_total();
+        if (!step_has_errors && total < 25.00) {
+            if (!actionkit.errors) {
+                actionkit.errors = {};
+            }
+            err = actionkit.forms.errorMessage('amount:minimum');
+            err = err.replace("{0}", "25.00");
+            actionkit.errors['amount:minimum'] = err;
+            actionkit.forms.onValidationErrors(actionkit.errors);
+            step_has_errors = true;
+        }
+
+
+        return step_has_errors;
+    }
+
+    function actionkitValidationErrors(errors, field) {
+        // only want this running during step validation
+        if (!doing_step_validation) {
+            return;
+        }
+
+        // trim out validation errors we don't care about on this step
+        var to_delete = [];
+        step_has_errors = false;
+        for (var key in errors) {
+            parts = key.split(':');
+            if (validate_fields.indexOf(parts[0]) == -1) {
+                to_delete.push(key);
+            } else {
+                step_has_errors = true;
+            }
+        }
+        for (var i = 0; i < to_delete.length; i++) {
+            delete errors[to_delete[i]];
+        }
+    }
+
+    function three_step_initialize() {
+        if (actionkit.errors) {
+            var has_errors = [];
+            if ($('.ak-donate-area-step-1').find('.ak-err').length) {
+                has_errors.push($('.ak-donate-area-step-1'));
+            }
+            if ($('.ak-donate-area-step-2').find('.ak-err').length) {
+                has_errors.push($('.ak-donate-area-step-2'));
+            }
+            if ($('.ak-donate-area-step-3').find('.ak-err').length) {
+                has_errors.push($('.ak-donate-area-step-3'));
+            }
+
+            if (has_errors.length == 1) {
+                // just one pane with errors?  show it
+                has_errors[0].show();
+            } else {
+                // otherwise show all steps
+                $('.ak-donate-area-step-1, .ak-donate-area-step-2, .ak-donate-area-step-3').show();
+                $('#ak-continue-button, .ak-donate-three-step-visible').hide();
+            }
+        }
+        three_step_initialized = 1;
+    }
+
+    $(function() {
+         // three-step vs. one-step UI
+        if ( $('form.ak-donate-three-step').length == 0 ) {
+            $('.ak-donate-three-step-visible').hide();
+        } else {
+            $('.ak-donate-three-step-hidden').hide();
+            three_step_reveal();
+            window.actionkitFormReady = three_step_initialize;
+            // $('.ak-donate-menu input[type="radio"]').on('change', three_step_reveal);
+            $('#ak-continue-button').on('click', function (evt) {
+                // letting this event go will trigger our onsubmit and lead to validation woe
+                evt.preventDefault();
+                three_step_advance();
+            });
+            $('.ak-donate-step-1').on('click', function (evt) {
+                evt.preventDefault();
+                three_step_goto('1');
+            });
+            $('.ak-donate-step-2').on('click', function (evt) {
+                evt.preventDefault();
+                three_step_goto('2');
+            });
+            $('.ak-donate-step-3').on('click', function (evt) {
+                evt.preventDefault();
+                three_step_goto('3');
+            });
+        }
+
+    });
+
+    function product_ids() {
+        return $("[data-product]").map(function(i, el) {
+            return $(el).data("product");
+        }).toArray();
+    }
+
+    function product_infos() {
+        return product_ids().map(function(id) {
+            return product_info(id);
+        });
+    }
+
+    // calculate subtotals if products exist
+    function calculate_product_subtotals() {
+        var subtotal = 0;
+        product_infos().forEach(function(info) {
+            $('.ak_product_subtotal_' + info.id).text(info.subtotal.toFixed(2));
+            subtotal += info.subtotal;
+        });
+        $('#ak-donation-subtotal-amount').text(subtotal.toFixed(2));
+    }
+
+    $(function() {
+        calculate_product_subtotals();
+
+        $('.ak_product_inputs').on('change', function() {
+            calculate_product_subtotals();
+        });
+    });
+
+    // Standard luhn check to detect mistyped credit card numbers
+    // from https://gist.github.com/DiegoSalazar/4075533
+    function valid_credit_card(value) {
+        if (/[^0-9-\s]/.test(value)) {
+            return false;
+        }
+        var nCheck = 0, nDigit = 0, bEven = false;
+        value = value.replace(/\D/g, "");
+
+        for (var n = value.length - 1; n >= 0; n--) {
+            var cDigit = value.charAt(n),
+            nDigit = parseInt(cDigit, 10);
+
+            if (bEven) {
+                if ((nDigit *= 2) > 9) {
+                    nDigit -= 9;
+                }
+            }
+
+            nCheck += nDigit;
+            bEven = !bEven;
+        }
+
+        return (nCheck % 10) == 0;
+    }
+
+    function valid_credit_card_code(value) {
+        if (/[^0-9-\s]/.test(value)) {
+            return false;
+        }
+        value = value.replace(/\D/g, "");
+        if (value.length == 3 || value.length == 4) {
+            return true;
+        }
+        return false;
+    }
+
+    function valid_bank_account_number(value) {
+        return /^\d{4,17}$/.test(value);
+    }
+
+    function valid_bank_routing_number(value) {
+        value = value.replace(/\D/g,'');
+
+        if (value.length != 9) { return false; }
+
+        var checksum = 0;
+        for (var i = 0; i < value.length; i += 3) {
+            checksum += parseInt(value.charAt(i), 10) * 3
+                     +  parseInt(value.charAt(i + 1), 10) * 7
+                     +  parseInt(value.charAt(i + 2), 10);
+        }
+
+        if (checksum == 0 || checksum % 10 != 0) { return false; }
+
+        return true;
+    }
+
+    // not 100% the same as Django but pretty close
+    var email_regExp = /^\s*((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\s*$/i;
+    function valid_email(email) {
+        return email_regExp.test(email);
+    }
+
+    function submit_paypal() {
+
+
+        /* set the paypal=1 hidden field */
+        $('#ak-pay-by-paypal').val(1);
+
+        /* clear out CC info if entered */
+        $('#ak-card_num').val('');
+        $('#ak-card_code').val('');
+
+        /* disable CC requirements */
+        $('#ak-card_num-required').remove();
+        $('#ak-card_code-required').remove();
+        $('#ak-exp_date_month-required').remove();
+        $('#ak-exp_date_year-required').remove();
+
+        /* and keep submitting */
+        return true;
+    }
+
+    function submit_cc() {
+        /* clear paypal=1 hidden field, only needed if someone hit back */
+        $('#ak-pay-by-paypal').val(0);
+
+        if ($('button.ak-submit-button').hasClass('is-submitted')) {
+            return false
+        }
+
+        if ( $('form.ak-donate-three-step').length > 0 ) {
+            validate_step("3");
+
+            if (step_has_errors) {
+                return false;
+            } else {
+                $('button.ak-submit-button').addClass('is-submitted');
+                return true;
+            }
+        }
+
+
+        /* not doing 3-step, so we need to do all the validation here,
+         * don't want to short-circuit and only run one step, better
+         * to run all three even if all three have errors */
+        actionkit.forms.validate();
+        results = [step_1_validation(),
+                   step_2_validation(),
+                   step_3_validation()];
+        var ok = !(results[0] || results[1] || results[2]);
+        if (ok) {
+            $('button.ak-submit-button').addClass('is-submitted');
+        }
+        return ok
+    }
+
+    $( function () {
+        $('#ak-paypal-button').on('click', submit_paypal);
+    	$('.ak-submit-button').on('click', submit_cc);
+        $(window).on('pagehide', function() {
+            $('button.ak-submit-button').removeClass('is-submitted');
+        });
+
+
+        $('#ak-paypal-button').on('mousedown', function () {
+            var form_elt = $(this).closest('form');
+            var required_fields = form_elt.find('input[name="required"]');
+            if ( required_fields.length ) {
+                required_fields.remove();
+                $('body').on('mouseup', function ( event ) {
+                    form_elt.append( required_fields );
+                    $( this ).unbind( event );
+                } );
+            }
+        } );
+
+    } );
+
+//-->
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="ak-pagetype-donate ak-lang-unknown ak-no-js ">
+    <script nonce="{{ request.csp_nonce }}" type="text/javascript">
+        actionkit.forms.initPage()
+    </script>
+
+    <div class="ak-page-header">
+        <div class="ak-page-header-contents">
+            <h1>Robotic Dogs</h1>
+
+
+        <!-- Remove this if you don't want popins like "This page also in English" -->
+        <span style="ak-lang-popin"></span>
+        <span style="display: block; float: right;" class="ak-language-list">
+
+
+                    <span class="disabled-lang">English</span>
+
+
+                    &bull;
+
+
+
+                    <a class="lang" href="https://roboticdogs.actionkit.com/donate/mozilla-donation-page-spanish?abs_urls=1&download=1&form_only=0&https_urls=1">Español</a>
+
+
+
+        </span>
+
+
+
+            <div class="ak-page-nav"></div>
+        </div>
+    </div>
+
+    <div class="ak-page-container">
+
+
+<form id="act" name="act" class="ak-donate-three-step" method="POST" action="https://roboticdogs.actionkit.com/act/" accept-charset="utf-8">
+    <input type="hidden" name="page" value="mozilla-donation-page">
+    <input type="hidden" name="orig_akid" value="None">
+
+    <div class="ak-grid-row">
+        <div class="ak-grid-col ak-grid-col-12-of-12">
+            <h2>Mozilla Donation Page</h2>
+        </div>
+    </div>
+
+    <div class="ak-grid-row">
+
+        <div class="ak-grid-col ak-grid-col-4-of-12">
+
+            <div>
+</div>
+            <p>Test: Mozilla petition text!</p>
+        </div>
+
+        <div class="ak-grid-col ak-grid-col-8-of-12">
+            <div class="ak-field-box">
+
+            <!--Add .ak-donate-three-step for three-step-->
+            <div class="ak-donate-menu ak-donate-three-step-visible">
+                <label class="ak-donate-step ak-donate-step-1">
+                    <span>Amount</span>
+                    <input type="radio" id="ak-donate-step-1" name="ak-donate-step" value="1" checked="checked">
+                    <div class="ak-step-number">1</div>
+                </label>
+                <label class="ak-donate-step ak-donate-step-2">
+                    <span>Name</span>
+                    <input type="radio" id="ak-donate-step-2" name="ak-donate-step" value="2">
+                    <div class="ak-step-number">2</div>
+                </label>
+                <label class="ak-donate-step ak-donate-step-3">
+                    <span>Finish</span>
+                    <input type="radio" id="ak-donate-step-3" name="ak-donate-step" value="3">
+                    <div class="ak-step-number">3</div>
+                </label>
+            </div>
+
+            <div id="ak-donation-details" class="xak-errs-below">
+
+                <div id="ak-product-list" class="ak-donate-area-step-1 ak-errs-below">
+
+                </div><!--product-list-->
+
+                <div id="ak-candidate-list" class="ak-donate-area-step-1 ak-errs-below">
+
+                </div>
+
+
+                <div id="ak-amount-list" class="ak-err-above ak-donate-area-step-1">
+
+
+
+                    <div id="ak-multi-currency">
+                    <label class="ak-label-above ak-margin-none" for="amount">Secure Donation:</label>
+                    <span class="ak-currencies">
+
+                        <span class="ak-currency">
+                            <input type="radio" checked name="payment_account" id="id_currency_USD" value="Default Import Stub">
+                            <label for="id_currency_USD">USD</label>
+                        </span>
+
+                    </span>
+                    </div>
+
+
+
+                   <div class="ak-amount-wrapper">
+
+                    <ul class="ak-unstyled">
+
+
+                        <li>
+                            <label for="id_amount_2000" class="ak-btn">
+                                <span class="ak-currency-sym"></span><input type="radio" id="id_amount_2000" value="2000" class="ak-amount-radio-button" name="amount" >2,000
+                            </label>
+                        </li>
+
+
+
+                        <li>
+                            <label for="id_amount_250" class="ak-btn">
+                                <span class="ak-currency-sym"></span><input type="radio" id="id_amount_250" value="250" class="ak-amount-radio-button" name="amount" >250
+                            </label>
+                        </li>
+
+
+
+                        <li>
+                            <label for="id_amount_25" class="ak-btn">
+                                <span class="ak-currency-sym"></span><input type="radio" id="id_amount_25" value="25" class="ak-amount-radio-button" name="amount" >25
+                            </label>
+                        </li>
+
+
+                    </ul>
+
+                    <ul class="ak-unstyled">
+
+
+                        <li>
+                            <label for="id_amount_1000" class="ak-btn">
+                                <span class="ak-currency-sym"></span><input type="radio" id="id_amount_1000" value="1000" class="ak-amount-radio-button" name="amount" >1,000
+                            </label>
+                        </li>
+
+
+
+                        <li>
+                            <label for="id_amount_100" class="ak-btn">
+                                <span class="ak-currency-sym"></span><input type="radio" id="id_amount_100" value="100" class="ak-amount-radio-button" name="amount" >100
+                            </label>
+                        </li>
+
+
+
+                        <li id="ak-other-amount-container">
+                            <noscript><input type="radio" value="" class="ak-amount-radio-button" name="amount"></noscript>
+                            <label for="ak-other-amount-field" class="ak-btn">
+                                <span class="ak-currency-sym"></span> <input type="text" id="ak-other-amount-field" name="amount_other" size="3" >
+                            </label>
+                        </li>
+
+
+                    </ul>
+
+                    <ul class="ak-unstyled">
+
+
+                        <li>
+                            <label for="id_amount_500" class="ak-btn">
+                                <span class="ak-currency-sym"></span><input type="radio" id="id_amount_500" value="500" class="ak-amount-radio-button" name="amount" checked>500
+                            </label>
+                        </li>
+
+
+
+                        <li>
+                            <label for="id_amount_50" class="ak-btn">
+                                <span class="ak-currency-sym"></span><input type="radio" id="id_amount_50" value="50" class="ak-amount-radio-button" name="amount" >50
+                            </label>
+                        </li>
+
+
+                    </ul>
+
+                </div>
+                </div>
+
+                <div id="ak-donation-total-div"></div>
+                <script nonce="{{ request.csp_nonce }}" type="text/ak-template" for="ak-donation-total-div">
+                    [% if (has_products || has_candidates) { %]
+                        <p class="ak-donation-total ak-donate-area-step-1">
+                            <label for="amount">
+                                Total Amount
+                             </label>
+                                <span class="ak-currency-sym"></span><span class="ak-donation-total-amount"></span>
+
+                        </p>
+                    [% }
+                    setTimeout(update_total, 0);
+                    %]
+                </script>
+
+
+
+                        <div id="ak-recurring-type" class="ak-donate-area-step-1">
+                            <span>
+                                <input type="radio" name="donation_type" id="id_donation_type_single" value="single" checked>
+                                <label for="id_donation_type_single"> One-Time</label>
+                            </span>
+                            <span>
+                                <input type="radio" name="donation_type" id="id_donation_type_recurring" value="recurring">
+                                <label for="id_donation_type_recurring"> Monthly</label>
+                            </span>
+                        </div>
+
+
+
+                <div id="ak-donation-contact" class="ak-styled-fields ak-donate-area-step-2 ak-errs-below ak-margin-top-1">
+
+                    <ul id="ak-errors"></ul>
+                    <div style="display: none"><div id="known_user">
+                        Not <span id="known_user_name"></span>?  <a href="https://roboticdogs.actionkit.com?" onclick="return actionkit.forms.logOut()">Click here.</a>
+                    </div></div>
+                    <div id="unknown_user"></div>
+
+                    <h4 class="ak-donate-three-step-hidden">Billing Address</h4>
+
+                    <div class="ak-labels-overlaid ak-errs-below test2">
+
+                        <div>
+                          <label for="id_name">Name</label>
+                          <input id="id_name" type="text" name="name">
+                        </div>
+
+                        <div>
+                            <label class="required" for="id_email">Email</label>
+                            <input id="id_email" type="text" name="email">
+                        </div>
+
+                        <div>
+                            <label for="id_address1">Billing address</label>
+                            <input id="id_address1" type="text" name="address1">
+                        </div>
+                        <div>
+                            <label for="id_address2">Billing address line 2 (optional)</label>
+                            <input id="id_address2" type="text" name="address2">
+                        </div>
+
+                        <div>
+                            <label for="id_city">City</label>
+                            <input id="id_city" type="text" name="city">
+                        </div>
+                        <div class="ak-errs-below">
+                            <div class="ak-us-billing-fields">
+                                <input type="hidden" name="required" value="state">
+                                <label for="id_state">State</label>
+                                <select name="state" id="id_state" >
+    <option value="">State</option>
+    <option value="AL">Alabama</option>
+    <option value="AK">Alaska</option>
+    <option value="AZ">Arizona</option>
+    <option value="AR">Arkansas</option>
+    <option value="CA">California</option>
+    <option value="CO">Colorado</option>
+    <option value="CT">Connecticut</option>
+    <option value="DE">Delaware</option>
+    <option value="DC">District of Columbia</option>
+    <option value="FL">Florida</option>
+    <option value="GA">Georgia</option>
+    <option value="HI">Hawaii</option>
+    <option value="ID">Idaho</option>
+    <option value="IL">Illinois</option>
+    <option value="IN">Indiana</option>
+    <option value="IA">Iowa</option>
+    <option value="KS">Kansas</option>
+    <option value="KY">Kentucky</option>
+    <option value="LA">Louisiana</option>
+    <option value="ME">Maine</option>
+    <option value="MD">Maryland</option>
+    <option value="MA">Massachusetts</option>
+    <option value="MI">Michigan</option>
+    <option value="MN">Minnesota</option>
+    <option value="MS">Mississippi</option>
+    <option value="MO">Missouri</option>
+    <option value="MT">Montana</option>
+    <option value="NE">Nebraska</option>
+    <option value="NV">Nevada</option>
+    <option value="NH">New Hampshire</option>
+    <option value="NJ">New Jersey</option>
+    <option value="NM">New Mexico</option>
+    <option value="NY">New York</option>
+    <option value="NC">North Carolina</option>
+    <option value="ND">North Dakota</option>
+    <option value="OH">Ohio</option>
+    <option value="OK">Oklahoma</option>
+    <option value="OR">Oregon</option>
+    <option value="PA">Pennsylvania</option>
+    <option value="RI">Rhode Island</option>
+    <option value="SC">South Carolina</option>
+    <option value="SD">South Dakota</option>
+    <option value="TN">Tennessee</option>
+    <option value="TX">Texas</option>
+    <option value="UT">Utah</option>
+    <option value="VT">Vermont</option>
+    <option value="VA">Virginia</option>
+    <option value="WA">Washington</option>
+    <option value="DC">Washington, D.C.</option>
+    <option value="WV">West Virginia</option>
+    <option value="WI">Wisconsin</option>
+    <option value="WY">Wyoming</option>
+
+
+</select>
+
+
+                            </div>
+                            <div class="ak-us-billing-fields">
+                                <input type="hidden" name="required" value="zip">
+                                <label for="id_zip">Zip</label>
+                                <input id="id_zip" type="text" name="zip" maxlength="5" size="5">
+                            </div>
+                        </div>
+
+                        <div class="ak-errs-below" class="ak-intl-billing-fields">
+                            <div>
+                                <label for="id_region">Region</label>
+                                <input id="id_region"  type="text" name="region" size="20">
+                            </div>
+                            <div>
+                                <label for="id_postal">Postal Code</label>
+                                <input id="id_postal"  type="text" name="postal" size="10">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="id_country">Country</label>
+
+<select name="country" id="id_country" >
+
+
+            <option value="United States">United States</option>
+
+            <option value="Afghanistan">Afghanistan</option>
+
+            <option value="Aland Islands">Aland Islands</option>
+
+            <option value="Albania">Albania</option>
+
+            <option value="Algeria">Algeria</option>
+
+            <option value="American Samoa">American Samoa</option>
+
+            <option value="Andorra">Andorra</option>
+
+            <option value="Angola">Angola</option>
+
+            <option value="Anguilla">Anguilla</option>
+
+            <option value="Antarctica">Antarctica</option>
+
+            <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+
+            <option value="Argentina">Argentina</option>
+
+            <option value="Armenia">Armenia</option>
+
+            <option value="Aruba">Aruba</option>
+
+            <option value="Australia">Australia</option>
+
+            <option value="Austria">Austria</option>
+
+            <option value="Azerbaijan">Azerbaijan</option>
+
+            <option value="Bahamas">Bahamas</option>
+
+            <option value="Bahrain">Bahrain</option>
+
+            <option value="Bangladesh">Bangladesh</option>
+
+            <option value="Barbados">Barbados</option>
+
+            <option value="Belarus">Belarus</option>
+
+            <option value="Belgium">Belgium</option>
+
+            <option value="Belize">Belize</option>
+
+            <option value="Benin">Benin</option>
+
+            <option value="Bermuda">Bermuda</option>
+
+            <option value="Bhutan">Bhutan</option>
+
+            <option value="Bolivia">Bolivia</option>
+
+            <option value="Bonaire, Saint Eustatius and Saba ">Bonaire, Saint Eustatius and Saba </option>
+
+            <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+
+            <option value="Botswana">Botswana</option>
+
+            <option value="Bouvet Island">Bouvet Island</option>
+
+            <option value="Brazil">Brazil</option>
+
+            <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+
+            <option value="British Virgin Islands">British Virgin Islands</option>
+
+            <option value="Brunei">Brunei</option>
+
+            <option value="Bulgaria">Bulgaria</option>
+
+            <option value="Burkina Faso">Burkina Faso</option>
+
+            <option value="Burundi">Burundi</option>
+
+            <option value="Cabo Verde">Cabo Verde</option>
+
+            <option value="Cambodia">Cambodia</option>
+
+            <option value="Cameroon">Cameroon</option>
+
+            <option value="Canada">Canada</option>
+
+            <option value="Cayman Islands">Cayman Islands</option>
+
+            <option value="Central African Republic">Central African Republic</option>
+
+            <option value="Chad">Chad</option>
+
+            <option value="Chile">Chile</option>
+
+            <option value="China">China</option>
+
+            <option value="Christmas Island">Christmas Island</option>
+
+            <option value="Cocos Islands">Cocos Islands</option>
+
+            <option value="Colombia">Colombia</option>
+
+            <option value="Comoros">Comoros</option>
+
+            <option value="Cook Islands">Cook Islands</option>
+
+            <option value="Costa Rica">Costa Rica</option>
+
+            <option value="Croatia">Croatia</option>
+
+            <option value="Cuba">Cuba</option>
+
+            <option value="Curacao">Curacao</option>
+
+            <option value="Cyprus">Cyprus</option>
+
+            <option value="Czechia">Czechia</option>
+
+            <option value="Democratic Republic of the Congo">Democratic Republic of the Congo</option>
+
+            <option value="Denmark">Denmark</option>
+
+            <option value="Djibouti">Djibouti</option>
+
+            <option value="Dominica">Dominica</option>
+
+            <option value="Dominican Republic">Dominican Republic</option>
+
+            <option value="Ecuador">Ecuador</option>
+
+            <option value="Egypt">Egypt</option>
+
+            <option value="El Salvador">El Salvador</option>
+
+            <option value="Equatorial Guinea">Equatorial Guinea</option>
+
+            <option value="Eritrea">Eritrea</option>
+
+            <option value="Estonia">Estonia</option>
+
+            <option value="Eswatini">Eswatini</option>
+
+            <option value="Ethiopia">Ethiopia</option>
+
+            <option value="Falkland Islands">Falkland Islands</option>
+
+            <option value="Faroe Islands">Faroe Islands</option>
+
+            <option value="Fiji">Fiji</option>
+
+            <option value="Finland">Finland</option>
+
+            <option value="France">France</option>
+
+            <option value="French Guiana">French Guiana</option>
+
+            <option value="French Polynesia">French Polynesia</option>
+
+            <option value="French Southern Territories">French Southern Territories</option>
+
+            <option value="Gabon">Gabon</option>
+
+            <option value="Gambia">Gambia</option>
+
+            <option value="Georgia">Georgia</option>
+
+            <option value="Germany">Germany</option>
+
+            <option value="Ghana">Ghana</option>
+
+            <option value="Gibraltar">Gibraltar</option>
+
+            <option value="Greece">Greece</option>
+
+            <option value="Greenland">Greenland</option>
+
+            <option value="Grenada">Grenada</option>
+
+            <option value="Guadeloupe">Guadeloupe</option>
+
+            <option value="Guam">Guam</option>
+
+            <option value="Guatemala">Guatemala</option>
+
+            <option value="Guernsey">Guernsey</option>
+
+            <option value="Guinea">Guinea</option>
+
+            <option value="Guinea-Bissau">Guinea-Bissau</option>
+
+            <option value="Guyana">Guyana</option>
+
+            <option value="Haiti">Haiti</option>
+
+            <option value="Heard Island and McDonald Islands">Heard Island and McDonald Islands</option>
+
+            <option value="Honduras">Honduras</option>
+
+            <option value="Hong Kong">Hong Kong</option>
+
+            <option value="Hungary">Hungary</option>
+
+            <option value="Iceland">Iceland</option>
+
+            <option value="India">India</option>
+
+            <option value="Indonesia">Indonesia</option>
+
+            <option value="Iran">Iran</option>
+
+            <option value="Iraq">Iraq</option>
+
+            <option value="Ireland">Ireland</option>
+
+            <option value="Isle of Man">Isle of Man</option>
+
+            <option value="Israel">Israel</option>
+
+            <option value="Italy">Italy</option>
+
+            <option value="Ivory Coast">Ivory Coast</option>
+
+            <option value="Jamaica">Jamaica</option>
+
+            <option value="Japan">Japan</option>
+
+            <option value="Jersey">Jersey</option>
+
+            <option value="Jordan">Jordan</option>
+
+            <option value="Kazakhstan">Kazakhstan</option>
+
+            <option value="Kenya">Kenya</option>
+
+            <option value="Kiribati">Kiribati</option>
+
+            <option value="Kosovo">Kosovo</option>
+
+            <option value="Kuwait">Kuwait</option>
+
+            <option value="Kyrgyzstan">Kyrgyzstan</option>
+
+            <option value="Laos">Laos</option>
+
+            <option value="Latvia">Latvia</option>
+
+            <option value="Lebanon">Lebanon</option>
+
+            <option value="Lesotho">Lesotho</option>
+
+            <option value="Liberia">Liberia</option>
+
+            <option value="Libya">Libya</option>
+
+            <option value="Liechtenstein">Liechtenstein</option>
+
+            <option value="Lithuania">Lithuania</option>
+
+            <option value="Luxembourg">Luxembourg</option>
+
+            <option value="Macao">Macao</option>
+
+            <option value="Madagascar">Madagascar</option>
+
+            <option value="Malawi">Malawi</option>
+
+            <option value="Malaysia">Malaysia</option>
+
+            <option value="Maldives">Maldives</option>
+
+            <option value="Mali">Mali</option>
+
+            <option value="Malta">Malta</option>
+
+            <option value="Marshall Islands">Marshall Islands</option>
+
+            <option value="Martinique">Martinique</option>
+
+            <option value="Mauritania">Mauritania</option>
+
+            <option value="Mauritius">Mauritius</option>
+
+            <option value="Mayotte">Mayotte</option>
+
+            <option value="Mexico">Mexico</option>
+
+            <option value="Micronesia">Micronesia</option>
+
+            <option value="Moldova">Moldova</option>
+
+            <option value="Monaco">Monaco</option>
+
+            <option value="Mongolia">Mongolia</option>
+
+            <option value="Montenegro">Montenegro</option>
+
+            <option value="Montserrat">Montserrat</option>
+
+            <option value="Morocco">Morocco</option>
+
+            <option value="Mozambique">Mozambique</option>
+
+            <option value="Myanmar">Myanmar</option>
+
+            <option value="Namibia">Namibia</option>
+
+            <option value="Nauru">Nauru</option>
+
+            <option value="Nepal">Nepal</option>
+
+            <option value="Netherlands">Netherlands</option>
+
+            <option value="Netherlands Antilles">Netherlands Antilles</option>
+
+            <option value="New Caledonia">New Caledonia</option>
+
+            <option value="New Zealand">New Zealand</option>
+
+            <option value="Nicaragua">Nicaragua</option>
+
+            <option value="Niger">Niger</option>
+
+            <option value="Nigeria">Nigeria</option>
+
+            <option value="Niue">Niue</option>
+
+            <option value="Norfolk Island">Norfolk Island</option>
+
+            <option value="North Korea">North Korea</option>
+
+            <option value="North Macedonia">North Macedonia</option>
+
+            <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+
+            <option value="Norway">Norway</option>
+
+            <option value="Oman">Oman</option>
+
+            <option value="Pakistan">Pakistan</option>
+
+            <option value="Palau">Palau</option>
+
+            <option value="Palestinian Territory">Palestinian Territory</option>
+
+            <option value="Panama">Panama</option>
+
+            <option value="Papua New Guinea">Papua New Guinea</option>
+
+            <option value="Paraguay">Paraguay</option>
+
+            <option value="Peru">Peru</option>
+
+            <option value="Philippines">Philippines</option>
+
+            <option value="Pitcairn">Pitcairn</option>
+
+            <option value="Poland">Poland</option>
+
+            <option value="Portugal">Portugal</option>
+
+            <option value="Puerto Rico">Puerto Rico</option>
+
+            <option value="Qatar">Qatar</option>
+
+            <option value="Republic of the Congo">Republic of the Congo</option>
+
+            <option value="Reunion">Reunion</option>
+
+            <option value="Romania">Romania</option>
+
+            <option value="Russia">Russia</option>
+
+            <option value="Rwanda">Rwanda</option>
+
+            <option value="Saint Barthelemy">Saint Barthelemy</option>
+
+            <option value="Saint Helena">Saint Helena</option>
+
+            <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+
+            <option value="Saint Lucia">Saint Lucia</option>
+
+            <option value="Saint Martin">Saint Martin</option>
+
+            <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
+
+            <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
+
+            <option value="Samoa">Samoa</option>
+
+            <option value="San Marino">San Marino</option>
+
+            <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+
+            <option value="Saudi Arabia">Saudi Arabia</option>
+
+            <option value="Senegal">Senegal</option>
+
+            <option value="Serbia">Serbia</option>
+
+            <option value="Serbia and Montenegro">Serbia and Montenegro</option>
+
+            <option value="Seychelles">Seychelles</option>
+
+            <option value="Sierra Leone">Sierra Leone</option>
+
+            <option value="Singapore">Singapore</option>
+
+            <option value="Sint Maarten">Sint Maarten</option>
+
+            <option value="Slovakia">Slovakia</option>
+
+            <option value="Slovenia">Slovenia</option>
+
+            <option value="Solomon Islands">Solomon Islands</option>
+
+            <option value="Somalia">Somalia</option>
+
+            <option value="South Africa">South Africa</option>
+
+            <option value="South Georgia and the South Sandwich Islands">South Georgia and the South Sandwich Islands</option>
+
+            <option value="South Korea">South Korea</option>
+
+            <option value="South Sudan">South Sudan</option>
+
+            <option value="Spain">Spain</option>
+
+            <option value="Sri Lanka">Sri Lanka</option>
+
+            <option value="Sudan">Sudan</option>
+
+            <option value="Suriname">Suriname</option>
+
+            <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+
+            <option value="Sweden">Sweden</option>
+
+            <option value="Switzerland">Switzerland</option>
+
+            <option value="Syria">Syria</option>
+
+            <option value="Taiwan">Taiwan</option>
+
+            <option value="Tajikistan">Tajikistan</option>
+
+            <option value="Tanzania">Tanzania</option>
+
+            <option value="Thailand">Thailand</option>
+
+            <option value="Timor Leste">Timor Leste</option>
+
+            <option value="Togo">Togo</option>
+
+            <option value="Tokelau">Tokelau</option>
+
+            <option value="Tonga">Tonga</option>
+
+            <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+
+            <option value="Tunisia">Tunisia</option>
+
+            <option value="Turkey">Turkey</option>
+
+            <option value="Turkmenistan">Turkmenistan</option>
+
+            <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+
+            <option value="Tuvalu">Tuvalu</option>
+
+            <option value="U.S. Virgin Islands">U.S. Virgin Islands</option>
+
+            <option value="Uganda">Uganda</option>
+
+            <option value="Ukraine">Ukraine</option>
+
+            <option value="United Arab Emirates">United Arab Emirates</option>
+
+            <option value="United Kingdom">United Kingdom</option>
+
+            <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+
+            <option value="Uruguay">Uruguay</option>
+
+            <option value="Uzbekistan">Uzbekistan</option>
+
+            <option value="Vanuatu">Vanuatu</option>
+
+            <option value="Vatican">Vatican</option>
+
+            <option value="Venezuela">Venezuela</option>
+
+            <option value="Vietnam">Vietnam</option>
+
+            <option value="Wallis and Futuna">Wallis and Futuna</option>
+
+            <option value="Western Sahara">Western Sahara</option>
+
+            <option value="Yemen">Yemen</option>
+
+            <option value="Zambia">Zambia</option>
+
+            <option value="Zimbabwe">Zimbabwe</option>
+
+
+</select>
+
+
+
+        <!-- Canada explicit opt-in box -->
+        <div id="ak-fieldbox-subscription_consent">
+            <input type="hidden" id="id_suppress_subscribe" name="suppress_subscribe" value="">
+            <input class="no-overlay" type="checkbox" id="id_subscription_consent" name="subscription_consent" value="1">
+            <label for="id_subscription_consent">Subscribe me to email updates</label>
+            <span id="id_subscription_consent_more_lnk">(<a href="#">details</a>)</span>
+            <div id="id_subscription_consent_more">
+                If you don't subscribe, you might miss news on this campaign
+                or future opportunities to act. (If you're already subscribed,
+                leaving this box unchecked won't remove you.)
+            </div>
+
+            <script nonce="{{ request.csp_nonce }}">
+            $('#id_subscription_consent_more_lnk a').click(function() {
+                $('#id_subscription_consent_more_lnk').hide();
+                $('#id_subscription_consent_more').show();
+                return false;
+            })
+            $('#id_subscription_consent').change(function() {
+                $('#id_suppress_subscribe').val(this.checked ? '' : '1')}
+            );
+            $('#id_country').change(function() {
+                var country = $(this).val();
+                if (country == 'Canada') {
+                    $('#id_suppress_subscribe').val('1')
+                    $('#id_subscription_consent').attr('checked', false)
+                    $('#ak-fieldbox-subscription_consent').show()
+                }
+                else {
+                    $('#id_suppress_subscribe').val('')
+                    $('#ak-fieldbox-subscription_consent').hide()
+                }
+            });
+            </script>
+
+            <!-- With JavaScript off, we can't show a consent box -->
+            <noscript><input type="hidden" name="suppress_subscribe_in" value="Canada"></noscript>
+        </div>
+
+
+
+                        </div>
+
+
+<div class="ak-privacy ak-errs-below">
+<input type="hidden" id="privacy_notice" name="privacy_hidden" value="1613c327ac1f095010decda8e1686acaef50b8abb2fa99bf669c9c25f9ae6f0d">
+<div id="ak-fieldbox-privacy_notice">If you submit, we'll handle your data according to our <a href="#">privacy policy</a>. Do you want to receive email updates?</div>
+<input type="hidden" name="required" value="privacy">
+<input type="hidden" name="require_opt_in" value="1">
+<input type="hidden" name="privacy_optin_lists" value="1">
+<div id="ak-fieldbox-privacy_radio">
+<div>
+<label>
+<input type="radio" name="privacy" id="privacy_optin" value="46324b731b264e8a27fec05fe5c730d4e9a4e0939fb7dbad3c19f6c3bc0068d9">
+Yes, send me updates on this or other campaigns.
+</label>
+</div>
+<div>
+<label>
+<input type="radio" name="privacy" id="privacy_optout" value="cd74dcdfe5de2c922d00c9673520ea394cf50fdd0a2efe495da1e562159568d1">
+No, I'd rather not.
+</label>
+</div>
+</div>
+<div id="really-opt-out" style="display: none;">Are you sure? If you do choose to get updates, you can unsubscribe any time!</div>
+<script nonce="{{ request.csp_nonce }}">
+(function() {
+var reallyOptOut = $('#really-opt-out');
+$('#privacy_optin').bind('click', function(){ reallyOptOut.hide() })
+$('#privacy_optout').bind('click', function(){ reallyOptOut.show() })
+})()
+</script>
+</div>
+
+
+
+
+                    </div> <!-- labels overlaid (billing address) -->
+
+
+
+
+
+                </div> <!-- donation contact -->
+
+                <div class="ak-labels-above ak-styled-fields ak-donate-area-step-3 ak-errs-below">
+
+                    <h4>Payment Information</h4>
+
+                  <div class="cc_payment_options">
+                    <div id="ak-fieldbox-card_num" class="">
+                        <label for="ak-card_num">Credit Card #</label>
+                        <input type="hidden" name="required" value="card_num" id="ak-card_num-required">
+                        <div id="ak-card_num-hosted" class="hosted-field"></div>
+                        <input id="ak-card_num" type="text" name="card_num">
+                    </div>
+
+                    <div class="ak-err-below">
+
+                        <div id="ak-fieldbox-exp_date">
+                            <input type="hidden" name="required" value="exp_date_month" id="ak-exp_date_month-required">
+                            <label for="ak-exp_date_month">Expiration Date</label>
+                            <div id="ak-exp_date-hosted" class="hosted-field"></div>
+                            <select id="ak-exp_date_month" type="text" name="exp_date_month">
+                                <option value="">MM</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <input type="hidden" name="required" value="exp_date_year" id="ak-exp_date_year-required">
+                            <select id="ak-exp_date_year" type="text" name="exp_date_year">
+                                <option value="">YYYY</option>
+
+                                <option value="24">2024</option>
+
+                                <option value="25">2025</option>
+
+                                <option value="26">2026</option>
+
+                                <option value="27">2027</option>
+
+                                <option value="28">2028</option>
+
+                                <option value="29">2029</option>
+
+                                <option value="30">2030</option>
+
+                                <option value="31">2031</option>
+
+                                <option value="32">2032</option>
+
+                                <option value="33">2033</option>
+
+                                <option value="34">2034</option>
+
+                                <option value="35">2035</option>
+
+                                <option value="36">2036</option>
+
+                                <option value="37">2037</option>
+
+                                <option value="38">2038</option>
+
+                                <option value="39">2039</option>
+
+                                <option value="40">2040</option>
+
+                                <option value="41">2041</option>
+
+                                <option value="42">2042</option>
+
+                                <option value="43">2043</option>
+
+                                <option value="44">2044</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="ak-err-below">
+                        <div id="ak-fieldbox-card_code">
+                            <input type="hidden" name="required" value="card_code" id="ak-card_code-required">
+                            <label for="ak-card_code">Verification Code</label>
+                            <div id="ak-card_code-hosted" class="hosted-field"></div>
+                            <input id="ak-card_code" type="text" name="card_code" size="4">
+                        </div>
+                    </div>
+                  </div>
+
+
+                </div><!--ak-styled-fields-->
+
+                <button class="ak-donate-three-step-visible" id="ak-continue-button" type="button">Continue</button>
+
+
+
+                    <button type="submit" class="ak-submit-button ak-donate-area-step-3">Donate <span class="ak-currency-sym"></span><span class="ak-donation-total-amount"></span></button>
+
+
+
+
+                    <div class="ak-payment-options ak-margin-bottom-1 ak-donate-area-step-2">
+                        <input type="hidden" name="paypal" value="0" id="ak-pay-by-paypal">
+                        Or check out with
+                        <button type="submit" id="ak-paypal-button" class="ak-inline ak-paypal-button"><img src="https://roboticdogs.actionkit.com/media/modern/paypal-logo-1.svg"></button>
+                    </div>
+
+                <!-- FA skipped, don't have oneclick -->
+            </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+
+
+
+        <div class="ak-page-footer">
+            <div class="ak-page-footer-contents">
+                <span>Robotic Dogs</span>
+                <span><a href="https://example.com/privacy">Privacy</a></span>
+                <span><a href="https://example.com/contact">Contact</a></span>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <script nonce="{{ request.csp_nonce }} type="text/javascript">
+        actionkit.forms.contextRoot = 'https://roboticdogs.actionkit.com/context/';
+        actionkit.forms.initForm('act');
+    </script>
+
+
+
+
+
+
+
+    <script nonce="{{ request.csp_nonce }} type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-101', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+</body>
+</html>
